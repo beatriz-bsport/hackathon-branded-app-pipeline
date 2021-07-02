@@ -27,8 +27,11 @@ import { formatAsDate } from '../../../utils/datetime';
 import RedButton from '../../../components/button/RedButton.component';
 import type { ConsumerPaymentPack } from '../types';
 import type { PaymentPack } from '../../payment-packs/types';
+import { MaxoutBooking } from '../types';
 
 import CreditStatus from './CreditStatus.component';
+import { showDeleteDialog } from '../../../components/GenericDialog/CustomDialogs';
+import { Offer } from '../../offer/types';
 
 type Props = {
   loading: boolean,
@@ -39,6 +42,7 @@ type Props = {
 
   consumerPack: ConsumerPaymentPack,
   paymentPack: ?PaymentPack,
+  maxoutBooking?: MaxoutBooking,
   button: ?Node,
 
   unblock: ?(id: number) => void,
@@ -53,9 +57,48 @@ type Props = {
   classes: Object,
   onBookOne: (id: number) => void,
   onBookMultiple: (id: number) => void,
+  offer?: Offer,
 };
 
 export class ConsumerPackRowItem extends Component<Props> {
+  checkMaxoutBeforeBook = async (callback: () => void) => {
+    const { t } = this.props;
+    const maxoutStatus = this.getCppMaxoutStatus(
+      this.props.maxoutBooking,
+      this.props.offer,
+    );
+
+    let book = true;
+
+    if (maxoutStatus) {
+      let maxBooking = 0;
+
+      if (maxoutStatus === 'days') {
+        maxBooking = this.props.paymentPack.max_bookings_per_day;
+      }
+      if (maxoutStatus === 'weeks') {
+        maxBooking = this.props.paymentPack.max_bookings_per_week;
+      }
+      if (maxoutStatus === 'months') {
+        maxBooking = this.props.paymentPack.max_bookings_per_month;
+      }
+
+      const unit = this.props.t(`consumerPaymentPack.maxout.${maxoutStatus}`);
+
+      book = await showDeleteDialog(
+        t('consumerPaymentPack.maxout.dialogTitle'),
+        t('consumerPaymentPack.maxout.dialog_message', {
+          count: maxBooking,
+          unit,
+        }),
+      );
+    }
+
+    if (book) {
+      callback();
+    }
+  };
+
   renderButton = () => {
     const {
       paymentPack,
@@ -84,7 +127,9 @@ export class ConsumerPackRowItem extends Component<Props> {
     if (onBook) {
       return (
         <Button
-          onClick={() => onBook(consumerPack.id)}
+          onClick={() =>
+            this.checkMaxoutBeforeBook(() => onBook(consumerPack.id))
+          }
           variant="outlined"
           color="primary"
           id={`btn-payment-pack-${consumerPack.id}`}
@@ -97,7 +142,9 @@ export class ConsumerPackRowItem extends Component<Props> {
       return (
         <div className={this.props.classes.buttonRow}>
           <Button
-            onClick={() => onBookOne(consumerPack.id)}
+            onClick={() =>
+              this.checkMaxoutBeforeBook(() => onBookOne(consumerPack.id))
+            }
             variant="outlined"
             color="primary"
             id={`btn-payment-pack-${consumerPack.id}`}
@@ -106,7 +153,11 @@ export class ConsumerPackRowItem extends Component<Props> {
           </Button>
           <Tooltip title={t('multipleBookingTooltip')}>
             <Button
-              onClick={() => onBookMultiple(consumerPack.id)}
+              onClick={() =>
+                this.checkMaxoutBeforeBook(() =>
+                  onBookMultiple(consumerPack.id),
+                )
+              }
               variant="outlined"
               color="secondary"
               id={`btn-payment-pack-${consumerPack.id}`}
@@ -213,6 +264,73 @@ export class ConsumerPackRowItem extends Component<Props> {
     );
   };
 
+  getCppMaxoutStatus = (maxoutBooking: MaxoutBooking, offer?: Offer) => {
+    if (!maxoutBooking || !offer) {
+      return undefined;
+    }
+
+    const maxout = {
+      days: false,
+      weeks: false,
+      months: false,
+    };
+
+    const offerStart = moment(offer.date_start);
+
+    Object.entries(maxoutBooking).forEach(([key, data]) => {
+      if (data) {
+        data.forEach((d) => {
+          const maxoutStart = moment(d.start_date);
+          const maxoutEnd = moment(d.end_date);
+
+          if (
+            offerStart.isSameOrAfter(maxoutStart, 'day') &&
+            offerStart.isSameOrBefore(maxoutEnd, 'day') &&
+            d.booking_available === 0
+          ) {
+            maxout[key] = true;
+          }
+        });
+      }
+    });
+
+    if (maxout.months) {
+      return 'months';
+    }
+
+    if (maxout.weeks) {
+      return 'weeks';
+    }
+
+    if (maxout.days) {
+      return 'days';
+    }
+    return undefined;
+  };
+
+  renderMaxoutError = () => {
+    if (this.props.maxoutBooking) {
+      const maxoutStatus = this.getCppMaxoutStatus(
+        this.props.maxoutBooking,
+        this.props.offer,
+      );
+
+      if (maxoutStatus) {
+        const unit = this.props.t(`consumerPaymentPack.maxout.${maxoutStatus}`);
+
+        return (
+          <Typography color="error">
+            {this.props.t('consumerPaymentPack.maxout.limit_reach', {
+              unit,
+            })}
+          </Typography>
+        );
+      }
+    }
+
+    return null;
+  };
+
   render() {
     const {
       t,
@@ -272,13 +390,15 @@ export class ConsumerPackRowItem extends Component<Props> {
                 />
               </div>
             }
-            secondary={`${t('consumer.expiresOn')}${formatAsDate(
-              consumerPack.ending_date,
-            )}`}
-            secondaryTypographyProps={{
-              variant: 'caption',
-              color: isExpired ? 'error' : 'inherit',
-            }}
+            secondary={
+              <div variant="caption" color={isExpired ? 'error' : 'inherit'}>
+                <Typography>
+                  {t('consumer.expiresOn')}
+                  {formatAsDate(consumerPack.ending_date)}
+                </Typography>
+                {this.renderMaxoutError()}
+              </div>
+            }
           />
           {button || this.renderButton()}
         </ListItem>

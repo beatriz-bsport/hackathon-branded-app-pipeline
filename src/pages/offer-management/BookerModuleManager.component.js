@@ -4,23 +4,25 @@ import { getSimilars as getSimilarsOffers } from '../../libs/offer/selectors';
 import { fetchSimilarOffers as fetchSimilarOffersAction } from '../../libs/offer/actions';
 import {
   fetchByOfferByMember,
+  fetchConsumerPaymentPackMaxoutBooking,
   fetchNonCompatibleByOfferByMember,
 } from '../../libs/consumer-payment-pack/actions';
 import { fetchPaymentPackBulk } from '../../libs/payment-packs/actions';
 import {
-  withPaymentPack,
   getByOfferByMember,
   getNonCompatibleByOfferByMember,
+  withPaymentPack,
 } from '../../libs/consumer-payment-pack/selectors';
 import { fetchMember } from '../../libs/member/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
 import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
 import BookingModuleManagerComponent from '../../libs/booking/components/booker-module/BookerModuleManager.component';
+import { RootState } from '../../reducers';
 
 export default compose(
   connect(
-    (state) => ({
+    (state: RootState) => ({
       consumerPacksLoading: state.consumerPaymentPack.byOfferByMember.loading,
       consumerPacks: withPaymentPack(getByOfferByMember)(state),
       consumerPacksNonCompatible: withPaymentPack(
@@ -31,9 +33,10 @@ export default compose(
         state.metaActivity.loading ||
         state.establishment.loading,
       similarOffers: getSimilarsOffers(state),
+      cppMaxoutBookingsByCpp: state.consumerPaymentPack.maxout_booking.byId,
+      maxoutLoading: state.consumerPaymentPack.maxout_booking.loading,
     }),
     {
-      fetchConsumerPackByOfferByMember: fetchByOfferByMember,
       fetchPaymentPackBulk,
       fetchNoncompatibleConsumerPackByOfferByMember: fetchNonCompatibleByOfferByMember,
       fetchByOfferByMemberAction: fetchByOfferByMember,
@@ -42,6 +45,7 @@ export default compose(
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,
       fetchCoachBulk: fetchCoachBulkAction,
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
+      fetchConsumerPaymentPackMaxoutBooking,
     },
   ),
 

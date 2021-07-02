@@ -18,6 +18,8 @@ import ConsumerPackRowItem from '../../../consumer-payment-pack/components/Consu
 
 import type { ConsumerPaymentPack } from '../../../consumer-payment-pack/types';
 import type { PaymentPack } from '../../../payment-packs/types';
+import { MaxoutBooking } from '../../../consumer-payment-pack/types';
+import { Offer } from '../../../offer/types';
 
 type Props = {
   consumerPacks: Array<ConsumerPaymentPack>,
@@ -34,6 +36,8 @@ type Props = {
     consumerPaymentPack?: ConsumerPaymentPack,
     paymentPack?: PaymentPack,
   }) => void,
+  offer?: Offer,
+  cppMaxoutBookingsByCpp?: { [cpp_id: string]: MaxoutBooking },
 };
 
 export const BookingModuleRegisterMethodChoice = (props: Props) => {
@@ -88,6 +92,8 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
               }
               consumerPack={cp}
               paymentPack={cp.payment_pack}
+              maxoutBooking={props.cppMaxoutBookingsByCpp[cp.id]}
+              offer={props.offer}
             />
           ))}
         </List>

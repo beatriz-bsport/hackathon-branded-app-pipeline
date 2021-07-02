@@ -23,8 +23,7 @@ import ConsumerPackRowItem from '../../../consumer-payment-pack/components/Consu
 
 import BookingModuleRegisterMethodChoice from './BookingModuleRegisterMethodChoice.component';
 import BookingModuleOfferChoice from './BookingModuleOfferChoice.component';
-
-// import PaymentPackSummary from '../../../components/payment-pack/PaymentPackSummary.component';
+import { MaxoutBooking } from '../../../consumer-payment-pack/types';
 
 type Props = {
   loading: boolean,
@@ -39,7 +38,6 @@ type Props = {
   setNotifyMember: () => void,
   setKeepCredits: () => void,
   onCancel: () => void,
-  fetchConsumerPackByOfferByMember: (offerId: number, memberId: number) => void,
   member: ({ name: string, id: number, photo: ?string }) => void,
 
   similarOffers: Array<Offer>,
@@ -49,19 +47,13 @@ type Props = {
     paymentPack?: PaymentPack,
     consumerPaymentPack?: ConsumerPaymentPack,
   },
-
+  fetchByOfferByMemberAction: () => void,
   fetchPaymentPackBulk: (Array<number>) => void,
   fetchNoncompatibleConsumerPackByOfferByMember: (
     offerId: number,
     memberId: number,
     options: OptionCallback,
   ) => void,
-  fetchConsumerPackByOfferByMember: (
-    offerId: number,
-    memberId: number,
-    options: OptionCallback,
-  ) => void,
-
   step: number,
   setRegistererObject: ({
     consumerPaymentPack?: ConsumerPaymentPack,
@@ -82,6 +74,8 @@ type Props = {
   onClose: () => void,
   classes: Object,
   openRecurrenceRuleForm: () => void,
+  maxoutLoading: boolean,
+  cppMaxoutBookingsByCpp: { [key: string]: MaxoutBooking },
 };
 
 const REGISTER_METHOD_CHOICE = 0;
@@ -89,31 +83,38 @@ const OFFER_CHOICE = 1;
 
 export class BookingModuleManager extends PureComponent<Props> {
   componentDidMount() {
-    this.props.fetchConsumerPackByOfferByMember(
+    this.props.fetchByOfferByMemberAction(
       this.props.offerId,
       this.props.member.id,
-      {
-        onSuccess: (cppList) =>
-          this.props.fetchPaymentPackBulk(
-            cppList.map((cpp) => cpp.payment_pack),
-          ),
-      },
     );
     this.props.fetchNoncompatibleConsumerPackByOfferByMember(
       this.props.offerId,
       this.props.member.id,
       {
-        onSuccess: (cppList) =>
-          this.props.fetchPaymentPackBulk(
-            cppList.map((cpp) => cpp.payment_pack),
-          ),
+        onSuccess: (cppList) => {
+          const cpp_ids = cppList.map((cpp) => cpp.payment_pack);
+          this.props.fetchPaymentPackBulk(cpp_ids);
+        },
       },
     );
   }
 
   render() {
-    const { t, onCancel, consumerPacksLoading, loading, member } = this.props;
-    if (!member || !member.id || loading || consumerPacksLoading) {
+    const {
+      t,
+      onCancel,
+      consumerPacksLoading,
+      loading,
+      member,
+      maxoutLoading,
+    } = this.props;
+    if (
+      !member ||
+      !member.id ||
+      loading ||
+      consumerPacksLoading ||
+      maxoutLoading
+    ) {
       return (
         <Dialog
           fullScreen={this.props.fullScreen}
@@ -226,6 +227,8 @@ export class BookingModuleManager extends PureComponent<Props> {
                     voucher,
                   )
                 }
+                offer={this.props.offer}
+                cppMaxoutBookingsByCpp={this.props.cppMaxoutBookingsByCpp}
               />
             )}
             {this.props.step === OFFER_CHOICE && (
@@ -311,10 +314,24 @@ export default compose(
       );
     },
   }),
-  withProps(({ fetchByOfferByMemberAction, fetchMemberAction }) => ({
-    fetchConsumerPackByOfferByMember: (offer, member) => {
-      fetchByOfferByMemberAction(offer, member);
-      fetchMemberAction(member);
-    },
-  })),
+  withProps(
+    ({
+      fetchByOfferByMemberAction,
+      fetchMemberAction,
+      fetchPaymentPackBulk,
+      fetchConsumerPaymentPackMaxoutBooking,
+    }) => ({
+      fetchByOfferByMemberAction: (offer, member) => {
+        fetchByOfferByMemberAction(offer, member, {
+          onSuccess: (cppList) => {
+            const pp_ids = cppList.map((cpp) => cpp.payment_pack);
+            const cpp_ids = cppList.map((cpp) => cpp.id);
+            fetchPaymentPackBulk(pp_ids);
+            fetchConsumerPaymentPackMaxoutBooking(cpp_ids);
+          },
+        });
+        fetchMemberAction(member);
+      },
+    }),
+  ),
 )(BookingModuleManager);

@@ -21,6 +21,7 @@ import {
   deleteMassExtension as deleteMassExtensionAPI,
   unblock as unblockAPI,
   fetchConsumerPaymentPackMaxoutBooking as fetchConsumerPaymentPackMaxoutBookingAPI,
+  fetchByOfferByMemberV2 as fetchByOfferByMemberV2API,
 } from './api';
 
 import { monitorBackgroundTask } from '../background-task/actions';
@@ -42,7 +43,7 @@ export function fetchByOfferByMember(
     dispatch(byOfferByMember.error(null));
     dispatch(byOfferByMember.success([]));
     try {
-      const response = await fetchByOfferByMemberAPI(offer, { member });
+      const response = await fetchByOfferByMemberV2API(offer, { member });
       dispatch(byOfferByMember.success(response.data));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);

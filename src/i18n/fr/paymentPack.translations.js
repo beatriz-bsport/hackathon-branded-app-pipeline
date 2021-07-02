@@ -73,6 +73,15 @@ exports.default = {
         applyVoucher: 'Appliquer réduction',
       },
     },
+    maxout: {
+      limit_reach: 'Limite de réservations par {{unit}} atteinte',
+      days: 'jour',
+      weeks: 'semaine',
+      months: 'mois',
+      dialogTitle: 'Limite de réservation atteinte',
+      dialog_message:
+        'Attention cette carte a déjà atteint sa limite de {{count}} réservation(s) par {{unit}}. Voulez vous tout de même réserver avec cette carte ? ',
+    },
   },
   noPaymentPack:
     "Les cartes de cours permettent aux membres de s'inscrire aux activités, il est nécessaire de posséder une carte pour s'inscrire.",

@@ -15,6 +15,15 @@ export async function fetchByOfferByMember(offer: any, data: any = {}) {
   );
 }
 
+export async function fetchByOfferByMemberV2(offer: any, data: any = {}) {
+  return postAuth(
+    `${API_V1_URI}/payment-pack/consumer-payment-pack/compatible_with_offer_v2/${buildUrlParams(
+      data,
+    )}`,
+    { offer },
+  );
+}
+
 export async function fetchNonCompatibleByOfferByMember(
   offer: any,
   data: any = {},

@@ -3419,7 +3419,7 @@
       }
     },
     "revert": {
-      "dialog": { "actions": { "cancel": "Annuler", "confirm": "Rembourser" }, "title": "Annulation facture" },
+      "dialog": { "actions": { "cancel": "Fermer", "confirm": "Confirmer" }, "title": "Annulation facture" },
       "content": {
         "label": { "0": "Remboursement direct", "1": "Remboursement en avoir (solde)", "2": "Remboursement manuel" },
         "explainEmptyPayment": "Êtes vous sûr de vouloir annuler cette facture ?",

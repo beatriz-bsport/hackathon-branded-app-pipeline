@@ -290,6 +290,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
         </Grid>
         <InvoiceReverterDialog
           invoice={this.props.invoice}
+          payments={this.props.paymentList}
           onSubmit={this.props.revertInvoice}
           open={this.props.revertDialogOpen}
           onClose={this.props.closeRevertDialog}

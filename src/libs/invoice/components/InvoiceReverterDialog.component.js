@@ -28,7 +28,7 @@ type Props = {
   open: ?boolean,
   onClose: () => void,
   onSubmit: (any) => void,
-  invoice: Invoice,
+  payments: Array<Payment>,
 };
 
 export const InvoiceReverterDialog = (props: Props) => {
@@ -48,7 +48,10 @@ export const InvoiceReverterDialog = (props: Props) => {
   return (
     <Dialog open={!!props.open}>
       <DialogTitle>{t('revert.dialog.title')}</DialogTitle>
-      {props.invoice.payments && props.invoice.payments.length ? (
+      {props.payments &&
+      props.payments.filter(
+        (p) => p.payment_received || p.payment_received === null,
+      ).length ? (
         <DialogContent>
           <div className={classes.radioContainer}>
             <div className={classes.row}>

@@ -373,8 +373,8 @@ exports.default = {
   revert: {
     dialog: {
       actions: {
-        cancel: 'Annuler',
-        confirm: 'Rembourser',
+        cancel: 'Fermer',
+        confirm: 'Confirmer',
       },
       title: 'Annulation facture',
     },

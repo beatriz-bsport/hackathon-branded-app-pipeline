@@ -52,7 +52,9 @@ export const PrivateBookingListItem = (props: Props) => {
         primary={
           <div className={props.classes.rowPrimary}>
             <Typography variant="body2">
-              {props.private_booking.name}
+              {props.private_booking.name +
+                (props.private_booking.first_in_company ? ' ★' : '')}
+              }
             </Typography>
             <Typography color="primary">{getIsRecurrentBooking()}</Typography>
             <Typography variant="body2" inline>

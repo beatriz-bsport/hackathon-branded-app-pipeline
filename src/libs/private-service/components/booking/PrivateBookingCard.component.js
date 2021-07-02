@@ -147,7 +147,8 @@ export const PrivateBookingCard = (props: Props) => {
           </div>
         ) : null}
         <Typography variant="h4">
-          {private_booking.private_slot.private_service.name}
+          {private_booking.private_slot.private_service.name +
+            (private_booking.first_in_company ? ' ★' : '')}
         </Typography>
         <Typography variant="h5">
           {private_booking.private_slot.name}

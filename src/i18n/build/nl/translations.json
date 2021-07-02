@@ -726,7 +726,10 @@
                     "explainNotify": "Een melding naar alle ingeschreven leden sturen",
                     "explainCreditBack": "Stort het tegoed op de cursuskaart terug",
                     "explainHardDelete": "Wil je deze sessie verwijderen? Let op: deze actie is definitief en de sessie wordt onzichtbaar. Als een sessie reserveringen bevat kan het niet worden verwijderen.",
-                    "buttonHardDelete": "Verwijderen"
+                    "buttonHardDelete": "Verwijderen",
+                    "explainForceDanger": "Waarschuwing! Reserveringen worden definitief verwijderd. Niet vergoedde tarieven worden niet getraceerd. Controleer zorgvuldig de status van de reserveringen en de cursuskaarten voordat je iets verwijdert.",
+                    "force": "Verwijderen (ook al zijn er reserveringen geregistreerd)",
+                    "advanced": "Geavanceerd"
                 },
                 "explainNotificationOnEdit": "Ingeschreven leden over de wijziging(en) informeren",
                 "explainRecursiveOfferEdit": "Wil je alle vergelijkbare sessies wijzigen?",
@@ -1458,6 +1461,10 @@
             "title": "[Formulier] Pakket",
             "new_member_only": {
                 "label": "Alleen voor nieuwe leden"
+            },
+            "maxPurchasePerMember": {
+                "helperText": "Laat dit veld leeg om geen limiet in te stellen",
+                "label": "Maximale aankopen per lid"
             }
         },
         "list": {
@@ -6375,7 +6382,9 @@
                 "voucherConfig": "Korting",
                 "applies_to": "Instellingen",
                 "advanced": "Geavanceerd",
-                "subscription": "Abonnementen (contracten)"
+                "subscription": "Abonnementen (contracten)",
+                "whitelist_tags": "Kan alleen worden gebruikt door leden met tag:",
+                "tags": "Tags"
             },
             "name": {
                 "label": "Naam"
@@ -6430,6 +6439,15 @@
                 "2": "Alleen op de facturen die vóór de automatische verlenging plaatsvinden toepassen",
                 "1": "Alleen op de 1e facturatie toepassen",
                 "0": "Op alle facturen toepassen"
+            },
+            "tag": {
+                "select": {
+                    "empty_tag_list": "Geen sub-tag geselecteerd",
+                    "tag": "Selecteer een sub-tag",
+                    "tag_group": "Kies een hoofd-tag"
+                },
+                "tag": "Sub-tag",
+                "tag_group": "Hoofd-tag"
             }
         },
         "list": {
@@ -6452,7 +6470,9 @@
             "expiration": "Vervaldatum",
             "member_use": "gebruik per lid",
             "member_uses": "gebruik per lid",
-            "limitation": "Beperkt tot"
+            "limitation": "Beperkt tot",
+            "blacklist_tags": "Leden met bepaalde tags uitsluiten",
+            "whitelist_tags": "Alleen beschikbaar voor leden met bepaalde tags"
         },
         "code": {
             "addCoupon": {

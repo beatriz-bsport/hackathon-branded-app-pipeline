@@ -9,6 +9,7 @@ type Props = {
   openVideo: (id: number) => void,
   video: Video,
   loading: boolean,
+  hideCoach: boolean,
 };
 
 export const VideoItem = (props: Props) => {
@@ -39,11 +40,14 @@ export const VideoItem = (props: Props) => {
         ) : (
           <Typography variant="h6">{props.video.name}</Typography>
         )}
-        <CoachGroupAvatar
-          size="small"
-          coaches={props.video.coaches}
-          loading={props.loading}
-        />
+
+        {!props.hideCoach && (
+          <CoachGroupAvatar
+            size="small"
+            coaches={props.video.coaches}
+            loading={props.loading}
+          />
+        )}
       </div>
     </div>
   );

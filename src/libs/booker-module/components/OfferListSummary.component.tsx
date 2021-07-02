@@ -28,6 +28,7 @@ import { MemberMinimal } from '../../member/types';
 type OwnProps = {
   offer: Offer_FULL;
   offerStatus?: OfferStatus;
+  hideCoach: boolean;
   onClickAddMoreOffer: () => void;
   onClickRemoveOffer: (offer: Offer_FULL) => void;
   selectedOffers: OfferData[];
@@ -114,6 +115,7 @@ class OfferListSummary extends React.PureComponent<Props> {
             <OfferBookableItem
               disabled={noInteraction}
               offer={offer}
+              hideCoach={this.props.hideCoach}
               offerStatus={offerStatus}
               isBookable={isBookable}
               isWaitingList={isWaitingList}

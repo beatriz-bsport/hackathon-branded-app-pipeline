@@ -21,7 +21,6 @@ type Props = {
   onClickBookOption: (offerId: number) => void,
   index: number,
   activityLoading: boolean,
-  coachLoading: boolean,
   hideCoach: boolean,
   establishmentLoading: boolean,
   showOfferFilling: boolean,
@@ -107,13 +106,13 @@ export const MarketplaceCardOffer = (props: Props) => {
           )}
         </div>
         <div className={classes.title}>
-          {!props.hideCoach && props.coachLoading && coachName === ' - ' ? (
-            <MoreHorizIcon fontSize="small" />
-          ) : (
-            <Typography align="center" variant="caption">
-              {coachName}
-            </Typography>
-          )}
+          {
+            !props.hideCoach(
+              <Typography align="center" variant="caption">
+                {coachName}
+              </Typography>,
+            )
+          }
         </div>
         <Typography align="center">
           {!offer.establishment.tzname ? (

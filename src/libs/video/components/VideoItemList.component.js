@@ -11,6 +11,7 @@ type Props = {
   videoList: Array<Video>,
   loading: boolean,
   hasMoreVideo: boolean,
+  hideCoach: boolean,
   onShowMore: () => void,
   openVideo: (id: number) => void,
 };
@@ -25,6 +26,7 @@ export const VideoCardList = (props: Props) => {
         <Grid key={v.id} item xs={12} sm={6} md={4} lg={3}>
           <VideoItem
             video={v}
+            hideCoach={props.hideCoach}
             openVideo={props.openVideo}
             loading={v.coaches.includes(undefined)}
           />

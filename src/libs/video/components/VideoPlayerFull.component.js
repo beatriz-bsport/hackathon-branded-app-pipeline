@@ -16,6 +16,7 @@ import VideoPlayer from './VideoPlayer.component';
 type Props = {
   video: Video,
   authenticated: boolean,
+  hideCoach: boolean,
   requestVideoAccess: () => void,
   videoPlayerKey?: number,
   managerOnly?: boolean,
@@ -59,7 +60,7 @@ export const VideoPlayerFull = (props: Props) => {
             </Typography>
           </div>
         )}
-        {!!coaches.length && (
+        {!!coaches.length && !props.hideCoach && (
           <div className={classes.coachContainer}>
             {coaches.map((c) => (
               <CoachChip className={classes.coachChip} coach={c} key={c.id} />

@@ -13,6 +13,7 @@ import { Coach } from '../../associated-coach/types';
 
 type Props = {
   coaches: Coach[];
+  hideCoach: boolean;
   establishments: Establishment[];
   metaActivities: MetaActivity[];
   filters: {
@@ -40,15 +41,17 @@ class MarketplaceFilterComponent extends React.PureComponent<Props> {
 
     return (
       <Grid container>
-        <Grid item xs={12} md={6} className={classes.selector}>
-          <CoachSelector
-            coaches={coaches}
-            selectedCoaches={filters.coaches}
-            selectOption={(ev: SelectOptions) =>
-              setFilters('coaches')(ev.map((e) => e.value))
-            }
-          />
-        </Grid>
+        {!this.props.hideCoach && (
+          <Grid item xs={12} md={6} className={classes.selector}>
+            <CoachSelector
+              coaches={coaches}
+              selectedCoaches={filters.coaches}
+              selectOption={(ev: SelectOptions) =>
+                setFilters('coaches')(ev.map((e) => e.value))
+              }
+            />
+          </Grid>
+        )}
         <Grid item xs={12} md={6} className={classes.selector}>
           <LevelSelector
             selectedLevels={filters.levels}

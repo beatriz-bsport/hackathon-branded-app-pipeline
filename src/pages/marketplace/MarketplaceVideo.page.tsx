@@ -27,6 +27,7 @@ import {
 } from '../../libs/video/actions';
 import { fetchPlaylistList } from '../../libs/playlist/actions';
 
+import themeSelectors from '../../libs/theme/selectors';
 import MarketplacePlaylistItem from '../../libs/playlist/components/PlaylistItemMarketplace.component';
 import { RootState } from '../../reducers';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
@@ -83,6 +84,7 @@ export class MarketplaceVideo extends React.Component<Props> {
             <div className={classes.searchContainer}>
               <VideoSearchBar
                 searchParams={this.props.searchParams}
+                hideCoach={this.props.theme && this.props.theme.hideCoach}
                 onChangeSearchParams={this.props.setSearchParams}
                 coaches={this.props.videoFilterableParams.coaches || []}
                 scts={this.props.videoFilterableParams.SCTs || []}
@@ -92,6 +94,7 @@ export class MarketplaceVideo extends React.Component<Props> {
             <VideoItemList
               videoList={this.props.videoList}
               openVideo={this.props.openVideo}
+              hideCoach={this.props.theme && this.props.theme.hideCoach}
               onShowMore={this.props.fetchMoreVideo}
               hasMoreVideo={this.props.hasMoreVideo}
               loading={this.props.loading}
@@ -201,6 +204,7 @@ const styles = (theme: any) => ({
 });
 const mapStateToProps = (state: RootState) => ({
   playlistList: getPlaylistList(state),
+  theme: themeSelectors.getTheme(state),
   videoList: withVideoCoach(withVideoCategory(getVideoList))(state),
   loading: state.video.loading,
   videoFilterableParams: state.video.filterableParams.items,

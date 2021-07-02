@@ -129,6 +129,7 @@ export class MarketplaceWorkshopPage extends React.Component<FinalProps> {
           <MarketplaceFilterComponent
             coaches={this.props.coaches}
             establishments={this.props.establishments}
+            hideCoach={this.props.theme && this.props.theme.hideCoach}
             metaActivities={this.props.metaActivities}
             filters={this.props.filters}
             setFilters={this.props.setFilters}

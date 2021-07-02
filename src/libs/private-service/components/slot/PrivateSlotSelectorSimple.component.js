@@ -22,6 +22,7 @@ export const PrivateSlotSelectorSimple = (props: Props) => {
   const selectedOption =
     privateSlotsOptions.find((pso) => pso.value === props.privateSlotId) ||
     null;
+
   return (
     <Select
       menuPortalTarget={document.querySelector('body')}

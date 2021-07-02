@@ -22,6 +22,7 @@ type Props = {
     duration_second_range: string,
     search: string,
   },
+  hideCoach: boolean,
   onChangeSearchParams: (string) => (string) => void,
   coaches: Array<Coach>,
   scts: Array<SCT>,
@@ -51,28 +52,6 @@ export const VideoSearchBar = (props: Props) => {
               props.onChangeSearchParams('levels')(null);
             }
           }}
-        />
-      </Grid>
-      <Grid item xs={6} md={3}>
-        <CoachSelector
-          selectedCoaches={
-            props.searchParams.coaches
-              ? props.searchParams.coaches
-                  .split(',')
-                  .map((value) => parseInt(value, 10))
-              : null
-          }
-          selectOption={(ev) => {
-            if (ev && ev.length) {
-              props.onChangeSearchParams('coaches')(
-                ev.map((e) => e.value).join(),
-              );
-            } else {
-              props.onChangeSearchParams('coaches')(null);
-            }
-          }}
-          coaches={props.coaches}
-          isClearable
         />
       </Grid>
       <Grid item xs={6} md={3} lg={2}>
@@ -110,6 +89,30 @@ export const VideoSearchBar = (props: Props) => {
             }
           }}
         />
+      </Grid>
+      <Grid item xs={6} md={3}>
+        {!props.hideCoach && (
+          <CoachSelector
+            selectedCoaches={
+              props.searchParams.coaches
+                ? props.searchParams.coaches
+                    .split(',')
+                    .map((value) => parseInt(value, 10))
+                : null
+            }
+            selectOption={(ev) => {
+              if (ev && ev.length) {
+                props.onChangeSearchParams('coaches')(
+                  ev.map((e) => e.value).join(),
+                );
+              } else {
+                props.onChangeSearchParams('coaches')(null);
+              }
+            }}
+            coaches={props.coaches}
+            isClearable
+          />
+        )}
       </Grid>
       <Grid item xs={12} md={12} lg={2}>
         <DelayedTextField

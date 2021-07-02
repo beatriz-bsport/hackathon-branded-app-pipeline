@@ -123,9 +123,11 @@ export const OfferBookableItem = (props) => {
               .tz(props.offer.timezone_name)
               .format('dddd')}`}
           </Typography>
-          <Typography variant="body2" align="left">
-            <strong>{coachName}</strong>
-          </Typography>
+          {!props.hideCoach && (
+            <Typography variant="body2" align="left">
+              <strong>{coachName}</strong>
+            </Typography>
+          )}
           <Typography variant="caption" align="left">
             {establishmentTitle}
           </Typography>

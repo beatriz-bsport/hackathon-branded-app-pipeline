@@ -118,6 +118,7 @@ export class MarketplaceCalendar extends PureComponent<Props> {
       <MarketplaceFilterComponent
         coaches={coaches}
         establishments={establishments}
+        hideCoach={this.props.hideCoach}
         metaActivities={metaActivities}
         filters={filters}
         setFilters={setFilters}

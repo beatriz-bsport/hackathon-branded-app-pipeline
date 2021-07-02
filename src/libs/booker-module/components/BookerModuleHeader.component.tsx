@@ -12,6 +12,7 @@ import { Offer_FULL } from '../../offer/types';
 
 type OwnProps = {
   offer: Offer_FULL;
+  hideCoach: boolean;
 };
 
 type Props = OwnProps &
@@ -53,14 +54,17 @@ class ActivitySummary extends React.PureComponent<Props> {
                 {offer.establishment.title}
               </Typography>
             </div>
-            <div className={classes.row}>
-              <PersonIcon className={classes.leftIcon} />
-              <Typography variant="caption">
-                {offer.coach_override && offer.coach_override.user
-                  ? offer.coach_override.user.name
-                  : offer.coach.name}
-              </Typography>
-            </div>
+
+            {!this.props.hideCoach && (
+              <div className={classes.row}>
+                <PersonIcon className={classes.leftIcon} />
+                <Typography variant="caption">
+                  {offer.coach_override && offer.coach_override.user
+                    ? offer.coach_override.user.name
+                    : offer.coach.name}
+                </Typography>
+              </div>
+            )}
           </div>
         </div>
       </div>

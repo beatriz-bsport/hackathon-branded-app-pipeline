@@ -523,12 +523,14 @@ class OfferBooking extends React.PureComponent<Props, State> {
     if (!this.props.offer) {
       return null;
     }
-
     return (
       <ConsumerAppBarContainer>
         <div className={classes.pageContainer}>
           <div className={classes.contentContainer}>
-            <BookerModuleHeader offer={this.props.offer} />
+            <BookerModuleHeader
+              offer={this.props.offer}
+              hideCoach={this.props.theme.hideCoach}
+            />
             <Hidden mdUp>
               <div className={classes.inverseDivider1} />
             </Hidden>
@@ -550,6 +552,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
                     onClickRemoveOffer={this.onClickRemoveOffer}
                     selectedOffers={this.state.selectedOffers}
                     offerStatusById={this.props.offerStatusById}
+                    hideCoach={this.props.theme.hideCoach}
                     acceptDoubleBooking={this.props.theme.accept_double_booking}
                   />
                 </div>

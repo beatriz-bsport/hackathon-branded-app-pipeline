@@ -175,6 +175,7 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
         <Typography variant="h6" className={classes.sectionTitle}>
           {t('slotSearcher.title')}
         </Typography>
+
         <PrivateSlotSelector
           onChange={this.selectSlotOption}
           onServiceChange={this.handleServiceChange}

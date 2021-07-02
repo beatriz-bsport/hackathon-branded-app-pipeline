@@ -31,6 +31,7 @@ import {
   withPaymentPack,
 } from '../../libs/consumer-payment-pack/selectors';
 import { getPaymentPackCompatibleList } from '../../libs/payment-packs/selectors';
+import themeSelectors from '../../libs/theme/selectors';
 import {
   fetchConsumerPaymentPackCompatibleList as fetchConsumerPaymentPackCompatibleListAction,
   resetConsumerPaymentPackCompatibleList,
@@ -132,6 +133,7 @@ export class MarketplaceVideoDetail extends React.Component<Props> {
               <VideoPlayerFull
                 authenticated={this.props.authenticated}
                 video={this.props.video}
+                hideCoach={this.props.theme && this.props.theme.hideCoach}
                 requestVideoAccess={this.requestVideoAccess}
                 videoPlayerKey={this.props.videoPlayerKey}
               />
@@ -183,6 +185,7 @@ const styles = (theme: Theme) => ({
 
 const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
   authenticated: state.auth.authenticated,
+  theme: themeSelectors.getTheme(state),
   video: withCoach(withCategory(getVideo))(state, ownProps.videoId),
   videoListSimilar: withCoach(withCategory(getVideoList))(state),
   hasMoreVideo: state.video.list.nextPage && state.video.list.nextPage > 1,

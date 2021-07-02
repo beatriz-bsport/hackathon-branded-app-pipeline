@@ -57,6 +57,8 @@ Prepare Docker Builder Image:
     - deployment
     - kubernetes
   stage: prepare-image-docker
+  retry: 
+    max: 2
   script:
     - aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${REGISTRY_ENDPOINT}
     - docker build --network host -t ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME} .

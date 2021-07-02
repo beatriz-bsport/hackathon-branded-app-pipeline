@@ -355,6 +355,7 @@ exports.default = {
     flat_fee: 'Frais de dossier',
     paymentPack: 'Carte de cours',
     privatePass: 'Carte RDV',
+    paymentCombo: 'Pack',
     nbMonths: "Nombre d'encaissement",
     dateStart: 'Première facturation',
     firstBilling: 'Premier encaissement',

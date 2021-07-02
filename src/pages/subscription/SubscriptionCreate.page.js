@@ -27,6 +27,13 @@ import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../li
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 
 import type { Member } from '../../libs/member/types';
+import { fetchPrivatePassList } from '../../libs/private-service/actions';
+import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
+import { PrivatePass } from '../../libs/private-service/types';
+import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
+import { getPaymentComboList } from '../../libs/payment-combo/selectors';
+import { PaymentCombo } from '../../libs/payment-combo/types';
+import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
 
 type Props = {
   member: Member,
@@ -37,6 +44,11 @@ type Props = {
   fetchPaymentMethodList: (params: any) => void,
   savedPaymentMethodList: Array<PaymentMethod>,
   requestSetupIntentSecret: () => void,
+  fetchPrivatePassList: () => void,
+  privatePassList: PrivatePass[],
+  fetchPaymentComboList: () => void,
+  paymentComboList: PaymentCombo[],
+  fetchAllPaymentPacks: () => void,
 };
 type State = {
   tempSubscription: ?SubscriptionData,
@@ -48,6 +60,12 @@ export class SubscriptionCreate extends Component<Props, State> {
     tempSubscription: null,
     processing: false,
   };
+
+  componentDidMount() {
+    this.props.fetchAllPaymentPacks();
+    this.props.fetchPrivatePassList();
+    this.props.fetchPaymentComboList();
+  }
 
   storeTempSubscription = (tempSubscription: ?SubscriptionData) => {
     this.setState({ tempSubscription });
@@ -89,6 +107,8 @@ export class SubscriptionCreate extends Component<Props, State> {
             <div className={this.props.classes.formContainer}>
               <SubscriptionCreateComponent
                 paymentPacks={this.props.paymentPacks}
+                privatePassList={this.props.privatePassList}
+                paymentComboList={this.props.paymentComboList}
                 member={this.props.member}
                 onSubmit={this.storeTempSubscription}
                 onCancel={this.props.onCancel}
@@ -124,6 +144,8 @@ export default compose(
   connect(
     (state, { memberId }) => ({
       paymentPacks: getPaymentPackEnabled(state),
+      privatePassList: getPrivatePassAvailable(state),
+      paymentComboList: getPaymentComboList(state),
       memberLoading: state.member.loading,
       member: getMember(state, memberId),
       savedPaymentMethodList: getSavedPaymentMethodList(state),
@@ -133,6 +155,9 @@ export default compose(
       onCancel: goBack,
       pushToSubscription: (id) => pushRouter(`/subscription/${id}`),
       fetchMember,
+      fetchAllPaymentPacks,
+      fetchPrivatePassList,
+      fetchPaymentComboList,
     },
   ),
   withHandlers({

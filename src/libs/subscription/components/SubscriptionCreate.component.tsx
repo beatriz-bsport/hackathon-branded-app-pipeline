@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component } from 'react';
 
 import Typography from '@material-ui/core/Typography';
@@ -8,12 +6,14 @@ import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import TextField from '@material-ui/core/TextField';
 
-import { withTranslation } from 'react-i18next';
+import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
-import type { TFunction } from 'react-i18next';
 import moment from 'moment-timezone';
 
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
+import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
+import PaymentComboSelector from '../../payment-combo/components/PaymentComboSelector.component';
+
 import NumericInput from '../../../components/input/NumericInput.component';
 import PriceInput from '../../../components/input/PriceInput.component';
 import DateInput from '../../../components/input/DateInput.component';
@@ -21,24 +21,34 @@ import DateInput from '../../../components/input/DateInput.component';
 import RecapSubscription from './RecapSubscription.component';
 
 import type { SubscriptionData } from '../types';
+import { PrivatePass } from '../../private-service/types';
+import { PaymentPack } from '../../payment-packs/types';
+import { Member } from '../../member/types';
+import { MaterialStyleType } from '../../../utils/types';
+import { PaymentCombo } from '../../payment-combo/types';
 
-type Props = {
-  paymentPacks: Array<PaymentPack>,
-  member: ?Member,
-  withName: boolean,
-
-  onSubmit: (data: SubscriptionData) => void,
-  onCancel: () => void,
-
-  t: TFunction,
-  classes: Object,
+type OwnProps = {
+  paymentPacks: Array<PaymentPack>;
+  privatePassList: PrivatePass[];
+  paymentComboList: PaymentCombo[];
+  member: Member;
+  withName: boolean;
+  onSubmit: (data: SubscriptionData) => void;
+  onCancel: () => void;
 };
 
+type Props = OwnProps &
+  MaterialStyleType<ReturnType<typeof styles>> &
+  WithTranslation;
+
 type State = {
-  payment_pack: ?number,
-  nb_interval: ?number,
-  recurrent_voucher: number,
-  first_billing_timestamp: number,
+  payment_pack?: number;
+  private_pass?: number;
+  payment_combo?: number;
+  nb_interval?: number;
+  recurrent_voucher: number;
+  first_billing_timestamp: number;
+  name: string;
 };
 
 export class SubscriptionCreate extends Component<Props, State> {
@@ -46,6 +56,8 @@ export class SubscriptionCreate extends Component<Props, State> {
     super(props);
     this.state = {
       payment_pack: null,
+      private_pass: null,
+      payment_combo: null,
       nb_interval: null,
       recurrent_voucher: 0,
       name: '',
@@ -54,25 +66,61 @@ export class SubscriptionCreate extends Component<Props, State> {
   }
 
   onSubmit = () => {
-    const { member, paymentPacks } = this.props;
+    const {
+      member,
+      paymentPacks,
+      privatePassList,
+      paymentComboList,
+    } = this.props;
+
     const {
       recurrent_voucher,
       nb_interval,
       payment_pack,
+      private_pass,
+      payment_combo,
       first_billing_timestamp,
     } = this.state;
 
     const paymentPackSelected =
-      payment_pack && paymentPacks.find((pp) => pp.id === payment_pack);
+      this.state.payment_pack &&
+      paymentPacks.find((pp) => pp.id === this.state.payment_pack);
+
+    const privatePassSelected =
+      this.state.private_pass &&
+      privatePassList.find((pp) => pp.id === this.state.private_pass);
+
+    const paymentComboSelected =
+      this.state.payment_combo &&
+      paymentComboList.find((pc) => pc.id === this.state.payment_combo);
+
+    let price = 0;
+    let name = '';
+
+    if (paymentPackSelected) {
+      name = paymentPackSelected.name;
+      price = paymentPackSelected.price;
+    }
+    if (privatePassSelected) {
+      name = privatePassSelected.name;
+      price = privatePassSelected.price;
+    }
+
+    if (paymentComboSelected) {
+      name = paymentComboSelected.name;
+      price = paymentComboSelected.price;
+    }
 
     const data = {
-      name: paymentPackSelected.name,
-      member: parseInt(member.id, 10),
-      nb_interval: parseInt(nb_interval, 10),
-      payment_pack: parseInt(payment_pack, 10),
+      name,
+      member: member.id,
+      nb_interval: parseInt(nb_interval),
+      payment_pack,
+      private_pass,
+      payment_combo,
       trial_nb: 0, // DEPRECATED
-      recurrent_voucher: parseFloat(recurrent_voucher),
-      recurrent_price: parseFloat(paymentPackSelected.price),
+      recurrent_voucher,
+      recurrent_price: price,
       interval: 'month',
       first_billing_timestamp,
     };
@@ -82,39 +130,98 @@ export class SubscriptionCreate extends Component<Props, State> {
   };
 
   formIsFilled = () =>
-    this.state.payment_pack &&
+    (this.state.payment_pack ||
+      this.state.private_pass ||
+      this.state.payment_combo) &&
     this.state.nb_interval &&
     this.props.member &&
     (this.props.withName ? !!this.state.name : true);
 
-  updatePaymentPack = (id: number) => this.setState({ payment_pack: id });
+  updatePaymentPack = (id: number) =>
+    this.setState({
+      payment_pack: id,
+      private_pass: null,
+      payment_combo: null,
+    });
 
-  updateNbInterval = (event: SyntheticInputEvent<*>) =>
-    this.setState({ nb_interval: event.target.value });
+  updatePrivatePass = (id: number) =>
+    this.setState({
+      payment_pack: null,
+      private_pass: id,
+      payment_combo: null,
+    });
 
-  updateFirstBillingTimestamp = (event: SyntheticInputEvent<*>) =>
+  updatePaymentCombo = (id: number) => {
+    this.setState({
+      payment_pack: null,
+      private_pass: null,
+      payment_combo: id,
+    });
+  };
+
+  updateNbInterval = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const nb_interval = parseInt(event.target.value);
+    this.setState({ nb_interval });
+  };
+
+  updateFirstBillingTimestamp = (event: any) =>
     this.setState({
       first_billing_timestamp: parseInt((event + 0) / 1000, 10),
     });
 
-  updateRecurrentVoucher = (event: SyntheticInputEvent<*>) =>
+  updateRecurrentVoucher = (event: any) =>
     this.setState({
       recurrent_voucher: event.target.value || 0,
     });
 
-  updateName = (event: SyntheticInputEvent<*>) =>
+  updateName = (event: any) =>
     this.setState({
       name: event.target.value,
     });
 
   render() {
-    const { t, member, paymentPacks, classes, onCancel } = this.props;
+    const {
+      t,
+      member,
+      paymentPacks,
+      privatePassList,
+      paymentComboList,
+      classes,
+      onCancel,
+    } = this.props;
+
     if (!member) {
       return <CircularProgress />;
     }
     const paymentPackSelected =
       this.state.payment_pack &&
       paymentPacks.find((pp) => pp.id === this.state.payment_pack);
+
+    const privatePassSelected =
+      this.state.private_pass &&
+      privatePassList.find((pp) => pp.id === this.state.private_pass);
+
+    const paymentComboSelected =
+      this.state.payment_combo &&
+      paymentComboList.find((pc) => pc.id === this.state.payment_combo);
+
+    let recapPrice = '';
+    let recapName = '';
+
+    if (paymentPackSelected) {
+      recapName = paymentPackSelected.name;
+      recapPrice = paymentPackSelected.price;
+    }
+    if (privatePassSelected) {
+      recapName = privatePassSelected.name;
+      recapPrice = privatePassSelected.price;
+    }
+
+    if (paymentComboSelected) {
+      recapName = paymentComboSelected.name;
+      recapPrice = paymentComboSelected.price;
+    }
+
     return (
       <div>
         <div className={classes.container}>
@@ -134,7 +241,36 @@ export class SubscriptionCreate extends Component<Props, State> {
             onChange={this.updatePaymentPack}
             helperText={t('parameters.paymentPack')}
             selectorClass={classes.selector}
+            nullCurrentValue={
+              typeof this.state.private_pass === 'number' ||
+              typeof this.state.payment_combo === 'number'
+            }
           />
+
+          <PrivatePassSelector
+            privatePassList={privatePassList}
+            value={this.state.private_pass}
+            helperText={t('parameters.privatePass')}
+            onChange={this.updatePrivatePass}
+            selectorClass={classes.selector}
+            nullCurrentValue={
+              typeof this.state.payment_pack === 'number' ||
+              typeof this.state.payment_combo === 'number'
+            }
+          />
+
+          <PaymentComboSelector
+            paymentComboList={paymentComboList}
+            value={this.state.payment_combo}
+            helperText={t('parameters.paymentCombo')}
+            onChange={this.updatePaymentCombo}
+            selectorClass={classes.selector}
+            nullCurrentValue={
+              typeof this.state.payment_pack === 'number' ||
+              typeof this.state.private_pass === 'number'
+            }
+          />
+
           <div className={classes.field}>
             <NumericInput
               value={this.state.nb_interval}
@@ -153,7 +289,7 @@ export class SubscriptionCreate extends Component<Props, State> {
           </div>
           <div className={classes.field}>
             <div className={classes.voucherFields}>
-              <Typography variant="subtitle1" className={classes.voucherTitle}>
+              <Typography variant="subtitle1">
                 {t('parameters.voucher')}
               </Typography>
               <div className={classes.inlineField}>
@@ -172,10 +308,8 @@ export class SubscriptionCreate extends Component<Props, State> {
               member={member}
               recurrentVoucher={this.state.recurrent_voucher}
               nbPeriod={this.state.nb_interval}
-              price={paymentPackSelected && paymentPackSelected.price}
-              subscriptionContentName={
-                paymentPackSelected && paymentPackSelected.name
-              }
+              price={recapPrice}
+              subscriptionContentName={recapName}
               dateStart={this.state.first_billing_timestamp * 1000}
             />
           </div>
@@ -234,7 +368,7 @@ const styles = (theme) => ({
   },
 });
 
-export default compose(
+export default compose<any, OwnProps>(
   withStyles(styles),
   withTranslation(['subscription']),
 )(SubscriptionCreate);

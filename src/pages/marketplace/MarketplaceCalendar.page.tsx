@@ -233,7 +233,9 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           onClickBook={this.goToBook}
           onClickBookOption={this.props.goToBookOption}
           onSelectDate={this.handleDateChange}
-          selectedDate={this.props.otherParams.date}
+          selectedDate={
+            this.props.otherParams.date || moment().format('YYYY-MM-DD')
+          }
           coaches={coaches}
           establishments={establishments}
           metaActivities={this.props.metaActivities}

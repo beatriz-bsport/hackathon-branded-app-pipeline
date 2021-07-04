@@ -12,22 +12,32 @@ import themeSelectors from '../../libs/theme/selectors';
 import { getTheme } from '../../theme';
 import { getCurrentBasket } from '../../libs/checkout/selectors';
 
-export const ConsumerAppBar = (props) => {
+import { Theme } from '../../libs/theme/types';
+
+type Props = {
+  theme?: Theme;
+  auth: any;
+  goToUserSpace: (number) => void;
+  disconnect: () => void;
+  companyId: number;
+  children: any;
+};
+
+export const ConsumerAppBar = (props: Props) => {
   const classes = useStyles();
   return (
     <MuiThemeProvider theme={getTheme(props.theme)}>
       <div className={classes.container}>
         <Analytics theme={props.theme} />
-        {!WidgetUtils.isWidget() && (
-          <MarketplaceAppBar
-            paper
-            auth={props.auth}
-            logo={props.theme && props.theme.cover}
-            goToUserSpace={() => props.goToUserSpace(props.theme.company)}
-            disconnect={props.disconnect}
-            companyId={props.companyId}
-          />
-        )}
+        <MarketplaceAppBar
+          paper
+          isWidget={WidgetUtils.isWidget()}
+          auth={props.auth}
+          logo={props.theme && props.theme.cover}
+          goToUserSpace={() => props.goToUserSpace(props.theme.company)}
+          disconnect={props.disconnect}
+          companyId={props.companyId}
+        />
         {props.children}
       </div>
     </MuiThemeProvider>

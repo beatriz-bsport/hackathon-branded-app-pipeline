@@ -36,7 +36,6 @@ const ConsumerRouter = asyncComponent(() =>
 const CheckoutRouter = asyncComponent(() =>
   import('./pages/checkout/Checkout.router'),
 );
-const PaymentRouter = asyncComponent(() => import('./pages/Payment.router'));
 
 const RNWebView = asyncComponent(() =>
   import('./pages/rn-webview/RNWebView.router'),
@@ -126,10 +125,10 @@ export class Root extends Component<Props> {
             path="/c/:companyId/unsubscribe/:unsubscribe_uuid"
             component={ConsumerUnsubscribe}
           />
-          <Route path="/(|customer/)payment" component={PaymentRouter} />
+          <Route path="/(|customer/)payment" component={CheckoutRouter} />
+          <Route path="/checkout" component={CheckoutRouter} />
           <Route path="/customer" component={ConsumerRouter} />
           <Route path="/m/" component={MarketPlace} />
-          <Route path="/checkout" component={CheckoutRouter} />
 
           <Route path="/check-in" component={CheckIn} />
 

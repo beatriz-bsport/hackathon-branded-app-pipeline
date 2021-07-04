@@ -10,14 +10,14 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
 import moment from 'moment-timezone';
-import themeSelectors from '../../libs/theme/selectors';
-import { postContractSubscription as postContractSubscriptionAPI } from '../../libs/subscription/api';
+import themeSelectors from '../../../libs/theme/selectors';
+import { postContractSubscription as postContractSubscriptionAPI } from '../../../libs/subscription/api';
 
-import SubscriptionContractCard from '../../libs/subscription/components/SubscriptionContractCard.component';
-import SubscriptionPayment from '../../libs/subscription/components/SubscriptionPayment.component';
-import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
-import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
-import Analytics from '../../components/analytics/Analytics.component';
+import SubscriptionContractCard from '../../../libs/subscription/components/SubscriptionContractCard.component';
+import SubscriptionPayment from '../../../libs/subscription/components/SubscriptionPayment.component';
+import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../../libs/payment/actions';
+import { getSavedPaymentMethodList } from '../../../libs/payment/selectors';
+import Analytics from '../../../components/analytics/Analytics.component';
 
 type Props = {
   t: TFunction,

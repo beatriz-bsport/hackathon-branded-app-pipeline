@@ -14,89 +14,89 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withProps, withState, withHandlers } from 'recompose';
 import { withTranslation } from 'react-i18next';
-import MarketplaceAppBar from '../marketplace/MarketplaceAppBar.component';
+import MarketplaceAppBar from '../../marketplace/MarketplaceAppBar.component';
 
-import MarketplaceBasketDialog from '../marketplace/MarketplaceBasketDialog.component';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { auth as authActions } from '../../actions';
-import { getCurrentBasket } from '../../libs/checkout/selectors';
+import MarketplaceBasketDialog from '../../marketplace/MarketplaceBasketDialog.component';
+import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
+import { auth as authActions } from '../../../actions';
+import { getCurrentBasket } from '../../../libs/checkout/selectors';
 
-import { fetchCompanyTheme } from '../../libs/theme/actions';
+import { fetchCompanyTheme } from '../../../libs/theme/actions';
 import {
   addItemToBasket,
   removeItemFromBasket,
   fetchCurrentBasket,
-} from '../../libs/checkout/actions';
+} from '../../../libs/checkout/actions';
 import {
   getOfferById,
   withEstablishment,
   withCoach,
   withMetaActivity,
-} from '../../libs/offer/selectors';
-import { snackbarError as snackbarErrorActions } from '../../actions/snackbar.actions';
-import Analytics from '../../components/analytics/Analytics.component';
-import { consumerPayWithConsumerPaymentPack as payWithConsumerPaymentPackAPI } from '../../api/payment';
-import { retrieveOffer as fetchOfferAction } from '../../libs/offer/actions';
-import themeSelectors from '../../libs/theme/selectors';
-import { getTheme } from '../../theme';
-import type { Theme } from '../../libs/theme/types';
+} from '../../../libs/offer/selectors';
+import { snackbarError as snackbarErrorActions } from '../../../actions/snackbar.actions';
+import Analytics from '../../../components/analytics/Analytics.component';
+import { consumerPayWithConsumerPaymentPack as payWithConsumerPaymentPackAPI } from '../../../api/payment';
+import { retrieveOffer as fetchOfferAction } from '../../../libs/offer/actions';
+import themeSelectors from '../../../libs/theme/selectors';
+import { getTheme } from '../../../theme';
+import type { Theme } from '../../../libs/theme/types';
 
-import { linkMeToCompany } from '../../libs/member/actions';
+import { linkMeToCompany } from '../../../libs/member/actions';
 import PaymentContainer from './PaymentContainer.component';
 
 import {
   fetchConsumerPaymentPackForBooking as fetchConsumerPaymentPackForBookingAction,
   resetConsumerPackForBooking as resetConsumerPackForBookingAction,
-} from '../../libs/consumer-payment-pack/actions';
+} from '../../../libs/consumer-payment-pack/actions';
 import {
   getConsumerPaymentPackForBooking,
   withPaymentPack,
-} from '../../libs/consumer-payment-pack/selectors';
-import type { ConsumerPaymentPack } from '../../libs/consumer-payment-pack/types';
+} from '../../../libs/consumer-payment-pack/selectors';
+import type { ConsumerPaymentPack } from '../../../libs/consumer-payment-pack/types';
 
 import {
   fetchPaymentPackForBooking,
   fetchPaymentPackBulk as fetchPaymentPackBulkAction,
   resetPaymentPackForBooking as resetPaymentPackForBookingAction,
-} from '../../libs/payment-packs/actions';
-import { getPaymentPackForBooking } from '../../libs/payment-packs/selectors';
+} from '../../../libs/payment-packs/actions';
+import { getPaymentPackForBooking } from '../../../libs/payment-packs/selectors';
 
 import {
   fetchPaymentComboForBooking,
   resetPaymentComboForBooking as resetPaymentComboForBookingAction,
-} from '../../libs/payment-combo/actions';
-import { getPaymentComboForBooking } from '../../libs/payment-combo/selectors';
-import type { PaymentCombo } from '../../libs/payment-combo/types';
+} from '../../../libs/payment-combo/actions';
+import { getPaymentComboForBooking } from '../../../libs/payment-combo/selectors';
+import type { PaymentCombo } from '../../../libs/payment-combo/types';
 
-import BookerModuleConsumer from '../../libs/booking/components/booker-module/BookerModuleConsumer.component';
+import BookerModuleConsumer from '../../../libs/booking/components/booker-module/BookerModuleConsumer.component';
 import {
   registerToWaitingList as registerOptionAction,
   fetchBookingOptionForBooking as fetchBookingOptionForBookingAction,
   resetBookingOptionForBooking as resetBookingOptionForBookingAction,
-} from '../../libs/waiting-list/actions';
+} from '../../../libs/waiting-list/actions';
 import {
   getBookingOptionListForBookingConvertible,
   getBookingOptionListForBookingNotConvertible,
-} from '../../libs/waiting-list/selectors';
+} from '../../../libs/waiting-list/selectors';
 import {
   fetchContractForBooking as fetchContractForBookingAction,
   resetContractForBooking as resetContractForBookingAction,
-} from '../../libs/subscription/actions';
+} from '../../../libs/subscription/actions';
 import {
   getContractForBooking,
   withPaymentPack as withPaymentPackForContract,
-} from '../../libs/subscription/selectors';
+} from '../../../libs/subscription/selectors';
 
-import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
-import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
-import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
-import { fetchProfile } from '../../libs/consumer-space/actions';
-import { isRegistered as offerIsRegisteredAPI } from '../../libs/offer/api';
+import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../../libs/establishment/actions';
+import { fetchCoachBulk as fetchCoachBulkAction } from '../../../libs/associated-coach/actions';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../../libs/meta-activity/actions';
+import { fetchProfile } from '../../../libs/consumer-space/actions';
+import { isRegistered as offerIsRegisteredAPI } from '../../../libs/offer/api';
 
-import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../../libs/payment/api';
 
-import SubscriptionContractBooking from './SubscriptionBooking.component';
-import WidgetUtils from '../../libs/widget/WidgetUtils';
+import SubscriptionContractBooking from './SubscriptionPaymentDialog.component';
+import WidgetUtils from '../../../libs/widget/WidgetUtils';
 
 type Props = {
   offer: ?Offer,

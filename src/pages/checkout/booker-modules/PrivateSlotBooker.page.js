@@ -9,11 +9,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { compose, withProps } from 'recompose';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {
-  replace,
-  push as pushRouter,
-  goBack as goBackRouter,
-} from 'connected-react-router';
+import { replace, goBack as goBackRouter } from 'connected-react-router';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -21,54 +17,51 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyable-items';
 
-import themeSelectors from '../../libs/theme/selectors';
-import MarketplaceAppBar from '../marketplace/MarketplaceAppBar.component';
+import themeSelectors from '../../../libs/theme/selectors';
 
-import MarketplaceBasketDialog from '../marketplace/MarketplaceBasketDialog.component';
-import { fetchCompanyTheme } from '../../libs/theme/actions';
+import MarketplaceBasketDialog from '../../marketplace/MarketplaceBasketDialog.component';
+import { fetchCompanyTheme } from '../../../libs/theme/actions';
 
-import { auth as authActions } from '../../actions';
+import { fetchProfile } from '../../../libs/consumer-space/actions';
 
-import { fetchProfile } from '../../libs/consumer-space/actions';
+import { parseQueryString } from '../../../http';
 
-import { parseQueryString } from '../../http';
+import { linkMeToCompany } from '../../../libs/member/actions';
 
-import { linkMeToCompany } from '../../libs/member/actions';
-
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import {
   addItemToBasket,
   removeItemFromBasket,
   fetchCurrentBasket,
-} from '../../libs/checkout/actions';
-import { getCurrentBasket } from '../../libs/checkout/selectors';
-import { snackbarError } from '../../actions/snackbar.actions';
+} from '../../../libs/checkout/actions';
+import { getCurrentBasket } from '../../../libs/checkout/selectors';
+import { snackbarError } from '../../../actions/snackbar.actions';
+import ConsumerAppBar from '../ConsumerAppBar.container';
 
-import BookingCapabilities from '../../libs/private-service/components/booking-module/BookingCapabilitiesList.component';
-import PrivateServiceListItem from '../../libs/private-service/components/service/PrivateServiceListItem.component';
-import PrivateSlotListItem from '../../libs/private-service/components/slot/PrivateSlotListItem.component';
-import { getPrivateSlot } from '../../libs/private-service/selectors/private-slot';
-import { getPrivateService } from '../../libs/private-service/selectors/private-service';
-import { getPrivateConsumerPassList } from '../../libs/private-service/selectors/private-consumer-pass';
-import { getPrivatePassListWithPrivateService } from '../../libs/private-service/selectors/private-pass';
+import BookingCapabilities from '../../../libs/private-service/components/booking-module/BookingCapabilitiesList.component';
+import PrivateServiceListItem from '../../../libs/private-service/components/service/PrivateServiceListItem.component';
+import PrivateSlotListItem from '../../../libs/private-service/components/slot/PrivateSlotListItem.component';
+import { getPrivateSlot } from '../../../libs/private-service/selectors/private-slot';
+import { getPrivateService } from '../../../libs/private-service/selectors/private-service';
+import { getPrivateConsumerPassList } from '../../../libs/private-service/selectors/private-consumer-pass';
+import { getPrivatePassListWithPrivateService } from '../../../libs/private-service/selectors/private-pass';
 import {
   fetchPrivateSlot,
   fetchPrivateService,
   fetchCompatiblePrivatePass,
   fetchCompatiblePrivateConsumerPass,
   registerPrivateBooking,
-} from '../../libs/private-service/actions';
+} from '../../../libs/private-service/actions';
 import type {
   PrivateSlot,
   PrivateConsumerPass,
   PrivatePass,
-} from '../../libs/private-service/types';
-import WidgetUtils from '../../libs/widget/WidgetUtils';
+} from '../../../libs/private-service/types';
+import WidgetUtils from '../../../libs/widget/WidgetUtils';
 
 type Props = {
   privateServiceId: number,
   privateSlotId: number,
-  theme: ?CompanyTheme,
 
   date: string,
   company: number,
@@ -116,9 +109,7 @@ type Props = {
   goToCheckout: (companyId: number) => void,
 
   fetchProfile: () => void,
-  goToUserSpace: () => void,
 
-  disconnect: () => void,
   auth: *,
 };
 
@@ -246,20 +237,7 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
     const needAddress = this.props.privateService.is_home_service;
 
     return (
-      <div className={this.props.classes.subContainer}>
-        <MarketplaceAppBar
-          isWidget={WidgetUtils.isWidget()}
-          paper
-          auth={this.props.auth}
-          logo={this.props.theme && this.props.theme.cover}
-          goToUserSpace={() => this.props.goToUserSpace(this.props.company)}
-          currentBasket={this.props.currentBasket}
-          openCurrentBasket={() => this.toogleCurrentBasketOpen(true)}
-          disconnect={() => {
-            this.props.disconnect();
-          }}
-        />
-
+      <ConsumerAppBar>
         <div className={this.props.classes.container}>
           <div className={this.props.classes.titleContainer}>
             <ScheduleIcon
@@ -330,24 +308,12 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
             />
           </div>
         </div>
-      </div>
+      </ConsumerAppBar>
     );
   }
 }
 
 const styles = (theme) => ({
-  subContainer: {
-    width: '100vw',
-    height: '100vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    flexDirection: 'column',
-    backgroundColor: '#efefef',
-    overflow: 'auto',
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(4),
-  },
   container: {
     display: 'flex',
     flexDirection: 'column',
@@ -426,8 +392,6 @@ export default compose(
     {
       linkMeToCompany,
       fetchCompanyTheme,
-      disconnect: authActions.disconnect,
-      goToUserSpace: (id) => pushRouter(`/c/${id}/`),
       goBack: goBackRouter,
       fetchProfile,
 

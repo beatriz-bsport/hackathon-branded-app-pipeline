@@ -15,47 +15,47 @@ import BlockIcon from '@material-ui/icons/Block';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 
-import { RootState } from '../../../reducers';
-import ConsumerAppBarContainer from '../ConsumerAppBar.container';
+import { RootState } from '../../../../reducers';
+import ConsumerAppBarContainer from '../../ConsumerAppBar.container';
 
-import themeSelectors from '../../../libs/theme/selectors';
+import themeSelectors from '../../../../libs/theme/selectors';
 
-import { registerToWaitingList as registerOption } from '../../../libs/waiting-list/actions';
+import { registerToWaitingList as registerOption } from '../../../../libs/waiting-list/actions';
 import {
   getOfferById,
   withEstablishment,
   withCoach,
   getSimilars,
   withMetaActivity,
-} from '../../../libs/offer/selectors';
+} from '../../../../libs/offer/selectors';
 import {
   fetchOfferStatusList,
   offerUserRegistration,
   fetchSimilarOffers,
   resetSimilarOffers,
   retrieveOffer as fetchOffer,
-} from '../../../libs/offer/actions';
+} from '../../../../libs/offer/actions';
 import {
   snackbarError as snackbarErrorAction,
   snackbarWarning as snackbarWarningAction,
-} from '../../../actions/snackbar.actions';
+} from '../../../../actions/snackbar.actions';
 
-import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
-import { fetchMetaActivityBulk } from '../../../libs/meta-activity/actions';
-import { fetchCoachBulk } from '../../../libs/associated-coach/actions';
-import { fetchEstablishmentBulk } from '../../../libs/establishment/actions';
-import { MaterialStyleType } from '../../../utils/types';
-import { Offer_FULL, Offer } from '../../../libs/offer/types';
-import SimilarOffers from '../../../libs/booker-module/components/SimilarOfferSelector.component';
-import BookerModuleHeader from '../../../libs/booker-module/components/BookerModuleHeader.component';
-import OfferListSummary from '../../../libs/booker-module/components/OfferListSummary.component';
+import routerParamsToProps from '../../../../hocs/router-params-to-props.hoc';
+import { fetchMetaActivityBulk } from '../../../../libs/meta-activity/actions';
+import { fetchCoachBulk } from '../../../../libs/associated-coach/actions';
+import { fetchEstablishmentBulk } from '../../../../libs/establishment/actions';
+import { MaterialStyleType } from '../../../../utils/types';
+import { Offer_FULL, Offer } from '../../../../libs/offer/types';
+import SimilarOffers from '../../../../libs/booker-module/components/SimilarOfferSelector.component';
+import BookerModuleHeader from '../../../../libs/booker-module/components/BookerModuleHeader.component';
+import OfferListSummary from '../../../../libs/booker-module/components/OfferListSummary.component';
 
-import { OfferData } from '../../../libs/booker-module/types';
+import { OfferData } from '../../../../libs/booker-module/types';
 
-import WidgetUtils from '../../../libs/widget/WidgetUtils';
+import WidgetUtils from '../../../../libs/widget/WidgetUtils';
 
-import { getMyRelatedMemberList } from '../../../libs/relationship/selectors';
-import { fetchMyRelatedMemberList } from '../../../libs/relationship/actions';
+import { getMyRelatedMemberList } from '../../../../libs/relationship/selectors';
+import { fetchMyRelatedMemberList } from '../../../../libs/relationship/actions';
 
 import BookingMethodSelector from './BookingMethodSelector.container';
 import {
@@ -65,8 +65,8 @@ import {
   getOfferFeature,
   getMainOfferNotBookableReason,
   OfferConstraint,
-} from '../../../libs/booker-module/utils';
-import { MemberMinimal } from '../../../libs/member/types';
+} from '../../../../libs/booker-module/utils';
+import { MemberMinimal } from '../../../../libs/member/types';
 
 type OwnProps = { id: number };
 type ConnectedProps = ReturnType<typeof mapStateToProps> &

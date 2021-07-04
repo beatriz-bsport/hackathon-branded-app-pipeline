@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { withTranslation } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { getPaymentGroupStatusBySecret as getPaymentGroupStatusBySecretAPI } from '../../libs/payment/api';
+import { getPaymentGroupStatusBySecret as getPaymentGroupStatusBySecretAPI } from '../../../libs/payment/api';
 
 export class CheckPaymentStatus extends React.Component<Props> {
   state = { interval: null };

@@ -12,7 +12,6 @@ import {
   goBack,
   push as pushRouter,
 } from 'connected-react-router';
-import { MuiThemeProvider } from '@material-ui/core/styles';
 import { BUYABLE_ITEM_SHOP_ITEM } from '@bsport/common/lib/master-data/buyable-items';
 import { withTranslation } from 'react-i18next';
 
@@ -21,7 +20,6 @@ import {
   PAYMENT_INTENT_TYPE_BASKET,
   PAYMENT_GROUP_METHOD_BY_ENGINE,
 } from '@bsport/common/lib/master-data/payment-group';
-import { getTheme } from '../../theme';
 import {
   addItemToBasket as addItemToBasketAction,
   attachCoupon,
@@ -29,43 +27,41 @@ import {
   fetchCurrentBasket as fetchCurrentBasketAction,
   patchCurrentBasket,
   attachPayment as attachPaymentAction,
-} from '../../libs/checkout/actions';
-import withQueryParams from '../../hocs/with-query-params.hoc';
-import Analytics from '../../components/analytics/Analytics.component';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import CheckoutFlow from '../../libs/checkout/components/CheckoutFlow.component';
-import { getCurrentBasket } from '../../libs/checkout/selectors';
-import type { Basket } from '../../libs/checkout/types';
-import type { Theme } from '../../libs/theme/types';
+} from '../../../libs/checkout/actions';
+import withQueryParams from '../../../hocs/with-query-params.hoc';
+import Analytics from '../../../components/analytics/Analytics.component';
+import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
+import CheckoutFlow from '../../../libs/checkout/components/CheckoutFlow.component';
+import { getCurrentBasket } from '../../../libs/checkout/selectors';
 
-import themeSelectors from '../../libs/theme/selectors';
-import { fetchCompanyTheme } from '../../libs/theme/actions';
-import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
+import themeSelectors from '../../../libs/theme/selectors';
+import { fetchCompanyTheme } from '../../../libs/theme/actions';
+import { getSavedPaymentMethodList } from '../../../libs/payment/selectors';
 import {
   fetchPaymentMethodList,
   detachPaymentMethod,
-} from '../../libs/payment/actions';
+} from '../../../libs/payment/actions';
 
-import { getShopItemFeaturedList } from '../../libs/shop/selectors';
-import { fetchShopItemFeatured } from '../../libs/shop/actions/shopitem';
+import { getShopItemFeaturedList } from '../../../libs/shop/selectors';
+import { fetchShopItemFeatured } from '../../../libs/shop/actions/shopitem';
 
-import { requestClientSecret as requestClientSecretAPI } from '../../libs/invoice/api';
-import MarketplaceAppBar from '../marketplace/MarketplaceAppBar.component';
-import PaymentStripe from '../../libs/payment/components/payment-backend-stripe/PaymentStripe.component';
-import { getPaymentGroupStatus as getPaymentGroupStatusAPI } from '../../libs/payment/api';
-import { validateUnpaid as validateUnpaidAPI } from '../../libs/checkout/api';
+import { requestClientSecret as requestClientSecretAPI } from '../../../libs/invoice/api';
+import PaymentStripe from '../../../libs/payment/components/payment-backend-stripe/PaymentStripe.component';
+import { getPaymentGroupStatus as getPaymentGroupStatusAPI } from '../../../libs/payment/api';
+import { validateUnpaid as validateUnpaidAPI } from '../../../libs/checkout/api';
 
-import { auth as authActions } from '../../actions';
+import { auth as authActions } from '../../../actions';
 import {
   snackbarError,
   snackbarWarning,
   snackbarSuccess,
-} from '../../actions/snackbar.actions';
+} from '../../../actions/snackbar.actions';
 
-import { fetchProfile } from '../../libs/consumer-space/actions';
-import WidgetUtils from '../../libs/widget/WidgetUtils';
+import { fetchProfile } from '../../../libs/consumer-space/actions';
+import WidgetUtils from '../../../libs/widget/WidgetUtils';
 
 import CheckPaymentStatus from './CheckPaymentStatus.component';
+import ConsumerAppBar from '../ConsumerAppBar.container';
 
 type Props = {
   basket: ?Basket,
@@ -93,7 +89,6 @@ type Props = {
   addShopItemToBasket: (shopitemId: number) => void,
   fetchProfile: () => void,
   goToUserSpace: () => void,
-  disconnect: () => void,
   auth: *,
 
   onSuccess: () => void,
@@ -111,7 +106,7 @@ type Props = {
   snackbarSuccessMsg: (msg: string) => void,
 };
 
-export class CheckoutPayment extends React.Component<Props> {
+export class BasketPage extends React.Component<Props> {
   state = {
     clientSecret: null,
     paymentGroupId: null,
@@ -268,98 +263,66 @@ export class CheckoutPayment extends React.Component<Props> {
       !this.props.theme.general_terms_and_conditions;
 
     return (
-      <MuiThemeProvider theme={getTheme(this.props.theme)}>
-        <div className={this.props.classes.subContainer}>
-          <div style={{ width: '100%' }}>
-            <MarketplaceAppBar
-              isWidget={WidgetUtils.isWidget()}
-              paper
-              auth={this.props.auth}
-              logo={this.props.theme && this.props.theme.cover}
-              goToUserSpace={() =>
-                this.props.companyId &&
-                this.props.goToUserSpace(this.props.companyId)
+      <ConsumerAppBar>
+        <div className={this.props.classes.container}>
+          <div className={this.props.classes.checkoutFlow}>
+            <CheckoutFlow
+              basket={this.props.basket}
+              loading={this.props.loading}
+              processing={this.props.processing}
+              addItemToBasket={this.props.addItemToBasket}
+              addShopItemToBasket={this.props.addShopItemToBasket}
+              removeItemFromBasket={this.props.removeItemFromBasket}
+              attachCoupon={this.props.attachCoupon}
+              backToCalendar={this.backToCalendar}
+              shopItemList={this.props.shopItemList}
+              patchBasket={this.props.patchCurrentBasket}
+              savedPaymentMethodList={this.props.savedPaymentMethodList}
+              termsAndConditions={this.props.theme.general_terms_and_conditions}
+              setTermsAndConditionsAccepted={this.setTermsAndConditionsAccepted}
+              termsAndConditionsAccepted={termsAndConditionsAccepted}
+              validateUnpaid={this.validateUnpaid}
+              paymentModule={
+                <PaymentStripe
+                  onCancel={this.backToCalendar}
+                  paymentMethodChoices={PAYMENT_GROUP_METHOD_BY_ENGINE[
+                    PAYMENT_ENGINE_STRIPE
+                  ].filter((pm) =>
+                    (
+                      this.props.theme.payment_method_available_basket || []
+                    ).includes(pm),
+                  )}
+                  clientSecret={this.state.clientSecret}
+                  termsAndConditionsAccepted={termsAndConditionsAccepted}
+                  termsAndConditions={
+                    this.props.theme.general_terms_and_conditions
+                  }
+                  setTermsAndConditionsAccepted={
+                    this.setTermsAndConditionsAccepted
+                  }
+                  clientSecretLoading={this.state.clientSecretLoading}
+                  onSuccess={this.onSuccess}
+                  memberId={this.props.basket.member}
+                  detachPaymentMethodLoading={
+                    this.props.detachPaymentMethodLoading
+                  }
+                  detachPaymentMethod={this.props.detachPaymentMethod}
+                  snackbarErrorMsg={this.props.snackbarErrorMsg}
+                  snackbarSuccessMsg={this.props.snackbarSuccessMsg}
+                  companyId={this.props.companyId}
+                  sepaDefaultName={this.props.auth.name}
+                  sepaDefaultEmail={this.props.auth.username}
+                />
               }
-              disconnect={() => {
-                this.props.disconnect(this.props.goBack);
-              }}
             />
           </div>
-          <Analytics theme={this.props.theme} />
-          <div className={this.props.classes.container}>
-            <div className={this.props.classes.checkoutFlow}>
-              <CheckoutFlow
-                basket={this.props.basket}
-                loading={this.props.loading}
-                processing={this.props.processing}
-                addItemToBasket={this.props.addItemToBasket}
-                addShopItemToBasket={this.props.addShopItemToBasket}
-                removeItemFromBasket={this.props.removeItemFromBasket}
-                attachCoupon={this.props.attachCoupon}
-                backToCalendar={this.backToCalendar}
-                shopItemList={this.props.shopItemList}
-                patchBasket={this.props.patchCurrentBasket}
-                savedPaymentMethodList={this.props.savedPaymentMethodList}
-                termsAndConditions={
-                  this.props.theme.general_terms_and_conditions
-                }
-                setTermsAndConditionsAccepted={
-                  this.setTermsAndConditionsAccepted
-                }
-                termsAndConditionsAccepted={termsAndConditionsAccepted}
-                validateUnpaid={this.validateUnpaid}
-                paymentModule={
-                  <PaymentStripe
-                    onCancel={this.backToCalendar}
-                    paymentMethodChoices={PAYMENT_GROUP_METHOD_BY_ENGINE[
-                      PAYMENT_ENGINE_STRIPE
-                    ].filter((pm) =>
-                      (
-                        this.props.theme.payment_method_available_basket || []
-                      ).includes(pm),
-                    )}
-                    clientSecret={this.state.clientSecret}
-                    termsAndConditionsAccepted={termsAndConditionsAccepted}
-                    termsAndConditions={
-                      this.props.theme.general_terms_and_conditions
-                    }
-                    setTermsAndConditionsAccepted={
-                      this.setTermsAndConditionsAccepted
-                    }
-                    clientSecretLoading={this.state.clientSecretLoading}
-                    onSuccess={this.onSuccess}
-                    memberId={this.props.basket.member}
-                    detachPaymentMethodLoading={
-                      this.props.detachPaymentMethodLoading
-                    }
-                    detachPaymentMethod={this.props.detachPaymentMethod}
-                    snackbarErrorMsg={this.props.snackbarErrorMsg}
-                    snackbarSuccessMsg={this.props.snackbarSuccessMsg}
-                    companyId={this.props.companyId}
-                    sepaDefaultName={this.props.auth.name}
-                    sepaDefaultEmail={this.props.auth.username}
-                  />
-                }
-              />
-            </div>
-          </div>
         </div>
-      </MuiThemeProvider>
+      </ConsumerAppBar>
     );
   }
 }
 
 const styles = (theme) => ({
-  subContainer: {
-    width: '100vw',
-    height: '100vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    flexDirection: 'column',
-    backgroundColor: '#efefef',
-    overflowX: 'auto',
-  },
   container: {
     width: '100vw',
     maxWidth: 920,
@@ -476,4 +439,4 @@ export default compose(
     },
   }),
   withState('basketError', 'setBasketError', null),
-)(CheckoutPayment);
+)(BasketPage);

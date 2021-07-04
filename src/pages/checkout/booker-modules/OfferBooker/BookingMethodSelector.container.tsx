@@ -11,51 +11,51 @@ import {
   OFFER_BOOKABLE_STATUS_BOOKABLE,
   OFFER_BOOKABLE_STATUS_FULL,
 } from '@bsport/common/lib/master-data/bookable-status';
-import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../../libs/payment/api';
-import { Offer_FULL, OfferStatus } from '../../../libs/offer/types';
-import { MaterialStyleType, WithHandlerType } from '../../../utils/types';
-import { RootState } from '../../../reducers';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../../../libs/payment/api';
+import { Offer_FULL, OfferStatus } from '../../../../libs/offer/types';
+import { MaterialStyleType, WithHandlerType } from '../../../../utils/types';
+import { RootState } from '../../../../reducers';
 import {
   getConsumerPaymentPackForBooking,
   withPaymentPack as withPaymentPackForConsumer,
-} from '../../../libs/consumer-payment-pack/selectors';
-import { ConsumerPaymentPack } from '../../../libs/consumer-payment-pack/types';
-import { PaymentPack } from '../../../libs/payment-packs/types';
-import { PaymentCombo } from '../../../libs/payment-combo/types';
+} from '../../../../libs/consumer-payment-pack/selectors';
+import { ConsumerPaymentPack } from '../../../../libs/consumer-payment-pack/types';
+import { PaymentPack } from '../../../../libs/payment-packs/types';
+import { PaymentCombo } from '../../../../libs/payment-combo/types';
 import {
   getPaymentComboForBooking,
   withPaymentPack as withPaymentPackForCombo,
-} from '../../../libs/payment-combo/selectors';
-import { getPaymentPackForBooking } from '../../../libs/payment-packs/selectors';
+} from '../../../../libs/payment-combo/selectors';
+import { getPaymentPackForBooking } from '../../../../libs/payment-packs/selectors';
 import {
   fetchPaymentPackForBooking,
   fetchPaymentPackBulk as fetchPaymentPackBulkAction,
-} from '../../../libs/payment-packs/actions';
-import { fetchPaymentComboForBooking } from '../../../libs/payment-combo/actions';
+} from '../../../../libs/payment-packs/actions';
+import { fetchPaymentComboForBooking } from '../../../../libs/payment-combo/actions';
 import {
   fetchConsumerPaymentPackForBooking,
   fetchConsumerPaymentPackMaxoutBooking,
-} from '../../../libs/consumer-payment-pack/actions';
-import BookingMethodSelector from '../../../libs/booker-module/components/BookingMethodSelector.component';
+} from '../../../../libs/consumer-payment-pack/actions';
+import BookingMethodSelector from '../../../../libs/booker-module/components/BookingMethodSelector.component';
 import {
   getAvailableConsumerPack,
   getAvailablePaymentPacks,
   getAvailableComboPacks,
   OfferConstraint,
   SelectedPack,
-} from '../../../libs/booker-module/utils';
+} from '../../../../libs/booker-module/utils';
 
-import SubscriptionContractBooking from '../SubscriptionBooking.component';
+import SubscriptionContractBooking from '../SubscriptionPaymentDialog.component';
 
 import {
   fetchContractForBooking as fetchContractForBookingAction,
   resetContractForBooking as resetContractForBookingAction,
-} from '../../../libs/subscription/actions';
+} from '../../../../libs/subscription/actions';
 import {
   getContractForBooking,
   withPaymentPack as withPaymentPackForContract,
-} from '../../../libs/subscription/selectors';
-import { OfferData } from '../../../libs/booker-module/types';
+} from '../../../../libs/subscription/selectors';
+import { OfferData } from '../../../../libs/booker-module/types';
 
 type OwnProps = {
   offerId: number;

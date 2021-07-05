@@ -107,7 +107,7 @@ export const MarketplaceCardOffer = (props: Props) => {
         </div>
         <div className={classes.title}>
           {
-            !props.hideCoach(
+            !props.hideCoach && (
               <Typography align="center" variant="caption">
                 {coachName}
               </Typography>,

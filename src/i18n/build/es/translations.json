@@ -378,7 +378,9 @@
                     "explainHardDelete": "¿Suprimir la sesión de la lista? Tiene en cuenta que esto se volverá invisible, ¡esta operación es irreversible! Si la sesión contiene reservas, no se suprimirá.",
                     "explainCreditBack": "Devolver los créditos gastados a los clientes en su tarjeta de curso",
                     "explainNotify": "Enviar una alerta a los clientes que han reservado",
-                    "explainModalities": "Tiene en cuenta que esta modificación es final. Tu sesión ya no será visible para los clientes finales. Todavía podrás acceder a él."
+                    "explainModalities": "Tiene en cuenta que esta modificación es final. Tu sesión ya no será visible para los clientes finales. Todavía podrás acceder a él.",
+                    "force": "Borrar incluso si las reservas ya están registradas",
+                    "advanced": "Avanzado"
                 },
                 "broadcast_link": {
                     "error": "El enlace está mal. Debe comenzar con http:// o https:// y no contener ningún espacio",

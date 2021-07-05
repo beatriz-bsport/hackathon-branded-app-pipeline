@@ -84,7 +84,7 @@ exports.default = {
     title: 'Plan de salle',
     subtitle:
       'Utilisé pour le spot scheduling. Permet à vos élèves de réserver l’emplacement qu’ils souhaitent dans la salle.',
-    add: 'Ajouter une salle',
+    add: 'Ajouter un plan de salle',
     delete: {
       title: 'Suppression plan de salle',
       content:

@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Collapse from '@material-ui/core/Collapse';
-import ClearIcon from '@material-ui/icons/Clear';
 
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 
-import ListItemText from '@material-ui/core/ListItemText';
-import Typography from '@material-ui/core/Typography';
-import ListItem from '@material-ui/core/ListItem';
-
 import FuzeSearch from '../../../components/FuzeSearch.component';
-import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 import { RoomBlueprint } from '../types';
 import RoomBlueprintsListItem from './RoomBlueprintListItem.component';
 

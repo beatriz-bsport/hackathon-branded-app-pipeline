@@ -227,6 +227,7 @@ type Props = {
   restoreOffer: (offerId: number, options: any) => void,
   fetchRoomBlueprints: () => void,
   roomBlueprints: Array<RoomBlueprint>,
+  allRoomBlueprints: Array<RoomBlueprint>,
 };
 
 type State = {

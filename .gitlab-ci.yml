@@ -273,6 +273,33 @@ Buid Deploy Dev:
     CLOUDFRONT_ID: E17M3KEJFTN7MM
     SLACK_WEBHOOK_URL: "${SLACK_DEV_WEBHOOK_URL}"
 
+Build Deploy Alpha:
+  extends: .Build and deploy Base
+  only:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /deploy-alpha/
+
+  variables:
+    ENVIRONMENT: dev
+    FRONTEND_URL: backoffice.fb-alpha.bsport.io
+    S3_BUCKET: s3://bsport-eu-backoffice-fb-alpha/ 
+    CLOUDFRONT_ID: E17M3KEJFTN7MM
+    SLACK_WEBHOOK_URL: "${SLACK_DEV_WEBHOOK_URL}"
+
+Build Deploy Beta:
+  extends: .Build and deploy Base
+  only:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /deploy-beta/
+
+  variables:
+    ENVIRONMENT: dev
+    FRONTEND_URL: backoffice.fb-beta.bsport.io
+    S3_BUCKET: s3://bsport-eu-backoffice-fb-beta/ 
+    CLOUDFRONT_ID: E17M3KEJFTN7MM
+    SLACK_WEBHOOK_URL: "${SLACK_DEV_WEBHOOK_URL}"
+
+
 .Promote Base:
   image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-docker:v1.0.1
   stage: promote

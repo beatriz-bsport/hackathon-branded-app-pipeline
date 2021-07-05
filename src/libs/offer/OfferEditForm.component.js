@@ -42,6 +42,7 @@ type Props = {
   coaches: Array<Coach>,
   establishments: Array<Establishment>,
   roomBlueprints: RoomBlueprint[],
+  allRoomBlueprints: RoomBlueprint[],
 
   onCancel: () => void,
   fetchSimilarOffers: (id: number) => void,
@@ -401,7 +402,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
 
   roomBluePrintError = () => {
     if (this.state.roomBlueprint) {
-      const roomBlueprint = this.props.roomBlueprints.find(
+      const roomBlueprint = this.props.allRoomBlueprints.find(
         (r) => r.id === this.state.roomBlueprint,
       );
 
@@ -625,7 +626,8 @@ export class EditLiveOfferForm extends Component<Props, State> {
           </div>
         </div>
 
-        {roomBlueprintsForEstablishment.length && (
+        {(this.state.roomBlueprint ||
+          roomBlueprintsForEstablishment.length > 0) && (
           <div className={this.props.classes.fieldGroup}>
             <Typography variant="subtitle2">
               {this.props.t('spotScheduling:roomBlueprints')}
@@ -638,7 +640,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
                 <RoomBlueprintSelector
                   id="roomBlueprint"
                   roomBlueprints={roomBlueprintsForEstablishment}
-                  value={this.props.roomBlueprints.find(
+                  value={this.props.allRoomBlueprints.find(
                     (room) => room.id === this.state.roomBlueprint,
                   )}
                   onChange={(roomBlueprint: RoomBlueprint) => {
@@ -652,6 +654,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
                 {!this.roomBluePrintError() && !this.state.roomBlueprint && (
                   <Typography
                     color="textSecondary"
+                    variant="caption"
                     className={this.props.classes.marginTop1}
                   >
                     {this.props.t('spotScheduling:searchHelper')}
@@ -659,7 +662,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
                 )}
 
                 {this.roomBluePrintError() && (
-                  <Typography color="error">
+                  <Typography variant="caption" color="error">
                     {this.props.t('spotScheduling:effectifError')}
                   </Typography>
                 )}

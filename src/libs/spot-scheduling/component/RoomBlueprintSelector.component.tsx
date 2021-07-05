@@ -14,6 +14,7 @@ import ListItem from '@material-ui/core/ListItem';
 import FuzeSearch from '../../../components/FuzeSearch.component';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 import { RoomBlueprint } from '../types';
+import RoomBlueprintsListItem from './RoomBlueprintListItem.component';
 
 type Props = {
   classes: Object;
@@ -67,31 +68,16 @@ export class RoomBlueprintSelectorComponent extends Component<Props, State> {
       <div>
         {this.props.value ? (
           <div>
-            <ListItem alignItems="center">
-              <ListItemText
-                primary={
-                  <Typography component="span" variant="subtitle1">
-                    {this.props.value.name}
-                  </Typography>
-                }
-              />
-
-              <ListItemResponsiveAction
-                actions={[
-                  {
-                    icon: ClearIcon,
-                    label: '',
-                    onClick: () => {
-                      this.props.onChange(null);
-                      this.setState({
-                        displayList: true,
-                        searchResult: this.props.roomBlueprints,
-                      });
-                    },
-                  },
-                ]}
-              />
-            </ListItem>
+            <RoomBlueprintsListItem
+              roomBlueprint={this.props.value}
+              onClickCancel={() => {
+                this.props.onChange(null);
+                this.setState({
+                  displayList: true,
+                  searchResult: this.props.roomBlueprints,
+                });
+              }}
+            />
           </div>
         ) : (
           <div>
@@ -117,18 +103,11 @@ export class RoomBlueprintSelectorComponent extends Component<Props, State> {
                   in={this.state.displayList && this.state.searchResult}
                 >
                   {this.state.searchResult.map((roomBlueprint) => (
-                    <ListItem
-                      alignItems="center"
-                      onClick={() => this.props.onChange(roomBlueprint)}
-                    >
-                      <ListItemText
-                        primary={
-                          <Typography component="span" variant="subtitle1">
-                            {roomBlueprint.name}
-                          </Typography>
-                        }
-                      />
-                    </ListItem>
+                    <RoomBlueprintsListItem
+                      roomBlueprint={roomBlueprint}
+                      key={roomBlueprint.id}
+                      onClick={this.props.onChange}
+                    />
                   ))}
                 </Collapse>
               </Paper>

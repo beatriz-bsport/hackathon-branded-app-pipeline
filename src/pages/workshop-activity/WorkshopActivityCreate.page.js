@@ -42,7 +42,7 @@ import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions'
 import { getAllEstablishments } from '../../libs/establishment/selectors';
 import { Establishment } from '../../libs/establishment/types';
 import { fetchRoomBlueprints } from '../../libs/spot-scheduling/actions';
-import { getRoomBlueprints } from '../../libs/spot-scheduling/selector';
+import { getAvailableRoomBlueprints } from '../../libs/spot-scheduling/selector';
 import { RoomBlueprint } from '../../libs/spot-scheduling/types';
 
 type StepType = {
@@ -234,7 +234,7 @@ export default compose(
         ...getEnabledWorkshops(state),
       ],
       upsertedWorkshop: state.metaActivity.upsert.data,
-      roomBlueprints: getRoomBlueprints(state),
+      roomBlueprints: getAvailableRoomBlueprints(state),
     }),
     {
       upsertWorkshopActivity: upsert,

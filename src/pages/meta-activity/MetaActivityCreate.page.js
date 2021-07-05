@@ -41,7 +41,7 @@ import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions'
 import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
 import { Establishment } from '../../libs/establishment/types';
 import type { PaymentPack } from '../../libs/payment-packs/types';
-import { getRoomBlueprints } from '../../libs/spot-scheduling/selector';
+import { getAvailableRoomBlueprints } from '../../libs/spot-scheduling/selector';
 import { fetchRoomBlueprints } from '../../libs/spot-scheduling/actions';
 import { RoomBlueprint } from '../../libs/spot-scheduling/types';
 
@@ -230,7 +230,7 @@ export default compose(
         page: state.paymentPack.byActivity.page,
         loading: state.paymentPack.byActivity.loading,
       },
-      roomBlueprints: getRoomBlueprints(state),
+      roomBlueprints: getAvailableRoomBlueprints(state),
     }),
     {
       goBack,

@@ -25,7 +25,7 @@ import {
   getEnabledWorkshops,
 } from '../libs/meta-activity/selectors';
 import { fetchRoomBlueprints } from '../libs/spot-scheduling/actions';
-import { getRoomBlueprints } from '../libs/spot-scheduling/selector';
+import { getAvailableRoomBlueprints } from '../libs/spot-scheduling/selector';
 import { RoomBlueprint } from '../libs/spot-scheduling/types';
 
 type Props = {
@@ -139,7 +139,7 @@ export default withTranslation()(
       establishments: getAvailableEstablishmentList(state),
       loading: state.metaActivity.loading,
       timezone: state.theme.theme.timezone_name,
-      roomBlueprints: getRoomBlueprints(state),
+      roomBlueprints: getAvailableRoomBlueprints(state),
     }),
     {
       fetchEstablishments,

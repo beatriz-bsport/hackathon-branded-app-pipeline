@@ -3,6 +3,7 @@ import { ErrorAndLoading } from '../types';
 
 export type RoomBlueprint = {
   id: number;
+  disabled: boolean;
   name: string;
   company: number;
   establishment: number;

@@ -1,19 +1,15 @@
 import React from 'react';
 import { compose } from 'recompose';
 
-import { Typography, List, ListItem, ListItemText } from '@material-ui/core';
+import { Typography, List } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import VisibilityIcon from '@material-ui/icons/Visibility';
 import { withStyles } from '@material-ui/styles';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
-import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 import { MaterialStyleType } from '../../../utils/types';
 import { RoomBlueprint } from '../../spot-scheduling/types';
-import SpotSchedulingHelper from '../../spot-scheduling/utils';
+import RoomBlueprintListItem from '../../spot-scheduling/component/RoomBlueprintListItem.component';
 
 type OwnProps = {
   roomBlueprints: RoomBlueprint[];
@@ -46,46 +42,14 @@ class EstablishmentSpotScheduling extends React.PureComponent<Props> {
         </div>
 
         <List disablePadding>
-          {this.props.roomBlueprints.map((room) => (
-            <ListItem
-              divider
-              button
-              alignItems="center"
-              dense
-              onClick={() => this.props.onClickPreview(room)}
-            >
-              <ListItemText
-                primary={
-                  <Typography component="span" variant="subtitle1">
-                    {room.name}
-                  </Typography>
-                }
-                secondary={t('spotScheduling.placeCount', {
-                  count: SpotSchedulingHelper.getSpotCount(room),
-                })}
-              />
-
-              <ListItemResponsiveAction
-                actions={[
-                  {
-                    icon: VisibilityIcon,
-                    label: t('common.preview'),
-                    onClick: () => this.props.onClickPreview(room),
-                  },
-                  {
-                    icon: EditIcon,
-                    label: t('common.edit'),
-                    color: 'secondary',
-                    onClick: () => this.props.onClickEdit(room),
-                  },
-                  {
-                    icon: DeleteIcon,
-                    label: t('common.delete'),
-                    onClick: () => this.props.onClickDelete(room),
-                  },
-                ]}
-              />
-            </ListItem>
+          {this.props.roomBlueprints.map((roomBlueprint) => (
+            <RoomBlueprintListItem
+              onClick={this.props.onClickPreview}
+              roomBlueprint={roomBlueprint}
+              onClickPreview={this.props.onClickPreview}
+              onClickDelete={this.props.onClickDelete}
+              onClickEdit={this.props.onClickEdit}
+            />
           ))}
         </List>
         <Button

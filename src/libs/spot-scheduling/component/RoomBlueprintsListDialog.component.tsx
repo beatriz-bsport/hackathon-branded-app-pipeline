@@ -6,14 +6,12 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { RoomBlueprint } from '../types';
-import SpotSchedulingHelper from '../utils';
+import RoomBlueprintListItem from './RoomBlueprintListItem.component';
 
 interface OwnProps {
   blueprints: RoomBlueprint[];
@@ -61,18 +59,14 @@ class RoomBlueprintsListDialog extends React.PureComponent<Props, State> {
         <DialogContent style={{ width: 400 }}>
           <List component="nav" aria-label="main mailbox folders">
             {this.props.blueprints.map((roomBlueprint: RoomBlueprint) => (
-              <ListItem
-                button
+              <RoomBlueprintListItem
+                key={roomBlueprint.id}
                 selected={roomBlueprint.id === this.state.selected?.id}
-                onClick={() => this.setState({ selected: roomBlueprint })}
-              >
-                <ListItemText
-                  primary={roomBlueprint.name}
-                  secondary={t('placeCount', {
-                    count: SpotSchedulingHelper.getSpotCount(roomBlueprint),
-                  })}
-                />
-              </ListItem>
+                onClick={(selected: RoomBlueprint) =>
+                  this.setState({ selected })
+                }
+                roomBlueprint={roomBlueprint}
+              />
             ))}
           </List>
         </DialogContent>

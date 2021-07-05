@@ -22,7 +22,8 @@ import {
 import { RoomBlueprint } from '../../libs/spot-scheduling/types';
 import {
   getAssetByIdentifier,
-  getRoomBlueprints,
+  getRoomBlueprint,
+  getAvailableRoomBlueprints,
 } from '../../libs/spot-scheduling/selector';
 import { snackbar } from '../../actions/snackbar.actions';
 import { OptionCallback } from '../../state/types';
@@ -150,8 +151,8 @@ const styles = () => ({
 });
 
 const mapStateToProps = (state: RootState, props: OwnProps) => ({
-  roomBlueprint: state.spotScheduling.roomBlueprint.byId[props.id],
-  allBlueprints: getRoomBlueprints(state),
+  roomBlueprint: getRoomBlueprint(state, props.id),
+  allBlueprints: getAvailableRoomBlueprints(state),
   assets: getAssetByIdentifier(state, props.id),
 });
 

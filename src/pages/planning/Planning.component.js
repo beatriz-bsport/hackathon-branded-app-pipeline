@@ -100,7 +100,10 @@ import MetaActivitySelector from '../../libs/meta-activity/components/MetaActivi
 import { monitorBackgroundTask } from '../../libs/background-task/actions';
 import CheckPermission from '../../libs/role/components/CheckPermission.component';
 import { PermissionContext } from '../../context';
-import { getRoomBlueprints } from '../../libs/spot-scheduling/selector';
+import {
+  getAvailableRoomBlueprints,
+  getRoomBlueprints,
+} from '../../libs/spot-scheduling/selector';
 import { fetchRoomBlueprints } from '../../libs/spot-scheduling/actions';
 import { RoomBlueprint } from '../../libs/spot-scheduling/types';
 
@@ -461,6 +464,7 @@ export class Planning extends PureComponent<Props, State> {
       similarOfferLoading,
       similarOffers,
       roomBlueprints,
+      allRoomBlueprints,
     } = this.props;
     const { editModalOpened, editOfferProcessing } = this.state;
     const { selectedOffer } = this.props;
@@ -475,6 +479,7 @@ export class Planning extends PureComponent<Props, State> {
               coaches={coaches}
               establishments={establishments}
               roomBlueprints={roomBlueprints}
+              allRoomBlueprints={allRoomBlueprints}
               is_whereby_integration_enabled={
                 this.props.theme &&
                 this.props.theme.is_whereby_integration_enabled &&
@@ -964,7 +969,8 @@ export default compose(
             start: moment(date).startOf('week'),
             end: moment(date).endOf('week'),
           }),
-      roomBlueprints: getRoomBlueprints(state),
+      roomBlueprints: getAvailableRoomBlueprints(state),
+      allRoomBlueprints: getRoomBlueprints(state),
     }),
     {
       goBack: goBackRouter,

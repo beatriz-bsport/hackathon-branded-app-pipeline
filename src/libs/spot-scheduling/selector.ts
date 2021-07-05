@@ -1,5 +1,10 @@
+import { createSelector } from 'reselect';
 import { RootState } from '../../reducers';
 import { AssetForBlueprint } from './types';
+
+export const getRoomBlueprint = (state: RootState, id: number) => {
+  return state.spotScheduling.roomBlueprint.byId[id];
+};
 
 export const getRoomBlueprints = (state: RootState) => {
   return state.spotScheduling.roomBlueprint.ids
@@ -9,6 +14,11 @@ export const getRoomBlueprints = (state: RootState) => {
     .filter((rb) => !!rb);
 };
 
+export const getAvailableRoomBlueprints = createSelector(
+  getRoomBlueprints,
+  (roomBlueprintList) => roomBlueprintList.filter((rb) => !rb.disabled),
+);
+
 export const getRoomBlueprintsForEstablishment = (
   state: RootState,
   id: number,
@@ -17,7 +27,7 @@ export const getRoomBlueprintsForEstablishment = (
     .map((blueprintId) => {
       return state.spotScheduling.roomBlueprint.byId[blueprintId];
     })
-    .filter((rb) => !!rb && rb.establishment === id);
+    .filter((rb) => !!rb && rb.establishment === id && !rb.disabled);
 };
 
 export const getAssetByIdentifier = (

@@ -4803,7 +4803,8 @@
             "coaches": "Teachers",
             "name": "Name",
             "addNewCoachPaymentRule": "New payment rule",
-            "base_remuneration_helper": "This amount will always be added to the session pay"
+            "base_remuneration_helper": "This amount will always be added to the session pay",
+            "set_base_remuneration": "Set teacher base pay"
         },
         "tabs": {
             "all": "All classes",
@@ -5139,7 +5140,7 @@
                 "topup": "Charge",
                 "withoutPaymentNote": {
                     "warning": "Be careful : we don't keep any track of this operation. Only to be use with caution.",
-                    "label": "Without payment"
+                    "label": "No invoice created"
                 }
             }
         },
@@ -8601,7 +8602,7 @@
     "platformBilling": {
         "paymentMethod": {
             "actions": {
-                "createCard": "Add a CB",
+                "createCard": "Add a payment method",
                 "createSepa": "Add an IBAN"
             },
             "sectionTitle": "Payment method"

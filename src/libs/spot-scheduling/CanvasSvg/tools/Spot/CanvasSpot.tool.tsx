@@ -10,6 +10,8 @@ import { CANVAS_SELECTABLE_TOOLS } from '../CanvasStrategy';
 export default class CanvasSpotTool extends CanvasAbstractTool<CanvasSpotProps> {
   type = CANVAS_SELECTABLE_TOOLS.spot;
 
+  hideNativeCursor = true;
+
   onClick = (params: CanvasSvgMouseParamsI) => {
     const { x, y, elements } = params;
 

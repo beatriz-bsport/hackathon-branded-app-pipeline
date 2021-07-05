@@ -360,7 +360,11 @@ class CanvasViewController extends React.PureComponent<Props> {
     const { classes } = this.props;
 
     return (
-      <div className={clx(classes.relativeContainer, {})}>
+      <div
+        className={clx(classes.relativeContainer, {
+          [classes.noCursor]: this.tool && this.tool.hideNativeCursor,
+        })}
+      >
         <CanvasSvg
           onClick={this.onSvgClick}
           onMouseMove={this.onSvgMouseMove}
@@ -407,6 +411,9 @@ const styles = () => ({
   },
   cursor: {
     pointerEvents: 'none',
+  },
+  noCursor: {
+    cursor: 'none',
   },
 });
 

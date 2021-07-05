@@ -9,6 +9,8 @@ import ScreenDOMController from './CanvasScreen.controller';
 export default class CanvasScreenTool extends CanvasAbstractTool<CanvasScreenProps> {
   type = CANVAS_SELECTABLE_TOOLS.screen;
 
+  hideNativeCursor = true;
+
   onClick = (params: CanvasSvgMouseParamsI) => {
     const { x, y, elements, settings } = params;
     const { fillColor, strokeColor } = settings;

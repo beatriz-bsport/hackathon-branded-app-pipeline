@@ -9,6 +9,8 @@ import DoorDOMController from './CanvasDoor.controller';
 export default class CanvasDoorTool extends CanvasAbstractTool<CanvasDoorProps> {
   type = CANVAS_SELECTABLE_TOOLS.door;
 
+  hideNativeCursor = true;
+
   onClick = (params: CanvasSvgMouseParamsI) => {
     const { x, y, elements, settings } = params;
     const { fillColor, strokeColor } = settings;

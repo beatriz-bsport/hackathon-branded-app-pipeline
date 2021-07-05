@@ -10,6 +10,8 @@ import { CanvasTeacherProps } from './CanvasTeacher.component';
 export default class CanvasTeacherTool extends CanvasAbstractTool<CanvasTeacherProps> {
   type = CANVAS_SELECTABLE_TOOLS.teacher;
 
+  hideNativeCursor = true;
+
   onClick = (params: CanvasSvgMouseParamsI) => {
     const { x, y, elements, settings } = params;
     const { fillColor, strokeColor } = settings;

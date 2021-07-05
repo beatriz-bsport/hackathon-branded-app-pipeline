@@ -132,6 +132,11 @@ export default abstract class CanvasAbstractTool<D> {
    */
   renderCursor?: () => React.ReactElement | null;
 
+  /**
+   * Set to true to hide the native cursor
+   */
+  hideNativeCursor?: boolean;
+
   getBoundaries?: (
     element: CanvasElement<D>,
   ) => {

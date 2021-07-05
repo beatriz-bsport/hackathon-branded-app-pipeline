@@ -184,6 +184,8 @@ export default class CanvasPointerTool extends CanvasAbstractTool<null> {
     if (this.selectedElement) {
       const { element, controller } = this.selectedElement;
 
+      controller.blur();
+
       const updateElement = {
         ...element,
         data: {

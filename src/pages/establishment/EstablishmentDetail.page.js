@@ -52,7 +52,7 @@ import {
 import WidgetGeneratorDialog from '../settings/WidgetGenerator/WidgetGeneratorDialog';
 import {
   createRoomBlueprint as createRoomBlueprintAction,
-  deleteRoomBlueprint,
+  deleteRoomBlueprint as deleteRoomBlueprintAction,
   fetchAssetForBlueprint,
   fetchRoomBlueprints,
 } from '../../libs/spot-scheduling/actions';
@@ -246,7 +246,7 @@ export default compose(
       updateMarketingNotification,
       deleteMarketingNotification: deleteMarketingNotificationAction,
       createRoomBlueprint: createRoomBlueprintAction,
-      deleteRoomBlueprint,
+      deleteRoomBlueprint: deleteRoomBlueprintAction,
       fetchRoomBlueprints,
       fetchAssetForBlueprint,
       pushRouter: push,

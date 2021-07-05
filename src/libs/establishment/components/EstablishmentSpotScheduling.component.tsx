@@ -1,13 +1,7 @@
 import React from 'react';
 import { compose } from 'recompose';
 
-import {
-  Typography,
-  ButtonBase,
-  List,
-  ListItem,
-  ListItemText,
-} from '@material-ui/core';
+import { Typography, List, ListItem, ListItemText } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';

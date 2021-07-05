@@ -347,7 +347,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
             const roomBlueprintIds = new Set();
             offers.forEach((o) => {
               if (typeof o.room_blueprint === 'number') {
-                room_blueprintIds.add(o.room_blueprint);
+                roomBlueprintIds.add(o.room_blueprint);
               }
             });
 

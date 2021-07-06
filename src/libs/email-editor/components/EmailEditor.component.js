@@ -80,6 +80,10 @@ export class EmailEditorPanel extends Component<Props, State> {
         this.props.displayEmptyError(
           this.props.t('emailTemplate:editor.error.title'),
         );
+      } else if (this.state.subject === '') {
+        this.props.displayEmptyError(
+          this.props.t('emailTemplate:editor.error.subject'),
+        );
       } else if (Object.keys(design.counters).length === 2) {
         this.props.displayEmptyError(
           this.props.t('emailTemplate:editor.error.content'),
@@ -216,6 +220,7 @@ export class EmailEditorPanel extends Component<Props, State> {
             label={t('emailTemplate:editor.subject')}
             value={this.state.subject}
             inputProps={{ maxLength: 500 }}
+            required
             className={classes.field}
           />
         </div>

@@ -33,6 +33,7 @@ exports.default = {
     error: {
       title: 'Veuillez renseigner un nom',
       content: 'Veuillez introduire du contenu dans le mail',
+      subject: 'Veuillez renseigner un object',
     },
   },
   leaveAlert: 'Voulez-vous vraiment quitter cette page ?',

@@ -69,15 +69,15 @@
         },
         "actions": {
             "goToSubscription": "Toon alle abonnementen",
-            "goToPass": "Toon alle lidmaatschappen",
+            "goToPass": "Toon alle kaarten",
             "goToCalendar": "Toon de planning",
             "goToHome": "Alle diensten bekijken"
         },
         "dashboard": {
             "noBooking": "Je hebt je nog niet ergens voor ingeschreven.",
-            "noPackCurrentlyActive": "Je bezit nog geen geldige lidmaatschappen.",
+            "noPackCurrentlyActive": "Je bezit nog geen enkele leskaart.",
             "showMore": "Toon meer",
-            "currentPassTitle": "Mijn actieve lidmaatschappen",
+            "currentPassTitle": "Mijn actieve leskaarten",
             "nextBookingTitle": "Mijn reserveringen",
             "optionTitle": "Actieve wachtlijsten",
             "favoriteTitle": "Uitgelichte sessie"
@@ -106,7 +106,7 @@
             "profile": "Profiel",
             "subscription": "Abonnementen",
             "invoice": "Facturen",
-            "pack": "Lidmaatschappen",
+            "pack": "Leskaarten",
             "calendar": "Geschiedenis",
             "dashboard": "Overzicht",
             "myVideos": "Mijn video's",
@@ -164,18 +164,18 @@
             "12": "Een lid heeft zich op de wachtlijst ingeschreven",
             "10": "De plaats van een lid op de wachtlijst is verlopen",
             "9": "Een lid heeft de wachtlijst verlaten: reserveren is mogelijk",
-            "8": "Reservering + aankoop via de cursuskaart",
-            "7": "Cursuskaart gebruiken om te reserveren",
+            "8": "Reservering + aankoop via leskaart",
+            "7": "Reservering via leskaarten",
             "6": "Nieuw lid (voor leden)",
             "3": "Sessie geannuleerd",
             "22": "Factuurbevestiging",
             "300": "Een lid dat niet tijdig heeft geantwoord van de wachtlijst verwijderen",
             "601": "Automatische annulering: te weinig reserveringen X uur voor het begin van de sessie",
             "702": "Sanctie: er is een boete opgelegd (voor leden)",
-            "701": "Sanctie: het lidmaatschap is tijdelijk geblokkeerd (voor leden)",
+            "701": "Sanctie: de leskaart is tijdelijk geblokkeerd (voor leden)",
             "530": "Geschil over de betaling voor een abonnement",
             "520": "Het systeem zal mislukte betalingen van abonnementen opnieuw proberen",
-            "515": "De cursuskaart van het abonnement wordt automatisch gedeactiveerd",
+            "515": "De leskaart van het abonnement wordt automatisch gedeactiveerd",
             "510": "Mislukte betaling voor een abonnement",
             "undefined": "Het systeem zal mislukte betalingen van abonnementen opnieuw proberen."
         },
@@ -196,12 +196,12 @@
             "ConsumerPaymentPack": {
                 "tags": {
                     "pass_credit_left": "Resterend krediet",
-                    "pass_expiration": "Vervaldatum cursuskaart",
-                    "pass_starting_date": "Begindatum cursuskaart",
+                    "pass_expiration": "Vervaldatum leskaart",
+                    "pass_starting_date": "Startdatum leskaart",
                     "pass_name": "Sub-tag toevoegen",
-                    "pass_price": "Prijs cursuskaart"
+                    "pass_price": "Prijs van de leskaart"
                 },
-                "name": "Cursuskaarten"
+                "name": "Leskaarten"
             },
             "PrivateBooking": {
                 "tags": {
@@ -282,7 +282,7 @@
             "member": "Ledenregistratie",
             "marketing": "Marketing",
             "invoice": "Facturatie",
-            "payment_pack": "Cursuskaarten"
+            "payment_pack": "Leskaarten"
         },
         "pageTitle": "Transactionele e-mails",
         "caption": {
@@ -322,7 +322,7 @@
     "search": {
         "member": {
             "packs": {
-                "title": "Cursuskaarten"
+                "title": "Leskaarten"
             },
             "sessions": {
                 "title": "Sessies"
@@ -361,8 +361,8 @@
                 "memberFormPage": "[Formulier] Lid",
                 "member": "Lid",
                 "members": "Leden",
-                "paymentPackList": "Cursuskaarten",
-                "paymentPackFormPage": "Een cursuskaart toevoegen",
+                "paymentPackList": "Leskaarten",
+                "paymentPackFormPage": "Een leskaart toevoegen",
                 "invoiceList": "Transacties",
                 "invoiceCreatePage": "In rekening brengen",
                 "invoiceFormPage": "Factuur",
@@ -388,8 +388,8 @@
             "forms": {
                 "register": {
                     "forceNotify": "Een bevestigingsmail versturen",
-                    "passCompatibleNotOwnedByMember": "Een nieuwe cursuskaart factureren",
-                    "passOwnedByMember": "Cursuskaart(en) die het lid bezit",
+                    "passCompatibleNotOwnedByMember": "Een nieuwe leskaart factureren",
+                    "passOwnedByMember": "Leskaart(en) die het lid bezit",
                     "registerToOffer": "Voor de sessie aanmelden",
                     "doNotConsumeCredit": "Geen kredieten voor leden hun inschrijving aftrekken"
                 }
@@ -409,7 +409,7 @@
             },
             "buyPack": "Kopen",
             "private_service": "Afspraken",
-            "pass": "Cursuskaarten",
+            "pass": "Leskaarten",
             "welcomeTo": "Welkom bij ",
             "checkout": {
                 "dialog": {
@@ -438,7 +438,7 @@
                 "book": "Reserveer",
                 "notBookableYet": "Binnenkort"
             },
-            "passListTitle": "Cursuskaarten",
+            "passListTitle": "Leskaarten",
             "privatePassListTitle": "Afspraakkaarten",
             "noSessionToday": "Er zijn nog geen sessies ingepland.",
             "showMarketplace": "Zie het rooster van ",
@@ -507,7 +507,7 @@
             "total": "TOTAAL",
             "voucher": "Korting",
             "updateInvoiceVoucher": "Promotiecode toevoegen",
-            "addPaymentPack": "Cursuskaarten",
+            "addPaymentPack": "Leskaarten",
             "addOffer": "Sessie",
             "addInvoiceItem": "Aan de factuur toevoegen",
             "object": "Beschrijving",
@@ -519,9 +519,9 @@
             "pay": "Afrekenen",
             "payWithNCredits2": "krediet(en)",
             "payWithNCredits1": "Reserveren (",
-            "availablePaymentPacks": " compatibele cursuskaart",
+            "availablePaymentPacks": " compatibele leskaarten",
             "yourBasket": "Jouw aankoop",
-            "noBookingsLeftOnPack": "Dit lidmaatschap kan deze week niet meer worden gebruikt.",
+            "noBookingsLeftOnPack": "Deze leskaart kan deze week niet meer worden gebruikt.",
             "noCreditLeft": "Niet genoeg krediet(en)",
             "bookWithUnlimitedPack": "Reserveer",
             "actions": "Acties",
@@ -536,14 +536,14 @@
             "payment": "Betaling",
             "goToSubscription": "Zie abonnement",
             "invoiceFromSubscriptionThusNotEditable": "Deze factuur is aan een abonnement gekoppeld en kan daarom niet worden gewijzigd. Wijzig het abonnement zelf om veranderingen door te voeren.",
-            "noBookingsLeftOnPackInMonth": "Dit lidmaatschap kan deze maand niet meer worden gebruikt."
+            "noBookingsLeftOnPackInMonth": "Deze leskaart kan deze maand niet meer worden gebruikt."
         },
         "invoice": {
             "explainFinalize": "Let op: een definitieve factuur kan niet meer worden gewijzigd. Alle betalingen die in afwachting van incasso zijn gemarkeerd, worden als geïncasseerd beschouwd. Zodra de factuur is afgerond, kun je deze als een PDF exporteren.",
             "finalize": "Voltooi de factuur",
             "invoiceReverted": "Geannuleerde factuur",
             "revertExplainShop": "Aankopen van de webshop worden geannuleerd en de voorraad wordt gereset.",
-            "revertExplainPacks": "De cursuskaart en ALLE bijbehorende reserveringen worden geannuleerd.",
+            "revertExplainPacks": "De leskaart en ALLE bijbehorende reserveringen worden geannuleerd.",
             "revertExplainCredits": "Het debet/krediet op de account van het lid wordt teruggeboekt.",
             "revertExplainPayment": "Creditcardbetalingen worden teruggestort op de rekening van het lid. Alle andere betaalmethoden worden verwijderd.",
             "revertImpossibleExplainSubscription": "Deze factuur is aan een abonnement gekoppeld. Je kunt een gekoppelde factuur niet annuleren, maar je kunt het abonnement en de laatste betaling wel stopzetten",
@@ -558,7 +558,7 @@
             "subscription": "Abonnementen",
             "myClub": "Mijn studio",
             "settings": "Instellingen",
-            "pass": "Cursuskaarten",
+            "pass": "Leskaarten",
             "goBack": "Terug",
             "refresh": "Vernieuwen",
             "logoff": "Afmelden",
@@ -575,7 +575,7 @@
                 "order": "Mijn bestellingen",
                 "profile": "Mijn profiel",
                 "bookings": "Mijn reserveringen ",
-                "pass": "Cursuskaarten"
+                "pass": "Leskaarten"
             },
             "beta": "Bèta",
             "coachPerformance": "Payroll",
@@ -624,7 +624,7 @@
             },
             "company": "Mijn studio",
             "myPrivatePass": "Mijn afspraakkaarten",
-            "myPaymentPacks": "Mijn lidmaatschappen"
+            "myPaymentPacks": "Mijn leskaarten"
         },
         "marketing": {
             "noPromo": "Geen",
@@ -724,10 +724,10 @@
                 "delete": {
                     "explainModalities": "Let op: deze wijziging is definitief. De sessie zal niet langer zichtbaar voor je leden zijn.",
                     "explainNotify": "Een melding naar alle ingeschreven leden sturen",
-                    "explainCreditBack": "Stort het tegoed op de cursuskaart terug",
+                    "explainCreditBack": "Stort het tegoed op de leskaart terug",
                     "explainHardDelete": "Wil je deze sessie verwijderen? Let op: deze actie is definitief en de sessie wordt onzichtbaar. Als een sessie reserveringen bevat kan het niet worden verwijderen.",
                     "buttonHardDelete": "Verwijderen",
-                    "explainForceDanger": "Waarschuwing! Reserveringen worden definitief verwijderd. Niet vergoedde tarieven worden niet getraceerd. Controleer zorgvuldig de status van de reserveringen en de cursuskaarten voordat je iets verwijdert.",
+                    "explainForceDanger": "Waarschuwing! De reserveringen worden definitief verwijderd. Niet vergoedde tegoeden worden niet getraceerd. Controleer zorgvuldig de status van de reserveringen en je leskaarten voordat je iets verwijdert.",
                     "force": "Verwijderen (ook al zijn er reserveringen geregistreerd)",
                     "advanced": "Geavanceerd"
                 },
@@ -743,7 +743,7 @@
                 "changeDate": "Wijzig de tijd / datum",
                 "cancelTitle": "Sessies annuleren",
                 "deleteTitle": "Sessie verwijderen",
-                "warningPackonEdit": "Het is mogelijk dat na deze wijziging(en) bepaalde lidmaatschappen niet meer compatibel zijn. Vergeet niet om de compatibiliteit van je cursuskaarten voor je vestiging(en)/instructeur(s) te controleren.",
+                "warningPackonEdit": "Het is mogelijk dat na deze wijziging(en) bepaalde leskaarten niet meer compatibel zijn. Vergeet niet om de compatibiliteit van je leskaarten voor je vestiging(en)/instructeur(s) te controleren.",
                 "substituteEstablishmentLabel": "Vestiging (tijdelijke plaats)",
                 "establishmentLabel": "Vestiging",
                 "coachLabel": "Instructeur",
@@ -766,12 +766,12 @@
                 "activityHelper": "Kies de activiteit en vervolgens de sessie",
                 "objectTypeLabel": "Te verrekenen onderdeel",
                 "noPayedObject": "Geen",
-                "paymentPackHelper": "Deze cursuskaart wordt toegewezen aan",
+                "paymentPackHelper": "Deze leskaart wordt toegewezen aan",
                 "offerHelper": "Deze sessie wordt gecrediteerd aan",
                 "paymentLabel": "Een transactie toevoegen",
                 "title": "Een betaling registreren",
                 "backToInvoiceItemList": "Terug naar de lijst",
-                "dateStartPaymentPack": "De startdatum van de cursuskaart is"
+                "dateStartPaymentPack": "De startdatum van de leskaart is"
             },
             "quickInvoice": {
                 "paymentDue": "Openstaande betalingen",
@@ -932,16 +932,16 @@
             "myBookings": "Reserveringen",
             "addInvoice": "In rekening brengen",
             "extraordinaryEstablishment": "(tijdelijke vestiging)",
-            "noCompatiblePacks": "Geen enkele cursuskaart is compatibel met deze sessie",
-            "compatiblePacks": "Compatibele cursuskaarten",
+            "noCompatiblePacks": "Geen enkele leskaart is compatibel met deze sessie",
+            "compatiblePacks": "Compatibele leskaarten",
             "substitute": "Plaatsvervanger",
             "disabled": "geannuleerd",
             "nextOffer": "Volgende sessie",
             "previousOffer": "Vorige sessie",
             "backToCalendar": "Agenda",
-            "noConsumerPackAvailableForPurchase": "Dit lid heeft geen compatibele cursuskaart!",
-            "noncompatibleConsumerPaymentPacksAre": "Je bezit de volgende cursuskaarten die niet compatibel met de sessie zijn:",
-            "noPackAvailableForOfferPurchase": "Er is (nog) geen lidmaatschap beschikbaar voor deze sessie!",
+            "noConsumerPackAvailableForPurchase": "Dit lid bezit nog geen compatibele leskaarten!",
+            "noncompatibleConsumerPaymentPacksAre": "Je bezit de volgende leskaarten die niet compatibel met de sessie zijn:",
+            "noPackAvailableForOfferPurchase": "Er is nog geen enkele compatibele leskaart voor deze sessie!",
             "offersPendingDelete": "Te verwijderen sessies:",
             "offersPendingChange": "Te wijzigen sessies:",
             "sizeOfWaitingList": "Grootte van de wachtlijst",
@@ -1067,7 +1067,7 @@
         },
         "activity": {
             "reviews": "Ledenbeoordeling: ",
-            "packsAvailable": "Compatibele cursuskaarten:",
+            "packsAvailable": "Compatibele leskaarten:",
             "orNcredits2": " credits)",
             "orNcredits1": "(of ",
             "noOfferThisDay": "Vandaag zijn er geen sessies. Selecteer een andere datum of begin met het toevoegen van sessies.",
@@ -1124,7 +1124,7 @@
             "date": "Datum",
             "offers": "Sessies",
             "booking_s": "Sessies",
-            "pass": "Cursuskaarten",
+            "pass": "Leskaarten",
             "selected": "Geselecteerd",
             "transactions": "Transacties",
             "members": "Mijn gebruikers",
@@ -1161,7 +1161,7 @@
             "credit_s": "Krediet(en)",
             "continue": "Doorgaan",
             "amount": "Bedrag",
-            "paymentPack": "Cursuskaarten",
+            "paymentPack": "Leskaarten",
             "datetime": "Sessie",
             "activity": "Activiteit",
             "paymentMethod": "Betaalmethode",
@@ -1312,7 +1312,7 @@
         },
         "show_cancelled_offers": "Toon de geannuleerde sessies",
         "quickInvoiceNoVoucher": "Laat de waarde van dit veld op 0 staan als je geen korting wilt toepassen",
-        "quickInvoiceVoucher": "Kies de korting die je wenst toe te passen bij het factureren van de volgende cursuskaart",
+        "quickInvoiceVoucher": "Kies de korting die je wenst toe te passen op de facturatie van de volgende leskaart",
         "metaActivityNotificationToolTip": "Bevat automatische meldingen"
     },
     "communication": {
@@ -1435,7 +1435,7 @@
             },
             "selectorPlaceholder": {
                 "shopitem": "Webshop",
-                "paymentPack": "Cursuskaarten",
+                "paymentPack": "Leskaarten",
                 "privatePass": "Afspraakkaarten"
             },
             "content": "Inhoud",
@@ -1471,7 +1471,7 @@
             "buttons": {
                 "add": "Een pakket toevoegen"
             },
-            "explainIfEmpty": "In dit onderdeel kun je al je pakketten beheren. In een pakket kun je producten uit je webshop en afspraak- of cursuskaarten met elkaar combineren.",
+            "explainIfEmpty": "In dit onderdeel kun je al je pakketten beheren. In een pakket kun je producten uit je webshop, afspraak- en/of leskaarten met elkaar combineren.",
             "section": {
                 "availableOnline": "Beschikbare pakketten",
                 "unavailableOnline": "Niet-beschikbaare pakketten"
@@ -1614,7 +1614,7 @@
             "shop_item": "Webshop",
             "fee": "Tarieven",
             "private_pass": "Afspraakkaarten",
-            "payment_pack": "Cursuskaarten",
+            "payment_pack": "Leskaarten",
             "top_up": "Saldo van het lid wijzigen",
             "payment_combo": "Pakketten",
             "refund": "Terugbetaling krediet"
@@ -1645,7 +1645,7 @@
             "payment_method": "Betaalmethode",
             "product": "Product",
             "payment_identifier": "Betaal-ID",
-            "pass": "Cursuskaarten",
+            "pass": "Leskaarten",
             "first_name": "Voornaam",
             "date_offer": "Datum en tijd",
             "couponName": "Promoties",
@@ -1679,7 +1679,7 @@
             "email": "E-mail",
             "phonenumber": "Telefoon",
             "gender": "Geslacht",
-            "payment_pack": "Cursuskaarten",
+            "payment_pack": "Leskaarten",
             "fee": "Tarieven",
             "activity_name": "Activiteit",
             "booking_status_code": "status",
@@ -1806,7 +1806,8 @@
             "nb_canceled": "Aantal annuleringen",
             "recurrent_price": "Bedrag",
             "sum__non_attendance": "Aantal afwezigen",
-            "sum_attendance": "Aantal aanwezigen"
+            "sum_attendance": "Aantal aanwezigen",
+            "invoice_date": "Factuurdatum"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -1837,7 +1838,7 @@
             "payment_sumup": "Totaal aantal betalingen",
             "credit": "Krediet(en)",
             "basket": "Winkelmandje",
-            "memberships": "Cursuskaarten",
+            "memberships": "Leskaarten",
             "invoices": "Aankopen",
             "products": "Producten",
             "payments": "Betalingen",
@@ -1951,19 +1952,27 @@
                 "title": "Terugbetaling",
                 "warningSecond": "Als je het lid wenst te vergoeden via een bankoverschrijving met de gebruikte betaalmethode, annuleer dan de factuur en betaal hem/haar niet in krediet terug!",
                 "warningFirst": "Waarschuwing! Deze actie is definitief. (Maakt een factuur aan)",
-                "blockUnlimited": "Cursuskaart blokkeren"
+                "blockUnlimited": "Leskaart blokkeren"
             },
             "details": {
                 "actions": {
                     "refund": "Omzetten in kredieten",
                     "applyVoucher": "Korting toepassing"
                 }
+            },
+            "maxout": {
+                "dialog_message": "Deze kaart heeft het limiet van maximaal aantal reserveringen bereikt ({{count}}). Weet je zeker dat je alsnog hiermee wilt reserveren? ",
+                "dialogTitle": "Reserveringslimiet bereikt",
+                "months": "maand",
+                "weeks": "week",
+                "days": "dag",
+                "limit_reach": "Reserveringslimiet per {{unit}} bereikt"
             }
         },
         "notification": {
             "0": {
                 "first": "Stuur een melding als ",
-                "second": "geldige dagen op deze cursuskaart"
+                "second": "dagen voordat deze leskaart verloopt"
             },
             "1": {
                 "first": "Stuur een melding als",
@@ -1971,7 +1980,7 @@
             },
             "2": {
                 "second": "dagen verstreken.",
-                "first": "Stuur een melding als de cursuskaart sinds verlopen is "
+                "first": "Stuur een melding als de leskaart sinds verlopen is "
             },
             "listItem": {
                 "mail": "E-mail ",
@@ -2001,30 +2010,30 @@
                 "smartListHelperInclude": "Stuur WÉL een melding als een lid tot één van de volgende Smartlists behoort:",
                 "noMailAvailable": "Geen e-mail beschikbaar, vergeet niet om een te maken",
                 "createSmartList": "Een Smartlist toevoegen",
-                "warning": "Door geen Smartlist(s) te selecteren of te gebruiken is het mogelijk dat je leden contacteert die recent een lidmaatschap hebben gekocht!",
-                "daysPastType": "Verlopen lidmaatschap",
+                "warning": "Door geen Smartlist(s) te selecteren of te gebruiken is het mogelijk dat je leden contacteert die recent een kaart hebben gekocht!",
+                "daysPastType": "Verlopen kaart",
                 "submit": "Bevestigen"
             },
             "daysPast": {
                 "second": "dag(en) verlopen is.",
-                "first": "Stuur een melding wanneer dit lidmaatschap"
+                "first": "Stuur een melding wanneer deze kaart"
             },
             "daysLeft": {
                 "second": "dag(en) geldig is.",
-                "first": "Stuur een melding wanneer dit lidmaatschap nog"
+                "first": "Stuur een melding wanneer deze kaart nog"
             },
             "creditsLeft": {
                 "second": "krediet(en) heeft.",
-                "first": "Stuur een melding wanneer dit lidmaatschap nog"
+                "first": "Stuur een melding wanneer deze kaart nog"
             },
-            "daysLeftLabel": "Een melding versturen wanneer dit lidmaatschap nog {{day}} dag geldig is.",
-            "daysLeftLabel_plural": "Een melding versturen wanneer dit lidmaatschap nog {{day}} dagen geldig is.",
-            "daysPastLabel": "Een melding versturen wanneer dit lidmaatschap {{day}} dag verlopen is.",
-            "daysPastLabel_plural": "Een melding versturen wanneer dit lidmaatschap {{day}} dagen verlopen is.",
-            "creditsLeftLabel": "Een melding versturen wanneer dit lidmaatschap nog {{credit}} krediet bevat.",
-            "creditsLeftLabel_plural": "Een melding versturen wanneer dit lidmaatschap nog {{credit}} kredieten bevat."
+            "daysLeftLabel": "Een melding versturen wanneer deze kaart nog {{day}} dag geldig is.",
+            "daysLeftLabel_plural": "Een melding versturen wanneer deze kaart nog {{day}} dagen geldig is.",
+            "daysPastLabel": "Een melding versturen wanneer deze kaart {{day}} dag verlopen is.",
+            "daysPastLabel_plural": "Een melding versturen wanneer deze kaart {{day}} dagen verlopen is.",
+            "creditsLeftLabel": "Een melding versturen wanneer deze kaart nog {{credit}} krediet heeft.",
+            "creditsLeftLabel_plural": "Een melding versturen wanneer deze kaart nog {{credit}} kredieten heeft."
         },
-        "search": "Zoek een cursuskaart",
+        "search": "Zoek een leskaart",
         "extension": {
             "nbDaysAdded": "+ {{nb_days}} d",
             "addedOn": "Toegevoegd op ",
@@ -2047,14 +2056,14 @@
                 "nbDays": {
                     "label": "Aantal extra dagen"
                 },
-                "title": "Verlenging van een cursuskaart",
+                "title": "Leskaart verlengen",
                 "cancel": "Annuleren"
             }
         },
         "form": {
             "paymentPack": {
                 "name": {
-                    "helperText": "Dit is de naam van de cursuskaart.",
+                    "helperText": "Dit is de weergavenaam van de leskaart.",
                     "label": "Naam"
                 },
                 "priceIncludingTax": {
@@ -2069,13 +2078,13 @@
                 "newMemberOnly": "Alleen voor nieuwe leden",
                 "onsitePaymentAvailable": "Later betalen toestaan (bijv. in de studio)",
                 "expirationDaysBeforeFirstUse": {
-                    "label": "De vervaldatum indien deze cursuskaart niet gebruikt wordt:",
-                    "helperText": "De geldigheid van deze cursuskaart verloopt na X aantal dagen als het niet gebruikt wordt."
+                    "label": "De vervaldatum indien deze leskaart niet gebruikt wordt:",
+                    "helperText": "De geldigheid van deze leskaart verloopt na X aantal dagen als het niet gebruikt wordt."
                 },
                 "managerOnly": "Niet beschikbaar voor leden",
                 "helper": {
-                    "starting_date": "Begin van de geldigheid van de cursuskaart. Laat dit veld leeg om het meteen geldig te verklaren",
-                    "ending_date": "Einde van de geldigheid van de cursuskaart. Als dit veld leeg is blijft de cursuskaart geldig"
+                    "starting_date": "Begin van de geldigheid van de leskaart. Laat dit veld leeg om het meteen geldig te verklaren",
+                    "ending_date": "Einde van de geldigheid van de leskaart. Als dit veld leeg is blijft de cursuskaart geldig"
                 },
                 "start_date_method": {
                     "on_booking": "Geldig vanaf de 1e reservering",
@@ -2084,8 +2093,8 @@
                 },
                 "timeSettingsTitle": "Geldigheid",
                 "generalSettingsTitle": "Algemeen",
-                "validByDuration": "Deze cursuskaart is N aantal dagen na aankoop geldig",
-                "validByDaterange": "Deze cursuskaart is tussen X en Y geldig",
+                "validByDuration": "Deze leskaart is N aantal dagen na aankoop geldig",
+                "validByDaterange": "Deze leskaart is tussen X en Y geldig",
                 "durationDays": {
                     "helperText": "Geldigheidsduur in aantal dagen na aankoop ",
                     "label": "Geldigheidsduur (in dagen) indien van toepassing"
@@ -2108,21 +2117,21 @@
                 "restrictionsTitle": "Beperkingen",
                 "noneMeansAll": "Laat dit veld leeg om geen beperkingen op te leggen.",
                 "update": {
-                    "success": "Cursuskaart: de actie is succesvol uitgevoerd",
-                    "error": "Cursuskaart: uitvoering mislukt"
+                    "success": "Leskaart: de actie is succesvol uitgevoerd",
+                    "error": "Leskaart: uitvoering mislukt"
                 },
                 "delete": {
                     "actions": {
                         "cancel": "Annuleren",
                         "submit": "Verwijderen"
                     },
-                    "title": "Cursuskaart verwijderen:",
-                    "askConfirmation": "Waarschuwing! Deze actie is definitief. Dit lidmaatschap zal hierna niet meer zichtbaar of te koop zijn.",
-                    "thereAreConsumers": "Waarschuwing! Leden hebben deze cursuskaart gekocht. Als je deze verwijdert, kunnen ze hun resterende tegoed nog steeds gebruiken. Je kunt hun tegoed handmatig als nul instellen.\n\nLeden zullen deze cursuskaart niet meer kunnen kopen."
+                    "title": "Leskaart verwijderen:",
+                    "askConfirmation": "Waarschuwing! Deze actie is definitief. Deze kaart zal hierna niet meer zichtbaar of te koop zijn.",
+                    "thereAreConsumers": "Waarschuwing! Leden hebben deze leskaart al gekocht. Als je deze verwijdert, kunnen ze hun resterende tegoed nog steeds gebruiken. Je kunt hun tegoed handmatig als nul instellen.\n\nLeden zullen deze leskaart niet meer kunnen zien en kopen."
                 },
                 "theoricalMarginValue": {
                     "helperText": "Dit wordt gebruikt om de payroll van de instructeur(s) te berekenen. Voorbeeld: €10 betekent dat bij 1 reservering, de instructeur €10 ontvangt. Indien dit veld leeg of €0 is, dan wordt de payroll op basis van PRIJS / AANTAL RESERVERINGEN berekend.",
-                    "label": "Theoretische marginale bijdrage incl. btw (alleen voor onbeperkte cursuskaarten)"
+                    "label": "Theoretische marginale bijdrage incl. btw (alleen voor onbeperkte leskaarten)"
                 },
                 "establishments": "Vestiging",
                 "from": "Van ",
@@ -2132,13 +2141,13 @@
                 "credits": {
                     "label": "Krediet(en)",
                     "helperText": "Dit is het aantal inbegrepen krediet(en). Laat dit veld leeg om het onbeperkt te maken.",
-                    "bewareChange": "Als je het benodigde aantal krediet verhoogt/verlaagt, worden alle lidmaatschappen beïnvloed."
+                    "bewareChange": "Als je het benodigde aantal krediet verhoogt/verlaagt, worden alle kaarten gewijzigd."
                 },
                 "until": "Tot ",
                 "startOnFirstUse": "De geldigheidsduur begint op de dag van de eerste reservering",
                 "startOnFirstUseHelper": "Anders begint het op de facturatiedatum",
                 "sports": "Categorie",
-                "notEditable": "Deze cursuskaart is het resultaat van een migratie. Sommige velden kunnen niet worden gewijzigd om de geschiedenis te respecteren. Compatibele activiteiten / categorieën blijven wijzigbaar.",
+                "notEditable": "Deze leskaart is het resultaat van een gegevensoverdracht. Sommige velden kunnen niet worden gewijzigd om de gebruiksgeschiedenis correct weer te geven . Compatibele activiteiten / categorieën kunnen wel worden gewijzigd.",
                 "maxPurchasePerMember": {
                     "helperText": "Laat dit veld leeg om geen limiet in te stellen.",
                     "label": "Maximale aankoop per lid"
@@ -2158,12 +2167,12 @@
                         "label": "Boetebedrag:"
                     },
                     "block": {
-                        "helperText": "De cursuskaart wordt {{nb_days}} dagen geblokkeerd",
-                        "label": "Duur van de blokkering van het lidmaatschap (in dagen):"
+                        "helperText": "De leskaart wordt {{nb_days}} dagen geblokkeerd",
+                        "label": "Duur van de blokkering van de kaart (in dagen):"
                     },
                     "kind": {
                         "account": "Een boetebedrag instellen",
-                        "block": "Tijdelijk dit lidmaatschap blokkeren",
+                        "block": "Tijdelijk deze kaart blokkeren",
                         "label": "Kies het type sanctie dat je wilt toepassen:"
                     },
                     "nb_days": "Aantal dagen:",
@@ -2176,20 +2185,20 @@
             }
         },
         "details": {
-            "pleaseSelectAPack": "Selecteer een lidmaatschap voor een gedetailleerd overzicht.",
-            "shareAPass": "Een cursuskaart delen",
+            "pleaseSelectAPack": "Selecteer een kaart voor een gedetailleerd overzicht.",
+            "shareAPass": "Een leskaart delen",
             "invoiceTitle": "Bijbehorende factuur",
             "bookingsTitle": "Bijbehorende reserveringen",
             "extensionsTitle": "Geldigheid verlengen",
             "refundTitle": "Bijbehorende terugbetaling",
             "trackModifiedCreditTitle": "Geschiedenis van kredietwijzigingen",
             "penaltyAccount": "Extra facturatie t.w.v. {{currencyDisplay }}{{account_value}}",
-            "penaltyBlock": "Deze cursuskaart is {{nb_days}} geblokkeerd",
+            "penaltyBlock": "Deze leskaart is {{nb_days}} voor dagen geblokkeerd",
             "penaltyTitle": "Sanctie(s) toegepast"
         },
         "paymentPackDisabled": {
             "error": "Kan niet verwijderen",
-            "success": "Cursuskaart verwijderd"
+            "success": "Leskaart verwijderd"
         },
         "disableConsumer": "Blokkeer",
         "enableConsumer": "Ontgrendelen",
@@ -2201,7 +2210,7 @@
             "isFromDisabledShare": "Delen is gestopt",
             "expiresOn": "Verloopt op: ",
             "bookingsThisWeek": "reservering(en) deze week",
-            "isOwnerOfShares": "Gedeeld lidmaatschap"
+            "isOwnerOfShares": "Gedeelde kaart"
         },
         "validForDuration": {
             "days": "{{duration_days}} dagen geldig",
@@ -2213,7 +2222,7 @@
         "validFrom": "Geldig vanaf ",
         "validTo": " tot ",
         "bookingsLeftThisWeek": "Maximaal aantal reserveringen per week",
-        "addButton": "Een cursuskaart toevoegen",
+        "addButton": "Een leskaart toevoegen",
         "noPaymentPackSubscribed": "Geen abonnement",
         "validUntil": "Geldig tot",
         "expirationDate": "Vervalt op",
@@ -2232,7 +2241,7 @@
         "notificationToolTip": "Geactiveerde meldingen",
         "disabled": "Uitgeschakeld",
         "anyActivity": "Alle activiteiten",
-        "noRestrictionOnActivityType": "Alle activiteiten zijn compatibel met deze cursuskaart.",
+        "noRestrictionOnActivityType": "Alle activiteiten zijn compatibel met deze leskaart.",
         "credit": {
             "updated": "Wijzigingen opgeslagen"
         },
@@ -2243,8 +2252,8 @@
             "copyLink": "De directe link naar de betaalpagina kopiëren"
         },
         "newMemberOnly": "Alleen beschikbaar voor nieuwe leden",
-        "publicPacksTitle": "Beschikbare cursuskaarten",
-        "privatePacksTitle": "Niet-beschikbare cursuskaarten",
+        "publicPacksTitle": "Beschikbare leskaarten",
+        "privatePacksTitle": "Niet-beschikbare leskaarten",
         "subscribeToOffer": "Inschrijven",
         "use": "Gebruik",
         "isNonCompatible": "incompatibel",
@@ -2262,16 +2271,16 @@
             },
             "scaleUp": "Vermenigvuldigen",
             "scaleDown": "Delen",
-            "explain": "Je kunt het krediet op je cursuskaart vermenigvuldigen (bijv. 3/7 x 2 wordt 6/14) of delen in het geval van een fout (bijv. 3/7 ÷ 2 wordt 1/3) naar een beneden afgerond.",
+            "explain": "Je kunt het krediet op je leskaart vermenigvuldigen (bijv. 3/7 x 2 wordt 6/14) of delen in het geval van een fout (bijv. 3/7 ÷ 2 wordt 1/3) en naar een beneden afgerond.",
             "title": "Krediet(en) wijzigen"
         },
         "notificationForm": "[Formulier] Melding",
-        "noPaymentPack": "Met cursuskaarten kunnen leden zich inschrijven voor je workshops en groepsactiviteiten. Leden moeten een (geldig en compatibel) cursuskaart bezitten voordat zij zich kunnen ergens voor kunnen inschrijven.",
+        "noPaymentPack": "Met leskaarten kunnen leden zich inschrijven voor je workshops en groepsactiviteiten. Leden moeten een (geldig en compatibel) leskaart bezitten voordat zij zich ergens voor kunnen inschrijven.",
         "disabledPacks": {
-            "hide": "Verberg gearchiveerde cursuskaarten",
-            "show": "Toon gearchiveerde cursuskaarten"
+            "hide": "Verberg gearchiveerde leskaarten",
+            "show": "Toon gearchiveerde leskaarten"
         },
-        "disabledPacksTitle": "Gearchiveerde cursuskaarten",
+        "disabledPacksTitle": "Gearchiveerde leskaarten",
         "filters": {
             "hasCreditNull": "Zonder krediet(en)",
             "hasCreditLeft": "Met krediet(en)",
@@ -2282,13 +2291,13 @@
             "notReverted": "Niet-geannuleerde facturen",
             "credits": "Krediet(en)",
             "expiration": "Geldigheid",
-            "all": "Alle lidmaatschappen"
+            "all": "Alle kaarten"
         },
         "multipleBookingTooltip": "Meerdere reserveringen",
         "maxNBookingsByMonth2": " reservering(en) per maand",
-        "blockedCpp": "Deze cursuskaart is van {{-blocked_from}} tot en met {{-blocked_until}} geblokkeerd",
+        "blockedCpp": "Deze leskaart is van {{-blocked_from}} tot en met {{-blocked_until}} geblokkeerd",
         "penalty": {
-            "block": "Zodra {{nb_cancellations}} te late annuleringen binnen {{nb_days}} dagen worden geregistreerd, wordt deze cursuskaart voor {{days_blocked}} geblokkeerd.",
+            "block": "Zodra {{nb_cancellations}} te late annuleringen binnen {{nb_days}} dagen worden geregistreerd, wordt deze leskaart voor {{days_blocked}} geblokkeerd.",
             "account": "Zodra {{nb_cancellations}} te late annuleringen binnen {{nb_days}} dagen worden geregistreerd, wordt een sanctie t.w.v. €{{account_value}} gefactureerd.",
             "title": "Annuleringsbeleid"
         },
@@ -2296,8 +2305,8 @@
         "massExtension": {
             "title": "[Formulier] Geldigheid verlengen",
             "minDate": "Niet eerder dan",
-            "dateHelpText": "Verleng alle lidmaatschappen die tussen X en Y verlopen",
-            "helpText": "Hier kun je de geldigheid van dit lidmaatschap voor al je leden in één keer verlengen. Let op: deze actie is definitief.",
+            "dateHelpText": "Verleng alle kaarten die tussen X en Y verlopen",
+            "helpText": "Hier kun je de geldigheid van deze kaart voor al je leden in één keer verlengen. Let op: deze actie is definitief.",
             "listItemNbDays": "+ {{nbDays}} dag(en)",
             "createdAt": "Toegevoegd op: {{date}}",
             "listItemDate": "Verloopt tussen {{ minDate }} en {{ maxDate }}",
@@ -2376,6 +2385,15 @@
             "section": {
                 "archived": "Gearchiveerde vestigingen"
             }
+        },
+        "location": {
+            "country": "Land",
+            "zip_code": "Postcode",
+            "city": "Stad",
+            "address_line_2": "Adresregel 2",
+            "address_line_1": "Adresregel 1",
+            "address": "Adres",
+            "search_address": "Zoek een adres"
         }
     },
     "smartList": {
@@ -2390,11 +2408,11 @@
             "selectAll": "Selecteer alles",
             "selectNothing": "Deselecteer alles",
             "paymentPacks": {
-                "helperSelectedText": "geselecteerde cursuskaarten",
-                "textFieldPlaceholder": "Zoek een cursuskaart",
-                "helperAllSelectedText": "alle lidmaatschappen",
-                "warning": "Selecteer minimaal één cursuskaart",
-                "helperText": "selecteer cursuskaarten"
+                "helperSelectedText": "geselecteerde leskaarten",
+                "textFieldPlaceholder": "Zoek een leskaart",
+                "helperAllSelectedText": "alle kaarten",
+                "warning": "Selecteer minimaal één leskaart",
+                "helperText": "selecteer leskaarten"
             },
             "metaActivities": {
                 "helperText": "selecteer activiteiten",
@@ -2497,7 +2515,7 @@
         },
         "filterCategory": {
             "1": "Ledeninformatie",
-            "2": "Lidmaatschappen",
+            "2": "Leskaarten",
             "3": "Reserveringen",
             "4": "Aankopen"
         },
@@ -2524,9 +2542,9 @@
                 "women": "vrouwen"
             },
             "8": {
-                "first": "Heeft een cursuskaart",
+                "first": "Bezit een leskaart",
                 "second": "bruikbaar (met krediet of onbeperkt en niet verlopen)",
-                "explanation": "Heeft bruikbare cursuskaart X",
+                "explanation": "Heeft bruikbare leskaart X",
                 "name": "Geldigheid"
             },
             "11": {
@@ -2537,8 +2555,8 @@
             "14": {
                 "explanation": "Heeft producten A en B gekocht",
                 "shop": "Webshop",
-                "pack": "Cursuskaarten",
-                "workshop": "Cursuskaart voor workshops",
+                "pack": "Leskaarten",
+                "workshop": "Leskaarten voor workshops",
                 "name": "Uitgaven",
                 "second": "tussen {{ currencyDisplay }}",
                 "first": "Heeft",
@@ -2550,7 +2568,7 @@
             },
             "19": {
                 "name": "Algemeen",
-                "first": "een of meerdere van de volgende cursuskaarten",
+                "first": "een of meerdere van de volgende leskaarten",
                 "has": "Bezit",
                 "has_not": "Bezit niet",
                 "second": "en",
@@ -2563,8 +2581,8 @@
                     "first_will_expire": "vervaldatum:",
                     "first_has_expire": "liep af op"
                 },
-                "infoIcon": "Onbeperkte cursuskaarten zijn altijd inbegrepen",
-                "explanation": "Heeft cursuskaart A op B gekocht en heeft nog C krediet(en) over",
+                "infoIcon": "Onbeperkte leskaarten zijn altijd inbegrepen",
+                "explanation": "Heeft leskaart A op B gekocht en met C overige kredieten",
                 "date_bought": {
                     "first": "aankoopdatum:"
                 }
@@ -2605,13 +2623,13 @@
                     "first": "instructeur(s):"
                 },
                 "payment_pack": {
-                    "first": "cursuskaart(en):"
+                    "first": "leskaart(en):"
                 },
                 "attendance": "status:"
             },
             "22": {
                 "name": "Aantal reserveringen",
-                "explanation": "Heeft zich A keer voor activiteit B in vestiging C met lidmaatschap D ingeschreven",
+                "explanation": "Heeft zich A keer voor activiteit B in vestiging C met kaart D ingeschreven",
                 "first": "Reserveerde",
                 "second": "sessies",
                 "activity": {
@@ -2621,7 +2639,7 @@
                     "first": "vestiging(en):"
                 },
                 "payment_pack": {
-                    "first": "cursuskaart(en):"
+                    "first": "leskaart(en):"
                 },
                 "coach": {
                     "first": "instructeur(s):"
@@ -2809,11 +2827,11 @@
                 "second": "{{ currencyDisplay }} voor de producten",
                 "first": "Heeft",
                 "name": "Uitgaven",
-                "workshop": "Cursuskaart voor workshops",
+                "workshop": "Leskaarten voor workshops",
                 "private_pass": "Privéles",
                 "between": "en",
                 "combo": "Pakketten",
-                "pack": "Cursuskaarten",
+                "pack": "Leskaarten",
                 "shop": "Webshop",
                 "explanation": "Kocht de producten A en B"
             },
@@ -2918,15 +2936,15 @@
             },
             "create": {
                 "compatible_packs": {
-                    "passHelperText": "Deze lidmaatschappen zijn compatibel met deze activiteit:",
+                    "passHelperText": "Deze kaarten zijn compatibel met deze activiteit:",
                     "seeMore": "Toon meer",
-                    "createPass": "Een cursuskaart toevoegen",
+                    "createPass": "Een leskaart toevoegen",
                     "goToActivity": "Toon activiteit",
-                    "noCompatiblePass": "Geen enkele cursuskaart die compatibel is met deze activiteit. Vergeet niet om er een te maken"
+                    "noCompatiblePass": "Maak minstens één compatibele leskaart aan zodat leden zich voor deze activiteit kunnen inschrijven."
                 },
                 "steps": {
                     "activity_form": "Activiteit toevoegen",
-                    "pass_form": "Een cursuskaart toevoegen (optioneel)",
+                    "pass_form": "Een leskaart toevoegen (optioneel)",
                     "pass_list": "Afronden",
                     "offer_form": "Sessies toevoegen (optioneel)",
                     "workshop_form": "Workshop toevoegen"
@@ -2935,13 +2953,13 @@
         },
         "detail": {
             "pack": {
-                "noCompatiblePass": "Geen compatibele cursuskaart",
+                "noCompatiblePass": "Geen compatibele leskaart",
                 "consumerPacks": "Gekocht door",
-                "paymentPacks": "Compatibele cursuskaarten"
+                "paymentPacks": "Compatibele leskaarten"
             },
             "tab": {
                 "general": "Algemeen",
-                "pack": "Compatibele cursuskaarten"
+                "pack": "Compatibele leskaarten"
             }
         },
         "name": "Naam",
@@ -2967,10 +2985,10 @@
         },
         "metaActivity": "Activiteit",
         "search": "Zoek een activiteit",
-        "packsAvailable": "Geschikt voor cursuskaarten:",
+        "packsAvailable": "Beschikbare leskaarten:",
         "reviews": "Ledenbeoordelingen: ",
         "navigation": {
-            "goToPaymentPack": "Cursuskaarten"
+            "goToPaymentPack": "Leskaarten"
         },
         "actions": {
             "search": "Zoek een activiteit",
@@ -3103,7 +3121,7 @@
         "edit": "Wijzigen"
     },
     "member": {
-        "pass_owner": "Geldige cursuskaart",
+        "pass_owner": "Geldige leskaart",
         "bornIn": "Geboren de ",
         "showPreviousBooking": "Zie eerdere reserveringen",
         "memberList": "Overzicht",
@@ -3136,14 +3154,14 @@
             "payment": "Facturen",
             "privateBooking": "Afspraken",
             "privateConsumerPass": "Afspraakkaarten",
-            "paymentPack": "Lidmaatschappen",
+            "paymentPack": "Kaarten",
             "invoices": "Facturen en abonnementen",
             "contact": "Contact",
             "vod": "Video On Demand"
         },
         "forms": {
             "merge": {
-                "explainBookingsAndPassAndInvoiceAndNotes": "Cursuskaarten, reserveringen, facturen en aantekeningen worden overgemaakt.",
+                "explainBookingsAndPassAndInvoiceAndNotes": "De leskaarten, reserveringen, facturen en aantekeningen worden overgezet.",
                 "explainTags": "Verwijderde tags van leden worden niet overgedragen",
                 "cancel": "Annuleren",
                 "submit": "Samenvoegen",
@@ -3163,6 +3181,9 @@
             "update": {
                 "title": "Informatie bewerken",
                 "success": "Wijzigingen opgeslagen"
+            },
+            "phone": {
+                "error": "Ongeldig telefoonnummer"
             }
         },
         "user": {
@@ -3205,9 +3226,12 @@
         "addMember": "Een lid toevoegen",
         "row": {
             "headers": {
-                "actions": "Acties"
+                "actions": "Acties",
+                "newsletter_email": "Accepteert marketingmails"
             },
-            "update": "Bewerken"
+            "update": "Bewerken",
+            "no": "Nee",
+            "yes": "Ja"
         },
         "paymentAction": {
             "toBill": "In rekening brengen",
@@ -3217,10 +3241,10 @@
         "regularizeBalance": "Betaling afronden",
         "cashoutBalance": "Uitbetalen",
         "creditAccountBalance": "Interne rekening (saldo)",
-        "showPaymentPack": "Zie cursuskaarten",
+        "showPaymentPack": "Toon leskaarten",
         "showSubscriptions": "Zie abonnementen",
         "relation": {
-            "pleaseSelectRelation": "Selecteer een relatie om de gedeelde lidmaatschappen te zien"
+            "pleaseSelectRelation": "Selecteer een relatie om de gedeelde kaarten te zien"
         },
         "showInvoices": "Bekijk facturen",
         "birth": {
@@ -3243,9 +3267,9 @@
     "booking": {
         "bookingModule": {
             "section": {
-                "consumerPacks": "Mijn lidmaatschappen",
+                "consumerPacks": "Mijn kaarten",
                 "contracts": "Abonnementen",
-                "paymentPacks": "Lidmaatschappen",
+                "paymentPacks": "Kaarten",
                 "paymentCombos": "Promoties",
                 "contract": "Abonneren"
             },
@@ -3283,7 +3307,7 @@
             "pleaseSelectABooking": "Selecteer een reservering om de details te zien",
             "title": "Reserveringsgegevens",
             "offerTitle": "Inschrijving(en)",
-            "consumerPaymentPackTitle": "Gebruikt lidmaatschap"
+            "consumerPaymentPackTitle": "Gebruikte kaart"
         },
         "source": {
             "app": "Mobiele app",
@@ -3461,8 +3485,8 @@
             "item": {
                 "explain": "Alle voorgaande weken {{dayOfWeek}} - {{hour}}:{{minute}}, {{delayWeek}}"
             },
-            "explain": "Dit lid wordt altijd {{ delayWeek }} weken van tevoren voor sessies op {{ dayOfWeek}} om {{hour}}:{{minute}} ingeschreven. Leden moeten een compatibel en geldig lidmaatschap bezitten om te kunnen worden ingeschreven.",
-            "needConsumerPack": "Dit lid bezit niet de juiste cursuskaart. Het is niet mogelijk om een herhalende reservering in te plannen",
+            "explain": "Dit lid wordt altijd {{ delayWeek }} weken van tevoren voor sessies op {{ dayOfWeek}} om {{hour}}:{{minute}} ingeschreven. Leden moeten een compatibel en geldige kaart bezitten om te kunnen worden ingeschreven.",
+            "needConsumerPack": "Dit lid bezit niet de juiste leskaart. Het is niet mogelijk om een herhalende reservering in te plannen.",
             "recurrentBookings": "Herhalende reserveringen",
             "actions": {
                 "save": "Opslaan",
@@ -3497,8 +3521,8 @@
             },
             "bookingsTitle": "Reserveer",
             "addSession": "Sessies toevoegen",
-            "noPackAvailable": "Deze sessie heeft geen compatibele lidmaatschappen!",
-            "noPackAvailable_plural": "Deze sessies hebben geen compatibele lidmaatschappen. Je zal de sessies apart moeten reserveren!",
+            "noPackAvailable": "Deze sessie heeft geen compatibele kaarten!",
+            "noPackAvailable_plural": "Deze sessies hebben geen compatibele kaarten. Sessies moeten apart worden gereserveerd!",
             "packTitle": "Mijn reserveringsmethode",
             "offerStatus": {
                 "waiting_list_status": {
@@ -3591,10 +3615,10 @@
         },
         "offerDetail": {
             "emptyList": "Geen enkele student heeft zich voor deze cursus ingeschreven",
-            "noConsumerPaymentPack": "Geen geldige cursuskaart!",
+            "noConsumerPaymentPack": "Er is geen geldige leskaart!",
             "backToOfferList": "Terug naar sessies",
             "cancelRegistration": "Annuleren",
-            "register": "Schrijf je voor deze cursus in",
+            "register": "Mezelf aanmelden",
             "activateBarcode": "Streepjescode detector",
             "isFull": "Vol",
             "actions": {
@@ -3608,7 +3632,7 @@
         "memberList": {
             "checkIn": "Check in",
             "checkedIn": "Opgeslagen",
-            "empty": "Geen enkele student heeft zich voor deze cursus ingeschreven"
+            "empty": "Geen enkele student heeft zich voor deze les ingeschreven"
         },
         "confirmPage": {
             "classLocation": "Uw sessie vindt plaats op",
@@ -3661,7 +3685,7 @@
         "marketplace": {
             "marketplaceWorkshop": "Workshops",
             "marketplaceCalendar": "Agenda",
-            "marketplacePass": "Cursuskaarten",
+            "marketplacePass": "Leskaarten",
             "marketplaceShop": "Webshop"
         },
         "dashboard": {
@@ -3679,8 +3703,8 @@
             "workshopActivityFormPage": "[Formulier] Workshop"
         },
         "paymentPack": {
-            "paymentPackFormPage": "[Formulier] Cursuskaart",
-            "paymentPackList": "Cursuskaarten"
+            "paymentPackFormPage": "[Formulier] Leskaart",
+            "paymentPackList": "Leskaarten"
         },
         "marketing": {
             "marketingDashboard": "Campagnes",
@@ -3762,7 +3786,7 @@
                     "label": "Doorlopende betaling"
                 },
                 "object_type": {
-                    "paymentPack": "Cursuskaarten",
+                    "paymentPack": "Leskaarten",
                     "privatePass": "Afspraakkaarten",
                     "label": "Inhoud",
                     "paymentCombo": "Pakketten"
@@ -3789,7 +3813,7 @@
                     "section": "Instellingen"
                 },
                 "interval": {
-                    "helperText": "Aantal facturen / lidmaatschappen",
+                    "helperText": "Hoe vaak wordt de klant in rekening gebracht?",
                     "label": "Instellingen"
                 }
             },
@@ -3827,7 +3851,7 @@
                 "content": "Weet je zeker dat je dit contract wilt verwijderen?",
                 "title": "Verwijder contract"
             },
-            "paymentPack": "Bijbehorende cursuskaart",
+            "paymentPack": "Bijbehorende leskaart",
             "no": "Nee",
             "yes": "Ja",
             "privatePass": "Bijbehorende afspraakkaart",
@@ -3857,7 +3881,7 @@
             }
         },
         "action": {
-            "revertCurrentExplain": "Annuleer de laatste factuur en blokkeer de cursuskaart",
+            "revertCurrentExplain": "Annuleer de laatste factuur en blokkeer de leskaart",
             "revertCurrentExplainHelper": "Als de betaling geldig was, dan zal het lid een tegoed ontvangen. Je kunt het tegoed aan de klant terugbetalen door op \"Terugbetalen\" op de factuur te klikken. De schuld wordt kwijt gescholden indien de betaling mislukte.",
             "stopExplain": "De volgende betalingen worden geannuleerd en de bijbehorende facturen worden verwijderd. Als een reservering is geregistreerd met een abonnement waarvoor de factuur is geannuleerd, wordt deze ook geannuleerd.",
             "stop": "Stoppen",
@@ -3888,7 +3912,7 @@
             "billing_plan-payment_success": "Betaling gelukt",
             "billing_plan-payment_failure": "Betaling geweigerd",
             "billing_plan-update_payment_method": "Betaalmethode gewijzigd",
-            "billing_plan-update_payment_pack": "Cursuskaart gewijzigd"
+            "billing_plan-update_payment_pack": "De leskaart is bijgewerkt"
         },
         "save": "bevestigen",
         "table": {
@@ -3903,8 +3927,8 @@
             "pauseSection": "Pauzes",
             "switchPack": {
                 "form": {
-                    "title": "Cursuskaart wijzigen",
-                    "explain": "Deze cursuskaart wordt gefactureerd i.p.v. de oude cursuskaart op alle toekomstige facturen. Sessies die met de oude cursuskaart geboekt zijn worden overgezet naar de nieuwe cursuskaart, zelfs als deze niet compatibel zijn.",
+                    "title": "Leskaart wijzigen",
+                    "explain": "Deze nieuwe leskaart zal voortaan worden gebruikt voor de toekomstige facturatie. Sessies die met de oude leskaart geboekt zijn worden overgezet naar de nieuwe leskaart, zelfs als deze niet compatibel zijn.",
                     "warning": "De facturatie blijft hetzelfde. Als je het maandelijkse bedrag wil verhogen/verlagen, wijzig dan elke maandelijkse betaling afzonderlijk.",
                     "cancel": "Annuleren",
                     "submit": "Opslaan"
@@ -3930,7 +3954,7 @@
             "actions": {
                 "switchPaymentMethod": "Betaalmethode wijzigen",
                 "freeze": "Pauzeren",
-                "switchPack": "Cursuskaart bewerken",
+                "switchPack": "Leskaart bewerken",
                 "advanceTime": "Factuur vooraf betalen",
                 "postPone": "Factuur uitstellen",
                 "changeDate": "Wijzig de datum",
@@ -3947,7 +3971,7 @@
             "scheduledStop": {
                 "title": "De beëindiging van dit abonnement inplannen",
                 "explain": "Selecteer de laatste betaling voor het abonnement.",
-                "summary": "De laatste geprogrammeerde betaling is op {{-date}} en komt overeen met de laatste geldige cursuskaart.",
+                "summary": "De laatste geprogrammeerde betaling is op {{-date}} en komt overeen met de laatste geldige leskaart.",
                 "listItem": "Geplande opzegging van het abonnement"
             },
             "invoice": {
@@ -4023,11 +4047,11 @@
             "member": "Lid",
             "dateCreated": "Aanmaakdatum",
             "nbInterval": "Aantal incasso's",
-            "paymentPack": "Cursuskaarten",
+            "paymentPack": "Leskaarten",
             "nbMonths": "Aantal incasso's",
             "dateStart": "Eerste factuurdatum",
             "firstBilling": "Eerste factuurdatum",
-            "payment_pack": "Cursuskaarten",
+            "payment_pack": "Leskaarten",
             "private_pass": "Afspraakkaarten",
             "privatePass": "Afspraakkaarten",
             "note": "Notitie",
@@ -4035,7 +4059,8 @@
                 "14": "Intern saldo",
                 "2": "SEPA",
                 "1": "Creditcard"
-            }
+            },
+            "paymentCombo": "Pakket"
         },
         "cancel": "annuleren",
         "plannedInvoiceStatus": {
@@ -4114,7 +4139,13 @@
                 "dateFilter": {
                     "label": "Pauzeer alleen abonnementen die tussen deze twee data worden gefactureerd"
                 },
-                "explainImpossible": "Een abonnement kan niet automatisch worden gepauzeerd als er momenteel een betaling wordt uitgevoerd of binnen 24 uur wordt verwacht."
+                "explainImpossible": "Een abonnement kan niet automatisch worden gepauzeerd als er momenteel een betaling wordt uitgevoerd of binnen 24 uur wordt verwacht.",
+                "paymentPackActions": {
+                    "title": "Kaarten",
+                    "disableTillNextInvoice": "Deactiveer het gefactureerde abonnement tot de eerstvolgende facturatie",
+                    "extendTillNextInvoice": "Verleng de geldigheid van het gefactureerde abonnement tot de eerstvolgende facturatie",
+                    "doNotChange": "Het gefactureerde abonnement niet wijzigen"
+                }
             },
             "actions": {
                 "previous": "Terug",
@@ -4183,7 +4214,7 @@
             "lock": {
                 "accessDenied": "Momenteel heb je nog geen toegang tot deze video.",
                 "pleaseAuthenticated": "Log in om deze video te bekijken.",
-                "buyPass": "Schaf een cursuskaart aan",
+                "buyPass": "Schaf een leskaart aan",
                 "useConsumerPass": "Toegang ontgrendelen"
             },
             "filter": {
@@ -4255,14 +4286,23 @@
                 "creditPrice": {
                     "label": "Prijs in krediet(en)",
                     "helperText": "Laat dit veld op 0 om de video beschikbaar voor al je leden te maken"
+                },
+                "video_label": "Video",
+                "video_source": {
+                    "change_popup_text": "De huidige video zal worden verwijderd. Leden die deze hebben gekocht, krijgen nu toegang tot de nieuwe video.",
+                    "change_popup_title": "Video wijzigen",
+                    "edit_button": "Video wijzigen",
+                    "uploaded_video": "Bestand geüpload",
+                    "youtube_video": "YouTube-video",
+                    "title": "Video"
                 }
             },
             "level": "Niveau",
             "creditPrice": "Kosten (in kredieten)",
             "register": {
-                "buyPass": "Toon lidmaatschappen",
+                "buyPass": "Toon kaarten",
                 "title": "Video On Demand",
-                "noPassAvailable": "Je bezit nog geen compatibel lidmaatschap."
+                "noPassAvailable": "Je bezit nog geen compatibele kaart."
             },
             "analytics": {
                 "dateCreated": "Online beschikbaar maken",
@@ -4283,12 +4323,13 @@
                 "alert": "Een afbeelding is vereist"
             },
             "manager_only_helper": "Deze video kan alleen door managers worden bekeken.",
-            "manager_only": "Niet beschikbaar"
+            "manager_only": "Niet beschikbaar",
+            "duplicate": "Dupliceren"
         },
         "details": {
             "pleaseSelectVod": "Selecteer een video voor een gedetailleerd overzicht.",
             "invoiceTitle": "Bijbehorende factuur",
-            "consumerPaymentPackTitle": "Het gebruikte lidmaatschap",
+            "consumerPaymentPackTitle": "Gebruikte kaart",
             "title": "Details van de video"
         }
     },
@@ -4474,7 +4515,7 @@
                 "selectPrivateServiceTypeList": "Alle afspraken",
                 "selectPrivateServiceType": "Type",
                 "hidePrivatePass": "Geen afspraakkaarten tonen",
-                "hidePaymentPack": "Geen cursuskaarten tonen",
+                "hidePaymentPack": "Geen leskaarten tonen",
                 "hidePaymentCombo": "Geen pakketten tonen",
                 "todayOnly": "Alleen de sessies van vandaag tonen"
             },
@@ -4483,7 +4524,7 @@
                 "shop": "Webshop",
                 "subscription": "Abonnementen",
                 "vod": "Video On Demand",
-                "pass": "Lidmaatschappen",
+                "pass": "Kaarten",
                 "privateService": "Afspraken",
                 "workshop": "Workshops",
                 "calendar": "Agenda",
@@ -4575,8 +4616,8 @@
                 "registeredOn": "Gereserveerd op ",
                 "source": "Gereserveerd via ",
                 "slotTitle": "Sessie",
-                "passTitle": "Cursuskaarten",
-                "wasRefunded": "Het tegoed wordt teruggestort op de cursuskaart",
+                "passTitle": "Leskaarten",
+                "wasRefunded": "Het tegoed wordt teruggestort op de leskaart",
                 "wasRefundedYes": "Ja",
                 "wasRefundedNo": "Nee",
                 "address": "Adres",
@@ -4735,8 +4776,8 @@
             "searchSlot": "Tijdstip",
             "noPrivateServiceAvailable": "Momenteel zijn er geen afspraken ingepland",
             "bookingCapabilities": {
-                "compatibleConsumerPassTitle": "Mijn lidmaatschappen",
-                "compatiblePassTitle": "Compatibele lidmaatschappen",
+                "compatibleConsumerPassTitle": "Mijn kaarten",
+                "compatiblePassTitle": "Compatibele kaarten:",
                 "emptyPassList": "Er is geen compatibele afspraakkaart aangemaakt voor deze activiteit. Gelieve contact opnemen met de studio.",
                 "emptyConsumerPassList": "Je hebt nog geen geldige afspraakkaart met voldoende krediet(en)."
             },
@@ -4797,7 +4838,7 @@
                     },
                     "submit": "Aanmaken",
                     "cancel": "Annuleren",
-                    "title": "Geldigheid van een cursuskaart verlengen"
+                    "title": "Geldigheid van een leskaart verlengen"
                 },
                 "delete": {
                     "confirm": "Bevestigen",
@@ -4810,7 +4851,7 @@
             },
             "isFromDisabledShare": "Delen gestopt",
             "isOwnerOfShares": "Gedeeld (mastercard voor afspraken)",
-            "isFromShare": "Dit lidmaatschap wordt met een ander account gedeeld"
+            "isFromShare": "Deze kaart wordt met een ander account gedeeld."
         },
         "privateServiceCompatibility": {
             "delete": {
@@ -4842,7 +4883,7 @@
                     "helperText": "Geef het aantal inbegrepen kredieten aan."
                 },
                 "durationDays": {
-                    "helperText": "Geldigheid van dit lidmaatschap (in dagen) ",
+                    "helperText": "Geldigheid van deze kaart (in dagen) ",
                     "label": "Geldigheidsduur (in dagen) indien van toepassing"
                 },
                 "title": "Afspraakkaarten",
@@ -5194,7 +5235,7 @@
             "notReverted": "Niet-geannuleerde facturen",
             "credits": "Krediet(en)",
             "expiration": "Geldigheid",
-            "all": "Alle lidmaatschappen"
+            "all": "Alle kaarten"
         },
         "privateBookingNotification": {
             "form": {
@@ -5529,8 +5570,8 @@
                 "bonus": "Bonus",
                 "forInterval": "voor alle intervallen"
             },
-            "paymentPackPlaceHolder": "Selecteer cursuskaarten",
-            "excludePaymentPack": "De reserveringen van bepaalde lidmaatschappen uitsluiten",
+            "paymentPackPlaceHolder": "Selecteer leskaarten",
+            "excludePaymentPack": "De reserveringen van bepaalde kaarten uitsluiten",
             "bonusForEachReservationInInterval": "Een bonus per reservering van dit interval toevoegen",
             "fixedBonusbyInterval": "Een vaste bonus per interval toevoegen",
             "cancellationBaseHelper": "Vink dit vak aan om geen bonus over de marginale waarde van annuleringen uit te betalen.",
@@ -5544,7 +5585,7 @@
             "differentRemunerationForCancellation": "Andere payroll-regels voor afwezige leden en te late annuleringen toepassen ",
             "addRemunerationOnCancellation": "Betaal instructeurs voor afwezige leden en te late annuleringen",
             "percentage_base": "Een percentage over de marginale waarde van de reserveringen toevoegen",
-            "base_remuneration": "Vast bedrag toevoegen",
+            "base_remuneration": "Vast bedrag",
             "forCancelledBookings": "Afwezige leden en te late annuleringen meetellen",
             "forConfirmedBookings": "Geldt alleen voor aanwezige leden",
             "calculationMethod": "Rekenmethode",
@@ -5552,7 +5593,8 @@
             "coaches": "Instructeurs",
             "name": "Naam",
             "addNewCoachPaymentRule": "[Formulier] Payroll-regel",
-            "base_remuneration_helper": "Een vast bedrag wordt altijd standaard toegevoegd."
+            "base_remuneration_helper": "Een vast bedrag wordt altijd standaard toegevoegd.",
+            "set_base_remuneration": "Een vast bedrag toevoegen"
         },
         "tabs": {
             "all": "Selecteer alles",
@@ -5634,7 +5676,7 @@
             }
         },
         "goBack": "Terug",
-        "availablePaymentPacks": "Compatibele cursuskaarten: ",
+        "availablePaymentPacks": "Compatibele leskaarten: ",
         "actions": {
             "addThisPaymentItem": "Betaalmethode opslaan"
         },
@@ -5714,12 +5756,12 @@
                     "success": "Delen gestopt"
                 },
                 "create": {
-                    "success": "Gedeelde cursuskaart",
-                    "error": "Kan deze cursuskaart niet delen"
+                    "success": "Gedeelde leskaart",
+                    "error": "Fout bij het delen van deze leskaart"
                 },
                 "relink": {
                     "success": "Delen opgeslagen",
-                    "error": "Kan deze cursuskaart niet delen"
+                    "error": "Kan deze leskaart niet delen"
                 }
             },
             "edit": {
@@ -5753,19 +5795,19 @@
         "paymentPack": {
             "createOrUpdate": {
                 "success": "Wijzigingen opgeslagen",
-                "fail": "Fout bij opslaan van cursuskaart"
+                "fail": "Fout bij opslaan van leskaart"
             },
             "credit": {
                 "updated": "Wijzigingen opgeslagen",
                 "error": "Fout bij opslaan"
             },
             "paymentPackDisabled": {
-                "error": "Kan cursuskaart niet uitschakelen",
-                "success": "Cursuskaart geblokkeerd"
+                "error": "Fout bij het deactiveren van de leskaart",
+                "success": "Leskaart geblokkeerd"
             },
             "paymentPackEnabled": {
-                "error": "Cursuskaart kan niet worden hersteld",
-                "success": "Cursuskaart hersteld"
+                "error": "Fout bij het herstellen van de leskaart",
+                "success": "Leskaart succesvol hersteld"
             }
         },
         "coupon": {
@@ -5791,7 +5833,7 @@
                 "error": "Kan betaalmethode niet wijzigen"
             },
             "switchPack": {
-                "error": "Kan cursuskaart niet wijzigen",
+                "error": "Fout bij het wijzigen van de leskaart",
                 "success": "Betaalmethode gewijzigd"
             },
             "freeze": {
@@ -5891,7 +5933,7 @@
                 "title": "Leden samenvoegen",
                 "submit": "Samenvoegen",
                 "explainCredit": "Interne account van lid overmaken",
-                "explainBookingsAndPassAndInvoiceAndNotes": "Cursuskaarten, reserveringen, facturen en aantekeningen worden overgemaakt.",
+                "explainBookingsAndPassAndInvoiceAndNotes": "De leskaarten, reserveringen, facturen en aantekeningen worden overgezet.",
                 "explainTags": "Verwijderde tags van leden worden niet overgedragen",
                 "cancel": "Annuleren"
             },
@@ -6156,7 +6198,7 @@
         "bookerModule": {
             "pass": {
                 "nothingAvailable": "Het is niet mogelijk om meerdere sessies tegelijk te reserveren.",
-                "changed": "De compatibele cursuskaart is gewijzigd"
+                "changed": "De leskaart is succesvol gewijzigd"
             }
         },
         "settings": {
@@ -6254,18 +6296,18 @@
     "relationship": {
         "consumer_payment_pack_links": {
             "list": {
-                "isEmpty": "Geen gedeelde cursuskaarten",
-                "create": "Een cursuskaart delen",
-                "title": "Gedeelde cursuskaarten"
+                "isEmpty": "Geen gedeelde leskaarten",
+                "create": "Een leskaart delen",
+                "title": "Gedeelde leskaarten"
             },
             "form": {
                 "create": {
-                    "explain": "Deze cursuskaart wordt door meerdere leden gedeeld. Ieder gekoppeld lid kan de kredieten gebruiken.",
-                    "title": "Een cursuskaart delen",
+                    "explain": "Deze leskaart wordt door meerdere leden gedeeld. Ieder gekoppeld lid kan de kredieten gebruiken.",
+                    "title": "Een leskaart delen",
                     "previous": "Terug",
                     "submit": "Delen",
                     "linkButton": "Delen",
-                    "noConsumerPackToLink": "Geen deelbare cursuskaart",
+                    "noConsumerPackToLink": "Geen deelbare leskaarten",
                     "cancel": "Annuleren"
                 },
                 "unlink": {
@@ -6301,7 +6343,7 @@
                 "shareEmail": "Altijd CC'en"
             },
             "list": {
-                "pleaseSelectOne": "Selecteer een persoon om de gedeelde lidmaatschappen te bekijken.",
+                "pleaseSelectOne": "Selecteer een persoon om de gedeelde kaarten te bekijken.",
                 "actions": {
                     "create": "Een relatie toevoegen"
                 },
@@ -6344,7 +6386,7 @@
                 "title": "Relatie verwijderen",
                 "submit": "Verwijderen",
                 "cancel": "Annuleren",
-                "content": "Let op! Deze actie is definitief. Gedeelde lidmaatschappen worden niet langer gedeeld."
+                "content": "Let op! Deze actie is definitief. Gedeelde kaarten worden niet langer gedeeld."
             }
         }
     },
@@ -6364,7 +6406,7 @@
                 "choices": {
                     "null": "Volledige winkelmand",
                     "9": "Afspraakkaarten",
-                    "1": "Cursuskaarten",
+                    "1": "Leskaarten",
                     "2": "Webshop",
                     "6": "Verzendkosten",
                     "all": "Volledige winkelmand"
@@ -6373,7 +6415,7 @@
             "selectorPlaceholder": {
                 "privatePass": "Selecteer afspraakkaarten (geldig op alle afspraakkaarten indien leeg)",
                 "shopitem": "Selecteer producten uit je webshop (geldig op alle producten indien leeg)",
-                "paymentPack": "Selecteer cursuskaarten (geldig op alle cursuskaarten indien leeg)"
+                "paymentPack": "Als je geen leskaart(en) selecteert is de promotie op alle leskaarten geldig"
             },
             "section": {
                 "general": "Algemeen",
@@ -6383,8 +6425,9 @@
                 "applies_to": "Instellingen",
                 "advanced": "Geavanceerd",
                 "subscription": "Abonnementen (contracten)",
-                "whitelist_tags": "Kan alleen worden gebruikt door leden met tag:",
-                "tags": "Tags"
+                "whitelist_tags": "Kan alleen worden gebruikt door leden met de tag(s):",
+                "tags": "Tags",
+                "blacklist_tags": "Kan niet worden gebruikt door leden met de tag(s):"
             },
             "name": {
                 "label": "Naam"
@@ -6444,7 +6487,8 @@
                 "select": {
                     "empty_tag_list": "Geen sub-tag geselecteerd",
                     "tag": "Selecteer een sub-tag",
-                    "tag_group": "Kies een hoofd-tag"
+                    "tag_group": "Kies een hoofd-tag",
+                    "error": "Dezelfde tag kan niet in beide lijsten voorkomen"
                 },
                 "tag": "Sub-tag",
                 "tag_group": "Hoofd-tag"
@@ -6471,7 +6515,7 @@
             "member_use": "gebruik per lid",
             "member_uses": "gebruik per lid",
             "limitation": "Beperkt tot",
-            "blacklist_tags": "Leden met bepaalde tags uitsluiten",
+            "blacklist_tags": "Niet beschikbaar voor leden met de tag(s):",
             "whitelist_tags": "Alleen beschikbaar voor leden met bepaalde tags"
         },
         "code": {
@@ -6617,7 +6661,7 @@
                 "9": "Afspraakkaarten",
                 "6": "Verzendkosten",
                 "2": "Producten",
-                "1": "Cursuskaarten"
+                "1": "Leskaarten"
             }
         },
         "save": "Opslaan",
@@ -6711,7 +6755,7 @@
         },
         "search": "Zoek een workshop",
         "navigation": {
-            "goToPaymentPack": "Cursuskaarten"
+            "goToPaymentPack": "Leskaarten"
         },
         "actions": {
             "search": "Zoek een workshop",
@@ -6770,8 +6814,8 @@
             "themePersonalization": {
                 "calendar": {
                     "offerCard": {
-                        "helperText": "Verander de stijl van cursuskaarten",
-                        "label": "Cursuskaarten",
+                        "helperText": "Verander de stijl van leskaarten",
+                        "label": "Leskaarten",
                         "placeholder": "Voer CSS-code in"
                     },
                     "columns": {
@@ -6920,7 +6964,7 @@
             "addPrivatePassToCart": "Wanneer een gebruiker een afspraakkaart aan zijn/haar winkelmandje toevoegt",
             "gtmEvent": "[Google Tag Management] Evenementen",
             "showBasket": "Wanneer een gebruiker zijn/haar winkelmandje opent",
-            "showPass": "Wanneer een gebruiker op een cursuskaart klikt",
+            "showPass": "Wanneer een gebruiker op een leskaart klikt",
             "addPackToCart": "Wanneer een gebruiker een pakket aan zijn/haar winkelmandje toevoegt",
             "addShopItemToCart": "Wanneer een gebruiker een product uit je webshop aan zijn/haar winkelmandje toevoegt",
             "signupShow": "Wanneer een gebruiker het registratieformulier opent",
@@ -6930,7 +6974,7 @@
             "contractShow": "Wanneer een gebruiker op een abonnement klikt",
             "contractPaymentShow": "Wanneer een gebruiker zich op de betaalpagina van een abonnement bevindt",
             "showAnalyticsInformation": "Toon evenementen",
-            "addPassToCart": "Wanneer een gebruiker een cursuskaart aan zijn/haar winkelmandje toevoegt",
+            "addPassToCart": "Wanneer een gebruiker een leskaart aan zijn/haar winkelmandje toevoegt",
             "paymentSuccess": "Wanneer een gebruiker een succesvolle betaling verricht",
             "signinShow": "Wanneer een gebruiker de inlogpagina opent",
             "sessionShow": "Wanneer een gebruiker een sessie selecteert",
@@ -7023,7 +7067,7 @@
                     },
                     "disable_pass_on_fail_subscription_payment": {
                         "label": "Deactiveer abonnementen als de betaling mislukt",
-                        "helperText": "Het systeem zal de cursus- en/of afspraakkaarten van de factuur in kwestie deactiveren als de betaling mislukt of wordt gedisputeerd."
+                        "helperText": "Het systeem zal de les- en/of afspraakkaarten van de factuur in kwestie deactiveren als de betaling mislukt of wordt gedisputeerd."
                     }
                 },
                 "title": "Abonnement"
@@ -7054,7 +7098,7 @@
                 "9": "Afspraakkaarten",
                 "3": "Krediet(en)",
                 "2": "Webshop",
-                "1": "Cursuskaarten"
+                "1": "Leskaarten"
             },
             "discount": "Korting"
         },
@@ -7205,8 +7249,8 @@
             "dialog": {
                 "title": "Factuur annuleren",
                 "actions": {
-                    "confirm": "Terugbetalen",
-                    "cancel": "Annuleren"
+                    "confirm": "Bevestigen",
+                    "cancel": "Sluiten"
                 }
             }
         },
@@ -7335,8 +7379,8 @@
                 "title": "Wachtlijstbeheer"
             },
             "auto_consume_pack": {
-                "helper": "Een lid wordt direct ingeschreven zodra er een plaats vrijkomt indien hij/zij een geldig lidmaatschap bezit. Het systeem belast automatisch het lidmaatschap dat als eerste vervalt en het minste krediet heeft.",
-                "label": "Automatisch het lidmaatschap van een lid belasten zodra er een plaats vrij komt."
+                "helper": "Een lid wordt direct ingeschreven zodra er een plaats vrijkomt indien hij/zij een geldige kaart bezit. Het systeem gebruikt automatisch de kaart dat als eerste vervalt en het minste krediet heeft.",
+                "label": "Automatisch de kaart van een lid in rekening brengen zodra er een plaats vrij komt."
             },
             "is_option_blocking": {
                 "helper": "Zolang een lid op de wachtlijst staat, wordt er een plaats voor hem/haar vrij gehouden tot hij/zij zich aanmeldt.",
@@ -7535,7 +7579,8 @@
                 "order": "Mijn bestellingen",
                 "profile": "Mijn profiel",
                 "bookings": "Mijn reserveringen ",
-                "pass": "Cursuskaarten"
+                "pass": "Leskaarten",
+                "subscriptions": "Mijn abonnementen"
             },
             "beta": "Bèta",
             "coachPerformance": "Instructeurs",
@@ -7586,7 +7631,7 @@
                 "widget": "Widgets",
                 "paymentMethod": "Betaalmethoden"
             },
-            "pass": "Cursuskaarten",
+            "pass": "Leskaarten",
             "goBack": "Terug",
             "refresh": "Actualiseren",
             "logoff": "Afmelden",
@@ -7733,12 +7778,12 @@
                 "validity": "Geldigheid"
             },
             "groupTitle": {
-                "paymentPack": "Cursuskaarten",
+                "paymentPack": "Leskaarten",
                 "privateBooking": "Afspraken",
                 "booking": "Groepsactiviteiten"
             },
             "fabLabels": {
-                "payment_pack": "Cursuskaarten",
+                "payment_pack": "Leskaarten",
                 "private_service": "Afspraken",
                 "establishment": "Vestigingen",
                 "meta_activity": "Groepsactiviteiten",
@@ -7746,9 +7791,9 @@
             },
             "cancel": "Annuleren",
             "next": "Volgende",
-            "paymentPackPlaceholder": "Cursuskaarten",
+            "paymentPackPlaceholder": "Leskaarten",
             "selectIdentifierLabel": {
-                "payment_pack": "Selecteer een cursuskaart",
+                "payment_pack": "Selecteer een leskaarten",
                 "private_service": "Selecteer een afspraak",
                 "establishment": "Selecteer een vestiging",
                 "meta_activity": "Selecteer een activiteit",

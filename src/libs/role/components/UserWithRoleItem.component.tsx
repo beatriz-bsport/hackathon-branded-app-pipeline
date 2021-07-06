@@ -18,7 +18,7 @@ import withConfirm from '../../../hocs/with-confirm.hoc';
 import { Role, UserRole } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
 import { getRoleName } from '../utils';
-import { OWNER_ROLE } from '../role-types';
+import { OWNER_ROLE, CHECKIN_APP_ROLE } from '../role-types';
 
 const DeleteButton = withConfirm(
   (props: { deleteUser: () => void }) => (
@@ -64,7 +64,10 @@ const UserWithRole = (props: Props) => {
       <FormControl>
         <Select
           className={props.classes.roleField}
-          disabled={props.user.role === OWNER_ROLE}
+          disabled={
+            props.user.role === OWNER_ROLE ||
+            props.user.role === CHECKIN_APP_ROLE
+          }
           value={props.user.role || 0}
           onChange={(ev: any) => {
             props.handleRoleChange(parseInt(ev.target.value, 10));
@@ -73,7 +76,7 @@ const UserWithRole = (props: Props) => {
         >
           {props.roles.map((role) => (
             <MenuItem
-              disabled={role.id === OWNER_ROLE}
+              disabled={role.id === OWNER_ROLE || role.id === CHECKIN_APP_ROLE}
               key={role.id}
               value={role.id}
             >

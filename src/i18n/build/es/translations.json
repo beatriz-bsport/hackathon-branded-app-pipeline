@@ -49,7 +49,7 @@
         },
         "paymentMethod": {
             "CB": "Tarjeta de crédito",
-            "CB_MANUAL": "Tarjeta de crédito (manual)",
+            "CB_MANUAL": "Datáfono",
             "CHECK": "Cheque",
             "HOLIDAY_CHECK": "Cheque de vacaciones",
             "CASH": "Efectivo",
@@ -105,7 +105,7 @@
             "paymentMethod": "Método de pago",
             "activity": "Actividad",
             "datetime": "Sesión",
-            "paymentPack": "Tarjeta de curso",
+            "paymentPack": "Bono",
             "amount": "Cantidad",
             "continue": "Continuar",
             "credit_s": "Crédito(s)",
@@ -171,15 +171,15 @@
             "sizeOfWaitingList": "Tamaño de la lista de espera",
             "offersPendingChange": "Sesiones que serán modificadas :",
             "offersPendingDelete": "Sesiones que serán suprimidas :",
-            "noPackAvailableForOfferPurchase": "¡Ninguna tarjeta de curso compatible con esta sesión!",
-            "noConsumerPackAvailableForPurchase": "¡Ninguna tarjeta de curso compatible propiedad de este miembro!",
+            "noPackAvailableForOfferPurchase": "¡Ningún bono compatible con esta sesión!",
+            "noConsumerPackAvailableForPurchase": "¡Ningún bono compatible propiedad de este miembro!",
             "backToCalendar": "Calendario",
             "previousOffer": "Sesión previa",
             "nextOffer": "Próxima sesión",
             "disabled": "cancelado",
             "substitute": "Sustituto",
-            "compatiblePacks": "Tarjetas compatibles",
-            "noCompatiblePacks": "Ninguna tarjeta de curso es compatible con esta sesión",
+            "compatiblePacks": "Bonos compatibles",
+            "noCompatiblePacks": "Ningún bono es compatible con esta sesión",
             "extraordinaryEstablishment": "(lugar temporal)",
             "addInvoice": "Facturar",
             "myBookings": "Reservas",
@@ -191,7 +191,7 @@
             "myOpenedInvoices": "Factura rápida",
             "manageOffer": "Gestionar mis reservas",
             "bill": "Facturar",
-            "noncompatibleConsumerPaymentPacksAre": "Posee las siguientes tarjetas, no compatibles con esta sesión:",
+            "noncompatibleConsumerPaymentPacksAre": "Posee los siguientes bonos, no compatibles con esta sesión:",
             "broadcast_link": "Enlace de videoconferencia",
             "createBookingOption": "Lista de espera",
             "noEmptyDuration": "La duración debe ser estrictamente positiva",
@@ -336,12 +336,12 @@
                 "paymentDue": "Pago debido"
             },
             "invoice": {
-                "dateStartPaymentPack": "Inicio de la tarjeta de curso el",
+                "dateStartPaymentPack": "Inicio del bono el",
                 "backToInvoiceItemList": "Volver a la lista",
                 "title": "Guardar un pago",
                 "paymentLabel": "Añadir una transacción",
                 "offerHelper": "Esta sesión será acreditada al miembro",
-                "paymentPackHelper": "Esta tarjeta será acreditada al miembro",
+                "paymentPackHelper": "Este bono será acreditado al miembro",
                 "noPayedObject": "Ninguno",
                 "objectTypeLabel": "Artículo a acreditar",
                 "activityHelper": "Elige la actividad y luego la sesión",
@@ -364,7 +364,7 @@
                 "coachLabel": "Profesor",
                 "establishmentLabel": "Establecimiento",
                 "substituteEstablishmentLabel": "Establecimiento (lugar temporal)",
-                "warningPackonEdit": "Los cambios en las sesiones pueden hacerlos incompatibles con ciertas tarjetas de curso. Después de la modificación, toma el tiempo para verificar que seguirán siendo compatibles con cualquier cambio de lugar/profesor.",
+                "warningPackonEdit": "Los cambios en las sesiones pueden hacerlos incompatibles con ciertos bonoso. Después de la modificación, toma el tiempo para verificar que seguirán siendo compatibles con cualquier cambio de lugar/profesor.",
                 "deleteTitle": "Suprimir la sesión",
                 "cancelTitle": "Cancelar la sesión",
                 "changeDate": "Cambiar la hora / fecha",
@@ -376,7 +376,7 @@
                 "delete": {
                     "buttonHardDelete": "Suprimir",
                     "explainHardDelete": "¿Suprimir la sesión de la lista? Tiene en cuenta que esto se volverá invisible, ¡esta operación es irreversible! Si la sesión contiene reservas, no se suprimirá.",
-                    "explainCreditBack": "Devolver los créditos gastados a los clientes en su tarjeta de curso",
+                    "explainCreditBack": "Devolver los créditos utilizados a los clientes en su bono",
                     "explainNotify": "Enviar una alerta a los clientes que han reservado",
                     "explainModalities": "Tiene en cuenta que esta modificación es final. Tu sesión ya no será visible para los clientes finales. Todavía podrás acceder a él.",
                     "force": "Borrar incluso si las reservas ya están registradas",
@@ -443,7 +443,7 @@
             "lastSession": "Última sesión el",
             "duration_minute": "Duración",
             "priceCategory": "Facturación",
-            "credits": "Número de créditos de tarjeta de curso necesarios para reservar",
+            "credits": "Número de créditos de bono necesarios para reservar",
             "price": "Precio",
             "caracteristics": "Características",
             "effectif": "Aforo disponible",
@@ -493,7 +493,7 @@
             "oneMonth": "1 mes",
             "oneHourFifteen": "1h15",
             "twentyMinutes": "20 min",
-            "credit_price": "Número de créditos necesarios tarjeta de curso para reservar",
+            "credit_price": "Número de créditos necesarios para reservar la clase",
             "warningCreditChange": "NB: las reservas anteriores no tienen en cuenta los cambios en los créditos",
             "noAvailableCredit": "Tiene en cuenta que no estás ingresando un precio. ¿Estás seguro del valor?",
             "explainNoEmailChange": "Cambiar el email evitará que el maestro se conecte, solo él puede modificar su email conectándose a su cuenta bsport",
@@ -528,7 +528,7 @@
             "noPromo": "Ninguno"
         },
         "consumer": {
-            "myPaymentPacks": "Mis tarjetas de curso",
+            "myPaymentPacks": "Mis bonos",
             "company": "Club",
             "help": {
                 "areYouSureCancelBookingOption": "¿Estás seguro de que quieres cancelar tu opción?",
@@ -538,7 +538,7 @@
                 "cancelBooking": "Cancelar la reserva",
                 "discardBookingTitle": "Cancelar la reserva",
                 "discardPossibleExplain": "¿Estás seguro de que quieres cancelar esta reserva? Tu crédito será usable de nuevo.",
-                "discardImpossibleExplain": "¿Estás seguro de que deseas cancelar esta reserva? Cancela demasiado tarde y tu tarjeta de curso no se volverá a acreditar (términos y condiciones del club).",
+                "discardImpossibleExplain": "¿Estás seguro de que deseas cancelar esta reserva? Cancela demasiado tarde y tu bono no se volverá a acreditar (términos y condiciones del club).",
                 "confirmBooking": "Confirmar",
                 "waitingSlot": "Esperando",
                 "myFutureBookings": "Próximas sesiones",
@@ -561,7 +561,7 @@
             "coachPerformance": "Profesores",
             "beta": "beta",
             "consumer": {
-                "pass": "Tarjetas de curso",
+                "pass": "Bonos",
                 "bookings": "Mis reservas ",
                 "profile": "Mi perfil",
                 "order": "Mis pedidos"
@@ -577,7 +577,7 @@
             "payment": "Pagos",
             "logoff": "Cerrar sesión",
             "goBack": "Volver",
-            "pass": "Tarjeta de curso",
+            "pass": "Bono",
             "settings": "Parámetros",
             "myClub": "Mi Club",
             "subscription": "Suscripciones",
@@ -609,7 +609,7 @@
             "revertImpossibleExplainSubscription": "Esta factura es parte de una suscripción, no puedes cancelar una factura recibida vinculada a una suscripción, pero puedes detener la suscripción",
             "revertExplainPayment": "Los pagos con tarjeta de crédito serán devueltos al anticipo del miembro. Todos los demás métodos de pago serán suprimidos.",
             "revertExplainCredits": "Los débitos/créditos en la cuenta del miembro se revertirán.",
-            "revertExplainPacks": "Se cancelarán las tarjetas de curso, así como TODAS las reservas asociadas",
+            "revertExplainPacks": "Se cancelarán los bonos, así como TODAS las reservas asociadas",
             "revertExplainShop": "Las compras de la tienda se cancelarán y se restablecerán las existencias.",
             "invoiceReverted": "Factura cancelada",
             "finalize": "Finalizar la factura",
@@ -635,7 +635,7 @@
             "noCreditLeft": "Crédito insuficiente",
             "noBookingsLeftOnPack": "Tarjeta agotada para esta semana",
             "yourBasket": "Tu compra",
-            "availablePaymentPacks": " tarjetas de curso compatibles",
+            "availablePaymentPacks": " bonos compatibles",
             "payWithNCredits1": "Reservar (",
             "payWithNCredits2": "crédit)",
             "pay": "Pagar",
@@ -647,7 +647,7 @@
             "object": "Description",
             "addInvoiceItem": "Añadir a la factura",
             "addOffer": "Sesión",
-            "addPaymentPack": "Tarjeta de curso",
+            "addPaymentPack": "Bono",
             "updateInvoiceVoucher": "Añadir una rebaja",
             "voucher": "Rebaja",
             "total": "TOTAL",
@@ -908,7 +908,7 @@
                 }
             },
             "welcomeTo": "Bienvenido en ",
-            "pass": "Tarjeta de curso",
+            "pass": "Bono",
             "buyPack": "Comprar",
             "selector": {
                 "coach": {
@@ -926,7 +926,7 @@
                 "tabName": "Suscripción"
             },
             "private_service": "Sólo con cita previa",
-            "passListTitle": "Tarjetas cursos de grupo",
+            "passListTitle": "Bonos para clases colectivas",
             "privatePassListTitle": "Tarjetas de cita",
             "vod": "VOD",
             "playlist": "Playlist"
@@ -952,8 +952,8 @@
                 "invoiceFormPage": "Editar factura",
                 "invoiceCreatePage": "Facturar",
                 "invoiceList": "Mis transacciones",
-                "paymentPackFormPage": "Creación tarjeta de curso",
-                "paymentPackList": "Tarjetas de curso",
+                "paymentPackFormPage": "Creación bono",
+                "paymentPackList": "Bonos",
                 "members": "Miembros",
                 "member": "Alumno",
                 "memberFormPage": "Formulario del alumno",
@@ -1007,11 +1007,11 @@
             "gender": "Sexo",
             "sport": "Deporte"
         },
-        "blockBooking": "Bloquear la reserva a las tarjetas de curso nuevos clientes",
+        "blockBooking": "Bloquear la reserva a los bonos nuevos clientes",
         "languageToolTip": "Disponible en el marketplace web",
         "visibilityOfIconToolTip": "No visible",
         "replaceCoach": "Cambiar el profesor",
-        "onlyNewMember": "Bloquear la reserva a las tarjetas de curso nuevos clientes",
+        "onlyNewMember": "Bloquear la reserva a los bonos nuevos clientes",
         "bookingStatistics": {
             "weekOverview": "Resumen de tu semana",
             "offerFilteredBookingRecap": "Sesión del {{date}}",
@@ -1122,7 +1122,7 @@
                 "7": "Promoción",
                 "6": "Gastos de envío",
                 "2": "Productos de la tienda",
-                "1": "Tarjetas de curso"
+                "1": "Bonos"
             }
         },
         "bookingDropdown": {
@@ -1645,7 +1645,7 @@
                 "shop": "Tienda",
                 "subscription": "Suscripción",
                 "vod": "VOD",
-                "pass": "Tarjeta de curso",
+                "pass": "Bono",
                 "privateService": "Citas",
                 "workshop": "Talleres",
                 "calendar": "Calendario",
@@ -1994,7 +1994,7 @@
                 "9": "Tarjeta de cita",
                 "3": "Crédito",
                 "2": "Tienda",
-                "1": "Tarjeta de curso"
+                "1": "Bono"
             }
         },
         "returnPayment": {
@@ -2377,7 +2377,7 @@
             "stop": "Acabar",
             "stopExplain": "Los próximos serian cancelada y las facturas suprimidas. Si habia abonos o reservas, serian suprimidos.",
             "revertCurrentExplainHelper": "Si el pago es válido, se creará un crédito, puedes reembolsarlo al cliente ingresando la factura y haciendo clic en \"Reembolsar\". Si el pago hubiera fallado, la deuda será cancelada.",
-            "revertCurrentExplain": "Cancelar la última factura guardada y bloquear la tarjeta de curso",
+            "revertCurrentExplain": "Cancelar la última factura guardada y bloquear el bono",
             "planStop": "Programe la terminación de la suscripción"
         },
         "parameters": {
@@ -2391,11 +2391,11 @@
             "dateCreated": "Fecho de registro",
             "nbInterval": "Número de pagos recurrentes",
             "recurrent_price": "Suscripción",
-            "paymentPack": "Tarjeta de curso",
+            "paymentPack": "Bono",
             "nbMonths": "Número de pagos recurrentes",
             "dateStart": "Primera facturación",
             "firstBilling": "Primero pago",
-            "payment_pack": "Tarjeta de curso",
+            "payment_pack": "Bono",
             "flat_fee": "Gastos de reserva",
             "status": "Estado",
             "payment_method": {
@@ -2463,7 +2463,7 @@
                 },
                 "title": "Formulario contrato",
                 "object_type": {
-                    "paymentPack": "Tarjeta de curso",
+                    "paymentPack": "Bono",
                     "privatePass": "Tarjeta de cita",
                     "label": "Tipo de suscripción",
                     "paymentCombo": "Pack"
@@ -2527,7 +2527,7 @@
                 },
                 "title": "Cancelación contrato"
             },
-            "paymentPack": "Tarjeta de curso asociada",
+            "paymentPack": "Bono asociado",
             "no": "No",
             "yes": "Sí",
             "privatePass": "Tarjeta de cita asociada",
@@ -2591,7 +2591,7 @@
         "subscription": {
             "actions": {
                 "switchPaymentMethod": "Modificar el método de pago",
-                "switchPack": "Modificar la tarjeta de curso",
+                "switchPack": "Modificar el bono",
                 "freeze": "Pausar",
                 "advanceTime": "Adelante la factura",
                 "postPone": "Posponer la factura",
@@ -2607,7 +2607,7 @@
                     "submit": "Guardar",
                     "cancel": "Cancelar",
                     "explainWarning": "¡Tienes en cuenta que esta operación no es reversible!",
-                    "explain": "El próximo pago se retrasará tantos días, lo mismo para futuras tarjetas de curso",
+                    "explain": "El próximo pago se retrasará tantos días, lo mismo para futuros bonos",
                     "days": {
                         "label": "Número de días"
                     },
@@ -2627,8 +2627,8 @@
                     "submit": "Guardar",
                     "cancel": "Cancelar",
                     "warning": "La facturación seguirá siendo la misma, si deseas aumentar / disminuir la cantidad mensual, modifica cada pago mensual por separado.",
-                    "explain": "Esta tarjeta de curso se facturará en lugar de la anterior en todas las facturas futuras. Las sesiones reservadas con la tarjeta anterior se transferirán a la nueva incluso si no se supone que sea compatible.",
-                    "title": "Cambio de tarjeta de curso"
+                    "explain": "Este bono se facturará en lugar de la anterior en todas las facturas futuras. Las sesiones reservadas con el bono anterior se transferirán al nuevo incluso si no se supone que sea compatible.",
+                    "title": "Cambio de bono"
                 }
             },
             "pauseSection": "Pausas",
@@ -2648,11 +2648,11 @@
                 "label": "Factura {{uuid}} : {{price}}€"
             }
         },
-        "noContracts": "Los contratos te permitirán facturar a tus miembros regularmente (mensualmente) por una tarjeta de curso que se vuelve a acreditar cada mes/días/años.",
+        "noContracts": "Los contratos te permitirán facturar a tus miembros regularmente (mensualmente) por un bono que se vuelve a acreditar cada mes/días/años.",
         "save": "validar",
         "cancel": "cancelar",
         "events": {
-            "billing_plan-update_payment_pack": "Tarjeta de curso modificada",
+            "billing_plan-update_payment_pack": "Bono modificado",
             "billing_plan-update_payment_method": "Método de pago modificado",
             "billing_plan-payment_failure": "Pago rechazado",
             "billing_plan-payment_success": "Pago exitoso",
@@ -2735,7 +2735,7 @@
         "columns": {
             "establishment": "Establecimiento",
             "activity": "Actividad",
-            "pass": "Tarjeta de curso",
+            "pass": "Bono",
             "remaining_credits": "Crédito restante hoy",
             "duration": "Duración (minutos)",
             "date_start": "Fecha",
@@ -2752,7 +2752,7 @@
             "phonenumber": "Teléfono",
             "date_joined": "Fecha de registro",
             "gender": "Sexo",
-            "payment_pack": "Tarjeta de curso",
+            "payment_pack": "Bono",
             "activity_name": "Actividad",
             "activity_date": "Fecha de la actividad",
             "activity_duration": "Duración",
@@ -2921,7 +2921,7 @@
             "sepa": "SEPA"
         },
         "product_type": {
-            "payment_pack": "Tarjeta de curso",
+            "payment_pack": "Bono",
             "shop_item": "Tienda",
             "top_up": "Sueldo cliente",
             "private_pass": "Tarjeta de cita",
@@ -2971,7 +2971,7 @@
             "payment_sumup": "Total pagos",
             "credit": "Crédito",
             "basket": "Cesta",
-            "memberships": "Tarjetas de curso",
+            "memberships": "Bonos",
             "invoices": "Compras",
             "products": "Productos",
             "payments": "Pagos",
@@ -3603,7 +3603,7 @@
             "subscription": "Suscripción",
             "marketing": "Marketing",
             "invoice": "Facturación",
-            "payment_pack": "Tarjetas de curso"
+            "payment_pack": "Bonos"
         },
         "eventType": {
             "14": "Cancelación de la inscripción en la lista de espera (mánager)",
@@ -3616,8 +3616,8 @@
             "12": "Registro en la lista de espera",
             "10": "La plaza de la lista de espera, convertible, ha expirado para esta ronda",
             "9": "Salida de la lista de espera : reserva posible",
-            "8": "Reserva + compra simultánea tarjeta de curso",
-            "7": "Reserva a través de la tarjeta de curso",
+            "8": "Reserva + compra simultánea de un bono",
+            "7": "Reserva a través del bono",
             "6": "Registro miembro (estudiante)",
             "3": "Cancelación sesión",
             "453": "Programa modificado (estudiante)",
@@ -3637,8 +3637,8 @@
             "300": "Kick (No validada a tiempo demasiadas veces)",
             "22": "Confirmación de factura",
             "601": "Muy pocas reservas N horas antes del comienzo de la sesión",
-            "701": "Penalización de tarjeta de curso: tarjeta bloqueada (estudiante)",
-            "702": "Penalización de tarjeta de curso: cargo en la cuenta creada (estudiante)",
+            "701": "Penalización de bono: bono bloqueado (estudiante)",
+            "702": "Penalización de bono: cargo en la cuenta creada (estudiante)",
             "530": "Disputa sobre el pago de una suscripción",
             "520": "El pago fallido de una suscripción se volverá a intentar",
             "515": "Tarjeta de curso del abono desactivado automáticamente",
@@ -3673,12 +3673,12 @@
             "ConsumerPaymentPack": {
                 "tags": {
                     "pass_credit_left": "Cantidad de créditos restantes",
-                    "pass_expiration": "Fecha final tarjeta de curso",
-                    "pass_starting_date": "Fecha de inicio tarjeta de curso",
-                    "pass_name": "Nombre tarjeta de curso",
-                    "pass_price": "Precio tarjeta de curso"
+                    "pass_expiration": "Fecha final del bono",
+                    "pass_starting_date": "Fecha de inicio del bono",
+                    "pass_name": "Nombre del bono",
+                    "pass_price": "Precio del bono"
                 },
-                "name": "Tarjeta de curso"
+                "name": "Bono"
             },
             "PrivateBooking": {
                 "tags": {
@@ -3776,7 +3776,7 @@
     "consumerSpace": {
         "dashboard": {
             "showMore": "Ver más",
-            "currentPassTitle": "Tarjetas de curso activas",
+            "currentPassTitle": "Bonos activos",
             "nextBookingTitle": "Mis próximas sesiones",
             "optionTitle": "En lista de espera",
             "favoriteTitle": "Sugerencia de reserva",
@@ -3807,7 +3807,7 @@
             "profile": "Perfil",
             "subscription": "Suscripción",
             "invoice": "Factura",
-            "pack": "Tarjeta de curso",
+            "pack": "Bono",
             "calendar": "Histórico",
             "dashboard": "Resumen",
             "myVideos": "Mis videos",
@@ -3816,7 +3816,7 @@
         "actions": {
             "goToCalendar": "Ver el calendario completo",
             "goToSubscription": "Ver todas las suscripciones",
-            "goToPass": "Ver todas las tarjetas de curso",
+            "goToPass": "Ver todos los bonos",
             "goToHome": "Ver todos los servicios"
         },
         "congratulation": {
@@ -3871,7 +3871,7 @@
                     "9": "Tarjeta de cita",
                     "6": "Gastos de envío",
                     "2": "Tienda",
-                    "1": "Tarjeta de curso"
+                    "1": "Bono"
                 }
             },
             "minimum_amount": {
@@ -3929,7 +3929,7 @@
             },
             "selectorPlaceholder": {
                 "shopitem": "Seleccione productos de la tienda (válido en todos los productos si no se selecciona ninguno)",
-                "paymentPack": "Seleccionar tarjetas de curso (válido en todas las tarjetas si no se selecciona ninguna)",
+                "paymentPack": "Seleccionar bonos (válido en todos los bonos si no se selecciona ninguno)",
                 "privatePass": "Seleccionar tarjetas de cita (válido en todas las tarjetas si no se selecciona ninguna)"
             },
             "subscription_mode": {
@@ -4252,8 +4252,8 @@
                 "attachCoach": "Atribuir a un profesor",
                 "coach": "Profesor",
                 "wasRefundedYes": "Sí",
-                "wasRefunded": "Crédito reembolsado en la tarjeta de curso",
-                "passTitle": "Tarjeta de curso",
+                "wasRefunded": "Crédito reembolsado en el bono",
+                "passTitle": "Bono",
                 "source": "Canal de reserva ",
                 "registeredOn": "Reservado el ",
                 "cancelledOn": "Cancelado el "
@@ -4904,7 +4904,7 @@
         "form": {
             "selectorPlaceholder": {
                 "shopitem": "Tienda",
-                "paymentPack": "Tarjeta curso de grupo",
+                "paymentPack": "Bono para clases colectivas",
                 "privatePass": "Tarjeta de cita"
             },
             "content": "Contenido",
@@ -4944,7 +4944,7 @@
             "buttons": {
                 "add": "Crear un pack"
             },
-            "explainIfEmpty": "Crear aquí packs que pueden ser comprados por los estudiantes y que pueden contener tarjetas de curso, artículos de la tienda, etc..."
+            "explainIfEmpty": "Crear aquí packs que pueden ser comprados por los estudiantes y que pueden contener bonos, artículos de la tienda, etc..."
         },
         "link": {
             "copied": "Enlace copiado",
@@ -4988,8 +4988,8 @@
                         "placeholder": "Ingresar el código CSS"
                     },
                     "offerCard": {
-                        "helperText": "Cambiar el estilo de las tarjetas de curso",
-                        "label": "Tarjetas de curso",
+                        "helperText": "Cambiar el estilo de los bonos",
+                        "label": "Bonos",
                         "placeholder": "Ingresar el código CSS"
                     },
                     "columns": {
@@ -5117,8 +5117,8 @@
             "fbPixelEvent": "Nombre de evento FB Pixel",
             "cancel": "Cancelar",
             "showBasket": "Cuando el usuario muestra su cesta",
-            "showPass": "Cuando el usuario muestra una tarjeta de curso",
-            "addPassToCart": "Cuando el usuario añade una tarjeta de curso a su cesta",
+            "showPass": "Cuando el usuario muestra un bono",
+            "addPassToCart": "Cuando el usuario añade un bono a su cesta",
             "addPackToCart": "Cuando el usuario añade un pack a su cesta",
             "addPrivatePassToCart": "Cuando el usuario añade una tarjeta de cita a su cesta",
             "addShopItemToCart": "Cuando el usuario añade un artículo de la tienda a su cesta",
@@ -5454,8 +5454,8 @@
                 "label": "Gestión simple"
             },
             "auto_consume_pack": {
-                "helper": "Si el miembro tiene una tarjeta de curso válida cuando hay un lugar disponible, se registra automáticamente y se cobra su tarjeta. La tarjeta que vence antes, y con el menor crédito disponible, se usa como prioridad.",
-                "label": "Debitar automáticamente una tarjeta de curso y registrar el miembro cuando haya un lugar disponible."
+                "helper": "Si el miembro tiene un bono válido cuando hay un lugar disponible, se registra automáticamente y se cobra su bono. El bono que vence antes, y con el menor crédito disponible, se usa como prioridad.",
+                "label": "Debitar automáticamente un bono y registrar el miembro cuando haya un lugar disponible."
             },
             "is_option_blocking": {
                 "helper": "Mientras un miembro esté en la lista de espera, se bloqueará un lugar para él mientras espera que se registre.",
@@ -5506,7 +5506,7 @@
             }
         },
         "navigation": {
-            "goToPaymentPack": "Tarjetas de cursos"
+            "goToPaymentPack": "Bonos"
         },
         "actions": {
             "search": "Buscar un taller",
@@ -5640,7 +5640,7 @@
                 "locked": "No se puede pausar por el momento, ¿hay un pago pendiente?"
             },
             "switchPack": {
-                "error": "No es posible modificar la tarjeta de curso",
+                "error": "No es posible modificar el bono",
                 "success": "Método de pago modificado"
             },
             "switchPaymentMethod": {
@@ -5751,7 +5751,7 @@
                 "submit": "Fusionar",
                 "cancel": "Cancelar",
                 "explainTags": "Los tags del miembro suprimidos no se transferirán",
-                "explainBookingsAndPassAndInvoiceAndNotes": "Se transferirán tarjetas de curso, reservas, facturas y notas.",
+                "explainBookingsAndPassAndInvoiceAndNotes": "Se transferirán bonos, reservas, facturas y notas.",
                 "explainCredit": "El anticipo del miembro será transferido",
                 "title": "Fusión miembro",
                 "dstMember": "Miembro a conservar",
@@ -5801,7 +5801,7 @@
         },
         "paymentPack": {
             "createOrUpdate": {
-                "success": "Tarjeta de curso guardada",
+                "success": "Bono guardado",
                 "fail": "Error al guardar la tarjeta"
             },
             "credit": {
@@ -5810,11 +5810,11 @@
             },
             "paymentPackDisabled": {
                 "error": "No es posible desactivar la tarjeta",
-                "success": "Tarjeta de curso desactivada"
+                "success": "Bono desactivado"
             },
             "paymentPackEnabled": {
                 "error": "No se puede restaurar la tarjeta",
-                "success": "Tarjeta de curso restaurada"
+                "success": "Bono restaurado"
             }
         },
         "coupon": {
@@ -6137,11 +6137,11 @@
                     "label": "IVA"
                 },
                 "name": {
-                    "helperText": "Nombre de la tarjeta de curso",
+                    "helperText": "Nombre del bono",
                     "label": "Nombre"
                 },
                 "until": "Hasta ",
-                "notEditable": "Esta tarjeta de curso es el resultado de una migración, algunos campos no se pueden modificar para respetar el historial. Las actividades/categorías compatibles siguen siendo modificables.",
+                "notEditable": "Este bono es el resultado de una migración, algunos campos no se pueden modificar para respetar el historial. Las actividades/categorías compatibles siguen siendo modificables.",
                 "from": "Desde ",
                 "maxPurchasePerMember": {
                     "helperText": "Dejar en blanco para no imponer un límite",
@@ -6210,7 +6210,7 @@
             "form": {
                 "smartListHelperInclude": "Envía un email solo si el miembro pertenece a una de las siguientes listas",
                 "smartListHelper": "No envía un email si el miembro pertenece a una de las siguientes listas",
-                "warning": "Al no seleccionar ninguna smartlist, corres el riesgo de notificar a los miembros que ya han comprado otra tarjeta de curso",
+                "warning": "Al no seleccionar ninguna smartlist, corres el riesgo de notificar a los miembros que ya han comprado otro bono",
                 "createSmartList": "Crear una smartlist",
                 "cancel": "Cancelar",
                 "submit": "Validar",
@@ -6271,7 +6271,7 @@
             "creditsLeftLabel_plural": "Notificar cuando quedan {{count}} créditos"
         },
         "notificationToolTip": "Se han establecido notificaciones para esta tarjeta",
-        "noPaymentPack": "Las tarjetas de curso permiten a los miembros registrarse a las actividades, es necesario tener una tarjeta para registrarse.",
+        "noPaymentPack": "Los bonos permiten a los miembros registrarse a las actividades, es necesario tener un bono para registrarse.",
         "consumerPaymentPack": {
             "details": {
                 "actions": {
@@ -7324,14 +7324,14 @@
             "list": {
                 "title": "Tarjetas compartidas",
                 "isEmpty": "Ningún reparto de tarjeta",
-                "create": "Compartir una tarjeta de curso"
+                "create": "Compartir un bono"
             },
             "form": {
                 "create": {
                     "submit": "Compartir",
                     "previous": "Volver",
                     "cancel": "Cancelar",
-                    "explain": "Esta tarjeta de curso será compartida entre los dos miembros, los créditos pueden ser utilizados por uno u otro.",
+                    "explain": "Este bono será compartida entre los dos miembros, los créditos pueden ser utilizados por uno u otro.",
                     "title": "Reparto de tarjeta",
                     "noConsumerPackToLink": "Ninguna tarjeta para compartir",
                     "linkButton": "Compartir"
@@ -7369,7 +7369,7 @@
                 "actions": {
                     "create": "Añadir una relación"
                 },
-                "pleaseSelectOne": "Selecciona una relación para ver las tarjetas de curso compartidas",
+                "pleaseSelectOne": "Selecciona una relación para ver los bonos compartidos",
                 "isEmpty": "Aún no se ha creado ninguna relación"
             },
             "item": {

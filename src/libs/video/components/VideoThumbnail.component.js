@@ -21,6 +21,7 @@ import CoachGroupAvatar from '../../associated-coach/components/CoachGroupAvatar
 
 type Props = {
   video: Video,
+  hideCoach: boolean,
   onClick: () => void,
   onDeleteVideo: (id: number) => void,
   isPlaying: number,
@@ -113,6 +114,7 @@ export const VideoThumbnail = (props: Props) => {
           <CoachGroupAvatar
             size="small"
             coaches={video.coaches}
+            hideCoach={props.hideCoach}
             loading={props.loading}
           />
         </div>

@@ -30,6 +30,7 @@ import { getOfferFeature } from '../utils';
 type OwnProps = {
   offer?: Offer_FULL;
   open: boolean;
+  hideCoach: boolean;
   onClose: () => void;
   selectedOffers: OfferData[];
   onSelectOffer: (offer: Offer_FULL) => void;
@@ -193,6 +194,7 @@ class SimilarOffers extends React.PureComponent<Props> {
                 <div className={classes.similarOfferItem}>
                   <OfferItem
                     offer={o}
+                    hideCoach={this.props.hideCoach}
                     disabled={noInteraction}
                     offerStatus={offerStatus}
                     isBookable={isBookable}

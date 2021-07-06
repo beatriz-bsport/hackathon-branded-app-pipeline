@@ -140,6 +140,7 @@ class OfferListSummary extends React.PureComponent<Props> {
                 <React.Fragment key={offerData.offer.id}>
                   <OfferBookableItem
                     disabled={offerFeature.noInteraction}
+                    hideCoach={this.props.hideCoach}
                     offer={offerData.offer}
                     isBookable={offerFeature.isBookable}
                     isWaitingList={offerFeature.isWaitingList}

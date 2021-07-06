@@ -198,6 +198,7 @@ const SessionSelector: React.FC<Props> = (props) => {
                   >
                     <SessionForCoachSelector
                       coach={coach}
+                      showCoach={props.showCoach}
                       establishment={selectedEstablishment}
                       sessions={sessions}
                       timezoneName={props.timezoneName}

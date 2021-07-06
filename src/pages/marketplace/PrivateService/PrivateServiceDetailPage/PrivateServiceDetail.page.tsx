@@ -260,6 +260,7 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
 
   const showCoachSelector = !!(
     props.privateService?.coaches.length &&
+    !props.theme.hideCoach &&
     props.privateService?.coach_attribution === RESOURCE_ATTRIBUTION_CONSUMER
   );
 

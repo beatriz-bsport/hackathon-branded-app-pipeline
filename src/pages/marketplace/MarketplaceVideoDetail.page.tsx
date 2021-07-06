@@ -144,6 +144,7 @@ export class MarketplaceVideoDetail extends React.Component<Props> {
               videoList={this.props.videoListSimilar}
               loading={this.props.similarVideoLoading}
               hasMoreVideo={this.props.hasMoreVideo}
+              hideCoach={this.props.theme && this.props.theme.hideCoach}
               fetchMoreVideo={this.props.fetchMoreVideo}
               onOpenVideo={this.props.openVideo}
             />

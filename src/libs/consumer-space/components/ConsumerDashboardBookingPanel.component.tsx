@@ -44,6 +44,7 @@ type OwnProps = {
   bookingsAndPrivateBookings: BookingOrPrivateBooking[];
   loading: boolean;
   hasMore: boolean;
+  hideCoach: boolean;
   fullWidth?: boolean;
   hideTitle?: boolean;
   onClickBlueprintPreview?: (
@@ -95,7 +96,9 @@ export class ConsumerDashboardBookingPanel extends React.PureComponent<Props> {
       // @ts-ignore
       calendarFilters.f_establishments = `[${booking.offer.establishment.id}]`;
       // @ts-ignore
-      calendarFilters.f_coaches = `[${booking.offer.coach.id}]`;
+      if (!this.props.hideCoach) {
+        calendarFilters.f_coaches = `[${booking.offer.coach.id}]`;
+      }
     }
 
     this.props.goToCalendar(calendarFilters, booking.meta_activity);
@@ -109,13 +112,13 @@ export class ConsumerDashboardBookingPanel extends React.PureComponent<Props> {
       bookingOrPrivateBooking.booking
     ) {
       const { booking } = bookingOrPrivateBooking;
-
       return (
         <div className={this.props.classes.marginTop}>
           <BookingConsumerItem
             key={`booking-${booking.id}`}
             timezone={this.props.timezone}
             booking={booking}
+            hideCoach={this.props.hideCoach}
             onDiscard={this.props.onDiscardBooking}
             goToBroadcast={this.props.goToBroadcast}
             goToCalendar={this.props.goToCalendar ? this.goToCalendar : null}

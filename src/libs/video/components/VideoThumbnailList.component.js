@@ -17,6 +17,7 @@ import TypographyWithShowMore from '../../../components/TypographyWithShowMore.c
 type Props = {
   title: string,
   count: number,
+  hideCoach: boolean,
   description: string,
   videoList: Array<Video>,
   onDeleteVideo?: (id: number) => void,
@@ -66,6 +67,7 @@ export const VideoThumbnailList = (props: Props) => {
                 onDeleteVideo={props.onDeleteVideo}
                 isPlaying={props.videoPlayingId === v.id}
                 loading={props.loading}
+                hideCoach={props.hideCoach}
                 video={v}
                 onClick={() => props.onOpenVideo(v.id)}
               />

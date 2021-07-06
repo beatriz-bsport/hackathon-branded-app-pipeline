@@ -36,6 +36,7 @@ type OwnProps = {
     booking: Booking<Offer<Coach, Establishment, MetaActivity>>,
   ) => void;
   variant?: string;
+  hideCoach: boolean;
 };
 
 type Props = OwnProps &
@@ -110,13 +111,15 @@ export const BookingConsumerItem = (props: Props) => {
           secondary={establishment ? establishment.title : ''}
         />
       </ListItem>
-      <ListItem dense className={classes.translucentPaper}>
-        <ListItemIcon>
-          <PersonIcon />
-        </ListItemIcon>
-        <ListItemText primary={coach ? coach.name : ' - '} />
-      </ListItem>
 
+      {!props.hideCoach && (
+        <ListItem dense className={classes.translucentPaper}>
+          <ListItemIcon>
+            <PersonIcon />
+          </ListItemIcon>
+          <ListItemText primary={coach ? coach.name : ' - '} />
+        </ListItem>
+      )}
       <Divider />
       <div className={classes.footer}>
         {props.variant !== 'after_checkout' &&

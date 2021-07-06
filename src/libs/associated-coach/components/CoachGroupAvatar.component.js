@@ -8,6 +8,7 @@ import CoachChip from './CoachChip.component';
 import Tooltip from '../../../components/Tooltip.component';
 
 type Props = {
+  hideCoach: Boolean,
   coaches: ?Array<Coach>,
   size?: string,
   loading: boolean,
@@ -15,7 +16,7 @@ type Props = {
 export const CoachGroupAvatar = (props: Props) => {
   const classes = useStyles();
   const coaches = props.coaches.filter((c) => !!c);
-  if (coaches.length === 1) {
+  if (coaches.length === 1 && !props.hideCoach) {
     return (
       <div>
         {coaches.map((c) => (
@@ -24,7 +25,8 @@ export const CoachGroupAvatar = (props: Props) => {
       </div>
     );
   }
-  if (coaches.length > 1) {
+
+  if (coaches.length > 1 && !props.hideCoach) {
     return (
       <AvatarGroup>
         {coaches.map((c) => (

@@ -10,9 +10,9 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import VideoLibrary from '@material-ui/icons/VideoLibrary';
-
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import themeSelectors from '../../libs/theme/selectors';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
@@ -35,6 +35,7 @@ type Props = {
   videoList: Array<Video>,
   loading: boolean,
   hasMoreVideo: boolean,
+  hideCoach: boolean,
   goToVodPage: () => void,
   openVideo: () => void,
   companyId: string,
@@ -72,6 +73,7 @@ class ConsumerVOD extends React.PureComponent<Props> {
         </Typography>
         <Divider className={this.props.classes.sectionDivider} />
         <VideoItemList
+          hideCoach={this.props.hideCoach}
           videoList={this.props.videoList}
           openVideo={this.props.openVideo}
           onShowMore={this.props.fetchMoreVideo}
@@ -112,6 +114,7 @@ export default compose(
     (state) => ({
       videoList: withCoach(withCategory(getVideoList))(state),
       loading: state.video.loading,
+      hideCoach: themeSelectors.getTheme(state).hideCoach,
       hasMoreVideo: state.video.list.nextPage && state.video.list.nextPage > 1,
     }),
     {

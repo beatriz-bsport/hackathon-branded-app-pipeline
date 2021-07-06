@@ -588,6 +588,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
             onSelectOffer={this.onSelectOffer}
             open={this.state.showSimilarOffers}
             onClose={this.closeSimilarOfferSelector}
+            hideCoach={this.props.theme.hideCoach}
             similarOffers={this.props.similarOffers}
             loading={this.props.similarLoading}
             offerStatusById={this.props.offerStatusById}

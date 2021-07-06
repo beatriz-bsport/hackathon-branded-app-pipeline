@@ -91,6 +91,7 @@ import { getAssetByBlueprintByIdentifier } from '../../libs/spot-scheduling/sele
 import CanvasPreviewDialog from '../../libs/spot-scheduling/component/SpotPreview/CanvasPreviewDialog.Component';
 
 type OwnProps = {
+  hideCoach: boolean;
   companyId: number;
   membership?: Membership;
 };
@@ -214,6 +215,7 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
               goToBroadcast={this.props.goToBroadcast}
               showMoreBooking={this.props.fetchBookingsAndPrivateBookings}
               timezone={this.props.companyTheme.timezone_name}
+              hideCoach={this.props.companyTheme.hideCoach}
               membership={this.props.membership}
               onDiscardBooking={this.props.setBookingToCancel}
               onDiscardPrivateBooking={this.props.setPrivateBookingToCancel}

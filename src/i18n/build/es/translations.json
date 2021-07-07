@@ -1952,7 +1952,8 @@
             "explainStripeFooter": "Este texto aparecerá en la parte inferior de tus facturas editadas en PDF, añade cualquier aviso legal necesario.",
             "submit_stripe_footer": "Actualizar",
             "forms": {
-                "stripe_footer_placeholder": "No hay informaciones adiconal"
+                "stripe_footer_placeholder": "No hay informaciones adiconal",
+                "show_company_email_in_invoice": "Mostrar el correo electrónico de contacto de su estudio en las facturas"
             },
             "nf525Button": "Descargar",
             "nf525Explain": "Bsport sigue los procedimientos de cumplimiento de NF525, puedes descargar nuestro certificado oficial aquí.",
@@ -1978,7 +1979,8 @@
                     }
                 },
                 "title": "Suscripción"
-            }
+            },
+            "invoiceGeneral": "Factura en PDF"
         },
         "section": {
             "paymentList": {
@@ -2005,7 +2007,8 @@
                 "3": "Crédito",
                 "2": "Tienda",
                 "1": "Bono"
-            }
+            },
+            "discount": "Descuento"
         },
         "returnPayment": {
             "modal": {
@@ -2087,8 +2090,8 @@
             "dialog": {
                 "title": "Cancelación de la factura",
                 "actions": {
-                    "confirm": "Reembolso",
-                    "cancel": "Cancelar"
+                    "confirm": "Confirmar",
+                    "cancel": "Cerrar"
                 }
             }
         },
@@ -2229,7 +2232,14 @@
             "title": "Método de pago",
             "add": "Añadir",
             "edit": "Modificar",
-            "none": "No se ha guardado ningún método de pago"
+            "none": "No se ha guardado ningún método de pago",
+            "detach": {
+                "pm_associated_to_pi": "Imposible: Tiene una suscripción asociada a este método de pago",
+                "pm_associated_to_registered_ppe": "Imposible: Tiene una suscripción asociada a este método de pago",
+                "pm_associated_to_protected_bp": "Imposible: Tiene una suscripción asociada a este método de pago",
+                "last_payment_method": "No se puede eliminar el único método de pago",
+                "pm_deleted": "Método de pago borrado"
+            }
         },
         "paymentEngine": {
             "label": {
@@ -2422,7 +2432,8 @@
                 "14": "Cuenta interna",
                 "2": "SEPA",
                 "1": "Tarjeta de crédito"
-            }
+            },
+            "paymentCombo": "Pack"
         },
         "schedule": {
             "provisionalTitle": "Calendario estimativo",
@@ -2656,6 +2667,11 @@
             },
             "invoice": {
                 "label": "Factura {{uuid}} : {{price}}€"
+            },
+            "listItem": {
+                "recurrencePriceIs": "Pago periódico de {{ amount }}{{currencyDisplay}}",
+                "nextBillingDate": "Próxima facturación en {{ d }}",
+                "startingAt": "Empieza el {{ d }}"
             }
         },
         "noContracts": "Los contratos te permitirán facturar a tus miembros regularmente (mensualmente) por un bono que se vuelve a acreditar cada mes/días/años.",
@@ -2723,7 +2739,13 @@
                     "label": "Nota"
                 },
                 "warning": "Atención, en algunas suscripciones, la pausa no se puede deshacer",
-                "title": "Poner en pausa todas las suscripciones"
+                "title": "Poner en pausa todas las suscripciones",
+                "paymentPackActions": {
+                    "disableTillNextInvoice": "Desactivar el bono facturado hasta la próxima facturación",
+                    "extendTillNextInvoice": "Ampliar el periodo de validez del bono facturado hasta la siguiente factura",
+                    "doNotChange": "No cambiar el bono facturado",
+                    "title": "Comportamiento de los bonos"
+                }
             },
             "actions": {
                 "previous": "Anteriormente",
@@ -2912,7 +2934,11 @@
             "credit_amount": "Importe de los créditos",
             "initial_price": "Precio de compra",
             "last_view": "Visto por última vez",
-            "video_title": "Título del vídeo"
+            "video_title": "Título del vídeo",
+            "recurrent_price": "Importe",
+            "sum__non_attendance": "Número de alumnos ausentes",
+            "sum_attendance": "Número de alumnos presentes",
+            "invoice_date": "Fecha de facturación"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -5419,7 +5445,17 @@
                 "invalidBonusAmount": "El extra debe ser mayor o igual a 0,1.",
                 "invalidMaximum": "La remuneración máxima debe ser superior a la mínima",
                 "invalidMinimum": "La remuneración mínima debe ser igual o superior a la base fija",
-                "nameRequired": "El nombre es un campo obligatorio."
+                "nameRequired": "El nombre es un campo obligatorio.",
+                "invalidCancelledBookingRules": "Si desea aplicar diferentes extra para los alumnos ausentes debe definir al menos un extra o base por porcentaje en la sección siguiente.",
+                "lowerIntervalTypeError": "El intervalo inferior debe ser un número menor o igual a 1",
+                "taxeRateTypeError": "El IVA debe ser un número entre 0 y 100.",
+                "taxeRateRequired": "El IVA es un campo obligatorio si ha marcado la casilla \"Cálculo con IVA\" más arriba.",
+                "percentagebaseRemunerationRequired": "La remuneración en porcentaje es un campo obligatorio si ha marcado la casilla anterior.",
+                "percentagebaseRemunerationTypeError": "La remuneración en porcentaje debe ser un número entre 0 y 100.",
+                "baseRemunerationTypeError": "La remuneración básica debe ser un número positivo.",
+                "baseRemunerationRequired": "La remuneración básica es un campo obligatorio si ha marcado la casilla \"Base fija\" más arriba.",
+                "invalideUpperInterval": "El intervalo superior debe ser un número.",
+                "invalideIntervals": "No se permite la intersección de intervalos para extra del mismo tipo."
             },
             "Bonuses": {
                 "bonus_rules": "Reglas del extra",
@@ -5430,6 +5466,23 @@
                 "from": "De",
                 "addBonus": "AÑADIR UNA REGLA DE EXTRA",
                 "bonus": "Extra"
+            },
+            "Simulator": {
+                "student_did_not_attend": "Alumno ausente",
+                "student_attended": "Alumno presente",
+                "total_payment": "Pago final",
+                "bonus": "Total de los extra",
+                "marginValue": "Valor marginal",
+                "forCancelledBookings": "Número de ausencias",
+                "forConfirmedBookings": "Número de alumnos",
+                "forEachBooking": "por cada reserva",
+                "cancellations": "ausencias o cancelaciones fuera de plazo",
+                "and": "Y",
+                "students": "socios",
+                "for": "Para",
+                "helper": "Ayuda: Compruebe aquí que su regla de remuneración cumple con sus expectativas",
+                "resultTitle": "Resultado de su simulación (salario del profesor)",
+                "title": "Simulador de salarios"
             }
         },
         "tabs": {
@@ -6078,6 +6131,15 @@
             "update": {
                 "error": "No se ha podido actualizar, por favor, inténtelo más tarde",
                 "success": "Parámetros actualizados"
+            }
+        },
+        "paymentMethod": {
+            "detach": {
+                "pm_associated_to_pi": "Imposible: Tiene una suscripción asociada a este método de pago",
+                "pm_associated_to_registered_ppe": "Imposible: Tiene una suscripción asociada a este método de pago",
+                "pm_associated_to_protected_bp": "Imposible: Tiene una suscripción asociada a este método de pago",
+                "last_payment_method": "No se puede eliminar el único método de pago",
+                "pm_deleted": "Método de pago borrado"
             }
         }
     },

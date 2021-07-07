@@ -5413,7 +5413,24 @@
             "cancellationBaseHelper": "Ayuda: Al marcar esta casilla el profesor no recibirá ninguna remuneración adicional sobre el valor marginal de las reservas canceladas",
             "taxe_rate": "Excluir el IVA del cálculo del valor marginal (porcentaje)",
             "base_remuneration_helper": "Este importe se añadirá siempre a la compensación de la sesión/cita previa",
-            "set_base_remuneration": "Definir una base de compensación fija"
+            "set_base_remuneration": "Definir una base de compensación fija",
+            "Errors": {
+                "invalidLowerInterval": "El intervalo superior debe ser mayor que el inferior.",
+                "invalidBonusAmount": "El extra debe ser mayor o igual a 0,1.",
+                "invalidMaximum": "La remuneración máxima debe ser superior a la mínima",
+                "invalidMinimum": "La remuneración mínima debe ser igual o superior a la base fija",
+                "nameRequired": "El nombre es un campo obligatorio."
+            },
+            "Bonuses": {
+                "bonus_rules": "Reglas del extra",
+                "forInterval": "para el intervalo completo",
+                "forEachBooking": "para cada reserva",
+                "bookingsThresholds": "Reservas (incluyendo límites)",
+                "to": "a",
+                "from": "De",
+                "addBonus": "AÑADIR UNA REGLA DE EXTRA",
+                "bonus": "Extra"
+            }
         },
         "tabs": {
             "all": "Todos los cursos",

@@ -85,6 +85,7 @@ export const offersByMetaActivity = {
 
 export function fetchMetaActivityOffers(id: number, params: any = {}) {
   return async (dispatch: Dispatch) => {
+    if (!Object.keys(params).length) return;
     dispatch(offersByMetaActivity.isLoading(true));
     dispatch(offersByMetaActivity.error(null));
 
@@ -128,6 +129,7 @@ export function fetchEstablishmentEvents(id: number, params: any = {}) {
 
 export function fetchAllOffers(params: any, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
+    if (!Object.keys(params).length) return;
     dispatch(offers.isLoading(true));
     dispatch(offers.error(null));
 

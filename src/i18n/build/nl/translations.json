@@ -731,7 +731,7 @@
                     "force": "Verwijderen (ook al zijn er reserveringen geregistreerd)",
                     "advanced": "Geavanceerd"
                 },
-                "explainNotificationOnEdit": "Ingeschreven leden over de wijziging(en) informeren",
+                "explainNotificationOnEdit": "Ingeschreven leden informeren",
                 "explainRecursiveOfferEdit": "Wil je alle vergelijkbare sessies wijzigen?",
                 "explainRecursiveOfferDelete": "Wil je alle vergelijkbare sessies verwijderen?",
                 "broadcast_link": {
@@ -1961,12 +1961,12 @@
                 }
             },
             "maxout": {
-                "dialog_message": "Deze kaart heeft het limiet van maximaal aantal reserveringen bereikt ({{count}}). Weet je zeker dat je alsnog hiermee wilt reserveren? ",
+                "dialog_message": "Deze kaart heeft het gebruikslimiet ({{count}}) voor deze {{unit}} bereikt. Weet je zeker dat je hier alsnog mee wilt reserveren? ",
                 "dialogTitle": "Reserveringslimiet bereikt",
                 "months": "maand",
                 "weeks": "week",
                 "days": "dag",
-                "limit_reach": "Reserveringslimiet per {{unit}} bereikt"
+                "limit_reach": "Gebruikslimiet per {{unit}} bereikt!"
             }
         },
         "notification": {
@@ -4127,7 +4127,7 @@
                 },
                 "advanced": "Geavanceerd",
                 "days": {
-                    "helperText": "Het aantal dagen dat het abonnement wordt gepauzeerd",
+                    "helperText": "De pauze gaat op de dag van de eerstvolgende facturatie van kracht en de toekomstige facturatie wordt met het hierboven aangegeven aantal dagen uitgesteld.",
                     "label": "Aantal dagen"
                 },
                 "name": {
@@ -4135,16 +4135,16 @@
                     "placeholder": "Voorbeeld: gesloten i.v.m. Koningsdag"
                 },
                 "warning": "Let op: sommige abonnementen kunnen na de pauze niet worden herstart.",
-                "title": "Algemene pauze",
+                "title": "[Formulier] Abonnementspauze",
                 "dateFilter": {
                     "label": "Pauzeer alleen abonnementen die tussen deze twee data worden gefactureerd"
                 },
                 "explainImpossible": "Een abonnement kan niet automatisch worden gepauzeerd als er momenteel een betaling wordt uitgevoerd of binnen 24 uur wordt verwacht.",
                 "paymentPackActions": {
-                    "title": "Kaarten",
+                    "title": "Instellingen",
                     "disableTillNextInvoice": "Deactiveer het gefactureerde abonnement tot de eerstvolgende facturatie",
-                    "extendTillNextInvoice": "Verleng de geldigheid van het gefactureerde abonnement tot de eerstvolgende facturatie",
-                    "doNotChange": "Het gefactureerde abonnement niet wijzigen"
+                    "extendTillNextInvoice": "Verleng de geldigheid van de gefactureerde kaart tot de eerstvolgende facturatie",
+                    "doNotChange": "De gefactureerde kaart niet wijzigen"
                 }
             },
             "actions": {
@@ -4160,7 +4160,7 @@
             },
             "fromUntil": "Alleen als de facturatie tussen {{from}} en {{until}} is.",
             "createdAt": "Aanmaakdatum: {{at}}",
-            "title": "Algemene pauze"
+            "title": "Abonnementspauze"
         }
     },
     "coachPerformance": {

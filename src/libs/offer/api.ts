@@ -11,6 +11,7 @@ import {
 import { OfferFilterData } from './types';
 
 export async function fetchAllEvents(params: any) {
+  if (!params) return;
   return getAuth(`${API_V1_URI}/offer/minimal/${buildUrlParams(params)}`);
 }
 

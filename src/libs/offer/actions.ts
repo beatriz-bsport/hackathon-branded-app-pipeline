@@ -109,6 +109,7 @@ export const offersByEstablishment = {
 
 export function fetchEstablishmentEvents(id: number, params: any = {}) {
   return async (dispatch: Dispatch) => {
+    if (!Object.keys(params).length) return;
     dispatch(offersByEstablishment.isLoading(true));
     dispatch(offersByEstablishment.error(null));
 

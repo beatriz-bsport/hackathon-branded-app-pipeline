@@ -1374,8 +1374,8 @@
                 "totalRead": "Aantal keer geopend",
                 "totalClick": "Aantal keer geklikt",
                 "deliveryRate": "Succesvol verzonden",
-                "lastOpen": "Laatste opening",
-                "dateCreated": "Verzenddatum",
+                "lastOpen": "Laatst geopend op:",
+                "dateCreated": "Verzenddatum:",
                 "topLinks": "Meest geklikte links",
                 "recipientList": "Details van de ontvanger",
                 "noTopLink": "Niet geklikt"
@@ -1402,7 +1402,7 @@
                 "columns": {
                     "email": "E-mail",
                     "readCount": "Aantal keer geopend",
-                    "lastRead": "Laatste opening",
+                    "lastRead": "Laatst geopend op:",
                     "clicked": "Aantal keer geklikt",
                     "status": "Status"
                 }
@@ -7802,7 +7802,7 @@
             "createNotification": "[Formulier] Melding",
             "selectNotificationRules": "Selecteer een regel voor een gedetailleerd overzicht.",
             "stats": {
-                "opened_rate": "Aantal keer geopend",
+                "opened_rate": "Openingspercentage",
                 "total_mail_opened": "Aantal geopende e-mails",
                 "total_mail_send": "Aantal verzonden e-mails"
             },

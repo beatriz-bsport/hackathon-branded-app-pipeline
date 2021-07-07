@@ -11,7 +11,6 @@ import { Coach } from '../../../../../libs/associated-coach/types';
 
 type Props = {
   coach: Coach | null;
-  showCoach: boolean;
   establishment: Establishment;
   timezoneName: string;
   durationMinutes: number;
@@ -36,7 +35,7 @@ const SessionForCoachSelector: React.FC<Props> = (props) => {
         props.coach?.id ? classes.containerWithCoach : ''
       }`}
     >
-      {props.coach?.id && props.showCoach && (
+      {!!props.coach?.id && (
         <div className={classes.coachContainer}>
           <CoachChip coach={props.coach} />
         </div>

@@ -1032,7 +1032,7 @@
             "onWaitingList": "On waiting-list",
             "discard": "Discard",
             "doNotAttend": "Absent",
-            "attend": "Attendee",
+            "attend": "Present",
             "revertBookingWithInvoiceImpossibleExplain": "This booking has been paid by the member and can not be cancelled, however you can flag it as \"Absent\"",
             "revertBookingExplain": {
                 "offerIsNotAvailable": "The booking will be delete. The sessions has already been cancelled and credits will not be refunded if you have not checked \"refunded\" during cancellation",
@@ -1403,7 +1403,10 @@
                     "explainNotify": "Send a notification to customers who have booked",
                     "explainCreditBack": "Refund the credit on the pass",
                     "explainHardDelete": "Delete this session ? Beware, it will be invisible, this operation can not be reverted!",
-                    "buttonHardDelete": "Delete"
+                    "buttonHardDelete": "Delete",
+                    "explainForceDanger": "Warning! Reservations will be permanently deleted. If you have not refunded the credit, they will be lost. Please carefully check the status of your course reservations before deletion.",
+                    "force": "Delete even if reservations are saved",
+                    "advanced": "Advanced"
                 },
                 "explainNotificationOnEdit": "Do you want to notify your members of this modification ?",
                 "explainRecursiveOfferEdit": "Do you want to modify ALL similar sessions under these new conditions ?",
@@ -1435,7 +1438,7 @@
                 "status": "Status"
             },
             "invoice": {
-                "explainUnevenInvoice": "Total amount of items is {{totalInvoiceItems}}€ but total paymentsis {{ totalPayments }}€. Internal account will be credited/debited accordingly.",
+                "explainUnevenInvoice": "Total amount of items is {{totalInvoiceItems}}€ but total paymentsis €{{ totalPayments }}. Internal account will be credited/debited accordingly.",
                 "titleUnevenInvoice": "Unpaid invoice",
                 "activityHelper": "Chose the activity then the session",
                 "objectTypeLabel": "Object to bill",
@@ -2229,6 +2232,10 @@
             },
             "new_member_only": {
                 "label": "Only for new clients"
+            },
+            "maxPurchasePerMember": {
+                "helperText": "Leave blank so as not to impose a limit on booking",
+                "label": "Maximum purchase per member"
             }
         },
         "detail": {
@@ -3270,7 +3277,9 @@
             "uses": "uses",
             "member_uses": "uses per member",
             "member_use": "use per member",
-            "limitation": "Restricted to"
+            "limitation": "Restricted to",
+            "blacklist_tags": "Not available for members with certain tags",
+            "whitelist_tags": "Available only for members with certain tags"
         },
         "form": {
             "selectorPlaceholder": {
@@ -3285,7 +3294,10 @@
                 "voucherConfig": "Coupon",
                 "applies_to": "Parameters",
                 "advanced": "Advance",
-                "subscription": "Membership (contract)"
+                "subscription": "Membership (contract)",
+                "blacklist_tags": "Can only be used by members with this tag",
+                "whitelist_tags": "Can only be used by members with this tag",
+                "tags": "Tags"
             },
             "name": {
                 "label": "Name"
@@ -3350,6 +3362,16 @@
                 "2": "Apply only on payments before auto-renewal",
                 "1": "Apply to first payment only",
                 "0": "Apply to all payments"
+            },
+            "tag": {
+                "select": {
+                    "error": "The same tag cannot be present in both lists",
+                    "empty_tag_list": "No tag selected",
+                    "tag": "Select a tag",
+                    "tag_group": "Choose a tag group"
+                },
+                "tag": "Tag",
+                "tag_group": "Group"
             }
         },
         "noDiscount": "No use of the coupon",
@@ -4305,6 +4327,15 @@
             "section": {
                 "archived": "Archived establishment"
             }
+        },
+        "location": {
+            "country": "Country",
+            "zip_code": "Postal code",
+            "city": "City",
+            "address_line_2": "Address line 2",
+            "address_line_1": "Address Line 1",
+            "address": "Address",
+            "search_address": "Find an address"
         }
     },
     "order": {
@@ -4795,8 +4826,8 @@
             "differentRemunerationForCancellation": "Apply different payroll rules when when counting absentees and late-cancel ",
             "addRemunerationOnCancellation": "Compensate teacher in the case of a late cancellation and absence",
             "percentage_base": "Add a percentage of the margin value of the bookings",
-            "base_remuneration": "Add a fixed based pay",
-            "forCancelledBookings": "For late cancellations and absences",
+            "base_remuneration": "Fixed base",
+            "forCancelledBookings": "For cancellations after the deadline and absences",
             "forConfirmedBookings": "For students that are present",
             "calculationMethod": "Calculation method",
             "actions": "Actions",
@@ -4964,7 +4995,7 @@
                 "forms": {
                     "revert_bookings_on_fail_subscription_payment": {
                         "label": "Cancel all bookings if payment fails.",
-                        "warning": "Please note,  if you choose to cancel bookings if payment fails, bookings will not be recreated if the  payment is successful!",
+                        "warning": "Please note, if you choose to cancel bookings if the payment fails, bookings will not be recreated if the payment is successful!",
                         "helperText": "If the subscription payment fails or is declared disputed, bookings made with these cards will be cancelled (and the credit re-credited)"
                     },
                     "disable_pass_on_fail_subscription_payment": {
@@ -5046,7 +5077,7 @@
             }
         },
         "invoiceItem": {
-            "voucher": "Discount: {{ voucher }} €",
+            "voucher": "Discount: €{{ voucher }}",
             "quantity": "Quantity",
             "credit": {
                 "label": "Credit"
@@ -5083,8 +5114,8 @@
             },
             "dialog": {
                 "actions": {
-                    "confirm": "Refund",
-                    "cancel": "Cancel"
+                    "confirm": "Confirm",
+                    "cancel": "Close"
                 },
                 "title": "Invoice cancellation"
             }
@@ -5132,7 +5163,7 @@
                     "submit": "Submit"
                 },
                 "debt": "Debit",
-                "explainTopup": "An increase of {{ amount }} € will be recorded in the member's balance.",
+                "explainTopup": "An increase of €{{ amount }} will be recorded in the member's balance.",
                 "explainDecaissement": "A decrease of {{ amount }} {{ currencyDisplay }} will be recorded in the member's balance.",
                 "balanceValueLabel": "Amount",
                 "title": "Balance adjustment",
@@ -5428,7 +5459,7 @@
                 "summary": "The date of the last programmed payment will be {{-date}}, it will correspond to the last valid card."
             },
             "invoice": {
-                "label": "Invoice {{uuid}} : {{price}}€"
+                "label": "Invoice {{uuid}} : €{{price}}"
             },
             "listItem": {
                 "nextBillingDate": "Next billing on {{ d }}",
@@ -5636,7 +5667,8 @@
                 "14": "Internal account",
                 "2": "SEPA",
                 "1": "Credit Card"
-            }
+            },
+            "paymentCombo": "Pack"
         },
         "schedule": {
             "provisionalTitle": "Provisional schedule",
@@ -5753,7 +5785,13 @@
                     "placeholder": "Studio closed Bank Holiday"
                 },
                 "warning": "Warning, on certain subscriptions, pausing cannot be undone",
-                "title": "Pause all subscriptions"
+                "title": "Pause all subscriptions",
+                "paymentPackActions": {
+                    "disableTillNextInvoice": "Deactivate the billed pack until the next billing",
+                    "extendTillNextInvoice": "Extend the validity period of the billed pack until the next bill",
+                    "doNotChange": "Do not change the billed pack",
+                    "title": "Settings"
+                }
             },
             "actions": {
                 "verify": "Verify",
@@ -5946,7 +5984,8 @@
             "sum__non_attendance": "Number of absentees",
             "sum_attendance": "Number of attendees",
             "nb_canceled": "Number of cancellations",
-            "recurrent_price": "Amount"
+            "recurrent_price": "Amount",
+            "invoice_date": "Invoice date"
         },
         "yes": "Yes",
         "no": "No",
@@ -6131,6 +6170,14 @@
                 "warningSecond": "If you wish to reimburse the client via transfer with the payment method used cancel the billing and do not reimburse him/her in credit !",
                 "warningFirst": "Warning, this operation is irreversible (invoice generation).",
                 "blockUnlimited": "Block pass"
+            },
+            "maxout": {
+                "dialog_message": "Please note that this pack has already reached its limit of {{count}} reservation (s) by {{unit}}. Do you still want to book with this pack? ",
+                "dialogTitle": "Reservation limit reached",
+                "months": "month",
+                "weeks": "week",
+                "days": "day",
+                "limit_reach": "Reservation limit until {{unit}} is reached"
             }
         },
         "notificationToolTip": "Notifications are definied for this pass",
@@ -6256,7 +6303,7 @@
                 "unlimited": "Unlimited",
                 "theoricalMarginValue": {
                     "label": "Theorical margin value (only unlimited pass)",
-                    "helperText": "Used to compute the payroll of teachers. 10€ means 1 booking made via this pass is payed 10€ to the teacher. If empty the margin value will be PRICE/NB_BOOKING"
+                    "helperText": "Used to compute the payroll of teachers. €10 means 1 booking made via this pass is paid €10 to the teacher. If empty the margin value will be PRICE/NB_BOOKING"
                 },
                 "expirationDaysBeforeFirstUse": {
                     "label": "Expiration if no booking made",
@@ -6273,7 +6320,7 @@
                 },
                 "timeSettingsTitle": "Pass validity",
                 "generalSettingsTitle": "General",
-                "validByDuration": "Pass valid N days after purchase",
+                "validByDuration": "Pass valid for N days after purchase",
                 "validByDaterange": "Pass valid on a specific date range",
                 "durationDays": {
                     "label": "Validity period",
@@ -6332,7 +6379,7 @@
                 },
                 "penalty": {
                     "account": {
-                        "helperText": "A charge of {{value}}€ will be applied for this member",
+                        "helperText": "A charge of €{{value}} will be applied for this member",
                         "label": "Charge on the account:"
                     },
                     "block": {
@@ -6475,7 +6522,7 @@
         "maxNBookingsByMonth2": " bookings per month",
         "blockedCpp": "Card blocked from {{-blocked_from}} to {{-blocked_until}}",
         "penalty": {
-            "account": "If there are {{nb_cancellations}} late cancellations over a period of {{nb_days}} days, a charge of {{account_value}}€ will be applied.",
+            "account": "If there are {{nb_cancellations}} late cancellations over a period of {{nb_days}} days, a charge of €{{account_value}} will be applied.",
             "block": "If there are {{nb_cancellations}} late cancellations over a period of {{nb_days}} days, the pass will be blocked for {{days_blocked}} days.",
             "title": "Cancellation policy"
         },
@@ -6756,9 +6803,12 @@
         },
         "row": {
             "headers": {
-                "actions": "Actions"
+                "actions": "Actions",
+                "newsletter_email": "Accept emails"
             },
-            "update": "Edit"
+            "update": "Edit",
+            "no": "No",
+            "yes": "Yes"
         },
         "regularizeBalance": "Regularize",
         "cashoutBalance": "Cashout balance",
@@ -6785,6 +6835,9 @@
             "update": {
                 "success": "Member details updated",
                 "title": "Update member"
+            },
+            "phone": {
+                "error": "Invalid phone number"
             }
         },
         "user": {
@@ -8415,7 +8468,8 @@
                 "order": "My orders",
                 "profile": "My profile",
                 "bookings": "My bookings ",
-                "pass": "Pass"
+                "pass": "Pass",
+                "subscriptions": "My subscriptions"
             },
             "beta": "beta",
             "coachPerformance": "Teacher Payroll",
@@ -8483,6 +8537,15 @@
                 "creditPrice": {
                     "label": "Cost in credit",
                     "helperText": "Leave at 0 if you want the video to be accessible to all your members"
+                },
+                "video_label": "Video",
+                "video_source": {
+                    "change_popup_text": "Please note that the current video will be deleted. Members who purchased the old video will now have the new one.",
+                    "change_popup_title": "Change video",
+                    "edit_button": "Change video",
+                    "uploaded_video": "Uploaded file",
+                    "youtube_video": "Youtube video",
+                    "title": "Video"
                 }
             },
             "upload": {
@@ -8575,7 +8638,8 @@
                 "alert": "The picture is mandatory"
             },
             "manager_only_helper": "The video will not be available for purchase, it will be visible only to managers",
-            "manager_only": "Unavailable for purchase"
+            "manager_only": "Unavailable for purchase",
+            "duplicate": "Duplicate"
         },
         "playlist": {
             "bottomActions": {

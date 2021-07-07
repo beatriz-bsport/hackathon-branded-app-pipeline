@@ -209,13 +209,25 @@ class OfferBooking extends React.PureComponent<Props, State> {
 
     if (
       this.props.offer &&
-      typeof this.props.offer.room_blueprint === 'number'
+      typeof this.props.offer.room_blueprint === 'number' &&
+      !getOfferFeature(
+        this.props.offer,
+        this.props.offerStatusById,
+        this.props.theme.accept_double_booking,
+      ).isWaitingList
     ) {
       showSpotSelector = true;
     }
 
     this.state.selectedOffers.forEach((offerData) => {
-      if (typeof offerData.offer.room_blueprint === 'number') {
+      if (
+        typeof offerData.offer.room_blueprint === 'number' &&
+        !getOfferFeature(
+          offerData.offer,
+          this.props.offerStatusById,
+          this.props.theme.accept_double_booking,
+        ).isWaitingList
+      ) {
         showSpotSelector = true;
       }
     });
@@ -588,7 +600,15 @@ class OfferBooking extends React.PureComponent<Props, State> {
           {this.state.showSpotSelector && (
             <OfferSpotSelector
               offer={this.props.offer}
-              selectedOffer={this.state.selectedOffers}
+              selectedOffer={this.state.selectedOffers.filter(
+                (offerData) =>
+                  typeof offerData.offer.room_blueprint === 'number' &&
+                  !getOfferFeature(
+                    offerData.offer,
+                    this.props.offerStatusById,
+                    this.props.theme.accept_double_booking,
+                  ).isWaitingList,
+              )}
               roomBlueprintsById={this.props.roomBlueprintsById}
               assetByIdBlueprintByIdentifier={
                 this.props.assetByIdBlueprintByIdentifier

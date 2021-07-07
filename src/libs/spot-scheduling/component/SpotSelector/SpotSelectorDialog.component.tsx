@@ -143,7 +143,11 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
           <Button onClick={this.props.onClose}>
             {t('spotSelectorDialog.cancel')}
           </Button>
-          <Button color="primary" onClick={this.props.onSubmit}>
+          <Button
+            color="primary"
+            disabled={!this.props.selectedSpot}
+            onClick={this.props.onSubmit}
+          >
             {t('spotSelectorDialog.submit')}
           </Button>
         </DialogActions>

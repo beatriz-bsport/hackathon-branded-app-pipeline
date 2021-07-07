@@ -53,6 +53,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'flex-start',
     flexDirection: 'column',
     backgroundColor: '#efefef',
+    overflow: 'auto',
   },
 }));
 

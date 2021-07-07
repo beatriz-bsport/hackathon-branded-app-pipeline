@@ -332,7 +332,7 @@ export class BasketPage extends React.Component<Props> {
 
 const styles = (theme) => ({
   container: {
-    width: '100vw',
+    width: '100%',
     maxWidth: 920,
     height: '100%',
     display: 'flex',

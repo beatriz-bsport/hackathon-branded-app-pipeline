@@ -1438,7 +1438,7 @@
                 "status": "Status"
             },
             "invoice": {
-                "explainUnevenInvoice": "Total amount of items is {{totalInvoiceItems}}€ but total paymentsis €{{ totalPayments }}. Internal account will be credited/debited accordingly.",
+                "explainUnevenInvoice": "Total amount of items is {{totalInvoiceItems}}€ but total payments is €{{ totalPayments }}. Internal account will be credited/debited accordingly.",
                 "titleUnevenInvoice": "Unpaid invoice",
                 "activityHelper": "Chose the activity then the session",
                 "objectTypeLabel": "Object to bill",

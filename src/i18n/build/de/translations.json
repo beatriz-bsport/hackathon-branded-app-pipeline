@@ -869,7 +869,10 @@
                     "explainCreditBack": "Erstattung der Credits, die Kunden auf ihrer Kurskarte ausgegeben haben",
                     "explainModalities": "Achtung, diese Änderung ist unwiderruflich. Der Kurs wird von den Kunden nicht mehr sichtbar sein. Du wirst aber immer noch Zugang dazu haben.",
                     "buttonHardDelete": "Löschen",
-                    "explainHardDelete": "Soll dieser Kurs von der Liste entfernt werden? Achtung! Dieser Kurs wird dann unsichtbar. Diese Aktion ist unwiderruflich! Wenn es Buchungen für diesen Kurs gibt, wird dieser nicht gelöscht."
+                    "explainHardDelete": "Soll dieser Kurs von der Liste entfernt werden? Achtung! Dieser Kurs wird dann unsichtbar. Diese Aktion ist unwiderruflich! Wenn es Buchungen für diesen Kurs gibt, wird dieser nicht gelöscht.",
+                    "explainForceDanger": "Bitte beachten! Die Reservierungen werden dauerhaft gelöscht. Wenn Sie den Kredit nicht zurückgezahlt haben, verlieren Sie alle Spuren seiner Verwendung. Bitte überprüfen Sie den Status Ihrer Reservierungen und Kurskarten sorgfältig, bevor Sie diese löschen.",
+                    "force": "Löschen, auch wenn Reservierungen aufgezeichnet werden",
+                    "advanced": "Erweitert"
                 },
                 "broadcast_link": {
                     "error": "Der Link ist falsch. Er muss mit http:// oder https:// beginnen und darf keine Leerzeichen enthalten",
@@ -1260,7 +1263,7 @@
             "explainImage": "Empfohlen : 1920x1080 jpeg (fullHD)",
             "packsAvailable": "Für Kurskarten berechtigt :",
             "fillrate": "Durchschnittliche Befüllung",
-            "firstBookingMinutesUntil": "Buchungen beschränken auf Kurse vor oder in "
+            "firstBookingMinutesUntil": "Teilnehmer können zukünftige Sitzungen buchen, wenn diese in weniger als "
         },
         "paginatedList": {
             "isEmpty": "Keine Daten anzuzeigen"
@@ -3455,7 +3458,22 @@
             "explainStripeFooter": "Dieser Text wird am Ende Deiner als PDF bearbeiteten Rechnungen angezeigt. Füge alle erforderlichen rechtlichen Hinweise hinzu.",
             "nf525Button": "Herunterladen",
             "nf525Explain": "Bsport befolgt die NF525-Konformitätsverfahren. Hier kannst Du unser offizielles Zertifikat herunterladen.",
-            "nf525": "Zertifizierung"
+            "nf525": "Zertifizierung",
+            "subscription": {
+                "forms": {
+                    "disable_pass_on_fail_subscription_payment": {
+                        "helperText": "Wenn die Zahlung des Abonnements fehlschlägt oder für strittig erklärt wird, werden die Kurs- und Terminkarten für diese Rechnung deaktiviert, bis die Rechnung eingezogen wird",
+                        "label": "Deaktivieren Sie Karten, wenn die Zahlung fehlschlägt."
+                    },
+                    "revert_bookings_on_fail_subscription_payment": {
+                        "helperText": "Wenn die Zahlung des Abonnements fehlschlägt oder für strittig erklärt wird, werden die mit diesen Karten vorgenommenen Reservierungen storniert (und das Guthaben wieder gutgeschrieben)",
+                        "warning": "Achtung, Reservierungen werden nicht neu erstellt, wenn die Zahlung erfolgreich ist!",
+                        "label": "Stornieren Sie Reservierungen, wenn die Zahlung fehlschlägt."
+                    }
+                },
+                "title": "Abonnement"
+            },
+            "invoiceGeneral": "PDF Rechnung"
         },
         "returnPayment": {
             "modal": {
@@ -3614,7 +3632,14 @@
             "add": "Hinzufügen",
             "edit": "Ändern",
             "title": "Zahlungsmethode",
-            "none": "Keine Zahlungsmethode gespeichert"
+            "none": "Keine Zahlungsmethode gespeichert",
+            "detach": {
+                "pm_associated_to_pi": "Unmöglich: Sie haben ein Abonnement, das mit dieser Zahlungsmethode verknüpft ist",
+                "pm_associated_to_registered_ppe": "Unmöglich: Sie haben ein Abonnement, das mit dieser Zahlungsmethode verknüpft ist",
+                "pm_associated_to_protected_bp": "Unmöglich: Sie haben ein Abonnement, das mit dieser Zahlungsmethode verknüpft ist",
+                "last_payment_method": "Sie können Ihre einzige Zahlungsmethode nicht löschen",
+                "pm_deleted": "Gelöschte Zahlungsmethode"
+            }
         },
         "table": {
             "nested": {
@@ -3730,7 +3755,8 @@
                 "edit": "Bearbeiten",
                 "delete": "Abbrechen",
                 "registerNow": "Jetzt auszahlen"
-            }
+            },
+            "nextRetryDate": "Die Zahlung wird verzögert bis {{ d }}"
         },
         "mandate": {
             "content": "Indem Du Deine IBAN angibst und Deine Zahlung bestätigst, ermächtigst Du bsport und Stripe, unser Zahlungssystem, Lastschriftanweisungen gemäß dem Zahlungsplan an Deine Bank zu senden. Du kannst bei Deiner Bank eine Rückerstattung gemäß den Bedingungen Deiner Bank beantragen. Eine Rückerstattung muss innerhalb von 8 Wochen nach der ersten Abbuchung beantragt werden.",
@@ -3865,11 +3891,15 @@
     "paymentRules": {
         "common": {
             "from": "Anfang",
-            "until": "Ende"
+            "until": "Ende",
+            "pick_a_month": "Wählen Sie einen Monat"
         },
         "select": {
             "placeholderOverride": "Standard-Regel",
-            "placeholder": "Wähle eine Berechnungsmethode aus"
+            "placeholder": "Wähle eine Berechnungsmethode aus",
+            "coachPaymentRuleForPrivateService": "Privatkurs",
+            "coachPaymentRuleForSessions": "Gruppenkurse & Workshops",
+            "reset": "Verwenden Sie die Standardregel des Trainers"
         },
         "addNew": "Neue Entlohnungseinrichtung",
         "cancel": "Abbrechen",
@@ -3904,7 +3934,89 @@
         "only_attendant": "Beschränkung des Buchungsnachweises auf die anwesenden Schüler",
         "bookingThreshold": "Buchungsgrenze (ausgeschlossen)",
         "title": "Lohnausstellung des Lehrers {{name}}",
-        "pageTitle": "Entlohnungsregel"
+        "pageTitle": "Entlohnungsregel",
+        "coach_payment_rules": {
+            "Simulator": {
+                "student_did_not_attend": "Abwesender Student",
+                "student_attended": "Student anwesend",
+                "total_payment": "Abschlusszahlung",
+                "bonus": "Total Boni",
+                "marginValue": "Grenzwert",
+                "forCancelledBookings": "Anzahl der Abwesenheiten",
+                "forConfirmedBookings": "Anzahl der Studenten",
+                "forEachBooking": "für jede Reservierung",
+                "which": "Hier ist ein Bericht",
+                "cancellations": "Abwesenheiten oder Abbestellungen außerhalb der Zeit",
+                "and": "Und",
+                "students": "Studenten",
+                "for": "Für",
+                "helper": "Hilfe: Prüfen Sie hier, ob Ihre Vergütungsregel Ihren Vorstellungen entspricht",
+                "resultTitle": "Ergebnis Ihrer Simulation (Gehalt des Trainers)",
+                "title": "Gehaltssimulator"
+            },
+            "Errors": {
+                "invalidCancelledBookingRules": "Wenn Sie unterschiedliche Boni für abwesende Schüler anwenden möchten, müssen Sie im folgenden Abschnitt mindestens einen Bonus oder eine Basis pro Prozentsatz definieren.",
+                "lowerIntervalTypeError": "Das untere Intervall muss eine Zahl kleiner oder gleich 1 sein",
+                "taxeRateTypeError": "Die Steuer muss eine Zahl zwischen 0 und 100 sein.",
+                "taxeRateRequired": "Die Steuer ist ein Pflichtfeld, wenn Sie das Feld \"Steuerberechnung\" oben markiert haben.",
+                "percentagebaseRemunerationTypeError": "Die prozentuale Vergütung muss eine Zahl zwischen 0 und 100 sein.",
+                "percentagebaseRemunerationRequired": "Prozentualer Lohn ist ein Pflichtfeld, wenn Sie das obige Feld markiert haben.",
+                "baseRemunerationTypeError": "Der Grundlohn muss eine positive Zahl sein.",
+                "baseRemunerationRequired": "Basic Pay ist ein Pflichtfeld, wenn Sie oben das Feld \"Fixed Base\" markiert haben.",
+                "invalideUpperInterval": "Das obere Intervall muss eine Zahl sein.",
+                "invalideIntervals": "Die Überschneidung von Intervallen für gleichartige Boni ist nicht zulässig.",
+                "invalidLowerInterval": "Das obere Intervall muss größer als das untere Intervall sein.",
+                "invalidBonusAmount": "Der Bonus muss größer oder gleich 0,1 sein.",
+                "invalidMaximum": "Die maximale Vergütung muss höher sein als die Mindestvergütung",
+                "invalidMinimum": "Die Mindestvergütung muss gleich oder höher als die feste Basis sein",
+                "nameRequired": "Der Name ist ein Pflichtfeld."
+            },
+            "Bonuses": {
+                "bonus_rules": "Bonusregeln",
+                "forInterval": "für das gesamte Intervall",
+                "forEachBooking": "für jede Reservierung",
+                "bookingsThresholds": "Reservierungen (einschließlich Terminals)",
+                "to": "à",
+                "from": "Von",
+                "addBonus": "EINE BONUSREGEL HINZUFÜGEN",
+                "bonus": "Bonus"
+            },
+            "paymentPackPlaceHolder": "Kurskarten auswählen",
+            "excludePaymentPack": "Reservierungen von bestimmten Karten ausschließen",
+            "bonusForEachReservationInInterval": "Einen Bonus für jede Reservierung im Intervall hinzufügen",
+            "fixedBonusbyInterval": "Fügen Sie einen festen Bonus pro Intervall hinzu",
+            "cancellationBaseHelper": "Hilfe: Durch Ankreuzen dieses Feldes erhält der Coach keine zusätzliche Vergütung auf den Grenzwert der stornierten Buchungen",
+            "taxeLongHelper": "Hilfe: Alle Prozentsätze sind auf den Grenzwert jeder Buchung ohne Steuer berechnet. Die Steuer wird sowohl auf den Grenzwert als auch auf alle Fest- und Bonussätze aufgeschlagen.",
+            "taxeConciseHelper": "Der prozentuale Bonus, der sich aus dem Grenzwert errechnet, wird von der geltenden Mehrwertsteuer abgezogen.",
+            "add_taxe_rate": "Hinzukommende Steuer",
+            "taxe_rate": "Mehrwertsteuer bei der Berechnung des Grenzwerts ausschließen (Prozentsatz)",
+            "max_remuneration": "Maximum",
+            "min_remuneration": "Minimum",
+            "remunerationLimits": "Vergütungsgrenzen",
+            "differentRemunerationForCancellation": "Wenden Sie unterschiedliche Bonusregeln für das Zählen abwesender Schüler oder das Stornieren aus der Zeit an ",
+            "addRemunerationOnCancellation": "Bezahlung des Lehrers bei verspäteter Absage oder Abwesenheit",
+            "percentage_base": "Addieren Sie einen Prozentsatz des Grenzwerts von Reservierungen",
+            "base_remuneration_helper": "Dieser Betrag wird immer auf die Sitzungs-/Termingebühr aufgeschlagen",
+            "base_remuneration": "Basis fixe",
+            "set_base_remuneration": "Definieren Sie eine feste Vergütungsbasis",
+            "forCancelledBookings": "Bei verspäteter Stornierung und Nichterscheinen",
+            "forConfirmedBookings": "Für die anwesenden Studenten",
+            "calculationMethod": "Berechnungsmethode",
+            "actions": "Aktionen",
+            "coaches": "Trainer",
+            "name": "Name",
+            "addNewCoachPaymentRule": "Neue Kompensationseinstellungen"
+        },
+        "tabs": {
+            "all": "Alle Kurse",
+            "appointment": "Privatkurs",
+            "session": "Gruppenkurse & Workshops"
+        },
+        "fabButton": {
+            "addNewForRDV": "Privatkurs",
+            "addNewForSession": "Gruppenkurse & Workshops"
+        },
+        "paymentRules": "Vergütungsregeln"
     },
     "shop": {
         "shopitem": {
@@ -4674,7 +4786,10 @@
                 "usability": "Benutzung",
                 "applies_to": "Einstellungen",
                 "general": "Allgemein",
-                "subscription": "Abonnement (Vertrag)"
+                "subscription": "Abonnement (Vertrag)",
+                "blacklist_tags": "Nein - nur nutzbar für Mitglieder mit dem Tag",
+                "whitelist_tags": "Nur verwendbar für Mitglieder mit dem Tag",
+                "tags": "Tags"
             },
             "selectorPlaceholder": {
                 "paymentPack": "Kurskarten auswählen (gültig für alle Karten, wenn keine ausgewählt ist)",
@@ -4705,6 +4820,16 @@
                 "2": "Nur erster Abrechnungszyklus (vor Verlängerung)",
                 "1": "Nur im ersten Monat",
                 "0": "Alle Abrechnungen"
+            },
+            "tag": {
+                "select": {
+                    "error": "Das gleiche Tag kann nicht in beiden Listen vorhanden sein",
+                    "empty_tag_list": "Kein Tag ausgewählt",
+                    "tag": "Wählen Sie einen Tag",
+                    "tag_group": "Wählen Sie eine Gruppe von Tags"
+                },
+                "tag": "Tag",
+                "tag_group": "Gruppe"
             }
         },
         "list": {
@@ -4722,7 +4847,9 @@
             "uses": "Benutzungen",
             "limitation": "Beschränkt auf",
             "first_buy": "Kann nur beim ersten Kauf verwendet werden",
-            "member_uses": "Benutzungen pro Mitglied"
+            "member_uses": "Benutzungen pro Mitglied",
+            "blacklist_tags": "Nicht verfügbar für Mitglieder mit bestimmten Tags",
+            "whitelist_tags": "Nur für Mitglieder mit bestimmten Tags verfügbar"
         },
         "noDiscount": "Keine Käufe mit dem Code durchgeführt"
     },
@@ -5613,7 +5740,8 @@
         "actions": {
             "goToSubscription": "Alle Abonnements ansehen",
             "goToPass": "Alle Karten ansehen",
-            "goToCalendar": "Zum Stundenplan"
+            "goToCalendar": "Zum Stundenplan",
+            "goToHome": "Alle Dienstleistungen anzeigen"
         },
         "booking": {
             "showCalendar": "Kalender ansehen",
@@ -5673,6 +5801,15 @@
             "noBookingFuture": "Keine bevorstehende Kurse",
             "pastBooking": "Historie",
             "futureBooking": "Meine Buchungen"
+        },
+        "language": {
+            "nl": "Niederländisch",
+            "it": "Italienisch",
+            "de": "Deutsch",
+            "es": "Spanisch",
+            "en-GB": "Englisch (United Kingdom)",
+            "en-US": "Englisch (USA)",
+            "fr": "Französisch"
         }
     },
     "metaActivity": {
@@ -5813,6 +5950,10 @@
             },
             "new_member_only": {
                 "label": "Nur für Neukunden"
+            },
+            "maxPurchasePerMember": {
+                "helperText": "Leer lassen, um keinen Grenzwert zu setzen",
+                "label": "Maximaler Kauf pro Mitglied"
             }
         },
         "list": {
@@ -5944,7 +6085,11 @@
             "22": "Rechnungsbestätigung",
             "601": "Zu wenige Buchungen N Stunden vor Beginn des Kurses",
             "701": "Kurskartenstrafe: Karte gesperrt (Mitglied)",
-            "702": "Kurskartenstrafe: Kaution erstellt (Mitglied)"
+            "702": "Kurskartenstrafe: Kaution erstellt (Mitglied)",
+            "530": "Streit über die Zahlung eines Abonnements",
+            "520": "Die Zahlung eines fehlgeschlagenen Abonnements wird erneut versucht",
+            "515": "Kurskarte des Abonnements automatisch deaktiviert",
+            "510": "Fehlgeschlagene Abonnement-Zahlung"
         },
         "tag": {
             "BookingOption": {
@@ -6037,7 +6182,8 @@
         },
         "emailDesign": {
             "closePreview": "Schließen",
-            "placeholder": "Von bsport erzeugt"
+            "placeholder": "Von bsport erzeugt",
+            "birthdayPlaceholder": "Wählen Sie eine E-Mail"
         },
         "ruleGroup": {
             "subscription": "Abonnement",
@@ -7300,6 +7446,15 @@
             "section": {
                 "archived": "Archivierte Einrichtung"
             }
+        },
+        "location": {
+            "country": "Land",
+            "zip_code": "PLZ",
+            "city": "Stadt",
+            "address_line_2": "Adresszeile 2",
+            "address_line_1": "Adresszeile 1",
+            "address": "Adresse",
+            "search_address": "Suche nach einer Adresse"
         }
     },
     "checkout": {
@@ -7321,7 +7476,8 @@
             "error": {
                 "invalidBasket": "Dein Warenkorb enthielt Produkte, die nicht mehr zum Verkauf stehen. Es wurde keine Zahlung verzeichnet"
             },
-            "isFinalized": "Dein Warenkorb wurde validiert"
+            "isFinalized": "Dein Warenkorb wurde validiert",
+            "checkingPaymentStatus": "Bitte warten Sie, wir prüfen den Status Ihrer Zahlung"
         },
         "forms": {
             "delivery": {

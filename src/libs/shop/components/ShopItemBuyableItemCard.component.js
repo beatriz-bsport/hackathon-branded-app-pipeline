@@ -18,6 +18,7 @@ const ShopItemBuyableItemCard = (props: {
   addToOrder: ?(id: number) => void,
   classes: Object,
   fullHeight?: boolean,
+  loading?: boolean,
 }) => {
   if (!props.shopitem) {
     return <div />;
@@ -60,6 +61,7 @@ const ShopItemBuyableItemCard = (props: {
         <div className={props.classes.buttonRow}>
           <Button
             color="primary"
+            disabled={props.loading}
             onClick={() => props.addToOrder(props.shopitem.id)}
           >
             <AddShoppingCartIcon className={props.classes.leftIcon} />

@@ -16,9 +16,9 @@ import { fetchOne as fetchPaymentPack } from '../../libs/payment-packs/actions';
 import { fetchOfferBulk } from '../../libs/offer/actions';
 import withQueryParams from '../../hocs/with-query-params.hoc';
 
-const DEPRECATEDOfferPaymentPage = asyncComponent(() =>
-  import('./booker-modules/DEPRECATEDOfferBooker.page'),
-);
+// const DEPRECATEDOfferPaymentPage = asyncComponent(() =>
+//   import('./booker-modules/DEPRECATEDOfferBooker.page'),
+// );
 const OfferBooker = asyncComponent(() =>
   import('./booker-modules/OfferBooker/OfferBooking.page'),
 );
@@ -131,10 +131,7 @@ export class PaymentRouter extends React.Component<Props> {
           path="/(|customer/)checkout/:companyId/"
           component={BasketPage}
         />
-        <Route
-          path="/(|customer/)payment/offer/:id"
-          component={DEPRECATEDOfferPaymentPage}
-        />
+        <Route path="/(|customer/)payment/offer/:id" component={OfferBooker} />
         <Route
           path="/(|customer/)payment/offer-booker-module/:id"
           component={OfferBooker}

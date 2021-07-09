@@ -131,6 +131,7 @@ type Props = {
   snackbarSuccessMsg: (msg: string) => void,
   userDefaultName?: string,
   userDefaultEmail?: string,
+  loading?: boolean,
 };
 
 export const PaymentStripeSEPA = (props: Props) => {
@@ -260,7 +261,10 @@ export const PaymentStripeSEPA = (props: Props) => {
             >
               {t('invoice:paymentPanel.actions.confirmPayment')}
             </Button>
-            <Button disabled={processing} onClick={props.onCancel}>
+            <Button
+              disabled={props.loading || processing}
+              onClick={props.onCancel}
+            >
               {t('paymentPanel.actions.cancel')}
             </Button>
           </React.Fragment>

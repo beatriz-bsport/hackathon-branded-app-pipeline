@@ -31,7 +31,7 @@ export const PAYMENT_STEP = {
 
 type Props = {
   basket: Basket,
-  processing: boolean,
+  loading: boolean,
   processing: boolean,
   backToCalendar: () => void,
   patchBasket: (data: any) => void,
@@ -198,7 +198,10 @@ export class BasketFinalizer extends React.Component<Props, State> {
           </Typography>
         </div>
         <div className={this.props.classes.couponCodeContainer}>
-          <CouponCodeForm onSubmit={this.props.attachCoupon} />
+          <CouponCodeForm
+            loading={this.props.loading || this.props.processing}
+            onSubmit={this.props.attachCoupon}
+          />
         </div>
         {this.state.steps.length > 1 ? (
           <Stepper activeStep={this.state.currentStep} alternativeLabel>

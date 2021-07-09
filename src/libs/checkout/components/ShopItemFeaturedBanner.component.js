@@ -14,6 +14,7 @@ type Props = {
   classes: Object,
   shopItemList: Array<ShopItem>,
   onAddShopItem: (id: number) => void,
+  loading?: boolean,
 };
 export const ShopItemFeaturedBanner = (props: Props) => {
   if (props.shopItemList.length === 0) {
@@ -37,6 +38,7 @@ export const ShopItemFeaturedBanner = (props: Props) => {
               addToOrder={() => props.onAddShopItem(si.id)}
               shopitem={si}
               fullHeight
+              loading={props.loading}
             />
           </div>
         ))}

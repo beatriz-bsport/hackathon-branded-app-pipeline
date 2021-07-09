@@ -292,6 +292,7 @@ export class BasketPage extends React.Component<Props> {
               validateUnpaid={this.validateUnpaid}
               paymentModule={
                 <PaymentStripe
+                  laoding={this.props.loading || this.props.processing}
                   onCancel={this.backToCalendar}
                   paymentMethodChoices={PAYMENT_GROUP_METHOD_BY_ENGINE[
                     PAYMENT_ENGINE_STRIPE

@@ -46,6 +46,7 @@ export const PaymentStripeIdeal = (props: {
   forceDisabled?: boolean,
   userDefaultName?: string,
   userDefaultEmail?: string,
+  loading?: boolean,
 }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -145,6 +146,7 @@ export const PaymentStripeIdeal = (props: {
             variant="contained"
             type="submit"
             disabled={
+              props.loading ||
               props.forceDisabled ||
               !stripe ||
               !props.termsAndConditionsAccepted

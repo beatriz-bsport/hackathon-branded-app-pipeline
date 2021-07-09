@@ -29,6 +29,7 @@ type Props = {
   forceDisabled?: boolean,
   detachPaymentMethodLoading: boolean,
   detachPaymentMethod: (pm_id: string) => void,
+  loading?: boolean,
   snackbarErrorMsg: (msg: string) => void,
   snackbarSuccessMsg: (msg: string) => void,
   sepaDefaultName?: string,
@@ -180,6 +181,7 @@ export const StripePaymentCard = (props: Props) => {
               color="primary"
               type="submit"
               disabled={
+                props.loading ||
                 props.forceDisabled ||
                 !stripe ||
                 !elements ||

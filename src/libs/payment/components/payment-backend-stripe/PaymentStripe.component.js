@@ -40,6 +40,7 @@ import { getStripePkKey, getCurrencyDisplay } from '../../../theme/selectors';
 const stripePromise = loadStripe(getStripePkKey());
 
 type Props = {
+  loading: boolean,
   paymentMethodSelected: number,
   selectPaymentMethod: (number) => void,
   paymentMethodChoices: Array<number>,
@@ -132,6 +133,7 @@ export const PaymentStripe = (props: Props) => {
             clientSecret={props.clientSecret}
             forceDisabled={priceUpdaterOpen}
             onCancel={props.onCancel}
+            loading={props.loading}
             memberId={props.memberId}
             detachPaymentMethodLoading={props.detachPaymentMethodLoading}
             detachPaymentMethod={props.detachPaymentMethod}

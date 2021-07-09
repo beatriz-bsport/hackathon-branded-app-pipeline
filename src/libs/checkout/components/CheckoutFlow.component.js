@@ -69,6 +69,7 @@ export const CheckoutFlow = (props: Props) => (
         <ShopItemFeaturedBanner
           onAddShopItem={props.addShopItemToBasket}
           shopItemList={props.shopItemList}
+          loading={props.loading || props.processing}
         />
       </div>
     ) : null}

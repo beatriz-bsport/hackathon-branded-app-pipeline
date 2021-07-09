@@ -18,6 +18,7 @@ type Props = {
   forceDisabled?: boolean,
   userDefaultName?: string,
   userDefaultEmail?: string,
+  loading?: boolean,
 };
 
 export const PaymentStripeSofort = (props: Props) => {
@@ -119,6 +120,7 @@ export const PaymentStripeSofort = (props: Props) => {
             variant="contained"
             type="submit"
             disabled={
+              props.loading ||
               props.forceDisabled ||
               !stripe ||
               !props.termsAndConditionsAccepted

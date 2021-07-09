@@ -30,6 +30,7 @@ export const CheckoutItemListItem = (props: {
   classes: Object,
   dense: ?boolean,
   onItemExpire?: (item: CheckoutItem) => void,
+  loading?: boolean,
   t: any,
 }) => (
   <React.Fragment>
@@ -51,10 +52,10 @@ export const CheckoutItemListItem = (props: {
 
         {props.checkout_item.editable && props.onRemoveOne && props.onAddOne ? (
           <div className={props.classes.actionButtons}>
-            <IconButton onClick={props.onRemoveOne}>
+            <IconButton disabled={props.loading} onClick={props.onRemoveOne}>
               <ExposureNeg1Icon />
             </IconButton>
-            <IconButton onClick={props.onAddOne}>
+            <IconButton disabled={props.loading} onClick={props.onAddOne}>
               <ExposurePlus1Icon />
             </IconButton>
           </div>
@@ -63,7 +64,7 @@ export const CheckoutItemListItem = (props: {
         !props.checkout_item.editable &&
         props.onRemoveOne ? (
           <ListItemSecondaryAction>
-            <IconButton onClick={props.onRemoveOne}>
+            <IconButton disabled={props.loading} onClick={props.onRemoveOne}>
               <DeleteIcon />
             </IconButton>
           </ListItemSecondaryAction>

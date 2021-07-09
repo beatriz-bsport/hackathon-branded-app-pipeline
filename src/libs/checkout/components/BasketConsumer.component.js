@@ -45,6 +45,7 @@ export const BasketConsumer = (props: Props) => {
             <CheckoutItemListItem
               checkout_item={ci}
               key={ci.id}
+              loading={props.loading}
               onRemoveOne={() =>
                 props.onRemoveCheckoutItem({
                   checkout_item: ci.id,

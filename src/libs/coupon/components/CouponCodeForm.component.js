@@ -17,6 +17,7 @@ type Props = {
   t: TFunction,
   classes: Object,
   code: string,
+  loading?: boolean,
 };
 
 export const CouponCodeForm = (props: Props) => {
@@ -33,7 +34,11 @@ export const CouponCodeForm = (props: Props) => {
 
   return (
     <div className={props.classes.container}>
-      <Button onClick={() => setOpen(true)} color="primary">
+      <Button
+        disabled={props.loading}
+        onClick={() => setOpen(true)}
+        color="primary"
+      >
         {props.t('code.addCoupon.label')}
       </Button>
       <Dialog open={open}>

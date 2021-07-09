@@ -234,14 +234,7 @@ export class OfferPaymentPage extends Component<Props, State> {
     this.setState({ currentBasketOpen });
 
   render() {
-    if (!this.props.offer || !this.props.offer.meta_activity) {
-      return <CircularProgress />;
-    }
-    if (
-      !!this.props.offer.room_blueprint ||
-      this.props.offer.meta_activity.is_workshop ||
-      parseInt(this.props.offerId, 10) % 100 === 0
-    ) {
+    if (this.props.offer && this.props.offer.meta_activity) {
       return (
         <Redirect
           to={`/payment/offer-booker-module/${this.props.offerId}?membership=${this.props.offer.meta_activity.company}`}

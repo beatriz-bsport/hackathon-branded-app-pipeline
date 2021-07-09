@@ -4835,7 +4835,7 @@
             "name": "Name",
             "addNewCoachPaymentRule": "New payment rule",
             "base_remuneration_helper": "This amount will always be added to the session pay",
-            "set_base_remuneration": "Set teacher base pay"
+            "set_base_remuneration": "Define a fixed compensation base"
         },
         "tabs": {
             "all": "All classes",

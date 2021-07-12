@@ -4903,7 +4903,7 @@
         "paymentMethod": {
             "11": "Other",
             "10": "Automatic payment",
-            "9": "Internal account (credit)",
+            "9": "Pay later in studio",
             "8": "EventBrite",
             "7": "Bank transfer",
             "6": "AMEX",
@@ -5788,8 +5788,8 @@
                 "title": "Pause all subscriptions",
                 "paymentPackActions": {
                     "disableTillNextInvoice": "Deactivate the billed pack until the next billing",
-                    "extendTillNextInvoice": "Extend the validity period of the billed pack until the next bill",
-                    "doNotChange": "Do not change the billed pack",
+                    "extendTillNextInvoice": "Extend the validity of the invoiced pass until the next invoice",
+                    "doNotChange": "Do not change the pass that was billed",
                     "title": "Settings"
                 }
             },
@@ -6172,7 +6172,7 @@
                 "blockUnlimited": "Block pass"
             },
             "maxout": {
-                "dialog_message": "Please note that this pack has already reached its limit of {{count}} reservation (s) by {{unit}}. Do you still want to book with this pack? ",
+                "dialog_message": "Please note that this pass has already reached its limit of {{count}} booking(s) by {{unit}}. Do you still want to book with this pass? ",
                 "dialogTitle": "Reservation limit reached",
                 "months": "month",
                 "weeks": "week",
@@ -8088,7 +8088,7 @@
                 "cancel": "Cancel",
                 "explainTags": "Member tags will not be transfered",
                 "explainBookingsAndPassAndInvoiceAndNotes": "Passes, booking, bills and notes will be transfered.",
-                "explainCredit": "Internal account of the member will be transfered",
+                "explainCredit": "Internal account of the member will be transferred",
                 "title": "Merge",
                 "dstMember": "Member to keep",
                 "srcMember": "Member to merge",

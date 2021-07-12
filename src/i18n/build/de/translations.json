@@ -85,7 +85,8 @@
                 "14": "Guthaben",
                 "2": "SEPA",
                 "1": "Kreditkarte"
-            }
+            },
+            "paymentCombo": "Pack"
         },
         "paymentMethod": {
             "card": "Kreditkarte",
@@ -278,6 +279,11 @@
             },
             "invoice": {
                 "label": "Rechnung {{uuid}}: {{price}} €"
+            },
+            "listItem": {
+                "recurrencePriceIs": "Wiederholung von {{ amount }}{{currencyDisplay}}",
+                "nextBillingDate": "Nächste Abrechnung auf {{ d }}",
+                "startingAt": "Beginnt am {{ d }}"
             }
         },
         "table": {
@@ -431,7 +437,13 @@
                     "placeholder": "Studio geschlossen aufgrund von Feiertagen"
                 },
                 "warning": "Bitte beachte, dass bei einigen Abonnements die Pause nicht umkehrbar ist",
-                "title": "Globale Pause"
+                "title": "Globale Pause",
+                "paymentPackActions": {
+                    "disableTillNextInvoice": "Deaktivieren Sie die abgerechnete Karte bis zur nächsten Abrechnung",
+                    "extendTillNextInvoice": "Verlängern Sie die Gültigkeitsdauer der fakturierten Karte bis zur nächsten Rechnung",
+                    "doNotChange": "Ändern Sie die abgerechnete Karte nicht",
+                    "title": "Verhalten der Karte"
+                }
             },
             "actions": {
                 "previous": "Bisherige",
@@ -1769,7 +1781,10 @@
                 "first": "gebucht",
                 "second": "Termin",
                 "explanation": "X  gebuchte Termine mit Professor A an Platz B mit der Terminkarte C ...",
-                "name": "Anzahl der Termine"
+                "name": "Anzahl der Termine",
+                "private_service": {
+                    "first": "mit den Terminen"
+                }
             },
             "25": {
                 "first": "eine der Terminkarten",
@@ -1793,7 +1808,12 @@
             },
             "attendanceTrue": "Anwesend",
             "attendanceFalse": "Abwesend",
-            "attendanceWarning": "Wähle einen Status"
+            "attendanceWarning": "Wähle einen Status",
+            "410": {
+                "explanation": "Nachdem Sie die Haftungsausschlüsse akzeptiert haben",
+                "name": "Haftungsfreistellung",
+                "explain": "nach Annahme der Haftungsfreistellung"
+            }
         },
         "filterCategory": {
             "4": "Käufe",
@@ -1915,6 +1935,13 @@
                 "helperText": "Wähle Terminkarten",
                 "warning": "Du musst mindestens eine Terminkarte auswählen",
                 "textFieldPlaceholder": "Finde eine Terminkarte"
+            },
+            "privateServices": {
+                "warning": "Wählen Sie mindestens einen Termin",
+                "helperAllSelectedText": "alle Termine",
+                "textFieldPlaceholder": "Suche nach einem Termin",
+                "helperSelectedText": "ausgewählte Termine",
+                "helperText": "Termine auswählen"
             }
         },
         "description": "Beschreibung",
@@ -2556,6 +2583,14 @@
                     "refund": "Rückerstattung",
                     "applyVoucher": "Rabatt anwenden"
                 }
+            },
+            "maxout": {
+                "dialog_message": "Achtung diese Karte hat bereits ihr Limit von {{count}} Reservierungen pro {{unit}} erreicht. Möchten Sie trotzdem mit dieser Karte buchen? ",
+                "dialogTitle": "Reservierungsgrenze erreicht",
+                "months": "Monat",
+                "weeks": "Woche",
+                "days": "Tag",
+                "limit_reach": "Limit der Reservierungen pro {{unit}} erreicht"
             }
         },
         "noRestrictionOnActivityType": "Alle Aktivitäten sind mit dieser Karte vereinbar",
@@ -2904,7 +2939,14 @@
             "accept_sms": "Akzeptiert SMS",
             "payout_identifier": "Überweisung",
             "credit_amount": "Anzahl der Credits",
-            "initial_price": "Kaufpreis"
+            "initial_price": "Kaufpreis",
+            "video_title": "Video-Titel",
+            "last_view": "Zuletzt gesehen",
+            "nb_canceled": "Anzahl der Stornierungen",
+            "recurrent_price": "Betrag",
+            "sum__non_attendance": "Anzahl der Abwesenheiten",
+            "sum_attendance": "Anzahl der anwesenden Personen",
+            "invoice_date": "Rechnungsdatum"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -2949,7 +2991,8 @@
             "invoices": "Einkäufe",
             "products": "Produkte",
             "video": "Video",
-            "unpaid_invoices": "Unbezahlte Rechnungen"
+            "unpaid_invoices": "Unbezahlte Rechnungen",
+            "video_purchase": "Video-Kauf"
         },
         "globalCategories": {
             "subheader": {
@@ -3112,7 +3155,8 @@
             },
             "update": {
                 "success": "Die Rechnung wurde erfolgreich aktualisiert"
-            }
+            },
+            "returnPaymentLocked": "Diese Zahlung kann nicht zurückerstattet werden, befindet sich genug Geld auf Ihrem Stripe-Konto?"
         },
         "member": {
             "merge": {
@@ -3446,13 +3490,29 @@
                 "nothingAvailable": "Mit keinem Pass kannst du diese Kurse gleichzeitig buchen",
                 "changed": "Die zu buchende Kurskarte musste geändert werden"
             }
+        },
+        "paymentMethod": {
+            "detach": {
+                "pm_associated_to_pi": "Unmöglich: Sie haben ein Abonnement, das mit dieser Zahlungsmethode verknüpft ist",
+                "pm_associated_to_registered_ppe": "Unmöglich: Sie haben ein Abonnement, das mit dieser Zahlungsmethode verknüpft ist",
+                "pm_associated_to_protected_bp": "Unmöglich: Sie haben ein Abonnement, das mit dieser Zahlungsmethode verknüpft ist",
+                "last_payment_method": "Sie können Ihre einzige Zahlungsmethode nicht löschen",
+                "pm_deleted": "Gelöschte Zahlungsmethode"
+            }
+        },
+        "settings": {
+            "update": {
+                "error": "Aktualisierung nicht möglich, bitte versuchen Sie es später erneut",
+                "success": "Aktualisierte Parameter"
+            }
         }
     },
     "invoice": {
         "configuration": {
             "submit_stripe_footer": "Aktualisieren",
             "forms": {
-                "stripe_footer_placeholder": "Keine weitere Angabe"
+                "stripe_footer_placeholder": "Keine weitere Angabe",
+                "show_company_email_in_invoice": "Anzeige der Kontakt-E-Mail Ihres Unternehmens auf Rechnungen"
             },
             "stripe_footer": "Fußzeile der Rechnung",
             "explainStripeFooter": "Dieser Text wird am Ende Deiner als PDF bearbeiteten Rechnungen angezeigt. Füge alle erforderlichen rechtlichen Hinweise hinzu.",
@@ -3469,6 +3529,14 @@
                         "helperText": "Wenn die Zahlung des Abonnements fehlschlägt oder für strittig erklärt wird, werden die mit diesen Karten vorgenommenen Reservierungen storniert (und das Guthaben wieder gutgeschrieben)",
                         "warning": "Achtung, Reservierungen werden nicht neu erstellt, wenn die Zahlung erfolgreich ist!",
                         "label": "Stornieren Sie Reservierungen, wenn die Zahlung fehlschlägt."
+                    },
+                    "nbRetriesSubscriptionPayments": {
+                        "helperText": "Zwischen 0 und 5 Versuchen",
+                        "label": "Anzahl der Versuche nach einer fehlgeschlagenen Zahlung"
+                    },
+                    "activateSmartRetries": {
+                        "helperText": "bsport wird fehlgeschlagene Abo-Zahlungen automatisch zum besten Zeitpunkt wiederholen.",
+                        "label": "Smart Retries bei fehlgeschlagenen Zahlungen aktivieren"
                     }
                 },
                 "title": "Abonnement"
@@ -3548,7 +3616,8 @@
                 "3": "Kredit",
                 "2": "Shop",
                 "1": "Kurskarte"
-            }
+            },
+            "discount": "Reduktion"
         },
         "uneditableMessage": {
             "invoiceFinalizedThusNotEditable": "Die Rechnung wurde abgeschlossen und kann deswegen nicht mehr geändert werden",
@@ -4206,6 +4275,15 @@
                 "creditPrice": {
                     "helperText": "Bei Null belassen, damit das Video für alle Mitglieder zugänglich ist",
                     "label": "Creditkosten"
+                },
+                "video_label": "Video",
+                "video_source": {
+                    "change_popup_text": "Bitte beachten Sie, dass das aktuelle Video gelöscht wird. Mitglieder, die das alte Video gekauft haben, erhalten nun das neue Video.",
+                    "change_popup_title": "Video ändern",
+                    "edit_button": "Video ändern",
+                    "uploaded_video": "Datei hochgeladen",
+                    "youtube_video": "Youtube-Video",
+                    "title": "Video"
                 }
             },
             "lock": {
@@ -4265,7 +4343,8 @@
                 "alert": "Bild ist erforderlich"
             },
             "manager_only_helper": "Das Video kann nicht gekauft werden, es ist nur für Admins sichtbar",
-            "manager_only": "Nicht zum Kauf verfügbar"
+            "manager_only": "Nicht zum Kauf verfügbar",
+            "duplicate": "Duplizieren"
         },
         "playlist": {
             "description": "Beschreibung",
@@ -4308,7 +4387,8 @@
                 "isDisabled": "Der Kurs wurde leider abgesagt.",
                 "isWaitingListFull": "Der Kurs ist abgeschlossen und die Warteliste ist voll.",
                 "isTooLate": "Anmeldungen sind nicht mehr möglich, die Anmeldefrist ist überschritten.",
-                "isTooSoon": "Die Anmeldungen sind vorläufig geschlossen und werden am {{date}} geöffnet."
+                "isTooSoon": "Die Anmeldungen sind vorläufig geschlossen und werden am {{date}} geöffnet.",
+                "isAlreadyRegistered": "Sie sind bereits für diese Sitzung registriert"
             },
             "section": {
                 "consumerPacks": "Meine Kurskarten",
@@ -4454,7 +4534,12 @@
                     "refunded": "Wenn die Buchung rechtzeitig storniert wurde",
                     "absence": "Wenn das Mitglied abwesend ist",
                     "attendance": "Wenn das Mitglied anwesend ist"
-                }
+                },
+                "bookingNumberN": "{{notify_booking_nb}}th reservation",
+                "bookingNumberThird": "3. Reservierung",
+                "bookingNumberSecond": "2. Reservierung",
+                "bookingNumberFirst": "1. Reservierung",
+                "bookingNumberAll": "Alle Reservierungen"
             },
             "addNotification": "Eine Benachrichtigung hinzufügen"
         },
@@ -4552,8 +4637,11 @@
             "similarOffer": {
                 "showMore": "Mehr anzeigen",
                 "empty": "Kein Kurs gefunden",
-                "title": "Buche weitere Sitzungen"
-            }
+                "title": "Buche weitere Sitzungen",
+                "selectAll": "Alle auswählen"
+            },
+            "bookingForMe": "ich",
+            "bookingsTitleFor": "Ich buche für {{name}}"
         }
     },
     "member": {
@@ -4584,7 +4672,10 @@
                 "title": "Neues Mitglied",
                 "success": "Mitglied erfolgreich erstellt"
             },
-            "error": "Es ist unmöglich, dieses Mitglied zu speichern"
+            "error": "Es ist unmöglich, dieses Mitglied zu speichern",
+            "phone": {
+                "error": "Ungültige Telefonnummer"
+            }
         },
         "showSubscriptions": "Abonnements ansehen",
         "showInvoices": "Rechnungen ansehen",
@@ -4622,8 +4713,11 @@
         "row": {
             "update": "Ändern",
             "headers": {
-                "actions": "Aktion"
-            }
+                "actions": "Aktion",
+                "newsletter_email": "E-Mails akzeptieren"
+            },
+            "no": "Nein",
+            "yes": "Ja"
         },
         "relation": {
             "pleaseSelectRelation": "Wähle eine Beziehung aus, um geteilte Kurskarten anzuzeigen"
@@ -5898,13 +5992,17 @@
             "downloadAll": "Zusammenfassung"
         },
         "fields": {
-            "rule": "Regel",
+            "rule": "Regel für Sitzungsgeld",
             "date": "Datum",
             "name": "Name des Kurses",
             "duration": "Dauer",
             "base": "Basis",
             "bonus": "Bonus",
-            "nb_bookings": "Buchungen"
+            "nb_bookings": "Buchungen",
+            "error": "Es scheint, dass einige Kurse keine zugehörige Lohnregel haben. Sie müssen eine Abrechnungsregel mit diesen Kursen verknüpfen oder eine Abrechnungsregel mit dem Trainer verknüpfen.",
+            "total": "Gesamtvergütung",
+            "cancelled_bookings": "Stornierte Buchungen",
+            "confirmed_bookings": "Teilnehmer"
         },
         "checkboxIncludeABonus": "Einen Leistungsbonus einschließen",
         "pricePerOffer": "Betrag pro Sitzung",
@@ -6716,7 +6814,8 @@
                 "bookings": "Meine Buchungen ",
                 "pass": "Kurskarten",
                 "profile": "Mein Profil",
-                "order": "Meine Bestellungen"
+                "order": "Meine Bestellungen",
+                "subscriptions": "Meine Abonnements"
             },
             "coupon": "Werbeaktionen",
             "video": "Videothek",
@@ -6799,6 +6898,11 @@
             "downloadChrome": "Downloade kostenlos Google Chrome",
             "downloadFirefox": "Downloade Mozilla Firefox kostenlos",
             "navigatorError": "Es scheint, dass Dein Browser nicht auf dem neusten Stand ist, um unsere Dienste zu nutzen. Fehler können auftreten. Wir empfehlen Dir, eine neuere Version herunterzuladen, beispielsweise: "
+        },
+        "paymentMethodMissing": {
+            "banner": "Sie haben keine Zahlungsmethode für Ihr bsport-Abonnement angegeben. Bitte klicken Sie hier.",
+            "explain": "Sie haben keine gültige Zahlungsmethode eingegeben, bitte bestätigen Sie diese, um Ihr bsport-Abonnement weiter zu nutzen.",
+            "closeModal": "Schließen"
         }
     },
     "emailTemplate": {
@@ -7670,7 +7774,8 @@
                 "payment_pack": "Kurskarte",
                 "private_service": "Termin",
                 "establishment": "Einrichtung",
-                "meta_activity": "Aktivität"
+                "meta_activity": "Aktivität",
+                "workshop": "Workshop"
             },
             "cancel": "Abbrechen",
             "next": "Weiter",
@@ -7679,10 +7784,44 @@
                 "payment_pack": "Eine Terminkarte auswählen",
                 "private_service": "Einen Termin auswählen",
                 "establishment": "Wähle eine Einrichtung aus",
-                "meta_activity": "Wähle eine Aktivität aus"
+                "meta_activity": "Wähle eine Aktivität aus",
+                "workshop": "Wählen Sie einen Workshop"
             },
             "createNotification": "Benachrichtigung-Formular",
-            "selectNotificationRules": "Wähle eine Regel aus, um die Details anzuzeigen"
+            "selectNotificationRules": "Wähle eine Regel aus, um die Details anzuzeigen",
+            "stats": {
+                "total_mail_opened": "Anzahl der geöffneten Mails",
+                "opened_rate": "Öffnungsrate",
+                "total_mail_send": "Anzahl der gesendeten Emails"
+            },
+            "mailTitle": "Vorschau der E-Mail",
+            "mail": "Mail ",
+            "statisticDetails": "Statistik",
+            "notificationDetails": "Details der Benachrichtigung"
+        }
+    },
+    "spotScheduling": {
+        "toolsMenu": {
+            "customFill": "Farbe der Füllung",
+            "customStroke": "Farbe der Linien",
+            "door": "Tür",
+            "screen": "Bildschirm",
+            "teacher": "Prof.",
+            "spot": "Spot",
+            "rect": "Rechteck",
+            "line": "Merkmal",
+            "rotation": "Drehung",
+            "redo": "Weiter",
+            "undo": "Vorherige",
+            "eraser": "Kaugummi",
+            "sections": {
+                "custom": "Anpassung",
+                "elements": "Elemente",
+                "place": "Standort",
+                "walls": "Wände",
+                "edition": "Ausgabe"
+            },
+            "title": "Werkzeugkasten"
         }
     }
 }

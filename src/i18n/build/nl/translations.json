@@ -6427,7 +6427,7 @@
                 "subscription": "Abonnementen (contracten)",
                 "whitelist_tags": "Kan alleen worden gebruikt door leden met de tag(s):",
                 "tags": "Tags",
-                "blacklist_tags": "Kan niet worden gebruikt door leden met de tag(s):"
+                "blacklist_tags": "Kan alleen worden gebruikt door leden met de tag(s):"
             },
             "name": {
                 "label": "Naam"

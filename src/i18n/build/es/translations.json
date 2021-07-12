@@ -2938,7 +2938,8 @@
             "recurrent_price": "Importe",
             "sum__non_attendance": "Número de alumnos ausentes",
             "sum_attendance": "Número de alumnos presentes",
-            "invoice_date": "Fecha de facturación"
+            "invoice_date": "Fecha de facturación",
+            "nb_canceled": "Número de cancelaciones"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -3213,9 +3214,12 @@
         },
         "row": {
             "headers": {
-                "actions": "Actions"
+                "actions": "Actions",
+                "newsletter_email": "Aceptar correos electrónicos"
             },
-            "update": "Modificar"
+            "update": "Modificar",
+            "no": "No",
+            "yes": "Sí"
         },
         "merge": "Fusionar",
         "forms": {
@@ -3240,6 +3244,9 @@
             "update": {
                 "title": "Editar las informaciones",
                 "success": "Cliente modificado con éxito"
+            },
+            "phone": {
+                "error": "Número de teléfono inválido"
             }
         },
         "user": {
@@ -3360,7 +3367,8 @@
                 "isWaitingListFull": "La sesión está llena, la lista de espera está llena.",
                 "isTooSoon": "El registro está cerrado por el momento y se abrirá el {{date}}.",
                 "isTooLate": "Las inscripciones están cerradas.",
-                "isDisabled": "La sesión fue desafortunadamente cancelada."
+                "isDisabled": "La sesión fue desafortunadamente cancelada.",
+                "isAlreadyRegistered": "Ya está inscrito en esta sesión"
             },
             "option": {
                 "registerOption": "Registrar en la lista de espera",
@@ -3582,7 +3590,8 @@
             "similarOffer": {
                 "showMore": "Ver más",
                 "empty": "No se ha encontrado ninguna sesión",
-                "title": "Reservar más sesiones"
+                "title": "Reservar más sesiones",
+                "selectAll": "Seleccionar todo"
             },
             "noPackAvailable": "Ningún pase es compatible con todas estas sesiones al mismo tiempo. Deberá reservarlas por separado.",
             "noPackAvailable_plural": "Ningún pase es compatible con estas sesiones!",
@@ -3594,7 +3603,9 @@
                 "book": "Reservar"
             },
             "bookingsTitle": "Reservar ahora",
-            "addSession": "Añadir una sesión"
+            "addSession": "Añadir una sesión",
+            "bookingForMe": "yo",
+            "bookingsTitleFor": "Estoy reservando para {{name}}"
         }
     },
     "marketplace": {
@@ -4782,7 +4793,7 @@
                     },
                     "valid": {
                         "notifyAll": "Ayuda: la notificación se enviará al miembro por cada una de sus reservas válidas para este tipo de cita",
-                        "default": "Ayuda: la notificación será enviada al miembro cuando su reservación válida n °{{notifyNb}}  para este tipo de cita se haga"
+                        "default": "Ayuda: la notificación será enviada al miembro cuando su reserva válida n °{{notifyNb}}  para este tipo de cita se haga"
                     }
                 },
                 "notifyAllEvents": "Notificar al miembro en cada evento",
@@ -5482,7 +5493,8 @@
                 "for": "Para",
                 "helper": "Ayuda: Compruebe aquí que su regla de remuneración cumple con sus expectativas",
                 "resultTitle": "Resultado de su simulación (salario del profesor)",
-                "title": "Simulador de salarios"
+                "title": "Simulador de salarios",
+                "which": "Que aporta"
             }
         },
         "tabs": {
@@ -6249,7 +6261,7 @@
                     "label": "Crédito"
                 },
                 "theoricalMarginValue": {
-                    "helperText": "Utilizado para calcular la remuneración de los profesores, 10 € significa que una reserva realizada con esta tarjeta se paga 10 €. Si está vacío o 0 € la contribución de una tarjeta será PRECIO / NB_RESERVACIÓN",
+                    "helperText": "Utilizado para calcular la remuneración de los profesores, 10 € significa que una reserva realizada con esta tarjeta se paga 10 €. Si está vacío o 0 € la contribución de una tarjeta será PRECIO / NB_RESERVA",
                     "label": "Contribución marginal teórica incluyendo impuestos (tarjeta ilimitada solamente)"
                 },
                 "unlimited": "Créditos ilimitados",
@@ -6426,7 +6438,15 @@
                 "warningFirst": "Advertencia, esta operación es irreversible (generación de factura).",
                 "blockUnlimited": "Bloquear la tarjeta"
             },
-            "addExtension": "Añadir una extensión"
+            "addExtension": "Añadir una extensión",
+            "maxout": {
+                "dialog_message": "Atención, este bono ya ha alcanzado su límite de {{count}} reservas por {{unit}}. ¿Aún quiere reservar con este bono? ",
+                "dialogTitle": "Límite de reservas alcanzado",
+                "months": "mes",
+                "weeks": "semana",
+                "days": "día",
+                "limit_reach": "Límite de reservas por {{unit}} alcanzado"
+            }
         },
         "scaleCredit": {
             "actions": {
@@ -6736,7 +6756,8 @@
                 "pass": "Bonos",
                 "order": "Mis pedidos",
                 "profile": "Mi perfil",
-                "bookings": "Mis reservas "
+                "bookings": "Mis reservas ",
+                "subscriptions": "Mis suscripciones"
             },
             "beta": "beta",
             "coachPerformance": "Profesores",
@@ -6818,6 +6839,15 @@
                 "creditPrice": {
                     "helperText": "Se deja en cero para que el video sea accesible para todos sus miembros",
                     "label": "Costo en crédito"
+                },
+                "video_label": "Vídeo",
+                "video_source": {
+                    "change_popup_text": "Tenga en cuenta que el vídeo actual se eliminará. Los miembros que compraron el antiguo vídeo tendrán ahora el nuevo.",
+                    "change_popup_title": "Cambiar el vídeo",
+                    "edit_button": "Cambiar el vídeo",
+                    "uploaded_video": "Archivo cargado",
+                    "youtube_video": "Vídeo de Youtube",
+                    "title": "Vídeo"
                 }
             },
             "upload": {
@@ -6910,7 +6940,8 @@
                 "alert": "La foto es obligatoria"
             },
             "manager_only_helper": "El vídeo no se podrá comprar, sólo será visible para los administradores",
-            "manager_only": "No se puede comprar"
+            "manager_only": "No se puede comprar",
+            "duplicate": "Duplicado"
         },
         "playlist": {
             "bottomActions": {
@@ -6958,7 +6989,11 @@
             "nb_bookings": "Reservas",
             "duration": "Duración",
             "base": "Base",
-            "bonus": "Bonus"
+            "bonus": "Bonus",
+            "error": "Parece que algunos cursos no tienen una regla de pago asociada. Es necesario asociar una regla de pago con estos cursos o asociar una regla de pago con el entrenador.",
+            "total": "Compensación total",
+            "cancelled_bookings": "Reservas canceladas",
+            "confirmed_bookings": "Participantes"
         }
     },
     "smartList": {
@@ -7274,7 +7309,10 @@
                 "second": "cita",
                 "first": "Ha reservado",
                 "explanation": "A reservo X citas con el profesor A, en la ubicación B, con el pase C ...",
-                "name": "Número de citas"
+                "name": "Número de citas",
+                "private_service": {
+                    "first": "con las citas"
+                }
             },
             "25": {
                 "expiration": {
@@ -7298,7 +7336,12 @@
             },
             "attendanceTrue": "presente",
             "attendanceFalse": "ausente",
-            "attendanceWarning": "Seleccione un estado"
+            "attendanceWarning": "Seleccione un estado",
+            "410": {
+                "explanation": "Tras aceptar la exención de responsabilidad",
+                "name": "Exención de responsabilidad",
+                "explain": "habiendo aceptado la exención de responsabilidad"
+            }
         },
         "filterCategory": {
             "4": "Compras",
@@ -7421,6 +7464,13 @@
                 "textFieldPlaceholder": "Encuentra tarjeta de cita",
                 "helperSelectedText": "Tarjetas de cita elegidas",
                 "helperText": "elija tarjetas de cita"
+            },
+            "privateServices": {
+                "warning": "Seleccione al menos una cita",
+                "helperAllSelectedText": "todas las citas",
+                "textFieldPlaceholder": "Buscar una cita",
+                "helperSelectedText": "citas seleccionadas",
+                "helperText": "seleccionar citas"
             }
         },
         "description": "Descripción",
@@ -7770,7 +7820,8 @@
                 "payment_pack": "Bono",
                 "private_service": "Cita",
                 "establishment": "Establecimiento",
-                "meta_activity": "Actividad"
+                "meta_activity": "Actividad",
+                "workshop": "Taller"
             },
             "cancel": "Cancelar",
             "next": "Siguiente",
@@ -7779,10 +7830,44 @@
                 "payment_pack": "Seleccione un bono",
                 "private_service": "Seleccione una cita privada",
                 "establishment": "Seleccione una ubicación",
-                "meta_activity": "Seleccione una actividad"
+                "meta_activity": "Seleccione una actividad",
+                "workshop": "Seleccione un taller"
             },
             "createNotification": "Formulario de notificación",
-            "selectNotificationRules": "Seleccione una regla para ver los detalles"
+            "selectNotificationRules": "Seleccione una regla para ver los detalles",
+            "stats": {
+                "total_mail_opened": "Número de correos abiertos",
+                "opened_rate": "Tasa de apertura",
+                "total_mail_send": "Número de correos electrónicos enviados"
+            },
+            "mailTitle": "Vista previa del correo",
+            "mail": "Correo ",
+            "statisticDetails": "Estadísticas",
+            "notificationDetails": "Detalles de la notificación"
+        }
+    },
+    "spotScheduling": {
+        "toolsMenu": {
+            "customFill": "Color del relleno",
+            "customStroke": "Color de las líneas",
+            "door": "Puerta",
+            "screen": "Pantalla",
+            "teacher": "Profesor",
+            "spot": "Sitio",
+            "rect": "Rectángulo",
+            "line": "Línea",
+            "rotation": "Rotación",
+            "redo": "Siguiente",
+            "undo": "Anterior",
+            "eraser": "Goma",
+            "sections": {
+                "custom": "Personalización",
+                "elements": "Elementos",
+                "place": "Ubicación",
+                "walls": "Paredes",
+                "edition": "Edición"
+            },
+            "title": "Caja de herramientas"
         }
     }
 }

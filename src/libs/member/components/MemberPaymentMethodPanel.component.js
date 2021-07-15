@@ -50,8 +50,11 @@ export const MemberPaymentMethodPanel = (props: Props) => {
                 </ListItemAvatar>
                 <ListItemText
                   primary={`**** **** **** ${method.readable_identifier}`}
-                  secondary={method.type === 'card' ? method.brand : null}
+                  secondary={`${method.type === 'card' ? method.brand : ''}   ${
+                    method.additional_info
+                  }`}
                 />
+
                 <ListItemSecondaryAction>
                   <IconButton
                     edge="end"

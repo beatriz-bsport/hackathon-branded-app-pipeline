@@ -6411,8 +6411,8 @@
         "consumerPaymentPack": {
             "details": {
                 "actions": {
-                    "refund": "Transformación a cuenta",
-                    "applyVoucher": "Aplicar reducción"
+                    "refund": "Reembolso de créditos al saldo",
+                    "applyVoucher": "Devolver dinero al saldo"
                 }
             },
             "refund": {

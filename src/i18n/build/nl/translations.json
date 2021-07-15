@@ -2410,7 +2410,7 @@
             "paymentPacks": {
                 "helperSelectedText": "geselecteerde leskaarten",
                 "textFieldPlaceholder": "Zoek een leskaart",
-                "helperAllSelectedText": "alle kaarten",
+                "helperAllSelectedText": "alle leskaarten",
                 "warning": "Selecteer minimaal één leskaart",
                 "helperText": "selecteer leskaarten"
             },
@@ -2437,28 +2437,28 @@
             "privatePass": {
                 "warning": "Selecteer ten minste één afspraakkaart",
                 "helperAllSelectedText": "alle afspraakkaarten",
-                "textFieldPlaceholder": "Vind een afspraakkaart",
+                "textFieldPlaceholder": "Zoek een afspraakkaart",
                 "helperSelectedText": "Geselecteerde afspraakkaarten",
                 "helperText": "Kies een afspraakkaart"
             },
             "privateServices": {
                 "warning": "Selecteer minimaal één afspraak",
                 "helperAllSelectedText": "Alle afspraken",
-                "textFieldPlaceholder": "Een afspraak maken",
+                "textFieldPlaceholder": "Zoek een afspraak",
                 "helperSelectedText": "Geselecteerde afspraken",
                 "helperText": "Selecteer afspraken"
             }
         },
         "modal": {
             "delete": {
-                "content": "Weet je zeker dat je deze Smartlist wilt verwijderen? Deze actie is definitief",
+                "content": "Weet je zeker dat je deze Smartlist wilt verwijderen? Deze actie is definitief.",
                 "cancel": "Annuleren",
                 "confirm": "Verwijderen",
                 "title": "Smartlist verwijderen"
             }
         },
         "duplicate": "Dupliceren",
-        "name": "Naam van de lijst",
+        "name": "Naam van de Smartlist",
         "search": "Zoek een Smartlist",
         "description": "Beschrijving",
         "graphs": {
@@ -2486,12 +2486,12 @@
         },
         "mail": {
             "sendMailTitle": "Een e-mail versturen",
-            "sendMail": "Een e-mail versturen",
+            "sendMail": "Een bericht versturen",
             "send": "Verzenden",
-            "noMailAvailable": "Geen e-mail beschikbaar. Vergeet niet om er een aan te maken",
+            "noMailAvailable": "Er zijn nog geen e-mailsjablonen aangemaakt en beschikbaar.",
             "cancel": "Annuleren",
-            "sendError": "Probleem bij het verzenden van e-mail",
-            "sendSuccess": "E-mail wordt verzonden"
+            "sendError": "De e-mail kon niet worden verstuurd",
+            "sendSuccess": "Versturen..."
         },
         "smart_list": {
             "list": {
@@ -2905,7 +2905,7 @@
             "statTitle": "Statistieken"
         },
         "selectToShowPreview": "Selecteer een e-mail om de voorvertoning te zien.",
-        "noSmartLists": "Smartlists zijn specifieke segmenten van je ledenbestand. Voeg filters toe om een bepaalde doelgroep aan te maken en maak daarna een prachtige en persoonlijke e-mail aan om naar deze doelgroepen te sturen als onderdeel van je marketingcampagnes om aspecten als klantbehoud te verbeteren.",
+        "noSmartLists": "Smartlists zijn specifieke segmenten van je ledenbestand. Voeg filters toe om een bepaalde doelgroep aan te maken en stuur hun prachtige e-mails of sms'jes. Verbeter je klantbehoud en verhoog je klantwaarde met de Smartlists!",
         "delete": "Verwijderen",
         "edit": "Configuratie",
         "tag_rules": {
@@ -6008,16 +6008,16 @@
         },
         "smartlist": {
             "create": {
-                "success": "Smartlist aangemaakt",
-                "error": "Kan Smartlist niet opslaan"
+                "success": "Smartlist toegevoegd",
+                "error": "Smartlist kon niet worden opgeslagen"
             },
             "update": {
-                "error": "Kan Smartlist niet opslaan",
+                "error": "Smartlist kon niet worden opgeslagen",
                 "success": "Smartlist bijgewerkt"
             },
             "delete": {
                 "success": "Smartlist verwijderd",
-                "error": "Kan Smartlist niet verwijderen"
+                "error": "Smartlist kon niet worden verwijderd"
             },
             "duplicate": {
                 "error": "De Smartlist kon niet worden gedupliceerd",
@@ -6025,8 +6025,8 @@
             },
             "tag_rules": {
                 "limit_reached": "Er kunnen niet meer regels worden toegevoegd, omdat je het limiet (10 regels) al hebt bereikt",
-                "error": "Deze regel kan niet worden toegepast",
-                "success": "De automatische regel wordt toegepast"
+                "error": "Deze regel kan niet worden geactiveerd",
+                "success": "De automatische regel is geactiveerd"
             }
         },
         "webhook": {
@@ -6425,9 +6425,9 @@
                 "applies_to": "Instellingen",
                 "advanced": "Geavanceerd",
                 "subscription": "Abonnementen (contracten)",
-                "whitelist_tags": "Kan alleen worden gebruikt door leden met de tag(s):",
+                "whitelist_tags": "[Whitelist] Kan alleen worden gebruikt door leden met de tag(s):",
                 "tags": "Tags",
-                "blacklist_tags": "Kan alleen worden gebruikt door leden met de tag(s):"
+                "blacklist_tags": "[Blacklist] Kan niet worden gebruikt door leden met de tag(s):"
             },
             "name": {
                 "label": "Naam"

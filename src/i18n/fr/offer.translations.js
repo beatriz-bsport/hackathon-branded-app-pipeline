@@ -27,6 +27,7 @@ exports.default = {
   calendar: {
     modifyOffer: 'Modifier',
     deleteOffer: 'Annuler',
+    filter: 'Filtrer',
   },
   manageOffer: 'Gérer mes réservations',
   restoreOffer: 'Restaurer la séance',

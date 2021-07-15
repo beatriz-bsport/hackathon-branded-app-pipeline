@@ -22,11 +22,13 @@ import Typography from '@material-ui/core/Typography';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ViewWeek from '@material-ui/icons/ViewWeek';
 import ViewComfy from '@material-ui/icons/ViewComfy';
+import Hidden from '@material-ui/core/Hidden';
 
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -334,12 +336,17 @@ export class Calendar extends PureComponent<Props, State> {
           </IconButton>
         )}
         {!!this.props.searchBar && (
-          <IconButton
+          <Button
             className={classes.absoluteLeft}
             onClick={this.props.toogleSearchBar}
           >
             <FilterIcon />
-          </IconButton>
+            <Hidden xsDown>
+              <Typography className={classes.filterLabel} variant="subtitle2">
+                {this.props.t('calendar.filter')}
+              </Typography>
+            </Hidden>
+          </Button>
         )}
         <IconButton onClick={this.showPrevious}>
           <ChevronLeftIcon />
@@ -552,6 +559,9 @@ const styles = (theme) => ({
   absoluteLeft: {
     position: 'absolute',
     left: 0,
+  },
+  filterLabel: {
+    marginLeft: theme.spacing(1),
   },
 });
 

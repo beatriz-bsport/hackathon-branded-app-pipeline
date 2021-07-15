@@ -185,4 +185,11 @@ exports.default = {
     contractPaymentShow: `Lorsque l'utilisateur est sur la page de paiement d'un abonnement`,
     workshopClick: `Lorsque l'utilisateur selectionne une date d'un atelier`,
   },
+  zoom: {
+    confirmDialog: {
+      title: 'Intégration ZOOM',
+      text:
+        'Si vous avez déjà renseigné des liens de visioconférences manuellement sur vos séances, ils seront supprimés pour être remplacés par des liens zoom générés automatiquement. Les meetings déjà créés sur le calendrier ZOOM devront être supprimés à la main, ils seront remplacés par des meetings créés automatiquement.',
+    },
+  },
 };

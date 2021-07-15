@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
 import { compose, withProps, withHandlers } from 'recompose';
@@ -27,8 +27,10 @@ import {
 } from '../../libs/zoom-app/actions';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 import { requestZoomAccessToken as requestZoomAccessTokenAPI } from '../../libs/zoom-app/api';
+import { showDeleteDialog } from '../../components/GenericDialog/CustomDialogs';
 
 type Props = {
+  t: TFunction,
   theme: Theme,
   loading: boolean,
   revokeZoomApp: (companyId: number) => void,
@@ -87,14 +89,20 @@ export class BroadcastConfiguration extends Component<Props> {
     this.props.fetchZoomApp(this.props.theme.company);
   };
 
-  connectZoom = () => {
-    window.location.href = `https://zoom.us/oauth/authorize${buildUrlParams({
-      response_type: 'code',
-      client_id: Config.REACT_APP_ZOOM_CLIENT_ID,
-      redirect_uri: window.location.href.includes('localhost')
-        ? `https://bsport-1.eu.ngrok.io${window.location.pathname}`
-        : window.location.origin + window.location.pathname,
-    })}`;
+  connectZoom = async () => {
+    const res = await showDeleteDialog(
+      this.props.t('zoom.confirmDialog.title'),
+      this.props.t('zoom.confirmDialog.text'),
+    );
+    if (res) {
+      window.location.href = `https://zoom.us/oauth/authorize${buildUrlParams({
+        response_type: 'code',
+        client_id: Config.REACT_APP_ZOOM_CLIENT_ID,
+        redirect_uri: window.location.href.includes('localhost')
+          ? `https://bsport-1.eu.ngrok.io${window.location.pathname}`
+          : window.location.origin + window.location.pathname,
+      })}`;
+    }
   };
 
   render() {

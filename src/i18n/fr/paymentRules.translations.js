@@ -1,6 +1,7 @@
 // @flow
 
 exports.default = {
+  search: 'Chercher une régle de rémunération (facultatif)',
   pageTitle: 'Règles de rémunération',
   rules: 'Règles',
   paymentRules: 'Règles de rémunération',
@@ -22,17 +23,20 @@ exports.default = {
     placeholder: 'Choississez une règle de calcul',
     placeholderOverride: 'Règle par défaut du coach',
     reset: 'Utiliser la règle par défaut du coach',
-    coachPaymentRuleForSessions: 'Cours collectifs & Ateliers',
+    coachPaymentRuleForSessions: 'Cours collectifs',
+    coachPaymentRuleForWorkshops: 'Ateliers',
     coachPaymentRuleForPrivateService: 'Rendez-vous',
   },
   fabButton: {
     addNewForSession: 'Cours collectifs & Ateliers',
     addNewForRDV: 'Rendez-vous',
+    addNewPaymentRuleGroup: 'Groupe de rémunération',
   },
   tabs: {
     session: 'Cours Collectifs & Ateliers',
     appointment: 'Rendez-Vous',
     all: 'Tous les cours',
+    groups: 'Groupes de rémunérations',
   },
   common: {
     from: 'Début',
@@ -149,6 +153,28 @@ exports.default = {
       total_payment: 'Paiement final',
       student_attended: 'Elève présent',
       student_did_not_attend: 'Elève absent',
+    },
+  },
+  coach_payment_rule_groups: {
+    dissociate: 'Personnaliser les règles',
+    dialogTitle: 'Groupe de rémunération',
+    private_service: 'Rendez-Vous',
+    session: 'Cours Collectifs',
+    workshop: 'Ateliers',
+    subtitle: {
+      helper:
+        'Vous pouvez grouper ensemble vos règles de rémunérations pour les activités, ateliers et rendez-vous. En ajoutant un professeur à un groupe, l’ensemble des règles de rémunération du groupe viennent s’appliquer automatiquement au professeur. Tout changement sur le groupe viendra aussi se faire sur tous les professeurs du groupe.',
+      default: 'Rémunérations par défaut',
+      specfic_private_slot: 'Rémunération spécifique pour un rendez-vous',
+      coaches: 'Professeurs associés',
+    },
+    fields: {
+      addPrivateSlot: 'Ajouter une régle',
+      coach_payment_rule: 'Régle de rémunération',
+      private_service_name: 'Nom de la séance',
+      activity: 'Activités',
+      workshop: 'Ateliers',
+      private_service: 'Rendez-vous',
     },
   },
 };

@@ -64,7 +64,7 @@ type Props = {
   }) => void,
   fetchAllCoachPaymentRules: () => void,
   coach: Coach,
-  coachPaymentRulesByKind: Object<CoachPaymentRuleType[]>,
+  coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRuleType> },
 };
 
 export class CoachPerformance extends React.Component<Props> {

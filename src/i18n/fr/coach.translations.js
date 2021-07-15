@@ -80,4 +80,5 @@ exports.default = {
     },
   },
   inactiveCoaches: 'Professeurs archivés',
+  paymentRule: 'Rémunération',
 };

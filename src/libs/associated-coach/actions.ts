@@ -15,12 +15,14 @@ import {
   deleteCoach as deleteCoachAPI,
   restoreCoach as restoreCoachAPI,
   fetchAssociatedCoachPerformance as fetchAssociatedCoachPerformanceAPI,
+  updateCoachPrivateSlotsPaymentRules as updateCoachPrivateSlotsPaymentRulesAPI,
 } from './api';
 import { getFreshCoachIds } from './selectors';
 
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 import { OptionCallback } from '../../state/types';
 import { RootState } from '../../reducers';
+import { ASSOCIATED_COACH_WITH_COACH_PAYMENT_RULE_GROUP } from '../coach-payment-rules/utils';
 
 export const associated = {
   isLoading: createAction('COACH/ASSOCIATED/IS_LOADING'),
@@ -259,7 +261,68 @@ export function setCoachPaymentRule(
       dispatch(setCoachPaymentRuleActions.success(payload));
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
-      dispatch(snackbarError('paymentRules.update.error'));
+      if (
+        err &&
+        err.response &&
+        err.response.data &&
+        err.response.data.error_code ===
+          ASSOCIATED_COACH_WITH_COACH_PAYMENT_RULE_GROUP
+      ) {
+        dispatch(
+          snackbarError('paymentRuleGroups.update.error.coachWithPaymentGroup'),
+        );
+      } else {
+        dispatch(snackbarError('paymentRules.update.error'));
+      }
+      dispatch(upsert.error(err));
+    }
+    dispatch(upsert.isLoading(false));
+  };
+}
+
+export const setCoachWorkshopPaymentRuleActions = {
+  success: createAction('COACH/WORHSHOP_PAYMENT_RULE/SUCCESS'),
+};
+
+export function setCoachWorkshopPaymentRule(
+  coachId: number,
+  coachPaymentRuleId: number,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(upsert.isLoading(true));
+    dispatch(upsert.error(null));
+
+    try {
+      await putAuth(
+        `${API_V1_URI}/coach_payment_rules/set_coach_workshop_payment_rule/${buildUrlParams(
+          {
+            coachId,
+            coachPaymentRuleId,
+          },
+        )}`,
+      );
+      dispatch(snackbarSuccess('paymentRules.update.success'));
+      const payload = {
+        coachId,
+        workshop_coach_payment_rule_id: coachPaymentRuleId,
+      };
+      dispatch(setCoachWorkshopPaymentRuleActions.success(payload));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      if (
+        err &&
+        err.response &&
+        err.response.data &&
+        err.response.data.error_code ===
+          ASSOCIATED_COACH_WITH_COACH_PAYMENT_RULE_GROUP
+      ) {
+        dispatch(
+          snackbarError('paymentRuleGroups.update.error.coachWithPaymentGroup'),
+        );
+      } else {
+        dispatch(snackbarError('paymentRules.update.error'));
+      }
       dispatch(upsert.error(err));
     }
     dispatch(upsert.isLoading(false));
@@ -295,13 +358,57 @@ export function setCoachPrivatePaymentRule(
       dispatch(setCoachPrivatePaymentRuleActions.success(payload));
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
-      dispatch(snackbarError('paymentRules.update.error'));
+      if (
+        err &&
+        err.response &&
+        err.response.data &&
+        err.response.data.error_code ===
+          ASSOCIATED_COACH_WITH_COACH_PAYMENT_RULE_GROUP
+      ) {
+        dispatch(
+          snackbarError('paymentRuleGroups.update.error.coachWithPaymentGroup'),
+        );
+      } else {
+        dispatch(snackbarError('paymentRules.update.error'));
+      }
       dispatch(upsert.error(err));
     }
     dispatch(upsert.isLoading(false));
   };
 }
+export const setCoachPaymentRuleGroupActions = {
+  success: createAction('COACH/PAYMENT_RULE_GROUP/SUCCESS'),
+};
 
+export function setCoachPaymentRuleGroup(
+  coachId: number,
+  coachPaymentRuleGroupId: number,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(upsert.isLoading(true));
+    dispatch(upsert.error(null));
+
+    try {
+      const response = await putAuth(
+        `${API_V1_URI}/coach_payment_rule_group/set_coach_payment_rule_group/${buildUrlParams(
+          {
+            coachId,
+            coachPaymentRuleGroupId,
+          },
+        )}`,
+      );
+      dispatch(setCoachPaymentRuleGroupActions.success(response.data));
+      dispatch(snackbarSuccess('paymentRules.update.success'));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      dispatch(snackbarError('paymentRules.update.error'));
+
+      dispatch(upsert.error(err));
+    }
+    dispatch(upsert.isLoading(false));
+  };
+}
 export const bulkRetrieveActions = {
   isLoading: createAction('COACH/BULK_RETRIEVE/IS_LOADING'),
   error: createAction('COACH/BULK_RETRIEVE/ERROR'),
@@ -377,5 +484,35 @@ export const fetchAssociatedCoachBulk = (
       return;
     }
     dispatch(fetchCoachBulkBase({ associated_coach__in: ids_uniq }, options));
+  };
+};
+
+export const updateCoachPrivateSlotsPaymentRulsActions = {
+  isLoading: createAction('ASS_COACH/PRIVATE_SLOTS_PAYMENT_RULES/IS_LOADING'),
+  error: createAction('ASS_COACH/PRIVATE_SLOTS_PAYMENT_RULES/ERROR'),
+  success: createAction('ASS_COACH/PRIVATE_SLOTS_PAYMENT_RULES/SUCCESS'),
+};
+
+export const updateCoachPrivateSlotsPaymentRule = (
+  id: number,
+  data: any,
+  options?: OptionCallback,
+) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(upsert.isLoading(true));
+    dispatch(upsert.error(null));
+
+    try {
+      const response = await updateCoachPrivateSlotsPaymentRulesAPI(id, data);
+      dispatch(
+        updateCoachPrivateSlotsPaymentRulsActions.success(response.data),
+      );
+      dispatch(snackbarSuccess('paymentRules.update.success'));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      dispatch(snackbarError('paymentRules.update.error'));
+      dispatch(upsert.error(err));
+    }
+    dispatch(upsert.isLoading(false));
   };
 };

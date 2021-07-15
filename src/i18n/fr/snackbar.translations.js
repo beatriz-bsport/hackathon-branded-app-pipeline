@@ -111,6 +111,24 @@ exports.default = {
       success: 'Règle supprimée',
     },
   },
+  paymentRuleGroups: {
+    update: {
+      success: 'Groupe modifié avec succes',
+      error: {
+        generic: 'Erreur lors de la modification',
+        coachWithPaymentGroup:
+          "Imposible de modifier les règles de rémunération d'un coach inclu dans un groupe",
+      },
+    },
+    create: {
+      error: 'Erreur lors de la création',
+      success: 'Groupe ajouté',
+    },
+    delete: {
+      error: 'Erreur lors de la suppression',
+      success: 'Groupe supprimé',
+    },
+  },
   paymentPack: {
     paymentPackDisabled: {
       success: 'Carte de cours désactivée',

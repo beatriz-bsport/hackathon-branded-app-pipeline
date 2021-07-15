@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import { compose } from 'recompose';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ButtonBase from '@material-ui/core/ButtonBase';
@@ -453,4 +454,8 @@ const styles = (theme: MaterialTheme) => ({
   },
 });
 
-export default withTranslation()(withStyles(styles)(SignUpForm));
+export default compose<any, OwnProps>(
+  withTranslation(),
+  withStyles(styles),
+  SignUpForm,
+);

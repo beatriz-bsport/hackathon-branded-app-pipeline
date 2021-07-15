@@ -1,6 +1,7 @@
 import { createAction } from 'redux-actions';
 import {
   fetchCoachPaymentRules,
+  fetchCoachPaymentRuleGroups,
   fetchCoachSessionPerformance,
   fetchCoachPrivateServicePerformance,
   setSessionCoachPaymentRuleAPI,
@@ -8,7 +9,7 @@ import {
   runSimulationAPI,
 } from './api';
 import type { Dispatch, OptionCallback } from '../../state/types';
-import type { CoachPaymentRule } from '../types';
+import type { CoachPaymentRule, CoachPaymentRuleGroup } from '../types';
 import { snackbarError, snackbarSuccess } from '../../actions/snackbar.actions';
 import { postBaseAuth, putAuth, API_V1_URI, deleteAuth } from '../../http';
 
@@ -44,6 +45,9 @@ export const coachPaymentRuleSetUpsert = {
 export const showDialog = createAction('COACH_PAYMENT_RULES/DIALOG/IS_OPEN');
 export const showSimulationDialog = createAction(
   'COACH_PAYMENT_RULES/SIMULATION/IS_OPEN',
+);
+export const showGroupDialog = createAction(
+  'COACH_PAYMENT_RULES_GROUP/DIALOG/IS_OPEN',
 );
 
 export function upsertCoachPaymentRule(rule: CoachPaymentRule, options = {}) {
@@ -259,5 +263,83 @@ export function setPrivateBookingCoachPaymentRule(
       if (options && options.onError) options.onError();
     }
     dispatch(setPrivateBookingCoachPaymentRuleActions.isLoading(false));
+  };
+}
+
+export const fetchAllPaymentRuleGroups = {
+  success: createAction('COACH-PAYMENT-GROUP/LIST/SUCCESS'),
+  isLoading: createAction('COACH-PAYMENT-GROUP/LIST/LOADING'),
+  error: createAction('COACH-PAYMENT-GROUP/LIST/ERROR'),
+};
+
+export function fetchAllCoachPaymentRuleGroups(options?: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchAllPaymentRuleGroups.isLoading(true));
+    dispatch(fetchAllPaymentRuleGroups.error(null));
+    try {
+      const response = await fetchCoachPaymentRuleGroups();
+      dispatch(fetchAllPaymentRuleGroups.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      dispatch(fetchAllPaymentRuleGroups.error(err));
+    }
+    dispatch(fetchAllPaymentRuleGroups.isLoading(false));
+  };
+}
+
+export const upsertPaymentGroupActions = {
+  success: createAction('COACH-PAYMENT-GROUP/UPSERT/SUCCESS'),
+  isLoading: createAction('COACH-PAYMENT-GROUP/UPSERT/LOADING'),
+  error: createAction('COACH-PAYMENT-GROUP/UPSERT/ERROR'),
+};
+export function upsertCoachPaymentRuleGroup(
+  group: CoachPaymentRuleGroup,
+  options = {},
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(upsertPaymentGroupActions.isLoading(true));
+    dispatch(upsertPaymentGroupActions.error(null));
+    const method = group.id ? putAuth : postBaseAuth;
+    const suffix = group.id ? `${group.id}/` : '';
+    const kind = group.id ? 'update' : 'create';
+    try {
+      const response = await method(
+        `${API_V1_URI}/coach_payment_rule_group/${suffix}`,
+        group,
+      );
+
+      dispatch(upsertPaymentGroupActions.success(response.data));
+      dispatch(snackbarSuccess(`paymentRuleGroups.${kind}.success`));
+      dispatch(showGroupDialog(false));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(snackbarError(`paymentRuleGroups.${kind}.error`));
+      dispatch(upsertPaymentGroupActions.error(error.response.data));
+      if (options && options.onError) options.onError();
+    }
+  };
+}
+
+export const coachPaymentRuleGroupDelete = {
+  error: createAction('COACH_PAYMENT_RULES_GROUP/DELETE/ERROR'),
+  isLoading: createAction('COACH_PAYMENT_RULES_GROUP/DELETE/IS_LOADING'),
+  success: createAction('COACH_PAYMENT_RULES_GROUP/DELETE/SUCCESS'),
+};
+
+export function deleteCoachPaymentRuleGroup(group: CoachPaymentRuleGroup) {
+  return async (dispatch: Dispatch) => {
+    dispatch(coachPaymentRuleGroupDelete.isLoading(true));
+
+    try {
+      await deleteAuth(`${API_V1_URI}/coach_payment_rule_group/${group.id}/`);
+      dispatch(coachPaymentRuleGroupDelete.success(group));
+      dispatch(snackbarSuccess('paymentRuleGroups.delete.success'));
+    } catch (error) {
+      dispatch(coachPaymentRuleGroupDelete.error(group));
+      dispatch(snackbarError('paymentRuleGroups.delete.error'));
+    }
+    dispatch(coachPaymentRuleGroupDelete.isLoading(false));
   };
 }

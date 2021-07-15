@@ -5,38 +5,62 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { push as routerPush } from 'connected-react-router';
-import { compose, withState } from 'recompose';
+import { compose, withState, withHandlers } from 'recompose';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import withTitle from '../../hocs/with-title.hoc';
-
-import { fetchAllCoachPaymentRules } from '../../libs/coach-payment-rules/actions';
+import {
+  fetchAllCoachPaymentRules,
+  fetchAllCoachPaymentRuleGroups,
+} from '../../libs/coach-payment-rules/actions';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
   CoachPaymentRulesSelector,
   CoachPaymentRuleByKindSelector,
+  getCoachPaymentRuleGroups,
 } from '../../libs/coach-payment-rules/selectors';
 import { getCoach } from '../../libs/associated-coach/selectors';
-import type { CoachPaymentRule as CoachPaymentRuleType } from '../../libs/coach-payment-rules/types';
+import type {
+  CoachPaymentRule as CoachPaymentRuleType,
+  CoachPaymentRuleGroup as CoachPaymentRuleGroupType,
+} from '../../libs/coach-payment-rules/types';
 import {
   startUpdate,
   setCoachPaymentRule,
+  setCoachWorkshopPaymentRule,
   setCoachPrivatePaymentRule,
+  setCoachPaymentRuleGroup,
   deleteCoach,
   fetchAssociatedCoach,
+  updateCoachPrivateSlotsPaymentRule,
 } from '../../libs/associated-coach/actions';
+import { fetchAllPrivateSlots } from '../../libs/private-service/actions';
+import type { PrivateSlot } from '../../libs/private-service/types';
 import { canDeleteCoach as canDeleteCoachAPI } from '../../libs/associated-coach/api';
 import CoachDetail from '../../libs/associated-coach/components/CoachDetail.component';
 import CoachDeleteModal from '../../libs/associated-coach/components/CoachDeleteModal.component';
 import type { CoachDetailed } from '../../api/types';
+
 import WidgetGeneratorDialog from '../settings/WidgetGenerator/WidgetGeneratorDialog';
 
 type Props = {
   coachId: number,
   coach: CoachDetailed,
   coachPaymentRulesByKind: Object<CoachPaymentRuleType[]>,
-  setCoachPaymentRule: (any) => void,
-  setCoachPrivatePaymentRule: (any) => void,
+  coachPaymentRuleGroups: Array<CoachPaymentRuleGroupType>,
+  setCoachPaymentRule: (coachId: number, coach_payment_rule_id: number) => void,
+  setCoachWorkshopPaymentRule: (
+    coachId: number,
+    coach_payment_rule_id: number,
+  ) => void,
+  setCoachPrivatePaymentRule: (
+    coachId: number,
+    coach_payment_rule_id: number,
+  ) => void,
+  setCoachPaymentRuleGroup: (
+    coachId: number,
+    coach_payment_rule_id: number,
+  ) => void,
   startUpdateCoach: (coach: CoachDetailed) => void,
   goToCoachPerformance: (coach: CoachDetailed) => void,
   goToList: () => void,
@@ -47,6 +71,7 @@ type Props = {
   setOpenWidgetDialog: () => void,
   openWidgetDialog: Boolean,
   loadPaymentRules: () => void,
+  loadPaymentRuleGroups: () => void,
   id: number,
   fetchAssociatedCoach: (number) => void,
   setDeleteModalOpen: (boolean) => void,
@@ -56,11 +81,19 @@ type Props = {
     options: ?{ onSucces: ?() => void, onError: ?() => void },
   ) => void,
   goToList: () => void,
+  privateSlots: { [id: number]: PrivateSlot },
+  fetchAllPrivateSlots: () => void,
+  updateCoach: (
+    data: any,
+    options: { onSuccess?: () => void, onError?: () => void },
+  ) => void,
 };
 
 export class Coach extends React.Component<Props> {
   componentDidMount() {
     this.props.loadPaymentRules();
+    this.props.loadPaymentRuleGroups();
+    this.props.fetchAllPrivateSlots();
     this.props.fetchAssociatedCoach(this.props.coachId);
   }
 
@@ -76,9 +109,14 @@ export class Coach extends React.Component<Props> {
           coach={coach}
           coachPaymentRulesByKind={coachPaymentRulesByKind}
           setCoachPaymentRule={this.props.setCoachPaymentRule}
+          setCoachWorkshopPaymentRule={this.props.setCoachWorkshopPaymentRule}
           setCoachPrivatePaymentRule={this.props.setCoachPrivatePaymentRule}
           goToCoachPerformance={this.props.goToCoachPerformance}
           startUpdateCoach={this.props.startUpdateCoach}
+          coachPaymentRuleGroups={this.props.coachPaymentRuleGroups}
+          setCoachPaymentRuleGroup={this.props.setCoachPaymentRuleGroup}
+          privateSlots={this.props.privateSlots}
+          updateCoach={this.props.updateCoach}
         />
         <BottomActionButtons
           onEdit={() => this.props.startUpdateCoach(coach)}
@@ -123,15 +161,22 @@ export default compose(
       isManager: state.auth.is_manager,
       coachPaymentRulesList: CoachPaymentRulesSelector(state),
       coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
+      coachPaymentRuleGroups: getCoachPaymentRuleGroups(state),
       coach: getCoach(state, coachId),
+      privateSlots: state.privateService.privateSlot.byId,
     }),
     {
       deleteCoach,
+      upsertCoachAction: updateCoachPrivateSlotsPaymentRule,
       loadPaymentRules: fetchAllCoachPaymentRules,
+      loadPaymentRuleGroups: fetchAllCoachPaymentRuleGroups,
       fetchAssociatedCoach,
       startUpdateCoach: startUpdate,
       setCoachPaymentRule,
       setCoachPrivatePaymentRule,
+      setCoachWorkshopPaymentRule,
+      setCoachPaymentRuleGroup,
+      fetchAllPrivateSlots,
       goToCreateCoach: () => routerPush('/coach/add'),
       goToCoachPerformance: (coach) =>
         routerPush(`/coach/${coach.associated_coach_id}/performance`),
@@ -140,5 +185,10 @@ export default compose(
   ),
   withTitle(({ coach }) => {
     return coach ? `${coach.name}` : '';
+  }),
+  withHandlers({
+    updateCoach: ({ coachId, upsertCoachAction }) => (coachData) => {
+      upsertCoachAction(coachId, coachData);
+    },
   }),
 )(Coach);

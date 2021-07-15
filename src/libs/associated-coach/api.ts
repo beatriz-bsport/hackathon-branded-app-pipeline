@@ -57,6 +57,15 @@ export async function restoreCoach(id: number) {
   return putAuth(`${API_V1_URI}/associated_coach/${id}/restore/`); // set {disabled: false}
 }
 
+export async function updateCoachPrivateSlotsPaymentRules(
+  id: number,
+  data: any,
+) {
+  return putAuth(
+    `${API_V1_URI}/associated_coach/${id}/update_coach_private_slots_payment_rules/`,
+    data,
+  );
+}
 export default {
   fetchAssociated: fetchAssociatedCoaches,
   addCoach,

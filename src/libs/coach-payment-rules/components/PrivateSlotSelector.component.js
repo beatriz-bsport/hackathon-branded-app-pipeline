@@ -8,24 +8,23 @@ import Typography from '@material-ui/core/Typography';
 import Selector from '../../../components/Selector.component';
 import type { Suggestion } from '../../../components/Selector.component';
 import type { CoachPaymentRule } from '../types';
-import { DISSOCIATED_COACH_PAYMENT_RULE } from '../utils';
 
 type Props = {
   t: TFunction,
   selected: number,
   onChange: (Suggestion) => void,
   classes: { [string]: string },
-  coachPaymentRulesList: Array<CoachPaymentRule>,
+  privateSlotList: Array<CoachPaymentRule>,
   isOverride?: boolean,
   id: string,
   enableReset?: boolean,
-  disabled?: boolean,
+  disabled: boolean,
 };
 
-export function CoachPaymentRuleSelector(props: Props) {
+export function PrivateSlotSelector(props: Props) {
   const {
     t,
-    coachPaymentRulesList,
+    privateSlotList,
     isOverride,
     selected,
     onChange,
@@ -33,13 +32,13 @@ export function CoachPaymentRuleSelector(props: Props) {
     enableReset,
     disabled,
   } = props;
-  const suggestions = (coachPaymentRulesList || []).map((s) => ({
+  const suggestions = (privateSlotList || []).map((s) => ({
     value: s.id,
     label: s.name,
   }));
   if (enableReset) {
     suggestions.push({
-      value: DISSOCIATED_COACH_PAYMENT_RULE,
+      value: -9999,
       label: (
         <Typography color="error" variant="subtitle2">
           {t('select.reset')}
@@ -72,5 +71,5 @@ const styles = () => ({
 });
 
 export default withStyles(styles)(
-  withTranslation(['paymentRules'])(CoachPaymentRuleSelector),
+  withTranslation(['paymentRules'])(PrivateSlotSelector),
 );

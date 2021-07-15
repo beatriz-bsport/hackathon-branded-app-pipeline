@@ -24,6 +24,7 @@ import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider
 import AddIcon from '@material-ui/icons/Add';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import moment, { Moment } from 'moment-timezone';
+import { COACH_PAYMENT_RULE_FOR_SESSION } from '@bsport/common/lib/master-data/coach_payment_rule';
 import EstablishmentSelector from '../establishment/components/EstablishmentSelectorWithCard.component';
 import CoachSelector from '../associated-coach/components/CoachSelectorWithCard.component';
 import FeatureListProvider from '../company/hocs/feature-list-provider.hoc';
@@ -41,6 +42,8 @@ import { MaterialStyleType } from '../../utils/types';
 import { RoomBlueprint } from '../spot-scheduling/types';
 import RoomBlueprintSelector from '../spot-scheduling/component/RoomBlueprintSelector.component';
 import SpotSchedulingHelper from '../spot-scheduling/utils';
+import type { CoachPaymentRule } from '../coach-payment-rules/types';
+import CoachPaymentRuleSelectorStyled from '../coach-payment-rules/components/CoachPaymentRuleSelectorStyled.component';
 
 const styles = (theme: Theme) => ({
   paperContainer: {
@@ -105,6 +108,7 @@ type OwnProps = {
 
   is_whereby_integration_enabled: boolean;
   timezone: string;
+  coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> };
 };
 
 type Props = OwnProps &
@@ -134,6 +138,7 @@ type State = {
   effectif?: string;
   waiting_list_max_size?: number;
   duration_minute: number;
+  coach_payment_rule: number;
 };
 
 export class OfferForm extends Component<Props, State> {
@@ -174,6 +179,7 @@ export class OfferForm extends Component<Props, State> {
       credits: '1',
       level: 1,
       duration_minute: 30,
+      coach_payment_rule: null,
     };
   }
 
@@ -198,6 +204,7 @@ export class OfferForm extends Component<Props, State> {
       credits,
       duration_minute,
       broadcast_link,
+      coach_payment_rule,
     } = this.state;
 
     const offer: any = {
@@ -210,6 +217,7 @@ export class OfferForm extends Component<Props, State> {
       credits,
       duration_minute,
       broadcast_link,
+      coach_payment_rule,
     };
 
     if (roomBlueprint) {
@@ -474,6 +482,23 @@ export class OfferForm extends Component<Props, State> {
               this.onFormFieldChange('coach')(coach ? coach.id : null)
             }
             placeholder={t('coach:search')}
+          />
+        </Grid>
+        <Grid item>
+          <CoachPaymentRuleSelectorStyled
+            coachPaymentRulesList={
+              this.props.coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_SESSION]
+            }
+            value={this.props.coachPaymentRulesByKind[
+              COACH_PAYMENT_RULE_FOR_SESSION
+            ].find((rule) => rule.id === this.state.coach_payment_rule)}
+            placeholder={t('paymentRules:search')}
+            disabled={!this.state.coach}
+            onChange={(item: { value: number; label: string }) => {
+              this.onFormFieldChange('coach_payment_rule')(item.value);
+            }}
+            noMulti
+            isClearable
           />
         </Grid>
         <FeatureListProvider>

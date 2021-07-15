@@ -26,6 +26,7 @@ import { getCoachWithCoachPaymentRule } from '../../libs/associated-coach/select
 import {
   setCoachPaymentRule,
   setCoachPrivatePaymentRule,
+  setCoachWorkshopPaymentRule,
   fetchAssociatedCoachesList,
 } from '../../libs/associated-coach/actions';
 import {
@@ -83,6 +84,11 @@ type CoachPerformanceProps = {
     paymentRuleId: number,
     associatedCoachId: number,
   ) => void,
+  setCoachWorkShopPaymentRule: (
+    coachId: number,
+    paymentRuleId: number,
+    associatedCoachId: number,
+  ) => void,
   setCoachPrivatePaymentRule: (
     coachId: number,
     paymentRuleId: number,
@@ -132,42 +138,60 @@ function CoachPerformance(props: CoachPerformanceProps) {
       >
         <Typography variant="h5">{coach.name}</Typography>
         <div style={{ display: 'flex' }}>
-          {[
-            COACH_PERFORMANCE_FOR_SESSION,
-            COACH_PERFORMANCE_FOR_APPOINTMENT,
-          ].map((pay_rule_kind) => (
-            <div className={classes.flexPaymentSelector}>
-              <Typography className={classes.ruleType}>
-                {pay_rule_kind === COACH_PERFORMANCE_FOR_SESSION
-                  ? t('paymentRules:select.coachPaymentRuleForSessions')
-                  : t('paymentRules:select.coachPaymentRuleForPrivateService')}
-              </Typography>
-              <CoachPaymentRuleSelector
-                coachPaymentRulesList={coachPaymentRulesByKind[pay_rule_kind]}
-                selected={
-                  pay_rule_kind === COACH_PERFORMANCE_FOR_SESSION
-                    ? coach.coach_payment_rule_id
-                    : coach.private_coach_payment_rule_id
-                }
-                onChange={({ value }) => {
-                  return (
-                    (pay_rule_kind === COACH_PERFORMANCE_FOR_SESSION &&
-                      props.setCoachPaymentRule(
-                        coach.id,
-                        value,
-                        coach.associated_coach_id,
-                      )) ||
-                    (pay_rule_kind === COACH_PERFORMANCE_FOR_APPOINTMENT &&
-                      props.setCoachPrivatePaymentRule(
-                        coach.id,
-                        value,
-                        coach.associated_coach_id,
-                      ))
-                  );
-                }}
-              />
-            </div>
-          ))}
+          <div className={classes.flexPaymentSelector}>
+            <Typography className={classes.ruleType}>
+              {t('paymentRules:select.coachPaymentRuleForSessions')}
+            </Typography>
+            <CoachPaymentRuleSelector
+              coachPaymentRulesList={
+                coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_SESSION]
+              }
+              selected={coach.coach_payment_rule_id}
+              onChange={({ value }) => {
+                props.setCoachPaymentRule(
+                  coach.id,
+                  value,
+                  coach.associated_coach_id,
+                );
+              }}
+            />
+          </div>
+          <div className={classes.flexPaymentSelector}>
+            <Typography className={classes.ruleType}>
+              {t('paymentRules:select.coachPaymentRuleForWorkshops')}
+            </Typography>
+            <CoachPaymentRuleSelector
+              coachPaymentRulesList={
+                coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_SESSION]
+              }
+              selected={coach.workshop_coach_payment_rule_id}
+              onChange={({ value }) => {
+                props.setCoachWorkShopPaymentRule(
+                  coach.id,
+                  value,
+                  coach.associated_coach_id,
+                );
+              }}
+            />
+          </div>
+          <div className={classes.flexPaymentSelector}>
+            <Typography className={classes.ruleType}>
+              {t('paymentRules:select.coachPaymentRuleForPrivateService')}
+            </Typography>
+            <CoachPaymentRuleSelector
+              coachPaymentRulesList={
+                coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_APPOINTMENT]
+              }
+              selected={coach.coach_payment_rule_id}
+              onChange={({ value }) => {
+                props.setCoachPrivatePaymentRule(
+                  coach.id,
+                  value,
+                  coach.associated_coach_id,
+                );
+              }}
+            />
+          </div>
         </div>
       </div>
       <CoachPerformanceSummary performances={performance} />
@@ -211,6 +235,7 @@ type Props = {
   }) => void,
   setCoachPrivatePaymentRule: (coachId: number, paymentRuleId: number) => void,
   setCoachPaymentRule: (coachId: number, paymentRuleId: number) => void,
+  setCoachWorkShopPaymentRule: (coachId: number, paymentRuleId: number) => void,
   t: TFunction,
   onSubmit: {
     associatedCoachWithCoachPaymentRuleAndPerformance: Array<Coach>,
@@ -292,6 +317,9 @@ export class AllCoachPerformance extends React.Component<Props> {
               coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
               setCoachPaymentRule={this.props.setCoachPaymentRule}
               setCoachPrivatePaymentRule={this.props.setCoachPrivatePaymentRule}
+              setCoachWorkShopPaymentRule={
+                this.props.setCoachWorkShopPaymentRule
+              }
               performance={coach.performance}
             />
           ),
@@ -341,6 +369,7 @@ export default compose(
       fetchCoachPrivateServicePerformance: fetchCoachPrivateServicePerformanceAction,
       setCoachPaymentRuleAction: setCoachPaymentRule,
       setCoachPrivatePaymentRule,
+      setCoachWorkshopPaymentRuleAction: setCoachWorkshopPaymentRule,
       fetchAllCoachPaymentRules,
       getAssociatedCoachSessionPerformance,
     },
@@ -402,6 +431,33 @@ export default compose(
       associatedCoachId: number,
     ) => {
       setCoachPaymentRuleAction(coachId, paymentRuleId, {
+        onSuccess: async () => {
+          setPerformanceLoading(true);
+          const promises = [
+            fetchCoachSessionPerformance({
+              associatedCoachId,
+              start_timestamp: formDates.dateStart,
+              end_timestamp: formDates.dateEnd,
+            }),
+          ];
+          await Promise.all(promises);
+          setPerformanceLoading(false);
+        },
+      });
+    },
+  }),
+  withHandlers({
+    setCoachWorkShopPaymentRule: ({
+      setCoachWorkshopPaymentRuleAction,
+      fetchCoachSessionPerformance,
+      setPerformanceLoading,
+      formDates,
+    }) => (
+      coachId: number,
+      paymentRuleId: number,
+      associatedCoachId: number,
+    ) => {
+      setCoachWorkshopPaymentRuleAction(coachId, paymentRuleId, {
         onSuccess: async () => {
           setPerformanceLoading(true);
           const promises = [

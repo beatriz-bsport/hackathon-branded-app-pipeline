@@ -9,9 +9,12 @@ import {
   performance,
   upsert,
   setCoachPaymentRuleActions,
+  setCoachWorkshopPaymentRuleActions,
   setCoachPrivatePaymentRuleActions,
+  setCoachPaymentRuleGroupActions,
   bulkRetrieveActions,
   restoreActions,
+  updateCoachPrivateSlotsPaymentRulsActions,
 } from './actions';
 
 const initialState: CoachState = Immutable<CoachState>({
@@ -101,10 +104,31 @@ export default handleActions(
         payload.coach_payment_rule_id,
       );
     },
+    [setCoachWorkshopPaymentRuleActions.success]: (state, { payload }) => {
+      return state.setIn(
+        ['byId', payload.coachId, 'workshop_coach_payment_rule_id'],
+        payload.workshop_coach_payment_rule_id,
+      );
+    },
     [setCoachPrivatePaymentRuleActions.success]: (state, { payload }) => {
       return state.setIn(
         ['byId', payload.coachId, 'private_coach_payment_rule_id'],
         payload.private_coach_payment_rule_id,
+      );
+    },
+    [setCoachPaymentRuleGroupActions.success]: (state, { payload }) => {
+      return state.setIn(
+        ['byId', payload.associated_coach.id],
+        payload.associated_coach,
+      );
+    },
+    [updateCoachPrivateSlotsPaymentRulsActions.success]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['byId', payload.id, 'private_slots_coach_payment_rules'],
+        payload.private_slots_coach_payment_rules,
       );
     },
     [restoreActions.isLoading]: (state, { payload }) => {

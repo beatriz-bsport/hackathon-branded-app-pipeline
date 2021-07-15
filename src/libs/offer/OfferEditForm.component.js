@@ -11,6 +11,7 @@ import { compose } from 'recompose';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import moment from 'moment-timezone';
+
 import { Moment } from '../../i18n';
 import DurationInput from '../../components/input/DurationInput.component';
 import NumericInput from '../../components/input/NumericInput.component';
@@ -29,6 +30,7 @@ import FeatureListProvider from '../company/hocs/feature-list-provider.hoc';
 import { RoomBlueprint } from '../spot-scheduling/types';
 import RoomBlueprintSelector from '../spot-scheduling/component/RoomBlueprintSelector.component';
 import SpotSchedulingHelper from '../spot-scheduling/utils';
+import type { CoachPaymentRule } from '../coach-payment-rules/types';
 
 type Props = {
   processing: boolean,
@@ -48,6 +50,7 @@ type Props = {
   fetchSimilarOffers: (id: number) => void,
   onConfirm: ({ offerId: number, data: FormData }) => void,
   metaActivities: Array<MetaActivity>,
+  coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> },
 };
 
 type State = {
@@ -64,6 +67,7 @@ type State = {
   establishment_override: ?Establishment,
   isSimilarOfferListExpanded: boolean,
   similarOffersWithSelectedStatus: Array<Object>,
+  coach_payment_rule: number,
 };
 
 export type FormData = Object;
@@ -89,6 +93,7 @@ const FIELDS = [
   'waiting_list_max_size',
   'level',
   'meta_activity',
+  'coach_payment_rule',
 ];
 
 const getModifiedFields = (oldData, newData) => {
@@ -128,6 +133,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
         ? props.offer.establishment_override.id
         : null,
       coach: props.offer.coach.id,
+      coach_payment_rule: props.offer.coach_payment_rule_id,
       coach_override: props.offer.coach_override
         ? props.offer.coach_override.id
         : null,
@@ -156,6 +162,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
         ? props.offer.establishment_override.id
         : null,
       coach: props.offer.coach.id,
+      coach_payment_rule: props.offer.coach_payment_rule_id,
       meta_activity:
         this.props.offer.meta_activity && this.props.offer.meta_activity.id,
       establishment: props.offer.establishment.id,
@@ -600,6 +607,11 @@ export class EditLiveOfferForm extends Component<Props, State> {
               onDeleteCoachSubstitute={() =>
                 this.setState({ coach_override: null })
               }
+              coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
+              onChangeCoachPaymentRule={this.onFormFieldChange(
+                'coach_payment_rule',
+              )}
+              coach_payment_rule={this.state.coach_payment_rule}
             />
           </div>
         </div>

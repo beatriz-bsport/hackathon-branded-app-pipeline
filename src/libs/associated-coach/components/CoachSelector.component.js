@@ -7,7 +7,10 @@ import { colors } from '@bsport/common/lib/colors';
 
 import Select from 'react-select';
 
-const getCoachOptions = (coaches: Array<Coach>) => {
+const getCoachOptions = (
+  coaches: Array<Coach>,
+  associatedCoachOutput: boolean,
+) => {
   coaches.sort((c, c_) => {
     if (c.user && c_.user) {
       if (c.user.name.toUpperCase() < c_.user.name.toUpperCase()) {
@@ -21,7 +24,7 @@ const getCoachOptions = (coaches: Array<Coach>) => {
     return 1;
   });
   return coaches.map((c) => ({
-    value: c.id,
+    value: associatedCoachOutput ? c.associated_coach_id : c.id,
     label: c.user ? c.user.name : c.name,
   }));
 };
@@ -93,12 +96,13 @@ export default withTranslation([
     closeMenuOnSelect,
     selectOption,
     isClearable,
+    associatedCoachOutput,
   }) => (
     <Select
       closeMenuOnSelect={closeMenuOnSelect}
       isMulti={!noMulti}
       placeholder={placeholder || t('coach')}
-      options={getCoachOptions([...coaches])}
+      options={getCoachOptions([...coaches], associatedCoachOutput)}
       onChange={selectOption}
       isDisabled={isDisabled}
       styles={coachStyles}
@@ -106,9 +110,10 @@ export default withTranslation([
       menuPortalTarget={document.querySelector('body')}
       value={
         selectedCoaches
-          ? getCoachOptions([
-              ...coaches.filter((c) => selectedCoaches.includes(c.id)),
-            ])
+          ? getCoachOptions(
+              [...coaches.filter((c) => selectedCoaches.includes(c.id))],
+              associatedCoachOutput,
+            )
           : undefined
       }
     />

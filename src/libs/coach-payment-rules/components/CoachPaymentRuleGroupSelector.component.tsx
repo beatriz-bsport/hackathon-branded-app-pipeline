@@ -1,45 +1,48 @@
 // @flow
 
 import React from 'react';
-import { withTranslation } from 'react-i18next';
+import { compose } from 'recompose';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
-import type { TFunction } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import Selector from '../../../components/Selector.component';
 import type { Suggestion } from '../../../components/Selector.component';
-import type { CoachPaymentRule } from '../types';
-import { DISSOCIATED_COACH_PAYMENT_RULE } from '../utils';
+import type { CoachPaymentRuleGroup } from '../types';
+import { MaterialStyleType } from '../../../utils/types';
 
-type Props = {
-  t: TFunction,
-  selected: number,
-  onChange: (Suggestion) => void,
-  classes: { [string]: string },
-  coachPaymentRulesList: Array<CoachPaymentRule>,
-  isOverride?: boolean,
-  id: string,
-  enableReset?: boolean,
-  disabled?: boolean,
+type OwnProps = {
+  selected: number;
+  onChange: (Suggestion: Suggestion) => void;
+  coachPaymentRuleGroupsList: Array<CoachPaymentRuleGroup>;
+  isOverride?: boolean;
+  id: string;
+  enableReset?: boolean;
 };
 
-export function CoachPaymentRuleSelector(props: Props) {
+type Props = OwnProps &
+  WithTranslation &
+  MaterialStyleType<ReturnType<typeof styles>>;
+
+export const CoachPaymentRuleGroupSelector = (props: Props) => {
   const {
     t,
-    coachPaymentRulesList,
+    coachPaymentRuleGroupsList,
     isOverride,
     selected,
     onChange,
     classes,
     enableReset,
-    disabled,
   } = props;
-  const suggestions = (coachPaymentRulesList || []).map((s) => ({
-    value: s.id,
-    label: s.name,
-  }));
+
+  const suggestions = (coachPaymentRuleGroupsList || []).map(
+    (s: CoachPaymentRuleGroup) => ({
+      value: s.id,
+      label: s.name,
+    }),
+  );
   if (enableReset) {
     suggestions.push({
-      value: DISSOCIATED_COACH_PAYMENT_RULE,
+      value: -8000,
       label: (
         <Typography color="error" variant="subtitle2">
           {t('select.reset')}
@@ -59,11 +62,10 @@ export function CoachPaymentRuleSelector(props: Props) {
           isOverride ? t('select.placeholderOverride') : t('select.placeholder')
         }
         onChange={onChange}
-        isDisabled={disabled}
       />
     </div>
   );
-}
+};
 
 const styles = () => ({
   root: {
@@ -71,6 +73,7 @@ const styles = () => ({
   },
 });
 
-export default withStyles(styles)(
-  withTranslation(['paymentRules'])(CoachPaymentRuleSelector),
-);
+export default compose<any, OwnProps>(
+  withStyles(styles),
+  withTranslation(['paymentRules']),
+)(CoachPaymentRuleGroupSelector);

@@ -83,6 +83,9 @@ import CheckPermission from '../../role/components/CheckPermission.component';
 import { fetchRoomBlueprints } from '../../spot-scheduling/actions';
 import { getRoomBlueprints } from '../../spot-scheduling/selector';
 import { RoomBlueprint } from '../../spot-scheduling/types';
+import { fetchAllCoachPaymentRules } from '../../coach-payment-rules/actions';
+import { CoachPaymentRuleByKindSelector } from '../../coach-payment-rules/selectors';
+import type { CoachPaymentRule } from '../../coach-payment-rules/types';
 
 type Props = {
   offerId: number,
@@ -146,12 +149,15 @@ type Props = {
   deleteCustomEvent: (number) => void,
   roomBlueprints: RoomBlueprint[],
   fetchRoomBlueprints: () => void,
+  fetchAllCoachPaymentRules: () => void,
+  coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> },
 };
 
 export class CalendarEventDetail extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchAllActivities();
     this.props.fetchRoomBlueprints();
+    this.props.fetchAllCoachPaymentRules();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -404,6 +410,7 @@ export class CalendarEventDetail extends React.Component<Props> {
                   }
                   similarOffers={this.props.similarOffers}
                   similarOfferLoading={this.props.similarOfferLoading}
+                  coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
                 />
               )}
             </DialogContent>
@@ -462,6 +469,7 @@ const OfferEditorContainer = compose(
       establishments: getAllEstablishments(state),
       metaActivities: getEnabledMetaActivities(state),
       roomBlueprints: getRoomBlueprints(state),
+      coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
     }),
     {
       fetchSimilarOffers: fetchSimilarOffersAction,
@@ -471,6 +479,7 @@ const OfferEditorContainer = compose(
       fetchCoachBulk: fetchCoachBulkAction,
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
       fetchRoomBlueprints,
+      fetchAllCoachPaymentRules,
     },
   ),
   withHandlers({

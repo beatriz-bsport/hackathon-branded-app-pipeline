@@ -106,6 +106,9 @@ import {
 } from '../../libs/spot-scheduling/selector';
 import { fetchRoomBlueprints } from '../../libs/spot-scheduling/actions';
 import { RoomBlueprint } from '../../libs/spot-scheduling/types';
+import { fetchAllCoachPaymentRules } from '../../libs/coach-payment-rules/actions';
+import { CoachPaymentRuleByKindSelector } from '../../libs/coach-payment-rules/selectors';
+import type { CoachPaymentRule } from '../../libs/coach-payment-rules/types';
 
 const styles = (theme) => ({
   container: {
@@ -228,6 +231,8 @@ type Props = {
   fetchRoomBlueprints: () => void,
   roomBlueprints: Array<RoomBlueprint>,
   allRoomBlueprints: Array<RoomBlueprint>,
+  fetchAllCoachPaymentRules: () => void,
+  coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> },
 };
 
 type State = {
@@ -272,6 +277,7 @@ export class Planning extends PureComponent<Props, State> {
     this.props.fetchEstablishments();
     this.props.fetchAllActivities({ customer_enabled: true });
     this.props.fetchRoomBlueprints();
+    this.props.fetchAllCoachPaymentRules();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -493,6 +499,7 @@ export class Planning extends PureComponent<Props, State> {
               fetchSimilarOffers={fetchSimilarOffers}
               similarOffers={similarOffers}
               similarOfferLoading={similarOfferLoading}
+              coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
             />
           </DialogContent>
         </Dialog>
@@ -524,6 +531,7 @@ export class Planning extends PureComponent<Props, State> {
               this.props.theme.is_whereby_integration_enabled &&
               this.props.theme.is_whereby_integration_allowed
             }
+            coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
           />
         </DialogContent>
       </Dialog>
@@ -972,6 +980,7 @@ export default compose(
           }),
       roomBlueprints: getAvailableRoomBlueprints(state),
       allRoomBlueprints: getRoomBlueprints(state),
+      coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
     }),
     {
       goBack: goBackRouter,
@@ -994,6 +1003,7 @@ export default compose(
       restoreOffer,
       fetchBookedGender: fetchBookedGenderAction,
       fetchRoomBlueprints,
+      fetchAllCoachPaymentRules,
     },
   ),
   withHandlers({

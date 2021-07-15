@@ -1,27 +1,48 @@
 // @flow
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 
 import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
-import type { CoachPaymentRule } from '../../coach-payment-rules/types';
+import type {
+  CoachPaymentRule,
+  CoachPaymentRuleGroup,
+} from '../../coach-payment-rules/types';
 import CoachSummaryBanner from './coach-detail/CoachSummaryBanner.component';
 import Description from './coach-detail/Description.component';
+import CoachPaymentRuleBanner from './coach-detail/CoachPaymentRuleBanner.component';
+import type { PrivateSlot } from '../../private-service/types';
 
 type Props = {
-  t: TFunction,
   classes: Object,
   coach: CoachDetailed,
   coachPaymentRulesByKind: Object<CoachPaymentRule[]>,
-  setCoachPaymentRule: (any) => void,
-  setCoachPrivatePaymentRule: (any) => void,
+  coachPaymentRuleGroups: Array<CoachPaymentRuleGroup>,
+  setCoachPaymentRule: (coachId: number, coach_payment_rule_id: number) => void,
+  setCoachWorkshopPaymentRule: (
+    coachId: number,
+    coach_payment_rule_id: number,
+  ) => void,
+  setCoachPrivatePaymentRule: (
+    coachId: number,
+    coach_payment_rule_id: number,
+  ) => void,
+  setCoachPaymentRuleGroup: (
+    coachId: number,
+    coach_payment_rule_id: number,
+  ) => void,
   startUpdateCoach: (coach: CoachDetailed) => void,
   goToCoachPerformance: (coach: CoachDetailed) => void,
+  privateSlots: { [id: number]: PrivateSlot },
+  updateCoach: (
+    coachId: Number,
+    associatedCoachId: Number,
+    specificPrivateSlots: Array<{
+      private_slot: Number,
+      coach_payment_rule: number,
+    }>,
+  ) => void,
 };
 
 export class CoachDetail extends Component<Props> {
@@ -30,41 +51,46 @@ export class CoachDetail extends Component<Props> {
       coach,
       classes,
       setCoachPaymentRule,
+      setCoachWorkshopPaymentRule,
       setCoachPrivatePaymentRule,
-      t,
+      setCoachPaymentRuleGroup,
       coachPaymentRulesByKind,
+      coachPaymentRuleGroups,
+      privateSlots,
     } = this.props;
     return (
-      <Grid container direction="column" spacing={2} alignItems="center">
-        <Grid item xs={12} lg={8} className={classes.fullWidth}>
-          <Paper className={classes.paperContainer}>
-            <CoachSummaryBanner
-              coach={coach}
-              coachPaymentRulesByKind={coachPaymentRulesByKind}
-              setCoachPaymentRule={setCoachPaymentRule}
-              setCoachPrivatePaymentRule={setCoachPrivatePaymentRule}
-            />
-            <div className={classes.leftButton}>
-              <Button
-                color="primary"
-                variant="contained"
-                onClick={() => this.props.goToCoachPerformance(coach)}
-                id="button_teacher_remunerate"
-              >
-                <EuroSymbolIcon className={classes.leftIcon} />
-                {t('showPerformance')}
-              </Button>
-            </div>
-          </Paper>
+      <Grid container direction="row" spacing={2}>
+        <Grid item xs={8}>
+          <Grid container direction="column" spacing={2}>
+            <Grid item xs={12}>
+              <Paper className={classes.paperContainer}>
+                <CoachSummaryBanner
+                  coach={coach}
+                  coachPaymentRulesByKind={coachPaymentRulesByKind}
+                  setCoachPaymentRule={setCoachPaymentRule}
+                  setCoachPrivatePaymentRule={setCoachPrivatePaymentRule}
+                />
+              </Paper>
+            </Grid>
+            <Grid item xs={12}>
+              <Paper className={classes.paperContainer}>
+                <CoachPaymentRuleBanner
+                  coach={coach}
+                  remunerateCoach={() => this.props.goToCoachPerformance(coach)}
+                  coachPaymentRulesByKind={coachPaymentRulesByKind}
+                  coachPaymentRuleGroups={coachPaymentRuleGroups}
+                  setCoachPaymentRule={setCoachPaymentRule}
+                  setCoachWorkshopPaymentRule={setCoachWorkshopPaymentRule}
+                  setCoachPrivatePaymentRule={setCoachPrivatePaymentRule}
+                  setCoachPaymentRuleGroup={setCoachPaymentRuleGroup}
+                  privateSlots={privateSlots}
+                  updateCoach={this.props.updateCoach}
+                />
+              </Paper>
+            </Grid>
+          </Grid>
         </Grid>
-        <Grid item xs={12} lg={8} className={classes.fullWidth}>
-          <Typography
-            variant="h6"
-            align="right"
-            className={classes.expansionTitle}
-          >
-            {t('description')}
-          </Typography>
+        <Grid item xs={4}>
           <Description
             coach={coach}
             startUpdateCoach={this.props.startUpdateCoach}
@@ -79,10 +105,6 @@ const styles = (theme) => ({
   paperContainer: {
     padding: theme.spacing(2),
     width: '100%',
-  },
-  expansionTitle: {
-    marginBottom: theme.spacing(1),
-    marginRight: theme.spacing(1),
   },
   leftButton: {
     paddingTop: theme.spacing(1),

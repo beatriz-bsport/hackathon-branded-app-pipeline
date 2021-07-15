@@ -8,21 +8,35 @@ import {
   COACH_PAYMENT_RULE_FOR_APPOINTMENT,
 } from '@bsport/common/lib/master-data/coach_payment_rule';
 import CoachPaymentRuleTable from './CoachPaymentRuleTable.component';
+import CoachPaymentRuleGroupTable from './CoachPaymentRuleGroupTable.component';
+import type { CoachPaymentRule, CoachPaymentRuleGroup } from '../types';
 
 type Props = {
   t: TFunction,
   items: Object<CoachPaymentRule[]>,
+  coachPaymentRuleGroups: Array<CoachPaymentRuleGroup>,
 };
 const CoachPaymentRuleTabPanel = (props: Props) => {
   return <CoachPaymentRuleTable {...props} />;
 };
 
 export const CoachPaymentRuleTabs = (props: Props) => {
-  const { t, items } = props;
+  const { t, items, coachPaymentRuleGroups } = props;
   const [value, setValue] = useState(COACH_PAYMENT_RULE_FOR_SESSION);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const handleChange = (event, newValue) => setValue(newValue);
+
+  const renderTabPanel = () => {
+    if (
+      value === COACH_PAYMENT_RULE_FOR_SESSION ||
+      value === COACH_PAYMENT_RULE_FOR_APPOINTMENT
+    ) {
+      return <CoachPaymentRuleTabPanel {...props} items={items[value]} />;
+    }
+    if (value === 2) {
+      return <CoachPaymentRuleGroupTable {...props} />;
+    }
+    return null;
   };
   return (
     <div>
@@ -45,8 +59,14 @@ export const CoachPaymentRuleTabs = (props: Props) => {
           })`}
           index={COACH_PAYMENT_RULE_FOR_APPOINTMENT}
         />
+        <Tab
+          label={`${t('tabs.groups')}(${
+            coachPaymentRuleGroups ? coachPaymentRuleGroups.length : 0
+          })`}
+          index={2}
+        />
       </Tabs>
-      <CoachPaymentRuleTabPanel {...props} items={items[value]} />
+      {renderTabPanel()}
     </div>
   );
 };

@@ -12,11 +12,18 @@ export type Coach = {
   email?: string;
   associated_coach_id: number;
   default_payment_rule_id?: number;
-  coach_payment_rule?: number;
+  coach_payment_rule_id?: number;
+  private_coach_payment_rule_id: number;
+  workshop_coach_payment_rule_id: number;
+  coach_payment_rule_group_id: number;
   facebook_url?: string;
   instagram_url?: string;
   disabled: boolean;
   associatedcoach_set: number[];
+  private_slots_coach_payment_rules: Array<{
+    private_slot: number;
+    coach_payment_rule: number;
+  }>;
 };
 
 export type CoachPerformance = {

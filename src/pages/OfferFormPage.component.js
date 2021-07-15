@@ -27,6 +27,9 @@ import {
 import { fetchRoomBlueprints } from '../libs/spot-scheduling/actions';
 import { getAvailableRoomBlueprints } from '../libs/spot-scheduling/selector';
 import { RoomBlueprint } from '../libs/spot-scheduling/types';
+import { fetchAllCoachPaymentRules } from '../libs/coach-payment-rules/actions';
+import { CoachPaymentRuleByKindSelector } from '../libs/coach-payment-rules/selectors';
+import type { CoachPaymentRule } from '../libs/coach-payment-rules/types';
 
 type Props = {
   match: Object,
@@ -42,6 +45,8 @@ type Props = {
   timezone: string,
   roomBlueprints: RoomBlueprint[],
   fetchRoomBlueprints: () => void,
+  fetchAllCoachPaymentRules: () => void,
+  coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> },
 };
 
 type State = {
@@ -64,6 +69,7 @@ export class OfferFormPage extends Component<Props, State> {
     this.props.fetchEstablishments();
     this.props.fetchAssociatedCoachesList();
     this.props.fetchRoomBlueprints();
+    this.props.fetchAllCoachPaymentRules();
   }
 
   createOffers = async (data: Object) => {
@@ -119,6 +125,7 @@ export class OfferFormPage extends Component<Props, State> {
               onCancel={goBack}
               timezone={this.props.timezone}
               roomBlueprints={this.props.roomBlueprints}
+              coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
             />
           </Paper>
         </Grid>
@@ -140,6 +147,7 @@ export default withTranslation()(
       loading: state.metaActivity.loading,
       timezone: state.theme.theme.timezone_name,
       roomBlueprints: getAvailableRoomBlueprints(state),
+      coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
     }),
     {
       fetchEstablishments,
@@ -147,6 +155,7 @@ export default withTranslation()(
       fetchAllOffers: fetchAllOffersAction,
       goBack: goBackAction,
       fetchRoomBlueprints,
+      fetchAllCoachPaymentRules,
     },
   )(
     withTitle(({ t }: { t: TFunction }) => t('titles:offerFormPage'))(

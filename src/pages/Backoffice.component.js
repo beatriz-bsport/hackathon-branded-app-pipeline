@@ -32,7 +32,11 @@ import { fetchSCT } from '../libs/category/actions';
 import { fetchAllPaymentPacks } from '../libs/payment-packs/actions';
 import { fetchShopItemAsManager as fetchShop } from '../libs/shop/actions/shopitem';
 import { fetchPaymentRules } from '../libs/payment-rules/actions';
-import { fetchAllCoachPaymentRules } from '../libs/coach-payment-rules/actions';
+import {
+  fetchAllCoachPaymentRules,
+  fetchAllCoachPaymentRuleGroups,
+} from '../libs/coach-payment-rules/actions';
+import { fetchAllPrivateSlots } from '../libs/private-service/actions';
 import { fetchOnSpotPaymentReport as fetchOnSpotPaymentReportAction } from '../libs/payment/actions';
 import { fetchAssociatedCoachesList as fetchAssociatedCoaches } from '../libs/associated-coach/actions';
 // -----------------------------
@@ -151,6 +155,8 @@ type Props = {
   fetchPaymentRules: () => void,
   fetchAllCoachPaymentRules: () => void,
   fetchAssociatedCoaches: () => void,
+  fetchAllCoachPaymentRuleGroups: () => void,
+  fetchAllPrivateSlots: () => void,
   pushRouter: (string) => void,
 
   checkEmailValidation: () => void,
@@ -226,7 +232,9 @@ export class Backoffice extends Component<Props, State> {
     this.props.fetchShop();
     this.props.fetchPaymentRules();
     this.props.fetchAllCoachPaymentRules();
+    this.props.fetchAllCoachPaymentRuleGroups();
     this.props.fetchAssociatedCoaches();
+    this.props.fetchAllPrivateSlots();
   }
 
   componentWillUnmount() {
@@ -427,7 +435,9 @@ export default compose(
       fetchShop,
       fetchPaymentRules,
       fetchAllCoachPaymentRules,
+      fetchAllCoachPaymentRuleGroups,
       fetchAssociatedCoaches,
+      fetchAllPrivateSlots,
 
       generateTempPassword,
       fetchTempPassword,

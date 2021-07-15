@@ -11,12 +11,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Avatar from '@material-ui/core/Avatar';
 import { compose } from 'recompose';
 import { withTranslation, TFunction } from 'react-i18next';
-import {
-  COACH_PERFORMANCE_FOR_SESSION,
-  COACH_PERFORMANCE_FOR_APPOINTMENT,
-} from '@bsport/common/lib/master-data/coach_payment_rule';
-import CoachPaymentRuleSelector from '../../../coach-payment-rules/components/CoachPaymentRuleSelector.component';
-import type { CoachPaymentRule } from '../../../coach-payment-rules/types';
 
 import FACEBOOK_PNG from '../../../../public/images/facebook.png';
 import INSTAGRAM_PNG from '../../../../public/images/instagram.png';
@@ -30,68 +24,9 @@ type Props = {
   coach: CoachDetailed,
   t: TFunction,
   classes: Object,
-  coachPaymentRulesByKind: Object<CoachPaymentRule[]>,
-  setCoachPaymentRule: (id: number, ruleId: number) => void,
-  setCoachPrivatePaymentRule: (id: number, ruleId: number) => void,
 };
 
 class CoachSummaryCard extends React.Component<Props> {
-  renderPaymentRules = () => {
-    const {
-      t,
-      classes,
-      coach,
-      setCoachPaymentRule,
-      setCoachPrivatePaymentRule,
-      coachPaymentRulesByKind,
-    } = this.props;
-    return (
-      <Grid
-        container
-        direction="row"
-        justify="flex-end"
-        className={classes.ruleContainer}
-      >
-        <div
-          ref={this.refPaymentRuleSelector}
-          id="button_teacher_paymentconfig"
-        >
-          <Typography variant="subtitle2">
-            {t('paymentRules:paymentRules')}
-          </Typography>
-          {[
-            COACH_PERFORMANCE_FOR_SESSION,
-            COACH_PERFORMANCE_FOR_APPOINTMENT,
-          ].map((pay_rule_kind) => (
-            <div className={classes.flexPaymentSelector}>
-              <CoachPaymentRuleSelector
-                coachPaymentRulesList={coachPaymentRulesByKind[pay_rule_kind]}
-                selected={
-                  pay_rule_kind === COACH_PERFORMANCE_FOR_SESSION
-                    ? coach.coach_payment_rule_id
-                    : coach.private_coach_payment_rule_id
-                }
-                onChange={({ value }) => {
-                  return (
-                    (pay_rule_kind === COACH_PERFORMANCE_FOR_SESSION &&
-                      setCoachPaymentRule(coach.id, value)) ||
-                    (pay_rule_kind === COACH_PERFORMANCE_FOR_APPOINTMENT &&
-                      setCoachPrivatePaymentRule(coach.id, value))
-                  );
-                }}
-              />
-              <Typography>
-                {pay_rule_kind === COACH_PERFORMANCE_FOR_SESSION
-                  ? t('paymentRules:select.coachPaymentRuleForSessions')
-                  : t('paymentRules:select.coachPaymentRuleForPrivateService')}
-              </Typography>
-            </div>
-          ))}
-        </div>
-      </Grid>
-    );
-  };
-
   renderPersonnalInfo = () => (
     <List dense>
       <ListItem>
@@ -150,9 +85,6 @@ class CoachSummaryCard extends React.Component<Props> {
             >
               <Grid item>
                 <Typography>{coach.name.trim() || t('common.NA')}</Typography>
-              </Grid>
-              <Grid ietm xs="12">
-                {this.renderPaymentRules()}
               </Grid>
             </Grid>
           </Grid>

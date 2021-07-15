@@ -228,6 +228,7 @@ type IntegrationReactSelectProps = {
   filterOption: (option: Suggestion, text: string) => void,
   autofocus: boolean,
   id: string,
+  isDisabled: boolean,
 };
 
 function IntegrationReactSelect(props: IntegrationReactSelectProps) {
@@ -244,6 +245,7 @@ function IntegrationReactSelect(props: IntegrationReactSelectProps) {
     isMulti,
     autofocus,
     nullCurrentValue,
+    isDisabled,
   } = props;
 
   const selectStyles = {
@@ -301,6 +303,7 @@ function IntegrationReactSelect(props: IntegrationReactSelectProps) {
         filterOption={props.filterOption}
         isClearable={props.isClearable}
         menuPortalTarget={document.querySelector('body')}
+        isDisabled={isDisabled}
       />
     </div>
   );

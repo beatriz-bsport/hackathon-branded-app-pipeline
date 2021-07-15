@@ -7,7 +7,10 @@ import WarningIcon from '@material-ui/icons/Warning';
 
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import { COACH_PAYMENT_RULE_FOR_SESSION } from '@bsport/common/lib/master-data/coach_payment_rule';
 import CoachSelector from '../../associated-coach/components/CoachSelectorWithCard.component';
+import CoachPaymentRuleSelectorStyled from '../../coach-payment-rules/components/CoachPaymentRuleSelectorStyled.component';
+import type { CoachPaymentRule } from '../../coach-payment-rules/types';
 
 type Props = {
   coach: Coach,
@@ -18,6 +21,9 @@ type Props = {
   coachs_override: Array,
   onChangeCoachOverride: (Coach) => void,
   onChangeCoach: (Coach) => void,
+  coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> },
+  onChangeCoachPaymentRule: (ruleId: number) => void,
+  coach_payment_rule: number,
 };
 
 export class CoachSubForm extends Component<Props> {
@@ -32,6 +38,28 @@ export class CoachSubForm extends Component<Props> {
         onChange={this.props.onChangeCoach}
         placeholder={this.props.t('coach:coach')}
       />
+      <Typography className={this.props.classes.caption} variant="caption">
+        {this.props.t('paymentRules:paymentRules')}
+      </Typography>
+      {this.props.coach && (
+        <CoachPaymentRuleSelectorStyled
+          coachPaymentRulesList={
+            this.props.coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_SESSION]
+          }
+          selectedRules={[
+            this.props.coachPaymentRulesByKind[
+              COACH_PAYMENT_RULE_FOR_SESSION
+            ].find((rule) => rule.id === this.props.coach_payment_rule).id,
+          ]}
+          placeholder={this.props.t('paymentRules:search')}
+          disabled={!this.props.coach}
+          onChange={(item: { value: number, label: string }) => {
+            this.props.onChangeCoachPaymentRule(item.value);
+          }}
+          noMulti
+          isClearable
+        />
+      )}
     </div>
   );
 

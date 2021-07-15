@@ -30,6 +30,7 @@ type Props = {
   classes: Object,
   is_whereby_integration_enabled: boolean,
   timezone: string,
+  coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> },
 };
 
 type State = {
@@ -112,6 +113,7 @@ export class OfferFormWithActivity extends Component<Props, State> {
         is_whereby_integration_enabled={
           this.props.is_whereby_integration_enabled
         }
+        coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
       />
     );
   }

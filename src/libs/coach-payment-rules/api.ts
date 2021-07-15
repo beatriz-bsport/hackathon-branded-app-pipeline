@@ -9,12 +9,16 @@ import {
 export const fetchCoachPaymentRules = async () => {
   return getAuth(`${API_V1_URI}/coach_payment_rules/get_coach_payment_rules/`);
 };
-
+export const fetchCoachPaymentRuleGroups = async () => {
+  return getAuth(
+    `${API_V1_URI}/coach_payment_rule_group/get_coach_payment_rule_groups/`,
+  );
+};
 export const fetchCoachSessionPerformance = async (params: {
-  associatedCoachId: number,
-  start_timestamp: number,
-  end_timestamp: number,
-  sessionId: ?number,
+  associatedCoachId: number;
+  start_timestamp: number;
+  end_timestamp: number;
+  sessionId?: number;
 }) => {
   return getAuth(
     `${API_V1_URI}/coach_payment_rules/get_coach_session_performance/${buildUrlParams(
@@ -25,10 +29,10 @@ export const fetchCoachSessionPerformance = async (params: {
   );
 };
 export const fetchCoachPrivateServicePerformance = async (params: {
-  associatedCoachId: number,
-  start_timestamp: number,
-  end_timestamp: number,
-  privateBookingId: number,
+  associatedCoachId: number;
+  start_timestamp: number;
+  end_timestamp: number;
+  privateBookingId: number;
 }) => {
   return getAuth(
     `${API_V1_URI}/coach_payment_rules/get_coach_private_service_performance/${buildUrlParams(
@@ -38,7 +42,7 @@ export const fetchCoachPrivateServicePerformance = async (params: {
     )}`,
   );
 };
-export const runSimulationAPI = async (id, params) => {
+export const runSimulationAPI = async (id: number, params: any) => {
   return postBaseAuth(
     `${API_V1_URI}/coach_payment_rules/${id}/run_simulation/`,
     params,

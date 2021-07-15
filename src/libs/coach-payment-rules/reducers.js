@@ -6,6 +6,9 @@ import {
   fetchAllPaymentRules,
   coachPaymentRuleSetUpsert,
   coachPaymentRuleSetDelete,
+  fetchAllPaymentRuleGroups,
+  upsertPaymentGroupActions,
+  coachPaymentRuleGroupDelete,
   coachPaymentSimulation,
   coachSessionPerformanceActions,
   coachPrivateServicePerformanceActions,
@@ -13,6 +16,7 @@ import {
   setPrivateBookingCoachPaymentRuleActions,
   showDialog,
   showSimulationDialog,
+  showGroupDialog,
 } from './actions';
 import { CoachPaymentRuleState } from './types';
 
@@ -26,6 +30,7 @@ const initialState: CoachPaymentRuleState = Immutable({
   },
   dialog: false,
   simulationDialog: false,
+  groupDialog: false,
   simulation: {
     error: null,
     result: {},
@@ -42,10 +47,25 @@ const initialState: CoachPaymentRuleState = Immutable({
     loading: false,
     error: null,
   },
+  groups: {
+    byId: {},
+    allIds: [],
+    loading: false,
+    error: null,
+  },
 });
 
 export default handleActions(
   {
+    [showDialog]: (state, { payload }) => {
+      return state.set('dialog', payload);
+    },
+    [showSimulationDialog]: (state, { payload }) => {
+      return state.set('simulationDialog', payload);
+    },
+    [showGroupDialog]: (state, { payload }) => {
+      return state.set('groupDialog', payload);
+    },
     [fetchAllPaymentRules.isLoading]: (state, { payload }) => {
       return state.set('loading', payload);
     },
@@ -217,11 +237,45 @@ export default handleActions(
         updatedPrivateService,
       );
     },
-    [showDialog]: (state, { payload }) => {
-      return state.set('dialog', payload);
+
+    [fetchAllPaymentRuleGroups.isLoading]: (state, { payload }) => {
+      return state.setIn(['groups', 'loading'], payload);
     },
-    [showSimulationDialog]: (state, { payload }) => {
-      return state.set('simulationDialog', payload);
+    [fetchAllPaymentRuleGroups.error]: (state, { payload }) => {
+      return state.setIn(['groups', 'error'], payload);
+    },
+    [fetchAllPaymentRuleGroups.success]: (state, { payload }) => {
+      return state
+        .setIn(
+          ['groups', 'allIds'],
+          payload.map((g) => g.id),
+        )
+        .merge(
+          {
+            groups: {
+              byId: payload.reduce((acc: any, ps: any) => {
+                acc[ps.id] = ps;
+                return acc;
+              }, {}),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [coachPaymentRuleGroupDelete.success]: (state, { payload }) => {
+      return state.setIn(
+        ['group', 'byId'],
+        lodash.omit(state.groups.byId, payload.id),
+      );
+    },
+    [upsertPaymentGroupActions.success]: (state, { payload }) => {
+      return state.setIn(['groups', 'byId', payload.id], payload);
+    },
+    [upsertPaymentGroupActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['upsert', 'loading'], payload);
+    },
+    [upsertPaymentGroupActions.error]: (state, { payload }) => {
+      return state.setIn(['upsert', 'error'], payload);
     },
   },
   initialState,

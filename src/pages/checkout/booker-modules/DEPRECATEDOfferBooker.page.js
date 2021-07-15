@@ -9,6 +9,7 @@ import {
 } from 'connected-react-router';
 import { Redirect } from 'react-router-dom';
 import { MuiThemeProvider } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -233,13 +234,13 @@ export class OfferPaymentPage extends Component<Props, State> {
     this.setState({ currentBasketOpen });
 
   render() {
+    if (!this.props.offer || !this.props.offer.meta_activity) {
+      return <CircularProgress />;
+    }
     if (
-      true ||
-      (this.props.offer &&
-        this.props.offer.meta_activity &&
-        (!!this.props.offer.room_blueprint ||
-          this.props.offer.meta_activity.is_workshop ||
-          parseInt(this.props.offerId, 10) % 100 === 0))
+      !!this.props.offer.room_blueprint ||
+      this.props.offer.meta_activity.is_workshop ||
+      parseInt(this.props.offerId, 10) % 100 === 0
     ) {
       return (
         <Redirect

@@ -2606,8 +2606,22 @@
       "delete": {
         "title": "Suppression de la liste d'attente",
         "content": "Êtes-vous sûr de vouloir supprimer ce membre de la liste d'attente ? Il sera notifié par email.",
+        "contentV2": "Êtes-vous sûr de vouloir supprimer ce membre de la liste d'attente ?",
+        "sendEmail": "Envoyer un mail de désinscription",
         "cancel": "Annuler",
         "confirm": "Supprimer"
+      }
+    },
+    "member": {
+      "listTitle": "Liste d'attente",
+      "addToBook": "Inscrire",
+      "delete": "Supprimer",
+      "empty": "Aucune inscription en liste d'attente",
+      "detail": {
+        "title": "Détails liste d'attente",
+        "registeredOn": "Inscrit le",
+        "registrationSource": "Canal d'inscription",
+        "offerTitle": "Séance liée"
       }
     }
   },

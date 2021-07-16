@@ -103,7 +103,6 @@ export function discardBookingOption(
 
     try {
       const response = await discardBookingOptionAPI(bookingOptionId, params);
-
       dispatch(discardOptionActions.success(response.data));
       if (options && options.onSuccess) options.onSuccess(bookingOptionId);
     } catch (err) {
@@ -114,6 +113,7 @@ export function discardBookingOption(
     dispatch(discardOptionActions.isLoading(false));
   };
 }
+
 export const registerOptionActions = {
   error: createAction('WAITING_LIST/OPTION/REGISTER/ERROR'),
   isLoading: createAction('WAITING_LIST/OPTION/REGISTER/IS_LOADING'),
@@ -168,6 +168,42 @@ export function fetchBookingOptionAsConsumer(
       if (options && options.onError) options.onError(err);
     }
     dispatch(asConsumerActions.isLoading(false));
+  };
+}
+
+export const forMemberActions = {
+  error: createAction('WAITING_LIST/OPTION/FOR_MEMBER/ERROR'),
+  isLoading: createAction('WAITING_LIST/OPTION/FOR_MEMBER/IS_LOADING'),
+  reset: createAction('WAITING_LIST/OPTION/FOR_MEMBER/RESET'),
+  success: createAction('WAITING_LIST/OPTION/FOR_MEMBER/SUCCESS'),
+};
+
+export function fetchBookingOptionForMember(
+  params = {},
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(forMemberActions.error(null));
+    dispatch(forMemberActions.isLoading(true));
+    if (params && params.page === 1) {
+      dispatch(forMemberActions.reset());
+    }
+
+    try {
+      const response = await fetchFilteredBookingOptionsAPI({
+        ...params,
+      });
+
+      dispatch(
+        forMemberActions.success({ ...response.data, page: params.page }),
+      );
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(forMemberActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(forMemberActions.isLoading(false));
   };
 }
 

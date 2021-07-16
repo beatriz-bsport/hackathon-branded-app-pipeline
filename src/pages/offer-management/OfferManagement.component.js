@@ -43,6 +43,7 @@ import OfferManagementRoomBlueprint from './OfferManagementRoomBlueprint.compone
 import AsyncSpotSelector, {
   asyncSelectSpotForBlueprint,
 } from '../../libs/spot-scheduling/component/SpotSelector/AsyncSpotSelector.container';
+import DiscardBookingOptionDialogV2 from '../../libs/waiting-list/components/DiscardBookingOptionDialogV2.component';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
@@ -183,6 +184,8 @@ type Props = {
   },
   offerStatusById: { [key: string]: OfferStatus },
   setSpotForBooking: () => void,
+  optionToDiscardWithDialog: number,
+  setOptionToDiscardWithDialog: (optionId: number | null) => void,
 };
 
 type State = {
@@ -539,7 +542,7 @@ export class OfferManagement extends Component<Props, State> {
               this.props.revertQuickInvoiceAndRefreshOffer
             }
             registerOption={this.props.registerOption}
-            discardOption={this.props.discardOption}
+            discardOption={this.props.setOptionToDiscardWithDialog}
             switchWaitingListFreeze={this.props.switchWaitingListFreeze}
             recurrenceRuleBookingList={this.props.recurrenceRuleBooking}
             recurrentBookingCount={this.props.recurrentBookingCount}
@@ -639,6 +642,22 @@ export class OfferManagement extends Component<Props, State> {
           }}
           onClose={this.props.cancelDiscardOption}
         />
+
+        <DiscardBookingOptionDialogV2
+          open={!!this.props.optionToDiscardWithDialog}
+          onSubmit={(sendEmail: boolean) => {
+            this.props.discardOption(
+              this.props.optionToDiscardWithDialog,
+              { disable_notification: !sendEmail },
+              {
+                onSuccess: () => this.props.setOptionToDiscardWithDialog(null),
+                onError: () => this.props.setOptionToDiscardWithDialog(null),
+              },
+            );
+          }}
+          onClose={() => this.props.setOptionToDiscardWithDialog(null)}
+        />
+
         {!!this.props.communicationDialogIsOpen && (
           <MailMembers
             fetchEmailTemplatesSummaries={
@@ -730,6 +749,7 @@ export default compose(
       addMemberModal: false,
       communicationDialogIsOpen: false,
       optionToDiscard: null,
+      optionToDiscardWithDialog: null,
       confirmOptionToDiscard: false,
     },
     {
@@ -759,6 +779,9 @@ export default compose(
       cancelDiscardOption: () => () => ({
         optionToDiscard: null,
         confirmOptionToDiscard: null,
+      }),
+      setOptionToDiscardWithDialog: () => (optionId) => ({
+        optionToDiscardWithDialog: optionId,
       }),
     },
   ),

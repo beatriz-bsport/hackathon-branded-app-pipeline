@@ -99,6 +99,16 @@ import type { Theme } from '../../libs/theme/types';
 import AsyncSpotSelector, {
   asyncSelectSpotForBlueprint,
 } from '../../libs/spot-scheduling/component/SpotSelector/AsyncSpotSelector.container';
+import {
+  discardBookingOption as discardBookingOptionAction,
+  fetchBookingOptionForMember,
+} from '../../libs/waiting-list/actions';
+import { getBookingOptionListForMember } from '../../libs/waiting-list/selectors';
+import type { Offer } from '../../api/types';
+import { BookingOptionWithActivity } from '../../libs/booking/types';
+import WaitingListDetail from '../../libs/waiting-list/components/WaitingListDetail.component';
+import PaginatedBookingOptionList from '../../libs/waiting-list/components/PaginatedBookingOptionList.component';
+import DiscardBookingOptionDialogV2 from '../../libs/waiting-list/components/DiscardBookingOptionDialogV2.component';
 
 type Props = {
   classes: *,
@@ -135,7 +145,6 @@ type Props = {
   selectedBooking: ?Booking,
   getPaymentPack: (id: number) => PaymentPack,
   offerLoading: boolean,
-  member: Member,
   consumerPackLoading: boolean,
   offer: ?Offer,
 
@@ -174,6 +183,16 @@ type Props = {
   recurrentBookingLoading: boolean,
   userFiltersLoading: boolean,
   setSpotForBooking: () => void,
+  fetchBookingOptionForMember: () => void,
+  bookingOptionList: BookingOptionWithActivity[],
+  selectedBookingOption: BookingOptionWithActivity,
+  setSelectedBookingOption: () => void,
+  bookingOptionPage: number,
+  bookingOptionCount: number,
+  bookingOptionListLoading: boolean,
+  setDiscardBookingOption: () => void,
+  discardBookingOption: boolean,
+  discardOption: () => void,
 };
 
 type State = {
@@ -234,6 +253,13 @@ export class MemberDetailBooking extends Component<Props, State> {
     ) {
       this.fetchBookingDetails();
     }
+
+    if (
+      this.props.selectedBookingOption &&
+      prevProps.selectedBookingOption !== this.props.selectedBookingOption
+    ) {
+      this.props.fetchOffer(this.props.selectedBookingOption.offer.id);
+    }
   }
 
   fetchBookingDetails = () => {
@@ -260,6 +286,7 @@ export class MemberDetailBooking extends Component<Props, State> {
     } else {
       this.props.selectBooking(this.props.id, booking.id);
     }
+    this.props.setSelectedBookingOption(null);
   };
 
   onClickChangeSpot = async (booking: Booking) => {
@@ -269,13 +296,112 @@ export class MemberDetailBooking extends Component<Props, State> {
     }
   };
 
-  render() {
+  renderDetails = () => {
     const { primary_color } = this.props.theme;
+
     const dataLoading =
       this.props.bookingsLoading ||
       this.props.consumerPackLoading ||
       this.props.recurrentBookingLoading ||
       this.props.userFiltersLoading;
+
+    if (!this.props.selectBooking && !this.props.selectedBookingOption) {
+      return (
+        <Paper className={this.props.classes.graphContainer}>
+          <div className={this.props.classes.titleRow}>
+            <Typography variant="h6">
+              {this.props.t('booking:memberGraph.title')}
+            </Typography>
+            <ChartRange
+              start_date={this.props.chartRange.start}
+              end_date={this.props.chartRange.end}
+              kind={this.props.chartRange.kind}
+              setRange={this.props.setChartRange}
+              timeSettings="range"
+            />
+          </div>
+          <BookingFilters
+            setOpenValue={this.props.setOpenValue}
+            setFiltersValue={this.props.setFilterValue}
+            open={this.props.open}
+            filters={!dataLoading && this.props.filters}
+          />
+          {this.props.graphData.loading ? (
+            <Skeleton height={300} />
+          ) : (
+            <TemporalBarChart
+              height={300}
+              data={this.props.graphData.data}
+              chartOptions={[
+                {
+                  dataKey: 'v',
+                  stroke: primary_color,
+                  fill: primary_color,
+                  caption: this.props.t('memberGraph.label'),
+                },
+              ]}
+              margin={{ top: 0, right: 20, bottom: 0, left: 20 }}
+              yLabel={this.props.t('memberGraph.label')}
+              yLabelOffset={-2}
+              tooltip
+            />
+          )}
+        </Paper>
+      );
+    }
+
+    if (this.props.selectedBookingOption) {
+      return (
+        <WaitingListDetail
+          bookingOption={this.props.selectedBookingOption}
+          loading={
+            !this.props.selectedBookingOption ||
+            !this.props.offer ||
+            this.props.selectedBookingOption.offer.id !== this.props.offer.id
+          }
+          offer={this.props.offer}
+          onOfferClick={this.props.goToOffer}
+        />
+      );
+    }
+
+    if (this.props.selectBooking) {
+      return (
+        <BookingDetail
+          consumerPack={
+            this.props.selectedBooking &&
+            this.props.getPass(
+              parseInt(this.props.selectedBooking.consumer_payment_pack_id, 10),
+            )
+          }
+          getPaymentPack={this.props.getPaymentPack}
+          decrementCredit={this.props.decrementCredit}
+          incrementCredit={this.props.incrementCredit}
+          booking={this.props.selectedBooking}
+          member={this.props.member}
+          onConsumerPassSelected={this.goToConsumerPass}
+          loading={this.props.consumerPackLoading || this.props.offerLoading}
+          onOfferClick={this.props.goToOffer}
+          offer={this.props.offer}
+          offerLoading={
+            !this.props.selectedBooking ||
+            !this.props.offer ||
+            this.props.selectedBooking.offer !== this.props.offer.id
+          }
+        />
+      );
+    }
+
+    return null;
+  };
+
+  render() {
+    const dataLoading =
+      this.props.bookingsLoading ||
+      this.props.consumerPackLoading ||
+      this.props.recurrentBookingLoading ||
+      this.props.userFiltersLoading;
+
     return (
       <Grid container direction="row" spacing={3}>
         <Grid
@@ -288,6 +414,32 @@ export class MemberDetailBooking extends Component<Props, State> {
           spacing={3}
         >
           <Grid item style={{ width: '100%' }}>
+            <PaginatedBookingOptionList
+              itemPerPage={5}
+              items={this.props.bookingOptionList}
+              loading={this.props.bookingOptionListLoading}
+              onPageRequested={(page) => {
+                this.props.fetchBookingOptionForMember({
+                  member: this.props.id,
+                  page,
+                  page_size: 5,
+                });
+              }}
+              nbItems={this.props.bookingOptionCount}
+              page={this.props.bookingOptionPage}
+              onClick={(bo) => {
+                this.props.setSelectedBookingOption(
+                  this.props.selectedBookingOption &&
+                    this.props.selectedBookingOption.id === bo.id
+                    ? null
+                    : bo,
+                );
+              }}
+              onClickRegister={(bo) => this.props.goToOffer(bo.offer.id)}
+              onClickDiscard={(bo) => this.props.setDiscardBookingOption(bo.id)}
+              selectedBookingOption={this.props.selectedBookingOption}
+            />
+
             <Paper style={{ width: '100%' }}>
               <BookingFilters
                 setOpenValue={this.props.setOpenValue}
@@ -412,77 +564,31 @@ export class MemberDetailBooking extends Component<Props, State> {
           </Grid>
         </Grid>
         <Grid item xs={12} lg={6}>
-          {!this.props.selectedBooking ? (
-            <Paper className={this.props.classes.graphContainer}>
-              <div className={this.props.classes.titleRow}>
-                <Typography variant="h6">
-                  {this.props.t('booking:memberGraph.title')}
-                </Typography>
-                <ChartRange
-                  start_date={this.props.chartRange.start}
-                  end_date={this.props.chartRange.end}
-                  kind={this.props.chartRange.kind}
-                  setRange={this.props.setChartRange}
-                  timeSettings="range"
-                />
-              </div>
-              <BookingFilters
-                setOpenValue={this.props.setOpenValue}
-                setFiltersValue={this.props.setFilterValue}
-                open={this.props.open}
-                filters={!dataLoading && this.props.filters}
-              />
-              {this.props.graphData.loading ? (
-                <Skeleton height={300} />
-              ) : (
-                <TemporalBarChart
-                  height={300}
-                  data={this.props.graphData.data}
-                  chartOptions={[
-                    {
-                      dataKey: 'v',
-                      stroke: primary_color,
-                      fill: primary_color,
-                      caption: this.props.t('memberGraph.label'),
-                    },
-                  ]}
-                  margin={{ top: 0, right: 20, bottom: 0, left: 20 }}
-                  yLabel={this.props.t('memberGraph.label')}
-                  yLabelOffset={-2}
-                  tooltip
-                />
-              )}
-            </Paper>
-          ) : (
-            <BookingDetail
-              consumerPack={
-                this.props.selectedBooking &&
-                this.props.getPass(
-                  parseInt(
-                    this.props.selectedBooking.consumer_payment_pack_id,
-                    10,
-                  ),
-                )
-              }
-              getPaymentPack={this.props.getPaymentPack}
-              decrementCredit={this.props.decrementCredit}
-              incrementCredit={this.props.incrementCredit}
-              booking={this.props.selectedBooking}
-              member={this.props.member}
-              onConsumerPassSelected={this.goToConsumerPass}
-              loading={
-                this.props.consumerPackLoading || this.props.offerLoading
-              }
-              onOfferClick={this.props.goToOffer}
-              offer={this.props.offer}
-              offerLoading={
-                !this.props.selectedBooking ||
-                !this.props.offer ||
-                this.props.selectedBooking.offer !== this.props.offer.id
-              }
-            />
-          )}
+          {this.renderDetails()}
         </Grid>
+
+        <DiscardBookingOptionDialogV2
+          open={!!this.props.discardBookingOption}
+          onSubmit={(sendEmail: boolean) => {
+            this.props.discardOption(
+              this.props.discardBookingOption,
+              { disable_notification: !sendEmail },
+              {
+                onSuccess: () => {
+                  this.props.fetchBookingOptionForMember({
+                    member: this.props.id,
+                    page: 1,
+                    page_size: 5,
+                  });
+                  this.props.setDiscardBookingOption(null);
+                },
+                onError: () => this.props.setDiscardBookingOption(null),
+              },
+            );
+          }}
+          onClose={() => this.props.setDiscardBookingOption(null)}
+        />
+
         <RevertBookingDialog
           handleBookingDeletion={this.handleBookingDeletion}
           bookingToRevert={this.state.bookingToRevert}
@@ -551,6 +657,8 @@ export default compose(
   withState('open', 'setOpen', {}),
   withState('bookerInAvanceDialog', 'setBookerInAvanceDialog', false),
   withState('selectedRecurrentBooking', 'setSelectedRecurrentBooking', null),
+  withState('selectedBookingOption', 'setSelectedBookingOption', null),
+  withState('discardBookingOption', 'setDiscardBookingOption', null),
   withState('chartRange', 'setChartRange', {
     start: moment().subtract(1, 'years').format('YYYY-MM-DD'),
     end: moment().format('YYYY-MM-DD'),
@@ -588,6 +696,10 @@ export default compose(
       roomBlueprintById: state.spotScheduling.roomBlueprint.byId,
       assetsForBlueprintById: getAssetByBlueprintByIdentifier(state),
       offerStatusById: state.offer.offerStatus.byId,
+      bookingOptionList: getBookingOptionListForMember(state),
+      bookingOptionListLoading: state.waitingList.option.forMember.loading,
+      bookingOptionCount: state.waitingList.option.forMember.count,
+      bookingOptionPage: state.waitingList.option.forMember.page,
     }),
     {
       fetchMemberBookings: fetchBookingsByMemberAction,
@@ -627,6 +739,8 @@ export default compose(
       fetchRoomBlueprintDetail: fetchRoomBlueprintDetailAction,
       fetchAssetForBlueprint: fetchAssetForBlueprintAction,
       fetchOfferStatus: fetchOfferStatusAction,
+      fetchBookingOptionForMember,
+      discardOption: discardBookingOptionAction,
     },
   ),
   withState('filters', 'setFilters', (props) => {

@@ -43,9 +43,26 @@ export type OfferMinimal = {
   timezone_name: string;
 };
 
-export type Offer<C = number, E = number, M = number> = {
+export type OfferDetail = {
+  id: number;
+  activity: MetaActivity;
+  coach_override: Coach | null;
+  date_start: string;
+  duration_minute: number;
+  date_end: string;
+  price: number;
+  credit_price: number;
+  credit_price_override: number;
+  available: boolean;
+  friends: any[];
+  is_full: boolean;
+  is_waiting_list_full: boolean;
+  timezone_name: boolean;
+};
+
+export type Offer<C = number, E = number, M = number, A = number> = {
   company: number;
-  activity: number;
+  activity: A;
   available: boolean;
   title: string;
   id: number;

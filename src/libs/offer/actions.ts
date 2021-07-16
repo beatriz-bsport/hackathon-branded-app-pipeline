@@ -129,7 +129,7 @@ export function fetchEstablishmentEvents(id: number, params: any = {}) {
 
 export function fetchAllOffers(params: any, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
-    if (!Object.keys(params).length) return;
+    if (!params || !Object.keys(params).length) return;
     dispatch(offers.isLoading(true));
     dispatch(offers.error(null));
 

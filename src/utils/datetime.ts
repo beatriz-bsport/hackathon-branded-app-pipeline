@@ -16,7 +16,7 @@ export function formatAsTime(date: string, tzname: string) {
   return momentDate.format('LT');
 }
 
-export function formatAsDatetime(date: string, tzname: string) {
+export function formatAsDatetime(date: string, tzname?: string) {
   return `${formatAsDate(date)} - ${formatAsTime(date, tzname)}`;
 }
 

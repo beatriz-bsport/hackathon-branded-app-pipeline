@@ -1,3 +1,4 @@
+import { Offer, OfferDetail } from '../offer/types';
 import type { ConsumerPaymentPack } from '../payment-packs/types';
 
 export type BookingBroadCastRoom = {
@@ -51,12 +52,25 @@ export type Booking<Offer = number> = {
   spot_id: number | null;
 };
 
-export type BookingOption = {
+export type BookingOption<O = Offer> = {
   id: number;
   cancelled: boolean;
-  date_start: string;
+  date: string;
   is_convertible: boolean;
+  waiting_list_class: number;
+  consumer: number;
+  member: number;
+  offer: O;
+  booking: number | null;
+  object_type: string;
+  level: number;
+  establishment: number;
+  coach: number;
+  meta_activity: number;
+  source: number;
 };
+
+export type BookingOptionWithActivity = BookingOption<OfferDetail>;
 
 type ErrorAndLoading = {
   error?: Error;

@@ -88,7 +88,8 @@
             "showCalendar": "Toon de planning",
             "titlePrivateBooking": "Afspraken",
             "titleBooking": "Groepsactiviteiten",
-            "accessLive": "Online les openen"
+            "accessLive": "Online les openen",
+            "spotNumber": "Plaats {{count}}"
         },
         "pack": {
             "titlePrivatePack": "Afspraken",
@@ -2394,6 +2395,17 @@
             "address_line_1": "Adresregel 1",
             "address": "Adres",
             "search_address": "Zoek een adres"
+        },
+        "spotScheduling": {
+            "untitled": "Ongetiteld",
+            "placeCount": "{{count}} plaats(en)",
+            "delete": {
+                "content": "Weet je zeker dat je deze plattegrond wilt verwijderen? Deze actie is definitief.",
+                "title": "Een plattegrond verwijderen"
+            },
+            "add": "Een plattegrond toevoegen",
+            "subtitle": "Gebruik Spot Scheduling om leden in staat te stellen om hun gewenste plaats in je vestiging te reserveren.",
+            "title": "Indeling"
         }
     },
     "smartList": {
@@ -3018,7 +3030,8 @@
         "extraordinaryEstablishment": "(tijdelijke plaats)",
         "calendar": {
             "modifyOffer": "Bewerken",
-            "deleteOffer": "Annuleren"
+            "deleteOffer": "Annuleren",
+            "filter": "Filter"
         },
         "forms": {
             "old_date": "Origineel:",
@@ -3548,7 +3561,11 @@
             },
             "bookingForMe": "Mezelf",
             "bookingsTitleFor": "Reserveren voor {{name}}"
-        }
+        },
+        "setSpot": "Een plaats toewijzen",
+        "changeSpot": "Plaats wijzigen",
+        "noSpotAttributed": "Geen plaats geselecteerd",
+        "placeNumber": "Plaats {{count}}"
     },
     "marketplace": {
         "selector": {
@@ -4267,13 +4284,19 @@
                     "url": "YouTube",
                     "file": "Bestand",
                     "fileExplain": "Gebruik deze optie om je eigen videobestand (MP4, MOV, AVI) op de privéservers van BSPORT te plaatsen.",
-                    "urlExplain": "Je video is al beschikbaar op YouTube, maar je wilt een nieuwe inkomstenbron via BSPORT aanboren."
+                    "urlExplain": "Je video is al beschikbaar op YouTube, maar je wilt een nieuwe inkomstenbron via BSPORT aanboren.",
+                    "vimeoExplain": "Je video is al beschikbaar op Vimeo, maar je wilt een nieuwe inkomstenbron via BSPORT aanboren.",
+                    "youtubeExplain": "Je video is al beschikbaar op YouTube, maar je wilt een nieuwe inkomstenbron via BSPORT aanboren.",
+                    "vimeo": "Vimeo",
+                    "youtube": "YouTube"
                 },
                 "submit": "Bevestigen",
                 "minutes": "Min.",
                 "hours": "Uur",
                 "durationInputError": "Vermeld de duur van de video",
-                "durationLabel": "Duur van de video"
+                "durationLabel": "Duur van de video",
+                "vimeoUrlInput": "Link naar Vimeo",
+                "youtubeUrlInput": "Link naar YouTube"
             },
             "form": {
                 "edit": "Bewerken",
@@ -4294,7 +4317,8 @@
                     "edit_button": "Video wijzigen",
                     "uploaded_video": "Bestand geüpload",
                     "youtube_video": "YouTube-video",
-                    "title": "Video"
+                    "title": "Video",
+                    "vimeo_video": "Video van Vimeo"
                 }
             },
             "level": "Niveau",
@@ -5500,8 +5524,9 @@
             "placeholderOverride": "Standaard payroll-regel voor deze instructeur",
             "placeholder": "Selecteer een Payroll",
             "coachPaymentRuleForPrivateService": "Afspraken",
-            "coachPaymentRuleForSessions": "Groepsactiviteiten en Workshops",
-            "reset": "Standaardregel van de instructeur gebruiken"
+            "coachPaymentRuleForSessions": "Groepsactiviteiten",
+            "reset": "Standaardregel van de instructeur gebruiken",
+            "coachPaymentRuleForWorkshops": "Workshops"
         },
         "common": {
             "from": "Begin",
@@ -5603,9 +5628,30 @@
         },
         "fabButton": {
             "addNewForRDV": "Afspraken",
-            "addNewForSession": "Groepsactiviteiten en Workshops"
+            "addNewForSession": "Groepsactiviteiten en Workshops",
+            "addNewPaymentRuleGroup": ""
         },
-        "paymentRules": "Payroll-regels"
+        "paymentRules": "Payroll-regels",
+        "coach_payment_rule_groups": {
+            "dissociate": "Payroll-regels personaliseren",
+            "fields": {
+                "private_service": "Afspraken",
+                "workshop": "Workshops",
+                "activity": "Activiteiten",
+                "private_service_name": "Naam van de afspraak",
+                "coach_payment_rule": "Payroll-regel",
+                "addPrivateSlot": "Een payroll-regel toevoegen"
+            },
+            "subtitle": {
+                "coaches": "Gekoppelde instructeur(s)",
+                "specfic_private_slot": "Specifieke payroll-regel voor afspraken",
+                "default": "Standaard payroll-regel"
+            },
+            "workshop": "Workshops",
+            "session": "Groepsactiviteiten",
+            "private_service": "Afspraken"
+        },
+        "search": "Zoek een payroll-regel (optioneel)"
     },
     "payment": {
         "generalTermsAndConditions": {
@@ -6215,6 +6261,13 @@
                 "last_payment_method": "Je enige betaalmethode kan niet worden verwijderd",
                 "pm_deleted": "Betaalmethode verwijderd"
             }
+        },
+        "paymentRuleGroups": {
+            "update": {
+                "error": {
+                    "generic": "Fout bij het wijzigen"
+                }
+            }
         }
     },
     "coach": {
@@ -6291,7 +6344,8 @@
         "coach": "Instructeur",
         "noCoach": "Er zijn nog geen instructeurs geregistreerd",
         "noCoachs": "In dit onderdeel kun je al je instructeurs toevoegen, beheren, wijzigen en verwijderen.",
-        "inactiveCoaches": "Gearchiveerde instructeurs"
+        "inactiveCoaches": "Gearchiveerde instructeurs",
+        "paymentRule": "Vergoeding"
     },
     "relationship": {
         "consumer_payment_pack_links": {
@@ -6979,6 +7033,11 @@
             "signinShow": "Wanneer een gebruiker de inlogpagina opent",
             "sessionShow": "Wanneer een gebruiker een sessie selecteert",
             "workshopClick": "Wanneer een lid een datum van een workshop selecteert"
+        },
+        "zoom": {
+            "confirmDialog": {
+                "title": "Integratie met Zoom"
+            }
         }
     },
     "checkout": {
@@ -7028,7 +7087,8 @@
             "explain": "Je wordt in de studio gevraagd om de betaling te voltooien. Tot die tijd wordt de factuur als onbetaald beschouwd.",
             "submit": "Later betalen"
         },
-        "or": "of"
+        "or": "of",
+        "expire_in": "Verloopt over "
     },
     "invoice": {
         "returnPayment": {
@@ -7409,8 +7469,22 @@
                 "title": "Verwijder wachtlijst",
                 "content": "Weet je zeker dat je dit lid van de wachtlijst wilt verwijderen? Het lid wordt per e-mail geïnformeerd.",
                 "cancel": "Annuleren",
-                "confirm": "Verwijderen"
+                "confirm": "Verwijderen",
+                "sendEmail": "Stuur een afmeldbericht",
+                "contentV2": "Weet je zeker dat je dit lid van de wachtlijst wilt verwijderen?"
             }
+        },
+        "member": {
+            "detail": {
+                "registrationSource": "Oorsprong van de inschrijving",
+                "offerTitle": "Gekoppelde sessie",
+                "registeredOn": "Ingeschreven op",
+                "title": "Details van de wachtlijst"
+            },
+            "empty": "De wachtlijst is vooralsnog leeg",
+            "delete": "Verwijderen",
+            "addToBook": "Aanmelden",
+            "listTitle": "Wachtlijst"
         }
     },
     "role": {
@@ -7833,7 +7907,46 @@
                 "walls": "Muren",
                 "edition": "Bewerken"
             },
-            "title": "Hulpmiddelen"
-        }
+            "title": "Hulpmiddelen",
+            "showGrid": "Toon rooster",
+            "customIconButton": "Mijn pictogrammen downloaden",
+            "customIconLabel": "Pictogrammen",
+            "hand": "Hand",
+            "pointer": "Muis"
+        },
+        "placeCount": "{{count}} plaats(en)",
+        "roomBlueprints": "Plattegrond",
+        "saveError": "Error",
+        "saved": "Plattegrond opgeslagen",
+        "searchHelper": "Weetje: leden kunnen m.b.v. een plattegrond hun gewenste plaats in je vestiging reserveren. Het veld is niet verplicht.",
+        "search": "Zoek een plattegrond voor Spot Scheduling",
+        "roomBlueprintSelectorTitle": "Kies een plattegrond",
+        "spotSelectorDialog": {
+            "takeSpotError": "De plaats die je hebt geselecteerd is niet langer beschikbaar, selecteer een andere.",
+            "submit": "Bevestigen",
+            "cancel": "Annuleer",
+            "spot": "Plaats {{count}}",
+            "title": "Kies een plaats"
+        },
+        "toolbar": {
+            "loadExistingBlueprint": "Een bestaande plattegrond uploaden",
+            "exit": "Terug",
+            "titleLabel": "Naam van de plattegrond",
+            "save": "Opslaan"
+        },
+        "spotImageDialog": {
+            "actions": {
+                "submit": "Bevestigen",
+                "cancel": "Annuleer"
+            },
+            "imageFormat": "Aanbevolen formaten: .PNG of .JPG",
+            "taken": "Reserveer",
+            "free": "Vrij",
+            "imageUploadButton": "Een afbeelding uploaden",
+            "takenImageLabel": "Gereserveerd",
+            "freeImageLabel": "Vrij",
+            "title": "Plaatsen wijzigen"
+        },
+        "effectifError": "Het aantal plaatsen moet groter of gelijk zijn aan de beschikbare plaatsen"
     }
 }

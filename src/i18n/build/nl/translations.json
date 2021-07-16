@@ -2593,7 +2593,7 @@
                 "second": "in",
                 "third": "{{ currencyDisplay }}",
                 "date": {
-                    "first": "Verlaten winkelmande",
+                    "first": "Verlaten winkelmand",
                     "second": "dagen"
                 },
                 "name": "Filter op datum voor het afhaken (niet-betaalde winkelmandjes)",

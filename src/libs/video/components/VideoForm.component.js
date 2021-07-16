@@ -184,10 +184,18 @@ export const VideoForm = (props: Props) => {
 
           <div className={classes.videoSourceContent}>
             <Typography variant="subtitle1" color="textSecondary">
-              {props.initial.provider_identifier ===
-              VideoProvider.EXTERNAL_URL_PROVIDER
-                ? t('video.form.video_source.youtube_video')
-                : t('video.form.video_source.uploaded_video')}
+              {t(
+                {
+                  [VideoProvider.AWS_PROVIDER]:
+                    'video.form.video_source.uploaded_video',
+                  [VideoProvider.MUX_PROVIDER]:
+                    'video.form.video_source.uploaded_video',
+                  [VideoProvider.VIMEO_URL_PROVIDER]:
+                    'video.form.video_source.vimeo_video',
+                  [VideoProvider.YOUTUBE_URL_PROVIDER]:
+                    'video.form.video_source.youtube_video',
+                }[props.initial.provider_identifier],
+              )}
             </Typography>
 
             <Button

@@ -5,8 +5,6 @@ import { Helmet } from 'react-helmet';
 import qualityLevelsPlugin from 'videojs-contrib-quality-levels';
 import sourceSelector from 'videojs-http-source-selector';
 import hlsQuality from 'videojs-hls-quality-selector';
-import getVideoId from 'get-video-id';
-import YoutubeEmbedVideo from './YoutubeEmbedVideo';
 
 type Props = {
   rounded: boolean,
@@ -71,16 +69,6 @@ export class VideoPlayerBase extends React.Component<Props> {
   }
 
   render() {
-    const { videojsProps } = this.props;
-
-    const isYoutubeVideo = /youtube|youtu\.be|y2u\.be|i.ytimg\./.test(
-      videojsProps.sources[0].src,
-    );
-
-    const youtubeVideo = isYoutubeVideo
-      ? getVideoId(videojsProps.sources[0].src)
-      : { id: '' };
-
     return (
       /* eslint-disable */
       <div>
@@ -92,9 +80,6 @@ export class VideoPlayerBase extends React.Component<Props> {
           <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
         </Helmet>
 
-        {isYoutubeVideo ? (
-          <YoutubeEmbedVideo videoId={youtubeVideo.id} />
-        ) : (
           <div data-vjs-player>
             <video
               style={
@@ -109,7 +94,6 @@ export class VideoPlayerBase extends React.Component<Props> {
               className="video-js fluid vjs-big-play-centered"
             />
           </div>
-        )}
       </div>
     );
     /* eslint-enable */

@@ -4,11 +4,14 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withTranslation } from 'react-i18next';
+import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
 import VideoPlayerBase from './VideoPlayerBase.component';
 import { getPlaybackUrl as getPlaybackUrlAPI } from '../api';
 import VideoLockOverlay from './VideoLockOverlay.component';
 
 import './videojs-fullscreen.css';
+import YoutubeEmbedVideo from './YoutubeEmbedVideo';
+import VimeoEmbedVideo from './VimeoEmbedVideo';
 
 type Props = {
   authenticated: boolean,
@@ -64,6 +67,7 @@ export class VideoPlayer extends React.Component<Props, State> {
 
   render() {
     const { classes, video } = this.props;
+
     if (
       !this.state.playbackUrl ||
       this.state.playbackLoading ||
@@ -97,6 +101,20 @@ export class VideoPlayer extends React.Component<Props, State> {
         </div>
       );
     }
+
+    if (
+      this.props.video.provider_identifier ===
+      VideoProvider.YOUTUBE_URL_PROVIDER
+    ) {
+      return <YoutubeEmbedVideo url={this.state.playbackUrl} />;
+    }
+
+    if (
+      this.props.video.provider_identifier === VideoProvider.VIMEO_URL_PROVIDER
+    ) {
+      return <VimeoEmbedVideo id={this.state.playbackUrl} />;
+    }
+
     return (
       <VideoPlayerBase
         rounded={this.props.rounded}

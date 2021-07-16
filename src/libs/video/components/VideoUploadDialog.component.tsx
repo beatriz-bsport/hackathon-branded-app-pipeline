@@ -17,9 +17,11 @@ import Typography from '@material-ui/core/Typography';
 
 import { withStyles } from '@material-ui/styles';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
 
 import VideoUploadFormMUX from './VideoUploadFormMUX.component';
 import VideoUploadFormYoutube from './VideoUploadFormYoutube.component';
+import VideoUploadFormVimeo from './VideoUploadFormVimeo.component';
 
 import { Video } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
@@ -27,6 +29,7 @@ import { MaterialStyleType } from '../../../utils/types';
 type State = {
   isUploading: boolean;
   providerIdentifier: number;
+  processing: boolean;
 };
 
 type OwnProps = {
@@ -43,7 +46,7 @@ const STEP_CHOSE_PROVIDER = 0;
 const STEP_FINISH = 1;
 
 export class VideoUploadDialog extends React.Component<Props, State> {
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     this.state = {
       isUploading: false,
@@ -87,29 +90,50 @@ export class VideoUploadDialog extends React.Component<Props, State> {
                   value={this.state.providerIdentifier}
                   onChange={(ev) =>
                     this.setState({
-                      providerIdentifier: parseInt(ev.target.value, 10),
+                      providerIdentifier: parseInt(ev.target.value),
                     })
                   }
                 >
                   <FormControlLabel
-                    value={2}
+                    value={VideoProvider.MUX_PROVIDER}
                     control={<Radio />}
-                    checked={this.state.providerIdentifier === 2}
+                    checked={
+                      this.state.providerIdentifier ===
+                      VideoProvider.MUX_PROVIDER
+                    }
                     disabled={this.state.processing}
                     label={this.props.t('video.upload.type.file')}
                   />
                   <Typography variant="caption">
                     {this.props.t('video.upload.type.fileExplain')}
                   </Typography>
+
                   <FormControlLabel
-                    value={3}
+                    value={VideoProvider.YOUTUBE_URL_PROVIDER}
                     control={<Radio />}
-                    checked={this.state.providerIdentifier === 3}
-                    label={this.props.t('video.upload.type.url')}
+                    checked={
+                      this.state.providerIdentifier ===
+                      VideoProvider.YOUTUBE_URL_PROVIDER
+                    }
+                    label={this.props.t('video.upload.type.youtube')}
                     disabled={this.state.processing}
                   />
                   <Typography variant="caption">
-                    {this.props.t('video.upload.type.urlExplain')}
+                    {this.props.t('video.upload.type.youtubeExplain')}
+                  </Typography>
+
+                  <FormControlLabel
+                    value={VideoProvider.VIMEO_URL_PROVIDER}
+                    control={<Radio />}
+                    checked={
+                      this.state.providerIdentifier ===
+                      VideoProvider.VIMEO_URL_PROVIDER
+                    }
+                    label={this.props.t('video.upload.type.vimeo')}
+                    disabled={this.state.processing}
+                  />
+                  <Typography variant="caption">
+                    {this.props.t('video.upload.type.vimeoExplain')}
                   </Typography>
                 </RadioGroup>
               </FormControl>
@@ -138,14 +162,24 @@ export class VideoUploadDialog extends React.Component<Props, State> {
         <DialogTitle>{this.props.t('video.upload.title')}</DialogTitle>
         <DialogContent>
           <div className={this.props.classes.container}>
-            {this.props.video.provider_identifier === 2 && (
+            {this.props.video.provider_identifier ===
+              VideoProvider.MUX_PROVIDER && (
               <VideoUploadFormMUX
                 onClose={this.props.onClose}
                 video={this.props.video}
               />
             )}
-            {this.props.video.provider_identifier === 3 && (
+            {this.props.video.provider_identifier ===
+              VideoProvider.YOUTUBE_URL_PROVIDER && (
               <VideoUploadFormYoutube
+                onClose={this.props.onClose}
+                video={this.props.video}
+              />
+            )}
+
+            {this.props.video.provider_identifier ===
+              VideoProvider.VIMEO_URL_PROVIDER && (
+              <VideoUploadFormVimeo
                 onClose={this.props.onClose}
                 video={this.props.video}
               />

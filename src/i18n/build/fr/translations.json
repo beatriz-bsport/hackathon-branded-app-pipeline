@@ -5759,10 +5759,13 @@
         "type": {
           "file": "Fichier",
           "fileExplain": "Vous disposez du fichier video (mp4, avi, mov...), utilisez cette méthode pour uploader votre vidéo directement sur les serveurs de bsport.",
-          "url": "Youtube",
-          "urlExplain": "Votre vidéo est déjà disponible sur Youtube mais vous souhaitez la monétiser via le système de cartes de bsport."
+          "youtube": "Youtube",
+          "vimeo": "Vimeo",
+          "youtubeExplain": "Votre vidéo est déjà disponible sur Youtube mais vous souhaitez la monétiser via le système de cartes de bsport.",
+          "vimeoExplain": "Votre vidéo est déjà disponible sur Vimeo mais vous souhaitez la monétiser via le système de cartes de bsport."
         },
-        "urlInputLabel": "Lien youtube",
+        "youtubeUrlInput": "Lien youtube",
+        "vimeoUrlInput": "Lien vimeo",
         "urlInputError": "Veuillez saisir une url",
         "durationLabel": "Durée de la video",
         "durationInputError": "Veuillez saisir la durée de la vidéo",
@@ -5782,6 +5785,7 @@
         "video_source": {
           "title": "Vidéo",
           "youtube_video": "Vidéo Youtube",
+          "vimeo_video": "Vidéo Vimeo",
           "uploaded_video": "Fichier uploadé",
           "edit_button": "Changer la vidéo",
           "change_popup_title": "Changer la vidéo",

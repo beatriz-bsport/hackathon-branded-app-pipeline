@@ -1,12 +1,25 @@
 import React from 'react';
-import { TextField, Theme, Typography, withStyles } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import {
+  CircularProgress,
+  TextField,
+  Theme,
+  Typography,
+  withStyles,
+} from '@material-ui/core';
 import { compose, withProps } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
+import getVideoId from 'get-video-id';
+
 import { MaterialStyleType } from '../../../utils/types';
 import NumericInput from '../../../components/input/NumericInput.component';
+import { setExternalUrl as setExternalUrlAPI } from '../api';
+import { Video } from '../types';
 
 interface OwnProps {
-  fowardedRef: (ref: VideoProviderUrl) => void;
+  fowardedRef: (ref: VideoProviderVimeo) => void;
+  onClose: () => void;
+  video: Video;
 }
 
 type Props = OwnProps &
@@ -19,38 +32,57 @@ interface State {
   durationError: string;
   minutes: number;
   hours: number;
+  isUploading: boolean;
 }
 
-class VideoProviderUrl extends React.PureComponent<Props, State> {
+class VideoProviderVimeo extends React.PureComponent<Props, State> {
   state: State = {
     url: '',
     urlError: '',
     durationError: '',
     minutes: 0,
     hours: 0,
+    isUploading: false,
   };
 
-  prepareBody = () => {
-    const hasDuration = this.state.minutes + this.state.hours > 1;
+  getVideoId = () => {
+    const video = getVideoId(this.state.url);
+    if (video.service !== 'vimeo') {
+      return '';
+    }
+    return video.id;
+  };
+
+  submit = async () => {
+    const hasDuration = this.state.minutes + this.state.hours > 0;
 
     const hasUrl = !!this.state.url;
 
-    if (!hasUrl || !hasDuration) {
+    if (!hasUrl || !hasDuration || !this.getVideoId()) {
       this.setState({
-        urlError: !hasUrl ? this.props.t('video.upload.urlInputError') : '',
+        urlError:
+          !hasUrl || !this.getVideoId()
+            ? this.props.t('video.upload.urlInputError')
+            : '',
         durationError: !hasDuration
           ? this.props.t('video.upload.durationInputError')
           : '',
       });
-      return null;
+
+      return;
     }
 
     const duration_second = this.state.minutes * 60 + this.state.hours * 3600;
+    this.setState({ isUploading: true });
 
-    return {
-      url: this.state.url,
+    setExternalUrlAPI(this.props.video.id, {
+      url: this.getVideoId(),
       duration_second,
-    };
+    })
+      .then(this.props.onClose)
+      .finally(() => {
+        this.setState({ isUploading: false });
+      });
   };
 
   onChangeUrl = (url: string) => {
@@ -89,7 +121,7 @@ class VideoProviderUrl extends React.PureComponent<Props, State> {
           className={classes.urlInput}
           variant="outlined"
           placeholder={t('')}
-          label={t('video.upload.urlInputLabel')}
+          label={t('video.upload.vimeoUrlInput')}
           value={this.state.url}
           onChange={(ev) => this.onChangeUrl(ev.target.value)}
         />
@@ -142,6 +174,28 @@ class VideoProviderUrl extends React.PureComponent<Props, State> {
             {this.state.durationError}
           </Typography>
         )}
+        <div className={classes.row}>
+          <Button
+            disabled={this.state.isUploading}
+            onClick={this.props.onClose}
+          >
+            {this.props.t('video.upload.cancel')}
+          </Button>
+
+          {this.state.isUploading ? (
+            <CircularProgress className={this.props.classes.marginLeft} />
+          ) : (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.submit}
+              className={this.props.classes.marginLeft}
+              disabled={this.state.isUploading}
+            >
+              {this.props.t('video.upload.submit')}
+            </Button>
+          )}
+        </div>
       </div>
     );
   }
@@ -157,6 +211,14 @@ const styles = (theme: Theme) => ({
   },
   urlInput: {
     width: '100%',
+  },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(2),
   },
   durationWrapper: {
     display: 'flex',
@@ -179,4 +241,4 @@ export default compose<any, OwnProps>(
   withTranslation(['video']),
   withStyles(styles),
   withProps(({ fowardedRef }) => ({ ref: fowardedRef })),
-)(VideoProviderUrl);
+)(VideoProviderVimeo);

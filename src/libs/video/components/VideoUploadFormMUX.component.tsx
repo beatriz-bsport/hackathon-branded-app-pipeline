@@ -24,7 +24,6 @@ type State = {
 };
 
 type OwnProps = {
-  onSubmit: () => void;
   video: Video;
   onClose: () => void;
 };
@@ -185,7 +184,7 @@ const styles = (theme: Theme) => ({
   },
 });
 
-export default compose(
+export default compose<any, OwnProps>(
   withTranslation(['video']),
   // @ts-ignore
   withStyles(styles),

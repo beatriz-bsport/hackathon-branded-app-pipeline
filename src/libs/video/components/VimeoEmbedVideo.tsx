@@ -1,27 +1,24 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import getVideoId from 'get-video-id';
 
 type Props = {
-  url: string;
+  id: string;
 };
 
-const YoutubeEmbedVideo: React.FC<Props> = (props) => {
+const VimeoEmbedVideo: React.FC<Props> = (props) => {
   const classes = useStyles();
-  const video = getVideoId(props.url);
 
   /* eslint-disable */
   return (
     <div className={classes.container}>
       <div className={classes.iframeWrapper}>
         <iframe
-          title="youtube-video"
+          src={`https://player.vimeo.com/video/${props.id}`}
           className={classes.iframe}
           width="100%"
           height="100%"
-          src={`https://www.youtube.com/embed/${video.id}`}
           frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allow="autoplay; fullscreen; picture-in-picture"
           allowFullScreen
         ></iframe>
       </div>
@@ -51,4 +48,4 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default YoutubeEmbedVideo;
+export default VimeoEmbedVideo;

@@ -49,7 +49,10 @@ export class CoachSubForm extends Component<Props> {
           selectedRules={[
             this.props.coachPaymentRulesByKind[
               COACH_PAYMENT_RULE_FOR_SESSION
-            ].find((rule) => rule.id === this.props.coach_payment_rule).id,
+            ].find((rule) => rule.id === this.props.coach_payment_rule) &&
+              this.props.coachPaymentRulesByKind[
+                COACH_PAYMENT_RULE_FOR_SESSION
+              ].find((rule) => rule.id === this.props.coach_payment_rule).id,
           ]}
           placeholder={this.props.t('paymentRules:search')}
           disabled={!this.props.coach}

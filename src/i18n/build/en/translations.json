@@ -2263,7 +2263,7 @@
             }
         },
         "mail": {
-            "title": "Mail object",
+            "title": "E-mail subject",
             "content": "Mail content",
             "missing": "Missing email",
             "success": "Communication sent",
@@ -6717,7 +6717,7 @@
         "search": "Search a template",
         "listTitle": "My templates",
         "editTitle": "Template edition",
-        "createTitle": "Mail creation",
+        "createTitle": "Template creation",
         "detail": "Detail informations",
         "create": "Create a template",
         "modification_date": "Last modified the",
@@ -6727,7 +6727,7 @@
         "preview": "Mail preview",
         "no_subject": "No object",
         "editor": {
-            "title": "Mail title",
+            "title": "Template title",
             "save": "Save",
             "subject": "Mail object",
             "cancel": "Cancel",

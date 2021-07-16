@@ -132,8 +132,10 @@ export const VideoForm = (props: Props) => {
 
       {props.initial &&
         props.initial.status !== VideoStatus.CREATED &&
-        props.initial.provider_identifier ===
-          VideoProvider.EXTERNAL_URL_PROVIDER && (
+        [
+          VideoProvider.YOUTUBE_URL_PROVIDER,
+          VideoProvider.VIMEO_URL_PROVIDER,
+        ].includes(props.initial.provider_identifier) && (
           <>
             <Typography>{t('video.upload.durationLabel')}</Typography>
             <div className={classes.durationWrapper}>
@@ -319,7 +321,10 @@ export const VideoFormHOC = withFormik({
 
     if (
       initial &&
-      initial.provider_identifier === VideoProvider.EXTERNAL_URL_PROVIDER
+      [
+        VideoProvider.YOUTUBE_URL_PROVIDER,
+        VideoProvider.VIMEO_URL_PROVIDER,
+      ].includes(initial.provider_identifier)
     ) {
       const hours = values._duration_hours;
       const minutes = values._duration_minutes;

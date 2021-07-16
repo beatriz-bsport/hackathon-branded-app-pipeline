@@ -2562,9 +2562,9 @@
                 "first": "Heeft",
                 "third": "en",
                 "fourth": "aan de volgende producten besteed",
-                "selector": "Kies de producten",
+                "selector": "Producten:",
                 "combo": "Pakketten",
-                "private_pass": "Privéles"
+                "private_pass": "Afspraakkaart"
             },
             "19": {
                 "name": "Leskaarten",
@@ -2574,17 +2574,17 @@
                 "second": "en",
                 "third": "in",
                 "credits": {
-                    "first": "krediet(en):",
+                    "first": "Krediet(en):",
                     "second": "en"
                 },
                 "expiration": {
-                    "first_will_expire": "vervaldatum:",
-                    "first_has_expire": "liep af op"
+                    "first_will_expire": "Vervaldatum:",
+                    "first_has_expire": "Verliep op:"
                 },
                 "infoIcon": "Onbeperkte leskaarten zijn altijd inbegrepen",
-                "explanation": "Heeft leskaart A op B gekocht en met C overige kredieten",
+                "explanation": "Heeft leskaart A op B gekocht en heeft C kredieten over",
                 "date_bought": {
-                    "first": "aankoopdatum:"
+                    "first": "Aankoopdatum:"
                 }
             },
             "20": {

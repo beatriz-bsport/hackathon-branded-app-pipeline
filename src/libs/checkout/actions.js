@@ -2,6 +2,7 @@
 
 import { createAction } from 'redux-actions';
 
+import BUYABLE_ITEM_CAN_NOT_BE_BOUGHT_ERROR_CODES from '@bsport/common/lib/master-data/buyable-item-can-not-be-bought';
 import {
   addItemToBasket as addItemToBasketAPI,
   fetchCurrentBasket as fetchCurrentBasketAPI,
@@ -142,6 +143,19 @@ export function addItemToBasket(
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
       dispatch(currentBasket.error(error));
+      if (
+        error &&
+        error.response &&
+        error.response.data &&
+        error.response.data.error_code
+      ) {
+        const { error_code } = error.response.data;
+        if (BUYABLE_ITEM_CAN_NOT_BE_BOUGHT_ERROR_CODES.includes(error_code)) {
+          dispatch(snackbarError(`canNotBuyErrorCode.${error_code}`));
+        } else {
+          dispatch(snackbarError('canNotBuyErrorCode.generic'));
+        }
+      }
       if (options && options.onError) options.onError();
     }
 

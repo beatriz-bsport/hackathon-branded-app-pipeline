@@ -50,4 +50,17 @@ exports.default = {
   },
   or: 'ou',
   expire_in: 'Expire dans ',
+  validation: {
+    actions: {
+      continue: 'Continuer',
+      back: 'Précédent',
+    },
+    sections: {
+      title: 'Récapitulatif',
+      basket: 'Votre panier',
+      offerBooked: 'Vous êtes inscrit à',
+      offerPreBooked: "Vous êtes sur liste d'attente pour",
+      offerNotBookable: 'Impossible de vous inscrire à',
+    },
+  },
 };

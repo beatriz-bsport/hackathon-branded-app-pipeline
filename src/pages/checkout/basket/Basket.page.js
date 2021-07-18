@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 
 import {
   replace as replaceRouter,
-  push,
   goBack,
   push as pushRouter,
 } from 'connected-react-router';
@@ -364,7 +363,12 @@ export default compose(
   withStyles(styles),
   routerParamsToProps({ companyId: 'companyId:number' }),
   withQueryParams([
-    ['check_payment_intent', 'payment_intent', 'redirect_status'],
+    [
+      'check_payment_intent',
+      'payment_intent',
+      'user_registration_response',
+      'redirect_status',
+    ],
     'queryParams',
     'setQueryParams',
   ]),
@@ -389,7 +393,6 @@ export default compose(
       addItemToBasket: addItemToBasketAction,
       removeItemFromBasket,
       goBack,
-      push,
       replace: replaceRouter,
       fetchCurrentBasket: fetchCurrentBasketAction,
       patchCurrentBasket,
@@ -412,15 +415,16 @@ export default compose(
         buyable_item_id: shopItemId,
         extra_data: {},
       }),
-    onSuccess: ({ replace, basket }) => () => {
+    onSuccess: ({ replace, basket, queryParams }) => () => {
       Analytics.onPaymentSuccess(basket);
 
-      if (WidgetUtils.isWidget()) {
-        WidgetUtils.paymentSuccess();
-        return;
-      }
-
-      replace(`/c/${basket.company}/?from_basket=${basket.id}`);
+      replace(
+        `/checkout/${basket.company}/validation/?basket=${
+          basket.id
+        }&user_registration_response=${
+          queryParams && queryParams.user_registration_response
+        }`,
+      );
     },
   }),
   withHandlers({

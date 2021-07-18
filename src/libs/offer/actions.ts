@@ -1,4 +1,6 @@
 import { createAction } from 'redux-actions';
+import uniq from 'lodash/uniq';
+import BUYABLE_ITEM_CAN_NOT_BE_BOUGHT_ERROR_CODES from '@bsport/common/lib/master-data/buyable-item-can-not-be-bought';
 import {
   retrieveOffer as retrieveOfferAPI,
   fetchSimilarOffers as fetchSimilarOffersAPI,
@@ -364,15 +366,26 @@ export const offerBulkActions = {
   success: createAction('OFFER/BULK/SUCCESS'),
 };
 
-export function fetchOfferBulk(ids: Array<number>, options: OptionCallback) {
-  return async (dispatch: Dispatch) => {
-    if (!ids || !ids.length) return;
+export function fetchOfferBulk(
+  ids: Array<number>,
+  options: OptionCallback,
+  useCache?: boolean,
+) {
+  return async (dispatch: Dispatch, getState: () => State) => {
+    let ids_uniq = uniq((ids || []).filter((id) => !!id));
+    if (useCache) {
+      ids_uniq = ids_uniq.filter((id) => !getState().offer.byId[id]);
+    }
+
+    if (ids_uniq.length === 0) {
+      return;
+    }
     dispatch(offerBulkActions.error(null));
     dispatch(offerBulkActions.isLoading(true));
 
     try {
       const response = await fetchOffersListAPI({
-        id__in: ids,
+        id__in: ids_uniq,
       });
       dispatch(offerBulkActions.success(response.data.results));
       if (options && options.onSuccess) {
@@ -602,7 +615,21 @@ export function offerUserRegistration(
     dispatch(offerUserRegistrationAction.isLoading(true));
     try {
       const response = await postUserRegistrationAPI(data);
-      options && options.onSuccess(response.data);
+      if (response && response.data && response.data.buyable_item_error_code) {
+        const error_code = response.data.buyable_item_error_code;
+        if (BUYABLE_ITEM_CAN_NOT_BE_BOUGHT_ERROR_CODES.includes(error_code)) {
+          dispatch(
+            snackbarError(
+              `canNotBuyErrorCode.${response.data.buyable_item_error_code}`,
+            ),
+          );
+        } else {
+          dispatch(snackbarError(`canNotBuyErrorCode.generic`));
+        }
+      }
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
     } catch (e) {
       options && options.onError && options.onError(e);
     }

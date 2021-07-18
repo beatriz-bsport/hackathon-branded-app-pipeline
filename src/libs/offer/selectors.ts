@@ -43,6 +43,9 @@ export const compatiblePacksWithOfferAndEnabled = createSelector(
   (items) => items.filter((pp: PaymentPack) => !pp.disabled),
 );
 
+export const getOfferFromList = (state: RootState, ids: Array<number>) =>
+  ids.map((id) => state.offer.byId[id]);
+
 export const getSimilars = (state: RootState) =>
   state.offer.similarOffers.items;
 

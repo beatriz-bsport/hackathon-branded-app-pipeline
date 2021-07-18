@@ -20,7 +20,6 @@ import ConsumerAppBarContainer from '../../ConsumerAppBar.container';
 
 import themeSelectors from '../../../../libs/theme/selectors';
 
-import { registerToWaitingList as registerOption } from '../../../../libs/waiting-list/actions';
 import {
   getOfferById,
   withEstablishment,
@@ -302,22 +301,24 @@ class OfferBooking extends React.PureComponent<Props, State> {
       .map((offerData) => ({ offer_id: offerData.offer.id }));
 
     this.props.offerUserRegistration(data, {
-      onSuccess: () => {
-        // TODO handle data.error_code
+      onSuccess: (responseData: any) => {
         this.setState({ showLoader: false });
-        if (
-          data.consumer_payment_pack ||
-          (data.waiting_list.length && !data.offers.length)
-        ) {
-          if (WidgetUtils.isWidget()) {
-            WidgetUtils.paymentSuccess();
-          }
-
+        if (data.consumer_payment_pack) {
           this.props.push(
-            `/c/${this.props.offer.company}/?from_direct_booking=${this.props.offer.id}`,
+            `/checkout/${
+              this.props.offer.company
+            }/validation/?basket=null&user_registration_response=${encodeURIComponent(
+              JSON.stringify(responseData),
+            )}`,
           );
         } else {
-          this.props.push(`/checkout/${this.props.offer.company}/`);
+          this.props.push(
+            `/checkout/${
+              this.props.offer.company
+            }/?user_registration_response=${encodeURIComponent(
+              JSON.stringify(responseData),
+            )}`,
+          );
         }
       },
       onError: () => {
@@ -819,7 +820,6 @@ const mapDispatchToProps = {
   goToUserSpace: (id: number) => push(`/c/${id}/`),
   snackbarError: snackbarErrorAction,
   snackbarWarning: snackbarWarningAction,
-  registerOption,
   fetchOfferStatusList,
   fetchRoomBlueprintDetail,
   fetchAssetForBlueprint,

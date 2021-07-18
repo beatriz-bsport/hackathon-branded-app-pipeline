@@ -1,4 +1,77 @@
+const {
+  OFFER_WAITING_LIST_STATUS_OPEN,
+  OFFER_WAITING_LIST_STATUS_FULL,
+  OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED,
+  OFFER_WAITING_LIST_STATUS_CONVERTIBLE,
+  OFFER_BOOKABLE_STATUS_CLOSE_TOO_SOON,
+  OFFER_BOOKABLE_STATUS_CLOSE_TOO_LATE,
+  OFFER_BOOKABLE_STATUS_FULL,
+  OFFER_BOOKABLE_STATUS_LOCKED,
+  OFFER_BOOKABLE_STATUS_ALREADY_BOOKED,
+  OFFER_BOOKABLE_STATUS_TOO_MANY_MALE,
+  OFFER_BOOKABLE_STATUS_TOO_MANY_FEMALE,
+  SPOT_NOT_AVAILABLE,
+  PAYMENT_COMBO_CANT_BE_BOUGHT_HAS_REACHED_MAX_PURCHASE,
+  PAYMENT_COMBO_CANT_BE_BOUGHT_NEW_ONLY_ONLY,
+  PAYMENT_PACK_CAN_NOT_BE_BOUGHT_NEW_MEMBER_ONLY,
+  PAYMENT_PACK_CAN_NOT_BE_BOUGHT_MAX_PURCHASE_REACHED,
+  PAYMENT_PACK_CAN_NOT_BE_BOUGHT_MANAGER_ONLY,
+  PAYMENT_PACK_CAN_NOT_BE_BOUGHT_DISABLED,
+  PAYMENT_PACK_CAN_NOT_BE_BOUGHT_VALIDITY_DATERANGE,
+  PAYMENT_PACK_CAN_NOT_BE_BOUGHT_INCOMPATIBLE_WITH_OFFER,
+  PAYMENT_PACK_CAN_NOT_BE_BOUGHT_ACTIVITY_INCOMPATIBLE,
+  PAYMENT_PACK_CAN_NOT_BE_BOUGHT_SCT_INCOMPATIBLE,
+  PAYMENT_PACK_CAN_NOT_BE_BOUGHT_ESTABLISHMENT_INCOMPATIBLE,
+  PAYMENT_PACK_CAN_NOT_BE_BOUGHT_VOD_ONLY,
+  PAYMENT_PACK_CAN_NOT_BE_BOUGHT_BAD_COMPANY,
+} = require('@bsport/common/lib/master-data/buyable-item-can-not-be-bought');
+
 exports.default = {
+  canNotBuyErrorCode: {
+    generic: 'Impossible de réserver',
+    [OFFER_WAITING_LIST_STATUS_FULL]: "La liste d'attente est pleine",
+    [OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED]:
+      "Vous êtes déjà inscrit en liste d'attente",
+    [OFFER_BOOKABLE_STATUS_CLOSE_TOO_SOON]:
+      "La séance n'est pas encore ouverte aux réservations",
+    [OFFER_BOOKABLE_STATUS_CLOSE_TOO_LATE]:
+      "La séance n'est plus ouverte aux réservations",
+    [OFFER_BOOKABLE_STATUS_FULL]: 'La séance est pleine',
+    [OFFER_BOOKABLE_STATUS_LOCKED]: "La séance n'est pas réservable",
+    [OFFER_BOOKABLE_STATUS_ALREADY_BOOKED]:
+      'Vous êtes déjà inscrit à cette séance',
+    [OFFER_BOOKABLE_STATUS_TOO_MANY_MALE]:
+      'Le déséquilibre homme/femme est trop important, réservation impossible',
+    [OFFER_BOOKABLE_STATUS_TOO_MANY_FEMALE]:
+      'Le déséquilibre homme/femme est trop important, réservation impossible',
+    [SPOT_NOT_AVAILABLE]: "Le spot que vous avez choisi n'est plus disponible",
+    [PAYMENT_COMBO_CANT_BE_BOUGHT_HAS_REACHED_MAX_PURCHASE]:
+      'Vous ne pouvez plus acheter ce pack',
+    [PAYMENT_COMBO_CANT_BE_BOUGHT_NEW_ONLY_ONLY]:
+      "Ce pack n'est disponible que pour les nouveaux membres",
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_NEW_MEMBER_ONLY]:
+      "Cette carte de cours n'est disponible que pour les nouveaux membres",
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_MAX_PURCHASE_REACHED]:
+      'Vous ne pouvez plus racheter ce pass',
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_MANAGER_ONLY]:
+      "Ce pass n'est pas disponible à la vente",
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_DISABLED]:
+      "Ce pass n'est pas disponible à la vente",
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_VALIDITY_DATERANGE]:
+      "Ce pass n'est pas compatible pour une réservation à la date choisie",
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_INCOMPATIBLE_WITH_OFFER]:
+      "Ce pass n'est pas compatible avec cette séance",
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_ACTIVITY_INCOMPATIBLE]:
+      "Ce pass n'est pas compatible avec cette activité",
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_SCT_INCOMPATIBLE]:
+      "Ce pass n'est pas compatible avec cette catégorie d'activité",
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_ESTABLISHMENT_INCOMPATIBLE]:
+      "Ce pass n'est pas compatible avec ce lieu",
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_VOD_ONLY]:
+      'Ce pass ne permet pas de réserver des séance (VOD seulement)',
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_BAD_COMPANY]:
+      "Ce pass n'est pas compatible avec cette séance",
+  },
   offer: {
     restore: {
       success: 'Séance restaurée',

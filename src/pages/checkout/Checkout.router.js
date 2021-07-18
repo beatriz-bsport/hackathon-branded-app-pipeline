@@ -31,6 +31,9 @@ const ShopItemPreCheckoutPage = asyncComponent(() =>
 const PrivateSlotPaymentPage = asyncComponent(() =>
   import('./booker-modules/PrivateSlotBooker.page'),
 );
+const ValidationCheckout = asyncComponent(() =>
+  import('./booker-modules/ValidationCheckout.page'),
+);
 
 const BasketPage = asyncComponent(() => import('./basket/Basket.page'));
 
@@ -131,6 +134,10 @@ export class PaymentRouter extends React.Component<Props> {
 
     return (
       <Switch>
+        <Route
+          path="/(|customer/)checkout/:companyId/validation/"
+          component={ValidationCheckout}
+        />
         <Route
           path="/(|customer/)checkout/:companyId/"
           component={BasketPage}

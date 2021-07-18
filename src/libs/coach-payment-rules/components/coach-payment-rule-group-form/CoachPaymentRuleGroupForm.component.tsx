@@ -30,21 +30,21 @@ import {
 import { TextField, AlertError } from '../../../../components/forms';
 
 import CoachPaymentRuleGroupSchema from './schemaValidation';
-import CoachPaymentRuleSelector from '../CoachPaymentRuleSelector.component';
-import PrivateSlotSelectorSimple from '../PrivateSlotSelector.component';
 import CoachSelector from '../../../associated-coach/components/CoachSelector.component';
 import CoachListItem from '../../../associated-coach/components/CoachListItem.component';
 import type { Coach } from '../../../associated-coach/types';
-import type { PrivateSlot } from '../../../private-service/types';
 import type { CoachPaymentRule } from '../../types';
 import type { MaterialStyleType } from '../../../../utils/types';
+import { PrivateServiceWithSlots } from '../../../private-service/types';
+import CoachPaymentRuleSelectorStyled from '../CoachPaymentRuleSelectorStyled.component';
+import PrivateSlotSelectorStyled from '../PrivateSlotSelectorStyled.component';
 
 type OwnProps = {
-  openFullScreenDialog: boolean;
   associated_coaches: Array<Coach>;
-  privateSlots: { [id: number]: PrivateSlot };
+  privateServices: Array<PrivateServiceWithSlots>;
   rulesByKind: { [kind: number]: Array<CoachPaymentRule> };
   setFieldValue: (key: string, value: any) => void;
+  errors: any;
 };
 
 type Props = OwnProps &
@@ -56,9 +56,8 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
   const {
     rulesByKind,
     setFieldValue,
-    privateSlots,
+    privateServices,
     associated_coaches,
-    openFullScreenDialog,
   } = props;
 
   const [openPrivateSlotSection, setOpenPrivateSlotSection] = React.useState(
@@ -71,24 +70,27 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
   return (
     <>
       <Grid container spacing={2}>
-        <Typography variant="body1">
-          {t('coach_payment_rule_groups.subtitle.helper')}
-        </Typography>
-        <div className={classes.spaceDivider} />
-        <TextField
-          id="textfield_coach_payment_rule_group"
-          name="name"
-          label={t('coach_payment_rules.name')}
-          fullWidth
-          required
-        />
-        <AlertError name="name" />
-        <Grid item xs={openFullScreenDialog ? 8 : 12}>
+        <div className={classes.container}>
+          <Typography variant="body1">
+            {t('coach_payment_rule_groups.subtitle.helper')}
+          </Typography>
+          <div className={classes.spaceDivider} />
+          <TextField
+            id="textfield_coach_payment_rule_group"
+            name="name"
+            label={t('coach_payment_rules.name')}
+            fullWidth
+            required
+          />
+          <AlertError name="name" />
+        </div>
+
+        <Grid item xs={12}>
           <Typography variant="h6">
             {t('coach_payment_rule_groups.subtitle.default')}
           </Typography>
           <Grid container>
-            <Grid item xs={8}>
+            <Grid item xs={8} className={classes.paymentRuleRow}>
               <FieldArray name="session_coach_payment_rule">
                 {({
                   form: {
@@ -106,38 +108,29 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
                         {t('coach_payment_rule_groups.fields.activity')}
                       </Typography>
                     </Grid>
-                    <Grid item xs={4}>
-                      <CoachPaymentRuleSelector
+                    <Grid item xs={6}>
+                      <CoachPaymentRuleSelectorStyled
                         id="session_coach_payment_rule"
                         coachPaymentRulesList={
                           rulesByKind[COACH_PERFORMANCE_FOR_SESSION]
                         }
-                        nullCurrentValue
-                        selected={session_coach_payment_rule}
-                        isOverride
+                        selectedRules={[session_coach_payment_rule]}
+                        placeholder={t('paymentRules:label')}
                         onChange={(item: { value: number; label: string }) => {
                           setFieldValue(
                             'session_coach_payment_rule',
-                            item.value,
+                            item ? item.value : null,
                           );
                         }}
+                        noMulti
+                        isClearable
                       />
-                    </Grid>
-                    <Grid item>
-                      <IconButton
-                        onClick={() =>
-                          setFieldValue('session_coach_payment_rule', null)
-                        }
-                        aria-label="delete-session-coach-payment-rule"
-                      >
-                        <ClearIcon />
-                      </IconButton>
                     </Grid>
                   </Grid>
                 )}
               </FieldArray>
             </Grid>
-            <Grid item xs={8}>
+            <Grid item xs={8} className={classes.paymentRuleRow}>
               <FieldArray name="workshop_coach_payment_rule">
                 {({
                   form: {
@@ -155,32 +148,23 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
                         {t('coach_payment_rule_groups.fields.workshop')}
                       </Typography>
                     </Grid>
-                    <Grid item xs={4}>
-                      <CoachPaymentRuleSelector
+                    <Grid item xs={6}>
+                      <CoachPaymentRuleSelectorStyled
                         id="workshop_coach_payment_rule"
                         coachPaymentRulesList={
                           rulesByKind[COACH_PERFORMANCE_FOR_SESSION]
                         }
-                        nullCurrentValue
-                        selected={workshop_coach_payment_rule}
-                        isOverride
+                        selectedRules={[workshop_coach_payment_rule]}
+                        placeholder={t('paymentRules:label')}
                         onChange={(item: { value: number; label: string }) => {
                           setFieldValue(
                             'workshop_coach_payment_rule',
-                            item.value,
+                            item ? item.value : null,
                           );
                         }}
+                        noMulti
+                        isClearable
                       />
-                    </Grid>
-                    <Grid item>
-                      <IconButton
-                        onClick={() =>
-                          setFieldValue('workshop_coach_payment_rule', null)
-                        }
-                        aria-label="delete-workshop-coach-payment-rule"
-                      >
-                        <ClearIcon />
-                      </IconButton>
                     </Grid>
                   </Grid>
                 )}
@@ -205,58 +189,46 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
                         {t('coach_payment_rule_groups.fields.private_service')}
                       </Typography>
                     </Grid>
-                    <Grid item xs={4}>
-                      <CoachPaymentRuleSelector
+                    <Grid item xs={6}>
+                      <CoachPaymentRuleSelectorStyled
                         id="private_service_coach_payment_rule"
                         coachPaymentRulesList={
                           rulesByKind[COACH_PERFORMANCE_FOR_APPOINTMENT]
                         }
-                        nullCurrentValue
-                        selected={private_service_coach_payment_rule}
-                        isOverride
+                        selectedRules={[private_service_coach_payment_rule]}
+                        placeholder={t('paymentRules:label')}
                         onChange={(item: { value: number; label: string }) => {
                           setFieldValue(
                             'private_service_coach_payment_rule',
-                            item.value,
+                            item ? item.value : null,
                           );
                         }}
+                        noMulti
+                        isClearable
                       />
-                    </Grid>
-                    <Grid item>
-                      <IconButton
-                        onClick={() =>
-                          setFieldValue(
-                            'private_service_coach_payment_rule',
-                            null,
-                          )
-                        }
-                        aria-label="delete-private-service-coach-payment-rule"
-                      >
-                        <ClearIcon />
-                      </IconButton>
                     </Grid>
                   </Grid>
                 )}
               </FieldArray>
             </Grid>
           </Grid>
+          <AlertError name="session_coach_payment_rule" />
           <Grid item xs={12}>
             <div className={classes.spaceDivider} />
             <div className={classes.row}>
               <Typography variant="h6">
                 {t('coach_payment_rule_groups.subtitle.specfic_private_slot')}
               </Typography>
-              {!openFullScreenDialog && (
-                <IconButton onClick={tooglePrivateSlotSection}>
-                  {openPrivateSlotSection ? (
-                    <ExpandLessIcon />
-                  ) : (
-                    <ExpandMoreIcon />
-                  )}
-                </IconButton>
-              )}
+
+              <IconButton onClick={tooglePrivateSlotSection}>
+                {openPrivateSlotSection ? (
+                  <ExpandLessIcon />
+                ) : (
+                  <ExpandMoreIcon />
+                )}
+              </IconButton>
             </div>
-            <Collapse in={openPrivateSlotSection || openFullScreenDialog}>
+            <Collapse in={openPrivateSlotSection}>
               <FieldArray name="private_slots_coach_payment_rules">
                 {({
                   remove,
@@ -293,14 +265,13 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
                               <>
                                 <TableRow>
                                   <TableCell>
-                                    <PrivateSlotSelectorSimple
+                                    <PrivateSlotSelectorStyled
                                       id={`private_slots_coach_payment_rules.${i}.private_slot`}
-                                      privateSlotList={Object.values(
-                                        privateSlots,
-                                      )}
-                                      nullCurrentValue
-                                      isOverride
-                                      selected={privateSlot.private_slot}
+                                      privateServiceList={privateServices}
+                                      selectedServices={[
+                                        privateSlot.private_slot,
+                                      ]}
+                                      placeholder={t('paymentRules:label')}
                                       onChange={(item: {
                                         value: number;
                                         label: string;
@@ -310,19 +281,21 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
                                           item.value,
                                         );
                                       }}
+                                      noMulti
                                     />
                                   </TableCell>
                                   <TableCell>
-                                    <CoachPaymentRuleSelector
-                                      id={`private_slots_coach_payment_rules.${i}.coach_payment_rule`}
+                                    <CoachPaymentRuleSelectorStyled
+                                      id="private_service_coach_payment_rule"
                                       coachPaymentRulesList={
                                         rulesByKind[
                                           COACH_PERFORMANCE_FOR_APPOINTMENT
                                         ]
                                       }
-                                      nullCurrentValue
-                                      selected={privateSlot.coach_payment_rule}
-                                      isOverride
+                                      selectedRules={[
+                                        privateSlot.coach_payment_rule,
+                                      ]}
+                                      placeholder={t('paymentRules:label')}
                                       onChange={(item: {
                                         value: number;
                                         label: string;
@@ -332,13 +305,13 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
                                           item.value,
                                         );
                                       }}
+                                      noMulti
                                     />
                                   </TableCell>
                                   <TableCell
                                     align="left"
                                     padding="none"
                                     size="small"
-                                    className={classes.dense}
                                   >
                                     <IconButton
                                       onClick={() => remove(i)}
@@ -348,6 +321,43 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
                                     </IconButton>
                                   </TableCell>
                                 </TableRow>
+
+                                {props.errors &&
+                                  (props.errors
+                                    .private_slots_coach_payment_rules ||
+                                    (props.errors.private_slot_unicity &&
+                                      props.errors.private_slot_unicity[
+                                        i
+                                      ])) && (
+                                    <TableRow>
+                                      <TableCell>
+                                        {!props.errors.private_slot_unicity && (
+                                          <AlertError
+                                            name={`private_slots_coach_payment_rules.${i}.private_slot`}
+                                          />
+                                        )}
+                                        {props.errors.private_slot_unicity && (
+                                          <Typography
+                                            variant="caption"
+                                            color="error"
+                                          >
+                                            {t(
+                                              props.errors.private_slot_unicity[
+                                                i
+                                              ],
+                                            )}
+                                          </Typography>
+                                        )}
+                                      </TableCell>
+                                      <TableCell>
+                                        {!props.errors.private_slot_unicity && (
+                                          <AlertError
+                                            name={`private_slots_coach_payment_rules.${i}.coach_payment_rule`}
+                                          />
+                                        )}
+                                      </TableCell>
+                                    </TableRow>
+                                  )}
                               </>
                             ),
                           )}
@@ -360,8 +370,8 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
                               setFieldValue(
                                 `private_slots_coach_payment_rules`,
                                 private_slots_coach_payment_rules.concat({
-                                  private_slot: 0,
-                                  coach_payment_rule: 0,
+                                  private_slot: null,
+                                  coach_payment_rule: null,
                                 }),
                               );
                             }}
@@ -379,68 +389,18 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
               </FieldArray>
             </Collapse>
           </Grid>
-          {!openFullScreenDialog && (
-            <Grid item xs={12}>
-              <div className={classes.spaceDivider} />
-              <div className={classes.row}>
-                <Typography variant="h6">
-                  {t('coach_payment_rule_groups.subtitle.coaches')}
-                </Typography>
-                <IconButton onClick={toogleCoachSection}>
-                  {openCoachSection ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-                </IconButton>
-              </div>
-              <Collapse in={openCoachSection}>
-                <FieldArray name="associated_coach">
-                  {({
-                    push,
-                    remove,
-                    form: {
-                      values: { associated_coach },
-                    },
-                  }) => (
-                    <>
-                      <CoachSelector
-                        coaches={associated_coaches}
-                        nullCurrentValue
-                        selectedCoaches={[]}
-                        selectOption={(ev) => {
-                          if (ev.length) push(ev[0].value);
-                        }}
-                        isMulti
-                        isClearable
-                        associatedCoachOutput
-                      />
-                      <List>
-                        {associated_coach.map(
-                          (associatedCoachId: number, i: number) => (
-                            <CoachListItem
-                              divider
-                              coach={associated_coaches.find(
-                                (coach: Coach) =>
-                                  coach.associated_coach_id ===
-                                  associatedCoachId,
-                              )}
-                              deleteCoach={() => remove(i)}
-                            />
-                          ),
-                        )}
-                      </List>
-                    </>
-                  )}
-                </FieldArray>
-              </Collapse>
-            </Grid>
-          )}
-        </Grid>
-        {openFullScreenDialog && (
-          <Grid item xs={4}>
+
+          <Grid item xs={12}>
+            <div className={classes.spaceDivider} />
             <div className={classes.row}>
               <Typography variant="h6">
                 {t('coach_payment_rule_groups.subtitle.coaches')}
               </Typography>
+              <IconButton onClick={toogleCoachSection}>
+                {openCoachSection ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+              </IconButton>
             </div>
-            <Collapse in>
+            <Collapse in={openCoachSection}>
               <FieldArray name="associated_coach">
                 {({
                   push,
@@ -451,7 +411,12 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
                 }) => (
                   <>
                     <CoachSelector
-                      coaches={associated_coaches}
+                      coaches={associated_coaches.filter(
+                        (coach) =>
+                          !associated_coach.includes(
+                            coach.associated_coach_id,
+                          ) && !coach.coach_payment_rule_group_id,
+                      )}
                       nullCurrentValue
                       selectedCoaches={[]}
                       selectOption={(ev) => {
@@ -480,7 +445,7 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
               </FieldArray>
             </Collapse>
           </Grid>
-        )}
+        </Grid>
       </Grid>
     </>
   );
@@ -537,6 +502,13 @@ const styles = (theme: MaterialTheme) => ({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
+  },
+  paymentRuleRow: {
+    marginBottom: theme.spacing(1),
+  },
+  errorCell: {
+    padding: 0,
+    display: 'flex',
   },
 });
 export default compose<any, OwnProps>(

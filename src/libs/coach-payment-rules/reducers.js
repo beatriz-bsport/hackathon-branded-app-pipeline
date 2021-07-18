@@ -263,12 +263,19 @@ export default handleActions(
         );
     },
     [coachPaymentRuleGroupDelete.success]: (state, { payload }) => {
-      return state.setIn(
-        ['group', 'byId'],
-        lodash.omit(state.groups.byId, payload.id),
-      );
+      return state
+        .setIn(['groups', 'byId'], lodash.omit(state.groups.byId, payload.id))
+        .setIn(
+          ['groups', 'allIds'],
+          state.groups.allIds.filter((id) => id !== payload.id),
+        );
     },
     [upsertPaymentGroupActions.success]: (state, { payload }) => {
+      if (!state.groups.allIds.find((id) => id === payload.id)) {
+        return state
+          .setIn(['groups', 'byId', payload.id], payload)
+          .setIn(['groups', 'allIds'], [...state.groups.allIds, payload.id]);
+      }
       return state.setIn(['groups', 'byId', payload.id], payload);
     },
     [upsertPaymentGroupActions.isLoading]: (state, { payload }) => {

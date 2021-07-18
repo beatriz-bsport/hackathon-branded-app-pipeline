@@ -13,6 +13,7 @@ import CoachSummaryBanner from './coach-detail/CoachSummaryBanner.component';
 import Description from './coach-detail/Description.component';
 import CoachPaymentRuleBanner from './coach-detail/CoachPaymentRuleBanner.component';
 import type { PrivateSlot } from '../../private-service/types';
+import { PrivateServiceWithSlots } from '../../private-service/types';
 
 type Props = {
   classes: Object,
@@ -43,6 +44,7 @@ type Props = {
       coach_payment_rule: number,
     }>,
   ) => void,
+  privateServices: Array<PrivateServiceWithSlots>,
 };
 
 export class CoachDetail extends Component<Props> {
@@ -57,6 +59,7 @@ export class CoachDetail extends Component<Props> {
       coachPaymentRulesByKind,
       coachPaymentRuleGroups,
       privateSlots,
+      privateServices,
     } = this.props;
     return (
       <Grid container direction="row" spacing={2}>
@@ -85,6 +88,7 @@ export class CoachDetail extends Component<Props> {
                   setCoachPaymentRuleGroup={setCoachPaymentRuleGroup}
                   privateSlots={privateSlots}
                   updateCoach={this.props.updateCoach}
+                  privateServices={privateServices}
                 />
               </Paper>
             </Grid>

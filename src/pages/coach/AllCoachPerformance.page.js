@@ -18,19 +18,28 @@ import {
   COACH_PERFORMANCE_FOR_SESSION,
   COACH_PERFORMANCE_FOR_APPOINTMENT,
 } from '@bsport/common/lib/master-data/coach_payment_rule';
-import { computePerformanceSynthese } from '../../libs/coach-payment-rules/utils';
+import {
+  computePerformanceSynthese,
+  DISSOCIATED_COACH_PAYMENT_RULE,
+  DISSOCIATED_COACH_PAYMENT_RULE_GROUP,
+} from '../../libs/coach-payment-rules/utils';
 import { downloadAsCsv } from '../../utils/downloader';
-import type { CoachPaymentRule as CoachPaymentRuleType } from '../../libs/coach-payment-rules/types';
+import type {
+  CoachPaymentRule as CoachPaymentRuleType,
+  CoachPaymentRuleGroup,
+} from '../../libs/coach-payment-rules/types';
 
-import { getCoachWithCoachPaymentRule } from '../../libs/associated-coach/selectors';
+import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import {
   setCoachPaymentRule,
   setCoachPrivatePaymentRule,
   setCoachWorkshopPaymentRule,
   fetchAssociatedCoachesList,
+  setCoachPaymentRuleGroup,
 } from '../../libs/associated-coach/actions';
 import {
   fetchAllCoachPaymentRules,
+  fetchAllCoachPaymentRuleGroups,
   fetchCoachSessionPerformanceAction,
   fetchCoachPrivateServicePerformanceAction,
   setSessionCoachPaymentRule,
@@ -41,6 +50,7 @@ import {
   CoachPaymentRuleByKindSelector,
   getAssociatedCoachSessionPerformance,
   withCoachPerformance,
+  getCoachPaymentRuleGroups,
 } from '../../libs/coach-payment-rules/selectors';
 import withTitle from '../../hocs/with-title.hoc';
 import {
@@ -50,14 +60,18 @@ import {
 
 import CoachPerformanceForm from '../../libs/associated-coach/components/performance/CoachPerformanceForm.component';
 import CoachPerformanceSummary from '../../libs/associated-coach/components/performance/CoachPerformanceSummary.component';
-import CoachPaymentRuleSelector from '../../libs/coach-payment-rules/components/CoachPaymentRuleSelector.component';
+import CoachPaymentRuleSelectorStyled from '../../libs/coach-payment-rules/components/CoachPaymentRuleSelectorStyled.component';
+
 import CoachPerformanceTabs from '../../libs/associated-coach/components/performance/CoachPerformanceTabs.component';
 
 type CoachPerformanceProps = {
   t: TFunction,
   loading: boolean,
   performance: CoachPerformanceType,
-  coachPaymentRulesByKind: Object<CoachPaymentRuleType[]>,
+  coachPaymentRulesByKind: {
+    [kind: number]: Array<{ [id: number]: CoachPaymentRuleType }>,
+  },
+  coachPaymentRuleGroups: Array<CoachPaymentRuleGroup>,
   coach: Coach,
   setSessionCoachPaymentRule: (data: {
     associatedCoachId: number,
@@ -94,6 +108,10 @@ type CoachPerformanceProps = {
     paymentRuleId: number,
     associatedCoachId: number,
   ) => void,
+  setCoachPaymentRuleGroup: (
+    coachId: number,
+    coach_payment_rule_group_id: number,
+  ) => number,
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -104,6 +122,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(-3),
     marginBottom: theme.spacing(3),
     padding: theme.spacing(2),
+  },
+  flexBanner: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   performanceContainer: {
     marginBottom: theme.spacing(1),
@@ -117,6 +140,9 @@ const useStyles = makeStyles((theme) => ({
   },
   flexPaymentSelector: {
     display: 'flex',
+    flexDirection: 'column',
+    width: '300px',
+    paddingRight: theme.spacing(1),
   },
   ruleType: {
     display: 'flex',
@@ -126,70 +152,106 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function CoachPerformance(props: CoachPerformanceProps) {
-  const { t, loading, performance, coachPaymentRulesByKind, coach } = props;
+  const {
+    t,
+    loading,
+    performance,
+    coachPaymentRulesByKind,
+    coach,
+    coachPaymentRuleGroups,
+  } = props;
   const classes = useStyles();
   return (
     <div className={classes.performanceContainer}>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-        }}
-      >
+      <div className={classes.flexBanner}>
         <Typography variant="h5">{coach.name}</Typography>
+
         <div style={{ display: 'flex' }}>
           <div className={classes.flexPaymentSelector}>
-            <Typography className={classes.ruleType}>
+            <Typography className={classes.caption} variant="caption">
+              {t('paymentRules:select.group')}
+            </Typography>
+            <CoachPaymentRuleSelectorStyled
+              coachPaymentRulesList={coachPaymentRuleGroups}
+              selectedRules={[coach.coach_payment_rule_group_id]}
+              placeholder={t('paymentRules:select.group')}
+              onChange={(item: { value: number, label: string }) => {
+                props.setCoachPaymentRuleGroup(
+                  coach.id,
+                  item ? item.value : DISSOCIATED_COACH_PAYMENT_RULE_GROUP,
+                );
+              }}
+              noMulti
+              isClearable
+              isGroupSelect
+            />
+          </div>
+          <div className={classes.flexPaymentSelector}>
+            <Typography className={classes.caption} variant="caption">
               {t('paymentRules:select.coachPaymentRuleForSessions')}
             </Typography>
-            <CoachPaymentRuleSelector
+            <CoachPaymentRuleSelectorStyled
               coachPaymentRulesList={
                 coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_SESSION]
               }
-              selected={coach.coach_payment_rule_id}
-              onChange={({ value }) => {
+              selectedRules={[coach.coach_payment_rule_id]}
+              placeholder={t('paymentRules:label')}
+              disabled={!!coach.coach_payment_rule_group_id}
+              onChange={(item: { value: number, label: string }) => {
                 props.setCoachPaymentRule(
                   coach.id,
-                  value,
+                  item ? item.value : DISSOCIATED_COACH_PAYMENT_RULE,
                   coach.associated_coach_id,
                 );
               }}
+              noMulti
+              isClearable
             />
           </div>
           <div className={classes.flexPaymentSelector}>
-            <Typography className={classes.ruleType}>
+            <Typography className={classes.caption} variant="caption">
               {t('paymentRules:select.coachPaymentRuleForWorkshops')}
             </Typography>
-            <CoachPaymentRuleSelector
+
+            <CoachPaymentRuleSelectorStyled
               coachPaymentRulesList={
                 coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_SESSION]
               }
-              selected={coach.workshop_coach_payment_rule_id}
-              onChange={({ value }) => {
+              selectedRules={[coach.workshop_coach_payment_rule_id]}
+              placeholder={t('paymentRules:label')}
+              disabled={!!coach.coach_payment_rule_group_id}
+              onChange={(item: { value: number, label: string }) => {
                 props.setCoachWorkShopPaymentRule(
                   coach.id,
-                  value,
+                  item ? item.value : DISSOCIATED_COACH_PAYMENT_RULE,
                   coach.associated_coach_id,
                 );
               }}
+              noMulti
+              isClearable
             />
           </div>
           <div className={classes.flexPaymentSelector}>
-            <Typography className={classes.ruleType}>
+            <Typography className={classes.caption} variant="caption">
               {t('paymentRules:select.coachPaymentRuleForPrivateService')}
             </Typography>
-            <CoachPaymentRuleSelector
+
+            <CoachPaymentRuleSelectorStyled
               coachPaymentRulesList={
                 coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_APPOINTMENT]
               }
-              selected={coach.coach_payment_rule_id}
-              onChange={({ value }) => {
+              selectedRules={[coach.private_coach_payment_rule_id]}
+              placeholder={t('paymentRules:label')}
+              disabled={!!coach.coach_payment_rule_group_id}
+              onChange={(item: { value: number, label: string }) => {
                 props.setCoachPrivatePaymentRule(
                   coach.id,
-                  value,
+                  item ? item.value : DISSOCIATED_COACH_PAYMENT_RULE,
                   coach.associated_coach_id,
                 );
               }}
+              noMulti
+              isClearable
             />
           </div>
         </div>
@@ -222,7 +284,9 @@ type Props = {
   fetchAllCoachPaymentRules: () => void,
   loading: boolean,
   classes: Object,
-  coachPaymentRulesByKind: Object<CoachPaymentRuleType[]>,
+  coachPaymentRulesByKind: {
+    [kind: number]: Array<{ [id: number]: CoachPaymentRuleType }>,
+  },
   setSessionCoachPaymentRule: (data: {
     associatedCoachId: number,
     sessionId: number,
@@ -246,12 +310,19 @@ type Props = {
       options: any,
     ) => void,
   },
+  fetchAllCoachPaymentRuleGroups: () => void,
+  coachPaymentRuleGroups: Array<CoachPaymentRuleGroup>,
+  setCoachPaymentRuleGroup: (
+    coachId: number,
+    coach_payment_rule_group_id: number,
+  ) => number,
 };
 
 export class AllCoachPerformance extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchAllCoachPaymentRules();
     this.props.fetchAssociatedCoachesList();
+    this.props.fetchAllCoachPaymentRuleGroups();
   }
 
   render() {
@@ -321,6 +392,8 @@ export class AllCoachPerformance extends React.Component<Props> {
                 this.props.setCoachWorkShopPaymentRule
               }
               performance={coach.performance}
+              coachPaymentRuleGroups={this.props.coachPaymentRuleGroups}
+              setCoachPaymentRuleGroup={this.props.setCoachPaymentRuleGroup}
             />
           ),
         )}
@@ -358,8 +431,9 @@ export default compose(
       coachLoading: state.coach.loading,
       performanceLoading: state.coachPaymentRules.performance.loading,
       associatedCoachWithCoachPaymentRuleAndPerformance: withCoachPerformance(
-        getCoachWithCoachPaymentRule,
+        getActiveCoaches,
       )(state),
+      coachPaymentRuleGroups: getCoachPaymentRuleGroups(state),
     }),
     {
       setSessionCoachPaymentRuleAction: setSessionCoachPaymentRule,
@@ -371,6 +445,8 @@ export default compose(
       setCoachPrivatePaymentRule,
       setCoachWorkshopPaymentRuleAction: setCoachWorkshopPaymentRule,
       fetchAllCoachPaymentRules,
+      fetchAllCoachPaymentRuleGroups,
+      setCoachPaymentRuleGroupAction: setCoachPaymentRuleGroup,
       getAssociatedCoachSessionPerformance,
     },
   ),
@@ -522,6 +598,14 @@ export default compose(
           setPerformanceLoading(false);
         },
       });
+    },
+  }),
+  withHandlers({
+    setCoachPaymentRuleGroup: ({ setCoachPaymentRuleGroupAction }) => (
+      coachId,
+      value,
+    ) => {
+      setCoachPaymentRuleGroupAction(coachId, value);
     },
   }),
   withHandlers({

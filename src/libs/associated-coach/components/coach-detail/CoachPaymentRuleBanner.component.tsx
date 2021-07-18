@@ -16,6 +16,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import AddIcon from '@material-ui/icons/Add';
+import GroupIcon from '@material-ui/icons/Group';
 import {
   COACH_PERFORMANCE_FOR_SESSION,
   COACH_PERFORMANCE_FOR_APPOINTMENT,
@@ -24,18 +25,20 @@ import type {
   CoachPaymentRule,
   CoachPaymentRuleGroup,
 } from '../../../coach-payment-rules/types';
-import CoachPaymentRuleSelector from '../../../coach-payment-rules/components/CoachPaymentRuleSelector.component';
-import CoachPaymentRuleGroupSelector from '../../../coach-payment-rules/components/CoachPaymentRuleGroupSelector.component';
-import PrivateSlotSelectorSimple from '../../../coach-payment-rules/components/PrivateSlotSelector.component';
 import type { MaterialStyleType } from '../../../../utils/types';
 import type { Coach } from '../../types';
-import { DISSOCIATED_COACH_PAYMENT_RULE } from '../../../coach-payment-rules/utils';
-import type { PrivateSlot } from '../../../private-service/types';
+import {
+  DISSOCIATED_COACH_PAYMENT_RULE,
+  DISSOCIATED_COACH_PAYMENT_RULE_GROUP,
+} from '../../../coach-payment-rules/utils';
+import PrivateSlotSelectorStyled from '../../../coach-payment-rules/components/PrivateSlotSelectorStyled.component';
+import { PrivateServiceWithSlots } from '../../../private-service/types';
+import CoachPaymentRuleSelectorStyled from '../../../coach-payment-rules/components/CoachPaymentRuleSelectorStyled.component';
 
 type OwnProps = {
   coach: Coach;
   coachPaymentRulesByKind: {
-    [kind: number]: { [id: number]: CoachPaymentRule };
+    [kind: number]: Array<CoachPaymentRule>;
   };
   coachPaymentRuleGroups: Array<CoachPaymentRuleGroup>;
   setCoachPaymentRule: (coachId: number, coach_payment_rule_id: number) => void;
@@ -51,8 +54,8 @@ type OwnProps = {
     coachId: number,
     coach_payment_rule_group_id: number,
   ) => number;
-  privateSlots: { [privateSlotId: number]: PrivateSlot };
   remunerateCoach: () => (coach: Coach) => void;
+  privateServices: Array<PrivateServiceWithSlots>;
 };
 type Props = OwnProps &
   WithTranslation &
@@ -97,7 +100,7 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
       setCoachWorkshopPaymentRule,
       setCoachPrivatePaymentRule,
       setCoachPaymentRuleGroup,
-      privateSlots,
+      privateServices,
     } = this.props;
 
     const specificPrivateSlots = coach.coach_payment_rule_group_id
@@ -107,32 +110,65 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
         ).private_slots_coach_payment_rules
       : this.state.private_slots_coach_payment_rules;
 
+    const selectedPaymentRules = () => {
+      if (coach.coach_payment_rule_group_id) {
+        const group = coachPaymentRuleGroups.find(
+          (g: CoachPaymentRuleGroup) =>
+            g.id === coach.coach_payment_rule_group_id,
+        );
+        return {
+          session_coach_payment_rule:
+            group.session_coach_payment_rule &&
+            group.session_coach_payment_rule.id,
+          workshop_coach_payment_rule:
+            group.workshop_coach_payment_rule &&
+            group.workshop_coach_payment_rule.id,
+          private_service_coach_payment_rule:
+            group.private_service_coach_payment_rule &&
+            group.private_service_coach_payment_rule.id,
+        };
+      }
+      return {
+        session_coach_payment_rule: coach.coach_payment_rule_id,
+        workshop_coach_payment_rule: coach.workshop_coach_payment_rule_id,
+        private_service_coach_payment_rule: coach.private_coach_payment_rule_id,
+      };
+    };
     const updateState = (identifier: string, value: number, index: number) => {
       if (identifier === 'delete') {
         const { private_slots_coach_payment_rules } = this.state;
-        private_slots_coach_payment_rules.splice(index, 1);
-        this.setState({ private_slots_coach_payment_rules });
+        const update_list = [
+          ...private_slots_coach_payment_rules.slice(0, index),
+          ...private_slots_coach_payment_rules.slice(index + 1),
+        ];
+        this.setState({ private_slots_coach_payment_rules: update_list });
       } else if (identifier === 'add') {
         const { private_slots_coach_payment_rules } = this.state;
-        private_slots_coach_payment_rules.splice(
-          private_slots_coach_payment_rules.length,
-          0,
-          { private_slot: 0, coach_payment_rule: 0 },
-        );
-        this.setState({ private_slots_coach_payment_rules });
+        this.setState({
+          private_slots_coach_payment_rules: [
+            ...private_slots_coach_payment_rules,
+            { private_slot: 0, coach_payment_rule: 0 },
+          ],
+        });
       } else {
         const { private_slots_coach_payment_rules } = this.state;
-        private_slots_coach_payment_rules.splice(index, 1, {
-          ...private_slots_coach_payment_rules[index],
-          [identifier]: value,
+        const update_item = private_slots_coach_payment_rules.slice(
+          index,
+          index + 1,
+        )[0];
+        this.setState({
+          private_slots_coach_payment_rules: [
+            ...private_slots_coach_payment_rules.slice(0, index),
+            { ...update_item, [identifier]: value },
+            ...private_slots_coach_payment_rules.slice(index + 1),
+          ],
         });
-        this.setState({ private_slots_coach_payment_rules });
       }
     };
     return (
       <>
         <div className={classes.flexRow}>
-          <Typography variant="h6">{t('coach:paymentRule')}</Typography>
+          <Typography variant="h5">{t('coach:paymentRule')}</Typography>
           <Button
             color="primary"
             variant="contained"
@@ -143,9 +179,6 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
             {t('showPerformance')}
           </Button>
         </div>
-        <Typography variant="h6">
-          {t('paymentRules:coach_payment_rule_groups.subtitle.default')}
-        </Typography>
         <Grid item xs={8}>
           <Grid
             container
@@ -159,21 +192,26 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
               </Typography>
             </Grid>
             <Grid item xs={4}>
-              <CoachPaymentRuleGroupSelector
-                id="coach_payment_rule_group_selector"
-                coachPaymentRuleGroupsList={coachPaymentRuleGroups}
-                selected={coach.coach_payment_rule_group_id}
-                isOverride
+              <CoachPaymentRuleSelectorStyled
+                coachPaymentRulesList={lodash(coachPaymentRuleGroups)}
+                selectedRules={[coach.coach_payment_rule_group_id]}
+                placeholder={t('paymentRules:select.group')}
                 onChange={(item: { value: number; label: string }) => {
                   this.setState({
                     private_slots_coach_payment_rules: [],
                   });
-                  setCoachPaymentRuleGroup(coach.id, item.value);
+                  setCoachPaymentRuleGroup(
+                    coach.id,
+                    item ? item.value : DISSOCIATED_COACH_PAYMENT_RULE_GROUP,
+                  );
                 }}
+                noMulti
+                isClearable
+                isGroupSelect
               />
             </Grid>
           </Grid>
-          <Grid item>
+          <Grid item className={classes.button}>
             <Button
               variant="outlined"
               color="secondary"
@@ -198,9 +236,14 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
             style={{ alignItems: 'center' }}
           >
             <Grid item xs={12}>
-              <Typography variant="h6">
-                {t('paymentRules:coach_payment_rule_groups.subtitle.default')}
-              </Typography>
+              <div className={classes.title}>
+                <Typography variant="h6">
+                  {t('paymentRules:coach_payment_rule_groups.subtitle.default')}
+                </Typography>
+                {coach.coach_payment_rule_group_id ? (
+                  <GroupIcon color="secondary" className={classes.blockIcon} />
+                ) : null}
+              </div>
             </Grid>
             <Grid item xs={4}>
               <Typography>
@@ -208,30 +251,24 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
               </Typography>
             </Grid>
             <Grid item xs={4}>
-              <CoachPaymentRuleSelector
-                id="session_coach_payment_rule"
+              <CoachPaymentRuleSelectorStyled
                 coachPaymentRulesList={
                   coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_SESSION]
                 }
-                nullCurrentValue
-                selected={coach.coach_payment_rule_id}
-                isOverride
+                selectedRules={[
+                  selectedPaymentRules().session_coach_payment_rule,
+                ]}
+                placeholder={t('paymentRules:label')}
+                disabled={!!coach.coach_payment_rule_group_id}
                 onChange={(item: { value: number; label: string }) => {
-                  setCoachPaymentRule(coach.id, item.value);
+                  setCoachPaymentRule(
+                    coach.id,
+                    item ? item.value : DISSOCIATED_COACH_PAYMENT_RULE,
+                  );
                 }}
-                disabled={coach.coach_payment_rule_group_id}
+                noMulti
+                isClearable
               />
-            </Grid>
-            <Grid item>
-              <IconButton
-                onClick={() =>
-                  setCoachPaymentRule(coach.id, DISSOCIATED_COACH_PAYMENT_RULE)
-                }
-                disabled={coach.coach_payment_rule_group_id}
-                aria-label="delete-session-coach-payment-rule"
-              >
-                <ClearIcon />
-              </IconButton>
             </Grid>
           </Grid>
         </Grid>
@@ -248,33 +285,24 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
               </Typography>
             </Grid>
             <Grid item xs={4}>
-              <CoachPaymentRuleSelector
-                id="session_coach_payment_rule"
+              <CoachPaymentRuleSelectorStyled
                 coachPaymentRulesList={
                   coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_SESSION]
                 }
-                nullCurrentValue
-                selected={coach.workshop_coach_payment_rule_id}
-                isOverride
+                selectedRules={[
+                  selectedPaymentRules().workshop_coach_payment_rule,
+                ]}
+                placeholder={t('paymentRules:label')}
+                disabled={!!coach.coach_payment_rule_group_id}
                 onChange={(item: { value: number; label: string }) => {
-                  setCoachWorkshopPaymentRule(coach.id, item.value);
-                }}
-                disabled={coach.coach_payment_rule_group_id}
-              />
-            </Grid>
-            <Grid item>
-              <IconButton
-                onClick={() =>
                   setCoachWorkshopPaymentRule(
                     coach.id,
-                    DISSOCIATED_COACH_PAYMENT_RULE,
-                  )
-                }
-                disabled={coach.coach_payment_rule_group_id}
-                aria-label="delete-session-coach-payment-rule"
-              >
-                <ClearIcon />
-              </IconButton>
+                    item ? item.value : DISSOCIATED_COACH_PAYMENT_RULE,
+                  );
+                }}
+                noMulti
+                isClearable
+              />
             </Grid>
           </Grid>
         </Grid>
@@ -293,38 +321,29 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
               </Typography>
             </Grid>
             <Grid item xs={4}>
-              <CoachPaymentRuleSelector
-                id="session_coach_payment_rule"
+              <CoachPaymentRuleSelectorStyled
                 coachPaymentRulesList={
                   coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_APPOINTMENT]
                 }
-                nullCurrentValue
-                selected={coach.private_coach_payment_rule_id}
-                isOverride
+                selectedRules={[
+                  selectedPaymentRules().private_service_coach_payment_rule,
+                ]}
+                placeholder={t('paymentRules:label')}
+                disabled={!!coach.coach_payment_rule_group_id}
                 onChange={(item: { value: number; label: string }) => {
-                  setCoachPrivatePaymentRule(coach.id, item.value);
-                }}
-                disabled={coach.coach_payment_rule_group_id}
-              />
-            </Grid>
-            <Grid item>
-              <IconButton
-                onClick={() =>
                   setCoachPrivatePaymentRule(
                     coach.id,
-                    DISSOCIATED_COACH_PAYMENT_RULE,
-                  )
-                }
-                disabled={coach.coach_payment_rule_group_id}
-                aria-label="delete-session-coach-payment-rule"
-              >
-                <ClearIcon />
-              </IconButton>
+                    item ? item.value : DISSOCIATED_COACH_PAYMENT_RULE,
+                  );
+                }}
+                noMulti
+                isClearable
+              />
             </Grid>
           </Grid>
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={12}>
           <Grid
             container
             direction="row"
@@ -332,11 +351,16 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
             style={{ alignItems: 'center' }}
           >
             <Grid item xs={12}>
-              <Typography variant="h6">
-                {t(
-                  'paymentRules:coach_payment_rule_groups.subtitle.specfic_private_slot',
-                )}
-              </Typography>
+              <div className={classes.title}>
+                <Typography variant="h6">
+                  {t(
+                    'paymentRules:coach_payment_rule_groups.subtitle.specfic_private_slot',
+                  )}
+                </Typography>
+                {coach.coach_payment_rule_group_id ? (
+                  <GroupIcon color="secondary" className={classes.blockIcon} />
+                ) : null}
+              </div>
             </Grid>
             <TableContainer>
               <Table size="small">
@@ -369,32 +393,32 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                           <>
                             <TableRow>
                               <TableCell>
-                                <PrivateSlotSelectorSimple
-                                  id={`private_slots_coach_payment_rules.${i}.private_slot`}
-                                  privateSlotList={Object.values(privateSlots)}
-                                  nullCurrentValue
-                                  isOverride
-                                  selected={privateSlot.private_slot}
+                                <PrivateSlotSelectorStyled
+                                  privateServiceList={privateServices}
+                                  selectedServices={[privateSlot.private_slot]}
+                                  placeholder={t('paymentRules:label')}
+                                  disabled={!!coach.coach_payment_rule_group_id}
                                   onChange={(item: {
                                     value: number;
                                     label: string;
                                   }) =>
                                     updateState('private_slot', item.value, i)
                                   }
-                                  disabled={coach.coach_payment_rule_group_id}
+                                  noMulti
                                 />
                               </TableCell>
                               <TableCell>
-                                <CoachPaymentRuleSelector
-                                  id={`private_slots_coach_payment_rules.${i}.coach_payment_rule`}
+                                <CoachPaymentRuleSelectorStyled
                                   coachPaymentRulesList={
                                     coachPaymentRulesByKind[
                                       COACH_PERFORMANCE_FOR_APPOINTMENT
                                     ]
                                   }
-                                  nullCurrentValue
-                                  selected={privateSlot.coach_payment_rule}
-                                  isOverride
+                                  selectedRules={[
+                                    privateSlot.coach_payment_rule,
+                                  ]}
+                                  placeholder={t('paymentRules:label')}
+                                  disabled={!!coach.coach_payment_rule_group_id}
                                   onChange={(item: {
                                     value: number;
                                     label: string;
@@ -405,7 +429,7 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                                       i,
                                     )
                                   }
-                                  disabled={coach.coach_payment_rule_group_id}
+                                  noMulti
                                 />
                               </TableCell>
                               <TableCell
@@ -413,13 +437,17 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                                 padding="none"
                                 size="small"
                               >
-                                <IconButton
-                                  onClick={() => updateState('delete', 0, i)}
-                                  aria-label="Delete"
-                                  disabled={coach.coach_payment_rule_group_id}
-                                >
-                                  <ClearIcon />
-                                </IconButton>
+                                {!coach.coach_payment_rule_group_id && (
+                                  <IconButton
+                                    onClick={() => updateState('delete', 0, i)}
+                                    aria-label="Delete"
+                                    disabled={
+                                      !!coach.coach_payment_rule_group_id
+                                    }
+                                  >
+                                    <ClearIcon />
+                                  </IconButton>
+                                )}
                               </TableCell>
                             </TableRow>
                           </>
@@ -434,7 +462,7 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                 aria-haspopup="true"
                 color="secondary"
                 onClick={() => updateState('add', 0, 0)}
-                disabled={coach.coach_payment_rule_group_id}
+                disabled={!!coach.coach_payment_rule_group_id}
               >
                 <AddIcon color="secondary" />
                 {t(
@@ -456,7 +484,7 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                   });
                 }}
                 disabled={
-                  coach.coach_payment_rule_group_id ||
+                  !!coach.coach_payment_rule_group_id ||
                   !this.state.enableSaveButton
                 }
               >
@@ -470,12 +498,23 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
   }
 }
 
-const styles = () => ({
+const styles = (theme) => ({
   flexRow: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  title: {
+    paddingTop: theme.spacing(2),
+    display: 'flex',
+    alignItems: 'center',
+  },
+  button: {
+    paddingTop: theme.spacing(2),
+  },
+  blockIcon: {
+    paddingLeft: theme.spacing(1),
   },
 });
 

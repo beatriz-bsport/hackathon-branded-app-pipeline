@@ -3052,7 +3052,8 @@
       "reset": "Utiliser la règle par défaut du coach",
       "coachPaymentRuleForSessions": "Cours collectifs",
       "coachPaymentRuleForWorkshops": "Ateliers",
-      "coachPaymentRuleForPrivateService": "Rendez-vous"
+      "coachPaymentRuleForPrivateService": "Rendez-vous",
+      "group": "Groupe de rémunération"
     },
     "fabButton": {
       "addNewForSession": "Cours collectifs & Ateliers",
@@ -3132,7 +3133,11 @@
         "taxeRateRequired": "La taxe est un champ obligatoire si vous avez coché la case 'Calcul TTC' ci-dessus.",
         "taxeRateTypeError": "La taxe doit être un nombre compris entre 0 et 100.",
         "lowerIntervalTypeError": "L'interval inférieur doit être un nombre inférieur ou égale à 1",
-        "invalidCancelledBookingRules": "Si vous souhaitez appliquer des bonus différents pour les élèves absents vous devez définir au moins un bonus ou une base par pourcentage dans la section ci-dessous."
+        "invalidCancelledBookingRules": "Si vous souhaitez appliquer des bonus différents pour les élèves absents vous devez définir au moins un bonus ou une base par pourcentage dans la section ci-dessous.",
+        "oneRuleRequired": "Vous devez définir au moin une régle de rémunération pour créer un groupe",
+        "invalidPrivateSlot": "Un rendez-vous doit être sélectionné",
+        "invalidCoachPaymentRule": "Une régle de rémunération doit être sélectionnée",
+        "uniqueRuleForPrivateSlot": "Ce rendez-vous est plusieurs fois dans la liste"
       },
       "Simulator": {
         "title": "Simulateur de rémunérations",

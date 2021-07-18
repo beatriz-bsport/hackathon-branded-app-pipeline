@@ -57,7 +57,7 @@ export class CoachSubForm extends Component<Props> {
           placeholder={this.props.t('paymentRules:search')}
           disabled={!this.props.coach}
           onChange={(item: { value: number, label: string }) => {
-            this.props.onChangeCoachPaymentRule(item.value);
+            this.props.onChangeCoachPaymentRule(item ? item.value : null);
           }}
           noMulti
           isClearable

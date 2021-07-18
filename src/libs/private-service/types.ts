@@ -57,7 +57,31 @@ export type PrivateService<C = number, E = number, S = number> = {
   availability_padding_start_minutes: number;
   availability_padding_end_minutes: number;
 };
-
+export type PrivateServiceWithSlots<C = number, E = number> = {
+  id: number;
+  name: string;
+  description: string;
+  available: boolean;
+  establishments: Array<E>;
+  coach_capacity_used: number;
+  use_full_establishment_capacity: boolean;
+  coaches: Array<C>;
+  color: string;
+  company: number;
+  slots: Array<PrivateSlot>;
+  establishment_attribution: ResourceAttributionEnum;
+  is_home_service: boolean;
+  coach_attribution: ResourceAttributionEnum;
+  manager_only: boolean;
+  has_own_availability_slots: boolean;
+  last_discard_minutes: number;
+  last_booking_minutes: number;
+  cover_main: string;
+  private_service_group?: number;
+  slots_duration_minute: Array<number>;
+  availability_padding_start_minutes: number;
+  availability_padding_end_minutes: number;
+};
 export type PrivateSlot = {
   id: number;
   name: string;

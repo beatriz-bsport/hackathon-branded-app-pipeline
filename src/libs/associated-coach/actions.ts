@@ -248,7 +248,7 @@ export function setCoachPaymentRule(
     dispatch(upsert.error(null));
 
     try {
-      await putAuth(
+      const response = await putAuth(
         `${API_V1_URI}/coach_payment_rules/set_coach_session_payment_rule/${buildUrlParams(
           {
             coachId,
@@ -257,7 +257,10 @@ export function setCoachPaymentRule(
         )}`,
       );
       dispatch(snackbarSuccess('paymentRules.update.success'));
-      const payload = { coachId, coach_payment_rule_id: coachPaymentRuleId };
+      const payload = {
+        coachId,
+        coach_payment_rule_id: response.data.coach_payment_rule,
+      };
       dispatch(setCoachPaymentRuleActions.success(payload));
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
@@ -294,7 +297,7 @@ export function setCoachWorkshopPaymentRule(
     dispatch(upsert.error(null));
 
     try {
-      await putAuth(
+      const response = await putAuth(
         `${API_V1_URI}/coach_payment_rules/set_coach_workshop_payment_rule/${buildUrlParams(
           {
             coachId,
@@ -305,7 +308,7 @@ export function setCoachWorkshopPaymentRule(
       dispatch(snackbarSuccess('paymentRules.update.success'));
       const payload = {
         coachId,
-        workshop_coach_payment_rule_id: coachPaymentRuleId,
+        workshop_coach_payment_rule_id: response.data.coach_payment_rule,
       };
       dispatch(setCoachWorkshopPaymentRuleActions.success(payload));
       if (options && options.onSuccess) options.onSuccess();
@@ -342,7 +345,7 @@ export function setCoachPrivatePaymentRule(
     dispatch(upsert.error(null));
 
     try {
-      await putAuth(
+      const response = await putAuth(
         `${API_V1_URI}/coach_payment_rules/set_coach_private_payment_rule/${buildUrlParams(
           {
             coachId,
@@ -353,7 +356,7 @@ export function setCoachPrivatePaymentRule(
       dispatch(snackbarSuccess('paymentRules.update.success'));
       const payload = {
         coachId,
-        private_coach_payment_rule_id: coachPaymentRuleId,
+        private_coach_payment_rule_id: response.data.coach_payment_rule,
       };
       dispatch(setCoachPrivatePaymentRuleActions.success(payload));
       if (options && options.onSuccess) options.onSuccess();

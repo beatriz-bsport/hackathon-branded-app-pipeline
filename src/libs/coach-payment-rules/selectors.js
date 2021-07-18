@@ -8,12 +8,16 @@ import {
   COACH_PERFORMANCE_FOR_APPOINTMENT,
 } from '@bsport/common/lib/master-data/coach_payment_rule';
 import { RootState } from '../../reducers';
-import { associatedCoachSelector } from '../associated-coach/selectors';
+import {
+  associatedCoachSelector,
+  getAllCoaches,
+} from '../associated-coach/selectors';
 import type { CoachPaymentRule, CoachPaymentRuleGroupAPI } from './types';
 
 export const CoachPaymentSelector = (state: RootState, id: number) =>
   state.coachPaymentRules.items[id];
-
+const _CoachPaymentRulesDict = (state: RootState) =>
+  state.coachPaymentRules.items;
 export const CoachPaymentRulesSelector = (state: RootState) =>
   lodash
     .values(state.coachPaymentRules.items)
@@ -122,24 +126,22 @@ export const withCoachPerformance = memoize((selector: any) =>
 
 export const getCoachPaymentRuleGroupsIds = (state: RootState) =>
   state.coachPaymentRules.groups.allIds;
-
 export const getCoachPaymentRuleGroupsDict = (state: RootState) =>
   state.coachPaymentRules.groups.byId;
-
 export const getCoachPaymentRuleGroups = createSelector(
   [
     getCoachPaymentRuleGroupsIds,
     getCoachPaymentRuleGroupsDict,
-    (state: RootState) => state,
-    (state: RootState) => state.coachPaymentRules.items,
+    getAllCoaches,
+    _CoachPaymentRulesDict,
   ],
   (
     ids: Array<number>,
     groups: CoachPaymentRuleGroupAPI,
-    state,
-    coach_payment_rule_items,
+    allCoaches: Array<Coach>,
+    coach_payment_rule_items: CoachPaymentRuleGroupAPI,
   ) => {
-    return lodash.values(ids).map((id) => {
+    return ids.map((id) => {
       return {
         ...groups[id],
         session_coach_payment_rule:
@@ -152,7 +154,7 @@ export const getCoachPaymentRuleGroups = createSelector(
           ],
         associated_coach: lodash.compact(
           groups[id].associated_coach.map((coachId: number) =>
-            associatedCoachSelector.get(state, coachId),
+            allCoaches.find((coach) => coach.associated_coach_id === coachId),
           ),
         ),
       };

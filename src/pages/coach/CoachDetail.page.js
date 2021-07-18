@@ -34,14 +34,13 @@ import {
   fetchAssociatedCoach,
   updateCoachPrivateSlotsPaymentRule,
 } from '../../libs/associated-coach/actions';
-import { fetchAllPrivateSlots } from '../../libs/private-service/actions';
-import type { PrivateSlot } from '../../libs/private-service/types';
 import { canDeleteCoach as canDeleteCoachAPI } from '../../libs/associated-coach/api';
 import CoachDetail from '../../libs/associated-coach/components/CoachDetail.component';
 import CoachDeleteModal from '../../libs/associated-coach/components/CoachDeleteModal.component';
 import type { CoachDetailed } from '../../api/types';
-
+import { getAvailablePrivateServices } from '../../libs/private-service/selectors/private-service';
 import WidgetGeneratorDialog from '../settings/WidgetGenerator/WidgetGeneratorDialog';
+import { PrivateServiceWithSlots } from '../../libs/private-service/types';
 
 type Props = {
   coachId: number,
@@ -81,19 +80,17 @@ type Props = {
     options: ?{ onSucces: ?() => void, onError: ?() => void },
   ) => void,
   goToList: () => void,
-  privateSlots: { [id: number]: PrivateSlot },
-  fetchAllPrivateSlots: () => void,
   updateCoach: (
     data: any,
     options: { onSuccess?: () => void, onError?: () => void },
   ) => void,
+  privateServices: Array<PrivateServiceWithSlots>,
 };
 
 export class Coach extends React.Component<Props> {
   componentDidMount() {
     this.props.loadPaymentRules();
     this.props.loadPaymentRuleGroups();
-    this.props.fetchAllPrivateSlots();
     this.props.fetchAssociatedCoach(this.props.coachId);
   }
 
@@ -115,8 +112,8 @@ export class Coach extends React.Component<Props> {
           startUpdateCoach={this.props.startUpdateCoach}
           coachPaymentRuleGroups={this.props.coachPaymentRuleGroups}
           setCoachPaymentRuleGroup={this.props.setCoachPaymentRuleGroup}
-          privateSlots={this.props.privateSlots}
           updateCoach={this.props.updateCoach}
+          privateServices={this.props.privateServices}
         />
         <BottomActionButtons
           onEdit={() => this.props.startUpdateCoach(coach)}
@@ -164,6 +161,7 @@ export default compose(
       coachPaymentRuleGroups: getCoachPaymentRuleGroups(state),
       coach: getCoach(state, coachId),
       privateSlots: state.privateService.privateSlot.byId,
+      privateServices: getAvailablePrivateServices(state),
     }),
     {
       deleteCoach,
@@ -176,7 +174,6 @@ export default compose(
       setCoachPrivatePaymentRule,
       setCoachWorkshopPaymentRule,
       setCoachPaymentRuleGroup,
-      fetchAllPrivateSlots,
       goToCreateCoach: () => routerPush('/coach/add'),
       goToCoachPerformance: (coach) =>
         routerPush(`/coach/${coach.associated_coach_id}/performance`),

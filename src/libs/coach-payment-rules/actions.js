@@ -105,6 +105,11 @@ export const coachPaymentSimulation = {
   reset: createAction('COACH_PAYMENT_RULES/SIMULATION/RESET'),
 };
 
+export function resetCoachPaymentSimulation() {
+  return async (dispatch: Dispatch) => {
+    dispatch(coachPaymentSimulation.reset());
+  };
+}
 export function runCoachPaymenrRuleSimulation(id: number, params: object) {
   return async (dispatch: Dispatch) => {
     dispatch(coachPaymentSimulation.isLoading(true));

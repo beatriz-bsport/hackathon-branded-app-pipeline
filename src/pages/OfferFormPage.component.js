@@ -126,6 +126,7 @@ export class OfferFormPage extends Component<Props, State> {
               timezone={this.props.timezone}
               roomBlueprints={this.props.roomBlueprints}
               coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
+              editableCoachPaymentRule
             />
           </Paper>
         </Grid>

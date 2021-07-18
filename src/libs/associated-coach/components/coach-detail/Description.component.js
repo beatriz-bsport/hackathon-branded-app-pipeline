@@ -24,7 +24,7 @@ export const Description = (props: Props) => {
   return (
     <Paper>
       <div className={classes.expansionTitle}>
-        <Typography variant="h6">{t('description')}</Typography>
+        <Typography variant="h6">{t('common.description')}</Typography>
       </div>
 
       <div className={classes.paperContent}>

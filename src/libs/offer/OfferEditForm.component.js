@@ -67,7 +67,7 @@ type State = {
   establishment_override: ?Establishment,
   isSimilarOfferListExpanded: boolean,
   similarOffersWithSelectedStatus: Array<Object>,
-  coach_payment_rule: number,
+  coach_payment_rule: number | null,
 };
 
 export type FormData = Object;

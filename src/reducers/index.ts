@@ -88,6 +88,7 @@ import actionTypes from '../actions/auth.types';
 import { EmailTemplateState } from '../libs/email-editor/types';
 import { OfferState } from '../libs/offer/types';
 import { SpotSchedulingState } from '../libs/spot-scheduling/types';
+import { CoachPaymentRuleState } from '../libs/coach-payment-rules/types';
 
 const rootReducer = (history: any) =>
   combineReducers({
@@ -210,6 +211,7 @@ export type RootState = {
   privateService: PrivateServiceState;
   backgroundTask: BackgroundTaskState;
   zoomApp: any;
+  coachPaymentRules: CoachPaymentRuleState;
 };
 
 export default (history: any) => (state: any, action: any) => {

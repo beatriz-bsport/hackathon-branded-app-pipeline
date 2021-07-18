@@ -1,5 +1,4 @@
 // @flow
-
 import type { State } from '../../../state/types';
 import type { PrivateSlot } from '../types';
 

@@ -109,6 +109,7 @@ type OwnProps = {
   is_whereby_integration_enabled: boolean;
   timezone: string;
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> };
+  editableCoachPaymentRule: boolean;
 };
 
 type Props = OwnProps &
@@ -484,23 +485,29 @@ export class OfferForm extends Component<Props, State> {
             placeholder={t('coach:search')}
           />
         </Grid>
-        <Grid item>
-          <CoachPaymentRuleSelectorStyled
-            coachPaymentRulesList={
-              this.props.coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_SESSION]
-            }
-            value={this.props.coachPaymentRulesByKind[
-              COACH_PAYMENT_RULE_FOR_SESSION
-            ].find((rule) => rule.id === this.state.coach_payment_rule)}
-            placeholder={t('paymentRules:search')}
-            disabled={!this.state.coach}
-            onChange={(item: { value: number; label: string }) => {
-              this.onFormFieldChange('coach_payment_rule')(item.value);
-            }}
-            noMulti
-            isClearable
-          />
-        </Grid>
+        {this.props.editableCoachPaymentRule && (
+          <Grid item>
+            <CoachPaymentRuleSelectorStyled
+              coachPaymentRulesList={
+                this.props.coachPaymentRulesByKind[
+                  COACH_PAYMENT_RULE_FOR_SESSION
+                ]
+              }
+              value={this.props.coachPaymentRulesByKind[
+                COACH_PAYMENT_RULE_FOR_SESSION
+              ].find((rule) => rule.id === this.state.coach_payment_rule)}
+              placeholder={t('paymentRules:search')}
+              disabled={!this.state.coach}
+              onChange={(item: { value: number; label: string }) => {
+                this.onFormFieldChange('coach_payment_rule')(
+                  item ? item.value : null,
+                );
+              }}
+              noMulti
+              isClearable
+            />
+          </Grid>
+        )}
         <FeatureListProvider>
           {(featureList: any) => {
             const hasZoomApp = !!(

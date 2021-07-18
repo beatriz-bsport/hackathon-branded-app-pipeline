@@ -7,15 +7,14 @@ import type { TFunction } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import Selector from '../../../components/Selector.component';
 import type { Suggestion } from '../../../components/Selector.component';
-import type { CoachPaymentRule } from '../types';
+import type { PrivateSlot } from '../../private-service/types';
 
 type Props = {
   t: TFunction,
   selected: number,
   onChange: (Suggestion) => void,
   classes: { [string]: string },
-  privateSlotList: Array<CoachPaymentRule>,
-  isOverride?: boolean,
+  privateSlotList: Array<PrivateSlot>,
   id: string,
   enableReset?: boolean,
   disabled: boolean,
@@ -25,7 +24,6 @@ export function PrivateSlotSelector(props: Props) {
   const {
     t,
     privateSlotList,
-    isOverride,
     selected,
     onChange,
     classes,
@@ -54,9 +52,7 @@ export function PrivateSlotSelector(props: Props) {
         suggestions={suggestions}
         selected={selected}
         nullCurrentValue={!selected}
-        placeholder={
-          isOverride ? t('select.placeholderOverride') : t('select.placeholder')
-        }
+        placeholder={t('service.selector.placeholder')}
         onChange={onChange}
         isDisabled={disabled}
       />
@@ -71,5 +67,5 @@ const styles = () => ({
 });
 
 export default withStyles(styles)(
-  withTranslation(['paymentRules'])(PrivateSlotSelector),
+  withTranslation(['privateService'])(PrivateSlotSelector),
 );

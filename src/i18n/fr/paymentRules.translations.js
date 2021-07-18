@@ -26,6 +26,7 @@ exports.default = {
     coachPaymentRuleForSessions: 'Cours collectifs',
     coachPaymentRuleForWorkshops: 'Ateliers',
     coachPaymentRuleForPrivateService: 'Rendez-vous',
+    group: 'Groupe de rémunération',
   },
   fabButton: {
     addNewForSession: 'Cours collectifs & Ateliers',
@@ -134,6 +135,13 @@ exports.default = {
         "L'interval inférieur doit être un nombre inférieur ou égale à 1",
       invalidCancelledBookingRules:
         'Si vous souhaitez appliquer des bonus différents pour les élèves absents vous devez définir au moins un bonus ou une base par pourcentage dans la section ci-dessous.',
+      oneRuleRequired:
+        'Vous devez définir au moin une régle de rémunération pour créer un groupe',
+      invalidPrivateSlot: 'Un rendez-vous doit être sélectionné',
+      invalidCoachPaymentRule:
+        'Une régle de rémunération doit être sélectionnée',
+      uniqueRuleForPrivateSlot:
+        'Ce rendez-vous est plusieurs fois dans la liste',
     },
     Simulator: {
       title: 'Simulateur de rémunérations',

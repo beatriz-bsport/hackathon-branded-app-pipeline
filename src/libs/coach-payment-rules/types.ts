@@ -73,6 +73,7 @@ export type CoachPaymentRuleState = Immutable<{
   };
   dialog: boolean;
   simulationDialog: boolean;
+  groupDialog: boolean;
   simulation: {
     error?: Error;
     result: Object;

@@ -4,53 +4,29 @@ import React from 'react';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Typography from '@material-ui/core/Typography';
 import { colors } from '@bsport/common/lib/colors';
-import Select, { components } from 'react-select';
+import Select from 'react-select';
 import chroma from 'chroma-js';
-import BlockIcon from '@material-ui/icons/Block';
-import GroupIcon from '@material-ui/icons/Group';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import type { CoachPaymentRule } from '../types';
 import type { MaterialStyleType } from '../../../utils/types';
-import { DISSOCIATED_COACH_PAYMENT_RULE } from '../utils';
+import { PrivateServiceWithSlots } from '../../private-service/types';
 
-const getPaymentRuleOptions = (coachPaymentRule: Array<CoachPaymentRule>) =>
-  coachPaymentRule.map((rule) => ({ value: rule.id, label: rule.name }));
-
-const DropdownIndicator = (
-  props: ReturnType<typeof components.DropdownIndicator>,
+const getPrivateSlotOptions = (
+  privateServiceList: Array<PrivateServiceWithSlots>,
 ) => {
-  return (
-    <components.DropdownIndicator {...props}>
-      {props.selectProps.isDisabled ? (
-        <BlockIcon fontSize="small" />
-      ) : (
-        <ExpandMoreIcon fontSize="small" />
-      )}
-    </components.DropdownIndicator>
-  );
+  const test = privateServiceList.slice().map((service) => ({
+    label: service.name,
+    options: [
+      ...(service.slots &&
+        service.slots.length &&
+        service.slots.map((slot) => ({
+          label: slot.name,
+          value: slot.id,
+        }))),
+    ],
+  }));
+  return test;
 };
-const SingleValue = ({ children, ...props }) => (
-  <components.SingleValue {...props}>
-    <div style={{ display: 'flex', alignItems: 'center' }}>
-      {props.selectProps.isGroupSelect ? (
-        <GroupIcon fontSize="small" style={{ marginRight: '10px' }} />
-      ) : null}
-      {children}
-    </div>
-  </components.SingleValue>
-);
-const Placeholder = ({ children, ...props }) => (
-  <components.Placeholder {...props}>
-    <div style={{ display: 'flex', alignItems: 'center' }}>
-      {props.selectProps.isGroupSelect ? (
-        <GroupIcon fontSize="small" style={{ marginRight: '10px' }} />
-      ) : null}
-      {children}
-    </div>
-  </components.Placeholder>
-);
+
 const ruleStyles = {
   control: (styles) => ({ ...styles, backgroundColor: 'white' }),
   menuPortal: (base) => ({ ...base, zIndex: 9999 }),
@@ -106,10 +82,9 @@ const ruleStyles = {
 };
 
 type OwnProps = {
-  onChange: (Suggestion) => void;
-  coachPaymentRulesList: Array<CoachPaymentRule>;
-  selectedRules: Array<number>;
-  enableReset?: boolean;
+  onChange: (Suggestion: { label: string; value: number }) => void;
+  privateServiceList: Array<PrivateServiceWithSlots>;
+  selectedServices: Array<number>;
   disabled?: boolean;
   placeholder: string;
   noMulti: boolean;
@@ -121,56 +96,47 @@ type OwnProps = {
 type Props = OwnProps &
   WithTranslation &
   MaterialStyleType<ReturnType<typeof styles>>;
-export function CoachPaymentRuleSelectorStyled(props: Props) {
+export function PrivateSlotSelectorStyled(props: Props) {
   const {
     t,
-    coachPaymentRulesList,
-    selectedRules,
+    privateServiceList,
+    selectedServices,
     closeMenuOnSelect,
     noMulti,
     placeholder,
     onChange,
     isClearable,
-    enableReset,
     disabled,
     isGroupSelect,
   } = props;
-  const suggestions = (coachPaymentRulesList || []).map((s) => ({
-    value: s.id,
-    label: s.name,
-  }));
-  if (enableReset) {
-    suggestions.push({
-      value: DISSOCIATED_COACH_PAYMENT_RULE,
-      label: (
-        <Typography color="error" variant="subtitle2">
-          {t('select.reset')}
-        </Typography>
-      ),
-    });
-  }
+
+  const privateServiceSelected = selectedServices
+    ? getPrivateSlotOptions([...privateServiceList]).filter((suggestions) =>
+        suggestions.options.find(
+          (option) => option.value === selectedServices[0],
+        ),
+      )
+    : undefined;
+  const value =
+    privateServiceSelected &&
+    privateServiceSelected.length &&
+    privateServiceSelected[0].options.length &&
+    privateServiceSelected[0].options.find((option) =>
+      selectedServices.includes(option.value),
+    );
   return (
     <Select
       closeMenuOnSelect={closeMenuOnSelect}
       isMulti={!noMulti}
       placeholder={placeholder || t('coach')}
-      options={getPaymentRuleOptions([...coachPaymentRulesList])}
+      options={getPrivateSlotOptions([...privateServiceList])}
       onChange={onChange}
       isDisabled={disabled}
       styles={ruleStyles}
       isClearable={isClearable}
       menuPortalTarget={document.querySelector('body')}
-      value={
-        selectedRules
-          ? getPaymentRuleOptions([
-              ...coachPaymentRulesList.filter((rule) =>
-                selectedRules.includes(rule.id),
-              ),
-            ])
-          : undefined
-      }
+      value={value}
       isGroupSelect={isGroupSelect}
-      components={{ DropdownIndicator, SingleValue, Placeholder }}
     />
   );
 }
@@ -184,4 +150,4 @@ const styles = () => ({
 export default compose<any, OwnProps>(
   withStyles(styles),
   withTranslation(['paymentRules']),
-)(CoachPaymentRuleSelectorStyled);
+)(PrivateSlotSelectorStyled);

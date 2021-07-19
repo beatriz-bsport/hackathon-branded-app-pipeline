@@ -54,3 +54,15 @@ export const updateCoupon = (id: string, data: *) => {
 export const deleteCoupon = (id: string) => {
   return deleteAuth(`${COUPON_URI}${id}/`);
 };
+
+export const appliesToInvoice = async (
+  coupon_code: string,
+  memberId: number,
+  invoice: *,
+) => {
+  return post(`${COUPON_URI}applies_to_invoice/`, {
+    coupon_code,
+    memberId,
+    invoice,
+  });
+};

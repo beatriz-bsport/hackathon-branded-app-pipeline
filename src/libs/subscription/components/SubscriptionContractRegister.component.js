@@ -188,6 +188,7 @@ export const SubscriptionContractRegistrationManagerDialog = (props: Props) => {
           refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
           enabledPaymentMethods={props.enabledPaymentMethods}
           withNote
+          withCoupon
         />
       </DialogContent>
     </Dialog>
@@ -234,6 +235,7 @@ export default compose(
           stripe_source: token,
           member: member.id,
           payment_method_id: paymentMethodId,
+          coupon,
           first_billing_timestamp: moment(first_billing_timestamp).unix() + 20,
           note,
         });

@@ -18,6 +18,7 @@ import FinalizeInvoiceDialog from '../dialog/FinalizeInvoiceDialog.component';
 // import InvoiceActions from './InvoiceActions.component';
 import { OptionCallback } from '../../../state/types';
 // import InvoiceEditorActions from './InvoiceEditorActions.component';
+import { appliesToInvoice } from '../../coupon/api';
 
 type Props = {
   classes: Object,
@@ -41,6 +42,7 @@ type Props = {
 
 type State = {
   invoiceItemList: Array<InvoiceItem>,
+  coupon_list: Array<{ coupon_code: string, coupon_voucher: number }>,
 };
 
 const asEditable = (editable, items) => {
@@ -51,7 +53,7 @@ const asEditable = (editable, items) => {
 };
 
 export class InvoiceForm extends React.Component<Props, State> {
-  state = { invoiceItemList: [] };
+  state = { invoiceItemList: [], coupon_list: [] };
 
   componentDidMount() {
     const { initialItems } = this.props;
@@ -113,7 +115,7 @@ export class InvoiceForm extends React.Component<Props, State> {
       .filter((ii) => !!ii && !ii.reverted)
       .reduce(
         (acc, v) => acc + parseFloat(v.price) - parseFloat(v.voucher || 0),
-        0,
+        -this.state.coupon_list.reduce((acc, v) => acc + v.coupon_voucher, 0),
       );
   };
 
@@ -124,10 +126,45 @@ export class InvoiceForm extends React.Component<Props, State> {
     );
   };
 
+  applyCoupon = async (couponCode: string, options: any) => {
+    const { data } = await appliesToInvoice(couponCode, this.props.member.id, {
+      invoice_items: this.state.invoiceItemList.map((item) => item),
+      invoice_amount: this.getInvoiceItemAmount(),
+    });
+    if (data.can_be_applied) {
+      this.setState((prevState) => {
+        return {
+          ...prevState,
+          coupon_list: [
+            ...prevState.coupon_list,
+            { coupon_code: couponCode, coupon_voucher: data.voucher },
+          ],
+        };
+      });
+      if (options && options.onSuccess) options.onSuccess();
+    } else if (options && options.onError) options.onError();
+  };
+
+  deleteCoupon = (index: number) => {
+    this.setState((prevState) => {
+      const coupon_list = [
+        ...prevState.coupon_list.slice(0, index),
+        ...prevState.coupon_list.slice(index + 1),
+      ];
+      return {
+        ...prevState,
+        coupon_list,
+      };
+    });
+  };
+
   onSubmit = (options?: OptionCallback) => {
     this.props.onSubmit(
       {
         buyable_items: this.state.invoiceItemList,
+        coupon_codes: this.state.coupon_list.map(
+          (coupon) => coupon.coupon_code,
+        ),
       },
       options,
     );
@@ -160,6 +197,9 @@ export class InvoiceForm extends React.Component<Props, State> {
               ...asEditable(true, this.state.invoiceItemList),
             ]}
             amountInvoiceitem={invoiceItemAmount}
+            applyCoupon={this.applyCoupon}
+            couponList={this.state.coupon_list}
+            deleteCoupon={this.deleteCoupon}
           />
           <div className={classes.buttonContainer}>
             <Button

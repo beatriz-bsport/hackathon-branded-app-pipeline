@@ -352,7 +352,6 @@ export function createOrUpdateInvoice(
     dispatch(fetchAlerting());
   };
 }
-
 export const createOrUpdateInvoiceActions = {
   isLoading: createAction('INVOICE/CREATE_OR_UPDATE/LOADING'),
   error: createAction('INVOICE/CREATE_OR_UPDATE/ERROR'),

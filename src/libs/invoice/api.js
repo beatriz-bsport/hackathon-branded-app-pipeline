@@ -79,7 +79,6 @@ export async function update(invoiceData: *) {
     invoiceData,
   );
 }
-
 export async function createQuick(invoiceData: *) {
   return postAuth(`${API_V1_URI}/payment/invoices/quick_create/`, invoiceData);
 }

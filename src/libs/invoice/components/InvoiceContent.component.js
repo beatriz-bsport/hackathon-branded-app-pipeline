@@ -13,12 +13,17 @@ import TextField from '@material-ui/core/TextField';
 import SaveIcon from '@material-ui/icons/Save';
 import CancelIcon from '@material-ui/icons/Cancel';
 import IconButton from '@material-ui/core/IconButton';
+import List from '@material-ui/core/List';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import { INVOICE_TYPE_MIGRATION } from '@bsport/common/lib/master-data/invoice-type';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { ListItem } from '@material-ui/core';
 import Tooltip from '../../../components/Tooltip.component';
 import { getCurrencyDisplay } from '../../theme/selectors';
-
 import InvoiceItem from './InvoiceItem.component';
 import PaymentItem from './PaymentItem.component';
+import CouponCodeForm from '../../coupon/components/CouponCodeForm.component';
 
 type Props = {
   paymentItemList: Array<PaymentItem>,
@@ -36,7 +41,10 @@ type Props = {
   invoice: ?Invoice,
   invoiceItemLoading: boolean,
   invoiceItemList: Array<InvoiceItem>,
-  editCustomFooter: (OptionCallback) => void,
+  editCustomFooter: (options: OptionCallback) => void,
+  couponList?: Array<{ coupon_code: string, coupon_voucher: number }>,
+  deleteCoupon?: (couponIndex: number) => void,
+  applyCoupon?: (couponCode: String, options: OptionCallback) => void,
 };
 export const InvoiceContent = (props: Props) => {
   const classes = useStyles(props);
@@ -187,6 +195,36 @@ export const InvoiceContent = (props: Props) => {
             </IconButton>
           </div>
         )}
+        <div>
+          {props.couponList && (
+            <div className={classes.couponButton}>
+              <CouponCodeForm onSubmit={props.applyCoupon} />
+            </div>
+          )}
+          <List>
+            {!!props.couponList &&
+              props.couponList.length !== 0 &&
+              props.couponList.map((coupon, index) => (
+                <>
+                  <ListItem>
+                    <ListItemText
+                      primary={`${coupon.coupon_code}   -${(
+                        coupon.coupon_voucher || 0
+                      ).toFixed(2)} ${getCurrencyDisplay()}`}
+                    />
+                    <ListItemSecondaryAction>
+                      <IconButton
+                        aria-label="delete"
+                        onClick={() => props.deleteCoupon(index)}
+                      >
+                        <DeleteIcon fontSize="small" />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                </>
+              ))}
+          </List>
+        </div>
       </Paper>
       {!!props.finalizeInvoice &&
         !!props.invoice &&
@@ -331,6 +369,13 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'stretch',
     margin: theme.spacing(2),
     marginBottom: 0,
+  },
+  couponButton: {
+    marginLeft: theme.spacing(1),
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 }));
 

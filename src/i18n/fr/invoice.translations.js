@@ -254,6 +254,7 @@ exports.default = {
       "La facture est encore à l'état de brouillon, le pdf n'est pas disponible.",
     finalize: 'Finaliser (PDF)',
     consumeBalance: 'Payer via solde',
+    addCoupon: 'Ajouter un code promo',
   },
   returnPayment: {
     modal: {

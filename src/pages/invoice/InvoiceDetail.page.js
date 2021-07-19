@@ -101,10 +101,16 @@ type Props = {
 type State = {
   clientSecret: ?string,
   clientSecretLoading: boolean,
+  coupon_list: Array<{ coupon_code: string, coupon_voucher: number }>,
+  paymentGroupPriceCts: number,
 };
 
 export class InvoiceDetail extends React.Component<Props, State> {
-  state = { clientSecret: null, clientSecretLoading: false };
+  state = {
+    clientSecret: null,
+    clientSecretLoading: false,
+    paymentGroupPriceCts: 0,
+  };
 
   componentDidMount() {
     this.fetchInvoiceData();

@@ -11,6 +11,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Radio from '@material-ui/core/Radio';
 import TextField from '@material-ui/core/TextField';
 import RadioGroup from '@material-ui/core/RadioGroup';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -133,13 +135,15 @@ type State = {
   name: string,
   email: string,
   loading: boolean,
+  coupon_code: string,
+  voucher: number | null,
 };
 
 export class SubscriptionPayment extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      voucher: 0,
+      voucher: null,
       note: '',
       coupon_code: '',
       loading: false,
@@ -205,6 +209,10 @@ export class SubscriptionPayment extends React.Component<Props, State> {
     } else if (options && options.onError) options.onError();
   };
 
+  deleteCoupon = () => {
+    this.setState({ coupon_code: '', voucher: null });
+  };
+
   render() {
     const {
       paymentMethod,
@@ -223,56 +231,59 @@ export class SubscriptionPayment extends React.Component<Props, State> {
 
     return (
       <div>
-        <FormControl>
-          <FormControlLabel
-            label={t('contract.actions.iAcceptCondition')}
-            control={
-              <Checkbox
-                checked={acceptContract}
-                onChange={(ev) => setAcceptContract(ev.target.checked)}
+        {setAcceptContract && acceptContract && (
+          <>
+            <FormControl>
+              <FormControlLabel
+                label={t('contract.actions.iAcceptCondition')}
+                control={
+                  <Checkbox
+                    checked={acceptContract}
+                    onChange={(ev) => setAcceptContract(ev.target.checked)}
+                  />
+                }
               />
-            }
-          />
-        </FormControl>
-        <div className={classes.buttonDateBlock}>
-          <Typography className={classes.buttonLeftText}>
-            {t('contract.actions.iwanttostarton')}
-          </Typography>
-          <div className={classes.column}>
-            <MuiPickersUtilsProvider
-              utils={MomentUtils}
-              moment={Moment}
-              locale={Moment.locale()}
-            >
-              <DatePicker
-                value={date}
-                onChange={setDate}
-                format="L"
-                required
-                mask={(value) => {
-                  if (value) {
-                    return [
-                      /\d/,
-                      /\d/,
-                      '/',
-                      /\d/,
-                      /\d/,
-                      '/',
-                      /\d/,
-                      /\d/,
-                      /\d/,
-                      /\d/,
-                    ];
-                  }
-                  return [];
-                }}
-                returnMoment={false}
-                disablePast
-              />
-            </MuiPickersUtilsProvider>
-          </div>
-        </div>
-
+            </FormControl>
+            <div className={classes.buttonDateBlock}>
+              <Typography className={classes.buttonLeftText}>
+                {t('contract.actions.iwanttostarton')}
+              </Typography>
+              <div className={classes.column}>
+                <MuiPickersUtilsProvider
+                  utils={MomentUtils}
+                  moment={Moment}
+                  locale={Moment.locale()}
+                >
+                  <DatePicker
+                    value={date}
+                    onChange={setDate}
+                    format="L"
+                    required
+                    mask={(value) => {
+                      if (value) {
+                        return [
+                          /\d/,
+                          /\d/,
+                          '/',
+                          /\d/,
+                          /\d/,
+                          '/',
+                          /\d/,
+                          /\d/,
+                          /\d/,
+                          /\d/,
+                        ];
+                      }
+                      return [];
+                    }}
+                    returnMoment={false}
+                    disablePast
+                  />
+                </MuiPickersUtilsProvider>
+              </div>
+            </div>
+          </>
+        )}
         {this.props.contract && (
           <div className={classes.priceContainer}>
             <div className={classes.priceInner}>
@@ -295,11 +306,19 @@ export class SubscriptionPayment extends React.Component<Props, State> {
         {this.props.withCoupon && (
           <div className={classes.couponContainer}>
             {!!this.state.voucher && (
-              <Typography color="textSecondary">
-                {`${this.state.coupon_code}   -${(
-                  this.state.voucher || 0
-                ).toFixed(2)} ${getCurrencyDisplay()}`}
-              </Typography>
+              <div className={classes.couponItem}>
+                <Typography color="textSecondary">
+                  {`${this.state.coupon_code}   -${(
+                    this.state.voucher || 0
+                  ).toFixed(2)} ${getCurrencyDisplay()}`}
+                </Typography>
+                <IconButton
+                  aria-label="delete"
+                  onClick={() => this.deleteCoupon()}
+                >
+                  <DeleteIcon fontSize="small" />
+                </IconButton>
+              </div>
             )}
             <CouponCodeForm
               onSubmit={this.applyCoupon}

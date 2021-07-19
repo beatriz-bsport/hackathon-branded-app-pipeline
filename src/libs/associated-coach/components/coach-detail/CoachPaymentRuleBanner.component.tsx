@@ -193,7 +193,7 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
             </Grid>
             <Grid item xs={4}>
               <CoachPaymentRuleSelectorStyled
-                coachPaymentRulesList={lodash(coachPaymentRuleGroups)}
+                coachPaymentRulesList={coachPaymentRuleGroups}
                 selectedRules={[coach.coach_payment_rule_group_id]}
                 placeholder={t('paymentRules:select.group')}
                 onChange={(item: { value: number; label: string }) => {

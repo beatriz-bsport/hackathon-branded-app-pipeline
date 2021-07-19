@@ -1931,7 +1931,7 @@
             "massExtension": "De geldigheid verlengen"
         },
         "consumerPaymentPack": {
-            "addExtension": "Geldigheid verlengen",
+            "addExtension": "De geldigheid verlengen",
             "refund": {
                 "actions": {
                     "submit": "Opslaan",
@@ -2304,7 +2304,7 @@
         },
         "only_vod_access": "Alleen beschikbaar voor Video On Demand",
         "massExtension": {
-            "title": "[Formulier] Geldigheid verlengen",
+            "title": "De geldigheid voor alle leden verlengen",
             "minDate": "Niet eerder dan",
             "dateHelpText": "Verleng alle kaarten die tussen X en Y verlopen",
             "helpText": "Hier kun je de geldigheid van deze kaart voor al je leden in één keer verlengen. Let op: deze actie is definitief.",
@@ -3119,7 +3119,8 @@
         "editor": {
             "error": {
                 "content": "Voer inhoud in de e-mail in",
-                "title": "Voer een naam in"
+                "title": "Voer een naam in",
+                "subject": "Voer een sjabloon in"
             },
             "title": "Naam van de e-mail",
             "save": "Opslaan",
@@ -3895,7 +3896,12 @@
                     "month_plural": "Elke {{ interval }} maanden"
                 },
                 "recurrentPriceLabel": "{{ currencyDisplay }}{{ recurrent_price  }}"
-            }
+            },
+            "frequency": {
+                "week": "Wekelijks",
+                "month": "Maandelijks"
+            },
+            "billingFrequency": "Factureringsfrequentie"
         },
         "action": {
             "revertCurrentExplain": "Annuleer de laatste factuur en blokkeer de leskaart",
@@ -4178,7 +4184,8 @@
             "fromUntil": "Alleen als de facturatie tussen {{from}} en {{until}} is.",
             "createdAt": "Aanmaakdatum: {{at}}",
             "title": "Abonnementspauze"
-        }
+        },
+        "seeMore": "Toon meer"
     },
     "coachPerformance": {
         "dateTitle": "Datumbereik",
@@ -5526,7 +5533,8 @@
             "coachPaymentRuleForPrivateService": "Afspraken",
             "coachPaymentRuleForSessions": "Groepsactiviteiten",
             "reset": "Standaardregel van de instructeur gebruiken",
-            "coachPaymentRuleForWorkshops": "Workshops"
+            "coachPaymentRuleForWorkshops": "Workshops",
+            "group": "Payroll-regel groep"
         },
         "common": {
             "from": "Begin",
@@ -5583,7 +5591,11 @@
                 "nameRequired": "Dit veld is verplicht.",
                 "invalidMaximum": "Het maximumtarief moet groter dan het minimumtarief zijn.",
                 "invalidCancelledBookingRules": "Als je verschillende bonussen voor afwezige studenten wilt gebruiken, dan moet je hieronder minimaal één type payroll-regel instellen.",
-                "invalidMinimum": "Het minimumtarief moet groter of gelijk aan het vaste bedrag zijn."
+                "invalidMinimum": "Het minimumtarief moet groter of gelijk aan het vaste bedrag zijn.",
+                "uniqueRuleForPrivateSlot": "Deze afspraak staat meerdere keren in de lijst.",
+                "invalidCoachPaymentRule": "Selecteer een payroll-regel.",
+                "invalidPrivateSlot": "Selecteer een afspraak.",
+                "oneRuleRequired": "Je moet tenminste één payroll-regel selecteren om een groep te maken."
             },
             "Bonuses": {
                 "bonus_rules": "Bonusregels",
@@ -5624,12 +5636,13 @@
         "tabs": {
             "all": "Selecteer alles",
             "appointment": "Afspraken",
-            "session": "Groepsactiviteiten en Workshops"
+            "session": "Groepsactiviteiten en Workshops",
+            "groups": "Payroll-regel groepen"
         },
         "fabButton": {
             "addNewForRDV": "Afspraken",
             "addNewForSession": "Groepsactiviteiten en Workshops",
-            "addNewPaymentRuleGroup": ""
+            "addNewPaymentRuleGroup": "Payroll-regel groep"
         },
         "paymentRules": "Payroll-regels",
         "coach_payment_rule_groups": {
@@ -5645,11 +5658,13 @@
             "subtitle": {
                 "coaches": "Gekoppelde instructeur(s)",
                 "specfic_private_slot": "Specifieke payroll-regel voor afspraken",
-                "default": "Standaard payroll-regel"
+                "default": "Standaard payroll-regel",
+                "helper": "Je kunt meerdere payroll-regels aan een groep toevoegen voor je groepsactiviteiten, workshops en afspraken. Zodra je instructeurs toevoegt, zullen alle payroll-regels van deze groep op de geselecteerde instructeurs van toepassing zijn. Elke verandering geldt ook voor iedereen die in de groep zit."
             },
             "workshop": "Workshops",
             "session": "Groepsactiviteiten",
-            "private_service": "Afspraken"
+            "private_service": "Afspraken",
+            "dialogTitle": "Payroll-regel groep"
         },
         "search": "Zoek een payroll-regel (optioneel)"
     },
@@ -6265,8 +6280,18 @@
         "paymentRuleGroups": {
             "update": {
                 "error": {
-                    "generic": "Fout bij het wijzigen"
-                }
+                    "generic": "Fout bij het wijzigen",
+                    "coachWithPaymentGroup": "Fout bij het wijzigen van een de payroll-regel van een instructeur die in een groep zit"
+                },
+                "success": "Succesvol gewijzigd"
+            },
+            "delete": {
+                "success": "Payroll-regel groep verwijderd",
+                "error": "Fout bij het verwijderen"
+            },
+            "create": {
+                "success": "Payroll-regel groep toegevoegd",
+                "error": "Fout bij het aanmaken"
             }
         }
     },
@@ -7036,7 +7061,8 @@
         },
         "zoom": {
             "confirmDialog": {
-                "title": "Integratie met Zoom"
+                "title": "Integratie met Zoom",
+                "text": "Als je eerder de links naar online lessen handmatig hebt ingevoerd, worden deze nu verwijderd en vervangen door automatisch gegenereerde Zoom-links. Bijeenkomsten die al op de Zoom-agenda stonden, zullen handmatig moeten worden verwijderd, omdat deze ook door automatisch gegeneerde links worden vervangen."
             }
         }
     },
@@ -7175,7 +7201,8 @@
             "invoiceReverted": "Geannuleerde facturen",
             "consumeBalance": "Met saldo betalen",
             "explainPdfDraft": "Deze factuur is nog een concept. De PDF is nog niet beschikbaar.",
-            "addFooter": "Voetnoot wijzigen"
+            "addFooter": "Voetnoot wijzigen",
+            "addCoupon": "Een promotiecode toevoegen"
         },
         "uneditableMessage": {
             "invoiceFinalizedThusNotEditable": "De factuur is nu aangemaakt en kan niet meer worden bewerkt.",
@@ -7922,7 +7949,7 @@
         "search": "Zoek een plattegrond voor Spot Scheduling",
         "roomBlueprintSelectorTitle": "Kies een plattegrond",
         "spotSelectorDialog": {
-            "takeSpotError": "De plaats die je hebt geselecteerd is niet langer beschikbaar, selecteer een andere.",
+            "takeSpotError": "De plaats die je hebt geselecteerd is niet meer beschikbaar. Selecteer een andere plaats.",
             "submit": "Bevestigen",
             "cancel": "Annuleer",
             "spot": "Plaats {{count}}",
@@ -7945,8 +7972,10 @@
             "imageUploadButton": "Een afbeelding uploaden",
             "takenImageLabel": "Gereserveerd",
             "freeImageLabel": "Vrij",
-            "title": "Plaatsen wijzigen"
+            "title": "Plaatsen wijzigen",
+            "helper": "Je kunt de vorm van de locaties verder personaliseren door je eigen pictogrammen up te loaden. Je moet 2 verschillende pictogrammen uploaden: één voor vrije plaatsen en één voor gereserveerde plaatsen. Zorg ervoor dat de pictogrammen even groot zijn en dat ze geen nummers bevatten."
         },
-        "effectifError": "Het aantal plaatsen moet groter of gelijk zijn aan de beschikbare plaatsen"
+        "effectifError": "Het aantal plaatsen moet groter of gelijk zijn aan de beschikbare plaatsen",
+        "errorLessSpotThanEffectif": "Fout bij het opslaan. De plattegrond moet meer plaatsen hebben dan de gekoppelde grootte van de sessie."
     }
 }

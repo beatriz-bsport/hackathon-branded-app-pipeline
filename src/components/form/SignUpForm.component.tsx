@@ -78,7 +78,7 @@ type State = {
   step: number;
 };
 
-export class SignUpForm extends Component<Props, State> {
+export class SignUpForm extends Component {
   constructor(props: Props) {
     super(props);
 
@@ -457,5 +457,4 @@ const styles = (theme: MaterialTheme) => ({
 export default compose<any, OwnProps>(
   withTranslation(),
   withStyles(styles),
-  SignUpForm,
-);
+)(SignUpForm);

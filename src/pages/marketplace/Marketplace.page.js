@@ -81,7 +81,6 @@ const MarketplaceContractPage = asyncComponent(() =>
 const MarketplaceVodRouter = asyncComponent(() =>
   import('./MarketplaceVod.router'),
 );
-
 type Props = {
   companyName: string,
   companyId: number,
@@ -143,7 +142,6 @@ const TAB_CONTRACT = 'subscription';
 const TAB_WORKSHOP = 'workshop';
 const TAB_PRIVATE_SERVICE = 'private-service';
 const TAB_SHOP = 'shop';
-
 export class MarketPlace extends Component<Props, State> {
   state = {
     currentBasketOpen: false,
@@ -181,6 +179,7 @@ export class MarketPlace extends Component<Props, State> {
 
     if (paramsJson.tabSelected === undefined) {
       let componentType = this.props.subcomponent;
+
       if (componentType === 'private-service') {
         componentType = 'privateService';
       }
@@ -196,7 +195,6 @@ export class MarketPlace extends Component<Props, State> {
       if (index > -1) {
         paramsJson.tabSelected = index;
       }
-
       uri.query(paramsJson);
       const pathname = uri.pathname();
       const query = uri.query();

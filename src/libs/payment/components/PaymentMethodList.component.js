@@ -63,6 +63,7 @@ export const PaymentMethodList = (props: Props) => {
       <ButtonBase
         onClick={() => props.setExpanded(!props.isExpanded)}
         className={classes.row}
+        disabled={props.disabled}
       >
         <Typography variant="h6">
           {t('forms.savePaymentMethod.section', {
@@ -73,7 +74,9 @@ export const PaymentMethodList = (props: Props) => {
       </ButtonBase>
       <Divider />
       {disableDuringDetach && <LinearProgress />}
-      <Collapse in={props.isExpanded || !props.isExpandable}>
+      <Collapse
+        in={(props.isExpanded || !props.isExpandable) && !props.disabled}
+      >
         {relevantSavedPaymentMethodList
           .filter(
             (pm) =>

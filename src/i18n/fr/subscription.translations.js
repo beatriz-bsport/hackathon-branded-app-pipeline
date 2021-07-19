@@ -16,6 +16,7 @@ const {
 } = require('@bsport/common/lib/master-data/events');
 
 exports.default = {
+  seeMore: 'Voir plus',
   status: {
     hasStarted: 'En cours',
     hasNotStartedYet: 'Pas encore commencé',
@@ -179,6 +180,7 @@ exports.default = {
     paymentPack: 'Carte de cours associée',
     privatePass: 'Carte RDV associée',
     duration: '{{month}} factures',
+    billingFrequency: 'Fréquence de facturation',
     description: 'Description',
     legal: 'Mentions légales',
     actions: {
@@ -205,6 +207,10 @@ exports.default = {
       day_plural: 'jours',
       week: 'semaine',
       week_plural: 'semaines',
+    },
+    frequency: {
+      month: 'mensuelle',
+      week: 'hebdomadaire',
     },
     form: {
       title: 'Formulaire contrat',

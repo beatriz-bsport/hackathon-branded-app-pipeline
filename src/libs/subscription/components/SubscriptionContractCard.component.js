@@ -25,6 +25,7 @@ type Props = {
   classes: Object,
   acceptContract: boolean,
   setAcceptContract: (boolean) => void,
+  hideConditions: boolean,
 
   date: string,
   setDate: (string) => void,
@@ -46,59 +47,64 @@ export const SubscriptionContractCard = (props: Props) => {
       >
         {props.contract.contract}
       </TypographyMultiline>
-      <FormControl>
-        <FormControlLabel
-          label={props.t('contract.actions.iAcceptCondition')}
-          control={
-            <Checkbox
-              checked={props.acceptContract}
-              onChange={(ev) => props.setAcceptContract(ev.target.checked)}
+      {!props.hideConditions && (
+        <>
+          <FormControl>
+            <FormControlLabel
+              label={props.t('contract.actions.iAcceptCondition')}
+              control={
+                <Checkbox
+                  checked={props.acceptContract}
+                  onChange={(ev) => props.setAcceptContract(ev.target.checked)}
+                />
+              }
             />
-          }
-        />
-      </FormControl>
-      <div className={props.classes.buttonDateBlock}>
-        <Typography className={props.classes.buttonLeftText}>
-          {props.t('contract.actions.iwanttostarton')}
-        </Typography>
-        <div className={props.classes.column}>
-          <MuiPickersUtilsProvider
-            utils={MomentUtils}
-            moment={Moment}
-            locale={Moment.locale()}
-          >
-            <DatePicker
-              value={props.date}
-              onChange={props.setDate}
-              format="L"
-              required
-              mask={(value) => {
-                if (value) {
-                  return [
-                    /\d/,
-                    /\d/,
-                    '/',
-                    /\d/,
-                    /\d/,
-                    '/',
-                    /\d/,
-                    /\d/,
-                    /\d/,
-                    /\d/,
-                  ];
-                }
-                return [];
-              }}
-              returnMoment={false}
-              disablePast
-            />
-          </MuiPickersUtilsProvider>
-        </div>
-      </div>
+          </FormControl>
+
+          <div className={props.classes.buttonDateBlock}>
+            <Typography className={props.classes.buttonLeftText}>
+              {props.t('contract.actions.iwanttostarton')}
+            </Typography>
+            <div className={props.classes.column}>
+              <MuiPickersUtilsProvider
+                utils={MomentUtils}
+                moment={Moment}
+                locale={Moment.locale()}
+              >
+                <DatePicker
+                  value={props.date}
+                  onChange={props.setDate}
+                  format="L"
+                  required
+                  mask={(value) => {
+                    if (value) {
+                      return [
+                        /\d/,
+                        /\d/,
+                        '/',
+                        /\d/,
+                        /\d/,
+                        '/',
+                        /\d/,
+                        /\d/,
+                        /\d/,
+                        /\d/,
+                      ];
+                    }
+                    return [];
+                  }}
+                  returnMoment={false}
+                  disablePast
+                />
+              </MuiPickersUtilsProvider>
+            </div>
+          </div>
+        </>
+      )}
       <Button
         variant="contained"
         color="primary"
-        disabled={!props.acceptContract}
+        disabled={!props.acceptContract && !props.hideConditions}
         style={{ width: '100%' }}
         onClick={() => props.onPayRequest(props.date)}
       >

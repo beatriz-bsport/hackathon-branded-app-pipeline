@@ -126,6 +126,11 @@ export type PrivatePass = {
   duration_years: number;
   available_payment_method_identifiers: number[];
   full_vod_access: boolean;
+  editable: boolean;
+  expiration_days_before_first_use: number;
+  start_date_method: number;
+  new_member_only: boolean;
+  company: number;
 };
 
 export type PrivateConsumerPass = {

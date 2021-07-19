@@ -46,6 +46,10 @@ const MarketplaceAsManager = asyncComponent(() =>
   import('../marketplace/MarketplaceAsManager.page'),
 );
 
+const MarketplaceSubscriptionPayment = asyncComponent(() =>
+  import('./pre-checkout/MarketplaceSubscriptionPayment.page'),
+);
+
 type Props = {
   classes: Object,
   fetchProfile: () => void,
@@ -156,6 +160,10 @@ export class PaymentRouter extends React.Component<Props> {
         <Route
           path="/(|customer/)payment/private-pass/:id"
           component={PrivatePassPreCheckout}
+        />
+        <Route
+          path="/(|customer/)payment/subscription/:contractId"
+          component={MarketplaceSubscriptionPayment}
         />
       </Switch>
     );

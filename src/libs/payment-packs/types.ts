@@ -8,15 +8,19 @@ export type ConsumerPaymentPackExtension = {
 
 export type PaymentPack = {
   id: number;
-  unlimited: boolean;
   name: string;
-  credits: number | null;
+  price: number;
   base_price: number;
   tax: string;
-  company: { name: string };
-  max_bookings_per_day: number;
-  max_bookings_per_week: number;
-  max_bookings_per_month: number;
+  credits: number | null;
+  unlimited: boolean;
+  nb_consumer_payment_packs: number;
+  max_bookings_per_day: number | null;
+  max_bookings_per_week: number | null;
+  max_bookings_per_month: number | null;
+  max_purchase_per_member: number | null;
+  expiration_days_before_first_use: number;
+  theorical_margin_value: number;
   validity_daterange?: {
     upper: string;
     lower: string;
@@ -24,15 +28,30 @@ export type PaymentPack = {
   duration_days?: number;
   duration_months?: number;
   duration_years?: number;
-  metaActivities: Array<number>;
-  establishments: Array<number>;
-  categories: Array<number>;
-  price: number;
-  nb_consumer_payment_packs: number;
   disabled: boolean;
+  start_date_method: number;
   manager_only: boolean;
   new_member_only: boolean;
+  company: number;
+  SCTS: Array<number>;
+  metaActivities: Array<number>;
+
+  editable: boolean;
+  establishments: Array<number>;
+  categories: Array<number>;
+  barcode: string;
+  onsite_payment_available: boolean;
+  full_vod_access: boolean;
   only_vod_access: boolean;
+
+  penatly_active: boolean;
+  penalty_nd_late_cancellations: number;
+  penalty_nb_days: number;
+  penalty_kind: number;
+  penalty_days_blocked: number;
+  penalty_account_value: number;
+  start_on_first_user: boolean;
+  notifications: Array<number>;
 };
 
 export type ConsumerPaymentPack = {

@@ -18,6 +18,10 @@ export type PaymentCombo = {
   payment_packs: Array<PaymentComboItem>;
   shop_items: Array<PaymentComboItem>;
   private_passes: Array<PaymentComboItem>;
+  max_purchase_per_member: number | null;
+  barcode: string;
+  available_payment_method_identifier: Array<number>;
+  new_member_only: boolean;
 };
 
 export type PaymentComboPayload = {

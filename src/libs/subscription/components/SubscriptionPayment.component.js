@@ -24,11 +24,17 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
 } from '@bsport/common/lib/master-data/payment-group';
 
-import CouponCodeForm from '../../coupon/components/CouponCodeForm.component';
-import { appliesToContract } from '../../coupon/api';
+import FormControl from '@material-ui/core/FormControl';
 
+import Checkbox from '@material-ui/core/Checkbox';
+import MomentUtils from '@date-io/moment';
+import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
+import DatePicker from 'material-ui-pickers/DatePicker';
 import PaymentMethodList from '../../payment/components/PaymentMethodList.component';
 import { getCurrencyDisplay } from '../../theme/selectors';
+import { appliesToContract } from '../../coupon/api';
+import CouponCodeForm from '../../coupon/components/CouponCodeForm.component';
+import { Moment } from '../../../i18n';
 
 const PaymentMethodSwitcher = (props: {
   classes: Object,
@@ -37,6 +43,7 @@ const PaymentMethodSwitcher = (props: {
   payment_method: string,
   enabledPaymentMethods: Array<number>,
   enabledPaymentGroupMethodIdentifier: Array<number>,
+  disabled: boolean,
 }) => (
   <RadioGroup
     aria-label="payment-method"
@@ -55,6 +62,7 @@ const PaymentMethodSwitcher = (props: {
         control={<Radio color="primary" />}
         label={props.t('subscription:paymentMethod.sepa')}
         labelPlacement="bottom"
+        disabled={props.disabled}
       />
     ) : null}
     {(props.enabledPaymentMethods || []).includes(
@@ -68,6 +76,7 @@ const PaymentMethodSwitcher = (props: {
         control={<Radio color="primary" />}
         label={props.t('subscription:paymentMethod.card')}
         labelPlacement="bottom"
+        disabled={props.disabled}
       />
     ) : null}
     {(props.enabledPaymentMethods || []).includes(
@@ -78,6 +87,7 @@ const PaymentMethodSwitcher = (props: {
         control={<Radio color="primary" />}
         label={props.t('subscription:paymentMethod.bsportCredit')}
         labelPlacement="bottom"
+        disabled={props.disabled}
       />
     ) : null}
   </RadioGroup>
@@ -112,6 +122,11 @@ type Props = {
   sepaDefaultName?: string,
   sepaDefaultEmail?: string,
   memberId: string,
+  disabled: boolean,
+  acceptContract?: boolean,
+  setAcceptContract?: (value: boolean) => void,
+  date?: string,
+  setDate?: (value: string) => void,
 };
 
 type State = {
@@ -200,9 +215,64 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       processing,
       setPaymentMethod,
       classes,
+      acceptContract,
+      setAcceptContract,
+      date,
+      setDate,
     } = this.props;
+
     return (
       <div>
+        <FormControl>
+          <FormControlLabel
+            label={t('contract.actions.iAcceptCondition')}
+            control={
+              <Checkbox
+                checked={acceptContract}
+                onChange={(ev) => setAcceptContract(ev.target.checked)}
+              />
+            }
+          />
+        </FormControl>
+        <div className={classes.buttonDateBlock}>
+          <Typography className={classes.buttonLeftText}>
+            {t('contract.actions.iwanttostarton')}
+          </Typography>
+          <div className={classes.column}>
+            <MuiPickersUtilsProvider
+              utils={MomentUtils}
+              moment={Moment}
+              locale={Moment.locale()}
+            >
+              <DatePicker
+                value={date}
+                onChange={setDate}
+                format="L"
+                required
+                mask={(value) => {
+                  if (value) {
+                    return [
+                      /\d/,
+                      /\d/,
+                      '/',
+                      /\d/,
+                      /\d/,
+                      '/',
+                      /\d/,
+                      /\d/,
+                      /\d/,
+                      /\d/,
+                    ];
+                  }
+                  return [];
+                }}
+                returnMoment={false}
+                disablePast
+              />
+            </MuiPickersUtilsProvider>
+          </div>
+        </div>
+
         {this.props.contract && (
           <div className={classes.priceContainer}>
             <div className={classes.priceInner}>
@@ -231,7 +301,10 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                 ).toFixed(2)} ${getCurrencyDisplay()}`}
               </Typography>
             )}
-            <CouponCodeForm onSubmit={this.applyCoupon} />
+            <CouponCodeForm
+              onSubmit={this.applyCoupon}
+              disabled={this.props.disabled}
+            />
             <Divider />
           </div>
         )}
@@ -259,6 +332,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
               enabledPaymentGroupMethodIdentifier={
                 enabledPaymentGroupMethodIdentifier
               }
+              disabled={this.props.disabled}
             />
             <Divider />
             <div className={classes.cardContainer}>
@@ -288,7 +362,11 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                       selectedSavedPaymentMethodId,
                     })
                   }
-                  disabled={this.state.loading || this.props.processing}
+                  disabled={
+                    this.state.loading ||
+                    this.props.processing ||
+                    this.props.disabled
+                  }
                   detachPaymentMethodLoading={
                     this.props.detachPaymentMethodLoading
                   }
@@ -316,9 +394,10 @@ export class SubscriptionPayment extends React.Component<Props, State> {
             id="stripe-pay"
             color="primary"
             disabled={
-              ['sepa_debit', 'card'].includes(paymentMethod) &&
-              !this.state.selectedSavedPaymentMethodId &&
-              !this.isZeroPrice()
+              (['sepa_debit', 'card'].includes(paymentMethod) &&
+                !this.state.selectedSavedPaymentMethodId &&
+                !this.isZeroPrice()) ||
+              this.props.disabled
             }
           >
             {this.state.loading || processing ? (
@@ -340,34 +419,12 @@ const styles = (theme) => ({
   buttonContainer: {
     padding: theme.spacing(2),
   },
-  sensitiveDataContainer: {
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  sensitiveData: {
-    backgroundColor: '#EFEFEF',
-    padding: theme.spacing(2),
-    minWidth: '30vw',
-    maxWidth: '80vw',
-    width: '100%',
-  },
   paymentMethodSelectorContainer: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'flex-start',
     marginBottom: theme.spacing(2),
-  },
-  nameAndEmailContainer: {
-    flexDirection: 'column',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    margin: theme.spacing(2),
-  },
-  mandate: {
-    padding: theme.spacing(2),
   },
   explainCredit: {
     padding: theme.spacing(2),
@@ -395,6 +452,14 @@ const styles = (theme) => ({
     '&>*': {
       marginBottom: theme.spacing(2),
     },
+  },
+  buttonDateBlock: {
+    display: 'flex',
+    alignItems: 'center',
+    paddingBottom: theme.spacing(1),
+  },
+  buttonLeftText: {
+    paddingRight: theme.spacing(1),
   },
 });
 

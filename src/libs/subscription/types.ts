@@ -1,4 +1,7 @@
 import { ErrorAndLoading } from '../../state/types';
+import type { PaymentPack } from '../payment-packs/types';
+import type { PrivatePass } from '../private-service/types';
+import type { PaymentCombo } from '../payment-combo/types';
 
 export type PlannedInvoice = {
   date: number;
@@ -64,6 +67,7 @@ export type SubscriptionPause = {
 };
 
 export type Contract = {
+  id: number;
   company: number;
   payment_pack?: number;
   private_pass?: number;
@@ -74,8 +78,31 @@ export type Contract = {
   manage_only: boolean;
   auto_renewal: boolean;
   flat_fee: number;
+  recurrent_price: number;
+  nb_interval: number;
+  disabled: boolean;
+  interval: 'month' | 'week';
+  recurrence_basis: number;
 };
 
+export type ContractWithPaymentPack = {
+  id: number;
+  company: number;
+  name: string;
+  description: string;
+  contract: string;
+  manage_only: boolean;
+  auto_renewal: boolean;
+  flat_fee: number;
+  recurrent_price: number;
+  nb_interval: number;
+  disabled: boolean;
+  interval: 'month' | 'week';
+  recurrence_basis: number;
+  payment_pack?: PaymentPack;
+  private_pass?: PrivatePass;
+  payment_combo?: PaymentCombo;
+};
 export type ContractPause = {
   company: number;
   name: string;

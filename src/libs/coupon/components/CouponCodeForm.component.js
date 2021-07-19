@@ -18,6 +18,7 @@ type Props = {
   classes: Object,
   code: string,
   loading?: boolean,
+  disabled?: Boolean,
 };
 
 export const CouponCodeForm = (props: Props) => {
@@ -35,7 +36,7 @@ export const CouponCodeForm = (props: Props) => {
   return (
     <div className={props.classes.container}>
       <Button
-        disabled={props.loading}
+        disabled={props.loading || props.disabled}
         onClick={() => setOpen(true)}
         color="primary"
       >

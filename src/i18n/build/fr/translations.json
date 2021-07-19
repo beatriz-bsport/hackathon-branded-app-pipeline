@@ -3806,6 +3806,7 @@
     "paymentRule": "Rémunération"
   },
   "subscription": {
+    "seeMore": "Voir plus",
     "status": {
       "hasStarted": "En cours",
       "hasNotStartedYet": "Pas encore commencé",
@@ -3936,6 +3937,7 @@
       "paymentPack": "Carte de cours associée",
       "privatePass": "Carte RDV associée",
       "duration": "{{month}} factures",
+      "billingFrequency": "Fréquence de facturation",
       "description": "Description",
       "legal": "Mentions légales",
       "actions": {
@@ -3963,6 +3965,7 @@
         "week": "semaine",
         "week_plural": "semaines"
       },
+      "frequency": { "month": "mensuelle", "week": "hebdomadaire" },
       "form": {
         "title": "Formulaire contrat",
         "name": { "label": "Nom du contrat" },

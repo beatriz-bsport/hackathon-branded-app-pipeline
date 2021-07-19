@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import withStyles from '@material-ui/styles/withStyles';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import cls from 'classnames';
 import { Theme } from '@material-ui/core/styles';
 import { BookingOptionWithActivity } from '../../booking/types';
 import { MaterialStyleType } from '../../../utils/types';
@@ -28,37 +29,44 @@ class BookingOptionItem extends React.PureComponent<Props> {
   render() {
     const { classes, t, bookingOption, selectedBookingOption } = this.props;
 
+    const expired = moment(bookingOption.offer.date_start).isBefore(moment());
+
     return (
       <ListItem
         divider
         onClick={this.props.onClick}
         selected={selectedBookingOption?.id === bookingOption.id}
+        disabled={expired}
+        className={cls({ [classes.expiredItem]: expired })}
       >
         <ListItemText
           primary={bookingOption.offer.activity.name}
           secondary={moment(bookingOption.offer.date_start).format('LLL')}
         />
-        <div>
-          <Button
-            variant="outlined"
-            onClick={(e) => {
-              e.stopPropagation();
-              this.props.onClickRegister(this.props.bookingOption);
-            }}
-          >
-            {t('member.addToBook')}
-          </Button>
 
-          <IconButton
-            className={classes.marginLeft}
-            onClick={(e) => {
-              e.stopPropagation();
-              this.props.onClickDiscard(this.props.bookingOption);
-            }}
-          >
-            <CancelIcon />
-          </IconButton>
-        </div>
+        {!expired && (
+          <div>
+            <Button
+              variant="outlined"
+              onClick={(e) => {
+                e.stopPropagation();
+                this.props.onClickRegister(this.props.bookingOption);
+              }}
+            >
+              {t('member.addToBook')}
+            </Button>
+
+            <IconButton
+              className={classes.marginLeft}
+              onClick={(e) => {
+                e.stopPropagation();
+                this.props.onClickDiscard(this.props.bookingOption);
+              }}
+            >
+              <CancelIcon />
+            </IconButton>
+          </div>
+        )}
       </ListItem>
     );
   }
@@ -67,6 +75,9 @@ class BookingOptionItem extends React.PureComponent<Props> {
 const styles = (theme: Theme) => ({
   marginLeft: {
     marginLeft: theme.spacing(1),
+  },
+  expiredItem: {
+    backgroundColor: '#F8F8F8',
   },
 });
 

@@ -3,6 +3,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import BasketPaymentIntent from './BasketPaymentIntent.component';
 import ContractPayment from './ContractPayment.component';
+import SubscriptionPaymentMethod from './SubscriptionPaymentMethod';
 
 export const RNWebView = () => (
   <Switch>
@@ -15,6 +16,12 @@ export const RNWebView = () => (
       exact
       path="/rn-webview/payment-contract/:contractId/"
       component={ContractPayment}
+    />
+
+    <Route
+      exact
+      path="/rn-webview/subscription-payment-method/:subscriptionId/"
+      component={SubscriptionPaymentMethod}
     />
   </Switch>
 );

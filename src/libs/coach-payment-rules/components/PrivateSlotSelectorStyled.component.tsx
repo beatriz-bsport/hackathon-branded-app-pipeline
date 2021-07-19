@@ -12,20 +12,18 @@ import { PrivateServiceWithSlots } from '../../private-service/types';
 
 const getPrivateSlotOptions = (
   privateServiceList: Array<PrivateServiceWithSlots>,
-) => {
-  const test = privateServiceList.slice().map((service) => ({
+) =>
+  privateServiceList.map((service) => ({
     label: service.name,
     options: [
-      ...(service.slots &&
-        service.slots.length &&
-        service.slots.map((slot) => ({
-          label: slot.name,
-          value: slot.id,
-        }))),
+      ...(service.slots?.length
+        ? service.slots.map((slot) => ({
+            label: slot.name,
+            value: slot.id,
+          }))
+        : []),
     ],
   }));
-  return test;
-};
 
 const ruleStyles = {
   control: (styles) => ({ ...styles, backgroundColor: 'white' }),

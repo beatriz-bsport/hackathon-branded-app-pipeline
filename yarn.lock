@@ -1267,10 +1267,10 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@bsport/common@^2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@bsport/common/-/common-2.1.1.tgz#ca0a9bd717d8ff1272d0a4d02bb2433fdef47059"
-  integrity sha512-797WZwiuIin5YjuWxTmQjKTT2io4u4eHlCpv7BnPxc6JICmwXOIxdzxm86EMNCvkczYgkTFSyTxeINKC5d3YQQ==
+"@bsport/common@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@bsport/common/-/common-2.4.0.tgz#312b96865316a53bebe6970bc79f72dfb98411a7"
+  integrity sha512-J02+wMEtNV1HRx6JWam/CASnmsedtJal0VDkNu3h6uQO23LLdCTr3ySnN5svUZZxa1r4vjnIYXUhrPj9wNI93w==
   dependencies:
     "@types/node" "^14.14.21"
     eslint-plugin-babel "^5.3.1"

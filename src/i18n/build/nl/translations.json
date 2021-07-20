@@ -3859,7 +3859,8 @@
                 "iAcceptCondition": "Ik accepteer de voorwaarden.",
                 "iwanttostarton": "Startdatum van mijn abonnement: ",
                 "subscribe": "Inschrijven",
-                "create": "Een abonnement toevoegen"
+                "create": "Een abonnement toevoegen",
+                "iAcceptGeneralCondition": " Ik accepteer de juridische kennisgeving"
             },
             "deleteForm": {
                 "actions": {
@@ -3901,7 +3902,8 @@
                 "week": "Wekelijks",
                 "month": "Maandelijks"
             },
-            "billingFrequency": "Factureringsfrequentie"
+            "billingFrequency": "Factureringsfrequentie",
+            "paymentCombo": "Bijbehorend pakket"
         },
         "action": {
             "revertCurrentExplain": "Annuleer de laatste factuur en blokkeer de leskaart",
@@ -6293,6 +6295,32 @@
                 "success": "Payroll-regel groep toegevoegd",
                 "error": "Fout bij het aanmaken"
             }
+        },
+        "canNotBuyErrorCode": {
+            "generic": "Fout bij het reserveren",
+            "8001": "De plaats die je hebt gekozen is niet langer beschikbaar",
+            "6003": "Je hebt je al voor deze wachtlijst aangemeld",
+            "6002": "De wachtlijst is vol",
+            "2012": "Deze kaart is niet compatibel met deze sessie",
+            "2011": "Deze kaart is alleen compatibel met Video On Demand",
+            "2010": "Deze kaart is niet compatibel met deze vestiging",
+            "2009": "Deze kaart is niet compatibel met deze activiteitscategorie",
+            "2008": "Deze kaart is niet compatibel met deze activiteit",
+            "2007": "Deze kaart is niet compatibel met deze sessie",
+            "2006": "Deze kaart is niet geschikt voor een reservering op de gekozen datum",
+            "2005": "Deze kaart kan niet worden aangeschaft",
+            "2004": "Deze kaart kan niet worden aangeschaft",
+            "2003": "Het is niet langer mogelijk om deze kaart te kopen",
+            "2002": "Deze leskaart kan alleen door nieuwe leden worden aangeschaft",
+            "1114": "Het is niet langer mogelijk om dit pakket te kopen",
+            "1113": "Dit pakket is alleen beschikbaar voor nieuwe leden",
+            "7": "Het is niet mogelijk om je aan te melden, omdat de man/vrouw-verhouding ongelijk is",
+            "6": "Het is niet mogelijk om je aan te melden, omdat de man/vrouw-verhouding ongelijk is",
+            "5": "Je hebt je al voor deze sessie aangemeld",
+            "4": "Het is niet mogelijk om je voor deze sessie in te schrijven",
+            "3": "De sessie is vol",
+            "2": "Het is niet meer mogelijk om je voor deze sessie in te schrijven",
+            "1": "Reserveringen voor deze sessie zijn momenteel nog gesloten"
         }
     },
     "coach": {
@@ -7114,7 +7142,20 @@
             "submit": "Later betalen"
         },
         "or": "of",
-        "expire_in": "Verloopt over "
+        "expire_in": "Verloopt over ",
+        "validation": {
+            "sections": {
+                "offerBooked": "Je hebt je ingeschreven voor",
+                "offerNotBookable": "Het is niet mogelijk om je aan te melden voor",
+                "offerPreBooked": "Je staat op de wachtlijst voor",
+                "basket": "Mijn winkelmandje",
+                "title": "Overzicht"
+            },
+            "actions": {
+                "back": "Terug",
+                "continue": "Verder"
+            }
+        }
     },
     "invoice": {
         "returnPayment": {

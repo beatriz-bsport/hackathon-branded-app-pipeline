@@ -16,37 +16,45 @@ import {
 } from 'connected-react-router';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
-import { RootState } from '../../../reducers';
-import { MaterialStyleType } from '../../../utils/types';
-import themeSelectors, { getStripePkKey } from '../../../libs/theme/selectors';
+import { RootState } from '../../reducers';
+import { MaterialStyleType } from '../../utils/types';
+import themeSelectors, { getStripePkKey } from '../../libs/theme/selectors';
 
-import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../../libs/payment-packs/actions';
-import { fetchPrivatePassBulk as fetchPrivatePassBulkAction } from '../../../libs/private-service/actions';
+import {
+  fetchPaymentPackBulk as fetchPaymentPackBulkAction,
+  fetchMarketplacePacks,
+} from '../../libs/payment-packs/actions';
+import {
+  fetchPrivatePassBulk as fetchPrivatePassBulkAction,
+  fetchPrivatePassAsConsumerList,
+} from '../../libs/private-service/actions';
 import {
   getMarketplaceContractList as getContractList,
   withPaymentPack,
-} from '../../../libs/subscription/selectors';
-import { fetchMarketplaceContractList } from '../../../libs/subscription/actions';
-import { postContractSubscription as postContractSubscriptionAPI } from '../../../libs/subscription/api';
-import SubscriptionPayment from '../../../libs/subscription/components/SubscriptionPayment.component';
-import SubscriptionContractDetail from '../../../libs/subscription/components/SubscriptionContractDetail.component';
-import MarketplaceSubscriptionContractList from '../../../libs/subscription/components/MarketplaceSubscriptionContractList.component';
-import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../../libs/payment/api';
+} from '../../libs/subscription/selectors';
+import { fetchMarketplaceContractList } from '../../libs/subscription/actions';
+import { postContractSubscription as postContractSubscriptionAPI } from '../../libs/subscription/api';
+import SubscriptionPayment from '../../libs/subscription/components/SubscriptionPayment.component';
+import SubscriptionContractDetail from '../../libs/subscription/components/SubscriptionContractDetail.component';
+import MarketplaceSubscriptionContractList from '../../libs/subscription/components/MarketplaceSubscriptionContractList.component';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import {
   fetchPaymentMethodList as fetchPaymentMethodListAction,
   detachPaymentMethod,
-} from '../../../libs/payment/actions';
-import { getSavedPaymentMethodList } from '../../../libs/payment/selectors';
-import Analytics from '../../../components/analytics/Analytics.component';
+} from '../../libs/payment/actions';
+import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
+import Analytics from '../../components/analytics/Analytics.component';
 import {
   snackbarWarning,
   snackbarSuccess,
-} from '../../../actions/snackbar.actions';
-import type { ContractWithPaymentPack } from '../../../libs/subscription/types';
-import type { Theme as CompanyTheme } from '../../../libs/theme/types';
-import type { PaymentMethod } from '../../../libs/payment/types';
-import type { OptionCallback } from '../../../state/types';
-import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
+} from '../../actions/snackbar.actions';
+import type { ContractWithPaymentPack } from '../../libs/subscription/types';
+import type { Theme as CompanyTheme } from '../../libs/theme/types';
+import type { PaymentMethod } from '../../libs/payment/types';
+import type { OptionCallback } from '../../state/types';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
+import ConsumerAppBar from './ConsumerAppBar.container';
 
 const stripePromise = loadStripe(getStripePkKey());
 type ownProps = {
@@ -105,6 +113,18 @@ export class MarketplaceSubscriptionPayment extends React.Component<
   componentWillMount() {
     this.props.fetchContracts(this.props.companyId);
     this.props.fetchPaymentMethodList();
+    this.props.fetchPaymentComboList({
+      company: this.props.companyId,
+      manager_only: false,
+    });
+    this.props.fetchPaymentPacks({
+      company: this.props.companyId,
+      manager_only: false,
+      disabled: false,
+      as_consumer: true,
+      page_size: 300,
+    });
+    this.props.fetchPrivatePassAsConsumerList(this.props.companyId);
   }
 
   onSubmit = async (
@@ -156,96 +176,88 @@ export class MarketplaceSubscriptionPayment extends React.Component<
       return <LinearProgress />;
     }
     return (
-      <div className={classes.container}>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <MarketplaceSubscriptionContractList
-              contractList={this.props.contractList}
-              selected={parseInt(this.props.contractId)}
-              onClick={(c: ContractWithPaymentPack) => {
-                this.props.setAcceptContract(false);
-                if (parseInt(this.props.contractId) === c.id) {
-                  this.props.setSelected(null);
-                } else {
+      <ConsumerAppBar>
+        <div className={classes.container}>
+          <Grid container spacing={2} direction="row" justify="space-evenly">
+            <Grid item xs={12}>
+              <MarketplaceSubscriptionContractList
+                contractList={this.props.contractList}
+                selected={parseInt(this.props.contractId)}
+                onClick={(c: ContractWithPaymentPack) => {
+                  this.props.setAcceptContract(false);
                   this.props.setSelected(c.id);
                   Analytics.contractShow(c);
-                }
-              }}
-            />
+                }}
+              />
+            </Grid>
           </Grid>
-          <Grid
-            container
-            spacing={2}
-            direction="row"
-            className={classes.centeredContainer}
-          >
-            <Grid item xs={6}>
-              {this.props.contractId &&
-                this.props.contractList &&
-                this.props.contractList !== [] && (
-                  <SubscriptionContractDetail
-                    contract={this.props.contractList.find(
-                      (c: ContractWithPaymentPack) =>
-                        c.id === parseInt(this.props.contractId),
-                    )}
-                    acceptContract={this.props.acceptContract}
-                    setAcceptContract={(value: boolean) => {
-                      this.props.setAcceptContract(value);
-                    }}
-                    date={this.props.date}
-                    setDate={this.props.setDate}
-                  />
-                )}
-            </Grid>
-            <Grid item xs={6}>
-              <Paper className={classes.paymentPanelContainer}>
-                <Elements stripe={stripePromise}>
-                  <SubscriptionPayment
-                    onCancel={() => {
-                      this.props.setAcceptContract(false);
-                    }}
-                    onSubmit={this.onSubmit}
-                    processing={this.state.processing}
-                    requestSetupIntentSecret={
-                      this.props.requestSetupIntentSecret
-                    }
-                    savedPaymentMethodList={this.props.savedPaymentMethodList}
-                    withCoupon
-                    contract={this.props.contractList.find(
-                      (c: ContractWithPaymentPack) =>
-                        c.id === parseInt(this.props.contractId),
-                    )}
-                    refreshSavedPaymentMethodList={
-                      this.props.fetchPaymentMethodList
-                    }
-                    enabledPaymentGroupMethodIdentifier={
-                      this.props.companyTheme
-                        .payment_method_available_subscription
-                    }
-                    detachPaymentMethodLoading={
-                      this.props.detachPaymentMethodLoading
-                    }
-                    companyId={this.props.companyId}
-                    detachPaymentMethod={this.props.detachPaymentMethod}
-                    snackbarErrorMsg={this.props.snackbarErrorMsg}
-                    snackbarSuccessMsg={this.props.snackbarSuccessMsg}
-                    sepaDefaultName={this.props.auth.name}
-                    sepaDefaultEmail={this.props.auth.username}
-                    withGeneralConditions
-                    disabled={!this.props.acceptContract}
-                    acceptContract={this.props.acceptContract}
-                    setAcceptContract={(value: boolean) => {
-                      this.props.setAcceptContract(value);
-                    }}
-                    date={this.props.date}
-                    setDate={this.props.setDate}
-                  />
-                </Elements>
-              </Paper>
-            </Grid>
+        </div>
+
+        <Grid
+          container
+          spacing={2}
+          direction="row"
+          justify="space-evenly"
+          className={classes.centeredContainer}
+        >
+          <Grid item xs={12} md={6}>
+            {this.props.contractId &&
+              this.props.contractList &&
+              this.props.contractList !== [] && (
+                <SubscriptionContractDetail
+                  contract={this.props.contractList.find(
+                    (c: ContractWithPaymentPack) =>
+                      c.id === parseInt(this.props.contractId),
+                  )}
+                />
+              )}
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Paper className={classes.paymentPanelContainer}>
+              <Elements stripe={stripePromise}>
+                <SubscriptionPayment
+                  onCancel={() => {
+                    this.props.setAcceptContract(false);
+                  }}
+                  onSubmit={this.onSubmit}
+                  processing={this.state.processing}
+                  requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+                  savedPaymentMethodList={this.props.savedPaymentMethodList}
+                  withCoupon
+                  contract={this.props.contractList.find(
+                    (c: ContractWithPaymentPack) =>
+                      c.id === parseInt(this.props.contractId),
+                  )}
+                  refreshSavedPaymentMethodList={
+                    this.props.fetchPaymentMethodList
+                  }
+                  enabledPaymentGroupMethodIdentifier={
+                    this.props.companyTheme
+                      .payment_method_available_subscription
+                  }
+                  detachPaymentMethodLoading={
+                    this.props.detachPaymentMethodLoading
+                  }
+                  companyId={this.props.companyId}
+                  detachPaymentMethod={this.props.detachPaymentMethod}
+                  snackbarErrorMsg={this.props.snackbarErrorMsg}
+                  snackbarSuccessMsg={this.props.snackbarSuccessMsg}
+                  sepaDefaultName={this.props.auth.name}
+                  sepaDefaultEmail={this.props.auth.username}
+                  withGeneralConditions
+                  disabled={!this.props.acceptContract}
+                  acceptContract={this.props.acceptContract}
+                  setAcceptContract={(value: boolean) => {
+                    this.props.setAcceptContract(value);
+                  }}
+                  date={this.props.date}
+                  setDate={this.props.setDate}
+                />
+              </Elements>
+            </Paper>
           </Grid>
         </Grid>
-      </div>
+      </ConsumerAppBar>
     );
   }
 }
@@ -257,10 +269,12 @@ const styles = (theme: Theme) => ({
     direction: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    width: '100%',
+    overflowX: 'hidden',
+    overflowY: 'hidden',
   },
   centeredContainer: {
-    margin: theme.spacing(2),
-    justifyContent: 'center',
+    maxWidth: '1600px',
   },
   paymentPanelContainer: {
     padding: theme.spacing(2),
@@ -273,7 +287,6 @@ const mapStateToProps = (state: RootState) => ({
   companyTheme: themeSelectors.getTheme(state),
   savedPaymentMethodList: getSavedPaymentMethodList(state),
   detachPaymentMethodLoading: state.paymentBackend.detachPaymentMethod.loading,
-  companyId: state.marketplace.settings.company,
   auth: state.auth,
 });
 
@@ -290,11 +303,14 @@ const mapDispatchToProps = {
   push: pushRouter,
   goToUserSpace: (companyId: number) =>
     pushRouter(`/c/${companyId}/subscription/`),
+  fetchPaymentComboList,
+  fetchPaymentPacks: fetchMarketplacePacks,
+  fetchPrivatePassAsConsumerList,
 };
 
 export default compose<any, ownProps>(
   connect(mapStateToProps, mapDispatchToProps),
-  routerParamsToProps({ contractId: 'contractId' }),
+  routerParamsToProps({ contractId: 'contractId', companyId: 'companyId' }),
   // @ts-ignore
   withStyles(styles),
   withState('date', 'setDate', moment()),
@@ -325,7 +341,7 @@ export default compose<any, ownProps>(
   withMobileDialog(),
   withProps(({ push, companyId }) => ({
     setSelected: (id: number) => {
-      push(`/customer/payment/subscription/${id}/?membership=${companyId}`);
+      push(`/checkout/${companyId}/subscription/${id}/`);
     },
   })),
   withHandlers({

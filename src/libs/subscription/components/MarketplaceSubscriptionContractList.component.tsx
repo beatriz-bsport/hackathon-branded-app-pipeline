@@ -32,7 +32,14 @@ const ContractCard = (
   } & MaterialStyleType<ReturnType<typeof styles>>,
 ) => {
   return (
-    <Card className={props.classes.card}>
+    <Card
+      className={
+        props.selected === props.contract.id
+          ? props.classes.cardSelected
+          : props.classes.card
+      }
+      raised={props.selected === props.contract.id}
+    >
       <div className={props.classes.cardInner}>
         <CardContent>
           <Typography variant="h6" component="h2">
@@ -79,7 +86,7 @@ const ContractCard = (
 export const MarketplaceSubscriptionContractList = (props: Props) => {
   return (
     <div className={props.classes.container}>
-      <div className={props.classes.comboListContainer}>
+      <div className={props.classes.contactListContainer}>
         {props.contractList.map((c) => (
           <div key={c.id} className={props.classes.cardContainer}>
             <ContractCard
@@ -101,7 +108,7 @@ const styles = (theme: Theme) => ({
     display: 'flex',
     justifyContent: 'center',
   },
-  comboListContainer: {
+  contactListContainer: {
     overflowX: 'auto',
     padding: theme.spacing(2),
 
@@ -110,15 +117,17 @@ const styles = (theme: Theme) => ({
     alignItems: 'stretch',
     flexDirection: 'row',
   },
-  leftIcon: {
-    marginRight: theme.spacing(1),
-  },
   cardContainer: {
     paddingRight: theme.spacing(2),
     minWidth: 300,
   },
   card: {
     height: '100%',
+  },
+  cardSelected: {
+    height: '100%',
+    border: '2px solid',
+    borderColor: theme.palette.primary.main,
   },
   cardInner: {
     height: '100%',

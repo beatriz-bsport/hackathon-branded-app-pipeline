@@ -94,7 +94,7 @@ export class MarketplaceContract extends React.Component<Props> {
                       } else {
                         Analytics.contractShowPayment(c);
                         this.props.push(
-                          `/customer/payment/subscription/${c.id}/?membership=${this.props.companyId}`,
+                          `/checkout/${this.props.companyId}/subscription/${c.id}/`,
                         );
                       }
                     }}

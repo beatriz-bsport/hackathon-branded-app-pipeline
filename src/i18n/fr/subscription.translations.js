@@ -179,6 +179,7 @@ exports.default = {
     },
     paymentPack: 'Carte de cours associée',
     privatePass: 'Carte RDV associée',
+    paymentCombo: 'Pack associé',
     duration: '{{month}} factures',
     billingFrequency: 'Fréquence de facturation',
     description: 'Description',
@@ -186,6 +187,7 @@ exports.default = {
     actions: {
       create: 'Ajouter un contrat',
       iAcceptCondition: "J'accepte les conditions ci-dessus",
+      iAcceptGeneralCondition: " J'accepte les mentions légales",
       iwanttostarton: 'Je souhaite débuter la facturation le : ',
       subscribe: "M'abonner",
     },

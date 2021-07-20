@@ -129,6 +129,7 @@ type Props = {
   setAcceptContract?: (value: boolean) => void,
   date?: string,
   setDate?: (value: string) => void,
+  withGeneralConditions: boolean,
 };
 
 type State = {
@@ -227,15 +228,18 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       setAcceptContract,
       date,
       setDate,
+      withGeneralConditions,
     } = this.props;
-
     return (
       <div>
-        {setAcceptContract && acceptContract && (
+        {withGeneralConditions && (
           <>
+            <Typography variant="h4" className={classes.title}>
+              {t('contract.actions.subscribe')}
+            </Typography>
             <FormControl>
               <FormControlLabel
-                label={t('contract.actions.iAcceptCondition')}
+                label={t('contract.actions.iAcceptGeneralCondition')}
                 control={
                   <Checkbox
                     checked={acceptContract}
@@ -433,7 +437,8 @@ export class SubscriptionPayment extends React.Component<Props, State> {
 
 const styles = (theme) => ({
   title: {
-    padding: theme.spacing(2),
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(2),
   },
   buttonContainer: {
     padding: theme.spacing(2),
@@ -475,7 +480,7 @@ const styles = (theme) => ({
   buttonDateBlock: {
     display: 'flex',
     alignItems: 'center',
-    paddingBottom: theme.spacing(1),
+    paddingBottom: theme.spacing(5),
   },
   buttonLeftText: {
     paddingRight: theme.spacing(1),

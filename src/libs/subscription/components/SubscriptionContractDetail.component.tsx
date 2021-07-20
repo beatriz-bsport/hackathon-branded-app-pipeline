@@ -26,13 +26,15 @@ const SubscriptionContractDetail = (props: Props) => {
     description,
     contract,
     payment_pack,
+    private_pass,
+    payment_combo,
   } = props.contract;
   const classes = useStyles();
   const { t } = useTranslation(['subscription']);
   return (
     <div>
       <Paper className={classes.paperContainer}>
-        <Typography variant="h3" className={classes.title}>
+        <Typography variant="h4" className={classes.title}>
           {name}
         </Typography>
         <div className={classes.row}>
@@ -59,25 +61,22 @@ const SubscriptionContractDetail = (props: Props) => {
             </Typography>
           </div>
         </div>
-        {!!props.contract.payment_pack && (
+        {!!payment_pack && (
           <div className={classes.block}>
             <Typography variant="h6">{t('contract.paymentPack')}</Typography>
-            <PaymentPackListItem pack={payment_pack} divider />
+            <PaymentPackListItem pack={payment_pack} divider hidePacksNumber />
           </div>
         )}
-        {!!props.contract.private_pass && (
+        {!!private_pass && (
           <div className={classes.block}>
             <Typography variant="h6">{t('contract.privatePass')}</Typography>
-            <PrivatePassListItem divider pass={props.contract.private_pass} />
+            <PrivatePassListItem divider pass={private_pass} />
           </div>
         )}
-        {!!props.contract.payment_combo && (
+        {!!payment_combo && (
           <div className={classes.block}>
             <Typography variant="h6">{t('contract.paymentCombo')}</Typography>
-            <PaymentComboListItem
-              paymentCombo={props.contract.payment_combo}
-              divider
-            />
+            <PaymentComboListItem paymentCombo={payment_combo} divider />
           </div>
         )}
         <div className={classes.block}>

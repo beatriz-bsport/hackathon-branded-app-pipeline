@@ -5,24 +5,24 @@ import { Switch, Route } from 'react-router-dom';
 
 import asyncComponent from '../../../AsyncComponent';
 
-const DEPRECATEDOfferBooker = asyncComponent(() =>
-  import('./OfferBooker.redirect'),
+const DEPRECATEDOfferBooker = asyncComponent(
+  () => import('./OfferBooker.redirect'),
 );
-const DEPRECATEDPrivateSlotPaymentPage = asyncComponent(() =>
-  import('./PrivateSlotPayment.redirect'),
+const DEPRECATEDPrivateSlotPaymentPage = asyncComponent(
+  () => import('./PrivateSlotPayment.redirect'),
 );
 
-const DEPRECATEDPaymentPackPreCheckout = asyncComponent(() =>
-  import('./PaymentPackPreCheckout.redirect'),
+const DEPRECATEDPaymentPackPreCheckout = asyncComponent(
+  () => import('./PaymentPackPreCheckout.redirect'),
 );
-const DEPRECATEDPaymentComboPreCheckoutPage = asyncComponent(() =>
-  import('./PaymentComboPreCheckout.redirect'),
+const DEPRECATEDPaymentComboPreCheckoutPage = asyncComponent(
+  () => import('./PaymentComboPreCheckout.redirect'),
 );
-const DEPRECATEDPrivatePassPreCheckout = asyncComponent(() =>
-  import('./PrivatePassPreCheckout.redirect'),
+const DEPRECATEDPrivatePassPreCheckout = asyncComponent(
+  () => import('./PrivatePassPreCheckout.redirect'),
 );
-const DEPRECATEDShopItemPreCheckoutPage = asyncComponent(() =>
-  import('./ShopItemPreCheckout.redirect'),
+const DEPRECATEDShopItemPreCheckoutPage = asyncComponent(
+  () => import('./ShopItemPreCheckout.redirect'),
 );
 
 export const DeprecatedPages = () => {

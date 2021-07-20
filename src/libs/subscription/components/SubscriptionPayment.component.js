@@ -170,7 +170,13 @@ export class SubscriptionPayment extends React.Component<Props, State> {
 
   submit = async () => {
     if (this.props.paymentMethod === 'bsport:credit' || this.isZeroPrice()) {
-      this.props.onSubmit('bsport:credit', null, null, null, this.state.note);
+      this.props.onSubmit(
+        'bsport:credit',
+        null,
+        null,
+        (this.state.voucher && this.state.coupon_code) || null,
+        this.state.note,
+      );
     } else {
       this.setState({ loading: true });
       this.props.onSubmit(
@@ -476,6 +482,10 @@ const styles = (theme) => ({
     '&>*': {
       marginBottom: theme.spacing(2),
     },
+  },
+  couponItem: {
+    display: 'flex',
+    alignItems: 'center',
   },
   buttonDateBlock: {
     display: 'flex',

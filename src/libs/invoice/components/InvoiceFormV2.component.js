@@ -15,9 +15,7 @@ import type { TFunction } from 'react-i18next';
 import InvoiceContent from './InvoiceContent.component';
 import InvoiceEditorV2 from './InvoiceEditorV2.component';
 import FinalizeInvoiceDialog from '../dialog/FinalizeInvoiceDialog.component';
-// import InvoiceActions from './InvoiceActions.component';
 import { OptionCallback } from '../../../state/types';
-// import InvoiceEditorActions from './InvoiceEditorActions.component';
 import { appliesToInvoice } from '../../coupon/api';
 
 type Props = {
@@ -42,7 +40,12 @@ type Props = {
 
 type State = {
   invoiceItemList: Array<InvoiceItem>,
-  coupon_list: Array<{ coupon_code: string, coupon_voucher: number }>,
+  coupon_list: Array<{
+    coupon_code: string,
+    coupon_voucher: number,
+    compatible_items: Array<number>,
+  }>,
+  couponLoading: boolean,
 };
 
 const asEditable = (editable, items) => {
@@ -53,7 +56,7 @@ const asEditable = (editable, items) => {
 };
 
 export class InvoiceForm extends React.Component<Props, State> {
-  state = { invoiceItemList: [], coupon_list: [] };
+  state = { invoiceItemList: [], coupon_list: [], couponLoading: false };
 
   componentDidMount() {
     const { initialItems } = this.props;
@@ -77,6 +80,16 @@ export class InvoiceForm extends React.Component<Props, State> {
           name: this.props.t('invoiceItem.credit.label'),
         });
       }
+    }
+  }
+
+  componentDidUpdate(prevProps: Props, prevState: State) {
+    if (
+      prevState.invoiceItemList &&
+      this.state.invoiceItemList &&
+      prevState.invoiceItemList !== this.state.invoiceItemList
+    ) {
+      this.checkCouponAplicability();
     }
   }
 
@@ -137,7 +150,11 @@ export class InvoiceForm extends React.Component<Props, State> {
           ...prevState,
           coupon_list: [
             ...prevState.coupon_list,
-            { coupon_code: couponCode, coupon_voucher: data.voucher },
+            {
+              coupon_code: couponCode,
+              coupon_voucher: data.voucher,
+              compatible_items: data.compatible_items,
+            },
           ],
         };
       });
@@ -156,6 +173,15 @@ export class InvoiceForm extends React.Component<Props, State> {
         coupon_list,
       };
     });
+  };
+
+  checkCouponAplicability = async () => {
+    this.setState({ coupon_list: [], couponLoading: true });
+    const promises = this.state.coupon_list.map((coupon) => {
+      return this.applyCoupon(coupon.coupon_code);
+    });
+    await Promise.all(promises);
+    this.setState({ couponLoading: false });
   };
 
   onSubmit = (options?: OptionCallback) => {
@@ -200,6 +226,8 @@ export class InvoiceForm extends React.Component<Props, State> {
             applyCoupon={this.applyCoupon}
             couponList={this.state.coupon_list}
             deleteCoupon={this.deleteCoupon}
+            disableCoupon={this.invoiceItemIsEmpty()}
+            couponLoading={this.state.couponLoading}
           />
           <div className={classes.buttonContainer}>
             <Button

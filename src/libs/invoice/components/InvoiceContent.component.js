@@ -42,9 +42,15 @@ type Props = {
   invoiceItemLoading: boolean,
   invoiceItemList: Array<InvoiceItem>,
   editCustomFooter: (options: OptionCallback) => void,
-  couponList?: Array<{ coupon_code: string, coupon_voucher: number }>,
+  couponList?: Array<{
+    coupon_code: string,
+    coupon_voucher: number,
+    compatible_items: Array<number>,
+  }>,
   deleteCoupon?: (couponIndex: number) => void,
   applyCoupon?: (couponCode: String, options: OptionCallback) => void,
+  disableCoupon: boolean,
+  couponLoading: boolean,
 };
 export const InvoiceContent = (props: Props) => {
   const classes = useStyles(props);
@@ -198,8 +204,14 @@ export const InvoiceContent = (props: Props) => {
         <div>
           {props.couponList && (
             <div className={classes.couponButton}>
-              <CouponCodeForm onSubmit={props.applyCoupon} />
+              <CouponCodeForm
+                onSubmit={props.applyCoupon}
+                disabled={props.disableCoupon || props.couponLoading}
+              />
             </div>
+          )}
+          {props.couponLoading && (
+            <LinearProgress className={classes.divider} />
           )}
           <List>
             {!!props.couponList &&

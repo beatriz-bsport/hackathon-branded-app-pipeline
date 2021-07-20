@@ -23,11 +23,11 @@ type OwnProps = {
 type Props = OwnProps & WithTranslation;
 
 const ButtonWithConfirm = withConfirm(Button, 'onClick', {
-  title: 'paymentRules:modal.delete.title',
-  cancel: 'paymentRules:modal.delete.cancel',
-  confirm: 'paymentRules:modal.delete.confirm',
+  title: 'paymentRules:coach_payment_rule_groups.modal.delete.title',
+  cancel: 'paymentRules:coach_payment_rule_groups.modal.delete.cancel',
+  confirm: 'paymentRules:coach_payment_rule_groups.modal.delete.confirm',
   Content: ({ t }: { t: TFunction }) => (
-    <p>{t('paymentRules:modal.delete.content')}</p>
+    <p>{t('paymentRules:coach_payment_rule_groups.modal.delete.content')}</p>
   ),
 });
 export function CoachPaymentRuleGroupTable(props: Props) {

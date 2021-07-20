@@ -114,6 +114,7 @@ export class OfferFormWithActivity extends Component<Props, State> {
           this.props.is_whereby_integration_enabled
         }
         coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
+        editableCoachPaymentRule
       />
     );
   }

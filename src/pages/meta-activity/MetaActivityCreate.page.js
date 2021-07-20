@@ -44,6 +44,9 @@ import type { PaymentPack } from '../../libs/payment-packs/types';
 import { getAvailableRoomBlueprints } from '../../libs/spot-scheduling/selector';
 import { fetchRoomBlueprints } from '../../libs/spot-scheduling/actions';
 import { RoomBlueprint } from '../../libs/spot-scheduling/types';
+import { fetchAllCoachPaymentRules } from '../../libs/coach-payment-rules/actions';
+import { CoachPaymentRuleByKindSelector } from '../../libs/coach-payment-rules/selectors';
+import type { CoachPaymentRule } from '../../libs/coach-payment-rules/types';
 
 type StepType = {
   id: number,
@@ -84,6 +87,8 @@ type Props = {
   companyTheme: CompanyTheme,
   fetchRoomBlueprints: () => void,
   roomBlueprints: Array<RoomBlueprint>,
+  fetchAllCoachPaymentRules: () => void,
+  coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> },
 };
 
 const MetaActivityMap = {
@@ -120,6 +125,7 @@ export class MetaActivityFormPage extends Component<Props> {
     this.props.fetchAssociatedCoachesList();
     this.props.resetPaymentPacks();
     this.props.fetchRoomBlueprints();
+    this.props.fetchAllCoachPaymentRules();
   }
 
   renderActivityStep = () => (
@@ -147,6 +153,8 @@ export class MetaActivityFormPage extends Component<Props> {
       discardButtonText={this.props.t('common.skip')}
       onCancel={() => this.props.setStep(STEP_PASS)}
       timezone={this.props.companyTheme.timezone_name}
+      coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
+      editableCoachPaymentRule
     />
   );
 
@@ -231,6 +239,7 @@ export default compose(
         loading: state.paymentPack.byActivity.loading,
       },
       roomBlueprints: getAvailableRoomBlueprints(state),
+      coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
     }),
     {
       goBack,
@@ -243,6 +252,7 @@ export default compose(
       goToPaymentPackCreate: () => push('/payment-pack/add'),
       fetchAllOffers: fetchAllOffersAction,
       fetchRoomBlueprints,
+      fetchAllCoachPaymentRules,
     },
   ),
   //

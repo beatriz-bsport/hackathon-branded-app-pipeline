@@ -271,7 +271,9 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
                                       selectedServices={[
                                         privateSlot.private_slot,
                                       ]}
-                                      placeholder={t('paymentRules:label')}
+                                      placeholder={t(
+                                        'coach_payment_rule_groups.fields.private_service_name',
+                                      )}
                                       onChange={(item: {
                                         value: number;
                                         label: string;

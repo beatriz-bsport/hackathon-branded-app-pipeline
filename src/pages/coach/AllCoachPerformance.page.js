@@ -72,6 +72,7 @@ type CoachPerformanceProps = {
     [kind: number]: Array<{ [id: number]: CoachPaymentRuleType }>,
   },
   coachPaymentRuleGroups: Array<CoachPaymentRuleGroup>,
+  coachPaymentRuleGroupsDict: { [groupId: number]: CoachPaymentRuleGroup },
   coach: Coach,
   setSessionCoachPaymentRule: (data: {
     associatedCoachId: number,
@@ -159,6 +160,7 @@ function CoachPerformance(props: CoachPerformanceProps) {
     coachPaymentRulesByKind,
     coach,
     coachPaymentRuleGroups,
+    coachPaymentRuleGroupsDict,
   } = props;
   const classes = useStyles();
   return (
@@ -194,7 +196,13 @@ function CoachPerformance(props: CoachPerformanceProps) {
               coachPaymentRulesList={
                 coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_SESSION]
               }
-              selectedRules={[coach.coach_payment_rule_id]}
+              selectedRules={[
+                coach.coach_payment_rule_group_id && coachPaymentRuleGroupsDict
+                  ? coachPaymentRuleGroupsDict[
+                      coach.coach_payment_rule_group_id
+                    ].session_coach_payment_rule
+                  : coach.coach_payment_rule_id,
+              ]}
               placeholder={t('paymentRules:label')}
               disabled={!!coach.coach_payment_rule_group_id}
               onChange={(item: { value: number, label: string }) => {
@@ -217,7 +225,13 @@ function CoachPerformance(props: CoachPerformanceProps) {
               coachPaymentRulesList={
                 coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_SESSION]
               }
-              selectedRules={[coach.workshop_coach_payment_rule_id]}
+              selectedRules={[
+                coach.coach_payment_rule_group_id && coachPaymentRuleGroupsDict
+                  ? coachPaymentRuleGroupsDict[
+                      coach.coach_payment_rule_group_id
+                    ].workshop_coach_payment_rule
+                  : coach.workshop_coach_payment_rule_id,
+              ]}
               placeholder={t('paymentRules:label')}
               disabled={!!coach.coach_payment_rule_group_id}
               onChange={(item: { value: number, label: string }) => {
@@ -240,7 +254,13 @@ function CoachPerformance(props: CoachPerformanceProps) {
               coachPaymentRulesList={
                 coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_APPOINTMENT]
               }
-              selectedRules={[coach.private_coach_payment_rule_id]}
+              selectedRules={[
+                coach.coach_payment_rule_group_id && coachPaymentRuleGroupsDict
+                  ? coachPaymentRuleGroupsDict[
+                      coach.coach_payment_rule_group_id
+                    ].private_service_coach_payment_rule
+                  : coach.private_coach_payment_rule_id,
+              ]}
               placeholder={t('paymentRules:label')}
               disabled={!!coach.coach_payment_rule_group_id}
               onChange={(item: { value: number, label: string }) => {
@@ -316,6 +336,7 @@ type Props = {
     coachId: number,
     coach_payment_rule_group_id: number,
   ) => number,
+  coachPaymentRuleGroupsDict: { [groupId: number]: CoachPaymentRuleGroup },
 };
 
 export class AllCoachPerformance extends React.Component<Props> {
@@ -393,6 +414,7 @@ export class AllCoachPerformance extends React.Component<Props> {
               }
               performance={coach.performance}
               coachPaymentRuleGroups={this.props.coachPaymentRuleGroups}
+              coachPaymentRuleGroupsDict={this.props.coachPaymentRuleGroupsDict}
               setCoachPaymentRuleGroup={this.props.setCoachPaymentRuleGroup}
             />
           ),
@@ -434,6 +456,7 @@ export default compose(
         getActiveCoaches,
       )(state),
       coachPaymentRuleGroups: getCoachPaymentRuleGroups(state),
+      coachPaymentRuleGroupsDict: state.coachPaymentRules.groups.byId,
     }),
     {
       setSessionCoachPaymentRuleAction: setSessionCoachPaymentRule,

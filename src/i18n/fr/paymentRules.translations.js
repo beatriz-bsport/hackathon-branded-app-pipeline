@@ -53,7 +53,7 @@ exports.default = {
     "Attribuez tout d'abord une régle de rémunération par défaut à ce professeur.",
   modal: {
     delete: {
-      title: 'Supprimez un règle',
+      title: 'Supprimer une règle',
       cancel: 'Annuler',
       confirm: 'Confirmer',
       content:
@@ -136,12 +136,14 @@ exports.default = {
       invalidCancelledBookingRules:
         'Si vous souhaitez appliquer des bonus différents pour les élèves absents vous devez définir au moins un bonus ou une base par pourcentage dans la section ci-dessous.',
       oneRuleRequired:
-        'Vous devez définir au moin une régle de rémunération pour créer un groupe',
+        'Vous devez définir au moins une régle de rémunération pour créer un groupe',
       invalidPrivateSlot: 'Un rendez-vous doit être sélectionné',
       invalidCoachPaymentRule:
         'Une régle de rémunération doit être sélectionnée',
       uniqueRuleForPrivateSlot:
         'Ce rendez-vous est plusieurs fois dans la liste',
+      privateSlotAlreadySelected:
+        'Une règle de rémunération est déjà définie pour ce rendez-vous',
     },
     Simulator: {
       title: 'Simulateur de rémunérations',
@@ -164,6 +166,15 @@ exports.default = {
     },
   },
   coach_payment_rule_groups: {
+    modal: {
+      delete: {
+        title: 'Supprimer un groupe',
+        cancel: 'Annuler',
+        confirm: 'Confirmer',
+        content:
+          'En supprimant ce groupe, celui-ci sera dissocié de tous les professeurs auxquels il est actuellement attribué',
+      },
+    },
     dissociate: 'Personnaliser les règles',
     dialogTitle: 'Groupe de rémunération',
     private_service: 'Rendez-Vous',

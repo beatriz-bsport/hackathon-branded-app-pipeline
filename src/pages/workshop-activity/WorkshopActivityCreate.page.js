@@ -44,6 +44,9 @@ import { Establishment } from '../../libs/establishment/types';
 import { fetchRoomBlueprints } from '../../libs/spot-scheduling/actions';
 import { getAvailableRoomBlueprints } from '../../libs/spot-scheduling/selector';
 import { RoomBlueprint } from '../../libs/spot-scheduling/types';
+import { CoachPaymentRuleByKindSelector } from '../../libs/coach-payment-rules/selectors';
+import { fetchAllCoachPaymentRules } from '../../libs/coach-payment-rules/actions';
+import type { CoachPaymentRule } from '../../libs/coach-payment-rules/types';
 
 type StepType = {
   id: number,
@@ -82,6 +85,8 @@ type Props = {
   companyTheme: CompanyTheme,
   fetchRoomBlueprints: () => void,
   roomBlueprints: Array<RoomBlueprint>,
+  fetchAllCoachPaymentRules: () => void,
+  coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> },
 };
 const MetaActivityMap = {
   cover_main: 'cover_main',
@@ -116,6 +121,7 @@ export class WorkshopActivityFormPage extends Component<Props> {
     this.props.fetchEstablishments();
     this.props.fetchAssociatedCoachesList();
     this.props.fetchRoomBlueprints();
+    this.props.fetchAllCoachPaymentRules();
   }
 
   renderActivityStep = () => (
@@ -166,6 +172,8 @@ export class WorkshopActivityFormPage extends Component<Props> {
       processing={this.props.offerIsProcessing}
       onCancel={() => this.props.goToWorkshop(this.props.upsertedWorkshop.id)}
       roomBlueprints={this.props.roomBlueprints}
+      coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
+      editableCoachPaymentRule
     />
   );
 
@@ -235,6 +243,7 @@ export default compose(
       ],
       upsertedWorkshop: state.metaActivity.upsert.data,
       roomBlueprints: getAvailableRoomBlueprints(state),
+      coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
     }),
     {
       upsertWorkshopActivity: upsert,
@@ -246,6 +255,7 @@ export default compose(
       fetchEstablishments,
       fetchAssociatedCoachesList,
       fetchRoomBlueprints,
+      fetchAllCoachPaymentRules,
     },
   ),
   //

@@ -67,6 +67,7 @@ type State = {
     coach_payment_rule: number;
   }>;
   enableSaveButton: boolean;
+  private_slots_errors: boolean;
 };
 class CoachPaymentRuleBanner extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -76,6 +77,7 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
         ...props.coach.private_slots_coach_payment_rules,
       ],
       enableSaveButton: false,
+      private_slots_errors: false,
     };
   }
 
@@ -85,7 +87,22 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
       previousState.private_slots_coach_payment_rules !==
         this.state.private_slots_coach_payment_rules
     ) {
-      this.setState((prevState) => ({ ...prevState, enableSaveButton: true }));
+      if (
+        this.state.private_slots_coach_payment_rules.find(
+          (specific_rule) =>
+            !specific_rule.private_slot || !specific_rule.coach_payment_rule,
+        )
+      ) {
+        this.setState((prevState) => ({
+          ...prevState,
+          enableSaveButton: false,
+        }));
+      } else {
+        this.setState((prevState) => ({
+          ...prevState,
+          enableSaveButton: true,
+        }));
+      }
     }
   }
 
@@ -165,6 +182,23 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
         });
       }
     };
+    const checkPrivateSlotUnicity = (newPrivateSlot: {
+      value: number;
+      label: string;
+    }) => {
+      const findSimilar = this.state.private_slots_coach_payment_rules.find(
+        (specific_rule) => specific_rule.private_slot === newPrivateSlot.value,
+      );
+      return !findSimilar;
+    };
+
+    const displayPrivateSlotError = async () => {
+      this.setState({ private_slots_errors: true });
+      await new Promise((resolve) => {
+        setTimeout(resolve, 2000);
+      });
+      this.setState({ private_slots_errors: false });
+    };
     return (
       <>
         <div className={classes.flexRow}>
@@ -204,6 +238,11 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                     coach.id,
                     item ? item.value : DISSOCIATED_COACH_PAYMENT_RULE_GROUP,
                   );
+                  if (!item) {
+                    this.setState({
+                      private_slots_coach_payment_rules: specificPrivateSlots,
+                    });
+                  }
                 }}
                 noMulti
                 isClearable
@@ -361,6 +400,13 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                   <GroupIcon color="secondary" className={classes.blockIcon} />
                 ) : null}
               </div>
+              {this.state.private_slots_errors && (
+                <Typography variant="caption" color="error">
+                  {t(
+                    'paymentRules:coach_payment_rules.Errors.privateSlotAlreadySelected',
+                  )}
+                </Typography>
+              )}
             </Grid>
             <TableContainer>
               <Table size="small">
@@ -401,9 +447,17 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                                   onChange={(item: {
                                     value: number;
                                     label: string;
-                                  }) =>
-                                    updateState('private_slot', item.value, i)
-                                  }
+                                  }) => {
+                                    if (!checkPrivateSlotUnicity(item)) {
+                                      displayPrivateSlotError();
+                                    } else {
+                                      updateState(
+                                        'private_slot',
+                                        item.value,
+                                        i,
+                                      );
+                                    }
+                                  }}
                                   noMulti
                                 />
                               </TableCell>
@@ -464,7 +518,11 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                 onClick={() => updateState('add', 0, 0)}
                 disabled={!!coach.coach_payment_rule_group_id}
               >
-                <AddIcon color="secondary" />
+                <AddIcon
+                  color={
+                    coach.coach_payment_rule_group_id ? 'disabled' : 'secondary'
+                  }
+                />
                 {t(
                   'paymentRules:coach_payment_rule_groups.fields.addPrivateSlot',
                 )}

@@ -289,9 +289,9 @@ export default compose(
     },
   ),
   withProps(({ queryParams }) => ({
-    user_registration_response: JSON.parse(
-      decodeURIComponent(queryParams.user_registration_response),
-    ),
+    user_registration_response:
+      queryParams?.user_registration_response &&
+      JSON.parse(decodeURIComponent(queryParams.user_registration_response)),
   })),
   withProps(({ user_registration_response, basket }) => ({
     offerBookedIdList: [

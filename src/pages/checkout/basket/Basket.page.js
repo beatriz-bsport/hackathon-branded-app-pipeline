@@ -418,10 +418,12 @@ export default compose(
       Analytics.onPaymentSuccess(basket);
 
       replace(
-        `/checkout/${basket.company}/validation/?basket=${
-          basket.id
-        }&user_registration_response=${
-          queryParams && queryParams.user_registration_response
+        `/checkout/${basket.company}/validation/?basket=${basket.id}${
+          queryParams?.user_registration_response
+            ? `&user_registration_response=${
+                queryParams && queryParams.user_registration_response
+              }`
+            : ''
         }`,
       );
     },

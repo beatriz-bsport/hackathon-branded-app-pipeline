@@ -301,7 +301,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
     this.props.offerUserRegistration(data, {
       onSuccess: (responseData: any) => {
         this.setState({ showLoader: false });
-        if (data.consumer_payment_pack) {
+        if (data.consumer_payment_pack || !data.offers.length) {
           this.props.push(
             `/checkout/${
               this.props.offer.company
@@ -600,6 +600,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
           {this.state.showSpotSelector && (
             <OfferSpotSelector
               offer={this.props.offer}
+              refreshOfferStatus={(id) => this.fetchOfferStatusList([id])}
               selectedOffer={this.state.selectedOffers.filter(
                 (offerData) =>
                   typeof offerData.offer.room_blueprint === 'number' &&

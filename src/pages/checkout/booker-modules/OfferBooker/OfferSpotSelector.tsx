@@ -17,6 +17,7 @@ interface Props {
   onCancel: () => void;
   offerStatusById: { [key: string]: OfferStatus };
   onSubmit: (spotForOffer: { offer: number; spot: number }[]) => void;
+  refreshOfferStatus: (offerId: number) => void;
 }
 
 interface State {
@@ -43,14 +44,17 @@ class OfferSpotSelector extends React.PureComponent<Props, State> {
     };
   }
 
-  onSelectSpot = (offer: number, spot: number) => {
+  onSelectSpot = (offerId: number, spot: number) => {
+    this.props.refreshOfferStatus(offerId);
     if (typeof spot !== 'number') {
       console.warn('Spot id should be a number');
     }
 
     this.setState((prevState) => {
       const spotForOffers = [...prevState.spotForOffers];
-      const index = spotForOffers.findIndex((data) => data.offer.id === offer);
+      const index = spotForOffers.findIndex(
+        (data) => data.offer.id === offerId,
+      );
 
       if (index !== -1) {
         spotForOffers[index].spot = spot;

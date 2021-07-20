@@ -19,8 +19,6 @@ import Skeleton from '@material-ui/lab/Skeleton';
 
 import CloseIcon from '@material-ui/icons/Close';
 
-import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
-
 import { MaterialStyleType } from '../../../utils/types';
 import { Offer, Offer_FULL, OfferStatus } from '../../offer/types';
 import { OfferData } from '../types';
@@ -68,12 +66,13 @@ class SimilarOffers extends React.PureComponent<Props> {
 
   onClickSelectAllOffers = () => {
     const offers = this.availableOffers.filter((o) => {
-      const offerStatus = this.props.offerStatusById[o.id];
+      const { isBookable, isRegistered } = getOfferFeature(
+        o,
+        this.props.offerStatusById,
+        this.props.acceptDoubleBooking,
+      );
 
-      const isBookable =
-        offerStatus.bookable_status === OFFER_BOOKABLE_STATUS_BOOKABLE;
-
-      if (!isBookable) {
+      if (!isBookable || isRegistered) {
         return false;
       }
 

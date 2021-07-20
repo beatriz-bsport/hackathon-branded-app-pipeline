@@ -96,11 +96,6 @@ export class PaymentRouter extends React.Component<Props> {
           component={MarketplaceSubscriptionPayment}
         />
         <Route
-          path="/(|customer/)checkout/:companyId/"
-          component={BasketPage}
-        />
-
-        <Route
           path="/(|customer/)checkout/:companyId/pre-checkout/payment-pack/:id"
           component={PaymentPackPreCheckout}
         />

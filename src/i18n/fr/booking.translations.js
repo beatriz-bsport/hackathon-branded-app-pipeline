@@ -11,6 +11,8 @@ const {
   OFFER_BOOKABLE_STATUS_LOCKED,
 } = require('@bsport/common/lib/master-data/bookable-status');
 
+const ERROR_CODES = require('@bsport/common/lib/master-data/buyable-item-can-not-be-bought');
+
 exports.default = {
   actions: {
     bill: 'Facturer',
@@ -293,6 +295,20 @@ exports.default = {
         [OFFER_WAITING_LIST_STATUS_FULL]: "Liste d'attente pleine",
         [OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED]: 'Inscrit sur liste',
         [OFFER_WAITING_LIST_STATUS_CONVERTIBLE]: 'Réservation disponible!',
+        [ERROR_CODES.OFFER_WAITING_LIST_STATUS_FULL]: "Liste d'attente pleine",
+        [ERROR_CODES.OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED]:
+          'Déjà inscrit sur liste',
+        [ERROR_CODES.OFFER_BOOKABLE_STATUS_CLOSE_TOO_SOON]:
+          'Inscriptions fermées',
+        [ERROR_CODES.OFFER_BOOKABLE_STATUS_CLOSE_TOO_LATE]:
+          'Inscription terminées',
+        [ERROR_CODES.OFFER_BOOKABLE_STATUS_FULL]: 'Séance pleine',
+        [ERROR_CODES.OFFER_BOOKABLE_STATUS_LOCKED]: 'Inscriptions fermées',
+        [ERROR_CODES.OFFER_BOOKABLE_STATUS_ALREADY_BOOKED]: 'Déjà inscrit',
+        [ERROR_CODES.OFFER_BOOKABLE_STATUS_TOO_MANY_MALE]:
+          'Ratio homme/femme déséquilibré',
+        [ERROR_CODES.OFFER_BOOKABLE_STATUS_TOO_MANY_FEMALE]:
+          'Ratio homme/femme déséquilibré',
       },
     },
     packTitle: 'Mon moyen de réservation',

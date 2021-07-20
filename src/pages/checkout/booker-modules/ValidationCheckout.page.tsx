@@ -13,6 +13,7 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import WarningIcon from '@material-ui/icons/Warning';
 import withQueryParams from '../../../hocs/with-query-params.hoc';
 import themeSelectors from '../../../libs/theme/selectors';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
@@ -204,15 +205,21 @@ export class ValidationCheckout extends React.Component<Props> {
                       hideCoach={this.props.hideCoach}
                       offer={o}
                     />
-                    <Typography color="error" variant="caption">
-                      {BUYABLE_ITEM_CAN_NOT_BE_BOUGHT_ERROR_CODES.includes(
-                        error_code,
-                      )
-                        ? this.props.t(
-                            `snackbar:canNotBuyErrorCode.${error_code}`,
-                          )
-                        : this.props.t('snackbar:canNotBuyErrorCode.generic')}
-                    </Typography>
+                    <div className={classes.row}>
+                      <WarningIcon
+                        color="error"
+                        className={classes.smallIcon}
+                      />
+                      <Typography color="error" variant="caption">
+                        {BUYABLE_ITEM_CAN_NOT_BE_BOUGHT_ERROR_CODES.includes(
+                          error_code,
+                        )
+                          ? this.props.t(
+                              `snackbar:canNotBuyErrorCode.${error_code}`,
+                            )
+                          : this.props.t('snackbar:canNotBuyErrorCode.generic')}
+                      </Typography>
+                    </div>
                   </div>
                 );
               })}
@@ -243,6 +250,20 @@ const styles = (theme) => ({
     maxWidth: 620,
     marginBottom: theme.spacing(2),
     marginTop: theme.spacing(2),
+  },
+  smallIcon: {
+    height: 24,
+    width: 24,
+  },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    marginLeft: theme.spacing(1),
+    '&>*': {
+      paddingRight: theme.spacing(1),
+    },
   },
   header: {
     display: 'flex',
@@ -303,7 +324,7 @@ export default compose(
       ),
     ],
     offerPreBookedIdList:
-      (user_registration_response || {}).offers_on_waiting_list || [],
+      (user_registration_response || {}).offer_on_waiting_list || [],
     offerNotBookableIdWithErrorCodeList:
       (user_registration_response || {}).error_codes || [],
   })),

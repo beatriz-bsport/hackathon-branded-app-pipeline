@@ -5285,9 +5285,15 @@
         },
         "waiting_list_status": {
           "0": "Liste d'attente",
-          "1": "Liste d'attente pleine",
-          "2": "Inscrit sur liste",
-          "3": "Réservation disponible!"
+          "1": "Inscriptions fermées",
+          "2": "Inscription terminées",
+          "3": "Séance pleine",
+          "4": "Inscriptions fermées",
+          "5": "Déjà inscrit",
+          "6": "Ratio homme/femme déséquilibré",
+          "7": "Ratio homme/femme déséquilibré",
+          "6002": "Liste d'attente pleine",
+          "6003": "Déjà inscrit sur liste"
         }
       },
       "packTitle": "Mon moyen de réservation",

@@ -149,13 +149,16 @@ export const shopItemRetrieveActions = {
   success: createAction('SHOPITEM/RETRIEVE/SUCCESS'),
 };
 
-export function fetchShopItem(id: number) {
+export function fetchShopItem(id: number, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(shopItemRetrieveActions.isLoading(true));
     dispatch(shopItemRetrieveActions.error(null));
     try {
       const response = await api.fetchShopItem(id);
       dispatch(shopItemRetrieveActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
     } catch (e) {
       dispatch(shopItemRetrieveActions.error(e));
       console.error(e);

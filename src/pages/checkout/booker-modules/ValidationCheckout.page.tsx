@@ -20,6 +20,7 @@ import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import { fetchBasket } from '../../../libs/checkout/actions';
 import { getBasket } from '../../../libs/checkout/selectors';
 import CheckoutItemListItem from '../../../libs/checkout/components/CheckoutItemListItem.component';
+import { Offer_FULL } from '../../../libs/offer/types';
 
 import {
   getOfferFromList,
@@ -31,11 +32,30 @@ import { fetchOfferBulk } from '../../../libs/offer/actions';
 import { fetchMetaActivityBulk } from '../../../libs/meta-activity/actions';
 import { fetchCoachBulk } from '../../../libs/associated-coach/actions';
 import { fetchEstablishmentBulk } from '../../../libs/establishment/actions';
+import { OptionCallback } from '../../../state/types';
 
 import OfferBookableItem from '../../../libs/booker-module/components/OfferBookableItem.component';
 
 import ConsumerAppBarContainer from '../ConsumerAppBar.container';
 import WidgetUtils from '../../../libs/widget/WidgetUtils';
+import { MaterialStyleType } from '../../../utils/types';
+
+type OwnProps = {
+  queryParams: any;
+  offerBookedIdList: number[];
+  offerPreBookedIdList: number[];
+  offerNotBookableIdWithErrorCodeList: Array<number[]>;
+  offerBookedList: Offer_FULL[];
+  offerPreBookedList: Offer_FULL[];
+  offerNotBookableList: Array<Offer_FULL>;
+  fetchBasket: (id: string, options: OptionCallback) => void;
+  goBack: () => void;
+  onContinue: () => void;
+};
+
+type Props = OwnProps &
+  WithTranslation &
+  MaterialStyleType<ReturnType<typeof styles>>;
 
 export class ValidationCheckout extends React.Component<Props> {
   componentDidMount() {

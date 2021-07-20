@@ -51,8 +51,6 @@ import OfferListSummary from '../../../../libs/booker-module/components/OfferLis
 
 import { OfferData } from '../../../../libs/booker-module/types';
 
-import WidgetUtils from '../../../../libs/widget/WidgetUtils';
-
 import { getMyRelatedMemberList } from '../../../../libs/relationship/selectors';
 import { fetchMyRelatedMemberList } from '../../../../libs/relationship/actions';
 

@@ -1107,7 +1107,10 @@ export const privatePassBulkActions = {
   success: createAction('PRIVATE_PASS/BULK/SUCCESS'),
 };
 
-export function fetchPrivatePassBulk(ids: Array<number>) {
+export function fetchPrivatePassBulk(
+  ids: Array<number>,
+  options: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
     const id__in = uniq(ids.filter((id) => !!id));
     if (!id__in.length) return;
@@ -1118,6 +1121,9 @@ export function fetchPrivatePassBulk(ids: Array<number>) {
         id__in,
       });
       dispatch(privatePassBulkActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
     } catch (err) {
       console.error(err);
       dispatch(privatePassBulkActions.error(err));

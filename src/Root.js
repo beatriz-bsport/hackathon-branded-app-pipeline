@@ -37,6 +37,12 @@ const CheckoutRouter = asyncComponent(() =>
   import('./pages/checkout/Checkout.router'),
 );
 
+const DeprecatedCheckoutPagesRouter = asyncComponent(() =>
+  import(
+    './pages/checkout/deprecated-pages-redirection/DeprecatedPages.router'
+  ),
+);
+
 const RNWebView = asyncComponent(() =>
   import('./pages/rn-webview/RNWebView.router'),
 );
@@ -140,8 +146,11 @@ export class Root extends Component<Props> {
             path="/c/:companyId/unsubscribe/:unsubscribe_uuid"
             component={ConsumerUnsubscribe}
           />
-          <Route path="/(|customer/)payment" component={CheckoutRouter} />
-          <Route path="/checkout" component={CheckoutRouter} />
+          <Route
+            path="/(|customer/)payment"
+            component={DeprecatedCheckoutPagesRouter}
+          />
+          <Route path="/checkout/:companyId" component={CheckoutRouter} />
           <Route path="/customer" component={ConsumerRouter} />
           <Route path="/m/" component={MarketPlace} />
 

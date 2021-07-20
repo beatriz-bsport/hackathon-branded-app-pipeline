@@ -57,10 +57,9 @@ import {
 } from '../../../actions/snackbar.actions';
 
 import { fetchProfile } from '../../../libs/consumer-space/actions';
-import WidgetUtils from '../../../libs/widget/WidgetUtils';
 
 import CheckPaymentStatus from './CheckPaymentStatus.component';
-import ConsumerAppBar from '../ConsumerAppBar.container';
+import ConsumerAppBarContainer from '../ConsumerAppBar.container';
 
 type Props = {
   basket: ?Basket,
@@ -269,7 +268,7 @@ export class BasketPage extends React.Component<Props> {
       !this.props.theme.general_terms_and_conditions;
 
     return (
-      <ConsumerAppBar>
+      <ConsumerAppBarContainer>
         <div className={this.props.classes.container}>
           <div className={this.props.classes.checkoutFlow}>
             <CheckoutFlow
@@ -325,7 +324,7 @@ export class BasketPage extends React.Component<Props> {
             />
           </div>
         </div>
-      </ConsumerAppBar>
+      </ConsumerAppBarContainer>
     );
   }
 }

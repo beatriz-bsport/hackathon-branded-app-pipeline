@@ -20,7 +20,7 @@ import {
 import { monitorBackgroundTask } from '../background-task/actions';
 
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
-import type { Dispatch, OptionCallback } from '../../state/types';
+import type { Dispatch, OptionCallback, RootState } from '../../reducers';
 import { OfferFilter, OfferFilterData, OfferStatus, Offer } from './types';
 
 export const similarOffers = {
@@ -371,7 +371,7 @@ export function fetchOfferBulk(
   options: OptionCallback,
   useCache?: boolean,
 ) {
-  return async (dispatch: Dispatch, getState: () => State) => {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
     let ids_uniq = uniq((ids || []).filter((id) => !!id));
     if (useCache) {
       ids_uniq = ids_uniq.filter((id) => !getState().offer.byId[id]);

@@ -78,7 +78,7 @@ type State = {
   step: number;
 };
 
-export class SignUpForm extends Component {
+export class SignUpForm extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 

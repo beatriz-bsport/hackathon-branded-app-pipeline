@@ -23,8 +23,6 @@ import {
 } from '../../../libs/checkout/actions';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import { getCurrentBasket } from '../../../libs/checkout/selectors';
-import type { Basket } from '../../../libs/checkout/types';
-import withQueryParams from '../../../hocs/with-query-params.hoc';
 import Analytics from '../../../components/analytics/Analytics.component';
 import { fetchPrivatePassRetrieve } from '../../../libs/private-service/actions';
 import { OptionCallback } from '../../../state/types';
@@ -37,7 +35,6 @@ type Props = {
   addItemToBasket: (basketId: number, data: any, option: *) => void,
   goToCheckout: (companyId: number) => void,
   fetchPrivatePassRetrieve: (packId, options?: OptionCallback) => void,
-  urlParams: Object,
   classes: Object,
   t: TFunction,
 };
@@ -51,47 +48,29 @@ export class PaymentPrivatePassPage extends Component<Props, State> {
     error: false,
   };
 
-  addItem = (basket: Basket, companyId: number) => {
-    const { privatePassId } = this.props;
-
-    Analytics.addPassToCart(
-      {
-        id: privatePassId,
-        name: '',
-        price: null,
-      },
-      'private_pass',
-    );
-
-    this.props.addItemToBasket(
-      basket.id,
-      {
-        buyable_item_identifier: BUYABLE_ITEM_PRIVATE_PASS,
-        quantity: 1,
-        buyable_item_id: privatePassId,
-      },
-      {
-        onError: () => this.setState({ error: true }),
-        onSuccess: () => this.props.goToCheckout(companyId),
-      },
-    );
-  };
-
   componentDidMount() {
-    if (this.props.urlParams && this.props.urlParams.membership !== undefined) {
-      this.fetchData(this.props.urlParams.membership);
-    } else {
-      this.props.fetchPrivatePassRetrieve(this.props.privatePassId, {
-        onSuccess: (pass) => this.fetchData(pass.company),
-      });
-    }
-  }
-
-  fetchData = (companyId: number) => {
-    this.props.fetchCurrentBasket(companyId, {
-      onSuccess: (basket) => this.addItem(basket, companyId),
+    this.props.fetchPrivatePassRetrieve(this.props.privatePassId, {
+      onSuccess: (privatePass) => {
+        Analytics.addPrivatePassToCart(privatePass);
+        this.props.fetchCurrentBasket(privatePass.company, {
+          onSuccess: (basket) => {
+            this.props.addItemToBasket(
+              basket.id,
+              {
+                buyable_item_identifier: BUYABLE_ITEM_PRIVATE_PASS,
+                quantity: 1,
+                buyable_item_id: privatePass.id,
+              },
+              {
+                onError: () => this.setState({ error: true }),
+                onSuccess: () => this.props.goToCheckout(privatePass.company),
+              },
+            );
+          },
+        });
+      },
     });
-  };
+  }
 
   goToPassMarketplace = () => {
     if (this.props.theme && this.props.theme.scheduleURL) {
@@ -159,7 +138,6 @@ export default compose(
   withTranslation(['checkout', 'payment']),
   withStyles(styles),
   routerParamsToProps({ id: 'privatePassId:number' }),
-  withQueryParams([['membership'], 'urlParams']),
   connect(
     (state) => ({
       loading: state.payment.loading || state.checkout.basket.current.loading,

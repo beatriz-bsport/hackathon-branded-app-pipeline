@@ -119,7 +119,9 @@
             "duplicate": "Duplica",
             "restore": "Ristabilire",
             "share": "Condividi",
-            "pickALanguage": "Lingua"
+            "pickALanguage": "Lingua",
+            "emergencyContact": "In caso di emergenza",
+            "disconnect": "Disconnettersi"
         },
         "offer": {
             "noPackAvailableForOfferPurchase": "Nessuna tessera compatibile con questa sessione!",
@@ -274,7 +276,13 @@
                 "birthdayYear": "Anno di nascita",
                 "barcodeHelper": "(facoltativo) usa questo codice per la tua carta d'accesso",
                 "referenceNumber": "Numero d'iscrizione",
-                "referenceNumberHelper": "(facoltativo) se vuoto verrà creato automaticamente un numero"
+                "referenceNumberHelper": "(facoltativo) se vuoto verrà creato automaticamente un numero",
+                "errors": {
+                    "accept_email": "Devi accettare le notifiche via e-mail",
+                    "accept_sms": "Devi accettare le notifiche via SMS",
+                    "waiver": "devi accettare il rilascio di responsabilità"
+                },
+                "waiver": "Accetta i termini del rilascio di responsabilità"
             },
             "offer": {
                 "coachChangeWarning": "Se modifichi l'insegnante, questa modifica sarà efficace per tutte le sessioni future. Se questo non è ciò che desideri, utilizza il campo \"Sostituisci\". Qualsiasi altra modifica registrata qui (palestra, prezzo, giorno della settimana ...) verrà quindi applicata a tutte le sessioni.",
@@ -302,7 +310,10 @@
                     "explainHardDelete": "Rimuovere la sessione dall'elenco? Si noti che questo diventerà invisibile, questa operazione è irreversibile! Se la sessione contiene prenotazioni, non verrà eliminata.",
                     "explainCreditBack": "Restituire i crediti sulla tessera",
                     "explainNotify": "Invia un avviso ai clienti che hanno prenotato",
-                    "explainModalities": "Questa modifica è definitiva. La tua sessione non sarà più visibile ai clienti finali. Puoi ancora accedervi."
+                    "explainModalities": "Questa modifica è definitiva. La tua sessione non sarà più visibile ai clienti finali. Puoi ancora accedervi.",
+                    "explainForceDanger": "Attenzione ! Le prenotazione saranno cancellate definitivamente. Se non hai rimborsato il credito, perderai ogni traccia del suo utilizzo. Ti preghiamo di controllare lo stato delle tue prenotazioni e delle tue tessere prima della cancellazione.",
+                    "force": "Cancellare anche se le prenotazioni sono registrate",
+                    "advanced": "Avanzato"
                 }
             },
             "phone": "Numero di telefono",
@@ -347,7 +358,32 @@
                 "rgpdTitle": "Come preferiresti che gli insegnanti ti contattassero per cancellazioni / cambi di orario?",
                 "signupButton": "Registrati",
                 "iAcceptPrivacyPolicy": "Accetto ",
-                "privacyPolicy": "i termini e le condizioni d'utilizzo"
+                "privacyPolicy": "i termini e le condizioni d'utilizzo",
+                "error": {
+                    "passwordConfirm": "Le password non corrispondono",
+                    "password": "La password deve contenere almeno 6 caratteri"
+                },
+                "fields": {
+                    "accept_sms": "Accetto di ricevere notificazione via SMS per informazioni relative alla mia attività (cambiamento d'orario, cancellazione tardive, nuovo workshop ...)",
+                    "accept_email": "Accetto di ricevere notificazione via email per informazioni relative alla mia attività (cambiamento d'orario, cancellazione tardive, nuovo workshop ...)",
+                    "waiver": "Accetto il rilascio di responsabilità",
+                    "general_terms_and_conditions_accepted": "Accetto le condizioni generali di utilizzo",
+                    "emergency_contact": "Contatto d'emergenza",
+                    "city": "Città",
+                    "birthday": "Data di nascita",
+                    "phone": "Numero di telefono ",
+                    "country": "Paese",
+                    "zipcode": "Codice postale",
+                    "address_line_2": "Indirizzo aggiuntivo",
+                    "address_line_1": "Indirizzo",
+                    "gender": "sesso",
+                    "passwordConfirm": "Conferma del password",
+                    "password": "Password",
+                    "email": "Indirizzo email",
+                    "last_name": "Cognome",
+                    "first_name": "Nome"
+                },
+                "addProfilePicture": "Aggiungere una foto del profilo"
             },
             "oneHourFifteen": "1h15m",
             "waiting_list_max_size": "Dimensione della lista d'attesa",
@@ -457,7 +493,10 @@
                 "week": "Settimana",
                 "year": "Annuale",
                 "month": "Mensile"
-            }
+            },
+            "completeInformation": "Completare le mie informazioni",
+            "emergencyContact": "Contatto d'emergenza",
+            "modify": "Modificare"
         },
         "marketing": {
             "dashboard": "Pannello di controllo",
@@ -1098,7 +1137,11 @@
             "300": "Kick (non validato in tempo troppe volte)",
             "702": "Passaggio negato: addebito sul conto creato (allievo)",
             "701": "Passaggio negato: badge bloccato (allievo)",
-            "601": "Poche prenotazioni [tot. ore] prima dell'inizio della lezione"
+            "601": "Poche prenotazioni [tot. ore] prima dell'inizio della lezione",
+            "530": "Controversia sul pagamento di un abbonamento",
+            "520": "Pagamento di un abonnamento fallito, sarà riprovato",
+            "515": "Tessera del'abonnamento disattivato automaticamente",
+            "510": "Pagamento di un abbonamento fallito"
         },
         "ruleGroup": {
             "private_booking": "Appuntamento",
@@ -1113,7 +1156,8 @@
         },
         "emailDesign": {
             "placeholder": "Generato da bsport",
-            "closePreview": "Chiudi"
+            "closePreview": "Chiudi",
+            "birthdayPlaceholder": "Scegliere un email"
         },
         "pageTitle": "Email transazionali",
         "caption": {
@@ -1164,7 +1208,8 @@
             "titleBooking": "Lezione collettiva",
             "titlePrivateBooking": "Appuntamento",
             "bookAgain": "Prenota di nuovo",
-            "accessLive": "Accesso live"
+            "accessLive": "Accesso live",
+            "spotNumber": "Posto {{count}}"
         },
         "unsubscriber": {
             "error": "Errore durante l'annullamento dell'iscrizione",
@@ -1175,7 +1220,8 @@
         "actions": {
             "goToCalendar": "Vedi il calendario completo",
             "goToPass": "Vedi tutte le schede delle lezioni",
-            "goToSubscription": "Vedi tutti gli abbonamenti"
+            "goToSubscription": "Vedi tutti gli abbonamenti",
+            "goToHome": "Vedere tutti i servizi"
         },
         "congratulation": {
             "content": "Il tuo acquisto è stato registrato!",
@@ -1298,6 +1344,10 @@
             },
             "new_member_only": {
                 "label": "Solo per i nuovi clienti"
+            },
+            "maxPurchasePerMember": {
+                "helperText": "Lasciare vuoto per non imporre un limite",
+                "label": "Acquisto massimo per membro"
             }
         },
         "detail": {
@@ -2724,6 +2774,49 @@
             "gtmEvent": "GTM Nome dell'evento",
             "eventDesc": "Descrizione dell'evento",
             "showAnalyticsInformation": "Mostra gli eventi tracciati"
+        },
+        "signUpForm": {
+            "error": "Si è verificato un problema",
+            "success": "Configurazione salvata",
+            "save": "Salva",
+            "editable": "Modificabile",
+            "required": "Obbligatorio",
+            "show": "Mostrare",
+            "label": "Etichetta",
+            "field_identifier": "Campi",
+            "account_modification": "Edizione di un account",
+            "account_creation": "Creazione di un account",
+            "title": "Forma d'iscrizione",
+            "fields": {
+                "waiver": "Rilascio di risponsabilità",
+                "general_terms_and_conditions_accepted": "Condizioni generali di utilizzo",
+                "cgu": "Condizioni generali di utilizzo",
+                "accept_sms": "Accetta le notifiche via SMS",
+                "accept_email": "Accetta le notifiche via email",
+                "sms_notification": "Accetta le notifiche via SMS",
+                "email_notification": "Accetta le notifiche via email",
+                "emergency_contact": "Contatto d'emergenza",
+                "profile_picture": "Foto del profilo",
+                "zipcode": "Codice postale",
+                "zip_code": "Codice postale",
+                "country": "Paese",
+                "city": "Città",
+                "additionnal_address_info": "Indirizzo aggiuntivo",
+                "address": "Indirizzo",
+                "birthdate": "Data di nascita",
+                "phone": "Principale telefono",
+                "main_phone": "Principale telefono",
+                "gender": "Tipo",
+                "email": "Email",
+                "last_name": "Cognome",
+                "first_name": "Nome"
+            }
+        },
+        "zoom": {
+            "confirmDialog": {
+                "text": "Se hai già inserito manualmente dei link di videoconferenza nelle tue sessioni, questi saranno cancellati per essere sostituiti da link zoom generati automaticamente. Le riunioni già create sul calendario Zoom dovranno essere cancellate manualmente, sarano sostituite da riunioni create automaticamente.",
+                "title": "Integrazione ZOOM"
+            }
         }
     },
     "order": {
@@ -6089,7 +6182,9 @@
             "uses": "Utilizzi",
             "member_uses": "utilizzi per membro",
             "member_use": "utilizzi per membro",
-            "limitation": "Limitato a"
+            "limitation": "Limitato a",
+            "whitelist_tags": "Disponibile solo per i membri con determinati tag",
+            "blacklist_tags": "Indisponibile per i membri con determinati tag"
         },
         "modal": {
             "delete": {
@@ -6109,7 +6204,10 @@
                 "general": "Generale",
                 "applies_to": "Impostazioni",
                 "advanced": "Avanzato",
-                "subscription": "Iscrizione (contratto)"
+                "subscription": "Iscrizione (contratto)",
+                "blacklist_tags": "Non può essere usato dai membri che hanno il tag",
+                "whitelist_tags": "Può essere usato solo dai membri che hanno il tag",
+                "tags": "Tag"
             },
             "is_active": {
                 "helperText": "Il codice non attivo non può essere utilizzato dai clienti",
@@ -6179,6 +6277,16 @@
                 "0": "Tutte le fatturazioni",
                 "3": "Non utilizzabile",
                 "2": "Solo il primo ciclo di fatturazione (prima del rinnovo)"
+            },
+            "tag": {
+                "select": {
+                    "error": "Il stesso tag non può essere presente in entrambe le liste",
+                    "empty_tag_list": "Nessun tag selezionato",
+                    "tag": "Seleziona un tag",
+                    "tag_group": "Scegli un gruppo di tag"
+                },
+                "tag": "Tag",
+                "tag_group": "Gruppo"
             }
         },
         "noDiscount": "Nessun acquisto effettuato con il codice",
@@ -6308,6 +6416,23 @@
             "section": {
                 "archived": "Struttura archiviata"
             }
+        },
+        "spotScheduling": {
+            "delete": {
+                "title": "Cancellazione piano della salla"
+            },
+            "add": "Aggiungere un piano della salla",
+            "subtitle": "Utilizzato per il spot scheduling. Permette ai tuoi studenti di prenotare il posto desiderato nella salla.",
+            "title": "Piano della salla"
+        },
+        "location": {
+            "country": "Paese",
+            "zip_code": "Codice postale",
+            "city": "Città",
+            "address_line_2": "Indirizzo linea 2",
+            "address_line_1": "Indirizzo linea 1",
+            "address": "Indirizzo",
+            "search_address": "Cercare un indirizzo"
         }
     },
     "datetime": {
@@ -6763,12 +6888,26 @@
                 "content": "Sei sicuro di voler rimuovere questo membro dalla lista di attesa? Sarà avvisato via email.",
                 "confirm": "Rimuovi",
                 "title": "Rimozione dalla lista di attesa",
-                "cancel": "Annulla"
+                "cancel": "Annulla",
+                "sendEmail": "Inviare un email di cancellazione della registrazione",
+                "contentV2": "Sei sicuro di voler rimuovere questo membro della lista d'attesa ?"
             }
         },
         "switchToEnable": "Riattiva la lista di attesa",
         "nbConvertible": "{{nbConvertible}} in attesa di conferma",
-        "explainWaitingListConf": "es: ci sono 3 ore prima della sessione, lo studente ha {{nbMinutesBeforeBookingOptionExpire}} minuti per confermare la sua prenotazione prima di lasciare il suo posto."
+        "explainWaitingListConf": "es: ci sono 3 ore prima della sessione, lo studente ha {{nbMinutesBeforeBookingOptionExpire}} minuti per confermare la sua prenotazione prima di lasciare il suo posto.",
+        "member": {
+            "detail": {
+                "offerTitle": "Sessione legata",
+                "registrationSource": "Canale di registrazione",
+                "registeredOn": "Registrato il",
+                "title": "Dettagli lista d'attesa"
+            },
+            "empty": "Nessuna inscrizione nella lista d'attesa",
+            "delete": "Cancellare",
+            "addToBook": "Registrare",
+            "listTitle": "Lista d'attesa"
+        }
     },
     "shop": {
         "provision": {
@@ -7130,7 +7269,8 @@
             "error": {
                 "invalidBasket": "Il tuo carrello conteneva articoli che non sono più disponibili per la vendita. Nessun pagamento è stato registrato"
             },
-            "isFinalized": "Il tuo carrello è stato convalidato"
+            "isFinalized": "Il tuo carrello è stato convalidato",
+            "checkingPaymentStatus": "Attendi per favore, stiamo controllando lo stato del tuo pagamento"
         },
         "paymentIntent": {
             "isProcessing": "Attendere prego"
@@ -7157,7 +7297,21 @@
         "payLater": {
             "explain": "Il vostro mezzo di pagamento vi sarà richiesto sul posto prima della seduta. Prima di questa, la fattura sarà considerata non pagata.",
             "submit": "Pagare sul posto"
-        }
+        },
+        "validation": {
+            "sections": {
+                "offerNotBookable": "Impossibile di registrarti a",
+                "offerPreBooked": "Sei sulla lista d'attesa per",
+                "offerBooked": "Sei iscritto a",
+                "basket": "Il tuo carrello",
+                "title": "Riassunto"
+            },
+            "actions": {
+                "back": "Precedente",
+                "continue": "Continuare"
+            }
+        },
+        "expire_in": "Scade in "
     },
     "marketplace": {
         "selector": {

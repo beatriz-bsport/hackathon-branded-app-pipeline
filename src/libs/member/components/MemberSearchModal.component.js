@@ -46,6 +46,7 @@ type Props = {
   openCreateForm: () => void,
   closeCreateForm: () => void,
   isOpenCreateForm: boolean,
+  managerFormConfig: SignUpFormConfigDict,
 };
 
 const MemberListItem = (props: { member: Member, onClick: () => void }) => (
@@ -87,6 +88,7 @@ export function MemberSearchModal(props: Props) {
           goToMember={() => {}}
           goToMemberList={() => {}}
           country={props.country}
+          managerFormConfig={props.managerFormConfig}
         />
       </Dialog>
     );

@@ -108,6 +108,8 @@ import {
 import { RootState } from '../../reducers';
 import { getAssetByBlueprintByIdentifier } from '../../libs/spot-scheduling/selector';
 import { Booking } from '../../libs/booking/types';
+import { fetchSignFormUpConfiguration } from '../../libs/sign-up-form/actions';
+import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
@@ -174,6 +176,7 @@ export default compose(
       roomBlueprintById: state.spotScheduling.roomBlueprint.byId,
       assetsForBlueprintById: getAssetByBlueprintByIdentifier(state),
       offerStatusById: state.offer.offerStatus.byId,
+      managerFormConfig: getSignUpFormConfigurationDict(state),
     }),
     {
       fetchOffer: fetchOfferByIdAction,
@@ -240,6 +243,8 @@ export default compose(
       push: routerPush,
       goToMember: (id) => routerPush(`/member/${id}/`),
       setSpotForBooking: setSpotForBookingAction,
+
+      fetchSignFormUpConfiguration,
     },
   ),
   withHandlers({

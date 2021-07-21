@@ -318,6 +318,7 @@ export function MemberForm(props: Props) {
                   disabled={disabled}
                   required={
                     hideManagerStuff &&
+                    managerFormConfig &&
                     managerFormConfig.photo.mandatory_on_creation
                   }
                   buttonText={t('translation:form.modify')}
@@ -330,7 +331,7 @@ export function MemberForm(props: Props) {
                   shrink="true"
                   name="firstname"
                   label={
-                    managerFormConfig.first_name.label ||
+                    (managerFormConfig && managerFormConfig.first_name.label) ||
                     t('translation:form.firstname')
                   }
                   required
@@ -343,7 +344,7 @@ export function MemberForm(props: Props) {
                   name="lastname"
                   shrink="true"
                   label={
-                    managerFormConfig.last_name.label ||
+                    (managerFormConfig && managerFormConfig.last_name.label) ||
                     t('translation:form.lastname')
                   }
                   required
@@ -357,7 +358,7 @@ export function MemberForm(props: Props) {
                     name="email"
                     shrink="true"
                     label={
-                      managerFormConfig.email.label ||
+                      (managerFormConfig && managerFormConfig.email.label) ||
                       t('translation:form.email')
                     }
                     type="email"
@@ -369,7 +370,7 @@ export function MemberForm(props: Props) {
                   <DelayTextField
                     name="email"
                     label={
-                      managerFormConfig.email.label ||
+                      (managerFormConfig && managerFormConfig.email.label) ||
                       t('translation:form.email')
                     }
                     type="email"
@@ -386,12 +387,13 @@ export function MemberForm(props: Props) {
                   <GenderField
                     name="gender"
                     label={
-                      managerFormConfig.gender.label ||
+                      (managerFormConfig && managerFormConfig.gender.label) ||
                       t('translation:form.gender')
                     }
                     fullWidth
                     required={
                       hideManagerStuff &&
+                      managerFormConfig &&
                       managerFormConfig.gender.mandatory_on_creation
                     }
                     disabled={disabled}

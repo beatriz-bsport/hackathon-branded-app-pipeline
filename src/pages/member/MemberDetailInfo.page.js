@@ -86,6 +86,7 @@ import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
 } from '../../libs/email-editor/selectors';
+import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
 
 type Props = {
   // GENERAL
@@ -174,6 +175,7 @@ type Props = {
   detachPaymentMethod: (pm_id: string) => void,
   snackbarErrorMsg: (msg: string) => void,
   snackbarSuccessMsg: (msg: string) => void,
+  managerFormConfig: SignUpFormConfigDict,
 };
 
 type State = {
@@ -334,6 +336,7 @@ export class MemberDetailPage extends Component<Props, State> {
             this.props.mergeInto(this.props.id, id)
           }
           country={this.props.country}
+          managerFormConfig={this.props.managerFormConfig.plol_fields}
         />
         <TagDeleteDialog
           open={!!this.state.tagToDelete}
@@ -404,6 +407,7 @@ export default compose(
       paymentMethodLoading: state.paymentBackend.paymentMethod.loading,
       detachPaymentMethodLoading:
         state.paymentBackend.detachPaymentMethod.loading,
+      managerFormConfig: getSignUpFormConfigurationDict(state),
     }),
     {
       fetchInvoiceList: fetchInvoiceListAction,

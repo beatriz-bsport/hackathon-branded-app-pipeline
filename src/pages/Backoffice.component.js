@@ -65,6 +65,7 @@ import { fetchAccessLevel } from '../actions/auth.actions';
 import type { TempPasswordState } from '../libs/login/types';
 import { fetchCompanyRoles } from '../libs/role/actions';
 import GenericDialog from '../components/GenericDialog/GenericDialog';
+import { fetchSignFormUpConfiguration } from '../libs/sign-up-form/actions';
 
 const MarketingRouter = asyncComponent(() =>
   import('./marketing/Marketing.router'),
@@ -171,6 +172,7 @@ type Props = {
   roleId: number,
   fetchCompanyRoles: () => void,
   rolesLoading: boolean,
+  fetchSignFormUpConfiguration: () => void,
 };
 
 const BackofficeRoute = withSentryErrorReporting((props) => {
@@ -453,6 +455,7 @@ export default compose(
 
       fetchCashBook,
       updateCashBook,
+      fetchSignFormUpConfiguration,
     },
   ),
   withHandlers({

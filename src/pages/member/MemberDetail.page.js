@@ -48,6 +48,7 @@ import { fetchContractList as fetchContractListAction } from '../../libs/subscri
 
 import type { Contract } from '../../libs/subscription/types';
 import type { Member } from '../../libs/member/types';
+import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
 
 const MemberDetailInfo = asyncComponent(() =>
   import('./MemberDetailInfo.page'),
@@ -105,6 +106,7 @@ type Props = {
   fetchFiltersSettings: () => void,
   fetchNumberVideoPurchase: () => void,
   videoPurchasedCount: number,
+  managerFormConfig: SignUpFormConfigDict,
 };
 
 const MemberActions = (props: {
@@ -337,6 +339,7 @@ export class MemberDetail extends React.Component<Props> {
             this.props.closeContractDialog();
             this.props.pushToTab(id, 'payment');
           }}
+          managerFormConfig={this.props.managerFormConfig.poll_fields}
         />
       </div>
     );
@@ -390,6 +393,7 @@ export default compose(
       invoiceInfo: state.invoice.invoiceInfo.data,
       savedPaymentMethodList: getSavedPaymentMethodList(state),
       videoPurchasedCount: state.video.purchase.purchaseByMember,
+      managerFormConfig: getSignUpFormConfigurationDict(state),
     }),
     {
       fetchAllPaymentPacks,

@@ -56,6 +56,7 @@ import { PrivateService } from '../types';
 import { MaterialStyleType, WithHandlerType } from '../../../utils/types';
 import { Member } from '../../member/types';
 import { OptionCallback } from '../../../state/types';
+import { getSignUpFormConfigurationDict } from '../../sign-up-form/selectors';
 
 type OwnProps = {
   open: boolean;
@@ -238,6 +239,7 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
             this.setState({ member })
           }
           country={this.props.country}
+          managerFormConfig={this.props.managerFormConfig.poll_fields}
         />
       );
     }
@@ -381,6 +383,7 @@ const mapStateToProps = (state: RootState) => ({
   processing: state.privateService.privateBooking.createOrUpdate.loading,
   country: state.theme.theme.locale.split('_')[1],
   searchedMembers: getSearchedMembers(state),
+  managerFormConfig: getSignUpFormConfigurationDict(state),
 });
 
 const mapDispatchToProps = {

@@ -16,6 +16,7 @@ type Props = {
   onAlreadyLinkMember: (memberId: number) => void,
   onLinkMember: () => void,
   initial: any,
+  managerFormConfig: SignUpFormConfigDict,
 };
 export const CheckInOfferDetailMemberForm = (props: Props) => {
   const initialData = {
@@ -32,6 +33,7 @@ export const CheckInOfferDetailMemberForm = (props: Props) => {
       goToMemberList={props.onLinkMember}
       snackbarSuccess={props.snackbarSuccess}
       fromConsumerAccess
+      managerFormConfig={props.managerFormConfig}
     />
   );
 };

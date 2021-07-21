@@ -64,6 +64,7 @@ import {
 } from '../../libs/private-service/actions';
 import type { PrivateConsumerPassLink } from '../../libs/relationship/types';
 import type { PrivateConsumerPass } from '../../libs/private-service/types';
+import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
 
 type Props = {
   relationList: Array<MemberRelation>,
@@ -132,6 +133,7 @@ type Props = {
   cancelRelinkPrivateConsumerPass: () => void,
   requestUnlinkPrivateConsumerPass: (id: number) => void,
   requestRelinkPrivateConsumerPass: (id: number) => void,
+  managerFormConfig: SignUpFormConfigDict,
 };
 
 export class MemberDetailRelation extends React.Component<Props> {
@@ -140,7 +142,6 @@ export class MemberDetailRelation extends React.Component<Props> {
     this.fetchRelationList();
 
     this.props.fetchAllPaymentPacks();
-
     if (this.props.selectedRelationId) {
       this.props.fetchSharedConsumerPaymentPacks(this.props.selectedRelationId);
       this.props.fetchSharedPrivateConsumerPasses(
@@ -348,6 +349,7 @@ export class MemberDetailRelation extends React.Component<Props> {
                 )}
                 onCancel={() => this.props.setOpenRelationFormDialog(null)}
                 onSubmit={this.createOrUpdateRelation}
+                managerFormConfig={this.props.managerFormConfig.poll_fields}
               />
             </DialogContent>
           </Dialog>
@@ -409,6 +411,7 @@ export default compose(
       ),
       privatePassLoading:
         state.privateService.privateConsumerPass.byMember.loading,
+      managerFormConfig: getSignUpFormConfigurationDict(state),
     }),
     {
       fetchMember,

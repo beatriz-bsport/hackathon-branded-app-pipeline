@@ -53,6 +53,7 @@ type Props = {
   requestSetupIntentSecret: () => void,
   savedPaymentMethodList: Array<PaymentMethod>,
   refreshSavedPaymentMethodList: () => void,
+  managerFormConfig: SignUpFormConfigDict,
 };
 
 const ContractPickerDialog = (props: {
@@ -118,6 +119,7 @@ export const SubscriptionContractRegistrationManagerDialog = (props: Props) => {
         searchMembers={props.searchMembers}
         onClose={props.onClose}
         handlMemberSelected={(id, member_) => props.onChangeMember(member_)}
+        managerFormConfig={props.managerFormConfig}
       />
     );
   }

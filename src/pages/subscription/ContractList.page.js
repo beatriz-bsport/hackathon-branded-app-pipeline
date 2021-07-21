@@ -62,6 +62,7 @@ import {
   restoreContract,
   fetchSubscriptionBulk as fetchSubscriptionBulkAction,
 } from '../../libs/subscription/actions';
+import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
 
 type Props = {
   fetchContractList: () => void,
@@ -112,6 +113,7 @@ type Props = {
   requestSetupIntentSecret: () => void,
   fetchPaymentMethodList: () => void,
   savedPaymentMethodList: Array<PaymentMethod>,
+  managerFormConfig: SignUpFormConfigDict,
 };
 
 export class SubscriptionList extends React.Component<Props> {
@@ -291,6 +293,7 @@ export class SubscriptionList extends React.Component<Props> {
               BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
               BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
             ]}
+            managerFormConfig={this.props.managerFormConfig.poll_fields}
           />
         ) : null}
         {this.props.createContractFormOpen && (
@@ -342,6 +345,7 @@ export default compose(
       paymentComboList: getPaymentComboList(state),
       searchedMembers: getSearchedMembers(state),
       savedPaymentMethodList: getSavedPaymentMethodList(state),
+      managerFormConfig: getSignUpFormConfigurationDict(state),
     }),
     {
       fetchContractList: fetchContractListAction,

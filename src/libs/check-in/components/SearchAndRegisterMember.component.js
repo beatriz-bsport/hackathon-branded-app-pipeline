@@ -113,6 +113,7 @@ type Props = {
   onClose: () => void,
   upsertMember: (id: ?number, FormData, options: OptionCallback) => void,
   memberDataToComplete: (?{ avatar: string }) => void,
+  managerFormConfig: SignUpFormConfigDict,
 };
 
 export const SearchAndRegister = (props: Props) => {
@@ -135,6 +136,7 @@ export const SearchAndRegister = (props: Props) => {
           onClose={props.onClose}
           onAlreadyLinkMember={props.onClose}
           onLinkMember={props.onClose}
+          managerFormConfig={props.managerFormConfig}
         />
       </Dialog>
     );
@@ -166,6 +168,7 @@ export const SearchAndRegister = (props: Props) => {
       handlMemberSelected={(memberId, member) => {
         props.setSearchedMember(member);
       }}
+      managerFormConfig={props.managerFormConfig}
     />
   );
 };

@@ -32,6 +32,8 @@ import { checkFaceIDAvailable as checkFaceIDAvailableAPI } from '../../libs/face
 
 import boop from '../../sounds/boop.mp3';
 import type { OptionCallback } from '../../state/types';
+import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
+import { fetchSignFormUpConfiguration } from '../../libs/sign-up-form/actions';
 
 const likeAudio = new Audio(boop);
 
@@ -88,6 +90,8 @@ type Props = {
   memberDataToComplete: ?any,
   setMemberDataToComplete: (any) => void,
   upsertMember: (id: ?number, data: FormData, options: OptionCallback) => void,
+  fetchSignFormUpConfiguration: (membership: string) => void,
+  managerFormConfig: SignUpFormConfigDict,
 };
 
 type State = {
@@ -110,6 +114,7 @@ export class CheckInOfferDetailPage extends React.Component<Props, State> {
     checkFaceIDAvailableAPI().then((r) =>
       this.setState({ faceIdAvailable: r.data }),
     );
+    this.props.fetchSignFormUpConfiguration();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -167,6 +172,7 @@ export class CheckInOfferDetailPage extends React.Component<Props, State> {
             consumerPaymentPacks={this.props.compatibleConsumerPacks}
             registerWithPass={this.props.registerWithPass}
             upsertMember={this.props.upsertMember}
+            managerFormConfig={this.props.managerFormConfig.poll_fields}
           />
         )}
       </div>
@@ -262,6 +268,7 @@ export default compose(
       compatibleConsumerPacks: state.payment.compatibleConsumerPacks,
       compatibleConsumerPacksLoading:
         state.payment.compatibleConsumerPacksLoading,
+      managerFormConfig: getSignUpFormConfigurationDict(state),
     }),
     {
       fetchOfferById: fetchOfferByIdAction,
@@ -282,6 +289,7 @@ export default compose(
       goBack: () => pushRouter('/check-in'),
       redirectToConfirmPage: (offerId, bookingId) =>
         pushRouter(`/check-in/offer/${offerId}/booking/${bookingId}`),
+      fetchSignFormUpConfiguration,
     },
   ),
   withHandlers({

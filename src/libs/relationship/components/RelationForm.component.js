@@ -26,6 +26,7 @@ type Props = {
 
   classes: Object,
   t: TFunction,
+  managerFormConfig: SignUpFormConfigDict,
 };
 
 type State = {
@@ -77,6 +78,7 @@ export class RelationForm extends React.Component<Props, State> {
           handlMemberSelected={(id, member) =>
             this.setState({ dst_member: member })
           }
+          managerFormConfig={this.props.managerFormConfig}
         />
       );
     }

@@ -186,6 +186,7 @@ type Props = {
   setSpotForBooking: () => void,
   optionToDiscardWithDialog: number,
   setOptionToDiscardWithDialog: (optionId: number | null) => void,
+  managerFormConfig: SignUpFormConfigDict,
 };
 
 type State = {
@@ -620,6 +621,7 @@ export class OfferManagement extends Component<Props, State> {
               goToMemberList={() => {}}
               snackbarSuccess={this.props.snackbarSuccess}
               country={this.props.country}
+              managerFormConfig={this.props.managerFormConfig.poll_fields}
             />
           </DialogContent>
         </Dialog>

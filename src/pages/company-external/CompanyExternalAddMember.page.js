@@ -10,18 +10,25 @@ import { createOrUpdateMember } from '../../libs/member/actions';
 import { MemberMap } from '../../libs/member/utils';
 
 import { mapFormData } from '../form.utils';
+import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
+import { fetchSignFormUpConfiguration } from '../../libs/sign-up-form/actions';
 
 type Props = {
   snackbarSuccess: (msg: string) => void,
   onSubmit: (*) => void,
   goBack: () => void,
   country: string,
+  managerFormConfig: SignUpFormConfigDict,
+  fetchSignFormUpConfiguration: () => void,
 };
 export const CompanyExternalAddMember = (props: Props) => {
   const initialData = {
     birthday: null,
     rgpd: ['accept_email', 'accept_sms'],
   };
+  React.useEffect(() => {
+    props.fetchSignFormUpConfiguration();
+  }, []);
   return (
     <MemberForm
       onCancel={props.goBack}
@@ -32,6 +39,7 @@ export const CompanyExternalAddMember = (props: Props) => {
       snackbarSuccess={props.snackbarSuccess}
       fromConsumerAccess
       country={props.country}
+      managerFormConfig={props.managerFormConfig.poll_fields}
     />
   );
 };
@@ -41,11 +49,14 @@ export default compose(
     (state) => ({
       errors: state.member.upsert.error,
       country: state.theme.theme.locale.split('_')[1],
+      companyId: state.theme.companyId,
+      managerFormConfig: getSignUpFormConfigurationDict(state),
     }),
     {
       goBack: goBackAction,
       snackbarSuccess: (msg) => snackbar.success(msg),
       upsertMember: createOrUpdateMember,
+      fetchSignFormUpConfiguration,
     },
   ),
   withProps(({ upsertMember, goBack }) => ({

@@ -10,8 +10,6 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import LinkIcon from '@material-ui/icons/Link';
 import PaymentPackListItem from '../../payment-packs/components/PaymentPackListItem.component';
-import { urlToMarketplace } from '../../marketplace/utils';
-import { buildUrlParams } from '../../../http';
 import PrivatePassListItem from '../../private-service/components/pass/PrivatePassListItem.component';
 import PaymentComboListItem from '../../payment-combo/components/PaymentComboListItem.component';
 import { getCurrencyDisplay } from '../../theme/selectors';

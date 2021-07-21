@@ -99,13 +99,7 @@ const ContractDetail = (props: Props) => {
         {props.company ? (
           <div className={classes.block}>
             <CopyToClipboard
-              text={`${window.location.origin}${urlToMarketplace(
-                props.company.name,
-                props.company.id,
-              )}
-              /subscription${buildUrlParams({
-                selected: props.contract.id,
-              })}`}
+              text={`${window.location.origin}/checkout/${props.company.id}/subscription/${props.contract.id}`}
             >
               <ButtonBase
                 className={classes.link}

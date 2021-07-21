@@ -1468,7 +1468,32 @@
                 "confirmPasswordLabel": "Confirm",
                 "emailExistsInDB2": "Login",
                 "emailExistsInDB1": "This email is already registered as you are a member of studio using bsport. You can use these same credentials.",
-                "typePhone": "Phone number *"
+                "typePhone": "Phone number *",
+                "error": {
+                    "passwordConfirm": "Passwords do not match",
+                    "password": "Password must contain at least 6 characters"
+                },
+                "fields": {
+                    "accept_sms": "I agree to be notified by SMS for information related to my activity (change of schedules, last minute cancellation, new workshop ...)",
+                    "accept_email": "I agree to be notified by email for information related to my activity (change of schedules, last-minute cancellation, new workshop ...)",
+                    "waiver": "I accept the liability waiver",
+                    "general_terms_and_conditions_accepted": "I accept the general terms of use",
+                    "emergency_contact": "Emergency contact",
+                    "city": "City",
+                    "birthday": "Date of Birth",
+                    "phone": "Phone Number ",
+                    "country": "Country",
+                    "zipcode": "Postal code",
+                    "address_line_2": "Additional address",
+                    "address_line_1": "Address",
+                    "gender": "Gender",
+                    "passwordConfirm": "Password Confirmation",
+                    "password": "Password",
+                    "email": "E-mail address",
+                    "last_name": "Last name",
+                    "first_name": "First name"
+                },
+                "addProfilePicture": "Add a profile picture"
             },
             "metaActivity": {
                 "cantAddSameName": "An activity with the same name already exists!"
@@ -1492,7 +1517,13 @@
                     "email": "Accept email notification"
                 },
                 "barcodeHelper": "(optional) use this bar code for your access cards",
-                "barcode": "Bar code"
+                "barcode": "Bar code",
+                "errors": {
+                    "waiver": "you must accept the liability waiver",
+                    "accept_email": "You must accept Email notifications",
+                    "accept_sms": "You must accept SMS notifications"
+                },
+                "waiver": "Accept the terms of the liability waiver"
             },
             "booking": {
                 "delete": {
@@ -1582,7 +1613,10 @@
                 "week": "Week",
                 "year": "Yearly",
                 "month": "Monthly"
-            }
+            },
+            "completeInformation": "Complete your information",
+            "emergencyContact": "Emergency contact",
+            "modify": "Edit"
         },
         "shop": {
             "noProvisionUpdates": "No provision",
@@ -1726,7 +1760,9 @@
             "duplicate": "Duplicate",
             "restore": "Restore",
             "share": "Share",
-            "pickALanguage": "Language"
+            "pickALanguage": "Language",
+            "emergencyContact": "In case of emergency",
+            "disconnect": "Sign out"
         },
         "members": {
             "form": {
@@ -2065,7 +2101,8 @@
             "showCalendar": "See calendar",
             "discard": "Cancel",
             "bookAgain": "Book again",
-            "accessLive": "Access Live"
+            "accessLive": "Access Live",
+            "spotNumber": "Place {{count}}"
         },
         "dashboard": {
             "favoriteTitle": "My favorite",
@@ -3942,6 +3979,49 @@
             "contractShow": "When the user displays a subscription",
             "contractPaymentShow": "When the user is on the payment page for a subscription",
             "workshopClick": "When the user selects a date for a workshop"
+        },
+        "signUpForm": {
+            "error": "Error",
+            "success": "Saved configuration",
+            "save": "Save",
+            "editable": "Editable",
+            "required": "Obligatory",
+            "show": "Display",
+            "label": "Label",
+            "field_identifier": "Fields",
+            "account_modification": "Edit an account",
+            "account_creation": "Create an account",
+            "title": "Registration Form",
+            "fields": {
+                "waiver": "Liability waiver",
+                "general_terms_and_conditions_accepted": "General terms and conditions",
+                "cgu": "General terms of use",
+                "accept_sms": "Accepts SMS notifications",
+                "accept_email": "Accepts email notifications",
+                "sms_notification": "Accepts SMS notifications",
+                "email_notification": "Accepts email notifications",
+                "emergency_contact": "Emergency contact",
+                "profile_picture": "Profile picture",
+                "zipcode": "Postal code",
+                "zip_code": "Postal code",
+                "country": "Country",
+                "city": "City",
+                "additionnal_address_info": "Additional address",
+                "address": "Address",
+                "birthdate": "Date of Birth",
+                "phone": "Pirmary Phone",
+                "main_phone": "Pirmary Phone",
+                "gender": "Gender",
+                "email": "Email",
+                "last_name": "Last name",
+                "first_name": "First name"
+            }
+        },
+        "zoom": {
+            "confirmDialog": {
+                "text": "If you have already entered video conferencing links manually on your sessions, they will be deleted and be replaced by automatically generated zoom links. Meetings already created on the ZOOM calendar must be manually deleted, they will be replaced by meetings created automatically.",
+                "title": "ZOOM integration"
+            }
         }
     },
     "common": {
@@ -4200,8 +4280,22 @@
                 "title": "Waiting-list removal",
                 "content": "Are you sure you want to remove this member from the waiting-list ? He will be notified by email.",
                 "cancel": "Cancel",
-                "confirm": "Remove"
+                "confirm": "Remove",
+                "sendEmail": "Send an unsubscribe email",
+                "contentV2": "Are you sure you want to remove this member from the waitlist?"
             }
+        },
+        "member": {
+            "detail": {
+                "offerTitle": "Linked session",
+                "registrationSource": "Registration channel",
+                "registeredOn": "Registered on",
+                "title": "Waiting list details"
+            },
+            "empty": "No registration on the waiting list",
+            "delete": "Delete",
+            "addToBook": "Book in",
+            "listTitle": "Waiting list"
         }
     },
     "checkout": {
@@ -4251,7 +4345,21 @@
             "submit": "Pay on site",
             "explain": "Your payment method will be asked on site. Until then, your invoice is considered as unpaid."
         },
-        "or": "or"
+        "or": "or",
+        "validation": {
+            "sections": {
+                "offerNotBookable": "Unable to register for",
+                "offerPreBooked": "You are on the waiting list for",
+                "offerBooked": "You are subscribed to",
+                "basket": "your basket",
+                "title": "Summary"
+            },
+            "actions": {
+                "back": "Go back",
+                "continue": "Continue"
+            }
+        },
+        "expire_in": "Expires in "
     },
     "establishment": {
         "establishment": "Establishment ",
@@ -4336,6 +4444,17 @@
             "address_line_1": "Address Line 1",
             "address": "Address",
             "search_address": "Find an address"
+        },
+        "spotScheduling": {
+            "untitled": "Untitled",
+            "placeCount": "{{count}} places",
+            "delete": {
+                "content": "Are you sure you want to delete this video? This operation is irreversible.",
+                "title": "Seating plan deletion"
+            },
+            "add": "Add a seating plan",
+            "subtitle": "Used for spot scheduling. Allows your students to reserve any location they want in the room.",
+            "title": "Seating plan"
         }
     },
     "order": {
@@ -4726,8 +4845,10 @@
             "placeholder": "Select a payment configuration",
             "placeholderOverride": "Coach's Default Payroll Rule",
             "coachPaymentRuleForPrivateService": "Appointments",
-            "coachPaymentRuleForSessions": "Group classes & Workshops",
-            "reset": "Use the teacher's default payroll rule"
+            "coachPaymentRuleForSessions": "Group classes",
+            "reset": "Use the teacher's default payroll rule",
+            "group": "Compensation group",
+            "coachPaymentRuleForWorkshops": "Workshops"
         },
         "common": {
             "from": "From",
@@ -4746,7 +4867,7 @@
         "setPaymentRuleSetForCoachFirst": "You need to attribute a payment rate to the teacher before.",
         "modal": {
             "delete": {
-                "title": "Remove a payment rate",
+                "title": "Delete a rule",
                 "cancel": "Cancel",
                 "confirm": "Confirm",
                 "content": "If you remove this rate, this rate will be removed from all related sessions and teachers"
@@ -4799,7 +4920,12 @@
                 "invalidMinimum": "The minimum remuneration must be equal to or higher than the fixed base",
                 "invalidCancelledBookingRules": "If you want to apply different bonuses for absent students you must define at least one bonus or a percentage basis in the section below.",
                 "percentagebaseRemunerationTypeError": "Percentage pay must be a number between 0 and 100.",
-                "baseRemunerationRequired": "This is a mandatory field if you have ticked the 'Fixed Pay' box above."
+                "baseRemunerationRequired": "This is a mandatory field if you have ticked the 'Fixed Pay' box above.",
+                "privateSlotAlreadySelected": "A remuneration rule is already defined for this appointment",
+                "uniqueRuleForPrivateSlot": "This appointment appears several times in the list",
+                "invalidCoachPaymentRule": "A pay rule must be selected",
+                "invalidPrivateSlot": "An appointment must be selected",
+                "oneRuleRequired": "You must define at least one remuneration rule to create a group"
             },
             "Bonuses": {
                 "bonus_rules": "Bonus rules",
@@ -4840,13 +4966,34 @@
         "tabs": {
             "all": "All classes",
             "appointment": "Appointment",
-            "session": "Group classes & Workshops"
+            "session": "Group classes & Workshops",
+            "groups": "Compensation group"
         },
         "fabButton": {
             "addNewForRDV": "Appointment",
-            "addNewForSession": "Group classes & Workshops"
+            "addNewForSession": "Group classes & Workshops",
+            "addNewPaymentRuleGroup": "Compensation group"
         },
-        "paymentRules": "Payment rules"
+        "paymentRules": "Payment rules",
+        "coach_payment_rule_groups": {
+            "subtitle": {
+                "helper": "You can group together your compensation rules for activities, workshops and appointments. By adding a teacher to a group, all of the group's compensation rules automatically apply to the teacher. Any change to the group will also be made to all the teachers in the group."
+            },
+            "workshop": "Workshops",
+            "session": "Group classes",
+            "private_service": "Appointment",
+            "dialogTitle": "Compensation group",
+            "dissociate": "Customize the rules",
+            "modal": {
+                "delete": {
+                    "content": "By deleting this group, it will be dissociated from all the teachers to which it is currently assigned",
+                    "confirm": "Confirm",
+                    "cancel": "Cancel",
+                    "title": "Delete a group"
+                }
+            }
+        },
+        "search": "Find a pay rule (optional)"
     },
     "payment": {
         "explainOption": "You will be notified by email when a slot will be free",

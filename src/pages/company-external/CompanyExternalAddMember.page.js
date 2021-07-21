@@ -39,7 +39,7 @@ export const CompanyExternalAddMember = (props: Props) => {
       snackbarSuccess={props.snackbarSuccess}
       fromConsumerAccess
       country={props.country}
-      managerFormConfig={props.managerFormConfig.poll_fields}
+      managerFormConfig={props.managerFormConfig?.poll_fields}
     />
   );
 };

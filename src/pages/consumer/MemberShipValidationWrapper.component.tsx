@@ -94,10 +94,18 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
           ...unmap(initial, MemberMap),
           date_joined: moment(initial.date_joined),
           waiver: !!initial.waiver_accepted,
+          ...(!Object.keys(initial).includes('accept_email')
+            ? {
+                accept_email: true,
+                accept_sms: true,
+              }
+            : {}),
         }
       : {
           birthday: null,
           gender: 'F',
+          accept_email: true,
+          accept_sms: true,
         };
 
     if (initialData && initial) {

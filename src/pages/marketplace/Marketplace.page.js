@@ -542,22 +542,6 @@ export class MarketPlace extends Component<Props, State> {
                 />
               </div>
             </Dialog>
-            <Dialog
-              open={
-                this.state.loginDialogOpen && !this.props.auth.authenticated
-              }
-              onClose={() => this.toogleLogin(false)}
-            >
-              <DialogContent>
-                <nogin
-                  doEmailLogin={this.doEmailLogin}
-                  errorFields={this.props.errorFields}
-                  error={this.props.auth.error}
-                  loading={this.props.auth.loading}
-                  requestSignUp={() => this.toogleSignUp(true)}
-                />
-              </DialogContent>
-            </Dialog>
           </div>
         </MemberShipValidationWrapper>
       </MuiThemeProvider>

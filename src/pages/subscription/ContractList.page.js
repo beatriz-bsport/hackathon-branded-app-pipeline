@@ -293,7 +293,7 @@ export class SubscriptionList extends React.Component<Props> {
               BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
               BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
             ]}
-            managerFormConfig={this.props.managerFormConfig.poll_fields}
+            managerFormConfig={this.props.managerFormConfig?.poll_fields}
           />
         ) : null}
         {this.props.createContractFormOpen && (

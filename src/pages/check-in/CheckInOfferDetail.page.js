@@ -172,7 +172,7 @@ export class CheckInOfferDetailPage extends React.Component<Props, State> {
             consumerPaymentPacks={this.props.compatibleConsumerPacks}
             registerWithPass={this.props.registerWithPass}
             upsertMember={this.props.upsertMember}
-            managerFormConfig={this.props.managerFormConfig.poll_fields}
+            managerFormConfig={this.props.managerFormConfig?.poll_fields}
           />
         )}
       </div>

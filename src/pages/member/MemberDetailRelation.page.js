@@ -349,7 +349,7 @@ export class MemberDetailRelation extends React.Component<Props> {
                 )}
                 onCancel={() => this.props.setOpenRelationFormDialog(null)}
                 onSubmit={this.createOrUpdateRelation}
-                managerFormConfig={this.props.managerFormConfig.poll_fields}
+                managerFormConfig={this.props.managerFormConfig?.poll_fields}
               />
             </DialogContent>
           </Dialog>

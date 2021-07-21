@@ -228,6 +228,7 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
     if (!this.state.member) {
       return (
         <MemberSearchModal
+          asManager
           searchMembers={this.props.searchMembers}
           searchedMembers={this.props.searchedMembers.filter(
             (m) => m.id !== this.props.id,
@@ -239,7 +240,7 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
             this.setState({ member })
           }
           country={this.props.country}
-          managerFormConfig={this.props.managerFormConfig.poll_fields}
+          managerFormConfig={this.props.managerFormConfig?.poll_fields}
         />
       );
     }

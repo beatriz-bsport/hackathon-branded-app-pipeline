@@ -179,7 +179,7 @@ export class FormField extends Component<Props, State> {
 
   handleDateChange = (date: Object) => {
     this.setState({ selectedDate: date });
-    this.handleChange({ target: { value: date } });
+    this.handleChange({ target: { value: moment(date).format('YYYY-MM-DD') } });
   };
 
   validator = (value: string | boolean) => {
@@ -303,7 +303,7 @@ export class FormField extends Component<Props, State> {
       classes,
       waiver,
     } = this.props;
-    const { value, error, selectedDate, showpassword } = this.state;
+    const { value, error, showpassword } = this.state;
     const InputProps = (fieldidentifier: string) => {
       if (
         fieldidentifier === 'password' ||
@@ -345,6 +345,7 @@ export class FormField extends Component<Props, State> {
             className={classes.textInput}
             required={required}
             value={value}
+            shrink={!!value}
             id={id}
             label={label}
             onChange={this.handleChange}
@@ -361,6 +362,7 @@ export class FormField extends Component<Props, State> {
             value={value}
             onChange={this.handleChange}
             required={required}
+            error={required && !value}
             fullWidth
           />
         );
@@ -377,7 +379,7 @@ export class FormField extends Component<Props, State> {
               name="phonenumber"
               value={value}
               selectCountryComponent={Select}
-              required
+              required={required}
               className={classes.phoneInput}
               onChange={(phone: string) => this.handlePhoneChange(phone)}
             />
@@ -393,7 +395,7 @@ export class FormField extends Component<Props, State> {
             <DatePicker
               format="L"
               keyboard
-              value={selectedDate}
+              value={moment(value)}
               label={label}
               onChange={this.handleDateChange}
             />
@@ -403,7 +405,7 @@ export class FormField extends Component<Props, State> {
         return (
           <TextField
             className={classes.textInput}
-            required={required}
+            required
             value={value}
             id={id}
             label={label}
@@ -437,11 +439,7 @@ export class FormField extends Component<Props, State> {
         return (
           <FormControlLabel
             control={
-              <Checkbox
-                checked={value}
-                required={required}
-                onClick={this.handleChange}
-              />
+              <Checkbox required checked={value} onClick={this.handleChange} />
             }
             label={
               <Typography align="left" variant="caption">
@@ -460,13 +458,7 @@ export class FormField extends Component<Props, State> {
       case 'accept_sms':
         return (
           <FormControlLabel
-            control={
-              <Checkbox
-                checked={value}
-                required={required}
-                onClick={this.handleChange}
-              />
-            }
+            control={<Checkbox checked={value} onClick={this.handleChange} />}
             label={
               <FormLabel className={classes.labelRoot} component="legend">
                 {label}
@@ -480,7 +472,7 @@ export class FormField extends Component<Props, State> {
             {this.props.waiver && (
               <AcceptTermsAndConditions
                 accepted={value}
-                required={required}
+                required
                 onChecked={this.handleChange}
                 termsAndConditions={waiver}
                 type="waiver"

@@ -113,6 +113,7 @@ export const SubscriptionContractRegistrationManagerDialog = (props: Props) => {
   if (!props.member) {
     return (
       <MemberSearchModal
+        asManager
         open={props.open}
         loading={props.searchLoading}
         searchedMembers={props.searchedMembers || []}

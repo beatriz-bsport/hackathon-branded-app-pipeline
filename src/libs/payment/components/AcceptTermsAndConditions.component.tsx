@@ -18,6 +18,7 @@ import { MaterialStyleType, WithHandlerType } from '../../../utils/types';
 type OwnProps = {
   accepted: boolean;
   onChecked: (accepted: boolean) => void;
+  required?: boolean;
   termsAndConditions: string;
   type: 'generalTermsOfUse' | 'theTermsAndConditions' | 'waiver';
 };
@@ -36,6 +37,7 @@ export const AcceptTermsAndConditions = (props: Props) => {
       <FormControlLabel
         control={
           <Checkbox
+            required={props.required}
             checked={props.accepted}
             onChange={(ev) => props.onChecked(ev.target.checked)}
           />

@@ -71,6 +71,7 @@ export class RelationForm extends React.Component<Props, State> {
       return (
         <MemberSearchModal
           open
+          asManager
           loading={this.props.searchLoading}
           searchMembers={this.props.searchMembers}
           searchedMembers={this.props.searchedMembers}

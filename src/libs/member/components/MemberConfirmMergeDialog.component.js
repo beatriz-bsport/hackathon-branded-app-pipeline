@@ -19,7 +19,7 @@ type Props = {
   t: TFunction,
 };
 
-export function MemberSearchModal(props: Props) {
+export function MemberConfirmMergeDialog(props: Props) {
   return (
     <Dialog open={props.open} scroll="paper">
       <DialogTitle>{props.t('forms.merge.title')}</DialogTitle>
@@ -46,4 +46,4 @@ export function MemberSearchModal(props: Props) {
   );
 }
 
-export default compose(withTranslation(['member']))(MemberSearchModal);
+export default compose(withTranslation(['member']))(MemberConfirmMergeDialog);

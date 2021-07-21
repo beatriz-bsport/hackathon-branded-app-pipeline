@@ -84,8 +84,8 @@ export const TextField = withStyles(textFieldStyles)((props: Props) => {
       {({ field, form: { touched, errors } }) => {
         return (
           <MuiTextField
-            InputLabelProps={field.value ? { shrink } : {}}
             className={classes.field}
+            shrink={shrink}
             {...field}
             {...omit(props, ['field'])}
             error={!!(touched[field.name] && errors[field.name])}

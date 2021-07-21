@@ -30,6 +30,7 @@ import type { Member } from '../types';
 
 type Props = {
   open: boolean,
+  asManager?: boolean,
   loading: boolean,
   searchMembers: (text: string) => void,
   searchedMembers: Array<Member>,
@@ -75,6 +76,7 @@ export function MemberSearchModal(props: Props) {
     return (
       <Dialog fullScreen={fullScreen} open={props.open}>
         <MemberForm
+          asManager={props.asManager}
           onCancel={props.closeCreateForm}
           onSubmit={(data, options) =>
             props.createMember(data, {

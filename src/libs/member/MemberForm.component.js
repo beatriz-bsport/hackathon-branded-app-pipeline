@@ -75,7 +75,7 @@ type Props = {
   fromConsumerAccess: ?boolean,
   memberId: number,
   emailExistsError: boolean,
-  hideManagerStuff: boolean,
+  asManager?: boolean,
   managerFormConfig: ?SignUpFormConfigDict,
   onCancel?: () => void,
   checkUserExists: ({ email?: string, phonenumber?: string }) => void,
@@ -238,7 +238,7 @@ export function MemberForm(props: Props) {
     isSubmitting,
     variant,
     checkUserExists,
-    hideManagerStuff,
+    asManager,
     managerFormConfig,
     userStatus,
   } = props;
@@ -262,7 +262,7 @@ export function MemberForm(props: Props) {
 
   return (
     <div>
-      {variant === 'merge-form' || hideManagerStuff ? null : (
+      {variant === 'merge-form' || !asManager ? null : (
         <MemberExistsBanner
           emailExists={props.emailExists}
           emailExistsError={props.emailExistsError}
@@ -317,7 +317,7 @@ export function MemberForm(props: Props) {
                   name="avatar"
                   disabled={disabled}
                   required={
-                    hideManagerStuff &&
+                    !asManager &&
                     managerFormConfig &&
                     managerFormConfig.photo.mandatory_on_creation
                   }
@@ -328,7 +328,7 @@ export function MemberForm(props: Props) {
             <Grid container spacing={2}>
               <Grid item xs={12} md={mdSize}>
                 <TextField
-                  shrink="true"
+                  shrink
                   name="firstname"
                   label={
                     (managerFormConfig && managerFormConfig.first_name.label) ||
@@ -342,7 +342,7 @@ export function MemberForm(props: Props) {
               <Grid item xs={12} md={mdSize}>
                 <TextField
                   name="lastname"
-                  shrink="true"
+                  shrink
                   label={
                     (managerFormConfig && managerFormConfig.last_name.label) ||
                     t('translation:form.lastname')
@@ -356,14 +356,14 @@ export function MemberForm(props: Props) {
                 {variant === 'merge-form' ? (
                   <TextField
                     name="email"
-                    shrink="true"
+                    shrink
                     label={
                       (managerFormConfig && managerFormConfig.email.label) ||
                       t('translation:form.email')
                     }
                     type="email"
                     fullWidth
-                    required={!!props.fromConsumerAccess}
+                    required={!asManager}
                     disabled={disabled || variant === 'merge-form'}
                   />
                 ) : (
@@ -375,7 +375,7 @@ export function MemberForm(props: Props) {
                     }
                     type="email"
                     fullWidth
-                    required={!!props.fromConsumerAccess}
+                    required={!asManager}
                     disabled={disabled || variant === 'merge-form'}
                   />
                 )}
@@ -392,7 +392,7 @@ export function MemberForm(props: Props) {
                     }
                     fullWidth
                     required={
-                      hideManagerStuff &&
+                      !asManager &&
                       managerFormConfig &&
                       managerFormConfig.gender.mandatory_on_creation
                     }
@@ -402,23 +402,23 @@ export function MemberForm(props: Props) {
               </Grid>
             </Grid>
 
-            {hideManagerStuff ? null : (
+            {!asManager ? null : (
               <Grid item xs={12} md={mdSize}>
                 <TextField
                   name="membership_ID"
                   label={t('form.member.referenceNumber')}
                   helperText={t('form.member.referenceNumberHelper')}
                   fullWidth
-                  shrink="true"
+                  shrink
                   disabled={disabled || !!props.fromConsumerAccess}
                 />
               </Grid>
             )}
-            {hideManagerStuff ? null : (
+            {!asManager ? null : (
               <Grid item xs={12} md={mdSize}>
                 <TextField
                   name="barcode"
-                  shrink="true"
+                  shrink
                   label={t('form.member.barcode')}
                   helperText={t('form.member.barcodeHelper')}
                   fullWidth
@@ -436,8 +436,8 @@ export function MemberForm(props: Props) {
                       keyboard
                       format="L"
                       required={
-                        !!props.fromConsumerAccess ||
-                        (hideManagerStuff &&
+                        !asManager &&
+                        (!!props.fromConsumerAccess ||
                           managerFormConfig.birthday.mandatory_on_creation)
                       }
                       openToYearSelection
@@ -456,10 +456,9 @@ export function MemberForm(props: Props) {
                     />
                   </Grid>
                 )}
-                {hideManagerStuff ? null : (
+                {!asManager ? null : (
                   <Grid item>
                     <DateField
-                      required={!!props.fromConsumerAccess}
                       keyboard
                       name="date_joined"
                       disabled={disabled}
@@ -481,9 +480,8 @@ export function MemberForm(props: Props) {
                       label={t('translation:form.phone')}
                       fullWidth
                       required={
-                        !!props.fromConsumerAccess ||
-                        (hideManagerStuff &&
-                          managerFormConfig.phone.mandatory_on_creation)
+                        !asManager &&
+                        managerFormConfig.phone.mandatory_on_creation
                       }
                       disabled={disabled}
                       country={browserCountryCode()}
@@ -500,10 +498,8 @@ export function MemberForm(props: Props) {
                     !managerFormConfig) && (
                     <TextField
                       required={
-                        !!props.fromConsumerAccess ||
-                        (hideManagerStuff &&
-                          managerFormConfig.address_line_1
-                            .mandatory_on_creation)
+                        !asManager &&
+                        managerFormConfig.address_line_1.mandatory_on_creation
                       }
                       name="address_line_1"
                       fullWidth
@@ -520,10 +516,8 @@ export function MemberForm(props: Props) {
                     <TextField
                       name="address_line_2"
                       required={
-                        !!props.fromConsumerAccess ||
-                        (hideManagerStuff &&
-                          managerFormConfig.address_line_2
-                            .mandatory_on_creation)
+                        !asManager &&
+                        managerFormConfig.address_line_2.mandatory_on_creation
                       }
                       fullWidth
                       disabled={!!disabled}
@@ -546,9 +540,8 @@ export function MemberForm(props: Props) {
                           }
                           disabled={!!disabled}
                           required={
-                            !!props.fromConsumerAccess ||
-                            (hideManagerStuff &&
-                              managerFormConfig.zipcode.mandatory_on_creation)
+                            !asManager &&
+                            managerFormConfig.zipcode.mandatory_on_creation
                           }
                         />
                       </Grid>
@@ -565,9 +558,8 @@ export function MemberForm(props: Props) {
                           }
                           disabled={!!disabled}
                           required={
-                            !!props.fromConsumerAccess ||
-                            (hideManagerStuff &&
-                              managerFormConfig.city.mandatory_on_creation)
+                            !asManager &&
+                            managerFormConfig.city.mandatory_on_creation
                           }
                         />
                       </Grid>
@@ -579,9 +571,8 @@ export function MemberForm(props: Props) {
                     <TextField
                       name="country"
                       required={
-                        !!props.fromConsumerAccess ||
-                        (hideManagerStuff &&
-                          managerFormConfig.country.mandatory_on_creation)
+                        !asManager &&
+                        managerFormConfig.country.mandatory_on_creation
                       }
                       disabled={!!disabled}
                       label={
@@ -606,10 +597,9 @@ export function MemberForm(props: Props) {
                         }
                         fullWidth
                         required={
-                          !!props.fromConsumerAccess ||
-                          (hideManagerStuff &&
-                            managerFormConfig.emergency_contact
-                              .mandatory_on_creation)
+                          !asManager &&
+                          managerFormConfig.emergency_contact
+                            .mandatory_on_creation
                         }
                         disabled={disabled}
                       />
@@ -660,6 +650,7 @@ export function MemberForm(props: Props) {
                             id="checkbox_waiver"
                             name="waiver"
                             disabled={disabled}
+                            required={!asManager}
                             label={t('translation:form.member.waiver')}
                           />
                         )}
@@ -701,7 +692,7 @@ export function MemberForm(props: Props) {
           />
         )}
       </div>
-      {variant === 'merge-form' || hideManagerStuff ? null : (
+      {variant === 'merge-form' || !asManager ? null : (
         <MemberExistsBanner
           emailExists={props.emailExists}
           emailExistsError={props.emailExistsError}
@@ -722,114 +713,133 @@ const MemberSchema = Yup.object().shape({
     'first_name_required',
     'Required',
     function (item) {
-      return this.parent.managerFormConfig.first_name.mandatory_on_creation
-        ? !!item
-        : true;
+      return (
+        this.parent.asManager ||
+        (this.parent.managerFormConfig.first_name.mandatory_on_creation
+          ? !!item
+          : true)
+      );
     },
   ),
   lastname: Yup.string().test(
     'last_name_required',
     'Required',
     function (item) {
-      return this.parent.managerFormConfig.last_name.mandatory_on_creation
-        ? !!item
-        : true;
+      return (
+        !!this.parent.asManager ||
+        (this.parent.managerFormConfig.last_name.mandatory_on_creation
+          ? !!item
+          : true)
+      );
     },
   ),
   email: Yup.string().test('email_required', 'Required', function (item) {
-    return this.parent.managerFormConfig.email.mandatory_on_creation
-      ? !!item
-      : true;
+    return (
+      !!this.parent.asManager ||
+      (this.parent.managerFormConfig.email.mandatory_on_creation
+        ? !!item
+        : true)
+    );
   }),
   gender: Yup.string().test('gender_required', 'Required', function (item) {
-    return this.parent.managerFormConfig.gender.mandatory_on_creation
-      ? !!item
-      : true;
+    return (
+      !!this.parent.asManager ||
+      (this.parent.managerFormConfig.gender.mandatory_on_creation
+        ? !!item
+        : true)
+    );
   }),
   birthday: Yup.string().test('birthday_required', 'Required', function (item) {
-    return this.parent.managerFormConfig.birthday.mandatory_on_creation
-      ? !!item
-      : true;
+    return (
+      !!this.parent.asManager ||
+      (this.parent.managerFormConfig.birthday.mandatory_on_creation
+        ? !!item
+        : true)
+    );
   }),
   phone: Yup.string()
     .nullable()
     .matches(phoneRegExp, i18n.t('member:forms.phone.error'))
     .test('phone_required', 'Required', function (item) {
-      return this.parent.managerFormConfig.phone.mandatory_on_creation
-        ? !!item
-        : true;
+      return (
+        !!this.parent.asManager ||
+        (this.parent.managerFormConfig.phone.mandatory_on_creation
+          ? !!item
+          : true)
+      );
     }),
   emergency_contact: Yup.string().test(
     'emergency_contact_required',
     'Required',
     function (item) {
-      return this.parent.managerFormConfig.emergency_contact
-        .mandatory_on_creation
-        ? !!item
-        : true;
+      return (
+        !!this.parent.asManager ||
+        (this.parent.managerFormConfig.emergency_contact.mandatory_on_creation
+          ? !!item
+          : true)
+      );
     },
   ),
   address_line_1: Yup.string().test(
     'address_line_1_required',
     'Required',
     function (item) {
-      return this.parent.managerFormConfig.address_line_1.mandatory_on_creation
-        ? !!item
-        : true;
+      return (
+        !!this.parent.asManager ||
+        (this.parent.managerFormConfig.address_line_1.mandatory_on_creation
+          ? !!item
+          : true)
+      );
     },
   ),
   address_line_2: Yup.string().test(
     'address_line_2_required',
     'Required',
     function (item) {
-      return this.parent.managerFormConfig.address_line_2.mandatory_on_creation
-        ? !!item
-        : true;
+      return (
+        !!this.parent.asManager ||
+        (this.parent.managerFormConfig.address_line_2.mandatory_on_creation
+          ? !!item
+          : true)
+      );
     },
   ),
 
   city: Yup.string().test('city_required', 'Required', function (item) {
-    return this.parent.managerFormConfig.city.mandatory_on_creation
-      ? !!item
-      : true;
+    return (
+      !!this.parent.asManager ||
+      (this.parent.managerFormConfig.city.mandatory_on_creation ? !!item : true)
+    );
   }),
   country: Yup.string().test('country_required', 'Required', function (item) {
-    return this.parent.managerFormConfig.country.mandatory_on_creation
-      ? !!item
-      : true;
+    return (
+      !!this.parent.asManager ||
+      (this.parent.managerFormConfig.country.mandatory_on_creation
+        ? !!item
+        : true)
+    );
   }),
   zipcode: Yup.string().test('zipcode_required', 'Required', function (item) {
-    return this.parent.managerFormConfig.zipcode.mandatory_on_creation
-      ? !!item
-      : true;
+    return (
+      !!this.parent.asManager ||
+      (this.parent.managerFormConfig.zipcode.mandatory_on_creation
+        ? !!item
+        : true)
+    );
   }),
   avatar: Yup.string().test('avatar_required', 'Required', function (item) {
-    return this.parent.managerFormConfig.photo.mandatory_on_creation
-      ? !!item
-      : true;
+    return (
+      !!this.parent.asManager ||
+      (this.parent.managerFormConfig.photo.mandatory_on_creation
+        ? !!item
+        : true)
+    );
   }),
-  accept_sms: Yup.boolean().test(
-    'accept_sms_required',
-    'Required',
-    function (item) {
-      return this.parent.managerFormConfig.accept_sms.mandatory_on_creation
-        ? item
-        : true;
-    },
-  ),
-  accept_email: Yup.boolean().test(
-    'accept_email_required',
-    'Required',
-    function (item) {
-      return this.parent.managerFormConfig.accept_email.mandatory_on_creation
-        ? item
-        : true;
-    },
-  ),
   waiver: Yup.boolean().test('waiver_required', 'Required', function (item) {
-    return this.parent.managerFormConfig.waiver.mandatory_on_creation
-      ? item
-      : true;
+    return (
+      !!this.parent.asManager ||
+      (this.parent.managerFormConfig.waiver.mandatory_on_creation ? item : true)
+    );
   }),
   barcode: Yup.string().nullable(),
   membership_ID: Yup.string().nullable(),
@@ -921,7 +931,6 @@ export default compose(
       },
     enableReinitialize: true,
 
-    validationSchema: MemberSchema,
     handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
       const { managerFormConfig, ...cleanedValues } = values;
       let { avatar } = cleanedValues;

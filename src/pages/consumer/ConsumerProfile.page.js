@@ -127,7 +127,7 @@ export class ConsumerProfile extends React.Component<Props> {
           {!this.props.managerFormConfigLoading && (
             <MemberForm
               hideManagerStuff
-              managerFormConfig={this.props.managerFormConfig.poll_fields}
+              managerFormConfig={this.props.managerFormConfig?.poll_fields}
               onCancel={() => this.props.setEditMember(false)}
               memberId={this.props.membership.id}
               theme={this.props.theme}

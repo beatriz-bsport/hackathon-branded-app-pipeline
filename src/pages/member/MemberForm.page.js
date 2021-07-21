@@ -79,13 +79,14 @@ export class MemberFormPage extends Component<Props> {
           memberId={id}
           theme={this.props.theme}
           onSubmit={onSubmit}
+          asManager
           initial={initialData}
           goToMember={this.props.goToMember}
           goToMerge={this.props.goToMerge}
           goToMemberList={this.props.goToMemberList}
           snackbarSuccess={this.props.snackbarSuccess}
           country={this.props.country}
-          managerFormConfig={this.props.managerFormConfig.poll_fields}
+          managerFormConfig={this.props.managerFormConfig?.poll_fields}
         />
       </Paper>
     );

@@ -326,6 +326,7 @@ export class MemberDetailPage extends Component<Props, State> {
           />
         </Grid>
         <MemberSearchModal
+          asManager
           searchMembers={this.props.searchMembers}
           searchedMembers={this.props.searchedMembers.filter(
             (m) => m.id !== this.props.id,

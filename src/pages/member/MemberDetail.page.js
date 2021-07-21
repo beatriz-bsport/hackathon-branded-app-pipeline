@@ -339,7 +339,7 @@ export class MemberDetail extends React.Component<Props> {
             this.props.closeContractDialog();
             this.props.pushToTab(id, 'payment');
           }}
-          managerFormConfig={this.props.managerFormConfig.poll_fields}
+          managerFormConfig={this.props.managerFormConfig?.poll_fields}
         />
       </div>
     );

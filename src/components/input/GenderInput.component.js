@@ -27,11 +27,20 @@ type Props = {
 export function GenderInput(props: Props) {
   const { t, value, onChange, classes, fullWidth } = props;
   return (
-    <FormControl className={classes.formControl} fullWidth={fullWidth}>
+    <FormControl
+      required={props.required}
+      className={classes.formControl}
+      fullWidth={fullWidth}
+    >
       <InputLabel shrink htmlFor="gender-helper">
         {t('form.gender')}
       </InputLabel>
-      <Select value={value} onChange={onChange}>
+      <Select
+        native
+        required={props.required}
+        value={value}
+        onChange={onChange}
+      >
         <MenuItem key="F" value="F">
           <Typography align="left">{t('common.female')}</Typography>
         </MenuItem>

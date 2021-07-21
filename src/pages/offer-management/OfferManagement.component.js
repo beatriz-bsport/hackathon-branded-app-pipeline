@@ -614,6 +614,7 @@ export class OfferManagement extends Component<Props, State> {
         >
           <DialogContent>
             <MemberForm
+              asManager
               onCancel={this.props.closeAddMemberModal}
               onSubmit={this.createMember}
               initial={{ birthday: null }}
@@ -621,7 +622,7 @@ export class OfferManagement extends Component<Props, State> {
               goToMemberList={() => {}}
               snackbarSuccess={this.props.snackbarSuccess}
               country={this.props.country}
-              managerFormConfig={this.props.managerFormConfig.poll_fields}
+              managerFormConfig={this.props.managerFormConfig?.poll_fields}
             />
           </DialogContent>
         </Dialog>

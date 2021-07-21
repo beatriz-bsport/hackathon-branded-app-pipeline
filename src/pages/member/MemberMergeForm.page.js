@@ -98,7 +98,7 @@ export class MemberMergeFormPage extends Component<Props, State> {
             goToMember={this.props.goToMember}
             onSubmit={this.preSubmit}
             country={this.props.country}
-            managerFormConfig={this.props.managerFormConfig.poll_fields}
+            managerFormConfig={this.props.managerFormConfig?.poll_fields}
           />
         )}
 

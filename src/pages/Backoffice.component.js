@@ -29,6 +29,7 @@ import { fetchCashBook, updateCashBook } from '../libs/cashbook/actions';
 // FIXME clean that
 // // -------------------------
 import { fetchSCT } from '../libs/category/actions';
+import { fetchSignFormUpConfiguration } from '../libs/sign-up-form/actions';
 import { fetchAllPaymentPacks } from '../libs/payment-packs/actions';
 import { fetchShopItemAsManager as fetchShop } from '../libs/shop/actions/shopitem';
 import { fetchPaymentRules } from '../libs/payment-rules/actions';
@@ -141,6 +142,7 @@ type Props = {
   featureListLoading: boolean,
 
   location: Location,
+  fetchSignFormUpConfiguration: () => void,
 
   tempPasswordState: TempPasswordState,
   fetchTempPassword: () => void,
@@ -235,6 +237,7 @@ export class Backoffice extends Component<Props, State> {
     this.props.fetchAllCoachPaymentRuleGroups();
     this.props.fetchAssociatedCoaches();
     this.props.fetchAllPrivateSlots();
+    this.props.fetchSignFormUpConfiguration();
   }
 
   componentWillUnmount() {
@@ -438,6 +441,8 @@ export default compose(
       fetchAllCoachPaymentRuleGroups,
       fetchAssociatedCoaches,
       fetchAllPrivateSlots,
+
+      fetchSignFormUpConfiguration,
 
       generateTempPassword,
       fetchTempPassword,

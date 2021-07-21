@@ -256,6 +256,9 @@ export function MemberForm(props: Props) {
     }
     return [];
   };
+  if (!managerFormConfig) {
+    return <LinearProgress />;
+  }
 
   return (
     <div>

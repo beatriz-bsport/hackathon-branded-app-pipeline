@@ -792,7 +792,32 @@
                 "confirmPasswordLabel": "Bevestiging",
                 "emailExistsInDB2": "Aanmelden",
                 "emailExistsInDB1": "Je gebruikt dit e-mailadres al bij een andere studio dat BSPORT gebruikt. Je kunt dezelfde inloggegevens blijven gebruiken.",
-                "typePhone": "Mobiel*"
+                "typePhone": "Mobiel*",
+                "error": {
+                    "passwordConfirm": "De wachtwoorden komen niet overeen.",
+                    "password": "Je wachtwoord moet minimaal 6 tekens bevatten."
+                },
+                "fields": {
+                    "accept_sms": "Ik ga ermee akkoord om per sms te worden geïnformeerd over voor mijn relevante informatie, zoals annuleringen, roosterwijzigingen, nieuwe workshops, etc.",
+                    "accept_email": "Ik ga ermee akkoord om per e-mail te worden geïnformeerd over voor mijn relevante informatie, zoals annuleringen, roosterwijzigingen, nieuwe workshops, etc.",
+                    "waiver": "Ik accepteer de Waiver / Vrijstelling.",
+                    "general_terms_and_conditions_accepted": "Ik accepteer de algemene voorwaarden.",
+                    "emergency_contact": "Contactpersoon voor noodgevallen",
+                    "city": "Stad",
+                    "birthday": "Geboortedatum",
+                    "phone": "Telefoonnummer ",
+                    "country": "Land",
+                    "zipcode": "Postcode",
+                    "address_line_2": "Aanvulling adres",
+                    "address_line_1": "Adres",
+                    "gender": "Geslacht",
+                    "passwordConfirm": "Wachtwoord bevestigen",
+                    "password": "Wachtwoord",
+                    "email": "E-mailadres",
+                    "last_name": "Familienaam",
+                    "first_name": "Voornaam"
+                },
+                "addProfilePicture": "Een profielfoto toevoegen"
             },
             "metaActivity": {
                 "cantAddSameName": "Er bestaat al een activiteit met dezelfde naam!"
@@ -816,7 +841,13 @@
                 "rgpd": {
                     "sms": "Sms",
                     "email": "E-mail"
-                }
+                },
+                "errors": {
+                    "waiver": "Het is een vereiste dat de Waiver / Vrijstelling geaccepteerd is",
+                    "accept_email": "Het is een vereiste dat e-mailmeldingen geaccepteerd zijn",
+                    "accept_sms": "Het is een vereiste dat sms-meldingen geaccepteerd zijn"
+                },
+                "waiver": "Accepteer de voorwaarden van de Waiver / Vrijstelling"
             },
             "booking": {
                 "delete": {
@@ -906,7 +937,10 @@
                 "week": "Wekelijks",
                 "year": "Jaarlijks",
                 "month": "Maandelijks"
-            }
+            },
+            "completeInformation": "Mijn gegevens inivullen",
+            "emergencyContact": "Contactpersoon voor noodgevallen",
+            "modify": "Bewerken"
         },
         "shop": {
             "noProvisionUpdates": "Geen voorraad",
@@ -1203,7 +1237,9 @@
             "duplicate": "Dupliceren",
             "restore": "Herstellen",
             "share": "Delen",
-            "pickALanguage": "Taal"
+            "pickALanguage": "Taal",
+            "emergencyContact": "Contactpersoon voor noodgevallen",
+            "disconnect": "Afmelden"
         },
         "members": {
             "form": {
@@ -3198,7 +3234,23 @@
             },
             "phone": {
                 "error": "Ongeldig telefoonnummer"
-            }
+            },
+            "needInformationValidation": {
+                "legend": {
+                    "memberOfCompany": "Vul de vereiste informatie in om verder te gaan.",
+                    "notMemberYet": "Wil je je gegevens met ons delen om je in te schrijven? "
+                },
+                "button": {
+                    "memberOfCompany": "Mijn gegevens invullen",
+                    "notMemberYet": "Informatie verzenden"
+                },
+                "subtitle": {
+                    "memberOfCompany": "Een korte introductie misschien?",
+                    "notMemberYet": "Het lijkt erop dat je voor het eerst naar deze studio gaat."
+                },
+                "welcome": "Hoi {{first_name}}!"
+            },
+            "title": "Gebruikersinformatie"
         },
         "user": {
             "existsWithEmail": "Er bestaat al een gebruiker met dit e-mailadres {{email}}.",
@@ -3306,7 +3358,7 @@
                 "maleUnavailable": "Mannen kunnen zich niet meer inschrijven voor deze sessie.",
                 "femaleUnavailable": "Vrouwen kunnen zich niet meer inschrijven voor deze sessie."
             },
-            "hasRegistered": "Je bent ingeschreven voor deze sessie",
+            "hasRegistered": "Je hebt je aangemeld voor deze sessie.",
             "recurrent": {
                 "backToRegistererChoice": "Terug",
                 "bookMultiple": "Reserveer",
@@ -3540,10 +3592,16 @@
             "packTitle": "Mijn reserveringsmethode",
             "offerStatus": {
                 "waiting_list_status": {
-                    "3": "Reserveren is mogelijk!",
-                    "2": "Opgeslagen",
-                    "1": "De wachtlijst is vol",
-                    "0": "Wachtlijst"
+                    "3": "Vol",
+                    "2": "Afgelopen",
+                    "1": "Gesloten",
+                    "0": "Wachtlijst",
+                    "6003": "Ingeschreven op de wachtlijst",
+                    "6002": "De wachtlijst is vol",
+                    "7": "Onevenwichtige man/vrouw-verhouding",
+                    "6": "Onevenwichtige man/vrouw-verhouding",
+                    "5": "Ingeschreven",
+                    "4": "Gesloten"
                 },
                 "bookable_status": {
                     "4": "Deze sessie is niet beschikbaar",
@@ -5517,7 +5575,7 @@
         "modal": {
             "delete": {
                 "content": "Als je deze regel verwijderd dan beïnvloedt dit alle instructeurs en sessies waar deze regel aan is toegewezen",
-                "title": "Verwijder een regel",
+                "title": "Een regel verwijderen",
                 "cancel": "Annuleren",
                 "confirm": "Bevestigen"
             }
@@ -5597,7 +5655,8 @@
                 "uniqueRuleForPrivateSlot": "Deze afspraak staat meerdere keren in de lijst.",
                 "invalidCoachPaymentRule": "Selecteer een payroll-regel.",
                 "invalidPrivateSlot": "Selecteer een afspraak.",
-                "oneRuleRequired": "Je moet tenminste één payroll-regel selecteren om een groep te maken."
+                "oneRuleRequired": "Je moet tenminste één payroll-regel selecteren om een groep te maken.",
+                "privateSlotAlreadySelected": "Er is al een payroll-regel voor deze afspraak ingesteld."
             },
             "Bonuses": {
                 "bonus_rules": "Bonusregels",
@@ -5610,7 +5669,7 @@
                 "forInterval": "voor alle intervallen"
             },
             "paymentPackPlaceHolder": "Selecteer leskaarten",
-            "excludePaymentPack": "De reserveringen van bepaalde kaarten uitsluiten",
+            "excludePaymentPack": "Reserveringen van bepaalde kaarten niet meetellen",
             "bonusForEachReservationInInterval": "Een bonus per reservering van dit interval toevoegen",
             "fixedBonusbyInterval": "Een vaste bonus per interval toevoegen",
             "cancellationBaseHelper": "Vink dit vak aan om geen bonus over de marginale waarde van annuleringen uit te betalen.",
@@ -5666,7 +5725,15 @@
             "workshop": "Workshops",
             "session": "Groepsactiviteiten",
             "private_service": "Afspraken",
-            "dialogTitle": "Payroll-regel groep"
+            "dialogTitle": "Payroll-regel groep",
+            "modal": {
+                "delete": {
+                    "content": "Als je deze groep verwijderd, wordt het losgekoppeld van alle toegevoegde instructeurs.",
+                    "confirm": "Bevestigen",
+                    "cancel": "Annuleer",
+                    "title": "Groep verwijderen"
+                }
+            }
         },
         "search": "Zoek een payroll-regel (optioneel)"
     },
@@ -6321,6 +6388,10 @@
             "3": "De sessie is vol",
             "2": "Het is niet meer mogelijk om je voor deze sessie in te schrijven",
             "1": "Reserveringen voor deze sessie zijn momenteel nog gesloten"
+        },
+        "signup": {
+            "failedCreation": "Het is momenteel niet mogelijk om je account aan te maken, probeer het later opnieuw",
+            "emailAlreadyExists": "Deze e-mail is al in gebruik"
         }
     },
     "coach": {
@@ -7092,6 +7163,43 @@
                 "title": "Integratie met Zoom",
                 "text": "Als je eerder de links naar online lessen handmatig hebt ingevoerd, worden deze nu verwijderd en vervangen door automatisch gegenereerde Zoom-links. Bijeenkomsten die al op de Zoom-agenda stonden, zullen handmatig moeten worden verwijderd, omdat deze ook door automatisch gegeneerde links worden vervangen."
             }
+        },
+        "signUpForm": {
+            "fields": {
+                "waiver": "Waiver / Vrijstelling",
+                "general_terms_and_conditions_accepted": "Algemene Gebruiksvoorwaarden",
+                "cgu": "Algemene Gebruiksvoorwaarden",
+                "accept_sms": "Accepteer sms-meldingen",
+                "accept_email": "Accepteer e-mailmeldingen",
+                "sms_notification": "Accepteer sms-meldingen",
+                "email_notification": "Accepteer e-mailmeldingen",
+                "emergency_contact": "Contactpersoon voor noodgevallen",
+                "profile_picture": "Profielfoto",
+                "zipcode": "Postcode",
+                "zip_code": "Postcode",
+                "country": "Land",
+                "city": "Stad",
+                "additionnal_address_info": "Aanvulling adres",
+                "address": "Adres",
+                "birthdate": "Geboortedatum",
+                "phone": "Mobiele telefoon",
+                "main_phone": "Telefoonnummer",
+                "gender": "Geslacht",
+                "email": "E-mailadres",
+                "last_name": "Familienaam",
+                "first_name": "Voornaam"
+            },
+            "error": "Fout bij het opslaan",
+            "success": "Configuratie opgeslagen",
+            "save": "Opslaan",
+            "editable": "Bewerkbaar",
+            "required": "Verplicht",
+            "show": "Toon",
+            "label": "Label",
+            "field_identifier": "Velden",
+            "account_modification": "Account bewerken",
+            "account_creation": "Account aanmaken",
+            "title": "[Formulier] Inschrijven"
         }
     },
     "checkout": {
@@ -7771,7 +7879,8 @@
                 "platform_billing": "Abonnement",
                 "marketplaceSettings": "MarketPlace",
                 "widget": "Widgets",
-                "paymentMethod": "Betaalmethoden"
+                "paymentMethod": "Betaalmethoden",
+                "forms": "Formulieren"
             },
             "pass": "Leskaarten",
             "goBack": "Terug",

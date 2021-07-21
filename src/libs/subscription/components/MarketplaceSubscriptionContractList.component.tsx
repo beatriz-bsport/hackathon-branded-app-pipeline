@@ -111,7 +111,6 @@ const styles = (theme: Theme) => ({
   contactListContainer: {
     overflowX: 'auto',
     padding: theme.spacing(2),
-
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'stretch',

@@ -19,8 +19,8 @@ type Props = {
 const SubscriptionContractDetail = (props: Props) => {
   const {
     name,
-    nb_interval,
     recurrent_price,
+    recurrence_basis,
     interval,
     flat_fee,
     description,
@@ -39,22 +39,17 @@ const SubscriptionContractDetail = (props: Props) => {
         </Typography>
         <div className={classes.row}>
           <div className={classes.pricesContainer}>
-            <Typography variant="h4">
-              {t('contract.duration', { month: nb_interval })}
-            </Typography>
-            <Typography variant="legend" align="left">
-              {`${t('contract.billingFrequency')} : ${t(
-                `contract.frequency.${interval}`,
-              )}`}
-            </Typography>
-          </div>
-          <div className={classes.pricesContainer}>
-            <Typography variant="h6" align="right">
+            <Typography variant="h6">
               {`${t(
                 'contract.form.recurrent_price.label',
               )} : ${recurrent_price}${getCurrencyDisplay()}`}
             </Typography>
-            <Typography variant="h6" align="right">
+            <Typography variant="body1" color="textSecondary" align="left">
+              {t(`contract.item.intervalLabel.${interval}`, {
+                count: recurrence_basis,
+              })}
+            </Typography>
+            <Typography variant="body1">
               {`${t(
                 'parameters.flat_fee',
               )} : ${flat_fee}${getCurrencyDisplay()}`}

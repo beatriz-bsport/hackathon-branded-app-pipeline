@@ -157,6 +157,12 @@ export class SubscriptionPayment extends React.Component<Props, State> {
     }
   }
 
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps && prevProps.contract !== this.props.contract) {
+      this.deleteCoupon();
+    }
+  }
+
   isZeroPrice = () => {
     if (this.props.contract) {
       return (

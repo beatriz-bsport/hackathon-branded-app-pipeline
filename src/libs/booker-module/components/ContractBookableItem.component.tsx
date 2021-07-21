@@ -25,7 +25,7 @@ const ContractBookableItem = (props: Props) => {
       </div>
       <Typography variant="body1" color="textSecondary" align="left">
         {t(`contract.item.intervalLabel.${contract.interval}`, {
-          plural: contract.recurrence_basis,
+          count: contract.recurrence_basis,
         })}
       </Typography>
       <Typography variant="body1" color="textPrimary" align="left">

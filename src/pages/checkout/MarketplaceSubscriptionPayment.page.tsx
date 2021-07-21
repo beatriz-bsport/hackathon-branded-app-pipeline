@@ -177,104 +177,106 @@ export class MarketplaceSubscriptionPayment extends React.Component<
     }
     return (
       <ConsumerAppBar>
-        <div className={classes.container}>
-          <Grid container spacing={2} direction="row" justify="space-evenly">
-            <Grid item xs={12}>
-              <MarketplaceSubscriptionContractList
-                contractList={this.props.contractList}
-                selected={parseInt(this.props.contractId)}
-                onClick={(c: ContractWithPaymentPack) => {
-                  this.props.setAcceptContract(false);
-                  this.props.setSelected(c.id);
-                  Analytics.contractShow(c);
-                }}
-              />
-            </Grid>
-          </Grid>
-        </div>
-
-        <Grid
-          container
-          spacing={2}
-          direction="row"
-          justify="space-evenly"
-          className={classes.centeredContainer}
-        >
-          <Grid item xs={12} md={6}>
-            {this.props.contractId &&
-              this.props.contractList &&
-              this.props.contractList !== [] && (
-                <SubscriptionContractDetail
-                  contract={this.props.contractList.find(
-                    (c: ContractWithPaymentPack) =>
-                      c.id === parseInt(this.props.contractId),
-                  )}
-                />
-              )}
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Paper className={classes.paymentPanelContainer}>
-              <Elements stripe={stripePromise}>
-                <SubscriptionPayment
-                  onCancel={() => {
+        <div className={classes.mainContainer}>
+          <div className={classes.upperContainer}>
+            <Grid container spacing={2} direction="row" justify="space-evenly">
+              <Grid item xs={12}>
+                <MarketplaceSubscriptionContractList
+                  contractList={this.props.contractList}
+                  selected={parseInt(this.props.contractId)}
+                  onClick={(c: ContractWithPaymentPack) => {
                     this.props.setAcceptContract(false);
+                    this.props.setSelected(c.id);
+                    Analytics.contractShow(c);
                   }}
-                  onSubmit={this.onSubmit}
-                  processing={this.state.processing}
-                  requestSetupIntentSecret={this.props.requestSetupIntentSecret}
-                  savedPaymentMethodList={this.props.savedPaymentMethodList}
-                  withCoupon
-                  contract={this.props.contractList.find(
-                    (c: ContractWithPaymentPack) =>
-                      c.id === parseInt(this.props.contractId),
-                  )}
-                  refreshSavedPaymentMethodList={
-                    this.props.fetchPaymentMethodList
-                  }
-                  enabledPaymentGroupMethodIdentifier={
-                    this.props.companyTheme
-                      .payment_method_available_subscription
-                  }
-                  detachPaymentMethodLoading={
-                    this.props.detachPaymentMethodLoading
-                  }
-                  companyId={this.props.companyId}
-                  detachPaymentMethod={this.props.detachPaymentMethod}
-                  snackbarErrorMsg={this.props.snackbarErrorMsg}
-                  snackbarSuccessMsg={this.props.snackbarSuccessMsg}
-                  sepaDefaultName={this.props.auth.name}
-                  sepaDefaultEmail={this.props.auth.username}
-                  withGeneralConditions
-                  disabled={!this.props.acceptContract}
-                  acceptContract={this.props.acceptContract}
-                  setAcceptContract={(value: boolean) => {
-                    this.props.setAcceptContract(value);
-                  }}
-                  date={this.props.date}
-                  setDate={this.props.setDate}
                 />
-              </Elements>
-            </Paper>
-          </Grid>
-        </Grid>
+              </Grid>
+            </Grid>
+          </div>
+
+          <div className={classes.centeredContainer}>
+            <Grid container spacing={2} direction="row" justify="space-evenly">
+              <Grid item xs={12} md={6}>
+                {this.props.contractId &&
+                  this.props.contractList &&
+                  this.props.contractList !== [] && (
+                    <SubscriptionContractDetail
+                      contract={this.props.contractList.find(
+                        (c: ContractWithPaymentPack) =>
+                          c.id === parseInt(this.props.contractId),
+                      )}
+                    />
+                  )}
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Paper className={classes.paymentPanelContainer}>
+                  <Elements stripe={stripePromise}>
+                    <SubscriptionPayment
+                      onCancel={() => {
+                        this.props.setAcceptContract(false);
+                      }}
+                      onSubmit={this.onSubmit}
+                      processing={this.state.processing}
+                      requestSetupIntentSecret={
+                        this.props.requestSetupIntentSecret
+                      }
+                      savedPaymentMethodList={this.props.savedPaymentMethodList}
+                      withCoupon
+                      contract={this.props.contractList.find(
+                        (c: ContractWithPaymentPack) =>
+                          c.id === parseInt(this.props.contractId),
+                      )}
+                      refreshSavedPaymentMethodList={
+                        this.props.fetchPaymentMethodList
+                      }
+                      enabledPaymentGroupMethodIdentifier={
+                        this.props.companyTheme
+                          .payment_method_available_subscription
+                      }
+                      detachPaymentMethodLoading={
+                        this.props.detachPaymentMethodLoading
+                      }
+                      companyId={this.props.companyId}
+                      detachPaymentMethod={this.props.detachPaymentMethod}
+                      snackbarErrorMsg={this.props.snackbarErrorMsg}
+                      snackbarSuccessMsg={this.props.snackbarSuccessMsg}
+                      sepaDefaultName={this.props.auth.name}
+                      sepaDefaultEmail={this.props.auth.username}
+                      withGeneralConditions
+                      disabled={!this.props.acceptContract}
+                      acceptContract={this.props.acceptContract}
+                      setAcceptContract={(value: boolean) => {
+                        this.props.setAcceptContract(value);
+                      }}
+                      date={this.props.date}
+                      setDate={this.props.setDate}
+                    />
+                  </Elements>
+                </Paper>
+              </Grid>
+            </Grid>
+          </div>
+        </div>
       </ConsumerAppBar>
     );
   }
 }
 
 const styles = (theme: Theme) => ({
-  container: {
+  mainContainer: {
+    width: '100%',
+    height: '100vh',
+  },
+  upperContainer: {
     margin: theme.spacing(2),
     display: 'flex',
     direction: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
-    overflowX: 'hidden',
-    overflowY: 'hidden',
   },
   centeredContainer: {
     maxWidth: '1600px',
+    margin: 'auto',
   },
   paymentPanelContainer: {
     padding: theme.spacing(2),

@@ -6419,11 +6419,14 @@
         },
         "spotScheduling": {
             "delete": {
-                "title": "Cancellazione piano della salla"
+                "title": "Cancellazione piano della salla",
+                "content": "Sei sicuro di voler cancellare questo piano di salla ? Questa operazione è irreversibile."
             },
             "add": "Aggiungere un piano della salla",
             "subtitle": "Utilizzato per il spot scheduling. Permette ai tuoi studenti di prenotare il posto desiderato nella salla.",
-            "title": "Piano della salla"
+            "title": "Piano della salla",
+            "untitled": "Senza titolo",
+            "placeCount": "{{count}} posti"
         },
         "location": {
             "country": "Paese",
@@ -6995,18 +6998,58 @@
         "addNew": "Nuove impostazioni di compensazione",
         "select": {
             "placeholder": "Scegli una regola di calcolo",
-            "placeholderOverride": "Regola di default"
+            "placeholderOverride": "Regola di default",
+            "coachPaymentRuleForPrivateService": "Appuntamenti",
+            "group": "Gruppo di retribuzione",
+            "coachPaymentRuleForWorkshops": "Workshop",
+            "coachPaymentRuleForSessions": "Attività",
+            "reset": "Utilizzare la regola predefinita del coach"
         },
         "common": {
             "from": "Inizio",
-            "until": "Fine"
+            "until": "Fine",
+            "pick_a_month": "Scegli un mese"
         },
         "title": "Regole dell'insegnante {{name}}",
         "label": "Regole di retribuzione",
         "dateTitle": "Intervallo di date",
         "coaches": "Insegnanti",
         "setPaymentRuleSetForCoachFirst": "Innanzitutto, assegna una regola di retribuzione predefinita a questo insegnante.",
-        "pageTitle": "Regole di retribuzione"
+        "pageTitle": "Regole di retribuzione",
+        "coach_payment_rules": {
+            "taxeConciseHelper": "Il bonus percentuale, calcolato dal valore marginale, sarà sottratto dall'IVA applicabile.",
+            "add_taxe_rate": "Tassa da aggiungere",
+            "taxe_rate": "Escludere l'IVA del calcolo del valore marginale (percentuale)",
+            "max_remuneration": "Massimo",
+            "min_remuneration": "Minimo",
+            "remunerationLimits": "Retribuzioni limiti",
+            "differentRemunerationForCancellation": "Applicare delle regole di bonus diverse per contare gli studenti assenti o le cancellazioni tardive ",
+            "addRemunerationOnCancellation": "Pagare un insegnante in caso di cancellazione tardive o assenze",
+            "percentage_base": "Aggiungere un percentuale del valore marginale delle prenotazioni",
+            "base_remuneration_helper": "Questo importo sarà sempre aggiunto alla retribuzione della sessione/appuntamento",
+            "set_base_remuneration": "Definire una base di retribuzione fissa",
+            "base_remuneration": "Base fissa",
+            "forCancelledBookings": "Per le cancellazioni tardive e assenze",
+            "forConfirmedBookings": "Per gli studenti presenti",
+            "calculationMethod": "Metodo di calcolo",
+            "actions": "Azioni",
+            "coaches": "Coach",
+            "name": "Cognome",
+            "addNewCoachPaymentRule": "Nuove impostazioni di retribuzione"
+        },
+        "tabs": {
+            "groups": "Gruppi di retribuzione",
+            "all": "Tutti i corsi",
+            "appointment": "Appuntamenti",
+            "session": "Attività e workshop"
+        },
+        "fabButton": {
+            "addNewForRDV": "Appuntamenti",
+            "addNewPaymentRuleGroup": "Gruppo di retribuzione",
+            "addNewForSession": "Attività e workshop"
+        },
+        "paymentRules": "Regole di retribuzione",
+        "search": "Cerca una regole di retribuzione (facoltativo)"
     },
     "common": {
         "form": {

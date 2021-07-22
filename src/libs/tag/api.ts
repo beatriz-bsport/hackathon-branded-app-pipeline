@@ -1,5 +1,3 @@
-// @flow
-
 import { API_URI, deleteAuth, getAuth, postAuth, putAuth } from '../../http';
 
 const TAG_URI = `${API_URI}/tagging/tag/`;
@@ -36,6 +34,9 @@ const updateTag = async (data: any) => {
 const updateTagGroup = async (data: any) => {
   return putAuth(`${TAG_GROUP_URI}${data.id}/`, data);
 };
+const fetchTagUsage = async () => {
+  return getAuth(`${TAG_URI}usage/`);
+};
 
 export default {
   fetchAllGroups,
@@ -46,4 +47,5 @@ export default {
   updateTagGroup,
   deleteTag,
   deleteTagGroup,
+  fetchTagUsage,
 };

@@ -1,4 +1,4 @@
-import { ErrorAndLoading } from '../types';
+import { ErrorAndLoading, ModelReducerI } from '../types';
 
 export type User = {
   id: number;
@@ -76,33 +76,37 @@ export type Member = {
   waiver_accepted: string;
 };
 
-export type MemberState = ErrorAndLoading & {
-  allIds: number[];
-  detailData: any;
-  listData: { [key: string]: Member };
-  quickFetched: Array<Member>;
-  barcode: ErrorAndLoading & {
-    data: Array<Member>;
-  };
-  search: ErrorAndLoading & {
+export type MemberState = ErrorAndLoading &
+  ModelReducerI<Member> & {
     allIds: number[];
+    detailData: any;
+    listData: { [key: string]: Member };
+    quickFetched: Array<Member>;
+    barcode: ErrorAndLoading & {
+      data: Array<Member>;
+    };
+    search: ErrorAndLoading & {
+      allIds: number[];
+    };
+    upsert: ErrorAndLoading;
+    bulk: ErrorAndLoading;
+    count: ErrorAndLoading & {
+      data: MemberCountData;
+    };
+    byOffer: {
+      items: Array<Member>;
+      loading: boolean;
+    };
+    historyListIds: number[];
+    communication: ErrorAndLoading & {
+      allPageIds: number[];
+      allIdsWithoutPhone: number[];
+      allIdsWithoutEmail: number[];
+      allIds: number[];
+      page: number;
+    };
+    userProfile: ErrorAndLoading & {
+      profile: Member | null;
+    };
+    generic: {};
   };
-  upsert: ErrorAndLoading;
-  bulk: ErrorAndLoading;
-  count: ErrorAndLoading & {
-    data: MemberCountData;
-  };
-  byOffer: {
-    items: Array<Member>;
-    loading: boolean;
-  };
-  historyListIds: number[];
-  byId: { [key: string]: Member };
-  communication: ErrorAndLoading & {
-    allPageIds: number[];
-    allIdsWithoutPhone: number[];
-    allIdsWithoutEmail: number[];
-    allIds: number[];
-    page: number;
-  };
-};

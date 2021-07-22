@@ -15,6 +15,8 @@ import {
   search as searchApi,
   tag as tagApi,
   untag as untagApi,
+  tagAll as tagAllApi,
+  untagAll as untagAllApi,
   merge as mergeApi,
   addFile as addFileAPI,
   regularizeDebt as regularizeDebtAPI,
@@ -27,6 +29,12 @@ import {
 import type { Member } from './types';
 
 import type { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
+import {
+  GenericAsyncAction,
+  GenericListAsyncAction,
+  GenericListRepo,
+  GenericRepo,
+} from '../../utils/reduxHelper';
 
 export const actionTypes = {
   START_FETCH_MEMBER: 'START_FETCH_MEMBER',
@@ -247,30 +255,46 @@ export function successTag(member: Member) {
   return { type: actionTypes.MEMBER_TAG_SUCCESS, member };
 }
 
-export function tag(memberId: number, tagId: number) {
+export function tag(memberId: number, tagId: number, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(startTag(memberId, tagId));
     try {
       const response = await tagApi(memberId, tagId);
       const member = response.data;
       dispatch(successTag(member));
+      if (options && options.onSuccess) {
+        options.onSuccess(member);
+      }
     } catch (err) {
       console.error(err);
       dispatch(errorSearch(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
     }
   };
 }
 
-export function untag(memberId: number, tagId: number) {
+export function untag(
+  memberId: number,
+  tagId: number,
+  options: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(startTag(memberId, tagId));
     try {
       const response = await untagApi(memberId, tagId);
       const member = response.data;
       dispatch(successTag(member));
+      if (options && options.onSuccess) {
+        options.onSuccess(member);
+      }
     } catch (err) {
       console.error(err);
       dispatch(errorSearch(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
     }
   };
 }
@@ -364,7 +388,7 @@ export function errorFetchingMember() {
 }
 
 export function createOrUpdateMember(
-  id,
+  id: number,
   memberData: FormData,
   options?: OptionCallback,
 ) {
@@ -663,3 +687,29 @@ export function adjustCreditWithoutPaymentNote(
     dispatch(adjustCreditWithoutPaymentNoteActions.isLoading(false));
   };
 }
+
+export const membersListWithTagRepo = GenericListRepo<Member>('membersWithTag');
+export const fetchMemberListWithTagsAction = GenericListAsyncAction(
+  membersListWithTagRepo,
+  fetchFilteredMembersAPI,
+);
+
+export const membersListWithoutTagRepo = GenericListRepo<Member>(
+  'membersWithoutTag',
+);
+export const fetchMemberListWithoutTagsAction = GenericListAsyncAction(
+  membersListWithoutTagRepo,
+  fetchFilteredMembersAPI,
+);
+
+export const tagAllMemberRepo = GenericRepo<null>('tagAllMembers');
+export const fetchTagAllMembersAction = GenericAsyncAction(
+  tagAllMemberRepo,
+  tagAllApi,
+);
+
+export const untagAllMemberRepo = GenericRepo<null>('untagAllMembers');
+export const fetchUntagAllMemberAction = GenericAsyncAction(
+  untagAllMemberRepo,
+  untagAllApi,
+);

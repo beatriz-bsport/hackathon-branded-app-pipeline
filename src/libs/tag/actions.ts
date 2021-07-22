@@ -1,10 +1,8 @@
-// @flow
-
 import { createAction } from 'redux-actions';
 
 import api from './api';
 
-import type { Dispatch, ThunkAction } from '../../state/types';
+import { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 
 export const tagListActions = {
   error: createAction('TAG/LIST/ERROR'),
@@ -37,17 +35,22 @@ export function fetchTags(): ThunkAction {
   };
 }
 
-export function fetchAllGroups(): ThunkAction {
+export function fetchAllGroups(options?: OptionCallback): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(tagGroupListActions.isLoading(true));
     dispatch(tagGroupListActions.error(null));
 
     try {
       const response = await api.fetchAllGroups();
-
       dispatch(tagGroupListActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
     } catch (error) {
       dispatch(tagGroupListActions.error(error));
+      if (options && options.onError) {
+        options.onSuccess(error);
+      }
     }
 
     dispatch(tagGroupListActions.isLoading(false));
@@ -61,13 +64,34 @@ export function fetchAllTags(): ThunkAction {
 
     try {
       const response = await api.fetchAllTags();
-
       dispatch(tagListActions.success(response.data));
     } catch (error) {
       dispatch(tagListActions.error(error));
     }
 
     dispatch(tagListActions.isLoading(false));
+  };
+}
+
+export const tagUsageActions = {
+  error: createAction('TAG/USAGE/ERROR'),
+  isLoading: createAction('TAG/USAGE/IS_LOADING'),
+  success: createAction('TAG/USAGE/SUCCESS'),
+};
+
+export function fetchTagUsage(): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(tagUsageActions.isLoading(true));
+    dispatch(tagUsageActions.error(null));
+
+    try {
+      const response = await api.fetchTagUsage();
+      dispatch(tagUsageActions.success(response.data));
+    } catch (error) {
+      dispatch(tagUsageActions.error(error));
+    }
+
+    dispatch(tagUsageActions.isLoading(false));
   };
 }
 
@@ -78,7 +102,6 @@ export function createOrUpdateTag(
   return async (dispatch: Dispatch) => {
     dispatch(tagCreateOrUpdateActions.isLoading(true));
     dispatch(tagCreateOrUpdateActions.error(null));
-
     const apiCall = data.id ? api.updateTag : api.createTag;
     try {
       const response = await apiCall(data);
@@ -93,15 +116,20 @@ export function createOrUpdateTag(
   };
 }
 
-export function createOrUpdateTagGroup(data: any): ThunkAction {
+export function createOrUpdateTagGroup(
+  data: any,
+  options: OptionCallback,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(tagGroupCreateOrUpdateActions.isLoading(true));
     dispatch(tagGroupCreateOrUpdateActions.error(null));
-
     const apiCall = data.id ? api.updateTagGroup : api.createTagGroup;
     try {
       const response = await apiCall(data);
       dispatch(tagGroupCreateOrUpdateActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
     } catch (error) {
       dispatch(tagGroupCreateOrUpdateActions.error(error));
     }
@@ -109,7 +137,10 @@ export function createOrUpdateTagGroup(data: any): ThunkAction {
   };
 }
 
-export function deleteTagGroup(id: number): ThunkAction {
+export function deleteTagGroup(
+  id: number,
+  options: OptionCallback,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(tagGroupCreateOrUpdateActions.isLoading(true));
     dispatch(tagGroupCreateOrUpdateActions.error(null));
@@ -117,8 +148,14 @@ export function deleteTagGroup(id: number): ThunkAction {
     try {
       await api.deleteTagGroup(id);
       dispatch(fetchAllGroups());
+      if (options && options.onSuccess) {
+        options.onSuccess();
+      }
     } catch (error) {
       dispatch(tagGroupCreateOrUpdateActions.error(error));
+      if (options && options.onError) {
+        options.onError();
+      }
     }
     dispatch(tagGroupCreateOrUpdateActions.isLoading(false));
   };

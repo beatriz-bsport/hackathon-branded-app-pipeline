@@ -1,6 +1,7 @@
 import Immutable from 'seamless-immutable';
 
 // @ts-ignore
+import { handleActions } from 'redux-actions';
 import authActionTypes from '../../actions/auth.types';
 
 import {
@@ -11,16 +12,20 @@ import {
   memberCountObject,
   memberListPaginatedActions,
   fetchMyUserProfileActions,
+  membersListWithTagRepo,
+  membersListWithoutTagRepo,
+  tagAllMemberRepo,
+  untagAllMemberRepo,
 } from './actions';
 import { Member, MemberNote, MemberState } from './types';
+import { GenericListReducer, GenericReducer } from '../../utils/reduxHelper';
 
-const initialState = Immutable({
+const initialState: Immutable.Immutable<MemberState> = Immutable<MemberState>({
   loading: false,
   error: null,
   allIds: [], // all the members
   detailData: {},
   listData: {},
-  // memberId: null,  commented cause never used
   barcode: {
     data: null,
     loading: false,
@@ -58,21 +63,28 @@ const initialState = Immutable({
   userProfile: {
     loading: true,
     error: null,
-    profile: {},
+    profile: null,
+  },
+  generic: {
+    ...membersListWithTagRepo.initialState,
+    ...membersListWithoutTagRepo.initialState,
+    ...tagAllMemberRepo.initialState,
+    ...untagAllMemberRepo.initialState,
   },
 });
 
-export default function memberReducers(state = initialState, action: any) {
-  switch (action.type) {
-    case authActionTypes.DISCONNECT:
+export default handleActions<Immutable.Immutable<MemberState>>(
+  {
+    [authActionTypes.DISCONNECT]: () => {
       return initialState;
-    case memberBulkActions.isLoading.toString(): {
+    },
+    [memberBulkActions.isLoading.toString()]: (state, action) => {
       return state.setIn(['bulk', 'loading'], action.payload);
-    }
-    case memberBulkActions.error.toString(): {
+    },
+    [memberBulkActions.error.toString()]: (state, action) => {
       return state.setIn(['bulk', 'error'], action.payload);
-    }
-    case memberBulkActions.success.toString(): {
+    },
+    [memberBulkActions.success.toString()]: (state, action) => {
       return state
         .merge(
           {
@@ -91,8 +103,8 @@ export default function memberReducers(state = initialState, action: any) {
           // @ts-ignore
           [...state.allIds, ...action.payload.map((m: Member) => m.id)],
         );
-    }
-    case memberListActions.success.toString(): {
+    },
+    [memberListActions.success.toString()]: (state, action) => {
       return state
         .merge(
           {
@@ -110,20 +122,20 @@ export default function memberReducers(state = initialState, action: any) {
           ['allIds'],
           action.payload.map((m: Member) => m.id),
         );
-    }
-    case memberListActions.error.toString(): {
+    },
+    [memberListActions.error.toString()]: (state, action) => {
       return state.set('error', action.payload);
-    }
-    case memberListActions.isLoading.toString(): {
+    },
+    [memberListActions.isLoading.toString()]: (state, action) => {
       return state.set('loading', action.payload);
-    }
-    case memberListPaginatedActions.isLoading.toString(): {
+    },
+    [memberListPaginatedActions.isLoading.toString()]: (state, action) => {
       return state.setIn(['communication', 'loading'], action.payload);
-    }
-    case memberListPaginatedActions.error.toString(): {
+    },
+    [memberListPaginatedActions.error.toString()]: (state, action) => {
       return state.setIn(['communication', 'error'], action.payload);
-    }
-    case memberListPaginatedActions.success.toString(): {
+    },
+    [memberListPaginatedActions.success.toString()]: (state, action) => {
       return state
         .setIn(['communication', 'page'], action.payload.page)
         .setIn(['communication', 'allIds'], action.payload.allIds)
@@ -153,46 +165,45 @@ export default function memberReducers(state = initialState, action: any) {
           },
           { deep: true },
         );
-    }
-    case memberCountObject.success.toString(): {
+    },
+    [memberCountObject.success.toString()]: (state, action) => {
       return state.setIn(['count', 'data'], action.payload);
-    }
+    },
 
-    case memberCountObject.isLoading.toString(): {
+    [memberCountObject.isLoading.toString()]: (state, action) => {
       return state.setIn(['count', 'loading'], action.payload);
-    }
+    },
 
-    case memberCountObject.error.toString(): {
+    [memberCountObject.error.toString()]: (state, action) => {
       return state.setIn(['count', 'error'], action.payload);
-    }
+    },
 
-    case barcodeRetrieveAction.success.toString(): {
+    [barcodeRetrieveAction.success.toString()]: (state, action) => {
       return state.setIn(['barcode', 'data'], action.payload);
-    }
-    case barcodeRetrieveAction.reset.toString(): {
+    },
+    [barcodeRetrieveAction.reset.toString()]: (state) => {
       return state
         .setIn(['barcode', 'data'], null)
         .setIn(['barcode', 'loading'], false);
-    }
-    case barcodeRetrieveAction.error.toString(): {
+    },
+    [barcodeRetrieveAction.error.toString()]: (state, action) => {
       return state.setIn(['barcode', 'error'], action.payload);
-    }
-    case barcodeRetrieveAction.isLoading.toString(): {
+    },
+    [barcodeRetrieveAction.isLoading.toString()]: (state, action) => {
       return state.setIn(['barcode', 'loading'], action.payload);
-    }
-
-    case actionTypes.MEMBER_TAG_SUCCESS: {
+    },
+    [actionTypes.MEMBER_TAG_SUCCESS.toString()]: (state, action) => {
       return state.setIn(
         ['detailData', action.member.id, 'tags'],
         action.member.tags,
       );
-    }
-    case actionTypes.MEMBER_SEARCH_START: {
+    },
+    [actionTypes.MEMBER_SEARCH_START.toString()]: (state) => {
       return state
         .setIn(['search', 'allIds'], [])
         .setIn(['search', 'loading'], true);
-    }
-    case actionTypes.MEMBER_MERGE_SUCCESS: {
+    },
+    [actionTypes.MEMBER_MERGE_SUCCESS.toString()]: (state, action) => {
       return state
         .setIn(
           ['search', 'allIds'],
@@ -202,13 +213,13 @@ export default function memberReducers(state = initialState, action: any) {
           'allIds',
           state.allIds.filter((m) => m.id !== action.src),
         );
-    }
-    case actionTypes.MEMBER_SEARCH_ERROR: {
+    },
+    [actionTypes.MEMBER_SEARCH_ERROR.toString()]: (state, action) => {
       return state
         .setIn(['search', 'error'], action.error)
         .setIn(['search', 'loading'], false);
-    }
-    case actionTypes.MEMBER_SEARCH_SUCCESS: {
+    },
+    [actionTypes.MEMBER_SEARCH_SUCCESS.toString()]: (state, action) => {
       return state
         .setIn(
           ['search', 'allIds'],
@@ -227,13 +238,15 @@ export default function memberReducers(state = initialState, action: any) {
           },
           { deep: true },
         );
-    }
+    },
 
-    case actionTypes.START_FETCH_MEMBER:
+    [actionTypes.START_FETCH_MEMBER.toString()]: (state) => {
       return state.set('loading', true);
-    case actionTypes.ERROR_FETCHING_MEMBER:
+    },
+    [actionTypes.ERROR_FETCHING_MEMBER.toString()]: (state) => {
       return state.set('loading', false);
-    case actionTypes.HAS_FETCHED_MEMBER: {
+    },
+    [actionTypes.HAS_FETCHED_MEMBER.toString()]: (state, action) => {
       const { member } = action;
       return state
         .set('member', member.id)
@@ -244,17 +257,24 @@ export default function memberReducers(state = initialState, action: any) {
           // @ts-ignore
           ...state.historyListIds.filter((m) => m !== member.id).slice(0, 10),
         ]);
-    }
-    case actionTypes.MEMBER_CREATE_OR_UPDATE_SUCCESS:
+    },
+    [actionTypes.MEMBER_CREATE_OR_UPDATE_SUCCESS.toString()]: (state) => {
       return state.set('upsert', { error: null, loading: false });
-
-    case actionTypes.MEMBER_CREATE_OR_UPDATE_ERROR:
+    },
+    [actionTypes.MEMBER_CREATE_OR_UPDATE_ERROR.toString()]: (state, action) => {
       return state.set('upsert', { error: action.error, loading: false });
+    },
 
-    case actionTypes.MEMBER_NOTE_CREATEORUPDATE_ERROR:
+    [actionTypes.MEMBER_NOTE_CREATEORUPDATE_ERROR.toString()]: (
+      state,
+      action,
+    ) => {
       return state.set('error', action.error);
-
-    case actionTypes.MEMBER_NOTE_CREATEORUPDATE_SUCCESS: {
+    },
+    [actionTypes.MEMBER_NOTE_CREATEORUPDATE_SUCCESS.toString()]: (
+      state,
+      action,
+    ) => {
       return state.setIn(
         ['detailData', action.note.member, 'notes'],
         [
@@ -265,8 +285,8 @@ export default function memberReducers(state = initialState, action: any) {
           ),
         ],
       );
-    }
-    case actionTypes.MEMBER_NOTE_DELETE_SUCCESS: {
+    },
+    [actionTypes.MEMBER_NOTE_DELETE_SUCCESS.toString()]: (state, action) => {
       // @ts-ignore
       if (state.detailData[action.memberId]) {
         return state.setIn(
@@ -278,15 +298,17 @@ export default function memberReducers(state = initialState, action: any) {
         );
       }
       return state;
-    }
+    },
 
-    case actionTypes.MEMBER_ADD_FILE_LOADING:
+    [actionTypes.MEMBER_ADD_FILE_LOADING.toString()]: (state, action) => {
       return state.setIn(['upsert', ' loading'], action.loading);
+    },
 
-    case actionTypes.MEMBER_ADD_FILE_ERROR:
+    [actionTypes.MEMBER_ADD_FILE_ERROR.toString()]: (state, action) => {
       return state.setIn(['upsert', ' error'], action.error);
+    },
 
-    case actionTypes.MEMBER_ADD_FILE_SUCCESS: {
+    [actionTypes.MEMBER_ADD_FILE_SUCCESS.toString()]: (state, action) => {
       // @ts-ignore
       if (state.detailData[action.response.member]) {
         return state.setIn(
@@ -296,15 +318,16 @@ export default function memberReducers(state = initialState, action: any) {
         );
       }
       return state;
-    }
+    },
 
-    case actionTypes.MEMBER_REMOVE_FILE_LOADING:
+    [actionTypes.MEMBER_REMOVE_FILE_LOADING.toString()]: (state, action) => {
       return state.setIn(['upsert', ' loading'], action.loading);
+    },
 
-    case actionTypes.MEMBER_REMOVE_FILE_ERROR:
+    [actionTypes.MEMBER_REMOVE_FILE_ERROR.toString()]: (state, action) => {
       return state.setIn(['upsert', ' error'], action.error);
-
-    case actionTypes.MEMBER_REMOVE_FILE_SUCCESS: {
+    },
+    [actionTypes.MEMBER_REMOVE_FILE_SUCCESS.toString()]: (state, action) => {
       // @ts-ignore
       if (state.detailData[action.response.memberId]) {
         return state.setIn(
@@ -316,17 +339,20 @@ export default function memberReducers(state = initialState, action: any) {
         );
       }
       return state;
-    }
-    case fetchMyUserProfileActions.error.toString(): {
+    },
+    [fetchMyUserProfileActions.error.toString()]: (state, action) => {
       return state.setIn(['userProfile', 'error'], action.payload);
-    }
-    case fetchMyUserProfileActions.isLoading.toString(): {
+    },
+    [fetchMyUserProfileActions.isLoading.toString()]: (state, action) => {
       return state.setIn(['userProfile', 'loading'], action.payload);
-    }
-    case fetchMyUserProfileActions.success.toString(): {
+    },
+    [fetchMyUserProfileActions.success.toString()]: (state, action) => {
       return state.setIn(['userProfile', 'profile'], action.payload);
-    }
-    default:
-      return state;
-  }
-}
+    },
+    ...GenericListReducer(membersListWithTagRepo),
+    ...GenericListReducer(membersListWithoutTagRepo),
+    ...GenericReducer(tagAllMemberRepo),
+    ...GenericReducer(untagAllMemberRepo),
+  },
+  initialState,
+);

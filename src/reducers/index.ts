@@ -93,6 +93,9 @@ import { SpotSchedulingState } from '../libs/spot-scheduling/types';
 import { CoachPaymentRuleState } from '../libs/coach-payment-rules/types';
 import { CustomFormState } from '../libs/custom-form/types';
 import { PollState } from '../libs/sign-up-form/types';
+import { TagState } from '../libs/tag/types';
+import { CouponState } from '../libs/coupon/types';
+import { SmartListState } from '../libs/smart-list/types';
 
 const rootReducer = (history: any) =>
   combineReducers({
@@ -175,14 +178,13 @@ export type RootState = {
   shop: any;
   subscription: any;
   alerting: any;
-  tag: any;
+  tag: TagState;
   order: any;
   waitingList: any;
-  coupon: any;
   relationship: any;
   network: any;
   login: any;
-  smartList: any;
+  smartList: SmartListState;
   paymentCombo: any;
   reminder: any;
   webhook: any;
@@ -192,6 +194,7 @@ export type RootState = {
   platformBilling: any;
   dashboardSettings: any;
   paymentPack: any;
+  coupon: CouponState;
   spotScheduling: SpotSchedulingState;
   emailTemplate: EmailTemplateState;
   marketingNotification: MarketingNotificationState;

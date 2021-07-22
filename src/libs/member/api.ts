@@ -48,6 +48,18 @@ export async function untag(memberId: number, tagId: number) {
   });
 }
 
+export const tagAll = async (tagId: number) => {
+  return postAuth(`${API_V1_URI}/member/tag_all/`, {
+    tag: tagId,
+  });
+};
+
+export async function untagAll(tagId: number) {
+  return deleteAuth(`${API_V1_URI}/member/tag_all/`, {
+    tag: tagId,
+  });
+}
+
 export async function fetchMember(memberId: number) {
   return getAuth(`${API_V1_URI}/member/${memberId}/`);
 }

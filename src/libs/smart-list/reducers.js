@@ -1,5 +1,3 @@
-// @flow
-
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
@@ -19,9 +17,11 @@ import {
   updateSmartListAutoTagActions,
   deleteSmartListAutoTagAction,
   createSmartListAutoTagActions,
+  smartListFilterAction,
+  deleteMultipleSmartListAutoTagAction,
 } from './actions';
 
-const initialState: smart_list_state = Immutable({
+const initialState: SmartListState = Immutable({
   loading: false,
   error: null,
   byId: {},
@@ -39,6 +39,11 @@ const initialState: smart_list_state = Immutable({
   smartListTagRules: {
     byId: [],
     allIds: [],
+    loading: false,
+    error: null,
+  },
+  smartListFiltered: {
+    items: [],
     loading: false,
     error: null,
   },
@@ -287,6 +292,28 @@ export default handleActions(
       );
       return state.setIn(['smartListTagRules', 'allIds'], arr);
     },
+
+    [deleteMultipleSmartListAutoTagAction.isLoading]: (state, { payload }) => {
+      return state.setIn(['smartListTagRules', 'loading'], payload);
+    },
+    [deleteMultipleSmartListAutoTagAction.error]: (state, { payload }) => {
+      return state.setIn(['smartListTagRules', 'error'], payload);
+    },
+    [deleteMultipleSmartListAutoTagAction.success]: (state, { payload }) => {
+      const ids = Object.values(state.smartListTagRules.byId)
+        .filter(
+          (autotag) =>
+            autotag.smartlist === payload.smartlist &&
+            autotag.tag === payload.tag,
+        )
+        .map((autotag) => autotag.id);
+
+      const arr = state.smartListTagRules.allIds.filter(
+        (id) => !ids.includes(id),
+      );
+      return state.setIn(['smartListTagRules', 'allIds'], arr);
+    },
+
     [updateSmartListAutoTagActions.isLoading]: (state, { payload }) => {
       return state.setIn(['smartListTagRules', 'loading'], payload);
     },
@@ -295,6 +322,15 @@ export default handleActions(
     },
     [updateSmartListAutoTagActions.success]: (state, { payload }) => {
       return state.setIn(['smartListTagRules', 'byId', payload.id], payload);
+    },
+    [smartListFilterAction.isLoading]: (state, { payload }) => {
+      return state.setIn(['smartListFiltered', 'loading'], payload);
+    },
+    [smartListFilterAction.error]: (state, { payload }) => {
+      return state.setIn(['smartListFiltered', 'error'], payload);
+    },
+    [smartListFilterAction.success]: (state, { payload }) => {
+      return state.setIn(['smartListFiltered', 'items'], payload);
     },
   },
   initialState,

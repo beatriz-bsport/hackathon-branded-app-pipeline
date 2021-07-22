@@ -490,6 +490,7 @@ exports.default = {
   },
   tag_rules: {
     type_of_rule: 'Type de règle',
+    activeSince: 'Actif depuis le {{ since }}',
     tag_on_join_and_untag_on_left: 'Tagger si présent dans la smartlist',
     tag_on_join: 'Tagger en entrée de smartlist',
     tag_on_left: 'Tagger en sortie de smartlist',

@@ -1,4 +1,3 @@
-// @flow
 import {
   API_V1_URI,
   getAuth,
@@ -15,6 +14,10 @@ export const fetchCouponPage = async (page: number) => {
   return getAuth(`${COUPON_URI}?page=${page}`);
 };
 
+export const fetchCoupons = async (data: any) => {
+  return getAuth(`${COUPON_URI}${buildUrlParams(data)}`);
+};
+
 export const fetchCouponDiscounts = async (couponId: number, params: any) => {
   return getAuth(
     `${COUPON_URI}${couponId}/discount/${buildUrlParams({
@@ -24,7 +27,7 @@ export const fetchCouponDiscounts = async (couponId: number, params: any) => {
   );
 };
 
-export const createCoupon = async (data: *) => {
+export const createCoupon = async (data: any) => {
   return postAuth(COUPON_URI, data);
 };
 
@@ -47,7 +50,7 @@ export const appliesToContract = async (
   });
 };
 
-export const updateCoupon = (id: string, data: *) => {
+export const updateCoupon = (id: string, data: any) => {
   return patchAuth(`${COUPON_URI}${id}/`, data);
 };
 
@@ -55,10 +58,14 @@ export const deleteCoupon = (id: string) => {
   return deleteAuth(`${COUPON_URI}${id}/`);
 };
 
+export const untagCoupon = (id: number, tag: number) => {
+  return postAuth(`${COUPON_URI}${id}/untag/`, { tag });
+};
+
 export const appliesToInvoice = async (
   coupon_code: string,
   memberId: number,
-  invoice: *,
+  invoice: any,
 ) => {
   return post(`${COUPON_URI}applies_to_invoice/`, {
     coupon_code,

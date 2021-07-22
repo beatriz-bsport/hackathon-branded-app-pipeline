@@ -45,7 +45,7 @@ export default function withQueryParams([
       connect(null, { replace: replaceRouter }),
       withHandlers({
         setParam: ({ replace, location }) => (key) => (value, callback) => {
-          if (!paramsArray.includes(key)) return;
+	  if (!paramsArray.includes(key)) return
           const { search, pathname } = location;
           const allParams = parseQueryString(search);
           if (value === 'null' || value === '' || value === null) {

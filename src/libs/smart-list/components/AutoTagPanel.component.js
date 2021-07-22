@@ -58,7 +58,7 @@ export class AutoTagPanel extends Component<Props> {
                   this.state.displayAutoTagRules ? 'default' : 'textSecondary'
                 }
               >
-                {`${'tag_rules.display_tag_rules'}`}
+                {t('tag_rules.display_tag_rules')}
               </Typography>
               <CircularProgress size="1.5rem" />
             </div>
@@ -83,16 +83,6 @@ export class AutoTagPanel extends Component<Props> {
         <Divider className={this.props.classes.divider} />
         <Collapse in={this.state.displayAutoTagRules}>
           <Grid container spacing={2}>
-            <Grid item className={classes.tagPanel}>
-              <TagRuleListItem
-                creationCard
-                tagRule={this.state.tagRuledefaultCreate}
-                createAutoTag={this.props.createAutoTag}
-                deleteAutoTag={this.props.deleteAutoTag}
-                tags={this.props.tags}
-                tag_groups={this.props.tag_groups}
-              />
-            </Grid>
             {smartlistAutoTag &&
               smartlistAutoTag.map((tagRule) => {
                 return (
@@ -107,6 +97,16 @@ export class AutoTagPanel extends Component<Props> {
                   </Grid>
                 );
               })}
+            <Grid item className={classes.tagPanel}>
+              <TagRuleListItem
+                creationCard
+                tagRule={this.state.tagRuledefaultCreate}
+                createAutoTag={this.props.createAutoTag}
+                deleteAutoTag={this.props.deleteAutoTag}
+                tags={this.props.tags}
+                tag_groups={this.props.tag_groups}
+              />
+            </Grid>
           </Grid>
         </Collapse>
       </div>

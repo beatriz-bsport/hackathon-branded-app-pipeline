@@ -90,6 +90,7 @@ exports.default = {
       forms: "Formulaire d'inscription",
     },
     marketingNotification: 'Notifications',
+    tags: 'Tags',
     myClub: 'Mon Club',
     subscription: 'Prélèvements',
     contract: 'Contrats',

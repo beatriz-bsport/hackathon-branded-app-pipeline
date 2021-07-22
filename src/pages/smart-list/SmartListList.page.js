@@ -112,6 +112,7 @@ export class SmartListList extends Component<Props, State> {
 
   render() {
     const { smartlists, classes } = this.props;
+
     return (
       <div>
         {this.props.smartlists.length === 0 && !this.props.loading && (

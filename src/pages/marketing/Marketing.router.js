@@ -8,6 +8,9 @@ const MarketingRule  = asyncComponent(() => import('./MarketingRule.component'))
 const MarketingNotifications = asyncComponent(() =>
   import('./MarketingNotifications.pages'),
 );
+
+const TagManagement = asyncComponent(() => import('./TagManagement.page'))
+
 import withStayEvent from '../../hocs/tracking/stay-event.hoc';
 
 export const MarketingRouter = () => {
@@ -16,6 +19,8 @@ export const MarketingRouter = () => {
       <Route path="/marketing/rule/:id" component={MarketingRule} />
       <Route path="/marketing/notifications" component={MarketingNotifications} />
       <Route path="/marketing/strategies" component={MarketingDashboard} />
+      <Route path="/marketing/tags/:selectedTagId" component={TagManagement} />
+      <Route path="/marketing/tags" component={TagManagement} />
     </Switch>
   );
 };

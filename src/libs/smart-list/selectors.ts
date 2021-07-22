@@ -1,16 +1,14 @@
-// @flow
-
 import objectAssign from 'object-assign';
 import { createSelector } from 'reselect';
 
 import Immutable from 'seamless-immutable';
-import type { State } from '../../state/types';
-import type { email_template_state } from './types';
+import type { AutoTagRule, email_template_state } from './types';
+import { RootState } from '../../reducers';
 
-export const getSmartListDict = (state: State): email_template_state =>
+export const getSmartListDict = (state: RootState): email_template_state =>
   state.smartList.byId;
 
-export const getSmartListId = (state: State): email_template_state =>
+export const getSmartListId = (state: RootState): email_template_state =>
   state.smartList.allIds;
 
 export const getAllSmartList = createSelector(
@@ -18,10 +16,10 @@ export const getAllSmartList = createSelector(
   (smartListDict, IdList) => Immutable(IdList.map((id) => smartListDict[id])),
 );
 
-export const getSmartList = (state: State, id: number): any =>
+export const getSmartList = (state: RootState, id: number): any =>
   state.smartList.byId[id];
 
-export const getSmartListFilters = (state: State, id: number): any =>
+export const getSmartListFilters = (state: RootState, id: number): any =>
   Immutable(
     Object.values(state.smartList.filtersByCategoryId)
       .map((OneFilterDict) => Object.values(OneFilterDict))
@@ -29,17 +27,17 @@ export const getSmartListFilters = (state: State, id: number): any =>
       .filter((filter) => filter.smartlist === id),
   );
 
-export const getSmartListMembers = (state: State, id: number): any =>
+export const getSmartListMembers = (state: RootState, id: number): any =>
   state.smartList.membersBySmartListId[id];
 
 export const getFreshSmartListIds = createSelector(getAllSmartList, (sl) =>
   sl.map((list) => list.id),
 );
 
-export const getSmartListAutoTagDict = (state: State) =>
+export const getSmartListAutoTagDict = (state: RootState) =>
   state.smartList.smartListTagRules.byId;
 
-export const getSmartListAutoTagIds = (state: State) =>
+export const getSmartListAutoTagIds = (state: RootState) =>
   state.smartList.smartListTagRules.allIds;
 
 export const getSmartListAutoTag = createSelector(
@@ -48,7 +46,19 @@ export const getSmartListAutoTag = createSelector(
     Immutable(IdList.map((pk) => smartListAutoTagDict[pk])),
 );
 
-export const getSmartListAutoTagFiltered = (state: State, id: number) =>
+export const getAutotagRuleBySmartlist = (
+  state: RootState,
+): { [key: string]: AutoTagRule[] } => {
+  return getSmartListAutoTag(state).reduce((acc, val) => {
+    if (!acc[val.smartlist]) {
+      acc[val.smartlist] = [];
+    }
+    acc[val.smartlist].push(val);
+    return acc;
+  }, {});
+};
+
+export const getSmartListAutoTagFiltered = (state: RootState, id: number) =>
   objectAssign
     .values(state.smartList.smartListTagRules.byId)
     .filter((tg) => tg.smartlist === id);

@@ -1,5 +1,3 @@
-// @flow
-
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
@@ -8,11 +6,12 @@ import {
   tagGroupCreateOrUpdateActions,
   tagListActions,
   tagCreateOrUpdateActions,
+  tagUsageActions,
 } from './actions';
 
 import type { TagState } from './types';
 
-const initialState: TagState = Immutable({
+const initialState: Immutable.Immutable<TagState> = Immutable<TagState>({
   tag: {
     items: [],
     byId: {},
@@ -32,6 +31,11 @@ const initialState: TagState = Immutable({
       loading: false,
       error: null,
     },
+  },
+  tagUsage: {
+    loading: false,
+    error: null,
+    byId: {},
   },
 });
 
@@ -57,6 +61,25 @@ export default handleActions(
         },
         { deep: true },
       );
+    },
+    [tagUsageActions.success.toString()]: (state, { payload }) => {
+      return state.merge(
+        {
+          tagUsage: {
+            byId: payload.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+        },
+        { deep: true },
+      );
+    },
+    [tagUsageActions.isLoading.toString()]: (state, { payload }) => {
+      return state.setIn(['tagUsageActions', 'loading'], payload);
+    },
+    [tagUsageActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['tagUsageActions', 'error'], payload);
     },
     [tagCreateOrUpdateActions.isLoading]: (state, { payload }) => {
       return state.setIn(['tag', 'createOrUpdate', 'loading'], payload);

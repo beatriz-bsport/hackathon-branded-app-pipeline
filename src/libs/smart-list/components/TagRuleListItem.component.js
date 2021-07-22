@@ -1,4 +1,6 @@
+// @flow
 import React, { useState, useEffect } from 'react';
+import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -6,20 +8,20 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
 import SaveIcon from '@material-ui/icons/Save';
 import IconButton from '@material-ui/core/IconButton';
+import moment from 'moment-timezone';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
-import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import GroupIcon from '@material-ui/icons/Group';
 import Zoom from '@material-ui/core/Zoom';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import TagRuleSelector from './TagRuleSelector.component';
 
 type Props = {
   t: TFunction,
@@ -31,12 +33,21 @@ type Props = {
   tags: Object,
   creationCard: boolean,
 };
+
 const useStyles = makeStyles((theme) => ({
   formHeader: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  header: {
+    display: 'flex',
+    alignItems: 'row',
+    marginBottom: theme.spacing(2),
+    '&>*': {
+      marginRight: theme.spacing(1),
+    },
   },
   formFooter: {
     display: 'flex',
@@ -49,27 +60,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-around',
     margin: 'auto',
   },
-  flexLabelSelector: {
-    display: 'flex',
-    flexDirectio: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-  },
-  insideIcon: {
-    color: '#3f51b5',
-  },
-  joinIcon: {
-    color: '#00c853',
-  },
-  leavingIcon: {
-    color: '#ff3d00',
-    transform: 'rotate(180deg)',
-  },
 }));
-
-const TAG_ON_JOIN_AND_UNTAG_ON_LEFT = 1;
-const TAG_ON_JOIN_AND_KEEP_TAG = 2;
-const TAG_ON_LEFT = 3;
 
 export const TagRuleListItem = (props: Props) => {
   const { t } = props;
@@ -98,56 +89,40 @@ export const TagRuleListItem = (props: Props) => {
     );
     if (initialTagGroup) setTagChoices(initialTagGroup);
   }, [props.tag_groups, props.tags, props.tagRule.tag]);
-  const TAG_RULE_CHOICES = [
-    {
-      value: TAG_ON_JOIN_AND_UNTAG_ON_LEFT,
-      label: (
-        <div className={classes.flexLabelSelector}>
-          <GroupIcon className={classes.insideIcon} />
-          <Typography>
-            {`${t('tag_rules.tag_on_join_and_untag_on_left')}`}
-          </Typography>
-        </div>
-      ),
-    },
-    {
-      value: TAG_ON_JOIN_AND_KEEP_TAG,
-      label: (
-        <div className={classes.flexLabelSelector}>
-          <DoubleArrowIcon className={classes.joinIcon} />
-          <Typography>{`${t('tag_rules.tag_on_join')}`}</Typography>
-        </div>
-      ),
-    },
-    {
-      value: TAG_ON_LEFT,
-      label: (
-        <div className={classes.flexLabelSelector}>
-          <DoubleArrowIcon className={classes.leavingIcon} />
-          <Typography>{`${t('tag_rules.tag_on_left')}`}</Typography>
-        </div>
-      ),
-    },
-  ];
+
+  if (props.createAutoTag && !editRule) {
+    return (
+      <div>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => setEditRule(!editRule)}
+          startIcon={editRule ? <CloseIcon /> : <AddIcon />}
+        >
+          {`${editRule ? t('tag_rules.cancel') : t('tag_rules.create')}`}
+        </Button>
+      </div>
+    );
+  }
+
   return (
     <Card>
       <CardContent>
         <div>
-          <Select
-            id="standard-select-currency"
+          <div className={classes.header}>
+            <AccessTimeIcon />
+            <Typography>
+              {t('tag_rules.activeSince', {
+                since: `${moment(props.tagRule.date_created).format('L')}`,
+                interpolation: { escapeValue: false },
+              })}
+            </Typography>
+          </div>
+          <TagRuleSelector
+            selected={tagRuleState}
+            onChange={(autotagRule) => setTagRuleState(autotagRule)}
             disabled={!editRule}
-            value={tagRuleState.kind}
-            label="Select"
-            onChange={(event) =>
-              setTagRuleState({ ...tagRuleState, kind: event.target.value })
-            }
-          >
-            {TAG_RULE_CHOICES.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </Select>
+          />
         </div>
         <div className={classes.tagSelect}>
           <FormControl>

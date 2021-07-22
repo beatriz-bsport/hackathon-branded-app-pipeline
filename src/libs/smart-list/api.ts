@@ -1,5 +1,3 @@
-// @flow
-
 import { FILTERS_ROOTS } from '@bsport/common/lib/master-data/smart-list';
 
 import {
@@ -13,7 +11,7 @@ import {
 
 const SMART_LIST_URI = `${API_V1_URI}/smartlist/group/`;
 
-export const fetchSmartListList = async (params: any) => {
+export const fetchSmartListList = async (params?: any) => {
   return getAuth(`${SMART_LIST_URI}${buildUrlParams(params)}`);
 };
 
@@ -25,16 +23,16 @@ export const createSmartList = async (data: any) => {
   return postAuth(SMART_LIST_URI, data);
 };
 
-export const updateSmartList = (id: string, data: *) => {
+export const updateSmartList = (id: number, data: any) => {
   return patchAuth(`${SMART_LIST_URI}${id}/`, data);
 };
 
-export const deleteSmartList = (id: string) => {
+export const deleteSmartList = (id: number) => {
   return deleteAuth(`${SMART_LIST_URI}${id}/`);
 };
 
-export const fetchSmartListAutoTagRules = async () => {
-  return getAuth(`${API_V1_URI}/smartlist/tagrules/`);
+export const fetchSmartListAutoTagRules = async (params?: any) => {
+  return getAuth(`${API_V1_URI}/smartlist/tagrules/${buildUrlParams(params)}`);
 };
 
 export const createSmartListTagRules = async (data: any) => {
@@ -45,19 +43,22 @@ export const updateSmartListAutoTagRules = async (id: number, data: any) => {
   return patchAuth(`${API_V1_URI}/smartlist/tagrules/${id}/`, data);
 };
 
-export const deleteSmartListAutoTagRules = (id: string) => {
+export const deleteSmartListAutoTagRules = (id: number) => {
   return deleteAuth(`${API_V1_URI}/smartlist/tagrules/${id}/`);
+};
+
+export const deleteMultiSmartListAutoTagRules = (
+  smartlist: number,
+  tag: number,
+) => {
+  return postAuth(`${API_V1_URI}/smartlist/tagrules/delete_autotag_rules/`, {
+    smartlist,
+    tag,
+  });
 };
 
 export const applySmartListAutoTagRules = async (id: number) => {
   return postAuth(`${SMART_LIST_URI}${id}/apply_smartlist_tag_rules/`);
-};
-// depreciated
-export const sendMail = async (id: number, email_template: number, subject) => {
-  return postAuth(`${SMART_LIST_URI}${id}/contact_with_template/`, {
-    email_template,
-    subject,
-  });
 };
 
 export const getMemberTable = async (id: number) => {
@@ -108,8 +109,8 @@ export const createFilter = async (filter_identifier: number, data: any) => {
 
 export const updateFilter = (
   filter_identifier: number,
-  id: string,
-  data: *,
+  id: number,
+  data: any,
 ) => {
   return patchAuth(
     `${FILTER_URI}/${FILTERS_ROOTS[filter_identifier]}/${id}/`,
@@ -117,6 +118,6 @@ export const updateFilter = (
   );
 };
 
-export const deleteFilter = (filter_identifier: number, id: string) => {
+export const deleteFilter = (filter_identifier: number, id: number) => {
   return deleteAuth(`${FILTER_URI}/${FILTERS_ROOTS[filter_identifier]}/${id}/`);
 };

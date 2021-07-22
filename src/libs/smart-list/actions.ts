@@ -1,5 +1,3 @@
-// @flow
-
 // tests back
 // validation front
 // page DETAIL
@@ -29,11 +27,14 @@ import {
   updateSmartListAutoTagRules as updateSmartListAutoTagRulesAPI,
   deleteSmartListAutoTagRules as deleteSmartListAutoTagRulesAPI,
   applySmartListAutoTagRules as applySmartListAutoTagRulesAPI,
+  deleteMultiSmartListAutoTagRules as deleteMultiSmartListAutoTagRulesAPI,
 } from './api';
 
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 
 import { createDictionnaryById, createIdList } from '../../actions/utils';
+import { SmartList } from './types';
+import { RootState } from '../../reducers';
 
 export const smartListListAction = {
   error: createAction('SMART-LIST/LIST/ERROR'),
@@ -62,6 +63,28 @@ export function fetchAllSmartLists(): ThunkAction {
   };
 }
 
+export const smartListFilterAction = {
+  error: createAction('SMART-LIST/LIST-FILTER/ERROR'),
+  isLoading: createAction('SMART-LIST/LIST-FILTER/IS_LOADING'),
+  success: createAction('SMART-LIST/LIST-FILTER/SUCCESS'),
+};
+
+export function fetchSmartLists(params: any, options?: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(smartListFilterAction.isLoading(true));
+    dispatch(smartListFilterAction.error(null));
+    try {
+      const res = await fetchSmartListListAPI(params);
+      dispatch(smartListFilterAction.success(res.data));
+      if (options && options.onSuccess) options.onSuccess(res.data);
+    } catch (err) {
+      dispatch(smartListFilterAction.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(smartListFilterAction.isLoading(false));
+  };
+}
+
 export const smartListBulkAction = {
   error: createAction('SMART-LIST/BULK_RETRIEVE/ERROR'),
   isLoading: createAction('SMART-LIST/BULK_RETRIEVE/IS_LOADING'),
@@ -69,7 +92,7 @@ export const smartListBulkAction = {
 };
 
 export function fetchSmartListBulk(ids: Array<number>): ThunkAction {
-  return async (dispatch: Dispatch, getState: () => State) => {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
     const freshSmartlistList = getFreshSmartListIds(getState());
     const ids_uniq = uniq(ids.filter((id) => !!id)).filter(
       (id) => !freshSmartlistList.includes(id),
@@ -256,7 +279,7 @@ export function createFilter(
   filter_identifier: number,
   data: any,
   smartListId: number,
-  callback: ?(id) => void,
+  callback?: (id: number) => void,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(filterCreateAction.isLoading(true));
@@ -291,7 +314,7 @@ export function updateFilter(
   filter_identifier: number,
   id: number,
   data: any,
-  callback: ?(id) => void,
+  callback?: (id: number) => void,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(filterUpdateAction.isLoading(true));
@@ -324,7 +347,7 @@ export function deleteFilter(
   filter_identifier: number,
   id: number,
   smartListId: number,
-  callback: ?(id) => void,
+  callback?: (id: number) => void,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(filterDeleteAction.isLoading(true));
@@ -348,12 +371,12 @@ export const smartListAutoTagListActions = {
   success: createAction('SMARTLIST/AUTO-TAG/LIST/SUCCESS'),
 };
 
-export function fetchAllAutoTagRules(): ThunkAction {
+export function fetchAutoTagRules(params?: any): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(smartListAutoTagListActions.isLoading(true));
     dispatch(smartListAutoTagListActions.error(null));
     try {
-      const response = await fetchSmartListAutoTagRulesAPI();
+      const response = await fetchSmartListAutoTagRulesAPI(params);
       dispatch(smartListAutoTagListActions.success(response.data));
     } catch (err) {
       console.error(err);
@@ -402,21 +425,25 @@ export const updateSmartListAutoTagActions = {
 
 export function updateSmartListAutoTag(
   id: number,
-  data: any,
-  options: OptionCallback,
+  params: any,
+  options: OptionCallback<SmartList[]>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
+    let data = null;
     dispatch(updateSmartListAutoTagActions.isLoading(true));
     dispatch(updateSmartListAutoTagActions.error(null));
     try {
-      const response = await updateSmartListAutoTagRulesAPI(id, data);
-      dispatch(updateSmartListAutoTagActions.success(response.data));
+      const response = await updateSmartListAutoTagRulesAPI(id, params);
+      // eslint-disable-next-line
+      data = response.data;
+      dispatch(updateSmartListAutoTagActions.success(data));
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
       console.error(err);
       dispatch(updateSmartListAutoTagActions.error(err));
     }
     dispatch(updateSmartListAutoTagActions.isLoading(false));
+    return data;
   };
 }
 
@@ -437,6 +464,31 @@ export function smartListAutoTagDelete(id: number): ThunkAction {
       dispatch(deleteSmartListAutoTagAction.error(error));
     }
     dispatch(deleteSmartListAutoTagAction.isLoading(false));
+  };
+}
+
+export const deleteMultipleSmartListAutoTagAction = {
+  error: createAction('SMART-LIST/AUTO-TAG/DELETE-MULTIPLE/ERROR'),
+  isLoading: createAction('SMART-LIST/AUTO-TAG/DELETE-MULTIPLE/IS_LOADING'),
+  success: createAction('SMARTLIST/AUTO-TAG/DELETE-MULTIPLE/SUCCESS'),
+};
+
+export function deleteMultiSmartListAutoTagRules(
+  smartlist: number,
+  tag: number,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(deleteMultipleSmartListAutoTagAction.isLoading(true));
+    dispatch(deleteMultipleSmartListAutoTagAction.error(null));
+    try {
+      await deleteMultiSmartListAutoTagRulesAPI(smartlist, tag);
+      dispatch(
+        deleteMultipleSmartListAutoTagAction.success({ smartlist, tag }),
+      );
+    } catch (error) {
+      dispatch(deleteMultipleSmartListAutoTagAction.error(error));
+    }
+    dispatch(deleteMultipleSmartListAutoTagAction.isLoading(false));
   };
 }
 

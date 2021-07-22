@@ -77,7 +77,7 @@
             "noBooking": "Je hebt je nog niet ergens voor ingeschreven.",
             "noPackCurrentlyActive": "Je bezit nog geen enkele leskaart.",
             "showMore": "Toon meer",
-            "currentPassTitle": "Mijn actieve leskaarten",
+            "currentPassTitle": "Mijn kaarten",
             "nextBookingTitle": "Mijn reserveringen",
             "optionTitle": "Actieve wachtlijsten",
             "favoriteTitle": "Uitgelichte sessie"
@@ -107,10 +107,10 @@
             "profile": "Profiel",
             "subscription": "Abonnementen",
             "invoice": "Facturen",
-            "pack": "Leskaarten",
+            "pack": "Kaarten",
             "calendar": "Geschiedenis",
             "dashboard": "Overzicht",
-            "myVideos": "Mijn video's",
+            "myVideos": "Video On Demand",
             "pick_a_language": "Selecteer een taal"
         },
         "unsubscriber": {
@@ -2283,7 +2283,7 @@
             "updated": "Wijzigingen opgeslagen"
         },
         "noConsumerPack": "Er zijn nog geen aankopen geregistreerd.",
-        "reverted": "Geannuleerde facturen",
+        "reverted": "Geannuleerde factuur",
         "link": {
             "copied": "Link gekopieerd",
             "copyLink": "De directe link naar de betaalpagina kopiëren"
@@ -2324,7 +2324,7 @@
             "isActive": "Actief",
             "isExpired": "Verlopen",
             "invoice": "Factuur",
-            "reverted": "Geannuleerde facturen",
+            "reverted": "Geannuleerde factuur",
             "notReverted": "Niet-geannuleerde facturen",
             "credits": "Krediet(en)",
             "expiration": "Geldigheid",
@@ -2441,7 +2441,7 @@
             },
             "add": "Een plattegrond toevoegen",
             "subtitle": "Gebruik Spot Scheduling om leden in staat te stellen om hun gewenste plaats in je vestiging te reserveren.",
-            "title": "Indeling"
+            "title": "Spot Scheduling"
         }
     },
     "smartList": {
@@ -4608,7 +4608,7 @@
                 "hidePrivatePass": "Geen afspraakkaarten tonen",
                 "hidePaymentPack": "Geen leskaarten tonen",
                 "hidePaymentCombo": "Geen pakketten tonen",
-                "todayOnly": "Alleen de sessies van vandaag tonen"
+                "todayOnly": "Toon alleen de sessies van vandaag"
             },
             "componentType": {
                 "playlist": "Afspeellijst",
@@ -4905,7 +4905,7 @@
         "consumerPass": {
             "expiresOn": "Verloopt op: {{date}}",
             "current_credits": "{{current_credits}} / {{credits}} krediet(en)",
-            "isReverted": "Geannuleerde facturen",
+            "isReverted": "Geannuleerde factuur",
             "detail": {
                 "invoice": "Gekoppelde factuur",
                 "booking": "Gekoppelde afspraken",
@@ -5322,7 +5322,7 @@
             "isActive": "Actief",
             "isExpired": "Verlopen",
             "invoice": "Factuur",
-            "reverted": "Geannuleerde facturen",
+            "reverted": "Geannuleerde factuur",
             "notReverted": "Niet-geannuleerde facturen",
             "credits": "Krediet(en)",
             "expiration": "Geldigheid",
@@ -7024,7 +7024,7 @@
                     "lastname": "Sorteer op: familienaam (alfabetisch)",
                     "title": "Kies de standaard sorteervolgorde voor reserveringen op je agenda"
                 },
-                "names_label_info": "Wijzig het label van de velden Voornaam en Familienaam in je registratieformulier",
+                "names_label_info": "Wijzig het label van de velden Voornaam en Familienaam in je aanmeldformulier.",
                 "first_name_label": {
                     "placeholder": "Voornaam label",
                     "label": "Voornaam label",
@@ -7145,7 +7145,7 @@
             "showPass": "Wanneer een gebruiker op een leskaart klikt",
             "addPackToCart": "Wanneer een gebruiker een pakket aan zijn/haar winkelmandje toevoegt",
             "addShopItemToCart": "Wanneer een gebruiker een product uit je webshop aan zijn/haar winkelmandje toevoegt",
-            "signupShow": "Wanneer een gebruiker het registratieformulier opent",
+            "signupShow": "Wanneer een gebruiker het aanmeldformulier opent",
             "fbPixelEvent": "[Facebook Pixel] Evenement",
             "signupSuccess": "Wanneer een gebruiker een account heeft aangemaakt",
             "contractPaymentSuccess": "Wanneer een gebruiker een abonnement heeft gekocht",
@@ -7347,7 +7347,7 @@
             "goToPaymentEditor": "Betaling",
             "goToSubscription": "Toon abonnement",
             "revert": "Annuleren",
-            "invoiceReverted": "Geannuleerde facturen",
+            "invoiceReverted": "Geannuleerde factuur",
             "consumeBalance": "Met saldo betalen",
             "explainPdfDraft": "Deze factuur is nog een concept. De PDF is nog niet beschikbaar.",
             "addFooter": "Voetnoot wijzigen",
@@ -7417,7 +7417,7 @@
                 "payAll": "Betalen",
                 "cancel": "Annuleren",
                 "revert": "Annuleren",
-                "pay": "Deze factuur betalen"
+                "pay": "Factuur betalen"
             },
             "sumup": {
                 "amountPaid": "Betaald",
@@ -8085,8 +8085,8 @@
                 "edition": "Bewerken"
             },
             "title": "Hulpmiddelen",
-            "showGrid": "Toon rooster",
-            "customIconButton": "Mijn pictogrammen downloaden",
+            "showGrid": "Toon raster",
+            "customIconButton": "Mijn pictogrammen uploaden",
             "customIconLabel": "Pictogrammen",
             "hand": "Hand",
             "pointer": "Muis"
@@ -8106,9 +8106,9 @@
             "title": "Kies een plaats"
         },
         "toolbar": {
-            "loadExistingBlueprint": "Een bestaande plattegrond uploaden",
+            "loadExistingBlueprint": "Een bestaande plattegrond gebruiken",
             "exit": "Terug",
-            "titleLabel": "Naam van de plattegrond",
+            "titleLabel": "Naam",
             "save": "Opslaan"
         },
         "spotImageDialog": {

@@ -22,6 +22,7 @@ type Props = {
   onChange: (string) => void,
   value: string,
   fullWidth?: boolean,
+  required?: boolean,
 };
 
 export function GenderInput(props: Props) {

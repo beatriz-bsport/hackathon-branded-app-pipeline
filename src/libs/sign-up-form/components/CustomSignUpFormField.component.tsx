@@ -179,7 +179,7 @@ export class FormField extends Component<Props, State> {
 
   handleDateChange = (date: Object) => {
     this.setState({ selectedDate: date });
-    this.handleChange({ target: { value: moment(date).format('YYYY-MM-DD') } });
+    this.handleChange({ target: { value: Moment(date).format('YYYY-MM-DD') } });
   };
 
   validator = (value: string | boolean) => {
@@ -395,7 +395,7 @@ export class FormField extends Component<Props, State> {
             <DatePicker
               format="L"
               keyboard
-              value={moment(value)}
+              value={Moment(value)}
               label={label}
               onChange={this.handleDateChange}
             />

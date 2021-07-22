@@ -708,6 +708,7 @@ export function MemberForm(props: Props) {
 
 const phoneRegExp = /^\+?1?\d{9,15}$/;
 
+/*
 const MemberSchema = Yup.object().shape({
   firstname: Yup.string().test(
     'first_name_required',
@@ -845,6 +846,8 @@ const MemberSchema = Yup.object().shape({
   membership_ID: Yup.string().nullable(),
   date_joined: Yup.string().nullable(),
 });
+*/
+
 export default compose(
   withStyles(styles),
   withTranslation(['translation', 'member']),

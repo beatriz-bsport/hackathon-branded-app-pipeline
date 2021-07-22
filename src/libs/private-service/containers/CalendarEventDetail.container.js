@@ -19,9 +19,15 @@ import Popover from '@material-ui/core/Popover';
 import { push } from 'connected-react-router';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DeleteOfferForm from '../../offer/DeleteOfferForm.component';
+import {
+  getAvailableRoomBlueprints,
+  getRoomBlueprints,
+} from '../../spot-scheduling/selector';
 import { getEnabledMetaActivities } from '../../meta-activity/selectors';
 import OfferEditForm from '../../offer/OfferEditForm.component';
 import RedButton from '../../../components/button/RedButton.component';
+import { fetchRoomBlueprints } from '../../spot-scheduling/actions';
+import type { RoomBlueprint } from '../../spot-scheduling/types';
 import PrivateBookingDisableDialog from '../components/booking/PrivateBookingDisableDialog.component';
 import PrivateBookingUpdateCoachDialog from '../components/booking/PrivateBookingUpdateCoachDialog.component';
 import CustomEventCard from '../components/custom-event/CustomEventCard.component';
@@ -80,9 +86,6 @@ import {
   deleteOffer as deleteOfferAPI,
 } from '../../offer/api';
 import CheckPermission from '../../role/components/CheckPermission.component';
-import { fetchRoomBlueprints } from '../../spot-scheduling/actions';
-import { getRoomBlueprints } from '../../spot-scheduling/selector';
-import { RoomBlueprint } from '../../spot-scheduling/types';
 import { fetchAllCoachPaymentRules } from '../../coach-payment-rules/actions';
 import { CoachPaymentRuleByKindSelector } from '../../coach-payment-rules/selectors';
 import type { CoachPaymentRule } from '../../coach-payment-rules/types';
@@ -100,6 +103,7 @@ type Props = {
   selectedPrivateBooking: ?PrivateBooking,
   isUpdateCoachFormOpen: boolean,
   setIsUpdateCoachFormOpen: (boolean) => void,
+  fetchRoomBlueprints: () => void,
 
   fetchSimilarOffers: (offerId: number) => void,
   similarOfferLoading: boolean,
@@ -148,6 +152,7 @@ type Props = {
   customEvent: ?CustomEvent,
   deleteCustomEvent: (number) => void,
   roomBlueprints: RoomBlueprint[],
+  allRoomBlueprints: RoomBlueprint[],
   fetchRoomBlueprints: () => void,
   fetchAllCoachPaymentRules: () => void,
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> },
@@ -396,6 +401,7 @@ export class CalendarEventDetail extends React.Component<Props> {
                   coaches={this.props.coaches}
                   establishments={this.props.establishments}
                   roomBlueprints={this.props.roomBlueprints}
+                  allRoomBlueprints={this.props.allRoomBlueprints}
                   metaActivities={this.props.metaActivities}
                   is_whereby_integration_enabled={
                     this.props.theme &&
@@ -605,6 +611,8 @@ export default compose(
   withState('isUpdateCoachFormOpen', 'setIsUpdateCoachFormOpen', false),
   connect(
     (state, { privateBookingId, offerId, customEventId }) => ({
+      roomBlueprints: getAvailableRoomBlueprints(state),
+      allRoomBlueprints: getRoomBlueprints(state),
       privateBooking: withRelatedFields(getPrivateBooking)(
         state,
         privateBookingId,
@@ -625,6 +633,7 @@ export default compose(
       fetchAllActivities,
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
       fetchPrivateService: fetchPrivateServiceAction,
+      fetchRoomBlueprints,
       fetchPrivateSlot: fetchPrivateSlotAction,
       fetchMemberBulk: fetchMemberBulkAction,
       onOfferClick: (id) => push(`/offer/${id}`),

@@ -33,7 +33,7 @@ type Props = {
   coachUnique?: boolean,
   asManager?: boolean,
   dateStart: string,
-  resourceAllocationChecker: (
+  resourceAllocationChecker?: (
     privateSlotId: number,
     resourceType: string,
     resourceId: number,
@@ -86,6 +86,7 @@ class ResourceAllocationCheck extends React.Component<
   }
 
   checkResourceAllocation = () => {
+    if (!this.props.resourceAllocationChecker) return;
     this.props
       .resourceAllocationChecker(
         this.props.privateSlotId,
@@ -342,14 +343,16 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
                 selectOption={this.handleEstablishmentChange}
               />
             </div>
-            <ResourceAllocationCheck
-              dateStart={this.props.dateStart}
-              resourceId={this.state.establishment_selected}
-              resourceType="establishment"
-              resourceAllocationChecker={this.props.resourceAllocationChecker}
-              privateSlotId={this.state.privateSlotId}
-              t={this.props.t}
-            />
+            {!!this.props.resourceAllocationChecker && (
+              <ResourceAllocationCheck
+                dateStart={this.props.dateStart}
+                resourceId={this.state.establishment_selected}
+                resourceType="establishment"
+                resourceAllocationChecker={this.props.resourceAllocationChecker}
+                privateSlotId={this.state.privateSlotId}
+                t={this.props.t}
+              />
+            )}
           </div>
         ) : null}
         {this.props.coach || coachResourceState.canSelect ? (
@@ -367,18 +370,20 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
                 coaches={coachResourceState.choices}
               />
             </div>
-            <ResourceAllocationCheck
-              dateStart={this.props.dateStart}
-              resourceId={
-                this.state.coaches_selected &&
-                this.state.coaches_selected.length &&
-                this.state.coaches_selected[0]
-              }
-              resourceAllocationChecker={this.props.resourceAllocationChecker}
-              resourceType="coach"
-              privateSlotId={this.state.privateSlotId}
-              t={this.props.t}
-            />
+            {!!this.props.resourceAllocationChecker && (
+              <ResourceAllocationCheck
+                dateStart={this.props.dateStart}
+                resourceId={
+                  this.state.coaches_selected &&
+                  this.state.coaches_selected.length &&
+                  this.state.coaches_selected[0]
+                }
+                resourceAllocationChecker={this.props.resourceAllocationChecker}
+                resourceType="coach"
+                privateSlotId={this.state.privateSlotId}
+                t={this.props.t}
+              />
+            )}
           </div>
         ) : null}
       </div>

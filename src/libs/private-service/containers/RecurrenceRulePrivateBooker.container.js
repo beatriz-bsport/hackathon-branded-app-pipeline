@@ -14,6 +14,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import { resourceAllocationChecker as resourceAllocationCheckerAPI } from '../api';
 
 import { fetchAssociatedEstablishmentBulk } from '../../establishment/actions';
 import { fetchAssociatedCoachBulk } from '../../associated-coach/actions';
@@ -247,7 +248,7 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
                   />
                 )}
               </fieldset>
-              <fieldset>
+              <fieldset style={{ marginTop: 24, marginBottom: 24 }}>
                 <legend>{t('recurrenceRule.form.timeGroup')}</legend>
                 <RecurrenceRulePrivateBookingFields
                   privateSlotSet={false}

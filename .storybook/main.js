@@ -8,7 +8,10 @@ module.exports = {
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
-  path.resolve("./.storybook/ts-preset"),
+    '@storybook/addon-a11y/register',
+    '@storybook/addon-actions/register',
+    '@storybook/addon-knobs/register',
+    path.resolve("./.storybook/ts-preset"),
   ],
    typescript: {
     check: false,

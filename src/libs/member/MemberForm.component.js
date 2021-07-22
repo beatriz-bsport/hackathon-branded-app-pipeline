@@ -10,11 +10,10 @@ import type { TFunction } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import FormControl from '@material-ui/core/FormControl';
-import * as Yup from 'yup';
 import { withFormik, Form, connect as formikConnect } from 'formik';
 import { compose, withPropsOnChange, withProps, withState } from 'recompose';
 import { FormLabel } from '@material-ui/core';
-import i18n, { browserCountryCode, Moment } from '../../i18n';
+import { browserCountryCode, Moment } from '../../i18n';
 import { getAuth, postAuth, API_URI } from '../../http';
 import AvatarFieldWithButton from '../../components/forms/AvatarFieldWithButton.component';
 import {
@@ -706,9 +705,9 @@ export function MemberForm(props: Props) {
   );
 }
 
+/*
 const phoneRegExp = /^\+?1?\d{9,15}$/;
 
-/*
 const MemberSchema = Yup.object().shape({
   firstname: Yup.string().test(
     'first_name_required',

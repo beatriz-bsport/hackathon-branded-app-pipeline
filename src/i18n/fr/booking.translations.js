@@ -136,7 +136,7 @@ exports.default = {
       isTooLate: 'Les inscriptions sont closes.',
       isAlreadyRegistered: 'Vous êtes déjà inscrit à cette séance',
       isTooSoon:
-        'Les inscriptions sont fermées pour le moment et ouvriront le {{ date }}.',
+        'Les inscriptions sont fermées pour le moment et ouvriront le {{ date_ }}.',
       isWaitingListFull:
         "La séance est complète la liste d'attente est pleine.",
     },

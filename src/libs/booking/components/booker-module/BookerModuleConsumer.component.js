@@ -136,7 +136,7 @@ export class BookerModuleConsumer extends React.PureComponent<Props> {
         <BlockIcon className={this.props.classes.bigIcon} />
         <Typography className={this.props.classes.explainText}>
           {this.props.t('bookingModule.offer.isTooSoon', {
-            date: moment(this.props.offer.date_start)
+            date_: moment(this.props.offer.date_start)
               .add(
                 -this.props.offer.meta_activity.first_booking_minutes_until,
                 'minutes',

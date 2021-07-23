@@ -77,13 +77,15 @@ export const withPaymentPack = memoize((selector: (State: RootState) => any) =>
           })),
         };
       }
-      return comboList.map((pc) => ({
-        ...pc,
-        payment_packs: pc.payment_packs.map((pp) => ({
-          ...pp,
-          data: paymentPackData[pp.id] || {},
-        })),
-      }));
+      return comboList
+        .filter((pc) => !!pc)
+        .map((pc) => ({
+          ...pc,
+          payment_packs: pc.payment_packs.map((pp) => ({
+            ...pp,
+            data: paymentPackData[pp.id] || {},
+          })),
+        }));
     },
   ),
 );

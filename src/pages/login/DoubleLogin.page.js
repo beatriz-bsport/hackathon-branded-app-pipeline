@@ -47,10 +47,11 @@ export const DoubleLogin = (props: Props) => {
 const useStyles = makeStyles((theme) => ({
   container: {
     height: '100vh',
-    width: '100vw',
+    width: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    padding: theme.spacing(3),
     flexDirection: 'column',
   },
   text: {

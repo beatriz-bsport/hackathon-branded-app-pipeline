@@ -62,11 +62,17 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
           ? this.props.membership
           : this.props.membership.id,
       );
-      this.props.fetchCurrentBasket(this.props.companyId);
     } else {
       this.props.fetchMyUserProfile();
     }
+    this.fetchBasket();
   }
+
+  fetchBasket = () => {
+    if (this.props.authenticated && this.props.companyId) {
+      this.props.fetchCurrentBasket(this.props.companyId);
+    }
+  };
 
   componentDidUpdate(prevProps: Props) {
     if (this.props.authenticated && !prevProps.authenticated) {
@@ -83,7 +89,7 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
           ? this.props.membership
           : this.props.membership.id,
       );
-      this.props.fetchCurrentBasket(this.props.companyId);
+      this.fetchBasket();
     }
   }
 

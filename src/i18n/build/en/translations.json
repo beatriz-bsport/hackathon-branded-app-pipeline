@@ -2125,7 +2125,7 @@
         },
         "debt": {
             "explainPayment": "This amount will be sent to the club in order to regularize your debt",
-            "titlePaymentDialog": "Regulariation",
+            "titlePaymentDialog": "Regularization",
             "title": "Amount due to the club",
             "regularize": "Regularize"
         },

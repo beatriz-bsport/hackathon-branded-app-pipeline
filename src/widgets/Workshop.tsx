@@ -54,7 +54,8 @@ class WorkshopWidget extends Component<Props, State> {
   };
 
   goToBook = (id: number, companyId: number) => {
-    const { PUBLIC_URL } = window.runtime.env;
+    const { PUBLIC_URL } =
+      (window.runtime || window.runtimeBsport || {}).env || {};
     const url = `${PUBLIC_URL}/customer/payment/offer/${id}?membership=${companyId}`;
     this.props.onWindowOpen(url);
   };
@@ -90,5 +91,5 @@ const mapStateToProps = (state: RootState) => ({
 
 export default compose<any, OwnProps>(
   withStyles(styles),
-  connect(mapStateToProps, null)
+  connect(mapStateToProps, null),
 )(WorkshopWidget);

@@ -13,7 +13,8 @@ backendOptions.request = (
   payload: any,
   callback: any,
 ) => {
-  const { I18N_TRANSLATION_DOMAIN } = window.runtime.env;
+  const { I18N_TRANSLATION_DOMAIN } =
+    (window.runtime || window.runtimeBsport || {}).env || {};
   const _url = `${I18N_TRANSLATION_DOMAIN}${url}`;
   axios
     .get(_url)

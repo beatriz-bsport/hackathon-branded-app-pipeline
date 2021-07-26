@@ -69,7 +69,8 @@ class PrivateServiceWidget extends React.PureComponent<Props, State> {
     establishment: number;
     associated_coach: number;
   }, privateSlot: PrivateSlot) => {
-    const { PUBLIC_URL } = window.runtime.env
+    const { PUBLIC_URL } =
+      (window.runtime || window.runtimeBsport || {}).env || {};
     const url = `${PUBLIC_URL}/customer/payment/private-service/${
       this.state.serviceId
     }/private-slot/${

@@ -84,7 +84,8 @@ export class CalendarWidget extends Component<Props, State> {
   };
 
   onClickGoToBook = (id: number, companyId: number) => {
-    const { PUBLIC_URL } = window.runtime.env;
+    const { PUBLIC_URL } =
+      (window.runtime || window.runtimeBsport || {}).env || {};
     const url = `${PUBLIC_URL}/customer/payment/offer/${id}?membership=${companyId}`;
     this.props.onWindowOpen(url);
   };

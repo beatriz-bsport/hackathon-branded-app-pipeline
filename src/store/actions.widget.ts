@@ -17,25 +17,32 @@ export const closeDialogAction = () => (dispatch: Dispatch) => {
 };
 
 export const fabShowLogin = () => (dispatch: Dispatch, getState: any) => {
-  const { PUBLIC_URL } = window.runtime.env;
+  const { PUBLIC_URL } =
+    (window.runtime || window.runtimeBsport || {}).env || {};
   const { company } = getState().theme.theme;
 
   const url = `${PUBLIC_URL}/login?membership=${company}&context=widget`;
   dispatch(
-    setDialogAction({ url, dialogMode: DIALOG_MODE_IFRAME, isFabContext: true })
+    setDialogAction({
+      url,
+      dialogMode: DIALOG_MODE_IFRAME,
+      isFabContext: true,
+    })
   );
 };
 
 export const fabShowBasket = () => (dispatch: Dispatch, getState: any) => {
   const { company, company_name } = getState().theme.theme;
-  const { PUBLIC_URL } = window.runtime.env;
+  const { PUBLIC_URL } =
+    (window.runtime || window.runtimeBsport || {}).env || {};
   const url = `${PUBLIC_URL}/widget/${company_name}/${company}/basket?context=widget`;
   dispatch(setDialogAction({ url, dialogMode: DIALOG_MODE_IFRAME }));
 };
 
 export const fabShowBookings = () => (dispatch: Dispatch, getState: any) => {
   const { company, company_name } = getState().theme.theme;
-  const { PUBLIC_URL } = window.runtime.env;
+  const { PUBLIC_URL } =
+    (window.runtime || window.runtimeBsport || {}).env || {};
   const url = `${PUBLIC_URL}/widget/${company_name}/${company}/bookings?context=widget`;
   dispatch(setDialogAction({ url, dialogMode: DIALOG_MODE_IFRAME }));
 };

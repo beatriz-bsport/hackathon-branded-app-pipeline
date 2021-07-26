@@ -115,7 +115,8 @@ class VODWidget extends React.PureComponent<Props, State> {
   };
 
   onRequestBuyPass = () => {
-    const { PUBLIC_URL } = window.runtime.env;
+    const { PUBLIC_URL } =
+      (window.runtime || window.runtimeBsport || {}).env || {};
     const path = getMarketplaceRoute(
       this.props.theme.company_name,
       this.props.companyId,

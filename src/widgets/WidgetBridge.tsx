@@ -45,7 +45,7 @@ class WidgetBridge extends React.PureComponent<Props> {
               iframe &&
                 iframe.postMessage(
                   { type: WidgetMessageType.GET_AUTHENTICATED_STATUS },
-                  '*'
+                  '*',
                 );
               break;
 
@@ -53,7 +53,7 @@ class WidgetBridge extends React.PureComponent<Props> {
               iframe &&
                 iframe.postMessage(
                   { type: WidgetMessageType.GET_BASKET_COUNT },
-                  '*'
+                  '*',
                 );
               break;
 
@@ -61,7 +61,7 @@ class WidgetBridge extends React.PureComponent<Props> {
               iframe &&
                 iframe.postMessage(
                   { type: WidgetMessageType.GET_BOOKINGS_COUNT },
-                  '*'
+                  '*',
                 );
               break;
 
@@ -98,7 +98,7 @@ class WidgetBridge extends React.PureComponent<Props> {
           }
         }
       },
-      false
+      false,
     );
   }
 
@@ -116,7 +116,8 @@ class WidgetBridge extends React.PureComponent<Props> {
   render() {
     const { companyId, companyName } = this.props;
 
-    const { PUBLIC_URL } = window.runtime.env;
+    const { PUBLIC_URL } =
+      (window.runtime || window.runtimeBsport || {}).env || {};
     const url = `${PUBLIC_URL}/widget/${companyName}/${companyId}/bridge?context=widget`;
     const key = `${companyId}-${companyName}`;
 
@@ -156,5 +157,5 @@ const mapDispatchToProps = {
 
 export default compose<any, OwnProps>(
   withStyles(styles),
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(mapStateToProps, mapDispatchToProps),
 )(WidgetBridge);

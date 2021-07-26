@@ -24,9 +24,10 @@ function setConfigFrom(envConfig: any) {
 }
 
 // @ts-ignore;
-const { runtime } = window;
+const { runtime, runtimeBsport } = window;
 if (process && process.env) setConfigFrom(process.env);
 if (runtime && runtime.env) setConfigFrom(runtime.env);
+if (runtimeBsport && runtimeBsport.env) setConfigFrom(runtimeBsport.env);
 
 export default Config;
 

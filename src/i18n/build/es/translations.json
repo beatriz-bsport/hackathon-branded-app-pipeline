@@ -157,7 +157,9 @@
             "duplicate": "Duplicar",
             "restore": "Restaurar",
             "share": "Compartir",
-            "pickALanguage": "Idioma"
+            "pickALanguage": "Idioma",
+            "emergencyContact": "En caso de emergencia",
+            "disconnect": "Salir"
         },
         "pagination": {
             "rowPerPage": "Elementos por página",
@@ -310,7 +312,13 @@
                 "referenceNumber": "Número de adherente",
                 "referenceNumberHelper": "(opcional) si está vacío, se creará automáticamente un número",
                 "barcodeHelper": "(opcional) usa este código para sus tarjetas de acceso",
-                "barcode": "Código de barras (tarjeta)"
+                "barcode": "Código de barras (tarjeta)",
+                "errors": {
+                    "accept_email": "Debes aceptar las notificaciones por correo electrónico",
+                    "waiver": "Debes aceptar la exención de responsabilidad",
+                    "accept_sms": "Debes aceptar las notificaciones por SMS"
+                },
+                "waiver": "Acepta los términos de la exención de responsabilidad"
             },
             "metaActivity": {
                 "cantAddSameName": "¡Ya existe una actividad del mismo nombre!"
@@ -328,7 +336,26 @@
                 "iAcceptPrivacyPolicy": "Acepto los ",
                 "privacyPolicy": "Términos de servicio",
                 "emailExistsInDB2": "Iniciar sesión",
-                "emailExistsInDB1": "Este correo ya está registrado porque estás registrado en un club o estudio usando bsport. Puedes utilizar los mismos identificadores."
+                "emailExistsInDB1": "Este correo ya está registrado porque estás registrado en un club o estudio usando bsport. Puedes utilizar los mismos identificadores.",
+                "fields": {
+                    "waiver": "Acepto el descargo de responsabilidad",
+                    "general_terms_and_conditions_accepted": "Acepto las condiciones generales de uso",
+                    "emergency_contact": "Contacto en caso de emergencia",
+                    "city": "Ciudad",
+                    "birthday": "Fecha de nacimiento",
+                    "phone": "Número de teléfono ",
+                    "country": "País",
+                    "zipcode": "Código postal",
+                    "address_line_2": "Dirección adicional",
+                    "address_line_1": "Dirección",
+                    "gender": "Sexo",
+                    "passwordConfirm": "Confirmar la contraseña",
+                    "password": "Contraseña",
+                    "email": "Correo electrónico",
+                    "last_name": "Apellido",
+                    "first_name": "Nombre"
+                },
+                "addProfilePicture": "Añadir una foto de perfil"
             },
             "quickInvoice": {
                 "totalPurchase": "Compras",
@@ -505,7 +532,8 @@
                 "week": "Semana",
                 "year": "Anual",
                 "month": "Mensualmente"
-            }
+            },
+            "modify": "Editar"
         },
         "marketing": {
             "dashboard": "Tablero de mando",

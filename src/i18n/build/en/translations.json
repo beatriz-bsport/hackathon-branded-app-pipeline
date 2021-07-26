@@ -1474,7 +1474,7 @@
                     "password": "Password must contain at least 6 characters"
                 },
                 "fields": {
-                    "accept_sms": "I agree to be notified by SMS for information related to my activity (change of schedules, last minute cancellation, new workshop ...)",
+                    "accept_sms": "I agree to be notified by SMS for information related to my activity (change of schedules, last-minute cancellations, new workshop ...)",
                     "accept_email": "I agree to be notified by email for information related to my activity (change of schedules, last-minute cancellation, new workshop ...)",
                     "waiver": "I accept the liability waiver",
                     "general_terms_and_conditions_accepted": "I accept the general terms of use",
@@ -4292,7 +4292,7 @@
                 "registeredOn": "Registered on",
                 "title": "Waiting list details"
             },
-            "empty": "No registration on the waiting list",
+            "empty": "No registrations on the waiting list",
             "delete": "Delete",
             "addToBook": "Book in",
             "listTitle": "Waiting list"
@@ -4977,7 +4977,10 @@
         "paymentRules": "Payment rules",
         "coach_payment_rule_groups": {
             "subtitle": {
-                "helper": "You can group together your compensation rules for activities, workshops and appointments. By adding a teacher to a group, all of the group's compensation rules automatically apply to the teacher. Any change to the group will also be made to all the teachers in the group."
+                "helper": "You can group together your compensation rules for activities, workshops and appointments. By adding a teacher to a group, all of the group's compensation rules automatically apply to the teacher. Any change to the group will also be made to all the teachers in the group.",
+                "coaches": "Associate professors",
+                "specfic_private_slot": "Specific payment rate for an appointment",
+                "default": "Default compensation"
             },
             "workshop": "Workshops",
             "session": "Group classes",
@@ -4991,6 +4994,14 @@
                     "cancel": "Cancel",
                     "title": "Delete a group"
                 }
+            },
+            "fields": {
+                "private_service": "Appointment",
+                "workshop": "Workshops",
+                "activity": "Activities",
+                "private_service_name": "Session name",
+                "coach_payment_rule": "Payment rate",
+                "addPrivateSlot": "Add a rule"
             }
         },
         "search": "Find a pay rule (optional)"
@@ -5175,7 +5186,8 @@
             "finalize": "Finalize (PDF)",
             "consumeBalance": "Pay via balance",
             "explainPdfDraft": "The invoice is still a draft, pdf is not available.",
-            "addFooter": "Modify invoice footnote"
+            "addFooter": "Modify invoice footnote",
+            "addCoupon": "Add promo code"
         },
         "invoice": {
             "editor": {
@@ -5529,7 +5541,8 @@
         },
         "noCoach": "No teachers is registered yet",
         "noCoachs": "No registered teachers, manage your teachers here, contributors and their payment.",
-        "inactiveCoaches": "Archived teachers"
+        "inactiveCoaches": "Archived teachers",
+        "paymentRule": "Payroll"
     },
     "subscription": {
         "events": {
@@ -5629,7 +5642,8 @@
                 "iAcceptCondition": "I accept the legal agreement",
                 "iwanttostarton": "I want to start my subscription on : ",
                 "subscribe": "Subscribe",
-                "create": "Add a contract"
+                "create": "Add a contract",
+                "iAcceptGeneralCondition": " I accept the legal notices"
             },
             "duration": "{{month}} bills",
             "list": {
@@ -5738,7 +5752,13 @@
                 },
                 "recurrentPriceLabel": "{{ currencyDisplay }}{{ recurrent_price  }}",
                 "identifier": "Membership"
-            }
+            },
+            "frequency": {
+                "week": "weekly",
+                "month": "monthly"
+            },
+            "billingFrequency": "Billing frequency",
+            "paymentCombo": "Associated pack"
         },
         "recap": {
             "willBecharged": " will be charged ",
@@ -5954,7 +5974,8 @@
             "createdAt": "Created {{at}}",
             "title": "Pause all subscriptions",
             "fromUntil": "Only if invoiced between {{from}} and {{until}} included"
-        }
+        },
+        "seeMore": "Show more"
     },
     "reporting": {
         "columns": {
@@ -6788,7 +6809,8 @@
         "substitute": "Substitute",
         "calendar": {
             "modifyOffer": "Edit",
-            "deleteOffer": "Cancel"
+            "deleteOffer": "Cancel",
+            "filter": "Filter"
         },
         "manageOffer": "Manage my bookings",
         "forms": {
@@ -6880,7 +6902,8 @@
             "cancel": "Cancel",
             "error": {
                 "title": "Please fill the title",
-                "content": "Please fill some content in the mail"
+                "content": "Please fill some content in the mail",
+                "subject": "Please enter a subject"
             },
             "exportHtml": "Export HTML"
         },
@@ -6985,7 +7008,23 @@
             },
             "phone": {
                 "error": "Invalid phone number"
-            }
+            },
+            "needInformationValidation": {
+                "button": {
+                    "memberOfCompany": "Complete my information",
+                    "notMemberYet": "Submit information"
+                },
+                "legend": {
+                    "memberOfCompany": "To continue browsing please complete the required information below",
+                    "notMemberYet": "Would you like to submit your information and register? "
+                },
+                "subtitle": {
+                    "memberOfCompany": "Tell us more about yourself.",
+                    "notMemberYet": "Looks like this is your first time logging into this studio"
+                },
+                "welcome": "Hello {{first_name}}"
+            },
+            "title": "User information"
         },
         "user": {
             "existsWithEmail": "A user with the email address {{email}} already exists.",
@@ -7295,7 +7334,13 @@
                     "3": "Booking available!",
                     "1": "Waiting list full",
                     "0": "Waiting list",
-                    "2": "On waiting list"
+                    "2": "On waiting list",
+                    "6003": "Already on the list",
+                    "6002": "The waiting list is full",
+                    "7": "Unbalanced male / female ratio",
+                    "6": "Unbalanced male / female ratio",
+                    "5": "Already registered",
+                    "4": "Registrations closed"
                 },
                 "bookable_status": {
                     "4": "Session unavailable",
@@ -7314,7 +7359,11 @@
             },
             "bookingForMe": "me",
             "bookingsTitleFor": "I book for {{name}}"
-        }
+        },
+        "setSpot": "Assign a place",
+        "changeSpot": "Change your place",
+        "noSpotAttributed": "No space allocated",
+        "placeNumber": "Place {{count}}"
     },
     "marketplace": {
         "selector": {
@@ -8570,6 +8619,53 @@
                 "pm_associated_to_protected_bp": "Impossible: You have a subscription associated with this payment method",
                 "last_payment_method": "Unable to delete your only payment method"
             }
+        },
+        "signup": {
+            "failedCreation": "Unable to create your account at the moment, please try again in a few minutes",
+            "emailAlreadyExists": "This email is already in use"
+        },
+        "paymentRuleGroups": {
+            "delete": {
+                "success": "Group deleted",
+                "error": "Error while deleting"
+            },
+            "create": {
+                "success": "Group added",
+                "error": "Error during creation"
+            },
+            "update": {
+                "error": {
+                    "coachWithPaymentGroup": "Cannot modify the payment rules of a coach included in a group",
+                    "generic": "Error during modification"
+                },
+                "success": "Group successfully modified"
+            }
+        },
+        "canNotBuyErrorCode": {
+            "generic": "Unable to book",
+            "8001": "The spot you have chosen is no longer available",
+            "6003": "You are already on the waiting list",
+            "6002": "The waiting list is full",
+            "2012": "This pass is not compatible with this session",
+            "2011": "This pass does not allow you to book screenings (VOD only)",
+            "2010": "This pass is not compatible with this location",
+            "2009": "This pass is not compatible with this activity",
+            "2008": "This pass is not compatible with this activity",
+            "2007": "This pass is not compatible with this session",
+            "2006": "This pass is not compatible for a reservation on the chosen date",
+            "2005": "This pass is not available for sale",
+            "2004": "This pass is not available for sale",
+            "2003": "You can no longer buy this pass",
+            "2002": "This course passs is only available for new members",
+            "1114": "You can no longer buy this pack",
+            "1113": "This pack is only available for new members",
+            "7": "The male / female ratio imbalance has been reached, you cannot book this session",
+            "6": "The male / female ratio imbalance has been reached, you cannot book this session",
+            "5": "You have already registered for this session",
+            "4": "The session is not bookable",
+            "3": "The session is full",
+            "2": "The session is not yet open for reservations",
+            "1": "The session is not yet open for reservations"
         }
     },
     "navigation": {
@@ -8596,7 +8692,8 @@
                 "platform_billing": "Bsport subscription",
                 "marketplaceSettings": "Marketplace settings",
                 "widget": "Widget",
-                "paymentMethod": "Payment methods"
+                "paymentMethod": "Payment methods",
+                "forms": "Forms"
             },
             "pass": "Pass",
             "goBack": "Back",
@@ -8692,7 +8789,8 @@
                     "edit_button": "Change video",
                     "uploaded_video": "Uploaded file",
                     "youtube_video": "Youtube video",
-                    "title": "Video"
+                    "title": "Video",
+                    "vimeo_video": "Vimeo Video"
                 }
             },
             "upload": {
@@ -8706,13 +8804,19 @@
                     "url": "YouTube",
                     "file": "File",
                     "urlExplain": "If you have a video Youtube and want to limit to monetize it via bsport.",
-                    "fileExplain": "If you have a video file (mp4,avi,mov...), please use this to upload directly your video on our servers."
+                    "fileExplain": "If you have a video file (mp4,avi,mov...), please use this to upload directly your video on our servers.",
+                    "youtubeExplain": "You have a Youtube video and want to monetize it via bsport.",
+                    "vimeoExplain": "You have a Vimeo video and want to monetize it via bsport.",
+                    "vimeo": "Vimeo",
+                    "youtube": "Youtube"
                 },
                 "submit": "Save",
                 "minutes": "Minutes",
                 "hours": "Hours",
                 "durationInputError": "Please enter the video duration",
-                "durationLabel": "Video duration"
+                "durationLabel": "Video duration",
+                "vimeoUrlInput": "Vimeo link",
+                "youtubeUrlInput": "Youtube link"
             },
             "delete": {
                 "cancel": "Cancel",
@@ -8976,7 +9080,48 @@
             "screen": "Screen",
             "teacher": "Teacher",
             "undo": "Previous",
-            "redo": "Next"
+            "redo": "Next",
+            "showGrid": "Show grid",
+            "customIconButton": "Download my icons",
+            "customIconLabel": "Location icons",
+            "hand": "Hand",
+            "pointer": "Cursor"
+        },
+        "placeCount": "{{count}} places",
+        "roomBlueprints": "Seating plan",
+        "saveError": "Error",
+        "errorLessSpotThanEffectif": "Cannot save. The seating plan must contain more space than the size of the session capacity",
+        "saved": "Seating plan saved",
+        "effectifError": "The number of places must be greater than or equal to the size of the session",
+        "searchHelper": "Help: Allows your students to reserve the location they want in the room. Fields not required",
+        "search": "Find a plan for spot scheduling",
+        "roomBlueprintSelectorTitle": "Choose a plan",
+        "spotSelectorDialog": {
+            "takeSpotError": "The place you selected for this course is no longer available. Please select a new one.",
+            "submit": "Confirm",
+            "cancel": "Cancel",
+            "spot": "Place {{count}}",
+            "title": "Choose a place"
+        },
+        "toolbar": {
+            "loadExistingBlueprint": "Load an existing plan",
+            "exit": "To leave",
+            "titleLabel": "Plan name",
+            "save": "Save"
+        },
+        "spotImageDialog": {
+            "actions": {
+                "submit": "Confirm",
+                "cancel": "Cancel"
+            },
+            "imageFormat": "Recommended format: .png, .jpg",
+            "taken": "Book",
+            "free": "Available",
+            "imageUploadButton": "Load an image",
+            "takenImageLabel": "Reserved location",
+            "freeImageLabel": "Available location",
+            "helper": "You can customize the shape of the locations by importing your own images. For this we need 2 different icons. One to indicate that the location is available, another when it is reserved. Make sure they are the same size and please do not include a number on your icons.",
+            "title": "Customize your locations"
         }
     }
 }

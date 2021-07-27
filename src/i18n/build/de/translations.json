@@ -5692,7 +5692,7 @@
                     "title": "Einstellungen"
                 },
                 "chooseWhen": {
-                    "after": "Sende die E-Mail vor dem von der Benachrichtigung betroffenen Termin an das Mitglied",
+                    "after": "Sende die E-Mail nach dem von der Benachrichtigung betroffenen Termin an das Mitglied",
                     "before": "Sende die E-Mail vor dem von der Benachrichtigung betroffenen Termin an das Mitglied",
                     "title": "Benachrichtigungstyp"
                 },

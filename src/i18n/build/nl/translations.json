@@ -173,7 +173,7 @@
             "300": "Een lid dat niet tijdig heeft geantwoord van de wachtlijst verwijderen",
             "601": "Automatische annulering: te weinig reserveringen X uur voor het begin van de sessie",
             "702": "Sanctie: er is een boete opgelegd (voor leden)",
-            "701": "Sanctie: de leskaart is tijdelijk geblokkeerd (voor leden)",
+            "701": "Sanctie: de kaart is tijdelijk geblokkeerd (voor leden)",
             "530": "Geschil over de betaling voor een abonnement",
             "520": "Het systeem zal mislukte betalingen van abonnementen opnieuw proberen",
             "515": "De leskaart van het abonnement wordt automatisch gedeactiveerd",
@@ -272,7 +272,7 @@
         "emailDesign": {
             "closePreview": "Sluiten",
             "placeholder": "Sjabloon van BSPORT",
-            "birthdayPlaceholder": "Kies een e-mailadres"
+            "birthdayPlaceholder": "Selecteer een e-mailsjabloon"
         },
         "ruleGroup": {
             "private_booking": "Afspraken",
@@ -283,7 +283,7 @@
             "member": "Ledenregistratie",
             "marketing": "Marketing",
             "invoice": "Facturatie",
-            "payment_pack": "Leskaarten"
+            "payment_pack": "Kaarten"
         },
         "pageTitle": "Transactionele e-mails",
         "caption": {
@@ -635,7 +635,7 @@
             "after": "Na ",
             "message": "Bericht",
             "estimatedTarget": "Aandeel betrokken gebruikers t.o.v. je ledenbestand",
-            "strategy": "Strategie: ",
+            "strategy": "Campagne: ",
             "criterias": "Criteria",
             "clientsReached": "Gecontacteerde leden",
             "notificationsSent": "Verzonden meldingen",
@@ -1313,7 +1313,7 @@
         "activityUpdated": "Activiteit aangepast",
         "activityCreated": "Activiteit toegevoegd",
         "strategy": {
-            "strategy": "Strategie",
+            "strategy": "Campagne",
             "gym": "Sporthal De Spont",
             "female": "V",
             "yoga": "Yoga",
@@ -2184,7 +2184,7 @@
                 "startOnFirstUse": "De geldigheidsduur begint op de dag van de eerste reservering",
                 "startOnFirstUseHelper": "Anders begint het op de facturatiedatum",
                 "sports": "Categorie",
-                "notEditable": "Deze leskaart is het resultaat van een gegevensoverdracht. Sommige velden kunnen niet worden gewijzigd om de gebruiksgeschiedenis correct weer te geven . Compatibele activiteiten / categorieën kunnen wel worden gewijzigd.",
+                "notEditable": "Let op: deze kaart hebben uit de gegevensoverdracht van je vorige systeem gehaald. Bepaalde velden kunnen niet worden gewijzigd, om de juiste datastructuur en geschiedenis te waarborgen. Je kunt compatibele activiteiten/categorieën wel wijzigen.",
                 "maxPurchasePerMember": {
                     "helperText": "Laat dit veld leeg om geen limiet in te stellen.",
                     "label": "Maximale aankoop per lid"
@@ -2334,8 +2334,8 @@
         "maxNBookingsByMonth2": " reservering(en) per maand",
         "blockedCpp": "Deze leskaart is van {{-blocked_from}} tot en met {{-blocked_until}} geblokkeerd",
         "penalty": {
-            "block": "Zodra {{nb_cancellations}} te late annuleringen binnen {{nb_days}} dagen worden geregistreerd, wordt deze leskaart voor {{days_blocked}} geblokkeerd.",
-            "account": "Zodra {{nb_cancellations}} te late annuleringen binnen {{nb_days}} dagen worden geregistreerd, wordt een sanctie t.w.v. €{{account_value}} gefactureerd.",
+            "block": "Bij {{nb_cancellations}} te late annuleringen binnen {{nb_days}} dagen, wordt deze leskaart voor {{days_blocked}} dagen geblokkeerd.",
+            "account": "Bij {{nb_cancellations}} te late annuleringen binnen {{nb_days}} dagen, wordt een sanctie t.w.v. €{{account_value}} gefactureerd.",
             "title": "Annuleringsbeleid"
         },
         "only_vod_access": "Alleen beschikbaar voor Video On Demand",
@@ -4769,7 +4769,7 @@
                 "showOfferList": "Groepsactiviteiten",
                 "showPrivateBookings": "Afspraken",
                 "showCustomEvents": "Taken / Persoonlijke afspraken",
-                "hideCancelledEvents": "Toon de annuleringen",
+                "hideCancelledEvents": "Toon annuleringen",
                 "title": "Filter op activiteit"
             },
             "enableAvailability": "Beschikbaarheid toevoegen",
@@ -7061,7 +7061,7 @@
                     "checkbox": "Reguleer de MAN / VROUW verhouding voor je sessies"
                 },
                 "offerBalance": "Een regel instellen dat de MAN / VROUW verhouding per sessie reguleert",
-                "showGenderOffer": "Toon het aantal inschreven MANNEN / VROUWEN op de agenda van je leden",
+                "showGenderOffer": "Toon het aantal ingeschreven MANNEN / VROUWEN op de agenda van je leden",
                 "hideCoach": "Toon de docentinformatie op de agenda van je leden"
             },
             "gtmId": {
@@ -7182,7 +7182,7 @@
                 "additionnal_address_info": "Aanvulling adres",
                 "address": "Adres",
                 "birthdate": "Geboortedatum",
-                "phone": "Mobiele telefoon",
+                "phone": "Telefoonnummer",
                 "main_phone": "Telefoonnummer",
                 "gender": "Geslacht",
                 "email": "E-mailadres",

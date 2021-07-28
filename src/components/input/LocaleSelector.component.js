@@ -30,6 +30,7 @@ import DK_FLAG from './flags/DK.png';
 import LU_FLAG from './flags/LU.png';
 import CA_FLAG from './flags/CA.png';
 import AE_FLAG from './flags/AE.png';
+import US_FLAG from './flags/US.png';
 
 type Props = {
   withCurrency?: boolean,
@@ -57,6 +58,12 @@ const localeList: Array<Locale> = [
     icon: GB_FLAG,
     currencyCode: 'gbp',
     currencyDisplay: ' £',
+  },
+  {
+    locale: 'en_US',
+    icon: US_FLAG,
+    currencyCode: 'usd',
+    currencyDisplay: '$',
   },
   {
     locale: 'de_DE',

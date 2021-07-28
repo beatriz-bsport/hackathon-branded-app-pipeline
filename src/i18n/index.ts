@@ -4,6 +4,7 @@ import axios from 'axios';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
 import HttpBackend from 'i18next-http-backend';
+import { getEnv } from '../utils/utils';
 
 const backendOptions: any = {};
 
@@ -13,8 +14,7 @@ backendOptions.request = (
   payload: any,
   callback: any,
 ) => {
-  const { I18N_TRANSLATION_DOMAIN } =
-    (window.runtime || window.runtimeBsport || {}).env || {};
+  const { I18N_TRANSLATION_DOMAIN } = getEnv();
   const _url = `${I18N_TRANSLATION_DOMAIN}${url}`;
   axios
     .get(_url)

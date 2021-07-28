@@ -26,7 +26,6 @@ import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 import { getMarketplaceRoute } from 'bsport-saas/src/pages/marketplace/routing-utils';
-import { DIALOG_MODE_IFRAME } from '@bsport/common/lib/master-data/widget-dialog-mode';
 import { auth as authActions } from 'bsport-saas/src/actions';
 
 import asyncComponent from '../AsyncComponent';
@@ -34,6 +33,7 @@ import asyncComponent from '../AsyncComponent';
 import '../../vendor/video.css';
 
 import { RootState } from '../store/reducer';
+import { getEnv } from '../utils/utils';
 
 const AuthDialog = asyncComponent(() => import('../components/AuthDialog'));
 
@@ -115,8 +115,7 @@ class VODWidget extends React.PureComponent<Props, State> {
   };
 
   onRequestBuyPass = () => {
-    const { PUBLIC_URL } =
-      (window.runtime || window.runtimeBsport || {}).env || {};
+    const { PUBLIC_URL } = getEnv();
     const path = getMarketplaceRoute(
       this.props.theme.company_name,
       this.props.companyId,

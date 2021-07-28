@@ -15,6 +15,7 @@ import {
   setSaasBookingsCount,
 } from '../store/actions.widget';
 import { RootState } from '../store/reducer';
+import { getEnv } from '../utils/utils';
 
 type OwnProps = {
   companyId: number,
@@ -115,9 +116,7 @@ class WidgetBridge extends React.PureComponent<Props> {
 
   render() {
     const { companyId, companyName } = this.props;
-
-    const { PUBLIC_URL } =
-      (window.runtime || window.runtimeBsport || {}).env || {};
+    const { PUBLIC_URL } = getEnv();
     const url = `${PUBLIC_URL}/widget/${companyName}/${companyId}/bridge?context=widget`;
     const key = `${companyId}-${companyName}`;
 

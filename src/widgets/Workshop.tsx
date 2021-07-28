@@ -10,6 +10,7 @@ import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 import { RootState } from '../store/reducer';
 import '../../vendor/map.css';
+import { getEnv } from '../utils/utils';
 
 const MarketplaceWorkshopBaseStyled = themify(MarketplaceWorkshopBase);
 
@@ -54,8 +55,7 @@ class WorkshopWidget extends Component<Props, State> {
   };
 
   goToBook = (id: number, companyId: number) => {
-    const { PUBLIC_URL } =
-      (window.runtime || window.runtimeBsport || {}).env || {};
+    const { PUBLIC_URL } = getEnv();
     const url = `${PUBLIC_URL}/customer/payment/offer/${id}?membership=${companyId}`;
     this.props.onWindowOpen(url);
   };

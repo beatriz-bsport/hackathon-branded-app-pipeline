@@ -13,9 +13,9 @@ import { PrivateService, PrivateSlot } from 'bsport-saas/src/libs/private-servic
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
-import { DIALOG_MODE_IFRAME } from '@bsport/common/lib/master-data/widget-dialog-mode';
 
 import { RootState } from '../store/reducer';
+import { getEnv } from '../utils/utils';
 
 const PrivateServiceSelector = themify(
   PrivateServiceSelectorDataProvider(PrivateServiceSelectorPage)
@@ -69,8 +69,7 @@ class PrivateServiceWidget extends React.PureComponent<Props, State> {
     establishment: number;
     associated_coach: number;
   }, privateSlot: PrivateSlot) => {
-    const { PUBLIC_URL } =
-      (window.runtime || window.runtimeBsport || {}).env || {};
+    const { PUBLIC_URL } = getEnv();
     const url = `${PUBLIC_URL}/customer/payment/private-service/${
       this.state.serviceId
     }/private-slot/${

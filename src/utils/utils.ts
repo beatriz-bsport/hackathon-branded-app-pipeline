@@ -16,3 +16,13 @@ export const openTab = (url: string, target?: string) => {
 
   return window.open(url, target || '_blank', params);
 };
+
+export const getEnv = () => {
+  if (window.runtime && window.runtime.env) {
+    return window.runtime.env;
+  }
+  if (window.runtimeBsport && window.runtimeBsport.env) {
+    return window.runtimeBsport.env;
+  }
+  return {};
+};

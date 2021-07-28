@@ -11,6 +11,7 @@ import '../../vendor/map.css';
 
 import { RootState } from '../store/reducer';
 import { constants } from '../const/constants';
+import { getEnv } from '../utils/utils';
 
 const DATE_FORMAT = 'YYYY-MM-DD';
 
@@ -84,8 +85,7 @@ export class CalendarWidget extends Component<Props, State> {
   };
 
   onClickGoToBook = (id: number, companyId: number) => {
-    const { PUBLIC_URL } =
-      (window.runtime || window.runtimeBsport || {}).env || {};
+    const { PUBLIC_URL } = getEnv();
     const url = `${PUBLIC_URL}/customer/payment/offer/${id}?membership=${companyId}`;
     this.props.onWindowOpen(url);
   };

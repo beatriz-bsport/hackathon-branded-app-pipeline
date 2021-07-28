@@ -2,6 +2,7 @@ import { createAction } from 'redux-actions';
 import { Dispatch } from 'redux';
 
 import { DIALOG_MODE_IFRAME } from '@bsport/common/lib/master-data/widget-dialog-mode';
+import { getEnv } from '../utils/utils';
 
 /**
  * @params { url: string, dialogMode: 0 | 1 | 2 }
@@ -17,8 +18,7 @@ export const closeDialogAction = () => (dispatch: Dispatch) => {
 };
 
 export const fabShowLogin = () => (dispatch: Dispatch, getState: any) => {
-  const { PUBLIC_URL } =
-    (window.runtime || window.runtimeBsport || {}).env || {};
+  const { PUBLIC_URL } = getEnv();
   const { company } = getState().theme.theme;
 
   const url = `${PUBLIC_URL}/login?membership=${company}&context=widget`;
@@ -33,16 +33,14 @@ export const fabShowLogin = () => (dispatch: Dispatch, getState: any) => {
 
 export const fabShowBasket = () => (dispatch: Dispatch, getState: any) => {
   const { company, company_name } = getState().theme.theme;
-  const { PUBLIC_URL } =
-    (window.runtime || window.runtimeBsport || {}).env || {};
+  const { PUBLIC_URL } = getEnv();
   const url = `${PUBLIC_URL}/widget/${company_name}/${company}/basket?context=widget`;
   dispatch(setDialogAction({ url, dialogMode: DIALOG_MODE_IFRAME }));
 };
 
 export const fabShowBookings = () => (dispatch: Dispatch, getState: any) => {
   const { company, company_name } = getState().theme.theme;
-  const { PUBLIC_URL } =
-    (window.runtime || window.runtimeBsport || {}).env || {};
+  const { PUBLIC_URL } = getEnv();
   const url = `${PUBLIC_URL}/widget/${company_name}/${company}/bookings?context=widget`;
   dispatch(setDialogAction({ url, dialogMode: DIALOG_MODE_IFRAME }));
 };

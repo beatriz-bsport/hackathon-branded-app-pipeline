@@ -7,6 +7,7 @@ import { MarketplacePassData } from 'bsport-saas/src/libs/marketplace/types';
 
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
+import { getEnv } from '../utils/utils';
 
 const MarketplacePassStyled = themify(MarketplacePassBase);
 
@@ -22,22 +23,19 @@ type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
 
 class PassWidget extends Component<Props> {
   addComboToCart = (comboId: number) => {
-    const { PUBLIC_URL } =
-      (window.runtime || window.runtimeBsport || {}).env || {};
+    const { PUBLIC_URL } = getEnv();
     const url = `${PUBLIC_URL}/customer/payment/combo/${comboId}`;
     this.props.onWindowOpen(url);
   };
 
   addPaymentPackToCart = (packId: number) => {
-    const { PUBLIC_URL } =
-      (window.runtime || window.runtimeBsport || {}).env || {};
+    const { PUBLIC_URL } = getEnv();
     const url = `${PUBLIC_URL}/customer/payment/pass/${packId}`;
     this.props.onWindowOpen(url);
   };
 
   addPrivatePassToCart = (packId: number) => {
-    const { PUBLIC_URL } =
-      (window.runtime || window.runtimeBsport || {}).env || {};
+    const { PUBLIC_URL } = getEnv();
     const url = `${PUBLIC_URL}/customer/payment/private-pass/${packId}?membership=${this.props.companyId}`;
     this.props.onWindowOpen(url);
   };

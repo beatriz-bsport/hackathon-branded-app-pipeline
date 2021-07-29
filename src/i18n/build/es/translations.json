@@ -1513,8 +1513,11 @@
             "subtitle": "Se utiliza para la programación puntual. Permite a sus alumnos reservar el lugar que deseen en la sala.",
             "title": "Plano del establecimiento",
             "delete": {
-                "title": "Eliminación del plan de asientos"
-            }
+                "title": "Eliminación del plan de asientos",
+                "content": ""
+            },
+            "untitled": "",
+            "placeCount": ""
         }
     },
     "order": {
@@ -2084,7 +2087,8 @@
             "invoiceReverted": "Factura cancelada",
             "consumeBalance": "Paga a través del balance",
             "explainPdfDraft": "La factura sigue siendo un borrador, el pdf no está disponible.",
-            "addFooter": "Modificar la nota a pie de página de la factura"
+            "addFooter": "Modificar la nota a pie de página de la factura",
+            "addCoupon": "Añadir un código promocional"
         },
         "uneditableMessage": {
             "invoiceFinalizedThusNotEditable": "La factura se ha finalizado y, por lo tanto, ya no se puede editar",
@@ -2405,7 +2409,8 @@
             }
         },
         "noCoachs": "Ninguno profesor guardado, administre a sus profes, colaboradores y su remuneración aquí.",
-        "inactiveCoaches": "Profesores archivados"
+        "inactiveCoaches": "Profesores archivados",
+        "paymentRule": "Remuneración"
     },
     "subscription": {
         "table": {
@@ -2580,7 +2585,8 @@
                 "subscribe": "Suscribir",
                 "iwanttostarton": "Deseo comenzar a facturar en: ",
                 "iAcceptCondition": "Acepto las condiciones anteriores",
-                "create": "Añadir un contrato"
+                "create": "Añadir un contrato",
+                "iAcceptGeneralCondition": " Acepto el aviso legal"
             },
             "legal": "Notas legales",
             "description": "Descripción",
@@ -2618,17 +2624,23 @@
             "item": {
                 "intervalLabel": {
                     "year": "Cada año",
-                    "year_plural": "Cada {{ interval }} años",
+                    "year_plural": "Cada {{ count }} años",
                     "day": "Cada día",
-                    "day_plural": "Cada {{ interval }} días",
+                    "day_plural": "Cada {{ count }} días",
                     "week": "Cada semana",
-                    "week_plural": "Cada {{ interval }} meses",
+                    "week_plural": "Cada {{ count }}  meses",
                     "month": "Cada mes",
-                    "month_plural": "Cada  {{ interval }} meses"
+                    "month_plural": "Cada  {{ count }} meses"
                 },
                 "recurrentPriceLabel": "{{ recurrent_price  }}{{ currencyDisplay }}",
                 "identifier": "Membresía"
-            }
+            },
+            "frequency": {
+                "month": "mensualmente",
+                "week": "semanal"
+            },
+            "billingFrequency": "Frecuencia de facturación",
+            "paymentCombo": "Paquete asociado"
         },
         "plannedInvoice": {
             "priceUpdater": {
@@ -2814,7 +2826,8 @@
             "fromUntil": "Sólo si se factura entre {{from}} y {{until}} i incluido",
             "createdAt": "Creado {{at}}",
             "title": "Pausar todas las suscripciones"
-        }
+        },
+        "seeMore": "Ver más"
     },
     "reporting": {
         "columns": {
@@ -3156,7 +3169,8 @@
         "substitute": "Sustituto",
         "calendar": {
             "modifyOffer": "Modificar",
-            "deleteOffer": "Cancelar"
+            "deleteOffer": "Cancelar",
+            "filter": "Filtrar"
         },
         "manageOffer": "Gestionar las reservas",
         "forms": {
@@ -3300,7 +3314,23 @@
             },
             "phone": {
                 "error": "Número de teléfono inválido"
-            }
+            },
+            "needInformationValidation": {
+                "button": {
+                    "notMemberYet": "Transmisión de información",
+                    "memberOfCompany": "Completar mi información"
+                },
+                "welcome": "Hola {{first_name}}",
+                "subtitle": {
+                    "notMemberYet": "Parece que es la primera vez que se conecta a este estudio",
+                    "memberOfCompany": "Cuéntenos más sobre usted."
+                },
+                "legend": {
+                    "notMemberYet": "¿Desea enviar su información de registro? ",
+                    "memberOfCompany": "Para continuar navegando, por favor complete la información requerida a continuación"
+                }
+            },
+            "title": "Información para el usuario"
         },
         "user": {
             "existsWithEmail": "Un cliente con este correo electronico {{email}} existe.",
@@ -3418,7 +3448,7 @@
             },
             "offer": {
                 "isWaitingListFull": "La sesión está llena, la lista de espera está llena.",
-                "isTooSoon": "El registro está cerrado por el momento y se abrirá el {{date}}.",
+                "isTooSoon": "El registro está cerrado por el momento y se abrirá el {{ date_ }}.",
                 "isTooLate": "Las inscripciones están cerradas.",
                 "isDisabled": "La sesión fue desafortunadamente cancelada.",
                 "isAlreadyRegistered": "Ya está inscrito en esta sesión"
@@ -3626,10 +3656,16 @@
             "packTitle": "Mi método de reserva",
             "offerStatus": {
                 "waiting_list_status": {
-                    "3": "Reserva disponible!",
-                    "2": "En lista de espera",
-                    "1": "Lista de espera llena",
-                    "0": "Lista de espera"
+                    "3": "Sesión completa",
+                    "2": "Inscripciones completadas",
+                    "1": "Registros cerrados",
+                    "0": "Lista de espera",
+                    "4": "Registros cerrados",
+                    "6": "Proporción desequilibrada entre hombres y mujeres",
+                    "5": "Ya está registrado",
+                    "6002": "Lista de espera completa",
+                    "7": "Proporción desequilibrada entre hombres y mujeres",
+                    "6003": "Liste d'attente complète"
                 },
                 "bookable_status": {
                     "4": "Sesión no disponible",
@@ -3659,7 +3695,11 @@
             "addSession": "Añadir una sesión",
             "bookingForMe": "yo",
             "bookingsTitleFor": "Estoy reservando para {{name}}"
-        }
+        },
+        "placeNumber": "Sitios {{count}}",
+        "noSpotAttributed": "No hay lugar asignado",
+        "changeSpot": "Cambiar el lugar",
+        "setSpot": "Asignar un asiento"
     },
     "marketplace": {
         "selector": {
@@ -5508,7 +5548,9 @@
             "placeholder": "Elige una regla de cálculo",
             "coachPaymentRuleForSessions": "Clases y talleres en grupo",
             "coachPaymentRuleForPrivateService": "Cita previa",
-            "reset": "Utilizar la regla por defecto del profesor"
+            "reset": "Utilizar la regla por defecto del profesor",
+            "group": "Grupo de remuneración",
+            "coachPaymentRuleForWorkshops": "Talleres"
         },
         "addNew": "Nuevo ajuste de la compensación",
         "cancel": "Cancelar",
@@ -5567,7 +5609,12 @@
                 "baseRemunerationTypeError": "La remuneración básica debe ser un número positivo.",
                 "baseRemunerationRequired": "La remuneración básica es un campo obligatorio si ha marcado la casilla \"Base fija\" más arriba.",
                 "invalideUpperInterval": "El intervalo superior debe ser un número.",
-                "invalideIntervals": "No se permite la intersección de intervalos para extra del mismo tipo."
+                "invalideIntervals": "No se permite la intersección de intervalos para extra del mismo tipo.",
+                "invalidPrivateSlot": "Hay que seleccionar una cita",
+                "invalidCoachPaymentRule": "Hay que elegir un régimen de remuneración",
+                "uniqueRuleForPrivateSlot": "Este nombramiento aparece varias veces",
+                "privateSlotAlreadySelected": "Ya se ha definido una norma de remuneración para este nombramiento",
+                "oneRuleRequired": "Debe definir al menos una norma de retribución para crear un grupo"
             },
             "Bonuses": {
                 "bonus_rules": "Reglas del extra",
@@ -5601,13 +5648,45 @@
         "tabs": {
             "all": "Todos los cursos",
             "appointment": "Citas previas",
-            "session": "Clases de grupo y talleres"
+            "session": "Clases de grupo y talleres",
+            "groups": "Grupo de remuneración"
         },
         "paymentRules": "Reglas de remuneración",
         "fabButton": {
             "addNewForRDV": "Citas previas",
-            "addNewForSession": "Clases de grupo y talleres"
-        }
+            "addNewForSession": "Clases de grupo y talleres",
+            "addNewPaymentRuleGroup": "Grupo de remuneración"
+        },
+        "coach_payment_rule_groups": {
+            "modal": {
+                "delete": {
+                    "cancel": "Cancelar",
+                    "confirm": "Confirmar",
+                    "content": "Al eliminar este grupo, se desvinculará de todos los profesores a los que está asignado actualmente",
+                    "title": "Borrar un grupo"
+                }
+            },
+            "dialogTitle": "Grupo de remuneración",
+            "private_service": "Cita",
+            "session": "Cursos en grupo",
+            "workshop": "Talleres",
+            "subtitle": {
+                "coaches": "Profesores asociados",
+                "default": "Remuneraciones por defecto",
+                "helper": "Puede agrupar sus normas de remuneración para actividades, talleres y citas. Al añadir un profesor a un grupo, se le aplican automáticamente todas las normas de remuneración del grupo. Cualquier cambio en el grupo se aplicará también a todos los profesores del grupo.",
+                "specfic_private_slot": "Remuneración específica por una cita"
+            },
+            "fields": {
+                "private_service": "Citas",
+                "addPrivateSlot": "Añadir una regla",
+                "coach_payment_rule": "Régimen de remuneración",
+                "private_service_name": "Nombre de la sesión",
+                "activity": "Actividades",
+                "workshop": "Talleres"
+            },
+            "dissociate": "Personalizar las reglas"
+        },
+        "search": ""
     },
     "checkout": {
         "myBasket": {
@@ -6282,6 +6361,53 @@
                 "last_payment_method": "No se puede eliminar el único método de pago",
                 "pm_deleted": "Método de pago borrado"
             }
+        },
+        "canNotBuyErrorCode": {
+            "2008": "Esta tarjeta no es compatible con esta actividad",
+            "2011": "Este pase no permite reservar sesiones (sólo VOD)",
+            "1": "La sesión aún no está abierta a reservas",
+            "2": "La sesión ya no se puede reservar",
+            "3": "La sesión está completa",
+            "4": "La sesión no se puede reservar",
+            "5": "Ya se ha inscrito en esta sesión",
+            "7": "El desequilibrio de género es demasiado grande, reserva imposible",
+            "1113": "Este paquete sólo está disponible para los nuevos miembros",
+            "1114": "Ya no se puede comprar este paquete",
+            "2002": "Esta tarjeta de curso sólo está disponible para los nuevos miembros",
+            "2006": "Este pase no es compatible con una reserva en la fecha elegida",
+            "2007": "Esta tarjeta no es compatible con esta sesión",
+            "2012": "Este pase no es compatible con esta sesión",
+            "6002": "La lista de espera está llena",
+            "6003": "Ya está en la lista de espera",
+            "8001": "Déjà sur la liste d'attente",
+            "generic": "No se puede reservar",
+            "6": "El desequilibrio de género es demasiado grande, reserva imposible",
+            "2009": "Esta tarjeta no es compatible con esta categoría de actividad",
+            "2010": "Este pase no es compatible con esta ubicación",
+            "2003": "Ya no se puede canjear esta tarjeta",
+            "2004": "Esta tarjeta no está a la venta",
+            "2005": "Esta tarjeta no está a la venta"
+        },
+        "paymentRuleGroups": {
+            "update": {
+                "success": "Grupo modificado con éxito",
+                "error": {
+                    "generic": "Error al editar",
+                    "coachWithPaymentGroup": "Imposible cambiar las normas de remuneración de un entrenador incluido en un grupo"
+                }
+            },
+            "create": {
+                "error": "Error durante la creación",
+                "success": "Grupo añadido"
+            },
+            "delete": {
+                "error": "Error al borrar",
+                "success": "Grupo eliminado"
+            }
+        },
+        "signup": {
+            "emailAlreadyExists": "Este correo electrónico ya está usado",
+            "failedCreation": "No es posible crear su cuenta en este momento, por favor inténtelo de nuevo en unos minutos"
         }
     },
     "paymentPack": {
@@ -6746,7 +6872,8 @@
         "editor": {
             "error": {
                 "content": "Por favor ingresa el contenido en el email",
-                "title": "Por favor ingresa un apellido"
+                "title": "Por favor ingresa un apellido",
+                "subject": "Por favor, introduzca un objeto"
             },
             "cancel": "Cancelar",
             "subject": "Asunto del email",
@@ -6914,7 +7041,8 @@
                 "platform_billing": "Suscripción a bsport",
                 "marketplaceSettings": "Parámetros marketplace",
                 "widget": "Widget",
-                "paymentMethod": "Medios de pago"
+                "paymentMethod": "Medios de pago",
+                "forms": "Formularios"
             },
             "pass": "Bono",
             "goBack": "Volver",
@@ -6976,7 +7104,8 @@
                     "edit_button": "Cambiar el vídeo",
                     "uploaded_video": "Archivo cargado",
                     "youtube_video": "Vídeo de Youtube",
-                    "title": "Vídeo"
+                    "title": "Vídeo",
+                    "vimeo_video": "Video Vimeo"
                 }
             },
             "upload": {
@@ -6990,13 +7119,19 @@
                     "url": "Youtube",
                     "file": "Archivo",
                     "urlExplain": "Tu vídeo ya está disponible en Youtube pero quieres monetizarlo a través del sistema de tarjetas de bsport.",
-                    "fileExplain": "Si tienes el archivo de vídeo (mp4, avi, mov...), utiliza este método para subir tu vídeo directamente a los servidores de bsport."
+                    "fileExplain": "Si tienes el archivo de vídeo (mp4, avi, mov...), utiliza este método para subir tu vídeo directamente a los servidores de bsport.",
+                    "youtube": "Youtube",
+                    "vimeo": "Vimeo",
+                    "youtubeExplain": "Tu vídeo ya está disponible en Youtube pero quieres monetizarlo a través del sistema de tarjetas bsport.",
+                    "vimeoExplain": "Tu vídeo ya está disponible en Vimeo pero quieres monetizarlo a través del sistema de tarjetas bsport."
                 },
                 "submit": "Guardar",
                 "minutes": "Minutos",
                 "hours": "Horas",
                 "durationInputError": "Especifique la duración del vídeo",
-                "durationLabel": "Duración del vídeo"
+                "durationLabel": "Duración del vídeo",
+                "youtubeUrlInput": "Enlace Youtube",
+                "vimeoUrlInput": "Enlace Vimeo"
             },
             "delete": {
                 "content": "¿Estás seguro de que quieres suprimir este video? Esta operación es irreversible.",
@@ -7996,7 +8131,48 @@
                 "walls": "Paredes",
                 "edition": "Edición"
             },
-            "title": "Caja de herramientas"
-        }
+            "title": "Caja de herramientas",
+            "customIconLabel": "Iconos de ubicación",
+            "customIconButton": "Descargar mis iconos",
+            "showGrid": "Mostrar la cuadrícula",
+            "pointer": "Cursor",
+            "hand": "Mano"
+        },
+        "spotImageDialog": {
+            "helper": "Puede personalizar la forma de las ranuras importando sus propias imágenes. Para ello necesitamos 2 iconos diferentes. Uno para indicar que el lugar está disponible, otro cuando está reservado. Asegúrese de que son del mismo tamaño y no incluya ningún número en sus iconos.",
+            "free": "Disponible",
+            "title": "Personalice sus ubicaciones",
+            "freeImageLabel": "Sitio disponible",
+            "takenImageLabel": "Sitio reservado",
+            "imageUploadButton": "Subir una imagen",
+            "taken": "Reservado",
+            "imageFormat": "Formato recomendado: .png, .jpg",
+            "actions": {
+                "cancel": "Cancelar",
+                "submit": "Confirmar"
+            }
+        },
+        "toolbar": {
+            "save": "Salvar",
+            "titleLabel": "Nombre del plan",
+            "exit": "Salir",
+            "loadExistingBlueprint": "Cargar un plan existente"
+        },
+        "spotSelectorDialog": {
+            "title": "Elija un sitio",
+            "spot": "Sitio {{count}}",
+            "cancel": "Cancelar",
+            "submit": "Confirmar",
+            "takeSpotError": "La plaza que ha seleccionado para este curso ya no está disponible. Por favor, seleccione uno nuevo."
+        },
+        "roomBlueprintSelectorTitle": "Elija un plan",
+        "search": "Encuentre un plan para el spot scheduling",
+        "placeCount": "{{count}} sitios",
+        "effectifError": "El número de asientos debe ser igual o mayor que el número de personas en la sesión",
+        "saved": "Plan de asientos registrado",
+        "searchHelper": "Ayuda: permite a sus alumnos reservar la ubicación que deseen en la sala. Campos no obligatorios",
+        "errorLessSpotThanEffectif": "El ahorro no es posible. El plan de asientos debe contener más espacio que el número de personas de la sesión a la que está asociado",
+        "saveError": "Error",
+        "roomBlueprints": "Plano de la planta"
     }
 }

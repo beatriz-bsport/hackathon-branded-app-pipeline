@@ -318,7 +318,14 @@
                     "waiver": "Debes aceptar la exención de responsabilidad",
                     "accept_sms": "Debes aceptar las notificaciones por SMS"
                 },
-                "waiver": "Acepta los términos de la exención de responsabilidad"
+                "waiver": {
+                    "dialog": {
+                        "confirm": "Aceptar",
+                        "title": " descargo de responsabilidad"
+                    },
+                    "conditions": " descargo de responsabilidad",
+                    "iAccept": "Acepta los términos del "
+                }
             },
             "metaActivity": {
                 "cantAddSameName": "¡Ya existe una actividad del mismo nombre!"
@@ -353,9 +360,17 @@
                     "password": "Contraseña",
                     "email": "Correo electrónico",
                     "last_name": "Apellido",
-                    "first_name": "Nombre"
+                    "first_name": "Nombre",
+                    "accept_sms": "Acepto que se me notifique por SMS la información relacionada con mi actividad (cambio de horario, cancelación de última hora, nuevo taller...)",
+                    "accept_email": "Acepto que se me notifique por correo electrónico la información relacionada con mi actividad (cambio de horario, cancelación de última hora, nuevo taller...)"
                 },
-                "addProfilePicture": "Añadir una foto de perfil"
+                "addProfilePicture": "Añadir una foto de perfil",
+                "error": {
+                    "passwordConfirm": "Las contraseñas no coinciden",
+                    "password": "La contraseña debe contener al menos 6 caracteres"
+                },
+                "addProfilePictureRequiredLabel": "Debes añadir una foto de perfil",
+                "addProfilePictureRequired": "Añadir una foto de perfil *"
             },
             "quickInvoice": {
                 "totalPurchase": "Compras",
@@ -533,7 +548,9 @@
                 "year": "Anual",
                 "month": "Mensualmente"
             },
-            "modify": "Editar"
+            "modify": "Editar",
+            "completeInformation": "Completar mi información",
+            "emergencyContact": "Contacto de emergencia"
         },
         "marketing": {
             "dashboard": "Tablero de mando",
@@ -1490,6 +1507,11 @@
             "address_line_1": "Dirección línea 1",
             "address": "Dirección",
             "search_address": "Buscar una dirección"
+        },
+        "spotScheduling": {
+            "add": "Añadir un plan de asientos",
+            "subtitle": "Se utiliza para la programación puntual. Permite a sus alumnos reservar el lugar que deseen en la sala.",
+            "title": "Plano del establecimiento"
         }
     },
     "order": {
@@ -3864,7 +3886,8 @@
             "showCalendar": "Ver el calendario",
             "titlePrivateBooking": "Cita",
             "titleBooking": "Curso de grupo",
-            "accessLive": "Acceder a la clase en vivo"
+            "accessLive": "Acceder a la clase en vivo",
+            "spotNumber": "Sitio {{count}}"
         },
         "pack": {
             "titlePrivatePack": "Cita",
@@ -5225,6 +5248,53 @@
             "contractShow": "Cuando el usuario muestra una suscripción",
             "contractPaymentShow": "Cuando el usuario está en la página de pago de una suscripción",
             "workshopClick": "Cuando el usuario selecciona una fecha para un taller"
+        },
+        "signUpForm": {
+            "error": "Ha surgido un problema",
+            "success": "Configuración guardada",
+            "save": "Guardar",
+            "editable": "Modificable",
+            "required": "Obligatorio",
+            "show": "Ver",
+            "label": "Etiqueta",
+            "field_identifier": "Campos",
+            "account_modification": "Editar una cuenta",
+            "account_creation": "Crear una cuenta",
+            "title": "Formulario de inscripción",
+            "fields": {
+                "waiver": "Exención de responsabilidad",
+                "general_terms_and_conditions_accepted": "Condiciones de uso",
+                "cgu": "Condiciones de uso",
+                "accept_sms": "Aceptar notificaciones por SMS",
+                "accept_email": "Aceptar notificaciones por correo electrónico",
+                "sms_notification": "Aceptar notificaciones por SMS",
+                "email_notification": "Aceptar notificaciones por correo electrónico",
+                "emergency_contact": "Contacto de emergencia",
+                "photo": "Foto del perfil",
+                "profile_picture": "Foto del perfil",
+                "zipcode": "Código postal",
+                "zip_code": "Código postal",
+                "country": "País",
+                "city": "Ciudad",
+                "additionnal_address_info": "Dirección adicional",
+                "address_line_2": "Dirección adicional",
+                "address_line_1": "Dirección",
+                "address": "Dirección",
+                "birthday": "Fecha de nacimiento",
+                "birthdate": "Fecha de nacimiento",
+                "phone": "Teléfono principal",
+                "main_phone": "Teléfono principal",
+                "gender": "Sexo",
+                "email": "Email",
+                "last_name": "Apellidos",
+                "first_name": "Nombre"
+            }
+        },
+        "zoom": {
+            "confirmDialog": {
+                "text": "Si ya ha introducido manualmente los enlaces de videoconferencia en sus sesiones, se eliminarán y se sustituirán por enlaces de zoom generados automáticamente. Las reuniones ya creadas en el calendario de ZOOM tendrán que ser eliminadas manualmente, serán sustituidas por reuniones creadas automáticamente.",
+                "title": "Integración de ZOOM"
+            }
         }
     },
     "role": {
@@ -5583,7 +5653,21 @@
         "payLater": {
             "explain": "Su método de pago se le pedirá en el sitio. Hasta entonces, su factura se considera como impagada.",
             "submit": "Pague en el sitio"
-        }
+        },
+        "validation": {
+            "sections": {
+                "offerNotBookable": "No se puede registrar para",
+                "offerPreBooked": "Usted está en la lista de espera para",
+                "offerBooked": "Usted está registrado en",
+                "basket": "Su cesta",
+                "title": "Resumen"
+            },
+            "actions": {
+                "back": "Anteriormente",
+                "continue": "Continuar"
+            }
+        },
+        "expire_in": "Expira en "
     },
     "waitingList": {
         "dialog": {
@@ -5591,7 +5675,9 @@
                 "confirm": "Suprimir",
                 "cancel": "Cancelar",
                 "content": "¿Estás seguro de que quieres suprimir a este miembro de la lista de espera? Serás notificado por email.",
-                "title": "Supresión de la lista de espera"
+                "title": "Supresión de la lista de espera",
+                "sendEmail": "Enviar un correo electrónico para cancelar la suscripción",
+                "contentV2": "¿Está seguro de que quiere eliminar a este miembro de la lista de espera?"
             }
         },
         "explainWaitingListConf": "Ej: hay 3 horas antes de la sesión, el estudiante tiene {{nbMinutesBeforeBookingOptionExpire}} minutos para confirmar su reserva antes de abandonar su plaza.",
@@ -5636,7 +5722,19 @@
         "nbConvertible": "{{nbConvertible}} en espera de confirmación",
         "nbPending": "{{nbPending}} en la lista",
         "switchToDisable": "Reactivar la lista de espera",
-        "switchToEnable": "Reactivar la lista de espera"
+        "switchToEnable": "Reactivar la lista de espera",
+        "member": {
+            "detail": {
+                "offerTitle": "Sesión vinculada",
+                "registrationSource": "Canal de registro",
+                "registeredOn": "Registrado el",
+                "title": "Detalles de la lista de espera"
+            },
+            "empty": "No hay lista de espera para el registro",
+            "delete": "Borrar",
+            "addToBook": "Registrar",
+            "listTitle": "Lista de espera"
+        }
     },
     "workshop": {
         "forms": {

@@ -1511,7 +1511,10 @@
         "spotScheduling": {
             "add": "Añadir un plan de asientos",
             "subtitle": "Se utiliza para la programación puntual. Permite a sus alumnos reservar el lugar que deseen en la sala.",
-            "title": "Plano del establecimiento"
+            "title": "Plano del establecimiento",
+            "delete": {
+                "title": "Eliminación del plan de asientos"
+            }
         }
     },
     "order": {

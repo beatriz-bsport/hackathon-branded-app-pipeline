@@ -336,7 +336,14 @@ exports.default = {
         error: 'Erreur lors de la suppression de la note',
         success: 'Note supprimée',
       },
-      waiver: 'Accepte les termes de la décharge de responsabilité',
+      waiver: {
+        iAccept: 'Accepte les termes de la ',
+        conditions: ' décharge de responsabilité',
+        dialog: {
+          title: ' Décharge de responsabilité',
+          confirm: 'Accepter',
+        },
+      },
       phone: 'Téléphone',
       rgpdTitle:
         'Moyen de communication accepté par le membre (promotions, marketing, smartlist etc...)',
@@ -369,6 +376,8 @@ exports.default = {
         sms: 'par SMS',
       },
       addProfilePicture: 'Ajouter une photo de profil',
+      addProfilePictureRequired: 'Ajouter une photo de profil *',
+      addProfilePictureRequiredLabel: 'Vous devez ajouter une photo de profil',
       signupButton: "S'inscrire",
       iAcceptPrivacyPolicy: "J'accepte les ",
       privacyPolicy: "Conditions générales d'utilisation",

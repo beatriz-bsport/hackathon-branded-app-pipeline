@@ -48,6 +48,8 @@ type Props = {
   closeCreateForm: () => void,
   isOpenCreateForm: boolean,
   managerFormConfig: SignUpFormConfigDict,
+  waiver: string,
+  generalTermsAndConditions: string,
 };
 
 const MemberListItem = (props: { member: Member, onClick: () => void }) => (
@@ -86,11 +88,12 @@ export function MemberSearchModal(props: Props) {
               onError: options && options.onError,
             })
           }
-          initial={{ birthday: null, rgpd: ['accept_email', 'accept_sms'] }}
           goToMember={() => {}}
           goToMemberList={() => {}}
           country={props.country}
           managerFormConfig={props.managerFormConfig}
+          waiver={props.waiver}
+          generalTermsAndConditions={props.generalTermsAndConditions}
         />
       </Dialog>
     );

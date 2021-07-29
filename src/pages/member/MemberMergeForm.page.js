@@ -26,6 +26,7 @@ import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selector
 import type { SignUpFormConfigDict } from '../../libs/sign-up-form/types';
 
 type Props = {
+  theme: Theme,
   src: number,
   dst: number,
   srcMember: ?Member,
@@ -99,6 +100,10 @@ export class MemberMergeFormPage extends Component<Props, State> {
             onSubmit={this.preSubmit}
             country={this.props.country}
             managerFormConfig={this.props.managerFormConfig?.poll_fields}
+            waiver={this.props.theme.waiver}
+            generalTermsAndConditions={
+              this.props.theme.general_terms_and_conditions
+            }
           />
         )}
 
@@ -116,6 +121,7 @@ export default compose(
   routerParamsToProps({ src: 'src:number', dst: 'dst:number' }),
   connect(
     (state, { dst, src }) => ({
+      theme: state.theme.theme,
       srcMember: getMember(state, src),
       dstMember: getMember(state, dst),
       country: state.theme.theme.locale.split('_')[1],

@@ -44,6 +44,7 @@ import AsyncSpotSelector, {
   asyncSelectSpotForBlueprint,
 } from '../../libs/spot-scheduling/component/SpotSelector/AsyncSpotSelector.container';
 import DiscardBookingOptionDialogV2 from '../../libs/waiting-list/components/DiscardBookingOptionDialogV2.component';
+import { MemberMap } from '../../libs/member/utils';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
@@ -187,6 +188,8 @@ type Props = {
   optionToDiscardWithDialog: number,
   setOptionToDiscardWithDialog: (optionId: number | null) => void,
   managerFormConfig: SignUpFormConfigDict,
+  waiver: string,
+  general_terms_and_conditions: string,
 };
 
 type State = {
@@ -617,12 +620,15 @@ export class OfferManagement extends Component<Props, State> {
               asManager
               onCancel={this.props.closeAddMemberModal}
               onSubmit={this.createMember}
-              initial={{ birthday: null }}
               goToMember={this.props.goToMember}
               goToMemberList={() => {}}
               snackbarSuccess={this.props.snackbarSuccess}
               country={this.props.country}
               managerFormConfig={this.props.managerFormConfig?.poll_fields}
+              waiver={this.props.company_theme.waiver}
+              generalTermsAndConditions={
+                this.props.company_theme.general_terms_and_conditions
+              }
             />
           </DialogContent>
         </Dialog>
@@ -698,25 +704,6 @@ export class OfferManagement extends Component<Props, State> {
     );
   }
 }
-
-const MemberMap = {
-  lastname: 'last_name',
-  firstname: 'first_name',
-  email: 'email',
-  address_line_1: 'address.address_line_1',
-  address_line_2: 'address.address_line_2',
-  zipcode: 'address.zipcode',
-  city: 'address.city',
-  country: 'address.country',
-  phone: 'phone.phone_number',
-  gender: 'gender',
-  avatar: 'photo',
-  birthday: 'birthday',
-  membership_ID: 'membership_ID',
-  rgpd: 'rgpd',
-  date_joined: 'date_joined',
-  address: 'address',
-};
 
 const styles = (theme) => ({
   autoScroll: {

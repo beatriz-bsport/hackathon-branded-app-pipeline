@@ -36,12 +36,7 @@ export function GenderInput(props: Props) {
       <InputLabel shrink htmlFor="gender-helper">
         {t('form.gender')}
       </InputLabel>
-      <Select
-        native
-        required={props.required}
-        value={value}
-        onChange={onChange}
-      >
+      <Select required={props.required} value={value} onChange={onChange}>
         <MenuItem key="F" value="F">
           <Typography align="left">{t('common.female')}</Typography>
         </MenuItem>

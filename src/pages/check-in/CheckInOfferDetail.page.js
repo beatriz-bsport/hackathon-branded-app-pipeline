@@ -92,6 +92,7 @@ type Props = {
   upsertMember: (id: ?number, data: FormData, options: OptionCallback) => void,
   fetchSignFormUpConfiguration: (membership: string) => void,
   managerFormConfig: SignUpFormConfigDict,
+  theme: Theme,
 };
 
 type State = {
@@ -173,6 +174,10 @@ export class CheckInOfferDetailPage extends React.Component<Props, State> {
             registerWithPass={this.props.registerWithPass}
             upsertMember={this.props.upsertMember}
             managerFormConfig={this.props.managerFormConfig?.poll_fields}
+            waiver={this.props.theme.waiver}
+            generalTermsAndConditions={
+              this.props.theme.general_terms_and_conditions
+            }
           />
         )}
       </div>
@@ -254,6 +259,7 @@ export default compose(
   withStyles(styles),
   connect(
     (state) => ({
+      theme: state.theme.theme,
       offer: state.offer.retrieve.data,
       members: getAllMembers(state),
       searchedMemberList: getSearchedMembers(state),

@@ -14,6 +14,7 @@ import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selector
 import { fetchSignFormUpConfiguration } from '../../libs/sign-up-form/actions';
 
 type Props = {
+  theme: Theme,
   snackbarSuccess: (msg: string) => void,
   onSubmit: (*) => void,
   goBack: () => void,
@@ -22,10 +23,6 @@ type Props = {
   fetchSignFormUpConfiguration: () => void,
 };
 export const CompanyExternalAddMember = (props: Props) => {
-  const initialData = {
-    birthday: null,
-    rgpd: ['accept_email', 'accept_sms'],
-  };
   React.useEffect(() => {
     props.fetchSignFormUpConfiguration();
   }, []);
@@ -33,13 +30,14 @@ export const CompanyExternalAddMember = (props: Props) => {
     <MemberForm
       onCancel={props.goBack}
       onSubmit={props.onSubmit}
-      initial={initialData}
       goToMember={props.goBack}
       goToMemberList={props.goBack}
       snackbarSuccess={props.snackbarSuccess}
       fromConsumerAccess
       country={props.country}
       managerFormConfig={props.managerFormConfig?.poll_fields}
+      waiver={props.theme.waiver}
+      generalTermsAndConditions={props.theme.generalTermsAndConditions}
     />
   );
 };
@@ -47,6 +45,7 @@ export const CompanyExternalAddMember = (props: Props) => {
 export default compose(
   connect(
     (state) => ({
+      theme: state.theme.theme,
       errors: state.member.upsert.error,
       country: state.theme.theme.locale.split('_')[1],
       companyId: state.theme.companyId,

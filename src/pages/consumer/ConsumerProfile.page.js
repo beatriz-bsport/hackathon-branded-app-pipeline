@@ -123,7 +123,7 @@ export class ConsumerProfile extends React.Component<Props> {
           />
         </Grid>
 
-        <Dialog open={this.props.editMember}>
+        <Dialog open={this.props.editMember} maxWidth="lg">
           {!this.props.managerFormConfigLoading && (
             <MemberForm
               hideManagerStuff
@@ -135,6 +135,10 @@ export class ConsumerProfile extends React.Component<Props> {
               initial={initialData}
               snackbarSuccess={this.props.snackbarSuccess}
               country={this.props.country}
+              waiver={this.props.theme.waiver}
+              generalTermsAndConditions={
+                this.props.theme.general_terms_and_conditions
+              }
             />
           )}
         </Dialog>

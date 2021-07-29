@@ -55,16 +55,14 @@ export class MemberFormPage extends Component<Props> {
     if (id && !initial) {
       return <CircularProgress />;
     }
+
     const initialData = initial
       ? {
           ...unmap(initial, MemberMap),
           date_joined: moment(initial.date_joined),
           waiver: !!initial.waiver_accepted,
         }
-      : {
-          birthday: null,
-          gender: 'F',
-        };
+      : null;
 
     if (initialData && initial) {
       if (initial.phone_number) {
@@ -87,6 +85,10 @@ export class MemberFormPage extends Component<Props> {
           snackbarSuccess={this.props.snackbarSuccess}
           country={this.props.country}
           managerFormConfig={this.props.managerFormConfig?.poll_fields}
+          waiver={this.props.theme.waiver}
+          generalTermsAndConditions={
+            this.props.theme.general_terms_and_conditions
+          }
         />
       </Paper>
     );

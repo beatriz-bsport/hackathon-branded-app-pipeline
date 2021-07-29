@@ -15,25 +15,22 @@ type Props = {
   onClose: () => void,
   onAlreadyLinkMember: (memberId: number) => void,
   onLinkMember: () => void,
-  initial: any,
   managerFormConfig: SignUpFormConfigDict,
+  waiver: string,
+  generalTermsAndConditions: string,
 };
 export const CheckInOfferDetailMemberForm = (props: Props) => {
-  const initialData = {
-    ...(props.initial || {}),
-    birthday: null,
-    rgpd: ['accept_email', 'accept_sms'],
-  };
   return (
     <MemberForm
       onCancel={props.onClose}
       onSubmit={props.onSubmit}
-      initial={initialData}
       goToMember={props.onAlreadyLinkMember}
       goToMemberList={props.onLinkMember}
       snackbarSuccess={props.snackbarSuccess}
       fromConsumerAccess
       managerFormConfig={props.managerFormConfig}
+      waiver={props.waiver}
+      generalTermsAndConditions={props.generalTermsAndConditions}
     />
   );
 };

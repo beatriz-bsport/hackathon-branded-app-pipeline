@@ -179,6 +179,9 @@ export class ConsumerLoginPage extends Component<Props> {
                 signUpConfig={this.props.signUpConfig}
                 signUpConfigDict={this.props.signUpConfigDict}
                 waiver={this.props.theme.waiver}
+                generalTermsAndConditions={
+                  this.props.theme.general_terms_and_conditions
+                }
               />
             )}
         </div>

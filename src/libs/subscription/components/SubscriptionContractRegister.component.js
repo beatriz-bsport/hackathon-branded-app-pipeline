@@ -54,6 +54,8 @@ type Props = {
   savedPaymentMethodList: Array<PaymentMethod>,
   refreshSavedPaymentMethodList: () => void,
   managerFormConfig: SignUpFormConfigDict,
+  waiver: string,
+  generalTermsAndConditions: string,
 };
 
 const ContractPickerDialog = (props: {
@@ -121,6 +123,8 @@ export const SubscriptionContractRegistrationManagerDialog = (props: Props) => {
         onClose={props.onClose}
         handlMemberSelected={(id, member_) => props.onChangeMember(member_)}
         managerFormConfig={props.managerFormConfig}
+        waiver={props.waiver}
+        generalTermsAndConditions={props.generalTermsAndConditions}
       />
     );
   }

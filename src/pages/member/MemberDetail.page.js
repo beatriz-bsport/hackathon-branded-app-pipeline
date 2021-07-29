@@ -77,6 +77,7 @@ const MemberDetailContact = asyncComponent(() =>
 );
 
 type Props = {
+  theme: Theme,
   t: TFunction,
   classes: Object,
   tab: string,
@@ -340,6 +341,10 @@ export class MemberDetail extends React.Component<Props> {
             this.props.pushToTab(id, 'payment');
           }}
           managerFormConfig={this.props.managerFormConfig?.poll_fields}
+          waiver={this.props.theme.waiver}
+          generalTermsAndConditions={
+            this.props.theme.general_terms_and_conditions
+          }
         />
       </div>
     );
@@ -386,6 +391,7 @@ export default compose(
   routerParamsToProps({ tab: 'tab', id: 'id:number' }),
   connect(
     (state, { id }) => ({
+      theme: state.theme.theme,
       member: getMember(state, id),
       infosOfMember: state.member.count.data,
       contractLoading: state.subscription.contract.loading,

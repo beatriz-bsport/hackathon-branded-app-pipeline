@@ -134,6 +134,8 @@ type Props = {
   requestUnlinkPrivateConsumerPass: (id: number) => void,
   requestRelinkPrivateConsumerPass: (id: number) => void,
   managerFormConfig: SignUpFormConfigDict,
+  waiver: string,
+  generalTermsAndConditions: string,
 };
 
 export class MemberDetailRelation extends React.Component<Props> {
@@ -350,6 +352,8 @@ export class MemberDetailRelation extends React.Component<Props> {
                 onCancel={() => this.props.setOpenRelationFormDialog(null)}
                 onSubmit={this.createOrUpdateRelation}
                 managerFormConfig={this.props.managerFormConfig?.poll_fields}
+                waiver={this.props.waiver}
+                generalTermsAndConditions={this.props.generalTermsAndConditions}
               />
             </DialogContent>
           </Dialog>
@@ -388,6 +392,7 @@ export default compose(
   ),
   connect(
     (state, { selectedRelationId, memberId }) => ({
+      theme: state.theme.theme,
       relationList: getMemberRelations(state),
       relation: getMemberRelationById(state, selectedRelationId),
       memberConsumerPacks: getConsumerPacksByMemberWithPaymentPack(

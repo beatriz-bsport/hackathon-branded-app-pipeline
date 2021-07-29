@@ -539,6 +539,9 @@ export class MarketPlace extends Component<Props, State> {
                   }
                   onCancel={() => this.setState({ signupDialogOpen: false })}
                   waiver={this.props.theme.waiver}
+                  generalTermsAndConditions={
+                    this.props.theme.general_terms_and_conditions
+                  }
                 />
               </div>
             </Dialog>

@@ -114,6 +114,8 @@ type Props = {
   upsertMember: (id: ?number, FormData, options: OptionCallback) => void,
   memberDataToComplete: (?{ avatar: string }) => void,
   managerFormConfig: SignUpFormConfigDict,
+  waiver: string,
+  generalTermsAndConditions: string,
 };
 
 export const SearchAndRegister = (props: Props) => {
@@ -137,6 +139,8 @@ export const SearchAndRegister = (props: Props) => {
           onAlreadyLinkMember={props.onClose}
           onLinkMember={props.onClose}
           managerFormConfig={props.managerFormConfig}
+          waiver={props.waiver}
+          generalTermsAndConditions={props.generalTermsAndConditions}
         />
       </Dialog>
     );
@@ -169,6 +173,8 @@ export const SearchAndRegister = (props: Props) => {
         props.setSearchedMember(member);
       }}
       managerFormConfig={props.managerFormConfig}
+      waiver={props.waiver}
+      generalTermsAndConditions={props.generalTermsAndConditions}
     />
   );
 };

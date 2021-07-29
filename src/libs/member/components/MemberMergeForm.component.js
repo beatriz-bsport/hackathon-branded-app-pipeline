@@ -23,6 +23,8 @@ type Props = {
   switchSrcDst: (src: number, dst: number) => void,
 
   managerFormConfig: ?SignUpFormConfigDict,
+  waiver: string,
+  generalTermsAndConditions: string,
 };
 
 const prepareData = (initial) => {
@@ -56,6 +58,8 @@ export class MemberMergeForm extends Component<Props> {
             onSubmit={(data, options) => this.props.onSubmit(data, options)}
             country={this.props.country}
             managerFormConfig={this.props.managerFormConfig}
+            waiver={this.props.waiver}
+            generalTermsAndConditions={this.props.generalTermsAndConditions}
           />
           <div className={classes.buttonContainer}>
             <Button size="large" onClick={() => this.props.switchSrcDst()}>
@@ -68,6 +72,8 @@ export class MemberMergeForm extends Component<Props> {
             disabled
             initial={prepareData(this.props.srcMember)}
             managerFormConfig={this.props.managerFormConfig}
+            waiver={this.props.waiver}
+            generalTermsAndConditions={this.props.generalTermsAndConditions}
           />
         </div>
       </div>

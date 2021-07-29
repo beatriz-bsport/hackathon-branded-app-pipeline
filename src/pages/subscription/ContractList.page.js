@@ -294,6 +294,10 @@ export class SubscriptionList extends React.Component<Props> {
               BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
             ]}
             managerFormConfig={this.props.managerFormConfig?.poll_fields}
+            waiver={this.props.theme.waiver}
+            generalTermsAndConditions={
+              this.props.theme.general_terms_and_conditions
+            }
           />
         ) : null}
         {this.props.createContractFormOpen && (
@@ -332,6 +336,7 @@ export default compose(
   ),
   connect(
     (state) => ({
+      theme: state.theme.theme,
       contractListManagerOnly: withPaymentPack(getAvailableContractListManager)(
         state,
       ),

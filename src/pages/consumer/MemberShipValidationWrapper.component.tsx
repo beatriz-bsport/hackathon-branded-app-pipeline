@@ -142,6 +142,10 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
               country={this.props.country}
               missingInformation={this.props.missingInformation}
               userStatus={this.props.userStatus}
+              waiver={this.props.theme.waiver}
+              generalTermsAndConditions={
+                this.props.theme.general_terms_and_conditions
+              }
             />
           )}
         </Dialog>
@@ -151,7 +155,11 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = (state: RootState, { companyId }) => ({
+const mapStateToProps = (
+  state: RootState,
+  { companyId }: { companyId: number },
+) => ({
+  theme: state.theme.theme,
   authenticated: state.auth.authenticated,
   isValidated:
     state.membership.memberShipValidation.missingInformation.validated,

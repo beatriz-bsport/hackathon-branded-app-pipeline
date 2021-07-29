@@ -194,11 +194,6 @@ Test:
   tags:
     - build-frontend
     - kubernetes
-  only:
-    refs:
-      - dev
-      - master
-      - production
   script:
     - mv /app/node_modules .
     - yarn install --frozen-lockfile # just to be sure

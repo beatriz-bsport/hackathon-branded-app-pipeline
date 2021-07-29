@@ -132,7 +132,9 @@ export function SignUpConfigurationFields(props: Props) {
                                 checked={field.mandatory_on_creation}
                                 disabled={
                                   field.is_always_required ||
-                                  !field.show_on_creation
+                                  !field.show_on_creation ||
+                                  field.field_identifier === 'accept_email' ||
+                                  field.field_identifier === 'accept_sms'
                                 }
                                 onClick={() => {
                                   setFieldValue(

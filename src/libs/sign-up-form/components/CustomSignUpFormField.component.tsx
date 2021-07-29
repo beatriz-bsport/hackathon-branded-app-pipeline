@@ -225,6 +225,13 @@ export class FormField extends Component<Props, State> {
             (helper) => helper === 'passwordConfirm',
           );
           return check_ ? t(`form.signup.error.${id}`) : null;
+
+        case 'photo':
+          // eslint-disable-next-line no-case-declarations
+          const photo_check_ = helperTextError.find(
+            (helper) => helper === 'photo',
+          );
+          return photo_check_ ? t(`form.signup.error.${id}`) : null;
         default:
           return '';
       }
@@ -279,7 +286,9 @@ export class FormField extends Component<Props, State> {
       // eslint-disable-next-line
       id === 'photo'
         ? event.target.files[0]
-        : id === 'waiver'
+        : id === 'waiver' ||
+          (id === 'general_terms_and_conditions_accepted' &&
+            this.props.generalTermsAndConditions)
         ? event
         : event.target.value,
     );
@@ -436,7 +445,15 @@ export class FormField extends Component<Props, State> {
           />
         );
       case 'general_terms_and_conditions_accepted':
-        return (
+        return this.props.generalTermsAndConditions ? (
+          <AcceptTermsAndConditions
+            accepted={value}
+            required
+            onChecked={this.handleChange}
+            termsAndConditions={this.props.generalTermsAndConditions}
+            type="generalTermsOfUse"
+          />
+        ) : (
           <FormControlLabel
             control={
               <Checkbox required checked={value} onClick={this.handleChange} />
@@ -472,7 +489,7 @@ export class FormField extends Component<Props, State> {
             {this.props.waiver && (
               <AcceptTermsAndConditions
                 accepted={value}
-                required
+                required={required}
                 onChecked={this.handleChange}
                 termsAndConditions={waiver}
                 type="waiver"
@@ -504,10 +521,23 @@ export class FormField extends Component<Props, State> {
                   />
                 </div>
                 <div className={classes.pictureLabel}>
-                  <div className={classes.buttonContainer}>
-                    <div className={classes.button}>
-                      <PhotoCameraIcon color="secondary" />
-                      {t('form.signup.addProfilePicture').toUpperCase()}
+                  <div className={classes.buttonAndErrorContainer}>
+                    <div className={classes.buttonContainer}>
+                      <div className={classes.button}>
+                        <PhotoCameraIcon color="secondary" />
+                        {required
+                          ? t(
+                              'form.signup.addProfilePictureRequired',
+                            ).toUpperCase()
+                          : t('form.signup.addProfilePicture').toUpperCase()}
+                      </div>
+                    </div>
+                    <div>
+                      {this.helperTextErrorCheck() && (
+                        <Typography variant="caption" color="error">
+                          {t('form.signup.addProfilePictureRequiredLabel')}
+                        </Typography>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -578,6 +608,11 @@ const styles = (theme: Theme) => ({
     color: theme.palette.primary.main,
     textTransform: 'uppercase',
     borderRadius: 5,
+  },
+  buttonAndErrorContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
   },
   button: {
     display: 'flex',

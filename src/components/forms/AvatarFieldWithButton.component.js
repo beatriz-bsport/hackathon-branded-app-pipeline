@@ -18,6 +18,8 @@ type Props = {
   classes: *,
   onChange: (*) => void,
   buttonText: string,
+  required: boolean,
+  disabled: boolean,
 };
 type State = {
   previewUrl: string,
@@ -27,7 +29,7 @@ export class AvatarFieldWithButton extends Component<Props, State> {
   state = { previewUrl: '' };
 
   render() {
-    const { classes, buttonText } = this.props;
+    const { classes, buttonText, required, disabled } = this.props;
     const { previewUrl } = this.state;
 
     return (
@@ -50,18 +52,22 @@ export class AvatarFieldWithButton extends Component<Props, State> {
                 setFieldValue(field.name, files[0]);
               }}
               type="file"
+              required={required}
+              disabled={disabled}
             />
             <label htmlFor="avatar-loader-button" style={{ cursor: 'pointer' }}>
               <Badge
                 badgeContent={
-                  <div style={{ marginBottom: 40, marginLeft: 20 }}>
-                    <Chip
-                      icon={<ImageIcon />}
-                      size="small"
-                      label={buttonText}
-                      color="secondary"
-                    />
-                  </div>
+                  disabled ? null : (
+                    <div style={{ marginBottom: 40, marginLeft: 20 }}>
+                      <Chip
+                        icon={<ImageIcon />}
+                        size="small"
+                        label={buttonText}
+                        color="secondary"
+                      />
+                    </div>
+                  )
                 }
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
               >

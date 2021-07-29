@@ -221,6 +221,15 @@ class CustomSignUpFormFieldsRoot extends React.Component<Props, State> {
             return { ...acc, value: true };
           }
         }
+        if (key === 'photo') {
+          if (
+            this.state.photo.value === '' &&
+            this.props.signUpConfigDict.poll_fields.photo.mandatory_on_creation
+          ) {
+            acc.error_fields.push(key);
+            return { ...acc, value: true };
+          }
+        }
         return acc;
       },
       { value: false, error_fields: [] },
@@ -272,6 +281,9 @@ class CustomSignUpFormFieldsRoot extends React.Component<Props, State> {
                   }
                   helperTextError={this.state.enableRegistration.error_fields}
                   waiver={this.props.waiver}
+                  generalTermsAndConditions={
+                    this.props.generalTermsAndConditions
+                  }
                 />,
               );
             }

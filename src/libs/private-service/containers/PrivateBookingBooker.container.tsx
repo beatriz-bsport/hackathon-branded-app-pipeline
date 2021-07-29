@@ -241,6 +241,8 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
           }
           country={this.props.country}
           managerFormConfig={this.props.managerFormConfig?.poll_fields}
+          waiver={this.props.waiver}
+          generalTermsAndConditions={this.props.generalTermsAndConditions}
         />
       );
     }
@@ -374,6 +376,7 @@ const styles = (theme: Theme) => ({
 });
 
 const mapStateToProps = (state: RootState) => ({
+  theme: state.theme.theme,
   private_services: getAvailablePrivateServices(state),
   compatiblePassLoading:
     state.privateService.privatePass.loading ||

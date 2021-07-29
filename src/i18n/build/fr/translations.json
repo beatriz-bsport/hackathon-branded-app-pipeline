@@ -263,7 +263,11 @@
         "rgpd": { "email": "Accepte les notification par email", "sms": "Accepte les notifications SMS" },
         "createOrUpdate": { "error": "Erreur lors de l'enregistrement de la note", "success": "Note enregistrée" },
         "delete": { "error": "Erreur lors de la suppression de la note", "success": "Note supprimée" },
-        "waiver": "Accepte les termes de la décharge de responsabilité",
+        "waiver": {
+          "iAccept": "Accepte les termes de la ",
+          "conditions": " décharge de responsabilité",
+          "dialog": { "title": " Décharge de responsabilité", "confirm": "Accepter" }
+        },
         "phone": "Téléphone",
         "rgpdTitle": "Moyen de communication accepté par le membre (promotions, marketing, smartlist etc...)",
         "birthdayYear": "Année de naissance",
@@ -287,6 +291,8 @@
         "rgpdTitle": "Comment préférez-vous que les professeurs vous contactent pour les annulations/changement d'heure ?",
         "communication": { "email": "par email", "sms": "par SMS" },
         "addProfilePicture": "Ajouter une photo de profil",
+        "addProfilePictureRequired": "Ajouter une photo de profil *",
+        "addProfilePictureRequiredLabel": "Vous devez ajouter une photo de profil",
         "signupButton": "S'inscrire",
         "iAcceptPrivacyPolicy": "J'accepte les ",
         "privacyPolicy": "Conditions générales d'utilisation",

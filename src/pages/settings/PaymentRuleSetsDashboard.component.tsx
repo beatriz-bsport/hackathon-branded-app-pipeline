@@ -109,6 +109,7 @@ export class PaymentRulesDashboard extends Component<Props> {
     this.props.fetchAllCoachPaymentRules();
     this.props.fetchAllCoachPaymentRuleGroups();
     this.props.fetchAllPrivateServices();
+    this.props.fetchAllPrivateSlots();
   }
 
   render() {

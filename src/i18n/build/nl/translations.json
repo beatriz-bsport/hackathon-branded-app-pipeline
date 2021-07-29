@@ -817,7 +817,9 @@
                     "last_name": "Familienaam",
                     "first_name": "Voornaam"
                 },
-                "addProfilePicture": "Een profielfoto toevoegen"
+                "addProfilePicture": "Een profielfoto toevoegen",
+                "addProfilePictureRequiredLabel": "Het toevoegen van een profielfoto is een vereiste.",
+                "addProfilePictureRequired": "Een profielfoto toevoegen*"
             },
             "metaActivity": {
                 "cantAddSameName": "Er bestaat al een activiteit met dezelfde naam!"
@@ -839,15 +841,22 @@
                     "error": "Fout bij het opslaan van de notitie"
                 },
                 "rgpd": {
-                    "sms": "Sms",
-                    "email": "E-mail"
+                    "sms": "Accepteer sms-meldingen",
+                    "email": "Accepteer e-mailmeldingen"
                 },
                 "errors": {
                     "waiver": "Het is een vereiste dat de Waiver / Vrijstelling geaccepteerd is",
                     "accept_email": "Het is een vereiste dat e-mailmeldingen geaccepteerd zijn",
                     "accept_sms": "Het is een vereiste dat sms-meldingen geaccepteerd zijn"
                 },
-                "waiver": "Accepteer de voorwaarden van de Waiver / Vrijstelling"
+                "waiver": {
+                    "conditions": " de Waiver / Vrijstelling",
+                    "iAccept": "Ik accepteer ",
+                    "dialog": {
+                        "confirm": "Accepteer",
+                        "title": " Waiver / Vrijstelling"
+                    }
+                }
             },
             "booking": {
                 "delete": {
@@ -3238,7 +3247,7 @@
             "needInformationValidation": {
                 "legend": {
                     "memberOfCompany": "Vul de vereiste informatie in om verder te gaan.",
-                    "notMemberYet": "Wil je je gegevens met ons delen om je in te schrijven? "
+                    "notMemberYet": "Heb je alles correct ingevuld en ben je klaar om je in te schrijven? "
                 },
                 "button": {
                     "memberOfCompany": "Mijn gegevens invullen",
@@ -3946,13 +3955,13 @@
                 "identifier": "Abonnement",
                 "intervalLabel": {
                     "year": "Elk jaar",
-                    "year_plural": "Elke {{ interval }} jaar",
+                    "year_plural": "Elke {{ count }} jaar",
                     "day": "Elke dag",
-                    "day_plural": "Elke {{ interval }} dagen",
+                    "day_plural": "Elke {{ count }} dagen",
                     "week": "Elke week",
-                    "week_plural": "Elke {{ interval }} weken",
+                    "week_plural": "Elke {{ count }} weken",
                     "month": "Elke maand",
-                    "month_plural": "Elke {{ interval }} maanden"
+                    "month_plural": "Elke {{ count }} maanden"
                 },
                 "recurrentPriceLabel": "{{ currencyDisplay }}{{ recurrent_price  }}"
             },
@@ -7187,7 +7196,11 @@
                 "gender": "Geslacht",
                 "email": "E-mailadres",
                 "last_name": "Familienaam",
-                "first_name": "Voornaam"
+                "first_name": "Voornaam",
+                "photo": "Profielfoto",
+                "address_line_2": "Aanvulling adres",
+                "address_line_1": "Adres",
+                "birthday": "Geboortedatum"
             },
             "error": "Fout bij het opslaan",
             "success": "Configuratie opgeslagen",

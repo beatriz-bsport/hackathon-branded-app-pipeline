@@ -7,6 +7,7 @@ import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
 
+import withStyles from '@material-ui/styles/withStyles';
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
 import { switchSubscriptionPaymentMethod as switchSubscriptionPaymentMethodAction } from '../../libs/subscription/actions';
@@ -17,6 +18,7 @@ import { fetchMember } from '../../libs/member/actions';
 import { RootState } from '../../reducers';
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import { MaterialStyleType } from '../../utils/types';
 
 type OwnProps = {
   query: {
@@ -27,7 +29,8 @@ type OwnProps = {
 };
 type Props = OwnProps &
   ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps;
+  typeof mapDispatchToProps &
+  MaterialStyleType<ReturnType<typeof styles>>;
 
 interface State {
   processing: boolean;
@@ -81,21 +84,23 @@ class SubscriptionPaymentMethod extends React.PureComponent<Props, State> {
     }
 
     return (
-      <SubscriptionPayment
-        onSubmit={this.switchPaymentMethod}
-        onCancel={this.onCancel}
-        enabledPaymentMethods={[
-          BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-          BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-        ]}
-        refreshSavedPaymentMethodList={this.fetchPaymentMethods}
-        member={this.props.member}
-        processing={this.state.processing}
-        savedPaymentMethodList={this.props.savedPaymentMethodList}
-        requestSetupIntentSecret={this.requestSetupIntentSecret}
-        sepaDefaultName={this.props.member ? this.props.member.name : ''}
-        sepaDefaultEmail={this.props.member ? this.props.member.email : ''}
-      />
+      <div className={this.props.classes.container}>
+        <SubscriptionPayment
+          onSubmit={this.switchPaymentMethod}
+          onCancel={this.onCancel}
+          enabledPaymentMethods={[
+            BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+            BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+          ]}
+          refreshSavedPaymentMethodList={this.fetchPaymentMethods}
+          member={this.props.member}
+          processing={this.state.processing}
+          savedPaymentMethodList={this.props.savedPaymentMethodList}
+          requestSetupIntentSecret={this.requestSetupIntentSecret}
+          sepaDefaultName={this.props.member ? this.props.member.name : ''}
+          sepaDefaultEmail={this.props.member ? this.props.member.email : ''}
+        />
+      </div>
     );
   }
 
@@ -125,6 +130,13 @@ class SubscriptionPaymentMethod extends React.PureComponent<Props, State> {
   };
 }
 
+const styles = (theme) => ({
+  container: {
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+  },
+});
+
 const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
   savedPaymentMethodList: getSavedPaymentMethodList(state),
   member: getMember(state, ownProps.query.member),
@@ -139,6 +151,7 @@ const mapDispatchToProps = {
 
 export default compose(
   routerParamsToProps({ subscriptionId: 'subscription:number' }),
+  withStyles(styles),
   withQueryParams([['member', 'company', 'subscription'], 'query', 'setQuery']),
   connect(mapStateToProps, mapDispatchToProps),
 )(SubscriptionPaymentMethod);

@@ -2298,6 +2298,13 @@
       "themePersonalization": {
         "calendarPersonalizationTitle": "Configuration du calendrier",
         "consumerRegularizeDebt": "Le client peut régulariser son acompte en ligne",
+        "maxFutureBooking": {
+          "label": "Limiter le nombre maximum de réservations prévues dans le futur par client",
+          "numberCheck": {
+            "placeholder": "Nombre maximum",
+            "helperText": "Vos membres ne pourront pas avoir plus de ce nombre de réservations dans le futur"
+          }
+        },
         "hideCoach": "Cacher les infos professeurs sur les interfaces client",
         "acceptDoubleBooking": "Accepter la double réservation",
         "cancelledOffersCustomer": "Afficher les séances annulées sur le calendrier client",
@@ -3629,7 +3636,8 @@
       "6002": "La liste d'attente est pleine",
       "6003": "Vous êtes déjà inscrit en liste d'attente",
       "8001": "Le spot que vous avez choisi n'est plus disponible",
-      "generic": "Impossible de réserver"
+      "generic": "Impossible de réserver",
+      "undefined": "Vous essayez de réserver plus de séances futures que ce qui est permis par votre club"
     },
     "offer": { "restore": { "success": "Séance restaurée", "error": "Impossible de restaurer cette séance" } },
     "settings": {

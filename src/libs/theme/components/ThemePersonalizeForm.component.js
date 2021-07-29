@@ -58,6 +58,8 @@ export class ThemePersonalize extends Component<Props, State> {
     return (
       this.state.theme.show_offers_filling ===
         this.props.theme.show_offers_filling &&
+      this.state.theme.max_future_booking ===
+        this.props.theme.max_future_booking &&
       this.state.theme.accept_double_booking ===
         this.props.theme.accept_double_booking &&
       this.state.theme.consumer_regularize_debt ===
@@ -92,6 +94,7 @@ export class ThemePersonalize extends Component<Props, State> {
       'show_offers_filling',
       'consumer_regularize_debt',
       'accept_double_booking',
+      'max_future_booking',
       'default_booking_ordering',
       'default_attendance',
       'show_cancelled_offers_customer',
@@ -146,6 +149,43 @@ export class ThemePersonalize extends Component<Props, State> {
             {t('forms.themePersonalization.acceptDoubleBooking')}
           </Typography>
         </div>
+        <div className={classes.inputContainer}>
+          <Switch
+            checked={this.state.theme.max_future_booking > 0}
+            onChange={() =>
+              this.handleChange('max_future_booking')(
+                this.state.theme.max_future_booking ? 0 : 10,
+              )
+            }
+          />
+          <Typography>
+            {t('forms.themePersonalization.maxFutureBooking.label')}
+          </Typography>
+        </div>
+        {this.state.theme.max_future_booking ? (
+          <div className={classes.radioButtonContainer}>
+            <div className={classes.verticalInput}>
+              <NumericInput
+                variant="outlined"
+                helperText={t(
+                  'forms.themePersonalization.maxFutureBooking.numberCheck.helperText',
+                )}
+                label={t(
+                  'forms.themePersonalization.maxFutureBooking.numberCheck.placeholder',
+                )}
+                value={this.state.theme.max_future_booking}
+                InputProps={{
+                  inputProps: { min: 1, step: 1, max: 50 },
+                }}
+                onChange={(ev) =>
+                  this.handleChange('max_future_booking')(
+                    Math.max(1, parseInt(ev.target.value, 10)),
+                  )
+                }
+              />
+            </div>
+          </div>
+        ) : null}
         <div className={classes.formControlContain}>
           <FormControlLabel
             control={

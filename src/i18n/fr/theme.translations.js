@@ -8,6 +8,15 @@ exports.default = {
     themePersonalization: {
       calendarPersonalizationTitle: 'Configuration du calendrier',
       consumerRegularizeDebt: 'Le client peut régulariser son acompte en ligne',
+      maxFutureBooking: {
+        label:
+          'Limiter le nombre maximum de réservations prévues dans le futur par client',
+        numberCheck: {
+          placeholder: 'Nombre maximum',
+          helperText:
+            'Vos membres ne pourront pas avoir plus de ce nombre de réservations dans le futur',
+        },
+      },
       hideCoach: 'Cacher les infos professeurs sur les interfaces client',
       acceptDoubleBooking: 'Accepter la double réservation',
       cancelledOffersCustomer:

@@ -8,6 +8,7 @@ const {
   OFFER_BOOKABLE_STATUS_ALREADY_BOOKED,
   OFFER_BOOKABLE_STATUS_TOO_MANY_MALE,
   OFFER_BOOKABLE_STATUS_TOO_MANY_FEMALE,
+  OFFER_BOOKABLE_STATUS_TOO_MANY_IN_FUTURE,
   SPOT_NOT_AVAILABLE,
   PAYMENT_COMBO_CANT_BE_BOUGHT_HAS_REACHED_MAX_PURCHASE,
   PAYMENT_COMBO_CANT_BE_BOUGHT_NEW_ONLY_ONLY,
@@ -42,6 +43,8 @@ exports.default = {
       'Le déséquilibre homme/femme est trop important, réservation impossible',
     [OFFER_BOOKABLE_STATUS_TOO_MANY_FEMALE]:
       'Le déséquilibre homme/femme est trop important, réservation impossible',
+    [OFFER_BOOKABLE_STATUS_TOO_MANY_IN_FUTURE]:
+      'Vous essayez de réserver plus de séances futures que ce qui est permis par votre club',
     [SPOT_NOT_AVAILABLE]: "Le spot que vous avez choisi n'est plus disponible",
     [PAYMENT_COMBO_CANT_BE_BOUGHT_HAS_REACHED_MAX_PURCHASE]:
       'Vous ne pouvez plus acheter ce pack',

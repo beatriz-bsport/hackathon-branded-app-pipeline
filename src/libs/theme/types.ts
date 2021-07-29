@@ -5,6 +5,7 @@ export type Theme = {
   payment_method_available: number[];
   payment_method_available_basket: number[];
   payment_method_available_subscription: number[];
+  max_future_booking: number;
   payment_method_available_manager: number[];
   show_offers_filling: boolean;
   contact_email: string;

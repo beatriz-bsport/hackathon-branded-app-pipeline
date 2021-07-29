@@ -44,13 +44,27 @@
                 "content": "Bist Du sicher, dass Du dieses Mitglied von der Warteliste entfernen möchtest? Dieses Mitglied wird per E-Mail benachrichtigt.",
                 "cancel": "Abbrechen",
                 "confirm": "Löschen",
-                "title": "Löschung der Warteliste"
+                "title": "Löschung der Warteliste",
+                "contentV2": "Sind Sie sicher, dass Sie dieses Mitglied von der Warteliste streichen möchten?",
+                "sendEmail": "Senden Sie eine E-Mail zur Abmeldung"
             }
         },
         "nbPending": "{{ nbPending }} auf die Liste",
         "nbConvertible": "{{ nbConvertible }} in Erwartung einer Bestätigung",
         "switchToEnable": "Die Warteliste wieder einschalten",
-        "switchToDisable": "Die Warteliste deaktivieren"
+        "switchToDisable": "Die Warteliste deaktivieren",
+        "member": {
+            "delete": "Löschen",
+            "empty": "Keine Anmeldung auf der Warteliste",
+            "detail": {
+                "title": "Details zur Warteliste",
+                "registeredOn": "Registriert am",
+                "registrationSource": "Kanal für die Registrierung",
+                "offerTitle": "Verknüpfte Sitzung"
+            },
+            "listTitle": "Warteliste",
+            "addToBook": "Register"
+        }
     },
     "subscription": {
         "parameters": {
@@ -661,7 +675,9 @@
             "duplicate": "Duplizieren",
             "restore": "Wiederherstellen",
             "share": "Teilen",
-            "pickALanguage": "Sprache"
+            "pickALanguage": "Sprache",
+            "disconnect": "Trennen der Verbindung",
+            "emergencyContact": "Im Falle eines Notfalls"
         },
         "openSchedule": "Stundenplan ansehen",
         "login": {
@@ -993,7 +1009,34 @@
                 "typePhone": "Handynummer *",
                 "iAcceptPrivacyPolicy": "Ich akzeptiere die ",
                 "rgpdTitle": "Wie möchtest du von LehrerInnen aufgrund von Stornierungen/Zeitänderungen kontaktiert werden?",
-                "confirmPasswordLabel": "Bestätigung"
+                "confirmPasswordLabel": "Bestätigung",
+                "addProfilePictureRequired": "Ein Profilbild hinzufügen *",
+                "addProfilePictureRequiredLabel": "Sie müssen ein Profilbild hinzufügen",
+                "fields": {
+                    "phone": "Rufnummer ",
+                    "birthday": "Datum der Geburt",
+                    "city": "Stadt",
+                    "first_name": "Vornamen",
+                    "last_name": "Nachname",
+                    "email": "E-Mail Adresse",
+                    "password": "Passwort",
+                    "passwordConfirm": "Bestätigen Sie das Passwort",
+                    "gender": "Sex",
+                    "address_line_1": "Adresse",
+                    "address_line_2": "Zusätzliche Adresse",
+                    "zipcode": "Postleitzahl",
+                    "country": "Land",
+                    "emergency_contact": "Kontakt für Notfälle",
+                    "general_terms_and_conditions_accepted": "Ich akzeptiere die allgemeinen Nutzungsbedingungen",
+                    "waiver": "Ich akzeptiere die Haftungsausschlüsse",
+                    "accept_email": "Ich bin damit einverstanden, dass ich per E-Mail über Informationen zu meiner Aktivität benachrichtigt werde (Änderung des Zeitplans, Absage in letzter Minute, neuer Workshop...)",
+                    "accept_sms": "Ich bin damit einverstanden, dass ich per SMS über Informationen zu meiner Aktivität benachrichtigt werde (Änderung des Zeitplans, Absage in letzter Minute, neuer Workshop...)"
+                },
+                "addProfilePicture": "Ein Profilbild hinzufügen",
+                "error": {
+                    "password": "Das Passwort muss mindestens 6 Zeichen enthalten",
+                    "passwordConfirm": "Die Kennwörter stimmen nicht überein"
+                }
             },
             "member": {
                 "rgpd": {
@@ -1014,7 +1057,20 @@
                 "referenceNumber": "Mitgliedsnummer",
                 "barcodeHelper": "(optional) verwende diesen Code für Deine Zugangskarten",
                 "barcode": "Barcode (Karte)",
-                "rgpdTitle": "Vom Mitglied akzeptierte Kommunikationsmittel (Werbeaktionen, Marketing, Smartlist, usw.)"
+                "rgpdTitle": "Vom Mitglied akzeptierte Kommunikationsmittel (Werbeaktionen, Marketing, Smartlist, usw.)",
+                "waiver": {
+                    "iAccept": "Akzeptieren Sie die Bedingungen der ",
+                    "conditions": " Haftungsausschluss",
+                    "dialog": {
+                        "title": " Haftungsausschluss",
+                        "confirm": "Akzeptieren"
+                    }
+                },
+                "errors": {
+                    "accept_sms": "Sie müssen SMS-Benachrichtigungen akzeptieren",
+                    "accept_email": "Sie müssen E-Mail-Benachrichtigungen akzeptieren",
+                    "waiver": "Sie müssen den Haftungsausschluss akzeptieren"
+                }
             },
             "login": {
                 "confirmPassword": "Bestätigen",
@@ -1132,7 +1188,10 @@
                 "week": "Woche",
                 "year": "Jährlich",
                 "month": "Monatlich"
-            }
+            },
+            "emergencyContact": "Kontakt für Notfälle",
+            "completeInformation": "Meine Informationen vervollständigen",
+            "modify": "Ändern Sie"
         },
         "booking": {
             "revertBookingExplain": {
@@ -2071,7 +2130,14 @@
                 },
                 "offerBalance": "Einrichtung einer Verhältnis-Kontrolle für Frauen und Männer",
                 "showGenderOffer": "Zeige die Anzahl der Männer und Frauen an, die ein Angebot buchen",
-                "hideCoach": "Blende die Anzeige des Lehrers auf dem Kundenkalender aus"
+                "hideCoach": "Blende die Anzeige des Lehrers auf dem Kundenkalender aus",
+                "maxFutureBooking": {
+                    "numberCheck": {
+                        "helperText": "Ihre Mitglieder werden in Zukunft nicht mehr als diese Anzahl von Reservierungen haben können",
+                        "placeholder": "Maximale Anzahl"
+                    },
+                    "label": "Begrenzung der maximalen Anzahl zukünftiger Buchungen pro Kunde"
+                }
             },
             "submit": "Speichern",
             "instagramURL": {
@@ -2135,6 +2201,53 @@
             "signinShow": "Wenn der Benutzer auf der Anmeldeseite ankommt",
             "signupShow": "Wenn der Benutzer das Registrierungsformular anzeigt",
             "contractPaymentSuccess": "Wenn der Benutzer ein Abo abgeschlossen hat"
+        },
+        "signUpForm": {
+            "fields": {
+                "email": "E-Mail",
+                "gender": "Typ",
+                "main_phone": "Haupttelefon",
+                "sms_notification": "SMS-Benachrichtigungen akzeptieren",
+                "accept_email": "E-Mail-Benachrichtigungen akzeptieren",
+                "accept_sms": "Akzeptiert SMS-Benachrichtigungen",
+                "cgu": "Nutzungsbedingungen und Konditionen",
+                "first_name": "Vornamen",
+                "last_name": "Name",
+                "phone": "Haupttelefon",
+                "birthdate": "Datum der Geburt",
+                "birthday": "Datum der Geburt",
+                "address": "Adresse",
+                "address_line_1": "Adresse",
+                "address_line_2": "Zusätzliche Adresse",
+                "additionnal_address_info": "Zusätzliche Adresse",
+                "city": "Stadt",
+                "country": "Land",
+                "zip_code": "Postleitzahl",
+                "zipcode": "Postleitzahl",
+                "profile_picture": "Profilbild",
+                "photo": "Profilbild",
+                "emergency_contact": "Kontakt für Notfälle",
+                "email_notification": "E-Mail-Benachrichtigungen akzeptieren",
+                "general_terms_and_conditions_accepted": "Nutzungsbedingungen und Konditionen",
+                "waiver": "Haftungsfreistellung"
+            },
+            "error": "Es ist ein Problem aufgetreten",
+            "title": "Anmeldeformular",
+            "account_creation": "Ein Konto erstellen",
+            "account_modification": "Ein Konto bearbeiten",
+            "field_identifier": "Felder",
+            "label": "Etikett",
+            "show": "Siehe",
+            "required": "Obligatorisch",
+            "editable": "Veränderbar",
+            "save": "Speichern Sie",
+            "success": "Gespeicherte Konfiguration"
+        },
+        "zoom": {
+            "confirmDialog": {
+                "title": "ZOOM-Integration",
+                "text": "Wenn Sie bereits Videokonferenz-Links manuell in Ihre Sitzungen eingegeben haben, werden diese gelöscht und durch automatisch generierte Zoom-Links ersetzt. Bereits im ZOOM-Kalender erstellte Meetings müssen manuell gelöscht werden, sie werden durch automatisch erstellte Meetings ersetzt."
+            }
         }
     },
     "role": {
@@ -3505,6 +3618,15 @@
                 "error": "Aktualisierung nicht möglich, bitte versuchen Sie es später erneut",
                 "success": "Aktualisierte Parameter"
             }
+        },
+        "canNotBuyErrorCode": {
+            "2": "Die Sitzung ist nicht mehr buchbar",
+            "3": "Die Sitzung ist voll",
+            "1": "Die Sitzung ist noch nicht buchbar",
+            "4": "Die Sitzung ist nicht buchbar",
+            "5": "Sie haben sich bereits für diese Sitzung angemeldet",
+            "6": "Das Ungleichgewicht zwischen den Geschlechtern ist zu groß, Buchung nicht möglich",
+            "7": "Das Ungleichgewicht zwischen den Geschlechtern ist zu groß, Buchung nicht möglich"
         }
     },
     "invoice": {
@@ -3577,7 +3699,8 @@
             "invoiceReverted": "Die Rechnung wurde storniert",
             "consumeBalance": "Zahle per Saldo",
             "explainPdfDraft": "Die Rechnung ist noch in Entwurfsform, das PDF ist nicht verfügbar.",
-            "addFooter": "Fußnote anpassen"
+            "addFooter": "Fußnote anpassen",
+            "addCoupon": "Einen Promo-Code hinzufügen"
         },
         "invoice": {
             "editor": {
@@ -3650,8 +3773,8 @@
             },
             "dialog": {
                 "actions": {
-                    "confirm": "Rückerstattung",
-                    "cancel": "Abbrechen"
+                    "confirm": "Bestätigen Sie",
+                    "cancel": "Schließen Sie"
                 },
                 "title": "Rechnungsstornierung"
             }
@@ -3967,8 +4090,10 @@
             "placeholderOverride": "Standard-Regel",
             "placeholder": "Wähle eine Berechnungsmethode aus",
             "coachPaymentRuleForPrivateService": "Privatkurs",
-            "coachPaymentRuleForSessions": "Gruppenkurse & Workshops",
-            "reset": "Verwenden Sie die Standardregel des Trainers"
+            "coachPaymentRuleForSessions": "Gruppenkurse",
+            "reset": "Verwenden Sie die Standardregel des Trainers",
+            "group": "Vergütungsgruppe",
+            "coachPaymentRuleForWorkshops": "Workshops"
         },
         "addNew": "Neue Entlohnungseinrichtung",
         "cancel": "Abbrechen",
@@ -4038,7 +4163,12 @@
                 "invalidBonusAmount": "Der Bonus muss größer oder gleich 0,1 sein.",
                 "invalidMaximum": "Die maximale Vergütung muss höher sein als die Mindestvergütung",
                 "invalidMinimum": "Die Mindestvergütung muss gleich oder höher als die feste Basis sein",
-                "nameRequired": "Der Name ist ein Pflichtfeld."
+                "nameRequired": "Der Name ist ein Pflichtfeld.",
+                "invalidCoachPaymentRule": "Es muss ein Vergütungssystem gewählt werden",
+                "invalidPrivateSlot": "Ein Termin muss ausgewählt werden",
+                "uniqueRuleForPrivateSlot": "Dieser Termin ist mehrfach aufgeführt",
+                "oneRuleRequired": "Sie müssen mindestens eine Kompensationsregel definieren, um eine Gruppe zu erstellen",
+                "privateSlotAlreadySelected": "Für diesen Termin ist bereits eine Vergütungsregel definiert"
             },
             "Bonuses": {
                 "bonus_rules": "Bonusregeln",
@@ -4079,13 +4209,45 @@
         "tabs": {
             "all": "Alle Kurse",
             "appointment": "Privatkurs",
-            "session": "Gruppenkurse & Workshops"
+            "session": "Gruppenkurse & Workshops",
+            "groups": "Vergütungsgruppe"
         },
         "fabButton": {
             "addNewForRDV": "Privatkurs",
-            "addNewForSession": "Gruppenkurse & Workshops"
+            "addNewForSession": "Gruppenkurse & Workshops",
+            "addNewPaymentRuleGroup": "Vergütungsgruppe"
         },
-        "paymentRules": "Vergütungsregeln"
+        "paymentRules": "Vergütungsregeln",
+        "search": "Suche nach einem Vergütungssystem (optional)",
+        "coach_payment_rule_groups": {
+            "subtitle": {
+                "helper": "Sie können Ihre Vergütungsregeln für Tätigkeiten, Workshops und Termine zusammenfassen. Wenn Sie eine Lehrkraft zu einer Gruppe hinzufügen, werden alle Vergütungsregeln der Gruppe automatisch auf die Lehrkraft angewendet. Alle Änderungen an der Gruppe werden auch für alle Lehrer der Gruppe übernommen.",
+                "default": "Standardvergütung",
+                "specfic_private_slot": "Besondere Vergütung für eine Ernennung",
+                "coaches": "Assoziierte Professoren"
+            },
+            "workshop": "Workshops",
+            "session": "Gruppenkurse",
+            "fields": {
+                "addPrivateSlot": "Eine Regel hinzufügen",
+                "private_service": "Terminvereinbarungen",
+                "coach_payment_rule": "Vergütungsregel",
+                "private_service_name": "Name der Sitzung",
+                "activity": "Aktivitäten",
+                "workshop": "Workshops"
+            },
+            "dissociate": "Anpassen der Regeln",
+            "modal": {
+                "delete": {
+                    "title": "Eine Gruppe löschen",
+                    "cancel": "Abbrechen",
+                    "confirm": "Bestätigen Sie",
+                    "content": "Wenn Sie diese Gruppe löschen, wird sie von allen Lehrern getrennt, denen sie derzeit zugeordnet ist."
+                }
+            },
+            "dialogTitle": "Vergütungsgruppe",
+            "private_service": "Terminvereinbarungen"
+        }
     },
     "shop": {
         "shopitem": {
@@ -5843,7 +6005,8 @@
             "discard": "Abbrechen",
             "titlePrivateBooking": "Termin",
             "titleBooking": "Kurs",
-            "accessLive": "Livestream beitreten"
+            "accessLive": "Livestream beitreten",
+            "spotNumber": "Ort {{count}}"
         },
         "congratulation": {
             "cancel": "Schließen",
@@ -7559,6 +7722,17 @@
             "address_line_1": "Adresszeile 1",
             "address": "Adresse",
             "search_address": "Suche nach einer Adresse"
+        },
+        "spotScheduling": {
+            "delete": {
+                "content": "Sind Sie sicher, dass Sie diesen Sitzplan löschen möchten? Dieser Vorgang ist unumkehrbar.",
+                "title": "Sitzplan löschen"
+            },
+            "title": "Sitzplan",
+            "subtitle": "Wird für die Spotterminierung verwendet. Ermöglicht es Ihren Schülern, den von ihnen gewünschten Platz im Raum zu reservieren.",
+            "add": "Einen Sitzplan hinzufügen",
+            "placeCount": "{{count}} orte",
+            "untitled": "Unbenannt"
         }
     },
     "checkout": {
@@ -7608,7 +7782,21 @@
             "submit": "Zahlen Sie vor Ort",
             "explain": "Die Zahlung wird vor Ort abgewickelt. Zuvor gilt die Rechnung als unbezahlt."
         },
-        "or": "oder"
+        "or": "oder",
+        "validation": {
+            "sections": {
+                "offerPreBooked": "Sie stehen auf der Warteliste für",
+                "title": "Zusammenfassung",
+                "basket": "Ihr Korb",
+                "offerBooked": "Sie sind registriert für",
+                "offerNotBookable": "Keine Registrierung möglich für"
+            },
+            "actions": {
+                "continue": "Weiter",
+                "back": "Vorherige"
+            }
+        },
+        "expire_in": "Läuft ab in "
     },
     "tag": {
         "filter": {

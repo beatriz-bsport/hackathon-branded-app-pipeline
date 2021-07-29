@@ -282,7 +282,14 @@
                     "accept_sms": "Devi accettare le notifiche via SMS",
                     "waiver": "devi accettare il rilascio di responsabilità"
                 },
-                "waiver": "Accetta i termini del rilascio di responsabilità"
+                "waiver": {
+                    "dialog": {
+                        "confirm": "Accettare",
+                        "title": " disclaimer"
+                    },
+                    "conditions": " disclaimer",
+                    "iAccept": "Accetta i termini del "
+                }
             },
             "offer": {
                 "coachChangeWarning": "Se modifichi l'insegnante, questa modifica sarà efficace per tutte le sessioni future. Se questo non è ciò che desideri, utilizza il campo \"Sostituisci\". Qualsiasi altra modifica registrata qui (palestra, prezzo, giorno della settimana ...) verrà quindi applicata a tutte le sessioni.",
@@ -383,7 +390,9 @@
                     "last_name": "Cognome",
                     "first_name": "Nome"
                 },
-                "addProfilePicture": "Aggiungere una foto del profilo"
+                "addProfilePicture": "Aggiungere una foto del profilo",
+                "addProfilePictureRequiredLabel": "Devi aggiungere una foto del profilo",
+                "addProfilePictureRequired": "Aggiungi una foto del profilo *"
             },
             "oneHourFifteen": "1h15m",
             "waiting_list_max_size": "Dimensione della lista d'attesa",
@@ -2832,7 +2841,11 @@
                 "gender": "Tipo",
                 "email": "Email",
                 "last_name": "Cognome",
-                "first_name": "Nome"
+                "first_name": "Nome",
+                "photo": "Foto del profilo",
+                "address_line_2": "Indirizzo aggiuntivo",
+                "address_line_1": "Indirizzo",
+                "birthday": "Data di nascita"
             }
         },
         "zoom": {
@@ -4234,13 +4247,13 @@
             "item": {
                 "intervalLabel": {
                     "year": "Ogni anno",
-                    "year_plural": "Ogni {{ interval }} anni",
+                    "year_plural": "Ogni {{ count }}  anni",
                     "day": "Ogni giorni",
-                    "day_plural": "Ogni {{ interval }} giorno",
+                    "day_plural": "Ogni {{ count }} giorno",
                     "week": "Ogni settimana",
-                    "week_plural": "Ogni {{ interval }} settimana",
+                    "week_plural": "Ogni {{ count }} settimana",
                     "month": "Ogni mese",
-                    "month_plural": "Ogni {{ interval }} mese"
+                    "month_plural": "Ogni {{ count }} mese"
                 },
                 "recurrentPriceLabel": "{{ recurrent_price  }}{{ currencyDisplay }}",
                 "identifier": "Abbonamento"
@@ -5446,7 +5459,7 @@
                 "isTooLate": "Le registrazioni non sono più possibili.",
                 "isWaitingListFull": "La sessione è piena, la lista di attesa è piena.",
                 "isDisabled": "La sessione è stata purtroppo annullata.",
-                "isTooSoon": "La registrazione è chiusa per il momento e si aprirà il {{ date }}.",
+                "isTooSoon": "La registrazione è chiusa per il momento e si aprirà il {{ date_ }}.",
                 "isAlreadyRegistered": "Sei già registrato per questa sessione"
             },
             "messages": {

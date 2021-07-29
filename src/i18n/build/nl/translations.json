@@ -1428,7 +1428,7 @@
             },
             "recipientCount": "Ontvanger(s): {{total_recipients}}",
             "kind": {
-                "1": "SMS",
+                "1": "Sms",
                 "0": "E-mail"
             }
         },
@@ -3380,8 +3380,8 @@
         },
         "details": {
             "pleaseSelectABooking": "Selecteer een reservering om de details te zien",
-            "title": "Reserveringsgegevens",
-            "offerTitle": "Inschrijving(en)",
+            "title": "Gegevens",
+            "offerTitle": "Gekoppelde reserveringen",
             "consumerPaymentPackTitle": "Gebruikte kaart"
         },
         "source": {
@@ -6396,7 +6396,8 @@
             "4": "Het is niet mogelijk om je voor deze sessie in te schrijven",
             "3": "De sessie is vol",
             "2": "Het is niet meer mogelijk om je voor deze sessie in te schrijven",
-            "1": "Reserveringen voor deze sessie zijn momenteel nog gesloten"
+            "1": "Reserveringen voor deze sessie zijn momenteel nog gesloten",
+            "undefined": "Het is niet toegestaan om het maximaal aantal toekomstige reserveringen te overschrijden"
         },
         "signup": {
             "failedCreation": "Het is momenteel niet mogelijk om je account aan te maken, probeer het later opnieuw",
@@ -7071,7 +7072,14 @@
                 },
                 "offerBalance": "Een regel instellen dat de MAN / VROUW verhouding per sessie reguleert",
                 "showGenderOffer": "Toon het aantal ingeschreven MANNEN / VROUWEN op de agenda van je leden",
-                "hideCoach": "Toon de docentinformatie op de agenda van je leden"
+                "hideCoach": "Toon de docentinformatie op de agenda van je leden",
+                "maxFutureBooking": {
+                    "label": "Beperk het maximaal aantal toekomstige reserveringen per lid",
+                    "numberCheck": {
+                        "placeholder": "Max.",
+                        "helperText": "Dit is het maximum aantal toekomstige reserveringen voor je leden"
+                    }
+                }
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",

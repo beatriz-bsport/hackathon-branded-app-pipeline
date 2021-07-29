@@ -1493,7 +1493,9 @@
                     "last_name": "Last name",
                     "first_name": "First name"
                 },
-                "addProfilePicture": "Add a profile picture"
+                "addProfilePicture": "Add a profile picture",
+                "addProfilePictureRequiredLabel": "You must add a profile picture",
+                "addProfilePictureRequired": "Add a profile picture"
             },
             "metaActivity": {
                 "cantAddSameName": "An activity with the same name already exists!"
@@ -1523,7 +1525,14 @@
                     "accept_email": "You must accept Email notifications",
                     "accept_sms": "You must accept SMS notifications"
                 },
-                "waiver": "Accept the terms of the liability waiver"
+                "waiver": {
+                    "dialog": {
+                        "confirm": "Accept",
+                        "title": " Liability waiver"
+                    },
+                    "conditions": " Liability waiver",
+                    "iAccept": "Accept the terms of the "
+                }
             },
             "booking": {
                 "delete": {
@@ -4014,7 +4023,11 @@
                 "gender": "Gender",
                 "email": "Email",
                 "last_name": "Last name",
-                "first_name": "First name"
+                "first_name": "First name",
+                "photo": "Profile picture",
+                "address_line_2": "Additional address information",
+                "address_line_1": "Address",
+                "birthday": "Date of birth"
             }
         },
         "zoom": {

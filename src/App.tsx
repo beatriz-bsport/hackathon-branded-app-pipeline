@@ -172,7 +172,9 @@ class BsportWidget extends Component<Props> {
         <React.Suspense fallback={<CircularProgress />}>
           <MuiThemeProvider theme={getTheme(this.props.theme)}>
             {this.renderWidget()}
-            {!!this.props.theme && <BsportLogo theme={this.props.theme} />}
+            {!!this.props.theme && !this.props.theme.is_premium && (
+              <BsportLogo theme={this.props.theme} />
+            )}
             <Snackbar theme={this.props.theme} />
 
             <Dialog

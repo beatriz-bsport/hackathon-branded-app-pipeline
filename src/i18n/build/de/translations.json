@@ -185,7 +185,8 @@
                 "iwanttostarton": "Ich möchte mit der Rechnungsstellung am... beginnen : ",
                 "subscribe": "Abonnieren",
                 "create": "Einen Vertrag hinzufügen",
-                "iAcceptCondition": "Ich akzeptiere die oben genannten Bedingungen"
+                "iAcceptCondition": "Ich akzeptiere die oben genannten Bedingungen",
+                "iAcceptGeneralCondition": " Ich akzeptiere den rechtlichen Hinweis"
             },
             "list": {
                 "title": "Abonnements",
@@ -223,17 +224,23 @@
             "item": {
                 "intervalLabel": {
                     "year": "Jedes Jahr",
-                    "year_plural": "Jede {{ interval }} Jahre",
+                    "year_plural": "Jede  {{ count }}  Jahre",
                     "day": "Jeden Tag",
-                    "day_plural": "Jede {{ interval }} Tage",
+                    "day_plural": "Jede  {{ count }} Tage",
                     "week": "Jede Woche",
-                    "week_plural": "Jede {{ interval }} Wochen",
+                    "week_plural": "Jede  {{ count }}  Wochen",
                     "month": "Jeden Monat",
-                    "month_plural": "Jede {{ interval }} Monate"
+                    "month_plural": "Jede  {{ count }} Monate"
                 },
                 "recurrentPriceLabel": "{{ recurrent_price  }}{{ currencyDisplay }}",
                 "identifier": "Abo"
-            }
+            },
+            "billingFrequency": "Häufigkeit der Rechnungsstellung",
+            "frequency": {
+                "month": "monatlich",
+                "week": "wöchentlich"
+            },
+            "paymentCombo": "Zugehöriges Paket"
         },
         "subscription": {
             "actions": {
@@ -473,7 +480,8 @@
             "fromUntil": "Nur wenn die Abrechnung zwischen {{from}} und {{until}} geplant ist",
             "createdAt": "Erstellt am {{at}}",
             "title": "Globale Pausen"
-        }
+        },
+        "seeMore": "Mehr sehen"
     },
     "translation": {
         "appbar": {
@@ -3626,7 +3634,46 @@
             "4": "Die Sitzung ist nicht buchbar",
             "5": "Sie haben sich bereits für diese Sitzung angemeldet",
             "6": "Das Ungleichgewicht zwischen den Geschlechtern ist zu groß, Buchung nicht möglich",
-            "7": "Das Ungleichgewicht zwischen den Geschlechtern ist zu groß, Buchung nicht möglich"
+            "7": "Das Ungleichgewicht zwischen den Geschlechtern ist zu groß, Buchung nicht möglich",
+            "1114": "Sie können diese Packung nicht mehr kaufen",
+            "2006": "Dieser Pass ist nicht kompatibel mit einer Buchung zum gewählten Datum",
+            "undefined": "Sie versuchen, mehr zukünftige Sitzungen zu buchen, als Ihr Club erlaubt",
+            "2002": "Diese Kurskarte ist nur für neue Mitglieder erhältlich",
+            "2004": "Dieser Pass steht nicht zum Verkauf",
+            "2005": "Dieser Pass steht nicht zum Verkauf",
+            "8001": "Der von Ihnen gewählte Platz ist nicht mehr verfügbar",
+            "generic": "Kann nicht gebucht werden",
+            "1113": "Dieses Paket ist nur für neue Mitglieder erhältlich",
+            "2003": "Sie können diesen Pass nicht mehr einlösen",
+            "2007": "Dieser Pass ist mit dieser Sitzung nicht kompatibel",
+            "2008": "Dieser Pass ist nicht mit dieser Aktivität kompatibel",
+            "2009": "Ce laissez-passer n'est pas compatible avec cette activité",
+            "2010": "Dieser Pass ist mit diesem Ort nicht kompatibel",
+            "2011": "Mit diesem Pass können Sie keine Sitzungen buchen (nur VOD)",
+            "2012": "Dieser Pass ist mit dieser Sitzung nicht kompatibel",
+            "6002": "Die Warteliste ist voll",
+            "6003": "Sie sind bereits auf der Warteliste"
+        },
+        "signup": {
+            "emailAlreadyExists": "Diese E-Mail ist bereits in Gebrauch",
+            "failedCreation": "Ihr Konto kann im Moment nicht erstellt werden, bitte versuchen Sie es in ein paar Minuten erneut"
+        },
+        "paymentRuleGroups": {
+            "update": {
+                "error": {
+                    "coachWithPaymentGroup": "Es ist nicht möglich, die Vergütungsregeln für einen Trainer, der einer Gruppe angehört, zu ändern",
+                    "generic": "Fehler bei der Bearbeitung"
+                },
+                "success": "Erfolgreich geänderte Gruppe"
+            },
+            "create": {
+                "error": "Fehler bei der Erstellung",
+                "success": "Erreurs lors de la création"
+            },
+            "delete": {
+                "error": "Fehler bei der Erstellung",
+                "success": "Gruppe gelöscht"
+            }
         }
     },
     "invoice": {
@@ -3728,7 +3775,7 @@
             "titleReverted": "Rechnung (storniert) {{uuid}}"
         },
         "invoiceItem": {
-            "voucher": "Rabatt : {{ voucher }} €",
+            "voucher": "Rabatt : {{ voucher }}",
             "quantity": "Menge",
             "credit": {
                 "label": "Kredit"
@@ -4418,13 +4465,19 @@
                     "url": "Youtube",
                     "file": "Datei",
                     "urlExplain": "Dein Video ist bereits auf Youtube verfügbar und du willst es über das bsport-Kartensystem monetarisieren.",
-                    "fileExplain": "Du hast die Videodatei (mp4, avi, mov ...), verwende diese Methode, um Dein Video direkt auf die bsport-Server hochzuladen."
+                    "fileExplain": "Du hast die Videodatei (mp4, avi, mov ...), verwende diese Methode, um Dein Video direkt auf die bsport-Server hochzuladen.",
+                    "youtubeExplain": "Ihr Video ist bereits auf Youtube verfügbar, aber Sie möchten es über das bsport Kartensystem monetarisieren.",
+                    "youtube": "Youtube",
+                    "vimeo": "Vimeo",
+                    "vimeoExplain": "Ihr Video ist bereits auf Vimeo verfügbar, aber Sie möchten es über das bsport Kartensystem monetarisieren."
                 },
                 "submit": "Bestätigen",
                 "minutes": "Minuten",
                 "hours": "Stunden",
                 "durationInputError": "Bitte gib die Dauer des Videos an",
-                "durationLabel": "Videodauer"
+                "durationLabel": "Videodauer",
+                "youtubeUrlInput": "Link zu youtube",
+                "vimeoUrlInput": "Link zu vimeo"
             },
             "form": {
                 "edit": "Ändern",
@@ -4445,7 +4498,8 @@
                     "edit_button": "Video ändern",
                     "uploaded_video": "Datei hochgeladen",
                     "youtube_video": "Youtube-Video",
-                    "title": "Video"
+                    "title": "Video",
+                    "vimeo_video": "Video Vimeo"
                 }
             },
             "lock": {
@@ -4549,7 +4603,7 @@
                 "isDisabled": "Der Kurs wurde leider abgesagt.",
                 "isWaitingListFull": "Der Kurs ist abgeschlossen und die Warteliste ist voll.",
                 "isTooLate": "Anmeldungen sind nicht mehr möglich, die Anmeldefrist ist überschritten.",
-                "isTooSoon": "Die Anmeldungen sind vorläufig geschlossen und werden am {{date}} geöffnet.",
+                "isTooSoon": "Die Anmeldungen sind vorläufig geschlossen und werden am {{ date_ }}} geöffnet.",
                 "isAlreadyRegistered": "Sie sind bereits für diese Sitzung registriert"
             },
             "section": {
@@ -4778,14 +4832,20 @@
             "bookingsTitle": "Buchen",
             "addSession": "Kurs hinzufügen",
             "noPackAvailable": "Keine Kurskarte ist mit diesem Kurs kompatibel!",
-            "noPackAvailable_plural": "Keine Kurskarte ist mit diesen Kursen kompatibel!",
+            "noPackAvailable_plural": "Keine Kurskarte ist mit dieser Gruppe von Sitzungen zur gleichen Zeit kompatibel. Sie müssen sich für mehrere Sitzungen anmelden.",
             "packTitle": "Meine Buchungsmethode",
             "offerStatus": {
                 "waiting_list_status": {
-                    "3": "Buchung möglich!",
+                    "3": "Vollständige Sitzung",
                     "2": "Gelistet",
-                    "1": "Warteliste voll",
-                    "0": "Warteliste"
+                    "1": "Abgeschlossene Registrierungen",
+                    "0": "Warteliste",
+                    "4": "Abgeschlossene Registrierungen",
+                    "5": "Bereits registriert",
+                    "6": "Unausgewogenes Verhältnis zwischen Männern und Frauen",
+                    "7": "Unausgewogenes Verhältnis zwischen Männern und Frauen",
+                    "6002": "Vollständige Warteliste",
+                    "6003": "Bereits aufgelistet"
                 },
                 "bookable_status": {
                     "4": "Kurs nicht verfügbar",
@@ -4804,7 +4864,11 @@
             },
             "bookingForMe": "ich",
             "bookingsTitleFor": "Ich buche für {{name}}"
-        }
+        },
+        "placeNumber": "Ort {{count}}",
+        "noSpotAttributed": "Kein Platz zugewiesen",
+        "changeSpot": "Ändern Sie den Ort",
+        "setSpot": "Einen Sitzplatz zuweisen"
     },
     "member": {
         "exists": {
@@ -4837,7 +4901,23 @@
             "error": "Es ist unmöglich, dieses Mitglied zu speichern",
             "phone": {
                 "error": "Ungültige Telefonnummer"
-            }
+            },
+            "needInformationValidation": {
+                "legend": {
+                    "memberOfCompany": "Um mit dem Browsen fortzufahren, füllen Sie bitte die folgenden Informationen aus",
+                    "notMemberYet": "Möchten Sie Ihre Anmeldedaten übermitteln? "
+                },
+                "welcome": "Hallo {{first_name}}",
+                "subtitle": {
+                    "notMemberYet": "Es scheint, dass Sie sich zum ersten Mal mit diesem Studio verbinden",
+                    "memberOfCompany": "Erzählen Sie uns mehr über sich."
+                },
+                "button": {
+                    "memberOfCompany": "Meine Informationen vervollständigen",
+                    "notMemberYet": "Weitergabe von Informationen"
+                }
+            },
+            "title": "Informationen für den Benutzer"
         },
         "showSubscriptions": "Abonnements ansehen",
         "showInvoices": "Rechnungen ansehen",
@@ -6567,7 +6647,7 @@
         "detail": {
             "section": {
                 "title": "Bestellungsstatus :",
-                "deliveryInfo": "Lieferungsadresse",
+                "deliveryInfo": "Lieferadresse",
                 "productDetail": "Details des Warenkorbs",
                 "invoice": "Verbundene Rechnung",
                 "member": "Käufer"
@@ -7018,7 +7098,8 @@
                 "platform_billing": "Bsport-Abonnement",
                 "marketplaceSettings": "Marketplace-Eintellungen",
                 "widget": "Widget",
-                "paymentMethod": "Zahlungsmethoden"
+                "paymentMethod": "Zahlungsmethoden",
+                "forms": "Formulare"
             },
             "myClub": "Mein Klub",
             "subscription": "Automatische Abbuchungen",
@@ -7072,7 +7153,8 @@
         "editor": {
             "error": {
                 "content": "Bitte gib den Inhalt der E-Mail ein",
-                "title": "Bitte gib einen Namen ein"
+                "title": "Bitte gib einen Namen ein",
+                "subject": "Bitte geben Sie ein Objekt ein"
             },
             "cancel": "Abbrechen",
             "subject": "Betreff",
@@ -7181,7 +7263,8 @@
         "showPerformance": "Lohn ausstellen",
         "noCoach": "Zur Zeit gibt es keine registrierten Lehrer",
         "noCoachs": "Keine registrierten Lehrer, verwalte hier die Lehrer, Referenten und deren Entlohnung.",
-        "inactiveCoaches": "Archivierte Lehrer"
+        "inactiveCoaches": "Archivierte Lehrer",
+        "paymentRule": "Dienstbezüge"
     },
     "login": {
         "error": {
@@ -7417,7 +7500,8 @@
         "credit_price": " Credits",
         "calendar": {
             "modifyOffer": "Ändern",
-            "deleteOffer": "Abbrechen"
+            "deleteOffer": "Abbrechen",
+            "filter": "Filter"
         },
         "disabled": "Storniert",
         "extraordinaryEstablishment": "(provisorische Einrichtung)",
@@ -8009,7 +8093,48 @@
                 "walls": "Wände",
                 "edition": "Ausgabe"
             },
-            "title": "Werkzeugkasten"
-        }
+            "title": "Werkzeugkasten",
+            "customIconLabel": "Standort-Symbole",
+            "customIconButton": "Meine Ikonen herunterladen",
+            "pointer": "Cursor",
+            "hand": "Hauptseite",
+            "showGrid": "Anzeige des Gitters"
+        },
+        "errorLessSpotThanEffectif": "Sparen ist nicht möglich. Der Sitzplan muss mehr Platz bieten als die Anzahl der Teilnehmer der Sitzung, zu der er gehört",
+        "saveError": "Fehler",
+        "spotImageDialog": {
+            "taken": "Reserviert",
+            "helper": "Sie können die Form der Steckplätze anpassen, indem Sie Ihre eigenen Bilder importieren. Hierfür benötigen wir 2 verschiedene Symbole. Eine, um anzuzeigen, dass der Ort verfügbar ist, eine weitere, wenn er reserviert ist. Achten Sie darauf, dass sie die gleiche Größe haben, und fügen Sie bitte keine Zahlen auf Ihren Symbolen ein.",
+            "takenImageLabel": "Reservierter Platz",
+            "imageUploadButton": "Ein Bild hochladen",
+            "free": "Verfügbar",
+            "imageFormat": "Empfohlenes Format: .png, .jpg",
+            "actions": {
+                "cancel": "Abbrechen",
+                "submit": "Bestätigen Sie"
+            },
+            "title": "Passen Sie Ihre Standorte an",
+            "freeImageLabel": "Standort verfügbar"
+        },
+        "toolbar": {
+            "save": "Confirmer",
+            "titleLabel": "Name des Plans",
+            "exit": "Ausfahrt",
+            "loadExistingBlueprint": "Einen bestehenden Plan laden"
+        },
+        "spotSelectorDialog": {
+            "title": "Wählen Sie einen Sitzplatz",
+            "spot": "Ort {{count}}",
+            "cancel": "Abbrechen",
+            "submit": "Bestätigen Sie",
+            "takeSpotError": "Der Platz, den Sie für diesen Kurs ausgewählt haben, ist nicht mehr verfügbar. Bitte wählen Sie einen neuen aus."
+        },
+        "searchHelper": "Hilfe: Ermöglicht es Ihren Schülern, den gewünschten Platz im Raum zu reservieren. Nicht obligatorische Felder",
+        "effectifError": "Die Anzahl der Sitzplätze muss gleich oder größer sein als die Anzahl der Teilnehmer an der Sitzung",
+        "saved": "Eingetragener Sitzplan",
+        "roomBlueprints": "Grundriss",
+        "placeCount": "{{count}} Orte",
+        "roomBlueprintSelectorTitle": "Wählen Sie einen Plan",
+        "search": "Finden Sie einen Plan für die Spotterminierung"
     }
 }

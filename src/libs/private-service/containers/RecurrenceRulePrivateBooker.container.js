@@ -14,7 +14,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { resourceAllocationChecker as resourceAllocationCheckerAPI } from '../api';
 
 import { fetchAssociatedEstablishmentBulk } from '../../establishment/actions';
 import { fetchAssociatedCoachBulk } from '../../associated-coach/actions';

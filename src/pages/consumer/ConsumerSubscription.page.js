@@ -111,6 +111,11 @@ export class ConsumerSubscription extends React.Component<Props> {
       <div className={this.props.classes.table}>
         {this.props.subscriptionLoading && <BackofficeLinearProgress />}
         <div className={this.props.classes.header}>{this.renderButton()}</div>
+        {!this.props.subscriptionLoading &&
+        (this.props.subscriptionList ||
+          this.props.subscriptionList.length === 0) ? (
+          <Typography>{this.props.t('subscription.isEmpty')}</Typography>
+        ) : null}
         {this.props.subscriptionList.map((sub) => (
           <SubscriptionListItem
             subscription={sub}

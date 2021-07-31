@@ -11,6 +11,9 @@ exports.default = {
     changeMembership: 'Changer de club',
     pick_a_language: 'Sélectionner une langue',
   },
+  subscription: {
+    isEmpty: "Vous n'avez aucun abonnement en cours",
+  },
   myVideos: {
     title: 'Mes vidéos',
     gotToVOD: 'Voir toutes les vidéos',

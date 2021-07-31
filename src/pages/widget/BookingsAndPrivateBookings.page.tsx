@@ -63,7 +63,10 @@ class BookingsAndPrivateBookingsPage extends React.PureComponent<Props, State> {
   };
 
   componentDidMount() {
-    this.props.fetchMembershipListAsConsumer({ page_size: 2 });
+    this.props.fetchMembershipListAsConsumer({
+      company: this.props.companyId,
+      page_size: 2,
+    });
 
     if (this.props.membership) {
       this.props.fetchBookingsAndPrivateBookings({

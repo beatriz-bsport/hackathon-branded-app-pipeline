@@ -2,6 +2,7 @@
 import React from 'react';
 import { compose, withState, withHandlers } from 'recompose';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { push as pushRouter } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
@@ -10,6 +11,7 @@ import Dialog from '@material-ui/core/Dialog';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import moment from 'moment-timezone';
+import WidgetUtils from '../../libs/widget/WidgetUtils';
 import MemberSummaryCard from '../../libs/member/components/MemberSummaryCard.component';
 import MemberPaymentMethodPanel from '../../libs/member/components/MemberPaymentMethodPanel.component';
 import MemberForm from '../../libs/member/MemberForm.component';
@@ -71,18 +73,24 @@ export class ConsumerProfile extends React.Component<Props> {
   fetchData = () => {
     this.props.fetchMember(this.props.membership.id);
     this.props.fetchMemberPaymentMethod();
+    this.props.fetchSignFormUpConfiguration({
+      membership: this.props.membership.company,
+    });
   };
 
   componentDidUpdate(prevProps) {
     if (!prevProps.membership && this.props.membership) {
       this.fetchData();
-      this.props.fetchSignFormUpConfiguration({
-        membership: this.props.membership.company,
-      });
     }
   }
 
   render() {
+    console.log('membership', this.props.membership);
+    console.log(
+      'config',
+
+      this.props.managerFormConfig,
+    );
     if (!this.props.membership) {
       return (
         <Grid container className={this.props.classes.flexGrid} spacing={2}>
@@ -123,7 +131,11 @@ export class ConsumerProfile extends React.Component<Props> {
           />
         </Grid>
 
-        <Dialog open={this.props.editMember} maxWidth="lg">
+        <Dialog
+          fullScreen={WidgetUtils.isWidget()}
+          open={this.props.editMember}
+          maxWidth="lg"
+        >
           {!this.props.managerFormConfigLoading && (
             <MemberForm
               hideManagerStuff

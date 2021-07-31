@@ -48,7 +48,7 @@ const Status: FC<{
     return (
       <Tooltip title={t('plannedInvoiceStatus.reverted')}>
         <span>
-          <UndoIcon color="error" className={classes.icon} />;
+          <UndoIcon color="secondary" className={classes.icon} />;
         </span>
       </Tooltip>
     );

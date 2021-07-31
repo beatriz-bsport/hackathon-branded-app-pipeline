@@ -1,6 +1,10 @@
 import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
-import BUYABLE_ITEM_CAN_NOT_BE_BOUGHT_ERROR_CODES from '@bsport/common/lib/master-data/buyable-item-can-not-be-bought';
+
+// we import from src and not lib bvecause there is some shittery happening that
+// makes the build of the wdget crashing (widget use this file somehow)
+import ALL_ERROR_CODES from '@bsport/common/src/master-data/buyable-item-can-not-be-bought';
+
 import {
   retrieveOffer as retrieveOfferAPI,
   fetchSimilarOffers as fetchSimilarOffersAPI,
@@ -617,7 +621,7 @@ export function offerUserRegistration(
       const response = await postUserRegistrationAPI(data);
       if (response && response.data && response.data.buyable_item_error_code) {
         const error_code = response.data.buyable_item_error_code;
-        if (BUYABLE_ITEM_CAN_NOT_BE_BOUGHT_ERROR_CODES.includes(error_code)) {
+        if (ALL_ERROR_CODES.includes(error_code)) {
           dispatch(
             snackbarError(
               `canNotBuyErrorCode.${response.data.buyable_item_error_code}`,

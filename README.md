@@ -5,52 +5,39 @@ Based on - https://seriousben.github.io/embeddable-react-widget
 
 </div>
 
-## Features
+## Install dependencies
 
-* Full ES6/ES2015 support (with Babel)
-* Package fonts, css, json, javascripts together into one single package (with Webpack)
-* No css styling conflicts between the host page and the widget (with https://github.com/premasagar/cleanslate)
-* Obfuscating of the widget code
-* Unit Tested with code coverage enabled
-* Continuous Integration ready
+The widget is bult with a link to bsport-saas, you need to :
+```sh
+cd ../bsport-saas/ # got the saas repo
+yarn link
+cd -               # back to the widget repo
+yarn link bsport-saas
+yarn
+```
 
 ## Running the widget
 
-### Development
-
-#### `src/output/index.js`
-Load the widget (mount and unmount)
-
-#### `src/App.tsx`
-Load the right component depending on widget config
-
-#### `src/components/*.js`
-The components used in the widget
-
-### Install dependencies
-
 ```sh
-$ yarn install
+yarn start
 ```
 
-### Start the development server
+## Troubleshooting
 
+If you ever encounter strange import errors such as 
 ```sh
-$ yarn start
-... server running at http://localhost:8080/
+ERROR in ./src/App.tsx
+    Module not found: Error: Can't resolve 'bsport-saas/src/theme' in 'bsport-widget/src'
+     @ ./src/App.tsx 2:212-256 2:5316-5324
+     @ ./src/Root.tsx
+     @ ./src/index.js
+     @ multi ./config.local.js ./src/index.js
 ```
 
-### Run tests
-```
-$ yarn test
-... test output
-```
+* Check the saas project is on the right branch (feature-branch or dev usually)
+* remove node_modules 
+* follow the Install dependencies steps again
 
-### Production build
-```
-$ yarn run build
-... create files in /dist
-```
 
 ### Why not in an iframe?
 

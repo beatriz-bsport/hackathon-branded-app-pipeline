@@ -6,10 +6,22 @@ import { ButtonBase } from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
-import { PrivateServiceSelectorDataProvider, PrivateServiceSelectorPage } from 'bsport-saas/src/pages/marketplace/PrivateService/PrivateServiceSelectorPage/PrivateServiceSelector.page';
-import { PrivateServiceDetailDataProvider, PrivateServiceDetailPage } from 'bsport-saas/src/pages/marketplace/PrivateService/PrivateServiceDetailPage/PrivateServiceDetail.page';
-import { MarketplacePrivateServiceData, PrivateServicePageTypeEnum } from 'bsport-saas/src/libs/marketplace/types';
-import { PrivateService, PrivateSlot } from 'bsport-saas/src/libs/private-service/types';
+import {
+  PrivateServiceSelectorDataProvider,
+  PrivateServiceSelectorPage,
+} from 'bsport-saas/src/pages/marketplace/PrivateService/PrivateServiceSelectorPage/PrivateServiceSelector.page';
+import {
+  PrivateServiceDetailDataProvider,
+  PrivateServiceDetailPage,
+} from 'bsport-saas/src/pages/marketplace/PrivateService/PrivateServiceDetailPage/PrivateServiceDetail.page';
+import {
+  MarketplacePrivateServiceData,
+  PrivateServicePageTypeEnum,
+} from 'bsport-saas/src/libs/marketplace/types';
+import {
+  PrivateService,
+  PrivateSlot,
+} from 'bsport-saas/src/libs/private-service/types';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
@@ -18,35 +30,33 @@ import { RootState } from '../store/reducer';
 import { getEnv } from '../utils/utils';
 
 const PrivateServiceSelector = themify(
-  PrivateServiceSelectorDataProvider(PrivateServiceSelectorPage)
+  PrivateServiceSelectorDataProvider(PrivateServiceSelectorPage),
 );
 const PrivateServiceDetailBase = themify(
-  PrivateServiceDetailDataProvider(PrivateServiceDetailPage)
+  PrivateServiceDetailDataProvider(PrivateServiceDetailPage),
 );
 
-
 type OwnProps = {
-  companyId: number;
-  config: MarketplacePrivateServiceData;
-  store: any;
-  theme: Theme;
-  onWindowOpen: (url : string) => void;
-  dialogMode: number;
-}
+  companyId: number,
+  config: MarketplacePrivateServiceData,
+  store: any,
+  theme: Theme,
+  onWindowOpen: (url: string) => void,
+  dialogMode: number,
+};
 
 type Props = OwnProps &
   ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps &
-  MaterialStyleType<ReturnType<typeof styles>>
+  MaterialStyleType<ReturnType<typeof styles>>;
 
 interface State {
   type: PrivateServicePageTypeEnum;
   serviceId?: number | null;
 }
 
-
 class PrivateServiceWidget extends React.PureComponent<Props, State> {
-  popupWindow?: any;
+  popupWindow: any;
 
   constructor(props: Props) {
     super(props);
@@ -64,22 +74,23 @@ class PrivateServiceWidget extends React.PureComponent<Props, State> {
     });
   };
 
-  onSessionSelect = (data: {
-    date: string;
-    establishment: number;
-    associated_coach: number;
-  }, privateSlot: PrivateSlot) => {
+  onSessionSelect = (
+    data: {
+      date: string,
+      establishment: number,
+      associated_coach: number,
+    },
+    privateSlot: PrivateSlot,
+  ) => {
     const { PUBLIC_URL } = getEnv();
     const url = `${PUBLIC_URL}/customer/payment/private-service/${
       this.state.serviceId
-    }/private-slot/${
-      privateSlot.id
-    }/?membership=${this.props.companyId}&data=${encodeURIComponent(
-      JSON.stringify(data)
-    )}`;
+    }/private-slot/${privateSlot.id}/?membership=${
+      this.props.companyId
+    }&data=${encodeURIComponent(JSON.stringify(data))}`;
 
     this.props.onWindowOpen(url);
-  }
+  };
 
   render() {
     const { classes } = this.props;
@@ -93,37 +104,35 @@ class PrivateServiceWidget extends React.PureComponent<Props, State> {
             onClickPrivateService={this.onClickPrivateService}
             store={this.props.store}
             theme={this.props.theme}
-            filters={{private_service_group: this.props.config.privateGroups }}
+            filters={{ private_service_group: this.props.config.privateGroups }}
           />
         )}
 
         {this.state.type === PrivateServicePageTypeEnum.detail &&
           this.state.serviceId !== undefined &&
           this.state.serviceId !== null && (
-          <div className={classes.detailContainer}>
-            {this.props.config.type === PrivateServicePageTypeEnum.list && (
-              <ButtonBase onClick={() => {
-                this.setState({
-                  serviceId: undefined,
-                  type: PrivateServicePageTypeEnum.list,
-                });
-              }}
-              >
-                <ChevronLeftIcon
-                  className={classes.icon}
-                  fontSize="large"
-                />
-              </ButtonBase>
-            )}
-            <PrivateServiceDetailBase
-              companyId={this.props.companyId.toString()}
-              serviceId={this.state.serviceId.toString()}
-              onSessionSelect={this.onSessionSelect}
-              hideDetailSummary
-              store={this.props.store}
-              theme={this.props.theme}
-            />
-          </div>
+            <div className={classes.detailContainer}>
+              {this.props.config.type === PrivateServicePageTypeEnum.list && (
+                <ButtonBase
+                  onClick={() => {
+                    this.setState({
+                      serviceId: undefined,
+                      type: PrivateServicePageTypeEnum.list,
+                    });
+                  }}
+                >
+                  <ChevronLeftIcon className={classes.icon} fontSize="large" />
+                </ButtonBase>
+              )}
+              <PrivateServiceDetailBase
+                companyId={this.props.companyId.toString()}
+                serviceId={this.state.serviceId.toString()}
+                onSessionSelect={this.onSessionSelect}
+                hideDetailSummary
+                store={this.props.store}
+                theme={this.props.theme}
+              />
+            </div>
           )}
       </div>
     );
@@ -152,9 +161,8 @@ const mapStateToProps = (state: RootState) => ({
 
 const mapDispatchToProps = {};
 
-
 export default compose<any, OwnProps>(
   // @ts-ignore
   withStyles(styles),
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(mapStateToProps, mapDispatchToProps),
 )(PrivateServiceWidget);

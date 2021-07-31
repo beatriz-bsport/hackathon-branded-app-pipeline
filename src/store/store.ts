@@ -31,7 +31,7 @@ export default function initStore(initialState: Object = {}) {
   const store = createStore(
     rootReducer,
     initialState,
-    composeEnhancers(applyMiddleware(thunk, routerMiddlewareWithHistory))
+    composeEnhancers(applyMiddleware(thunk, routerMiddlewareWithHistory)),
   );
 
   persistStore(store);

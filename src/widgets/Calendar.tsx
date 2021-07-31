@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { compose, withProps } from 'recompose';
 import { Moment } from 'bsport-saas/src/i18n';
-import { MarketplaceCalendar, CalendarDataContainer } from 'bsport-saas/src/pages/marketplace/MarketplaceCalendar.page';
+import {
+  MarketplaceCalendar,
+  CalendarDataContainer,
+} from 'bsport-saas/src/pages/marketplace/MarketplaceCalendar.page';
 import { MarketplaceCalendarData } from 'bsport-saas/src/libs/marketplace/types';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 
 import '../../vendor/map.css';
 
-import { RootState } from '../store/reducer';
 import { constants } from '../const/constants';
 import { getEnv } from '../utils/utils';
 
@@ -18,31 +19,29 @@ const DATE_FORMAT = 'YYYY-MM-DD';
 const MarketplaceCalendarStyled = themify(MarketplaceCalendar);
 
 type OwnProps = {
-  companyId: number;
-  config: MarketplaceCalendarData;
-  store: any;
-  theme: Theme;
-  onWindowOpen: (url: string) => void;
-  dialogMode?: number;
-}
+  companyId: number,
+  config: MarketplaceCalendarData,
+  store: any,
+  theme: Theme,
+  onWindowOpen: (url: string) => void,
+  dialogMode?: number,
+};
 
-
-type Props = OwnProps & ConnectProps &
-  ReturnType<typeof mapWithProps> & {};
+type Props = OwnProps & ReturnType<typeof mapWithProps> & {};
 
 type State = {
   filtersOpen: 'true' | '',
   filters: {
-    coaches: number[];
-    establishments: number[];
-    activity__in: number[];
-    levels: number[];
-  };
+    coaches: number[],
+    establishments: number[],
+    activity__in: number[],
+    levels: number[],
+  },
   selectedDate: string,
 };
 
 export class CalendarWidget extends Component<Props, State> {
-  popupWindow?: any;
+  popupWindow: any;
 
   constructor(props: Props) {
     super(props);
@@ -93,7 +92,9 @@ export class CalendarWidget extends Component<Props, State> {
       <MarketplaceCalendarStyled
         {...this.props}
         companyId={this.props.companyId}
-        compactMode={this.props.config ? this.props.config.compactMode : undefined}
+        compactMode={
+          this.props.config ? this.props.config.compactMode : undefined
+        }
         filters={this.state.filters}
         setFilters={this.setFilters}
         otherParams={{
@@ -113,11 +114,10 @@ export class CalendarWidget extends Component<Props, State> {
   }
 }
 
-
-const mapWithProps = (props: ConnectProps & OwnProps) => ({
+const mapWithProps = (props: OwnProps) => ({
   goToPackPayment: (packId: number, offerId: number) => {
     window.open(
-      `${constants.backofficeUrl}/customer/payment/pass/${packId}?nextOffer=${offerId}&membership=${props.companyId}`
+      `${constants.backofficeUrl}/customer/payment/pass/${packId}?nextOffer=${offerId}&membership=${props.companyId}`,
     );
   },
   onCompletePurchase: () => {
@@ -125,12 +125,12 @@ const mapWithProps = (props: ConnectProps & OwnProps) => ({
   },
   goToBookOption: (id: number, companyId: number) => {
     window.open(
-      `${constants.backofficeUrl}/customer/payment/offer/${id}?membership=${companyId}`
+      `${constants.backofficeUrl}/customer/payment/offer/${id}?membership=${companyId}`,
     );
   },
 });
 
 export default compose<any, OwnProps>(
   CalendarDataContainer,
-  withProps(mapWithProps)
+  withProps(mapWithProps),
 )(CalendarWidget);

@@ -75,5 +75,5 @@ export interface RootState {
 
 export default (history: ReturnType<typeof createBrowserHistory>) => (
   state: any,
-  action: any
+  action: any,
 ) => reducer(history)(state, action);

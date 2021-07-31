@@ -27,7 +27,7 @@ export const fabShowLogin = () => (dispatch: Dispatch, getState: any) => {
       url,
       dialogMode: DIALOG_MODE_IFRAME,
       isFabContext: true,
-    })
+    }),
   );
 };
 
@@ -65,5 +65,5 @@ export const setSaasBasketCount = createAction('SET_SAAS_BASKET');
 export const setSaasBookingsCount = createAction('SET_SAAS_BOOKINGS');
 
 export const refreshVODRequestAccessFlagAction = createAction(
-  'REFRESH_VOD_REQUEST_ACCESS_FLAG'
+  'REFRESH_VOD_REQUEST_ACCESS_FLAG',
 );

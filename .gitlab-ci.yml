@@ -8,7 +8,7 @@ variables:
 
 stages:
   #   - prepare-image-docker
-  #- static-analysis
+  - static-analysis
   - build-deploy
   - label-issues
 
@@ -35,20 +35,23 @@ stages:
 #     - docker build --network host -t ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_NAME} .
 #     - docker push ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_NAME}
 
-# Lint:
-#   # image: ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_NAME}
-#   stage: static-analysis
-#   tags:
-#     - deployment
-#   script:
-#     # - mv /app/node_modules .
-#     - ./link_bsport_saas/sh
-#     - yarn install --frozen-lockfile
-#     - yarn lint
-# 
-#   except:
-#     - master
-#     - production
+Lint:
+  tags:
+    - deployment
+    - kubernetes
+  # image: ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_NAME}
+  stage: static-analysis
+  variables:
+    ENVIRONMENT: dev
+  script:
+    # - mv /app/node_modules .
+    - ./link_bsport_saas.sh
+    - yarn install --frozen-lockfile
+    - yarn lint
+
+  except:
+    - master
+    - production
 
 .Build and deploy Base:
   # image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}

@@ -68,5 +68,5 @@ const styles = () => ({
 
 export default compose<any, OwnProps>(
   // @ts-ignore
-  withStyles(styles)
+  withStyles(styles),
 )(BsportLogo);

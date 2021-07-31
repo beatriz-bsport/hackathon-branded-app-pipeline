@@ -6,27 +6,31 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import NewsletterFormComponent from 'bsport-saas/src/libs/marketing/components/NewsletterForm.component';
 import { createNewsletterMember } from 'bsport-saas/src/libs/marketing/api';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
-import { snackbarSuccess, snackbarError } from 'bsport-saas/src/actions/snackbar.actions';
+import {
+  snackbarSuccess,
+  snackbarError,
+} from 'bsport-saas/src/actions/snackbar.actions';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
-
 
 const NewsletterFormComponentStyled = themify(NewsletterFormComponent);
 
 type OwnProps = {
-  companyId: number
-  theme: Theme
-}
+  companyId: number,
+  theme: Theme,
+};
 
-type ConnectProps = ReturnType<typeof mapStateToProps>
-  & typeof mapDispatchToProps;
+type ConnectProps = ReturnType<typeof mapStateToProps> &
+  typeof mapDispatchToProps;
 
-type Props = OwnProps & ConnectProps &
-  ReturnType<typeof mapWithProps> & {
-  } & MaterialStyleType<ReturnType<typeof styles>>;
+type Props = OwnProps &
+  ConnectProps &
+  ReturnType<typeof mapWithProps> & {} & MaterialStyleType<
+    ReturnType<typeof styles>,
+  >;
 
 interface State {
-  showSuccessSnackbar: boolean
+  showSuccessSnackbar: boolean;
 }
 
 export class NewsletterWidget extends Component<Props, State> {
@@ -39,11 +43,11 @@ export class NewsletterWidget extends Component<Props, State> {
     });
 
     if (res.status === 200) {
-      this.props.success("marketing:newsletter.messages.success");
+      this.props.success('marketing:newsletter.messages.success');
     } else {
-      this.props.error("marketing:newsletter.messages.error");
+      this.props.error('marketing:newsletter.messages.error');
     }
-  }
+  };
 
   render() {
     return (
@@ -66,7 +70,6 @@ const styles = () => ({
   },
 });
 
-
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = {
@@ -79,5 +82,5 @@ const mapWithProps = () => ({});
 export default compose<any, OwnProps>(
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
-  withProps(mapWithProps)
+  withProps(mapWithProps),
 )(NewsletterWidget);

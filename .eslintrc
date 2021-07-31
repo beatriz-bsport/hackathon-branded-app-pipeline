@@ -10,6 +10,7 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
+    "plugin:flowtype/recommended",
     "airbnb",
     "plugin:i18next/recommended",
     "plugin:react-hooks/recommended",
@@ -26,13 +27,19 @@
   "plugins": [
     "@typescript-eslint",
     "@typescript-eslint/tslint",
+    "flowtype",
     "react",
     "babel",
     "cypress",
     "i18next"
   ],
   "rules": {
-    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "no-console": [
+      "error",
+      {
+        "allow": ["warn", "error"]
+      }
+    ],
     "react/require-default-props": 0,
     "react/default-props-match-prop-types": 0,
     "i18next/no-literal-string": 0,
@@ -77,7 +84,12 @@
     "space-before-function-paren": ["off"],
     "react/prefer-stateless-function": "off",
     "react/jsx-one-expression-per-line": "off",
-    "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx", "tsx"]}],
+    "react/jsx-filename-extension": [
+      "warn",
+      {
+        "extensions": [".js", ".jsx", "tsx"]
+      }
+    ],
     "flowtype/no-types-missing-file-annotation": 0,
     "radix": 0
   },
@@ -88,14 +100,15 @@
   },
   "overrides": [
     {
-      "files": [ "*.js" ],
+      "files": ["*.js"],
       "excludedFiles": "**/*.translation*.js",
       "rules": {
-        "quotes": [ 2, "single" ]
+        "quotes": [2, "single"]
       }
     },
     {
-      "files": [ "*.ts", "*.tsx" ],
+      "files": ["*.ts", "*.tsx"],
+      "excludedFiles": ["**/*.test.ts", "src/**/__test__/**"],
       "parser": "@typescript-eslint/parser",
       "parserOptions": {
         "project": "tsconfig.json",
@@ -104,23 +117,20 @@
       "rules": {
         "no-await-in-loop": 0,
         "no-unused-vars": 0,
+        "import/no-named-as-default-member": "off",
+        "max-len": "off",
         "react/prop-types": 0,
-        "@typescript-eslint/no-unused-vars": [
-          "error"
-        ],
-        "comma-dangle": ["error", {
-          "arrays": "always-multiline",
-          "objects": "always-multiline",
-          "imports": "always-multiline",
-          "exports": "always-multiline",
-          "functions": "never"
-        }],
+        "@typescript-eslint/no-unused-vars": ["error"],
+        "prefer-destructuring": "off",
         "no-shadow": "off",
         "@typescript-eslint/no-shadow": "error",
-        "no-unused-expressions": ["error", {
-          "allowShortCircuit": true,
-          "allowTernary": true
-        }]
+        "no-unused-expressions": [
+          "error",
+          {
+            "allowShortCircuit": true,
+            "allowTernary": true
+          }
+        ]
       }
     }
   ]

@@ -336,5 +336,5 @@ export default compose<any, OwnProps>(
   // @ts-ignore
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
-  withTranslation(['checkout', 'navigation'])
+  withTranslation(['checkout', 'navigation']),
 )(FabWidget);

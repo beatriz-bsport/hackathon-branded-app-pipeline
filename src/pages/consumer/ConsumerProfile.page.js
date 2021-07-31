@@ -2,7 +2,6 @@
 import React from 'react';
 import { compose, withState, withHandlers } from 'recompose';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import withMobileDialog from '@material-ui/core/withMobileDialog';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { push as pushRouter } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
@@ -85,12 +84,6 @@ export class ConsumerProfile extends React.Component<Props> {
   }
 
   render() {
-    console.log('membership', this.props.membership);
-    console.log(
-      'config',
-
-      this.props.managerFormConfig,
-    );
     if (!this.props.membership) {
       return (
         <Grid container className={this.props.classes.flexGrid} spacing={2}>

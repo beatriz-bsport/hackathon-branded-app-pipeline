@@ -69,6 +69,7 @@ const migrateOldProps = (props: any) => {
       'newsletter',
       'vod',
       'playlist',
+      'subscription',
       'pass',
       'shop',
     ].includes(_props.widgetType)

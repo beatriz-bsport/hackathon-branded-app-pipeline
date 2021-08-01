@@ -19,6 +19,7 @@ import privateService from 'bsport-saas/src/libs/private-service/reducers';
 import video from 'bsport-saas/src/libs/video/reducers';
 import playlist from 'bsport-saas/src/libs/playlist/reducers';
 import category from 'bsport-saas/src/libs/category/reducers';
+import subscription from 'bsport-saas/src/libs/subscription/reducers';
 
 import { PrivateServiceState } from 'bsport-saas/src/libs/private-service/types';
 import { CoachState } from 'bsport-saas/src/libs/associated-coach/types';
@@ -48,6 +49,7 @@ const reducer = (history: ReturnType<typeof createBrowserHistory>) =>
     paymentPack,
     category,
     widget,
+    subscription,
   });
 
 export interface RootState {

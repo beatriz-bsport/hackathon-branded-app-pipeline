@@ -34,6 +34,9 @@ import WidgetBridge from './widgets/WidgetBridge';
 
 const PassWidget = asyncComponent(() => import('./widgets/Pass'));
 const ShopWidget = asyncComponent(() => import('./widgets/Shop'));
+const SubscriptionWidget = asyncComponent(
+  () => import('./widgets/Subscription'),
+);
 const CalendarWidget = asyncComponent(() => import('./widgets/Calendar'));
 const VODWidget = asyncComponent(() => import('./widgets/Vod'));
 const PrivateServiceWidget = asyncComponent(
@@ -90,6 +93,7 @@ class BsportWidget extends Component<Props> {
       theme,
       dialogMode,
     } = this.props;
+    console.log('w', widgetType);
 
     switch (widgetType) {
       case 'workshop':
@@ -138,6 +142,16 @@ class BsportWidget extends Component<Props> {
       case 'shop':
         return (
           <ShopWidget
+            companyId={companyId}
+            config={config[widgetType]}
+            store={store}
+            theme={theme}
+            onWindowOpen={this.onWindowOpen}
+          />
+        );
+      case 'subscription':
+        return (
+          <SubscriptionWidget
             companyId={companyId}
             config={config[widgetType]}
             store={store}

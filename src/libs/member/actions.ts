@@ -373,6 +373,7 @@ export function createOrUpdateMember(
 
     const createOrUpdate = id ? updateMember : addMember;
     try {
+      console.log('sending', memberData);
       const response: any = await createOrUpdate(memberData);
 
       if (response.status !== 201 && response.status !== 200) {

@@ -5,6 +5,7 @@ export function mapFormData(base, map) {
       throw new Error(`Mapping for key ${key} does not exist.`);
     }
     if (value !== undefined) {
+      console.log('adding', key, value);
       if (Array.isArray(value)) {
         formData.append(map[key], JSON.stringify(value));
       } else {

@@ -23,6 +23,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import Checkbox from '@material-ui/core/Checkbox';
 import GenderInput from '../../../components/input/GenderInput.component';
+import VaccinationStatusInput from '../../../components/input/VaccinationStatusInput.component';
 import { browserCountryCode, Moment } from '../../../i18n';
 import { MaterialStyleType } from '../../../utils/types';
 import Avatar from '../../../components/Avatar.component';
@@ -58,6 +59,7 @@ export const FormFieldEnumOrdering: Array<string> = [
   'password',
   'passwordConfirm',
   'gender',
+  'vaccination_status',
   'birthday',
   'address_line_1',
   'address_line_2',
@@ -86,6 +88,7 @@ export const FormFieldWrapper = (identifier: string, children: any) => {
       );
     case 'email':
     case 'gender':
+    case 'vaccination_status':
       return (
         <Grid container direction="row">
           <Grid item xs={12} md={6}>
@@ -372,6 +375,15 @@ export class FormField extends Component<Props, State> {
             onChange={this.handleChange}
             required={required}
             error={required && !value}
+            fullWidth
+          />
+        );
+      case 'vaccination_status':
+        return (
+          <VaccinationStatusInput
+            value={value}
+            onChange={this.handleChange}
+            error={!value}
             fullWidth
           />
         );

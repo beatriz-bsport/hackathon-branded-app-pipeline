@@ -49,6 +49,7 @@ import type { PaymentPack } from '../../../libs/payment-packs/types';
 // eslint-disable-next-line
 import type { Member } from '../../../libs/member/types';
 import { Booking } from '../types';
+import VaccinationBadge from '../../member/components/VaccinationBadge.component';
 
 type Props = {
   t: TFunction,
@@ -419,15 +420,20 @@ export class BookingItemForManager extends Component<Props, State> {
           creditColor = 'error';
         }
 
+        const OptionalVaccinationBadge = this.props.member.vaccination_status
+          ? VaccinationBadge
+          : React.Fragment;
         return (
           <ListItemAvatar>
-            <Badge
-              badgeContent={creditsFormatted}
-              color={creditColor}
-              classes={{ badge: classes.badge }}
-            >
-              <Avatar src={this.props.member.photo} />
-            </Badge>
+            <OptionalVaccinationBadge>
+              <Badge
+                badgeContent={creditsFormatted}
+                color={creditColor}
+                classes={{ badge: classes.badge }}
+              >
+                <Avatar src={this.props.member.photo} />
+              </Badge>
+            </OptionalVaccinationBadge>
           </ListItemAvatar>
         );
       }

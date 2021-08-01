@@ -22,6 +22,7 @@ export const MemberMap = {
   accept_email: 'accept_email',
   accept_sms: 'accept_sms',
   waiver: 'waiver',
+  vaccination_status: 'vaccination_status',
 };
 
 export const anonymizeEmail = (email: ?string) => {

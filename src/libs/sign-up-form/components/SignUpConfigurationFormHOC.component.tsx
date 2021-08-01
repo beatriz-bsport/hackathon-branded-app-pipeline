@@ -134,6 +134,8 @@ export function SignUpConfigurationFields(props: Props) {
                                   field.is_always_required ||
                                   !field.show_on_creation ||
                                   field.field_identifier === 'accept_email' ||
+                                  field.field_identifier ===
+                                    'vaccination_status' ||
                                   field.field_identifier === 'accept_sms'
                                 }
                                 onClick={() => {

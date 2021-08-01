@@ -225,6 +225,7 @@ exports.default = {
       email_notification: 'Accepte les notifications par email',
       sms_notification: 'Accepte les notifications par SMS',
       accept_email: 'Accepte les notifications par email',
+      vaccination_status: 'Status vaccination COVID-19',
       accept_sms: 'Accepte les notifications par SMS',
       cgu: "Conditions Générales d'Utilisation",
       general_terms_and_conditions_accepted:

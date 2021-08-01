@@ -23,6 +23,7 @@ import {
   DelayTextField,
   PhoneField,
   GenderField,
+  VaccinationStatusField,
   Actions,
   Submit,
   DateField,
@@ -702,7 +703,7 @@ export function MemberForm(props: Props) {
               </Grid>
               <Grid item xs={6} md={mdSize}>
                 <div className={classes.gridColumn}>
-                  <Grid conatiner direction="column">
+                  <Grid container direction="column">
                     {((managerFormConfig &&
                       managerFormConfig.emergency_contact.show_on_edition) ||
                       !managerFormConfig) && (
@@ -723,6 +724,39 @@ export function MemberForm(props: Props) {
                           (!asManager &&
                             managerFormConfig &&
                             !managerFormConfig.emergency_contact
+                              .editable_on_edition)
+                        }
+                      />
+                    )}
+                  </Grid>
+                  <Grid
+                    style={{ marginTop: 12, marginBottom: 12 }}
+                    item
+                    xs={12}
+                    md={mdSize}
+                  >
+                    {((managerFormConfig &&
+                      managerFormConfig.vaccination_status.show_on_edition) ||
+                      !managerFormConfig) && (
+                      <VaccinationStatusField
+                        name="vaccination_status"
+                        label={
+                          (managerFormConfig &&
+                            managerFormConfig.vaccination_status.label) ||
+                          t('translation:common.vaccination_status')
+                        }
+                        fullWidth
+                        required={
+                          !asManager &&
+                          managerFormConfig &&
+                          managerFormConfig.vaccination_status
+                            .mandatory_on_creation
+                        }
+                        disabled={
+                          disabled ||
+                          (!asManager &&
+                            managerFormConfig &&
+                            !managerFormConfig.vaccination_status
                               .editable_on_edition)
                         }
                       />
@@ -953,6 +987,7 @@ export default compose(
         country: '',
         zipcode: '',
         managerFormConfig,
+        vaccination_status: 'null',
       },
     enableReinitialize: true,
 

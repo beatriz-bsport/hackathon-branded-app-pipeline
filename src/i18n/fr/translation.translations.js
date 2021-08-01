@@ -79,6 +79,10 @@ exports.default = {
   },
   common: {
     pickALanguage: 'Langue',
+    vaccination_status: 'Status vaccination COVID-19',
+    vaccinationDone: 'Vacciné',
+    vaccinationNotDone: 'Non-vacciné',
+    vaccinationDontWantToCommunicate: 'Ne souhaite pas répondre',
     share: 'Partager',
     duplicate: 'Dupliquer',
     isRefreshing: "Votre interface sera prête d'ici un petit instant",

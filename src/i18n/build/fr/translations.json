@@ -56,6 +56,10 @@
     "members": { "form": { "title": "Nouveau membre" } },
     "common": {
       "pickALanguage": "Langue",
+      "vaccination_status": "Status vaccination COVID-19",
+      "vaccinationDone": "Vacciné",
+      "vaccinationNotDone": "Non-vacciné",
+      "vaccinationDontWantToCommunicate": "Ne souhaite pas répondre",
       "share": "Partager",
       "duplicate": "Dupliquer",
       "isRefreshing": "Votre interface sera prête d'ici un petit instant",
@@ -2474,6 +2478,7 @@
         "email_notification": "Accepte les notifications par email",
         "sms_notification": "Accepte les notifications par SMS",
         "accept_email": "Accepte les notifications par email",
+        "vaccination_status": "Status vaccination COVID-19",
         "accept_sms": "Accepte les notifications par SMS",
         "cgu": "Conditions Générales d'Utilisation",
         "general_terms_and_conditions_accepted": "Conditions Générales d'Utilisation",
@@ -5182,7 +5187,8 @@
       "confirm": "Je confirme"
     },
     "termsAndConditions": "Les conditions générales d'utilisation",
-    "memberTermsAccepted": " ont été acceptées le {{- date}}"
+    "memberTermsAccepted": " ont été acceptées le {{- date}}",
+    "vaccinationStatus": { "done": "Vacciné COVID-19", "notDone": "Non-vacciné COVID-19", "unknown": "status vaccinal COVID-19 inconnu" }
   },
   "booking": {
     "actions": { "bill": "Facturer", "unregister": "Désinscrire" },

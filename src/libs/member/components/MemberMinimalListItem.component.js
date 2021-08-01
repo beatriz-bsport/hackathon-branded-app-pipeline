@@ -9,6 +9,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Avatar from '@material-ui/core/Avatar';
 
 import CreditMemberBadge from './CreditMemberBadge.component';
+import VaccinationBadge from './VaccinationBadge.component';
 
 type Props = {
   member: Member,
@@ -35,15 +36,20 @@ export const MemberMinimalListItem = (props: Props) => {
         ? `${props.member.phone || ''} ${props.member.email}` || ''
         : '';
   }
+  const OptionalVaccinationBadge = props.member.vaccination_status
+    ? VaccinationBadge
+    : React.Fragment;
   return (
     <ListItem
       button={!!props.onClick}
       onClick={props.onClick ? () => props.onClick(props.member.id) : null}
     >
       <ListItemAvatar>
-        <CreditMemberBadge credit={props.member.credit_account_balance}>
-          <Avatar src={props.member.photo} />
-        </CreditMemberBadge>
+        <OptionalVaccinationBadge>
+          <CreditMemberBadge credit={props.member.credit_account_balance}>
+            <Avatar src={props.member.photo} />
+          </CreditMemberBadge>
+        </OptionalVaccinationBadge>
       </ListItemAvatar>
       <ListItemText
         primary={props.member.name + (props.firstBooking ? ' ★' : '')}

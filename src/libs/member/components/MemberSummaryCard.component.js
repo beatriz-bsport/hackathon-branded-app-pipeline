@@ -42,6 +42,7 @@ import PhoneItem from '../../communication/components/PhoneItem.component';
 import TypographyMultiline from '../../../components/TypographyMultiline.component';
 import CommunicationDialog from '../../communication/components/CommunicationDialog.component';
 import EmergencyContactItemComponent from '../../communication/components/EmergencyContactItem.component';
+import VaccinationStatus from './VaccinationStatus.component';
 
 const SELECT_EMAIL = 1;
 const SEND_SMS = 2;
@@ -181,6 +182,7 @@ export class MemberSummaryCard extends Component<Props> {
             emergency_contact={member.emergency_contact}
           />
         )}
+        <VaccinationStatus vaccinationStatus={member.vaccination_status} />
         {this.state.displayMailDialog && (
           <CommunicationDialog
             getEmails={this.props.getEmails}

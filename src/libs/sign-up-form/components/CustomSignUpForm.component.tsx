@@ -18,6 +18,7 @@ interface SignUpDataRequest {
   last_name: string;
   email: string;
   gender?: string;
+  vaccination_status?: string;
   phone?: string;
   birthday?: string;
   address_line_1?: string;
@@ -53,6 +54,7 @@ interface SignUpFormData {
   last_name: SignUpFormDataItemString;
   email: SignUpFormDataItemString;
   gender?: SignUpFormDataItemString;
+  vaccination_status?: SignUpFormDataItemString;
   phone?: SignUpFormDataItemString;
   birthday?: SignUpFormDataItemString;
   address_line_1?: SignUpFormDataItemString;
@@ -95,6 +97,7 @@ const CustomSignUpFormMap = {
   last_name: 'last_name',
   email: 'email',
   gender: 'gender',
+  vaccination_status: 'vaccination_status',
   phone: 'phone',
   birthday: 'birthday',
   address_line_1: 'address_line_1',
@@ -118,7 +121,8 @@ class CustomSignUpFormFieldsRoot extends React.Component<Props, State> {
       first_name: { value: '', error: false },
       last_name: { value: '', error: false },
       email: { value: '', error: false },
-      gender: { value: '', error: false },
+      gender: { value: 'X', error: false },
+      vaccination_status: { value: 'null', error: false },
       phone: { value: '', error: false },
       birthday: {
         value: '1980-01-01',
@@ -150,6 +154,7 @@ class CustomSignUpFormFieldsRoot extends React.Component<Props, State> {
       last_name,
       email,
       gender,
+      vaccination_status,
       phone,
       birthday,
       address_line_1,
@@ -172,6 +177,7 @@ class CustomSignUpFormFieldsRoot extends React.Component<Props, State> {
         last_name: last_name.value,
         email: email.value,
         gender: gender.value,
+        vaccination_status: vaccination_status.value,
         phone: phone.value,
         birthday: birthday.value,
         address_line_1: address_line_1.value,

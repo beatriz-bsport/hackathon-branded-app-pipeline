@@ -55,6 +55,7 @@ export type Member = {
   barcode: string;
   date_joined: string;
   membership_ID: string;
+  vaccination_status?: boolean;
   accept_email: boolean;
   accept_sms: boolean;
   email: string;

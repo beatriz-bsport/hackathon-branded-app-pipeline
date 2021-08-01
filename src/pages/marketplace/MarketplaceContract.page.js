@@ -24,8 +24,6 @@ import { fetchMarketplaceContractList } from '../../libs/subscription/actions';
 import SubscriptionContractListItem from '../../libs/subscription/components/SubscriptionContractListItem.component';
 import SubscriptionContractCard from '../../libs/subscription/components/SubscriptionContractCard.component';
 
-import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
-import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 import Analytics from '../../components/analytics/Analytics.component';
 
 import {
@@ -42,10 +40,9 @@ type Props = {
   contractList: Array<Contract>,
   selected?: number,
   setSelected: (id?: number) => void,
-  authenticated: boolean,
-  requestSignUp: () => void,
   companyId: number,
   push: (path: string) => void,
+  onAddToCart: ?(id: number) => void,
 };
 
 export class MarketplaceContract extends React.Component<Props> {

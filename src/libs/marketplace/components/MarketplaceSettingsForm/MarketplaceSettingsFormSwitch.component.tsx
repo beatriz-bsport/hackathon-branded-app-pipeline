@@ -19,7 +19,6 @@ import {
 import { Video } from '../../../video/types';
 import MarketplaceVodSettingsForm from './MarketplaceVodFormSettings.component';
 import MarketplacePassSettingsForm from './MarketplacePassSettingsForm';
-import MarketplaceSubscriptionSettingsForm from './MarketplaceSubscriptionSettingsForm';
 
 type Props = {
   componentType: MarketplaceComponentsEnum | WidgetComponentsEnum;

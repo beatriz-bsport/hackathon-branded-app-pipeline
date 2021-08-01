@@ -174,6 +174,7 @@ class SimilarOffers extends React.PureComponent<Props> {
 
             const {
               isBookable,
+              isRegistered,
               isWaitingList,
               noInteraction,
             } = getOfferFeature(
@@ -200,6 +201,7 @@ class SimilarOffers extends React.PureComponent<Props> {
                     isWaitingList={isWaitingList}
                     onAdd={this.props.onSelectOffer}
                     height={200}
+                    isRegistered={isRegistered}
                   />
                 </div>
               </Collapse>

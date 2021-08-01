@@ -146,10 +146,7 @@ class OfferListSummary extends React.PureComponent<Props> {
                     isWaitingList={offerFeature.isWaitingList}
                     offerStatus={this.props.offerStatusById[offerData.offer.id]}
                     onRemove={this.props.onClickRemoveOffer}
-                    isRegistered={
-                      this.props.offerStatusById[offerData.offer.id]
-                        .is_registered
-                    }
+                    isRegistered={offerFeature.isRegistered}
                   />
                   <Divider />
                 </React.Fragment>

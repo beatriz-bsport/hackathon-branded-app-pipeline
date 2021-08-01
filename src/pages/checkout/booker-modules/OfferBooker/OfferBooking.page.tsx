@@ -296,7 +296,15 @@ class OfferBooking extends React.PureComponent<Props, State> {
             this.props.theme.accept_double_booking,
           ).isWaitingList,
       )
-      .map((offerData) => ({ offer_id: offerData.offer.id }));
+      .map((offerData) => ({
+        offer_id: offerData.offer.id,
+        extra_data: {
+          ...(offerData.extra_data || {}),
+          booking_for_member: this.state.selectedMember
+            ? this.state.selectedMember.id
+            : null,
+        },
+      }));
 
     this.props.offerUserRegistration(data, {
       onSuccess: (responseData: any) => {
@@ -338,50 +346,56 @@ class OfferBooking extends React.PureComponent<Props, State> {
         },
         {
           onSuccess: (offers: Offer[]) => {
-            this.props.fetchMetaActivityBulk(
-              offers.map((o) => o.meta_activity),
-            );
-            this.props.fetchEstablishmentBulk(
-              offers.map((o) => o.establishment),
-            );
+            if (offers && offers.length) {
+              this.props.fetchMetaActivityBulk(
+                offers.map((o) => o.meta_activity),
+              );
+              this.props.fetchEstablishmentBulk(
+                offers.map((o) => o.establishment),
+              );
 
-            const coachesId = [
-              ...offers.map((o) => o.coach),
-              ...offers
-                .filter((o) => typeof o.coach_override === 'number')
-                .map((o) => o.coach_override),
-            ];
+              const coachesId = [
+                ...offers.map((o) => o.coach),
+                ...offers
+                  .filter((o) => typeof o.coach_override === 'number')
+                  .map((o) => o.coach_override),
+              ];
 
-            this.props.fetchCoachBulk(coachesId);
-            this.fetchOfferStatusList(offers.map((o) => o.id));
+              this.props.fetchCoachBulk(coachesId);
+              this.fetchOfferStatusList(offers.map((o) => o.id));
 
-            const roomBlueprintIds = new Set();
-            offers.forEach((o) => {
-              if (typeof o.room_blueprint === 'number') {
-                roomBlueprintIds.add(o.room_blueprint);
-              }
-            });
+              const roomBlueprintIds = new Set();
+              offers.forEach((o) => {
+                if (typeof o.room_blueprint === 'number') {
+                  roomBlueprintIds.add(o.room_blueprint);
+                }
+              });
 
-            roomBlueprintIds.forEach((blueprint: number) => {
-              this.props.fetchRoomBlueprintDetail(blueprint);
-              this.props.fetchAssetForBlueprint({ blueprint });
-            });
+              roomBlueprintIds.forEach((blueprint: number) => {
+                this.props.fetchRoomBlueprintDetail(blueprint);
+                this.props.fetchAssetForBlueprint({ blueprint });
+              });
+            }
           },
         },
       );
   };
 
   fetchOfferStatusList = (offerIds: number[]) => {
-    this.props.fetchOfferStatusList(
-      offerIds,
-      {
-        page_size: SIMILAR_OFFER_PAGE_SIZE,
-        ...(this.state.selectedMember
-          ? { booking_for_member: this.state.selectedMember.id }
-          : {}),
-      },
-      { onSuccess: this.updateOfferConstraints },
-    );
+    if (offerIds && offerIds.length) {
+      this.props.fetchOfferStatusList(
+        offerIds,
+        {
+          page_size: SIMILAR_OFFER_PAGE_SIZE,
+          ...(this.state.selectedMember
+            ? { booking_for_member: this.state.selectedMember.id }
+            : {}),
+        },
+        { onSuccess: this.updateOfferConstraints },
+      );
+    } else {
+      this.updateOfferConstraints();
+    }
   };
 
   selectMember = (selectedMemberId?: number) => {
@@ -394,7 +408,12 @@ class OfferBooking extends React.PureComponent<Props, State> {
             )
           : null,
       },
-      () => this.fetchOfferStatusList([this.props.offer.id]),
+      () => {
+        this.fetchOfferStatusList([
+          this.props.offer.id,
+          ...(this.props.similarOffers || []).map((o) => o.id),
+        ]);
+      },
     );
   };
 

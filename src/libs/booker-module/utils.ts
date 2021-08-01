@@ -162,6 +162,7 @@ export const getOfferFeature = (
     offerStatus.waiting_list_status === OFFER_WAITING_LIST_STATUS_OPEN &&
     !isRegistered &&
     (acceptDoubleBooking || !isRegisteredWaitingList);
+
   return {
     isBookable,
     isWaitingList,

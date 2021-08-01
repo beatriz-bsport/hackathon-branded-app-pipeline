@@ -36,7 +36,6 @@ export class PaymentMethodFilter extends Component<Props> {
 
   render() {
     const { filter_data, t, classes, onChange } = this.props;
-    console.log(filter_data);
     let valueAsString = '0';
     if (filter_data.owns_payment_method === true) {
       valueAsString = '1';

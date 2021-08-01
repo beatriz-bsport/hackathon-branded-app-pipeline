@@ -9,7 +9,6 @@ type Props = {
 
 export const VaccinationBadge = (props: Props) => {
   const classes = useStyles();
-  console.log('yo');
   return (
     <div className={classes.container}>
       {props.children}
@@ -19,7 +18,7 @@ export const VaccinationBadge = (props: Props) => {
     </div>
   );
 };
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   container: {
     position: 'relative',
   },

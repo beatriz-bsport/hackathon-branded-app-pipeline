@@ -779,45 +779,47 @@ export function MemberForm(props: Props) {
                       </Grid>
 
                       <Grid item xs={12} md={12}>
-                        {((managerFormConfig &&
-                          managerFormConfig.waiver.show_on_edition) ||
-                          !managerFormConfig) && (
-                          <CheckboxField
-                            id="checkbox_waiver"
-                            name="waiver"
-                            disabled={
-                              disabled ||
-                              (!asManager &&
-                                managerFormConfig &&
-                                !managerFormConfig.waiver.editable_on_edition)
-                            }
-                            required={
-                              !asManager &&
-                              managerFormConfig.waiver.mandatory_on_creation
-                            }
-                            label={
-                              <Typography component="div">
-                                {t('translation:form.member.waiver.iAccept')}
-
-                                <WaiverPopUp
-                                  onClick={() =>
-                                    !asManager &&
-                                    managerFormConfig &&
-                                    !managerFormConfig.waiver
-                                      .editable_on_edition &&
-                                    setFieldValue('waiver', true)
-                                  }
-                                >
-                                  <Typography color="secondary">
-                                    {`${' '}${t(
-                                      'translation:form.member.waiver.conditions',
-                                    )}`}
-                                  </Typography>
-                                </WaiverPopUp>
-                              </Typography>
-                            }
-                          />
-                        )}
+                        {props.waiver &&
+                          ((managerFormConfig &&
+                            managerFormConfig.waiver.show_on_edition) ||
+                            !managerFormConfig) && (
+                            <CheckboxField
+                              id="checkbox_waiver"
+                              name="waiver"
+                              disabled={
+                                disabled ||
+                                (props.initial && props.initial.waiver) ||
+                                (!asManager &&
+                                  managerFormConfig &&
+                                  !managerFormConfig.waiver.editable_on_edition)
+                              }
+                              required={
+                                !asManager &&
+                                managerFormConfig.waiver.mandatory_on_creation
+                              }
+                              label={
+                                <Typography component="div">
+                                  {t('translation:form.member.waiver.iAccept')}
+                                  <WaiverPopUp
+                                    waiver={props.waiver}
+                                    onClick={() =>
+                                      !asManager &&
+                                      managerFormConfig &&
+                                      !managerFormConfig.waiver
+                                        .editable_on_edition &&
+                                      setFieldValue('waiver', true)
+                                    }
+                                  >
+                                    <Typography color="secondary">
+                                      {`${' '}${t(
+                                        'translation:form.member.waiver.conditions',
+                                      )}`}
+                                    </Typography>
+                                  </WaiverPopUp>
+                                </Typography>
+                              }
+                            />
+                          )}
                       </Grid>
                     </FormControl>
                   </Grid>

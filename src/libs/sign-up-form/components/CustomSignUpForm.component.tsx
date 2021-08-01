@@ -5,7 +5,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import { Theme } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import moment from 'moment-timezone';
 import FormField, {
   FormFieldEnumOrdering,
   FormFieldWrapper,
@@ -122,7 +121,7 @@ class CustomSignUpFormFieldsRoot extends React.Component<Props, State> {
       gender: { value: '', error: false },
       phone: { value: '', error: false },
       birthday: {
-        value: moment().add(-30, 'years').format('YYYY-MM-DD'),
+        value: '1980-01-01',
         error: false,
       },
       address_line_1: { value: '', error: false },

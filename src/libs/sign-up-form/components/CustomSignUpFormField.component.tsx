@@ -486,7 +486,7 @@ export class FormField extends Component<Props, State> {
       case 'waiver':
         return (
           <>
-            {this.props.waiver && (
+            {!!this.props.waiver && (
               <AcceptTermsAndConditions
                 accepted={value}
                 required={required}

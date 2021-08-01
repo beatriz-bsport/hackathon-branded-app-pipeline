@@ -2527,8 +2527,8 @@
                         "notDiscardable": "Are you sure to cancel this appointment? You won't be refunded because it is a late cancel.",
                         "discardable": "Are you sur to cancel this appointment? Client will be refunded."
                     },
-                    "confirm": "Confirm",
-                    "cancel": "Cancel",
+                    "confirm": "Yes",
+                    "cancel": "NO – Go Back",
                     "title": "Cancel appointment"
                 },
                 "sendCancellationMail": "Notify {{name}} of the appointment's cancellation by email",

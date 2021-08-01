@@ -987,7 +987,6 @@ export default compose(
           cleanedValues.birthday &&
           Moment(cleanedValues.birthday).format('DD/MM/YYYY'),
       };
-      console.log('data is', data);
       onSubmit(data, {
         onSuccess: () => setSubmitting(false),
         onError: () => {

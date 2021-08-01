@@ -70,7 +70,6 @@ export class MemberFormPage extends Component<Props> {
       }
       delete initialData.address;
     }
-    console.log('initial is ', initialData);
     return (
       <Paper>
         <MemberForm

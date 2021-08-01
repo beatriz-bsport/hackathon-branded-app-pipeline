@@ -93,7 +93,6 @@ class BsportWidget extends Component<Props> {
       theme,
       dialogMode,
     } = this.props;
-    console.log('w', widgetType);
 
     switch (widgetType) {
       case 'workshop':

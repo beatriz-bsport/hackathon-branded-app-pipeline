@@ -42,6 +42,7 @@ import {
   PRIVATE_BOOKINGS_FILTER_IDENTIFIER,
   PRIVATE_PASS_FILTER_IDENTIFIER,
   WAIVER_FILTER_IDENTIFIER,
+  PAYMENT_METHOD_FILTER_IDENTIFIER,
 } from '@bsport/common/lib/master-data/smart-list';
 import Config from '../../../config';
 
@@ -78,6 +79,7 @@ const filtersList = {
   [BUY]: [
     EXPENSES_COMPLETE_FILTER_IDENTIFIER,
     BASKET_ABANDONMENT_FILTER_IDENTIFIER,
+    PAYMENT_METHOD_FILTER_IDENTIFIER,
   ],
 };
 

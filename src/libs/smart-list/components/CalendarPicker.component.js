@@ -26,25 +26,19 @@ import {
 } from 'material-ui-pickers';
 import NumericInput from '../../../components/input/NumericInput.component';
 
-const DATE_AFTER = 0;
-const DATE_BEFORE = 1;
-const DATE_BETWEEN = 2;
-const DATE_EXACT = 3;
-const DURATION_AFTER = 4;
-const DURATION_EXACT = 6;
-const DURATION_BETWEEN = 7;
-const DURATION_BEFORE_PAST = 9;
-const DURATION_EXACT_PAST = 10;
-const DURATION_BETWEEN_PAST = 11;
-
-const DURATION_LIST = [
+import {
+  DATE_AFTER,
+  DATE_BEFORE,
+  DATE_BETWEEN,
+  DATE_EXACT,
   DURATION_AFTER,
   DURATION_EXACT,
   DURATION_BETWEEN,
   DURATION_BEFORE_PAST,
   DURATION_EXACT_PAST,
   DURATION_BETWEEN_PAST,
-];
+  DURATION_LIST,
+} from './constants';
 
 const DATE_LIST = [DATE_BETWEEN, DATE_BEFORE, DATE_AFTER, DATE_EXACT];
 
@@ -54,6 +48,8 @@ type Props = {
   classes: Object,
   onChange: (any) => void,
   theme: Object,
+  overrideDateList?: Array<number>,
+  hideDurationTab?: boolean,
 };
 
 const renderDurationTypeEnter = (value, duration_type, value_second) => {
@@ -213,7 +209,7 @@ export class CalendarPicker extends Component<Props, state> {
               this.setState({ date_filter_type: ev.target.value });
             }}
           >
-            {DATE_LIST.map((item) => (
+            {(this.props.overrideDateList || DATE_LIST).map((item) => (
               <MenuItem key={item} value={item}>
                 {t(`filters.calendarPicker.select.${item}`)}
               </MenuItem>
@@ -444,19 +440,21 @@ export class CalendarPicker extends Component<Props, state> {
         </ListItem>
         <Dialog open={this.state.open} onClose={this.closePopoverAndValidate}>
           <div style={{ width: '100%' }}>
-            <div className={classes.tabs}>
-              <Tabs
-                value={this.state.mode}
-                indicatorColor="primary"
-                textColor="primary"
-                onChange={(ev, value) => this.switchTabs(value)}
-                style={{ width: '100%', overflowX: 'hidden' }}
-                variant="fullWidth"
-              >
-                <Tab label={t('filters.calendarPicker.dateTitle')} />
-                <Tab label={t('filters.calendarPicker.durationTitle')} />
-              </Tabs>
-            </div>
+            {!this.props.hideDurationTab && (
+              <div className={classes.tabs}>
+                <Tabs
+                  value={this.state.mode}
+                  indicatorColor="primary"
+                  textColor="primary"
+                  onChange={(ev, value) => this.switchTabs(value)}
+                  style={{ width: '100%', overflowX: 'hidden' }}
+                  variant="fullWidth"
+                >
+                  <Tab label={t('filters.calendarPicker.dateTitle')} />
+                  <Tab label={t('filters.calendarPicker.durationTitle')} />
+                </Tabs>
+              </div>
+            )}
             <SwipeableViews
               ignoreNativeScroll
               animateHeight

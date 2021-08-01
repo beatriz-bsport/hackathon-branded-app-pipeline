@@ -5804,6 +5804,15 @@
         "second": "jours, et n'a aucun réservation prévue dans le futur.",
         "explanation": "A réservé sa dernière séance il y a..."
       },
+      "600": {
+        "name": "Moyen de paiement",
+        "explanation": "Filtrer par moyen de paiement sauvegardé et date d'expiration",
+        "title": "Méthode de paiement sauvegardée",
+        "labelFirst": "Filtrer uniquement les membres",
+        "does_not_own": "Ne possédant pas de méthode de paiement sauvegardée",
+        "owns": "Possédant au moins une méthode de paiement sauvegardée",
+        "expiryDateLabel": "Date d'expiration"
+      },
       "isEmpty": "Aucun filtre n'est configuré, cette smartliste représente donc l'ensemble de la base membre",
       "attendanceTrue": "présent",
       "attendanceFalse": "absent",

@@ -22,6 +22,7 @@ const {
   PRIVATE_PASS_FILTER_IDENTIFIER,
   PRIVATE_BOOKINGS_FILTER_IDENTIFIER,
   WAIVER_FILTER_IDENTIFIER,
+  PAYMENT_METHOD_FILTER_IDENTIFIER,
 } = SMARTLIST;
 
 const MEMBER_INFO = 1;
@@ -450,6 +451,16 @@ exports.default = {
       explain: 'ayant accepté les décharges de responsabilité',
       name: 'Décharge de responsabilité',
       explanation: 'Ayant accepté les décharges de responsabilité',
+    },
+    [PAYMENT_METHOD_FILTER_IDENTIFIER]: {
+      name: 'Moyen de paiement',
+      explanation:
+        "Filtrer par moyen de paiement sauvegardé et date d'expiration",
+      title: 'Méthode de paiement sauvegardée',
+      labelFirst: 'Filtrer uniquement les membres',
+      does_not_own: 'Ne possédant pas de méthode de paiement sauvegardée',
+      owns: 'Possédant au moins une méthode de paiement sauvegardée',
+      expiryDateLabel: "Date d'expiration",
     },
     [HAS_VALID_CONSUMER_PACK_FILTER_IDENTIFIER]: {
       name: 'Validité de la carte de cours',

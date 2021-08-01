@@ -31,6 +31,7 @@ import {
   PRIVATE_BOOKINGS_FILTER_IDENTIFIER,
   PRIVATE_PASS_FILTER_IDENTIFIER,
   WAIVER_FILTER_IDENTIFIER,
+  PAYMENT_METHOD_FILTER_IDENTIFIER,
 } from '@bsport/common/lib/master-data/smart-list';
 
 import CreditAccountFilter from './filters/CreditAccountFilter.component';
@@ -48,6 +49,7 @@ import ExpensesCompleteFilter from './filters/ExpensesCompleteFilter.component';
 import PrivatePassFilter from './filters/PrivatePassFilter.component';
 import PrivateBookingsFilter from './filters/PrivateBookingsFilter.component';
 import WaiverFilter from './filters/WaiverFilter.component';
+import PaymentMethodFilter from './filters/PaymentMethodFilter.component';
 
 import type { PaymentPack } from '../../payment-packs/types';
 import type { Establishment } from '../../establishment/types';
@@ -310,6 +312,17 @@ export class FilterCard extends Component<Props> {
             filter_data={{
               ...this.state.filter_data,
               filter_identifier: WAIVER_FILTER_IDENTIFIER,
+            }}
+            onChange={this.handleChange}
+            new={this.props.new}
+          />
+        );
+      case PAYMENT_METHOD_FILTER_IDENTIFIER:
+        return (
+          <PaymentMethodFilter
+            filter_data={{
+              ...this.state.filter_data,
+              filter_identifier: PAYMENT_METHOD_FILTER_IDENTIFIER,
             }}
             onChange={this.handleChange}
             new={this.props.new}

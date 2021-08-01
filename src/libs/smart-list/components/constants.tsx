@@ -1,0 +1,19 @@
+export const DATE_AFTER = 0;
+export const DATE_BEFORE = 1;
+export const DATE_BETWEEN = 2;
+export const DATE_EXACT = 3;
+export const DURATION_AFTER = 4;
+export const DURATION_EXACT = 6;
+export const DURATION_BETWEEN = 7;
+export const DURATION_BEFORE_PAST = 9;
+export const DURATION_EXACT_PAST = 10;
+export const DURATION_BETWEEN_PAST = 11;
+
+export const DURATION_LIST = [
+  DURATION_AFTER,
+  DURATION_EXACT,
+  DURATION_BETWEEN,
+  DURATION_BEFORE_PAST,
+  DURATION_EXACT_PAST,
+  DURATION_BETWEEN_PAST,
+];

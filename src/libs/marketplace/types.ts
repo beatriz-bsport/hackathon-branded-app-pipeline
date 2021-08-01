@@ -18,6 +18,7 @@ export enum WidgetComponentsEnum {
   'privateService' = 'privateService',
   'vod' = 'vod',
   'playlist' = 'playlist',
+  'subscription' = 'subscription',
   'newsletter' = 'newsletter',
   'pass' = 'pass',
   'shop' = 'shop',

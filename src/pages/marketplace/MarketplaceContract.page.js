@@ -2,13 +2,12 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { push, replace as replaceAction } from 'connected-react-router';
-import { compose, withProps, withHandlers } from 'recompose';
+import { compose, withProps } from 'recompose';
 import { connect } from 'react-redux';
 import List from '@material-ui/core/List';
 import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Collapse from '@material-ui/core/Collapse';
-import withMobileDialog from '@material-ui/core/withMobileDialog';
 import { withRouter } from 'react-router-dom';
 
 import { withTranslation } from 'react-i18next';
@@ -26,10 +25,6 @@ import SubscriptionContractListItem from '../../libs/subscription/components/Sub
 import SubscriptionContractCard from '../../libs/subscription/components/SubscriptionContractCard.component';
 
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
-import {
-  fetchPaymentMethodList as fetchPaymentMethodListAction,
-  detachPaymentMethod,
-} from '../../libs/payment/actions';
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 import Analytics from '../../components/analytics/Analytics.component';
 
@@ -89,14 +84,15 @@ export class MarketplaceContract extends React.Component<Props> {
                     contract={c}
                     hideConditions
                     onPayRequest={() => {
-                      if (!this.props.authenticated) {
-                        this.props.requestSignUp();
-                      } else {
-                        Analytics.contractShowPayment(c);
-                        this.props.push(
-                          `/checkout/${this.props.companyId}/subscription/${c.id}/`,
-                        );
+                      if (this.props.onAddToCart) {
+                        this.props.onAddToCart(c.id);
+                        return;
                       }
+
+                      Analytics.contractShowPayment(c);
+                      this.props.push(
+                        `/checkout/${this.props.companyId}/subscription/${c.id}/`,
+                      );
                     }}
                   />
                 </Collapse>
@@ -135,21 +131,12 @@ const mapParamsToProps = {
   companyName: 'companyName',
 };
 
-export default compose(
-  withTranslation(['subscription', 'payment', 'invoice', 'translation']),
-  withRouter,
-  withStyles(styles),
-  routerParamsToProps(mapParamsToProps),
+const DataHOC = compose(
   connect(
     (state) => ({
       contractList: withPaymentPack(getContractList)(state),
       contractLoading: state.subscription.contract.byMarketplace.loading,
       companyTheme: themeSelectors.getTheme(state),
-      savedPaymentMethodList: getSavedPaymentMethodList(state),
-      detachPaymentMethodLoading:
-        state.paymentBackend.detachPaymentMethod.loading,
-      companyId: state.marketplace.settings.company,
-      auth: state.auth,
     }),
     {
       fetchMarketplaceContractList,
@@ -157,19 +144,11 @@ export default compose(
       fetchContracts: fetchMarketplaceContractList,
       fetchPaymentPackBulk: fetchPaymentPackBulkAction,
       fetchPrivatePassBulk: fetchPrivatePassBulkAction,
-      fetchPaymentMethodList: fetchPaymentMethodListAction,
-      detachPaymentMethodAction: detachPaymentMethod,
       snackbarErrorMsg: snackbarWarning,
       snackbarSuccessMsg: snackbarSuccess,
       push,
     },
   ),
-  withHandlers({
-    requestSetupIntentSecret: ({ companyId }) => () =>
-      requestSetupIntentSecretAPI(null, companyId),
-    fetchPaymentMethodList: ({ companyId, fetchPaymentMethodList }) => () =>
-      fetchPaymentMethodList({ company: companyId }),
-  }),
   withProps(
     ({ fetchContracts, fetchPaymentPackBulk, fetchPrivatePassBulk }) => ({
       fetchContracts: (params) =>
@@ -185,7 +164,17 @@ export default compose(
         }),
     }),
   ),
-  withMobileDialog(),
+);
+export const MarketplaceContractBase = withStyles(styles)(
+  DataHOC(MarketplaceContract),
+);
+
+export default compose(
+  withTranslation(['subscription', 'payment', 'invoice', 'translation']),
+  withStyles(styles),
+  withRouter,
+  routerParamsToProps(mapParamsToProps),
+  DataHOC,
   withProps(({ location, replace }) => ({
     selected: (() => {
       try {
@@ -211,28 +200,4 @@ export default compose(
       replace(pathname);
     },
   })),
-  withHandlers({
-    detachPaymentMethod: ({
-      detachPaymentMethodAction,
-      fetchpaymentMethod,
-      snackbarErrorMsg,
-      snackbarSuccessMsg,
-      companyId,
-      t,
-    }) => (pm_id, options) => {
-      detachPaymentMethodAction(
-        { company: companyId, payment_method_id: pm_id },
-        {
-          onSuccess: () => {
-            fetchpaymentMethod({ company: companyId });
-            snackbarSuccessMsg(t('invoice:paymentMethod.detach.pm_deleted'));
-            if (options && options.onSuccess) options.onSuccess();
-          },
-          onError: (data) => {
-            snackbarErrorMsg(t(`invoice:paymentMethod.detach.${data}`));
-          },
-        },
-      );
-    },
-  }),
-)(MarketplaceContract);
+)(MarketplaceContractBase);

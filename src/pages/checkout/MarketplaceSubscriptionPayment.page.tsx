@@ -48,6 +48,7 @@ import {
   snackbarWarning,
   snackbarSuccess,
 } from '../../actions/snackbar.actions';
+import WidgetUtils from '../../libs/widget/WidgetUtils';
 import type { ContractWithPaymentPack } from '../../libs/subscription/types';
 import type { Theme as CompanyTheme } from '../../libs/theme/types';
 import type { PaymentMethod } from '../../libs/payment/types';
@@ -178,21 +179,28 @@ export class MarketplaceSubscriptionPayment extends React.Component<
     return (
       <ConsumerAppBar>
         <div className={classes.mainContainer}>
-          <div className={classes.upperContainer}>
-            <Grid container spacing={2} direction="row" justify="space-evenly">
-              <Grid item xs={12}>
-                <MarketplaceSubscriptionContractList
-                  contractList={this.props.contractList}
-                  selected={parseInt(this.props.contractId)}
-                  onClick={(c: ContractWithPaymentPack) => {
-                    this.props.setAcceptContract(false);
-                    this.props.setSelected(c.id);
-                    Analytics.contractShow(c);
-                  }}
-                />
+          {!WidgetUtils.isWidget() && (
+            <div className={classes.upperContainer}>
+              <Grid
+                container
+                spacing={2}
+                direction="row"
+                justify="space-evenly"
+              >
+                <Grid item xs={12}>
+                  <MarketplaceSubscriptionContractList
+                    contractList={this.props.contractList}
+                    selected={parseInt(this.props.contractId)}
+                    onClick={(c: ContractWithPaymentPack) => {
+                      this.props.setAcceptContract(false);
+                      this.props.setSelected(c.id);
+                      Analytics.contractShow(c);
+                    }}
+                  />
+                </Grid>
               </Grid>
-            </Grid>
-          </div>
+            </div>
+          )}
 
           <div className={classes.centeredContainer}>
             <Grid container spacing={2} direction="row" justify="space-evenly">
@@ -303,8 +311,14 @@ const mapDispatchToProps = {
   snackbarErrorMsg: snackbarWarning,
   snackbarSuccessMsg: snackbarSuccess,
   push: pushRouter,
-  goToUserSpace: (companyId: number) =>
-    pushRouter(`/c/${companyId}/subscription/`),
+  goToUserSpace: (companyId: number, companyName: string) => {
+    if (!WidgetUtils.isWidget()) {
+      return replaceAction(`/c/${companyId}/subscription/`);
+    }
+    return replaceAction(
+      `/widget/${companyName}/${companyId}/subscription?context=widget`,
+    );
+  },
   fetchPaymentComboList,
   fetchPaymentPacks: fetchMarketplacePacks,
   fetchPrivatePassAsConsumerList,

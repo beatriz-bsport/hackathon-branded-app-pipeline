@@ -137,6 +137,9 @@
             "nl": "Nederlands",
             "it": "Italiaans",
             "de": "Duits"
+        },
+        "subscription": {
+            "isEmpty": "Momenteel bezig je nog geen abonnement."
         }
     },
     "notificationRule": {
@@ -1248,7 +1251,11 @@
             "share": "Delen",
             "pickALanguage": "Taal",
             "emergencyContact": "Contactpersoon voor noodgevallen",
-            "disconnect": "Afmelden"
+            "disconnect": "Afmelden",
+            "vaccinationDontWantToCommunicate": "Liever niet antwoorden",
+            "vaccinationNotDone": "Niet gevaccineerd",
+            "vaccinationDone": "Gevaccineerd",
+            "vaccination_status": "COVID-19 vaccinatiestatus"
         },
         "members": {
             "form": {
@@ -2948,6 +2955,15 @@
                 "explanation": "Heeft de Waiver / Vrijstellen aanvaard",
                 "name": "Waiver / Vrijstelling",
                 "explain": "Heeft de Waiver / Vrijstellen aanvaard"
+            },
+            "600": {
+                "expiryDateLabel": "Vervaldatum:",
+                "owns": "Moet tenminste één opgeslagen betaalmethode hebben",
+                "does_not_own": "Geen opgeslagen betaalmethode",
+                "labelFirst": "Alleen op leden filteren",
+                "title": "Opgeslagen betaalmethode",
+                "explanation": "Filter op opgeslagen betaalmethode en vervaldatum",
+                "name": "Betaalmethode"
             }
         },
         "mails": "E-mails",
@@ -3337,7 +3353,12 @@
         "applyBalanceToUnpaidInvoices": "Gebruik het saldo om onbetaalde facturen te salderen",
         "adjustBalance": "Saldo aanpassen",
         "unpaidInvoiceTitle": "Onbetaalde factuur",
-        "unpaidInvoiceTitle_plural": "Onbetaalde facturen"
+        "unpaidInvoiceTitle_plural": "Onbetaalde facturen",
+        "vaccinationStatus": {
+            "unknown": "Onbekende vaccinatiestatus voor COVID-19",
+            "notDone": "Niet gevaccineerd voor COVID-19",
+            "done": "Gevaccineerd voor COVID-19"
+        }
     },
     "booking": {
         "bookingModule": {
@@ -6397,7 +6418,8 @@
             "3": "De sessie is vol",
             "2": "Het is niet meer mogelijk om je voor deze sessie in te schrijven",
             "1": "Reserveringen voor deze sessie zijn momenteel nog gesloten",
-            "undefined": "Het is niet toegestaan om het maximaal aantal toekomstige reserveringen te overschrijden"
+            "undefined": "Het is niet toegestaan om het maximaal aantal toekomstige reserveringen te overschrijden",
+            "9": "Het is niet toegestaan om het maximaal aantal toekomstige reserveringen te overschrijden"
         },
         "signup": {
             "failedCreation": "Het is momenteel niet mogelijk om je account aan te maken, probeer het later opnieuw",
@@ -7208,7 +7230,8 @@
                 "photo": "Profielfoto",
                 "address_line_2": "Aanvulling adres",
                 "address_line_1": "Adres",
-                "birthday": "Geboortedatum"
+                "birthday": "Geboortedatum",
+                "vaccination_status": "COVID-19 vaccinatiestatus"
             },
             "error": "Fout bij het opslaan",
             "success": "Configuratie opgeslagen",

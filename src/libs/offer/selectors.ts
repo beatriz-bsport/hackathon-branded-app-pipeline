@@ -190,6 +190,44 @@ export const getManagerOffersFiltered = createSelector(
     return offersFiltered;
   },
 );
+export const getAvailableOffersFiltered = createSelector(
+  [getOffersByDay, getManagerFilters],
+  (offers, filters) => {
+    let offersFiltered = offers;
+    if ((filters.establishments || []).length) {
+      offersFiltered = offersFiltered.filter(
+        (o) =>
+          (filters.establishments.includes(o.establishment) &&
+            !o.establishment_override) ||
+          (o.establishment_override &&
+            filters.establishments.includes(o.establishment_override)),
+      );
+    }
+    if ((filters.coaches || []).length) {
+      offersFiltered = offersFiltered.filter(
+        (o) =>
+          (filters.coaches.includes(o.coach) && !o.coach_override) ||
+          (o.coach_override && filters.coaches.includes(o.coach_override)),
+      );
+    }
+    if ((filters.levels || []).length) {
+      offersFiltered = offersFiltered.filter((o) =>
+        filters.levels.includes(o.level),
+      );
+    }
+    if ((filters.metaActivities || []).length) {
+      offersFiltered = offersFiltered.filter((o) =>
+        filters.metaActivities.includes(o.meta_activity),
+      );
+    }
+    if (filters.available === undefined) {
+      offersFiltered = offersFiltered.filter((o) => o.available);
+    } else if (filters.available) {
+      offersFiltered = offersFiltered.filter((o) => o.available);
+    }
+    return offersFiltered;
+  },
+);
 
 const _getMarketplaceIds = (state: RootState) => state.offer.marketplace.allIds;
 

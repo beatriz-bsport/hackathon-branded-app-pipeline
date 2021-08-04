@@ -25,13 +25,15 @@ if (process.env.NODE_ENV === 'production') {
     beforeSend(event, hint) {
       const error = hint.originalException;
       if (
-        error &&
-        // @ts-ignore
-        error.message &&
-        // @ts-ignore
-        (error.message.match(/Loading chunk /i) ||
+        (error &&
           // @ts-ignore
-          error.message.match(/Loading CSS chunk /i))
+          error.message &&
+          // @ts-ignore
+          (error.message.match(/Loading chunk /i) ||
+            // @ts-ignore
+            error.message.match(/Loading CSS chunk /i))) ||
+        // @ts-ignore
+        error.message.match(/Object Not Found Matching Id/i)
       ) {
         return null;
       }

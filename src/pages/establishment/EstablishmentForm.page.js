@@ -68,9 +68,11 @@ export class EstablishmentFormPage extends Component<Props> {
     } else {
       delete updatedData.cover;
     }
+    const { loading, error, ...updatedDataClean } = updatedData;
+
     this.props.upsertEstablishmentV2(
       this.props.update ? this.props.update.id : null,
-      mapFormDataWithObject(updatedData, establishmentMap, ['cover']),
+      mapFormDataWithObject(updatedDataClean, establishmentMap, ['cover']),
       {
         onSuccess: () => {
           this.props.fetchEstablishments();

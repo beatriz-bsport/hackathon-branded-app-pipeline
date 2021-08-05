@@ -2,7 +2,7 @@
 
 const storage = window.localStorage;
 
-const langage = storage.getItem('i18nextLng').slice(0, 2);
+const langage = (storage.getItem('i18nextLng') || '').slice(0, 2);
 
 export const openIntercomHelp = (pageName: ?string) => {
   switch (pageName) {

@@ -573,8 +573,7 @@ export function MemberForm(props: Props) {
                       }
                       disabled={
                         disabled ||
-                        (!asManager &&
-                          managerFormConfig &&
+                        (managerFormConfig &&
                           !managerFormConfig.phone.editable_on_edition)
                       }
                       country={browserCountryCode()}

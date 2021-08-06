@@ -500,7 +500,12 @@ class OfferBooking extends React.PureComponent<Props, State> {
       this.props.theme.accept_double_booking,
     );
 
-    if (!loading && !isBookable) {
+    if (
+      !loading &&
+      !isBookable &&
+      this.props.offer &&
+      this.props.offer.meta_activity
+    ) {
       const { message, icon } = getMainOfferNotBookableReason(
         this.props.offer,
         offerStatus,

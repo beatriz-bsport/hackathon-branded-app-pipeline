@@ -13,13 +13,13 @@ export const MemnbershipListItem = (props: {
   <ListItem divider button={!!props.onClick} onClick={props.onClick}>
     <ListItemAvatar>
       <Avatar
-        alt={props.membership.company_name}
-        src={props.membership.company_cover}
+        alt={props.membership?.company_name}
+        src={props.membership?.company_cover}
       />
     </ListItemAvatar>
     <ListItemText
-      primary={props.membership.company_name}
-      secondary={props.membership.websiteURL}
+      primary={props.membership?.company_name}
+      secondary={props.membership?.websiteURL}
     />
   </ListItem>
 );

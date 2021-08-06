@@ -337,7 +337,7 @@ export class MemberDetailPage extends Component<Props, State> {
             this.props.mergeInto(this.props.id, id)
           }
           country={this.props.country}
-          managerFormConfig={this.props.managerFormConfig.plol_fields}
+          managerFormConfig={this.props.managerFormConfig.poll_fields}
         />
         <TagDeleteDialog
           open={!!this.state.tagToDelete}

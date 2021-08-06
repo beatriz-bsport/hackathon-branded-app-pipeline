@@ -9,13 +9,13 @@ import { createStore, applyMiddleware, compose } from 'redux';
 
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { createBrowserHistory } from 'history';
 import { routerMiddleware } from 'connected-react-router';
 import {
   seamlessImmutableReconciler,
   seamlessImmutableTransformCreator,
 } from 'redux-persist-seamless-immutable';
 import createCompressor from 'redux-persist-transform-compress';
+import history from './history';
 import networkErrorMiddleWare from './libs/network/redux-middleware';
 
 import createRootReducer from './reducers/index';
@@ -37,7 +37,6 @@ const persistConfig = {
 };
 
 export default function initStore(initialState: Object = {}) {
-  const history = createBrowserHistory();
   const rootReducer = persistReducer(persistConfig, createRootReducer(history));
   const routerMiddlewareWithHistory = routerMiddleware(history);
   // prettier-ignore

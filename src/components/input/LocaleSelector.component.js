@@ -14,6 +14,7 @@ import InputLabel from '@material-ui/core/InputLabel';
  */
 import FR_FLAG from './flags/FR.png';
 import ES_FLAG from './flags/ES.png';
+import PT_FLAG from './flags/PT.png';
 import NL_FLAG from './flags/NL.png';
 import IT_FLAG from './flags/IT.png';
 import BE_FLAG from './flags/BE.png';
@@ -112,6 +113,12 @@ const localeList: Array<Locale> = [
   {
     locale: 'es_ES',
     icon: ES_FLAG,
+    currencyCode: 'eur',
+    currencyDisplay: '€',
+  },
+  {
+    locale: 'pt_PT',
+    icon: PT_FLAG,
     currencyCode: 'eur',
     currencyDisplay: '€',
   },

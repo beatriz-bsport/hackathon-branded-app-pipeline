@@ -973,7 +973,7 @@ export default compose(
         email: '',
         phone: undefined,
         emergency_contact: '',
-        gender: '',
+        gender: 'X',
         birthday: undefined,
         membership_ID: '',
         barcode: '',
@@ -1016,7 +1016,7 @@ export default compose(
         avatar: typeof avatar !== 'string' ? avatar : undefined,
         email: cleanedValues.email || '',
         emergency_contact: cleanedValues.emergency_contact || undefined,
-        gender: cleanedValues.undefined || undefined,
+        gender: cleanedValues.gender || 'X',
         birthday:
           cleanedValues &&
           cleanedValues.birthday &&

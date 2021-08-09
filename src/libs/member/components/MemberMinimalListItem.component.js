@@ -36,20 +36,17 @@ export const MemberMinimalListItem = (props: Props) => {
         ? `${props.member.phone || ''} ${props.member.email}` || ''
         : '';
   }
-  const OptionalVaccinationBadge = props.member.vaccination_status
-    ? VaccinationBadge
-    : React.Fragment;
   return (
     <ListItem
       button={!!props.onClick}
       onClick={props.onClick ? () => props.onClick(props.member.id) : null}
     >
       <ListItemAvatar>
-        <OptionalVaccinationBadge>
+        <VaccinationBadge status={props.member.vaccination_status}>
           <CreditMemberBadge credit={props.member.credit_account_balance}>
             <Avatar src={props.member.photo} />
           </CreditMemberBadge>
-        </OptionalVaccinationBadge>
+        </VaccinationBadge>
       </ListItemAvatar>
       <ListItemText
         primary={props.member.name + (props.firstBooking ? ' ★' : '')}

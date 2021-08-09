@@ -12,9 +12,16 @@ export const VaccinationBadge = (props: Props) => {
   return (
     <div className={classes.container}>
       {props.children}
-      <div className={classes.badge}>
-        <LocalHospitalIcon color="primary" />
-      </div>
+      {props.status === true && (
+        <div className={classes.badge}>
+          <LocalHospitalIcon color="primary" />
+        </div>
+      )}
+      {props.status === false && (
+        <div className={classes.badge}>
+          <LocalHospitalIcon color="error" />
+        </div>
+      )}
     </div>
   );
 };

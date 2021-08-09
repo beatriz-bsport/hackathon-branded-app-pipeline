@@ -420,12 +420,9 @@ export class BookingItemForManager extends Component<Props, State> {
           creditColor = 'error';
         }
 
-        const OptionalVaccinationBadge = this.props.member.vaccination_status
-          ? VaccinationBadge
-          : React.Fragment;
         return (
           <ListItemAvatar>
-            <OptionalVaccinationBadge>
+            <VaccinationBadge status={this.props.member.vaccination_status}>
               <Badge
                 badgeContent={creditsFormatted}
                 color={creditColor}
@@ -433,7 +430,7 @@ export class BookingItemForManager extends Component<Props, State> {
               >
                 <Avatar src={this.props.member.photo} />
               </Badge>
-            </OptionalVaccinationBadge>
+            </VaccinationBadge>
           </ListItemAvatar>
         );
       }

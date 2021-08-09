@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import PaymentPackListItem from '../../payment-packs/components/PaymentPackListItem.component';
 import PrivatePassListItem from '../../private-service/components/pass/PrivatePassListItem.component';
 import PaymentComboListItem from '../../payment-combo/components/PaymentComboListItem.component';
@@ -17,6 +18,15 @@ type Props = {
 };
 
 const SubscriptionContractDetail = (props: Props) => {
+  const classes = useStyles();
+  const { t } = useTranslation(['subscription']);
+  if (!props.contract) {
+    return (
+      <Paper className={classes.paperContainerEmpty}>
+        <LinearProgress />
+      </Paper>
+    );
+  }
   const {
     name,
     recurrent_price,
@@ -29,8 +39,6 @@ const SubscriptionContractDetail = (props: Props) => {
     private_pass,
     payment_combo,
   } = props.contract;
-  const classes = useStyles();
-  const { t } = useTranslation(['subscription']);
   return (
     <div>
       <Paper className={classes.paperContainer}>
@@ -88,6 +96,10 @@ const SubscriptionContractDetail = (props: Props) => {
 };
 
 const useStyles = makeStyles((theme) => ({
+  paperContainerEmpty: {
+    padding: theme.spacing(8),
+    width: '100%',
+  },
   paperContainer: {
     padding: theme.spacing(3),
   },

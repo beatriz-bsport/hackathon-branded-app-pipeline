@@ -159,7 +159,11 @@
             "share": "Compartir",
             "pickALanguage": "Idioma",
             "emergencyContact": "En caso de emergencia",
-            "disconnect": "Salir"
+            "disconnect": "Salir",
+            "vaccinationDontWantToCommunicate": "No desea responder",
+            "vaccinationNotDone": "No vacunado",
+            "vaccinationDone": "Vacunado",
+            "vaccination_status": "Estado de la vacunación COVID-19"
         },
         "pagination": {
             "rowPerPage": "Elementos por página",
@@ -1514,10 +1518,10 @@
             "title": "Plano del establecimiento",
             "delete": {
                 "title": "Eliminación del plan de asientos",
-                "content": ""
+                "content": "¿Estás seguro de que quieres eliminar este plano de la sala? Esta operación es irreversible."
             },
-            "untitled": "",
-            "placeCount": ""
+            "untitled": "sin título",
+            "placeCount": "{{count}} plazas"
         }
     },
     "order": {
@@ -3403,7 +3407,12 @@
         "applyBalanceToUnpaidInvoices": "Aplicar el saldo a las facturas impagadas",
         "adjustBalance": "Ajustar el balance",
         "unpaidInvoiceTitle": "Factura impagada",
-        "unpaidInvoiceTitle_plural": "Facturas impagadas"
+        "unpaidInvoiceTitle_plural": "Facturas impagadas",
+        "vaccinationStatus": {
+            "unknown": "Estado de la vacuna COVID-19 desconocido",
+            "notDone": "No vacunado COVID-19",
+            "done": "Vacunado con COVID-19"
+        }
     },
     "booking": {
         "details": {
@@ -3988,6 +3997,9 @@
             "de": "Alemán",
             "it": "Italiano",
             "nl": "Holandés"
+        },
+        "subscription": {
+            "isEmpty": "No tienes ninguna suscripción en curso"
         }
     },
     "coupon": {
@@ -5196,7 +5208,14 @@
                 },
                 "offerBalance": "Controlar el balance Mujer/Hombre en cada sesión",
                 "showGenderOffer": "Mostrar el número de hombres y mujeres que reservan una oferta",
-                "hideCoach": "Ocultar los nombres de los profesores en el calendario del cliente"
+                "hideCoach": "Ocultar los nombres de los profesores en el calendario del cliente",
+                "maxFutureBooking": {
+                    "numberCheck": {
+                        "helperText": "Sus miembros no podrán tener más de este número de reservas en el futuro",
+                        "placeholder": "Número máximo"
+                    },
+                    "label": "Limitar el número máximo de reservas previstas en el futuro por cliente"
+                }
             },
             "submit": "Guardar",
             "instagramURL": {
@@ -5330,7 +5349,8 @@
                 "gender": "Sexo",
                 "email": "Email",
                 "last_name": "Apellidos",
-                "first_name": "Nombre"
+                "first_name": "Nombre",
+                "vaccination_status": "Estado de la vacunación COVID-19"
             }
         },
         "zoom": {
@@ -5546,7 +5566,7 @@
         "select": {
             "placeholderOverride": "No hay reglas asociadas a la sesión",
             "placeholder": "Elige una regla de cálculo",
-            "coachPaymentRuleForSessions": "Clases y talleres en grupo",
+            "coachPaymentRuleForSessions": "Clases grupales",
             "coachPaymentRuleForPrivateService": "Cita previa",
             "reset": "Utilizar la regla por defecto del profesor",
             "group": "Grupo de remuneración",
@@ -5579,7 +5599,7 @@
             "addRemunerationOnCancellation": "Compensar al profesor en caso de cancelación y ausencia tardía",
             "percentage_base": "Porcentaje",
             "base_remuneration": "Pago fijo",
-            "forCancelledBookings": "Para cancelaciones y ausencias tardías",
+            "forCancelledBookings": "Para cancelaciones fuera de plazo y ausencias",
             "forConfirmedBookings": "Para los estudiantes que están presentes",
             "calculationMethod": "Método de cálculo",
             "actions": "Acciones",
@@ -5686,7 +5706,7 @@
             },
             "dissociate": "Personalizar las reglas"
         },
-        "search": ""
+        "search": "Buscar una regulación de remuneración (opcional)"
     },
     "checkout": {
         "myBasket": {
@@ -6386,7 +6406,8 @@
             "2010": "Este pase no es compatible con esta ubicación",
             "2003": "Ya no se puede canjear esta tarjeta",
             "2004": "Esta tarjeta no está a la venta",
-            "2005": "Esta tarjeta no está a la venta"
+            "2005": "Esta tarjeta no está a la venta",
+            "9": "Usted está tratando de reservar más sesiones futuras de lo que su club permite"
         },
         "paymentRuleGroups": {
             "update": {
@@ -7605,6 +7626,15 @@
                 "explanation": "Tras aceptar la exención de responsabilidad",
                 "name": "Exención de responsabilidad",
                 "explain": "habiendo aceptado la exención de responsabilidad"
+            },
+            "600": {
+                "expiryDateLabel": "fecha de expiración",
+                "owns": "Con al menos un método de pago guardado",
+                "does_not_own": "Sin un método de pago guardado",
+                "labelFirst": "Filtrar solo los miembros",
+                "title": "Método de pago guardado",
+                "explanation": "Filtrar por medio de pago guardado y fecha de caducidad",
+                "name": "medio de pago"
             }
         },
         "filterCategory": {

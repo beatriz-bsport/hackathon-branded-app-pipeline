@@ -121,6 +121,14 @@ const localeList: Array<Locale> = [
     icon: PT_FLAG,
     currencyCode: 'eur',
     currencyDisplay: '€',
+    showLang: true,
+  },
+  {
+    locale: 'en_PT',
+    icon: PT_FLAG,
+    currencyCode: 'eur',
+    currencyDisplay: '€',
+    showLang: true,
   },
   {
     locale: 'it_CH',

@@ -56,9 +56,9 @@
     "members": { "form": { "title": "Nouveau membre" } },
     "common": {
       "pickALanguage": "Langue",
-      "vaccination_status": "Status vaccination COVID-19",
-      "vaccinationDone": "Vacciné",
-      "vaccinationNotDone": "Non-vacciné",
+      "vaccination_status": "Status pass sanitaire COVID-19",
+      "vaccinationDone": "Pass sanitaire valide",
+      "vaccinationNotDone": "Pas de pass sanitaire valide",
       "vaccinationDontWantToCommunicate": "Ne souhaite pas répondre",
       "share": "Partager",
       "duplicate": "Dupliquer",
@@ -2478,7 +2478,7 @@
         "email_notification": "Accepte les notifications par email",
         "sms_notification": "Accepte les notifications par SMS",
         "accept_email": "Accepte les notifications par email",
-        "vaccination_status": "Status vaccination COVID-19",
+        "vaccination_status": "Status pass sanitaire COVID-19",
         "accept_sms": "Accepte les notifications par SMS",
         "cgu": "Conditions Générales d'Utilisation",
         "general_terms_and_conditions_accepted": "Conditions Générales d'Utilisation",
@@ -3643,7 +3643,8 @@
       "6002": "La liste d'attente est pleine",
       "6003": "Vous êtes déjà inscrit en liste d'attente",
       "8001": "Le spot que vous avez choisi n'est plus disponible",
-      "generic": "Impossible de réserver"
+      "generic": "Impossible de réserver",
+      "undefined": "Votre carte de cours ne permet plus de réserver cette année"
     },
     "offer": { "restore": { "success": "Séance restaurée", "error": "Impossible de restaurer cette séance" } },
     "settings": {
@@ -5188,7 +5189,11 @@
     },
     "termsAndConditions": "Les conditions générales d'utilisation",
     "memberTermsAccepted": " ont été acceptées le {{- date}}",
-    "vaccinationStatus": { "done": "Vacciné COVID-19", "notDone": "Non-vacciné COVID-19", "unknown": "status vaccinal COVID-19 inconnu" }
+    "vaccinationStatus": {
+      "done": "Pass sanitaire valide",
+      "notDone": "Pas de pass sanitaire valide",
+      "unknown": "Status pass sanitaire inconnu"
+    }
   },
   "booking": {
     "actions": { "bill": "Facturer", "unregister": "Désinscrire" },
@@ -5396,7 +5401,8 @@
           "0": "Inscriptions ouvertes",
           "1": "Inscriptions fermées",
           "2": "Inscriptions terminées",
-          "4": "Séance indisponible"
+          "4": "Séance indisponible",
+          "9": "Vous essayez de réserver plus de séances futures que ce qui est permis par votre club"
         },
         "waiting_list_status": {
           "0": "Liste d'attente",
@@ -5407,6 +5413,7 @@
           "5": "Déjà inscrit",
           "6": "Ratio homme/femme déséquilibré",
           "7": "Ratio homme/femme déséquilibré",
+          "9": "Vous essayez de réserver plus de séances futures que ce qui est permis par votre club",
           "6002": "Liste d'attente pleine",
           "6003": "Déjà inscrit sur liste"
         }

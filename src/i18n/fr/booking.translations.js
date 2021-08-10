@@ -289,12 +289,16 @@ exports.default = {
         [OFFER_BOOKABLE_STATUS_CLOSE_TOO_SOON]: 'Inscriptions fermées',
         [OFFER_BOOKABLE_STATUS_CLOSE_TOO_LATE]: 'Inscriptions terminées',
         [OFFER_BOOKABLE_STATUS_LOCKED]: 'Séance indisponible',
+        [ERROR_CODES.OFFER_BOOKABLE_STATUS_TOO_MANY_IN_FUTURE]:
+          'Vous essayez de réserver plus de séances futures que ce qui est permis par votre club',
       },
       waiting_list_status: {
         [OFFER_WAITING_LIST_STATUS_OPEN]: "Liste d'attente",
         [OFFER_WAITING_LIST_STATUS_FULL]: "Liste d'attente pleine",
         [OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED]: 'Inscrit sur liste',
         [OFFER_WAITING_LIST_STATUS_CONVERTIBLE]: 'Réservation disponible!',
+        [ERROR_CODES.OFFER_BOOKABLE_STATUS_TOO_MANY_IN_FUTURE]:
+          'Vous essayez de réserver plus de séances futures que ce qui est permis par votre club',
         [ERROR_CODES.OFFER_WAITING_LIST_STATUS_FULL]: "Liste d'attente pleine",
         [ERROR_CODES.OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED]:
           'Déjà inscrit sur liste',

@@ -79,9 +79,9 @@ exports.default = {
   },
   common: {
     pickALanguage: 'Langue',
-    vaccination_status: 'Status vaccination COVID-19',
-    vaccinationDone: 'Vacciné',
-    vaccinationNotDone: 'Non-vacciné',
+    vaccination_status: 'Status pass sanitaire COVID-19',
+    vaccinationDone: 'Pass sanitaire valide',
+    vaccinationNotDone: 'Pas de pass sanitaire valide',
     vaccinationDontWantToCommunicate: 'Ne souhaite pas répondre',
     share: 'Partager',
     duplicate: 'Dupliquer',

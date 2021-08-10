@@ -169,8 +169,8 @@ exports.default = {
   termsAndConditions: "Les conditions générales d'utilisation",
   memberTermsAccepted: ' ont été acceptées le {{- date}}',
   vaccinationStatus: {
-    done: 'Vacciné COVID-19',
-    notDone: 'Non-vacciné COVID-19',
-    unknown: 'status vaccinal COVID-19 inconnu',
+    done: 'Pass sanitaire valide',
+    notDone: 'Pas de pass sanitaire valide',
+    unknown: 'Status pass sanitaire inconnu',
   },
 };

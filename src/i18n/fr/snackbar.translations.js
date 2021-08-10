@@ -23,6 +23,10 @@ const {
   PAYMENT_PACK_CAN_NOT_BE_BOUGHT_ESTABLISHMENT_INCOMPATIBLE,
   PAYMENT_PACK_CAN_NOT_BE_BOUGHT_VOD_ONLY,
   PAYMENT_PACK_CAN_NOT_BE_BOUGHT_BAD_COMPANY,
+  CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_MAXOUT_DAY,
+  CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_MAXOUT_WEEK,
+  CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_MAXOUT_MONTH,
+  CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_MAXOUT_YEAR,
 } = require('@bsport/common/lib/master-data/buyable-item-can-not-be-bought');
 
 exports.default = {
@@ -72,6 +76,14 @@ exports.default = {
       'Ce pass ne permet pas de réserver des séance (VOD seulement)',
     [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_BAD_COMPANY]:
       "Ce pass n'est pas compatible avec cette séance",
+    [CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_MAXOUT_DAY]:
+      'Votre carte de cours ne permet plus de réserver pour ce jour',
+    [CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_MAXOUT_WEEK]:
+      'Votre carte de cours ne permet plus de réserver cette semaine',
+    [CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_MAXOUT_MONTH]:
+      'Votre carte de cours ne permet plus de réserver ce mois',
+    [CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_MAXOUT_YEAR]:
+      'Votre carte de cours ne permet plus de réserver cette année',
   },
   offer: {
     restore: {

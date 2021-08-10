@@ -1253,9 +1253,9 @@
             "emergencyContact": "Contactpersoon voor noodgevallen",
             "disconnect": "Afmelden",
             "vaccinationDontWantToCommunicate": "Liever niet antwoorden",
-            "vaccinationNotDone": "Niet gevaccineerd",
-            "vaccinationDone": "Gevaccineerd",
-            "vaccination_status": "COVID-19 vaccinatiestatus"
+            "vaccinationNotDone": "Ik bezit geen geldig coronabewijs",
+            "vaccinationDone": "Ik bezit een geldig coronabewijs",
+            "vaccination_status": "Status coronabewijs"
         },
         "members": {
             "form": {
@@ -3355,9 +3355,9 @@
         "unpaidInvoiceTitle": "Onbetaalde factuur",
         "unpaidInvoiceTitle_plural": "Onbetaalde facturen",
         "vaccinationStatus": {
-            "unknown": "Onbekende vaccinatiestatus voor COVID-19",
-            "notDone": "Niet gevaccineerd voor COVID-19",
-            "done": "Gevaccineerd voor COVID-19"
+            "unknown": "Onbekende status coronabewijs",
+            "notDone": "Ik bezit geen geldig coronabewijs",
+            "done": "Ik bezit een geldig coronabewijs"
         }
     },
     "booking": {
@@ -3631,13 +3631,15 @@
                     "7": "Onevenwichtige man/vrouw-verhouding",
                     "6": "Onevenwichtige man/vrouw-verhouding",
                     "5": "Ingeschreven",
-                    "4": "Gesloten"
+                    "4": "Gesloten",
+                    "9": "Het is niet toegestaan om het maximaal aantal toekomstige reserveringen te overschrijden."
                 },
                 "bookable_status": {
                     "4": "Deze sessie is niet beschikbaar",
                     "2": "Afgelopen",
                     "1": "Gesloten",
-                    "0": "Open"
+                    "0": "Open",
+                    "9": "Het is niet toegestaan om het maximaal aantal toekomstige reserveringen te overschrijden."
                 },
                 "waiting_list": "Wachtlijst",
                 "book": "Aanmelden"
@@ -4186,7 +4188,7 @@
         },
         "form": {
             "check": "Controleren",
-            "submit": "Factureer",
+            "submit": "Voltooi",
             "title": "Nieuwe herhalende betaling",
             "cancel": "Annuleren",
             "note": {
@@ -7231,7 +7233,7 @@
                 "address_line_2": "Aanvulling adres",
                 "address_line_1": "Adres",
                 "birthday": "Geboortedatum",
-                "vaccination_status": "COVID-19 vaccinatiestatus"
+                "vaccination_status": "Status coronabewijs"
             },
             "error": "Fout bij het opslaan",
             "success": "Configuratie opgeslagen",

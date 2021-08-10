@@ -38,7 +38,7 @@ type State = {
   address_line_2: string,
   generated_address: string,
   city: string,
-  zip_code: string,
+  zipcode: string,
   country: string,
   candidates: Array<any>,
   center: Array<number>,
@@ -67,7 +67,7 @@ export class LocationInput extends Component<Props, State> {
         address_line_1: '',
         address_line_2: '',
         city: '',
-        zip_code: '',
+        zipcode: '',
         country: '',
         candidates: [],
         center: CENTER,
@@ -175,7 +175,7 @@ export class LocationInput extends Component<Props, State> {
         ? c.address_components.find((comp) => comp.types.includes('country'))
             .long_name
         : '',
-      zip_code: c.address_components.find((comp) =>
+      zipcode: c.address_components.find((comp) =>
         comp.types.includes('postal_code'),
       )
         ? c.address_components.find((comp) =>
@@ -209,7 +209,7 @@ export class LocationInput extends Component<Props, State> {
     address_line_1,
     address_line_2,
     city,
-    zip_code,
+    zipcode,
     country,
     generated_address,
   }) => {
@@ -220,7 +220,7 @@ export class LocationInput extends Component<Props, State> {
       address_line_1: address_line_1 || '',
       address_line_2: address_line_2 || '',
       city: city || '',
-      zip_code: zip_code || '',
+      zipcode: zipcode || '',
       country: country || '',
     });
   };
@@ -250,7 +250,7 @@ export class LocationInput extends Component<Props, State> {
       address_line_1,
       address_line_2,
       city,
-      zip_code,
+      zipcode,
       country,
       isLoading,
       valid,
@@ -364,12 +364,10 @@ export class LocationInput extends Component<Props, State> {
             }}
           />
           <TextField
-            id="zip_code"
-            value={zip_code}
+            id="zipcode"
+            value={zipcode}
             type="text"
-            onChange={(e) =>
-              this.changeAddressField('zip_code', e.target.value)
-            }
+            onChange={(e) => this.changeAddressField('zipcode', e.target.value)}
             disabled={!geometry.x || !geometry.y}
             required={this.props.required}
             fullWidth

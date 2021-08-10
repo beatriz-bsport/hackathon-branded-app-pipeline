@@ -766,7 +766,9 @@ export class OfferForm extends Component<Props, State> {
             disabled={
               !this.state.establishment ||
               !this.state.coach ||
-              !this.effectif ||
+              (!this.effectif &&
+                this.state.effectif !== 0 &&
+                this.state.effectif !== '0') ||
               this.roomBluePrintError()
             }
             variant="contained"

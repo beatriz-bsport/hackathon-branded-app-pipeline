@@ -121,7 +121,11 @@
             "share": "Condividi",
             "pickALanguage": "Lingua",
             "emergencyContact": "In caso di emergenza",
-            "disconnect": "Disconnettersi"
+            "disconnect": "Disconnettersi",
+            "vaccinationDontWantToCommunicate": "Non vuole rispondere",
+            "vaccinationNotDone": "Nessun pass sanitario valido",
+            "vaccinationDone": "Pass sanitario valido",
+            "vaccination_status": "Stato del pass sanitario COVID-19"
         },
         "offer": {
             "noPackAvailableForOfferPurchase": "Nessuna tessera compatibile con questa sessione!",
@@ -1254,6 +1258,9 @@
             "de": "Tedesco",
             "it": "Italiano",
             "nl": "Olandese"
+        },
+        "subscription": {
+            "isEmpty": "Non hai un abbonamento in corso"
         }
     },
     "search": {
@@ -2392,7 +2399,7 @@
                 "submit": "Convalidare",
                 "minutes": "Minuti",
                 "hours": "Ore",
-                "durationInputError": "Si prega di specificare la durata del video",
+                "durationInputError": "Si prega di inserire la durata del video",
                 "durationLabel": "Lunghezza del video",
                 "vimeoUrlInput": "Link Vimeo",
                 "youtubeUrlInput": "Link Youtube"
@@ -2720,7 +2727,14 @@
                     "checkbox": "Limita lo squilibrio DONNE / UOMINI nelle prenotazioni (studio di danza ...)"
                 },
                 "offerBalance": "Controlla il rapporto DONNA / UOMO in ogni sessione",
-                "hideCoach": "Nascondere le informazioni dell'insegnante nelle interfacce client"
+                "hideCoach": "Nascondere le informazioni dell'insegnante nelle interfacce client",
+                "maxFutureBooking": {
+                    "numberCheck": {
+                        "helperText": "I tuoi membri non potranno avere più di questo numero di prenotazioni in futuro",
+                        "placeholder": "Numero massimo"
+                    },
+                    "label": "Limitare il numero massimo di prenotazioni future per cliente"
+                }
             },
             "instagramURL": {
                 "label": "URL di Instagram",
@@ -2845,7 +2859,8 @@
                 "photo": "Foto del profilo",
                 "address_line_2": "Indirizzo aggiuntivo",
                 "address_line_1": "Indirizzo",
-                "birthday": "Data di nascita"
+                "birthday": "Data di nascita",
+                "vaccination_status": "Stato pass sanitario COVID-19"
             }
         },
         "zoom": {
@@ -3461,7 +3476,9 @@
             "4": "Non si può prenotare la sessione",
             "3": "La sessione è piena",
             "2": "La sessione non è più aperta per la prenotazione",
-            "1": "La sessione non è ancora aperta per la prenotazione"
+            "1": "La sessione non è ancora aperta per la prenotazione",
+            "undefined": "La tessera non ti permette più di prenotare quest'anno",
+            "9": "Cerchi di prenotare più sessioni future di quelle consentite dal tuo club"
         }
     },
     "settings": {
@@ -3662,7 +3679,7 @@
                 "9": "Pass per appuntamenti",
                 "3": "Credito"
             },
-            "voucher": "Riduzione: {{voucher}} €",
+            "voucher": "Riduzione: {{voucher}}",
             "quantity": "Quantità",
             "credit": {
                 "label": "Credito"
@@ -5435,7 +5452,12 @@
         "applyBalanceToUnpaidInvoices": "Applica il saldo alle fatture non pagate",
         "adjustBalance": "Regola il saldo",
         "unpaidInvoiceTitle": "Fattura non pagata",
-        "unpaidInvoiceTitle_plural": "Fatture non pagate"
+        "unpaidInvoiceTitle_plural": "Fatture non pagate",
+        "vaccinationStatus": {
+            "unknown": "Stato del pass sanitario sconosciuto",
+            "notDone": "No pass sanitario valido",
+            "done": "Pass sanitario valido"
+        }
     },
     "booking": {
         "statusCode": {
@@ -5690,7 +5712,8 @@
                     "4": "Sessione non disponibile",
                     "2": "Registrazioni completate",
                     "1": "Registrazioni chiuse",
-                    "0": "Iscrizione aperta"
+                    "0": "Iscrizione aperta",
+                    "9": "Cerchi di prenotare più sessioni future di quelle consentite dal tuo club"
                 },
                 "waiting_list": "Lista d'attesa",
                 "book": "Registrazione",
@@ -5704,7 +5727,8 @@
                     "7": "Rapporto donna/uomo sbilanciato",
                     "6": "Rapporto donna/uomo sbilanciato",
                     "5": "Già registrato",
-                    "4": "Registrazioni chiuse"
+                    "4": "Registrazioni chiuse",
+                    "9": "Cerchi di prenotare più sessioni future di quelle consentite dal tuo club"
                 }
             },
             "similarOffer": {
@@ -6115,6 +6139,15 @@
                 "explanation": "avendo accettato il rilascio di responsabilità",
                 "name": "Rilascio di responsabilità",
                 "explain": "avendo accettato il rilascio di responsabilità"
+            },
+            "600": {
+                "expiryDateLabel": "Data di scadenza",
+                "owns": "Ha almeno un metodo di pagamento salvato",
+                "does_not_own": "Non ha un metodo di pagamento salvato",
+                "labelFirst": "Filtra solo i membri",
+                "title": "Metodo di pagamento salvato",
+                "explanation": "Filtrare per metodo di pagamento salvato e data di scadenza",
+                "name": "Metodo di pagamento"
             }
         },
         "smart_list": {

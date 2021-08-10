@@ -161,9 +161,9 @@
             "emergencyContact": "En caso de emergencia",
             "disconnect": "Salir",
             "vaccinationDontWantToCommunicate": "No desea responder",
-            "vaccinationNotDone": "No vacunado",
-            "vaccinationDone": "Vacunado",
-            "vaccination_status": "Estado de la vacunación COVID-19"
+            "vaccinationNotDone": "Sin tarjeta sanitaria válida",
+            "vaccinationDone": "Tarjeta sanitaria válida",
+            "vaccination_status": "Estado del pase sanitario COVID-19"
         },
         "pagination": {
             "rowPerPage": "Elementos por página",
@@ -3409,9 +3409,9 @@
         "unpaidInvoiceTitle": "Factura impagada",
         "unpaidInvoiceTitle_plural": "Facturas impagadas",
         "vaccinationStatus": {
-            "unknown": "Estado de la vacuna COVID-19 desconocido",
-            "notDone": "No vacunado COVID-19",
-            "done": "Vacunado con COVID-19"
+            "unknown": "Estado del pase sanitario desconocido",
+            "notDone": "Sin tarjeta sanitaria válida",
+            "done": "Tarjeta sanitaria válida"
         }
     },
     "booking": {
@@ -3674,13 +3674,15 @@
                     "5": "Ya está registrado",
                     "6002": "Lista de espera completa",
                     "7": "Proporción desequilibrada entre hombres y mujeres",
-                    "6003": "Liste d'attente complète"
+                    "6003": "Liste d'attente complète",
+                    "9": "Está intentando reservar más sesiones futuras de las que permite su club"
                 },
                 "bookable_status": {
                     "4": "Sesión no disponible",
                     "2": "Inscripciones terminadas",
                     "1": "Inscripciones cerradas",
-                    "0": "Inscripciones abiertas"
+                    "0": "Inscripciones abiertas",
+                    "9": "Está intentando reservar más sesiones futuras de las que permite su club"
                 },
                 "waiting_list": "Lista de espera",
                 "book": "Inscripción"
@@ -5350,7 +5352,7 @@
                 "email": "Email",
                 "last_name": "Apellidos",
                 "first_name": "Nombre",
-                "vaccination_status": "Estado de la vacunación COVID-19"
+                "vaccination_status": "Estado del pase sanitario COVID-19"
             }
         },
         "zoom": {
@@ -6407,7 +6409,8 @@
             "2003": "Ya no se puede canjear esta tarjeta",
             "2004": "Esta tarjeta no está a la venta",
             "2005": "Esta tarjeta no está a la venta",
-            "9": "Usted está tratando de reservar más sesiones futuras de lo que su club permite"
+            "9": "Usted está tratando de reservar más sesiones futuras de lo que su club permite",
+            "undefined": "Su tarjeta de curso ya no le permite reservar este año"
         },
         "paymentRuleGroups": {
             "update": {

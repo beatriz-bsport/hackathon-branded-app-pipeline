@@ -687,9 +687,9 @@
             "disconnect": "Trennen der Verbindung",
             "emergencyContact": "Im Falle eines Notfalls",
             "vaccinationDontWantToCommunicate": "Möchte nicht antworten",
-            "vaccinationNotDone": "Nicht geimpft",
-            "vaccinationDone": "Geimpft",
-            "vaccination_status": "Status Impfung COVID-19"
+            "vaccinationNotDone": "Kein gültiger Gesundheitspass",
+            "vaccinationDone": "Gültiger Gesundheitspass",
+            "vaccination_status": "Status Sanitärpass COVID-19"
         },
         "openSchedule": "Stundenplan ansehen",
         "login": {
@@ -2251,7 +2251,7 @@
                 "email_notification": "E-Mail-Benachrichtigungen akzeptieren",
                 "general_terms_and_conditions_accepted": "Nutzungsbedingungen und Konditionen",
                 "waiver": "Haftungsfreistellung",
-                "vaccination_status": "Status der Impfung COVID-19"
+                "vaccination_status": "Status Sanitärpass COVID-19"
             },
             "error": "Es ist ein Problem aufgetreten",
             "title": "Anmeldeformular",
@@ -4860,13 +4860,15 @@
                     "6": "Unausgewogenes Verhältnis zwischen Männern und Frauen",
                     "7": "Unausgewogenes Verhältnis zwischen Männern und Frauen",
                     "6002": "Vollständige Warteliste",
-                    "6003": "Bereits aufgelistet"
+                    "6003": "Bereits aufgelistet",
+                    "9": "Sie versuchen, mehr zukünftige Sitzungen zu buchen, als Ihr Club erlaubt"
                 },
                 "bookable_status": {
                     "4": "Kurs nicht verfügbar",
                     "2": "Abgeschlossene Anmeldungen",
                     "1": "Anmeldungen geschlossen",
-                    "0": "Anmeldung offen"
+                    "0": "Anmeldung offen",
+                    "9": "Sie versuchen, mehr zukünftige Sitzungen zu buchen, als Ihr Club erlaubt"
                 },
                 "waiting_list": "Warteliste",
                 "book": "Anmeldung"
@@ -5045,9 +5047,9 @@
         "unpaidInvoiceTitle": "Unbezahlte Rechnung",
         "unpaidInvoiceTitle_plural": "Unbezahlte Rechnungen",
         "vaccinationStatus": {
-            "unknown": "Impfstatus COVID-19 unbekannt",
-            "notDone": "Nicht geimpft COVID-19",
-            "done": "Geimpft COVID-19"
+            "unknown": "Status Sanitärpass unbekannt",
+            "notDone": "Kein gültiger Gesundheitspass",
+            "done": "Gültiger Gesundheitspass"
         }
     },
     "common": {

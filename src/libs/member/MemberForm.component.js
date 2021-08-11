@@ -311,6 +311,7 @@ export function MemberForm(props: Props) {
     }
     return true;
   };
+  if (!
   return (
     <div>
       {variant === 'merge-form' || !asManager ? null : (
@@ -736,7 +737,7 @@ export function MemberForm(props: Props) {
                     md={mdSize}
                   >
                     {((managerFormConfig &&
-                      managerFormConfig.vaccination_status.show_on_edition) ||
+                      managerFormConfig.vaccination_status?.show_on_edition) ||
                       !managerFormConfig) && (
                       <VaccinationStatusField
                         name="vaccination_status"

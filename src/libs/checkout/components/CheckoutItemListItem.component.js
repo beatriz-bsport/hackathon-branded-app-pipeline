@@ -71,7 +71,7 @@ export const CheckoutItemListItem = (props: {
         ) : null}
       </div>
     </ListItem>
-    {props.checkout_item.expiration_datetime && (
+    {!props.hideExtraData && props.checkout_item.expiration_datetime && (
       <CountDown
         timestamp={moment(props.checkout_item.expiration_datetime).unix()}
         onFinish={() =>
@@ -97,17 +97,18 @@ export const CheckoutItemListItem = (props: {
       </CountDown>
     )}
 
-    {(props.checkout_item.sub_items || []).map((sub_item, idx) => (
-      <ListItem dense key={idx} divider>
-        <ListItemIcon>
-          <CalendarIcon color="textSecondary" />
-        </ListItemIcon>
-        <ListItemText
-          primary={sub_item}
-          primaryTypographyProps={{ color: 'textSecondary' }}
-        />
-      </ListItem>
-    ))}
+    {!props.hideExtraData &&
+      (props.checkout_item.sub_items || []).map((sub_item, idx) => (
+        <ListItem dense key={idx} divider>
+          <ListItemIcon>
+            <CalendarIcon color="textSecondary" />
+          </ListItemIcon>
+          <ListItemText
+            primary={sub_item}
+            primaryTypographyProps={{ color: 'textSecondary' }}
+          />
+        </ListItem>
+      ))}
   </React.Fragment>
 );
 

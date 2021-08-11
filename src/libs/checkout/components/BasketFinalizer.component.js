@@ -11,6 +11,7 @@ import { compose, withState } from 'recompose';
 import { withTranslation } from 'react-i18next';
 import UpdateIcon from '@material-ui/icons/Update';
 import type { TFunction } from 'react-i18next';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { CREDIT_ACCOUNT as PAYMENT_METHOD_CREDIT_ACCOUNT } from '@bsport/common/lib/master-data/payment-methods';
 import type { Basket } from '../types';
@@ -104,6 +105,13 @@ export class BasketFinalizer extends React.Component<Props, State> {
               color="primary"
             >
               {this.props.t('myBasket.actions.payZero')}
+              {this.props.selfProcessing && (
+                <CircularProgress
+                  className={this.props.classes.circularProgress}
+                  size={24}
+                  color="inherit"
+                />
+              )}
             </Button>
           );
         }
@@ -152,6 +160,13 @@ export class BasketFinalizer extends React.Component<Props, State> {
                 >
                   <UpdateIcon className={this.props.classes.iconLeft} />
                   {this.props.t('payLater.submit')}
+                  {this.props.selfProcessing && (
+                    <CircularProgress
+                      className={this.props.classes.circularProgress}
+                      size={24}
+                      color="inherit"
+                    />
+                  )}
                 </Button>
               </div>
             )}
@@ -164,7 +179,7 @@ export class BasketFinalizer extends React.Component<Props, State> {
             availablePaymentMethods={
               this.props.basket.available_payment_methods
             }
-            loading={this.props.loading}
+            loading={this.props.loading || this.props.processing || this.props.selfProcessing}
             processing={this.props.processing}
             onSuccess={this.props.onBasketFinalized}
             submitPayment={this.props.submitPayment}
@@ -199,7 +214,11 @@ export class BasketFinalizer extends React.Component<Props, State> {
         </div>
         <div className={this.props.classes.couponCodeContainer}>
           <CouponCodeForm
-            loading={this.props.loading || this.props.processing}
+            loading={
+              this.props.loading ||
+              this.props.processing ||
+              this.props.selfProcessing
+            }
             onSubmit={this.props.attachCoupon}
           />
         </div>
@@ -261,6 +280,9 @@ const styles = (theme) => ({
   },
   iconLeft: {
     marginRight: theme.spacing(1),
+  },
+  circularProgress: {
+    marginLeft: theme.spacing(1),
   },
 });
 

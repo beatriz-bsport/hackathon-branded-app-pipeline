@@ -233,7 +233,11 @@ export class ValidationCheckout extends React.Component<Props> {
             </Typography>
             <Paper className={classes.paper}>
               {this.props.basket.checkout_items.map((ci) => (
-                <CheckoutItemListItem checkout_item={ci} key={ci.id} />
+                <CheckoutItemListItem
+                  hideExtraData
+                  checkout_item={ci}
+                  key={ci.id}
+                />
               ))}
             </Paper>
           </div>

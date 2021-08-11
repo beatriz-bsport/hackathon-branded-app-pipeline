@@ -126,8 +126,8 @@ export class ResetPassword extends Component<Props, State> {
                 <Typography style={{ marginRight: 12 }}>
                   {this.props.t('resetPassword.contactUs')}
                 </Typography>
-                <a href="mailto:contact+reset-password@bsport.io">
-                  contact+reset-password@bsport.io
+                <a href="mailto:csm+reset-password@bsport.io">
+                  csm+reset-password@bsport.io
                 </a>
               </div>
             </div>

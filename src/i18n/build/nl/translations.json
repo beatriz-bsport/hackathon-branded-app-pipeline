@@ -980,7 +980,7 @@
             "addInvoice": "In rekening brengen",
             "extraordinaryEstablishment": "(tijdelijke vestiging)",
             "noCompatiblePacks": "Geen enkele leskaart is compatibel met deze sessie",
-            "compatiblePacks": "Compatibele leskaarten",
+            "compatiblePacks": "Compatibele kaarten",
             "substitute": "Plaatsvervanger",
             "disabled": "geannuleerd",
             "nextOffer": "Volgende sessie",
@@ -1114,7 +1114,7 @@
         },
         "activity": {
             "reviews": "Ledenbeoordeling: ",
-            "packsAvailable": "Compatibele leskaarten:",
+            "packsAvailable": "Compatibele kaarten:",
             "orNcredits2": " credits)",
             "orNcredits1": "(of ",
             "noOfferThisDay": "Vandaag zijn er geen sessies. Selecteer een andere datum of begin met het toevoegen van sessies.",
@@ -3491,7 +3491,7 @@
                     "refunded": "aantal terugbetaalde annuleringen {{notify_booking_nb}}",
                     "absence": "{{notify_booking_nb}} keer heeft geannuleerd.",
                     "allEvents": {
-                        "notRefunded": "Weetje: leden ontvangen deze melding elke keer dat zij te laat annuleren.",
+                        "notRefunded": "Leden ontvangen deze melding iedere keer zij te laat annuleren.",
                         "refunded": "Weetje: deze melding wordt bij elke terugbetaalde annulering verstuurd.",
                         "absence": "Weetje: deze melding wordt verstuurd elke keer een lid afwezig is.",
                         "attendance": "Deze melding wordt automatisch iedere keer verstuurd wanneer een lid aanwezig."
@@ -7096,7 +7096,7 @@
                 },
                 "offerBalance": "Een regel instellen dat de MAN / VROUW verhouding per sessie reguleert",
                 "showGenderOffer": "Toon het aantal ingeschreven MANNEN / VROUWEN op de agenda van je leden",
-                "hideCoach": "Toon de docentinformatie op de agenda van je leden",
+                "hideCoach": "Verberg de docentinformatie op de agenda van je leden",
                 "maxFutureBooking": {
                     "label": "Beperk het maximaal aantal toekomstige reserveringen per lid",
                     "numberCheck": {

@@ -25,6 +25,8 @@ Sentry.init({
         // @ts-ignore
         (error.message.match(/Loading chunk /i) ||
           // @ts-ignore
+          error.message.match(/find variable: jQuery/i) || // this happened for a client inside his GTM
+          // @ts-ignore
           error.message.match(/Loading CSS chunk /i))) ||
       // @ts-ignore
       error.message.match(/Object Not Found Matching Id/i)

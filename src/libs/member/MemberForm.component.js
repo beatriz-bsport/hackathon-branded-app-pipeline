@@ -311,7 +311,6 @@ export function MemberForm(props: Props) {
     }
     return true;
   };
-  if (!
   return (
     <div>
       {variant === 'merge-form' || !asManager ? null : (

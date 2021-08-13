@@ -185,7 +185,7 @@ export class BookingModuleManager extends PureComponent<Props> {
                 consumerPack={this.props.registererObject.consumerPaymentPack}
               />
             )}
-            {!!this.props.offer.room_blueprint && (
+            {!this.props.offer.room_blueprint && (
               <div className={this.props.classes.bookButtonWideContainer}>
                 <Button
                   className={this.props.classes.bookButtonWide}

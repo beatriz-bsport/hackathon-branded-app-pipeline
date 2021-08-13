@@ -1,0 +1,20 @@
+window.runtime = window.runtime || { env: {} };
+var env = window.runtime.env;
+
+// ENV
+env.REACT_APP_SENTRY_DSN = 'https://88b735c4d80f4f83b12e79ed072f8f4e@sentry.io/1331952';
+env.REACT_APP_STRIPE_PK_KEY = 'pk_test_lFB5CxcyTCaQcS00MiE1ebEO';
+env.REACT_APP_STRIPE_PK_KEY_US = 'pk_test_f40unREf611uut2oTtz4Qqfl00UCO6tZr5';
+env.REACT_APP_GOOGLE_MAPS_API_KEY = 'AIzaSyAbzA85WpiYY6qyYE9NkNwQbFGiLITvIZI';
+env.REACT_APP_BASE_URI = 'https://api.fb-beta.bsport.io';
+env.REACT_APP_API_URI='https://api.fb-beta.bsport.io/api-v0'
+env.REACT_APP_RECAPTCHA_V3='6LeC6rIZAAAAAJSN0DVqzOF3cYXwQcXgp8rKX9cf';
+env.REACT_APP_RECAPTCHA_V2='6Lds67IZAAAAAFaPGpfl_ALgtV2t6Re63MBtCshi';
+env.REACT_APP_ZOOM_CLIENT_ID='ayAjSMV0SiOR383VkR3I4Q';
+
+env.REACT_APP_SENTRY_ENVIRONMENT = 'dev';
+env.NODE_ENV='production'
+env.REACT_APP_INTERCOM_APP_ID = 'q6foivp2';
+env.REACT_APP_CDN_DOMAIN = 'cdn.fb-beta.bsport.io';
+env.PUBLIC_URL = 'https://backoffice.fb-beta.bsport.io';
+env.I18N_TRANSLATION_DOMAIN = ''

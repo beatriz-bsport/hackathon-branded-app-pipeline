@@ -29,6 +29,7 @@ export const CheckoutItemListItem = (props: {
   onRemoveOne: () => void,
   classes: Object,
   dense: ?boolean,
+  hideExtraData: ?boolean,
   onItemExpire?: (item: CheckoutItem) => void,
   loading?: boolean,
   t: any,

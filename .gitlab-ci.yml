@@ -277,7 +277,7 @@ Build Deploy Alpha:
     ENVIRONMENT: alpha
     FRONTEND_URL: backoffice.fb-alpha.bsport.io
     S3_BUCKET: s3://bsport-eu-backoffice-fb-alpha/ 
-    CLOUDFRONT_ID: E17M3KEJFTN7MM
+    CLOUDFRONT_ID: E26DURIBD1IZ6H
     SLACK_WEBHOOK_URL: "${SLACK_DEV_WEBHOOK_URL}"
 
 Build Deploy Beta:
@@ -290,7 +290,7 @@ Build Deploy Beta:
     ENVIRONMENT: beta
     FRONTEND_URL: backoffice.fb-beta.bsport.io
     S3_BUCKET: s3://bsport-eu-backoffice-fb-beta/ 
-    CLOUDFRONT_ID: E17M3KEJFTN7MM
+    CLOUDFRONT_ID: E31SNYTE4NLU27
     SLACK_WEBHOOK_URL: "${SLACK_DEV_WEBHOOK_URL}"
 
 

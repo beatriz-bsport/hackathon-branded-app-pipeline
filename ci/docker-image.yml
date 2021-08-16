@@ -1,0 +1,12 @@
+Prepare Docker Builder Image:
+  image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-docker:v1.0.1
+  tags:
+    - deployment
+    - kubernetes
+  stage: prepare-image-docker
+  retry: 
+    max: 2
+  script:
+    - aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${REGISTRY_ENDPOINT}
+    - docker build --network host -t ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME} .
+    - docker push ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}

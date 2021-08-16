@@ -1,0 +1,31 @@
+.Build widget:
+  stage: build-widget
+  allow_failure: true
+  trigger:
+    project: bsport/bsport-widget 
+
+Build widget dev:
+  extends: .Build widget
+  trigger:
+    branch: dev
+  only:
+    refs:
+      - dev
+
+Build widget staging:
+  extends: .Build widget
+  only:
+    refs:
+      - master
+  trigger:
+    branch: master 
+
+Build widget production:
+  extends: .Build widget
+  only:
+    refs:
+      - production
+  trigger:
+    branch: production
+
+

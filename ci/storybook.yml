@@ -1,0 +1,98 @@
+.Deploy-storybook:
+  image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
+  stage: static-analysis
+  
+  tags:
+    - build
+    - kubernetes
+  retry: 
+    max: 1
+  variables:
+    S3_BUCKET: s3://bsport-eu-docs
+    CLOUDFRONT_ID: E2TQR3C50EPHHV
+  script:
+    - mv /app/node_modules/ .
+    - yarn install --frozen-lockfile # just to be sure
+    - yarn build-storybook --output-dir storybook
+    - aws s3 cp ./storybook/ $S3_BUCKET/storybook/$CI_COMMIT_REF_NAME --recursive --only-show-errors
+    - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths /$CI_COMMIT_REF_NAME/index.html 
+
+
+Deploy-storybook Feature Branch:
+  extends: .Deploy-storybook
+  except:
+    - dev
+    - master
+    - production
+
+Deploy-storybook Feature Branch:
+  extends: .Deploy-storybook
+  allow_failure: true
+  only:
+    - dev
+    - master
+    - production
+
+
+# FOR REFERENCE : same thing but with gitlab.io pages
+# --------------------------------------------------
+
+# storybook:
+#   image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
+#   stage: build-deploy
+#   tags:
+#     - build-frontend
+#     - kubernetes
+#   artifacts:
+#     expire_in: 2 weeks
+#     when: always
+#     paths:
+#       - storybook/
+#   script:
+#     - mv /app/node_modules/ ./
+#     - yarn install --frozen-lockfile # just to be sure
+#     - yarn build-storybook --output-dir storybook
+
+
+# stage: deployment (here I deploy my app to specific stages or other artefacts like storybook)
+# 
+# deploy-storybook:
+#   image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
+#   stage: build-deploy 
+#   tags:
+#     - light
+#     - kubernetes
+#   needs:
+#     - storybook
+#   script:
+#     - echo "Useless scripts. But the CI of gitlab needs one to create and configure an environment."
+#   environment:
+#     name: storybook/$CI_COMMIT_REF_SLUG
+#     url: https://bsport.gitlab.io/bsport-saas/$CI_COMMIT_REF_SLUG/storybook/
+# 
+#   only:
+#     - branches
+# 
+# pages:
+#   stage: build-deploy
+#   needs:
+#     - deploy-storybook
+#   tags:
+#     - light
+#     - kubernetes
+#   cache:
+#     key: 'my-storybook'
+#     paths:
+#       - public
+#   script:
+#     - if [ "$CI_COMMIT_REF_NAME" = "production" ]; then
+#       mkdir -p public;
+#       touch public/index.html;
+#       echo "<!DOCTYPE HTML><script>window.location.href = 'https://bsport.gitlab.io/bsport-saas/master/storybook'</script>" > public/index.html;
+#       fi;
+#     - rm -rf "public/$CI_COMMIT_REF_SLUG"
+#     - mkdir -p "public/$CI_COMMIT_REF_SLUG";
+#     - mv storybook "public/$CI_COMMIT_REF_SLUG"
+#   artifacts:
+#     paths:
+#       - public

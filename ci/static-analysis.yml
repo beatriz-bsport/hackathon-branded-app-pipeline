@@ -1,0 +1,30 @@
+Lint:
+  image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
+  stage: static-analysis
+  tags:
+    - high-ram
+    - kubernetes
+  script:
+    - mv /app/node_modules .
+    - yarn install --frozen-lockfile # just to be sure
+    - yarn lint 
+
+
+  except:
+    - master
+    - production
+
+Test:
+  image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
+  stage: static-analysis
+  tags:
+    - light
+    - kubernetes
+  script:
+    - mv /app/node_modules .
+    - yarn install --frozen-lockfile # just to be sure
+    - yarn test
+
+  except:
+    - master
+    - production

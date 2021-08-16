@@ -1,0 +1,38 @@
+.Label issues Base:
+  image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-docker:v1.0.1
+  stage: label-issues
+  tags:
+    - light
+    - kubernetes
+  only:
+    - dev
+    - master
+    - production
+  script: ./scripts/label-gitlab-issue.sh
+
+
+Label issue dev:
+  extends: .Label issues Base
+  only:
+    - dev
+  variables:
+    ENVIRONMENT: dev
+    SOURCE_BRANCH: dev
+    DEST_BRANCH: master
+
+Label issue staging:
+  extends: .Label issues Base
+  only:
+    - master
+  variables:
+    ENVIRONMENT: staging
+    SOURCE_BRANCH: master
+    DEST_BRANCH: production
+
+Label issue production:
+  extends: .Label issues Base
+  only:
+    - production
+  variables:
+    ENVIRONMENT: production
+    SOURCE_BRANCH: production

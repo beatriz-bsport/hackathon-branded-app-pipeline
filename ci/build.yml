@@ -1,0 +1,111 @@
+.Build and deploy Base:
+  image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
+  stage: build-deploy 
+  # cache:
+  #   files:
+  #     - yarn.lock
+  #   paths:
+  #       - "$YARN_CACHE_DIR"
+  #       - "$CYPRESS_CACHE_FOLDER/node_modules"
+  #       - node_modules
+  tags:
+    - build-frontend
+    - kubernetes
+  script:
+    - mv /app/node_modules .
+    - yarn install --frozen-lockfile # just to be sure
+    - echo "FAILED" > .job_status
+    - VERSION=`echo "$(cat ./VERSION)"`
+    - echo "Preparing VERSION:${VERSION} on ${ENVIRONMENT}"
+    - echo "export default '$VERSION';" > src/release.js
+    - VERSION_SHA="${VERSION}-${CI_COMMIT_SHORT_SHA}"
+    - echo "export default '$VERSION_SHA';" > src/release-sha.js
+    - yarn updateTranslation
+    - yarn build
+    - mv envs/$ENVIRONMENT build/env.js
+    - export SENTRY_NO_PROGRESS_BAR=1
+    - ./scripts/prepare-sentry-release.sh $VERSION_SHA $FRONTEND_URL 
+    - rm ./build/static/js/*.js.map
+    - aws s3 cp ./build/ $S3_BUCKET --recursive --only-show-errors
+    - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths /index.html /env.js /service-worker.js /manifest.json "/locales/*" "/locales/*/*.json"
+    - scripts/prepare-sentry-deploy.sh $VERSION_SHA $ENVIRONMENT 
+    - echo "SUCCESS" > .job_status
+    - cat .job_status
+
+  after_script:
+    - STATUS=`echo "$(cat .job_status)"`
+    - echo "$STATUS"
+    - cat .job_status
+    - export STATUS
+    - '[[ "$STATUS" = "SUCCESS" ]] && COLOR="#36a64f" || COLOR="#E00201"'
+    - '[[ "$STATUS" = "SUCCESS" ]] && SUCCESS_ICON="https://pluspng.com/img-png/success-png-success-icon-image-23194-400.png" || SUCCESS_ICON="http://www.pngall.com/wp-content/uploads/2016/06/Fail-Stamp-PNG-Clipart.png"'
+    - export SUCCESS_ICON
+
+    - VERSION=`echo "$(cat ./VERSION)"`
+    - '[[ $VERSION != $OLD_VERSION ]] && CHANGELOG=`git grep -B 200 ${OLD_VERSION} CHANGELOG.md | grep -A ${VERSION} || echo="Unable to find release note";` || CHANGELOG="Technical release";'
+    - export CHANGELOG
+
+    - envsubst < ./slack_template.json > slack_template2.json
+    - cat slack_template2.json
+    - 'curl -s -d @slack_template2.json --header "Content-Type: application/json" "${SLACK_WEBHOOK_URL}" || exit 0'
+
+Buid Deploy Staging:
+  extends: .Build and deploy Base
+  only:
+    refs:
+      - master
+  variables:
+    ENVIRONMENT: staging
+    FRONTEND_URL: backoffice.staging.bsport.io
+    S3_BUCKET: s3://bsport-eu-backoffice-staging/ 
+    CLOUDFRONT_ID: E3HVVKK3QMOC4B 
+    SLACK_WEBHOOK_URL: "${SLACK_STAGING_WEBHOOK_URL}"
+
+Buid Deploy Production:
+  extends: .Build and deploy Base
+  only:
+    refs:
+      - production
+  variables:
+    ENVIRONMENT: production
+    FRONTEND_URL: backoffice.bsport.io
+    S3_BUCKET: s3://bsport-eu-backoffice-production/ 
+    CLOUDFRONT_ID: E321VOI5045USU
+    SLACK_WEBHOOK_URL: "${SLACK_PRODUCTION_WEBHOOK_URL}"
+
+Buid Deploy Dev:
+  extends: .Build and deploy Base
+  only:
+    refs:
+      - dev
+  variables:
+    ENVIRONMENT: dev
+    FRONTEND_URL: backoffice.dev.bsport.io
+    S3_BUCKET: s3://bsport-eu-backoffice-dev/ 
+    CLOUDFRONT_ID: E17M3KEJFTN7MM
+    SLACK_WEBHOOK_URL: "${SLACK_DEV_WEBHOOK_URL}"
+
+Build Deploy Alpha:
+  extends: .Build and deploy Base
+  only:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /deploy-alpha/
+  variables:
+    ENVIRONMENT: alpha
+    FRONTEND_URL: backoffice.fb-alpha.bsport.io
+    S3_BUCKET: s3://bsport-eu-backoffice-fb-alpha/ 
+    CLOUDFRONT_ID: E26DURIBD1IZ6H
+    SLACK_WEBHOOK_URL: "${SLACK_DEV_WEBHOOK_URL}"
+
+Build Deploy Beta:
+  extends: .Build and deploy Base
+  only:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /deploy-beta/
+
+  variables:
+    ENVIRONMENT: beta
+    FRONTEND_URL: backoffice.fb-beta.bsport.io
+    S3_BUCKET: s3://bsport-eu-backoffice-fb-beta/ 
+    CLOUDFRONT_ID: E31SNYTE4NLU27
+    SLACK_WEBHOOK_URL: "${SLACK_DEV_WEBHOOK_URL}"

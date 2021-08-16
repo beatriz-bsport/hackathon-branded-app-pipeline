@@ -1771,7 +1771,11 @@
             "share": "Share",
             "pickALanguage": "Language",
             "emergencyContact": "In case of emergency",
-            "disconnect": "Sign out"
+            "disconnect": "Sign out",
+            "vaccinationDontWantToCommunicate": "Prefer not to answer",
+            "vaccinationNotDone": "I'm not in possession of a valid COVID-19 Sanitary Pass",
+            "vaccinationDone": "I'm in possession of a valid COVID-19 Sanitary Pass",
+            "vaccination_status": "COVID-19 Sanitary Pass Status"
         },
         "members": {
             "form": {
@@ -2162,6 +2166,9 @@
             "en-GB": "English (UK)",
             "en-US": "English (US)",
             "fr": "French"
+        },
+        "subscription": {
+            "isEmpty": "Currently, you don't own any active subscriptions."
         }
     },
     "reminder": {
@@ -2606,7 +2613,7 @@
         },
         "selector": {
             "privateService": "Select your appointment",
-            "privateSlot": "Select your session"
+            "privateSlot": "Session"
         },
         "slotSearcher": {
             "title": "Appointment",
@@ -2642,7 +2649,7 @@
             "establishment": "Location",
             "coach": "Teacher",
             "selectService": "Choose a service",
-            "selectSession": "Choose your session"
+            "selectSession": "Time slot"
         },
         "slot": {
             "parameters": {
@@ -3877,7 +3884,14 @@
                 },
                 "offerBalance": "Control the WOMEN / MEN balance on each session",
                 "showGenderOffer": "Display the number of men and women who book an offer",
-                "hideCoach": "Hide teachers names on the client calendar"
+                "hideCoach": "Hide teachers names on the client calendar",
+                "maxFutureBooking": {
+                    "numberCheck": {
+                        "helperText": "This will be the maximum amount of future bookings per member",
+                        "placeholder": "Maximum"
+                    },
+                    "label": "Limit the amount of future bookings per member"
+                }
             },
             "cover": {
                 "label": "Logo",
@@ -3919,7 +3933,7 @@
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",
-                "label": "Google Tag ID"
+                "label": "[ID] Google Tag Management"
             },
             "facebookURL": {
                 "label": "Facebook URL",
@@ -3949,7 +3963,7 @@
             },
             "facebookPixelId": {
                 "placeholder": "ID",
-                "label": "Facebook Pixel Id"
+                "label": "[ID] Facebook Pixel"
             },
             "waiver": {
                 "placeholder": "I certify that I'm over the age of 13",
@@ -3970,8 +3984,8 @@
         "analytics": {
             "showAnalyticsInformation": "Show events that are tracked",
             "eventDesc": "Description of the event",
-            "gtmEvent": "GTM Event Name",
-            "fbPixelEvent": "FB Pixel Event Name",
+            "gtmEvent": "[Google Tag Management] Event",
+            "fbPixelEvent": "[Facebook Pixel] Event",
             "cancel": "Cancel",
             "showBasket": "When the user displays his basket",
             "showPass": "When the user displays a pass",
@@ -4027,7 +4041,8 @@
                 "photo": "Profile picture",
                 "address_line_2": "Additional address information",
                 "address_line_1": "Address",
-                "birthday": "Date of birth"
+                "birthday": "Date of birth",
+                "vaccination_status": "COVID-19 Sanitary Pass Status"
             }
         },
         "zoom": {
@@ -4991,7 +5006,7 @@
         "coach_payment_rule_groups": {
             "subtitle": {
                 "helper": "You can group together your compensation rules for activities, workshops and appointments. By adding a teacher to a group, all of the group's compensation rules automatically apply to the teacher. Any change to the group will also be made to all the teachers in the group.",
-                "coaches": "Associate professors",
+                "coaches": "Associated teachers",
                 "specfic_private_slot": "Specific payment rate for an appointment",
                 "default": "Default compensation"
             },
@@ -7090,7 +7105,12 @@
         "applyBalanceToUnpaidInvoices": "Apply balance to unpaid invoices",
         "adjustBalance": "Adjust balance",
         "unpaidInvoiceTitle": "Unpaid invoice",
-        "unpaidInvoiceTitle_plural": "Unpaid invoices"
+        "unpaidInvoiceTitle_plural": "Unpaid invoices",
+        "vaccinationStatus": {
+            "unknown": "Unknown status for the COVID-19 Sanitary Pass",
+            "notDone": "I'm not in possession of a valid COVID-19 Sanitary Pass",
+            "done": "I'm in possession of a valid COVID-19 Sanitary Pass"
+        }
     },
     "booking": {
         "bookingModule": {
@@ -7353,13 +7373,15 @@
                     "7": "Unbalanced male / female ratio",
                     "6": "Unbalanced male / female ratio",
                     "5": "Already registered",
-                    "4": "Registrations closed"
+                    "4": "Registrations closed",
+                    "9": "It's not allowed to exceed the maximum amount of future bookings"
                 },
                 "bookable_status": {
                     "4": "Session unavailable",
                     "2": "Finished enrollments",
                     "1": "Closed enrollments",
-                    "0": "Open enrollments"
+                    "0": "Open enrollments",
+                    "9": "It's not allowed to exceed the maximum amount of future bookings"
                 },
                 "waiting_list": "Waiting list",
                 "book": "Enrollment"
@@ -7644,7 +7666,7 @@
             }
         },
         "selectToShowPreview": "Please select a template",
-        "exportList": "Export list",
+        "exportList": "Export Smartlist",
         "membersInList": "Members in the list:",
         "modal": {
             "delete": {
@@ -8095,6 +8117,15 @@
                 "explanation": "Select those who have accepted your liability waiver",
                 "name": "Liability waiver",
                 "explain": "Select those who have accepted your liability waiver"
+            },
+            "600": {
+                "expiryDateLabel": "Expiration date",
+                "owns": "Select at least one payment method",
+                "does_not_own": "No payment method has been saved",
+                "labelFirst": "Only filter on members",
+                "title": "Saved payment method",
+                "explanation": "Filter on saved payment methods and the expiration date",
+                "name": "Payment method"
             }
         },
         "noSmartLists": "Use Smartlists to filter, analyze, and get to know your members better.",
@@ -8678,7 +8709,9 @@
             "4": "The session is not bookable",
             "3": "The session is full",
             "2": "The session is not yet open for reservations",
-            "1": "The session is not yet open for reservations"
+            "1": "The session is not yet open for reservations",
+            "undefined": "Your pass has been completely used up for this year",
+            "9": "It's not allowed to exceed the maximum amount of future bookings"
         }
     },
     "navigation": {
@@ -8856,7 +8889,7 @@
                 "placeholder": "Search"
             },
             "thumbnailList": {
-                "similarVideoTitle": "Similar videos",
+                "similarVideoTitle": "Recommended videos",
                 "count": "{{count}} videos",
                 "addVideo": "add a video"
             },
@@ -8873,7 +8906,7 @@
             },
             "lock": {
                 "pleaseAuthenticated": "You must login to access this video",
-                "accessDenied": "Please click on the button below to access this video",
+                "accessDenied": "Currently, you don't have access to this video yet.",
                 "buyPass": "Buy a pass",
                 "useConsumerPass": "Watch video"
             },

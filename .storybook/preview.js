@@ -1,16 +1,20 @@
 import React from 'react';
 import { configure } from '@storybook/react';
 import { addDecorator } from '@storybook/react';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 
 
 import _ from '../envs/local';
 import Config from '../src/config.ts';
+import theme from '../src/theme';
 
 addDecorator(
   (Story) => (
-    <React.Suspense fallback={() => <p>text</p>}>
-      <Story />
-    </React.Suspense>
+    <MuiThemeProvider theme={theme}>
+      <React.Suspense fallback={() => <p>text</p>}>
+	<Story />
+      </React.Suspense>
+    </MuiThemeProvider>
   ),
 );
 // automatically import all files ending in *.stories.js

@@ -157,13 +157,13 @@ export const PaymentComboForm = (props: Props) => (
                 if (id) push(id);
               }}
             />
-            {props.privatePassListLoading || !props.relatedPrivatePass ? (
+            {props.privatePassListLoading ? (
               <div>{props.relatedPrivatePass && <CircularProgress />}</div>
             ) : (
               private_pass_ids.map((id, i) => {
-                const passes = Object.values(props.relatedPrivatePass).concat(
-                  Object.values(props.privatePassList),
-                );
+                const passes = Object.values(
+                  props.relatedPrivatePass || {},
+                ).concat(Object.values(props.privatePassList));
                 const pass = passes.find((pp) => pp.id === id);
                 if (pass) {
                   return (

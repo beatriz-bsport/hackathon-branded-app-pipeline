@@ -12,10 +12,15 @@
     CLOUDFRONT_ID: E2TQR3C50EPHHV
   script:
     - mv /app/node_modules/ .
+    - echo "env.PUBLIC_URL = 'https://docs.infra.bsport.io/storybook/${CI_COMMIT_REF_NAME}'" >> ./envs/storybook
+    - echo "env.I18N_TRANSLATION_DOMAIN = 'https://docs.infra.bsport.io/storybook/${CI_COMMIT_REF_NAME}'" >> ./envs/storybook
+    - cp ./envs/storybook ./envs/local
+    - yarn updateTranslation
     - yarn install --frozen-lockfile # just to be sure
     - yarn build-storybook --output-dir storybook
     - aws s3 cp ./storybook/ $S3_BUCKET/storybook/$CI_COMMIT_REF_NAME --recursive --only-show-errors
-    - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths /$CI_COMMIT_REF_NAME/index.html 
+    - aws s3 cp ./public/locales/ $S3_BUCKET/storybook/$CI_COMMIT_REF_NAME/locales --recursive --only-show-errors
+    - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths /$CI_COMMIT_REF_NAME/index.html /$CI_COMMIT_REF_NAME/locales
 
 
 Deploy-storybook Feature Branch:

@@ -3157,7 +3157,7 @@
     },
     "emailTemplate": {
         "editTitle": "E-mail bewerken",
-        "createTitle": "Een nieuwe e-mail maken",
+        "createTitle": "Sjabloon",
         "modal": {
             "delete": {
                 "confirm": "Verwijderen",
@@ -3171,7 +3171,7 @@
         "listTitle": "E-mails",
         "detail": "Gedetailleerde informatie",
         "selectToShowPreview": "Selecteer een e-mail om de voorvertoning te zien.",
-        "create": "Een nieuwe e-mail ontwerpen",
+        "create": "Een sjabloon toevoegen",
         "templateListEmpty": "In dit onderdeel kun je prachtige, gepersonaliseerde en unieke e-mails met onze Drag-&-Drop Bewerker ontwerpen en gelijk vanuit je BSPORT-account automatisch versturen.",
         "modification_date": "Laatste wijziging op",
         "subject": "Onderwerp van de e-mail:",
@@ -7926,7 +7926,7 @@
                 "marketplaceSettings": "MarketPlace",
                 "widget": "Widgets",
                 "paymentMethod": "Betaalmethoden",
-                "forms": "Formulieren"
+                "forms": "Inschrijfformulier"
             },
             "pass": "Leskaarten",
             "goBack": "Terug",

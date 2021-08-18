@@ -26,7 +26,7 @@ export const EmergencyContactItem = (props: Props) => {
     vaccinationStatusLabel = t('vaccinationStatus.notDone');
   }
   if (props.vaccinationStatus === null) {
-    vaccinationStatusLabel = t('vaccinationStatus.unknown');
+    return null;
   }
   return (
     <ListItem>

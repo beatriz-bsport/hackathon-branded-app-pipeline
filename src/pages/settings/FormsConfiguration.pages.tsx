@@ -4,9 +4,9 @@ import { compose, withHandlers } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/styles';
-import Typography from '@material-ui/core/Typography';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import { Theme } from '@material-ui/core';
+import { TFunction } from 'i18next';
+import withTitle from '../../hocs/with-title.hoc';
 import {
   fetchSignFormUpConfiguration,
   updateSignUpFormConfiguration,
@@ -17,6 +17,7 @@ import themeSelectors from '../../libs/theme/selectors';
 import SignUpConfigurationForm from '../../libs/sign-up-form/components/SignUpConfigurationForm.component';
 import { MaterialStyleType } from '../../utils/types';
 import type { SignUpFormConfig } from '../../libs/sign-up-form/types';
+import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 type OwnProps = {
   isSubmitting: boolean;
@@ -38,25 +39,21 @@ export class FormsConfiguration extends React.Component<Props> {
   }
 
   render() {
-    const { t, classes, loading } = this.props;
+    const { classes, loading } = this.props;
     return (
       <div className={classes.container}>
-        <div className={classes.title}>
-          <Typography variant="h5">{t('signUpForm.title')}</Typography>
-        </div>
-
-        <Paper className={classes.paperContainer}>
-          {loading ? (
-            <LinearProgress style={{ width: '100%' }} />
-          ) : (
+        {loading ? (
+          <BackofficeLinearProgress />
+        ) : (
+          <Paper className={classes.paperContainer}>
             <SignUpConfigurationForm
               initial={this.props.signupFormConfig}
               onSubmit={this.props.updateSignUpFormConfiguration}
               isSubmitting={this.props.isSubmitting}
               theme={this.props.theme}
             />
-          )}
-        </Paper>
+          </Paper>
+        )}
       </div>
     );
   }
@@ -94,4 +91,5 @@ export default compose(
       updateSignUpFormConfigurationAction(configId, data, options);
     },
   }),
+  withTitle(({ t }: { t: TFunction }) => t('theme:signUpForm.title')),
 )(FormsConfiguration);

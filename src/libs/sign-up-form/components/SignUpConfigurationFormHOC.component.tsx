@@ -47,8 +47,8 @@ export function SignUpConfigurationFields(props: Props) {
             values: { poll_fields },
           },
         }) => (
-          <TableContainer>
-            <Table>
+          <TableContainer style={{ maxHeight: '80vh' }}>
+            <Table stickyHeader>
               {!!poll_fields && poll_fields.length > 0 && (
                 <>
                   <TableHead>

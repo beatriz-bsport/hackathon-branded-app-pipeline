@@ -32,6 +32,7 @@ import LU_FLAG from './flags/LU.png';
 import CA_FLAG from './flags/CA.png';
 import AE_FLAG from './flags/AE.png';
 import US_FLAG from './flags/US.png';
+import EE_FLAG from './flags/EE.png';
 
 type Props = {
   withCurrency?: boolean,
@@ -206,6 +207,13 @@ const localeList: Array<Locale> = [
     icon: AE_FLAG,
     currencyCode: 'aed',
     currencyDisplay: 'د.إ',
+    showLang: true,
+  },
+  {
+    locale: 'en_EE',
+    icon: EE_FLAG,
+    currencyCode: 'eur',
+    currencyDisplay: '€',
     showLang: true,
   },
 ];

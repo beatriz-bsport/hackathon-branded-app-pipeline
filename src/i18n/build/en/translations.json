@@ -1279,7 +1279,7 @@
         },
         "consumer": {
             "booking": {
-                "cancelOption": "Go Back",
+                "cancelOption": "Cancel waiting list booking",
                 "noPastBookings": "No previous booking",
                 "noFutureBookings": "No booking planned",
                 "noBookingOptions": "Nothing on waiting-list",

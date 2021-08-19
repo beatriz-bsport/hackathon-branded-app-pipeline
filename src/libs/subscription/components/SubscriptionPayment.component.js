@@ -166,8 +166,9 @@ export class SubscriptionPayment extends React.Component<Props, State> {
   isZeroPrice = () => {
     if (this.props.contract) {
       return (
-        this.props.contract.recurrent_price -
-          (this.props.contract.flat_fee || 0) <=
+        this.props.contract.recurrent_price +
+          (this.props.contract.flat_fee || 0) -
+          (this.state.voucher || 0) <=
         0
       );
     }

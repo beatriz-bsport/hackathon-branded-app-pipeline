@@ -5412,10 +5412,10 @@
             "amountRemaining": "Remainder to pay: {{ amount }}",
             "billingMoreThanNeeded": "If you charge more than the amount of the invoice, the difference in cost will be added to the client account balance",
             "errorSecretExplain2": "If the issue is not resolved please contact us at dev+payment-intent@bsport.io",
-            "errorSecretExplain1": "This paiement method is not available at the moment",
+            "errorSecretExplain1": "This payment method is not available at the moment",
             "plannedPaymentEvent": {
-                "title": "Planned paiement",
-                "title_plural": "Planned paiements"
+                "title": "Planned payment",
+                "title_plural": "Planned payments"
             }
         },
         "paymentMethod": {
@@ -5889,7 +5889,7 @@
                 "explain": "Only this invoice will be modified",
                 "price": "New amount",
                 "title": "Payment modification",
-                "updateAll": "Update all futures paiements"
+                "updateAll": "Update all futures payments"
             },
             "list": {
                 "titleNext": "Next withdrawals"

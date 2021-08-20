@@ -10,6 +10,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import CancelIcon from '@material-ui/icons/Cancel';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { INVOICE_TYPE_REGULAR } from '@bsport/common/lib/master-data/invoice-type';
+import { PLANNED_PAYMENT_EVENT_STATUS_REGISTERED } from '@bsport/common/lib/master-data/planned-payment-event';
 import PaymentGroupRequiringActionListItem from './PaymentGroupRequiringActionListItem.component';
 import RedButton from '../../../components/button/RedButton.component';
 
@@ -156,15 +157,30 @@ type Props = {
   onPaymentIntent: () => void;
   plannedPaymentEventList: Array<PlannedPaymentEvent>;
   plannedPaymentEventLoading: boolean;
+  plannedPaymentEventActions?: {
+    onRegisterNow?: (id: number) => void;
+    onDisable?: (id: number) => void;
+    onEnable?: (id: number) => void;
+    onEdit?: (id: number) => void;
+  };
 };
 
 export const InvoicePaymentPanel: FC<Props> = (props) => {
   const classes = useStyles();
   const { t } = useTranslation(['invoice']);
-  const amountToPayCts = Math.max(
+  let amountToPayCts = Math.max(
     props.invoice.amount_due_cts - props.invoice.amount_paid_cts,
     0,
   );
+  if (
+    props.plannedPaymentEventList.filter(
+      (ppe) =>
+        ppe.processing &&
+        ppe.status === PLANNED_PAYMENT_EVENT_STATUS_REGISTERED,
+    ).length
+  ) {
+    amountToPayCts = 0;
+  }
   const is_reverse = props.invoice.source_invoice;
   return (
     <div className={classes.container}>
@@ -228,6 +244,7 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
                   <PlannedPaymentEventListItem
                     plannedPaymentEvent={p}
                     key={p.id}
+                    actions={props.plannedPaymentEventActions}
                   />
                 ))}
               </div>

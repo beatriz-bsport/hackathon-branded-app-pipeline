@@ -3454,7 +3454,12 @@
       }
     },
     "plannedPaymentEvent": {
-      "actions": { "registerNow": "Encaisser maintenant", "delete": "Annuler", "edit": "Modifier" },
+      "actions": {
+        "registerNow": "Encaisser maintenant",
+        "disable": "Déprogrammer",
+        "enable": "Reprogrammer",
+        "edit": "Modifier"
+      },
       "nextRetryDate": "Le paiement sera retenté le {{ d }}"
     },
     "paymentPanel": {

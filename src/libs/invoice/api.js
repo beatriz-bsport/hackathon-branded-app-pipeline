@@ -140,6 +140,20 @@ export async function fetchPlannedPaymentEvent(params: any = {}) {
   );
 }
 
+export async function cancelPlannedPaymentEvent(id: number) {
+  return postAuth(`${API_V1_URI}/payment/planned_payment_event/${id}/cancel/`);
+}
+
+export async function enablePlannedPaymentEvent(id: number) {
+  return postAuth(`${API_V1_URI}/payment/planned_payment_event/${id}/enable/`);
+}
+
+export async function registerNowPlannedPaymentEvent(id: number) {
+  return postAuth(
+    `${API_V1_URI}/payment/planned_payment_event/${id}/register_now/`,
+  );
+}
+
 export async function editCustomFooter(uuid: string, custom_footer: string) {
   return postAuth(`${API_V1_URI}/payment/invoices/${uuid}/update_footer/`, {
     custom_footer,

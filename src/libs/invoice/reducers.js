@@ -17,6 +17,9 @@ import {
   listPlannedPaymentEventActions,
   editCustomFooterActions,
   checkInvoiceInfoActions,
+  cancelPlannedPaymentEventActions,
+  enablePlannedPaymentEventActions,
+  registerNowPlannedPaymentEventActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -244,6 +247,39 @@ export default handleActions(
     },
     [listPlannedPaymentEventActions.isLoading]: (state, { payload }) => {
       return state.setIn(['planned_payment_event', 'loading'], payload);
+    },
+    [cancelPlannedPaymentEventActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['planned_payment_event', 'loading'], payload);
+    },
+    [enablePlannedPaymentEventActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['planned_payment_event', 'loading'], payload);
+    },
+    [enablePlannedPaymentEventActions.error]: (state, { payload }) => {
+      return state.setIn(['planned_payment_event', 'error'], payload);
+    },
+    [enablePlannedPaymentEventActions.success]: (state, { payload }) => {
+      return state.setIn(
+        ['planned_payment_event', 'byId', payload.uuid],
+        payload,
+      );
+    },
+    [registerNowPlannedPaymentEventActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['planned_payment_event', 'loading'], payload);
+    },
+    [registerNowPlannedPaymentEventActions.error]: (state, { payload }) => {
+      return state.setIn(['planned_payment_event', 'error'], payload);
+    },
+    [registerNowPlannedPaymentEventActions.success]: (state, { payload }) => {
+      return state.setIn(
+        ['planned_payment_event', 'byId', payload.uuid],
+        payload,
+      );
+    },
+    [cancelPlannedPaymentEventActions.success]: (state, { payload }) => {
+      return state.setIn(
+        ['planned_payment_event', 'byId', payload.uuid],
+        payload,
+      );
     },
     [listPlannedPaymentEventActions.error]: (state, { payload }) => {
       return state.setIn(['planned_payment_event', 'error'], payload);

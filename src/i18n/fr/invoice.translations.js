@@ -138,7 +138,8 @@ exports.default = {
   plannedPaymentEvent: {
     actions: {
       registerNow: 'Encaisser maintenant',
-      delete: 'Annuler',
+      disable: 'Déprogrammer',
+      enable: 'Reprogrammer',
       edit: 'Modifier',
     },
     nextRetryDate: 'Le paiement sera retenté le {{ d }}',

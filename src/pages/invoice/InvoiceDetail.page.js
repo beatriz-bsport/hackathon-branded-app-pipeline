@@ -11,7 +11,11 @@ import Fab from '@material-ui/core/Fab';
 import PersonIcon from '@material-ui/icons/Person';
 import { push as pushRouter } from 'connected-react-router';
 import { PAYMENT_INTENT_TYPE_INVOICE } from '@bsport/common/lib/master-data/payment-group';
-import { PLANNED_PAYMENT_EVENT_STATUS_PENDING } from '@bsport/common/lib/master-data/planned-payment-event';
+import {
+  PLANNED_PAYMENT_EVENT_STATUS_PENDING,
+  PLANNED_PAYMENT_EVENT_STATUS_REGISTERED,
+  PLANNED_PAYMENT_EVENT_STATUS_CANCELED,
+} from '@bsport/common/lib/master-data/planned-payment-event';
 import { INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER } from '@bsport/common/lib/master-data/invoice-type';
 import withTitle from '../../hocs/with-title.hoc';
 import {
@@ -35,6 +39,9 @@ import {
   allocateDebt,
   editCustomFooter as editCustomFooterAction,
   fetchPlannedPaymentEventList,
+  enablePlannedPaymentEvent as enablePlannedPaymentEventAction,
+  registerNowPlannedPaymentEvent as registerNowPlannedPaymentEventAction,
+  cancelPlannedPaymentEvent as cancelPlannedPaymentEventAction,
 } from '../../libs/invoice/actions';
 import {
   updatePaymentGroupPriceCts,
@@ -96,6 +103,10 @@ type Props = {
     priceCts: number,
     options: OptionCallback,
   ) => void,
+
+  registerNowPlannedPaymentEvent: (id: number, options: OptionCallback) => void,
+  enablePlannedPaymentEvent: (id: number, options: OptionCallback) => void,
+  cancelPlannedPaymentEvent: (id: number, options: OptionCallback) => void,
 };
 
 type State = {
@@ -136,7 +147,43 @@ export class InvoiceDetail extends React.Component<Props, State> {
     });
     this.props.fetchPlannedPaymentEventList({
       invoice: this.props.uuid,
-      status: PLANNED_PAYMENT_EVENT_STATUS_PENDING,
+      status__in: `${PLANNED_PAYMENT_EVENT_STATUS_PENDING},${PLANNED_PAYMENT_EVENT_STATUS_CANCELED},${PLANNED_PAYMENT_EVENT_STATUS_REGISTERED}`,
+    });
+  };
+
+  registerNowPlannedPaymentEvent = (id: number, options: OptionCallback) => {
+    this.props.registerNowPlannedPaymentEvent(id, {
+      onSuccess: (data) => {
+        this.fetchInvoiceData();
+        if (options && options.onSuccess) {
+          options.onSuccess(data);
+        }
+      },
+      onError: options && options.onError,
+    });
+  };
+
+  cancelPlannedPaymentEvent = (id: number, options: OptionCallback) => {
+    this.props.cancelPlannedPaymentEvent(id, {
+      onSuccess: (data) => {
+        this.fetchInvoiceData();
+        if (options && options.onSuccess) {
+          options.onSuccess(data);
+        }
+      },
+      onError: options && options.onError,
+    });
+  };
+
+  enablePlannedPaymentEvent = (id: number, options: OptionCallback) => {
+    this.props.enablePlannedPaymentEvent(id, {
+      onSuccess: (data) => {
+        this.fetchInvoiceData();
+        if (options && options.onSuccess) {
+          options.onSuccess(data);
+        }
+      },
+      onError: options && options.onError,
     });
   };
 
@@ -252,6 +299,11 @@ export class InvoiceDetail extends React.Component<Props, State> {
                 this.props.invoice.member &&
                 this.props.invoice.member.credit_account_balance
               }
+              plannedPaymentEventActions={{
+                onDisable: this.cancelPlannedPaymentEvent,
+                onEnable: this.enablePlannedPaymentEvent,
+                onRegisterNow: this.registerNowPlannedPaymentEvent,
+              }}
             />
           </Grid>
           {!!this.props.openPaymentDialog && (
@@ -393,6 +445,9 @@ export default compose(
       allocateDebt,
       editCustomFooter: editCustomFooterAction,
       updatePaymentGroupPriceCts,
+      cancelPlannedPaymentEvent: cancelPlannedPaymentEventAction,
+      enablePlannedPaymentEvent: enablePlannedPaymentEventAction,
+      registerNowPlannedPaymentEvent: registerNowPlannedPaymentEventAction,
     },
   ),
   withHandlers({

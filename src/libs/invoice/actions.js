@@ -21,6 +21,9 @@ import {
   applyBalanceToUnpaid as applyBalanceToUnpaidAPI,
   fetchPlannedPaymentEvent as fetchPlannedPaymentEventAPI,
   editCustomFooter as editCustomFooterAPI,
+  cancelPlannedPaymentEvent as cancelPlannedPaymentEventAPI,
+  enablePlannedPaymentEvent as enablePlannedPaymentEventAPI,
+  registerNowPlannedPaymentEvent as registerNowPlannedPaymentEventAPI,
 } from './api';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
@@ -561,6 +564,93 @@ export function fetchPlannedPaymentEventList(
       }
     }
     dispatch(listPlannedPaymentEventActions.isLoading(false));
+  };
+}
+
+export const cancelPlannedPaymentEventActions = {
+  isLoading: createAction('PLANNED_PAYMENT_EVENT/CANCEL/LOADING'),
+  error: createAction('PLANNED_PAYMENT_EVENT/CANCEL/ERROR'),
+  success: createAction('PLANNED_PAYMENT_EVENT/CANCEL/SUCCESS'),
+};
+
+export function cancelPlannedPaymentEvent(id: number, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(cancelPlannedPaymentEventActions.isLoading(true));
+    dispatch(cancelPlannedPaymentEventActions.error(null));
+
+    try {
+      const response = await cancelPlannedPaymentEventAPI(id);
+      dispatch(cancelPlannedPaymentEventActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (e) {
+      console.error(e);
+      dispatch(cancelPlannedPaymentEventActions.error(e));
+      if (options && options.onError) {
+        options.onError(e);
+      }
+    }
+    dispatch(cancelPlannedPaymentEventActions.isLoading(false));
+  };
+}
+
+export const enablePlannedPaymentEventActions = {
+  isLoading: createAction('PLANNED_PAYMENT_EVENT/ENABLE/LOADING'),
+  error: createAction('PLANNED_PAYMENT_EVENT/ENABLE/ERROR'),
+  success: createAction('PLANNED_PAYMENT_EVENT/ENABLE/SUCCESS'),
+};
+
+export function enablePlannedPaymentEvent(id: number, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(enablePlannedPaymentEventActions.isLoading(true));
+    dispatch(enablePlannedPaymentEventActions.error(null));
+
+    try {
+      const response = await enablePlannedPaymentEventAPI(id);
+      dispatch(enablePlannedPaymentEventActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (e) {
+      console.error(e);
+      dispatch(enablePlannedPaymentEventActions.error(e));
+      if (options && options.onError) {
+        options.onError(e);
+      }
+    }
+    dispatch(enablePlannedPaymentEventActions.isLoading(false));
+  };
+}
+
+export const registerNowPlannedPaymentEventActions = {
+  isLoading: createAction('PLANNED_PAYMENT_EVENT/REGISTER_NOW/LOADING'),
+  error: createAction('PLANNED_PAYMENT_EVENT/REGISTER_NOW/ERROR'),
+  success: createAction('PLANNED_PAYMENT_EVENT/REGISTER_NOW/ENABLE/SUCCESS'),
+};
+
+export function registerNowPlannedPaymentEvent(
+  id: number,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(registerNowPlannedPaymentEventActions.isLoading(true));
+    dispatch(registerNowPlannedPaymentEventActions.error(null));
+
+    try {
+      const response = await registerNowPlannedPaymentEventAPI(id);
+      dispatch(registerNowPlannedPaymentEventActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (e) {
+      console.error(e);
+      dispatch(registerNowPlannedPaymentEventActions.error(e));
+      if (options && options.onError) {
+        options.onError(e);
+      }
+    }
+    dispatch(registerNowPlannedPaymentEventActions.isLoading(false));
   };
 }
 

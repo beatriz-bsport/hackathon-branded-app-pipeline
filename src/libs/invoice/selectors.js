@@ -6,6 +6,7 @@ import {
   BUYABLE_ITEM_PRIVATE_PASS,
   BUYABLE_ITEM_COMBO_ITEM,
 } from '@bsport/common/lib/master-data/buyable-items';
+import { PLANNED_PAYMENT_EVENT_STATUS_REGISTERED } from '@bsport/common/lib/master-data/planned-payment-event';
 import { createSelector } from 'reselect';
 
 import { getPrivatePassAvailable } from '../private-service/selectors/private-pass';
@@ -73,7 +74,16 @@ export const getPlannedPaymentEventList = createSelector(
     (state, uuid) => uuid,
   ],
   (ids, data, uuid) =>
-    ids.map((id) => data[id]).filter((ppe) => !!ppe && ppe.invoice === uuid),
+    ids
+      .map((id) => data[id])
+      .filter((ppe) => !!ppe && ppe.invoice === uuid)
+      .filter(
+        (ppe) =>
+          !(
+            ppe.status === PLANNED_PAYMENT_EVENT_STATUS_REGISTERED &&
+            !ppe.processing
+          ),
+      ),
 );
 
 export const withInvoiceItem = memoize((selector) =>

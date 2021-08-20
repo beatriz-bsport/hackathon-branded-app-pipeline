@@ -12,7 +12,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import type { TFunction } from 'react-i18next';
 
 import PriceInput from '../../../components/input/PriceInput.component';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 type Props = {
   finalPrice: number,
@@ -76,7 +76,7 @@ export function PaymentInfo(props: Props) {
         </Grid>
         <Grid item>
           <Typography variant="button" gutterBottom>
-            {finalPrice.toFixed(2)} {getCurrencyDisplay()}
+            {getCurrencyDisplayWithPrice(finalPrice.toFixed(2))}
           </Typography>
         </Grid>
       </Grid>
@@ -98,7 +98,9 @@ export function PaymentInfo(props: Props) {
             gutterBottom
             style={totalPayment < finalPrice ? { color: '#e57373' } : {}}
           >
-            {(finalPrice - totalPayment).toFixed(2)} {getCurrencyDisplay()}
+            {getCurrencyDisplayWithPrice(
+              (finalPrice - totalPayment).toFixed(2),
+            )}
           </Typography>
         </Grid>
       </Grid>

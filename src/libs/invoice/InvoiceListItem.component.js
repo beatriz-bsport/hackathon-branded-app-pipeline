@@ -6,7 +6,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Typography from '@material-ui/core/Typography';
 import { formatAsDatetime } from '../../utils/datetime';
-import { getCurrencyDisplay } from '../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../theme/selectors';
 
 import LoadingListItem from '../../components/LoadingListItem.component';
 
@@ -47,7 +47,7 @@ export default function (props: Props) {
             ...(invoice.reverted ? { textDecoration: 'line-through' } : {}),
           }}
         >
-          {`${invoice.price_due} ${getCurrencyDisplay()}`}
+          {`${getCurrencyDisplayWithPrice(invoice.price_due)}`}
         </Typography>
       </ListItemSecondaryAction>
     </ListItem>

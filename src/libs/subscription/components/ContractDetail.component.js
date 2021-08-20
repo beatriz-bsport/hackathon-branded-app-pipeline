@@ -12,7 +12,7 @@ import LinkIcon from '@material-ui/icons/Link';
 import PaymentPackListItem from '../../payment-packs/components/PaymentPackListItem.component';
 import PrivatePassListItem from '../../private-service/components/pass/PrivatePassListItem.component';
 import PaymentComboListItem from '../../payment-combo/components/PaymentComboListItem.component';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 type Props = {
   contract: Contract,
@@ -52,12 +52,12 @@ const ContractDetail = (props: Props) => {
             <Typography variant="h6" align="right">
               {`${t(
                 'contract.form.recurrent_price.label',
-              )} : ${recurrent_price}${getCurrencyDisplay()}`}
+              )} : ${getCurrencyDisplayWithPrice(recurrent_price)}`}
             </Typography>
             <Typography variant="h6" align="right">
-              {`${t(
-                'parameters.flat_fee',
-              )} : ${flat_fee}${getCurrencyDisplay()}`}
+              {`${t('parameters.flat_fee')} : ${getCurrencyDisplayWithPrice(
+                flat_fee,
+              )}`}
             </Typography>
           </div>
         </div>

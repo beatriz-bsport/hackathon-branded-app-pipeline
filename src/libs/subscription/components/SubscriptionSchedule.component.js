@@ -29,7 +29,7 @@ import type { TFunction } from 'react-i18next';
 
 import { formatAsDate } from '../../../utils/datetime';
 import PaginatedList from '../../../components/PaginatedListStateful.component';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 import type { PlannedInvoice } from '../types';
 
@@ -121,7 +121,7 @@ export const PlannedInvoiceItem = (props: {
         <ListItemText
           primary={
             props.invoice.price !== undefined
-              ? `${props.invoice.price} ${getCurrencyDisplay()}`
+              ? `${getCurrencyDisplayWithPrice(props.invoice.price)}`
               : ' - '
           }
           secondary={statusText}

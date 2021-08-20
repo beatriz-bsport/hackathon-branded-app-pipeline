@@ -40,7 +40,7 @@ import { getBookingStatusCode } from '../utils';
 import Tooltip from '../../../components/Tooltip.component';
 import RedButton from '../../../components/button/RedButton.component';
 
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 import { formatAsDatetime, formatAsDate } from '../../../utils/datetime';
 
@@ -409,14 +409,18 @@ export class BookingItemForManager extends Component<Props, State> {
         let creditsFormatted = '';
         let creditColor = 'primary';
         if (credits >= 0) {
-          creditsFormatted = `${credits.toFixed(1)}${getCurrencyDisplay()}`;
+          creditsFormatted = `${getCurrencyDisplayWithPrice(
+            credits.toFixed(1),
+          )}`;
           creditColor = 'primary';
         }
         if (!credits) {
           creditColor = 'secondary';
         }
         if (credits < 0) {
-          creditsFormatted = `${-credits.toFixed(1)}${getCurrencyDisplay()}`;
+          creditsFormatted = `${getCurrencyDisplayWithPrice(
+            -credits.toFixed(1),
+          )}`;
           creditColor = 'error';
         }
 

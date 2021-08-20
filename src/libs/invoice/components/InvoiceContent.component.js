@@ -20,7 +20,7 @@ import { INVOICE_TYPE_MIGRATION } from '@bsport/common/lib/master-data/invoice-t
 import DeleteIcon from '@material-ui/icons/Delete';
 import { ListItem } from '@material-ui/core';
 import Tooltip from '../../../components/Tooltip.component';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import InvoiceItem from './InvoiceItem.component';
 import PaymentItem from './PaymentItem.component';
 import CouponCodeForm from '../../coupon/components/CouponCodeForm.component';
@@ -106,9 +106,9 @@ export const InvoiceContent = (props: Props) => {
                 {t('section.invoiceItemList.total')}
               </Typography>
               <Typography variant="h5">
-                {`${parseFloat(props.amountInvoiceitem).toFixed(
-                  2,
-                )} ${getCurrencyDisplay()}`}
+                {getCurrencyDisplayWithPrice(
+                  parseFloat(props.amountInvoiceitem).toFixed(2),
+                )}
               </Typography>
             </div>
           </div>
@@ -153,7 +153,7 @@ export const InvoiceContent = (props: Props) => {
                   }
                   variant="h5"
                 >
-                  {`${props.amountPaymentItem || 0} ${getCurrencyDisplay()}`}
+                  {getCurrencyDisplayWithPrice(props.amountPaymentItem || 0)}
                 </Typography>
               </div>
             </div>
@@ -220,9 +220,8 @@ export const InvoiceContent = (props: Props) => {
                 <>
                   <ListItem>
                     <ListItemText
-                      primary={`${coupon.coupon_code}   -${(
-                        coupon.coupon_voucher || 0
-                      ).toFixed(2)} ${getCurrencyDisplay()}`}
+                      primary={`${coupon.coupon_code}   - 
+			${getCurrencyDisplayWithPrice(coupon.coupon_voucher || 0).toFixed(2)}`}
                     />
                     <ListItemSecondaryAction>
                       <IconButton

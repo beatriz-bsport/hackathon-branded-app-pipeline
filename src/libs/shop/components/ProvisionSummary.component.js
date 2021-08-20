@@ -12,7 +12,7 @@ import StoreIcon from '@material-ui/icons/Store';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import LanguageIcon from '@material-ui/icons/Language';
 import Typography from '@material-ui/core/Typography';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 import type { ShopItem } from '../types';
 
@@ -51,7 +51,7 @@ const ProvisionSummary = (props: Props) => (
         {props.t('shopitem.detail.supplier_price')}
       </Typography>
       <Typography inline variant="h6" component="h3">
-        {`${props.shopitem.supplier_price} ${getCurrencyDisplay()}`}
+        {`${getCurrencyDisplayWithPrice(props.shopitem.supplier_price)}`}
       </Typography>
     </div>
     <div className={props.classes.line}>

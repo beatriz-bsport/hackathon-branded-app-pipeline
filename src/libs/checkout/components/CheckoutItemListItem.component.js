@@ -18,7 +18,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import withStyles from '@material-ui/core/styles/withStyles';
 import moment from 'moment-timezone';
 
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 import type { CheckoutItem } from '../types';
 import CountDown from '../../../components/time/CountDown.component';
@@ -45,9 +45,9 @@ export const CheckoutItemListItem = (props: {
         <div>
           <ListItemText
             primary={props.checkout_item.name}
-            secondary={`${
-              props.checkout_item.unit_price
-            } ${getCurrencyDisplay()} x ${props.checkout_item.quantity}`}
+            secondary={`${getCurrencyDisplayWithPrice(
+              props.checkout_item.unit_price,
+            )} x ${props.checkout_item.quantity}`}
           />
         </div>
 

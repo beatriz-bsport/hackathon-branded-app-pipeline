@@ -33,7 +33,7 @@ import MomentUtils from '@date-io/moment';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import PaymentMethodList from '../../payment/components/PaymentMethodList.component';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { appliesToContract } from '../../coupon/api';
 import CouponCodeForm from '../../coupon/components/CouponCodeForm.component';
 import { Moment } from '../../../i18n';
@@ -305,16 +305,18 @@ export class SubscriptionPayment extends React.Component<Props, State> {
           <div className={classes.priceContainer}>
             <div className={classes.priceInner}>
               <Typography variant="h4">
-                {`${parseFloat(
-                  this.props.contract.recurrent_price -
-                    (this.state.voucher || 0),
-                ).toFixed(2)} ${getCurrencyDisplay()}`}
+                {`${getCurrencyDisplayWithPrice(
+                  parseFloat(
+                    this.props.contract.recurrent_price -
+                      (this.state.voucher || 0),
+                  ).toFixed(2),
+                )}`}
               </Typography>
               {!!parseInt(this.props.contract.flat_fee, 10) && (
                 <Typography variant="caption">
-                  {`+${parseFloat(this.props.contract.flat_fee).toFixed(
-                    2,
-                  )} ${getCurrencyDisplay()}`}
+                  {`+${getCurrencyDisplayWithPrice(
+                    parseFloat(this.props.contract.flat_fee).toFixed(2),
+                  )}`}
                 </Typography>
               )}
             </div>
@@ -325,9 +327,9 @@ export class SubscriptionPayment extends React.Component<Props, State> {
             {!!this.state.voucher && (
               <div className={classes.couponItem}>
                 <Typography color="textSecondary">
-                  {`${this.state.coupon_code}   -${(
-                    this.state.voucher || 0
-                  ).toFixed(2)} ${getCurrencyDisplay()}`}
+                  {`${this.state.coupon_code}   -${getCurrencyDisplayWithPrice(
+                    (this.state.voucher || 0).toFixed(2),
+                  )}`}
                 </Typography>
                 <IconButton
                   aria-label="delete"

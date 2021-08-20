@@ -29,7 +29,7 @@ import PAYMENT_METHODS, {
   DISPUTE as PAYMENT_METHOD_DISPUTE,
 } from '@bsport/common/lib/master-data/payment-methods';
 import withConfirm from '../../../hocs/with-confirm.hoc';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 import type { PaymentItemData, PaymentItem } from './types';
 
@@ -179,7 +179,7 @@ class PaymentListItem extends Component<PaymentItemProps, PaymentItemState> {
       >
         <ListItemIcon>{this.renderPaymentReceived(paymentItem)}</ListItemIcon>
         <ListItemText
-          primary={`${price} ${getCurrencyDisplay()}  -  ${t(
+          primary={`${getCurrencyDisplayWithPrice(price)}  -  ${t(
             `payment.paymentMethods.${paymentMethodText}`,
           )}`}
           secondary={payment_note}

@@ -17,7 +17,7 @@ import {
 import { withTranslation } from 'react-i18next';
 import type { Coupon } from '../types';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 type Props = {
   t: TFunction,
@@ -37,7 +37,7 @@ export const CouponListItem = (props: Props) => {
       secondaryText = `${coupon.percent_off}%`;
       break;
     case VOUCHER_TYPE_AMOUNT:
-      secondaryText = `${coupon.amount_off}${getCurrencyDisplay()}`;
+      secondaryText = `${getCurrencyDisplayWithPrice(coupon.amount_off)}`;
       break;
     default:
       break;

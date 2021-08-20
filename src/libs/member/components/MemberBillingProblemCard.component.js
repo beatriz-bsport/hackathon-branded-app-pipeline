@@ -15,7 +15,7 @@ import {
 } from '@bsport/common/lib/master-data/payment-group';
 import PaymentDialog from '../../payment/components/PaymentDialog.component';
 import MemberBalanceUpdaterDialog from './MemberBalanceUpdaterDialog.component';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import InvoiceTable from '../../invoice/components/InvoiceTable.component';
 import { requestClientSecret as requestClientSecretAPI } from '../../invoice/api';
 import { Member } from '../types';
@@ -104,7 +104,7 @@ export const MemberBillingProblemCard = (props: Props) => {
             </Typography>
             <div className={classes.buttonContainer}>
               <Typography inline variant="h6" component="span" color={color}>
-                {` ${balance} ${getCurrencyDisplay()}`}
+                {` ${getCurrencyDisplayWithPrice(balance)}`}
               </Typography>
               <Button
                 onClick={() => {

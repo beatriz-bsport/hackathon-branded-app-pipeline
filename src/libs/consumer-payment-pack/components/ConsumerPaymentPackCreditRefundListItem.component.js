@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Typography from '@material-ui/core/Typography';
 import moment from 'moment-timezone';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 type Props = {
   creditRefund: ConsumerPaymentPackCreditRefund,
@@ -35,7 +35,7 @@ export const ConsumerPaymentPackCreditRefundListItem = (props: Props) => {
       />
       <ListItemSecondaryAction>
         <Typography variant="subtitle1" color="primary">
-          {`${props.creditRefund.price || 0} ${getCurrencyDisplay()}`}
+          {`${getCurrencyDisplayWithPrice(props.creditRefund.price || 0)}`}
         </Typography>
       </ListItemSecondaryAction>
     </ListItem>

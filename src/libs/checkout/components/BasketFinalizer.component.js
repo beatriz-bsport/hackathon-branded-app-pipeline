@@ -18,7 +18,7 @@ import type { Basket } from '../types';
 
 import BasketDeliveryForm from './BasketDeliveryForm.component';
 import CouponCodeForm from '../../coupon/components/CouponCodeForm.component';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import AcceptTermsAndConditions from '../../payment/components/AcceptTermsAndConditions.component';
 
 export const ADDRESS_STEP = {
@@ -209,7 +209,7 @@ export class BasketFinalizer extends React.Component<Props, State> {
       <div>
         <div className={this.props.classes.totalPrice}>
           <Typography component="p" variant="h4">
-            {`${this.props.basket.total_price} ${getCurrencyDisplay()}`}
+            {`${getCurrencyDisplayWithPrice(this.props.basket.total_price)}`}
           </Typography>
         </div>
         <div className={this.props.classes.couponCodeContainer}>

@@ -10,7 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Selector from '../../../../components/Selector.component';
 
 import type { PrivatePass } from '../../types';
-import { getCurrencyDisplay } from '../../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../../theme/selectors';
 
 type Props = {
   classes: Object,
@@ -42,7 +42,7 @@ function privatePassOption(props: OptionProps) {
       >
         <ListItemText
           primary={data.pp.name}
-          secondary={`${data.pp.price}${getCurrencyDisplay()}`}
+          secondary={`${getCurrencyDisplayWithPrice(data.pp.price)}`}
         />
       </ListItem>
     </div>

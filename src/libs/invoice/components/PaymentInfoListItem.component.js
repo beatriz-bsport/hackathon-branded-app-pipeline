@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 type Props = {
   payment: Payment,
@@ -26,7 +26,7 @@ export const PaymentInfoListItem = (props: Props) => {
         }
       />
       <ListItemSecondaryAction>
-        {`${payment.price} ${getCurrencyDisplay()}`}
+        {`${getCurrencyDisplayWithPrice(payment.price)}`}
       </ListItemSecondaryAction>
     </ListItem>
   );

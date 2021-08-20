@@ -27,7 +27,7 @@ import IconButton from '@material-ui/core/IconButton';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import { TableFooter } from '@material-ui/core';
-import { getCurrencyDisplay } from '../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../theme/selectors';
 
 import type { ReportConfiguration, ReportMetadata } from './types';
 
@@ -77,7 +77,9 @@ export function getConverter(column, classes, t) {
       if (typeof value === 'number' || !value) {
         return {
           cellProps: { className: classes.right },
-          value: `${parseFloat(value || 0).toFixed(2)}${getCurrencyDisplay()}`,
+          value: `${getCurrencyDisplayWithPrice(
+            parseFloat(value || 0).toFixed(2),
+          )}`,
         };
       }
     }
@@ -85,9 +87,9 @@ export function getConverter(column, classes, t) {
       if (typeof value === 'number' || !value) {
         return {
           cellProps: { className: classes.right },
-          value: `${(parseFloat(value || 0) / 100).toFixed(
-            2,
-          )}${getCurrencyDisplay()}`,
+          value: `${getCurrencyDisplayWithPrice(
+            (parseFloat(value || 0) / 100).toFixed(2),
+          )}`,
         };
       }
     }

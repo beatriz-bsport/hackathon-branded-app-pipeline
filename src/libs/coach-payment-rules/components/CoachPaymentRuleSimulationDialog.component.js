@@ -219,8 +219,8 @@ export const CoachPaymentRuleSimulationDialog = (props: Props) => {
                     min: 0,
                     style: { textAlign: 'right' },
                   },
-                  startAdornment: (
-                    <InputAdornment position="start">
+                  endAdornment: (
+                    <InputAdornment position="end">
                       <Typography>
                         {`${t(
                           'coach_payment_rules.Simulator.which',
@@ -228,8 +228,8 @@ export const CoachPaymentRuleSimulationDialog = (props: Props) => {
                       </Typography>
                     </InputAdornment>
                   ),
-                  endAdornment: (
-                    <InputAdornment position="end">
+                  startAdornment: (
+                    <InputAdornment position="start">
                       <Typography>
                         {t('coach_payment_rules.Simulator.forEachBooking')}
                       </Typography>

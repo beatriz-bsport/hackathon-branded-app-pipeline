@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { compose, withState } from 'recompose';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 import type { PaymentCombo } from '../types';
 
@@ -35,9 +35,9 @@ export const PaymentComboBuyableItem = (props: Props) => {
   return (
     <ListItem>
       <ListItemText
-        primary={`${paymentCombo.name} - ${
-          paymentCombo.price
-        }${getCurrencyDisplay()}`}
+        primary={`${paymentCombo.name} - ${getCurrencyDisplayWithPrice(
+          paymentCombo.price,
+        )}`}
         secondary={subtitle}
       />
       <ListItemSecondaryAction>

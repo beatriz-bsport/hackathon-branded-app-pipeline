@@ -18,7 +18,7 @@ import {
   PAYOUT_STATUS_TRANSIT,
 } from '@bsport/common/lib/master-data/payout-status';
 import PaymentListItemV2 from '../../invoice/components/PaymentListItemV2.component';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { Payout } from '../types';
 
 type Props = {
@@ -38,9 +38,11 @@ const PayoutListItem = (props: Props) => {
       <div className={classes.innerContainer}>
         <div className={classes.leftPart}>
           <Typography>
-            {`${moment(payout.date_created).format('LL')} - ${(
-              payout.amount_cts / 100
-            ).toFixed(2)} ${getCurrencyDisplay()}`}
+            {`${moment(payout.date_created).format(
+              'LL',
+            )} - ${getCurrencyDisplayWithPrice(
+              (payout.amount_cts / 100).toFixed(2),
+            )}`}
           </Typography>
           <Typography variant="caption" color="textSecondary">
             {t('payout.paymentNb', {

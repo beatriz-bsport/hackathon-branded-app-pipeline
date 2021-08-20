@@ -36,7 +36,7 @@ import CreditMemberBadge from '../member/components/CreditMemberBadge.component'
 import type { PrivatePass } from '../private-service/types';
 
 import RedButton from '../../components/button/RedButton.component';
-import { getCurrencyDisplay } from '../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../theme/selectors';
 
 type Props = {
   editMode: ?boolean,
@@ -645,7 +645,9 @@ export class InvoiceForm extends Component<Props, State> {
                     : {}
                 }
               >
-                {(finalPrice - totalPayment).toFixed(2)} {getCurrencyDisplay()}
+                {getCurrencyDisplayWithPrice(
+                  (finalPrice - totalPayment).toFixed(2),
+                )}
               </Typography>
             </div>
           </div>
@@ -689,7 +691,7 @@ export class InvoiceForm extends Component<Props, State> {
             }
             variant="h6"
           >
-            {this.getFinalPrice().toFixed(2)} {getCurrencyDisplay()}
+            {getCurrencyDisplayWithPrice(this.getFinalPrice().toFixed(2))}
           </Typography>
         </div>
       </div>

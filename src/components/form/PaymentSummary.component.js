@@ -10,7 +10,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import { withTranslation } from 'react-i18next';
 import DeleteIcon from '@material-ui/icons/Delete';
 import PAYMENT_METHODS from '@bsport/common/lib/master-data/payment-methods';
-import { getCurrencyDisplay } from '../../libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../libs/theme/selectors';
 
 const styles = (theme) => ({
   container: {
@@ -52,7 +52,7 @@ export function PaymentSummary(props: Props) {
           justify="center"
           className={classes.field}
         >
-          <Typography>{`${price} ${getCurrencyDisplay()}`}</Typography>
+          <Typography>{getCurrencyDisplayWithPrice(price)}</Typography>
         </Grid>
       </Grid>
       <Grid item xs={6} md={3}>

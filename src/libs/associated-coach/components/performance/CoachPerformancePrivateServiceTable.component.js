@@ -18,7 +18,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import CoachPaymentRuleSelector from '../../../coach-payment-rules/components/CoachPaymentRuleSelector.component';
 import type { CoachPaymentRule } from '../../../coach-payment-rules/types';
 import { downloadAsCsv } from '../../../../utils/downloader';
-import { getCurrencyDisplay } from '../../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../../theme/selectors';
 import { formatMinutes } from '../../../../utils/datetime';
 
 type Props = {
@@ -128,14 +128,19 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
                 <TableCell>{private_service.confirmed_bookings}</TableCell>
                 <TableCell>{private_service.cancelled_bookings}</TableCell>
                 <TableCell>
-                  {private_service.base_remuneration} {getCurrencyDisplay()}
+                  {getCurrencyDisplayWithPrice(
+                    private_service.base_remuneration,
+                  )}
                 </TableCell>
                 <TableCell>
-                  {private_service.coach_bonus || 0} {getCurrencyDisplay()}
+                  {getCurrencyDisplayWithPrice(
+                    private_service.coach_bonus || 0,
+                  )}
                 </TableCell>
                 <TableCell>
-                  {private_service.coach_total_payment || 0}{' '}
-                  {getCurrencyDisplay()}
+                  {getCurrencyDisplayWithPrice(
+                    private_service.coach_total_payment || 0,
+                  )}
                 </TableCell>
                 <TableCell>
                   <CoachPaymentRuleSelector

@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import moment from 'moment-timezone';
 import WarningIcon from '@material-ui/icons/Warning';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 import { PaymentGroup } from '../types';
 
@@ -40,9 +40,9 @@ export const PaymentGroupRequiringActionListItem = (props: Props) => {
         <div className={classes.line} />
         <div className={classes.secondaryAction}>
           <div>
-            {`${parseFloat(parseInt(paymentGroup.price_cts, 10) / 100).toFixed(
-              2,
-            )} ${getCurrencyDisplay()}`}
+            {getCurrencyDisplayWithPrice(
+              parseFloat(parseInt(paymentGroup.price_cts, 10) / 100).toFixed(2),
+            )}
           </div>
         </div>
       </div>

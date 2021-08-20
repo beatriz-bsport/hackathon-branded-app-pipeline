@@ -28,7 +28,10 @@ import { loadStripe } from '@stripe/stripe-js';
 import PriceInput from '../../../components/input/PriceInput.component';
 import StripeForm from '../../../components/form/StripeForm.component';
 
-import { getStripePkKey, getCurrencyDisplay } from '../../theme/selectors';
+import {
+  getStripePkKey,
+  getCurrencyDisplayWithPrice,
+} from '../../theme/selectors';
 
 const stripePromise = loadStripe(getStripePkKey());
 
@@ -184,7 +187,7 @@ export class PaymentForm extends Component<Props, State> {
                 variant="h6"
                 color={creditAccountBalance <= 0 ? 'error' : 'primary'}
               >
-                {`${creditAccountBalance} ${getCurrencyDisplay()}`}
+                {`${getCurrencyDisplayWithPrice(creditAccountBalance)}`}
               </Typography>
             </Grid>
           </Grid>

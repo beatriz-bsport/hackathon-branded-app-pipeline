@@ -13,7 +13,7 @@ import { compose } from 'recompose';
 import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 import type { TFunction } from 'react-i18next';
-import { getCurrencyDisplay } from '../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../theme/selectors';
 
 import { formatAsDate } from '../../utils/datetime';
 
@@ -69,7 +69,7 @@ const getColumnData = (t) => {
 
 const renderCreditAccountBalance = (credit_account_balance: number) => (
   <Typography color={credit_account_balance >= 0 ? 'primary' : 'error'}>
-    {`${credit_account_balance.toFixed(2)} ${getCurrencyDisplay()}`}
+    {`${getCurrencyDisplayWithPrice(credit_account_balance.toFixed(2))}`}
   </Typography>
 );
 

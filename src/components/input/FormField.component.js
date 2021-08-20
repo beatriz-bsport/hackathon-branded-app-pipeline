@@ -189,8 +189,8 @@ export class FormField extends Component<Props, State> {
     const InputProps =
       id === 'default_price' || id === 'price'
         ? {
-            endAdornment: (
-              <InputAdornment position="end">
+            startAdornment: (
+              <InputAdornment position="start">
                 {getCurrencyDisplay()}
               </InputAdornment>
             ),

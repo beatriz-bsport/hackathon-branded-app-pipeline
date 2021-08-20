@@ -10,7 +10,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import PaymentPackListItem from '../../payment-packs/components/PaymentPackListItem.component';
 import PrivatePassListItem from '../../private-service/components/pass/PrivatePassListItem.component';
 import PaymentComboListItem from '../../payment-combo/components/PaymentComboListItem.component';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import type { Contract } from '../types';
 
 type Props = {
@@ -50,7 +50,7 @@ const SubscriptionContractDetail = (props: Props) => {
             <Typography variant="h6">
               {`${t(
                 'contract.form.recurrent_price.label',
-              )} : ${recurrent_price}${getCurrencyDisplay()}`}
+              )} : ${getCurrencyDisplayWithPrice(recurrent_price)}`}
             </Typography>
             <Typography variant="body1" color="textSecondary" align="left">
               {t(`contract.item.intervalLabel.${interval}`, {
@@ -58,9 +58,9 @@ const SubscriptionContractDetail = (props: Props) => {
               })}
             </Typography>
             <Typography variant="body1">
-              {`${t(
-                'parameters.flat_fee',
-              )} : ${flat_fee}${getCurrencyDisplay()}`}
+              {`${t('parameters.flat_fee')} : ${getCurrencyDisplayWithPrice(
+                flat_fee,
+              )}`}
             </Typography>
           </div>
         </div>

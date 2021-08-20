@@ -19,7 +19,7 @@ import { PAYMENT_PACK } from '@bsport/common/lib/master-data/payment-methods';
 
 import { formatAsDatetime } from '../../utils/datetime';
 import FeatureTable from '../../components/FeatureTable';
-import { getCurrencyDisplay } from '../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../theme/selectors';
 
 import type { Member, Invoice } from '../../api/types';
 
@@ -51,8 +51,10 @@ function renderStatus(invoice: Invoice) {
   }
   return (
     <Typography color="error">
-      - {invoice.price_due - invoice.price_payed - invoice.voucher}{' '}
-      {getCurrencyDisplay()}
+      -{' '}
+      {getCurrencyDisplayWithPrice(
+        invoice.price_due - invoice.price_payed - invoice.voucher,
+      )}
     </Typography>
   );
 }
@@ -135,9 +137,7 @@ export class InvoiceTable extends Component<Props, State> {
         {(this.props.members.find((m) => m.id === inv.member) || {}).name}
       </TableCell>
       <TableCell>{formatAsDatetime(inv.date)}</TableCell>
-      <TableCell>
-        {inv.price_due} {getCurrencyDisplay()}
-      </TableCell>
+      <TableCell>{getCurrencyDisplayWithPrice(inv.price_due)}</TableCell>
       <TableCell>{renderStatus(inv)}</TableCell>
       <TableCell>{this.renderActions(inv)}</TableCell>
     </TableRow>

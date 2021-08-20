@@ -7,7 +7,7 @@ import { compose } from 'recompose';
 import moment from 'moment-timezone';
 
 import type { TFunction } from 'react-i18next';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 type RecapProps = {
   member: ?Member,
@@ -38,10 +38,11 @@ const RecapSubscription = (props: RecapProps) => (
         color="primary"
         inline
       >
-        {props.price
-          ? parseFloat(props.price) - parseFloat(props.recurrentVoucher)
-          : '-- '}
-        {` ${getCurrencyDisplay()}`}
+        {` ${getCurrencyDisplayWithPrice(
+          props.price
+            ? parseFloat(props.price) - parseFloat(props.recurrentVoucher)
+            : '-- ',
+        )}`}
       </Typography>
       <Typography inline>{`${props.t('recap.every')}`}</Typography>
       <Typography inline>{props.t(`recap.${props.periodName}`)}</Typography>
@@ -77,11 +78,12 @@ const RecapSubscription = (props: RecapProps) => (
     <div className={props.classes.section}>
       <Typography inline>{props.t('recap.forATotalOf')}</Typography>
       <Typography color="error" inline className={props.classes.highlightText}>
-        {props.price && props.nbPeriod
-          ? parseInt(props.nbPeriod, 10) *
-            (parseFloat(props.price) - parseFloat(props.recurrentVoucher))
-          : '--'}
-        {` ${getCurrencyDisplay()}`}
+        {` ${getCurrencyDisplayWithPrice(
+          props.price && props.nbPeriod
+            ? parseInt(props.nbPeriod, 10) *
+                (parseFloat(props.price) - parseFloat(props.recurrentVoucher))
+            : '--',
+        )}`}
       </Typography>
     </div>
   </div>

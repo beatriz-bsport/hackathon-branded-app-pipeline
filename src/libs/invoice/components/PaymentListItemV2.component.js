@@ -15,7 +15,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import CancelIcon from '@material-ui/icons/Cancel';
 import CheckIcon from '@material-ui/icons/Check';
 import PAYMENT_METHODS from '@bsport/common/lib/master-data/payment-methods';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 type Props = {
   paymentItem: PaymentItem,
@@ -67,15 +67,15 @@ export const PaymentItem = (props: Props) => {
       <div className={classes.secondaryAction}>
         <div className={paymentItem.reverted ? classes.revert : null}>
           <div>
-            {`${parseFloat(paymentItem.price).toFixed(
-              2,
-            )} ${getCurrencyDisplay()}`}
+            {`${getCurrencyDisplayWithPrice(
+              parseFloat(paymentItem.price).toFixed(2),
+            )}`}
           </div>
           {!!parseFloat(paymentItem.returned_amount) && (
             <div>
-              {`${t('returnedAmount')} -${parseFloat(
-                paymentItem.returned_amount,
-              ).toFixed(2)} ${getCurrencyDisplay()}`}
+              {`${t('returnedAmount')} -${getCurrencyDisplayWithPrice(
+                parseFloat(paymentItem.returned_amount).toFixed(2),
+              )}`}
             </div>
           )}
         </div>

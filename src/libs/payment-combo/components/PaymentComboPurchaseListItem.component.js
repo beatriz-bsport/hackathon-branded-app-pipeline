@@ -9,7 +9,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import IconButton from '@material-ui/core/IconButton';
 
 import { formatAsDatetime } from '../../../utils/datetime';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import type { PaymentComboPurchase } from '../types';
 
 type Props = {
@@ -42,11 +42,9 @@ export const PaymentComboPurchaseListItem = (props: Props) => {
             ? paymentComboPurchase.member.name
             : '...'
         }
-        secondary={`${
-          paymentComboPurchase.price
-        }${getCurrencyDisplay()} - ${formatAsDatetime(
-          paymentComboPurchase.date,
-        )}`}
+        secondary={`${getCurrencyDisplayWithPrice(
+          paymentComboPurchase.price,
+        )} - ${formatAsDatetime(paymentComboPurchase.date)}`}
       />
       {props.onClick ? (
         <ListItemSecondaryAction>

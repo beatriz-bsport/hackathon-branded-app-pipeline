@@ -18,7 +18,7 @@ import PaymentListItemV2 from './PaymentListItemV2.component';
 import PlannedPaymentEventListItem from './PlannedPaymentEventListItem.component';
 
 import { PlannedPaymentEvent, Payment, Invoice } from '../types';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { OptionCallback } from '../../../state/types';
 
 const InvoicePaymentStatus = (props: {
@@ -82,7 +82,7 @@ const PaymentActions: FC<{
                 color={props.accountBalance < 0 ? 'error' : 'primary'}
                 variant="h5"
               >
-                {`${props.accountBalance} ${getCurrencyDisplay()}`}
+                {getCurrencyDisplayWithPrice(props.accountBalance)}
               </Typography>
             )}
             {props.accountBalance > 0 && !!props.consumeBalance && (
@@ -260,18 +260,18 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
               <Typography>{t('paymentPanel.sumup.amountDue')}</Typography>
               <div className={classes.line} />
               <Typography>
-                {`${Math.max(props.invoice.amount_due_cts / 100, 0).toFixed(
-                  2,
-                )} ${getCurrencyDisplay()}`}
+                {getCurrencyDisplayWithPrice(
+                  Math.max(props.invoice.amount_due_cts / 100, 0).toFixed(2),
+                )}
               </Typography>
             </div>
             <div className={classes.textRow}>
               <Typography>{t('paymentPanel.sumup.amountPaid')}</Typography>
               <div className={classes.line} />
               <Typography>
-                {`${Math.max(props.invoice.amount_paid_cts / 100, 0).toFixed(
-                  2,
-                )} ${getCurrencyDisplay()}`}
+                {getCurrencyDisplayWithPrice(
+                  Math.max(props.invoice.amount_paid_cts / 100, 0).toFixed(2),
+                )}
               </Typography>
             </div>
             <div className={classes.textRow}>
@@ -290,9 +290,9 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
                 }
                 color={amountToPayCts > 0 ? 'error' : 'primary'}
               >
-                {`${Math.max(amountToPayCts / 100, 0).toFixed(
-                  2,
-                )} ${getCurrencyDisplay()}`}
+                {getCurrencyDisplayWithPrice(
+                  Math.max(amountToPayCts / 100, 0).toFixed(2),
+                )}
               </Typography>
             </div>
           </React.Fragment>

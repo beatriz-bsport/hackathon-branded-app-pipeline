@@ -15,7 +15,7 @@ import { MenuItem } from '@material-ui/core';
 
 import type { PaymentCombo } from '../types';
 import withConfirm from '../../../hocs/with-confirm.hoc';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 
 type Props = {
@@ -89,9 +89,9 @@ export const PaymentComboListItem = (props: Props) => {
     >
       <ListItemText
         primary={props.paymentCombo.name}
-        secondary={`${
-          props.paymentCombo.price
-        } ${getCurrencyDisplay()} - ${props.t('detail.containsNProducts', {
+        secondary={`${getCurrencyDisplayWithPrice(
+          props.paymentCombo.price,
+        )} - ${props.t('detail.containsNProducts', {
           n:
             props.paymentCombo.payment_packs.reduce(
               (s, p) => p.quantity + s,

@@ -34,7 +34,7 @@ import {
   INVOICE_TYPE_REVERSE,
 } from '@bsport/common/lib/master-data/invoice-type';
 import RedButton from '../../../components/button/RedButton.component';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 type Props = {
   compactMode: ?boolean,
@@ -119,15 +119,17 @@ const InvoiceRow = React.memo((props: Props) => {
         <TableCell>
           {invoice.invoice_type === INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER
             ? ' - '
-            : `${parseFloat(
-                invoice.is_v2
-                  ? parseInt(invoice.amount_due_cts, 10) / 100
-                  : invoice.price_due,
-              ).toFixed(2)}${getCurrencyDisplay()}`}
+            : getCurrencyDisplayWithPrice(
+                parseFloat(
+                  invoice.is_v2
+                    ? parseInt(invoice.amount_due_cts, 10) / 100
+                    : invoice.price_due,
+                ).toFixed(2),
+              )}
         </TableCell>
         <TableCell>
           <Typography color={amount_remaining_color}>
-            {`${amount_remaining.toFixed(2)}${getCurrencyDisplay()}`}
+            {getCurrencyDisplayWithPrice(amount_remaining.toFixed(2))}
           </Typography>
         </TableCell>
         {!props.compactMode && (
@@ -253,19 +255,23 @@ const InvoiceRow = React.memo((props: Props) => {
                                 {invoiceItem.name}
                               </TableCell>
                               <TableCell>
-                                {`${parseFloat(invoiceItem.total_price).toFixed(
-                                  2,
-                                )} ${getCurrencyDisplay()}`}
+                                {getCurrencyDisplayWithPrice(
+                                  parseFloat(invoiceItem.total_price).toFixed(
+                                    2,
+                                  ),
+                                )}
                               </TableCell>
                               <TableCell>
-                                {`${parseFloat(invoiceItem.voucher).toFixed(
-                                  2,
-                                )} ${getCurrencyDisplay()}`}
+                                {getCurrencyDisplayWithPrice(
+                                  parseFloat(invoiceItem.voucher).toFixed(2),
+                                )}
                               </TableCell>
                               <TableCell>
-                                {`${parseFloat(
-                                  invoiceItem.total_price_notax,
-                                ).toFixed(2)} ${getCurrencyDisplay()}`}
+                                {getCurrencyDisplayWithPrice(
+                                  parseFloat(
+                                    invoiceItem.total_price_notax,
+                                  ).toFixed(2),
+                                )}
                               </TableCell>
                             </TableRow>
                           );
@@ -332,9 +338,9 @@ const InvoiceRow = React.memo((props: Props) => {
                                   )}
                                 </TableCell>
                                 <TableCell>
-                                  {`${parseFloat(payment.price).toFixed(
-                                    2,
-                                  )} ${getCurrencyDisplay()}`}
+                                  {getCurrencyDisplayWithPrice(
+                                    parseFloat(payment.price).toFixed(2),
+                                  )}
                                 </TableCell>
                                 <TableCell>
                                   {moment(payment.date).format('L')}

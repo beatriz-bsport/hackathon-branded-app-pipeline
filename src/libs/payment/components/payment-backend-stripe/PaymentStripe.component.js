@@ -35,7 +35,10 @@ import PriceInput from '../../../../components/input/PriceInput.component';
 import PaymentMethodCardSelector from '../PaymentMethodCardSelector.component';
 import AcceptTermsAndConditions from '../AcceptTermsAndConditions.component';
 
-import { getStripePkKey, getCurrencyDisplay } from '../../../theme/selectors';
+import {
+  getStripePkKey,
+  getCurrencyDisplayWithPrice,
+} from '../../../theme/selectors';
 
 const stripePromise = loadStripe(getStripePkKey());
 
@@ -109,9 +112,9 @@ export const PaymentStripe = (props: Props) => {
       {!priceUpdaterOpen && !!props.paymentGroupPriceCts && (
         <div className={classes.priceContainer}>
           <Typography variant="h5">
-            {`${(props.paymentGroupPriceCts / 100).toFixed(
-              2,
-            )} ${getCurrencyDisplay()}`}
+            {`${getCurrencyDisplayWithPrice(
+              (props.paymentGroupPriceCts / 100).toFixed(2),
+            )}`}
           </Typography>
           {!!props.updatePriceCts && (
             <IconButton color="primary" onClick={setPriceUpdaterOpen}>

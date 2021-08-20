@@ -20,7 +20,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ButtonBase from '@material-ui/core/ButtonBase';
 
 import TypographyMultiline from '../../../components/TypographyMultiline.component';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import type { PaymentCombo } from '../types';
 
 type Props = {
@@ -66,7 +66,7 @@ export const PaymentComboCard = (props: Props) => {
             {paymentCombo.name}
           </Typography>
           <Typography variant="h4" component="p">
-            {`${paymentCombo.price}${getCurrencyDisplay()}`}
+            {`${getCurrencyDisplayWithPrice(paymentCombo.price)}`}
           </Typography>
         </div>
         <Typography
@@ -117,7 +117,7 @@ export const PaymentComboCard = (props: Props) => {
                   </ListItemIcon>
                   <ListItemText
                     primary={pp.name}
-                    secondary={`${pp.price} ${getCurrencyDisplay()}`}
+                    secondary={`${getCurrencyDisplayWithPrice(pp.price)}`}
                   />
                   <ListItemSecondaryAction>
                     <IconButton onClick={() => props.onPaymentPackClick(pp.id)}>
@@ -140,7 +140,7 @@ export const PaymentComboCard = (props: Props) => {
                   </ListItemIcon>
                   <ListItemText
                     primary={si.name}
-                    secondary={`${si.price} ${getCurrencyDisplay()}`}
+                    secondary={`${getCurrencyDisplayWithPrice(si.price)}`}
                   />
                   <ListItemSecondaryAction>
                     <IconButton onClick={() => props.onShopItemClick(si.id)}>
@@ -163,7 +163,7 @@ export const PaymentComboCard = (props: Props) => {
                   </ListItemIcon>
                   <ListItemText
                     primary={pp.name}
-                    secondary={`${pp.price} ${getCurrencyDisplay()}`}
+                    secondary={`${getCurrencyDisplayWithPrice(pp.price)}`}
                   />
                   <ListItemSecondaryAction>
                     <IconButton onClick={() => props.onPrivatePassClick(pp.id)}>

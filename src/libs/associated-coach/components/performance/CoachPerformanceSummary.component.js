@@ -11,7 +11,7 @@ import {
   COACH_PERFORMANCE_FOR_APPOINTMENT,
 } from '@bsport/common/lib/master-data/coach_payment_rule';
 import Figure from '../../../../components/graph/Figure.component';
-import { getCurrencyDisplay } from '../../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../../theme/selectors';
 import type { CoachPerformance } from '../../../coach-payment-rules/types';
 
 type Props = {
@@ -76,9 +76,11 @@ export function CoachPerformanceSummary(props: Props) {
           name={t('performance.payment')}
           count={
             totalOnBookings || totalOnPrivateServices
-              ? `${(
-                  (totalOnBookings || 0) + (totalOnPrivateServices || 0)
-                ).toFixed(2)} ${getCurrencyDisplay()}`
+              ? `${getCurrencyDisplayWithPrice(
+                  (
+                    (totalOnBookings || 0) + (totalOnPrivateServices || 0)
+                  ).toFixed(2),
+                )}`
               : '-'
           }
           color="green"

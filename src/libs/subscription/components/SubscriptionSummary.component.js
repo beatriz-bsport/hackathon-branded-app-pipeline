@@ -11,7 +11,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import { isPaused } from '../utils';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 import type { Subscription } from '../types';
 
@@ -80,7 +80,7 @@ export function SubscriptionSummary(props: Props) {
             {t('parameters.recurrent_price')}
           </Typography>
           <Typography inline>
-            {subscription.recurrent_price} {getCurrencyDisplay()}
+            {getCurrencyDisplayWithPrice(subscription.recurrent_price)}
           </Typography>
         </div>
         <div className={classes.field}>
@@ -88,7 +88,7 @@ export function SubscriptionSummary(props: Props) {
             {t('parameters.flat_fee')}
           </Typography>
           <Typography inline>
-            {subscription.flat_fee} {getCurrencyDisplay()}
+            {getCurrencyDisplayWithPrice(subscription.flat_fee)}
           </Typography>
         </div>
         {!props.subscription.is_v2 && (

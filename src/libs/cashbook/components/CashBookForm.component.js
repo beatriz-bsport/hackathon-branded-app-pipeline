@@ -10,7 +10,7 @@ import { Form, withFormik } from 'formik';
 import moment from 'moment-timezone';
 import { Typography } from '@material-ui/core';
 import { PriceField, Submit } from '../../../components/forms';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 type Props = {
   t: TFunction,
@@ -47,14 +47,16 @@ export const CashBookForm = (props: Props) => {
       </div>
       <div className={classes.field}>
         <Typography>
-          {`${t('backofficeMenu.cashBook.amount')} ${
-            initial.amount_received
-          } ${getCurrencyDisplay()}`}
+          {`${t(
+            'backofficeMenu.cashBook.amount',
+          )} ${getCurrencyDisplayWithPrice(initial.amount_received)}`}
         </Typography>
         <Typography>
-          {`${t('backofficeMenu.cashBook.expectedAmount')} ${
-            initial.today_start_amount + initial.amount_received
-          } ${getCurrencyDisplay()}`}
+          {`${t(
+            'backofficeMenu.cashBook.expectedAmount',
+          )} ${getCurrencyDisplayWithPrice(
+            initial.today_start_amount + initial.amount_received,
+          )}`}
         </Typography>
       </div>
       <div className={classes.field}>

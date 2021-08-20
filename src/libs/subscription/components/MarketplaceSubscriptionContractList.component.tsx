@@ -10,7 +10,7 @@ import CardContent from '@material-ui/core/CardContent';
 import { Theme } from '@material-ui/core';
 import { TFunction } from 'i18next';
 import Typography from '@material-ui/core/Typography';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import type { ContractWithPaymentPack } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
 
@@ -43,11 +43,11 @@ const ContractCard = (
       <div className={props.classes.cardInner}>
         <CardContent>
           <Typography variant="h6" component="h2">
-            {`${props.contract.name} - ${
-              props.contract.recurrent_price
-            }${getCurrencyDisplay()} ${
+            {`${props.contract.name} - ${getCurrencyDisplayWithPrice(
+              props.contract.recurrent_price,
+            )} ${
               parseFloat(props.contract.flat_fee)
-                ? ` (+${props.contract.flat_fee}${getCurrencyDisplay()})`
+                ? ` (+ ${getCurrencyDisplayWithPrice(props.contract.flat_fee)})`
                 : ''
             }`}
           </Typography>

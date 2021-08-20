@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { withTranslation } from 'react-i18next';
-import { getCurrencyDisplay } from '../../libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../libs/theme/selectors';
 
 type Props = {
   // t: (x: string) => string,
@@ -35,7 +35,7 @@ export class ShopItemSummary extends Component<Props> {
       >
         <ListItemText primary={name} secondary={subtitle || ''} />
         <ListItemText
-          primary={`${price} ${getCurrencyDisplay()} `}
+          primary={getCurrencyDisplayWithPrice(price)}
           primaryTypographyProps={{ align: 'right' }}
           secondaryTypographyProps={{ align: 'right' }}
         />

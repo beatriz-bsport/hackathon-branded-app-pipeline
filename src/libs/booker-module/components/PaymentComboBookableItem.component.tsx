@@ -1,6 +1,6 @@
 import { makeStyles, Typography } from '@material-ui/core';
 import React from 'react';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { PaymentCombo } from '../../payment-combo/types';
 import TypographyWithShowMore from '../../../components/TypographyWithShowMore.component';
 
@@ -26,8 +26,7 @@ const PaymentPackComboItem = (props: Props) => {
   return (
     <div className={classes.itemContainer}>
       <Typography variant="h6">
-        {props.paymentCombo.price}
-        {getCurrencyDisplay()}
+        {getCurrencyDisplayWithPrice(props.paymentCombo.price)}
       </Typography>
       <Typography variant="body1" color="textPrimary" align="left">
         {props.paymentCombo.name}

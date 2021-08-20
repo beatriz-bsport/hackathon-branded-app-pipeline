@@ -22,7 +22,7 @@ import PriceInput from '../../../components/input/PriceInput.component';
 
 // eslint-disable-next-line
 import type { PaymentPack } from '../../../libs/payment-packs/types';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import type { PrivatePass } from '../../private-service/types';
 
 type Props = {
@@ -182,7 +182,7 @@ export class InvoiceItemSelector extends Component<Props, State> {
               variant="h6"
               color={creditAccountBalance <= 0 ? 'error' : 'primary'}
             >
-              {`${creditAccountBalance} ${getCurrencyDisplay()}`}
+              {`${getCurrencyDisplayWithPrice(creditAccountBalance)}`}
             </Typography>
           </Grid>
         </Grid>

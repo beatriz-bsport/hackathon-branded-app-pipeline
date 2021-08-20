@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import Badge from '@material-ui/core/Badge';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 type Props = {
   credit: number,
@@ -26,7 +26,7 @@ export const CreditMemberBadge = (props: Props) => {
   return (
     <Badge
       color={badgeColor}
-      badgeContent={`${creditFormatted}${getCurrencyDisplay()}`}
+      badgeContent={`${getCurrencyDisplayWithPrice(creditFormatted)}`}
     >
       {props.children}
     </Badge>

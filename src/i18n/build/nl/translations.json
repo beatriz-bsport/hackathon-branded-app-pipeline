@@ -1899,7 +1899,7 @@
             "offers": "Sessies",
             "members": "Leden",
             "cashbook": "Kasboek",
-            "on_spot_payments": "Contante betalingen",
+            "on_spot_payments": "Handmatige betalingen",
             "video": "Video",
             "unpaid_invoices": "Openstaande facturen",
             "video_purchase": "Gekochte video's"
@@ -7519,7 +7519,7 @@
                 "explain": {
                     "1": "Er wordt een creditnota aangemaakt dat het saldo van het lid zal verhogen. Gebruik deze methode om een creditnota gelijk aan te maken.",
                     "0": "Betalingen (bijv. creditcards, SEPA-incasso's, etc.) worden direct naar de rekening van het lid overgemaakt. Gebruik deze methode om een directe terugbetaling te doen indien er een vergissing heeft plaatsgevonden.",
-                    "2": "Kies hoe je de vergoeding wilt doen. Gebruik deze methode voor een contante terugbetaling, een handmatige overschrijving of een cheque."
+                    "2": "Kies hoe je de vergoeding wilt doen. Gebruik deze methode voor een handmatige terugbetaling, een overschrijving of een cheque."
                 },
                 "label": {
                     "1": "Krediet(en) terugbetalen (saldo)",
@@ -7610,7 +7610,7 @@
         "paymentEngine": {
             "label": {
                 "1": "Online betaling",
-                "0": "Contante betaling"
+                "0": "Handmatige betaling"
             }
         },
         "invoiceInfo": {

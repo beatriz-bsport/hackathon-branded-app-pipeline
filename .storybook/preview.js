@@ -8,8 +8,8 @@ import { MemoryRouter } from 'react-router';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import MomentUtils from '@date-io/moment';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { ConnectedRouter } from 'connected-react-router';
-
 import { Moment } from '../src/i18n';
 
 
@@ -34,7 +34,7 @@ export const decorators = [
     </MuiPickersUtilsProvider>
   ),
   Story => <MemoryRouter><Story/></MemoryRouter>,
-  Story => <React.Suspense fallback={<div/>} ><Story/></React.Suspense>,
+  Story => <React.Suspense fallback={<LinearProgress />}><Story/></React.Suspense>,
 ]
 
 // automatically import all files ending in *.stories.js

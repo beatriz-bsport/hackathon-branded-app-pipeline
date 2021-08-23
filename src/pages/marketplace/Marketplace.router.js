@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router';
 import { connect } from 'react-redux';
 
 import asyncComponent from '../../AsyncComponent';
+import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
 
 const MarketplaceResolver = asyncComponent(() =>
   import('./MarketplaceResolver.page'),
@@ -14,6 +15,9 @@ const MarketplaceAsManager = asyncComponent(() =>
   import('./MarketplaceAsManager.page'),
 );
 
+const MarketplaceCustomForm = asyncComponent(() =>
+  import('./MarketplaceCustomForm.page'),
+);
 type Props = { is_manager: boolean };
 
 export class MarketplaceRouter extends React.Component<Props> {
@@ -24,15 +28,24 @@ export class MarketplaceRouter extends React.Component<Props> {
     return (
       <Switch>
         <Route exact path="/m/:companyName" component={MarketplaceResolver} />
-        <Route
-          exact
-          path="/m/:companyName/:companyId/"
-          component={Marketplace}
-        />
-        <Route
-          path="/m/:companyName/:companyId/:subcomponent/"
-          component={Marketplace}
-        />
+        <MemberShipValidationWrapper>
+          <Switch>
+            <Route
+              path="/m/:companyName/:companyId/form/:customFormId"
+              component={MarketplaceCustomForm}
+            />
+            <Route
+              exact
+              path="/m/:companyName/:companyId/"
+              component={Marketplace}
+            />
+
+            <Route
+              path="/m/:companyName/:companyId/:subcomponent/"
+              component={Marketplace}
+            />
+          </Switch>
+        </MemberShipValidationWrapper>
       </Switch>
     );
   }

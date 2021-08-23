@@ -29,6 +29,7 @@ exports.default = {
     combo: 'Packs',
     requestTempPassword: "Autoriser l'accès",
     sequence: 'Stratégies',
+    custom_form: 'Formulaires',
     smart_list: 'Smartlists',
     email_template: 'Emails',
     order: 'Commandes',

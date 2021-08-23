@@ -49,6 +49,9 @@ import { fetchContractList as fetchContractListAction } from '../../libs/subscri
 import type { Contract } from '../../libs/subscription/types';
 import type { Member } from '../../libs/member/types';
 import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
+import { fetchMemberCustomFormFilled } from '../../libs/custom-form/actions';
+import { getMemberCustomFormFilled } from '../../libs/custom-form/selectors';
+import type { CustomFormFilled } from '../../libs/custom-form/types';
 
 const MemberDetailInfo = asyncComponent(() =>
   import('./MemberDetailInfo.page'),
@@ -76,6 +79,9 @@ const MemberDetailContact = asyncComponent(() =>
   import('./MemberDetailContact.page'),
 );
 
+const MemberCustomForm = asyncComponent(() =>
+  import('./MemberCustomForm.page'),
+);
 type Props = {
   theme: Theme,
   t: TFunction,
@@ -108,6 +114,8 @@ type Props = {
   fetchNumberVideoPurchase: () => void,
   videoPurchasedCount: number,
   managerFormConfig: SignUpFormConfigDict,
+  customFormFilledList: Array<CustomFormFilled>,
+  fetchMemberCustomFormFilled: (memberId: number) => void,
 };
 
 const MemberActions = (props: {
@@ -146,6 +154,7 @@ export class MemberDetail extends React.Component<Props> {
       this.props.fetchCountObjects(this.props.id);
       this.props.fetchFiltersSettings();
       this.props.fetchNumberVideoPurchase({ member_id: this.props.id });
+      this.props.fetchMemberCustomFormFilled(this.props.id);
     }
   }
 
@@ -160,6 +169,7 @@ export class MemberDetail extends React.Component<Props> {
       member,
       infosOfMember,
       videoPurchasedCount,
+      customFormFilledList,
     } = this.props;
     return (
       <div className={classes.container}>
@@ -233,6 +243,14 @@ export class MemberDetail extends React.Component<Props> {
               }`}
               value="private-consumer-pass"
             />
+            <Tab
+              label={`${t('menu.form')} ${
+                customFormFilledList && customFormFilledList.length !== 0
+                  ? `(${customFormFilledList.length})`
+                  : ''
+              }`}
+              value="form"
+            />
           </Tabs>
         </AppBar>
         <div className={classes.content}>
@@ -299,6 +317,7 @@ export class MemberDetail extends React.Component<Props> {
               path="/member/:id/contact"
               component={MemberDetailContact}
             />
+            <Route exact path="/member/:id/form" component={MemberCustomForm} />
           </Switch>
         </div>
         <MemberActions
@@ -400,6 +419,7 @@ export default compose(
       savedPaymentMethodList: getSavedPaymentMethodList(state),
       videoPurchasedCount: state.video.purchase.purchaseByMember,
       managerFormConfig: getSignUpFormConfigurationDict(state),
+      customFormFilledList: getMemberCustomFormFilled(state, id),
     }),
     {
       fetchAllPaymentPacks,
@@ -415,6 +435,7 @@ export default compose(
         fetchCountObjectsAction(memberId),
       fetchManagerFilters: fetchManagerFiltersSettings,
       fetchNumberVideoPurchase,
+      fetchMemberCustomFormFilled,
     },
   ),
   withHandlers({

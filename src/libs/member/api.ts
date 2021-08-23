@@ -19,6 +19,8 @@ export async function fetchMemberList(params: {
   tags_excluded?: Array<number>;
   tags_included?: Array<number>;
   barcode?: string;
+  id__in?: Array<number>;
+  company?: number;
 }) {
   return getAuth(
     `${API_V1_URI}/member/${buildUrlParams({

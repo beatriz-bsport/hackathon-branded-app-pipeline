@@ -37,7 +37,7 @@ class CanvasPreview extends React.PureComponent<Props> {
         })}
         assets={this.props.assets}
         selectedTool={CANVAS_SELECTABLE_TOOLS.hand}
-        disableEdit={true}
+        disableEdit
       />
     );
   }

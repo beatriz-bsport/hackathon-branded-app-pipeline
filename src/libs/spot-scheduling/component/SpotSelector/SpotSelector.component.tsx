@@ -41,7 +41,7 @@ export default class SpotSelector extends React.PureComponent<Props> {
         selectedRoomBlueprint={this.getRoomBlueprint()}
         assets={this.props.assets}
         selectedTool={CANVAS_SELECTABLE_TOOLS.spot_selector}
-        disableEdit={true}
+        disableEdit
         onSelectElement={this.onSelectElement}
       />
     );

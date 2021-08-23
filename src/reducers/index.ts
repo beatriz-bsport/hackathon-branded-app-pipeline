@@ -61,6 +61,7 @@ import reportGenerationState from '../libs/reporting/reducers';
 import spotSchedulingReducers from '../libs/spot-scheduling/reducers';
 
 import pollReducers from '../libs/sign-up-form/reducers';
+import CustomFormReducer from '../libs/custom-form/reducers';
 import { reducer } from '../resources';
 
 import { PrivateServiceState } from '../libs/private-service/types';
@@ -90,7 +91,7 @@ import { EmailTemplateState } from '../libs/email-editor/types';
 import { OfferState } from '../libs/offer/types';
 import { SpotSchedulingState } from '../libs/spot-scheduling/types';
 import { CoachPaymentRuleState } from '../libs/coach-payment-rules/types';
-
+import { CustomFormState } from '../libs/custom-form/types';
 import { PollState } from '../libs/sign-up-form/types';
 
 const rootReducer = (history: any) =>
@@ -156,6 +157,7 @@ const rootReducer = (history: any) =>
     poll: pollReducers,
     zoomApp: zoomAppReducers,
     spotScheduling: spotSchedulingReducers,
+    customForm: CustomFormReducer,
   });
 
 export type RootState = {
@@ -217,6 +219,7 @@ export type RootState = {
   zoomApp: any;
   coachPaymentRules: CoachPaymentRuleState;
   poll: PollState;
+  customForm: CustomFormState;
 };
 
 export default (history: any) => (state: any, action: any) => {

@@ -22,7 +22,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Grid from '@material-ui/core/Grid';
 import Collapse from '@material-ui/core/Collapse';
 import Typography from '@material-ui/core/Typography';
-
+import AssignmentIcon from '@material-ui/icons/Assignment';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
@@ -660,6 +660,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         permission: 'navigationMenu.marketing',
         nestedItems: [
           'divider',
+          {
+            to: '/custom-form',
+            icon: AssignmentIcon,
+            text: t('backofficeMenu.custom_form'),
+          },
           {
             to: '/smart-list',
             icon: People,

@@ -765,13 +765,25 @@ export const CheckboxField = (props: Props) => {
 };
 
 export const MultipleCheckboxField = (props: Props) => {
-  const { choices, disabled, asFieldset, label, name, helperText } = props;
+  const {
+    choices,
+    disabled,
+    asFieldset,
+    label,
+    name,
+    helperText,
+    labelClass,
+  } = props;
   const Container = asFieldset ? (p) => <fieldset {...p} /> : FormControl;
   const Label = asFieldset ? (p) => <legend {...p} /> : FormLabel;
   return (
     <Container component="fieldset">
       {!!label && (
-        <Label style={{ marginBottom: -2 }} component="legend">
+        <Label
+          className={labelClass}
+          style={{ marginBottom: -2 }}
+          component="legend"
+        >
           {label}
         </Label>
       )}
@@ -831,10 +843,11 @@ type RadioFieldProps = {
   classes?: any,
   name: string,
   choices: { label: string, value: * }[],
+  labelClass?: any,
 };
 
 export const RadioGroupField = (props: RadioFieldProps) => {
-  const { name, choices, label } = props;
+  const { name, choices, label, labelClass } = props;
   return (
     <Field name={name}>
       {({ field, form: { setFieldValue } }) => (
@@ -842,7 +855,7 @@ export const RadioGroupField = (props: RadioFieldProps) => {
           name={name}
           onChange={(_, value) => setFieldValue(field.name, value)}
         >
-          <FormLabel>{label}</FormLabel>
+          <FormLabel className={labelClass}>{label}</FormLabel>
           {choices.map(({ value, label: l, helperText }) => (
             <div key={value}>
               <FormControlLabel

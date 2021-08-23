@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { compose, withHandlers } from 'recompose';
 import moment from 'moment-timezone';
 import Dialog from '@material-ui/core/Dialog';
-import { push as pushRouter } from 'connected-react-router';
 import { fetchSignFormUpConfiguration } from '../../libs/sign-up-form/actions';
 import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
 import { fetchCurrentBasket as fetchCurrentBasketAction } from '../../libs/checkout/actions';
@@ -94,6 +93,9 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
   }
 
   render() {
+    if (!this.props.theme) {
+      return this.props.children;
+    }
     const initial = this.props.member || this.props.userProfile;
     const initialData = initial
       ? {
@@ -142,7 +144,7 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
               country={this.props.country}
               missingInformation={this.props.missingInformation}
               userStatus={this.props.userStatus}
-              waiver={this.props.theme.waiver}
+              waiver={this.props.theme?.waiver}
               generalTermsAndConditions={
                 this.props.theme.general_terms_and_conditions
               }
@@ -176,7 +178,6 @@ const mapStateToProps = (
 
 const mapDispatchToProps = {
   fetchMember: fetchMemberAction,
-  push: pushRouter,
   upsertMember: (id: number, data, options) =>
     createOrUpdateMember(id, data, options),
   fetchSignFormUpConfiguration,

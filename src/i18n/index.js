@@ -90,7 +90,7 @@ i18n
     },
     react: {
       wait: true,
-      useSuspense: true,
+      useSuspense: false,
 
       bindI18n: 'languageChanged loaded',
       bindStore: 'added removed',

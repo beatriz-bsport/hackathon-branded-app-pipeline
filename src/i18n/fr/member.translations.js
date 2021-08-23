@@ -79,6 +79,7 @@ exports.default = {
     privateBooking: 'Rendez-vous',
     privateConsumerPass: 'Cartes RDV',
     vod: 'VOD',
+    form: 'Formulaires',
   },
   row: {
     headers: {

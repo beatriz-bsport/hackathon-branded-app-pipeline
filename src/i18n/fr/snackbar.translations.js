@@ -613,4 +613,36 @@ exports.default = {
     failedCreation:
       "Impossible de créer votre compte pour le moment, veuillez réessayer d'ici quelques minutes",
   },
+  customForm: {
+    update: {
+      success: 'Formulaire modifié',
+      error: 'Impossible de modifier le formulaire',
+    },
+    create: {
+      success: 'Formulaire créé',
+      error: 'Impossible de créer la formulaire',
+    },
+    duplicate: {
+      success: 'Formulaire dupliqué',
+      error: 'Impossible de dupliquer le formulaire',
+    },
+    disable: {
+      success: 'Formulaire archivé',
+      error: "Impossible d'archiver le formulaire",
+    },
+    restore: {
+      success: 'Formulaire restauré',
+      error: 'Impossible de restaurer le formulaire',
+    },
+    customFormField: {
+      disable: {
+        success: 'Elément  archivé',
+        error: "Impossible d'archiver l'élément",
+      },
+      restore: {
+        success: 'Element restauré',
+        error: "Impossible de restaurer l'élément",
+      },
+    },
+  },
 };

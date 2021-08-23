@@ -18,7 +18,7 @@ import { parseQueryString } from './http';
 import { fetchAccessLevel } from './actions/auth.actions';
 import WidgetUtils from './libs/widget/WidgetUtils';
 
-const MarketPlace = asyncComponent(() =>
+const MarketPlaceRouter = asyncComponent(() =>
   import('./pages/marketplace/Marketplace.router'),
 );
 const LoginRouter = asyncComponent(() => import('./pages/login/Login.router'));
@@ -116,7 +116,6 @@ export class Root extends Component<Props> {
     if (!rehydrated || initializating) {
       return <LinearProgress />;
     }
-
     return (
       <div className={classes.root}>
         <IEMessage />
@@ -146,7 +145,7 @@ export class Root extends Component<Props> {
           />
           <Route path="/checkout/:companyId" component={CheckoutRouter} />
           <Route path="/customer" component={ConsumerRouter} />
-          <Route path="/m/" component={MarketPlace} />
+          <Route path="/m/" component={MarketPlaceRouter} />
 
           <Route path="/check-in" component={CheckIn} />
 

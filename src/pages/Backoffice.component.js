@@ -122,6 +122,9 @@ const SpotScheduling = asyncComponent(() =>
   import('./spot-scheduling/SpotScheduling.pages'),
 );
 
+const CustomForm = asyncComponent(() =>
+  import('./custom-form/CustomForm.router'),
+);
 type Props = {
   alertings: Array<Alerting>,
   nbAlerting: number,
@@ -191,6 +194,7 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
       <Route path="/workshop-activity" component={WorkshopActivity} />
       <Route path="/establishment" component={Establishment} />
       <Route path="/smart-list" component={SmartList} />
+      <Route path="/custom-form" component={CustomForm} />
       <Route path="/marketing" component={MarketingRouter} />
       <Route path="/email-template" component={EmailTemplate} />
       <Route path="/reporting/" component={Reporting} />

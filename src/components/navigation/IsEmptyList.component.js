@@ -4,14 +4,16 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import InfoOutlined from '@material-ui/icons/InfoOutlined';
+import InfoIcon from '@material-ui/icons/Info';
 import { makeStyles } from '@material-ui/core/styles';
 import BottomActionsButton from '../button/BottomActionsButton.component';
 
 type Props = {
   onCreate: () => void,
   text: String,
-  button: String,
+  button?: String,
   onCreateLabel: String,
+  filledIcon?: boolean,
 };
 export const IsEmptyList = (props: Props) => {
   const classes = useStyles(props);
@@ -19,13 +21,19 @@ export const IsEmptyList = (props: Props) => {
     <div className={classes.container}>
       <div className={classes.emptyTool}>
         <div className={classes.textAndIcon}>
-          <InfoOutlined className={classes.leftIcon} fontSize="large" />
+          {props.filledIcon ? (
+            <InfoIcon className={classes.leftIcon} fontSize="large" />
+          ) : (
+            <InfoOutlined className={classes.leftIcon} fontSize="large" />
+          )}
           <Typography variant="caption">{props.text}</Typography>
         </div>
         <div className={classes.buttonTool}>
-          <Button variant="outlined" color="primary" onClick={props.onCreate}>
-            {props.button}
-          </Button>
+          {props.button && (
+            <Button variant="outlined" color="primary" onClick={props.onCreate}>
+              {props.button}
+            </Button>
+          )}
         </div>
         <BottomActionsButton
           onCreate={props.onCreate}

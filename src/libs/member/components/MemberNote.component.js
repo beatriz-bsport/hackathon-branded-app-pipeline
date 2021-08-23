@@ -13,7 +13,6 @@ import VisibilityOn from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { formatAsDate } from '../../../utils/datetime';
 import { Moment } from '../../../i18n';
-
 import type { MemberNote as MemberNoteType } from '../types';
 
 type Props = {

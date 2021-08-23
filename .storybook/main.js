@@ -11,7 +11,7 @@ module.exports = {
     "@storybook/addon-essentials",
     '@storybook/addon-a11y/register',
     '@storybook/addon-actions/register',
-    path.resolve("./.storybook/ts-preset"),
+    // path.resolve("./.storybook/ts-preset"),
   ],
    typescript: {
     check: false,

@@ -31,15 +31,15 @@ if (runtimeBsport && runtimeBsport.env) setConfigFrom(runtimeBsport.env);
 
 export default Config;
 
-function checkConfigValue(name: keyof ConfigType, silent?: boolean) {
-  const value = Config[name];
-  if (!value) {
-    const text = `The config value for ${name} is invalid (got: ${value})`;
-    if (!silent) {
-      throw new Error(text);
-    } else console.error(text);
-  }
-}
+// function checkConfigValue(name: keyof ConfigType, silent?: boolean) {
+//   const value = Config[name];
+//   if (!value) {
+//     const text = `The config value for ${name} is invalid (got: ${value})`;
+//     if (!silent) {
+//       throw new Error(text);
+//     } else console.error(text);
+//   }
+// }
 
 export function setConfigValue(name: keyof ConfigType, value: string) {
   Config[name] = value;

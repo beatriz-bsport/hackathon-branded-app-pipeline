@@ -1,27 +1,46 @@
 import React from 'react';
 import { configure } from '@storybook/react';
-import { addDecorator } from '@storybook/react';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 
 
+import { MemoryRouter } from 'react-router';
+
+import CssBaseline from '@material-ui/core/CssBaseline';
+import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
+import MomentUtils from '@date-io/moment';
+import { ConnectedRouter } from 'connected-react-router';
+
+import { Moment } from '../src/i18n';
+
+
 import _ from '../envs/local';
+
 import Config from '../src/config.ts';
 import theme from '../src/theme';
 
-addDecorator(
+export const decorators = [
   (Story) => (
-    <MuiThemeProvider theme={theme}>
-      <React.Suspense fallback={() => <p>text</p>}>
-	<Story />
-      </React.Suspense>
-    </MuiThemeProvider>
+  <MuiThemeProvider theme={theme}>
+    <CssBaseline><Story/></CssBaseline>
+  </MuiThemeProvider>
   ),
-);
+  (Story) => (
+    <MuiPickersUtilsProvider
+      utils={MomentUtils}
+      moment={Moment}
+      locale={Moment.locale()}
+    >
+      <Story/>
+    </MuiPickersUtilsProvider>
+  ),
+  Story => <MemoryRouter><Story/></MemoryRouter>,
+  Story => <React.Suspense><Story/></React.Suspense>,
+]
+
 // automatically import all files ending in *.stories.js
 const req = require.context('../src/', true, /.stories.js$/);
 function loadStories() {
   req.keys().forEach((filename) => req(filename));
 }
-
 configure(loadStories, module);
 

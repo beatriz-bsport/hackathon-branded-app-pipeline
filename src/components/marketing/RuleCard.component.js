@@ -15,6 +15,11 @@ import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { getCurrencyDisplay } from '../../libs/theme/selectors';
 
+/**
+ * Component is described here.
+ *
+ * @example ./extra.examples.md
+ */
 export class RuleCard extends React.Component<{}> {
   renderRuleStats = (rule) => {
     const { t } = this.props;

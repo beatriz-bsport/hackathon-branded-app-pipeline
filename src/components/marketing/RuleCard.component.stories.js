@@ -1,14 +1,21 @@
 import React from 'react';
 
 import moment from 'moment-timezone';
-import { object } from '@storybook/addon-knobs';
 
-import { storiesOf } from '../../stories';
 
 import RuleCard from './RuleCard.component';
 
-storiesOf('Marketing/RuleCard', module).add('default', () => {
-  const rule = object('Rule', {
+
+export default {
+  title: 'Marketing/RuleCard',
+  component: RuleCard,
+}
+
+const Template = (rule) => <RuleCard rule={rule} />
+
+export const Primary = Template.bind({})
+
+Primary.args = {
     id: 1,
     name: 'Stratégie #1',
     date: moment(),
@@ -16,7 +23,7 @@ storiesOf('Marketing/RuleCard', module).add('default', () => {
     averageBuy: 70,
     sales: 10,
     totalBuy: 700,
-    SMSSent: 240,
+    SMSSent: 476545,
     EmailSent: 510,
     notificationSent: 110,
     clientReached: 521,
@@ -38,6 +45,4 @@ storiesOf('Marketing/RuleCard', module).add('default', () => {
         value: '4 séances',
       },
     ],
-  });
-  return <RuleCard rule={rule} />;
-});
+}

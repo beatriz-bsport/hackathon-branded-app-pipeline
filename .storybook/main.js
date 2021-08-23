@@ -1,16 +1,16 @@
 const custom = require('../config/webpack.config.dev');
 const path = require("path");
+
 module.exports = {
   "stories": [
-    "../src/**/*.storiess.mdx",
-    "../src/**/*.storiess.@(js|jsx|ts|tsx)"
+    "../src/**/*.stories.mdx",
+    "../src/**/*.stories.@(js|jsx|ts|tsx)"
   ],
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     '@storybook/addon-a11y/register',
     '@storybook/addon-actions/register',
-    '@storybook/addon-knobs/register',
     path.resolve("./.storybook/ts-preset"),
   ],
    typescript: {

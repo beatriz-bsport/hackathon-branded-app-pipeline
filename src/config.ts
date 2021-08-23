@@ -45,11 +45,11 @@ export function setConfigValue(name: keyof ConfigType, value: string) {
   Config[name] = value;
 }
 
-checkConfigValue('REACT_APP_BASE_URI');
-checkConfigValue('REACT_APP_API_URI');
-checkConfigValue('REACT_APP_STRIPE_PK_KEY');
-checkConfigValue('REACT_APP_GOOGLE_MAPS_API_KEY');
+// checkConfigValue('REACT_APP_BASE_URI');
+// checkConfigValue('REACT_APP_API_URI');
+// checkConfigValue('REACT_APP_STRIPE_PK_KEY');
+// checkConfigValue('REACT_APP_GOOGLE_MAPS_API_KEY');
 
 if (Config.NODE_ENV === 'production') {
-  checkConfigValue('REACT_APP_SENTRY_DSN', true);
+  // checkConfigValue('REACT_APP_SENTRY_DSN', true);
 }

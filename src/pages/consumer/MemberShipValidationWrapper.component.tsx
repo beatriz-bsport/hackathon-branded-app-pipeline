@@ -6,10 +6,7 @@ import {
   fetchMember as fetchMemberAction,
   fetchMyUserProfile,
 } from '../../libs/member/actions';
-import {
-  linkMeToCompany as linkMeToCompanyAction,
-  requestMembershipValidation as requestMembershipValidationAction,
-} from '../../libs/membership/actions';
+import { requestMembershipValidation as requestMembershipValidationAction } from '../../libs/membership/actions';
 import { fetchCurrentBasket as fetchCurrentBasketAction } from '../../libs/checkout/actions';
 import {
   getMemberThroughMembership,

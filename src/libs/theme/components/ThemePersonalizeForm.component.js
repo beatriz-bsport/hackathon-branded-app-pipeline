@@ -62,6 +62,8 @@ export class ThemePersonalize extends Component<Props, State> {
         this.props.theme.max_future_booking &&
       this.state.theme.accept_double_booking ===
         this.props.theme.accept_double_booking &&
+      this.state.theme.hidden_from_marketplace ===
+        this.props.theme.hidden_from_marketplace &&
       this.state.theme.consumer_regularize_debt ===
         this.props.theme.consumer_regularize_debt &&
       this.state.theme.default_booking_ordering ===
@@ -94,6 +96,7 @@ export class ThemePersonalize extends Component<Props, State> {
       'show_offers_filling',
       'consumer_regularize_debt',
       'accept_double_booking',
+      'hidden_from_marketplace',
       'max_future_booking',
       'default_booking_ordering',
       'default_attendance',
@@ -147,6 +150,19 @@ export class ThemePersonalize extends Component<Props, State> {
           />
           <Typography>
             {t('forms.themePersonalization.acceptDoubleBooking')}
+          </Typography>
+        </div>
+        <div className={classes.inputContainer}>
+          <Switch
+            checked={!this.state.theme.hidden_from_marketplace}
+            onChange={() =>
+              this.handleChange('hidden_from_marketplace')(
+                !this.state.theme.hidden_from_marketplace,
+              )
+            }
+          />
+          <Typography>
+            {t('forms.themePersonalization.hiddenFromMarketplace')}
           </Typography>
         </div>
         <div className={classes.inputContainer}>

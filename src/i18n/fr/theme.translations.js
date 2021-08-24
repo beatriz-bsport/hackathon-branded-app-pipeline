@@ -19,6 +19,7 @@ exports.default = {
       },
       hideCoach: 'Cacher les infos professeurs sur les interfaces client',
       acceptDoubleBooking: 'Accepter la double réservation',
+      hiddenFromMarketplace: "Apparaître sur l'application bsport",
       cancelledOffersCustomer:
         'Afficher les séances annulées sur le calendrier client',
       cancelledOffersManager:

@@ -7140,7 +7140,8 @@
                         "placeholder": "Max.",
                         "helperText": "Dit is het maximum aantal toekomstige reserveringen voor je leden"
                     }
-                }
+                },
+                "hiddenFromMarketplace": "Toon op de app van BSPORT"
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",
@@ -7248,9 +7249,9 @@
                 "general_terms_and_conditions_accepted": "Algemene Gebruiksvoorwaarden",
                 "cgu": "Algemene Gebruiksvoorwaarden",
                 "accept_sms": "Accepteer sms-meldingen",
-                "accept_email": "Ik ontvang graag relevante sms'jes",
-                "sms_notification": "Accepteer sms-meldingen",
-                "email_notification": "Ik ontvang graag relevante e-mails",
+                "accept_email": "Ik ontvang graag relevante e-mails.",
+                "sms_notification": "Ik ontvang graag relevante SMS'jes.",
+                "email_notification": "Ik ontvang graag relevante e-mails.",
                 "emergency_contact": "Contactpersoon voor noodgevallen",
                 "profile_picture": "Profielfoto",
                 "zipcode": "Postcode",

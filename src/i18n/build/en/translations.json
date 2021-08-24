@@ -1573,7 +1573,7 @@
                     "is_deliverable": "Add delivery fees",
                     "featured": "Feature this product in the basket when members confirm a payment",
                     "sell_only_on_provision": "Only sell if there's sufficient available stock",
-                    "onsite_payment_available": "Accept on-site payments",
+                    "onsite_payment_available": "Possibility to pay in studio",
                     "available_payment_method_identifiers": {
                         "helperText": "Select at least one payment method. If none is selected, a credit card payment will be offered by default.",
                         "label": "Accepted payment methods"
@@ -3749,7 +3749,7 @@
                 "_label": "Member"
             },
             "appbarActions": {
-                "_helper": "For adding member profiles, processing on-site payments, etc.",
+                "_helper": "For adding member profiles, processing in-studio payments, etc.",
                 "_label": "AppBar actions"
             },
             "navigationMenu": {
@@ -4370,8 +4370,8 @@
             "checkingPaymentStatus": "Please wait, we are checking the status of your payment"
         },
         "payLater": {
-            "submit": "Pay on site",
-            "explain": "Your payment method will be asked on site. Until then, your invoice is considered as unpaid."
+            "submit": "Pay in studio",
+            "explain": "Your payment method will be asked in studio before your session starts. Until then, your invoice is considered as unpaid."
         },
         "or": "or",
         "validation": {
@@ -4844,7 +4844,7 @@
                 "supplier_price": "Supplier price",
                 "marketplace_enabled": "Available on web marketplace",
                 "is_deliverable": "Delivery fees",
-                "onsite_payment_available": "On-site payment"
+                "onsite_payment_available": "Payment in studio available"
             },
             "action": {
                 "edit": "Edit",
@@ -5043,7 +5043,7 @@
         "hasOneOrMoreOption": "You are already on the waiting-list",
         "method": {
             "CB": "Credit card",
-            "CREDIT_ACCOUNT": "On-site payment"
+            "CREDIT_ACCOUNT": "Payment in studio available"
         },
         "order": {
             "success": "Your payment has been successfully registered"
@@ -5051,7 +5051,7 @@
         "forms": {
             "cancelPayment": "Previous",
             "credit": {
-                "explain": "Your club will ne notified of your debit, you will pay on-site",
+                "explain": "Your club will ne notified of your debit, you will pay in studio",
                 "pay": "Confirm"
             },
             "paymentIntent": {
@@ -6261,7 +6261,7 @@
             "offers": "Sessions",
             "members": "Members",
             "cashbook": "Ledger",
-            "on_spot_payments": "On-site payments",
+            "on_spot_payments": "On spot payments",
             "video": "Video On Demand",
             "unpaid_invoices": "Unpaid invoices",
             "video_purchase": "Video On Demand purchases"
@@ -6475,7 +6475,7 @@
                 "from": "From ",
                 "until": "Until ",
                 "newMemberOnly": "Only available for new customers",
-                "onsitePaymentAvailable": "Enable on-site payments",
+                "onsitePaymentAvailable": "Enable payments in studio",
                 "managerOnly": "Unavailable for customers",
                 "tax": {
                     "label": "Tax"

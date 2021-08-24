@@ -17,7 +17,7 @@
     - cp ./envs/storybook ./envs/local
     - yarn updateTranslation
     - yarn install --frozen-lockfile # just to be sure
-    - yarn build-storybook --output-dir storybook
+    - yarn build-storybook --quiet --output-dir storybook
     - aws s3 cp ./storybook/ $S3_BUCKET/storybook/$CI_COMMIT_REF_NAME --recursive --only-show-errors
     - aws s3 cp ./public/locales/ $S3_BUCKET/storybook/$CI_COMMIT_REF_NAME/locales --recursive --only-show-errors
     - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths /$CI_COMMIT_REF_NAME/index.html /$CI_COMMIT_REF_NAME/locales

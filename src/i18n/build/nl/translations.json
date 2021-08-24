@@ -3232,7 +3232,8 @@
             "paymentPack": "Kaarten",
             "invoices": "Facturen en abonnementen",
             "contact": "Contact",
-            "vod": "Video On Demand"
+            "vod": "Video On Demand",
+            "form": "Formulieren"
         },
         "forms": {
             "merge": {
@@ -4158,7 +4159,7 @@
                 "2": "Op rekening",
                 "label": "Betaalmethode"
             },
-            "trial_nb": "Totaal aantal facturen",
+            "trial_nb": "Totaal aantal gratis facturen",
             "member": "Lid",
             "dateCreated": "Aanmaakdatum",
             "nbInterval": "Aantal incasso's",
@@ -6430,6 +6431,38 @@
         "signup": {
             "failedCreation": "Het is momenteel niet mogelijk om je account aan te maken, probeer het later opnieuw",
             "emailAlreadyExists": "Deze e-mail is al in gebruik"
+        },
+        "customForm": {
+            "update": {
+                "success": "Formulier is gewijzigd",
+                "error": "Formulier kon niet worden gewijzigd"
+            },
+            "create": {
+                "success": "Formulier is toegevoegd",
+                "error": "Formulier kon niet worden toegevoegd"
+            },
+            "duplicate": {
+                "success": "Formulier is gedupliceerd",
+                "error": "Formulier kon niet worden gedupliceerd"
+            },
+            "disable": {
+                "success": "Formulier is gearchiveerd",
+                "error": "Formulier kon niet worden gedupliceerd"
+            },
+            "restore": {
+                "success": "Formulier is hersteld",
+                "error": "Formulier kon niet worden hersteld"
+            },
+            "customFormField": {
+                "disable": {
+                    "success": "Veld is gearchiveerd",
+                    "error": "Veld kon niet worden gearchiveerd"
+                },
+                "restore": {
+                    "success": "Veld is hersteld",
+                    "error": "Veld kon niet worden hersteld"
+                }
+            }
         }
     },
     "coach": {
@@ -7956,7 +7989,8 @@
                 "close": "Sluiten",
                 "at": "om"
             },
-            "marketingNotification": "Meldingen"
+            "marketingNotification": "Meldingen",
+            "custom_form": "Formulieren"
         },
         "deprecatedNavigator": {
             "close": "Sluiten",
@@ -8113,6 +8147,126 @@
             "mail": "E-mail ",
             "statisticDetails": "Statistieken",
             "notificationDetails": "Details"
+        },
+        "customForm": {
+            "title": "Formulieren",
+            "linkHelper": "Kopieer en plak de bovenstaande link van je formulier in je berichten. Alleen de wijzigingen zullen zichtbaar zijn.",
+            "noCustomForm": "Gebruik formulieren om aanvullende informatie van je leden te vergaren.",
+            "selectCustomForm": "Selecteer een formulier voor een gedetailleerd overzicht.",
+            "selectCustomFormFilled": "Selecteer een formulier om de inhoud te zien.",
+            "changesDetected": "Sla het formulier op om de gemaakte veranderingen toe te passen.",
+            "modal": {
+                "delete": {
+                    "cancel": "Annuleer",
+                    "content": "Als je dit formulier verwijdert, wordt het in je gearchiveerde formulieren gezet. Dit formulier zal niet langer beschikbaar zijn voor je leden.",
+                    "title": "Een formulier verwijderen",
+                    "confirm": "Bevestigen"
+                }
+            },
+            "field": {
+                "file": "Een bestand toevoegen",
+                "fileHelper": "De geüploade bestanden worden aan \"Documenten\" in het ledenprofiel toegevoegd.",
+                "link_to_tag_popover": "Koppel een tag aan dit veld.",
+                "tag_group": "Hoofd-tag",
+                "choice_warning": "Alle velden die voor het opslaan zijn toegevoegd kunnen niet langer worden bewerkt. Je kunt de velden nog wel verwijderen of nieuwe velden toevoegen.",
+                "title": "Titel",
+                "paragraph": "Paragraaf",
+                "short_answer": "Kort antwoord",
+                "long_answer": "Lang antwoord",
+                "radio": "Meerkeuze",
+                "check_box": "Selectievakjes",
+                "select": "Keuzelijst",
+                "select_placeholder": "Selecteer",
+                "link_to_note": "Een notitie toevoegen",
+                "link_to_note_helper": "Door de vraag aan een notitie te koppelen, zullen de antwoorden automatisch in je ledenprofielen worden opgeslagen.",
+                "text_size_limit": "Maximaal aantal tekens: {{count}}.",
+                "signature": "Handtekening",
+                "tag_name": "Sub-tag"
+            },
+            "customFormField": {
+                "modal": {
+                    "add": {
+                        "title": "Formulierveld",
+                        "addField": "Toevoegen: ",
+                        "select": "Selecteer een veld",
+                        "option": "Een optie toevoegen"
+                    },
+                    "error": {
+                        "emptyChoice": "De keuzes mogen niet leeg zijn.",
+                        "choicesLength": "Kies minimaal 2 opties"
+                    },
+                    "disable": {
+                        "title": "Een veld verwijderen",
+                        "cancel": "Annuleer",
+                        "confirm": "Bevestigen",
+                        "content": "Als je dit veld verwijdert, wordt het in gearchiveerde velden geplaatst. Het zal niet langer beschikbaar zijn voor je leden."
+                    },
+                    "signature": {
+                        "addSignature": "Een handtekening toevoegen",
+                        "editSignature": "Handtekening bewerken",
+                        "addSignatureHelper": "Hieronder kun je je handtekening toevoegen.",
+                        "clear": "Verwijder handtekening"
+                    }
+                }
+            },
+            "submit": {
+                "errors": {
+                    "requiredSignature": "Dit formulier vereist een handtekening.",
+                    "requiredField": "Dit veld is verplicht.",
+                    "requiredFile": "Een bestand toevoegen"
+                },
+                "date_submitted": "Datum",
+                "dialog": {
+                    "title": "Dit formulier is in goede orde ontvangen! ",
+                    "content": "Hartelijk dank dat je de tijd hebt genomen om dit formulier in te vullen.",
+                    "confirmButton": "Verder"
+                }
+            },
+            "CustomFormLink": "Link naar het formulier",
+            "search": "Zoek een formulier",
+            "name": "Naam",
+            "content": "Inhoud van je formulier",
+            "preview": "Voorvertoning van je formulier",
+            "label": "Label",
+            "kind": "Type",
+            "save": "Opslaan",
+            "cancel": "Annuleer",
+            "send": "Verstuur",
+            "mandatory": "Verplicht",
+            "numberQuestions": "Aantal vragen",
+            "listActions": "Acties",
+            "disabledCustomForm": "Gearchiveerde formulieren",
+            "disabledCustomFormField": "Gearchiveerde velden",
+            "addCustomFrom": "Een formulier toevoegen",
+            "emptyCustomForm": "Dit formulier is leeg. Begin met het toevoegen van velden om je formulier samen te stellen.",
+            "addFieldLong": "Een veld toevoegen",
+            "unaccessibleForm": "Dit formulier is momenteel niet beschikbaar. Klik op de onderstaande knop om terug naar je profiel te gaan.",
+            "backToUserSpace": "Mijn profiel",
+            "noChanges": "Het formulier is bijgewerkt.",
+            "actions": {
+                "configure": "Configureer",
+                "statistics": "Statistieken"
+            },
+            "tab": {
+                "general": "Inhoud",
+                "campaign": "Campagne",
+                "statistics": "Statistieken"
+            },
+            "statistics": {
+                "byMember": "Details per lid",
+                "table": {
+                    "column": {
+                        "member": "Lid",
+                        "display_count": "Aantal openingen",
+                        "last_display_date": "Laatste opening",
+                        "completed": "Voltooid"
+                    },
+                    "row": {
+                        "no": "Nee",
+                        "yes": "Ja"
+                    }
+                }
+            }
         }
     },
     "spotScheduling": {

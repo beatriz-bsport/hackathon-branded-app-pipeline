@@ -20,7 +20,7 @@ import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
-import WidgetBridge from './WidgetBridge';
+import WidgetBridge from '../components/WidgetBridge.component';
 import { RootState } from '../store/reducer';
 import {
   closeUserInteractionPortal,

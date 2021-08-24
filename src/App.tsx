@@ -21,29 +21,35 @@ import { WidgetConfig } from 'bsport-saas/src/libs/marketplace/types';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 
 import { RootState } from './store/reducer';
-import BsportLogo from './components/BsportLogo';
+import BsportLogo from './components/BsportLogo.component';
 import 'bsport-saas/src/index.scss';
 
 import asyncComponent from './AsyncComponent';
-import FabWidget from './widgets/FabWidget';
+import FabWidget from './widgets/FabWidget.widget';
 import {
   closeUserInteractionPortal,
   openUserInteractionPortal,
 } from './store/actions.widget';
-import WidgetBridge from './widgets/WidgetBridge';
+import WidgetBridge from './components/WidgetBridge';
 
-const PassWidget = asyncComponent(() => import('./widgets/Pass'));
-const ShopWidget = asyncComponent(() => import('./widgets/Shop'));
+const PassWidget = asyncComponent(() => import('./widgets/Pass.widget'));
+const ShopWidget = asyncComponent(() => import('./widgets/Shop.widget'));
 const SubscriptionWidget = asyncComponent(
-  () => import('./widgets/Subscription'),
+  () => import('./widgets/Subscription.widget'),
 );
-const CalendarWidget = asyncComponent(() => import('./widgets/Calendar'));
-const VODWidget = asyncComponent(() => import('./widgets/Vod'));
+const CalendarWidget = asyncComponent(
+  () => import('./widgets/Calendar.widget'),
+);
+const VODWidget = asyncComponent(() => import('./widgets/Vod.widget'));
 const PrivateServiceWidget = asyncComponent(
-  () => import('./widgets/PrivateService'),
+  () => import('./widgets/PrivateService.widget'),
 );
-const WorkshopWidget = asyncComponent(() => import('./widgets/Workshop'));
-const NewsletterWidget = asyncComponent(() => import('./widgets/Newsletter'));
+const WorkshopWidget = asyncComponent(
+  () => import('./widgets/Workshop.widget'),
+);
+const NewsletterWidget = asyncComponent(
+  () => import('./widgets/Newsletter.widget'),
+);
 const UserInteractionPortal = asyncComponent(
   () => import('./components/UserInteractionPortal.component'),
 );

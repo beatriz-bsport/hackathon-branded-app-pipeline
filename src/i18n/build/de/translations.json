@@ -136,7 +136,7 @@
                 "title": "Vertrag-Formular",
                 "contract": {
                     "placeholder": "Gib hier alle erforderlichen rechtlichen Hinweise ein, unter anderem zu den Rückerstattungsverfahren.",
-                    "label": "Impressum"
+                    "label": "Allgemeine Geschäftsbedingungen"
                 },
                 "autoRenewal": {
                     "label": "Einstimmige Verlängerung"
@@ -198,7 +198,7 @@
                 "titleInactive": "Archivierte Verträge"
             },
             "duration": "{{Month}} Rechnungen",
-            "legal": "Impressum",
+            "legal": "Allgemeine Geschäftsbedingungen",
             "deleteForm": {
                 "actions": {
                     "confirm": "Löschen",

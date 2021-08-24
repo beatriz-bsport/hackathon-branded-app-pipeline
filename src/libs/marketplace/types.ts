@@ -22,6 +22,7 @@ export enum WidgetComponentsEnum {
   'newsletter' = 'newsletter',
   'pass' = 'pass',
   'shop' = 'shop',
+  'loginButton' = 'loginButton',
 }
 
 export enum PrivateServicePageTypeEnum {

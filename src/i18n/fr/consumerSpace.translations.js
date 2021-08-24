@@ -10,6 +10,7 @@ exports.default = {
     logoff: 'Déconnecter',
     changeMembership: 'Changer de club',
     pick_a_language: 'Sélectionner une langue',
+    automaticLanguage: 'Détection automatique',
   },
   subscription: {
     isEmpty: "Vous n'avez aucun abonnement en cours",

@@ -1100,7 +1100,8 @@
       "profile": "Profil",
       "logoff": "Déconnecter",
       "changeMembership": "Changer de club",
-      "pick_a_language": "Sélectionner une langue"
+      "pick_a_language": "Sélectionner une langue",
+      "automaticLanguage": "Détection automatique"
     },
     "subscription": { "isEmpty": "Vous n'avez aucun abonnement en cours" },
     "myVideos": { "title": "Mes vidéos", "gotToVOD": "Voir toutes les vidéos" },
@@ -2979,7 +2980,8 @@
         "subscription": "Abonnement",
         "shop": "Magasin",
         "playlist": "Playlist",
-        "newsletter": "Newsletter"
+        "newsletter": "Newsletter",
+        "loginButton": "Bouton login"
       },
       "createDialog": {
         "showAdvanced": "Voir plus d'options",

@@ -70,6 +70,11 @@ class LanguageSelectBase extends Component<Props> {
             {t('navigation.pick_a_language')}
           </MenuItem>
           {availableLanguages.map((lng) => this.renderMenuItem(lng.lang))}
+          {!!this.props.allowNull && (
+            <MenuItem value="none">
+              {t('navigation.automaticLanguage')}
+            </MenuItem>
+          )}
         </Select>
       </FormControl>
     );

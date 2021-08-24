@@ -358,6 +358,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
                   this.setState({ language: e.target.value })
                 }
                 value={this.state.language}
+                allowNull
                 label={t('widget:widget.pickALanguage')}
                 none={t('widget:widget.browserLanguage')}
               />

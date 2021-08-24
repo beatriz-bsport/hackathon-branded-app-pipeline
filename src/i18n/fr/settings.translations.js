@@ -118,6 +118,7 @@ exports.default = {
       shop: 'Magasin',
       playlist: 'Playlist',
       newsletter: 'Newsletter',
+      loginButton: 'Bouton login',
     },
     createDialog: {
       showAdvanced: "Voir plus d'options",

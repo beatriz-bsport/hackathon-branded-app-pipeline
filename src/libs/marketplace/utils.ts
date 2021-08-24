@@ -41,7 +41,7 @@ export class WidgetCodeStringGenerator {
     const indent = '    ';
 
     let componentConfigCode = ``;
-    const stringified = JSON.stringify(componentConfig, null, 4);
+    const stringified = JSON.stringify(componentConfig || {}, null, 4);
     const linesCode = stringified.split('\n');
     linesCode.forEach((a, i) => {
       if (i > 0 && i < linesCode.length - 1) {

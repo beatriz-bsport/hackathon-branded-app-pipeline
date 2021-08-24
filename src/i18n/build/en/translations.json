@@ -3891,7 +3891,8 @@
                         "placeholder": "Maximum"
                     },
                     "label": "Limit the amount of future bookings per member"
-                }
+                },
+                "hiddenFromMarketplace": "Show on the BSPORT app"
             },
             "cover": {
                 "label": "Logo",
@@ -3899,11 +3900,11 @@
             },
             "primary_color": {
                 "label": "Primary color",
-                "helperText": "Mostly used theme color"
+                "helperText": "Choose a theme color (avoid a monochrome set up)."
             },
             "secondary_color": {
                 "label": "Secondary color",
-                "helperText": "Complentary theme color"
+                "helperText": "Choose a complementary theme color."
             },
             "default_booking_ordering": {
                 "date": "Sort by most recent booking date",
@@ -3966,9 +3967,9 @@
                 "label": "[ID] Facebook Pixel"
             },
             "waiver": {
-                "placeholder": "I certify that I'm over the age of 13",
-                "helperText": "Must be accepted for any registration",
-                "label": "Liability waiver"
+                "placeholder": "I certify that I'm over the age of 13.",
+                "helperText": "This must be accepted for all registrations.",
+                "label": "Liability Waiver"
             }
         },
         "general_terms_and_conditions": {
@@ -3982,26 +3983,26 @@
             "broadcast": "Livestream"
         },
         "analytics": {
-            "showAnalyticsInformation": "Show events that are tracked",
-            "eventDesc": "Description of the event",
+            "showAnalyticsInformation": "Show retargeting events",
+            "eventDesc": "Event description",
             "gtmEvent": "[Google Tag Management] Event",
             "fbPixelEvent": "[Facebook Pixel] Event",
             "cancel": "Cancel",
-            "showBasket": "When the user displays his basket",
-            "showPass": "When the user displays a pass",
-            "addPassToCart": "When the user adds a pass to their basket",
-            "addPackToCart": "When the user adds a pack to their basket",
-            "addPrivatePassToCart": "When the user adds an appointment pass to their basket",
-            "addShopItemToCart": "When the user adds an item from the shop to their basket",
-            "paymentSuccess": "When the user has successfully completed their payment",
-            "signinShow": "When the user lands on the login page",
-            "signupShow": "When the user displays the registration form",
-            "signupSuccess": "When the user has created an account",
-            "sessionShow": "When the user selects a session",
-            "contractPaymentSuccess": "When the user has subscribed",
-            "contractShow": "When the user displays a subscription",
-            "contractPaymentShow": "When the user is on the payment page for a subscription",
-            "workshopClick": "When the user selects a date for a workshop"
+            "showBasket": "When a user open their basket",
+            "showPass": "When a user clicks on a pass",
+            "addPassToCart": "When a user adds a pass to their basket",
+            "addPackToCart": "When a user adds a pack to their basket",
+            "addPrivatePassToCart": "When a user adds an appointment pass to their basket",
+            "addShopItemToCart": "When a user adds a webshop item to their basket",
+            "paymentSuccess": "When a user successfully completed their payment",
+            "signinShow": "When a user opens the login page",
+            "signupShow": "When a user clicks on the registration form",
+            "signupSuccess": "When a user created an account",
+            "sessionShow": "When a user clicks on a session",
+            "contractPaymentSuccess": "When a user signed up for a subscription",
+            "contractShow": "When a user clicks on a subscription",
+            "contractPaymentShow": "When a user is on the payment page for a subscription",
+            "workshopClick": "When a user selects a date for a workshop"
         },
         "signUpForm": {
             "error": "Error",
@@ -4014,33 +4015,33 @@
             "field_identifier": "Fields",
             "account_modification": "Edit an account",
             "account_creation": "Create an account",
-            "title": "Registration Form",
+            "title": "[Form] Enrolment",
             "fields": {
-                "waiver": "Liability waiver",
+                "waiver": "Liability Waiver",
                 "general_terms_and_conditions_accepted": "General Terms & Conditions",
                 "cgu": "General Terms of Use",
-                "accept_sms": "Accepts SMS notifications",
-                "accept_email": "Accepts email notifications",
-                "sms_notification": "Accepts SMS notifications",
-                "email_notification": "Accepts email notifications",
+                "accept_sms": "I'd like to receive relevant communication by SMS.",
+                "accept_email": "I'd like to receive relevant communication by email.",
+                "sms_notification": "I'd like to receive relevant communication by SMS.",
+                "email_notification": "I'd like to receive relevant communication by email.",
                 "emergency_contact": "Emergency contact",
                 "profile_picture": "Profile picture",
                 "zipcode": "Postal code",
                 "zip_code": "Postal code",
                 "country": "Country",
                 "city": "City",
-                "additionnal_address_info": "Additional address",
+                "additionnal_address_info": "Additional address info",
                 "address": "Address",
-                "birthdate": "Date of Birth",
-                "phone": "Primary Phone",
-                "main_phone": "Primary Phone",
-                "gender": "Gender",
+                "birthdate": "Date of birth",
+                "phone": "Telephone",
+                "main_phone": "Telephone",
+                "gender": "Sex",
                 "email": "Email",
                 "last_name": "Last name",
                 "first_name": "First name",
                 "photo": "Profile picture",
-                "address_line_2": "Additional address information",
-                "address_line_1": "Address",
+                "address_line_2": "Address line 2",
+                "address_line_1": "Address line 1",
                 "birthday": "Date of birth",
                 "vaccination_status": "COVID-19 Sanitary Pass Status"
             }
@@ -4048,7 +4049,7 @@
         "zoom": {
             "confirmDialog": {
                 "text": "If you have already entered video conferencing links manually on your sessions, they will be deleted and be replaced by automatically generated zoom links. Meetings already created on the ZOOM calendar must be manually deleted, they will be replaced by meetings created automatically.",
-                "title": "ZOOM integration"
+                "title": "Zoom integration"
             }
         }
     },

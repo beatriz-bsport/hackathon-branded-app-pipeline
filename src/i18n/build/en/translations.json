@@ -1670,7 +1670,7 @@
             "maxBookingsNb": "slots",
             "nonAttendant": "absent(s)",
             "attendant": "attendee(s)",
-            "noEmptyDuration": "The duration must be a positive number.",
+            "noEmptyDuration": "The duration must be positive.",
             "restoreModal": {
                 "explain": "The cancelled session will be restored. Members will once more be able to book themselves in, but previously cancelled bookings won't be restored.",
                 "title": "Restore session"
@@ -4109,7 +4109,7 @@
     },
     "tag": {
         "panel": {
-            "title": "My tags",
+            "title": "Tags",
             "noTagAvailable": "No tag created yet"
         },
         "filter": {
@@ -5837,7 +5837,7 @@
             "autoRenew": "Automatic renewal",
             "subscribeAgain": "Resubscribe",
             "voucher": "Promotion",
-            "trial_nb": "Number of free periods at the beginning",
+            "trial_nb": "Number of free invoices",
             "recurrent_voucher": "Discount on each invoice",
             "name": "Name",
             "member": "Member",
@@ -6965,8 +6965,8 @@
         "memberList": "Members list",
         "note": {
             "addNote": "Add a note",
-            "myNotes": "My notes",
-            "healthNotes": "Essential information",
+            "myNotes": "Notes",
+            "healthNotes": "Health notes",
             "noNoteSaved": "No note saved",
             "is_medical": "Essential note"
         },
@@ -6974,7 +6974,7 @@
             "addButtonBlocked": "Delete files to add new ones",
             "imported": "File uploaded !",
             "deletion": "Deletion",
-            "title": "My documents",
+            "title": "Documents",
             "deleteFileMessage": "Are you sure you want to delete this file ?",
             "confirm": "Confirm",
             "submit": "Add",
@@ -6999,7 +6999,8 @@
             "privateBooking": "Appointments",
             "privateConsumerPass": "Appointments passes",
             "relation": "Relationships",
-            "vod": "VOD"
+            "vod": "VOD",
+            "form": "Forms"
         },
         "row": {
             "headers": {
@@ -8718,6 +8719,38 @@
             "2016": "You've reached the maximum number of bookings for this month",
             "2015": "You've reached the maximum number of bookings for this week",
             "2014": "You've reached the maximum number of bookings for this day"
+        },
+        "customForm": {
+            "update": {
+                "success": "Form has been modified",
+                "error": "Error when modifying form"
+            },
+            "create": {
+                "success": "Form has been created",
+                "error": "Error when creating form"
+            },
+            "duplicate": {
+                "success": "Form has been duplicated",
+                "error": "Error when duplicating form"
+            },
+            "disable": {
+                "success": "Form has been archived",
+                "error": "Error when archiving form"
+            },
+            "restore": {
+                "success": "Form has been restored",
+                "error": "Error when restoring form"
+            },
+            "customFormField": {
+                "disable": {
+                    "success": "Field has been archived",
+                    "error": "Error when archiving field"
+                },
+                "restore": {
+                    "success": "Field has been restored",
+                    "error": "Error when restoring field"
+                }
+            }
         }
     },
     "navigation": {
@@ -8806,7 +8839,8 @@
                 "cashDialogTitle": "Ledger",
                 "close": "Close"
             },
-            "marketingNotification": "Notifications"
+            "marketingNotification": "Notifications",
+            "custom_form": "Forms"
         },
         "deprecatedNavigator": {
             "navigatorError": "It seems that your browser is too old to use our services. You may encounter errors, we recommend that you download a more recent version, in particular : ",
@@ -9109,6 +9143,126 @@
             "notificationDetails": "Details",
             "mailTitle": "Preview",
             "statisticDetails": "Statistics"
+        },
+        "customForm": {
+            "field": {
+                "paragraph": "Paragraph",
+                "choice_warning": "All added fields before saving can no longer be edited. You'll still be able to delete fields or add new ones.",
+                "title": "Title",
+                "short_answer": "Short answer",
+                "long_answer": "Long answer",
+                "radio": "Multiple choice",
+                "check_box": "Checkboxes",
+                "select": "Dropdown list",
+                "select_placeholder": "Select",
+                "file": "Add a document",
+                "fileHelper": "Uploaded files will be added to the \"Documents\" section of your members' accounts.",
+                "link_to_note": "Add a note",
+                "link_to_note_helper": "Linking questions to notes will automatically add your members' answers to the \"Notes\" section of their profiles.",
+                "text_size_limit": "Maximum response length: {{count}} characters.",
+                "signature": "Signature",
+                "link_to_tag_popover": "Link a tag to this option",
+                "tag_group": "Main Tag",
+                "tag_name": "Sub Tag"
+            },
+            "title": "Forms",
+            "CustomFormLink": "Link to form",
+            "linkHelper": "Copy and baste the above link in your message to send to your members.",
+            "search": "Search a form",
+            "name": "Name",
+            "content": "Content",
+            "preview": "Preview",
+            "label": "Label",
+            "kind": "Type",
+            "save": "Save",
+            "cancel": "Cancel",
+            "send": "Send",
+            "mandatory": "Obligatory",
+            "numberQuestions": "Number of questions",
+            "listActions": "Actions",
+            "disabledCustomForm": "Archived forms",
+            "disabledCustomFormField": "Archived fields",
+            "noCustomForm": "Use forms to gather more detailed information of your members.",
+            "addCustomFrom": "Add a form",
+            "selectCustomForm": "Select a form for a more detailed overview.",
+            "selectCustomFormFilled": "Select a form to see its content.",
+            "emptyCustomForm": "This form has no fields to display.",
+            "addFieldLong": "Add a field",
+            "unaccessibleForm": "This form is currently deactivated. Please click on the link below to return to your profile.",
+            "backToUserSpace": "My profile",
+            "changesDetected": "Save this form to apply the changes.",
+            "noChanges": "Form has been updated",
+            "actions": {
+                "configure": "Configure",
+                "statistics": "Statistics"
+            },
+            "modal": {
+                "delete": {
+                    "title": "Delete form",
+                    "cancel": "Cancel",
+                    "confirm": "Confirm",
+                    "content": "By deleting this form while move it to your archived forms. Members won't be able to access it anymore."
+                }
+            },
+            "tab": {
+                "general": "Content",
+                "campaign": "Campaign",
+                "statistics": "Statistics"
+            },
+            "customFormField": {
+                "modal": {
+                    "disable": {
+                        "title": "Delete field",
+                        "cancel": "Cancel",
+                        "confirm": "Confirm",
+                        "content": "Deleting this field, it'll be moved to your archived fields and your members won't be able to see it anymore."
+                    },
+                    "add": {
+                        "title": "Field form",
+                        "addField": "Add ",
+                        "select": "Select a field",
+                        "option": "Add field"
+                    },
+                    "error": {
+                        "choicesLength": "You must select at least two fields",
+                        "emptyChoice": "Fields can't be empty"
+                    },
+                    "signature": {
+                        "addSignature": "Add signature",
+                        "editSignature": "Edit signature",
+                        "clear": "Clear signature",
+                        "addSignatureHelper": "Add your signature"
+                    }
+                }
+            },
+            "submit": {
+                "date_submitted": "Date",
+                "dialog": {
+                    "title": "We've received your form in good order! ",
+                    "content": "Thank you for your time and for filling out this form.",
+                    "confirmButton": "Continue"
+                },
+                "errors": {
+                    "requiredField": "This field is mandatory.",
+                    "requiredSignature": "Your signature is required to complete this form.",
+                    "requiredFile": "Add a document"
+                }
+            },
+            "statistics": {
+                "byMember": "Details per member",
+                "table": {
+                    "column": {
+                        "member": "Member",
+                        "display_count": "Open rate",
+                        "last_display_date": "Last opened on",
+                        "completed": "Completed"
+                    },
+                    "row": {
+                        "no": "No",
+                        "yes": "Yes"
+                    }
+                }
+            }
         }
     },
     "spotScheduling": {

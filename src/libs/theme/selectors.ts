@@ -31,10 +31,19 @@ export const getCurrencyDisplay = () => {
 
 export const getCurrencyDisplayWithPrice = (price: any) => {
   const symbol = getCurrencyDisplay();
-  if (symbol in ['€', 'kr.', 'chf', 'sek', 'nok', 'dkk', '$ C']) {
-    return `${price} ${symbol}`;
+
+  switch (symbol) {
+    case '€':
+    case 'kr.':
+    case 'chf':
+    case 'sek':
+    case 'nok':
+    case 'dkk':
+    case '$ C':
+      return `${price} ${symbol}`;
+    default:
+      return `${symbol}${price}`;
   }
-  return `${symbol}${price}`;
 };
 
 export default { getTheme };

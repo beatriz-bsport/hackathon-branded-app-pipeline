@@ -14,6 +14,11 @@ import SMSIcon from '@material-ui/icons/Sms';
 import HelpOutlinedIcon from '@material-ui/icons/HelpOutline';
 import DuoIcon from '@material-ui/icons/Duo';
 import TabletIcon from '@material-ui/icons/Tablet';
+import AnalyticsIcon from '@material-ui/icons/Assessment';
+import AllInboxIcon from '@material-ui/icons/AllInbox';
+import PlayCircleIcon from '@material-ui/icons/PlayCircleFilled';
+import SendToMobileIcon from '@material-ui/icons/MobileScreenShare';
+import StarIcon from '@material-ui/icons/Star';
 
 import { useTranslation } from 'react-i18next';
 
@@ -27,6 +32,11 @@ const SMS = 4;
 const ZOOM_APP = 5;
 const DAILY_PAIMENT = 6;
 const TABLET = 7;
+const CLASSPASS = 8;
+const VOD_YOUTUBE_AND_VIMEO = 9;
+const ANALYTICS = 13;
+const ACTIVE_CAMPAIGN = 12;
+const PREMIUM = 11;
 
 type Props = {
   upsellPackage: UpsellPackage,
@@ -472,6 +482,290 @@ const UpsellPackageZoomApp = (props: Props) => {
     </Paper>
   );
 };
+const UpsellPackageClassPass = (props: Props) => {
+  const classes = useStyles();
+  const { t } = useTranslation(['platformBilling']);
+  const { upsellPackage } = props;
+  return (
+    <Paper className={classes.paperContainer}>
+      <div className={classes.upsellContent}>
+        <div className={classes.iconContainer}>
+          <SendToMobileIcon className={classes.icon} />
+        </div>
+        <div className={classes.innerContainer}>
+          <div>
+            <Typography variant="h6">{upsellPackage.name}</Typography>
+            <div className={classes.innerDescription}>
+              {upsellPackage.description_html ? (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: props.upsellPackage.description_html,
+                  }}
+                />
+              ) : (
+                <Typography>{upsellPackage.description}</Typography>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={classes.buttonContainer}>
+        {!!props.onKnowMore && !upsellPackage.subscribed && (
+          <Button
+            variant="outlined"
+            onClick={() => props.onKnowMore(upsellPackage.id)}
+          >
+            <HelpOutlinedIcon className={classes.iconLeft} />
+            {t('upsellPackage.knowMore')}
+          </Button>
+        )}
+        <Button
+          disabled={upsellPackage.subscribed}
+          variant="contained"
+          color="primary"
+          onClick={() => props.onRequestUpsell(upsellPackage.id)}
+        >
+          <CheckIcon className={classes.iconLeft} />
+          {upsellPackage.is_recurrent
+            ? t('upsellPackage.billRecurrent', {
+                price_cts: (upsellPackage.price_cts / 100).toFixed(2),
+              })
+            : t('upsellPackage.billOnce', {
+                price_cts: (upsellPackage.price_cts / 100).toFixed(2),
+              })}
+        </Button>
+      </div>
+    </Paper>
+  );
+};
+
+const UpsellPackageAnalytics = (props: Props) => {
+  const classes = useStyles();
+  const { t } = useTranslation(['platformBilling']);
+  const { upsellPackage } = props;
+  return (
+    <Paper className={classes.paperContainer}>
+      <div className={classes.upsellContent}>
+        <div className={classes.iconContainer}>
+          <AnalyticsIcon className={classes.icon} />
+        </div>
+        <div className={classes.innerContainer}>
+          <div>
+            <Typography variant="h6">{upsellPackage.name}</Typography>
+            <div className={classes.innerDescription}>
+              {upsellPackage.description_html ? (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: props.upsellPackage.description_html,
+                  }}
+                />
+              ) : (
+                <Typography>{upsellPackage.description}</Typography>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={classes.buttonContainer}>
+        {!!props.onKnowMore && !upsellPackage.subscribed && (
+          <Button
+            variant="outlined"
+            onClick={() => props.onKnowMore(upsellPackage.id)}
+          >
+            <HelpOutlinedIcon className={classes.iconLeft} />
+            {t('upsellPackage.knowMore')}
+          </Button>
+        )}
+        <Button
+          disabled={upsellPackage.subscribed}
+          variant="contained"
+          color="primary"
+          onClick={() => props.onRequestUpsell(upsellPackage.id)}
+        >
+          <CheckIcon className={classes.iconLeft} />
+          {upsellPackage.is_recurrent
+            ? t('upsellPackage.billRecurrent', {
+                price_cts: (upsellPackage.price_cts / 100).toFixed(2),
+              })
+            : t('upsellPackage.billOnce', {
+                price_cts: (upsellPackage.price_cts / 100).toFixed(2),
+              })}
+        </Button>
+      </div>
+    </Paper>
+  );
+};
+
+const UpsellPackagePremium = (props: Props) => {
+  const classes = useStyles();
+  const { t } = useTranslation(['platformBilling']);
+  const { upsellPackage } = props;
+  return (
+    <Paper className={classes.paperContainer}>
+      <div className={classes.upsellContent}>
+        <div className={classes.iconContainer}>
+          <StarIcon className={classes.icon} />
+        </div>
+        <div className={classes.innerContainer}>
+          <div>
+            <Typography variant="h6">{upsellPackage.name}</Typography>
+            <div className={classes.innerDescription}>
+              {upsellPackage.description_html ? (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: props.upsellPackage.description_html,
+                  }}
+                />
+              ) : (
+                <Typography>{upsellPackage.description}</Typography>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={classes.buttonContainer}>
+        {!!props.onKnowMore && !upsellPackage.subscribed && (
+          <Button
+            variant="outlined"
+            onClick={() => props.onKnowMore(upsellPackage.id)}
+          >
+            <HelpOutlinedIcon className={classes.iconLeft} />
+            {t('upsellPackage.knowMore')}
+          </Button>
+        )}
+        <Button
+          disabled={upsellPackage.subscribed}
+          variant="contained"
+          color="primary"
+          onClick={() => props.onRequestUpsell(upsellPackage.id)}
+        >
+          <CheckIcon className={classes.iconLeft} />
+          {upsellPackage.is_recurrent
+            ? t('upsellPackage.billRecurrent', {
+                price_cts: (upsellPackage.price_cts / 100).toFixed(2),
+              })
+            : t('upsellPackage.billOnce', {
+                price_cts: (upsellPackage.price_cts / 100).toFixed(2),
+              })}
+        </Button>
+      </div>
+    </Paper>
+  );
+};
+
+const UpsellPackageYoutubeAndVimeo = (props: Props) => {
+  const classes = useStyles();
+  const { t } = useTranslation(['platformBilling']);
+  const { upsellPackage } = props;
+  return (
+    <Paper className={classes.paperContainer}>
+      <div className={classes.upsellContent}>
+        <div className={classes.iconContainer}>
+          <PlayCircleIcon className={classes.icon} />
+        </div>
+        <div className={classes.innerContainer}>
+          <div>
+            <Typography variant="h6">{upsellPackage.name}</Typography>
+            <div className={classes.innerDescription}>
+              {upsellPackage.description_html ? (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: props.upsellPackage.description_html,
+                  }}
+                />
+              ) : (
+                <Typography>{upsellPackage.description}</Typography>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={classes.buttonContainer}>
+        {!!props.onKnowMore && !upsellPackage.subscribed && (
+          <Button
+            variant="outlined"
+            onClick={() => props.onKnowMore(upsellPackage.id)}
+          >
+            <HelpOutlinedIcon className={classes.iconLeft} />
+            {t('upsellPackage.knowMore')}
+          </Button>
+        )}
+        <Button
+          disabled={upsellPackage.subscribed}
+          variant="contained"
+          color="primary"
+          onClick={() => props.onRequestUpsell(upsellPackage.id)}
+        >
+          <CheckIcon className={classes.iconLeft} />
+          {upsellPackage.is_recurrent
+            ? t('upsellPackage.billRecurrent', {
+                price_cts: (upsellPackage.price_cts / 100).toFixed(2),
+              })
+            : t('upsellPackage.billOnce', {
+                price_cts: (upsellPackage.price_cts / 100).toFixed(2),
+              })}
+        </Button>
+      </div>
+    </Paper>
+  );
+};
+
+const UpsellPackageActiveCampaign = (props: Props) => {
+  const classes = useStyles();
+  const { t } = useTranslation(['platformBilling']);
+  const { upsellPackage } = props;
+  return (
+    <Paper className={classes.paperContainer}>
+      <div className={classes.upsellContent}>
+        <div className={classes.iconContainer}>
+          <AllInboxIcon className={classes.icon} />
+        </div>
+        <div className={classes.innerContainer}>
+          <div>
+            <Typography variant="h6">{upsellPackage.name}</Typography>
+            <div className={classes.innerDescription}>
+              {upsellPackage.description_html ? (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: props.upsellPackage.description_html,
+                  }}
+                />
+              ) : (
+                <Typography>{upsellPackage.description}</Typography>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={classes.buttonContainer}>
+        {!!props.onKnowMore && !upsellPackage.subscribed && (
+          <Button
+            variant="outlined"
+            onClick={() => props.onKnowMore(upsellPackage.id)}
+          >
+            <HelpOutlinedIcon className={classes.iconLeft} />
+            {t('upsellPackage.knowMore')}
+          </Button>
+        )}
+        <Button
+          disabled={upsellPackage.subscribed}
+          variant="contained"
+          color="primary"
+          onClick={() => props.onRequestUpsell(upsellPackage.id)}
+        >
+          <CheckIcon className={classes.iconLeft} />
+          {upsellPackage.is_recurrent
+            ? t('upsellPackage.billRecurrent', {
+                price_cts: (upsellPackage.price_cts / 100).toFixed(2),
+              })
+            : t('upsellPackage.billOnce', {
+                price_cts: (upsellPackage.price_cts / 100).toFixed(2),
+              })}
+        </Button>
+      </div>
+    </Paper>
+  );
+};
 
 const UPSELL_REGISTRY = {
   [CUSTOM_APP]: UpsellPackageCustomApp,
@@ -481,6 +775,11 @@ const UPSELL_REGISTRY = {
   [SMS]: UpsellPackageSMS,
   [ZOOM_APP]: UpsellPackageZoomApp,
   [TABLET]: UpsellPackageTablet,
+  [CLASSPASS]: UpsellPackageClassPass,
+  [ANALYTICS]: UpsellPackageAnalytics,
+  [PREMIUM]: UpsellPackagePremium,
+  [VOD_YOUTUBE_AND_VIMEO]: UpsellPackageYoutubeAndVimeo,
+  [ACTIVE_CAMPAIGN]: UpsellPackageActiveCampaign,
 };
 
 export const getUpsellPackageComponent = (upsellIdentifier: number) =>

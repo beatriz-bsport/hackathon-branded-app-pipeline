@@ -51,6 +51,7 @@ exports.default = {
       pass: 'Cartes de cours',
       bookings: 'Mes réservations ',
       profile: 'Mon Profil',
+      myAccount: 'Mon compte',
       order: 'Mes commandes',
       subscriptions: 'Mes souscriptions',
     },

@@ -10,6 +10,7 @@ import { push as pushRouter } from 'connected-react-router';
 import TodayIcon from '@material-ui/icons/Today';
 
 import { Theme } from '@material-ui/core/styles';
+import { WidgetUtils } from '../../libs/widget/WidgetUtils';
 import themeSelectors from '../../libs/theme/selectors';
 import BookingCancellationDialog from '../../libs/booking/components/BookingCancellationDialog.component';
 import MemberBillingProblemCard from '../../libs/member/components/MemberBillingProblemCard.component';
@@ -171,18 +172,20 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
   render() {
     return (
       <div className={this.props.classes.container}>
-        <div className={this.props.classes.header}>
-          <div>
-            <Button
-              onClick={this.props.goToHomeTab}
-              color="primary"
-              variant="contained"
-            >
-              <TodayIcon className={this.props.classes.iconLeft} />
-              {this.props.t('actions.goToHome')}
-            </Button>
+        {!WidgetUtils.isWidget() && (
+          <div className={this.props.classes.header}>
+            <div>
+              <Button
+                onClick={this.props.goToHomeTab}
+                color="primary"
+                variant="contained"
+              >
+                <TodayIcon className={this.props.classes.iconLeft} />
+                {this.props.t('actions.goToHome')}
+              </Button>
+            </div>
           </div>
-        </div>
+        )}
         <ConsumerDashboardHeader
           favoriteMetaActivity={this.props.favoriteMetaActivity}
           favoriteEstablishment={this.props.favoriteEstablishment}
@@ -449,8 +452,8 @@ const mapWithHandlers = {
       date_start: moment().format('YYYY-MM-DD'),
       member: props.membership.id,
       options: {
-        onSuccess: (bookingsAndPrivateBookings) => {
-          const bookings = bookingsAndPrivateBookings
+        onSuccess: ({ allObj }) => {
+          const bookings = allObj
             .filter((bAndP) => bAndP.type === 'booking' && bAndP.booking)
             .map((b) => b.booking);
 

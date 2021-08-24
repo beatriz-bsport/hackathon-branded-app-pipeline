@@ -12,8 +12,9 @@ import { push } from 'connected-react-router';
 
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-
 import { connect } from 'react-redux';
+import { WidgetUtils } from '../../libs/widget/WidgetUtils';
+
 import PaginatedListBase from '../../components/PaginatedListBase.component';
 import PaginatedListStateful from '../../components/PaginatedListStateful.component';
 
@@ -62,21 +63,23 @@ export class ConsumerPack extends React.Component<Props> {
   render() {
     return (
       <Grid container direction="row" spacing={1}>
-        <div className={this.props.classes.header}>
-          <Button
-            onClick={() =>
-              this.props.goToPass(
-                this.props.membership.company_name,
-                this.props.membership.company,
-              )
-            }
-            color="primary"
-            variant="contained"
-          >
-            <VpnKeyIcon className={this.props.classes.iconLeft} />
-            {this.props.t('actions.goToPass')}
-          </Button>
-        </div>
+        {!WidgetUtils.isWidget() && (
+          <div className={this.props.classes.header}>
+            <Button
+              onClick={() =>
+                this.props.goToPass(
+                  this.props.membership.company_name,
+                  this.props.membership.company,
+                )
+              }
+              color="primary"
+              variant="contained"
+            >
+              <VpnKeyIcon className={this.props.classes.iconLeft} />
+              {this.props.t('actions.goToPass')}
+            </Button>
+          </div>
+        )}
         <Grid item xs={12} lg={6}>
           <Typography variant="h4" component="h3">
             {this.props.t('pack.titlePaymentPack')}

@@ -13,6 +13,7 @@ import TodayIcon from '@material-ui/icons/Today';
 import moment from 'moment-timezone';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
+import { WidgetUtils } from '../../widget/WidgetUtils';
 
 import BookingCancellationDialog from '../../booking/components/BookingCancellationDialog.component';
 import BookingItemForManagerV2 from '../../booking/components/BookingItemForManagerV2.component';
@@ -51,21 +52,23 @@ type Props = {
 
 export const ConsumerBookingPage = (props: Props) => (
   <div>
-    <div className={props.classes.header}>
-      <Button
-        onClick={() =>
-          props.goToCalendar(
-            props.membership.company_name,
-            props.membership.company,
-          )
-        }
-        color="primary"
-        variant="contained"
-      >
-        <TodayIcon className={props.classes.iconLeft} />
-        {props.t('actions.goToCalendar')}
-      </Button>
-    </div>
+    {!WidgetUtils.isWidget() && (
+      <div className={props.classes.header}>
+        <Button
+          onClick={() =>
+            props.goToCalendar(
+              props.membership.company_name,
+              props.membership.company,
+            )
+          }
+          color="primary"
+          variant="contained"
+        >
+          <TodayIcon className={props.classes.iconLeft} />
+          {props.t('actions.goToCalendar')}
+        </Button>
+      </div>
+    )}
     <Grid container direction="row" spacing={2}>
       <Grid item xs={12} md={6}>
         <Typography variant="h4" component="h3">

@@ -295,8 +295,8 @@ const mapWithHandlers = {
       member,
       type,
       options: {
-        onSuccess: (bookingsAndPrivateBookings) => {
-          const bookings = bookingsAndPrivateBookings
+        onSuccess: ({ allObj }) => {
+          const bookings = allObj
             .filter((bAndP) => bAndP.type === 'booking' && bAndP.booking)
             .map((b) => b.booking);
 

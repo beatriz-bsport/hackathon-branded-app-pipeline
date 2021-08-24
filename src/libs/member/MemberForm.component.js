@@ -992,6 +992,7 @@ export default compose(
     enableReinitialize: true,
 
     handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
+      setSubmitting(true);
       const { managerFormConfig, ...cleanedValues } = values;
       let { avatar } = cleanedValues;
       if (typeof avatar === 'string' && avatar.includes('data:image/')) {

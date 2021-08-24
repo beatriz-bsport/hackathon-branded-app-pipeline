@@ -50,6 +50,7 @@ import LOGO_ASSET from '../../public/images/banner_lowres.png';
 import { windowTitleToProps } from '../../hocs/with-title.hoc';
 
 import type { Membership } from '../../libs/membership/types';
+import { WidgetUtils } from '../../libs/widget/WidgetUtils';
 import { getCurrencyDisplayWithPrice } from '../../libs/theme/selectors';
 import { urlToMarketplace } from '../../libs/marketplace/utils';
 
@@ -402,7 +403,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         text: t('navigation.profile'),
       },
 
-      this.props.hasMultipleMembership
+      this.props.hasMultipleMembership && !WidgetUtils.isWidget()
         ? {
             to: '/c/membership-selector/',
             icon: SettingsIcon,
@@ -410,7 +411,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
           }
         : null,
       'divider',
-      this.props.membership
+      this.props.membership && !WidgetUtils.isWidget()
         ? {
             to: `${urlToMarketplace(
               this.props.membership.company_name,

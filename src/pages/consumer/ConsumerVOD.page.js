@@ -14,6 +14,8 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import themeSelectors from '../../libs/theme/selectors';
 
+import { WidgetUtils } from '../../libs/widget/WidgetUtils';
+
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
   getVideoList,
@@ -58,16 +60,18 @@ class ConsumerVOD extends React.PureComponent<Props> {
   render() {
     return (
       <div className={this.props.classes.container}>
-        <div className={this.props.classes.header}>
-          <Button
-            onClick={this.onCLickGoToVod}
-            color="primary"
-            variant="contained"
-          >
-            <VideoLibrary className={this.props.classes.iconLeft} />
-            {this.props.t('myVideos.gotToVOD')}
-          </Button>
-        </div>
+        {!WidgetUtils.isWidget() && (
+          <div className={this.props.classes.header}>
+            <Button
+              onClick={this.onCLickGoToVod}
+              color="primary"
+              variant="contained"
+            >
+              <VideoLibrary className={this.props.classes.iconLeft} />
+              {this.props.t('myVideos.gotToVOD')}
+            </Button>
+          </div>
+        )}
         <Typography variant="h4" component="h3">
           {this.props.t('myVideos.title')}
         </Typography>

@@ -458,7 +458,9 @@ export function fetchBookingsAndPrivateBookings(args: {
       };
 
       await dispatch(consumerBookingAndPrivateBookingSuccess(payload));
-      args.options && args.options.onSuccess(sortedByDatePaged);
+      if (args.options && args.options && args.options.onSuccess) {
+        args.options.onSuccess(payload);
+      }
     } catch (err) {
       console.error(err);
       dispatch(consumerBookingAndPrivateBookingError(err));

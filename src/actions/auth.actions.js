@@ -64,7 +64,7 @@ export function fetchAccessLevel(
           name,
         }),
       );
-      WidgetUtils.onLoginSuccess();
+      WidgetUtils.onLoginSuccess(username);
       if (options && options.next) {
         dispatch(push(options.next));
       } else if (options && options.company) {

@@ -13,7 +13,7 @@ import { fetchMembershipListAsConsumer } from '../../libs/membership/actions';
 import { getMembership } from '../../libs/membership/selectors';
 import WidgetUtils from '../../libs/widget/WidgetUtils';
 import { WidgetMessageType } from '../../libs/widget/types';
-import { CheckoutItem } from '../../libs/checkout/types';
+import { CheckoutItem, Basket } from '../../libs/checkout/types';
 import { getAuthToken } from '../../http';
 
 type OwnProps = {
@@ -47,16 +47,21 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
   };
 
   componentDidMount() {
-    WidgetUtils.authenticatedStatusReady();
-    this.fetchData();
+    WidgetUtils.authenticatedStatus(
+      this.props.auth.authenticated,
+      this.props.auth.username,
+    );
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (prevProps.auth !== this.props.auth) {
-      WidgetUtils.authenticatedStatusReady();
-      this.fetchData();
+    if (prevProps.auth.authenticated !== this.props.auth.authenticated) {
+      WidgetUtils.authenticatedStatus(
+        this.props.auth.authenticated,
+        this.props.auth.username,
+      );
     }
 
+    /*
     if (!prevProps.membership && this.props.membership) {
       this.fetchBookingsAndPrivateBookings();
     }
@@ -67,23 +72,9 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
 
     if (prevProps.bookingsLoading && !this.props.bookingsLoading) {
       WidgetUtils.bookingsCountReady();
-    }
-  }
-
-  fetchData = () => {
-    if (this.props.auth.authenticated) {
-      this.props.fetchMembershipListAsConsumer();
-
-      if (this.props.membership) {
-        this.fetchBookingsAndPrivateBookings();
       }
-      this.props.fetchCurrentBasket(this.props.companyId);
-    }
-
-    if (this.props.basket) {
-      WidgetUtils.basketCountReady();
-    }
-  };
+     */
+  }
 
   fetchAccessLevel = (token: string) => {
     if (token && token !== 'null') {
@@ -96,6 +87,24 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
       page: 1,
       date_start: moment().format('YYYY-MM-DD'),
       member: this.props.membership.id,
+      options: {
+        onSuccess: (payload) => WidgetUtils.bookingsCount(payload.count),
+      },
+    });
+  };
+
+  fetchBasket = () => {
+    this.props.fetchCurrentBasket(this.props.companyId, {
+      onSuccess: (basket: Basket) => {
+        if (basket && basket.checkout_items) {
+          WidgetUtils.basketCount(
+            basket.checkout_items.reduce(
+              (s: number, a: CheckoutItem) => s + a.quantity,
+              0,
+            ),
+          );
+        }
+      },
     });
   };
 
@@ -103,28 +112,24 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
     if (event.data && event.data.type) {
       switch (event.data.type) {
         case WidgetMessageType.GET_AUTHENTICATED_STATUS:
-          WidgetUtils.authenticatedStatus(this.props.auth.authenticated);
+          WidgetUtils.authenticatedStatus(
+            this.props.auth.authenticated,
+            this.props.auth.username,
+          );
           break;
 
-        case WidgetMessageType.GET_BASKET_COUNT: {
-          let count: number | null = null;
-
-          if (this.props.basket && this.props.basket.checkout_items) {
-            count = this.props.basket.checkout_items.reduce(
-              (s: number, a: CheckoutItem) => s + a.quantity,
-              0,
-            );
-          }
-          WidgetUtils.basketCount(count);
+        case WidgetMessageType.REQUEST_BASKET_COUNT: {
+          this.fetchBasket();
           break;
         }
-        case WidgetMessageType.GET_BOOKINGS_COUNT:
-          WidgetUtils.bookingsCount(this.props.bookingsCount);
+        case WidgetMessageType.REQUEST_BOOKING_COUNT:
+          this.fetchBookingsAndPrivateBookings();
           break;
 
         case WidgetMessageType.LOGOUT:
           this.props.disconnect();
           break;
+
         default:
           break;
       }

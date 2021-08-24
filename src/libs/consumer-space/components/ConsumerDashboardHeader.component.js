@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import { WidgetUtils } from '../../widget/WidgetUtils';
 
 import MetaActivityListItem from '../../meta-activity/components/MetaActivityListItem.component';
 import EstablishmentListItem from '../../establishment/components/EstablishmentListItem.component';
@@ -22,7 +23,9 @@ export class ConsumerDashboardHeader extends React.PureComponent<Props> {
   render() {
     return (
       <div>
-        {this.props.favoriteMetaActivity || this.props.favoriteEstablishment ? (
+        {!WidgetUtils.isWidget() &&
+        (this.props.favoriteMetaActivity ||
+          this.props.favoriteEstablishment) ? (
           <div>
             <Typography variant="h4" color="textSecondary">
               {this.props.t('dashboard.favoriteTitle')}

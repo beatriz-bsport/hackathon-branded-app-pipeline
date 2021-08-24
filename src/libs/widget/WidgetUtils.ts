@@ -1,6 +1,6 @@
 import { WidgetMessageType } from './types';
 
-export default class WidgetUtils {
+export class WidgetUtils {
   static setWidgetContext() {
     // @ts-ignore
     window.env.APP_CONTEXT = 'widget';
@@ -38,10 +38,11 @@ export default class WidgetUtils {
     WidgetUtils.postMessage({ type: WidgetMessageType.BOOKINGS_COUNT_READY });
   }
 
-  static authenticatedStatus(authenticated: boolean) {
+  static authenticatedStatus(authenticated: boolean, username: string) {
     WidgetUtils.postMessage({
       type: WidgetMessageType.AUTHENTICATED_STATUS,
       authenticated,
+      username,
     });
   }
 
@@ -53,7 +54,12 @@ export default class WidgetUtils {
     WidgetUtils.postMessage({ type: WidgetMessageType.BOOKINGS_COUNT, count });
   }
 
-  static onLoginSuccess() {
-    WidgetUtils.postMessage({ type: WidgetMessageType.LOGIN_SUCCESS });
+  static onLoginSuccess(username: string) {
+    WidgetUtils.postMessage({
+      type: WidgetMessageType.LOGIN_SUCCESS,
+      payload: { username },
+    });
   }
 }
+
+export default WidgetUtils;

@@ -7,7 +7,7 @@ import { MarketplacePassData } from 'bsport-saas/src/libs/marketplace/types';
 
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
-import { getEnv } from '../utils/utils';
+import { getEnv } from '../utils/env';
 
 const MarketplacePassStyled = themify(MarketplacePassBase);
 

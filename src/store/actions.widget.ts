@@ -2,7 +2,7 @@ import { createAction } from 'redux-actions';
 import { Dispatch } from 'redux';
 
 import { DIALOG_MODE_IFRAME } from '@bsport/common/lib/master-data/widget-dialog-mode';
-import { getEnv } from '../utils/utils';
+import { getEnv } from '../utils/env';
 
 /**
  * @params { url: string, dialogMode: 0 | 1 | 2 }

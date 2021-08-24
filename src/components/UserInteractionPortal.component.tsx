@@ -12,7 +12,7 @@ import {
   DIALOG_MODE_POPUP,
   DIALOG_MODE_TAB,
 } from '@bsport/common/lib/master-data/widget-dialog-mode';
-import { openTab } from '../utils/utils';
+import { openTab } from '../utils/open-tab';
 
 interface OwnProps {
   url?: string;

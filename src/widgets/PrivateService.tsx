@@ -27,7 +27,7 @@ import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 
 import { RootState } from '../store/reducer';
-import { getEnv } from '../utils/utils';
+import { getEnv } from '../utils/env';
 
 const PrivateServiceSelector = themify(
   PrivateServiceSelectorDataProvider(PrivateServiceSelectorPage),

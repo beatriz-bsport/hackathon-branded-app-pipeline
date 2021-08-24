@@ -4,7 +4,7 @@ import axios from 'axios';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
 import HttpBackend from 'i18next-http-backend';
-import { getEnv } from '../utils/utils';
+import { getEnv } from '../utils/env';
 
 const backendOptions: any = {};
 

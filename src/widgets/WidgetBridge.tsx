@@ -14,7 +14,7 @@ import {
   setSaasBookingsCount,
 } from '../store/actions.widget';
 import { RootState } from '../store/reducer';
-import { getEnv } from '../utils/utils';
+import { getEnv } from '../utils/env';
 
 type OwnProps = {
   companyId: number,

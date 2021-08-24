@@ -10,7 +10,7 @@ import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 import { RootState } from '../store/reducer';
 import '../../vendor/map.css';
-import { getEnv } from '../utils/utils';
+import { getEnv } from '../utils/env';
 
 const MarketplaceWorkshopBaseStyled = themify(MarketplaceWorkshopBase);
 

@@ -12,7 +12,7 @@ import { Theme } from 'bsport-saas/src/libs/theme/types';
 import '../../vendor/map.css';
 
 import { constants } from '../const/constants';
-import { getEnv } from '../utils/utils';
+import { getEnv } from '../utils/env';
 
 const DATE_FORMAT = 'YYYY-MM-DD';
 

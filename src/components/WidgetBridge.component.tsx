@@ -41,6 +41,7 @@ class WidgetBridge extends React.PureComponent<Props> {
 
         if (event.data && event.data.type) {
           switch (event.data.type) {
+            /*
             case WidgetMessageType.AUTHENTICATED_STATUS_READY:
               iframe &&
                 iframe.postMessage(
@@ -63,10 +64,21 @@ class WidgetBridge extends React.PureComponent<Props> {
                   { type: WidgetMessageType.GET_BOOKINGS_COUNT },
                   '*',
                 );
+                break;
+
+            case WidgetMessageType.LOGIN_SUCCESS:
+              if (this.props.isFabContext) {
+                this.props.closeUserInteractionPortal();
+              }
               break;
 
+            */
+
             case WidgetMessageType.AUTHENTICATED_STATUS:
-              this.props.setSaasAuthenticated(event.data.authenticated);
+              this.props.setSaasAuthenticated({
+                authenticated: event.data.authenticated,
+                username: event && event.data && event.data.username,
+              });
               if (!event.data.authenticated) {
                 this.props.setSaasBookingsCount(null);
                 this.props.setSaasBasketCount(null);
@@ -85,12 +97,6 @@ class WidgetBridge extends React.PureComponent<Props> {
               this.props.closeUserInteractionPortal();
               this.props.refreshVODRequestAccessFlagAction();
               this.props.snackbarSuccess('snackbar:consumerPass.success');
-              break;
-
-            case WidgetMessageType.LOGIN_SUCCESS:
-              if (this.props.isFabContext) {
-                this.props.closeUserInteractionPortal();
-              }
               break;
 
             default:

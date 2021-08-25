@@ -72,6 +72,7 @@ const migrateOldProps = (props: any) => {
       'subscription',
       'pass',
       'shop',
+      'loginButton',
     ].includes(_props.widgetType)
   ) {
     _props.widgetType = WidgetComponentsEnum.calendar;

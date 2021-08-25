@@ -30,7 +30,7 @@ import {
   closeUserInteractionPortal,
   openUserInteractionPortal,
 } from './store/actions.widget';
-import WidgetBridge from './components/WidgetBridge';
+import WidgetBridge from './components/WidgetBridge.component';
 
 const PassWidget = asyncComponent(() => import('./widgets/Pass.widget'));
 const ShopWidget = asyncComponent(() => import('./widgets/Shop.widget'));
@@ -52,6 +52,9 @@ const NewsletterWidget = asyncComponent(
 );
 const UserInteractionPortal = asyncComponent(
   () => import('./components/UserInteractionPortal.component'),
+);
+const LoginButtonWidget = asyncComponent(
+  () => import('./widgets/LoginButton.widget'),
 );
 
 const Snackbar = themify(connect(...SnackbarDataProvider)(SnackbarPile));
@@ -130,6 +133,14 @@ class BsportWidget extends Component<Props> {
             config={config[widgetType]}
             store={store}
             theme={theme}
+            onWindowOpen={this.onWindowOpen}
+            dialogMode={dialogMode}
+          />
+        );
+      case 'loginButton':
+        return (
+          <LoginButtonWidget
+            companyId={companyId}
             onWindowOpen={this.onWindowOpen}
             dialogMode={dialogMode}
           />

@@ -53,7 +53,9 @@ export default handleActions<Immutable.Immutable<WidgetState>>(
     },
     /** SAAS DATA */
     [setSaasAuthenticated.toString()]: (state, { payload }: any) => {
-      return state.setIn(['saas', 'authenticated'], payload);
+      return state
+        .setIn(['saas', 'authenticated'], payload.authenticated)
+        .setIn(['saas', 'username'], payload.username);
     },
     [setSaasBasketCount.toString()]: (state, { payload }: any) => {
       return state.setIn(['saas', 'basketCount'], payload);

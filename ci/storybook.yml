@@ -3,7 +3,7 @@
   stage: static-analysis
   
   tags:
-    - build
+    - build-frontend
     - kubernetes
   retry: 
     max: 1

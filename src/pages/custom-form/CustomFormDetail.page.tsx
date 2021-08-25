@@ -4,14 +4,13 @@ import { connect } from 'react-redux';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
 import withStyles from '@material-ui/core/styles/withStyles';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import Grid from '@material-ui/core/Grid';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import LinkIcon from '@material-ui/icons/Link';
-import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 import InfoIcon from '@material-ui/icons/Info';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import withTitle from '../../hocs/with-title.hoc';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers/index';
@@ -90,31 +89,34 @@ export class CustomFormDetail extends React.Component<Props, State> {
       <div className={classes.container}>
         <Grid container direction="row" spacing={3}>
           <Grid item xs={12} md={6}>
-            <Typography variant="subtitle2">
+            <Typography variant="h5">
               {t('customForm.CustomFormLink')}
             </Typography>
-            <CopyToClipboard
-              text={`${window.location.origin}/m/${this.props.theme.company_name}/${this.props.theme.company}/form/${this.props.customForm.id}`}
-            >
-              <div className={classes.clipBoard}>
-                <Paper className={classes.linkContainer}>
-                  <ButtonBase
-                    className={classes.buttonBase}
-                    onClick={() => this.props.snackbarSuccess('link.copied')}
-                  >
-                    <LinkIcon className={classes.linkIcon} />
-                    <Typography variant="caption">
-                      {`${window.location.origin}/m/${this.props.theme.company_name}/${this.props.theme.company}/form/${this.props.customForm.id}`}
-                    </Typography>
-                  </ButtonBase>
-                </Paper>
-              </div>
-            </CopyToClipboard>
             <div className={classes.textAndIcon}>
-              <InfoIcon className={classes.leftIcon} fontSize="small" />
-              <div className={classes.helperTextContainer}>
-                <Typography>{t('customForm.linkHelper')}</Typography>
+              <div className={classes.textAndIconInner}>
+                <InfoIcon className={classes.leftIcon} fontSize="small" />
+                <Typography variant="caption">
+                  {t('customForm.linkHelper')}
+                </Typography>
               </div>
+              <CopyToClipboard
+                text={`${window.location.origin}/m/${this.props.theme.company_name}/${this.props.theme.company}/form/${this.props.customForm.id}`}
+              >
+                <div className={classes.clipBoard}>
+                  <div className={classes.linkContainer}>
+                    <Button
+                      className={classes.buttonBase}
+                      variant="outlined"
+                      onClick={() => this.props.snackbarSuccess('link.copied')}
+                    >
+                      <LinkIcon className={classes.linkIcon} />
+                      <Typography variant="caption">
+                        {`${window.location.origin}/m/${this.props.theme.company_name}/${this.props.theme.company}/form/${this.props.customForm.id}`}
+                      </Typography>
+                    </Button>
+                  </div>
+                </div>
+              </CopyToClipboard>
             </div>
             <CustomFormFormPaper
               initial={this.props.customFormRefresh}
@@ -126,7 +128,7 @@ export class CustomFormDetail extends React.Component<Props, State> {
             />
           </Grid>
           <Grid item xs={12} md={6}>
-            <Typography variant="h6" className={classes.previewTitle}>
+            <Typography variant="h5" className={classes.previewTitle}>
               {t('customForm.preview')}
             </Typography>
             <CustomFormConsumerView
@@ -149,22 +151,25 @@ const styles = (theme: Theme) => ({
     padding: theme.spacing(2),
   },
   textAndIcon: {
-    paddingBottom: theme.spacing(2),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(2),
+    padding: theme.spacing(1),
+    border: '1px solid #e0e0e0',
+    borderRadius: theme.spacing(0.5),
+  },
+  textAndIconInner: {
     display: 'flex',
     alignItems: 'center',
+    marginLeft: theme.spacing(1),
   },
   leftIcon: {
     marginRight: theme.spacing(1),
-  },
-  helperTextContainer: {
-    backgroundColor: '#e0e0e0',
-    borderRadius: theme.spacing(0.5),
   },
   linkContainer: {
     padding: theme.spacing(1),
   },
   clipBoard: {
-    paddingBottom: theme.spacing(2),
+    paddingTop: theme.spacing(1),
   },
   linkIcon: {
     marginRight: theme.spacing(1),

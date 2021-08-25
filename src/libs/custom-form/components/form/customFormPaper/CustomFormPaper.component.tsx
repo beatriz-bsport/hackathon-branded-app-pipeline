@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import { Theme } from '@material-ui/core/styles';
 import withStyles from '@material-ui/core/styles/withStyles';
+import SaveIcon from '@material-ui/icons/Save';
 import AddIcon from '@material-ui/icons/Add';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import List from '@material-ui/core/List';
@@ -225,7 +226,7 @@ export function CustomFormAnswer(props: Props) {
             mainFormik.handleSubmit();
           }}
         >
-          <Paper>
+          <>
             <FormikChangesLookUp t={t} classes={classes} />
             <List component="nav" disablePadding>
               <ListItem divider className={classes.listitem}>
@@ -313,11 +314,24 @@ export function CustomFormAnswer(props: Props) {
                       <div className={classes.addField}>
                         <Button
                           color="primary"
+                          variant="outlined"
                           onClick={() => setOpenCreationDialog(true)}
                         >
-                          <AddIcon color="primary" />
+                          <AddIcon className={classes.leftIcon} />
                           {t('customForm.addFieldLong')}
                         </Button>
+                        <div className={classes.submit}>
+                          <Button
+                            type="submit"
+                            id="button_submit_custom_form"
+                            disabled={isSubmitting}
+                            variant="contained"
+                            color="primary"
+                          >
+                            <SaveIcon className={classes.leftIcon} />
+                            {t('customForm.save')}
+                          </Button>
+                        </div>
                       </div>
                       {openFieldCreationDialog && (
                         <CustomFormFieldFormDialog
@@ -346,74 +360,68 @@ export function CustomFormAnswer(props: Props) {
                 )}
               </FieldArray>
             </List>
-          </Paper>
-          <div className={classes.submit}>
-            <Button
-              type="submit"
-              id="button_submit_custom_form"
-              disabled={isSubmitting}
-              variant="contained"
-              color="primary"
-            >
-              {t('customForm.save')}
-            </Button>
-          </div>
+          </>
+          {!!(
+            mainFormik.values.custom_form_field_disabled &&
+            mainFormik.values.custom_form_field_disabled.length
+          ) && (
+            <>
+              <div>
+                <ButtonBase
+                  className={classes.buttonTitle}
+                  onClick={() => setShowDisabledField(!showDisabledField)}
+                >
+                  <Typography variant="h5" component="h2">
+                    {`${t('customForm.disabledCustomFormField')} (${
+                      (mainFormik.values.custom_form_field_disabled &&
+                        mainFormik.values.custom_form_field_disabled.length) ||
+                      0
+                    })`}
+                  </Typography>
 
-          <div>
-            <ButtonBase
-              className={classes.buttonTitle}
-              onClick={() => setShowDisabledField(!showDisabledField)}
-            >
-              <Typography variant="h5" component="h2">
-                {`${t('customForm.disabledCustomFormField')} (${
-                  (mainFormik.values.custom_form_field_disabled &&
-                    mainFormik.values.custom_form_field_disabled.length) ||
-                  0
-                })`}
-              </Typography>
-
-              {showDisabledField ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-            </ButtonBase>
-            <Divider />
-          </div>
-          <Collapse in={showDisabledField}>
-            <Paper>
-              <FieldArray name="custom_form_field_disabled">
-                {({
-                  remove,
-                  form: {
-                    values: {
-                      custom_form_field_enabled,
-                      custom_form_field_disabled,
-                    },
-                  },
-                }) => (
-                  <>
-                    {custom_form_field_disabled.map(
-                      (field: CustomFormField, i: number) => (
-                        <CustomFormFieldListItem
-                          key={`disabled_field${i}`}
-                          {...props}
-                          customFormField={field}
-                          onClickRestore={() => {
-                            custom_form_field_enabled.push({
-                              ...mainFormik.values.custom_form_field_disabled[
-                                i
-                              ],
-                              disabled: false,
-                            });
-                            remove(i);
-                          }}
-                          index={i}
-                          customFormFieldType="custom_form_field_disabled"
-                        />
-                      ),
+                  {showDisabledField ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                </ButtonBase>
+                <Divider />
+              </div>
+              <Collapse in={showDisabledField}>
+                <Paper>
+                  <FieldArray name="custom_form_field_disabled">
+                    {({
+                      remove,
+                      form: {
+                        values: {
+                          custom_form_field_enabled,
+                          custom_form_field_disabled,
+                        },
+                      },
+                    }) => (
+                      <>
+                        {custom_form_field_disabled.map(
+                          (field: CustomFormField, i: number) => (
+                            <CustomFormFieldListItem
+                              key={`disabled_field${i}`}
+                              {...props}
+                              customFormField={field}
+                              onClickRestore={() => {
+                                custom_form_field_enabled.push({
+                                  ...mainFormik.values
+                                    .custom_form_field_disabled[i],
+                                  disabled: false,
+                                });
+                                remove(i);
+                              }}
+                              index={i}
+                              customFormFieldType="custom_form_field_disabled"
+                            />
+                          ),
+                        )}
+                      </>
                     )}
-                  </>
-                )}
-              </FieldArray>
-            </Paper>
-          </Collapse>
+                  </FieldArray>
+                </Paper>
+              </Collapse>
+            </>
+          )}
         </form>
       )}
     </Formik>
@@ -456,14 +464,16 @@ const styles = (theme: Theme) => ({
     marginTop: theme.spacing(3),
   },
   submit: {
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
     display: 'flex',
     justifyContent: 'flex-end',
   },
   addField: {
     paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
+    paddingBottom: theme.spacing(3),
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   paperItem: {
     width: '100%',
@@ -472,6 +482,8 @@ const styles = (theme: Theme) => ({
     padding: theme.spacing(1),
     display: 'flex',
     alignItems: 'center',
+    border: `1px solid ${amber[900]}`,
+    borderRadius: theme.spacing(0.5),
   },
   noChange: {
     color: green[600],
@@ -479,6 +491,9 @@ const styles = (theme: Theme) => ({
   },
   changeWarning: {
     color: amber[900],
+    marginRight: theme.spacing(1),
+  },
+  leftIcon: {
     marginRight: theme.spacing(1),
   },
 });

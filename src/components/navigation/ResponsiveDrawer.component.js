@@ -662,6 +662,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         nestedItems: [
           'divider',
           {
+            to: '/email-template',
+            icon: Email,
+            text: t('backofficeMenu.email_template'),
+          },
+          {
             to: '/custom-form',
             icon: AssignmentIcon,
             text: t('backofficeMenu.custom_form'),
@@ -672,9 +677,14 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             text: t('backofficeMenu.smart_list'),
           },
           {
-            to: '/email-template',
-            icon: Email,
-            text: t('backofficeMenu.email_template'),
+            to: '/marketing/notifications',
+            icon: NotificationsActiveIcon,
+            text: t('backofficeMenu.marketingNotification'),
+          },
+          {
+            to: '/marketing/tags',
+            icon: LabelIcon,
+            text: t('backofficeMenu.tags'),
           },
           {
             to: '/marketing/strategies',
@@ -684,16 +694,6 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                 ? t('backofficeMenu.alpha')
                 : null,
             text: t('backofficeMenu.sequence'),
-          },
-          {
-            to: '/marketing/notifications',
-            icon: NotificationsActiveIcon,
-            text: t('backofficeMenu.marketingNotification'),
-          },
-          {
-            to: '/marketing/tags',
-            icon: LabelIcon,
-            text: t('backofficeMenu.tags'),
           },
         ],
       },

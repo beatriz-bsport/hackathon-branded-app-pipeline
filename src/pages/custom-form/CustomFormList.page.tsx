@@ -214,52 +214,55 @@ export class CustomFormListPage extends React.Component<Props, State> {
                     />
                   )}
                 </Paper>
-                <div>
-                  <ButtonBase
-                    className={classes.buttonTitle}
-                    onClick={this.onShowDisabled}
-                    disabled={
-                      customFormList &&
-                      customFormList.filter((form) => form.disabled).length ===
-                        0
-                    }
-                  >
-                    <Typography variant="h5" component="h2">
-                      {`${t('customForm.disabledCustomForm')} (${
-                        (customFormList &&
-                          customFormList.filter((form) => form.disabled)
-                            .length) ||
-                        0
-                      })`}
-                    </Typography>
+                {!!customFormList.filter((form: CustomForm) => form.disabled)
+                  .length && (
+                  <div>
+                    <ButtonBase
+                      className={classes.buttonTitle}
+                      onClick={this.onShowDisabled}
+                      disabled={
+                        customFormList &&
+                        customFormList.filter((form) => form.disabled)
+                          .length === 0
+                      }
+                    >
+                      <Typography variant="h5" component="h2">
+                        {`${t('customForm.disabledCustomForm')} (${
+                          (customFormList &&
+                            customFormList.filter((form) => form.disabled)
+                              .length) ||
+                          0
+                        })`}
+                      </Typography>
 
-                    {this.state.showDisabledForms ? (
-                      <ExpandLessIcon />
-                    ) : (
-                      <ExpandMoreIcon />
-                    )}
-                  </ButtonBase>
-                  <Divider />
-                  <Collapse in={this.state.showDisabledForms}>
-                    <Paper>
-                      {customFormList && (
-                        <CustomFormList
-                          customFormList={customFormList.filter(
-                            (form: CustomForm) => form.disabled,
-                          )}
-                          onClick={(id: number) => {
-                            this.selected(id);
-                          }}
-                          onClickEdit={this.props.goToEdit}
-                          onRestore={(id: number) =>
-                            this.props.restoreCustomForm(id)
-                          }
-                          customFormSelected={this.props.customFormSelected}
-                        />
+                      {this.state.showDisabledForms ? (
+                        <ExpandLessIcon />
+                      ) : (
+                        <ExpandMoreIcon />
                       )}
-                    </Paper>
-                  </Collapse>
-                </div>
+                    </ButtonBase>
+                    <Divider />
+                    <Collapse in={this.state.showDisabledForms}>
+                      <Paper>
+                        {customFormList && (
+                          <CustomFormList
+                            customFormList={customFormList.filter(
+                              (form: CustomForm) => form.disabled,
+                            )}
+                            onClick={(id: number) => {
+                              this.selected(id);
+                            }}
+                            onClickEdit={this.props.goToEdit}
+                            onRestore={(id: number) =>
+                              this.props.restoreCustomForm(id)
+                            }
+                            customFormSelected={this.props.customFormSelected}
+                          />
+                        )}
+                      </Paper>
+                    </Collapse>
+                  </div>
+                )}
               </>
             ) : null}
           </Grid>

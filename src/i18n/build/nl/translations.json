@@ -2991,7 +2991,8 @@
             "tag_on_join_and_untag_on_left": "Tag als een lid zich in de Smartlist staat",
             "type_of_rule": "Type regel",
             "tag_on_left": "Tag als een lid de Smartlist heeft verlaten",
-            "tag_on_join": "Tag als een lid in de Smartlist is gezet"
+            "tag_on_join": "Tag als een lid in de Smartlist is gezet",
+            "activeSince": "Actief sinds {{ since }}."
         }
     },
     "metaActivity": {
@@ -7056,6 +7057,67 @@
         },
         "tag": {
             "noTagAttributed": "Selecteer een sub-tag"
+        },
+        "management": {
+            "smartlistDetail": {
+                "empty": "Er zijn geen gegevens om weer te geven.",
+                "removeTag": "Verwijder",
+                "title": "Tags van Smartlists"
+            },
+            "couponDetail": {
+                "empty": "Er zijn geen gegevens om weer te geven.",
+                "removeTag": "Sub-tag verwijderen",
+                "blacklist": "[Blacklist] Kan niet worden gebruikt door leden met de tag(s):",
+                "whitelist": "[Whitelist] Kan worden gebruikt door leden met de tag(s):",
+                "title": "Gekoppelde promoties aan deze sub-tag"
+            },
+            "memberDetail": {
+                "addTag": "Voeg sub-tag toe",
+                "addTagToAll": "Voeg deze sub-tag aan alle leden toe.",
+                "memberWithoutTag": "Niet-getagde leden",
+                "removeTag": "Verwijder sub-tag",
+                "removeTagFromAll": "Verwijder deze sub-tag van alle leden",
+                "memberWithTag": "Getagde leden"
+            },
+            "tagKind": {
+                "smartlist": "Smartlists",
+                "coupon": "Promoties",
+                "member": "Leden",
+                "toolbar": "Weergeven door"
+            },
+            "tagDetail": {
+                "noTag": "Selecteer een tag voor een gedetailleerd overzicht."
+            },
+            "createGroupDialog": {
+                "helper": "Voorbeeld: maak een hoofd-tag genaamd \"VIP\" met de sub-tags \"Ja\" en \"Nee\". Dit geeft je een overzicht van alle huidige VIPs.",
+                "field": "Naam",
+                "title": "Hoofd-tag"
+            },
+            "deleteTagDialog": {
+                "text": "Weet je zeker dat je deze sub-tag wilt verwijderen? Alle regels die aan deze sub-tag zijn gekoppeld zullen ook worden verwijderd.",
+                "title": "Tags verwijderen"
+            },
+            "deleteTagGroupDialog": {
+                "text": "Weet je zeker dat je deze hoofd-tag wil verwijderen? Alle sub-tags die aan deze hoofd-tag zijn gekoppeld zullen ook worden verwijderd. ",
+                "title": "Hoofd-tag verwijderen"
+            },
+            "tagColumn": {
+                "actions": "Acties ",
+                "smartlist_count": "Tags",
+                "member_count": "Getagde leden",
+                "tag": "Sub-tag"
+            },
+            "submit": "Bevestig",
+            "cancel": "Annuleer",
+            "form": {
+                "tagGroupEmpty": "Deze hoofd-tag bevat geen sub-tags om weer te geven.",
+                "tagGroupName": "Naam",
+                "groupRename": "Hoofd-tag"
+            },
+            "delete": "Verwijder",
+            "rename": "Hernoem",
+            "addTag": "Een sub-tag toevoegen",
+            "addGroup": "Een hoofd-tag toevoegen"
         }
     },
     "theme": {
@@ -7916,7 +7978,8 @@
                 "profile": "Mijn profiel",
                 "bookings": "Mijn reserveringen ",
                 "pass": "Leskaarten",
-                "subscriptions": "Mijn abonnementen"
+                "subscriptions": "Mijn abonnementen",
+                "myAccount": "Mijn profiel"
             },
             "beta": "Bèta",
             "coachPerformance": "Instructeurs",
@@ -7991,7 +8054,8 @@
                 "at": "om"
             },
             "marketingNotification": "Meldingen",
-            "custom_form": "Formulieren"
+            "custom_form": "Formulieren",
+            "tags": "Tags"
         },
         "deprecatedNavigator": {
             "close": "Sluiten",

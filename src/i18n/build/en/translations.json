@@ -4005,8 +4005,8 @@
             "workshopClick": "When a user selects a date for a workshop"
         },
         "signUpForm": {
-            "error": "Error",
-            "success": "Saved configuration",
+            "error": "Error when saving form",
+            "success": "Form has been saved",
             "save": "Save",
             "editable": "Editable",
             "required": "Obligatory",
@@ -4080,7 +4080,7 @@
         "modal": {
             "delete": {
                 "title": "Delete workshop",
-                "content": "Are you sure you want to delete this workshop ? Booking and sessions will not be altered. This operation is not revertable.",
+                "content": "Are you sure that you want to delete this workshop? Your bookings and sessions won't be affected. This action can't be undone.",
                 "cancel": "Cancel",
                 "confirm": "Delete"
             }
@@ -4092,26 +4092,26 @@
                     "cancel": "Cancel"
                 },
                 "content": {
-                    "cannotDelete": "There are upcoming sessions planned for this activity. Check if these have been deleted and not only cancelled.",
-                    "canDelete": "Are you sure you want to delete this workshop ? Sessions and past bookings will not be modified. This operation can not be reverted."
+                    "cannotDelete": "Upcoming sessions have been planned for this activity. Check if these have all been cancelled and deleted already.",
+                    "canDelete": "Are you sure that you want to delete this workshop? Your bookings and sessions won't be affected. This action can't be undone."
                 },
-                "title": "Workshop deletion"
+                "title": "Delete workshop"
             }
         },
         "navigation": {
-            "goToPaymentPack": "Pass"
+            "goToPaymentPack": "Passes"
         },
         "actions": {
             "search": "Find a workshop",
             "addWorkshopActivity": "Add a workshop"
         },
-        "noWorkshops": "Manage your workshops here, a workshop is an event whose date is fixed in advance.",
+        "noWorkshops": "In this module, you can add, manage, edit, and delete all your workshops.",
         "disabledWorkshops": "Archived workshops"
     },
     "tag": {
         "panel": {
             "title": "Tags",
-            "noTagAvailable": "No tag created yet"
+            "noTagAvailable": "There are no Sub Tags to display."
         },
         "filter": {
             "addATagFilter": "Filter by tag..."
@@ -4136,7 +4136,7 @@
                 "edit": "Edit tags",
                 "deleteCategory": "Delete category",
                 "delete": {
-                    "title": "Delete category",
+                    "title": "Delete",
                     "explain": "Be careful ! This category will be deleted for all members, are you sure you want to do that ? This operation is not reversable.",
                     "submit": "Delete",
                     "cancel": "Cancel"

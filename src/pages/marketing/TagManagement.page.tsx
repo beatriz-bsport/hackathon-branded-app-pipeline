@@ -414,6 +414,7 @@ const styles = (theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
+    width: '100%',
   },
   toolbar: {
     display: 'flex',
@@ -437,9 +438,11 @@ const styles = (theme) => ({
   },
   leftPanel: {
     flex: 1,
+    maxWidth: '50%',
   },
   rightPanel: {
     flex: 1,
+    maxWidth: '50%',
     marginLeft: theme.spacing(4),
   },
 });

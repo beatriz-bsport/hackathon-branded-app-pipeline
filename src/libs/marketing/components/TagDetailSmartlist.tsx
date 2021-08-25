@@ -58,7 +58,7 @@ class TagDetailSmartlist extends React.PureComponent<Props> {
         )}
 
         {!this.props.loading && !!this.props.smartlistList.length && (
-          <>
+          <div className={classes.container}>
             <Typography variant="h5">
               {t('management.smartlistDetail.title')}
             </Typography>
@@ -71,7 +71,7 @@ class TagDetailSmartlist extends React.PureComponent<Props> {
 
                 return (
                   <ListItem divider key={smartlist.id}>
-                    <div className={classes.container}>
+                    <div className={classes.fullWidth}>
                       <div className={classes.listItemInfo}>
                         <div className={classes.row}>
                           <Typography variant="h6">{smartlist.name}</Typography>
@@ -101,7 +101,7 @@ class TagDetailSmartlist extends React.PureComponent<Props> {
                 );
               })}
             </Paper>
-          </>
+          </div>
         )}
       </div>
     );
@@ -112,6 +112,9 @@ const styles = (theme: Theme) => ({
   container: {
     width: '100%',
     marginTop: theme.spacing(2),
+  },
+  fullWidth: {
+    width: '100%',
   },
   inner: {
     display: 'flex',
@@ -129,12 +132,14 @@ const styles = (theme: Theme) => ({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     flex: 1,
+    marginBottom: theme.spacing(2),
   },
   row: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    marginBottom: theme.spacing(1),
   },
   marginTop: {
     marginTop: theme.spacing(2),

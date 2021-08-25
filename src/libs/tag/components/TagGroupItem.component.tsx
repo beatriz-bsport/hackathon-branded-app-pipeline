@@ -168,7 +168,9 @@ class TagGroupItem extends React.PureComponent<Props, State> {
     return (
       <div className={classes.tagGroup}>
         <div className={classes.tagGroupHeader}>
-          <Typography variant="h4">{tagGroup.name}</Typography>
+          <Typography variant="h4" noWrap>
+            {tagGroup.name}
+          </Typography>
 
           <div
             style={{
@@ -236,7 +238,7 @@ class TagGroupItem extends React.PureComponent<Props, State> {
                 <TableHead>
                   <TableRow>
                     <TableCell>
-                      <div className={classes.row}>
+                      <div className={classes.row} style={{ width: 180 }}>
                         <LabelIcon
                           color="disabled"
                           size="small"
@@ -245,7 +247,7 @@ class TagGroupItem extends React.PureComponent<Props, State> {
                         {t('management.tagColumn.tag')}
                       </div>
                     </TableCell>
-                    <TableCell align="right">
+                    <TableCell align="left">
                       {t(`management.tagColumn.${this.props.filterBy}_count`)}
                     </TableCell>
                     <TableCell align="right">
@@ -346,7 +348,7 @@ class TagGroupItem extends React.PureComponent<Props, State> {
                           )}
                         </form>
                       </TableCell>
-                      <TableCell align="right" />
+                      <TableCell align="left" />
                       <TableCell align="right" />
                     </TableRow>
                   ) : (
@@ -365,9 +367,12 @@ class TagGroupItem extends React.PureComponent<Props, State> {
                       }}
                     >
                       <TableCell component="th" scope="row">
-                        <Typography variant="subtitle2">{tag.name}</Typography>
+                        <Typography noWrap variant="subtitle2">
+                          {tag.name.slice(0, 25) +
+                            (tag.name.length > 25 ? '...' : '')}
+                        </Typography>
                       </TableCell>
-                      <TableCell align="right">
+                      <TableCell align="left">
                         {this.getTagUsage(tag.id)}
                       </TableCell>
                       <TableCell align="right">

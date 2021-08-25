@@ -101,7 +101,7 @@ exports.default = {
       whitelist: 'Utilisable par les membres disposant du tag',
       blacklist: 'Non utilisable par les membres disposant du tag',
       removeTag: 'Retirer le tag',
-      empty: 'Aucune code promo nest lié au tag {{ tag }}',
+      empty: "Aucun code promo n'est lié au tag {{- tag }}",
       createViaCoupon: 'Accéder aux codes promo',
     },
     smartlistDetail: {

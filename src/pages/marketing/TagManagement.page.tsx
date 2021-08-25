@@ -76,7 +76,7 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
 
-const MEMBERS_ITEM_PER_PAGE = 5;
+const MEMBERS_ITEM_PER_PAGE = 10;
 
 const TAG_KIND_MEMBER = 'member';
 const TAG_KIND_COUPON = 'coupon';

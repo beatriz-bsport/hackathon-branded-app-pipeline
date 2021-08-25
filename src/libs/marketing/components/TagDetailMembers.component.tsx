@@ -75,7 +75,7 @@ const TagDetailMembers = (props: Props) => {
         <PaginatedListBase
           page={props.membersWithTagListPage}
           nbItems={props.membersWithTagListCount}
-          itemPerPage={10}
+          itemPerPage={props.itemPerPage}
           loading={props.membersWithTagListLoading || processing}
           onPageRequested={props.onPageRequestWithTag}
           items={props.membersWithTagList}
@@ -140,7 +140,7 @@ const TagDetailMembers = (props: Props) => {
         <PaginatedListBase
           page={props.membersWithoutTagListPage}
           nbItems={props.membersWithoutTagListCount}
-          itemPerPage={10}
+          itemPerPage={props.itemPerPage}
           loading={props.membersWithoutTagListLoading || processing}
           onPageRequested={props.onPageRequestWithoutTag}
           items={props.membersWithoutTagList}

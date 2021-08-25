@@ -229,34 +229,36 @@ export function CustomFormAnswer(props: Props) {
           <>
             <FormikChangesLookUp t={t} classes={classes} />
             <List component="nav" disablePadding>
-              <ListItem divider className={classes.listitem}>
-                <div className={classes.type}>
-                  <Typography
-                    variant="subtitle2"
-                    component="span"
-                    className={classes.marginRight}
-                  />
-                  <Typography variant="subtitle2" component="span">
-                    {t('customForm.kind')}
-                  </Typography>
-                </div>
+              <Paper square>
+                <ListItem divider className={classes.listitem}>
+                  <div className={classes.type}>
+                    <Typography
+                      variant="subtitle2"
+                      component="span"
+                      className={classes.marginRight}
+                    />
+                    <Typography variant="subtitle2" component="span">
+                      {t('customForm.kind')}
+                    </Typography>
+                  </div>
 
-                <Typography variant="subtitle2" className={classes.label}>
-                  {t('customForm.label')}
-                </Typography>
-
-                <div className={classes.mandatory}>
-                  <Typography variant="subtitle2" component="span">
-                    {t('customForm.mandatory')}
+                  <Typography variant="subtitle2" className={classes.label}>
+                    {t('customForm.label')}
                   </Typography>
-                </div>
 
-                <div className={classes.actions}>
-                  <Typography variant="subtitle2" component="span">
-                    {t('customForm.listActions')}
-                  </Typography>
-                </div>
-              </ListItem>
+                  <div className={classes.mandatory}>
+                    <Typography variant="subtitle2" component="span">
+                      {t('customForm.mandatory')}
+                    </Typography>
+                  </div>
+
+                  <div className={classes.actions}>
+                    <Typography variant="subtitle2" component="span">
+                      {t('customForm.listActions')}
+                    </Typography>
+                  </div>
+                </ListItem>
+              </Paper>
               <FieldArray name="custom_form_field_enabled">
                 {({
                   push,
@@ -284,7 +286,7 @@ export function CustomFormAnswer(props: Props) {
                       {custom_form_field_enabled.map(
                         (field: CustomFormField, i: number) => (
                           <SortableItem index={i} key={i}>
-                            <Paper className={classes.paperItem}>
+                            <Paper square className={classes.paperItem}>
                               <CustomFormFieldListItem
                                 key={`enabled_field${i}`}
                                 {...props}

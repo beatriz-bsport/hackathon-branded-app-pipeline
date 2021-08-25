@@ -2605,7 +2605,7 @@
         "helper": "Créez une catégorie pour identifier une famille de membres. Par exemple “VIP”, vous pourrez ensuite créer les tags “oui” et “non” pour indiquer si le membre appartient à cette famille."
       },
       "tagDetail": { "noTag": "Sélectionner un tag pour voir les détails" },
-      "tagKind": { "toolbar": "Affichage par", "member": "Membres", "coupon": "Coupons", "smartlist": "Smartlists" },
+      "tagKind": { "toolbar": "Affichage par", "member": "Membres", "coupon": "Code promo", "smartlist": "Smartlists" },
       "memberDetail": {
         "memberWithTag": "Membres taggés",
         "removeTagFromAll": "Retirer le tag à tous",
@@ -2619,9 +2619,15 @@
         "whitelist": "Utilisable par les membres disposant du tag",
         "blacklist": "Non utilisable par les membres disposant du tag",
         "removeTag": "Retirer le tag",
-        "empty": "Aucune donnée à afficher"
+        "empty": "Aucune code promo nest lié au tag {{ tag }}",
+        "createViaCoupon": "Accéder aux codes promo"
       },
-      "smartlistDetail": { "title": "Règle de tagging (Smartlist)", "removeTag": "Supprimer", "empty": "Aucune donnée à afficher" }
+      "smartlistDetail": {
+        "title": "Règle de tagging (Smartlist)",
+        "removeTag": "Supprimer",
+        "empty": "Aucune règle de tagging n'est liée au tag {{ tag }}",
+        "createViaSmartlist": "Accéder aux Smartlists"
+      }
     }
   },
   "login": {
@@ -6328,7 +6334,7 @@
       "search": "Chercher une formulaire",
       "name": "Nom",
       "content": "Contenu du formulaire",
-      "preview": "Apercu du formulaire",
+      "preview": "Aperçu du formulaire",
       "label": "Label",
       "kind": "Type",
       "save": "Sauvegarder",

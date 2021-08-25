@@ -10,6 +10,7 @@ import { compose } from 'recompose';
 import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import DeleteIcon from '@material-ui/icons/Delete';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { MaterialStyleType } from '../../../utils/types';
 import { Tag } from '../../tag/types';
 import { AutoTagRule, SmartList } from '../../smart-list/types';
@@ -22,6 +23,7 @@ type OwnProps = {
   onClickRemoveTag: (smartlist: SmartList) => void;
   tag: Tag;
   onChangeTagRule: (autotagRule: AutoTagRule) => void;
+  goToSmartlist: () => void;
 };
 
 type Props = OwnProps &
@@ -39,9 +41,20 @@ class TagDetailSmartlist extends React.PureComponent<Props> {
     return (
       <div className={classes.container}>
         {!this.props.loading && !this.props.smartlistList.length && (
-          <Typography color="textSecondary">
-            {t('management.smartlistDetail.empty')}
-          </Typography>
+          <div>
+            <Typography color="textSecondary">
+              {t('management.smartlistDetail.empty')}
+            </Typography>
+            <Button
+              onClick={this.props.goToSmartlist}
+              color="primary"
+              variant="outlined"
+              className={classes.marginTop}
+            >
+              <ArrowForwardIcon className={classes.leftIcon} />
+              {t('management.smartlistDetail.createViaSmartlist')}
+            </Button>
+          </div>
         )}
 
         {!this.props.loading && !!this.props.smartlistList.length && (
@@ -122,6 +135,9 @@ const styles = (theme: Theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  marginTop: {
+    marginTop: theme.spacing(2),
   },
 });
 

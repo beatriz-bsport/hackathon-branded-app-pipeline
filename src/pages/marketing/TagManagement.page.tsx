@@ -67,6 +67,8 @@ type OwnProps = {
   tagKind: string;
   selectedTag?: Tag;
   selectedTagId?: number;
+  goToCoupon: () => void;
+  goToSmartlist: () => void;
 };
 type Props = OwnProps &
   ReturnType<typeof mapStateToProps> &
@@ -339,6 +341,7 @@ class TagManagement extends React.PureComponent<Props> {
                   loading={this.props.couponsLoading}
                   tag={this.props.selectedTag}
                   onClickRemoveTag={this.onClickUntagCoupon}
+                  goToCoupon={this.props.goToCoupon}
                 />
               )}
 
@@ -353,6 +356,7 @@ class TagManagement extends React.PureComponent<Props> {
                   tag={this.props.selectedTag}
                   onClickRemoveTag={this.onClickUntagSmartlist}
                   onChangeTagRule={this.onChangeSmartListTagRule}
+                  goToSmartlist={this.props.goToSmartlist}
                 />
               )}
           </div>
@@ -402,6 +406,8 @@ const mapDispatchToProps = {
   deleteMultiSmartListAutoTagRules,
   onClickMember: (id: number) => push(`/member/${id}`),
   replace: replaceRouter,
+  goToCoupon: () => push('/coupon'),
+  goToSmartlist: () => push('/smart-list'),
 };
 
 const styles = (theme) => ({

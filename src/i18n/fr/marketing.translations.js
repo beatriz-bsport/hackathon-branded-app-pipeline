@@ -65,7 +65,7 @@ exports.default = {
     search : 'Chercher une formulaire',
     name: 'Nom',
     content: 'Contenu du formulaire',
-    preview: 'Apercu du formulaire',
+    preview: 'Aperçu du formulaire',
     label: 'Label',
     kind: 'Type',
     save: 'Sauvegarder',

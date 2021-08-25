@@ -85,7 +85,7 @@ exports.default = {
     tagKind: {
       toolbar: 'Affichage par',
       member: 'Membres',
-      coupon: 'Coupons',
+      coupon: 'Code promo',
       smartlist: 'Smartlists',
     },
     memberDetail: {
@@ -101,12 +101,14 @@ exports.default = {
       whitelist: 'Utilisable par les membres disposant du tag',
       blacklist: 'Non utilisable par les membres disposant du tag',
       removeTag: 'Retirer le tag',
-      empty: 'Aucune donnée à afficher',
+      empty: 'Aucune code promo nest lié au tag {{ tag }}',
+      createViaCoupon: 'Accéder aux codes promo',
     },
     smartlistDetail: {
       title: 'Règle de tagging (Smartlist)',
       removeTag: 'Supprimer',
-      empty: 'Aucune donnée à afficher',
+      empty: "Aucune règle de tagging n'est liée au tag {{ tag }}",
+      createViaSmartlist: 'Accéder aux Smartlists',
     },
   },
 };

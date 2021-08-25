@@ -9,6 +9,7 @@ import { compose } from 'recompose';
 
 import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { MaterialStyleType } from '../../../utils/types';
 import { Coupon } from '../../coupon/types';
 import { Tag } from '../../tag/types';
@@ -34,9 +35,20 @@ class TagDetailCoupon extends React.PureComponent<Props> {
     return (
       <div className={classes.container}>
         {!this.props.loading && !this.props.coupons.length && (
-          <Typography color="textSecondary">
-            {t('management.couponDetail.empty')}
-          </Typography>
+          <div>
+            <Typography color="textSecondary">
+              {t('management.couponDetail.empty', { tag: this.props.tag.name })}
+            </Typography>
+            <Button
+              onClick={this.props.goToCoupon}
+              color="primary"
+              variant="outlined"
+              className={classes.marginTop}
+            >
+              <ArrowForwardIcon className={classes.leftIcon} />
+              {t('management.couponDetail.createViaCoupon')}
+            </Button>
+          </div>
         )}
 
         {!this.props.loading && !!this.props.coupons.length && (
@@ -91,6 +103,12 @@ const styles = (theme: Theme) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     flex: 1,
+  },
+  marginTop: {
+    marginTop: theme.spacing(2),
+  },
+  leftIcon: {
+    marginRight: theme.spacing(1),
   },
 });
 

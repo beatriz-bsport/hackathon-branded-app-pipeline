@@ -340,7 +340,6 @@ export class Backoffice extends Component<Props, State> {
               ].includes(this.props.roleId)}
             >
               {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
-              Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
               Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ? (
                 <Intercom
                   appID="q6foivp2"

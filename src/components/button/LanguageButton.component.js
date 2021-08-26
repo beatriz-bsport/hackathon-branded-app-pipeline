@@ -23,6 +23,7 @@ type Props = {
   t: TFunction,
   handleChange: (any) => void,
   value: string,
+  allowNull?: boolean,
 };
 
 const countryFlag = {

@@ -23,7 +23,7 @@ import {
 } from '../../libs/custom-form/actions';
 import { getCustomFormWithEnableField } from '../../libs/custom-form/selectors';
 import ConsumerAppBar from '../checkout/ConsumerAppBar.container';
-import CustomFormSubmitDialog from '../../libs/custom-form/components/consumer-form/CustomForm.dialog';
+import CustomFormSubmitDialog from '../../libs/custom-form/components/consumer-form/CustomFormSubmit.dialog';
 import type { CustomForm } from '../../libs/custom-form/types';
 import { getMembership } from '../../libs/membership/selectors';
 import { fetchMembershipListAsConsumer } from '../../libs/membership/actions';

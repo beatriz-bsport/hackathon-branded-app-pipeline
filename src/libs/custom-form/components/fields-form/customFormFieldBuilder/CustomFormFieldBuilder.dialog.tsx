@@ -207,7 +207,7 @@ export function CustomFormFieldBuilderDialog(props: Props) {
                             <CustomFormFieldTagRuleSelector
                               tag_groups={props.tag_groups}
                               tags={props.tags}
-                              setTag={(tag_id) =>
+                              setTag={(tag_id: string) =>
                                 formik.setFieldValue(
                                   'custom_form_field_tag_rule',
                                   [
@@ -315,7 +315,7 @@ export function CustomFormFieldBuilderDialog(props: Props) {
                 color="secondary"
                 disabled={isSubmitting}
               >
-                {t('cancel')}
+                {t('customForm.customFormField.modal.add.cancel')}
               </Button>
               <Button
                 type="submit"
@@ -324,7 +324,7 @@ export function CustomFormFieldBuilderDialog(props: Props) {
                 variant="contained"
                 color="primary"
               >
-                {t('save')}
+                {t('customForm.customFormField.modal.add.confirm')}
               </Button>
             </DialogActions>
           </form>

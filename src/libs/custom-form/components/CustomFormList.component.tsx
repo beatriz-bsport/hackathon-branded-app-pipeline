@@ -13,6 +13,12 @@ import { CustomForm } from '../types';
 
 type OwnProps = {
   customFormList: Array<CustomForm>;
+  onClick?: (item: any) => void;
+  onClickEdit?: (id: number) => void;
+  onClickDelete?: (id: number) => void;
+  customFormSelected: number;
+  onClickDuplicate?: (id: number) => void;
+  onRestore?: (id: number) => void;
 };
 type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &

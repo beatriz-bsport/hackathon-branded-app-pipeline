@@ -7,9 +7,7 @@ import { TFunction } from 'i18next';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import { MenuItem } from '@material-ui/core';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import Typography from '@material-ui/core/Typography';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 import { makeStyles } from '@material-ui/core/styles';
@@ -53,32 +51,8 @@ const DeleteButton = (props: { onClick: () => void }) => (
     <DeleteIcon />
   </IconButton>
 );
-const DeleteButtonMenuItem = withTranslation(['marketing'])(
-  (props: { onClick: () => void }) => (
-    <MenuItem
-      onClick={(ev) => {
-        ev.stopPropagation();
-        ev.preventDefault();
-        props.onClick();
-      }}
-    >
-      <ListItemIcon>
-        <DeleteIcon />
-      </ListItemIcon>
-      <Typography>{props.t('delete')}</Typography>
-    </MenuItem>
-  ),
-);
-const ButtonWithConfirm = withConfirm(DeleteButton, 'onClick', {
-  title: 'marketing:customForm.customFormField.modal.disable.title',
-  cancel: 'marketing:customForm.customFormField.modal.disable.cancel',
-  confirm: 'marketing:customForm.customFormField.modal.disable.confirm',
-  Content: ({ t }: { t: TFunction }) => (
-    <p>{t('marketing:customForm.customFormField.modal.disable.content')}</p>
-  ),
-});
 
-const ButtonWithConfirmMenuItem = withConfirm(DeleteButtonMenuItem, 'onClick', {
+const ButtonWithConfirm = withConfirm(DeleteButton, 'onClick', {
   title: 'marketing:customForm.customFormField.modal.disable.title',
   cancel: 'marketing:customForm.customFormField.modal.disable.cancel',
   confirm: 'marketing:customForm.customFormField.modal.disable.confirm',
@@ -139,7 +113,6 @@ export const CustomFormFieldListItem = (props: Props) => {
             },
             props.onClickDelete && {
               iconButtonComponent: ButtonWithConfirm,
-              menuItemComponent: ButtonWithConfirmMenuItem,
               onClick: () => props.onClickDelete(),
 
               color: 'secondary',

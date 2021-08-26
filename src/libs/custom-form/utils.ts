@@ -1,3 +1,9 @@
+import type {
+  CustomFormField,
+  CustomFormFilledAPI,
+  CustomFormFieldAnswerAPI,
+} from './types';
+
 export const CUSTOM_FORM_FIELD_TITLE_OPTION = 0;
 export const CUSTOM_FORM_FIELD_PARAGRAPH_OPTION = 1;
 export const CUSTOM_FORM_FIELD_SHORT_ANSWER_OPTION = 2;
@@ -33,3 +39,36 @@ export const CUSTOM_FORM_FIELD_LINKABLE_TO_NOTE = [
 
 export const MAX_LENGTH_FOR_SHORT_ANSWER = 1000;
 export const MAX_LENGTH_FOR_LONG_ANSWER = 10000;
+export function checkDisabledHasAnswer(
+  field: CustomFormField,
+  form_filled_id: number,
+  customFormFilledData: { [id: number]: CustomFormFilledAPI },
+) {
+  if (field.disabled) {
+    const testFormFilledExists = customFormFilledData[
+      form_filled_id
+    ].custom_form_field_filled.find(
+      (field_filled) =>
+        field_filled.custom_form_filled_id ===
+          customFormFilledData[form_filled_id].id && field_filled,
+    );
+    if (testFormFilledExists) {
+      const testAnswerDataNotNull = customFormFilledData[
+        form_filled_id
+      ]?.custom_form_field_filled.find(
+        (field_answer: CustomFormFieldAnswerAPI) =>
+          field_answer.custom_form_field_id === field.id,
+      );
+      if (
+        testAnswerDataNotNull &&
+        (testAnswerDataNotNull.text_answer ||
+          testAnswerDataNotNull.choices_answer ||
+          testAnswerDataNotNull.image_answer ||
+          testAnswerDataNotNull.file_answer)
+      ) {
+        return true;
+      }
+    }
+  }
+  return false;
+}

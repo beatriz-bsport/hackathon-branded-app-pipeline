@@ -20,7 +20,7 @@ import {
   upsertCustomForm as upsertCustomFormActions,
 } from '../../libs/custom-form/actions';
 import { getCustomForm } from '../../libs/custom-form/selectors';
-import CustomFormFormPaper from '../../libs/custom-form/components/form/customFormPaper/CustomFormPaper.component';
+import CustomFormPaper from '../../libs/custom-form/components/form/customFormPaper/CustomFormPaper.component';
 import CustomFormConsumerView from '../../libs/custom-form/components/consumer-form/CustomForm.form';
 import { CustomForm } from '../../libs/custom-form/types';
 import { snackbarSuccess } from '../../actions/snackbar.actions';
@@ -118,7 +118,7 @@ export class CustomFormDetail extends React.Component<Props, State> {
                 </div>
               </CopyToClipboard>
             </div>
-            <CustomFormFormPaper
+            <CustomFormPaper
               initial={this.props.customFormRefresh}
               onSubmit={this.props.upsertCustomForm}
               handleUpdateView={this.handleUpdateView}

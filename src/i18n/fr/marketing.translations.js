@@ -85,17 +85,19 @@ exports.default = {
     unaccessibleForm: 'Ce formulaire est actuellement désactivé, pour retourner sur votre page de profile cliquez sur le boutton ci-dessous.',
     backToUserSpace: 'Profile',
     changesDetected: 'Des changements ont été effectués. Sauvegardez le formulaire pour les appliquer.',
-    noChanges : 'Formulaire à jour.',
+    noChanges: 'Formulaire à jour.',
+    answerForDisabledField: 'Questions archivées',
+    allFieldDisabled : 'Toutes les questions sont archivées',
     actions: {
       configure: 'Configurer',
       statistics: 'Statistiques',
     },
     modal: {
       delete: {
-        title: 'Supprimer un formulaire',
+        title: 'Archiver un formulaire',
         cancel: 'Annuler',
         confirm: 'Confirmer',
-        content : "En supprimant ce formulaire il sera placé dans vos formulaires archivés et ne sera plus accessible pour vos membres.",
+        content : "En archivant ce formulaire il sera placé dans vos formulaires archivés et ne sera plus accessible pour vos membres.",
       }
     },
     tab: {
@@ -135,7 +137,9 @@ exports.default = {
           title: 'Elément du formulaire',
           addField: 'Ajouter un ',
           select: 'Sélectionner un élément',
-          option : 'Ajouter une option',
+          option: 'Ajouter une option',
+          cancel: 'Annuler',
+          confirm: 'Confirmer',
         },
         error: {
           choicesLength : "Vous devez défnir au moins 2 choix",

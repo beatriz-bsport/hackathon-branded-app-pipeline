@@ -22,15 +22,22 @@ type Props = OwnProps &
 export const CustomFormBuilderTagRuleSelector = (props: Props) => {
   const { t, classes } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
   const handlePopoverOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handlePopoverClose = () => {
     setAnchorEl(null);
+    setOpen(false);
   };
-
-  const open = Boolean(anchorEl);
+  React.useEffect(() => {
+    if (anchorEl) {
+      setOpen(true);
+    } else {
+      setOpen(false);
+    }
+  }, [anchorEl]);
   const [tagRuleState, setTagRuleState] = React.useState(
     props.choice_tag_rule
       ? {
@@ -79,7 +86,6 @@ export const CustomFormBuilderTagRuleSelector = (props: Props) => {
             horizontal: 'left',
           }}
           onClose={handlePopoverClose}
-          disableRestoreFocus
         >
           <Typography variant="caption">
             {t('customForm.field.link_to_tag_popover')}
@@ -95,6 +101,8 @@ export const CustomFormBuilderTagRuleSelector = (props: Props) => {
           props.deleteTagRule();
           setTagRuleState(null);
           setShowTagRule(false);
+          setAnchorEl(null);
+          setOpen(false);
         }}
       >
         <LinkOffIcon color="primary" />
@@ -104,6 +112,7 @@ export const CustomFormBuilderTagRuleSelector = (props: Props) => {
           labelId="tag-group"
           value={`${tagRuleState?.tag_group && tagRuleState.tag_group.id}`}
           onChange={(event) => handleTagGroupSelection(event.target.value)}
+          disabled={!!props.choice_tag_rule?.tag_id}
         >
           {props.tag_groups.map((group) => (
             <MenuItem key={group.id} value={group.id}>
@@ -124,6 +133,7 @@ export const CustomFormBuilderTagRuleSelector = (props: Props) => {
             });
           }}
           value={`${tagRuleState?.tag_id && tagRuleState.tag_id.toString()}`}
+          disabled={!!tagRuleState?.tag_id}
         >
           {tagRuleState &&
             tagRuleState.tag_group &&

@@ -9,6 +9,11 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import InfoIcon from '@material-ui/icons/Info';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import Divider from '@material-ui/core/Divider';
+import Collapse from '@material-ui/core/Collapse';
 import withTitle from '../../hocs/with-title.hoc';
 import { WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers/index';
@@ -19,7 +24,8 @@ import {
 } from '../../libs/custom-form/actions';
 import {
   getMemberCustomFormFilled,
-  getCustomFormListWithAnswer,
+  getCustomFormListWithEnabledFieldAnswered,
+  getCustomFormListWithDisabledFieldAnswered,
 } from '../../libs/custom-form/selectors';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import CustomFormCompletedList from '../../libs/custom-form/components/CustomFormCompletedList.component';
@@ -29,6 +35,7 @@ import type { CustomFormFieldAnswerAPI } from '../../libs/custom-form/types';
 type StateHandlerInit = {
   customFormFilledSelected: boolean;
   customFormViewLoading: boolean;
+  showDisabledField: boolean;
 };
 type StateHandlerType = typeof withStateHandlersInit &
   WithHandlerType<typeof withStateHandlersSetter>;
@@ -50,11 +57,28 @@ export class MemberCustomForm extends React.Component<Props> {
     if (id !== this.props.customFormFilledSelected) {
       this.props.setCustomFormFilledSelected(id);
       this.props.setCustomFormViewLoading(true);
+      this.props.setShowDisabledField(false);
       await new Promise((resolve) => {
         setTimeout(resolve, 1000);
       });
       this.props.setCustomFormViewLoading(false);
     }
+  };
+
+  getCustomFormEnabledFieldWithAnswer = () => {
+    return this.props.customFormWithAnswer.find(
+      (form_filled: CustomFormFieldAnswerAPI) =>
+        form_filled.custom_form_filled_id ===
+        this.props.customFormFilledSelected,
+    );
+  };
+
+  getCustomFormDisabledFieldWithAnswer = () => {
+    return this.props.customFormDisabledFieldwithAnswer.find(
+      (form_filled: CustomFormFieldAnswerAPI) =>
+        form_filled.custom_form_filled_id ===
+        this.props.customFormFilledSelected,
+    );
   };
 
   render() {
@@ -73,35 +97,81 @@ export class MemberCustomForm extends React.Component<Props> {
           </Paper>
         </Grid>
         <Grid item xs={12} md={6}>
-          {this.props.customFormFilledSelected ? (
-            this.props.customFormWithAnswer.find(
-              (form_filled: CustomFormFieldAnswerAPI) =>
-                form_filled.custom_form_filled_id ===
-                this.props.customFormFilledSelected,
-            ) && (
-              <CustomForm
-                key={this.props.customFormFilledSelected}
-                initialWithAnswer={this.props.customFormWithAnswer.find(
-                  (form_filled: CustomFormFieldAnswerAPI) =>
-                    form_filled.custom_form_filled_id ===
-                    this.props.customFormFilledSelected,
-                )}
-                refreshLoading={this.props.customFormViewLoading}
-                asManager
-              />
-            )
-          ) : (
-            <>
-              <div className={classes.emptyContainer}>
-                <div className={classes.column}>
-                  <InfoIcon className={classes.leftIcon} />
-                  <Typography variant="caption">
-                    {t('customForm.selectCustomFormFilled')}
-                  </Typography>
+          <div className={classes.formContainer}>
+            {this.props.customFormFilledSelected ? (
+              this.getCustomFormEnabledFieldWithAnswer() && (
+                <>
+                  {this.getCustomFormEnabledFieldWithAnswer()?.custom_form_field
+                    ?.length ? (
+                    <CustomForm
+                      key={this.props.customFormFilledSelected}
+                      initialWithAnswer={this.getCustomFormEnabledFieldWithAnswer()}
+                      refreshLoading={this.props.customFormViewLoading}
+                      asManager
+                    />
+                  ) : (
+                    <div className={classes.emptyContainer}>
+                      <div className={classes.column}>
+                        <InfoIcon className={classes.leftIcon} />
+                        <Typography variant="caption">
+                          {t('customForm.allFieldDisabled')}
+                        </Typography>
+                      </div>
+                    </div>
+                  )}
+                </>
+              )
+            ) : (
+              <>
+                <div className={classes.emptyContainer}>
+                  <div className={classes.column}>
+                    <InfoIcon className={classes.leftIcon} />
+                    <Typography variant="caption">
+                      {t('customForm.selectCustomFormFilled')}
+                    </Typography>
+                  </div>
                 </div>
-              </div>
-            </>
-          )}
+              </>
+            )}
+          </div>
+          <div className={classes.formContainer}>
+            {this.props.customFormFilledSelected
+              ? this.getCustomFormDisabledFieldWithAnswer()?.custom_form_field
+                  ?.length !== 0 && (
+                  <>
+                    <ButtonBase
+                      onClick={() =>
+                        this.props.setShowDisabledField(
+                          !this.props.showDisabledField,
+                        )
+                      }
+                      className={classes.disabledHeader}
+                    >
+                      <Typography variant="h5">
+                        {`${t('customForm.answerForDisabledField')} (${
+                          this.getCustomFormDisabledFieldWithAnswer()
+                            ?.custom_form_field?.length
+                        })`}
+                      </Typography>
+                      {this.props.showDisabledField ? (
+                        <ExpandLessIcon />
+                      ) : (
+                        <ExpandMoreIcon />
+                      )}
+                    </ButtonBase>
+                    <Divider className={classes.divider} />
+                    <Collapse in={this.props.showDisabledField}>
+                      <CustomForm
+                        key={this.props.customFormFilledSelected}
+                        initialWithAnswer={this.getCustomFormDisabledFieldWithAnswer()}
+                        refreshLoading={this.props.customFormViewLoading}
+                        asManager
+                      />
+                    </Collapse>
+                  </>
+                )
+              : null}
+          </div>
         </Grid>
       </Grid>
     );
@@ -122,12 +192,29 @@ const styles = (theme: Theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  formContainer: {
+    marginBottom: theme.spacing(4),
+  },
+  disabledHeader: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+  },
+  divider: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
 });
 
 const mapStateToProps = (state: RootState, props: OwnAndConnectedProps) => ({
   loading: state.customForm.loading || state.customForm.filled.loading,
   customFormFilledList: getMemberCustomFormFilled(state, props.id),
-  customFormWithAnswer: getCustomFormListWithAnswer(state),
+  customFormWithAnswer: getCustomFormListWithEnabledFieldAnswered(state),
+  customFormDisabledFieldwithAnswer: getCustomFormListWithDisabledFieldAnswered(
+    state,
+  ),
 });
 const mapDispatchToProps = {
   fetchAllCustomForm,
@@ -137,6 +224,7 @@ const mapWithHandlers = {};
 const withStateHandlersInit: StateHandlerInit = {
   customFormFilledSelected: null,
   customFormViewLoading: false,
+  showDisabledField: false,
 };
 const withStateHandlersSetter = {
   setCustomFormFilledSelected: () => (
@@ -146,6 +234,9 @@ const withStateHandlersSetter = {
   },
   setCustomFormViewLoading: () => (customFormViewLoading: boolean) => {
     return { customFormViewLoading };
+  },
+  setShowDisabledField: () => (showDisabledField: boolean) => {
+    return { showDisabledField };
   },
 };
 export default compose<any, OwnProps>(

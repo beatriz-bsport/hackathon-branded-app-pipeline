@@ -144,6 +144,7 @@ export function CustomFormAnswer(props: Props) {
       push(field);
     }
     setOpenCreationDialog(false);
+    setInitialFieldWithIndex(null);
     updateCustomFormView(formikValues);
   };
   const onSortEnd = React.useCallback(
@@ -335,7 +336,7 @@ export function CustomFormAnswer(props: Props) {
                           </Button>
                         </div>
                       </div>
-                      {openFieldCreationDialog && (
+                      {(openFieldCreationDialog || initialFieldWithIndex) && (
                         <CustomFormFieldFormDialog
                           open={openFieldCreationDialog}
                           handleClose={() => {

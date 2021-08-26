@@ -167,13 +167,12 @@ export class CustomFormListPage extends React.Component<Props, State> {
                           .map((customform) => (
                             <CustomFormListItem
                               key={customform.id}
-                              onClick={(id) => {
-                                this.selected(id);
-                              }}
+                              onClick={(id: number) => this.selected(id)}
                               onClickEdit={this.props.goToEdit}
-                              onClickDelete={(id) =>
-                                this.props.disableCustomForm(id)
-                              }
+                              onClickDelete={(id) => {
+                                this.props.setCustomFormSelected(null);
+                                this.props.disableCustomForm(id);
+                              }}
                               selected={
                                 this.props.customFormSelected &&
                                 customform.id === this.props.customFormSelected
@@ -181,8 +180,8 @@ export class CustomFormListPage extends React.Component<Props, State> {
                               customform={customform}
                               onClickDuplicate={(id) =>
                                 this.props.duplicateCustomForm(id, {
-                                  onSuccess: (newId) =>
-                                    this.props.goToSelected(newId),
+                                  onSuccess: (payload) =>
+                                    this.props.goToEdit(payload.id),
                                 })
                               }
                             />
@@ -200,15 +199,16 @@ export class CustomFormListPage extends React.Component<Props, State> {
                       customFormList={customFormList.filter(
                         (form: CustomForm) => !form.disabled,
                       )}
-                      onClick={(id: number) => {
-                        this.selected(id);
-                      }}
-                      onClickEdit={this.props.goToEdit}
+                      onClick={(id: number) => this.selected(id)}
+                      onClickEdit={(id: number) => this.props.goToEdit(id)}
                       onClickDelete={(id: number) =>
                         this.props.disableCustomForm(id)
                       }
                       onClickDuplicate={(id: number) =>
-                        this.props.duplicateCustomForm(id)
+                        this.props.duplicateCustomForm(id, {
+                          onSuccess: (payload) =>
+                            this.props.goToEdit(payload.id),
+                        })
                       }
                       customFormSelected={this.props.customFormSelected}
                     />
@@ -252,7 +252,9 @@ export class CustomFormListPage extends React.Component<Props, State> {
                             onClick={(id: number) => {
                               this.selected(id);
                             }}
-                            onClickEdit={this.props.goToEdit}
+                            onClickEdit={(id: number) =>
+                              this.props.goToEdit(id)
+                            }
                             onRestore={(id: number) =>
                               this.props.restoreCustomForm(id)
                             }

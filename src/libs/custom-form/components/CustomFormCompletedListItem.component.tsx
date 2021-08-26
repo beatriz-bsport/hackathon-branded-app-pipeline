@@ -21,7 +21,7 @@ export const CustomFormFilledListItem = (props: Props) => {
       onClick={() => props.onClick(props.customFormFilled.id)}
     >
       <div className={classes.fullwidth}>
-        <Typography>{props.customFormFilled?.customFormData.name}</Typography>
+        <Typography>{props.customFormFilled?.customFormData?.name}</Typography>
       </div>
       <div className={classes.flexFullWidth}>
         <Typography>{props.customFormFilled?.date_created}</Typography>

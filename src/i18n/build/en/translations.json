@@ -5757,7 +5757,7 @@
                     "helperText": "Minimum is 2 months"
                 },
                 "managerOnly": {
-                    "label": "Unavailable for customers"
+                    "label": "Unavailable for purchase"
                 },
                 "autoRenewal": {
                     "label": "Auto renewal"
@@ -6538,7 +6538,7 @@
                 "until": "Until ",
                 "newMemberOnly": "Only available for new customers",
                 "onsitePaymentAvailable": "Enable payments in studio",
-                "managerOnly": "Unavailable for customers",
+                "managerOnly": "Unavailable for purchase",
                 "tax": {
                     "label": "Tax"
                 },

@@ -111,6 +111,18 @@ export class CustomFormListPage extends React.Component<Props, State> {
     }));
   };
 
+  getCustomFormForPreview = () => {
+    if (this.props.customFormDict[this.props.customFormSelected]) {
+      return {
+        ...this.props.customFormDict[this.props.customFormSelected],
+        custom_form_field: this.props.customFormDict[
+          this.props.customFormSelected
+        ].custom_form_field.filter((field) => !field.disabled),
+      };
+    }
+    return null;
+  };
+
   render() {
     const { customFormList, t, classes } = this.props;
     if (this.props.customFormLoading) {
@@ -316,9 +328,7 @@ export class CustomFormListPage extends React.Component<Props, State> {
                 <Typography variant="h6"> {t('customForm.preview')}</Typography>
                 <CustomFormConsumerView
                   key={this.props.customFormSelected}
-                  initial={
-                    this.props.customFormDict[this.props.customFormSelected]
-                  }
+                  initial={this.getCustomFormForPreview()}
                   asManager
                 />
               </>

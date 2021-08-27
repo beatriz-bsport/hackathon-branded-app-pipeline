@@ -148,7 +148,7 @@ class TagManagement extends React.PureComponent<Props> {
     }
   };
 
-  scrollToGroupName = (name) => {
+  scrollToGroupName = () => {
     window.scrollTo(0, document.body.scrollHeight);
   };
 
@@ -156,7 +156,7 @@ class TagManagement extends React.PureComponent<Props> {
     this.props.createOrUpdateTagGroup(data, {
       onSuccess: () =>
         this.props.fetchAllGroups({
-          onSuccess: () => this.scrollToGroupName(name),
+          onSuccess: () => this.scrollToGroupName(),
         }),
     });
   };

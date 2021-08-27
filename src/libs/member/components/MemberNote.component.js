@@ -114,18 +114,22 @@ export class MemberNote extends Component<Props, State> {
                       <VisibilityOff />
                     )}
                   </IconButton>
-                  <IconButton
-                    onClick={() => {
-                      this.setState({ editMode: true });
-                    }}
-                  >
-                    <EditIcon color="primary" />
-                  </IconButton>
+                  {(!this.props.note || this.props.note.editable) && (
+                    <IconButton
+                      onClick={() => {
+                        this.setState({ editMode: true });
+                      }}
+                    >
+                      <EditIcon color="primary" />
+                    </IconButton>
+                  )}
                 </React.Fragment>
               )}
-              <IconButton onClick={this.handleDelete}>
-                <DeleteIcon color="secondary" />
-              </IconButton>
+              {(!this.props.note || this.props.note.editable) && (
+                <IconButton onClick={this.handleDelete}>
+                  <DeleteIcon color="secondary" />
+                </IconButton>
+              )}
             </Grid>
           </Grid>
         </Grid>

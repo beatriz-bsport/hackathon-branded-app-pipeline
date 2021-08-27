@@ -148,9 +148,16 @@ class TagManagement extends React.PureComponent<Props> {
     }
   };
 
+  scrollToGroupName = (name) => {
+    window.scrollTo(0, document.body.scrollHeight);
+  };
+
   createOrUpdateTagGroup = (data: { id: number; name: string }) => {
     this.props.createOrUpdateTagGroup(data, {
-      onSuccess: () => this.props.fetchAllGroups(),
+      onSuccess: () =>
+        this.props.fetchAllGroups({
+          onSuccess: () => this.scrollToGroupName(name),
+        }),
     });
   };
 
@@ -439,11 +446,13 @@ const styles = (theme) => ({
   leftPanel: {
     flex: 1,
     maxWidth: '50%',
+    paddingBottom: '20vh',
   },
   rightPanel: {
     flex: 1,
     maxWidth: '50%',
     marginLeft: theme.spacing(4),
+    paddingBottom: '20vh',
   },
 });
 

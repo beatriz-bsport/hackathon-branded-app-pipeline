@@ -1,6 +1,7 @@
 import React from 'react';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Typography from '@material-ui/core/Typography';
 import { Theme } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/styles';
@@ -97,16 +98,18 @@ const TagDetailMembers = (props: Props) => {
                   <Avatar alt={item.name} src={item.photo} />
                   <Typography className={classes.name}>{item.name}</Typography>
                 </div>
-                <Button
-                  color="primary"
-                  onClick={(ev) => {
-                    ev.stopPropagation();
-                    props.onClickUntagMember(item);
-                  }}
-                >
-                  <LabelOffIcon className={classes.leftIcon} />
-                  {t('management.memberDetail.removeTag')}
-                </Button>
+                <ListItemSecondaryAction>
+                  <Button
+                    color="primary"
+                    onClick={(ev) => {
+                      ev.stopPropagation();
+                      props.onClickUntagMember(item);
+                    }}
+                  >
+                    <LabelOffIcon className={classes.leftIcon} />
+                    {t('management.memberDetail.removeTag')}
+                  </Button>
+                </ListItemSecondaryAction>
               </ListItem>
             );
           }}
@@ -162,16 +165,18 @@ const TagDetailMembers = (props: Props) => {
                   <Avatar alt={item.name} src={item.photo} />
                   <Typography className={classes.name}>{item.name}</Typography>
                 </div>
-                <Button
-                  color="primary"
-                  onClick={(ev) => {
-                    ev.stopPropagation();
-                    props.onClickTagMember(item);
-                  }}
-                >
-                  <LabelIcon className={classes.leftIcon} />
-                  {t('management.memberDetail.addTag')}
-                </Button>
+                <ListItemSecondaryAction>
+                  <Button
+                    color="primary"
+                    onClick={(ev) => {
+                      ev.stopPropagation();
+                      props.onClickTagMember(item);
+                    }}
+                  >
+                    <LabelIcon className={classes.leftIcon} />
+                    {t('management.memberDetail.addTag')}
+                  </Button>
+                </ListItemSecondaryAction>
               </ListItem>
             );
           }}

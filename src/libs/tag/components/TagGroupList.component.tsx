@@ -42,9 +42,9 @@ class TagGroupList extends React.PureComponent<Props> {
     createTag: null,
   };
 
-  onSubmitCreateTagGroup = async (ev: React.FormEvent) => {
+  onSubmitCreateTagGroup = (ev: React.FormEvent) => {
     ev.preventDefault();
-    await this.props.onCreateOrUpdateTagGroup({
+    this.props.onCreateOrUpdateTagGroup({
       name: this.state.createTag,
       kind: TAG_KIND_MEMBER.id,
     });

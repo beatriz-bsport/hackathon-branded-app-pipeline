@@ -26,6 +26,8 @@ import { CoachState } from 'bsport-saas/src/libs/associated-coach/types';
 import { ThemeState } from 'bsport-saas/src/libs/theme/types';
 import { createBrowserHistory } from 'history';
 import widget, { WidgetState } from './widget';
+import modal, { ModalState } from '../libs/modal/reducers';
+import bridge, { BridgeState } from '../libs/bridge/reducers';
 
 const reducer = (history: ReturnType<typeof createBrowserHistory>) =>
   combineReducers({
@@ -50,6 +52,8 @@ const reducer = (history: ReturnType<typeof createBrowserHistory>) =>
     category,
     widget,
     subscription,
+    modal,
+    bridge,
   });
 
 export interface RootState {
@@ -73,6 +77,8 @@ export interface RootState {
   category: any;
   paymentPack: any;
   widget: WidgetState;
+  modal: ModalState;
+  bridge: BridgeState;
 }
 
 export default (history: ReturnType<typeof createBrowserHistory>) => (

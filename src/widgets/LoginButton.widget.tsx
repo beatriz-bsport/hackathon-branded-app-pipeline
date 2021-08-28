@@ -6,15 +6,13 @@ import Button from '@material-ui/core/Button';
 import PersonIcon from '@material-ui/icons/Person';
 // import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 
-import { fabShowLogin, fabShowProfile } from '../actions/modal';
 import { getEnv } from '../utils/env';
 import { RootState } from '../reducers';
+import { bridgeRequestAuthenticationStatus } from '../libs/bridge/actions';
 
 // const MarketplaceShopStyled = themify(MarketplaceShopBase);
 
 type OwnProps = {
-  fabShowLogin: () => void,
-  fabShowProfile: () => void,
   authenticated: boolean,
   onWindowOpen: (url: string) => void,
 };
@@ -22,6 +20,10 @@ type OwnProps = {
 type Props = OwnProps;
 
 class LoginButton extends Component<Props> {
+  componentDidMount() {
+    this.props.bridgeRequestAuthenticationStatus();
+  }
+
   openUrl = (url: string) => {
     const { PUBLIC_URL } = getEnv();
     const urlFqdn = `${PUBLIC_URL}/${url}`;
@@ -43,6 +45,7 @@ class LoginButton extends Component<Props> {
         color="primary"
         size="small"
         onClick={this.onClick}
+        disabled={this.props.authenticationLoading}
       >
         <PersonIcon fontSize="small" style={{ marginRight: 8 }} />
         {this.props.t('navigation:backofficeMenu.consumer.myAccount')}
@@ -51,13 +54,13 @@ class LoginButton extends Component<Props> {
   }
 }
 const mapStateToProps = (state: RootState) => ({
-  authenticated: state.widget.saas.authenticated,
-  username: state.widget.saas.username,
+  authenticated: state.bridge.authentication.authenticated,
+  authenticationLoading: state.bridge.authentication.loading,
+  username: state.bridge.authentication.username,
 });
 
 const mapDispatchToProps = {
-  fabShowLogin,
-  fabShowProfile,
+  bridgeRequestAuthenticationStatus,
 };
 
 export default compose<any, OwnProps>(

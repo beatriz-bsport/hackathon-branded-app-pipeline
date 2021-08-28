@@ -25,12 +25,16 @@ import BsportLogo from './components/BsportLogo.component';
 import 'bsport-saas/src/index.scss';
 
 import asyncComponent from './AsyncComponent';
-import FabWidget from './widgets/FabWidget.widget';
 import {
   closeUserInteractionPortal,
   openUserInteractionPortal,
-} from './actions/modal';
-import WidgetBridge from './components/WidgetBridge.component';
+} from './libs/modal/actions';
+
+const FabWidget = asyncComponent(() => import('./widgets/FabWidget.widget'));
+
+const WidgetBridge = asyncComponent(
+  () => import('./libs/bridge/BackofficeDataBridge.component'),
+);
 
 const PassWidget = asyncComponent(() => import('./widgets/Pass.widget'));
 const ShopWidget = asyncComponent(() => import('./widgets/Shop.widget'));
@@ -51,13 +55,26 @@ const NewsletterWidget = asyncComponent(
   () => import('./widgets/Newsletter.widget'),
 );
 const UserInteractionPortal = asyncComponent(
-  () => import('./components/UserInteractionPortal.component'),
+  () => import('./libs/modal/UserInteractionModal.component'),
 );
 const LoginButtonWidget = asyncComponent(
   () => import('./widgets/LoginButton.widget'),
 );
 
 const Snackbar = themify(connect(...SnackbarDataProvider)(SnackbarPile));
+
+const WidgetByType = {
+  workshop: WorkshopWidget,
+  privateService: PrivateServiceWidget,
+  vod: VODWidget,
+  playlist: VODWidget,
+  loginButton: LoginButtonWidget,
+  pass: PassWidget,
+  shop: ShopWidget,
+  subscription: SubscriptionWidget,
+  newsletter: NewsletterWidget,
+  calendar: CalendarWidget,
+};
 
 type OwnProps = WidgetConfig & {
   store: any,
@@ -93,8 +110,9 @@ class BsportWidget extends Component<Props> {
     });
   };
 
-  renderWidget() {
+  render() {
     const {
+      classes,
       companyId,
       config,
       store,
@@ -102,97 +120,6 @@ class BsportWidget extends Component<Props> {
       theme,
       dialogMode,
     } = this.props;
-
-    switch (widgetType) {
-      case 'workshop':
-        return (
-          <WorkshopWidget
-            companyId={companyId}
-            config={config.workshop}
-            store={store}
-            theme={theme}
-            onWindowOpen={this.onWindowOpen}
-          />
-        );
-      case 'privateService':
-        return (
-          <PrivateServiceWidget
-            companyId={companyId}
-            store={store}
-            config={config.privateService}
-            theme={theme}
-            onWindowOpen={this.onWindowOpen}
-            dialogMode={dialogMode}
-          />
-        );
-      case 'vod':
-      case 'playlist':
-        return (
-          <VODWidget
-            companyId={companyId}
-            config={config[widgetType]}
-            store={store}
-            theme={theme}
-            onWindowOpen={this.onWindowOpen}
-            dialogMode={dialogMode}
-          />
-        );
-      case 'loginButton':
-        return (
-          <LoginButtonWidget
-            companyId={companyId}
-            onWindowOpen={this.onWindowOpen}
-            dialogMode={dialogMode}
-          />
-        );
-      case 'pass':
-        return (
-          <PassWidget
-            companyId={companyId}
-            config={config[widgetType]}
-            store={store}
-            theme={theme}
-            onWindowOpen={this.onWindowOpen}
-          />
-        );
-      case 'shop':
-        return (
-          <ShopWidget
-            companyId={companyId}
-            config={config[widgetType]}
-            store={store}
-            theme={theme}
-            onWindowOpen={this.onWindowOpen}
-          />
-        );
-      case 'subscription':
-        return (
-          <SubscriptionWidget
-            companyId={companyId}
-            config={config[widgetType]}
-            store={store}
-            theme={theme}
-            onWindowOpen={this.onWindowOpen}
-          />
-        );
-      case 'newsletter':
-        return <NewsletterWidget companyId={companyId} theme={theme} />;
-      default:
-        return (
-          <CalendarWidget
-            companyId={companyId}
-            config={config.calendar}
-            store={store}
-            theme={theme}
-            onWindowOpen={this.onWindowOpen}
-            dialogMode={dialogMode}
-          />
-        );
-    }
-  }
-
-  render() {
-    const { classes } = this.props;
     if (!this.props.theme || !!this.props.themeLoading) {
       return (
         <div className={classes.container}>
@@ -200,28 +127,37 @@ class BsportWidget extends Component<Props> {
         </div>
       );
     }
+    const Widget = WidgetByType[widgetType] || CalendarWidget;
 
     return (
       <div className={classes.container}>
         <React.Suspense fallback={<CircularProgress />}>
           <MuiThemeProvider theme={getTheme(this.props.theme)}>
-            {this.renderWidget()}
+            <Widget
+              companyId={companyId}
+              config={config[widgetType]}
+              store={store}
+              theme={theme}
+              onWindowOpen={this.onWindowOpen}
+              dialogMode={dialogMode}
+            />
             {!!this.props.theme &&
               !this.props.theme.is_premium &&
               this.props.widgetType !== 'loginButton' && (
                 <BsportLogo theme={this.props.theme} />
               )}
             <Snackbar theme={this.props.theme} />
-
-            <UserInteractionPortal
-              url={this.props.dialog.url}
-              dialogMode={this.props.dialog.dialogMode}
-              onClose={this.props.closeUserInteractionPortal}
-              isBasket={
-                this.props.dialog.url &&
-                this.props.dialog.url.match(/\/basket\?context=widget/)
-              }
-            />
+            {!!this.props.dialog.url && (
+              <UserInteractionPortal
+                url={this.props.dialog.url}
+                dialogMode={this.props.dialog.dialogMode}
+                onClose={this.props.closeUserInteractionPortal}
+                isBasket={
+                  this.props.dialog.url &&
+                  this.props.dialog.url.match(/\/basket\?context=widget/)
+                }
+              />
+            )}
 
             <WidgetBridge
               companyId={this.props.companyId}
@@ -256,7 +192,7 @@ const styles = () => ({
 const mapStateToProps = (state: RootState) => ({
   theme: state.theme.theme,
   themeLoading: state.theme.loading,
-  dialog: state.widget.dialog,
+  dialog: state.modal,
 });
 
 const mapDispatchToProps = {

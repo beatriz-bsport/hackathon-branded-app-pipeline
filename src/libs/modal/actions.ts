@@ -4,13 +4,9 @@ import { createAction } from 'redux-actions';
 
 import { Theme as CompanyTheme } from 'bsport-saas/src/libs/theme/types';
 
-import {
-  DIALOG_MODE_IFRAME,
-  DIALOG_MODE_POPUP,
-  DIALOG_MODE_TAB,
-} from '@bsport/common/lib/master-data/widget-dialog-mode';
-import { getEnv } from '../utils/env';
-import { buildUrlParams } from '../utils/http';
+import { DIALOG_MODE_IFRAME } from '@bsport/common/lib/master-data/widget-dialog-mode';
+import { getEnv } from '../../utils/env';
+import { buildUrlParams } from '../../utils/http';
 
 const buildWidgetUrl = (path: string, theme: CompanyTheme, params?: any) => {
   const { company, company_name } = theme;
@@ -22,7 +18,7 @@ const buildWidgetUrl = (path: string, theme: CompanyTheme, params?: any) => {
 
 export const openUserInteractionPortal: (args: {
   url: string,
-  dialogMode: DIALOG_MODE_IFRAME | DIALOG_MODE_TAB | DIALOG_MODE_POPUP,
+  dialogMode: 0 | 1 | 2,
   isFabContext?: boolean,
 }) => any = createAction('WIDGET_SET_IFRAME_URL');
 
@@ -32,7 +28,7 @@ export const closeUserInteractionPortal = () => (dispatch: Dispatch) => {
 
 export const fabShowLogin = () => (dispatch: Dispatch, getState: any) => {
   const { theme } = getState().theme;
-  const { company, company_name } = theme;
+  const { company } = theme;
   const { PUBLIC_URL } = getEnv();
 
   dispatch(

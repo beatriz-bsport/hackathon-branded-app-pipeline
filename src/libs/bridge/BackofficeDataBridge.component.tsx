@@ -10,11 +10,11 @@ import {
   setSaasAuthenticated,
   setSaasBasketCount,
   setSaasBookingsCount,
-} from '../actions/widget';
-import { closeUserInteractionPortal } from '../actions/modal';
-import { handleBridgeMessage } from '../actions/bridge';
-import { RootState } from '../reducers';
-import { getEnv } from '../utils/env';
+} from '../../actions/widget';
+import { closeUserInteractionPortal } from '../modal/actions';
+import { handleBridgeMessage } from './actions';
+import { RootState } from '../../reducers';
+import { getEnv } from '../../utils/env';
 
 type OwnProps = {
   companyId: number,
@@ -38,7 +38,6 @@ class WidgetBridge extends React.PureComponent<Props> {
     const bridgeId = '@bsport-bridge-iframe';
     const existingBridge = document.getElementById(bridgeId);
     if (existingBridge) {
-      console.log('has found bridge: ', existingBridge);
       this.setState({ currentState: HAS_FOUND_OTHER });
     } else {
       this.setState({

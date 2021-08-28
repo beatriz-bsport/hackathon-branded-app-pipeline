@@ -20,7 +20,6 @@ import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
-import WidgetBridge from '../components/WidgetBridge.component';
 import { RootState } from '../reducers';
 import {
   closeUserInteractionPortal,
@@ -29,14 +28,14 @@ import {
   fabShowLogin,
   fabShowProfile,
   fabShowSubscription,
-} from '../actions/modal';
+} from '../libs/modal/actions';
 import { getEnv } from '../utils/env';
 import {
   bridgeRequestLogout,
   bridgeRequestAuthenticationStatus,
-  bridgetRequestBasketCount,
-  bridgetRequestBookingCount,
-} from '../actions/bridge';
+  bridgeRequestBasketCount,
+  bridgeRequestBookingCount,
+} from '../libs/bridge/actions';
 
 type OwnProps = {
   companyId: number,
@@ -60,20 +59,19 @@ class FabWidget extends React.PureComponent<Props, State> {
   };
 
   componentDidMount() {
-    bridgeRequestAuthenticationStatus();
+    this.props.bridgeRequestAuthenticationStatus();
     if (this.props.authenticated) {
       this.fetchData();
     }
   }
 
   fetchData = () => {
-    bridgetRequestBasketCount();
-    bridgetRequestBookingCount();
+    this.props.bridgeRequestBasketCount();
+    this.props.bridgeRequestBookingCount();
   };
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props) {
     if (this.props.authenticated && !prevProps.authenticated) {
-      const { company, company_name } = this.props.theme;
       const { PUBLIC_URL } = getEnv();
       this.fetchData();
       if (this.props.dialogUrl.includes(`${PUBLIC_URL}/login`)) {
@@ -103,7 +101,7 @@ class FabWidget extends React.PureComponent<Props, State> {
 
   onClickLogout = () => {
     this.setState({ showActions: false });
-    bridgeRequestLogout();
+    this.props.bridgeRequestLogout();
   };
 
   onClickProfile = () => {
@@ -238,6 +236,7 @@ class FabWidget extends React.PureComponent<Props, State> {
           <ButtonBase
             classes={{ root: classes.radius50 }}
             onClick={this.onClick}
+            disabled={this.props.authenticationLoading}
           >
             <div className={classes.fab}>
               {this.props.authenticated ? (
@@ -350,10 +349,11 @@ const styles = (theme: Theme) => ({
 
 const mapStateToProps = (state: RootState) => ({
   theme: state.theme.theme,
-  dialogUrl: state.widget.dialog.url,
-  authenticated: state.widget.saas.authenticated,
-  basketCount: state.widget.saas.basketCount,
-  bookingsCount: state.widget.saas.bookingsCount,
+  dialogUrl: state.modal.url,
+  authenticated: state.bridge.authentication.authenticated,
+  authenticationLoading: state.bridge.authentication.loading,
+  basketCount: state.bridge.basket.count,
+  bookingsCount: state.bridge.booking.count,
 });
 
 const mapDispatchToProps = {
@@ -363,6 +363,10 @@ const mapDispatchToProps = {
   fabShowBookings,
   fabShowProfile,
   fabShowSubscription,
+  bridgeRequestLogout,
+  bridgeRequestAuthenticationStatus,
+  bridgeRequestBasketCount,
+  bridgeRequestBookingCount,
 };
 
 export default compose<any, OwnProps>(

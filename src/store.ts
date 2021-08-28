@@ -15,6 +15,7 @@ import reducer from './reducers';
 const persistConfig = {
   key: 'root',
   storage,
+  whitelist: ['auth'],
   stateReconciler: seamlessImmutableReconciler,
   transforms: [createCompressor(seamlessImmutableTransformCreator({}))],
 };

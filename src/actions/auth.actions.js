@@ -8,6 +8,7 @@ import api from '../api';
 import types from './auth.types';
 import type { Dispatch, ThunkAction } from '../state/types';
 import WidgetUtils from '../libs/widget/WidgetUtils';
+import { WidgetMessageType } from '../libs/widget/types';
 import { snackbarError } from './snackbar.actions';
 import { USER_EMAIL_EXISTS } from '../api/constants';
 
@@ -64,7 +65,14 @@ export function fetchAccessLevel(
           name,
         }),
       );
-      WidgetUtils.onLoginSuccess(username);
+      WidgetUtils.DEPRECATEDonLoginSuccess(username);
+      WidgetUtils.sendBridgeResponse(
+        WidgetMessageType.RESPONSE_AUTHENTICATED_STATUS,
+        {
+          authenticated: true,
+          username,
+        },
+      );
       if (options && options.next) {
         dispatch(push(options.next));
       } else if (options && options.company) {

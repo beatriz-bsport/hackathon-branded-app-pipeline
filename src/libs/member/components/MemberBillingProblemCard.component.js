@@ -263,7 +263,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
   },
   visibilityIcon: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
   invoiceContainer: {
     display: 'flex',

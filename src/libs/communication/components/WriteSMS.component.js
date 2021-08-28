@@ -111,7 +111,7 @@ export function WriteSMS(props: Props) {
 }
 
 const styles = (theme) => ({
-  container: { marginTop: theme.spacing.unit },
+  container: { marginTop: theme.spacing(1) },
   countContainer: {
     display: 'flex',
     alignItems: 'center',

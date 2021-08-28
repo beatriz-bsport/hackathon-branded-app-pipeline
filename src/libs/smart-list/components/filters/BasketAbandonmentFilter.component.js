@@ -128,7 +128,7 @@ const styles = (theme) => ({
     pointerEvents: 'none',
     background: '#f1f1f1',
     borderRadius: '7px',
-    paddingLeft: theme.spacing.unit,
+    paddingLeft: theme.spacing(1),
   },
   inlineContainer: { display: 'flex', alignItems: 'center' },
   input: {

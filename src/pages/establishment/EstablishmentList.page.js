@@ -241,7 +241,7 @@ const styles = (theme) => ({
     justifyContent: 'flex-start',
     marginBottom: theme.spacing(1),
     '&>*': {
-      marginRight: theme.spacing(),
+      marginRight: theme.spacing(1),
     },
   },
   buttonEstablishement: {

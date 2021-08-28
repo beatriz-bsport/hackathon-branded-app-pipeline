@@ -408,7 +408,7 @@ const styles = (theme) => ({
     marginTop: theme.spacing(1),
   },
   visibilityIcon: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
   accountBalanceBloc: {
     backgroundColor: '#F8F8F8',

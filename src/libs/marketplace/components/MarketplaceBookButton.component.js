@@ -2,7 +2,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Hidden from '@material-ui/core/Hidden';
-import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
@@ -65,19 +64,11 @@ const MarketplaceBookButton = (props: Props) => {
     >
       <div>
         <Hidden smUp>
-          <IconButton
-            variant="outlined"
-            color="primary"
-            id={`offer-book-${offer.id}`}
-            disabled={!offer.available || !isOfferInThePast(offer)}
-            onClick={onClick}
-          >
-            {!offer.available ? (
-              <CancelIcon color={colors.orange} />
-            ) : (
-              <PersonAddIcon />
-            )}
-          </IconButton>
+          {!offer.available ? (
+            <CancelIcon color={colors.orange} />
+          ) : (
+            <PersonAddIcon />
+          )}
         </Hidden>
         <Hidden xsDown>
           {text +

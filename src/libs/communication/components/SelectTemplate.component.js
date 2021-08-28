@@ -201,35 +201,35 @@ const styles = (theme) => ({
     alignItems: 'center',
   },
   visibilityIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   mailPreview: {
     border: '1px solid grey',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft: theme.spacing.unit * 2,
-    marginRight: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
     minHeight: '30vh',
     // minWidth: '40vh',
   },
   selectorContainer: {
     display: 'flex',
     justifyContent: 'space-between',
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
   previewEmpty: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    paddingTop: theme.spacing.unit * 6,
+    paddingTop: theme.spacing(6),
   },
   mailTitle: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
   addIcon: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
   editIcon: {
     display: 'flex',

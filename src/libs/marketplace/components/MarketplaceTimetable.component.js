@@ -61,7 +61,7 @@ export class MarketplaceTimetable extends PureComponent<Props> {
     if (!offers || offers.length === 0) return null;
 
     return (
-      <div className={classes.container}>
+      <div key={i} className={classes.container}>
         <Typography variant="h6" className={classes.title}>
           {moment(date, DATE_FORMAT)
             .clone()

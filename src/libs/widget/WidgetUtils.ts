@@ -13,32 +13,25 @@ export class WidgetUtils {
 
   private static postMessage(data: any) {
     if (window.opener && window.opener.postMessage) {
-      window.opener.postMessage({ ...data }, '*');
+      window.opener.postMessage({ ...data, source: 'bsport' }, '*');
     }
     if (window.parent && window.parent.postMessage) {
-      window.parent.postMessage({ ...data }, '*');
+      window.parent.postMessage({ ...data, source: 'bsport' }, '*');
     }
+  }
+
+  static sendBridgeResponse(type: WidgetMessageType, data?: any) {
+    WidgetUtils.postMessage({ type, ...(data || {}) });
   }
 
   static paymentSuccess() {
     WidgetUtils.postMessage({ type: WidgetMessageType.PAYMENT_SUCCESS });
   }
 
-  static authenticatedStatusReady() {
-    WidgetUtils.postMessage({
-      type: WidgetMessageType.AUTHENTICATED_STATUS_READY,
-    });
-  }
-
-  static basketCountReady() {
-    WidgetUtils.postMessage({ type: WidgetMessageType.BASKET_COUNT_READY });
-  }
-
-  static bookingsCountReady() {
-    WidgetUtils.postMessage({ type: WidgetMessageType.BOOKINGS_COUNT_READY });
-  }
-
-  static authenticatedStatus(authenticated: boolean, username: string) {
+  static DEPRECATEDauthenticatedStatus(
+    authenticated: boolean,
+    username: string,
+  ) {
     WidgetUtils.postMessage({
       type: WidgetMessageType.AUTHENTICATED_STATUS,
       authenticated,
@@ -46,15 +39,15 @@ export class WidgetUtils {
     });
   }
 
-  static basketCount(count: number) {
+  static DEPRECATEDbasketCount(count: number) {
     WidgetUtils.postMessage({ type: WidgetMessageType.BASKET_COUNT, count });
   }
 
-  static bookingsCount(count: number) {
+  static DEPRECATEDbookingsCount(count: number) {
     WidgetUtils.postMessage({ type: WidgetMessageType.BOOKINGS_COUNT, count });
   }
 
-  static onLoginSuccess(username: string) {
+  static DEPRECATEDonLoginSuccess(username: string) {
     WidgetUtils.postMessage({
       type: WidgetMessageType.LOGIN_SUCCESS,
       payload: { username },

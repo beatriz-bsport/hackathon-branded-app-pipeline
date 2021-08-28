@@ -430,7 +430,7 @@ const styles = (theme) => ({
     justifyContent: 'center',
   },
   radioContainer: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
 
     display: 'flex',
     alignItems: 'center',
@@ -451,15 +451,15 @@ const styles = (theme) => ({
     alignItems: 'flex-start',
   },
   mailTitle: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
   formContent: {},
   IconMargin: {
-    marginRight: theme.spacing.unit * 2,
+    marginRight: theme.spacing(2),
   },
   addIcon: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
   editIcon: {
     display: 'flex',

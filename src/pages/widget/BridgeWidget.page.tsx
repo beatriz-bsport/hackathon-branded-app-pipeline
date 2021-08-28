@@ -47,33 +47,25 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
   };
 
   componentDidMount() {
-    WidgetUtils.authenticatedStatus(
-      this.props.auth.authenticated,
-      this.props.auth.username,
-    );
+    this.sendAuthenticationResponse();
   }
+
+  sendAuthenticationResponse = () => {
+    const { authenticated, username } = this.props.auth;
+    WidgetUtils.DEPRECATEDauthenticatedStatus(authenticated, username);
+    WidgetUtils.sendBridgeResponse(
+      WidgetMessageType.RESPONSE_AUTHENTICATED_STATUS,
+      {
+        authenticated,
+        username,
+      },
+    );
+  };
 
   componentDidUpdate(prevProps: Props) {
     if (prevProps.auth.authenticated !== this.props.auth.authenticated) {
-      WidgetUtils.authenticatedStatus(
-        this.props.auth.authenticated,
-        this.props.auth.username,
-      );
+      this.sendAuthenticationResponse();
     }
-
-    /*
-    if (!prevProps.membership && this.props.membership) {
-      this.fetchBookingsAndPrivateBookings();
-    }
-
-    if (prevProps.basket !== this.props.basket && this.props.basket) {
-      WidgetUtils.basketCountReady();
-    }
-
-    if (prevProps.bookingsLoading && !this.props.bookingsLoading) {
-      WidgetUtils.bookingsCountReady();
-      }
-     */
   }
 
   fetchAccessLevel = (token: string) => {
@@ -82,26 +74,36 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
     }
   };
 
-  fetchBookingsAndPrivateBookings = () => {
+  sendBookingCount = () => {
     this.props.fetchBookingsAndPrivateBookings({
       page: 1,
       date_start: moment().format('YYYY-MM-DD'),
       member: this.props.membership.id,
       options: {
-        onSuccess: (payload) => WidgetUtils.bookingsCount(payload.count),
+        onSuccess: (payload) => {
+          const { count } = payload;
+          WidgetUtils.DEPRECATEDbookingsCount(count);
+          WidgetUtils.sendBridgeResponse(
+            WidgetMessageType.RESPONSE_BOOKINGS_COUNT,
+            { count },
+          );
+        },
       },
     });
   };
 
-  fetchBasket = () => {
+  sendBasketCount = () => {
     this.props.fetchCurrentBasket(this.props.companyId, {
       onSuccess: (basket: Basket) => {
         if (basket && basket.checkout_items) {
-          WidgetUtils.basketCount(
-            basket.checkout_items.reduce(
-              (s: number, a: CheckoutItem) => s + a.quantity,
-              0,
-            ),
+          const count = basket.checkout_items.reduce(
+            (s: number, a: CheckoutItem) => s + a.quantity,
+            0,
+          );
+          WidgetUtils.DEPRECATEDbasketCount(count);
+          WidgetUtils.sendBridgeResponse(
+            WidgetMessageType.RESPONSE_BASKET_COUNT,
+            { count },
           );
         }
       },
@@ -111,23 +113,26 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
   handleMessages = (event: any) => {
     if (event.data && event.data.type) {
       switch (event.data.type) {
-        case WidgetMessageType.GET_AUTHENTICATED_STATUS:
-          WidgetUtils.authenticatedStatus(
-            this.props.auth.authenticated,
-            this.props.auth.username,
-          );
+        case WidgetMessageType.REQUEST_AUTHENTICATED_STATUS:
+        case WidgetMessageType.GET_AUTHENTICATED_STATUS: {
+          this.sendAuthenticationResponse();
           break;
+        }
 
         case WidgetMessageType.REQUEST_BASKET_COUNT: {
-          this.fetchBasket();
+          this.sendBasketCount();
           break;
         }
         case WidgetMessageType.REQUEST_BOOKING_COUNT:
-          this.fetchBookingsAndPrivateBookings();
+          this.sendBookingCount();
           break;
 
-        case WidgetMessageType.LOGOUT:
-          this.props.disconnect();
+        case WidgetMessageType.REQUEST_LOGOUT:
+          if (!this.props.auth.authenticated) {
+            this.sendAuthenticationResponse();
+          } else {
+            this.props.disconnect();
+          }
           break;
 
         default:
@@ -137,7 +142,7 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
   };
 
   render() {
-    return null;
+    return <div style={{ height: 1, width: 1, backgroundColor: 'green' }} />;
   }
 }
 

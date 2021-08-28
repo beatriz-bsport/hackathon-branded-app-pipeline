@@ -168,7 +168,7 @@ export class ReceiversItem extends Component<Props> {
 
 const styles = (theme) => ({
   iconMargin: {
-    marginRight: theme.spacing.unit * 2,
+    marginRight: theme.spacing(2),
   },
   inline: { display: 'flex', alignItems: 'center' },
   itemContainer: {
@@ -178,14 +178,14 @@ const styles = (theme) => ({
     width: '100%',
   },
   blankDiv: {
-    minHeight: theme.spacing.unit * 8.5,
+    minHeight: theme.spacing(8.5),
   },
   loadingContainer: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    minHeight: theme.spacing.unit * 8,
+    minHeight: theme.spacing(8),
   },
 });
 

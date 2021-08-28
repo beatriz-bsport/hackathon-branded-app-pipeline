@@ -3642,11 +3642,14 @@
       "2010": "Ce pass n'est pas compatible avec ce lieu",
       "2011": "Ce pass ne permet pas de réserver des séance (VOD seulement)",
       "2012": "Ce pass n'est pas compatible avec cette séance",
+      "2014": "Votre carte de cours ne permet plus de réserver pour ce jour",
+      "2015": "Votre carte de cours ne permet plus de réserver cette semaine",
+      "2016": "Votre carte de cours ne permet plus de réserver ce mois",
+      "2017": "Votre carte de cours ne permet plus de réserver cette année",
       "6002": "La liste d'attente est pleine",
       "6003": "Vous êtes déjà inscrit en liste d'attente",
       "8001": "Le spot que vous avez choisi n'est plus disponible",
-      "generic": "Impossible de réserver",
-      "undefined": "Votre carte de cours ne permet plus de réserver cette année"
+      "generic": "Impossible de réserver"
     },
     "offer": { "restore": { "success": "Séance restaurée", "error": "Impossible de restaurer cette séance" } },
     "settings": {
@@ -4427,7 +4430,7 @@
       "author": "Auteur",
       "payment_date_time": "Heure de paiement",
       "payment_method": "Méthode de paiement",
-      "payment_identifier": "Identifiant de paiement",
+      "payment_identifier": "Identifiant de facture",
       "product": "Produit",
       "product_names": "Produits",
       "product_type": "Type de produit",
@@ -4512,7 +4515,12 @@
       "purchases": "Achats",
       "credit_price": "Coût en crédit",
       "last_view": "Dernière vue",
-      "video_title": "Titre vidéo"
+      "video_title": "Titre vidéo",
+      "last_payment_date": "Date du dernier paiement",
+      "invoice_date_created": "Date d'émission de la facture",
+      "invoice_datetime": "Date et heure d'émission de la facture",
+      "invoice_time": "Heure d'émission de la facture",
+      "payment_amount_by_payment_method": "Encaissement par méthode de paiement"
     },
     "yes": "Oui",
     "no": "Non",

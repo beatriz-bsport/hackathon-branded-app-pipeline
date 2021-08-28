@@ -12,7 +12,7 @@ import {
 } from 'bsport-saas/src/libs/marketplace/types';
 
 import { DIALOG_MODE_TAB } from '@bsport/common/lib/master-data/widget-dialog-mode';
-import initStore from './store/store';
+import initStore from './store';
 import App from './App';
 
 const generateClassName = createGenerateClassName({

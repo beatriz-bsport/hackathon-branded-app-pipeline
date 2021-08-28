@@ -1,6 +1,5 @@
 import React from 'react';
 import { compose } from 'recompose';
-import { connect } from 'react-redux';
 
 import { ButtonBase } from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -26,7 +25,6 @@ import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 
-import { RootState } from '../store/reducer';
 import { getEnv } from '../utils/env';
 
 const PrivateServiceSelector = themify(
@@ -45,10 +43,7 @@ type OwnProps = {
   dialogMode: number,
 };
 
-type Props = OwnProps &
-  ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps &
-  MaterialStyleType<ReturnType<typeof styles>>;
+type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
 
 interface State {
   type: PrivateServicePageTypeEnum;
@@ -155,14 +150,7 @@ const styles = (theme: any) => ({
   },
 });
 
-const mapStateToProps = (state: RootState) => ({
-  auth: state.auth,
-});
-
-const mapDispatchToProps = {};
-
 export default compose<any, OwnProps>(
   // @ts-ignore
   withStyles(styles),
-  connect(mapStateToProps, mapDispatchToProps),
 )(PrivateServiceWidget);

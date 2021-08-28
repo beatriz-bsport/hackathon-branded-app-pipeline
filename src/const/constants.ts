@@ -1,3 +1,3 @@
 export const constants = {
-  backofficeUrl: 'https://backoffice.bsport.io',
+  backofficeUrl: 'http://localhost:3000',
 };

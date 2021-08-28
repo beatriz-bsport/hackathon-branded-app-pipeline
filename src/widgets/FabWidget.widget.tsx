@@ -21,7 +21,7 @@ import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import WidgetBridge from '../components/WidgetBridge.component';
-import { RootState } from '../store/reducer';
+import { RootState } from '../reducers';
 import {
   closeUserInteractionPortal,
   fabShowBasket,
@@ -29,7 +29,14 @@ import {
   fabShowLogin,
   fabShowProfile,
   fabShowSubscription,
-} from '../store/actions.widget';
+} from '../actions/modal';
+import { getEnv } from '../utils/env';
+import {
+  bridgeRequestLogout,
+  bridgeRequestAuthenticationStatus,
+  bridgetRequestBasketCount,
+  bridgetRequestBookingCount,
+} from '../actions/bridge';
 
 type OwnProps = {
   companyId: number,
@@ -52,6 +59,30 @@ class FabWidget extends React.PureComponent<Props, State> {
     showActions: false,
   };
 
+  componentDidMount() {
+    bridgeRequestAuthenticationStatus();
+    if (this.props.authenticated) {
+      this.fetchData();
+    }
+  }
+
+  fetchData = () => {
+    bridgetRequestBasketCount();
+    bridgetRequestBookingCount();
+  };
+
+  componentDidUpdate(prevProps) {
+    if (this.props.authenticated && !prevProps.authenticated) {
+      const { company, company_name } = this.props.theme;
+      const { PUBLIC_URL } = getEnv();
+      this.fetchData();
+      if (this.props.dialogUrl.includes(`${PUBLIC_URL}/login`)) {
+        this.props.closeUserInteractionPortal();
+        this.setState({ showActions: true });
+      }
+    }
+  }
+
   onClick = () => {
     if (this.props.authenticated) {
       this.setState({ showActions: true });
@@ -72,7 +103,7 @@ class FabWidget extends React.PureComponent<Props, State> {
 
   onClickLogout = () => {
     this.setState({ showActions: false });
-    WidgetBridge.onLogout();
+    bridgeRequestLogout();
   };
 
   onClickProfile = () => {
@@ -318,6 +349,8 @@ const styles = (theme: Theme) => ({
 });
 
 const mapStateToProps = (state: RootState) => ({
+  theme: state.theme.theme,
+  dialogUrl: state.widget.dialog.url,
   authenticated: state.widget.saas.authenticated,
   basketCount: state.widget.saas.basketCount,
   bookingsCount: state.widget.saas.bookingsCount,

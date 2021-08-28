@@ -10,12 +10,11 @@ import {
 import createCompressor from 'redux-persist-transform-compress';
 import { persistReducer, persistStore } from 'redux-persist';
 
-import reducer from './reducer';
+import reducer from './reducers';
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth'],
   stateReconciler: seamlessImmutableReconciler,
   transforms: [createCompressor(seamlessImmutableTransformCreator({}))],
 };

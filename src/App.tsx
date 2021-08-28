@@ -20,7 +20,7 @@ import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { WidgetConfig } from 'bsport-saas/src/libs/marketplace/types';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 
-import { RootState } from './store/reducer';
+import { RootState } from './reducers';
 import BsportLogo from './components/BsportLogo.component';
 import 'bsport-saas/src/index.scss';
 
@@ -29,7 +29,7 @@ import FabWidget from './widgets/FabWidget.widget';
 import {
   closeUserInteractionPortal,
   openUserInteractionPortal,
-} from './store/actions.widget';
+} from './actions/modal';
 import WidgetBridge from './components/WidgetBridge.component';
 
 const PassWidget = asyncComponent(() => import('./widgets/Pass.widget'));
@@ -206,9 +206,11 @@ class BsportWidget extends Component<Props> {
         <React.Suspense fallback={<CircularProgress />}>
           <MuiThemeProvider theme={getTheme(this.props.theme)}>
             {this.renderWidget()}
-            {!!this.props.theme && !this.props.theme.is_premium && (
-              <BsportLogo theme={this.props.theme} />
-            )}
+            {!!this.props.theme &&
+              !this.props.theme.is_premium &&
+              this.props.widgetType !== 'loginButton' && (
+                <BsportLogo theme={this.props.theme} />
+              )}
             <Snackbar theme={this.props.theme} />
 
             <UserInteractionPortal

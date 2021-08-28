@@ -25,7 +25,7 @@ import { PrivateServiceState } from 'bsport-saas/src/libs/private-service/types'
 import { CoachState } from 'bsport-saas/src/libs/associated-coach/types';
 import { ThemeState } from 'bsport-saas/src/libs/theme/types';
 import { createBrowserHistory } from 'history';
-import widget, { WidgetState } from './reducer.widget';
+import widget, { WidgetState } from './widget';
 
 const reducer = (history: ReturnType<typeof createBrowserHistory>) =>
   combineReducers({

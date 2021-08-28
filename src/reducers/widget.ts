@@ -4,11 +4,11 @@ import URI from 'urijs';
 
 import {
   refreshVODRequestAccessFlagAction,
-  openUserInteractionPortal,
   setSaasAuthenticated,
   setSaasBasketCount,
   setSaasBookingsCount,
-} from './actions.widget';
+} from '../actions/widget';
+import { openUserInteractionPortal } from '../actions/modal';
 
 export type WidgetState = {
   dialog: {

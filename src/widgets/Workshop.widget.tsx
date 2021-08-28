@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
-import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/styles';
 
 import { MarketplaceWorkshopBase } from 'bsport-saas/src/pages/marketplace/MarketplaceWorkshop.page';
@@ -8,7 +7,6 @@ import { MarketplaceWorkshopData } from 'bsport-saas/src/libs/marketplace/types'
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
-import { RootState } from '../store/reducer';
 import '../../vendor/map.css';
 import { getEnv } from '../utils/env';
 
@@ -22,9 +20,7 @@ type OwnProps = {
   onWindowOpen: (url: string) => void,
 };
 
-type Props = OwnProps &
-  ReturnType<typeof mapStateToProps> &
-  MaterialStyleType<ReturnType<typeof styles>>;
+type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
 
 type State = {
   filters: any,
@@ -85,11 +81,4 @@ const styles = () => ({
   },
 });
 
-const mapStateToProps = (state: RootState) => ({
-  auth: state.auth,
-});
-
-export default compose<any, OwnProps>(
-  withStyles(styles),
-  connect(mapStateToProps, null),
-)(WorkshopWidget);
+export default compose<any, OwnProps>(withStyles(styles))(WorkshopWidget);

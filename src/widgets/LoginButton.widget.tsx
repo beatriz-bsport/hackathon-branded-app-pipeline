@@ -6,8 +6,9 @@ import Button from '@material-ui/core/Button';
 import PersonIcon from '@material-ui/icons/Person';
 // import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 
-import { fabShowLogin, fabShowProfile } from '../store/actions.widget';
+import { fabShowLogin, fabShowProfile } from '../actions/modal';
 import { getEnv } from '../utils/env';
+import { RootState } from '../reducers';
 
 // const MarketplaceShopStyled = themify(MarketplaceShopBase);
 

@@ -40,7 +40,7 @@ import '../../vendor/video.css';
 
 import SignUpForm from 'bsport-saas/src/components/form/SignUpForm.component';
 import ConsumerLogin from 'bsport-saas/src/libs/login/components/Login.component';
-import { RootState } from '../store/reducer';
+import { RootState } from '../reducers';
 import { getEnv } from '../utils/env';
 
 const ConsumerLoginStyled = themify(ConsumerLogin);

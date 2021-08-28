@@ -1,6 +1,5 @@
 import React from 'react';
 import { Portal, withStyles } from '@material-ui/core';
-import { WidgetMessageType } from 'bsport-saas/src/libs/widget/types';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
@@ -8,12 +7,13 @@ import { snackbarSuccess } from 'bsport-saas/src/actions/snackbar.actions';
 
 import {
   refreshVODRequestAccessFlagAction,
-  closeUserInteractionPortal,
   setSaasAuthenticated,
   setSaasBasketCount,
   setSaasBookingsCount,
-} from '../store/actions.widget';
-import { RootState } from '../store/reducer';
+} from '../actions/widget';
+import { closeUserInteractionPortal } from '../actions/modal';
+import { handleBridgeMessage } from '../actions/bridge';
+import { RootState } from '../reducers';
 import { getEnv } from '../utils/env';
 
 type OwnProps = {
@@ -25,98 +25,38 @@ type Props = OwnProps &
   ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps &
   MaterialStyleType<ReturnType<typeof styles>>;
+const CHECKING_OTHER_EXISTENCE = 'check';
+const HAS_FOUND_OTHER = 'other_exist';
+const IS_MASTER = 'master';
 
 class WidgetBridge extends React.PureComponent<Props> {
+  state = {
+    currentState: CHECKING_OTHER_EXISTENCE,
+  };
+
+  componentWillMount() {
+    const bridgeId = '@bsport-bridge-iframe';
+    const existingBridge = document.getElementById(bridgeId);
+    if (existingBridge) {
+      console.log('has found bridge: ', existingBridge);
+      this.setState({ currentState: HAS_FOUND_OTHER });
+    } else {
+      this.setState({
+        currentState: IS_MASTER,
+      });
+    }
+  }
+
   componentDidMount() {
     window.addEventListener(
       'message',
       (event: any) => {
-        const element = document.getElementById('@bsport-bridge-iframe');
-        let iframe = null;
-        // @ts-ignore
-        if (element && element.contentWindow) {
-          // @ts-ignore
-          iframe = element.contentWindow;
-        }
-
         if (event.data && event.data.type) {
-          switch (event.data.type) {
-            /*
-            case WidgetMessageType.AUTHENTICATED_STATUS_READY:
-              iframe &&
-                iframe.postMessage(
-                  { type: WidgetMessageType.GET_AUTHENTICATED_STATUS },
-                  '*',
-                );
-              break;
-
-            case WidgetMessageType.BASKET_COUNT_READY:
-              iframe &&
-                iframe.postMessage(
-                  { type: WidgetMessageType.GET_BASKET_COUNT },
-                  '*',
-                );
-              break;
-
-            case WidgetMessageType.BOOKINGS_COUNT_READY:
-              iframe &&
-                iframe.postMessage(
-                  { type: WidgetMessageType.GET_BOOKINGS_COUNT },
-                  '*',
-                );
-                break;
-
-            case WidgetMessageType.LOGIN_SUCCESS:
-              if (this.props.isFabContext) {
-                this.props.closeUserInteractionPortal();
-              }
-              break;
-
-            */
-
-            case WidgetMessageType.AUTHENTICATED_STATUS:
-              this.props.setSaasAuthenticated({
-                authenticated: event.data.authenticated,
-                username: event && event.data && event.data.username,
-              });
-              if (!event.data.authenticated) {
-                this.props.setSaasBookingsCount(null);
-                this.props.setSaasBasketCount(null);
-              }
-              break;
-
-            case WidgetMessageType.BASKET_COUNT:
-              this.props.setSaasBasketCount(event.data.count);
-              break;
-
-            case WidgetMessageType.BOOKINGS_COUNT:
-              this.props.setSaasBookingsCount(event.data.count);
-              break;
-
-            case WidgetMessageType.PAYMENT_SUCCESS:
-              this.props.closeUserInteractionPortal();
-              this.props.refreshVODRequestAccessFlagAction();
-              this.props.snackbarSuccess('snackbar:consumerPass.success');
-              break;
-
-            default:
-              break;
-          }
+          this.props.handleBridgeMessage(event.data);
         }
       },
       false,
     );
-  }
-
-  static onLogout() {
-    const element = document.getElementById('@bsport-bridge-iframe');
-    let iframe = null;
-    // @ts-ignore
-    if (element && element.contentWindow) {
-      // @ts-ignore
-      iframe = element.contentWindow;
-    }
-    iframe && iframe.postMessage({ type: WidgetMessageType.LOGOUT }, '*');
   }
 
   render() {
@@ -125,22 +65,20 @@ class WidgetBridge extends React.PureComponent<Props> {
     const url = `${PUBLIC_URL}/widget/${companyName}/${companyId}/bridge?context=widget`;
     const key = `${companyId}-${companyName}`;
 
-    const bridgeId = '@bsport-bridge-iframe';
-
-    const existingBridge = document.getElementById(bridgeId);
-
-    if (existingBridge) {
+    if (this.state.currentState !== IS_MASTER) {
       return <span />;
     }
+
+    const bridgeId = '@bsport-bridge-iframe';
 
     return (
       <Portal container={document.body}>
         <iframe
+          className={this.props.classes.container}
           id={bridgeId}
           title="bsport-bridge"
           key={key}
           src={url}
-          className={this.props.classes.container}
         />
       </Portal>
     );
@@ -149,6 +87,8 @@ class WidgetBridge extends React.PureComponent<Props> {
 
 const styles = () => ({
   container: {
+    height: 1,
+    width: 1,
     display: 'none !important',
   },
 });
@@ -164,6 +104,7 @@ const mapDispatchToProps = {
   closeUserInteractionPortal,
   refreshVODRequestAccessFlagAction,
   snackbarSuccess: (s: string) => snackbarSuccess(s),
+  handleBridgeMessage,
 };
 
 export default compose<any, OwnProps>(

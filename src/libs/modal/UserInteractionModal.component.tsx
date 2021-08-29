@@ -12,7 +12,6 @@ import {
   DIALOG_MODE_POPUP,
   DIALOG_MODE_TAB,
 } from '@bsport/common/lib/master-data/widget-dialog-mode';
-import { openTab } from '../../utils/open-tab';
 
 interface OwnProps {
   url?: string;
@@ -26,13 +25,41 @@ type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
 class UserInteractionPortal extends React.PureComponent<Props> {
   popupWindow: any = null;
 
+  openPopup = () => {
+    const width = window.screen.width * 0.5;
+    const height = window.screen.height * 0.65;
+    const params = `
+      scrollbars=no,
+      resizable=no,
+      status=no,
+      location=no,
+      toolbar=no,
+      menubar=no,
+      width=${width},
+      height=${height},
+      left=${window.screen.width / 2 - width / 2},
+      top=${window.screen.height / 2 - height / 2}
+    `;
+
+    return window.open(this.props.url, '_blank', params);
+  };
+
+  openTab = () => {
+    window.open(this.props.url, '_blank');
+  };
+
   componentDidUpdate(prevProps: Props) {
     if (prevProps.url !== this.props.url) {
       if (this.props.url) {
-        if (this.props.dialogMode === DIALOG_MODE_POPUP) {
-          this.popupWindow = openTab(this.props.url);
-        } else if (this.props.dialogMode === DIALOG_MODE_TAB) {
-          window.open(this.props.url, '_blank');
+        switch (this.props.dialogMode) {
+          case DIALOG_MODE_POPUP:
+            this.openPopup();
+            break;
+          case DIALOG_MODE_TAB:
+            this.openTab();
+            break;
+          default:
+            break;
         }
       }
 

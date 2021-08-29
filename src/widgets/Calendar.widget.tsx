@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { compose, withProps } from 'recompose';
+import { compose } from 'recompose';
 import { Moment } from 'bsport-saas/src/i18n';
 import {
   MarketplaceCalendar,
@@ -11,14 +11,13 @@ import { Theme } from 'bsport-saas/src/libs/theme/types';
 
 import '../../vendor/map.css';
 
-import { constants } from '../const/constants';
 import { getEnv } from '../utils/env';
 
 const DATE_FORMAT = 'YYYY-MM-DD';
 
 const MarketplaceCalendarStyled = themify(MarketplaceCalendar);
 
-type OwnProps = {
+type Props = {
   companyId: number,
   config: MarketplaceCalendarData,
   store: any,
@@ -26,8 +25,6 @@ type OwnProps = {
   onWindowOpen: (url: string) => void,
   dialogMode?: number,
 };
-
-type Props = OwnProps & ReturnType<typeof mapWithProps> & {};
 
 type State = {
   filtersOpen: 'true' | '',
@@ -104,9 +101,7 @@ export class CalendarWidget extends Component<Props, State> {
         }}
         setOtherParams={this.setOtherParams}
         goToBook={this.onClickGoToBook}
-        goToBookOption={this.props.goToBookOption}
-        goToPackPayment={this.props.goToPackPayment}
-        onCompletePurchase={this.props.onCompletePurchase}
+        onCompletePurchase={() => {}}
         theme={this.props.theme}
         mapContainerClassName="cleanslate"
       />
@@ -114,23 +109,4 @@ export class CalendarWidget extends Component<Props, State> {
   }
 }
 
-const mapWithProps = (props: OwnProps) => ({
-  goToPackPayment: (packId: number, offerId: number) => {
-    window.open(
-      `${constants.backofficeUrl}/customer/payment/pass/${packId}?nextOffer=${offerId}&membership=${props.companyId}`,
-    );
-  },
-  onCompletePurchase: () => {
-    window.open(`${constants.backofficeUrl}/customer`);
-  },
-  goToBookOption: (id: number, companyId: number) => {
-    window.open(
-      `${constants.backofficeUrl}/customer/payment/offer/${id}?membership=${companyId}`,
-    );
-  },
-});
-
-export default compose<any, OwnProps>(
-  CalendarDataContainer,
-  withProps(mapWithProps),
-)(CalendarWidget);
+export default compose<any, Props>(CalendarDataContainer)(CalendarWidget);

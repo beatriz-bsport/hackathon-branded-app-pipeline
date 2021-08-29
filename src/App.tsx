@@ -24,7 +24,7 @@ import { RootState } from './reducers';
 import BsportLogo from './components/BsportLogo.component';
 import 'bsport-saas/src/index.scss';
 
-import asyncComponent from './AsyncComponent';
+import asyncComponent from './components/AsyncComponent';
 import {
   closeUserInteractionPortal,
   openUserInteractionPortal,

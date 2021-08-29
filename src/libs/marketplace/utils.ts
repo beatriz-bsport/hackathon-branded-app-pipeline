@@ -64,6 +64,7 @@ export class WidgetCodeStringGenerator {
     dialogMode: 0 | 1 | 2;
     language?: string;
     showFab: boolean;
+    uuid?: string | null;
   }) {
     const componentConfig = args.config[args.componentType];
 

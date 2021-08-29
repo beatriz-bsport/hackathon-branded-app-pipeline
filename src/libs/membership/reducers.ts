@@ -58,20 +58,21 @@ export default handleActions<Immutable.Immutable<MembershipState>>(
     [listAsConsumerActions.success.toString()]: (state, { payload }: any) => {
       const newIds = payload.results.map((m: Membership) => m.company);
       return state
-        .set(
-          'byId',
-          payload.results.reduce(
-            (acc: any, v: any) => ({ ...acc, [v.company]: v }),
-            {},
-          ),
+        .merge(
+          {
+            byId: payload.results.reduce(
+              (acc: any, v: any) => ({ ...acc, [v.company]: v }),
+              {},
+            ),
+          },
+          { deep: true },
         )
         .setIn(
           ['asConsumer', 'allIds'],
-          payload.page === 1
-            ? newIds
-            : [...state.asConsumer.allIds.asMutable(), ...newIds],
+          payload.page === 1 ? newIds : [...state.asConsumer.allIds, ...newIds],
         )
-        .setIn(['asConsumer', 'next_page'], payload.next_page);
+        .setIn(['asConsumer', 'next_page'], payload.next_page)
+        .setIn(['asConsumer', 'count'], payload.count);
     },
     [retrieveActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['retrieve', 'loading'], payload);

@@ -8,6 +8,7 @@ import { Redirect } from 'react-router-dom';
 
 import {
   fetchMembershipListAsConsumer,
+  fetchMoreMembership,
   fetchMembership,
   linkMeToCompany as linkMeToCompanyAction,
 } from '../../libs/membership/actions';
@@ -24,22 +25,37 @@ import type { Company } from '../../libs/company/types';
 
 type Props = {
   fetchMembershipListAsConsumer: (params: any) => void,
+  fetchMoreMembership: (page_size: number, options: OptionCallback) => void,
   goToConsumerHome: (companyId: number) => void,
   membershipListLoading: boolean,
   membershipList: Array<Membership>,
   handleCompanySelect: (companyId: number) => void,
   companyList: Array<Company>,
+  hasMoreMembership: boolean,
   companyLoading: boolean,
   searchCompany: (string) => void,
 };
 
-export class ConsumerMembershipSelector extends React.Component<Props> {
+type State = {
+  loading: boolean,
+};
+
+export class ConsumerMembershipSelector extends React.Component<Props, State> {
+  state = {
+    loading: true,
+  };
+
   componentWillMount() {
-    this.props.fetchMembershipListAsConsumer({ page_size: 100 });
+    this.props.fetchMembershipListAsConsumer(
+      { page_size: 5 },
+      {
+        onSuccess: () => this.setState({ loading: false }),
+      },
+    );
   }
 
   render() {
-    if (this.props.membershipListLoading) {
+    if (this.state.loading) {
       return <ConsumerLoading />;
     }
     if (this.props.membershipList.length === 1) {
@@ -53,6 +69,9 @@ export class ConsumerMembershipSelector extends React.Component<Props> {
         companyList={this.props.companyList}
         companyLoading={this.props.companyLoading}
         onClickCompany={this.props.handleCompanySelect}
+        fetchMoreMembership={this.props.fetchMoreMembership}
+        hasMore={this.props.hasMoreMembership}
+        loading={this.props.membershipListLoading}
       />
     );
   }
@@ -65,10 +84,14 @@ export default compose(
       membershipList: getConsumerMembershipList(state),
       companyList: getSearchedCompanyList(state),
       companyLoading: state.company.search.loading,
+      hasMoreMembership:
+        state.membership.asConsumer.next_page &&
+        state.membership.asConsumer.next_page > 1,
     }),
     {
       fetchMembership,
       fetchMembershipListAsConsumer,
+      fetchMoreMembership,
       linkMeToCompany: linkMeToCompanyAction,
       searchCompany: searchCompanyAction,
       goToConsumerHome: (id) => push(`/c/${id}/`),

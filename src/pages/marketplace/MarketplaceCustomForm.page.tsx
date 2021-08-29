@@ -26,7 +26,7 @@ import ConsumerAppBar from '../checkout/ConsumerAppBar.container';
 import CustomFormSubmitDialog from '../../libs/custom-form/components/consumer-form/CustomFormSubmit.dialog';
 import type { CustomForm } from '../../libs/custom-form/types';
 import { getMembership } from '../../libs/membership/selectors';
-import { fetchMembershipListAsConsumer } from '../../libs/membership/actions';
+import { fetchMembership } from '../../libs/membership/actions';
 
 type StateHandlerInit = {
   submitSuccess: boolean;
@@ -45,7 +45,7 @@ type State = {};
 
 export class MarketplaceCustomForm extends React.Component<Props, State> {
   componentWillMount() {
-    this.props.fetchMembershipListAsConsumer({ page_size: 100 });
+    this.props.fetchMembership(this.props.companyId);
   }
 
   componentDidMount() {
@@ -181,7 +181,7 @@ const mapStateToProps = (state: RootState, props: OwnAndConnectedProps) => ({
 const mapDispatchToProps = {
   fetchCustomForm: fetchCustomFormAction,
   submitCustomFormAction,
-  fetchMembershipListAsConsumer,
+  fetchMembership,
   pushRouter,
 };
 const mapWithHandlers = {

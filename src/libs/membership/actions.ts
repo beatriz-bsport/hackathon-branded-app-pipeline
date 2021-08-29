@@ -13,7 +13,6 @@ export const listAsConsumerActions = {
   success: createAction('MEMBERSHIP/LIST/SUCCESS'),
   isLoading: createAction('MEMBERSHIP/LIST/IS_LOADING'),
   error: createAction('MEMBERSHIP/LIST/ERROR'),
-  reset: createAction('MEMBERSHIP/RESET/ERROR'),
 };
 
 export const setActiveActions = createAction('MEMBERSHIP/SET_ACTIVE');
@@ -24,35 +23,58 @@ export const retrieveActions = {
   error: createAction('MEMBERSHIP/RETRIEVE/ERROR'),
 };
 
-export function resetMembershipListAsConsumer(
-  params: any = {},
-  options?: OptionCallback,
-) {
-  return async (dispatch: Dispatch) => {
-    dispatch(listAsConsumerActions.reset());
-    dispatch(fetchMembershipListAsConsumer(params, options));
-  };
-}
-
 export function fetchMembershipListAsConsumer(
   params: any = {},
   options?: OptionCallback,
 ) {
-  return async (dispatch: Dispatch, getState: () => State) => {
+  return async (dispatch: Dispatch) => {
     dispatch(listAsConsumerActions.isLoading(true));
     dispatch(listAsConsumerActions.error(null));
-    const { next_page } = getState().membership.asConsumer;
 
     try {
       const response = await fetchMembershipListAPI({
         ...params,
-        page: next_page || 1,
-        page_size: 100,
+        page: 1,
       });
       dispatch(
         listAsConsumerActions.success({
           ...response.data,
-          page: next_page || 1,
+          page: 1,
+        }),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(listAsConsumerActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(listAsConsumerActions.isLoading(false));
+  };
+}
+
+export function fetchMoreMembership(
+  page_size: number,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch, getState: () => State) => {
+    const { next_page } = getState().membership.asConsumer;
+    if (!next_page) {
+      return;
+    }
+    dispatch(listAsConsumerActions.isLoading(true));
+    dispatch(listAsConsumerActions.error(null));
+
+    try {
+      const response = await fetchMembershipListAPI({
+        page: next_page,
+        page_size,
+      });
+      dispatch(
+        listAsConsumerActions.success({
+          ...response.data,
+          page: next_page,
         }),
       );
       if (options && options.onSuccess) {

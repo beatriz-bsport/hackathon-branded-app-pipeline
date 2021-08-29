@@ -22,10 +22,11 @@ import {
   getMembership,
 } from '../../libs/membership/selectors';
 import {
-  fetchMembershipListAsConsumer,
+  fetchMembership,
   linkMeToCompany,
   setActiveActions,
   requestMembershipValidation,
+  fetchMembershipListAsConsumer,
 } from '../../libs/membership/actions';
 
 import { getOfferWithRelated } from '../../libs/offer/selectors';
@@ -103,8 +104,12 @@ type Props = {
   infosOfMember: dict,
 
   requestMembershipValidation: ({ company: number }) => void,
+  fetchMembershipListAsConsumer: (params: any) => void,
   missingInformation: boolean,
   isValidating: boolean,
+
+  fetchMembership: (id: number) => void,
+  membershipCount: number,
 };
 
 export class ConsumerHome extends React.Component<Props> {
@@ -119,7 +124,7 @@ export class ConsumerHome extends React.Component<Props> {
 
     this.props.fetchCompanyTheme(this.props.companyId);
 
-    this.props.fetchMembershipListAsConsumer({ page_size: 2 });
+    this.props.fetchMembership(this.props.companyId);
     this.props.setActiveActions(this.props.companyId);
   }
 
@@ -131,6 +136,7 @@ export class ConsumerHome extends React.Component<Props> {
         page_size: 10,
       });
     }
+    this.props.fetchMembershipListAsConsumer({ page_size: 1 });
   }
 
   buildPath = (path) => this.props.push(this.props.buildUrl(path));
@@ -163,8 +169,7 @@ export class ConsumerHome extends React.Component<Props> {
                   this.props.subscriptionPendingActionCount
                 }
                 hasMultipleMembership={
-                  this.props.membershipList &&
-                  this.props.membershipList.length > 1
+                  this.props.membershipCount && this.props.membershipCount > 1
                 }
               >
                 <CongratulationDialog
@@ -255,6 +260,7 @@ export default compose(
   connect(
     (state, { companyId, from_direct_booking }) => ({
       membership: getMembership(state, companyId),
+      membershipCount: state.membership.asConsumer.count,
       isValidating: state.membership.memberShipValidation.loading,
       missingInformation:
         state.membership.memberShipValidation.missingInformation,
@@ -274,6 +280,7 @@ export default compose(
       linkMeToCompany,
       requestMembershipValidation,
       fetchMembershipListAsConsumer,
+      fetchMembership,
       fetchCompanyTheme,
       push: pushRouter,
       replace: replaceRouter,

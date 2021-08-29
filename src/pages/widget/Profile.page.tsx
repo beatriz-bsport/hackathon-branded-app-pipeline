@@ -5,7 +5,7 @@ import { Theme, withStyles } from '@material-ui/core/styles';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { getMembership } from '../../libs/membership/selectors';
-import { fetchMembershipListAsConsumer } from '../../libs/membership/actions';
+import { fetchMembership } from '../../libs/membership/actions';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import ConsumerProfile from '../consumer/ConsumerProfile.page';
 import { RootState } from '../../reducers';
@@ -25,10 +25,7 @@ type Props = OwnAndConnectedProps &
 
 class ProfileWidgetPage extends React.PureComponent<Props> {
   componentDidMount() {
-    this.props.fetchMembershipListAsConsumer({
-      company: this.props.companyId,
-      page_size: 2,
-    });
+    this.props.fetchMembership(this.props.companyId);
   }
 
   render() {
@@ -51,7 +48,7 @@ const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
 });
 
 const mapDispatchToProps = {
-  fetchMembershipListAsConsumer,
+  fetchMembership,
 };
 
 const mapWithHandlers = {};

@@ -8,6 +8,8 @@ import type { TFunction } from 'react-i18next';
 import Hidden from '@material-ui/core/Hidden';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -22,12 +24,15 @@ import MembershipListItem from './MembershipListItem.component';
 import CompanyListItem from './CompanyListItem.component';
 
 type Props = {
+  hasMore: boolean,
+  loading: boolean,
   membershipList: Array<Membership>,
   classes: Object,
   goToConsumerHome: (company: number) => void,
   searchCompany: (string) => void,
   companyLoading: boolean,
   companyList: Array<Company>,
+  fetchMoreMembership: (pageSize: number) => void,
 };
 
 const MembershipSelectorBase = (props: {
@@ -188,6 +193,22 @@ export const MembershipSelector = (props: Props) => {
               classes={props.classes}
             />
           )}
+          {props.hasMore && props.loading && (
+            <div className={props.classes.buttonContainer}>
+              <CircularProgress />
+            </div>
+          )}
+          {props.hasMore && !props.loading && (
+            <div className={props.classes.buttonContainer}>
+              <Button
+                onClick={() => props.fetchMoreMembership(5)}
+                variant="outlined"
+                color="primary"
+              >
+                {t('selector.fetchMore')}
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -239,6 +260,12 @@ const styles = (theme) => ({
   bigIcon: {
     height: '20vw',
     width: '20vw',
+  },
+  buttonContainer: {
+    paddingTop: theme.spacing(2),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

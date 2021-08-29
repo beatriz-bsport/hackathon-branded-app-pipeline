@@ -1,6 +1,7 @@
 exports.default = {
   selector: {
     placeholder: 'Rechercher un studio/salle/club...',
+    fetchMore: 'Voir plus',
     noMatchingCompany: 'Aucun résultat',
     explainConsumer:
       "Avec <1>bsport</2> profitez d'une expérience unique pour la réservation de toutes vos activités sportives. <3/> Un seul compte et un seul mot de passe !",

@@ -141,7 +141,7 @@ const MarketplaceCommonFilterForm: React.FC<Props> = (props) => {
 
 const useStyles = makeStyles((theme) => ({
   marginTop: {
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(1),
   },
   flexCol: {
     display: 'flex',

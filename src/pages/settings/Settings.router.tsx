@@ -29,11 +29,12 @@ import PlatformBillingSettingPage from './PlatformBillingSetting.page';
 import PaymentMethodSettings from './PaymentMethodSettings/PaymentMethodSettings.pages';
 import MarketplaceSettings from './MarketplaceSettingsPages/MarketplaceSettings.pages';
 import FormsConfiguration from './FormsConfiguration.pages';
+import WidgetGeneratorPage from './WidgetGenerator.page';
+
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import { drawerWidth } from '../../components/navigation/ResponsiveDrawer.component';
-import WidgetGeneratorPage from './WidgetGenerator/WidgetGenerator.page';
 
 type Props = {
   classes: any;

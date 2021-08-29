@@ -6214,6 +6214,8 @@
   },
   "widget": {
     "widget": {
+      "containerConfiguration": { "title": "Configuration générale" },
+      "configTitle": "Mon Widget",
       "listDisplay": "Vision semaine liste",
       "calendarDisplay": "Vision semaine card (calendrier)",
       "responsiveDisplay": "Affichage responsive",

@@ -64,7 +64,7 @@ import { getPlaylistList } from '../../../libs/playlist/selectors';
 import BottomActionsButton from '../../../components/button/BottomActionsButton.component';
 
 import Config from '../../../config';
-import WidgetGeneratorDialog from '../WidgetGenerator/WidgetGeneratorDialog';
+import WidgetGeneratorDialog from '../../../libs/widget/components/WidgetGeneratorDialog.component';
 import { getVideoList } from '../../../libs/video/selectors';
 import { fetchVideoList } from '../../../libs/video/actions';
 

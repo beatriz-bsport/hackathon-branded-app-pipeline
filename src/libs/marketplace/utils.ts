@@ -73,9 +73,15 @@ export class WidgetCodeStringGenerator {
         "language": "${args.language}",`;
     }
 
-    const code = `<script src="https://${
-      Config.REACT_APP_CDN_DOMAIN
-    }/scripts/widget.js"></script>
+    let url = `https://${Config.REACT_APP_CDN_DOMAIN}`;
+
+    if (url.includes('localhost')) {
+      url = `http://${Config.REACT_APP_CDN_DOMAIN}/widget.js`;
+    } else {
+      url += '/scripts/widget.js';
+    }
+
+    const code = `<script src="${url}"></script>
 <script> 
     BsportWidget.mount({
         "parentElement": "bsport-widget",

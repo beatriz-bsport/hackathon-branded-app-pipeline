@@ -8,12 +8,12 @@ import {
 import React from 'react';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
-import WidgetGeneratorPage from './WidgetGenerator.page';
+import WidgetGeneratorPage from '../../../pages/settings/WidgetGenerator.page';
 import {
   MarketplaceComponentsEnum,
   MarketplaceTabConfig,
   WidgetComponentsEnum,
-} from '../../../libs/marketplace/types';
+} from '../../marketplace/types';
 
 type Ownprops = {
   open: boolean;

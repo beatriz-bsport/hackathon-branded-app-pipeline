@@ -55,17 +55,16 @@ export const fromConfigToUrl = (
     ) {
       query.private_service_group = privateServiceConf.privateGroups.join(',');
     }
-  }
-
-  if (component_type === 'playlist' && tabConfig.config.playlist) {
+  } else if (component_type === 'playlist' && tabConfig.config.playlist) {
     path = `vod/playlist/${tabConfig.config.playlist.playlistId}`;
-  }
-
-  if (['calendar', 'workshop'].includes(component_type)) {
+  } else if (component_type === 'workshop') {
     let conf: MarketplaceCommonFilter = tabConfig.config.calendar;
 
-    if (component_type === 'workshop' && tabConfig.config.workshop) {
-      conf = tabConfig.config.workshop;
+    if (component_type === 'workshop') {
+      if (tabConfig.config.workshop) {
+        conf = tabConfig.config.workshop;
+      }
+      path = 'workshop';
     }
 
     conf.metaActivities &&
@@ -82,33 +81,43 @@ export const fromConfigToUrl = (
     conf.levels &&
       conf.levels.length &&
       Object.assign(query, { levels: conf.levels.join(',') });
-  }
-
-  if (component_type === 'calendar' && tabConfig.config.calendar) {
-    if (tabConfig.config.calendar.todayOnly) {
+  } else if (component_type === 'calendar') {
+    if (tabConfig.config?.calendar?.todayOnly) {
       Object.assign(query, {
         ...query,
         onlyDay: true,
         date: moment().format('YYYY-MM-DD'),
       });
     }
+    if (tabConfig.config?.calendar) {
+      const conf = tabConfig.config.calendar;
+      conf.metaActivities &&
+        conf.metaActivities.length &&
+        Object.assign(query, { activity__in: conf.metaActivities.join(',') });
+      conf.coaches &&
+        conf.coaches.length &&
+        Object.assign(query, { coaches: conf.coaches.join(',') });
+      conf.establishments &&
+        conf.establishments.length &&
+        Object.assign(query, {
+          establishments: conf.establishments.join(','),
+        });
+      conf.levels &&
+        conf.levels.length &&
+        Object.assign(query, { levels: conf.levels.join(',') });
+    }
     path = 'calendar';
-  }
-  if (component_type === 'workshop') {
-    path = 'workshop';
-  }
-  if (component_type === 'pass') {
+  } else if (component_type === 'pass') {
     path = 'pass';
     Object.assign(query, tabConfig.config.pass);
-  }
-  if (component_type === 'subscription') {
+  } else if (component_type === 'subscription') {
     path = 'subscription';
-  }
-  if (component_type === 'shop') {
+  } else if (component_type === 'shop') {
     path = 'shop';
-  }
-  if (component_type === 'vod') {
+  } else if (component_type === 'vod') {
     path = 'vod';
+  } else {
+    return '';
   }
   return `${path}/${buildUrlParams(query)}`;
 };

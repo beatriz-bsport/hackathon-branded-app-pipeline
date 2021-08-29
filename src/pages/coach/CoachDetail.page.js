@@ -39,7 +39,7 @@ import CoachDetail from '../../libs/associated-coach/components/CoachDetail.comp
 import CoachDeleteModal from '../../libs/associated-coach/components/CoachDeleteModal.component';
 import type { CoachDetailed } from '../../api/types';
 import { getAvailablePrivateServices } from '../../libs/private-service/selectors/private-service';
-import WidgetGeneratorDialog from '../settings/WidgetGenerator/WidgetGeneratorDialog';
+import WidgetGeneratorDialog from '../../libs/widget/components/WidgetGeneratorDialog.component';
 import { PrivateServiceWithSlots } from '../../libs/private-service/types';
 
 type Props = {

@@ -1,5 +1,9 @@
 exports.default = {
   widget: {
+    containerConfiguration: {
+      title: 'Configuration générale',
+    },
+    configTitle: 'Mon Widget',
     listDisplay: 'Vision semaine liste',
     calendarDisplay: 'Vision semaine card (calendrier)',
     responsiveDisplay: 'Affichage responsive',
@@ -23,7 +27,7 @@ exports.default = {
     dialogTitle: 'Personalisation de Widget',
     widgetPreviewError: 'Veuillez finir votre configuration',
     dialogModeLabel: 'Type de popup (login, paiement, réservation)',
-    showFabLabel: "Bouton flottant d'interface client",
+    showFabLabel: 'Bsport AutoConnect button',
     dialogMode: {
       tab: 'Nouvel onglet',
       popup: 'Nouvelle fenêtre',

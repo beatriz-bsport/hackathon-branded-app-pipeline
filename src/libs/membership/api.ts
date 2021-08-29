@@ -9,7 +9,7 @@ export const fetchMembership = async (id: number) => {
 };
 
 export const fetchMembershipByCompany = async (companyId: number) => {
-  return getAuth(`${API_V1_URI}/membership/${id}/by_company/`);
+  return getAuth(`${API_V1_URI}/membership/${companyId}/by_company/`);
 };
 
 export async function linkMeToCompany(data: any) {

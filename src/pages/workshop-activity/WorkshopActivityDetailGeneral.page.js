@@ -48,7 +48,7 @@ import {
   emailTemplateDetail,
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
 } from '../../libs/email-editor/actions';
-import WidgetGeneratorDialog from '../settings/WidgetGenerator/WidgetGeneratorDialog';
+import WidgetGeneratorDialog from '../../libs/widget/components/WidgetGeneratorDialog.component';
 
 type Props = {
   id: number,

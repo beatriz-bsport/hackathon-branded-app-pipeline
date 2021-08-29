@@ -30,8 +30,8 @@ const MarketplaceComponentTypeSelector: React.FC<Props> = (props) => {
         {t('marketplaceSettings.createDialog.selectComponent')}
       </InputLabel>
       <Select
-        className={classes.fullWidth}
         value={value}
+        color="primary"
         onChange={(ev: any) => onChange(ev.target.value)}
       >
         {props.source.map((component) => {

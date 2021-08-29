@@ -53,6 +53,23 @@ const MarketplaceCalendarSettingsForm: React.FC<Props> = (props) => {
 
   return (
     <div className={classes.flexCol}>
+      <FormControlLabel
+        className={classes.todayOnly}
+        control={
+          <Checkbox
+            checked={props.config.todayOnly}
+            onChange={() =>
+              props.onChange({
+                ...props.config,
+                todayOnly: !props.config.todayOnly,
+              })
+            }
+            name="checkedB"
+            color="primary"
+          />
+        }
+        label={t('settings:marketplaceSettings.createDialog.todayOnly')}
+      />
       {props.showCompactMode && (
         <FormControl className={classes.compactModeContainer}>
           <InputLabel>{t('widget:widget.choice')}</InputLabel>
@@ -82,24 +99,6 @@ const MarketplaceCalendarSettingsForm: React.FC<Props> = (props) => {
         config={props.config}
         onChange={props.onChange}
       />
-
-      <FormControlLabel
-        className={classes.todayOnly}
-        control={
-          <Checkbox
-            checked={props.config.todayOnly}
-            onChange={() =>
-              props.onChange({
-                ...props.config,
-                todayOnly: !props.config.todayOnly,
-              })
-            }
-            name="checkedB"
-            color="primary"
-          />
-        }
-        label={t('settings:marketplaceSettings.createDialog.todayOnly')}
-      />
     </div>
   );
 };
@@ -114,10 +113,10 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
   },
   compactModeContainer: {
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(1),
   },
   todayOnly: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(1),
   },
 }));
 

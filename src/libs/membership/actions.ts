@@ -4,6 +4,7 @@ import * as Sentry from '@sentry/react';
 import {
   fetchMembershipList as fetchMembershipListAPI,
   fetchMembership as fetchMembershipAPI,
+  fetchMembershipByCompany as fetchMembershipByCompanyAPI,
   linkMeToCompany as linkMeToCompanyAPI,
   requestMembershipValidation as requestMembershipValidationAPI,
 } from './api';
@@ -96,6 +97,29 @@ export function fetchMembership(id: number, options?: OptionCallback) {
 
     try {
       const response = await fetchMembershipAPI(id);
+      dispatch(retrieveActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(retrieveActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(retrieveActions.isLoading(false));
+  };
+}
+
+export function fetchMembershipByCompany(
+  companyId: number,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrieveActions.isLoading(true));
+    dispatch(retrieveActions.error(null));
+
+    try {
+      const response = await fetchMembershipByCompanyAPI(companyId);
       dispatch(retrieveActions.success(response.data));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);

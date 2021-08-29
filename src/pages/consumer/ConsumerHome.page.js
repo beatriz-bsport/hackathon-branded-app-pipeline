@@ -22,7 +22,7 @@ import {
   getMembership,
 } from '../../libs/membership/selectors';
 import {
-  fetchMembership,
+  fetchMembershipByCompany,
   linkMeToCompany,
   setActiveActions,
   requestMembershipValidation,
@@ -108,7 +108,7 @@ type Props = {
   missingInformation: boolean,
   isValidating: boolean,
 
-  fetchMembership: (id: number) => void,
+  fetchMembershipByCompany: (id: number) => void,
   membershipCount: number,
 };
 
@@ -124,7 +124,7 @@ export class ConsumerHome extends React.Component<Props> {
 
     this.props.fetchCompanyTheme(this.props.companyId);
 
-    this.props.fetchMembership(this.props.companyId);
+    this.props.fetchMembershipByCompany(this.props.companyId);
     this.props.setActiveActions(this.props.companyId);
   }
 
@@ -280,7 +280,7 @@ export default compose(
       linkMeToCompany,
       requestMembershipValidation,
       fetchMembershipListAsConsumer,
-      fetchMembership,
+      fetchMembershipByCompany,
       fetchCompanyTheme,
       push: pushRouter,
       replace: replaceRouter,

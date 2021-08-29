@@ -15,7 +15,7 @@ import {
   BookingsAndPrivateBookingsTypeEnum,
   fetchBookingsAndPrivateBookings,
 } from '../../libs/consumer-space/actions';
-import { fetchMembership } from '../../libs/membership/actions';
+import { fetchMembershipByCompany } from '../../libs/membership/actions';
 import { fetchCoachBulk } from '../../libs/associated-coach/actions';
 import { fetchMetaActivityBulk } from '../../libs/meta-activity/actions';
 import { fetchEstablishmentBulk } from '../../libs/establishment/actions';
@@ -63,7 +63,7 @@ class BookingsAndPrivateBookingsPage extends React.PureComponent<Props, State> {
   };
 
   componentDidMount() {
-    this.props.fetchMembership(this.props.companyId);
+    this.props.fetchMembershipByCompany(this.props.companyId);
 
     if (this.props.membership) {
       this.props.fetchBookingsAndPrivateBookings({
@@ -273,7 +273,7 @@ const mapDispatchToProps = {
   fetchEstablishmentBulk,
   fetchMetaActivityBulk,
   fetchOfferBulk,
-  fetchMembership,
+  fetchMembershipByCompany,
   cancelBooking: cancelBookingAction,
   discardPrivateBooking: disablePrivateBooking,
 };

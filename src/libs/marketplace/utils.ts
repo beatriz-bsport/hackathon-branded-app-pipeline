@@ -84,7 +84,7 @@ export class WidgetCodeStringGenerator {
     const code = `<script src="${url}"></script>
 <script> 
     BsportWidget.mount({
-        "parentElement": "bsport-widget",
+        "parentElement": "bsport-widget${args.uuid || ''}",
         "companyId": ${args.company},
         "dialogMode": ${args.dialogMode},
         "widgetType": "${args.componentType}",${languageValue} 
@@ -99,7 +99,7 @@ ${WidgetCodeStringGenerator.getComponentConfigString(
         }  
     })
 </script>
-<div id="bsport-widget"/>`;
+<div id="bsport-widget${args.uuid || ''}"/>`;
 
     if (args.useIframe) {
       return `<iframe srcdoc='

@@ -80,11 +80,12 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
     super(props);
 
     const state: State = {
+      uuid: `-${parseInt(Math.random() * 1000000, 10)}`,
       componentType: WidgetComponentsEnum.calendar,
       containerConfig: {
         useIframe: false,
         dialogMode: DIALOG_MODE_IFRAME,
-        language: props.i18n.language,
+        language: 'none',
         showFab: false,
       },
       config: MARKETPLACE_DEFAULT_CONFIG_BY_COMPONENT,
@@ -137,6 +138,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
       language: this.state.containerConfig.language,
       dialogMode: this.state.containerConfig.dialogMode,
       showFab: this.state.containerConfig.showFab,
+      uuid: this.state.uuid,
     });
   };
 
@@ -151,6 +153,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
       language: this.state.containerConfig.language,
       dialogMode: this.state.containerConfig.dialogMode,
       showFab: this.state.containerConfig.showFab,
+      uuid: this.state.uuid,
     });
 
     return codeStringPreview;

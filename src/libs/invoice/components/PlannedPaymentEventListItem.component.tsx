@@ -25,6 +25,7 @@ import {
 import { PlannedPaymentEvent } from '../types';
 
 type Props = {
+  invoice: Invoice;
   plannedPaymentEvent: PlannedPaymentEvent;
   actions?: {
     onRegisterNow?: (id: number) => void;
@@ -136,9 +137,15 @@ export const PlannedPaymentEventListItem = (props: Props) => {
       </div>
       {(!!onEdit || !!onDisable || !!onEnable || !!onRegisterNow) && (
         <>
-          <IconButton onClick={(ev) => setMenuAnchorEl(ev.currentTarget)}>
-            <MoreVertIcon />
-          </IconButton>
+          {!(
+            props.invoice.amount_paid_cts >= props.invoice.amount_due_cts &&
+            props.plannedPaymentEvent.status ===
+              PLANNED_PAYMENT_EVENT_STATUS_CANCELED
+          ) && (
+            <IconButton onClick={(ev) => setMenuAnchorEl(ev.currentTarget)}>
+              <MoreVertIcon />
+            </IconButton>
+          )}
           <Menu
             onClose={() => setMenuAnchorEl(null)}
             open={!!menuAchorEl}

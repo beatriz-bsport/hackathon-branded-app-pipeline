@@ -277,6 +277,7 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
                 {props.plannedPaymentEventList.map((p) => (
                   <PlannedPaymentEventListItem
                     plannedPaymentEvent={p}
+                    invoice={props.invoice}
                     key={p.id}
                     actions={props.plannedPaymentEventActions}
                   />

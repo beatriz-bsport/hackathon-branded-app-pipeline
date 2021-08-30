@@ -111,7 +111,8 @@
             "calendar": "Geschiedenis",
             "dashboard": "Overzicht",
             "myVideos": "Video On Demand",
-            "pick_a_language": "Selecteer een taal"
+            "pick_a_language": "Selecteer een taal",
+            "automaticLanguage": "Detecteer automatisch de taal"
         },
         "unsubscriber": {
             "success": "Je bent uitgeschreven.",
@@ -303,7 +304,8 @@
         "selector": {
             "explainConsumer": "Met <1> BSPORT Solution</2>  heb je een totaalplaatje van al je informatie op één account.",
             "noMatchingCompany": "Geen resultaat",
-            "placeholder": "Zoek een studio of vestiging..."
+            "placeholder": "Zoek een studio of vestiging...",
+            "fetchMore": "Toon meer"
         }
     },
     "partnership": {
@@ -3780,7 +3782,7 @@
             "coachList": "Instructeurs",
             "coachFormPage": "[Formulier] Instructeur",
             "coachPerformance": "Payroll voor {{name}}",
-            "allCoachPerformance": "Payroll overzicht"
+            "allCoachPerformance": "Payroll"
         },
         "coupon": {
             "couponCreate": "[Formulier] Promotie",
@@ -4653,7 +4655,8 @@
                 "privateService": "Afspraken",
                 "workshop": "Workshops",
                 "calendar": "Agenda",
-                "newsletter": "Nieuwsbrief"
+                "newsletter": "Nieuwsbrief",
+                "loginButton": "Inlogknop"
             },
             "preview": "Voorvertoning",
             "saveButton": "Opslaan",
@@ -7060,16 +7063,18 @@
         },
         "management": {
             "smartlistDetail": {
-                "empty": "Er zijn geen gegevens om weer te geven.",
+                "empty": "Er is geen automatisch tag-regel aan deze tag \"{{- tag }}\" gekoppeld.",
                 "removeTag": "Verwijder",
-                "title": "Tags van Smartlists"
+                "title": "Tags van Smartlists",
+                "createViaSmartlist": "Open Smartlists"
             },
             "couponDetail": {
-                "empty": "Er zijn geen gegevens om weer te geven.",
+                "empty": "Er is geen promotie aan deze tag \"{{- tag }}\" gekoppeld.",
                 "removeTag": "Sub-tag verwijderen",
                 "blacklist": "[Blacklist] Kan niet worden gebruikt door leden met de tag(s):",
                 "whitelist": "[Whitelist] Kan worden gebruikt door leden met de tag(s):",
-                "title": "Gekoppelde promoties aan deze sub-tag"
+                "title": "Gekoppelde promoties aan deze sub-tag",
+                "createViaCoupon": "Open promoties"
             },
             "memberDetail": {
                 "addTag": "Voeg sub-tag toe",
@@ -7203,7 +7208,7 @@
                         "helperText": "Dit is het maximum aantal toekomstige reserveringen voor je leden"
                     }
                 },
-                "hiddenFromMarketplace": "Toon op de app van BSPORT"
+                "hiddenFromMarketplace": "Activeer om op je studio op de algemene BSPORT app te worden getoond"
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",
@@ -7982,7 +7987,7 @@
                 "myAccount": "Mijn profiel"
             },
             "beta": "Bèta",
-            "coachPerformance": "Instructeurs",
+            "coachPerformance": "Payroll",
             "myShop": "Webshop",
             "product": "Producten",
             "coaches": "Instructeurs",
@@ -8098,10 +8103,14 @@
                 "tab": "Nieuw tabblad openen"
             },
             "dialogModeLabel": "Type pop-up",
-            "showFabLabel": "Een knop voor \"Mijn profiel\" op de widget",
+            "showFabLabel": "EasyConnect knop",
             "browserLanguage": "Browsertaal",
             "languageHelper": "De widget zal standaard de hier geselecteerde taal gebruiken. Selecteer \"Browsertaal\" om de widget de systeemtaal van je leden toe te laten passen.",
-            "pickALanguage": "Kies de standaardtaal"
+            "pickALanguage": "Kies de standaardtaal",
+            "configTitle": "Mijn widget",
+            "containerConfiguration": {
+                "title": "Algemene configuratie"
+            }
         }
     },
     "platformBilling": {
@@ -8223,8 +8232,8 @@
             "modal": {
                 "delete": {
                     "cancel": "Annuleer",
-                    "content": "Als je dit formulier verwijdert, wordt het in je gearchiveerde formulieren gezet. Dit formulier zal niet langer beschikbaar zijn voor je leden.",
-                    "title": "Een formulier verwijderen",
+                    "content": "Als je dit formulier archiveert, wordt het in je gearchiveerde formulieren gezet. Dit formulier zal niet langer beschikbaar zijn voor je leden.",
+                    "title": "Een formulier archiveren",
                     "confirm": "Bevestigen"
                 }
             },
@@ -8254,7 +8263,9 @@
                         "title": "Formulierveld",
                         "addField": "Toevoegen: ",
                         "select": "Selecteer een veld",
-                        "option": "Een optie toevoegen"
+                        "option": "Een optie toevoegen",
+                        "confirm": "Bevestig",
+                        "cancel": "Annuleer"
                     },
                     "error": {
                         "emptyChoice": "De keuzes mogen niet leeg zijn.",
@@ -8291,7 +8302,7 @@
             "search": "Zoek een formulier",
             "name": "Naam",
             "content": "Inhoud van je formulier",
-            "preview": "Voorvertoning van je formulier",
+            "preview": "Voorvertoning",
             "label": "Label",
             "kind": "Type",
             "save": "Opslaan",
@@ -8331,7 +8342,9 @@
                         "yes": "Ja"
                     }
                 }
-            }
+            },
+            "allFieldDisabled": "Alle vragen zijn gearchiveerd.",
+            "answerForDisabledField": "Gearchiveerde vragen"
         }
     },
     "spotScheduling": {

@@ -915,7 +915,7 @@
             "private_service": "Appointments",
             "bookButton": {
                 "book": "Book",
-                "isPast": "Past",
+                "isPast": "Completed",
                 "notAvailable": "Cancelled",
                 "bookOption": "Waiting list",
                 "notBookableYet": "Available soon"
@@ -1332,14 +1332,14 @@
             "oneWeek": "1 week",
             "twoDays": "2 days",
             "oneDay": "1 day",
-            "twelveHour": "12 hours",
-            "eightHour": "8 hours",
-            "sixHour": "6 hours",
-            "fourHour": "4 hours",
-            "threeHour": "3 hours",
-            "twoHour": "2 hours",
-            "oneHourAndHalf": "1 hour 30 min",
-            "oneHour": "1 hour",
+            "twelveHour": "12h",
+            "eightHour": "8h",
+            "sixHour": "6h",
+            "fourHour": "4h",
+            "threeHour": "3h",
+            "twoHour": "2h",
+            "oneHourAndHalf": "1h 30 min",
+            "oneHour": "1h",
             "halfAndQuarterHour": "45 min",
             "halfHour": "30 min",
             "twentyMinutes": "20 min",
@@ -1611,7 +1611,7 @@
                 "streetNumber": "Number"
             },
             "waiting_list_max_size": "Size of the waiting list",
-            "oneHourFifteen": "1 hour 15 min",
+            "oneHourFifteen": "1h 15 min",
             "warningCreditChange": "Attention: old bookings won't be taken into account when there's a change in credit.",
             "noAvailableCredit": "Important: you haven't entered a price.",
             "explainNoEmailChange": "Changing this email will hinder teachers from connecting to their account. Only teachers can modify the email they use for their BSPORT account.",
@@ -1925,7 +1925,8 @@
         "selector": {
             "placeholder": "Search a studio/location/club...",
             "noMatchingCompany": "No results",
-            "explainConsumer": "With <1> BSPORT Solution</2> you've got all your information in one single account!"
+            "explainConsumer": "With <1> BSPORT Solution</2> you've got all your information in one single account!",
+            "fetchMore": "Show more"
         }
     },
     "notificationRule": {
@@ -1979,7 +1980,7 @@
                 }
             },
             "ConsumerPaymentPack": {
-                "name": "Pass",
+                "name": "Passes",
                 "tags": {
                     "pass_price": "Price of the pass",
                     "pass_name": "Name of the pass",
@@ -2066,7 +2067,7 @@
             "400": "The appointment was cancelled too late (for staff)",
             "300": "A member that hasn't responded in time and has been kicked from the waiting list",
             "22": "Invoice confirmation",
-            "601": "Automatic cancellation, as there were too few bookings X hours before the start of the session",
+            "601": "Automatic cancellation, as there were too few bookings X hour(s) before the start of the session",
             "702": "Penalty: a fine has been added to the internal account balance (for members)",
             "701": "Penalty: the pass has been temporarily blocked (for members)",
             "530": "Disputed payment for a subscription",
@@ -2102,7 +2103,8 @@
             "changeMembership": "Change studio",
             "logoff": "Logout",
             "myVideos": "Video On Demand",
-            "pick_a_language": "Select a language"
+            "pick_a_language": "Select a language",
+            "automaticLanguage": "Automatically detect the language"
         },
         "pack": {
             "titlePaymentPack": "Group activities",
@@ -2455,7 +2457,7 @@
                 "private_service": "General"
             },
             "selector": {
-                "title": "Filter by: availability"
+                "title": "Filter on availability"
             },
             "allocationWarning": {
                 "showCalendar": "See the calendar",
@@ -2585,7 +2587,7 @@
                 "showPrivateBookings": "Appointments",
                 "showCustomEvents": "Tasks / Personal appointments",
                 "hideCancelledEvents": "Show cancellations",
-                "title": "Filter on activity"
+                "title": "Filter by activity"
             },
             "form": {
                 "title": {
@@ -3136,8 +3138,8 @@
                 "cancelledRefunded": "Number of refunded cancellations: {{notify_booking_nb}}",
                 "cancelledNotRefunded": "Number of late cancellations: {{notify_booking_nb}}",
                 "valid": "Booking number: {{notify_booking_nb}}",
-                "after": "Send this notification {{hours}} hour(s) after the end of the appointment.",
-                "before": "Send this notification {{hours}} hour(s) before the start of the appointment."
+                "after": "Send this notification {{hours}}h after the end of the appointment.",
+                "before": "Send this notification {{hours}}h before the start of the appointment."
             },
             "form": {
                 "next": "Next",
@@ -3892,7 +3894,7 @@
                     },
                     "label": "Limit the amount of future bookings per member"
                 },
-                "hiddenFromMarketplace": "Show on the BSPORT app"
+                "hiddenFromMarketplace": "Activate this to display your studio on the general BSPORT app"
             },
             "cover": {
                 "label": "Logo",
@@ -3918,7 +3920,7 @@
                 "title": "Default status for a booking made by a member"
             },
             "websiteURL": {
-                "label": "Link to your own website.",
+                "label": "Link to your own website",
                 "helperText": "Use this field to add the link to your own website.",
                 "placeholder": "https://studio.com/"
             },
@@ -4154,16 +4156,18 @@
         },
         "management": {
             "smartlistDetail": {
-                "empty": "There is no data to display.",
+                "empty": "There are no tagging rules linked to this tag \"{{ tag }}\".",
                 "removeTag": "Delete",
-                "title": "Tagging Rule from Smartlist"
+                "title": "Tagging Rule from Smartlist",
+                "createViaSmartlist": "Access Smartlists"
             },
             "couponDetail": {
-                "empty": "There is no data to display.",
+                "empty": "There is no promotion linked to this tag \"{{- tag }}\".",
                 "removeTag": "Remove tag",
                 "blacklist": "[Blacklist] Can't be used by members with these specific tag(s):",
                 "whitelist": "[Whitelist] Can be used by members with these specific tag(s):",
-                "title": "Associated promotions to this tag"
+                "title": "Associated promotions to this tag",
+                "createViaCoupon": "Access promotions"
             },
             "memberDetail": {
                 "addTag": "Tag",
@@ -4617,7 +4621,7 @@
             "noDefaultDeliveryFee": "No delivery fee",
             "defaultDeliveryFee": "Default delivery fee"
         },
-        "pageTitle": "Shop"
+        "pageTitle": "Webshop"
     },
     "settings": {
         "pageTitle": "Settings",
@@ -4629,7 +4633,7 @@
             "broadcast": "Streaming",
             "invoice": "Billing",
             "waitingList": "Waiting-list",
-            "shop": "Shop",
+            "shop": "Webshop",
             "role": "Staff",
             "personalization": "Personalization",
             "webhook": "Webhook",
@@ -4736,25 +4740,26 @@
                 "selectPrivateServiceTypeDetail": "My appointment",
                 "selectPrivateServiceTypeList": "All appointments",
                 "selectPrivateServiceType": "Type",
-                "todayOnly": "Display daily sessions only",
+                "todayOnly": "Only display today's sessions",
                 "hidePaymentCombo": "Hide packs",
                 "hidePrivatePass": "Hide passes for private classes",
                 "hidePaymentPack": "Hide passes for group classes"
             },
             "componentType": {
                 "playlist": "Video Playlist",
-                "shop": "Shop",
+                "shop": "Webshop",
                 "subscription": "Subscription",
-                "vod": "VOD",
-                "pass": "Pass",
+                "vod": "Video On Demand",
+                "pass": "Passes",
                 "privateService": "Appointments",
                 "workshop": "Workshops",
                 "calendar": "Calendar",
-                "newsletter": "Newsletter"
+                "newsletter": "Newsletter",
+                "loginButton": "Login button"
             },
             "preview": "Preview",
             "saveButton": "Save",
-            "link": "Access the customer marketplace (you will be logged out)",
+            "link": "Access the customer marketplace (you'll be logged out)",
             "explainMarketplace": "Your members can access your marketplace (calendar, store, VOD, etc.) online on a computer, tablet or phone. Personalize your page here!",
             "addButton": "Add a tab"
         },
@@ -4786,7 +4791,7 @@
                 "wednesday": "Wednesday",
                 "thursday": "Thursday",
                 "friday": "Friday",
-                "satursday": "Satursday"
+                "satursday": "Saturday"
             },
             "monthShort": {
                 "january": "Jan",
@@ -5335,8 +5340,8 @@
                 "10": "Pack",
                 "9": "Appointment Pass",
                 "3": "Credit",
-                "2": "Shop",
-                "1": "Pass"
+                "2": "Webshop",
+                "1": "Passes"
             },
             "discount": "Discount"
         },
@@ -5744,8 +5749,8 @@
                 "addButton": "Create a contract",
                 "register": "Subscribe a member",
                 "titleManagerOnly": "Contracts not available for sale",
-                "titleCustomerAvailable": "Contracts available to customer",
-                "titleInactive": "Archived contracts"
+                "titleCustomerAvailable": "Available subscriptions",
+                "titleInactive": "Archived subscriptions"
             },
             "form": {
                 "title": "Contract form",
@@ -5778,7 +5783,7 @@
                     "placeholder": "Annual VIP subscription"
                 },
                 "object_type": {
-                    "paymentPack": "Pass",
+                    "paymentPack": "Passes",
                     "privatePass": "Appointment Pass",
                     "label": "Subscription type",
                     "paymentCombo": "Pack"
@@ -5906,11 +5911,11 @@
             "dateCreated": "Date of creation",
             "nbInterval": "Number of billings",
             "recurrent_price": "Recurring payment",
-            "paymentPack": "Pass",
+            "paymentPack": "Passes",
             "nbMonths": "Number of billings",
             "dateStart": "First billing",
             "firstBilling": "First billing",
-            "payment_pack": "Pass",
+            "payment_pack": "Passes",
             "flat_fee": "Enrolment fee",
             "status": "Status",
             "payment_method": {
@@ -6673,8 +6678,8 @@
             "penaltyTitle": "Penalties applied"
         },
         "newMemberOnly": "Only available for new members (with no payments)",
-        "publicPacksTitle": "Pass available for purchase",
-        "privatePacksTitle": "Pass unavailable for purchase",
+        "publicPacksTitle": "Available passes",
+        "privatePacksTitle": "Unavailable passes",
         "subscribeToOffer": "Register",
         "use": "Use",
         "isNonCompatible": "non-compatible",
@@ -6870,7 +6875,7 @@
         "packsAvailable": "Pass available for this activity :",
         "reviews": "Customer reviews: ",
         "navigation": {
-            "goToPaymentPack": "Pass"
+            "goToPaymentPack": "Passes"
         },
         "actions": {
             "search": "Search an activity",
@@ -7005,13 +7010,13 @@
         "edit": "Edit"
     },
     "member": {
-        "date_joined": "Member since",
+        "date_joined": "Enrolment date",
         "invoiceTitle": "Invoices",
         "subscriptionTitle": "Subscriptions",
         "offers_joined": "Activities joined",
         "pass_owner": "Not valid",
         "bornIn": "Birthday ",
-        "memberSince": "Member since: ",
+        "memberSince": "Enrolment date ",
         "showNextBooking": "Show next bookings",
         "nextBooking": "next: ",
         "noNoteSaved": "No note saved yet",
@@ -7054,14 +7059,14 @@
             "info": "General",
             "bookings": "Bookings",
             "relations": "Relationships",
-            "paymentPack": "Pass",
+            "paymentPack": "Passes",
             "invoices": "Invoices & Subscriptions",
             "payment": "Billing",
             "contact": "Contact",
             "privateBooking": "Appointments",
             "privateConsumerPass": "Appointments passes",
             "relation": "Relationships",
-            "vod": "VOD",
+            "vod": "Video On Demand",
             "form": "Forms"
         },
         "row": {
@@ -7285,8 +7290,8 @@
                     "refunded": "Cancellation refunded n ° {{notify_booking_nb}}",
                     "absence": "Absence n ° {{notify_booking_nb}}",
                     "attendance": "Attendance n ° {{notify_booking_nb}}",
-                    "after": "Notification {{hours}} h after the session",
-                    "before": "Notification {{hours}} h before the session",
+                    "after": "Notification {{hours}}h after the session",
+                    "before": "Notification {{hours}}h before the session",
                     "notifyAllEvents": {
                         "notRefunded": "At each late cancellation",
                         "refunded": "At each reimbursed cancellation",
@@ -7323,7 +7328,7 @@
                     "title": "Event"
                 },
                 "chooseTime": {
-                    "second_after": "hour (s) after the session",
+                    "second_after": "hour(s) after the session",
                     "second_before": "hour(s) before the start of the session.",
                     "first": "Send email"
                 },
@@ -7491,7 +7496,7 @@
                 "showMore": "Show More",
                 "book": "Book",
                 "bookOption": "Waiting list",
-                "isPast": "Past",
+                "isPast": "Completed",
                 "notAvailable": "Cancelled",
                 "duration": "Duration: {{duration}}"
             }
@@ -7578,7 +7583,7 @@
             "coachList": "Teachers",
             "coachPerformance": "{{name}} performance",
             "coachFormPage": "Teacher form",
-            "allCoachPerformance": "Teachers payroll"
+            "allCoachPerformance": "Teacher payroll"
         },
         "order": {
             "orderList": "Orders",
@@ -7601,10 +7606,10 @@
             "establishmentFormPage": "Establishment form"
         },
         "marketplace": {
-            "marketplaceShop": "Shop",
+            "marketplaceShop": "Webshop",
             "marketplaceWorkshop": "Workshops",
             "marketplaceCalendar": "Calendar",
-            "marketplacePass": "Pass"
+            "marketplacePass": "Passes"
         },
         "dashboard": {
             "marketingDashboard": "Marketing",
@@ -7622,7 +7627,7 @@
         },
         "paymentPack": {
             "paymentPackFormPage": "Pass Form",
-            "paymentPackList": "Pass"
+            "paymentPackList": "Passes"
         },
         "marketing": {
             "marketingDashboard": "Dashboard",
@@ -7808,7 +7813,7 @@
             "1": "Members info",
             "2": "Passes",
             "3": "Bookings",
-            "4": "Buys"
+            "4": "Purchases"
         },
         "filters": {
             "1": {
@@ -7844,7 +7849,7 @@
                 "explanation": "Is tagged A and B"
             },
             "14": {
-                "shop": "Shop",
+                "shop": "Webshop",
                 "pack": "Pass",
                 "combo": "Pack",
                 "private_pass": "Private pass",
@@ -8066,7 +8071,7 @@
                 "booked": "booked"
             },
             "active_filters": "Active filters on the list",
-            "add_filter": "Add new filter",
+            "add_filter": "Add a filter",
             "add": "Add",
             "before": "before",
             "after": "after",
@@ -8101,7 +8106,7 @@
                 "between": "and",
                 "combo": "Pack",
                 "pack": "Pass",
-                "shop": "Shop",
+                "shop": "Webshop",
                 "explanation": "Has bought the products A and B",
                 "date": {
                     "first": "completed purchases"
@@ -8833,7 +8838,7 @@
                 "webhook": "Webhook",
                 "personalization": "Personalization",
                 "role": "Staff",
-                "shop": "Shop",
+                "shop": "Webshop",
                 "waitingList": "Waiting-list",
                 "invoice": "Billing",
                 "company": "Company",
@@ -8843,7 +8848,7 @@
                 "paymentMethod": "Payment methods",
                 "forms": "Sign up form"
             },
-            "pass": "Pass",
+            "pass": "Passes",
             "goBack": "Back",
             "refresh": "Refresh",
             "logoff": "Logout",
@@ -8860,7 +8865,7 @@
                 "order": "My orders",
                 "profile": "My profile",
                 "bookings": "My bookings ",
-                "pass": "Pass",
+                "pass": "Passes",
                 "subscriptions": "My subscriptions",
                 "myAccount": "My profile"
             },
@@ -8878,14 +8883,14 @@
             "alpha": "in development",
             "invoice": "Invoices",
             "workshopActivities": "Workshops",
-            "order": "Shop",
+            "order": "Webshop",
             "email_template": "Templates",
             "smart_list": "Smartlists",
             "sequence": "Strategies",
             "requestTempPassword": "Authorize access",
             "combo": "Packs",
             "marketing_automation": "Marketing automation",
-            "digital": "VOD",
+            "digital": "Digital offer",
             "podcast": "Podcasts",
             "playlist": "Playlist",
             "video": "Video library",
@@ -9123,7 +9128,7 @@
             "copy": "Copy",
             "url": "The link to your agenda",
             "code": "Widget on your site",
-            "choice": "Choose how you want to display your widget",
+            "choice": "Display",
             "visualisation": "Preview",
             "widget": "Share your calendar",
             "displayType": "Display type",
@@ -9131,23 +9136,27 @@
             "show": "Preview",
             "cancel": "Cancel",
             "responsiveDisplay": "Responsive display",
-            "calendarDisplay": "Week card (calendar)",
-            "listDisplay": "Week view list",
+            "calendarDisplay": "Week view (calendar)",
+            "listDisplay": "Week view (list)",
             "codeInfo": "Integrate this code into your website",
             "linkToConfig": "Link for this configuration",
-            "creationPageInfo": "Personalise widgets and integrate them on your site",
+            "creationPageInfo": "In this tab, you can configure, filter, and personalize your widgets to copy paste the specific code for your website.",
             "dialogMode": {
-                "iframe": "Stay on the website",
-                "popup": "New window",
-                "tab": "New tab"
+                "iframe": "Popup on my website",
+                "popup": "Open a new window",
+                "tab": "Open a new tab"
             },
-            "dialogModeLabel": "Popup type (login, payment, bookings)",
+            "dialogModeLabel": "Type of popup (logging in, payments, bookings)",
             "widgetPreviewError": "Please finish the settings",
             "dialogTitle": "Personalized Widget",
-            "showFabLabel": "Client interface floating action button",
+            "showFabLabel": "EasyConnect button",
             "browserLanguage": "Browser language",
             "languageHelper": "The widget will by default be in the language selected here. Select \"Browser language\" so the language on the widget automatically adapts to the language of the end user.",
-            "pickALanguage": "Choose the default language"
+            "pickALanguage": "Choose the default language",
+            "configTitle": "My widget",
+            "containerConfiguration": {
+                "title": "General configuration"
+            }
         }
     },
     "marketing": {
@@ -9263,10 +9272,10 @@
             },
             "modal": {
                 "delete": {
-                    "title": "Delete form",
+                    "title": "Archive form",
                     "cancel": "Cancel",
                     "confirm": "Confirm",
-                    "content": "By deleting this form while move it to your archived forms. Members won't be able to access it anymore."
+                    "content": "Archiving this form while move it to your archived forms tab. Members won't be able to access it anymore."
                 }
             },
             "tab": {
@@ -9286,7 +9295,9 @@
                         "title": "Field form",
                         "addField": "Add ",
                         "select": "Select a field",
-                        "option": "Add field"
+                        "option": "Add field",
+                        "confirm": "Confirm",
+                        "cancel": "Cancel"
                     },
                     "error": {
                         "choicesLength": "You must select at least two fields",
@@ -9327,7 +9338,9 @@
                         "yes": "Yes"
                     }
                 }
-            }
+            },
+            "allFieldDisabled": "All questions have been archived.",
+            "answerForDisabledField": "Archived questions"
         }
     },
     "spotScheduling": {

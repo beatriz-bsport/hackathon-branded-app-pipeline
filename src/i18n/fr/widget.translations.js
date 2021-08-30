@@ -27,7 +27,7 @@ exports.default = {
     dialogTitle: 'Personalisation de Widget',
     widgetPreviewError: 'Veuillez finir votre configuration',
     dialogModeLabel: 'Type de popup (login, paiement, réservation)',
-    showFabLabel: 'Bsport AutoConnect button',
+    showFabLabel: 'Bsport EasyConnect button',
     dialogMode: {
       tab: 'Nouvel onglet',
       popup: 'Nouvelle fenêtre',

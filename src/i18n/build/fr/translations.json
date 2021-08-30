@@ -1102,7 +1102,7 @@
       "logoff": "Déconnecter",
       "changeMembership": "Changer de club",
       "pick_a_language": "Sélectionner une langue",
-      "automaticLanguage": "Détection automatique"
+      "automaticLanguage": "Détection langage automatique"
     },
     "subscription": { "isEmpty": "Vous n'avez aucun abonnement en cours" },
     "myVideos": { "title": "Mes vidéos", "gotToVOD": "Voir toutes les vidéos" },
@@ -6238,7 +6238,7 @@
       "dialogTitle": "Personalisation de Widget",
       "widgetPreviewError": "Veuillez finir votre configuration",
       "dialogModeLabel": "Type de popup (login, paiement, réservation)",
-      "showFabLabel": "Bouton flottant d'interface client",
+      "showFabLabel": "Bsport EasyConnect button",
       "dialogMode": { "tab": "Nouvel onglet", "popup": "Nouvelle fenêtre", "iframe": "Rester sur le site" },
       "pickALanguage": "Choisir la langue par défaut",
       "languageHelper": "Le widget aura par défaut le langue sélectionné ici. Sélectionner \"Langue du navigateur\" pour que la langue du widget s'adapte automatiquement à la langue de votre client.",

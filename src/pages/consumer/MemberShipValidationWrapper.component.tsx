@@ -6,7 +6,10 @@ import {
   fetchMember as fetchMemberAction,
   fetchMyUserProfile,
 } from '../../libs/member/actions';
-import { requestMembershipValidation as requestMembershipValidationAction } from '../../libs/membership/actions';
+import {
+  fetchMembershipByCompany,
+  requestMembershipValidation as requestMembershipValidationAction,
+} from '../../libs/membership/actions';
 import { fetchCurrentBasket as fetchCurrentBasketAction } from '../../libs/checkout/actions';
 import {
   getMemberThroughMembership,
@@ -30,6 +33,7 @@ type Props = OwnProps &
 export class MemberShipValidationWrapper extends React.Component<Props> {
   componentDidMount() {
     if (this.props.companyId) {
+      this.props.fetchMembershipByCompany(this.props.companyId);
       this.props.fetchSignFormUpConfiguration({
         membership: this.props.companyId,
       });
@@ -58,6 +62,9 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
   };
 
   componentDidUpdate(prevProps: Props) {
+    if (this.props.companyId !== prevProps.companyId && this.props.companyId) {
+      this.props.fetchMembershipByCompany(this.props.companyId);
+    }
     if (this.props.authenticated && !prevProps.authenticated) {
       this.props.requestMembershipValidation({
         company: this.props.companyId,
@@ -95,6 +102,7 @@ const mapStateToProps = (
 
 const mapDispatchToProps = {
   fetchMember: fetchMemberAction,
+  fetchMembershipByCompany,
   fetchSignFormUpConfiguration,
   fetchMyUserProfile,
   requestMembershipValidation: requestMembershipValidationAction,

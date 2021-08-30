@@ -215,7 +215,6 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
     amountToPayCts = 0;
   }
   const is_reverse = props.invoice.source_invoice;
-  console.log(INVOICE_TYPE_RECEIPT, props.invoice.invoice_type);
   return (
     <div className={classes.container}>
       <div className={classes.innerContainer}>

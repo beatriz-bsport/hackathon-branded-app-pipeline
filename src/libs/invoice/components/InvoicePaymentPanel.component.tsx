@@ -9,7 +9,14 @@ import Button from '@material-ui/core/Button';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import CancelIcon from '@material-ui/icons/Cancel';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { INVOICE_TYPE_REGULAR } from '@bsport/common/lib/master-data/invoice-type';
+import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
+import ReceiptIcon from '@material-ui/icons/Receipt';
+import {
+  INVOICE_TYPE_REGULAR,
+  INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER as INVOICE_TYPE_RECEIPT,
+  INVOICE_TYPE_REVERSE,
+} from '@bsport/common/lib/master-data/invoice-type';
+import { PAYMENT_ENGINE_BSPORT } from '@bsport/common/lib/master-data/payment-group';
 import { PLANNED_PAYMENT_EVENT_STATUS_REGISTERED } from '@bsport/common/lib/master-data/planned-payment-event';
 import PaymentGroupRequiringActionListItem from './PaymentGroupRequiringActionListItem.component';
 import RedButton from '../../../components/button/RedButton.component';
@@ -24,9 +31,24 @@ import { OptionCallback } from '../../../state/types';
 const InvoicePaymentStatus = (props: {
   amountToPayCts: number;
   isDraft: boolean;
+  invoice_type: number;
   hasPendingPlannedPaymentEvent: boolean;
 }) => {
   const classes = useStyles();
+  if (props.invoice_type === INVOICE_TYPE_RECEIPT) {
+    return (
+      <div className={classes.statusContainer}>
+        <ReceiptIcon className={classes.statusIcon} />
+      </div>
+    );
+  }
+  if (props.invoice_type === INVOICE_TYPE_REVERSE) {
+    return (
+      <div className={classes.statusContainer}>
+        <KeyboardReturnIcon className={classes.statusIcon} />
+      </div>
+    );
+  }
   return (
     <div className={classes.statusContainer}>
       {!props.hasPendingPlannedPaymentEvent &&
@@ -52,6 +74,7 @@ const PaymentActions: FC<{
   amountToPayCts?: number;
   is_reverse: boolean;
   onPaymentIntent: () => void;
+  paymentList: Array<Payment>;
   invoice: Invoice;
   consumeBalance?: (OptionCallback) => void;
   onRevert: () => void;
@@ -69,62 +92,72 @@ const PaymentActions: FC<{
   }
   return (
     <React.Fragment>
-      {!!props.accountBalance && props.amountToPayCts > 0 && (
-        <div className={classes.balanceContainer}>
-          {!!props.accountBalance && (
-            <Typography variant="h6">
-              {t('creditAccountBalance.current')}
-            </Typography>
-          )}
-          <div className={classes.balanceRightContainer}>
+      {props.invoice.invoice_type === INVOICE_TYPE_REGULAR &&
+        !!props.accountBalance &&
+        props.amountToPayCts > 0 && (
+          <div className={classes.balanceContainer}>
             {!!props.accountBalance && (
-              <Typography
-                color={props.accountBalance < 0 ? 'error' : 'primary'}
-                variant="h5"
-              >
-                {getCurrencyDisplayWithPrice(props.accountBalance)}
+              <Typography variant="h6">
+                {t('creditAccountBalance.current')}
               </Typography>
             )}
-            {props.accountBalance > 0 && !!props.consumeBalance && (
-              <Button
-                variant="contained"
-                color="primary"
-                disabled={processing || props.accountBalanceLoading}
-                onClick={() => {
-                  setProcessing(true);
-                  props.consumeBalance({
-                    onSuccess: () => setProcessing(false),
-                    onError: () => setProcessing(false),
-                  });
-                }}
-              >
-                {!!props.accountBalanceLoading && (
-                  <CircularProgress
-                    size={20}
-                    color="inherit"
-                    className={classes.iconLeft}
-                  />
-                )}
-                {t('actions.consumeBalance')}
-              </Button>
-            )}
+            <div className={classes.balanceRightContainer}>
+              {!!props.accountBalance && (
+                <Typography
+                  color={props.accountBalance < 0 ? 'error' : 'primary'}
+                  variant="h5"
+                >
+                  {getCurrencyDisplayWithPrice(props.accountBalance)}
+                </Typography>
+              )}
+              {props.accountBalance > 0 && !!props.consumeBalance && (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  disabled={processing || props.accountBalanceLoading}
+                  onClick={() => {
+                    setProcessing(true);
+                    props.consumeBalance({
+                      onSuccess: () => setProcessing(false),
+                      onError: () => setProcessing(false),
+                    });
+                  }}
+                >
+                  {!!props.accountBalanceLoading && (
+                    <CircularProgress
+                      size={20}
+                      color="inherit"
+                      className={classes.iconLeft}
+                    />
+                  )}
+                  {t('actions.consumeBalance')}
+                </Button>
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
       {!props.is_reverse && !props.invoice.reverse_invoices.length && (
         <div className={classes.buttonRow}>
-          <Button
-            onClick={props.onPaymentIntent}
-            variant="contained"
-            color="primary"
-            disabled={
-              !props.invoice.member || props.amountToPayCts === 0 || processing
-            }
-          >
-            {t('paymentPanel.actions.bill')}
-          </Button>
+          {props.invoice.invoice_type === INVOICE_TYPE_REGULAR && (
+            <Button
+              onClick={props.onPaymentIntent}
+              variant="contained"
+              color="primary"
+              disabled={
+                !props.invoice.member ||
+                props.amountToPayCts === 0 ||
+                processing
+              }
+            >
+              {t('paymentPanel.actions.bill')}
+            </Button>
+          )}
           {!props.invoice.reverse_invoices.length &&
-            !props.invoice.source_invoice && (
+            !props.invoice.source_invoice &&
+            (props.invoice.invoice_type === INVOICE_TYPE_REGULAR ||
+              props.paymentList.filter(
+                (p) => p.payment_engine !== PAYMENT_ENGINE_BSPORT,
+              ).length === 1) && (
               <RedButton
                 onClick={props.onRevert}
                 disabled={processing}
@@ -182,10 +215,12 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
     amountToPayCts = 0;
   }
   const is_reverse = props.invoice.source_invoice;
+  console.log(INVOICE_TYPE_RECEIPT, props.invoice.invoice_type);
   return (
     <div className={classes.container}>
       <div className={classes.innerContainer}>
         <InvoicePaymentStatus
+          invoice_type={props.invoice.invoice_type}
           hasPendingPlannedPaymentEvent={
             props.plannedPaymentEventList &&
             props.plannedPaymentEventList.length > 0
@@ -298,9 +333,12 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
           </React.Fragment>
         )}
       </div>
-      {props.invoice.invoice_type === INVOICE_TYPE_REGULAR && (
+      {[INVOICE_TYPE_REGULAR, INVOICE_TYPE_RECEIPT].includes(
+        props.invoice.invoice_type,
+      ) && (
         <PaymentActions
           invoice={props.invoice}
+          paymentList={props.paymentList}
           onRevert={props.onRevert}
           is_reverse={is_reverse}
           accountBalance={props.accountBalance}

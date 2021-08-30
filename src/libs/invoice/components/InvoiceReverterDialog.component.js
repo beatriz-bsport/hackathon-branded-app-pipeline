@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import { INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER as INVOICE_TYPE_RECEIPT } from '@bsport/common/lib/master-data/invoice-type';
 import Collapse from '@material-ui/core/Collapse';
 
 import {
@@ -29,6 +30,7 @@ type Props = {
   onClose: () => void,
   onSubmit: (any) => void,
   payments: Array<Payment>,
+  invoice: Invoice,
 };
 
 export const InvoiceReverterDialog = (props: Props) => {
@@ -71,22 +73,24 @@ export const InvoiceReverterDialog = (props: Props) => {
               {t(`revert.content.explain.${REVERSE_ON_PAYMENT_METHOD}`)}
             </Typography>
           </div>
-          <div className={classes.radioContainer}>
-            <div className={classes.row}>
-              <Radio
-                checked={reverseMethod === REVERSE_ON_DEBT}
-                disabled={processing}
-                onChange={() => handleChangeReverseMethod(REVERSE_ON_DEBT)}
-                value={REVERSE_ON_DEBT}
-              />
-              <Typography>
-                {t(`revert.content.label.${REVERSE_ON_DEBT}`)}
+          {props.invoice.invoice_type !== INVOICE_TYPE_RECEIPT && (
+            <div className={classes.radioContainer}>
+              <div className={classes.row}>
+                <Radio
+                  checked={reverseMethod === REVERSE_ON_DEBT}
+                  disabled={processing}
+                  onChange={() => handleChangeReverseMethod(REVERSE_ON_DEBT)}
+                  value={REVERSE_ON_DEBT}
+                />
+                <Typography>
+                  {t(`revert.content.label.${REVERSE_ON_DEBT}`)}
+                </Typography>
+              </div>
+              <Typography variant="caption">
+                {t(`revert.content.explain.${REVERSE_ON_DEBT}`)}
               </Typography>
             </div>
-            <Typography variant="caption">
-              {t(`revert.content.explain.${REVERSE_ON_DEBT}`)}
-            </Typography>
-          </div>
+          )}
           <div className={classes.radioContainer}>
             <div className={classes.row}>
               <Radio

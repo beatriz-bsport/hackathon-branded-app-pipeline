@@ -798,7 +798,9 @@ export const MultipleCheckboxField = (props: Props) => {
                 control={
                   <Checkbox
                     disabled={!!disabled}
-                    checked={field.value.some((v) => v === id)}
+                    checked={
+                      field.value ? field.value.some((v) => v === id) : false
+                    }
                     onChange={() => {
                       const newValue = field.value.some((v) => v === id)
                         ? field.value.filter((v) => v !== id)

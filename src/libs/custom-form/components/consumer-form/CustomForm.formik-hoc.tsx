@@ -78,7 +78,17 @@ const ValidationSchema = Yup.object().shape({
 export const ConsumerFormFieldsHOC = withFormik({
   mapPropsToValues: ({ initial, initialWithAnswer }) => {
     if (initialWithAnswer) {
-      return { ...initialWithAnswer };
+      return {
+        ...initialWithAnswer,
+        custom_form_field: initialWithAnswer.custom_form_field?.map(
+          (field: CustomFormField) => ({
+            ...field,
+            answer: CUSTOM_FORM_FIELDS_WITH_CHOICES.includes(field.kind)
+              ? []
+              : null,
+          }),
+        ),
+      };
     }
     if (initial) {
       return {

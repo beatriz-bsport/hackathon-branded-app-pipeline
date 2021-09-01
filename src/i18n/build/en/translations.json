@@ -7319,7 +7319,7 @@
                     "notRefunded": "Late cancellations",
                     "refunded": "Refunded cancellations",
                     "absence": "Absence",
-                    "attendance": "Aanwezigheid",
+                    "attendance": "Present",
                     "title": "Trigger"
                 },
                 "chooseStatus": {

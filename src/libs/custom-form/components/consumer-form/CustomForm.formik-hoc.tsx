@@ -81,9 +81,12 @@ export const ConsumerFormFieldsHOC = withFormik({
       return {
         ...initialWithAnswer,
         custom_form_field: initialWithAnswer.custom_form_field?.map(
-          (field: CustomFormField) => ({
+          (field: CustomFormFieldAnswer) => ({
             ...field,
-            answer: CUSTOM_FORM_FIELDS_WITH_CHOICES.includes(field.kind)
+            // eslint-disable-next-line
+            answer: field.answer
+              ? field.answer
+              : CUSTOM_FORM_FIELDS_WITH_CHOICES.includes(field.kind)
               ? []
               : null,
           }),

@@ -121,7 +121,8 @@ export const MemberBillingProblemCard = (props: Props) => {
               </Button>
             </div>
           </div>
-          {!props.asConsumer &&
+          {false &&
+            !props.asConsumer &&
             !!props.applyBalanceToUnpaidInvoices &&
             props.balance > 0 &&
             !!unpaidInvoiceList.length && (

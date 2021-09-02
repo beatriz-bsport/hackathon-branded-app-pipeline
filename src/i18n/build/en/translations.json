@@ -7122,7 +7122,7 @@
                 },
                 "welcome": "Hello {{first_name}}"
             },
-            "title": "[Form] Member signup"
+            "title": "User information"
         },
         "user": {
             "existsWithEmail": "A user with the email address {{email}} already exists.",

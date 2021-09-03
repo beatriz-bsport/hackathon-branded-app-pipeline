@@ -1,5 +1,6 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
+import lodash from 'lodash';
 
 import { actionTypes } from './types';
 import {
@@ -16,6 +17,9 @@ import {
   updatePaymentPackActions,
   scalePaymentPackCreditActions,
   listPaymentPackCompatibleActions,
+  listAllPaymentPackCategoryActions,
+  upsertPaymenPackCategoryActions,
+  deletePaymentPackCategoryActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -61,6 +65,16 @@ const initialState = Immutable({
     },
     update: {
       id: null,
+      error: null,
+    },
+  },
+  paymentPackCategory: {
+    byId: {},
+    allIds: [],
+    loading: false,
+    error: null,
+    upsert: {
+      loading: false,
       error: null,
     },
   },
@@ -311,6 +325,64 @@ export const newPaymentPackReducer = handleActions(
       const items = { ...state.notification.itemsById };
       delete items[payload];
       return state.setIn(['notification', 'itemsById'], items);
+    },
+    [listAllPaymentPackCategoryActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['paymentPackCategory', 'loading'], payload);
+    },
+    [listAllPaymentPackCategoryActions.error]: (state, { payload }) => {
+      return state.setIn(['paymentPackCategory', 'error'], payload);
+    },
+    [listAllPaymentPackCategoryActions.success]: (state, { payload }) => {
+      return state
+        .setIn(
+          ['paymentPackCategory', 'allIds'],
+          payload.results.map((pp) => pp.id),
+        )
+        .merge(
+          {
+            paymentPackCategory: {
+              byId: payload.results.reduce(
+                (acc, v) => ({ ...acc, [v.id]: v }),
+                {},
+              ),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [upsertPaymenPackCategoryActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['paymentPackCategory', 'upsert', 'loading'], payload);
+    },
+    [upsertPaymenPackCategoryActions.error]: (state, { payload }) => {
+      return state.setIn(['paymentPackCategory', 'upsert', 'error'], payload);
+    },
+    [upsertPaymenPackCategoryActions.success]: (state, { payload }) => {
+      if (!state.paymentPackCategory.allIds.includes(payload.id)) {
+        return state
+          .setIn(['paymentPackCategory', 'byId', payload.id], payload)
+          .setIn(
+            ['paymentPackCategory', 'allIds'],
+            [...state.paymentPackCategory.allIds, payload.id],
+          );
+      }
+      return state.setIn(['paymentPackCategory', 'byId', payload.id], payload);
+    },
+    [deletePaymentPackCategoryActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['paymentPackCategory', 'upsert', 'loading'], payload);
+    },
+    [deletePaymentPackCategoryActions.error]: (state, { payload }) => {
+      return state.setIn(['paymentPackCategory', 'upsert', 'error'], payload);
+    },
+    [deletePaymentPackCategoryActions.success]: (state, { payload }) => {
+      return state
+        .setIn(
+          ['paymentPackCategory', 'byId'],
+          lodash.omit(state.paymentPackCategory.byId, payload.id),
+        )
+        .setIn(
+          ['paymentPackCategory', 'allIds'],
+          state.paymentPackCategory.allIds.filter((id) => id !== payload.id),
+        );
     },
   },
   initialState,

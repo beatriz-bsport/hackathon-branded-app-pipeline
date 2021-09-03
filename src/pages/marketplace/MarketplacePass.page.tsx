@@ -31,6 +31,8 @@ import withQueryParams from '../../hocs/with-query-params.hoc';
 
 import {
   getMarketplacePaymentPacks,
+  getPaymentPackCategoryWithPaymentPacks,
+  getPaymentPackUnCategoryWithPaymentPacks,
   withMetaActivities,
   withEstablishments,
 } from '../../libs/payment-packs/selectors';
@@ -47,7 +49,10 @@ import { getPrivatePassAsConsumer } from '../../libs/private-service/selectors/p
 // payment-combo
 // -----------------------------
 import { getPaymentComboListAvailableOnline } from '../../libs/payment-combo/selectors';
-import { fetchMarketplacePacks } from '../../libs/payment-packs/actions';
+import {
+  fetchMarketplacePacks,
+  fetchAllPaymentPackCategory,
+} from '../../libs/payment-packs/actions';
 import withTitle from '../../hocs/with-title.hoc';
 import { RootState } from '../../reducers';
 
@@ -87,6 +92,7 @@ export class MarketPlacePassPage extends Component<Props> {
       page_size: 300,
     });
     this.props.fetchPrivatePassAsConsumerList(this.props.companyId);
+    this.props.fetchAllPaymentPackCategory(this.props.companyId);
   };
 
   componentDidUpdate(prevProps: Props) {
@@ -159,8 +165,9 @@ export class MarketPlacePassPage extends Component<Props> {
         {!hidePaymentPack && (
           <Grid item xs={11} md={5}>
             <MarketplacePassList
-              paymentPacks={this.props.paymentPacks}
               pushPackCheckout={this.addPaymentPackToCart}
+              paymentPackUnCategorized={this.props.paymentPackUnCategorized}
+              paymentPackByCategory={this.props.paymentPackByCategory}
             />
           </Grid>
         )}
@@ -195,9 +202,6 @@ const styles = (theme: Theme) => ({
 });
 
 const mapStateToProps = (state: RootState) => ({
-  paymentPacks: withEstablishments(
-    withMetaActivities(getMarketplacePaymentPacks),
-  )(state),
   currentBasket: getCurrentBasket(state),
   authenticated: state.auth.authenticated,
   privatePassList: getPrivatePassAsConsumer(state),
@@ -205,12 +209,19 @@ const mapStateToProps = (state: RootState) => ({
   loading: state.paymentPack.loading,
   establishmentLoading: state.establishment.bulkRetrieve.loading,
   activityLoading: state.metaActivity.loading,
+  paymentPackUnCategorized: getPaymentPackUnCategoryWithPaymentPacks(
+    withEstablishments(withMetaActivities(getMarketplacePaymentPacks)),
+  )(state),
+  paymentPackByCategory: getPaymentPackCategoryWithPaymentPacks(
+    withEstablishments(withMetaActivities(getMarketplacePaymentPacks)),
+  )(state),
 });
 
 const mapDispatchToProps = {
   fetchEstablishmentBulk: fetchEstablishmentBulkAction,
   fetchMetaActivityBulk: fetchMetaActivityBulkAction,
   fetchPaymentPacks: fetchMarketplacePacks,
+  fetchAllPaymentPackCategory,
   fetchPrivatePassAsConsumerList,
   pushPrivatePassCheckout: (packId: number, basketId: number) =>
     addItemToBasket(basketId, {

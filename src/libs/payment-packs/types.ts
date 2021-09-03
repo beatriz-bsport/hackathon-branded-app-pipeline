@@ -101,3 +101,17 @@ export const actionTypes = {
   RESET_ACTIVITY_COMPATIBLE_PAYMENT_PACKS:
     'RESET_ACTIVITY_COMPATIBLE_PAYMENT_PACKS',
 };
+
+export type PaymentPackCategory = {
+  id: number;
+  name: string;
+  company_id: number;
+};
+
+export type PaymentPackCategoryWithPacks = {
+  id: number;
+  name: string;
+  company_id: number;
+  publicPacks: Array<PaymentPack>;
+  managerPacks: Array<PaymentPack>;
+};

@@ -11,6 +11,9 @@ import {
   patch as patchAPI,
   fetchOne as fetchOneAPI,
   fetchPaymentPackList as fetchPaymentPackListAPI,
+  fetchAllPaymentPackCategory as fetchAllPaymentPackCategoryAPI,
+  updatePaymentPackCategory as updatePaymentPackCategoryAPI,
+  createPaymentPackCategory as createPaymentPackCategoryAPI,
   // Notifications
   // -----------------
   updatePaymentPackNotifications as updateNotificationAPI,
@@ -18,10 +21,16 @@ import {
   fetchPaymentPackNotifications as fetchNotificationsAPI,
   deletePaymentPackNotifications as deleteNotificationAPI,
   fetchPaymentPackCompatibleList as fetchPaymentPackCompatibleListAPI,
+  deletePaymentPackCategory as deletePaymentPackCategoryAPI,
 } from './api';
 
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
-import { actionTypes as types, PaymentPack } from './types';
+import {
+  actionTypes as types,
+  PaymentPack,
+  PaymentPackCategory,
+  PaymentPackCategoryWithPacks,
+} from './types';
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 
 import type { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
@@ -481,5 +490,82 @@ export function fetchPaymentPackCompatibleList(
       if (options && options.onError) options.onError();
     }
     dispatch(listPaymentPackCompatibleActions.isLoading(null));
+  };
+}
+
+export const listAllPaymentPackCategoryActions = {
+  isLoading: createAction('PAYMENT_PACK_CATEGORY/LIST/IS_LOADING'),
+  error: createAction('PAYMENT_PACK_CATEGORY/LIST/ERROR'),
+  success: createAction('PAYMENT_PACK_CATEGORY/LIST/SUCCESS'),
+};
+
+export function fetchAllPaymentPackCategory(companyId?: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listAllPaymentPackCategoryActions.error(null));
+    try {
+      const response = await fetchAllPaymentPackCategoryAPI({ companyId });
+      const paymentPacks = response.data;
+      dispatch(listAllPaymentPackCategoryActions.success(paymentPacks));
+    } catch (err) {
+      console.error(err);
+      dispatch(listAllPaymentPackCategoryActions.error(err));
+    }
+    dispatch(listAllPaymentPackCategoryActions.isLoading(false));
+  };
+}
+export const upsertPaymenPackCategoryActions = {
+  isLoading: createAction('PAYMENT_PACK_CATEGORY/UPSERT/IS_LOADING'),
+  error: createAction('PAYMENT_PACK_CATEGORY/UPSERT/ERROR'),
+  success: createAction('PAYMENT_PACK_CATEGORY/UPSERT/SUCCESS'),
+};
+
+export function upsertPaymenPackCategory(
+  category: PaymentPackCategory,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(upsertPaymenPackCategoryActions.isLoading(true));
+    dispatch(upsertPaymenPackCategoryActions.error(null));
+    const kind = category.id ? 'update' : 'create';
+    try {
+      const response = category.id
+        ? await updatePaymentPackCategoryAPI(category)
+        : await createPaymentPackCategoryAPI(category);
+
+      dispatch(upsertPaymenPackCategoryActions.success(response.data));
+      dispatch(snackbarSuccess(`paymentPack.category.${kind}.success`));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(snackbarError(`paymentPack.category.${kind}.error`));
+      dispatch(upsertPaymenPackCategoryActions.error(error.response.data));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(upsertPaymenPackCategoryActions.isLoading(false));
+  };
+}
+
+export const deletePaymentPackCategoryActions = {
+  error: createAction('PAYMENT_PACK_CATEGORY/DELETE/ERROR'),
+  isLoading: createAction('PAYMENT_PACK_CATEGORY/DELETE/IS_LOADING'),
+  success: createAction('PAYMENT_PACK_CATEGORY/DELETE/SUCCESS'),
+};
+
+export function deletePaymentPackCategory(
+  category: PaymentPackCategoryWithPacks,
+  options?: OptionCallback<PaymentPackCategoryWithPacks>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(deletePaymentPackCategoryActions.isLoading(true));
+    try {
+      await deletePaymentPackCategoryAPI(category);
+      dispatch(deletePaymentPackCategoryActions.success(category));
+      dispatch(snackbarSuccess('paymentPack.category.delete.success'));
+      if (options && options.onSuccess) options.onSuccess(category);
+    } catch (error) {
+      dispatch(deletePaymentPackCategoryActions.error(category));
+      dispatch(snackbarError('paymentPack.category.delete.error'));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(deletePaymentPackCategoryActions.isLoading(false));
   };
 }

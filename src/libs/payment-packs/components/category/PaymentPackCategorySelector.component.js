@@ -1,13 +1,10 @@
 // @flow
-
 import React from 'react';
-import type { Node } from 'react';
-
+import chroma from 'chroma-js';
 import { compose } from 'recompose';
-
+import { withTranslation, WithTranslation } from 'react-i18next';
+import { colors } from '@bsport/common/lib/colors';
 import Select from 'react-select';
-import CreatableSelect from 'react-select/lib/Creatable';
-
 import withStyles from '@material-ui/core/styles/withStyles';
 import CancelIcon from '@material-ui/icons/Cancel';
 import SearchIcon from '@material-ui/icons/Search';
@@ -18,6 +15,8 @@ import Chip from '@material-ui/core/Chip';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
+import type { PaymentPackCategory } from '../../types';
+import { MaterialStyleType } from '../../../../utils/types';
 
 type SelectProps = {
   classes: {
@@ -31,13 +30,13 @@ type SelectProps = {
     inputIcon: string,
     inputWrapper: string,
   },
-  textFieldProps: *,
+  textFieldProps: any,
   searchIcon: boolean,
 };
 
 type NoOptionsMessageProps = {
   selectProps: SelectProps,
-  innerProps: *,
+  innerProps: any,
   children: React.Node,
 };
 
@@ -54,7 +53,7 @@ function NoOptionsMessage(props: NoOptionsMessageProps) {
 }
 
 type InputComponentProps = {
-  inputRef: *,
+  inputRef: any,
 };
 function inputComponent({ inputRef, ...props }: InputComponentProps) {
   return <div ref={inputRef} {...props} />;
@@ -62,9 +61,9 @@ function inputComponent({ inputRef, ...props }: InputComponentProps) {
 
 type ControlProps = {
   selectProps: SelectProps,
-  innerRef: *,
+  innerRef: any,
   children: React.Node,
-  innerProps: *,
+  innerProps: any,
 };
 
 function Control(props: ControlProps) {
@@ -92,10 +91,10 @@ function Control(props: ControlProps) {
 }
 
 type OptionProps = {
-  innerRef: *,
+  innerRef: any,
   isFocused: boolean,
   isSelected: boolean,
-  innerProps: *,
+  innerProps: any,
   children: React.Node,
 };
 function Option(props: OptionProps) {
@@ -117,7 +116,7 @@ function Option(props: OptionProps) {
 type PlaceholderProps = {
   selectProps: SelectProps,
   children: React.Node,
-  innerProps: *,
+  innerProps: any,
 };
 function Placeholder(props: PlaceholderProps) {
   return (
@@ -125,23 +124,6 @@ function Placeholder(props: PlaceholderProps) {
       color="textSecondary"
       {...props.innerProps}
       style={{ minHeight: 64 }}
-    >
-      {props.children}
-    </Typography>
-  );
-}
-
-type SingleValueProps = {
-  selectProps: SelectProps,
-  children: React.Node,
-  innerProps: *,
-};
-
-function SingleValue(props: SingleValueProps) {
-  return (
-    <Typography
-      className={props.selectProps.classes.singleValue}
-      {...props.innerProps}
     >
       {props.children}
     </Typography>
@@ -165,7 +147,7 @@ function ValueContainer(props: ValueContainerProps) {
 
 type MultiValueProps = {
   selectProps: SelectProps,
-  removeProps: *,
+  removeProps: any,
   children: React.Node,
 };
 function MultiValue(props: MultiValueProps) {
@@ -182,7 +164,7 @@ function MultiValue(props: MultiValueProps) {
 
 type MenuProps = {
   children: React.Node,
-  innerProps: *,
+  innerProps: any,
   selectProps: SelectProps,
 };
 function Menu(props: MenuProps) {
@@ -204,106 +186,121 @@ const components = {
   NoOptionsMessage,
   Option,
   Placeholder,
-  SingleValue,
   ValueContainer,
 };
 
-export type Suggestion = { value: number, name: string };
-type Theme = { palette: { text: { primary: string } } };
+const getPackPaymentPackCategoryList = (
+  paymentPackCategory: Array<PaymentPackCategory>,
+) =>
+  paymentPackCategory.map((ppC) => ({
+    label: ppC.name,
+    value: ppC.id,
+  }));
+const packPackcategoryStyles = {
+  control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+  option: (styles, { isDisabled, isFocused, isSelected }) => {
+    const color = chroma(colors.secondary);
+    /* eslint-disable */;
+    return {
+      ...styles,
+      backgroundColor: isDisabled
+        ? null
+        : isSelected
+        ? colors.secondary
+        : isFocused
+        ? color.alpha(0.1).css()
+        : null,
+      color: isDisabled
+        ? '#ccc'
+        : isSelected
+        ? chroma.contrast(color, 'white') > 2
+          ? 'white'
+          : 'black'
+        : colors.secondary,
+      cursor: isDisabled ? 'not-allowed' : 'default',
 
-type IntegrationReactSelectProps = {
-  className: ?string,
-  classes: { [string]: string },
-  suggestions: Suggestion[],
-  selected: number,
-  isClearable?: boolean,
-  placeholder: string,
-  onChange: (Suggestion) => void,
-  theme: Theme,
-  onCreateOption: (label: string) => void,
-  components: Object,
-  searchIcon: boolean,
-  isMulti: boolean,
-  nullCurrentValue?: boolean,
-  filterOption: (option: Suggestion, text: string) => void,
-  autofocus: boolean,
-  id: string,
-  isDisabled: boolean,
+      ':active': {
+        ...styles[':active'],
+        backgroundColor:
+          !isDisabled &&
+          (isSelected ? colors.secondary : color.alpha(0.3).css()),
+      },
+      groupHeading: (base) => ({ ...base, margin: 0 }),
+    };
+
+    /* eslint-enable */
+  },
+  multiValue: (styles) => {
+    const color = chroma(colors.secondary);
+    return {
+      ...styles,
+      backgroundColor: color.alpha(0.1).css(),
+    };
+  },
+  multiValueLabel: (styles) => ({
+    ...styles,
+    color: colors.secondary,
+  }),
+  multiValueRemove: (styles) => ({
+    ...styles,
+    color: colors.secondary,
+    ':hover': {
+      backgroundColor: colors.secondary,
+      color: 'white',
+    },
+  }),
 };
 
-function IntegrationReactSelect(props: IntegrationReactSelectProps) {
+type OwnProps = {
+  packPackCategoryList?: Array<PaymentPackCategory>,
+  onChange: (Suggestion: { label: string, value: number }) => void,
+  disabled?: boolean,
+  noMulti: boolean,
+  closeMenuOnSelect: boolean,
+  isClearable: boolean,
+  isLoading?: boolean,
+  value: number | null,
+};
+
+type Props = OwnProps &
+  WithTranslation &
+  MaterialStyleType<ReturnType<typeof styles>>;
+export function PaymentPackCategorySelector(props: Props) {
   const {
-    classes,
+    t,
     className,
-    theme,
-    suggestions,
-    placeholder,
-    selected,
+    packPackCategoryList,
     onChange,
-    onCreateOption,
-    searchIcon,
-    isMulti,
-    autofocus,
-    nullCurrentValue,
-    isDisabled,
+    closeMenuOnSelect,
+    disabled,
+    noMulti,
+    isClearable,
+    isLoading,
+    value,
   } = props;
-
-  const selectStyles = {
-    menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-    input: (base) => ({
-      ...base,
-      flex: 1,
-      position: 'fixed',
-      color: theme.palette.text.primary,
-      '& input': {
-        font: 'inherit',
-      },
-    }),
-    singleValue: (base) => ({
-      ...base,
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      whiteSpace: 'nowrap',
-    }),
-  };
-  const SelectComponent =
-    typeof onCreateOption === 'function' ? CreatableSelect : Select;
-
-  const valueSelector = (
-    multi: boolean,
-    suggestionValues: Array<any>,
-    selectedValues: any,
-  ) => {
-    if (multi) {
-      return selectedValues
-        ? suggestionValues.filter((s) => selectedValues.includes(s.value))
-        : null;
-    }
-    return suggestionValues.find((s) => s.value === selectedValues);
-  };
+  const { classes } = props;
+  const selected = value
+    ? getPackPaymentPackCategoryList([...packPackCategoryList]).find(
+        (option) => option.value === value,
+      )
+    : null;
   return (
     <div className={`${className || ''} ${classes.root}`}>
-      <SelectComponent
-        id={props.id}
-        autofocus={autofocus}
+      <Select
+        closeMenuOnSelect={!!closeMenuOnSelect}
+        isMulti={!noMulti}
         classes={classes}
-        styles={selectStyles}
-        options={suggestions}
+        placeholder={t('form.paymentPack.category.helperText')}
         components={{ ...components, ...props.components }}
-        value={
-          nullCurrentValue
-            ? null
-            : valueSelector(isMulti, suggestions, selected)
-        }
+        options={getPackPaymentPackCategoryList([...packPackCategoryList])}
+        styles={packPackcategoryStyles}
         onChange={onChange}
-        placeholder={placeholder}
-        onCreateOption={onCreateOption}
-        searchIcon={searchIcon}
-        isMulti={isMulti}
-        filterOption={props.filterOption}
-        isClearable={props.isClearable}
+        isDisabled={disabled}
+        isClearable={isClearable}
         menuPortalTarget={document.querySelector('body')}
-        isDisabled={isDisabled}
+        value={selected}
+        isLoading={isLoading}
       />
     </div>
   );
@@ -354,7 +351,7 @@ const styles = (theme) => ({
     height: theme.spacing(2),
   },
 });
-
-export default compose(withStyles(styles, { withTheme: true }))(
-  IntegrationReactSelect,
-);
+export default compose<any, OwnProps>(
+  withStyles(styles, { withTheme: true }),
+  withTranslation(['paymentPack']),
+)(PaymentPackCategorySelector);

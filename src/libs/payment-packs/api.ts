@@ -6,8 +6,11 @@ import {
   putAuth,
   deleteAuth,
   API_V1_URI,
+  postBaseAuth,
   buildUrlParams,
 } from '../../http';
+
+import type { PaymentPackCategory } from './types';
 
 export async function fetchAllPaymentPacks() {
   return getAuth(`${API_URI}/saas/payment-pack/`);
@@ -86,6 +89,42 @@ export async function updatePaymentPackNotifications(data: any) {
 //
 // END Notification
 
+export async function fetchAllPaymentPackCategory({
+  companyId,
+}: {
+  companyId?: number;
+}) {
+  return getAuth(
+    `${API_V1_URI}/payment-pack/payment-pack-category/${buildUrlParams({
+      companyId,
+    })}`,
+  );
+}
+
+export async function updatePaymentPackCategory(
+  paymentPackCategory: PaymentPackCategory,
+) {
+  return putAuth(
+    `${API_V1_URI}/payment-pack/payment-pack-category/${paymentPackCategory.id}/`,
+    paymentPackCategory,
+  );
+}
+
+export async function createPaymentPackCategory(
+  paymentPackCategory: PaymentPackCategory,
+) {
+  return postBaseAuth(
+    `${API_V1_URI}/payment-pack/payment-pack-category/`,
+    paymentPackCategory,
+  );
+}
+export async function deletePaymentPackCategory(
+  paymentPackCategory: PaymentPackCategory,
+) {
+  return deleteAuth(
+    `${API_V1_URI}/payment-pack/payment-pack-category/${paymentPackCategory.id}/`,
+  );
+}
 export default {
   fetchAll: fetchAllPaymentPacks,
   create,

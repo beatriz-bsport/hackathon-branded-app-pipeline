@@ -17,7 +17,10 @@ import LinearProgress from '../../components/navigation/BackofficeLinearProgress
 import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import PaymentPackForm from '../../libs/payment-packs/components/PaymentPackForm.component';
-import { getPaymentPackById } from '../../libs/payment-packs/selectors';
+import {
+  getPaymentPackById,
+  getAllPaymentPackCategory,
+} from '../../libs/payment-packs/selectors';
 import {
   getEnabledMetaActivities,
   getEnabledWorkshops,
@@ -34,10 +37,16 @@ import { Establishment } from '../../libs/establishment/types';
 import {
   createOrUpdate as createOrUpdatePaymentPack,
   fetchOne as fetchPaymentPack,
+  fetchAllPaymentPackCategory,
 } from '../../libs/payment-packs/actions';
+
 import withTitle from '../../hocs/with-title.hoc';
 import type { SCT, MetaActivity } from '../../api/types';
 import { fetchVideoFilterableParams as fetchVideoFilterableParamsAction } from '../../libs/video/actions';
+import type {
+  PaymentPack,
+  PaymentPackCategory,
+} from '../../libs/payment-packs/types';
 
 type Props = {
   loading: boolean,
@@ -56,6 +65,8 @@ type Props = {
   fetchMetaActivityBulk: (Array<number>) => void,
   fetchVideoFilterableParams: (params: any) => void,
   videoSCTs: Array<number>,
+  fetchAllPaymentPackCategory: () => void,
+  paymentPackCategories: Array<PaymentPackCategory>,
 };
 
 export class PaymentPackFormPage extends React.Component<Props> {
@@ -69,6 +80,7 @@ export class PaymentPackFormPage extends React.Component<Props> {
     this.props.fetchAllActivities({ customer_enabled: true });
     this.props.fetchWorkhops();
     this.props.fetchVideoFilterableParams({ mine: true });
+    this.props.fetchAllPaymentPackCategory();
   }
 
   render() {
@@ -82,6 +94,7 @@ export class PaymentPackFormPage extends React.Component<Props> {
       onCancel,
       initial,
       paymentPackId,
+      paymentPackCategories,
     } = this.props;
 
     if (loading || (!!paymentPackId && !initial)) {
@@ -109,6 +122,7 @@ export class PaymentPackFormPage extends React.Component<Props> {
             <PaymentPackForm
               onSubmit={onSubmit}
               categories={filterableCategories || []}
+              paymentPackCategories={paymentPackCategories}
               metaActivities={metaActivities}
               establishments={establishments}
               loading={loading}
@@ -155,6 +169,7 @@ export default compose(
         establishments: getAllEstablishments(state),
         loading: state.paymentPack.loading,
         videoSCTs: uniqBy(state.video.filterableParams.items.SCTs, 'id'),
+        paymentPackCategories: getAllPaymentPackCategory(state),
       };
     },
     {
@@ -166,6 +181,7 @@ export default compose(
       createOrUpdate: createOrUpdatePaymentPack,
       push: pushRouter,
       fetchVideoFilterableParams: fetchVideoFilterableParamsAction,
+      fetchAllPaymentPackCategory,
     },
   ),
   withProps(({ createOrUpdate, push }) => ({

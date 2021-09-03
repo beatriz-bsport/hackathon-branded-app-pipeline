@@ -325,6 +325,10 @@ exports.default = {
           helperText: 'Un accompte de {{value}}€ sera appliqué pour ce membre',
         },
       },
+      category: {
+        label: 'Catégorie (facultatif)',
+        helperText: 'Nom de la catégorie',
+      },
     },
   },
   details: {
@@ -436,5 +440,28 @@ exports.default = {
     listItemDate: 'Expirant entre le {{ minDate }} et le {{ maxDate }}',
     createdAt: 'Ajouté le {{date}}',
     listItemNbDays: '+{{nbDays}} jours',
+  },
+  category: {
+    add: 'Ajouter une categorie',
+    form: {
+      dialog: {
+        name: 'Nom de la catégorie',
+        titleNew: 'Nouvelle catégorie',
+        titleEdit: 'Catégorie',
+        helper:
+          'Les catégories apparaitront sur la marketplace et l’application mobile pour les cartes disponibles à la vente.',
+      },
+    },
+    popover: {
+      edit: 'Renommer',
+      delete: 'Supprimer',
+    },
+    deleteModal: {
+      title: 'Suppression',
+      content:
+        "Êtes-vous sûr de vouloir supprimer cette catégorie ? Tous les éléments qu'elle contient seront placés dans la section des cartes de cours non catégorisées",
+      cancel: 'Annuler',
+      confirm: 'Confirmer',
+    },
   },
 };

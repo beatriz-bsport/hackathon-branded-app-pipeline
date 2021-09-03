@@ -232,6 +232,20 @@ exports.default = {
       success: 'Carte de cours enregistrée',
       fail: "Erreur lors de l'enregistrement de la carte",
     },
+    category: {
+      update: {
+        success: 'Categorie modifée avec succès',
+        error: 'Impossible de modifier la catégorie',
+      },
+      create: {
+        success: 'Nouvelle catégorie créée avec succès',
+        error: 'Impossible de créer cette catégorie',
+      },
+      delete: {
+        success: 'Catégorie supprimée',
+        error: 'Impossible de supprimer la catégorie',
+      },
+    },
   },
   paymentMethod: {
     detach: {

@@ -8,6 +8,7 @@ import type { State } from '../../state/types';
 import { getSCTs } from '../category/selectors';
 import { getAllEstablishmentsDict as getEstablishmentData } from '../establishment/selectors';
 import { getMetaActivityAbstractDict as getMetaActivityData } from '../meta-activity/selectors';
+import type { PaymentPack, PaymentPackCategory } from './types';
 
 export const getPaymentPackById = (state: State): Array<PaymentPack> =>
   state.paymentPack.byId;
@@ -18,6 +19,21 @@ export const getPaymentPack = (state: State, id: number): PaymentPack =>
 export const getPaymentPackAllIds = (state: State): Array<PaymentPack> =>
   state.paymentPack.allIds;
 
+export const getPaymentPackCategoryById = (state: State): PaymentPackCategory =>
+  state.paymentPack.paymentPackCategory.byId;
+
+export const getPaymentPackCategoryAllIds = (state: State): Array<number> =>
+  state.paymentPack.paymentPackCategory.allIds;
+
+export const getPaymentPackCategory = createSelector(
+  [getPaymentPackCategoryById, (_, id: number) => id],
+  (categoryDict, paymentPackId) => categoryDict[paymentPackId],
+);
+
+export const getAllPaymentPackCategory = createSelector(
+  [getPaymentPackCategoryAllIds, getPaymentPackCategoryById],
+  (idList, categoryData) => idList.map((id) => categoryData[id]),
+);
 export const getAll = createSelector(
   [getPaymentPackById, getPaymentPackAllIds],
   (paymentPacks, idList) => idList.map((id) => paymentPacks[id]),
@@ -179,3 +195,43 @@ export default {
   getActivityCompatiblePaymentPacks,
   getPaymentPackNotifications,
 };
+
+export const getPaymentPackUnCategoryWithPaymentPacks = (
+  enabledPaymentPackSelector: any,
+) =>
+  createSelector([enabledPaymentPackSelector], (enabledPackList) => {
+    return {
+      publicPacks: enabledPackList.filter(
+        (pack) => !pack.category && !pack.manager_only,
+      ),
+      managerPacks: enabledPackList.filter(
+        (pack) => !pack.category && !!pack.manager_only,
+      ),
+    };
+  });
+
+export const getPaymentPackCategoryWithPaymentPacks = (
+  enabledPaymentPackSelector: any,
+) =>
+  createSelector(
+    [
+      getPaymentPackCategoryAllIds,
+      getPaymentPackCategoryById,
+      enabledPaymentPackSelector,
+    ],
+    (categoryIdList, categoryData, enabledPackList) => {
+      return categoryIdList.map((catId) => {
+        return categoryData
+          ? {
+              ...categoryData[catId],
+              publicPacks: enabledPackList.filter(
+                (pack) => pack.category === catId && !pack.manager_only,
+              ),
+              managerPacks: enabledPackList.filter(
+                (pack) => pack.category === catId && pack.manager_only,
+              ),
+            }
+          : {};
+      });
+    },
+  );

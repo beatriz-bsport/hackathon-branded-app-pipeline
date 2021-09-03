@@ -29,7 +29,7 @@ import {
 
 import { Moment } from '../../../i18n';
 import { DATE_FORMAT } from '../../../utils/datetime';
-
+import type { PaymentPackCategory } from '../types';
 import {
   PriceField,
   TextField,
@@ -42,6 +42,7 @@ import {
   CheckboxField,
   IntegerField,
 } from '../../../components/forms';
+import PaymentPackCategorySelector from './category/PaymentPackCategorySelector.component';
 
 type Props = {
   categories: *[],
@@ -54,6 +55,8 @@ type Props = {
   classes: { [string]: string },
   onCancel: ?() => void,
   onCancelText: ?string,
+  paymentPackCategories: Array<PaymentPackCategory>,
+  setFieldValue: (field_indentifier: string, value: string | null) => void,
 };
 
 /*
@@ -80,6 +83,7 @@ export function PaymentPackForm(props: Props) {
     isSubmitting,
     initial,
     classes,
+    paymentPackCategories,
   } = props;
   const {
     manager_only,
@@ -94,6 +98,7 @@ export function PaymentPackForm(props: Props) {
     penalty_days_blocked,
     penalty_account_value,
     full_vod_access,
+    category,
   } = values;
   return (
     <div>
@@ -107,6 +112,19 @@ export function PaymentPackForm(props: Props) {
               required
               fullWidth
               helperText={t('form.paymentPack.name.helperText')}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <PaymentPackCategorySelector
+              packPackCategoryList={paymentPackCategories}
+              value={props.values.category}
+              nullCurrentValue={!!category}
+              onChange={(item: { value: number, label: string }) =>
+                props.setFieldValue('category', item ? item.value : null)
+              }
+              isClearable
+              closeMenuOnSelect
+              noMulti
             />
           </Grid>
           {!editable && (
@@ -476,9 +494,9 @@ export function PaymentPackForm(props: Props) {
                 id="select_pass_category"
                 label={t('form.paymentPack.sports')}
                 helperText={t('form.paymentPack.noneMeansAll')}
-                choices={categories.map((category) => ({
-                  id: category.id,
-                  optionLabel: category.name,
+                choices={categories.map((cat) => ({
+                  id: cat.id,
+                  optionLabel: cat.name,
                 }))}
               />
             </Grid>
@@ -715,6 +733,7 @@ export default compose(
         'penalty_kind',
         'penalty_days_blocked',
         'penalty_account_value',
+        'category',
       ];
       const data = _.pick(values, keys);
 

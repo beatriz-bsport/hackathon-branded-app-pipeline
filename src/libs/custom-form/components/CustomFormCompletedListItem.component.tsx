@@ -11,13 +11,12 @@ type OwnProps = {
   customFormFilled: CustomFormFilled;
 };
 type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
-export const CustomFormFilledListItem = (props: Props) => {
+export const CustomFormCompletedListItem = (props: Props) => {
   const { classes } = props;
   return (
     <ListItem
       divider
       button
-      selected={props.selected}
       onClick={() => props.onClick(props.customFormFilled.id)}
     >
       <div className={classes.fullwidth}>
@@ -41,5 +40,5 @@ const styles = () => ({
   },
 });
 export default compose<any, OwnProps>(withStyles(styles))(
-  CustomFormFilledListItem,
+  CustomFormCompletedListItem,
 );

@@ -60,8 +60,9 @@ export class MarketplaceCustomForm extends React.Component<Props, State> {
   componentDidUpdate(prevProps: Props) {
     if (
       this.props.activeMemberShip &&
-      prevProps.activeMemberShip.company !==
-        this.props.activeMemberShip.company &&
+      (!prevProps.activeMemberShip ||
+        prevProps.activeMemberShip.company !==
+          this.props.activeMemberShip.company) &&
       !this.props.customFormWithEnabledField
     ) {
       this.props.fetchCustomForm({

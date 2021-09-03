@@ -125,11 +125,9 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
     this.props.fetchEstablishmentFavorite(this.props.membership.company);
     this.props.fetchMetaActivityFavorite(this.props.membership.company);
 
-    this.props.fetchBookingOptionAsConsumer(this.props.membership.company, {
-      min_date: moment().format('YYYY-MM-DD'),
-    });
     this.props.fetchInvoiceListUnpaid();
     this.props.fetchMember(this.props.membership.id);
+    this.fetchBookingOption();
   }
 
   refreshDebtStatus = () => {
@@ -139,6 +137,25 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
 
   goToInvoice = (uuid: string, invoice: Invoice) => {
     window.open(invoice.stripe_invoice_pdf);
+  };
+
+  fetchBookingOption = () => {
+    this.props.fetchBookingOptionAsConsumer(this.props.membership.company, {
+      min_date: moment().format('YYYY-MM-DD'),
+    });
+  };
+
+  cancelBookingOption = (options: OptionCallback) => {
+    this.props.cancelBookingOption(this.props.optionToCancel, null, {
+      onSuccess: () => {
+        this.props.setOptionToCancel(null);
+        this.fetchBookingOption();
+        if (options && options.onSuccess) {
+          options.onSuccess();
+        }
+      },
+      onError: options && options.onError,
+    });
   };
 
   onDiscardBooking = (id: number, dialogOptions: OptionCallback) => {
@@ -246,7 +263,7 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
         <BookingOptionCancelDialog
           open={this.props.optionToCancel}
           onCancel={() => this.props.setOptionToCancel(null)}
-          onSubmit={this.props.cancelBookingOption}
+          onSubmit={this.cancelBookingOption}
         />
         <BookingCancellationDialog
           open={this.props.bookingToCancel}
@@ -405,11 +422,6 @@ const withStateHandlersSetter = {
 };
 
 const mapWithHandlers = {
-  cancelBookingOption: (props: OwnConnectedStateHandlerProps) => () => {
-    props.cancelBookingOption(props.optionToCancel, null, {
-      onSuccess: () => props.setOptionToCancel(null),
-    });
-  },
   confirmBookingOption: (props: OwnConnectedStateHandlerProps) => (
     offerId: number,
     optionId: number,

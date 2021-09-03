@@ -2097,7 +2097,7 @@
             "dashboard": "Dashboard",
             "calendar": "History",
             "pack": "Passes",
-            "invoice": "Invoice",
+            "invoice": "Invoices",
             "subscription": "Subscriptions",
             "profile": "Profile",
             "changeMembership": "Change studio",
@@ -3080,7 +3080,7 @@
                 "delete": "Delete"
             }
         },
-        "noPrivateConsumerPass": "There's no person who has bought this appointment pass as of yet.",
+        "noPrivateConsumerPass": "There are no members with this appointment pass to display.",
         "filters": {
             "hasCreditNull": "Without credit",
             "hasCreditLeft": "With credit",
@@ -4181,7 +4181,7 @@
                 "smartlist": "Smartlists",
                 "coupon": "Promotions",
                 "member": "Members",
-                "toolbar": "Display by"
+                "toolbar": "Display"
             },
             "tagDetail": {
                 "noTag": "Select a Sub Tag for a more detailed overview."
@@ -5734,13 +5734,13 @@
                 "explainCustomSubscriptionForm": "No i want to define a custom contract in this case"
             },
             "description": "Description",
-            "legal": "Legal Notice",
+            "legal": "Legal notice",
             "actions": {
-                "iAcceptCondition": "I accept the Legal Notice.",
+                "iAcceptCondition": "I accept the legal notice.",
                 "iwanttostarton": "The start date of my subscription: ",
                 "subscribe": "Subscribe",
                 "create": "Add a contract",
-                "iAcceptGeneralCondition": " I accept the Legal Notice."
+                "iAcceptGeneralCondition": " I accept the legal notice."
             },
             "duration": "{{month}} bills",
             "list": {
@@ -5771,7 +5771,7 @@
                     "label": "Recurring payment"
                 },
                 "contract": {
-                    "label": "Legal Notice.",
+                    "label": "legal notice.",
                     "placeholder": "Enter here all legal terms and conditions (refund etc...)."
                 },
                 "flat_fee": {
@@ -6010,7 +6010,7 @@
             "subscribedOn": "Subscription started on {{- date}}"
         },
         "noAssociatedSubscription": "No subscription registered yet",
-        "associatedSubscriptions": "Subscriptions associated with this contract",
+        "associatedSubscriptions": "Subscribed members",
         "status": {
             "hasEnded": "Ended",
             "hasStopped": "Stopped",
@@ -6722,7 +6722,7 @@
         "boughtConsumerPaymentPacks": "Subscribers",
         "noRestrictionOnActivityType": "No restriction on activity",
         "disabled": "Disabled",
-        "noConsumerPack": "No pass registered yet",
+        "noConsumerPack": "There are no members with this pass to display.",
         "reverted": "Invoice reverted",
         "link": {
             "copied": "Link copied",

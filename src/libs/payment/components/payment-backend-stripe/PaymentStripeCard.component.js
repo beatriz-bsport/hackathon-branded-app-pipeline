@@ -37,6 +37,8 @@ type Props = {
   snackbarSuccessMsg: (msg: string) => void,
   sepaDefaultName?: string,
   sepaDefaultEmail?: string,
+  basketId?: string,
+  basketTotalPriceCts?: number,
 };
 
 const CARD_ELEMENT_OPTIONS = {

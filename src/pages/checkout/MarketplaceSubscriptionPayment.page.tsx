@@ -99,7 +99,6 @@ type Props = ConnectedProps &
   WithTranslation &
   MaterialStyleType<ReturnType<typeof styles>>;
 type State = {
-  first_billing_timestamp: string;
   processing: boolean;
 };
 export class MarketplaceSubscriptionPayment extends React.Component<
@@ -107,7 +106,6 @@ export class MarketplaceSubscriptionPayment extends React.Component<
   State
 > {
   state = {
-    first_billing_timestamp: moment().format('YYYY-MM-DD'),
     processing: false,
   };
 

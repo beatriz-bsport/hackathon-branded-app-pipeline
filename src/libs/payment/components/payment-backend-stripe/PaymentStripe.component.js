@@ -65,6 +65,9 @@ type Props = {
 
   sepaDefaultName?: string,
   sepaDefaultEmail?: string,
+
+  basketId?: string,
+  basketTotalPriceCts?: number,
 };
 
 const STRIPE_PAYMENT_METHOD_FORM_COMPONENT = {

@@ -49,6 +49,8 @@ export const PaymentStripeIdeal = (props: {
   userDefaultName?: string,
   userDefaultEmail?: string,
   loading?: boolean,
+  basketId?: string,
+  basketTotalPriceCts?: number,
 }) => {
   const stripe = useStripe();
   const elements = useElements();

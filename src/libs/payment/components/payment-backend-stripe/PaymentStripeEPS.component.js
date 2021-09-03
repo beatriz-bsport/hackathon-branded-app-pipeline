@@ -14,6 +14,8 @@ export const PaymentStripeEPS = (props: {
   clientSecret: string,
   onCancel: () => void,
   forceDisabled?: boolean,
+  basketId?: string,
+  basketTotalPriceCts?: number,
 }) => {
   const stripe = useStripe();
   const elements = useElements();

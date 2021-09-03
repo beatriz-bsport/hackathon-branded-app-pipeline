@@ -16,6 +16,8 @@ export const PaymentStripeGiropay = (props: {
   onCancel: () => void,
   forceDisabled?: boolean,
   userDefaultName?: string,
+  basketId?: string,
+  basketTotalPriceCts?: number,
 }) => {
   const stripe = useStripe();
   const elements = useElements();

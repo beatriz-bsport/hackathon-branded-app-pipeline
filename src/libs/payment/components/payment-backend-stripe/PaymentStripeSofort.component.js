@@ -20,6 +20,8 @@ type Props = {
   userDefaultName?: string,
   userDefaultEmail?: string,
   loading?: boolean,
+  basketId?: string,
+  basketTotalPriceCts?: number,
 };
 
 export const PaymentStripeSofort = (props: Props) => {

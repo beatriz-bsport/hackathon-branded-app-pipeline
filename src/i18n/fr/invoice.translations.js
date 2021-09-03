@@ -177,6 +177,8 @@ exports.default = {
       showInvoice: 'Voir la facture',
       saveForLater: 'Sauvegarder ce moyen de paiement',
       saveForLaterAsSEPA: 'Le mandat sera enregistré en tant que "SEPA"',
+      basketInconsistent:
+        "Votre panier a été modifié, veuillez rafraichir votre page avant de valider votre paiement.\n Vous n'avez pas été débité.",
     },
     paymentList: {
       title: 'Paiements',

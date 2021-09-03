@@ -89,3 +89,7 @@ export const updatePaymentGroupPriceCts = async (
     price_cts,
   });
 };
+
+export const verifyPriceBasket = async (basketId: string) => {
+  return postAuth(`${API_V1_URI}/checkout/basket/${basketId}/verify_price/`);
+};

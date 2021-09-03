@@ -290,8 +290,10 @@ export class BasketPage extends React.Component<Props> {
               validateUnpaid={this.validateUnpaid}
               paymentModule={
                 <PaymentStripe
-                  laoding={this.props.loading || this.props.processing}
+                  loading={this.props.loading || this.props.processing}
                   onCancel={this.backToCalendar}
+                  basketTotalPriceCts={this.props.basket?.total_price_cts}
+                  basketId={this.props.basket.id}
                   paymentMethodChoices={PAYMENT_GROUP_METHOD_BY_ENGINE[
                     PAYMENT_ENGINE_STRIPE
                   ].filter((pm) =>

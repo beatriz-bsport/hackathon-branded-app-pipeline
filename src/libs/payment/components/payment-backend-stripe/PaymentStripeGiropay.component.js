@@ -9,6 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 
+import { verifyPriceBasket as verifyPriceBasketAPI } from '../../api';
+
 export const PaymentStripeGiropay = (props: {
   clientSecret: string,
   onCancel: () => void,
@@ -37,6 +39,20 @@ export const PaymentStripeGiropay = (props: {
     }
     setProcessing(true);
     setErrorMessage(null);
+
+    if (props.basketId) {
+      const { data } = await verifyPriceBasketAPI(props.basketId);
+
+      if (
+        (!!props.basketTotalPriceCts || props.basketTotalPriceCts === 0) &&
+        props.basketTotalPriceCts !== data
+      ) {
+        setProcessing(false);
+        window.alert(t('paymentPanel.actions.basketInconsistent'));
+        window.location.reload();
+        return;
+      }
+    }
 
     const { error } = await stripe.confirmGiropayPayment(props.clientSecret, {
       payment_method: {

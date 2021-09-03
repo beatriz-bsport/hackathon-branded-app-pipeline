@@ -135,6 +135,8 @@ export const PaymentStripe = (props: Props) => {
             onError={props.onError}
             clientSecret={props.clientSecret}
             forceDisabled={priceUpdaterOpen}
+            basketTotalPriceCts={props.basketTotalPriceCts}
+            basketId={props.basketId}
             onCancel={props.onCancel}
             loading={props.loading}
             memberId={props.memberId}

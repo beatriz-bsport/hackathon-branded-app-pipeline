@@ -11,7 +11,10 @@ import Button from '@material-ui/core/Button';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import StripeErrorCode from './StripeErrorCode.component';
 import PaymentMethodList from '../PaymentMethodList.component';
-import { fetchPaymentMethodList as fetchPaymentMethodListAPI } from '../../api';
+import {
+  fetchPaymentMethodList as fetchPaymentMethodListAPI,
+  verifyPriceBasket as verifyPriceBasketAPI,
+} from '../../api';
 
 type Props = {
   memberId: number,
@@ -101,8 +104,22 @@ export const StripePaymentCard = (props: Props) => {
       // Make sure to disable form submission until Stripe has loaded.
       return;
     }
-
     props.setProcessing(true);
+
+    if (props.basketId) {
+      const { data } = await verifyPriceBasketAPI(props.basketId);
+
+      if (
+        (!!props.basketTotalPriceCts || props.basketTotalPriceCts === 0) &&
+        props.basketTotalPriceCts !== data
+      ) {
+        props.setProcessing(false);
+        window.alert(t('paymentPanel.actions.basketInconsistent'));
+        window.location.reload();
+        return;
+      }
+    }
+
     try {
       const result = await stripe.confirmCardPayment(props.clientSecret, {
         payment_method: paymentMethodSelected || {

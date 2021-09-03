@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Checkbox from '@material-ui/core/Checkbox';
+import { verifyPriceBasket as verifyPriceBasketAPI } from '../../api';
 
 export function PaymentStripeBancontact(props: {
   onCancel: () => void,
@@ -46,14 +47,28 @@ export function PaymentStripeBancontact(props: {
       return;
     }
 
+    setProcessing(true);
+    setErrorMessage(null);
+
+    if (props.basketId) {
+      const { data } = await verifyPriceBasketAPI(props.basketId);
+
+      if (
+        (!!props.basketTotalPriceCts || props.basketTotalPriceCts === 0) &&
+        props.basketTotalPriceCts !== data
+      ) {
+        setProcessing(false);
+        window.alert(t('paymentPanel.actions.basketInconsistent'));
+        window.location.reload();
+        return;
+      }
+    }
+
     // For brevity, this example is using uncontrolled components for
     // the accountholder's name. In a real world app you will
     // probably want to use controlled components.
     // https://reactjs.org/docs/uncontrolled-components.html
     // https://reactjs.org/docs/forms.html#controlled-components
-
-    setProcessing(true);
-    setErrorMessage(null);
 
     const { error } = await stripe.confirmBancontactPayment(
       props.clientSecret,

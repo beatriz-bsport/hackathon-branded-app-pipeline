@@ -14,6 +14,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Checkbox from '@material-ui/core/Checkbox';
 
+import { verifyPriceBasket as verifyPriceBasketAPI } from '../../api';
+
 const IDEAL_ELEMENT_OPTIONS = {
   // Custom styling can be passed to options when creating an Element
   style: {
@@ -67,6 +69,20 @@ export const PaymentStripeIdeal = (props: {
     event.preventDefault();
     setProcessing(true);
     setErrorMessage(null);
+
+    if (props.basketId) {
+      const { data } = await verifyPriceBasketAPI(props.basketId);
+
+      if (
+        (!!props.basketTotalPriceCts || props.basketTotalPriceCts === 0) &&
+        props.basketTotalPriceCts !== data
+      ) {
+        setProcessing(false);
+        window.alert(t('paymentPanel.actions.basketInconsistent'));
+        window.location.reload();
+        return;
+      }
+    }
 
     if (!stripe || !elements) {
       // Stripe has not yet loaded.

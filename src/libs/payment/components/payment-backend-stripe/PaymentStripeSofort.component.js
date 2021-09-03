@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useStripe, useElements } from '@stripe/react-stripe-js';
 import Checkbox from '@material-ui/core/Checkbox';
 import CountrySelector from '../../../../components/input/CountrySelector.component';
+import { verifyPriceBasket as verifyPriceBasketAPI } from '../../api';
 
 type Props = {
   clientSecret: ?string,
@@ -38,12 +39,26 @@ export const PaymentStripeSofort = (props: Props) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    setProcessing(true);
-    setErrorMessage(null);
-
     if (!stripe || !elements) {
       // Stripe has not yet loaded.
       return;
+    }
+
+    setProcessing(true);
+    setErrorMessage(null);
+
+    if (props.basketId) {
+      const { data } = await verifyPriceBasketAPI(props.basketId);
+
+      if (
+        (!!props.basketTotalPriceCts || props.basketTotalPriceCts === 0) &&
+        props.basketTotalPriceCts !== data
+      ) {
+        setProcessing(false);
+        window.alert(t('paymentPanel.actions.basketInconsistent'));
+        window.location.reload();
+        return;
+      }
     }
 
     const { error } = await stripe.confirmSofortPayment(props.clientSecret, {

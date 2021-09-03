@@ -8,6 +8,7 @@ import TextInput from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
+import { verifyPriceBasket as verifyPriceBasketAPI } from '../../api';
 
 export const PaymentStripeEPS = (props: {
   clientSecret: string,
@@ -28,7 +29,6 @@ export const PaymentStripeEPS = (props: {
     // We don't want to let default form submission happen here,
     // which would refresh the page.
     event.preventDefault();
-
     if (!stripe || !elements) {
       // Stripe has not yet loaded.
       // Make sure to disable form submission until Stripe has loaded.
@@ -37,6 +37,20 @@ export const PaymentStripeEPS = (props: {
 
     setProcessing(true);
     setErrorMessage(null);
+
+    if (props.basketId) {
+      const { data } = await verifyPriceBasketAPI(props.basketId);
+
+      if (
+        (!!props.basketTotalPriceCts || props.basketTotalPriceCts === 0) &&
+        props.basketTotalPriceCts !== data
+      ) {
+        setProcessing(false);
+        window.alert(t('paymentPanel.actions.basketInconsistent'));
+        window.location.reload();
+        return;
+      }
+    }
 
     // For brevity, this example is using uncontrolled components for
     // the accountholder's name. In a real world app you will

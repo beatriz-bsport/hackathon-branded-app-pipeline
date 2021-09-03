@@ -15,7 +15,10 @@ import Checkbox from '@material-ui/core/Checkbox';
 import StripeErrorCode from './StripeErrorCode.component';
 
 import PaymentMethodList from '../PaymentMethodList.component';
-import { fetchPaymentMethodList as fetchPaymentMethodListAPI } from '../../api';
+import {
+  fetchPaymentMethodList as fetchPaymentMethodListAPI,
+  verifyPriceBasket as verifyPriceBasketAPI,
+} from '../../api';
 
 // Custom styling can be passed as options when creating an Element.
 const IBAN_STYLE = {
@@ -162,15 +165,28 @@ export const PaymentStripeSEPA = (props: Props) => {
   });
 
   const handleSubmit = async (event) => {
+    if (!stripe || !elements) {
+      // Stripe has not yet loaded.
+      // Make sure to disable form submission until Stripe has loaded.
+      return;
+    }
     setProcessing(true);
     // We don't want to let default form submission happen here,
     // which would refresh the page.
     event.preventDefault();
 
-    if (!stripe || !elements) {
-      // Stripe has not yet loaded.
-      // Make sure to disable form submission until Stripe has loaded.
-      return;
+    if (props.basketId) {
+      const { data } = await verifyPriceBasketAPI(props.basketId);
+
+      if (
+        (!!props.basketTotalPriceCts || props.basketTotalPriceCts === 0) &&
+        props.basketTotalPriceCts !== data
+      ) {
+        setProcessing(false);
+        window.alert(t('paymentPanel.actions.basketInconsistent'));
+        window.location.reload();
+        return;
+      }
     }
 
     const iban = elements.getElement(IbanElement);

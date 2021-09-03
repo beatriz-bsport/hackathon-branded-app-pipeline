@@ -137,9 +137,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
     Analytics.contractShowPayment(this.props.contractId);
     this.setState({ processing: true });
     try {
-      const first_billing_timestamp = moment(
-        this.state.first_billing_timestamp,
-      ).unix();
+      const first_billing_timestamp = moment(this.props.date).unix();
       await postContractSubscriptionAPI(this.props.contractId, {
         payment_method_id,
         first_billing_timestamp,

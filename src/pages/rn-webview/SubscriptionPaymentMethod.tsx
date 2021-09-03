@@ -6,6 +6,7 @@ import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
+import { PAYMENT_ENGINE_STRIPE } from '@bsport/common/lib/master-data/payment-group';
 
 import withStyles from '@material-ui/styles/withStyles';
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
@@ -66,9 +67,8 @@ class SubscriptionPaymentMethod extends React.PureComponent<Props, State> {
     window.ReactNativeWebView.postMessage(JSON.stringify({ status: 'cancel' }));
   };
 
-  requestSetupIntentSecret = () => {
+  requestSetupIntentSecret = () =>
     requestSetupIntentSecretAPI(null, this.props.query.company);
-  };
 
   render() {
     /**
@@ -109,8 +109,9 @@ class SubscriptionPaymentMethod extends React.PureComponent<Props, State> {
     this.props.switchSubscriptionPaymentMethod(
       this.props.subscription,
       {
-        source: source || payment_method_id,
-        payment_method_identifier: BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+        is_v2: true,
+        payment_method_id: source || payment_method_id,
+        payment_engine: PAYMENT_ENGINE_STRIPE,
       },
       {
         onSuccess: () => {
@@ -134,6 +135,7 @@ const styles = (theme) => ({
   container: {
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
+    width: '100%',
   },
 });
 

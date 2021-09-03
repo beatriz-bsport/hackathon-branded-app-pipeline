@@ -292,13 +292,9 @@ const mapWithHandlers = {
       member,
       type,
       options: {
-        onSuccess: ({ allObj }) => {
-          const bookings = allObj
-            .filter((bAndP) => bAndP.type === 'booking' && bAndP.booking)
-            .map((b) => b.booking);
-
+        onSuccess: (allObj) => {
           props.fetchOfferBulk(
-            bookings.map((b) => b.offer),
+            allObj.booking.results.map((b) => b.offer),
             {
               // @ts-ignore
               onSuccess: (offerList) => {

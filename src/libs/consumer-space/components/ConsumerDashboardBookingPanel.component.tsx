@@ -9,6 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Theme } from '@material-ui/core';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import Divider from '@material-ui/core/Divider';
 
 // @ts-ignore
 import BookingConsumerItem from '../../booking/components/BookingConsumerItem.component';
@@ -152,19 +154,23 @@ export class ConsumerDashboardBookingPanel extends React.PureComponent<Props> {
     return (
       <div className={this.props.classes.container}>
         {this.props.hideTitle !== true && (
-          <Typography
-            variant="h4"
-            component="h3"
-            className={this.props.classes.sectionTitle}
-            color="textSecondary"
-          >
-            {this.props.t('dashboard.nextBookingTitle')}
-          </Typography>
+          <>
+            <Typography
+              variant="h4"
+              component="h3"
+              className={this.props.classes.sectionTitle}
+              color="textSecondary"
+            >
+              {this.props.t('dashboard.nextBookingTitle')}
+            </Typography>
+            <Divider className={this.props.classes.divider} />
+          </>
         )}
         {!this.props.bookingsAndPrivateBookings.length &&
         !this.props.loading ? (
           <div className={this.props.classes.noBookingsContainer}>
-            <Typography variant="h6" color="textSecondary">
+            <InfoOutlinedIcon fontSize="large" />
+            <Typography color="textSecondary">
               {this.props.isPast
                 ? this.props.t('widget.noBookingPast')
                 : this.props.t('widget.noBookingFuture')}
@@ -196,7 +202,12 @@ const styles = (theme: Theme) => ({
     padding: theme.spacing(2),
   },
   sectionTitle: {
-    marginBottom: theme.spacing(3),
+    marginBottom: theme.spacing(2),
+    marginLeft: theme.spacing(2),
+  },
+  divider: {
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(1),
   },
   marginTop: {
     marginTop: theme.spacing(2),
@@ -211,11 +222,14 @@ const styles = (theme: Theme) => ({
   },
   noBookingsContainer: {
     display: 'flex',
-    flex: 1,
     width: '100%',
-    height: '100%',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
+    alignItems: 'center',
+    justifyContent: 'center',
+    '&>*': {
+      margin: theme.spacing(1),
+    },
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(3),
   },
 });
 

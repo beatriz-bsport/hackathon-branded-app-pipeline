@@ -107,6 +107,7 @@ const styles = (theme) => ({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     paddingTop: theme.spacing(1),
+    marginLeft: theme.spacing(1),
     marginBottom: theme.spacing(2),
     '&>*': {
       marginRight: theme.spacing(1),

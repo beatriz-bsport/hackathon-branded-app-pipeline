@@ -466,6 +466,6 @@ export function fetchBookingsAndPrivateBookings(args: {
       dispatch(consumerBookingAndPrivateBookingError(err));
     }
 
-    await dispatch(consumerBookingAndPrivateBookingLoading(false));
+    dispatch(consumerBookingAndPrivateBookingLoading(false));
   };
 }

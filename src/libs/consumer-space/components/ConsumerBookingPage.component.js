@@ -71,7 +71,7 @@ export const ConsumerBookingPage = (props: Props) => (
     )}
     <Grid container direction="row" spacing={2}>
       <Grid item xs={12} md={6}>
-        <Typography variant="h4" component="h3">
+        <Typography variant="h4" component="h3" className={props.classes.title}>
           {props.t('booking.titleBooking')}
         </Typography>
         <Divider className={props.classes.sectionDivider} />
@@ -105,7 +105,7 @@ export const ConsumerBookingPage = (props: Props) => (
         </Paper>
       </Grid>
       <Grid item xs={12} md={6}>
-        <Typography variant="h4" component="h3">
+        <Typography variant="h4" component="h3" className={props.classes.title}>
           {props.t('booking.titlePrivateBooking')}
         </Typography>
         <Divider className={props.classes.sectionDivider} />
@@ -139,6 +139,10 @@ export const ConsumerBookingPage = (props: Props) => (
 );
 
 const styles = (theme) => ({
+  title: {
+    marginLeft: theme.spacing(2),
+    marginTop: theme.spacing(2),
+  },
   sectionDivider: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(2),

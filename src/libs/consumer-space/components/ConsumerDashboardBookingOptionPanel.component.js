@@ -5,6 +5,7 @@ import { compose } from 'recompose';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 
 import BookingOptionConsumerItem from '../../waiting-list/components/BookingOptionConsumerItem.component';
 
@@ -29,6 +30,7 @@ export class ConsumerDashboardBookingOptionPanel extends React.PureComponent<Pro
             >
               {this.props.t('dashboard.optionTitle')}
             </Typography>
+            <Divider className={this.props.classes.divider} />
             {this.props.bookingOptionList.map((bo) => (
               <BookingOptionConsumerItem
                 confirmBookingOption={() =>
@@ -50,7 +52,12 @@ export class ConsumerDashboardBookingOptionPanel extends React.PureComponent<Pro
 const styles = (theme) => ({
   container: {},
   sectionTitle: {
-    marginBottom: theme.spacing(3),
+    marginBottom: theme.spacing(2),
+    marginLeft: theme.spacing(1),
+  },
+  divider: {
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(1),
   },
 });
 

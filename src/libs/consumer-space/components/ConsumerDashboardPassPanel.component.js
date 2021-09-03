@@ -8,6 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import Divider from '@material-ui/core/Divider';
 import ConsumerPackRowItem from '../../consumer-payment-pack/components/ConsumerPackRowItem.component';
 import PrivateConsumerPassBookerListItem from '../../private-service/components/booking-module/PrivateConsumerPassBookerListItem.component';
 
@@ -32,6 +33,7 @@ export class ConsumerDashboardPassPanel extends React.PureComponent<Props> {
         >
           {this.props.t('dashboard.currentPassTitle')}
         </Typography>
+        <Divider className={this.props.classes.divider} />
         {this.props.consumerPackList.length === 0 &&
         this.props.privateConsumerPassList &&
         (this.props.consumerPackLoading ||
@@ -73,7 +75,12 @@ export class ConsumerDashboardPassPanel extends React.PureComponent<Props> {
 
 const styles = (theme) => ({
   sectionTitle: {
-    marginBottom: theme.spacing(3),
+    marginBottom: theme.spacing(2),
+    marginLeft: theme.spacing(2),
+  },
+  divider: {
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(1),
   },
   loading: {
     width: '100%',

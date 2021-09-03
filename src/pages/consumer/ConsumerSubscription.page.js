@@ -88,7 +88,7 @@ export class ConsumerSubscription extends React.Component<Props> {
   };
 
   renderButton = () => {
-    if (!this.props.hideButtonOnWidget || WidgetUtils.isWidget()) {
+    if (!this.props.hideButtonOnWidget && !WidgetUtils.isWidget()) {
       return (
         <Button
           onClick={() =>
@@ -116,7 +116,9 @@ export class ConsumerSubscription extends React.Component<Props> {
         {!this.props.subscriptionLoading &&
         (this.props.subscriptionList ||
           this.props.subscriptionList.length === 0) ? (
-          <Typography>{this.props.t('subscription.isEmpty')}</Typography>
+          <Typography className={this.props.classes.paddedContent}>
+            {this.props.t('subscription.isEmpty')}
+          </Typography>
         ) : null}
         {this.props.subscriptionList.map((sub) => (
           <SubscriptionListItem
@@ -181,6 +183,9 @@ const styles = (theme) => ({
   },
   iconLeft: {
     marginRight: theme.spacing(1),
+  },
+  paddedContent: {
+    margin: theme.spacing(2),
   },
 });
 

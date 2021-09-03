@@ -81,7 +81,11 @@ export class ConsumerPack extends React.Component<Props> {
           </div>
         )}
         <Grid item xs={12} lg={6}>
-          <Typography variant="h4" component="h3">
+          <Typography
+            variant="h4"
+            component="h3"
+            className={this.props.classes.title}
+          >
             {this.props.t('pack.titlePaymentPack')}
           </Typography>
           <Divider className={this.props.classes.sectionDivider} />
@@ -113,7 +117,11 @@ export class ConsumerPack extends React.Component<Props> {
           </Paper>
         </Grid>
         <Grid item xs={12} lg={6}>
-          <Typography variant="h4" component="h3">
+          <Typography
+            variant="h4"
+            component="h3"
+            className={this.props.classes.title}
+          >
             {this.props.t('pack.titlePrivatePack')}
           </Typography>
           <Divider className={this.props.classes.sectionDivider} />
@@ -139,6 +147,10 @@ export class ConsumerPack extends React.Component<Props> {
 }
 
 const styles = (theme) => ({
+  title: {
+    marginLeft: theme.spacing(2),
+    marginTop: theme.spacing(2),
+  },
   sectionDivider: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(2),

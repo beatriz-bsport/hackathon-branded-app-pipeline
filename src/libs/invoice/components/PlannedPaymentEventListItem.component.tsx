@@ -22,7 +22,7 @@ import {
   PLANNED_PAYMENT_EVENT_STATUS_CANCELED,
   PLANNED_PAYMENT_EVENT_STATUS_PENDING,
 } from '@bsport/common/lib/master-data/planned-payment-event';
-import { PlannedPaymentEvent } from '../types';
+import { PlannedPaymentEvent, Invoice } from '../types';
 
 type Props = {
   invoice: Invoice;

@@ -33,6 +33,8 @@ import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../li
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 
+import { WidgetUtils } from '../../libs/widget/WidgetUtils';
+
 import type { Subscription } from '../../libs/subscription/types';
 import type { Membership } from '../../libs/membership/types';
 import { fetchMember } from '../../libs/member/actions';
@@ -86,7 +88,7 @@ export class ConsumerSubscription extends React.Component<Props> {
   };
 
   renderButton = () => {
-    if (!this.props.hideButtonOnWidget) {
+    if (!this.props.hideButtonOnWidget || WidgetUtils.isWidget()) {
       return (
         <Button
           onClick={() =>

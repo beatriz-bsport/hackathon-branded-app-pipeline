@@ -458,7 +458,7 @@ export function fetchBookingsAndPrivateBookings(args: {
       };
 
       await dispatch(consumerBookingAndPrivateBookingSuccess(payload));
-      if (args.options && args.options && args.options.onSuccess) {
+      if (args.options && args.options.onSuccess) {
         args.options.onSuccess(payload);
       }
     } catch (err) {

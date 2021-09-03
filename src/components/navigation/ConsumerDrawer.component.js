@@ -355,11 +355,13 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         } `,
         text: t('navigation.calendar'),
       },
-      {
-        to: '/vod/',
-        icon: VideoLibrary,
-        text: t('navigation.myVideos'),
-      },
+      this.props.hasMultipleMembership && !WidgetUtils.isWidget()
+        ? {
+            to: '/vod/',
+            icon: VideoLibrary,
+            text: t('navigation.myVideos'),
+          }
+        : null,
       {
         to: '/pack/',
         icon: VpnKey,

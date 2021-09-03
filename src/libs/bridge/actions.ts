@@ -117,6 +117,7 @@ export const handleBridgeMessage = (eventData: any) => (dispatch: any) => {
       break;
 
     case WidgetMessageType.RESPONSE_PAYMENT_SUCCESS:
+    case WidgetMessageType.PAYMENT_SUCCESS:
       dispatch(closeUserInteractionPortal());
       dispatch(refreshVODRequestAccessFlagAction());
       dispatch(snackbarSuccess('snackbar:consumerPass.success'));

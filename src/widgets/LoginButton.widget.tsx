@@ -51,7 +51,7 @@ class LoginButton extends Component<Props> {
           disabled={this.props.authenticationLoading}
         >
           <PersonIcon fontSize="small" style={{ marginRight: 8 }} />
-          {this.props.t('navigation:backofficeMenu.consumer.myAccount')}
+          {this.props.t('LOGIN')}
         </Button>
         {this.props.authenticated && !this.props.authenticationLoading && (
           <Button onClick={this.props.bridgeRequestLogout} size="small">

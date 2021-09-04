@@ -97,6 +97,7 @@ export default withTranslation([
     selectOption,
     isClearable,
     associatedCoachOutput,
+    isLoading,
   }) => (
     <Select
       closeMenuOnSelect={closeMenuOnSelect}
@@ -116,6 +117,7 @@ export default withTranslation([
             )
           : undefined
       }
+      isLoading={isLoading}
     />
   ),
 );

@@ -7,7 +7,7 @@ import {
   deleteAuth,
   buildUrlParams,
 } from '../../http';
-import type { establishmentAddressInput } from './types';
+import type { establishmentAddressInput, EstablishmentGroup } from './types';
 
 export async function addEstablishment(data: any) {
   return postAuth(`${API_URI}/saas/establishments/add`, data);
@@ -58,6 +58,33 @@ export async function fetchEstablishmentFavorite(company: number) {
   );
 }
 
+export async function fetchAllEstablishmentGroup(companyId?: number) {
+  if (companyId) {
+    return getAuth(
+      `${API_V1_URI}/establishment-group/${buildUrlParams({ companyId })}`,
+    );
+  }
+  return getAuth(`${API_V1_URI}/establishment-group/`);
+}
+
+export async function createEstablishmentGroup(
+  establishmentGroup: EstablishmentGroup,
+) {
+  return postAuth(`${API_V1_URI}/establishment-group/`, establishmentGroup);
+}
+export async function updateEstablishmentGroup(
+  establishmentGroup: EstablishmentGroup,
+) {
+  return putAuth(
+    `${API_V1_URI}/establishment-group/${establishmentGroup.id}/`,
+    establishmentGroup,
+  );
+}
+export async function deleteEstablishmentGroup(establishmentGroupId: number) {
+  return deleteAuth(
+    `${API_V1_URI}/establishment-group/${establishmentGroupId}`,
+  );
+}
 export default {
   addEstablishment,
   updateEstablishment,

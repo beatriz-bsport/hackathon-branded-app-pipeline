@@ -70,9 +70,9 @@ exports.default = {
     unGroup: 'Aucun',
 
     datatype: {
-      establishment: 'Lieux',
+      establishment: 'Salle',
       coach: 'Professeur',
-      associated_establishment: 'Lieux',
+      associated_establishment: 'Salle',
       associated_coach: 'Professeur',
       private_service: 'Général',
     },
@@ -212,7 +212,7 @@ exports.default = {
     delete: {
       title: 'Désinscription de la salle',
       explain:
-        'Êtes-vous sûr de vouloir modifier le lieu de ce RDV ? Sans établissement il sera considéré comme un RDV à domicile et les élèves devront rentrer leur adresse pour terminer la réservation. Les réservations déjà enregistrées ne seront pas affectées.',
+        'Êtes-vous sûr de vouloir modifier le lieu de ce RDV ? Sans salle il sera considéré comme un RDV à domicile et les élèves devront rentrer leur adresse pour terminer la réservation. Les réservations déjà enregistrées ne seront pas affectées.',
       cancel: 'Annuler',
       submit: 'Confirmer',
     },
@@ -607,7 +607,7 @@ exports.default = {
         },
         isWithEstablishment: {
           isEmpty: 'Aucune salle configurée !',
-          label: "Dans l'un de vos établissements",
+          label: "Dans l'une de vos salles",
           helperText:
             'La réservation ne sera possible que si la salle dispose de suffisamment de places libres',
         },

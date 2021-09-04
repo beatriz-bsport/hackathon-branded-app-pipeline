@@ -11,7 +11,7 @@ import moment from 'moment-timezone';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 import MetaActivityListItem from '../../../meta-activity/components/MetaActivityListItem.component';
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
 import Selector from '../MultiSelector.component';
@@ -84,6 +84,27 @@ export class BookingsNumberFilter extends Component<Props, state> {
       });
     }
   }
+
+  getEstablishmentGroupByAddres = (establishmentList: Array<Establishment>) => {
+    const establishmentGourpByAddress = establishmentList.reduce(
+      (accumulator, establishmentItem) => {
+        const temp = accumulator.findIndex(
+          (group) => group.identifier === establishmentItem.location.address,
+        );
+        if (temp === -1) {
+          accumulator.push({
+            identifier: establishmentItem.location.address,
+            itemsList: [establishmentItem],
+          });
+        } else {
+          accumulator[temp].itemsList.push(establishmentItem);
+        }
+        return accumulator;
+      },
+      [],
+    );
+    return establishmentGourpByAddress;
+  };
 
   render() {
     const {
@@ -271,9 +292,11 @@ export class BookingsNumberFilter extends Component<Props, state> {
               helperAllSelectedText={t(
                 'multiSelector.establishments.helperAllSelectedText',
               )}
-              renderItem={(item) => {
-                return <EstablishmentListItem establishment={item} />;
-              }}
+              groupItemsFunction={this.getEstablishmentGroupByAddres}
+              groupItemIcon={<LocationOnIcon color="primary" />}
+              renderItem={(item) => (
+                <EstablishmentListItem establishment={item} />
+              )}
               selectAll={this.props.filter_data.select_all_establishments}
               nameIdentifier="title"
               fetchItems={this.props.fetchItems.establishments}

@@ -15,6 +15,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push } from 'connected-react-router';
+import Button from '@material-ui/core/Button';
 import Map from '../../components/map/Map.component';
 import FuzeSearch from '../../components/FuzeSearch.component';
 
@@ -24,11 +25,16 @@ import withTitle from '../../hocs/with-title.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import EstablishmentListItem from '../../libs/establishment/components/EstablishmentListItem.component';
+import EstablishmentListGroupByAddress from '../../libs/establishment/components/EstablishmentListGroupByAddress.component';
 import EstablishmentDeleteDialog from '../../libs/establishment/components/EstablishmentDeleteDialog.component';
-import { Establishment } from '../../libs/establishment/types';
+import type {
+  Establishment,
+  EstablishmentListGroupByAddress as EstablishmentListGroupByAddressType,
+} from '../../libs/establishment/types';
 import {
   getAvailableEstablishmentList,
   getDisabledEstablishmentList,
+  getEstablishmentGroupByAddress,
 } from '../../libs/establishment/selectors';
 import {
   deleteEstablishment,
@@ -38,6 +44,8 @@ import {
 import { checkCanDeleteEstablishment as canDeleteEstablishmentAPI } from '../../libs/establishment/api';
 import { fetchMarketingNotificationList } from '../../libs/marketing/actions';
 import { withBookingNotification } from '../../libs/marketing/selectors';
+import themeSelectors from '../../libs/theme/selectors';
+import type { Theme as CompanyTheme } from '../../libs/theme/types';
 
 type Props = {
   loading: boolean,
@@ -57,6 +65,9 @@ type Props = {
   classes: Object,
   t: TFunction,
   fetchMarketingNotificationList: (params: any) => void,
+  establishmentGroupByAddress: EstablishmentListGroupByAddressType,
+  goToEstablishmentGroupPage: () => void,
+  companyTheme: CompanyTheme,
 };
 
 const BOOKING_CREATION_NOTIFICATION = 2;
@@ -148,22 +159,23 @@ export class EstablishmentList extends React.Component<Props, State> {
             </Paper>
           </div>
         ) : null}
-        <Paper>
-          <List component="nav" disablePadding>
-            {this.props.establishments.map((e) => (
-              <EstablishmentListItem
-                key={e.id}
-                divider
-                onClick={() => this.props.goToEstablishment(e.id)}
-                establishment={e}
-                onClickDelete={() => this.props.setEstablishmentToDelete(e.id)}
-                onClickEdit={() => {
-                  this.props.startUpdateEstablishment(e.id);
-                }}
-              />
-            ))}
-          </List>
-        </Paper>
+        {this.props.companyTheme.enable_multi_localization && (
+          <div className={this.props.classes.addGroupButtonContainer}>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => this.props.goToEstablishmentGroupPage()}
+            >
+              {this.props.t('group.groupButton')}
+            </Button>
+          </div>
+        )}
+        <EstablishmentListGroupByAddress
+          establishmentGroupByAddress={this.props.establishmentGroupByAddress}
+          onClick={this.props.goToEstablishment}
+          onClickDelete={this.props.setEstablishmentToDelete}
+          onClickEdit={this.props.startUpdateEstablishment}
+        />
         <Paper className={this.props.classes.map}>
           <Map markers={this.props.establishments} markerClicked={() => {}} />
         </Paper>
@@ -288,6 +300,8 @@ export default compose(
         state,
       ),
       establishmentsArchived: getDisabledEstablishmentList(state),
+      establishmentGroupByAddress: getEstablishmentGroupByAddress(state),
+      companyTheme: themeSelectors.getTheme(state),
     }),
     {
       startUpdateEstablishment: (id: number) =>
@@ -298,6 +312,7 @@ export default compose(
       restoreEstablishment: restoreEstablishmentAction,
       fetchMarketingNotificationList,
       onCreate: () => push('/establishment/add'),
+      goToEstablishmentGroupPage: () => push('establishment/group'),
     },
   ),
   withHandlers({

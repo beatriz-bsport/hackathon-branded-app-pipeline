@@ -25,11 +25,14 @@ export class EstablishmentSubForm extends Component<Props> {
       <Typography variant="caption" className={this.props.classes.caption}>
         {this.props.t('establishment:baseEstablishment')}
       </Typography>
-
       <EstablishmentSelector
         id="establishment"
-        placeholder={this.props.t('establishment:establishment')}
-        establishments={this.props.establishments}
+        placeholder={this.props.t('establishment:room')}
+        establishments={
+          this.props.establishments
+            ? this.props.establishments.filter((est) => !est.disabled)
+            : []
+        }
         value={this.props.establishment}
         onChange={this.props.onChangeEstablishment}
       />

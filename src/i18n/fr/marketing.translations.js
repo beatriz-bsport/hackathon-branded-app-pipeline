@@ -18,7 +18,7 @@ exports.default = {
     selectIdentifierLabel: {
       meta_activity: 'Sélectionnez une activité',
       workshop: 'Sélectionnez un atelier',
-      establishment: 'Sélectionnez un établissement',
+      establishment: 'Sélectionnez une salle',
       private_service: 'Sélectionnez un rendez-vous',
       payment_pack: 'Sélectionnez une carte de cours',
     },
@@ -28,7 +28,7 @@ exports.default = {
     fabLabels: {
       meta_activity: 'Activité',
       workshop: 'Atelier',
-      establishment: 'Établissement',
+      establishment: 'Salle',
       private_service: 'Rendez-vous',
       payment_pack: 'Carte de cours',
     },
@@ -61,33 +61,33 @@ exports.default = {
   customForm: {
     title: 'Formulaires',
     CustomFormLink: 'Lien du formulaire',
-    linkHelper : 'Pour envoyer le formulaire à vos membres, collez le lien ci-dessus dans vos mails. Seules les modifications sauvegardées seront visibles.',
-    search : 'Chercher une formulaire',
+    linkHelper: 'Pour envoyer le formulaire à vos membres, collez le lien ci-dessus dans vos mails. Seules les modifications sauvegardées seront visibles.',
+    search: 'Chercher une formulaire',
     name: 'Nom',
     content: 'Contenu du formulaire',
     preview: 'Aperçu du formulaire',
     label: 'Label',
     kind: 'Type',
     save: 'Sauvegarder',
-    cancel :'Annuler',
-    send : 'Envoyer',
-    mandatory :'Obligatoire',
+    cancel: 'Annuler',
+    send: 'Envoyer',
+    mandatory: 'Obligatoire',
     numberQuestions: "Nombre de questions",
     listActions: 'Actions',
     disabledCustomForm: 'Formulaires archivés',
-    disabledCustomFormField : 'Eléments archivés',
+    disabledCustomFormField: 'Eléments archivés',
     noCustomForm: 'Utilisez les formulaires pour récupérer des informations supplémentaires sur vos membres.',
     addCustomFrom: 'Ajouter un formulaire',
     selectCustomForm: 'Sélectionner un formulaire pour en voir les détails',
     selectCustomFormFilled: 'Sélectionner un des formulaires complétés pour voir son contenu',
-    emptyCustomForm : 'Ce formulaire est vide, vous pouvez ajouter des éléments le configurant.',
+    emptyCustomForm: 'Ce formulaire est vide, vous pouvez ajouter des éléments le configurant.',
     addFieldLong: 'Ajouter un élement',
     unaccessibleForm: 'Ce formulaire est actuellement désactivé, pour retourner sur votre page de profile cliquez sur le boutton ci-dessous.',
     backToUserSpace: 'Profile',
     changesDetected: 'Des changements ont été effectués. Sauvegardez le formulaire pour les appliquer.',
     noChanges: 'Formulaire à jour.',
     answerForDisabledField: 'Questions archivées',
-    allFieldDisabled : 'Toutes les questions sont archivées',
+    allFieldDisabled: 'Toutes les questions sont archivées',
     actions: {
       configure: 'Configurer',
       statistics: 'Statistiques',
@@ -97,13 +97,13 @@ exports.default = {
         title: 'Archiver un formulaire',
         cancel: 'Annuler',
         confirm: 'Confirmer',
-        content : "En archivant ce formulaire il sera placé dans vos formulaires archivés et ne sera plus accessible pour vos membres.",
+        content: "En archivant ce formulaire il sera placé dans vos formulaires archivés et ne sera plus accessible pour vos membres.",
       }
     },
     tab: {
       general: 'Contenu',
       campaign: 'Campagne',
-      statistics:'Statistiques',
+      statistics: 'Statistiques',
     },
     field: {
       title: 'Titre',
@@ -113,7 +113,7 @@ exports.default = {
       radio: 'Choix multiples',
       check_box: 'Cases à cocher',
       select: 'Liste déroulante',
-      select_placeholder : 'Sélectionner',
+      select_placeholder: 'Sélectionner',
       file: 'Joindre un fichier',
       fileHelper: 'Les fichiers téléchargés seront directement ajoutés à la section “Mes documents” de la fiche membre.',
       link_to_note: 'Créer une note',
@@ -123,7 +123,7 @@ exports.default = {
       link_to_tag_popover: 'Lier un tag à cette option',
       tag_group: 'Catégorie',
       tag_name: 'Tag',
-      choice_warning : "Toutes les options enregistrées lors de la sauvegarde du formulaire ne seront plus modifiables. Vous pourrez tout de même les supprimer ou en ajouter de nouvelles.",
+      choice_warning: "Toutes les options enregistrées lors de la sauvegarde du formulaire ne seront plus modifiables. Vous pourrez tout de même les supprimer ou en ajouter de nouvelles.",
     },
     customFormField: {
       modal: {
@@ -142,42 +142,42 @@ exports.default = {
           confirm: 'Confirmer',
         },
         error: {
-          choicesLength : "Vous devez défnir au moins 2 choix",
+          choicesLength: "Vous devez défnir au moins 2 choix",
           emptyChoice: "Les choix ne peuvent pas être vides",
         },
         signature: {
           addSignature: 'Ajouter  une signature',
-          editSignature : 'Editer la signature',
+          editSignature: 'Editer la signature',
           addSignatureHelper: 'Vous pouvez dessiner votre signature ci-dessous',
-          clear :'Effacer la signature',
+          clear: 'Effacer la signature',
         },
       },
     },
     submit: {
-      date_submitted : 'Date de complétion',
+      date_submitted: 'Date de complétion',
       dialog: {
         title: 'Bien reçu ! ',
         content: "Merci d'avoir pris le temps de compléter ce formulaire.",
-        confirmButton :'Continuer',
+        confirmButton: 'Continuer',
       },
       errors: {
         requiredField: 'Ce champ est obligatoire, veuillez sélectionner une réponse.',
         requiredSignature: 'Veuillez signer le formulaire.',
-        requiredFile :'Veuillez joindre un fichier',
+        requiredFile: 'Veuillez joindre un fichier',
       }
     },
     statistics: {
-      byMember : "Détail par membre",
+      byMember: "Détail par membre",
       table: {
         column: {
           member: 'Membre',
           display_count: "Nombres d'ouvertures",
           last_display_date: "Dernière ouverture",
-          completed : "Complété",
+          completed: "Complété",
         },
         row: {
           no: 'Non',
-          yes : 'Oui',
+          yes: 'Oui',
         }
       }
     }

@@ -84,6 +84,7 @@ export default withTranslation(['metaActivity'])(
     closeMenuOnSelect,
     selectedMetaActivities,
     variant,
+    isLoading,
   }) => {
     let placeholder = t('metaActivity');
 
@@ -112,6 +113,7 @@ export default withTranslation(['metaActivity'])(
           }
           styles={metaActivityStyles}
           menuPortalTarget={document.querySelector('body')}
+          isLoading={isLoading}
         />
       </div>
     );

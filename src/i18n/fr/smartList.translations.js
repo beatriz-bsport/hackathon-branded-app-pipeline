@@ -83,11 +83,11 @@ exports.default = {
       warning: 'Sélectionnez au moins une activité',
     },
     establishments: {
-      helperText: 'selectionner des établissements',
-      helperSelectedText: 'établissements sélectionnées',
-      textFieldPlaceholder: 'Rechercher un établissement',
-      helperAllSelectedText: 'tous les établissements',
-      warning: 'Sélectionnez au moins un établissement',
+      helperText: 'selectionner des salles',
+      helperSelectedText: 'salles sélectionnées',
+      textFieldPlaceholder: 'Rechercher une salle',
+      helperAllSelectedText: 'toutes les salles',
+      warning: 'Sélectionnez au moins une salle',
     },
     coaches: {
       helperText: 'selectionner des professeurs',
@@ -337,7 +337,7 @@ exports.default = {
     [BOOKINGS_NUMBER_FILTER_IDENTIFIER]: {
       name: 'Numéro de réservation',
       explanation:
-        "A réservé sa X ème séance de l'activité A, dans l'établissement B...",
+        "A réservé sa X ème séance de l'activité A, dans la salle B...",
       first: 'A réservé sa ',
       second_singular: 'ère séance',
       second_plural: 'ème séance',
@@ -373,7 +373,7 @@ exports.default = {
         first: 'des activités',
       },
       establishment: {
-        first: 'dans les établissements',
+        first: 'dans les salles',
       },
       payment_pack: {
         first: 'avec les cartes',
@@ -397,7 +397,7 @@ exports.default = {
       second: 'rendez-vous',
       between: 'et',
       establishment: {
-        first: 'dans les établissements',
+        first: 'dans les salles',
         second: 'ou',
         third: 'à domicile',
       },

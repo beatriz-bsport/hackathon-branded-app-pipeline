@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { push, replace as replaceRouter } from 'connected-react-router';
 import Moment from 'moment-timezone';
 import { WithTranslation, withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import type { TFunction } from 'i18next';
 
 import { withRouter } from 'react-router';
 import { Theme } from '@material-ui/core';
@@ -17,7 +17,10 @@ import {
 } from '../../actions/snackbar.actions';
 import { consumerPayWithConsumerPaymentPack as payWithConsumerPaymentPackAPI } from '../../api/payment';
 import { fetchAssociatedCoachBulkFromCoachIds as fetchAssociatedCoachBulkFromCoachIdsAction } from '../../libs/associated-coach/actions';
-import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
+import {
+  fetchEstablishmentBulk as fetchEstablishmentBulkAction,
+  fetchAllEstablishmentGroup,
+} from '../../libs/establishment/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
 import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
 import * as paymentActions from '../../actions/payment.actions';
@@ -39,7 +42,11 @@ import withReplaceQueryParams from '../../hocs/with-replace-query-params.hoc';
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import MarketplaceFilterComponent from '../../libs/marketplace/components/MarketplaceFilter.component';
 import { getCoaches } from '../../libs/associated-coach/selectors';
-import { getAllEstablishments } from '../../libs/establishment/selectors';
+import {
+  getAllEstablishments,
+  getAssociatedEstablishmentGroup,
+  withEstablishment as groupWithEstablishment,
+} from '../../libs/establishment/selectors';
 import { getWorkshops } from '../../libs/meta-activity/selectors';
 import { RootState } from '../../reducers';
 import { MaterialStyleType } from '../../utils/types';
@@ -114,6 +121,7 @@ export class MarketplaceWorkshopPage extends React.Component<FinalProps> {
       ...this.props.filters,
       ...optionalParams,
     });
+    this.props.fetchAllEstablishmentGroup(this.props.companyId);
   };
 
   goToBook = (offer: any) => {
@@ -134,6 +142,8 @@ export class MarketplaceWorkshopPage extends React.Component<FinalProps> {
             filters={this.props.filters}
             setFilters={this.props.setFilters}
             variant="workshop"
+            establishmentGroupList={this.props.establishmentGroupList}
+            showMultiLocalization={this.props.theme.enable_multi_localization}
           />
 
           <MarketplaceWorkshop
@@ -199,6 +209,9 @@ const mapStateToProps = (state: RootState) => ({
   establishments: getAllEstablishments(state),
   metaActivities: getWorkshops(state),
   theme: themeSelectors.getTheme(state),
+  establishmentGroupList: groupWithEstablishment(
+    getAssociatedEstablishmentGroup,
+  )(state),
 });
 
 const mapDispatchToProps = {
@@ -212,6 +225,7 @@ const mapDispatchToProps = {
   snackbarError: snackbarErrorAction,
   pushRouter: push,
   fetchPaymentComboList,
+  fetchAllEstablishmentGroup,
 };
 
 const mapWithProps = (props: OwnProps & ConnectProps & WithTranslation) => ({

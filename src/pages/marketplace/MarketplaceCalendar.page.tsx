@@ -24,7 +24,11 @@ import themeSelectors from '../../libs/theme/selectors';
 import { getCoaches } from '../../libs/associated-coach/selectors';
 import { getMetaActivities } from '../../libs/meta-activity/selectors';
 
-import { getAllEstablishments } from '../../libs/establishment/selectors';
+import {
+  getAllEstablishments,
+  getAssociatedEstablishmentGroup,
+  withEstablishment as groupWithEstablishment,
+} from '../../libs/establishment/selectors';
 
 import {
   snackbarSuccess as snackbarSuccessActions,
@@ -43,7 +47,10 @@ import {
   withGender,
 } from '../../libs/offer/selectors';
 import { fetchAssociatedCoachBulkFromCoachIds as fetchAssociatedCoachBulkFromCoachIdsAction } from '../../libs/associated-coach/actions';
-import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
+import {
+  fetchEstablishmentBulk as fetchEstablishmentBulkAction,
+  fetchAllEstablishmentGroup,
+} from '../../libs/establishment/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
 import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
 
@@ -140,6 +147,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       ...this.props.filters,
       ...optionalParams,
     });
+    this.props.fetchAllEstablishmentGroup(this.props.companyId);
   };
 
   componentDidMount() {
@@ -240,6 +248,8 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           toogleFiltersOpen={this.toogleFiltersOpen}
           compactMode={this.props.compactMode}
           startWeekThisWeekday={startWeekThisWeekday}
+          establishmentGroupList={this.props.establishmentGroupList}
+          showMultiLocalization={this.props.theme.enable_multi_localization}
         />
       </div>
     );
@@ -269,6 +279,9 @@ const mapStateToProps = (state: RootState) => ({
   compatiblePaymentPacks: state.payment.compatiblePaymentPacks || [],
   paymentComboList: getPaymentComboListAvailableOnline(state),
   currentBasket: getCurrentBasket(state),
+  establishmentGroupList: groupWithEstablishment(
+    getAssociatedEstablishmentGroup,
+  )(state),
 });
 
 const mapDispatchToProps = {
@@ -284,6 +297,7 @@ const mapDispatchToProps = {
   fetchCompatiblePass: paymentActions.fetchCompatiblePass,
   addItemToBasket: addItemToBasketAction,
   fetchPaymentComboList,
+  fetchAllEstablishmentGroup,
 };
 
 const mapWithHandlers = {

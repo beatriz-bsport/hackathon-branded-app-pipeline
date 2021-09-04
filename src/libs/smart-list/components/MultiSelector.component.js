@@ -18,11 +18,11 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Popover from '@material-ui/core/Popover';
 import ClearIcon from '@material-ui/icons/Clear';
 import SearchIcon from '@material-ui/icons/Search';
-
+import List from '@material-ui/core/List';
+import ListSubheader from '@material-ui/core/ListSubheader';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
 import DelayedTextField from '../../../components/DelayedTextField.component';
 
 type Props = {
@@ -39,6 +39,8 @@ type Props = {
   helperAllSelectedText: string,
   selectAll: boolean,
   fetchItems: () => void,
+  groupItemsFunction: (item: Array<any>) => { [key: string]: Array<any> },
+  groupItemIcon: any,
 };
 
 type State = {
@@ -236,7 +238,7 @@ export class MultipleSelect extends Component<Props, State> {
             vertical: 'top',
             horizontal: 'left',
           }}
-          style={{ maxHeight: '400px' }}
+          style={{ maxHeight: '1200px' }}
         >
           <div style={{ position: 'sticky', top: '0px' }}>
             <DelayedTextField
@@ -274,7 +276,12 @@ export class MultipleSelect extends Component<Props, State> {
               <CircularProgress size={30} />
             </div>
           ) : (
-            <div style={{ maxHeight: '300px', overflow: 'auto' }}>
+            <div
+              style={{
+                maxHeight: '800px',
+                overflow: 'auto',
+              }}
+            >
               <MenuItem
                 className={classes.menuItem}
                 key="all"
@@ -306,22 +313,63 @@ export class MultipleSelect extends Component<Props, State> {
                   {t('multiSelector.selectNothing')}
                 </Typography>
               </MenuItem>
-              {[...this.state.searchedItems].map((item) => (
-                <MenuItem
-                  className={classes.menuItem}
-                  key={item.id}
-                  value={item.id}
-                  onClick={() => this.handleChange(item.id)}
-                >
-                  {this.props.renderItem ? this.props.renderItem(item) : null}
-                  <Checkbox
-                    checked={
-                      this.state.selectedItems.includes(item.id) ||
-                      this.state.selectAll
-                    }
-                  />
-                </MenuItem>
-              ))}
+              {!this.props.groupItemsFunction
+                ? [...this.state.searchedItems].map((item) => (
+                    <MenuItem
+                      className={classes.menuItem}
+                      key={item.id}
+                      value={item.id}
+                      onClick={() => this.handleChange(item.id)}
+                    >
+                      {this.props.renderItem
+                        ? this.props.renderItem(item)
+                        : null}
+                      <Checkbox
+                        checked={
+                          this.state.selectedItems.includes(item.id) ||
+                          this.state.selectAll
+                        }
+                      />
+                    </MenuItem>
+                  ))
+                : this.props
+                    .groupItemsFunction([...this.state.searchedItems])
+                    .map((groupItem) => (
+                      <List
+                        subheader={
+                          <ListSubheader
+                            component="div"
+                            className={classes.listSubHeader}
+                          >
+                            {this.props.groupItemIcon}
+                            {groupItem.identifier}
+                            {` (${groupItem.itemsList?.length})`}
+                          </ListSubheader>
+                        }
+                        key={groupItem.identifier}
+                      >
+                        {groupItem.itemsList.map((item) => (
+                          <>
+                            <MenuItem
+                              className={classes.menuItem}
+                              key={item.id}
+                              value={item.id}
+                              onClick={() => this.handleChange(item.id)}
+                            >
+                              {this.props.renderItem
+                                ? this.props.renderItem(item)
+                                : null}
+                              <Checkbox
+                                checked={
+                                  this.state.selectedItems.includes(item.id) ||
+                                  this.state.selectAll
+                                }
+                              />
+                            </MenuItem>
+                          </>
+                        ))}
+                      </List>
+                    ))}
             </div>
           )}
         </Popover>
@@ -366,6 +414,14 @@ const styles = (theme) => ({
   ListItemButton: { padding: '0px', margin: '0px' },
   searchIcon: {
     marginRight: theme.spacing(1),
+  },
+  listSubHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+    borderBottom: `1px solid${theme.palette.primary.main}`,
+    paddingBottom: theme.spacing(0.5),
+    backgroundColor: 'white',
   },
 });
 

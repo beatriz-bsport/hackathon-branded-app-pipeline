@@ -475,7 +475,6 @@ export class Planning extends PureComponent<Props, State> {
     } = this.props;
     const { editModalOpened, editOfferProcessing } = this.state;
     const { selectedOffer } = this.props;
-
     if (selectedOffer) {
       return (
         <Dialog open={editModalOpened}>
@@ -721,6 +720,7 @@ export class Planning extends PureComponent<Props, State> {
                 coaches: ev.map((e) => e.value),
               })
             }
+            isLoading={this.props.coachesLoading}
           />
         </Grid>
         <Grid item xs={6} md={4} className={this.props.classes.selector}>
@@ -733,6 +733,7 @@ export class Planning extends PureComponent<Props, State> {
                 establishments: ev.map((e) => e.value),
               });
             }}
+            isLoading={this.props.timetableLoading}
           />
         </Grid>
         <Grid item xs={12} md={4} className={this.props.classes.selector}>
@@ -747,6 +748,7 @@ export class Planning extends PureComponent<Props, State> {
                 metaActivities: ev.map((e) => e.value),
               })
             }
+            isLoading={this.props.activitiesLoading}
           />
         </Grid>
       </Grid>

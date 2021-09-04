@@ -353,7 +353,7 @@ exports.default = {
         },
         isWithEstablishment: {
           isEmpty: 'Aucune salle configurée !',
-          label: "Dans l'un de vos établissements",
+          label: "Dans l'une de vos salles",
           helperText:
             'La réservation ne sera possible que si la salle dispose de suffisamment de places libres',
         },

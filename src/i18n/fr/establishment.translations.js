@@ -1,7 +1,7 @@
 exports.default = {
   list: {
     section: {
-      archived: 'Etablissement archivé',
+      archived: 'Salles archivées',
     },
   },
   detail: {
@@ -10,7 +10,9 @@ exports.default = {
       calendar: 'Calendrier',
     },
   },
-  establishment: 'Établissement ',
+  establishment: 'Établissement',
+  localisation: 'Localisation',
+  room: 'Salle',
   capacity: {
     label: 'Capacité de la salle',
     placeholder: null,
@@ -21,15 +23,15 @@ exports.default = {
   },
   baseEstablishment: 'Habituel',
   overrider: 'Remplacement',
-  establishment_override: 'Établissement de remplacement',
-  search: 'Chercher un établissement',
-  addButton: 'Ajouter un établissement',
+  establishment_override: 'Salle de remplacement',
+  search: 'Chercher une salle',
+  addButton: 'Ajouter une salle',
   pleaseSelectOne: 'Veuillez sélectionner un club sur la carte',
   noEstablishement:
     'Gérez ici vos salles, leur localisation, leur remplissage et consultez le calendrier',
   offers: 'Calendrier des séances:',
   noMoreOffers: 'Plus aucune séance de prévue',
-  pleaseFill: 'Veuillez renseigner un établisssement',
+  pleaseFill: 'Veuillez renseigner une salle',
   practical_info: {
     label: "Information d'accès",
     placeholder: 'Code 1234 porte de droite',
@@ -45,25 +47,25 @@ exports.default = {
   },
   update: {
     imageUploaderRequireEditMessage:
-      "Une fois votre établissement créé, vous aurez la possibilité d'ajouter des images supplémentaires.",
+      "Une fois votre salle créée, vous aurez la possibilité d'ajouter des images supplémentaires.",
   },
   forms: {
     edit: 'Modifier',
     delete: {
-      title: 'Suppression établissement',
+      title: "Suppression d'une salle",
       actions: {
         cancel: 'annuler',
         confirm: 'Supprimer',
       },
       content: {
         canDelete:
-          'Êtes-vous sûr de vouloir supprimer cet établissement ? Cette opération est irréversible. Les séances et réservations passées ne seront pas affectées',
+          'Êtes-vous sûr de vouloir supprimer cette salle ? Cette opération est irréversible. Les séances et réservations passées ne seront pas affectées',
         cannotDelete:
-          "Impossible de supprimer cet établissement, des séances sont prévues dans le futur. Vérifiez qu'elles ont bien été annulées puis supprimées",
+          "Impossible de supprimer cette salle, des séances sont prévues dans le futur. Vérifiez qu'elles ont bien été annulées puis supprimées",
       },
     },
     create: {
-      title: 'Nouvel établissement',
+      title: 'Nouvelle salle',
     },
     update: {
       title: 'Édition des informations',
@@ -79,7 +81,7 @@ exports.default = {
     country: 'Pays',
   },
   notificationToolTip:
-    'Des notifications sont définies pour les réservations concernant cet établissement',
+    'Des notifications sont définies pour les réservations concernant cette salle',
   spotScheduling: {
     title: 'Plan de salle',
     subtitle:
@@ -92,5 +94,36 @@ exports.default = {
     },
     placeCount: '{{count}} places',
     untitled: 'Sans titre',
+  },
+  group: {
+    groupButton: 'Grouper les établissements',
+    addLocalisation: 'Ajouter une localisation',
+    name: ' Nom',
+    actions: 'Actions',
+    noGroupHelper:
+      'Les localisations permettent de regrouper plusieurs adresses entre elles. Si vous possèdez plusieurs studios dans différentes villes vous pouvez regrouper les studios de la même ville dans une localisation. Sur la marketplace, le widget  et l’application personnalisée vos élèves pourront sélectionner la localisation qui les intéresse le plus pour ne voir que les cours proches de chez eux.',
+    form: {
+      name: 'Nom',
+      associated_localizations: 'Etablissements associées',
+      dialog: {
+        title: 'Localisation',
+        cancel: 'Annuler',
+        save: 'Enregistrer',
+      },
+    },
+    modal: {
+      delete: {
+        title: 'Supprimer une localisation',
+        content:
+          "Cette localisation n'appraitra plus dans les filtres disponibles sur la marketplace, le widget et l'application personnalisée.",
+        cancel: 'Annuler',
+        confirm: 'Supprimer',
+      },
+    },
+    table: {
+      actions: 'Actions',
+      establishment: 'Etablissements',
+      name: 'Nom',
+    },
   },
 };

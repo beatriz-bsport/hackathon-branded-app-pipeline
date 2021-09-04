@@ -617,7 +617,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
         </div>
         <div className={this.props.classes.fieldGroup}>
           <Typography variant="subtitle2">
-            {this.props.t('establishment:establishment')}
+            {this.props.t('establishment:room')}
           </Typography>
           <div className={this.props.classes.groupContainer}>
             <div className={this.props.classes.borderBar} />

@@ -69,6 +69,16 @@ export type EstablishmentState = {
     error?: Error;
   };
   updated: boolean;
+  establishmentGroup: {
+    byId: { [key: number]: Array<EstablishmentGroup> };
+    allIds: Array<number>;
+    loading: boolean;
+    error?: Error;
+    upsert: {
+      loading: boolean;
+      error?: Error;
+    };
+  };
 };
 
 export type establishmentAddressInput = {
@@ -79,4 +89,24 @@ export type establishmentAddressInput = {
   country: string;
   zipcode: string;
   location: object;
+};
+
+export type EstablishmentGroupByAddress = {
+  address: string;
+  establishmentList: Array<AssociatedEstablishment>;
+};
+
+export type EstablishmentListGroupByAddress = Array<EstablishmentGroupByAddress>;
+export type EstablishmentGroupAPI = {
+  id?: number;
+  name: string;
+  company_id?: number;
+  establishment: Array<number>;
+};
+
+export type EstablishmentGroup = {
+  id: number;
+  name: string;
+  company_id: number;
+  establishment: Array<AssociatedEstablishment>;
 };

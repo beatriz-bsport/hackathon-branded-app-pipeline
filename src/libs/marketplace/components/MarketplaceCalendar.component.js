@@ -12,6 +12,7 @@ import Calendar from '../../../components/offer/Calendar.component';
 import MarketplaceTimetable from './MarketplaceTimetable.component';
 import MarketplaceWeekTimetable from './MarketplaceWeekTimeTable.component';
 import MarketplaceFilterComponent from './MarketplaceFilter.component';
+import type { EstablishmentGroup } from '../../establishment/types';
 
 const LoadingIndicator = () => (
   <div
@@ -51,6 +52,8 @@ type Props = {
   coachLoading: boolean,
   establishmentLoading: boolean,
   showOfferGender?: boolean,
+  establishmentGroupList: Array<EstablishmentGroup>,
+  showMultiLocalization: boolean,
 };
 const getEventsFrom = memoize((offers) => {
   const events = {};
@@ -123,6 +126,8 @@ export class MarketplaceCalendar extends PureComponent<Props> {
         filters={filters}
         setFilters={setFilters}
         variant="activity"
+        establishmentGroupList={this.props.establishmentGroupList}
+        showMultiLocalization={this.props.showMultiLocalization}
       />
     );
     return (
@@ -139,6 +144,8 @@ export class MarketplaceCalendar extends PureComponent<Props> {
           onDateClick={onSelectDate}
           date={selectedDate}
           events={events}
+          establishmentGroupList={this.props.establishmentGroupList}
+          setFilters={setFilters}
         />
         {
           // eslint-disable-next-line

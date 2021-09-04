@@ -47,6 +47,7 @@ export type Theme = {
   gender_max_shift_for_booking: boolean;
   vod_providers: Array<number>;
   show_workshops_customer: boolean;
+  enable_multi_localization: boolean;
 };
 
 export type ThemeState = {

@@ -130,9 +130,9 @@ exports.default = {
         coach: 'Professeur (optionnel)',
         date: 'Heure/Date',
         address: 'Adresse',
-        establishment: 'Etablissement',
+        establishment: 'Salle',
         establishment_practical_info:
-          "Information d'accès établissement (optionnel)",
+          "Information d'accès à la salle (optionnel)",
       },
     },
     ConsumerPaymentPack: {

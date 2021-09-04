@@ -293,19 +293,33 @@ exports.default = {
   },
   establishment: {
     restore: {
-      success: 'Etablissement restoré',
-      error: 'Impossible de restaurer cet établissement',
+      success: 'Salle restorée',
+      error: 'Impossible de restaurer cette salle',
     },
     delete: {
-      success: 'Etablissement supprimé',
-      error: 'Impossible de supprimer cet établissement',
+      success: 'Salle supprimée',
+      error: 'Impossible de supprimer cette salle',
     },
-    error: "Impossible de sauvegarder l'établissement",
+    error: 'Impossible de sauvegarder la salle',
     create: {
-      success: 'Établissement créé avec succès',
+      success: 'Salle créée avec succès',
     },
     update: {
-      success: 'Établissement modifié avec succès',
+      success: 'Salle modifiée avec succès',
+    },
+  },
+  establishmentGroup: {
+    create: {
+      success: 'La nouvelle localisation a été créée',
+      error: 'Impossible de créer la localisation',
+    },
+    update: {
+      success: 'Localisation modifiée',
+      error: 'Impossible de modifier la localisation',
+    },
+    delete: {
+      success: 'Localisation supprimée',
+      error: 'Impossible de supprimer al localisation',
     },
   },
   memberNote: {

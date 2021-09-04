@@ -285,7 +285,7 @@ exports.default = {
       },
       sports: 'Catégorie',
       activities: 'Activité',
-      establishments: 'Etablissement',
+      establishments: 'Salle',
       restrictionsTitle: 'Restrictions',
       noneMeansAll: 'Laisser vide pour tout autoriser',
       update: {
@@ -406,7 +406,7 @@ exports.default = {
     price: '{{price, price}}',
   },
   availableOnFollowingSports: 'Catégories éligibles : ',
-  availableOnFollowingEstablishments: 'Lieux éligibles : ',
+  availableOnFollowingEstablishments: 'Salles éligibles : ',
   anySport: 'Toute catégorie',
   availableOnFollowingActivities: 'Activités éligibles : ',
   anyActivity: 'Toute activité',

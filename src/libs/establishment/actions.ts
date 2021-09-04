@@ -17,6 +17,10 @@ import {
   deleteEstablishment as deleteEstablishmentAPI,
   fetchAssociatedEstablishments as fetchAssociatedEstablishmentsAPI,
   restoreEstablishment as restoreEstablishmentAPI,
+  fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAPI,
+  createEstablishmentGroup as createEstablishmentGroupAPI,
+  updateEstablishmentGroup as updateEstablishmentGroupAPI,
+  deleteEstablishmentGroup as deleteEstablishmentGroupAPI,
 } from './api';
 import { API_URI, postAuth, deleteAuth } from '../../http';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
@@ -26,7 +30,7 @@ import { getFreshEstablishmentIds } from './selectors';
 import { RootState } from '../../reducers';
 import { OptionCallback } from '../../state/types';
 
-import type { establishmentAddressInput } from './types';
+import type { establishmentAddressInput, EstablishmentGroup } from './types';
 
 export const deleteActions = {
   isLoading: createAction('ESTABLISHMENT/DELETE/IS_LOADING'),
@@ -385,5 +389,89 @@ export function fetchEstablishmentFavorite(
       }
     }
     dispatch(favoriteActions.isLoading(false));
+  };
+}
+
+export const fetchAllEstablishmentGroupActions = {
+  isLoading: createAction('ESTABLISHMENT_GROUP/GET/IS_LOADING'),
+  error: createAction('ESTABLISHMENT_GROUP/GET/ERROR'),
+  success: createAction('ESTABLISHMENT_GROUP/GET/SUCCESS'),
+};
+
+export function fetchAllEstablishmentGroup(
+  companyId?: number,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch<any>) => {
+    dispatch(fetchAllEstablishmentGroupActions.isLoading(true));
+    dispatch(fetchAllEstablishmentGroupActions.error(null));
+    try {
+      const response = await fetchAllEstablishmentGroupAPI(companyId);
+      dispatch(fetchAllEstablishmentGroupActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(favoriteActions.error(error));
+      console.error(error);
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(fetchAllEstablishmentGroupActions.isLoading(false));
+  };
+}
+
+export const upsertEstablishmentGroupActions = {
+  isLoading: createAction('ESTABLISHMENT_GROUP/UPSERT/IS_LOADING'),
+  error: createAction('ESTABLISHMENT_GROUP/UPSERT/ERROR'),
+  success: createAction('ESTABLISHMENT_GROUP/UPSERT/SUCCESS'),
+};
+
+export function upsertEstablishmentGroup(
+  establishmentGroup: EstablishmentGroup,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(upsertEstablishmentGroupActions.isLoading(true));
+    dispatch(upsertEstablishmentGroupActions.error(null));
+    const kind = establishmentGroup.id ? 'update' : 'create';
+    try {
+      const response = establishmentGroup.id
+        ? await updateEstablishmentGroupAPI(establishmentGroup)
+        : await createEstablishmentGroupAPI(establishmentGroup);
+
+      dispatch(upsertEstablishmentGroupActions.success(response.data));
+      dispatch(snackbarSuccess(`establishmentGroup.${kind}.success`));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(snackbarError(`establishmentGroup.${kind}.error`));
+      dispatch(upsertEstablishmentGroupActions.error(error.response.data));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(upsertEstablishmentGroupActions.isLoading(false));
+  };
+}
+
+export const deleteEstablishmentGroupActions = {
+  isLoading: createAction('ESTABLISHMENT_GROUP/DELETE/IS_LOADING'),
+  error: createAction('ESTABLISHMENT_GROUP/DELETE/ERROR'),
+  success: createAction('ESTABLISHMENT_GROUP/DELETE/SUCCESS'),
+};
+
+export function deleteEstablishmentGroup(
+  establishmentGroup: EstablishmentGroup,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(deleteEstablishmentGroupActions.isLoading(true));
+    dispatch(deleteEstablishmentGroupActions.error(null));
+    try {
+      await deleteEstablishmentGroupAPI(establishmentGroup.id);
+      dispatch(deleteEstablishmentGroupActions.success(establishmentGroup));
+      dispatch(snackbarSuccess(`establishmentGroup.delete.success`));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      dispatch(snackbarError(`establishmentGroup.delete.error`));
+      dispatch(deleteEstablishmentGroupActions.error(error.response.data));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(deleteEstablishmentGroupActions.isLoading(false));
   };
 }

@@ -45,7 +45,8 @@ exports.default = {
   },
   establishment: {
     establishmentList: 'Etablissements',
-    establishmentFormPage: 'Formulaire établissement',
+    establishmentFormPage: 'Formulaire de salle',
+    establishmentGroupPage: 'Localisations',
   },
   marketplace: {
     marketplaceShop: 'Magasin',

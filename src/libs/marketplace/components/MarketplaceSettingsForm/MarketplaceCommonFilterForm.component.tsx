@@ -85,8 +85,8 @@ const MarketplaceCommonFilterForm: React.FC<Props> = (props) => {
             <TextField
               {...params}
               variant="standard"
-              label={t('establishment:establishment')}
-              placeholder={t('establishment:establishment')}
+              label={t('establishment:room')}
+              placeholder={t('establishment:room')}
             />
           )}
         />

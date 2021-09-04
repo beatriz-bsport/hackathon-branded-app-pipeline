@@ -6,7 +6,9 @@ import Collapse from '@material-ui/core/Collapse';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
-
+import List from '@material-ui/core/List';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 import EstablishmentListItem from './EstablishmentListItem.component';
 import FuzeSearch from '../../../components/FuzeSearch.component';
 
@@ -19,7 +21,7 @@ type Props = {
   id: number,
 };
 
-export class EstablishmentSelector extends Component<Props, State> {
+export class EstablishmentSelectorWithCard extends Component<Props, State> {
   state = {
     searchText: '',
     searchResult: [],
@@ -40,6 +42,29 @@ export class EstablishmentSelector extends Component<Props, State> {
       displayList: true,
       searchResult: this.props.establishments,
     });
+  };
+
+  getEstablishmentGroupByAddres = (establishmentList) => {
+    const establishmentGourpByAddress = establishmentList.reduce(
+      (accumulator, establishmentItem) => {
+        const temp = accumulator.findIndex(
+          (group) =>
+            group.address.toUpperCase() ===
+            establishmentItem.location.address.toUpperCase(),
+        );
+        if (temp === -1) {
+          accumulator.push({
+            address: establishmentItem.location.address,
+            establishmentList: [establishmentItem],
+          });
+        } else {
+          accumulator[temp].establishmentList.push(establishmentItem);
+        }
+        return accumulator;
+      },
+      [],
+    );
+    return establishmentGourpByAddress;
   };
 
   render() {
@@ -91,13 +116,32 @@ export class EstablishmentSelector extends Component<Props, State> {
                 <Collapse
                   in={this.state.displayList && this.state.searchResult}
                 >
-                  {this.state.searchResult.map((establishment) => (
-                    <EstablishmentListItem
-                      establishment={establishment}
-                      noDivider
-                      button
-                      onClick={() => this.props.onChange(establishment)}
-                    />
+                  {this.getEstablishmentGroupByAddres(
+                    this.state.searchResult,
+                  ).map((group, index) => (
+                    <List
+                      component="nav"
+                      subheader={
+                        <ListSubheader
+                          component="div"
+                          className={this.props.classes.listSubHeader}
+                        >
+                          <LocationOnIcon color="primary" />
+                          {group.address}
+                        </ListSubheader>
+                      }
+                      key={index}
+                    >
+                      {group.establishmentList.map((establishment) => (
+                        <EstablishmentListItem
+                          key={`${index}${establishment.id}`}
+                          establishment={establishment}
+                          noDivider
+                          button
+                          onClick={() => this.props.onChange(establishment)}
+                        />
+                      ))}
+                    </List>
                   ))}
                 </Collapse>
               </Paper>
@@ -109,12 +153,20 @@ export class EstablishmentSelector extends Component<Props, State> {
   }
 }
 
-const styles = () => ({
+const styles = (theme: Theme) => ({
   button: { width: '100%', padding: '0' },
   searchPaperDisplayed: {
     maxHeight: '500px',
     overflow: 'auto',
   },
+  listSubHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+    borderBottom: `1px solid${theme.palette.primary.main}`,
+    paddingBottom: theme.spacing(0.5),
+    backgroundColor: 'white',
+  },
 });
 
-export default compose(withStyles(styles))(EstablishmentSelector);
+export default compose(withStyles(styles))(EstablishmentSelectorWithCard);

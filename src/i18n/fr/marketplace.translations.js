@@ -2,7 +2,7 @@ exports.default = {
   selector: {
     coach: { placeholder: 'Professeur' },
     level: { placeholder: 'Niveau' },
-    establishment: { placeholder: 'Etablissement' },
+    establishment: { placeholder: 'Salle' },
   },
   paymentCombo: {
     addToCart: 'Ajouter au panier',

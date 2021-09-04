@@ -104,7 +104,7 @@ exports.default = {
       edit: "Glisser et déposer ou cliquer ici pour changer l'image",
     },
     buy: 'Acheter',
-    establishments: 'Lieux',
+    establishments: 'Salles',
     notes: 'Notes',
     add: 'Ajouter',
     loading: 'Chargement...',
@@ -167,7 +167,7 @@ exports.default = {
     date: 'Date',
     nothing: 'Aucun',
     bookings: 'Réservations',
-    places: 'Lieux',
+    places: 'Salles',
     male: 'Homme',
     female: 'Femme',
     otherGender: 'Autre',
@@ -442,15 +442,15 @@ exports.default = {
     },
     offer: {
       levelChangeWarning:
-        'Si vous modifiez le niveau du cours, cette modification sera effective pour toutes les séances futures. Toute autre modification enregistrée ici (établissement, prix, jour de la semaine...) sera donc appliquée à toutes les séances.',
+        'Si vous modifiez le niveau du cours, cette modification sera effective pour toutes les séances futures. Toute autre modification enregistrée ici (salle, prix, jour de la semaine...) sera donc appliquée à toutes les séances.',
       coachChangeWarning:
-        'Si vous modifiez le professeur, cette modification sera effective pour toutes les séances futures. Si ce n\'est pas ce que vous souhaitez, utilisez le champ "Remplaçant". Toute autre modification enregistrée ici (établissement, prix, jour de la semaine...) sera donc appliquée à toutes les séances.',
+        'Si vous modifiez le professeur, cette modification sera effective pour toutes les séances futures. Si ce n\'est pas ce que vous souhaitez, utilisez le champ "Remplaçant". Toute autre modification enregistrée ici (salle, prix, jour de la semaine...) sera donc appliquée à toutes les séances.',
       establishmentChangeWarning:
-        'Si vous modifiez l\'établissement, cette modification sera effective pour toutes les séances futures. Si ce n\'est pas ce que vous souhaites, utilisez le champ "Etablissement temporaire". Toute autre modification enregistrée ici (jour de la semaine, prix, remplaçaant, professeur...) sera donc appliquée à toutes les séances.',
+        'Si vous modifiez l\'salle, cette modification sera effective pour toutes les séances futures. Si ce n\'est pas ce que vous souhaites, utilisez le champ "Salle temporaire". Toute autre modification enregistrée ici (jour de la semaine, prix, remplaçaant, professeur...) sera donc appliquée à toutes les séances.',
       substituteCoachLabel: 'Remplaçant',
       coachLabel: 'Professeur',
-      establishmentLabel: 'Etablissement',
-      substituteEstablishmentLabel: 'Etablissement (lieu temporaire)',
+      establishmentLabel: 'Salle',
+      substituteEstablishmentLabel: 'Salle (lieu temporaire)',
       warningPackonEdit:
         "Les changements sur les séances risquent de les rendre incompatibles avec certaines cartes de cours. Après la modification veuillez prendre le temps de vérifier qu'ils resteront compatible avec les éventuels changements de lieu / professeur.",
       deleteTitle: 'Supprimer la séance',
@@ -516,7 +516,7 @@ exports.default = {
     effectif: 'Effectif',
     level: 'Niveau',
     addingSessionFor: 'Création de séance pour : ',
-    establishment: 'Etablissement',
+    establishment: 'Salle',
     coach: 'Professeur',
     newMember: 'Nouveau membre',
     newCoach: 'Nouveau Professeur',
@@ -1005,7 +1005,7 @@ exports.default = {
     selector: {
       coach: { placeholder: 'Filtrer par professeur' },
       level: { placeholder: 'Filtrer par niveau' },
-      establishment: { placeholder: 'Filtrer par établissement' },
+      establishment: { placeholder: 'Filtrer par salle' },
     },
   },
   offerManagement: {
@@ -1046,8 +1046,8 @@ exports.default = {
       members: 'Membres',
       member: 'Membre',
       memberFormPage: 'Formulaire Membre',
-      establishmentList: 'Etablissements',
-      establishmentFormPage: 'Formulaire Etablissement',
+      establishmentList: 'Salles',
+      establishmentFormPage: 'Formulaire de Salle',
       marketingRule: 'Stratégies marketing',
       subscriptions: 'Souscription',
       marketingDashboard: 'Marketing',

@@ -7,14 +7,16 @@ import EstablishmentSelector from '../../establishment/components/EstablishmentS
 import MetaActivitySelector from '../../meta-activity/components/MetaActivitySelector.component';
 import LevelSelector from '../../category/components/LevelSelector.component';
 import { MaterialStyleType } from '../../../utils/types';
-import { Establishment } from '../../establishment/types';
+import { Establishment, EstablishmentGroup } from '../../establishment/types';
 import { MetaActivity } from '../../meta-activity/types';
 import { Coach } from '../../associated-coach/types';
+import EstablishmentGroupSelector from '../../establishment/components/EstablishmentGroupSelector.component';
 
 type Props = {
   coaches: Coach[];
   hideCoach: boolean;
   establishments: Establishment[];
+  establishmentGroupList: Array<EstablishmentGroup>;
   metaActivities: MetaActivity[];
   filters: {
     coaches: number[];
@@ -24,9 +26,14 @@ type Props = {
   };
   setFilters: (key: string) => (value: any) => void;
   variant: 'activity' | 'workshop';
+  showMultiLocalization: boolean;
 } & MaterialStyleType<ReturnType<typeof styles>>;
 
-type SelectOptions = { value: number; label: string }[];
+type SelectOptions = {
+  value: number;
+  label: string;
+  establishments?: Array<number>;
+}[];
 
 class MarketplaceFilterComponent extends React.PureComponent<Props> {
   render() {
@@ -37,10 +44,40 @@ class MarketplaceFilterComponent extends React.PureComponent<Props> {
       metaActivities,
       setFilters,
       filters,
+      establishmentGroupList,
     } = this.props;
-
+    const selectedEstablishmentGroups = establishmentGroupList
+      ? establishmentGroupList
+          .filter((group) =>
+            (group.establishment || [])
+              .map((est) => est.id)
+              .every((est_id) => filters?.establishments?.includes(est_id)),
+          )
+          .filter((group) => group.establishment.length !== 0)
+      : [];
     return (
       <Grid container>
+        <Grid item xs={12} md={12} className={classes.selector}>
+          {this.props.showMultiLocalization &&
+            establishmentGroupList &&
+            establishmentGroupList.length !== 0 && (
+              <EstablishmentGroupSelector
+                isMulti
+                establishmentGroups={establishmentGroupList.filter(
+                  (group) => group.establishment.length !== 0,
+                )}
+                selectOption={(ev: SelectOptions) => {
+                  setFilters('establishments')(
+                    ev.reduce((acc, est_group) => {
+                      return [...acc, ...est_group.establishments];
+                    }, []),
+                  );
+                }}
+                closeMenuOnSelect
+                selectedEstablishmentGroups={selectedEstablishmentGroups}
+              />
+            )}
+        </Grid>
         {!this.props.hideCoach && (
           <Grid item xs={12} md={6} className={classes.selector}>
             <CoachSelector

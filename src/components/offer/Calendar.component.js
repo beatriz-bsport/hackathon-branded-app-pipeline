@@ -58,7 +58,6 @@ type Props = {
   t: TFunction,
   setMenuAnchorEl: (?HTMLElement) => void,
   menuAnchorEl: ?HTMLElement,
-
   setShowCancelledOffers?: (boolean) => void,
   showCancelledOffers?: boolean,
 };

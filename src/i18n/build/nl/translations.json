@@ -118,7 +118,7 @@
             "success": "Je bent uitgeschreven.",
             "error": "Fout tijdens het uitschrijven",
             "doUnsubscribe": "Uitschrijven",
-            "explain": "Wil je je voor alle nieuwsbrieven van je studio uitschrijven?"
+            "explain": "Wil je je voor alle nieuwsbrieven van de studio uitschrijven?"
         },
         "myVideos": {
             "title": "Mijn video's",
@@ -404,7 +404,7 @@
         "marketplace": {
             "selector": {
                 "establishment": {
-                    "placeholder": "Filteren op vestiging"
+                    "placeholder": "Filter op vestiging"
                 },
                 "level": {
                     "placeholder": "Filteren op niveau"
@@ -2236,7 +2236,11 @@
                     "checkbox": "Een sanctie bij te veel te late annuleringen instellen",
                     "title": "Sancties"
                 },
-                "only_vod_access": "Alleen voor Video On Demand"
+                "only_vod_access": "Alleen voor Video On Demand",
+                "category": {
+                    "helperText": "Naam van de categorie",
+                    "label": "Categorie (optioneel)"
+                }
             }
         },
         "details": {
@@ -2371,6 +2375,25 @@
         },
         "section": {
             "massExtension": "Verlenging"
+        },
+        "category": {
+            "deleteModal": {
+                "confirm": "Bevestigen",
+                "cancel": "Annuleer",
+                "title": "Verwijderen"
+            },
+            "popover": {
+                "delete": "Verwijderen",
+                "edit": "Hernoemen"
+            },
+            "form": {
+                "dialog": {
+                    "titleEdit": "Categorie",
+                    "titleNew": "Nieuwe categorie",
+                    "name": "Naam van de categorie"
+                }
+            },
+            "add": "Een categorie toevoegen"
         }
     },
     "establishment": {
@@ -2433,9 +2456,9 @@
                 "calendar": "Agenda"
             }
         },
-        "establishment": "Vestiging ",
+        "establishment": "Vestiging",
         "noEstablishement": "In dit onderdeel kun je de agenda's, informatie, bezetting, adressen en zalen van al je locaties beheren.",
-        "notificationToolTip": "Er zijn meldingen voor reserveringen met betrekking tot dit item",
+        "notificationToolTip": "Er zijn meldingen aan deze vestiging gekoppeld.",
         "list": {
             "section": {
                 "archived": "Gearchiveerde vestigingen"
@@ -2460,7 +2483,36 @@
             "add": "Een plattegrond toevoegen",
             "subtitle": "Gebruik Spot Scheduling om leden in staat te stellen om hun gewenste plaats in je vestiging te reserveren.",
             "title": "Spot Scheduling"
-        }
+        },
+        "group": {
+            "table": {
+                "name": "Naam",
+                "establishment": "Vestigingen",
+                "actions": "Acties"
+            },
+            "modal": {
+                "delete": {
+                    "confirm": "Verwijder",
+                    "cancel": "Annuleer",
+                    "title": "Een vestiging verwijderen"
+                }
+            },
+            "form": {
+                "dialog": {
+                    "save": "Opslaan",
+                    "cancel": "Annuleer",
+                    "title": "Lokalisatie"
+                },
+                "associated_localizations": "Gekoppelde vestigingen",
+                "name": "Naam"
+            },
+            "actions": "Acties",
+            "name": " Naam",
+            "addLocalisation": "Een vestiging toevoegen",
+            "groupButton": "Groepeer vestigingen"
+        },
+        "room": "Vestiging",
+        "localisation": "Lokalisatie"
     },
     "smartList": {
         "multiSelector": {
@@ -3792,7 +3844,8 @@
         },
         "establishment": {
             "establishmentList": "Vestigingen",
-            "establishmentFormPage": "[Formulier] Vestiging"
+            "establishmentFormPage": "[Formulier] Vestiging",
+            "establishmentGroupPage": "Lokalisatie"
         },
         "marketplace": {
             "marketplaceWorkshop": "Workshops",
@@ -5975,6 +6028,20 @@
             "paymentPackEnabled": {
                 "error": "Fout bij het herstellen van de leskaart",
                 "success": "Leskaart succesvol hersteld"
+            },
+            "category": {
+                "delete": {
+                    "error": "De categorie kon niet worden verwijderd",
+                    "success": "De categorie is verwijderd"
+                },
+                "create": {
+                    "error": "De categorie kon niet worden toegevoegd",
+                    "success": "Nieuwe categorie succesvol aangemaakt"
+                },
+                "update": {
+                    "error": "De categorie kan niet worden bewerkt",
+                    "success": "De categorie is succesvol gewijzigd"
+                }
             }
         },
         "coupon": {
@@ -6073,18 +6140,18 @@
         "establishment": {
             "delete": {
                 "success": "Vestiging verwijderd",
-                "error": "Kan dit bedrijf niet verwijderen"
+                "error": "Deze vestiging kon niet worden verwijderd"
             },
-            "error": "Kan vestiging niet opslaan",
+            "error": "De vestiging kon niet worden opgeslagen",
             "create": {
-                "success": "Vestiging aangemaakt"
+                "success": "De vestiging is succesvol toegevoegd"
             },
             "update": {
-                "success": "Vestiging gewijzigd"
+                "success": "De vestiging is succesvol gewijzigd"
             },
             "restore": {
-                "error": "De vestiging kan niet worden geactiveerd",
-                "success": "Vestiging geheractiveerd"
+                "error": "De vestiging kan niet worden hersteld",
+                "success": "Vestiging hersteld"
             }
         },
         "member": {
@@ -6466,6 +6533,20 @@
                     "success": "Veld is hersteld",
                     "error": "Veld kon niet worden hersteld"
                 }
+            }
+        },
+        "establishmentGroup": {
+            "delete": {
+                "error": "De vestiging kon niet worden verwijderd",
+                "success": "De vestiging is succesvol verwijderd"
+            },
+            "update": {
+                "error": "De vestiging kon niet worden gewijzigd",
+                "success": "De vestiging is succesvol gewijzigd"
+            },
+            "create": {
+                "error": "De vestiging kon niet worden toegevoegd",
+                "success": "De vestiging is succesvol toegevoegd"
             }
         }
     },

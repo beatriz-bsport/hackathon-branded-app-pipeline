@@ -114,8 +114,8 @@ export class ConsumerSubscription extends React.Component<Props> {
         {this.props.subscriptionLoading && <BackofficeLinearProgress />}
         <div className={this.props.classes.header}>{this.renderButton()}</div>
         {!this.props.subscriptionLoading &&
-        (this.props.subscriptionList ||
-          this.props.subscriptionList.length === 0) ? (
+        !!this.props.subscriptionList &&
+        this.props.subscriptionList.length === 0 ? (
           <Typography className={this.props.classes.paddedContent}>
             {this.props.t('subscription.isEmpty')}
           </Typography>

@@ -26,6 +26,7 @@ import { Offer } from '../../offer/types';
 import { Coach } from '../../associated-coach/types';
 import { Establishment } from '../../establishment/types';
 import { MetaActivity } from '../../meta-activity/types';
+import WidgetUtils from '../../widget/WidgetUtils';
 
 type OwnProps = {
   booking: Booking<Offer<Coach, Establishment, MetaActivity>>;
@@ -135,7 +136,7 @@ export const BookingConsumerItem = (props: Props) => {
             {t('booking.accessLive')}
           </Button>
         ) : null}
-        {props.goToCalendar ? (
+        {props.goToCalendar && !WidgetUtils.isWidget() ? (
           <Button
             onClick={() => props.goToCalendar(props.booking)}
             variant={

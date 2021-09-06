@@ -16,6 +16,8 @@ import NearMeIcon from '@material-ui/icons/NearMe';
 import TodayIcon from '@material-ui/icons/Today';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
+import WidgetUtils from '../../../widget/WidgetUtils';
+
 import RedButton from '../../../../components/button/RedButton.component';
 
 type Props = {
@@ -62,7 +64,7 @@ export const PrivateBookingConsumerItem = (props: Props) => {
 
       <Divider />
       <div className={classes.footer}>
-        {props.goToCalendar && (
+        {props.goToCalendar && !WidgetUtils.isWidget() && (
           <Button
             onClick={props.goToCalendar}
             variant="outlined"

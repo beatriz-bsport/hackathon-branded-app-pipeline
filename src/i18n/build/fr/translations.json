@@ -4926,7 +4926,8 @@
             "helperText": "Un accompte de {{value}}€ sera appliqué pour ce membre"
           }
         },
-        "category": { "label": "Catégorie (facultatif)", "helperText": "Nom de la catégorie" }
+        "category": { "label": "Catégorie (facultatif)", "helperText": "Nom de la catégorie" },
+        "error": { "start_date_method_type": "Veuillez indiquer le début de validité de la carte." }
       }
     },
     "details": {

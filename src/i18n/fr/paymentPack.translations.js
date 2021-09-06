@@ -329,6 +329,10 @@ exports.default = {
         label: 'Catégorie (facultatif)',
         helperText: 'Nom de la catégorie',
       },
+      error: {
+        start_date_method_type:
+          'Veuillez indiquer le début de validité de la carte.',
+      },
     },
   },
   details: {

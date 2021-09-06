@@ -176,9 +176,8 @@ export const PaymentPackCategoryItemWithPaymentPack = (props: Props) => {
               <div className={classes.title}>
                 <Typography variant="h5" component="h2">
                   {`${paymentPackCategory.name} (${
-                    paymentPackCategory?.managerPacks
-                      ? paymentPackCategory?.managerPacks.length
-                      : 0
+                    (paymentPackCategory?.managerPacks?.length || 0) +
+                    (paymentPackCategory?.publicPacks?.length || 0)
                   })`}
                 </Typography>
               </div>

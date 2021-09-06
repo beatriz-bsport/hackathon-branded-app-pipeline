@@ -26,6 +26,7 @@ import {
   getEnabledMetaActivities,
   getEnabledWorkshops,
 } from '../../libs/meta-activity/selectors';
+import { getAllPaymentPackCategory } from '../../libs/payment-packs/selectors';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import { createOffers as createOffersAPI } from '../../libs/meta-activity/api/meta-activity';
 import themeSelectors from '../../libs/theme/selectors';
@@ -47,6 +48,7 @@ import { RoomBlueprint } from '../../libs/spot-scheduling/types';
 import { CoachPaymentRuleByKindSelector } from '../../libs/coach-payment-rules/selectors';
 import { fetchAllCoachPaymentRules } from '../../libs/coach-payment-rules/actions';
 import type { CoachPaymentRule } from '../../libs/coach-payment-rules/types';
+import type { PaymentPackCategory } from '../../libs/payment-packs/types';
 
 type StepType = {
   id: number,
@@ -87,6 +89,7 @@ type Props = {
   roomBlueprints: Array<RoomBlueprint>,
   fetchAllCoachPaymentRules: () => void,
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> },
+  paymentPackCategories: Array<PaymentPackCategory>,
 };
 const MetaActivityMap = {
   cover_main: 'cover_main',
@@ -157,6 +160,7 @@ export class WorkshopActivityFormPage extends Component<Props> {
             ? { metaActivities: [this.props.upsertedWorkshop.id] }
             : null
         }
+        paymentPackCategories={this.props.paymentPackCategories}
       />
     );
   };
@@ -244,6 +248,7 @@ export default compose(
       upsertedWorkshop: state.metaActivity.upsert.data,
       roomBlueprints: getAvailableRoomBlueprints(state),
       coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
+      paymentPackCategories: getAllPaymentPackCategory(state),
     }),
     {
       upsertWorkshopActivity: upsert,

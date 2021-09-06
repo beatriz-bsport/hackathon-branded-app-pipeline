@@ -41,6 +41,7 @@ import {
   SwitchField,
   CheckboxField,
   IntegerField,
+  AlertError,
 } from '../../../components/forms';
 import PaymentPackCategorySelector from './category/PaymentPackCategorySelector.component';
 
@@ -100,7 +101,6 @@ export function PaymentPackForm(props: Props) {
     full_vod_access,
     category,
   } = values;
-
   return (
     <div>
       <Form className={classes.content}>
@@ -375,6 +375,7 @@ export function PaymentPackForm(props: Props) {
                       },
                     ]}
                   />
+                  <AlertError name="start_date_method" />
                 </div>
                 <Collapse in={start_date_method !== `${START_ON_PURCHASE}`}>
                   <TextField
@@ -556,7 +557,9 @@ const PackSchema = Yup.object().shape({
   expiration_days_before_first_use: Yup.number(),
   unlimited: Yup.boolean(),
   theorical_margin_value: Yup.number(),
-  start_date_method: Yup.number().required(),
+  start_date_method: Yup.number()
+    .required('paymentPack:form.paymentPack.error.start_date_method_type')
+    .typeError('paymentPack:form.paymentPack.error.start_date_method_type'),
   duration_days: Yup.number().when('timeType', {
     is: VALID_BY_DURATION,
     then: Yup.number().min(0).required(),

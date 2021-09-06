@@ -101,11 +101,6 @@ export function PaymentPackForm(props: Props) {
     category,
   } = values;
 
-  const categoryChoices = paymentPackCategories
-    ? paymentPackCategories.map((cat) => {
-        return { value: cat.id, label: cat.name };
-      })
-    : [];
   return (
     <div>
       <Form className={classes.content}>

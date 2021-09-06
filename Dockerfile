@@ -1,4 +1,4 @@
-FROM 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-frontend AS raw
+FROM 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-frontend:node-12 AS raw
 
 RUN mkdir -p /app
 WORKDIR /app

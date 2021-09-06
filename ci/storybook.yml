@@ -15,6 +15,7 @@
     - echo "env.PUBLIC_URL = 'https://docs.infra.bsport.io/storybook/${CI_COMMIT_REF_NAME}'" >> ./envs/storybook
     - echo "env.I18N_TRANSLATION_DOMAIN = 'https://docs.infra.bsport.io/storybook/${CI_COMMIT_REF_NAME}'" >> ./envs/storybook
     - cp ./envs/storybook ./envs/local
+    - echo '<script>' > .storybook/preview-head.html && cat ./envs/local >> .storybook/preview-head.html && echo '</script>' >> .storybook/preview-head.html
     - yarn updateTranslation
     - yarn install --frozen-lockfile # just to be sure
     - yarn build-storybook --quiet --output-dir storybook

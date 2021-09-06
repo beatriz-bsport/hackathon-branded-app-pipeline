@@ -1,0 +1,41 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import CoachPaymentRuleSelectorStyledComponent from './CoachPaymentRuleSelectorStyled.component';
+
+<Meta title="coach_payment_rule/selector" component={CoachPaymentRuleSelectorStyledComponent}
+argTypes ={{
+            coachPaymentRulesList :{
+            name :'Coach Payment rule List',
+            description :'The input can receive either a list of Coach payment rule or Coach Payment Rule Group',
+            },
+            closeMenuOnSelect:{
+                name : 'Close menu on Select',
+                description :'Either or not the menu should close after selecting an item',
+            }
+}} />
+
+
+export const Template = (args) => <CoachPaymentRuleSelectorStyledComponent {...args} />;
+
+# Coach Payment Rule Selector
+
+### Exemple 
+
+<Canvas>
+  <Story 
+    name="Complete"
+    args={{ 
+        closeMenuOnSelect:true,
+        coachPaymentRulesList : [{id : 1, name : 'Give me money'}, {id : 2, name : 'Give me more'} ],
+        noMulti : true,
+        placeholder : "Custom placeholder",
+        isClearable :false,
+        enableReset :false,
+        disabled:false,
+        isGroupSelect : false,
+  }}>
+  {Template.bind({})}
+  </Story>
+</Canvas>
+
+
+<ArgsTable story="Complete" />

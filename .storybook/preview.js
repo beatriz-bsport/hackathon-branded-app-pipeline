@@ -37,10 +37,13 @@ export const decorators = [
   Story => <React.Suspense fallback={<LinearProgress />}><Story/></React.Suspense>,
 ]
 
-// automatically import all files ending in *.stories.js
-const req = require.context('../src/', true, /.stories.js$/);
-function loadStories() {
-  req.keys().forEach((filename) => req(filename));
-}
-configure(loadStories, module);
 
+export const parameters = {
+  actions: { argTypesRegex: "^on[A-Z].*" },
+  controls: {
+    matchers: {
+      color: /(background|color)$/i,
+      date: /Date$/,
+    },
+  },
+}

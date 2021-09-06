@@ -119,9 +119,11 @@ function HiddenShortMenu(props: Props) {
               }}
               key={option.label}
             >
-              <ListItemIcon>
-                <option.icon color={option.color} />
-              </ListItemIcon>
+              {!!option.icon && (
+                <ListItemIcon>
+                  <option.icon color={option.color} />
+                </ListItemIcon>
+              )}
               <Typography>{option.label}</Typography>
             </MenuItem>
           ))}

@@ -82,7 +82,7 @@ export class PrivatePassFilter extends Component<Props, state> {
             value={filter_data.has_pack}
             onChange={(ev) => onChange({ has_pack: ev.target.value })}
           >
-            <MenuItem key value>
+            <MenuItem>
               {t(`filters.${filter_data.filter_identifier}.has`)}
             </MenuItem>
             <MenuItem key={false} value={false}>

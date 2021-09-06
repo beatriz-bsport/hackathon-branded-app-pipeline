@@ -1252,7 +1252,7 @@
                 "order": "My orders",
                 "profile": "My profile",
                 "bookings": "My bookings ",
-                "pass": "Passes"
+                "pass": "My passes"
             },
             "beta": "Beta",
             "coachPerformance": "Teachers",
@@ -5338,7 +5338,7 @@
             },
             "buyableItemIdentifier": {
                 "10": "Pack",
-                "9": "Appointment Pass",
+                "9": "Appointment pass",
                 "3": "Credit",
                 "2": "Webshop",
                 "1": "Passes"
@@ -5784,7 +5784,7 @@
                 },
                 "object_type": {
                     "paymentPack": "Passes",
-                    "privatePass": "Appointment Pass",
+                    "privatePass": "Appointment pass",
                     "label": "Subscription type",
                     "paymentCombo": "Pack"
                 },
@@ -5825,7 +5825,7 @@
             "paymentPack": "Associated pass",
             "no": "No",
             "yes": "Yes",
-            "privatePass": "Associated appointment card",
+            "privatePass": "Associated appointment pass",
             "interval": {
                 "week": "week",
                 "week_plural": "weeks",
@@ -8154,7 +8154,7 @@
                 "between": "and",
                 "second": "appointment",
                 "first": "Has booked",
-                "explanation": "A booked X appointments with teacher A, in location B, with the pass C ...",
+                "explanation": "Booked X appointments with teacher A, in location B, with the pass C...",
                 "name": "Number of appointments",
                 "private_service": {
                     "first": "with appointments"
@@ -8176,8 +8176,8 @@
                 "second": "and",
                 "has_not": "Does not have",
                 "has": "Has",
-                "first": "one of the appointment pass",
-                "name": "Appointment Pass",
+                "first": "one of the appointment passes",
+                "name": "Appointment pass",
                 "explanation": "Has bought appointment pass X at date Y, with Z credits remaining"
             },
             "attendanceTrue": "present",
@@ -8527,7 +8527,7 @@
                 },
                 "create": {
                     "error": "Cannot share this pass",
-                    "success": "Shared appointment card"
+                    "success": "Shared appointment pass"
                 }
             },
             "delete": {
@@ -8599,7 +8599,7 @@
                 "success": "The teacher has been edited"
             },
             "restore": {
-                "error": "Cannot restore appointment, there are not enough credits on this appointment pass.",
+                "error": "The appointment can't be restored, as the associated appointment pass has too few credits",
                 "success": "The appointment has been restored"
             }
         },
@@ -8626,11 +8626,11 @@
         "privatePass": {
             "del": {
                 "error": "Unable to delete this appointment pass",
-                "success": "Appointment Pass deleted"
+                "success": "Appointment pass has been deleted"
             },
             "restore": {
-                "error": "Unable to restore this Appointment Pass",
-                "success": "Appointment Pass restored"
+                "error": "Unable to restore appointment pass",
+                "success": "Appointment pass has been restored"
             }
         },
         "metaActivity": {
@@ -8875,7 +8875,7 @@
             "product": "Products",
             "coaches": "Teachers",
             "privateService": {
-                "pass": "Appointment Pass",
+                "pass": "Appointment passes",
                 "services": "Appointments",
                 "title": "Appointments"
             },

@@ -144,6 +144,7 @@ export class PaymentDialog extends React.Component<Props, State> {
                   disabled={
                     !this.props.clientSecret || !!this.props.clientSecretLoading
                   }
+                  style={{ width: '100%' }}
                   component="fieldset"
                 >
                   {availableEngineList.length > 1 && (
@@ -260,7 +261,15 @@ export class PaymentDialog extends React.Component<Props, State> {
 }
 
 const styles = (theme) => ({
-  container: { maxWidth: '100vw' },
+  container: {
+    maxWidth: '100vw',
+    [theme.breakpoints.down('xs')]: {
+      width: '90vw',
+    },
+    [theme.breakpoints.up('sm')]: {
+      minWidth: 600,
+    },
+  },
   divider: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),

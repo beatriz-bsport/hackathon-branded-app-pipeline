@@ -174,6 +174,7 @@ const useStyles = makeStyles((theme) => ({
   },
   innerContainer: {
     marginTop: theme.spacing(2),
+    width: '100%',
   },
   priceContainer: {
     padding: theme.spacing(2),

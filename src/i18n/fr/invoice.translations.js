@@ -143,6 +143,8 @@ exports.default = {
       edit: 'Modifier',
     },
     nextRetryDate: 'Le paiement sera retenté le {{ d }}',
+    lockedToday:
+      "Le paiement est prévu aujourd'hui, vous ne pouvez plus le modifier",
   },
   paymentPanel: {
     amountRemaining: 'Reste à payer: {{ amount }}',

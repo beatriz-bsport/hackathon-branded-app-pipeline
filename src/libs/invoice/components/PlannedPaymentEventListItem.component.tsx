@@ -2,6 +2,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
 import moment from 'moment-timezone';
 import Typography from '@material-ui/core/Typography';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
@@ -33,6 +34,24 @@ type Props = {
     onEnable?: (id: number) => void;
     onEdit?: (id: number) => void;
   };
+};
+
+const onlyIfFuture = (
+  plannedPaymentEvent: PlannedPaymentEvent,
+  t: TFunction,
+  callback: () => void,
+) => () => {
+  if (moment(plannedPaymentEvent.future_date).isSameOrBefore(moment())) {
+    if (
+      Math.abs(
+        moment(plannedPaymentEvent.date_created).diff(moment(), 'minutes'),
+      ) > 30
+    ) {
+      alert(t('plannedPaymentEvent.lockedToday'));
+      return;
+    }
+  }
+  callback();
 };
 
 export const PlannedPaymentEventListItem = (props: Props) => {
@@ -153,11 +172,11 @@ export const PlannedPaymentEventListItem = (props: Props) => {
           >
             {!!onEdit && (
               <MenuItem
-                onClick={() => {
+                onClick={onlyIfFuture(props.plannedPaymentEvent, t, () => {
                   setMenuAnchorEl(null);
                   setProcessing(true);
                   onEdit(props.plannedPaymentEvent.id, closeMenu);
-                }}
+                })}
               >
                 <ListItemIcon>
                   <EditIcon />
@@ -167,11 +186,11 @@ export const PlannedPaymentEventListItem = (props: Props) => {
             )}
             {!!onRegisterNow && (
               <MenuItem
-                onClick={() => {
+                onClick={onlyIfFuture(props.plannedPaymentEvent, t, () => {
                   setMenuAnchorEl(null);
                   setProcessing(true);
                   onRegisterNow(props.plannedPaymentEvent.id, closeMenu);
-                }}
+                })}
               >
                 <ListItemIcon>
                   <CreditCardIcon />
@@ -183,11 +202,11 @@ export const PlannedPaymentEventListItem = (props: Props) => {
             )}
             {!!onDisable && (
               <MenuItem
-                onClick={() => {
+                onClick={onlyIfFuture(props.plannedPaymentEvent, t, () => {
                   setMenuAnchorEl(null);
                   setProcessing(true);
                   onDisable(props.plannedPaymentEvent.id, closeMenu);
-                }}
+                })}
               >
                 <ListItemIcon>
                   <DeleteIcon />
@@ -199,11 +218,11 @@ export const PlannedPaymentEventListItem = (props: Props) => {
             )}
             {!!onEnable && (
               <MenuItem
-                onClick={() => {
+                onClick={onlyIfFuture(props.plannedPaymentEvent, t, () => {
                   setMenuAnchorEl(null);
                   setProcessing(true);
                   onEnable(props.plannedPaymentEvent.id, closeMenu);
-                }}
+                })}
               >
                 <ListItemIcon>
                   <HourglassEmptyIcon />

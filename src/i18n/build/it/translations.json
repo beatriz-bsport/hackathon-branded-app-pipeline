@@ -3819,8 +3819,8 @@
                     "cancel": "Annulla",
                     "submit": "Invia"
                 },
-                "topup": "Incasso",
-                "debt": "Pagamento",
+                "topup": "Aggiungere al saldo del conto di credito del cliente",
+                "debt": "Addebito dal saldo del conto di credito del cliente",
                 "explainTopup": "Un supplemento di {{ amount }} €  sarà registrato nel saldo del membro",
                 "explainDecaissement": "Un pagamento di  {{ amount }} {{ currencyDisplay }} sarà registrato",
                 "balanceValueLabel": "Importo",

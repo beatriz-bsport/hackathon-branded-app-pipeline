@@ -2951,7 +2951,8 @@
       "state": "Status",
       "updated_at": "Mis à jour le",
       "created_at": "Créée le",
-      "qty": "Quantité"
+      "qty": "Quantité",
+      "actions": "Actions"
     },
     "form": { "delivery": { "first_name": "Prénom", "last_name": "Nom de famille" } },
     "actions": { "flagAsCancelled": "Annuler", "flagAsOnSiteDelivery": "A récupérer sur place", "flagAsSent": "Expédié" },

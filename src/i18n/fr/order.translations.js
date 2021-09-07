@@ -16,6 +16,7 @@ exports.default = {
     updated_at: 'Mis à jour le',
     created_at: 'Créée le',
     qty: 'Quantité',
+    actions: 'Actions',
   },
   form: {
     delivery: {

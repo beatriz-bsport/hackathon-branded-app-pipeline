@@ -42,7 +42,7 @@ export function PaymentRuleTable(props: Props) {
           <TableCell>{t('deliveryFee.name')}</TableCell>
           <TableCell>{t('deliveryFee.fee')}</TableCell>
           <TableCell>{t('deliveryFee.free_threshold')}</TableCell>
-          <TableCell>{t('actions')}</TableCell>
+          <TableCell>{t('table.actions')}</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>

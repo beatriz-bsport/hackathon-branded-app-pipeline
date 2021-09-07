@@ -16,7 +16,7 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import RedButton from '../../../components/button/RedButton.component';
-import { formatAsTime } from '../../../utils/datetime';
+import { formatAsDatetime } from '../../../utils/datetime';
 
 type Props = {
   tempPassword: ?string,
@@ -99,7 +99,8 @@ export const TempPasswordDialog = (props: Props) => {
         </div>
         <Typography color="textSecondary">
           {props.t('tempPassword.explain', {
-            expirationDate: formatAsTime(props.tempPasswordExpirationDate),
+            expirationDate: formatAsDatetime(props.tempPasswordExpirationDate),
+            interpolation: { escapeValue: false },
           })}
         </Typography>
       </DialogContent>

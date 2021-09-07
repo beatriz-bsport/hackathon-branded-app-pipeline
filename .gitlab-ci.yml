@@ -9,7 +9,7 @@ variables:
 stages:
   #   - prepare-image-docker
   # - static-analysis
-  # - build-deploy
+  - build-deploy
   - label-issues
 
 
@@ -53,36 +53,36 @@ stages:
 #     - master
 #     - production
 
-# .Build and deploy Base:
-#   # image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
-#   stage: build-deploy 
-#   tags:
-#     - high-ram
-#     - kubernetes
-#   only:
-#     refs:
-#       - dev
-#       - master
-#       - production
-#   script:
-#     # - mv /app/node_modules .
-#     - echo "FAILED" > .job_status
-#     - ./link_bsport_saas.sh
-#     - yarn install --frozen-lockfile # just to be sure
-#     - ./build_prod.sh
-#     - echo "SUCCESS" > .job_status
-# 
-#   after_script:
-#     - STATUS=`echo "$(cat .job_status)"`
-#     - echo "$STATUS"
-#     - cat .job_status
-#     - export STATUS
-#     - '[[ "$STATUS" = "SUCCESS" ]] && COLOR="#36a64f" || COLOR="#E00201"'
-#     - '[[ "$STATUS" = "SUCCESS" ]] && SUCCESS_ICON="https://pluspng.com/img-png/success-png-success-icon-image-23194-400.png" || SUCCESS_ICON="http://www.pngall.com/wp-content/uploads/2016/06/Fail-Stamp-PNG-Clipart.png"'
-#     - export SUCCESS_ICON
-#     - envsubst < ./slack_template.json > slack_template2.json
-#     - cat slack_template2.json
-#     - 'curl -s -d @slack_template2.json --header "Content-Type: application/json" "${SLACK_WEBHOOK_URL}" || exit 0'
+.Build and deploy Base:
+  # image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
+  stage: build-deploy 
+  tags:
+    - high-ram
+    - kubernetes
+  only:
+    refs:
+      - dev
+      - master
+      - production
+  script:
+    # - mv /app/node_modules .
+    - echo "FAILED" > .job_status
+    - ./link_bsport_saas.sh
+    - yarn install --frozen-lockfile # just to be sure
+    - ./build_prod.sh
+    - echo "SUCCESS" > .job_status
+
+  after_script:
+    - STATUS=`echo "$(cat .job_status)"`
+    - echo "$STATUS"
+    - cat .job_status
+    - export STATUS
+    - '[[ "$STATUS" = "SUCCESS" ]] && COLOR="#36a64f" || COLOR="#E00201"'
+    - '[[ "$STATUS" = "SUCCESS" ]] && SUCCESS_ICON="https://pluspng.com/img-png/success-png-success-icon-image-23194-400.png" || SUCCESS_ICON="http://www.pngall.com/wp-content/uploads/2016/06/Fail-Stamp-PNG-Clipart.png"'
+    - export SUCCESS_ICON
+    - envsubst < ./slack_template.json > slack_template2.json
+    - cat slack_template2.json
+    - 'curl -s -d @slack_template2.json --header "Content-Type: application/json" "${SLACK_WEBHOOK_URL}" || exit 0'
 # 
 # Buid Deploy Staging:
 #   extends: .Build and deploy Base
@@ -96,17 +96,17 @@ stages:
 #     SLACK_WEBHOOK_URL: "${SLACK_STAGING_WEBHOOK_URL}"
 #     CDN_DOMAIN: cdn.staging.bsport.io
 # 
-# Buid Deploy Production:
-#   extends: .Build and deploy Base
-#   only:
-#     refs:
-#       - production
-#   variables:
-#     S3BUCKETNAME: bsport-cdn
-#     ENVIRONMENT: production
-#     CLOUDFRONT_ID: E3PVSAXDFQZX1T 
-#     SLACK_WEBHOOK_URL: "${SLACK_PRODUCTION_WEBHOOK_URL}"
-#     CDN_DOMAIN: cdn.bsport.io
+Buid Deploy Production:
+  extends: .Build and deploy Base
+  only:
+    refs:
+      - production
+  variables:
+    S3BUCKETNAME: bsport-cdn
+    ENVIRONMENT: production
+    CLOUDFRONT_ID: E3PVSAXDFQZX1T 
+    SLACK_WEBHOOK_URL: "${SLACK_PRODUCTION_WEBHOOK_URL}"
+    CDN_DOMAIN: cdn.bsport.io
 # 
 # Buid Deploy Dev:
 #   extends: .Build and deploy Base

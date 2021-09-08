@@ -220,8 +220,11 @@ export const InvoiceContent = (props: Props) => {
                 <>
                   <ListItem>
                     <ListItemText
-                      primary={`${coupon.coupon_code}   - 
-			${getCurrencyDisplayWithPrice(coupon.coupon_voucher || 0).toFixed(2)}`}
+                      primary={`${
+                        coupon.coupon_code
+                      } - ${getCurrencyDisplayWithPrice(
+                        coupon.coupon_voucher || 0,
+                      )}`}
                     />
                     <ListItemSecondaryAction>
                       <IconButton

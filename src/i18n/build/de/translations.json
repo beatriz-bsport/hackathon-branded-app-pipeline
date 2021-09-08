@@ -2042,7 +2042,8 @@
             "tag_name": "Name der Markierung",
             "display_tag_rules": "Markierungsregeln anzeigen",
             "tag_on_left": "Markieren, wenn von der Smartliste genommen wird",
-            "tag_on_join": "Markieren, wenn auf der Smartlist"
+            "tag_on_join": "Markieren, wenn auf der Smartlist",
+            "activeSince": "Aktiv von"
         }
     },
     "theme": {
@@ -2158,7 +2159,8 @@
                         "placeholder": "Maximale Anzahl"
                     },
                     "label": "Begrenzung der maximalen Anzahl zukünftiger Buchungen pro Kunde"
-                }
+                },
+                "hiddenFromMarketplace": "Erscheint in der bsport-App"
             },
             "submit": "Speichern",
             "instagramURL": {
@@ -2651,7 +2653,14 @@
                     "checkbox": "Bei zu vielen verspäteten Stornierungen wird eine Strafe verhängt",
                     "title": "Strafen"
                 },
-                "only_vod_access": "Nur für VOD"
+                "only_vod_access": "Nur für VOD",
+                "error": {
+                    "start_date_method_type": "Geben Sie den Beginn der Gültigkeit der Karte an."
+                },
+                "category": {
+                    "helperText": "Name der Kategorie",
+                    "label": "Kategorie (fakultativ)"
+                }
             }
         },
         "boughtConsumerPaymentPacks": "Abonnenten",
@@ -2821,6 +2830,27 @@
         },
         "section": {
             "massExtension": "Verlängerung"
+        },
+        "category": {
+            "deleteModal": {
+                "confirm": "Bestätigen Sie",
+                "cancel": "ringförmig",
+                "content": "Sind Sie sicher, dass Sie diese Kategorie löschen möchten? Alle darin enthaltenen Artikel werden in den Bereich der unsortierten Unterrichtskarten verschoben.",
+                "title": "Unterdrückung"
+            },
+            "popover": {
+                "delete": "Löschen",
+                "edit": "Neu taufen"
+            },
+            "form": {
+                "dialog": {
+                    "helper": "Die Kategorien werden auf dem Marktplatz und in der mobilen Anwendung für zum Verkauf stehende Karten angezeigt.",
+                    "titleEdit": "Kategorie",
+                    "titleNew": "Neue Kategorie",
+                    "name": "Name der Kategorie"
+                }
+            },
+            "add": "Eine Kategorie hinzufügen"
         }
     },
     "alerting": {
@@ -3081,7 +3111,12 @@
             "recurrent_price": "Betrag",
             "sum__non_attendance": "Anzahl der Abwesenheiten",
             "sum_attendance": "Anzahl der anwesenden Personen",
-            "invoice_date": "Rechnungsdatum"
+            "invoice_date": "Rechnungsdatum",
+            "payment_amount_by_payment_method": "Zeitpunkt der Ausstellung der Rechnung",
+            "invoice_time": "Zeitpunkt der Ausstellung der Rechnung",
+            "invoice_datetime": "Datum und Uhrzeit der Ausstellung der Rechnung.",
+            "invoice_date_created": "Datum der Ausstellung der Rechnung",
+            "last_payment_date": "Datum der letzten Zahlung"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -3203,6 +3238,20 @@
             "paymentPackEnabled": {
                 "error": "Es ist unmöglich, diese Karte wiederherzustellen",
                 "success": "Kurskarte wiederhergestellt"
+            },
+            "category": {
+                "delete": {
+                    "error": "Kategorie kann nicht gelöscht werden",
+                    "success": "Kategorie entfernt"
+                },
+                "create": {
+                    "error": "Diese Kategorie kann nicht erstellt werden",
+                    "success": "Neue Kategorie erfolgreich erstellt"
+                },
+                "update": {
+                    "error": "Kategorie kann nicht bearbeitet werden",
+                    "success": "Kategorie erfolgreich geändert"
+                }
             }
         },
         "paymentRules": {
@@ -3667,7 +3716,11 @@
             "2012": "Dieser Pass ist mit dieser Sitzung nicht kompatibel",
             "6002": "Die Warteliste ist voll",
             "6003": "Sie sind bereits auf der Warteliste",
-            "9": "Sie versuchen mehr Termine zu buchen, als Ihr Club zulässt"
+            "9": "Sie versuchen mehr Termine zu buchen, als Ihr Club zulässt",
+            "2017": "Mit deiner Kurskarte kannst du dieses Jahr nicht mehr buchen",
+            "2016": "Mit deiner Kurskarte kannst du diesen Monat nicht mehr buchen",
+            "2015": "Mit deiner Kurskarte kannst du diese Woche nicht mehr buchen",
+            "2014": "Mit Ihrer Kurskarte can SIE für diesen Tag nicht mehr buchen"
         },
         "signup": {
             "emailAlreadyExists": "Diese E-Mail ist bereits in Gebrauch",
@@ -3688,6 +3741,52 @@
             "delete": {
                 "error": "Fehler bei der Erstellung",
                 "success": "Gruppe gelöscht"
+            }
+        },
+        "customForm": {
+            "customFormField": {
+                "restore": {
+                    "error": "Das Element konnte nicht wiederhergestellt werden",
+                    "success": "Wiederhergestelltes Element"
+                },
+                "disable": {
+                    "error": "Der Artikel kann nicht registriert werden",
+                    "success": "Archivierter Artikel"
+                }
+            },
+            "restore": {
+                "error": "Das Formular kann nicht wiederhergestellt werden",
+                "success": "Wiederhergestellte Form"
+            },
+            "disable": {
+                "error": "Formular kann nicht archiviert werden",
+                "success": "Archivierte Form"
+            },
+            "duplicate": {
+                "error": "Das Formular kann nicht vervielfältigt werden",
+                "success": "Doppeltes Formular"
+            },
+            "create": {
+                "error": "Das Formular kann nicht erstellt werden",
+                "success": "Formular erstellt"
+            },
+            "update": {
+                "error": "Kann das Formular nicht bearbeiten",
+                "success": "Geändertes Formular"
+            }
+        },
+        "establishmentGroup": {
+            "delete": {
+                "error": "Standort konnte nicht gelöscht werden",
+                "success": "Standort entfernt"
+            },
+            "update": {
+                "error": "Standort kann nicht geändert werden",
+                "success": "Standort geändert"
+            },
+            "create": {
+                "error": "Standort konnte nicht erstellt werden",
+                "success": "Der neue Standort ist erstellt"
             }
         }
     },
@@ -3960,7 +4059,8 @@
                 "cancel": "Abbrechen",
                 "revert": "Abbrechen",
                 "pay": "Diese Rechnung bezahlen",
-                "bill": "Einziehen"
+                "bill": "Einziehen",
+                "basketInconsistent": "Ihr Warenkorb wurde geändert, bitte aktualisieren Sie Ihre Seite, bevor Sie Ihre Zahlung bestätigen.\n Sie wurden nicht belastet."
             },
             "sumup": {
                 "amountRemaining": "Noch zu zahlen",
@@ -4008,9 +4108,12 @@
             "actions": {
                 "edit": "Bearbeiten",
                 "delete": "Abbrechen",
-                "registerNow": "Jetzt auszahlen"
+                "registerNow": "Jetzt auszahlen",
+                "enable": "Termin verschieben",
+                "disable": "Deprogrammieren"
             },
-            "nextRetryDate": "Die Zahlung wird verzögert bis {{ d }}"
+            "nextRetryDate": "Die Zahlung wird verzögert bis {{ d }}",
+            "lockedToday": "Die Zahlung ist heute fällig, Sie können sie nicht mehr ändern"
         },
         "mandate": {
             "content": "Indem Du Deine IBAN angibst und Deine Zahlung bestätigst, ermächtigst Du bsport und Stripe, unser Zahlungssystem, Lastschriftanweisungen gemäß dem Zahlungsplan an Deine Bank zu senden. Du kannst bei Deiner Bank eine Rückerstattung gemäß den Bedingungen Deiner Bank beantragen. Eine Rückerstattung muss innerhalb von 8 Wochen nach der ersten Abbuchung beantragt werden.",
@@ -4962,7 +5065,8 @@
             "paymentPack": "Kurskarten",
             "relation": "Beziehungen",
             "info": "Allgemein",
-            "vod": "VOD"
+            "vod": "VOD",
+            "form": "Formulare"
         },
         "merge": "Fusionieren",
         "paymentAction": {
@@ -6139,7 +6243,8 @@
             "pack": "Karten",
             "dashboard": "Überblick",
             "myVideos": "Meine Videos",
-            "pick_a_language": "Wähle eine Sprache"
+            "pick_a_language": "Wähle eine Sprache",
+            "automaticLanguage": "Automatische Spracherkennung"
         },
         "pack": {
             "titlePrivatePack": "Terminkarte",
@@ -6577,7 +6682,8 @@
         "selector": {
             "explainConsumer": "Mit <1>bsport</2> genießt Du ein einzigartiges Erlebnis bei der Buchung all Deiner sportlichen Aktivitäten. <3/> Ein einziges Konto und ein einziges Passwort!",
             "placeholder": "Ein Studio/Raum/Klub/usw. suchen...",
-            "noMatchingCompany": "Kein Ergebnis"
+            "noMatchingCompany": "Kein Ergebnis",
+            "fetchMore": "Mehr sehen"
         }
     },
     "selfCheckIn": {
@@ -6726,7 +6832,8 @@
         },
         "establishment": {
             "establishmentFormPage": "Einrichtung-Formular",
-            "establishmentList": "Einrichtungen"
+            "establishmentList": "Einrichtungen",
+            "establishmentGroupPage": "Standorte"
         },
         "privateService": {
             "serviceList": "Terminvereinbarungen"
@@ -7083,7 +7190,8 @@
                 "pass": "Kurskarten",
                 "profile": "Mein Profil",
                 "order": "Meine Bestellungen",
-                "subscriptions": "Meine Abonnements"
+                "subscriptions": "Meine Abonnements",
+                "myAccount": "Mein Konto"
             },
             "coupon": "Werbeaktionen",
             "video": "Videothek",
@@ -7160,7 +7268,9 @@
                 "addAmount": "Betrag, der dem Kassenbuch hinzugefügt werden muss",
                 "todayStartAmount": "Anfangsbetrag im Kassenbuch"
             },
-            "marketingNotification": "Benachrichtigungen"
+            "marketingNotification": "Benachrichtigungen",
+            "tags": "Tags",
+            "custom_form": "Formulare"
         },
         "deprecatedNavigator": {
             "close": "Schließen",
@@ -7698,7 +7808,8 @@
                 "privateService": "Terminvereinbarungen",
                 "workshop": "Workshops",
                 "calendar": "Kalender",
-                "newsletter": "Newsletter"
+                "newsletter": "Newsletter",
+                "loginButton": "Login-Button"
             },
             "preview": "Vorschau",
             "saveButton": "Speichern",
@@ -7788,7 +7899,7 @@
             },
             "edit": "Ändern"
         },
-        "establishment": "Einrichtung ",
+        "establishment": "Einrichtung",
         "baseEstablishment": "Gewöhnlich",
         "overrider": "Vertretung",
         "establishment_override": "Vertretungseinrichtung",
@@ -7842,7 +7953,38 @@
             "add": "Einen Sitzplan hinzufügen",
             "placeCount": "{{count}} orte",
             "untitled": "Unbenannt"
-        }
+        },
+        "group": {
+            "table": {
+                "name": "Nachname",
+                "establishment": "Verhalten",
+                "actions": "Verhalten"
+            },
+            "modal": {
+                "delete": {
+                    "confirm": "Löschen",
+                    "cancel": "Abbrechen",
+                    "content": "Dieser Ort wird in handelsüblichen Filtern, Widgets und benutzerdefinierten Apps nicht mehr angezeigt.",
+                    "title": "Einen Standort löschen"
+                }
+            },
+            "form": {
+                "dialog": {
+                    "save": "Geld sparen",
+                    "cancel": "Abbrechen",
+                    "title": "Standort"
+                },
+                "associated_localizations": "Verbundene Betriebe",
+                "name": "Nachname"
+            },
+            "noGroupHelper": "Standorte werden verwendet, um mehrere Adressen zu gruppieren. Wenn Sie mehrere Studios in verschiedenen Städten haben, können Sie Studios aus derselben Stadt an einem Ort gruppieren. Auf dem Markt, dem Widget und der personalisierten Anwendung können Ihre Schüler den Standort auswählen, der sie am meisten interessiert, um nur die Kurse in ihrer Nähe zu sehen.",
+            "actions": "Verhalten",
+            "name": " Nachname",
+            "addLocalisation": "einen Ort hinzufügen",
+            "groupButton": "Gruppenbetriebe"
+        },
+        "room": "Schlafzimmer",
+        "localisation": "Standort"
     },
     "checkout": {
         "myBasket": {
@@ -7864,7 +8006,8 @@
                 "invalidBasket": "Dein Warenkorb enthielt Produkte, die nicht mehr zum Verkauf stehen. Es wurde keine Zahlung verzeichnet"
             },
             "isFinalized": "Dein Warenkorb wurde validiert",
-            "checkingPaymentStatus": "Bitte warten Sie, wir prüfen den Status Ihrer Zahlung"
+            "checkingPaymentStatus": "Bitte warten Sie, wir prüfen den Status Ihrer Zahlung",
+            "totalQuantity": "Enthält Elemente"
         },
         "forms": {
             "delivery": {
@@ -7905,7 +8048,19 @@
                 "back": "Vorherige"
             }
         },
-        "expire_in": "Läuft ab in "
+        "expire_in": "Läuft ab in ",
+        "historyTitle": "Warenkorbverlauf",
+        "eventHistory": {
+            "pleaseSelectABasket": "Wählen Sie einen Warenkorb aus, um den Verlauf anzuzeigen",
+            "sectionTitle": "Ereignisse (Bearbeiten)"
+        },
+        "events": {
+            "basket-automaticclean": "Automatische Korbreinigung",
+            "basket-removeitem": "Warenkorbabhebung",
+            "basket-additem": "in den Warenkorb legen",
+            "basket-finalize": "Warenkorb fertig / bezahlt",
+            "basket-created": "Warenkorb erstellt"
+        }
     },
     "tag": {
         "filter": {
@@ -7950,6 +8105,69 @@
         },
         "tag": {
             "noTagAttributed": "Eine Markierung auswählen"
+        },
+        "management": {
+            "smartlistDetail": {
+                "createViaSmartlist": "Auf intelligente Listen zugreifen",
+                "empty": "An das Tag ist keine Tagging-Regel gebunden",
+                "removeTag": "Löschen",
+                "title": "Beschriftungsregel (Smart List)"
+            },
+            "couponDetail": {
+                "createViaCoupon": "Greifen Sie auf Aktionscodes zu",
+                "empty": "Es ist kein Promo-Code mit dem Tag verknüpft.",
+                "removeTag": "Etikett entfernen",
+                "blacklist": "Nicht verwendbar für markierte Mitglieder",
+                "whitelist": "Kann von Mitgliedern mit dem Tag verwendet werden",
+                "title": "Mit dem Tag verknüpfte Gutscheincodes"
+            },
+            "memberDetail": {
+                "addTag": "Beschriftet",
+                "addTagToAll": "Tag zu allen hinzufügen",
+                "memberWithoutTag": "Mitglieder nicht markiert",
+                "removeTag": "Tag aufheben",
+                "removeTagFromAll": "Alle entfernen",
+                "memberWithTag": "Getaggte Mitglieder"
+            },
+            "tagKind": {
+                "smartlist": "Intelligente Listen",
+                "coupon": "Angebotscode",
+                "member": "Mitglieder",
+                "toolbar": "Anzeigen von"
+            },
+            "tagDetail": {
+                "noTag": "Wählen Sie ein Tag aus, um Details anzuzeigen"
+            },
+            "createGroupDialog": {
+                "helper": "Erstellen Sie eine Kategorie, um eine Familie von Mitgliedern zu identifizieren. Zum Beispiel \"VIP\", können Sie die Labels \"ja\" und \"nein\" erstellen, um anzugeben, ob das Mitglied zu dieser Familie gehört.",
+                "field": "Nachname",
+                "title": "Kategorie"
+            },
+            "deleteTagDialog": {
+                "text": "Möchten Sie dieses Tag wirklich entfernen? Alle mit diesem Tag verknüpften Regeln werden entfernt.",
+                "title": "Entfernen von Tags"
+            },
+            "deleteTagGroupDialog": {
+                "text": "Möchten Sie diese Kategorie wirklich löschen? Alle in der Kategorie enthaltenen Tags werden ebenfalls entfernt. ",
+                "title": "Entfernung von Kategorien"
+            },
+            "tagColumn": {
+                "actions": "Verhalten ",
+                "smartlist_count": "Kennzeichnungsregeln",
+                "member_count": "Getaggte Mitglieder",
+                "tag": "Etikett"
+            },
+            "submit": "Bestätigen Sie",
+            "cancel": "Abbrechen",
+            "form": {
+                "tagGroupEmpty": "In dieser Kategorie sind keine Tags vorhanden.",
+                "tagGroupName": "Nachname",
+                "groupRename": "Kategorie"
+            },
+            "delete": "Löschen",
+            "rename": "Umbenennen",
+            "addTag": "Füge einen Tag hinzu",
+            "addGroup": "Erstellen Sie eine Kategorie"
         }
     },
     "platformBilling": {
@@ -8034,7 +8252,11 @@
             "showFabLabel": "Floating-Taste für die Kundenschnittstelle",
             "browserLanguage": "Browsersprache",
             "languageHelper": "Das Widget verwendet standardmäßig die hier ausgewählte Sprache. Wähle \"Browsersprache\", damit Dz die Sprache des Widgets automatisch an die Sprache Deines Kunden anpasst.",
-            "pickALanguage": "Wähle die Standardsprache"
+            "pickALanguage": "Wähle die Standardsprache",
+            "configTitle": "Mein Widget",
+            "containerConfiguration": {
+                "title": "Allgemeine Konfiguration"
+            }
         }
     },
     "marketing": {
@@ -8095,6 +8317,130 @@
             "mail": "Mail ",
             "statisticDetails": "Statistik",
             "notificationDetails": "Details der Benachrichtigung"
+        },
+        "customForm": {
+            "statistics": {
+                "table": {
+                    "row": {
+                        "yes": "wenn",
+                        "no": "Nein"
+                    },
+                    "column": {
+                        "completed": "Fertige",
+                        "last_display_date": "Letzte Öffnung",
+                        "display_count": "Anzahl der Eröffnungen",
+                        "member": "Mitglied"
+                    }
+                },
+                "byMember": "Detail nach Mitglied"
+            },
+            "submit": {
+                "errors": {
+                    "requiredFile": "Bitte eine Datei anhängen",
+                    "requiredSignature": "Bitte unterschreiben Sie das Formular.",
+                    "requiredField": "Dieses Feld ist obligatorisch, bitte wählen Sie eine Antwort aus."
+                },
+                "dialog": {
+                    "confirmButton": "folgen",
+                    "content": "Vielen Dank, dass Sie sich die Zeit genommen haben, dieses Formular auszufüllen.",
+                    "title": "Herzlich willkommen! "
+                },
+                "date_submitted": "Datum der Beendigung"
+            },
+            "customFormField": {
+                "modal": {
+                    "signature": {
+                        "clear": "Klare Unterschrift",
+                        "addSignatureHelper": "Sie können Ihre Unterschrift unten zeichnen",
+                        "editSignature": "Signatur bearbeiten",
+                        "addSignature": "Eine Unterschrift hinzufügen"
+                    },
+                    "error": {
+                        "emptyChoice": "Die Optionen dürfen nicht leer sein",
+                        "choicesLength": "Sie müssen mindestens 2 Optionen festlegen"
+                    },
+                    "add": {
+                        "confirm": "Bestätigen Sie",
+                        "cancel": "ringförmig",
+                        "option": "Option hinzufügen",
+                        "select": "einen Artikel auswählen",
+                        "addField": "Eins hinzufügen ",
+                        "title": "Formular-Element"
+                    },
+                    "disable": {
+                        "content": "Wenn Sie diesen Artikel löschen, wird er in den archivierten Artikeln abgelegt und nicht mehr angezeigt.",
+                        "confirm": "Bestätigen Sie",
+                        "cancel": "ringförmig",
+                        "title": "Ein Element löschen"
+                    }
+                }
+            },
+            "field": {
+                "choice_warning": "Alle Optionen, die beim Speichern des Formulars gespeichert werden, können nicht mehr bearbeitet werden. Sie können sie immer noch löschen oder neue hinzufügen.",
+                "tag_name": "Etikett",
+                "tag_group": "Kategorie",
+                "link_to_tag_popover": "Verknüpfen Sie ein Etikett mit dieser Option",
+                "signature": "Signatur",
+                "text_size_limit": "Die Länge der Antwort ist auf Zeichen begrenzt.",
+                "link_to_note_helper": "Wenn Sie die Frage mit einer Notiz verknüpfen, wird die Antwort automatisch zu einer Notiz in der Akte des Mitglieds hinzugefügt.",
+                "link_to_note": "Eine Notiz erstellen",
+                "fileHelper": "Die heruntergeladenen Dateien werden direkt in den Bereich \"Meine Dokumente\" der Mitgliederakte aufgenommen.",
+                "file": "Eine Datei anhängen",
+                "select_placeholder": "Zur Auswahl",
+                "select": "Die Auswahlliste",
+                "check_box": "Kontrollkästchen",
+                "radio": "Mehrfachauswahl",
+                "long_answer": "Lange Antwort",
+                "short_answer": "Kurze Antwort auf die Frage",
+                "paragraph": "Absatz",
+                "title": "Titel"
+            },
+            "tab": {
+                "statistics": "Statistik",
+                "campaign": "Kampagne",
+                "general": "Inhalt"
+            },
+            "modal": {
+                "delete": {
+                    "content": "Wenn Sie dieses Formular archivieren, wird es in Ihren archivierten Formularen abgelegt und ist für Ihre Mitglieder nicht mehr zugänglich.",
+                    "confirm": "Bestätigen Sie",
+                    "cancel": "ringförmig",
+                    "title": "Eine Formel archivieren"
+                }
+            },
+            "actions": {
+                "statistics": "Statistik",
+                "configure": "Konfigurieren Sie"
+            },
+            "allFieldDisabled": "Alle Fragen werden archiviert.",
+            "answerForDisabledField": "Archivierte Fragen",
+            "noChanges": "Aktualisiertes Formular.",
+            "changesDetected": "Es wurden Änderungen vorgenommen. Speichern Sie das Formular, um sie anzuwenden.",
+            "backToUserSpace": "Profil",
+            "unaccessibleForm": "Dieses Formular ist derzeit deaktiviert. Um zu Ihrer Profilseite zurückzukehren, klicken Sie auf die Schaltfläche unten.",
+            "addFieldLong": "Einen Artikel hinzufügen",
+            "emptyCustomForm": "Dieses Formular ist leer, Sie können Elemente hinzufügen, indem Sie es konfigurieren.",
+            "selectCustomFormFilled": "Wählen Sie ein Formular aus, um dessen Details anzuzeigen",
+            "selectCustomForm": "Wählen Sie ein Formular aus, um dessen Details anzuzeigen",
+            "addCustomFrom": "Ein Formular hinzufügen",
+            "noCustomForm": "Verwenden Sie die Formulare, um zusätzliche Informationen über Ihre Mitglieder abzurufen.",
+            "disabledCustomFormField": "Archivierte Artikel",
+            "disabledCustomForm": "Archivierte Formulare",
+            "listActions": "Verhalten",
+            "numberQuestions": "Anzahl der Fragen",
+            "mandatory": "Obligatorisch",
+            "send": "senden an",
+            "cancel": "ringförmig",
+            "save": "Zum Schutz",
+            "kind": "Schreiben Sie",
+            "label": "Etikett",
+            "preview": "Formular für die Vorschau",
+            "content": "Inhalt des Formulars",
+            "name": "Nachname",
+            "search": "Ein Formular finden",
+            "linkHelper": "Um das Formular an Ihre Mitglieder zu senden, fügen Sie den obigen Link in deren E-Mails ein. Es werden nur die gespeicherten Änderungen sichtbar sein.",
+            "CustomFormLink": "Formular Link",
+            "title": "Formularios"
         }
     },
     "spotScheduling": {

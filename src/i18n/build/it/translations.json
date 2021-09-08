@@ -1203,7 +1203,8 @@
             "invoice": "Fattura",
             "subscription": "Abbonamento",
             "myVideos": "I miei video",
-            "pick_a_language": "Selezionare una lingua"
+            "pick_a_language": "Selezionare una lingua",
+            "automaticLanguage": "Rilevamento automatico della lingua"
         },
         "debt": {
             "regularize": "Regolarizza",
@@ -1487,7 +1488,8 @@
         "selector": {
             "placeholder": "Trova una palestra / sala / club ...",
             "noMatchingCompany": "Nessun risultato",
-            "explainConsumer": "Con <1> bsport </2> vivi un'esperienza unica per la prenotazione di tutte le tue attività sportive. <3 /> Con un solo account e una password!"
+            "explainConsumer": "Con <1> bsport </2> vivi un'esperienza unica per la prenotazione di tutte le tue attività sportive. <3 /> Con un solo account e una password!",
+            "fetchMore": "Vedere di più"
         }
     },
     "reminder": {
@@ -2511,7 +2513,8 @@
                 "order": "I miei ordini",
                 "pass": "Schede del corso",
                 "bookings": "Le mie prenotazioni ",
-                "subscriptions": "I miei abbonamenti"
+                "subscriptions": "I miei abbonamenti",
+                "myAccount": "Il mio account"
             },
             "activity": "Le mie attività",
             "beta": "beta",
@@ -2562,7 +2565,7 @@
                 "marketplaceSettings": "Impostazioni marketplace",
                 "widget": "Widget",
                 "paymentMethod": "Modo di pagamento",
-                "forms": "Moduli"
+                "forms": "Modulo di registrazione"
             },
             "myClub": "Il mio club",
             "subscription": "Addebiti",
@@ -2584,7 +2587,9 @@
                 "cashDialogTitle": "Registratore di cassa",
                 "close": "chiudi"
             },
-            "marketingNotification": "Notifiche"
+            "marketingNotification": "Notifiche",
+            "tags": "Tags",
+            "custom_form": "Moduli"
         },
         "deprecatedNavigator": {
             "close": "Chiudi",
@@ -2734,7 +2739,8 @@
                         "placeholder": "Numero massimo"
                     },
                     "label": "Limitare il numero massimo di prenotazioni future per cliente"
-                }
+                },
+                "hiddenFromMarketplace": "Appaiono nell' APP Bsport"
             },
             "instagramURL": {
                 "label": "URL di Instagram",
@@ -3118,6 +3124,20 @@
             "paymentPackEnabled": {
                 "error": "Impossibile ripristinare la carta",
                 "success": "Tessera ripristinata"
+            },
+            "category": {
+                "create": {
+                    "error": "Impossibile creare questa categoria",
+                    "success": "Nuova categoria creata con successo"
+                },
+                "delete": {
+                    "success": "Categoria cancellata",
+                    "error": "Impossibile eliminare la categoria"
+                },
+                "update": {
+                    "success": "Categoria modificata con successo",
+                    "error": "Impossibile cambiare la categoria"
+                }
             }
         },
         "coupon": {
@@ -3478,7 +3498,57 @@
             "2": "La sessione non è più aperta per la prenotazione",
             "1": "La sessione non è ancora aperta per la prenotazione",
             "undefined": "La tessera non ti permette più di prenotare quest'anno",
-            "9": "Cerchi di prenotare più sessioni future di quelle consentite dal tuo club"
+            "9": "Cerchi di prenotare più sessioni future di quelle consentite dal tuo club",
+            "2016": "La sua carta dei corsi non le permette più di prenotare questo mese",
+            "2017": "La tua carta dei corsi non ti permette più di prenotare quest'anno",
+            "2014": "La sua tessera del corso non le permette più di prenotare per quel giorno",
+            "2015": "La sua tessera del corso non le permette più di prenotare questa settimana"
+        },
+        "establishmentGroup": {
+            "create": {
+                "success": "La nuova posizione è stata creata",
+                "error": "Impossibile creare la posizione"
+            },
+            "update": {
+                "success": "Posizione modificata",
+                "error": "Impossibile cambiare la posizione"
+            },
+            "delete": {
+                "success": "Posizione cancellata",
+                "error": "Impossibile eliminare la posizione"
+            }
+        },
+        "customForm": {
+            "update": {
+                "success": "Forma modificata",
+                "error": "Impossibile modificare il modulo"
+            },
+            "customFormField": {
+                "restore": {
+                    "success": "Elemento restaurato",
+                    "error": "Impossibile ripristinare l'elemento"
+                },
+                "disable": {
+                    "success": "Articolo archiviato",
+                    "error": "Impossibile archiviare l'articolo"
+                }
+            },
+            "create": {
+                "success": "Forma creata",
+                "error": "Impossibile creare il modulo"
+            },
+            "duplicate": {
+                "success": "Forma duplicata",
+                "error": "Impossibile duplicare il modulo"
+            },
+            "disable": {
+                "success": "Forma archiviata",
+                "error": "Impossibile archiviare il modulo"
+            },
+            "restore": {
+                "error": "Impossibile ripristinare il modulo",
+                "success": "Forma restaurata"
+            }
         }
     },
     "settings": {
@@ -3604,7 +3674,8 @@
                 "privateService": "Appuntamenti",
                 "workshop": "Workshop",
                 "calendar": "Calendario",
-                "newsletter": "Newsletter"
+                "newsletter": "Newsletter",
+                "loginButton": "Pulsante di accesso"
             },
             "preview": "Anteprima",
             "saveButton": "Salva",
@@ -3861,7 +3932,8 @@
                 "cancel": "Annulla",
                 "revert": "Annulla",
                 "pay": "Paga questa fattura",
-                "bill": "Incasso"
+                "bill": "Incasso",
+                "basketInconsistent": "Il tuo carrello è stato modificato, aggiorna la pagina prima di convalidare il tuo pagamento.\n Non siete stati accusati."
             },
             "sumup": {
                 "amountRemaining": "Resto da pagare",
@@ -3944,9 +4016,12 @@
             "actions": {
                 "edit": "Modificare",
                 "delete": "Annullare",
-                "registerNow": "Incassare ora"
+                "registerNow": "Incassare ora",
+                "disable": "De-programmazione",
+                "enable": "Riprogrammazione di"
             },
-            "nextRetryDate": "Il pagamento sarà ritardato fino a {{ d }}"
+            "nextRetryDate": "Il pagamento sarà ritardato fino a {{ d }}",
+            "lockedToday": "Il pagamento scade oggi, non puoi più cambiarlo"
         },
         "mandate": {
             "content": "Consegnando il tuo IBAN e confermando il pagamento, autorizzi bsport e Stripe, il nostro sistema di pagamento, ad inviare le istruzioni di addebito alla tua banca in accordo con il calendario di pagamento. Potete chiedere un rimborso alla vostra banca secondo i termini del vostro contratto con quest'ultima. Un rimborso deve essere richiesto entro 8 settimane dopo il primo addebito.",
@@ -4628,7 +4703,12 @@
             "recurrent_price": "Importo",
             "sum__non_attendance": "Numero di assenze",
             "sum_attendance": "Numero di presenti",
-            "invoice_date": "Data di fatturazione"
+            "invoice_date": "Data di fatturazione",
+            "last_payment_date": "Data dell'ultimo pagamento",
+            "invoice_date_created": "Data di emissione della fattura",
+            "invoice_datetime": "Data e ora di emissione della fattura",
+            "invoice_time": "Tempo di emissione della fattura",
+            "payment_amount_by_payment_method": "Raccolta per metodo di pagamento"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -5053,7 +5133,14 @@
                     "helperText": "Lascia vuoto per non imporre un limite",
                     "label": "Utilizzo massimo al mese"
                 },
-                "only_vod_access": "Solo per VOD"
+                "only_vod_access": "Solo per VOD",
+                "category": {
+                    "label": "Categoria (opzionale)",
+                    "helperText": "Nome della categoria"
+                },
+                "error": {
+                    "start_date_method_type": "Si prega di indicare l'inizio della validità della carta."
+                }
             }
         },
         "details": {
@@ -5175,6 +5262,27 @@
         },
         "section": {
             "massExtension": "Estensioni"
+        },
+        "category": {
+            "form": {
+                "dialog": {
+                    "titleNew": "Nuova categoria",
+                    "name": "Nome della categoria",
+                    "titleEdit": "Categoria",
+                    "helper": "Le categorie appariranno sul mercato e sull'applicazione mobile per le carte disponibili alla vendita."
+                }
+            },
+            "add": "Aggiungere una categoria",
+            "popover": {
+                "delete": "Eliminare",
+                "edit": "Rinominare"
+            },
+            "deleteModal": {
+                "title": "Cancellazione",
+                "content": "Sei sicuro di voler cancellare questa categoria? Tutti gli elementi che contiene saranno inseriti nella sezione delle schede di corso non categorizzate",
+                "cancel": "Cancellare",
+                "confirm": "Confirmare"
+            }
         }
     },
     "metaActivity": {
@@ -5410,7 +5518,8 @@
             "payment": "Fatturazione",
             "privateBooking": "Appuntamenti",
             "privateConsumerPass": "Pass per appuntamenti",
-            "vod": "VOD"
+            "vod": "VOD",
+            "form": "Moduli"
         },
         "addMember": "Aggiungi il profilo di un membro",
         "name": "Nome",
@@ -6101,7 +6210,7 @@
                 "establishment": {
                     "third": "a casa",
                     "second": "o",
-                    "first": "negli stabilimenti"
+                    "first": "nelle strutture"
                 },
                 "between": "e",
                 "second": "appuntamento",
@@ -6224,11 +6333,11 @@
                 "helperAllSelectedText": "tutte le attività"
             },
             "establishments": {
-                "helperAllSelectedText": "tutti gli stabilimenti",
+                "helperAllSelectedText": "tutte le strutture",
                 "warning": "Seleziona almeno una struttura",
                 "helperText": "selezionare le strutture",
                 "helperSelectedText": "strutture selezionate",
-                "textFieldPlaceholder": "Cerca uno stabilimento"
+                "textFieldPlaceholder": "Cerca un luogo"
             },
             "buyables": {
                 "helperAllSelectedText": "tutti i prodotti",
@@ -6288,7 +6397,8 @@
             "associated_tag": "Tag associato",
             "display_tag_rules": "Mostrare le regole dei Tag",
             "cancel": "Cancellare",
-            "tag_name": "Nome del Tag"
+            "tag_name": "Nome del Tag",
+            "activeSince": "Attivo dal {{ since }}"
         }
     },
     "relationship": {
@@ -6568,6 +6678,69 @@
         },
         "tag": {
             "noTagAttributed": "Seleziona un tag"
+        },
+        "management": {
+            "deleteTagGroupDialog": {
+                "text": "Sei sicuro di voler cancellare questa categoria? Anche tutti i tag della categoria saranno cancellati. ",
+                "title": "Categoria di cancellazione"
+            },
+            "deleteTagDialog": {
+                "title": "Cancellazione dei tag",
+                "text": "Sei sicuro di voler cancellare questo tag? Tutte le regole relative a questo tag saranno cancellate."
+            },
+            "createGroupDialog": {
+                "title": "Categoria",
+                "field": "Nome",
+                "helper": "Crea una categoria per identificare una famiglia di membri. Per esempio \"VIP\", puoi poi creare i tag \"sì\" e \"no\" per indicare se il membro appartiene a questa famiglia."
+            },
+            "tagDetail": {
+                "noTag": "Seleziona un tag per vedere i dettagli"
+            },
+            "tagKind": {
+                "toolbar": "Visualizzazione per",
+                "member": "Membri",
+                "coupon": "Codice promozionale",
+                "smartlist": "Smartlists"
+            },
+            "memberDetail": {
+                "memberWithTag": "Membri taggati",
+                "removeTagFromAll": "Rimuovere il tag da tutti",
+                "removeTag": "Untagging",
+                "memberWithoutTag": "Membri non taggati",
+                "addTagToAll": "Aggiungi il tag a tutti",
+                "addTag": "Taggare"
+            },
+            "couponDetail": {
+                "createViaCoupon": "Accesso ai codici promozionali",
+                "title": "Codici promozionali relativi al tag",
+                "whitelist": "Può essere usato dai membri con il tag",
+                "blacklist": "Non utilizzabile dai membri con il tag",
+                "removeTag": "Rimuovere il tag",
+                "empty": "Nessun codice promozionale è collegato al tag {{- tag }}"
+            },
+            "smartlistDetail": {
+                "title": "Regola di etichettatura (Smartlist)",
+                "removeTag": "Cancellare",
+                "empty": "Nessuna regola di etichettatura è collegata al tag {{ tag }}",
+                "createViaSmartlist": "Accesso a Smartlists"
+            },
+            "addGroup": "Creare una categoria",
+            "addTag": "Aggiungere un'etichetta",
+            "rename": "Rinominare",
+            "delete": "Cancellare",
+            "form": {
+                "groupRename": "Categoria",
+                "tagGroupName": "Nome",
+                "tagGroupEmpty": "Nessun tag in questa categoria"
+            },
+            "cancel": "Cancellare",
+            "submit": "Confirmare",
+            "tagColumn": {
+                "tag": "Tag",
+                "member_count": "Membri taggati",
+                "smartlist_count": "Regole di etichettatura",
+                "actions": "Azioni "
+            }
         }
     },
     "establishment": {
@@ -6613,7 +6786,7 @@
                 "general": "Generale"
             }
         },
-        "establishment": "Struttura ",
+        "establishment": "Struttura",
         "establishment_override": "Struttura di sostituzione",
         "search": "Cerca uno stabilimento",
         "addButton": "Aggiungi una struttura",
@@ -6658,6 +6831,37 @@
             "address_line_1": "Indirizzo linea 1",
             "address": "Indirizzo",
             "search_address": "Cercare un indirizzo"
+        },
+        "localisation": "Posizione",
+        "room": "Camera",
+        "group": {
+            "groupButton": "Raggruppamento di istituzioni",
+            "addLocalisation": "Aggiungere una posizione",
+            "name": " Nome",
+            "actions": "Azioni",
+            "noGroupHelper": "Le località permettono di raggruppare diversi indirizzi. Se hai diversi studi in diverse città, puoi raggruppare gli studi della stessa città in un'unica posizione. Sul marketplace, il widget e l'applicazione personalizzata i tuoi studenti saranno in grado di selezionare la località a cui sono più interessati per vedere solo i corsi vicino a loro.",
+            "form": {
+                "name": "Nome",
+                "associated_localizations": "Stabilimenti associati",
+                "dialog": {
+                    "title": "Posizione",
+                    "cancel": "Cancellare",
+                    "save": "Registrare"
+                }
+            },
+            "modal": {
+                "delete": {
+                    "title": "Cancellare una posizione",
+                    "content": "Questa posizione non apparirà più nei filtri disponibili sul mercato, nel widget e nell'applicazione personalizzata.",
+                    "cancel": "Cancellare",
+                    "confirm": "Eliminare"
+                }
+            },
+            "table": {
+                "actions": "Azioni",
+                "establishment": "Stabilimenti",
+                "name": "Nome"
+            }
         }
     },
     "datetime": {
@@ -7459,7 +7663,8 @@
         },
         "establishment": {
             "establishmentList": "Strutture",
-            "establishmentFormPage": "Modulo per palestre"
+            "establishmentFormPage": "Modulo per palestre",
+            "establishmentGroupPage": "Località"
         },
         "planning": "Pianificazione"
     },
@@ -7620,7 +7825,8 @@
                 "invalidBasket": "Il tuo carrello conteneva articoli che non sono più disponibili per la vendita. Nessun pagamento è stato registrato"
             },
             "isFinalized": "Il tuo carrello è stato convalidato",
-            "checkingPaymentStatus": "Attendi per favore, stiamo controllando lo stato del tuo pagamento"
+            "checkingPaymentStatus": "Attendi per favore, stiamo controllando lo stato del tuo pagamento",
+            "totalQuantity": "Contiene {{ qty }} elementi"
         },
         "paymentIntent": {
             "isProcessing": "Attendere prego"
@@ -7661,7 +7867,19 @@
                 "continue": "Continuare"
             }
         },
-        "expire_in": "Scade in "
+        "expire_in": "Scade in ",
+        "events": {
+            "basket-created": "Cestino creato",
+            "basket-finalize": "Cestino finito/pagato",
+            "basket-additem": "Aggiungi al carrello",
+            "basket-removeitem": "Rimozione del cestino",
+            "basket-automaticclean": "Pulizia automatica del cestello"
+        },
+        "eventHistory": {
+            "sectionTitle": "Eventi",
+            "pleaseSelectABasket": "Seleziona un cestino per vedere la storia"
+        },
+        "historyTitle": "Storia della cesta"
     },
     "marketplace": {
         "selector": {
@@ -7991,10 +8209,14 @@
                 "iframe": "Rimanere sul sito"
             },
             "linkToConfig": "Collegamento a questa configurazione",
-            "showFabLabel": "Pulsante galleggiante dell'interfaccia cliente",
+            "showFabLabel": "Pulsante Bsport EasyConnect",
             "pickALanguage": "Scegliere la lingua predefinita",
             "languageHelper": "Il widget avrà la lingua selezionata qui. Selezionnare \"Lingua del browser\" cosi la lingua del widget si adatta automaticamente alla lingua del suo cliente.",
-            "browserLanguage": "Lingua del browser"
+            "browserLanguage": "Lingua del browser",
+            "configTitle": "Il mio widget",
+            "containerConfiguration": {
+                "title": "Configurazione generale"
+            }
         }
     },
     "platformBilling": {
@@ -8105,6 +8327,130 @@
             "mail": "Email ",
             "statisticDetails": "Statistiche",
             "notificationDetails": "Dettagli della notifica"
+        },
+        "customForm": {
+            "title": "Moduli",
+            "noCustomForm": "Usa i moduli per raccogliere ulteriori informazioni sui tuoi membri.",
+            "unaccessibleForm": "Questo modulo è attualmente disattivato, per tornare alla pagina del tuo profilo clicca sul pulsante qui sotto.",
+            "modal": {
+                "delete": {
+                    "content": "Archiviando questo modulo sarà messo nei tuoi moduli archiviati e non sarà più accessibile ai tuoi membri.",
+                    "title": "Archiviare un modulo",
+                    "cancel": "Cancellare",
+                    "confirm": "Confirmare"
+                }
+            },
+            "field": {
+                "text_size_limit": "La lunghezza della risposta sarà limitata a {{count}} caratteri.",
+                "choice_warning": "Tutte le opzioni salvate quando il modulo è stato salvato non saranno più modificabili. Puoi ancora cancellarli o aggiungerne di nuovi.",
+                "fileHelper": "I file caricati saranno aggiunti direttamente alla sezione \"I miei documenti\" del profilo del membro.",
+                "link_to_tag_popover": "Collega un tag a questa opzione",
+                "tag_group": "Categoria",
+                "tag_name": "Tag",
+                "short_answer": "Risposta breve",
+                "long_answer": "Risposta lunga",
+                "radio": "Scelta multipla",
+                "title": "Titolo",
+                "paragraph": "Paragrafo",
+                "check_box": "Caselle di controllo",
+                "select": "Elenco a discesa",
+                "select_placeholder": "Selezionare",
+                "file": "Allegare un file",
+                "link_to_note": "Creare una nota",
+                "link_to_note_helper": "Collegando la domanda a una nota, la risposta sarà automaticamente aggiunta a una nota sul modulo del membro.",
+                "signature": "Firma"
+            },
+            "customFormField": {
+                "modal": {
+                    "signature": {
+                        "addSignature": "Aggiungere una firma",
+                        "addSignatureHelper": "Puoi disegnare la tua firma qui sotto",
+                        "editSignature": "Modifica della firma",
+                        "clear": "Cancellare la firma"
+                    },
+                    "disable": {
+                        "cancel": "Cancellare",
+                        "confirm": "Confirmare",
+                        "content": "Eliminando questo elemento sarà inserito negli elementi archiviati e non sarà visibile ai vostri membri.",
+                        "title": "Cancellare un elemento"
+                    },
+                    "add": {
+                        "title": "Elemento di forma",
+                        "addField": "Aggiungere un ",
+                        "select": "Seleziona un elemento",
+                        "option": "Aggiungere un'opzione",
+                        "cancel": "Cancellare",
+                        "confirm": "Confirmare"
+                    },
+                    "error": {
+                        "choicesLength": "Devi fare almeno 2 scelte",
+                        "emptyChoice": "Le scelte non possono essere vuote"
+                    }
+                }
+            },
+            "statistics": {
+                "table": {
+                    "column": {
+                        "display_count": "Numero di aperture",
+                        "member": "Membro",
+                        "last_display_date": "Ultima apertura",
+                        "completed": "Completato"
+                    },
+                    "row": {
+                        "no": "No",
+                        "yes": "Si"
+                    }
+                },
+                "byMember": "Dettagli per membro"
+            },
+            "save": "Salva",
+            "cancel": "Eliminare",
+            "backToUserSpace": "Profilo",
+            "actions": {
+                "statistics": "Statistiche",
+                "configure": "Configurare"
+            },
+            "numberQuestions": "Numero di domande",
+            "listActions": "Azioni",
+            "linkHelper": "Per inviare il modulo ai tuoi membri, incolla il link qui sopra nella tua email. Solo le modifiche salvate saranno visibili.",
+            "search": "Cercare un modulo",
+            "name": "Nome",
+            "content": "Contenuto del modulo",
+            "preview": "Panoramica del modulo",
+            "mandatory": "Obbligatorio",
+            "disabledCustomForm": "Forme archiviate",
+            "disabledCustomFormField": "Articoli archiviati",
+            "selectCustomFormFilled": "Seleziona uno dei moduli compilati per visualizzarne il contenuto",
+            "addFieldLong": "Aggiungere un elemento",
+            "tab": {
+                "general": "Contenuto",
+                "campaign": "Campagna",
+                "statistics": "Statistiche"
+            },
+            "CustomFormLink": "Link al modulo",
+            "label": "Etichetta",
+            "kind": "Tipo",
+            "send": "Inviare",
+            "addCustomFrom": "Aggiungere un modulo",
+            "selectCustomForm": "Seleziona un modulo per visualizzare i dettagli",
+            "emptyCustomForm": "Questo modulo è vuoto, puoi aggiungere elementi per configurarlo.",
+            "changesDetected": "Sono stati fatti dei cambiamenti. Salvate il modulo per applicarli.",
+            "noChanges": "Forma aggiornata.",
+            "answerForDisabledField": "Domande archiviate",
+            "allFieldDisabled": "Tutte le domande sono archiviate",
+            "submit": {
+                "date_submitted": "Data di completamento",
+                "dialog": {
+                    "title": "Ricevuto! ",
+                    "content": "Grazie per aver trovato il tempo di compilare questo modulo.",
+                    "confirmButton": "Continuare"
+                },
+                "errors": {
+                    "requiredField": "Questo campo è obbligatorio, seleziona una risposta.",
+                    "requiredSignature": "Si prega di firmare il modulo.",
+                    "requiredFile": "Si prega di allegare un file"
+                }
+            }
         }
     },
     "spotScheduling": {

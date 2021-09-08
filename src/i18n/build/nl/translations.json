@@ -1862,7 +1862,12 @@
             "recurrent_price": "Bedrag",
             "sum__non_attendance": "Aantal afwezigen",
             "sum_attendance": "Aantal aanwezigen",
-            "invoice_date": "Factuurdatum"
+            "invoice_date": "Factuurdatum",
+            "payment_amount_by_payment_method": "Opladen via betaalmethode",
+            "invoice_time": "Factuur uitgifte tijd",
+            "invoice_datetime": "Datum en tijdstip van uitgifte van de factuur.",
+            "invoice_date_created": "Uitgiftedatum factuur",
+            "last_payment_date": "Laatste betalingsdatum"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -2240,6 +2245,9 @@
                 "category": {
                     "helperText": "Naam van de categorie",
                     "label": "Categorie (optioneel)"
+                },
+                "error": {
+                    "start_date_method_type": "Geef het begin van de geldigheid van de kaart aan."
                 }
             }
         },
@@ -2380,7 +2388,8 @@
             "deleteModal": {
                 "confirm": "Bevestigen",
                 "cancel": "Annuleer",
-                "title": "Verwijderen"
+                "title": "Verwijderen",
+                "content": "De categorieën verschijnen op de marktplaats en op de mobiele app voor kaarten die te koop zijn."
             },
             "popover": {
                 "delete": "Verwijderen",
@@ -2390,7 +2399,8 @@
                 "dialog": {
                     "titleEdit": "Categorie",
                     "titleNew": "Nieuwe categorie",
-                    "name": "Naam van de categorie"
+                    "name": "Naam van de categorie",
+                    "helper": "De categorieën verschijnen op de marktplaats en de mobiele app voor kaarten die te koop zijn."
                 }
             },
             "add": "Een categorie toevoegen"
@@ -2494,7 +2504,8 @@
                 "delete": {
                     "confirm": "Verwijder",
                     "cancel": "Annuleer",
-                    "title": "Een vestiging verwijderen"
+                    "title": "Een vestiging verwijderen",
+                    "content": "Deze locatie wordt niet meer weergegeven in in de handel verkrijgbare filters, widgets en gepersonaliseerde applicatie."
                 }
             },
             "form": {
@@ -2509,7 +2520,8 @@
             "actions": "Acties",
             "name": " Naam",
             "addLocalisation": "Een vestiging toevoegen",
-            "groupButton": "Groepeer vestigingen"
+            "groupButton": "Groepeer vestigingen",
+            "noGroupHelper": "Locaties worden gebruikt om meerdere adressen te groeperen. Als je meerdere studio's in verschillende steden hebt, kun je studio's uit dezelfde stad op één locatie groeperen. In de markt, de widget en de gepersonaliseerde applicatie kunnen uw studenten de locatie selecteren die hen het meest interesseert om alleen de cursussen in de buurt van hun huis te zien."
         },
         "room": "Vestiging",
         "localisation": "Lokalisatie"
@@ -7472,7 +7484,8 @@
                 "payZero": "Mijn winkelmandje bevestigen"
             },
             "isFinalized": "Je winkelmandje is bevestigd.",
-            "checkingPaymentStatus": "Een moment geduld, we controleren de status van de betaling."
+            "checkingPaymentStatus": "Een moment geduld, we controleren de status van de betaling.",
+            "totalQuantity": "Bevat elementen"
         },
         "paymentIntent": {
             "isProcessing": "Een moment geduld alstublieft"
@@ -7495,6 +7508,18 @@
                 "back": "Terug",
                 "continue": "Verder"
             }
+        },
+        "historyTitle": "Mand geschiedenis",
+        "eventHistory": {
+            "pleaseSelectABasket": "Selecteer een winkelmandje om de geschiedenis te bekijken",
+            "sectionTitle": "Evenementen"
+        },
+        "events": {
+            "basket-automaticclean": "Winkelkar automatisch leeg halen",
+            "basket-removeitem": "Uit winkelkar halen",
+            "basket-additem": "Toevegen aan winkelkar",
+            "basket-finalize": "Winkelwagen klaar / betaald",
+            "basket-created": "Winkelwagen gecreëerd"
         }
     },
     "invoice": {
@@ -7649,7 +7674,8 @@
                 "payAll": "Betalen",
                 "cancel": "Annuleren",
                 "revert": "Annuleren",
-                "pay": "Factuur betalen"
+                "pay": "Factuur betalen",
+                "basketInconsistent": "Uw winkelmandje is gewijzigd, ververs uw pagina voordat u uw betaling valideert.\nEr zijn verder geen kosten in rekening gebracht."
             },
             "sumup": {
                 "amountPaid": "Betaald",
@@ -7818,7 +7844,8 @@
                 "enable": "Aanzetten",
                 "disable": "Stopzetten"
             },
-            "nextRetryDate": "Op {{ d }} proberen we opnieuw om de betaling te voltooien."
+            "nextRetryDate": "Op {{ d }} proberen we opnieuw om de betaling te voltooien.",
+            "lockedToday": "De betaling is vandaag verschuldigd, u kunt deze niet meer wijzigen"
         },
         "mandate": {
             "content": "Door je IBAN op te geven en je betaling te bevestigen, geef je BSPORT Solution en Stripe (onze betaalprovider) toestemming om de incasso-instructies volgens het betalingsschema naar je bank te sturen. Je kunt bij je bank een terugbetaling aanvragen. Een terugbetaling moet binnen 8 weken na de eerste afschrijving worden aangevraagd.",

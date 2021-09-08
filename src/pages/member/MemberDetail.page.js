@@ -78,6 +78,9 @@ const MemberDetailPrivateConsumerPass = asyncComponent(() =>
 const MemberDetailContact = asyncComponent(() =>
   import('./MemberDetailContact.page'),
 );
+const MemberDetailBasket = asyncComponent(() =>
+  import('./MemberDetailBasket.page'),
+);
 
 const MemberCustomForm = asyncComponent(() =>
   import('./MemberCustomForm.page'),
@@ -316,6 +319,15 @@ export class MemberDetail extends React.Component<Props> {
               exact
               path="/member/:id/contact"
               component={MemberDetailContact}
+            />
+            <Route
+              path="/member/:id/basket/:selectedBasketId"
+              component={MemberDetailBasket}
+            />
+            <Route
+              exact
+              path="/member/:id/basket"
+              component={MemberDetailBasket}
             />
             <Route exact path="/member/:id/form" component={MemberCustomForm} />
           </Switch>

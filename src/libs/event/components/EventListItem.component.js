@@ -39,4 +39,6 @@ export const SubscriptionEventListItem = (props: Props) => {
   );
 };
 
-export default withTranslation(['subscription'])(SubscriptionEventListItem);
+export default withTranslation(['subscription', 'checkout'])(
+  SubscriptionEventListItem,
+);

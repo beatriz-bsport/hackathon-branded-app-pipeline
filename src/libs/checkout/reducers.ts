@@ -1,5 +1,3 @@
-// @flow
-
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
@@ -7,11 +5,12 @@ import {
   retrieveBasket,
   currentBasket,
   generatedObjectsActions,
+  basketHistoryActions,
 } from './actions';
 
-import type { CheckoutState } from './types';
+import { CheckoutState } from './types';
 
-const initialState: CheckoutState = Immutable({
+const initialState: Immutable<CheckoutState> = Immutable({
   basket: {
     byId: {},
     current: {
@@ -19,6 +18,11 @@ const initialState: CheckoutState = Immutable({
       loading: false,
       updating: false,
       error: null,
+    },
+    history: {
+      loading: false,
+      error: null,
+      items: [],
     },
     loading: false,
     error: null,
@@ -49,6 +53,22 @@ export default handleActions(
     },
     [currentBasket.error]: (state, { payload }) => {
       return state.setIn(['basket', 'current', 'error'], payload);
+    },
+    [basketHistoryActions.error]: (state, { payload }) => {
+      return state.setIn(['basket', 'history', 'error'], payload);
+    },
+    [basketHistoryActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['basket', 'history', 'loading'], payload);
+    },
+    [basketHistoryActions.success]: (state, { payload }) => {
+      return state.setIn(['basket', 'history', 'items'], payload).merge(
+        {
+          basket: {
+            byId: payload.reduce((acc, b) => ({ ...acc, [b.id]: b }), {}),
+          },
+        },
+        { deep: true },
+      );
     },
     [currentBasket.success]: (state, { payload }) => {
       return state.setIn(['basket', 'current', 'data'], payload);

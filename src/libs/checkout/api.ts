@@ -1,15 +1,14 @@
-// @flow
-
 import {
   API_V1_URI,
   post,
   get,
   postAuth,
   putAuth,
+  getAuth,
   patchAuth,
 } from '../../http';
 
-import type { CheckoutItemData, Basket } from './types';
+import { CheckoutItemData, Basket } from './types';
 
 export const fetchCurrentBasket = async (
   companyId: number,
@@ -28,7 +27,7 @@ export const addItemToBasket = async (
 
 export const patchBasket = async (
   basketId: string,
-  data: *,
+  data: any,
 ): Promise<{ data: Basket }> => {
   return patchAuth(`${API_V1_URI}/checkout/basket/${basketId}/`, data);
 };
@@ -36,8 +35,8 @@ export const patchBasket = async (
 export const removeItemFromBasket = async (
   basketId: string,
   data: {
-    checkout_item: string,
-    quantity: number,
+    checkout_item: string;
+    quantity: number;
   },
 ): Promise<{ data: Basket }> => {
   return postAuth(
@@ -46,7 +45,7 @@ export const removeItemFromBasket = async (
   );
 };
 
-export const attachPayment = async (basketId: string, data_: *) => {
+export const attachPayment = async (basketId: string, data_: any) => {
   return postAuth(
     `${API_V1_URI}/checkout/basket/${basketId}/attach_payment/`,
     data_,
@@ -55,7 +54,7 @@ export const attachPayment = async (basketId: string, data_: *) => {
 
 export const attachPaymentUnauthenticated = async (
   basketId: string,
-  data_: *,
+  data_: any,
 ) => {
   return post(
     `${API_V1_URI}/checkout/basket/${basketId}/attach_payment/`,
@@ -81,4 +80,10 @@ export const fetchBasket = async (
   basket: number,
 ): Promise<{ data: Basket }> => {
   return get(`${API_V1_URI}/checkout/basket/by_uuid/?basket=${basket}`);
+};
+
+export const fetchBasketHistoryList = async (
+  memberId: number,
+): Promise<{ data: Array<Basket> }> => {
+  return getAuth(`${API_V1_URI}/checkout/basket/history/?member=${memberId}`);
 };

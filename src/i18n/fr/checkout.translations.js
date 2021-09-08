@@ -1,4 +1,18 @@
+const { BASKET_EVENTS } = require('@bsport/common/lib/master-data/events');
+
 exports.default = {
+  events: {
+    [BASKET_EVENTS.created]: 'Panier créé',
+    [BASKET_EVENTS.finalize]: 'Panier finalisé/payé',
+    [BASKET_EVENTS.additem]: 'Ajout au panier',
+    [BASKET_EVENTS.removeitem]: 'Retrait du panier',
+    [BASKET_EVENTS.automaticclean]: 'Nettoyage automatique du panier',
+  },
+  eventHistory: {
+    sectionTitle: 'Evènements',
+    pleaseSelectABasket: "Sélectionnez un panier pour voir l'historique",
+  },
+  historyTitle: 'Historique des paniers',
   paymentIntent: {
     isProcessing: 'Veuillez patientez',
   },
@@ -37,6 +51,7 @@ exports.default = {
       invalidBasket:
         "Votre panier contenait des éléments qui ne sont plus disponibles à la vente. Aucun paiement n'a été enregistré",
     },
+    totalQuantity: 'Contient {{ qty }} éléments',
     actions: {
       closeBasket: 'Continuer mes achats',
       checkoutBasket: 'Payer',

@@ -2778,6 +2778,15 @@
     }
   },
   "checkout": {
+    "events": {
+      "basket-created": "Panier créé",
+      "basket-finalize": "Panier finalisé/payé",
+      "basket-additem": "Ajout au panier",
+      "basket-removeitem": "Retrait du panier",
+      "basket-automaticclean": "Nettoyage automatique du panier"
+    },
+    "eventHistory": { "sectionTitle": "Evènements", "pleaseSelectABasket": "Sélectionnez un panier pour voir l'historique" },
+    "historyTitle": "Historique des paniers",
     "paymentIntent": { "isProcessing": "Veuillez patientez" },
     "forms": {
       "delivery": { "first_name": "Prénom", "last_name": "Nom", "actions": { "submit": "Suivant", "cancel": "Précédent" } }
@@ -2796,6 +2805,7 @@
       "error": {
         "invalidBasket": "Votre panier contenait des éléments qui ne sont plus disponibles à la vente. Aucun paiement n'a été enregistré"
       },
+      "totalQuantity": "Contient {{ qty }} éléments",
       "actions": { "closeBasket": "Continuer mes achats", "checkoutBasket": "Payer", "payZero": "Valider mon panier" }
     },
     "payLater": {

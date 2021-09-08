@@ -1,5 +1,3 @@
-// @flow
-
 import { createAction } from 'redux-actions';
 
 // we import from src and not lib bvecause there is some shittery happening that
@@ -16,12 +14,16 @@ import {
   attachCoupon as attachCouponAPI,
   fetchBasketGeneratedObjects as fetchBasketGeneratedObjectsAPI,
   fetchBasket as fetchBasketAPI,
+  fetchBasketHistoryList as fetchBasketHistoryListAPI,
 } from './api';
 import { getCurrentBasket } from './selectors';
 import { snackbarError } from '../../actions/snackbar.actions';
 
-import type { Dispatch, State, ThunkAction } from '../../state/types';
-import type { CheckoutItemData } from './types';
+import { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
+import { RootState } from '../../reducers';
+import { CheckoutItemData } from './types';
+import { COMPANY_EVENTS } from './event.utils';
+import { fetchEventList } from '../event/actions';
 
 export const currentBasket = {
   error: createAction('CHECKOUT_BASKET/CURRENT/ERROR'),
@@ -81,11 +83,8 @@ export function fetchBasket(
   };
 }
 
-export function attachPayment(
-  data: *,
-  options: ?{ onSuccess: ?() => void, onError: ?(Error) => void },
-): ThunkAction {
-  return async (dispatch: Dispatch, getState: () => State) => {
+export function attachPayment(data: any, options: OptionCallback): ThunkAction {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
     dispatch(currentBasket.isUpdating(true));
     dispatch(currentBasket.error(null));
 
@@ -108,9 +107,9 @@ export function attachPayment(
 }
 
 export function attachPaymentToBasketId(
-  data: *,
+  data: any,
   basketId: string,
-  options: ?{ onSuccess: ?() => void, onError: ?(Error) => void },
+  options: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(currentBasket.isUpdating(true));
@@ -134,7 +133,7 @@ export function attachPaymentToBasketId(
 export function addItemToBasket(
   basketId: string,
   data: CheckoutItemData,
-  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+  options: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(currentBasket.isLoading(true));
@@ -191,10 +190,10 @@ export function removeItemFromBasket(
 }
 
 export function patchCurrentBasket(
-  data: *,
-  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+  data: any,
+  options: OptionCallback,
 ): ThunkAction {
-  return async (dispatch: Dispatch, getState: () => State) => {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
     dispatch(currentBasket.isUpdating(true));
     dispatch(currentBasket.error(null));
 
@@ -216,9 +215,9 @@ export function patchCurrentBasket(
 
 export function attachCoupon(
   code: string,
-  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+  options: OptionCallback,
 ): ThunkAction {
-  return async (dispatch: Dispatch, getState: () => State) => {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
     dispatch(currentBasket.isUpdating(true));
     dispatch(currentBasket.error(null));
 
@@ -263,5 +262,48 @@ export function fetchBasketGeneratedObjects(
     }
 
     dispatch(generatedObjectsActions.isLoading(false));
+  };
+}
+
+export const fetchBasketEventList = (
+  params: any = {},
+  options: OptionCallback,
+) =>
+  fetchEventList(
+    'basket',
+    {
+      ...params,
+      event_types:
+        params.event_types && params.event_types.length
+          ? params.event_types
+          : Object.keys(COMPANY_EVENTS),
+    },
+    options,
+  );
+
+export const basketHistoryActions = {
+  error: createAction('CHECKOUT_BASKET/HISTORY/ERROR'),
+  isLoading: createAction('CHECKOUT_BASKET/HISTORY/IS_LOADING'),
+  success: createAction('CHECKOUT_BASKET/HISTORY/SUCCESS'),
+};
+
+export function fetchBasketHistoryList(
+  memberId: number,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(basketHistoryActions.isLoading(true));
+    dispatch(basketHistoryActions.error(null));
+
+    try {
+      const response = await fetchBasketHistoryListAPI(memberId);
+      dispatch(basketHistoryActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(basketHistoryActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+
+    dispatch(basketHistoryActions.isLoading(false));
   };
 }

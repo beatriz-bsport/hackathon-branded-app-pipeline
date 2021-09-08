@@ -30,6 +30,12 @@ export type Basket = {
 
 export type CheckoutState = {
   basket: {
+    history: {
+      items: Array<Basket>;
+      loading: boolean;
+      error: Error | null;
+    };
+    byId: { [id: string]: Basket };
     current: {
       data?: Basket;
       loading: boolean;

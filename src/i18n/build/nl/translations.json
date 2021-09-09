@@ -1699,7 +1699,7 @@
             "subshop_name": "Categorie",
             "payment_method": "Betaalmethode",
             "product": "Product",
-            "payment_identifier": "Betaal-ID",
+            "payment_identifier": "Factuurnummer",
             "pass": "Leskaarten",
             "first_name": "Voornaam",
             "date_offer": "Datum en tijd",

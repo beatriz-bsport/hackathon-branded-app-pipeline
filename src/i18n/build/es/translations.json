@@ -1323,6 +1323,69 @@
                     "cancel": "Cancelar"
                 }
             }
+        },
+        "management": {
+            "deleteTagGroupDialog": {
+                "text": "¿Está seguro de que quiere eliminar esta categoría? También se eliminarán todas las etiquetas de la categoría. ",
+                "title": "Supresión de categoría"
+            },
+            "couponDetail": {
+                "createViaCoupon": "Acceso a los códigos de promoción",
+                "title": "Códigos de cupones relacionados con la etiqueta",
+                "whitelist": "Puede ser utilizado por los miembros con la etiqueta",
+                "blacklist": "No utilizable por los miembros con la etiqueta",
+                "removeTag": "Quitar la etiqueta",
+                "empty": "Ningún código de promoción está vinculado a la etiqueta {{- tag }}"
+            },
+            "smartlistDetail": {
+                "createViaSmartlist": "Acceso a las Smartlists",
+                "title": "Regla de etiquetado (Smartlist)",
+                "removeTag": "Borrar",
+                "empty": "Ninguna regla de etiquetado está vinculada a la etiqueta {{ tag }}"
+            },
+            "addGroup": "Crear una categoría",
+            "addTag": "Añadir una etiqueta",
+            "rename": "Cambiar el nombre de",
+            "delete": "Borrar",
+            "form": {
+                "groupRename": "Categoría",
+                "tagGroupName": "Nombre",
+                "tagGroupEmpty": "No hay etiquetas en esta categoría"
+            },
+            "cancel": "Cancelar",
+            "submit": "Confirmar",
+            "tagColumn": {
+                "tag": "Tag",
+                "member_count": "Miembros con etiqueta",
+                "smartlist_count": "Normas de etiquetado",
+                "actions": "Acciones "
+            },
+            "deleteTagDialog": {
+                "title": "Supresión de tag",
+                "text": "¿Estás seguro de que quieres eliminar esta etiqueta? Todas las normas relacionadas con esta etiqueta serán eliminadas."
+            },
+            "createGroupDialog": {
+                "title": "Categoría",
+                "field": "Nombre",
+                "helper": "Crear una categoría para identificar una familia de miembros. Por ejemplo, \"VIP\", entonces puede crear las etiquetas \"sí\" y \"no\" para indicar si el miembro pertenece a esta familia."
+            },
+            "tagDetail": {
+                "noTag": "Seleccione una etiqueta para ver los detalles"
+            },
+            "tagKind": {
+                "toolbar": "Visualización por",
+                "member": "Miembros",
+                "coupon": "Código promocional",
+                "smartlist": "Smartlists"
+            },
+            "memberDetail": {
+                "memberWithTag": "Miembros con etiqueta",
+                "removeTagFromAll": "Quitar la etiqueta a todos",
+                "removeTag": "Desctivar la etiqueta",
+                "memberWithoutTag": "Miembros no etiquetados",
+                "addTagToAll": "Añadir etiqueta a todos",
+                "addTag": "Añadir un tag"
+            }
         }
     },
     "login": {
@@ -1433,7 +1496,7 @@
         }
     },
     "establishment": {
-        "establishment": "Establecimiento ",
+        "establishment": "Establecimiento",
         "addButton": "Añadir un local",
         "pleaseSelectOne": "Seleccionar su club en el mapa",
         "offers": "Calendario de las sesiones:",
@@ -1522,7 +1585,38 @@
             },
             "untitled": "sin título",
             "placeCount": "{{count}} plazas"
-        }
+        },
+        "group": {
+            "groupButton": "Agrupación de instituciones",
+            "addLocalisation": "Añadir una ubicación",
+            "name": " Nombre",
+            "actions": "Acciones",
+            "noGroupHelper": "Las ubicaciones permiten agrupar varias direcciones. Si tiene varios estudios en diferentes ciudades, puede agrupar los estudios de la misma ciudad en un solo lugar. En el mercado, el widget y la aplicación personalizada, sus estudiantes podrán seleccionar la ubicación que más les interese para ver sólo los cursos que estén cerca de ellos.",
+            "form": {
+                "name": "Nombre",
+                "associated_localizations": "Establecimientos asociados",
+                "dialog": {
+                    "title": "Ubicación",
+                    "cancel": "Cancelar",
+                    "save": "Salvar"
+                }
+            },
+            "modal": {
+                "delete": {
+                    "content": "Esta ubicación ya no aparecerá en los filtros disponibles en el mercado, el widget y la aplicación personalizada.",
+                    "cancel": "Cancelar",
+                    "confirm": "Borrar",
+                    "title": "Borrar un establecimiento"
+                }
+            },
+            "table": {
+                "actions": "Acciones",
+                "establishment": "Establecimientos",
+                "name": "Nombre"
+            }
+        },
+        "localisation": "Ubicación",
+        "room": "Establecimiento"
     },
     "order": {
         "products": {
@@ -1719,7 +1813,8 @@
                 "privateService": "Citas",
                 "workshop": "Talleres",
                 "calendar": "Calendario",
-                "newsletter": "Newsletter"
+                "newsletter": "Newsletter",
+                "loginButton": "Botón de inicio de sesión"
             },
             "preview": "Vista previa",
             "saveButton": "Guardar",
@@ -2235,7 +2330,8 @@
                 "payAll": "Liquidar la deuda del cliente",
                 "cancel": "Cancelar",
                 "revert": "Cancelar",
-                "pay": "Paga esta factura"
+                "pay": "Paga esta factura",
+                "basketInconsistent": "Su cesta ha sido modificada, por favor actualice su página antes de validar su pago.\n No ha sido acusado."
             },
             "paymentList": {
                 "isEmpty": "No hay pago",
@@ -2323,9 +2419,12 @@
             "actions": {
                 "edit": "Modificar",
                 "delete": "Cancelar",
-                "registerNow": "Recoge ahora"
+                "registerNow": "Recoge ahora",
+                "disable": "Desprogramar",
+                "enable": "Reprogramar"
             },
-            "nextRetryDate": "El pago se retrasará hasta {{ d }}"
+            "nextRetryDate": "El pago se retrasará hasta {{ d }}",
+            "lockedToday": "El pago vence hoy, ya no se puede cambiar"
         },
         "mandate": {
             "content": "Poniendo su IBAN y confirmando el pago, autoriza a bsport y Stripe, nuestro sistema de pago a enviar la información de facturación a su banco con todas las futuras facturaciones. Puede solicitar un reembolso a su banco dependiendo de su contrato. El reembolso debe ser solicitado 8 semanas antes del primer pago.",
@@ -3009,7 +3108,12 @@
             "sum__non_attendance": "Número de alumnos ausentes",
             "sum_attendance": "Número de alumnos presentes",
             "invoice_date": "Fecha de facturación",
-            "nb_canceled": "Número de cancelaciones"
+            "nb_canceled": "Número de cancelaciones",
+            "last_payment_date": "Fecha del último pago",
+            "invoice_date_created": "Fecha de emisión de la factura",
+            "invoice_datetime": "Fecha y hora de emisión de la factura",
+            "invoice_time": "Tiempo de emisión de la factura",
+            "payment_amount_by_payment_method": "Recaudación por método de pago"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -3281,7 +3385,8 @@
             "privateBooking": "Cita",
             "contact": "Contacto",
             "relation": "Relaciones",
-            "vod": "VOD"
+            "vod": "VOD",
+            "form": "Formularios"
         },
         "row": {
             "headers": {
@@ -3921,7 +4026,8 @@
         "selector": {
             "explainConsumer": "Con <1>bsport</2> disfruta de una experiencia única para reservar todas tus actividades deportivas. <3/> ¡Una sola cuenta y una sola contraseña!",
             "noMatchingCompany": "Ningún resultado",
-            "placeholder": "Buscar un estudio/sala/club..."
+            "placeholder": "Buscar un estudio/sala/club...",
+            "fetchMore": "Ver más"
         }
     },
     "consumerSpace": {
@@ -3963,7 +4069,8 @@
             "calendar": "Histórico",
             "dashboard": "Resumen",
             "myVideos": "Mis videos",
-            "pick_a_language": "Seleccione el idioma"
+            "pick_a_language": "Seleccione el idioma",
+            "automaticLanguage": "Detección automática de idiomas"
         },
         "actions": {
             "goToCalendar": "Ver el calendario completo",
@@ -5217,7 +5324,8 @@
                         "placeholder": "Número máximo"
                     },
                     "label": "Limitar el número máximo de reservas previstas en el futuro por cliente"
-                }
+                },
+                "hiddenFromMarketplace": "Aparecer en la solicitud de bsport"
             },
             "submit": "Guardar",
             "instagramURL": {
@@ -5730,7 +5838,8 @@
                 }
             },
             "isFinalized": "Su cesta ha sido validada",
-            "checkingPaymentStatus": "Por favor, espere, estamos comprobando el estado de su pago"
+            "checkingPaymentStatus": "Por favor, espere, estamos comprobando el estado de su pago",
+            "totalQuantity": "Contiene elementos {{ qty }}"
         },
         "autoAdd": {
             "paymentPack": {
@@ -5771,7 +5880,19 @@
                 "continue": "Continuar"
             }
         },
-        "expire_in": "Expira en "
+        "expire_in": "Expira en ",
+        "events": {
+            "basket-created": "Cesta creada",
+            "basket-finalize": "Cesta terminada/pagada",
+            "basket-additem": "Añadir a la cesta",
+            "basket-removeitem": "Cómo retirar la cesta",
+            "basket-automaticclean": "Limpieza automática de la cesta"
+        },
+        "eventHistory": {
+            "sectionTitle": "Eventos",
+            "pleaseSelectABasket": "Seleccione una cesta para ver el historial"
+        },
+        "historyTitle": "Historia de la canasta"
     },
     "waitingList": {
         "dialog": {
@@ -6172,6 +6293,20 @@
             "paymentPackEnabled": {
                 "error": "No se puede restaurar la tarjeta",
                 "success": "Bono restaurado"
+            },
+            "category": {
+                "update": {
+                    "success": "Categoría modificada con éxito",
+                    "error": "No se puede cambiar la categoría"
+                },
+                "create": {
+                    "success": "Nueva categoría creada con éxito",
+                    "error": "No se puede crear esta categoría"
+                },
+                "delete": {
+                    "success": "Categoría eliminada",
+                    "error": "No se puede eliminar la categoría"
+                }
             }
         },
         "coupon": {
@@ -6410,7 +6545,11 @@
             "2004": "Esta tarjeta no está a la venta",
             "2005": "Esta tarjeta no está a la venta",
             "9": "Usted está tratando de reservar más sesiones futuras de lo que su club permite",
-            "undefined": "Su tarjeta de curso ya no le permite reservar este año"
+            "undefined": "Su tarjeta de curso ya no le permite reservar este año",
+            "2015": "Su tarjeta de curso ya no le permite reservar esta semana",
+            "2014": "Su tarjeta de curso ya no le permite reservar para ese día",
+            "2016": "Su tarjeta de curso ya no le permite reservar este mes",
+            "2017": "Su tarjeta de curso ya no le permite reservar este año"
         },
         "paymentRuleGroups": {
             "update": {
@@ -6432,6 +6571,52 @@
         "signup": {
             "emailAlreadyExists": "Este correo electrónico ya está usado",
             "failedCreation": "No es posible crear su cuenta en este momento, por favor inténtelo de nuevo en unos minutos"
+        },
+        "establishmentGroup": {
+            "update": {
+                "error": "No se puede cambiar de ubicación",
+                "success": "Ubicación modificada"
+            },
+            "create": {
+                "success": "Se ha creado la nueva ubicación",
+                "error": "No se puede crear la ubicación"
+            },
+            "delete": {
+                "success": "Ubicación eliminada",
+                "error": "No se puede eliminar la ubicación"
+            }
+        },
+        "customForm": {
+            "disable": {
+                "error": "No se puede archivar el formulario",
+                "success": "Formulario archivado"
+            },
+            "customFormField": {
+                "restore": {
+                    "success": "Elemento restaurado",
+                    "error": "No se puede restaurar el artículo"
+                },
+                "disable": {
+                    "success": "Artículo archivado",
+                    "error": "No se puede archivar el artículo"
+                }
+            },
+            "update": {
+                "success": "Forma modificada",
+                "error": "No se puede modificar el formulario"
+            },
+            "duplicate": {
+                "error": "No se puede duplicar el formulario",
+                "success": "Formulario duplicado"
+            },
+            "create": {
+                "success": "Formulario creado",
+                "error": "No se puede crear el formulario"
+            },
+            "restore": {
+                "success": "Forma restaurada",
+                "error": "No se puede restaurar el formulario"
+            }
         }
     },
     "paymentPack": {
@@ -6591,7 +6776,14 @@
                         "helperText": "El bono será bloqueado por {{nb_days}} días"
                     }
                 },
-                "only_vod_access": "Sólo para VOD"
+                "only_vod_access": "Sólo para VOD",
+                "category": {
+                    "label": "Categoría (opcional)",
+                    "helperText": "Nombre de la categoría"
+                },
+                "error": {
+                    "start_date_method_type": "Indique el inicio de la validez de la tarjeta."
+                }
             }
         },
         "extension": {
@@ -6828,6 +7020,27 @@
         },
         "section": {
             "massExtension": "Extensión"
+        },
+        "category": {
+            "form": {
+                "dialog": {
+                    "titleNew": "Nueva categoría",
+                    "titleEdit": "Categoría",
+                    "name": "Nombre de la categoría",
+                    "helper": "Las categorías aparecerán en el mercado y en la aplicación móvil para las tarjetas disponibles para la venta."
+                }
+            },
+            "deleteModal": {
+                "content": "¿Está seguro de que quiere eliminar esta categoría? Todos los artículos que contenga se colocarán en la sección de tarjetas de curso sin categorizar?",
+                "confirm": "Confirmar",
+                "title": "Supresión",
+                "cancel": "Cancelar"
+            },
+            "add": "Añadir una categoría",
+            "popover": {
+                "edit": "Cambiar el nombre de",
+                "delete": "Borrar"
+            }
         }
     },
     "selfCheckIn": {
@@ -7037,7 +7250,8 @@
                 "order": "Mis pedidos",
                 "profile": "Mi perfil",
                 "bookings": "Mis reservas ",
-                "subscriptions": "Mis suscripciones"
+                "subscriptions": "Mis suscripciones",
+                "myAccount": "Mi cuenta"
             },
             "beta": "beta",
             "coachPerformance": "Profesores",
@@ -7093,7 +7307,9 @@
                 "cashDialogTitle": "Libro de caja",
                 "close": "Cerrar"
             },
-            "marketingNotification": "Notificaciones"
+            "marketingNotification": "Notificaciones",
+            "custom_form": "Formularios",
+            "tags": "Etiquetas"
         },
         "deprecatedNavigator": {
             "close": "Cerrar",
@@ -7787,7 +8003,8 @@
             "tag_on_left": "Tag si se sale de la smartlist",
             "tag_on_join": "Tag si entra en la smartlist",
             "tag_on_join_and_untag_on_left": "Tag si está presente en la smartlist",
-            "type_of_rule": "Tipo de regla"
+            "type_of_rule": "Tipo de regla",
+            "activeSince": "Activo desde {{ since }}"
         }
     },
     "relationship": {
@@ -7953,7 +8170,8 @@
         },
         "establishment": {
             "establishmentFormPage": "Formulario establecimiento",
-            "establishmentList": "Establecimientos"
+            "establishmentList": "Establecimientos",
+            "establishmentGroupPage": "Ubicaciones"
         },
         "privateService": {
             "serviceList": "Sólo con cita previa"
@@ -8030,7 +8248,11 @@
             "showFabLabel": "Botón de acción flotante de la interfaz del cliente",
             "browserLanguage": "Idioma del navegador",
             "languageHelper": "El widget estará por defecto en el idioma seleccionado aquí. Seleccione \"Idioma del navegador\" para que el idioma del widget se adapte automáticamente al idioma del usuario final.",
-            "pickALanguage": "Elija el idioma por defecto"
+            "pickALanguage": "Elija el idioma por defecto",
+            "containerConfiguration": {
+                "title": "Configuración general"
+            },
+            "configTitle": "Mi Widget"
         }
     },
     "platformBilling": {
@@ -8141,6 +8363,130 @@
             "mail": "Correo ",
             "statisticDetails": "Estadísticas",
             "notificationDetails": "Detalles de la notificación"
+        },
+        "customForm": {
+            "unaccessibleForm": "Este formulario está actualmente desactivado, para volver a su página de perfil haga clic en el botón de abajo.",
+            "field": {
+                "link_to_note_helper": "Al vincular la pregunta a una nota, la respuesta se añadirá automáticamente a una nota en el formulario del afiliado.",
+                "text_size_limit": "La longitud de la respuesta estará limitada a {{count}} caracteres.",
+                "choice_warning": "Todas las opciones guardadas cuando el formulario fue guardado ya no serán editables. Todavía puedes eliminarlas o añadir otras nuevas.",
+                "short_answer": "Respuesta corta",
+                "title": "Título",
+                "select": "Lista desplegable",
+                "signature": "Firma",
+                "tag_group": "Categoría",
+                "link_to_note": "Crear una nota",
+                "tag_name": "Tag",
+                "paragraph": "Párrafo",
+                "long_answer": "Respuesta larga",
+                "radio": "Opción múltiple",
+                "check_box": "Casillas de verificación",
+                "select_placeholder": "Seleccionar",
+                "file": "Adjuntar un archivo",
+                "fileHelper": "Los archivos cargados se añadirán directamente a la sección \"Mis documentos\" del perfil del miembro.",
+                "link_to_tag_popover": "Vincular una etiqueta a esta opción"
+            },
+            "tab": {
+                "general": "Contenido",
+                "campaign": "Campaña",
+                "statistics": "Estadísticas"
+            },
+            "title": "Formularios",
+            "CustomFormLink": "Enlace al formulario",
+            "linkHelper": "Para enviar el formulario a sus miembros, pegue el enlace anterior en su correo electrónico. Sólo serán visibles los cambios guardados.",
+            "name": "Nombre",
+            "kind": "Tipo",
+            "mandatory": "Obligatorio",
+            "noCustomForm": "Utilice los formularios para recoger información adicional sobre sus afiliados.",
+            "allFieldDisabled": "Todas las preguntas están archivadas",
+            "actions": {
+                "configure": "Configurar",
+                "statistics": "Estadísticas"
+            },
+            "customFormField": {
+                "modal": {
+                    "disable": {
+                        "confirm": "Confirmar",
+                        "title": "Borrar un elemento",
+                        "cancel": "Cancelar",
+                        "content": "Al eliminar este elemento, se colocará en el archivo y dejará de ser visible para sus miembros."
+                    },
+                    "add": {
+                        "title": "Elemento del formulario",
+                        "addField": "Añade un ",
+                        "confirm": "Confirmar",
+                        "select": "Seleccione un elemento",
+                        "option": "Añadir una opción",
+                        "cancel": "Cancelar"
+                    },
+                    "error": {
+                        "choicesLength": "Debe hacer al menos 2 elecciones",
+                        "emptyChoice": "Las opciones no pueden estar vacías"
+                    },
+                    "signature": {
+                        "addSignature": "Añadir una firma",
+                        "editSignature": "Editar firma",
+                        "addSignatureHelper": "Puede dibujar su firma a continuación",
+                        "clear": "Borrar firma"
+                    }
+                }
+            },
+            "submit": {
+                "dialog": {
+                    "title": "¡Recibido! ",
+                    "content": "Gracias por dedicar su tiempo a rellenar este formulario.",
+                    "confirmButton": "Continuar"
+                },
+                "date_submitted": "Fecha de finalización",
+                "errors": {
+                    "requiredSignature": "Por favor, firme el formulario.",
+                    "requiredFile": "Adjunte un archivo",
+                    "requiredField": "Este campo es obligatorio, por favor seleccione una respuesta."
+                }
+            },
+            "statistics": {
+                "table": {
+                    "row": {
+                        "no": "No",
+                        "yes": "Si"
+                    },
+                    "column": {
+                        "member": "Miembro",
+                        "display_count": "Número de aperturas",
+                        "last_display_date": "Última apertura",
+                        "completed": "Completado"
+                    }
+                },
+                "byMember": "Detalles por miembro"
+            },
+            "selectCustomFormFilled": "Seleccione uno de los formularios completados para ver su contenido",
+            "emptyCustomForm": "Este formulario está vacío, puede añadir elementos para configurarlo.",
+            "addFieldLong": "Añadir un elemento",
+            "backToUserSpace": "Perfil",
+            "changesDetected": "Se han hecho cambios. Guarde el formulario para aplicarlo.",
+            "modal": {
+                "delete": {
+                    "title": "Archivar un formulario",
+                    "cancel": "Cancelar",
+                    "confirm": "Confirmar",
+                    "content": "Al archivar este formulario se colocará en sus formularios archivados y ya no será accesible para sus miembros."
+                }
+            },
+            "search": "Buscar un formulario",
+            "content": "Contenido del formulario",
+            "preview": "Resumen del formulario",
+            "label": "Etiqueta",
+            "save": "Salvar",
+            "cancel": "Cancelar",
+            "send": "Enviar",
+            "selectCustomForm": "Seleccione un formulario para ver los detalles",
+            "noChanges": "Formulario actualizado.",
+            "answerForDisabledField": "Preguntas archivadas",
+            "numberQuestions": "Número de preguntas",
+            "listActions": "Acciones",
+            "disabledCustomForm": "Formularios archivados",
+            "disabledCustomFormField": "Artículos archivados",
+            "addCustomFrom": "Añadir un formulario"
         }
     },
     "spotScheduling": {

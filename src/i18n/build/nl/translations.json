@@ -1865,7 +1865,7 @@
             "invoice_date": "Factuurdatum",
             "payment_amount_by_payment_method": "Opladen via betaalmethode",
             "invoice_time": "Factuur uitgifte tijd",
-            "invoice_datetime": "Datum en tijdstip van uitgifte van de factuur.",
+            "invoice_datetime": "Datum en tijdstip van uitgifte van de factuur",
             "invoice_date_created": "Uitgiftedatum factuur",
             "last_payment_date": "Laatste betalingsdatum"
         },
@@ -2389,7 +2389,7 @@
                 "confirm": "Bevestigen",
                 "cancel": "Annuleer",
                 "title": "Verwijderen",
-                "content": "De categorieën verschijnen op de marktplaats en op de mobiele app voor kaarten die te koop zijn."
+                "content": "Weet je zeker dat je deze categorie wilt verwijderen? Categorieën verschijnen op de MarketPlace en op de mobiele app voor kaarten die te koop zijn."
             },
             "popover": {
                 "delete": "Verwijderen",
@@ -2505,7 +2505,7 @@
                     "confirm": "Verwijder",
                     "cancel": "Annuleer",
                     "title": "Een vestiging verwijderen",
-                    "content": "Deze locatie wordt niet meer weergegeven in in de handel verkrijgbare filters, widgets en gepersonaliseerde applicatie."
+                    "content": "Deze vestiging wordt niet langer weergegeven in de filters van de widgets, marketplace en de mobiele app."
                 }
             },
             "form": {
@@ -2521,7 +2521,7 @@
             "name": " Naam",
             "addLocalisation": "Een vestiging toevoegen",
             "groupButton": "Groepeer vestigingen",
-            "noGroupHelper": "Locaties worden gebruikt om meerdere adressen te groeperen. Als je meerdere studio's in verschillende steden hebt, kun je studio's uit dezelfde stad op één locatie groeperen. In de markt, de widget en de gepersonaliseerde applicatie kunnen uw studenten de locatie selecteren die hen het meest interesseert om alleen de cursussen in de buurt van hun huis te zien."
+            "noGroupHelper": "Hier kun je meerdere vestigingen op verschillende adressen groeperen. Zo kun je meerdere studio's in verschillende steden hebt, kun je studio's uit dezelfde stad op één locatie groeperen. Je leden kunnen vervolgens op je widgets, app, of marketplace een locatie selecteren om alle lessen bij hun in de buurt te bekijken."
         },
         "room": "Vestiging",
         "localisation": "Lokalisatie"
@@ -7485,10 +7485,10 @@
             },
             "isFinalized": "Je winkelmandje is bevestigd.",
             "checkingPaymentStatus": "Een moment geduld, we controleren de status van de betaling.",
-            "totalQuantity": "Bevat elementen"
+            "totalQuantity": "Inhoud: {{ qty }} product(en)"
         },
         "paymentIntent": {
-            "isProcessing": "Een moment geduld alstublieft"
+            "isProcessing": "Laden..."
         },
         "payLater": {
             "explain": "Je wordt in de studio gevraagd om de betaling te voltooien. Tot die tijd wordt de factuur als onbetaald beschouwd.",
@@ -7509,17 +7509,17 @@
                 "continue": "Verder"
             }
         },
-        "historyTitle": "Mand geschiedenis",
+        "historyTitle": "Geschiedenis van het winkelmandje",
         "eventHistory": {
             "pleaseSelectABasket": "Selecteer een winkelmandje om de geschiedenis te bekijken",
             "sectionTitle": "Evenementen"
         },
         "events": {
-            "basket-automaticclean": "Winkelkar automatisch leeg halen",
-            "basket-removeitem": "Uit winkelkar halen",
-            "basket-additem": "Toevegen aan winkelkar",
-            "basket-finalize": "Winkelwagen klaar / betaald",
-            "basket-created": "Winkelwagen gecreëerd"
+            "basket-automaticclean": "Winkelmandjes automatisch legen",
+            "basket-removeitem": "Uit het winkelmandje verwijderen",
+            "basket-additem": "Aan het winkelmandje toevoegen",
+            "basket-finalize": "Winkelmandje klaar / betaald",
+            "basket-created": "Winkelmandje is aangemaakt"
         }
     },
     "invoice": {

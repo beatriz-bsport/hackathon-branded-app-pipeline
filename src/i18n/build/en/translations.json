@@ -1951,7 +1951,7 @@
             "Offer": {
                 "name": "Sessions",
                 "tags": {
-                    "activity": "Activities",
+                    "activity": "Group activities",
                     "coach": "Teacher",
                     "date": "Session's time and date",
                     "establishment": "Establishments",
@@ -4241,7 +4241,7 @@
         "actions": {
             "forgottenPassword": "Forgot your password?",
             "signup": "No account yet ?",
-            "signin": "Sign-in"
+            "signin": "Log in"
         },
         "or": " or ",
         "contactUs": "Are you the owner or manager of a boutique studio, and would you like to learn more about our solution? Contact us for a no-strings-attached call and for more information.",
@@ -4914,7 +4914,7 @@
             "placeholder": "Shop product"
         },
         "link": {
-            "copyLink": "Copy link to payment page",
+            "copyLink": "Copy the direct link to the payment page",
             "copied": "Link copied"
         },
         "search": "Search a product",
@@ -6047,7 +6047,7 @@
         "save": "save",
         "cancel": "cancel",
         "noContracts": "Contracts will allow you to regularly bill your members for a pass that is re-credited every month/days/years.",
-        "copyLink": "Copy link to payment page",
+        "copyLink": "Copy the direct link to the payment page",
         "listItem": {
             "valid": "Valid",
             "paused": "Paused",
@@ -6784,7 +6784,7 @@
         "reverted": "Invoice reverted",
         "link": {
             "copied": "Link copied",
-            "copyLink": "Copy link to payment page"
+            "copyLink": "Copy the direct link to the payment page"
         },
         "actions": {
             "delete": "Delete",
@@ -6997,7 +6997,7 @@
             }
         },
         "card": {
-            "copyLink": "Copy link to booking page",
+            "copyLink": "Copy the direct link to the booking page",
             "copied": "Link copied"
         },
         "offerManagement": {
@@ -9282,7 +9282,7 @@
             }
         },
         "notifications": {
-            "selectNotificationRules": "Select a rule to view details",
+            "selectNotificationRules": "Select a rule to display detailed information.",
             "createNotificationFabLabel": "Add a notification",
             "notificationsEmpty": "You haven't added any rules for this group, yet.",
             "deleteDialogText": "Are you sure that you want to delete this rule? This operation can't be reversed.",
@@ -9296,13 +9296,13 @@
             "groupTitle": {
                 "paymentPack": "Passes",
                 "privateBooking": "Appointments",
-                "booking": "Bookings"
+                "booking": "Group activities"
             },
             "fabLabels": {
                 "private_service": "Appointments",
                 "payment_pack": "Passes",
                 "establishment": "Establishments",
-                "meta_activity": "Activities",
+                "meta_activity": "Group activities",
                 "workshop": "Workshops"
             },
             "cancel": "Cancel",

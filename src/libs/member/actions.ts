@@ -313,9 +313,11 @@ export function search(text: string) {
   return async (dispatch: Dispatch) => {
     dispatch(startSearch(text));
     try {
-      const response = await searchApi(text);
-      const members = response.data;
-      dispatch(successSearch(members));
+      if (text) {
+        const response = await searchApi(text);
+        const members = response.data;
+        dispatch(successSearch(members));
+      } else dispatch(successSearch([]));
     } catch (err) {
       console.error(err);
       dispatch(errorSearch(err));

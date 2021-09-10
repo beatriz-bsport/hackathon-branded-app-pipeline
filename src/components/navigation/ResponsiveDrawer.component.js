@@ -163,7 +163,6 @@ class ResponsiveDrawer extends React.Component<Props, State> {
   renderMenuItem = (item: Object, i, isNested) => {
     const { classes, location } = this.props;
     const isActive = location.pathname.startsWith(item.to);
-
     if (item.permission) {
       if (!checkRequiredPermissions(item.permission, this.props.permissions)) {
         return null;

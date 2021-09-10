@@ -115,7 +115,10 @@ export function MemberSearchModal(props: Props) {
             props.setSearchedText(ev.target.value);
             props.searchMembers(ev.target.value);
           }}
-          onReset={() => {}}
+          onReset={() => {
+            props.setSearchedText('');
+            props.searchMembers(null);
+          }}
         />
       </DialogTitle>
       <Divider />

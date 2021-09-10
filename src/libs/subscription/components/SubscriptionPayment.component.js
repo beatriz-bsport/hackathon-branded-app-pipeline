@@ -46,7 +46,6 @@ const PaymentMethodSwitcher = (props: {
   enabledPaymentMethods: Array<number>,
   enabledPaymentGroupMethodIdentifier: Array<number>,
   disabled: boolean,
-  member?: Member,
 }) => (
   <RadioGroup
     aria-label="payment-method"
@@ -124,13 +123,13 @@ type Props = {
 
   sepaDefaultName?: string,
   sepaDefaultEmail?: string,
-  memberId: string,
   disabled: boolean,
   acceptContract?: boolean,
   setAcceptContract?: (value: boolean) => void,
   date?: string,
   setDate?: (value: string) => void,
   withGeneralConditions: boolean,
+  member?: Member,
 };
 
 type State = {

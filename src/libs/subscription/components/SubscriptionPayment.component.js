@@ -46,6 +46,7 @@ const PaymentMethodSwitcher = (props: {
   enabledPaymentMethods: Array<number>,
   enabledPaymentGroupMethodIdentifier: Array<number>,
   disabled: boolean,
+  member?: Member,
 }) => (
   <RadioGroup
     aria-label="payment-method"
@@ -211,7 +212,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
     const { data } = await appliesToContract(
       coupon_code,
       this.props.contract.id,
-      this.props.memberId,
+      this.props.member?.id,
     );
 
     if (data.can_be_applied) {

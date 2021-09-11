@@ -9,7 +9,7 @@ const DEFAULT_PROFIL_PIC = 'https://ssl.gstatic.com/images/branding/product/1x/a
 type Props = {
   user: { photo: string; name: string };
   variant: string;
-  noname: ?boolean;
+  noname: boolean | null;
 };
 
 // prettier-ignore

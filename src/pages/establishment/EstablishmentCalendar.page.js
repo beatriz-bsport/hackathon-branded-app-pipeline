@@ -73,7 +73,7 @@ type Props = {
   resetPrivateBookings: () => void,
   fetchPrivateBookingList: () => void,
 
-  fetchEstablishmentBulk: (Array<number>) => void,
+  fetchEstablishmentBulk: (es: Array<number>) => void,
   periodFilter: { start: string, end: string },
 };
 

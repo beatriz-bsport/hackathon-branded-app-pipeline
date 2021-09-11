@@ -44,6 +44,7 @@ export class App extends Component<{}, {}> {
 
   componentDidMount() {
     if (!this.state.reloaded && window.location.search === '?storeReload') {
+      // eslint-disable-next-line
       this.setState({ reloaded: true });
     }
   }

@@ -15,9 +15,11 @@ type Props = {
   classes: Object,
   t: TFunction,
   anchorEl: ?HTMLElement,
-  setAnchorEl: (?HTMLElement) => void,
+  setAnchorEl: (e: ?HTMLElement) => void,
   resourcesByDatatype: Array<ResourceGroupType>,
-  onResourceDatatypeFilterChange: (?Array<ResourceGroupType>) => void,
+  onResourceDatatypeFilterChange: (
+    resourceGroupTypeList: ?Array<ResourceGroupType>,
+  ) => void,
 };
 
 export const ResourceDatatypeFilter = (props: Props) => {

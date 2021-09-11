@@ -9,6 +9,7 @@
 **./jitsi_external_api.js
 **/env.js
 **/actions/utils.js
+**/boilerplate/**
 
 
 // packages not compiling to ES5 thus placed in src/

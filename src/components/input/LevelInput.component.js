@@ -14,9 +14,9 @@ import LEVELS from '@bsport/common/lib/master-data/levels';
 import { Level } from '../category';
 
 type Props = {
-  classes: Object,
+  classes: any,
   value: ?number,
-  onChange: (*) => void,
+  onChange: (data: any) => void,
   required: ?boolean,
   t: TFunction,
 };

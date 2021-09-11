@@ -11,9 +11,9 @@ import Selector from '../../../components/Selector.component';
 import type { PaymentCombo } from '../types';
 
 type Props = {
-  classes: Object,
+  classes: any,
   paymentComboList: Array<PaymentCombo>,
-  onChange: (?number) => void,
+  onChange: (id: ?number) => void,
   helperText: string,
   nullCurrentValue?: boolean,
   value: ?number,
@@ -22,9 +22,9 @@ type Props = {
 };
 
 type OptionProps = {
-  data: Object,
-  innerRef: Object,
-  innerProps: Object,
+  data: any,
+  innerRef: any,
+  innerProps: any,
   isSelected?: boolean,
   isFocused: boolean,
 };

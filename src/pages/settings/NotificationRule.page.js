@@ -210,6 +210,7 @@ export class NotificationRule extends React.Component<Props> {
         (this.props.previewEmail && this.props.previewEmail.html) ? (
           <Dialog open>
             <div
+              // eslint-disable-next-line
               dangerouslySetInnerHTML={{
                 __html:
                   this.props.previewEmailHtml || this.props.previewEmail.html,

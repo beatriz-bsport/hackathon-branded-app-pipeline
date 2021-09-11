@@ -23,7 +23,7 @@ import { Member } from '../types';
 type Props = {
   balance: string,
   invoiceLoading: boolean,
-  goToInvoice: (string, ?Invoice) => void,
+  goToInvoice: (uuid: string, invoice: ?Invoice) => void,
   unpaidInvoiceList: Array<Invoice>,
   memberId: number,
   member: Member,
@@ -31,7 +31,7 @@ type Props = {
   applyBalanceToUnpaidInvoices: () => void,
   fetchInvoiceListUnpaid: () => void,
   availablePaymentMethodList: number[],
-  adjustCreditWithoutPaymentNote: (number) => void,
+  adjustCreditWithoutPaymentNote: (c: number) => void,
   detachPaymentMethodLoading: boolean,
   detachPaymentMethod: (pm_id: string) => void,
   snackbarErrorMsg: (msg: string) => void,

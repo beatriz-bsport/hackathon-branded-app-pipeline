@@ -27,7 +27,7 @@ type Props = {
     revert_bookings_on_fail_subscription_payment: boolean,
   },
   processing: boolean,
-  onSubmit: (*) => void,
+  onSubmit: (data: any) => void,
 };
 
 type State = {

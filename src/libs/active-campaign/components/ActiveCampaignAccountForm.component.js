@@ -48,6 +48,7 @@ export class ActiveCampaignAccountFormDialog extends React.Component<
 
   componentDidUpdate(prevProps) {
     if (this.props.open !== prevProps.open) {
+      // eslint-disable-next-line
       this.setState({
         token:
           this.props.account && this.props.account.token

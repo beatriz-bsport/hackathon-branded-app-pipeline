@@ -23,7 +23,7 @@ import DE_FLAG from './flags/DE.png';
 import AT_FLAG from './flags/AT.png';
 
 type Props = {
-  onChange: (SyntheticEvent<HTMLElement>) => void,
+  onChange: (e: SyntheticEvent<HTMLElement>) => void,
   value: string,
   label?: string,
 };

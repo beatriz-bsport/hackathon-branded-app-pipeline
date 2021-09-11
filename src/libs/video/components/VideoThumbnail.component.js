@@ -26,7 +26,7 @@ type Props = {
   onDeleteVideo: (id: number) => void,
   isPlaying: number,
   menuAchorEl: HTMLElement,
-  setMenuAnchorEl: (?HTMLElement) => void,
+  setMenuAnchorEl: (ev: ?HTMLElement) => void,
   loading: boolean,
 };
 export const VideoThumbnail = (props: Props) => {

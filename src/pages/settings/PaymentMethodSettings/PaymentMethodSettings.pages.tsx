@@ -83,6 +83,7 @@ class PaymentMethodSettings extends React.PureComponent<Props, State> {
       this.props.theme.payment_method_available_basket &&
       this.props.theme.payment_method_available_subscription
     ) {
+      // eslint-disable-next-line
       this.setState({
         payment_method_available_basket: this.props.theme
           .payment_method_available_basket,

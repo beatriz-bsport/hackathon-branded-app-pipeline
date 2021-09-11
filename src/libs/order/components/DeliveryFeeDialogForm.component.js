@@ -13,7 +13,7 @@ import type { DeliveryFee } from '../types';
 type Props = {
   open: boolean,
   onClose: () => void,
-  onSubmit: (*) => void,
+  onSubmit: (data: any) => void,
   deliveryFee: ?DeliveryFee,
   t: TFunction,
 };

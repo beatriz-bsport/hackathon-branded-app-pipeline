@@ -57,7 +57,9 @@ export const CampaignList = (props: Props) => {
       </div>
       <Dialog open={!!props.showEmail}>
         <DialogContent>
-          <div dangerouslySetInnerHTML={{ __html: props.showEmail }} />
+          <div
+            // eslint-disable-next-line
+	  dangerouslySetInnerHTML={{ __html: props.showEmail }} />
         </DialogContent>
         <DialogActions>
           <Button onClick={() => props.setShowEmail(null)}>

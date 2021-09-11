@@ -13,7 +13,7 @@ import type { ShopItem } from '../types';
 type Props = {
   classes: Object,
   shopItemList: Array<ShopItem>,
-  onChange: (?number) => void,
+  onChange: (id?: number) => void,
   helperText: string,
   nullCurrentValue?: boolean,
   value: ?number,

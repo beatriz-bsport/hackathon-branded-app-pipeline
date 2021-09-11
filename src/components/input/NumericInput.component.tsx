@@ -9,19 +9,19 @@ const styles = () => ({
 });
 
 type Props = {
-  value: string,
-  onChange: (string) => void,
-  required: ?boolean,
-  disabled: ?boolean,
-  error: ?boolean,
-  fullWidth: ?boolean,
-  margin: ?number,
-  label: ?string,
-  InputProps: ?Object,
-  helperText: ?string,
-  classes: Object,
-  variant: ?string,
-  onBlur: ?() => void,
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLElement>) => void;
+  required?: boolean;
+  disabled?: boolean;
+  error?: boolean;
+  fullWidth?: boolean;
+  margin?: number;
+  label?: string;
+  InputProps: any;
+  helperText: string | null;
+  classes: any;
+  variant?: string;
+  onBlur: null | (() => void);
 };
 
 export function NumericInput(props: Props) {

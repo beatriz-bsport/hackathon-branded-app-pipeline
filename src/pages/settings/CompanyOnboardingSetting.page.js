@@ -17,8 +17,8 @@ const stripePromise = loadStripe(getStripePkKey());
 type Props = {
   stripe: Stripe,
   getOnboardingLink: (tokenId: string) => Promise<any>,
-  setError: (?Error) => void,
-  classes: Object,
+  setError: (err: ?Error) => void,
+  classes: any,
   t: TFunction,
   error: ?Error,
 };

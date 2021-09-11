@@ -41,7 +41,7 @@ type Props = ExternalProps & {
   metadata: ReportMetadata,
   setReportConfigurationToEdit: (ReportConfiguration) => void,
   t: TFunction,
-  setSelectedForDeletion: (?ReportConfiguration) => void,
+  setSelectedForDeletion: (r: ?ReportConfiguration) => void,
   selectedForDeletion: ?ReportConfiguration,
   selectedCategory: ?ReportConfiguration,
   onCancelDeletion: () => void,

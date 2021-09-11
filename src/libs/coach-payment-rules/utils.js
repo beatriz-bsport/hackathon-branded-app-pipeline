@@ -88,7 +88,7 @@ export const computePerformanceSynthese = (CoachesWithPerformances) => {
 
   const syntheseaccu = synthese[0]
     .concat(synthese[1])
-    .reduce(function (newArr, synth) {
+    .reduce((newArr, synth) => {
       const buffer = newArr;
       const index = buffer.findIndex(
         (accumulator) => accumulator.id === synth.id,

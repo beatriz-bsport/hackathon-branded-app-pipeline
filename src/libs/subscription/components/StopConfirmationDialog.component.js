@@ -25,7 +25,7 @@ type Props = {
   also_revert_current: boolean,
   set_also_revert_current: (boolean) => void,
   submitting?: boolean,
-  setSubmittin: (?boolean) => void,
+  setSubmittin: (submitting: ?boolean) => void,
 };
 
 export const StopDialog = (props: Props) => (

@@ -88,7 +88,7 @@ function createUri(path, args) {
 
 export type UpsertOptions<T> = {
   onSuccess?: (T) => void,
-  onError?: (T, *) => void,
+  onError?: (t: T, err: any) => void,
 };
 
 const DEFAULT_VERBS = {

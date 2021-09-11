@@ -38,20 +38,20 @@ type Props = {
   t: TFunction,
   reportConfiguration: ReportConfigurationType,
   classes: { [string]: string },
-  reportConfiguration: Object,
+  reportConfiguration: any,
   handleExcelExportation: () => void,
   showDialog: boolean,
   setShowDialog: (boolean: boolean) => void,
   disableContinue: boolean,
   setDisableContinue: (boolean: boolean) => void,
-  values: Object,
+  values: any,
 };
 type DownloadButtonProps = {
   t: TFunction,
-  classes: Object,
-  handleExcelExportation: (object<any>) => void,
+  classes: any,
+  handleExcelExportation: (data: any) => void,
   isSubmitting_: boolean,
-  values: Object,
+  values: any,
 };
 
 const ReportGenerationSchema = Yup.object().shape({

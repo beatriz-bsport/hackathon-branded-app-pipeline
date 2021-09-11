@@ -20,8 +20,8 @@ type Props = {
   scaleDirection: boolean,
   factor: number,
   onClose: () => void,
-  onSubmit: ({ factor: number }) => void,
-  handleFactorChange: (SyntheticEvent<HTMLEelement>) => void,
+  onSubmit: (data: { factor: number }) => void,
+  handleFactorChange: (e: SyntheticEvent<HTMLEelement>) => void,
   loading: boolean,
 };
 

@@ -6,13 +6,13 @@ import NumericInput from './input/NumericInput.component';
 const DELAY = 350;
 
 type Props = {
-  value: ?string,
-  onChange: (*) => void,
+  value: string | null | number;
+  onChange: (data: any) => void;
 };
 
 type State = {
-  value: string,
-  writingSince: ?number,
+  value: string | null | number;
+  writingSince: number | null;
 };
 
 export default class DelayedNumericInput extends Component<Props, State> {
@@ -24,13 +24,14 @@ export default class DelayedNumericInput extends Component<Props, State> {
     };
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props) {
     if (this.props.value !== prevProps.value) {
+      // eslint-disable-next-line
       this.setState({ value: this.props.value });
     }
   }
 
-  handleChange = (e: *) => {
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.persist();
     this.setState({
       writingSince: Date.now(),
@@ -39,7 +40,7 @@ export default class DelayedNumericInput extends Component<Props, State> {
     setTimeout(this.sendChange(e), DELAY + 10);
   };
 
-  sendChange = (e: *) => () => {
+  sendChange = (e: React.ChangeEvent<HTMLInputElement>) => () => {
     const { writingSince } = this.state;
     if (
       (!writingSince || Date.now() - writingSince > DELAY) &&

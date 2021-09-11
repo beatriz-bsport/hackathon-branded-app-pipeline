@@ -31,7 +31,7 @@ const SubShopComponent = (props: {
   addToOrder: (id: number) => void,
   expanded: boolean,
   toogleExpanded: () => void,
-  selectShopItem: (ShopItem) => void,
+  selectShopItem: (s: ShopItem) => void,
 }) => {
   return (
     <div
@@ -105,8 +105,8 @@ type Props = {
   selectedShopItem: ?ShopItem,
   notExpandedSubshop: Array<number>,
 
-  setNotExpandedSubshop: (Array<number>) => void,
-  selectShopItem: (?ShopItem) => void,
+  setNotExpandedSubshop: (subshops: Array<number>) => void,
+  selectShopItem: (shopitem: ?ShopItem) => void,
   addToOrder: (id: number) => void,
 
   t: TFunction,

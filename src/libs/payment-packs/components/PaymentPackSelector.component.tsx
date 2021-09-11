@@ -1,33 +1,30 @@
-// @flow
 import React from 'react';
-
-import { withTranslation } from 'react-i18next';
 
 import classNames from 'classnames';
 import PaymentPackSummary from '../../../components/payment-pack/PaymentPackSummary.component';
 
 import Selector from '../../../components/Selector.component';
 
-import type { PaymentPack } from '../../../api/types';
+import { PaymentPack } from '../../../api/types';
 
 type Props = {
-  classes: Object,
-  paymentPacks: Array<PaymentPack>,
-  onChange: (?number) => void,
-  helperText: string,
-  value: ?number,
-  selectorClass: string,
-  isMulti: boolean,
-  nullCurrentValue?: boolean,
-  autofocus: boolean,
+  classes: Object;
+  paymentPacks: Array<PaymentPack>;
+  onChange: (id: number | null) => void;
+  helperText: string;
+  value: number | null;
+  selectorClass: string;
+  isMulti: boolean;
+  nullCurrentValue?: boolean;
+  autofocus: boolean;
 };
 
 type OptionProps = {
-  data: Object,
-  innerRef: Object,
-  innerProps: Object,
-  isSelected?: boolean,
-  isFocused: boolean,
+  data: Object;
+  innerRef: Object;
+  innerProps: Object;
+  isSelected?: boolean;
+  isFocused: boolean;
 };
 
 function paymentPackOption(props: OptionProps) {
@@ -56,8 +53,7 @@ export function PaymentPackSelector(props: Props) {
     nullCurrentValue,
     autofocus,
   } = props;
-  const suggestions = paymentPacks
-    .asMutable()
+  const suggestions = [...paymentPacks]
     .sort((pp, pp_) => pp.name > pp_.name)
     .map((pp) => ({ value: pp.id, label: pp.name, pp }));
   return (
@@ -70,7 +66,7 @@ export function PaymentPackSelector(props: Props) {
       className={classNames(classes, selectorClass)}
       components={{ Option: paymentPackOption }}
       placeholder={helperText}
-      onChange={(event) => {
+      onChange={(event: number | { value: number; label: string }) => {
         if (props.isMulti) {
           onChange(event);
         } else {
@@ -82,4 +78,4 @@ export function PaymentPackSelector(props: Props) {
   );
 }
 
-export default withTranslation()(PaymentPackSelector);
+export default PaymentPackSelector;

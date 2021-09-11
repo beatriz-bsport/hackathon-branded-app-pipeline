@@ -101,6 +101,7 @@ export class SignUpForm extends Component<Props, State> {
   goToAddressForm = (event: any) => {
     event.preventDefault();
     if (!this.state.acceptPrivacyPolicy) {
+      // eslint-disable-next-line
       alert(this.props.t('form.signup.pleaseAcceptPrivacyPolicy'));
       return;
     }
@@ -123,6 +124,7 @@ export class SignUpForm extends Component<Props, State> {
     } = this.state;
     const { t } = this.props;
     if (!acceptPrivacyPolicy || !acceptWaiver) {
+      // eslint-disable-next-line
       alert(t('form.signup.pleaseAcceptPrivacyPolicy'));
       return;
     }

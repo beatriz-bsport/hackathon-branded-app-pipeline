@@ -86,21 +86,24 @@ type Props = {
   asManager?: boolean,
   managerFormConfig: ?SignUpFormConfigDict,
   onCancel?: () => void,
-  checkUserExists: ({ email?: string, phonenumber?: string }) => void,
-  goToMember: (number) => void,
-  goToMerge: (number, number) => void,
+  checkUserExists: (data: { email?: string, phonenumber?: string }) => void,
+  goToMember: (id: number) => void,
+  goToMerge: (idSrc: number, idDst: number) => void,
 
-  linkMember: (number) => void,
+  linkMember: (id: number) => void,
   userStatus: number,
   initial: object,
-  errors: *,
+  errors: any,
   setFieldValue: (fieldname: string, value: any) => void,
   waiver: string,
   values: any,
 };
 
 const Effect = formikConnect(
-  class __ extends React.Component<{ formik: *, onChange: (*) => void }> {
+  class __ extends React.Component<{
+    formik: any,
+    onChange: (data: any) => void,
+  }> {
     componentDidUpdate(prevProps) {
       if (prevProps.formik !== this.props.formik) {
         this.props.onChange(prevProps.formik, this.props.formik);

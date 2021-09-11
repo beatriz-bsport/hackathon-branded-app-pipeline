@@ -56,7 +56,7 @@ type Props = {
   showDownloader?: boolean,
   onRequestMassDisable: (date: string) => void,
   t: TFunction,
-  setMenuAnchorEl: (?HTMLElement) => void,
+  setMenuAnchorEl: (el: ?HTMLElement) => void,
   menuAnchorEl: ?HTMLElement,
   setShowCancelledOffers?: (boolean) => void,
   showCancelledOffers?: boolean,

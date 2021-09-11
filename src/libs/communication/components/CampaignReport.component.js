@@ -218,7 +218,9 @@ export const CampaignReport = (props: Props) => (
     />
     <Dialog open={!!props.showMail}>
       <DialogContent>
-        <div dangerouslySetInnerHTML={{ __html: props.showMail }} />
+        <div
+          // eslint-disable-next-line
+	dangerouslySetInnerHTML={{ __html: props.showMail }} />
       </DialogContent>
       <DialogActions>
         <Button onClick={() => props.setShowMail(null)}>

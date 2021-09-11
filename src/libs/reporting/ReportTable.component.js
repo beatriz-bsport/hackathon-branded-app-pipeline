@@ -42,8 +42,8 @@ type TableProps = {
   previousPage: number,
   nextPage: number,
   otherPages: Array<any>,
-  handleGeneratePreviousPage: (*) => void,
-  handleGenerateNextPage: (*) => void,
+  handleGeneratePreviousPage: (data: any) => void,
+  handleGenerateNextPage: (data: any) => void,
   className: { [string]: string },
   columnSpan: number,
   value: String,
@@ -54,8 +54,8 @@ type PaginationProps = {
   previousPage: number,
   nextPage: number,
   otherPages: Array<any>,
-  handleGeneratePreviousPage: (*) => void,
-  handleGenerateNextPage: (*) => void,
+  handleGeneratePreviousPage: (data: any) => void,
+  handleGenerateNextPage: (data: any) => void,
   columnSpan: number,
 };
 

@@ -12,7 +12,7 @@ const firstname = 'John';
 const lastname = 'Doe';
 const email = 'coach@bsport.io';
 const phone_number = '+33942538406';
-let birth_day = '';
+const birth_day = '';
 const description = 'New bsport coach';
 const gender = 'F';
 const facebook_url = 'http://facebook.com';
@@ -118,7 +118,7 @@ context('Manager - Coach', () => {
   // });
   // check if manager can update a coach details
   it('Manager can update coach', () => {
-    let coachData = { phone: {} };
+    const coachData = { phone: {} };
     cy.visit('/coach');
     // click on edit the first coach
     cy.get('a>button[aria-label="edit"]').click();
@@ -205,9 +205,6 @@ context('Manager - Coach', () => {
       expect(coach).to.deep.equal(coachData);
     });
     // redirect to member list page
-    cy.url()
-      .location('pathname')
-      .should('contains', '/member');
-  });
+    cy.url().location('pathname').should('contains', '/member');
   });
 });

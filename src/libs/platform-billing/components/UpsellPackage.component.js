@@ -110,6 +110,7 @@ const UpsellPackageCustomApp = (props: Props) => {
             <div className={classes.innerDescription}>
               {upsellPackage.description_html ? (
                 <div
+                  // eslint-disable-next-line
                   dangerouslySetInnerHTML={{
                     __html: props.upsellPackage.description_html,
                   }}
@@ -167,6 +168,7 @@ const UpsellPackageTablet = (props: Props) => {
             <div className={classes.innerDescription}>
               {upsellPackage.description_html ? (
                 <div
+                  // eslint-disable-next-line
                   dangerouslySetInnerHTML={{
                     __html: props.upsellPackage.description_html,
                   }}
@@ -224,6 +226,7 @@ const UpsellPackageDailyPayment = (props: Props) => {
             <div className={classes.innerDescription}>
               {upsellPackage.description_html ? (
                 <div
+                  // eslint-disable-next-line
                   dangerouslySetInnerHTML={{
                     __html: props.upsellPackage.description_html,
                   }}
@@ -280,6 +283,7 @@ const UpsellPackageWhereby = (props: Props) => {
           <div className={classes.innerDescription}>
             {upsellPackage.description_html ? (
               <div
+                // eslint-disable-next-line
                 dangerouslySetInnerHTML={{
                   __html: props.upsellPackage.description_html,
                 }}
@@ -335,6 +339,7 @@ const UpsellPackageVod = (props: Props) => {
           <div className={classes.innerDescription}>
             {upsellPackage.description_html ? (
               <div
+                // eslint-disable-next-line
                 dangerouslySetInnerHTML={{
                   __html: props.upsellPackage.description_html,
                 }}
@@ -389,6 +394,7 @@ const UpsellPackageSMS = (props: Props) => {
           <div className={classes.innerDescription}>
             {upsellPackage.description_html ? (
               <div
+                // eslint-disable-next-line
                 dangerouslySetInnerHTML={{
                   __html: props.upsellPackage.description_html,
                 }}
@@ -442,6 +448,7 @@ const UpsellPackageZoomApp = (props: Props) => {
             <div className={classes.innerDescription}>
               {upsellPackage.description_html ? (
                 <div
+                  // eslint-disable-next-line
                   dangerouslySetInnerHTML={{
                     __html: props.upsellPackage.description_html,
                   }}
@@ -498,6 +505,7 @@ const UpsellPackageClassPass = (props: Props) => {
             <div className={classes.innerDescription}>
               {upsellPackage.description_html ? (
                 <div
+                  // eslint-disable-next-line
                   dangerouslySetInnerHTML={{
                     __html: props.upsellPackage.description_html,
                   }}
@@ -555,6 +563,7 @@ const UpsellPackageAnalytics = (props: Props) => {
             <div className={classes.innerDescription}>
               {upsellPackage.description_html ? (
                 <div
+                  // eslint-disable-next-line
                   dangerouslySetInnerHTML={{
                     __html: props.upsellPackage.description_html,
                   }}
@@ -612,6 +621,7 @@ const UpsellPackagePremium = (props: Props) => {
             <div className={classes.innerDescription}>
               {upsellPackage.description_html ? (
                 <div
+                  // eslint-disable-next-line
                   dangerouslySetInnerHTML={{
                     __html: props.upsellPackage.description_html,
                   }}
@@ -669,6 +679,7 @@ const UpsellPackageYoutubeAndVimeo = (props: Props) => {
             <div className={classes.innerDescription}>
               {upsellPackage.description_html ? (
                 <div
+                  // eslint-disable-next-line
                   dangerouslySetInnerHTML={{
                     __html: props.upsellPackage.description_html,
                   }}
@@ -726,6 +737,7 @@ const UpsellPackageActiveCampaign = (props: Props) => {
             <div className={classes.innerDescription}>
               {upsellPackage.description_html ? (
                 <div
+                  // eslint-disable-next-line
                   dangerouslySetInnerHTML={{
                     __html: props.upsellPackage.description_html,
                   }}

@@ -28,7 +28,7 @@ type Props = {
   amountToPay: number,
   clientSecret: string,
   onCancel: () => void,
-  onSuccess: (?() => void) => void,
+  onSuccess: (callback: ?() => void) => void,
 };
 
 export const PaymentStripe = (props: Props) => {

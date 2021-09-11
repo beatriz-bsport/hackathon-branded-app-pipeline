@@ -19,7 +19,7 @@ type Props = {
   t: TFunction,
   onReset: () => void,
   searchedText: string,
-  onChange: (SyntheticEvent<HTMLElement>) => void,
+  onChange: (e: SyntheticEvent<HTMLElement>) => void,
   memberHistory: Array<Member>,
   memberHistoryAnchor: ?HTMLElement,
   setMemberHistoryAnchor: (HTMLElement) => void,

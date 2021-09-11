@@ -78,7 +78,7 @@ const TabCreation: React.FC<Props> = (props) => {
         }
       }
     }
-  }, []);
+  }, [setShowAdvanceSettings, tabConfig, componentType]);
 
   useEffect(() => {
     componentType && setComponentTypeError('');
@@ -93,10 +93,11 @@ const TabCreation: React.FC<Props> = (props) => {
       setTitle(t(`marketplaceSettings.componentType.${type}`));
       setShowAdvanceSettings(false);
     },
-    [],
+    [setComponentType, setTitle, setShowAdvanceSettings, setTabConfig, t],
   );
 
-  const onSubmit = useCallback(() => {
+  const { onSubmit, index } = props;
+  const onSubmit_ = useCallback(() => {
     if (!componentType) {
       setComponentTypeError(
         t('marketplaceSettings.createDialog.noComponentTypeError'),
@@ -155,12 +156,12 @@ const TabCreation: React.FC<Props> = (props) => {
     const tab: MarketplaceTabConfig = {
       component_type: componentType,
       title,
-      index: props.index,
+      index,
       config: tabConfig,
     };
 
-    props.onSubmit(tab);
-  }, [componentType, title, tabConfig]);
+    onSubmit(tab);
+  }, [componentType, title, tabConfig, index, onSubmit, t]);
 
   return (
     <Dialog open className={classes.container} onClose={props.onClose}>
@@ -234,7 +235,7 @@ const TabCreation: React.FC<Props> = (props) => {
         </Button>
         <Button
           type="submit"
-          onClick={onSubmit}
+          onClick={onSubmit_}
           color="primary"
           id="button_role_save"
         >

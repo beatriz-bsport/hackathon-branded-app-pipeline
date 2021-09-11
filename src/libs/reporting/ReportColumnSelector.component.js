@@ -12,7 +12,7 @@ import type { ReportMetadataColumn } from './types';
 
 type Props = {
   value: string[],
-  onChange: (string[]) => void,
+  onChange: (columns: string[]) => void,
   columns: ReportMetadataColumn[],
   classes: { [string]: string },
   t: TFunction,

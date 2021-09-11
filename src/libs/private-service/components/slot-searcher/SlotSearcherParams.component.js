@@ -23,7 +23,7 @@ type Props = {
   private_slot: number,
   coach?: any,
   establishment?: any,
-  onConfigurationChange: ({
+  onConfigurationChange: (data: {
     private_service: number,
     private_slot: number,
     coaches: Array<number>,

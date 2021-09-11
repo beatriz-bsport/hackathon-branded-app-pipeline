@@ -16,9 +16,11 @@ import { bonusCoachPaymentRuleConstructor } from '../utils';
 type Props = {
   anchorEl: boolean,
   setAnchorEl: () => void,
-  bonusesSortByApplicability: object<BonusCoachPaymentRule>,
-  bonusCreationApplicability: ?String,
-  id: Number,
+  bonusesSortByApplicability: {
+    [applicability: string]: BonusCoachPaymentRule,
+  },
+  bonusCreationApplicability: ?string,
+  id: number,
   t: Tfunction,
 };
 const PopoverCoachPaymentRuleForm = (props: Props) => {

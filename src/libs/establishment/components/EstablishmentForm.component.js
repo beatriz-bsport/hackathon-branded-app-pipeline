@@ -25,7 +25,7 @@ import ImageList from '../../../components/ImageList.component';
 type Props = {
   processing: boolean,
   initial: $Shape<EstablishmentType>,
-  onSubmit: ($Shape<EstablishmentType>) => void,
+  onSubmit: (data: $Shape<EstablishmentType>) => void,
   onCancel: () => void,
   t: TFunction,
   classes: Object,

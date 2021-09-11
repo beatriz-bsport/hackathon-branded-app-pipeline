@@ -16,7 +16,7 @@ import FolderOutlinedIcon from '@material-ui/icons/FolderOutlined';
 type Props = {
   classes: *,
   t: TFunction,
-  onChange: (ImageFile[]) => void,
+  onChange: (images: ImageFile[]) => void,
   onAddFile: (File) => void,
   name: string,
   file: File,

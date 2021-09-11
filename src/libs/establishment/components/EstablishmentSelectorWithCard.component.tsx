@@ -4,21 +4,29 @@ import Paper from '@material-ui/core/Paper';
 import Collapse from '@material-ui/core/Collapse';
 
 import Button from '@material-ui/core/Button';
-import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 import List from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 import EstablishmentListItem from './EstablishmentListItem.component';
 import FuzeSearch from '../../../components/FuzeSearch.component';
+import { Establishment } from '../types';
 
-type Props = {
-  classes: Object,
-  establishments: Array,
-  onChange: (?number) => void,
-  placeholder: string,
-  value: any,
-  id: number,
+type OwnProps = {
+  establishments: Array<Establishment>;
+  onChange: (id: number | null) => void;
+  placeholder: string;
+  value: any;
+  id: number;
+};
+
+type Props = OwnProps & WithStyles;
+
+type State = {
+  searchText: string;
+  searchResult: Array<Establishment>;
+  displayList: boolean;
 };
 
 export class EstablishmentSelectorWithCard extends Component<Props, State> {
@@ -44,7 +52,7 @@ export class EstablishmentSelectorWithCard extends Component<Props, State> {
     });
   };
 
-  getEstablishmentGroupByAddres = (establishmentList) => {
+  getEstablishmentGroupByAddres = (establishmentList: Array<Establishment>) => {
     const establishmentGourpByAddress = establishmentList.reduce(
       (accumulator, establishmentItem) => {
         const temp = accumulator.findIndex(
@@ -78,7 +86,7 @@ export class EstablishmentSelectorWithCard extends Component<Props, State> {
               button
               clearIcon
               onClickDelete={() => {
-                this.props.onChange();
+                this.props.onChange(null);
                 this.setState({
                   displayList: true,
                   searchResult: this.props.establishments,
@@ -91,7 +99,7 @@ export class EstablishmentSelectorWithCard extends Component<Props, State> {
             <Button
               onClick={() => {
                 if (this.state.searchText === '') {
-                  this.setState((prevstate) => ({
+                  this.setState((prevstate: State) => ({
                     displayList: !prevstate.displayList,
                     searchResult: this.props.establishments || [],
                   }));
@@ -132,15 +140,17 @@ export class EstablishmentSelectorWithCard extends Component<Props, State> {
                       }
                       key={index}
                     >
-                      {group.establishmentList.map((establishment) => (
-                        <EstablishmentListItem
-                          key={`${index}${establishment.id}`}
-                          establishment={establishment}
-                          noDivider
-                          button
-                          onClick={() => this.props.onChange(establishment)}
-                        />
-                      ))}
+                      {group.establishmentList.map(
+                        (establishment: Establishment) => (
+                          <EstablishmentListItem
+                            key={`${index}${establishment.id}`}
+                            establishment={establishment}
+                            noDivider
+                            button
+                            onClick={() => this.props.onChange(establishment)}
+                          />
+                        ),
+                      )}
                     </List>
                   ))}
                 </Collapse>
@@ -153,20 +163,21 @@ export class EstablishmentSelectorWithCard extends Component<Props, State> {
   }
 }
 
-const styles = (theme: Theme) => ({
-  button: { width: '100%', padding: '0' },
-  searchPaperDisplayed: {
-    maxHeight: '500px',
-    overflow: 'auto',
-  },
-  listSubHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'row',
-    borderBottom: `1px solid${theme.palette.primary.main}`,
-    paddingBottom: theme.spacing(0.5),
-    backgroundColor: 'white',
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    button: { width: '100%', padding: '0' },
+    searchPaperDisplayed: {
+      maxHeight: '500px',
+      overflow: 'auto',
+    },
+    listSubHeader: {
+      display: 'flex',
+      alignItems: 'center',
+      flexDirection: 'row',
+      borderBottom: `1px solid${theme.palette.primary.main}`,
+      paddingBottom: theme.spacing(0.5),
+      backgroundColor: 'white',
+    },
+  });
 
 export default compose(withStyles(styles))(EstablishmentSelectorWithCard);

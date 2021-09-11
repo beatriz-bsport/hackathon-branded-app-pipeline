@@ -93,11 +93,13 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
             !specific_rule.private_slot || !specific_rule.coach_payment_rule,
         )
       ) {
+        // eslint-disable-next-line
         this.setState((prevState) => ({
           ...prevState,
           enableSaveButton: false,
         }));
       } else {
+        // eslint-disable-next-line
         this.setState((prevState) => ({
           ...prevState,
           enableSaveButton: true,

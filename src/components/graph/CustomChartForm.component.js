@@ -89,6 +89,7 @@ export class CustomChartForm extends React.Component<Props, State> {
           }
         }
       }
+      // eslint-disable-next-line
       this.setState({
         ressourceIdentifierList,
         ressourceIdentifierSelected: null,
@@ -117,6 +118,7 @@ export class CustomChartForm extends React.Component<Props, State> {
 
       const chartList = Object.keys(chartComponents);
 
+      // eslint-disable-next-line
       this.setState((prevS) => ({
         chartTypeList: chartList,
 

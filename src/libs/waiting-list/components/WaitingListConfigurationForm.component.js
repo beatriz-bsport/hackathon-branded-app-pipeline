@@ -32,9 +32,9 @@ import NumericInput from '../../../components/input/NumericInput.component';
 
 type Props = {
   t: TFunction,
-  classes: *,
+  classes: any,
   configuration: WaitingListConfiguration,
-  onSubmit: (*) => void,
+  onSubmit: (data: any) => void,
 };
 
 type State = {

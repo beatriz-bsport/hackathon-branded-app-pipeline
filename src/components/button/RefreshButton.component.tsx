@@ -6,11 +6,11 @@ import IconButton from '@material-ui/core/IconButton';
 import RefreshIcon from '@material-ui/icons/Refresh';
 
 type Props = {
-  isRefreshing: boolean,
-  onRefresh: () => void,
+  isRefreshing: boolean;
+  onRefresh: () => void;
 };
 
-export default function (props: Props) {
+export const RefreshButton = (props: Props) => {
   return (
     <IconButton onClick={props.onRefresh} name="refresh">
       {props.isRefreshing ? (
@@ -20,4 +20,6 @@ export default function (props: Props) {
       )}
     </IconButton>
   );
-}
+};
+
+export default RefreshButton;

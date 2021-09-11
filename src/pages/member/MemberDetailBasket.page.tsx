@@ -65,7 +65,7 @@ type OwnProps = {
 
 type Props = OwnProps &
   ConnectedProps<typeof connector> &
-  WithStyles &
+  WithStyles<typeof styles> &
   WithTranslation;
 
 export class MemberDetailBasket extends Component<Props> {

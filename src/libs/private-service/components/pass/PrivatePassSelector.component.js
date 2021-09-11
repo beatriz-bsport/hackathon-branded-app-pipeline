@@ -15,7 +15,7 @@ import { getCurrencyDisplayWithPrice } from '../../../theme/selectors';
 type Props = {
   classes: Object,
   privatePassList: Array<PrivatePass>,
-  onChange: (?number) => void,
+  onChange: (id: ?number) => void,
   nullCurrentValue?: boolean,
   helperText: string,
   value: ?number,

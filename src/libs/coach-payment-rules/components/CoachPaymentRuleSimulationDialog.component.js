@@ -29,7 +29,7 @@ type Props = {
   isSubmitting: Boolean,
   coachPaymentRule: CoachPaymentRule,
   onSubmit: (id: number, params: any) => void,
-  simulationResult: object<any>,
+  simulationResult: any,
   handlePrevious: (coachPaymentRule: coachPaymentRule) => void,
 };
 

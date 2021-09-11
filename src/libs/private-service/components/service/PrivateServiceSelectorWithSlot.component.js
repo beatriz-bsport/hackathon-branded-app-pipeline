@@ -16,7 +16,7 @@ import type { TFunction } from 'react-i18next';
 
 type Props = {
   t: TFunction,
-  setMenuAnchor: (?HTMLElement) => void,
+  setMenuAnchor: (e: ?HTMLElement) => void,
   classes: Object,
   privateServiceId: ?number,
   privateSlotId: ?number,

@@ -13,7 +13,7 @@ import FuzeSearch from '../../../components/FuzeSearch.component';
 type Props = {
   classes: Object,
   coaches: Array,
-  onChange: (?number) => void,
+  onChange: (id?: number) => void,
   placeholder: string,
   value: any,
   coaches: any,

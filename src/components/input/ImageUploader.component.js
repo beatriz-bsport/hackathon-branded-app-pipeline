@@ -15,7 +15,7 @@ import { styles as baseStyles } from './uploader.styles';
 type Props = {
   classes: *,
   initial: string,
-  onChange: (*) => void,
+  onChange: (data: any) => void,
   t: TFunction,
   name: string,
 };

@@ -52,6 +52,7 @@ export class ActiveCampaignFormDialog extends React.Component<Props, State> {
 
   componentDidUpdate(prevProps) {
     if (this.props.link && this.props.link !== prevProps.link) {
+      // eslint-disable-next-line
       this.setState({
         smartlist: this.props.link.smartlist.id,
         active_campaign_list: this.props.link.active_campaign_list,

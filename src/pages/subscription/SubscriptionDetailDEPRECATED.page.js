@@ -69,13 +69,13 @@ type Props = {
   goToSubscribe: (id: number) => void,
 
   plannedInvoiceToUpdate: ?PlannedInvoice,
-  setPlannedInvoiceToUpdate: (?PlannedInvoice) => void,
+  setPlannedInvoiceToUpdate: (pl: ?PlannedInvoice) => void,
 
   setFreezeDialogOpen: (boolean) => void,
   freezeDialogOpen: boolean,
   freezeSubscription: ({ days: number }) => void,
 
-  setSwitchPaymentMethodDialogOpen: (boolean) => void,
+  setSwitchPaymentMethodDialogOpen: (open: boolean) => void,
   switchPaymentMethodDialogOpen: boolean,
   switchPaymentMethod: (source: string) => void,
   openPaymentMethodSwitch: () => void,
@@ -86,13 +86,13 @@ type Props = {
   availablePaymentPackList: Array<PaymentPack>,
 
   stop: (id: number) => void,
-  setStopDialogOpen: (boolean) => void,
+  setStopDialogOpen: (open: boolean) => void,
   stopDialogOpen: boolean,
 
   eventList: Array<SubscriptionEvent>,
   eventPage: number,
   eventLoading: boolean,
-  fetchSubscriptionEventList: ({
+  fetchSubscriptionEventList: (data: {
     page: number,
     page_size: number,
     billing_plan: number,
@@ -102,7 +102,7 @@ type Props = {
 
   openPackSwitcherDialog: () => void,
 
-  updateSubscriptionRenewal: ({ auto_renewal: boolean }) => void,
+  updateSubscriptionRenewal: (data: { auto_renewal: boolean }) => void,
   updatePlannedInvoicePrice: (
     id: number,
     data: {
@@ -117,7 +117,7 @@ type Props = {
   fetchPaymentMethodList: () => void,
   savedPaymentMethodList: Array<PaymentMethod>,
   scheduledStopDialogOpen: boolean,
-  setScheduledStopDialogOpen: (boolean) => void,
+  setScheduledStopDialogOpen: (open: boolean) => void,
   flagPlannedInvoiceAsLast: (id: number) => void,
   unflagPlannedInvoiceAsLast: (id: number) => void,
 };

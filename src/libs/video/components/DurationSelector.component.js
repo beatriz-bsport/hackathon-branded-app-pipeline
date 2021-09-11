@@ -24,7 +24,7 @@ function ValueLabelComponent(props: { children: any, value: string }) {
 
 type Props = {
   durationSecondRange: ?string,
-  onChange: (?string) => void,
+  onChange: (value: ?string) => void,
 };
 
 const DurationSelector = (props: Props) => {

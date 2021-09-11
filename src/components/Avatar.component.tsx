@@ -7,13 +7,13 @@ import Typography from '@material-ui/core/Typography';
 const DEFAULT_PROFIL_PIC = 'https://ssl.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png';
 
 type Props = {
-  user: { photo: string, name: string },
-  variant: string,
-  noname: ?boolean,
+  user: { photo: string; name: string };
+  variant: string;
+  noname: ?boolean;
 };
 
 // prettier-ignore
-export default function (props: Props) {
+export const Avatar = (props: Props) => {
   const { user, variant } = props;
   let HEIGHT = 60;
   const { noname } = props;
@@ -42,7 +42,7 @@ export default function (props: Props) {
           height={HEIGHT}
           width={WIDTH}
           style={{
-            borderRadius: parseInt(HEIGHT / 2, 10),
+            borderRadius: parseInt(`${HEIGHT / 2}`, 10),
             border: 'solid #EEEEEE 2px',
             objectFit: 'cover',
           }}
@@ -56,3 +56,5 @@ export default function (props: Props) {
     </Grid>
   );
 }
+
+export default Avatar;

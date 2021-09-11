@@ -40,7 +40,7 @@ type Props = {
   onChangeResourcesSelected: Array<ResourceData>,
   resourceAvailable: Array<ResourceData>,
   resourceSelectedListIds: Array<number>,
-  setResourceFiltered: (Array<number>) => void,
+  setResourceFiltered: (resources: Array<number>) => void,
   resourceDataLoading: boolean,
 
   hideCancelledEvents: ?boolean,
@@ -98,7 +98,7 @@ type Props = {
   setPrivateCalendarDateStart: () => void,
   toogleExand: () => void,
   expanded: boolean,
-  updateRessourcesFilters: (*) => void,
+  updateRessourcesFilters: (data: any) => void,
 };
 
 export const PrivateCalendarMultiResource = (props: Props) => {

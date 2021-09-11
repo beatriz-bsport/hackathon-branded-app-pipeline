@@ -22,8 +22,8 @@ type Props = {
   classes: *,
   initial: string,
   t: TFunction,
-  onChange: (ImageFile[]) => void,
-  onAddImage: (File) => void,
+  onChange: (images: ImageFile[]) => void,
+  onAddImage: (file: File) => void,
   name: string,
 };
 

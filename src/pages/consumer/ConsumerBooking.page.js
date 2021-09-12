@@ -32,7 +32,7 @@ import { MarketplaceTabConfig } from '../../libs/marketplace/types';
 import {
   fromConfigToUrl,
   getMarketplaceRoute,
-} from '../marketplace/routing-utils';
+} from '../../libs/marketplace/routing-utils';
 
 type Props = {
   timezone: string,

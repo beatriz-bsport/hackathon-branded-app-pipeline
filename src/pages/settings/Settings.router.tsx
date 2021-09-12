@@ -27,7 +27,7 @@ import ActiveCampaignPage from './ActiveCampaignPage.component';
 import CompanyOnboardingSettingPage from './CompanyOnboardingSetting.page';
 import PlatformBillingSettingPage from './PlatformBillingSetting.page';
 import PaymentMethodSettings from './PaymentMethodSettings/PaymentMethodSettings.pages';
-import MarketplaceSettings from './MarketplaceSettingsPages/MarketplaceSettings.pages';
+import MarketplaceSettings from './MarketplaceSettings.page';
 import FormsConfiguration from './FormsConfiguration.pages';
 import WidgetGeneratorPage from './WidgetGenerator.page';
 

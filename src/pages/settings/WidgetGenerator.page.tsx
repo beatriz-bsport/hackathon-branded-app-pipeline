@@ -9,10 +9,7 @@ import { merge } from 'lodash';
 
 import { DIALOG_MODE_IFRAME } from '@bsport/common/lib/master-data/widget-dialog-mode';
 import { MaterialStyleType } from '../../utils/types';
-import {
-  MarketplaceComponentConfig,
-  WidgetComponentsEnum,
-} from '../../libs/marketplace/types';
+import { MarketplaceComponentConfig } from '../../libs/marketplace/types';
 import { RootState } from '../../reducers';
 import {
   fetchAllPrivateServices,
@@ -35,7 +32,6 @@ import {
 import { getPlaylistList } from '../../libs/playlist/selectors';
 import { WidgetCodeStringGenerator } from '../../libs/marketplace/utils';
 import { snackbarInfo } from '../../actions/snackbar.actions';
-import { MARKETPLACE_DEFAULT_CONFIG_BY_COMPONENT } from '../../libs/marketplace/constants';
 import { fetchVideoList } from '../../libs/video/actions';
 import { getVideoList } from '../../libs/video/selectors';
 
@@ -45,9 +41,11 @@ import WidgetCodePreview from '../../libs/widget/components/WidgetCodePreview.co
 import WidgetPreview from '../../libs/widget/components/WidgetPreview.component';
 import WidgetContainerConfigurator from '../../libs/widget/components/WidgetContainerConfigurator.component';
 
+import { EXPORTABLE_COMPONENT_TYPE_CALENDAR } from '../../libs/exportable-components/constants';
+
 type OwnProps = {
   defaultValue?: {
-    componentType: WidgetComponentsEnum;
+    componentType: string;
     config: MarketplaceComponentConfig;
   };
   hideTypeSelector?: boolean;
@@ -61,7 +59,7 @@ type Props = OwnProps &
   WithTranslation;
 
 interface State {
-  componentType: WidgetComponentsEnum;
+  componentType: string;
   containerConfig: {
     useIframe: boolean;
     dialogMode: 0 | 1 | 2;
@@ -81,14 +79,14 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
 
     const state: State = {
       uuid: `-${parseInt(Math.random() * 1000000, 10)}`,
-      componentType: WidgetComponentsEnum.calendar,
+      componentType: EXPORTABLE_COMPONENT_TYPE_CALENDAR,
       containerConfig: {
         useIframe: false,
         dialogMode: DIALOG_MODE_IFRAME,
         language: 'none',
         showFab: false,
       },
-      config: MARKETPLACE_DEFAULT_CONFIG_BY_COMPONENT,
+      config: {},
       error: {
         privateServiceError: '',
         playlistError: '',
@@ -118,7 +116,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
     config,
     error,
   }: {
-    componentType: WidgetComponentsEnum;
+    componentType: string;
     config: any;
     error: any;
   }) => {

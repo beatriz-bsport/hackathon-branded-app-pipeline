@@ -9,8 +9,17 @@ import Hidden from '@material-ui/core/Hidden';
 import { MenuItem } from '@material-ui/core';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 
+type ActionOption = {
+  menuItemComponent?: any;
+  iconButtonComponent?: any;
+  onClick?: () => void;
+  label: string;
+  color?: 'primary' | 'secondary' | 'inherit';
+  icon: any;
+};
+
 type Props = {
-  actions: Array<Object>,
+  actions: Array<ActionOption>;
 };
 
 // ------------------------ Menu handler ---------------------
@@ -69,12 +78,12 @@ function HiddenShortMenu(props: Props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
-  const handleClick = (event) => {
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = (event) => {
+  const handleClose = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();
     setAnchorEl(null);
   };

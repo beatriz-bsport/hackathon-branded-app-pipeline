@@ -78,7 +78,7 @@ import {
 import {
   fromConfigToUrl,
   getMarketplaceRoute,
-} from '../marketplace/routing-utils';
+} from '../../libs/marketplace/routing-utils';
 import { MarketplaceTabConfig } from '../../libs/marketplace/types';
 import { getMember } from '../../libs/member/selectors';
 import {

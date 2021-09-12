@@ -1,14 +1,11 @@
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
-import MarketplaceSettingsFormSwitch from '../../marketplace/components/MarketplaceSettingsForm/MarketplaceSettingsFormSwitch.component';
-import MarketplaceComponentTypeSelector from '../../marketplace/components/MarketplaceComponentTypeSelector.coponent';
+import ExportableComponentConfigurator from '../../exportable-components/components/ExportableComponentConfigurator.component';
+import ExportableComponentSelector from '../../exportable-components/components/ExportableComponentSelector.component';
 
-import { MARKETPLACE_DEFAULT_CONFIG_BY_COMPONENT } from '../../marketplace/constants';
-import {
-  PrivateServicePageTypeEnum,
-  WidgetComponentsEnum,
-} from '../../marketplace/types';
+import { WIDGET_SUPPORTED_EXPORTABLE_COMPONENTS } from '../constants';
+import { EXPORTABLE_COMPONENT_TYPE_PLAYLIST } from '../../exportable-components/constants';
 
 import { MetaActivity } from '../../meta-activity/types';
 import { Coach } from '../../associated-coach/types';
@@ -18,13 +15,17 @@ import {
   PrivateServiceGroup,
 } from '../../private-service/types';
 import { Establishment } from '../../establishment/types';
+import {
+  getDefaultConfigByIdentifier,
+  checkExportableComponentConfig,
+} from '../../exportable-components/utils';
 
 type Props = {
-  componentType: WidgetComponentsEnum;
+  componentType: string;
   config: any;
   onConfigChange: (a: { config: any; error: any }) => void;
   onComponentTypeChange: (a: {
-    componentType: WidgetComponentsEnum;
+    componentType: string;
     config: any;
     error: any;
   }) => void;
@@ -43,62 +44,18 @@ export const WidgetComponentConfigBuilder = (props: Props) => {
   const { t } = useTranslation(['settings']);
 
   const onConfigChange = (config: any) => {
-    let playlistError = '';
-    let privateServiceError = '';
-
-    if (
-      props.componentType === WidgetComponentsEnum.playlist &&
-      config.playlist
-    ) {
-      const { playlistId } = config.playlist;
-      if (
-        playlistId === undefined ||
-        playlistId === null ||
-        playlistId === -1
-      ) {
-        playlistError = t('marketplaceSettings.createDialog.noPlaylistError');
-      }
-    }
-
-    if (
-      props.componentType === WidgetComponentsEnum.privateService &&
-      config.privateService
-    ) {
-      let typeValue = config.privateService.type;
-
-      if (!typeValue) {
-        if (typeof config.privateService.serviceId === 'number') {
-          typeValue = PrivateServicePageTypeEnum.detail;
-        } else {
-          typeValue = PrivateServicePageTypeEnum.list;
-        }
-      }
-
-      const { serviceId } = config.privateService;
-
-      if (
-        typeValue === PrivateServicePageTypeEnum.detail &&
-        (serviceId === undefined || serviceId === null || serviceId === -1)
-      ) {
-        privateServiceError = t(
-          'marketplaceSettings.createDialog.noServiceError',
-        );
-      }
-    }
+    const errors = checkExportableComponentConfig(config);
 
     props.onConfigChange({
       config,
-      error: {
-        playlistError,
-        privateServiceError,
-      },
+      error: errors,
     });
   };
 
   const onComponentTypeChange = (componentType: string) => {
     let playlistError = '';
 
-    if (componentType === WidgetComponentsEnum.playlist) {
+    if (componentType === EXPORTABLE_COMPONENT_TYPE_PLAYLIST) {
       playlistError = t(
         'settings:marketplaceSettings.createDialog.noPlaylistError',
       );
@@ -108,7 +65,7 @@ export const WidgetComponentConfigBuilder = (props: Props) => {
       componentType,
       config: {
         ...props.config,
-        [componentType]: MARKETPLACE_DEFAULT_CONFIG_BY_COMPONENT[componentType],
+        [componentType]: getDefaultConfigByIdentifier(componentType),
       },
       error: {
         playlistError,
@@ -120,14 +77,14 @@ export const WidgetComponentConfigBuilder = (props: Props) => {
   return (
     <div>
       {!props.hideTypeSelector && (
-        <MarketplaceComponentTypeSelector
-          source={Object.keys(WidgetComponentsEnum)}
+        <ExportableComponentSelector
+          source={WIDGET_SUPPORTED_EXPORTABLE_COMPONENTS}
           value={props.componentType}
           onChange={onComponentTypeChange}
         />
       )}
 
-      <MarketplaceSettingsFormSwitch
+      <ExportableComponentConfigurator
         componentType={props.componentType}
         coaches={props.coaches}
         establishments={props.establishments}
@@ -135,12 +92,11 @@ export const WidgetComponentConfigBuilder = (props: Props) => {
         metaActivitiesWorkshop={props.metaActivitiesWorkshop}
         privateServices={props.privateServices}
         playlists={props.playlists}
-        privateServiceError={props.error.privateServiceError}
-        playlistError={props.error.playlistError}
         videos={props.videos}
         serviceGroupList={props.serviceGroupList}
         config={props.config}
         onChange={onConfigChange}
+        errors={props.config?.error}
       />
     </div>
   );

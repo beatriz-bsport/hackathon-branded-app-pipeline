@@ -7,13 +7,15 @@ import {
   updateMarketplaceSettings as updateMarketplaceSettingsAPI,
 } from './api';
 import { MarketplaceSettings } from './types';
-import { MARKETPLACE_DEFAULT_CONFIG } from './constants';
+import { getMarketplaceDefaultConfig } from './constants';
 
 export const marketplaceSettingsAction = {
   error: createAction('MARKETPLACE_SETTINGS/ERROR'),
   isLoading: createAction('MARKETPLACE_SETTINGS/IS_LOADING'),
   success: createAction('MARKETPLACE_SETTINGS/SUCCESS'),
 };
+
+const MARKETPLACE_DEFAULT_CONFIG = getMarketplaceDefaultConfig();
 
 export function fetchMarketplaceSettings(
   companyId: string,

@@ -12,10 +12,6 @@ import { useTranslation } from 'react-i18next';
 
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import {
-  MarketplacePrivateServiceData,
-  PrivateServicePageTypeEnum,
-} from '../../types';
-import {
   PrivateService,
   PrivateServiceGroup,
 } from '../../../private-service/types';
@@ -24,8 +20,8 @@ interface Props {
   privateServices: PrivateService[];
   serviceGroupList: PrivateServiceGroup[];
   error?: string;
-  config: MarketplacePrivateServiceData;
-  onChange: (config: MarketplacePrivateServiceData) => void;
+  config: any;
+  onChange: (config: any) => void;
 }
 
 const MarketplacePrivateServiceSettingsForm: React.FC<Props> = (props) => {
@@ -36,9 +32,9 @@ const MarketplacePrivateServiceSettingsForm: React.FC<Props> = (props) => {
 
   if (!typeValue) {
     if (typeof props.config.serviceId === 'number') {
-      typeValue = PrivateServicePageTypeEnum.detail;
+      typeValue = 'detail';
     } else {
-      typeValue = PrivateServicePageTypeEnum.list;
+      typeValue = 'list';
     }
   }
 
@@ -59,10 +55,10 @@ const MarketplacePrivateServiceSettingsForm: React.FC<Props> = (props) => {
           value={typeValue}
           onChange={(ev: any) => props.onChange({ type: ev.target.value })}
         >
-          <MenuItem value={PrivateServicePageTypeEnum.list}>
+          <MenuItem value="list">
             {t('marketplaceSettings.createDialog.selectPrivateServiceTypeList')}
           </MenuItem>
-          <MenuItem value={PrivateServicePageTypeEnum.detail}>
+          <MenuItem value="detail">
             {t(
               'marketplaceSettings.createDialog.selectPrivateServiceTypeDetail',
             )}
@@ -70,7 +66,7 @@ const MarketplacePrivateServiceSettingsForm: React.FC<Props> = (props) => {
         </Select>
       </FormControl>
 
-      {typeValue === PrivateServicePageTypeEnum.list && (
+      {typeValue === 'list' && (
         <Autocomplete
           className={classes.marginTop}
           multiple
@@ -97,7 +93,7 @@ const MarketplacePrivateServiceSettingsForm: React.FC<Props> = (props) => {
         />
       )}
 
-      {typeValue === PrivateServicePageTypeEnum.detail && (
+      {typeValue === 'detail' && (
         <FormControl className={classes.marginTop}>
           <InputLabel>
             {t('marketplaceSettings.createDialog.selectPrivateService')}
@@ -116,7 +112,9 @@ const MarketplacePrivateServiceSettingsForm: React.FC<Props> = (props) => {
               </MenuItem>
             ))}
           </Select>
-          {props.error && <FormHelperText error>{props.error}</FormHelperText>}
+          {props.error && (
+            <FormHelperText error>{t(props.error)}</FormHelperText>
+          )}
         </FormControl>
       )}
     </div>

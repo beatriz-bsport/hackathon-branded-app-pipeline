@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { replace } from 'connected-react-router';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { getMarketplaceRoute } from './routing-utils';
+import { getMarketplaceRoute } from '../../libs/marketplace/routing-utils';
 
 import api from '../../api';
 

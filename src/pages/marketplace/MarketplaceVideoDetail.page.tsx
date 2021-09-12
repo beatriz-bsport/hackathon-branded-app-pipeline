@@ -12,7 +12,7 @@ import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../.
 import VideoThumbnailList from '../../libs/video/components/VideoThumbnailList.component';
 import VideoPlayerFull from '../../libs/video/components/VideoPlayerFull.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { getMarketplaceRoute } from './routing-utils';
+import { getMarketplaceRoute } from '../../libs/marketplace/routing-utils';
 import {
   retrieveVideo as retrieveVideoAction,
   fetchMoreVideo as fetchMoreVideoAction,

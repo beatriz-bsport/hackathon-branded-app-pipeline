@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import { MarketplacePassData } from '../../types';
+import { MarketplacePassData } from '../../../marketplace/types';
 
 interface Props {
   config?: MarketplacePassData;

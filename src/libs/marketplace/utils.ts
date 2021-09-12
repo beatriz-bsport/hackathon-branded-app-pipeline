@@ -1,9 +1,5 @@
 import moment from 'moment-timezone';
-import {
-  MarketplaceComponentConfig,
-  Offer,
-  WidgetComponentsEnum,
-} from './types';
+import { Offer } from './types';
 
 import Config from '../../config';
 
@@ -58,8 +54,8 @@ export class WidgetCodeStringGenerator {
 
   static getString(args: {
     company: number;
-    componentType: WidgetComponentsEnum;
-    config: MarketplaceComponentConfig;
+    componentType: string;
+    config: any;
     useIframe: boolean;
     dialogMode: 0 | 1 | 2;
     language?: string;

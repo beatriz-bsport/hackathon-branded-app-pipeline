@@ -31,7 +31,7 @@ import themeSelectors from '../../libs/theme/selectors';
 import MarketplacePlaylistItem from '../../libs/playlist/components/PlaylistItemMarketplace.component';
 import { RootState } from '../../reducers';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
-import { getMarketplaceRoute } from './routing-utils';
+import { getMarketplaceRoute } from '../../libs/marketplace/routing-utils';
 import { VideoStatusEnum } from '../../libs/video/types';
 
 type OwnProps = {

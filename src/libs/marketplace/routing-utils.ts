@@ -1,12 +1,5 @@
 import moment from 'moment-timezone';
 import { buildUrlParams } from '../../http';
-import {
-  MarketplaceCommonFilter,
-  MarketplaceComponentConfig,
-  MarketplaceComponentsEnum,
-  PrivateServicePageTypeEnum,
-  WidgetComponentsEnum,
-} from '../../libs/marketplace/types';
 
 export const getMarketplaceRoute = (
   companyName: string,
@@ -19,8 +12,8 @@ export const getMarketplaceRoute = (
 
 export const fromConfigToUrl = (
   tabConfig: {
-    component_type: MarketplaceComponentsEnum | WidgetComponentsEnum;
-    config: MarketplaceComponentConfig;
+    component_type: string;
+    config: any;
   },
   queryParams: any = {},
 ) => {
@@ -38,14 +31,14 @@ export const fromConfigToUrl = (
 
     if (!typeValue) {
       if (typeof privateServiceConf.serviceId === 'number') {
-        typeValue = PrivateServicePageTypeEnum.detail;
+        typeValue = 'detail';
       } else {
-        typeValue = PrivateServicePageTypeEnum.list;
+        typeValue = 'list';
       }
     }
 
     if (
-      typeValue === PrivateServicePageTypeEnum.detail &&
+      typeValue === 'detail' &&
       typeof privateServiceConf.serviceId === 'number'
     ) {
       path = `private-service/${privateServiceConf.serviceId}`;
@@ -58,7 +51,7 @@ export const fromConfigToUrl = (
   } else if (component_type === 'playlist' && tabConfig.config.playlist) {
     path = `vod/playlist/${tabConfig.config.playlist.playlistId}`;
   } else if (component_type === 'workshop') {
-    let conf: MarketplaceCommonFilter = tabConfig.config.calendar;
+    let conf: any = tabConfig.config.calendar;
 
     if (component_type === 'workshop') {
       if (tabConfig.config.workshop) {

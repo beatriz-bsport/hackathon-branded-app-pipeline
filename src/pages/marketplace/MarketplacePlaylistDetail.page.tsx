@@ -27,7 +27,7 @@ import {
   withPaymentPack,
 } from '../../libs/consumer-payment-pack/selectors';
 import { getPrivateConsumerPassCompatibleList } from '../../libs/private-service/selectors/private-consumer-pass';
-import { getMarketplaceRoute } from './routing-utils';
+import { getMarketplaceRoute } from '../../libs/marketplace/routing-utils';
 import { RootState } from '../../reducers';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 

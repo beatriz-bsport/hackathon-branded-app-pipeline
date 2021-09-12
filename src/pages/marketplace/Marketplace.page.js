@@ -45,7 +45,11 @@ import { fetchSCT } from '../../libs/category/actions';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import Config from '../../config';
-import { getMarketplaceRoute, fromConfigToUrl } from './routing-utils';
+import {
+  getMarketplaceRoute,
+  fromConfigToUrl,
+} from '../../libs/marketplace/routing-utils';
+import { getDefaultTitleForComponent } from '../../libs/exportable-components/utils';
 import asyncComponent from '../../AsyncComponent';
 
 import { auth as authActions } from '../../actions';
@@ -63,10 +67,10 @@ import { fetchProfile } from '../../libs/consumer-space/actions';
 
 import MarketplaceBasketDialog from './MarketplaceBasketDialog.component';
 import {
-  MarketplaceComponentsEnum,
   MarketplaceSettings,
   MarketplaceTabConfig,
 } from '../../libs/marketplace/types';
+import { EXPORTABLE_COMPONENT_TYPE_VOD } from '../../libs/exportable-components/constants.ts';
 import { fetchMarketplaceSettings } from '../../libs/marketplace/actions';
 import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
 
@@ -366,27 +370,6 @@ export class MarketPlace extends Component<Props, State> {
     });
   };
 
-  getDefaultTitleForComponent(componentType: MarketplaceComponentsEnum) {
-    const { t } = this.props;
-
-    const obj = {
-      [MarketplaceComponentsEnum.calendar]: t('marketplace.calendar'),
-      [MarketplaceComponentsEnum.workshop]: t('marketplace.workshop'),
-      [MarketplaceComponentsEnum.privateService]: t(
-        'marketplace.private_service',
-      ),
-      [MarketplaceComponentsEnum.pass]: t('marketplace.pass'),
-      [MarketplaceComponentsEnum.vod]: t('marketplace.vod'),
-      [MarketplaceComponentsEnum.subscription]: t(
-        'marketplace.contract.tabName',
-      ),
-      [MarketplaceComponentsEnum.shop]: t('marketplace.shop.tabName'),
-      [MarketplaceComponentsEnum.playlist]: t('marketplace.playlist'),
-    };
-
-    return obj[componentType];
-  }
-
   render() {
     const { companyThemeLoading, classes, t } = this.props;
 
@@ -453,7 +436,7 @@ export class MarketPlace extends Component<Props, State> {
                       : this.props.settings.config) || []
                   ).map((tab, i) => {
                     if (
-                      tab.componentType === MarketplaceComponentsEnum.vod &&
+                      tab.componentType === EXPORTABLE_COMPONENT_TYPE_VOD &&
                       !(
                         Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
                         this.props.theme.vod
@@ -464,9 +447,7 @@ export class MarketPlace extends Component<Props, State> {
 
                     let { title } = tab;
                     if (!title) {
-                      title = this.getDefaultTitleForComponent(
-                        tab.component_type,
-                      );
+                      title = getDefaultTitleForComponent(tab.component_type);
                     }
 
                     return <Tab value={i} label={title} />;

@@ -9,12 +9,12 @@ import {
   Checkbox,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { MarketplaceCalendarData } from '../../types';
+import { MarketplaceCalendarData } from '../../../marketplace/types';
 
 import { Coach } from '../../../associated-coach/types';
 import { Establishment } from '../../../establishment/types';
 import { MetaActivity } from '../../../meta-activity/types';
-import MarketplaceCommonFilterForm from './MarketplaceCommonFilterForm.component';
+import CommonSettings from './CommonSettings.form';
 
 interface Props {
   coaches: Array<Coach>;
@@ -92,7 +92,7 @@ const MarketplaceCalendarSettingsForm: React.FC<Props> = (props) => {
         </FormControl>
       )}
 
-      <MarketplaceCommonFilterForm
+      <CommonSettings
         coaches={props.coaches}
         establishments={props.establishments}
         metaActivities={props.metaActivities}

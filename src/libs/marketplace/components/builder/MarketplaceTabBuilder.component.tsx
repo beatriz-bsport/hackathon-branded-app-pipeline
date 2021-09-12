@@ -12,24 +12,23 @@ import {
   Typography,
 } from '@material-ui/core';
 
-import { Coach } from '../../../libs/associated-coach/types';
-import { Establishment } from '../../../libs/establishment/types';
-import { MetaActivity } from '../../../libs/meta-activity/types';
+import { Coach } from '../../../associated-coach/types';
+import { Establishment } from '../../../establishment/types';
+import { MetaActivity } from '../../../meta-activity/types';
 import {
   PrivateService,
   PrivateServiceGroup,
-} from '../../../libs/private-service/types';
+} from '../../../private-service/types';
 
+import ExportableComponentSelector from '../../../exportable-components/components/ExportableComponentSelector.component';
 import {
-  MarketplaceComponentsEnum,
-  MarketplaceTabConfig,
-  PrivateServicePageTypeEnum,
-} from '../../../libs/marketplace/types';
-
-import MarketplaceComponentTypeSelector from '../../../libs/marketplace/components/MarketplaceComponentTypeSelector.coponent';
-import { MARKETPLACE_DEFAULT_CONFIG_BY_COMPONENT } from '../../../libs/marketplace/constants';
-import MarketplaceSettingsFormSwitch from '../../../libs/marketplace/components/MarketplaceSettingsForm/MarketplaceSettingsFormSwitch.component';
-import { Video } from '../../../libs/video/types';
+  getDefaultConfigByIdentifier,
+  checkExportableComponentConfig,
+  EXPORTABLE_COMPONENT_WITH_ADVANCED_SETTINGS,
+} from '../../../exportable-components/utils';
+import ExportableComponentConfigurator from '../../../exportable-components/components/ExportableComponentConfigurator.component';
+import { Video } from '../../../video/types';
+import { MARKETPLACE_COMPONENT_TYPE_LIST } from '../../constants';
 
 type Props = {
   onClose: () => void;
@@ -41,25 +40,22 @@ type Props = {
   playlists: Array<{ id: number; name: string }>;
   serviceGroupList: PrivateServiceGroup[];
   videos: Array<Video>;
-  onSubmit: (tab: MarketplaceTabConfig) => void;
+  onSubmit: (tab: any) => void;
   index: number;
-  tab: MarketplaceTabConfig | null;
+  tab: any;
 };
 
 const TabCreation: React.FC<Props> = (props) => {
   const [componentType, setComponentType] = useState(props.tab?.component_type);
   const [title, setTitle] = useState(props.tab?.title);
-  const [tabConfig, setTabConfig] = useState<MarketplaceTabConfig['config']>(
-    props.tab?.config,
-  );
+  const [tabConfig, setTabConfig] = useState(props.tab?.config);
   const [showAdvanceSettings, setShowAdvanceSettings] = useState(false);
   const [componentTypeError, setComponentTypeError] = useState('');
   const [titleError, setTitleError] = useState('');
-  const [playlistError, setPlaylistError] = useState('');
-  const [privateServiceError, setPrivateServiceError] = useState('');
+  const [configErrors, setConfigError] = useState({});
 
   const classes = useStyles();
-  const { t } = useTranslation('settings');
+  const { t } = useTranslation(['settings']);
 
   useEffect(() => {
     if (tabConfig) {
@@ -86,8 +82,10 @@ const TabCreation: React.FC<Props> = (props) => {
   }, [componentType, title]);
 
   const onChangeComponentType = useCallback(
-    (type: MarketplaceComponentsEnum) => {
-      const config = { [type]: MARKETPLACE_DEFAULT_CONFIG_BY_COMPONENT[type] };
+    (type: string) => {
+      const config = {
+        [type]: getDefaultConfigByIdentifier(type),
+      };
       setTabConfig(config);
       setComponentType(type);
       setTitle(t(`marketplaceSettings.componentType.${type}`));
@@ -110,57 +108,17 @@ const TabCreation: React.FC<Props> = (props) => {
       return;
     }
 
-    if (
-      componentType === MarketplaceComponentsEnum.playlist &&
-      tabConfig.playlist
-    ) {
-      const { playlistId } = tabConfig.playlist;
-
-      if (
-        playlistId === undefined ||
-        playlistId === null ||
-        playlistId === -1
-      ) {
-        setPlaylistError(t('marketplaceSettings.createDialog.noPlaylistError'));
-        return;
-      }
+    const errors = checkExportableComponentConfig(componentType, tabConfig);
+    setConfigError(errors);
+    if (Object.values(errors).reduce((e, acc) => !!e || acc, false)) {
+      return;
     }
-
-    if (
-      componentType === MarketplaceComponentsEnum.privateService &&
-      tabConfig.privateService
-    ) {
-      let typeValue = tabConfig.privateService.type;
-
-      if (!typeValue) {
-        if (typeof tabConfig.privateService.serviceId === 'number') {
-          typeValue = PrivateServicePageTypeEnum.detail;
-        } else {
-          typeValue = PrivateServicePageTypeEnum.list;
-        }
-      }
-
-      const { serviceId } = tabConfig.privateService;
-
-      if (
-        typeValue === PrivateServicePageTypeEnum.detail &&
-        (serviceId === undefined || serviceId === null || serviceId === -1)
-      ) {
-        setPrivateServiceError(
-          t('marketplaceSettings.createDialog.noServiceError'),
-        );
-        return;
-      }
-    }
-
-    const tab: MarketplaceTabConfig = {
+    onSubmit({
       component_type: componentType,
       title,
       index,
       config: tabConfig,
-    };
-
-    onSubmit(tab);
+    });
   }, [componentType, title, tabConfig, index, onSubmit, t]);
 
   return (
@@ -180,8 +138,8 @@ const TabCreation: React.FC<Props> = (props) => {
         {titleError && <Typography color="error">{titleError}</Typography>}
 
         <div className={classes.marginTop}>
-          <MarketplaceComponentTypeSelector
-            source={Object.keys(MarketplaceComponentsEnum)}
+          <ExportableComponentSelector
+            source={MARKETPLACE_COMPONENT_TYPE_LIST}
             value={componentType}
             onChange={onChangeComponentType}
             error={componentTypeError}
@@ -189,14 +147,9 @@ const TabCreation: React.FC<Props> = (props) => {
         </div>
 
         {!showAdvanceSettings &&
-          [
-            MarketplaceComponentsEnum.calendar,
-            MarketplaceComponentsEnum.privateService,
-            MarketplaceComponentsEnum.workshop,
-            MarketplaceComponentsEnum.playlist,
-            MarketplaceComponentsEnum.vod,
-            MarketplaceComponentsEnum.pass,
-          ].includes(componentType) && (
+          EXPORTABLE_COMPONENT_WITH_ADVANCED_SETTINGS.includes(
+            componentType,
+          ) && (
             <div className={classes.showMoreContainer}>
               <Button
                 variant="outlined"
@@ -209,7 +162,7 @@ const TabCreation: React.FC<Props> = (props) => {
           )}
 
         {showAdvanceSettings && (
-          <MarketplaceSettingsFormSwitch
+          <ExportableComponentConfigurator
             componentType={componentType}
             coaches={props.coaches}
             establishments={props.establishments}
@@ -217,10 +170,9 @@ const TabCreation: React.FC<Props> = (props) => {
             metaActivitiesWorkshop={props.metaActivitiesWorkshop}
             privateServices={props.privateServices}
             serviceGroupList={props.serviceGroupList}
-            videos={props.videos}
             playlists={props.playlists}
-            playlistError={playlistError}
-            privateServiceError={privateServiceError}
+            videos={props.videos}
+            errors={configErrors}
             config={tabConfig}
             onChange={(config) =>
               setTabConfig({ [componentType]: config[componentType] })

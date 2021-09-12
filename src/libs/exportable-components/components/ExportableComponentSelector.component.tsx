@@ -9,16 +9,14 @@ import {
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { MarketplaceComponentsEnum, WidgetComponentsEnum } from '../types';
-
 interface Props {
   source: string[];
-  value: MarketplaceComponentsEnum | WidgetComponentsEnum;
-  onChange: (type: MarketplaceComponentsEnum | WidgetComponentsEnum) => void;
+  value: string;
+  onChange: (type: string) => void;
   error?: string;
 }
 
-const MarketplaceComponentTypeSelector: React.FC<Props> = (props) => {
+const ExportableComponentSelector = (props: Props) => {
   const classes = useStyles();
 
   const { t } = useTranslation('settings');
@@ -47,7 +45,7 @@ const MarketplaceComponentTypeSelector: React.FC<Props> = (props) => {
   );
 };
 
-export default MarketplaceComponentTypeSelector;
+export default ExportableComponentSelector;
 
 const useStyles = makeStyles(() => ({
   fullWidth: {

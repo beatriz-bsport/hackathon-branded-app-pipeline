@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import { MarketplacePlaylistData } from '../../types';
+import { MarketplacePlaylistData } from '../../../marketplace/types';
 
 interface Props {
   playlists: Array<{ id: number; name: string }>;
@@ -50,7 +50,7 @@ const MarketplacePlaylistSettingsForm: React.FC<Props> = (props) => {
             </MenuItem>
           ))}
         </Select>
-        {props.error && <Typography color="error">{props.error}</Typography>}
+        {props.error && <Typography color="error">{t(props.error)}</Typography>}
       </FormControl>
     </div>
   );

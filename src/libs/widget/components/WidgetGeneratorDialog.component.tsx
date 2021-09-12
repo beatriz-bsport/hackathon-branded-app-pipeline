@@ -9,17 +9,12 @@ import React from 'react';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 import WidgetGeneratorPage from '../../../pages/settings/WidgetGenerator.page';
-import {
-  MarketplaceComponentsEnum,
-  MarketplaceTabConfig,
-  WidgetComponentsEnum,
-} from '../../marketplace/types';
 
 type Ownprops = {
   open: boolean;
   onClose: () => void;
-  componentType: MarketplaceComponentsEnum | WidgetComponentsEnum;
-  config: MarketplaceTabConfig['config'];
+  componentType: string;
+  config: any;
 };
 
 type Props = Ownprops & WithTranslation;

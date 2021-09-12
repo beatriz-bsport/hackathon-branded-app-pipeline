@@ -1,6 +1,7 @@
 /**
  * The available components we can use in the marketplace
  */
+
 export type MarketplaceCommonFilter = {
   coaches?: number[];
   establishments?: number[];

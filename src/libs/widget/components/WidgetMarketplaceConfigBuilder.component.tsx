@@ -8,7 +8,7 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import { withStyles, Theme } from '@material-ui/core/styles';
 import { MaterialStyleType } from '../../../utils/types';
 
-import { fromConfigToUrl } from '../../../pages/marketplace/routing-utils';
+import { fromConfigToUrl } from '../../marketplace/routing-utils';
 import Config from '../../../config';
 import { Theme as CompanyTheme } from '../../theme/types';
 

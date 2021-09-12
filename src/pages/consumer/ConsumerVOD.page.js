@@ -27,7 +27,7 @@ import {
   fetchVideoList as fetchVideoListAction,
 } from '../../libs/video/actions';
 import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
-import { getMarketplaceRoute } from '../marketplace/routing-utils';
+import { getMarketplaceRoute } from '../../libs/marketplace/routing-utils';
 import VideoItemList from '../../libs/video/components/VideoItemList.component';
 
 type Props = {

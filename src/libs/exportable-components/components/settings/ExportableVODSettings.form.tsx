@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import { MarketplaceVODData } from '../../types';
+import { MarketplaceVODData } from '../../../marketplace/types';
 import { Video } from '../../../video/types';
 
 interface Props {

@@ -30,7 +30,7 @@ import {
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
-import { getMarketplaceRoute } from 'bsport-saas/src/pages/marketplace/routing-utils';
+import { getMarketplaceRoute } from 'bsport-saas/src/libs/marketplace/routing-utils';
 import { auth as authActions } from 'bsport-saas/src/actions';
 
 import '../../vendor/video.css';

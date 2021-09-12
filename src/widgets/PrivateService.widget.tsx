@@ -14,10 +14,6 @@ import {
   PrivateServiceDetailPage,
 } from 'bsport-saas/src/pages/marketplace/PrivateService/PrivateServiceDetailPage/PrivateServiceDetail.page';
 import {
-  MarketplacePrivateServiceData,
-  PrivateServicePageTypeEnum,
-} from 'bsport-saas/src/libs/marketplace/types';
-import {
   PrivateService,
   PrivateSlot,
 } from 'bsport-saas/src/libs/private-service/types';
@@ -36,7 +32,7 @@ const PrivateServiceDetailBase = themify(
 
 type OwnProps = {
   companyId: number,
-  config: MarketplacePrivateServiceData,
+  config: any,
   store: any,
   theme: Theme,
   onWindowOpen: (url: string) => void,
@@ -46,7 +42,7 @@ type OwnProps = {
 type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
 
 interface State {
-  type: PrivateServicePageTypeEnum;
+  type: 'detail' | 'list';
   serviceId?: number | null;
 }
 
@@ -65,7 +61,7 @@ class PrivateServiceWidget extends React.PureComponent<Props, State> {
   onClickPrivateService = (ps: PrivateService) => {
     this.setState({
       serviceId: ps.id,
-      type: PrivateServicePageTypeEnum.detail,
+      type: 'detail',
     });
   };
 
@@ -92,7 +88,7 @@ class PrivateServiceWidget extends React.PureComponent<Props, State> {
 
     return (
       <div className={classes.container}>
-        {this.state.type === PrivateServicePageTypeEnum.list && (
+        {this.state.type === 'list' && (
           <PrivateServiceSelector
             companyId={this.props.companyId.toString()}
             companyName=""
@@ -103,16 +99,16 @@ class PrivateServiceWidget extends React.PureComponent<Props, State> {
           />
         )}
 
-        {this.state.type === PrivateServicePageTypeEnum.detail &&
+        {this.state.type === 'detail' &&
           this.state.serviceId !== undefined &&
           this.state.serviceId !== null && (
             <div className={classes.detailContainer}>
-              {this.props.config.type === PrivateServicePageTypeEnum.list && (
+              {this.props.config.type === 'list' && (
                 <ButtonBase
                   onClick={() => {
                     this.setState({
                       serviceId: undefined,
-                      type: PrivateServicePageTypeEnum.list,
+                      type: 'list',
                     });
                   }}
                 >

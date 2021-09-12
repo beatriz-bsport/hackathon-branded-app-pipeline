@@ -5,6 +5,18 @@ import { MuiThemeProvider, withStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import URI from 'urijs';
 import i18n from 'bsport-saas/src/i18n';
+import {
+  EXPORTABLE_COMPONENT_TYPE_LOGIN_BUTTON,
+  EXPORTABLE_COMPONENT_TYPE_VOD,
+  EXPORTABLE_COMPONENT_TYPE_CALENDAR,
+  EXPORTABLE_COMPONENT_TYPE_WORKSHOP,
+  EXPORTABLE_COMPONENT_TYPE_PASS,
+  EXPORTABLE_COMPONENT_TYPE_PRIVATE_SERVICE,
+  EXPORTABLE_COMPONENT_TYPE_PLAYLIST,
+  EXPORTABLE_COMPONENT_TYPE_SHOP,
+  EXPORTABLE_COMPONENT_TYPE_SUBSCRIPTION,
+  EXPORTABLE_COMPONENT_TYPE_NEWSLETTER,
+} from 'bsport-saas/src/libs/exportable-components/constants';
 
 // eslint-disable-next-line
 import { fetchCompanyTheme } from 'bsport-saas/src/libs/theme/actions';
@@ -64,16 +76,16 @@ const LoginButtonWidget = asyncComponent(
 const Snackbar = themify(connect(...SnackbarDataProvider)(SnackbarPile));
 
 const WidgetByType = {
-  workshop: WorkshopWidget,
-  privateService: PrivateServiceWidget,
-  vod: VODWidget,
-  playlist: VODWidget,
-  loginButton: LoginButtonWidget,
-  pass: PassWidget,
-  shop: ShopWidget,
-  subscription: SubscriptionWidget,
-  newsletter: NewsletterWidget,
-  calendar: CalendarWidget,
+  [EXPORTABLE_COMPONENT_TYPE_WORKSHOP]: WorkshopWidget,
+  [EXPORTABLE_COMPONENT_TYPE_PRIVATE_SERVICE]: PrivateServiceWidget,
+  [EXPORTABLE_COMPONENT_TYPE_VOD]: VODWidget,
+  [EXPORTABLE_COMPONENT_TYPE_PLAYLIST]: VODWidget,
+  [EXPORTABLE_COMPONENT_TYPE_LOGIN_BUTTON]: LoginButtonWidget,
+  [EXPORTABLE_COMPONENT_TYPE_PASS]: PassWidget,
+  [EXPORTABLE_COMPONENT_TYPE_SHOP]: ShopWidget,
+  [EXPORTABLE_COMPONENT_TYPE_SUBSCRIPTION]: SubscriptionWidget,
+  [EXPORTABLE_COMPONENT_TYPE_NEWSLETTER]: NewsletterWidget,
+  [EXPORTABLE_COMPONENT_TYPE_CALENDAR]: CalendarWidget,
 };
 
 type OwnProps = WidgetConfig & {
@@ -143,7 +155,8 @@ class BsportWidget extends Component<Props> {
             />
             {!!this.props.theme &&
               !this.props.theme.is_premium &&
-              this.props.widgetType !== 'loginButton' && (
+              this.props.widgetType !==
+                EXPORTABLE_COMPONENT_TYPE_LOGIN_BUTTON && (
                 <BsportLogo theme={this.props.theme} />
               )}
             <Snackbar theme={this.props.theme} />

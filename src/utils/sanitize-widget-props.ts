@@ -1,7 +1,8 @@
 import {
-  PrivateServicePageTypeEnum,
-  WidgetComponentsEnum,
-} from 'bsport-saas/src/libs/marketplace/types';
+  EXPORTABLE_COMPONENT_TYPE_CALENDAR,
+  EXPORTABLE_COMPONENT_TYPE_PRIVATE_SERVICE,
+} from 'bsport-saas/src/libs/exportable-components/constants';
+import { WIDGET_SUPPORTED_EXPORTABLE_COMPONENTS } from 'bsport-saas/src/libs/widget/constants';
 import { DIALOG_MODE_TAB } from '@bsport/common/lib/master-data/widget-dialog-mode';
 
 export const migrateOldProps = (props: any) => {
@@ -11,7 +12,7 @@ export const migrateOldProps = (props: any) => {
    * Migrate old calendar config to new config
    */
   if (
-    _props.widgetType === WidgetComponentsEnum.calendar &&
+    _props.widgetType === EXPORTABLE_COMPONENT_TYPE_CALENDAR &&
     !('config' in _props)
   ) {
     _props.config = {
@@ -25,7 +26,7 @@ export const migrateOldProps = (props: any) => {
   /**
    * Migrate to private service groups
    */
-  if (_props.widgetType === WidgetComponentsEnum.privateService) {
+  if (_props.widgetType === EXPORTABLE_COMPONENT_TYPE_PRIVATE_SERVICE) {
     if (!_props.config.privateService) {
       _props.config.privateService = {};
     }
@@ -34,9 +35,9 @@ export const migrateOldProps = (props: any) => {
 
     if (!privateServiceType) {
       if (typeof _props.config.privateService.serviceId === 'number') {
-        privateServiceType = PrivateServicePageTypeEnum.detail;
+        privateServiceType = 'detail';
       } else {
-        privateServiceType = PrivateServicePageTypeEnum.list;
+        privateServiceType = 'list';
       }
     }
 
@@ -46,21 +47,8 @@ export const migrateOldProps = (props: any) => {
   /**
    * Use a default config when the current config is wrong
    */
-  if (
-    ![
-      'calendar',
-      'workshop',
-      'privateService',
-      'newsletter',
-      'vod',
-      'playlist',
-      'subscription',
-      'pass',
-      'shop',
-      'loginButton',
-    ].includes(_props.widgetType)
-  ) {
-    _props.widgetType = WidgetComponentsEnum.calendar;
+  if (!WIDGET_SUPPORTED_EXPORTABLE_COMPONENTS.includes(_props.widgetType)) {
+    _props.widgetType = EXPORTABLE_COMPONENT_TYPE_CALENDAR;
   }
 
   if (_props.dialogMode === undefined) {

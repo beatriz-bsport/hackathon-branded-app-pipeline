@@ -68,7 +68,12 @@ export class EstablishmentFormPage extends Component<Props> {
     } else {
       delete updatedData.cover;
     }
-    const { loading, error, ...updatedDataClean } = updatedData;
+    const {
+      loading,
+      error,
+      establishment_billing_group_id,
+      ...updatedDataClean
+    } = updatedData;
 
     this.props.upsertEstablishmentV2(
       this.props.update ? this.props.update.id : null,

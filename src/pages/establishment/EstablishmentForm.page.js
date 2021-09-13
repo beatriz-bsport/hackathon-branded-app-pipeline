@@ -24,7 +24,7 @@ import withTitle from '../../hocs/with-title.hoc';
 import { mapFormDataWithObject } from '../form.utils';
 
 type Props = {
-  upsertEstablishmentV2: (data: any) => void,
+  upsertEstablishmentV2: (*) => void,
   goToEstablishmentList: () => void,
   addImage: (number, File) => void,
   removeImage: (number, number) => void,

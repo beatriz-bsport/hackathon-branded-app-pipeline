@@ -4270,7 +4270,27 @@
             "NO": "Norway",
             "LU": "Luxembourg",
             "CA": "Canada",
-            "AE": "United Arab Emirates"
+            "AE": "United Arab Emirates",
+            "SI": "Slovenia",
+            "RO": "Romania",
+            "BG": "Bulgaria",
+            "CZ": "Czech Republic",
+            "GR": "Greece",
+            "IN": "India",
+            "MY": "Malaysia",
+            "LV": "Latvia",
+            "LT": "Lithuania",
+            "NZ": "New Zealand",
+            "SG": "Singapore",
+            "BR": "Brazil",
+            "PT": "Portugal",
+            "PL": "Poland",
+            "HK": "Hong Kong",
+            "SK": "Slovakia",
+            "US": "United States of America",
+            "EE": "Estonia",
+            "AU": "Australia",
+            "CY": "Cyprus"
         },
         "signupCompany": {
             "form": {
@@ -4322,7 +4342,8 @@
             "it": "Italian",
             "de": "German",
             "fr": "French",
-            "en": "English"
+            "en": "English",
+            "pt": "Portuguese"
         }
     },
     "waitingList": {
@@ -4349,10 +4370,10 @@
             },
             "is_option_blocking": {
                 "helper": "As long as a member is on the waiting list, a spot is blocked for him/her while waiting for him/her to register.",
-                "label": "Vacancies left available are reserved exclusively for people on the waiting list."
+                "label": "Reserve openings exclusively for members on the waiting list"
             },
             "autokick_delay": {
-                "helper": "Number of reminders before which the member is automatically removed from the waiting list if no action is taken by him/her",
+                "helper": "Number of reminders before a member is automatically removed from the waiting list, if they don't respond.",
                 "label": "Automatic removal from the waiting list"
             },
             "dynamic": {
@@ -4362,13 +4383,13 @@
                     "label": "First come, first served"
                 },
                 "0": {
-                    "explain": "When a member signs in, he or she is given a place on the waiting list. When a place is available, the first person on the list can register, the others wait their turn",
+                    "explain": "When a member signs in, they're given a place on the waiting list. When an opening becomes available, the first person on the list can register, whilst the others have to wait their turn.",
                     "settingsDelay": "Deadline for registration",
                     "label": "One at a time"
                 }
             }
         },
-        "explainWaitingListConf": "e.g: There is 3h left before the session, the client has {{ nbMinutesBeforeBookingOptionExpire }} minutes to make his booking before he goes back to the waiting-list.",
+        "explainWaitingListConf": "Example: With 3h left before the start of the sessions, the member has {{ nbMinutesBeforeBookingOptionExpire }} minutes to respond before they're put back on the waiting list.",
         "dialog": {
             "delete": {
                 "title": "Waiting-list removal",
@@ -4611,7 +4632,8 @@
             "state": "Status",
             "updated_at": "Update at",
             "created_at": "Created at",
-            "qty": "Quantity"
+            "qty": "Quantity",
+            "actions": "Actions"
         },
         "form": {
             "delivery": {
@@ -4992,24 +5014,24 @@
         "common": {
             "from": "From",
             "until": "Until",
-            "pick_a_month": "Pick a Month"
+            "pick_a_month": "Select a month"
         },
         "calculate": "Calculate",
         "title": "Teacher payment for {{name}}",
-        "label": "Payment rate",
+        "label": "Payroll rule",
         "update": {
             "success": "Payment configuration updated",
             "error": "Error during update"
         },
         "dateTitle": "Period",
         "coaches": "Teachers",
-        "setPaymentRuleSetForCoachFirst": "You need to attribute a payment rate to the teacher before.",
+        "setPaymentRuleSetForCoachFirst": "This payroll rule has to be assigned to a teacher.",
         "modal": {
             "delete": {
                 "title": "Delete a rule",
                 "cancel": "Cancel",
                 "confirm": "Confirm",
-                "content": "If you remove this rate, this rate will be removed from all related sessions and teachers"
+                "content": "If you remove this payroll rule, it'll be removed from all associated sessions and teachers."
             }
         },
         "calculation_methods": {
@@ -5046,8 +5068,8 @@
             },
             "Errors": {
                 "lowerIntervalTypeError": "The lower interval must be a number less than or equal to 1",
-                "taxeRateTypeError": "The tax rate has to be a number between 0 and 100.",
-                "taxeRateRequired": "Tax is a required field if you have ticked the box \"Calculate Tax\" above.",
+                "taxeRateTypeError": "The VAT rate has to be a number between 0 and 100.",
+                "taxeRateRequired": "VAT is a required field if you have ticked the box \"Calculate VAT\" above.",
                 "percentagebaseRemunerationRequired": "This field is mandatory if you have ticked the \"Percentage\" box.",
                 "baseRemunerationTypeError": "Fixed Pay needs to be a positive number.",
                 "invalideUpperInterval": "The upper interval must be a number.",
@@ -5077,29 +5099,29 @@
                 "forInterval": "for the whole range"
             },
             "paymentPackPlaceHolder": "Select passes",
-            "excludePaymentPack": "Ignore bookings made with some passes",
+            "excludePaymentPack": "Ignore bookings made with specific passes",
             "bonusForEachReservationInInterval": "Add a bonus for each individual booking in this range",
             "fixedBonusbyInterval": "Add a bonus for the whole range",
             "cancellationBaseHelper": "By ticking this box the teacher will not receive any bonus payment on the marginal value of cancelled bookings.",
             "taxeLongHelper": "Help : All percentages are calculated on the marginal value of each booking excluding tax. The added tax applies to the marginal value as well as all fix and bonus.",
-            "taxeConciseHelper": "All bonuses calculated on a percentage of the marginal value, will discounted of your country VAT rate.",
-            "add_taxe_rate": "Tax to be added",
-            "taxe_rate": "Exclude your country VAT from the computation of margin value",
+            "taxeConciseHelper": "All bonuses calculated on a percentage of the marginal value, and will discount your local VAT rate.",
+            "add_taxe_rate": "Additional VAT",
+            "taxe_rate": "Exclude your local VAT from the computation of the marginal value.",
             "max_remuneration": "Maximum",
             "min_remuneration": "Minimum",
-            "remunerationLimits": "Payment limits",
-            "differentRemunerationForCancellation": "Apply different payroll rules when when counting absentees and late-cancel ",
-            "addRemunerationOnCancellation": "Compensate teacher in the case of a late cancellation and absence",
+            "remunerationLimits": "Remuneration limits",
+            "differentRemunerationForCancellation": "Apply different payroll rules when for absentees and late-cancellations ",
+            "addRemunerationOnCancellation": "Compensate teachers for absentees and late-cancellations",
             "percentage_base": "Add a percentage of the margin value of the bookings",
             "base_remuneration": "Fixed base",
             "forCancelledBookings": "For cancellations after the deadline and absences",
-            "forConfirmedBookings": "For students that are present",
+            "forConfirmedBookings": "Payroll rule for attendees",
             "calculationMethod": "Calculation method",
             "actions": "Actions",
             "coaches": "Teachers",
             "name": "Name",
             "addNewCoachPaymentRule": "New payment rule",
-            "base_remuneration_helper": "This amount will always be added to the session pay",
+            "base_remuneration_helper": "Teachers will always receive this as compensation for their session.",
             "set_base_remuneration": "Define a fixed compensation base"
         },
         "tabs": {
@@ -5118,7 +5140,7 @@
             "subtitle": {
                 "helper": "You can group together your compensation rules for activities, workshops and appointments. By adding a teacher to a group, all of the group's compensation rules automatically apply to the teacher. Any change to the group will also be made to all the teachers in the group.",
                 "coaches": "Associated teachers",
-                "specfic_private_slot": "Specific payment rate for an appointment",
+                "specfic_private_slot": "Specific payroll rules for appointments",
                 "default": "Default compensation"
             },
             "workshop": "Workshops",
@@ -5139,7 +5161,7 @@
                 "workshop": "Workshops",
                 "activity": "Activities",
                 "private_service_name": "Session name",
-                "coach_payment_rule": "Payment rate",
+                "coach_payment_rule": "Payroll rule",
                 "addPrivateSlot": "Add a rule"
             }
         },
@@ -5291,12 +5313,12 @@
             "subscription": {
                 "forms": {
                     "revert_bookings_on_fail_subscription_payment": {
-                        "label": "Cancel all bookings if payment fails.",
+                        "label": "Cancel all bookings if payment fails",
                         "warning": "Please note, if you choose to cancel bookings if the payment fails, bookings will not be recreated if the payment is successful!",
                         "helperText": "If the subscription payment fails or is declared disputed, bookings made with these cards will be cancelled (and the credit re-credited)"
                     },
                     "disable_pass_on_fail_subscription_payment": {
-                        "label": "Block passes if payment fails.",
+                        "label": "Block passes if payment fails",
                         "helperText": "If the subscription payment fails or is disputed, all passes related included in this invoice will be blocked until the total amount is paid."
                     },
                     "nbRetriesSubscriptionPayments": {
@@ -5616,7 +5638,7 @@
         "showDescription": "Show description",
         "description": "Description",
         "pleaseFill": "Please enter a teacher",
-        "emptyDescription": "No description provided",
+        "emptyDescription": "There's no description available.",
         "selector": {
             "coach": {
                 "label": "Teacher"
@@ -6441,8 +6463,8 @@
         },
         "companyOnboarding": {
             "creation": {
-                "content": "To be able to charge Credit Card and IBAN payments, please check your legal information",
-                "title": "Online payment disabled"
+                "content": "Please check your legal and banking information to be able to process online payments.",
+                "title": "Online payments are currently disabled"
             },
             "payout": {
                 "content": "We cannot make payments to your bank account because it does not exist or is improperly configured.",
@@ -6752,7 +6774,7 @@
         },
         "consumer": {
             "isFromShare": "Shared from another account",
-            "isOwnerOfShares": "Shared (master pass)",
+            "isOwnerOfShares": "Shared (Master Pass)",
             "isFromDisabledShare": "Sharing stopped",
             "expiresOn": "Expires on ",
             "bookingsThisWeek": "réservations cette semaine"
@@ -6914,7 +6936,7 @@
                 },
                 "content": {
                     "cannotDelete": "There are upcoming sessions planned for this activity. Check if they have been cancelled.",
-                    "canDelete": "Are you sure you want to delete this activity ? Sessions and past bookings will not be modified. This operation can not be reverted."
+                    "canDelete": "Are you sure that you want to delete this activity? The sessions and past bookings won't be modified. This action can't be undone."
                 },
                 "title": "Delete an activity"
             }
@@ -6927,7 +6949,7 @@
             },
             "tab": {
                 "general": "General",
-                "pack": "Compatible passen"
+                "pack": "Compatible passes"
             }
         },
         "name": "Name",
@@ -7108,7 +7130,7 @@
         "showPaymentPack": "Show pass",
         "showInvoices": "Show invoices",
         "showSubscriptions": "Show subscriptions",
-        "memberList": "Members list",
+        "memberList": "Overview",
         "note": {
             "addNote": "Add a note",
             "myNotes": "Notes",
@@ -7890,7 +7912,7 @@
             "createTitle": "Smart-list form"
         },
         "filterCategory": {
-            "1": "Members info",
+            "1": "Member information",
             "2": "Passes",
             "3": "Bookings",
             "4": "Purchases"
@@ -7943,7 +7965,7 @@
                 "explanation": "Has bought A and B"
             },
             "18": {
-                "name": "Date of registration",
+                "name": "Enrolment date",
                 "first": "Has register to the club   ",
                 "explanation": "Has joined on..."
             },
@@ -8991,7 +9013,7 @@
             "alpha": "in development",
             "invoice": "Invoices",
             "workshopActivities": "Workshops",
-            "order": "Webshop",
+            "order": "Orders",
             "email_template": "Templates",
             "smart_list": "Smartlists",
             "sequence": "Strategies",
@@ -9102,7 +9124,7 @@
                 "create": "Add"
             },
             "search": {
-                "isEmpty": "No video :(",
+                "isEmpty": "There are no videos to display.",
                 "cancel": "Cancel",
                 "placeholder": "Search"
             },

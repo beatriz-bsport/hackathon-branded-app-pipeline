@@ -87,7 +87,9 @@ export const PrivateServiceForm = (props: Props) => {
         transparentColorAvailable
       />
       <fieldset className={classes.resourceGroup}>
-        <legend>{t('service.form.resourceGroup.establishment')}</legend>
+        <legend className={classes.legend}>
+          {t('service.form.resourceGroup.establishment')}
+        </legend>
         <div className={classes.field}>
           <RadioGroupField
             name="establishment_resource_type"
@@ -356,6 +358,7 @@ const styles = (theme) => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(1),
   },
+  legend: { marginBottom: 0 },
   row: {
     display: 'flex',
     flexDirection: 'row',

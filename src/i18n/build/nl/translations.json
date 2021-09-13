@@ -1593,7 +1593,27 @@
             "NO": "Noorwegen",
             "LU": "Luxemburg",
             "CA": "Canada",
-            "AE": "Verenigde Arabische Emiraten"
+            "AE": "Verenigde Arabische Emiraten",
+            "SI": "Slovenië",
+            "RO": "Roemenië",
+            "BG": "Bulgarije",
+            "CZ": "Tsjechië",
+            "GR": "Griekenland",
+            "IN": "India",
+            "MY": "Maleisië",
+            "LV": "Letland",
+            "LT": "Litouwen",
+            "NZ": "Nieuw-Zeeland",
+            "SG": "Singapore",
+            "BR": "Brazilië",
+            "PT": "Portugal",
+            "PL": "Polen",
+            "HK": "Hongkong",
+            "AU": "Australië",
+            "SK": "Slowakije",
+            "CY": "Cyprus",
+            "US": "Verenigde Staten van Amerika",
+            "EE": "Estland"
         },
         "signupCompany": {
             "form": {
@@ -1645,7 +1665,8 @@
             "it": "Italiaans",
             "de": "Duits",
             "fr": "Frans",
-            "en": "Engels"
+            "en": "Engels",
+            "pt": "Portugees"
         }
     },
     "reporting": {
@@ -4555,7 +4576,8 @@
             "qty": "Hoeveelheid",
             "name": "Koper",
             "state": "Status",
-            "updated_at": "Bijgewerkt op"
+            "updated_at": "Bijgewerkt op",
+            "actions": "Acties"
         },
         "form": {
             "delivery": {
@@ -7408,7 +7430,7 @@
                 "waiver": "Waiver / Vrijstelling",
                 "general_terms_and_conditions_accepted": "Algemene Gebruiksvoorwaarden",
                 "cgu": "Algemene Gebruiksvoorwaarden",
-                "accept_sms": "Accepteer sms-meldingen",
+                "accept_sms": "Ik ontvang graag relevante sms'jes.",
                 "accept_email": "Ik ontvang graag relevante e-mails.",
                 "sms_notification": "Ik ontvang graag relevante SMS'jes.",
                 "email_notification": "Ik ontvang graag relevante e-mails.",

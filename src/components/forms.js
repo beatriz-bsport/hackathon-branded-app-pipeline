@@ -53,6 +53,9 @@ const styles = (theme) => ({
     paddingBottom: theme.spacing(1),
     color: theme.palette.error.dark,
   },
+  inputLabelContainer: {
+    paddingBottom: theme.spacing(2),
+  },
 });
 
 export const AlertError = withTranslation([])(
@@ -232,9 +235,11 @@ export const DurationField = withStyles(styles)(
               error={!!(touched[field.name] && errors[field.name])}
             >
               {!!props.label && (
-                <InputLabel htmlFor={props.name} shrink>
-                  {props.label}
-                </InputLabel>
+                <div className={props.classes.inputLabelContainer}>
+                  <InputLabel htmlFor={props.name} shrink>
+                    {props.label}
+                  </InputLabel>
+                </div>
               )}
               <div
                 style={{

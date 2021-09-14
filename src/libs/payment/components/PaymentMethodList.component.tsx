@@ -12,43 +12,44 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { withState, compose } from 'recompose';
 
 import PaymentMethodListItem from './PaymentMethodListItem.component';
 import CollectPaymentMethod from './CollectPaymentMethod.component';
+import { PaymentMethod } from '../types';
 
 type Props = {
-  isExpanded: boolean,
-  isExpandable?: boolean,
-  setExpanded: (boolean) => void,
-  disabled: boolean,
-  savedPaymentMethodList: Array<PaymentMethod>,
-  selectedSavedPaymentMethodId: string,
-  onSelect: (string) => void,
-  showEmpty?: boolean,
+  isExpandable?: boolean;
+  disabled: boolean;
+  savedPaymentMethodList: Array<PaymentMethod>;
+  selectedSavedPaymentMethodId: string;
+  onSelect: (paymentMethodId: string) => void;
+  showEmpty: boolean | null;
 
-  refreshSavedPaymentMethodList: () => void,
+  refreshSavedPaymentMethodList: () => void;
 
-  setCollectPaymentMethodIsOpen: (boolean) => void,
-  collectPaymentMethodIsOpen: boolean,
-  requestSetupIntentSecret: () => void,
-  paymentMethodType: string,
-  setHasDetached: (string) => void,
-  detachPaymentMethodLoading: boolean,
-  companyId: ?number,
-  memberId: ?number,
-  detachPaymentMethod: (pm_id: string) => void,
-  snackbarErrorMsg: (msg: string) => void,
-  snackbarSuccessMsg: (msg: string) => void,
+  requestSetupIntentSecret: () => void;
+  paymentMethodType: string;
+  setHasDetached: (paymentMethodId: string) => void;
+  detachPaymentMethodLoading: boolean;
+  companyId: number | null;
+  memberId: number | null;
+  detachPaymentMethod: (pm_id: string) => void;
+  snackbarErrorMsg: (msg: string) => void;
+  snackbarSuccessMsg: (msg: string) => void;
 
-  sepaDefaultName?: string,
-  sepaDefaultEmail?: string,
+  sepaDefaultName?: string;
+  sepaDefaultEmail?: string;
 };
 
 export const PaymentMethodList = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['payment']);
   const [disableDuringDetach, setDisableDuringDetach] = React.useState(false);
+  const [
+    collectPaymentMethodIsOpen,
+    setCollectPaymentMethodIsOpen,
+  ] = React.useState(false);
+  const [isExpanded, setExpanded] = React.useState(false);
   if (
     !props.showEmpty &&
     (!props.savedPaymentMethodList || !props.savedPaymentMethodList.length)
@@ -61,7 +62,7 @@ export const PaymentMethodList = (props: Props) => {
   return (
     <div className={classes.container}>
       <ButtonBase
-        onClick={() => props.setExpanded(!props.isExpanded)}
+        onClick={() => setExpanded(!isExpanded)}
         className={classes.row}
         disabled={props.disabled}
       >
@@ -74,9 +75,7 @@ export const PaymentMethodList = (props: Props) => {
       </ButtonBase>
       <Divider />
       {disableDuringDetach && <LinearProgress />}
-      <Collapse
-        in={(props.isExpanded || !props.isExpandable) && !props.disabled}
-      >
+      <Collapse in={(isExpanded || !props.isExpandable) && !props.disabled}>
         {relevantSavedPaymentMethodList
           .filter(
             (pm) =>
@@ -107,10 +106,7 @@ export const PaymentMethodList = (props: Props) => {
             />
           ))}
         {!!props.requestSetupIntentSecret && (
-          <ListItem
-            button
-            onClick={() => props.setCollectPaymentMethodIsOpen(true)}
-          >
+          <ListItem button onClick={() => setCollectPaymentMethodIsOpen(true)}>
             <ListItemIcon>
               <AddIcon />
             </ListItemIcon>
@@ -120,12 +116,12 @@ export const PaymentMethodList = (props: Props) => {
           </ListItem>
         )}
       </Collapse>
-      {props.collectPaymentMethodIsOpen && (
+      {collectPaymentMethodIsOpen && (
         <CollectPaymentMethod
           requestSetupIntentSecret={props.requestSetupIntentSecret}
           paymentMethodType={props.paymentMethodType}
           refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
-          onClose={() => props.setCollectPaymentMethodIsOpen(false)}
+          onClose={() => setCollectPaymentMethodIsOpen(false)}
           defaultName={props.sepaDefaultName}
           defaultEmail={props.sepaDefaultEmail}
         />
@@ -146,11 +142,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default compose(
-  withState(
-    'collectPaymentMethodIsOpen',
-    'setCollectPaymentMethodIsOpen',
-    false,
-  ),
-  withState('isExpanded', 'setExpanded', false),
-)(PaymentMethodList);
+export default PaymentMethodList;

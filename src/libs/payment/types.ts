@@ -16,3 +16,12 @@ export type Payout = {
   id: number;
   readable_identifier: string;
 };
+
+export type PaymentInstalmentData = {
+  nb_interval: number;
+  recurrence_basis: number;
+  interval: string;
+  anchor_date: string;
+};
+
+export type IntervalType = 'month' | 'week' | 'year' | 'day';

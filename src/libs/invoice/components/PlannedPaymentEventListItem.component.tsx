@@ -23,6 +23,7 @@ import {
   PLANNED_PAYMENT_EVENT_STATUS_CANCELED,
   PLANNED_PAYMENT_EVENT_STATUS_PENDING,
 } from '@bsport/common/lib/master-data/planned-payment-event';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { PlannedPaymentEvent, Invoice } from '../types';
 
 type Props = {
@@ -112,9 +113,14 @@ export const PlannedPaymentEventListItem = (props: Props) => {
                 : null
             }
           >
-            {t(
-              `paymentMethod.label.${plannedPaymentEvent.payment_method_identifier}`,
-            )}
+            {(plannedPaymentEvent.amount_cts
+              ? `${getCurrencyDisplayWithPrice(
+                  parseInt(plannedPaymentEvent.amount_cts) / 100,
+                )} `
+              : '') +
+              t(
+                `paymentMethod.label.${plannedPaymentEvent.payment_method_identifier}`,
+              )}
           </Typography>
           {plannedPaymentEvent.nb_retries === 0 && (
             <div className={classes.row}>

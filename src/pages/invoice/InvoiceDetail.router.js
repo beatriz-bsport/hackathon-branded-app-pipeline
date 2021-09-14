@@ -13,7 +13,7 @@ import { fetchSpecificInvoice } from '../../libs/invoice/actions';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import InvoiceDetail from './InvoiceDetail.page';
-import InvoiceEdit from './InvoiceEdit.page';
+import DEPRECATEDInvoiceEdit from './DEPRECATEDInvoiceEdit.page';
 
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
@@ -42,7 +42,12 @@ export class InvoiceDetailRouter extends React.Component<Props> {
     if (this.props.invoice.is_v2) {
       return <InvoiceDetail uuid={this.props.uuid} />;
     }
-    return <InvoiceEdit invoice={this.props.invoice} uuid={this.props.uuid} />;
+    return (
+      <DEPRECATEDInvoiceEdit
+        invoice={this.props.invoice}
+        uuid={this.props.uuid}
+      />
+    );
   }
 }
 

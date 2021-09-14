@@ -24,6 +24,7 @@ import {
   cancelPlannedPaymentEvent as cancelPlannedPaymentEventAPI,
   enablePlannedPaymentEvent as enablePlannedPaymentEventAPI,
   registerNowPlannedPaymentEvent as registerNowPlannedPaymentEventAPI,
+  schedulePayment as schedulePaymentAPI,
 } from './api';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
@@ -683,5 +684,33 @@ export function editCustomFooter(
       }
     }
     dispatch(editCustomFooterActions.isLoading(false));
+  };
+}
+
+export const schedulePaymentActions = {
+  isLoading: createAction('PLANNED_PAYMENT_EVENT/SCHEDULE_PAYMENT/LOADING'),
+  error: createAction('PLANNED_PAYMENT_EVENT/SCHEDULE_PAYMENT/ERROR'),
+  success: createAction('PLANNED_PAYMENT_EVENT/SCHEDULE_PAYMENT/SUCCESS'),
+};
+
+export function schedulePayment(
+  uuid: string,
+  data: any,
+  options: OptionCallBack,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(schedulePaymentActions.isLoading(true));
+    dispatch(schedulePaymentActions.error(null));
+    try {
+      const response = await schedulePaymentAPI(uuid, data);
+      dispatch(schedulePaymentActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(schedulePaymentActions.error(err));
+    }
+    dispatch(schedulePaymentActions.isLoading(false));
   };
 }

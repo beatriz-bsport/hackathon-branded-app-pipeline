@@ -154,6 +154,13 @@ export async function registerNowPlannedPaymentEvent(id: number) {
   );
 }
 
+export async function schedulePayment(uuid, data: any) {
+  return postAuth(
+    `${API_V1_URI}/payment/invoices/${uuid}/schedule_payment/`,
+    data,
+  );
+}
+
 export async function editCustomFooter(uuid: string, custom_footer: string) {
   return postAuth(`${API_V1_URI}/payment/invoices/${uuid}/update_footer/`, {
     custom_footer,

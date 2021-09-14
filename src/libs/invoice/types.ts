@@ -22,7 +22,7 @@ export type PlannedPaymentEvent = {
   date_created: string;
   future_date: string;
   invoice: string;
-  amount_cts: number;
+  amount_cts: string;
   payment_engine: number;
   payment_method_identifier: number;
   _payment_backend_method_id: string;

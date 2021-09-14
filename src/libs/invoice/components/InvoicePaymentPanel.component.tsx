@@ -74,6 +74,7 @@ const PaymentActions: FC<{
   amountToPayCts?: number;
   is_reverse: boolean;
   onPaymentIntent: () => void;
+  onInstalmentPayment: () => void;
   paymentList: Array<Payment>;
   invoice: Invoice;
   consumeBalance?: (OptionCallback) => void;
@@ -137,35 +138,53 @@ const PaymentActions: FC<{
           </div>
         )}
       {!props.is_reverse && !props.invoice.reverse_invoices.length && (
-        <div className={classes.buttonRow}>
-          {props.invoice.invoice_type === INVOICE_TYPE_REGULAR && (
-            <Button
-              onClick={props.onPaymentIntent}
-              variant="contained"
-              color="primary"
-              disabled={
-                !props.invoice.member ||
-                props.amountToPayCts === 0 ||
-                processing
-              }
-            >
-              {t('paymentPanel.actions.bill')}
-            </Button>
-          )}
-          {!props.invoice.reverse_invoices.length &&
-            !props.invoice.source_invoice &&
-            (props.invoice.invoice_type === INVOICE_TYPE_REGULAR ||
-              props.paymentList.filter(
-                (p) => p.payment_engine !== PAYMENT_ENGINE_BSPORT,
-              ).length === 1) && (
-              <RedButton
-                onClick={props.onRevert}
-                disabled={processing}
+        <div className={classes.row}>
+          <div className={classes.buttonRow}>
+            {props.invoice.invoice_type === INVOICE_TYPE_REGULAR && (
+              <Button
+                onClick={props.onPaymentIntent}
                 variant="contained"
+                color="primary"
+                disabled={
+                  !props.invoice.member ||
+                  props.amountToPayCts === 0 ||
+                  processing
+                }
               >
-                {t('paymentPanel.actions.revert')}
-              </RedButton>
+                {t('paymentPanel.actions.bill')}
+              </Button>
             )}
+            {!props.invoice.reverse_invoices.length &&
+              !props.invoice.source_invoice &&
+              (props.invoice.invoice_type === INVOICE_TYPE_REGULAR ||
+                props.paymentList.filter(
+                  (p) => p.payment_engine !== PAYMENT_ENGINE_BSPORT,
+                ).length === 1) && (
+                <RedButton
+                  onClick={props.onRevert}
+                  disabled={processing}
+                  variant="contained"
+                >
+                  {t('paymentPanel.actions.revert')}
+                </RedButton>
+              )}
+          </div>
+          <div className={classes.buttonRow}>
+            {props.invoice.invoice_type === INVOICE_TYPE_REGULAR && (
+              <Button
+                onClick={props.onInstalmentPayment}
+                variant="contained"
+                color="secondary"
+                disabled={
+                  !props.invoice.member ||
+                  props.amountToPayCts === 0 ||
+                  processing
+                }
+              >
+                {t('paymentPanel.actions.billByInstalment')}
+              </Button>
+            )}
+          </div>
         </div>
       )}
     </React.Fragment>
@@ -346,6 +365,7 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
           consumeBalance={props.consumeBalance}
           amountToPayCts={amountToPayCts}
           onPaymentIntent={props.onPaymentIntent}
+          onInstalmentPayment={props.onInstalmentPayment}
           loading={!props.accountBalance && props.accountBalance !== 0}
         />
       )}
@@ -414,6 +434,11 @@ const useStyles = makeStyles((theme) => ({
     '&>*': {
       marginLeft: theme.spacing(1),
     },
+  },
+  row: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
   },
   balanceContainer: {
     display: 'flex',

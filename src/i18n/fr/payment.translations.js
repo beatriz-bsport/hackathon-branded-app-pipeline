@@ -27,6 +27,56 @@ const {
 } = require('@bsport/common/lib/master-data/payout-status');
 
 exports.default = {
+  interval: {
+    month: 'mois',
+    month_plural: 'mois',
+    year: 'année',
+    year_plural: 'années',
+    day: 'jour',
+    day_plural: 'jours',
+    week: 'semaine',
+    week_plural: 'semaines',
+  },
+  instalment: {
+    form: {
+      title: {
+        scheduler: 'Échéancier',
+        payment: 'Moyen de paiement',
+      },
+      actions: {
+        submit: 'Confirmer',
+        next: 'Suivant',
+        previous: 'Précédent',
+        close: 'Fermer',
+      },
+      nb_interval: {
+        label: 'Nombre de facturation(s)',
+      },
+      interval: {
+        label: 'Récurrence',
+        helperText: 'Fréquence de génération des factures / cartes',
+      },
+      recurrence: {
+        section: 'Récurrence',
+        explain:
+          'Le paiement sera étalé sur {{ total_interval_duration }} {{ interval }} tous les {{ recurrence_basis }} {{ interval }} et génèrera {{ nb_interval }} encaissements',
+      },
+      recurrence_basis: {
+        label: 'Répéter tous les',
+        helperText: '',
+        intervalName: {
+          year: 'an',
+          year_plural: 'ans',
+          month: 'mois',
+          month_plural: 'mois',
+          day: 'jour',
+          day_plural: 'jours',
+          week: 'semaine',
+          week_plural: 'semaines',
+        },
+      },
+    },
+  },
   payment: {
     return: 'Rembourser',
   },

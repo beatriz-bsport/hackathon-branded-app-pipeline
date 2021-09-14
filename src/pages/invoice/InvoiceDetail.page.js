@@ -26,7 +26,10 @@ import {
   getPaymentListInInvoice,
   getPlannedPaymentEventList,
 } from '../../libs/invoice/selectors';
-import { getPaymentGroupRequiringActionList } from '../../libs/payment/selectors';
+import {
+  getPaymentGroupRequiringActionList,
+  getSavedPaymentMethodList,
+} from '../../libs/payment/selectors';
 import { formatAsDate } from '../../utils/datetime';
 import { fetchMember } from '../../libs/member/actions';
 import {
@@ -42,11 +45,14 @@ import {
   enablePlannedPaymentEvent as enablePlannedPaymentEventAction,
   registerNowPlannedPaymentEvent as registerNowPlannedPaymentEventAction,
   cancelPlannedPaymentEvent as cancelPlannedPaymentEventAction,
+  schedulePayment,
 } from '../../libs/invoice/actions';
 import {
   updatePaymentGroupPriceCts,
   fetchPaymentGroupList as fetchPaymentGroupListAction,
+  fetchPaymentMethodList as fetchPaymentMethodListAction,
 } from '../../libs/payment/actions';
+
 import { fetchCompanyUserRoles } from '../../libs/role/actions';
 
 import InvoiceHeader from '../../libs/invoice/components/InvoiceHeader.component';
@@ -54,8 +60,10 @@ import InvoiceContent from '../../libs/invoice/components/InvoiceContent.compone
 import InvoicePaymentPanel from '../../libs/invoice/components/InvoicePaymentPanel.component';
 import InvoiceReverterDialog from '../../libs/invoice/components/InvoiceReverterDialog.component';
 import { requestClientSecret as requestClientSecretAPI } from '../../libs/invoice/api';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 
 import PaymentDialog from '../../libs/payment/components/PaymentDialog.component';
+import InstalmentPaymentDialog from '../../libs/payment/components/InstalmentPaymentForm.dialog';
 import CreditMemberBadge from '../../libs/member/components/CreditMemberBadge.component';
 import CheckPermission from '../../libs/role/components/CheckPermission.component';
 
@@ -107,6 +115,19 @@ type Props = {
   registerNowPlannedPaymentEvent: (id: number, options: OptionCallback) => void,
   enablePlannedPaymentEvent: (id: number, options: OptionCallback) => void,
   cancelPlannedPaymentEvent: (id: number, options: OptionCallback) => void,
+
+  isOpenInstalmentPaymentDialog: boolean,
+  closeInstalmentPaymentDialog: () => void,
+  openInstalmentPaymentDialog: () => void,
+
+  fetchPaymentMethodList: (dat: { member: number }) => void,
+
+  schedulePayment: (
+    invoiceUuid: string,
+    data: PaymentInstalmentData,
+    options: OptionCallback,
+  ) => void,
+  savedPaymentMethodList: Array<PaymentMethod>,
 };
 
 type State = {
@@ -135,6 +156,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
         if (invoice.plannedinvoice) {
           this.props.fetchPaymentGroupRequiringActionList();
         }
+        this.props.fetchPaymentMethodList({ member: invoice.member });
       },
     });
     this.props.fetchInvoiceItemList({
@@ -148,6 +170,18 @@ export class InvoiceDetail extends React.Component<Props, State> {
     this.props.fetchPlannedPaymentEventList({
       invoice: this.props.uuid,
       status__in: `${PLANNED_PAYMENT_EVENT_STATUS_PENDING},${PLANNED_PAYMENT_EVENT_STATUS_CANCELED},${PLANNED_PAYMENT_EVENT_STATUS_REGISTERED}`,
+    });
+  };
+
+  schedulePayment = (data: PaymentInstalmentData, options: OptionCallback) => {
+    this.props.schedulePayment(this.props.uuid, data, {
+      onSuccess: () => {
+        this.fetchInvoiceData();
+        if (options && options.onSuccess) options.onSuccess();
+      },
+      onError: () => {
+        if (options && options.onError) options.onError();
+      },
     });
   };
 
@@ -225,6 +259,10 @@ export class InvoiceDetail extends React.Component<Props, State> {
       });
   };
 
+  requestSetupIntentSecret = () => {
+    return requestSetupIntentSecretAPI(this.props.invoice.member.id);
+  };
+
   onValidatePaymentGroup = (pg: PaymentGroup) => {
     this.setState(
       {
@@ -254,6 +292,9 @@ export class InvoiceDetail extends React.Component<Props, State> {
       },
     });
   };
+
+  fetchPaymentMethodList = () =>
+    this.props.fetchPaymentMethodList({ member: this.props.invoice.member.id });
 
   render() {
     return (
@@ -291,6 +332,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
               handleChangeMethod={this.props.updatePaymentMethod}
               onRevert={this.props.openRevertDialog}
               onPaymentIntent={() => this.props.setOpenPaymentDialog(true)}
+              onInstalmentPayment={this.props.openInstalmentPaymentDialog}
               paymentLoading={this.props.paymentLoading}
               consumeBalance={this.allocateDebt}
               accountBalanceLoading={this.props.memberLoading}
@@ -306,6 +348,24 @@ export class InvoiceDetail extends React.Component<Props, State> {
               }}
             />
           </Grid>
+          {!!this.props.isOpenInstalmentPaymentDialog && (
+            <InstalmentPaymentDialog
+              requestSetupIntentSecret={this.requestSetupIntentSecret}
+              totalPriceCts={
+                this.props.invoice.amount_due_cts -
+                this.props.invoice.amount_paid_cts
+              }
+              enabledPaymentGroupMethodIdentifier={[1, 2]}
+              availablePaymentMethodList={
+                this.props.payment_method_available_manager
+              }
+              onClose={this.props.closeInstalmentPaymentDialog}
+              savedPaymentMethodList={this.props.savedPaymentMethodList}
+              fetchPaymentMethodList={this.fetchPaymentMethodList}
+              onSubmit={this.schedulePayment}
+            />
+          )}
+
           {!!this.props.openPaymentDialog && (
             <PaymentDialog
               memberId={this.props.invoice.member.id}
@@ -413,6 +473,17 @@ export default compose(
       },
     },
   ),
+  withStateHandlers(
+    { isOpenInstalmentPaymentDialog: false },
+    {
+      closeInstalmentPaymentDialog: () => () => {
+        return { isOpenInstalmentPaymentDialog: false };
+      },
+      openInstalmentPaymentDialog: () => () => {
+        return { isOpenInstalmentPaymentDialog: true };
+      },
+    },
+  ),
   connect(
     (state, { uuid }) => ({
       invoice: withAuthor(withInvoiceItem(withMember(getInvoice)))(state, uuid),
@@ -427,9 +498,11 @@ export default compose(
       ),
       payment_method_available_manager:
         state.theme.theme.payment_method_available_manager,
+      savedPaymentMethodList: getSavedPaymentMethodList(state),
     }),
     {
       fetchInvoiceItemList,
+      fetchPaymentMethodList: fetchPaymentMethodListAction,
       fetchInvoice,
       fetchPaymentList: fetchPaymentListAction,
       goToSubscription: (id) => pushRouter(`/subscription/${id}/`),
@@ -448,6 +521,7 @@ export default compose(
       cancelPlannedPaymentEvent: cancelPlannedPaymentEventAction,
       enablePlannedPaymentEvent: enablePlannedPaymentEventAction,
       registerNowPlannedPaymentEvent: registerNowPlannedPaymentEventAction,
+      schedulePayment,
     },
   ),
   withHandlers({

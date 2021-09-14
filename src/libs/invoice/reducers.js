@@ -20,6 +20,7 @@ import {
   cancelPlannedPaymentEventActions,
   enablePlannedPaymentEventActions,
   registerNowPlannedPaymentEventActions,
+  schedulePaymentActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -290,7 +291,7 @@ export default handleActions(
           {
             planned_payment_event: {
               byId: (payload.results || payload).reduce(
-                (acc, v) => ({ ...acc, [v.uuid]: v }),
+                (acc, v) => ({ ...acc, [v.id]: v }),
                 {},
               ),
             },
@@ -299,10 +300,26 @@ export default handleActions(
         )
         .setIn(
           ['planned_payment_event', 'allIds'],
-          (payload.results || payload).map((inv) => inv.uuid),
+          (payload.results || payload).map((inv) => inv.id),
         )
         .setIn(['planned_payment_event', 'count'], payload.count)
         .setIn(['planned_payment_event', 'page'], payload.page);
+    },
+    [schedulePaymentActions.loading]: (state, { payload }) => {
+      return state.setIn(['planned_payment_event', 'loading'], payload);
+    },
+    [schedulePaymentActions.error]: (state, { payload }) => {
+      return state.setIn(['planned_payment_event', 'error'], payload);
+    },
+    [schedulePaymentActions.success]: (state, { payload }) => {
+      return state.merge(
+        {
+          planned_payment_event: {
+            byId: payload.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
+          },
+        },
+        { deep: true },
+      );
     },
   },
   initialState,

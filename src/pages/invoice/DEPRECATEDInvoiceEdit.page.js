@@ -1,4 +1,15 @@
 // @flow
+//
+// DEPRECATIO NOTICE
+// ----------------------------------------------
+//
+// This page / component is still used for old invoice (is_v2 === false)
+//
+// However no further improvements should be made inside it, as all
+// invoices are generated as v2, exception being old subscription v1
+// still running
+//
+// ------------------------------------------------
 
 import React, { Component } from 'react';
 
@@ -87,7 +98,7 @@ type State = {
   revertDialogOpen: boolean,
 };
 
-export class InvoiceFormPage extends Component<Props, State> {
+export class DEPRECATEDInvoiceFormPage extends Component<Props, State> {
   state = {
     revertDialogOpen: false,
   };
@@ -303,4 +314,4 @@ export default compose(
         uuid ? uuid.slice(0, 8).toUpperCase() : ''
       } - ${invoice && invoice.date ? formatAsDate(invoice.date) : ''}`,
   ),
-)(InvoiceFormPage);
+)(DEPRECATEDInvoiceFormPage);

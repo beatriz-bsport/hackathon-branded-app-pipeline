@@ -1,0 +1,56 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import { InstalmentPaymentFormComposed } from './InstalmentPaymentForm.component';
+import InstalmentPaymentPreview from './InstalmentPaymentPreview.component';
+import InstalmentPaymentFormDialog from '../InstalmentPaymentForm.dialog';
+import { PAYMENT_GROUP_METHOD_IDENTIFIER_CB, PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA } from '@bsport/common/lib/master-data/payment-group';
+import { action } from '@storybook/addon-actions';
+
+<Meta title="library/payment/payment-instalment" component={InstalmentPaymentFormComposed}
+argTypes ={{
+}} />
+
+
+export const TemplatePaymentForm = (args) => <InstalmentPaymentFormComposed {...args} />;
+export const TemplatePaymentPreview = (args) => <InstalmentPaymentPreview {...args} />;
+export const TemplatePaymentFormDialog = (args) => <InstalmentPaymentFormDialog {...args} />;
+
+# Instalment Payment builder form
+
+### Example 
+
+<Canvas>
+  <Story 
+    name="schedule-preview"
+    args={{ 
+	  interval: 'week',
+	  nb_interval: 3,
+	  totalPriceCts: 10000,
+	  anchor_date: '2030-01-01',
+	  recurrence_basis: 1,
+  }}>
+  {TemplatePaymentPreview.bind({})}
+  </Story>
+  <Story 
+    name="form-basic"
+    args={{ 
+      totalPriceCts: 100*100,
+  }}>
+  {TemplatePaymentForm.bind({})}
+  </Story>
+  <Story 
+    name="form-full-dialog"
+    args={{ 
+	  totalPriceCts: 10000,
+    enabledPaymentGroupMethodIdentifier: [
+      PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+      PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+    ],
+    onSubmit: action('submit'),
+    requestSetupIntentSecret: () => {
+      action('requestSetupIntentSecret')
+      return Promise.resolve()
+    },
+  }}>
+  {TemplatePaymentFormDialog.bind({})}
+  </Story>
+</Canvas>

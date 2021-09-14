@@ -476,7 +476,6 @@ exports.default = {
     },
     parameters: {
       nbCredits: '{{ credits }} crédit',
-      price: '{{ price, price}}',
       tax: 'TVA: {{ tax }}%',
       managerOnly: 'Invisible pour les clients',
     },

@@ -17,6 +17,7 @@ import {
 
 import { Trans, useTranslation } from 'react-i18next';
 import moment from 'moment-timezone';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 import type { Alerting, UnevenInvoiceAlerting } from '../types';
 
@@ -63,9 +64,13 @@ const UnevenAlertListItem = (props: {
             The invoice <strong>{{ uuid }}</strong> is uneven
           </Trans>
           <br />
-          {t('unevenInvoice.pricePayed', { price_payed })}
+          {t('unevenInvoice.pricePayed', {
+            price_payed: getCurrencyDisplayWithPrice(price_payed),
+          })}
           <br />
-          {t('unevenInvoice.priceDue', { price_due })}
+          {t('unevenInvoice.priceDue', {
+            price_due: getCurrencyDisplayWithPrice(price_due),
+          })}
         </Typography>
       </div>
     </ListItem>
@@ -210,7 +215,7 @@ const NewOrderAlertListItem = (props: {
             New order paid by <strong>{{ name }}</strong>
           </Trans>
           <br />
-          {t('newOrder.price', { price })}
+          {t('newOrder.price', { price: getCurrencyDisplayWithPrice(price) })}
         </Typography>
       </div>
     </ListItem>

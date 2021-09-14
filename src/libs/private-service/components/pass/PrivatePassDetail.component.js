@@ -21,6 +21,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { compose, withState } from 'recompose';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import { getCurrencyDisplayWithPrice } from '../../../theme/selectors';
 import type { Theme } from '../../../theme/types';
 
 import PrivateServiceListItem from '../service/PrivateServiceListItem.component';
@@ -125,9 +126,7 @@ export const PrivatePassDetail = (props: Props) => {
             })}
           </Typography>
           <Typography variant="subtitle" color="textSecondary">
-            {props.t('privatePass.parameters.price', {
-              price: props.pass.price,
-            })}
+            {getCurrencyDisplayWithPrice(props.pass.price)}
           </Typography>
           <Typography variant="subtitle" color="textSecondary">
             {props.t('privatePass.parameters.tax', {

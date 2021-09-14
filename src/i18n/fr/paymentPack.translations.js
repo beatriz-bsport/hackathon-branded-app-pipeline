@@ -407,7 +407,6 @@ exports.default = {
   specifications: {
     nbCredits: '{{credits}} crédits',
     unlimitedCredits: 'Illimité',
-    price: '{{price, price}}',
   },
   availableOnFollowingSports: 'Catégories éligibles : ',
   availableOnFollowingEstablishments: 'Salles éligibles : ',

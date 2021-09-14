@@ -22,13 +22,13 @@ exports.default = {
   unevenInvoice: {
     title: 'Facture non-équilibrée',
     explainUneven: "La facture <1>n°{{uuid, uuid}}</1> n'est pas équilibrée.",
-    priceDue: 'Somme dûe : {{ price_due, price }}.',
-    pricePayed: 'Somme encaissée : {{price_payed, price}}.',
+    priceDue: 'Somme dûe : {{ price_due }}.',
+    pricePayed: 'Somme encaissée : {{price_payed }}.',
   },
   newOrder: {
     title: 'Commande en attente',
     explain: 'Payé par <1>{{name}}</1> sur le magasin.',
-    price: 'Montant: {{ price, price }}.',
+    price: 'Montant: {{ price }}.',
   },
   privateBookingIncomplete: {
     explain: "Le RDV de <1>{{name}}</1> n'a pas de professeur désigné.",

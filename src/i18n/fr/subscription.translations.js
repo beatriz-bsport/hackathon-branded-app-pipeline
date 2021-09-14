@@ -72,7 +72,7 @@ exports.default = {
     delete: 'Supprimer',
     buy: 'Acheter',
     invoice: {
-      label: 'Facture {{uuid}} : {{price}}€',
+      label: 'Facture {{uuid}} : {{price}}',
     },
     freeze: {
       form: {

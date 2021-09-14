@@ -4187,7 +4187,7 @@
       "register": "S'abonner",
       "delete": "Supprimer",
       "buy": "Acheter",
-      "invoice": { "label": "Facture {{uuid}} : {{price}}€" },
+      "invoice": { "label": "Facture {{uuid}} : {{price}}" },
       "freeze": {
         "form": {
           "title": "Mise en pause",

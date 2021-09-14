@@ -34,6 +34,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Tooltip from '../../../components/Tooltip.component';
 import PlannedInvoicePriceUpdater from './PlannedInvoicePriceUpdater.component';
 import PlannedInvoiceDateUpdater from './PlannedInvoiceDateUpdater.component';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 import { PlannedInvoice, Subscription, SubscriptionPause } from '../types';
 import { OptionsCallback } from '../../../state/types';
@@ -336,9 +337,9 @@ const PlannedInvoiceItem = (props: { plannedInvoice: PlannedInvoice }) => {
                 color={props.disableActions ? 'textSecondary' : undefined}
               >
                 {t('subscription.invoice.label', {
-                  price: parseFloat(
+                  price: getCurrencyDisplayWithPrice(
                     props.plannedInvoice.amount_due_cts / 100,
-                  ).toFixed(2),
+                  ),
                   uuid: (props.plannedInvoice.uuid || '').slice(0, 8),
                 })}
               </Typography>

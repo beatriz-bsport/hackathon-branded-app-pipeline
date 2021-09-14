@@ -20,6 +20,7 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import Button from '@material-ui/core/Button';
 import Tooltip from '../../../components/Tooltip.component';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 import { getValidityInfo } from '../utils';
 
@@ -94,9 +95,9 @@ export const PaymentPackListItem = (props: Props) => {
                 credits: props.pack.credits,
               })
             : t('specifications.unlimitedCredits')
-        } - ${t('specifications.price', {
-          price: props.pack.price,
-        })}${props.showDuration ? ` - ${dateInfo}` : ''}`}
+        } - ${getCurrencyDisplayWithPrice(props.pack.price)})}${
+          props.showDuration ? ` - ${dateInfo}` : ''
+        }`}
       />
       {!props.disabled && props.onEdit && props.onDelete ? (
         <div style={{ display: 'flex', flexDirection: 'row' }}>

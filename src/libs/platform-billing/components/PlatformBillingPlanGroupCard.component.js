@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import PersonIcon from '@material-ui/icons/Person';
 import Tooltip from '../../../components/Tooltip.component';
 import TypographyMultiline from '../../../components/TypographyMultiline.component';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 const PlatformBillingStageCard = (props: {
   platformBillingStage: PlatformBillingStage,
@@ -29,13 +30,15 @@ const PlatformBillingStageCard = (props: {
           variant="h6"
         >
           {t('platformBillingStage.monthlyPrice', {
-            price: (price_cts / 100).toFixed(2),
+            price: getCurrencyDisplayWithPrice(price_cts / 100),
           })}
         </Typography>
       )}
       <Typography className={classes.stageHeaderPrice} noWrap variant="h6">
         {t('platformBillingStage.monthlyPrice', {
-          price: ((price_cts - props.couponCts) / 100).toFixed(2),
+          price: getCurrencyDisplayWithPrice(
+            (price_cts - props.couponCts) / 100,
+          ),
         })}
       </Typography>
       <Typography

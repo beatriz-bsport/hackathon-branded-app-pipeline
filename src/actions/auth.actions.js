@@ -50,7 +50,14 @@ export function fetchAccessLevel(
   return async (dispatch: Dispatch) => {
     try {
       const response = await api.auth.accessLevel(token);
-      const { is_manager, is_consumer, role, name, username } = response.data;
+      const {
+        is_manager,
+        is_consumer,
+        is_franchisor,
+        role,
+        name,
+        username,
+      } = response.data;
 
       if (!is_manager && is_consumer) {
         dispatch(errorLogin());
@@ -61,6 +68,7 @@ export function fetchAccessLevel(
           token,
           is_manager,
           is_consumer,
+          is_franchisor,
           role,
           name,
         }),
@@ -161,6 +169,7 @@ export function setLogin({
   token,
   is_manager,
   is_consumer,
+  is_franchisor,
   role,
   name,
 }: {
@@ -168,6 +177,7 @@ export function setLogin({
   token: string,
   is_manager: boolean,
   is_consumer: boolean,
+  is_franchisor: boolean,
   role: number,
   name: string,
 }) {
@@ -187,6 +197,7 @@ export function setLogin({
     is_manager,
     is_coach: false,
     is_consumer,
+    is_franchisor,
   };
 }
 

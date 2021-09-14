@@ -1,7 +1,7 @@
 import React from 'react';
 import { configure } from '@storybook/react';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-
+import { Provider } from 'react-redux';
 
 import { MemoryRouter } from 'react-router';
 
@@ -11,12 +11,15 @@ import MomentUtils from '@date-io/moment';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { ConnectedRouter } from 'connected-react-router';
 import { Moment } from '../src/i18n';
+import initStore from '../src/store';
 
 
 import _ from '../envs/local';
 
 import Config from '../src/config.ts';
 import theme from '../src/theme';
+
+const { store } = initStore();
 
 export const decorators = [
   (Story) => (
@@ -35,6 +38,7 @@ export const decorators = [
   ),
   Story => <MemoryRouter><Story/></MemoryRouter>,
   Story => <React.Suspense fallback={<LinearProgress />}><Story/></React.Suspense>,
+  Story => <Provider store={store}><Story/></Provider>,
 ]
 
 

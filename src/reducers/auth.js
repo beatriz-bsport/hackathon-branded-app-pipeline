@@ -12,6 +12,7 @@ const initialState = Immutable({
   is_manager: false,
   is_coach: false,
   is_consumer: true,
+  is_franchisor: false,
   initializating: false,
   invalidFields: null,
   role: null,
@@ -58,9 +59,11 @@ export default function authReducers(state = initialState, action = {}) {
         is_manager,
         is_coach,
         is_consumer,
+        is_franchisor,
         role,
         name,
       } = action;
+
       setAuthToken(token);
       return state
         .set('username', username)
@@ -69,6 +72,7 @@ export default function authReducers(state = initialState, action = {}) {
         .set('is_manager', is_manager)
         .set('is_coach', is_coach)
         .set('is_consumer', is_consumer)
+        .set('is_franchisor', is_franchisor)
         .set('authenticated', true)
         .set('error', false)
         .set('loading', false)

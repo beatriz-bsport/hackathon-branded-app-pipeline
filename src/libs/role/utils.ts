@@ -32,7 +32,7 @@ export const checkRequiredPermissions = (
     for (let j = 0; j < keysArray.length; j += 1) {
       const key = keysArray[j];
       // @ts-ignore;
-      if (obj[key] === undefined) {
+      if (obj?.[key] === undefined) {
         return false;
       }
       // @ts-ignore;

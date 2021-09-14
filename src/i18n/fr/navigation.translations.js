@@ -98,6 +98,10 @@ exports.default = {
     contract: 'Contrats',
     coupon: 'Promotions',
   },
+  franchiseMenu: {
+    franchises: 'Franchises',
+    members: 'Members',
+  },
   deprecatedNavigator: {
     navigatorError:
       'Il semblerait que votre navigateur soit trop ancien pour utiliser nos services. Vous risquez de rencontrer des erreurs, nous vous recommandons de télécharger une version plus récente notamment : ',

@@ -1,23 +1,29 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { Redirect, Route, withRouter } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 
 import asyncComponent from '../AsyncComponent';
 import { RootState } from '../reducers';
 
 const ConsumerHome = asyncComponent(() => import('./consumer/Consumer.router'));
 const Backoffice = asyncComponent(() => import('./Backoffice.component'));
+const FranchiseHome = asyncComponent(
+  () => import('./franchise/Franchise.router'),
+);
 
 type Props = ReturnType<typeof mapStateToProps>;
 
 export const UserspaceSwitcher = (props: Props) => {
-  const { authenticated } = props;
+  const { authenticated, isCoach, isManager, isConsumer, isFranchisor } = props;
 
   if (!authenticated) {
     return <Redirect to="/login" />;
   }
-  const { isCoach, isManager, isConsumer } = props;
+
+  if (isFranchisor) {
+    return <Route path="/" component={FranchiseHome} />;
+  }
 
   if (isCoach || isManager) {
     return <Route path="/" component={Backoffice} />;
@@ -34,6 +40,7 @@ const mapStateToProps = (state: RootState) => ({
   isCoach: state.auth.is_coach,
   isConsumer: state.auth.is_consumer,
   isManager: state.auth.is_manager,
+  isFranchisor: state.auth.is_franchisor,
 });
 
-export default connect(mapStateToProps)(withRouter(UserspaceSwitcher));
+export default connect(mapStateToProps)(UserspaceSwitcher);

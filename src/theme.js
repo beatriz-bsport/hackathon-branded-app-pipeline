@@ -4,6 +4,8 @@ import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 
 import { colors } from '@bsport/common/lib/colors';
 
+import { FranchiseTheme } from './libs/franchise/types';
+
 const defaultThemeParams = {
   palette: {
     primary: {
@@ -12,7 +14,7 @@ const defaultThemeParams = {
     secondary: {
       main: colors.secondary,
     },
-    error: colors.red,
+    error: colors.error,
   },
   props: {
     MuiWithWidth: {
@@ -38,5 +40,22 @@ export const getTheme = (theme: ?CompanyTheme) => {
   }
   return responsiveFontSizes(createMuiTheme(defaultThemeParams));
 };
+
+export const getFranchiseTheme = (theme: FranchiseTheme) => {
+  if (theme) {
+    return responsiveFontSizes(
+      createMuiTheme({
+        ...defaultThemeParams,
+        palette: {
+          primary: {
+            main: theme.primaryRGB,
+          },
+          secondary: { main: theme.secondaryRGB },
+        },
+      }),
+    );
+  }
+  return responsiveFontSizes(createMuiTheme(defaultThemeParams));
+}
 
 export default getTheme();

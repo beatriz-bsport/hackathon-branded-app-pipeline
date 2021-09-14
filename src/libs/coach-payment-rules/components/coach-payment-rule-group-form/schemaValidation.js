@@ -10,7 +10,7 @@ export const CoachPaymentRuleGroupSchema = Yup.object().shape({
     .test(
       'coach_payment_rule',
       'paymentRules:coach_payment_rules.Errors.oneRuleRequired',
-      (item) => {
+      function (item) {
         const test =
           item === null &&
           this.parent.workshop_coach_payment_rule === null &&
@@ -37,7 +37,7 @@ export const CoachPaymentRuleGroupSchema = Yup.object().shape({
       .test(
         'unique_rule_for_privateSlot',
         'paymentRules:coach_payment_rules.Errors.uniqueRuleForPrivateSlot',
-        (item) => {
+        function (item) {
           const findSimilar = this.parent.filter(
             (specific_rule) => specific_rule.private_slot === item.private_slot,
           );

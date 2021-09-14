@@ -8,7 +8,7 @@ export const bonusCoachPaymentRuleSchema = Yup.object().shape({
   bonus: Yup.number()
     .min(0)
     .max(999999)
-    .test('bonus-gt-zero', 'bonus_gt_zero', (item) => {
+    .test('bonus-gt-zero', 'bonus_gt_zero', function (item) {
       return item >= 0.1
         ? true
         : this.createError({
@@ -21,7 +21,7 @@ export const bonusCoachPaymentRuleSchema = Yup.object().shape({
     .min(1, 'paymentRules:coach_payment_rules.lowerIntervalTypeError')
     .max(999999)
     .typeError('paymentRules:coach_payment_rules.lowerIntervalTypeError')
-    .test('interval-check', 'Invalid interval', (item) => {
+    .test('interval-check', 'Invalid interval', function (item) {
       const valid_interval = this.parent.upper_interval >= item;
       return valid_interval
         ? true
@@ -75,7 +75,7 @@ export const coachPaymentRuleFieldsSchema = Yup.object().shape({
     .test(
       'max-superior-to-min',
       'paymentRules:coach_payment_rules.Errors.invalidMaximum',
-      (item) => {
+      function (item) {
         return item > this.parent.min_remuneration;
       },
     ),
@@ -83,7 +83,7 @@ export const coachPaymentRuleFieldsSchema = Yup.object().shape({
   exclude_cancelled_from_confirmed_bookings: Yup.boolean().test(
     'exlude_cancelled_from_confirmed_bookings',
     'paymentRules:coach_payment_rules.Errors.invalidCancelledBookingRules',
-    (item) => {
+    function (item) {
       if (item && this.parent.remuneration_on_cancellation) {
         return (
           this.parent.bonus_for_cancelled_bookings.length !== 0 ||

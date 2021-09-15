@@ -4180,7 +4180,7 @@
                 "listItem": "Geplande opzegging van het abonnement"
             },
             "invoice": {
-                "label": "Factuur {{uuid}} : €{{price}}"
+                "label": "Factuur {{uuid}} : {{price}}"
             },
             "listItem": {
                 "recurrencePriceIs": "Terugkerende betaling: {{currencyDisplay}}{{ amount }}",
@@ -5979,6 +5979,55 @@
                 "0": "Gepauzeerd"
             },
             "title": "Mijn uitbetalingen"
+        },
+        "interval": {
+            "week": "week",
+            "week_plural": "weken",
+            "year": "jaar",
+            "year_plural": "jaar",
+            "day": "dag",
+            "day_plural": "dagen",
+            "month": "maand",
+            "month_plural": "maanden"
+        },
+        "instalment": {
+            "form": {
+                "recurrence_basis": {
+                    "intervalName": {
+                        "week": "week",
+                        "week_plural": "weken",
+                        "year": "jaar",
+                        "year_plural": "jaar",
+                        "month": "maand",
+                        "month_plural": "maanden",
+                        "day": "dag",
+                        "day_plural": "dagen"
+                    },
+                    "label": "Wordt iedere",
+                    "helperText": " "
+                },
+                "actions": {
+                    "next": "Volgende",
+                    "submit": "Bevestigen",
+                    "previous": "Terug",
+                    "close": "Sluiten"
+                },
+                "title": {
+                    "scheduler": "Tijdlijn",
+                    "payment": "Betaalmethode"
+                },
+                "nb_interval": {
+                    "label": "Aantal facturen"
+                },
+                "interval": {
+                    "label": "Herhaling",
+                    "helperText": "Aantal facturen / kaarten"
+                },
+                "recurrence": {
+                    "section": "Herhaling",
+                    "explain": "Iedere {{ recurrence_basis }}{{ interval }} wordt een betaling geïncasseerd verspreid over {{ total_interval_duration }}{{ interval }}. In totaal wordt er {{ nb_interval }} keer geïncasseerd."
+                }
+            }
         }
     },
     "snackbar": {
@@ -7225,7 +7274,8 @@
                 "actions": "Acties ",
                 "smartlist_count": "Tags",
                 "member_count": "Getagde leden",
-                "tag": "Sub-tag"
+                "tag": "Sub-tag",
+                "coupon_count": " "
             },
             "submit": "Bevestig",
             "cancel": "Annuleer",
@@ -7697,7 +7747,8 @@
                 "cancel": "Annuleren",
                 "revert": "Annuleren",
                 "pay": "Factuur betalen",
-                "basketInconsistent": "Uw winkelmandje is gewijzigd, ververs uw pagina voordat u uw betaling valideert.\nEr zijn verder geen kosten in rekening gebracht."
+                "basketInconsistent": "Uw winkelmandje is gewijzigd, ververs uw pagina voordat u uw betaling valideert.\nEr zijn verder geen kosten in rekening gebracht.",
+                "billByInstalment": "Termijnbetaling"
             },
             "sumup": {
                 "amountPaid": "Betaald",

@@ -2636,7 +2636,7 @@
             }
         },
         "mail": {
-            "sendMailTitle": "Een e-mail versturen",
+            "sendMailTitle": "Send a message",
             "sendMail": "Een bericht versturen",
             "send": "Verzenden",
             "noMailAvailable": "Er zijn nog geen e-mailsjablonen aangemaakt en beschikbaar.",
@@ -8241,7 +8241,9 @@
             },
             "marketingNotification": "Meldingen",
             "custom_form": "Formulieren",
-            "tags": "Tags"
+            "tags": "Tags",
+            "addMemberTooltip": "Een lid toevoegen",
+            "cashBookTooltip": "Kasboek"
         },
         "deprecatedNavigator": {
             "close": "Sluiten",

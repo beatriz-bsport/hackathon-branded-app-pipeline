@@ -7,6 +7,8 @@ exports.default = {
       "Vous n'avez pas entré de moyen de paiement pour votre abonnement bsport. Cliquez ici.",
   },
   backofficeMenu: {
+    cashBookTooltip: 'Livret de caisse',
+    addMemberTooltip: 'Ajouter membre',
     cashBook: {
       close: 'Fermer',
       cashDialogTitle: 'Livret de caisse',

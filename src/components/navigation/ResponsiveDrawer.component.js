@@ -70,6 +70,7 @@ import type { TFunction } from 'react-i18next';
 import { push as pushRouter } from 'connected-react-router';
 
 import { colors } from '@bsport/common/lib/colors';
+import Tooltip from '@material-ui/core/Tooltip';
 import BillingBanner from './BillingBanner.component';
 import LanguageButton from '../button/LanguageButton.component';
 import TempPasswordDialog from '../../libs/login/components/TempPasswordDialog.component';
@@ -380,13 +381,25 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                             this.props.fetchCashBook(this.props.theme.company);
                           }}
                         >
-                          <BusinessCenterIcon />
+                          <Tooltip
+                            title={this.props.t(
+                              'navigation:backofficeMenu.cashBookTooltip',
+                            )}
+                          >
+                            <BusinessCenterIcon />
+                          </Tooltip>
                         </IconButton>
                       </Grid>
                     )}
                     <Grid item>
                       <IconButton onClick={this.props.openCreateMember}>
-                        <PersonAddIcon />
+                        <Tooltip
+                          title={this.props.t(
+                            'navigation:backofficeMenu.addMemberTooltip',
+                          )}
+                        >
+                          <PersonAddIcon />
+                        </Tooltip>
                       </IconButton>
                     </Grid>
                     <Grid item>

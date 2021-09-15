@@ -14,6 +14,7 @@ import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import BlockIcon from '@material-ui/icons/Block';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
+import Analytics from '../../../../components/analytics/Analytics.component';
 
 import { RootState } from '../../../../reducers';
 import ConsumerAppBarContainer from '../../ConsumerAppBar.container';
@@ -244,8 +245,10 @@ class OfferBooking extends React.PureComponent<Props, State> {
       data.consumer_payment_pack = this.state.selectedPack.consumerPaymentPack.id;
     } else if (this.state.selectedPack.paymentPack) {
       data.payment_pack = this.state.selectedPack.paymentPack.id;
+      Analytics.addPassToCart(this.state.selectedPack.paymentPack);
     } else if (this.state.selectedPack.paymentPackCombo) {
       data.payment_combo = this.state.selectedPack.paymentPackCombo.id;
+      Analytics.addPackToCart(this.state.selectedPack.paymentPackCombo);
     }
 
     data.offers = [

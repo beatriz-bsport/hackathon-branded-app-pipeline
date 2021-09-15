@@ -123,20 +123,18 @@ export class BasketPage extends React.Component<Props> {
       this.props.fetchCurrentBasket(this.props.companyId);
       this.props.fetchpaymentMethod({ company: this.props.companyId });
     }
-    if (
-      this.props.basket &&
-      !prevProps.basket &&
-      !!this.props.basket.total_price_cts
-    ) {
+    if (this.props.basket && !prevProps.basket) {
       Analytics.showBasket(this.props.basket);
-      this.getSecret();
+      if (this.props.basket.total_price_cts) {
+        this.getSecret();
+      }
     }
     if (
       !!this.props.basket &&
       !!prevProps.basket &&
-      this.props.basket.total_price_cts !== prevProps.basket.total_price_cts
+      this.props.basket.total_price_cts !== prevProps.basket.total_price_cts &&
+      this.props.basket.total_price_cts
     ) {
-      Analytics.showBasket(this.props.basket);
       this.getSecret();
     }
   }
@@ -170,9 +168,11 @@ export class BasketPage extends React.Component<Props> {
     if (this.props.auth.authenticated) {
       this.props.fetchProfile();
     }
-    if (this.props.basket && !!this.props.basket.total_price_cts) {
+    if (this.props.basket) {
       Analytics.showBasket(this.props.basket);
-      this.getSecret();
+      if (this.props.basket.total_price_cts) {
+        this.getSecret();
+      }
     }
     if (this.props.companyId) {
       this.props.fetchpaymentMethod({ company: this.props.companyId });
@@ -191,6 +191,7 @@ export class BasketPage extends React.Component<Props> {
       .then((r) => {
         if (r.data >= 200) {
           setTimeout(() => {
+            Analytics.onPaymentSuccess(this.props.basket);
             this.props.onSuccess();
             if (callback) callback();
           }, 2000);
@@ -417,8 +418,6 @@ export default compose(
         extra_data: {},
       }),
     onSuccess: ({ replace, basket, queryParams }) => () => {
-      Analytics.onPaymentSuccess(basket);
-
       replace(
         `/checkout/${basket.company}/validation/?basket=${basket.id}${
           queryParams?.user_registration_response

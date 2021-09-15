@@ -2404,7 +2404,7 @@
         },
         "send": {
             "error": "Error while sending",
-            "success": "The message is being sent..."
+            "success": "Sending..."
         }
     },
     "privateService": {
@@ -4203,7 +4203,8 @@
                 "actions": "Actions ",
                 "smartlist_count": "Tag Rules",
                 "member_count": "Tagged members",
-                "tag": "Sub Tag"
+                "tag": "Sub Tag",
+                "coupon_count": " "
             },
             "submit": "Confirm",
             "cancel": "Cancel",
@@ -4332,7 +4333,7 @@
             "goToLogin": "Back",
             "linkExpired": "Your validation link has expired",
             "hasSentAgain": "Email sent",
-            "sendAgain": "Send a confirmation email again",
+            "sendAgain": "Resend a confirmation email",
             "success": "Your email has been validated, you will be redirected within a few seconds.",
             "explain": "We sent you a validation email, you're almost there!"
         },
@@ -5288,6 +5289,55 @@
                 "0": "Pending"
             },
             "title": "My payouts"
+        },
+        "instalment": {
+            "form": {
+                "recurrence_basis": {
+                    "intervalName": {
+                        "week": "week",
+                        "week_plural": "weeks",
+                        "day": "day",
+                        "day_plural": "days",
+                        "month": "month",
+                        "month_plural": "months",
+                        "year": "year",
+                        "year_plural": "years"
+                    },
+                    "helperText": " ",
+                    "label": "Repeat every"
+                },
+                "recurrence": {
+                    "explain": "The payment will be spread over {{total_interval_duration}} {{interval}} every {{recurrence_basis}} {{interval}} and will generate {{nb_interval}} collections",
+                    "section": "Recurrence"
+                },
+                "interval": {
+                    "helperText": "Frequency of generated invoices / passes",
+                    "label": "Interval"
+                },
+                "nb_interval": {
+                    "label": "Number of invoices"
+                },
+                "actions": {
+                    "close": "Close",
+                    "previous": "Previous",
+                    "next": "Next",
+                    "submit": "Confirm"
+                },
+                "title": {
+                    "payment": "Payment method",
+                    "scheduler": "Timeline"
+                }
+            }
+        },
+        "interval": {
+            "week": "week",
+            "week_plural": "weeks",
+            "day": "day",
+            "day_plural": "days",
+            "year": "year",
+            "year_plural": "years",
+            "month": "month",
+            "month_plural": "months"
         }
     },
     "invoice": {
@@ -5525,7 +5575,8 @@
                 "revert": "Cancel",
                 "pay": "Pay invoice",
                 "bill": "Take payment",
-                "basketInconsistent": "Your cart has been modified, please refresh your page before validating your payment.\n You have not been charged."
+                "basketInconsistent": "Your cart has been modified, please refresh your page before validating your payment.\n You have not been charged.",
+                "billByInstalment": "Instalment payments"
             },
             "sumup": {
                 "amountRemaining": "Remaining amount to pay",
@@ -5784,7 +5835,7 @@
                 "summary": "The date of the last programmed payment will be {{-date}}, it will correspond to the last valid card."
             },
             "invoice": {
-                "label": "Invoice {{uuid}} : €{{price}}"
+                "label": "Invoice {{uuid}} : {{price}}"
             },
             "listItem": {
                 "nextBillingDate": "Next billing on {{ d }}",
@@ -9040,7 +9091,9 @@
             },
             "marketingNotification": "Notifications",
             "custom_form": "Forms",
-            "tags": "Tags"
+            "tags": "Tags",
+            "addMemberTooltip": "Add member",
+            "cashBookTooltip": "Ledger"
         },
         "deprecatedNavigator": {
             "navigatorError": "It seems that your browser is too old to use our services. You may encounter errors, we recommend that you download a more recent version, in particular : ",

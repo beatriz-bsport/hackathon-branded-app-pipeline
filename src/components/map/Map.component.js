@@ -8,6 +8,9 @@ import Typography from '@material-ui/core/Typography';
 
 import './Map.css';
 
+import type { MarkerType } from './types';
+import { centerMarker, setZoom, maxDistance } from './utils';
+
 const TILE_LAYER_URL =
   'https://cartodb-basemaps-{s}.global.ssl.fastly.net/{variant}/{z}/{x}/{y}{r}.png';
 
@@ -15,18 +18,8 @@ const MARKER_ASSET = require('./marker-icon-2x.png');
 
 const CENTER = [48.86, 2.33];
 
-type MarkerType = {
-  title: string,
-  id: number,
-  location: {
-    latitude: number,
-    longitude: number,
-    address: string,
-  },
-};
 type Props = {
   markers: ?Array<MarkerType>,
-  center: ?[number, number],
   zoom: number,
   mapContainerClassName?: string,
 };
@@ -46,7 +39,20 @@ export default class MyMap extends Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    this.state.zoom = props.zoom || 12;
+    this.state.zoom = props.zoom || setZoom(maxDistance(props.markers || []));
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (
+      (prevProps &&
+        prevProps.markers?.length === 0 &&
+        this.props.markers?.length !== 0) ||
+      prevProps.markers?.length !== this.props.markers?.length
+    ) {
+      this.setState({
+        zoom: setZoom(maxDistance(this.props.markers)),
+      });
+    }
   }
 
   renderMarker = (marker: MarkerType) => {
@@ -79,7 +85,8 @@ export default class MyMap extends Component<Props, State> {
 
   render() {
     const { markers, mapContainerClassName } = this.props;
-    const center = this.props.center || CENTER;
+    const center = markers && markers.length ? centerMarker(markers) : CENTER;
+
     return (
       <div className={`map-container ${mapContainerClassName || ''}`}>
         <Map

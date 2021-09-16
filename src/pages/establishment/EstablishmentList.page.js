@@ -99,7 +99,11 @@ export class EstablishmentList extends React.Component<Props, State> {
   };
 
   render() {
-    if ((this.props.establishments || []).length === 0 && !this.props.loading) {
+    if (
+      (this.props.establishments || []).length === 0 &&
+      !this.props.loading &&
+      (this.props.establishmentsArchived || []).length === 0
+    ) {
       return (
         <IsEmptyList
           text={this.props.t('noEstablishement')}

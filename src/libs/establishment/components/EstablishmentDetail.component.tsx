@@ -20,7 +20,9 @@ import EstablishmentSpotScheduling from './EstablishmentSpotScheduling.component
 import { DATE_FORMAT } from '../../../utils/datetime';
 import { RoomBlueprint } from '../../spot-scheduling/types';
 import { MaterialStyleType } from '../../../utils/types';
+import { centerMarker } from '../../../components/map/utils';
 
+const CENTER = [48.86, 2.33];
 const DEFAULT_SPORT = 7;
 
 type OwnProps = {
@@ -130,6 +132,8 @@ export class EstablishmentDetail extends Component<Props, State> {
 
   render() {
     const { classes, t, establishment } = this.props;
+    const markers = [establishment];
+    const center = markers && markers.length ? centerMarker(markers) : CENTER;
     return (
       <div>
         <Grid container direction="row">
@@ -141,7 +145,7 @@ export class EstablishmentDetail extends Component<Props, State> {
             </Grid>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Map markers={[establishment]} markerClicked={() => {}} />
+            <Map markers={markers} markerClicked={() => {}} center={center} />
           </Grid>
 
           <Grid container direction="row">

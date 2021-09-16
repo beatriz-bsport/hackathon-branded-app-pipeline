@@ -1,0 +1,102 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import CoachPaymentRuleSelector from "./CoachPaymentRuleSelector.component"
+
+<Meta title="library/coach-payment-rule/selector/CoachPaymentRuleSelector" component={CoachPaymentRuleSelector}
+    argTypes={{
+        coachPaymentRulesList :{
+            description :"A list of CoachPaymentRules.",
+            table: {
+                type: {
+                    summary: "Array<CoachPaymentRule>"
+                },
+                defaultValue: {
+                    summary: "None"
+                }
+            }
+        },
+        isOverride :{
+            description :"If true, selection can be overridden",
+            table: {
+                type: {
+                    summary:"boolean"
+                },
+                defaultValue: {
+                    summary:"false"
+                }
+            }
+        },
+        enableReset :{
+            description :"If true, add an option with id -9999 that matches the default coach payment Rule",
+            table: {
+                type: {
+                    summary: "boolean"
+                },
+                defaultValue: {
+                    summary: "false"
+                }
+            }
+        },
+        disabled :{
+            description :"If true, can't make any selection",
+            table: {
+                type: {
+                    summary: "boolean"
+                },
+                defaultValue: {
+                    summary: "false"
+                }
+            }
+        },
+        selected :{
+            description :"Id of the selected payment rule",
+            table: {
+                type: {
+                    summary: "number"
+                },
+                defaultValue: {
+                    summary: "None"
+                }
+            }
+        },
+    }}/>
+
+export const Template = (args) => < CoachPaymentRuleSelector {...args} />;
+
+# Coach Payment Rule Selector
+
+## Before Selection
+
+<Canvas>
+    <Story 
+    name="CoachPaymentRuleSelector"
+    args={{
+        coachPaymentRulesList : [{id : 1, name : 'hourly pay'}, {id : 2, name : 'fixed remuneration'} ],
+        isOverride:true,
+        enableReset:false,
+        disabled:false,
+        selected:0,
+    }}>       
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## After  Selection
+
+<Canvas>
+    <Story 
+    name="CoachPaymentRuleSelector2"
+    args={{
+        coachPaymentRulesList : [{id : 1, name : 'hourly pay'}, {id : 2, name : 'fixed remuneration'} ],
+        isOverride:true,
+        enableReset:false,
+        disabled:false,
+        selected:2,
+    }}>       
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+
+<ArgsTable story="CoachPaymentRuleSelector" />
+
+

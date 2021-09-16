@@ -669,10 +669,12 @@ const styles = (theme: Theme) => ({
     alignItems: 'center',
     overflowY: 'auto',
     backgroundColor: 'white',
+    [theme.breakpoints.up('md')]: {
+      paddingBottom: theme.spacing(3),
+    },
   },
   contentContainer: {
     width: '100%',
-    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     [theme.breakpoints.up('sm')]: {

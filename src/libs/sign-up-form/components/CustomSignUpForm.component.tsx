@@ -262,7 +262,7 @@ class CustomSignUpFormFieldsRoot extends React.Component<Props, State> {
       <form onSubmit={this.submitInfo}>
         <Grid container direction="row">
           {FormFieldEnumOrdering.map((field) => {
-            if (signUpConfigDict.poll_fields[field].show_on_creation) {
+            if (signUpConfigDict.poll_fields[field]?.show_on_creation) {
               return FormFieldWrapper(
                 signUpConfigDict.poll_fields[field].field_identifier,
                 <FormField

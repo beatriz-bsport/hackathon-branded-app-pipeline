@@ -1,0 +1,146 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import CustomFormBuilderField from "./CustomFormBuilderField.selector"
+
+<Meta title="library/custom-form/fields-form/selector/CustomFormBuilderField.selector"
+    component={CustomFormBuilderField}
+    argTypes ={{
+        formFieldOptionList :{
+            description :"Custom Form Field Option List. Depending on the value of the option, it can be a title (1), a paragraph (2), a short answer (3), a long answer (4), a radio (5), a checkbox (6), a select (7), a signature (8) or a file (9)",
+            table: {
+                type: {
+                    summary: "Array<Option>"
+                },
+                defaultValue: {
+                    summary: "None"
+                }
+            }
+        },
+        selectedOptions :{
+            description :"Option selected",
+            table: {
+                type: {
+                    summary: "Array<number>"
+                },
+                defaultValue: {
+                    summary: "None"
+                }
+            }
+        },
+        closeMenuOnSelect :{
+            description :"When true, close menu on select",
+            table: {
+                type: {
+                    summary: "boolean"
+                },
+                defaultValue: {
+                    summary: "true"
+                }
+            }
+        },
+        noMulti :{
+            description :"When true, allow multiple selection",
+            table: {
+                type: {
+                    summary: "boolean"
+                },
+                defaultValue: {
+                    summary: "true"
+                }
+            }
+        },
+        placeholder :{
+            description :"Default text when nothing is displayed",
+            table: {
+                type: {
+                    summary: "string"
+                },
+                defaultValue: {
+                    summary: "option"
+                }
+            }
+        },
+        isClearable :{
+            description :"When true, allow to clear the selection",
+            table: {
+                type: {
+                    summary: "boolean"
+                },
+                defaultValue: {
+                    summary: "true"
+                }
+            }
+        },
+        disabled :{
+            description :"When true, impossible to select",
+            table: {
+                type: {
+                    summary: "boolean"
+                },
+                defaultValue: {
+                    summary: "false"
+                }
+            }
+        },
+    }}/>
+
+export const Template = (args) => <CustomFormBuilderField {...args} />;
+
+#  Custom Form Builder Field Selector
+
+## Before Selection
+
+<Canvas>
+    <Story 
+    name="CustomFormBuilderField"
+    args={{
+        selectedOptions:[],
+        formFieldOptionList:[
+            {label: "title", value: 0},
+            {label: "paragraph", value: 1},
+            {label: "short_answer", value: 2},
+            {label: "long_answer", value: 3},
+            {label: "radio", value: 4},
+            {label: "check_box", value: 5},
+            {label: "select", value: 6},
+            {label: "signature", value: 7},
+            {label: "file", value: 8},
+        ],
+        closeMenuOnSelect:true,
+        noMulti:true,
+        placeholder:"Select an option",
+        isClearable:true,
+        disabled:false
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+# After Selection
+
+<Canvas>
+    <Story 
+    name="CustomFormBuilderField2"
+    args={{
+        selectedOptions:[1],
+        formFieldOptionList:[
+            {label: "title", value: 0},
+            {label: "paragraph", value: 1},
+            {label: "short_answer", value: 2},
+            {label: "long_answer", value: 3},
+            {label: "radio", value: 4},
+            {label: "check_box", value: 5},
+            {label: "select", value: 6},
+            {label: "signature", value: 7},
+            {label: "file", value: 8},
+        ],
+        closeMenuOnSelect:true,
+        noMulti:true,
+        placeholer:"option",
+        isClearable:true,
+        disabled:false
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story="CustomFormBuilderField"/>

@@ -997,7 +997,7 @@
             "broadcast_link": "De link naar de online les",
             "effectif": "Beschikbare plaatsen",
             "maxBookingsNb": "plaatsen",
-            "nonAttendant": "Afwezig",
+            "nonAttendant": "afwezig",
             "attendant": "aanwezig",
             "noEmptyDuration": "De duur kan enkel positief zijn",
             "restoreModal": {
@@ -1573,7 +1573,7 @@
         "signup": {
             "title": "Inschrijven"
         },
-        "contactUs": "Neem vrijblijvend contact met ons op en ontdek hoe we uw onderneming helpen om de volgende stap te zetten met het stroomlijnen, vereenvoudigen en automatiseren van al uw dagelijkse taken.",
+        "contactUs": "Neem vrijblijvend contact met ons team op en ontdek hoe BSPORT Solution uw onderneming helpen om de volgende stap te zetten met het stroomlijnen, vereenvoudigen en automatiseren van al uw dagelijkse taken.",
         "or": " of ",
         "country": {
             "ES": "Spanje",
@@ -3616,7 +3616,7 @@
                     "title": "Evenement"
                 },
                 "explain": "Voeg een melding toe om je leden automatisch te contacteren aan de hand van een aantal criteria.",
-                "notifyAllEvents": "Deze melding bij elke reservering versturen",
+                "notifyAllEvents": "Deze melding bij elke reservering of annulering versturen",
                 "bookingNumber_n": "Reservering: {{notify_booking_nb}}",
                 "bookingNumber": "Alle reserveringen",
                 "bookingNumber_plural": "1e reservering",

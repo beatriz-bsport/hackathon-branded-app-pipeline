@@ -1,0 +1,67 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import CoachSelectorWithColorCode from "./CoachSelectorWithColorCode.component"
+import {coachesFactory} from "../factories";
+
+<Meta 
+    title="library/coach/selector/CoachSelectorWithColorCode " 
+    component={CoachSelectorWithColorCode}
+    argTypes={{
+        coachId:{
+            description:"Id of the selected coach",
+            table:{
+                type:{
+                    summary:"number"
+                    },  
+                defaultValue:{
+                    summary:"None"
+                    }
+            }
+        },
+        associatedCoachList:{
+            description:"Coaches that can be selected",
+            table:{
+                type:{
+                    summary:"Array<Coach>"
+                    },  
+                defaultValue:{
+                    summary:"None"
+                    }
+            }
+        },
+        loading:{
+            description:"define if the selection is loading",
+            table:{
+                type:{
+                    summary:"bolean"
+                    },  
+                defaultValue:{
+                    summary:"true"
+                    }
+            }
+        },
+        onChangeCoach:{action:"hello"},
+        updateCoach:{action:""}
+    }}
+/>
+
+
+export const Template =(args)=><CoachSelectorWithColorCode {...args}/>
+
+# Coach Selector With Color Code
+
+This `CoachSelectorWithColorCode` component allows to select a coach and then personalize his color
+
+<Canvas>
+    <Story
+        name="Color Code"
+        args={{
+            coachId:1,
+            loading:false,
+            associatedCoachList:coachesFactory(5),
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story="Color Code" />

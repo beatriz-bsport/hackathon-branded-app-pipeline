@@ -1,0 +1,96 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import CoachSelector from "./CoachSelectorWithCard.component"
+import {coachesFactory} from "../factories";
+
+
+
+<Meta 
+  title="library/coach/selector/CoachSelectorWithCard" 
+  component={CoachSelector}
+  argTypes={{
+        coaches:{
+            description:"List of the coaches",
+            table:{
+                type:{
+                    summary:"Array<Coach>"
+                    },  
+                defaultValue:{
+                    summary:"None"
+                    }
+            }
+        },
+        placeholder:{
+            description:"Default text when nothing is selected",
+            table:{
+                type:{
+                    summary:"string"
+                    },  
+                defaultValue:{
+                    summary:"None"
+                    }
+            }
+            
+        },
+        value:{
+          description:"Selected coach",
+          table:{
+                type:{
+                    summary:"Coach"
+                    },  
+                defaultValue:{
+                    summary:"None"
+                    }
+            }
+        },
+        onChange:{action:"coucou"}
+    }}   
+/>
+
+export const Template = (args) => <CoachSelector {...args} />;
+
+# Coach Selector with Card
+
+
+This `Coach Selector` allows to select a single coach and the coach replace the selector when selected.
+
+### When no teacher is selected
+
+
+<Canvas>
+  <Story 
+    name="NoTeacherSelected"
+    args={{
+        coaches:coachesFactory(10),
+        placeholder:"Select a coach",
+        value:null,
+    }}
+  >
+  {Template.bind({})}
+  </Story>
+</Canvas>
+
+
+
+
+
+### When a teacher is selected
+
+<Canvas>
+  <Story 
+    name="Teacher Selected"
+    args={{
+        coaches:[
+            {name:'Max', id : 1},
+        ],
+        placeholder:"Select a coach",
+        value:{name:'Max', id : 1},
+        id:"Coach",
+        classes:null
+    }}
+  >
+  {Template.bind({})}
+  </Story>
+</Canvas>
+
+
+<ArgsTable story="NoTeacherSelected" />

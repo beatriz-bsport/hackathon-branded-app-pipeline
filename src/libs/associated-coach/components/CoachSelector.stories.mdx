@@ -1,0 +1,154 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import CoachSelector from './CoachSelector.component';
+import {coachesFactory} from "../factories";
+
+
+
+<Meta 
+    title="library/coach/selector/CoachSelector" 
+    component={CoachSelector} 
+    argTypes={{
+        coaches:{
+            description:"List of the coaches",
+            table:{
+                type:{
+                    summary:"Array<Coach>"
+                    },  
+                defaultValue:{
+                    summary:"None"
+                    }
+            }
+        },
+        placeholder:{
+            description:"Default text when no selection",
+            table:{
+                type:{
+                    summary:"string"
+                },
+                defaultValue:{
+                    summary:"coach"
+                }
+                
+            }
+        },
+        noMulti:{
+            description:"If true, no possible multiple selection",
+            table:{
+                type:{
+                    summary:"bolean"
+                    },  
+                defaultValue:{
+                    summary:"false"
+                    }
+            }
+        },
+        isDisabled:{
+            description:"If true, can't touch the button",
+            table:{
+                type:{
+                    summary:"bolean"
+                    },  
+                defaultValue:{
+                    summary:"false"
+                    }
+            }
+        },
+        closeMenuOnSelect:{
+            description:"If true, close the menu after a selection",
+            table:{
+                type:{
+                    summary:"bolean"
+                    },  
+                defaultValue:{
+                    summary:"true"
+                    }
+            }
+        },
+        associatedCoachOutput:{
+            description:"If true, two coaches which have thes same coach associated id can't be selected together",
+            table:{
+                type:{
+                    summary:"bolean"
+                    },  
+                defaultValue:{
+                    summary:"false"
+                    }
+            }
+        },
+        isClearable:{
+            description:"If true, you can clear selections",
+            table:{
+                type:{
+                    summary:"bolean"
+                    },  
+                defaultValue:{
+                    summary:"true"
+                    }
+            }
+        },
+        isLoading:{
+            description:"If true, there is a little sign on the right showing that the selector is loading",
+            table:{
+                type:{
+                    summary:"bolean"
+                    },  
+                defaultValue:{
+                    summary:"false"
+                    }
+            }
+        }
+        
+    }}  
+/>
+
+export const Template = (args) => <CoachSelector {...args} />;
+
+# Coach Selector
+
+This `CoachSelector` is a simple coach selector
+
+### Selector with multiple select 
+
+<Canvas>
+    <Story
+    name="MultipleSelect"
+    args={{ 
+        coaches : coachesFactory(5),
+        placeholder:"Enter text",
+        noMulti:false,
+        isDisabled:false,
+        closeMenuOnSelect:true,
+        isClearable:true,
+        associatedCoachOutput:false,
+        isLoading:false,
+        }}
+    >
+    
+    {Template.bind({})}
+    </Story>
+</Canvas>
+
+
+### Selector with simple select 
+
+<Canvas>
+    <Story
+    name="Simple Select"
+    args={{ 
+        coaches : coachesFactory(5),
+        placeholder: "Select a coach",
+        noMulti:true,
+        isDisabled:false,
+        closeMenuOnSelect:true,
+        isClearable:true,
+        associatedCoachOutput:false,
+        isLoading:false,
+        }}
+    >
+    
+    {Template.bind({})}
+    </Story>
+</Canvas>
+
+
+<ArgsTable story="MultipleSelect"/>

@@ -85,6 +85,7 @@ export default withTranslation(['metaActivity'])(
     selectedMetaActivities,
     variant,
     isLoading,
+    onChange,
   }) => {
     let placeholder = t('metaActivity');
 
@@ -99,7 +100,7 @@ export default withTranslation(['metaActivity'])(
           closeMenuOnSelect={closeMenuOnSelect}
           isMulti={!noMulti}
           placeholder={placeholder}
-          onChange={selectOption}
+          onChange={selectOption || onChange}
           isDisabled={disabled}
           options={getMetaActivityOptions([...metaActivities])}
           value={

@@ -1,0 +1,61 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import MetaActivitySelector from './MetaActivitySelectorWithCard.component';
+import { action } from '@storybook/addon-actions'
+import { meta_activity_factory } from '../factory';
+
+<Meta title="Library/MetaActivity/SelectorWCard" component={MetaActivitySelector} argTypes={{
+  metaActivities:{
+    description: 'every existing activity',
+  },
+  placeholder:{
+    description: "text of the selector",
+  },
+  onChange:{
+    description: "action to execute when the content of the selector changes"
+  },
+  value:{
+    description: "selected activity"
+  }
+}}/>
+
+export const actionsData = {
+  onChange: action('onChange')
+}
+
+export const Template = (args) => <MetaActivitySelector {...args} />;
+
+export const activities = meta_activity_factory(8)
+
+# Activities
+
+Possibility to select activities
+
+<Canvas isColumn={true}>
+  <Story
+    name="select"
+    args={{
+      metaActivities: activities,
+      onChange: actionsData.onChange,
+      placeholder: 'activity',
+    }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+# Already chosen activity
+
+When the page is opened, the concerned activity is already selected, only one selection at a time
+
+<Canvas>
+  <Story
+    name="selected"
+    args={{
+      metaActivities: activities,
+      onChange: actionsData.onChange,
+      value: activities[0],
+    }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story='select'/>

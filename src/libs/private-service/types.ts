@@ -29,7 +29,7 @@ export type AvailabilitySlot = {
 export type PrivateServiceGroup = {
   id: number;
   name: string;
-  private_services: number;
+  private_services: number[];
 };
 
 export type PrivateService<C = number, E = number, S = number> = {

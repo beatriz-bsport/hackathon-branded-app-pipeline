@@ -1,0 +1,68 @@
+import { Meta, Canvas, Story } from '@storybook/addon-docs';
+import PrivateServiceGroupSelector from './PrivateServiceGroupSelector.component';
+import { action } from '@storybook/addon-actions';
+import { private_service_groups_factory } from '../../factory.ts';
+
+<Meta 
+    title="Library/PrivateBooking/Selector/PrivateServiceGroupSelector"
+    component={PrivateServiceGroupSelector}
+    argTypes={{
+        placeholder:{
+            description: "list of every private service available for booking",
+        },
+        serviceGroupList:{
+            description: "list of groups of private services",
+        },
+        isDisabled:{
+            description: "when true, prevents the user from selecting a service group",
+            defaultValue: false,
+        },
+        onChange:{
+            description: "action to execute when the selected service changes",
+        },
+        value: {
+            description: "selected element",
+            defaultValue: null,
+        }
+    }}
+/>
+
+export const actionsData = {
+    onChange: action('onChange')
+};
+
+export const Template = (args) => <PrivateServiceGroupSelector {...args} />;
+
+export const serviceGroupList = private_service_groups_factory(10);
+
+#SELECT A GROUP
+
+<Canvas>
+    <Story
+    name="select"
+    args={{
+        placeholder: "Select your group",
+        isDisabled: false,
+        serviceGroupList: serviceGroupList,
+        value: null,
+        onChange: actionsData.onChange,
+    }}>
+    {Template.bind({})}
+    </Story>
+</Canvas>
+
+#WITH A SELECTED GROUP
+
+<Canvas>
+    <Story
+    name="select-with-selected-group"
+    args={{
+        placeholder: "Select your group",
+        isDisabled: false,
+        serviceGroupList: serviceGroupList,
+        value: serviceGroupList[0].id,
+        onChange: actionsData.onChange,
+    }}>
+    {Template.bind({})}
+    </Story>
+</Canvas>

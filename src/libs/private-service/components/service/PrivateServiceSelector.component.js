@@ -17,7 +17,7 @@ type Props = {
   t: TFunction,
 };
 export const PrivateSlotSelector = (props: Props) => {
-  const privateServiceOptions = props.privateServices.asMutable().map((ps) => ({
+  const privateServiceOptions = [...props.privateServices].map((ps) => ({
     label: ps.name,
     value: ps.id,
   }));

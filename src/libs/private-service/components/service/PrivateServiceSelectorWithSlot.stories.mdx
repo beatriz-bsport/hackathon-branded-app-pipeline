@@ -1,0 +1,64 @@
+import { Meta, Canvas, Story } from '@storybook/addon-docs';
+import PrivateServiceSelectorWithSlot from './PrivateServiceSelectorWithSlot.component';
+import { action } from '@storybook/addon-actions';
+import { private_services_factory } from '../../factory.ts';
+
+<Meta 
+    title="Library/PrivateBooking/Selector/PrivateServiceSelectorWithSlot"
+    component={PrivateServiceSelectorWithSlot}
+    argTypes={{
+        privateServiceList:{
+            description: "list of every private service available for booking",
+        },
+        privateServiceId:{
+            description: "id of the currently selected private service",
+            defaultValue: null,
+        },
+        privateSlotId:{
+            description: "id of the currently selected slot",
+            defaultValue: null,
+        },
+        onSelect:{
+            description: "action to execute when the selected service changes",
+        },
+    }}
+/>
+
+
+export const actionsData = {
+    onSelect: action('onSelect')
+};
+
+export const Template = (args) => <PrivateServiceSelectorWithSlot {...args} />;
+
+export const privateServices = private_services_factory(5);
+
+#SELECT A PRIVATE SERVICE SLOT
+
+<Canvas>
+    <Story
+    name="select"
+    args={{
+        privateServiceId: null,
+        privateSlotId: null,
+        privateServiceList: privateServices,
+        onSelect: actionsData.onSelect,
+    }}>
+    {Template.bind({})}
+    </Story>
+</Canvas>
+
+#SELECTED PRIVATE SERVICE SLOT
+
+<Canvas>
+    <Story
+    name="select-with-selected-slot"
+    args={{
+        privateServiceId: privateServices[0].id,
+        privateSlotId: privateServices[0].slots[0].id,
+        privateServiceList: privateServices,
+        onSelect: actionsData.onSelect,
+    }}>
+    {Template.bind({})}
+    </Story>
+</Canvas>

@@ -1647,12 +1647,7 @@
         "availableCustomer": "Disponible à la vente en ligne",
         "managerOnly": "Non-disponible à la vente"
       },
-      "parameters": {
-        "nbCredits": "{{ credits }} crédit",
-        "price": "{{ price, price}}",
-        "tax": "TVA: {{ tax }}%",
-        "managerOnly": "Invisible pour les clients"
-      },
+      "parameters": { "nbCredits": "{{ credits }} crédit", "tax": "TVA: {{ tax }}%", "managerOnly": "Invisible pour les clients" },
       "compatibleServices": { "title": "RDV compatibles", "add": "Ajouter", "isEmpty": "Aucun rendez-vous n'est compatible - inutilisable" },
       "form": {
         "title": "Carte RDV",
@@ -3383,6 +3378,7 @@
         "title": { "scheduler": "Échéancier", "payment": "Moyen de paiement" },
         "actions": { "submit": "Confirmer", "next": "Suivant", "previous": "Précédent", "close": "Fermer" },
         "nb_interval": { "label": "Nombre de facturation(s)" },
+        "anchor_date": { "label": "Premier encaissement", "helperText": "Le paiement sera encaissé durant la matinée" },
         "interval": { "label": "Récurrence", "helperText": "Fréquence de génération des factures / cartes" },
         "recurrence": {
           "section": "Récurrence",
@@ -4711,13 +4707,13 @@
     "unevenInvoice": {
       "title": "Facture non-équilibrée",
       "explainUneven": "La facture <1>n°{{uuid, uuid}}</1> n'est pas équilibrée.",
-      "priceDue": "Somme dûe : {{ price_due, price }}.",
-      "pricePayed": "Somme encaissée : {{price_payed, price}}."
+      "priceDue": "Somme dûe : {{ price_due }}.",
+      "pricePayed": "Somme encaissée : {{price_payed }}."
     },
     "newOrder": {
       "title": "Commande en attente",
       "explain": "Payé par <1>{{name}}</1> sur le magasin.",
-      "price": "Montant: {{ price, price }}."
+      "price": "Montant: {{ price }}."
     },
     "privateBookingIncomplete": {
       "explain": "Le RDV de <1>{{name}}</1> n'a pas de professeur désigné.",
@@ -5018,7 +5014,7 @@
     "unlimitedCredits": "Illimité",
     "credits": "Crédits",
     "ht": "Hors-taxe",
-    "specifications": { "nbCredits": "{{credits}} crédits", "unlimitedCredits": "Illimité", "price": "{{price, price}}" },
+    "specifications": { "nbCredits": "{{credits}} crédits", "unlimitedCredits": "Illimité" },
     "availableOnFollowingSports": "Catégories éligibles : ",
     "availableOnFollowingEstablishments": "Salles éligibles : ",
     "anySport": "Toute catégorie",

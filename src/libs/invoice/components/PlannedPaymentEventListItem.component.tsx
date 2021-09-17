@@ -42,12 +42,17 @@ const onlyIfFuture = (
   t: TFunction,
   callback: () => void,
 ) => () => {
-  if (moment(plannedPaymentEvent.future_date).isSameOrBefore(moment())) {
+  if (
+    moment(
+      plannedPaymentEvent.next_retry_date || plannedPaymentEvent.future_date,
+    ).isSameOrBefore(moment())
+  ) {
     if (
       Math.abs(
         moment(plannedPaymentEvent.date_created).diff(moment(), 'minutes'),
       ) > 30
     ) {
+      return callback();
       alert(t('plannedPaymentEvent.lockedToday'));
       return;
     }
@@ -87,7 +92,11 @@ export const PlannedPaymentEventListItem = (props: Props) => {
     onDisable = null;
     onRegisterNow = null;
     onEdit = null;
-    onEnable = props.actions?.onEnable;
+    onEnable =
+      parseInt(props.invoice.amount_paid_cts) +
+        parseInt(props.plannedPaymentEvent.amount_cts) <=
+        parseInt(props.invoice.amount_due_cts) && props.actions?.onEnable;
+
     StatusIcon = RefreshIcon;
   }
 
@@ -96,6 +105,7 @@ export const PlannedPaymentEventListItem = (props: Props) => {
     onRegisterNow = props.actions?.onRegisterNow;
     onEdit = props.actions?.onEdit;
   }
+  console.log(props.invoice);
 
   return (
     <div className={classes.container}>
@@ -113,7 +123,7 @@ export const PlannedPaymentEventListItem = (props: Props) => {
                 : null
             }
           >
-            {(plannedPaymentEvent.amount_cts
+            {(parseInt(plannedPaymentEvent.amount_cts)
               ? `${getCurrencyDisplayWithPrice(
                   parseInt(plannedPaymentEvent.amount_cts) / 100,
                 )} `
@@ -166,11 +176,14 @@ export const PlannedPaymentEventListItem = (props: Props) => {
             props.invoice.amount_paid_cts >= props.invoice.amount_due_cts &&
             props.plannedPaymentEvent.status ===
               PLANNED_PAYMENT_EVENT_STATUS_CANCELED
-          ) && (
-            <IconButton onClick={(ev) => setMenuAnchorEl(ev.currentTarget)}>
-              <MoreVertIcon />
-            </IconButton>
-          )}
+          ) &&
+            (!props.invoice.reverse_invoices ||
+              !props.reverse_invoices?.length) &&
+            !props.invoice.reverted && (
+              <IconButton onClick={(ev) => setMenuAnchorEl(ev.currentTarget)}>
+                <MoreVertIcon />
+              </IconButton>
+            )}
           <Menu
             onClose={() => setMenuAnchorEl(null)}
             open={!!menuAchorEl}

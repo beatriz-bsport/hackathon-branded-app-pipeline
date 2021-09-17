@@ -15,6 +15,8 @@ export type Invoice = {
   price_due: string;
   price_payed: string;
   reverted: boolean;
+  amount_due_cts: string;
+  amount_paid_cts: string;
 };
 
 export type PlannedPaymentEvent = {

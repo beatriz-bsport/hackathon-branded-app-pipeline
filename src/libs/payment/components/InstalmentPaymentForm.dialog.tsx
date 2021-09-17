@@ -103,6 +103,7 @@ const InstalmentPaymentFormDialog = (props: Props) => {
           <PaymentMethodTypeSwitcher
             classes={classes}
             payment_method={paymentConfig.payment_method}
+            disabled={processing || props.loading}
             onChange={(payment_method) =>
               setPaymentConfig({ payment_method, payment_method_id: '' })
             }
@@ -119,6 +120,7 @@ const InstalmentPaymentFormDialog = (props: Props) => {
             requestSetupIntentSecret={props.requestSetupIntentSecret}
             savedPaymentMethodList={props.savedPaymentMethodList}
             refreshSavedPaymentMethodList={props.fetchPaymentMethodList}
+            disabled={processing || props.loading}
             selectPaymentMethod={(payment_method_id) =>
               setPaymentConfig({ ...paymentConfig, payment_method_id })
             }
@@ -135,6 +137,7 @@ const InstalmentPaymentFormDialog = (props: Props) => {
             variant="contained"
             color="primary"
             onClick={() => {
+              setProcessing(true);
               props.onSubmit(
                 {
                   ...data,
@@ -142,7 +145,10 @@ const InstalmentPaymentFormDialog = (props: Props) => {
                 },
                 {
                   onError: () => setProcessing(false),
-                  onSuccess: () => setProcessing(false),
+                  onSuccess: () => {
+                    setProcessing(false);
+                    props.onClose();
+                  },
                 },
               );
             }}

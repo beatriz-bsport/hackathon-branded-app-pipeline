@@ -52,6 +52,10 @@ exports.default = {
       nb_interval: {
         label: 'Nombre de facturation(s)',
       },
+      anchor_date: {
+        label: 'Premier encaissement',
+        helperText: 'Le paiement sera encaissé durant la matinée',
+      },
       interval: {
         label: 'Récurrence',
         helperText: 'Fréquence de génération des factures / cartes',

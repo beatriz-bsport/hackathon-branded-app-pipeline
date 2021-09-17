@@ -170,20 +170,21 @@ const PaymentActions: FC<{
               )}
           </div>
           <div className={classes.buttonRow}>
-            {props.invoice.invoice_type === INVOICE_TYPE_REGULAR && (
-              <Button
-                onClick={props.onInstalmentPayment}
-                variant="contained"
-                color="secondary"
-                disabled={
-                  !props.invoice.member ||
-                  props.amountToPayCts === 0 ||
-                  processing
-                }
-              >
-                {t('paymentPanel.actions.billByInstalment')}
-              </Button>
-            )}
+            {props.invoice.invoice_type === INVOICE_TYPE_REGULAR &&
+              !props.invoice.plannedinvoice && (
+                <Button
+                  onClick={props.onInstalmentPayment}
+                  variant="contained"
+                  color="secondary"
+                  disabled={
+                    !props.invoice.member ||
+                    props.amountToPayCts === 0 ||
+                    processing
+                  }
+                >
+                  {t('paymentPanel.actions.billByInstalment')}
+                </Button>
+              )}
           </div>
         </div>
       )}

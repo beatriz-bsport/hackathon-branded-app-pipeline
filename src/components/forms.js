@@ -28,6 +28,7 @@ import Switch from '@material-ui/core/Switch';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import AddIcon from '@material-ui/icons/Add';
+import moment from 'moment-timezone';
 
 import * as Yup from 'yup';
 
@@ -205,7 +206,10 @@ export const DateField = (props: DateFieldProps) => {
             {...props}
             style={{ minWidth: 120 }}
             onChange={(date) => {
-              setFieldValue(props.name, date);
+              setFieldValue(
+                props.name,
+                props.parseAsString ? moment(date).format('YYYY-MM-DD') : date,
+              );
             }}
             format="L"
             error={!!(touched[field.name] && errors[field.name])}

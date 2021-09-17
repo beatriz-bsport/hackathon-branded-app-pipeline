@@ -13,6 +13,7 @@ import { withFormik } from 'formik';
 import {
   TextField,
   IntervalRecurrenceSelectField,
+  DateField,
 } from '../../../../components/forms';
 
 import InstalmentPaymentPreview from './InstalmentPaymentPreview.component';
@@ -55,6 +56,7 @@ type Props = OwnProps & WithStyles & WithTranslation;
 export class InstalmentPaymentForm extends Component<Props> {
   render() {
     const { classes, t, values } = this.props;
+    console.log(this.props.values.anchor_date);
     return (
       <div className={classes.section}>
         <IntervalRecurrenceSelectField
@@ -90,6 +92,14 @@ export class InstalmentPaymentForm extends Component<Props> {
           required
           fullWidth
         />
+        <div className={classes.field}>
+          <DateField
+            label={t('instalment.form.anchor_date.label')}
+            helperText={t('instalment.form.anchor_date.helperText')}
+            name="anchor_date"
+            parseAsString
+          />
+        </div>
         <InstalmentPaymentPreview
           interval={values.interval}
           recurrence_basis={parseInt(values.recurrence_basis)}

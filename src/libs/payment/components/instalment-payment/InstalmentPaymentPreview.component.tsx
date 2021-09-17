@@ -57,6 +57,7 @@ const InstalPaymentPreview = (props: Props) => {
         <Typography variant="caption">
           {t('instalment.form.recurrence.explain', {
             recurrence_basis,
+            nb_interval,
             interval: t(`interval.${interval}`, {
               count: recurrence_basis,
             }),

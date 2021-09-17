@@ -1,33 +1,21 @@
 // @flow
 import { RootState } from '../../reducers';
-import {
-  FranchiseCompany,
-  FranchiseState,
-  FranchiseTheme,
-  FranchiseUser,
-} from './types';
+import { Franchise, FranchiseState } from './types';
 
 const getState = (state: RootState): FranchiseState => state.franchise;
 
 // Franchise
 
 export const getFranchiseId = (state: RootState): number | null => {
-  if (getState(state).id) {
-    return getState(state).id;
+  if (getState(state)?.franchissor?.id) {
+    return getState(state)?.franchissor?.id;
   }
   return null;
 };
 
-export const getFranchiseName = (state: RootState): string | null => {
-  if (getState(state).name) {
-    return getState(state).name;
-  }
-  return null;
-};
-
-export const getFranchiseTheme = (state: RootState): FranchiseTheme => {
-  if (getState(state)?.theme) {
-    return getState(state)?.theme;
+export const getFranchisor = (state: RootState): Franchise | null => {
+  if (getState(state)?.franchissor) {
+    return getState(state)?.franchissor;
   }
   return null;
 };

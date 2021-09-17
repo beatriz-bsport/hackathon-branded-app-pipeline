@@ -1,24 +1,14 @@
 export type FranchiseState = {
   error: null | boolean;
   loading: boolean;
-  id: null | number;
-  ownedCompanies: null | number[];
-  name: null | string;
-  theme: FranchiseTheme;
-  users: {
-    page: number;
-    count: number;
-    allIds: number[];
-    byId: Record<number, FranchiseUser>;
-  };
-  companies: {
-    allIds: number[];
-    byId: Record<number, FranchiseCompany>;
-  };
+  franchissor?: Franchise;
 };
 
-export type FranchiseTheme = {
+export type Franchise = {
+  id: number;
+  name: string;
+  companies: number[];
   cover?: string;
-  primaryRGB: string;
-  secondaryRGB: string;
+  primaryRGB?: [number, number, number];
+  secondaryRGB: [number, number, number];
 };

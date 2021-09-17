@@ -1,12 +1,12 @@
 import React from 'react';
 import FranchiseDrawer from './FranchiseDrawer.component';
-import { FranchiseTheme } from '../../libs/franchise/types';
 import type { TempPasswordState } from '../../libs/login/types';
-import FactoryBot from '../../libs/franchise/factories/FranchiseThemeFactory';
+import FactoryBot from '../../libs/franchise/factories/Franchise';
+import { Theme } from '@material-ui/core';
 
 interface argTypes {
     children: React.ReactNode
-    theme: FranchiseTheme,
+    theme: Theme,
     location: Location;
     tempPasswordState: TempPasswordState;
     disconnect: () => void;
@@ -20,11 +20,11 @@ const CustomTemplate = (args: argTypes) => (
 
 export const CompleteInitialState = CustomTemplate.bind({});
 
-const theme = FactoryBot.FranchiseTheme.createOne();
+const franchise = FactoryBot.Franchise.createOne();
 
 CompleteInitialState.args = {
     children: <div>Content</div>,
-    theme: theme,
+    theme: {},
     title: 'Title',
     location: {
         pathname: '',

@@ -5,7 +5,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { compose, withHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
-import { MuiThemeProvider } from '@material-ui/core';
+import { CircularProgress, MuiThemeProvider } from '@material-ui/core';
 
 import asyncComponent from '../../AsyncComponent';
 import { getAuthToken } from '../../http';
@@ -18,10 +18,7 @@ import {
   fetchTempPassword as fetchTempPasswordAction,
 } from '../../libs/login/actions';
 import { getTempPasswordState } from '../../libs/login/selectors';
-import {
-  getFranchiseId,
-  getFranchiseTheme as selectorGetFranchiseTheme,
-} from '../../libs/franchise/selectors';
+import { getFranchiseId, getFranchisor } from '../../libs/franchise/selectors';
 import { RootState } from '../../reducers';
 
 import FranchiseDrawer from '../../components/navigation/FranchiseDrawer.component';
@@ -29,7 +26,6 @@ import FranchiseDrawer from '../../components/navigation/FranchiseDrawer.compone
 const FranchiseMembers = asyncComponent(
   () => import('./FranchiseMembers.page'),
 );
-const Franchise = asyncComponent(() => import('./Franchise.page'));
 
 type OwnProps = {
   disconnect: () => void;
@@ -43,7 +39,7 @@ const FranchiseRouter = (props: Props) => {
     isAuthenticated,
     isFranchisor,
     franchiseId,
-    theme,
+    franchisor,
     generateTempPassword,
     fetchTempPassword,
     tempPasswordState,
@@ -65,15 +61,17 @@ const FranchiseRouter = (props: Props) => {
     return <Redirect to="/login/signout" />;
   }
 
-  if (!franchiseId) return <div>Spinner todo</div>;
+  if (!franchiseId) return <CircularProgress />;
 
   return (
-    <MuiThemeProvider theme={getFranchiseTheme(theme)}>
+    <MuiThemeProvider
+      theme={getFranchiseTheme({
+        cover: franchisor.cover,
+        primaryRGB: franchisor.primaryRGB,
+        secondaryRGB: franchisor.secondaryRGB,
+      })}
+    >
       <FranchiseDrawer
-        theme={theme}
-        // alertings={alertings}
-        // nbAlerting={nbAlerting}
-        // deleteAlert={deleteAlert}
         tempPasswordState={tempPasswordState}
         generateTempPassword={generateTempPassword}
         fetchTempPassword={fetchTempPassword}
@@ -81,7 +79,6 @@ const FranchiseRouter = (props: Props) => {
         push={pushRouter}
       >
         <Switch>
-          <Route path="/f/franchises" component={Franchise} />
           <Route exact path="/f/members" component={FranchiseMembers} />
           <Redirect to="/f/members" />
         </Switch>
@@ -92,13 +89,11 @@ const FranchiseRouter = (props: Props) => {
 
 const connector = connect(
   (state: RootState) => ({
-    // alertings: alertingSelectors.getByKind(state),
-    // nbAlerting: alertingSelectors.countAlerting(state),
     franchiseId: getFranchiseId(state),
     isAuthenticated: state.auth.authenticated,
     isFranchisor: state.auth.is_franchisor,
     username: state.auth.username,
-    theme: selectorGetFranchiseTheme(state),
+    franchisor: getFranchisor(state),
     tempPasswordState: getTempPasswordState(state),
   }),
   {
@@ -108,9 +103,6 @@ const connector = connect(
     fetchTempPassword: fetchTempPasswordAction,
     pushRouter: push,
     signout: () => push(`/login/signout`),
-    // fetchAllAlertings,
-    // fetchMoreAlertingKind,
-    // deleteAlert,
   },
 );
 

@@ -1,13 +1,7 @@
 // @flow
 import React from 'react';
 
-type Props = {
-  franchiseId?: string;
-};
-
-const FranchiseMembers = (props: Props) => {
-  const { franchiseId } = props;
-
+const FranchiseMembers = () => {
   return <div>Franchise member tab</div>;
 };
 

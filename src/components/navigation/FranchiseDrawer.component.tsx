@@ -77,10 +77,6 @@ type OwnProps = {
   disconnect: () => void;
   generateTempPassword: () => void;
   fetchTempPassword: () => void;
-  // nbAlerting: number;
-  // alertings: Array<Alerting>;
-  // deleteAlert: (id: number) => void;
-  // fetchMoreAlertingKind: (alert_kind: number) => void;
 };
 
 type Props = OwnProps & WithStyles<typeof styles> & WithTranslation;
@@ -90,14 +86,10 @@ export const FranchiseDrawer = (props: Props) => {
     children,
     theme,
     classes,
-    // nbAlerting,
-    // alertings,
     t,
     location,
     tempPasswordState,
     disconnect,
-    // deleteAlert,
-    // fetchMoreAlertingKind,
     fetchTempPassword,
     generateTempPassword,
   } = props;
@@ -163,11 +155,11 @@ export const FranchiseDrawer = (props: Props) => {
             selected={isActive}
             key={String(i)}
           >
-            {item.icon ? (
+            {item.icon && (
               <ListItemIcon>
                 <item.icon />
               </ListItemIcon>
-            ) : null}
+            )}
             <ListItemText
               primary={t(item.text)}
               secondary={t(item.subtext)}
@@ -189,7 +181,7 @@ export const FranchiseDrawer = (props: Props) => {
               )}
             </List>
           </Collapse>
-          {open[i] ? <Divider key={`${i}-second-nestedDivider`} /> : null}
+          {open[i] && <Divider key={`${i}-second-nestedDivider`} />}
         </React.Fragment>
       );
     }
@@ -216,11 +208,11 @@ export const FranchiseDrawer = (props: Props) => {
           selected={isActive}
           className={isNested ? classes.nestedItem : null}
         >
-          {item.icon ? (
+          {item.icon && (
             <ListItemIcon className={isNested ? classes.nestedIcon : null}>
               <item.icon />
             </ListItemIcon>
-          ) : null}
+          )}
 
           <ListItemText
             primary={t(item.text)}

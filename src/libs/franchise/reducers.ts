@@ -3,64 +3,33 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
-import { FranchiseState, FranchiseTheme } from './types';
-import { getHexaColorFromNumbers } from './utils';
+import { FranchiseState } from './types';
 import { fetchFranchiseActions } from './actions';
 
-const initialState: Immutable.Immutable<FranchiseState> = Immutable({
-  error: false,
-  loading: false,
-  id: null,
-  ownedCompanies: null,
-  name: null,
-  theme: {
-    primaryRGB: undefined,
-    secondaryRGB: undefined,
-    cover: undefined,
+const initialState: Immutable.Immutable<FranchiseState> = Immutable<FranchiseState>(
+  {
+    error: false,
+    loading: false,
+    franchissor: undefined,
   },
-});
+);
 
-export default handleActions(
+export default handleActions<Immutable.Immutable<FranchiseState>>(
   {
     // ME
-    [fetchFranchiseActions.isLoading]: (
-      state: Immutable.Immutable<FranchiseState>,
-    ) => {
-      return state.set('loading', true).set('error', null);
+    [fetchFranchiseActions.isLoading.toString()]: (state, payload) => {
+      return state.set('loading', payload).set('error', null);
     },
-    [fetchFranchiseActions.error]: (
-      state: Immutable.Immutable<FranchiseState>,
-      data: { payload: { error: boolean } },
-    ) => {
-      const { error } = data.payload;
-
-      return state.set('error', error).set('loading', false);
+    [fetchFranchiseActions.error.toString()]: (state, payload) => {
+      return state.set('error', payload).set('loading', false);
     },
-    [fetchFranchiseActions.success]: (
-      state: Immutable.Immutable<FranchiseState>,
-      data: {
-        payload: {
-          item: FranchiseTheme & {
-            id: number;
-            name: string;
-            companies: number[];
-          };
-        };
-      },
-    ) => {
-      const { item } = data.payload;
+    [fetchFranchiseActions.success.toString()]: (state, { payload }: any) => {
+      const { franchisor } = payload;
 
       return state
         .set('loading', false)
         .set('error', null)
-        .set('id', item.id)
-        .set('name', item.name)
-        .set('ownedCompanies', item.companies)
-        .set('theme', {
-          secondaryRGB: getHexaColorFromNumbers(item.secondaryRGB),
-          primaryRGB: getHexaColorFromNumbers(item.primaryRGB),
-          cover: item.cover,
-        });
+        .set('franchissor', franchisor);
     },
   },
   initialState,

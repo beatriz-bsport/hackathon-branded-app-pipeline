@@ -13,19 +13,19 @@ export const fetchFranchiseActions = {
 
 export function fetchFranchise(options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
-    dispatch(fetchFranchiseActions.isLoading({ loading: true }));
+    dispatch(fetchFranchiseActions.isLoading(true));
     dispatch(fetchFranchiseActions.error({ error: null }));
 
     try {
       const response = await fetchFranchiseAPI();
-      dispatch(fetchFranchiseActions.success({ item: response.data }));
+      dispatch(fetchFranchiseActions.success({ franchisor: response.data }));
 
       options?.onSuccess();
     } catch (error) {
-      dispatch(fetchFranchiseActions.error({ error }));
+      dispatch(fetchFranchiseActions.error(error));
       options?.onError(error);
     }
 
-    dispatch(fetchFranchiseActions.isLoading({ loading: false }));
+    dispatch(fetchFranchiseActions.isLoading(false));
   };
 }

@@ -1,5 +1,5 @@
 // @flow
-
+import chroma from 'chroma-js';
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 
 import { colors } from '@bsport/common/lib/colors';
@@ -48,14 +48,24 @@ export const getFranchiseTheme = (theme: FranchiseTheme) => {
         ...defaultThemeParams,
         palette: {
           primary: {
-            main: theme.primaryRGB,
+            main: chroma(
+              theme.primaryRGB[0],
+              theme.primaryRGB[1],
+              theme.primaryRGB[2],
+            ).hex(),
           },
-          secondary: { main: theme.secondaryRGB },
+          secondary: {
+            main: chroma(
+              theme.secondaryRGB[0],
+              theme.secondaryRGB[1],
+              theme.secondaryRGB[2],
+            ).hex(),
+          },
         },
       }),
     );
   }
   return responsiveFontSizes(createMuiTheme(defaultThemeParams));
-}
+};
 
 export default getTheme();

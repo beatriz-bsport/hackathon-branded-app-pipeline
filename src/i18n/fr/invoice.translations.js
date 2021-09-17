@@ -280,7 +280,7 @@ exports.default = {
         revert_bookings_on_fail_subscription_payment: {
           label: 'Annuler les réservations si le paiement échoue.',
           warning:
-            'Attention, les réservations ne seront pas recrées si le paiement réussie !',
+            'Attention, les réservations ne seront pas recréées si le paiement réussit !',
           helperText:
             'Si le paiement de la souscription échoue ou est déclaré comme litigieux, les réservations réalisées avec ces cartes seront annulées (et le crédit recrédité)',
         },
@@ -310,7 +310,7 @@ exports.default = {
     },
     nf525: 'Certification',
     nf525Explain:
-      'Bsport suit les procédures de mise en confiormité NF525, vous pouvez ici télécharger notre attestation officielle.',
+      'Bsport suit les procédures de mise en conformité NF525, vous pouvez ici télécharger notre attestation officielle.',
     nf525Button: 'Télécharger',
   },
   invoiceItem: {

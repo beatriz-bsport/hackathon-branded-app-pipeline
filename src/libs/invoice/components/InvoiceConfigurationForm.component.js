@@ -188,13 +188,15 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
               )}
             </Typography>
           </div>
-          <Collapse in={this.state.disable_pass_on_fail_subscription_payment}>
+          <Collapse
+            in={this.state.revert_bookings_on_fail_subscription_payment}
+          >
             <div className={classes.warningContainer}>
               <WarningIcon color="error" fontSize="small" />
               <Typography
                 variant="caption"
                 color={
-                  this.state.disable_pass_on_fail_subscription_payment
+                  this.state.revert_bookings_on_fail_subscription_payment
                     ? 'default'
                     : 'textSecondary'
                 }

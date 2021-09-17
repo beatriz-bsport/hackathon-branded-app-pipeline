@@ -222,13 +222,22 @@ class ResponsiveDrawer extends React.Component<Props, State> {
       return <Divider key={i} className={item.className} />;
     }
 
+    let Wrapper = (p) => <React.Fragment>{p.children}</React.Fragment>;
+    if (item.to) {
+      Wrapper = (p) => (
+        <Link
+          key={i}
+          to={item.to}
+          style={{ textDecoration: 'none' }}
+          className={item.className || ''}
+        >
+          {p.children}
+        </Link>
+      );
+    }
+
     return (
-      <Link
-        key={i}
-        to={item.to}
-        style={{ textDecoration: 'none' }}
-        className={item.className || ''}
-      >
+      <Wrapper>
         <ListItem
           button
           onClick={() => {
@@ -257,7 +266,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             secondaryTypographyProps={{ style: { color: colors.primaryDark } }}
           />
         </ListItem>
-      </Link>
+      </Wrapper>
     );
   };
 
@@ -847,7 +856,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
       },
       {
         action: this.props.disconnect,
-        to: '#',
+        to: null,
         icon: HighlightOff,
         text: t('backofficeMenu.logoff'),
       },

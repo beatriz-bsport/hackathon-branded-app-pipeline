@@ -7491,7 +7491,7 @@
                 "typeTitle": "Notification type",
                 "explain": "Add an automatic notification to contact your member based on the criteria below.",
                 "title": "Notification form",
-                "notifyAllEvents": "Send this notification for every cancellation",
+                "notifyAllEvents": "Send this notification for every booking or cancellation",
                 "ifKind": {
                     "attendance": "If the member is present",
                     "notRefunded": "If the booking has been cancelled too late",

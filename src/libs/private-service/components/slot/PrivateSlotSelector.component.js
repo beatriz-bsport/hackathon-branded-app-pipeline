@@ -3,12 +3,12 @@ import React from 'react';
 import { compose, withState } from 'recompose';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-
 import Select from 'react-select';
+import type { PrivateServiceWithSlots } from '../../types';
 
 type Option = { label: string, value: number };
 type Props = {
-  privateServices: Array<PrivateService>,
+  privateServices: Array<PrivateServiceWithSlots>,
   onChange: (Option) => void,
   selectedPrivateService: ?number,
   setSelectedPrivateService: (id: number) => void,

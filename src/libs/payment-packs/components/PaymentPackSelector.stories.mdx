@@ -1,0 +1,114 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import PaymentPackSelector from "./PaymentPackSelector.component"
+
+<Meta 
+    title="library/paymentpack/selector/PaymentPackSelector"  
+    component={PaymentPackSelector}
+    argTypes={{
+        paymentPacks:{
+            description:"Payment Packs that can be selected",
+            table:{
+                type:{
+                    summary:"Array<PaymentPack>"
+                },
+                defaultValue:{
+                    summary:"None"
+                }
+            }
+        },
+        helperText:{
+            description:"Description if nothing selected",
+            table:{
+                type:{
+                    summary:"string"
+                },
+                defaultValue:{
+                    summary:"Select..."
+                }
+            }
+        },
+        value:{
+            description:"Id of the selected Payment Pack",
+            table:{
+                type:{
+                    summary:"number"
+                },
+                defaultValue:{
+                    summary:"None"
+                }
+            }
+        },
+        isMulti:{
+            description:"If true, it is possible to select various payment packs.",
+            table:{
+                type:{
+                    summary:"bolean"
+                },
+                defaultValue:{
+                    summary:"False"
+                }
+            }
+        },
+        nullCurrentValue:{
+            description:"If true, no payment pack is selected, even if value equals a Payment Pack id",
+            table:{
+                type:{
+                    summary:"bolean"
+                },
+                defaultValue:{
+                    summary:"False"
+                }
+            }
+        },
+        autofocus:{
+            description:"Autofocus the control when the components mounts",
+            table:{
+                type:{
+                    summary:"bolean"
+                },
+                defaultValue:{
+                    summary:"False"
+                }
+            }
+        }
+    }}
+/>
+
+
+
+export const Template = (args) => <PaymentPackSelector {...args} />;
+
+# Payment Pack Selector
+
+
+
+<Canvas>
+    <Story
+        name="PaymentPackSelector"
+        args={{
+            paymentPacks:[ 
+                { 
+                    id: 1,
+                    credits: 12,
+                    price: 740,
+                    name: "Pack zen",
+                },
+                { 
+                    id: 2,
+                    credits: 10,
+                    price: 200,
+                    name: "Pack intensif",
+                }
+            ],
+            helperText:"Select a Payment Pack",
+            value:1,
+            isMulti:false,
+            nullCurrentValue:false,
+            autofocus:true
+        }}
+    >
+    {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story="PaymentPackSelector"/>

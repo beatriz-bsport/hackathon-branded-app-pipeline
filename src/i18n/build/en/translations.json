@@ -6496,8 +6496,8 @@
         "unevenInvoice": {
             "title": "Unpaid invoice",
             "explainUneven": "Invoice n°<1>{{uuid, uuid}}</1> is not even.",
-            "priceDue": "Amount due: {{ price_due, price }}.",
-            "pricePayed": "Amount paid: {{price_payed, price}}."
+            "priceDue": "Amount due: {{ price_due }}.",
+            "pricePayed": "Amount paid: {{price_payed }}."
         },
         "newOrder": {
             "title": "Pending Order",

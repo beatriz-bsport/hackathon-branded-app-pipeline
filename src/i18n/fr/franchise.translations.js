@@ -10,7 +10,7 @@ exports.default = {
     previousPage: 'Page précedente',
     nextPage: 'Page suivante',
     rowPerPage: 'Element par page',
-    outOf: '{{from}} - {{to}} sur {{total}}',
+    outOf: '{{from}} - {{to}} sur {{count}}',
   },
   member: {
     franchises: 'Franchises',

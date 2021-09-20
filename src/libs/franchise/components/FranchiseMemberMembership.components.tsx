@@ -7,6 +7,7 @@ import {
   Typography,
   withStyles,
   WithStyles,
+  Button,
 } from '@material-ui/core';
 import classNames from 'classnames';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -48,12 +49,12 @@ const FranchiseMemberMembership = (props: Props) => {
                 </div>
               </div>
               {/* TODO Aymeric Redirect to franchise view */}
-              <div className={classes.leftNavigation}>
+              <Button className={classes.leftNavigation}>
                 <ArrowForwardIcon className={classes.icon} />
                 <Typography variant="body1">
                   {t('member.seeMembership').toUpperCase()}
                 </Typography>
-              </div>
+              </Button>
             </div>
           );
         })}

@@ -48,7 +48,7 @@ import LanguageButton from '../button/LanguageButton.component';
 import LOGO_ASSET from '../../public/images/banner_lowres.png';
 import { windowTitleToProps } from '../../hocs/with-title.hoc';
 import type { TempPasswordState } from '../../libs/login/types';
-import SearchBar from '../SearchBar.component';
+// import SearchBar from '../SearchBar.component';
 
 import { FranchiseTheme } from '../../libs/franchise/types';
 
@@ -262,8 +262,8 @@ export const FranchiseDrawer = (props: Props) => {
           </MenuItem>
           <MenuItem
             onClick={() => {
-              setAnchorEl(null);
               disconnect();
+              setAnchorEl(null);
             }}
           >
             <ListItemIcon>
@@ -340,10 +340,11 @@ export const FranchiseDrawer = (props: Props) => {
                       <Help />
                     </IconButton>
                   </Grid>
-                  <Grid item className={classes.searchBar}>
-                    {/* TODO @Aymeric See what to do with the search */}
+                  {/* <Grid item className={classes.searchBar}>
+                    TODO @Aymeric See what to do with the search
                     <SearchBar changeLocation />
-                  </Grid>
+                  </Grid> 
+                  */}
                   {renderAdditionalButtons()}
                 </>
               </Grid>

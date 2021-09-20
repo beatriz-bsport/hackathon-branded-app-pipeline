@@ -118,7 +118,7 @@ export default compose(
   connector,
   withHandlers({
     disconnect: ({ signout, theme }) => () => {
-      signout(theme.company);
+      signout(theme?.company);
     },
   }),
 )(FranchiseRouter);

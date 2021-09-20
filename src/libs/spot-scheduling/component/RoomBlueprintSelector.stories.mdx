@@ -1,0 +1,123 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import RoomBlueprintSelector from "./RoomBlueprintSelector.component"
+
+<Meta title="library/spot-scheduling/selector/RoomBlueprintSelector.component"
+    component={RoomBlueprintSelector}
+    argTypes ={{
+        roomBlueprints:{
+            description :"roomBlueprints that can be selected",
+            table: {
+                type: {
+                    summary: "Array<RoomBlueprint>"
+                },
+                defaultValue: {
+                    summary: "None"
+                }
+            }
+        },
+        value :{
+            description :"Roomblueprint selected",
+            table: {
+                type: {
+                    summary: "RoomBlueprint"
+                },
+                defaultValue: {
+                    summary: "None"
+                }
+            }
+        },
+        placeholder :{
+            description :"Default text if no selection",
+            table: {
+                type: {
+                    summary: "string"
+                },
+                defaultValue: {
+                    summary: "None"
+                }
+            }
+        },
+        id :{
+            description :"?",
+            table: {
+                type: {
+                    summary: "number"
+                },
+                defaultValue: {
+                    summary: "None"
+                }
+            }
+        },
+    }}/>
+
+export const Template = (args) => <RoomBlueprintSelector {...args} />;
+
+#  Room Blue print  Selector
+
+## Before Selection
+
+<Canvas>
+    <Story 
+        name="RoomBlueprintSelector"
+        args={{
+            roomBlueprints:[
+                {
+                    id:1,
+                    name:"Room #1",
+                    establishment:2,
+                    canvas:{
+                        elements:[
+                            {id:1,type:'spot'},
+                            {id:2,type:'spot'},
+                            {id:3,  type:'spot'}
+                        ]
+                    },
+                },
+                {
+                    id:2,
+                    name:"Room #2",
+                    canvas:{
+                        elements:[
+                            {id:1,type:'spot'},
+                            {id:2,type:'spot'},
+                            {id:3,  type:'spot'}
+                        ]
+                    },
+                }
+            ],
+            value:null,
+            placeholder:"Select a roomBlueprint",
+            id:"roomBlueprint"
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## After Selection
+
+<Canvas>
+    <Story 
+    name="RoomBlueprintSelector2"
+    args={{
+        roomBlueprints:[
+            {
+                id:1,
+                name:"Room #1",
+            },
+            {
+                id:2,
+                name:"Room #2",
+            }
+        ],
+        value:{
+                id:2,
+                name:"Room #2",
+            },
+        placeholder:"Select a roomBlueprint",
+        id:1
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story="RoomBlueprintSelector" />

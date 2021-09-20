@@ -2800,7 +2800,54 @@
       }
     }
   },
-  "checkout": {},
+  "checkout": {
+    "events": {
+      "basket-created": "Panier créé",
+      "basket-finalize": "Panier finalisé/payé",
+      "basket-additem": "Ajout au panier",
+      "basket-removeitem": "Retrait du panier",
+      "basket-automaticclean": "Nettoyage automatique du panier"
+    },
+    "eventHistory": { "sectionTitle": "Evènements", "pleaseSelectABasket": "Sélectionnez un panier pour voir l'historique" },
+    "historyTitle": "Historique des paniers",
+    "paymentIntent": { "isProcessing": "Veuillez patientez" },
+    "forms": {
+      "delivery": { "first_name": "Prénom", "last_name": "Nom", "actions": { "submit": "Suivant", "cancel": "Précédent" } }
+    },
+    "autoAdd": {
+      "paymentPack": { "locked": "Ce produit n'est pas disponible." },
+      "privatePass": { "error": "Cette carte de rendez-vous n'est pas disponible" }
+    },
+    "myBasket": {
+      "checkingPaymentStatus": "Veuillez patienter, nous vérifions le status de votre paiement",
+      "finalize": { "steps": { "address": "Adresse", "payment": "Facturation" } },
+      "title": "Mon panier",
+      "isEmpty": "Votre panier est vide",
+      "isFinalized": "Votre panier a été validé",
+      "featured": "Nous vous recommandons",
+      "error": {
+        "invalidBasket": "Votre panier contenait des éléments qui ne sont plus disponibles à la vente. Aucun paiement n'a été enregistré"
+      },
+      "totalQuantity": "Contient {{ qty }} éléments",
+      "actions": { "closeBasket": "Continuer mes achats", "checkoutBasket": "Payer", "payZero": "Valider mon panier" }
+    },
+    "payLater": {
+      "submit": "Payer sur place",
+      "explain": "Votre moyen de paiement vous sera demandé sur place avant votre séance. Avant cela, la facture sera considérée comme impayée."
+    },
+    "or": "ou",
+    "expire_in": "Expire dans ",
+    "validation": {
+      "actions": { "continue": "Continuer", "back": "Précédent" },
+      "sections": {
+        "title": "Récapitulatif",
+        "basket": "Votre panier",
+        "offerBooked": "Vous êtes inscrit à",
+        "offerPreBooked": "Vous êtes sur liste d'attente pour",
+        "offerNotBookable": "Impossible de vous inscrire à"
+      }
+    }
+  },
   "establishment": {
     "list": { "section": { "archived": "Salles archivées" } },
     "detail": { "tab": { "general": "Général", "calendar": "Calendrier" } },
@@ -3657,7 +3704,7 @@
         "forms": {
           "revert_bookings_on_fail_subscription_payment": {
             "label": "Annuler les réservations si le paiement échoue.",
-            "warning": "Attention, les réservations ne seront pas recrées si le paiement réussie !",
+            "warning": "Attention, les réservations ne seront pas recréées si le paiement réussit !",
             "helperText": "Si le paiement de la souscription échoue ou est déclaré comme litigieux, les réservations réalisées avec ces cartes seront annulées (et le crédit recrédité)"
           },
           "disable_pass_on_fail_subscription_payment": {
@@ -3678,7 +3725,7 @@
         "show_company_email_in_invoice": "Afficher l'email de contact de votre entreprise sur les factures"
       },
       "nf525": "Certification",
-      "nf525Explain": "Bsport suit les procédures de mise en confiormité NF525, vous pouvez ici télécharger notre attestation officielle.",
+      "nf525Explain": "Bsport suit les procédures de mise en conformité NF525, vous pouvez ici télécharger notre attestation officielle.",
       "nf525Button": "Télécharger"
     },
     "invoiceItem": {
@@ -4708,7 +4755,7 @@
       "title": "Facture non-équilibrée",
       "explainUneven": "La facture <1>n°{{uuid, uuid}}</1> n'est pas équilibrée.",
       "priceDue": "Somme dûe : {{ price_due }}.",
-      "pricePayed": "Somme encaissée : {{price_payed }}."
+      "pricePayed": "Somme encaissée : {{ price_payed }}."
     },
     "newOrder": {
       "title": "Commande en attente",

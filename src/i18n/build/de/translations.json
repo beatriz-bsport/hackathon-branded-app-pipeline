@@ -2865,8 +2865,8 @@
         "unevenInvoice": {
             "explainUneven": "Diese Rechnung <1>n°{{uuid, uuid}}</1> ist unausgeglichen.",
             "title": "Unausgeglichene Rechnung",
-            "pricePayed": "Eingenommener Betrag : {{price_payed, price}}.",
-            "priceDue": "Geschuldeter Betrag : {{ price_due, price }}."
+            "pricePayed": "Eingenommener Betrag : {{price_payed }}.",
+            "priceDue": "Geschuldeter Betrag : {{ price_due }}."
         },
         "alert_kind": {
             "4": "Termin, der ergänzen werden muss",

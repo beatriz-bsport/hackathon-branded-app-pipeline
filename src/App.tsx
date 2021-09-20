@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { compose } from 'recompose';
+import { compose, withProps } from 'recompose';
 import { MuiThemeProvider, withStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import URI from 'urijs';
@@ -164,7 +164,7 @@ class BsportWidget extends Component<Props> {
               companyName={this.props.theme.company_name}
             />
 
-            {this.props.showFab && (
+            {this.props.showFab && !window.bsportModalUrlOpen && (
               <FabWidget
                 companyId={this.props.companyId}
                 companyName={this.props.theme.company_name}
@@ -206,4 +206,5 @@ export default compose(
   // @ts-ignore
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
+  withProps({ modalOpen: !!window.bsportModalUrlOpen }),
 )(BsportWidget);

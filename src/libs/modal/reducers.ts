@@ -22,6 +22,8 @@ export default handleActions<Immutable.Immutable<ModalState>>(
       const uri = URI(payload.url);
       uri.toString() && uri.addQuery('open_at', Date.now());
 
+      window.bsportModalUrlOpen = !!uri.toString();
+
       return state
         .setIn(['url'], uri.toString())
         .setIn(['dialogMode'], payload.dialogMode);

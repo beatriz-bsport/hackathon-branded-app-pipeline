@@ -1975,7 +1975,7 @@
             "pricePayed": "Betaald: {{price_payed}}."
         },
         "newOrder": {
-            "price": "Bedrag: {{price, price}}.",
+            "price": "Bedrag: {{ price }}.",
             "title": "Bestelling in behandeling",
             "explain": "In de winkel betaald door <1?{{name}}</1>."
         },
@@ -6026,6 +6026,10 @@
                 "recurrence": {
                     "section": "Herhaling",
                     "explain": "Iedere {{ recurrence_basis }}{{ interval }} wordt een betaling geïncasseerd verspreid over {{ total_interval_duration }}{{ interval }}. In totaal wordt er {{ nb_interval }} keer geïncasseerd."
+                },
+                "anchor_date": {
+                    "helperText": "De betaling wordt in de loop van de ochtend geïncasseerd.",
+                    "label": "Eerste betaling"
                 }
             }
         }

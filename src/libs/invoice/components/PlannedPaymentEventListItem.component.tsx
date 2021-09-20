@@ -52,7 +52,6 @@ const onlyIfFuture = (
         moment(plannedPaymentEvent.date_created).diff(moment(), 'minutes'),
       ) > 30
     ) {
-      return callback();
       alert(t('plannedPaymentEvent.lockedToday'));
       return;
     }
@@ -105,7 +104,6 @@ export const PlannedPaymentEventListItem = (props: Props) => {
     onRegisterNow = props.actions?.onRegisterNow;
     onEdit = props.actions?.onEdit;
   }
-  console.log(props.invoice);
 
   return (
     <div className={classes.container}>

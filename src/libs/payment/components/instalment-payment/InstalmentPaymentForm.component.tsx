@@ -56,7 +56,6 @@ type Props = OwnProps & WithStyles & WithTranslation;
 export class InstalmentPaymentForm extends Component<Props> {
   render() {
     const { classes, t, values } = this.props;
-    console.log(this.props.values.anchor_date);
     return (
       <div className={classes.section}>
         <IntervalRecurrenceSelectField

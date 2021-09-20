@@ -110,7 +110,6 @@ const InstalmentPaymentFormDialog = (props: Props) => {
             enabledPaymentGroupMethodIdentifier={
               props.enabledPaymentGroupMethodIdentifier
             }
-            disabled={processing || props.loading}
           />
           <Divider />
           <PaymentMethodSelector

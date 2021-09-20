@@ -23,7 +23,7 @@ exports.default = {
     title: 'Facture non-équilibrée',
     explainUneven: "La facture <1>n°{{uuid, uuid}}</1> n'est pas équilibrée.",
     priceDue: 'Somme dûe : {{ price_due }}.',
-    pricePayed: 'Somme encaissée : {{price_payed }}.',
+    pricePayed: 'Somme encaissée : {{ price_payed }}.',
   },
   newOrder: {
     title: 'Commande en attente',

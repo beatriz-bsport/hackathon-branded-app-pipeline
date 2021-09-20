@@ -1,0 +1,86 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import { EstablishmentSelectorControlled } from './EstablishmentSelector.component';
+import { establishment_factory } from '../factory';
+
+<Meta title="Library/Establishment/selector" component={EstablishmentSelectorControlled} argTypes={{
+  establishments:{
+    description: "every establishment available",
+    defaultValue: "existing establishments",
+  },
+  closeMenuOnSelect:{
+    description: "when enabled, closes the selection menu by clicking on an option (establishment)",
+  },
+  noMulti:{
+    description: "when enabled, only one establishment can be selected at once"
+  },
+  disabled:{
+    description: "when enabled, prevents user to choose an option (establishment)",
+    defaultValue: false,
+  },
+  selectedEstablishments:{
+    description: "every selected establishment",
+  },
+  nullCurrentValue:{
+    description: "describes state of selectedEstablishments",
+  },
+  isClearable:{
+    description: "when enabled, there is a possibility to clear selectedEstablishments",
+    defaultValue: true,
+  },
+  isOptionDisabled:{
+    description: "prevents an option to be choosed two times consecutive",
+    defaultValue: false,
+  },
+  selectMultipleOptions:{
+    description: "multiple options can be passed to this function that selects them"
+  },
+  isLoading:{
+    description: "tells if it is loading"
+  }
+}}/>
+
+export const Template = (args) => <EstablishmentSelectorControlled {...args} />;
+
+export const establishments = establishment_factory(5);
+
+# Establishments
+Selector with possibility to select multiple establishments
+
+<Canvas isColumn={true}>
+  <Story
+    name="multi-select"
+    args={{
+      establishments: establishments,
+      closeMenuOnSelect: false,
+      noMulti: false,
+      disabled: false,
+      nullCurrentValue: false,
+      isClearable: true,
+      selectedEstablishments: null,
+      isOptionDisabled: false,
+    }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+# Establishment
+Selector with only one establishment selected at most
+
+<Canvas>
+  <Story
+    name="single-select"
+    args={{
+      establishments: establishments,
+      closeMenuOnSelect: true,
+      noMulti: true,
+      disabled: false,
+      nullCurrentValue: false,
+      isClearable: true,
+      selectedEstablishments: null,
+      isOptionDisabled: false,
+    }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable exclude='selectMultipleOptions' story='multi-select'/>

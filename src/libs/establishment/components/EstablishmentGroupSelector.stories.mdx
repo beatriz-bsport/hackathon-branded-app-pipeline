@@ -1,0 +1,89 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import EstablishmentGroupSelector from './EstablishmentGroupSelector.component';
+import { action } from '@storybook/addon-actions'
+import { establishmentGroup_factory } from '../factory';
+
+<Meta title="Library/Establishment/groupSelector" component={EstablishmentGroupSelector} argTypes={{
+  establishmentGroups:{
+    description: "every establishment grouped by companies",
+    defaultValue: "existing establishments",
+  },
+  closeMenuOnSelect:{
+    description: "when enabled, closes the selection menu by clicking on an option (establishmentgroup)",
+  },
+  noMulti:{
+    description: "when enabled, only one establishmentgroup can be selected at once",
+  },
+  disabled:{
+    description: "when enabled, prevents user to choose option (establishmentgroup)",
+    defaultValue: false,
+  },
+  selectedEstablishmentGroups:{
+    description: "every selected establishmentgroup",
+  },
+  nullCurrentValue:{
+    description: "describes state of selectedEstablishmentGroups, either null or at least one selected establishmentgroup",
+  },
+  isClearable:{
+    description: "when enabled, there is a possibility to clear selectedEstablishments",
+    defaultValue: true,
+  },
+  selectMultipleOptions:{
+    description: "multiple options can be passed to this function that selects them"
+  },
+  isLoading:{
+    description: "tells if it is loading"
+  },
+  onChange:{
+    description: "action triggered when the selector is modified (selection or clearance)"
+  }
+}}/>
+
+export const actionsData = {
+  onChange: action('onChange')
+}
+
+export const Template = (args) => <EstablishmentGroupSelector {...args} />;
+
+export const establishments = establishmentGroup_factory(500)
+
+# establishmentGroup
+
+Click on a group to trigger an event
+
+<Canvas isColumn={true}>
+  <Story
+    name="single-select"
+    args={{
+      establishmentGroups: establishments,
+      nullCurrentValue: true,
+      noMulti: false,
+      closeMenuOnSelect: false,
+      isClearable: true,
+      onChange: actionsData.onChange,
+    }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+# Already chosen
+
+When the page is opened, the concerned group is already selected
+
+<Canvas>
+  <Story
+    name="single-selected"
+    args={{
+      establishmentGroups: establishments,
+      selectedEstablishmentGroups: [establishments[1]],
+      nullCurrentValue: false,
+      noMulti: true,
+      closeMenuOnSelect: true,
+      isClearable: true,
+      onChange: actionsData.onChange,
+    }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story='single-select'/>

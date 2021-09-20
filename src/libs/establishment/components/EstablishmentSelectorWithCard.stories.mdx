@@ -1,0 +1,64 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import EstablishmentSelector from './EstablishmentSelectorWithCard.component';
+import { action } from '@storybook/addon-actions'
+import { establishment_factory } from '../factory';
+
+<Meta title="Library/Establishment/selectorCard" component={EstablishmentSelector} argTypes={{
+  establishments:{
+    description: "every establishment available",
+    defaultValue: "existing establishments",
+  },
+  placeholder:{
+    description: "initial text of the selector",
+    defaultValue: "choose an establishment"
+  },
+  value:{
+    description: "selected establishment",
+  },
+  onChange:{
+    description: "triggered when clicking on an establishment or deselect the current establishment"
+  }
+}}/>
+
+export const actionsData = {
+  onChange: action('onChange')
+}
+
+export const Template = (args) => <EstablishmentSelector {...args} />;
+
+export const establishments = establishment_factory(5)
+
+# Choose one
+
+Click on an establishment to trigger an event
+
+<Canvas isColumn={true}>
+  <Story
+    name="single-select"
+    args={{
+      establishments: establishments,
+      value: null,
+      onChange: actionsData.onChange,
+      placeholder: 'choose an establishment',
+    }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+# Already chosen
+
+When the page is opened, the concerned establishment is already selected
+
+<Canvas>
+  <Story
+    name="selected"
+    args={{
+      establishments: establishments,
+      value: establishments[0],
+      onChange: actionsData.onChange,
+    }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="single-select"/>

@@ -114,8 +114,8 @@ const getGroupedEstablishmentOptions = (
   return establishmentGourpByAddress;
 };
 
-const getEstablishmentList = (estabishments: Array<Establishment>) => {
-  return estabishments.map((est) => {
+const getEstablishmentList = (establishments: Array<Establishment>) => {
+  return establishments.map((est) => {
     return {
       label: est.title,
       value: est.id,
@@ -245,6 +245,23 @@ export function EstablishmentSelector(props: Props) {
   );
 }
 
-export default compose<any, OwnProps>(withTranslation(['establishment']))(
-  EstablishmentSelector,
-);
+const EstablishmentSelectorComposed = compose<any, OwnProps>(
+  withTranslation(['establishment']),
+)(EstablishmentSelector);
+
+export default EstablishmentSelectorComposed;
+
+export const EstablishmentSelectorControlled = (props: OwnProps) => {
+  const [value, setValue] = React.useState(props.selectedEstablishments);
+  return (
+    <EstablishmentSelectorComposed
+      {...props}
+      selectedEstablishments={value}
+      selectOption={(sList) => {
+        if (!sList) setValue([]);
+        else if (props.noMulti) setValue([sList.value]);
+        else setValue(sList.map((s) => s.value));
+      }}
+    />
+  );
+};

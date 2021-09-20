@@ -78,7 +78,7 @@ const establishmentGroupStyles = {
 };
 
 type OwnProps = {
-  establishmentGroups: Array<EstablishmentGroup>;
+  establishmentGroups: EstablishmentGroup[];
   selectOption: (Suggestion: {
     label: string;
     value: number | string;
@@ -92,6 +92,7 @@ type OwnProps = {
   isClearable: boolean;
   nullCurrentValue: boolean;
   isLoading?: boolean;
+  onChange: () => void;
 };
 
 type Props = OwnProps & WithTranslation;
@@ -108,6 +109,7 @@ export function EstablishmentGroupSelector(props: Props) {
     noMulti,
     isClearable,
     isLoading,
+    onChange,
   } = props;
   const roomsSelected = nullCurrentValue
     ? null
@@ -119,7 +121,7 @@ export function EstablishmentGroupSelector(props: Props) {
       placeholder={t('localisation')}
       options={getEstablishmentGroupOptions([...establishmentGroups])}
       styles={establishmentGroupStyles}
-      onChange={selectOption}
+      onChange={selectOption || onChange}
       isDisabled={disabled}
       isClearable={isClearable}
       menuPortalTarget={document.querySelector('body')}

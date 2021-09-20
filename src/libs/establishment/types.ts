@@ -1,10 +1,10 @@
-type Location = {
+export type Location = {
   address: string;
   latitude: string;
   longitude: string;
 };
 
-type EasyAccess = {
+export type EasyAccess = {
   id: number;
   lines: Array<string>;
   name: string;

@@ -1970,9 +1970,9 @@
         "showMore": "Zie meer",
         "unevenInvoice": {
             "title": "Openstaande facturen",
-            "priceDue": "Openstaand bedrag: {{price_due, price}}.",
+            "priceDue": "Openstaand bedrag: {{price_due }}.",
             "explainUneven": "Factuur <1> nr. {{uuid, uuid}} </1> staat nog open.",
-            "pricePayed": "Betaald: {{price_payed, price}}."
+            "pricePayed": "Betaald: {{price_payed}}."
         },
         "newOrder": {
             "price": "Bedrag: {{price, price}}.",

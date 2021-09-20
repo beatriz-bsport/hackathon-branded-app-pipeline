@@ -4815,10 +4815,10 @@
     },
     "alerting": {
         "unevenInvoice": {
-            "pricePayed": "Incassato: {{price_payed, price}}.",
+            "pricePayed": "Incassato: {{price_payed }}.",
             "explainUneven": "La fattura <1> n ° {{uuid, uuid}} </1> non è in pareggio.",
             "title": "Fattura irregolare",
-            "priceDue": "Somma dovuta: {{price_due, price}}."
+            "priceDue": "Somma dovuta: {{price_due }}."
         },
         "privateBookingIncomplete": {
             "name": "Socio: {{user_name}}",

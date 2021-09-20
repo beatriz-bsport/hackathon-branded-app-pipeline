@@ -23,8 +23,11 @@ import { RootState } from '../../reducers';
 
 import FranchiseDrawer from '../../components/navigation/FranchiseDrawer.component';
 
-const FranchiseMembers = asyncComponent(
-  () => import('./FranchiseMembers.page'),
+const FranchiseMemberDetails = asyncComponent(
+  () => import('./FranchiseMemberDetails.page'),
+);
+const FranchiseMemberList = asyncComponent(
+  () => import('./FranchiseMemberList.page'),
 );
 
 type OwnProps = {
@@ -79,7 +82,11 @@ const FranchiseRouter = (props: Props) => {
         push={pushRouter}
       >
         <Switch>
-          <Route exact path="/f/members" component={FranchiseMembers} />
+          <Route exact path="/f/members" component={FranchiseMemberList} />
+          <Route
+            path="/f/members/:userId/member"
+            component={FranchiseMemberDetails}
+          />
           <Redirect to="/f/members" />
         </Switch>
       </FranchiseDrawer>

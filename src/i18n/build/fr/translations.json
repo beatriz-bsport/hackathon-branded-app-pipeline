@@ -977,7 +977,10 @@
         "name": "Nom",
         "associated_localizations": "Salles associées",
         "dialog": { "title": "Groupe de facturation", "cancel": "Annuler", "save": "Enregistrer" },
-        "error": { "groupShouldContainsOneRoom": "Veuillez sélectionner au moins une salle" }
+        "error": {
+          "groupShouldContainsOneRoom": "Veuillez sélectionner au moins une salle",
+          "groupShouldHaveName": "Vous devez donner un nom à ce groupe de facturation"
+        }
       },
       "modal": {
         "delete": {
@@ -4491,7 +4494,7 @@
       "error": "Erreur lors de l'enregistrement - Annulé",
       "billingEstablishment": {
         "error": {
-          "unAuthorizedEstablishmentModification": "Impossible de modifier l'établissement de facturation, seuls les administrateurs"
+          "unAuthorizedEstablishmentModification": "Impossible de modifier l'établissement de facturation, seuls les administrateurs en possèdent le droit de modification"
         }
       }
     },

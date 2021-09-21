@@ -41,14 +41,16 @@ type Props = OwnProps &
   WithStyles<typeof styles>;
 const EstablishmentBillingGroupSchema = Yup.object().shape({
   id: Yup.number().nullable(true),
-  name: Yup.string().nullable(false),
+  name: Yup.string().required(
+    'establishment:billing_group.form.error.groupShouldHaveName',
+  ),
   establishments: Yup.array()
     .of(Yup.number())
     .test(
       'billing_group_should_contains_at_least_one_establishment',
       'establishment:billing_group.form.error.groupShouldContainsOneRoom',
       function () {
-        return this.parent.establishments?.length > 1;
+        return this.parent.establishments?.length > 0;
       },
     ),
 });
@@ -127,6 +129,13 @@ export function EstablishmentBillingGroupForm(props: Props) {
                   fullWidth
                   required
                 />
+                <ErrorMessage name="name">
+                  {(error_msg) => (
+                    <Typography variant="caption" color="error">
+                      {t(`${error_msg}`)}
+                    </Typography>
+                  )}
+                </ErrorMessage>
                 <div className={classes.localizationLabel}>
                   <Typography variant="subtitle1" color="initial">
                     {t('billing_group.form.associated_localizations')}
@@ -164,13 +173,7 @@ export function EstablishmentBillingGroupForm(props: Props) {
                     isOptionDisabled
                   />
                 </div>
-                <ErrorMessage name="name">
-                  {(error_msg) => (
-                    <Typography variant="caption" color="error">
-                      {t(`${error_msg}`)}
-                    </Typography>
-                  )}
-                </ErrorMessage>
+
                 <FieldArray name="establishments">
                   {({
                     remove,

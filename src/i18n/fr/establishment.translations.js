@@ -139,6 +139,8 @@ exports.default = {
       },
       error: {
         groupShouldContainsOneRoom: 'Veuillez sélectionner au moins une salle',
+        groupShouldHaveName:
+          'Vous devez donner un nom à ce groupe de facturation',
       },
     },
     modal: {

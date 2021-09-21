@@ -110,7 +110,7 @@ exports.default = {
     billingEstablishment: {
       error: {
         unAuthorizedEstablishmentModification:
-          "Impossible de modifier l'établissement de facturation, seuls les administrateurs",
+          "Impossible de modifier l'établissement de facturation, seuls les administrateurs en possèdent le droit de modification",
       },
     },
   },

@@ -24,6 +24,8 @@ import ConsumerPackRowItem from '../../../consumer-payment-pack/components/Consu
 import BookingModuleRegisterMethodChoice from './BookingModuleRegisterMethodChoice.component';
 import BookingModuleOfferChoice from './BookingModuleOfferChoice.component';
 import { MaxoutBooking } from '../../../consumer-payment-pack/types';
+import type { Establishment } from '../../../establishment/types';
+import type { Theme as CompanyTheme } from '../../../theme/types';
 
 type Props = {
   loading: boolean,
@@ -66,6 +68,7 @@ type Props = {
       paymentPack?: PaymentPack,
     },
     voucher?: number,
+    billingEstablishmentId?: number,
   ) => void,
 
   backToRegistererChoice: () => void,
@@ -76,6 +79,10 @@ type Props = {
   openRecurrenceRuleForm: () => void,
   maxoutLoading: boolean,
   cppMaxoutBookingsByCpp: { [key: string]: MaxoutBooking },
+  fetchEstablishments: () => void,
+  fetchAllEstablishmentBillingGroup: () => void,
+  establishments: Array<Establishment>,
+  companyTheme: CompanyTheme,
 };
 
 const REGISTER_METHOD_CHOICE = 0;
@@ -97,6 +104,8 @@ export class BookingModuleManager extends PureComponent<Props> {
         },
       },
     );
+    this.props.fetchEstablishments();
+    this.props.fetchAllEstablishmentBillingGroup();
   }
 
   render() {
@@ -222,16 +231,25 @@ export class BookingModuleManager extends PureComponent<Props> {
                 }
                 consumerPacks={this.props.consumerPacks}
                 onBookMultiple={this.props.setRegistererObject}
-                registerToOffer={(registererObject, voucher?) =>
+                registerToOffer={(
+                  registererObject,
+                  voucher?,
+                  billingEstablishmentId?,
+                ) =>
                   this.props.registerToOffer(
                     this.props.offerId,
                     registererObject,
                     voucher,
+                    billingEstablishmentId,
                   )
                 }
                 offer={this.props.offer}
                 cppMaxoutBookingsByCpp={this.props.cppMaxoutBookingsByCpp}
                 disableMultiBooking={!!this.props.offer.room_blueprint}
+                establishments={this.props.establishments}
+                enableMultiLocalization={
+                  this.props.companyTheme.enable_multi_localization
+                }
               />
             )}
             {this.props.step === OFFER_CHOICE && (
@@ -304,7 +322,12 @@ export default compose(
       keep_credits,
       registererObject,
       member,
-    }) => (offerId, registererObjectOverride, voucher?) => {
+    }) => (
+      offerId,
+      registererObjectOverride,
+      voucher?,
+      billingEstablishmentId?,
+    ) => {
       registerToOffer(
         member.id,
         offerId,
@@ -314,6 +337,7 @@ export default compose(
           keep_credits,
         },
         voucher,
+        billingEstablishmentId,
       );
     },
   }),

@@ -231,6 +231,8 @@ exports.default = {
     invoice_datetime: "Date et heure d'émission de la facture",
     invoice_time: "Heure d'émission de la facture",
     payment_amount_by_payment_method: 'Encaissement par méthode de paiement',
+    billing_group: 'Groupe de facturation',
+    billing_establishment: 'Adresse',
   },
   yes: 'Oui',
   no: 'Non',

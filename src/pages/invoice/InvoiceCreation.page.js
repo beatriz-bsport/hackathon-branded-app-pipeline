@@ -28,10 +28,21 @@ import { getBuyableItem } from '../../libs/invoice/selectors';
 
 import { fetchPrivatePassList } from '../../libs/private-service/actions';
 import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
-
+import {
+  fetchEstablishments,
+  fetchAllEstablishmentBillingGroup,
+} from '../../libs/establishment/actions';
+import {
+  getEstablishmentBillingroup,
+  withEstablishment,
+  getAvailableEstablishmentList,
+} from '../../libs/establishment/selectors';
+import themeSelectors from '../../libs/theme/selectors';
 import InvoiceFormV2 from '../../libs/invoice/components/InvoiceFormV2.component';
 import InvoiceDateDialog from '../../libs/invoice/dialog/InvoiceDateDialog.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import type { Establishment } from '../../libs/establishment/types';
+import type { Theme as CompanyThemeType } from '../../libs/theme/types';
 
 type Props = {
   member: ?Member,
@@ -47,11 +58,14 @@ type Props = {
   fetchAllPaymentPacks: () => void,
   fetchPrivatePassList: () => void,
   fetchPaymentComboList: () => void,
-
+  fetchEstablishments: () => void,
   initialItems: { withPrivatePass: ?string, withCredit: ?string },
 
   loading: boolean,
   availableBuyableItems: { [buyable_item_identifier: number]: Array<any> },
+  establishments: Array<Establishment>,
+  establishmentLoading: boolean,
+  companyTheme: CompanyThemeType,
 };
 
 type State = {
@@ -71,6 +85,7 @@ export class InvoiceCreation extends Component<Props, State> {
     this.props.fetchAllPaymentPacks();
     this.props.fetchPrivatePassList();
     this.props.fetchPaymentComboList();
+    this.props.fetchEstablishments();
   }
 
   prepareCreate = (invoiceData: InvoiceDataFront) => {
@@ -136,6 +151,11 @@ export class InvoiceCreation extends Component<Props, State> {
           availableBuyableItems={this.props.availableBuyableItems}
           goToSubscription={this.props.goToSubscription}
           goToMemberPage={() => goToMemberPage(memberId)}
+          establishments={this.props.establishments}
+          establishmentLoading={this.props.establishmentLoading}
+          enableMultiLocalization={
+            this.props.companyTheme.enable_multi_localization
+          }
         />
         <InvoiceDateDialog
           open={this.state.dateDialogOpen}
@@ -166,6 +186,14 @@ export default compose(
       loading: state.member.loading,
       member: getMember(state, memberId),
       availableBuyableItems: getBuyableItem(state),
+      establishmentBillingGroups: withEstablishment(
+        getEstablishmentBillingroup,
+      )(state),
+      establishments: getAvailableEstablishmentList(state),
+      establishmentLoading:
+        state.establishment.loading ||
+        state.establishment.establishmentBillingGroup.loading,
+      companyTheme: themeSelectors.getTheme(state),
     }),
     {
       fetchShopItems,
@@ -179,6 +207,9 @@ export default compose(
       goToSubscription: (id) => pushRouter(`/subscription/${id}/`),
       fetchMember,
       goToInvoice: (uuid) => pushRouter(`/invoice/${uuid}/`),
+
+      fetchEstablishments,
+      fetchAllEstablishmentBillingGroup,
     },
   ),
   withHandlers({

@@ -125,8 +125,22 @@ const getEstablishmentList = (establishments: Array<Establishment>) => {
 
 const establishmentStyles = {
   control: (styles) => ({ ...styles, backgroundColor: 'white' }),
-  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-  option: (styles, { isDisabled, isFocused, isSelected }) => {
+  menuPortal: (base) => {
+    return {
+      ...base,
+      zIndex: 9999,
+      display: 'flex',
+      flexWrap: 'wrap',
+    };
+  },
+  option: (
+    styles,
+    {
+      isDisabled,
+      isFocused,
+      isSelected,
+    }: { isDisabled: boolean; isFocused: boolean; isSelected: boolean },
+  ) => {
     const color = chroma(colors.secondary);
     /* eslint-disable */
     return {
@@ -195,6 +209,7 @@ type OwnProps = {
   nullCurrentValue: boolean;
   isLoading?: boolean;
   isOptionDisabled?: boolean;
+  targetParentElement?: boolean;
 };
 
 type Props = OwnProps & WithTranslation;
@@ -212,6 +227,7 @@ export function EstablishmentSelector(props: Props) {
     isClearable,
     isLoading,
     isOptionDisabled,
+    targetParentElement,
   } = props;
   const roomsSelected =
     selectedEstablishments && !nullCurrentValue
@@ -229,7 +245,7 @@ export function EstablishmentSelector(props: Props) {
       onChange={selectOption}
       isDisabled={disabled}
       isClearable={isClearable}
-      menuPortalTarget={document.querySelector('body')}
+      menuPortalTarget={!targetParentElement && document.querySelector('body')}
       value={roomsSelected}
       components={{ GroupHeading, Group, Menu }}
       selectedEstablishments={selectedEstablishments}

@@ -392,7 +392,7 @@ exports.default = {
         password: 'Mot de passe',
         passwordConfirm: 'Confirmation du mot de passe',
         gender: 'sexe',
-        address_line_1: 'Addresse',
+        address_line_1: 'Adresse',
         address_line_2: "Complément d'adresse",
         zipcode: 'Code Postal',
         country: 'Pays',

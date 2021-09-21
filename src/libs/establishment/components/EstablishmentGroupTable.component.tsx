@@ -1,6 +1,7 @@
 import React from 'react';
 import { compose } from 'recompose';
-import { WithTranslation, withTranslation, TFunction } from 'react-i18next';
+import { WithTranslation, withTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
 import { Theme } from '@material-ui/core/styles';
 
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -59,7 +60,9 @@ export const EstablishmentGroupTable = (props: Props) => {
                 {group.establishment &&
                   group.establishment.map((est) => (
                     <Chip
-                      avatar={<Avatar alt="cover" src={`${est.cover}`} />}
+                      avatar={
+                        <Avatar alt={`${est.title}`} src={`${est.cover}`} />
+                      }
                       label={`${est.title}`}
                       variant="outlined"
                       color="primary"

@@ -17,6 +17,7 @@ import InvoiceEditorV2 from './InvoiceEditorV2.component';
 import FinalizeInvoiceDialog from '../dialog/FinalizeInvoiceDialog.component';
 import { OptionCallback } from '../../../state/types';
 import { appliesToInvoice } from '../../coupon/api';
+import type { Establishment } from '../../establishment/types';
 
 type Props = {
   classes: Object,
@@ -36,6 +37,9 @@ type Props = {
   closeFinalizeInvoiceDialog: () => void,
   initialItems?: { withPrivatePass?: string, withCredit?: string },
   t: TFunction,
+  establishments: Array<Establishment>,
+  establishmentLoading: boolean,
+  enableMultiLocalization: boolean,
 };
 
 type State = {
@@ -46,6 +50,7 @@ type State = {
     compatible_items: Array<number>,
   }>,
   couponLoading: boolean,
+  billing_establishment_id: number | null,
 };
 
 const asEditable = (editable, items) => {
@@ -56,7 +61,12 @@ const asEditable = (editable, items) => {
 };
 
 export class InvoiceForm extends React.Component<Props, State> {
-  state = { invoiceItemList: [], coupon_list: [], couponLoading: false };
+  state = {
+    invoiceItemList: [],
+    coupon_list: [],
+    couponLoading: false,
+    billing_establishment_id: null,
+  };
 
   componentDidMount() {
     const { initialItems } = this.props;
@@ -89,7 +99,7 @@ export class InvoiceForm extends React.Component<Props, State> {
       this.state.invoiceItemList &&
       prevState.invoiceItemList !== this.state.invoiceItemList
     ) {
-      this.checkCouponAplicability();
+      this.checkCouponApplicability();
     }
   }
 
@@ -175,7 +185,7 @@ export class InvoiceForm extends React.Component<Props, State> {
     });
   };
 
-  checkCouponAplicability = async () => {
+  checkCouponApplicability = async () => {
     this.setState({ coupon_list: [], couponLoading: true });
     const promises = this.state.coupon_list.map((coupon) => {
       return this.applyCoupon(coupon.coupon_code);
@@ -191,6 +201,7 @@ export class InvoiceForm extends React.Component<Props, State> {
         coupon_codes: this.state.coupon_list.map(
           (coupon) => coupon.coupon_code,
         ),
+        billing_establishment_id: this.state.billing_establishment_id,
       },
       options,
     );
@@ -228,6 +239,14 @@ export class InvoiceForm extends React.Component<Props, State> {
             deleteCoupon={this.deleteCoupon}
             disableCoupon={this.invoiceItemIsEmpty()}
             couponLoading={this.state.couponLoading}
+            withEstablishment
+            establishments={this.props.establishments}
+            establishmentLoading={this.props.establishmentLoading}
+            billing_establishment_id={this.state.billing_establishment_id}
+            setBillingEstablishment={(billing_establishment_id) =>
+              this.setState({ billing_establishment_id })
+            }
+            enableMultiLocalization={this.props.enableMultiLocalization}
           />
           <div className={classes.buttonContainer}>
             <Button

@@ -16,6 +16,7 @@ import {
   listInvoiceActions,
   listPlannedPaymentEventActions,
   editCustomFooterActions,
+  editBillingEstablishmentActions,
   checkInvoiceInfoActions,
   cancelPlannedPaymentEventActions,
   enablePlannedPaymentEventActions,
@@ -244,6 +245,9 @@ export default handleActions(
       return state.setIn(['byId', payload.uuid], payload);
     },
     [editCustomFooterActions.success]: (state, { payload }) => {
+      return state.setIn(['byId', payload.uuid], payload);
+    },
+    [editBillingEstablishmentActions.success]: (state, { payload }) => {
       return state.setIn(['byId', payload.uuid], payload);
     },
     [listPlannedPaymentEventActions.isLoading]: (state, { payload }) => {

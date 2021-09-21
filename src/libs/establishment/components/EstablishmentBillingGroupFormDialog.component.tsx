@@ -2,9 +2,8 @@ import React from 'react';
 import uniq from 'lodash/uniq';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 import { FieldArray, Formik, FormikProps, ErrorMessage } from 'formik';
-import { Theme } from '@material-ui/core/styles';
-import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -16,23 +15,21 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import Typography from '@material-ui/core/Typography';
 import * as Yup from 'yup';
 import type {
-  EstablishmentGroup,
-  EstablishmentGroupAPI,
+  EstablishmentBillingGroup,
+  EstablishmentBillingGroupAPI,
   Establishment,
   EstablishmentGroupByAddress,
   EstablishmentListGroupByAddress,
-  AssociatedEstablishment,
 } from '../types';
-import { MaterialStyleType } from '../../../utils/types';
 import { TextField } from '../../../components/forms';
 import EstablishmentSelector from './EstablishmentSelector.component';
 import EstablishmentListItem from './EstablishmentListItem.component';
 
 type InitialValues = {
-  initial?: EstablishmentGroup;
+  initial?: EstablishmentBillingGroup;
 };
 type OwnProps = InitialValues & {
-  onSubmit: (data: EstablishmentGroupAPI) => void;
+  onSubmit: (data: EstablishmentBillingGroupAPI) => void;
   isSubmitting: boolean;
   open: boolean;
   onClose: () => void;
@@ -41,22 +38,21 @@ type OwnProps = InitialValues & {
 type Props = OwnProps &
   WithTranslation &
   FormikProps<InitialValues> &
-  MaterialStyleType<ReturnType<typeof styles>>;
-
-const EstablishmentGroupSchema = Yup.object().shape({
+  WithStyles<typeof styles>;
+const EstablishmentBillingGroupSchema = Yup.object().shape({
   id: Yup.number().nullable(true),
   name: Yup.string().nullable(false),
-  establishment: Yup.array()
+  establishments: Yup.array()
     .of(Yup.number())
     .test(
-      'group_should_contains_at_least_one_establishment',
+      'billing_group_should_contains_at_least_one_establishment',
       'establishment:billing_group.form.error.groupShouldContainsOneRoom',
       function () {
-        return this.parent.establishment?.length >= 1;
+        return this.parent.establishments?.length > 1;
       },
     ),
 });
-export function EstablishmentGroupForm(props: Props) {
+export function EstablishmentBillingGroupForm(props: Props) {
   const { t, isSubmitting, classes } = props;
   const [loading, setLoading] = React.useState(false);
   const establishmentSelectedGroupedByaddress = (
@@ -69,7 +65,7 @@ export function EstablishmentGroupForm(props: Props) {
       .reduce(
         (
           accumulator: EstablishmentListGroupByAddress,
-          establishmentItem: AssociatedEstablishment,
+          establishmentItem: Establishment,
         ) => {
           const temp = accumulator.findIndex(
             (group) =>
@@ -96,16 +92,16 @@ export function EstablishmentGroupForm(props: Props) {
         props.initial
           ? {
               ...props.initial,
-              establishment: [
-                ...props.initial.establishment.map((est) => est.id),
+              establishments: [
+                ...props.initial.establishments.map((est) => est.id),
               ],
             }
           : {
               name: '',
-              establishment: [],
+              establishments: [],
             }
       }
-      validationSchema={EstablishmentGroupSchema}
+      validationSchema={EstablishmentBillingGroupSchema}
       onSubmit={(values) => {
         return props.onSubmit({ ...values });
       }}
@@ -116,29 +112,34 @@ export function EstablishmentGroupForm(props: Props) {
             <Dialog
               open={props.open}
               onClose={props.onClose}
-              aria-labelledby="establishment-group-form"
+              aria-labelledby="establishment-billing-group-form"
               maxWidth="xs"
               fullWidth
             >
-              <DialogTitle id="establishment-group-form">
-                {t('group.form.dialog.title')}
+              <DialogTitle id="establishment-billing-group-form">
+                {t('billing_group.form.dialog.title')}
               </DialogTitle>
               <DialogContent>
                 <TextField
-                  id="textfield_establishment_group_name"
+                  id="textfield_establishment_billing_group_name"
                   name="name"
-                  label={t('group.form.name')}
+                  label={t('billing_group.form.name')}
                   fullWidth
                   required
                 />
                 <div className={classes.localizationLabel}>
                   <Typography variant="subtitle1" color="initial">
-                    {t('group.form.associated_localizations')}
+                    {t('billing_group.form.associated_localizations')}
                   </Typography>
                 </div>
                 <div className={classes.establishmentSelector}>
                   <EstablishmentSelector
-                    establishments={props.establishments}
+                    establishments={props.establishments?.filter(
+                      (est: Establishment) =>
+                        !est.establishment_billing_group_id ||
+                        est.establishment_billing_group_id ===
+                          props.initial?.id,
+                    )}
                     noMulti
                     closeMenuOnSelect
                     nullCurrentValue
@@ -147,8 +148,8 @@ export function EstablishmentGroupForm(props: Props) {
                       label: string;
                     }) => {
                       formik.setFieldValue(
-                        'establishment',
-                        uniq([...formik.values.establishment, item.value]),
+                        'establishments',
+                        uniq([...formik.values.establishments, item.value]),
                       );
                       setLoading(true);
                       await new Promise((resolve) => {
@@ -158,7 +159,7 @@ export function EstablishmentGroupForm(props: Props) {
                     }}
                     disabled={isSubmitting}
                     isClearable
-                    selectedEstablishments={formik.values.establishment}
+                    selectedEstablishments={formik.values.establishments}
                     isLoading={loading}
                     isOptionDisabled
                   />
@@ -170,15 +171,17 @@ export function EstablishmentGroupForm(props: Props) {
                     </Typography>
                   )}
                 </ErrorMessage>
-                <FieldArray name="establishment">
+                <FieldArray name="establishments">
                   {({
                     remove,
                     form: {
-                      values: { establishment },
+                      values: { establishments },
                     },
                   }) => (
                     <>
-                      {establishmentSelectedGroupedByaddress(establishment).map(
+                      {establishmentSelectedGroupedByaddress(
+                        establishments,
+                      ).map(
                         (group: EstablishmentGroupByAddress, index: number) => (
                           <List
                             component="nav"
@@ -202,9 +205,10 @@ export function EstablishmentGroupForm(props: Props) {
                                 noDivider
                                 button
                                 onClickDelete={() => {
-                                  const establishmentIndex = establishment.findIndex(
+                                  const establishmentIndex = formik.values.establishments.findIndex(
                                     (esta: number) => esta === est.id,
                                   );
+
                                   remove(establishmentIndex);
                                 }}
                               />
@@ -215,7 +219,7 @@ export function EstablishmentGroupForm(props: Props) {
                     </>
                   )}
                 </FieldArray>
-                <ErrorMessage name="establishment">
+                <ErrorMessage name="establishments">
                   {(error_msg) => (
                     <Typography variant="caption" color="error">
                       {t(`${error_msg}`)}
@@ -228,7 +232,7 @@ export function EstablishmentGroupForm(props: Props) {
                   {t('group.form.dialog.cancel')}
                 </Button>
                 <Button
-                  id="submit_estabishment_group"
+                  id="submit_estabishment_billing_group"
                   disabled={isSubmitting}
                   variant="contained"
                   color="primary"
@@ -244,29 +248,32 @@ export function EstablishmentGroupForm(props: Props) {
     </Formik>
   );
 }
-const styles = (theme: Theme) => ({
-  button: { width: '100%', padding: '0' },
-  searchPaperDisplayed: {
-    maxHeight: '500px',
-    overflow: 'auto',
-  },
-  listSubHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'row',
-    borderBottom: `1px solid${theme.palette.primary.main}`,
-    paddingBottom: theme.spacing(0.5),
-    paddingLeft: 0,
-  },
-  localizationLabel: {
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-  },
-  establishmentSelector: {
-    paddingBottom: theme.spacing(1),
-  },
-});
+
+const styles = (theme: Theme) =>
+  createStyles({
+    button: { width: '100%', padding: '0' },
+    searchPaperDisplayed: {
+      maxHeight: '500px',
+      overflow: 'auto',
+    },
+    listSubHeader: {
+      display: 'flex',
+      alignItems: 'center',
+      flexDirection: 'row',
+      borderBottom: `1px solid${theme.palette.primary.main}`,
+      paddingBottom: theme.spacing(0.5),
+      paddingLeft: 0,
+    },
+    localizationLabel: {
+      paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(1),
+    },
+    establishmentSelector: {
+      paddingBottom: theme.spacing(1),
+    },
+  });
+
 export default compose<any, OwnProps>(
   withTranslation('establishment'),
   withStyles(styles),
-)(EstablishmentGroupForm);
+)(EstablishmentBillingGroupForm);

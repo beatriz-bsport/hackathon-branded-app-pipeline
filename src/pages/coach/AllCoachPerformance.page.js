@@ -144,6 +144,16 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     width: '300px',
     paddingRight: theme.spacing(1),
+    [theme.breakpoints.down('lg')]: {
+      width: '200px',
+    },
+  },
+  selectorContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    flexWrap: 'wrap',
   },
   ruleType: {
     display: 'flex',
@@ -168,7 +178,7 @@ function CoachPerformance(props: CoachPerformanceProps) {
       <div className={classes.flexBanner}>
         <Typography variant="h5">{coach.name}</Typography>
 
-        <div style={{ display: 'flex' }}>
+        <div className={classes.selectorContainer}>
           <div className={classes.flexPaymentSelector}>
             <Typography className={classes.caption} variant="caption">
               {t('paymentRules:select.group')}
@@ -438,6 +448,7 @@ const styles = (theme) => ({
   },
   container: {
     marginBottom: theme.spacing(32),
+    overflowX: 'scroll',
   },
   generalLoader: {
     marginBottom: theme.spacing(1),

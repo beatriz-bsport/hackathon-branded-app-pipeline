@@ -16,9 +16,15 @@ import {
 import { fetchMember } from '../../libs/member/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
 import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
-import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
+import {
+  fetchEstablishmentBulk as fetchEstablishmentBulkAction,
+  fetchEstablishments,
+  fetchAllEstablishmentBillingGroup,
+} from '../../libs/establishment/actions';
+import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
 import BookingModuleManagerComponent from '../../libs/booking/components/booker-module/BookerModuleManager.component';
 import { RootState } from '../../reducers';
+import themeSelectors from '../../libs/theme/selectors';
 
 export default compose(
   connect(
@@ -35,6 +41,8 @@ export default compose(
       similarOffers: getSimilarsOffers(state),
       cppMaxoutBookingsByCpp: state.consumerPaymentPack.maxout_booking.byId,
       maxoutLoading: state.consumerPaymentPack.maxout_booking.loading,
+      establishments: getAvailableEstablishmentList(state),
+      companyTheme: themeSelectors.getTheme(state),
     }),
     {
       fetchPaymentPackBulk,
@@ -46,6 +54,8 @@ export default compose(
       fetchCoachBulk: fetchCoachBulkAction,
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
       fetchConsumerPaymentPackMaxoutBooking,
+      fetchEstablishments,
+      fetchAllEstablishmentBillingGroup,
     },
   ),
 

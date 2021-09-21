@@ -18,6 +18,7 @@ import {
   PAYMENT_ENGINE_STRIPE,
   PAYMENT_INTENT_TYPE_BASKET,
   PAYMENT_GROUP_METHOD_BY_ENGINE,
+  PAYMENT_INTENT_STATUS_SUCCESS,
 } from '@bsport/common/lib/master-data/payment-group';
 import {
   addItemToBasket as addItemToBasketAction,
@@ -189,7 +190,7 @@ export class BasketPage extends React.Component<Props> {
   onSuccess = (callback) => {
     getPaymentGroupStatusAPI(this.state.paymentGroupId)
       .then((r) => {
-        if (r.data >= 200) {
+        if (r.data >= PAYMENT_INTENT_STATUS_SUCCESS) {
           setTimeout(() => {
             Analytics.onPaymentSuccess(this.props.basket);
             this.props.onSuccess();

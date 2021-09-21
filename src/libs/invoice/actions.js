@@ -21,6 +21,7 @@ import {
   applyBalanceToUnpaid as applyBalanceToUnpaidAPI,
   fetchPlannedPaymentEvent as fetchPlannedPaymentEventAPI,
   editCustomFooter as editCustomFooterAPI,
+  editBillingEstablishent as editBillingEstablishentAPI,
   cancelPlannedPaymentEvent as cancelPlannedPaymentEventAPI,
   enablePlannedPaymentEvent as enablePlannedPaymentEventAPI,
   registerNowPlannedPaymentEvent as registerNowPlannedPaymentEventAPI,
@@ -712,5 +713,44 @@ export function schedulePayment(
       dispatch(schedulePaymentActions.error(err));
     }
     dispatch(schedulePaymentActions.isLoading(false));
+  };
+}
+
+export const editBillingEstablishmentActions = {
+  isLoading: createAction('INVOICE/EDIT_BILLING_ESTABLISHMENT/LOADING'),
+  error: createAction('INVOICE/EDIT_BILLING_ESTABLISHMENT/ERROR'),
+  success: createAction('INVOICE/EDIT_BILLING_ESTABLISHMENT/SUCCESS'),
+};
+
+export function editBillingEstablishment(
+  uuid: string,
+  establishmentId: string,
+  options: ?OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(editBillingEstablishmentActions.isLoading(true));
+    dispatch(editBillingEstablishmentActions.error(null));
+
+    try {
+      const response = await editBillingEstablishentAPI(uuid, establishmentId);
+      dispatch(editBillingEstablishmentActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      if (err && err.response && err.response.status === 401) {
+        dispatch(
+          snackbarError(
+            'invoice.billingEstablishment.error.unAuthorizedEstablishmentModification',
+          ),
+        );
+      } else {
+        dispatch(editBillingEstablishmentActions.error(err));
+        if (options && options.onError) {
+          options.onError(err);
+        }
+      }
+    }
+    dispatch(editBillingEstablishmentActions.isLoading(false));
   };
 }

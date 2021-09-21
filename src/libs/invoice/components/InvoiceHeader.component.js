@@ -13,16 +13,29 @@ import ReceiptIcon from '@material-ui/icons/Receipt';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
-
+import LocationIcon from '@material-ui/icons/LocationOn';
+import EditIcon from '@material-ui/icons/Edit';
+import IconButton from '@material-ui/core/IconButton';
 import {
   INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER,
   INVOICE_TYPE_REVERSE,
   INVOICE_TYPE_MIGRATION,
 } from '@bsport/common/lib/master-data/invoice-type';
 
+import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
+import type { Invoice } from '../types';
+import type { Establishment } from '../../establishment/types';
+
 type Props = {
   invoice: ?Invoice,
   onClickInvoice: (uuid: string) => void,
+  establishments: Array<Establishment>,
+  editBillingEstablishment: (
+    uuid: string,
+    estabishmentID: number,
+    options: OptionCallback,
+  ) => void,
+  enableMultiLocalization: boolean,
 };
 
 const InvoiceTypeInfo = ({
@@ -55,6 +68,7 @@ export const InvoiceHeader = (props: Props) => {
   const { invoice } = props;
   const { t } = useTranslation(['invoice']);
   const classes = useStyles();
+  const [editEstablishment, setEditEstablishment] = React.useState(false);
   if (!invoice) {
     return null;
   }
@@ -102,6 +116,48 @@ export const InvoiceHeader = (props: Props) => {
             {t(`invoice.header.source.${invoice.source}`)}
           </Typography>
         </div>
+        {props.enableMultiLocalization ? (
+          <>
+            {editEstablishment ? (
+              <div className={classes.selectorRow}>
+                <EstablishmentSelector
+                  establishments={props.establishments}
+                  noMulti
+                  closeMenuOnSelect
+                  nullCurrentValue
+                  selectOption={async (item: {
+                    value: number,
+                    label: string,
+                  }) => {
+                    props.editBillingEstablishment(item?.value);
+                    setEditEstablishment(false);
+                  }}
+                  disabled={!editEstablishment}
+                  isClearable
+                  selectedEstablishments={[
+                    invoice && invoice.establishment?.location.address,
+                  ]}
+                  isOptionDisabled
+                />
+              </div>
+            ) : (
+              <div className={classes.row}>
+                <LocationIcon fontSize="small" className={classes.leftIcon} />
+                <Typography color="textSecondary">
+                  {(invoice && invoice.establishment?.location.address) ||
+                    t('invoice.header.noEstablishment')}
+                </Typography>
+                <IconButton
+                  onClick={() => setEditEstablishment(!editEstablishment)}
+                  className={classes.iconButton}
+                >
+                  <EditIcon fontSize="small" />
+                </IconButton>
+              </div>
+            )}
+          </>
+        ) : null}
+
         {!!invoice.source_invoice && (
           <ButtonBase
             onClick={() => props.onClickInvoice(invoice.source_invoice)}
@@ -156,8 +212,17 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  selectorRow: {
+    maxWidth: '50%',
+  },
   leftIcon: {
     marginRight: theme.spacing(1),
+  },
+  iconButton: {
+    paddingTop: 0,
+    paddingBottom: 0,
+    padding: 0,
+    marginLeft: theme.spacing(1),
   },
   infoContainer: {
     backgroundColor: '#f8f8f8',

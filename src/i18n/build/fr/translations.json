@@ -957,13 +957,32 @@
       "noGroupHelper": "Les localisations permettent de regrouper plusieurs adresses entre elles. Si vous possèdez plusieurs studios dans différentes villes vous pouvez regrouper les studios de la même ville dans une localisation. Sur la marketplace, le widget  et l’application personnalisée vos élèves pourront sélectionner la localisation qui les intéresse le plus pour ne voir que les cours proches de chez eux.",
       "form": {
         "name": "Nom",
-        "associated_localizations": "Etablissements associées",
+        "associated_localizations": "Salles associées",
         "dialog": { "title": "Localisation", "cancel": "Annuler", "save": "Enregistrer" }
       },
       "modal": {
         "delete": {
           "title": "Supprimer une localisation",
           "content": "Cette localisation n'appraitra plus dans les filtres disponibles sur la marketplace, le widget et l'application personnalisée.",
+          "cancel": "Annuler",
+          "confirm": "Supprimer"
+        }
+      },
+      "table": { "actions": "Actions", "establishment": "Etablissements", "name": "Nom" }
+    },
+    "billing_group": {
+      "name": " Nom",
+      "actions": "Actions",
+      "form": {
+        "name": "Nom",
+        "associated_localizations": "Salles associées",
+        "dialog": { "title": "Groupe de facturation", "cancel": "Annuler", "save": "Enregistrer" },
+        "error": { "groupShouldContainsOneRoom": "Veuillez sélectionner au moins une salle" }
+      },
+      "modal": {
+        "delete": {
+          "title": "Suppression d'un groupe de facturation",
+          "content": "Voulez-vous supprimer ce groupe de facturation ? La suppression de ce groupe sera retro-active, il n'apparaitra plus dans les rapports associés.",
           "cancel": "Annuler",
           "confirm": "Supprimer"
         }
@@ -1042,6 +1061,7 @@
         "author": "Créé par : {{ name }}",
         "clientAuthor": "Client",
         "sourceInvoice": "Annule la facture",
+        "noEstablishment": "Aucun Établissement",
         "reverseInvoice": "Remboursé via ",
         "source": { "0": "App", "1": "Web", "2": "Backoffice", "3": "Autre", "label": "Canal : {{ source }}" }
       }
@@ -1214,7 +1234,13 @@
       "discount": "Réduction"
     },
     "section": {
-      "invoiceItemList": { "title": "Achats", "titleReverse": "Retour achat", "isEmpty": "Aucun achat", "total": "Total achat" },
+      "invoiceItemList": {
+        "title": "Achats",
+        "titleReverse": "Retour achat",
+        "isEmpty": "Aucun achat",
+        "total": "Total achat",
+        "billing_establishment": "Établissement de facturation (facultatif)"
+      },
       "paymentList": { "title": "Moyens de paiement", "isEmpty": "Aucun moyen de paiement enregistré", "total": "Total paiement" }
     },
     "table": {
@@ -3724,7 +3750,9 @@
       "invoice_date_created": "Date d'émission de la facture",
       "invoice_datetime": "Date et heure d'émission de la facture",
       "invoice_time": "Heure d'émission de la facture",
-      "payment_amount_by_payment_method": "Encaissement par méthode de paiement"
+      "payment_amount_by_payment_method": "Encaissement par méthode de paiement",
+      "billing_group": "Groupe de facturation",
+      "billing_establishment": "Adresse"
     },
     "yes": "Oui",
     "no": "Non",
@@ -4046,6 +4074,11 @@
       "methodPaymentSubscriptionHelper": "Autoriser les paiements des souscriptions (contrats) uniquement via",
       "methodPaymentSubscriptionError": "Veuillez choisir au moins une méthode de paiement",
       "save": "Enregistrer"
+    },
+    "billing_group": {
+      "add": "Ajouter un groupe",
+      "helperText": "Si vous disposez de plusieurs studios appartenants à différentes raisons sociales, vous pouvez les regrouper ici par groupe de facturation. Les groupes de facturations apparaitront sur vos rapports pour relier plus facilement chaque facture à la bonne raison sociale.",
+      "header": "Groupes de facturation"
     }
   },
   "shop": {
@@ -4455,7 +4488,12 @@
       "returnPaymentLocked": "Impossible de rembourser ce paiement, votre compte Stripe est-il assez approvisionné ?",
       "update": { "success": "Facture mise à jour avec succès" },
       "create": { "success": "Facture enregistrée" },
-      "error": "Erreur lors de l'enregistrement - Annulé"
+      "error": "Erreur lors de l'enregistrement - Annulé",
+      "billingEstablishment": {
+        "error": {
+          "unAuthorizedEstablishmentModification": "Impossible de modifier l'établissement de facturation, seuls les administrateurs"
+        }
+      }
     },
     "zoom": { "created": { "success": "Compte Zoom lié avec succès", "error": "Erreur lors du lien du compte Zoom" } },
     "copied": "Copié dans le presse-papier",
@@ -4542,7 +4580,15 @@
     "establishmentGroup": {
       "create": { "success": "La nouvelle localisation a été créée", "error": "Impossible de créer la localisation" },
       "update": { "success": "Localisation modifiée", "error": "Impossible de modifier la localisation" },
-      "delete": { "success": "Localisation supprimée", "error": "Impossible de supprimer al localisation" }
+      "delete": { "success": "Localisation supprimée", "error": "Impossible de supprimer la localisation" }
+    },
+    "establishmentBillingGroup": {
+      "create": {
+        "success": "Le nouveau groupe de facturation  a été créé",
+        "error": "Impossible de créer le groupe de facturation"
+      },
+      "update": { "success": "Groupe de facturation modifié", "error": "Impossible de modifier le groupe de facturation" },
+      "delete": { "success": "Groupe de facturation supprimé", "error": "Impossible de supprimer le groupe de facturation" }
     },
     "memberNote": { "delete": { "success": "Note supprimée", "error": "Impossible de supprimer la note" } },
     "member": {
@@ -5818,7 +5864,7 @@
           "password": "Mot de passe",
           "passwordConfirm": "Confirmation du mot de passe",
           "gender": "sexe",
-          "address_line_1": "Addresse",
+          "address_line_1": "Adresse",
           "address_line_2": "Complément d'adresse",
           "zipcode": "Code Postal",
           "country": "Pays",

@@ -22,6 +22,7 @@ import SubscriptionPayment from './SubscriptionPayment.component';
 
 import SubscriptionSchedule from './SubscriptionSchedule.component';
 import type { SubscriptionData } from '../types';
+import type { Establishment } from '../../establishment/types';
 
 type Props = {
   subscriptionData: ?SubscriptionData,
@@ -33,6 +34,8 @@ type Props = {
   refreshSavedPaymentMethodList: (params: any) => void,
   savedPaymentMethodList: Array<PaymentMethod>,
   requestSetupIntentSecret: () => void,
+  establishments: Array<Establishment>,
+  enableMultiLocalization: boolean,
 };
 
 type State = {
@@ -100,6 +103,8 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
               refreshSavedPaymentMethodList={
                 this.props.refreshSavedPaymentMethodList
               }
+              enableMultiLocalization={this.props.enableMultiLocalization}
+              establishments={this.props.establishments}
             />
           </Paper>
         </Grid>

@@ -10,7 +10,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
-
+import Divider from '@material-ui/core/Divider';
 import PriceInput from '../../../../components/input/PriceInput.component';
 import PercentInput from '../../../../components/input/PercentInput.component';
 import PaymentPackListItem from '../../../payment-packs/components/PaymentPackListItem.component';
@@ -20,6 +20,7 @@ import type { ConsumerPaymentPack } from '../../../consumer-payment-pack/types';
 import type { PaymentPack } from '../../../payment-packs/types';
 import { MaxoutBooking } from '../../../consumer-payment-pack/types';
 import { Offer } from '../../../offer/types';
+import EstablishmentSelector from '../../../establishment/components/EstablishmentSelector.component';
 
 type Props = {
   consumerPacks: Array<ConsumerPaymentPack>,
@@ -39,6 +40,9 @@ type Props = {
   offer?: Offer,
   cppMaxoutBookingsByCpp?: { [cpp_id: string]: MaxoutBooking },
   disableMultiBooking?: boolean,
+  establishments: Array<Establishment>,
+  establishmentLoading: boolean,
+  enableMultiLocalization: boolean,
 };
 
 export const BookingModuleRegisterMethodChoice = (props: Props) => {
@@ -47,6 +51,7 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
   const [voucher, setVoucher] = useState(0);
   const [voucherDialogOpen, setVoucherDialogOpen] = useState(false);
   const [selectedPack, setSelectedPack] = useState(null);
+  const [billingEstablishmentId, setBillingEstablishmentId] = useState(null);
 
   return (
     <div className={classes.container}>
@@ -183,6 +188,30 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
               />
             </div>
           </div>
+          {props.enableMultiLocalization && (
+            <div>
+              <Typography variant="h6" className={classes.sectionTitle}>
+                {t('invoice:section.invoiceItemList.billing_establishment')}
+              </Typography>
+              <Divider className={classes.divider} />
+
+              <EstablishmentSelector
+                establishments={props.establishments}
+                isClearable
+                isLoading={props.establishmentLoading}
+                isOptionDisabled
+                selectOption={async (item: {
+                  value: number,
+                  label: string,
+                }) => {
+                  setBillingEstablishmentId(item ? item.value : null);
+                }}
+                selectedEstablishments={[billingEstablishmentId]}
+                noMulti
+                closeMenuOnSelect
+              />
+            </div>
+          )}
         </DialogContent>
         <DialogActions>
           <Button
@@ -197,10 +226,15 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
           <Button
             color="primary"
             onClick={() => {
-              props.registerToOffer({ paymentPack: selectedPack }, voucher);
+              props.registerToOffer(
+                { paymentPack: selectedPack },
+                voucher,
+                billingEstablishmentId,
+              );
               setSelectedPack(null);
               setVoucherDialogOpen(false);
               setVoucher(0);
+              setBillingEstablishmentId(null);
             }}
             disabled={Number.isNaN(voucher) || voucher < 0}
           >
@@ -243,6 +277,9 @@ const useStyles = makeStyles((theme) => ({
     '&>*': {
       marginBottom: theme.spacing(1.5),
     },
+  },
+  divider: {
+    marginBottom: theme.spacing(2),
   },
 }));
 

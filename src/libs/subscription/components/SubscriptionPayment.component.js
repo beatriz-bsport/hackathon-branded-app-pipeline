@@ -37,6 +37,8 @@ import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { appliesToContract } from '../../coupon/api';
 import CouponCodeForm from '../../coupon/components/CouponCodeForm.component';
 import { Moment } from '../../../i18n';
+import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
+import type { Establishment } from '../../establishment/types';
 
 const PaymentMethodSwitcher = (props: {
   classes: Object,
@@ -130,6 +132,10 @@ type Props = {
   setDate?: (value: string) => void,
   withGeneralConditions: boolean,
   member?: Member,
+  withEstablishment: boolean,
+  establishments: Array<Establishment>,
+  establishmentLoading: boolean,
+  enableMultiLocalization: boolean,
 };
 
 type State = {
@@ -138,6 +144,7 @@ type State = {
   loading: boolean,
   coupon_code: string,
   voucher: number | null,
+  billing_establishment_id: number | null,
 };
 
 export class SubscriptionPayment extends React.Component<Props, State> {
@@ -148,6 +155,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       note: '',
       coupon_code: '',
       loading: false,
+      billing_establishment_id: null,
     };
   }
 
@@ -183,6 +191,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
         null,
         (this.state.voucher && this.state.coupon_code) || null,
         this.state.note,
+        this.state.billing_establishment_id,
       );
     } else {
       this.setState({ loading: true });
@@ -203,6 +212,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
         },
         (this.state.voucher && this.state.coupon_code) || null,
         this.state.note,
+        this.state.billing_establishment_id,
       );
     }
   };
@@ -419,6 +429,33 @@ export class SubscriptionPayment extends React.Component<Props, State> {
             </div>
           </>
         )}
+        {this.props.enableMultiLocalization &&
+          this.props.withEstablishment &&
+          this.props.establishments?.length !== 0 && (
+            <div className={classes.establishmentSection}>
+              <Typography variant="h6" className={classes.sectionTitle}>
+                {this.props.t(
+                  'invoice:section.invoiceItemList.billing_establishment',
+                )}
+              </Typography>
+              <Divider className={classes.divider} />
+              <EstablishmentSelector
+                establishments={this.props.establishments}
+                isClearable
+                isLoading={this.props.establishmentLoading}
+                isOptionDisabled
+                selectOption={(item: { value: number, label: string }) => {
+                  this.setState({
+                    billing_establishment_id: item ? item.value : null,
+                  });
+                }}
+                selectedEstablishments={[this.state.billing_establishment_id]}
+                noMulti
+                closeMenuOnSelect
+                targetParentElement
+              />
+            </div>
+          )}
         <div className={classes.buttonContainer}>
           <Button
             onClick={onCancel}
@@ -503,6 +540,12 @@ const styles = (theme) => ({
   },
   buttonLeftText: {
     paddingRight: theme.spacing(1),
+  },
+  establishmentSection: {
+    paddingBottom: theme.spacing(2),
+  },
+  divider: {
+    marginBottom: theme.spacing(2),
   },
 });
 

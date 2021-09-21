@@ -34,6 +34,11 @@ import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
 import { getPaymentComboList } from '../../libs/payment-combo/selectors';
 import { PaymentCombo } from '../../libs/payment-combo/types';
 import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
+import { fetchEstablishments } from '../../libs/establishment/actions';
+import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
+import type { Establishment } from '../../libs/establishment/types';
+import type { Theme as CompanyTheme } from '../../libs/theme/types';
+import themeSelectors from '../../libs/theme/selectors';
 
 type Props = {
   member: Member,
@@ -49,6 +54,9 @@ type Props = {
   fetchPaymentComboList: () => void,
   paymentComboList: PaymentCombo[],
   fetchAllPaymentPacks: () => void,
+  fetchEstablishments: () => void,
+  establishments: Array<Establishment>,
+  companyTheme: CompanyTheme,
 };
 type State = {
   tempSubscription: ?SubscriptionData,
@@ -65,19 +73,28 @@ export class SubscriptionCreate extends Component<Props, State> {
     this.props.fetchAllPaymentPacks();
     this.props.fetchPrivatePassList();
     this.props.fetchPaymentComboList();
+    this.props.fetchEstablishments();
   }
 
   storeTempSubscription = (tempSubscription: ?SubscriptionData) => {
     this.setState({ tempSubscription });
   };
 
-  createSubscription = async (_, payment_method_id: string) => {
+  createSubscription = async (
+    _,
+    payment_method_id: string,
+    _callback,
+    _voucher,
+    _note,
+    billing_establishment_id: number,
+  ) => {
     this.setState({ processing: true });
     try {
       const response = await api.createFromPack({
         ...this.state.tempSubscription,
         stripe_source: null,
         payment_method_id,
+        billing_establishment_id,
       });
       this.props.pushToSubscription(response.data.id);
     } catch (err) {
@@ -101,6 +118,10 @@ export class SubscriptionCreate extends Component<Props, State> {
             requestSetupIntentSecret={this.props.requestSetupIntentSecret}
             savedPaymentMethodList={this.props.savedPaymentMethodList}
             refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
+            establishments={this.props.establishments}
+            enableMultiLocalization={
+              this.props.companyTheme.enable_multi_localization
+            }
           />
         ) : (
           <Paper className={this.props.classes.paper}>
@@ -149,6 +170,8 @@ export default compose(
       memberLoading: state.member.loading,
       member: getMember(state, memberId),
       savedPaymentMethodList: getSavedPaymentMethodList(state),
+      establishments: getAvailableEstablishmentList(state),
+      companyTheme: themeSelectors.getTheme(state),
     }),
     {
       fetchPaymentMethodList: fetchPaymentMethodListAction,
@@ -158,6 +181,7 @@ export default compose(
       fetchAllPaymentPacks,
       fetchPrivatePassList,
       fetchPaymentComboList,
+      fetchEstablishments,
     },
   ),
   withHandlers({

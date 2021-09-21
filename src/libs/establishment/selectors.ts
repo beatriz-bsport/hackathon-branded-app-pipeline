@@ -27,6 +27,13 @@ export const getAllAssociatedEstablishmentGroupDict = (state: RootState) =>
   getState(state).establishmentGroup.byId;
 export const getAllAssociatedEstablishmentGroupIds = (state: RootState) =>
   getState(state).establishmentGroup.allIds;
+
+export const getAllEstablishmentBillingGroupDict = (state: RootState) =>
+  getState(state).establishmentBillingGroup.byId;
+
+export const getAllEstablishmentBillingGroupIds = (state: RootState) =>
+  getState(state).establishmentBillingGroup.allIds;
+
 export const getAllPageEstablishments = createSelector(
   [getAllIds, getAllEstablishmentsDict],
   (Ids, establishments) => Ids.map((id) => establishments[id]),
@@ -37,7 +44,6 @@ export const getAvailableEstablishmentList = createSelector(
   (Ids, establishments) =>
     Ids.map((id) => establishments[id]).filter((e) => !e.disabled),
 );
-
 export const getDisabledEstablishmentList = createSelector(
   [getAllIds, getAllEstablishmentsDict],
   (Ids, establishments) =>
@@ -107,19 +113,47 @@ export const withEstablishment = memoize(
         if (!Array.isArray(group)) {
           return {
             ...group,
-            establishment: group.establishment
-              .map((est: number) => establishmentData[est])
-              .filter((est: AssociatedEstablishment) => !!est),
+            ...(group.establishment
+              ? {
+                  establishment: group.establishment
+                    .map((est: number) => establishmentData[est])
+                    .filter((est: AssociatedEstablishment) => !!est),
+                }
+              : []),
+            ...(group.establishments
+              ? {
+                  establishment: group.establishments
+                    .map((est: number) => establishmentData[est])
+                    .filter((est: AssociatedEstablishment) => !!est),
+                }
+              : []),
           };
         }
         return group
           .filter((g) => !!g)
           .map((g) => ({
             ...g,
-            establishment: g.establishment
-              .map((est: number) => establishmentData[est])
-              .filter((est: AssociatedEstablishment) => !!est),
+            ...(g.establishment
+              ? {
+                  establishment: g.establishment
+                    .map((est: number) => establishmentData[est])
+                    .filter((est: AssociatedEstablishment) => !!est),
+                }
+              : []),
+            ...(g.establishments
+              ? {
+                  establishments: g.establishments
+                    .map((est: number) => establishmentData[est])
+                    .filter((est: AssociatedEstablishment) => !!est),
+                }
+              : []),
           }));
       },
     ),
+);
+
+export const getEstablishmentBillingroup = createSelector(
+  [getAllEstablishmentBillingGroupIds, getAllEstablishmentBillingGroupDict],
+  (idsList, establishmentGroupData) =>
+    idsList.map((id) => establishmentGroupData[id]),
 );

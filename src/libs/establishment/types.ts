@@ -20,6 +20,7 @@ export type Establishment = {
   disabled: boolean;
   associatedestablishment_set: number[];
   tzname: string;
+  establishment_billing_group_id: number | null;
 };
 
 type Event_ = {
@@ -70,7 +71,17 @@ export type EstablishmentState = {
   };
   updated: boolean;
   establishmentGroup: {
-    byId: { [key: number]: Array<EstablishmentGroup> };
+    byId: { [key: number]: EstablishmentGroup };
+    allIds: Array<number>;
+    loading: boolean;
+    error?: Error;
+    upsert: {
+      loading: boolean;
+      error?: Error;
+    };
+  };
+  establishmentBillingGroup: {
+    byId: { [key: number]: EstablishmentBillingGroup };
     allIds: Array<number>;
     loading: boolean;
     error?: Error;
@@ -93,7 +104,7 @@ export type establishmentAddressInput = {
 
 export type EstablishmentGroupByAddress = {
   address: string;
-  establishmentList: Array<AssociatedEstablishment>;
+  establishmentList: Array<Establishment>;
 };
 
 export type EstablishmentListGroupByAddress = Array<EstablishmentGroupByAddress>;
@@ -108,5 +119,19 @@ export type EstablishmentGroup = {
   id: number;
   name: string;
   company_id: number;
-  establishment: Array<AssociatedEstablishment>;
+  establishment: Array<Establishment>;
+};
+
+export type EstablishmentBillingGroup = {
+  id: number;
+  name: string;
+  company_id: number;
+  establishments: Array<Establishment>;
+};
+
+export type EstablishmentBillingGroupAPI = {
+  id: number;
+  name: string;
+  company_id: number;
+  establishments: Array<number>;
 };

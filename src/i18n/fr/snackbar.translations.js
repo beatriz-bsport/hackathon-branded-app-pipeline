@@ -107,6 +107,12 @@ exports.default = {
       success: 'Facture enregistrée',
     },
     error: "Erreur lors de l'enregistrement - Annulé",
+    billingEstablishment: {
+      error: {
+        unAuthorizedEstablishmentModification:
+          "Impossible de modifier l'établissement de facturation, seuls les administrateurs",
+      },
+    },
   },
   zoom: {
     created: {
@@ -319,7 +325,21 @@ exports.default = {
     },
     delete: {
       success: 'Localisation supprimée',
-      error: 'Impossible de supprimer al localisation',
+      error: 'Impossible de supprimer la localisation',
+    },
+  },
+  establishmentBillingGroup: {
+    create: {
+      success: 'Le nouveau groupe de facturation  a été créé',
+      error: 'Impossible de créer le groupe de facturation',
+    },
+    update: {
+      success: 'Groupe de facturation modifié',
+      error: 'Impossible de modifier le groupe de facturation',
+    },
+    delete: {
+      success: 'Groupe de facturation supprimé',
+      error: 'Impossible de supprimer le groupe de facturation',
     },
   },
   memberNote: {

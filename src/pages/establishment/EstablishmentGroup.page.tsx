@@ -43,13 +43,7 @@ type Props = OwnAndConnectedProps &
   WithHandlerType<typeof mapWithHandlers> &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
-type State = {};
-export class EstablishmentGroup extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {};
-  }
-
+export class EstablishmentGroup extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchAllEstablishmentGroup();
     this.props.fetchEstablishments();

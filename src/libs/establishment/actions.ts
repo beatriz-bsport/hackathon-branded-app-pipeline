@@ -5,7 +5,7 @@ import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 
 import { ThunkDispatch } from 'redux-thunk';
-import { Dispatch } from 'react';
+import type { Dispatch } from '../../state/types';
 import {
   fetchAllEstablishments as fetchEstablishmentListAPI,
   fetchEstablishment as fetchEstablishmentAPI,
@@ -21,6 +21,10 @@ import {
   createEstablishmentGroup as createEstablishmentGroupAPI,
   updateEstablishmentGroup as updateEstablishmentGroupAPI,
   deleteEstablishmentGroup as deleteEstablishmentGroupAPI,
+  fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAPI,
+  createEstablishmentBillingGroup as createEstablishmentBillingGroupAPI,
+  updateEstablishmentBillingGroup as updateEstablishmentBillingGroupAPI,
+  deleteEstablishmentBillingGroup as deleteEstablishmentBillingGroupAPI,
 } from './api';
 import { API_URI, postAuth, deleteAuth } from '../../http';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
@@ -30,7 +34,11 @@ import { getFreshEstablishmentIds } from './selectors';
 import { RootState } from '../../reducers';
 import { OptionCallback } from '../../state/types';
 
-import type { establishmentAddressInput, EstablishmentGroup } from './types';
+import type {
+  establishmentAddressInput,
+  EstablishmentGroup,
+  EstablishmentBillingGroup,
+} from './types';
 
 export const deleteActions = {
   isLoading: createAction('ESTABLISHMENT/DELETE/IS_LOADING'),
@@ -473,5 +481,94 @@ export function deleteEstablishmentGroup(
       if (options && options.onError) options.onError();
     }
     dispatch(deleteEstablishmentGroupActions.isLoading(false));
+  };
+}
+
+export const fetchAllEstablishmentBillingGroupActions = {
+  isLoading: createAction('ESTABLISHMENT_BILLING_GROUP/GET/IS_LOADING'),
+  error: createAction('ESTABLISHMENT_BILLING_GROUP/GET/ERROR'),
+  success: createAction('ESTABLISHMENT_BILLING_GROUP/GET/SUCCESS'),
+};
+
+export function fetchAllEstablishmentBillingGroup(options?: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchAllEstablishmentBillingGroupActions.isLoading(true));
+    dispatch(fetchAllEstablishmentBillingGroupActions.error(null));
+    try {
+      const response = await fetchAllEstablishmentBillingGroupAPI();
+      dispatch(fetchAllEstablishmentBillingGroupActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(favoriteActions.error(error));
+      console.error(error);
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(fetchAllEstablishmentBillingGroupActions.isLoading(false));
+  };
+}
+
+export const upsertEstablishmentBillingGroupActions = {
+  isLoading: createAction('ESTABLISHMENT_BILLING_GROUP/UPSERT/IS_LOADING'),
+  error: createAction('ESTABLISHMENT_BILLING_GROUP/UPSERT/ERROR'),
+  success: createAction('ESTABLISHMENT_BILLING_GROUP/UPSERT/SUCCESS'),
+};
+
+export function upsertEstablishmentBillingGroup(
+  establishmentBillingGroup: EstablishmentBillingGroup,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(upsertEstablishmentBillingGroupActions.isLoading(true));
+    dispatch(upsertEstablishmentBillingGroupActions.error(null));
+    const kind = establishmentBillingGroup.id ? 'update' : 'create';
+    try {
+      const response = establishmentBillingGroup.id
+        ? await updateEstablishmentBillingGroupAPI(establishmentBillingGroup)
+        : await createEstablishmentBillingGroupAPI(establishmentBillingGroup);
+
+      dispatch(upsertEstablishmentBillingGroupActions.success(response.data));
+      dispatch(snackbarSuccess(`establishmentBillingGroup.${kind}.success`));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(snackbarError(`establishmentBillingGroup.${kind}.error`));
+      dispatch(
+        upsertEstablishmentBillingGroupActions.error(error.response.data),
+      );
+      if (options && options.onError) options.onError();
+    }
+    dispatch(upsertEstablishmentBillingGroupActions.isLoading(false));
+  };
+}
+
+export const deleteEstablishmentBillingGroupActions = {
+  isLoading: createAction('ESTABLISHMENT_BILLING_GROUP/DELETE/IS_LOADING'),
+  error: createAction('ESTABLISHMENT_BILLING_GROUP/DELETE/ERROR'),
+  success: createAction('ESTABLISHMENT_BILLING_GROUP/DELETE/SUCCESS'),
+};
+
+export function deleteEstablishmentBillingGroup(
+  establishmentBillingGroup: EstablishmentBillingGroup,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(deleteEstablishmentBillingGroupActions.isLoading(true));
+    dispatch(deleteEstablishmentBillingGroupActions.error(null));
+    try {
+      await deleteEstablishmentBillingGroupAPI(establishmentBillingGroup.id);
+      dispatch(
+        deleteEstablishmentBillingGroupActions.success(
+          establishmentBillingGroup,
+        ),
+      );
+      dispatch(snackbarSuccess(`establishmentBillingGroup.delete.success`));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      dispatch(snackbarError(`establishmentBillingGroup.delete.error`));
+      dispatch(
+        deleteEstablishmentBillingGroupActions.error(error.response.data),
+      );
+      if (options && options.onError) options.onError();
+    }
+    dispatch(deleteEstablishmentBillingGroupActions.isLoading(false));
   };
 }

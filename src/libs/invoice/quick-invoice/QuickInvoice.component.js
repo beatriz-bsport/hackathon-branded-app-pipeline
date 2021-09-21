@@ -17,6 +17,8 @@ import CreditMemberBadge from '../../member/components/CreditMemberBadge.compone
 
 import InvoiceItem from '../components/InvoiceItem.component';
 import InvoiceItemEditor from '../components/InvoiceItemEditor.component';
+import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
+import type { Establishment } from '../../establishment/types';
 
 type Props = {
   quickInvoiceTitle: string,
@@ -31,12 +33,15 @@ type Props = {
     [buyable_item_identifier: number]: Array<BuyableItem>,
   },
   uneditableInvoiceItems: Array<InvoiceItem>,
+  establishments: Array<Establishment>,
+  establishmentLoading: boolean,
 };
 
 type State = {
   showInvoiceItemSelector: boolean,
   invoiceItemList: Array<InvoiceItem>,
   processing: boolean,
+  billingEstablishmentId: number | null,
 };
 
 export class QuickInvoice extends Component<Props, State> {
@@ -46,6 +51,7 @@ export class QuickInvoice extends Component<Props, State> {
       showInvoiceItemSelector: !props.editMode,
       invoiceItemList: [],
       processing: false,
+      billingEstablishmentId: null,
     };
   }
 
@@ -62,6 +68,7 @@ export class QuickInvoice extends Component<Props, State> {
       is_v2: true,
       buyable_items: this.state.invoiceItemList,
       member: quickInvoice.memberId,
+      billing_establishment_id: this.state.billingEstablishmentId,
     };
     if (this.props.editMode) {
       this.props.updateInvoice(invoiceData);
@@ -173,6 +180,31 @@ export class QuickInvoice extends Component<Props, State> {
                 </Grid>
               </Grid>
             </Grid>
+            <div className={classes.establishmentSection}>
+              <Typography variant="h6" className={classes.sectionTitle}>
+                {this.props.t(
+                  'invoice:section.invoiceItemList.billing_establishment',
+                )}
+              </Typography>
+              <Divider className={classes.divider} />
+              <EstablishmentSelector
+                establishments={this.props.establishments}
+                isClearable
+                isLoading={this.props.establishmentLoading}
+                isOptionDisabled
+                selectOption={async (item: {
+                  value: number,
+                  label: string,
+                }) => {
+                  this.setState({
+                    billingEstablishmentId: item ? item.value : null,
+                  });
+                }}
+                selectedEstablishments={[this.state.billingEstablishmentId]}
+                noMulti
+                closeMenuOnSelect
+              />
+            </div>
             <div className={classes.actionRow}>
               {this.state.processing ? (
                 <CircularProgress />
@@ -227,6 +259,14 @@ const styles = (theme) => ({
     alignItems: 'center',
     display: 'flex',
     flexDirection: 'row',
+  },
+  establishmentSection: {
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
+    paddingBottom: theme.spacing(2),
+  },
+  divider: {
+    marginBottom: theme.spacing(2),
   },
 });
 

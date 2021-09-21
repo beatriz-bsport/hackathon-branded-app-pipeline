@@ -86,7 +86,11 @@ import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
 } from '../../libs/email-editor/selectors';
+import { fetchEstablishments } from '../../libs/establishment/actions';
+import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
 import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
+import type { Theme as CompanyTheme } from '../../libs/theme/types';
+import themeSelectors from '../../libs/theme/selectors';
 
 type Props = {
   // GENERAL
@@ -176,6 +180,9 @@ type Props = {
   snackbarErrorMsg: (msg: string) => void,
   snackbarSuccessMsg: (msg: string) => void,
   managerFormConfig: SignUpFormConfigDict,
+  fetchEstablishments: () => void,
+  establishmentList: Array<Estalsihment>,
+  companyTheme: CompanyTheme,
 };
 
 type State = {
@@ -196,6 +203,7 @@ export class MemberDetailPage extends Component<Props, State> {
     this.props.fetchTags();
     this.props.fetchTaskListByMember();
     this.props.fetchInvoiceListUnpaid();
+    this.props.fetchEstablishments();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -281,6 +289,10 @@ export class MemberDetailPage extends Component<Props, State> {
             snackbarErrorMsg={this.props.snackbarErrorMsg}
             snackbarSuccessMsg={this.props.snackbarSuccessMsg}
             detachPaymentMethod={this.props.detachPaymentMethod}
+            establishments={this.props.establishmentList}
+            enableMultiLocalization={
+              this.props.companyTheme.enable_multi_localization
+            }
           />
           <TaskList
             taskList={this.props.taskList}
@@ -409,6 +421,8 @@ export default compose(
       detachPaymentMethodLoading:
         state.paymentBackend.detachPaymentMethod.loading,
       managerFormConfig: getSignUpFormConfigurationDict(state),
+      establishmentList: getAvailableEstablishmentList(state),
+      companyTheme: themeSelectors.getTheme(state),
     }),
     {
       fetchInvoiceList: fetchInvoiceListAction,
@@ -451,6 +465,7 @@ export default compose(
       goToInvoice: (uuid) => routerPush(`/invoice/${uuid}/`),
       snackbarErrorMsg: snackbarWarning,
       snackbarSuccessMsg: snackbarSuccess,
+      fetchEstablishments,
     },
   ),
   withProps(({ fetchTaskListByMember, id }) => ({

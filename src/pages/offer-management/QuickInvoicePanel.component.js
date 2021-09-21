@@ -12,6 +12,7 @@ import QuickInvoice from '../../libs/invoice/quick-invoice/QuickInvoice.componen
 import PaymentDialog from '../../libs/payment/components/PaymentDialog.component';
 import InvoiceTable from '../../libs/invoice/components/InvoiceTable.component';
 import { requestClientSecret as requestClientSecretAPI } from '../../libs/invoice/api';
+import type { Establishment } from '../../libs/establishment/types';
 
 type Props = {
   classes: Object,
@@ -26,6 +27,7 @@ type Props = {
   refreshInvoice: () => void,
   availablePaymentMethodList: number[],
   className: {},
+  establishments: Array<Establishment>,
 };
 
 type State = {
@@ -90,6 +92,7 @@ export class QuickInvoicePanel extends React.Component<Props, State> {
               availableBuyableItems={this.props.availableBuyableItems}
               onClose={() => closeQuickInvoice(qi.memberId, qi)}
               createInvoice={createInvoice}
+              establishments={this.props.establishments}
             />
           ))
         ) : (

@@ -12,13 +12,19 @@ import {
   PAYMENT_INTENT_TYPE_INVOICE,
   PAYMENT_INTENT_TYPE_DEBT,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+  PAYMENT_INTENT_STATUS_SUCCESS,
 } from '@bsport/common/lib/master-data/payment-group';
 import PaymentDialog from '../../payment/components/PaymentDialog.component';
 import MemberBalanceUpdaterDialog from './MemberBalanceUpdaterDialog.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import InvoiceTable from '../../invoice/components/InvoiceTable.component';
 import { requestClientSecret as requestClientSecretAPI } from '../../invoice/api';
-import { Member } from '../types';
+import {
+  getPaymentGroupStatus as getPaymentGroupStatusAPI,
+  setBillingEstablishmentOnCompletedPaymentGroupStatus as setBillingEstablishmentOnCompletedPaymentGroupStatusAPI,
+} from '../../payment/api';
+import type { Member } from '../types';
+import type { Establishment } from '../../establishment/types';
 
 type Props = {
   balance: string,
@@ -36,8 +42,11 @@ type Props = {
   detachPaymentMethod: (pm_id: string) => void,
   snackbarErrorMsg: (msg: string) => void,
   snackbarSuccessMsg: (msg: string) => void,
+  establishments: Array<Establishment>,
+  enableMultiLocalization: boolean,
 };
 
+const PAYMENT_GROUP_STATUS_INTENT_MAX_RETRY = 100;
 export const MemberBillingProblemCard = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['member', 'invoice']);
@@ -54,7 +63,13 @@ export const MemberBillingProblemCard = (props: Props) => {
   const [ajustBalanceOpen, setAdjustBalanceDialogOpen] = React.useState(false);
   const [regularizeFullDebt, setRegularizeFullDebt] = React.useState(false);
   const [amountToBill, setAmountToBill] = React.useState(null);
-
+  const [billingEstablishmentId, setBillingEstablishmentId] = React.useState(
+    null,
+  );
+  const [paymentGroupCompletedCheckSeconds] = React.useState(0.5);
+  const [retryPaymentGroupStatus, setRetryPaymentGroupStatus] = React.useState(
+    0,
+  );
   const requestClientSecret = (paymentEngine) => {
     setClientSecret(null);
     setClientSecretLoading(true);
@@ -84,6 +99,30 @@ export const MemberBillingProblemCard = (props: Props) => {
         Sentry.captureException(err);
       });
   };
+  const listenPaymentGroupCompleted = (callback) => {
+    getPaymentGroupStatusAPI(paymentGroupId)
+      .then((r) => {
+        if (retryPaymentGroupStatus > PAYMENT_GROUP_STATUS_INTENT_MAX_RETRY) {
+          return;
+        }
+        if (r.data >= PAYMENT_INTENT_STATUS_SUCCESS) {
+          setTimeout(() => {
+            setBillingEstablishmentOnCompletedPaymentGroupStatusAPI(
+              paymentGroupId,
+              billingEstablishmentId,
+            );
+            if (callback) callback();
+          }, 2000);
+        } else {
+          setRetryPaymentGroupStatus(retryPaymentGroupStatus + 1);
+          setTimeout(
+            listenPaymentGroupCompleted,
+            paymentGroupCompletedCheckSeconds * 2000,
+          );
+        }
+      })
+      .catch(console.error);
+  };
 
   let color = 'secondary';
   const parsedBalance = parseFloat(balance);
@@ -93,7 +132,6 @@ export const MemberBillingProblemCard = (props: Props) => {
   if (parsedBalance < 0) {
     color = 'error';
   }
-
   return (
     <Paper className={classes.accountBalanceBloc}>
       {!!(!props.asConsumer || (parsedBalance && parsedBalance < 0)) && (
@@ -188,6 +226,10 @@ export const MemberBillingProblemCard = (props: Props) => {
               setAdjustBalanceDialogOpen(false);
             }
           }}
+          establishments={props.establishments}
+          billingEstablishmentId={billingEstablishmentId}
+          setBillingEstablishmentId={setBillingEstablishmentId}
+          enableMultiLocalization={props.enableMultiLocalization}
         />
       )}
       {(!!invoiceToBill || !!amountToBill || !!regularizeFullDebt) && (
@@ -200,6 +242,7 @@ export const MemberBillingProblemCard = (props: Props) => {
             setInvoiceToBill(null);
             setAmountToBill(null);
             setRegularizeFullDebt(false);
+            listenPaymentGroupCompleted();
             if (typeof callback === 'function') callback();
           }}
           requestClientSecret={requestClientSecret}
@@ -233,6 +276,7 @@ export const MemberBillingProblemCard = (props: Props) => {
           snackbarSuccessMsg={props.snackbarSuccessMsg}
           defaultUserName={props.member ? props.member.name : ''}
           defaultUserEmail={props.member ? props.member.email : ''}
+          establishments={props.establishments}
         />
       )}
     </Paper>

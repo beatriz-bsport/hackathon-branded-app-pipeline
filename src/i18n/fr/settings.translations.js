@@ -163,4 +163,10 @@ exports.default = {
       'Veuillez choisir au moins une méthode de paiement',
     save: 'Enregistrer',
   },
+  billing_group: {
+    add: 'Ajouter un groupe',
+    helperText:
+      'Si vous disposez de plusieurs studios appartenants à différentes raisons sociales, vous pouvez les regrouper ici par groupe de facturation. Les groupes de facturations apparaitront sur vos rapports pour relier plus facilement chaque facture à la bonne raison sociale.',
+    header: 'Groupes de facturation',
+  },
 };

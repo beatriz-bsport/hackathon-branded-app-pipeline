@@ -40,7 +40,8 @@ import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
 import InvoiceForm from '../../libs/invoice/components/InvoiceForm.component';
 import InvoiceDateDialog from '../../libs/invoice/dialog/InvoiceDateDialog.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-
+import type { Theme as CompanyThemeType } from '../../libs/theme/types';
+import themeSelectors from '../../libs/theme/selectors';
 import {
   snackbarWarning,
   snackbarSuccess,
@@ -74,6 +75,7 @@ type Props = {
   detachPaymentMethod: (pm_id: string) => void,
   snackbarErrorMsg: (msg: string) => void,
   snackbarSuccessMsg: (msg: string) => void,
+  companyTheme: CompanyThemeType,
 };
 
 type State = {
@@ -154,6 +156,9 @@ export class InvoiceCreatePage extends Component<Props, State> {
           detachPaymentMethod={this.props.detachPaymentMethod}
           snackbarErrorMsg={this.props.snackbarErrorMsg}
           snackbarSuccessMsg={this.props.snackbarSuccessMsg}
+          enableMultiLocalization={
+            this.props.companyTheme.enable_multi_localization
+          }
         />
         <InvoiceDateDialog
           open={this.state.dateDialogOpen}
@@ -190,6 +195,7 @@ export default compose(
       savedPaymentMethodList: getSavedPaymentMethodList(state),
       detachPaymentMethodLoading:
         state.paymentBackend.detachPaymentMethod.loading,
+      companyTheme: themeSelectors.getTheme(state),
     }),
     {
       fetchShopItems,

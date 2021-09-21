@@ -167,6 +167,16 @@ export async function editCustomFooter(uuid: string, custom_footer: string) {
   });
 }
 
+export async function editBillingEstablishent(
+  uuid: String,
+  billing_establishment_id: number,
+) {
+  return postAuth(
+    `${API_V1_URI}/payment/invoices/${uuid}/update_establishment/`,
+    { billing_establishment_id },
+  );
+}
+
 export default {
   fetchAll,
   fetchSpecific,

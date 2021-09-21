@@ -63,6 +63,18 @@ export const getPaymentGroupStatus = async (id: number) => {
   return getAuth(`${API_V1_URI}/payment/payment_group/${id}/status/`);
 };
 
+export const setBillingEstablishmentOnCompletedPaymentGroupStatus = async (
+  paymentGroupId: number,
+  establishmentId: number,
+) => {
+  return postAuth(
+    `${API_V1_URI}/payment/payment_group/set_billing_establishment/`,
+    {
+      payment_group_id: paymentGroupId,
+      establishment_id: establishmentId,
+    },
+  );
+};
 export const getPaymentGroupStatusBySecret = async (
   _payment_backend_id: string,
 ) => {

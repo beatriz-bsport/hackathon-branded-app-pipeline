@@ -25,6 +25,7 @@ import {
   withInvoiceItem,
   getPaymentListInInvoice,
   getPlannedPaymentEventList,
+  withEstablishment,
 } from '../../libs/invoice/selectors';
 import {
   getPaymentGroupRequiringActionList,
@@ -41,12 +42,15 @@ import {
   updatePaymentMethod as updatePaymentMethodAction,
   allocateDebt,
   editCustomFooter as editCustomFooterAction,
+  editBillingEstablishment as editBillingEstablishmentAction,
   fetchPlannedPaymentEventList,
   enablePlannedPaymentEvent as enablePlannedPaymentEventAction,
   registerNowPlannedPaymentEvent as registerNowPlannedPaymentEventAction,
   cancelPlannedPaymentEvent as cancelPlannedPaymentEventAction,
   schedulePayment,
 } from '../../libs/invoice/actions';
+import { fetchEstablishments } from '../../libs/establishment/actions';
+import { getAllEstablishments } from '../../libs/establishment/selectors';
 import {
   updatePaymentGroupPriceCts,
   fetchPaymentGroupList as fetchPaymentGroupListAction,
@@ -66,6 +70,9 @@ import PaymentDialog from '../../libs/payment/components/PaymentDialog.component
 import InstalmentPaymentDialog from '../../libs/payment/components/InstalmentPaymentForm.dialog';
 import CreditMemberBadge from '../../libs/member/components/CreditMemberBadge.component';
 import CheckPermission from '../../libs/role/components/CheckPermission.component';
+import type { Establishment } from '../../libs/establishment/types';
+import themeSelectors from '../../libs/theme/selectors';
+import type { Theme as CompanyThemeType } from '../../libs/theme/types';
 
 const PAYMENT_INTENT_STATUS_REQUIRES_ACTION = 150;
 
@@ -111,7 +118,6 @@ type Props = {
     priceCts: number,
     options: OptionCallback,
   ) => void,
-
   registerNowPlannedPaymentEvent: (id: number, options: OptionCallback) => void,
   enablePlannedPaymentEvent: (id: number, options: OptionCallback) => void,
   cancelPlannedPaymentEvent: (id: number, options: OptionCallback) => void,
@@ -128,6 +134,14 @@ type Props = {
     options: OptionCallback,
   ) => void,
   savedPaymentMethodList: Array<PaymentMethod>,
+  fetchEstablishments: () => void,
+  establishments: Array<Establishment>,
+  editBillingEstablishment: (
+    uuid: string,
+    estabishmentID: number,
+    options: OptionCallback,
+  ) => void,
+  companyTheme: CompanyThemeType,
 };
 
 type State = {
@@ -147,6 +161,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
   componentDidMount() {
     this.fetchInvoiceData();
     this.props.fetchCompanyUserRoles();
+    this.props.fetchEstablishments();
   }
 
   fetchInvoiceData = () => {
@@ -304,6 +319,11 @@ export class InvoiceDetail extends React.Component<Props, State> {
             <InvoiceHeader
               onClickInvoice={this.props.goToInvoice}
               invoice={this.props.invoice}
+              establishments={this.props.establishments}
+              editBillingEstablishment={this.props.editBillingEstablishment}
+              enableMultiLocalization={
+                this.props.companyTheme.enable_multi_localization
+              }
             />
             {this.props.invoice.invoice_type !==
               INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER && (
@@ -486,7 +506,9 @@ export default compose(
   ),
   connect(
     (state, { uuid }) => ({
-      invoice: withAuthor(withInvoiceItem(withMember(getInvoice)))(state, uuid),
+      invoice: withAuthor(
+        withInvoiceItem(withMember(withEstablishment(getInvoice))),
+      )(state, uuid),
       memberLoading: state.member.loading,
       paymentList: getPaymentListInInvoice(state, uuid),
       paymentLoading: state.invoice.payment.loading,
@@ -499,6 +521,9 @@ export default compose(
       payment_method_available_manager:
         state.theme.theme.payment_method_available_manager,
       savedPaymentMethodList: getSavedPaymentMethodList(state),
+
+      establishments: getAllEstablishments(state),
+      companyTheme: themeSelectors.getTheme(state),
     }),
     {
       fetchInvoiceItemList,
@@ -522,6 +547,8 @@ export default compose(
       enablePlannedPaymentEvent: enablePlannedPaymentEventAction,
       registerNowPlannedPaymentEvent: registerNowPlannedPaymentEventAction,
       schedulePayment,
+      fetchEstablishments,
+      editBillingEstablishment: editBillingEstablishmentAction,
     },
   ),
   withHandlers({
@@ -536,6 +563,10 @@ export default compose(
         status: PAYMENT_INTENT_STATUS_REQUIRES_ACTION,
       });
     },
+    editBillingEstablishment: ({ editBillingEstablishment, uuid }) => (
+      establishment_billing_id,
+      options,
+    ) => editBillingEstablishment(uuid, establishment_billing_id, options),
     updatePaymentMethod: ({ updatePaymentMethod }) => (
       paymentUuid,
       newMethod,

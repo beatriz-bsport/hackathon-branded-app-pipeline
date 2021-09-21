@@ -14,14 +14,23 @@ import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import Divider from '@material-ui/core/Divider';
 import PriceInput from '../../../components/input/PriceInput.component';
 import { getCurrencyDisplay } from '../../theme/selectors';
+import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
+import type { Establishment } from '../../establishment/types';
 
 type Props = {
   onSubmit: (any) => void,
   open: ?boolean,
   onClose: () => void,
   initialValue: ?string,
+  asManager: boolean,
+  establishments: Array<Establishment>,
+  establishmentLoading: boolean,
+  setBillingEstablishmentId: (establiemtnId: number) => void,
+  billingEstablishmentId: Number,
+  enableMultiLocalization: boolean,
 };
 
 export const MemberBalanceUpdaterDialog = (props: Props) => {
@@ -35,6 +44,7 @@ export const MemberBalanceUpdaterDialog = (props: Props) => {
     Math.abs(parseFloat(props.initialValue)),
   );
   const [withoutPaymentNote, setWithoutPaymentNote] = React.useState(false);
+
   return (
     <Dialog open={props.open}>
       <form
@@ -95,6 +105,29 @@ export const MemberBalanceUpdaterDialog = (props: Props) => {
                 </Typography>
               </div>
             )}
+            {!withoutPaymentNote &&
+              props.asManager &&
+              props.enableMultiLocalization && (
+                <div className={classes.sectionEstablishmentBilling}>
+                  <Typography variant="h6" className={classes.sectionTitle}>
+                    {t('section.invoiceItemList.billing_establishment')}
+                  </Typography>
+                  <Divider className={classes.divider} />
+
+                  <EstablishmentSelector
+                    establishments={props.establishments}
+                    isClearable
+                    isLoading={props.establishmentLoading}
+                    isOptionDisabled
+                    selectOption={(item: { value: number, label: string }) => {
+                      props.setBillingEstablishmentId(item ? item.value : null);
+                    }}
+                    selectedEstablishments={[props.billingEstablishmentId]}
+                    noMulti
+                    closeMenuOnSelect
+                  />
+                </div>
+              )}
           </FormControl>
 
           <DialogContentText>
@@ -141,6 +174,9 @@ const useStyles = makeStyles((theme) => ({
   },
   iconLeft: {
     marginRight: theme.spacing(1),
+  },
+  divider: {
+    marginBottom: theme.spacing(2),
   },
   row: {
     display: 'flex',

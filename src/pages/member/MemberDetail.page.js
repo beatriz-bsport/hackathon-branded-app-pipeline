@@ -51,7 +51,10 @@ import type { Member } from '../../libs/member/types';
 import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
 import { fetchMemberCustomFormFilled } from '../../libs/custom-form/actions';
 import { getMemberCustomFormFilled } from '../../libs/custom-form/selectors';
+import { fetchEstablishments } from '../../libs/establishment/actions';
+import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
 import type { CustomFormFilled } from '../../libs/custom-form/types';
+import type { Establishment } from '../../libs/establishment/types';
 
 const MemberDetailInfo = asyncComponent(() =>
   import('./MemberDetailInfo.page'),
@@ -119,6 +122,8 @@ type Props = {
   managerFormConfig: SignUpFormConfigDict,
   customFormFilledList: Array<CustomFormFilled>,
   fetchMemberCustomFormFilled: (memberId: number) => void,
+  fetchEstablishments: () => void,
+  establishmentList: Array<Establishment>,
 };
 
 const MemberActions = (props: {
@@ -158,6 +163,7 @@ export class MemberDetail extends React.Component<Props> {
       this.props.fetchFiltersSettings();
       this.props.fetchNumberVideoPurchase({ member_id: this.props.id });
       this.props.fetchMemberCustomFormFilled(this.props.id);
+      this.props.fetchEstablishments();
     }
   }
 
@@ -376,6 +382,8 @@ export class MemberDetail extends React.Component<Props> {
           generalTermsAndConditions={
             this.props.theme.general_terms_and_conditions
           }
+          establishments={this.props.establishmentList}
+          enableMultiLocalization={this.props.theme.enable_multi_localization}
         />
       </div>
     );
@@ -432,6 +440,7 @@ export default compose(
       videoPurchasedCount: state.video.purchase.purchaseByMember,
       managerFormConfig: getSignUpFormConfigurationDict(state),
       customFormFilledList: getMemberCustomFormFilled(state, id),
+      establishmentList: getAvailableEstablishmentList(state),
     }),
     {
       fetchAllPaymentPacks,
@@ -448,6 +457,7 @@ export default compose(
       fetchManagerFilters: fetchManagerFiltersSettings,
       fetchNumberVideoPurchase,
       fetchMemberCustomFormFilled,
+      fetchEstablishments,
     },
   ),
   withHandlers({

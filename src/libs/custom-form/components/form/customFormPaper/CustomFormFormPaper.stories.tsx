@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment-timezone';
-import Grid from '@material-ui/core/Grid';  
+import Grid from '@material-ui/core/Grid';
 import CustomFormPaper from './CustomFormPaper.component';
 import {
   CUSTOM_FORM_FIELDS_OPTIONS,
@@ -47,6 +47,7 @@ const fieldOptionsBuilder = () => {
     };
   });
 };
+
 
 CompleteInitialState.args = {
   tag_groups: [

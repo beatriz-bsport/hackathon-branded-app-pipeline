@@ -24,6 +24,8 @@ import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import InvoiceItem from './InvoiceItem.component';
 import PaymentItem from './PaymentItem.component';
 import CouponCodeForm from '../../coupon/components/CouponCodeForm.component';
+import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
+import type { Establishment } from '../../establishment/types';
 
 type Props = {
   paymentItemList: Array<PaymentItem>,
@@ -51,6 +53,12 @@ type Props = {
   applyCoupon?: (couponCode: String, options: OptionCallback) => void,
   disableCoupon: boolean,
   couponLoading: boolean,
+  withEstablishment: boolean,
+  establishmentLoading: boolean,
+  establishments: Array<Establishment>,
+  setBillingEstablishment: (establishmentId: number | null) => void,
+  billing_establishment_id: number,
+  enableMultiLocalization: boolean,
 };
 export const InvoiceContent = (props: Props) => {
   const classes = useStyles(props);
@@ -59,15 +67,16 @@ export const InvoiceContent = (props: Props) => {
     removePaymentItem,
     invoiceItemList,
     paymentItemList,
+    enableMultiLocalization,
   } = props;
   const { t } = useTranslation(['invoice']);
   const [editFooterOpen, setEditFooterOpen] = React.useState(false);
   const [customFooterValue, setCustomFooterValue] = React.useState([
     props.invoice ? props.invoice.custom_footer : '',
   ]);
+  const [loading, setLoading] = React.useState(false);
 
   const is_reverse = props.invoice && props.invoice.source_invoice;
-
   return (
     <div className={classes.container}>
       <Paper className={classes.paperContainer}>
@@ -239,6 +248,43 @@ export const InvoiceContent = (props: Props) => {
               ))}
           </List>
         </div>
+
+        {enableMultiLocalization && props.withEstablishment && (
+          <>
+            <Typography variant="h6" className={classes.sectionTitle}>
+              {t('section.invoiceItemList.billing_establishment')}
+            </Typography>
+            {props.establishmentLoading || props.invoiceItemLoading ? (
+              <LinearProgress className={classes.divider} />
+            ) : (
+              <Divider className={classes.divider} />
+            )}
+            <div className={classes.sectionEstablishmentBilling}>
+              <EstablishmentSelector
+                establishments={props.establishments}
+                isClearable
+                isLoading={props.establishmentLoading || loading}
+                isOptionDisabled
+                selectOption={async (item: {
+                  value: number,
+                  label: string,
+                }) => {
+                  props.setBillingEstablishment(item ? item.value : null);
+                  setLoading(true);
+                  // loading is used to force re-render of the menuPortal to update
+                  // selected items
+                  await new Promise((resolve) => {
+                    setTimeout(resolve, 500);
+                  });
+                  setLoading(false);
+                }}
+                selectedEstablishments={[props.billing_establishment_id]}
+                noMulti
+                closeMenuOnSelect
+              />
+            </div>
+          </>
+        )}
       </Paper>
       {!!props.finalizeInvoice &&
         !!props.invoice &&
@@ -390,6 +436,9 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  sectionEstablishmentBilling: {
+    padding: theme.spacing(2),
   },
 }));
 

@@ -214,6 +214,7 @@ export class OfferManagement extends Component<Props, State> {
     if (this.props.offer) {
       this.props.fetchMetaActivityBulk([this.props.offer.meta_activity_id]);
     }
+    this.props.fetchEstablishmentList();
   }
 
   fetchOfferAndData = () => {
@@ -244,6 +245,7 @@ export class OfferManagement extends Component<Props, State> {
       keep_credits,
     }: { notify_member: boolean, keep_credits: boolean },
     voucher?: number,
+    billingEstablishmentId?: number,
   ) => {
     let spot_id = null;
     if (this.props.offer.room_blueprint) {
@@ -275,6 +277,7 @@ export class OfferManagement extends Component<Props, State> {
           is_v2: true,
           memberId,
           voucher,
+          billing_establishment_id: billingEstablishmentId,
         },
         offerId,
       );
@@ -591,6 +594,7 @@ export class OfferManagement extends Component<Props, State> {
             availablePaymentMethodList={
               this.props.payment_method_available_manager
             }
+            establishments={this.props.establishmentList}
           />
           <Prompt
             when={this.props.unpaidInvoiceList.length > 0}

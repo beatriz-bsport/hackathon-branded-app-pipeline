@@ -15,6 +15,7 @@ import { getEnabled as getPaymentPackEnabled } from '../payment-packs/selectors'
 import { getPaymentComboList } from '../payment-combo/selectors';
 import { getMemberListData, getMemberDetailData } from '../member/selectors';
 import { getUsers as getStaff } from '../role/selectors';
+import { getAllEstablishments } from '../establishment/selectors';
 
 export const getBuyableItem = createSelector(
   [
@@ -164,6 +165,32 @@ export const withAuthor = memoize((selector) =>
   }),
 );
 
+export const withEstablishment = memoize((selector) =>
+  createSelector(
+    [selector, getAllEstablishments],
+    (invoice, establishmentData) => {
+      if (!invoice) return invoice;
+      if (Array.isArray(invoice)) {
+        return invoice
+          .filter((inv) => !!inv)
+          .map((inv) => ({
+            ...inv,
+            establishment: invoice.establishment
+              ? establishmentData?.find(
+                  (est) => est.id === invoice.establishment,
+                )
+              : null,
+          }));
+      }
+      return {
+        ...invoice,
+        establishment:
+          invoice?.establishment &&
+          establishmentData?.find((est) => est.id === invoice.establishment),
+      };
+    },
+  ),
+);
 export const getQuickInvoiceList = (state) => state.invoice.quickInvoices;
 
 const _getPaymentListIds = (state) => state.invoice.payment.allIds;

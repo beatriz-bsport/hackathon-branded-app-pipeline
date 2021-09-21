@@ -24,6 +24,7 @@ import MemberSearchModal from '../../member/components/MemberSearchModal.compone
 import { postContractSubscription as postContractSubscriptionAPI } from '../api';
 
 import SubscriptionContractListItem from './SubscriptionContractListItem.component';
+import type { Establishment } from '../../establishment/types';
 
 type Props = {
   t: TFunction,
@@ -56,6 +57,8 @@ type Props = {
   managerFormConfig: SignUpFormConfigDict,
   waiver: string,
   generalTermsAndConditions: string,
+  establishments: Array<Establishment>,
+  enableMultiLocalization: boolean,
 };
 
 const ContractPickerDialog = (props: {
@@ -196,6 +199,9 @@ export const SubscriptionContractRegistrationManagerDialog = (props: Props) => {
           enabledPaymentMethods={props.enabledPaymentMethods}
           withNote
           withCoupon
+          withEstablishment
+          enableMultiLocalization={props.enableMultiLocalization}
+          establishments={props.establishments}
         />
       </DialogContent>
     </Dialog>
@@ -233,6 +239,7 @@ export default compose(
       options,
       coupon,
       note,
+      billing_establishment_id: number | null,
     ) => {
       const first_billing_timestamp = moment(date, 'YYYY-MM-DD').unix();
       setProcessing(true);
@@ -245,6 +252,7 @@ export default compose(
           coupon,
           first_billing_timestamp: moment(first_billing_timestamp).unix() + 20,
           note,
+          billing_establishment_id,
         });
       } catch (err) {
         console.error(err);

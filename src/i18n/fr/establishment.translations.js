@@ -104,7 +104,7 @@ exports.default = {
       'Les localisations permettent de regrouper plusieurs adresses entre elles. Si vous possèdez plusieurs studios dans différentes villes vous pouvez regrouper les studios de la même ville dans une localisation. Sur la marketplace, le widget  et l’application personnalisée vos élèves pourront sélectionner la localisation qui les intéresse le plus pour ne voir que les cours proches de chez eux.',
     form: {
       name: 'Nom',
-      associated_localizations: 'Etablissements associées',
+      associated_localizations: 'Salles associées',
       dialog: {
         title: 'Localisation',
         cancel: 'Annuler',
@@ -116,6 +116,36 @@ exports.default = {
         title: 'Supprimer une localisation',
         content:
           "Cette localisation n'appraitra plus dans les filtres disponibles sur la marketplace, le widget et l'application personnalisée.",
+        cancel: 'Annuler',
+        confirm: 'Supprimer',
+      },
+    },
+    table: {
+      actions: 'Actions',
+      establishment: 'Etablissements',
+      name: 'Nom',
+    },
+  },
+  billing_group: {
+    name: ' Nom',
+    actions: 'Actions',
+    form: {
+      name: 'Nom',
+      associated_localizations: 'Salles associées',
+      dialog: {
+        title: 'Groupe de facturation',
+        cancel: 'Annuler',
+        save: 'Enregistrer',
+      },
+      error: {
+        groupShouldContainsOneRoom: 'Veuillez sélectionner au moins une salle',
+      },
+    },
+    modal: {
+      delete: {
+        title: "Suppression d'un groupe de facturation",
+        content:
+          "Voulez-vous supprimer ce groupe de facturation ? La suppression de ce groupe sera retro-active, il n'apparaitra plus dans les rapports associés.",
         cancel: 'Annuler',
         confirm: 'Supprimer',
       },

@@ -19,8 +19,11 @@ import {
   fetchAllEstablishmentGroupActions,
   upsertEstablishmentGroupActions,
   deleteEstablishmentGroupActions,
+  fetchAllEstablishmentBillingGroupActions,
+  upsertEstablishmentBillingGroupActions,
+  deleteEstablishmentBillingGroupActions,
 } from './actions';
-import { EstablishmentState } from './types';
+import { EstablishmentBillingGroup, EstablishmentState } from './types';
 
 const initialState: Immutable.Immutable<EstablishmentState> = Immutable<EstablishmentState>(
   {
@@ -55,6 +58,16 @@ const initialState: Immutable.Immutable<EstablishmentState> = Immutable<Establis
     updated: null,
     // Establishment Group
     establishmentGroup: {
+      byId: {},
+      allIds: [],
+      loading: false,
+      error: null,
+      upsert: {
+        loading: false,
+        error: null,
+      },
+    },
+    establishmentBillingGroup: {
       byId: {},
       allIds: [],
       loading: false,
@@ -270,6 +283,113 @@ export default handleActions(
       return state.setIn(
         ['establishmentGroup', 'allIds'],
         state.establishmentGroup.allIds.filter(
+          (id: number) => id !== payload.id,
+        ),
+      );
+    },
+    [fetchAllEstablishmentBillingGroupActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['establishmentBillingGroup', 'loading'], payload);
+    },
+    [fetchAllEstablishmentBillingGroupActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['establishmentBillingGroup', 'error'], payload);
+    },
+    [fetchAllEstablishmentBillingGroupActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state
+        .setIn(
+          ['establishmentBillingGroup', 'allIds'],
+          payload.results.map(
+            (billing_group: EstablishmentBillingGroup) => billing_group.id,
+          ),
+        )
+        .merge(
+          {
+            establishmentBillingGroup: {
+              byId: payload.results.reduce(
+                (
+                  acc: { [key: number]: EstablishmentBillingGroup },
+                  ps: EstablishmentBillingGroup,
+                ) => {
+                  acc[ps.id] = ps;
+                  return acc;
+                },
+                {},
+              ),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [upsertEstablishmentBillingGroupActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['establishmentBillingGroup', 'upsert', 'loading'],
+        payload,
+      );
+    },
+    [upsertEstablishmentBillingGroupActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['establishmentBillingGroup', 'upsert', 'error'],
+        payload,
+      );
+    },
+    [upsertEstablishmentBillingGroupActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      if (
+        !state.establishmentBillingGroup.allIds.find((id) => id === payload.id)
+      ) {
+        return state
+          .setIn(['establishmentBillingGroup', 'byId', payload.id], payload)
+          .setIn(
+            ['establishmentBillingGroup', 'allIds'],
+            [payload.id, ...state.establishmentBillingGroup.allIds],
+          );
+      }
+      return state.setIn(
+        ['establishmentBillingGroup', 'byId', payload.id],
+        payload,
+      );
+    },
+    [deleteEstablishmentBillingGroupActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['establishmentBillingGroup', 'upsert', 'loading'],
+        payload,
+      );
+    },
+    [deleteEstablishmentBillingGroupActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['establishmentBillingGroup', 'upsert', 'error'],
+        payload,
+      );
+    },
+    [deleteEstablishmentBillingGroupActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['establishmentBillingGroup', 'allIds'],
+        state.establishmentBillingGroup.allIds.filter(
           (id: number) => id !== payload.id,
         ),
       );

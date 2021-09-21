@@ -79,6 +79,7 @@ exports.default = {
       author: 'Créé par : {{ name }}',
       clientAuthor: 'Client',
       sourceInvoice: 'Annule la facture',
+      noEstablishment: 'Aucun Établissement',
       reverseInvoice: 'Remboursé via ',
       source: {
         label: 'Canal : {{ source }}',
@@ -334,6 +335,7 @@ exports.default = {
       titleReverse: 'Retour achat',
       isEmpty: 'Aucun achat',
       total: 'Total achat',
+      billing_establishment: 'Établissement de facturation (facultatif)',
     },
     paymentList: {
       title: 'Moyens de paiement',

@@ -20,10 +20,11 @@ import {
   PAYMENT_ENGINE_BSPORT,
   PAYMENT_GROUP_METHOD_BY_ENGINE,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+  PAYMENT_INTENT_STATUS_SUCCESS,
 } from '@bsport/common/lib/master-data/payment-group';
 import PaymentStripe from './payment-backend-stripe/PaymentStripe.component';
 import PaymentBsportInternal from './payment-backend-internal/PaymentBsportInternal.component';
-
+import type { Establishment } from '../../establishment/types';
 import { getPaymentGroupStatus as getPaymentGroupStatusAPI } from '../api';
 
 type Props = {
@@ -51,6 +52,7 @@ type Props = {
   snackbarSuccessMsg: (msg: string) => void,
   defaultUserName?: string,
   defaultUserEmail?: string,
+  establishments: Array<Establishment>,
 };
 
 type State = {
@@ -86,7 +88,7 @@ export class PaymentDialog extends React.Component<Props, State> {
   onSuccess = () => {
     getPaymentGroupStatusAPI(this.props.paymentGroupId)
       .then((r) => {
-        if (r.data >= 200) {
+        if (r.data >= PAYMENT_INTENT_STATUS_SUCCESS) {
           setTimeout(() => this.props.onSuccess(), 2000);
         } else {
           setTimeout(
@@ -231,6 +233,7 @@ export class PaymentDialog extends React.Component<Props, State> {
                       snackbarSuccessMsg={this.props.snackbarSuccessMsg}
                       sepaDefaultName={this.props.defaultUserName}
                       sepaDefaultEmail={this.props.defaultUserEmail}
+                      establishments={this.props.establishments}
                     />
                   )}
                   {parseInt(this.state.paymentEngine, 10) ===
@@ -248,6 +251,7 @@ export class PaymentDialog extends React.Component<Props, State> {
                       onCancel={this.props.onCancel}
                       amountToPay={this.props.amountToPay}
                       memberId={this.props.memberId}
+                      establishment={this.props.establishments}
                     />
                   )}
                 </FormControl>

@@ -5307,7 +5307,7 @@
                     "label": "Repeat every"
                 },
                 "recurrence": {
-                    "explain": "The payment will be spread over {{total_interval_duration}} {{interval}} every {{recurrence_basis}} {{interval}} and will generate {{nb_interval}} collections",
+                    "explain": "Every {{ recurrence_basis }}{{ interval }}, a payment will be processed for a total of {{ total_interval_duration }}{{ interval }} billings. The member will be billed {{ nb_interval }} times in total.",
                     "section": "Recurrence"
                 },
                 "interval": {
@@ -5326,6 +5326,10 @@
                 "title": {
                     "payment": "Payment method",
                     "scheduler": "Timeline"
+                },
+                "anchor_date": {
+                    "helperText": "The payment will processed in the morning",
+                    "label": "First instalment"
                 }
             }
         },
@@ -5358,13 +5362,13 @@
                 "show_company_email_in_invoice": "Show your company email address on invoices"
             },
             "nf525Button": "Download",
-            "nf525Explain": "Bsport follows the NF525 compliance procedures, you can download our official certificate here.",
+            "nf525Explain": "BSPORT Solutions follows the NF525 compliance procedures. Here, you can download our official certificate.",
             "nf525": "Certification",
             "subscription": {
                 "forms": {
                     "revert_bookings_on_fail_subscription_payment": {
                         "label": "Cancel all bookings if payment fails",
-                        "warning": "Please note, if you choose to cancel bookings if the payment fails, bookings will not be recreated if the payment is successful!",
+                        "warning": "Attention: previously cancelled bookings resulting from a failed payment won't be recreated after another payment was successful!",
                         "helperText": "If the subscription payment fails or is declared disputed, bookings made with these cards will be cancelled (and the credit re-credited)"
                     },
                     "disable_pass_on_fail_subscription_payment": {
@@ -6502,7 +6506,7 @@
         "newOrder": {
             "title": "Pending Order",
             "explain": "Paid by <1>{{name}}</1> on the store.",
-            "price": "Amount: {{ price, price }}."
+            "price": "Amount: {{ price }}."
         },
         "task": {
             "name": "{{ name }}"
@@ -9105,6 +9109,10 @@
             "banner": "You have not entered a payment method for your bsport subscription. Please click here.",
             "explain": "You have not entered a valid payment method, please confirm it to continue using your bsport subscription.",
             "closeModal": "Close"
+        },
+        "franchiseMenu": {
+            "members": "Members",
+            "franchises": "Franchises"
         }
     },
     "video": {
@@ -9589,6 +9597,30 @@
             "freeImageLabel": "Available location",
             "helper": "You can customize the shape of the locations by importing your own images. For this we need 2 different icons. One to indicate that the location is available, another when it is reserved. Make sure they are the same size and please do not include a number on your icons.",
             "title": "Customize your locations"
+        }
+    },
+    "franchise": {
+        "companies": {
+            "pageTitle": "Franchises"
+        },
+        "member": {
+            "pageTitle": "Member",
+            "seeMembership": "Show member information",
+            "isVaccinated": "I'm in possession of a valid COVID-19 Sanitary Pass",
+            "franchises": "Franchises"
+        },
+        "pagination": {
+            "outOf": "{{from}} - {{to}} out of {{count}}",
+            "rowPerPage": "Elements per page",
+            "nextPage": "Next page",
+            "previousPage": "Previous page"
+        },
+        "membersList": {
+            "pageTitle": "Members",
+            "see": "Show",
+            "actions": "Actions",
+            "franchised": "Franchise",
+            "name": "Name"
         }
     }
 }

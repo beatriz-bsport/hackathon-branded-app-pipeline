@@ -15,11 +15,7 @@ export default class GoogleAnalytics {
   }
 
   static applyMethod(name, method_res) {
-    try {
-      (window.dataLayer || []).push(method_res);
-    } catch (e) {
-      console.error(e);
-    }
+    (window.dataLayer || []).push(method_res);
   }
 
   static init(gtmId) {

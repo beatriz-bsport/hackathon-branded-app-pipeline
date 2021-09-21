@@ -15,11 +15,7 @@ export default class FacebookPixel {
   }
 
   static applyMethod(name, method_res) {
-    try {
-      fbq('track', name, method_res);
-    } catch (e) {
-      console.error(e);
-    }
+    fbq('track', name, method_res);
   }
 
   static init(pixelId) {

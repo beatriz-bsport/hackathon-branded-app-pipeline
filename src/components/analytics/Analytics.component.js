@@ -59,10 +59,15 @@ class Analytics extends React.Component<Props> {
   }
 
   static applyMethod(name, ...args) {
-    analytics.forEach((analytic) => {
-      const method = analytic.methods.find((el) => el.name === name);
-      if (method) analytic.apply(name, method(args));
-    });
+    try {
+      analytics.forEach((analytic) => {
+        const specific_method = analytic.methods.find((el) => el.name === name);
+        if (specific_method)
+          analytic.apply(name, specific_method.method(...args));
+      });
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   static showBasket(basket) {

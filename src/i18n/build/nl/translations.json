@@ -6025,7 +6025,7 @@
                 },
                 "recurrence": {
                     "section": "Herhaling",
-                    "explain": "Iedere {{ recurrence_basis }}{{ interval }} wordt een betaling geïncasseerd verspreid over {{ total_interval_duration }}{{ interval }}. In totaal wordt er {{ nb_interval }} keer geïncasseerd."
+                    "explain": "Iedere {{ recurrence_basis }}{{ interval }} wordt een betaling geïncasseerd verspreid over {{ total_interval_duration }}{{ interval }}. In totaal wordt het lid {{ nb_interval }} keer geïncasseerd."
                 },
                 "anchor_date": {
                     "helperText": "De betaling wordt in de loop van de ochtend geïncasseerd.",
@@ -8259,6 +8259,10 @@
             "banner": "Je hebt geen geldige bankgegevens ingevoerd. Klik hier om je betaal- en bankgegevens te controleren en bij te werken om je account te kunnen blijven gebruiken.",
             "explain": "Je hebt geen geldige bankgegevens ingevoerd. Gelieve je betaal- en bankgegevens controleren en bijwerken om je account te kunnen blijven gebruiken.",
             "closeModal": "Sluiten"
+        },
+        "franchiseMenu": {
+            "members": "Leden",
+            "franchises": "Franchises"
         }
     },
     "widget": {
@@ -8598,5 +8602,29 @@
         },
         "effectifError": "Het aantal plaatsen moet groter of gelijk zijn aan de beschikbare plaatsen",
         "errorLessSpotThanEffectif": "Fout bij het opslaan. De plattegrond moet meer plaatsen hebben dan de gekoppelde grootte van de sessie."
+    },
+    "franchise": {
+        "member": {
+            "seeMembership": "Toon ledeninformatie",
+            "pageTitle": "Lid",
+            "isVaccinated": "Ik bezit een geldig coronabewijs",
+            "franchises": "Franchises"
+        },
+        "companies": {
+            "pageTitle": "Franchises"
+        },
+        "pagination": {
+            "outOf": "{{from}} - {{to}} van de {{count}}",
+            "rowPerPage": "Elementen per pagina",
+            "nextPage": "Volgende pagina",
+            "previousPage": "Vorige pagina"
+        },
+        "membersList": {
+            "pageTitle": "Leden",
+            "see": "Toon",
+            "actions": "Acties",
+            "franchised": "Franchise",
+            "name": "Naam"
+        }
     }
 }

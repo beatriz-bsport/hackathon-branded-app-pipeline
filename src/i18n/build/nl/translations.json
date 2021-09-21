@@ -1888,7 +1888,9 @@
             "invoice_time": "Factuur uitgifte tijd",
             "invoice_datetime": "Datum en tijdstip van uitgifte van de factuur",
             "invoice_date_created": "Uitgiftedatum factuur",
-            "last_payment_date": "Laatste betalingsdatum"
+            "last_payment_date": "Laatste betalingsdatum",
+            "billing_establishment": "Adres",
+            "billing_group": "Groepsfacturatie"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -2545,7 +2547,36 @@
             "noGroupHelper": "Hier kun je meerdere vestigingen op verschillende adressen groeperen. Zo kun je meerdere studio's in verschillende steden hebt, kun je studio's uit dezelfde stad op één locatie groeperen. Je leden kunnen vervolgens op je widgets, app, of marketplace een locatie selecteren om alle lessen bij hun in de buurt te bekijken."
         },
         "room": "Vestiging",
-        "localisation": "Lokalisatie"
+        "localisation": "Lokalisatie",
+        "billing_group": {
+            "table": {
+                "name": "Naam",
+                "establishment": "Vestigingen",
+                "actions": "Acties"
+            },
+            "modal": {
+                "delete": {
+                    "confirm": "Verwijder",
+                    "cancel": "Annuleer",
+                    "content": "Weet je zeker dat je deze groepsfacturatie wilt verwijderen? Het verwijderen van deze groepsfacturatie zal met terugwerkende kracht plaatsvinden en zal niet meer verschijnen in de bijbehorende rapportages.",
+                    "title": "Een groepsfacturatie verwijderen"
+                }
+            },
+            "form": {
+                "error": {
+                    "groupShouldContainsOneRoom": "Selecteer ten minste één vestiging"
+                },
+                "dialog": {
+                    "save": "Opslaan",
+                    "cancel": "Annuleer",
+                    "title": "Groepsfacturatie"
+                },
+                "associated_localizations": "Gekoppelde vestigingen",
+                "name": "Naam"
+            },
+            "actions": "Acties",
+            "name": " Naam"
+        }
     },
     "smartList": {
         "multiSelector": {
@@ -4764,6 +4795,11 @@
             "subtitle2": "Als Systeembeheerder of Eigenaar heb je altijd toegang tot alle betaalmethoden.",
             "subtitle": "Je kunt bepaalde betaalmethoden aan- en/of uitzetten voor je leden.",
             "title": "Online betalingen"
+        },
+        "billing_group": {
+            "header": "Groepsfacturatie",
+            "helperText": "Je kunt meerdere studio's en/of vestigingen die aan verschillende rechtspersonen verbonden zijn aan een groepsfacturatie toevoegen. Groepsfacturaties verschijnen op je facturen en maakt het makkelijker om elke factuur aan de juiste rechtspersonen te koppelen.",
+            "add": "Een groep toevoegen"
         }
     },
     "privateService": {
@@ -6191,7 +6227,12 @@
             "create": {
                 "success": "Factuur succesvol opgeslagen"
             },
-            "returnPaymentLocked": "Deze terugbetaling kon niet worden voltooid. Weet je zeker dat je account met Stripe voldoende saldo heeft?"
+            "returnPaymentLocked": "Deze terugbetaling kon niet worden voltooid. Weet je zeker dat je account met Stripe voldoende saldo heeft?",
+            "billingEstablishment": {
+                "error": {
+                    "unAuthorizedEstablishmentModification": "De groepsfacturatie kan alleen door systeembeheerders worden gewijzigd"
+                }
+            }
         },
         "link": {
             "copied": "Link gekopieerd naar klembord"
@@ -6634,6 +6675,20 @@
             "create": {
                 "error": "De vestiging kon niet worden toegevoegd",
                 "success": "De vestiging is succesvol toegevoegd"
+            }
+        },
+        "establishmentBillingGroup": {
+            "delete": {
+                "error": "Fout bij het verwijderen van de groepsfacturatie",
+                "success": "De groepsfacturatie is verwijderd"
+            },
+            "update": {
+                "error": "De groepsfacturatie kon niet worden gewijzigd",
+                "success": "De groepsfacturatie is succesvol gewijzigd"
+            },
+            "create": {
+                "error": "Fout bij het toevoegen van de groepsfacturatie",
+                "success": "De nieuwe groepsfacturatie is toegevoegd"
             }
         }
     },
@@ -7652,7 +7707,8 @@
                 "total": "Totaal",
                 "isEmpty": "Geen aankopen",
                 "title": "Aankopen",
-                "titleReverse": "Teruggave"
+                "titleReverse": "Teruggave",
+                "billing_establishment": "Facturatie van de vestiging (optioneel)"
             }
         },
         "invoiceItem": {
@@ -7704,7 +7760,8 @@
                 "author": "Opgemaakt door: {{ name }}",
                 "date": "Datum: {{ date }}",
                 "reverseInvoice": "Terugbetaald via ",
-                "sourceInvoice": "Factuur annuleren"
+                "sourceInvoice": "Factuur annuleren",
+                "noEstablishment": "Zonder vestiging"
             },
             "editor": {
                 "title": "Een factuur aanmaken",

@@ -83,19 +83,19 @@ Lint:
     - envsubst < ./slack_template.json > slack_template2.json
     - cat slack_template2.json
     - 'curl -s -d @slack_template2.json --header "Content-Type: application/json" "${SLACK_WEBHOOK_URL}" || exit 0'
-# 
-# Buid Deploy Staging:
-#   extends: .Build and deploy Base
-#   only:
-#     refs:
-#       - master
-#   variables:
-#     S3BUCKETNAME: bsport-eu-cdn-staging
-#     ENVIRONMENT: staging
-#     CLOUDFRONT_ID: E2NQSHB4DJBRY8
-#     SLACK_WEBHOOK_URL: "${SLACK_STAGING_WEBHOOK_URL}"
-#     CDN_DOMAIN: cdn.staging.bsport.io
-# 
+
+Buid Deploy Staging:
+  extends: .Build and deploy Base
+  only:
+    refs:
+      - master
+  variables:
+    S3BUCKETNAME: bsport-eu-cdn-staging
+    ENVIRONMENT: staging
+    CLOUDFRONT_ID: E2NQSHB4DJBRY8
+    SLACK_WEBHOOK_URL: "${SLACK_STAGING_WEBHOOK_URL}"
+    CDN_DOMAIN: cdn.staging.bsport.io
+
 Buid Deploy Production:
   extends: .Build and deploy Base
   only:

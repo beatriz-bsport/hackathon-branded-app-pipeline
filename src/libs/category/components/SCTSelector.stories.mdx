@@ -1,0 +1,69 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import SCTSelector from './SCTSelector.component'
+import { action } from '@storybook/addon-actions'
+import { factory_scts } from '../factory';
+
+<Meta title="Library/Category/Selector" component={SCTSelector} argTypes={{
+  scts:{
+    description: 'every existing category (sct)',
+  },
+  placeholder:{
+    description: "text of the selector",
+  },
+  onChange:{
+    description: "action to execute when the content of the selector changes",
+  },
+  value:{
+    description: "selected category (sct)",
+  },
+  isDisabled:{
+    description: "disable the selector",
+  }
+}}/>
+
+export const actionsData = {
+  onChange: action('onChange')
+}
+
+export const Template = (args) => <SCTSelector {...args} />;
+
+export const scts = factory_scts(8)
+
+# Category
+
+Possibility to select a category (sct)
+
+<Canvas isColumn={true}>
+  <Story
+    name="select"
+    args={{
+      scts,
+      isDisabled: false,
+      id: 1,
+      placeholder: 'category',
+      onChange: actionsData.onChange,
+    }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+# Selected category
+
+A category is already selected
+
+<Canvas>
+  <Story
+    name="selected"
+    args={{
+      scts,
+      isDisabled: false,
+      id: 2,
+      value: scts[0].id,
+      placeholder: 'category',
+      onChange: actionsData.onChange,
+    }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story='select'/>

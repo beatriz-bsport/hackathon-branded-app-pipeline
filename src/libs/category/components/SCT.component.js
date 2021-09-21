@@ -15,6 +15,7 @@ type Props = {
   isFocused?: boolean,
   isSelected?: boolean,
   paddingLeft?: boolean,
+  size?: number,
 };
 
 export function Sport(props: Props) {
@@ -25,15 +26,16 @@ export function Sport(props: Props) {
     SCTName,
     noname,
     paddingLeft,
+    size,
   } = props;
   const variant = props.variant || 'body2';
   const sport = SPORTS.filter((s) => s.id === parentCategory)[0];
   const classes = useStyles();
-
+  let siz = size;
+  if (!size) siz = 26;
   if (!sport) {
     return <CircularProgress />;
   }
-
   return (
     <div
       className={classnames(
@@ -43,7 +45,7 @@ export function Sport(props: Props) {
         paddingLeft ? classes.paddingLeft : null,
       )}
     >
-      <img src={sport.icon} height={26} width={26} alt="coach profile" />
+      <img src={sport.icon} height={siz} width={siz} alt="coach profile" />
       {noname ? null : (
         <Typography className={classes.text} variant={variant}>
           {SCTName || sport.text}

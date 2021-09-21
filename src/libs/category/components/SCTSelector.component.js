@@ -61,13 +61,13 @@ function SingleValue(props: OptionProps) {
 }
 
 export default withTranslation(['category'])(
-  ({ t, scts, value, placeholder, isDisabled, selectOption, id }) => {
+  ({ t, scts, value, placeholder, isDisabled, selectOption, id, onChange }) => {
     return (
       <Selector
         id={id}
         placeholder={placeholder || t('sct.selector.placeholder')}
         suggestions={getSCTOptions(asMutable(scts))}
-        onChange={selectOption}
+        onChange={selectOption || onChange}
         isDisabled={isDisabled}
         selected={value}
         searchIcon={!value}

@@ -2,11 +2,60 @@
 import React from 'react';
 import chroma from 'chroma-js';
 import { withTranslation } from 'react-i18next';
-
 import Select from 'react-select';
 import { colors } from '@bsport/common/lib/colors';
+import Sport from './SCT.component';
 
-const getSCTOptions = (scts: Array<Coach>) => {
+function SingleValue(props: OptionProps) {
+  const { data, innerRef, innerProps } = props;
+  return (
+    <div ref={innerRef} {...innerProps}>
+      <Sport
+        parentCategory={data.data.id}
+        SCTName={data.label}
+        noDivider
+        dense
+        paddingLeft
+      />
+    </div>
+  );
+}
+
+function MultiValueLabel(props: OptionProps) {
+  const { data, innerRef, innerProps } = props;
+  return (
+    <div ref={innerRef} {...innerProps}>
+      <Sport
+        size={20}
+        parentCategory={data.data.id}
+        SCTName={data.label}
+        noDivider
+        dense
+        paddingLeft
+      />
+    </div>
+  );
+}
+
+function sctOption(props: OptionProps) {
+  const { data, innerRef, innerProps, isSelected, isFocused } = props;
+  return (
+    <div ref={innerRef} {...innerProps}>
+      <Sport
+        parentCategory={data.data.id}
+        SCTName={data.label}
+        isSelected={isSelected}
+        isFocused={isFocused}
+        noDivider
+        button
+        dense
+        paddingLeft
+      />
+    </div>
+  );
+}
+
+const getSCTOptions = (scts: Array<SCT>) => {
   scts.sort((c, c_) => {
     if (c.name.toUpperCase() < c_.name.toUpperCase()) {
       return -1;
@@ -16,7 +65,7 @@ const getSCTOptions = (scts: Array<Coach>) => {
   return scts.map((c) => ({
     value: c.id,
     label: c.name,
-    data: c,
+    data: c.SCS,
   }));
 };
 
@@ -60,10 +109,12 @@ const sctStyles = {
       backgroundColor: color.alpha(0.1).css(),
     };
   },
-  multiValueLabel: (styles) => ({
-    ...styles,
-    color: colors.secondary,
-  }),
+  multiValueLabel: (styles) => {
+    return {
+      ...styles,
+      color: colors.secondary,
+    };
+  },
   multiValueRemove: (styles) => ({
     ...styles,
     color: colors.secondary,
@@ -74,9 +125,7 @@ const sctStyles = {
   }),
 };
 
-export default withTranslation([
-  'translation',
-])(
+export default withTranslation(['translation'])(
   ({
     t,
     scts,
@@ -85,6 +134,7 @@ export default withTranslation([
     isClearable,
     selectOption,
     selectedValues,
+    onChange,
   }) => (
     <Select
       closeMenuOnSelect={!!closeMenuOnSelect}
@@ -99,9 +149,14 @@ export default withTranslation([
             )
           : undefined
       }
-      onChange={selectOption}
+      onChange={selectOption || onChange}
       styles={sctStyles}
       menuPortalTarget={document.querySelector('body')}
+      components={{
+        Option: sctOption,
+        SingleValue,
+        MultiValueLabel,
+      }}
     />
   ),
 );

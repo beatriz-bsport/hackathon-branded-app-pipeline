@@ -1,0 +1,71 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import SCTSelector from './SCTSelectorBase.component'
+import { action } from '@storybook/addon-actions'
+import { factory_scts } from '../factory';
+
+<Meta title="Library/Category/SelectorBase" component={SCTSelector} argTypes={{
+  scts:{
+    description: 'every existing category',
+  },
+  isNotMulti:{
+    description: "when disabled, multiple categories can be selected at once",
+  },
+  onChange:{
+    description: "action to execute when the content of the selector changes",
+  },
+  closeMenuOnSelect:{
+    description: "when enabled, the selection menu closes when clicking on an option (category)",
+  },
+  isClearable:{
+    description: "when enabled, the options selected can be unselected",
+  },
+  selectedValues:{
+    description: "the selected categories",
+  }
+}}/>
+
+export const actionsData = {
+  onChange: action('onChange')
+}
+
+export const Template = (args) => <SCTSelector {...args} />;
+
+export const scts = factory_scts(8)
+
+# Categories
+
+Possibility to select multiple categories at once
+
+<Canvas isColumn={true}>
+  <Story
+    name="multi-select"
+    args={{
+      scts,
+      isNotMulti: false,
+      closeMenuOnSelect: false,
+      isClearable: true,
+      onChange: actionsData.onChange,
+    }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+# Category
+
+Only one category can be selected at a time
+
+<Canvas>
+  <Story
+    name="single-select"
+    args={{
+      scts,
+      isNotMulti: true,
+      closeMenuOnSelect: true,
+      isClearable: false,
+      onChange: actionsData.onChange,
+    }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story='multi-select'/>

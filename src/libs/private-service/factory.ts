@@ -2,6 +2,7 @@ import {
   PrivateServiceWithSlots,
   PrivateSlot,
   PrivateServiceGroup,
+  PrivatePass,
 } from './types';
 
 function random_int(max: number): number {
@@ -110,6 +111,42 @@ export function private_service_groups_factory(
       id: id + 1,
       name: `${random_choice(groups_names)} #${id + 1}`,
       private_services: [],
+    };
+  });
+}
+
+const passes_names: Array<string> = [
+  'Online private class',
+  '10 private classes pass',
+  '20 private classes pass',
+  'Private classes pass (5)',
+];
+
+export function private_services_passes_factory(
+  num_el: number,
+): Array<PrivatePass> {
+  const passes_ids: Array<number> = [...Array(num_el).keys()];
+
+  return passes_ids.map((id) => {
+    return {
+      id: id + 1,
+      name: random_choice(passes_names),
+      credits: 5,
+      price: 200.0,
+      tax: 20.0,
+      private_services: [],
+      manager_only: random_choice([true, false]),
+      available: random_choice([true, false]),
+      duration_days: 0,
+      duration_months: 0,
+      duration_years: 1,
+      available_payment_method_identifiers: [],
+      full_vod_access: random_choice([true, false]),
+      editable: random_choice([true, false]),
+      expiration_days_before_first_use: 30,
+      start_date_method: 5,
+      new_member_only: random_choice([true, false]),
+      company: 1,
     };
   });
 }

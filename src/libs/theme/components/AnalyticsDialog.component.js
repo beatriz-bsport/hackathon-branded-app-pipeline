@@ -14,6 +14,7 @@ import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import { createData } from '../../../components/analytics/Analytics';
 
 type Props = {
   open: boolean,
@@ -22,42 +23,65 @@ type Props = {
   classes: Object,
 };
 
-function createData(description, googleEventName, facebookEventName) {
-  return { description, googleEventName, facebookEventName };
+const rows = createData();
+
+function createSpecs(props, row) {
+  const specs = row.analyticSpec.map((e) =>
+    e.specs.length ? (
+      <TableCell className={props.classes.cellsBorder}>
+        <div align="left">
+          <b>params: {'{'}</b>
+        </div>
+        {e.specs.map((s) => {
+          return (
+            <div style={{ marginLeft: '15px' }}>
+              <b>{s[0]}</b>: {s[1]}
+            </div>
+          );
+        })}
+        <div>
+          <b>{'}'}</b>
+        </div>
+      </TableCell>
+    ) : (
+      <TableCell className={props.classes.cellsBorder} />
+    ),
+  );
+  return (
+    <TableRow>
+      <TableCell className={props.classes.cellsBorder} />
+      {specs}
+    </TableRow>
+  );
 }
 
-const rows = [
-  createData('showBasket', 'bsport:basket:show', ''),
-  createData('showPass', 'bsport:pass:show', ''),
-  createData('addPassToCart', 'bsport:basket:add-to-cart:pass', 'AddToCart'),
-  createData('addPackToCart', 'bsport:basket:add-to-cart:pack', 'AddToCart'),
-  createData(
-    'addPrivatePassToCart',
-    'bsport:basket:add-to-cart:private-pass',
-    'AddToCart',
-  ),
-  createData(
-    'addShopItemToCart',
-    'bsport:basket:add-to-cart:shop-item',
-    'AddToCart',
-  ),
-  createData('paymentSuccess', 'bsport:basket:payment-success', 'Purchase'),
-  createData('signinShow', 'bsport:signin:show', ''),
-  createData('signupShow', 'bsport:signup:show', ''),
-  createData('signupSuccess', 'bsport:signup:success', 'CompleteRegistration'),
-  createData('Lorsque l"utilisateur se connecte', 'bsport:signin:success', ''),
-  createData('sessionShow', 'bsport:calendar:session-show', ''),
-  createData(
-    'contractPaymentSuccess',
-    'bsport:contract:payment-success',
-    'Purchase',
-  ),
-  createData('contractShow', 'bsport:contract:show', ''),
-  createData('contractPaymentShow', 'bsport:contract:show-payment', ''),
-  createData('workshopClick', 'bsport:workshop-click', ''),
-];
+function createBody(props) {
+  const body = [];
+  rows.forEach((row) => {
+    const events = row.analyticSpec.map((e) => (
+      <TableCell className={props.classes.cellsBorder} align="left">
+        {e.label || '----------'}
+      </TableCell>
+    ));
+    body.push(
+      <TableRow>
+        <TableCell
+          className={props.classes.cellsBorder}
+          component="th"
+          scope="row"
+        >
+          {props.t(`analytics.${row.description}`)}
+        </TableCell>
+        {events}
+      </TableRow>,
+    );
+    body.push(createSpecs(props, row));
+  });
+  return body;
+}
 
 const AnalyticsDialog = (props: Props) => {
+  const body = createBody(props);
   return (
     <Dialog
       fullScreen={false}
@@ -71,33 +95,15 @@ const AnalyticsDialog = (props: Props) => {
               <TableCell className={props.classes.cellsBorder}>
                 {props.t('analytics.eventDesc')}
               </TableCell>
-              <TableCell className={props.classes.cellsBorder} align="right">
+              <TableCell className={props.classes.cellsBorder} align="left">
                 {props.t('analytics.gtmEvent')}
               </TableCell>
-              <TableCell align="right">
+              <TableCell align="left">
                 {props.t('analytics.fbPixelEvent')}
               </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.name}>
-                <TableCell
-                  className={props.classes.cellsBorder}
-                  component="th"
-                  scope="row"
-                >
-                  {props.t(`analytics.${row.description}`)}
-                </TableCell>
-                <TableCell className={props.classes.cellsBorder} align="right">
-                  {row.googleEventName}
-                </TableCell>
-                <TableCell align="right">
-                  {row.facebookEventName || '----------'}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
+          <TableBody>{body}</TableBody>
         </Table>
       </DialogContent>
 

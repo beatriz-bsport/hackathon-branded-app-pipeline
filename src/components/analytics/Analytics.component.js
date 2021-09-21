@@ -6,6 +6,7 @@ import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import GoogleAnalytics from './GoogleAnalytics';
 import FacebookPixel from './FacebookPixel';
+import { analytics } from './Analytics';
 
 type Props = {
   theme?: ?CompanyTheme,
@@ -57,75 +58,75 @@ class Analytics extends React.Component<Props> {
     }
   }
 
+  static applyMethod(name, ...args) {
+    analytics.forEach((analytic) => {
+      const method = analytic.methods.find((el) => el.name === name);
+      if (method) analytic.apply(name, method(args));
+    });
+  }
+
   static showBasket(basket) {
-    GoogleAnalytics.showBasket(basket);
+    this.applyMethod('showBasket', basket);
   }
 
   static selectPaymentPack(pp) {
-    GoogleAnalytics.selectPaymentPack(pp);
+    this.applyMethod('showPass', pp);
   }
 
   static addPassToCart(pp, type) {
-    GoogleAnalytics.addPassToCart(pp, type);
-    FacebookPixel.addPassToCart(pp, type);
+    this.applyMethod('addPassToCart', pp, type);
   }
 
   static addPackToCart(pc) {
-    GoogleAnalytics.addPackToCart(pc);
-    FacebookPixel.addPackToCart(pc);
+    this.applyMethod('addPackToCart', pc);
   }
 
   static addPrivatePassToCart(pp) {
-    GoogleAnalytics.addPrivatePassToCart(pp);
-    FacebookPixel.addPrivatePassToCart(pp);
+    this.applyMethod('addPrivatePassToCart', pp);
   }
 
   static addShopItemToCart(si) {
-    GoogleAnalytics.addShopItemToCart(si);
-    FacebookPixel.addShopItemToCart(si);
+    this.applyMethod('addShopItemToCart', si);
   }
 
   static onPaymentSuccess(basket) {
-    GoogleAnalytics.onPaymentSuccess(basket);
-    FacebookPixel.onPaymentSuccess(basket);
+    this.applyMethod('paymentSuccess', basket);
   }
 
   static signupShow() {
-    GoogleAnalytics.signupShow();
+    this.applyMethod('signupShow');
   }
 
   static signinShow() {
-    GoogleAnalytics.signinShow();
+    this.applyMethod('signinShow');
   }
 
   static signupSuccess(profile) {
-    GoogleAnalytics.signupSuccess(profile);
-    FacebookPixel.signupSuccess(profile);
+    this.applyMethod('signupSuccess', profile);
   }
 
   static signinSuccess(profile) {
-    GoogleAnalytics.signinSuccess(profile);
+    this.applyMethod('signinSuccess', profile);
   }
 
   static calendarSessionShow(offer) {
-    GoogleAnalytics.calendarSessionShow(offer);
+    this.applyMethod('sessionShow', offer);
   }
 
   static contractPaymentSuccess(contract) {
-    GoogleAnalytics.contractPaymentSuccess(contract);
-    FacebookPixel.contractPaymentSuccess(contract);
+    this.applyMethod('contractPaymentSuccess', contract);
   }
 
   static contractShow(c) {
-    GoogleAnalytics.contractShow(c);
+    this.applyMethod('contractShow', c);
   }
 
   static contractShowPayment(c) {
-    GoogleAnalytics.contractShowPayment(c);
+    this.applyMethod('contractPaymentShow', c);
   }
 
   static workshopClick(offer) {
-    GoogleAnalytics.workshopClick(offer);
+    this.applyMethod('workshopClick', offer);
   }
 
   render() {

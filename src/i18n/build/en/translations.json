@@ -4447,7 +4447,7 @@
             "isEmpty": "You basket is empty",
             "featured": "Featured",
             "error": {
-                "invalidBasket": "Your basket contained items which are not available for sale anymore. No payment was registered."
+                "invalidBasket": "Your basket contained items which aren't available anymore. No payment has been processed."
             },
             "actions": {
                 "closeBasket": "Continue shopping",
@@ -4615,6 +4615,35 @@
                 "establishment": "Establishments",
                 "name": "Name"
             }
+        },
+        "billing_group": {
+            "table": {
+                "name": "Name",
+                "establishment": "Establishments",
+                "actions": "Actions"
+            },
+            "modal": {
+                "delete": {
+                    "confirm": "Delete",
+                    "cancel": "Cancel",
+                    "content": "Are you sure that you want to delete this billing group? This action will be processed retroactively and will no longer appear in associated reports.",
+                    "title": "Delete a billing group"
+                }
+            },
+            "form": {
+                "error": {
+                    "groupShouldContainsOneRoom": "Please select at least one establishment"
+                },
+                "dialog": {
+                    "save": "Save",
+                    "cancel": "Cancel",
+                    "title": "Billing group"
+                },
+                "associated_localizations": "Associated establishments",
+                "name": "Name"
+            },
+            "actions": "Actions",
+            "name": " Name"
         }
     },
     "order": {
@@ -4843,6 +4872,11 @@
             "methodPaymentSubscription": "Recurring payment",
             "methodPaymentBasketHelper": "Authorize online payment for one time payment, customer debt only via",
             "methodPaymentBasket": "One time payment"
+        },
+        "billing_group": {
+            "header": "Billing group",
+            "helperText": "You can associate multiple studios and/or establishments that are connected to different legal entities to a billing group. Billing groups will appear on your invoices and will facilitate linking invoices to the correct legal entity.",
+            "add": "Add a billing group"
         }
     },
     "datetime": {
@@ -5423,7 +5457,8 @@
                 "author": "Created by : {{ name }}",
                 "date": "Date : {{ date }}",
                 "reverseInvoice": "Refunded via ",
-                "sourceInvoice": "Cancel the invoice"
+                "sourceInvoice": "Cancel the invoice",
+                "noEstablishment": "Without any associated establishment"
             },
             "titleRevert": "Credit {{ uuid }}",
             "titleReceipt": "Payment receipt {{ uuid }}",
@@ -5447,7 +5482,8 @@
                 "total": "Total purchase",
                 "isEmpty": "No purchases",
                 "title": "Purchases",
-                "titleReverse": "Purchase return"
+                "titleReverse": "Purchase return",
+                "billing_establishment": "Billing establishment (optional)"
             }
         },
         "invoiceItem": {
@@ -6378,7 +6414,9 @@
             "invoice_date_created": "Date of issue of the invoice",
             "invoice_datetime": "Date and time of issue of the invoice",
             "invoice_time": "Time of issue of the invoice",
-            "payment_amount_by_payment_method": "Collection by payment method"
+            "payment_amount_by_payment_method": "Collection by payment method",
+            "billing_establishment": "Address",
+            "billing_group": "Billing group"
         },
         "yes": "Yes",
         "no": "No",
@@ -8738,7 +8776,12 @@
             "update": {
                 "success": "Invoice updated"
             },
-            "returnPaymentLocked": "Unable to refund this payment, is there enough money in your Stripe account?"
+            "returnPaymentLocked": "Unable to refund this payment, is there enough money in your Stripe account?",
+            "billingEstablishment": {
+                "error": {
+                    "unAuthorizedEstablishmentModification": "Only Admins can modify billing groups"
+                }
+            }
         },
         "privateConsumerPass": {
             "creditUpdate": {
@@ -9002,7 +9045,21 @@
             },
             "delete": {
                 "success": "Deleted location",
-                "error": "Unable to delete location"
+                "error": "Error while deleting establishment"
+            }
+        },
+        "establishmentBillingGroup": {
+            "delete": {
+                "error": "Error while deleting billing group",
+                "success": "Billing group has been deleted"
+            },
+            "update": {
+                "error": "Error while modifying billing group",
+                "success": "Billing group has been successfully modified"
+            },
+            "create": {
+                "error": "Error while adding billing group",
+                "success": "The new billing group has been added"
             }
         }
     },

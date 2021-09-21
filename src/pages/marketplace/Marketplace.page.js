@@ -447,7 +447,10 @@ export class MarketPlace extends Component<Props, State> {
 
                     let { title } = tab;
                     if (!title) {
-                      title = getDefaultTitleForComponent(tab.component_type);
+                      title = getDefaultTitleForComponent(
+                        tab.component_type,
+                        t,
+                      );
                     }
 
                     return <Tab value={i} label={title} />;

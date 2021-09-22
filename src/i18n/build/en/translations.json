@@ -4632,7 +4632,8 @@
             },
             "form": {
                 "error": {
-                    "groupShouldContainsOneRoom": "Please select at least one establishment"
+                    "groupShouldContainsOneRoom": "Please select at least one establishment",
+                    "groupShouldHaveName": "You must give a name to this billing group"
                 },
                 "dialog": {
                     "save": "Save",

@@ -1475,7 +1475,27 @@
             "NO": "Noruega",
             "LU": "Luxemburgo",
             "CA": "Canada",
-            "AE": "Emiratos Árabes Unidos"
+            "AE": "Emiratos Árabes Unidos",
+            "SI": "Eslovenia",
+            "RO": "Rumania",
+            "BG": "Bulgaria",
+            "CZ": "República Checa",
+            "GR": "Grecia",
+            "IN": "India",
+            "MY": "Malasia",
+            "LV": "Letonia",
+            "LT": "Lituania",
+            "NZ": "Nueva Zelanda",
+            "SG": "Singapur",
+            "BR": "Brasil",
+            "PT": "Portugal",
+            "PL": "Polonia",
+            "HK": "Hong Kong",
+            "AU": "Australia",
+            "SK": "Eslovaquia",
+            "CY": "Chipre",
+            "US": "Estados Unidos",
+            "EE": "Estonia"
         },
         "emailValidation": {
             "disconnect": "Cambiar de cuenta",
@@ -1492,7 +1512,8 @@
             "de": "alemán",
             "it": "italiano",
             "es": "español",
-            "en": "Inglés"
+            "en": "Inglés",
+            "pt": "Portugués"
         }
     },
     "establishment": {
@@ -1616,7 +1637,37 @@
             }
         },
         "localisation": "Ubicación",
-        "room": "Establecimiento"
+        "room": "Establecimiento",
+        "billing_group": {
+            "table": {
+                "name": "Nombre",
+                "establishment": "Establecimientos",
+                "actions": "Acciones"
+            },
+            "modal": {
+                "delete": {
+                    "confirm": "Borrar",
+                    "cancel": "Cancelar",
+                    "content": "¿Desea borrar este grupo de facturación? La eliminación de este grupo será retroactiva, ya no aparecerá en los informes asociados.",
+                    "title": "Eliminación de un grupo de facturación"
+                }
+            },
+            "form": {
+                "error": {
+                    "groupShouldHaveName": "Debe dar un nombre a este grupo de facturación",
+                    "groupShouldContainsOneRoom": "Seleccione al menos un establecimiento"
+                },
+                "dialog": {
+                    "save": "Registrar",
+                    "cancel": "Borrar",
+                    "title": "Grupo de facturación"
+                },
+                "associated_localizations": "Establecimientos asociados",
+                "name": "Apellido"
+            },
+            "actions": "acciones",
+            "name": " Apellido"
+        }
     },
     "order": {
         "products": {
@@ -1634,7 +1685,8 @@
             "state": "Estado",
             "updated_at": "Actualizado",
             "qty": "Candidad",
-            "created_at": "Creado en"
+            "created_at": "Creado en",
+            "actions": "Acciones"
         },
         "form": {
             "delivery": {
@@ -1835,6 +1887,11 @@
             "methodPaymentSubscriptionHelper": "Autorizar los pagos de las suscripciones (contratos) sólo a través de",
             "methodPaymentSubscription": "Pago periódico",
             "methodPaymentBasketHelper": "Autorizar los pagos de la cesta de la compra, la liquidación de deudas y los pagos atrasados... sólo a través de"
+        },
+        "billing_group": {
+            "header": "Grupos de facturación",
+            "helperText": "Si tiene varios estudios con diferentes nombres de empresa, puede agruparlos aquí por grupo de facturación. Los grupos de facturación aparecerán en sus informes para facilitar la vinculación de cada factura con el nombre de la empresa correcta.",
+            "add": "Añadir un grupo"
         }
     },
     "datetime": {
@@ -2099,6 +2156,58 @@
                 "0": "Pendiente"
             },
             "title": "Mis pagos"
+        },
+        "instalment": {
+            "form": {
+                "recurrence_basis": {
+                    "intervalName": {
+                        "week": "semana",
+                        "week_plural": "semanas",
+                        "day": "día",
+                        "day_plural": "días",
+                        "month": "mes",
+                        "month_plural": "meses",
+                        "year": "año",
+                        "year_plural": "años"
+                    },
+                    "label": "Repite todo"
+                },
+                "recurrence": {
+                    "explain": "El pago se repartirá en {{ total_interval_duration }} {{ intervalo }} cada {{ recurrence_basis }} {{ intervalo }} y generará {{ nb_interval }} ingresos en efectivo",
+                    "section": "Recurrencia"
+                },
+                "interval": {
+                    "helperText": "Frecuencia de generación de facturas/tarjetas",
+                    "label": "Recurrencia"
+                },
+                "anchor_date": {
+                    "helperText": "El pago se recogerá durante la mañana",
+                    "label": "Primera colección"
+                },
+                "nb_interval": {
+                    "label": "Número de facturas"
+                },
+                "actions": {
+                    "close": "Apagar",
+                    "previous": "Anterior",
+                    "next": "Siguiente",
+                    "submit": "Confirmar"
+                },
+                "title": {
+                    "payment": "Medio de pago",
+                    "scheduler": "Calendario"
+                }
+            }
+        },
+        "interval": {
+            "week": "semana",
+            "week_plural": "semanas",
+            "day": "día",
+            "day_plural": "días",
+            "year": "año",
+            "year_plural": "años",
+            "month": "mes",
+            "month_plural": "meses"
         }
     },
     "invoice": {
@@ -2147,7 +2256,8 @@
                 "total": "Total compra",
                 "isEmpty": "Ninguna compra",
                 "title": "Compras",
-                "titleReverse": "Devolución de la compra"
+                "titleReverse": "Devolución de la compra",
+                "billing_establishment": "Establecimiento de facturación (opcional)"
             }
         },
         "invoiceItem": {
@@ -2207,7 +2317,8 @@
                 "author": "Creado por: {{name}}",
                 "date": "Fecha: {{date}}",
                 "reverseInvoice": "Reembolsado vía ",
-                "sourceInvoice": "Cancelar la factura"
+                "sourceInvoice": "Cancelar la factura",
+                "noEstablishment": "Sin establecimiento"
             },
             "editor": {
                 "title": "Edición de la factura",
@@ -2331,7 +2442,8 @@
                 "cancel": "Cancelar",
                 "revert": "Cancelar",
                 "pay": "Paga esta factura",
-                "basketInconsistent": "Su cesta ha sido modificada, por favor actualice su página antes de validar su pago.\n No ha sido acusado."
+                "basketInconsistent": "Su cesta ha sido modificada, por favor actualice su página antes de validar su pago.\n No ha sido acusado.",
+                "billByInstalment": "Pago a plazos"
             },
             "paymentList": {
                 "isEmpty": "No hay pago",
@@ -3113,7 +3225,9 @@
             "invoice_date_created": "Fecha de emisión de la factura",
             "invoice_datetime": "Fecha y hora de emisión de la factura",
             "invoice_time": "Tiempo de emisión de la factura",
-            "payment_amount_by_payment_method": "Recaudación por método de pago"
+            "payment_amount_by_payment_method": "Recaudación por método de pago",
+            "billing_establishment": "Dirección",
+            "billing_group": "Grupo de facturación"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -3240,7 +3354,7 @@
         "newOrder": {
             "title": "Nueva pedida",
             "explain": "Pagada por <1>{{name}}</1> en la tienda.",
-            "price": "Importe: {{ price, price }}."
+            "price": "Importe: {{ price }}."
         },
         "task": {
             "name": "{{name}}"
@@ -6025,7 +6139,12 @@
             "update": {
                 "success": "Factura actualizada exitosamente"
             },
-            "returnPaymentLocked": "No se puede reembolsar este pago, hay suficiente dinero en su cuenta de Stripe?"
+            "returnPaymentLocked": "No se puede reembolsar este pago, hay suficiente dinero en su cuenta de Stripe?",
+            "billingEstablishment": {
+                "error": {
+                    "unAuthorizedEstablishmentModification": "Imposible modificar el establecimiento de facturación, sólo los administradores tienen derecho a modificarlo"
+                }
+            }
         },
         "playlist": {
             "video": {
@@ -6616,6 +6735,20 @@
             "restore": {
                 "success": "Forma restaurada",
                 "error": "No se puede restaurar el formulario"
+            }
+        },
+        "establishmentBillingGroup": {
+            "delete": {
+                "error": "No se puede eliminar el grupo de facturación",
+                "success": "Grupo de facturación eliminado"
+            },
+            "update": {
+                "error": "No se puede cambiar el grupo de facturación",
+                "success": "Grupo de facturación modificado"
+            },
+            "create": {
+                "error": "No se puede crear el grupo de facturación",
+                "success": "Se ha creado el nuevo grupo de facturación"
             }
         }
     },
@@ -7309,7 +7442,9 @@
             },
             "marketingNotification": "Notificaciones",
             "custom_form": "Formularios",
-            "tags": "Etiquetas"
+            "tags": "Etiquetas",
+            "addMemberTooltip": "Añadir un miembro",
+            "cashBookTooltip": "Libro de caja"
         },
         "deprecatedNavigator": {
             "close": "Cerrar",
@@ -7321,6 +7456,10 @@
             "closeModal": "Cerrar",
             "explain": "No ha introducido un método de pago válido, por favor, confírmelo para seguir utilizando su suscripción a bsport.",
             "banner": "No ha introducido un método de pago para su suscripción a bsport. Por favor, haga clic aquí."
+        },
+        "franchiseMenu": {
+            "members": "Miembros",
+            "franchises": "Franquicias"
         }
     },
     "video": {
@@ -8553,5 +8692,29 @@
         "errorLessSpotThanEffectif": "El ahorro no es posible. El plan de asientos debe contener más espacio que el número de personas de la sesión a la que está asociado",
         "saveError": "Error",
         "roomBlueprints": "Plano de la planta"
+    },
+    "franchise": {
+        "companies": {
+            "pageTitle": "Franquicias"
+        },
+        "member": {
+            "pageTitle": "Miembro",
+            "seeMembership": "Ver la tarjeta de socio",
+            "isVaccinated": "Pass sanitario válido",
+            "franchises": "franquicia"
+        },
+        "pagination": {
+            "outOf": "{{from}}-{{to}} en {{count}}",
+            "rowPerPage": "Elemento por página",
+            "nextPage": "Página siguiente",
+            "previousPage": "Página anterior"
+        },
+        "membersList": {
+            "pageTitle": "Miembros",
+            "see": "Ver",
+            "actions": "Acciones",
+            "franchised": "Franquiciado",
+            "name": "Nombre"
+        }
     }
 }

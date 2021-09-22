@@ -2852,15 +2852,15 @@
                 },
                 "durationYears": {
                     "helperText": "Will be added to the number of days and months.",
-                    "label": "Duration in years (if applicable)"
+                    "label": "Additional duration (in years)"
                 },
                 "durationMonths": {
                     "helperText": "Will be added to the number of days.",
-                    "label": "Duration in months (if applicable)"
+                    "label": "Additional duration (in months)"
                 },
                 "durationDays": {
-                    "helperText": "Geldigheid van deze kaart (in dagen) ",
-                    "label": "Validity in days (if applicable)"
+                    "helperText": "Validity of this pass (in days) ",
+                    "label": "Additional availability (in days)"
                 },
                 "full_vod_access": {
                     "label": "Can be used for Video On Demand (if available)"
@@ -2880,9 +2880,9 @@
             },
             "validForDuration": {
                 "general": "This appointment pass is valid for {{ duration_days }} day(s), {{ duration_months }} month(s), and {{ duration_years }} year(s).",
-                "years": "Valid for {{ duration_years }} years",
-                "months": "Valid for {{ duration_months }} months",
-                "days": "Valid for {{ duration_days }} days"
+                "years": "Valid for {{ duration_years }} year(s)",
+                "months": "Valid for {{ duration_months }} month(s)",
+                "days": "Valid for {{ duration_days }} day(s)"
             },
             "edit": "Edit",
             "disabledTitle": "Archived appointment passes"
@@ -4467,7 +4467,7 @@
             "sections": {
                 "offerNotBookable": "Unable to register for",
                 "offerPreBooked": "You are on the waiting list for",
-                "offerBooked": "You are subscribed to",
+                "offerBooked": "You've successfully booked for",
                 "basket": "Your basket",
                 "title": "Summary"
             },
@@ -5238,7 +5238,7 @@
                 },
                 "message": {
                     "error": "Unable to save this payment method",
-                    "success": "Payment method saved successfully!"
+                    "success": "Your payment method has been saved successfully!"
                 }
             },
             "savePaymentMethod": {
@@ -5669,7 +5669,7 @@
             "add": "Add",
             "edit": "Modify",
             "title": "Payment method",
-            "none": "No payment method has been saved",
+            "none": "There are no saved payment methods that have been saved to display.",
             "detach": {
                 "pm_deleted": "Deleted payment method",
                 "pm_associated_to_protected_bp": "Impossible: You have a subscription associated with this payment method",
@@ -5930,7 +5930,7 @@
                     "label": "Recurring payment"
                 },
                 "contract": {
-                    "label": "legal notice.",
+                    "label": "Legal notice",
                     "placeholder": "Enter here all legal terms and conditions (refund etc...)."
                 },
                 "flat_fee": {
@@ -6643,7 +6643,7 @@
                 "mailTitle": "Select the email that will be sent",
                 "typeTitle": "Notification type",
                 "creditType": "Remaining credits",
-                "daysType": "Period of validity",
+                "daysType": "Remaining validity",
                 "daysPastType": "Days since expiry",
                 "mailSelection": "Select mail",
                 "smartListSelection": "Select Smartlists (optional)",
@@ -6708,7 +6708,7 @@
                 "from": "From ",
                 "until": "Until ",
                 "newMemberOnly": "Only available for new customers",
-                "onsitePaymentAvailable": "Enable payments in studio",
+                "onsitePaymentAvailable": "Enable in-studio payments",
                 "managerOnly": "Unavailable for purchase",
                 "tax": {
                     "label": "Tax"
@@ -6738,35 +6738,35 @@
                 },
                 "expirationDaysBeforeFirstUse": {
                     "label": "Expiration if no booking made",
-                    "helperText": "If no first booking is made during this number of days, the pass expires and cannot be used"
+                    "helperText": "If no booking is made during the number of days above, the pass will expire."
                 },
                 "helper": {
                     "starting_date": "Start date for pack, leave blank for direct availability",
                     "ending_date": "End date for pack, leave blank for no end"
                 },
                 "start_date_method": {
-                    "on_purchase": "Starts on billing date",
-                    "on_booking": "Starts on booking date",
-                    "on_attendance": "Starts on 1st attendance"
+                    "on_purchase": "Starts on the billing date",
+                    "on_booking": "Starts on the date of the first booking",
+                    "on_attendance": "Starts on the first attendance"
                 },
                 "timeSettingsTitle": "Validity",
                 "generalSettingsTitle": "General",
                 "validByDuration": "This pass is valid for X amount of days after purchase",
                 "validByDaterange": "This pass is valid between X and Y",
                 "durationDays": {
-                    "label": "Validity period",
+                    "label": "Validity period (in days)",
                     "helperText": "Numbers of days for which the pass will stay active after purchase "
                 },
                 "durationMonths": {
-                    "label": "Additional duration (month)",
-                    "helperText": "Sum itself with the number of days"
+                    "label": "Additional duration (in months)",
+                    "helperText": "This will be added to the number of days"
                 },
                 "durationYears": {
-                    "label": "Additional duration (years)",
-                    "helperText": "Sum itself with the number of days and months"
+                    "label": "Additional duration (in years)",
+                    "helperText": "This will be added to the number of days and months"
                 },
                 "restrictionsTitle": "Restrictions",
-                "noneMeansAll": "Keep empty to authorize all",
+                "noneMeansAll": "Leave this field empty to implement no restrictions",
                 "update": {
                     "success": "Pass: operation succeeded",
                     "error": "Pass: operation failed"
@@ -6876,7 +6876,7 @@
         "maxNBookingsByWeek2": " bookings per week",
         "validity": "Validity :",
         "validForNdays1": "Valid for ",
-        "validForNdays2": " days after purchase",
+        "validForNdays2": " day(s) after purchase",
         "validFrom": "Valid from ",
         "validTo": " to ",
         "bookingsLeftThisWeek": "Max bookings per week",
@@ -6914,10 +6914,10 @@
         },
         "ht": "Exc.tax",
         "validForDuration": {
-            "general": "Valid {{ duration_days }} days {{ duration_months }} months and {{ duration_years }} year",
-            "years": "Valid {{ duration_years }} year",
-            "months": "Valid {{ duration_months }} months",
-            "days": "Valid {{ duration_days }} days"
+            "general": "Valid for {{ duration_days }} day(s), {{ duration_months }} month(s), and/or {{ duration_years }} year(s).",
+            "years": "Valid for {{ duration_years }} year(s)",
+            "months": "Valid for {{ duration_months }} month(s)",
+            "days": "Valid for {{ duration_days }} day(s)"
         },
         "paymentPackDisabled": {
             "error": "Impossible to delete",
@@ -7381,7 +7381,7 @@
             "section": {
                 "consumerPacks": "My pass",
                 "contracts": "Subscription",
-                "paymentPacks": "Buy pass",
+                "paymentPacks": "Obtain a pass",
                 "paymentCombos": "Special offers",
                 "contract": "Sign up"
             },
@@ -8386,7 +8386,7 @@
             "600": {
                 "expiryDateLabel": "Expiration date",
                 "owns": "Select at least one payment method",
-                "does_not_own": "No payment method has been saved",
+                "does_not_own": "There are no saved payment methods that have been saved to display.",
                 "labelFirst": "Only filter on members",
                 "title": "Saved payment method",
                 "explanation": "Filter on saved payment methods and the expiration date",
@@ -8976,16 +8976,16 @@
             "6003": "You are already on the waiting list",
             "6002": "The waiting list is full",
             "2012": "This pass is not compatible with this session",
-            "2011": "This pass does not allow you to book screenings (VOD only)",
-            "2010": "This pass is not compatible with this location",
+            "2011": "This pass can only be used for Video On Demand (i.e. not for in-studio activities)",
+            "2010": "This pass is not compatible with this establishment",
             "2009": "This pass is not compatible with this activity",
             "2008": "This pass is not compatible with this activity",
             "2007": "This pass is not compatible with this session",
-            "2006": "This pass is not compatible for a reservation on the chosen date",
+            "2006": "This pass is not compatible for a booking on the chosen date",
             "2005": "This pass is not available for sale",
             "2004": "This pass is not available for sale",
             "2003": "You can no longer buy this pass",
-            "2002": "This course passs is only available for new members",
+            "2002": "This pass is only available for new members",
             "1114": "You can no longer buy this pack",
             "1113": "This pack is only available for new members",
             "7": "The male / female ratio imbalance has been reached, you cannot book this session",
@@ -9065,7 +9065,7 @@
     },
     "navigation": {
         "backofficeMenu": {
-            "coupon": "Coupon",
+            "coupon": "Promotions",
             "contract": "Contracts",
             "subscription": "Subscriptions",
             "myClub": "My Club",

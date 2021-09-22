@@ -2564,7 +2564,8 @@
             },
             "form": {
                 "error": {
-                    "groupShouldContainsOneRoom": "Selecteer ten minste één vestiging"
+                    "groupShouldContainsOneRoom": "Selecteer ten minste één vestiging",
+                    "groupShouldHaveName": "U moet een naam geven aan deze factureringsgroep"
                 },
                 "dialog": {
                     "save": "Opslaan",

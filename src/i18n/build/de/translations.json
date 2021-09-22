@@ -299,7 +299,7 @@
                 "summary": "Die zuletzt programmierte Zahlung ist mit {{-date}} datiert und entspricht der zuletzt gültigen Karte."
             },
             "invoice": {
-                "label": "Rechnung {{uuid}}: {{price}} €"
+                "label": "Rechnung {{uuid}}: {{price}}"
             },
             "listItem": {
                 "recurrencePriceIs": "Wiederholung von {{ amount }}{{currencyDisplay}}",
@@ -1302,8 +1302,8 @@
         },
         "level": {
             "advanced": "Profi",
-            "intermediary": "Fortgeschritten",
-            "intermediate": "Fortgeschritten",
+            "intermediary": "Mittelstufe",
+            "intermediate": "Mittelstufe",
             "beginner": "Einsteiger",
             "all": "Alle Levels"
         },
@@ -2882,7 +2882,7 @@
         "showMore": "Mehr anzeigen",
         "newOrder": {
             "explain": "Von <1>{{name}}</1> im Shop bezahlt.",
-            "price": "Betrag : {{ price, price }}.",
+            "price": "Betrag : {{ price }}.",
             "title": "Bestellung in Bearbeitung"
         },
         "companyOnboarding": {
@@ -5242,7 +5242,7 @@
                 "helperText": "Ein Code, der nicht aktiv ist, kann von Kunden nicht verwendet werden"
             },
             "section": {
-                "advanced": "Erweitert",
+                "advanced": "Fortgeschritten",
                 "voucherConfig": "Rabatt",
                 "availability": "Verfügbarkeit",
                 "usability": "Benutzung",

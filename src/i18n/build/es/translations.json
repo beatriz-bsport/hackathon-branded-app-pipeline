@@ -2184,7 +2184,7 @@
             "goToSubscription": "Ver la suscripción",
             "revert": "Cancelar",
             "invoiceReverted": "Factura cancelada",
-            "consumeBalance": "Paga a través del balance",
+            "consumeBalance": "Paga con el saldo",
             "explainPdfDraft": "La factura sigue siendo un borrador, el pdf no está disponible.",
             "addFooter": "Modificar la nota a pie de página de la factura",
             "addCoupon": "Añadir un código promocional"
@@ -2220,7 +2220,7 @@
             "titleReverted": "Factura ( revertida) {{uuid}}"
         },
         "creditAccountBalance": {
-            "current": "Balance actual"
+            "current": "Saldo actual"
         },
         "invoiceInfoDialog": {
             "actions": {
@@ -2296,7 +2296,7 @@
                 "topup": "Añadir dinero",
                 "debt": "Quitar dinero",
                 "explainTopup": "Se registrará un aumento de {{ amount }} € en el saldo del miembro.",
-                "title": "Ajuste del balance",
+                "title": "Ajuste del saldo",
                 "explainDecaissement": "Se registrará un desembolso de {{ amount }}  {{ currencyDisplay }}",
                 "balanceValueLabel": "Cantidad",
                 "typeLabel": "Tipo de ajuste",
@@ -3510,7 +3510,7 @@
         "memberTermsAccepted": " fueron aceptadas el {{- date}}",
         "termsAndConditions": "Condiciones generales de uso",
         "applyBalanceToUnpaidInvoices": "Aplicar el saldo a las facturas impagadas",
-        "adjustBalance": "Ajustar el balance",
+        "adjustBalance": "Ajustar el saldo",
         "unpaidInvoiceTitle": "Factura impagada",
         "unpaidInvoiceTitle_plural": "Facturas impagadas",
         "vaccinationStatus": {

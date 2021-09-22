@@ -11,6 +11,7 @@ exports.default = {
     },
   },
   establishment: 'Établissement',
+  description: 'Description',
   localisation: 'Localisation',
   room: 'Salle',
   capacity: {

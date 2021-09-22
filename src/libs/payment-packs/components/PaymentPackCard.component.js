@@ -202,7 +202,7 @@ export class PaymentPackCard extends Component<Props> {
     if (!unlimited) {
       creditsFormatted = (
         <div>
-          <b>{credits}</b> {t('credits').toLowerCase()}
+          <b>{credits}</b> {t('credits', { count: credits }).toLowerCase()}
         </div>
       );
     }

@@ -970,7 +970,7 @@ exports.default = {
     showMarketplace: 'Voir le calendrier de ',
     noSessionToday: 'Aucune séance',
     privatePassListTitle: 'Cartes RDV',
-    passListTitle: 'Cartes cours collectif',
+    passListTitle: 'Cartes cours collectifs',
     bookButton: {
       book: 'Réserver',
       bookOption: "Liste d'attente",

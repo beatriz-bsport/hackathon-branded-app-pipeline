@@ -69,7 +69,7 @@ exports.default = {
     logoff: 'Déconnexion',
     refresh: 'Actualiser',
     goBack: 'Retour',
-    pass: 'Carte de cours',
+    pass: 'Cartes de cours',
     settings: {
       general: 'Général',
       marketplaceSettings: 'Paramètres marketplace',

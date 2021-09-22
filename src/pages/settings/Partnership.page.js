@@ -101,7 +101,7 @@ export class Partnership extends React.Component<Props> {
               </Typography>
               <Typography variant="body">
                 {this.props.t('parameters.establishmentId', {
-                  establishmentIdList,
+                  establishmentIdList: establishmentIdList.join(', '),
                 })}
               </Typography>
               {this.props.classpass ? (

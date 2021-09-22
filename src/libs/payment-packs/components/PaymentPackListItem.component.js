@@ -92,6 +92,7 @@ export const PaymentPackListItem = (props: Props) => {
         secondary={`${
           !props.pack.unlimited
             ? t('specifications.nbCredits', {
+                count: props.pack.credits,
                 credits: props.pack.credits,
               })
             : t('specifications.unlimitedCredits')

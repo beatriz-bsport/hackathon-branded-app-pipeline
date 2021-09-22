@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withState } from 'recompose';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -48,6 +47,7 @@ export const PrivatePassListItem = (props: Props) => {
         <ListItemText
           primary={props.pass.name}
           secondary={`${props.t('privatePass.parameters.nbCredits', {
+            count: props.pass.credits,
             credits: props.pass.credits,
           })} - ${dateInfo}`}
         />
@@ -107,12 +107,7 @@ export const PrivatePassListItem = (props: Props) => {
   );
 };
 
-const styles = () => ({
-  container: {},
-});
-
 export default compose(
   withTranslation(['privateService']),
   withState('openEditForm', 'setOpenEditForm', false),
-  withStyles(styles),
 )(PrivatePassListItem);

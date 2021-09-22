@@ -14,6 +14,7 @@ const PaymentPackItem = (props: Props) => {
 
   const credits = !props.paymentPack.unlimited
     ? t('paymentPack:specifications.nbCredits', {
+        count: props.paymentPack.credits,
         credits: props.paymentPack.credits,
       })
     : t('paymentPack:specifications.unlimitedCredits');

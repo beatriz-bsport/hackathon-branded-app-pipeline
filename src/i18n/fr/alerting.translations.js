@@ -47,14 +47,14 @@ exports.default = {
         "Les paiements en ligne risquent d'être <1>désactivés</1> passée cette date !",
     },
     payout: {
-      title: 'Information bancaire manquantes',
+      title: 'Informations bancaires manquantes',
       content:
         'Nous ne pouvons pas effectuer les versements sur votre compte bancaire car celui-ci est inexistant ou mal configuré.',
     },
     creation: {
-      title: 'Paiement en ligne désactivés',
+      title: 'Paiement en ligne désactivé',
       content:
-        'Pour pouvoir encaisser des paiements CB et SEPA, veuillez vérifier vos informations vos informations légales',
+        'Pour pouvoir encaisser des paiements CB et SEPA, veuillez vérifier vos informations légales',
     },
   },
 };

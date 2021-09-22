@@ -207,6 +207,6 @@ exports.default = {
     invoice: 'Facture {{ uuid }}',
     isEmpty: 'Aucun encaissement.',
     isEmptyWarning:
-      'NB: certains encaissements avant le 15 Mars 2021 peuvent ne être listés ci-dessous.',
+      'NB: certains encaissements avant le 15 Mars 2021 peuvent ne pas être listés ci-dessous.',
   },
 };

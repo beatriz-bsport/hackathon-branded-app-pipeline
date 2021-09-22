@@ -2589,7 +2589,9 @@
             },
             "marketingNotification": "Notifiche",
             "tags": "Tags",
-            "custom_form": "Moduli"
+            "custom_form": "Moduli",
+            "addMemberTooltip": "Aggiungi un membro",
+            "cashBookTooltip": "Libro cassa"
         },
         "deprecatedNavigator": {
             "close": "Chiudi",
@@ -2601,6 +2603,10 @@
             "closeModal": "Chiudere",
             "explain": "Non ha inserito un metodo di pagamento valido, deve confermarlo per continuare ad usare il suo abonnamento Bsport.",
             "banner": "Non ha inserito nessun metodo di pagamento per il suo abonnamento Bsport. Clicca qui."
+        },
+        "franchiseMenu": {
+            "members": "Membri",
+            "franchises": "Franchising"
         }
     },
     "stripe": {
@@ -2898,7 +2904,8 @@
             "created_at": "Creato il",
             "qty": "Quantità",
             "name": "Cliente",
-            "state": "Status"
+            "state": "Status",
+            "actions": "Azioni"
         },
         "form": {
             "delivery": {
@@ -3209,7 +3216,12 @@
             "update": {
                 "success": "Fattura aggiornata correttamente"
             },
-            "returnPaymentLocked": "Impossibile rimborsare questo pagamento, ci sono abbastanza soldi nel tuo conto Stripe?"
+            "returnPaymentLocked": "Impossibile rimborsare questo pagamento, ci sono abbastanza soldi nel tuo conto Stripe?",
+            "billingEstablishment": {
+                "error": {
+                    "unAuthorizedEstablishmentModification": "Impossibile modificare lo stabilimento di fatturazione, solo gli amministratori hanno il diritto di modificarlo"
+                }
+            }
         },
         "establishment": {
             "delete": {
@@ -3549,6 +3561,12 @@
                 "error": "Impossibile ripristinare il modulo",
                 "success": "Forma restaurata"
             }
+        },
+        "establishmentBillingGroup": {
+            "create": {
+                "error": "Impossibile creare il gruppo di fatturazione",
+                "success": "Il nuovo gruppo di fatturazione è stato creato"
+            }
         }
     },
     "settings": {
@@ -3696,6 +3714,11 @@
             "subtitle2": "Come manager, hai sempre accesso a tutti i metodi di pagamento disponibili.",
             "subtitle": "Puoi attivare o disattivare i metodi di pagamento usati dai tuoi membri quando pagano online.",
             "title": "Pagamento online"
+        },
+        "billing_group": {
+            "header": "gruppi di fatturazione",
+            "helperText": "Se avete diversi studi sotto diversi nomi di società, potete raggrupparli qui per gruppo di fatturazione. I gruppi di fatturazione appariranno sui vostri rapporti per rendere più facile collegare ogni fattura al giusto nome dell'azienda.",
+            "add": "Aggiungere un gruppo"
         }
     },
     "invoice": {
@@ -3791,7 +3814,8 @@
                 "author": "Creato da: {{name}}",
                 "date": "Data: {{date}}",
                 "reverseInvoice": "Rimborso tramite ",
-                "sourceInvoice": "Annullare la fattura"
+                "sourceInvoice": "Annullare la fattura",
+                "noEstablishment": "Nessuno stabilimento"
             },
             "editor": {
                 "title": "Edizione della fattura",
@@ -3816,7 +3840,8 @@
                 "total": "Totale acquisti",
                 "isEmpty": "Nessun acquisto",
                 "title": "Acquisti",
-                "titleReverse": "Restituzione dell'acquisto"
+                "titleReverse": "Restituzione dell'acquisto",
+                "billing_establishment": "Stabilimento di fatturazione (opzionale)"
             }
         },
         "invoiceInfoDialog": {
@@ -3933,7 +3958,8 @@
                 "revert": "Annulla",
                 "pay": "Paga questa fattura",
                 "bill": "Incasso",
-                "basketInconsistent": "Il tuo carrello è stato modificato, aggiorna la pagina prima di convalidare il tuo pagamento.\n Non siete stati accusati."
+                "basketInconsistent": "Il tuo carrello è stato modificato, aggiorna la pagina prima di convalidare il tuo pagamento.\n Non siete stati accusati.",
+                "billByInstalment": "Pagamento a rate"
             },
             "sumup": {
                 "amountRemaining": "Resto da pagare",
@@ -4708,7 +4734,9 @@
             "invoice_date_created": "Data di emissione della fattura",
             "invoice_datetime": "Data e ora di emissione della fattura",
             "invoice_time": "Tempo di emissione della fattura",
-            "payment_amount_by_payment_method": "Raccolta per metodo di pagamento"
+            "payment_amount_by_payment_method": "Raccolta per metodo di pagamento",
+            "billing_establishment": "indirizzo",
+            "billing_group": "Gruppo di fatturazione"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -6862,6 +6890,36 @@
                 "establishment": "Stabilimenti",
                 "name": "Nome"
             }
+        },
+        "billing_group": {
+            "table": {
+                "name": "nome",
+                "establishment": "Stabilimenti",
+                "actions": "Azioni"
+            },
+            "modal": {
+                "delete": {
+                    "confirm": "Cancellare",
+                    "cancel": "Cancella",
+                    "content": "Vuoi cancellare questo gruppo di fatturazione? La cancellazione di questo gruppo sarà retroattiva, non apparirà più nei rapporti associati.",
+                    "title": "Eliminare un gruppo di fatturazione"
+                }
+            },
+            "form": {
+                "error": {
+                    "groupShouldHaveName": "È necessario dare un nome a questo gruppo di fatturazione",
+                    "groupShouldContainsOneRoom": "Si prega di selezionare almeno una stanza"
+                },
+                "dialog": {
+                    "save": "Registra",
+                    "cancel": "Cancella",
+                    "title": "Gruppo di fatturazione"
+                },
+                "associated_localizations": "Camere associate",
+                "name": "nome"
+            },
+            "actions": "Azioni",
+            "name": " nome"
         }
     },
     "datetime": {
@@ -7069,6 +7127,58 @@
                 "0": "In attesa"
             },
             "title": "Le mie ricevute"
+        },
+        "instalment": {
+            "form": {
+                "recurrence_basis": {
+                    "intervalName": {
+                        "week": "settimana",
+                        "week_plural": "settimane",
+                        "day": "giorno",
+                        "day_plural": "giorni",
+                        "month": "mese",
+                        "month_plural": "mesi",
+                        "year": "un",
+                        "year_plural": "anni"
+                    },
+                    "label": "Ripetere tutto"
+                },
+                "recurrence": {
+                    "explain": "Il pagamento sarà distribuito su {{ total_interval_duration }} {{ interval }} tutti {{ recurrence_basis }} {{ interval }} e genererà {{ nb_interval }} scontrini",
+                    "section": "Ricorrenza"
+                },
+                "interval": {
+                    "helperText": "Frequenza della generazione della fattura/carta",
+                    "label": "Ricorrenza"
+                },
+                "anchor_date": {
+                    "helperText": "Il pagamento sarà raccolto durante la mattina",
+                    "label": "Prima raccolta"
+                },
+                "nb_interval": {
+                    "label": "Numero di fatture"
+                },
+                "actions": {
+                    "close": "Chiudere",
+                    "previous": "Precedente",
+                    "next": "Prossimo",
+                    "submit": "Confermare"
+                },
+                "title": {
+                    "payment": "Mezzi di pagamento",
+                    "scheduler": "Timeline"
+                }
+            }
+        },
+        "interval": {
+            "week": "settimana",
+            "week_plural": "settimane",
+            "day": "giorno",
+            "day_plural": "giorni",
+            "year": "anno",
+            "year_plural": "anni",
+            "month": "mese",
+            "month_plural": "mesi"
         }
     },
     "selfCheckIn": {
@@ -7251,7 +7361,27 @@
             "NO": "Norvegia",
             "LU": "Lussemburgo",
             "CA": "Canada",
-            "AE": "Emirati Arabi Uniti"
+            "AE": "Emirati Arabi Uniti",
+            "SI": "Slovenia",
+            "RO": "Romania",
+            "BG": "Bulgaria",
+            "CZ": "Repubblica Ceca",
+            "GR": "Grecia",
+            "IN": "India",
+            "MY": "Malesia",
+            "LV": "Lettonie",
+            "LT": "Lituania",
+            "NZ": "Nuova Zelanda",
+            "SG": "Singapore",
+            "BR": "Brasile",
+            "PT": "Portogallo",
+            "PL": "Polonia",
+            "HK": "Hong Kong",
+            "AU": "Australia",
+            "SK": "Slovacchia",
+            "CY": "Cipro",
+            "US": "Stati Uniti d'America",
+            "EE": "Estonia"
         },
         "emailValidation": {
             "disconnect": "Cambia account",
@@ -7268,7 +7398,8 @@
             "it": "italiano",
             "de": "tedesco",
             "fr": "francese",
-            "en": "Inglese"
+            "en": "Inglese",
+            "pt": "Portoghese"
         }
     },
     "waitingList": {
@@ -8516,6 +8647,30 @@
                 "edition": "Edizione"
             },
             "title": "Cassetta degli attrezzi"
+        }
+    },
+    "franchise": {
+        "companies": {
+            "pageTitle": "Franchising"
+        },
+        "member": {
+            "pageTitle": "Membro",
+            "seeMembership": "vedere il file del membro",
+            "isVaccinated": "Tessera sanitaria valida",
+            "franchises": "Franchising"
+        },
+        "pagination": {
+            "outOf": "{{from}} - {{to}} su {{count}}",
+            "rowPerPage": "Elemento per pagina",
+            "nextPage": "Pagina successiva",
+            "previousPage": "Pagina precedente"
+        },
+        "membersList": {
+            "pageTitle": "membri",
+            "see": "vedere",
+            "actions": "Azioni",
+            "franchised": "Franchisee",
+            "name": "nome"
         }
     }
 }

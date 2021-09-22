@@ -3116,7 +3116,9 @@
             "invoice_time": "Zeitpunkt der Ausstellung der Rechnung",
             "invoice_datetime": "Datum und Uhrzeit der Ausstellung der Rechnung.",
             "invoice_date_created": "Datum der Ausstellung der Rechnung",
-            "last_payment_date": "Datum der letzten Zahlung"
+            "last_payment_date": "Datum der letzten Zahlung",
+            "billing_establishment": "Adresse",
+            "billing_group": "Abrechnungsgruppe"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -3340,7 +3342,12 @@
             "update": {
                 "success": "Die Rechnung wurde erfolgreich aktualisiert"
             },
-            "returnPaymentLocked": "Diese Zahlung kann nicht zurückerstattet werden, befindet sich genug Geld auf Ihrem Stripe-Konto?"
+            "returnPaymentLocked": "Diese Zahlung kann nicht zurückerstattet werden, befindet sich genug Geld auf Ihrem Stripe-Konto?",
+            "billingEstablishment": {
+                "error": {
+                    "unAuthorizedEstablishmentModification": "Kann die Abrechnungseinrichtung nicht ändern, nur Administratoren haben das Recht, sie zu ändern"
+                }
+            }
         },
         "member": {
             "merge": {
@@ -3788,6 +3795,20 @@
                 "error": "Standort konnte nicht erstellt werden",
                 "success": "Der neue Standort ist erstellt"
             }
+        },
+        "establishmentBillingGroup": {
+            "delete": {
+                "error": "Die Rechnungsgruppe kann nicht gelöscht werden",
+                "success": "Fakturierungsgruppe gelöscht"
+            },
+            "update": {
+                "error": "Die Rechnungsgruppe kann nicht geändert werden",
+                "success": "Geänderte Rechnungsgruppe"
+            },
+            "create": {
+                "error": "Die Rechnungsgruppe kann nicht erstellt werden",
+                "success": "Die neue Rechnungsgruppe wurde erstellt"
+            }
         }
     },
     "invoice": {
@@ -3839,7 +3860,8 @@
                 "total": "Gesamte Einkäufe",
                 "isEmpty": "Keine Einkäufe",
                 "title": "Einkäufe",
-                "titleReverse": "Rückzahlung"
+                "titleReverse": "Rückzahlung",
+                "billing_establishment": "Abrechnungsstelle (fakultativ)"
             },
             "paymentList": {
                 "total": "Gesamte Zahlungen",
@@ -3881,7 +3903,8 @@
                 "author": "Erstellt von : {{ name }}",
                 "date": "Datum : {{ date }}",
                 "reverseInvoice": "Rückerstattung über ",
-                "sourceInvoice": "Rechnung stornieren"
+                "sourceInvoice": "Rechnung stornieren",
+                "noEstablishment": "Keine Niederlassung"
             },
             "title": "Rechnung {{ uuid }}",
             "titleRevert": "Habe {{uuid}}",
@@ -4060,7 +4083,8 @@
                 "revert": "Abbrechen",
                 "pay": "Diese Rechnung bezahlen",
                 "bill": "Einziehen",
-                "basketInconsistent": "Ihr Warenkorb wurde geändert, bitte aktualisieren Sie Ihre Seite, bevor Sie Ihre Zahlung bestätigen.\n Sie wurden nicht belastet."
+                "basketInconsistent": "Ihr Warenkorb wurde geändert, bitte aktualisieren Sie Ihre Seite, bevor Sie Ihre Zahlung bestätigen.\n Sie wurden nicht belastet.",
+                "billByInstalment": "Zahlung in Raten"
             },
             "sumup": {
                 "amountRemaining": "Noch zu zahlen",
@@ -4243,6 +4267,58 @@
                 "1": "in Bearbeitung",
                 "0": "In Bearbeitung"
             }
+        },
+        "instalment": {
+            "form": {
+                "recurrence_basis": {
+                    "intervalName": {
+                        "week": "Woche",
+                        "week_plural": "Wochen",
+                        "day": "Tag",
+                        "day_plural": "Tage",
+                        "month": "Monat",
+                        "month_plural": "Monate",
+                        "year": "eine",
+                        "year_plural": "eine"
+                    },
+                    "label": "Wiederholen Sie alle"
+                },
+                "recurrence": {
+                    "explain": "Die Zahlung wird auf alle Jahre verteilt und bringt",
+                    "section": "Wiederholung"
+                },
+                "interval": {
+                    "helperText": "Häufigkeit der Erstellung von Rechnungen/Karten",
+                    "label": "Wiederholung"
+                },
+                "anchor_date": {
+                    "helperText": "Die Zahlung wird während des Vormittags eingesammelt",
+                    "label": "Erste Sammlung"
+                },
+                "nb_interval": {
+                    "label": "Anzahl der Rechnungen"
+                },
+                "actions": {
+                    "close": "Schließen Sie",
+                    "previous": "Vorherige",
+                    "next": "Weiter",
+                    "submit": "Bestätigen Sie"
+                },
+                "title": {
+                    "payment": "Zahlungsmittel",
+                    "scheduler": "Zeitleiste"
+                }
+            }
+        },
+        "interval": {
+            "week": "Woche",
+            "week_plural": "Woche",
+            "day": "Tag",
+            "day_plural": "Tage",
+            "year": "Jahr",
+            "year_plural": "Jahre",
+            "month": "Monat",
+            "month_plural": "Monate"
         }
     },
     "paymentRules": {
@@ -6770,7 +6846,8 @@
             "name": "Käufer",
             "state": "Status",
             "updated_at": "Aktualisert am",
-            "created_at": "Erstellt am"
+            "created_at": "Erstellt am",
+            "actions": "Aktionen"
         },
         "products": {
             "nbProducts": "Produkte"
@@ -7270,7 +7347,9 @@
             },
             "marketingNotification": "Benachrichtigungen",
             "tags": "Tags",
-            "custom_form": "Formulare"
+            "custom_form": "Formulare",
+            "addMemberTooltip": "Mitglied hinzufügen",
+            "cashBookTooltip": "Kassenbuch"
         },
         "deprecatedNavigator": {
             "close": "Schließen",
@@ -7282,6 +7361,10 @@
             "banner": "Sie haben keine Zahlungsmethode für Ihr bsport-Abonnement angegeben. Bitte klicken Sie hier.",
             "explain": "Sie haben keine gültige Zahlungsmethode eingegeben, bitte bestätigen Sie diese, um Ihr bsport-Abonnement weiter zu nutzen.",
             "closeModal": "Schließen"
+        },
+        "franchiseMenu": {
+            "members": "Mitglieder",
+            "franchises": "Franchises"
         }
     },
     "emailTemplate": {
@@ -7453,7 +7536,27 @@
             "NO": "Norwegen",
             "LU": "Luxemburg",
             "CA": "Kanada",
-            "AE": "Vereinigte Arabische Emirate"
+            "AE": "Vereinigte Arabische Emirate",
+            "SI": "Slowenien",
+            "RO": "Rumänien",
+            "BG": "Bulgarien",
+            "CZ": "Tschechische Republik",
+            "GR": "Griechenland",
+            "IN": "Indien",
+            "MY": "Malaiisch",
+            "LV": "Lettland",
+            "LT": "Litauen",
+            "NZ": "Neuseeland",
+            "SG": "Singapur",
+            "BR": "Brasilien",
+            "PT": "Portugal",
+            "PL": "Polen",
+            "HK": "Hongkong",
+            "AU": "Australien",
+            "SK": "Slowakei",
+            "CY": "Zypern",
+            "US": "Vereinigte Staaten von Amerika",
+            "EE": "Estland"
         },
         "signupCompany": {
             "form": {
@@ -7505,7 +7608,8 @@
             "it": "italienisch",
             "de": "deutsch",
             "fr": "französisch",
-            "en": "Englisch"
+            "en": "Englisch",
+            "pt": "Portugiesisch"
         }
     },
     "marketplace": {
@@ -7830,6 +7934,11 @@
             "subtitle2": "Als Administrator hast Du immer Zugriff auf alle verfügbaren Zahlungsmethoden.",
             "subtitle": "Du kannst die Zahlungsmethoden aus- oder abwählen, die Deinen Mitgliedern bei einer Online Zahlung zur Verfügung stehen.",
             "title": "Onlinebezahlung"
+        },
+        "billing_group": {
+            "header": "Abrechnungsgruppen",
+            "helperText": "Wenn Sie mehrere Studios unter verschiedenen Firmennamen haben, können Sie sie hier nach Rechnungsgruppen gruppieren. Die Rechnungsgruppen erscheinen in Ihren Berichten, um die Zuordnung jeder Rechnung zum richtigen Firmennamen zu erleichtern.",
+            "add": "Gruppe hinzufügen"
         }
     },
     "workshop": {
@@ -7984,7 +8093,37 @@
             "groupButton": "Gruppenbetriebe"
         },
         "room": "Schlafzimmer",
-        "localisation": "Standort"
+        "localisation": "Standort",
+        "billing_group": {
+            "table": {
+                "name": "name",
+                "establishment": "Niederlassungen",
+                "actions": "Abbrechen"
+            },
+            "modal": {
+                "delete": {
+                    "confirm": "Supprimer",
+                    "cancel": "Abbrechen",
+                    "content": "Möchten Sie diese Rechnungsgruppe löschen? Die Löschung dieser Gruppe erfolgt rückwirkend, sie erscheint nicht mehr in den zugehörigen Berichten.",
+                    "title": "Löschen einer Rechnungsgruppe"
+                }
+            },
+            "form": {
+                "error": {
+                    "groupShouldHaveName": "Sie müssen dieser Rechnungsgruppe einen Namen geben",
+                    "groupShouldContainsOneRoom": "Bitte wählen Sie mindestens ein Zimmer"
+                },
+                "dialog": {
+                    "save": "Register",
+                    "cancel": "Abbrechen",
+                    "title": "Abrechnungsgruppe"
+                },
+                "associated_localizations": "Zugehörige Räume",
+                "name": "name"
+            },
+            "actions": "Aktionen",
+            "name": " Name"
+        }
     },
     "checkout": {
         "myBasket": {
@@ -8507,5 +8646,29 @@
         "placeCount": "{{count}} Orte",
         "roomBlueprintSelectorTitle": "Wählen Sie einen Plan",
         "search": "Finden Sie einen Plan für die Spotterminierung"
+    },
+    "franchise": {
+        "companies": {
+            "pageTitle": "Franchises"
+        },
+        "member": {
+            "pageTitle": "Mitglied",
+            "seeMembership": "siehe die Akte des Mitglieds",
+            "isVaccinated": "Gültiger Gesundheitspass",
+            "franchises": "Franchises"
+        },
+        "pagination": {
+            "outOf": "auf",
+            "rowPerPage": "Element pro Seite",
+            "nextPage": "Nächste Seite",
+            "previousPage": "Vorherige Seite"
+        },
+        "membersList": {
+            "pageTitle": "Mitglieder",
+            "see": "Siehe",
+            "actions": "Aktionen",
+            "franchised": "Franchisenehmer",
+            "name": "Name"
+        }
     }
 }

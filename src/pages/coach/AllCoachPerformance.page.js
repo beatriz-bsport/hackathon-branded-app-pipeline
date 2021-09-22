@@ -448,13 +448,13 @@ const styles = (theme) => ({
   },
   container: {
     marginBottom: theme.spacing(32),
-    overflowX: 'scroll',
+    width: '100%',
   },
   generalLoader: {
     marginBottom: theme.spacing(1),
   },
 });
-export default compose(
+export default compose<any, Props>(
   withStyles(styles),
   withState('formDates', 'setFormDates', {}),
   connect(

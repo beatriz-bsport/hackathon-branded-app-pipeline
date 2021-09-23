@@ -3568,7 +3568,11 @@
                 "success": "Il nuovo gruppo di fatturazione è stato creato"
             },
             "update": {
-                "success": "Gruppo di fatturazione modificato"
+                "success": "Gruppo di fatturazione modificato",
+                "error": "Impossibile cambiare il gruppo di fatturazione"
+            },
+            "delete": {
+                "success": "Gruppo di fatturazione cancellato"
             }
         }
     },

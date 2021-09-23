@@ -3566,6 +3566,9 @@
             "create": {
                 "error": "Impossibile creare il gruppo di fatturazione",
                 "success": "Il nuovo gruppo di fatturazione è stato creato"
+            },
+            "update": {
+                "success": "Gruppo di fatturazione modificato"
             }
         }
     },

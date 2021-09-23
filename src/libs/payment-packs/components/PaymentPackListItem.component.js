@@ -95,7 +95,7 @@ export const PaymentPackListItem = (props: Props) => {
                 credits: props.pack.credits,
               })
             : t('specifications.unlimitedCredits')
-        } - ${getCurrencyDisplayWithPrice(props.pack.price)})}${
+        } - ${getCurrencyDisplayWithPrice(props.pack.price)}${
           props.showDuration ? ` - ${dateInfo}` : ''
         }`}
       />

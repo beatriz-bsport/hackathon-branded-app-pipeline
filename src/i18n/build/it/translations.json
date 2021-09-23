@@ -4867,7 +4867,7 @@
         "newOrder": {
             "explain": "Pagato da <1> {{name}} </1> sullo store.",
             "title": "Ordine in attesa",
-            "price": "Importo: {{price, price}}."
+            "price": "Importo: {{ price }}."
         },
         "showMore": "Vedi di più",
         "task": {

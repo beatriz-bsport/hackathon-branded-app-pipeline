@@ -64,7 +64,7 @@ export function FinalizeInvoiceDialog(props: Props) {
           {t('common.cancel')}
         </Button>
         {props.processing ? (
-          <CircularProgress />
+          <CircularProgress size={35} />
         ) : (
           <Button
             onClick={() => {

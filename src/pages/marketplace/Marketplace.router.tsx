@@ -6,23 +6,24 @@ import { connect } from 'react-redux';
 
 import asyncComponent from '../../AsyncComponent';
 import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
+import { RootState } from '../../reducers';
 
-const MarketplaceResolver = asyncComponent(() =>
-  import('./MarketplaceResolver.page'),
+const MarketplaceResolver = asyncComponent(
+  () => import('./MarketplaceResolver.page'),
 );
 const Marketplace = asyncComponent(() => import('./Marketplace.page'));
-const MarketplaceAsManager = asyncComponent(() =>
-  import('./MarketplaceAsManager.page'),
+const MarketplaceAsManager = asyncComponent(
+  () => import('./MarketplaceAsManager.page'),
 );
 
-const MarketplaceCustomForm = asyncComponent(() =>
-  import('./MarketplaceCustomForm.page'),
+const MarketplaceCustomForm = asyncComponent(
+  () => import('./MarketplaceCustomForm.page'),
 );
-type Props = { is_manager: boolean };
+type Props = { is_manager: boolean; is_franchisor: boolean };
 
 export class MarketplaceRouter extends React.Component<Props> {
   render() {
-    if (this.props.is_manager) {
+    if (this.props.is_manager || this.props.is_franchisor) {
       return <MarketplaceAsManager />;
     }
     return (
@@ -51,6 +52,7 @@ export class MarketplaceRouter extends React.Component<Props> {
   }
 }
 
-export default connect((state) => ({
+export default connect((state: RootState) => ({
   is_manager: state.auth.is_manager,
+  is_franchisor: state.auth.is_franchisor,
 }))(MarketplaceRouter);

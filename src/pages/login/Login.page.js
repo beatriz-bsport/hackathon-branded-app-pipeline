@@ -11,8 +11,10 @@ import { withRouter } from 'react-router';
 import { Redirect } from 'react-router-dom';
 import Hidden from '@material-ui/core/Hidden';
 import { connect } from 'react-redux';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
+
+import { push } from 'connected-react-router';
+
 import themeSelectors from '../../libs/theme/selectors';
 import { parseQueryString } from '../../http';
 import { openIntercomHelp } from '../../intercom';
@@ -196,7 +198,8 @@ export class ConsumerLoginPage extends Component<Props> {
 function mapDispatchToProps(dispatch, props) {
   const search = ((props && props.location) || {}).search || '';
   const opts = {
-    next: parseQueryString(search).next,
+    goNext: ({ is_franchisor }) =>
+      !is_franchisor ? push(parseQueryString(search).next) : null,
     company: parseQueryString(search).membership,
   };
   return {
@@ -213,7 +216,7 @@ function mapDispatchToProps(dispatch, props) {
             dispatch(
               signup(formdata, {
                 membership: props.membership,
-                next: props.next,
+                goNext: props.goNext,
                 onError: options && options.onError,
               }),
             ),
@@ -243,7 +246,7 @@ export default compose(
   withRouter,
   withProps((props) => ({
     membership: parseQueryString(props.location.search).membership,
-    next: parseQueryString(props.location.search).next,
+    goNext: parseQueryString(props.location.search).next,
   })),
   connect(
     (state, { membership }) => ({

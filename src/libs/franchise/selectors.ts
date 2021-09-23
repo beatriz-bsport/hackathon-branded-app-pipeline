@@ -7,25 +7,25 @@ const getState = (state: RootState): FranchiseState => state.franchise;
 // Franchise
 
 export const getFranchiseId = (state: RootState) => {
-  if (getState(state)?.franchissor?.id) {
-    return getState(state)?.franchissor?.id;
+  if (getState(state)?.franchisor?.id) {
+    return getState(state)?.franchisor?.id;
   }
   return null;
 };
 
 export const getFranchisor = (state: RootState) => {
-  if (getState(state)?.franchissor) {
-    return getState(state)?.franchissor;
+  if (getState(state)?.franchisor) {
+    return getState(state)?.franchisor;
   }
   return null;
 };
 
 export const getFranchiseTheme = (state: RootState) => {
-  if (getState(state)?.franchissor) {
+  if (getState(state)?.franchisor) {
     return {
-      cover: getState(state)?.franchissor.cover,
-      primaryRGB: getState(state)?.franchissor.primaryRGB,
-      secondaryRGB: getState(state)?.franchissor.secondaryRGB,
+      cover: getState(state)?.franchisor.cover,
+      primaryRGB: getState(state)?.franchisor.primaryRGB,
+      secondaryRGB: getState(state)?.franchisor.secondaryRGB,
     };
   }
   return null;

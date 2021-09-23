@@ -40,6 +40,7 @@ import {
   VpnKey,
   PowerSettingsNew,
 } from '@material-ui/icons';
+import Settings from '@material-ui/icons/Settings';
 
 import { colors } from '@bsport/common/lib/colors';
 import { openIntercomHelp } from '../../intercom';
@@ -49,8 +50,6 @@ import LOGO_ASSET from '../../public/images/banner_lowres.png';
 import { windowTitleToProps } from '../../hocs/with-title.hoc';
 import type { TempPasswordState } from '../../libs/login/types';
 // import SearchBar from '../SearchBar.component';
-
-import { FranchiseTheme } from '../../libs/franchise/types';
 
 export const drawerWidth = 260;
 const MOBILE_SCREEN_SIZE = 960;
@@ -71,7 +70,7 @@ type NavigationItem =
 
 type OwnProps = {
   children: React.ReactNode;
-  theme: FranchiseTheme;
+  cover?: string;
   location: Location;
   tempPasswordState: TempPasswordState;
   disconnect: () => void;
@@ -84,7 +83,7 @@ type Props = OwnProps & WithStyles<typeof styles> & WithTranslation;
 export const FranchiseDrawer = (props: Props) => {
   const {
     children,
-    theme,
+    cover,
     classes,
     t,
     location,
@@ -369,11 +368,7 @@ export const FranchiseDrawer = (props: Props) => {
           alignItems="center"
         >
           <Hidden smDown>
-            <img
-              height={40}
-              src={theme?.cover ?? LOGO_ASSET}
-              alt="bsport logo"
-            />
+            <img height={40} src={cover ?? LOGO_ASSET} alt="bsport logo" />
           </Hidden>
         </Grid>
       </div>
@@ -451,6 +446,20 @@ const getNavigationItems = (props: {
       icon: Group,
     },
     'divider',
+    {
+      icon: Settings,
+      text: 'backofficeMenu.settings.settings',
+      to: '/f/settings/theme',
+      type: 'nested',
+      nestedItems: [
+        'divider',
+        {
+          to: '/f/settings/theme',
+          dense: true,
+          text: 'backofficeMenu.settings.general',
+        },
+      ],
+    },
     {
       action: disconnect,
       to: '#',

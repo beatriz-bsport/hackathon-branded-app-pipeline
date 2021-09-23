@@ -11,7 +11,6 @@ import asyncComponent from '../../AsyncComponent';
 import { getAuthToken } from '../../http';
 
 import { getFranchiseTheme } from '../../theme';
-import { fetchCompanyTheme as fetchCompanyThemeAction } from '../../libs/theme/actions';
 import { fetchFranchise as fetchFranchiseAction } from '../../libs/franchise/actions';
 import {
   generateTempPassword as generateTempPasswordAction,
@@ -32,6 +31,7 @@ const FranchiseMemberList = asyncComponent(
 const FranchiseCompanyList = asyncComponent(
   () => import('./FranchiseCompanyList.page'),
 );
+const FranchiseTheme = asyncComponent(() => import('./FranchiseTheme.page'));
 
 type OwnProps = {
   disconnect: () => void;
@@ -81,6 +81,7 @@ const FranchiseRouter = (props: Props) => {
         tempPasswordState={tempPasswordState}
         generateTempPassword={generateTempPassword}
         fetchTempPassword={fetchTempPassword}
+        cover={franchisor.cover}
         disconnect={disconnect}
         push={pushRouter}
       >
@@ -95,6 +96,8 @@ const FranchiseRouter = (props: Props) => {
             component={FranchiseMemberDetails}
           />
           <Redirect to="/f/franchises" />
+          <Route path="/f/settings/theme" component={FranchiseTheme} />
+          <Redirect to="/f/members" />
         </Switch>
       </FranchiseDrawer>
     </MuiThemeProvider>
@@ -113,7 +116,6 @@ const connector = connect(
   }),
   {
     fetchFranchise: fetchFranchiseAction,
-    fetchCompanyTheme: fetchCompanyThemeAction,
     generateTempPassword: generateTempPasswordAction,
     fetchTempPassword: fetchTempPasswordAction,
     pushRouter: push,

@@ -1017,7 +1017,7 @@
     "noEvent": { "description": "Description de l'évènement" }
   },
   "franchise": {
-    "membersList": { "name": "Nom", "franchised": "Franchisés", "actions": "Actions", "see": "Voir", "pageTitle": "Membres" },
+    "membersList": { "name": "Name", "franchised": "Franchisé", "actions": "Actions", "see": "Voir", "pageTitle": "Membres" },
     "pagination": {
       "previousPage": "Page précedente",
       "nextPage": "Page suivante",
@@ -1030,16 +1030,7 @@
       "seeMembership": "voir la fiche membre",
       "pageTitle": "Membre"
     },
-    "companies": {
-      "pageTitle": "Franchisés",
-      "searchPlaceholder": "Rechercher un franchisé",
-      "emptySelect": "Sélectionner une franchise pour en voir le détail.",
-      "members": "Membres",
-      "establishment": "Etablissements",
-      "establishmentEmptyState": "Aucun établissement dans cette compagnie",
-      "membersEmptyState": "Aucun membre dans cette compagnie",
-      "navigateToCompany": "Connexion au compte franchisé"
-    }
+    "companies": { "pageTitle": "Franchises" }
   },
   "invoice": {
     "paymentGroup": {
@@ -1148,9 +1139,7 @@
         "saveForLater": "Sauvegarder ce moyen de paiement",
         "saveForLaterAsSEPA": "Le mandat sera enregistré en tant que \"SEPA\"",
         "billByInstalment": "Paiement échelonné",
-        "basketInconsistent": "Votre panier a été modifié, veuillez rafraichir votre page avant de valider votre paiement.\n Vous n'avez pas été débité.",
-        "generatePaymentLink": "Générer un lien de paiement",
-        "paymentLink": "Lien de paiement"
+        "basketInconsistent": "Votre panier a été modifié, veuillez rafraichir votre page avant de valider votre paiement.\n Vous n'avez pas été débité."
       },
       "paymentList": { "title": "Paiements", "titleReverse": "Remboursement", "isEmpty": "Aucun paiement" },
       "plannedPaymentEvent": { "title": "Paiement planifié", "title_plural": "Paiements planifiés" },
@@ -1891,23 +1880,9 @@
       "myClub": "Mon Club",
       "subscription": "Prélèvements",
       "contract": "Contrats",
-      "coupon": "Promotions",
-      "franchiseConnectedAs": "Connecté en tant que: {{name}}",
-      "backToFranchiseWorskpace": "Revenir au compte maitre",
-      "redirecting": "Vous allez être redirigé vers votre page"
+      "coupon": "Promotions"
     },
-    "multiSession": {
-      "title": " Vous semblez utiliser plusieurs onglets simultanément",
-      "previousSession": " Vous étiez connecté en tant que {{name}}",
-      "restore": "Restaurer cette session",
-      "currentSession": "Vous êtes actuellement connecté en tant que {{name}}",
-      "continue": "Continuer sur cette session",
-      "franchisor": "franchiseur",
-      "manager": "manager",
-      "previous": "Session précédente",
-      "current": "Session actuelle"
-    },
-    "franchiseMenu": { "franchises": "Franchisés", "members": "Membres" },
+    "franchiseMenu": { "franchises": "Franchises", "members": "Members" },
     "deprecatedNavigator": {
       "navigatorError": "Il semblerait que votre navigateur soit trop ancien pour utiliser nos services. Vous risquez de rencontrer des erreurs, nous vous recommandons de télécharger une version plus récente notamment : ",
       "downloadFirefox": "Téléchargez gratuitement Mozilla Firefox",
@@ -4784,8 +4759,7 @@
     "contractPause": { "create": { "error": "Impossible de mettre en pause pour le moment, veuillez réessayer plus tard" } },
     "signup": {
       "emailAlreadyExists": "Cet email est déjà utilisé",
-      "failedCreation": "Impossible de créer votre compte pour le moment, veuillez réessayer d'ici quelques minutes",
-      "changeWorkspaceError": "Une erreur est survenue dans le changement de compte"
+      "failedCreation": "Impossible de créer votre compte pour le moment, veuillez réessayer d'ici quelques minutes"
     },
     "customForm": {
       "update": { "success": "Formulaire modifié", "error": "Impossible de modifier le formulaire" },
@@ -5539,11 +5513,7 @@
   },
   "titles": {
     "video": { "videoList": "Bibliothèque vidéo" },
-    "banner": {
-      "isStaging": "Prendre RDV",
-      "networkError": "Vous n'êtes pas connecté à internet",
-      "franchiseConnection": "Vous êtes actuellement connecté sur une application de vos franchisé"
-    },
+    "banner": { "isStaging": "Prendre RDV", "networkError": "Vous n'êtes pas connecté à internet" },
     "member": {
       "memberForm": "Ajouter un membre",
       "members": "Membres",

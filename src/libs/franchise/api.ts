@@ -1,8 +1,8 @@
 // @flow
 
 import { AxiosResponse } from 'axios';
-import { API_V1_URI, buildUrlParams, getAuth } from '../../http';
 import { GenericPaginationResults } from '../types';
+import { API_V1_URI, buildUrlParams, getAuth, patchAuth } from '../../http';
 import { FranchiseUser, Franchise } from './types';
 
 export const fetchFranchise = async (): Promise<AxiosResponse<Franchise>> => {
@@ -20,4 +20,15 @@ export const fetchFranchiseUser = async (
   userId: number,
 ): Promise<AxiosResponse<FranchiseUser>> => {
   return getAuth(`${API_V1_URI}/user/${userId}`);
+};
+
+export const updateFranchiseTheme = async (
+  franchiseId: number,
+  data: {
+    primary_color: string;
+    secondary_color: string;
+    cover: File;
+  },
+) => {
+  return patchAuth(`${API_V1_URI}/franchisor/franchisor/${franchiseId}/`, data);
 };

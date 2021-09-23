@@ -7,6 +7,7 @@ import {
   fetchFranchise as fetchFranchiseAPI,
   fetchFranchiseUsers as fetchFranchiseUsersAPI,
   fetchFranchiseUser as fetchFranchiseUserAPI,
+  updateFranchiseTheme as updateFranchiseThemeAPI,
 } from './api';
 
 export const fetchFranchiseActions = {
@@ -101,5 +102,31 @@ export function fetchFranchiseUser(props: {
     }
 
     dispatch(fetchFranchiseUserActions.isLoading(false));
+  };
+}
+
+export const themeUpdate = {
+  error: createAction('FRANCHISE/THEME_UPDATE/ERROR'),
+  isLoading: createAction('FRANCHISE/THEME_UPDATE/IS_LOADING'),
+  success: createAction('FRANCHISE/THEME_UPDATE/SUCCESS'),
+};
+
+export function updateFranchiseTheme(
+  franchiseId: number,
+  data: any,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(themeUpdate.isLoading(true));
+
+    try {
+      const response = await updateFranchiseThemeAPI(franchiseId, data);
+      dispatch(themeUpdate.success(response.data));
+      options?.onSuccess();
+    } catch (err) {
+      dispatch(themeUpdate.error(err));
+      dispatch(themeUpdate.isLoading(false));
+      options?.onError();
+    }
   };
 }

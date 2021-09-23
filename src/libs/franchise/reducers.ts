@@ -7,6 +7,7 @@ import {
   fetchFranchiseActions,
   fetchFranchiseUsersActions,
   fetchFranchiseUserActions,
+  themeUpdate,
 } from './actions';
 import { FranchiseCompany, FranchiseState, FranchiseUser } from './types';
 
@@ -14,7 +15,7 @@ const initialState: Immutable.Immutable<FranchiseState> = Immutable<FranchiseSta
   {
     error: false,
     loading: false,
-    franchissor: undefined,
+    franchisor: undefined,
     users: {
       page: 1,
       count: 0,
@@ -30,7 +31,7 @@ const initialState: Immutable.Immutable<FranchiseState> = Immutable<FranchiseSta
 
 export default handleActions<Immutable.Immutable<FranchiseState>>(
   {
-    // ME
+    // FRANCHISE
     [fetchFranchiseActions.isLoading.toString()]: (state, payload) => {
       return state.set('loading', payload).set('error', null);
     },
@@ -43,7 +44,7 @@ export default handleActions<Immutable.Immutable<FranchiseState>>(
       return state
         .set('loading', false)
         .set('error', null)
-        .set('franchissor', franchisor)
+        .set('franchisor', franchisor)
         .setIn(
           ['companies', 'allIds'],
           franchisor.companies.map((company: FranchiseCompany) => company.id),
@@ -65,6 +66,19 @@ export default handleActions<Immutable.Immutable<FranchiseState>>(
           },
           { deep: true },
         );
+    },
+
+    [themeUpdate.isLoading.toString()]: (state, payload) => {
+      return state.set('loading', payload).set('error', null);
+    },
+    [themeUpdate.error.toString()]: (state, payload) => {
+      return state.set('error', payload).set('loading', false);
+    },
+    [themeUpdate.success.toString()]: (state, { payload }: any) => {
+      return state
+        .set('loading', false)
+        .set('error', null)
+        .set('franchisor', payload);
     },
 
     // USERS

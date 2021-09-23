@@ -1,7 +1,7 @@
 export type FranchiseState = {
   error: null | boolean;
   loading: boolean;
-  franchissor?: Franchise;
+  franchisor?: Franchise;
   users: {
     page: number;
     count: number;

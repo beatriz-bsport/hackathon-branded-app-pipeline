@@ -3572,7 +3572,8 @@
                 "error": "Impossibile cambiare il gruppo di fatturazione"
             },
             "delete": {
-                "success": "Gruppo di fatturazione cancellato"
+                "success": "Gruppo di fatturazione cancellato",
+                "error": "Impossibile eliminare il gruppo di fatturazione"
             }
         }
     },

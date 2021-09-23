@@ -2039,7 +2039,7 @@
             },
             "details": {
                 "actions": {
-                    "refund": "Omzetten in kredieten",
+                    "refund": "Omzetten in saldo",
                     "applyVoucher": "Korting toepassing"
                 }
             },
@@ -2049,7 +2049,7 @@
                 "months": "maand",
                 "weeks": "week",
                 "days": "dag",
-                "limit_reach": "Gebruikslimiet per {{unit}} bereikt!"
+                "limit_reach": "De gebruikslimiet per {{unit}} bereikt!"
             }
         },
         "notification": {
@@ -4234,7 +4234,7 @@
             "priceUpdater": {
                 "title": "Wijzig toekomstig bedrag",
                 "price": "Nieuw bedrag",
-                "explain": "Alleen de toekomstige factuur wordt gewijzigd",
+                "explain": "Alleen deze factuur wordt gewijzigd",
                 "cancel": "Annuleren",
                 "submit": "Opslaan",
                 "updateAll": "Wijzig alle toekomstige betalingen"

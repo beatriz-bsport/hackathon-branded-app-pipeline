@@ -170,6 +170,7 @@ export class MarketplaceWorkshopPage extends React.Component<FinalProps> {
               )
             }
             mapContainerClassName={this.props.mapContainerClassName}
+            showOfferFilling={this.props.theme.show_offers_filling}
           />
         </div>
       </div>

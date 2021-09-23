@@ -25,6 +25,7 @@ type Props = {
   onBookOption: () => void,
   t: TFunction,
   classes: *,
+  showOfferFilling: boolean,
 };
 
 const BookButton = (props: {
@@ -32,10 +33,11 @@ const BookButton = (props: {
   offer: Offer,
   onBook: () => void,
   onBookOption: () => void,
+  showOfferFilling: boolean,
 }) => {
-  const { t, offer, onBook, onBookOption } = props;
+  const { t, offer, onBook, onBookOption, showOfferFilling } = props;
   const disabled = !isOfferInThePast(offer) || !offer.available;
-  let text = offer.is_full
+  let text = offer.full
     ? t('marketplace:workshop.card.bookOption')
     : t('marketplace:workshop.card.book');
   if (!isOfferInThePast(offer)) {
@@ -51,7 +53,8 @@ const BookButton = (props: {
       disabled={disabled}
       onClick={offer.is_full ? onBookOption : onBook}
     >
-      {text}
+      {text +
+        (showOfferFilling ? `  (${offer.tot_slots}/${offer.effectif})` : '')}
     </Button>
   );
 };
@@ -163,6 +166,7 @@ export const MarketplaceWorkshopEvent = (props: Props) => {
           offer={offer}
           onBook={props.onBook}
           onBookOption={props.onBookOption}
+          showOfferFilling={props.showOfferFilling}
         />
       </CardActions>
     </Card>

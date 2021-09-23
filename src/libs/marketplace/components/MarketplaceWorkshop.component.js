@@ -35,6 +35,7 @@ type Props = {
   onBookOfferFromPack: (offerId: number, consumerPackId: number) => void,
   t: TFunction,
   mapContainerClassName?: string,
+  showOfferFilling: boolean,
 };
 
 export const MarketplaceWorkshop = (props: Props) => {
@@ -60,6 +61,7 @@ export const MarketplaceWorkshop = (props: Props) => {
               onBookOption={() => props.onBookOption(o.id)}
               activityLoading={props.activityLoading}
               establishmentLoading={props.establishmentLoading}
+              showOfferFilling={props.showOfferFilling}
             />
           </div>
         ))}

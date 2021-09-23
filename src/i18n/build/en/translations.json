@@ -4866,13 +4866,13 @@
         "paymentMethods": {
             "subtitle2": "As the manager, you will always have access to all available payment methods.",
             "subtitle": "You can activate or deactivate the payment methods used by your members for their online payments.",
-            "title": "Online Payment",
+            "title": "Online payments",
             "save": "Save",
             "methodPaymentSubscriptionError": "Please choose at least one payment method",
-            "methodPaymentSubscriptionHelper": "Authorize recurring payment (contracts) only via",
-            "methodPaymentSubscription": "Recurring payment",
-            "methodPaymentBasketHelper": "Authorize online payment for one time payment, customer debt only via",
-            "methodPaymentBasket": "One time payment"
+            "methodPaymentSubscriptionHelper": "Select which payment method(s) you wish to enable for recurring payments (subscriptions):",
+            "methodPaymentSubscription": "Recurring payments",
+            "methodPaymentBasketHelper": "Select which payment method(s) you wish to enable for one time payments:",
+            "methodPaymentBasket": "One time payments"
         },
         "billing_group": {
             "header": "Billing group",
@@ -5904,7 +5904,7 @@
             },
             "duration": "{{month}} bills",
             "list": {
-                "title": "Contracts",
+                "title": "Subscriptions",
                 "isEmpty": "No contract",
                 "addButton": "Create a contract",
                 "register": "Subscribe a member",
@@ -7181,7 +7181,7 @@
         "createTitle": "Template",
         "detail": "Detail informations",
         "create": "Add a template",
-        "modification_date": "Last modified the",
+        "modification_date": "Last modified on",
         "selectToShowPreview": "Select an email to see a preview of it.",
         "templateListEmpty": "In our Drag-&-Drop Email Editor, you can design beautiful and personalized email templates to automatically send them to your members, from your BSPORT account.",
         "subject": "Mail object:",
@@ -7413,7 +7413,7 @@
             },
             "isLoading": "Looking for sessions...",
             "book": {
-                "unknowError": "Not possible to book, please try again later"
+                "unknowError": "Error while booking - try again later"
             }
         },
         "details": {
@@ -8387,7 +8387,7 @@
             "600": {
                 "expiryDateLabel": "Expiration date",
                 "owns": "Select at least one payment method",
-                "does_not_own": "There are no saved payment methods that have been saved to display.",
+                "does_not_own": "There are no saved payment methods to display.",
                 "labelFirst": "Only filter on members",
                 "title": "Saved payment method",
                 "explanation": "Filter on saved payment methods and the expiration date",
@@ -9067,7 +9067,7 @@
     "navigation": {
         "backofficeMenu": {
             "coupon": "Promotions",
-            "contract": "Contracts",
+            "contract": "Subscriptions",
             "subscription": "Subscriptions",
             "myClub": "My Club",
             "settings": {
@@ -9143,7 +9143,7 @@
                 "of": "Of",
                 "onSpotPaymentReport": "Show payment report",
                 "amount": "Day's earnings :",
-                "lastUpdated": "Last modified on:",
+                "lastUpdated": "Last modified on",
                 "expectedAmount": "Calculated amount: ",
                 "todayEndAmount": "Ledger's closing amount",
                 "addAmount": "Amount to be added to ledger",

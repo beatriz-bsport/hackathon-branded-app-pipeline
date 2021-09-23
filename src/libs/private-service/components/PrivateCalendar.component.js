@@ -557,6 +557,14 @@ export class PrivateCalendar extends React.Component<Props, State> {
               duration: { days: 3 },
               buttonText: t('calendar.header.threeDaysView'),
             },
+            resourceTimeGridDay: {
+              titleFormat: {
+                weekday: 'long',
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric',
+              },
+            },
           }}
           headerToolbar={{
             left: 'prev,next today',

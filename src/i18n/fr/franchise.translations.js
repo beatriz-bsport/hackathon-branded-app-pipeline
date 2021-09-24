@@ -1,7 +1,7 @@
 exports.default = {
   membersList: {
-    name: 'Name',
-    franchised: 'Franchisé',
+    name: 'Nom',
+    franchised: 'Franchisés',
     actions: 'Actions',
     see: 'Voir',
     pageTitle: 'Membres',
@@ -19,6 +19,12 @@ exports.default = {
     pageTitle: 'Membre',
   },
   companies: {
-    pageTitle: 'Franchises',
+    pageTitle: 'Franchisés',
+    searchPlaceholder: 'Rechercher un franchisé',
+    emptySelect: 'Sélectionner une franchise pour en voir le détail.',
+    members: 'Membres',
+    establishment: 'Etablissements',
+    establishmentEmptyState: 'Aucun établissement dans cette compagnie',
+    membersEmptyState: 'Aucun membre dans cette compagnie',
   },
 };

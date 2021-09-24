@@ -1,4 +1,5 @@
 // @flow
+import { AxiosResponse } from 'axios';
 import {
   API_URI,
   getAuth,
@@ -10,6 +11,8 @@ import {
   API_V1_URI,
   buildUrlParams,
 } from '../../http';
+import { GenericPaginationResults } from '../types';
+import { MemberMinimal } from './types';
 
 const PAGE_SIZE = 300;
 
@@ -21,7 +24,7 @@ export async function fetchMemberList(params: {
   barcode?: string;
   id__in?: Array<number>;
   company?: number;
-}) {
+}): Promise<AxiosResponse<GenericPaginationResults<MemberMinimal>>> {
   return getAuth(
     `${API_V1_URI}/member/${buildUrlParams({
       page_size: PAGE_SIZE,

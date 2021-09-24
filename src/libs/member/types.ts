@@ -81,6 +81,7 @@ export type MemberState = ErrorAndLoading &
     allIds: number[];
     detailData: any;
     listData: { [key: string]: Member };
+    listCount: number;
     quickFetched: Array<Member>;
     barcode: ErrorAndLoading & {
       data: Array<Member>;

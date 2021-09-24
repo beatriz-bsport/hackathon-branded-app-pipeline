@@ -56,3 +56,5 @@ export const getPaginatedMembers = createSelector(
   [getMemberDict, getMemberListId],
   (memberDict, IdList) => IdList.map((id) => memberDict[id]),
 );
+
+export const getListCountMembers = (state: RootState) => state.member.listCount;

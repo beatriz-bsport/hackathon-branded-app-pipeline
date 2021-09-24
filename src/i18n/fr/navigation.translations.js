@@ -99,8 +99,8 @@ exports.default = {
     coupon: 'Promotions',
   },
   franchiseMenu: {
-    franchises: 'Franchises',
-    members: 'Members',
+    franchises: 'Franchisés',
+    members: 'Membres',
   },
   deprecatedNavigator: {
     navigatorError:

@@ -92,7 +92,7 @@ export type EstablishmentState = {
   };
 };
 
-export type establishmentAddressInput = {
+export type EstablishmentAddressInput = {
   address: string;
   address_line_1: string;
   address_line_2: string;

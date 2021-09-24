@@ -10,6 +10,7 @@ export type FranchiseState = {
   };
   companies: {
     byId: Record<number, FranchiseCompany>;
+    allIds: number[];
   };
 };
 

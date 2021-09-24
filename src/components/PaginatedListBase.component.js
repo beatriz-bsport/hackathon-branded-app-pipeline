@@ -26,7 +26,7 @@ type Props = {
   unknownNbItems?: boolean,
   page: number,
   loading: ?boolean,
-  onPageRequested: (number, number) => void,
+  onPageRequested: (page: number, page_size?: number) => void,
 
   t: TFunction,
   classes: any,

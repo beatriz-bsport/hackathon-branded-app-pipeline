@@ -23,6 +23,7 @@ const initialState: Immutable.Immutable<FranchiseState> = Immutable<FranchiseSta
     },
     companies: {
       byId: {},
+      allIds: [],
     },
   },
 );
@@ -43,6 +44,10 @@ export default handleActions<Immutable.Immutable<FranchiseState>>(
         .set('loading', false)
         .set('error', null)
         .set('franchissor', franchisor)
+        .setIn(
+          ['companies', 'allIds'],
+          franchisor.companies.map((company: FranchiseCompany) => company.id),
+        )
         .merge(
           {
             companies: {

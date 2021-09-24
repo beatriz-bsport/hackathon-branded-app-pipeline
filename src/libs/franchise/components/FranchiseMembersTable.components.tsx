@@ -13,6 +13,7 @@ import {
   Theme,
   WithStyles,
   withStyles,
+  Button,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
@@ -121,7 +122,7 @@ const FranchiseMembersTable = (props: Props) => {
                 </TableCell>
                 <TableCell>
                   <Link to={`/f/members/${user.id}/member`}>
-                    {t('membersList.see')}
+                    <Button>{t('membersList.see')}</Button>
                   </Link>
                 </TableCell>
               </TableRow>

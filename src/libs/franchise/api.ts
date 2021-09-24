@@ -2,6 +2,7 @@
 
 import { AxiosResponse } from 'axios';
 import { API_V1_URI, buildUrlParams, getAuth } from '../../http';
+import { GenericPaginationResults } from '../types';
 import { FranchiseUser, Franchise } from './types';
 
 export const fetchFranchise = async (): Promise<AxiosResponse<Franchise>> => {
@@ -11,13 +12,7 @@ export const fetchFranchise = async (): Promise<AxiosResponse<Franchise>> => {
 export const fetchFranchiseUsers = async (params: {
   page: number;
   page_size: number;
-}): Promise<
-  AxiosResponse<{
-    count: number;
-    nextPage: number;
-    results: FranchiseUser[];
-  }>
-> => {
+}): Promise<AxiosResponse<GenericPaginationResults<FranchiseUser>>> => {
   return getAuth(`${API_V1_URI}/user${buildUrlParams(params)}`);
 };
 

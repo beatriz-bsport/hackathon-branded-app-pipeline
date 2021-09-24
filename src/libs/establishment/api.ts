@@ -1,3 +1,4 @@
+import { AxiosResponse } from 'axios';
 import {
   API_URI,
   API_V1_URI,
@@ -8,9 +9,10 @@ import {
   buildUrlParams,
 } from '../../http';
 import type {
-  establishmentAddressInput,
-  EstablishmentGroup,
+  AssociatedEstablishment,
+  EstablishmentAddressInput,
   EstablishmentBillingGroup,
+  EstablishmentGroup,
 } from './types';
 
 export async function addEstablishment(data: any) {
@@ -25,12 +27,12 @@ export async function updateEstablishment(data: any) {
   return putAuth(`${API_URI}/saas/establishments/${data.get('id')}`, data);
 }
 
-export async function addEstablishmentV2(data: establishmentAddressInput) {
+export async function addEstablishmentV2(data: EstablishmentAddressInput) {
   return postAuth(`${API_V1_URI}/establishment/`, data);
 }
 export async function updateEstablishmentV2(
   id: number,
-  data: establishmentAddressInput,
+  data: EstablishmentAddressInput,
 ) {
   return putAuth(`${API_V1_URI}/establishment/${id}/`, data);
 }
@@ -50,8 +52,12 @@ export async function deleteEstablishment(id: number) {
   return deleteAuth(`${API_V1_URI}/establishment/${id}/`);
 }
 
-export async function fetchAssociatedEstablishments() {
-  return getAuth(`${API_V1_URI}/associated-establishment/`);
+export async function fetchAssociatedEstablishments(params: {
+  company: number;
+}): Promise<AxiosResponse<AssociatedEstablishment[]>> {
+  return getAuth(
+    `${API_V1_URI}/associated-establishment/${buildUrlParams(params)}`,
+  );
 }
 
 export async function fetchEstablishmentFavorite(company: number) {

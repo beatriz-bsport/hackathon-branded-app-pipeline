@@ -19,6 +19,7 @@ import {
 } from './actions';
 import { Member, MemberNote, MemberState } from './types';
 import { GenericListReducer, GenericReducer } from '../../utils/reduxHelper';
+import { GenericPaginationResults } from '../types';
 
 const initialState: Immutable.Immutable<MemberState> = Immutable<MemberState>({
   loading: false,
@@ -104,11 +105,15 @@ export default handleActions<Immutable.Immutable<MemberState>>(
           [...state.allIds, ...action.payload.map((m: Member) => m.id)],
         );
     },
-    [memberListActions.success.toString()]: (state, action) => {
+    [memberListActions.success.toString()]: (
+      state,
+      action: { payload: GenericPaginationResults<Member> },
+    ) => {
       return state
+        .set('listCount', action.payload.count)
         .merge(
           {
-            listData: action.payload.reduce(
+            listData: action.payload.results.reduce(
               (acc: MemberState['listData'], m: Member) => {
                 acc[m.id] = m;
                 return acc;
@@ -120,7 +125,7 @@ export default handleActions<Immutable.Immutable<MemberState>>(
         )
         .setIn(
           ['allIds'],
-          action.payload.map((m: Member) => m.id),
+          action.payload.results.map((m: Member) => m.id),
         );
     },
     [memberListActions.error.toString()]: (state, action) => {

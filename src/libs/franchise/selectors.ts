@@ -70,3 +70,12 @@ export const getFranchiseCompanyById = (state: RootState) => {
   }
   return null;
 };
+
+export const getFranchiseCompanies = (state: RootState) => {
+  if (getState(state).companies?.allIds) {
+    return getState(state).companies?.allIds.map(
+      (id) => getState(state)?.companies?.byId[id],
+    );
+  }
+  return null;
+};

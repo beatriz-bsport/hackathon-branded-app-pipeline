@@ -129,10 +129,8 @@ export function refreshFilteredMembers(params: any, options: OptionCallback) {
     dispatch(memberListActions.isLoading(true));
     try {
       const response = await fetchFilteredMembersAPI(params);
-      dispatch(memberListActions.success(response.data.results));
-      if (options && options.onSuccess) {
-        options.onSuccess(response.data.results);
-      }
+      dispatch(memberListActions.success(response.data));
+      options?.onSuccess();
     } catch (err) {
       console.error(err);
       dispatch(memberListActions.error(err));

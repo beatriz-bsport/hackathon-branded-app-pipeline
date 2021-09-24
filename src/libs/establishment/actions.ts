@@ -35,7 +35,7 @@ import { RootState } from '../../reducers';
 import { OptionCallback } from '../../state/types';
 
 import type {
-  establishmentAddressInput,
+  EstablishmentAddressInput,
   EstablishmentGroup,
   EstablishmentBillingGroup,
 } from './types';
@@ -170,7 +170,7 @@ export const UpdateOrCreateEstablishmentsActionsV2 = {
 };
 export function createOrUpdateEstablishmentV2(
   id?: number,
-  data: establishmentAddressInput,
+  data: EstablishmentAddressInput,
   options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
@@ -282,13 +282,13 @@ export const associatedEstablishmentListActions = {
   success: createAction('ASSOCIATED_ESTABLISHMENT/LIST/SUCCESS'),
 };
 
-export function fetchAssociatedEstablishments() {
+export function fetchAssociatedEstablishments(params?: { company: number }) {
   return async (dispatch: ThunkDispatch<any, any, any>) => {
     dispatch(associatedEstablishmentListActions.isLoading(true));
     dispatch(associatedEstablishmentListActions.error(null));
 
     try {
-      const response = await fetchAssociatedEstablishmentsAPI();
+      const response = await fetchAssociatedEstablishmentsAPI(params);
       dispatch(associatedEstablishmentListActions.success(response.data));
     } catch (error) {
       console.error(error);

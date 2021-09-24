@@ -28,3 +28,13 @@ export type GenericListReducerI = ErrorAndLoading & {
   next_page?: number | null;
   count?: number | null;
 };
+
+export type GenericPaginationResults<T> = {
+  count: number;
+  next_page: number;
+  links: {
+    next: string;
+    previous: string;
+  };
+  results: T[];
+};

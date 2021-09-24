@@ -29,6 +29,9 @@ const FranchiseMemberDetails = asyncComponent(
 const FranchiseMemberList = asyncComponent(
   () => import('./FranchiseMemberList.page'),
 );
+const FranchiseCompanyList = asyncComponent(
+  () => import('./FranchiseCompanyList.page'),
+);
 
 type OwnProps = {
   disconnect: () => void;
@@ -82,6 +85,10 @@ const FranchiseRouter = (props: Props) => {
         push={pushRouter}
       >
         <Switch>
+          <Route
+            path="/f/franchises/:companyId?"
+            component={FranchiseCompanyList}
+          />
           <Route exact path="/f/members" component={FranchiseMemberList} />
           <Route
             path="/f/members/:userId/member"

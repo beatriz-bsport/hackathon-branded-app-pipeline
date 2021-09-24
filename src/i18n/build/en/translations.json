@@ -3946,7 +3946,7 @@
             "submit": "Save",
             "general_terms_and_conditions": {
                 "placeholder": "I certify that I'm in possession of a valid medical certificate.",
-                "helperText": "These must be accepted for all registrations and payments.",
+                "helperText": "These must be accepted for all enrolments and payments.",
                 "label": "General Terms & Conditions"
             },
             "android_app_url": {
@@ -3961,7 +3961,7 @@
             },
             "general_terms_of_use": {
                 "placeholder": "I certify that I'm over the age of 13.",
-                "helperText": "These must be accepted for all registrations and payments.",
+                "helperText": "These must be accepted for all enrolments and payments.",
                 "label": "General Terms of Use"
             },
             "facebookPixelId": {
@@ -4503,12 +4503,12 @@
         "addButton": "Add an establishment",
         "goBackToList": "Back to establishments",
         "update": {
-            "imageUploaderRequireEditMessage": "Once you have created your establishment you will be able to add additional images."
+            "imageUploaderRequireEditMessage": "Once you've added your establishment, you'll be able to add additional images."
         },
         "capacity": {
             "label": "Maximum capacity",
             "placeholder": " ",
-            "helperText": "This will only be used to manage the availabilities for appointments.",
+            "helperText": "This number will only be used to manage this establishment's availability for appointments.",
             "explain": "Capacity: {{capacity}} slot",
             "explain_plural": "Capacity: {{capacity}} slots"
         },
@@ -5342,7 +5342,7 @@
                     "label": "Repeat every"
                 },
                 "recurrence": {
-                    "explain": "Every {{ recurrence_basis }}{{ interval }}, a payment will be processed for a total of {{ total_interval_duration }}{{ interval }} billings. The member will be billed {{ nb_interval }} times in total.",
+                    "explain": "Every {{ recurrence_basis }} {{ interval }}, a payment will be processed for a total of {{ total_interval_duration }} {{ interval }} billings. The member will be billed {{ nb_interval }} times in total.",
                     "section": "Recurrence"
                 },
                 "interval": {
@@ -5363,7 +5363,7 @@
                     "scheduler": "Timeline"
                 },
                 "anchor_date": {
-                    "helperText": "The payment will processed in the morning",
+                    "helperText": "The payment will processed in the morning.",
                     "label": "First instalment"
                 }
             }
@@ -5617,12 +5617,12 @@
                 "pay": "Pay invoice",
                 "bill": "Take payment",
                 "basketInconsistent": "Your cart has been modified, please refresh your page before validating your payment.\n You have not been charged.",
-                "billByInstalment": "Instalment payments"
+                "billByInstalment": "Pay in instalments"
             },
             "sumup": {
                 "amountRemaining": "Remaining amount to pay",
                 "amountDue": "Total due",
-                "title": "Sum up",
+                "title": "Overview",
                 "amountPaid": "Charge"
             },
             "date": {
@@ -5817,7 +5817,7 @@
             "billing_plan-update_payment_pack": "Pass updated"
         },
         "table": {
-            "noContent": "No subscription registered yet"
+            "noContent": "There are no subscriptions to display."
         },
         "subscription": {
             "list": {
@@ -5887,11 +5887,11 @@
         "contract": {
             "registerManager": {
                 "title": "Recurring payment",
-                "explainChoseContract": "Please select a contract, it will be billed monthly",
+                "explainChoseContract": "Select a subscription that'll be billed on a monthly basis",
                 "actions": {
                     "cancel": "Cancel"
                 },
-                "explainCustomSubscriptionForm": "Create a personalized subscription"
+                "explainCustomSubscriptionForm": "Add a personalized subscription"
             },
             "description": "Description",
             "legal": "Legal notice",
@@ -5899,14 +5899,14 @@
                 "iAcceptCondition": "I accept the legal notice.",
                 "iwanttostarton": "The start date of my subscription: ",
                 "subscribe": "Subscribe",
-                "create": "Add a contract",
+                "create": "Add a subscription",
                 "iAcceptGeneralCondition": " I accept the legal notice."
             },
             "duration": "{{month}} bills",
             "list": {
                 "title": "Subscriptions",
                 "isEmpty": "No contract",
-                "addButton": "Create a contract",
+                "addButton": "Add a subscription",
                 "register": "Subscribe a member",
                 "titleManagerOnly": "Contracts not available for sale",
                 "titleCustomerAvailable": "Available subscriptions",
@@ -6008,7 +6008,7 @@
                     "month_plural": "Every {{ interval }} months"
                 },
                 "recurrentPriceLabel": "{{ currencyDisplay }}{{ recurrent_price  }}",
-                "identifier": "Membership"
+                "identifier": "Subscription"
             },
             "frequency": {
                 "week": "weekly",
@@ -6121,7 +6121,7 @@
                 "updateAll": "Update all futures payments"
             },
             "list": {
-                "titleNext": "Next withdrawals"
+                "titleNext": "Upcoming withdrawals"
             },
             "dateUpdater": {
                 "title": "Modify the future invoice",
@@ -6160,7 +6160,7 @@
         },
         "save": "save",
         "cancel": "cancel",
-        "noContracts": "Contracts will allow you to regularly bill your members for a pass that is re-credited every month/days/years.",
+        "noContracts": "In this module, you can add subscriptions to automatically bill your members on a daily, weekly, monthly, or yearly basis.",
         "copyLink": "Copy the direct link to the payment page",
         "listItem": {
             "valid": "Valid",
@@ -6169,7 +6169,7 @@
             "canceled": "Stopped",
             "subscribedOn": "Subscription started on {{- date}}"
         },
-        "noAssociatedSubscription": "No subscription registered yet",
+        "noAssociatedSubscription": "There are no saved subscriptions to display.",
         "associatedSubscriptions": "Subscribed members",
         "status": {
             "hasEnded": "Ended",
@@ -6219,7 +6219,7 @@
             },
             "actions": {
                 "verify": "Verify",
-                "add": "Put on pause",
+                "add": "Pause",
                 "submit": "Put on pause",
                 "cancel": "Cancel",
                 "previous": "Previous"
@@ -6495,7 +6495,7 @@
             "offers": "Sessions",
             "members": "Members",
             "cashbook": "Ledger",
-            "on_spot_payments": "On spot payments",
+            "on_spot_payments": "In-studio payments",
             "video": "Video On Demand",
             "unpaid_invoices": "Unpaid invoices",
             "video_purchase": "Video On Demand purchases"
@@ -6634,8 +6634,8 @@
                     "confirm": "Delete",
                     "content": "Are you sure you want to delete this notification ? This choice is definitive"
                 },
-                "smartList": "Excluded lists",
-                "smartListInclude": "Included lists"
+                "smartList": "Excluded Smartlist(s)",
+                "smartListInclude": "Included Smartlist(s)"
             },
             "addButton": "Add a notification",
             "form": {
@@ -6647,7 +6647,7 @@
                 "daysType": "Remaining validity",
                 "daysPastType": "Days since expiry",
                 "mailSelection": "Select mail",
-                "smartListSelection": "Select Smartlists (optional)",
+                "smartListSelection": "(Optional) Select Smartlist(s)",
                 "showMail": "See mail",
                 "settingTitle": "Settings",
                 "hideMail": "Hide email",
@@ -6655,8 +6655,8 @@
                 "cancel": "Cancel",
                 "createSmartList": "Add a Smartlist",
                 "warning": "By selecting no smarlist you might notify members who already have bought another pass",
-                "smartListHelper": "Don't send the email if the member is in one of the following lists",
-                "smartListHelperInclude": "Only send the email if the member is in one of the folllowing lists"
+                "smartListHelper": "Don't send the message if the member is present in one of the following Smartlists",
+                "smartListHelperInclude": "Only send the message if the member is present in one of the following Smartlists"
             },
             "daysPast": {
                 "second": "days ago",
@@ -7602,7 +7602,7 @@
             "createModal": {
                 "success": "The recurrent booking has been created.",
                 "info": "Cannot recreate a recurrent booking that already exists",
-                "create": "Create a recurrent booking"
+                "create": "Add a recurrent booking"
             },
             "blockedBookings": "Your students can book up to {{days}} days before the start of the sessions for this activity, therefore we recommend that you schedule the recurrence over a longer period to avoid overcrowding.",
             "notifyIfCanceled": "Send a booking cancellation email",
@@ -7622,7 +7622,7 @@
                 "numberOfBook": "{{count}} enrollment",
                 "numberOfBook_plural": "{{count}} enrollments"
             },
-            "bookingsTitle": "Book now",
+            "bookingsTitle": "You're booking",
             "addSession": "Add a session",
             "noPackAvailable": "This session does not have any compatible memberships!",
             "noPackAvailable_plural": "No single pass is compatible with all these sessions simultaneously. Please book them separately.",
@@ -7848,7 +7848,7 @@
     "event": {
         "list": {
             "title": {
-                "latestEvents": "Latest events"
+                "latestEvents": "Recent withdrawals"
             }
         },
         "member": {
@@ -7875,8 +7875,8 @@
     },
     "smartList": {
         "duplicate": "Duplicate",
-        "name": "Name of the list",
-        "search": "Search a smartlist",
+        "name": "Name of the Smartlist",
+        "search": "Search a Smartlist",
         "description": "Description",
         "mails": "Emails",
         "multiSelector": {
@@ -7918,10 +7918,10 @@
             },
             "privatePass": {
                 "warning": "Select at least one appointment pass",
-                "helperAllSelectedText": "all appointment pass",
+                "helperAllSelectedText": "all appointment passes",
                 "textFieldPlaceholder": "Find an appointment pass",
-                "helperSelectedText": "selected appointment pass",
-                "helperText": "select appointment pass"
+                "helperSelectedText": "selected appointment passes",
+                "helperText": "select appointment passes"
             },
             "privateServices": {
                 "warning": "Select at least one appointment",
@@ -7936,8 +7936,8 @@
         "membersInList": "Members in the list:",
         "modal": {
             "delete": {
-                "title": "Smart list deletion",
-                "content": "Are you sure you want to delete this smart list ? This operation is not revertable",
+                "title": "Delete Smartlist",
+                "content": "Are you sure that you want to delete this Smartlist? This action can't be undone.",
                 "cancel": "Cancel",
                 "confirm": "Delete"
             }
@@ -7978,8 +7978,8 @@
             "sendMailTitle": "Send email",
             "cancel": "Cancel",
             "send": "Send",
-            "noMailAvailable": "No mail available, think about creating one",
-            "sendSuccess": "Email sending",
+            "noMailAvailable": "There are no email templates available to display.",
+            "sendSuccess": "Sending email...",
             "sendError": "Error while sending email"
         },
         "smart_list": {
@@ -7992,7 +7992,7 @@
             },
             "list": {
                 "title": "Smartlists",
-                "detailTitle": "Details of the list"
+                "detailTitle": "Smartlist details"
             },
             "name": "Name",
             "description": {
@@ -8001,9 +8001,9 @@
             },
             "submit": "Save",
             "cancel": "Cancel",
-            "add": "Add a list",
-            "detail": "Details of the list",
-            "createTitle": "Smart-list form"
+            "add": "Add a Smartlist",
+            "detail": "Smartlist details",
+            "createTitle": "[Form] Smartlist"
         },
         "filterCategory": {
             "1": "Member information",
@@ -8014,10 +8014,10 @@
         "filters": {
             "1": {
                 "name": "Debt",
-                "first": "The balance of the member is (unpaid invoice not included)",
+                "first": "The account balance of the member is (excluding unpaid invoices)",
                 "second": " than   ",
                 "third": "{{ currencyDisplay }}",
-                "explanation": "Has X {{ currencyDisplay }} in his credit account",
+                "explanation": "Their account balance is {{ currencyDisplay }}X",
                 "between": "and"
             },
             "2": {
@@ -8028,50 +8028,50 @@
             },
             "5": {
                 "name": "Sex",
-                "first": "Toggle only",
+                "first": "Only display all",
                 "men": "males",
                 "women": "females",
-                "explanation": "Is female/male"
+                "explanation": "Display an overview of all male/females"
             },
             "8": {
-                "name": "Passes validity",
+                "name": "Validity of the passes",
                 "first": "Passes",
                 "second": "are usable",
-                "explanation": "Owns the pass X usable"
+                "explanation": "Owns valid pass X"
             },
             "11": {
                 "name": "Tags",
                 "first": "Filter on tags",
-                "explanation": "Is tagged A and B"
+                "explanation": "Get an overview of all members that are tagged A and B"
             },
             "14": {
                 "shop": "Webshop",
                 "pack": "Pass",
                 "combo": "Pack",
-                "private_pass": "Private pass",
-                "workshop": "Pass only workshop",
+                "private_pass": "Appointment pass",
+                "workshop": "Passes for workshops",
                 "name": "Expenses",
                 "first": "Has spent",
-                "second": "{{ currencyDisplay }} between the",
-                "third": "and the",
+                "second": "{{ currencyDisplay }} between",
+                "third": "and",
                 "fourth": "for the products",
                 "selector": "Select products",
                 "explanation": "Has bought A and B"
             },
             "18": {
                 "name": "Enrolment date",
-                "first": "Has register to the club   ",
-                "explanation": "Has joined on..."
+                "first": "Enroled for your studio   ",
+                "explanation": "Enroled on..."
             },
             "19": {
                 "name": "Passes",
-                "first": "one of passes",
-                "has": "Has",
-                "has_not": "Doesn't have",
+                "first": "one of the following passes",
+                "has": "Owns",
+                "has_not": "Doesn't own",
                 "second": "and",
                 "third": "à",
                 "credits": {
-                    "first": "credits :",
+                    "first": "credits:",
                     "second": "and"
                 },
                 "date_bought": {
@@ -8082,25 +8082,25 @@
                     "first_has_expire": "has expired"
                 },
                 "infoIcon": "Filter on credit doesn't apply to unlimited passes",
-                "explanation": "Has bought pass X at date Y, with Z credits remaining"
+                "explanation": "Has bought pass X at date Y and has Z credits remaining"
             },
             "20": {
                 "name": "Abandoned baskets",
-                "first": "Has abandoned a basket worth",
+                "first": "The value of the abandoned basket is",
                 "second": "to",
                 "third": "{{ currencyDisplay }}",
                 "date": {
                     "first": "Abandoned basket",
                     "second": "days"
                 },
-                "explanation": "Has a pending basket of a total amount...",
+                "explanation": "Has a pending basket with a total amount of...",
                 "between": "and"
             },
             "21": {
                 "name": "Booking number",
-                "first": "Has booked his ",
-                "second_singular": "st lesson",
-                "second_plural": "th lesson",
+                "first": "Members that booked ",
+                "second_singular": "session(s)",
+                "second_plural": "session(s)",
                 "activity": {
                     "first": "of"
                 },
@@ -8115,7 +8115,7 @@
                     "second": "hours and",
                     "first": "the beginning time of the session is between"
                 },
-                "explanation": "Has booked his Xth class of activity Y in establishment Z...",
+                "explanation": "Members that booked their Xth class of activity Y in establishment Z...",
                 "coach": {
                     "first": "with the teachers"
                 },
@@ -8162,7 +8162,7 @@
                         "first": "the or after the"
                     },
                     "1": {
-                        "first": "the or before the"
+                        "first": "on or before"
                     },
                     "2": {
                         "first": "between",
@@ -8207,10 +8207,10 @@
                     }
                 },
                 "select": {
-                    "0": "The or after the",
-                    "1": "The or before the",
+                    "0": "On or after",
+                    "1": "On or before",
                     "2": "Between two dates",
-                    "3": "The"
+                    "3": "On"
                 },
                 "selectduration": {
                     "4": {
@@ -8266,7 +8266,7 @@
                 "canceled": "canceled",
                 "booked": "booked"
             },
-            "active_filters": "Active filters on the list",
+            "active_filters": "Active filters on this Smartlist",
             "add_filter": "Add a filter",
             "add": "Add",
             "before": "before",
@@ -8294,7 +8294,7 @@
                 "fifth": "credits on it"
             },
             "all": "All",
-            "isEmpty": "No filter is configured, this smartlist therefore represents the entire member database",
+            "isEmpty": "This Smartlist displays your entire member database, as no filters have been added as of now.",
             "24": {
                 "name": "Expenses",
                 "workshop": "Pass only for workshops",
@@ -8403,7 +8403,7 @@
             "cancel": "Cancel",
             "display_tag_rules": "Automatic Tagging",
             "associated_tag": "Associated tag",
-            "create": "Create a rule",
+            "create": "Add a rule",
             "tag_on_left": "Tag if a member has left this Smartlist",
             "tag_on_join_and_untag_on_left": "Tag if a member is present in this Smartlist",
             "tag_on_join": "Tag if a member enters this Smartlist",
@@ -8494,8 +8494,8 @@
             },
             "contract": {
                 "restore": {
-                    "success": "Contract restored successfully",
-                    "error": "Impossible to restore the contract"
+                    "success": "This subscription has been restored successfully",
+                    "error": "Error while restoring subscription"
                 }
             }
         },
@@ -8926,7 +8926,7 @@
         "copied": "Copy to the clipboard",
         "contractPause": {
             "create": {
-                "error": "Not possible to pause for the time being, please try again later"
+                "error": "Error while pausing this subscription - try again later"
             }
         },
         "bookerModule": {
@@ -9250,7 +9250,7 @@
             "thumbnailList": {
                 "similarVideoTitle": "Recommended videos",
                 "count": "{{count}} videos",
-                "addVideo": "add a video"
+                "addVideo": "Add a video"
             },
             "player": {
                 "with": "with"
@@ -9272,8 +9272,8 @@
             "creditPrice": "Cost (credit)",
             "register": {
                 "buyPass": "Buy a pass",
-                "title": "Start playing",
-                "noPassAvailable": "You do not own a compatible pass"
+                "title": "Play this video",
+                "noPassAvailable": "You don't own a compatible pass yet."
             },
             "analytics": {
                 "uploaded": "Video put online the {{date}}",
@@ -9425,7 +9425,7 @@
         "notifications": {
             "selectNotificationRules": "Select a rule to display detailed information.",
             "createNotificationFabLabel": "Add a notification",
-            "notificationsEmpty": "You haven't added any rules for this group, yet.",
+            "notificationsEmpty": "There are no automatic notifications set up for this group as of now.",
             "deleteDialogText": "Are you sure that you want to delete this rule? This operation can't be reversed.",
             "deleteDialogTitle": "Deleting the rule",
             "removeRule": "Delete the rule",

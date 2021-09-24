@@ -6231,7 +6231,7 @@
             "returnPaymentLocked": "Deze terugbetaling kon niet worden voltooid. Weet je zeker dat je account met Stripe voldoende saldo heeft?",
             "billingEstablishment": {
                 "error": {
-                    "unAuthorizedEstablishmentModification": "De groepsfacturatie kan alleen door systeembeheerders worden gewijzigd"
+                    "unAuthorizedEstablishmentModification": "De groepsfacturatie kan alleen door Systeembeheerders worden gewijzigd"
                 }
             }
         },

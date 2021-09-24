@@ -48,6 +48,16 @@ export async function changePassword({
   });
 }
 
+export async function impersonateAdmin(params: {
+  token: string,
+  companyId: number,
+}) {
+  return post(`${API_V1_URI}/authentication/impersonate/`, {
+    token: params.token,
+    company: params.companyId,
+  });
+}
+
 export default {
   updateProfile,
   resetPassword,
@@ -56,4 +66,5 @@ export default {
   signup,
   changePassword,
   checkEmailExists,
+  impersonateAdmin,
 };

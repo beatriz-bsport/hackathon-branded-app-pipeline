@@ -16,6 +16,7 @@ const initialState = Immutable({
   initializating: false,
   invalidFields: null,
   role: null,
+  loadingImpersonation: false,
   emailExists: {
     loading: false,
     error: null,
@@ -25,6 +26,26 @@ const initialState = Immutable({
     loading: false,
     error: null,
     last_password_reset_request: null,
+  },
+  doubleConnexion: {
+    previous: {
+      username: '',
+      is_manager: false,
+      is_coach: false,
+      is_consumer: false,
+      is_franchisor: false,
+      role: null,
+      name: null,
+    },
+    current: {
+      username: '',
+      is_manager: false,
+      is_coach: false,
+      is_consumer: false,
+      is_franchisor: false,
+      role: null,
+      name: null,
+    },
   },
 });
 
@@ -79,6 +100,29 @@ export default function authReducers(state = initialState, action = {}) {
         .set('role', role);
     }
 
+    case actionTypes.CHECK_ACCESS_LEVEL: {
+      const {
+        storingKey,
+        username,
+        is_manager,
+        is_coach,
+        is_consumer,
+        is_franchisor,
+        role,
+        name,
+      } = action.payload;
+
+      return state.setIn(['doubleConnexion', storingKey], {
+        username,
+        is_manager,
+        is_coach,
+        is_consumer,
+        is_franchisor,
+        role,
+        name,
+      });
+    }
+
     case actionTypes.LOGIN_FAILED:
       return state
         .set('username', '')
@@ -94,6 +138,8 @@ export default function authReducers(state = initialState, action = {}) {
       return state.setIn(['emailExists', 'error'], action.error);
     case actionTypes.CHECK_EMAIL_EXISTS_SUCCESS:
       return state.setIn(['emailExists', 'exists'], action.exists);
+    case actionTypes.IMPERSONATE_MANAGER_LOADING:
+      return state.set(['loadingImpersonation'], action.loading);
     default:
       return state;
   }

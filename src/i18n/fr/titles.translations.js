@@ -7,6 +7,8 @@ exports.default = {
   banner: {
     isStaging: 'Prendre RDV',
     networkError: "Vous n'êtes pas connecté à internet",
+    franchiseConnection:
+      'Vous êtes actuellement connecté sur une application de vos franchisé',
   },
   member: {
     memberForm: 'Ajouter un membre',

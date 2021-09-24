@@ -660,6 +660,8 @@ exports.default = {
     emailAlreadyExists: 'Cet email est déjà utilisé',
     failedCreation:
       "Impossible de créer votre compte pour le moment, veuillez réessayer d'ici quelques minutes",
+    changeWorkspaceError:
+      'Une erreur est survenue dans le changement de compte',
   },
   customForm: {
     update: {

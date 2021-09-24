@@ -26,5 +26,6 @@ exports.default = {
     establishment: 'Etablissements',
     establishmentEmptyState: 'Aucun établissement dans cette compagnie',
     membersEmptyState: 'Aucun membre dans cette compagnie',
+    navigateToCompany: 'Connexion au compte franchisé',
   },
 };

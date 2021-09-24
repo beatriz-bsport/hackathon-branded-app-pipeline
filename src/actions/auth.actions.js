@@ -6,11 +6,12 @@ import { createAction } from 'redux-actions';
 
 import api from '../api';
 import types from './auth.types';
-import type { Dispatch, ThunkAction } from '../state/types';
+import { Dispatch, ThunkAction, OptionCallback } from '../state/types';
 import WidgetUtils from '../libs/widget/WidgetUtils';
 import { WidgetMessageType } from '../libs/widget/types';
 import { snackbarError } from './snackbar.actions';
 import { USER_EMAIL_EXISTS } from '../api/constants';
+import { getAuthToken } from '../http';
 
 export const initiateInterface = createAction('initiate');
 
@@ -67,9 +68,10 @@ export function fetchAccessLevel(
         username,
       } = response.data;
 
-      if (!is_manager && is_consumer) {
+      if (!is_manager && !is_franchisor && is_consumer) {
         dispatch(errorLogin());
       }
+
       dispatch(
         setLogin({
           username,
@@ -93,6 +95,52 @@ export function fetchAccessLevel(
         options.goNext();
       } else if (options && options.company) {
         dispatch(push(`/c/membership-validator/${options.company}/`));
+      }
+    } catch (err) {
+      if (!err.status) {
+        dispatch(networkError(err));
+      } else {
+        dispatch(errorLogin());
+      }
+    }
+    if (options && options.onDone) options.onDone();
+  };
+}
+
+export function fetchAccessLevelWithoutConnect(
+  token: string,
+  storingKey: 'previous' | 'current',
+  options: ?{
+    next: ?ThunkAction,
+  },
+) {
+  return async (dispatch: Dispatch) => {
+    try {
+      const response = await api.auth.accessLevel(token);
+      const {
+        is_manager,
+        is_consumer,
+        is_franchisor,
+        role,
+        name,
+        username,
+      } = response.data;
+
+      dispatch({
+        type: types.CHECK_ACCESS_LEVEL,
+        payload: {
+          storingKey,
+          is_manager,
+          is_consumer,
+          is_franchisor,
+          role,
+          name,
+          username,
+        },
+      });
+
+      if (typeof options?.onSuccess === 'function') {
+        options?.onSuccess();
       }
     } catch (err) {
       if (!err.status) {
@@ -337,5 +385,109 @@ export function signupV2(
       }
     }
     return dispatch(errorLogin());
+  };
+}
+
+export function impersonateManagerLoading(loading: boolean) {
+  return { type: types.IMPERSONATE_MANAGER_LOADING, loading };
+}
+
+export function navigateAsCompanyAdmin(
+  companyId: number,
+  url?: string,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(impersonateManagerLoading(true));
+      const franchiseConnexionToken = getAuthToken();
+
+      const response = await api.auth.impersonateAdmin({
+        token: franchiseConnexionToken,
+        companyId,
+      });
+
+      const newToken = response.data.token;
+
+      if (!newToken) {
+        throw new Error('No token');
+      }
+      const storage = window.localStorage;
+      storage.setItem('bsport:franchise:http:token', franchiseConnexionToken);
+
+      const {
+        data: { is_manager, is_consumer, is_franchisor, role, name, username },
+      } = await api.auth.accessLevel(newToken);
+
+      // Set new access level
+      await dispatch(
+        setLogin({
+          username,
+          token: newToken,
+          is_manager,
+          is_consumer,
+          is_franchisor,
+          role,
+          name,
+        }),
+      );
+
+      dispatch(impersonateManagerLoading(false));
+      if (url) {
+        dispatch(push(url));
+      }
+
+      if (typeof options?.onSuccess === 'function') {
+        options?.onSuccess();
+      }
+      return;
+    } catch (err) {
+      // Disconnect to avoid users stuck in a loop
+      dispatch((() => ({ type: types.DISCONNECT }))());
+
+      dispatch(snackbarError('signup.changeWorkspaceError'));
+      options?.onError();
+      dispatch(errorLogin());
+    }
+  };
+}
+
+export function navigateBackToFranchise() {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(impersonateManagerLoading(true));
+
+      const storage = window.localStorage;
+      const newToken = storage.getItem('bsport:franchise:http:token');
+
+      const {
+        data: { is_manager, is_consumer, is_franchisor, role, name, username },
+      } = await api.auth.accessLevel(newToken);
+
+      storage.removeItem('bsport:franchise:http:token');
+
+      // Set new access level
+      await dispatch(
+        setLogin({
+          username,
+          token: newToken,
+          is_manager,
+          is_consumer,
+          is_franchisor,
+          role,
+          name,
+        }),
+      );
+
+      dispatch(impersonateManagerLoading(false));
+
+      return;
+    } catch (err) {
+      // Disconnect to avoid users stuck in a loop
+      dispatch((() => ({ type: types.DISCONNECT }))());
+
+      dispatch(snackbarError('signup.changeWorkspaceError'));
+      dispatch(errorLogin());
+    }
   };
 }

@@ -1,12 +1,14 @@
 import React from 'react';
-import FranchiseCompanyDetails, { OwnProps } from './FranchiseCompanyDetails.components';
+import FranchiseCompanyDetails, {
+  OwnProps,
+} from './FranchiseCompanyDetails.components';
 import FactoryBot from '../factories/FranchiseCompanyFactory';
 import FactoryBotMember from '../../member/factories/MemberMinimal';
 import FactoryBotEstablishment from '../../establishment/factories/Establishments';
 import faker from 'faker';
 
 const CompleteDefaultState = (args: OwnProps) => (
-    <FranchiseCompanyDetails {...args} />
+  <FranchiseCompanyDetails {...args} />
 );
 
 export const EmptyState = CompleteDefaultState.bind({});
@@ -24,6 +26,8 @@ EmptyState.args = {
   page: 1,
   establishmentsByLocation: {},
   handleChangePage: () => {},
+  goToCompany: () => {},
+  goToUser: () => () => {},
 };
 
 const CustomTemplateState = (args: OwnProps) => (
@@ -40,18 +44,19 @@ CustomTemplate.args = {
   page: 1,
   establishmentsByLocation: {
     [faker.address.streetAddress()]: establishment.slice(0, 5),
-    [faker.address.streetAddress()]: establishment.slice(5)
+    [faker.address.streetAddress()]: establishment.slice(5),
   },
   handleChangePage: () => {},
+  goToCompany: () => {},
+  goToUser: () => () => {},
 };
 
-
 export default {
-    title: 'Franchise/Company/Details',
-    component: FranchiseCompanyDetails,
-    parameters: {
-        docs: {
-            page: null
-        }
+  title: 'Franchise/Company/Details',
+  component: FranchiseCompanyDetails,
+  parameters: {
+    docs: {
+      page: null,
     },
+  },
 };

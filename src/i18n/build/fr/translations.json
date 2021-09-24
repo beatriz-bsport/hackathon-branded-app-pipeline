@@ -1037,7 +1037,8 @@
       "members": "Membres",
       "establishment": "Etablissements",
       "establishmentEmptyState": "Aucun établissement dans cette compagnie",
-      "membersEmptyState": "Aucun membre dans cette compagnie"
+      "membersEmptyState": "Aucun membre dans cette compagnie",
+      "navigateToCompany": "Connexion au compte franchisé"
     }
   },
   "invoice": {
@@ -1147,7 +1148,9 @@
         "saveForLater": "Sauvegarder ce moyen de paiement",
         "saveForLaterAsSEPA": "Le mandat sera enregistré en tant que \"SEPA\"",
         "billByInstalment": "Paiement échelonné",
-        "basketInconsistent": "Votre panier a été modifié, veuillez rafraichir votre page avant de valider votre paiement.\n Vous n'avez pas été débité."
+        "basketInconsistent": "Votre panier a été modifié, veuillez rafraichir votre page avant de valider votre paiement.\n Vous n'avez pas été débité.",
+        "generatePaymentLink": "Générer un lien de paiement",
+        "paymentLink": "Lien de paiement"
       },
       "paymentList": { "title": "Paiements", "titleReverse": "Remboursement", "isEmpty": "Aucun paiement" },
       "plannedPaymentEvent": { "title": "Paiement planifié", "title_plural": "Paiements planifiés" },
@@ -1888,7 +1891,21 @@
       "myClub": "Mon Club",
       "subscription": "Prélèvements",
       "contract": "Contrats",
-      "coupon": "Promotions"
+      "coupon": "Promotions",
+      "franchiseConnectedAs": "Connecté en tant que: {{name}}",
+      "backToFranchiseWorskpace": "Revenir au compte maitre",
+      "redirecting": "Vous allez être redirigé vers votre page"
+    },
+    "multiSession": {
+      "title": " Vous semblez utiliser plusieurs onglets simultanément",
+      "previousSession": " Vous étiez connecté en tant que {{name}}",
+      "restore": "Restaurer cette session",
+      "currentSession": "Vous êtes actuellement connecté en tant que {{name}}",
+      "continue": "Continuer sur cette session",
+      "franchisor": "franchiseur",
+      "manager": "manager",
+      "previous": "Session précédente",
+      "current": "Session actuelle"
     },
     "franchiseMenu": { "franchises": "Franchisés", "members": "Membres" },
     "deprecatedNavigator": {
@@ -4767,7 +4784,8 @@
     "contractPause": { "create": { "error": "Impossible de mettre en pause pour le moment, veuillez réessayer plus tard" } },
     "signup": {
       "emailAlreadyExists": "Cet email est déjà utilisé",
-      "failedCreation": "Impossible de créer votre compte pour le moment, veuillez réessayer d'ici quelques minutes"
+      "failedCreation": "Impossible de créer votre compte pour le moment, veuillez réessayer d'ici quelques minutes",
+      "changeWorkspaceError": "Une erreur est survenue dans le changement de compte"
     },
     "customForm": {
       "update": { "success": "Formulaire modifié", "error": "Impossible de modifier le formulaire" },
@@ -5521,7 +5539,11 @@
   },
   "titles": {
     "video": { "videoList": "Bibliothèque vidéo" },
-    "banner": { "isStaging": "Prendre RDV", "networkError": "Vous n'êtes pas connecté à internet" },
+    "banner": {
+      "isStaging": "Prendre RDV",
+      "networkError": "Vous n'êtes pas connecté à internet",
+      "franchiseConnection": "Vous êtes actuellement connecté sur une application de vos franchisé"
+    },
     "member": {
       "memberForm": "Ajouter un membre",
       "members": "Membres",

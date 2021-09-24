@@ -3,11 +3,14 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
+import classnames from 'classnames';
 
 import { compose, withState } from 'recompose';
+
+import { push as pushRouter } from 'connected-react-router';
 
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -27,6 +30,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
+import ButtonBase from '@material-ui/core/ButtonBase';
 
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -66,11 +70,11 @@ import LaptopIcon from '@material-ui/icons/Laptop';
 import StorageIcon from '@material-ui/icons/Storage';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import LabelIcon from '@material-ui/icons/Label';
-import type { TFunction } from 'react-i18next';
-import { push as pushRouter } from 'connected-react-router';
 
 import { colors } from '@bsport/common/lib/colors';
 import Tooltip from '@material-ui/core/Tooltip';
+import { getTextColorFromRGB } from '../../utils/color';
+
 import BillingBanner from './BillingBanner.component';
 import LanguageButton from '../button/LanguageButton.component';
 import TempPasswordDialog from '../../libs/login/components/TempPasswordDialog.component';
@@ -80,8 +84,8 @@ import LOGO_ASSET from '../../public/images/banner_lowres.png';
 import AlertButtonMenu from '../../libs/alerting/components/AlertButtonMenu.component';
 import { windowTitleToProps } from '../../hocs/with-title.hoc';
 import { openIntercomHelp } from '../../intercom';
-import type { Alerting } from '../../libs/alerting/types';
-import type { TempPasswordState } from '../../libs/login/types';
+import { Alerting } from '../../libs/alerting/types';
+import { TempPasswordState } from '../../libs/login/types';
 import Config from '../../config';
 import { Permission } from '../../libs/role/types';
 import { checkRequiredPermissions } from '../../libs/role/utils';
@@ -122,6 +126,9 @@ type Props = {
   showCashBook: boolean,
   permissions: Permission,
   paymentMethodMissing: boolean,
+  isFranchisorNavigation: boolean,
+  navigateBackToFranchisor: () => void,
+  companyName: string,
 };
 
 type State = {
@@ -436,6 +443,23 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             </Grid>
           </Grid>
         </Toolbar>
+        {this.props.isFranchisorNavigation && (
+          <div className={classes.franchisorBanner}>
+            <div className={classes.text}>
+              {this.props.t('backofficeMenu.franchiseConnectedAs', {
+                name: this.props.companyName,
+              })}
+              <ButtonBase
+                className={classes.buttonFranchise}
+                onClick={this.props.navigateBackToFranchisor}
+              >
+                {this.props
+                  .t('backofficeMenu.backToFranchiseWorskpace')
+                  ?.toUpperCase()}
+              </ButtonBase>
+            </div>
+          </div>
+        )}
         {this.props.loading ? null : this.openCashDialog()}
       </AppBar>
     );
@@ -959,12 +983,18 @@ class ResponsiveDrawer extends React.Component<Props, State> {
           open={this.state.tempPasswordDialogOpen}
         />
         <main
-          className={
-            this.props.location.pathname.includes('/spot-scheduling')
-              ? classes.fullContent
-              : classes.content
-          }
+          className={classnames({
+            [classes.fullContent]: this.props.location.pathname.includes(
+              '/spot-scheduling',
+            ),
+            [classes.content]: !this.props.location.pathname.includes(
+              '/spot-scheduling',
+            ),
+          })}
         >
+          {this.props.isFranchisorNavigation && (
+            <div className={classes.fillerFranchisor} />
+          )}
           <BillingBanner
             paymentMethodMissing={this.props.paymentMethodMissing}
           />
@@ -1118,6 +1148,22 @@ const styles = (theme) => ({
       marginLeft: theme.spacing(1),
       marginRight: theme.spacing(1),
     },
+  },
+  fillerFranchisor: {
+    height: theme.spacing(3),
+  },
+  franchisorBanner: {
+    height: theme.spacing(3),
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: theme.palette.primary.main,
+    color: getTextColorFromRGB(theme.palette.primary.main),
+  },
+  buttonFranchise: {
+    textDecoration: 'underline',
+    marginLeft: theme.spacing(2),
   },
 });
 

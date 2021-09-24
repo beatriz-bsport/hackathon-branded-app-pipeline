@@ -8,6 +8,7 @@ import {
   withStyles,
   WithStyles,
   Button,
+  ListItem,
 } from '@material-ui/core';
 import classNames from 'classnames';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -18,12 +19,20 @@ import { FranchiseCompany } from '../types';
 
 export type OwnProps = {
   companies: FranchiseCompany[];
+  goToCompanyDetails: (companyId: number) => () => void;
+  goToFranchiseCompanyDetails: (companyId: number) => () => void;
 };
 
 type Props = OwnProps & WithStyles<typeof styles> & WithTranslation;
 
 const FranchiseMemberMembership = (props: Props) => {
-  const { companies, classes, t } = props;
+  const {
+    companies,
+    classes,
+    goToCompanyDetails,
+    goToFranchiseCompanyDetails,
+    t,
+  } = props;
 
   return (
     <div>
@@ -32,7 +41,9 @@ const FranchiseMemberMembership = (props: Props) => {
         {companies.map((company, index) => {
           if (!company) return null;
           return (
-            <div
+            <ListItem
+              button
+              onClick={goToFranchiseCompanyDetails(company.id)}
               className={classNames(classes.row, {
                 [classes.isLast]: index === companies.length - 1,
               })}
@@ -48,14 +59,16 @@ const FranchiseMemberMembership = (props: Props) => {
                   <Typography variant="body1">{company.name}</Typography>
                 </div>
               </div>
-              {/* TODO Aymeric Redirect to franchise view */}
-              <Button className={classes.leftNavigation}>
+              <Button
+                className={classes.leftNavigation}
+                onClick={goToCompanyDetails(company.id)}
+              >
                 <ArrowForwardIcon className={classes.icon} />
                 <Typography variant="body1">
                   {t('member.seeMembership').toUpperCase()}
                 </Typography>
               </Button>
-            </div>
+            </ListItem>
           );
         })}
       </div>

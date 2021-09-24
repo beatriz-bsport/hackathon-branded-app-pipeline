@@ -14,6 +14,7 @@ import {
   TableCell,
   Avatar,
   ListItem,
+  Button,
 } from '@material-ui/core';
 import Room from '@material-ui/icons/Room';
 import InfoIcon from '@material-ui/icons/Info';
@@ -30,6 +31,8 @@ export type OwnProps = {
   page: number;
   establishmentsByLocation: Record<string, Establishment[]>;
   handleChangePage: (newPage: number) => void;
+  goToCompany: () => void;
+  goToUser: (memberId: number) => () => void;
 };
 
 type Props = OwnProps & WithStyles<typeof styles> & WithTranslation;
@@ -44,6 +47,8 @@ const FranchiseCompanyDetails = (props: Props) => {
     page,
     establishmentsByLocation,
     handleChangePage,
+    goToCompany,
+    goToUser,
     t,
   } = props;
 
@@ -65,6 +70,14 @@ const FranchiseCompanyDetails = (props: Props) => {
             <Typography variant="h4">{companyName}</Typography>
           </div>
           <div className={classes.divider} />
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
+            onClick={goToCompany}
+          >
+            {t('companies.navigateToCompany')}
+          </Button>
           <div className={classes.subtitle}>
             <Typography variant="h5">{t('companies.members')}</Typography>
           </div>
@@ -86,6 +99,7 @@ const FranchiseCompanyDetails = (props: Props) => {
                       button
                       className={classes.row}
                       key={member.id}
+                      onClick={goToUser(member.id)}
                     >
                       <Avatar
                         className={classes.avatar}
@@ -189,6 +203,9 @@ const styles = (theme: Theme) =>
       backgroundColor: theme.palette.divider,
       marginTop: theme.spacing(1),
     },
+    button: {
+      marginTop: theme.spacing(1),
+    },
     table: {
       backgroundColor: theme.palette.common.white,
       borderRadius: 5,
@@ -203,6 +220,13 @@ const styles = (theme: Theme) =>
     },
     info: {
       marginBottom: theme.spacing(2),
+    },
+    pointer: {
+      cursor: 'pointer',
+    },
+    headerTable: {
+      height: theme.spacing(2),
+      borderBottom: `1px solid ${theme.palette.divider}`,
     },
     establishment: {
       marginTop: theme.spacing(4),

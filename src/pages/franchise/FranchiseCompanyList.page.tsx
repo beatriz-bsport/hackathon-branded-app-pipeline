@@ -31,6 +31,7 @@ import {
   getEstablishment,
 } from '../../libs/establishment/selectors';
 import { Establishment } from '../../libs/establishment/types';
+import { navigateAsCompanyAdmin as navigateAsCompanyAdminAction } from '../../actions/auth.actions';
 
 type OwnProps = {
   companyId: number;
@@ -111,6 +112,22 @@ export class FranchiseCompanyList extends Component<Props, State> {
     });
   };
 
+  goToCompany = (companyId: number) => () => {
+    this.props.navigateAsCompanyAdmin(companyId, '');
+  };
+
+  goToUser = (companyId: number) => (memberId: number) => () => {
+    this.props.navigateAsCompanyAdmin(companyId, `/member/${memberId}/info`);
+  };
+
+  goToCompany = (companyId: number) => () => {
+    this.props.navigateAsCompanyAdmin(companyId, '');
+  };
+
+  goToUser = (companyId: number) => (memberId: number) => () => {
+    this.props.navigateAsCompanyAdmin(companyId, `/member/${memberId}/info`);
+  };
+
   render() {
     const {
       companies,
@@ -140,6 +157,8 @@ export class FranchiseCompanyList extends Component<Props, State> {
             establishmentsByLocation={establishmentsByLocation}
             page={this.state.page}
             handleChangePage={this.handleChangePage}
+            goToCompany={this.goToCompany(companyId)}
+            goToUser={this.goToUser(companyId)}
           />
         </div>
       </div>
@@ -186,6 +205,7 @@ const connector = connect(
     fetchFilteredMembers: fetchFilteredMembersAction,
     fetchAssociatedEstablishments: fetchAssociatedEstablishmentsAction,
     fetchEstablishmentBulk: fetchEstablishmentBulkAction,
+    navigateAsCompanyAdmin: navigateAsCompanyAdminAction,
     push: pushAction,
   },
 );

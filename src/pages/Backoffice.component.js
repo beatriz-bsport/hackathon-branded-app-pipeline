@@ -8,6 +8,9 @@ import { push } from 'connected-react-router';
 import Intercom from 'react-intercom';
 import { compose, withHandlers } from 'recompose';
 import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
+import { CircularProgress, Typography } from '@material-ui/core';
+import { withTranslation } from 'react-i18next';
+
 import { RoleType } from '@bsport/common/lib/master-data/user-role';
 import clx from 'classnames';
 import Analytics from '../components/analytics/Analytics.component';
@@ -59,7 +62,10 @@ import asyncComponent from '../AsyncComponent';
 import Config from '../config';
 
 import alertingSelectors from '../libs/alerting/selectors';
-import { fetchAccessLevel } from '../actions/auth.actions';
+import {
+  fetchAccessLevel,
+  navigateBackToFranchise as navigateBackToFranchiseAction,
+} from '../actions/auth.actions';
 
 import type { TempPasswordState } from '../libs/login/types';
 import { fetchCompanyRoles } from '../libs/role/actions';
@@ -133,6 +139,7 @@ type Props = {
   fetchAccessLevel: (token: string) => void,
   disconnect: () => void,
   deleteAlert: (id: number) => void,
+  loadingImpersonation: boolean,
   classes: Object,
   username: string,
   fetchMoreAlertingKind: (number) => void,
@@ -172,9 +179,13 @@ type Props = {
   fetchOnSpotPaymentReport: () => void,
   onSpotPaymentReportId: number,
   roleId: number,
+  storedToken: string,
   fetchCompanyRoles: () => void,
   rolesLoading: boolean,
   fetchSignFormUpConfiguration: () => void,
+
+  navigateBackToFranchise: () => void,
+  t: TFunction,
 };
 
 const BackofficeRoute = withSentryErrorReporting((props) => {
@@ -231,7 +242,6 @@ export class Backoffice extends Component<Props, State> {
     this.props.fetchCompanyTheme();
     this.props.fetchCompanyRoles();
     this.props.getFeatureList();
-    this.setState({ authToken: getAuthToken() });
     this.props.checkEmailValidation();
     this.props.fetchAllAlertings();
     this.props.fetchSCT({ as_company: true });
@@ -262,17 +272,18 @@ export class Backoffice extends Component<Props, State> {
   render() {
     const { classes } = this.props;
 
-    // dirty handling of double login
-    const token = getAuthToken();
-    if (
-      !token ||
-      token === 'null' ||
-      (token !== this.state.authToken && !!this.state.authToken)
-    ) {
+    if (this.props.loadingImpersonation) {
       return (
-        <Redirect
-          to={`${'/login/double-login?membership='}${this.props.theme.company}`}
-        />
+        <div className={classes.fullPage}>
+          <div className={classes.loading}>
+            <CircularProgress />
+            <div className={classes.loadingTitle}>
+              <Typography variant="h4">
+                {this.props.t('backofficeMenu.redirecting')}
+              </Typography>
+            </div>
+          </div>
+        </div>
       );
     }
 
@@ -338,6 +349,11 @@ export class Backoffice extends Component<Props, State> {
                 RoleType.USER_ROLE_NO_RESTRICTION,
                 RoleType.USER_ROLE_ADMIN,
               ].includes(this.props.roleId)}
+              isFranchisorNavigation={
+                !!window.localStorage.getItem('bsport:franchise:http:token')
+              }
+              navigateBackToFranchisor={this.props.navigateBackToFranchise}
+              companyName={this.props.theme.company_name}
             >
               {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
               Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ? (
@@ -397,12 +413,28 @@ const styles = (theme: Object) => ({
   progress: {
     flexGrow: 1,
   },
+  fullPage: {
+    width: '100vw',
+    height: '100vh',
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  loading: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  loadingTitle: {
+    marginTop: theme.spacing(4),
+  },
 });
 
 const themedBackoffice = withStyles(styles)(Backoffice);
 
 export default compose(
   withOpenEvent('backoffice'),
+  withTranslation('navigation'),
   connect(
     (state) => ({
       alertings: alertingSelectors.getByKind(state),
@@ -410,13 +442,13 @@ export default compose(
       username: state.auth.username,
       name: state.auth.name,
       roleId: state.auth.role,
+      loadingImpersonation: state.auth.loadingImpersonation,
       theme: state.theme.theme,
       themeLoading: state.theme.loading,
       featureListLoading: state.company.feature.loading,
       checkingEmailValidation: state.login.emailValidation.loading,
       permission: getPermissions(state),
       onSpotPaymentReportId: state.paymentBackend.onSpotPaymentReport.id,
-
       is_consumer: state.auth.is_consumer && !state.auth.is_manager,
 
       tempPasswordState: getTempPasswordState(state),
@@ -456,6 +488,8 @@ export default compose(
       fetchCashBook,
       updateCashBook,
       fetchSignFormUpConfiguration,
+
+      navigateBackToFranchise: navigateBackToFranchiseAction,
     },
   ),
   withHandlers({

@@ -5,6 +5,8 @@ faker.locale = 'fr';
 
 // @ts-ignore
 FactoryBot.define('FranchiseUser', {
+  companies: [],
+  companiesMember: {},
   name: `${faker.name.firstName()} ${faker.name.lastName()}`,
   email: faker.internet.email().toLowerCase(),
   gender: 'M',

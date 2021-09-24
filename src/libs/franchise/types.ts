@@ -26,6 +26,7 @@ export type Franchise = {
 export type FranchiseUser = {
   birthday?: string;
   companies: number[];
+  company_member: Record<number, number>;
   email: string;
   id: number;
   name: string;

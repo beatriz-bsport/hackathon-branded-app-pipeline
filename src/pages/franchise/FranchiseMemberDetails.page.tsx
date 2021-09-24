@@ -29,6 +29,7 @@ import {
 import FranchiseMemberDetailsCard from '../../libs/franchise/components/FranchiseMemberDetailsCard.components';
 import FranchiseMemberMembership from '../../libs/franchise/components/FranchiseMemberMembership.components';
 import { RootState } from '../../reducers';
+import { navigateAsCompanyAdmin as navigateAsCompanyAdminAction } from '../../actions/auth.actions';
 
 type OwnProps = {
   userId: number;
@@ -46,6 +47,8 @@ const FranchiseMemberDetails = (props: Props) => {
     classes,
     fetchFranchiseUser,
     fetchFranchise,
+    navigateAsCompanyAdmin,
+    push,
   } = props;
 
   useEffect(() => {
@@ -55,6 +58,17 @@ const FranchiseMemberDetails = (props: Props) => {
   useEffect(() => {
     fetchFranchise();
   }, [fetchFranchise]);
+
+  const goToCompanyDetails = (companyId: number) => () => {
+    navigateAsCompanyAdmin(
+      companyId,
+      `/member/${user.company_member[companyId]}/info`,
+    );
+  };
+
+  const goToFranchiseCompanyDetails = (companyId: number) => () => {
+    push(`/f/franchises/${companyId}`);
+  };
 
   return (
     <div className={classes.container}>
@@ -72,6 +86,8 @@ const FranchiseMemberDetails = (props: Props) => {
                   return company;
                 })
                 .filter((c) => c !== null)}
+              goToCompanyDetails={goToCompanyDetails}
+              goToFranchiseCompanyDetails={goToFranchiseCompanyDetails}
             />
           </div>
         </>
@@ -115,6 +131,7 @@ const connector = connect(
   {
     fetchFranchiseUser: fetchFranchiseUserAction,
     fetchFranchise: fetchFranchiseAction,
+    navigateAsCompanyAdmin: navigateAsCompanyAdminAction,
     push: pushAction,
   },
 );

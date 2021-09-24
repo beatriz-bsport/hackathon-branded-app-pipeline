@@ -1,9 +1,11 @@
 import React from 'react';
-import FranchiseMemberDetailsCard, { OwnProps } from './FranchiseMemberDetailsCard.components';
+import FranchiseMemberDetailsCard, {
+  OwnProps,
+} from './FranchiseMemberDetailsCard.components';
 import FactoryBot from '../factories/FranchiseUserFactory';
 
 const CustomTemplate = (args: OwnProps) => (
-    <FranchiseMemberDetailsCard {...args} />
+  <FranchiseMemberDetailsCard {...args} />
 );
 
 export const CompleteDefaultState = CustomTemplate.bind({});
@@ -16,11 +18,11 @@ CompleteDefaultState.args = {
 };
 
 export default {
-    title: 'Franchise/Member/Details',
-    component: FranchiseMemberDetailsCard,
-    parameters: {
-        docs: {
-            page: null
-        }
+  title: 'Franchise/Member/Details',
+  component: FranchiseMemberDetailsCard,
+  parameters: {
+    docs: {
+      page: null,
     },
+  },
 };

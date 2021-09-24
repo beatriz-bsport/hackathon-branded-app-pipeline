@@ -1,9 +1,11 @@
 import React from 'react';
-import FranchiseMemberMembership, { OwnProps }  from './FranchiseMemberMembership.components';
+import FranchiseMemberMembership, {
+  OwnProps,
+} from './FranchiseMemberMembership.components';
 import FactoryBot from '../factories/FranchiseCompanyFactory';
 
 const CustomTemplate = (args: OwnProps) => (
-    <FranchiseMemberMembership {...args} />
+  <FranchiseMemberMembership {...args} />
 );
 
 export const CompleteDefaultState = CustomTemplate.bind({});
@@ -13,15 +15,16 @@ const companies = FactoryBot.FranchiseCompany.create(4);
 
 CompleteDefaultState.args = {
   companies,
-  goToUserInCompany: () => {},
+  goToCompanyDetails: () => () => {},
+  goToFranchiseCompanyDetails: () => () => {},
 };
 
 export default {
-    title: 'Franchise/Member/Companies',
-    component: FranchiseMemberMembership,
-    parameters: {
-        docs: {
-            page: null
-        }
+  title: 'Franchise/Member/Companies',
+  component: FranchiseMemberMembership,
+  parameters: {
+    docs: {
+      page: null,
     },
+  },
 };

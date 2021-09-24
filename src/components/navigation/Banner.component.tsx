@@ -8,37 +8,18 @@ import Slide from '@material-ui/core/Slide';
 import { useTranslation } from 'react-i18next';
 
 type Props = {
-  isFranchisorNavigation: boolean;
   networkAvailable: boolean;
-  navigateBackToFranchisor: () => void;
   environment?: string;
 };
 
 export const Banner = (props: Props) => {
-  const {
-    environment,
-    networkAvailable,
-    isFranchisorNavigation,
-    navigateBackToFranchisor,
-  } = props;
+  const { environment, networkAvailable } = props;
   const { t } = useTranslation(['titles']);
   const classes = useStyles();
 
   return (
     <div className={classes.container}>
       <div className={classes.visible}>
-        {isFranchisorNavigation && (
-          <Slide in={isFranchisorNavigation}>
-            <ButtonBase
-              onClick={navigateBackToFranchisor}
-              className={classes.franchisorBanner}
-            >
-              <div className={classes.text}>
-                {t('banner.franchiseConnection')}
-              </div>
-            </ButtonBase>
-          </Slide>
-        )}
         <Slide in={!networkAvailable}>
           <ButtonBase
             onClick={() => document.location.reload()}
@@ -81,13 +62,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: theme.palette.error.dark,
-  },
-  franchisorBanner: {
-    display: 'flex',
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: theme.palette.primary.main,
   },
   infoBanner: {
     display: 'flex',

@@ -51,6 +51,7 @@ export function buildUrlParams(params: any) {
 export function setAuthToken(token: string) {
   if (!token || token === 'null') {
     storage.setItem('http:token', token);
+    storage.removeItem('bsport:franchise:http:token');
   }
   storage.setItem('bsport:http:token', token);
 }

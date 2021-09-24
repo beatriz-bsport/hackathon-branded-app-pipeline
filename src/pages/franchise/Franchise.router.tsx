@@ -94,7 +94,7 @@ const FranchiseRouter = (props: Props) => {
             path="/f/members/:userId/member"
             component={FranchiseMemberDetails}
           />
-          <Redirect to="/f/members" />
+          <Redirect to="/f/franchises" />
         </Switch>
       </FranchiseDrawer>
     </MuiThemeProvider>
@@ -109,6 +109,7 @@ const connector = connect(
     username: state.auth.username,
     franchisor: getFranchisor(state),
     tempPasswordState: getTempPasswordState(state),
+    storedToken: state.auth.token,
   }),
   {
     fetchFranchise: fetchFranchiseAction,

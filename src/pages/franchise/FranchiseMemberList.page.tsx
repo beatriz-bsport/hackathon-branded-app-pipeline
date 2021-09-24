@@ -71,7 +71,7 @@ const FranchiseMemberList = (props: Props) => {
   };
 
   const navigateToUser = (userId: number) => () => {
-    push(`members/${userId}/member`);
+    push(`/f/members/${userId}/member`);
   };
 
   return (

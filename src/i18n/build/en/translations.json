@@ -8126,8 +8126,8 @@
             },
             "22": {
                 "name": "Number of bookings",
-                "first": "Has booked",
-                "second": "lessons",
+                "first": "Booked",
+                "second": "session(s)",
                 "activity": {
                     "first": "of activities"
                 },
@@ -8143,7 +8143,7 @@
                 "hour": {
                     "third": "hours",
                     "second": "hours and",
-                    "first": "beginning between"
+                    "first": "starting between"
                 },
                 "date": {
                     "first": "occurring on"
@@ -8154,7 +8154,7 @@
             },
             "23": {
                 "name": "First booking",
-                "explanation": "Has booked his first class on..."
+                "explanation": "An overview of members' first booking..."
             },
             "calendarPicker": {
                 "text": {
@@ -8297,8 +8297,8 @@
             "isEmpty": "This Smartlist displays your entire member database, as no filters have been added as of now.",
             "24": {
                 "name": "Expenses",
-                "workshop": "Pass only for workshops",
-                "private_pass": "Private class",
+                "workshop": "Passes for workshops",
+                "private_pass": "Appointment pass",
                 "between": "and",
                 "combo": "Pack",
                 "pack": "Pass",
@@ -8317,15 +8317,15 @@
                 "1": "less than (⩽)"
             },
             "501": {
-                "explanation": "Booked his last session on the...",
-                "second": "days ago, and no booking is planned in the future.",
+                "explanation": "Booked their last session on the...",
+                "second": "days ago without any upcoming future bookings.",
                 "first": "The last booking was more than",
                 "name": "Date of the last booking"
             },
             "400": {
-                "explanation": "Has a password on bsport",
+                "explanation": "Has a password registered with you BSPORT account",
                 "name": "Password",
-                "explain": "has a password on bsport"
+                "explain": "Has a password registered with you BSPORT account"
             },
             "26": {
                 "hour": {
@@ -8348,12 +8348,12 @@
                     "first": "in establishments"
                 },
                 "between": "and",
-                "second": "appointment",
-                "first": "Has booked",
+                "second": "appointment(s)",
+                "first": "Booked",
                 "explanation": "Booked X appointments with teacher A, in location B, with the pass C...",
                 "name": "Number of appointments",
                 "private_service": {
-                    "first": "with appointments"
+                    "first": "for appointments"
                 }
             },
             "25": {
@@ -8370,19 +8370,19 @@
                 },
                 "third": "at",
                 "second": "and",
-                "has_not": "Does not have",
+                "has_not": "Doesn't own",
                 "has": "Has",
                 "first": "one of the appointment passes",
-                "name": "Appointment pass",
+                "name": "Appointment passes",
                 "explanation": "Has bought appointment pass X at date Y, with Z credits remaining"
             },
             "attendanceTrue": "present",
             "attendanceFalse": "absent",
             "attendanceWarning": "Select a status",
             "410": {
-                "explanation": "Select those who have accepted your liability waiver",
+                "explanation": "Show all members that have accepted your liability waiver",
                 "name": "Liability waiver",
-                "explain": "Select those who have accepted your liability waiver"
+                "explain": "Show all members that have accepted your liability waiver"
             },
             "600": {
                 "expiryDateLabel": "Expiration date",

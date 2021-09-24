@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
@@ -27,6 +28,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import AttachmentIcon from '@material-ui/icons/Attachment';
 import PaymentIcon from '@material-ui/icons/Payment';
 import SaveIcon from '@material-ui/icons/Save';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 import moment from 'moment-timezone';
 import {
   INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER,
@@ -35,6 +37,7 @@ import {
 } from '@bsport/common/lib/master-data/invoice-type';
 import RedButton from '../../../components/button/RedButton.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import { getPaymentLink } from '../../consumer-space/utils';
 
 type Props = {
   compactMode: ?boolean,
@@ -50,6 +53,8 @@ type Props = {
   showOpenInvoiceNested: boolean,
   asConsumer: boolean,
   showType?: boolean,
+  companyId?: number,
+  snackbarSuccess: (string) => void,
 };
 
 const InvoiceRow = React.memo((props: Props) => {
@@ -79,6 +84,7 @@ const InvoiceRow = React.memo((props: Props) => {
       amount_remaining_color = 'primary';
     }
   }
+
   return (
     <React.Fragment>
       <TableRow
@@ -169,6 +175,21 @@ const InvoiceRow = React.memo((props: Props) => {
       </TableRow>
       {!!props.onBill && (
         <TableRow>
+          {!props.asConsumer && (
+            <TableCell>
+              <CopyToClipboard
+                text={getPaymentLink(props.companyId, invoice.uuid)}
+              >
+                <RedButton
+                  variant="outlined"
+                  onClick={() => props.snackbarSuccess('link.copied')}
+                >
+                  <FileCopyIcon className={classes.leftIcon} />
+                  {t('paymentPanel.actions.paymentLink')}
+                </RedButton>
+              </CopyToClipboard>
+            </TableCell>
+          )}
           <TableCell>
             <RedButton onClick={() => props.onBill(invoice)} variant="outlined">
               <PaymentIcon className={classes.leftIcon} />
@@ -404,6 +425,8 @@ export const InvoiceTable = (props: {
   showOpenInvoiceNested: ?boolean,
   asConsumer: ?boolean,
   showType?: boolean,
+  companyId?: number,
+  snackbarSuccess: (string) => void,
 }) => {
   const { t } = useTranslation(['invoice']);
 
@@ -449,6 +472,8 @@ export const InvoiceTable = (props: {
                 open={invoice.uuid === open}
                 setOpen={setOpen}
                 onBill={props.onBill}
+                companyId={props.companyId}
+                snackbarSuccess={props.snackbarSuccess}
               />
             ))}
         </TableBody>

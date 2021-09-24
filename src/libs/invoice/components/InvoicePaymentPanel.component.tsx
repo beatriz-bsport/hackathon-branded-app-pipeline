@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import CheckIcon from '@material-ui/icons/Check';
@@ -27,6 +28,8 @@ import PlannedPaymentEventListItem from './PlannedPaymentEventListItem.component
 import { PlannedPaymentEvent, Payment, Invoice } from '../types';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { OptionCallback } from '../../../state/types';
+
+import { getPaymentLink } from '../../consumer-space/utils';
 
 const InvoicePaymentStatus = (props: {
   amountToPayCts: number;
@@ -80,6 +83,8 @@ const PaymentActions: FC<{
   consumeBalance?: (OptionCallback) => void;
   onRevert: () => void;
   accountBalanceLoading: boolean;
+  companyId: number;
+  snackbarSuccess: (string) => void;
 }> = (props) => {
   const classes = useStyles();
   const { t } = useTranslation(['invoice']);
@@ -141,18 +146,36 @@ const PaymentActions: FC<{
         <div className={classes.row}>
           <div className={classes.buttonRow}>
             {props.invoice.invoice_type === INVOICE_TYPE_REGULAR && (
-              <Button
-                onClick={props.onPaymentIntent}
-                variant="contained"
-                color="primary"
-                disabled={
-                  !props.invoice.member ||
-                  props.amountToPayCts === 0 ||
-                  processing
-                }
-              >
-                {t('paymentPanel.actions.bill')}
-              </Button>
+              <React.Fragment>
+                <CopyToClipboard
+                  text={getPaymentLink(props.companyId, props.invoice.uuid)}
+                >
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    disabled={
+                      !props.invoice.member ||
+                      props.amountToPayCts === 0 ||
+                      processing
+                    }
+                    onClick={() => props.snackbarSuccess('link.copied')}
+                  >
+                    {t('paymentPanel.actions.generatePaymentLink')}
+                  </Button>
+                </CopyToClipboard>
+                <Button
+                  onClick={props.onPaymentIntent}
+                  variant="contained"
+                  color="primary"
+                  disabled={
+                    !props.invoice.member ||
+                    props.amountToPayCts === 0 ||
+                    processing
+                  }
+                >
+                  {t('paymentPanel.actions.bill')}
+                </Button>
+              </React.Fragment>
             )}
             {!props.invoice.reverse_invoices.length &&
               !props.invoice.source_invoice &&
@@ -216,6 +239,8 @@ type Props = {
     onEnable?: (id: number) => void;
     onEdit?: (id: number) => void;
   };
+  companyId: number;
+  snackbarSuccess: (string) => void;
 };
 
 export const InvoicePaymentPanel: FC<Props> = (props) => {
@@ -368,6 +393,8 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
           onPaymentIntent={props.onPaymentIntent}
           onInstalmentPayment={props.onInstalmentPayment}
           loading={!props.accountBalance && props.accountBalance !== 0}
+          companyId={props.companyId}
+          snackbarSuccess={props.snackbarSuccess}
         />
       )}
     </div>

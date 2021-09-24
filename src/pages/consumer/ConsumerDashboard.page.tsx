@@ -91,6 +91,8 @@ import { Establishment } from '../../libs/establishment/types';
 import { getAssetByBlueprintByIdentifier } from '../../libs/spot-scheduling/selector';
 import CanvasPreviewDialog from '../../libs/spot-scheduling/component/SpotPreview/CanvasPreviewDialog.Component';
 
+import withQueryParams from '../../hocs/with-query-params.hoc';
+
 type OwnProps = {
   hideCoach: boolean;
   companyId: number;
@@ -186,6 +188,12 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
     );
   };
 
+  onInvoicePaymentDialogClose = () => {
+    if (this.props.queryParams) {
+      this.props.setQueryParams('invoiceInPayment')(null);
+    }
+  };
+
   render() {
     return (
       <div className={this.props.classes.container}>
@@ -226,6 +234,8 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
             snackbarErrorMsg={this.props.snackbarErrorMsg}
             snackbarSuccessMsg={this.props.snackbarSuccessMsg}
             member={this.props.member}
+            selectedInvoiceId={this.props.queryParams.invoiceInPayment}
+            onInvoicePaymentDialogClose={this.onInvoicePaymentDialogClose}
           />
         </div>
         <Grid container direction="row" spacing={2}>
@@ -573,6 +583,7 @@ export default compose(
   // @ts-ignore
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
+  withQueryParams([['invoiceInPayment'], 'queryParams', 'setQueryParams']),
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
   withHandlers(mapWithHandlers),
 )(ConsumerDashboard);

@@ -44,6 +44,9 @@ type Props = {
   snackbarSuccessMsg: (msg: string) => void,
   establishments: Array<Establishment>,
   enableMultiLocalization: boolean,
+  selectedInvoiceId: string,
+  companyId?: number,
+  onInvoicePaymentDialogClose: () => void,
 };
 
 const PAYMENT_GROUP_STATUS_INTENT_MAX_RETRY = 100;
@@ -53,6 +56,13 @@ export const MemberBillingProblemCard = (props: Props) => {
   const { balance, unpaidInvoiceList } = props;
 
   const [invoiceToBill, setInvoiceToBill] = React.useState(null);
+  React.useEffect(
+    () =>
+      setInvoiceToBill(
+        props.unpaidInvoiceList.find((i) => i.uuid === props.selectedInvoiceId),
+      ),
+    [props.unpaidInvoiceList, props.selectedInvoiceId],
+  );
   const [clientSecretLoading, setClientSecretLoading] = React.useState(false);
   const [clientSecret, setClientSecret] = React.useState(null);
   const [clientSecretError, setClientSecretError] = React.useState(false);
@@ -193,6 +203,8 @@ export const MemberBillingProblemCard = (props: Props) => {
               invoiceList={unpaidInvoiceList}
               onClickInvoice={props.goToInvoice}
               showOpenInvoiceNested
+              companyId={props.companyId}
+              snackbarSuccess={props.snackbarSuccessMsg}
             />
           </div>
         </React.Fragment>
@@ -244,6 +256,8 @@ export const MemberBillingProblemCard = (props: Props) => {
             setRegularizeFullDebt(false);
             listenPaymentGroupCompleted();
             if (typeof callback === 'function') callback();
+            if (props.onInvoicePaymentDialogClose)
+              props.onInvoicePaymentDialogClose();
           }}
           requestClientSecret={requestClientSecret}
           termsAndConditionsAccepted
@@ -264,6 +278,8 @@ export const MemberBillingProblemCard = (props: Props) => {
             setInvoiceToBill(null);
             setAmountToBill(0);
             setRegularizeFullDebt(false);
+            if (props.onInvoicePaymentDialogClose)
+              props.onInvoicePaymentDialogClose();
           }}
           availablePaymentMethodList={
             props.availablePaymentMethodList.length

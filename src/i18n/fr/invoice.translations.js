@@ -183,6 +183,8 @@ exports.default = {
       billByInstalment: 'Paiement échelonné',
       basketInconsistent:
         "Votre panier a été modifié, veuillez rafraichir votre page avant de valider votre paiement.\n Vous n'avez pas été débité.",
+      generatePaymentLink: 'Générer un lien de paiement',
+      paymentLink: 'Lien de paiement',
     },
     paymentList: {
       title: 'Paiements',

@@ -177,6 +177,7 @@ export default compose(
       assetsForBlueprintById: getAssetByBlueprintByIdentifier(state),
       offerStatusById: state.offer.offerStatus.byId,
       managerFormConfig: getSignUpFormConfigurationDict(state),
+      companyId: state.theme.theme.company,
     }),
     {
       fetchOffer: fetchOfferByIdAction,

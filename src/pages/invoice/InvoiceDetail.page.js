@@ -58,7 +58,7 @@ import {
 } from '../../libs/payment/actions';
 
 import { fetchCompanyUserRoles } from '../../libs/role/actions';
-
+import { snackbarSuccess } from '../../actions/snackbar.actions';
 import InvoiceHeader from '../../libs/invoice/components/InvoiceHeader.component';
 import InvoiceContent from '../../libs/invoice/components/InvoiceContent.component';
 import InvoicePaymentPanel from '../../libs/invoice/components/InvoicePaymentPanel.component';
@@ -142,6 +142,8 @@ type Props = {
     options: OptionCallback,
   ) => void,
   companyTheme: CompanyThemeType,
+  companyId: number,
+  snackbarSuccess: (string) => void,
 };
 
 type State = {
@@ -366,6 +368,8 @@ export class InvoiceDetail extends React.Component<Props, State> {
                 onEnable: this.enablePlannedPaymentEvent,
                 onRegisterNow: this.registerNowPlannedPaymentEvent,
               }}
+              companyId={this.props.companyId}
+              snackbarSuccess={this.props.snackbarSuccess}
             />
           </Grid>
           {!!this.props.isOpenInstalmentPaymentDialog && (
@@ -524,6 +528,7 @@ export default compose(
 
       establishments: getAllEstablishments(state),
       companyTheme: themeSelectors.getTheme(state),
+      companyId: state.theme.theme.company,
     }),
     {
       fetchInvoiceItemList,
@@ -549,6 +554,7 @@ export default compose(
       schedulePayment,
       fetchEstablishments,
       editBillingEstablishment: editBillingEstablishmentAction,
+      snackbarSuccess,
     },
   ),
   withHandlers({

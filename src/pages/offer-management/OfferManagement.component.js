@@ -99,7 +99,8 @@ type Props = {
   discardBookingAttendance: (bookingId: number) => void,
   revertQuickInvoiceAndRefreshOffer: (uuid: string, offerId: number) => void,
   goToMember: (id: number) => void,
-  snackbarSuccess: (msg: string) => void,
+
+  snackbarSuccess: (string) => void,
   country: string,
 
   fetchRoomBlueprintDetail: (number) => void,
@@ -190,6 +191,7 @@ type Props = {
   managerFormConfig: SignUpFormConfigDict,
   waiver: string,
   general_terms_and_conditions: string,
+  companyId: number,
 };
 
 type State = {
@@ -595,6 +597,8 @@ export class OfferManagement extends Component<Props, State> {
               this.props.payment_method_available_manager
             }
             establishments={this.props.establishmentList}
+            snackbarSuccess={this.props.snackbarSuccess}
+            companyId={this.props.companyId}
           />
           <Prompt
             when={this.props.unpaidInvoiceList.length > 0}

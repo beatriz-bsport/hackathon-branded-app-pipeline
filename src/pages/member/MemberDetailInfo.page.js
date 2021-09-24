@@ -183,6 +183,7 @@ type Props = {
   fetchEstablishments: () => void,
   establishmentList: Array<Estalsihment>,
   companyTheme: CompanyTheme,
+  companyId?: number,
 };
 
 type State = {
@@ -293,6 +294,7 @@ export class MemberDetailPage extends Component<Props, State> {
             enableMultiLocalization={
               this.props.companyTheme.enable_multi_localization
             }
+            companyId={this.props.companyId}
           />
           <TaskList
             taskList={this.props.taskList}
@@ -412,6 +414,7 @@ export default compose(
       emailListLoading: state.emailTemplate.isLoading,
       emailDetailLoading: state.emailTemplate.detail.isLoading,
       country: state.theme.theme.locale.split('_')[1],
+      companyId: state.theme.theme.company,
       unpaidInvoiceList: withInvoiceItem(getInvoiceList)(state),
       invoiceLoading: state.invoice.list.loading,
       payment_method_available_manager:

@@ -28,6 +28,8 @@ type Props = {
   availablePaymentMethodList: number[],
   className: {},
   establishments: Array<Establishment>,
+  snackbarSuccess: (string) => void,
+  companyId: number,
 };
 
 type State = {
@@ -114,6 +116,8 @@ export class QuickInvoicePanel extends React.Component<Props, State> {
               hidePagination
               onBill={this.props.setInvoiceToBill}
               invoiceList={unevenSavedInvoices}
+              snackbarSuccess={this.props.snackbarSuccess}
+              companyId={this.props.companyId}
             />
           </React.Fragment>
         ) : null}

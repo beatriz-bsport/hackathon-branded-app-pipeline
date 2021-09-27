@@ -17,6 +17,7 @@ import IEMessage from './components/IEMessage.component';
 import { parseQueryString } from './http';
 import { fetchAccessLevel } from './actions/auth.actions';
 import WidgetUtils from './libs/widget/WidgetUtils';
+import { checkBsportPluginActivated } from './libs/plugin/actions';
 
 const MarketPlaceRouter = asyncComponent(() =>
   import('./pages/marketplace/Marketplace.router'),
@@ -75,6 +76,8 @@ type Props = {
   networkAvailable: boolean,
   fetchAccessLevel: (token: string) => void,
   location: any,
+  checkBsportPluginActivated: () => void,
+  isPluginActivated: boolean,
 };
 
 export class Root extends Component<Props> {
@@ -94,6 +97,10 @@ export class Root extends Component<Props> {
     if (query.context && query.context === 'widget') {
       WidgetUtils.setWidgetContext();
     }
+  }
+
+  componentDidMount() {
+    this.props.checkBsportPluginActivated();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -125,6 +132,7 @@ export class Root extends Component<Props> {
             networkAvailable={this.props.networkAvailable}
             paymentMethodMissing
             environment={Config.REACT_APP_SENTRY_ENVIRONMENT}
+            isPluginActivated={this.props.isPluginActivated}
           />
         )}
 
@@ -168,11 +176,13 @@ function mapStateToProps(state) {
     rehydrated: state._persist && state._persist.rehydrated,
     initializating: state.auth.initializating,
     networkAvailable: state.network.isAvailable,
+    isPluginActivated: state.plugin.isPluginActivated,
   };
 }
 
 const mapDispatchToProps = {
   fetchAccessLevel,
+  checkBsportPluginActivated,
 };
 
 export default withRouter(

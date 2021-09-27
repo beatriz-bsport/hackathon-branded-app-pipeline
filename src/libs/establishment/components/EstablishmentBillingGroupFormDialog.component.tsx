@@ -173,7 +173,6 @@ export function EstablishmentBillingGroupForm(props: Props) {
                     isOptionDisabled
                   />
                 </div>
-
                 <FieldArray name="establishments">
                   {({
                     remove,

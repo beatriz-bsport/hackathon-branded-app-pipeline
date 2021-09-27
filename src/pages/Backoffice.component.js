@@ -23,6 +23,7 @@ import { getTheme } from '../theme';
 import withSentryErrorReporting from '../hocs/error-boundary.hoc';
 import ResponsiveDrawer from '../components/navigation/ResponsiveDrawer.component';
 import LoadingBackoffice from '../components/navigation/LoadingBackoffice.component';
+
 import withOpenEvent from '../hocs/tracking/open-event.hoc';
 
 import { fetchCompanyTheme } from '../libs/theme/actions';
@@ -186,6 +187,7 @@ type Props = {
 
   navigateBackToFranchise: () => void,
   t: TFunction,
+  isPluginActivated: boolean,
 };
 
 const BackofficeRoute = withSentryErrorReporting((props) => {
@@ -355,8 +357,9 @@ export class Backoffice extends Component<Props, State> {
               navigateBackToFranchisor={this.props.navigateBackToFranchise}
               companyName={this.props.theme.company_name}
             >
-              {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
-              Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ? (
+              {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
+                Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging') &&
+              !this.props.isPluginActivated ? (
                 <Intercom
                   appID="q6foivp2"
                   email={this.props.username}
@@ -454,6 +457,8 @@ export default compose(
       tempPasswordState: getTempPasswordState(state),
       roleById: state.role.role.byId,
       rolesLoading: state.role.role.loading,
+
+      isPluginActivated: state.plugin.isPluginActivated,
     }),
     {
       fetchCompanyTheme,

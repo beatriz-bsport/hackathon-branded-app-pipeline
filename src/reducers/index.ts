@@ -42,6 +42,7 @@ import paymentReducers from './payment';
 import paymentRulesReducer from '../libs/payment-rules/reducers';
 import platformBilling from '../libs/platform-billing/reducers';
 import playlist from '../libs/playlist/reducers';
+import plugin from '../libs/plugin/reducers';
 import privateService from '../libs/private-service/reducers';
 import relationship from '../libs/relationship/reducers';
 import reminder from '../libs/reminder/reducers';
@@ -89,6 +90,7 @@ import { MetaActivityState } from '../libs/meta-activity/types';
 import { NotificationRuleState } from '../libs/notification-rule/types';
 import { OfferState } from '../libs/offer/types';
 import { PlaylistState } from '../libs/playlist/types';
+import { PluginState } from '../libs/plugin/types';
 import { PollState } from '../libs/sign-up-form/types';
 import { PrivateServiceState } from '../libs/private-service/types';
 import { RoleState } from '../libs/role/types';
@@ -164,6 +166,7 @@ const rootReducer = (history: any) =>
     zoomApp: zoomAppReducers,
     spotScheduling: spotSchedulingReducers,
     customForm: CustomFormReducer,
+    plugin,
   });
 
 export type RootState = {
@@ -209,6 +212,7 @@ export type RootState = {
   paymentRules: any;
   platformBilling: any;
   playlist: PlaylistState;
+  plugin: PluginState;
   poll: PollState;
   privateService: PrivateServiceState;
   relationship: any;

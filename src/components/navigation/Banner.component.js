@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
@@ -8,30 +9,29 @@ import Slide from '@material-ui/core/Slide';
 import { useTranslation } from 'react-i18next';
 
 type Props = {
-  networkAvailable: boolean;
-  environment?: string;
+  networkAvailable: boolean,
+  environment: ?string,
+  isPluginActivated: boolean,
 };
 
 export const Banner = (props: Props) => {
-  const { environment, networkAvailable } = props;
   const { t } = useTranslation(['titles']);
   const classes = useStyles();
-
   return (
     <div className={classes.container}>
-      <div className={classes.visible}>
-        <Slide in={!networkAvailable}>
+      <div style={{ visibility: 'visible' }}>
+        <Slide in={!props.networkAvailable}>
           <ButtonBase
-            onClick={() => document.location.reload()}
+            onClick={() => document.location.reload(true)}
             className={classes.errorBanner}
           >
             <div className={classes.text}>{t('banner.networkError')}</div>
           </ButtonBase>
         </Slide>
       </div>
-      {environment === 'staging' && (
+      {props.environment === 'staging' && !props.isPluginActivated ? (
         <div className={classes.infoBanner}>
-          <div className={classes.visible}>
+          <div style={{ visibility: 'visible' }}>
             <a
               href="https://calendly.com/bsport/demoen?month=2020-07"
               style={{ textDecoration: 'none' }}
@@ -43,7 +43,7 @@ export const Banner = (props: Props) => {
             </a>
           </div>
         </div>
-      )}
+      ) : null}
     </div>
   );
 };
@@ -88,7 +88,6 @@ const useStyles = makeStyles((theme) => ({
   leftIcon: {
     marginRight: theme.spacing(1),
   },
-  visible: {
-    visibility: 'visible',
-  },
 }));
+
+export default Banner;

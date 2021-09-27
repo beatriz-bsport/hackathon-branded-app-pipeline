@@ -95,9 +95,8 @@ const FranchiseRouter = (props: Props) => {
             path="/f/members/:userId/member"
             component={FranchiseMemberDetails}
           />
-          <Redirect to="/f/franchises" />
           <Route path="/f/settings/theme" component={FranchiseTheme} />
-          <Redirect to="/f/members" />
+          <Redirect to="/f/franchises" />
         </Switch>
       </FranchiseDrawer>
     </MuiThemeProvider>

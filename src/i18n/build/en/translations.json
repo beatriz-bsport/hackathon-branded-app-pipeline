@@ -1373,7 +1373,7 @@
             "effectif": "Number of available slots",
             "caracteristics": "Characteristics",
             "price": "Price",
-            "credits": "Number of required needed to book",
+            "credits": "Number of credits required to book",
             "priceCategory": "Billing",
             "duration_minute": "Duration",
             "lastSession": "End date:",

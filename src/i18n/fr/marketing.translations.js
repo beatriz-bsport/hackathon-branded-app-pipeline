@@ -70,6 +70,9 @@ exports.default = {
     kind: 'Type',
     save: 'Sauvegarder',
     cancel: 'Annuler',
+    next :'Suivant',
+    previous: 'Retour',
+    submitLater : 'Répondre plus tard',
     send: 'Envoyer',
     mandatory: 'Obligatoire',
     numberQuestions: "Nombre de questions",
@@ -88,6 +91,9 @@ exports.default = {
     noChanges: 'Formulaire à jour.',
     answerForDisabledField: 'Questions archivées',
     allFieldDisabled: 'Toutes les questions sont archivées',
+    allStepsCompleted: 'Vous avez complété toutes les étapes',
+    resetSubmit: 'Modifier mes réponses',
+    disconnect :'Se déconnecter',
     actions: {
       configure: 'Configurer',
       statistics: 'Statistiques',
@@ -180,6 +186,45 @@ exports.default = {
           yes: 'Oui',
         }
       }
+    },
+    displayRule: {
+      header : "Règles de notifications",
+      addNewDisplayRule: "Ajouter une règle",
+      empty : 'Aucune règle de notification pour ce formulaire',
+      kind: {
+        signUp: 'Les nouveaux membres',
+        signUpAlreadyExists : ' Règle existante',
+        connection: 'Les membres déjà inscrits',
+        connectionLabel: 'Ancienneté du membre (jours)',
+        connectionHelperText :'Seul les membres inscrits depuis un minimum de {{count}} jours verront cette notification'
+      },
+      form: {
+        dialog: {
+          title: "Règles d'affichage",
+          subTitle: "Quels membres voulez-vous cibler ?",
+          helperTextRegisteredMembers: 'Le formulaire apparaitra en pop-up sur la marketplace et le widget pour tous les membres concernés.',
+          helperTextNewMembers: "Le formulaire apparaitra en pop-up sur la marketplace et le widget à la suite du formulaire d'inscription.",
+          create: "Ajouter",
+          cancel: "Annuler",
+          modify : "Modifier",
+          advancedOptions: 'Paramètres avancés',
+          snoozeOption: 'Autoriser les membres à remettre à plus tard le remplissage du formulaire',
+          force_display: "Forcer l'affichage aux membres ayant déjà remplie le formulaire précédemment",
+          snoozeOptionLabel: "Durée du snooze (heures)",
+          snoozeOptionHelperText : "Le formulaire s'affichera de nouveau {{count}} heures après avoir été ignoré"
+        },
+        errors: {
+          timedeltaBeforeDisplayMustBeGraterThanZero : "Cette valeur doit être supérieure à 0."
+        }
+      },
+      forNewMember: 'Pour les nouveaux membres',
+      forRegisteredMember: 'Pour les membres inscrits depuis plus de {{ count }} jours',
+      forRegisteredMemberMinimal: '> {{ count }} jours',
+      unForcedModeMinimal: 'Non-visible par les membres ayant déjà remplie le formulaire',
+      forcedDisplayMinimal : 'Visible même pour les membres ayant déjà remplie le formulaire',
+      snoozableMinimal: 'Peut être ignoré',
+      unSnoozableMinimal : 'Obligatoire',
+      snoozeTime : 'Veille de {{ count }} heures',
     }
   }
 };

@@ -3,6 +3,7 @@ import type { Dispatch } from '../../state/types';
 import { OptionCallback } from '../../state/types';
 import {
   fetchAllCustomForm as fetchAllCustomFormAPI,
+  fetchCustomFormBulk as fetchCustomFormBulkAPI,
   fetchCustomForm as fetchCustomFormAPI,
   createCustomForm as createCustomFormAPI,
   updateCustomForm as updateCustomFormAPI,
@@ -13,10 +14,21 @@ import {
   duplicateCustomForm as duplicateCustomFormAPI,
   fetchMemberCustomFormFilled as fetchMemberCustomFormFilledAPI,
   submitCustomForm as submitCustomFormAPI,
+  submitDraftCustomForm as submitDraftCustomFormAPI,
   fetchAllCustomFormStatistics as fetchAllCustomFormStatisticsAPI,
+  fetchAllCustomFormAutDisplayRules as fetchAllCustomFormAutDisplayRulesAPI,
+  fetchCustomFormDisplayRuleBulk as fetchCustomFormDisplayRuleBulkAPI,
+  updateCustomFormDisplayRule as updateCustomFormDisplayRuleAPI,
+  createCustomFormDisplayRule as createCustomFormDisplayRuleAPI,
+  deleteCustomFormDisplayRule as deleteCustomFormDisplayRuleAPI,
+  requestMemberCustomFormNotification as requestMemberCustomFormNotificationAPI,
 } from './api';
 import { snackbarError, snackbarSuccess } from '../../actions/snackbar.actions';
-import type { CustomForm, CustomFormFieldAnswer } from './types';
+import type {
+  CustomForm,
+  CustomFormFieldAnswer,
+  CustomFormDisplayRule,
+} from './types';
 
 export const fetchAllCustomFormActions = {
   isLoading: createAction('CUSTOM_FORM/GET/IS_LOADING'),
@@ -35,6 +47,52 @@ export function fetchAllCustomForm(companyId?: number) {
       dispatch(fetchAllCustomFormActions.error(err));
     }
     dispatch(fetchAllCustomFormActions.isLoading(false));
+  };
+}
+export const fetchCustomFormBulkActions = {
+  isLoading: createAction('CUSTOM_FORM/BULK/IS_LOADING'),
+  error: createAction('CUSTOM_FORM/BULK/ERROR'),
+  success: createAction('CUSTOM_FORM/BULK/SUCCESS'),
+};
+export function fetchCustomFormBulk(params: { id__in: Array<number> }) {
+  return async (dispatch: Dispatch) => {
+    if (params.id__in.length === 0) {
+      return;
+    }
+    dispatch(fetchCustomFormBulkActions.isLoading(true));
+    dispatch(fetchCustomFormBulkActions.error(null));
+    try {
+      const response = await fetchCustomFormBulkAPI(params);
+      dispatch(fetchCustomFormBulkActions.success(response.data));
+    } catch (err) {
+      console.error(err);
+      dispatch(fetchCustomFormBulkActions.error(err));
+    }
+    dispatch(fetchCustomFormBulkActions.isLoading(false));
+  };
+}
+export const fetchMissingCustomFormBulkActions = {
+  isLoading: createAction('CUSTOM_FORM_MISSING/BULK/IS_LOADING'),
+  error: createAction('CUSTOM_FORM_MISSING/BULK/ERROR'),
+  success: createAction('CUSTOM_FORM_MISSING/BULK/SUCCESS'),
+  reset: createAction('CUSTOM_FORM_MISSING/BULK/RESET'),
+};
+export function fetchMissingCustomFormBulk(params: { id__in: Array<number> }) {
+  return async (dispatch: Dispatch) => {
+    if (params?.id__in.length === 0) {
+      return;
+    }
+    dispatch(fetchMissingCustomFormBulkActions.reset());
+    dispatch(fetchMissingCustomFormBulkActions.isLoading(true));
+    dispatch(fetchMissingCustomFormBulkActions.error(null));
+    try {
+      const response = await fetchCustomFormBulkAPI(params);
+      dispatch(fetchMissingCustomFormBulkActions.success(response.data));
+    } catch (err) {
+      console.error(err);
+      dispatch(fetchMissingCustomFormBulkActions.error(err));
+    }
+    dispatch(fetchMissingCustomFormBulkActions.isLoading(false));
   };
 }
 
@@ -107,7 +165,7 @@ export const disableCustomFormActions = {
   success: createAction('CUSTOM_FORM/DISABLE/SUCCESS'),
 };
 
-export function disableCustomForm(formId: number) {
+export function disableCustomForm(formId: number, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(disableCustomFormActions.isLoading(true));
 
@@ -115,9 +173,11 @@ export function disableCustomForm(formId: number) {
       const response = await disableCustomFormAPI(formId);
       dispatch(disableCustomFormActions.success(response.data));
       dispatch(snackbarSuccess('customForm.disable.success'));
+      if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(disableCustomFormActions.error(formId));
       dispatch(snackbarError('customForm.disable.error'));
+      if (options && options.onError) options.onError();
     }
     dispatch(disableCustomFormActions.isLoading(false));
   };
@@ -263,7 +323,31 @@ export function submitCustomForm(
     dispatch(submitCustomFormActions.isLoading(false));
   };
 }
+export const submitCustomFormDratActions = {
+  isLoading: createAction('CUSTOM_FORM_DRAFT/SUBMIT/IS_LOADING'),
+  error: createAction('CUSTOM_FORM_DRAFT/SUBMIT/ERROR'),
+  success: createAction('CUSTOM_FORM_DRAFT/SUBMIT/SUCCESS'),
+};
 
+export function submitCustomFormDraft(
+  params: { custom_form_id: number; companyId: number },
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(submitCustomFormDratActions.isLoading(true));
+    dispatch(submitCustomFormDratActions.error(null));
+    try {
+      const response = await submitDraftCustomFormAPI(params);
+
+      dispatch(submitCustomFormDratActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(submitCustomFormDratActions.error(error.response.data));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(submitCustomFormDratActions.isLoading(false));
+  };
+}
 export const fetchAllCustomFormStatisticsActions = {
   isLoading: createAction('CUSTOM_FORM/STAT/IS_LOADING'),
   error: createAction('CUSTOM_FORM/STAT/ERROR'),
@@ -281,5 +365,151 @@ export function fetchAllCustomFormStatistics() {
       dispatch(fetchAllCustomFormStatisticsActions.error(err));
     }
     dispatch(fetchAllCustomFormStatisticsActions.isLoading(false));
+  };
+}
+
+export const fetchAllCustomFormDisplayRuleActions = {
+  isLoading: createAction('CUSTOM_FORM_DISPLAY_RULE/GET/IS_LOADING'),
+  error: createAction('CUSTOM_FORM_DISPLAY_RULE/GET/ERROR'),
+  success: createAction('CUSTOM_FORM_DISPLAY_RULE/GET/SUCCESS'),
+};
+export function fetchAllCustomFormDisplayRule(companyId?: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchAllCustomFormDisplayRuleActions.isLoading(true));
+    dispatch(fetchAllCustomFormDisplayRuleActions.error(null));
+    try {
+      const response = await fetchAllCustomFormAutDisplayRulesAPI(companyId);
+      dispatch(fetchAllCustomFormDisplayRuleActions.success(response.data));
+    } catch (err) {
+      console.error(err);
+      dispatch(fetchAllCustomFormDisplayRuleActions.error(err));
+    }
+    dispatch(fetchAllCustomFormDisplayRuleActions.isLoading(false));
+  };
+}
+export const fetchBlockingCustomFormDisplayRuleBulkActions = {
+  isLoading: createAction('DISPLAY_RULE_BLOCKING/BULK/IS_LOADING'),
+  error: createAction('DISPLAY_RULE_BLOCKING/BULK/ERROR'),
+  success: createAction('DISPLAY_RULE_BLOCKING/BULK/SUCCESS'),
+  reset: createAction('DISPLAY_RULE_BLOCKING/BULK/RESET'),
+};
+export function fetchBlockingCustomFormDisplayRuleBulk(params: {
+  id__in: Array<number>;
+}) {
+  return async (dispatch: Dispatch) => {
+    if (params?.id__in.length === 0) {
+      return;
+    }
+    dispatch(fetchBlockingCustomFormDisplayRuleBulkActions.reset());
+    dispatch(fetchBlockingCustomFormDisplayRuleBulkActions.isLoading(true));
+    dispatch(fetchBlockingCustomFormDisplayRuleBulkActions.error(null));
+    try {
+      const response = await fetchCustomFormDisplayRuleBulkAPI(params);
+      dispatch(
+        fetchBlockingCustomFormDisplayRuleBulkActions.success(response.data),
+      );
+    } catch (err) {
+      console.error(err);
+      dispatch(fetchBlockingCustomFormDisplayRuleBulkActions.error(err));
+    }
+    dispatch(fetchBlockingCustomFormDisplayRuleBulkActions.isLoading(false));
+  };
+}
+
+export const upsertCustomFormDisplayRuleActions = {
+  isLoading: createAction('CUSTOM_FORM_DISPLAY_RULE/UPSERT/IS_LOADING'),
+  error: createAction('CUSTOM_FORM_DISPLAY_RULE/UPSERT/ERROR'),
+  success: createAction('CUSTOM_FORM_DISPLAY_RULE/UPSERT/SUCCESS'),
+};
+
+export function upsertCustomFormDisplayRule(
+  custom_form_display_rule: CustomFormDisplayRule,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(upsertCustomFormDisplayRuleActions.isLoading(true));
+    dispatch(upsertCustomFormDisplayRuleActions.error(null));
+    const kind = custom_form_display_rule.id ? 'update' : 'create';
+    try {
+      const response = custom_form_display_rule.id
+        ? await updateCustomFormDisplayRuleAPI(custom_form_display_rule)
+        : await createCustomFormDisplayRuleAPI(custom_form_display_rule);
+
+      dispatch(upsertCustomFormDisplayRuleActions.success(response.data));
+      dispatch(snackbarSuccess(`customFormDisplayRule.${kind}.success`));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      if (error?.response.status === 499 && error?.response?.data?.error_code) {
+        dispatch(
+          snackbarError(
+            `customFormDisplayRule.customError.${error.response.data.error_code}`,
+          ),
+        );
+      } else {
+        dispatch(snackbarError(`customFormDisplayRule.${kind}.error`));
+      }
+
+      dispatch(upsertCustomFormDisplayRuleActions.error(error.response.data));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(upsertCustomFormDisplayRuleActions.isLoading(false));
+  };
+}
+
+export const deleteCustomFormDisplayRuleActions = {
+  error: createAction('CUSTOM_FORM_DISPLAY_RULE/DELETE/ERROR'),
+  isLoading: createAction('CUSTOM_FORM_DISPLAY_RULE/DELETE/IS_LOADING'),
+  success: createAction('CUSTOM_FORM_DISPLAY_RULE/DELETE/SUCCESS'),
+};
+
+export function deleteCustomFormDisplayRule(
+  customFormDisplayId: number,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(deleteCustomFormDisplayRuleActions.isLoading(true));
+
+    try {
+      await deleteCustomFormDisplayRuleAPI(customFormDisplayId);
+      dispatch(deleteCustomFormDisplayRuleActions.success(customFormDisplayId));
+      dispatch(snackbarSuccess('customFormDisplayRule.delete.success'));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      dispatch(deleteCustomFormDisplayRuleActions.error(customFormDisplayId));
+      dispatch(snackbarError('customFormDisplayRule.delete.error'));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(deleteCustomFormDisplayRuleActions.isLoading(false));
+  };
+}
+
+export const requestCustomFormNotificationActions = {
+  success: createAction('CUSTOM_FORM_NOTIFICATION/VALIDATION/SUCCESS'),
+  isLoading: createAction('CUSTOM_FORM_NOTIFICATION/VALIDATION/IS_LOADING'),
+  error: createAction('CUSTOM_FORM_NOTIFICATION/VALIDATION/ERROR'),
+};
+
+export function requestMemberCustomFormNotification(
+  data: { company_id?: number },
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(requestCustomFormNotificationActions.isLoading(true));
+    try {
+      const response = await requestMemberCustomFormNotificationAPI(data);
+      dispatch(requestCustomFormNotificationActions.success(response.data));
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(requestCustomFormNotificationActions.error(err));
+
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(requestCustomFormNotificationActions.isLoading(false));
   };
 }

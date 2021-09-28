@@ -5,11 +5,10 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
 import { Form } from 'formik';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import InfoIcon from '@material-ui/icons/Info';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { Submit } from '../../../../components/forms';
+import Button from '@material-ui/core/Button';
 import ConsumerFormFields, {
   ConsumerFormFieldsHOC,
 } from './CustomForm.formik-hoc';
@@ -21,9 +20,13 @@ type OwnProps = {
   handleCancel?: () => void;
   isSubmitting?: boolean;
   initial?: CustomForm;
-  onSubmit?: (data: CustomForm, options: any) => void;
+  onSubmit?: (data: FormData, options: any) => void;
   initialWithAnswer?: CustomFormFieldAnswer;
   refreshLoading?: boolean;
+  onCancel?: (data?: FormData) => void;
+  onSubmitDraft?: (customFormwithAnswer: CustomForm) => void;
+  isMulti?: boolean;
+  disconnectOnCancel?: boolean;
 };
 type Props = OwnProps &
   WithTranslation &
@@ -51,18 +54,39 @@ export function ConsumerFormView(props: Props) {
     );
   }
   return (
-    <Paper className={classes.paperContainer}>
-      <Form>
-        <ConsumerFormFields {...props} />
-        {!asManager && (
-          <div className={classes.submit}>
-            <Submit id="button_custom_form_save" disabled={isSubmitting}>
-              {t('customForm.send')}
-            </Submit>
-          </div>
-        )}
-      </Form>
-    </Paper>
+    <Form>
+      <ConsumerFormFields {...props} />
+      {!asManager && (
+        <div
+          className={props.onCancel ? classes.submitAndCancel : classes.submit}
+        >
+          {props.onCancel && (
+            <Button
+              onClick={() => props.onCancel(props.values)}
+              variant="text"
+              color="primary"
+              disabled={isSubmitting}
+            >
+              {props.disconnectOnCancel
+                ? t('customForm.disconnect')
+                : t('customForm.previous')}
+            </Button>
+          )}
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              props.handleSubmit();
+              props.onSubmitDraft && props.onSubmitDraft(props.values);
+            }}
+            id="button_custom_form_save"
+            disabled={isSubmitting}
+          >
+            {props.isMulti ? t('customForm.next') : t('customForm.send')}
+          </Button>
+        </div>
+      )}
+    </Form>
   );
 }
 
@@ -73,6 +97,10 @@ const styles = (theme: Theme) => ({
   submit: {
     display: 'flex',
     justifyContent: 'flex-end',
+  },
+  submitAndCancel: {
+    display: 'flex',
+    justifyContent: 'space-between',
   },
   emptyContainer: {
     padding: theme.spacing(10),

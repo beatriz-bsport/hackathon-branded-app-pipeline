@@ -244,5 +244,14 @@ exports.default = {
     save: 'Sauvegarder',
     success: 'Configuration sauvegardée',
     error: 'Un problème est survenue',
+    additionalCustomForm: 'Formulaires supplémentaires',
+    addQuestions: 'Ajouter des questions',
+    customQuestionDialog: {
+      title: 'Questions personnalisées',
+      content:
+        "Pour ajouter de nouvelles questions au formulaire d’inscription vous pouvez créer un nouveau formulaire dans l’onglet Marketing > Formulaires. Ajouter vos questions puis attachez ce formulaire au formulaire d’inscription en sélectionnant la condition 'Cibler les nouveaux membres'.",
+      cancel: 'Annuler',
+      confirm: 'Créer un formulaire',
+    },
   },
 };

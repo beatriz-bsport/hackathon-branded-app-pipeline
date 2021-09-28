@@ -695,4 +695,21 @@ exports.default = {
       },
     },
   },
+  customFormDisplayRule: {
+    create: {
+      success: 'Règle de notification créée',
+      error: 'Impossible de créer la règle de notificaiton',
+    },
+    update: {
+      success: 'Règle de notification modifiée',
+      error: 'Impossible de modifier la règle de notification',
+    },
+    delete: {
+      success: 'Règle de notification supprimée',
+      error: 'Impossible de supprimer la règle de notification',
+    },
+    customError: {
+      3: "Impossible de créer une règle avec le même temps d'apparition",
+    },
+  },
 };

@@ -108,6 +108,8 @@ export function SignUpConfigurationFields(props: Props) {
                                 placeholder={t(
                                   `signUpForm.fields.${field.field_identifier}`,
                                 )}
+                                margin="none"
+                                size="small"
                               />
                             </TableCell>
                             <TableCell align="center" size="small">
@@ -210,8 +212,7 @@ export const SignUpConfigurationFormHoc = withFormik({
     });
   },
 });
-
 export default compose<any, OwnProps>(
   // @ts-ignore
-  withTranslation(['theme']),
+  withTranslation('theme'),
 )(SignUpConfigurationFields);

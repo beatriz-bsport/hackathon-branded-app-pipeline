@@ -87,12 +87,14 @@ export class MarketplaceCustomForm extends React.Component<Props, State> {
     if (!authenticated) {
       return <Redirect to={this.getLoginUrl()} />;
     }
+
     if (
       this.props.customFormLoading ||
       !this.props.customFormWithEnabledField
     ) {
       return <LinearProgress color="primary" />;
     }
+
     return (
       <ConsumerAppBar>
         <div className={classes.container}>
@@ -119,10 +121,12 @@ export class MarketplaceCustomForm extends React.Component<Props, State> {
                   </Button>
                 </Paper>
               ) : (
-                <CustomFormConsumerView
-                  initial={this.props.customFormWithEnabledField}
-                  onSubmit={this.props.submitCustomForm}
-                />
+                <Paper className={classes.paperContainer}>
+                  <CustomFormConsumerView
+                    initial={this.props.customFormWithEnabledField}
+                    onSubmit={this.props.submitCustomForm}
+                  />
+                </Paper>
               )}
             </Grid>
           </Grid>
@@ -168,6 +172,9 @@ const styles = (theme: Theme) => ({
   },
   arrowIcon: {
     marginRight: theme.spacing(1),
+  },
+  paperContainer: {
+    padding: theme.spacing(6),
   },
 });
 const mapStateToProps = (state: RootState, props: OwnAndConnectedProps) => ({

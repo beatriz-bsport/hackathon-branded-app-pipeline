@@ -114,3 +114,14 @@ export const fromConfigToUrl = (
   }
   return `${path}/${buildUrlParams(query)}`;
 };
+
+export const generateMarketPlaceCustomFormLink = (
+  companyName: string,
+  companyId: number,
+  customFormId: number,
+) => {
+  return `${window.location.origin}${getMarketplaceRoute(
+    companyName,
+    companyId,
+  )}form/${customFormId}`;
+};

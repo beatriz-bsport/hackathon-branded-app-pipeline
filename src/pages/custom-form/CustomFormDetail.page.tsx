@@ -10,6 +10,8 @@ import LinkIcon from '@material-ui/icons/Link';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import InfoIcon from '@material-ui/icons/Info';
+import Paper from '@material-ui/core/Paper';
+import { CUSTOM_FORM_DISPLAY_ON_SIGN_UP } from '@bsport/common/lib/master-data/custom-form';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import withTitle from '../../hocs/with-title.hoc';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
@@ -18,20 +20,35 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
   fetchAllCustomForm,
   upsertCustomForm as upsertCustomFormActions,
+  fetchAllCustomFormDisplayRule,
+  upsertCustomFormDisplayRule as upsertCustomFormDisplayRuleAction,
+  deleteCustomFormDisplayRule as deleteCustomFormDisplayRuleAction,
 } from '../../libs/custom-form/actions';
-import { getCustomForm } from '../../libs/custom-form/selectors';
+import {
+  getCustomForm,
+  withDisplayRule,
+} from '../../libs/custom-form/selectors';
 import CustomFormPaper from '../../libs/custom-form/components/form/customFormPaper/CustomFormPaper.component';
 import CustomFormConsumerView from '../../libs/custom-form/components/consumer-form/CustomForm.form';
-import { CustomForm } from '../../libs/custom-form/types';
+import type {
+  CustomForm,
+  CustomFormDisplayRule,
+} from '../../libs/custom-form/types';
 import { snackbarSuccess } from '../../actions/snackbar.actions';
 import { fetchTags } from '../../libs/tag/actions';
 import tagSelectors from '../../libs/tag/selectors';
+import CustomFormDisplayRulePanel from '../../libs/custom-form/components/display-rule/CustomFormDisplayRulePanel.component';
+import CustomFormDisplayFormDialog from '../../libs/custom-form/components/display-rule/CustomFormDisplayRuleFormDialog.component';
+import { generateMarketPlaceCustomFormLink } from '../../libs/marketplace/routing-utils';
 
 type StateHandlerInit = {
   customFormRefresh: CustomForm;
   customFormView: CustomForm;
   refreshLoading: boolean;
   isSubmitting: boolean;
+  displayRuleSubmitting: boolean;
+  initialDisplayRule: null | CustomFormDisplayRule;
+  openDisplayRuleDialog: boolean;
 };
 type StateHandlerType = typeof withStateHandlersInit &
   WithHandlerType<typeof withStateHandlersSetter>;
@@ -48,6 +65,7 @@ export class CustomFormDetail extends React.Component<Props, State> {
   componentDidMount() {
     this.props.fetchAllCustomForm();
     this.props.fetchTags();
+    this.props.fetchAllCustomFormDisplayRule();
   }
 
   handleUpdateView = async (customFormRefresh: CustomForm) => {
@@ -76,6 +94,13 @@ export class CustomFormDetail extends React.Component<Props, State> {
     }
   }
 
+  getDisplayRuleOnSignUpAlreadyExists = () => {
+    return this.props.customForm?.display_rules?.find(
+      (rule: CustomFormDisplayRule) =>
+        rule.kind === CUSTOM_FORM_DISPLAY_ON_SIGN_UP,
+    );
+  };
+
   render() {
     const { t, classes } = this.props;
     if (
@@ -86,63 +111,104 @@ export class CustomFormDetail extends React.Component<Props, State> {
       return <LinearProgress color="primary" />;
     }
     return (
-      <div className={classes.container}>
-        <Grid container direction="row" spacing={3}>
-          <Grid item xs={12} md={6}>
-            <Typography variant="h5">
-              {t('customForm.CustomFormLink')}
-            </Typography>
-            <div className={classes.textAndIcon}>
-              <div className={classes.textAndIconInner}>
-                <InfoIcon className={classes.leftIcon} fontSize="small" />
-                <Typography variant="caption">
-                  {t('customForm.linkHelper')}
-                </Typography>
-              </div>
-              <CopyToClipboard
-                text={`${window.location.origin}/m/${this.props.theme.company_name}/${this.props.theme.company}/form/${this.props.customForm.id}`}
-              >
-                <div className={classes.clipBoard}>
-                  <div className={classes.linkContainer}>
-                    <Button
-                      className={classes.buttonBase}
-                      variant="outlined"
-                      onClick={() => this.props.snackbarSuccess('link.copied')}
-                    >
-                      <LinkIcon className={classes.linkIcon} />
-                      <Typography variant="caption">
-                        {`${window.location.origin}/m/${this.props.theme.company_name}/${this.props.theme.company}/form/${this.props.customForm.id}`}
-                      </Typography>
-                    </Button>
-                  </div>
+      <>
+        <div className={classes.container}>
+          <Grid container direction="row" spacing={3}>
+            <Grid item xs={12} md={6}>
+              <Typography variant="h5">
+                {t('customForm.CustomFormLink')}
+              </Typography>
+              <div className={classes.textAndIcon}>
+                <div className={classes.textAndIconInner}>
+                  <InfoIcon className={classes.leftIcon} fontSize="small" />
+                  <Typography variant="caption">
+                    {t('customForm.linkHelper')}
+                  </Typography>
                 </div>
-              </CopyToClipboard>
-            </div>
-            <CustomFormPaper
-              initial={this.props.customFormRefresh}
-              onSubmit={this.props.upsertCustomForm}
-              handleUpdateView={this.handleUpdateView}
-              tag_groups={this.props.tag_groups}
-              tags={this.props.tags}
-              isSubmitting={this.props.isSubmitting}
-            />
+                <CopyToClipboard
+                  text={generateMarketPlaceCustomFormLink(
+                    this.props.theme.company_name,
+                    this.props.theme.company,
+                    this.props.customForm.id,
+                  )}
+                >
+                  <div className={classes.clipBoard}>
+                    <div className={classes.linkContainer}>
+                      <Button
+                        className={classes.buttonBase}
+                        variant="outlined"
+                        onClick={() =>
+                          this.props.snackbarSuccess('link.copied')
+                        }
+                      >
+                        <LinkIcon className={classes.linkIcon} />
+                        <Typography variant="caption">
+                          {generateMarketPlaceCustomFormLink(
+                            this.props.theme.company_name,
+                            this.props.theme.company,
+                            this.props.customForm.id,
+                          )}
+                        </Typography>
+                      </Button>
+                    </div>
+                  </div>
+                </CopyToClipboard>
+              </div>
+              <CustomFormPaper
+                initial={this.props.customFormRefresh}
+                onSubmit={this.props.upsertCustomForm}
+                handleUpdateView={this.handleUpdateView}
+                tag_groups={this.props.tag_groups}
+                tags={this.props.tags}
+                isSubmitting={this.props.isSubmitting}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <div className={classes.displayRulePanel}>
+                <CustomFormDisplayRulePanel
+                  customForm={this.props.customForm}
+                  onDeleteDisplayRule={this.props.deleteCustomFormDisplayRule}
+                  onEditDisplayRule={(display_rule: CustomFormDisplayRule) => {
+                    this.props.setInitialDisplayRule(display_rule);
+                    this.props.setOpenDisplayRuleDialog(true);
+                  }}
+                  onAddRule={() => this.props.setOpenDisplayRuleDialog(true)}
+                  withItemDivider
+                />
+              </div>
+
+              <Typography variant="h6" className={classes.previewTitle}>
+                {t('customForm.preview')}
+              </Typography>
+              <Paper className={classes.paperContainer}>
+                <CustomFormConsumerView
+                  refreshLoading={
+                    this.props.refreshLoading ||
+                    this.props.loading ||
+                    this.props.isSubmitting
+                  }
+                  initial={this.props.customFormView}
+                  asManager
+                />
+              </Paper>
+            </Grid>
           </Grid>
-          <Grid item xs={12} md={6}>
-            <Typography variant="h5" className={classes.previewTitle}>
-              {t('customForm.preview')}
-            </Typography>
-            <CustomFormConsumerView
-              refreshLoading={
-                this.props.refreshLoading ||
-                this.props.loading ||
-                this.props.isSubmitting
-              }
-              initial={this.props.customFormView}
-              asManager
-            />
-          </Grid>
-        </Grid>
-      </div>
+        </div>
+        {this.props.openDisplayRuleDialog && (
+          <CustomFormDisplayFormDialog
+            open={this.props.openDisplayRuleDialog}
+            onClose={() => {
+              this.props.setOpenDisplayRuleDialog(false);
+              this.props.setInitialDisplayRule(null);
+            }}
+            onSubmit={this.props.upsertCustomFormDisplayRule}
+            initial={this.props.initialDisplayRule}
+            signUpRuleAlreadyExists={
+              !!this.getDisplayRuleOnSignUpAlreadyExists()
+            }
+          />
+        )}
+      </>
     );
   }
 }
@@ -183,9 +249,15 @@ const styles = (theme: Theme) => ({
       borderRadius: 5,
     },
   },
+  paperContainer: {
+    padding: theme.spacing(6),
+  },
+  displayRulePanel: {
+    paddingBottom: theme.spacing(2),
+  },
 });
 const mapStateToProps = (state: RootState, { id }: { id: number }) => ({
-  customForm: getCustomForm(state, id),
+  customForm: withDisplayRule(getCustomForm)(state, id),
   loading: state.customForm.upsert.loading,
   theme: state.theme.theme,
   tag_groups: tagSelectors.getMemberTagGroups(state),
@@ -196,6 +268,9 @@ const mapDispatchToProps = {
   upsertCustomFormActions,
   snackbarSuccess,
   fetchTags,
+  fetchAllCustomFormDisplayRule,
+  upsertCustomFormDisplayRuleAction,
+  deleteCustomFormDisplayRuleAction,
 };
 const mapWithHandlers = {
   upsertCustomForm: (props: OwnAndConnectedProps) => (form: CustomForm) => {
@@ -205,12 +280,49 @@ const mapWithHandlers = {
       onError: () => props.setSubmitting(false),
     });
   },
+  upsertCustomFormDisplayRule: (props: OwnAndConnectedProps) => (
+    display_rule: CustomFormDisplayRule,
+  ) => {
+    props.setDisplayRuleSubmitting(true);
+    props.upsertCustomFormDisplayRuleAction(
+      { ...display_rule, custom_form_id: props.customForm.id },
+      {
+        onSuccess: () => {
+          props.setDisplayRuleSubmitting(false);
+          props.setInitialDisplayRule(null);
+          props.setOpenDisplayRuleDialog(false);
+        },
+        onError: () => {
+          props.setDisplayRuleSubmitting(false);
+          props.setInitialDisplayRule(null);
+        },
+      },
+    );
+  },
+  deleteCustomFormDisplayRule: (props: OwnAndConnectedProps) => (
+    display_rule_id: number,
+  ) => {
+    props.setDisplayRuleSubmitting(true);
+    props.deleteCustomFormDisplayRuleAction(display_rule_id, {
+      onSuccess: () => {
+        props.setDisplayRuleSubmitting(false);
+        props.setInitialDisplayRule(null);
+      },
+      onError: () => {
+        props.setDisplayRuleSubmitting(false);
+        props.setInitialDisplayRule(null);
+      },
+    });
+  },
 };
 const withStateHandlersInit: StateHandlerInit = {
   customFormRefresh: null,
   customFormView: null,
   refreshLoading: false,
   isSubmitting: false,
+  displayRuleSubmitting: false,
+  initialDisplayRule: null,
+  openDisplayRuleDialog: false,
 };
 const withStateHandlersSetter = {
   setCustomFormRefresh: () => (customFormRefresh: CustomForm) => {
@@ -224,6 +336,17 @@ const withStateHandlersSetter = {
   },
   setSubmitting: () => (isSubmitting: boolean) => {
     return { isSubmitting };
+  },
+  setDisplayRuleSubmitting: () => (displayRuleSubmitting: boolean) => {
+    return { displayRuleSubmitting };
+  },
+  setOpenDisplayRuleDialog: () => (openDisplayRuleDialog: boolean) => {
+    return { openDisplayRuleDialog };
+  },
+  setInitialDisplayRule: () => (
+    initialDisplayRule: null | CustomFormDisplayRule,
+  ) => {
+    return { initialDisplayRule };
   },
 };
 export default compose<any, OwnProps>(

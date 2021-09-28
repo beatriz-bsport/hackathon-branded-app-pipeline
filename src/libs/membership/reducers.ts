@@ -9,6 +9,7 @@ import {
   requestMemberShipValidationActions,
 } from './actions';
 
+import { requestCustomFormNotificationActions } from '../custom-form/actions';
 import { Membership, MembershipState } from './types';
 import { USER_STATUS_VALIDATION_WITH_USER_NOT_MEMBER_OF_COMPANY } from '../member/utils';
 
@@ -39,6 +40,13 @@ const initialState: Immutable.Immutable<MembershipState> = Immutable<MembershipS
         validated: true,
         fields: [],
         status: USER_STATUS_VALIDATION_WITH_USER_NOT_MEMBER_OF_COMPANY,
+      },
+    },
+    notifications: {
+      loading: false,
+      error: null,
+      customForm: {
+        missingCustomFormInfos: [],
       },
     },
   },
@@ -111,6 +119,27 @@ export default handleActions<Immutable.Immutable<MembershipState>>(
       return state.setIn(
         ['memberShipValidation', 'missingInformation'],
         payload,
+      );
+    },
+    [requestCustomFormNotificationActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['notifications', 'loading'], payload);
+    },
+    [requestCustomFormNotificationActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['notifications', 'error'], payload);
+    },
+    [requestCustomFormNotificationActions.success.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
+      return state.setIn(
+        ['notifications', 'customForm', 'missingCustomFormInfos'],
+        [...payload.missing_custom_form_informations],
       );
     },
   },

@@ -22,7 +22,7 @@ import { getEstablishment } from '../../libs/establishment/selectors';
 import EstablishmentForm from '../../libs/establishment/components/EstablishmentForm.component';
 import withTitle from '../../hocs/with-title.hoc';
 import { mapFormDataWithObject } from '../form.utils';
-
+// ee
 type Props = {
   upsertEstablishmentV2: () => void,
   goToEstablishmentList: () => void,

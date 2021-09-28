@@ -50,7 +50,10 @@ import type { Contract } from '../../libs/subscription/types';
 import type { Member } from '../../libs/member/types';
 import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
 import { fetchMemberCustomFormFilled } from '../../libs/custom-form/actions';
-import { getMemberCustomFormFilled } from '../../libs/custom-form/selectors';
+import {
+  getMemberCustomFormFilled,
+  excludeDraftCustomFormFilled,
+} from '../../libs/custom-form/selectors';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
 import type { CustomFormFilled } from '../../libs/custom-form/types';
@@ -180,6 +183,7 @@ export class MemberDetail extends React.Component<Props> {
       videoPurchasedCount,
       customFormFilledList,
     } = this.props;
+
     return (
       <div className={classes.container}>
         <Helmet>
@@ -439,7 +443,9 @@ export default compose(
       savedPaymentMethodList: getSavedPaymentMethodList(state),
       videoPurchasedCount: state.video.purchase.purchaseByMember,
       managerFormConfig: getSignUpFormConfigurationDict(state),
-      customFormFilledList: getMemberCustomFormFilled(state, id),
+      customFormFilledList: excludeDraftCustomFormFilled(
+        getMemberCustomFormFilled,
+      )(state, id),
       establishmentList: getAvailableEstablishmentList(state),
     }),
     {

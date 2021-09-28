@@ -16,3 +16,17 @@ export const getConsumerMembershipList = createSelector(
   [_getMembershipData, _getConsumerMembershipIds],
   (data, ids) => ids.map((id) => data[id]),
 );
+
+export const getCustomFormMissingInformationsList = (state: RootState) =>
+  state.membership.notifications.customForm.missingCustomFormInfos;
+export const getCustomFormMissingList = createSelector(
+  [getCustomFormMissingInformationsList],
+  (missing_informations) =>
+    missing_informations.map((info) => info.custom_form_id),
+);
+
+export const getCustomFormBlockingDisplayRuleIdsList = createSelector(
+  [getCustomFormMissingInformationsList],
+  (missing_informations) =>
+    missing_informations.map((info) => info.custom_form_display_rule_id),
+);

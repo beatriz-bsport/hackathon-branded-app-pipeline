@@ -31,4 +31,12 @@ export type MembershipState = {
       status: number;
     };
   };
+  notifications: ErrorAndLoading & {
+    customForm: {
+      missingCustomFormInfos: Array<{
+        custom_form_id: number;
+        custom_form_display_rule_id: number;
+      }>;
+    };
+  };
 };

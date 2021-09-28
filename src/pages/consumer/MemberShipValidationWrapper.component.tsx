@@ -10,6 +10,11 @@ import {
   fetchMembershipByCompany,
   requestMembershipValidation as requestMembershipValidationAction,
 } from '../../libs/membership/actions';
+import {
+  requestMemberCustomFormNotification,
+  fetchMissingCustomFormBulk,
+  fetchBlockingCustomFormDisplayRuleBulk,
+} from '../../libs/custom-form/actions';
 import { fetchCurrentBasket as fetchCurrentBasketAction } from '../../libs/checkout/actions';
 import {
   getMemberThroughMembership,
@@ -17,7 +22,11 @@ import {
 } from '../../libs/member/selectors';
 import { RootState } from '../../reducers';
 import type { Membership } from '../../libs/membership/types';
-import { getMembership } from '../../libs/membership/selectors';
+import {
+  getMembership,
+  getCustomFormMissingList,
+  getCustomFormBlockingDisplayRuleIdsList,
+} from '../../libs/membership/selectors';
 import MemberShipValidationWrapperInnerComponent from './MemberShipValidationWrapperInner.component';
 
 type OwnProps = {
@@ -29,7 +38,7 @@ type OwnProps = {
 type Props = OwnProps &
   ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
-
+const urlRegex = new RegExp('/m/[^/]+/[0-9]+/form/.*');
 export class MemberShipValidationWrapper extends React.Component<Props> {
   componentDidMount() {
     if (this.props.companyId) {
@@ -41,6 +50,31 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
         this.props.requestMembershipValidation({
           company: this.props.companyId,
         });
+        this.props.requestMemberCustomFormNotification(
+          {
+            company_id: this.props.companyId,
+          },
+          {
+            onSuccess: (payload) => {
+              this.props.fetchMissingCustomFormBulk({
+                id__in: payload.missing_custom_form_informations.map(
+                  (info: {
+                    custom_form_id: number;
+                    custom_form_display_rule: number;
+                  }) => info.custom_form_id,
+                ),
+              });
+              this.props.fetchBlockingCustomFormDisplayRuleBulk({
+                id__in: payload.missing_custom_form_informations.map(
+                  (info: {
+                    custom_form_id: number;
+                    custom_form_display_rule_id: number;
+                  }) => info.custom_form_display_rule_id,
+                ),
+              });
+            },
+          },
+        );
       }
     }
 
@@ -83,11 +117,18 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
     }
   }
 
+  checkForFormUrlLocation = () => urlRegex.test(window.location.href);
+
   render() {
     if (!this.props.theme && !this.props.authenticated) {
       return this.props.children;
     }
-    return <MemberShipValidationWrapperInnerComponent {...this.props} />;
+    return (
+      <MemberShipValidationWrapperInnerComponent
+        {...this.props}
+        isFormUrl={this.checkForFormUrlLocation()}
+      />
+    );
   }
 }
 
@@ -98,6 +139,8 @@ const mapStateToProps = (
   authenticated: state.auth.authenticated,
   member: getMemberThroughMembership(getMemberDetailData)(state, companyId),
   membership: getMembership(state, companyId),
+  customFormIdsList: getCustomFormMissingList(state),
+  customFormDisplayRuleList: getCustomFormBlockingDisplayRuleIdsList(state),
 });
 
 const mapDispatchToProps = {
@@ -107,6 +150,9 @@ const mapDispatchToProps = {
   fetchMyUserProfile,
   requestMembershipValidation: requestMembershipValidationAction,
   fetchCurrentBasket: fetchCurrentBasketAction,
+  requestMemberCustomFormNotification,
+  fetchMissingCustomFormBulk,
+  fetchBlockingCustomFormDisplayRuleBulk,
 };
 export default compose<any, OwnProps>(
   connect(mapStateToProps, mapDispatchToProps),

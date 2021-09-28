@@ -5,6 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import { MaterialStyleType } from '../../../utils/types';
 import type { CustomFormFilled } from '../types';
+import { formatAsDate } from '../../../utils/datetime';
 
 type OwnProps = {
   onClick: (id: number) => void;
@@ -23,7 +24,9 @@ export const CustomFormCompletedListItem = (props: Props) => {
         <Typography>{props.customFormFilled?.customFormData?.name}</Typography>
       </div>
       <div className={classes.flexFullWidth}>
-        <Typography>{props.customFormFilled?.date_created}</Typography>
+        <Typography>
+          {formatAsDate(props.customFormFilled?.date_created)}
+        </Typography>
       </div>
     </ListItem>
   );

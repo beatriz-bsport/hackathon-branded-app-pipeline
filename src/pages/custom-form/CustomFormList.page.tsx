@@ -32,17 +32,23 @@ import BottomActionButtons from '../../components/button/BottomActionsButton.com
 import {
   fetchAllCustomForm as fetchAllCustomFormAction,
   upsertCustomForm,
-  disableCustomForm as disableCustomFormAction,
+  disableCustomForm,
   restoreCustomForm as restoreCustomFormAction,
   duplicateCustomForm as duplicateCustomFormAction,
+  fetchAllCustomFormDisplayRule,
 } from '../../libs/custom-form/actions';
-import { getAllCustomForm } from '../../libs/custom-form/selectors';
+import {
+  getAllCustomForm,
+  withDisplayRule,
+  getCustomFormWithEnableField,
+} from '../../libs/custom-form/selectors';
 import CustomFormConsumerView from '../../libs/custom-form/components/consumer-form/CustomForm.form';
 import CustomFormCreateDialog from '../../libs/custom-form/components/CustomFormCreateDialog.component';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers/index';
 import type { CustomForm } from '../../libs/custom-form/types';
-import CustomFormList from '../../libs/custom-form/components/CustomFormList.component.tsx';
+import CustomFormList from '../../libs/custom-form/components/CustomFormList.component';
+import CustomFormDisplayRulePanel from '../../libs/custom-form/components/display-rule/CustomFormDisplayRulePanel.component';
 
 type State = {
   openCreateDialog: boolean;
@@ -83,6 +89,7 @@ export class CustomFormListPage extends React.Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchAllCustomForm();
+    this.props.fetchAllCustomFormDisplayRule();
   }
 
   selected = (id: number) => {
@@ -111,18 +118,6 @@ export class CustomFormListPage extends React.Component<Props, State> {
     }));
   };
 
-  getCustomFormForPreview = () => {
-    if (this.props.customFormDict[this.props.customFormSelected]) {
-      return {
-        ...this.props.customFormDict[this.props.customFormSelected],
-        custom_form_field: this.props.customFormDict[
-          this.props.customFormSelected
-        ].custom_form_field.filter((field) => !field.disabled),
-      };
-    }
-    return null;
-  };
-
   render() {
     const { customFormList, t, classes } = this.props;
     if (this.props.customFormLoading) {
@@ -149,7 +144,7 @@ export class CustomFormListPage extends React.Component<Props, State> {
                     clearSearch={this.clearSearch}
                     changeSearch={this.changeSearch}
                     items={customFormList.filter(
-                      (customform) => !customform.disabled,
+                      (customform: CustomForm) => !customform.disabled,
                     )}
                     placeholder={this.props.t('customForm.search')}
                     searchFields={['name', 'description']}
@@ -234,15 +229,17 @@ export class CustomFormListPage extends React.Component<Props, State> {
                       onClick={this.onShowDisabled}
                       disabled={
                         customFormList &&
-                        customFormList.filter((form) => form.disabled)
-                          .length === 0
+                        customFormList.filter(
+                          (form: CustomForm) => form.disabled,
+                        ).length === 0
                       }
                     >
                       <Typography variant="h5" component="h2">
                         {`${t('customForm.disabledCustomForm')} (${
                           (customFormList &&
-                            customFormList.filter((form) => form.disabled)
-                              .length) ||
+                            customFormList.filter(
+                              (form: CustomForm) => form.disabled,
+                            ).length) ||
                           0
                         })`}
                       </Typography>
@@ -285,10 +282,7 @@ export class CustomFormListPage extends React.Component<Props, State> {
               <>
                 <div className={classes.row}>
                   <Typography variant="h5">
-                    {
-                      this.props.customFormDict[this.props.customFormSelected]
-                        .name
-                    }
+                    {this.props.customForm.name}
                   </Typography>
                   <IconButton
                     color="primary"
@@ -325,12 +319,20 @@ export class CustomFormListPage extends React.Component<Props, State> {
                     {t('customForm.actions.statistics')}
                   </Button>
                 </div>
+                <div className={classes.displayRulePanel}>
+                  <CustomFormDisplayRulePanel
+                    customForm={this.props.customForm}
+                    withItemDivider
+                  />
+                </div>
                 <Typography variant="h6"> {t('customForm.preview')}</Typography>
-                <CustomFormConsumerView
-                  key={this.props.customFormSelected}
-                  initial={this.getCustomFormForPreview()}
-                  asManager
-                />
+                <Paper className={classes.paperContainer}>
+                  <CustomFormConsumerView
+                    key={this.props.customFormSelected}
+                    initial={this.props.customForm}
+                    asManager
+                  />
+                </Paper>
               </>
             ) : (
               <>
@@ -351,9 +353,7 @@ export class CustomFormListPage extends React.Component<Props, State> {
         </Grid>
         {this.props.openCreateDialog && (
           <CustomFormCreateDialog
-            customFormSelected={
-              this.props.customFormDict[this.props.customFormSelected]
-            }
+            customFormSelected={this.props.customForm}
             open={this.props.openCreateDialog}
             onSubmit={this.props.upsertCustomForm}
             handleClose={() => {
@@ -435,22 +435,35 @@ const styles = (theme: Theme) => ({
   divider: {
     marginBottom: theme.spacing(2),
   },
+  paperContainer: {
+    padding: theme.spacing(6),
+  },
+  displayRulePanel: {
+    paddingBottom: theme.spacing(2),
+  },
 });
 
-const mapStateToProps = (state: RootState) => ({
+const mapStateToProps = (
+  state: RootState,
+  { customFormSelected }: { customFormSelected: number },
+) => ({
   theme: state.theme.theme,
-  customFormDict: state.customForm.byId,
-  customFormList: getAllCustomForm(state),
+  customForm: withDisplayRule(getCustomFormWithEnableField)(
+    state,
+    customFormSelected,
+  ),
+  customFormList: withDisplayRule(getAllCustomForm)(state),
   customFormLoading: state.customForm.loading,
   customFormEdtionLoading: state.customForm.upsert.loading,
 });
 const mapDispatchToProps = {
   fetchAllCustomForm: fetchAllCustomFormAction,
   upsertCustomFromAction: upsertCustomForm,
-  disableCustomForm: disableCustomFormAction,
+  disableCustomFormAction: disableCustomForm,
   restoreCustomForm: restoreCustomFormAction,
   duplicateCustomForm: duplicateCustomFormAction,
   push: pushRouter,
+  fetchAllCustomFormDisplayRule,
 };
 const mapWithHandlers = {
   upsertCustomForm: (props: OwnAndConnectedProps) => (form: CustomForm) => {
@@ -485,6 +498,11 @@ const mapWithHandlers = {
         },
       );
     }
+  },
+  disableCustomForm: (props: OwnAndConnectedProps) => (formId: number) => {
+    props.disableCustomFormAction(formId, {
+      onSuccess: () => props.fetchAllCustomFormDisplayRule(),
+    });
   },
   goToEdit: (props: OwnAndConnectedProps) => (formId: number) => {
     props.push(`custom-form/details/${formId}/general`);

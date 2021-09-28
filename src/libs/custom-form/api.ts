@@ -5,8 +5,13 @@ import {
   postAuth,
   postBaseAuth,
   buildUrlParams,
+  deleteAuth,
 } from '../../http';
-import type { CustomForm, CustomFormFieldAnswer } from './types';
+import type {
+  CustomForm,
+  CustomFormFieldAnswer,
+  CustomFormDisplayRule,
+} from './types';
 
 export async function fetchAllCustomForm(companyId?: number) {
   if (companyId) {
@@ -22,6 +27,11 @@ export async function fetchAllCustomForm(companyId?: number) {
   return getAuth(`${API_V1_URI}/custom_form/custom_form/`);
 }
 
+export async function fetchCustomFormBulk(params: { id__in: Array<number> }) {
+  return getAuth(
+    `${API_V1_URI}/custom_form/custom_form/${buildUrlParams(params)}`,
+  );
+}
 export async function fetchCustomForm({
   customFormId,
   memberId,
@@ -100,6 +110,69 @@ export async function submitCustomForm(
   );
 }
 
+export async function submitDraftCustomForm({
+  custom_form_id,
+  companyId,
+}: {
+  custom_form_id: number;
+  companyId: number;
+}) {
+  return postBaseAuth(
+    `${API_V1_URI}/custom_form/custom_form_filled/register_draft/${buildUrlParams(
+      {
+        company: companyId,
+      },
+    )}`,
+    { custom_form_id },
+  );
+}
 export async function fetchAllCustomFormStatistics() {
   return getAuth(`${API_V1_URI}/custom_form/custom_form_statistics/`);
+}
+
+export async function fetchAllCustomFormAutDisplayRules(companyId: number) {
+  if (companyId) {
+    return getAuth(
+      `${API_V1_URI}/custom_form/display_rule/${buildUrlParams({
+        companyId,
+      })}`,
+    );
+  }
+  return getAuth(`${API_V1_URI}/custom_form/display_rule/`);
+}
+export async function fetchCustomFormDisplayRuleBulk(params: {
+  id__in: Array<number>;
+}) {
+  return getAuth(
+    `${API_V1_URI}/custom_form/display_rule/${buildUrlParams(params)}`,
+  );
+}
+
+export async function createCustomFormDisplayRule(
+  display_rule: CustomFormDisplayRule,
+) {
+  return postBaseAuth(`${API_V1_URI}/custom_form/display_rule/`, display_rule);
+}
+export async function updateCustomFormDisplayRule(
+  display_rule: CustomFormDisplayRule,
+) {
+  return putAuth(
+    `${API_V1_URI}/custom_form/display_rule/${display_rule.id}/`,
+    display_rule,
+  );
+}
+
+export async function deleteCustomFormDisplayRule(display_rule_id: number) {
+  return deleteAuth(
+    `${API_V1_URI}/custom_form/display_rule/${display_rule_id}/`,
+  );
+}
+
+export async function requestMemberCustomFormNotification(data: {
+  company_id?: number;
+}) {
+  return postAuth(
+    `${API_V1_URI}/custom_form/display_rule/retrieve_missing_custom_forms_information/`,
+    data,
+  );
 }

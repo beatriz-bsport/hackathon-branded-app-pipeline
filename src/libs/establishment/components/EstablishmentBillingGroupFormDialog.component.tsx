@@ -173,6 +173,13 @@ export function EstablishmentBillingGroupForm(props: Props) {
                     isOptionDisabled
                   />
                 </div>
+                <ErrorMessage name="name">
+                  {(error_msg) => (
+                    <Typography variant="caption" color="error">
+                      {t(`${error_msg}`)}
+                    </Typography>
+                  )}
+                </ErrorMessage>
                 <FieldArray name="establishments">
                   {({
                     remove,

@@ -72,3 +72,12 @@ export function checkDisabledHasAnswer(
   }
   return false;
 }
+
+export const CUSTOM_FORM_DISPLAY_ON_SIGN_UP = 0;
+export const CUSTOM_FORM_DISPLAY_ON_CONNECTION = 1;
+
+export const CUSTOM_FORM_SUBMITTION_COMPLETED = 0;
+export const CUSTOM_FORM_SUBMITTION_DRAFT = 1;
+export const CUSTOM_FORM_SUBMITTION_SNOOZED = 2;
+
+export const ERROR_CUSTOM_FORM_DISPLAY_RULE_WITH_SAME_TIME_DELTA_ALREADY_EXISTS = 3;

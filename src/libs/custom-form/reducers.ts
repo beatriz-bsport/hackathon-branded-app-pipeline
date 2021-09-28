@@ -3,6 +3,8 @@ import { handleActions } from 'redux-actions';
 import type { CustomFormState } from './types';
 import {
   fetchAllCustomFormActions,
+  fetchCustomFormBulkActions,
+  fetchMissingCustomFormBulkActions,
   fetchCustomFormActions,
   upsertCustomFormActions,
   disableCustomFormActions,
@@ -12,7 +14,12 @@ import {
   duplicateCustomFormActions,
   fetchMemberCustomFormFilledActions,
   submitCustomFormActions,
+  submitCustomFormDratActions,
   fetchAllCustomFormStatisticsActions,
+  fetchAllCustomFormDisplayRuleActions,
+  upsertCustomFormDisplayRuleActions,
+  deleteCustomFormDisplayRuleActions,
+  fetchBlockingCustomFormDisplayRuleBulkActions,
 } from './actions';
 
 const initialState: Immutable.Immutable<CustomFormState> = Immutable<CustomFormState>(
@@ -32,6 +39,12 @@ const initialState: Immutable.Immutable<CustomFormState> = Immutable<CustomFormS
       error: null,
     },
     statistics: {
+      byId: {},
+      allIds: [],
+      loading: false,
+      error: null,
+    },
+    display_rule: {
       byId: {},
       allIds: [],
       loading: false,
@@ -63,6 +76,54 @@ export default handleActions(
           },
           { deep: true },
         );
+    },
+    [fetchCustomFormBulkActions.isLoading.toString()]: (state, { payload }) => {
+      return state.set('loading', payload);
+    },
+    [fetchCustomFormBulkActions.error.toString()]: (state, { payload }) => {
+      return state.set('error', payload);
+    },
+    [fetchCustomFormBulkActions.success.toString()]: (state, { payload }) => {
+      return state
+        .set(
+          'allIds',
+          payload.results.map((cus) => cus.id),
+        )
+        .merge(
+          {
+            byId: payload.results.reduce((acc: any, ps: any) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+          { deep: true },
+        );
+    },
+    [fetchMissingCustomFormBulkActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.set('loading', payload);
+    },
+    [fetchMissingCustomFormBulkActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.set('error', payload);
+    },
+    [fetchMissingCustomFormBulkActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.merge(
+        {
+          byId: payload.results.reduce((acc: any, ps: any) => {
+            acc[ps.id] = ps;
+            return acc;
+          }, {}),
+        },
+        { deep: true },
+      );
     },
     [fetchCustomFormActions.isLoading.toString()]: (state, { payload }) => {
       return state.set('loading', payload);
@@ -179,6 +240,15 @@ export default handleActions(
     [submitCustomFormActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['upsert', 'error'], payload);
     },
+    [submitCustomFormDratActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['upsert', 'loading'], payload);
+    },
+    [submitCustomFormDratActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['upsert', 'error'], payload);
+    },
     [fetchAllCustomFormStatisticsActions.isLoading.toString()]: (
       state,
       { payload },
@@ -211,6 +281,102 @@ export default handleActions(
           },
           { deep: true },
         );
+    },
+    [fetchAllCustomFormDisplayRuleActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['display_rule', 'loading'], payload);
+    },
+    [fetchAllCustomFormDisplayRuleActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['display_rule', 'error'], payload);
+    },
+    [fetchAllCustomFormDisplayRuleActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state
+        .setIn(
+          ['display_rule', 'allIds'],
+          payload.results.map((display_rule) => display_rule.id),
+        )
+        .merge(
+          {
+            display_rule: {
+              byId: payload.results.reduce((acc, ps) => {
+                acc[ps.id] = ps;
+                return acc;
+              }, {}),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [fetchBlockingCustomFormDisplayRuleBulkActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['display_rule', 'loading'], payload);
+    },
+    [fetchBlockingCustomFormDisplayRuleBulkActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['display_rule', 'error'], payload);
+    },
+    [fetchBlockingCustomFormDisplayRuleBulkActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.merge(
+        {
+          display_rule: {
+            byId: payload.results.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+        },
+        { deep: true },
+      );
+    },
+    [upsertCustomFormDisplayRuleActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['display_rule', 'loading'], payload);
+    },
+    [upsertCustomFormDisplayRuleActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['upsert', 'error'], payload);
+    },
+    [upsertCustomFormDisplayRuleActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      if (!state.display_rule.allIds.find((id) => id === payload.id)) {
+        return state
+          .setIn(['display_rule', 'byId', payload.id], payload)
+          .setIn(
+            ['display_rule', 'allIds'],
+            [...state.display_rule.allIds, payload.id],
+          );
+      }
+      return state.setIn(['display_rule', 'byId', payload.id], payload);
+    },
+    [deleteCustomFormDisplayRuleActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['display_rule', 'allIds'],
+        state.display_rule.allIds.filter((id) => id !== payload),
+      );
     },
   },
   initialState,

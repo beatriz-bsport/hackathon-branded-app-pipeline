@@ -90,7 +90,6 @@ export function CoachPaymentRuleFields(props: Props) {
   const toogleLimitSection = () => setOpenLimitSection(!openLimitSection);
   const toogleExcludePaymentPack = () =>
     setOpenExcludePaymentPack(!openExcludePaymentPack);
-
   return (
     <div>
       <PopoverCoachPaymentRuleForm

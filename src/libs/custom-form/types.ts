@@ -6,6 +6,7 @@ export type CustomForm = {
   disabled: boolean;
   url: string;
   custom_form_field: Array<CustomFormField>;
+  display_rules: Array<CustomFormDisplayRule>;
 };
 
 export type FormikCustomForm = {
@@ -51,6 +52,12 @@ export type CustomFormState = {
     loading: boolean;
     error: Error;
   };
+  display_rule: {
+    byId: { [id: number]: CustomFormDisplayRule };
+    allIds: Array<number>;
+    loading: boolean;
+    error?: Error;
+  };
 };
 
 export type CustomFormFilled = {
@@ -61,6 +68,7 @@ export type CustomFormFilled = {
   disabled: boolean;
   url: string;
   custom_form_field: Array<CustomFormFieldAnswer>;
+  is_draft: boolean;
 };
 
 export type CustomFormFieldAnswer = {
@@ -80,6 +88,7 @@ export type CustomFormFilledAPI = {
   member_id: number;
   date_created: string;
   custom_form_field: Array<CustomFormFieldAnswerAPI>;
+  is_draft: boolean;
 };
 
 export type CustomFormFieldAnswerAPI = {
@@ -103,4 +112,16 @@ export type CustomFromStatistics = {
   disabled: boolean;
   detail_by_member: { [memberId: number]: StatisticsByMember };
   allMemberIds: Array<number>;
+};
+
+export type CustomFormDisplayRule<C = number> = {
+  id: number;
+  custom_form_id: C;
+  kind: number;
+  date_created: string;
+  timedelta_day_before_display: number;
+  force_display: boolean;
+  disabled: boolean;
+  snoozable: boolean;
+  timedelta_after_snooze: number;
 };

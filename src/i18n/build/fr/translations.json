@@ -1017,7 +1017,7 @@
     "noEvent": { "description": "Description de l'évènement" }
   },
   "franchise": {
-    "membersList": { "name": "Name", "franchised": "Franchisé", "actions": "Actions", "see": "Voir", "pageTitle": "Membres" },
+    "membersList": { "name": "Nom", "franchised": "Franchisés", "actions": "Actions", "see": "Voir", "pageTitle": "Membres" },
     "pagination": {
       "previousPage": "Page précedente",
       "nextPage": "Page suivante",
@@ -1030,7 +1030,16 @@
       "seeMembership": "voir la fiche membre",
       "pageTitle": "Membre"
     },
-    "companies": { "pageTitle": "Franchises" }
+    "companies": {
+      "pageTitle": "Franchisés",
+      "searchPlaceholder": "Rechercher un franchisé",
+      "emptySelect": "Sélectionner une franchise pour en voir le détail.",
+      "members": "Membres",
+      "establishment": "Etablissements",
+      "establishmentEmptyState": "Aucun établissement dans cette compagnie",
+      "membersEmptyState": "Aucun membre dans cette compagnie",
+      "navigateToCompany": "Connexion au compte franchisé"
+    }
   },
   "invoice": {
     "paymentGroup": {
@@ -1139,7 +1148,9 @@
         "saveForLater": "Sauvegarder ce moyen de paiement",
         "saveForLaterAsSEPA": "Le mandat sera enregistré en tant que \"SEPA\"",
         "billByInstalment": "Paiement échelonné",
-        "basketInconsistent": "Votre panier a été modifié, veuillez rafraichir votre page avant de valider votre paiement.\n Vous n'avez pas été débité."
+        "basketInconsistent": "Votre panier a été modifié, veuillez rafraichir votre page avant de valider votre paiement.\n Vous n'avez pas été débité.",
+        "generatePaymentLink": "Générer un lien de paiement",
+        "paymentLink": "Lien de paiement"
       },
       "paymentList": { "title": "Paiements", "titleReverse": "Remboursement", "isEmpty": "Aucun paiement" },
       "plannedPaymentEvent": { "title": "Paiement planifié", "title_plural": "Paiements planifiés" },
@@ -1454,6 +1465,9 @@
       "kind": "Type",
       "save": "Sauvegarder",
       "cancel": "Annuler",
+      "next": "Suivant",
+      "previous": "Retour",
+      "submitLater": "Répondre plus tard",
       "send": "Envoyer",
       "mandatory": "Obligatoire",
       "numberQuestions": "Nombre de questions",
@@ -1472,6 +1486,9 @@
       "noChanges": "Formulaire à jour.",
       "answerForDisabledField": "Questions archivées",
       "allFieldDisabled": "Toutes les questions sont archivées",
+      "allStepsCompleted": "Vous avez complété toutes les étapes",
+      "resetSubmit": "Modifier mes réponses",
+      "disconnect": "Se déconnecter",
       "actions": { "configure": "Configurer", "statistics": "Statistiques" },
       "modal": {
         "delete": {
@@ -1554,6 +1571,43 @@
           },
           "row": { "no": "Non", "yes": "Oui" }
         }
+      },
+      "displayRule": {
+        "header": "Règles de notifications",
+        "addNewDisplayRule": "Ajouter une règle",
+        "empty": "Aucune règle de notification pour ce formulaire",
+        "kind": {
+          "signUp": "Les nouveaux membres",
+          "signUpAlreadyExists": " Règle existante",
+          "connection": "Les membres déjà inscrits",
+          "connectionLabel": "Ancienneté du membre (jours)",
+          "connectionHelperText": "Seul les membres inscrits depuis un minimum de {{count}} jours verront cette notification"
+        },
+        "form": {
+          "dialog": {
+            "title": "Règles d'affichage",
+            "subTitle": "Quels membres voulez-vous cibler ?",
+            "helperTextRegisteredMembers": "Le formulaire apparaitra en pop-up sur la marketplace et le widget pour tous les membres concernés.",
+            "helperTextNewMembers": "Le formulaire apparaitra en pop-up sur la marketplace et le widget à la suite du formulaire d'inscription.",
+            "create": "Ajouter",
+            "cancel": "Annuler",
+            "modify": "Modifier",
+            "advancedOptions": "Paramètres avancés",
+            "snoozeOption": "Autoriser les membres à remettre à plus tard le remplissage du formulaire",
+            "force_display": "Forcer l'affichage aux membres ayant déjà remplie le formulaire précédemment",
+            "snoozeOptionLabel": "Durée du snooze (heures)",
+            "snoozeOptionHelperText": "Le formulaire s'affichera de nouveau {{count}} heures après avoir été ignoré"
+          },
+          "errors": { "timedeltaBeforeDisplayMustBeGraterThanZero": "Cette valeur doit être supérieure à 0." }
+        },
+        "forNewMember": "Pour les nouveaux membres",
+        "forRegisteredMember": "Pour les membres inscrits depuis plus de {{ count }} jours",
+        "forRegisteredMemberMinimal": "> {{ count }} jours",
+        "unForcedModeMinimal": "Non-visible par les membres ayant déjà remplie le formulaire",
+        "forcedDisplayMinimal": "Visible même pour les membres ayant déjà remplie le formulaire",
+        "snoozableMinimal": "Peut être ignoré",
+        "unSnoozableMinimal": "Obligatoire",
+        "snoozeTime": "Veille de {{ count }} heures"
       }
     }
   },
@@ -1880,9 +1934,23 @@
       "myClub": "Mon Club",
       "subscription": "Prélèvements",
       "contract": "Contrats",
-      "coupon": "Promotions"
+      "coupon": "Promotions",
+      "franchiseConnectedAs": "Connecté en tant que: {{name}}",
+      "backToFranchiseWorskpace": "Revenir au compte maitre",
+      "redirecting": "Vous allez être redirigé vers votre page"
     },
-    "franchiseMenu": { "franchises": "Franchises", "members": "Members" },
+    "multiSession": {
+      "title": " Vous semblez utiliser plusieurs onglets simultanément",
+      "previousSession": " Vous étiez connecté en tant que {{name}}",
+      "restore": "Restaurer cette session",
+      "currentSession": "Vous êtes actuellement connecté en tant que {{name}}",
+      "continue": "Continuer sur cette session",
+      "franchisor": "franchiseur",
+      "manager": "manager",
+      "previous": "Session précédente",
+      "current": "Session actuelle"
+    },
+    "franchiseMenu": { "franchises": "Franchisés", "members": "Membres" },
     "deprecatedNavigator": {
       "navigatorError": "Il semblerait que votre navigateur soit trop ancien pour utiliser nos services. Vous risquez de rencontrer des erreurs, nous vous recommandons de télécharger une version plus récente notamment : ",
       "downloadFirefox": "Téléchargez gratuitement Mozilla Firefox",
@@ -4222,7 +4290,7 @@
       "sendMailTitle": "Envoyer une communication",
       "cancel": "Annuler",
       "sendMail": "Envoyer une communication",
-      "noMailAvailable": "Pas de mail disponbile, pensez à en créer un",
+      "noMailAvailable": "Pas de mail disponible, pensez à en créer un",
       "sendSuccess": "Mail en cours d'envoi",
       "sendError": "Problème lors de l'envoi du mail"
     },
@@ -4759,7 +4827,8 @@
     "contractPause": { "create": { "error": "Impossible de mettre en pause pour le moment, veuillez réessayer plus tard" } },
     "signup": {
       "emailAlreadyExists": "Cet email est déjà utilisé",
-      "failedCreation": "Impossible de créer votre compte pour le moment, veuillez réessayer d'ici quelques minutes"
+      "failedCreation": "Impossible de créer votre compte pour le moment, veuillez réessayer d'ici quelques minutes",
+      "changeWorkspaceError": "Une erreur est survenue dans le changement de compte"
     },
     "customForm": {
       "update": { "success": "Formulaire modifié", "error": "Impossible de modifier le formulaire" },
@@ -4771,6 +4840,12 @@
         "disable": { "success": "Elément  archivé", "error": "Impossible d'archiver l'élément" },
         "restore": { "success": "Element restauré", "error": "Impossible de restaurer l'élément" }
       }
+    },
+    "customFormDisplayRule": {
+      "create": { "success": "Règle de notification créée", "error": "Impossible de créer la règle de notificaiton" },
+      "update": { "success": "Règle de notification modifiée", "error": "Impossible de modifier la règle de notification" },
+      "delete": { "success": "Règle de notification supprimée", "error": "Impossible de supprimer la règle de notification" },
+      "customError": { "3": "Impossible de créer une règle avec le même temps d'apparition" }
     }
   },
   "spotScheduling": {
@@ -5508,12 +5583,24 @@
       "editable": "Modifiable",
       "save": "Sauvegarder",
       "success": "Configuration sauvegardée",
-      "error": "Un problème est survenue"
+      "error": "Un problème est survenue",
+      "additionalCustomForm": "Formulaires supplémentaires",
+      "addQuestions": "Ajouter des questions",
+      "customQuestionDialog": {
+        "title": "Questions personnalisées",
+        "content": "Pour ajouter de nouvelles questions au formulaire d’inscription vous pouvez créer un nouveau formulaire dans l’onglet Marketing > Formulaires. Ajouter vos questions puis attachez ce formulaire au formulaire d’inscription en sélectionnant la condition 'Cibler les nouveaux membres'.",
+        "cancel": "Annuler",
+        "confirm": "Créer un formulaire"
+      }
     }
   },
   "titles": {
     "video": { "videoList": "Bibliothèque vidéo" },
-    "banner": { "isStaging": "Prendre RDV", "networkError": "Vous n'êtes pas connecté à internet" },
+    "banner": {
+      "isStaging": "Prendre RDV",
+      "networkError": "Vous n'êtes pas connecté à internet",
+      "franchiseConnection": "Vous êtes actuellement connecté sur une application de vos franchisé"
+    },
     "member": {
       "memberForm": "Ajouter un membre",
       "members": "Membres",

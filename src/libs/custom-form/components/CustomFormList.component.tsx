@@ -16,15 +16,16 @@ type OwnProps = {
   onClick?: (item: any) => void;
   onClickEdit?: (id: number) => void;
   onClickDelete?: (id: number) => void;
-  customFormSelected: number;
+  customFormSelected?: number;
   onClickDuplicate?: (id: number) => void;
   onRestore?: (id: number) => void;
+  withDisplayRule?: boolean;
 };
 type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
 export const CustomFormList = (props: Props) => {
-  const { t, classes, customFormList } = props;
+  const { t, classes, customFormList, withDisplayRule } = props;
   return (
     <List component="nav" disablePadding className={classes.list}>
       <ListItem divider className={classes.listitem}>
@@ -34,11 +35,22 @@ export const CustomFormList = (props: Props) => {
               {t('customForm.name')}
             </Typography>
           </Grid>
-          <Grid item xs={6} className={classes.questionItem}>
+          <Grid
+            item
+            xs={withDisplayRule ? 3 : 6}
+            className={classes.questionItem}
+          >
             <Typography variant="subtitle2" component="span" align="left">
               {t('customForm.numberQuestions')}
             </Typography>
           </Grid>
+          {withDisplayRule && (
+            <Grid item xs={3} className={classes.displayRuleItem}>
+              <Typography variant="subtitle2" component="span">
+                {t('customForm.displayRule.header')}
+              </Typography>
+            </Grid>
+          )}
           <Grid item xs={3} className={classes.actionItem}>
             <Typography variant="subtitle2" component="span">
               {t('customForm.listActions')}
@@ -61,6 +73,7 @@ export const CustomFormList = (props: Props) => {
             customform={customform}
             onClickDuplicate={props.onClickDuplicate}
             onRestore={props.onRestore}
+            withDisplayRule={withDisplayRule}
           />
         ))}
     </List>
@@ -81,6 +94,12 @@ const styles = (theme: Theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  displayRuleItem: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    flexWrap: 'wrap',
   },
   actionItem: {
     display: 'flex',

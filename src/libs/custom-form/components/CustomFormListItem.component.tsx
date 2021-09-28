@@ -14,6 +14,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Typography from '@material-ui/core/Typography';
 import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
+import Chip from '@material-ui/core/Chip';
+import { CUSTOM_FORM_DISPLAY_ON_CONNECTION } from '@bsport/common/lib/master-data/custom-form';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 import type { CustomForm } from '../types';
 import {
@@ -26,9 +28,10 @@ type Props = {
   onClick?: (item: any) => void;
   onClickEdit?: (id: number) => void;
   onClickDelete?: (id: number) => void;
-  selected: boolean;
+  selected?: boolean;
   onClickDuplicate?: (id: number) => void;
   onRestore?: (id: number) => void;
+  withDisplayRule?: boolean;
 };
 
 type DialogProps = {
@@ -74,6 +77,7 @@ const DeleteDialog = (props: DialogProps) => {
 };
 
 export const CustomFormListItem = (props: Props) => {
+  const { withDisplayRule } = props;
   const classes = useStyles();
   const { t } = useTranslation(['marketing']);
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
@@ -81,11 +85,11 @@ export const CustomFormListItem = (props: Props) => {
     <>
       <ListItem
         divider
-        button
+        button={!!props.onClick}
         selected={props.selected}
         onClick={(e) => {
           e.stopPropagation();
-          props.onClick(props.customform.id);
+          props.onClick && props.onClick(props.customform.id);
         }}
         className={classes.listitem}
       >
@@ -95,7 +99,11 @@ export const CustomFormListItem = (props: Props) => {
               <Typography component="span">{props.customform.name}</Typography>
             </div>
           </Grid>
-          <Grid item xs={6} className={classes.questionItem}>
+          <Grid
+            item
+            xs={withDisplayRule ? 3 : 6}
+            className={classes.questionItem}
+          >
             <Typography component="span">
               {
                 props.customform?.custom_form_field.filter(
@@ -109,7 +117,33 @@ export const CustomFormListItem = (props: Props) => {
               }
             </Typography>
           </Grid>
-          <Grid item xs={3} className={classes.actionItem}>
+          {props.withDisplayRule && (
+            <Grid item xs={3} className={classes.displayRuleItem}>
+              {props.customform.display_rules.map((rule) => (
+                <Chip
+                  key={rule?.id}
+                  label={
+                    rule.kind === CUSTOM_FORM_DISPLAY_ON_CONNECTION
+                      ? t('customForm.displayRule.forRegisteredMember', {
+                          count: rule.timedelta_day_before_display,
+                        })
+                      : t('customForm.displayRule.forNewMember')
+                  }
+                  color="primary"
+                  className={classes.chip}
+                />
+              ))}
+            </Grid>
+          )}
+          <Grid
+            item
+            xs={3}
+            className={
+              props.withDisplayRule
+                ? classes.actionItemMarginRight
+                : classes.actionItem
+            }
+          >
             <ListItemResponsiveAction
               actions={[
                 props.onClickEdit && {
@@ -170,10 +204,27 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  displayRuleItem: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    flexWrap: 'wrap',
+  },
   actionItem: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
+  },
+  actionItemMarginRight: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    paddingRight: theme.spacing(5),
+  },
+  chip: {
+    marginLeft: theme.spacing(0.5),
+    marginRight: theme.spacing(0.5),
+    marginBottom: theme.spacing(0.5),
   },
 }));
 

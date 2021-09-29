@@ -86,7 +86,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
         language: 'none',
         showFab: false,
       },
-      config: {},
+      config: { calendar: {} },
       error: {
         privateServiceError: '',
         playlistError: '',

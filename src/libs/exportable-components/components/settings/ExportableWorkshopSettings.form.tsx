@@ -19,7 +19,7 @@ export const ExportableWorkshopSettings = (props: Props) => (
     coaches={props.coaches}
     establishments={props.establishments}
     metaActivities={props.metaActivitiesWorkshop}
-    config={props.config.workshop}
+    config={props.config}
     onChange={props.onChange}
   />
 );

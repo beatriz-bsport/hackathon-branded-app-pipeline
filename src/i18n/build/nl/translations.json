@@ -372,13 +372,13 @@
                 "invoiceList": "Transacties",
                 "invoiceCreatePage": "In rekening brengen",
                 "invoiceFormPage": "Factuur",
-                "coachFormPage": "[Formulier] Instructeur",
+                "coachFormPage": "Instructeur",
                 "coachPerformance": "Payroll",
                 "offerFormPage": "Sessies toevoegen",
                 "metaActivityFormPage": "[Formulier] Groepsactiviteiten",
                 "metaActivityList": "Groepsactiviteiten",
                 "metaActivityEditForm": "[Formulier] Groepsactiviteiten",
-                "WorkshopActivityFormPage": "[Formulier] Workshops",
+                "WorkshopActivityFormPage": "[Formulier] Workshop",
                 "workshopActivityList": "Workshops",
                 "metaActivity": "Groepsactiviteiten",
                 "offerManagement": "Reserveringen",
@@ -1175,7 +1175,7 @@
             "booking_s": "Sessies",
             "pass": "Leskaarten",
             "selected": "Geselecteerd",
-            "transactions": "Transacties",
+            "transactions": "Facturen",
             "members": "Mijn gebruikers",
             "contact": "Contact",
             "sort": "Sorteren",
@@ -1973,7 +1973,7 @@
         "unevenInvoice": {
             "title": "Openstaande facturen",
             "priceDue": "Openstaand bedrag: {{price_due }}.",
-            "explainUneven": "Factuur <1> nr. {{uuid, uuid}} </1> staat nog open.",
+            "explainUneven": "Factuur \"<1> nr. {{uuid, uuid}} </1>\" staat nog open.",
             "pricePayed": "Betaald: {{price_payed}}."
         },
         "newOrder": {
@@ -2303,10 +2303,10 @@
             "isOwnerOfShares": "Gedeelde kaart"
         },
         "validForDuration": {
-            "days": "{{duration_days}} dagen geldig",
+            "days": "{{duration_days}} dag(en) geldig",
             "months": "{{duration_months}} maand(en) geldig",
             "years": "{{duration_years}} jaar geldig",
-            "general": "Geldig voor {{duration_days}} dagen, {{duration_months}} maanden en {{duration_years}} jaar"
+            "general": "Geldig voor {{duration_days}} dag(en), {{duration_months}} maand(en) en {{duration_years}} jaar."
         },
         "validForNdays2": " dagen na aankoop",
         "validFrom": "Geldig vanaf ",
@@ -2331,7 +2331,7 @@
         "notificationToolTip": "Geactiveerde meldingen",
         "disabled": "Uitgeschakeld",
         "anyActivity": "Alle activiteiten",
-        "noRestrictionOnActivityType": "Alle activiteiten zijn compatibel met deze leskaart.",
+        "noRestrictionOnActivityType": "Alle categorieën, activiteiten en vestigingen zijn compatibel met deze leskaart.",
         "credit": {
             "updated": "Wijzigingen opgeslagen"
         },
@@ -3387,7 +3387,7 @@
                     "notMemberYet": "Heb je alles correct ingevuld en ben je klaar om je in te schrijven? "
                 },
                 "button": {
-                    "memberOfCompany": "Mijn gegevens invullen",
+                    "memberOfCompany": "Voltooien",
                     "notMemberYet": "Informatie verzenden"
                 },
                 "subtitle": {
@@ -3471,7 +3471,7 @@
         },
         "memberTermsAccepted": " werden op {{- date}} geaccepteerd.",
         "termsAndConditions": "De algemene servicevoorwaarden",
-        "applyBalanceToUnpaidInvoices": "Gebruik het saldo om onbetaalde facturen te salderen",
+        "applyBalanceToUnpaidInvoices": "Gebruik het saldo om onbetaalde facturen te betalen",
         "adjustBalance": "Saldo aanpassen",
         "unpaidInvoiceTitle": "Onbetaalde factuur",
         "unpaidInvoiceTitle_plural": "Onbetaalde facturen",
@@ -6608,8 +6608,8 @@
             "2008": "Deze kaart is niet compatibel met deze activiteit",
             "2007": "Deze kaart is niet compatibel met deze sessie",
             "2006": "Deze kaart is niet geschikt voor een reservering op de gekozen datum",
-            "2005": "Deze kaart kan niet worden aangeschaft",
-            "2004": "Deze kaart kan niet worden aangeschaft",
+            "2005": "Het is niet mogelijk om deze kaart te kopen",
+            "2004": "Het is niet mogelijk om deze kaart te kopen",
             "2003": "Het is niet langer mogelijk om deze kaart te kopen",
             "2002": "Deze leskaart kan alleen door nieuwe leden worden aangeschaft",
             "1114": "Het is niet langer mogelijk om dit pakket te kopen",
@@ -8463,7 +8463,7 @@
             "selectNotificationRules": "Selecteer een regel voor een gedetailleerd overzicht.",
             "stats": {
                 "opened_rate": "Openingspercentage",
-                "total_mail_opened": "Aantal geopende e-mails",
+                "total_mail_opened": "Klikpercentage",
                 "total_mail_send": "Aantal verzonden e-mails"
             },
             "mailTitle": "Voorvertoning",

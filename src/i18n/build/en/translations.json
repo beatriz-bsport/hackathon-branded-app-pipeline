@@ -860,7 +860,7 @@
                 "marketingDashboard": "Marketing",
                 "subscriptions": "Subscription",
                 "marketingRule": "Marketing strategies",
-                "establishmentFormPage": "Establishment's form",
+                "establishmentFormPage": "[Form] Establishment",
                 "establishmentList": "Establishments",
                 "memberFormPage": "[Form] Member",
                 "member": "Member",
@@ -1693,7 +1693,7 @@
             "booking_s": "Session(s)",
             "pass": "Passes",
             "selected": "Selected",
-            "transactions": "My transactions",
+            "transactions": "Invoices",
             "members": "My users",
             "contact": "Contact",
             "sort": "Sort",
@@ -2833,7 +2833,7 @@
                     "label": "Name"
                 },
                 "credits": {
-                    "label": "Number of credits included with the pass.",
+                    "label": "Number of credits included with this appointment pass.",
                     "helperText": "Select the price per session in credits."
                 },
                 "price": {
@@ -2939,7 +2939,7 @@
                 },
                 "coach_consumer_attribution": {
                     "label": "Allow members to choose their teacher",
-                    "helperText": "Members will see and can choose the teacher during the booking process. If unchecked, you'll have to assign a teacher after each appointment has been booked."
+                    "helperText": "Members will see and have the ability to choose the teacher during the booking process. If unchecked, you'll have to assign a teacher after each appointment has been booked."
                 },
                 "establishment_consumer_attribution": {
                     "label": "Allow members to choose the establishment",
@@ -2969,7 +2969,7 @@
                     "label": "At home",
                     "helperText": "Each booking, we'll request the member's address."
                 },
-                "is_without_coach": "No teacher has been assigned to this appointment",
+                "is_without_coach": "Don't assign any teacher to this appointment",
                 "name": {
                     "label": "Name of the service",
                     "placeholder": "Massage"
@@ -4241,7 +4241,7 @@
         },
         "actions": {
             "forgottenPassword": "Forgot your password?",
-            "signup": "No account yet ?",
+            "signup": "Don't have an account yet?",
             "signin": "Log in"
         },
         "or": " or ",
@@ -4444,7 +4444,7 @@
                 }
             },
             "title": "My basket",
-            "isEmpty": "You basket is empty",
+            "isEmpty": "Your basket is empty.",
             "featured": "Featured",
             "error": {
                 "invalidBasket": "Your basket contained items which aren't available anymore. No payment has been processed."
@@ -6537,8 +6537,8 @@
         },
         "showMore": "Show more",
         "unevenInvoice": {
-            "title": "Unpaid invoice",
-            "explainUneven": "Invoice n°<1>{{uuid, uuid}}</1> is not even.",
+            "title": "Unpaid invoices",
+            "explainUneven": "Invoice \"<1>{{uuid, uuid}}</1>\" has not been finalised yet.",
             "priceDue": "Amount due: {{ price_due }}.",
             "pricePayed": "Amount paid: {{price_payed }}."
         },
@@ -6881,7 +6881,7 @@
         "validFrom": "Valid from ",
         "validTo": " to ",
         "bookingsLeftThisWeek": "Max bookings per week",
-        "addButton": "Create a new pass",
+        "addButton": "Add a pass",
         "noPaymentPackSubscribed": "No pass subscribed",
         "validUntil": "Valid until",
         "expirationDate": "Expiration date",
@@ -6894,7 +6894,7 @@
         "availableOnFollowingActivities": "Available on following activities: ",
         "anyActivity": "Any activity",
         "boughtConsumerPaymentPacks": "Subscribers",
-        "noRestrictionOnActivityType": "No restriction on activity",
+        "noRestrictionOnActivityType": "All categories, activities, and establishments are compatible with this pass.",
         "disabled": "Disabled",
         "noConsumerPack": "There are no members with this pass to display.",
         "reverted": "Invoice reverted",
@@ -7137,7 +7137,7 @@
             "secondWarningConfirm": "Are you sure you want to continue?",
             "secondWarning": "By clicking on 'CONFIRM', the sessions included in the interval selected will be canceled and you won't be able to go back."
         },
-        "bookingListEmpty": "No bookings have been registered yet.",
+        "bookingListEmpty": "There are no bookings to display as of yet.",
         "bookingList": "Bookings",
         "liveOfferEdit": {
             "unselectAll": "Unselect all",
@@ -7304,7 +7304,7 @@
             },
             "needInformationValidation": {
                 "button": {
-                    "memberOfCompany": "Complete my information",
+                    "memberOfCompany": "Complete",
                     "notMemberYet": "Submit information"
                 },
                 "legend": {
@@ -7367,7 +7367,7 @@
         },
         "memberTermsAccepted": " were accepted on {{- date}}",
         "termsAndConditions": "General Terms & Conditions.",
-        "applyBalanceToUnpaidInvoices": "Apply balance to unpaid invoices",
+        "applyBalanceToUnpaidInvoices": "Use the member's account balance to regularize unpaid invoices",
         "adjustBalance": "Adjust balance",
         "unpaidInvoiceTitle": "Unpaid invoice",
         "unpaidInvoiceTitle_plural": "Unpaid invoices",
@@ -7771,13 +7771,13 @@
         "invoice": {
             "invoiceEdit": "Edit Invoice",
             "invoiceCreatePage": "Create Invoice",
-            "invoiceList": "My transactions",
+            "invoiceList": "Invoices",
             "invoiceCreate": "Bill"
         },
         "coach": {
             "coachList": "Teachers",
             "coachPerformance": "{{name}} performance",
-            "coachFormPage": "Teacher form",
+            "coachFormPage": "[Form] Teacher",
             "allCoachPerformance": "Teacher payroll"
         },
         "order": {
@@ -7798,7 +7798,7 @@
         },
         "establishment": {
             "establishmentList": "Establishments",
-            "establishmentFormPage": "Establishment form",
+            "establishmentFormPage": "[Form] Establishment",
             "establishmentGroupPage": "Location"
         },
         "marketplace": {
@@ -7818,11 +7818,11 @@
         },
         "workshopActivity": {
             "workshopActivityList": "Workshops",
-            "workshopActivityFormPage": "Workshop form",
+            "workshopActivityFormPage": "[Form] Workshop",
             "workshopActivityCreate": "Create workshop"
         },
         "paymentPack": {
-            "paymentPackFormPage": "Pass Form",
+            "paymentPackFormPage": "[Form] Pass",
             "paymentPackList": "Passes"
         },
         "marketing": {
@@ -8972,30 +8972,30 @@
             }
         },
         "canNotBuyErrorCode": {
-            "generic": "Unable to book",
-            "8001": "The spot you have chosen is no longer available",
-            "6003": "You are already on the waiting list",
+            "generic": "Error while booking",
+            "8001": "Your chosen spot is no longer available",
+            "6003": "You're already on this waiting list",
             "6002": "The waiting list is full",
             "2012": "This pass is not compatible with this session",
             "2011": "This pass can only be used for Video On Demand (i.e. not for in-studio activities)",
             "2010": "This pass is not compatible with this establishment",
-            "2009": "This pass is not compatible with this activity",
+            "2009": "This pass is not compatible with this activity's category",
             "2008": "This pass is not compatible with this activity",
             "2007": "This pass is not compatible with this session",
             "2006": "This pass is not compatible for a booking on the chosen date",
             "2005": "This pass is not available for sale",
             "2004": "This pass is not available for sale",
-            "2003": "You can no longer buy this pass",
+            "2003": "This pass is no longer available for purchase",
             "2002": "This pass is only available for new members",
-            "1114": "You can no longer buy this pack",
+            "1114": "This pack is no longer available for purchase",
             "1113": "This pack is only available for new members",
-            "7": "The male / female ratio imbalance has been reached, you cannot book this session",
-            "6": "The male / female ratio imbalance has been reached, you cannot book this session",
-            "5": "You have already registered for this session",
-            "4": "The session is not bookable",
+            "7": "You can't book this session, because the male/female ratio is too uneven",
+            "6": "You can't book this session, because the male/female ratio is too uneven",
+            "5": "You've already booked this session",
+            "4": "The session can't be booked",
             "3": "The session is full",
-            "2": "The session is not yet open for reservations",
-            "1": "The session is not yet open for reservations",
+            "2": "Bookings are still closed for this session",
+            "1": "Bookings are still closed for this session",
             "undefined": "Your pass has been completely used up for this year",
             "9": "It's not allowed to exceed the maximum amount of future bookings",
             "2017": "You've reached the maximum number of bookings for this year",
@@ -9085,8 +9085,8 @@
                 "waitingList": "Waiting-list",
                 "invoice": "Billing",
                 "company": "Company",
-                "platform_billing": "Bsport subscription",
-                "marketplaceSettings": "Marketplace settings",
+                "platform_billing": "Subscription",
+                "marketplaceSettings": "MarketPlace",
                 "widget": "Widget",
                 "paymentMethod": "Payment methods",
                 "forms": "Sign up form"

@@ -8658,7 +8658,7 @@
             "franchises": "Franchises"
         },
         "pagination": {
-            "outOf": "auf",
+            "outOf": "{{from}} - {{to}} -{{count}}",
             "rowPerPage": "Element pro Seite",
             "nextPage": "Nächste Seite",
             "previousPage": "Vorherige Seite"

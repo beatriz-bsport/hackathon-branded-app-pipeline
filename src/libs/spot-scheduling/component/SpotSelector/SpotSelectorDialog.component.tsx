@@ -11,6 +11,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import withStyles from '@material-ui/styles/withStyles';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 import WarningIcon from '@material-ui/icons/Warning';
 import moment from 'moment-timezone';
 
@@ -123,7 +124,7 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
     const { t } = this.props;
 
     return (
-      <Dialog fullWidth maxWidth="md" open={this.props.open}>
+      <Dialog fullScreen={this.props.fullScreen} open={this.props.open}>
         <MuiDialogTitle
           disableTypography
           style={{
@@ -197,4 +198,5 @@ export default compose<any, OwnProps>(
   withTranslation(['spotScheduling']),
   // @ts-ignore
   withStyles(styles),
+  withMobileDialog(),
 )(SpotSelectorDialog);

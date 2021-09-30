@@ -3,6 +3,7 @@ import { compose } from 'recompose';
 
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { Theme, Typography, withStyles } from '@material-ui/core';
+import Hidden from '@material-ui/core/Hidden';
 import PlaceIcon from '@material-ui/icons/Place';
 import PersonIcon from '@material-ui/icons/Person';
 
@@ -35,13 +36,15 @@ class ActivitySummary extends React.PureComponent<Props> {
 
     return (
       <div className={classes.container}>
-        <div className={classes.imageContainer}>
-          <img
-            className={classes.image}
-            alt={offer.meta_activity.name}
-            src={offer.meta_activity.cover_main}
-          />
-        </div>
+        <Hidden smDown>
+          <div className={classes.imageContainer}>
+            <img
+              className={classes.image}
+              alt={offer.meta_activity.name}
+              src={offer.meta_activity.cover_main}
+            />
+          </div>
+        </Hidden>
 
         <div className={classes.content}>
           <Typography variant="h6" color="textPrimary">

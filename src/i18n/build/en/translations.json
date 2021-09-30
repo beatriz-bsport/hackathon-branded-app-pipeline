@@ -5258,7 +5258,7 @@
         "paymentMethod": {
             "11": "Other",
             "10": "Automatic payment",
-            "9": "Pay later in studio",
+            "9": "Paid with credit account balance",
             "8": "EventBrite",
             "7": "Bank transfer",
             "6": "AMEX",
@@ -7622,7 +7622,7 @@
                 "numberOfBook": "{{count}} enrollment",
                 "numberOfBook_plural": "{{count}} enrollments"
             },
-            "bookingsTitle": "You're booking",
+            "bookingsTitle": "Book now",
             "addSession": "Add a session",
             "noPackAvailable": "This session does not have any compatible memberships!",
             "noPackAvailable_plural": "No single pass is compatible with all these sessions simultaneously. Please book them separately.",

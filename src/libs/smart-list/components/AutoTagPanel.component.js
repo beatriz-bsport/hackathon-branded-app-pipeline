@@ -86,7 +86,7 @@ export class AutoTagPanel extends Component<Props> {
             {smartlistAutoTag &&
               smartlistAutoTag.map((tagRule) => {
                 return (
-                  <Grid item className={classes.tagPanel}>
+                  <Grid key={tagRule.id} item className={classes.tagPanel}>
                     <TagRuleListItem
                       tagRule={tagRule}
                       deleteAutoTag={this.props.deleteAutoTag}

@@ -5201,7 +5201,7 @@
                 "addPrivateSlot": "Add a rule"
             }
         },
-        "search": "Find a pay rule (optional)"
+        "search": "Apply a payroll rulle (optional)"
     },
     "payment": {
         "explainOption": "You will be notified by email when a slot will be free",

@@ -1275,7 +1275,7 @@ export const privatePassDeleteActions = {
   success: createAction('PRIVATE_PASS/DELETE/SUCCESS'),
 };
 
-export function deletePrivatePass(id: number, options: OptionCallback) {
+export function deletePrivatePass(id: number, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(privatePassDeleteActions.isLoading(true));
     dispatch(privatePassDeleteActions.error(null));

@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import { Divider } from '@material-ui/core';
 import PlatformInvoiceListItem from './PlatformInvoiceListItem.component';
 import PaymentMethodListItem from '../../payment/components/PaymentMethodListItem.component';
 import CollectPaymentMethod from '../../payment/components/CollectPaymentMethod.component';
@@ -37,6 +38,8 @@ export const CompanyPlatformBillingDetail = (props: Props) => {
         <Typography variant="h4" className={classes.sectionTitle}>
           {t('platformInvoice.sectionTitle')}
         </Typography>
+        <Divider className={classes.divider} />
+
         {!props.platformInvoiceList.length ? (
           <Typography color="textSecondary">
             {t('platformInvoice.noInvoice')}
@@ -59,6 +62,8 @@ export const CompanyPlatformBillingDetail = (props: Props) => {
         <Typography variant="h4" className={classes.sectionTitle}>
           {t('paymentMethod.sectionTitle')}
         </Typography>
+        <Divider className={classes.divider} />
+
         {!!props.paymentMethodList.length && (
           <Paper>
             {props.paymentMethodList.map((paymentMethod) => (
@@ -113,6 +118,9 @@ export const CompanyPlatformBillingDetail = (props: Props) => {
 };
 
 const useStyles = makeStyles((theme) => ({
+  divider: {
+    marginBottom: theme.spacing(2),
+  },
   container: {
     padding: theme.spacing(4),
   },

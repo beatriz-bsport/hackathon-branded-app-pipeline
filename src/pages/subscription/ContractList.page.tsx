@@ -1,17 +1,11 @@
 // @flow
 
 import React from 'react';
-import {
-  compose,
-  withState,
-  withProps,
-  withStateHandlers,
-  withHandlers,
-} from 'recompose';
+import { compose, withProps, withStateHandlers, withHandlers } from 'recompose';
+import { WithTranslation, withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -19,12 +13,18 @@ import Divider from '@material-ui/core/Divider';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
+import { Theme } from '@material-ui/core/styles';
 import {
   BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
+import Paper from '@material-ui/core/Paper';
+import Collapse from '@material-ui/core/Collapse';
+import Fuse, { FuseOptions } from 'fuse.js';
+
+import { TFunction } from 'i18next';
+import { RootState } from '../../reducers';
 import themeSelectors from '../../libs/theme/selectors';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
 
@@ -48,6 +48,8 @@ import { getSearchedMembers } from '../../libs/member/selectors';
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 
+import FuzeSearch from '../../components/FuzeSearch.component';
+
 import {
   getInactiveContractList,
   getAvailableContractListManager,
@@ -62,61 +64,22 @@ import {
   restoreContract,
   fetchSubscriptionBulk as fetchSubscriptionBulkAction,
 } from '../../libs/subscription/actions';
+
 import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
 
-type Props = {
-  fetchContractList: () => void,
-  theme: Theme,
-  contractLoading: boolean,
-  goToContractDetail: (contractId: number) => void,
-  createOrUpdateContract: (data: any, options: OptionCallback) => void,
-  deleteContract: (id: number, options: OptionCallback) => void,
-  paymentPacks: Array<PaymentPack>,
-  contractListAvailableAll: Array<SubscriptionContract>,
-  contractListManagerOnly: Array<SubscriptionContract>,
-  inactiveContracts: Array<SubscriptionContract>,
+import { MaterialStyleType, WithHandlerType } from '../../utils/types';
+import type { OptionCallback } from '../../state/types';
+import type { Contract } from '../../libs/subscription/types';
 
-  showDisabled: boolean,
-  setShowDisabled: (boolean) => void,
-  restoreContract: (id: number, options: OptionCallback) => void,
+import { Coach } from '../../libs/associated-coach/types';
+import { Member } from '../../libs/member/types';
 
-  openContractRegister: (?Contract) => void,
-  onRegisteredBillingPlan: (BillingPlan) => void,
-  contractRegisterOpen: boolean,
+export class SubscriptionList extends React.Component<Props, State> {
+  state = {
+    searchText: '',
+    searchResult: [],
+  };
 
-  setMemberToBill: (?Member) => void,
-  memberToBill: ?Member,
-  closeContractRegister: () => void,
-
-  searchMembers: (text: string) => void,
-  searchedMembers: Array<Member>,
-  searchMemberLoading: boolean,
-
-  selectedContract: ?number,
-  setSelectedContract: (?number) => void,
-  selectedContractData: ?Contract,
-
-  onRequestCreate: () => void,
-  onCreate: (data: any, options: OptionCallback) => void,
-  onCloseCreate: () => void,
-  createContractFormOpen: boolean,
-
-  t: TFunction,
-  classes: Object,
-
-  fetchPrivatePassList: () => void,
-  privatePassList: Array<PrivatePass>,
-
-  fetchPaymentComboList: () => void,
-  paymentComboList: Array<PaymentCombo>,
-
-  requestSetupIntentSecret: () => void,
-  fetchPaymentMethodList: () => void,
-  savedPaymentMethodList: Array<PaymentMethod>,
-  managerFormConfig: SignUpFormConfigDict,
-};
-
-export class SubscriptionList extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchContractList();
     this.props.fetchPrivatePassList();
@@ -134,6 +97,19 @@ export class SubscriptionList extends React.Component<Props> {
     }
   };
 
+  changeSearch = (fuse: Fuse<Contract, FuseOptions<Contract>>) => (
+    ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+  ) => {
+    this.setState({
+      searchText: ev.target.value,
+      searchResult: fuse.search(ev.target.value),
+    });
+  };
+
+  clearSearch = () => {
+    this.setState({ searchText: '', searchResult: [] });
+  };
+
   render() {
     return (
       <div className={this.props.classes.container}>
@@ -146,12 +122,70 @@ export class SubscriptionList extends React.Component<Props> {
             onCreate={this.props.onRequestCreate}
           />
         ) : null}
+        <div className={this.props.classes.search}>
+          <FuzeSearch
+            searchText={this.state.searchText}
+            clearSearch={this.clearSearch}
+            changeSearch={this.changeSearch}
+            items={this.props.contractListAvailableAll}
+            placeholder={this.props.t('search')}
+            searchFields={['name']}
+            searchResult={this.state.searchResult}
+          />
+
+          <Paper
+            className={
+              this.state.searchResult.length > 0 && this.state.searchText !== ''
+                ? this.props.classes.searchPaperDisplayed
+                : this.props.classes.searchPaperHidden
+            }
+          >
+            <Collapse
+              in={
+                this.state.searchResult.length > 0 &&
+                this.state.searchText !== ''
+              }
+            >
+              <SubscriptionContractList
+                contractList={this.state.searchResult}
+                dense
+                divider
+                loading={this.props.contractLoading}
+                onClick={this.onClickContract}
+                company={{
+                  id: this.props.theme.company,
+                  name: this.props.theme.company_name,
+                }}
+                selectedContract={this.props.selectedContract}
+                onRegister={this.props.openContractRegister}
+                onEdit={(data: any, options: OptionCallback<void>) => {
+                  this.props.createOrUpdateContract(data, {
+                    onSuccess: () => {
+                      this.props.fetchContractList();
+                      if (options && options.onSuccess) {
+                        options.onSuccess();
+                      }
+                    },
+                  });
+                }}
+                onDelete={(id: number) =>
+                  this.props.deleteContract(id, {
+                    onSuccess: this.props.fetchContractList,
+                  })
+                }
+                paymentPacks={this.props.paymentPacks}
+                privatePassList={this.props.privatePassList}
+                paymentComboList={this.props.paymentComboList}
+              />
+            </Collapse>
+          </Paper>
+        </div>
         <Grid container spacing={2}>
           {!!this.props.contractListAvailableAll.length && (
             <Grid item xs={12} lg={6}>
               <Typography
                 className={this.props.classes.sectionTitle}
-                variant="h4"
+                variant="h5"
               >
                 {this.props.t(
                   'subscription:contract.list.titleCustomerAvailable',
@@ -170,7 +204,7 @@ export class SubscriptionList extends React.Component<Props> {
                 }}
                 selectedContract={this.props.selectedContract}
                 onRegister={this.props.openContractRegister}
-                onEdit={(data, options) => {
+                onEdit={(data: any, options: OptionCallback<void>) => {
                   this.props.createOrUpdateContract(data, {
                     onSuccess: () => {
                       this.props.fetchContractList();
@@ -180,7 +214,7 @@ export class SubscriptionList extends React.Component<Props> {
                     },
                   });
                 }}
-                onDelete={(id) =>
+                onDelete={(id: number) =>
                   this.props.deleteContract(id, {
                     onSuccess: this.props.fetchContractList,
                   })
@@ -195,7 +229,7 @@ export class SubscriptionList extends React.Component<Props> {
             <Grid item xs={12} lg={6}>
               <Typography
                 className={this.props.classes.sectionTitle}
-                variant="h4"
+                variant="h5"
               >
                 {this.props.t('subscription:contract.list.titleManagerOnly')}
               </Typography>
@@ -208,7 +242,7 @@ export class SubscriptionList extends React.Component<Props> {
                 onClick={this.onClickContract}
                 selectedContract={this.props.selectedContract}
                 onRegister={this.props.openContractRegister}
-                onEdit={(data, options) => {
+                onEdit={(data: any, options: OptionCallback<void>) => {
                   this.props.createOrUpdateContract(data, {
                     onSuccess: () => {
                       this.props.fetchContractList();
@@ -218,7 +252,7 @@ export class SubscriptionList extends React.Component<Props> {
                     },
                   });
                 }}
-                onDelete={(id) =>
+                onDelete={(id: number) =>
                   this.props.deleteContract(id, {
                     onSuccess: this.props.fetchContractList,
                   })
@@ -238,7 +272,7 @@ export class SubscriptionList extends React.Component<Props> {
               >
                 <Typography
                   className={this.props.classes.sectionTitle}
-                  variant="h4"
+                  variant="h5"
                 >
                   {`${this.props.t(
                     'subscription:contract.list.titleInactive',
@@ -260,7 +294,7 @@ export class SubscriptionList extends React.Component<Props> {
                   paymentPacks={this.props.paymentPacks}
                   privatePassList={this.props.privatePassList}
                   paymentComboList={this.props.paymentComboList}
-                  onRestore={(id) => {
+                  onRestore={(id: number) => {
                     this.props.restoreContract(id, {
                       onSuccess: () => this.props.fetchContractList(),
                     });
@@ -315,7 +349,10 @@ export class SubscriptionList extends React.Component<Props> {
   }
 }
 
-const styles = (theme) => ({
+const styles = (theme: Theme) => ({
+  search: {
+    paddingBottom: theme.spacing(2),
+  },
   container: {
     paddingBottom: '20vh',
   },
@@ -326,121 +363,173 @@ const styles = (theme) => ({
   divider: {
     marginBottom: theme.spacing(2),
   },
+  searchPaperDisplayed: {
+    border: '1px solid',
+    borderColor: theme.palette.primary.dark,
+    borderTop: '0px',
+  },
+  searchPaperHidden: {
+    border: '1px solid',
+    borderColor: theme.palette.primary.dark,
+    borderTop: '0px',
+    boderBottom: '0px',
+  },
 });
+
+type StateHandlerInit = {
+  createContractFormOpen: boolean;
+  selectedContract: null | number;
+  contractRegisterOpen: boolean;
+  memberToBill: null | Member;
+  showDisabled: boolean;
+};
+
+type StateHandlerType = typeof withStateHandlersInit &
+  WithHandlerType<typeof withStateHandlersSetter>;
+
+type ConnectedProps = ReturnType<typeof mapStateToProps> &
+  typeof mapDispatchToProps;
+
+type HandlersType = WithHandlerType<typeof mapWithHandlers>;
+
+type State = {
+  searchText: string;
+  searchResult: Array<Coach>;
+};
+
+type Props = MaterialStyleType<ReturnType<typeof styles>> &
+  WithTranslation &
+  ConnectedProps &
+  StateHandlerType &
+  HandlersType;
+
+const mapStateToProps = (state: RootState, props: StateHandlerType) => ({
+  selectedContractData: getContract(state, props.selectedContract),
+  theme: themeSelectors.getTheme(state),
+  contractListManagerOnly: withPaymentPack(getAvailableContractListManager)(
+    state,
+  ),
+  contractListAvailableAll: withPaymentPack(getAvailableContractListCustomer)(
+    state,
+  ),
+  inactiveContracts: withPaymentPack(getInactiveContractList)(state),
+  contractLoading: state.subscription.contract.loading,
+  paymentPacks: getPaymentPackEnabled(state),
+  privatePassList: getPrivatePassAvailable(state),
+  paymentComboList: getPaymentComboList(state),
+  searchedMembers: getSearchedMembers(state),
+  savedPaymentMethodList: getSavedPaymentMethodList(state),
+  managerFormConfig: getSignUpFormConfigurationDict(state),
+});
+
+const mapDispatchToProps = {
+  fetchContractList: fetchContractListAction,
+  fetchSubscriptionBulk: fetchSubscriptionBulkAction,
+  fetchPaymentComboList,
+  createOrUpdateContract: createOrUpdateContractAction,
+  searchMembers,
+  deleteContract,
+  restoreContract,
+  pushRouter: push,
+  fetchPaymentPackBulk: fetchPaymentPackBulkAction,
+  fetchPrivatePassList,
+  fetchPaymentMethodList: fetchPaymentMethodListAction,
+  goToContractDetail: (contractId: number) =>
+    push(`/subscription/contract/${contractId}`),
+};
+
+const withStateHandlersInit: StateHandlerInit = {
+  createContractFormOpen: false,
+  selectedContract: null,
+  contractRegisterOpen: false,
+  memberToBill: null,
+  showDisabled: false,
+};
+
+const withStateHandlersSetter = {
+  setSelectedContract: () => (selectedContract: number | null) => ({
+    selectedContract,
+  }),
+  setContractRegisterOpen: () => (contractRegisterOpen: boolean) => ({
+    contractRegisterOpen,
+  }),
+  setMemberToBill: () => (memberToBill: Member | null) => ({ memberToBill }),
+  setShowDisabled: () => (showDisabled: boolean) => ({ showDisabled }),
+  onCloseCreate: () => () => ({ createContractFormOpen: false }),
+  onRequestCreate: () => () => ({ createContractFormOpen: true }),
+  onCreate: (
+    _,
+    { createOrUpdateContract, fetchContractList }: typeof mapDispatchToProps,
+  ) => (data, options) => {
+    createOrUpdateContract(data, {
+      onSuccess: () => {
+        fetchContractList();
+        if (options && options.onSuccess) {
+          options.onSuccess();
+        }
+      },
+    });
+    return { createContractFormOpen: false };
+  },
+};
+
+const mapWithHandlers = {
+  openContractRegister: ({
+    setContractRegisterOpen,
+    setSelectedContract,
+    setMemberToBill,
+  }: WithHandlerType<typeof withStateHandlersSetter>) => (
+    contract: Contract,
+  ) => {
+    setSelectedContract(contract.id);
+    setContractRegisterOpen(true);
+    setMemberToBill(null);
+  },
+  closeContractRegister: ({
+    setMemberToBill,
+    setContractRegisterOpen,
+  }: WithHandlerType<typeof withStateHandlersSetter>) => () => {
+    setContractRegisterOpen(false);
+    setMemberToBill(null);
+  },
+  onRegisteredBillingPlan: ({
+    setMemberToBill,
+    pushRouter,
+    setContractRegisterOpen,
+  }: WithHandlerType<typeof withStateHandlersSetter> &
+    typeof mapDispatchToProps) => (billingPlan: any) => {
+    setContractRegisterOpen(false);
+    setMemberToBill(null);
+    pushRouter(`/subscription/${billingPlan.id}`);
+  },
+  requestSetupIntentSecret: ({
+    memberToBill,
+  }: typeof withStateHandlersInit) => () =>
+    requestSetupIntentSecretAPI(memberToBill.id),
+  fetchPaymentMethodList: ({
+    memberToBill,
+    fetchPaymentMethodList,
+  }: typeof mapDispatchToProps & typeof withStateHandlersInit) => () => {
+    fetchPaymentMethodList({ member: memberToBill.id });
+  },
+};
 
 export default compose(
   withTranslation(['subscription', 'titles']),
   withStyles(styles),
+  withProps(({ fetchContractList, fetchPaymentPackBulk }) => ({
+    fetchContractList: (params: any) =>
+      fetchContractList(params, {
+        onSuccess: (contractList: Array<Contract>) =>
+          fetchPaymentPackBulk(
+            contractList.map((c: Contract) => c.payment_pack),
+          ),
+      }),
+  })),
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:subscription.subscriptions'),
   ),
-  connect(
-    (state) => ({
-      theme: state.theme.theme,
-      contractListManagerOnly: withPaymentPack(getAvailableContractListManager)(
-        state,
-      ),
-      contractListAvailableAll: withPaymentPack(
-        getAvailableContractListCustomer,
-      )(state),
-      inactiveContracts: withPaymentPack(getInactiveContractList)(state),
-      contractLoading: state.subscription.contract.loading,
-      paymentPacks: getPaymentPackEnabled(state),
-      privatePassList: getPrivatePassAvailable(state),
-      paymentComboList: getPaymentComboList(state),
-      searchedMembers: getSearchedMembers(state),
-      savedPaymentMethodList: getSavedPaymentMethodList(state),
-      managerFormConfig: getSignUpFormConfigurationDict(state),
-    }),
-    {
-      fetchContractList: fetchContractListAction,
-      fetchSubscriptionBulk: fetchSubscriptionBulkAction,
-      fetchPaymentComboList,
-      createOrUpdateContract: createOrUpdateContractAction,
-      searchMembers,
-      deleteContract,
-      restoreContract,
-      pushRouter: push,
-      fetchPaymentPackBulk: fetchPaymentPackBulkAction,
-      fetchPrivatePassList,
-      fetchPaymentMethodList: fetchPaymentMethodListAction,
-    },
-  ),
-  withState('selectedContract', 'setSelectedContract', null),
-  withState('contractRegisterOpen', 'setContractRegisterOpen', false),
-  withState('memberToBill', 'setMemberToBill', null),
-  withState('showDisabled', 'setShowDisabled', false),
-  connect(
-    (state, { selectedContract }) => ({
-      selectedContractData: getContract(state, selectedContract),
-      theme: themeSelectors.getTheme(state),
-    }),
-    {
-      goToContractDetail: (contractId) =>
-        push(`/subscription/contract/${contractId}`),
-    },
-  ),
-  withHandlers({
-    openContractRegister: ({
-      setContractRegisterOpen,
-      setSelectedContract,
-      setMemberToBill,
-    }) => (contract) => {
-      setSelectedContract(contract.id);
-      setContractRegisterOpen(true);
-      setMemberToBill(null);
-    },
-    closeContractRegister: ({
-      setMemberToBill,
-      setContractRegisterOpen,
-    }) => () => {
-      setContractRegisterOpen(false);
-      setMemberToBill(null);
-    },
-    onRegisteredBillingPlan: ({
-      setMemberToBill,
-      pushRouter,
-      setContractRegisterOpen,
-    }) => (billingPlan) => {
-      setContractRegisterOpen(false);
-      setMemberToBill(null);
-      pushRouter(`/subscription/${billingPlan.id}`);
-    },
-    requestSetupIntentSecret: ({ memberToBill }) => () =>
-      requestSetupIntentSecretAPI(memberToBill.id),
-    fetchPaymentMethodList: ({
-      memberToBill,
-      fetchPaymentMethodList,
-    }) => () => {
-      fetchPaymentMethodList({ member: memberToBill.id });
-    },
-  }),
-  withProps(({ fetchContractList, fetchPaymentPackBulk }) => ({
-    fetchContractList: (params) =>
-      fetchContractList(params, {
-        onSuccess: (contractList) =>
-          fetchPaymentPackBulk(contractList.map((c) => c.payment_pack)),
-      }),
-  })),
-  withStateHandlers(
-    { createContractFormOpen: false },
-    {
-      onCloseCreate: () => () => ({ createContractFormOpen: false }),
-      onRequestCreate: () => () => ({ createContractFormOpen: true }),
-      onCreate: (_, { createOrUpdateContract, fetchContractList }) => (
-        data,
-        options,
-      ) => {
-        createOrUpdateContract(data, {
-          onSuccess: () => {
-            fetchContractList();
-            if (options && options.onSuccess) {
-              options.onSuccess();
-            }
-          },
-        });
-        return { createContractFormOpen: false };
-      },
-    },
-  ),
+  withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
+  connect(mapStateToProps, mapDispatchToProps),
+  withHandlers(mapWithHandlers),
 )(SubscriptionList);

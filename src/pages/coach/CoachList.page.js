@@ -201,7 +201,6 @@ export class CoachList extends React.Component<Props, State> {
             >
               <Typography
                 variant="h5"
-                component="h2"
                 color={
                   (this.props.inactiveCoaches || []).length
                     ? 'default'

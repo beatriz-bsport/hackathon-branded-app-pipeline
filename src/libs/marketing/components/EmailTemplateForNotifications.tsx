@@ -8,6 +8,7 @@ import {
 import {
   Button,
   CircularProgress,
+  Divider,
   Paper,
   Theme,
   Typography,
@@ -231,9 +232,10 @@ class EmailTemplateForNotifications extends React.PureComponent<Props> {
         this.statData &&
         !this.props.loading ? (
           <div className={classes.container2}>
-            <Typography variant="h5">
+            <Typography variant="h5" className={classes.sectionTitle}>
               {t('marketing:notifications.notificationDetails')}
             </Typography>
+            <Divider className={classes.divider} />
 
             <Paper className={classes.paperDetail}>
               <Typography variant="h6">{this.getLabel()}</Typography>
@@ -262,6 +264,8 @@ class EmailTemplateForNotifications extends React.PureComponent<Props> {
             <Typography variant="h5" className={classes.titleMarginTop}>
               {t('marketing:notifications.statisticDetails')}
             </Typography>
+
+            <Divider className={classes.divider} />
 
             <Paper className={classes.paperStats}>
               <div className={classes.statItem}>
@@ -298,6 +302,7 @@ class EmailTemplateForNotifications extends React.PureComponent<Props> {
             <Typography variant="h5" className={classes.emailSummary}>
               {t('marketing:notifications.mailTitle')}
             </Typography>
+            <Divider className={classes.divider} />
             <Paper className={classes.mailPreview}>
               <div
                 dangerouslySetInnerHTML={{
@@ -326,6 +331,9 @@ class EmailTemplateForNotifications extends React.PureComponent<Props> {
 }
 
 const styles = (theme: Theme) => ({
+  divider: {
+    marginBottom: theme.spacing(2),
+  },
   container: {
     display: 'flex',
     flex: 1,
@@ -365,15 +373,16 @@ const styles = (theme: Theme) => ({
   },
   titleMarginTop: {
     marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(1),
   },
   emailSummary: {
     width: '100%',
     marginTop: theme.spacing(4),
     borderWidth: 0,
-    borderTopWidth: 1,
     borderStyle: 'solid',
     borderColor: '#CCC',
     paddingTop: theme.spacing(2),
+    marginBottom: theme.spacing(1),
   },
   mailPreview: {
     marginTop: theme.spacing(2),
@@ -388,6 +397,9 @@ const styles = (theme: Theme) => ({
   },
   marginTop: {
     marginTop: theme.spacing(2),
+  },
+  sectionTitle: {
+    marginBottom: theme.spacing(1),
   },
 });
 

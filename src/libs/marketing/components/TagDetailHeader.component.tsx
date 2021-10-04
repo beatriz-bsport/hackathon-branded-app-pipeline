@@ -35,8 +35,8 @@ class TagDetailHeader extends React.PureComponent<Props> {
     return (
       <div className={classes.content}>
         <div className={classes.tagNameContainer}>
-          <TagIcon fontSize="large" className={classes.leftIcon} />
-          <Typography noWrap variant="h3">
+          <TagIcon fontSize="default" className={classes.leftIcon} />
+          <Typography noWrap variant="h5">
             {this.props.tag.name}
           </Typography>
         </div>

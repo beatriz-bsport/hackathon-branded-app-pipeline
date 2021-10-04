@@ -281,15 +281,12 @@ export class ComponentName extends React.Component<Props, State> {
                   className={this.props.classes.buttonTitle}
                   onClick={this.onShowDisabled}
                 >
-                  <Typography
-                    variant="h5"
-                    component="h2"
-                    className={classes.titleContainer}
-                  >
+                  <Typography variant="h5" className={classes.titleContainer}>
                     {`${t('disabledPacksTitle')} (${
                       (this.props.disabledPacks || []).length
                     })`}
                   </Typography>
+                  <Divider className={classes.divider} />
                   <div className={classes.iconContainer}>
                     {this.state.showDisabled ? (
                       <ExpandLessIcon />
@@ -360,6 +357,9 @@ export class ComponentName extends React.Component<Props, State> {
 const styles = (theme: Theme) => ({
   container: {
     paddingBottom: theme.spacing(16),
+  },
+  divider: {
+    marginBottom: theme.spacing(2),
   },
   fabSwitchButton: {
     position: 'fixed',

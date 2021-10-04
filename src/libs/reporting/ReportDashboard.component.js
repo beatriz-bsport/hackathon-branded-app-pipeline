@@ -133,7 +133,7 @@ export function ReportDashboard(props: Props) {
       {showModalAdd ? (
         <Dialog open>
           <DialogTitle>
-            {reportConfigurations.name || t('form.title')}
+            {reportConfiguration.name || t('form.title')}
           </DialogTitle>
           <DialogContent>
             <ReportConfigurationForm

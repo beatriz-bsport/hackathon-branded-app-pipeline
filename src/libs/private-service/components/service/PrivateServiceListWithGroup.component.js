@@ -38,7 +38,9 @@ export const PrivateServiceListWithGroup = (props: Props) => {
       {props.privateServiceAvailableByGroup.map((g) => (
         <div key={g.id}>
           <div className={classes.titleRow}>
-            <Typography variant="h6">{g.name}</Typography>
+            <Typography variant="h5" className={classes.sectionTitle}>
+              {g.name}
+            </Typography>
             <IconButton
               color="primary"
               onClick={(ev) => props.setMenuOpen([ev.currentTarget, g])}
@@ -46,7 +48,7 @@ export const PrivateServiceListWithGroup = (props: Props) => {
               <MoreVertIcon />
             </IconButton>
           </div>
-          <Divider />
+          <Divider className={classes.divider} />
           {g.private_services.length > 0 ? (
             <Paper className={classes.serviceListPaperGroup}>
               {g.private_services.map((ps) => (
@@ -132,6 +134,12 @@ const styles = (theme) => ({
     alignItems: 'center',
     margin: theme.spacing(1),
     marginBottom: theme.spacing(4),
+  },
+  sectionTitle: {
+    marginBottom: theme.spacing(1),
+  },
+  divider: {
+    marginBottom: theme.spacing(2),
   },
 });
 

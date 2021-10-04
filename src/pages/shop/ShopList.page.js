@@ -260,11 +260,11 @@ export class ShopItemList extends Component<Props, State> {
         <ButtonBase onClick={this.activateNewSubShopForm}>
           <Grid container direction="row" alignItems="center">
             <Grid item>
-              <AddIcon size={60} />
-            </Grid>
-            <Grid item>
-              <Typography variant="h4">
-                {t('form.shop.subShop.nameTitle')}
+              <Typography
+                variant="h5"
+                className={this.props.classes.sectionTitle}
+              >
+                {`+ ${t('form.shop.subShop.nameTitle')}`}
               </Typography>
             </Grid>
           </Grid>
@@ -384,6 +384,10 @@ const styles = (theme) => ({
     boderBottom: '0px',
   },
   button: {
+    marginTop: theme.spacing(2),
+  },
+  sectionTitle: {
+    marginBottom: theme.spacing(1),
     marginTop: theme.spacing(2),
   },
 });

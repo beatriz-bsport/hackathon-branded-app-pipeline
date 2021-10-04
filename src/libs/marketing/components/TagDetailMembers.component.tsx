@@ -14,6 +14,7 @@ import LabelOffIcon from '@material-ui/icons/LabelOff';
 import ListItem from '@material-ui/core/ListItem';
 import Avatar from '@material-ui/core/Avatar';
 // @ts-ignore
+
 import PaginatedListBase from '../../../components/PaginatedListBase.component';
 import { MaterialStyleType } from '../../../utils/types';
 import { Member } from '../../member/types';
@@ -55,6 +56,7 @@ const TagDetailMembers = (props: Props) => {
         <Typography variant="h5">
           {t('management.memberDetail.memberWithTag')}
         </Typography>
+
         <Button
           variant="outlined"
           color="primary"

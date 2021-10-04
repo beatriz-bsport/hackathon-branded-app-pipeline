@@ -1,7 +1,14 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Theme, Tab, Tabs, Typography } from '@material-ui/core';
+import {
+  AppBar,
+  Theme,
+  Tab,
+  Tabs,
+  Typography,
+  Divider,
+} from '@material-ui/core';
 import { EXPORTABLE_COMPONENT_TYPE_VOD } from '../../../exportable-components/constants';
 import { getDefaultTitleForComponent } from '../../../exportable-components/utils';
 import { Theme as CompanyTheme } from '../../../theme/types';
@@ -19,7 +26,10 @@ const MarketplaceTabPreview = (props: Props) => {
   const { config, theme } = props;
   return (
     <div className={classes.marginTop}>
-      <Typography variant="h4">{t('marketplaceSettings.preview')}</Typography>
+      <Typography variant="h5" className={classes.sectionTitle}>
+        {t('marketplaceSettings.preview')}
+      </Typography>
+      <Divider className={classes.divider} />
 
       <AppBar position="relative" color="default" className={classes.marginTop}>
         <Tabs
@@ -56,6 +66,12 @@ const MarketplaceTabPreview = (props: Props) => {
 const useStyles = makeStyles((theme: Theme) => ({
   marginTop: {
     marginTop: theme.spacing(2),
+  },
+  sectionTitle: {
+    marginBottom: theme.spacing(1),
+  },
+  divider: {
+    marginBottom: theme.spacing(2),
   },
 }));
 

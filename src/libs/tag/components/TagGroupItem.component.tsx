@@ -168,7 +168,7 @@ class TagGroupItem extends React.PureComponent<Props, State> {
     return (
       <div className={classes.tagGroup}>
         <div className={classes.tagGroupHeader}>
-          <Typography variant="h4" noWrap>
+          <Typography variant="h5" noWrap>
             {tagGroup.name}
           </Typography>
 

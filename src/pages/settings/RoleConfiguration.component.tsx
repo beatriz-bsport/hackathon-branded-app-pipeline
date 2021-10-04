@@ -5,7 +5,7 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { Backdrop, CircularProgress, Theme } from '@material-ui/core';
+import { Backdrop, CircularProgress, Divider, Theme } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { TFunction } from 'i18next';
@@ -45,7 +45,10 @@ export class RoleConfiguration extends React.Component<Props> {
 
     return (
       <div className={classes.container}>
-        <Typography variant="h5">{t('userRoles')}</Typography>
+        <Typography variant="h5" className={classes.sectionTitle}>
+          {t('userRoles')}
+        </Typography>
+        <Divider className={classes.divider} />
         <Paper className={classes.usersRolePaper}>
           <div className={classes.row}>
             <InfoOutlinedIcon fontSize="large" className={classes.leftIcon} />
@@ -62,7 +65,10 @@ export class RoleConfiguration extends React.Component<Props> {
             createUser={this.props.createStaffUser}
           />
         </Paper>
-        <Typography variant="h5">{t('permissions')}</Typography>
+        <Typography variant="h5" className={classes.sectionTitle}>
+          {t('permissions')}
+        </Typography>
+        <Divider className={classes.divider} />
         <Paper id="text_staff_roles" className={classes.rolePaper}>
           <RoleList
             roles={roles}
@@ -85,6 +91,12 @@ export class RoleConfiguration extends React.Component<Props> {
 }
 
 const styles = (theme: Theme) => ({
+  sectionTitle: {
+    marginBottom: theme.spacing(1),
+  },
+  divider: {
+    marginBottom: theme.spacing(2),
+  },
   container: {
     padding: theme.spacing(2),
   },

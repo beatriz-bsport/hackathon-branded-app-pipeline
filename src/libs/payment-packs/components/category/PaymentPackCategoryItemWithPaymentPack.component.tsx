@@ -102,10 +102,9 @@ export const PaymentPackCategoryItemWithPaymentPack = (props: Props) => {
       <Grid container direction="row" spacing={3}>
         <Grid item xs={12} md={6}>
           <div className={classes.topTitle}>
-            <Typography variant="h5" component="h2">
-              {t('publicPacksTitle')}
-            </Typography>
+            <Typography variant="h5">{t('publicPacksTitle')}</Typography>
           </div>
+          <Divider className={props.classes.divider} />
           {paymentPackUnCategorized &&
           paymentPackUnCategorized.publicPacks &&
           paymentPackUnCategorized.publicPacks.length ? (
@@ -114,10 +113,9 @@ export const PaymentPackCategoryItemWithPaymentPack = (props: Props) => {
         </Grid>
         <Grid item xs={12} md={6}>
           <div className={classes.topTitle}>
-            <Typography variant="h5" component="h2">
-              {t('privatePacksTitle')}
-            </Typography>
+            <Typography variant="h5">{t('privatePacksTitle')}</Typography>
           </div>
+          <Divider className={props.classes.divider} />
           {paymentPackUnCategorized &&
           paymentPackUnCategorized.managerPacks &&
           paymentPackUnCategorized.managerPacks.length ? (
@@ -249,7 +247,7 @@ const styles = (theme: Theme) => ({
     color: theme.palette.grey[700],
   },
   divider: {
-    marginBottom: theme.spacing(1),
+    marginBottom: theme.spacing(2),
   },
   collapse: {
     width: '100%',

@@ -8,6 +8,7 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 
+import { Divider } from '@material-ui/core';
 import CouponListItem from './CouponListItem.component';
 import type { Coupon } from '../types';
 
@@ -27,13 +28,10 @@ export const CouponList = (props: Props) => {
     <div>
       {activeCoupons.length === 0 ? null : (
         <div className={classes.section}>
-          <Typography
-            className={classes.sectionTitle}
-            variant="h6"
-            component="h2"
-          >
+          <Typography className={classes.sectionTitle} variant="h5">
             {t('list.activeCoupons')}
           </Typography>
+          <Divider className={classes.divider} />
           <Paper>
             <List disablePadding dense divider>
               {activeCoupons.map((coupon) => (
@@ -53,13 +51,10 @@ export const CouponList = (props: Props) => {
       )}
       {inactiveCoupons.length === 0 ? null : (
         <div className={classes.section}>
-          <Typography
-            className={classes.sectionTitle}
-            variant="h6"
-            component="h2"
-          >
+          <Typography className={classes.sectionTitle} variant="h5">
             {t('list.inactiveCoupons')}
           </Typography>
+          <Divider className={props.classes.divider} />
           <Paper>
             <List disablePadding dense divider>
               {props.inactiveCoupons.map((coupon) => (
@@ -86,6 +81,9 @@ const styles = (theme) => ({
   },
   sectionTitle: {
     marginBottom: theme.spacing(1),
+  },
+  divider: {
+    marginBottom: theme.spacing(2),
   },
 });
 export default compose(

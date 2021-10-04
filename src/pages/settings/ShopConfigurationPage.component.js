@@ -12,6 +12,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
+import { Divider } from '@material-ui/core';
 import OrderConfigurationForm from '../../libs/order/components/OrderConfigurationForm.component';
 import DeliveryFeeTable from '../../libs/order/components/DeliveryFeeTable.component';
 import DeliveryFeeDialogForm from '../../libs/order/components/DeliveryFeeDialogForm.component';
@@ -68,9 +69,10 @@ export class OrderConfigrationPage extends Component<Props> {
     }
     return (
       <div className={classes.container}>
-        <Typography variant="h6" component="h3">
+        <Typography variant="h5" className={classes.sectionTitle}>
           {t('configuration.deliveryFee')}
         </Typography>
+        <Divider className={classes.divider} />
         <Paper className={classes.paper}>
           <div className={classes.paperInner}>
             <OrderConfigurationForm
@@ -123,6 +125,12 @@ const styles = (theme) => ({
   },
   paperInner: {
     padding: theme.spacing(2),
+  },
+  sectionTitle: {
+    marginBottom: theme.spacing(1),
+  },
+  divider: {
+    marginBottom: theme.spacing(2),
   },
 });
 

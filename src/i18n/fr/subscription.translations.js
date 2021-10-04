@@ -16,6 +16,7 @@ const {
 } = require('@bsport/common/lib/master-data/events');
 
 exports.default = {
+  search: 'Rechercher un contrat',
   seeMore: 'Voir plus',
   status: {
     hasStarted: 'En cours',

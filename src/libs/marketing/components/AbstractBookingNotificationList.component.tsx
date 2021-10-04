@@ -193,7 +193,7 @@ export class BookingNotificationList extends React.PureComponent<Props, State> {
 
     return (
       <>
-        <Typography variant="h4" className={classes.classTitle}>
+        <Typography variant="h5" className={classes.classTitle}>
           {label}
         </Typography>
         {!Object.entries(notifications).length && (

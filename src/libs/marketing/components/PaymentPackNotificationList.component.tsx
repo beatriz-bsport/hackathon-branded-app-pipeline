@@ -52,7 +52,7 @@ export class PaymentPackNotificationList extends React.PureComponent<
 
     return (
       <div>
-        <Typography className={classes.classTitle} variant="h4">
+        <Typography className={classes.classTitle} variant="h5">
           {t('notifications.groupTitle.paymentPack')}
         </Typography>
 

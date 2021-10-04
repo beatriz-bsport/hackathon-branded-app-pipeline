@@ -1,4 +1,5 @@
 exports.default = {
+  search: 'Rechercher un pack',
   pageTitle: {
     list: 'Packs',
   },

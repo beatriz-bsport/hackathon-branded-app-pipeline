@@ -1,4 +1,5 @@
 exports.default = {
+  search: 'Rechercher un rapport',
   subheader: {
     total: 'Total',
     average: 'Moyenne',

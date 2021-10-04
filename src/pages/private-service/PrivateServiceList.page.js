@@ -10,6 +10,10 @@ import AddIcon from '@material-ui/icons/Add';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { compose, withState, withStateHandlers, withHandlers } from 'recompose';
+import Paper from '@material-ui/core/Paper';
+import Collapse from '@material-ui/core/Collapse';
+import PrivateServiceListItem from '../../libs/private-service/components/service/PrivateServiceListItem.component.js';
+import FuzeSearch from '../../components/FuzeSearch.component';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
@@ -25,6 +29,7 @@ import {
   getPrivateServiceListByGroup,
   getPrivateServiceById,
   getPrivateServiceGroupList,
+  getAvailablePrivateServices,
 } from '../../libs/private-service/selectors/private-service';
 
 import { getAllEstablishmentsWithAssociatedId } from '../../libs/establishment/selectors';
@@ -90,11 +95,22 @@ type Props = {
 
   fetchMarketingNotificationList: (params: any) => void,
   allCoaches: Array<AssociatedCoach>,
+  availablePrivateServices: Array<PrivateService>,
+};
+
+type State = {
+  searchText: string,
+  searchResult: Array<AssociatedCoach>,
 };
 
 const PRIVATE_BOOKING_CREATION_NOTIFICATION = 1;
 
-export class PrivateServiceList extends React.Component<Props> {
+export class PrivateServiceList extends React.Component<Props, State> {
+  state = {
+    searchText: '',
+    searchResult: [],
+  };
+
   componentDidMount() {
     this.props.fetchAllPrivateServices();
     this.props.fetchPrivateServiceGroupList({ mine: true });
@@ -123,8 +139,22 @@ export class PrivateServiceList extends React.Component<Props> {
     });
   };
 
+  changeSearch = (fuse) => (ev) => {
+    this.setState({
+      searchText: ev.target.value,
+      searchResult: fuse.search(ev.target.value),
+    });
+  };
+
+  clearSearch = () => {
+    this.setState({ searchText: '', searchResult: [] });
+  };
+
+  trueifinclude = () => {};
+
   render() {
     const { classes, t, selectedPrivateService } = this.props;
+
     return (
       <div>
         {this.props.loading ? <LinearProgress /> : null}
@@ -137,9 +167,46 @@ export class PrivateServiceList extends React.Component<Props> {
             onCreate={() => this.props.setOpenCreateForm(true)}
           />
         ) : null}
-        <div className={classes.header}>
-          <div />
+
+        <div className={classes.search}>
+          <div className={classes.header}>
+            <FuzeSearch
+              searchText={this.state.searchText}
+              clearSearch={this.clearSearch}
+              changeSearch={this.changeSearch}
+              items={this.props.availablePrivateServices}
+              placeholder={t('search')}
+              searchFields={['name']}
+              searchResult={this.state.searchResult}
+            />
+          </div>
+
+          <Paper
+            className={
+              this.state.searchResult.length > 0 && this.state.searchText !== ''
+                ? classes.searchPaperDisplayed
+                : classes.searchPaperHiden
+            }
+          >
+            <Collapse
+              in={
+                this.state.searchResult.length > 0 &&
+                this.state.searchText !== ''
+              }
+            >
+              {this.state.searchResult.map((ps) => (
+                <PrivateServiceListItem
+                  key={ps.id}
+                  privateService={ps}
+                  onClick={this.props.goToPrivateService}
+                  onEdit={() => this.props.setOpenEditForm(ps)}
+                  onDelete={() => this.props.deletePrivateService(ps.id)}
+                />
+              ))}
+            </Collapse>
+          </Paper>
         </div>
+
         <PrivateServiceListWithGroup
           privateServiceAvailableByGroup={
             this.props.privateServiceAvailableByGroup
@@ -197,6 +264,11 @@ const styles = (theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  search: {
+    display: 'flex',
+    flexDirection: 'column',
+    marginBottom: theme.spacing(1),
+  },
   leftIcon: {
     marginRight: theme.spacing(1),
   },
@@ -243,6 +315,7 @@ export default compose(
       privateServiceAvailableWithoutGroup: withPrivateBookingNotification(
         getAvailablePrivateServicesWithoutGroup,
       )(state),
+      availablePrivateServices: getAvailablePrivateServices(state),
       serviceGroupList: getPrivateServiceGroupList(state),
       loading:
         state.privateService.privateService.loading ||

@@ -2358,6 +2358,7 @@
     }
   },
   "paymentCombo": {
+    "search": "Rechercher un pack",
     "pageTitle": { "list": "Packs" },
     "link": { "copied": "Lien copié", "copyLink": "Copier le lien vers la page de paiement" },
     "list": {
@@ -2932,6 +2933,8 @@
     }
   },
   "privateService": {
+    "search": "Rechercher un rendez-vous",
+    "searshAppointmentPass": "Rechercher une carte RDV",
     "marketplace": { "isEmpty": "Aucun RDV proposé" },
     "filters": {
       "all": "Toutes les cartes",
@@ -2990,7 +2993,7 @@
         "private_service": "Général"
       }
     },
-    "pageTitles": { "passList": "Cartes", "serviceList": "Sur rendez-vous", "calendar": "Calendrier" },
+    "pageTitles": { "passList": "Cartes de rendez-vous", "serviceList": "Sur rendez-vous", "calendar": "Calendrier" },
     "color": { "form": { "title": "Code couleur du professeur", "cancel": "Annuler", "submit": "Enregistrer" } },
     "payment": { "address": { "explain": "Entrez votre adresse pour le cours à domicile", "save": "Enregistrer" } },
     "privateSlot": {
@@ -3620,6 +3623,7 @@
     }
   },
   "reporting": {
+    "search": "Rechercher un rapport",
     "subheader": { "total": "Total", "average": "Moyenne" },
     "globalCategories": {
       "Club": "Club",
@@ -4970,6 +4974,7 @@
     }
   },
   "subscription": {
+    "search": "Rechercher un contrat",
     "seeMore": "Voir plus",
     "status": {
       "hasStarted": "En cours",

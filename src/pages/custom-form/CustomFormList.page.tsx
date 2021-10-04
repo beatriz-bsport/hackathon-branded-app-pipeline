@@ -234,7 +234,7 @@ export class CustomFormListPage extends React.Component<Props, State> {
                         ).length === 0
                       }
                     >
-                      <Typography variant="h5" component="h2">
+                      <Typography variant="h5">
                         {`${t('customForm.disabledCustomForm')} (${
                           (customFormList &&
                             customFormList.filter(

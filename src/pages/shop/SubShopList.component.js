@@ -104,7 +104,7 @@ export class SubShopList extends Component<Props, State> {
         alignItems="center"
       >
         <Grid item>
-          <Typography className={classes.title} variant="h4">
+          <Typography className={classes.title} variant="h5">
             {subShop.name}
           </Typography>
         </Grid>
@@ -182,8 +182,8 @@ const styles = (theme) => ({
     width: 64,
   },
   title: {
-    marginTop: theme.spacing(3),
     marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(2),
   },
   divider: {
     marginBottom: theme.spacing(3),

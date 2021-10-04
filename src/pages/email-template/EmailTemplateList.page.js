@@ -226,13 +226,10 @@ export class MarketingEmail extends Component<Props> {
             </Paper>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Typography
-              variant="h5"
-              component="h2"
-              className={classes.previewTitle}
-            >
+            <Typography variant="h5" className={classes.previewTitle}>
               {t('preview')}
             </Typography>
+
             {this.props.loading ? (
               <LinearProgress />
             ) : (
@@ -284,6 +281,9 @@ const styles = (theme) => ({
     borderColor: theme.primary_color,
     borderTop: '0px',
     boderBottom: '0px',
+  },
+  divider: {
+    marginBottom: theme.spacing(2),
   },
 });
 

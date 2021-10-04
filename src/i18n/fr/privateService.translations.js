@@ -1,4 +1,6 @@
 exports.default = {
+  search: 'Rechercher un rendez-vous',
+  searshAppointmentPass: 'Rechercher une carte RDV',
   marketplace: {
     isEmpty: 'Aucun RDV proposé',
   },
@@ -78,7 +80,7 @@ exports.default = {
     },
   },
   pageTitles: {
-    passList: 'Cartes',
+    passList: 'Cartes de rendez-vous',
     serviceList: 'Sur rendez-vous',
     calendar: 'Calendrier',
   },

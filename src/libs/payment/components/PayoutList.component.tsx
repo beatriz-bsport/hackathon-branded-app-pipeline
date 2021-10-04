@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { Divider } from '@material-ui/core';
 import { Payout } from '../types';
 import PayoutListItem from './PayoutListItem.component';
 
@@ -36,9 +37,11 @@ export const PayoutList = (props: Props) => {
 
   return (
     <div className={classes.container}>
-      <Typography variant="h4" className={classes.title}>
+      <Typography variant="h5" className={classes.title}>
         {t('payout.title')}
       </Typography>
+      <Divider className={classes.divider} />
+
       {!props.loading && !props.payoutList.length && (
         <div>
           <Typography variant="body2" color="textSecondary">
@@ -86,6 +89,9 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     marginBottom: theme.spacing(1),
+  },
+  divider: {
+    marginBottom: theme.spacing(2),
   },
   centeredButton: {
     display: 'flex',

@@ -4,7 +4,7 @@ import { compose, withHandlers } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/styles';
-import { Theme } from '@material-ui/core';
+import { Divider, Theme } from '@material-ui/core';
 import { TFunction } from 'i18next';
 import { push as pushRouter } from 'connected-react-router';
 
@@ -75,9 +75,10 @@ export class FormsConfiguration extends React.Component<Props> {
         )}
         <div className={classes.customFormSection}>
           <div className={classes.header}>
-            <Typopagraphy variant="h5">
+            <Typopagraphy className={classes.sectionTitle} variant="h5">
               {t('signUpForm.additionalCustomForm')}
             </Typopagraphy>
+            <Divider className={classes.divider} />
           </div>
           <Paper>
             <CustomFormList
@@ -93,6 +94,12 @@ export class FormsConfiguration extends React.Component<Props> {
 }
 
 const styles = (theme: Theme) => ({
+  sectionTitle: {
+    marginBottom: theme.spacing(1),
+  },
+  divider: {
+    marginBottom: theme.spacing(2),
+  },
   container: {
     padding: theme.spacing(2),
   },

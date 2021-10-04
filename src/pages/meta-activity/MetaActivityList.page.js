@@ -201,7 +201,6 @@ export class MetaActivityListPage extends React.Component<Props, State> {
             >
               <Typography
                 variant="h5"
-                component="h2"
                 className={this.props.classes.titleContainer}
               >
                 {`${t('metaActivity:disabledMetaActivities')} (${

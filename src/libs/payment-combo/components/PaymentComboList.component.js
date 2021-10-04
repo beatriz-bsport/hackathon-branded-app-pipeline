@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
+import { Divider } from '@material-ui/core';
 import PaymentComboListItem from './PaymentComboListItem.component';
 
 type Props = {
@@ -32,6 +33,7 @@ export const PaymentComboList = (props: Props) => {
           <Typography variant="h5" className={props.classes.sectionTitle}>
             {props.t('list.section.availableOnline')}
           </Typography>
+          <Divider className={props.classes.divider} />
           <Paper>
             <List disablePadding>
               {props.paymentComboListAvailableOnline.map((pc) => (
@@ -53,6 +55,7 @@ export const PaymentComboList = (props: Props) => {
           <Typography variant="h5" className={props.classes.sectionTitle}>
             {props.t('list.section.unavailableOnline')}
           </Typography>
+          <Divider className={props.classes.divider} />
           <Paper>
             <List disablePadding>
               {props.paymentComboListUnavailableOnline.map((pc) => (
@@ -76,6 +79,9 @@ export const PaymentComboList = (props: Props) => {
 const styles = (theme) => ({
   sectionTitle: {
     marginBottom: theme.spacing(1),
+  },
+  divider: {
+    marginBottom: theme.spacing(2),
   },
   explainIfEmpty: {
     marginTop: theme.spacing(3),

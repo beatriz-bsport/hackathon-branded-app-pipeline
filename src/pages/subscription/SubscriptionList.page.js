@@ -91,7 +91,7 @@ export class SubscriptionList extends React.Component<Props> {
             </Paper>
           </Grid>
         </Grid>
-        <Typography className={this.props.classes.sectionTitle} variant="h4">
+        <Typography className={this.props.classes.sectionTitle} variant="h5">
           {this.props.t('subscription.list.title')}
         </Typography>
         <Divider className={this.props.classes.divider} />

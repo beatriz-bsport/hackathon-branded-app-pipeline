@@ -12,6 +12,7 @@ import type { TFunction } from 'react-i18next';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
 
+import { Divider } from '@material-ui/core';
 import {
   fetchEventTypeList,
   fetchNotificationRuleList,
@@ -104,9 +105,10 @@ export class NotificationRule extends React.Component<Props> {
         {Object.entries(this.props.eventListWithRule).map(
           ([event_group_name, eventTypeList]) => (
             <div className={this.props.classes.group} key={event_group_name}>
-              <Typography variant="h6" className={this.props.classes.title}>
+              <Typography variant="h5" className={this.props.classes.title}>
                 {this.props.t(`ruleGroup.${event_group_name}`)}
               </Typography>
+              <Divider className={this.props.classes.divider} />
               <div className={this.props.classes.row}>
                 <Typography
                   variant="caption"
@@ -172,9 +174,10 @@ export class NotificationRule extends React.Component<Props> {
         )}
         {!this.props.loading && (
           <div className={this.props.classes.group} key="marketing">
-            <Typography variant="h6" className={this.props.classes.title}>
+            <Typography variant="h5" className={this.props.classes.title}>
               {this.props.t('ruleGroup.marketing')}
             </Typography>
+            <Divider className={this.props.classes.divider} />
             <div className={this.props.classes.row}>
               <div className={this.props.classes.rightContainer}>
                 <Typography
@@ -229,6 +232,9 @@ export class NotificationRule extends React.Component<Props> {
 }
 
 const styles = (theme) => ({
+  divider: {
+    marginBottom: theme.spacing(2),
+  },
   container: {
     marginBottom: '30vh',
   },
@@ -268,6 +274,7 @@ const styles = (theme) => ({
   },
   title: {
     paddingBottom: theme.spacing(2),
+    paddingTop: theme.spacing(2),
   },
 });
 

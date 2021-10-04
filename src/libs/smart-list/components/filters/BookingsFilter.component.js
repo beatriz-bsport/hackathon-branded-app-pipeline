@@ -8,16 +8,16 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-
 import Switch from '@material-ui/core/Switch';
 import moment from 'moment-timezone';
 import TextField from '@material-ui/core/TextField';
-
+import ListItemText from '@material-ui/core/ListItemText';
 import {
   DURATION_COMPARATORS_DICT_BETWEEN,
   BETWEEN_COMPARATOR,
 } from '@bsport/common/lib/master-data/smart-list';
-
+import LEVELS from '@bsport/common/lib/master-data/levels';
+import CheckboxSelector from '../CheckboxSelector.component';
 import PaymentPackListItem from '../../../payment-packs/components/PaymentPackListItem.component';
 
 import MetaActivityListItem from '../../../meta-activity/components/MetaActivityListItem.component';
@@ -495,6 +495,46 @@ export class BookingsNumberFilter extends Component<Props, state> {
         </div>
         <div className={classes.inlineContainer}>
           <Switch
+            checked={filter_data.level_filter_active}
+            onChange={() =>
+              onChange({
+                level_filter_active: !filter_data.level_filter_active,
+              })
+            }
+            value="checkedA"
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
+          />
+          <div
+            className={
+              filter_data.level_filter_active
+                ? classes.inlineContainer
+                : classes.disabled
+            }
+          >
+            <div className={classes.levelTypo}>
+              {this.props.t(
+                `filters.${filter_data.filter_identifier}.level.first`,
+              )}
+            </div>
+            <CheckboxSelector
+              items={LEVELS}
+              renderItem={(item) => <ListItemText primary={item.text} />}
+              onChange={(item) => {
+                onChange({ level: item });
+              }}
+              selectedItems={filter_data.level}
+              labelName="text"
+              helperText={t('multiSelector.level.select')}
+            />
+            {this.props.renderSelectorWarning(
+              t('multiSelector.level.warning'),
+              filter_data.level_filter_active,
+              filter_data.level,
+            )}
+          </div>
+        </div>
+        <div className={classes.inlineContainer}>
+          <Switch
             checked={filter_data.date_filter_active}
             onChange={() =>
               onChange({
@@ -609,6 +649,7 @@ const styles = (theme) => ({
     alignItems: 'center',
     flexWrap: 'wrap',
   },
+  levelTypo: { marginRight: theme.spacing(1) },
 });
 
 export default compose(

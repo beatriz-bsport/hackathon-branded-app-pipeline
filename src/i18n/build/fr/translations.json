@@ -4576,52 +4576,60 @@
       "selectAll": "Tout sélectionner",
       "selectNothing": "Tout désélectionner",
       "paymentPacks": {
-        "helperText": "selectionner des cartes de cours",
+        "helperText": "sélectionner des cartes de cours",
         "helperSelectedText": "cartes de cours sélectionnées",
         "textFieldPlaceholder": "Rechercher une carte de cours",
         "helperAllSelectedText": "toutes les cartes de cours",
         "warning": "Sélectionnez au moins une carte de cours"
       },
       "privatePass": {
-        "helperText": "selectionner des cartes RDV",
+        "helperText": "sélectionner des cartes RDV",
         "helperSelectedText": "cartes de RDV sélectionnées",
         "textFieldPlaceholder": "Rechercher une carte RDV",
         "helperAllSelectedText": "toutes les cartes RDV",
         "warning": "Sélectionnez au moins une carte RDV"
       },
       "buyables": {
-        "helperText": "selectionner des catégories",
+        "helperText": "sélectionner des catégories",
         "helperSelectedText": "catégories sélectionnées",
         "textFieldPlaceholder": "Rechercher une catégorie de produit",
         "helperAllSelectedText": "tous les produits"
       },
       "metaActivities": {
-        "helperText": "selectionner des activités",
+        "helperText": "sélectionner des activités",
         "helperSelectedText": "activités sélectionnées",
         "textFieldPlaceholder": "Rechercher une activité",
         "helperAllSelectedText": "toutes les activités",
         "warning": "Sélectionnez au moins une activité"
       },
       "establishments": {
-        "helperText": "selectionner des salles",
+        "helperText": "sélectionner des salles",
         "helperSelectedText": "salles sélectionnées",
         "textFieldPlaceholder": "Rechercher une salle",
         "helperAllSelectedText": "toutes les salles",
         "warning": "Sélectionnez au moins une salle"
       },
       "coaches": {
-        "helperText": "selectionner des professeurs",
+        "helperText": "sélectionner des professeurs",
         "helperSelectedText": "professeurs sélectionnées",
         "textFieldPlaceholder": "Rechercher un professeur",
         "helperAllSelectedText": "tous les professeurs",
         "warning": "Sélectionnez au moins un professeur"
       },
       "privateServices": {
-        "helperText": "selectionner des rendez-vous",
+        "helperText": "sélectionner des rendez-vous",
         "helperSelectedText": "rendez-vous sélectionnées",
         "textFieldPlaceholder": "Rechercher un rendez-vous",
         "helperAllSelectedText": "tous les rendez-vous",
         "warning": "Sélectionnez au moins un rendez-vous"
+      },
+      "level": {
+        "allLevels": "tout niveaux",
+        "beginner": "débutant",
+        "intermediate": "intermédiaire",
+        "advanced": "avancé",
+        "select": "sélectionner un niveau",
+        "warning": "Sélectionnez au moins un niveau"
       }
     },
     "noSmartLists": "Utilisez les smartlists afin de filtrer, analyser, et mieux connaitre vos membres.",
@@ -4744,7 +4752,8 @@
         "coach": { "first": "avec les professeurs" },
         "date": { "first": "la date de la séance est" },
         "hour": { "first": "l'heure de début la séance est comprise entre", "second": "heures et", "third": "heures" },
-        "attendance": "avec le statut"
+        "attendance": "avec le statut",
+        "level": { "first": "de niveau " }
       },
       "22": {
         "name": "Nombre de réservations",
@@ -4758,7 +4767,8 @@
         "coach": { "first": "avec les professeurs" },
         "date": { "first": "ayant lieu" },
         "hour": { "first": "débutant entre", "second": "heures et", "third": "heures" },
-        "attendance": "avec le statut"
+        "attendance": "avec le statut",
+        "level": { "first": "de niveau" }
       },
       "23": { "name": "Première réservation", "explanation": "A réservé sa première séance le..." },
       "24": {

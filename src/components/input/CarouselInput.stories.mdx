@@ -1,0 +1,84 @@
+import { Meta, Canvas, Story } from '@storybook/addon-docs';
+import CarouselInput from './CarouselInput.component';
+import { action } from '@storybook/addon-actions';
+
+
+<Meta 
+    title="Library/Components/Input/CarouselInput"
+    component={CarouselInput}
+    argTypes={{
+    }}
+/>
+
+export const actionsData = {
+    onClick: action('onClick')
+};
+
+export const Template = (args) => <CarouselInput {...args} />;
+
+export const images =[
+  'https://assets.staging.bsport.io/activity/boxethai.jpg',
+  'https://assets.staging.bsport.io/activity/ladyboxing.jpg',
+  'https://assets.staging.bsport.io/activity/boxefitness.jpg',
+  'https://assets.staging.bsport.io/activity/multiboxealterne.jpeg',
+  'https://assets.staging.bsport.io/activity/kickboxing.jpg',
+  'https://assets.staging.bsport.io/activity/Image_Boxe_Anglise.jpg',
+  'https://assets.staging.bsport.io/activity/Boxe_Francaise.jpg',
+];
+
+#SELECT AN IMAGE
+
+<Canvas>
+    <Story
+    name="select-image"
+    args={{
+        imagesArr: images,
+        selectedImage: null,
+        onClick: actionsData.onClick,
+    }}>
+    {Template.bind({})}
+    </Story>
+</Canvas>
+
+#SELECT AN IMAGE - MANAGER VIEW
+
+<Canvas>
+    <Story
+    name="select-image-manager-view"
+    args={{
+        imagesArr: images,
+        selectedImage: null,
+        onClick: actionsData.onClick,
+        isManager: true,
+    }}>
+    {Template.bind({})}
+    </Story>
+</Canvas>
+
+#CAROUSEL WITH A SELECTED IMAGE
+
+<Canvas>
+    <Story
+    name="selected-image"
+    args={{
+        imagesArr: images,
+        selectedImage: 2,
+        onClick: actionsData.onClick,
+    }}>
+    {Template.bind({})}
+    </Story>
+</Canvas>
+
+#CAROUSEL WITH ONLY ONE IMAGE
+
+<Canvas>
+    <Story
+    name="select-one-image"
+    args={{
+        imagesArr: [images[5]],
+        selectedImage: null,
+        onClick: actionsData.onClick,
+    }}>
+    {Template.bind({})}
+    </Story>
+</Canvas>

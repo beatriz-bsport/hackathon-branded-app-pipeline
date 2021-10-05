@@ -85,9 +85,9 @@ export class PaymentPackFilter extends Component<Props, state> {
             className={classes.input}
             required
             value={filter_data.has_pack}
-            onChange={(ev) => onChange({ has_pack: ev.target.value })}
+            onChange={(ev) => onChange({ has_pack: !!ev.target.value })}
           >
-            <MenuItem>
+            <MenuItem key="true" value="true">
               {t(`filters.${filter_data.filter_identifier}.has`)}
             </MenuItem>
             <MenuItem key={false} value={false}>

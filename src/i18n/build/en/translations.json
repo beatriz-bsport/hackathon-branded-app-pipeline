@@ -7381,7 +7381,7 @@
         "bookingModule": {
             "section": {
                 "consumerPacks": "My pass",
-                "contracts": "Subscription",
+                "contracts": "Subscriptions",
                 "paymentPacks": "Obtain a pass",
                 "paymentCombos": "Special offers",
                 "contract": "Sign up"

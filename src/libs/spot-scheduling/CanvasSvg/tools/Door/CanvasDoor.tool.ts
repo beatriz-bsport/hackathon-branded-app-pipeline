@@ -1,10 +1,12 @@
 import CanvasAbstractTool, {
+  CanvasElement,
   CanvasSvgMouseParamsI,
 } from '../BaseClasses/Base.tool';
 import { CANVAS_SELECTABLE_TOOLS } from '../CanvasStrategy';
 
 import { CanvasDoorProps } from './CanvasDoor.component';
 import DoorDOMController from './CanvasDoor.controller';
+import { CanvasTeacherProps } from '../Teacher/CanvasTeacher.component';
 
 export default class CanvasDoorTool extends CanvasAbstractTool<CanvasDoorProps> {
   type = CANVAS_SELECTABLE_TOOLS.door;
@@ -47,5 +49,19 @@ export default class CanvasDoorTool extends CanvasAbstractTool<CanvasDoorProps> 
 
   renderCursor: () => null = () => {
     return null;
+  };
+
+  getBoundaries = (element: CanvasElement<CanvasTeacherProps>) => {
+    const minX = element.data.x;
+    const minY = element.data.y;
+    const maxX = minX + 40;
+    const maxY = minY + 40;
+
+    return {
+      minX,
+      minY,
+      maxX,
+      maxY,
+    };
   };
 }

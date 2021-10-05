@@ -33,6 +33,7 @@ interface Props {
 interface State {
   width: number;
   height: number;
+  max_scale: number;
 }
 
 export default class CanvasSvg extends React.PureComponent<Props, State> {
@@ -67,11 +68,36 @@ export default class CanvasSvg extends React.PureComponent<Props, State> {
     this.state = {
       width: 400,
       height: 400,
+      max_scale: 2.5,
     };
 
     CanvasSvg.instanceCount += 1;
     this.svgId = `svg-canvas-${CanvasSvg.instanceCount}`;
     this.svgContainerId = `svg-canvas-container-${CanvasSvg.instanceCount}`;
+  }
+
+  centerOffsets = (width: number, height: number, scale: number) => {
+    this.scale = scale;
+    this.offsetX = (SVG_WORK_SIZE - width * this.scale) / 2;
+    this.offsetY = (SVG_WORK_SIZE - height * this.scale) / 2;
+  };
+
+  limitOffsets() {
+    if (this.offsetX < -SVG_WORK_SIZE) {
+      this.offsetX = -SVG_WORK_SIZE;
+    }
+
+    if (this.offsetY > SVG_WORK_SIZE) {
+      this.offsetY = -SVG_WORK_SIZE;
+    }
+
+    if (this.offsetX > SVG_WORK_SIZE) {
+      this.offsetX = SVG_WORK_SIZE;
+    }
+
+    if (this.offsetY > SVG_WORK_SIZE) {
+      this.offsetY = SVG_WORK_SIZE;
+    }
   }
 
   get viewBox() {
@@ -112,9 +138,6 @@ export default class CanvasSvg extends React.PureComponent<Props, State> {
     const position = element.getBoundingClientRect();
     let { width, height } = position;
 
-    this.offsetX = minX;
-    this.offsetY = minY;
-
     const Xdiff = maxX - minX;
     const Ydiff = maxY - minY;
 
@@ -147,19 +170,15 @@ export default class CanvasSvg extends React.PureComponent<Props, State> {
   zoomIn = () => {
     let scale = this.scale;
     scale -= 0.1;
-    scale = Math.min(Math.max(0.7, scale), 1.5);
+    scale = Math.min(Math.max(0.7, scale), this.state.max_scale);
     this.setScale(scale);
-    this.scale = scale;
-    this.svg.setAttribute('viewBox', this.viewBox);
   };
 
   zoomOut = () => {
     let scale = this.scale;
     scale += 0.1;
-    scale = Math.min(Math.max(0.7, scale), 2.5);
+    scale = Math.min(Math.max(0.7, scale), this.state.max_scale);
     this.setScale(scale);
-    this.scale = scale;
-    this.svg.setAttribute('viewBox', this.viewBox);
   };
 
   setScale = (scale: number) => {
@@ -172,17 +191,13 @@ export default class CanvasSvg extends React.PureComponent<Props, State> {
     const diffW = newW - currentW;
     const diffH = newH - currentH;
 
+    if (scale !== this.scale) {
+      this.offsetX -= diffW / 2;
+      this.offsetY -= diffH / 2;
+    }
     this.scale = scale;
-    this.offsetX -= diffW;
-    this.offsetY -= diffH;
 
-    if (this.offsetX < -500) {
-      this.offsetX = -500;
-    }
-
-    if (this.offsetY < -500) {
-      this.offsetY = -500;
-    }
+    this.limitOffsets();
 
     this.svg.setAttribute('viewBox', this.viewBox);
   };
@@ -192,7 +207,7 @@ export default class CanvasSvg extends React.PureComponent<Props, State> {
       event.preventDefault();
       let scale = this.scale;
       scale += event.deltaY * +0.01;
-      scale = Math.min(Math.max(0.7, scale), 1.5);
+      scale = Math.min(Math.max(0.7, scale), this.state.max_scale);
       this.setScale(scale);
       this.lastWheelEventTimestamp = Date.now();
     }
@@ -202,7 +217,12 @@ export default class CanvasSvg extends React.PureComponent<Props, State> {
     const element = document.getElementById(this.svgContainerId);
     const position = element.getBoundingClientRect();
     const { width, height } = position;
-    this.setState({ width, height });
+    const max_scale =
+      width > height
+        ? (SVG_WORK_SIZE * 1.01) / height
+        : (SVG_WORK_SIZE * 1.01) / width;
+    this.setState({ width, height, max_scale });
+    this.centerOffsets(width, height, max_scale);
   };
 
   multipleOf = (x: number, k: number = 5) => {
@@ -264,26 +284,13 @@ export default class CanvasSvg extends React.PureComponent<Props, State> {
       const xDiff = absoluteX - this.initialDrag.x;
       const yDiff = absoluteY - this.initialDrag.y;
 
-      let offsetX = this.initialDrag.offsetX - xDiff;
-      let offsetY = this.initialDrag.offsetY - yDiff;
-
-      if (offsetX < -500) {
-        offsetX = -500;
-      }
-      if (offsetX > SVG_WORK_SIZE - this.state.width * this.scale + 500) {
-        offsetX = SVG_WORK_SIZE - this.state.width * this.scale + 500;
-      }
-
-      if (offsetY < -500) {
-        offsetY = -500;
-      }
-
-      if (offsetY > SVG_WORK_SIZE - this.state.height * this.scale + 500) {
-        offsetY = SVG_WORK_SIZE - this.state.height * this.scale + 500;
-      }
+      const offsetX = this.initialDrag.offsetX - xDiff;
+      const offsetY = this.initialDrag.offsetY - yDiff;
 
       this.offsetX = offsetX;
       this.offsetY = offsetY;
+
+      this.limitOffsets();
 
       this.svg.setAttribute('viewBox', this.viewBox);
     }

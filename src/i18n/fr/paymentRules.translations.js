@@ -1,6 +1,7 @@
 // @flow
 
 exports.default = {
+  simulate: 'Simuler',
   search: 'Chercher une régle de rémunération (facultatif)',
   pageTitle: 'Règles de rémunération',
   rules: 'Règles',
@@ -163,6 +164,9 @@ exports.default = {
       total_payment: 'Paiement final',
       student_attended: 'Elève présent',
       student_did_not_attend: 'Elève absent',
+      numberOfStudent: "Nombre d'élèves",
+      numberOfCancellations: "Nombre d'absences ou d'annulations hors délai",
+      marginalValueOfReservation: "Valeur marginale d'une réservation",
     },
   },
   coach_payment_rule_groups: {

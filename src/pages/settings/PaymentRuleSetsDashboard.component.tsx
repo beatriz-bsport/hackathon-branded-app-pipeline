@@ -35,7 +35,7 @@ import { fetchAssociatedCoachBulk } from '../../libs/associated-coach/actions';
 import CoachPaymentRuleFormDialog from '../../libs/coach-payment-rules/components/CoachPaymentRuleFormDialog.component';
 import CoachPaymentRuleGroupFormDialog from '../../libs/coach-payment-rules/components/CoachPaymentRuleGroupFormDialog.component';
 import CoachPaymentRuleTabs from '../../libs/coach-payment-rules/components/CoachPaymentRuleTabs.components';
-import CoachPaymentRuleSimulationDialog from '../../libs/coach-payment-rules/components/CoachPaymentRuleSimulationDialog.component.js';
+import CoachPaymentRuleSimulationDialog from '../../libs/coach-payment-rules/components/CoachPaymentRuleSimulationDialog.component';
 import type {
   CoachPaymentRule,
   CoachPaymentRuleGroup,

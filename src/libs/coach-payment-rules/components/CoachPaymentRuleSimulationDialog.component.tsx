@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { compose } from 'recompose';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { WithTranslation, withTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { COACH_PAYMENT_RULE_FOR_SESSION } from '@bsport/common/lib/master-data/coach_payment_rule';
 import Dialog from '@material-ui/core/Dialog';
@@ -17,21 +16,40 @@ import ClearIcon from '@material-ui/icons/Clear';
 import Grid from '@material-ui/core/Grid';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
+import { Theme, useTheme } from '@material-ui/core';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { getCurrencyDisplay } from '../../theme/selectors';
 import type { CoachPaymentRule } from '../types';
 import Figure from '../../../components/graph/Figure.component';
+import { MaterialStyleType } from '../../../utils/types';
 
-type Props = {
-  classes: Objects<any>,
-  t: TFunction,
-  open: Boolean,
-  handleCloseSimulation: () => void,
-  isSubmitting: Boolean,
-  coachPaymentRule: CoachPaymentRule,
-  onSubmit: (id: number, params: any) => void,
-  simulationResult: any,
-  handlePrevious: (coachPaymentRule: coachPaymentRule) => void,
+type OwnProps = {
+  open: boolean;
+  handleCloseSimulation: () => void;
+  isSubmitting: boolean;
+  coachPaymentRule: CoachPaymentRule;
+  onSubmit: (id: number, params: any) => void;
+  simulationResult: any;
+  handlePrevious: (coachPaymentRule: CoachPaymentRule) => void;
 };
+
+type Props = OwnProps &
+  MaterialStyleType<ReturnType<typeof styles>> &
+  WithTranslation;
+
+type FieldsState =
+  | {
+      confirmed_bookings: number;
+      cancelled_bookings: number;
+      margin_value: number;
+      student_was_here?: boolean;
+    }
+  | {
+      student_was_here: boolean;
+      margin_value: number;
+      confirmed_bookings?: number;
+      cancelled_bookings?: number;
+    };
 
 export const CoachPaymentRuleSimulationDialog = (props: Props) => {
   const {
@@ -44,7 +62,7 @@ export const CoachPaymentRuleSimulationDialog = (props: Props) => {
     classes,
     coachPaymentRule,
   } = props;
-  const initialFieldsState =
+  const initialFieldsState: FieldsState =
     coachPaymentRule.kind === COACH_PAYMENT_RULE_FOR_SESSION
       ? {
           confirmed_bookings: 0,
@@ -56,10 +74,14 @@ export const CoachPaymentRuleSimulationDialog = (props: Props) => {
           margin_value: 0,
         };
   const [simulationParams, setSimulationParams] = useState(initialFieldsState);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <Dialog
       fullWidth
-      maxWidth="md"
+      maxWidth="sm"
+      fullScreen={fullScreen}
       open={open}
       onClose={handleCloseSimulation}
       disableBackdropClick
@@ -96,14 +118,7 @@ export const CoachPaymentRuleSimulationDialog = (props: Props) => {
                   startAdornment: (
                     <InputAdornment position="start">
                       <Typography>
-                        {t('coach_payment_rules.Simulator.for')}
-                      </Typography>
-                    </InputAdornment>
-                  ),
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <Typography>
-                        {t('coach_payment_rules.Simulator.students')}
+                        {t('coach_payment_rules.Simulator.numberOfStudent')}
                       </Typography>
                     </InputAdornment>
                   ),
@@ -130,14 +145,9 @@ export const CoachPaymentRuleSimulationDialog = (props: Props) => {
                   startAdornment: (
                     <InputAdornment position="start">
                       <Typography>
-                        {t('coach_payment_rules.Simulator.and')}
-                      </Typography>
-                    </InputAdornment>
-                  ),
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <Typography>
-                        {t('coach_payment_rules.Simulator.cancellations')}
+                        {t(
+                          'coach_payment_rules.Simulator.numberOfCancellations',
+                        )}
                       </Typography>
                     </InputAdornment>
                   ),
@@ -165,15 +175,8 @@ export const CoachPaymentRuleSimulationDialog = (props: Props) => {
                     <InputAdornment position="start">
                       <Typography>
                         {`${t(
-                          'coach_payment_rules.Simulator.which',
-                        )} ${getCurrencyDisplay()}`}
-                      </Typography>
-                    </InputAdornment>
-                  ),
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <Typography>
-                        {t('coach_payment_rules.Simulator.forEachBooking')}
+                          'coach_payment_rules.Simulator.marginalValueOfReservation',
+                        )} (${getCurrencyDisplay()})`}
                       </Typography>
                     </InputAdornment>
                   ),
@@ -239,25 +242,18 @@ export const CoachPaymentRuleSimulationDialog = (props: Props) => {
               />
             </div>
           )}
-          <div className={classes.resultSide}>
-            <div className={classes.resultTitle}>
-              <Typography variant="subtitle2">
-                {t('coach_payment_rules.Simulator.resultTitle')}
-              </Typography>
-            </div>
-            <div className={classes.result}>
-              {props.simulationResult &&
-                props.simulationResult[props.coachPaymentRule.id] && (
-                  <Grid
-                    container
-                    spacing={2}
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <Grid item xs={6}>
+
+          <div className={classes.result}>
+            {props.simulationResult &&
+              props.simulationResult[props.coachPaymentRule.id] && (
+                <div>
+                  <div className={classes.resultTitle}>
+                    <Typography variant="subtitle2">
+                      {t('coach_payment_rules.Simulator.resultTitle')}
+                    </Typography>
+                  </div>
+                  <Grid container spacing={2} className={classes.gridContainer}>
+                    <Grid item xs={12}>
                       <Figure
                         name={t('coach_payment_rules.Simulator.total_payment')}
                         count={`${getCurrencyDisplay()}
@@ -269,8 +265,8 @@ export const CoachPaymentRuleSimulationDialog = (props: Props) => {
                       />
                     </Grid>
                   </Grid>
-                )}
-            </div>
+                </div>
+              )}
           </div>
         </div>
       </DialogContent>
@@ -308,17 +304,19 @@ export const CoachPaymentRuleSimulationDialog = (props: Props) => {
   );
 };
 
-const styles = (theme) => ({
+const styles = (theme: Theme) => ({
   dialogContent: {
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
   dialogActions: {
     display: 'flex',
     justifyContent: 'space-between',
+    paddingTop: theme.spacing(3),
   },
   dialogFields: {
-    width: '40%',
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -328,15 +326,15 @@ const styles = (theme) => ({
   field: {
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
-  },
-  resultSide: {
-    width: '50%',
-    justifyContent: 'center',
+    display: 'flex',
+    flexWrap: 'wrap',
   },
   resultTitle: {
     display: 'flex',
     margin: 'auto',
     justifyContent: 'center',
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
   result: {
     height: '80%',
@@ -344,9 +342,14 @@ const styles = (theme) => ({
     justifyContent: 'center',
     margin: '10',
   },
+  gridContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
-export default compose(
+export default compose<any, Props>(
   withStyles(styles),
   withTranslation(['paymentRules']),
 )(CoachPaymentRuleSimulationDialog);

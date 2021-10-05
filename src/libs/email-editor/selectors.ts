@@ -22,3 +22,6 @@ export const getFreshEmailTemplateSummariesIds = createSelector(
   getAllEmailTemplatesSummaries,
   (sl) => sl.map((list) => list.id),
 );
+
+export const getFranchisorSavedFilter = (state: RootState) =>
+  state.emailTemplate.savedFilter.filters;

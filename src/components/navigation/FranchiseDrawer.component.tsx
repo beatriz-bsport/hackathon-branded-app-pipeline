@@ -40,9 +40,12 @@ import {
   VpnKey,
   PowerSettingsNew,
 } from '@material-ui/icons';
+import Email from '@material-ui/icons/Email';
 import Settings from '@material-ui/icons/Settings';
 
 import { colors } from '@bsport/common/lib/colors';
+
+import { DrawerContext, DrawerContextValue } from '../../context';
 import { openIntercomHelp } from '../../intercom';
 import TempPasswordDialog from '../../libs/login/components/TempPasswordDialog.component';
 import LanguageButton from '../button/LanguageButton.component';
@@ -57,7 +60,7 @@ const MOBILE_SCREEN_SIZE = 960;
 type NavigationItem =
   | 'divider'
   | {
-      to: string;
+      to?: string;
       text: string;
       subtext?: string;
       type?: string;
@@ -284,10 +287,14 @@ export const FranchiseDrawer = (props: Props) => {
     setTempPasswordDialogOpen(false);
   };
 
-  const renderAppBar = () => {
+  const renderAppBar = (displayLeftMenu: boolean) => {
     return (
       <AppBar
-        className={isMobileDevice ? classes.appBarFullWidth : classes.appBar}
+        className={
+          isMobileDevice || !displayLeftMenu
+            ? classes.appBarFullWidth
+            : classes.appBar
+        }
         color="inherit"
       >
         <Toolbar>
@@ -382,49 +389,61 @@ export const FranchiseDrawer = (props: Props) => {
   );
 
   return (
-    <div className={isMobileDevice ? classes.rootFullWidth : classes.root}>
-      {renderAppBar()}
-      <div>
-        <Hidden mdUp>
-          <Drawer
-            variant="temporary"
-            anchor="left"
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-        <Hidden smDown implementation="css">
-          <Drawer
-            variant="permanent"
-            open
-            anchor="left"
-            elevation={20}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-      </div>
-      <TempPasswordDialog
-        generateTempPassword={generateTempPassword}
-        tempPassword={tempPasswordState.password}
-        loading={tempPasswordState.loading}
-        tempPasswordExpirationDate={tempPasswordState.expiration_date}
-        onClose={closeTempPasswordDialog}
-        open={tempPasswordDialogOpen}
-      />
-      <main className={classes.content}>{children}</main>
-    </div>
+    <DrawerContext.Consumer>
+      {({ displayLeftMenu }: DrawerContextValue) => (
+        <div
+          className={
+            isMobileDevice || !displayLeftMenu
+              ? classes.rootFullWidth
+              : classes.root
+          }
+        >
+          {renderAppBar(displayLeftMenu)}
+          {displayLeftMenu && (
+            <div>
+              <Hidden mdUp>
+                <Drawer
+                  variant="temporary"
+                  anchor="left"
+                  open={mobileOpen}
+                  onClose={handleDrawerToggle}
+                  classes={{
+                    paper: classes.drawerPaper,
+                  }}
+                  ModalProps={{
+                    keepMounted: true, // Better open performance on mobile.
+                  }}
+                >
+                  {drawer}
+                </Drawer>
+              </Hidden>
+              <Hidden smDown implementation="css">
+                <Drawer
+                  variant="permanent"
+                  open
+                  anchor="left"
+                  elevation={20}
+                  classes={{
+                    paper: classes.drawerPaper,
+                  }}
+                >
+                  {drawer}
+                </Drawer>
+              </Hidden>
+            </div>
+          )}
+          <TempPasswordDialog
+            generateTempPassword={generateTempPassword}
+            tempPassword={tempPasswordState.password}
+            loading={tempPasswordState.loading}
+            tempPasswordExpirationDate={tempPasswordState.expiration_date}
+            onClose={closeTempPasswordDialog}
+            open={tempPasswordDialogOpen}
+          />
+          <main className={classes.content}>{children}</main>
+        </div>
+      )}
+    </DrawerContext.Consumer>
   );
 };
 
@@ -444,6 +463,19 @@ const getNavigationItems = (props: {
       to: '/f/members',
       text: 'franchiseMenu.members',
       icon: Group,
+    },
+    {
+      icon: Email,
+      text: 'backofficeMenu.message',
+      type: 'nested',
+      nestedItems: [
+        'divider',
+        {
+          to: '/f/email-template',
+          icon: Email,
+          text: 'backofficeMenu.email_template',
+        },
+      ],
     },
     'divider',
     {
@@ -607,7 +639,7 @@ const styles = (theme: Theme) =>
     },
   });
 
-export default compose(
+export default compose<any, OwnProps>(
   withTranslation(['navigation']),
   withStyles(styles, { withTheme: true }),
   windowTitleToProps,

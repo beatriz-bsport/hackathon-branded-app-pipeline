@@ -11,9 +11,6 @@ import List from '@material-ui/core/List';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import InfoIcon from '@material-ui/icons/Info';
-import Typography from '@material-ui/core/Typography';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import Collapse from '@material-ui/core/Collapse';
 
 import FuzeSearch from '../../components/FuzeSearch.component';
@@ -26,6 +23,8 @@ import {
   getAllEmailTemplatesSummaries,
 } from '../../libs/email-editor/selectors';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
+import EmailPreview from '../../libs/email-editor/components/EmailPreview.components';
+import EmailListItem from '../../libs/email-editor/components/EmailListItem.components';
 
 import withTitle from '../../hocs/with-title.hoc';
 
@@ -33,17 +32,20 @@ import {
   emailTemplatesSummaries,
   emailTemplateDetail,
   emailTemplateDelete,
-  emailDesignCreate,
+  emailTemplateDuplicate,
 } from '../../libs/email-editor/actions';
-import EmailCard from '../../libs/email-editor/components/EmailTemplateListItem.component';
 
 type Props = {
   goToEdit: (id: number) => void,
   emailTemplateDelete: (id: number) => void,
   emailTemplateDetail: (id: number) => void,
+  emailTemplateDuplicate: (props: {
+    id: number,
+    copyTranslation: string,
+    options: OptionCallback<number>,
+  }) => void,
   emailTemplatesSummaries: () => void,
   email_templates_details: any,
-  emailDesignCreate: (any) => void,
   goToCreate: () => void,
   email_templates: any,
   t: TFunction,
@@ -84,49 +86,16 @@ export class MarketingEmail extends Component<Props> {
   };
 
   onDuplicate = async (idEmail) => {
-    await this.props.emailTemplateDetail(idEmail);
-    const data = {
-      design: this.props.email_templates_details[idEmail].design,
-      html: this.props.email_templates_details[idEmail].html,
-      title: `${
-        this.props.email_templates.find((email) => email.id === idEmail).title
-      } (${this.props.t('copy')})`,
-      subject: this.props.email_templates.find((email) => email.id === idEmail)
-        .subject,
-    };
-    this.props.emailDesignCreate(data, {
-      onSuccess: (templateId) => {
-        this.props.selectTemplate(templateId);
+    this.props.emailTemplateDuplicate({
+      id: idEmail,
+      copyTranslation: this.props.t('copy'),
+      options: {
+        onSuccess: (templateId) => {
+          this.props.selectTemplate(templateId);
+        },
       },
     });
   };
-
-  renderEmptyOrPreview() {
-    if (this.props.id && !!this.props.email_templates_details[this.props.id]) {
-      return (
-        <Paper>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: this.props.email_templates_details
-                ? this.props.email_templates_details[this.props.id].html
-                : null,
-            }}
-          />
-        </Paper>
-      );
-    }
-    return (
-      <div className={this.props.classes.previewEmpty}>
-        <InfoIcon fontSize="large" color="disabled" />
-        <Typography
-          className={this.props.classes.emptyMessageText}
-          color="textSecondary"
-        >
-          {this.props.t('selectToShowPreview')}
-        </Typography>
-      </div>
-    );
-  }
 
   selected(id) {
     if (this.props.id === id) this.props.goToEdit(id);
@@ -183,16 +152,23 @@ export class MarketingEmail extends Component<Props> {
                       }}
                     >
                       {this.state.searchResult.map((email) => (
-                        <EmailCard
-                          onClick={(id) => {
-                            this.selected(id);
-                          }}
-                          key={email.id}
-                          email_template={email}
-                          onClickDuplicate={this.onDuplicate}
-                          onClickEdit={(id) => this.props.goToEdit(id)}
-                          onClickDelete={this.props.emailTemplateDelete}
+                        <EmailListItem
+                          key={`search-${email.id}`}
+                          email={email}
                           selected={email.id === this.props.id}
+                          navigateTo={() => {
+                            this.selected(email.id);
+                          }}
+                          onEdit={() => {
+                            this.props.goToEdit(email.id);
+                          }}
+                          onDuplicate={() => {
+                            this.onDuplicate(email.id);
+                          }}
+                          onDelete={() => {
+                            this.props.emailTemplateDelete(email.id);
+                          }}
+                          search={this.state.searchText}
                         />
                       ))}
                     </List>
@@ -210,31 +186,33 @@ export class MarketingEmail extends Component<Props> {
                 }}
               >
                 {this.props.email_templates.map((email) => (
-                  <EmailCard
-                    onClick={(id) => {
-                      this.selected(id);
-                    }}
+                  <EmailListItem
                     key={email.id}
-                    email_template={email}
-                    onClickDuplicate={this.onDuplicate}
-                    onClickEdit={(id) => this.props.goToEdit(id)}
-                    onClickDelete={this.props.emailTemplateDelete}
+                    email={email}
                     selected={email.id === this.props.id}
+                    navigateTo={() => {
+                      this.selected(email.id);
+                    }}
+                    onEdit={() => {
+                      this.props.goToEdit(email.id);
+                    }}
+                    onDuplicate={() => {
+                      this.onDuplicate(email.id);
+                    }}
+                    onDelete={() => {
+                      this.props.emailTemplateDelete(email.id);
+                    }}
                   />
                 ))}
               </List>
             </Paper>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Typography variant="h5" className={classes.previewTitle}>
-              {t('preview')}
-            </Typography>
-
-            {this.props.loading ? (
-              <LinearProgress />
-            ) : (
-              this.renderEmptyOrPreview()
-            )}
+            <EmailPreview
+              title={this.props.t('preview')}
+              html={this.props.email_templates_details?.[this.props.id]?.html}
+              loading={this.props.loading}
+            />
           </Grid>
         </Grid>
         <BottomActionsButton
@@ -304,7 +282,7 @@ export default compose(
     {
       emailTemplatesSummaries,
       emailTemplateDetail,
-      emailDesignCreate,
+      emailTemplateDuplicate,
 
       emailTemplateDelete,
       goToEdit: (id) => push(`/email-template/${id}/edit`),

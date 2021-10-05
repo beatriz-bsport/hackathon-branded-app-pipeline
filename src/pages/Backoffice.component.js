@@ -16,7 +16,7 @@ import clx from 'classnames';
 import Analytics from '../components/analytics/Analytics.component';
 import RELEASE from '../release';
 
-import { Context, PermissionContext } from '../context';
+import { DrawerContext, PermissionContext } from '../context';
 
 import { getAuthToken } from '../http';
 import { getTheme } from '../theme';
@@ -317,7 +317,7 @@ export class Backoffice extends Component<Props, State> {
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <PermissionContext.Provider value={this.props.permission}>
-          <Context.Provider
+          <DrawerContext.Provider
             value={{
               ...this.state,
               hideLeftMenuAction: this.hideLeftMenuAction.bind(this),
@@ -394,7 +394,7 @@ export class Backoffice extends Component<Props, State> {
               </main>
             </ResponsiveDrawer>
             <GenericDialog />
-          </Context.Provider>
+          </DrawerContext.Provider>
         </PermissionContext.Provider>
       </MuiThemeProvider>
     );

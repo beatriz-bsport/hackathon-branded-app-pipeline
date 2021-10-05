@@ -26,7 +26,7 @@ export const tagAvailableListActions = {
   success: createAction('NOTIFICATION_RULE/TAG_LIST/SUCCESS'),
 };
 
-export function fetchTagList(options: OptionCallback) {
+export function fetchTagList(options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(tagAvailableListActions.isLoading(true));
     dispatch(tagAvailableListActions.error(null));

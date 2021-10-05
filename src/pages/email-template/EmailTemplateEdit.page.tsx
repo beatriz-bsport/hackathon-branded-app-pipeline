@@ -20,12 +20,14 @@ import {
   setEmailEditorHasBeenLoaded,
   emailDesignCreate,
 } from '../../libs/email-editor/actions';
-import { Context } from '../../context';
+import { DrawerContext, DrawerContextValue } from '../../context';
 
 import EmailEditorPanel from '../../libs/email-editor/components/EmailEditor.component';
 import { fetchTagList } from '../../libs/notification-rule/actions';
 import { getTagCategories } from '../../libs/notification-rule/selectors';
 import { RootState } from '../../reducers';
+
+import { EmailTemplate } from '../../libs/email-editor/types';
 
 type OwnProps = {
   id: number;
@@ -51,12 +53,18 @@ export class MarketingEmail extends Component<Props> {
     this.props.fetchTagList();
   }
 
-  onSave = (id: number, data: any) => {
+  onSave = (id: number, data: EmailTemplate) => {
     if (this.props.create === 1) {
-      this.props.emailDesignCreate(data);
+      this.props.emailDesignCreate({
+        ...data,
+        company_id: this.props.company_id,
+      });
       this.props.goToList();
     } else {
-      this.props.emailTemplateUpdate(id, data);
+      this.props.emailTemplateUpdate(id, {
+        ...data,
+        company_id: this.props.company_id,
+      });
       this.props.goToDetailList(id);
     }
   };
@@ -70,16 +78,15 @@ export class MarketingEmail extends Component<Props> {
       return <LinearProgress />;
     }
     return (
-      <Context.Consumer>
-        {(context: any) => (
+      <DrawerContext.Consumer>
+        {(context: DrawerContextValue) => (
           <EmailEditorPanel
-            company_id={this.props.company_id}
-            save_email={this.onSave}
-            auto_save_enabled
-            auto_save_email={this.onAutoSave}
+            saveEmail={this.onSave}
+            autoSaveEnabled
+            autoSaveEmail={this.onAutoSave}
             hideLeftMenuAction={context.hideLeftMenuAction}
             showLeftMenuAction={context.showLeftMenuAction}
-            emailLoad={{
+            emailToEdit={{
               ...this.props.email_templates_summaries[this.props.id],
               ...this.props.email_templates_details[this.props.id],
             }}
@@ -89,7 +96,7 @@ export class MarketingEmail extends Component<Props> {
             displayEmptyError={this.props.snackbarError}
           />
         )}
-      </Context.Consumer>
+      </DrawerContext.Consumer>
     );
   }
 }

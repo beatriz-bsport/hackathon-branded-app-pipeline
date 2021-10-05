@@ -1,5 +1,5 @@
 // @flow
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { compose, withHandlers } from 'recompose';
@@ -19,6 +19,7 @@ import {
 import { getTempPasswordState } from '../../libs/login/selectors';
 import { getFranchiseId, getFranchisor } from '../../libs/franchise/selectors';
 import { RootState } from '../../reducers';
+import { DrawerContext } from '../../context';
 
 import FranchiseDrawer from '../../components/navigation/FranchiseDrawer.component';
 
@@ -32,6 +33,15 @@ const FranchiseCompanyList = asyncComponent(
   () => import('./FranchiseCompanyList.page'),
 );
 const FranchiseTheme = asyncComponent(() => import('./FranchiseTheme.page'));
+const FranchiseEmailCreate = asyncComponent(
+  () => import('./FranchiseEmailCreate.page'),
+);
+const FranchiseEmailEditor = asyncComponent(
+  () => import('./FranchiseEmailEditor.page'),
+);
+const FranchiseEmailList = asyncComponent(
+  () => import('./FranchiseEmailList.page'),
+);
 
 type OwnProps = {
   disconnect: () => void;
@@ -58,6 +68,8 @@ const FranchiseRouter = (props: Props) => {
     fetchFranchise();
   }, [fetchFranchise]);
 
+  const [displayLeftMenu, setDisplayLeftMenu] = useState(true);
+
   if (!isAuthenticated || !isFranchisor) {
     return <Redirect to="/login" />;
   }
@@ -77,15 +89,25 @@ const FranchiseRouter = (props: Props) => {
         secondaryRGB: franchisor.secondaryRGB,
       })}
     >
-      <FranchiseDrawer
-        tempPasswordState={tempPasswordState}
-        generateTempPassword={generateTempPassword}
-        fetchTempPassword={fetchTempPassword}
-        cover={franchisor.cover}
-        disconnect={disconnect}
-        push={pushRouter}
+      <DrawerContext.Provider
+        value={{
+          displayLeftMenu,
+          hideLeftMenuAction: () => {
+            setDisplayLeftMenu(false);
+          },
+          showLeftMenuAction: () => {
+            setDisplayLeftMenu(true);
+          },
+        }}
       >
-        <Switch>
+        <FranchiseDrawer
+          tempPasswordState={tempPasswordState}
+          generateTempPassword={generateTempPassword}
+          fetchTempPassword={fetchTempPassword}
+          cover={franchisor.cover}
+          disconnect={disconnect}
+          push={pushRouter}
+        >
           <Route
             path="/f/franchises/:companyId?"
             component={FranchiseCompanyList}
@@ -96,10 +118,31 @@ const FranchiseRouter = (props: Props) => {
             component={FranchiseMemberDetails}
           />
           <Route path="/f/settings/theme" component={FranchiseTheme} />
+          <Route path="/f/email-template" component={EmailTemplate} />
           <Redirect to="/f/franchises" />
-        </Switch>
-      </FranchiseDrawer>
+        </FranchiseDrawer>
+      </DrawerContext.Provider>
     </MuiThemeProvider>
+  );
+};
+
+const EmailTemplate = () => {
+  return (
+    <Switch>
+      <Route
+        exact
+        path="/f/email-template/:id/edit"
+        component={FranchiseEmailEditor}
+      />
+      <Route
+        exact
+        path="/f/email-template/create"
+        component={FranchiseEmailCreate}
+      />
+      <Route path="/f/email-template/:id?" component={FranchiseEmailList} />
+
+      <Redirect to="/f/email-template" />
+    </Switch>
   );
 };
 

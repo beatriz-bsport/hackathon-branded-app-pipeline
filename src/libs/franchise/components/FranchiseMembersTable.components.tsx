@@ -1,9 +1,7 @@
 // @flow
 import React from 'react';
 import {
-  Chip,
   createStyles,
-  MuiThemeProvider,
   Table,
   TableBody,
   TableCell,
@@ -20,9 +18,8 @@ import { withRouter } from 'react-router';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 
-import chroma from 'chroma-js';
 import { FranchiseCompany } from '../types';
-import { getTheme } from '../../../theme';
+import CompanyChip from '../../../components/franchise/CompanyChip.component';
 
 export type OwnProps = {
   users: {
@@ -93,32 +90,13 @@ const FranchiseMembersTable = (props: Props) => {
               >
                 <TableCell>{user?.name}</TableCell>
                 <TableCell>
-                  {user.companies.map((company) => {
-                    if (!company) return null;
-                    return (
-                      <MuiThemeProvider
-                        theme={getTheme({
-                          primary_color: chroma(
-                            company.primaryRGB[0],
-                            company.primaryRGB[1],
-                            company.primaryRGB[2],
-                          ).hex(),
-                          secondary_color: chroma(
-                            company.primaryRGB[0],
-                            company.primaryRGB[1],
-                            company.primaryRGB[2],
-                          ).hex(),
-                        })}
-                      >
-                        <Chip
-                          key={`${user.id}-${company.id}`}
-                          color="primary"
-                          className={classes.chip}
-                          label={company.name}
-                        />
-                      </MuiThemeProvider>
-                    );
-                  })}
+                  {user.companies.map((company) => (
+                    <CompanyChip
+                      key={`${user.id}-${company?.id}`}
+                      className={classes.chip}
+                      company={company}
+                    />
+                  ))}
                 </TableCell>
                 <TableCell>
                   <Link to={`/f/members/${user.id}/member`}>

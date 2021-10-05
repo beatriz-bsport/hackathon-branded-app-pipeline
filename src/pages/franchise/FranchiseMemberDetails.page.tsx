@@ -136,7 +136,7 @@ const connector = connect(
   },
 );
 
-export default compose(
+export default compose<any, OwnProps>(
   routerParamsToProps({ userId: 'userId:number' }),
   withTranslation(['franchise']),
   withStyles(styles, { withTheme: true }),

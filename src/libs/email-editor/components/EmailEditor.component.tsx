@@ -1,43 +1,41 @@
-// @flow
-
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 
 import { compose } from 'recompose';
-import EmailEditor from 'react-email-editor';
+import EmailEditor, { Design } from 'react-email-editor';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Prompt } from 'react-router-dom';
-
+import { createStyles, WithStyles } from '@material-ui/styles';
+import { Theme } from '@material-ui/core';
+import moment from 'moment-timezone';
+import { WithTranslation, withTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
-import moment from 'moment-timezone';
+
 import Checkbox from '../../../components/input/Checkbox.component';
-import type { EmailTemplateDetail } from '../types';
+import { EmailTemplate, EmailTemplateSummary } from '../types';
 import i18n from '../../../i18n';
 
-type Props = {
-  save_email: (number, any) => void,
-  auto_save_email: (number, any) => void,
-  auto_save_enabled: ?boolean,
-  company_id: number,
-  emailLoad: EmailTemplateDetail,
-  t: TFunction,
-  company_name: string,
-  classes: Object,
-  displayEmptyError: (msg: string) => void,
-  goToList: () => void,
-  hideLeftMenuAction: () => void,
-  showLeftMenuAction: () => void,
-  tags: ?Object,
+type OwnProps = {
+  autoSaveEnabled?: boolean;
+  emailToEdit?: EmailTemplate & EmailTemplateSummary;
+  company_name?: string;
+  tags?: { [tag_name: string]: string[] };
+  saveEmail: (id: number, data: Omit<EmailTemplate, 'id'>) => void;
+  autoSaveEmail?: (id: number, data: Omit<EmailTemplate, 'id'>) => void;
+  displayEmptyError: (msg: string) => void;
+  goToList: () => void;
+  hideLeftMenuAction: () => void;
+  showLeftMenuAction: () => void;
 };
 
+type Props = OwnProps & WithStyles<typeof styles> & WithTranslation;
+
 type State = {
-  subject: string,
-  title: string,
-  autoSave: boolean,
-  notReadyToLeave: boolean,
+  subject: string;
+  title: string;
+  autoSave: boolean;
+  notReadyToLeave: boolean;
 };
 
 export class EmailEditorPanel extends Component<Props, State> {
@@ -45,23 +43,23 @@ export class EmailEditorPanel extends Component<Props, State> {
 
   intervalPeriod: number;
 
+  editor = createRef<EmailEditor>();
+
   constructor(props: Props) {
     super(props);
     this.state = {
-      title: props.emailLoad ? props.emailLoad.title : '',
-      subject: props.emailLoad ? props.emailLoad.subject : '',
+      title: props.emailToEdit?.title ?? '',
+      subject: props.emailToEdit?.subject ?? '',
       autoSave: true,
       notReadyToLeave: true,
     };
-    this.intervalPeriod = 60000;
-  }
-
-  componentWillMount() {
-    this.props.hideLeftMenuAction();
+    this.intervalPeriod = 60 * 1000; // Run every minutes
   }
 
   componentDidMount = () => {
-    if (this.props.auto_save_email) {
+    this.props.hideLeftMenuAction();
+
+    if (this.props.autoSaveEmail) {
       this.interval = setInterval(() => {
         this.autoExportHtml();
       }, this.intervalPeriod);
@@ -73,55 +71,49 @@ export class EmailEditorPanel extends Component<Props, State> {
     clearInterval(this.interval);
   }
 
+  getError = (design: Design): string | null => {
+    let error = null;
+    if (this.state.title === '') {
+      error = 'emailTemplate:editor.error.title';
+    } else if (this.state.subject === '') {
+      error = 'emailTemplate:editor.error.subject';
+    } else if (Object.keys(design.counters).length === 2) {
+      error = 'emailTemplate:editor.error.content';
+    }
+    return error;
+  };
+
   exportHtml = () => {
-    this.editor.exportHtml((data) => {
-      const { design, html } = data;
-      if (this.state.title === '') {
-        this.props.displayEmptyError(
-          this.props.t('emailTemplate:editor.error.title'),
-        );
-      } else if (this.state.subject === '') {
-        this.props.displayEmptyError(
-          this.props.t('emailTemplate:editor.error.subject'),
-        );
-      } else if (Object.keys(design.counters).length === 2) {
-        this.props.displayEmptyError(
-          this.props.t('emailTemplate:editor.error.content'),
-        );
-      } else {
-        this.props.save_email(this.props.emailLoad.id, {
-          title: this.state.title,
-          subject: this.state.subject,
-          html,
-          design: JSON.stringify(design),
-          company: this.props.company_id,
-          date_modified: moment(),
-        });
+    this.editor.current.exportHtml(({ design, html }) => {
+      if (this.getError(design)) {
+        this.props.displayEmptyError(this.props.t(this.getError(design)));
+        return;
       }
+
+      this.props.saveEmail(this.props.emailToEdit?.id, {
+        title: this.state.title,
+        subject: this.state.subject,
+        html,
+        design: JSON.stringify(design),
+        date_modified: moment(),
+      });
     });
   };
 
   autoExportHtml = () => {
-    this.editor.exportHtml((data) => {
-      const { design, html } = data;
-      if (this.state.title === '') {
-        this.props.displayEmptyError(
-          this.props.t('emailTemplate:editor.error.title'),
-        );
-      } else if (Object.keys(design.counters).length === 2) {
-        this.props.displayEmptyError(
-          this.props.t('emailTemplate:editor.error.content'),
-        );
-      } else {
-        this.props.auto_save_email(this.props.emailLoad.id, {
-          title: this.state.title,
-          subject: this.state.subject,
-          html,
-          design: JSON.stringify(design),
-          company: this.props.company_id,
-          date_modified: moment(),
-        });
+    this.editor.current.exportHtml(({ design, html }) => {
+      if (this.getError(design)) {
+        this.props.displayEmptyError(this.props.t(this.getError(design)));
+        return;
       }
+
+      this.props.autoSaveEmail(this.props.emailToEdit?.id, {
+        title: this.state.title,
+        subject: this.state.subject,
+        html,
+        design: JSON.stringify(design),
+        date_modified: moment(),
+      });
     });
   };
 
@@ -140,7 +132,7 @@ export class EmailEditorPanel extends Component<Props, State> {
 
   handleExportClick = () => {
     const url = window.URL.createObjectURL(
-      new Blob([this.props.emailLoad.html]),
+      new Blob([this.props.emailToEdit?.html]),
     );
     const tempEl = document.createElement('a');
     tempEl.href = url;
@@ -150,7 +142,8 @@ export class EmailEditorPanel extends Component<Props, State> {
 
   componentDidUpdate(prevProps: Props, prevState: State) {
     if (this.props.tags && !prevProps.tags) {
-      window.unlayer.setMergeTags(this.getMergeTags);
+      // unlayer is the library use under the hood by react-email-editor
+      window?.unlayer.setMergeTags(this.getMergeTags);
     }
     if (prevState.autoSave && !this.state.autoSave) {
       clearInterval(this.interval);
@@ -163,7 +156,8 @@ export class EmailEditorPanel extends Component<Props, State> {
   }
 
   onLoad() {
-    window.unlayer.loadDesign(this.props.emailLoad.design);
+    // unlayer is the library use under the hood by react-email-editor
+    window?.unlayer.loadDesign(this.props.emailToEdit?.design);
   }
 
   getMergeTags = () => {
@@ -193,7 +187,7 @@ export class EmailEditorPanel extends Component<Props, State> {
     return null;
   };
 
-  handleChange = (ev: Event) => {
+  handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ autoSave: ev.target.checked });
   };
 
@@ -229,11 +223,13 @@ export class EmailEditorPanel extends Component<Props, State> {
             {t('emailTemplate:editor.cancel')}
           </Button>
           <div className={classes.rightContainer}>
-            {this.props.auto_save_enabled ? (
+            {this.props.autoSaveEnabled ? (
               <Checkbox
                 checked={this.state.autoSave}
                 label={t('emailTemplate:autoSave')}
-                onChange={(ev) => this.handleChange(ev)}
+                onChange={(ev: React.ChangeEvent<HTMLInputElement>) =>
+                  this.handleChange(ev)
+                }
               />
             ) : null}
             <Button
@@ -255,11 +251,10 @@ export class EmailEditorPanel extends Component<Props, State> {
           </div>
         </div>
         <Paper>
+          {/* TODO TAGS */}
           {!!Object.entries(mergeTags).length && (
             <EmailEditor
-              ref={(editor) => {
-                this.editor = editor;
-              }}
+              ref={this.editor}
               minHeight="80vh"
               locale={i18n.language}
               translations={{
@@ -285,30 +280,31 @@ export class EmailEditorPanel extends Component<Props, State> {
   }
 }
 
-const styles = (theme) => ({
-  field: {
-    margin: theme.spacing(1),
-  },
-  paper: {
-    marginBottom: theme.spacing(2),
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  button: {
-    marginLeft: theme.spacing(1),
-  },
-  buttonsContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginBottom: theme.spacing(1),
-  },
-  rightContainer: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    field: {
+      margin: theme.spacing(1),
+    },
+    paper: {
+      marginBottom: theme.spacing(2),
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    button: {
+      marginLeft: theme.spacing(1),
+    },
+    buttonsContainer: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      marginBottom: theme.spacing(1),
+    },
+    rightContainer: {
+      display: 'flex',
+      alignItems: 'center',
+    },
+  });
 
-export default compose(
+export default compose<any, OwnProps>(
   withStyles(styles),
   withTranslation(['emailTemplate', 'notificationRule']),
 )(EmailEditorPanel);

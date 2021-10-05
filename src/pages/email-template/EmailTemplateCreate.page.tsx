@@ -9,7 +9,7 @@ import {
   emailDesignCreate,
   setEmailEditorHasBeenLoaded,
 } from '../../libs/email-editor/actions';
-import { Context } from '../../context';
+import { DrawerContext, DrawerContextValue } from '../../context';
 
 import EmailEditorPanel from '../../libs/email-editor/components/EmailEditor.component';
 import withTitle from '../../hocs/with-title.hoc';
@@ -18,6 +18,7 @@ import { snackbarError } from '../../actions/snackbar.actions';
 import { fetchTagList } from '../../libs/notification-rule/actions';
 import { getTagCategories } from '../../libs/notification-rule/selectors';
 import { RootState } from '../../reducers';
+import { EmailTemplate } from '../../libs/email-editor/types';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
@@ -36,21 +37,26 @@ export class EmailTemplateCreate extends Component<Props> {
     this.props.setHasBeenLoaded();
   }
 
-  onSave = (id: number, data: any) => {
-    this.props.emailDesignCreate(data, {
-      onSuccess: (templateId: number) => {
-        this.props.goToListDetail(templateId);
+  onSave = (id: number, data: EmailTemplate) => {
+    this.props.emailDesignCreate(
+      {
+        ...data,
+        company_id: this.props.company_id,
       },
-    });
+      {
+        onSuccess: (templateId: number) => {
+          this.props.goToListDetail(templateId);
+        },
+      },
+    );
   };
 
   render() {
     return (
-      <Context.Consumer>
-        {(context: any) => (
+      <DrawerContext.Consumer>
+        {(context: DrawerContextValue) => (
           <EmailEditorPanel
-            company_id={this.props.company_id}
-            save_email={this.onSave}
+            saveEmail={this.onSave}
             hideLeftMenuAction={context.hideLeftMenuAction}
             showLeftMenuAction={context.showLeftMenuAction}
             emailLoad=""
@@ -59,7 +65,7 @@ export class EmailTemplateCreate extends Component<Props> {
             displayEmptyError={this.props.snackbarError}
           />
         )}
-      </Context.Consumer>
+      </DrawerContext.Consumer>
     );
   }
 }

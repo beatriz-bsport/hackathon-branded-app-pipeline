@@ -6,17 +6,19 @@ import WidgetUtils from '../libs/widget/WidgetUtils';
 
 const DefaultTitle = 'Backoffice - bsport';
 
-export function windowTitleToProps(WrappedComponent) {
+export function windowTitleToProps<P extends { title: string }>(
+  WrappedComponent: React.ComponentType<P>,
+) {
   return class extends React.Component {
     state = {
       title: '',
     };
 
-    changeTitle = (newTitle) => {
-      if (newTitle[0].target.innerText === DefaultTitle) {
+    changeTitle = (ev: MutationRecord[]) => {
+      if (ev[0].target?.innerText === DefaultTitle) {
         this.setState({ title: '' });
       } else {
-        this.setState({ title: newTitle[0].target.innerText });
+        this.setState({ title: ev[0].target?.innerText });
       }
     };
 
@@ -36,17 +38,21 @@ export function windowTitleToProps(WrappedComponent) {
     }
 
     render() {
-      return <WrappedComponent {...this.props} {...this.state} />;
+      return (
+        <WrappedComponent {...(this.props as P)} title={this.state.title} />
+      );
     }
   };
 }
 
-const withTitle = (mapPropsToTitle: (any) => string) => {
+function withTitle<P>(
+  mapPropsToTitle: (props: any) => string,
+): (component: React.ComponentType<P>) => React.ReactNode {
   if (WidgetUtils.isWidget()) {
     return (WrappedComponent) => WrappedComponent;
   }
-  return (WrappedComponent: AbstractComponent<any>) => {
-    class Wrapper extends Component<any> {
+  return (WrappedComponent: React.ComponentType<P>) => {
+    class Wrapper extends Component<P> {
       componentWillUnmount() {
         // necessary if you go on another page which is not composed with
         // this HOC
@@ -61,13 +67,13 @@ const withTitle = (mapPropsToTitle: (any) => string) => {
             <Helmet>
               <title>{title}</title>
             </Helmet>
-            <WrappedComponent {...this.props} />
+            <WrappedComponent {...(this.props as P)} />
           </div>
         );
       }
     }
     return Wrapper;
   };
-};
+}
 
 export default withTitle;

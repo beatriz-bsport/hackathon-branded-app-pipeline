@@ -1,5 +1,5 @@
 import React from 'react';
-import { withStyles, Theme } from '@material-ui/core';
+import { withStyles, Theme, WithTheme } from '@material-ui/core';
 import { compose } from 'recompose';
 import { MaterialStyleType } from '../../utils/types';
 
@@ -8,7 +8,9 @@ export type OwnProps = {
   highlight: string;
 };
 
-type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
+type Props = OwnProps &
+  MaterialStyleType<ReturnType<typeof styles>> &
+  WithTheme;
 
 const HighlightedText = (props: Props) => {
   const { text = '', highlight = '', theme } = props;
@@ -58,6 +60,6 @@ const styles = (theme: Theme) => ({
   },
 });
 
-export default compose(withStyles(styles, { withTheme: true }))(
+export default compose<any, OwnProps>(withStyles(styles, { withTheme: true }))(
   HighlightedText,
 );

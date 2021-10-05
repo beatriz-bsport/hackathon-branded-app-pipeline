@@ -28,4 +28,17 @@ exports.default = {
     membersEmptyState: 'Aucun membre dans cette compagnie',
     navigateToCompany: 'Connexion au compte franchisé',
   },
+  emails: {
+    emptyStateTitle: 'Aperçu du mail',
+    emptyStateDescription: 'Sélectionner un template',
+    franchiseEmails: 'Mes templates',
+    create: 'Créer un modèle',
+    companiesEmails: 'Templates franchisés',
+    pageTitle: 'Template',
+    groupBy: 'Grouper par',
+    franchised: 'Franchisé',
+    groupByPlaceholder: 'Grouper par',
+    copy: 'copie',
+    chooseGroup: 'Choisir un groupe',
+  },
 };

@@ -120,14 +120,6 @@ export class FranchiseCompanyList extends Component<Props, State> {
     this.props.navigateAsCompanyAdmin(companyId, `/member/${memberId}/info`);
   };
 
-  goToCompany = (companyId: number) => () => {
-    this.props.navigateAsCompanyAdmin(companyId, '');
-  };
-
-  goToUser = (companyId: number) => (memberId: number) => () => {
-    this.props.navigateAsCompanyAdmin(companyId, `/member/${memberId}/info`);
-  };
-
   render() {
     const {
       companies,

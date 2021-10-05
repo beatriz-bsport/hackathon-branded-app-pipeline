@@ -65,6 +65,7 @@ function ShortMenu(props: Props) {
               option.onClick();
             }}
             color={option.color}
+            key={option.label}
           />
         ))}
     </div>

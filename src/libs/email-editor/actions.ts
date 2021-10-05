@@ -10,6 +10,8 @@ import {
   fetchEmailTemplate as fetchEmailTemplateAPI,
   fetchEmailTemplateDetail as fetchEmailTemplateDetailAPI,
   deleteEmailTemplate as deleteEmailTemplateAPI,
+  fetchFranchisePageFilter as fetchFranchisePageFilterAPI,
+  updateFranchisePageFilter as updateFranchisePageFilterAPI,
 } from './api';
 
 import { getFreshEmailTemplateSummariesIds } from './selectors';
@@ -18,6 +20,7 @@ import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 import { RootState } from '../../reducers';
+import { EmailTemplate, FranchisorSavedFilter } from './types';
 
 export const emailTemplatesSummariesAction = {
   error: createAction('EMAIL/SUMMARIES/ERROR'),
@@ -165,8 +168,8 @@ export const createEmailDesignAction = {
 };
 
 export function emailDesignCreate(
-  data: any,
-  options: OptionCallback,
+  data: EmailTemplate,
+  options?: OptionCallback<number>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(createEmailDesignAction.isLoading(true));
@@ -213,7 +216,11 @@ export const updateEmailTemplateAction = {
   success: createAction('EMAIL/UPDATE/SUCCESS'),
 };
 
-export function emailTemplateUpdate(id: number, data: any): ThunkAction {
+export function emailTemplateUpdate(
+  id: number,
+  data: EmailTemplate,
+  options?: OptionCallback<number>,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(updateEmailTemplateAction.isLoading(true));
     dispatch(updateEmailTemplateAction.error(null));
@@ -242,11 +249,95 @@ export function emailTemplateUpdate(id: number, data: any): ThunkAction {
       );
       dispatch(updateEmailTemplateAction.error(null));
       dispatch(snackbarSuccess('email.update.success'));
+
+      if (typeof options?.onSuccess === 'function')
+        options?.onSuccess(response.data.id);
     } catch (error) {
       dispatch(updateEmailTemplateAction.error(error));
       dispatch(snackbarError('email.update.error'));
     }
     dispatch(updateEmailTemplateAction.isLoading(false));
+  };
+}
+
+export const emailTemplateDuplicateAction = {
+  error: createAction('EMAIL/DUPLICATE/ERROR'),
+  isLoading: createAction('EMAIL/DUPLICATE/IS_LOADING'),
+  success: createAction('EMAIL/DUPLICATE/SUCCESS'),
+};
+
+export function emailTemplateDuplicate(props: {
+  id: number;
+  copyTranslation?: string;
+  options?: OptionCallback<number>;
+}): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(emailTemplateDuplicateAction.isLoading(true));
+
+    try {
+      const response = await fetchEmailTemplateAPI(props.id);
+
+      const data = {
+        design: response.data.design,
+        html: response.data.html,
+        title: `${response.data.title} (${props.copyTranslation || 'copy'})`,
+        subject: response.data.subject,
+      };
+      const newTemplate = await createEmailTemplateAPI(data);
+
+      dispatch(resetEmails());
+      dispatch(emailTemplatesSummaries());
+      if (typeof props.options?.onSuccess === 'function') {
+        props.options?.onSuccess(newTemplate.data.id);
+      }
+    } catch (error) {
+      dispatch(emailTemplateDuplicateAction.error(error));
+      dispatch(snackbarError('email.delete.error'));
+      if (typeof props.options?.onError === 'function') {
+        props.options?.onError();
+      }
+    }
+  };
+}
+
+export const fetchFranchisePageFilterAction = {
+  error: createAction('EMAIL/FRANCHISOR_FILTER/ERROR'),
+  isLoading: createAction('EMAIL/FRANCHISOR_FILTER/IS_LOADING'),
+  success: createAction('EMAIL/FRANCHISOR_FILTER/SUCCESS'),
+};
+
+export function fetchFranchisePageFilter(): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchFranchisePageFilterAction.isLoading(true));
+
+    try {
+      const response = await fetchFranchisePageFilterAPI();
+
+      dispatch(fetchFranchisePageFilterAction.success(response.data.filters));
+    } catch (error) {
+      dispatch(fetchFranchisePageFilterAction.error(error));
+    }
+  };
+}
+
+export const updateFranchisePageFilterAction = {
+  error: createAction('EMAIL/UPDATE_FRANCHISOR_FILTER/ERROR'),
+  isLoading: createAction('EMAIL/UPDATE_FRANCHISOR_FILTER/IS_LOADING'),
+  success: createAction('EMAIL/UPDATE_FRANCHISOR_FILTER/SUCCESS'),
+};
+
+export function updateFranchisePageFilter(
+  data: FranchisorSavedFilter[],
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(updateFranchisePageFilterAction.isLoading(true));
+
+    try {
+      const response = await updateFranchisePageFilterAPI({ filters: data });
+      dispatch(updateFranchisePageFilterAction.success(response.data.filters));
+    } catch (error) {
+      dispatch(updateFranchisePageFilterAction.error(error));
+    }
   };
 }
 

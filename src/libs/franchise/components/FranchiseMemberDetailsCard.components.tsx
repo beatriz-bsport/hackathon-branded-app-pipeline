@@ -92,7 +92,7 @@ const styles = (theme: Theme) =>
     },
   });
 
-export default compose(
+export default compose<any, OwnProps>(
   withStyles(styles),
   withTranslation(['franchise']),
 )(FranchiseMemberDetailsCard);

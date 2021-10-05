@@ -14,6 +14,9 @@ import {
   deleteEmailTemplateAction,
   resetAction,
   setEmailEditorHasBeenLoaded,
+  emailTemplateDuplicateAction,
+  fetchFranchisePageFilterAction,
+  updateFranchisePageFilterAction,
 } from './actions';
 
 import type { EmailTemplateState } from './types';
@@ -34,6 +37,11 @@ const initialState: Immutable.Immutable<EmailTemplateState> = Immutable<EmailTem
     upsert: {
       isLoading: false,
       error: null,
+    },
+    savedFilter: {
+      isLoading: false,
+      error: null,
+      filters: [],
     },
   },
 );
@@ -162,6 +170,65 @@ export default handleActions(
         .setIn(['byId'], {})
         .setIn(['allIds'], [])
         .setIn(['detail', 'byId'], {});
+    },
+    [emailTemplateDuplicateAction.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.set('isLoading', payload).set('error', null);
+    },
+    [emailTemplateDuplicateAction.error.toString()]: (state, { payload }) => {
+      return state.set('error', payload).set('isLoading', null);
+    },
+    [emailTemplateDuplicateAction.success.toString()]: (state) => {
+      return state.set('isLoading', false).set('error', null);
+    },
+    [fetchFranchisePageFilterAction.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state
+        .setIn(['savedFilter', 'isLoading'], payload)
+        .setIn(['savedFilter', 'error'], null);
+    },
+    [fetchFranchisePageFilterAction.error.toString()]: (state, { payload }) => {
+      return state
+        .setIn(['savedFilter', 'error'], payload)
+        .setIn(['savedFilter', 'isLoading'], null);
+    },
+    [fetchFranchisePageFilterAction.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state
+        .setIn(['savedFilter', 'isLoading'], false)
+        .setIn(['savedFilter', 'error'], null)
+        .setIn(['savedFilter', 'filters'], payload[0].filters);
+    },
+    [updateFranchisePageFilterAction.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state
+        .setIn(['savedFilter', 'isLoading'], payload)
+        .setIn(['savedFilter', 'error'], null);
+    },
+    [updateFranchisePageFilterAction.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state
+        .setIn(['savedFilter', 'error'], payload)
+        .setIn(['savedFilter', 'isLoading'], null);
+    },
+    [updateFranchisePageFilterAction.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state
+        .setIn(['savedFilter', 'isLoading'], false)
+        .setIn(['savedFilter', 'error'], null)
+        .setIn(['savedFilter', 'filters'], payload[0].filters);
     },
   },
   initialState,

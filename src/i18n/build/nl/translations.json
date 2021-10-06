@@ -320,7 +320,7 @@
         "parameters": {
             "allEstablishment": "Alle zalen",
             "enabled": "Actief",
-            "establishmentId": "Je zaal- of zalen-ID's zijn: {{establishmentIdList}}",
+            "establishmentId": "De IDs van je vestigingen zijn: {{establishmentIdList}}",
             "companyId": "Je Partner-ID is: {{ company }}"
         },
         "pageTitle": "Integraties"
@@ -1539,7 +1539,8 @@
         "pageTitle": {
             "list": "Pakketten"
         },
-        "edit": "Wijzigen"
+        "edit": "Wijzigen",
+        "search": "Zoek een pakket"
     },
     "login": {
         "tempPassword": {
@@ -1955,7 +1956,8 @@
         "header": {
             "average": "Gemiddeld",
             "sum": "Totaal"
-        }
+        },
+        "search": "Zoek een rapportage"
     },
     "alerting": {
         "list": {
@@ -1996,7 +1998,7 @@
             },
             "payout": {
                 "content": "Momenteel kunnen we je verdiensten niet uitbetalen, omdat je bankgegevens niet of onjuist geconfigureerd zijn.",
-                "title": "Je bankgegevens zijn incompleet"
+                "title": "Je bankgegevens zijn incompleet."
             },
             "verification": {
                 "warning": "Het is mogelijk dat online betalingen na <1> gedeactiveerd </1> worden!",
@@ -2318,11 +2320,13 @@
         "expirationDate": "Vervalt op",
         "never": "Nooit",
         "unlimitedCredits": "Onbeperkt",
-        "credits": "Krediet(en)",
+        "credits": "Krediet",
+        "credits_plural": "Kredieten",
         "specifications": {
             "unlimitedCredits": "Onbeperkt",
             "price": "{{price, price}}",
-            "nbCredits": "{{ credits}} krediet(en)"
+            "nbCredits": "{{ credits}} krediet",
+            "nbCredits_plural": "{{credits}} kredieten"
         },
         "availableOnFollowingSports": "Categorieën: ",
         "availableOnFollowingEstablishments": "Vestigingen: ",
@@ -3588,7 +3592,7 @@
                     "attendance": "Aantal keer aanwezig: {{notify_booking_nb}}",
                     "booking": "Reservering n° {{notify_booking_nb}}",
                     "after": "Melding {{hours}} uur na de sessie",
-                    "before": "Melding {{hours}} uur voor het begin van de sessie",
+                    "before": "Deze melding wordt {{hours}} uur/uren voor het begin van de sessie verstuurd.",
                     "notRefunded": "Aantal te late annuleringen: {{notify_booking_nb}}",
                     "cancelledDeprecated": "Aantal annuleringen {{notify_booking_nb}}",
                     "bookingDeprecated": "Aantal reserveringen {{notify_booking_nb}}",
@@ -3878,7 +3882,8 @@
         },
         "banner": {
             "isStaging": "Kennismakingsgesprek inplannen",
-            "networkError": "Het lijkt erop dat er geen verbinding met het internet is."
+            "networkError": "Het lijkt erop dat er geen verbinding met het internet is.",
+            "franchiseConnection": "Je bent momenteel als een franchisenemer verbonden"
         },
         "member": {
             "memberForm": "Een lid toevoegen",
@@ -4400,7 +4405,8 @@
             "createdAt": "Aanmaakdatum: {{at}}",
             "title": "Abonnementspauze"
         },
-        "seeMore": "Toon meer"
+        "seeMore": "Toon meer",
+        "search": "Zoek een abonnement"
     },
     "coachPerformance": {
         "dateTitle": "Datumbereik",
@@ -5198,7 +5204,8 @@
                 "managerOnly": "Niet-beschikbare afspraakkaarten"
             },
             "parameters": {
-                "nbCredits": "{{ credits}} krediet(en)",
+                "nbCredits": "{{ credits}} krediet",
+                "nbCredits_plural": "{{ credits }} kredieten",
                 "price": "{{ price, price}}",
                 "tax": "Btw: {{ tax }}%",
                 "managerOnly": "Niet beschikbaar voor leden"
@@ -5586,7 +5593,15 @@
         },
         "marketplace": {
             "isEmpty": "Geen afspraken beschikbaar."
-        }
+        },
+        "popup": {
+            "end": "Eindtijd",
+            "begin": "Starttijd",
+            "button": "Rooster",
+            "validate": "Opslaan"
+        },
+        "searshAppointmentPass": "Zoek een afspraakkaart",
+        "search": "Zoek een afspraak"
     },
     "datetime": {
         "form": {
@@ -5796,7 +5811,10 @@
                 "helper": "Controleer hier of je payroll-regels met je verwachtingen overeenkomen.",
                 "resultTitle": "Resultaten van je payroll simulatie",
                 "title": "Payroll simulatie",
-                "which": "Verdiensten:"
+                "which": "Verdiensten:",
+                "marginalValueOfReservation": "Marginale waarde per reservering",
+                "numberOfCancellations": "Aantal afwezigen/te late annuleringen",
+                "numberOfStudent": "Aantal leden"
             },
             "Errors": {
                 "lowerIntervalTypeError": "Het onderste interval moet gelijk of minder dan 1 zijn.",
@@ -5897,7 +5915,8 @@
                 }
             }
         },
-        "search": "Zoek een payroll-regel (optioneel)"
+        "search": "Zoek een payroll-regel (optioneel)",
+        "simulate": "Simuleer"
     },
     "payment": {
         "generalTermsAndConditions": {
@@ -6063,7 +6082,7 @@
                 },
                 "recurrence": {
                     "section": "Herhaling",
-                    "explain": "Iedere {{ recurrence_basis }}{{ interval }} wordt een betaling geïncasseerd verspreid over {{ total_interval_duration }}{{ interval }}. In totaal wordt het lid {{ nb_interval }} keer geïncasseerd."
+                    "explain": "Iedere {{ recurrence_basis }} {{ interval }} wordt een betaling geïncasseerd verspreid over {{ total_interval_duration }} {{ interval }}. In totaal wordt het lid {{ nb_interval }} keer geïncasseerd."
                 },
                 "anchor_date": {
                     "helperText": "De betaling wordt in de loop van de ochtend geïncasseerd.",
@@ -6631,7 +6650,8 @@
         },
         "signup": {
             "failedCreation": "Het is momenteel niet mogelijk om je account aan te maken, probeer het later opnieuw",
-            "emailAlreadyExists": "Deze e-mail is al in gebruik"
+            "emailAlreadyExists": "Deze e-mail is al in gebruik",
+            "changeWorkspaceError": "Fout tijdens het wisselen van account"
         },
         "customForm": {
             "update": {
@@ -6691,6 +6711,23 @@
             "create": {
                 "error": "Fout bij het toevoegen van de groepsfacturatie",
                 "success": "De nieuwe groepsfacturatie is toegevoegd"
+            }
+        },
+        "customFormDisplayRule": {
+            "customError": {
+                "3": "Het is niet mogelijk om meerdere meldingen tegelijkertijd toe te voegen"
+            },
+            "delete": {
+                "error": "Fout bij het verwijderen van de melding",
+                "success": "De melding is verwijderd"
+            },
+            "update": {
+                "error": "Fout bij het bewerken van de melding",
+                "success": "De melding is gewijzigd"
+            },
+            "create": {
+                "error": "Fout bij het toevoegen van de melding",
+                "success": "De melding is toegevoegd"
             }
         }
     },
@@ -7576,7 +7613,15 @@
             "field_identifier": "Velden",
             "account_modification": "Account bewerken",
             "account_creation": "Account aanmaken",
-            "title": "[Formulier] Inschrijven"
+            "title": "[Formulier] Inschrijven",
+            "customQuestionDialog": {
+                "confirm": "Een formulier toevoegen",
+                "cancel": "Annuleer",
+                "content": "Je kunt zelf gepersonaliseerde vragen aan je inschrijfformulier toevoegen door een nieuw inschrijfformulier via Marketing > Formulieren aan te maken. Door je vragen zelf toe te voegen en op \"Nieuwe leden\" te klikken.",
+                "title": "Gepersonaliseerde vragen"
+            },
+            "addQuestions": "Een vraag toevoegen",
+            "additionalCustomForm": "Aanvullende formulieren"
         }
     },
     "checkout": {
@@ -8308,7 +8353,10 @@
             "custom_form": "Formulieren",
             "tags": "Tags",
             "addMemberTooltip": "Een lid toevoegen",
-            "cashBookTooltip": "Kasboek"
+            "cashBookTooltip": "Kasboek",
+            "redirecting": "Je wordt doorgestuurd naar je pagina",
+            "backToFranchiseWorskpace": "Ga terug naar je Master-Account",
+            "franchiseConnectedAs": "Je bent momenteel als \"{{name}}\" verbonden"
         },
         "deprecatedNavigator": {
             "close": "Sluiten",
@@ -8323,7 +8371,18 @@
         },
         "franchiseMenu": {
             "members": "Leden",
-            "franchises": "Franchises"
+            "franchises": "Franchisenemer"
+        },
+        "multiSession": {
+            "current": "Huidige sessie",
+            "previous": "Vorige sessie",
+            "manager": "Manager",
+            "franchisor": "Franchisegever",
+            "continue": "Verder met deze sessie",
+            "currentSession": "Je bent momenten als \"{{name}}\" verbonden",
+            "restore": "Sessie herstellen",
+            "previousSession": " Je was als \"{{name}}\" verbonden",
+            "title": " Het lijkt erop dat je meerdere tabbladen tegelijk gebruikt"
         }
     },
     "widget": {
@@ -8602,24 +8661,39 @@
                     "dialog": {
                         "advancedOptions": "Geavanceerde instellingen",
                         "modify": "Bewerken",
-                        "cancel": "Annuleren",
+                        "cancel": "Annuleer",
                         "create": "Toevoegen",
-                        "helperTextNewMembers": "Het formulier verschijnt als een pop-up op de marktplaats en de widget na het registratieformulier.",
-                        "helperTextRegisteredMembers": "Het formulier verschijnt als een pop-up op de marktplaats en de widget voor alle betrokken leden.",
-                        "subTitle": "Op welke leden wil je je richten?",
-                        "title": "Regels weergeven"
+                        "helperTextNewMembers": "Alle relevante leden zullen dit formulier als een pop-up op de MarketPlace en na het inschrijfformulier zien.",
+                        "helperTextRegisteredMembers": "Alle relevante leden zullen dit formulier als een pop-up op de MarketPlace en op de widget zien.",
+                        "subTitle": "Welke leden wil je contacteren?",
+                        "title": "Toon de regels",
+                        "snoozeOptionHelperText": "We tonen dit formulier opnieuw nadat het {{count}} uur/uren gesnoozed is.",
+                        "snoozeOptionLabel": "Snoozen (in uren)",
+                        "force_display": "Toon dit formulier ook aan leden die dit formulier voorheen hebben ingevuld",
+                        "snoozeOption": "Sta leden toe om dit formulier later in te vullen"
+                    },
+                    "errors": {
+                        "timedeltaBeforeDisplayMustBeGraterThanZero": "De waarde moet groter dan 0 zijn."
                     }
                 },
                 "kind": {
-                    "connectionHelperText": "Alleen leden die minimaal {{count}} dagen geregistreerd zijn zullen deze melding zien",
-                    "connectionLabel": "Anciënniteit lid (dagen)",
+                    "connectionHelperText": "Deze melding wordt alleen naar leden gestuurd die al langer dan {{count}} dag(en) lid zijn.",
+                    "connectionLabel": "Lid sinds... (in dagen)",
                     "connection": "Reeds ingeschreven leden",
                     "signUpAlreadyExists": " Bestaande regel",
-                    "signUp": "De nieuwe leden"
+                    "signUp": "Nieuwe leden"
                 },
-                "empty": "Geen kennisgevingsregels voor dit formulier",
+                "empty": "Er zijn geen meldingen aan dit formulier gekoppeld.",
                 "addNewDisplayRule": "Een regel toevoegen",
-                "header": "Regels inzake kennisgeving"
+                "header": "Regels inzake kennisgeving",
+                "snoozeTime": "Gesnoozed voor {{ count }} uur/uren",
+                "unSnoozableMinimal": "Verplicht",
+                "snoozableMinimal": "Mag worden genegeerd",
+                "forcedDisplayMinimal": "Toon dit formulier ook aan leden die dit formulier eerder voltooid hebben",
+                "unForcedModeMinimal": "Toon dit formulier niet aan leden die dit formulier eerder hebben voltooid",
+                "forRegisteredMemberMinimal": ">{{ count }} dag(en)",
+                "forRegisteredMember": "Dit formulier is voor leden die al {{ count }} dag(en) lid zijn.",
+                "forNewMember": "Voor nieuwe leden"
             },
             "disconnect": "Loskoppelen van",
             "resetSubmit": "Bewerk mijn antwoorden",
@@ -8708,7 +8782,7 @@
             "establishmentEmptyState": "Geen vestigingen binnen dit bedrijf",
             "establishment": "Vestigingen",
             "members": "Leden",
-            "emptySelect": "Selecteer een franchise om de details te zien",
+            "emptySelect": "Selecteer een franchisenemer om diepgaande informatie te zien.",
             "searchPlaceholder": "Een franchise zoeken"
         },
         "pagination": {

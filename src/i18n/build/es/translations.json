@@ -2949,7 +2949,7 @@
                 "explain": "Elija el último pago de la suscripción."
             },
             "invoice": {
-                "label": "Factura {{uuid}} : {{price}}€"
+                "label": "Factura {{uuid}} : {{price}}"
             },
             "listItem": {
                 "recurrencePriceIs": "Pago periódico de {{ amount }}{{currencyDisplay}}",
@@ -4595,7 +4595,7 @@
             "list": {
                 "createButton": "Crear una tarjeta de cita",
                 "isEmpty": "No hay tarjeta de cita",
-                "availableCustomer": "Disponible para la venta en línea",
+                "availableCustomer": "Disponible para la venta",
                 "managerOnly": "No disponible para la venta"
             },
             "validForDuration": {
@@ -4874,7 +4874,7 @@
         "pageTitles": {
             "calendar": "Calendario",
             "serviceList": "Sólo con cita previa",
-            "passList": "Tarjetas"
+            "passList": "Tarjetas de cita"
         },
         "resource": {
             "datatype": {
@@ -8724,7 +8724,8 @@
                 },
                 "empty": "No hay normas de notificación para este formulario",
                 "addNewDisplayRule": "Añadir una regla",
-                "header": "Normas de notificación"
+                "header": "Normas de notificación",
+                "snoozeTime": "Reloj de {{ count }} horas"
             },
             "disconnect": "Desconectarse",
             "resetSubmit": "Editar mis respuestas",

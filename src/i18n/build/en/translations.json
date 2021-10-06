@@ -7790,7 +7790,7 @@
         "banner": {
             "isStaging": "Schedule a demo",
             "networkError": "You are not connected to the internet",
-            "franchiseConnection": "You're currently connected as one of your franchisees."
+            "franchiseConnection": "You're currently connected as one of your franchisees"
         },
         "member": {
             "members": "Members",

@@ -1829,10 +1829,10 @@
                     "success": "Group activity added"
                 },
                 "autoDiscard": {
-                    "hours_before_start": "Hour(s) before the start of the session :",
+                    "hours_before_start": "Hour(s) before the start of the session:",
                     "min_bookings_nb": "Number of booking(s) :",
                     "emailRecipients": "An email will be automatically sent to Owner and Admin accounts, as well as to the teacher (or substitute) of this session.",
-                    "explain": "Cancel sessions with ≤ {{bookings_nb}} booking(s) {{hours}} hours(s) before the start of the session. Members that had signed up will receive a message with regard to the cancellation.",
+                    "explain": "Cancel sessions with ≤ {{bookings_nb}} booking(s) {{hours}} hours(s) before the start of the session. Members that had booked this session will be informed that the session has been cancelled.",
                     "checkbox": "Automatically cancel sessions with too few bookings"
                 }
             }
@@ -6691,18 +6691,18 @@
             },
             "daysLeft": {
                 "second": "days",
-                "first": "Notify when when there is"
+                "first": "Send this message when this pass has"
             },
             "creditsLeft": {
                 "second": "credits remaining",
                 "first": "Send an email when there is"
             },
-            "daysPastLabel": "Notify when the pass has expired by {{day}} day",
-            "daysPastLabel_plural": "Notify when the pass has expired by {{day}} days",
-            "daysLeftLabel": "Notify when there is {{day}} day of validity left on the pass",
-            "daysLeftLabel_plural": "Notify when there are {{day}} days of validity left on the pass",
-            "creditsLeftLabel": "Notify when there is {{count}} credit left",
-            "creditsLeftLabel_plural": "Notify when there are {{credit}} credits left"
+            "daysPastLabel": "This notification will be sent when the pass has expired for {{day}} day.",
+            "daysPastLabel_plural": "This notification will be sent when the pass has expired for {{day}} days.",
+            "daysLeftLabel": "This notification will be sent when the pass expires in {{day}} day.",
+            "daysLeftLabel_plural": "This notification will be sent when the pass expires in {{day}} days.",
+            "creditsLeftLabel": "This notification will be sent when the pass has {{credit}} remaining credit.",
+            "creditsLeftLabel_plural": "This notification will be sent when the pass has {{credit}} remaining credits."
         },
         "search": "Search a pass",
         "extension": {
@@ -7086,7 +7086,7 @@
             "lastDiscardBeforeMinutes": "Members can cancel free-of-charge for up to {{m}} before the start of the session.",
             "firstBookingMinutesUntil": "Members can book sessions for up to {{m}} in the future.",
             "conditions": "Conditions",
-            "autoDiscard": "The session will be cancelled if there are {{nb_bookings}} booking(s) or less {{hours}}h before the start of the session"
+            "autoDiscard": "The session will be cancelled if there are {{nb_bookings}} booking(s) or less {{hours}}h before the start of the session."
         },
         "modal": {
             "delete": {
@@ -7515,7 +7515,7 @@
                     "absence": "Absence n ° {{notify_booking_nb}}",
                     "attendance": "Attendance n ° {{notify_booking_nb}}",
                     "after": "Notification {{hours}}h after the session",
-                    "before": "Notification {{hours}}h before the session",
+                    "before": "This notification will be sent {{hours}} hour(s) before the start of the session.",
                     "notifyAllEvents": {
                         "notRefunded": "At each late cancellation",
                         "refunded": "At each reimbursed cancellation",

@@ -9185,7 +9185,8 @@
             "restore": "Restore session",
             "manager": "Manager",
             "franchisor": "Franchiser",
-            "continue": "Continue on this session"
+            "continue": "Continue on this session",
+            "previous": "Previous session"
         }
     },
     "video": {

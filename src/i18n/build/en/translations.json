@@ -6565,7 +6565,7 @@
             },
             "payout": {
                 "content": "We cannot make payments to your bank account because it does not exist or is improperly configured.",
-                "title": "Missing bank information"
+                "title": "Your banking details are incomplete"
             },
             "verification": {
                 "warning": "Online payments may be <1> deactivated </1> after this date!",
@@ -9676,7 +9676,7 @@
     },
     "franchise": {
         "companies": {
-            "pageTitle": "Franchises",
+            "pageTitle": "Franchisees",
             "navigateToCompany": "Connection to the franchisee account",
             "membersEmptyState": "No member in this company",
             "establishmentEmptyState": "No establishment in this company",

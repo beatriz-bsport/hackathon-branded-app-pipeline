@@ -9598,11 +9598,19 @@
                     "signUp": "New members",
                     "connectionLabel": "Member seniority (days)",
                     "connection": "Already registered members",
-                    "signUpAlreadyExists": " Existing rule"
+                    "signUpAlreadyExists": " Existing rule",
+                    "connectionHelperText": "Only members who have been registered for a minimum of {{count}} days will see this notification"
                 },
                 "empty": "There are no notifications for this form.",
                 "addNewDisplayRule": "Add a rule",
-                "header": "Notification rules"
+                "header": "Notification rules",
+                "form": {
+                    "dialog": {
+                        "helperTextRegisteredMembers": "The form will appear as a pop-up on the marketplace and the widget for all members concerned.",
+                        "subTitle": "Which members do you want to target?",
+                        "title": "Display rules"
+                    }
+                }
             },
             "disconnect": "Disconnect",
             "resetSubmit": "Edit my answers",

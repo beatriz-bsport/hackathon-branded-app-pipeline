@@ -9600,11 +9600,11 @@
                     "connection": "Already registered members",
                     "signUpAlreadyExists": " Existing rule"
                 },
-                "empty": "No notification rules for this form",
+                "empty": "There are no notifications for this form.",
                 "addNewDisplayRule": "Add a rule",
                 "header": "Notification rules"
             },
-            "disconnect": "Disconnecting",
+            "disconnect": "Disconnect",
             "resetSubmit": "Edit my answers",
             "allStepsCompleted": "You have completed all the steps",
             "submitLater": "Answer later",

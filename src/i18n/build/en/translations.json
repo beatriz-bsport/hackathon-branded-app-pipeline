@@ -9180,7 +9180,9 @@
         },
         "multiSession": {
             "previousSession": " You were connected as: {{name}}",
-            "title": " It appears that you're using multiple simultaneously."
+            "title": " It appears that you're using multiple simultaneously.",
+            "currentSession": "You're currently connected as: {{name}}",
+            "restore": "Restore session"
         }
     },
     "video": {

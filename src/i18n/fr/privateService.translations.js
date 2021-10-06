@@ -4,6 +4,12 @@ exports.default = {
   marketplace: {
     isEmpty: 'Aucun RDV proposé',
   },
+  popup: {
+    validate: 'Valider',
+    button: 'Horaires',
+    begin: 'Heure de début',
+    end: 'Heure de fin',
+  },
   filters: {
     all: 'Toutes les cartes',
     expiration: 'Validité',

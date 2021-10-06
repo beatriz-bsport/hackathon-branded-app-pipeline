@@ -100,6 +100,8 @@ import { TagState } from '../libs/tag/types';
 import { ThemeState } from '../libs/theme/types';
 import { VideoState } from '../libs/video/types';
 import actionTypes from '../actions/auth.types';
+import userPreference from '../libs/user-preference/reducers';
+import { UserPreference } from '../libs/user-preference/types';
 
 const rootReducer = (history: any) =>
   combineReducers({
@@ -167,6 +169,7 @@ const rootReducer = (history: any) =>
     spotScheduling: spotSchedulingReducers,
     customForm: CustomFormReducer,
     plugin,
+    userPreference,
   });
 
 export type RootState = {
@@ -227,6 +230,7 @@ export type RootState = {
   subscription: any;
   tag: TagState;
   theme: ThemeState;
+  userPreference: UserPreference;
   video: VideoState;
   waitingList: any;
   webhook: any;

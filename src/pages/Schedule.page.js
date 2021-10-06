@@ -51,6 +51,8 @@ import {
   fetchManagerRessourcesFilters as fetchManagerRessourcesFiltersAction,
   updateManagerRessourcesFilters as updateManagerRessourcesFiltersAction,
 } from '../libs/dashboard/actions';
+import { UserPreference } from '../libs/user-preference/types';
+import { setScheduleTimerange } from '../libs/user-preference/actions';
 
 type Props = {
   classes: Object,
@@ -94,6 +96,12 @@ type Props = {
   resourceFiltersArray: Array<Ressource>,
   fetchRessourcesFilters: () => void,
   updateManagerRessourcesFilters: (*) => void,
+
+  userPreference: UserPreference,
+  setScheduleTimerange: ({
+    begin: string,
+    end: string,
+  }) => void,
 };
 
 const styles = (theme) => ({
@@ -244,6 +252,8 @@ export class CoachPrivateCalendar extends React.Component<Props> {
           showPrivateBookingToogle
           showCustomEventsToogle
           showHideCancelledEventsToggle
+          userPreference={this.props.userPreference}
+          setScheduleTimerange={this.props.setScheduleTimerange}
         />
         {this.state.updateAvailabilitySlotData ? (
           <AvailabilityUpdateResourceChoserDialog
@@ -285,6 +295,7 @@ export default compose(
   connect(
     (state, { periodFilter, resourceFiltersArray }) => ({
       theme: state.theme.theme,
+      userPreference: state.userPreference,
       availabilitySlots: withResourceColor(getFilteredAvailabilitySlots)(
         state,
         periodFilter,
@@ -349,6 +360,7 @@ export default compose(
       updateManagerRessourcesFilters: updateManagerRessourcesFiltersAction,
       disableAvailabilitySlotMultipleResource,
       enableAvailabilitySlotMultipleResource,
+      setScheduleTimerange,
     },
   ),
   withHandlers({

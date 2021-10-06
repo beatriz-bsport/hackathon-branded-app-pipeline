@@ -36,13 +36,17 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 
 import moment from 'moment-timezone';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
-import i18n, { Moment } from '../../../i18n';
 
 import './main.scss';
 import './custom.scss';
-import RecurrentAvailabilityFormDialog from './RecurrentAvailabilityFormDialog.component';
 // import { getTextColorFromRGB } from '../../../color';
+import Select from 'react-select';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import i18n, { Moment } from '../../../i18n';
 import type { AvailabilitySlot, PrivateBooking } from '../types';
+import RecurrentAvailabilityFormDialog from './RecurrentAvailabilityFormDialog.component';
 
 const styles = (theme) => ({
   container: {},
@@ -266,6 +270,86 @@ const AvailabilitySlotForm = withTranslation(['privateService'])(
   ),
 );
 
+function format(value: number): string {
+  const val = parseInt(value);
+  return moment(`2021-10-01T${val < 10 ? `0${val}` : val}:00+02:00`).format(
+    'LT',
+  );
+}
+
+class TimePopup extends React.Component<Props> {
+  state = {
+    begin: this.props.userPreference.scheduleTimerange.begin,
+    end: this.props.userPreference.scheduleTimerange.end,
+  };
+
+  onChangeBegin(begin: string) {
+    this.setState({ begin });
+  }
+
+  onChangeEnd(end: string) {
+    this.setState({ end });
+  }
+
+  render() {
+    return (
+      <div style={{ marginBottom: 20 }}>
+        <Grid container justify="flex-start">
+          <Grid md={2}>
+            {this.props.t('popup.begin')}
+            <Select
+              placeholder={format(this.state.begin.split(':')[0])}
+              options={[...Array(25).keys()].map((e) => ({
+                value: e,
+                label: format(e),
+              }))}
+              onChange={(e) => {
+                const param =
+                  e.value < 10 ? `0${e.value}:00:00` : `${e.value}:00:00`;
+                this.onChangeBegin(param);
+              }}
+            />
+          </Grid>
+          <Grid xs={10} md={2} style={{ marginLeft: 15 }}>
+            {this.props.t('popup.end')}
+            <Select
+              placeholder={format(this.state.end.split(':')[0])}
+              options={[...Array(25).keys()].map((e) => ({
+                value: e,
+                label: format(e),
+              }))}
+              onChange={(e) => {
+                const param =
+                  e.value < 10 ? `0${e.value}:00:00` : `${e.value}:00:00`;
+                this.onChangeEnd(param);
+              }}
+            />
+          </Grid>
+        </Grid>
+        <Button
+          style={{
+            height: 35,
+            marginTop: 5,
+            marginBottom: 5,
+            backgroundColor: '#20304B',
+          }}
+          onClick={() => {
+            this.props.closePopup();
+            this.props.setScheduleTimerange({
+              begin: this.state.begin,
+              end: this.state.end,
+            });
+          }}
+        >
+          <Typography variant="body2" style={{ color: 'white' }}>
+            {this.props.t('popup.validate')}
+          </Typography>
+        </Button>
+      </div>
+    );
+  }
+}
+
 type EventSlot = {
   startStr: string,
   endStr: string,
@@ -290,6 +374,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
     enableWithRecurrence: false,
     date_start: null,
     date_end: null,
+    timePopup: false,
   };
 
   select = (eventSlotSelected: EventSlot) => {
@@ -530,6 +615,14 @@ export class PrivateCalendar extends React.Component<Props, State> {
     }
     return (
       <div className={classes.container}>
+        {this.state.timePopup ? (
+          <TimePopup
+            userPreference={this.props.userPreference}
+            closePopup={() => this.setState({ timePopup: false })}
+            setScheduleTimerange={this.props.setScheduleTimerange}
+            t={t}
+          />
+        ) : null}
         <FullCalendar
           ref={this.calendarRef}
           plugins={[
@@ -550,6 +643,12 @@ export class PrivateCalendar extends React.Component<Props, State> {
               text: '-',
               click: this.props.zoomOut,
             },
+            changeTime: {
+              text: t('popup.button'),
+              click: () => {
+                this.setState({ timePopup: true });
+              },
+            },
           }}
           views={{
             resourceTimeGridThreeDays: {
@@ -567,7 +666,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
             },
           }}
           headerToolbar={{
-            left: 'prev,next today',
+            left: 'prev,next today changeTime',
             center: isWidthUp('sm', this.props.width) ? 'title' : '',
             right: this.props.resourceDatatypeView
               ? 'zoomOut,zoomIn resourceTimeGridDay,resourceTimeGridThreeDays,resourceTimeGridWeek'
@@ -590,8 +689,12 @@ export class PrivateCalendar extends React.Component<Props, State> {
             `00:${15 * 2 ** this.props.zoomLevel}:00`
           }
           locales={[frLocale, itLocale, deLocale, nlLocale]}
-          slotMinTime="06:00:00"
-          slotMaxTime="23:00:00"
+          slotMinTime={
+            this.props.userPreference?.scheduleTimerange.begin || '06:00:00'
+          }
+          slotMaxTime={
+            this.props.userPreference?.scheduleTimerange.end || '23:00:00'
+          }
           allDaySlot={allDaySlot}
           eventClick={this.handleEventClick}
           datesSet={this.handleIntervalChange}

@@ -40,6 +40,8 @@ import {
   fetchPrivateServiceBulk as fetchPrivateServiceBulkAction,
 } from '../../libs/private-service/actions';
 import { fetchEstablishmentBulk } from '../../libs/establishment/actions';
+import { setScheduleTimerange } from '../../libs/user-preference/actions';
+import { UserPreference } from '../../libs/user-preference/types';
 
 type Props = {
   theme: CompanyTheme,
@@ -75,6 +77,8 @@ type Props = {
 
   fetchEstablishmentBulk: (es: Array<number>) => void,
   periodFilter: { start: string, end: string },
+  userPreference: UserPreference,
+  setScheduleTimerange: ({ begin: string, end: string }) => void,
 };
 
 const styles = (theme) => ({
@@ -180,6 +184,8 @@ export class CoachPrivateCalendar extends React.Component<Props> {
           refreshOffers={this.fetchWeekData}
           refreshPrivateBookings={this.fetchWeekData}
           timezone={this.props.theme.timezone_name}
+          userPreference={this.props.userPreference}
+          setScheduleTimerange={this.props.setScheduleTimerange}
         />
       </div>
     );
@@ -212,6 +218,7 @@ export default compose(
       loading:
         state.privateService.availabilitySlot.loading ||
         state.privateService.privateBooking.loading,
+      userPreference: state.userPreference,
     }),
     {
       fetchAvailabilitySlots,
@@ -226,6 +233,7 @@ export default compose(
       fetchPrivateSlotBulk: fetchPrivateSlotBulkAction,
       fetchPrivateServiceBulk: fetchPrivateServiceBulkAction,
       fetchMemberBulk: fetchMemberBulkAction,
+      setScheduleTimerange,
     },
   ),
   withHandlers({

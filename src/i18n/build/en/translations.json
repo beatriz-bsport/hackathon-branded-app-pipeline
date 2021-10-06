@@ -9595,7 +9595,10 @@
             "answerForDisabledField": "Archived questions",
             "displayRule": {
                 "kind": {
-                    "signUp": "New members"
+                    "signUp": "New members",
+                    "connectionLabel": "Member seniority (days)",
+                    "connection": "Already registered members",
+                    "signUpAlreadyExists": " Existing rule"
                 },
                 "empty": "No notification rules for this form",
                 "addNewDisplayRule": "Add a rule",

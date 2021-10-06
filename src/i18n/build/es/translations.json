@@ -1667,7 +1667,8 @@
             },
             "actions": "acciones",
             "name": " Apellido"
-        }
+        },
+        "description": "Descripción"
     },
     "order": {
         "products": {
@@ -2443,7 +2444,9 @@
                 "revert": "Cancelar",
                 "pay": "Paga esta factura",
                 "basketInconsistent": "Su cesta ha sido modificada, por favor actualice su página antes de validar su pago.\n No ha sido acusado.",
-                "billByInstalment": "Pago a plazos"
+                "billByInstalment": "Pago a plazos",
+                "paymentLink": "Enlace de pago",
+                "generatePaymentLink": "Generar un enlace de pago"
             },
             "paymentList": {
                 "isEmpty": "No hay pago",
@@ -3042,7 +3045,8 @@
             "createdAt": "Creado {{at}}",
             "title": "Pausar todas las suscripciones"
         },
-        "seeMore": "Ver más"
+        "seeMore": "Ver más",
+        "search": "Buscar un contrato"
     },
     "reporting": {
         "columns": {
@@ -3330,7 +3334,8 @@
         "header": {
             "average": "Por término medio",
             "sum": "Suma"
-        }
+        },
+        "search": "Buscar un informe"
     },
     "alerting": {
         "list": {
@@ -4584,7 +4589,8 @@
                 "managerOnly": "Invisible para los clientes",
                 "tax": "IVA: {{ tax }}%",
                 "price": "{{ price, price}}",
-                "nbCredits": "{{ credits }} crédito"
+                "nbCredits": "{{ credits }} crédito",
+                "nbCredits_plural": "{{ credits }} créditos"
             },
             "list": {
                 "createButton": "Crear una tarjeta de cita",
@@ -5144,7 +5150,15 @@
         },
         "marketplace": {
             "isEmpty": "No hay cita disponible"
-        }
+        },
+        "popup": {
+            "end": "Hora final",
+            "begin": "Hora de inicio",
+            "button": "Horarios",
+            "validate": "Validar"
+        },
+        "searshAppointmentPass": "Buscar una tarjeta RDV",
+        "search": "Buscar de una cita"
     },
     "reminder": {
         "task": {
@@ -5354,7 +5368,8 @@
             "content": "¿Realmente quieres borrar este pack? Esta operación es irreversible, las compras ya realizadas y las cestas actuales no se verán afectadas.",
             "title": "Supresión del pack"
         },
-        "edit": "Modificar"
+        "edit": "Modificar",
+        "search": "Buscar una manada"
     },
     "theme": {
         "forms": {
@@ -5575,7 +5590,15 @@
                 "last_name": "Apellidos",
                 "first_name": "Nombre",
                 "vaccination_status": "Estado del pase sanitario COVID-19"
-            }
+            },
+            "customQuestionDialog": {
+                "confirm": "Crear un formulario",
+                "cancel": "Cancelar",
+                "content": "Para añadir nuevas preguntas al formulario de registro puede crear un nuevo formulario en la pestaña Marketing > Formularios. Añada sus preguntas y luego adjunte este formulario al formulario de inscripción seleccionando la condición \"Dirigido a nuevos miembros\".",
+                "title": "Preguntas personalizadas"
+            },
+            "addQuestions": "Añadir preguntas",
+            "additionalCustomForm": "Formularios adicionales"
         },
         "zoom": {
             "confirmDialog": {
@@ -5886,7 +5909,10 @@
                 "helper": "Ayuda: Compruebe aquí que su regla de remuneración cumple con sus expectativas",
                 "resultTitle": "Resultado de su simulación (salario del profesor)",
                 "title": "Simulador de salarios",
-                "which": "Que aporta"
+                "which": "Que aporta",
+                "marginalValueOfReservation": "Valor marginal de una reserva",
+                "numberOfCancellations": "Número de ausencias o cancelaciones tardías",
+                "numberOfStudent": "Número de alumnos"
             }
         },
         "tabs": {
@@ -5930,7 +5956,8 @@
             },
             "dissociate": "Personalizar las reglas"
         },
-        "search": "Buscar una regulación de remuneración (opcional)"
+        "search": "Buscar una regulación de remuneración (opcional)",
+        "simulate": "Simular"
     },
     "checkout": {
         "myBasket": {
@@ -6689,7 +6716,8 @@
         },
         "signup": {
             "emailAlreadyExists": "Este correo electrónico ya está usado",
-            "failedCreation": "No es posible crear su cuenta en este momento, por favor inténtelo de nuevo en unos minutos"
+            "failedCreation": "No es posible crear su cuenta en este momento, por favor inténtelo de nuevo en unos minutos",
+            "changeWorkspaceError": "Se ha producido un error en el cambio de cuenta"
         },
         "establishmentGroup": {
             "update": {
@@ -6749,6 +6777,23 @@
             "create": {
                 "error": "No se puede crear el grupo de facturación",
                 "success": "Se ha creado el nuevo grupo de facturación"
+            }
+        },
+        "customFormDisplayRule": {
+            "customError": {
+                "3": "imposible crear una regla con el mismo tiempo de aparición"
+            },
+            "delete": {
+                "error": "No se puede eliminar la regla de notificación",
+                "success": "Norma de notificación suprimida"
+            },
+            "update": {
+                "error": "No se puede cambiar la regla de notificación",
+                "success": "Norma de notificación modificada"
+            },
+            "create": {
+                "error": "No se puede crear la regla de notificación",
+                "success": "Regla de notificación creada"
             }
         }
     },
@@ -7092,10 +7137,12 @@
         "specifications": {
             "price": "{{price, price}}",
             "unlimitedCredits": "Ilimitado",
-            "nbCredits": "{{credits}} créditos"
+            "nbCredits": "{{credits}} crédito",
+            "nbCredits_plural": "{{credits}} créditos"
         },
         "ht": "Libre de impuestos",
-        "credits": "Créditos",
+        "credits": "Crédito",
+        "credits_plural": "Créditos",
         "unlimitedCredits": "Ilimitado",
         "never": "Nunca",
         "expirationDate": "Expira al",
@@ -7444,7 +7491,10 @@
             "custom_form": "Formularios",
             "tags": "Etiquetas",
             "addMemberTooltip": "Añadir un miembro",
-            "cashBookTooltip": "Libro de caja"
+            "cashBookTooltip": "Libro de caja",
+            "redirecting": "Será redirigido a su página",
+            "backToFranchiseWorskpace": "Volver a la cuenta principal",
+            "franchiseConnectedAs": "Conectado como: {{name}}"
         },
         "deprecatedNavigator": {
             "close": "Cerrar",
@@ -7460,6 +7510,17 @@
         "franchiseMenu": {
             "members": "Miembros",
             "franchises": "Franquicias"
+        },
+        "multiSession": {
+            "current": "Sesión actual",
+            "previous": "Sesión anterior",
+            "manager": "gerente",
+            "franchisor": "franquiciador",
+            "continue": "Continúe con esta sesión",
+            "currentSession": "Actualmente está conectado como {{name}}",
+            "restore": "Restaurar esta sesión",
+            "previousSession": " Has iniciado la sesión como {{name}}",
+            "title": " Parece que está utilizando varias pestañas simultáneamente"
         }
     },
     "video": {
@@ -8349,7 +8410,8 @@
         },
         "banner": {
             "networkError": "No estás conectado a internet",
-            "isStaging": "Pedir cita"
+            "isStaging": "Pedir cita",
+            "franchiseConnection": "Está conectado a la aplicación de uno de sus franquiciados"
         },
         "video": {
             "videoList": "Videoteca"
@@ -8625,7 +8687,51 @@
             "listActions": "Acciones",
             "disabledCustomForm": "Formularios archivados",
             "disabledCustomFormField": "Artículos archivados",
-            "addCustomFrom": "Añadir un formulario"
+            "addCustomFrom": "Añadir un formulario",
+            "displayRule": {
+                "unSnoozableMinimal": "Obligatorio",
+                "snoozableMinimal": "Puede ser ignorado",
+                "forcedDisplayMinimal": "Visible incluso para los miembros que ya han rellenado el formulario",
+                "unForcedModeMinimal": "No es visible para los miembros que ya han completado el formulario",
+                "forRegisteredMemberMinimal": "{{ count }} días",
+                "forRegisteredMember": "Para los afiliados que llevan más de {{ count }} días",
+                "forNewMember": "Para los nuevos miembros",
+                "form": {
+                    "errors": {
+                        "timedeltaBeforeDisplayMustBeGraterThanZero": "Este valor debe ser mayor que 0."
+                    },
+                    "dialog": {
+                        "snoozeOptionHelperText": "El formulario se mostrará de nuevo {{count}} horas después de ser ignorado",
+                        "snoozeOptionLabel": "Tiempo de repetición (horas)",
+                        "force_display": "Forzar la visualización a los miembros que ya han rellenado el formulario previamente",
+                        "snoozeOption": "Permitir a los afiliados aplazar la cumplimentación del formulario",
+                        "advancedOptions": "Configuración avanzada",
+                        "modify": "Editar",
+                        "cancel": "Cancelar",
+                        "create": "Añadir",
+                        "helperTextNewMembers": "El formulario aparecerá como una ventana emergente en el mercado y el widget después del formulario de registro.",
+                        "helperTextRegisteredMembers": "El formulario aparecerá como una ventana emergente en el mercado y el widget para todos los miembros interesados.",
+                        "subTitle": "¿A qué miembros quiere dirigirse?",
+                        "title": "Normas de visualización"
+                    }
+                },
+                "kind": {
+                    "connectionHelperText": "Sólo los miembros que se han registrado durante un mínimo de {{count}} días verán esta notificación",
+                    "connectionLabel": "Antigüedad de los miembros (días)",
+                    "connection": "Miembros ya registrados",
+                    "signUpAlreadyExists": " Normativa existente",
+                    "signUp": "Los nuevos miembros"
+                },
+                "empty": "No hay normas de notificación para este formulario",
+                "addNewDisplayRule": "Añadir una regla",
+                "header": "Normas de notificación"
+            },
+            "disconnect": "Desconectarse",
+            "resetSubmit": "Editar mis respuestas",
+            "allStepsCompleted": "Has completado todos los pasos",
+            "submitLater": "Responder más tarde",
+            "previous": "Vuelta",
+            "next": "Siguiente"
         }
     },
     "spotScheduling": {
@@ -8695,7 +8801,14 @@
     },
     "franchise": {
         "companies": {
-            "pageTitle": "Franquicias"
+            "pageTitle": "Franquicias",
+            "navigateToCompany": "Acceso a la cuenta del franquiciado",
+            "membersEmptyState": "No hay miembros en esta empresa",
+            "establishmentEmptyState": "No hay instalaciones en esta empresa",
+            "establishment": "Establecimientos",
+            "members": "miembros",
+            "emptySelect": "Seleccione una franquicia para ver los detalles.",
+            "searchPlaceholder": "Buscar un franquiciado"
         },
         "member": {
             "pageTitle": "Miembro",
@@ -8715,6 +8828,19 @@
             "actions": "Acciones",
             "franchised": "Franquiciado",
             "name": "Nombre"
+        },
+        "emails": {
+            "chooseGroup": "Elegir un grupo",
+            "copy": "copia",
+            "groupByPlaceholder": "Agrupado por",
+            "franchised": "Franquiciado",
+            "groupBy": "Agrupado por",
+            "pageTitle": "Plantilla",
+            "companiesEmails": "Plantillas de franquicia",
+            "create": "Crear un modelo",
+            "franchiseEmails": "Mis plantillas",
+            "emptyStateDescription": "Seleccione una plantilla",
+            "emptyStateTitle": "Vista previa del correo"
         }
     }
 }

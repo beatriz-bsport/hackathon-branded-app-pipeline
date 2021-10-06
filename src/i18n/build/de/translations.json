@@ -481,7 +481,8 @@
             "createdAt": "Erstellt am {{at}}",
             "title": "Globale Pausen"
         },
-        "seeMore": "Mehr sehen"
+        "seeMore": "Mehr sehen",
+        "search": "Suche nach einem Vertrag"
     },
     "translation": {
         "appbar": {
@@ -2265,7 +2266,15 @@
             "required": "Obligatorisch",
             "editable": "Veränderbar",
             "save": "Speichern Sie",
-            "success": "Gespeicherte Konfiguration"
+            "success": "Gespeicherte Konfiguration",
+            "customQuestionDialog": {
+                "confirm": "Ein Formular erstellen",
+                "cancel": "Abbrechen",
+                "content": "Um dem Anmeldeformular neue Fragen hinzuzufügen, können Sie auf der Registerkarte Marketing > Formulare ein neues Formular erstellen. Fügen Sie Ihre Fragen hinzu und fügen Sie dieses Formular dann dem Anmeldeformular hinzu, indem Sie die Bedingung \"Neue Mitglieder ansprechen\" auswählen.",
+                "title": "Maßgeschneiderte Fragen"
+            },
+            "addQuestions": "Hinzufügen von Fragen",
+            "additionalCustomForm": "Zusätzliche Formulare"
         },
         "zoom": {
             "confirmDialog": {
@@ -2669,7 +2678,8 @@
         "specifications": {
             "price": "{{price, price}}",
             "unlimitedCredits": "Unbegrenzt",
-            "nbCredits": "{{credits}} Credits"
+            "nbCredits": "{{credits}} Credits",
+            "nbCredits_plural": "Krediten"
         },
         "unlimitedCredits": "Unbegrenzt",
         "never": "Nie",
@@ -2697,6 +2707,7 @@
             "updated": "Die Credits sind aktualisiert"
         },
         "credits": "Credits",
+        "credits_plural": "Kredite",
         "consumerPaymentPack": {
             "refund": {
                 "description": "{{ credits }} Credit - {{ note }}",
@@ -3187,7 +3198,8 @@
         "header": {
             "average": "Im Durchschnitt",
             "sum": "Summe"
-        }
+        },
+        "search": "Suche nach einem Bericht"
     },
     "snackbar": {
         "establishment": {
@@ -3731,7 +3743,8 @@
         },
         "signup": {
             "emailAlreadyExists": "Diese E-Mail ist bereits in Gebrauch",
-            "failedCreation": "Ihr Konto kann im Moment nicht erstellt werden, bitte versuchen Sie es in ein paar Minuten erneut"
+            "failedCreation": "Ihr Konto kann im Moment nicht erstellt werden, bitte versuchen Sie es in ein paar Minuten erneut",
+            "changeWorkspaceError": "Bei der Kontoänderung ist ein Fehler aufgetreten"
         },
         "paymentRuleGroups": {
             "update": {
@@ -3808,6 +3821,23 @@
             "create": {
                 "error": "Die Rechnungsgruppe kann nicht erstellt werden",
                 "success": "Die neue Rechnungsgruppe wurde erstellt"
+            }
+        },
+        "customFormDisplayRule": {
+            "customError": {
+                "3": "Die Benachrichtigungsregel kann nicht gelöscht werden"
+            },
+            "delete": {
+                "error": "Die Benachrichtigungsregel kann nicht gelöscht werden",
+                "success": "Benachrichtigungsregel gestrichen"
+            },
+            "update": {
+                "error": "Die Benachrichtigungsregel kann nicht geändert werden",
+                "success": "Geänderte Meldevorschrift"
+            },
+            "create": {
+                "error": "Die Benachrichtigungsregel kann nicht erstellt werden",
+                "success": "Benachrichtigungsregel erstellt"
             }
         }
     },
@@ -4084,7 +4114,9 @@
                 "pay": "Diese Rechnung bezahlen",
                 "bill": "Einziehen",
                 "basketInconsistent": "Ihr Warenkorb wurde geändert, bitte aktualisieren Sie Ihre Seite, bevor Sie Ihre Zahlung bestätigen.\n Sie wurden nicht belastet.",
-                "billByInstalment": "Zahlung in Raten"
+                "billByInstalment": "Zahlung in Raten",
+                "paymentLink": "Link zur Bezahlung",
+                "generatePaymentLink": "Erzeugen eines Zahlungslinks"
             },
             "sumup": {
                 "amountRemaining": "Noch zu zahlen",
@@ -4387,7 +4419,10 @@
                 "for": "Für",
                 "helper": "Hilfe: Prüfen Sie hier, ob Ihre Vergütungsregel Ihren Vorstellungen entspricht",
                 "resultTitle": "Ergebnis Ihrer Simulation (Gehalt des Trainers)",
-                "title": "Gehaltssimulator"
+                "title": "Gehaltssimulator",
+                "marginalValueOfReservation": "Grenzwert einer Reservierung",
+                "numberOfCancellations": "Anzahl der nicht erschienenen Gäste oder verspäteten Absagen",
+                "numberOfStudent": "Anzahl der Studenten"
             },
             "Errors": {
                 "invalidCancelledBookingRules": "Wenn Sie unterschiedliche Boni für abwesende Schüler anwenden möchten, müssen Sie im folgenden Abschnitt mindestens einen Bonus oder eine Basis pro Prozentsatz definieren.",
@@ -4488,7 +4523,8 @@
             },
             "dialogTitle": "Vergütungsgruppe",
             "private_service": "Terminvereinbarungen"
-        }
+        },
+        "simulate": "Simulieren Sie"
     },
     "shop": {
         "shopitem": {
@@ -5836,6 +5872,7 @@
             },
             "parameters": {
                 "nbCredits": "{{ credits }} Credits",
+                "nbCredits_plural": "Kredite",
                 "managerOnly": "Für Kunden unsichtbar",
                 "tax": "Mehrwertsteuer : {{ tax }}%",
                 "price": "{{price, price}}"
@@ -6173,7 +6210,15 @@
         },
         "marketplace": {
             "isEmpty": "Kein Termin angeboten"
-        }
+        },
+        "popup": {
+            "end": "Endzeit",
+            "begin": "Startzeit",
+            "button": "Fahrplan",
+            "validate": "Validieren Sie"
+        },
+        "searshAppointmentPass": "Suche nach einer RDV-Karte",
+        "search": "Suche nach einem Termin"
     },
     "communication": {
         "recipient": {
@@ -6533,7 +6578,8 @@
             "description": "Beschreibung",
             "purchases": "Verkäufe"
         },
-        "edit": "Ändern"
+        "edit": "Ändern",
+        "search": "Suche nach einer Packung"
     },
     "authentication": {
         "resetPassword": {
@@ -6949,7 +6995,8 @@
         },
         "banner": {
             "networkError": "Du bist nicht mit dem Internet verbunden",
-            "isStaging": "Einen Termin vereinbaren"
+            "isStaging": "Einen Termin vereinbaren",
+            "franchiseConnection": "Sie sind gerade bei einer der Anwendungen Ihrer Franchisenehmer angemeldet"
         },
         "video": {
             "videoList": "Videothek"
@@ -7349,7 +7396,10 @@
             "tags": "Tags",
             "custom_form": "Formulare",
             "addMemberTooltip": "Mitglied hinzufügen",
-            "cashBookTooltip": "Kassenbuch"
+            "cashBookTooltip": "Kassenbuch",
+            "redirecting": "Sie werden zu Ihrer Seite weitergeleitet",
+            "backToFranchiseWorskpace": "Rückkehr zum Stammkonto",
+            "franchiseConnectedAs": "Eingeloggt als"
         },
         "deprecatedNavigator": {
             "close": "Schließen",
@@ -7365,6 +7415,17 @@
         "franchiseMenu": {
             "members": "Mitglieder",
             "franchises": "Franchises"
+        },
+        "multiSession": {
+            "current": "Aktuelle Sitzung",
+            "previous": "Vorherige Sitzung",
+            "manager": "Manager",
+            "franchisor": "Franchisegeber",
+            "continue": "Weiter mit dieser Sitzung",
+            "currentSession": "Sie sind derzeit eingeloggt als",
+            "restore": "Diese Sitzung wiederherstellen",
+            "previousSession": " Sie waren eingeloggt als",
+            "title": " Sie scheinen mehrere Tabs gleichzeitig zu verwenden"
         }
     },
     "emailTemplate": {
@@ -8123,7 +8184,8 @@
             },
             "actions": "Aktionen",
             "name": " Name"
-        }
+        },
+        "description": "Beschreibung"
     },
     "checkout": {
         "myBasket": {
@@ -8579,7 +8641,52 @@
             "search": "Ein Formular finden",
             "linkHelper": "Um das Formular an Ihre Mitglieder zu senden, fügen Sie den obigen Link in deren E-Mails ein. Es werden nur die gespeicherten Änderungen sichtbar sein.",
             "CustomFormLink": "Formular Link",
-            "title": "Formularios"
+            "title": "Formularios",
+            "displayRule": {
+                "snoozeTime": "Uhr zum Zählen der Stunden",
+                "unSnoozableMinimal": "Obligatorisch",
+                "snoozableMinimal": "Kann ignoriert werden",
+                "forcedDisplayMinimal": "Sichtbar auch für Mitglieder, die das Formular bereits ausgefüllt haben",
+                "unForcedModeMinimal": "Nicht sichtbar für Mitglieder, die das Formular bereits ausgefüllt haben",
+                "forRegisteredMemberMinimal": "> {{ count }} Tage",
+                "forRegisteredMember": "Für Mitglieder, die seit mehr als {{ count }} Tagen registriert sind",
+                "forNewMember": "Für neue Mitglieder",
+                "form": {
+                    "errors": {
+                        "timedeltaBeforeDisplayMustBeGraterThanZero": "Dieser Wert muss größer als 0 sein."
+                    },
+                    "dialog": {
+                        "snoozeOptionHelperText": "Das Formular wird {{count}} Stunden nach dem Ignorieren wieder erscheinen",
+                        "snoozeOptionLabel": "Schlummerzeit (Stunden)",
+                        "force_display": "Anzeige für Mitglieder erzwingen, die das Formular bereits zuvor ausgefüllt haben",
+                        "snoozeOption": "Den Mitgliedern die Möglichkeit geben, das Ausfüllen des Formulars zu verschieben",
+                        "advancedOptions": "Erweiterte Einstellungen",
+                        "modify": "bearbeiten",
+                        "cancel": "Abbrechen",
+                        "create": "hinzufügen",
+                        "helperTextNewMembers": "Das Formular erscheint als Pop-up auf dem Marktplatz und das Widget nach dem Anmeldeformular.",
+                        "helperTextRegisteredMembers": "Das Formular wird als Pop-up auf dem Marktplatz und im Widget für alle betroffenen Mitglieder angezeigt.",
+                        "subTitle": "Welche Mitglieder wollen Sie ansprechen?",
+                        "title": "Regeln anzeigen"
+                    }
+                },
+                "kind": {
+                    "connectionHelperText": "Nur Mitglieder, die seit mindestens {{count}} Tagen registriert sind, sehen diese Benachrichtigung",
+                    "connectionLabel": "Dienstalter des Mitglieds (Tage)",
+                    "connection": "Bereits registrierte Mitglieder",
+                    "signUpAlreadyExists": " Bestehende Regelung",
+                    "signUp": "Die neuen Mitglieder"
+                },
+                "empty": "Keine Notifizierungsregeln für dieses Formular",
+                "addNewDisplayRule": "Eine Regel hinzufügen",
+                "header": "Trennen der Verbindung"
+            },
+            "disconnect": "Trennen der Verbindung",
+            "resetSubmit": "Meine Antworten bearbeiten",
+            "allStepsCompleted": "Sie haben alle Schritte abgeschlossen",
+            "submitLater": "Antwort später",
+            "previous": "Zurück",
+            "next": "Weiter"
         }
     },
     "spotScheduling": {
@@ -8649,7 +8756,14 @@
     },
     "franchise": {
         "companies": {
-            "pageTitle": "Franchises"
+            "pageTitle": "Franchises",
+            "navigateToCompany": "Anmeldung Franchisenehmer-Konto",
+            "membersEmptyState": "Keine Mitglieder in dieser Gesellschaft",
+            "establishmentEmptyState": "Keine Einrichtungen in diesem Unternehmen",
+            "establishment": "Niederlassungen",
+            "members": "Mitglieder",
+            "emptySelect": "Wählen Sie eine Franchise, um Details anzuzeigen.",
+            "searchPlaceholder": "Suche nach einem Franchisenehmer"
         },
         "member": {
             "pageTitle": "Mitglied",
@@ -8669,6 +8783,19 @@
             "actions": "Aktionen",
             "franchised": "Franchisenehmer",
             "name": "Name"
+        },
+        "emails": {
+            "chooseGroup": "Wählen Sie eine Gruppe",
+            "copy": "kopieren",
+            "groupByPlaceholder": "Gruppe nach",
+            "franchised": "Franchisenehmer",
+            "groupBy": "Gruppe nach",
+            "pageTitle": "Vorlage",
+            "companiesEmails": "Franchise-Vorlagen",
+            "create": "Eine Vorlage erstellen",
+            "franchiseEmails": "Meine Vorlagen",
+            "emptyStateDescription": "Wählen Sie eine Vorlage",
+            "emptyStateTitle": "Vorschau auf die Mail"
         }
     }
 }

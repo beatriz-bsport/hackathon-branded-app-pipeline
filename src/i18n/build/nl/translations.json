@@ -1991,12 +1991,12 @@
         },
         "companyOnboarding": {
             "creation": {
-                "content": "Controleer je gegevens om online betalingen te verwerken.",
+                "content": "Controleer al je gegevens om (online) betalingen te activeren.",
                 "title": "Online betalingen: uitgeschakeld"
             },
             "payout": {
                 "content": "Momenteel kunnen we je verdiensten niet uitbetalen, omdat je bankgegevens niet of onjuist geconfigureerd zijn.",
-                "title": "Er ontbreken bankgegevens!"
+                "title": "Je bankgegevens zijn incompleet"
             },
             "verification": {
                 "warning": "Het is mogelijk dat online betalingen na <1> gedeactiveerd </1> worden!",
@@ -7710,7 +7710,7 @@
                 "isEmpty": "Geen aankopen",
                 "title": "Aankopen",
                 "titleReverse": "Teruggave",
-                "billing_establishment": "Facturatie van de vestiging (optioneel)"
+                "billing_establishment": "(Optioneel) In welke vestiging wordt dit lid gefactureerd?"
             }
         },
         "invoiceItem": {
@@ -8702,7 +8702,7 @@
             "franchises": "Franchises"
         },
         "companies": {
-            "pageTitle": "Franchises",
+            "pageTitle": "Franchisenemers",
             "navigateToCompany": "Verbinding met de franchisenemersrekening",
             "membersEmptyState": "Geen lid binnen dit bedrijf",
             "establishmentEmptyState": "Geen vestigingen binnen dit bedrijf",
@@ -8721,7 +8721,7 @@
             "pageTitle": "Leden",
             "see": "Toon",
             "actions": "Acties",
-            "franchised": "Franchise",
+            "franchised": "Franchisenemers",
             "name": "Naam"
         },
         "emails": {

@@ -2306,7 +2306,8 @@
             "cancel": "Cancel",
             "submit": "Delete"
         },
-        "edit": "Edit"
+        "edit": "Edit",
+        "search": "Find a pack"
     },
     "communication": {
         "table": {
@@ -3189,7 +3190,8 @@
         },
         "marketplace": {
             "isEmpty": "There are no appointments to display."
-        }
+        },
+        "search": "Find an appointment"
     },
     "relationship": {
         "member": {
@@ -5101,7 +5103,10 @@
                 "title": "Payroll rule simulator",
                 "bonus": "Total bonus",
                 "which": "Earnings",
-                "helper": "Check here that your payroll rule matches your expectations"
+                "helper": "Check here that your payroll rule matches your expectations",
+                "marginalValueOfReservation": "Marginal value per booking",
+                "numberOfCancellations": "Number of absentees/late-cancellations",
+                "numberOfStudent": "Number of members"
             },
             "Errors": {
                 "lowerIntervalTypeError": "The lower interval must be a number less than or equal to 1",
@@ -5202,7 +5207,8 @@
                 "addPrivateSlot": "Add a rule"
             }
         },
-        "search": "Apply a payroll rulle (optional)"
+        "search": "Apply a payroll rulle (optional)",
+        "simulate": "Simulate"
     },
     "payment": {
         "explainOption": "You will be notified by email when a slot will be free",
@@ -5312,7 +5318,7 @@
         },
         "returnedAmount": "Reimbursed: ",
         "payout": {
-            "isEmptyWarning": "NB: some payouts before March 15th 2021 might not be listed.",
+            "isEmptyWarning": "Attention: payouts before March 15th 2021 might not be listed.",
             "isEmpty": "No payouts.",
             "invoice": "Invoice {{ uuid }}",
             "seeMore": "See more",
@@ -6890,7 +6896,8 @@
         "expirationDate": "Expiration date",
         "never": "Never",
         "unlimitedCredits": "Unlimited",
-        "credits": "Credits",
+        "credits": "Credit",
+        "credits_plural": "Credits",
         "availableOnFollowingSports": "Available on following categories: ",
         "availableOnFollowingEstablishments": "Available on following establishments: ",
         "anySport": "Any category",
@@ -6914,7 +6921,8 @@
         "specifications": {
             "price": "{{ price, price }}",
             "unlimitedCredits": "Unlimited",
-            "nbCredits": "{{credits}} credits"
+            "nbCredits": "{{credits}} credit",
+            "nbCredits_plural": "{{credits}} credits"
         },
         "ht": "Exc.tax",
         "validForDuration": {

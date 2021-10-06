@@ -9617,7 +9617,7 @@
                         "modify": "Edit",
                         "cancel": "Cancel",
                         "create": "Add",
-                        "helperTextNewMembers": "This form will appear as a pop-up on the marketplace and the widget after the enrolment form."
+                        "helperTextNewMembers": "The form will appear as a pop-up on the marketplace and the widget after the registration form."
                     },
                     "errors": {
                         "timedeltaBeforeDisplayMustBeGraterThanZero": "This value must be greater than 0."

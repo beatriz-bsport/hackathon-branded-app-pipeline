@@ -1907,7 +1907,7 @@
     "partnership": {
         "parameters": {
             "companyId": "Your Partner ID is: {{ company }}",
-            "establishmentId": "Your Venue IDs are: {{ establishmentIdList }}",
+            "establishmentId": "Your room IDs are: {{ establishmentIdList }}",
             "enabled": "Enabled",
             "allEstablishment": "All establishments"
         },

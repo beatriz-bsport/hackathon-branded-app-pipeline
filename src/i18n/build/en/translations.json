@@ -4056,7 +4056,15 @@
                 "address_line_1": "Address line 1",
                 "birthday": "Date of birth",
                 "vaccination_status": "COVID-19 Sanitary Pass Status"
-            }
+            },
+            "customQuestionDialog": {
+                "confirm": "Add a form",
+                "cancel": "Cancel",
+                "content": "You can add custom questions to your enrolment form by creating a completely new enrolment form in Marketing > Forms. You may add any new questions and select the option to contact new members.",
+                "title": "Custom questions"
+            },
+            "addQuestions": "Add a question",
+            "additionalCustomForm": "Additional forms"
         },
         "zoom": {
             "confirmDialog": {
@@ -6249,7 +6257,8 @@
             "title": "Pause all subscriptions",
             "fromUntil": "Only if invoiced between {{from}} and {{until}} included"
         },
-        "seeMore": "Show more"
+        "seeMore": "Show more",
+        "search": "Find a subscription"
     },
     "reporting": {
         "columns": {
@@ -7780,7 +7789,8 @@
     "titles": {
         "banner": {
             "isStaging": "Schedule a demo",
-            "networkError": "You are not connected to the internet"
+            "networkError": "You are not connected to the internet",
+            "franchiseConnection": "You're currently connected as one of your franchisees."
         },
         "member": {
             "members": "Members",
@@ -9096,6 +9106,9 @@
             "create": {
                 "error": "Error while adding notification rule",
                 "success": "Notification rule has been added"
+            },
+            "customError": {
+                "3": "Error while adding another notification rule at the same time"
             }
         }
     },

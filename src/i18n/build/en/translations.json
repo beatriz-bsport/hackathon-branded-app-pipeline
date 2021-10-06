@@ -4060,7 +4060,7 @@
             "customQuestionDialog": {
                 "confirm": "Add a form",
                 "cancel": "Cancel",
-                "content": "You can add custom questions to your enrolment form by creating a completely new enrolment form in Marketing > Forms. You may add any new questions and select the option to contact new members.",
+                "content": "You can add custom questions to your enrolment form by creating a completely new form in Marketing > Forms. You may add any new questions and select the notification rule \"new members\".",
                 "title": "Custom questions"
             },
             "addQuestions": "Add a question",

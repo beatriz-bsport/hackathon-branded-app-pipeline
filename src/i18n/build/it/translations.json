@@ -1383,7 +1383,8 @@
         "pageTitle": {
             "list": "Pacchetto"
         },
-        "edit": "Modifica"
+        "edit": "Modifica",
+        "search": "Cerca un pack"
     },
     "communication": {
         "table": {
@@ -1640,7 +1641,7 @@
             }
         },
         "pageTitles": {
-            "passList": "Carte",
+            "passList": "Pass per appuntamenti",
             "serviceList": "Su appuntamento",
             "calendar": "Calendario"
         },
@@ -2023,11 +2024,12 @@
             "list": {
                 "createButton": "Crea un appuntamento",
                 "isEmpty": "Nessun pass d'appuntamento",
-                "availableCustomer": "Disponibile per la vendita online",
+                "availableCustomer": "Disponibile per la vendita",
                 "managerOnly": "Non disponibile per la vendita"
             },
             "parameters": {
-                "nbCredits": "{{credits}} crediti",
+                "nbCredits": "{{credits}} credito",
+                "nbCredits_plural": "{{ credits }} crediti",
                 "managerOnly": "Invisibile ai clienti",
                 "price": "{{ price, price}}",
                 "tax": "I.V.A. :{{ tax }}%"
@@ -2321,7 +2323,15 @@
         },
         "marketplace": {
             "isEmpty": "Nessun appuntamento registrato"
-        }
+        },
+        "popup": {
+            "end": "Tempo di fine",
+            "begin": "Ora di inizio",
+            "button": "Orario",
+            "validate": "Convalidare"
+        },
+        "searshAppointmentPass": "Cercare una scheda RDV",
+        "search": "Cerca un appuntamento"
     },
     "video": {
         "video": {
@@ -2545,7 +2555,7 @@
             "member": "Membri",
             "establishment": "Strutture",
             "goBack": "Indietro",
-            "pass": "Tessera",
+            "pass": "Pass",
             "settings": {
                 "settings": "Impostazioni",
                 "active_campaign": "ActiveCampaign",
@@ -2591,7 +2601,10 @@
             "tags": "Tags",
             "custom_form": "Moduli",
             "addMemberTooltip": "Aggiungi un membro",
-            "cashBookTooltip": "Libro cassa"
+            "cashBookTooltip": "Libro cassa",
+            "redirecting": "Sarai reindirizzato alla tua pagina",
+            "backToFranchiseWorskpace": "Ritorno al conto principale",
+            "franchiseConnectedAs": "Registrato come:{{name}}"
         },
         "deprecatedNavigator": {
             "close": "Chiudi",
@@ -2606,7 +2619,18 @@
         },
         "franchiseMenu": {
             "members": "Membri",
-            "franchises": "Franchising"
+            "franchises": "Franchisee"
+        },
+        "multiSession": {
+            "current": "Sessione corrente",
+            "previous": "Sessione precedente",
+            "manager": "manager",
+            "franchisor": "franchisor",
+            "continue": "Continua con questa sessione",
+            "currentSession": "Sei attualmente loggato come {{name}}",
+            "restore": "Ripristina questa sessione",
+            "previousSession": " Sei stato loggato come{{name}}",
+            "title": " Sembra che tu stia usando diverse schede simultaneamente"
         }
     },
     "stripe": {
@@ -2873,7 +2897,15 @@
                 "address_line_1": "Indirizzo",
                 "birthday": "Data di nascita",
                 "vaccination_status": "Stato pass sanitario COVID-19"
-            }
+            },
+            "customQuestionDialog": {
+                "confirm": "Creare un modulo",
+                "cancel": "Cancella",
+                "content": "Per aggiungere nuove domande al modulo di registrazione puoi creare un nuovo modulo nella scheda Marketing > Forme. Aggiungi le tue domande e poi allega questo modulo al modulo d'iscrizione selezionando la condizione 'Destinatari nuovi membri'.",
+                "title": "Domande personalizzate"
+            },
+            "addQuestions": "Aggiungere domande",
+            "additionalCustomForm": "Forme aggiuntive"
         },
         "zoom": {
             "confirmDialog": {
@@ -3456,7 +3488,8 @@
         },
         "signup": {
             "failedCreation": "Impossibile creare il tuo account al momento, riprova tra qualche minuto",
-            "emailAlreadyExists": "Questa email è già usata"
+            "emailAlreadyExists": "Questa email è già usata",
+            "changeWorkspaceError": "Si è verificato un errore nella modifica dell'account"
         },
         "paymentMethod": {
             "detach": {
@@ -3574,6 +3607,23 @@
             "delete": {
                 "success": "Gruppo di fatturazione cancellato",
                 "error": "Impossibile eliminare il gruppo di fatturazione"
+            }
+        },
+        "customFormDisplayRule": {
+            "customError": {
+                "3": "Impossibile creare una regola con lo stesso tempo di apparizione"
+            },
+            "delete": {
+                "error": "Impossibile eliminare la regola di notifica",
+                "success": "Regola di notifica cancellata"
+            },
+            "update": {
+                "error": "Impossibile cambiare la regola di notifica",
+                "success": "Regola di notifica modificata"
+            },
+            "create": {
+                "error": "Impossibile creare la regola di notifica",
+                "success": "Regola di notifica creata"
             }
         }
     },
@@ -3967,7 +4017,9 @@
                 "pay": "Paga questa fattura",
                 "bill": "Incasso",
                 "basketInconsistent": "Il tuo carrello è stato modificato, aggiorna la pagina prima di convalidare il tuo pagamento.\n Non siete stati accusati.",
-                "billByInstalment": "Pagamento a rate"
+                "billByInstalment": "Pagamento a rate",
+                "paymentLink": "Link di pagamento",
+                "generatePaymentLink": "Generare un link di pagamento"
             },
             "sumup": {
                 "amountRemaining": "Resto da pagare",
@@ -4202,7 +4254,7 @@
                 "listItem": "Risoluzione dell'iscrizione programmata"
             },
             "invoice": {
-                "label": "Fattura {{uuid}} {{price}}€"
+                "label": "Fattura {{uuid}} {{price}}"
             },
             "listItem": {
                 "recurrencePriceIs": "Ricorrenza di {{ amount }}{{currencyDisplay}}",
@@ -4559,7 +4611,8 @@
             "fromUntil": "Solo se fatturati tra {{from}} e {{until}} compreso",
             "createdAt": "Creato il {{at}}"
         },
-        "seeMore": "Vedere più"
+        "seeMore": "Vedere più",
+        "search": "Cerca un contratto"
     },
     "reporting": {
         "columns": {
@@ -4847,7 +4900,8 @@
         "header": {
             "average": "In media",
             "sum": "Somma"
-        }
+        },
+        "search": "Cerca un rapporto"
     },
     "alerting": {
         "unevenInvoice": {
@@ -5240,10 +5294,12 @@
         "disableConsumer": "Bloccare",
         "enableConsumer": "Sbloccare",
         "unlimitedCredits": "Illimitato",
-        "credits": "Crediti",
+        "credits": "Credito",
+        "credits_plural": "Crediti",
         "ht": "Senza tassa",
         "specifications": {
-            "nbCredits": "{{credits}} crediti",
+            "nbCredits": "{{credits}} credito",
+            "nbCredits_plural": "{{credits}} crediti",
             "unlimitedCredits": "Illimitato",
             "price": "{{price, price}}"
         },
@@ -6928,7 +6984,8 @@
             },
             "actions": "Azioni",
             "name": " nome"
-        }
+        },
+        "description": "Descrizione"
     },
     "datetime": {
         "time": {
@@ -7617,7 +7674,10 @@
                 "for": "Per",
                 "helper": "Aiuto : Controllare qui che la tua regola di retribuzione corrisponda alle tue aspettative",
                 "resultTitle": "Risultato della tua simulazione (retribuzione del insegnante)",
-                "title": "Simulatore di retribuzione"
+                "title": "Simulatore di retribuzione",
+                "marginalValueOfReservation": "Valore marginale di una prenotazione",
+                "numberOfCancellations": "Numero di no-show o cancellazioni tardive",
+                "numberOfStudent": "Numero di studenti"
             },
             "Errors": {
                 "privateSlotAlreadySelected": "Una regola di retribuzione è già definita per questo appuntamento",
@@ -7699,7 +7759,8 @@
                     "title": "Cancellare un gruppo"
                 }
             }
-        }
+        },
+        "simulate": "Simulare"
     },
     "common": {
         "form": {
@@ -7760,7 +7821,8 @@
         },
         "banner": {
             "isStaging": "Prendi un appuntamento",
-            "networkError": "Non sei connesso a Internet"
+            "networkError": "Non sei connesso a Internet",
+            "franchiseConnection": "Sei attualmente collegato a una delle applicazioni dei tuoi franchisee"
         },
         "order": {
             "orderList": "Ordini",
@@ -8589,7 +8651,52 @@
                     "requiredSignature": "Si prega di firmare il modulo.",
                     "requiredFile": "Si prega di allegare un file"
                 }
-            }
+            },
+            "displayRule": {
+                "snoozeTime": "Orologio per {{ count }} le ore",
+                "unSnoozableMinimal": "Obbligatorio",
+                "snoozableMinimal": "Può essere ignorato",
+                "forcedDisplayMinimal": "Visibile anche ai membri che hanno già compilato il modulo",
+                "unForcedModeMinimal": "Non visibile ai membri che hanno già compilato il modulo",
+                "forRegisteredMemberMinimal": "> {{ count }} giorni",
+                "forRegisteredMember": "Per i membri che sono stati registrati per più di {{ count }} giorni",
+                "forNewMember": "Per i nuovi membri",
+                "form": {
+                    "errors": {
+                        "timedeltaBeforeDisplayMustBeGraterThanZero": "Questo valore deve essere maggiore di 0."
+                    },
+                    "dialog": {
+                        "snoozeOptionHelperText": "Il modulo riapparirà {{count}} ore dopo essere stato ignorato",
+                        "snoozeOptionLabel": "Tempo di snooze (ore)",
+                        "force_display": "Forzare la visualizzazione ai membri che hanno già compilato il modulo in precedenza",
+                        "snoozeOption": "Permettere ai membri di posticipare la compilazione del modulo",
+                        "advancedOptions": "Impostazioni avanzate",
+                        "modify": "Modificare",
+                        "cancel": "Cancella",
+                        "create": "Aggiungi",
+                        "helperTextNewMembers": "Il modulo apparirà come un pop-up sul marketplace e il widget dopo il modulo di registrazione.",
+                        "helperTextRegisteredMembers": "Il modulo apparirà come un pop-up sul mercato e il widget per tutti i membri interessati.",
+                        "subTitle": "A quali membri volete rivolgervi?",
+                        "title": "Regole di visualizzazione"
+                    }
+                },
+                "kind": {
+                    "connectionHelperText": "Solo i membri che sono stati registrati per un minimo di {{count}} giorni vedranno questa notifica",
+                    "connectionLabel": "Anzianità del membro (giorni)",
+                    "connection": "Membri già registrati",
+                    "signUpAlreadyExists": " Regola esistente",
+                    "signUp": "I nuovi membri"
+                },
+                "empty": "Nessuna regola di notifica per questo modulo",
+                "addNewDisplayRule": "Aggiungere una regola",
+                "header": "Regole di notifica"
+            },
+            "disconnect": "Scollegare",
+            "resetSubmit": "Modifica le mie risposte",
+            "allStepsCompleted": "Hai completato tutti i passi",
+            "submitLater": "Rispondi più tardi",
+            "previous": "Indietro",
+            "next": "Prossimo"
         }
     },
     "spotScheduling": {
@@ -8659,7 +8766,14 @@
     },
     "franchise": {
         "companies": {
-            "pageTitle": "Franchising"
+            "pageTitle": "Franchising",
+            "navigateToCompany": "Accesso all'account del franchisee",
+            "membersEmptyState": "Nessun membro in questa azienda",
+            "establishmentEmptyState": "Nessuna struttura in questa azienda",
+            "establishment": "Stabilimenti",
+            "members": "Membri",
+            "emptySelect": "Seleziona un franchising per vedere i dettagli.",
+            "searchPlaceholder": "Ricerca di un franchisee"
         },
         "member": {
             "pageTitle": "Membro",
@@ -8678,7 +8792,20 @@
             "see": "vedere",
             "actions": "Azioni",
             "franchised": "Franchisee",
-            "name": "nome"
+            "name": "Nome"
+        },
+        "emails": {
+            "chooseGroup": "Scegliere un gruppo",
+            "copy": "copia",
+            "groupByPlaceholder": "Gruppo per",
+            "franchised": "Franchisee",
+            "groupBy": "Gruppo per",
+            "pageTitle": "Modelo",
+            "companiesEmails": "Modelli di franchising",
+            "create": "Creare un modello",
+            "franchiseEmails": "I miei modelli",
+            "emptyStateDescription": "Seleziona un modello",
+            "emptyStateTitle": "Anteprima della posta"
         }
     }
 }

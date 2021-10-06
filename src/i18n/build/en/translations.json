@@ -2467,7 +2467,7 @@
             }
         },
         "pageTitles": {
-            "passList": "Passes",
+            "passList": "Appointment passes",
             "serviceList": "Appointments",
             "calendar": "Calendar"
         },
@@ -2815,7 +2815,8 @@
                 "managerOnly": "Unavailable appointment passes"
             },
             "parameters": {
-                "nbCredits": "{{ credits }} credit(s)",
+                "nbCredits": "{{ credits }} credit",
+                "nbCredits_plural": "{{ credits }} credits",
                 "price": "{{ price, price}}",
                 "tax": "VAT: {{ tax }}%",
                 "managerOnly": "Unavailable for members"
@@ -3191,7 +3192,14 @@
         "marketplace": {
             "isEmpty": "There are no appointments to display."
         },
-        "search": "Find an appointment"
+        "search": "Find an appointment",
+        "popup": {
+            "begin": "Start time",
+            "end": "End time",
+            "button": "Schedule",
+            "validate": "Save"
+        },
+        "searshAppointmentPass": "Find an appointment pass"
     },
     "relationship": {
         "member": {
@@ -6530,7 +6538,8 @@
         "header": {
             "average": "Average",
             "sum": "Total"
-        }
+        },
+        "search": "Find a report"
     },
     "alerting": {
         "list": {
@@ -8963,7 +8972,8 @@
         },
         "signup": {
             "failedCreation": "Unable to create your account at the moment, please try again in a few minutes",
-            "emailAlreadyExists": "This email is already in use"
+            "emailAlreadyExists": "This email is already in use",
+            "changeWorkspaceError": "Error while changing accounts"
         },
         "paymentRuleGroups": {
             "delete": {
@@ -9072,6 +9082,20 @@
             "create": {
                 "error": "Error while adding billing group",
                 "success": "The new billing group has been added"
+            }
+        },
+        "customFormDisplayRule": {
+            "delete": {
+                "error": "Error while deleting notification rule",
+                "success": "Notification rule has been deleted"
+            },
+            "update": {
+                "error": "Error while editing notification rule",
+                "success": "Notification rule has been edited"
+            },
+            "create": {
+                "error": "Error while adding notification rule",
+                "success": "Notification rule has been added"
             }
         }
     },

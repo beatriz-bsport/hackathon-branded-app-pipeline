@@ -4895,7 +4895,7 @@
         },
         "billing_group": {
             "header": "Billing group",
-            "helperText": "You can associate multiple studios and/or establishments that are connected to different legal entities to a billing group. Billing groups will appear on your invoices and will facilitate linking invoices to the correct legal entity.",
+            "helperText": "If you have several studios belonging to different companies, you can group them here by billing group. The billing groups will appear on your reports to easily link each invoice to the right company name.",
             "add": "Add a billing group"
         }
     },
@@ -8983,7 +8983,7 @@
         "signup": {
             "failedCreation": "Unable to create your account at the moment, please try again in a few minutes",
             "emailAlreadyExists": "This email is already in use",
-            "changeWorkspaceError": "Error while changing accounts"
+            "changeWorkspaceError": "An error occurred while changing the account"
         },
         "paymentRuleGroups": {
             "delete": {
@@ -9096,7 +9096,7 @@
         },
         "customFormDisplayRule": {
             "delete": {
-                "error": "Error while deleting notification rule",
+                "error": "Unable to delete the notification rule",
                 "success": "Notification rule has been deleted"
             },
             "update": {
@@ -9104,8 +9104,8 @@
                 "success": "Notification rule has been edited"
             },
             "create": {
-                "error": "Error while adding notification rule",
-                "success": "Notification rule has been added"
+                "error": "Unable to create the notification rule",
+                "success": "Notification rule created"
             },
             "customError": {
                 "3": "Error while adding another notification rule at the same time"

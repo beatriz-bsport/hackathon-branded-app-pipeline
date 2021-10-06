@@ -9158,7 +9158,8 @@
             "custom_form": "Forms",
             "tags": "Tags",
             "addMemberTooltip": "Add member",
-            "cashBookTooltip": "Ledger"
+            "cashBookTooltip": "Ledger",
+            "franchiseConnectedAs": "You're currently connected as: {{name}}"
         },
         "deprecatedNavigator": {
             "navigatorError": "It seems that your browser is too old to use our services. You may encounter errors, we recommend that you download a more recent version, in particular : ",
@@ -9625,7 +9626,12 @@
                 },
                 "forRegisteredMemberMinimal": ">{{ count }} day(s)",
                 "forRegisteredMember": "This form is for members that have already been enrolled {{ count }} day(s).",
-                "forNewMember": "For new members"
+                "forNewMember": "For new members",
+                "snoozeTime": "Snoozed for {{ count }} hour(s)",
+                "unSnoozableMinimal": "Obligatory",
+                "snoozableMinimal": "Can be ignored",
+                "forcedDisplayMinimal": "Also display this form to members that have previously completed this form",
+                "unForcedModeMinimal": "Don't display this form to members that have previously completed this form"
             },
             "disconnect": "Disconnect",
             "resetSubmit": "Edit my answers",

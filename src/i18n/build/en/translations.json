@@ -9599,18 +9599,33 @@
                     "connectionLabel": "Member seniority (days)",
                     "connection": "Already registered members",
                     "signUpAlreadyExists": " Existing rule",
-                    "connectionHelperText": "Only members who have been registered for a minimum of {{count}} days will see this notification"
+                    "connectionHelperText": "Only members who've been enrolled for at least {{count}} day(s) will receive this notification."
                 },
                 "empty": "There are no notifications for this form.",
                 "addNewDisplayRule": "Add a rule",
                 "header": "Notification rules",
                 "form": {
                     "dialog": {
-                        "helperTextRegisteredMembers": "The form will appear as a pop-up on the marketplace and the widget for all members concerned.",
+                        "helperTextRegisteredMembers": "This form will appear as a pop-up on the marketplace and the widget for all relevant members.",
                         "subTitle": "Which members do you want to target?",
-                        "title": "Display rules"
+                        "title": "Display rules",
+                        "snoozeOptionHelperText": "This form will reappear after having been snoozed for {{count}} hour(s).",
+                        "snoozeOptionLabel": "Snooze duration (in hours)",
+                        "force_display": "Force the display of this form to members that completed the previous form",
+                        "snoozeOption": "Allow members to postpone the completion of this form",
+                        "advancedOptions": "Advanced settings",
+                        "modify": "Edit",
+                        "cancel": "Cancel",
+                        "create": "Add",
+                        "helperTextNewMembers": "This form will appear as a pop-up on the marketplace and the widget after the enrolment form."
+                    },
+                    "errors": {
+                        "timedeltaBeforeDisplayMustBeGraterThanZero": "This value must be greater than 0."
                     }
-                }
+                },
+                "forRegisteredMemberMinimal": ">{{ count }} day(s)",
+                "forRegisteredMember": "This form is for members that have already been enrolled {{ count }} day(s).",
+                "forNewMember": "For new members"
             },
             "disconnect": "Disconnect",
             "resetSubmit": "Edit my answers",

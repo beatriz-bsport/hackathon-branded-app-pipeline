@@ -9176,7 +9176,7 @@
         },
         "franchiseMenu": {
             "members": "Members",
-            "franchises": "Franchises"
+            "franchises": "Franchisees"
         },
         "multiSession": {
             "previousSession": " You were connected as: {{name}}",
@@ -9186,7 +9186,8 @@
             "manager": "Manager",
             "franchisor": "Franchiser",
             "continue": "Continue on this session",
-            "previous": "Previous session"
+            "previous": "Previous session",
+            "current": "Current session"
         }
     },
     "video": {

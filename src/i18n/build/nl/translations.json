@@ -2577,7 +2577,8 @@
             },
             "actions": "Acties",
             "name": " Naam"
-        }
+        },
+        "description": "Omschrijving"
     },
     "smartList": {
         "multiSelector": {
@@ -7810,7 +7811,9 @@
                 "revert": "Annuleren",
                 "pay": "Factuur betalen",
                 "basketInconsistent": "Uw winkelmandje is gewijzigd, ververs uw pagina voordat u uw betaling valideert.\nEr zijn verder geen kosten in rekening gebracht.",
-                "billByInstalment": "Termijnbetaling"
+                "billByInstalment": "Termijnbetaling",
+                "paymentLink": "Link voor betaling",
+                "generatePaymentLink": "Een betaallink genereren"
             },
             "sumup": {
                 "amountPaid": "Betaald",
@@ -8593,7 +8596,37 @@
                 }
             },
             "allFieldDisabled": "Alle vragen zijn gearchiveerd.",
-            "answerForDisabledField": "Gearchiveerde vragen"
+            "answerForDisabledField": "Gearchiveerde vragen",
+            "displayRule": {
+                "form": {
+                    "dialog": {
+                        "advancedOptions": "Geavanceerde instellingen",
+                        "modify": "Bewerken",
+                        "cancel": "Annuleren",
+                        "create": "Toevoegen",
+                        "helperTextNewMembers": "Het formulier verschijnt als een pop-up op de marktplaats en de widget na het registratieformulier.",
+                        "helperTextRegisteredMembers": "Het formulier verschijnt als een pop-up op de marktplaats en de widget voor alle betrokken leden.",
+                        "subTitle": "Op welke leden wil je je richten?",
+                        "title": "Regels weergeven"
+                    }
+                },
+                "kind": {
+                    "connectionHelperText": "Alleen leden die minimaal {{count}} dagen geregistreerd zijn zullen deze melding zien",
+                    "connectionLabel": "Anciënniteit lid (dagen)",
+                    "connection": "Reeds ingeschreven leden",
+                    "signUpAlreadyExists": " Bestaande regel",
+                    "signUp": "De nieuwe leden"
+                },
+                "empty": "Geen kennisgevingsregels voor dit formulier",
+                "addNewDisplayRule": "Een regel toevoegen",
+                "header": "Regels inzake kennisgeving"
+            },
+            "disconnect": "Loskoppelen van",
+            "resetSubmit": "Bewerk mijn antwoorden",
+            "allStepsCompleted": "U heeft alle stappen voltooid",
+            "submitLater": "Antwoord later",
+            "previous": "Terug",
+            "next": "Volgende"
         }
     },
     "spotScheduling": {
@@ -8669,7 +8702,14 @@
             "franchises": "Franchises"
         },
         "companies": {
-            "pageTitle": "Franchises"
+            "pageTitle": "Franchises",
+            "navigateToCompany": "Verbinding met de franchisenemersrekening",
+            "membersEmptyState": "Geen lid binnen dit bedrijf",
+            "establishmentEmptyState": "Geen vestigingen binnen dit bedrijf",
+            "establishment": "Vestigingen",
+            "members": "Leden",
+            "emptySelect": "Selecteer een franchise om de details te zien",
+            "searchPlaceholder": "Een franchise zoeken"
         },
         "pagination": {
             "outOf": "{{from}} - {{to}} van de {{count}}",
@@ -8683,6 +8723,19 @@
             "actions": "Acties",
             "franchised": "Franchise",
             "name": "Naam"
+        },
+        "emails": {
+            "chooseGroup": "Kies een groep",
+            "copy": "Kopie",
+            "groupByPlaceholder": "Groep per",
+            "franchised": "Franchisenemer",
+            "groupBy": "Groep per",
+            "pageTitle": "Sjabloon",
+            "companiesEmails": "Franchise sjablonen",
+            "create": "Creëer een sjabloon",
+            "franchiseEmails": "Mijn sjablonen",
+            "emptyStateDescription": "Selecteer een sjabloon",
+            "emptyStateTitle": "e-mailadres"
         }
     }
 }

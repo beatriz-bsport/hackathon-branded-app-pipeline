@@ -9159,7 +9159,9 @@
             "tags": "Tags",
             "addMemberTooltip": "Add member",
             "cashBookTooltip": "Ledger",
-            "franchiseConnectedAs": "You're currently connected as: {{name}}"
+            "franchiseConnectedAs": "You're currently connected as: {{name}}",
+            "redirecting": "You'll be redirected to your page.",
+            "backToFranchiseWorskpace": "Return to your Master Account"
         },
         "deprecatedNavigator": {
             "navigatorError": "It seems that your browser is too old to use our services. You may encounter errors, we recommend that you download a more recent version, in particular : ",
@@ -9175,6 +9177,10 @@
         "franchiseMenu": {
             "members": "Members",
             "franchises": "Franchises"
+        },
+        "multiSession": {
+            "previousSession": " You were connected as: {{name}}",
+            "title": " It appears that you're using multiple simultaneously."
         }
     },
     "video": {

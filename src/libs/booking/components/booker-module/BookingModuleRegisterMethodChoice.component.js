@@ -165,7 +165,11 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
               <PriceInput
                 variant="outlined"
                 value={voucher}
-                onChange={(ev) => setVoucher(parseFloat(ev.target.value))}
+                onChange={(ev) =>
+                  setVoucher(
+                    Math.round(parseFloat(ev.target.value) * 100) / 100,
+                  )
+                }
                 label={t('translation:payment.voucher')}
                 error={Number.isNaN(voucher) || voucher < 0}
               />
@@ -180,7 +184,9 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
                 onChange={(ev) =>
                   setVoucher(
                     selectedPack
-                      ? (parseFloat(ev.target.value) * selectedPack.price) / 100
+                      ? Math.round(
+                          parseFloat(ev.target.value) * selectedPack.price,
+                        ) / 100
                       : voucher,
                   )
                 }

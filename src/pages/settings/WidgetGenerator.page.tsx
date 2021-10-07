@@ -65,6 +65,7 @@ interface State {
     dialogMode: 0 | 1 | 2;
     language?: string;
     showFab: boolean;
+    fullScreenPopup: boolean;
   };
   config: MarketplaceComponentConfig;
   error: {
@@ -85,6 +86,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
         dialogMode: DIALOG_MODE_IFRAME,
         language: 'none',
         showFab: false,
+        fullScreenPopup: false,
       },
       config: { calendar: {} },
       error: {
@@ -135,6 +137,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
       useIframe: this.state.containerConfig.useIframe,
       language: this.state.containerConfig.language,
       dialogMode: this.state.containerConfig.dialogMode,
+      fullScreenPopup: this.state.containerConfig.fullScreenPopup,
       showFab: this.state.containerConfig.showFab,
       uuid: this.state.uuid,
     });
@@ -150,6 +153,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
       useIframe: false,
       language: this.state.containerConfig.language,
       dialogMode: this.state.containerConfig.dialogMode,
+      fullScreenPopup: this.state.containerConfig.fullScreenPopup,
       showFab: this.state.containerConfig.showFab,
       uuid: this.state.uuid,
     });
@@ -198,6 +202,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
             useIframe={this.state.containerConfig.useIframe}
             language={this.state.containerConfig.language}
             dialogMode={this.state.containerConfig.dialogMode}
+            fullScreenPopup={this.state.containerConfig.fullScreenPopup}
             onChangeContainerConfiguration={(containerConfig: any) =>
               this.setState((prevState) => ({
                 containerConfig: {

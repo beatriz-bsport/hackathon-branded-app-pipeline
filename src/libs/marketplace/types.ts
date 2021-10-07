@@ -61,6 +61,7 @@ export type WidgetConfig = {
   widgetType: string;
   config: MarketplaceComponentConfig;
   showFab: boolean;
+  fullScreenPopup: boolean;
 };
 
 export type MarketplaceSettings = {

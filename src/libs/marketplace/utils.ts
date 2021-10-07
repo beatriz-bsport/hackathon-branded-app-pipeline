@@ -61,6 +61,7 @@ export class WidgetCodeStringGenerator {
     language?: string;
     showFab: boolean;
     uuid?: string | null;
+    fullScreenPopup: boolean;
   }) {
     const componentConfig = args.config[args.componentType];
 
@@ -86,6 +87,7 @@ export class WidgetCodeStringGenerator {
         "dialogMode": ${args.dialogMode},
         "widgetType": "${args.componentType}",${languageValue} 
         "showFab": ${args.showFab},
+        "fullScreenPopup": ${args.fullScreenPopup},
         "config": {
             "${args.componentType}": {
 ${WidgetCodeStringGenerator.getComponentConfigString(

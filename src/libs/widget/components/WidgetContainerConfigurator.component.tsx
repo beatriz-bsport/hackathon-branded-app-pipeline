@@ -27,9 +27,10 @@ import { LanguageSelect } from '../../../components/button/LanguageButton.compon
 type OwnProps = {
   showFab: boolean;
   useIframe: boolean;
-  onChangeContainerConfiguration: (any) => void;
+  onChangeContainerConfiguration: (param: any) => void;
   dialogMode: number;
   language: string | null;
+  fullScreenPopup: boolean;
 };
 
 type Props = OwnProps &
@@ -55,8 +56,14 @@ export const WidgetContainerConfigurator = (props: Props) => {
       language: e.target.value,
     });
   };
-  const onChangeDialogMode = (dialogMode) => {
+  const onChangeDialogMode = (dialogMode: number) => {
     props.onChangeContainerConfiguration({ dialogMode });
+  };
+
+  const onChangeDialogSize = (e: any) => {
+    props.onChangeContainerConfiguration({
+      fullScreenPopup: e.target.value === 'true',
+    });
   };
 
   return (
@@ -122,6 +129,25 @@ export const WidgetContainerConfigurator = (props: Props) => {
             </MenuItem>
           </Select>
         </FormControl>
+
+        {props.dialogMode !== DIALOG_MODE_TAB && (
+          <FormControl className={classes.dialogMode}>
+            <InputLabel>{t('widget.dialogSizeLabel')}</InputLabel>
+            <Select
+              className={classes.fullWidth}
+              value={props.fullScreenPopup.toString()}
+              onChange={onChangeDialogSize}
+            >
+              <MenuItem value="false">{t(`widget.dialogSize.window`)}</MenuItem>
+
+              {!props.useIframe && (
+                <MenuItem value="true">
+                  {t(`widget.dialogSize.fullScreen`)}
+                </MenuItem>
+              )}
+            </Select>
+          </FormControl>
+        )}
 
         <div className={classes.language}>
           <div className={classes.languageSelect}>

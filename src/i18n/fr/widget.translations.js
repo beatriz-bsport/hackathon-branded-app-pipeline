@@ -27,11 +27,16 @@ exports.default = {
     dialogTitle: 'Personalisation de Widget',
     widgetPreviewError: 'Veuillez finir votre configuration',
     dialogModeLabel: 'Type de popup (login, paiement, réservation)',
+    dialogSizeLabel: 'Dimension de la popup',
     showFabLabel: 'Bsport EasyConnect button',
     dialogMode: {
       tab: 'Nouvel onglet',
       popup: 'Nouvelle fenêtre',
       iframe: 'Rester sur le site',
+    },
+    dialogSize: {
+      fullScreen: 'Plein écran',
+      window: 'Fenêtre popup',
     },
     pickALanguage: 'Choisir la langue par défaut',
     languageHelper:

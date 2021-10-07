@@ -9229,7 +9229,7 @@
             "currentSession": "You're currently connected as: {{name}}",
             "restore": "Restore session",
             "manager": "Manager",
-            "franchisor": "Franchiser",
+            "franchisor": "Franchisor",
             "continue": "Continue on this session",
             "previous": "Previous session",
             "current": "Current session"
@@ -9656,7 +9656,7 @@
                 "kind": {
                     "signUp": "New members",
                     "connectionLabel": "Member seniority (days)",
-                    "connection": "Already registered members",
+                    "connection": "Current members",
                     "signUpAlreadyExists": " Existing rule",
                     "connectionHelperText": "Only members who've been enrolled for at least {{count}} day(s) will receive this notification."
                 },

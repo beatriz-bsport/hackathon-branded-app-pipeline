@@ -20,6 +20,7 @@ export const openUserInteractionPortal: (args: {
   url: string,
   dialogMode: 0 | 1 | 2,
   isFabContext?: boolean,
+  fullScreenPopup: boolean,
 }) => any = createAction('WIDGET_SET_IFRAME_URL');
 
 export const closeUserInteractionPortal = () => (dispatch: Dispatch) => {

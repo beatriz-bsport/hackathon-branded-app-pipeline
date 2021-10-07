@@ -124,6 +124,7 @@ class BsportWidget extends Component<Props> {
     this.props.openUserInteractionPortal({
       url: uri.toString(),
       dialogMode: this.props.dialogMode,
+      fullScreenPopup: this.props.fullScreenPopup,
     });
   };
 
@@ -170,10 +171,11 @@ class BsportWidget extends Component<Props> {
                 url={this.props.dialog.url}
                 dialogMode={this.props.dialog.dialogMode}
                 onClose={this.props.closeUserInteractionPortal}
-                isBasket={
+                isLogin={
                   this.props.dialog.url &&
-                  this.props.dialog.url.match(/\/basket\?context=widget/)
+                  this.props.dialog.url.includes('login')
                 }
+                fullScreenPopup={this.props.fullScreenPopup}
               />
             )}
 

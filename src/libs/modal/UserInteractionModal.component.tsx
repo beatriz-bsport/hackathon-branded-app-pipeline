@@ -17,7 +17,8 @@ interface OwnProps {
   url?: string;
   dialogMode: 0 | 1 | 2;
   onClose: () => void;
-  isBasket: boolean;
+  isLogin: boolean;
+  fullScreenPopup: boolean;
 }
 
 type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
@@ -27,10 +28,11 @@ class UserInteractionPortal extends React.PureComponent<Props> {
 
   openPopup = () => {
     const width = window.screen.width * 0.75;
-    const height = window.screen.height * 0.65;
+    const height = window.screen.height * 0.75;
     const left = window.screen.width / 2 - width / 2;
     const top = window.screen.height / 2 - height / 2;
-    const windowParams = `width=${width}, height=${height}, top=${top}, left=${left}`;
+    const fullScreen = `width=${window.screen.width}, height=${window.screen.height}`;
+    const nonFullScreen = `width=${width}, height=${height}, top=${top}, left=${left}`;
     const params = `
       scrollbars=no,
       resizable=no,
@@ -39,12 +41,13 @@ class UserInteractionPortal extends React.PureComponent<Props> {
       toolbar=no,
       menubar=no,
       ${
-        window.screen.width <= 600 || window.screen.height <= 600
-          ? ''
-          : windowParams
+        window.screen.width <= 600 ||
+        window.screen.height <= 600 ||
+        this.props.fullScreenPopup
+          ? fullScreen
+          : nonFullScreen
       }
     `;
-
     return window.open(this.props.url, '_blank', params);
   };
 
@@ -81,7 +84,13 @@ class UserInteractionPortal extends React.PureComponent<Props> {
 
     return (
       <div className={classes.container}>
-        <div className={classes.innerContainer}>
+        <div
+          className={`${classes.innerContainer} ${
+            this.props.isLogin
+              ? classes.innerContainerLogin
+              : classes.innerContainerDimensions
+          }`}
+        >
           <div className={classes.topBar}>
             <IconButton onClick={this.props.onClose}>
               <CloseIcon fontSize="large" />
@@ -118,8 +127,6 @@ const styles = () => ({
     display: 'flex',
     flex: 1,
     flexDirection: 'column',
-    maxHeight: window.innerHeight * 0.65,
-    maxWidth: window.innerWidth * 0.75,
     width: '100%',
     height: '100%',
     backgroundColor: 'white',
@@ -129,6 +136,16 @@ const styles = () => ({
       maxHeight: window.screen.height,
       maxWidth: window.screen.width,
     },
+  },
+  innerContainerDimensions: {
+    maxHeight: (props: any) =>
+      props.fullScreenPopup ? window.innerHeight : window.innerHeight * 0.75,
+    maxWidth: (props: any) =>
+      props.fullScreenPopup ? window.innerWidth : window.innerWidth * 0.75,
+  },
+  innerContainerLogin: {
+    maxHeight: 700,
+    maxWidth: 500,
   },
   topBar: {
     display: 'flex',

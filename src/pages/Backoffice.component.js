@@ -359,7 +359,8 @@ export class Backoffice extends Component<Props, State> {
             >
               {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
                 Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging') &&
-              !this.props.isPluginActivated ? (
+              !this.props.isPluginActivated &&
+              !this.props.theme.hide_intercom ? (
                 <Intercom
                   appID="q6foivp2"
                   email={this.props.username}

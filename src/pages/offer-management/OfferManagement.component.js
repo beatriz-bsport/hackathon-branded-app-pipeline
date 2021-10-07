@@ -63,6 +63,7 @@ type Props = {
   goToOffer: (id: number) => void,
 
   members: Array<Member>,
+  memberDetails: { [id: number]: Member },
   memberHistory: Array<member>,
   bookingOptionsPending: Array<BookingOption>,
   bookings: Array<Booking>,
@@ -405,7 +406,7 @@ export class OfferManagement extends Component<Props, State> {
     if (!selectedMember) {
       return;
     }
-
+    this.props.fetchMember(selectedMember.id);
     const quickInvoiceToAdd = bookings.find((b) => b.member === memberId)
       ? {
           memberName: selectedMember.name,
@@ -599,6 +600,7 @@ export class OfferManagement extends Component<Props, State> {
             establishments={this.props.establishmentList}
             snackbarSuccess={this.props.snackbarSuccess}
             companyId={this.props.companyId}
+            memberDetails={this.props.memberDetails}
           />
           <Prompt
             when={this.props.unpaidInvoiceList.length > 0}
@@ -610,6 +612,7 @@ export class OfferManagement extends Component<Props, State> {
             offerId={this.props.offerId}
             offer={this.props.offer}
             member={this.props.memberToRegister}
+            memberDetails={this.props.memberDetails}
             loading={this.props.compatiblePacksLoading}
             compatiblePacks={this.props.compatiblePacks}
             onCancel={() => this.props.setMemberToRegister(null)}

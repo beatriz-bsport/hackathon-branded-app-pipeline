@@ -8,6 +8,7 @@ import type { State } from '../../state/types';
 import { getSCTs } from '../category/selectors';
 import { getAllEstablishmentsDict as getEstablishmentData } from '../establishment/selectors';
 import { getMetaActivityAbstractDict as getMetaActivityData } from '../meta-activity/selectors';
+import { getallTagsWithTagGroup, getMemberTagsIdsList } from '../tag/selectors';
 import type { PaymentPack, PaymentPackCategory } from './types';
 
 export const getPaymentPackById = (state: State): Array<PaymentPack> =>
@@ -138,6 +139,37 @@ export const withEstablishments = memoize((selector) =>
   ),
 );
 
+export const withTags = memoize((selector) =>
+  createSelector(
+    [selector, getallTagsWithTagGroup],
+    (paymentPacks, tagList) => {
+      if (Array.isArray(paymentPacks)) {
+        return paymentPacks.map((pp) => ({
+          ...pp,
+          whitelist_tags: tagList.filter((tag) =>
+            pp.whitelist_tags.includes(tag.id),
+          ),
+          blacklist_tags: tagList.filter((tag) =>
+            pp.blacklist_tags.includes(tag.id),
+          ),
+        }));
+      }
+      if (paymentPacks) {
+        return {
+          ...paymentPacks,
+          whitelist_tags: tagList.filter((tag) =>
+            paymentPacks.whitelist_tags.includes(tag.id),
+          ),
+          blacklist_tags: tagList.filter((tag) =>
+            paymentPacks.blacklist_tags.includes(tag.id),
+          ),
+        };
+      }
+      return paymentPacks;
+    },
+  ),
+);
+
 export const getPaymentPackNotifications = (state, id) =>
   Immutable(
     Object.values(state.paymentPack.notification.itemsById).filter(
@@ -235,3 +267,46 @@ export const getPaymentPackCategoryWithPaymentPacks = (
       });
     },
   );
+
+export const excludePaymentPackTagged = createSelector(
+  [
+    getMarketplacePaymentPacks,
+    getMemberTagsIdsList,
+    (state: RootState) => state.auth.authenticated,
+  ],
+  (marketPlacePaymentPacks, MemberTagList, isAuthenticated) => {
+    if (!isAuthenticated) {
+      return marketPlacePaymentPacks
+        ? marketPlacePaymentPacks.filter(
+            (pack) =>
+              pack.whitelist_tags &&
+              pack.whitelist_tags.length === 0 &&
+              pack.blacklist_tags &&
+              pack.blacklist_tags.length === 0,
+          )
+        : [];
+    }
+    if (MemberTagList && MemberTagList.length === 0) {
+      return marketPlacePaymentPacks
+        ? marketPlacePaymentPacks.filter(
+            (pack) => pack.whitelist_tags && pack.whitelist_tags.length === 0,
+          )
+        : [];
+    }
+    return marketPlacePaymentPacks
+      ? marketPlacePaymentPacks.filter(
+          (pack) =>
+            ((pack.blacklist_tags &&
+              pack.blacklist_tags.length !== 0 &&
+              !pack.blacklist_tags.some((tag) =>
+                MemberTagList.includes(tag),
+              )) ||
+              pack.blacklist_tags.length === 0) &&
+            ((pack.whitelist_tags &&
+              pack.whitelist_tags.length !== 0 &&
+              pack.whitelist_tags.some((tag) => MemberTagList.includes(tag))) ||
+              pack.whitelist_tags.length === 0),
+        )
+      : [];
+  },
+);

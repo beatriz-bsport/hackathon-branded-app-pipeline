@@ -1,9 +1,11 @@
 import { ErrorAndLoading } from '../types';
 
-export type Tag = {
+export type Tag<TG = number> = {
   id: number;
   name: string;
-  group?: number;
+  group?: TG;
+  color: string;
+  icon: string;
 };
 
 export type TagGroup = {
@@ -30,5 +32,15 @@ export type TagState = {
     byId: { [key: string]: TagGroupAPI };
     items: TagGroupAPI[];
     createOrUpdate: ErrorAndLoading;
+  };
+  tagUsage: {
+    loading: boolean;
+    error: Error;
+    byId: { [key: string]: TagGroupAPI };
+  };
+  marketPlaceMemberTag: {
+    loading: boolean;
+    error?: Error;
+    tagIdsList: Array<number>;
   };
 };

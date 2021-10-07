@@ -15,7 +15,9 @@ export const getMemberListData = (state: RootState) => state.member.listData;
 
 export const getAllMembers = createSelector(
   [getMemberListData, _getMemberListIds],
-  (data, ids) => ids.map((id) => data[id]).filter((m) => !!m),
+  (data, ids) => {
+    return ids.map((id) => data[id]).filter((m) => !!m);
+  },
 );
 
 export const getSearchedMembers = createSelector(

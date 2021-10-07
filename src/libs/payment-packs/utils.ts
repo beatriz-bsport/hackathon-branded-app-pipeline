@@ -124,3 +124,22 @@ export const getHeading = (
     timezone,
   )}`;
 };
+
+export const paymentPackTagsAndMemberTagsCompatibilty = (
+  paymentPack: PaymentPack,
+  TagList: Array<number>,
+) => {
+  if (
+    paymentPack?.whitelist_tags.length === 0 &&
+    paymentPack?.blacklist_tags.length === 0
+  ) {
+    return false;
+  }
+
+  return !(
+    (paymentPack?.whitelist_tags?.length !== 0 &&
+      paymentPack?.whitelist_tags.some((tag) => TagList?.includes(tag))) ||
+    (paymentPack?.blacklist_tags?.length !== 0 &&
+      !paymentPack?.blacklist_tags.some((tag) => TagList?.includes(tag)))
+  );
+};

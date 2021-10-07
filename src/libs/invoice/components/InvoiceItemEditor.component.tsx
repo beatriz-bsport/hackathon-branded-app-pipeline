@@ -4,6 +4,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
+import type { TFunction } from 'i18next';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -23,6 +24,8 @@ import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelec
 import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
 import PaymentComboSelector from '../../payment-combo/components/PaymentComboSelector.component';
 import ShopItemSelector from '../../shop/components/ShopItemSelector.component';
+import withConfirm from '../../../hocs/with-confirm.hoc';
+import { paymentPackTagsAndMemberTagsCompatibilty } from '../../payment-packs/utils';
 
 type BuyableItemProps = {
   buyableItemIdentifier: number;
@@ -105,8 +108,15 @@ const getPriceForItem = (item: any, identifier: number) => {
   return 0;
 };
 
+const ButtonAddWithWarning = withConfirm(Button, 'onClick', {
+  title: 'invoice:invoicePaymentPackTagWarningDialog.title',
+  cancel: 'invoice:invoicePaymentPackTagWarningDialog.cancel',
+  confirm: 'invoice:invoicePaymentPackTagWarningDialog.confirm',
+  Content: ({ t }: { t: TFunction }) => (
+    <p>{t('invoice:invoicePaymentPackTagWarningDialog.content')}</p>
+  ),
+});
 // TODO Types BuyableItem
-
 const InvoiceItemEditor = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['invoice']);
@@ -119,7 +129,7 @@ const InvoiceItemEditor = (props: Props) => {
 
   const [voucher, setVoucher] = useState(null);
   const [voucherPercent, setVoucherPercent] = useState(null);
-
+  const [warnMamangerOnInvoice, setWarnManagerOnInvoice] = useState(false);
   const onClickAddInvoiceItem = useCallback(() => {
     if (buyableItemIdentifier === BUYABLE_ITEM_CREDIT) {
       props.onAddBuyableItem(buyableItemIdentifier, {
@@ -203,6 +213,20 @@ const InvoiceItemEditor = (props: Props) => {
       props.availableBuyableItems,
     ],
   );
+  React.useEffect(() => {
+    if (!buyableItemId || !buyableItemIdentifier || !props.member) {
+      return setWarnManagerOnInvoice(false);
+    }
+    const item = props.availableBuyableItems[buyableItemIdentifier].find(
+      (bi) => bi.id === buyableItemId,
+    );
+    if (buyableItemIdentifier === BUYABLE_ITEM_PASS) {
+      return setWarnManagerOnInvoice(
+        paymentPackTagsAndMemberTagsCompatibilty(item, props.member?.tags),
+      );
+    }
+    return setWarnManagerOnInvoice(false);
+  }, [buyableItemIdentifier, props.availableBuyableItems, props.member]);
   return (
     <div>
       <Paper>
@@ -307,15 +331,26 @@ const InvoiceItemEditor = (props: Props) => {
         </div>
         <div>
           <Divider className={classes.divider} />
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={onClickAddInvoiceItem}
-            disabled={!buyableItemId}
-          >
-            <AddIcon className={classes.leftIcon} />
-            {t('actions.addInvoiceItem')}
-          </Button>
+          {!warnMamangerOnInvoice ? (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={onClickAddInvoiceItem}
+              disabled={!buyableItemId}
+            >
+              <AddIcon className={classes.leftIcon} />
+              {t('actions.addInvoiceItem')}
+            </Button>
+          ) : (
+            <ButtonAddWithWarning
+              onClick={onClickAddInvoiceItem}
+              variant="contained"
+              color="primary"
+            >
+              <AddIcon className={classes.leftIcon} />
+              {t('actions.addInvoiceItem')}
+            </ButtonAddWithWarning>
+          )}
         </div>
       </div>
     </div>

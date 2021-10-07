@@ -94,17 +94,19 @@ export const CustomFormConsumerInput = (props: Props) => {
       );
     case CUSTOM_FORM_FIELD_SHORT_ANSWER_OPTION:
       return (
-        <div className={classes.spacedField}>
-          <TextField
-            name={`custom_form_field.${props.index}.answer`}
-            required={props.field.mandatory}
-            onBlur={props.handleBlur}
-            label={props.field.label}
-            fullWidth
-            InputLabelProps={{ color: 'red' }}
-            disabled={props.asManager}
-            inputProps={{ maxlength: MAX_LENGTH_FOR_SHORT_ANSWER }}
-          />
+        <div key={props.index}>
+          <div className={classes.spacedField}>
+            <TextField
+              name={`custom_form_field.${props.index}.answer`}
+              required={props.field.mandatory}
+              onBlur={props.handleBlur}
+              label={props.field.label}
+              fullWidth
+              InputLabelProps={{ color: 'red' }}
+              disabled={props.asManager}
+              inputProps={{ maxlength: MAX_LENGTH_FOR_SHORT_ANSWER }}
+            />
+          </div>
         </div>
       );
     case CUSTOM_FORM_FIELD_LONG_ANSWER_OPTION:

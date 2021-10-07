@@ -220,6 +220,13 @@ exports.default = {
       close: 'Fermer',
     },
   },
+  invoicePaymentPackTagWarningDialog: {
+    title: 'Information',
+    content:
+      'Attention, vous tentez de facturer une carte à un membre qui ne dispose pas des tags nécessaires à son achat. Voulez vous quand même lui facturer cet élément  ? ',
+    cancel: 'Annuler',
+    confirm: 'Confirmer',
+  },
   uneditableMessage: {
     invoiceRevertedThusNotEditable:
       "La facture a été annulée et n'est plus modifiable",

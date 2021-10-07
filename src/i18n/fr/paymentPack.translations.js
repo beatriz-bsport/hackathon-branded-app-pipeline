@@ -333,6 +333,20 @@ exports.default = {
         start_date_method_type:
           'Veuillez indiquer le début de validité de la carte.',
       },
+      advancedOptions: {
+        header: 'Avancé',
+        tag: {
+          header: 'Tags',
+          helperText:
+            'Utilisez les tags pour rendre la carte visible uniquement à un groupe de membre souhaité sur la marketplace, le widget et l’application. Vous pouvez sélectionner des tags pour rendre la carte visible seulement aux membres possédants un des tags choisis. Ou bien vous pouvez sélectionnez des tags pour rendre la carte invisible seulement aux membres possèdants un des tags sélectionnés. ',
+          allowed: 'Autorisé',
+          allowedFor: 'Autorisé pour',
+          notAllowed: 'Non-Autorisé',
+          notAllowedFor: 'Non-autorisé pour',
+          doNotSelectToAllowAllMembers:
+            'Ne rien sélectionner pour autoriser à tous les membres',
+        },
+      },
     },
   },
   details: {

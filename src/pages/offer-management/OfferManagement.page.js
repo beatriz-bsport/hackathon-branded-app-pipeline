@@ -84,6 +84,7 @@ import {
 import {
   getSearchedMembers,
   getAllMembers,
+  getMemberDetailData,
   getMemberHistory,
 } from '../../libs/member/selectors';
 
@@ -141,6 +142,7 @@ export default compose(
       // member
       membersloading: state.member.loading,
       members: getAllMembers(state),
+      memberDetails: getMemberDetailData(state),
       memberHistory: getMemberHistory(state).slice(0, 5),
       memberSearchLoading: state.member.search.loading,
       searchedMembers: getSearchedMembers(state),

@@ -35,6 +35,7 @@ type Props = {
   uneditableInvoiceItems: Array<InvoiceItem>,
   establishments: Array<Establishment>,
   establishmentLoading: boolean,
+  memberDetails: { [id: number]: Member },
 };
 
 type State = {
@@ -106,9 +107,19 @@ export class QuickInvoice extends Component<Props, State> {
     });
   };
 
+  getMemberDetail = (quickInv: QuickInvoice) => {
+    return {
+      ...quickInv.member,
+      ...(this.props?.memberDetails[quickInv.member.id]?.tags
+        ? {
+            tags: this.props?.memberDetails[quickInv.member.id]?.tags,
+          }
+        : {}),
+    };
+  };
+
   render() {
     const { classes, onClose, quickInvoiceTitle, quickInvoice } = this.props;
-
     if (!quickInvoice.member) {
       return <CircularProgress />;
     }
@@ -144,7 +155,7 @@ export class QuickInvoice extends Component<Props, State> {
             <InvoiceItemEditor
               availableBuyableItems={this.props.availableBuyableItems}
               onAddBuyableItem={this.addBuyableItem}
-              member={quickInvoice.member}
+              member={this.getMemberDetail(quickInvoice)}
             />
           </div>
         ) : (

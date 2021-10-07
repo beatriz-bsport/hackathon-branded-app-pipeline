@@ -17,9 +17,10 @@ import PaymentComboSelector from '../../payment-combo/components/PaymentComboSel
 import NumericInput from '../../../components/input/NumericInput.component';
 import PriceInput from '../../../components/input/PriceInput.component';
 import DateInput from '../../../components/input/DateInput.component';
+import ModalConfirm from '../../../components/ModalConfirm.component';
 
 import RecapSubscription from './RecapSubscription.component';
-
+import { paymentPackTagsAndMemberTagsCompatibilty } from '../../payment-packs/utils';
 import type { SubscriptionData } from '../types';
 import { PrivatePass } from '../../private-service/types';
 import { PaymentPack } from '../../payment-packs/types';
@@ -49,6 +50,7 @@ type State = {
   recurrent_voucher: number;
   first_billing_timestamp: number;
   name: string;
+  warnManagerOnInvoice: boolean;
 };
 
 export class SubscriptionCreate extends Component<Props, State> {
@@ -62,6 +64,7 @@ export class SubscriptionCreate extends Component<Props, State> {
       recurrent_voucher: 0,
       name: '',
       first_billing_timestamp: parseInt((moment() + 0) / 1000, 10),
+      warnManagerOnInvoice: false,
     };
   }
 
@@ -142,6 +145,10 @@ export class SubscriptionCreate extends Component<Props, State> {
       payment_pack: id,
       private_pass: null,
       payment_combo: null,
+      warnManagerOnInvoice: paymentPackTagsAndMemberTagsCompatibilty(
+        this.props.paymentPacks.find((pack) => pack.id === id),
+        this.props?.member?.tags,
+      ),
     });
 
   updatePrivatePass = (id: number) =>
@@ -158,6 +165,14 @@ export class SubscriptionCreate extends Component<Props, State> {
       payment_combo: id,
     });
   };
+
+  handleResetSelection = () =>
+    this.setState({
+      payment_pack: null,
+      private_pass: null,
+      payment_combo: null,
+      warnManagerOnInvoice: false,
+    });
 
   updateNbInterval = (event: React.ChangeEvent<HTMLInputElement>) => {
     const nb_interval = parseInt(event.target.value);
@@ -221,7 +236,6 @@ export class SubscriptionCreate extends Component<Props, State> {
       recapName = paymentComboSelected.name;
       recapPrice = paymentComboSelected.price;
     }
-
     return (
       <div>
         <div className={classes.container}>
@@ -243,7 +257,8 @@ export class SubscriptionCreate extends Component<Props, State> {
             selectorClass={classes.selector}
             nullCurrentValue={
               typeof this.state.private_pass === 'number' ||
-              typeof this.state.payment_combo === 'number'
+              typeof this.state.payment_combo === 'number' ||
+              this.state.warnManagerOnInvoice
             }
           />
 
@@ -326,6 +341,21 @@ export class SubscriptionCreate extends Component<Props, State> {
             </Button>
           </div>
         </div>
+        <ModalConfirm
+          open={this.state.warnManagerOnInvoice}
+          options={{
+            title: 'invoice:invoicePaymentPackTagWarningDialog.title',
+            Content: () => (
+              <p>{t('invoice:invoicePaymentPackTagWarningDialog.content')}</p>
+            ),
+          }}
+          handleCancel={this.handleResetSelection}
+          handleConfirm={() =>
+            this.setState({
+              warnManagerOnInvoice: false,
+            })
+          }
+        />
       </div>
     );
   }

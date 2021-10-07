@@ -40,8 +40,7 @@ type Props = {
   setNotifyMember: () => void,
   setKeepCredits: () => void,
   onCancel: () => void,
-  member: ({ name: string, id: number, photo: ?string }) => void,
-
+  member: { name: string, id: number, photo: ?string },
   similarOffers: Array<Offer>,
   similarOfferLoading: boolean,
   fetchSimilarOffers: () => void,
@@ -83,6 +82,7 @@ type Props = {
   fetchAllEstablishmentBillingGroup: () => void,
   establishments: Array<Establishment>,
   companyTheme: CompanyTheme,
+  memberDetails: { [id: number]: Member },
 };
 
 const REGISTER_METHOD_CHOICE = 0;
@@ -250,6 +250,8 @@ export class BookingModuleManager extends PureComponent<Props> {
                 enableMultiLocalization={
                   this.props.companyTheme.enable_multi_localization
                 }
+                member={this.props.member}
+                memberDetails={this.props.memberDetails}
               />
             )}
             {this.props.step === OFFER_CHOICE && (
@@ -305,6 +307,7 @@ export default compose(
   withState('registererObject', 'setRegistererObject', {}),
   withState('notify_member', 'setNotifyMember', false),
   withState('keep_credits', 'setKeepCredits', false),
+  withState('memberDetail', 'setMemberDetail', {}),
   withHandlers({
     backToRegistererChoice: ({ setRegistererObject, setStep }) => () => {
       setStep(REGISTER_METHOD_CHOICE);

@@ -28,9 +28,9 @@ import MarketplacePrivatePassList from '../../libs/marketplace/components/Market
 import MarketplacePaymentComboList from '../../libs/marketplace/components/MarketplacePaymentComboList.component';
 
 import withQueryParams from '../../hocs/with-query-params.hoc';
-
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
-  getMarketplacePaymentPacks,
+  excludePaymentPackTagged,
   getPaymentPackCategoryWithPaymentPacks,
   getPaymentPackUnCategoryWithPaymentPacks,
   withMetaActivities,
@@ -55,6 +55,8 @@ import {
 } from '../../libs/payment-packs/actions';
 import withTitle from '../../hocs/with-title.hoc';
 import { RootState } from '../../reducers';
+
+import { fetchMemberTagList } from '../../libs/tag/actions';
 
 type OwnProps = {
   params?: {
@@ -93,6 +95,7 @@ export class MarketPlacePassPage extends Component<Props> {
     });
     this.props.fetchPrivatePassAsConsumerList(this.props.companyId);
     this.props.fetchAllPaymentPackCategory(this.props.companyId);
+    this.props.fetchMemberTagList(this.props.companyId);
   };
 
   componentDidUpdate(prevProps: Props) {
@@ -210,10 +213,10 @@ const mapStateToProps = (state: RootState) => ({
   establishmentLoading: state.establishment.bulkRetrieve.loading,
   activityLoading: state.metaActivity.loading,
   paymentPackUnCategorized: getPaymentPackUnCategoryWithPaymentPacks(
-    withEstablishments(withMetaActivities(getMarketplacePaymentPacks)),
+    withEstablishments(withMetaActivities(excludePaymentPackTagged)),
   )(state),
   paymentPackByCategory: getPaymentPackCategoryWithPaymentPacks(
-    withEstablishments(withMetaActivities(getMarketplacePaymentPacks)),
+    withEstablishments(withMetaActivities(excludePaymentPackTagged)),
   )(state),
 });
 
@@ -245,6 +248,7 @@ const mapDispatchToProps = {
       extra_data: {},
     }),
   fetchPaymentComboList,
+  fetchMemberTagList,
 };
 
 export const MarketplacePassBase = compose<any, OwnProps>(
@@ -271,6 +275,7 @@ export const MarketplacePassBase = compose<any, OwnProps>(
 
 export default compose<any, OwnProps>(
   withRouter,
+  routerParamsToProps({ companyId: 'companyId:number' }),
   withQueryParams([
     ['hidePaymentPack', 'hidePrivatePass', 'hidePaymentCombo'],
     'params',

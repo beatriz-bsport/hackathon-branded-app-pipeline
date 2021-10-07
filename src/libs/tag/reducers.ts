@@ -7,6 +7,7 @@ import {
   tagListActions,
   tagCreateOrUpdateActions,
   tagUsageActions,
+  fetchMemberTagListActions,
 } from './actions';
 
 import type { TagState } from './types';
@@ -37,19 +38,24 @@ const initialState: Immutable.Immutable<TagState> = Immutable<TagState>({
     error: null,
     byId: {},
   },
+  marketPlaceMemberTag: {
+    loading: false,
+    error: null,
+    tagIdsList: [],
+  },
 });
 
 export default handleActions(
   {
     // TAGS
     // --------
-    [tagListActions.isLoading]: (state, { payload }) => {
+    [tagListActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['tag', 'loading'], payload);
     },
-    [tagListActions.error]: (state, { payload }) => {
+    [tagListActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['tag', 'error'], payload);
     },
-    [tagListActions.success]: (state, { payload }) => {
+    [tagListActions.success.toString()]: (state, { payload }) => {
       return state.setIn(['tag', 'items'], payload).merge(
         {
           tag: {
@@ -81,13 +87,13 @@ export default handleActions(
     [tagUsageActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['tagUsageActions', 'error'], payload);
     },
-    [tagCreateOrUpdateActions.isLoading]: (state, { payload }) => {
+    [tagCreateOrUpdateActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['tag', 'createOrUpdate', 'loading'], payload);
     },
-    [tagCreateOrUpdateActions.error]: (state, { payload }) => {
+    [tagCreateOrUpdateActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['tag', 'createOrUpdate', 'error'], payload);
     },
-    [tagCreateOrUpdateActions.success]: (state, { payload }) => {
+    [tagCreateOrUpdateActions.success.toString()]: (state, { payload }) => {
       let idx = state.tag.items.findIndex((t) => t.id === payload.id);
       if (idx === -1) {
         idx = state.tag.items.length;
@@ -96,13 +102,13 @@ export default handleActions(
     },
     // GROUP
     // --------
-    [tagGroupListActions.isLoading]: (state, { payload }) => {
+    [tagGroupListActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['group', 'loading'], payload);
     },
-    [tagGroupListActions.error]: (state, { payload }) => {
+    [tagGroupListActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['group', 'error'], payload);
     },
-    [tagGroupListActions.success]: (state, { payload }) => {
+    [tagGroupListActions.success.toString()]: (state, { payload }) => {
       return state.setIn(['group', 'items'], payload).merge(
         {
           group: {
@@ -115,18 +121,36 @@ export default handleActions(
         { deep: true },
       );
     },
-    [tagGroupCreateOrUpdateActions.isLoading]: (state, { payload }) => {
+    [tagGroupCreateOrUpdateActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['group', 'createOrUpdate', 'loading'], payload);
     },
-    [tagGroupCreateOrUpdateActions.error]: (state, { payload }) => {
+    [tagGroupCreateOrUpdateActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['group', 'createOrUpdate', 'error'], payload);
     },
-    [tagGroupCreateOrUpdateActions.success]: (state, { payload }) => {
+    [tagGroupCreateOrUpdateActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       let idx = state.group.items.findIndex((g) => g.id === payload.id);
       if (idx === -1) {
         idx = state.group.items.length;
       }
       return state.setIn(['group', 'items', idx], payload);
+    },
+    [fetchMemberTagListActions.isLoading.toString()]: (state, { payload }) => {
+      return state.setIn(['marketPlaceMemberTag', 'loading'], payload);
+    },
+    [fetchMemberTagListActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['marketPlaceMemberTag', 'error'], payload);
+    },
+    [fetchMemberTagListActions.success.toString()]: (state, { payload }) => {
+      return state.setIn(
+        ['marketPlaceMemberTag', 'tagIdsList'],
+        payload.map((tag) => tag.id),
+      );
     },
   },
   initialState,

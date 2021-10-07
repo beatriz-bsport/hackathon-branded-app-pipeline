@@ -65,6 +65,7 @@ import {
   withMetaActivities,
   getPaymentPack,
   withSCT,
+  withTags,
 } from '../../libs/payment-packs/selectors';
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -86,6 +87,12 @@ import { RootState } from '../../reducers';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import PaymentPackMassExtensionList from '../../libs/consumer-payment-pack/components/PaymentPackMassExtensionList.component';
 import { PaymentPackMassExtension } from '../../libs/consumer-payment-pack/types';
+
+import {
+  fetchAllGroups as fetchAllTagGroups,
+  fetchAllTags,
+} from '../../libs/tag/actions';
+import { getallTagsWithTagGroup } from '../../libs/tag/selectors';
 
 type OwnProps = {
   id: number;
@@ -154,6 +161,8 @@ export class PaymentPackDetail extends Component<Props, State> {
       page: 1,
       page_size: PAYMENT_PACK_MASS_EXTENSION_PAGINATION_SIZE,
     });
+    this.props.fetchAllTagGroups();
+    this.props.fetchAllTags();
   }
 
   requestEdit = (p: PaymentPack) => {
@@ -249,6 +258,7 @@ export class PaymentPackDetail extends Component<Props, State> {
             onScaleCredit={this.props.scaleCredit}
             scaleCreditLoading={this.props.scaleCreditLoading}
             loadingMassExtension={this.props.loadingMassExtension}
+            isManager
           />
           <PaymentPackNotification
             pack={pack}
@@ -418,10 +428,9 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
       page: state.consumerPaymentPack.massExtension.page,
     },
     loading: state.paymentPack.loading || state.establishment.loading,
-    pack: withSCT(withMetaActivities(withEstablishments(getPaymentPack)))(
-      state,
-      props.id,
-    ),
+    pack: withTags(
+      withSCT(withMetaActivities(withEstablishments(getPaymentPack))),
+    )(state, props.id),
     scaleCreditLoading: state.paymentPack.scaleCredit.loading,
     notifications: {
       items: getPaymentPackNotifications(state),
@@ -440,6 +449,7 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     emailDetailLoading: state.emailTemplate.detail.isLoading,
     smartLists: getAllSmartList(state),
     smartListLoading: state.smartList.isLoading,
+    allTagsWithTagGroup: getallTagsWithTagGroup(state),
   };
 };
 
@@ -486,6 +496,8 @@ const mapDispatchToProps = {
   createMassExtension,
   fetchMassExtensionList,
   deleteMassExtension,
+  fetchAllTagGroups,
+  fetchAllTags,
 };
 
 const mapWithHandlers = {

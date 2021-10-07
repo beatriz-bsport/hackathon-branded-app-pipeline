@@ -52,6 +52,8 @@ export type PaymentPack = {
   penalty_account_value: number;
   start_on_first_user: boolean;
   notifications: Array<number>;
+  whitelist_tags: Array<number>;
+  blacklist_tags: Array<number>;
 };
 
 export type ConsumerPaymentPack = {

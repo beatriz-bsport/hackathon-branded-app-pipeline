@@ -1178,6 +1178,12 @@
       "explain": "Un ou plusieurs paiements ne sont pas passés correctement, l'acompte du membre reflète l'echec du paiement",
       "actions": { "show": "Voir la facture", "close": "Fermer" }
     },
+    "invoicePaymentPackTagWarningDialog": {
+      "title": "Information",
+      "content": "Attention, vous tentez de facturer une carte à un membre qui ne dispose pas des tags nécessaires à son achat. Voulez vous quand même lui facturer cet élément  ? ",
+      "cancel": "Annuler",
+      "confirm": "Confirmer"
+    },
     "uneditableMessage": {
       "invoiceRevertedThusNotEditable": "La facture a été annulée et n'est plus modifiable",
       "invoiceFromSubscriptionThusNotEditable": "Cette facture fait partie d'une souscription et n'est donc pas éditable, veuillez modifier directement la souscription",
@@ -2626,7 +2632,19 @@
           }
         },
         "category": { "label": "Catégorie (facultatif)", "helperText": "Nom de la catégorie" },
-        "error": { "start_date_method_type": "Veuillez indiquer le début de validité de la carte." }
+        "error": { "start_date_method_type": "Veuillez indiquer le début de validité de la carte." },
+        "advancedOptions": {
+          "header": "Avancé",
+          "tag": {
+            "header": "Tags",
+            "helperText": "Utilisez les tags pour rendre la carte visible uniquement à un groupe de membre souhaité sur la marketplace, le widget et l’application. Vous pouvez sélectionner des tags pour rendre la carte visible seulement aux membres possédants un des tags choisis. Ou bien vous pouvez sélectionnez des tags pour rendre la carte invisible seulement aux membres possèdants un des tags sélectionnés. ",
+            "allowed": "Autorisé",
+            "allowedFor": "Autorisé pour",
+            "notAllowed": "Non-Autorisé",
+            "notAllowedFor": "Non-autorisé pour",
+            "doNotSelectToAllowAllMembers": "Ne rien sélectionner pour autoriser à tous les membres"
+          }
+        }
       }
     },
     "details": {
@@ -5332,9 +5350,11 @@
     }
   },
   "tag": {
+    "memberStatus": "Statut du membre : ",
     "panel": { "title": "Mes tags", "noTagAvailable": "Aucun tag créé" },
     "filter": { "addATagFilter": "Filtrer par tag..." },
     "tag": { "noTagAttributed": "Sélectionnez un tag" },
+    "select": "Sélectionner un tag",
     "form": {
       "filter": {
         "title": "Filtre",

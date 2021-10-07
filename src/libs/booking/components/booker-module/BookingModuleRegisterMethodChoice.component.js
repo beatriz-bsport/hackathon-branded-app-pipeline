@@ -21,6 +21,9 @@ import type { PaymentPack } from '../../../payment-packs/types';
 import { MaxoutBooking } from '../../../consumer-payment-pack/types';
 import { Offer } from '../../../offer/types';
 import EstablishmentSelector from '../../../establishment/components/EstablishmentSelector.component';
+import ModalConfirm from '../../../../components/ModalConfirm.component';
+import { paymentPackTagsAndMemberTagsCompatibilty } from '../../../payment-packs/utils';
+import type { Member } from '../../../member/types';
 
 type Props = {
   consumerPacks: Array<ConsumerPaymentPack>,
@@ -43,6 +46,8 @@ type Props = {
   establishments: Array<Establishment>,
   establishmentLoading: boolean,
   enableMultiLocalization: boolean,
+  member: Member,
+  memberDetails: { [id: number]: Member },
 };
 
 export const BookingModuleRegisterMethodChoice = (props: Props) => {
@@ -52,7 +57,17 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
   const [voucherDialogOpen, setVoucherDialogOpen] = useState(false);
   const [selectedPack, setSelectedPack] = useState(null);
   const [billingEstablishmentId, setBillingEstablishmentId] = useState(null);
-
+  const [warnManagerOnInvoice, setWarnManagerOnInvoice] = useState(false);
+  const handlePackSelect = (pack: PaymentPack) => {
+    setSelectedPack(pack);
+    if (!pack) {
+      return setWarnManagerOnInvoice(false);
+    }
+    const memberTags = props.memberDetails[props.member.id]?.tags;
+    return setWarnManagerOnInvoice(
+      paymentPackTagsAndMemberTagsCompatibilty(pack, memberTags),
+    );
+  };
   return (
     <div className={classes.container}>
       <Typography variant="h6" component="h4">
@@ -131,7 +146,7 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
                 showDuration
                 hidePacksNumber
                 onBookOne={() => {
-                  setSelectedPack(pack);
+                  handlePackSelect(pack);
                   setVoucherDialogOpen(true);
                 }}
                 onBookMultiple={
@@ -146,7 +161,24 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
             ))}
         </List>
       )}
-      <Dialog open={voucherDialogOpen}>
+
+      <ModalConfirm
+        open={warnManagerOnInvoice}
+        options={{
+          title: 'invoice:invoicePaymentPackTagWarningDialog.title',
+          Content: () => (
+            <p>{t('invoice:invoicePaymentPackTagWarningDialog.content')}</p>
+          ),
+        }}
+        handleCancel={() => {
+          setVoucherDialogOpen(false);
+          setWarnManagerOnInvoice(false);
+        }}
+        handleConfirm={() => {
+          setWarnManagerOnInvoice(false);
+        }}
+      />
+      <Dialog open={voucherDialogOpen && !warnManagerOnInvoice}>
         <DialogTitle>
           {t('translation:payment.updateInvoiceVoucher')}
         </DialogTitle>
@@ -238,7 +270,6 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
                 billingEstablishmentId,
               );
               setSelectedPack(null);
-              setVoucherDialogOpen(false);
               setVoucher(0);
               setBillingEstablishmentId(null);
             }}

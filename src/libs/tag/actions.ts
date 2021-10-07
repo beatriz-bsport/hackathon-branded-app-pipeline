@@ -175,3 +175,28 @@ export function deleteTag(id: number): ThunkAction {
     dispatch(tagCreateOrUpdateActions.isLoading(false));
   };
 }
+
+export const fetchMemberTagListActions = {
+  isLoading: createAction('MEMBER_TAG_LIST/RETRIEVE/IS_LOADING'),
+  error: createAction('MEMBER_TAG_LIST/RETRIEVE/ERROR'),
+  success: createAction('MEMBER_TAG_LIST/RETRIEVE/SUCCESS'),
+};
+export function fetchMemberTagList(
+  companyId: number,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchMemberTagListActions.isLoading(true));
+    dispatch(fetchMemberTagListActions.error(null));
+    try {
+      const response = await api.fetchMemberTagList(companyId);
+      dispatch(fetchMemberTagListActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(fetchMemberTagListActions.error(err));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(fetchMemberTagListActions.isLoading(false));
+  };
+}

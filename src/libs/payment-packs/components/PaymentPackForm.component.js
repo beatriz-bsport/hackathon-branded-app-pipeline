@@ -20,7 +20,11 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import AddIcon from '@material-ui/icons/Add';
-
+import ButtonBase from '@material-ui/core/ButtonBase';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpoandLessIcon from '@material-ui/icons/ExpandLess';
+import CheckIcon from '@material-ui/icons/Check';
+import BlockIcon from '@material-ui/icons/Block';
 import {
   START_ON_PURCHASE,
   START_ON_FIRST_BOOKING,
@@ -44,6 +48,7 @@ import {
   AlertError,
 } from '../../../components/forms';
 import PaymentPackCategorySelector from './category/PaymentPackCategorySelector.component';
+import TagSelector from '../../tag/components/TagSelector.selector';
 
 type Props = {
   categories: *[],
@@ -58,6 +63,7 @@ type Props = {
   onCancelText: ?string,
   paymentPackCategories: Array<PaymentPackCategory>,
   setFieldValue: (field_indentifier: string, value: string | null) => void,
+  allTagsWithTagGroup: Array<Tag>,
 };
 
 /*
@@ -75,6 +81,7 @@ const PENALTY_KIND_BLOCK_CPP = 0;
 const PENALTY_KIND_NEGATIVE_ACCOUNT = 1;
 
 export function PaymentPackForm(props: Props) {
+  const [openAdvancedOptions, setOpenAdvancedOptions] = React.useState(false);
   const {
     t,
     categories,
@@ -102,7 +109,7 @@ export function PaymentPackForm(props: Props) {
     category,
   } = values;
   return (
-    <div>
+    <div className={classes.formContainer}>
       <Form className={classes.content}>
         <Grid container spacing={1}>
           <Grid item xs={12}>
@@ -528,6 +535,105 @@ export function PaymentPackForm(props: Props) {
             </Grid>
           </Grid>
         </fieldset>
+        <Grid item xs={12} className={classes.advancedOptionsSection}>
+          <ButtonBase
+            onClick={() => setOpenAdvancedOptions(!openAdvancedOptions)}
+            className={classes.advancedOptionsHeader}
+          >
+            <Typography variant="h6">
+              {t('form.paymentPack.advancedOptions.header')}
+            </Typography>
+            {openAdvancedOptions ? <ExpoandLessIcon /> : <ExpandMoreIcon />}
+          </ButtonBase>
+          <Collapse in={openAdvancedOptions}>
+            <div className={classes.tagSection}>
+              <div className={classes.tagSectionHeader}>
+                <Typography variant="h6">
+                  {t('form.paymentPack.advancedOptions.tag.header')}
+                </Typography>
+                <Typography variant="caption" className={classes.helperText}>
+                  {t('form.paymentPack.advancedOptions.tag.helperText')}
+                </Typography>
+              </div>
+              <div className={classes.tagSelector}>
+                <div className={classes.tagSelectorLabel}>
+                  <CheckIcon className={classes.tagSelectorLabelIcon} />
+                  <Typography variant="subtitle1">
+                    {t('form.paymentPack.advancedOptions.tag.allowed')}
+                  </Typography>
+                </div>
+                <TagSelector
+                  allTagsWithTagGroup={
+                    props.allTagsWithTagGroup?.filter(
+                      (tag) => !props.values?.blacklist_tags?.includes(tag.id),
+                    ) || []
+                  }
+                  placeholder={t(
+                    'form.paymentPack.advancedOptions.tag.doNotSelectToAllowAllMembers',
+                  )}
+                  onChange={(
+                    items: Array<{
+                      item: Tag & { label: string, value: number },
+                    }>,
+                  ) => {
+                    return props.setFieldValue('whitelist_tags', [
+                      ...items.map((item) => item.value),
+                    ]);
+                  }}
+                  onDeleteTag={(itemId: number) =>
+                    props.setFieldValue(
+                      'whitelist_tags',
+                      props?.values?.whitelist_tags.filter(
+                        (tagId) => tagId !== itemId,
+                      ),
+                    )
+                  }
+                  selectedTags={props.values.whitelist_tags}
+                  isClearable
+                  closeMenuOnSelect
+                />
+              </div>
+              <div className={classes.tagSelector}>
+                <div className={classes.tagSelectorLabel}>
+                  <BlockIcon className={classes.tagSelectorLabelIcon} />
+                  <Typography variant="subtitle1">
+                    {t('form.paymentPack.advancedOptions.tag.notAllowed')}
+                  </Typography>
+                </div>
+                <TagSelector
+                  allTagsWithTagGroup={
+                    props.allTagsWithTagGroup?.filter(
+                      (tag) => !props.values?.whitelist_tags?.includes(tag.id),
+                    ) || []
+                  }
+                  placeholder={t(
+                    'form.paymentPack.advancedOptions.tag.doNotSelectToAllowAllMembers',
+                  )}
+                  onChange={(
+                    items: Array<{
+                      item: Tag & { label: string, value: number },
+                    }>,
+                  ) => {
+                    return props.setFieldValue('blacklist_tags', [
+                      ...items.map((item) => item.value),
+                    ]);
+                  }}
+                  onDeleteTag={(itemId: number) =>
+                    props.setFieldValue(
+                      'blacklist_tags',
+                      props?.values?.blacklist_tags.filter(
+                        (tagId) => tagId !== itemId,
+                      ),
+                    )
+                  }
+                  selectedTags={props.values.blacklist_tags}
+                  isClearable
+                  closeMenuOnSelect
+                />
+              </div>
+            </div>
+          </Collapse>
+        </Grid>
         <Actions>
           {props.onCancel ? (
             <Button onClick={props.onCancel}>
@@ -602,9 +708,14 @@ const PackSchema = Yup.object().shape({
   penalty_days_blocked: Yup.number().min(1),
   penalty_account_value: Yup.number(),
   only_vod_access: Yup.boolean(),
+  whitelist_tags: Yup.array().of(Yup.number()),
+  blacklist_tags: Yup.array().of(Yup.number()),
 });
 
 const styles = (theme) => ({
+  formContainer: {
+    marginBottom: '20vh',
+  },
   content: { padding: theme.spacing(2), paddingBottom: 0 },
   legend: { margin: 0 },
   fieldset: {
@@ -646,6 +757,35 @@ const styles = (theme) => ({
   },
   penaltyExplain: {
     paddingTop: theme.spacing(2),
+  },
+  advancedOptionsHeader: {
+    alignItems: 'center',
+    textTransform: 'none',
+    paddingLeft: theme.spacing(1),
+  },
+  advancedOptionsSection: {
+    paddingTop: theme.spacing(2),
+  },
+  tagSection: {
+    padding: theme.spacing(1),
+  },
+  tagSectionHeader: {
+    paddingBottom: theme.spacing(1),
+  },
+  helperText: {
+    color: theme.palette.grey[800],
+  },
+  tagSelectorLabel: {
+    display: 'flex',
+    alignItems: 'center',
+    paddingBottom: theme.spacing(1),
+  },
+  tagSelectorLabelIcon: {
+    marginRight: theme.spacing(1),
+    color: theme.palette.grey[1000],
+  },
+  tagSelector: {
+    paddingBottom: theme.spacing(2),
   },
 });
 
@@ -738,6 +878,8 @@ export default compose(
         'penalty_days_blocked',
         'penalty_account_value',
         'category',
+        'whitelist_tags',
+        'blacklist_tags',
       ];
       const data = _.pick(values, keys);
 

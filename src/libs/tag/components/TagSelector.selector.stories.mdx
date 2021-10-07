@@ -1,0 +1,78 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import TagSelector from "./TagSelector.selector"
+
+<Meta title="library/tag/selector"
+    component={TagSelector}
+    argTypes ={{
+        
+        tag_groups :{
+            description :"Array with all the tag groups and the tags they contain",
+            table: {
+                type: {
+                    summary: "TagGroup"
+                },
+                defaultValue: {
+                    summary:"None"
+                }
+            }
+        },
+        isDisabled :{
+            description :"If true, can't select anything",
+            table: {
+                type: {
+                    summary: "boolean"
+                },
+                defaultValue: {
+                    summary: "false"
+                }
+            }
+        },
+    }}/>
+
+export const Template = (args) => <TagSelector {...args} />;
+
+#  
+
+<Canvas>
+    <Story 
+    name="TagSelector"
+    args={{
+        isDisabled:false,
+        tag_groups:[
+            {
+                id:1,
+                name:"Tag group #1",
+                kind:0,
+                tags:[
+                    {
+                        id:10,
+                        name:"Tag #1"
+                    },
+                    {
+                        id:11,
+                        name:"Tag #2"
+                    }
+                ]
+            },
+            {
+                id:2,
+                name:"Tag Group #2",
+                kind:1,
+                tags:[
+                    {
+                        id:12,
+                        name:"Tag #3"
+                    },
+                    {
+                        id:13,
+                        name:"Tag #4"
+                    }
+                ]
+            },
+        ],
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story="TagSelector" />

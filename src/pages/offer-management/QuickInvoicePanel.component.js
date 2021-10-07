@@ -30,11 +30,12 @@ type Props = {
   establishments: Array<Establishment>,
   snackbarSuccess: (string) => void,
   companyId: number,
+  memberDetails: { [id: number]: Member },
 };
 
 type State = {
   clientSecretLoading: boolean,
-  clientSecret: ?strin,
+  clientSecret: ?string,
   paymentGroupId: ?number,
   paymentGroupPriceCts: ?number,
 };
@@ -95,6 +96,7 @@ export class QuickInvoicePanel extends React.Component<Props, State> {
               onClose={() => closeQuickInvoice(qi.memberId, qi)}
               createInvoice={createInvoice}
               establishments={this.props.establishments}
+              memberDetails={this.props.memberDetails}
             />
           ))
         ) : (

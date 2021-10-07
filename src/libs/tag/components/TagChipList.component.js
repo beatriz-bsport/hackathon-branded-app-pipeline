@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
-import TagChip from './TagChip.component';
+import TagChip from './DEPRECATEDTagChip.component';
 
 import type { Tag, TagGroup } from '../types';
 

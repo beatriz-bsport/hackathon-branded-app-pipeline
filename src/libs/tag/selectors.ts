@@ -34,6 +34,20 @@ const getMemberTags: (state: RootState) => Array<Tag> = createSelector(
   },
 );
 
+export const getallTagsWithTagGroup = createSelector(
+  [_getTags, getTagGroupsDict],
+  (tagsItemsList, tagGroupData) => {
+    return tagsItemsList?.map((tag) => {
+      return {
+        ...tag,
+        group: tagGroupData[tag.group],
+      };
+    });
+  },
+);
+
+export const getMemberTagsIdsList = (state: RootState) =>
+  state.tag.marketPlaceMemberTag.tagIdsList;
 export const withTags = memoize((selector: (state: RootState) => any) =>
   createSelector([selector, _getTags], (tag_group, tags_list) => {
     if (!tag_group) return null;

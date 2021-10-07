@@ -47,6 +47,12 @@ import type {
   PaymentPack,
   PaymentPackCategory,
 } from '../../libs/payment-packs/types';
+import {
+  fetchAllGroups as fetchAllTagGroups,
+  fetchAllTags,
+} from '../../libs/tag/actions';
+import { getallTagsWithTagGroup } from '../../libs/tag/selectors';
+import type { Tag } from '../../libs/tag/types';
 
 type Props = {
   loading: boolean,
@@ -67,6 +73,9 @@ type Props = {
   videoSCTs: Array<number>,
   fetchAllPaymentPackCategory: () => void,
   paymentPackCategories: Array<PaymentPackCategory>,
+  fetchAllTagGroups: () => void,
+  fetchAllTags: () => void,
+  allTagsWithTagGroup: Array<Tag>,
 };
 
 export class PaymentPackFormPage extends React.Component<Props> {
@@ -81,6 +90,8 @@ export class PaymentPackFormPage extends React.Component<Props> {
     this.props.fetchWorkhops();
     this.props.fetchVideoFilterableParams({ mine: true });
     this.props.fetchAllPaymentPackCategory();
+    this.props.fetchAllTagGroups();
+    this.props.fetchAllTags();
   }
 
   render() {
@@ -95,6 +106,7 @@ export class PaymentPackFormPage extends React.Component<Props> {
       initial,
       paymentPackId,
       paymentPackCategories,
+      allTagsWithTagGroup,
     } = this.props;
 
     if (loading || (!!paymentPackId && !initial)) {
@@ -109,7 +121,6 @@ export class PaymentPackFormPage extends React.Component<Props> {
         availableCategoriesId.indexOf(c.id) !== -1 ||
         (initial && initial.categories.includes(c.id)),
     );
-
     return (
       <Grid
         container
@@ -128,6 +139,7 @@ export class PaymentPackFormPage extends React.Component<Props> {
               loading={loading}
               initial={initial}
               onCancel={onCancel}
+              allTagsWithTagGroup={allTagsWithTagGroup}
             />
           </Paper>
         </Grid>
@@ -170,6 +182,7 @@ export default compose(
         loading: state.paymentPack.loading,
         videoSCTs: uniqBy(state.video.filterableParams.items.SCTs, 'id'),
         paymentPackCategories: getAllPaymentPackCategory(state),
+        allTagsWithTagGroup: getallTagsWithTagGroup(state),
       };
     },
     {
@@ -182,6 +195,8 @@ export default compose(
       push: pushRouter,
       fetchVideoFilterableParams: fetchVideoFilterableParamsAction,
       fetchAllPaymentPackCategory,
+      fetchAllTagGroups,
+      fetchAllTags,
     },
   ),
   withProps(({ createOrUpdate, push }) => ({

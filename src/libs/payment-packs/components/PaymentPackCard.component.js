@@ -32,6 +32,7 @@ import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import PaymentPackScaleCreditDialog from './PaymentPackScaleCreditDialog.component';
 
 import type { PaymentPack } from '../types';
+import TagChip from '../../tag/components/TagChip.component';
 
 const PENALTY_KIND_BLOCK_CPP = 0;
 const PENALTY_KIND_NEGATIVE_ACCOUNT = 1;
@@ -55,6 +56,7 @@ type Props = {
   toogleScaleMenuOpen: () => void,
   onScaleCredit: (paymentPackId: number, data: any) => void,
   pack: PaymentPack,
+  isManager?: boolean,
 };
 
 export class PaymentPackCard extends Component<Props> {
@@ -138,6 +140,44 @@ export class PaymentPackCard extends Component<Props> {
             <Typography variant="body2">{t('anyEstablishment')}</Typography>
           )}
         </List>
+      </div>
+    );
+  };
+
+  getWhiteListTagScope = () => {
+    const { pack, t, classes } = this.props;
+    if (!pack || pack?.whitelist_tags?.length === 0) {
+      return null;
+    }
+    return (
+      <div>
+        <Typography variant="subtitle1">
+          {t('form.paymentPack.advancedOptions.tag.allowedFor')}
+        </Typography>
+        <div className={classes.tagListSection}>
+          {pack?.whitelist_tags.map((tag) => {
+            return <TagChip key={tag.id} tag={tag} size="small" />;
+          })}
+        </div>
+      </div>
+    );
+  };
+
+  getBlackListTagScope = () => {
+    const { pack, t, classes } = this.props;
+    if (!pack || pack?.blacklist_tags?.length === 0) {
+      return null;
+    }
+    return (
+      <div>
+        <Typography variant="subtitle1">
+          {t('form.paymentPack.advancedOptions.tag.notAllowedFor')}
+        </Typography>
+        <div className={classes.tagListSection}>
+          {pack?.blacklist_tags.map((tag) => {
+            return <TagChip key={tag.id} tag={tag} size="small" />;
+          })}
+        </div>
       </div>
     );
   };
@@ -435,7 +475,7 @@ export class PaymentPackCard extends Component<Props> {
   };
 
   render() {
-    const { classes, onlyPublic, pack } = this.props;
+    const { classes, onlyPublic, pack, isManager } = this.props;
     return (
       <Paper
         className={[
@@ -455,6 +495,16 @@ export class PaymentPackCard extends Component<Props> {
           </div>
         )}
         {this.renderScope()}
+        {isManager && (
+          <>
+            <div className={classes.horizontalBlock}>
+              {this.getWhiteListTagScope()}
+            </div>
+            <div className={classes.horizontalBlock}>
+              {this.getBlackListTagScope()}
+            </div>
+          </>
+        )}
 
         {!onlyPublic && (
           <div className={classes.buttonBlock}>
@@ -563,6 +613,16 @@ const styles = (theme) => ({
   },
   penaltyText: {
     paddingBottom: theme.spacing(3),
+  },
+  tagListSection: {
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(2),
+    display: 'flex',
+    justifyContent: 'flex-start',
+    flexWrap: 'wrap',
+    '& > *': {
+      margin: theme.spacing(0.5),
+    },
   },
 });
 

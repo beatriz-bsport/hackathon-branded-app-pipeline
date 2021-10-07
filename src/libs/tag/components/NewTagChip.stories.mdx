@@ -1,0 +1,127 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import TagChip from "./TagChip.component"
+
+<Meta title="library/tag/chip"
+    component={TagChip}
+    argTypes ={{
+        tag :{
+            description :"The tag that will be displayed in the chip",
+            table: {
+                type: {
+                    summary: "Tag"
+                },
+                defaultValue: {
+                    summary: "None"
+                }
+            }
+        },
+        companyTheme :{
+            description :"If the tag has no color, the one used will be the one of the company.",
+            table: {
+                type: {
+                    summary: "Theme"
+                },
+                defaultValue: {
+                    summary: "None"
+                }
+            }
+        },
+        variant :{
+            description :"Define if the component is filled or oulined. ",
+            options:[
+                "default",
+                "outlined"
+            ],
+            table: {
+                type: {
+                    summary: "string"
+                },
+                defaultValue: {
+                    summary: "filled"
+                }
+            }
+        },
+        onDelete :{
+            description :"Callback fired when the delete icon is clicked. If set, the delete icon will be shown",
+            table: {
+                type: {
+                    summary: "func"
+                },
+                defaultValue: {
+                    summary: "None"
+                }
+            }
+        },
+        onClick :{
+            description :"Callback fired when the chip  is clicked. If set, the chip is clickable",
+            table: {
+                type: {
+                    summary: "func"
+                },
+                defaultValue: {
+                    summary: "None"
+                }
+            }
+        },
+    }}/>
+
+export const Template = (args) => <TagChip {...args} />;
+
+# Tag Chip Component
+
+<Canvas>
+    <Story 
+    name="TagChip"
+    args={{
+        tag:{
+            name:"Pro",
+            color:"#757ce8",
+            icon:"https://bsport-django-asset-prod.s3.amazonaws.com/gymnast-male.png"
+        },
+        companyTheme:{
+            primary_color:"#157ce8"
+        },
+        variant:"default"
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story 
+    name="TagChipOutlined"
+    args={{
+        tag:{
+            name:"Pro",
+            color:"#757ce8",
+            icon:"https://bsport-django-asset-prod.s3.amazonaws.com/gymnast-male.png"
+        },
+        companyTheme:{
+            primary_color:"#157ce8"
+        },
+        variant:"outlined"
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story 
+    name="TagChipWithoutImage"
+    args={{
+        tag:{
+            name:"Pro",
+            color:"#757ce8",
+            icon:""
+        },
+        companyTheme:{
+            primary_color:"#157ce8"
+        },
+        variant:""
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+
+<ArgsTable story="TagChip" />

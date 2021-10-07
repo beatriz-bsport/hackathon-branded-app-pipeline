@@ -1,4 +1,11 @@
-import { API_URI, deleteAuth, getAuth, postAuth, putAuth } from '../../http';
+import {
+  API_URI,
+  deleteAuth,
+  getAuth,
+  postAuth,
+  putAuth,
+  buildUrlParams,
+} from '../../http';
 
 const TAG_URI = `${API_URI}/tagging/tag/`;
 const TAG_GROUP_URI = `${API_URI}/tagging/tag-group/`;
@@ -38,6 +45,14 @@ const fetchTagUsage = async () => {
   return getAuth(`${TAG_URI}usage/`);
 };
 
+const fetchMemberTagList = async (companyId: number) => {
+  return getAuth(
+    `${TAG_URI}get_member_tag_list/${buildUrlParams({
+      company: companyId,
+    })}`,
+  );
+};
+
 export default {
   fetchAllGroups,
   fetchAllTags,
@@ -48,4 +63,5 @@ export default {
   deleteTag,
   deleteTagGroup,
   fetchTagUsage,
+  fetchMemberTagList,
 };

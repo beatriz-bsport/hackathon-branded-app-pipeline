@@ -1,4 +1,5 @@
 exports.default = {
+  memberStatus: 'Statut du membre : ',
   panel: {
     title: 'Mes tags',
     noTagAvailable: 'Aucun tag créé',
@@ -9,6 +10,7 @@ exports.default = {
   tag: {
     noTagAttributed: 'Sélectionnez un tag',
   },
+  select: 'Sélectionner un tag',
   form: {
     filter: {
       title: 'Filtre',

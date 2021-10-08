@@ -37,7 +37,7 @@ export function ReportListItem({
   const { name, description, category } = report;
   const Icon = getIconFromCategory(category);
   const columns = report.columns.map((c) => t(`columns.${c}`)).join(', ');
-  const onClick = () => onDetail(report);
+  const onClick = () => onDetail(report.id);
   return (
     <ListItem className={classes.listItem} onClick={onClick} button>
       <ListItemAvatar>

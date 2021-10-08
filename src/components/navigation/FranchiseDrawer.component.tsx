@@ -42,6 +42,7 @@ import {
 } from '@material-ui/icons';
 import Email from '@material-ui/icons/Email';
 import Settings from '@material-ui/icons/Settings';
+import DescriptionIcon from '@material-ui/icons/Description';
 
 import { colors } from '@bsport/common/lib/colors';
 
@@ -476,6 +477,11 @@ const getNavigationItems = (props: {
           text: 'backofficeMenu.email_template',
         },
       ],
+    },
+    {
+      to: '/f/reporting',
+      text: 'franchiseMenu.reporting',
+      icon: DescriptionIcon,
     },
     'divider',
     {

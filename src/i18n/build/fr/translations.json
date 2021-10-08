@@ -1970,7 +1970,7 @@
       "previous": "Session précédente",
       "current": "Session actuelle"
     },
-    "franchiseMenu": { "franchises": "Franchisés", "members": "Membres" },
+    "franchiseMenu": { "franchises": "Franchisés", "members": "Membres", "reporting": "Rapports" },
     "deprecatedNavigator": {
       "navigatorError": "Il semblerait que votre navigateur soit trop ancien pour utiliser nos services. Vous risquez de rencontrer des erreurs, nous vous recommandons de télécharger une version plus récente notamment : ",
       "downloadFirefox": "Téléchargez gratuitement Mozilla Firefox",
@@ -3811,7 +3811,6 @@
       "available_credits": "Crédits disponible PCA",
       "payment_method_readable_identifier": "Méthode de paiement",
       "note": "Note",
-      "private_pass": "Carte RDV",
       "address": "Adresse",
       "tax": "TVA",
       "voucher": "Réduction",
@@ -3884,7 +3883,8 @@
       "invoice_time": "Heure d'émission de la facture",
       "payment_amount_by_payment_method": "Encaissement par méthode de paiement",
       "billing_group": "Groupe de facturation",
-      "billing_establishment": "Adresse"
+      "billing_establishment": "Adresse",
+      "company_name": "Franchisé"
     },
     "yes": "Oui",
     "no": "Non",

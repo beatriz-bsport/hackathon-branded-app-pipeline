@@ -1,4 +1,3 @@
-// @flow
 import React, { useEffect, useState } from 'react';
 import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 import { withTranslation, WithTranslation } from 'react-i18next';

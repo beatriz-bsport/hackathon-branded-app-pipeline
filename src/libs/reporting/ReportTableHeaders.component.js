@@ -16,37 +16,38 @@ function CardHeaders(props: Props) {
         {t(`header.${(headerTitle || '').toLowerCase()}`)}
       </Typography>
       <Grid container direction="row" spacing={2}>
-        {headerDetails.map((colum, index) => (
-          <Grid item xs={6} md={4} alignItems="stretch" lg={2}>
-            <Card
-              key={index}
-              elevation={1}
-              className={classes.cardStyle}
-              borderColor="#888"
-            >
-              <Typography variant="body2">
-                {t(`columns.${colum.column_identifier}`)}
-              </Typography>
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'flex-end',
-                  width: '100%',
-                  paddingLeft: '2',
-                }}
+        {headerDetails.map((colum, index) => {
+          return (
+            <Grid item xs={6} md={4} alignItems="stretch" lg={2} key={index}>
+              <Card
+                elevation={1}
+                className={classes.cardStyle}
+                borderColor="#888"
               >
-                <Typography
-                  variant="h5"
-                  className={classes.typographyValue}
-                  {...(converters[index](colum.column_value).cellProps || {})}
-                >
-                  {converters[index](colum.column_value).value}
+                <Typography variant="body2">
+                  {t(`columns.${colum.column_identifier}`)}
                 </Typography>
-              </div>
-            </Card>
-          </Grid>
-        ))}
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'flex-end',
+                    width: '100%',
+                    paddingLeft: '2',
+                  }}
+                >
+                  <Typography
+                    variant="h5"
+                    className={classes.typographyValue}
+                    {...(converters[index](colum.column_value).cellProps || {})}
+                  >
+                    {converters[index](colum.column_value).value}
+                  </Typography>
+                </div>
+              </Card>
+            </Grid>
+          );
+        })}
       </Grid>
     </div>
   );

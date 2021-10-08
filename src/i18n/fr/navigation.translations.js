@@ -115,6 +115,7 @@ exports.default = {
   franchiseMenu: {
     franchises: 'Franchisés',
     members: 'Membres',
+    reporting: 'Rapports',
   },
   deprecatedNavigator: {
     navigatorError:

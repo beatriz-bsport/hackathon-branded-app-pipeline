@@ -1,3 +1,48 @@
+export type ReportingState = {
+  reportResponse: {
+    reportId: {
+      result: (string | number | null)[];
+      previous_page: null | number;
+      next_page: number;
+      other_pages: number[];
+    };
+  };
+  allIds: null | number[];
+  loading: boolean;
+  error: null | string;
+  page_size: number;
+  reportId: null | number;
+  reportHeaders: {
+    averageable?: {
+      column_identifier: string;
+      datatype: string;
+      column_value: null | number;
+    }[];
+    summable?: {
+      column_identifier: string;
+      datatype: string;
+      column_value: null | number;
+    }[];
+  };
+  headersLoading: boolean;
+  headersError: null | string;
+  excelReportingReducer: {
+    loading: boolean;
+    link: null | string;
+    error: null | string;
+  };
+  list: {
+    loading: boolean;
+    error: null | string;
+    results: ReportConfiguration[];
+  };
+  metadata: {
+    loading: boolean;
+    error: null | string;
+    results: ReportMetadataValue[];
+  };
+};
+
 export type ReportConfiguration = {
   id: number;
   name: string;

@@ -8,6 +8,7 @@ import FuzeSearch from '../FuzeSearch.component';
 export type OwnProps<T> = {
   items: T[];
   placeholder: string;
+  className?: string;
   searchFields: (keyof T)[];
   itemRenderer: (item: T, search?: string) => React.ReactNode;
 };
@@ -15,7 +16,7 @@ export type OwnProps<T> = {
 type Props<T> = OwnProps<T>;
 
 function FuzzySearch<T>(props: Props<T>) {
-  const { items, placeholder, searchFields, itemRenderer } = props;
+  const { items, placeholder, searchFields, className, itemRenderer } = props;
 
   const [search, setSearch] = useState('');
   const [searchResult, setSearchResult] = useState<T[]>([]);
@@ -31,7 +32,7 @@ function FuzzySearch<T>(props: Props<T>) {
   };
 
   return (
-    <div>
+    <div className={className}>
       <FuzeSearch
         searchText={search}
         clearSearch={() => {

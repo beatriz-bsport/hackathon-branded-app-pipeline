@@ -70,17 +70,20 @@ export default function ReportGeneration(props: Props) {
 
   return (
     <div>
-      <ReportGenerationForm
-        reportConfiguration={report}
-        onSubmit={handleGenerate}
-        metadata={metadata}
-        handleExcelExportation={handleExcelExportation}
-        showDialog={showDialog}
-        setShowDialog={setShowDialog}
-        disableContinue={disableContinue}
-        setDisableContinue={setDisableContinue}
-        isSubmitting_={reportStoreRowsLoading}
-      />
+      {report.date_start && (
+        <ReportGenerationForm
+          reportConfiguration={report}
+          onSubmit={handleGenerate}
+          metadata={metadata}
+          handleExcelExportation={handleExcelExportation}
+          showDialog={showDialog}
+          setShowDialog={setShowDialog}
+          disableContinue={disableContinue}
+          setDisableContinue={setDisableContinue}
+          resultLoading={resultLoading}
+          isSubmitting_={reportStoreRowsLoading}
+        />
+      )}
       <ReportTableHeaders
         handleGenerateHeaders={handleGenerateHeaders}
         reportHeaders={reportHeaders}

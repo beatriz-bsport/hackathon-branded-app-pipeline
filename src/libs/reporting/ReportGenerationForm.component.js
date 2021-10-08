@@ -61,6 +61,7 @@ const ReportGenerationSchema = Yup.object().shape({
     .test('is-after-start', 'errors.end_before_start', function (dateEnd) {
       const { dateStart } = this.parent;
       const { dateType } = this.parent;
+
       return (
         (dateType === 'range' &&
           moment(dateStart).isSameOrBefore(moment(dateEnd))) ||
@@ -97,6 +98,7 @@ export function ReportGenerationForm(props: Props) {
     disableContinue,
     setDisableContinue,
   } = props;
+
   return (
     <React.Fragment>
       <Dialog
@@ -173,7 +175,13 @@ export function ReportGenerationForm(props: Props) {
                       fullWidth
                       label={t('common.until')}
                     />
-                    <AlertError name="dateStart" />
+                    <AlertError
+                      name={
+                        reportConfiguration.date_type === 'range'
+                          ? 'dateEnd'
+                          : 'dateStart'
+                      }
+                    />
                   </Grid>
                 </Hidden>
               </Grid>
@@ -213,12 +221,15 @@ export default compose(
   withTranslation(),
   withStyles(styles),
   withFormik({
-    mapPropsToValues: ({ initial, reportConfiguration }) =>
-      initial || {
-        dateStart: moment(reportConfiguration.date_start),
-        dateEnd: moment(reportConfiguration.date_end),
-        dateType: reportConfiguration.date_type,
-      },
+    mapPropsToValues: ({ initial, reportConfiguration }) => {
+      return (
+        initial || {
+          dateStart: moment(reportConfiguration.date_start),
+          dateEnd: moment(reportConfiguration.date_end),
+          dateType: reportConfiguration.date_type,
+        }
+      );
+    },
     validationSchema: ReportGenerationSchema,
     handleSubmit: defaultHandleSubmit,
   }),

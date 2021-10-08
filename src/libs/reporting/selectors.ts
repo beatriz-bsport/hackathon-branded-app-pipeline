@@ -1,4 +1,7 @@
-export const getReportRows = (state, reportId) => {
+import { RootState } from '../../reducers';
+import { ReportConfiguration } from './types';
+
+export const getReportRows = (state: RootState, reportId: number) => {
   const rows = Object.keys(state.reports.reportResponse).includes(
     reportId.toString(),
   )
@@ -11,7 +14,7 @@ export const getReportRowsLoading = (state) => {
   return state.reports.loading;
 };
 
-export const getNextPage = (state, reportId) => {
+export const getNextPage = (state: RootState, reportId: number) => {
   const nextPage = Object.keys(state.reports.reportResponse).includes(
     reportId.toString(),
   )
@@ -20,7 +23,7 @@ export const getNextPage = (state, reportId) => {
   return nextPage;
 };
 
-export const getPreviousPage = (state, reportId) => {
+export const getPreviousPage = (state: RootState, reportId: number) => {
   const previousPage = Object.keys(state.reports.reportResponse).includes(
     reportId.toString(),
   )
@@ -29,7 +32,7 @@ export const getPreviousPage = (state, reportId) => {
   return previousPage;
 };
 
-export const getOtherPages = (state, reportId) => {
+export const getOtherPages = (state: RootState, reportId: number) => {
   const otherPages = Object.keys(state.reports.reportResponse).includes(
     reportId.toString(),
   )
@@ -42,7 +45,7 @@ export const getPageSize = (state) => {
   return state.reports.reportResponse.page_size;
 };
 
-export const getReportHeaders = (state, reportId) => {
+export const getReportHeaders = (state: RootState, reportId: number) => {
   const headers = Object.keys(state.reports.reportHeaders).includes(
     reportId.toString(),
   )
@@ -51,6 +54,23 @@ export const getReportHeaders = (state, reportId) => {
   return headers;
 };
 
-export const getReportHeadersLoading = (state) => {
+export const getReportHeadersLoading = (state: RootState) => {
   return state.reports.headersLoading;
+};
+
+export const getReportMetadata = (state: RootState) => {
+  return state.reports.metadata;
+};
+
+export const getReports = (state: RootState) => {
+  return state.reports.list;
+};
+
+export const getReport = (
+  state: RootState,
+  reportId: number,
+): ReportConfiguration => {
+  return (
+    state.reports?.list?.results?.find((report) => report.id === reportId) ?? {}
+  );
 };

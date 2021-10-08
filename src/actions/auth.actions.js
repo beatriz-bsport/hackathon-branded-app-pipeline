@@ -418,6 +418,7 @@ export function navigateAsCompanyAdmin(
       const {
         data: { is_manager, is_consumer, is_franchisor, role, name, username },
       } = await api.auth.accessLevel(newToken);
+      dispatch((() => ({ type: types.RESET_STORE }))());
 
       // Set new access level
       await dispatch(
@@ -465,6 +466,7 @@ export function navigateBackToFranchise() {
       } = await api.auth.accessLevel(newToken);
 
       storage.removeItem('bsport:franchise:http:token');
+      dispatch((() => ({ type: types.RESET_STORE }))());
 
       // Set new access level
       await dispatch(

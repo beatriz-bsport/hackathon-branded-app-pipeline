@@ -83,6 +83,11 @@ export function getConverter(column, classes, t) {
         };
       }
     }
+    if (datatype === 'number') {
+      return {
+        value: parseFloat(value || 0).toFixed(2),
+      };
+    }
     if (datatype === 'cts') {
       if (typeof value === 'number' || !value) {
         return {
@@ -157,11 +162,11 @@ export function getConverter(column, classes, t) {
 }
 
 function getColumn(metadata, report, column) {
-  const reportMetadata = metadata.value.find(
+  const reportMetadata = metadata?.results?.find(
     (r) => r.category === report.category,
   );
   return reportMetadata
-    ? reportMetadata.columns.find((c) => c.identifier === column) || {
+    ? reportMetadata?.columns?.find((c) => c.identifier === column) || {
         identifier: column,
         datatype: 'string',
       }
@@ -218,10 +223,13 @@ export function ReportTable(props: TableProps) {
     handleGenerateNextPage,
     reportStoreRowsLoading,
   } = props;
-  const { columns } = report;
+  const { columns = [] } = report;
 
-  const columnsConfigs = columns.map((c) => getColumn(metadata, report, c));
-  const converters = columnsConfigs.map((c) => getConverter(c, classes, t));
+  const columnsConfigs =
+    columns?.map((c) => getColumn(metadata, report, c)) ?? [];
+
+  const converters =
+    columnsConfigs?.map((c) => getConverter(c, classes, t)) ?? [];
   return (
     <div className={classes.responsive}>
       <Table padding="dense">
@@ -254,9 +262,10 @@ export function ReportTable(props: TableProps) {
                 >
                   {columns.map((column, i) => {
                     const { value, cellProps } = converters[i](row[i]);
+
                     return (
                       <TableCell
-                        key={columnsConfigs[i].identifier}
+                        key={columnsConfigs[i]?.identifier}
                         {...(cellProps || {})}
                       >
                         {value}

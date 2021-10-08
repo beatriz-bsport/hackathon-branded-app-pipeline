@@ -25,7 +25,7 @@ import { OptionCallback } from '../../state/types';
 import { OwnProps } from '../../components/HighlightedText/HighlightedText.component';
 
 type Props = ConnectedProps<typeof connector> & WithTranslation;
-const ReportingDashboard = (props: Props) => {
+const FranchiseReportList = (props: Props) => {
   const {
     reports,
     createReport,
@@ -101,4 +101,4 @@ export default compose<any, OwnProps>(
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:dashboard.reportingDashboard'),
   ),
-)(ReportingDashboard);
+)(FranchiseReportList);

@@ -46,7 +46,7 @@ import plugin from '../libs/plugin/reducers';
 import privateService from '../libs/private-service/reducers';
 import relationship from '../libs/relationship/reducers';
 import reminder from '../libs/reminder/reducers';
-import reportGenerationState from '../libs/reporting/reducers';
+import reportingReducer from '../libs/reporting/reducers';
 import roleReducers from '../libs/role/reducers';
 import searchReducer from './search.reducers';
 import shopReducer from '../libs/shop/reducers';
@@ -64,7 +64,6 @@ import zoomAppReducers from '../libs/zoom-app/reducers';
 
 import pollReducers from '../libs/sign-up-form/reducers';
 import CustomFormReducer from '../libs/custom-form/reducers';
-import { reducer } from '../resources';
 
 import { BackgroundTaskState } from '../libs/background-task/types';
 import { BookingsState } from '../libs/booking/types';
@@ -93,6 +92,7 @@ import { PlaylistState } from '../libs/playlist/types';
 import { PluginState } from '../libs/plugin/types';
 import { PollState } from '../libs/sign-up-form/types';
 import { PrivateServiceState } from '../libs/private-service/types';
+import { ReportingState } from '../libs/reporting/types';
 import { RoleState } from '../libs/role/types';
 import { SmartListState } from '../libs/smart-list/types';
 import { SpotSchedulingState } from '../libs/spot-scheduling/types';
@@ -105,8 +105,7 @@ import { UserPreference } from '../libs/user-preference/types';
 
 const rootReducer = (history: any) =>
   combineReducers({
-    '@api': reducer,
-    reports: reportGenerationState,
+    reports: reportingReducer,
     router: connectRouter(history),
     communication: communicationReducers,
     checkout: checkoutReducers,
@@ -220,6 +219,7 @@ export type RootState = {
   privateService: PrivateServiceState;
   relationship: any;
   reminder: any;
+  reports: ReportingState;
   role: RoleState;
   search: any;
   shop: any;
@@ -242,5 +242,16 @@ export default (history: any) => (state: any, action: any) => {
   if (action.type === actionTypes.DISCONNECT) {
     return rootReducer(history)(undefined, action);
   }
+
+  if (action.type === actionTypes.RESET_STORE) {
+    return rootReducer(history)(
+      {
+        router: state.router,
+        auth: state.auth,
+      },
+      action,
+    );
+  }
+
   return rootReducer(history)(newState, action);
 };

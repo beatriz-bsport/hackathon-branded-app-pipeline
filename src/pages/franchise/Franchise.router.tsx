@@ -43,6 +43,14 @@ const FranchiseEmailList = asyncComponent(
   () => import('./FranchiseEmailList.page'),
 );
 
+const ReportingGeneration = asyncComponent(
+  () => import('../reporting/ReportingGeneration.page'),
+);
+
+const FranchiseReportList = asyncComponent(
+  () => import('./FranchiseReportList.page'),
+);
+
 type OwnProps = {
   disconnect: () => void;
   pushRouter: (path: string) => void;
@@ -108,18 +116,26 @@ const FranchiseRouter = (props: Props) => {
           disconnect={disconnect}
           push={pushRouter}
         >
-          <Route
-            path="/f/franchises/:companyId?"
-            component={FranchiseCompanyList}
-          />
-          <Route exact path="/f/members" component={FranchiseMemberList} />
-          <Route
-            path="/f/members/:userId/member"
-            component={FranchiseMemberDetails}
-          />
-          <Route path="/f/settings/theme" component={FranchiseTheme} />
-          <Route path="/f/email-template" component={EmailTemplate} />
-          <Redirect to="/f/franchises" />
+          <Switch>
+            <Route
+              path="/f/franchises/:companyId?"
+              component={FranchiseCompanyList}
+            />
+            <Route path="/f/settings/theme" component={FranchiseTheme} />
+            <Route path="/f/email-template" component={EmailTemplate} />
+            <Route exact path="/f/members" component={FranchiseMemberList} />
+            <Route
+              path="/f/members/:userId/member"
+              component={FranchiseMemberDetails}
+            />
+            <Route
+              exact
+              path="/f/reporting/:reportId"
+              component={ReportingGeneration}
+            />
+            <Route path="/f/reporting" component={FranchiseReportList} />
+            <Redirect to="/f/franchises" />
+          </Switch>
         </FranchiseDrawer>
       </DrawerContext.Provider>
     </MuiThemeProvider>
@@ -165,7 +181,7 @@ const connector = connect(
   },
 );
 
-export default compose(
+export default compose<any, OwnProps>(
   // withOpenEvent('backoffice'),
   connector,
   withHandlers({

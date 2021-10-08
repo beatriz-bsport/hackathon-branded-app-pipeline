@@ -1891,7 +1891,8 @@
             "invoice_date_created": "Uitgiftedatum factuur",
             "last_payment_date": "Laatste betalingsdatum",
             "billing_establishment": "Adres",
-            "billing_group": "Groepsfacturatie"
+            "billing_group": "Groepsfacturatie",
+            "company_name": "Franchisenemer"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -2273,6 +2274,18 @@
                 },
                 "error": {
                     "start_date_method_type": "Geef het begin van de geldigheid van de kaart aan."
+                },
+                "advancedOptions": {
+                    "tag": {
+                        "doNotSelectToAllowAllMembers": "Laat dit leeg om geen beperkingen op te leggen",
+                        "notAllowedFor": "Afgekeurd voor",
+                        "notAllowed": "Afgekeurd",
+                        "allowedFor": "Goedgekeurd voor",
+                        "allowed": "Goedgekeurd",
+                        "helperText": "Gebruik tags om deze kaart alleen aan bepaalde leden op de MarketPlace, op de widget of op de app te tonen. Je kunt tags ook gebruiken om de kaart juist wel óf niet aan leden met bepaalde tags weer te geven. ",
+                        "header": "Tags"
+                    },
+                    "header": "Geavanceerd"
                 }
             }
         },
@@ -7386,7 +7399,9 @@
             "rename": "Hernoem",
             "addTag": "Een sub-tag toevoegen",
             "addGroup": "Een hoofd-tag toevoegen"
-        }
+        },
+        "select": "Selecteer een tag",
+        "memberStatus": "Ledenstatus: "
     },
     "theme": {
         "forms": {
@@ -8038,6 +8053,12 @@
         "paymentGroup": {
             "requiresAction": "De bank heeft de betaling niet geverifieerd (3DSecure).",
             "validateRequiresAction": "Bevestig de betaalmethode"
+        },
+        "invoicePaymentPackTagWarningDialog": {
+            "confirm": "Bevestig",
+            "cancel": "Annuleer",
+            "content": "Attentie: je staat op het punt om een lid in rekening te brengen zonder dat dit lid de juiste tags heeft. Weet je zeker dat je dit doen? ",
+            "title": "Informatie"
         }
     },
     "waitingList": {
@@ -8371,7 +8392,8 @@
         },
         "franchiseMenu": {
             "members": "Leden",
-            "franchises": "Franchisenemer"
+            "franchises": "Franchisenemer",
+            "reporting": "Rapportages"
         },
         "multiSession": {
             "current": "Huidige sessie",

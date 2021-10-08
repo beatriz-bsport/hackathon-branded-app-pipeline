@@ -6451,7 +6451,8 @@
             "invoice_time": "Time of issue of the invoice",
             "payment_amount_by_payment_method": "Collection by payment method",
             "billing_establishment": "Address",
-            "billing_group": "Billing group"
+            "billing_group": "Billing group",
+            "company_name": "Franchisee"
         },
         "yes": "Yes",
         "no": "No",
@@ -6878,7 +6879,9 @@
                         "notAllowed": "Refused",
                         "allowedFor": "Approved for",
                         "allowed": "Approved",
-                        "header": "Tags"
+                        "header": "Tags",
+                        "doNotSelectToAllowAllMembers": "Do not select anything to allow it for all members",
+                        "helperText": "Use tags to make the pass only to specific members in the MarketPlace, on the widgets, and on the mobile app. You can select to only display the pass to members with specific tags, or you can choose to not display the pass to specific tags. "
                     },
                     "header": "Advanced"
                 }
@@ -9239,7 +9242,8 @@
         },
         "franchiseMenu": {
             "members": "Members",
-            "franchises": "Franchisees"
+            "franchises": "Franchisees",
+            "reporting": "Reports"
         },
         "multiSession": {
             "previousSession": " You were connected as: {{name}}",

@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 import { withTranslation, TFunction } from 'react-i18next';
 
 import { push } from 'connected-react-router';
-
+import getCalendyLinkFromCountry from '../../i18n/utils/calendy-link-language';
 import themeSelectors from '../../libs/theme/selectors';
 import { parseQueryString } from '../../http';
 import { openIntercomHelp } from '../../intercom';
@@ -143,7 +143,7 @@ export class ConsumerLoginPage extends Component<Props> {
           )}
           {!is_premium && (
             <Hidden smDown>
-              <a href="https://calendly.com/bsport/demo">
+              <a href={getCalendyLinkFromCountry()}>
                 <Typography variant="caption">{t('contactUs')}</Typography>
               </a>
             </Hidden>

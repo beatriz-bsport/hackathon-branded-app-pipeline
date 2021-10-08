@@ -4235,7 +4235,9 @@
             "rename": "Rename",
             "addTag": "Add a Sub Tag",
             "addGroup": "Add a Main Tag"
-        }
+        },
+        "select": "Select a tag",
+        "memberStatus": "Member status: "
     },
     "login": {
         "forms": {
@@ -5740,6 +5742,12 @@
         "paymentGroup": {
             "requiresAction": "The bank did not authenticate payment (3DSecure)",
             "validateRequiresAction": "Confirm the payment method"
+        },
+        "invoicePaymentPackTagWarningDialog": {
+            "confirm": "Confirm",
+            "cancel": "Cancel",
+            "content": "Attention: you're about to bill a pass to a member that doesn't possess the necessary tags. Are you sure that you want to continue with this billing anyway? ",
+            "title": "Information"
         }
     },
     "coach": {
@@ -5842,7 +5850,7 @@
             "billing_plan-update_payment_pack": "Pass updated"
         },
         "table": {
-            "noContent": "There are no subscriptions to display."
+            "noContent": "There are no subscribers to display."
         },
         "subscription": {
             "list": {
@@ -6863,6 +6871,16 @@
                 "category": {
                     "label": "Category (optional)",
                     "helperText": "Name of the category"
+                },
+                "advancedOptions": {
+                    "tag": {
+                        "notAllowedFor": "Refused for",
+                        "notAllowed": "Refused",
+                        "allowedFor": "Approved for",
+                        "allowed": "Approved",
+                        "header": "Tags"
+                    },
+                    "header": "Advanced"
                 }
             }
         },

@@ -26,8 +26,11 @@ class UserInteractionPortal extends React.PureComponent<Props> {
   popupWindow: any = null;
 
   openPopup = () => {
-    const width = window.screen.width * 0.5;
+    const width = window.screen.width * 0.75;
     const height = window.screen.height * 0.65;
+    const left = window.screen.width / 2 - width / 2;
+    const top = window.screen.height / 2 - height / 2;
+    const windowParams = `width=${width}, height=${height}, top=${top}, left=${left}`;
     const params = `
       scrollbars=no,
       resizable=no,
@@ -35,10 +38,11 @@ class UserInteractionPortal extends React.PureComponent<Props> {
       location=no,
       toolbar=no,
       menubar=no,
-      width=${width},
-      height=${height},
-      left=${window.screen.width / 2 - width / 2},
-      top=${window.screen.height / 2 - height / 2}
+      ${
+        window.screen.width <= 600 || window.screen.height <= 600
+          ? ''
+          : windowParams
+      }
     `;
 
     return window.open(this.props.url, '_blank', params);
@@ -77,11 +81,7 @@ class UserInteractionPortal extends React.PureComponent<Props> {
 
     return (
       <div className={classes.container}>
-        <div
-          className={`${classes.innerContainer} ${
-            this.props.isBasket ? classes.innerContainerBasket : ''
-          }`}
-        >
+        <div className={classes.innerContainer}>
           <div className={classes.topBar}>
             <IconButton onClick={this.props.onClose}>
               <CloseIcon fontSize="large" />
@@ -118,17 +118,17 @@ const styles = () => ({
     display: 'flex',
     flex: 1,
     flexDirection: 'column',
-    maxHeight: 720,
-    maxWidth: 768,
+    maxHeight: window.innerHeight * 0.65,
+    maxWidth: window.innerWidth * 0.75,
     width: '100%',
     height: '100%',
     backgroundColor: 'white',
     boxShadow: '3px 10px 44px 9px rgba(0,0,0,0.17)',
     borderRadius: 12,
-  },
-  innerContainerBasket: {
-    maxHeight: 500,
-    maxWidth: 600,
+    '@media (max-width: 600px), (max-height: 600px)': {
+      maxHeight: window.screen.height,
+      maxWidth: window.screen.width,
+    },
   },
   topBar: {
     display: 'flex',
@@ -137,6 +137,9 @@ const styles = () => ({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     borderRadius: 12,
+    '@media (max-width: 600px), (max-height: 600px)': {
+      maxHeight: 25,
+    },
   },
   iframe: {
     borderTopWidth: 0,

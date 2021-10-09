@@ -156,7 +156,11 @@ export default compose(
       replace: replaceAction,
     },
   ),
-  withQueryParams([['context'], 'queryParams', 'setQueryParams']),
+  withQueryParams([
+    ['context', 'onValidation'],
+    'queryParams',
+    'setQueryParams',
+  ]),
   withHandlers({
     goToCheckout: ({ replace, queryParams }) => (companyId) =>
       replace(

@@ -154,7 +154,11 @@ export default compose(
   withTranslation(['checkout', 'payment']),
   withStyles(styles),
   routerParamsToProps({ id: 'packId:number' }),
-  withQueryParams([['context'], 'queryParams', 'setQueryParams']),
+  withQueryParams([
+    ['context', 'onValidation'],
+    'queryParams',
+    'setQueryParams',
+  ]),
   connect(
     (state) => ({
       theme: themeSelectors.getTheme(state),

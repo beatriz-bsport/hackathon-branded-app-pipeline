@@ -145,7 +145,11 @@ export default compose(
   withTranslation(['checkout', 'payment']),
   withStyles(styles),
   routerParamsToProps({ id: 'id:number' }),
-  withQueryParams([['context'], 'queryParams', 'setQueryParams']),
+  withQueryParams([
+    ['context', 'onValidation'],
+    'queryParams',
+    'setQueryParams',
+  ]),
   connect(
     (state) => ({
       loading: state.checkout.basket.current.loading,

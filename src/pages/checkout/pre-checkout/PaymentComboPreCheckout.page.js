@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { compose } from 'recompose';
+import { compose, withHandlers } from 'recompose';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 
@@ -9,12 +9,13 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import { push, replace, goBack } from 'connected-react-router';
+import { push, replace as replaceAction, goBack } from 'connected-react-router';
 import { BUYABLE_ITEM_COMBO_ITEM } from '@bsport/common/lib/master-data/buyable-items';
 import InfoIcon from '@material-ui/icons/Info';
 import type { TFunction } from 'react-i18next';
+import withQueryParams from '../../../hocs/with-query-params.hoc';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
-import { parseQueryString } from '../../../http';
+import { parseQueryString, buildUrlParams } from '../../../http';
 import themeSelectors from '../../../libs/theme/selectors';
 import { getTheme } from '../../../theme';
 import {
@@ -144,6 +145,7 @@ export default compose(
   withTranslation(['checkout', 'payment']),
   withStyles(styles),
   routerParamsToProps({ id: 'id:number' }),
+  withQueryParams([['context'], 'queryParams', 'setQueryParams']),
   connect(
     (state) => ({
       loading: state.checkout.basket.current.loading,
@@ -153,9 +155,20 @@ export default compose(
       addItemToBasket,
       fetchCurrentBasket,
       fetchPaymentCombo,
-      goToCheckout: (companyId: number) => replace(`/checkout/${companyId}`),
       goBack,
+      replace: replaceAction,
       push,
     },
   ),
+  withHandlers({
+    goToCheckout: ({ replace, queryParams }) => (companyId) =>
+      replace(
+        `/checkout/${companyId}${buildUrlParams(
+          ...(queryParams?.context ? { context: queryParams.context } : {}),
+          ...(queryParams?.onValidation
+            ? { onValidation: queryParams.onValidation }
+            : {}),
+        )}`,
+      ),
+  }),
 )(PaymentComboPreCheckout);

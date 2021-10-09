@@ -7,15 +7,17 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import { replace, goBack } from 'connected-react-router';
+import { replace as replaceAction, goBack } from 'connected-react-router';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { compose } from 'recompose';
+import { compose, withHandlers } from 'recompose';
 import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyable-items';
 import InfoIcon from '@material-ui/icons/Info';
 import type { TFunction } from 'react-i18next';
 import themeSelectors from '../../../libs/theme/selectors';
+import withQueryParams from '../../../hocs/with-query-params.hoc';
 import type { Theme } from '../../../libs/theme/types';
 import { getTheme } from '../../../theme';
+import { buildUrlParams } from '../../../http';
 import {
   addItemToBasket,
   removeItemFromBasket,
@@ -148,9 +150,25 @@ export default compose(
       addItemToBasket,
       removeItemFromBasket,
       fetchCurrentBasket,
-      goToCheckout: (companyId: number) => replace(`/checkout/${companyId}`),
       fetchPrivatePassRetrieve,
+      replace: replaceAction,
       goBack,
     },
   ),
+  withQueryParams([
+    ['context', 'onValidation'],
+    'queryParams',
+    'setQueryParams',
+  ]),
+  withHandlers({
+    goToCheckout: ({ replace, queryParams }) => (companyId) =>
+      replace(
+        `/checkout/${companyId}${buildUrlParams(
+          ...(queryParams?.context ? { context: queryParams.context } : {}),
+          ...(queryParams?.onValidation
+            ? { onValidation: queryParams.onValidation }
+            : {}),
+        )}`,
+      ),
+  }),
 )(PaymentPrivatePassPage);

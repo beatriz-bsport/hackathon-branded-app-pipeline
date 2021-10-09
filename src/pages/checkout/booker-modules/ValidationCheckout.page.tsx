@@ -299,7 +299,10 @@ const styles = (theme) => ({
 
 export default compose(
   routerParamsToProps({ companyId: 'companyId:number' }),
-  withQueryParams([['user_registration_response', 'basket'], 'queryParams']),
+  withQueryParams([
+    ['user_registration_response', 'basket', 'dialogMode'],
+    'queryParams',
+  ]),
   withTranslation(['checkout', 'snackbar']),
   withStyles(styles),
   connect(
@@ -364,10 +367,14 @@ export default compose(
       goBack,
     },
   ),
+  withQueryParams([['onValidation'], 'queryParams', 'setQueryParams']),
   withHandlers({
-    onContinue: ({ replace, companyId }) => {
+    onContinue: ({ replace, companyId, queryParams }) => () => {
       if (WidgetUtils.isWidget()) {
         WidgetUtils.paymentSuccess();
+        if (queryParams && queryParams.onValidation === 'close') {
+          window.close();
+        }
         return;
       }
       replace(`/c/${companyId}`);

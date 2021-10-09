@@ -371,6 +371,8 @@ export default compose(
       'payment_intent',
       'user_registration_response',
       'redirect_status',
+      'context',
+      'onValidation',
     ],
     'queryParams',
     'setQueryParams',
@@ -421,10 +423,18 @@ export default compose(
     onSuccess: ({ replace, basket, queryParams }) => () => {
       replace(
         `/checkout/${basket.company}/validation/?basket=${basket.id}${
+          queryParams?.context
+            ? `&context=${queryParams && queryParams.context}`
+            : ''
+        }${
           queryParams?.user_registration_response
             ? `&user_registration_response=${
                 queryParams && queryParams.user_registration_response
               }`
+            : ''
+        }${
+          queryParams?.onValidation
+            ? `&onValidation=${queryParams && queryParams.onValidation}`
             : ''
         }`,
       );

@@ -75,8 +75,10 @@ export class PaymentPackPaymentPage extends Component<Props, State> {
                 },
                 {
                   onError: () => this.setState({ error: true }),
-                  onSuccess: () =>
-                    this.props.goToCheckout(paymentPack.company_id),
+                  onSuccess: () => {
+                    console.log('jhello');
+                    this.props.goToCheckout(paymentPack.company_id);
+                  },
                 },
               );
             }
@@ -168,14 +170,15 @@ export default compose(
     },
   ),
   withHandlers({
-    goToCheckout: ({ replace, queryParams }) => (companyId) =>
+    goToCheckout: ({ replace, queryParams }) => (companyId) => {
       replace(
-        `/checkout/${companyId}${buildUrlParams(
+        `/checkout/${companyId}${buildUrlParams({
           ...(queryParams?.context ? { context: queryParams.context } : {}),
           ...(queryParams?.onValidation
             ? { onValidation: queryParams.onValidation }
             : {}),
-        )}`,
-      ),
+        })}`,
+      );
+    },
   }),
 )(PaymentPackPaymentPage);

@@ -47,6 +47,7 @@ export const MarketplacePrivatePassList = (props: Props) => {
               <ListItemSecondaryAction>
                 <IconButton
                   color="primary"
+                  disabled={!props.onAddBasket}
                   onClick={() => {
                     props.onAddBasket(pp.id);
                     Analytics.addPrivatePassToCart(pp);

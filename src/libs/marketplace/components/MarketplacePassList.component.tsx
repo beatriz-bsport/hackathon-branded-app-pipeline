@@ -46,6 +46,7 @@ const PaymentPackMarketplaceListItem = (props: {
   paymentPack: any;
   onSelect: () => void;
   onCartAdd: () => void;
+  disabled?: boolean;
 }) => (
   <ListItem divider button onClick={props.onSelect}>
     <PaymentPackItem paymentPack={props.paymentPack} />
@@ -58,7 +59,11 @@ const PaymentPackMarketplaceListItem = (props: {
     </IconButton>
     <ListItemSecondaryAction>
       <React.Fragment>
-        <IconButton color="primary" onClick={props.onCartAdd}>
+        <IconButton
+          color="primary"
+          disabled={props.disabled}
+          onClick={props.onCartAdd}
+        >
           <AddShoppingCartIcon />
         </IconButton>
       </React.Fragment>
@@ -94,6 +99,7 @@ export function MarketplacePassList(props: Props) {
                   props.setSelectedPass(pp);
                   Analytics.selectPaymentPack(pp);
                 }}
+                disabled={!pushPackCheckout}
                 onCartAdd={() => {
                   pushPackCheckout(pp.id);
                   Analytics.addPassToCart(pp, 'payment_pack');
@@ -147,6 +153,7 @@ export function MarketplacePassList(props: Props) {
                       props.setSelectedPass(pp);
                       Analytics.selectPaymentPack(pp);
                     }}
+                    disabled={!pushPackCheckout}
                     onCartAdd={() => {
                       pushPackCheckout(pp.id);
                       Analytics.addPassToCart(pp, 'payment_pack');

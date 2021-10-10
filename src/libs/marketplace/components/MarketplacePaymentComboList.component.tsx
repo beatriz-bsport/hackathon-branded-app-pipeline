@@ -38,7 +38,11 @@ const PaymentComboCard = (
           <PaymentPackComboItem paymentCombo={props.paymentCombo} />
         </CardContent>
         <CardActions>
-          <Button color="primary" onClick={props.onAddBasket}>
+          <Button
+            color="primary"
+            disabled={!props.onAddBasket}
+            onClick={props.onAddBasket}
+          >
             <AddShoppingCartIcon className={props.classes.leftIcon} />
             {props.t('paymentCombo.addToCart')}
           </Button>

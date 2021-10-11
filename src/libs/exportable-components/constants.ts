@@ -8,6 +8,7 @@ export const EXPORTABLE_COMPONENT_TYPE_PLAYLIST = 'playlist';
 export const EXPORTABLE_COMPONENT_TYPE_SHOP = 'shop';
 export const EXPORTABLE_COMPONENT_TYPE_SUBSCRIPTION = 'subscription';
 export const EXPORTABLE_COMPONENT_TYPE_NEWSLETTER = 'newsletter';
+export const EXPORTABLE_COMPONENT_TYPE_GIFTCARD = 'giftcard';
 
 export const EXPORTABLE_COMPONENTS = [
   {
@@ -63,6 +64,10 @@ export const EXPORTABLE_COMPONENTS = [
   {
     identifier: EXPORTABLE_COMPONENT_TYPE_NEWSLETTER,
     label: 'newsletter',
+  },
+  {
+    identifier: EXPORTABLE_COMPONENT_TYPE_GIFTCARD,
+    label: 'giftcard',
   },
   {
     identifier: EXPORTABLE_COMPONENT_TYPE_LOGIN_BUTTON,

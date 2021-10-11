@@ -1,0 +1,86 @@
+import {Meta, Canvas, Story, ArgsTable} from '@storybook/addon-docs'
+
+import { GiftcardList } from './GiftcardList.component';
+import { giftcard_factory } from '../factory';
+import { action } from '@storybook/addon-actions';
+
+<Meta title="library/giftcard/component/GiftcardList" component={GiftcardList}
+      argTypes={{
+        giftcardList: {
+          description: "The cards to display",
+        },
+        onDuplicate: {
+          description: "function when clicking on the duplicate button"
+        },
+        onEdit: {
+          description: "function when clicking on the edit button"
+        },
+        onRemove: {
+          description: "function when clicking on the delete button"
+        },
+        onRestore: {
+          description: "function when clicking on the restore button"
+        },
+      }}/>
+
+export const Template = (args) => < GiftcardList {...args} />;
+
+export const actionsData = {
+  onDuplicate: action('Duplicate'),
+  onEdit: action('Edit'),
+  onRemove: action('Delete'),
+  onRestore: action('Restore'),
+};
+
+# GiftcardList
+
+## with Actions
+
+<Canvas>
+  <Story
+    name="GiftcardList"
+    args={{
+      giftcardList: giftcard_factory(4),
+      onDuplicate: actionsData.onDuplicate,
+      onEdit: actionsData.onEdit,
+      onRemove: actionsData.onRemove,
+      onRestore: null,
+    }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## without Actions
+
+<Canvas>
+  <Story
+    name="GiftcardListWithoutIcons"
+    args={{
+      giftcardList: giftcard_factory(2),
+      onDuplicate: null,
+      onEdit: null,
+      onRemove: null,
+      onRestore: null,
+    }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## with restore
+
+<Canvas>
+  <Story
+    name="GiftcardListWithRestore"
+    args={{
+      giftcardList: giftcard_factory(1),
+      onDuplicate: null,
+      onEdit: null,
+      onRemove: null,
+      onRestore: actionsData.onRestore,
+    }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+
+<ArgsTable story="GiftcardList" />

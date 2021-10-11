@@ -5,6 +5,7 @@ exports.default = {
     myVideos: 'Mes vidéos',
     pack: 'Carte de cours',
     invoice: 'Facture',
+    giftcard: 'Cartes cadeaux',
     subscription: 'Abonnement',
     profile: 'Profil',
     logoff: 'Déconnecter',

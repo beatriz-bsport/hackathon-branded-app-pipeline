@@ -119,6 +119,7 @@ exports.default = {
       playlist: 'Playlist',
       newsletter: 'Newsletter',
       loginButton: 'Bouton login',
+      giftcard: 'Carte cadeau',
     },
     createDialog: {
       showAdvanced: "Voir plus d'options",

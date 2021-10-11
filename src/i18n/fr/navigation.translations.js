@@ -47,6 +47,7 @@ exports.default = {
     coaches: 'Professeurs',
     product: 'Produits',
     myShop: 'Magasin',
+    giftcard: 'Cartes cadeaux',
     coachPerformance: 'Professeurs',
     beta: 'beta',
     consumer: {

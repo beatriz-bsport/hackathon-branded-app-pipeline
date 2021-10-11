@@ -34,6 +34,7 @@ Deploy-storybook Feature Branch:
 Deploy-storybook:
   extends: .Deploy-storybook
   allow_failure: true
+  stage: label-issues
   only:
     - dev
     - master

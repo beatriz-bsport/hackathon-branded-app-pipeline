@@ -7,7 +7,9 @@ import Grid from '@material-ui/core/Grid';
 import {
   BUYABLE_ITEM_PRIVATE_PASS,
   BUYABLE_ITEM_CREDIT,
+  BUYABLE_ITEM_GIFTCARD,
 } from '@bsport/common/lib/master-data/buyable-items';
+import Modal from '@material-ui/core/Modal';
 import { withTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -18,6 +20,7 @@ import FinalizeInvoiceDialog from '../dialog/FinalizeInvoiceDialog.component';
 import { OptionCallback } from '../../../state/types';
 import { appliesToInvoice } from '../../coupon/api';
 import type { Establishment } from '../../establishment/types';
+import ConsumerGiftcardFormWithPreview from '../../giftcard/components/ConsumerGiftcardFormWithPreview.component';
 
 type Props = {
   classes: Object,
@@ -51,6 +54,8 @@ type State = {
   }>,
   couponLoading: boolean,
   billing_establishment_id: number | null,
+  giftcardToConfigureList: Array<number>,
+  giftcardConfigList: Array<any>,
 };
 
 const asEditable = (editable, items) => {
@@ -66,6 +71,8 @@ export class InvoiceForm extends React.Component<Props, State> {
     coupon_list: [],
     couponLoading: false,
     billing_establishment_id: null,
+    giftcardToConfigureList: [],
+    giftcardConfigList: [],
   };
 
   componentDidMount() {
@@ -194,22 +201,49 @@ export class InvoiceForm extends React.Component<Props, State> {
     this.setState({ couponLoading: false });
   };
 
-  onSubmit = (options?: OptionCallback) => {
-    this.props.onSubmit(
-      {
-        buyable_items: this.state.invoiceItemList,
-        coupon_codes: this.state.coupon_list.map(
-          (coupon) => coupon.coupon_code,
-        ),
-        billing_establishment_id: this.state.billing_establishment_id,
-      },
-      options,
-    );
+  finalizeInvoiceItems = () => {
+    this.setState((prevState) => {
+      const giftcardToConfigureList = prevState.invoiceItemList
+        .filter((ii) => ii.buyable_item_identifier === BUYABLE_ITEM_GIFTCARD)
+        .map((b) => b.buyable_item_id);
+      if (!giftcardToConfigureList.length) this.onSubmit([]);
+      return {
+        giftcardToConfigureList,
+      };
+    });
+  };
+
+  onSubmit = (giftcard_config_list) => {
+    this.props.onSubmit({
+      buyable_items: this.state.invoiceItemList,
+      coupon_codes: this.state.coupon_list.map((coupon) => coupon.coupon_code),
+      billing_establishment_id: this.state.billing_establishment_id,
+      giftcard_config_list,
+    });
+  };
+
+  storeGiftcardConfig = (giftcardConfig) => {
+    this.setState((prevState) => {
+      const newState = {
+        giftcardConfigList: [...prevState.giftcardConfigList, giftcardConfig],
+        giftcardToConfigureList: prevState.giftcardToConfigureList.slice(1),
+      };
+      if (!newState.giftcardToConfigureList.length) {
+        this.onSubmit(newState.giftcardConfigList);
+      }
+      return newState;
+    });
   };
 
   render() {
     const { classes, t } = this.props;
     const invoiceItemAmount = this.getInvoiceItemAmount();
+    const giftcardToConfigure = this.state.giftcardToConfigureList.length
+      ? this.props.availableBuyableItems[BUYABLE_ITEM_GIFTCARD].find(
+          (bi) => bi.id === this.state.giftcardToConfigureList[0],
+        )
+      : null;
+
     return (
       <Grid container spacing={1} className={classes.container}>
         <Grid item xs={12} md={6}>
@@ -252,7 +286,7 @@ export class InvoiceForm extends React.Component<Props, State> {
             <Button
               color="primary"
               disabled={!this.state.invoiceItemList.length}
-              onClick={this.onSubmit}
+              onClick={this.finalizeInvoiceItems}
               variant="contained"
             >
               {t('invoice.editor.save')}
@@ -267,13 +301,55 @@ export class InvoiceForm extends React.Component<Props, State> {
             this.props.closeFinalizeInvoiceDialog();
           }}
         />
+        {!!this.state.giftcardToConfigureList?.length && (
+          <Modal open classes={{ paper: classes.container }}>
+            <>
+              <div
+                style={{
+                  transform: 'translate(-50%, -50%)',
+                  top: '50%',
+                  left: '50%',
+                }}
+                className={classes.modal}
+              >
+                <div>
+                  <ConsumerGiftcardFormWithPreview
+                    forceVertical
+                    giftcard={giftcardToConfigure}
+                    onSubmit={(data) =>
+                      this.storeGiftcardConfig({
+                        ...data,
+                        giftcard: giftcardToConfigure.id,
+                      })
+                    }
+                  />
+                </div>
+              </div>
+            </>
+          </Modal>
+        )}
       </Grid>
     );
   }
 }
 
 const styles = (theme) => ({
-  container: {},
+  container: {
+    maxWidth: '100vw',
+    [theme.breakpoints.down('xs')]: {
+      width: '90vw',
+    },
+    [theme.breakpoints.up('sm')]: {
+      minWidth: 600,
+    },
+  },
+  modal: {
+    position: 'absolute',
+    backgroundColor: theme.palette.background.paper,
+    borderRadius: 8,
+    overflow: 'auto',
+    maxHeight: '100vh',
+  },
   buttonContainer: {
     display: 'flex',
     flexDirection: 'row',

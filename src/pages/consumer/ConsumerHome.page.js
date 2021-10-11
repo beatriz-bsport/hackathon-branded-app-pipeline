@@ -56,6 +56,9 @@ import MemberShipValidationWrapper from './MemberShipValidationWrapper.component
 const ConsumerDashboard = asyncComponent(() =>
   import('./ConsumerDashboard.page'),
 );
+const ConsumerGiftcard = asyncComponent(() =>
+  import('./ConsumerGiftcard.page'),
+);
 const ConsumerBooking = asyncComponent(() => import('./ConsumerBooking.page'));
 const ConsumerVOD = asyncComponent(() => import('./ConsumerVOD.page'));
 const ConsumerBookingBroadcast = asyncComponent(() =>
@@ -221,6 +224,10 @@ export class ConsumerHome extends React.Component<Props> {
                     <Route
                       path="/c/:companyId/profile/"
                       render={this.attachConsumerProps(ConsumerProfile)}
+                    />
+                    <Route
+                      path="/c/:companyId/giftcard/"
+                      render={this.attachConsumerProps(ConsumerGiftcard)}
                     />
                     <Route
                       path="/c/:companyId/home/"

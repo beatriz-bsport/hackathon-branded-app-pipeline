@@ -61,6 +61,7 @@ import video from '../libs/video/reducers';
 import waitingListReducers from '../libs/waiting-list/reducers';
 import webhook from '../libs/webhook/reducers';
 import zoomAppReducers from '../libs/zoom-app/reducers';
+import giftcard from '../libs/giftcard/reducers';
 
 import pollReducers from '../libs/sign-up-form/reducers';
 import CustomFormReducer from '../libs/custom-form/reducers';
@@ -101,7 +102,7 @@ import { TagState } from '../libs/tag/types';
 import { ThemeState } from '../libs/theme/types';
 import { VideoState } from '../libs/video/types';
 import { QuickbooksState } from '../libs/quickbooks/types';
-
+import { GiftcardState } from '../libs/giftcard/types';
 import actionTypes from '../actions/auth.types';
 import userPreference from '../libs/user-preference/reducers';
 import { UserPreference } from '../libs/user-preference/types';
@@ -173,6 +174,7 @@ const rootReducer = (history: any) =>
     plugin,
     userPreference,
     quickbooks: QuickbooksAppReducer,
+    giftcard,
   });
 
 export type RootState = {
@@ -199,6 +201,7 @@ export type RootState = {
   establishment: EstablishmentState;
   event: any;
   franchise: FranchiseState;
+  giftcard: GiftcardState;
   invoice: any;
   login: any;
   marketingNotification: MarketingNotificationState;

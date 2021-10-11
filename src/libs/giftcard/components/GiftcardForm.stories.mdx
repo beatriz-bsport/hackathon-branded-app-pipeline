@@ -1,0 +1,23 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import { GiftcardFormComposed } from './GiftcardForm.component';
+import { action } from '@storybook/addon-actions';
+
+
+<Meta 
+    title="library/Giftcard/form" 
+    component={GiftcardFormComposed} 
+/>
+
+export const Template = (args) => <GiftcardFormComposed {...args} />;
+
+<Canvas>
+    <Story
+    name="Form"
+    args={{ 
+    onSubmit: action('submit'),
+        }}
+    >
+    {Template.bind({
+})}
+    </Story>
+</Canvas>

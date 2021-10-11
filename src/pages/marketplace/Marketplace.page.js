@@ -96,6 +96,9 @@ const MarketplaceContractPage = asyncComponent(() =>
 const MarketplaceVodRouter = asyncComponent(() =>
   import('./MarketplaceVod.router'),
 );
+const MarketplaceGiftcardPage = asyncComponent(() =>
+  import('./MarketplaceGiftcard.page'),
+);
 type Props = {
   companyName: string,
   companyId: number,
@@ -160,6 +163,8 @@ const TAB_CONTRACT = 'subscription';
 const TAB_WORKSHOP = 'workshop';
 const TAB_PRIVATE_SERVICE = 'private-service';
 const TAB_SHOP = 'shop';
+const TAB_GIFTCARD = 'giftcard';
+
 export class MarketPlace extends Component<Props, State> {
   state = {
     currentBasketOpen: false,
@@ -313,6 +318,16 @@ export class MarketPlace extends Component<Props, State> {
           <MarketplaceVodRouter
             key={this.props.tabSelected}
             requestSignUp={() => this.toogleLogin(true)}
+          />
+        );
+      case TAB_GIFTCARD:
+        return (
+          <MarketplaceGiftcardPage
+            requestSignUp={() => this.toogleLogin(true)}
+            authenticated={this.props.auth.authenticated}
+            toogleCurrentBasketOpen={this.toogleCurrentBasketOpen}
+            key={this.props.tabSelected}
+            companyId={this.props.companyId}
           />
         );
       case TAB_CALENDAR:

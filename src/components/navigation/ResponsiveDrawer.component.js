@@ -652,8 +652,13 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             text: t('backofficeMenu.combo'),
           },
           {
-            to: '/coupon/',
+            to: '/giftcard/',
             icon: RedeemIcon,
+            text: t('backofficeMenu.giftcard'),
+          },
+          {
+            to: '/coupon/',
+            icon: EuroSymbolIcon,
             text: t('backofficeMenu.coupon'),
           },
           'divider',

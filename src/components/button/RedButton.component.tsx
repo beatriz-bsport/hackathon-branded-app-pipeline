@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import type { Node } from 'react';
 
 import Button from '@material-ui/core/Button';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
@@ -18,9 +17,7 @@ const redTheme = createMuiTheme({
   },
 });
 
-type Props = {
-  children: Node,
-};
+type Props = any;
 
 export default function RedButton(props: Props) {
   return (

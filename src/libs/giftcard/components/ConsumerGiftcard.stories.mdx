@@ -1,0 +1,96 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import ConsumerGiftcardListItem from './ConsumerGiftcardListItem.component';
+import { consumer_giftcard_factory, giftcard_factory } from '../factory';
+import FactoryMemberBot from '../../member/factories/MemberMinimal';
+import { action } from '@storybook/addon-actions';
+
+<Meta 
+    title="library/Giftcard/consumer-giftcard-list-item" 
+    component={ConsumerGiftcardListItem} 
+/>
+
+export const Template = (args) => <ConsumerGiftcardListItem {...args} />;
+
+# Basic stuff
+
+<Canvas>
+  <Story
+    name="base"
+    args={{ 
+      giftcard: giftcard_factory(1)[0],
+      consumerGiftcard: consumer_giftcard_factory(1)[0],
+      memberSender: FactoryMemberBot.MemberMinimal.create(1),
+      memberReceiver: FactoryMemberBot.MemberMinimal.create(1),
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="show-members"
+    args={{ 
+      giftcard: giftcard_factory(1)[0],
+      consumerGiftcard: consumer_giftcard_factory(1)[0],
+      memberSender: FactoryMemberBot.MemberMinimal.create(1),
+      memberReceiver: FactoryMemberBot.MemberMinimal.create(1),
+      showSender: true,
+      showReceiver: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="as-recipient"
+    args={{ 
+      giftcard: giftcard_factory(1)[0],
+      consumerGiftcard: consumer_giftcard_factory(1)[0],
+      memberSender: FactoryMemberBot.MemberMinimal.create(1),
+      memberReceiver: FactoryMemberBot.MemberMinimal.create(1),
+      showAsRecipient: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="clickable"
+    args={{ 
+      giftcard: giftcard_factory(1)[0],
+      consumerGiftcard: consumer_giftcard_factory(1)[0],
+      memberSender: FactoryMemberBot.MemberMinimal.create(1),
+      memberReceiver: FactoryMemberBot.MemberMinimal.create(2),
+      onClickSender: action('clickSender'),
+      onClickReceiver: action('clickReceiver'),
+      showSender: true,
+      showReceiver: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="reverted"
+    args={{ 
+      giftcard: giftcard_factory(1)[0],
+      consumerGiftcard: consumer_giftcard_factory(1)[0],
+      memberSender: FactoryMemberBot.MemberMinimal.create(1),
+      memberReceiver: FactoryMemberBot.MemberMinimal.create(1),
+      reverted: true,
+      showSender: true,
+      showReceiver: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="with-send-invitation-button"
+    args={{ 
+      giftcard: giftcard_factory(1)[0],
+      consumerGiftcard: consumer_giftcard_factory(1)[0],
+      memberSender: FactoryMemberBot.MemberMinimal.create(1),
+      memberReceiver: FactoryMemberBot.MemberMinimal.create(1),
+      onClickSendInvitation: action('clickSendInvitation'),
+      showSender: true,
+      showReceiver: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

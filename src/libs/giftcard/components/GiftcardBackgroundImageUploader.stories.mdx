@@ -1,0 +1,25 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import GiftcardBackgroundImageUploader from './GiftcardBackgroundImageUploader.component';
+import { giftcard_background_image_factory } from '../factory';
+
+<Meta 
+    title="library/Giftcard/background-image" 
+    component={GiftcardBackgroundImageUploader} 
+/>
+
+export const Template = (args) => <GiftcardBackgroundImageUploader {...args} />;
+
+const giftcardBackgroundImageList = giftcard_background_image_factory(10)
+
+<Canvas>
+    <Story
+    name="GiftcardBackgroundImageUploader"
+    args={{ 
+      giftcardBackgroundImageList: giftcardBackgroundImageList,
+      open: true,
+      companyCover: "https://api.production.bsport.io/media/theme/wp_yogawithyou_logo.jpg",
+    }}
+    >
+    {Template.bind({})}
+    </Story>
+</Canvas>

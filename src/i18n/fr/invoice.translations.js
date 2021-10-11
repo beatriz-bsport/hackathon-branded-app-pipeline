@@ -3,6 +3,7 @@ const {
   BUYABLE_ITEM_SHOP_ITEM,
   BUYABLE_ITEM_PRIVATE_PASS,
   BUYABLE_ITEM_COMBO_ITEM,
+  BUYABLE_ITEM_GIFTCARD,
   BUYABLE_ITEM_CREDIT,
 } = require('@bsport/common/lib/master-data/buyable-items');
 const {
@@ -331,6 +332,7 @@ exports.default = {
       [BUYABLE_ITEM_SHOP_ITEM]: 'Magasin',
       [BUYABLE_ITEM_PRIVATE_PASS]: 'Carte RDV',
       [BUYABLE_ITEM_COMBO_ITEM]: 'Pack',
+      [BUYABLE_ITEM_GIFTCARD]: 'carte cadeau',
       [BUYABLE_ITEM_CREDIT]: 'Crédit',
     },
     credit: {

@@ -77,7 +77,7 @@ export const validateUnpaid = async (basketId: string) => {
 };
 
 export const fetchBasket = async (
-  basket: number,
+  basket: string,
 ): Promise<{ data: Basket }> => {
   return get(`${API_V1_URI}/checkout/basket/by_uuid/?basket=${basket}`);
 };

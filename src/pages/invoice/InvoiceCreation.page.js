@@ -28,6 +28,7 @@ import { getBuyableItem } from '../../libs/invoice/selectors';
 
 import { fetchPrivatePassList } from '../../libs/private-service/actions';
 import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
+import { fetchGiftcardList } from '../../libs/giftcard/actions';
 import {
   fetchEstablishments,
   fetchAllEstablishmentBillingGroup,
@@ -38,6 +39,7 @@ import {
   getAvailableEstablishmentList,
 } from '../../libs/establishment/selectors';
 import themeSelectors from '../../libs/theme/selectors';
+import { getGiftcardListEnabled } from '../../libs/giftcard/selectors';
 import InvoiceFormV2 from '../../libs/invoice/components/InvoiceFormV2.component';
 import InvoiceDateDialog from '../../libs/invoice/dialog/InvoiceDateDialog.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -57,6 +59,7 @@ type Props = {
   fetchShopItems: () => void,
   fetchAllPaymentPacks: () => void,
   fetchPrivatePassList: () => void,
+  fetchGiftcardList: () => void,
   fetchPaymentComboList: () => void,
   fetchEstablishments: () => void,
   initialItems: { withPrivatePass: ?string, withCredit: ?string },
@@ -86,6 +89,7 @@ export class InvoiceCreation extends Component<Props, State> {
     this.props.fetchPrivatePassList();
     this.props.fetchPaymentComboList();
     this.props.fetchEstablishments();
+    this.props.fetchGiftcardList();
   }
 
   prepareCreate = (invoiceData: InvoiceDataFront) => {
@@ -194,6 +198,7 @@ export default compose(
         state.establishment.loading ||
         state.establishment.establishmentBillingGroup.loading,
       companyTheme: themeSelectors.getTheme(state),
+      giftcardList: getGiftcardListEnabled(state),
     }),
     {
       fetchShopItems,
@@ -209,6 +214,7 @@ export default compose(
       goToInvoice: (uuid) => pushRouter(`/invoice/${uuid}/`),
 
       fetchEstablishments,
+      fetchGiftcardList,
       fetchAllEstablishmentBillingGroup,
     },
   ),

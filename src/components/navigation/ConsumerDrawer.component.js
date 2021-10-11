@@ -41,6 +41,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ReceiptIcon from '@material-ui/icons/Receipt';
+import RedeemIcon from '@material-ui/icons/Redeem';
 import Badge from '@material-ui/core/Badge';
 import type { TFunction } from 'react-i18next';
 
@@ -398,6 +399,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             : ''
         }`,
         text: t('navigation.invoice'),
+      },
+      {
+        to: '/giftcard/',
+        icon: RedeemIcon,
+        text: t('navigation.giftcard'),
       },
       {
         to: '/profile/',

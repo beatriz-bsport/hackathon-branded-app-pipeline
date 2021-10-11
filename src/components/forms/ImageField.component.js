@@ -56,9 +56,7 @@ export class ImageField extends Component<Props, State> {
                 const { files } = e.target;
                 this.setState({
                   // eslint-disable-next-line
-                  previewUrl: (window.URL ? URL : webkitURL).createObjectURL(
-                    files[0],
-                  ),
+                  previewUrl: (window.URL ? window.URL : window.webkitURL).createObjectURL(files[0])
                 });
                 setFieldValue(field.name, files[0]);
               }}

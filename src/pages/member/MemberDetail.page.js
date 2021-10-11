@@ -91,6 +91,11 @@ const MemberDetailBasket = asyncComponent(() =>
 const MemberCustomForm = asyncComponent(() =>
   import('./MemberCustomForm.page'),
 );
+
+const MemberDetailGiftcard = asyncComponent(() =>
+  import('./MemberDetailGiftcard.page'),
+);
+
 type Props = {
   theme: Theme,
   t: TFunction,
@@ -248,6 +253,7 @@ export class MemberDetail extends React.Component<Props> {
               }`}
               value="private-booking"
             />
+            <Tab label={t('menu.giftcard')} value="giftcard" />
             <Tab
               label={`${t('menu.privateConsumerPass')} ${
                 infosOfMember && infosOfMember.nb_private_consumer_pass !== 0
@@ -333,6 +339,14 @@ export class MemberDetail extends React.Component<Props> {
             <Route
               path="/member/:id/basket/:selectedBasketId"
               component={MemberDetailBasket}
+            />
+            <Route
+              path="/member/:id/giftcard/:selectedConsumerGiftcardId"
+              component={MemberDetailGiftcard}
+            />
+            <Route
+              path="/member/:id/giftcard/"
+              component={MemberDetailGiftcard}
             />
             <Route
               exact

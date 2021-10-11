@@ -1,4 +1,5 @@
 import { push } from 'connected-react-router';
+import uniq from 'lodash/uniq';
 import { createAction } from 'redux-actions';
 
 import * as Sentry from '@sentry/react';
@@ -182,6 +183,24 @@ export function fetchMemberBulk(params: any) {
     dispatch(memberBulkActions.isLoading(false));
   };
 }
+
+export function fetchMemberBulkById(ids: Array<number>) {
+  return async (dispatch: Dispatch) => {
+    const id_uniq = uniq(ids);
+    if (!id_uniq.length) return;
+    dispatch(memberBulkActions.isLoading(true));
+    try {
+      const response = await fetchFilteredMembersAPI({ id__in: id_uniq });
+      dispatch(memberBulkActions.success(response.data.results));
+    } catch (err) {
+      console.error(err);
+      dispatch(memberBulkActions.error(err));
+      dispatch(memberBulkActions.error(err));
+    }
+    dispatch(memberBulkActions.isLoading(false));
+  };
+}
+
 export function fetchFilteredMembers(params: any, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(memberListActions.isLoading(true));

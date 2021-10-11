@@ -10,6 +10,7 @@ import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 
 import CheckoutItemListItem from './CheckoutItemListItem.component';
+import PrepaidLineListItem from './PrepaidLineListItem.component';
 
 import type { Basket, CheckoutItemData } from '../types';
 import { CheckoutItem } from '../types';
@@ -41,21 +42,26 @@ export const BasketConsumer = (props: Props) => {
       {props.loading ? <LinearProgress /> : null}
       <List dense disablePadding>
         {props.basket.checkout_items.length ? (
-          props.basket.checkout_items.map((ci) => (
-            <CheckoutItemListItem
-              checkout_item={ci}
-              key={ci.id}
-              loading={props.loading}
-              onRemoveOne={() =>
-                props.onRemoveCheckoutItem({
-                  checkout_item: ci.id,
-                  quantity: 1,
-                })
-              }
-              onAddOne={() => props.onAddCheckoutItem({ ...ci, quantity: 1 })}
-              onItemExpire={props.onItemExpire}
-            />
-          ))
+          <>
+            {props.basket.checkout_items.map((ci) => (
+              <CheckoutItemListItem
+                checkout_item={ci}
+                key={ci.id}
+                loading={props.loading}
+                onRemoveOne={() =>
+                  props.onRemoveCheckoutItem({
+                    checkout_item: ci.id,
+                    quantity: 1,
+                  })
+                }
+                onAddOne={() => props.onAddCheckoutItem({ ...ci, quantity: 1 })}
+                onItemExpire={props.onItemExpire}
+              />
+            ))}
+            {props.basket.prepaid_lines.map((pl) => (
+              <PrepaidLineListItem prepaid_line={pl} key={pl.id} />
+            ))}
+          </>
         ) : (
           <div className={props.classes.centeredAndPadded}>
             <Typography color="textSecondary" align="center">
@@ -67,7 +73,10 @@ export const BasketConsumer = (props: Props) => {
       {props.withPrice ? (
         <div className={props.classes.totalPrice}>
           <Typography component="p" variant="h4">
-            {getCurrencyDisplayWithPrice(props.basket.total_price)}
+            {getCurrencyDisplayWithPrice(
+              parseFloat(props.basket.total_price) -
+                parseFloat(props.basket.total_price_prepaid_lines),
+            )}
           </Typography>
         </div>
       ) : null}

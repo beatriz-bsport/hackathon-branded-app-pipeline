@@ -109,6 +109,8 @@ export const fromConfigToUrl = (
     path = 'shop';
   } else if (component_type === 'vod') {
     path = 'vod';
+  } else if (component_type === 'giftcard') {
+    path = 'giftcard';
   } else {
     return '';
   }

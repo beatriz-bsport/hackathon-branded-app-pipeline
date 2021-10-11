@@ -21,7 +21,7 @@ import { snackbarError } from '../../actions/snackbar.actions';
 
 import { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 import { RootState } from '../../reducers';
-import { CheckoutItemData } from './types';
+import { CheckoutItemData, Basket } from './types';
 import { COMPANY_EVENTS } from './event.utils';
 import { fetchEventList } from '../event/actions';
 
@@ -34,7 +34,7 @@ export const currentBasket = {
 
 export function fetchCurrentBasket(
   companyId: number,
-  options: OptionCallback,
+  options?: OptionCallback<Basket>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(currentBasket.isLoading(true));

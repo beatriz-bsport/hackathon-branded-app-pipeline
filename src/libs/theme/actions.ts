@@ -4,6 +4,7 @@ import moment from 'moment-timezone';
 import api from './api';
 // @ts-ignore
 import { Dispatch, OptionCallback } from '../../state/types';
+import { CompanyTheme } from './types';
 
 export const themeDetail = {
   error: createAction('THEME/DETAIL/ERROR'),
@@ -18,7 +19,7 @@ export const themeUpdate = {
 
 export function fetchCompanyTheme(
   companyId?: number,
-  options?: OptionCallback,
+  options?: OptionCallback<CompanyTheme>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(themeDetail.isLoading(true));

@@ -104,7 +104,7 @@ export class PaginatedList extends PureComponent<Props, State> {
 
   render() {
     return (
-      <div>
+      <div style={{ width: '100%' }}>
         <List {...this.props.listProps}>
           {this.props.items.map((i, idx) =>
             this.props.renderItem(i, idx, this.props.page),

@@ -72,6 +72,7 @@ exports.default = {
     info: 'Général',
     relation: 'Relations',
     bookings: 'Réservations',
+    giftcard: 'Carte cadeau',
     paymentPack: 'Cartes de cours',
     invoices: 'Factures et Souscriptions',
     contact: 'Contact',

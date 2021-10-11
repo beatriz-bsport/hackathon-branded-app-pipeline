@@ -1,0 +1,70 @@
+import { Meta, Canvas, Story } from '@storybook/addon-docs';
+import EmailInputWithChipsGenerator from './EmailInputWithChipsGenerator.component';
+import { action } from '@storybook/addon-actions';
+import { emails_factory } from '../factory.ts';
+
+<Meta
+    title="Library/Components/Input/EmailInputWithChipsGenerator"
+    component={EmailInputWithChipsGenerator}
+    argTypes={{
+        emailList:{
+            description: "list of emails to which the gift card will be sent"
+        },
+    }}
+/>
+
+export const actionsData = {
+    handleDelete: action('handleDelete'),
+    onChange: action('onChange'),
+    onKeyDown: action('onKeyDown'),
+};
+
+export const Template = (args) => <EmailInputWithChipsGenerator {...args} />;
+
+export const emailListShort = emails_factory(3);
+export const emailListBig = emails_factory(15);
+
+#ADD AN EMAIL
+
+<Canvas>
+    <Story
+    name="input-email"
+    args={{
+        emailList: [],
+        handleDelete: actionsData.handleDelete,
+        onChange: actionsData.onChange,
+        onKeyDown: actionsData.onKeyDown,
+    }}>
+    {Template.bind({})}
+    </Story>
+</Canvas>
+
+#ADD AN EMAIL WITH A FEW EXISTING EMAILS
+
+<Canvas>
+    <Story
+    name="input-email-with-chips"
+    args={{
+        emailList: emailListShort,
+        handleDelete: actionsData.handleDelete,
+        onChange: actionsData.onChange,
+        onKeyDown: actionsData.onKeyDown,
+    }}>
+    {Template.bind({})}
+    </Story>
+</Canvas>
+
+#ADD AN EMAIL WITH MANY EXISTING EMAILS
+
+<Canvas>
+    <Story
+    name="input-email-with-many-chips"
+    args={{
+        emailList: emailListBig,
+        handleDelete: actionsData.handleDelete,
+        onChange: actionsData.onChange,
+        onKeyDown: actionsData.onKeyDown,
+    }}>
+    {Template.bind({})}
+    </Story>
+</Canvas>

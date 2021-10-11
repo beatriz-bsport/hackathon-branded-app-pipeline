@@ -58,3 +58,10 @@ export type CheckoutItemData = {
   buyable_item_id: number | string;
   extra_data: any;
 };
+
+export type PrepaidLine = {
+  id: string;
+  unit_value: string; // decimal price as string
+  extra_data: any;
+  name: string;
+};

@@ -104,6 +104,14 @@ exports.default = {
   method: {
     CB: 'Carte bleue',
     CREDIT_ACCOUNT: 'Paiement sur place',
+    CASH: 'Espèces',
+    CHECK: 'Chèque',
+    SEPA: 'SEPA',
+    BANCONTACT: 'Bancontact',
+    SOFORT: 'Sofort',
+    IDEAL: 'iDEAL',
+    EPS: 'EPS',
+    GIROPAY: 'Giropay',
   },
 
   forms: {

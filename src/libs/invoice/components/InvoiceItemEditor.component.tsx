@@ -15,6 +15,7 @@ import {
   BUYABLE_ITEM_SHOP_ITEM,
   BUYABLE_ITEM_PRIVATE_PASS,
   BUYABLE_ITEM_COMBO_ITEM,
+  BUYABLE_ITEM_GIFTCARD,
   BUYABLE_ITEM_CREDIT,
 } from '@bsport/common/lib/master-data/buyable-items';
 
@@ -23,6 +24,7 @@ import NumberInput from '../../../components/input/NumericInput.component';
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
 import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
 import PaymentComboSelector from '../../payment-combo/components/PaymentComboSelector.component';
+import GiftcardSelector from '../../giftcard/components/GiftcardSelector.component';
 import ShopItemSelector from '../../shop/components/ShopItemSelector.component';
 import withConfirm from '../../../hocs/with-confirm.hoc';
 import { paymentPackTagsAndMemberTagsCompatibilty } from '../../payment-packs/utils';
@@ -80,6 +82,17 @@ const BuyableItemSelector = (props: BuyableItemProps) => {
           onChange={(buyableItem) => props.onSelect(buyableItem)}
         />
       );
+    case BUYABLE_ITEM_GIFTCARD:
+      return (
+        <GiftcardSelector
+          autofocus
+          value={props.value}
+          giftcardList={
+            props.availableBuyableItems[props.buyableItemIdentifier]
+          }
+          onChange={(buyableItem) => props.onSelect(buyableItem)}
+        />
+      );
     default:
       return null;
   }
@@ -100,6 +113,7 @@ const getPriceForItem = (item: any, identifier: number) => {
       BUYABLE_ITEM_SHOP_ITEM,
       BUYABLE_ITEM_PRIVATE_PASS,
       BUYABLE_ITEM_COMBO_ITEM,
+      BUYABLE_ITEM_GIFTCARD,
     ].includes(identifier)
   ) {
     return item.price;
@@ -132,12 +146,13 @@ const InvoiceItemEditor = (props: Props) => {
   const [warnMamangerOnInvoice, setWarnManagerOnInvoice] = useState(false);
   const onClickAddInvoiceItem = useCallback(() => {
     if (buyableItemIdentifier === BUYABLE_ITEM_CREDIT) {
-      props.onAddBuyableItem(buyableItemIdentifier, {
+      const data = {
         buyable_item_id: 0,
-        price: parseFloat(`${buyableItemId}`).toFixed(2),
-        voucher: parseFloat(`${voucher || 0}`).toFixed(2),
+        price: parseFloat(buyableItemId).toFixed(2),
+        voucher: parseFloat(voucher || 0).toFixed(2),
         name: t('invoiceItem.credit.label'),
-      });
+      };
+      props.onAddBuyableItem(buyableItemIdentifier, data);
     } else {
       const buyableItem = props.availableBuyableItems[
         buyableItemIdentifier
@@ -148,7 +163,7 @@ const InvoiceItemEditor = (props: Props) => {
           ...buyableItem,
           buyable_item_id: buyableItem.id,
           price: parseFloat(buyableItem.price).toFixed(2),
-          voucher: parseFloat(`${voucher || '0.00'}`).toFixed(2),
+          voucher: parseFloat(voucher || '0.00').toFixed(2),
         });
       }
     }
@@ -264,6 +279,12 @@ const InvoiceItemEditor = (props: Props) => {
               `invoiceItem.buyableItemIdentifier.${BUYABLE_ITEM_COMBO_ITEM}`,
             )}
             value={BUYABLE_ITEM_COMBO_ITEM}
+          />
+          <Tab
+            label={t(
+              `invoiceItem.buyableItemIdentifier.${BUYABLE_ITEM_GIFTCARD}`,
+            )}
+            value={BUYABLE_ITEM_GIFTCARD}
           />
         </Tabs>
       </Paper>

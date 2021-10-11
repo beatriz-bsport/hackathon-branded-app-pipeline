@@ -209,7 +209,10 @@ export class BasketFinalizer extends React.Component<Props, State> {
       <div>
         <div className={this.props.classes.totalPrice}>
           <Typography component="p" variant="h4">
-            {`${getCurrencyDisplayWithPrice(this.props.basket.total_price)}`}
+            {`${getCurrencyDisplayWithPrice(
+              parseFloat(this.props.basket.total_price) -
+                parseFloat(this.props.basket.total_price_prepaid_lines),
+            )}`}
           </Typography>
         </div>
         <div className={this.props.classes.couponCodeContainer}>

@@ -41,6 +41,12 @@ const PrivatePassPreCheckout = asyncComponent(() =>
 const MarketplaceSubscriptionPayment = asyncComponent(() =>
   import('./MarketplaceSubscriptionPayment.page'),
 );
+const GiftcardCheckoutPage = asyncComponent(() =>
+  import('./giftcard/GiftcardCheckout.page'),
+);
+const GiftcardActivationPage = asyncComponent(() =>
+  import('./giftcard/GiftcardActivation.page'),
+);
 
 type Props = {
   fetchProfile: () => void,
@@ -114,6 +120,14 @@ export class PaymentRouter extends React.Component<Props> {
         <Route
           path="/(|customer/)checkout/:companyId/pre-checkout/shop-item/:id"
           component={ShopItemPreCheckoutPage}
+        />
+        <Route
+          path="/(|customer/)checkout/:companyId/giftcard/activation/:activationCode"
+          component={GiftcardActivationPage}
+        />
+        <Route
+          path="/(|customer/)checkout/:companyId/giftcard/:id"
+          component={GiftcardCheckoutPage}
         />
         <Route
           path="/(|customer/)checkout/:companyId/"

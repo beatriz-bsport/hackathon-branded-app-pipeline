@@ -164,7 +164,6 @@ type Props = {
   tagMember: (memberId: number, tagId: number) => void,
   untagMember: (memberId: number, tagId: number) => void,
 
-  goToCreditRegularization: (memberId: number, balance: number) => void,
   adjustCreditWithoutPaymentNote: (
     memberId: number,
     amount: number,
@@ -219,12 +218,6 @@ export class MemberDetailPage extends Component<Props, State> {
 
   deleteTagGroup = (id: number) => this.setState({ tagGroupToDelete: id });
 
-  goToCreditRegularization = () =>
-    this.props.goToCreditRegularization(
-      this.props.id,
-      this.props.member.credit_account_balance,
-    );
-
   applyBalanceToUnpaidInvoices = () => {
     this.props.applyBalanceToUnpaid(this.props.id, {
       onSuccess: () => {
@@ -259,7 +252,6 @@ export class MemberDetailPage extends Component<Props, State> {
             member={this.props.member}
             editMember={() => this.props.editMember(this.props.id)}
             mergeMember={() => this.setState({ searchModalOpen: true })}
-            goToCreditRegularization={this.goToCreditRegularization}
             getEmails={this.props.fetchEmailTemplatesSummaries}
             emails={this.props.email_templates_list}
             getEmailDetail={this.props.fetchEmailTemplateDetail}
@@ -451,10 +443,6 @@ export default compose(
       editMember: (id) => routerPush(`/member/edit/${id}`),
       createOrUpdateNote: ({ id, text, memberId, highlighted, is_medical }) =>
         createOrUpdateMemberNote(id, text, memberId, highlighted, is_medical),
-      goToCreditRegularization: (memberId, credit_account_balance) =>
-        routerPush(
-          `/invoice/add/member/${memberId}?withCredit=${-credit_account_balance}`,
-        ),
       deleteNote,
       createTag: createOrUpdateTag,
       applyBalanceToUnpaid,

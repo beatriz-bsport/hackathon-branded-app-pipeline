@@ -5,6 +5,7 @@ import {
   BUYABLE_ITEM_SHOP_ITEM,
   BUYABLE_ITEM_PRIVATE_PASS,
   BUYABLE_ITEM_COMBO_ITEM,
+  BUYABLE_ITEM_GIFTCARD,
 } from '@bsport/common/lib/master-data/buyable-items';
 import { PLANNED_PAYMENT_EVENT_STATUS_REGISTERED } from '@bsport/common/lib/master-data/planned-payment-event';
 import { createSelector } from 'reselect';
@@ -16,6 +17,7 @@ import { getPaymentComboList } from '../payment-combo/selectors';
 import { getMemberListData, getMemberDetailData } from '../member/selectors';
 import { getUsers as getStaff } from '../role/selectors';
 import { getAllEstablishments } from '../establishment/selectors';
+import { getGiftcardListEnabled } from '../giftcard/selectors';
 
 export const getBuyableItem = createSelector(
   [
@@ -23,12 +25,20 @@ export const getBuyableItem = createSelector(
     getShopItemsAvailable,
     getPrivatePassAvailable,
     getPaymentComboList,
+    getGiftcardListEnabled,
   ],
-  (paymentPackList, shopItemList, privatePassList, paymentComboList) => ({
+  (
+    paymentPackList,
+    shopItemList,
+    privatePassList,
+    paymentComboList,
+    giftcardList,
+  ) => ({
     [BUYABLE_ITEM_PASS]: paymentPackList,
     [BUYABLE_ITEM_SHOP_ITEM]: shopItemList,
     [BUYABLE_ITEM_PRIVATE_PASS]: privatePassList,
     [BUYABLE_ITEM_COMBO_ITEM]: paymentComboList,
+    [BUYABLE_ITEM_GIFTCARD]: giftcardList,
   }),
 );
 

@@ -13,6 +13,8 @@ type ConfigType = {
   PUBLIC_URL: string;
   I18N_TRANSLATION_DOMAIN: string; // used by the widget
   REACT_APP_CDN_DOMAIN: string;
+  REACT_APP_QUICKBOOKS_CLIENT_ID: string;
+  REACT_APP_QUICKBOOKS_CLIENT_SECRET: string;
 };
 
 export const Config = {} as ConfigType;

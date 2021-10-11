@@ -1287,7 +1287,8 @@
         "amount": "Montant dû",
         "missing": "Restant dû",
         "invoiceType": "Type",
-        "pdf": "PDF"
+        "pdf": "PDF",
+        "quickbooks": "QuickBooks"
       },
       "nested": {
         "invoiceItem": {
@@ -1311,6 +1312,35 @@
           "0": "Les paiements carte bleue / SEPA / etc... seront reversé directement sur le compte du client. Utilisez cette méthode pour opérer un remboursement direct suite à une erreur.",
           "1": "Un avoir sera généré et incrémentera d'autant le solde client. Utilisez cette méthode pour générer un avoir.",
           "2": "Choisissez vous-même le moyen de remboursement. Utilisez cette méthode pour un remboursement chèque / virement manuel / espèces."
+        }
+      }
+    },
+    "quickbooks": {
+      "invoice": { "onQuickbooks": "Transférée", "sendToQuickbooks": "Transférer la facture sur QuickBooks" },
+      "send": {
+        "errors": {
+          "931000": "Erreur lors de l'authentification à Quickbooks",
+          "931001": "Erreur lors de l'authentification à Quickbooks",
+          "931002": "Clefs d'authentifications expirées",
+          "931003": "Clefs d'authentifications expirées",
+          "931004": "Vous n'avez pas configuré votre application QuickBooks",
+          "931100": "Erreur lors de la mise à jour des clefs d'authentifications",
+          "931101": "Quickbooks ne parvient pas à nous transmettre vos données",
+          "932000": "Votre compte n'est plus authentifié sur Bsport",
+          "932001": "Votre compte n'est plus authentifié sur Bsport",
+          "932100": "Impossible d'accéder aux informations de votre compte Quickbooks",
+          "933000": "Le membre associé à la facture ne possède pas les informations nécessaires pour être enregistrer sur QuickBooks",
+          "933100": "Impossible de créer le client associé au membre de la facture",
+          "933101": "Impossible de créer le client associé au membre de la facture",
+          "933102": "Erreur lors de la création de la facture sur Quickbooks",
+          "934000": "La facture ne possède pas les informations minimales pour être créée sur Quickbooks",
+          "934001": "Impossible de créer une facture sans items associés",
+          "934002": "Impossible d'envoyer une facture annulée sur QuickBooks",
+          "934003": "Imposible d'envoyer une facture non finalisée sur QuickBooks",
+          "934004": "Impossible d'envoyer une facture impayée sur QuickBooks",
+          "934005": "Votre facture ne peux pas être envoyée sur QuickBooks",
+          "934006": "Cette facture est déjà enregistrée sur QuickBooks",
+          "title": "Erreur lors de l'envoi de votre facture"
         }
       }
     }
@@ -1944,6 +1974,7 @@
         "personalization": "Personnalisation",
         "webhook": "Webhook",
         "partnership": "Partenariat",
+        "quickbooks": "QuickBooks",
         "active_campaign": "ActiveCampaign",
         "settings": "Paramètres",
         "platform_billing": "Abonnement bsport",
@@ -4211,6 +4242,19 @@
       "add": "Ajouter un groupe",
       "helperText": "Si vous disposez de plusieurs studios appartenants à différentes raisons sociales, vous pouvez les regrouper ici par groupe de facturation. Les groupes de facturations apparaitront sur vos rapports pour relier plus facilement chaque facture à la bonne raison sociale.",
       "header": "Groupes de facturation"
+    },
+    "quickbooks": {
+      "title": "QuickBooks",
+      "enable": "Activer l'intégration Quickbooks",
+      "submit": "Sauvegarder",
+      "explainEnable": "Transférer toutes vos factures directement sur QuickBooks. Le transfert de factures se fera toutes les 24h.",
+      "buttonConnect": "Se connecter à Quickbooks",
+      "buttonReConnect": "Rafraîchir ma connexion",
+      "buttonRevoke": "Désactiver Quickbooks",
+      "confirmDialog": {
+        "title": "QuickBooks Connection",
+        "text": "Etes-vous sur de vouloir vous autoriser Bsport à accéder à votre application ?"
+      }
     }
   },
   "shop": {
@@ -4625,6 +4669,34 @@
         "error": {
           "unAuthorizedEstablishmentModification": "Impossible de modifier l'établissement de facturation, seuls les administrateurs en possèdent le droit de modification"
         }
+      },
+      "sendToQuickbooks": {
+        "success": "Votre facture a été transférée sur Quickbooks",
+        "error": "Une erreur est survenu pendant le transfère de votre factur sur Quickbooks",
+        "errors": {
+          "931000": "Erreur lors de l'authentification à Quickbooks",
+          "931001": "Erreur lors de l'authentification à Quickbooks",
+          "931002": "Clefs d'authentifications expirées",
+          "931003": "Clefs d'authentifications expirées",
+          "931004": "Vous n'avez pas configuré votre application QuickBooks",
+          "931100": "Erreur lors de la mise à jour des clefs d'authentifications",
+          "931101": "Quickbooks ne parvient pas à nous transmettre vos données",
+          "932000": "Votre compte n'est plus authentifié sur Bsport",
+          "932001": "Votre compte n'est plus authentifié sur Bsport",
+          "932100": "Impossible d'accéder aux informations de votre compte Quickbooks",
+          "933000": "Le membre associé à la facture ne possède pas les informations nécessaires pour être enregistrer sur QuickBooks",
+          "933100": "Impossible de créer le client associé au membre de la facture",
+          "933101": "Impossible de créer le client associé au membre de la facture",
+          "933102": "Erreur lors de la création de la facture sur Quickbooks",
+          "934000": "La facture ne possède pas les informations minimales pour être créée sur Quickbooks",
+          "934001": "Impossible de créer une facture sans items associés",
+          "934002": "Impossible d'envoyer une facture annulée sur QuickBooks",
+          "934003": "Imposible d'envoyer une facture non finalisée sur QuickBooks",
+          "934004": "Impossible d'envoyer une facture impayée sur QuickBooks",
+          "934005": "Votre facture ne peux pas être envoyée sur QuickBooks",
+          "934006": "Cette facture est déjà enregistrée sur QuickBooks",
+          "title": "Erreur lors de l'envoi de votre facture"
+        }
       }
     },
     "zoom": { "created": { "success": "Compte Zoom lié avec succès", "error": "Erreur lors du lien du compte Zoom" } },
@@ -4900,7 +4972,17 @@
       "delete": { "success": "Règle de notification supprimée", "error": "Impossible de supprimer la règle de notification" },
       "customError": { "3": "Impossible de créer une règle avec le même temps d'apparition" }
     },
-    "platformBilling": { "payNowInvoice": { "success": "Paiement réussi", "error": "Paiement refusé" } }
+    "platformBilling": { "payNowInvoice": { "success": "Paiement réussi", "error": "Paiement refusé" } },
+    "quickbooks": {
+      "create": {
+        "success": "Votre compte Quickbooks est maintenant authentifié",
+        "error": "Impossible de connecter votre compte quickbooks"
+      },
+      "revoke": {
+        "success": "Votre compte Quickbooks est déconnecté",
+        "error": "Impossible de déonnecter votre compte Quickbooks"
+      }
+    }
   },
   "spotScheduling": {
     "toolsMenu": {
@@ -5648,6 +5730,13 @@
         "content": "Pour ajouter de nouvelles questions au formulaire d’inscription vous pouvez créer un nouveau formulaire dans l’onglet Marketing > Formulaires. Ajouter vos questions puis attachez ce formulaire au formulaire d’inscription en sélectionnant la condition 'Cibler les nouveaux membres'.",
         "cancel": "Annuler",
         "confirm": "Créer un formulaire"
+      }
+    },
+    "quickbooks": {
+      "title": "QuickBooks",
+      "confirmDialog": {
+        "title": "QuickBooks Connection",
+        "text": "Etes-vous sur de vouloir vous autoriser Bsport à accéder à votre application ?"
       }
     }
   },

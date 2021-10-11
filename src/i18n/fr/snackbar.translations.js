@@ -113,6 +113,35 @@ exports.default = {
           "Impossible de modifier l'établissement de facturation, seuls les administrateurs en possèdent le droit de modification",
       },
     },
+    sendToQuickbooks: {
+      success: 'Votre facture a été transférée sur Quickbooks',
+      error:
+        'Une erreur est survenu pendant le transfère de votre factur sur Quickbooks',
+      errors: {
+        title: "Erreur lors de l'envoi de votre facture",
+        931000: "Erreur lors de l'authentification à Quickbooks",
+        931001: "Erreur lors de l'authentification à Quickbooks",
+        931002: "Clefs d'authentifications expirées",
+        931003: "Clefs d'authentifications expirées",
+        931004: "Vous n'avez pas configuré votre application QuickBooks",
+        931100: "Erreur lors de la mise à jour des clefs d'authentifications",
+        931101: 'Quickbooks ne parvient pas à nous transmettre vos données',
+        932000: "Votre compte n'est plus authentifié sur Bsport",
+        932001: "Votre compte n'est plus authentifié sur Bsport",
+        932100: "Impossible d'accéder aux informations de votre compte Quickbooks",
+        933000: 'Le membre associé à la facture ne possède pas les informations nécessaires pour être enregistrer sur QuickBooks',
+        933100: 'Impossible de créer le client associé au membre de la facture',
+        933101: 'Impossible de créer le client associé au membre de la facture',
+        933102: 'Erreur lors de la création de la facture sur Quickbooks',
+        934000: 'La facture ne possède pas les informations minimales pour être créée sur Quickbooks',
+        934001: 'Impossible de créer une facture sans items associés',
+        934002: "Impossible d'envoyer une facture annulée sur QuickBooks",
+        934003: "Imposible d'envoyer une facture non finalisée sur QuickBooks",
+        934004: "Impossible d'envoyer une facture impayée sur QuickBooks",
+        934005: 'Votre facture ne peux pas être envoyée sur QuickBooks',
+        934006: 'Cette facture est déjà enregistrée sur QuickBooks',
+      },
+    },
   },
   zoom: {
     created: {
@@ -716,6 +745,16 @@ exports.default = {
     payNowInvoice: {
       success: 'Paiement réussi',
       error: 'Paiement refusé',
+    },
+  },
+  quickbooks: {
+    create: {
+      success: 'Votre compte Quickbooks est maintenant authentifié',
+      error: 'Impossible de connecter votre compte quickbooks',
+    },
+    revoke: {
+      success: 'Votre compte Quickbooks est déconnecté',
+      error: 'Impossible de déonnecter votre compte Quickbooks',
     },
   },
 };

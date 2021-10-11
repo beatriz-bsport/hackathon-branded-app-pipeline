@@ -29,15 +29,24 @@ import AttachmentIcon from '@material-ui/icons/Attachment';
 import PaymentIcon from '@material-ui/icons/Payment';
 import SaveIcon from '@material-ui/icons/Save';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
+import Chip from '@material-ui/core/Chip';
+import ToolTip from '@material-ui/core/Tooltip';
 import moment from 'moment-timezone';
 import {
   INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER,
   INVOICE_TYPE_MIGRATION,
   INVOICE_TYPE_REVERSE,
 } from '@bsport/common/lib/master-data/invoice-type';
+import SendIcon from '@material-ui/icons/Send';
+import Avatar from '@material-ui/core/Avatar';
 import RedButton from '../../../components/button/RedButton.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { getPaymentLink } from '../../consumer-space/utils';
+import {
+  QUICKBOOKS_INVOICE_STATUS_CANNOT_BE_SENT,
+  QUICKBOOKS_INVOICE_STATUS_ALREADY_SENT,
+  QUICKBOOKS_INVOICE_STATUS_CAN_BE_SENT,
+} from '../../quickbooks/utils';
 
 type Props = {
   compactMode: ?boolean,
@@ -55,7 +64,12 @@ type Props = {
   showType?: boolean,
   companyId?: number,
   snackbarSuccess: (string) => void,
+  quickbooksIntegrated: boolean,
+  sendInvoiceToQuickbooks: (uuid: string) => void,
+  quickbooksLoading: boolean,
 };
+
+const quickbooksLogo = require('./QB_logo.png');
 
 const InvoiceRow = React.memo((props: Props) => {
   const { invoice } = props;
@@ -85,6 +99,50 @@ const InvoiceRow = React.memo((props: Props) => {
     }
   }
 
+  const renderQuickbooksRow = () => {
+    if (
+      invoice.quickbooks_status === QUICKBOOKS_INVOICE_STATUS_CANNOT_BE_SENT
+    ) {
+      return null;
+    }
+    if (invoice.quickbooks_status === QUICKBOOKS_INVOICE_STATUS_ALREADY_SENT) {
+      return (
+        <Chip
+          variant="outlined"
+          size="small"
+          label={t('quickbooks.invoice.onQuickbooks')}
+          avatar={
+            <Avatar src={quickbooksLogo} alt="QB LOGO" noname variant="small" />
+          }
+          style={{ color: '#53B700' }}
+        />
+      );
+    }
+    if (
+      invoice.quickbooks_status === QUICKBOOKS_INVOICE_STATUS_CAN_BE_SENT &&
+      props.sendInvoiceToQuickbooks
+    ) {
+      return (
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <ToolTip title={t('quickbooks.invoice.sendToQuickbooks')}>
+            <IconButton
+              aria-label="send-to-quickbooks"
+              size="small"
+              onClick={(ev) => {
+                ev.stopPropagation();
+                props.sendInvoiceToQuickbooks(invoice.uuid);
+              }}
+              disabled={props.quickbooksLoading}
+              style={{ fill: '#53B700' }}
+            >
+              <SendIcon style={{ fill: '#53B700' }} />
+            </IconButton>
+          </ToolTip>
+        </div>
+      );
+    }
+    return null;
+  };
   return (
     <React.Fragment>
       <TableRow
@@ -169,6 +227,15 @@ const InvoiceRow = React.memo((props: Props) => {
                   <AttachmentIcon />
                 )}
               </IconButton>
+            )}
+          </TableCell>
+        )}
+        {props.quickbooksIntegrated && (
+          <TableCell>
+            {processing && !invoice.can_be_sent_to_quickbooks ? (
+              <CircularProgress />
+            ) : (
+              <div style={{ maxWidth: '100px' }}>{renderQuickbooksRow()}</div>
             )}
           </TableCell>
         )}
@@ -427,6 +494,9 @@ export const InvoiceTable = (props: {
   showType?: boolean,
   companyId?: number,
   snackbarSuccess: (string) => void,
+  quickbooksIntegrated: boolean,
+  sendInvoiceToQuickbooks: (uuid: string) => void,
+  quickbooksLoading: boolean,
 }) => {
   const { t } = useTranslation(['invoice']);
 
@@ -452,6 +522,9 @@ export const InvoiceTable = (props: {
             {!!props.finalizeInvoice && (
               <TableCell>{t('table.header.pdf')}</TableCell>
             )}
+            {props.quickbooksIntegrated && (
+              <TableCell>{t('table.header.quickbooks')}</TableCell>
+            )}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -474,6 +547,9 @@ export const InvoiceTable = (props: {
                 onBill={props.onBill}
                 companyId={props.companyId}
                 snackbarSuccess={props.snackbarSuccess}
+                quickbooksIntegrated={props.quickbooksIntegrated}
+                sendInvoiceToQuickbooks={props.sendInvoiceToQuickbooks}
+                quickbooksLoading={props.quickbooksLoading}
               />
             ))}
         </TableBody>

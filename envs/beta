@@ -18,3 +18,5 @@ env.REACT_APP_INTERCOM_APP_ID = 'q6foivp2';
 env.REACT_APP_CDN_DOMAIN = 'cdn.fb-beta.bsport.io';
 env.PUBLIC_URL = 'https://backoffice.fb-beta.bsport.io';
 env.I18N_TRANSLATION_DOMAIN = 'https://backoffice.fb-beta.bsport.io';
+
+env.REACT_APP_QUICKBOOKS_CLIENT_ID='ABuHQoP5mP22ZN6teCzIcZykd2w8MqtKXmAdj444TLIm9UX3ax';

@@ -19,3 +19,5 @@ env.NODE_ENV='production'
 env.REACT_APP_INTERCOM_APP_ID = 'q6foivp2';
 env.PUBLIC_URL = 'https://backoffice.staging.bsport.io';
 env.I18N_TRANSLATION_DOMAIN = '';
+
+env.REACT_APP_QUICKBOOKS_CLIENT_ID='ABuHQoP5mP22ZN6teCzIcZykd2w8MqtKXmAdj444TLIm9UX3ax';

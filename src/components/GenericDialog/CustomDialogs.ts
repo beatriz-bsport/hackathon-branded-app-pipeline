@@ -14,3 +14,13 @@ export const showDeleteDialog = async (title: string, text: string) => {
     },
   ]);
 };
+
+export const showInformativeDialog = async (title: string, text: string) => {
+  return showGenericDialog(title, text, [
+    {
+      label: i18n.t('common:close'),
+      key: false,
+      color: 'primary',
+    },
+  ]);
+};

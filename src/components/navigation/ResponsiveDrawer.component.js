@@ -867,6 +867,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             text: t('backofficeMenu.settings.partnership'),
           },
           {
+            to: '/settings/quickbooks',
+            dense: 'true',
+            text: t('backofficeMenu.settings.quickbooks'),
+          },
+          {
             to: '/settings/active-campaign',
             dense: 'true',
             text: t('backofficeMenu.settings.active_campaign'),

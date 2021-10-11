@@ -26,6 +26,7 @@ import {
   enablePlannedPaymentEvent as enablePlannedPaymentEventAPI,
   registerNowPlannedPaymentEvent as registerNowPlannedPaymentEventAPI,
   schedulePayment as schedulePaymentAPI,
+  sendInvoiceToQuickbooks as sendInvoiceToQuickbooksAPI,
 } from './api';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
@@ -263,6 +264,45 @@ export function fetchSpecificInvoice(
   };
 }
 
+export const sendInvoiceToQuickbooksActions = {
+  isLoading: createAction('INVOICE/QUICKBOOKS/LOADING'),
+  error: createAction('INVOICE/QUICKBOOKS/ERROR'),
+  success: createAction('INVOICE/QUICKBOOKS/SUCCESS'),
+};
+export function sendInvoiceToQuickbooks(
+  invoiceId: string,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(sendInvoiceToQuickbooksActions.isLoading(true));
+    dispatch(sendInvoiceToQuickbooksActions.error(null));
+
+    try {
+      const response = await sendInvoiceToQuickbooksAPI(invoiceId);
+      const invoice = response.data;
+      if (options && options.onSuccess) {
+        options.onSuccess(invoice);
+      }
+      dispatch(snackbarSuccess('invoice.sendToQuickbooks.success'));
+      dispatch(sendInvoiceToQuickbooksActions.success(invoice));
+    } catch (err) {
+      dispatch(sendInvoiceToQuickbooksActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+      if (err?.response?.data?.error_code) {
+        dispatch(
+          snackbarError(
+            `invoice.sendToQuickbooks.errors.${err.response.data.error_code}`,
+          ),
+        );
+      } else {
+        dispatch(snackbarError('invoice.sendToQuickbooks.error'));
+      }
+    }
+    dispatch(sendInvoiceToQuickbooksActions.isLoading(false));
+  };
+}
 export function fetchByInvoiceItem(
   buyable_item_identifier: number,
   buyable_item_id: number,

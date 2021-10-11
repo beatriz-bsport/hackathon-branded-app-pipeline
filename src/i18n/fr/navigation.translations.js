@@ -86,6 +86,7 @@ exports.default = {
       personalization: 'Personnalisation',
       webhook: 'Webhook',
       partnership: 'Partenariat',
+      quickbooks: 'QuickBooks',
       active_campaign: 'ActiveCampaign',
       settings: 'Paramètres',
       platform_billing: 'Abonnement bsport',

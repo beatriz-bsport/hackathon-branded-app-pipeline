@@ -48,6 +48,8 @@ export type Theme = {
   vod_providers: Array<number>;
   show_workshops_customer: boolean;
   enable_multi_localization: boolean;
+  is_quickbook_integration_allowed: boolean;
+  is_quickbook_integration_enabled: boolean;
 };
 
 export type ThemeState = {

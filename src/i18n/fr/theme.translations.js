@@ -254,4 +254,12 @@ exports.default = {
       confirm: 'Créer un formulaire',
     },
   },
+  quickbooks: {
+    title: 'QuickBooks',
+    confirmDialog: {
+      title: 'QuickBooks Connection',
+      text:
+        'Etes-vous sur de vouloir vous autoriser Bsport à accéder à votre application ?',
+    },
+  },
 };

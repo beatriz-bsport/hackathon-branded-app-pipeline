@@ -30,6 +30,7 @@ import PaymentMethodSettings from './PaymentMethodSettings/PaymentMethodSettings
 import MarketplaceSettings from './MarketplaceSettings.page';
 import FormsConfiguration from './FormsConfiguration.pages';
 import WidgetGeneratorPage from './WidgetGenerator.page';
+import QuickBookPage from './QuickBooks.page';
 
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -109,6 +110,7 @@ export const Settings = (props: Props) => {
           component={WebhookConfigurationPage}
         />
         <Route exact path="/settings/partnership" component={PartnershipPage} />
+        <Route exact path="/settings/quickbooks" component={QuickBookPage} />
         <Route
           exact
           path="/settings/active-campaign"

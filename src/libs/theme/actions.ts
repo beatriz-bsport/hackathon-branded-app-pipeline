@@ -16,7 +16,10 @@ export const themeUpdate = {
   isLoading: createAction('THEME/UPDATE/IS_LOADING'),
 };
 
-export function fetchCompanyTheme(companyId?: number, options: OptionCallback) {
+export function fetchCompanyTheme(
+  companyId?: number,
+  options?: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(themeDetail.isLoading(true));
     dispatch(themeDetail.error(null));

@@ -169,4 +169,19 @@ exports.default = {
       'Si vous disposez de plusieurs studios appartenants à différentes raisons sociales, vous pouvez les regrouper ici par groupe de facturation. Les groupes de facturations apparaitront sur vos rapports pour relier plus facilement chaque facture à la bonne raison sociale.',
     header: 'Groupes de facturation',
   },
+  quickbooks: {
+    title: 'QuickBooks',
+    enable: "Activer l'intégration Quickbooks",
+    submit: 'Sauvegarder',
+    explainEnable:
+      'Transférer toutes vos factures directement sur QuickBooks. Le transfert de factures se fera toutes les 24h.',
+    buttonConnect: 'Se connecter à Quickbooks',
+    buttonReConnect: 'Rafraîchir ma connexion',
+    buttonRevoke: 'Désactiver Quickbooks',
+    confirmDialog: {
+      title: 'QuickBooks Connection',
+      text:
+        'Etes-vous sur de vouloir vous autoriser Bsport à accéder à votre application ?',
+    },
+  },
 };

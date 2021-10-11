@@ -22,6 +22,7 @@ import {
   enablePlannedPaymentEventActions,
   registerNowPlannedPaymentEventActions,
   schedulePaymentActions,
+  sendInvoiceToQuickbooksActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -83,7 +84,10 @@ const initialState = Immutable({
     error: null,
     data: null,
   },
-
+  quickbooks: {
+    loading: false,
+    error: null,
+  },
   quickInvoices: [],
   quickInvoiceLoading: false,
 });
@@ -324,6 +328,12 @@ export default handleActions(
         },
         { deep: true },
       );
+    },
+    [sendInvoiceToQuickbooksActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['quickbooks', 'loading'], payload);
+    },
+    [sendInvoiceToQuickbooksActions.error]: (state, { payload }) => {
+      return state.setIn(['quickbooks', 'error'], payload);
     },
   },
   initialState,

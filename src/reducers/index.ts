@@ -64,6 +64,7 @@ import zoomAppReducers from '../libs/zoom-app/reducers';
 
 import pollReducers from '../libs/sign-up-form/reducers';
 import CustomFormReducer from '../libs/custom-form/reducers';
+import QuickbooksAppReducer from '../libs/quickbooks/reducers';
 
 import { BackgroundTaskState } from '../libs/background-task/types';
 import { BookingsState } from '../libs/booking/types';
@@ -99,6 +100,8 @@ import { SpotSchedulingState } from '../libs/spot-scheduling/types';
 import { TagState } from '../libs/tag/types';
 import { ThemeState } from '../libs/theme/types';
 import { VideoState } from '../libs/video/types';
+import { QuickbooksState } from '../libs/quickbooks/types';
+
 import actionTypes from '../actions/auth.types';
 import userPreference from '../libs/user-preference/reducers';
 import { UserPreference } from '../libs/user-preference/types';
@@ -169,6 +172,7 @@ const rootReducer = (history: any) =>
     customForm: CustomFormReducer,
     plugin,
     userPreference,
+    quickbooks: QuickbooksAppReducer,
   });
 
 export type RootState = {
@@ -235,6 +239,7 @@ export type RootState = {
   waitingList: any;
   webhook: any;
   zoomApp: any;
+  quickbooks: QuickbooksState;
 };
 
 export default (history: any) => (state: any, action: any) => {

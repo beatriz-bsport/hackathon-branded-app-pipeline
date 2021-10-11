@@ -33,6 +33,12 @@ export async function fetchSpecific(invoiceId: string) {
   return getAuth(`${API_V1_URI}/payment/invoices/${invoiceId}/`);
 }
 
+export async function sendInvoiceToQuickbooks(invoiceId: string) {
+  return postAuth(
+    `${API_V1_URI}/payment/invoices/${invoiceId}/send_invoice_to_quickbooks/`,
+  );
+}
+
 export async function fetchByInvoiceItem(
   buyable_item_identifier: number,
   object_id: number,

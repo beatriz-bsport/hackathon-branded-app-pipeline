@@ -20,12 +20,16 @@ import {
   fetchInvoiceList,
   fetchInvoiceItemList,
   fetchPaymentList,
+  sendInvoiceToQuickbooks,
+  fetchSpecificInvoice,
 } from '../../libs/invoice/actions';
 
 import type { Invoice } from '../../libs/invoice/types';
 import withTitle from '../../hocs/with-title.hoc';
 
 import InvoiceTable from '../../libs/invoice/components/InvoiceTable.component';
+import themeSelectors from '../../libs/theme/selectors';
+import type { Theme as CompanyTheme } from '../../libs/theme/types';
 
 type Props = {
   push: (path: string) => void,
@@ -39,6 +43,9 @@ type Props = {
   fetchInvoiceItemList: (params: any) => void,
   nestedDataLoading: boolean,
   page: number,
+  companyTheme: CompanyTheme,
+  quickbooksLoading: boolean,
+  sendInvoiceToQuickbooks: (uuid: string) => void,
 };
 
 export class InvoiceList extends Component<Props> {
@@ -63,6 +70,9 @@ export class InvoiceList extends Component<Props> {
     if (!this.props.invoiceList) {
       return <LinearProgress />;
     }
+    const quickbooksIntegrated =
+      this.props.companyTheme.is_quickbook_integration_allowed &&
+      this.props.companyTheme.is_quickbook_integration_enabled;
     return (
       <div className={this.props.classes.container}>
         <InvoiceTable
@@ -77,6 +87,11 @@ export class InvoiceList extends Component<Props> {
           page={this.props.page}
           onClickInvoice={this.pushToInvoiceDetail}
           finalizeInvoice={this.props.finalizeInvoice}
+          quickbooksIntegrated={quickbooksIntegrated}
+          sendInvoiceToQuickbooks={(uuid: string) =>
+            this.props.sendInvoiceToQuickbooks(uuid)
+          }
+          quickbooksLoading={this.props.quickbooksLoading}
         />
       </div>
     );
@@ -98,8 +113,10 @@ export default compose(
       count: state.invoice.list.count,
       page: state.invoice.list.page,
       loading: state.invoice.list.loading,
+      quickbooksLoading: state.invoice.quickbooks.loading,
       nestedDataLoading:
         state.invoice.invoiceItem.loading || state.invoice.payment.loading,
+      companyTheme: themeSelectors.getTheme(state),
     }),
     {
       push: routerPush,
@@ -107,6 +124,8 @@ export default compose(
       fetchInvoiceList,
       fetchInvoiceItemList,
       fetchPaymentList,
+      sendInvoiceToQuickbooksAction: sendInvoiceToQuickbooks,
+      fetchSpecificInvoiceAction: fetchSpecificInvoice,
     },
   ),
   withHandlers({
@@ -120,6 +139,16 @@ export default compose(
           if (options && options.onSuccess) options.onSuccess();
         },
       }),
+  }),
+  withHandlers({
+    sendInvoiceToQuickbooks: ({
+      sendInvoiceToQuickbooksAction,
+      fetchSpecificInvoiceAction,
+    }) => (uuid) => {
+      sendInvoiceToQuickbooksAction(uuid, {
+        onSuccess: () => fetchSpecificInvoiceAction(uuid),
+      });
+    },
   }),
   withTitle(({ t }: { t: TFunction }) => t('titles:invoice.invoiceList')),
 )(InvoiceList);

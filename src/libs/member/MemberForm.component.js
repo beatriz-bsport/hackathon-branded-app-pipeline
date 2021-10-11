@@ -977,7 +977,7 @@ export default compose(
         phone: undefined,
         emergency_contact: '',
         gender: 'X',
-        birthday: undefined,
+        birthday: null,
         membership_ID: '',
         barcode: '',
         date_joined: Moment().format(DATE_FORMAT),

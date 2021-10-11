@@ -5,6 +5,7 @@ import {
   basketCountActions,
   bookingCountActions,
   authenticationStatusActions,
+  memberTagActions,
 } from './actions';
 
 export type BridgeState = {
@@ -23,6 +24,11 @@ export type BridgeState = {
     count: number | null,
     loading: boolean,
     error: Error | null,
+  },
+  tag: {
+    loading: boolean,
+    error: Error | null,
+    tag_list: Array<number>,
   },
 };
 
@@ -43,6 +49,11 @@ export const initialState: Immutable.Immutable<BridgeState> = Immutable<BridgeSt
       count: null,
       loading: false,
       error: null,
+    },
+    tag: {
+      loading: false,
+      error: null,
+      tag_list: [],
     },
   },
 );
@@ -87,6 +98,18 @@ export default handleActions<Immutable.Immutable<BridgeState>>(
     },
     [bookingCountActions.error.toString()]: (state, { payload }: any) => {
       return state.setIn(['booking', 'error'], payload);
+    },
+    [memberTagActions.isLoading.toString()]: (state, { payload }: any) => {
+      return state.setIn(['tag', 'loading'], payload);
+    },
+    [memberTagActions.error.toString()]: (state, { payload }: any) => {
+      return state.setIn(['error', 'error'], payload);
+    },
+    [memberTagActions.success.toString()]: (state, { payload }: any) => {
+      return state.setIn(
+        ['tag', 'tag_list'],
+        [...payload.data.map((tag) => tag.id)],
+      );
     },
   },
   initialState,

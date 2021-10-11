@@ -59,6 +59,18 @@ export function bridgeRequestLogout() {
   };
 }
 
+export function bridgeRequestMemberTag() {
+  return async (dispatch: any, getState: () => RootState) => {
+    if (getState().bridge.authentication.loading) return;
+    dispatch(memberTagActions.isLoading(true));
+    dispatch(memberTagActions.error(null));
+    setTimeout(
+      () => sendBridgeMessage(WidgetMessageType.REQUEST_MEMBER_TAG),
+      3000,
+    );
+  };
+}
+
 // Internal Actions to mutate the reducer
 // --------------------------------------
 export const authenticationStatusActions = {
@@ -79,6 +91,11 @@ export const basketCountActions = {
   error: createAction('BRIDGE/BASKET_COUNT/ERROR'),
 };
 
+export const memberTagActions = {
+  success: createAction('MEMBER_TAG/GET/SUCCESS'),
+  isLoading: createAction('MEMBER_TAG/GET/LOADING'),
+  error: createAction('MEMBER_TAG/GET/ERROR'),
+};
 // Second part: how to handle messages
 // -----------------------------------
 
@@ -123,6 +140,11 @@ export const handleBridgeMessage = (eventData: any) => (dispatch: any) => {
       dispatch(snackbarSuccess('snackbar:consumerPass.success'));
       break;
 
+    case WidgetMessageType.REQUEST_MEMBER_TAG:
+      dispatch(memberTagActions.success(eventData));
+      dispatch(memberTagActions.isLoading(false));
+      dispatch(memberTagActions.error(null));
+      break;
     default:
       break;
   }

@@ -251,7 +251,6 @@ export class MemberDetailPage extends Component<Props, State> {
     if (!member || (memberLoading && member.id !== this.props.id)) {
       return <LinearProgress />;
     }
-
     return (
       <Grid container direction="row" spacing={2}>
         <Grid item md={6} xs={12}>
@@ -268,6 +267,12 @@ export class MemberDetailPage extends Component<Props, State> {
             emailListLoading={this.props.emailListLoading}
             emailDetailLoading={this.props.emailDetailLoading}
             sendCommunication={this.props.sendCommunication}
+            showVaccinationStatus={
+              this.props.managerFormConfig?.poll_fields?.vaccination_status
+                ?.show_on_creation &&
+              this.props.managerFormConfig?.poll_fields?.vaccination_status
+                ?.show_on_edition
+            }
           />
           <MemberBillingProblemCard
             invoiceLoading={this.props.invoiceLoading}

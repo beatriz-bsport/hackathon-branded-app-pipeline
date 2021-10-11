@@ -65,6 +65,8 @@ type Props = {
   emailDetailLoading: boolean,
   emailDetails: Array<any>,
   sendCommunication: (any) => void,
+
+  showVaccinationStatus: boolean,
 };
 
 export class MemberSummaryCard extends Component<Props> {
@@ -182,7 +184,9 @@ export class MemberSummaryCard extends Component<Props> {
             emergency_contact={member.emergency_contact}
           />
         )}
-        <VaccinationStatus vaccinationStatus={member.vaccination_status} />
+        {this.props.showVaccinationStatus && (
+          <VaccinationStatus vaccinationStatus={member.vaccination_status} />
+        )}
         {this.state.displayMailDialog && (
           <CommunicationDialog
             getEmails={this.props.getEmails}

@@ -50,6 +50,8 @@ type Props = {
 
   t: TFunction,
   classes: Object,
+
+  showVaccinationStatus: boolean,
 };
 
 export const OrderDetail = (props: Props) => {
@@ -63,6 +65,7 @@ export const OrderDetail = (props: Props) => {
     goToMember,
     sendCommunication,
   } = props;
+
   return (
     <div>
       <div style={{ width: '100%' }}>
@@ -191,6 +194,7 @@ export const OrderDetail = (props: Props) => {
               emailDetails={props.emailDetails}
               emailListLoading={props.emailListLoading}
               emailDetailLoading={props.emailDetailLoading}
+              showVaccinationStatus={props.showVaccinationStatus}
             />
           ) : null}
         </Grid>

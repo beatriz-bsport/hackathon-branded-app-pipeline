@@ -17,6 +17,7 @@ type Props = {
   onClick?: () => void,
   firstBooking?: boolean,
   anonimize?: boolean,
+  showVaccinationStatus: boolean,
 };
 export const MemberMinimalListItem = (props: Props) => {
   if (!props.member) {
@@ -36,17 +37,24 @@ export const MemberMinimalListItem = (props: Props) => {
         ? `${props.member.phone || ''} ${props.member.email}` || ''
         : '';
   }
+  let Wrapper = (p) => <div>{p.children}</div>;
+  if (props.showVaccinationStatus)
+    Wrapper = (p) => (
+      <VaccinationBadge status={props.member.vaccination_status}>
+        {p.children}
+      </VaccinationBadge>
+    );
   return (
     <ListItem
       button={!!props.onClick}
       onClick={props.onClick ? () => props.onClick(props.member.id) : null}
     >
       <ListItemAvatar>
-        <VaccinationBadge status={props.member.vaccination_status}>
+        <Wrapper>
           <CreditMemberBadge credit={props.member.credit_account_balance}>
             <Avatar src={props.member.photo} />
           </CreditMemberBadge>
-        </VaccinationBadge>
+        </Wrapper>
       </ListItemAvatar>
       <ListItemText
         primary={props.member.name + (props.firstBooking ? ' ★' : '')}

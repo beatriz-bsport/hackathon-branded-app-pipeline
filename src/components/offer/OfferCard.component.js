@@ -55,6 +55,7 @@ type Props = {
   goToOfferManagement: (id: number) => void,
   onRestoreButtonClick: () => void,
   showOfferGender?: boolean,
+  showVaccinationStatus: boolean,
 };
 
 export class OfferCard extends Component<Props> {
@@ -365,6 +366,9 @@ export class OfferCard extends Component<Props> {
                             (m) => m.id === b.member,
                           )}
                           key={b.id}
+                          showVaccinationStatus={
+                            this.props.showVaccinationStatus
+                          }
                         />
                       ))}
                   </List>

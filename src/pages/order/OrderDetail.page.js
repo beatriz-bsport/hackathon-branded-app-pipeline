@@ -28,6 +28,8 @@ import {
 } from '../../libs/email-editor/actions';
 
 import type { OrderWithProducts } from '../../libs/order/types';
+import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
+import { SignUpFormConfigDict } from '../../libs/sign-up-form/types';
 
 type Props = {
   order: ?OrderWithProducts,
@@ -49,6 +51,8 @@ type Props = {
   emailDetailLoading: boolean,
 
   invoice: ?Invoice,
+
+  managerFormConfig: SignUpFormConfigDict,
 };
 
 export class OrderDetail extends Component<Props> {
@@ -96,6 +100,12 @@ export class OrderDetail extends Component<Props> {
           emailDetails={this.props.email_templates_details}
           emailListLoading={this.props.emailListLoading}
           emailDetailLoading={this.props.emailDetailLoading}
+          showVaccinationStatus={
+            this.props.managerFormConfig?.poll_fields?.vaccination_status
+              ?.show_on_creation &&
+            this.props.managerFormConfig?.poll_fields?.vaccination_status
+              ?.show_on_edition
+          }
         />
       </div>
     );
@@ -113,6 +123,7 @@ export default compose(
       email_templates_details: getEmailTemplatesDetail(state),
       emailListLoading: state.emailTemplate.isLoading,
       emailDetailLoading: state.emailTemplate.detail.isLoading,
+      managerFormConfig: getSignUpFormConfigurationDict(state),
     }),
     {
       fetchByQueryInvoice: fetchByQueryInvoiceAction,

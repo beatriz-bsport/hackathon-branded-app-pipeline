@@ -29,6 +29,7 @@ import {
   DateField,
 } from '../../components/forms';
 import AlertExistingUser from './AlertExistingUser.component';
+import { DATE_FORMAT } from '../../utils/datetime';
 import type { SignUpFormConfigDict } from '../sign-up-form/types';
 import {
   USER_STATUS_VALIDATION_WITH_USER_NOT_MEMBER_OF_COMPANY,
@@ -976,10 +977,10 @@ export default compose(
         phone: undefined,
         emergency_contact: '',
         gender: 'X',
-        birthday: null,
+        birthday: undefined,
         membership_ID: '',
         barcode: '',
-        date_joined: Moment(),
+        date_joined: Moment().format(DATE_FORMAT),
         accept_sms: true,
         accept_email: true,
         waiver: false,

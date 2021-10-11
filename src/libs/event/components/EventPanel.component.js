@@ -25,6 +25,7 @@ type Props = {
   page: number,
   onEventClick: (id: number) => void,
   eventList: Array<Event>,
+  extraFetchParams: any,
 };
 
 type State = {
@@ -37,6 +38,15 @@ export class SubscriptionEventPanel extends React.Component<Props, State> {
     actionFilterList: [],
     openFilters: null,
   };
+
+  componentDidUpdate(prevProps: Props) {
+    if (
+      prevProps.extraFetchParams?.object_id !==
+      this.props.extraFetchParams?.object_id
+    ) {
+      this.fetchEventPageFiltered(1, this.state.actionFilterList);
+    }
+  }
 
   updateFilters = (actionFilterList: Array<string>) => {
     this.setState({

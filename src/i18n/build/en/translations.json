@@ -4071,6 +4071,12 @@
                 "text": "If you have already entered video conferencing links manually on your sessions, they will be deleted and be replaced by automatically generated zoom links. Meetings already created on the ZOOM calendar must be manually deleted, they will be replaced by meetings created automatically.",
                 "title": "Zoom integration"
             }
+        },
+        "quickbooks": {
+            "confirmDialog": {
+                "title": "QuickBooks connection"
+            },
+            "title": "QuickBooks"
         }
     },
     "common": {
@@ -4899,6 +4905,19 @@
             "header": "Billing group",
             "helperText": "If you have several studios belonging to different companies, you can group them here by billing group. The billing groups will appear on your reports to easily link each invoice to the right company name.",
             "add": "Add a billing group"
+        },
+        "quickbooks": {
+            "confirmDialog": {
+                "text": "Are you sure that you want to allow BSPORT to access your application?",
+                "title": "QuickBook connection"
+            },
+            "buttonRevoke": "Deactivate QuickBooks",
+            "buttonReConnect": "Refresh connection",
+            "buttonConnect": "Log in to QuickBooks",
+            "explainEnable": "Upload all your invoices directly to QuickBooks every 24 hours.",
+            "submit": "Save",
+            "enable": "Activate the QuickBooks integration",
+            "title": "QuickBooks"
         }
     },
     "datetime": {
@@ -5586,7 +5605,8 @@
                 "date": "Invoice date",
                 "id": "Identifier",
                 "member": "Member",
-                "invoiceType": "Type"
+                "invoiceType": "Type",
+                "quickbooks": "QuickBooks"
             },
             "actions": {
                 "goToInvoice": "See invoice"
@@ -5748,6 +5768,38 @@
             "cancel": "Cancel",
             "content": "Attention: you're about to bill a pass to a member that doesn't possess the necessary tags. Are you sure that you want to continue with this billing anyway? ",
             "title": "Information"
+        },
+        "quickbooks": {
+            "send": {
+                "errors": {
+                    "title": "Error while sending your invoice",
+                    "934006": "This invoice has already been saved to QuickBooks",
+                    "934005": "Your invoice can't be sent to QuickBooks",
+                    "934004": "Error while sending an unpaid invoice to QuickBooks",
+                    "934003": "Error while sending an incomplete invoice to QuickBooks",
+                    "934002": "Error while sending a canceled an invoice to QuickBooks",
+                    "934001": "Error while creating invoice without associated items",
+                    "934000": "This invoice lacks information to be created on QuickBooks",
+                    "933102": "Error when creating the invoice on QuickBooks",
+                    "933101": "Error while associating the member to the invoice",
+                    "933100": "Error while associating the member to the invoice",
+                    "933000": "The member associated to this invoice doesn't have the required information to be registered with QuickBooks",
+                    "932100": "Error while accessing your QuickBooks information",
+                    "932001": "Your account is no longer authenticated on BSPORT",
+                    "932000": "Your account is no longer authenticated on BSPORT",
+                    "931101": "QuickBooks can't send us your data",
+                    "931100": "Error while updating authentication keys",
+                    "931004": "You've not set up your QuickBooks application",
+                    "931003": "Authentication keys have expired",
+                    "931002": "Authentication keys have expired",
+                    "931001": "Error authenticating to QuickBooks",
+                    "931000": "Error authenticating to QuickBooks"
+                }
+            },
+            "invoice": {
+                "sendToQuickbooks": "The invoice has been transferred to QuickBooks",
+                "onQuickbooks": "Transferred"
+            }
         }
     },
     "coach": {
@@ -8833,6 +8885,34 @@
                 "error": {
                     "unAuthorizedEstablishmentModification": "Only Admins can modify billing groups"
                 }
+            },
+            "sendToQuickbooks": {
+                "errors": {
+                    "title": "Error while sending your invoice",
+                    "934006": "This invoice has already been saved to QuickBooks",
+                    "934005": "Your invoice can't be sent to QuickBooks",
+                    "934004": "Error while sending an unpaid invoice to QuickBooks",
+                    "934003": "Error while sending an incomplete invoice to QuickBooks",
+                    "934002": "Error while sending a canceled an invoice to QuickBooks",
+                    "934001": "Error while creating invoice without associated items",
+                    "934000": "The invoice lacks information to be created on QuickBooks",
+                    "933102": "Error when creating the invoice on QuickBooks",
+                    "933101": "Error while associating the member to the invoice",
+                    "933100": "Error while associating the member to the invoice",
+                    "933000": "The member associated to this invoice doesn't have the required information to be registered with QuickBooks",
+                    "932100": "Error while accessing your QuickBooks information",
+                    "932001": "Your account is no longer authenticated on BSPORT",
+                    "932000": "Your account is no longer authenticated on BSPORT",
+                    "931101": "QuickBooks is having errors sending us your data",
+                    "931100": "Error while updating authentication keys",
+                    "931004": "You've not set up your QuickBooks application",
+                    "931003": "Authentication keys have expired",
+                    "931002": "Authentication keys have expired",
+                    "931001": "Error authenticating to QuickBooks",
+                    "931000": "Error authenticating to QuickBooks"
+                },
+                "error": "Error while transferring your invoice to QuickBooks",
+                "success": "Your invoice has been transferred to QuickBooks"
             }
         },
         "privateConsumerPass": {
@@ -9131,6 +9211,16 @@
             "customError": {
                 "3": "Error while adding another notification rule at the same time"
             }
+        },
+        "quickbooks": {
+            "revoke": {
+                "error": "Unable to connect your QuickBooks account",
+                "success": "Your Quickbooks account has been disconnected"
+            },
+            "create": {
+                "error": "Unable to connect your QuickBooks account",
+                "success": "Your Quickbooks account is now authenticated"
+            }
         }
     },
     "navigation": {
@@ -9158,7 +9248,8 @@
                 "marketplaceSettings": "MarketPlace",
                 "widget": "Widget",
                 "paymentMethod": "Payment methods",
-                "forms": "Sign up form"
+                "forms": "Sign up form",
+                "quickbooks": "QuickBooks"
             },
             "pass": "Passes",
             "goBack": "Back",

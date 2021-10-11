@@ -20,11 +20,12 @@ import video from 'bsport-saas/src/libs/video/reducers';
 import playlist from 'bsport-saas/src/libs/playlist/reducers';
 import category from 'bsport-saas/src/libs/category/reducers';
 import subscription from 'bsport-saas/src/libs/subscription/reducers';
-
+import tag from 'bsport-saas/src/libs/tag/reducers';
 import { PrivateServiceState } from 'bsport-saas/src/libs/private-service/types';
 import { CoachState } from 'bsport-saas/src/libs/associated-coach/types';
 import { ThemeState } from 'bsport-saas/src/libs/theme/types';
 import { createBrowserHistory } from 'history';
+import { TagState } from 'bsport-saas/src/libs/tag/types';
 import widget, { WidgetState } from './widget';
 import modal, { ModalState } from '../libs/modal/reducers';
 import bridge, { BridgeState } from '../libs/bridge/reducers';
@@ -54,6 +55,7 @@ const reducer = (history: ReturnType<typeof createBrowserHistory>) =>
     subscription,
     modal,
     bridge,
+    tag,
   });
 
 export interface RootState {
@@ -79,6 +81,7 @@ export interface RootState {
   widget: WidgetState;
   modal: ModalState;
   bridge: BridgeState;
+  tag: TagState;
 }
 
 export default (history: ReturnType<typeof createBrowserHistory>) => (

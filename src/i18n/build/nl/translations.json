@@ -140,7 +140,7 @@
             "de": "Duits"
         },
         "subscription": {
-            "isEmpty": "Momenteel bezig je nog geen abonnement."
+            "isEmpty": "Momenteel bezit je nog geen abonnement."
         }
     },
     "notificationRule": {

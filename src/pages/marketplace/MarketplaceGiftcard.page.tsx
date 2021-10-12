@@ -24,6 +24,7 @@ const styles = (theme: Theme) =>
 type OwnProps = {
   title: string;
   companyId: number;
+  goToGiftcardCheckout: (id: number, companyId: number) => void;
 };
 type State = {};
 
@@ -48,7 +49,7 @@ export class MarketplaceGiftcardList extends Component<Props, State> {
     const { classes } = this.props;
     return (
       <div className={classes.container}>
-        <Grid container spacing={1}>
+        <Grid container spacing={4}>
           {this.props.giftcardList.map((giftcard) => (
             <Grid key={giftcard.id} item xs={12} sm={6} md={4} lg={3}>
               <MarketplaceGiftcardItem
@@ -70,13 +71,18 @@ const connector = connect(
   }),
   {
     fetchGiftcardList,
-    goToGiftcardCheckout: (id: number, companyId: number) =>
-      push(`/checkout/${companyId}/giftcard/${id}`),
   },
 );
 
-export default compose(
+const marketplaceConnector = connect(null, {
+  goToGiftcardCheckout: (id: number, companyId: number) =>
+    push(`/checkout/${companyId}/giftcard/${id}`),
+});
+
+export const MarketplaceGiftcardBase = compose(
   withStyles(styles),
   withTranslation(['giftcard']),
   connector,
 )(MarketplaceGiftcardList);
+
+export default compose(marketplaceConnector)(MarketplaceGiftcardBase);

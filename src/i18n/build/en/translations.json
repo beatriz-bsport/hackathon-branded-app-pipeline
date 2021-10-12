@@ -2104,7 +2104,8 @@
             "logoff": "Logout",
             "myVideos": "Video On Demand",
             "pick_a_language": "Select a language",
-            "automaticLanguage": "Automatically detect the language"
+            "automaticLanguage": "Automatically detect the language",
+            "giftcard": "Gift cards"
         },
         "pack": {
             "titlePaymentPack": "Group activities",
@@ -4074,7 +4075,8 @@
         },
         "quickbooks": {
             "confirmDialog": {
-                "title": "QuickBooks connection"
+                "title": "QuickBooks connection",
+                "text": "Are you sure that you want to allow BSPORT to access your application?"
             },
             "title": "QuickBooks"
         }
@@ -4879,7 +4881,8 @@
                 "workshop": "Workshops",
                 "calendar": "Calendar",
                 "newsletter": "Newsletter",
-                "loginButton": "Login button"
+                "loginButton": "Login button",
+                "giftcard": "Gift card"
             },
             "preview": "Preview",
             "saveButton": "Save",
@@ -5256,7 +5259,15 @@
         "hasOneOrMoreOption": "You are already on the waiting-list",
         "method": {
             "CB": "Credit card",
-            "CREDIT_ACCOUNT": "Payment in studio available"
+            "CREDIT_ACCOUNT": "Payment in studio available",
+            "GIROPAY": "Giropay",
+            "EPS": "EPS",
+            "IDEAL": "iDEAL",
+            "SOFORT": "Sofort",
+            "BANCONTACT": "Bancontact",
+            "SEPA": "SEPA",
+            "CHECK": "Check",
+            "CASH": "Cash"
         },
         "order": {
             "success": "Your payment has been successfully registered"
@@ -5542,7 +5553,8 @@
                 "9": "Appointment pass",
                 "3": "Credit",
                 "2": "Webshop",
-                "1": "Passes"
+                "1": "Passes",
+                "11": "Gift card"
             },
             "discount": "Discount"
         },
@@ -7364,7 +7376,8 @@
             "privateConsumerPass": "Appointments passes",
             "relation": "Relationships",
             "vod": "Video On Demand",
-            "form": "Forms"
+            "form": "Forms",
+            "giftcard": "Gift card"
         },
         "row": {
             "headers": {
@@ -9318,7 +9331,8 @@
             "cashBookTooltip": "Ledger",
             "franchiseConnectedAs": "You're currently connected as: {{name}}",
             "redirecting": "You'll be redirected to your page.",
-            "backToFranchiseWorskpace": "Return to your Master Account"
+            "backToFranchiseWorskpace": "Return to your Master Account",
+            "giftcard": "Gift cards"
         },
         "deprecatedNavigator": {
             "navigatorError": "It seems that your browser is too old to use our services. You may encounter errors, we recommend that you download a more recent version, in particular : ",
@@ -9919,6 +9933,153 @@
             "franchiseEmails": "My templates",
             "emptyStateDescription": "Select a template",
             "emptyStateTitle": "Email preview"
+        }
+    },
+    "giftcard": {
+        "backgroundImage": {
+            "dialog": {
+                "explain": "Add custom images to allow your members to make their gift cards more personal. During the creation of the gift card, members will be able to choose a background image.",
+                "actions": {
+                    "close": "Close"
+                },
+                "title": "Custom images"
+            }
+        },
+        "form": {
+            "giftcard": {
+                "manager_only": {
+                    "label": "Unavailable for members"
+                },
+                "unlimited": {
+                    "label": "Unlimited"
+                },
+                "expiration_days": {
+                    "helperText": "The validity of the gift card starts on the sending date of the invitation.",
+                    "label": "Validity in days"
+                },
+                "price": {
+                    "helperText": "This will define the value of the gift card.",
+                    "label": "Selling price"
+                },
+                "section": {
+                    "parameters": {
+                        "title": "Settings"
+                    }
+                },
+                "description": {
+                    "label": "Beschrijving"
+                },
+                "available_payment_method_identifiers": {
+                    "label": "Available payment methods",
+                    "helperText": " "
+                },
+                "name": {
+                    "label": "Name"
+                },
+                "title": "Gift card",
+                "actions": {
+                    "submit": "Confirm",
+                    "cancel": "Close"
+                }
+            }
+        },
+        "giftcard": {
+            "delete": {
+                "dialog": {
+                    "actions": {
+                        "close": "Close",
+                        "delete": "Delete"
+                    },
+                    "content": "Are you sure that you want to delete this gift card? Members that previously purchased it, will still be able to use it.",
+                    "title": "Delete"
+                }
+            },
+            "detail": {
+                "availablePaymentMethods": "Available payment methods",
+                "expirationDate": "Validity before expiration: {{ expiration_days }} day(s)"
+            },
+            "configurationTitle": "Gift card"
+        },
+        "link": {
+            "copyLink": "Copy the direct link to the gift card"
+        },
+        "consumerGiftcard": {
+            "form": {
+                "footer": "The gift card will be sent to the recipient on {{- date_send }}. It'll be valid for {{ expiration_days }} after sending this message.",
+                "actions": {
+                    "submit": "Add to basket"
+                },
+                "date_send": {
+                    "label": "Date of sending the email"
+                },
+                "recipients": {
+                    "label": "Recipient's email"
+                },
+                "message_content": {
+                    "label": "Custom message"
+                },
+                "message_is_from": {
+                    "label": "From "
+                },
+                "message_is_for": {
+                    "label": "To the attention of "
+                },
+                "name": {
+                    "label": "Gift card's name"
+                }
+            },
+            "previewPlaceholder": {
+                "message_content": "[Custom message]",
+                "message_is_for": "[Recipient's name]",
+                "message_is_from": "[Buyer's name]",
+                "name": "[Gift card name]"
+            },
+            "sendTo": "Resend the invitation",
+            "notAttributedYet": "Not validated",
+            "expiresOn": "Expires on {{- d }}",
+            "willInviteOn": "Invitation has been sent on {{- d }}",
+            "invitedOn": "Sent on {{- d }}",
+            "value": "Value",
+            "isFrom": "From ",
+            "isFor": "To the attention of ",
+            "isEmpty": "There's no gift card to display.",
+            "linkedInvoice": "Associated invoice",
+            "list": {
+                "myGifted": "Received gift cards",
+                "myPurchases": "Purchased gift cards"
+            },
+            "invitationForm": {
+                "actions": {
+                    "submit": "Send",
+                    "close": "Close"
+                },
+                "content": "You can change the recipient of the gift card. Attention: it can only be used by 1 user.",
+                "title": "Send an invitation email",
+                "activationCodeLink": "The invitation email has been sent and can no longer be edited. If the correct recipient didn't receive the message, you can send this link: "
+            },
+            "activation": {
+                "alreadyActivated": "This gift card has already been used.",
+                "activate": "Activate my gift card",
+                "content3": "If you've logged in with the incorrect account, we're kindly requesting you to not validate this gift card if it isn't intended for you and to reconnect with the correct account.",
+                "content2": "The gift card will automatically be added as a payment method to your basket. All gift card related information is stored in your profile.",
+                "content1": "Your gift card of {{price}} is compatible with all of our store's products and has no expiration date. Enjoy!",
+                "subtitle": "Looks like someone wanted to surprise you.",
+                "title": "Someone wanted to make you happy!"
+            }
+        },
+        "list": {
+            "isEmpty": "There are no gift cards to display.",
+            "archivedTitle": "Archived gift cards",
+            "unavailableForSaleTitle": "Unavailable gift cards",
+            "activeTitle": "Available gift cards",
+            "explainIfEmpty": "Gift cards allow your members to share offers with their loved ones and to increase your studio's reach.",
+            "actions": {
+                "create": "Add a gift card"
+            },
+            "addBackgroundImage": "Add an image",
+            "visibility": "Unavailable",
+            "unlimited": "Unlimited",
+            "validity": "Valid for {{ duration }} day(s)"
         }
     }
 }

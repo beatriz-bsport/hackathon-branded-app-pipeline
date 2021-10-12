@@ -33,6 +33,8 @@ import {
   fromConfigToUrl,
   getMarketplaceRoute,
 } from '../../libs/marketplace/routing-utils';
+import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
+import { SignUpFormConfigDict } from '../../libs/sign-up-form/types';
 
 type Props = {
   timezone: string,
@@ -49,6 +51,7 @@ type Props = {
   private_booking_list: Array<PrivateBooking>,
   fetchPrivateBookings: ({ member: number }) => void,
   goToCalendar: (string, number) => void,
+  managerFormConfig: SignUpFormConfigDict,
 };
 
 export class ConsumerBooking extends React.Component<Props> {
@@ -75,6 +78,12 @@ export class ConsumerBooking extends React.Component<Props> {
         fetchPrivateBookings={this.props.fetchPrivateBookings}
         goToCalendar={this.props.goToCalendar}
         timezone={this.props.timezone}
+        showVaccinationStatus={
+          this.props.managerFormConfig?.poll_fields?.vaccination_status
+            ?.show_on_creation &&
+          this.props.managerFormConfig?.poll_fields?.vaccination_status
+            ?.show_on_edition
+        }
       />
     );
   }
@@ -94,6 +103,7 @@ export default compose(
       private_booking_list: getPrivateBookingListBase(state),
       privateBookingsLoading: state.privateService.privateBooking.loading,
       marketplaceSettings: state.marketplace.settings,
+      managerFormConfig: getSignUpFormConfigurationDict(state),
     }),
     {
       fetchBookingsAsConsumer: fetchBookingsAsConsumerAction,

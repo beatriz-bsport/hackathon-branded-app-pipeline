@@ -77,6 +77,7 @@ type Props = {
   discardBookingAttendance: () => void,
   spotSchedulingEnabled?: boolean,
   onClickChangeSpot: (booking: Booking) => void,
+  showVaccinationStatus: boolean,
 };
 
 const getPackDate = (consumerPack) => {
@@ -424,9 +425,16 @@ export class BookingItemForManager extends Component<Props, State> {
           creditColor = 'error';
         }
 
+        let Wrapper = (p) => <div>{p.children}</div>;
+        if (this.props.showVaccinationStatus)
+          Wrapper = (p) => (
+            <VaccinationBadge status={this.props.member.vaccination_status}>
+              {p.children}
+            </VaccinationBadge>
+          );
         return (
           <ListItemAvatar>
-            <VaccinationBadge status={this.props.member.vaccination_status}>
+            <Wrapper>
               <Badge
                 badgeContent={creditsFormatted}
                 color={creditColor}
@@ -434,7 +442,7 @@ export class BookingItemForManager extends Component<Props, State> {
               >
                 <Avatar src={this.props.member.photo} />
               </Badge>
-            </VaccinationBadge>
+            </Wrapper>
           </ListItemAvatar>
         );
       }

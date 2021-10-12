@@ -89,6 +89,8 @@ import CheckPermission from '../../role/components/CheckPermission.component';
 import { fetchAllCoachPaymentRules } from '../../coach-payment-rules/actions';
 import { CoachPaymentRuleByKindSelector } from '../../coach-payment-rules/selectors';
 import type { CoachPaymentRule } from '../../coach-payment-rules/types';
+import { getSignUpFormConfigurationDict } from '../../sign-up-form/selectors';
+import { SignUpFormConfigDict } from '../../sign-up-form/types';
 
 type Props = {
   offerId: number,
@@ -156,6 +158,8 @@ type Props = {
   fetchRoomBlueprints: () => void,
   fetchAllCoachPaymentRules: () => void,
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> },
+
+  managerFormConfig: SignUpFormConfigDict,
 };
 
 export class CalendarEventDetail extends React.Component<Props> {
@@ -220,6 +224,12 @@ export class CalendarEventDetail extends React.Component<Props> {
           updateTime={this.props.updatePrivateBookingDatetime}
           goToCoachCalendar={this.props.goToCoachCalendar}
           setIsUpdateCoachFormOpen={this.props.setIsUpdateCoachFormOpen}
+          showVaccinationStatus={
+            this.props.managerFormConfig?.poll_fields?.vaccination_status
+              ?.show_on_creation &&
+            this.props.managerFormConfig?.poll_fields?.vaccination_status
+              ?.show_on_edition
+          }
         />
       );
     }
@@ -476,6 +486,7 @@ const OfferEditorContainer = compose(
       metaActivities: getEnabledMetaActivities(state),
       roomBlueprints: getRoomBlueprints(state),
       coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
+      managerFormConfig: getSignUpFormConfigurationDict(state),
     }),
     {
       fetchSimilarOffers: fetchSimilarOffersAction,

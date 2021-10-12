@@ -58,6 +58,8 @@ type Props = {
   onClose: () => void,
   processing: boolean,
   billMemberPrivatePass: (memberId: number, privatePassId: number) => void,
+
+  showVaccinationStatus: boolean,
 };
 
 type State = {
@@ -285,7 +287,10 @@ export class PrivateBookingManagerForm extends React.Component<Props, State> {
             onError={console.error}
             format="YYYY/MM/DD HH:mm"
           />
-          <MemberMinimalListItem member={this.state.member} />
+          <MemberMinimalListItem
+            member={this.state.member}
+            showVaccinationStatus={this.props.showVaccinationStatus}
+          />
           <CoachInput
             required
             value={this.state.coachId}

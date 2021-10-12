@@ -35,6 +35,7 @@ type Props = {
   confirmBookingAttendance: (id: number) => void,
   spotSchedulingEnabled?: boolean,
   onClickChangeSpot: (booking: Booking) => void,
+  showVaccinationStatus: boolean,
 };
 
 export class BookingTable extends PureComponent<Props> {
@@ -97,6 +98,7 @@ export class BookingTable extends PureComponent<Props> {
             confirmBookingAttendance={() => confirmBookingAttendance(b.id)}
             spotSchedulingEnabled={this.props.spotSchedulingEnabled}
             onClickChangeSpot={onClickChangeSpot}
+            showVaccinationStatus={this.props.showVaccinationStatus}
           />
         ))}
       </List>

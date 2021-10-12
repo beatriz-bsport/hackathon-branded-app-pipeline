@@ -45,6 +45,7 @@ type Props = {
   updateTime: (string, OptionCallback) => void,
   setUpdateTimeForm: () => void,
   setIsUpdateCoachFormOpen: (boolean) => void,
+  showVaccinationStatus: boolean,
 };
 export const PrivateBookingCard = (props: Props) => {
   const { private_booking, loading } = props;
@@ -178,6 +179,7 @@ export const PrivateBookingCard = (props: Props) => {
       <MemberListItem
         member={private_booking.member}
         onClick={() => props.goToMember(private_booking.member.id)}
+        showVaccinationStatus={props.showVaccinationStatus}
       />
       {private_booking.coach ? (
         <CoachListItem

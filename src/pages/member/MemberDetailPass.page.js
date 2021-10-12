@@ -69,6 +69,8 @@ import type { ConsumerPaymentPack } from '../../libs/payment-packs/types';
 import type { ConsumerPaymentPackPenalty } from '../../libs/consumer-payment-pack/types';
 import type { Invoice } from '../../libs/invoice/types';
 import type { Booking } from '../../libs/booking/types';
+import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
+import { SignUpFormConfigDict } from '../../libs/sign-up-form/types';
 
 type Props = {
   member: ?Member,
@@ -155,6 +157,8 @@ type Props = {
   setFilterValue: (name: string, bool: Boolean) => void,
   updateFiltersSettings: (*) => void,
   userFiltersLoading: boolean,
+
+  managerFormConfig: SignUpFormConfigDict,
 };
 
 type State = {
@@ -371,6 +375,12 @@ export class MemberDetailPass extends Component<Props, State> {
                     ),
                 });
               }}
+              showVaccinationStatus={
+                this.props.managerFormConfig?.poll_fields?.vaccination_status
+                  ?.show_on_creation &&
+                this.props.managerFormConfig?.poll_fields?.vaccination_status
+                  ?.show_on_edition
+              }
             />
           ) : (
             <ClickOnConsumerPack classes={this.props.classes} />
@@ -492,6 +502,7 @@ export default compose(
       userFilters: state.dashboardSettings.managerFiltersSettings.data.filters,
       userFiltersLoading:
         state.dashboardSettings.managerFiltersSettings.loading,
+      managerFormConfig: getSignUpFormConfigurationDict(state),
     }),
     {
       goToInvoice: (uuid) => push(`/invoice/${uuid}`),

@@ -23,6 +23,8 @@ import SearchBar from '../components/SearchBar.component';
 import { search as searchActions } from '../actions';
 
 import withTitle from '../hocs/with-title.hoc';
+import { getSignUpFormConfigurationDict } from '../libs/sign-up-form/selectors';
+import { SignUpFormConfigDict } from '../libs/sign-up-form/types';
 
 type Props = {
   members: *[],
@@ -35,6 +37,7 @@ type Props = {
   t: TFunction,
   loading: boolean,
   openCreateMember: () => void,
+  managerFormConfig: SignUpFormConfigDict,
 };
 type State = {};
 
@@ -142,6 +145,12 @@ export class SearchResults extends Component<Props, State> {
               selected={selected}
               selectEntity={this.selectEntity}
               className={selected && !isLoadingMember ? classes.hidden : ''}
+              showVaccinationStatus={
+                this.props.managerFormConfig?.poll_fields?.vaccination_status
+                  ?.show_on_creation &&
+                this.props.managerFormConfig?.poll_fields?.vaccination_status
+                  ?.show_on_edition
+              }
             />
           </Paper>
         </div>
@@ -160,6 +169,7 @@ function mapStateToProps(state) {
     searchText: state.search.text,
     member: member && member.id === selectedId ? member : null,
     membersLoading: state.member.search.loading,
+    managerFormConfig: getSignUpFormConfigurationDict(state),
   };
 }
 

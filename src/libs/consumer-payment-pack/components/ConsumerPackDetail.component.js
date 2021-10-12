@@ -75,6 +75,8 @@ type Props = {
   requestRefund: (ConsumerPaymentPack, showCredit: boolean) => void,
 
   timezone: ?string,
+
+  showVaccinationStatus: boolean,
 };
 
 export function ConsumerPaymentPackDetail(props: Props) {
@@ -167,6 +169,7 @@ export function ConsumerPaymentPackDetail(props: Props) {
               confirmBookingAttendance={() =>
                 props.confirmBookingAttendance(b.id)
               }
+              showVaccinationStatus={props.showVaccinationStatus}
             />
           )}
         />

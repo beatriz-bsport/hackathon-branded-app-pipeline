@@ -48,6 +48,7 @@ type Props = {
   private_booking_list: Array<PrivateBooking>,
   goToCalendar: (string, number) => void,
   timezone: string,
+  showVaccinationStatus: boolean,
 };
 
 export const ConsumerBookingPage = (props: Props) => (
@@ -99,6 +100,7 @@ export const ConsumerBookingPage = (props: Props) => (
                 heading="date_start"
                 member={props.membership.id}
                 handleRevert={() => props.setBookingToCancel(b)}
+                showVaccinationStatus={props.showVaccinationStatus}
               />
             )}
           />

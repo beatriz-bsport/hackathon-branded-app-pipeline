@@ -254,7 +254,15 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
           {moment(this.state.date_start).tz(this.props.timezone).format('LLLL')}
         </DialogTitle>
         <div className={this.props.classes.innerDialog}>
-          <MemberMinimalListItem member={this.state.member} />
+          <MemberMinimalListItem
+            member={this.state.member}
+            showVaccinationStatus={
+              this.props.managerFormConfig?.poll_fields?.vaccination_status
+                ?.show_on_creation &&
+              this.props.managerFormConfig?.poll_fields?.vaccination_status
+                ?.show_on_edition
+            }
+          />
           <DateTimeForm
             timezone={this.props.timezone}
             value={this.state.date_start}

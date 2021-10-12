@@ -568,6 +568,12 @@ export class OfferManagement extends Component<Props, State> {
               this.props.onDeleteRecurrenceRuleBooking
             }
             onClickChangeSpot={this.onClickChangeSpot}
+            showVaccinationStatus={
+              this.props.managerFormConfig?.poll_fields?.vaccination_status
+                ?.show_on_creation &&
+              this.props.managerFormConfig?.poll_fields?.vaccination_status
+                ?.show_on_edition
+            }
           />
         </Grid>
         <Grid item xs={12} lg={6}>

@@ -100,6 +100,7 @@ type Props = {
   recurrentBookingItemPerPage: number,
   recurrentBookingCount: number,
   onClickChangeSpot: (booking: Booking) => void,
+  showVaccinationStatus: boolean,
 };
 
 type State = {
@@ -333,6 +334,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                         loading={this.props.memberSearchLoading}
                         renderListComponent={this.renderSearchedMember}
                         redirectToMember={permissions.member.retrieve}
+                        showVaccinationStatus={this.props.showVaccinationStatus}
                       />
                     )}
                   </PermissionContext>
@@ -379,6 +381,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                     onQuickInvoiceClick={this.props.addToQuickInvoicePanel}
                     spotSchedulingEnabled={!!this.props.offer.room_blueprint}
                     onClickChangeSpot={this.props.onClickChangeSpot}
+                    showVaccinationStatus={this.props.showVaccinationStatus}
                   />
                 )}
               </PermissionContext.Consumer>

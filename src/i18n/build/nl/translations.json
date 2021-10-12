@@ -616,7 +616,7 @@
                 "myOptions": "Reserveringen op de wachtlijst",
                 "myPastBookings": "Mijn eerdere reserveringen",
                 "myFutureBookings": "Volgende sessies",
-                "waitingSlot": "Gepauzeerd",
+                "waitingSlot": "In behandeling",
                 "confirmBooking": "Bevestigen",
                 "discardImpossibleExplain": "Weet je zeker dat je deze reservering wilt annuleren? Je annuleert te laat en je verliest je krediet(en).",
                 "discardPossibleExplain": "Weet je zeker dat je deze reservering wilt annuleren? Je krediet(en) worden vergoed.",
@@ -2031,8 +2031,8 @@
                 "note": {
                     "label": "Notitie"
                 },
-                "description": "{{ credits }} krediet - {{ note }}",
-                "description_plural": "{{ credits }} kredieten - {{ note }}",
+                "description": "{{ credits }} krediet(en) - {{ note }}",
+                "description_plural": "{{ credits }} krediet(en) - {{ note }}",
                 "price": {
                     "label": "Te verrekenen bedrag"
                 },
@@ -2334,12 +2334,12 @@
         "expirationDate": "Vervalt op",
         "never": "Nooit",
         "unlimitedCredits": "Onbeperkt",
-        "credits": "Krediet",
+        "credits": "Krediet(en)",
         "credits_plural": "Kredieten",
         "specifications": {
             "unlimitedCredits": "Onbeperkt",
             "price": "{{price, price}}",
-            "nbCredits": "{{ credits}} krediet",
+            "nbCredits": "{{ credits}} krediet(en)",
             "nbCredits_plural": "{{credits}} kredieten"
         },
         "availableOnFollowingSports": "Categorieën: ",
@@ -3372,7 +3372,8 @@
             "invoices": "Facturen en abonnementen",
             "contact": "Contact",
             "vod": "Video On Demand",
-            "form": "Formulieren"
+            "form": "Formulieren",
+            "giftcard": "Cadeaubon"
         },
         "forms": {
             "merge": {
@@ -3505,9 +3506,9 @@
             "section": {
                 "consumerPacks": "Mijn kaarten",
                 "contracts": "Abonnementen",
-                "paymentPacks": "Kaarten",
+                "paymentPacks": "Beschikbare kaarten",
                 "paymentCombos": "Promoties",
-                "contract": "Abonneren"
+                "contract": "Beschikbare abonnementen"
             },
             "option": {
                 "registerOption": "Op de wachtlijst inschrijven",
@@ -3593,7 +3594,7 @@
             "recurrentBooking": "Reserveringen",
             "notCancelled": "Geldig"
         },
-        "creditConsumed": "{{credit_consumed}} krediet",
+        "creditConsumed": "{{credit_consumed}} krediet(en)",
         "creditConsumed_plural": "{{credit_consumed}} kredieten",
         "actions": {
             "unregister": "Uitschrijven",
@@ -3786,7 +3787,7 @@
             },
             "similarOffer": {
                 "showMore": "Toon meer",
-                "empty": "Er zijn geen andere sessies.",
+                "empty": "Er zijn geen andere sessies om weer te geven.",
                 "title": "Meer sessies reserveren",
                 "selectAll": "Alles selecteren"
             },
@@ -4215,7 +4216,7 @@
                 "advanceTime": "Factuur vooraf betalen",
                 "postPone": "Factuur uitstellen",
                 "changeDate": "Wijzig de datum",
-                "showInvoice": "Factuur tonen",
+                "showInvoice": "Toon factuur",
                 "changePrice": "Wijzig de prijs",
                 "stop": "Na deze factuur stoppen",
                 "disableAutoRenew": "Deactiveer automatische verleningen",
@@ -4796,7 +4797,8 @@
                 "workshop": "Workshops",
                 "calendar": "Agenda",
                 "newsletter": "Nieuwsbrief",
-                "loginButton": "Inlogknop"
+                "loginButton": "Inlogknop",
+                "giftcard": "Cadeaubon"
             },
             "preview": "Voorvertoning",
             "saveButton": "Opslaan",
@@ -4822,6 +4824,19 @@
             "header": "Groepsfacturatie",
             "helperText": "Je kunt meerdere studio's en/of vestigingen die aan verschillende rechtspersonen verbonden zijn aan een groepsfacturatie toevoegen. Groepsfacturaties verschijnen op je facturen en maakt het makkelijker om elke factuur aan de juiste rechtspersonen te koppelen.",
             "add": "Een groep toevoegen"
+        },
+        "quickbooks": {
+            "confirmDialog": {
+                "text": "Weet je zeker dat je toegang aan BSPORT wilt geven voor deze applicatie?",
+                "title": "QuickBooks verbinding"
+            },
+            "buttonRevoke": "Deactiveer QuickBooks",
+            "buttonReConnect": "Ververs de verbinding",
+            "buttonConnect": "Bij QuickBooks inloggen",
+            "explainEnable": "Upload al je facturen direct naar QuickBooks. Iedere 24 uur zullen de gegevens worden bijgewerkt.",
+            "submit": "Opslaan",
+            "enable": "Activeer de integratie met QuickBooks",
+            "title": "QuickBooks"
         }
     },
     "privateService": {
@@ -4931,7 +4946,7 @@
             "form": {
                 "interval": {
                     "explain1": "Beschikbaarheid: ",
-                    "explain2": "{{date_start}} - {{date_end}}, elke {{day}}"
+                    "explain2": "Elke {{ day }} van {{ date_start }} t/m {{ date_end }}"
                 },
                 "title": {
                     "disable": "Beschikbaarheid verwijderen",
@@ -5218,7 +5233,7 @@
                 "managerOnly": "Niet-beschikbare afspraakkaarten"
             },
             "parameters": {
-                "nbCredits": "{{ credits}} krediet",
+                "nbCredits": "{{ credits}} krediet(en)",
                 "nbCredits_plural": "{{ credits }} kredieten",
                 "price": "{{ price, price}}",
                 "tax": "Btw: {{ tax }}%",
@@ -5472,7 +5487,7 @@
                 "submit": "Opslaan"
             }
         },
-        "noPrivateService": "In dit onderdeel kun je al je (semi-)privésessies toevoegen, beheren, wijzigen en verwijderen.",
+        "noPrivateService": "In dit onderdeel kun je al je afspraken toevoegen, beheren, wijzigen en verwijderen.",
         "noPrivatePass": "Met afspraakkaarten kunnen leden zich inschrijven voor je (semi-)privésessies. Je kunt afspraakkaarten voor verschillende activiteiten aanmaken, bijv. Personal/Duo/etc. Training, zaalverhuur, massages, enz.  Let op! Vergeet niet om de compatibiliteit van de afspraakkaart correct in te stellen.",
         "customEvent": {
             "form": {
@@ -5968,7 +5983,15 @@
         "paymentComboSectionTitle": "Pakketten",
         "method": {
             "CB": "Creditcard",
-            "CREDIT_ACCOUNT": "Betaling ter plaatse"
+            "CREDIT_ACCOUNT": "Betaling ter plaatse",
+            "GIROPAY": "Giropay",
+            "EPS": "EPS",
+            "IDEAL": "iDEAL",
+            "SOFORT": "Sofort",
+            "BANCONTACT": "Bancontact",
+            "SEPA": "SEPA",
+            "CHECK": "Cheque",
+            "CASH": "Contant"
         },
         "forms": {
             "cancelPayment": "Terug",
@@ -6267,6 +6290,34 @@
                 "error": {
                     "unAuthorizedEstablishmentModification": "De groepsfacturatie kan alleen door systeembeheerders worden gewijzigd"
                 }
+            },
+            "sendToQuickbooks": {
+                "errors": {
+                    "title": "Error bij het versturen van je factuur",
+                    "934006": "Deze factuur staat al op QuickBooks",
+                    "934005": "Je factuur kan niet naar QuickBooks worden verstuurd",
+                    "934004": "Error bij het versturen van een onbetaalde factuur naar QuickBooks",
+                    "934003": "Error bij het versturen van een incomplete factuur naar QuickBooks",
+                    "934002": "Error bij het versturen van een geannuleerde factuur naar QuickBooks",
+                    "934001": "Error bij het aanmaken van een factuur zonder producten/items",
+                    "934000": "De factuur bevat niet genoeg informatie om op QuickBooks te kunnen worden opgeslagen",
+                    "933102": "Error bij het aanmaken van de factuur op QuickBooks",
+                    "933101": "Error bij het koppelen van dit lid aan de factuur",
+                    "933100": "Error bij het koppelen van dit lid aan de factuur",
+                    "933000": "Het lid dat aan deze factuur gekoppeld is beschikt niet over de benodigde informatie om bij QuickBooks te worden geregistreerd",
+                    "932100": "We hebben geen toegang tot je QuickBooks-gegevens",
+                    "932001": "Je account is niet langer bij BSPORT geverifieerd",
+                    "932000": "Je account is niet langer bij BSPORT geverifieerd",
+                    "931101": "QuickBooks kan ons niet je data opsturen",
+                    "931100": "Error bij het bijwerken van de authenticatie",
+                    "931004": "Je hebt je QuickBooks applicatie nog niet ingesteld",
+                    "931003": "De authenticatie is verlopen",
+                    "931002": "De authenticatie is verlopen",
+                    "931001": "Error bij de authenticatie aan QuickBooks",
+                    "931000": "Error bij de authenticatie aan QuickBooks"
+                },
+                "error": "Error bij het overdragen van je facturen naar QuickBooks",
+                "success": "Je facturen zijn aan QuickBooks overgedragen"
             }
         },
         "link": {
@@ -6742,6 +6793,16 @@
             "create": {
                 "error": "Fout bij het toevoegen van de melding",
                 "success": "De melding is toegevoegd"
+            }
+        },
+        "quickbooks": {
+            "revoke": {
+                "error": "Fout bij het verbinden van je account bij QuickBooks",
+                "success": "Je verbinding met QuickBooks is verbroken"
+            },
+            "create": {
+                "error": "Fout bij het verifiëren van je account bij QuickBooks",
+                "success": "Je account van QuickBooks is geverifieerd"
             }
         }
     },
@@ -7638,6 +7699,13 @@
             },
             "addQuestions": "Een vraag toevoegen",
             "additionalCustomForm": "Aanvullende formulieren"
+        },
+        "quickbooks": {
+            "confirmDialog": {
+                "text": "Weet je zeker dat je toegang aan BSPORT wilt geven voor deze applicatie?",
+                "title": "QuickBooks verbinding"
+            },
+            "title": "QuickBooks"
         }
     },
     "checkout": {
@@ -7785,7 +7853,8 @@
                 "9": "Afspraakkaarten",
                 "3": "Krediet(en)",
                 "2": "Webshop",
-                "1": "Leskaarten"
+                "1": "Leskaarten",
+                "undefined": "Cadeaubon"
             },
             "discount": "Korting"
         },
@@ -7865,7 +7934,7 @@
                 "bill": "Incasseren",
                 "saveForLaterAsSEPA": "Deze machtiging wordt als een \"SEPA\" opgeslagen.",
                 "saveForLater": "Betaalmethode opslaan",
-                "showInvoice": "Factuur tonen",
+                "showInvoice": "Toon factuur",
                 "confirmPayment": "Betaling bevestigen",
                 "payAll": "Betalen",
                 "cancel": "Annuleren",
@@ -7977,7 +8046,8 @@
                 "date": "Factuurdatum",
                 "id": "Factuurnummer",
                 "member": "Lid",
-                "invoiceType": "Type"
+                "invoiceType": "Type",
+                "quickbooks": "QuickBooks"
             },
             "actions": {
                 "goToInvoice": "Toon de factuur"
@@ -8060,6 +8130,38 @@
             "cancel": "Annuleer",
             "content": "Attentie: je staat op het punt om een lid in rekening te brengen zonder dat dit lid de juiste tags heeft. Weet je zeker dat je dit doen? ",
             "title": "Informatie"
+        },
+        "quickbooks": {
+            "send": {
+                "errors": {
+                    "title": "Error bij het versturen van je factuur",
+                    "934006": "Deze factuur staat al op QuickBooks",
+                    "934005": "Je factuur kan niet naar QuickBooks worden verstuurd",
+                    "934004": "Error bij het versturen van een onbetaalde factuur naar QuickBooks",
+                    "934003": "Error bij het versturen van een incomplete factuur naar QuickBooks",
+                    "934002": "Error bij het versturen van een geannuleerde factuur naar QuickBooks",
+                    "934001": "Error bij het aanmaken van een factuur zonder producten/items",
+                    "934000": "De factuur bevat niet genoeg informatie om op QuickBooks te kunnen worden opgeslagen",
+                    "933102": "Error bij het aanmaken van de factuur op QuickBooks",
+                    "933101": "Error bij het koppelen van dit lid aan de factuur",
+                    "933100": "Error bij het koppelen van dit lid aan de factuur",
+                    "933000": "Het lid dat aan deze factuur gekoppeld is beschikt niet over de benodigde informatie om bij QuickBooks te worden geregistreerd",
+                    "932100": "We hebben geen toegang tot je QuickBooks-gegevens",
+                    "932001": "Je account is niet langer bij BSPORT geverifieerd",
+                    "932000": "Je account is niet langer bij BSPORT geverifieerd",
+                    "931101": "QuickBooks kan ons niet je data opsturen",
+                    "931100": "Error bij het bijwerken van de authenticatie",
+                    "931004": "Je hebt je QuickBooks applicatie nog niet ingesteld",
+                    "931003": "De authenticatie is verlopen",
+                    "931002": "De authenticatie is verlopen",
+                    "931001": "Error bij de authenticatie aan QuickBooks",
+                    "931000": "Error bij de authenticatie aan QuickBooks"
+                }
+            },
+            "invoice": {
+                "sendToQuickbooks": "De factuur is overgedragen aan QuickBooks",
+                "onQuickbooks": "Overgedragen"
+            }
         }
     },
     "waitingList": {
@@ -8347,7 +8449,8 @@
                 "marketplaceSettings": "MarketPlace",
                 "widget": "Widgets",
                 "paymentMethod": "Betaalmethoden",
-                "forms": "Inschrijfformulier"
+                "forms": "Inschrijfformulier",
+                "quickbooks": "QuickBooks"
             },
             "pass": "Leskaarten",
             "goBack": "Terug",
@@ -8378,7 +8481,8 @@
             "cashBookTooltip": "Kasboek",
             "redirecting": "Je wordt doorgestuurd naar je pagina",
             "backToFranchiseWorskpace": "Ga terug naar je Master-Account",
-            "franchiseConnectedAs": "Je bent momenteel als \"{{name}}\" verbonden"
+            "franchiseConnectedAs": "Je bent momenteel als \"{{name}}\" verbonden",
+            "giftcard": "Cadeaubonnen"
         },
         "deprecatedNavigator": {
             "close": "Sluiten",
@@ -8800,7 +8904,7 @@
         },
         "companies": {
             "pageTitle": "Franchisenemers",
-            "navigateToCompany": "Verbinding met de franchisenemersrekening",
+            "navigateToCompany": "Log in als franchisenemer",
             "membersEmptyState": "Geen lid binnen dit bedrijf",
             "establishmentEmptyState": "Geen vestigingen binnen dit bedrijf",
             "establishment": "Vestigingen",
@@ -8829,7 +8933,7 @@
             "groupBy": "Groep per",
             "pageTitle": "Sjabloon",
             "companiesEmails": "Franchise sjablonen",
-            "create": "Creëer een sjabloon",
+            "create": "Een sjabloon toevoegen",
             "franchiseEmails": "Mijn sjablonen",
             "emptyStateDescription": "Selecteer een sjabloon",
             "emptyStateTitle": "e-mailadres"
@@ -8838,7 +8942,155 @@
     "giftcard": {
         "list": {
             "unlimited": "Onbeperkt",
-            "validity": "Geldig voor {{ duration }} dag(en)"
+            "validity": "Geldig voor {{ duration }} dag(en)",
+            "actions": {
+                "create": "Een cadeaubon toevoegen"
+            },
+            "addBackgroundImage": "Een afbeelding toevoegen",
+            "isEmpty": "Er zijn geen cadeaubonnen om weer te geven.",
+            "archivedTitle": "Gearchiveerde cadeaubonnen",
+            "unavailableForSaleTitle": "Niet-beschikbare cadeaubonnen",
+            "activeTitle": "Beschikbare cadeaubonnen",
+            "visibility": "Niet-beschikbaar",
+            "explainIfEmpty": "Leden kunnen cadeaubonnen met hun dierbaren delen en zo kan je studio ook meer potentiële klanten aantrekken."
+        },
+        "backgroundImage": {
+            "dialog": {
+                "explain": "Laat leden gepersonaliseerde afbeeldingen toevoegen om hun cadeaubonnen persoonlijker te maken. Tijdens het aanmaken van een cadeaubon kunnen leden zelf een achtergrondafbeelding uploaden.",
+                "actions": {
+                    "close": "Sluit"
+                },
+                "title": "Gepersonaliseerde afbeeldingen"
+            }
+        },
+        "form": {
+            "giftcard": {
+                "manager_only": {
+                    "label": "Niet-beschikbaar voor leden"
+                },
+                "unlimited": {
+                    "label": "Onbeperkt"
+                },
+                "expiration_days": {
+                    "helperText": "De geldigheid van de cadeaubon gaat in vanaf de verzenddatum.",
+                    "label": "Geldigheid in dagen"
+                },
+                "price": {
+                    "helperText": "Dit zal de waarde van je cadeaubon worden.",
+                    "label": "Verkoopprijs"
+                },
+                "section": {
+                    "parameters": {
+                        "title": "Instellingen"
+                    }
+                },
+                "description": {
+                    "label": "Beschrijving"
+                },
+                "available_payment_method_identifiers": {
+                    "label": "Beschikbare betaalmethoden",
+                    "helperText": " "
+                },
+                "name": {
+                    "label": "Naam"
+                },
+                "title": "Cadeaubon",
+                "actions": {
+                    "submit": "Bevestig",
+                    "cancel": "Sluit"
+                }
+            }
+        },
+        "giftcard": {
+            "delete": {
+                "dialog": {
+                    "actions": {
+                        "close": "Sluit",
+                        "delete": "Verwijder"
+                    },
+                    "content": "Weet je zeker dat je deze cadeaubon wilt verwijderen? Leden die het eerder hebben gekocht zullen het nog steeds kunnen verzilveren.",
+                    "title": "Verwijder"
+                }
+            },
+            "detail": {
+                "manager_only": "Kan niet door leden online worden gekocht",
+                "availablePaymentMethods": "Beschikbare betaalmethoden",
+                "expirationDate": "Geldigheid voor de vervaldatum: {{ expiration_days }} dag(en)"
+            },
+            "configurationTitle": "Cadeaubon"
+        },
+        "link": {
+            "copyLink": "Kopieer de directe link naar de cadeaubon"
+        },
+        "consumerGiftcard": {
+            "form": {
+                "footer": "De cadeaubon wordt op {{- date_send }} naar de ontvanger verstuurd. Vervolgens heeft de ontvanger {{ expiration_days }} dag(en) om de cadeaubon te gebruiken, voordat het vervalt.",
+                "actions": {
+                    "submit": "Aan mijn winkelmandje toevoegen"
+                },
+                "date_send": {
+                    "label": "Verzenddatum van de e-mail"
+                },
+                "recipients": {
+                    "label": "E-mail van de ontvanger"
+                },
+                "message_content": {
+                    "label": "Gepersonaliseerd bericht"
+                },
+                "message_is_from": {
+                    "label": "Van "
+                },
+                "message_is_for": {
+                    "label": "T.a.v. "
+                },
+                "name": {
+                    "label": "Naam van de cadeaubon"
+                }
+            },
+            "previewPlaceholder": {
+                "message_content": "[Gepersonaliseerd bericht]",
+                "message_is_for": "[Naam van de ontvanger]",
+                "message_is_from": "[Naam van de koper]",
+                "name": "[Naam van de cadeaubon]"
+            },
+            "sendTo": "Opnieuw de uitnodiging versturen",
+            "notAttributedYet": "Niet gevalideerd",
+            "expiresOn": "Vervaldatum: {{- d }}",
+            "willInviteOn": "De uitnodiging is op {{- d }} verstuurd",
+            "invitedOn": "Verstuurd op {{- d }}",
+            "value": "Waarde",
+            "isFrom": "Van ",
+            "isFor": "T.a.v. ",
+            "isEmpty": "Er zijn geen cadeaubonnen om weer te geven.",
+            "linkedInvoice": "Gekoppelde factuur",
+            "list": {
+                "myGifted": "Ontvangen cadeaubonnen",
+                "myPurchases": "Gekochte cadeaubonnen"
+            },
+            "invitationForm": {
+                "actions": {
+                    "submit": "Verstuur",
+                    "close": "Sluit"
+                },
+                "content": "Je kunt de ontvanger van deze cadeaubon wijzigen. Attentie: het kan slechts door 1 persoon worden gebruikt.",
+                "title": "Stuur de uitnodiging",
+                "activationCodeLink": "De uitnodiging is verstuurd en kan niet langer worden bewerkt. Indien de ontvanger het bericht niet heeft ontvangen kun je ook deze link sturen: "
+            },
+            "activation": {
+                "alreadyActivated": "Deze cadeaubon is al gebruikt.",
+                "activate": "Mijn cadeaubon activeren",
+                "content3": "Als je je met het incorrecte account hebt ingelogd, vragen we vriendelijk om deze cadeaubon niet te verzilveren. Gelieve je opnieuw aanmelden met het juiste account.",
+                "content2": "Deze cadeaubon wordt automatisch als betaalmethode aan je winkelmandje toegevoegd. Alle informatie over je cadeaubon staat in je profiel.",
+                "content1": "Je kunt je cadeaubon t.w.v. {{price}} voor al onze producten gebruiken en heeft geen vervaldatum. Geniet ervan!",
+                "subtitle": "Het lijkt erop dat iemand je wilde verrassen.",
+                "title": "Iemand wilde je blij maken!"
+            }
+        },
+        "delete": {
+            "submit": "Bevestig",
+            "cancel": "Annuleer",
+            "content": "Weet je zeker dat je deze cadeaubon wilt archiveren? Het zal niet meer in je Back Office verschijnen, maar je kunt het op een later moment heractiveren.",
+            "title": "Archiveer de cadeaubon"
         }
     }
 }

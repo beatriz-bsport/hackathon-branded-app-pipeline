@@ -1360,7 +1360,14 @@
       "nf525Button": "Télécharger"
     },
     "invoiceItem": {
-      "buyableItemIdentifier": { "1": "Carte de cours", "2": "Magasin", "3": "Crédit", "9": "Carte RDV", "10": "Pack", "11": "carte cadeau" },
+      "buyableItemIdentifier": {
+        "1": "Carte de cours",
+        "2": "Magasin",
+        "3": "Crédit",
+        "9": "Carte RDV",
+        "10": "Pack",
+        "undefined": "carte cadeau"
+      },
       "credit": { "label": "Crédit" },
       "quantity": "Quantité",
       "voucher": "Réduction: {{ voucher }}",

@@ -57,6 +57,8 @@ import withTitle from '../../hocs/with-title.hoc';
 import { RootState } from '../../reducers';
 
 import { fetchMemberTagList } from '../../libs/tag/actions';
+import { getMemberTagsIdsList } from '../../libs/tag/selectors';
+import type { Tag } from '../../libs/tag/types';
 
 type OwnProps = {
   params?: {
@@ -150,11 +152,9 @@ export class MarketPlacePassPage extends Component<Props> {
     if (this.props.loading) {
       return <LinearProgress />;
     }
-
     const hidePaymentPack = this.props?.params?.hidePaymentPack === 'true';
     const hidePrivatePass = this.props?.params?.hidePrivatePass === 'true';
     const hidePaymentCombo = this.props?.params?.hidePaymentCombo === 'true';
-
     return (
       <Grid container direction="row" justify="space-evenly">
         {this.props.paymentComboList.length && !hidePaymentCombo ? (
@@ -204,9 +204,26 @@ const styles = (theme: Theme) => ({
   },
 });
 
-const mapStateToProps = (state: RootState) => ({
+const mapMemberInfoStateToProps = (
+  // Have to do this separation here for widget purpose
+
+  state: RootState,
+  {
+    memberTagList,
+    authenticated,
+  }: { memberTagList: Array<Tag>; authenticated: boolean },
+) => ({
+  memberTagList: memberTagList || getMemberTagsIdsList(state),
+  authenticated: authenticated || state.auth.authenticated,
+});
+const mapStateToProps = (
+  state: RootState,
+  {
+    memberTagList,
+    authenticated,
+  }: { memberTagList: Array<Tag>; authenticated: boolean },
+) => ({
   currentBasket: getCurrentBasket(state),
-  authenticated: state.auth.authenticated,
   privatePassList: getPrivatePassAsConsumer(state),
   paymentComboList: getPaymentComboListAvailableOnline(state),
   loading: state.paymentPack.loading,
@@ -214,10 +231,10 @@ const mapStateToProps = (state: RootState) => ({
   activityLoading: state.metaActivity.loading,
   paymentPackUnCategorized: getPaymentPackUnCategoryWithPaymentPacks(
     withEstablishments(withMetaActivities(excludePaymentPackTagged)),
-  )(state),
+  )(state, { memberTagList, authenticated }),
   paymentPackByCategory: getPaymentPackCategoryWithPaymentPacks(
     withEstablishments(withMetaActivities(excludePaymentPackTagged)),
-  )(state),
+  )(state, { memberTagList, authenticated }),
 });
 
 const mapDispatchToProps = {
@@ -254,6 +271,7 @@ const mapDispatchToProps = {
 export const MarketplacePassBase = compose<any, OwnProps>(
   // @ts-ignore
   withStyles(styles),
+  connect(mapMemberInfoStateToProps),
   connect(mapStateToProps, mapDispatchToProps),
   withProps(
     ({ fetchPaymentPacks, fetchEstablishmentBulk, fetchMetaActivityBulk }) => ({

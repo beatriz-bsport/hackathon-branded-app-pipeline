@@ -8,8 +8,10 @@ import type { State } from '../../state/types';
 import { getSCTs } from '../category/selectors';
 import { getAllEstablishmentsDict as getEstablishmentData } from '../establishment/selectors';
 import { getMetaActivityAbstractDict as getMetaActivityData } from '../meta-activity/selectors';
-import { getallTagsWithTagGroup, getMemberTagsIdsList } from '../tag/selectors';
+import { getallTagsWithTagGroup } from '../tag/selectors';
 import type { PaymentPack, PaymentPackCategory } from './types';
+
+import { RootState } from '../../reducers';
 
 export const getPaymentPackById = (state: State): Array<PaymentPack> =>
   state.paymentPack.byId;
@@ -271,11 +273,13 @@ export const getPaymentPackCategoryWithPaymentPacks = (
 export const excludePaymentPackTagged = createSelector(
   [
     getMarketplacePaymentPacks,
-    getMemberTagsIdsList,
-    (state: RootState) => state.auth.authenticated,
+    (state: RootState, { memberTagList, authenticated }) => ({
+      memberTagList,
+      authenticated,
+    }),
   ],
-  (marketPlacePaymentPacks, MemberTagList, isAuthenticated) => {
-    if (!isAuthenticated) {
+  (marketPlacePaymentPacks, { memberTagList, authenticated }) => {
+    if (!authenticated) {
       return marketPlacePaymentPacks
         ? marketPlacePaymentPacks.filter(
             (pack) =>
@@ -286,7 +290,7 @@ export const excludePaymentPackTagged = createSelector(
           )
         : [];
     }
-    if (MemberTagList && MemberTagList.length === 0) {
+    if (memberTagList && memberTagList.length === 0) {
       return marketPlacePaymentPacks
         ? marketPlacePaymentPacks.filter(
             (pack) => pack.whitelist_tags && pack.whitelist_tags.length === 0,
@@ -299,12 +303,12 @@ export const excludePaymentPackTagged = createSelector(
             ((pack.blacklist_tags &&
               pack.blacklist_tags.length !== 0 &&
               !pack.blacklist_tags.some((tag) =>
-                MemberTagList.includes(tag),
+                memberTagList.includes(tag),
               )) ||
               pack.blacklist_tags.length === 0) &&
             ((pack.whitelist_tags &&
               pack.whitelist_tags.length !== 0 &&
-              pack.whitelist_tags.some((tag) => MemberTagList.includes(tag))) ||
+              pack.whitelist_tags.some((tag) => memberTagList.includes(tag))) ||
               pack.whitelist_tags.length === 0),
         )
       : [];

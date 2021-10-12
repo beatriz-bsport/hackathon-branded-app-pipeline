@@ -15,6 +15,7 @@ import WidgetUtils from '../../libs/widget/WidgetUtils';
 import { WidgetMessageType } from '../../libs/widget/types';
 import { CheckoutItem, Basket } from '../../libs/checkout/types';
 import { getAuthToken } from '../../http';
+import { fetchMemberTagList } from '../../libs/tag/actions';
 
 type OwnProps = {
   companyId: number;
@@ -92,6 +93,16 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
     });
   };
 
+  fetchMemberTagList = () => {
+    this.props.fetchMemberTagList(this.props.companyId, {
+      onSuccess: (payload: Array<number>) => {
+        WidgetUtils.sendBridgeResponse(WidgetMessageType.REQUEST_MEMBER_TAG, {
+          data: payload,
+        });
+      },
+    });
+  };
+
   sendBasketCount = () => {
     this.props.fetchCurrentBasket(this.props.companyId, {
       onSuccess: (basket: Basket) => {
@@ -134,7 +145,9 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
             this.props.disconnect();
           }
           break;
-
+        case WidgetMessageType.REQUEST_MEMBER_TAG:
+          this.fetchMemberTagList();
+          break;
         default:
           break;
       }
@@ -160,6 +173,7 @@ const mapDispatchToProps = {
   fetchMembership,
   fetchBookingsAndPrivateBookings,
   disconnect,
+  fetchMemberTagList,
 };
 
 export default compose(

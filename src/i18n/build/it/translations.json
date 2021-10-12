@@ -930,7 +930,7 @@
         },
         "appbar": {
             "title": {
-                "planning": "Pianificazione",
+                "planning": "Calendario",
                 "mergeMember": "Unisci membri",
                 "allCoachPerformance": "Riepilogo insegnante",
                 "dashboard": "Pannello di controllo",
@@ -2801,7 +2801,7 @@
                 "label": "URL di Facebook"
             },
             "scheduleURL": {
-                "label": "Pianificazione URL",
+                "label": "Calendario URL",
                 "helperText": "Link predefinito al calendario",
                 "placeholder": "https://studio.com/calendar/"
             },
@@ -7867,7 +7867,7 @@
             "establishmentFormPage": "Modulo per palestre",
             "establishmentGroupPage": "Località"
         },
-        "planning": "Pianificazione"
+        "planning": "Calendario"
     },
     "dashboard": {
         "thisWeek": "Questa settimana",

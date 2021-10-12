@@ -690,10 +690,10 @@ export class PrivateCalendar extends React.Component<Props, State> {
           }
           locales={[frLocale, itLocale, deLocale, nlLocale]}
           slotMinTime={
-            this.props.userPreference?.scheduleTimerange.begin || '06:00:00'
+            this.props.userPreference?.scheduleTimerange?.begin || '06:00:00'
           }
           slotMaxTime={
-            this.props.userPreference?.scheduleTimerange.end || '23:00:00'
+            this.props.userPreference?.scheduleTimerange?.end || '23:00:00'
           }
           allDaySlot={allDaySlot}
           eventClick={this.handleEventClick}

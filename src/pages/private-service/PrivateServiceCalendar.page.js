@@ -46,6 +46,8 @@ import {
 } from '../../libs/private-service/actions';
 import CustomEvenFormDialog from '../../libs/private-service/components/custom-event/CustomEventFormDialog.component';
 import { getCustomEventList } from '../../libs/private-service/selectors/custom-event';
+import { UserPreference } from '../../libs/user-preference/types';
+import { setScheduleTimerange } from '../../libs/user-preference/actions';
 
 type Props = {
   classes: Object,
@@ -97,6 +99,12 @@ type Props = {
   closeCustomEventDialog: () => void,
 
   theme: CompanyTheme,
+
+  userPreference: UserPreference,
+  setScheduleTimerange: ({
+    begin: string,
+    end: string,
+  }) => void,
 };
 
 type State = {
@@ -249,6 +257,8 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
           customEventList={this.props.customEventList}
           createCustomEvent={this.props.onRequestCustomEvent}
           showCustomEventsToogle
+          userPreference={this.props.userPreference}
+          setScheduleTimerange={this.props.setScheduleTimerange}
         />
         {this.props.customEventData && (
           <CustomEvenFormDialog
@@ -323,6 +333,7 @@ export default compose(
         periodFilter,
         resourceFiltersArray,
       ),
+      userPreference: state.userPreference,
       loading:
         state.privateService.availabilitySlot.loading ||
         state.privateService.privateBooking.loading,
@@ -350,6 +361,7 @@ export default compose(
       disableAvailabilitySlotMultipleResource,
       enableAvailabilitySlotMultipleResource,
       onEditResourceConfiguration: updateServiceResourceConfiguration,
+      setScheduleTimerange,
     },
   ),
   withHandlers({

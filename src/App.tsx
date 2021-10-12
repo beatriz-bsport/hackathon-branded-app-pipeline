@@ -171,10 +171,6 @@ class BsportWidget extends Component<Props> {
                 url={this.props.dialog.url}
                 dialogMode={this.props.dialog.dialogMode}
                 onClose={this.props.closeUserInteractionPortal}
-                isLogin={
-                  this.props.dialog.url &&
-                  this.props.dialog.url.includes('login')
-                }
                 fullScreenPopup={this.props.fullScreenPopup}
               />
             )}

@@ -17,7 +17,6 @@ interface OwnProps {
   url?: string;
   dialogMode: 0 | 1 | 2;
   onClose: () => void;
-  isLogin: boolean;
   fullScreenPopup: boolean;
 }
 
@@ -84,13 +83,7 @@ class UserInteractionPortal extends React.PureComponent<Props> {
 
     return (
       <div className={classes.container}>
-        <div
-          className={`${classes.innerContainer} ${
-            this.props.isLogin
-              ? classes.innerContainerLogin
-              : classes.innerContainerDimensions
-          }`}
-        >
+        <div className={classes.innerContainer}>
           <div className={classes.topBar}>
             <IconButton onClick={this.props.onClose}>
               <CloseIcon fontSize="large" />
@@ -132,20 +125,14 @@ const styles = () => ({
     backgroundColor: 'white',
     boxShadow: '3px 10px 44px 9px rgba(0,0,0,0.17)',
     borderRadius: 12,
-    '@media (max-width: 600px), (max-height: 600px)': {
-      maxHeight: window.screen.height,
-      maxWidth: window.screen.width,
-    },
-  },
-  innerContainerDimensions: {
     maxHeight: (props: any) =>
       props.fullScreenPopup ? window.innerHeight : window.innerHeight * 0.75,
     maxWidth: (props: any) =>
       props.fullScreenPopup ? window.innerWidth : window.innerWidth * 0.75,
-  },
-  innerContainerLogin: {
-    maxHeight: 700,
-    maxWidth: 500,
+    '@media (max-width: 600px), (max-height: 600px)': {
+      maxHeight: window.screen.height,
+      maxWidth: window.screen.width,
+    },
   },
   topBar: {
     display: 'flex',

@@ -47,6 +47,7 @@ import { fetchAssociatedCoachesList as fetchAssociatedCoaches } from '../libs/as
 //
 //
 import { getPermissions } from '../libs/role/selectors';
+import { parseRestrictedPath } from '../libs/role/utils';
 
 import { getTempPasswordState } from '../libs/login/selectors';
 import {
@@ -310,11 +311,17 @@ export class Backoffice extends Component<Props, State> {
     ) {
       let navigationIsAuthorized = false;
       this.props.permission.restrictedPaths.forEach((p) => {
+        const cleanedPath = parseRestrictedPath(p);
         navigationIsAuthorized =
-          navigationIsAuthorized || window.location.pathname.includes(p);
+          navigationIsAuthorized ||
+          window.location.pathname.includes(cleanedPath);
       });
       if (!navigationIsAuthorized) {
-        return <Redirect to={this.props.permission.restrictedPaths[0]} />;
+        return (
+          <Redirect
+            to={parseRestrictedPath(this.props.permission.restrictedPaths[0])}
+          />
+        );
       }
     }
 

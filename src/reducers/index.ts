@@ -21,9 +21,12 @@ import playlist from 'bsport-saas/src/libs/playlist/reducers';
 import category from 'bsport-saas/src/libs/category/reducers';
 import subscription from 'bsport-saas/src/libs/subscription/reducers';
 import tag from 'bsport-saas/src/libs/tag/reducers';
+import giftcard from 'bsport-saas/src/libs/giftcard/reducers';
+
 import { PrivateServiceState } from 'bsport-saas/src/libs/private-service/types';
 import { CoachState } from 'bsport-saas/src/libs/associated-coach/types';
 import { ThemeState } from 'bsport-saas/src/libs/theme/types';
+import { GiftcardState } from 'bsport-saas/src/libs/giftcard/types';
 import { createBrowserHistory } from 'history';
 import { TagState } from 'bsport-saas/src/libs/tag/types';
 import widget, { WidgetState } from './widget';
@@ -56,6 +59,7 @@ const reducer = (history: ReturnType<typeof createBrowserHistory>) =>
     modal,
     bridge,
     tag,
+    giftcard,
   });
 
 export interface RootState {
@@ -82,6 +86,7 @@ export interface RootState {
   modal: ModalState;
   bridge: BridgeState;
   tag: TagState;
+  giftcard: GiftcardState;
 }
 
 export default (history: ReturnType<typeof createBrowserHistory>) => (

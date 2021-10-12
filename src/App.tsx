@@ -15,8 +15,8 @@ import {
   EXPORTABLE_COMPONENT_TYPE_PLAYLIST,
   EXPORTABLE_COMPONENT_TYPE_SHOP,
   EXPORTABLE_COMPONENT_TYPE_SUBSCRIPTION,
-  EXPORTABLE_COMPONENT_TYPE_NEWSLETTER,
   EXPORTABLE_COMPONENT_TYPE_GIFTCARD,
+  EXPORTABLE_COMPONENT_TYPE_NEWSLETTER,
 } from 'bsport-saas/src/libs/exportable-components/constants';
 
 // eslint-disable-next-line
@@ -54,6 +54,9 @@ const ShopWidget = asyncComponent(() => import('./widgets/Shop.widget'));
 const SubscriptionWidget = asyncComponent(
   () => import('./widgets/Subscription.widget'),
 );
+const GiftcardWidget = asyncComponent(
+  () => import('./widgets/Giftcard.widget'),
+);
 const CalendarWidget = asyncComponent(
   () => import('./widgets/Calendar.widget'),
 );
@@ -66,9 +69,6 @@ const WorkshopWidget = asyncComponent(
 );
 const NewsletterWidget = asyncComponent(
   () => import('./widgets/Newsletter.widget'),
-);
-const GiftcardWidget = asyncComponent(
-  () => import('./widgets/Giftcard.widget'),
 );
 const UserInteractionPortal = asyncComponent(
   () => import('./libs/modal/UserInteractionModal.component'),

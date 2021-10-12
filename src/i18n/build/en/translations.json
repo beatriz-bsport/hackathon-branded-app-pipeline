@@ -2599,7 +2599,7 @@
                 "explain": "Add until:",
                 "interval": {
                     "explain1": "Availability: ",
-                    "explain2": "{{ date_start }} - {{ date_end }}, every {{ day }}"
+                    "explain2": "Ever {{ day }} from {{ date_start }} to {{ date_end }}"
                 },
                 "actions": {
                     "cancel": "Cancel",
@@ -4520,7 +4520,7 @@
     },
     "establishment": {
         "establishment": "Establishment",
-        "baseEstablishment": "Standard",
+        "baseEstablishment": "Default",
         "overrider": "Substitute",
         "establishment_override": "Substitute establishment",
         "search": "Search an establishment",
@@ -4833,7 +4833,7 @@
             },
             "link": {
                 "helpTitle": "How is synchronisation done?",
-                "helpContent": "Members of the smartlist are sent every night to the ActiveCampaign list. They appear as 'active'. Members who went out of the smartlist are pulled out of the ActiveCampaign list, their status is then 'unconfirmed'.",
+                "helpContent": "Members of the Smartlist are sent every night to the ActiveCampaign list. They appear as 'active'. Members who went out of the Smartlist are pulled out of the ActiveCampaign list, their status is then 'unconfirmed'.",
                 "title": "Sending informations from bsport",
                 "add": "Add a link between lists",
                 "dialogTitle": "Modify a link between lists",
@@ -4917,7 +4917,7 @@
             "buttonRevoke": "Deactivate QuickBooks",
             "buttonReConnect": "Refresh connection",
             "buttonConnect": "Log in to QuickBooks",
-            "explainEnable": "Upload all your invoices directly to QuickBooks every 24 hours.",
+            "explainEnable": "Upload all your invoices directly to QuickBooks. It'll be updated every 24 hours.",
             "submit": "Save",
             "enable": "Activate the QuickBooks integration",
             "title": "QuickBooks"
@@ -5554,7 +5554,8 @@
                 "3": "Credit",
                 "2": "Webshop",
                 "1": "Passes",
-                "11": "Gift card"
+                "11": "Gift card",
+                "undefined": "Gift card"
             },
             "discount": "Discount"
         },
@@ -5729,7 +5730,7 @@
             "add": "Add",
             "edit": "Modify",
             "title": "Payment method",
-            "none": "There are no saved payment methods that have been saved to display.",
+            "none": "There are no saved payment methods to display.",
             "detach": {
                 "pm_deleted": "Deleted payment method",
                 "pm_associated_to_protected_bp": "Impossible: You have a subscription associated with this payment method",
@@ -5819,7 +5820,7 @@
         "color": "Color code (appointments)",
         "search": "Search a teacher",
         "coach_override": "Substitute",
-        "baseCoach": "Standard",
+        "baseCoach": "Default",
         "overrider": "Substitute",
         "overrideSelectorTitle": "Teacher",
         "showPerformance": "Payroll",
@@ -6759,8 +6760,8 @@
                 "smartListHelperInclude": "Only send the message if the member is present in one of the following Smartlists"
             },
             "daysPast": {
-                "second": "days ago",
-                "first": "Notify when the pass has expired"
+                "second": "day(s).",
+                "first": "Send this message when this pass has expired for"
             },
             "daysLeft": {
                 "second": "days",
@@ -7495,11 +7496,11 @@
     "booking": {
         "bookingModule": {
             "section": {
-                "consumerPacks": "My pass",
+                "consumerPacks": "My passes",
                 "contracts": "Subscriptions",
-                "paymentPacks": "Obtain a pass",
-                "paymentCombos": "Special offers",
-                "contract": "Sign up"
+                "paymentPacks": "Available passes",
+                "paymentCombos": "Promos",
+                "contract": "Available subscriptions"
             },
             "option": {
                 "isAlreadyOnWaitingList": "You are registered on the waiting-list, we will inform you by email when a spot is available.",
@@ -7734,41 +7735,41 @@
             "mainButton": {
                 "registerWaitingList": "Register to waiting list",
                 "book": "Book",
-                "numberOfBook": "{{count}} enrollment",
-                "numberOfBook_plural": "{{count}} enrollments"
+                "numberOfBook": "{{count}} enrolment",
+                "numberOfBook_plural": "{{count}} enrolments"
             },
-            "bookingsTitle": "Book now",
-            "addSession": "Add a session",
+            "bookingsTitle": "Book",
+            "addSession": "Add sessions",
             "noPackAvailable": "This session does not have any compatible memberships!",
             "noPackAvailable_plural": "No single pass is compatible with all these sessions simultaneously. Please book them separately.",
             "packTitle": "My booking method",
             "offerStatus": {
                 "waiting_list_status": {
-                    "3": "Booking available!",
-                    "1": "Waiting list full",
+                    "3": "Full",
+                    "1": "Enrolments: closed",
                     "0": "Waiting list",
-                    "2": "On waiting list",
-                    "6003": "Already on the list",
+                    "2": "Enrolments: finished",
+                    "6003": "Already on the waiting list",
                     "6002": "The waiting list is full",
                     "7": "Unbalanced male / female ratio",
                     "6": "Unbalanced male / female ratio",
                     "5": "Already registered",
-                    "4": "Registrations closed",
+                    "4": "Enrolments: closed",
                     "9": "It's not allowed to exceed the maximum amount of future bookings"
                 },
                 "bookable_status": {
                     "4": "Session unavailable",
-                    "2": "Finished enrollments",
-                    "1": "Closed enrollments",
-                    "0": "Open enrollments",
+                    "2": "Enrolments: finished",
+                    "1": "Enrolments: closed",
+                    "0": "Enrolments: open",
                     "9": "It's not allowed to exceed the maximum amount of future bookings"
                 },
                 "waiting_list": "Waiting list",
-                "book": "Enrollment"
+                "book": "Enrolment"
             },
             "similarOffer": {
                 "showMore": "See more",
-                "empty": "No session found",
+                "empty": "There are no other sessions to display.",
                 "title": "Book more sessions",
                 "selectAll": "Select all"
             },
@@ -9612,7 +9613,7 @@
             }
         },
         "notifications": {
-            "selectNotificationRules": "Select a rule to display detailed information.",
+            "selectNotificationRules": "Select a rule to display more information.",
             "createNotificationFabLabel": "Add a notification",
             "notificationsEmpty": "There are no automatic notifications set up for this group as of now.",
             "deleteDialogText": "Are you sure that you want to delete this rule? This operation can't be reversed.",
@@ -9899,8 +9900,8 @@
             "establishmentEmptyState": "No establishment in this company",
             "establishment": "Establishments",
             "members": "Members",
-            "emptySelect": "Select a franchise to see the details.",
-            "searchPlaceholder": "Search for a franchise"
+            "emptySelect": "Select a franchisee to see more information.",
+            "searchPlaceholder": "Search a franchisee"
         },
         "member": {
             "pageTitle": "Member",
@@ -9929,7 +9930,7 @@
             "groupBy": "Group by",
             "pageTitle": "Template",
             "companiesEmails": "Franchise templates",
-            "create": "Create a template",
+            "create": "Add a template",
             "franchiseEmails": "My templates",
             "emptyStateDescription": "Select a template",
             "emptyStateTitle": "Email preview"
@@ -9967,7 +9968,7 @@
                     }
                 },
                 "description": {
-                    "label": "Beschrijving"
+                    "label": "Description"
                 },
                 "available_payment_method_identifiers": {
                     "label": "Available payment methods",
@@ -9996,7 +9997,8 @@
             },
             "detail": {
                 "availablePaymentMethods": "Available payment methods",
-                "expirationDate": "Validity before expiration: {{ expiration_days }} day(s)"
+                "expirationDate": "Validity before expiration: {{ expiration_days }} day(s)",
+                "manager_only": "Unavailable for members to purchase"
             },
             "configurationTitle": "Gift card"
         },
@@ -10005,7 +10007,7 @@
         },
         "consumerGiftcard": {
             "form": {
-                "footer": "The gift card will be sent to the recipient on {{- date_send }}. It'll be valid for {{ expiration_days }} after sending this message.",
+                "footer": "The gift card will be sent to the recipient on {{- date_send }}. It'll be valid for {{ expiration_days }} day(s) after sending this message.",
                 "actions": {
                     "submit": "Add to basket"
                 },
@@ -10042,7 +10044,7 @@
             "value": "Value",
             "isFrom": "From ",
             "isFor": "To the attention of ",
-            "isEmpty": "There's no gift card to display.",
+            "isEmpty": "There are no gift cards to display.",
             "linkedInvoice": "Associated invoice",
             "list": {
                 "myGifted": "Received gift cards",
@@ -10060,7 +10062,7 @@
             "activation": {
                 "alreadyActivated": "This gift card has already been used.",
                 "activate": "Activate my gift card",
-                "content3": "If you've logged in with the incorrect account, we're kindly requesting you to not validate this gift card if it isn't intended for you and to reconnect with the correct account.",
+                "content3": "If you've logged in with the incorrect account, we're kindly requesting you to not validate this gift card if it isn't intended for you. Please reconnect with the correct account.",
                 "content2": "The gift card will automatically be added as a payment method to your basket. All gift card related information is stored in your profile.",
                 "content1": "Your gift card of {{price}} is compatible with all of our store's products and has no expiration date. Enjoy!",
                 "subtitle": "Looks like someone wanted to surprise you.",
@@ -10080,6 +10082,12 @@
             "visibility": "Unavailable",
             "unlimited": "Unlimited",
             "validity": "Valid for {{ duration }} day(s)"
+        },
+        "delete": {
+            "submit": "Confirm",
+            "cancel": "Cancel",
+            "content": "Are you sure that you want to archive this gift card? It won't appear on your Back Office anymore, but you can reactivate it in the future.",
+            "title": "Archive this gift card"
         }
     }
 }

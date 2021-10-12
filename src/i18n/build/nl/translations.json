@@ -112,7 +112,8 @@
             "dashboard": "Overzicht",
             "myVideos": "Video On Demand",
             "pick_a_language": "Selecteer een taal",
-            "automaticLanguage": "Detecteer automatisch de taal"
+            "automaticLanguage": "Detecteer automatisch de taal",
+            "giftcard": "Cadeaubonnen"
         },
         "unsubscriber": {
             "success": "Je bent uitgeschreven.",
@@ -8832,6 +8833,12 @@
             "franchiseEmails": "Mijn sjablonen",
             "emptyStateDescription": "Selecteer een sjabloon",
             "emptyStateTitle": "e-mailadres"
+        }
+    },
+    "giftcard": {
+        "list": {
+            "unlimited": "Onbeperkt",
+            "validity": "Geldig voor {{ duration }} dag(en)"
         }
     }
 }

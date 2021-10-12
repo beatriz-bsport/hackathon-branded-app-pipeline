@@ -1,4 +1,11 @@
 exports.default = {
+  delete: {
+    title: 'Archiver la carte cadeau',
+    content:
+      'Voules-vous vraiment archiver cette carte cadeau ? Elle ne sera plus facturable via le backoffice. Vous pourrez la réactiver plus tard.',
+    cancel: 'Annuler',
+    submit: 'Confirmer',
+  },
   list: {
     validity: 'Valable {{ duration }} jours',
     unlimited: 'Illimitée',
@@ -34,7 +41,7 @@ exports.default = {
         "Le mail d'invitation a été envoyé et ne peut plus être modifié, si celui-ci n'est pas arrivé au bon destinataire vous pouvez transmettre ce lien d'activation pour offrir la carte cadeau : ",
       title: "Envoyer un email d'invitation",
       content:
-        "Vous pouvez modifier les destinataires de la carte cadeau. Attention, un seul pourra l'utiliser.",
+        "Vous pouvez modifier les destinataires de la carte cadeau. Attention, un seul pourra l'utiliser. Si l'email n'a pas été reçu vous pouvez aussi transmetter ce lien d'activation :",
       actions: {
         close: 'Fermer',
         submit: 'Envoyer',
@@ -92,6 +99,7 @@ exports.default = {
     detail: {
       expirationDate: 'Validité avant expiration : {{ expiration_days }} jours',
       availablePaymentMethods: 'Moyens de paiement disponibles',
+      manager_only: 'Indisponible à la vente en ligne',
     },
     delete: {
       dialog: {
@@ -129,7 +137,7 @@ exports.default = {
       },
       price: {
         label: 'Prix de vente',
-        helperText: 'Définiera la valeur de la carte offerte',
+        helperText: 'Définira la valeur de la carte offerte',
       },
       expiration_days: {
         label: 'Durée de validité en jours',

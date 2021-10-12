@@ -121,7 +121,7 @@ const GiftcardReceiver = (props: ReceiverProps) => {
     </span>
   ) : (
     t(
-      props.consumerGiftcard.date_activated
+      props.consumerGiftcard.invitation_sent
         ? 'consumerGiftcard.invitedOn'
         : 'consumerGiftcard.willInviteOn',
       {

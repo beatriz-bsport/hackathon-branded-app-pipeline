@@ -44,6 +44,7 @@ export type ConsumerGiftcard = ConsumerGiftcardPersonnalizationElements & {
   date_activated: string | null;
   active: boolean;
   planned_date_send: string;
+  invitation_sent: boolean;
   consumed_amount_gifted: string; // decimal price
   giftcard_recipients: Array<GiftcardRecipient>;
 };

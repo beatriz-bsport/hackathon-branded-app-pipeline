@@ -49,6 +49,7 @@ export function retrieveGiftcard(
       }
       dispatch(retrieveGiftcardActions.error(null));
     } catch (error) {
+      console.error(error);
       dispatch(retrieveGiftcardActions.error(error));
     }
 
@@ -83,6 +84,7 @@ export function restoreGiftcard(
       }
       dispatch(restoreGiftcardActions.error(null));
     } catch (error) {
+      console.error(error);
       dispatch(restoreGiftcardActions.error(error));
     }
 
@@ -117,6 +119,7 @@ export function fetchGiftcardList(
       }
       dispatch(listGiftcardActions.error(null));
     } catch (error) {
+      console.error(error);
       dispatch(listGiftcardActions.error(error));
     }
 
@@ -153,6 +156,7 @@ export function fetchGiftcardBulk(
       }
       dispatch(listBulkGiftcardActions.error(null));
     } catch (error) {
+      console.error(error);
       dispatch(listBulkGiftcardActions.error(error));
     }
 
@@ -183,6 +187,7 @@ export function createOrUpdateGiftcard(
       }
       dispatch(createOrUpdateGiftcardActions.error(null));
     } catch (error) {
+      console.error(error);
       dispatch(createOrUpdateGiftcardActions.error(error));
     }
 
@@ -196,7 +201,7 @@ export const deleteGiftcardActions = {
   success: createAction('GIFTCARD/DELETE/SUCCESS'),
 };
 
-export function deleteGiftcard(id: number, options?: OptionCallback<number>) {
+export function deleteGiftcard(id: number, options?: OptionCallback<Giftcard>) {
   return async (dispatch: Dispatch) => {
     dispatch(deleteGiftcardActions.isLoading(true));
     dispatch(deleteGiftcardActions.error(null));
@@ -209,7 +214,11 @@ export function deleteGiftcard(id: number, options?: OptionCallback<number>) {
       }
       dispatch(deleteGiftcardActions.error(null));
     } catch (error) {
+      console.error(error);
       dispatch(deleteGiftcardActions.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
     }
 
     dispatch(deleteGiftcardActions.isLoading(false));
@@ -243,6 +252,7 @@ export function retrieveConsumerGiftcard(
       }
       dispatch(retrieveConsumerGiftcardActions.error(null));
     } catch (error) {
+      console.error(error);
       dispatch(retrieveConsumerGiftcardActions.error(error));
     }
 
@@ -273,6 +283,7 @@ export function retrieveConsumerGiftcardByActivationCode(
       }
       dispatch(retrieveConsumerGiftcardActions.error(null));
     } catch (error) {
+      console.error(error);
       dispatch(retrieveConsumerGiftcardActions.error(error));
     }
 
@@ -307,6 +318,7 @@ export function fetchConsumerGiftcardList(
       }
       dispatch(listConsumerGiftcardActions.error(null));
     } catch (error) {
+      console.error(error);
       dispatch(listConsumerGiftcardActions.error(error));
     }
 
@@ -337,6 +349,7 @@ export function attributeToMember(
       }
       dispatch(attributeToMemberActions.error(null));
     } catch (error) {
+      console.error(error);
       dispatch(attributeToMemberActions.error(error));
     }
 
@@ -367,6 +380,7 @@ export function sendEmailInvitation(
       }
       dispatch(sendEmailInvitationActions.error(null));
     } catch (error) {
+      console.error(error);
       dispatch(sendEmailInvitationActions.error(error));
       if (options?.onError) options.onError(error);
     }
@@ -397,6 +411,7 @@ export function fetchGiftcardBackgroundImageList(
       }
       dispatch(listConsumerGiftcardActions.error(null));
     } catch (error) {
+      console.error(error);
       dispatch(listGiftcardBackgroundImageActions.error(error));
     }
 
@@ -426,6 +441,7 @@ export function createGiftcardBackgroundImage(
       }
       dispatch(createGiftcardBackgroundImageActions.error(null));
     } catch (error) {
+      console.error(error);
       dispatch(createGiftcardBackgroundImageActions.error(error));
     }
 
@@ -455,6 +471,7 @@ export function deleteGiftcardBackgroundImage(
       }
       dispatch(deleteGiftcardBackgroundImageActions.error(null));
     } catch (error) {
+      console.error(error);
       dispatch(deleteGiftcardBackgroundImageActions.error(error));
     }
 
@@ -493,6 +510,7 @@ export function fetchConsumerGiftcardReceivedList(
       }
       dispatch(listConsumerGiftcardReceivedActions.error(null));
     } catch (error) {
+      console.error(error);
       dispatch(listConsumerGiftcardReceivedActions.error(error));
     }
 
@@ -531,6 +549,7 @@ export function fetchConsumerGiftcardSentList(
       }
       dispatch(listConsumerGiftcardSentActions.error(null));
     } catch (error) {
+      console.error(error);
       dispatch(listConsumerGiftcardSentActions.error(error));
     }
 

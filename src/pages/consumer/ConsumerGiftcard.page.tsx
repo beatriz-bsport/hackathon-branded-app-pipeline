@@ -104,8 +104,10 @@ export const ConsumerGiftcardPage = (props: Props) => {
             renderItem={(cgc) => (
               <ConsumerGiftcardListItem
                 key={cgc.id}
-                onClickSendInvitation={() =>
-                  selectConsumerGiftcardToInvite(cgc)
+                onClickSendInvitation={
+                  cgc.date_activated
+                    ? null
+                    : () => selectConsumerGiftcardToInvite(cgc)
                 }
                 consumerGiftcard={cgc}
                 giftcard={cgc.giftcard}

@@ -6,30 +6,28 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import RedButton from '../../../components/button/RedButton.component';
 
 type Props = {
-  t: TFunction,
-  open: boolean,
-  onClose: () => void,
-  onSubmit: () => void,
+  open: boolean;
+  onClose: () => void;
+  onSubmit: () => void;
 };
 
 export const PaymentComboDeleteDialog = (props: Props) => {
+  const { t } = useTranslation(['paymentCombo']);
+
   return (
     <Dialog open={props.open}>
-      <DialogTitle>{props.t('delete.title')}</DialogTitle>
-      <DialogContent>{props.t('delete.content')}</DialogContent>
+      <DialogTitle>{t('delete.title')}</DialogTitle>
+      <DialogContent>{t('delete.content')}</DialogContent>
       <DialogActions>
-        <Button onClick={props.onClose}>{props.t('delete.cancel')}</Button>
-        <RedButton onClick={props.onSubmit}>
-          {props.t('delete.submit')}
-        </RedButton>
+        <Button onClick={props.onClose}>{t('delete.cancel')}</Button>
+        <RedButton onClick={props.onSubmit}>{t('delete.submit')}</RedButton>
       </DialogActions>
     </Dialog>
   );
 };
 
-export default withTranslation(['paymentCombo'])(PaymentComboDeleteDialog);
+export default PaymentComboDeleteDialog;

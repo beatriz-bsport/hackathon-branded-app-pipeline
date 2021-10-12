@@ -1056,6 +1056,12 @@
     }
   },
   "giftcard": {
+    "delete": {
+      "title": "Archiver la carte cadeau",
+      "content": "Voules-vous vraiment archiver cette carte cadeau ? Elle ne sera plus facturable via le backoffice. Vous pourrez la réactiver plus tard.",
+      "cancel": "Annuler",
+      "submit": "Confirmer"
+    },
     "list": {
       "validity": "Valable {{ duration }} jours",
       "unlimited": "Illimitée",
@@ -1117,7 +1123,8 @@
       "configurationTitle": "Carte cadeau",
       "detail": {
         "expirationDate": "Validité avant expiration : {{ expiration_days }} jours",
-        "availablePaymentMethods": "Moyens de paiement disponibles"
+        "availablePaymentMethods": "Moyens de paiement disponibles",
+        "manager_only": "Indisponible à la vente en ligne"
       },
       "delete": {
         "dialog": {
@@ -1135,7 +1142,7 @@
         "available_payment_method_identifiers": { "helperText": "", "label": "Moyens de paiement disponibles" },
         "description": { "label": "Description" },
         "section": { "parameters": { "title": "Paramètres" } },
-        "price": { "label": "Prix de vente", "helperText": "Définiera la valeur de la carte offerte" },
+        "price": { "label": "Prix de vente", "helperText": "Définira la valeur de la carte offerte" },
         "expiration_days": {
           "label": "Durée de validité en jours",
           "helperText": "La validité de la carte commence à la date d’envoi de l’email carte cadeau"

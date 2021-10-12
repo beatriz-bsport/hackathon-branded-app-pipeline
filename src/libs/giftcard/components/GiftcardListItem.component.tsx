@@ -22,13 +22,14 @@ import RedButton from '../../../components/button/RedButton.component';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { Giftcard } from '../types';
+import { OptionCallback } from '../../../state/types';
 
 type Props = {
   giftcard: Giftcard;
   divider?: boolean;
   onDuplicate?: (id: number) => void;
   onEdit?: (id: number) => void;
-  onRemove?: (id: number) => void;
+  onRemove?: (id: number, options: OptionCallback<void>) => void;
   onRestore?: (id: number) => void;
   onClick?: (id: number) => void;
   selected?: boolean;
@@ -50,57 +51,59 @@ export default function GiftcardListItem(props: Props) {
   const { t } = useTranslation(['giftcard']);
   const [isOpenDeleteDialog, setIsOpenDeleteDialog] = React.useState(false);
   return (
-    <ListItem
-      divider={divider}
-      selected={!!selected}
-      button={!!onClick}
-      onClick={() => onClick && onClick(giftcard.id)}
-      style={isFocused ? { backgroundColor: '#EFEFEF' } : {}}
-    >
-      <ListItemAvatar>
-        <Avatar src={giftcard.cover} alt="" />
-      </ListItemAvatar>
-      <ListItemText
-        primary={giftcard.name}
-        secondary={`${getCurrencyDisplayWithPrice(giftcard.price)} - ${
-          giftcard.expiration_days
-            ? t('list.validity', { duration: giftcard.expiration_days })
-            : t('list.unlimited')
-        }`}
-      />
-      {giftcard.manager_only ? (
-        <Tooltip title={t('list.visibility')}>
-          <ListItemIcon>
-            <VisibilityOffIcon />
-          </ListItemIcon>
-        </Tooltip>
-      ) : null}
-      <ListItemResponsiveAction
-        actions={[
-          {
-            icon: FileCopyIcon,
-            label: 'duplicate',
-            color: 'primary',
-            onClick: onDuplicate ? () => onDuplicate(giftcard.id) : null,
-          },
-          {
-            icon: EditIcon,
-            label: 'edit',
-            color: 'primary',
-            onClick: onEdit ? () => onEdit(giftcard.id) : null,
-          },
-          {
-            icon: DeleteIcon,
-            label: 'delete',
-            onClick: onRemove ? () => setIsOpenDeleteDialog(true) : null,
-          },
-          {
-            icon: RestoreFromTrashIcon,
-            label: 'restore',
-            onClick: onRestore ? () => onRestore(giftcard.id) : null,
-          },
-        ]}
-      />
+    <>
+      <ListItem
+        divider={divider}
+        selected={!!selected}
+        button={!!onClick}
+        onClick={() => onClick && onClick(giftcard.id)}
+        style={isFocused ? { backgroundColor: '#EFEFEF' } : {}}
+      >
+        <ListItemAvatar>
+          <Avatar src={giftcard.cover} alt="" />
+        </ListItemAvatar>
+        <ListItemText
+          primary={giftcard.name}
+          secondary={`${getCurrencyDisplayWithPrice(giftcard.price)} - ${
+            giftcard.expiration_days
+              ? t('list.validity', { duration: giftcard.expiration_days })
+              : t('list.unlimited')
+          }`}
+        />
+        {giftcard.manager_only ? (
+          <Tooltip title={t('list.visibility')}>
+            <ListItemIcon>
+              <VisibilityOffIcon />
+            </ListItemIcon>
+          </Tooltip>
+        ) : null}
+        <ListItemResponsiveAction
+          actions={[
+            {
+              icon: FileCopyIcon,
+              label: 'duplicate',
+              color: 'primary',
+              onClick: onDuplicate ? () => onDuplicate(giftcard.id) : null,
+            },
+            {
+              icon: EditIcon,
+              label: 'edit',
+              color: 'primary',
+              onClick: onEdit ? () => onEdit(giftcard.id) : null,
+            },
+            {
+              icon: DeleteIcon,
+              label: 'delete',
+              onClick: onRemove ? () => setIsOpenDeleteDialog(true) : null,
+            },
+            {
+              icon: RestoreFromTrashIcon,
+              label: 'restore',
+              onClick: onRestore ? () => onRestore(giftcard.id) : null,
+            },
+          ]}
+        />
+      </ListItem>
       {isOpenDeleteDialog && (
         <Dialog open>
           <DialogTitle>{t('giftcard.delete.dialog.title')}</DialogTitle>
@@ -111,8 +114,10 @@ export default function GiftcardListItem(props: Props) {
             </Button>
             <RedButton
               onClick={() => {
-                props.onRemove(giftcard.id);
-                setIsOpenDeleteDialog(false);
+                props.onRemove(giftcard.id, {
+                  onSuccess: () => setIsOpenDeleteDialog(false),
+                  onError: () => setIsOpenDeleteDialog(false),
+                });
               }}
             >
               {t('giftcard.delete.dialog.actions.delete')}
@@ -120,6 +125,6 @@ export default function GiftcardListItem(props: Props) {
           </DialogActions>
         </Dialog>
       )}
-    </ListItem>
+    </>
   );
 }

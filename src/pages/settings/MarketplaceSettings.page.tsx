@@ -192,6 +192,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     flex: 1,
     padding: theme.spacing(2),
+    paddingBottom: '20vh',
   },
   saveContainer: {
     display: 'flex',

@@ -18,6 +18,12 @@ const styles = (theme) => ({
   input: {
     display: 'none',
   },
+  emptyImageContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   alertError: {
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
@@ -84,12 +90,21 @@ export class ImageField extends Component<Props, State> {
                     }}
                   />
                 ) : (
-                  <Icon style={{ width: 140, height: 140 }}>
-                    <InsertPhotoIcon
-                      id={this.props.id}
-                      style={{ width: 140, height: 140 }}
-                    />
-                  </Icon>
+                  <div className={classes.emptyImageContainer}>
+                    <Icon style={{ width: 140, height: 140 }}>
+                      <InsertPhotoIcon
+                        id={this.props.id}
+                        style={{ width: 140, height: 140 }}
+                      />
+                    </Icon>
+                    <Typography
+                      variant="caption"
+                      style={field?.required ? { color: 'red' } : null}
+                      className={classes.text}
+                    >
+                      {this.props.t('common.uploadOneImage.new')}
+                    </Typography>
+                  </div>
                 )}
               </Grid>
             </label>

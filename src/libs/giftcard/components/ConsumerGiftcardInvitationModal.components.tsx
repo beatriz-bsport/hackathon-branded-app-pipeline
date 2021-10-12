@@ -31,7 +31,9 @@ const ConsumerGiftcardInvitationModal = (props: Props) => {
       .join(', '),
   );
   const [processing, setProcessing] = React.useState(false);
-  const hasBeenSent = !!props.consumerGiftcard.date_activated;
+  const hasBeenSent =
+    !!props.consumerGiftcard.date_activated ||
+    !!props.consumerGiftcard?.invitation_sent;
 
   return (
     <Dialog open>
@@ -44,14 +46,12 @@ const ConsumerGiftcardInvitationModal = (props: Props) => {
               : 'consumerGiftcard.invitationForm.content',
           )}
         </Typography>
-        {hasBeenSent && (
-          <Typography className={classes.activationLink}>
-            {makeActivationLink(
-              props.companyId,
-              props.consumerGiftcard.activation_code,
-            )}
-          </Typography>
-        )}
+        <Typography className={classes.activationLink}>
+          {makeActivationLink(
+            props.companyId,
+            props.consumerGiftcard.activation_code,
+          )}
+        </Typography>
         <TextField
           fullWidth
           value={recipient}

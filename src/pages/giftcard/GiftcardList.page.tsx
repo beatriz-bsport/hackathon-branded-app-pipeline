@@ -12,8 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 
 import Collapse from '@material-ui/core/Collapse';
-import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
+// import Button from '@material-ui/core/Button'; TODO AUDE
+// import AddIcon from '@material-ui/icons/Add';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import Divider from '@material-ui/core/Divider';
@@ -93,13 +93,17 @@ export class GiftcardListPage extends Component<Props, State> {
     return (
       <div className={classes.container}>
         {this.props.loading && <BackofficeLinearProgressComponent />}
+        {/*
+            // TODO AUDE
         <Button
-          variant="outlined"
+        variant="outlined"
+        color='primary'
           onClick={this.props.toogleBackgroundImageForm}
         >
           <AddIcon />
           {t('list.addBackgroundImage')}
-        </Button>
+          </Button>
+          */}
         {this.props.giftcardListActive.length === 0 &&
         this.props.giftcardListUnavailableForSale.length === 0 &&
         this.props.giftcardListInactive.length === 0 &&
@@ -135,12 +139,8 @@ export class GiftcardListPage extends Component<Props, State> {
         )}
 
         {!!this.props.giftcardListUnavailableForSale.length && (
-          <>
-            <Typography
-              variant="h5"
-              component="h2"
-              className={classes.titleContainer}
-            >
+          <div className={classes.titleContainer}>
+            <Typography variant="h5" component="h2">
               {`${t('list.unavailableForSaleTitle')} (${
                 this.props.giftcardListUnavailableForSale.length
               })`}
@@ -155,17 +155,13 @@ export class GiftcardListPage extends Component<Props, State> {
               giftcardList={this.props.giftcardListUnavailableForSale}
               onClick={this.props.goToGiftcard}
             />
-          </>
+          </div>
         )}
 
         {!!this.props.giftcardListInactive.length && (
           <React.Fragment>
             <div className={classes.row}>
-              <Typography
-                variant="h5"
-                component="h2"
-                className={classes.titleContainer}
-              >
+              <Typography variant="h5" component="h2">
                 {`${t('list.archivedTitle')} (${
                   this.props.giftcardListInactive.length
                 })`}
@@ -288,9 +284,17 @@ export default compose(
   }),
   connector,
   withHandlers({
-    deleteGiftcard: ({ deleteGiftcard, fetchGiftcardList }) => (id: number) => {
+    deleteGiftcard: ({ deleteGiftcard, fetchGiftcardList }) => (
+      id: number,
+      options: OptionCallback<number>,
+    ) => {
       deleteGiftcard(id, {
-        onSuccess: () => fetchGiftcardList(),
+        onSuccess: (id_: number) => {
+          fetchGiftcardList();
+          if (options?.onSuccess) {
+            options.onSuccess(id_);
+          }
+        },
       });
     },
     createOrUpdate: ({

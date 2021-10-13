@@ -166,46 +166,47 @@ export class PrivateServiceList extends React.Component<Props, State> {
             button={this.props.t('service.form.createButton')}
             onCreate={() => this.props.setOpenCreateForm(true)}
           />
-        ) : null}
+        ) : (
+          <div className={classes.search}>
+            <div className={classes.header}>
+              <FuzeSearch
+                searchText={this.state.searchText}
+                clearSearch={this.clearSearch}
+                changeSearch={this.changeSearch}
+                items={this.props.availablePrivateServices}
+                placeholder={t('search')}
+                searchFields={['name']}
+                searchResult={this.state.searchResult}
+              />
+            </div>
 
-        <div className={classes.search}>
-          <div className={classes.header}>
-            <FuzeSearch
-              searchText={this.state.searchText}
-              clearSearch={this.clearSearch}
-              changeSearch={this.changeSearch}
-              items={this.props.availablePrivateServices}
-              placeholder={t('search')}
-              searchFields={['name']}
-              searchResult={this.state.searchResult}
-            />
-          </div>
-
-          <Paper
-            className={
-              this.state.searchResult.length > 0 && this.state.searchText !== ''
-                ? classes.searchPaperDisplayed
-                : classes.searchPaperHiden
-            }
-          >
-            <Collapse
-              in={
+            <Paper
+              className={
                 this.state.searchResult.length > 0 &&
                 this.state.searchText !== ''
+                  ? classes.searchPaperDisplayed
+                  : classes.searchPaperHiden
               }
             >
-              {this.state.searchResult.map((ps) => (
-                <PrivateServiceListItem
-                  key={ps.id}
-                  privateService={ps}
-                  onClick={this.props.goToPrivateService}
-                  onEdit={() => this.props.setOpenEditForm(ps)}
-                  onDelete={() => this.props.deletePrivateService(ps.id)}
-                />
-              ))}
-            </Collapse>
-          </Paper>
-        </div>
+              <Collapse
+                in={
+                  this.state.searchResult.length > 0 &&
+                  this.state.searchText !== ''
+                }
+              >
+                {this.state.searchResult.map((ps) => (
+                  <PrivateServiceListItem
+                    key={ps.id}
+                    privateService={ps}
+                    onClick={this.props.goToPrivateService}
+                    onEdit={() => this.props.setOpenEditForm(ps)}
+                    onDelete={() => this.props.deletePrivateService(ps.id)}
+                  />
+                ))}
+              </Collapse>
+            </Paper>
+          </div>
+        )}
 
         <PrivateServiceListWithGroup
           privateServiceAvailableByGroup={

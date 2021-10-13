@@ -120,46 +120,48 @@ export class PaymentComboListPage extends React.Component<Props, State> {
             button={this.props.t('list.buttons.add')}
             onCreate={() => openCreateOrUpdateForm(null)}
           />
-        ) : null}
-        <div className={classes.search}>
-          <FuzeSearch
-            searchText={this.state.searchText}
-            clearSearch={this.clearSearch}
-            changeSearch={this.changeSearch}
-            items={paymentComboList}
-            placeholder={t('search')}
-            searchFields={['name']}
-            searchResult={this.state.searchResult}
-          />
+        ) : (
+          <div className={classes.search}>
+            <FuzeSearch
+              searchText={this.state.searchText}
+              clearSearch={this.clearSearch}
+              changeSearch={this.changeSearch}
+              items={paymentComboList}
+              placeholder={t('search')}
+              searchFields={['name']}
+              searchResult={this.state.searchResult}
+            />
 
-          <Paper
-            className={
-              this.state.searchResult.length > 0 && this.state.searchText !== ''
-                ? classes.searchPaperDisplayed
-                : classes.searchPaperHidden
-            }
-          >
-            <Collapse
-              in={
+            <Paper
+              className={
                 this.state.searchResult.length > 0 &&
                 this.state.searchText !== ''
+                  ? classes.searchPaperDisplayed
+                  : classes.searchPaperHidden
               }
             >
-              <List disablePadding>
-                {this.state.searchResult.map((pc) => (
-                  <PaymentComboListItem
-                    divider
-                    paymentCombo={pc}
-                    onEdit={() => openCreateOrUpdateForm(pc)}
-                    onDelete={() => this.props.deletePaymentCombo(pc.id)}
-                    key={pc.id}
-                    onClick={() => this.props.goToPaymentCombo(pc.id)}
-                  />
-                ))}
-              </List>
-            </Collapse>
-          </Paper>
-        </div>
+              <Collapse
+                in={
+                  this.state.searchResult.length > 0 &&
+                  this.state.searchText !== ''
+                }
+              >
+                <List disablePadding>
+                  {this.state.searchResult.map((pc) => (
+                    <PaymentComboListItem
+                      divider
+                      paymentCombo={pc}
+                      onEdit={() => openCreateOrUpdateForm(pc)}
+                      onDelete={() => this.props.deletePaymentCombo(pc.id)}
+                      key={pc.id}
+                      onClick={() => this.props.goToPaymentCombo(pc.id)}
+                    />
+                  ))}
+                </List>
+              </Collapse>
+            </Paper>
+          </div>
+        )}
         <PaymentComboList
           paymentComboListAvailableOnline={paymentComboListAvailableOnline}
           paymentComboListUnavailableOnline={paymentComboListUnavailableOnline}

@@ -91,50 +91,52 @@ export function ReportDashboard(props: Props) {
 
   return (
     <div className={classes.root}>
-      <FuzzySearch
-        items={reportConfigurations}
-        placeholder={t('search')}
-        searchFields={['name']}
-        itemRenderer={(report) => (
-          <ReportListItem
-            key={report.id}
-            report={report}
-            onEdit={() => {
-              setReportConfigurationToEdit(report);
-              setShowModalAdd(true);
-            }}
-            onDetail={() => onReportDetail(report.id)}
-            onDelete={() => setSelectedForDeletion(report)}
-          />
-        )}
-        className={classes.search}
-      />
-      <ReportCategorySelector
-        categories={categories}
-        onSelect={setSelectedCategory}
-        selected={selectedCategory}
-      />
       {reportConfigurations.length ? (
-        <div>
-          <ReportList
-            items={configurations}
-            className={classes.list}
-            itemProps={itemProps}
+        <>
+          <FuzzySearch
+            items={reportConfigurations}
+            placeholder={t('search')}
+            searchFields={['name']}
+            itemRenderer={(report) => (
+              <ReportListItem
+                key={report.id}
+                report={report}
+                onEdit={() => {
+                  setReportConfigurationToEdit(report);
+                  setShowModalAdd(true);
+                }}
+                onDetail={() => onReportDetail(report.id)}
+                onDelete={() => setSelectedForDeletion(report)}
+              />
+            )}
+            className={classes.search}
           />
-          <ModalConfirm
-            open={!!selectedForDeletion}
-            close={onCancelDeletion}
-            options={{
-              title: 'report.delete',
-              Content: () =>
-                t('report.delete_message', {
-                  name: selectedForDeletion && selectedForDeletion.name,
-                }),
-            }}
-            handleConfirm={onConfirmDeletion}
-            handleCancel={onCancelDeletion}
+          <ReportCategorySelector
+            categories={categories}
+            onSelect={setSelectedCategory}
+            selected={selectedCategory}
           />
-        </div>
+          <div>
+            <ReportList
+              items={configurations}
+              className={classes.list}
+              itemProps={itemProps}
+            />
+            <ModalConfirm
+              open={!!selectedForDeletion}
+              close={onCancelDeletion}
+              options={{
+                title: 'report.delete',
+                Content: () =>
+                  t('report.delete_message', {
+                    name: selectedForDeletion && selectedForDeletion.name,
+                  }),
+              }}
+              handleConfirm={onConfirmDeletion}
+              handleCancel={onCancelDeletion}
+            />
+          </div>
+        </>
       ) : (
         <div className={classes.messageNoReports}>
           <Typography variant="body1">{t('list.empty')}</Typography>

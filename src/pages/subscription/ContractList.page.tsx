@@ -121,65 +121,67 @@ export class SubscriptionList extends React.Component<Props, State> {
             button={this.props.t('subscription:contract.actions.create')}
             onCreate={this.props.onRequestCreate}
           />
-        ) : null}
-        <div className={this.props.classes.search}>
-          <FuzeSearch
-            searchText={this.state.searchText}
-            clearSearch={this.clearSearch}
-            changeSearch={this.changeSearch}
-            items={this.props.contractListAvailableAll}
-            placeholder={this.props.t('search')}
-            searchFields={['name']}
-            searchResult={this.state.searchResult}
-          />
+        ) : (
+          <div className={this.props.classes.search}>
+            <FuzeSearch
+              searchText={this.state.searchText}
+              clearSearch={this.clearSearch}
+              changeSearch={this.changeSearch}
+              items={this.props.contractListAvailableAll}
+              placeholder={this.props.t('search')}
+              searchFields={['name']}
+              searchResult={this.state.searchResult}
+            />
 
-          <Paper
-            className={
-              this.state.searchResult.length > 0 && this.state.searchText !== ''
-                ? this.props.classes.searchPaperDisplayed
-                : this.props.classes.searchPaperHidden
-            }
-          >
-            <Collapse
-              in={
+            <Paper
+              className={
                 this.state.searchResult.length > 0 &&
                 this.state.searchText !== ''
+                  ? this.props.classes.searchPaperDisplayed
+                  : this.props.classes.searchPaperHidden
               }
             >
-              <SubscriptionContractList
-                contractList={this.state.searchResult}
-                dense
-                divider
-                loading={this.props.contractLoading}
-                onClick={this.onClickContract}
-                company={{
-                  id: this.props.theme.company,
-                  name: this.props.theme.company_name,
-                }}
-                selectedContract={this.props.selectedContract}
-                onRegister={this.props.openContractRegister}
-                onEdit={(data: any, options: OptionCallback<void>) => {
-                  this.props.createOrUpdateContract(data, {
-                    onSuccess: () => {
-                      this.props.fetchContractList();
-                      if (options && options.onSuccess) {
-                        options.onSuccess();
-                      }
-                    },
-                  });
-                }}
-                onDelete={(id: number) =>
-                  this.props.deleteContract(id, {
-                    onSuccess: this.props.fetchContractList,
-                  })
+              <Collapse
+                in={
+                  this.state.searchResult.length > 0 &&
+                  this.state.searchText !== ''
                 }
-                paymentPacks={this.props.paymentPacks}
-                privatePassList={this.props.privatePassList}
-                paymentComboList={this.props.paymentComboList}
-              />
-            </Collapse>
-          </Paper>
-        </div>
+              >
+                <SubscriptionContractList
+                  contractList={this.state.searchResult}
+                  dense
+                  divider
+                  loading={this.props.contractLoading}
+                  onClick={this.onClickContract}
+                  company={{
+                    id: this.props.theme.company,
+                    name: this.props.theme.company_name,
+                  }}
+                  selectedContract={this.props.selectedContract}
+                  onRegister={this.props.openContractRegister}
+                  onEdit={(data: any, options: OptionCallback<void>) => {
+                    this.props.createOrUpdateContract(data, {
+                      onSuccess: () => {
+                        this.props.fetchContractList();
+                        if (options && options.onSuccess) {
+                          options.onSuccess();
+                        }
+                      },
+                    });
+                  }}
+                  onDelete={(id: number) =>
+                    this.props.deleteContract(id, {
+                      onSuccess: this.props.fetchContractList,
+                    })
+                  }
+                  paymentPacks={this.props.paymentPacks}
+                  privatePassList={this.props.privatePassList}
+                  paymentComboList={this.props.paymentComboList}
+                />
+              </Collapse>
+            </Paper>
+          </div>
+        )}
         <Grid container spacing={2}>
           {!!this.props.contractListAvailableAll.length && (
             <Grid item xs={12} lg={6}>

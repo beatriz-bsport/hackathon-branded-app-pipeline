@@ -148,6 +148,7 @@ export class SubscriptionDetail extends Component<Props> {
       goToMember,
       goToSubscribe,
     } = this.props;
+
     return (
       <div className={this.props.classes.container}>
         {loading ? <LinearProgress /> : null}

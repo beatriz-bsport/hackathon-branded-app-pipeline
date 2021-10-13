@@ -85,15 +85,17 @@ export class MarketplaceCalendar extends PureComponent<Props> {
       width,
     } = this.props;
 
+    console.log(width);
+
     // compact calendar
     const isCompact =
       (compactMode != null && compactMode === true) ||
-      (compactMode == null && ['xs', 'sm'].includes(width));
+      (compactMode == null && ['xs', 'sm', 'md'].includes(width));
 
     // large calendar
     const isLarge =
       (compactMode != null && compactMode === false) ||
-      (compactMode == null && !['xs', 'sm'].includes(width));
+      (compactMode == null && !['xs', 'sm', 'md'].includes(width));
 
     const events = getEventsFrom(offers);
 

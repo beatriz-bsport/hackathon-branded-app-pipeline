@@ -7,10 +7,18 @@ import { push } from 'connected-react-router';
 import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { BUYABLE_ITEM_GIFTCARD } from '@bsport/common/lib/master-data/buyable-items';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { RootState } from '../../../reducers';
+import ConsumerAppBarContainer from '../ConsumerAppBar.container';
 
-import { getGiftcard } from '../../../libs/giftcard/selectors';
-import { retrieveGiftcard } from '../../../libs/giftcard/actions';
+import {
+  getGiftcard,
+  getGiftcardBackgroundImageList,
+} from '../../../libs/giftcard/selectors';
+import {
+  retrieveGiftcard,
+  fetchGiftcardBackgroundImageList,
+} from '../../../libs/giftcard/actions';
 import ConsumerGiftcardFormWithPreview from '../../../libs/giftcard/components/ConsumerGiftcardFormWithPreview.component';
 import themeSelectors from '../../../libs/theme/selectors';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
@@ -25,6 +33,7 @@ import { getCurrentBasket } from '../../../libs/checkout/selectors';
 type OwnProps = {
   companyId: number;
   id: number;
+  giftcardBackgroundImageList: Array<String>;
 };
 
 type Props = OwnProps &
@@ -34,9 +43,13 @@ type Props = OwnProps &
 
 export class GiftcardCheckout extends React.Component<Props> {
   componentDidMount() {
-    this.props.fetchCompanyTheme(this.props.companyId);
-    this.props.fetchCurrentBasket(this.props.companyId);
-    this.props.retrieveGiftcard(this.props.id);
+    this.props.retrieveGiftcard(this.props.id, {
+      onSuccess: (giftcard: Giftcard) => {
+        this.props.fetchCompanyTheme(giftcard.company);
+        this.props.fetchCurrentBasket(giftcard.company);
+        this.props.fetchGiftcardBackgroundImageList(giftcard.company);
+      },
+    });
   }
 
   addItemToBasket = (data: any) => {
@@ -49,23 +62,27 @@ export class GiftcardCheckout extends React.Component<Props> {
         extra_data: { customization_dict: data },
       },
       {
-        onSuccess: () => this.props.goToBasket(this.props.companyId),
+        onSuccess: () => this.props.goToBasket(this.props.giftcard.company),
       },
     );
   };
 
   render() {
-    if (!this.props.theme || !this.props.giftcard) return null;
+    if (!this.props.theme || !this.props.giftcard) return <LinearProgress />;
     const { classes } = this.props;
     return (
-      <div className={classes.container}>
-        <ConsumerGiftcardFormWithPreview
-          giftcard={this.props.giftcard}
-          companyCover={this.props.theme.cover}
-          variant="consumer"
-          onSubmit={this.addItemToBasket}
-        />
-      </div>
+      <ConsumerAppBarContainer>
+        <div className={classes.container}>
+          <ConsumerGiftcardFormWithPreview
+            giftcard={this.props.giftcard}
+            companyCover={this.props.theme.cover}
+            variant="consumer"
+            onSubmit={this.addItemToBasket}
+            giftcardBackgroundImageList={this.props.giftcardBackgroundImageList}
+            isManager={false}
+          />
+        </div>
+      </ConsumerAppBarContainer>
     );
   }
 }
@@ -87,9 +104,11 @@ const connector = connect(
     currentBasket: getCurrentBasket(state),
     giftcard: getGiftcard(state, id),
     theme: themeSelectors.getTheme(state),
+    giftcardBackgroundImageList: getGiftcardBackgroundImageList(state),
   }),
   {
     retrieveGiftcard,
+    fetchGiftcardBackgroundImageList,
     fetchCompanyTheme,
     addItemToBasket,
     fetchCurrentBasket,
@@ -100,6 +119,6 @@ const connector = connect(
 export default compose(
   withTranslation(),
   withStyles(styles),
-  routerParamsToProps({ id: 'id:number', companyId: 'companyId:number' }),
+  routerParamsToProps({ id: 'id:number' }),
   connector,
 )(GiftcardCheckout);

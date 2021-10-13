@@ -12,8 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 
 import Collapse from '@material-ui/core/Collapse';
-// import Button from '@material-ui/core/Button'; TODO AUDE
-// import AddIcon from '@material-ui/icons/Add';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import Divider from '@material-ui/core/Divider';
@@ -26,9 +26,9 @@ import {
   fetchGiftcardList as fetchGiftcardListAction,
   createOrUpdateGiftcard as createOrUpdateGiftcardAction,
   deleteGiftcard as deleteGiftcardActions,
-  // createGiftcardBackgroundImage,
-  // deleteGiftcardBackgroundImage,
-  // fetchGiftcardBackgroundImageList,
+  createGiftcardBackgroundImage,
+  deleteGiftcardBackgroundImage,
+  fetchGiftcardBackgroundImageList,
   restoreGiftcard,
 } from '../../libs/giftcard/actions';
 import {
@@ -44,7 +44,10 @@ import GiftcardList from '../../libs/giftcard/components/GiftcardList.component'
 import DividerLoader from '../../components/DividerLoader.component';
 import GiftcardBackgroundImageUploader from '../../libs/giftcard/components/GiftcardBackgroundImageUploader.component';
 
-import { ConsumerGiftcard } from '../../libs/giftcard/types';
+import {
+  ConsumerGiftcard,
+  GiftcardBackgroundImage,
+} from '../../libs/giftcard/types';
 import { OptionCallback } from '../../state/types';
 
 const styles = (theme: Theme) =>
@@ -68,6 +71,14 @@ type OwnProps = {
   openCreateForm: () => void;
   openEditForm: (consumerGiftcardId: number) => void;
   closeForms: () => void;
+  addImage: (data: any) => void;
+  removeImage: (index: number) => void;
+  goToGiftcard: (id: number) => void;
+  toggleBackgroundImageForm: () => void;
+  createOrUpdate: () => void;
+  queryParams: any;
+  giftcardBackgroundImageList: Array<GiftcardBackgroundImage>;
+  companyCover: string;
 };
 
 type Props = OwnProps &
@@ -82,28 +93,34 @@ export class GiftcardListPage extends Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchGiftcardList();
-    // this.props.fetchGiftcardBackgroundImageList(this.props.);
+    this.props.fetchGiftcardBackgroundImageList(this.props.company);
   }
 
   onShowDisabled = () =>
     this.setState((prevState) => ({ showDisabled: !prevState.showDisabled }));
+
+  onAddImage = (file: any) => {
+    this.props.addImage(file);
+  };
+
+  onRemoveImage = (index: number) => {
+    const id = this.props.giftcardBackgroundImageList[index].id;
+    this.props.removeImage(id);
+  };
 
   render() {
     const { classes, t } = this.props;
     return (
       <div className={classes.container}>
         {this.props.loading && <BackofficeLinearProgressComponent />}
-        {/*
-            // TODO AUDE
         <Button
-        variant="outlined"
-        color='primary'
-          onClick={this.props.toogleBackgroundImageForm}
+          variant="outlined"
+          color="primary"
+          onClick={this.props.toggleBackgroundImageForm}
         >
           <AddIcon />
           {t('list.addBackgroundImage')}
-          </Button>
-          */}
+        </Button>
         {this.props.giftcardListActive.length === 0 &&
         this.props.giftcardListUnavailableForSale.length === 0 &&
         this.props.giftcardListInactive.length === 0 &&
@@ -137,7 +154,6 @@ export class GiftcardListPage extends Component<Props, State> {
             />
           </>
         )}
-
         {!!this.props.giftcardListUnavailableForSale.length && (
           <div className={classes.titleContainer}>
             <Typography variant="h5" component="h2">
@@ -157,7 +173,6 @@ export class GiftcardListPage extends Component<Props, State> {
             />
           </div>
         )}
-
         {!!this.props.giftcardListInactive.length && (
           <React.Fragment>
             <div className={classes.row}>
@@ -207,10 +222,12 @@ export class GiftcardListPage extends Component<Props, State> {
         )}
         {this.props.queryParams.isBackgroundImageUploaderOpen && (
           <GiftcardBackgroundImageUploader
-            companyCover={this.props.companyCover}
             open={this.props.queryParams.isBackgroundImageUploaderOpen}
             giftcardBackgroundImageList={this.props.giftcardBackgroundImageList}
-            onClose={this.props.toogleBackgroundImageForm}
+            onClose={this.props.toggleBackgroundImageForm}
+            onAddImage={this.onAddImage}
+            onRemoveImage={this.onRemoveImage}
+            companyCover={this.props.companyCover}
           />
         )}
       </div>
@@ -226,14 +243,15 @@ const connector = connect(
     loading: state.giftcard.giftcard.loading,
     giftcardBackgroundImageList: getGiftcardBackgroundImageList(state),
     companyCover: state.theme.theme.cover,
+    company: state.theme.theme.company,
     giftcardToEdit:
       state.giftcard.giftcard.byId[parseInt(queryParams?.giftcardToEdit, 10)],
   }),
   {
     fetchGiftcardList: fetchGiftcardListAction,
-    // fetchGiftcardBackgroundImageList,
-    // createGiftcardBackgroundImage,
-    // deleteGiftcardBackgroundImage,
+    fetchGiftcardBackgroundImageList,
+    addImage: createGiftcardBackgroundImage,
+    removeImage: deleteGiftcardBackgroundImage,
     createOrUpdateGiftcard: createOrUpdateGiftcardAction,
     deleteGiftcard: deleteGiftcardActions,
     restoreGiftcard,
@@ -267,7 +285,7 @@ export default compose(
         setQueryParams('isCreateFormOpen')('true');
       }
     },
-    toogleBackgroundImageForm: ({ setQueryParams, queryParams }) => () => {
+    toggleBackgroundImageForm: ({ setQueryParams, queryParams }) => () => {
       if (queryParams?.isBackgroundImageUploaderOpen) {
         setQueryParams('isBackgroundImageUploaderOpen')('');
       } else {

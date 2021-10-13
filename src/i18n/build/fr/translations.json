@@ -1105,7 +1105,8 @@
         "name": "[Nom de la carte]",
         "message_is_from": "[Nom acheteur]",
         "message_is_for": "[Nom destinataire]",
-        "message_content": "[Message personnalisé]"
+        "message_content": "[Message personnalisé]",
+        "giftcard_amount": "[Montant carte]"
       },
       "form": {
         "name": { "label": "Nom de la carte" },
@@ -1113,8 +1114,9 @@
         "message_is_from": { "label": "De la part de " },
         "message_content": { "label": "Message personnel" },
         "recipients": { "label": "Email du destinataire" },
+        "select_image": "Sélectionnez votre image de fond",
         "date_send": { "label": "Date d’envoi de l’email" },
-        "actions": { "submit": "Ajouter au panier" },
+        "actions": { "submit": "Ajouter au panier", "cancel": "Annuler" },
         "footer": "La carte sera envoyée par mail le {{- date_send }} aux adresses indiquées. Elle sera valide pendant {{ expiration_days }} jours après l’envoi du mail. Le compte du destinataire sera crédité de {{- price }} pour les prochains achats.",
         "footerUnlimited": "La carte sera envoyée par mail le {{- date_send }} aux adresses indiquées. Elle ne contient pas de date d'expiration. Le compte du destinataire sera crédité de {{- price }} pour les prochains achats."
       }

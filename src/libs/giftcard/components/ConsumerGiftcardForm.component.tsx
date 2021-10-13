@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { withFormik } from 'formik';
 import Typography from '@material-ui/core/Typography';
 import * as Yup from 'yup';
 import moment from 'moment-timezone';
-import { TextField, DateField } from '../../../components/forms';
 
+import { TextField, DateField } from '../../../components/forms';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
-import { Giftcard } from '../types';
+import { Giftcard, GiftcardBackgroundImage } from '../types';
 import { EmailInputWithChipsField } from '../../../components/input/EmailInputWithChipsGenerator.component';
+import CarouselInputField from '../../../components/input/CarouselInputField.component';
 
 type Props = {
   giftcard: Giftcard;
@@ -18,15 +19,22 @@ type Props = {
     message_is_for: string;
     message_content: string;
     name: string;
-    background_image: any;
+    background_image: string;
     recipients: Array<string>;
     date_send: string;
   };
+  giftcardBackgroundImageList: Array<GiftcardBackgroundImage>;
+  isManager: boolean;
 };
 
 export const ConsumerGiftcardForm = (props: Props) => {
   const { t } = useTranslation(['giftcard']);
   const classes = useStyles();
+
+  const [selectedImage, setSelectedImage] = useState(null);
+  const handleSelectedImage = (index: number) => {
+    setSelectedImage(index);
+  };
 
   return (
     <div className={classes.container}>
@@ -66,6 +74,17 @@ export const ConsumerGiftcardForm = (props: Props) => {
         helperText={`${props.values.message_content.length}/2000`}
         inputProps={{ maxLength: 2000 }}
       />
+      {props.giftcardBackgroundImageList.length > 0 && (
+        <CarouselInputField
+          imagesArr={props.giftcardBackgroundImageList.map((img) => img.image)}
+          selectedImage={selectedImage}
+          handleSelectedImage={handleSelectedImage}
+          isManager={props.isManager}
+          title={t('consumerGiftcard.form.select_image')}
+          textFieldName="background_image"
+        />
+      )}
+
       <EmailInputWithChipsField
         emailList={props.values.recipients}
         textFieldLabel={t('consumerGiftcard.form.recipients.label')}
@@ -125,8 +144,8 @@ export const ConsumerGiftcardSchema = Yup.object().shape({
   message_is_for: Yup.object().nullable(),
   message_content: Yup.string().required(),
   name: Yup.string().required(),
-  // background_image: Yup.number().required(),
-  recipients: Yup.array().required(),
+  background_image: Yup.string().nullable(),
+  recipients: Yup.array().of(Yup.string()).required(),
   date_to_send: Yup.string(),
 });
 

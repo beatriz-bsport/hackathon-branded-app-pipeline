@@ -41,7 +41,7 @@ const GiftcardCardDetail = (props: Props) => {
           </Typography>
         </div>
         <CopyToClipboard
-          text={`${window.location.origin}/customer/payment/giftcard/${giftcard.id}/?membership=${giftcard.company}&force=true`}
+          text={`${window.location.origin}/checkout/${giftcard.company}/giftcard/${giftcard.id}/?force=true`}
         >
           <ButtonBase
             id="button_pass_copy"

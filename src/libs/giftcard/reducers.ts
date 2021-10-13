@@ -205,9 +205,7 @@ export default handleActions(
     ) => {
       return state.setIn(
         ['giftcardBackgroundImage', 'allIds'],
-        state.giftcardBackgroundImage.allIds.filter(
-          (gbi) => gbi.id !== payload,
-        ),
+        state.giftcardBackgroundImage.allIds.filter((id) => id !== payload),
       );
     },
     [listConsumerGiftcardSentActions.isLoading.toString()]: (

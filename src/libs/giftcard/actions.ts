@@ -18,7 +18,6 @@ import {
   restoreGiftcard as restoreGiftcardAPI,
 } from './api';
 import { ConsumerGiftcard, Giftcard, GiftcardBackgroundImage } from './types';
-
 import type { Dispatch } from '../../state/types';
 import { OptionCallback } from '../../state/types';
 
@@ -426,14 +425,16 @@ export const createGiftcardBackgroundImageActions = {
 };
 
 export function createGiftcardBackgroundImage(
-  data: any,
+  image: File,
   options?: OptionCallback<GiftcardBackgroundImage>,
 ) {
   return async (dispatch: Dispatch) => {
-    dispatch(createGiftcardBackgroundImageActions.isLoading(true));
+    dispatch(createGiftcardBackgroundImageActions.loading(true));
     dispatch(createGiftcardBackgroundImageActions.error(null));
 
     try {
+      const data = new FormData();
+      data.append('image', image);
       const response = await createGiftcardBackgroundImageAPI(data);
       dispatch(createGiftcardBackgroundImageActions.success(response.data));
       if (options && options.onSuccess) {
@@ -445,7 +446,7 @@ export function createGiftcardBackgroundImage(
       dispatch(createGiftcardBackgroundImageActions.error(error));
     }
 
-    dispatch(createGiftcardBackgroundImageActions.isLoading(false));
+    dispatch(createGiftcardBackgroundImageActions.loading(false));
   };
 }
 
@@ -460,12 +461,12 @@ export function deleteGiftcardBackgroundImage(
   options?: OptionCallback<GiftcardBackgroundImage>,
 ) {
   return async (dispatch: Dispatch) => {
-    dispatch(deleteGiftcardBackgroundImageActions.isLoading(true));
+    dispatch(deleteGiftcardBackgroundImageActions.loading(true));
     dispatch(deleteGiftcardBackgroundImageActions.error(null));
 
     try {
       const response = await deleteGiftcardBackgroundImageAPI(id);
-      dispatch(deleteGiftcardBackgroundImageActions.success(response.data));
+      dispatch(deleteGiftcardBackgroundImageActions.success(id));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
       }
@@ -475,7 +476,7 @@ export function deleteGiftcardBackgroundImage(
       dispatch(deleteGiftcardBackgroundImageActions.error(error));
     }
 
-    dispatch(deleteGiftcardBackgroundImageActions.isLoading(false));
+    dispatch(deleteGiftcardBackgroundImageActions.loading(false));
   };
 }
 

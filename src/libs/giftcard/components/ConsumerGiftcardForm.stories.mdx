@@ -1,6 +1,6 @@
 import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
 import ConsumerGiftcardFormWithPreview from './ConsumerGiftcardFormWithPreview.component';
-import { consumer_giftcard_factory, giftcard_factory } from '../factory';
+import { consumer_giftcard_factory, giftcard_factory, giftcard_background_image_factory } from '../factory';
 import { action } from '@storybook/addon-actions';
 
 <Meta 
@@ -9,9 +9,6 @@ import { action } from '@storybook/addon-actions';
 />
 
 export const Template = (args) => <ConsumerGiftcardFormWithPreview {...args} />;
-
-const consumerGiftcard = consumer_giftcard_factory(1)[0]
-const giftcard = giftcard_factory(1)[0]
 
 <Canvas>
     <Story
@@ -22,9 +19,25 @@ const giftcard = giftcard_factory(1)[0]
       companyCover: "https://api.production.bsport.io/media/theme/wp_yogawithyou_logo.jpg",
       onSubmit: action('submit'),
       onClose: action('close'),
+      giftcardBackgroundImageList: giftcard_background_image_factory(3),
     }}
     >
     {Template.bind({})}
     </Story>
 </Canvas>
 
+<Canvas>
+    <Story
+    name="Form-with-many-images"
+    args={{ 
+      giftcard: giftcard_factory(1)[0],
+      consumerGiftcard: consumer_giftcard_factory(1)[0],
+      companyCover: "https://api.production.bsport.io/media/theme/wp_yogawithyou_logo.jpg",
+      onSubmit: action('submit'),
+      onClose: action('close'),
+      giftcardBackgroundImageList: giftcard_background_image_factory(10),
+    }}
+    >
+    {Template.bind({})}
+    </Story>
+</Canvas>

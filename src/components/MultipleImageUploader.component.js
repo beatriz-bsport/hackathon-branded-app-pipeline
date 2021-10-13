@@ -121,6 +121,7 @@ const styles = (theme) => ({
     position: 'absolute',
     top: 0,
     bottom: 0,
+    padding: theme.spacing(3.5),
   },
   textContainerActive: {
     backgroundColor: 'rgba(0,0,0,0.2)',

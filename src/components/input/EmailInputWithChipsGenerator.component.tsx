@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import lodash from 'lodash';
 import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
 import Chip from '@material-ui/core/Chip';
@@ -14,7 +15,7 @@ type Props = {
   disabled: boolean;
 };
 
-const emailRegexp = new RegExp('[A-z0-9-_]+@[A-z0-9-_]+.[A-z]+$');
+const emailRegexp = /[A-z0-9-_]+@[A-z0-9-_]+\.[A-z]+$/;
 
 export const EmailInputWithChipsGenerator = (props: Props) => {
   const { removeEmailFromList, emailList, addEmailToList } = props;
@@ -23,6 +24,24 @@ export const EmailInputWithChipsGenerator = (props: Props) => {
   const [currentTextInput, setCurrentTextInput] = useState('');
   const [wrongChips, setWrongChips] = useState([]);
   const [error, setError] = useState(false);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const generateAutomaticChip = useCallback(
+    lodash.debounce(
+      (
+        text: string,
+        addTextToList: (text: string) => void,
+        setTextInput: (text: string) => void,
+        list: Array<string>,
+      ) => {
+        if (emailRegexp.test(text) && !list.includes(text)) {
+          addTextToList(text);
+          setTextInput('');
+        }
+      },
+      500,
+    ),
+    [],
+  );
 
   const handleKeyDown = (e: any) => {
     const text = currentTextInput;
@@ -30,9 +49,7 @@ export const EmailInputWithChipsGenerator = (props: Props) => {
       (e.key === ' ' || e.key === ',' || e.key === 'Tab') &&
       text.length > 0
     ) {
-      if (emailRegexp.test(text) && emailList.includes(text)) {
-        setError(true);
-      } else if (emailRegexp.test(text) && !emailList.includes(text)) {
+      if (emailRegexp.test(text) && !emailList.includes(text)) {
         addEmailToList(text);
         setCurrentTextInput('');
       } else {
@@ -46,23 +63,24 @@ export const EmailInputWithChipsGenerator = (props: Props) => {
     if (error) {
       setError(false);
     }
-    if (e.target.value !== ' ' && e.target.value !== ',') {
+    if (e.key !== ' ' && e.key !== ',') {
+      if (emailList.includes(e.target.value)) {
+        setError(true);
+      }
       setCurrentTextInput(e.target.value);
     }
+    generateAutomaticChip(
+      e.target.value,
+      addEmailToList,
+      setCurrentTextInput,
+      emailList,
+    );
   };
 
   const removeChip = (text: string) => {
     const chipList = [...wrongChips];
     const updatedWrongChips = chipList.filter((c) => c !== text);
     setWrongChips(updatedWrongChips);
-  };
-
-  const handleBlur = () => {
-    const text = currentTextInput;
-    if (emailRegexp.test(text) && !emailList.includes(text)) {
-      addEmailToList(text);
-      setCurrentTextInput('');
-    }
   };
 
   return (
@@ -77,7 +95,6 @@ export const EmailInputWithChipsGenerator = (props: Props) => {
         helperText={error ? t('form.warningAddEmail') : t('form.emailHelper')}
         name={props.textFieldName}
         disabled={props.disabled}
-        onBlur={handleBlur}
       />
       <div className={classes.chipContainer}>
         {wrongChips &&

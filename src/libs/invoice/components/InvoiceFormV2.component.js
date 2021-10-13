@@ -21,6 +21,7 @@ import { OptionCallback } from '../../../state/types';
 import { appliesToInvoice } from '../../coupon/api';
 import type { Establishment } from '../../establishment/types';
 import ConsumerGiftcardFormWithPreview from '../../giftcard/components/ConsumerGiftcardFormWithPreview.component';
+import { GiftcardBackgroundImage } from '../../giftcard/types';
 
 type Props = {
   classes: Object,
@@ -43,6 +44,8 @@ type Props = {
   establishments: Array<Establishment>,
   establishmentLoading: boolean,
   enableMultiLocalization: boolean,
+  imageCarouselChangeable: boolean,
+  giftcardBackgroundImageList: Array<GiftcardBackgroundImage>,
 };
 
 type State = {
@@ -56,6 +59,7 @@ type State = {
   billing_establishment_id: number | null,
   giftcardToConfigureList: Array<number>,
   giftcardConfigList: Array<any>,
+  giftcardBackgroundImageList: Array<string>,
 };
 
 const asEditable = (editable, items) => {
@@ -317,16 +321,20 @@ export class InvoiceForm extends React.Component<Props, State> {
                   }}
                   className={classes.modal}
                 >
-                  <div>
+                  <div style={{ width: '100%' }}>
                     <ConsumerGiftcardFormWithPreview
                       forceVertical
                       giftcard={giftcardToConfigure}
+                      giftcardBackgroundImageList={
+                        this.props.giftcardBackgroundImageList
+                      }
                       onSubmit={(data) =>
                         this.storeGiftcardConfig({
                           ...data,
                           giftcard: giftcardToConfigure.id,
                         })
                       }
+                      isManager={this.props.imageCarouselChangeable}
                     />
                   </div>
                 </div>
@@ -354,6 +362,13 @@ const styles = (theme) => ({
     borderRadius: 8,
     overflow: 'auto',
     maxHeight: '100vh',
+    maxWidth: '60%',
+    [theme.breakpoints.up('md')]: {
+      width: '80%',
+    },
+    [theme.breakpoints.down('sm')]: {
+      minWidth: 600,
+    },
   },
   buttonContainer: {
     display: 'flex',

@@ -17,11 +17,13 @@ import ConsumerGiftcardForm, {
 
 type Props = {
   giftcard: Giftcard;
-  onClose: () => void;
+  onCancel: () => void;
   companyCover: string;
   variant: 'consumer' | null;
   values: ConsumerGiftcardPersonnalizationElements;
   forceVertical?: boolean;
+  giftcardBackgroundImageList: Array<String>;
+  isManager: boolean;
 };
 
 const GridWrapper = {
@@ -66,8 +68,8 @@ const ConsumerGiftcardFormWithPreview = React.memo((props: Props) => {
           <Paper className={classes.formContainer}>
             <ConsumerGiftcardForm {...props} />
             <div className={classes.actions}>
-              {props.onClose && (
-                <Button onClick={props.onClose}>
+              {props.onCancel && (
+                <Button onClick={props.onCancel}>
                   {t('consumerGiftcard.form.actions.cancel')}
                 </Button>
               )}
@@ -91,6 +93,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'row',
+    width: '100%',
   },
   previewContainer: {
     paddingRight: theme.spacing(3),
@@ -132,6 +135,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     '&>*': {
       marginBottom: theme.spacing(2),
     },
+    width: '100%',
   },
 }));
 

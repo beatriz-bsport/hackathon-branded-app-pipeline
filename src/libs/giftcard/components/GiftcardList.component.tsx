@@ -36,6 +36,7 @@ export function GiftcardList(props: Props) {
               onRemove={onRemove}
               onRestore={onRestore}
               onClick={onClick}
+              key={`${i}-${card.name}`}
             />
           );
         })}

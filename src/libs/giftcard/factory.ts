@@ -1,9 +1,9 @@
 import moment from 'moment';
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
 import {
-  ConsumerGiftCard,
-  GiftCard,
-  GiftCardRecipient,
+  ConsumerGiftcard,
+  Giftcard,
+  GiftcardRecipient,
   GiftcardBackgroundImage,
 } from './types';
 
@@ -80,10 +80,11 @@ function random_choice(arr: Array<any>): any {
 
 export function giftcard_recipient_factory(
   num_el: number,
-): Array<GiftCardRecipient> {
+): Array<GiftcardRecipient> {
   const GIFTCARD_IDS: Array<number> = [...Array(num_el).keys()];
   return GIFTCARD_IDS.map((id) => {
     return {
+      id,
       date_created: random_choice(DATES_CREATED),
       email_sent_to: random_choice(MESSAGES_FROM_FOR),
       consumer_giftcard: id + 1,
@@ -91,7 +92,7 @@ export function giftcard_recipient_factory(
   });
 }
 
-export function giftcard_factory(num_el: number): Array<GiftCard> {
+export function giftcard_factory(num_el: number): Array<Giftcard> {
   const GIFTCARD_IDS: Array<number> = [...Array(num_el).keys()];
   return GIFTCARD_IDS.map((id) => {
     return {
@@ -102,33 +103,38 @@ export function giftcard_factory(num_el: number): Array<GiftCard> {
       cover_thumbnail: random_choice(COVERS),
       expiration_days: random_int(100),
       price: random_choice(PRICES),
-      available_payment_methods_identifiers: [CB.id],
+      available_payment_method_identifiers: [CB.id],
       manager_only: true,
       disabled: false,
       company: random_int(20) + 1,
-      amount_gifted: random_int(100),
+      amount_gifted: random_int(100).toString(),
     };
   });
 }
 
 export function consumer_giftcard_factory(
   num_el: number,
-): Array<ConsumerGiftCard> {
+): Array<ConsumerGiftcard> {
   const GIFTCARD_IDS: Array<number> = [...Array(num_el).keys()];
   const RECIPIENTS = giftcard_recipient_factory(num_el);
-  return GIFTCARD_IDS.map(() => {
+  return GIFTCARD_IDS.map((id) => {
     return {
       id: random_int(1000),
-      consumed_amount_gifted: random_int(10),
+      consumed_amount_gifted: random_int(10).toString(),
       src_member: random_int(99999),
-      dest_member: random_int(99999),
+      dst_member: random_int(99999),
+      background_image: random_choice(COVERS),
       message_is_from: random_choice(MESSAGES_FROM_FOR),
       message_is_for: random_choice(MESSAGES_FROM_FOR),
       message_content: random_choice(MESSAGES),
-      background_image: random_choice(COVERS),
       date_created: random_choice(DATES_CREATED),
       date_activated: random_choice(DATES_ACTIVE),
+      planned_date_send: random_choice(DATES_ACTIVE),
       giftcard_recipients: random_choice(RECIPIENTS),
+      giftcard: random_int(10) + 1,
+      invitation_sent: false,
+      active: true,
+      name: `${random_choice(NAMES)} #${id}`,
     };
   });
 }

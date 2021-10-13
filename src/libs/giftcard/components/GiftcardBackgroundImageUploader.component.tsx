@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -12,18 +12,9 @@ import { makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import MultipleImageUploader from '../../../components/MultipleImageUploader.component';
 import ConsumerGiftcardPreview from './ConsumerGiftcardPreview.component';
+import { CarouselInput } from '../../../components/input/CarouselInput.component';
 import { GiftcardBackgroundImage } from '../types';
 
-const Carousel = (props: { imageList: { image: string; id: number } }) => (
-  <div>
-    {props.imageList.map((img) => (
-      // eslint-disable-next-line
-      <button onClick={(img) => props.onRemove(img.id)}>
-        {JSON.stringify(img)}
-      </button>
-    ))}
-  </div>
-);
 const useStyles = makeStyles((theme: Theme) => ({
   container: {},
   content: {
@@ -31,34 +22,49 @@ const useStyles = makeStyles((theme: Theme) => ({
       marginBottom: theme.spacing(3),
     },
   },
+  spacing: {
+    height: '50px',
+  },
 }));
 
 type Props = {
   giftcardBackgroundImageList: Array<GiftcardBackgroundImage>;
   onClose: () => void;
   onAddImage: (data: any) => void;
-  onRemoveImage: (id: number) => void;
+  onRemoveImage: (index: number) => void;
+  open: boolean;
+  companyCover: string;
 };
 
 export const GiftcardBackgroundImageUploader = (props: Props) => {
   const classes = useStyles();
 
   const { t } = useTranslation(['giftcard']);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   return (
     <Dialog open={props.open}>
       <DialogTitle>{t('backgroundImage.dialog.title')}</DialogTitle>
       <DialogContent className={classes.content}>
         <Typography>{t('backgroundImage.dialog.explain')}</Typography>
-        <MultipleImageUploader
-          initial={[]}
-          onAddImage={props.onAddImage}
-          onRemoveImage={props.onRemoveImage}
-        />
-        <Carousel
-          onRemove={props.onRemoveImage}
-          imageList={props.giftcardBackgroundImageList}
-        />
+        <MultipleImageUploader initial={[]} onAddImage={props.onAddImage} />
+        {props.giftcardBackgroundImageList.length > 0 ? (
+          <CarouselInput
+            imagesArr={props.giftcardBackgroundImageList.map(
+              (img) => img.image,
+            )}
+            selectedImage={selectedImage}
+            handleClick={(index) =>
+              selectedImage === index
+                ? setSelectedImage(null)
+                : setSelectedImage(index)
+            }
+            onRemoveImage={(index) => props.onRemoveImage(index)}
+            isManager
+          />
+        ) : (
+          <div className={classes.spacing} />
+        )}
         <ConsumerGiftcardPreview
           companyCover={props.companyCover}
           consumerGiftcard={{
@@ -72,9 +78,14 @@ export const GiftcardBackgroundImageUploader = (props: Props) => {
             message_content: t(
               'consumerGiftcard.previewPlaceholder.message_content',
             ),
-            background_image: props.selectedImage,
+            background_image:
+              props.giftcardBackgroundImageList[selectedImage]?.image,
           }}
-          giftcard={{ amount_gifted: 0 }}
+          giftcard={{
+            amount_gifted: t(
+              'consumerGiftcard.previewPlaceholder.giftcard_amount',
+            ),
+          }}
         />
       </DialogContent>
       <DialogActions>

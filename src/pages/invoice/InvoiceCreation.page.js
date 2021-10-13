@@ -28,7 +28,10 @@ import { getBuyableItem } from '../../libs/invoice/selectors';
 
 import { fetchPrivatePassList } from '../../libs/private-service/actions';
 import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
-import { fetchGiftcardList } from '../../libs/giftcard/actions';
+import {
+  fetchGiftcardList,
+  fetchGiftcardBackgroundImageList,
+} from '../../libs/giftcard/actions';
 import {
   fetchEstablishments,
   fetchAllEstablishmentBillingGroup,
@@ -39,7 +42,11 @@ import {
   getAvailableEstablishmentList,
 } from '../../libs/establishment/selectors';
 import themeSelectors from '../../libs/theme/selectors';
-import { getGiftcardListEnabled } from '../../libs/giftcard/selectors';
+import {
+  getGiftcardBackgroundImageList,
+  getGiftcardListEnabled,
+} from '../../libs/giftcard/selectors';
+
 import InvoiceFormV2 from '../../libs/invoice/components/InvoiceFormV2.component';
 import InvoiceDateDialog from '../../libs/invoice/dialog/InvoiceDateDialog.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -62,6 +69,7 @@ type Props = {
   fetchGiftcardList: () => void,
   fetchPaymentComboList: () => void,
   fetchEstablishments: () => void,
+  fetchGiftcardBackgroundImageList: () => void,
   initialItems: { withPrivatePass: ?string, withCredit: ?string },
 
   loading: boolean,
@@ -69,6 +77,7 @@ type Props = {
   establishments: Array<Establishment>,
   establishmentLoading: boolean,
   companyTheme: CompanyThemeType,
+  giftcardBackgroundImageList: Array<GiftcardBackgroundImage>,
 };
 
 type State = {
@@ -90,6 +99,9 @@ export class InvoiceCreation extends Component<Props, State> {
     this.props.fetchPaymentComboList();
     this.props.fetchEstablishments();
     this.props.fetchGiftcardList();
+    this.props.fetchGiftcardBackgroundImageList(
+      this.props.companyTheme.company,
+    );
   }
 
   prepareCreate = (invoiceData: InvoiceDataFront) => {
@@ -160,6 +172,8 @@ export class InvoiceCreation extends Component<Props, State> {
           enableMultiLocalization={
             this.props.companyTheme.enable_multi_localization
           }
+          giftcardBackgroundImageList={this.props.giftcardBackgroundImageList}
+          ImageCarouselChangeable={false}
         />
         <InvoiceDateDialog
           open={this.state.dateDialogOpen}
@@ -199,12 +213,14 @@ export default compose(
         state.establishment.establishmentBillingGroup.loading,
       companyTheme: themeSelectors.getTheme(state),
       giftcardList: getGiftcardListEnabled(state),
+      giftcardBackgroundImageList: getGiftcardBackgroundImageList(state),
     }),
     {
       fetchShopItems,
       fetchAllPaymentPacks,
       fetchPrivatePassList,
       fetchPaymentComboList,
+      fetchGiftcardBackgroundImageList,
       goToInvoiceList: () => pushRouter('/invoice'),
       createInvoice: createOrUpdateInvoice,
 

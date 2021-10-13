@@ -75,7 +75,6 @@ export function fetchBasket(
         options.onSuccess(response.data);
       }
     } catch (error) {
-      console.error(error);
       dispatch(retrieveBasket.error(error));
       if (options && options.onError) options.onError(error);
     }

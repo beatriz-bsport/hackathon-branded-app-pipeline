@@ -53,7 +53,7 @@ export const TypographyWithShowMore = (props: Props) => {
             }}
             className={props.classes.showMoreButton}
           >
-            <Typography variant="caption" color="secondary">
+            <Typography variant="body2" color="secondary">
               {props.showFullText
                 ? props.t('text.showLessText')
                 : props.t('text.showMoreText')}
@@ -75,7 +75,7 @@ const styles = (theme) => ({
     justifyContent: 'flex-end',
   },
   showMoreButton: {
-    marginTop: theme.spacing(-1.5),
+    marginTop: theme.spacing(1.5),
     marginBottom: theme.spacing(1),
     '&:hover': {
       opacity: 0.5,

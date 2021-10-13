@@ -10,6 +10,8 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import LinkIcon from '@material-ui/icons/Link';
 import PaymentPackListItem from '../../payment-packs/components/PaymentPackListItem.component';
+import TypographyMultiline from '../../../components/TypographyMultiline.component';
+import TypographyWithShowMore from '../../../components/TypographyWithShowMore.component';
 import PrivatePassListItem from '../../private-service/components/pass/PrivatePassListItem.component';
 import PaymentComboListItem from '../../payment-combo/components/PaymentComboListItem.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
@@ -113,11 +115,11 @@ const ContractDetail = (props: Props) => {
         ) : null}
         <div className={classes.block}>
           <Typography variant="h6">{t('contract.description')}</Typography>
-          <Typography>{description}</Typography>
+          <TypographyMultiline>{description}</TypographyMultiline>
         </div>
         <div className={classes.block}>
           <Typography variant="h6">{t('contract.legal')}</Typography>
-          <Typography>{contract}</Typography>
+          <TypographyWithShowMore multiline>{contract}</TypographyWithShowMore>
         </div>
         <div className={classes.booleanField}>
           <Typography variant="h6" className={classes.booleanTitle}>

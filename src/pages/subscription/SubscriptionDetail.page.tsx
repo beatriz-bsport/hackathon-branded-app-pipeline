@@ -137,6 +137,10 @@ export class SubscriptionDetail extends Component<Props> {
       goToSubscribe,
     } = this.props;
 
+    const paymentMethodSanitized = this.props.savedPaymentMethodList.filter(
+      (pm) => pm.id === subscription.stripe_payment_method_id,
+    );
+
     return (
       <div className={this.props.classes.container}>
         {loading ? <LinearProgress /> : null}

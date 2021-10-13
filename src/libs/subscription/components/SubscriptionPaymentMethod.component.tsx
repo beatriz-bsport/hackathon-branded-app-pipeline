@@ -1,12 +1,16 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import AlertIcon from '@material-ui/icons/Warning';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 
-import { PAYMENT_ENGINE_BSPORT } from '@bsport/common/lib/master-data/payment-group';
+import {
+  PAYMENT_ENGINE_BSPORT,
+  PAYMENT_ENGINE_STRIPE,
+} from '@bsport/common/lib/master-data/payment-group';
 import PaymentMethodListItem from '../../payment/components/PaymentMethodListItem.component';
 
 import { PaymentMethod } from '../../invoice/types';
@@ -36,13 +40,26 @@ export const SubscriptionPaymentMethod = (props: Props) => {
           </Button>
         </React.Fragment>
       )}
-      {!!props.paymentMethod && (
+      {props.paymentEngine === PAYMENT_ENGINE_STRIPE && !!props.paymentMethod && (
         <Paper>
           <PaymentMethodListItem
             onEdit={props.onEdit}
             paymentMethod={props.paymentMethod}
           />
         </Paper>
+      )}
+      {props.paymentEngine === PAYMENT_ENGINE_STRIPE && !props.paymentMethod && (
+        <div className={classes.inconsistentMsg}>
+          <AlertIcon color="error" className={classes.iconLeft} />
+          <Typography variant="caption" color="error">
+            {t('paymentMethod.inconsistent')}
+          </Typography>
+        </div>
+      )}
+      {!props.paymentMethod && (
+        <Button color="primary" variant="outlined" onClick={props.onEdit}>
+          {t('paymentMethod.add')}
+        </Button>
       )}
     </div>
   );
@@ -55,6 +72,15 @@ const useStyles = makeStyles((theme) => ({
   },
   text: {
     marginBottom: theme.spacing(2),
+  },
+  inconsistentMsg: {
+    marginBottom: theme.spacing(2),
+    padding: theme.spacing(1),
+    border: '1px solid red',
+    borderRadius: 12,
+  },
+  iconLeft: {
+    marginRight: theme.spacing(1),
   },
 }));
 

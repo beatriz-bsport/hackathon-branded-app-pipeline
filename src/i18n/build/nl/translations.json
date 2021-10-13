@@ -5996,7 +5996,7 @@
         "forms": {
             "cancelPayment": "Terug",
             "credit": {
-                "explain": "Je studio wordt geïnformeerd over de afschrijving. De betaling gebeurt ter plaatse.",
+                "explain": "De studio ontvangt een bericht over dat je de betaling in de studio zelf zal afronden.",
                 "pay": "Bevestigen"
             },
             "paymentIntent": {
@@ -7939,7 +7939,7 @@
                 "payAll": "Betalen",
                 "cancel": "Annuleren",
                 "revert": "Annuleren",
-                "pay": "Factuur betalen",
+                "pay": "Betaal factuur",
                 "basketInconsistent": "Uw winkelmandje is gewijzigd, ververs uw pagina voordat u uw betaling valideert.\nEr zijn verder geen kosten in rekening gebracht.",
                 "billByInstalment": "Termijnbetaling",
                 "paymentLink": "Link voor betaling",

@@ -1087,7 +1087,7 @@
       "invitationForm": {
         "activationCodeLink": "Le mail d'invitation a été envoyé et ne peut plus être modifié, si celui-ci n'est pas arrivé au bon destinataire vous pouvez transmettre ce lien d'activation pour offrir la carte cadeau : ",
         "title": "Envoyer un email d'invitation",
-        "content": "Vous pouvez modifier les destinataires de la carte cadeau. Attention, un seul pourra l'utiliser.",
+        "content": "Vous pouvez modifier les destinataires de la carte cadeau. Attention, un seul pourra l'utiliser. Si l'email n'a pas été reçu vous pouvez aussi transmetter ce lien d'activation :",
         "actions": { "close": "Fermer", "submit": "Envoyer" }
       },
       "list": { "myPurchases": "Carte cadeaux achetées", "myGifted": "Cartes cadeaux reçues" },
@@ -1367,14 +1367,7 @@
       "nf525Button": "Télécharger"
     },
     "invoiceItem": {
-      "buyableItemIdentifier": {
-        "1": "Carte de cours",
-        "2": "Magasin",
-        "3": "Crédit",
-        "9": "Carte RDV",
-        "10": "Pack",
-        "undefined": "carte cadeau"
-      },
+      "buyableItemIdentifier": { "1": "Carte de cours", "2": "Magasin", "3": "Crédit", "9": "Carte RDV", "10": "Pack", "11": "carte cadeau" },
       "credit": { "label": "Crédit" },
       "quantity": "Quantité",
       "voucher": "Réduction: {{ voucher }}",

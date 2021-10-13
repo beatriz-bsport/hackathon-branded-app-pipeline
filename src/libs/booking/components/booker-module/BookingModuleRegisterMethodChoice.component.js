@@ -203,14 +203,23 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
                   )
                 }
                 label={t('translation:payment.voucher')}
-                error={Number.isNaN(voucher) || voucher < 0}
+                error={
+                  Number.isNaN(voucher) ||
+                  voucher < 0 ||
+                  (selectedPack ? selectedPack.price < voucher : true)
+                }
+                invalid={
+                  Number.isNaN(voucher) ||
+                  (selectedPack ? selectedPack.price < voucher : true) ||
+                  voucher < 0
+                }
               />
               <PercentInput
                 variant="outlined"
                 style={{ minWidth: 480 }}
                 value={
                   selectedPack
-                    ? parseInt((voucher / selectedPack.price) * 100, 10)
+                    ? parseInt((voucher / selectedPack.price) * 100 + 0.5, 10)
                     : 0
                 }
                 onChange={(ev) =>
@@ -222,7 +231,16 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
                       : voucher,
                   )
                 }
+                error={
+                  Number.isNaN(voucher) ||
+                  voucher < 0 ||
+                  (selectedPack ? selectedPack.price < voucher : true)
+                }
                 label={t('translation:payment.voucher')}
+                invalid={
+                  (selectedPack ? selectedPack.price < voucher : true) ||
+                  voucher < 0
+                }
               />
             </div>
           </div>
@@ -273,7 +291,11 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
               setVoucher(0);
               setBillingEstablishmentId(null);
             }}
-            disabled={Number.isNaN(voucher) || voucher < 0}
+            disabled={
+              Number.isNaN(voucher) ||
+              voucher < 0 ||
+              (selectedPack ? selectedPack.price < voucher : true)
+            }
           >
             {t('translation:common.confirm')}
           </Button>

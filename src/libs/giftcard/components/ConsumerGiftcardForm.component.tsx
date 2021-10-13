@@ -77,6 +77,7 @@ export const ConsumerGiftcardForm = (props: Props) => {
         {t('consumerGiftcard.form.footer', {
           expiration_days: props.giftcard?.expiration_days || 0,
           date_send: moment(props.values.date_send).format('L'),
+          price: props.giftcard.price,
         })}
       </Typography>
     </div>

@@ -52,7 +52,7 @@ const ConsumerGiftcardPreview = (props: Props) => {
             </div>
             {!!giftcard && (
               <Typography color="primary">
-                {getCurrencyDisplayWithPrice(giftcard.amount_gifted)}
+                {getCurrencyDisplayWithPrice(giftcard.price)}
               </Typography>
             )}
           </div>

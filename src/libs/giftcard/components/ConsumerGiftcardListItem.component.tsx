@@ -21,7 +21,6 @@ import { Member } from '../../member/types';
 type SenderProps = {
   giftcard: Giftcard;
   consumerGiftcard: ConsumerGiftcard;
-  disabled?: boolean;
   onClick: (
     consumerGiftcardId: number,
     giftcardId: number,
@@ -37,7 +36,6 @@ const GiftcardSender = (props: SenderProps) => {
 
   return (
     <ListItem
-      disabled={props.disabled}
       selected={props.selected}
       button={!!props.onClick}
       onClick={
@@ -77,7 +75,6 @@ const GiftcardSender = (props: SenderProps) => {
 type ReceiverProps = {
   giftcard: Giftcard;
   consumerGiftcard: ConsumerGiftcard;
-  disabled?: boolean;
   onClick: (
     consumerGiftcardId: number,
     giftcardId: number,
@@ -133,7 +130,6 @@ const GiftcardReceiver = (props: ReceiverProps) => {
   return (
     <ListItem
       button={!!props.onClick}
-      disabled={props.disabled}
       selected={props.selected}
       onClick={
         props.onClick &&
@@ -169,7 +165,7 @@ const GiftcardReceiver = (props: ReceiverProps) => {
         }
         secondary={status}
       />
-      {!!props.onClickSendInvitation && (
+      {!!props.onClickSendInvitation && !props.consumerGiftcard?.reverted && (
         <Tooltip title={t('consumerGiftcard.sendTo')}>
           <IconButton color="primary" onClick={props.onClickSendInvitation}>
             <EmailIcon />
@@ -254,7 +250,6 @@ const ConsumerGiftcardListItem = React.memo((props: Props) => {
       giftcard={giftcard}
       showMember={showSender}
       onClick={onClickSender}
-      disabled={reverted}
     />
   );
   const receiver = (selected_: boolean) => (
@@ -266,7 +261,6 @@ const ConsumerGiftcardListItem = React.memo((props: Props) => {
       giftcard={giftcard}
       showMember={showReceiver}
       onClick={onClickReceiver}
-      disabled={reverted}
       onClickSendInvitation={onClickSendInvitation}
     />
   );

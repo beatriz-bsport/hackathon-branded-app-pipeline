@@ -301,33 +301,38 @@ export class InvoiceForm extends React.Component<Props, State> {
             this.props.closeFinalizeInvoiceDialog();
           }}
         />
-        {!!this.state.giftcardToConfigureList?.length && (
-          <Modal open classes={{ paper: classes.container }}>
-            <>
-              <div
-                style={{
-                  transform: 'translate(-50%, -50%)',
-                  top: '50%',
-                  left: '50%',
-                }}
-                className={classes.modal}
-              >
-                <div>
-                  <ConsumerGiftcardFormWithPreview
-                    forceVertical
-                    giftcard={giftcardToConfigure}
-                    onSubmit={(data) =>
-                      this.storeGiftcardConfig({
-                        ...data,
-                        giftcard: giftcardToConfigure.id,
-                      })
-                    }
-                  />
+        {!!this.state.giftcardToConfigureList?.length &&
+          this.state.giftcardToConfigureList.map((gc) => (
+            <Modal
+              open={gc.id === this.state.giftcardToConfigureList[0].id}
+              key={gc.id}
+              classes={{ paper: classes.container }}
+            >
+              <>
+                <div
+                  style={{
+                    transform: 'translate(-50%, -50%)',
+                    top: '50%',
+                    left: '50%',
+                  }}
+                  className={classes.modal}
+                >
+                  <div>
+                    <ConsumerGiftcardFormWithPreview
+                      forceVertical
+                      giftcard={giftcardToConfigure}
+                      onSubmit={(data) =>
+                        this.storeGiftcardConfig({
+                          ...data,
+                          giftcard: giftcardToConfigure.id,
+                        })
+                      }
+                    />
+                  </div>
                 </div>
-              </div>
-            </>
-          </Modal>
-        )}
+              </>
+            </Modal>
+          ))}
       </Grid>
     );
   }

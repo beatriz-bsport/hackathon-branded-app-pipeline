@@ -88,7 +88,7 @@ exports.default = {
         submit: 'Ajouter au panier',
       },
       footer:
-        'La carte sera envoyée par mail le {{- date_send }} aux l’adresses indiquées. Elle sera valide pendant {{ expiration_days }} jours après l’envoi du mail.',
+        'La carte sera envoyée par mail le {{- date_send }} aux adresses indiquées. Elle sera valide pendant {{ expiration_days }} jours après l’envoi du mail et créditera votre compte de {{- price }} pour vos prochains achats.',
     },
   },
   link: {

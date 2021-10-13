@@ -1531,7 +1531,7 @@
                         "title": " Liability Waiver."
                     },
                     "conditions": " Liability Waiver.",
-                    "iAccept": "Accept the "
+                    "iAccept": "I accept the "
                 }
             },
             "booking": {
@@ -1797,7 +1797,7 @@
             "HOLIDAY_CHECK": "Holiday check",
             "CHECK": "Check",
             "CB_MANUAL": "Credit card (manual)",
-            "CB": "Credit card"
+            "CB": "Online payments"
         },
         "pageTitle": {
             "myAccount": "My account"
@@ -2247,7 +2247,7 @@
         },
         "list": {
             "section": {
-                "unavailableOnline": "Unavailable for members to purchase",
+                "unavailableOnline": "Unavailable packs",
                 "availableOnline": "Available packs"
             },
             "explainIfEmpty": "In this module, you can manage all your packages. A package you can combine of products from your webshop, passes, and/or appointment passes.",
@@ -2870,7 +2870,7 @@
                 },
                 "expirationDaysBeforeFirstUse": {
                     "helperText": "Expiration date of the appointment pass, if it hasn't been used in X amount of days.",
-                    "label": "Expiration date if no booking is made."
+                    "label": "Amount of days in which the pass expires if no booking is made:"
                 },
                 "start_date_method": {
                     "on_attendance": "Validity starts on the first attendance",
@@ -5726,7 +5726,7 @@
             "select": {
                 "label": "Payment method"
             },
-            "isInternalExplain": "Client account (manual) : each month a charge will be applied to this member.",
+            "isInternalExplain": "This member's account balance will be automatically charged.",
             "add": "Add",
             "edit": "Modify",
             "title": "Payment method",
@@ -6839,8 +6839,8 @@
                     "helperText": "Used to compute the payroll of teachers. €10 means 1 booking made via this pass is paid €10 to the teacher. If empty the margin value will be PRICE/NB_BOOKING"
                 },
                 "expirationDaysBeforeFirstUse": {
-                    "label": "Expiration if no booking made",
-                    "helperText": "If no booking is made during the number of days above, the pass will expire."
+                    "label": "Amount of days in which the pass expires if no booking is made:",
+                    "helperText": "Amount of days in which the pass expires if no booking is made:"
                 },
                 "helper": {
                     "starting_date": "Start date for pack, leave blank for direct availability",
@@ -6885,7 +6885,7 @@
                 "delete": {
                     "title": "Deleting pass :",
                     "askConfirmation": "Be careful ! This deletion is definitive. The pass will not be visible anymore and will be unavailable for purchase.",
-                    "thereAreConsumers": "Be careful ! Some members have bought this pass, if you disable it, they can continue to use until they exhaust their credits. \nIf you want to disable it completely, consider reducing their credits here. \nThe pass will not appear in your marketplace anymore.",
+                    "thereAreConsumers": "Attention: it's possible that members have already bought this pass. Members will continue to be able to use their credits. If you'd like to entirely delete or block the use of this pass right now, we recommend that you reduce the amount of credits the pass includes to 0. Furthermore, the pass will no longer appear for sale.",
                     "actions": {
                         "cancel": "Cancel",
                         "submit": "Delete"
@@ -7600,11 +7600,11 @@
                     "notRefunded": "Cancellation after deadline n ° {{notify_booking_nb}}",
                     "refunded": "Cancellation refunded n ° {{notify_booking_nb}}",
                     "absence": "Absence n ° {{notify_booking_nb}}",
-                    "attendance": "Attendance n ° {{notify_booking_nb}}",
+                    "attendance": "Booking: {{notify_booking_nb}}",
                     "after": "Notification {{hours}}h after the session",
                     "before": "This notification will be sent {{hours}} hour(s) before the start of the session.",
                     "notifyAllEvents": {
-                        "notRefunded": "At each late cancellation",
+                        "notRefunded": "For every late cancellation",
                         "refunded": "At each reimbursed cancellation",
                         "absence": "At each absence",
                         "attendance": "At each attendance"
@@ -9241,7 +9241,7 @@
         "backofficeMenu": {
             "coupon": "Promotions",
             "contract": "Subscriptions",
-            "subscription": "Subscriptions",
+            "subscription": "Direct debits",
             "myClub": "My Club",
             "settings": {
                 "paymentRules": "Teacher payroll rules",
@@ -9998,7 +9998,7 @@
             "detail": {
                 "availablePaymentMethods": "Available payment methods",
                 "expirationDate": "Validity before expiration: {{ expiration_days }} day(s)",
-                "manager_only": "Unavailable for members to purchase"
+                "manager_only": "Unavailable gift cards"
             },
             "configurationTitle": "Gift card"
         },
@@ -10055,7 +10055,7 @@
                     "submit": "Send",
                     "close": "Close"
                 },
-                "content": "You can change the recipient of the gift card. Attention: it can only be used by 1 user.",
+                "content": "You can change the recipient of the gift card. Attention: it can only be used by 1 user. You can also send this activation link:",
                 "title": "Send an invitation email",
                 "activationCodeLink": "The invitation email has been sent and can no longer be edited. If the correct recipient didn't receive the message, you can send this link: "
             },

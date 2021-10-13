@@ -3273,7 +3273,10 @@
                     "933100": "Impossibile creare il cliente associato al membro della fattura",
                     "933000": "Il membro associato alla fattura non ha le informazioni necessarie per essere registrato su QuickBooks",
                     "933102": "Errore durante la creazione della fattura in Quickbooks",
-                    "933101": "Impossibile creare il cliente associato al membro della fattura"
+                    "933101": "Impossibile creare il cliente associato al membro della fattura",
+                    "934002": "Impossibile inviare una fattura annullata in QuickBooks",
+                    "934001": "Impossibile creare una fattura senza elementi associati",
+                    "934000": "La fattura non ha le informazioni minime per essere creata in Quickbooks"
                 },
                 "error": "Si è verificato un errore durante il trasferimento della fattura a Quickbooks",
                 "success": "La tua fattura è stata trasferita a Quickbooks"

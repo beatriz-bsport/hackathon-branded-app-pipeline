@@ -3269,7 +3269,9 @@
                     "932100": "Impossibile accedere alle informazioni del tuo conto Quickbooks",
                     "932001": "Il tuo account non è più autenticato su Bsport",
                     "932000": "Il tuo account non è più autenticato su Bsport",
-                    "931101": "Quickbooks non è in grado di inviarci i tuoi dati"
+                    "931101": "Quickbooks non è in grado di inviarci i tuoi dati",
+                    "933100": "Impossibile creare il cliente associato al membro della fattura",
+                    "933000": "Il membro associato alla fattura non ha le informazioni necessarie per essere registrato su QuickBooks"
                 },
                 "error": "Si è verificato un errore durante il trasferimento della fattura a Quickbooks",
                 "success": "La tua fattura è stata trasferita a Quickbooks"

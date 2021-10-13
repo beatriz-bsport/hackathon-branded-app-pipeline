@@ -2917,7 +2917,7 @@
         },
         "companyOnboarding": {
             "creation": {
-                "content": "Um Kredikarten- und SEPA-Zahlungen einziehen zu können, überprüfe bitte Deine rechtlichen Informationen",
+                "content": "Um CB- und SEPA-Zahlungen einziehen zu können, überprüfen Sie bitte Ihre rechtlichen Angaben",
                 "title": "Online-Zahlungen deaktiviert"
             },
             "payout": {
@@ -4392,7 +4392,7 @@
         },
         "returnedAmount": "Erstattet: ",
         "payout": {
-            "isEmptyWarning": "NB: Bestimmte Einzüge vor dem 15. März 2021 sind möglicherweise nicht unten aufgeführt.",
+            "isEmptyWarning": "NB: Einige Bareinnahmen vor dem 15. März 2021 sind möglicherweise nicht unten aufgeführt.",
             "title": "Meine Einzüge",
             "isEmpty": "Keine Auszahlung.",
             "invoice": "Rechnung {{ uuid }}",
@@ -5999,7 +5999,7 @@
             "list": {
                 "createButton": "Eine Terminkarte erstellen",
                 "isEmpty": "Keine Terminkarte",
-                "availableCustomer": "Auf dem Marketplace verfügbar",
+                "availableCustomer": "Zum Verkauf stehende Karten",
                 "managerOnly": "Nicht zum Verkauf verfügbar"
             },
             "validForDuration": {

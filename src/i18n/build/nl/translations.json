@@ -2214,7 +2214,7 @@
                     },
                     "title": "Leskaart verwijderen:",
                     "askConfirmation": "Waarschuwing! Deze actie is definitief. Deze kaart zal hierna niet meer zichtbaar of te koop zijn.",
-                    "thereAreConsumers": "Waarschuwing! Leden hebben deze leskaart al gekocht. Als je deze verwijdert, kunnen ze hun resterende tegoed nog steeds gebruiken. Je kunt hun tegoed handmatig als nul instellen.\n\nLeden zullen deze leskaart niet meer kunnen zien en kopen."
+                    "thereAreConsumers": "Belangrijk: het is mogelijk dat leden deze leskaart al hebben gekocht. Leden zullen hun kredieten nog kunnen gebruiken, maar als je deze leskaart direct onbruikbaar wilt maken raden we aan om het aantal kredieten op 0 te zetten. Leden zullen deze leskaart niet meer kunnen zien en kopen."
                 },
                 "theoricalMarginValue": {
                     "helperText": "Dit wordt gebruikt om de payroll van de instructeur(s) te berekenen. Voorbeeld: €10 betekent dat bij 1 reservering, de instructeur €10 ontvangt. Indien dit veld leeg of €0 is, dan wordt de payroll op basis van PRIJS / AANTAL RESERVERINGEN berekend.",
@@ -9072,7 +9072,7 @@
                     "submit": "Verstuur",
                     "close": "Sluit"
                 },
-                "content": "Je kunt de ontvanger van deze cadeaubon wijzigen. Attentie: het kan slechts door 1 persoon worden gebruikt.",
+                "content": "Je kunt de ontvanger van deze cadeaubon wijzigen. Belangrijk: het kan slechts door 1 persoon worden gebruikt. Je kunt ook deze activeringslink doorsturen:",
                 "title": "Stuur de uitnodiging",
                 "activationCodeLink": "De uitnodiging is verstuurd en kan niet langer worden bewerkt. Indien de ontvanger het bericht niet heeft ontvangen kun je ook deze link sturen: "
             },

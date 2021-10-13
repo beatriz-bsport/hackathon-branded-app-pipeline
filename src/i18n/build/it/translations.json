@@ -2920,7 +2920,8 @@
         "quickbooks": {
             "title": "QuickBooks",
             "confirmDialog": {
-                "title": "Connessione QuickBooks"
+                "title": "Connessione QuickBooks",
+                "text": "Sei sicuro di voler permettere a Bsport di accedere alla tua applicazione?"
             }
         }
     },

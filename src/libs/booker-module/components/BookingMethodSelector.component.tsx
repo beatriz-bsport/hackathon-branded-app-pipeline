@@ -4,7 +4,6 @@ import { compose } from 'recompose';
 import { ButtonBase, Theme, Typography, withStyles } from '@material-ui/core';
 import BlockIcon from '@material-ui/icons/Block';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-
 import { MaterialStyleType } from '../../../utils/types';
 
 import CollapsibleSection from '../../../components/CollapsibleSection';
@@ -14,9 +13,13 @@ import ContractBookableItem from './ContractBookableItem.component';
 import ConsumerPaymentPackBookableItem from './ConsumerPaymentPackBookableItem.component';
 import { RadioItem } from '../../../components/radio/RadioItem';
 import { ConsumerPaymentPack } from '../../consumer-payment-pack/types';
-import { PaymentPack } from '../../payment-packs/types';
+import {
+  PaymentPack,
+  PaymentPackCategoryWithPacks,
+} from '../../payment-packs/types';
 import { PaymentCombo } from '../../payment-combo/types';
 import { Offer_FULL } from '../../offer/types';
+import PaymentPackCategoryBookableItem from './PaymentPackCategoryBookableItem.component';
 
 type SelectedPack = {
   consumerPaymentPack?: ConsumerPaymentPack<PaymentPack> | null;
@@ -37,8 +40,9 @@ type OwnProps = {
     extra_data: any;
   }[];
   availableConsumerPacks: ConsumerPaymentPack<PaymentPack>[];
-  availablePaymentPacks: PaymentPack[];
+  unCategorizedPacks: PaymentPack[];
   availableComboPacks: PaymentCombo[];
+  paymentPackCategories: PaymentPackCategoryWithPacks[];
 };
 
 enum CollapsePackEnum {
@@ -56,6 +60,7 @@ type State = {
   consumerPaymentPackMore: boolean;
   paymentPackMore: boolean;
   paymentComboPackMore: boolean;
+  openedCategory: number | null;
 };
 
 class BookingMethodSelector extends React.PureComponent<Props, State> {
@@ -64,6 +69,7 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
     consumerPaymentPackMore: false,
     paymentPackMore: false,
     paymentComboPackMore: false,
+    openedCategory: null,
   };
 
   componentDidMount() {
@@ -79,7 +85,7 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
   shouldAutoSelectDefaultPack = () => {
     const {
       availableConsumerPacks,
-      availablePaymentPacks,
+      unCategorizedPacks,
       availableComboPacks,
     } = this.props;
 
@@ -93,9 +99,14 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
           (cpp) => cpp.id === this.props.selectedPack.consumerPaymentPack.id,
         ) === -1) ||
       (this.props.selectedPack.paymentPack &&
-        availablePaymentPacks.findIndex(
+        (unCategorizedPacks.findIndex(
           (cpp) => cpp.id === this.props.selectedPack.paymentPack.id,
-        ) === -1) ||
+        ) === -1 ||
+          !this.props.paymentPackCategories.some((cat) =>
+            cat.packs.find(
+              (p) => p.id === this.props.selectedPack.paymentPack.id,
+            ),
+          ))) ||
       (this.props.selectedPack.paymentPackCombo &&
         availableComboPacks.findIndex(
           (cpp) => cpp.id === this.props.selectedPack.paymentPackCombo.id,
@@ -108,59 +119,80 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
   setDefaultPack = () => {
     const {
       availableConsumerPacks,
-      availablePaymentPacks,
+      unCategorizedPacks,
       availableComboPacks,
+      paymentPackCategories,
     } = this.props;
 
     const selectedPack: SelectedPack = {};
     let openPacks: CollapsePackEnum | null = null;
+    let openedCategory = null;
 
     if (availableConsumerPacks.length) {
       selectedPack.consumerPaymentPack = availableConsumerPacks[0];
       openPacks = CollapsePackEnum.consumerPacks;
-    } else if (availablePaymentPacks.length) {
-      selectedPack.paymentPack = availablePaymentPacks[0];
+    } else if (unCategorizedPacks.length) {
+      selectedPack.paymentPack = unCategorizedPacks[0];
       openPacks = CollapsePackEnum.paymentPacks;
     } else if (availableComboPacks.length) {
       selectedPack.paymentPackCombo = availableComboPacks[0];
       openPacks = CollapsePackEnum.paymentCombo;
+    } else {
+      const category = paymentPackCategories.find((cat) => cat.packs.length);
+      selectedPack.paymentPack = category?.packs[0];
+      openedCategory = category?.id;
     }
 
     this.props.onPackChange(selectedPack);
-    this.setState({ openPacks });
+    this.setState({ openPacks, openedCategory });
   };
 
-  openPacks = (id: CollapsePackEnum) => {
+  openPacks = (id: CollapsePackEnum | number, isCategory: boolean) => {
     const {
       availableConsumerPacks,
-      availablePaymentPacks,
+      unCategorizedPacks,
       availableComboPacks,
     } = this.props;
 
     let selectedPack = this.props.selectedPack;
 
-    if (id === CollapsePackEnum.consumerPacks) {
-      if (availableConsumerPacks.length) {
-        selectedPack = { consumerPaymentPack: availableConsumerPacks[0] };
+    if (isCategory) {
+      selectedPack = {
+        paymentPack: this.props.paymentPackCategories.find(
+          (cat) => cat.id === id,
+        ).packs[0],
+      };
+      this.setState(() => {
+        return {
+          openPacks: null,
+          openedCategory: id,
+        };
+      });
+    } else {
+      if (id === CollapsePackEnum.consumerPacks) {
+        if (availableConsumerPacks.length) {
+          selectedPack = { consumerPaymentPack: availableConsumerPacks[0] };
+        }
       }
-    }
-    if (id === CollapsePackEnum.paymentPacks) {
-      if (availablePaymentPacks.length) {
-        selectedPack = { paymentPack: availablePaymentPacks[0] };
+      if (id === CollapsePackEnum.paymentPacks) {
+        if (unCategorizedPacks.length) {
+          selectedPack = { paymentPack: unCategorizedPacks[0] };
+        }
       }
-    }
-    if (id === CollapsePackEnum.paymentCombo) {
-      if (availableComboPacks.length) {
-        selectedPack = { paymentPackCombo: availableComboPacks[0] };
+      if (id === CollapsePackEnum.paymentCombo) {
+        if (availableComboPacks.length) {
+          selectedPack = { paymentPackCombo: availableComboPacks[0] };
+        }
       }
+      this.setState((prevState: State) => {
+        return {
+          openPacks: prevState.openPacks === id ? null : id,
+          openedCategory: null,
+        };
+      });
     }
 
     this.props.onPackChange(selectedPack);
-    this.setState((prevState: State) => {
-      return {
-        openPacks: prevState.openPacks === id ? null : id,
-      };
-    });
   };
 
   render() {
@@ -168,7 +200,7 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
       classes,
       t,
       availableConsumerPacks,
-      availablePaymentPacks,
+      unCategorizedPacks,
       availableComboPacks,
       contractList,
     } = this.props;
@@ -177,7 +209,7 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
       ? availableConsumerPacks.length
       : 3;
     const numberOfPaymentPackToRender = this.state.paymentPackMore
-      ? availablePaymentPacks.length
+      ? unCategorizedPacks.length
       : 3;
     const numberOfPaymentComboToRender = this.state.paymentComboPackMore
       ? availableComboPacks.length
@@ -186,7 +218,7 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
     return (
       <div className={classes.container}>
         {!availableConsumerPacks.length &&
-          !availablePaymentPacks.length &&
+          !unCategorizedPacks.length &&
           !availableComboPacks.length && (
             <div className={classes.cannotBookContainer}>
               <BlockIcon className={classes.noItemIcon} />
@@ -202,7 +234,9 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
           <CollapsibleSection
             title={t('booking:bookingModule.section.consumerPacks')}
             in={this.state.openPacks === CollapsePackEnum.consumerPacks}
-            onSwitch={() => this.openPacks(CollapsePackEnum.consumerPacks)}
+            onSwitch={() =>
+              this.openPacks(CollapsePackEnum.consumerPacks, false)
+            }
           >
             {availableConsumerPacks
               .slice(0, numberOfConsumerPackToRender)
@@ -233,7 +267,6 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
             {availableConsumerPacks.length > 3 &&
               !this.state.consumerPaymentPackMore && (
                 <ButtonBase
-                  className={classes.showMoreContainer}
                   onClick={() =>
                     this.setState({ consumerPaymentPackMore: true })
                   }
@@ -278,15 +311,18 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
           </div>
         )}
 
-        {!!availablePaymentPacks.length && (
+        {unCategorizedPacks.length ? (
           <>
             <div className={classes.marginTop} />
             <CollapsibleSection
               title={t('booking:bookingModule.section.paymentPacks')}
               in={this.state.openPacks === CollapsePackEnum.paymentPacks}
-              onSwitch={() => this.openPacks(CollapsePackEnum.paymentPacks)}
+              onSwitch={() =>
+                this.openPacks(CollapsePackEnum.paymentPacks, false)
+              }
             >
-              {availablePaymentPacks
+              {unCategorizedPacks
+                .filter((e) => !e.category)
                 .slice(0, numberOfPaymentPackToRender)
                 .map((paymentPack) => {
                   if (!paymentPack) {
@@ -307,9 +343,8 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                     </div>
                   );
                 })}
-              {availablePaymentPacks.length > 3 && !this.state.paymentPackMore && (
+              {unCategorizedPacks.length > 3 && !this.state.paymentPackMore && (
                 <ButtonBase
-                  className={classes.showMoreContainer}
                   onClick={() => this.setState({ paymentPackMore: true })}
                 >
                   <Typography color="primary">
@@ -319,7 +354,18 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
               )}
             </CollapsibleSection>
           </>
-        )}
+        ) : null}
+        {this.props.paymentPackCategories.length
+          ? this.props.paymentPackCategories.map((cat) => (
+              <PaymentPackCategoryBookableItem
+                paymentPackCategory={cat}
+                selectedPack={this.props.selectedPack}
+                onPackChange={this.props.onPackChange}
+                opened={this.state.openedCategory === cat.id}
+                openPacks={(id) => this.openPacks(id, true)}
+              />
+            ))
+          : null}
 
         {!!availableComboPacks.length && (
           <>
@@ -327,7 +373,9 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
             <CollapsibleSection
               title={t('booking:bookingModule.section.paymentCombos')}
               in={this.state.openPacks === CollapsePackEnum.paymentCombo}
-              onSwitch={() => this.openPacks(CollapsePackEnum.paymentCombo)}
+              onSwitch={() =>
+                this.openPacks(CollapsePackEnum.paymentCombo, false)
+              }
             >
               {availableComboPacks
                 .slice(0, numberOfPaymentComboToRender)
@@ -358,7 +406,6 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
               {availableComboPacks.length > 3 &&
                 !this.state.paymentComboPackMore && (
                   <ButtonBase
-                    className={classes.showMoreContainer}
                     onClick={() =>
                       this.setState({ paymentComboPackMore: true })
                     }
@@ -413,9 +460,6 @@ const styles = (theme: Theme) => ({
     fontSize: 140,
     marginTop: theme.spacing(4),
     marginBottom: theme.spacing(2),
-  },
-  showMoreContainer: {
-    padding: theme.spacing(1),
   },
   item: {
     paddingTop: theme.spacing(1),

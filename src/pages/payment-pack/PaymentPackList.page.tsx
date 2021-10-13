@@ -6,9 +6,7 @@ import { TFunction } from 'i18next';
 import { Theme } from '@material-ui/core/styles';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import ButtonBase from '@material-ui/core/ButtonBase';
 import Collapse from '@material-ui/core/Collapse';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
@@ -17,6 +15,7 @@ import AddIcon from '@material-ui/icons/Add';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import { push as pushRouter } from 'connected-react-router';
+import IconButton from '@material-ui/core/IconButton';
 import { RootState } from '../../reducers/index';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import PaginatedConsumerPackList from '../../libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
@@ -38,12 +37,12 @@ import {
   upsertPaymenPackCategory,
   deletePaymentPackCategory,
   fetchPaymentPackBulk,
+  updateOrder as updatePaymentPack,
 } from '../../libs/payment-packs/actions';
 import {
   getEnabledPaymentPacks,
   getDisabledPaymentPacks,
-  getPaymentPackCategoryWithPaymentPacks,
-  getPaymentPackUnCategoryWithPaymentPacks,
+  groupByCategory,
 } from '../../libs/payment-packs/selectors';
 import type {
   PaymentPack,
@@ -118,7 +117,9 @@ export class ComponentName extends React.Component<Props, State> {
   };
 
   deletePaymentPack = async (id: number) => {
-    this.props.updatePaymentPack(id, { disabled: true });
+    this.props.updatePaymentPack(id, {
+      disabled: true,
+    });
     this.setState({ paymentPackToDelete: null });
   };
 
@@ -126,7 +127,9 @@ export class ComponentName extends React.Component<Props, State> {
     if (this.props.disabledPacks.length === 1) {
       this.setState({ showDisabled: false });
     }
-    this.props.updatePaymentPack(id, { disabled: false });
+    this.props.updatePaymentPack(id, {
+      disabled: false,
+    });
   };
 
   changeSearch = (fuse: string) => (ev: MouseEvent) => {
@@ -171,12 +174,6 @@ export class ComponentName extends React.Component<Props, State> {
       classes,
       t,
     } = this.props;
-    const publicPacks = this.props.enabledPacks.filter(
-      (pp: PaymentPack) => !pp.manager_only,
-    );
-    const managerPacks = this.props.enabledPacks.filter(
-      (pp: PaymentPack) => !!pp.manager_only,
-    );
 
     if (loading) {
       return <LinearProgress />;
@@ -196,46 +193,57 @@ export class ComponentName extends React.Component<Props, State> {
         />
       );
     }
+
     return (
       <>
         {this.props.upsertCategoryLoading && <LinearProgress />}
-        <Grid
-          container
-          direction="row"
-          spacing={3}
-          className={classes.container}
-        >
-          {publicPacks.length || managerPacks.length ? (
+        <div className={classes.container}>
+          {this.props.enabledPacks?.length ? (
             <>
-              <Grid item xs={12} md={12}>
-                <FuzeSearch
-                  searchText={this.state.searchText}
-                  clearSearch={this.clearSearch}
-                  changeSearch={this.changeSearch}
-                  items={[...publicPacks, ...managerPacks]}
-                  placeholder={t('search')}
-                  searchFields={['name']}
-                  searchResult={this.state.searchResult}
-                />
-
-                <Paper
-                  className={
+              <FuzeSearch
+                searchText={this.state.searchText}
+                clearSearch={this.clearSearch}
+                changeSearch={this.changeSearch}
+                items={[...this.props.enabledPacks]}
+                placeholder={t('search')}
+                searchFields={['name']}
+                searchResult={this.state.searchResult}
+              />
+              <Paper
+                className={
+                  this.state.searchResult.length > 0 &&
+                  this.state.searchText !== ''
+                    ? classes.searchPaperDisplayed
+                    : classes.searchPaperHidden
+                }
+              >
+                <Collapse
+                  in={
                     this.state.searchResult.length > 0 &&
                     this.state.searchText !== ''
-                      ? classes.searchPaperDisplayed
-                      : classes.searchPaperHiden
                   }
                 >
-                  <Collapse
-                    in={
-                      this.state.searchResult.length > 0 &&
-                      this.state.searchText !== ''
-                    }
-                  >
-                    {this.renderPackList(this.state.searchResult, false)}
-                  </Collapse>
-                </Paper>
-              </Grid>
+                  <Paper>
+                    <List disablePadding>
+                      {this.state.searchResult.map((pack) => (
+                        <PaymentPackListItem
+                          pack={pack}
+                          divider
+                          onEdit={() => this.requestEdit(pack)}
+                          onDelete={() => this.requestDelete(pack)}
+                          onClick={
+                            !pack.disabled
+                              ? () => this.props.goToPack(pack.id)
+                              : null
+                          }
+                          onRestore={() => this.restorePaymentPack(pack.id)}
+                          key={pack.id}
+                        />
+                      ))}
+                    </List>
+                  </Paper>
+                </Collapse>
+              </Paper>
               <div className={classes.buttonRow}>
                 <Button
                   variant="outlined"
@@ -251,57 +259,50 @@ export class ComponentName extends React.Component<Props, State> {
               </div>
             </>
           ) : null}
+
           <PaymentPackCategoryList
             paymentPackByCategory={this.props.paymentPackByCategory}
-            paymentPackUnCategorized={this.props.paymentPackUnCategorized}
-            onEdit={(pack: PaymentPack) => this.requestEdit(pack)}
-            onDelete={(pack: PaymentPack) => this.requestDelete(pack)}
-            onClick={(packId: number) => this.props.goToPack(packId)}
-            onRestore={(packId: number) => this.restorePaymentPack(packId)}
-            setSelectedCategory={(category: PaymentPackCategory) =>
-              this.props.setSelectedCategory(category)
-            }
+            onEdit={this.requestEdit}
+            onDelete={this.requestDelete}
+            onClick={this.props.goToPack}
+            onRestore={this.restorePaymentPack}
+            updatePack={this.props.updatePackOrder}
+            setSelectedCategory={this.props.setSelectedCategory}
             showCategoryEditDialog={() =>
               this.props.setShowCategoryDialog(true)
             }
-            deletePaymentPackCategory={(category: PaymentPackCategory) =>
-              this.props.deletePaymentPackCategory(category)
-            }
+            deletePaymentPackCategory={this.props.deletePaymentPackCategory}
           />
 
           {(this.props.disabledPacks || []).length ? (
-            <Grid
-              container
-              direction="row"
-              spacing={3}
-              className={classes.container}
-            >
-              <Grid item xs={12} md={6}>
-                <ButtonBase
-                  className={this.props.classes.buttonTitle}
-                  onClick={this.onShowDisabled}
-                >
-                  <Typography variant="h5" className={classes.titleContainer}>
-                    {`${t('disabledPacksTitle')} (${
-                      (this.props.disabledPacks || []).length
-                    })`}
-                  </Typography>
-                  <Divider className={classes.divider} />
-                  <div className={classes.iconContainer}>
-                    {this.state.showDisabled ? (
-                      <ExpandLessIcon />
-                    ) : (
-                      <ExpandMoreIcon />
-                    )}
-                  </div>
-                </ButtonBase>
-                <Divider />
-                <Collapse in={this.state.showDisabled}>
-                  {this.state.showDisabled &&
-                    this.renderPackList(this.props.disabledPacks, true)}
-                </Collapse>
-              </Grid>
-            </Grid>
+            <div className={classes.container}>
+              <div className={this.props.classes.buttonTitle}>
+                <Typography variant="h5" className={classes.titleContainer}>
+                  {`${t('disabledPacksTitle')} (${
+                    (this.props.disabledPacks || []).length
+                  })`}
+                </Typography>
+
+                <IconButton onClick={this.onShowDisabled}>
+                  {this.state.showDisabled ? (
+                    <ExpandLessIcon />
+                  ) : (
+                    <ExpandMoreIcon />
+                  )}
+                </IconButton>
+              </div>
+              <Divider className={classes.divider} />
+              <Collapse in={this.state.showDisabled}>
+                {this.state.showDisabled &&
+                  this.renderPackList(
+                    [...this.props.disabledPacks].sort(
+                      (prev, curr) =>
+                        prev.ordering_in_category - curr.ordering_in_category,
+                    ),
+                    true,
+                  )}
+              </Collapse>
+            </div>
           ) : null}
 
           <PaymentPackDeleteDialog
@@ -338,7 +339,7 @@ export class ComponentName extends React.Component<Props, State> {
             onCreateLabel={this.props.t('addButton')}
             onCreate={this.props.onCreate}
           />
-        </Grid>
+        </div>
         {(this.props.selectedCategory || this.props.showCategoryDialog) && (
           <PaymentPackCategoryCreationDialog
             open={this.props.showCategoryDialog}
@@ -361,19 +362,6 @@ const styles = (theme: Theme) => ({
   divider: {
     marginBottom: theme.spacing(2),
   },
-  fabSwitchButton: {
-    position: 'fixed',
-    right: theme.spacing(2),
-    bottom: theme.spacing(9),
-  },
-  fabAddButton: {
-    position: 'fixed',
-    right: theme.spacing(2),
-    bottom: theme.spacing(2),
-  },
-  extendedIcon: {
-    marginRight: theme.spacing(1),
-  },
   titleContainer: {
     marginBottom: theme.spacing(1),
   },
@@ -389,6 +377,7 @@ const styles = (theme: Theme) => ({
     boderBottom: '0px',
   },
   buttonTitle: {
+    display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -400,17 +389,11 @@ const styles = (theme: Theme) => ({
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
   },
-  iconContainer: {
-    marginRight: theme.spacing(1.5),
-  },
 });
 const mapStateToProps = (state: RootState) => ({
   loading: state.paymentPack.loading,
   enabledPacks: getEnabledPaymentPacks(state),
-  paymentPackUnCategorized: getPaymentPackUnCategoryWithPaymentPacks(
-    withPaymentPackNotification(getEnabledPaymentPacks),
-  )(state),
-  paymentPackByCategory: getPaymentPackCategoryWithPaymentPacks(
+  paymentPackByCategory: groupByCategory(
     withPaymentPackNotification(getEnabledPaymentPacks),
   )(state),
   disabledPacks: getDisabledPaymentPacks(state),
@@ -434,6 +417,7 @@ const mapDispatchToProps = {
   upsertPaymenPackCategoryAction: upsertPaymenPackCategory,
   deletePaymentPackCategoryAction: deletePaymentPackCategory,
   fetchPaymentPackBulk,
+  updatePackOrder: updatePaymentPack,
 };
 const mapWithHandlers = {
   incrementCredit: (props: OwnAndConnectedProps) => (
@@ -450,7 +434,7 @@ const mapWithHandlers = {
     paymentPackId: number,
     data: PaymentPack,
   ) => {
-    props.patchPaymentPack(paymentPackId, data, true);
+    props.patchPaymentPack(paymentPackId, data);
   },
   pushToEdit: (props: OwnAndConnectedProps) => (paymentPackId: number) => {
     props.pushRouter(`/payment-pack/${paymentPackId}/edit`);
@@ -483,6 +467,7 @@ const mapWithHandlers = {
         props.setShowCategoryDialog(false);
         props.setSelectedCategory(null);
         props.setUpsertCategoryLoading(false);
+        props.fetchAllPaymentPackCategory();
       },
     });
   },
@@ -491,18 +476,10 @@ const mapWithHandlers = {
   ) => {
     props.setUpsertCategoryLoading(true);
     props.deletePaymentPackCategoryAction(category, {
-      onSuccess: (payload) => {
-        const paymentPackIds = [
-          ...payload.managerPacks.map((pack) => pack.id),
-          ...payload.publicPacks.map((pack) => pack.id),
-        ];
-        props.setSelectedCategory(null);
-        if (paymentPackIds.length === 0) props.setUpsertCategoryLoading(false);
-        props.fetchPaymentPackBulk(paymentPackIds, {
-          onSuccess: () => {
-            props.setUpsertCategoryLoading(false);
-          },
-        });
+      onSuccess: () => {
+        props.fetchPaymentPackBulk(
+          category.packs.filter((p) => p?.id).map((p) => p.id),
+        );
       },
     });
   },

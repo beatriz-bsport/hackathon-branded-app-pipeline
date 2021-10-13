@@ -35,6 +35,8 @@ export type PaymentPack = {
   company: number;
   SCTS: Array<number>;
   metaActivities: Array<number>;
+  category: number;
+  ordering_in_category: number;
 
   editable: boolean;
   establishments: Array<number>;
@@ -108,12 +110,10 @@ export type PaymentPackCategory = {
   id: number;
   name: string;
   company_id: number;
+  category_ordering: number;
+  payment_pack_category: Array<number>; // bad naming but this means the id of the payment packs
 };
 
-export type PaymentPackCategoryWithPacks = {
-  id: number;
-  name: string;
-  company_id: number;
-  publicPacks: Array<PaymentPack>;
-  managerPacks: Array<PaymentPack>;
+export type PaymentPackCategoryWithPacks = PaymentPackCategory & {
+  packs: Array<PaymentPack>;
 };

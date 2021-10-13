@@ -1,12 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
 import { TFunction } from 'i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -18,30 +16,29 @@ import Popover from '@material-ui/core/Popover';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MenuItem from '@material-ui/core/MenuItem';
+import HelpIcon from '@material-ui/icons/Help';
+import { Paper, Tooltip } from '@material-ui/core';
+import {
+  useSortable,
+  SortableContext,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import PaymentPackListItem from '../PaymentPackListItem.component';
-import type { PaymentPack, PaymentPackCategory } from '../../types';
+import type {
+  PaymentPack,
+  PaymentPackCategory,
+  PaymentPackCategoryWithPacks,
+} from '../../types';
 import { MaterialStyleType } from '../../../../utils/types';
 import withConfirm from '../../../../hocs/with-confirm.hoc';
 
-interface PaymentPackByCategory {
-  id: number;
-  name: string;
-  company_id: number;
-  publicPacks: Array<PaymentPack>;
-  managerPacks: Array<PaymentPack>;
-}
-
-interface PaymentPackByUnCategorized {
-  publicPacks: Array<PaymentPack>;
-  managerPacks: Array<PaymentPack>;
-}
 type OwnProps = {
   onEdit: (pp: PaymentPack) => void;
   onDelete: (pp: PaymentPack) => void;
   onClick: (ppId: number) => void;
   onRestore: (ppId: number) => void;
-  paymentPackUnCategorized?: PaymentPackByUnCategorized;
-  paymentPackCategory?: PaymentPackByCategory;
+  paymentPackCategory: PaymentPackCategoryWithPacks;
   setSelectedCategory?: (category: PaymentPackCategory) => void;
   showCategoryEditDialog?: () => void;
   deletePaymentPackCategory?: (category: PaymentPackCategory) => void;
@@ -58,74 +55,117 @@ const ButtonWithConfirm = withConfirm(MenuItem, 'onClick', {
     <p>{t('paymentPack:category.deleteModal.content')}</p>
   ),
 });
-export const PaymentPackCategoryItemWithPaymentPack = (props: Props) => {
-  const { t, classes, paymentPackUnCategorized, paymentPackCategory } = props;
-  const [expandCollaspe, setExpandCollapse] = React.useState(true);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const handlePopover = (event: any, ppCategory: PaymentPackCategory) => {
-    event.stopPropagation();
-    if (
-      anchorEl === null ||
-      (anchorEl !== null && anchorEl !== event.currentTarget)
-    ) {
-      setAnchorEl(event.currentTarget);
-      props.setSelectedCategory({
-        name: ppCategory.name,
-        company_id: ppCategory.company_id,
-        id: ppCategory.id,
-      });
-    } else {
-      setAnchorEl(null);
-      props.setSelectedCategory(null);
-    }
-  };
-  const renderPackList = (packs: Array<PaymentPack>, disabled: boolean) => (
-    <Paper>
-      <List disablePadding>
-        {packs.map((pack) => (
-          <PaymentPackListItem
-            pack={pack}
-            divider
-            onEdit={() => props.onEdit(pack)}
-            onDelete={() => props.onDelete(pack)}
-            onClick={!pack.disabled ? () => props.onClick(pack.id) : null}
-            onRestore={() => props.onRestore(pack.id)}
-            key={pack.id}
-            disabled={disabled}
-          />
-        ))}
-      </List>
+
+type PackListProps = MaterialStyleType<ReturnType<typeof styles>> & {
+  onEdit: (pp: PaymentPack) => void;
+  onDelete: (pp: PaymentPack) => void;
+  onClick: (ppId: number) => void;
+  onRestore: (ppId: number) => void;
+  paymentPackCategory: PaymentPackCategoryWithPacks;
+};
+
+type PackListItemProps = MaterialStyleType<ReturnType<typeof styles>> & {
+  onEdit: () => void;
+  onDelete: () => void;
+  onClick: () => void;
+  onRestore: () => void;
+  pack: PaymentPack;
+};
+
+const SortablePaymentPackListItem = React.memo((props: PackListItemProps) => {
+  const { pack } = props;
+  const {
+    listeners,
+    attributes,
+    setNodeRef,
+    transform,
+    transition,
+  } = useSortable({
+    id: props.pack.id.toString(10),
+    data: {
+      category: { packs: props.sortedItems },
+      pack,
+    },
+  });
+  return (
+    <Paper
+      ref={setNodeRef}
+      style={{ transform: CSS.Translate.toString(transform), transition }}
+      elevation={2}
+      className={props.classes.paper}
+    >
+      <PaymentPackListItem
+        attributes={attributes}
+        listeners={listeners}
+        draggable
+        pack={pack}
+        divider
+        onEdit={props.onEdit}
+        onDelete={props.onDelete}
+        onClick={props.onClick}
+        onRestore={props.onRestore}
+        key={pack.id}
+        disabled={false}
+      />
     </Paper>
   );
-  if (paymentPackUnCategorized) {
-    return (
-      <Grid container direction="row" spacing={3}>
-        <Grid item xs={12} md={6}>
-          <div className={classes.topTitle}>
-            <Typography variant="h5">{t('publicPacksTitle')}</Typography>
-          </div>
-          <Divider className={props.classes.divider} />
-          {paymentPackUnCategorized &&
-          paymentPackUnCategorized.publicPacks &&
-          paymentPackUnCategorized.publicPacks.length ? (
-            <>{renderPackList(paymentPackUnCategorized.publicPacks, false)}</>
-          ) : null}
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <div className={classes.topTitle}>
-            <Typography variant="h5">{t('privatePacksTitle')}</Typography>
-          </div>
-          <Divider className={props.classes.divider} />
-          {paymentPackUnCategorized &&
-          paymentPackUnCategorized.managerPacks &&
-          paymentPackUnCategorized.managerPacks.length ? (
-            <>{renderPackList(paymentPackUnCategorized.managerPacks, false)}</>
-          ) : null}
-        </Grid>
-      </Grid>
-    );
-  }
-  if (paymentPackCategory) {
+});
+
+const SortablePaymentPackList = (props: PackListProps) => {
+  const packs = [...props.paymentPackCategory.packs].sort(
+    (p1, p2) =>
+      (props.orderingOverride[p1.id] || p1.ordering_in_category) -
+      (props.orderingOverride[p2.id] || p2.ordering_in_category),
+  );
+
+  const items = packs.map((e) => e.id.toString(10));
+
+  return (
+    <SortableContext items={items} strategy={verticalListSortingStrategy}>
+      {packs.map((pack: PaymentPack) => {
+        const onEdit = () => props.onEdit(pack);
+        const onDelete = () => props.onDelete(pack);
+        const onClick = !pack.disabled ? () => props.onClick(pack.id) : null;
+        const onRestore = () => props.onRestore(pack.id);
+        return (
+          <SortablePaymentPackListItem
+            key={pack.id}
+            pack={pack}
+            onEdit={onEdit}
+            onClick={onClick}
+            onDelete={onDelete}
+            onRestore={onRestore}
+            classes={props.classes}
+            sortedItems={packs}
+          />
+        );
+      })}
+    </SortableContext>
+  );
+};
+
+export const PaymentPackCategoryItemWithPaymentPack = React.memo(
+  (props: Props) => {
+    const { t, classes, paymentPackCategory } = props;
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const [expandCollapse, setExpandCollapse] = useState(true);
+
+    const handlePopover = (event: any, ppCategory: PaymentPackCategory) => {
+      event.stopPropagation();
+      if (anchorEl === null || anchorEl !== event.currentTarget) {
+        setAnchorEl(event.currentTarget);
+        props.setSelectedCategory({
+          name: ppCategory.name,
+          company_id: ppCategory.company_id,
+          id: ppCategory.id,
+          category_ordering: ppCategory.category_ordering,
+        });
+      } else {
+        setAnchorEl(null);
+        props.setSelectedCategory(null);
+      }
+    };
     return (
       <>
         <Popover
@@ -168,78 +208,66 @@ export const PaymentPackCategoryItemWithPaymentPack = (props: Props) => {
             </ButtonWithConfirm>
           </List>
         </Popover>
-        <Grid container direction="row" spacing={3}>
-          <Grid item xs={12} md={12}>
-            <div className={classes.header}>
-              <div className={classes.title}>
-                <Typography variant="h5" component="h2">
-                  {`${paymentPackCategory.name} (${
-                    (paymentPackCategory?.managerPacks?.length || 0) +
-                    (paymentPackCategory?.publicPacks?.length || 0)
-                  })`}
-                </Typography>
-              </div>
-              <div className={classes.titleActions}>
-                <IconButton
-                  aria-haspopup="true"
-                  aria-owns={anchorEl ? 'category-popover' : undefined}
-                  onClick={(event) => handlePopover(event, paymentPackCategory)}
-                >
-                  <MoreVertIcon />
+
+        <div className={classes.header}>
+          <Typography variant="h5" component="h2">
+            {paymentPackCategory
+              ? `${paymentPackCategory.name || t('noCategory.name')} (${
+                  paymentPackCategory.packs?.length || 0
+                })`
+              : ''}
+          </Typography>
+          <div className={classes.titleActions}>
+            {paymentPackCategory.id !== -1 ? (
+              <IconButton
+                aria-haspopup="true"
+                aria-owns={anchorEl ? 'category-popover' : undefined}
+                onClick={(event) => handlePopover(event, paymentPackCategory)}
+              >
+                <MoreVertIcon />
+              </IconButton>
+            ) : (
+              <Tooltip title={t('noCategory.help')}>
+                <IconButton>
+                  <HelpIcon />
                 </IconButton>
-                <IconButton onClick={() => setExpandCollapse(!expandCollaspe)}>
-                  {expandCollaspe ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-                </IconButton>
-              </div>
-            </div>
-            <Divider className={classes.divider} />
-          </Grid>
-          <Collapse className={classes.collapse} in={expandCollaspe}>
-            <Grid container direction="row" spacing={3}>
-              <Grid item xs={12} md={6}>
-                {paymentPackCategory &&
-                paymentPackCategory.publicPacks &&
-                paymentPackCategory.publicPacks.length ? (
-                  <>{renderPackList(paymentPackCategory.publicPacks, false)}</>
-                ) : null}
-              </Grid>
-              <Grid item xs={12} md={6}>
-                {paymentPackCategory &&
-                paymentPackCategory.managerPacks &&
-                paymentPackCategory.managerPacks.length ? (
-                  <>{renderPackList(paymentPackCategory.managerPacks, false)}</>
-                ) : null}
-              </Grid>
-            </Grid>
-          </Collapse>
-        </Grid>
+              </Tooltip>
+            )}
+            <IconButton onClick={() => setExpandCollapse(!expandCollapse)}>
+              {expandCollapse ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            </IconButton>
+          </div>
+        </div>
+        <Divider className={classes.divider} />
+        <Collapse className={classes.collapse} in={expandCollapse}>
+          {!!(paymentPackCategory && paymentPackCategory.packs) &&
+            (paymentPackCategory.packs.length ? (
+              <SortablePaymentPackList {...props} />
+            ) : (
+              <Typography color="textSecondary">
+                {t('noCategory.empty')}
+              </Typography>
+            ))}
+        </Collapse>
       </>
     );
-  }
-  return <div />;
-};
+  },
+);
+
 const styles = (theme: Theme) => ({
   header: {
     display: 'flex',
-    aignItems: 'center',
+    alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
     width: '100%',
     paddingBottom: theme.spacing(0.5),
     paddingTop: theme.spacing(4),
   },
-  title: {
-    marginTop: 'auto',
-    marginBottom: 'auto',
-  },
-  topTitle: {
-    width: '100%',
-    paddingBottom: theme.spacing(0.5),
-    paddingTop: theme.spacing(1),
-  },
   titleActions: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'flex-end',
     flexDirection: 'row',
   },
   popoverIcon: {
@@ -248,11 +276,16 @@ const styles = (theme: Theme) => ({
   },
   divider: {
     marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(1),
   },
   collapse: {
     width: '100%',
     marginRight: theme.spacing(2),
     marginLeft: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
+  paper: {
+    width: '100%',
   },
 });
 export default compose<any, OwnProps>(

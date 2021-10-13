@@ -29,10 +29,12 @@ import {
 import {
   excludeUnaccessiblePacks,
   getPaymentPackForBooking,
+  getNonEmptyPaymentPackCategoryWithPaymentPacks,
 } from '../../../../libs/payment-packs/selectors';
 import {
   fetchPaymentPackForBooking,
   fetchPaymentPackBulk as fetchPaymentPackBulkAction,
+  fetchAllPaymentPackCategory,
 } from '../../../../libs/payment-packs/actions';
 import { fetchPaymentComboForBooking } from '../../../../libs/payment-combo/actions';
 import {
@@ -106,6 +108,7 @@ export class OfferState extends React.PureComponent<Props, State> {
     this.fetchComboPack();
     this.props.fetchContractForBooking(this.props.offerId, this.props.company);
     this.props.fetchMemberTagList(this.props.company);
+    this.props.fetchAllPaymentPackCategory(this.props.company);
   }
 
   fetchConsumerPaymentPack = () => {
@@ -168,6 +171,7 @@ export class OfferState extends React.PureComponent<Props, State> {
         this.props.offerId,
         this.props.company,
       );
+      this.props.fetchAllPaymentPackCategory(this.props.company);
     }
   }
 
@@ -236,10 +240,13 @@ export class OfferState extends React.PureComponent<Props, State> {
           selectedPack={this.props.selectedPack}
           onPackChange={this.props.onPackChange}
           availableConsumerPacks={availableConsumerPacks}
-          availablePaymentPacks={availablePaymentPacks}
+          unCategorizedPacks={availablePaymentPacks.filter(
+            (pack) => !pack.category,
+          )}
           availableComboPacks={availableComboPacks}
           contractList={this.props.contractList}
           onOpenSubscriptionModal={this.props.setOpenSubscriptionModal}
+          paymentPackCategories={this.props.paymentPackCategories}
         />
         <SubscriptionContractBooking
           contract={this.props.openSubscriptionModal}
@@ -344,6 +351,12 @@ const mapStateToProps = (
   contractList: withPaymentPackForContract(getContractForBooking)(state),
   cppMaxoutBookings: state.consumerPaymentPack.maxout_booking.byId,
   paymentPacksById: state.paymentPack.byId,
+  paymentPackCategories: getNonEmptyPaymentPackCategoryWithPaymentPacks(
+    excludeUnaccessiblePacks(getPaymentPackForBooking),
+  )(state, {
+    memberTagList,
+    authenticated,
+  }),
 });
 
 const mapDispatchToProps = {
@@ -355,6 +368,7 @@ const mapDispatchToProps = {
   resetContractForBooking: resetContractForBookingAction,
   fetchConsumerPaymentPackMaxoutBooking,
   fetchMemberTagList,
+  fetchAllPaymentPackCategory,
 };
 
 export default compose<any, OwnProps>(

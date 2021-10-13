@@ -230,21 +230,38 @@ export default {
   getPaymentPackNotifications,
 };
 
-export const getPaymentPackUnCategoryWithPaymentPacks = (
-  enabledPaymentPackSelector: any,
-) =>
+export const filterByNoCategory = memoize((enabledPaymentPackSelector: any) =>
   createSelector([enabledPaymentPackSelector], (enabledPackList) => {
-    return {
-      publicPacks: enabledPackList.filter(
-        (pack) => !pack.category && !pack.manager_only,
-      ),
-      managerPacks: enabledPackList.filter(
-        (pack) => !pack.category && !!pack.manager_only,
-      ),
-    };
+    return enabledPackList.filter((pack) => !pack.category);
+  }),
+);
+
+export const getPaymentPackCategories = (enabledPaymentPackSelector: any) =>
+  createSelector([enabledPaymentPackSelector], (enabledPackList) => {
+    return enabledPackList.map((e) => e.category);
   });
 
-export const getPaymentPackCategoryWithPaymentPacks = (
+export const groupByCategory = memoize((selector: any) =>
+  createSelector(
+    [getPaymentPackCategoryAllIds, getPaymentPackCategoryById, selector],
+    (categoryIdList, categoryData, packList) => {
+      return Immutable([
+        ...categoryIdList.map((catId) => ({
+          ...categoryData[catId],
+          packs: packList.filter((e) => e.category === catId),
+        })),
+        {
+          id: null,
+          name: '',
+          category_ordering: 0,
+          packs: packList.filter((pack) => !pack.category),
+        },
+      ]);
+    },
+  ),
+);
+
+export const getNonEmptyPaymentPackCategoryWithPaymentPacks = (
   enabledPaymentPackSelector: any,
 ) =>
   createSelector(
@@ -254,19 +271,17 @@ export const getPaymentPackCategoryWithPaymentPacks = (
       enabledPaymentPackSelector,
     ],
     (categoryIdList, categoryData, enabledPackList) => {
-      return categoryIdList.map((catId) => {
-        return categoryData
-          ? {
-              ...categoryData[catId],
-              publicPacks: enabledPackList.filter(
-                (pack) => pack.category === catId && !pack.manager_only,
-              ),
-              managerPacks: enabledPackList.filter(
-                (pack) => pack.category === catId && pack.manager_only,
-              ),
-            }
-          : {};
-      });
+      return categoryIdList
+        .map((catId) => {
+          const packs = enabledPackList.filter((e) => e.category === catId);
+          return categoryData && packs.length
+            ? {
+                ...categoryData[catId],
+                packs,
+              }
+            : null;
+        })
+        .filter((e) => e);
     },
   );
 

@@ -203,8 +203,8 @@ export default compose(
     onSubmit: (data, options = {}) => {
       createOrUpdate(data, {
         ...options,
-        onSuccess: (pp) => {
-          push(`/payment-pack/${pp.id}`);
+        onSuccess: () => {
+          push('/payment-pack');
           if (options.onSuccess) options.onSuccess();
         },
       });

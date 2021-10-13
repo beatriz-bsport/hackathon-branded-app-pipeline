@@ -52,18 +52,30 @@ type Props = {
   setConfig: (config: any) => void;
 };
 
-const MarkeplaceBuilder = (props: Props) => {
+const MarketplaceBuilder = (props: Props) => {
   const { t } = useTranslation(['settings']);
   const classes = useStyles();
   const { config, theme, settings, setConfig } = props;
 
   const onSortEnd = React.useCallback(
     (e: { oldIndex: number; newIndex: number }) => {
-      const tabs = [...config];
-      const temp = tabs[e.oldIndex];
-      tabs[e.oldIndex] = { ...tabs[e.newIndex], index: e.newIndex };
-      tabs[e.newIndex] = { ...temp, index: e.oldIndex };
-      setConfig(tabs);
+      if (e.oldIndex > e.newIndex) {
+        setConfig([
+          ...config.slice(0, e.newIndex),
+          config[e.oldIndex],
+          config[e.newIndex],
+          ...config.slice(e.newIndex + 1, e.oldIndex),
+          ...config.slice(e.oldIndex + 1),
+        ]);
+      } else if (e.oldIndex < e.newIndex) {
+        setConfig([
+          ...config.slice(0, e.oldIndex),
+          ...config.slice(e.oldIndex + 1, e.newIndex),
+          config[e.newIndex],
+          config[e.oldIndex],
+          ...config.slice(e.newIndex + 1),
+        ]);
+      }
     },
     [config, setConfig],
   );
@@ -91,7 +103,7 @@ const MarkeplaceBuilder = (props: Props) => {
           </Button>
         </Link>
       </div>
-      <Container useDragHandle hideSortableGhost={false} onSortEnd={onSortEnd}>
+      <Container useDragHandle onSortEnd={onSortEnd}>
         {config.map((tab: any, i: number) => (
           <SortableItem index={i} key={i}>
             <Paper className={classes.paperItem}>
@@ -191,4 +203,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default MarkeplaceBuilder;
+export default MarketplaceBuilder;

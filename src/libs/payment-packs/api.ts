@@ -35,6 +35,13 @@ export async function edit(data: any) {
   return putAuth(`${API_URI}/saas/payment-pack/${data.id}/edit/`, data);
 }
 
+export async function editOrder(data: any) {
+  return patchAuth(
+    `${API_V1_URI}/payment-pack/payment-pack/${data.id}/set_order/`,
+    data,
+  );
+}
+
 export async function patch(id: number, data: any) {
   return patchAuth(`${API_URI}/saas/payment-pack/${id}/edit/`, data);
 }

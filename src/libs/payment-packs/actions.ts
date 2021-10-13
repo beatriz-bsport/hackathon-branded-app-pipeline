@@ -22,6 +22,7 @@ import {
   deletePaymentPackNotifications as deleteNotificationAPI,
   fetchPaymentPackCompatibleList as fetchPaymentPackCompatibleListAPI,
   deletePaymentPackCategory as deletePaymentPackCategoryAPI,
+  editOrder,
 } from './api';
 
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
@@ -159,6 +160,26 @@ export function fetchOne(id: number, options: OptionCallback) {
     }
     dispatch(fetchOneAction.isLoading(false));
     return promise;
+  };
+}
+
+export function updateOrder(
+  data: { id: number; ordering_in_category: number },
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(updatePaymentPackActions.isLoading(data.id));
+    try {
+      const response = await editOrder(data);
+      dispatch(updatePaymentPackActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(updatePaymentPackActions.error(err));
+      dispatch(snackbarError('paymentPack.createOrUpdate.fail'));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(updatePaymentPackActions.isLoading(data.id));
   };
 }
 
@@ -519,6 +540,25 @@ export const upsertPaymenPackCategoryActions = {
   success: createAction('PAYMENT_PACK_CATEGORY/UPSERT/SUCCESS'),
 };
 
+export function updatePaymentPackCategoryOrder(
+  category: PaymentPackCategory,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(upsertPaymenPackCategoryActions.isLoading(true));
+    try {
+      const response = await updatePaymentPackCategoryAPI(category);
+      dispatch(upsertPaymenPackCategoryActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(snackbarError(`paymentPack.category.update.error`));
+      dispatch(upsertPaymenPackCategoryActions.error(error.response.data));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(upsertPaymenPackCategoryActions.isLoading(false));
+  };
+}
+
 export function upsertPaymenPackCategory(
   category: PaymentPackCategory,
   options?: OptionCallback,
@@ -531,7 +571,6 @@ export function upsertPaymenPackCategory(
       const response = category.id
         ? await updatePaymentPackCategoryAPI(category)
         : await createPaymentPackCategoryAPI(category);
-
       dispatch(upsertPaymenPackCategoryActions.success(response.data));
       dispatch(snackbarSuccess(`paymentPack.category.${kind}.success`));
       if (options && options.onSuccess) options.onSuccess(response.data);

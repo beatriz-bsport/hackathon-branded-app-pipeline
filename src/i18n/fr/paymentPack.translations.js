@@ -484,4 +484,10 @@ exports.default = {
       confirm: 'Confirmer',
     },
   },
+  noCategory: {
+    help:
+      'Ces passes apparaîtront dans une catégorie sans nom sur la marketplace',
+    name: 'Sans catégorie',
+    empty: 'Aucune carte dans cette catégorie',
+  },
 };

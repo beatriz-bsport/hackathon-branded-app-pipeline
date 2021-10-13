@@ -32,8 +32,7 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
   getMarketplacePaymentPacks,
   excludeUnaccessiblePacks,
-  getPaymentPackCategoryWithPaymentPacks,
-  getPaymentPackUnCategoryWithPaymentPacks,
+  groupByCategory,
   withMetaActivities,
   withEstablishments,
 } from '../../libs/payment-packs/selectors';
@@ -171,7 +170,6 @@ export class MarketPlacePassPage extends Component<Props> {
           <Grid item xs={11} md={5}>
             <MarketplacePassList
               pushPackCheckout={this.addPaymentPackToCart}
-              paymentPackUnCategorized={this.props.paymentPackUnCategorized}
               paymentPackByCategory={this.props.paymentPackByCategory}
               paymentPackCategories={this.props.params?.paymentPackCategories}
             />
@@ -232,12 +230,7 @@ const mapStateToProps = (
   loading: state.paymentPack.loading,
   establishmentLoading: state.establishment.bulkRetrieve.loading,
   activityLoading: state.metaActivity.loading,
-  paymentPackUnCategorized: getPaymentPackUnCategoryWithPaymentPacks(
-    withEstablishments(
-      withMetaActivities(excludeUnaccessiblePacks(getMarketplacePaymentPacks)),
-    ),
-  )(state, { memberTagList, authenticated }),
-  paymentPackByCategory: getPaymentPackCategoryWithPaymentPacks(
+  paymentPackByCategory: groupByCategory(
     withEstablishments(
       withMetaActivities(excludeUnaccessiblePacks(getMarketplacePaymentPacks)),
     ),

@@ -158,18 +158,14 @@ export class MarketPlacePassPage extends Component<Props> {
           <Grid item xs={12}>
             <MarketplacePaymentComboList
               paymentComboList={this.props.paymentComboList}
-              onAddBasket={
-                this.props.currentBasket ? this.addComboToCart : null
-              }
+              onAddBasket={this.addComboToCart}
             />
           </Grid>
         ) : null}
         {!hidePaymentPack && (
           <Grid item xs={11} md={5}>
             <MarketplacePassList
-              pushPackCheckout={
-                this.props.currentBasket ? this.addPaymentPackToCart : null
-              }
+              pushPackCheckout={this.addPaymentPackToCart}
               paymentPackUnCategorized={this.props.paymentPackUnCategorized}
               paymentPackByCategory={this.props.paymentPackByCategory}
             />
@@ -180,9 +176,7 @@ export class MarketPlacePassPage extends Component<Props> {
           <Grid item xs={11} md={5}>
             <MarketplacePrivatePassList
               privatePassList={this.props.privatePassList}
-              onAddBasket={
-                this.props.currentBasket ? this.addPrivatePassToCart : null
-              }
+              onAddBasket={this.addPrivatePassToCart}
             />
           </Grid>
         ) : null}

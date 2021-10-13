@@ -3257,6 +3257,17 @@
                 "error": {
                     "unAuthorizedEstablishmentModification": "Impossibile modificare lo stabilimento di fatturazione, solo gli amministratori hanno il diritto di modificarlo"
                 }
+            },
+            "sendToQuickbooks": {
+                "errors": {
+                    "931004": "Non hai configurato la tua applicazione QuickBooks",
+                    "931003": "Chiavi di autenticazione scadute",
+                    "931002": "Chiavi di autenticazione scadute",
+                    "931001": "Errore durante l'autenticazione a Quickbooks",
+                    "931000": "Errore durante l'autenticazione a Quickbooks"
+                },
+                "error": "Si è verificato un errore durante il trasferimento della fattura a Quickbooks",
+                "success": "La tua fattura è stata trasferita a Quickbooks"
             }
         },
         "establishment": {
@@ -3755,7 +3766,8 @@
                 "workshop": "Workshop",
                 "calendar": "Calendario",
                 "newsletter": "Newsletter",
-                "loginButton": "Pulsante di accesso"
+                "loginButton": "Pulsante di accesso",
+                "giftcard": "Carta regalo"
             },
             "preview": "Anteprima",
             "saveButton": "Salva",
@@ -3781,6 +3793,19 @@
             "header": "gruppi di fatturazione",
             "helperText": "Se avete diversi studi sotto diversi nomi di società, potete raggrupparli qui per gruppo di fatturazione. I gruppi di fatturazione appariranno sui vostri rapporti per rendere più facile collegare ogni fattura al giusto nome dell'azienda.",
             "add": "Aggiungere un gruppo"
+        },
+        "quickbooks": {
+            "confirmDialog": {
+                "text": "Sei sicuro di voler permettere a Bsport di accedere alla tua applicazione?",
+                "title": "Connessione QuickBooks"
+            },
+            "buttonRevoke": "Eliminazione di Quickbooks",
+            "buttonReConnect": "Aggiorna la mia connessione",
+            "buttonConnect": "Collegarsi a Quickbooks",
+            "explainEnable": "Trasferisci tutte le tue fatture direttamente in QuickBooks. Le fatture saranno trasferite ogni 24 ore.",
+            "submit": "Salva",
+            "enable": "Attivare l'integrazione di Quickbooks",
+            "title": "QuickBooks"
         }
     },
     "invoice": {
@@ -4841,7 +4866,8 @@
             "invoice_time": "Tempo di emissione della fattura",
             "payment_amount_by_payment_method": "Raccolta per metodo di pagamento",
             "billing_establishment": "indirizzo",
-            "billing_group": "Gruppo di fatturazione"
+            "billing_group": "Gruppo di fatturazione",
+            "company_name": "Franchisee"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -5274,6 +5300,18 @@
                 },
                 "error": {
                     "start_date_method_type": "Si prega di indicare l'inizio della validità della carta."
+                },
+                "advancedOptions": {
+                    "tag": {
+                        "doNotSelectToAllowAllMembers": "Non selezionare nulla per permettere a tutti i membri",
+                        "notAllowedFor": "Non consentito per",
+                        "notAllowed": "Non consentito",
+                        "allowedFor": "Autorizzato per",
+                        "allowed": "Autorizzato",
+                        "helperText": "Usa i tag per rendere la mappa visibile solo a un gruppo desiderato di membri sul marketplace, widget e app. Puoi selezionare i tag per rendere la mappa visibile solo ai membri con un tag selezionato. Oppure puoi selezionare i tag per rendere la mappa invisibile solo ai membri con uno dei tag selezionati ",
+                        "header": "Tags"
+                    },
+                    "header": "Avanzato"
                 }
             }
         },
@@ -7181,7 +7219,13 @@
             "CREDIT_ACCOUNT": "Pagamento in loco",
             "CB": "Carta di credito",
             "CHECK": "Controlla",
-            "CASH": "Specie"
+            "CASH": "Specie",
+            "GIROPAY": "Giropay",
+            "EPS": "EPS",
+            "IDEAL": "iDEAL",
+            "SOFORT": "Sofort",
+            "BANCONTACT": "Bancontact",
+            "SEPA": "SEPA"
         },
         "generalTermsAndConditions": {
             "iAccept": "Accetto le ",

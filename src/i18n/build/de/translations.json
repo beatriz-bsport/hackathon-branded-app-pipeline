@@ -2281,6 +2281,13 @@
                 "title": "ZOOM-Integration",
                 "text": "Wenn Sie bereits Videokonferenz-Links manuell in Ihre Sitzungen eingegeben haben, werden diese gelöscht und durch automatisch generierte Zoom-Links ersetzt. Bereits im ZOOM-Kalender erstellte Meetings müssen manuell gelöscht werden, sie werden durch automatisch erstellte Meetings ersetzt."
             }
+        },
+        "quickbooks": {
+            "confirmDialog": {
+                "text": "Sind Sie sicher, dass Sie Bsport den Zugriff auf Ihre Anwendung erlauben wollen?",
+                "title": "QuickBooks Verbindung"
+            },
+            "title": "QuickBooks"
         }
     },
     "role": {
@@ -2669,6 +2676,18 @@
                 "category": {
                     "helperText": "Name der Kategorie",
                     "label": "Kategorie (fakultativ)"
+                },
+                "advancedOptions": {
+                    "tag": {
+                        "doNotSelectToAllowAllMembers": "Wählen Sie nichts aus, um alle Mitglieder zuzulassen",
+                        "notAllowedFor": "Nicht erlaubt für",
+                        "notAllowed": "Nicht erlaubt",
+                        "allowedFor": "Zugelassen für",
+                        "allowed": "Autorisiert",
+                        "helperText": "Verwenden Sie Tags, um die Karte nur für eine bestimmte Gruppe von Mitgliedern auf dem Marktplatz, im Widget und in der App sichtbar zu machen. Sie können Tags auswählen, um die Karte nur für Mitglieder mit einem ausgewählten Tag sichtbar zu machen. Oder Sie können Tags auswählen, um die Karte nur für Mitglieder mit einem der ausgewählten Tags unsichtbar zu machen. ",
+                        "header": "Tags"
+                    },
+                    "header": "Fortgeschrittene"
                 }
             }
         },
@@ -3129,7 +3148,8 @@
             "invoice_date_created": "Datum der Ausstellung der Rechnung",
             "last_payment_date": "Datum der letzten Zahlung",
             "billing_establishment": "Adresse",
-            "billing_group": "Abrechnungsgruppe"
+            "billing_group": "Abrechnungsgruppe",
+            "company_name": "Franchisenehmer"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -3359,6 +3379,34 @@
                 "error": {
                     "unAuthorizedEstablishmentModification": "Kann die Abrechnungseinrichtung nicht ändern, nur Administratoren haben das Recht, sie zu ändern"
                 }
+            },
+            "sendToQuickbooks": {
+                "errors": {
+                    "title": "Fehler beim Versand Ihrer Rechnung",
+                    "934006": "Diese Rechnung ist bereits in QuickBooks registriert",
+                    "934005": "Ihre Rechnung kann nicht an QuickBooks gesendet werden",
+                    "934004": "Unmöglich, eine unbezahlte Rechnung in QuickBooks zu senden",
+                    "934003": "Nicht möglich, eine unfertige Rechnung in QuickBooks zu senden",
+                    "934002": "Stornierte Rechnungen können in QuickBooks nicht gesendet werden",
+                    "934001": "Es ist nicht möglich, eine Rechnung ohne zugehörige Artikel zu erstell",
+                    "934000": "Die Rechnung enthält nicht die Mindestangaben, um in Quickbooks erstellt zu werden",
+                    "933102": "Fehler beim Erstellen der Rechnung in Quickbooks",
+                    "933101": "Der Kunde, der mit dem Rechnungsmitglied verbunden ist, kann nicht erstellt werden",
+                    "933100": "Der Kunde, der mit dem Rechnungsmitglied verbunden ist, kann nicht erstellt werden",
+                    "933000": "Das Mitglied, das mit der Rechnung verbunden ist, verfügt nicht über die notwendigen Informationen, um in QuickBooks registriert zu werden",
+                    "932100": "Sie können nicht auf Ihre Quickbooks-Kontoinformationen zugreifen",
+                    "932001": "Ihr Konto ist bei Bsport nicht mehr authentifizie",
+                    "932000": "Ihr Konto ist bei Bsport nicht mehr authentifiziert",
+                    "931101": "Quickbooks ist nicht in der Lage, uns Ihre Daten zu senden",
+                    "931100": "Fehler beim Aktualisieren von Authentifizierungsschlüsseln",
+                    "931004": "Sie haben Ihre QuickBooks-Anwendung nicht konfiguriert",
+                    "931003": "Abgelaufene Authentifizierungsschlüssel",
+                    "931002": "Abgelaufene Authentifizierungsschlüssel",
+                    "931001": "Fehler bei der Authentifizierung in Quickbooks",
+                    "931000": "Fehler bei der Authentifizierung in Quickbooks"
+                },
+                "error": "Beim Übertragen Ihrer Rechnung an Quickbooks ist ein Fehler aufgetreten",
+                "success": "Ihre Rechnung wurde an Quickbooks übertragen"
             }
         },
         "member": {
@@ -3839,6 +3887,16 @@
                 "error": "Die Benachrichtigungsregel kann nicht erstellt werden",
                 "success": "Benachrichtigungsregel erstellt"
             }
+        },
+        "quickbooks": {
+            "revoke": {
+                "error": "Sie können sich nicht von Ihrem Quickbooks-Konto abmelden",
+                "success": "Ihr Quickbooks-Konto ist abgemeldet"
+            },
+            "create": {
+                "error": "Sie können sich nicht bei Ihrem Quickbooks-Konto anmelden",
+                "success": "Ihr Quickbooks-Konto ist jetzt authentifiziert"
+            }
         }
     },
     "invoice": {
@@ -3952,7 +4010,8 @@
                 "9": "Terminkarte",
                 "3": "Kredit",
                 "2": "Shop",
-                "1": "Kurskarte"
+                "1": "Kurskarte",
+                "undefined": "Geschenkkarte"
             },
             "discount": "Reduktion"
         },
@@ -4077,7 +4136,8 @@
                 "date": "Rechnungsdatum",
                 "id": "ID",
                 "member": "Mitglied",
-                "invoiceType": "Typ"
+                "invoiceType": "Typ",
+                "quickbooks": "QuickBooks"
             },
             "actions": {
                 "goToInvoice": "Rechnung anzeigen"
@@ -4179,6 +4239,44 @@
         "paymentGroup": {
             "requiresAction": "Die Bank hat die Zahlung nicht authentifiziert (3DSecure)",
             "validateRequiresAction": "Bestätigen Sie die Zahlungsmethode"
+        },
+        "quickbooks": {
+            "send": {
+                "errors": {
+                    "title": "Fehler beim Versand Ihrer Rechnung",
+                    "934006": "Diese Rechnung ist bereits in QuickBooks registriert",
+                    "934005": "Ihre Rechnung kann nicht an QuickBooks gesendet werden",
+                    "934004": "Unmöglich, eine unbezahlte Rechnung in QuickBooks zu senden",
+                    "934003": "Stornierte Rechnungen können in QuickBooks nicht gesendet werden",
+                    "934002": "Stornierte Rechnungen können in QuickBooks nicht gesendet werden",
+                    "934001": "Es ist nicht möglich, eine Rechnung ohne zugehörige Artikel zu erstellen",
+                    "934000": "Die Rechnung enthält nicht die Mindestangaben, um in Quickbooks erstellt zu werden",
+                    "933102": "Fehler beim Erstellen der Rechnung in Quickbooks",
+                    "933101": "Der Kunde, der mit dem Rechnungsmitglied verbunden ist, kann nicht erstellt werden",
+                    "933100": "Der Kunde, der mit dem Rechnungsmitglied verbunden ist, kann nicht erstellt werden",
+                    "933000": "Das Mitglied, das mit der Rechnung verbunden ist, verfügt nicht über die notwendigen Informationen, um in QuickBooks registriert zu werden",
+                    "932100": "Sie können nicht auf Ihre Quickbooks-Kontoinformationen zugreifen",
+                    "932001": "Ihr Konto ist bei Bsport nicht mehr authentifiziert",
+                    "932000": "Ihr Konto ist nicht mehr bei Bsport authentifiziert",
+                    "931101": "Quickbooks ist nicht in der Lage, uns Ihre Daten zu senden",
+                    "931100": "Fehler beim Aktualisieren von Authentifizierungsschlüsseln",
+                    "931004": "Sie haben Ihre QuickBooks-Anwendung nicht konfiguriert",
+                    "931003": "Abgelaufene Authentifizierungsschlüssel",
+                    "931002": "Abgelaufene Authentifizierungsschlüssel",
+                    "931001": "Fehler bei der Authentifizierung in Quickbooks",
+                    "931000": "Fehler bei der Authentifizierung in Quickbooks"
+                }
+            },
+            "invoice": {
+                "sendToQuickbooks": "Übertragen Sie die Rechnung in QuickBooks",
+                "onQuickbooks": "Übertragen"
+            }
+        },
+        "invoicePaymentPackTagWarningDialog": {
+            "confirm": "Bestätigen Sie",
+            "cancel": "Abbrechen",
+            "content": "Vorsicht, Sie versuchen, eine Karte einem Mitglied aufzuladen, das nicht über die für den Kauf erforderlichen Marken verfügt. Wollen Sie ihm diesen Artikel trotzdem in Rechnung stellen? ",
+            "title": "Informationen"
         }
     },
     "payment": {
@@ -4242,7 +4340,15 @@
         },
         "method": {
             "CREDIT_ACCOUNT": "Zahlung vor Ort",
-            "CB": "Kreditkarte"
+            "CB": "Kreditkarte",
+            "GIROPAY": "Giropay",
+            "EPS": "EPS",
+            "IDEAL": "iDEAL",
+            "SOFORT": "Sofort",
+            "BANCONTACT": "Bancontact",
+            "SEPA": "SEPA",
+            "CHECK": "Siehe",
+            "CASH": "Arten"
         },
         "paymentComboSectionTitle": "Package",
         "hasOneOrMoreOption": "Du bist bereits auf der Warteliste",
@@ -5178,7 +5284,8 @@
             "relation": "Beziehungen",
             "info": "Allgemein",
             "vod": "VOD",
-            "form": "Formulare"
+            "form": "Formulare",
+            "giftcard": "Geschenkkarte"
         },
         "merge": "Fusionieren",
         "paymentAction": {
@@ -6055,7 +6162,7 @@
         "pageTitles": {
             "calendar": "Kalender",
             "serviceList": "Terminvereinbarungen",
-            "passList": "Karten"
+            "passList": "Terminkarten"
         },
         "serviceGroup": {
             "form": {
@@ -6365,7 +6472,8 @@
             "dashboard": "Überblick",
             "myVideos": "Meine Videos",
             "pick_a_language": "Wähle eine Sprache",
-            "automaticLanguage": "Automatische Spracherkennung"
+            "automaticLanguage": "Automatische Spracherkennung",
+            "giftcard": "Geschenkkarten"
         },
         "pack": {
             "titlePrivatePack": "Terminkarte",
@@ -7356,7 +7464,8 @@
                 "marketplaceSettings": "Marketplace-Eintellungen",
                 "widget": "Widget",
                 "paymentMethod": "Zahlungsmethoden",
-                "forms": "Formulare"
+                "forms": "Formulare",
+                "quickbooks": "QuickBooks"
             },
             "myClub": "Mein Klub",
             "subscription": "Automatische Abbuchungen",
@@ -7399,7 +7508,8 @@
             "cashBookTooltip": "Kassenbuch",
             "redirecting": "Sie werden zu Ihrer Seite weitergeleitet",
             "backToFranchiseWorskpace": "Rückkehr zum Stammkonto",
-            "franchiseConnectedAs": "Eingeloggt als"
+            "franchiseConnectedAs": "Eingeloggt als",
+            "giftcard": "Geschenkkarten"
         },
         "deprecatedNavigator": {
             "close": "Schließen",
@@ -7414,7 +7524,8 @@
         },
         "franchiseMenu": {
             "members": "Mitglieder",
-            "franchises": "Franchises"
+            "franchises": "Franchises",
+            "reporting": "Berichte"
         },
         "multiSession": {
             "current": "Aktuelle Sitzung",
@@ -7974,7 +8085,8 @@
                 "workshop": "Workshops",
                 "calendar": "Kalender",
                 "newsletter": "Newsletter",
-                "loginButton": "Login-Button"
+                "loginButton": "Login-Button",
+                "giftcard": "Geschenkkarte"
             },
             "preview": "Vorschau",
             "saveButton": "Speichern",
@@ -8000,6 +8112,19 @@
             "header": "Abrechnungsgruppen",
             "helperText": "Wenn Sie mehrere Studios unter verschiedenen Firmennamen haben, können Sie sie hier nach Rechnungsgruppen gruppieren. Die Rechnungsgruppen erscheinen in Ihren Berichten, um die Zuordnung jeder Rechnung zum richtigen Firmennamen zu erleichtern.",
             "add": "Gruppe hinzufügen"
+        },
+        "quickbooks": {
+            "confirmDialog": {
+                "text": "Sind Sie sicher, dass Sie Bsport den Zugriff auf Ihre Anwendung erlauben wollen?",
+                "title": "QuickBooks Verbindung"
+            },
+            "buttonRevoke": "Quickbooks deaktivieren",
+            "buttonReConnect": "Meine Verbindung aktualisieren",
+            "buttonConnect": "Verbindung zu Quickbooks",
+            "explainEnable": "Übertragen Sie alle Ihre Rechnungen direkt in QuickBooks. Die Rechnungen werden alle 24 Stunden übermittel",
+            "submit": "Speichern Sie",
+            "enable": "Aktivieren Sie die Quickbooks-Integration",
+            "title": "QuickBooks"
         }
     },
     "workshop": {
@@ -8369,7 +8494,9 @@
             "rename": "Umbenennen",
             "addTag": "Füge einen Tag hinzu",
             "addGroup": "Erstellen Sie eine Kategorie"
-        }
+        },
+        "select": "Wählen Sie einen Tag",
+        "memberStatus": "Mitgliedsstatus : "
     },
     "platformBilling": {
         "featureRequest": {
@@ -8756,7 +8883,7 @@
     },
     "franchise": {
         "companies": {
-            "pageTitle": "Franchises",
+            "pageTitle": "Franchisenehmer",
             "navigateToCompany": "Anmeldung Franchisenehmer-Konto",
             "membersEmptyState": "Keine Mitglieder in dieser Gesellschaft",
             "establishmentEmptyState": "Keine Einrichtungen in diesem Unternehmen",
@@ -8796,6 +8923,159 @@
             "franchiseEmails": "Meine Vorlagen",
             "emptyStateDescription": "Wählen Sie eine Vorlage",
             "emptyStateTitle": "Vorschau auf die Mail"
+        }
+    },
+    "giftcard": {
+        "backgroundImage": {
+            "dialog": {
+                "explain": "Fügen Sie Bilder hinzu, um Ihren Mitgliedern die Möglichkeit zu geben, ihre Geschenkkarte zu personalisieren. Bei der Erstellung der Karte können Ihre Mitglieder ein Hintergrundbild für die Geschenkkarte auswählen.",
+                "actions": {
+                    "close": "Schließen Sie"
+                },
+                "title": "Bilder zur Anpassung"
+            }
+        },
+        "form": {
+            "giftcard": {
+                "manager_only": {
+                    "label": "Unsichtbar für die Kunden"
+                },
+                "unlimited": {
+                    "label": "Unbegrenzt"
+                },
+                "expiration_days": {
+                    "helperText": "Die Gültigkeit der Karte beginnt an dem Tag, an dem die E-Mail mit der Geschenkkarte versandt wird.",
+                    "label": "Dauer der Gültigkeit in Tagen"
+                },
+                "price": {
+                    "helperText": "Bestimmt den Wert der angebotenen Karte",
+                    "label": "Verkaufspreis"
+                },
+                "section": {
+                    "parameters": {
+                        "title": "Parameter"
+                    }
+                },
+                "description": {
+                    "label": "Beschreibung"
+                },
+                "available_payment_method_identifiers": {
+                    "label": "Verfügbare Zahlungsmittel"
+                },
+                "name": {
+                    "label": "Name"
+                },
+                "title": "Geschenkkarte",
+                "actions": {
+                    "submit": "Validieren Sie",
+                    "cancel": "Schließen Sie"
+                }
+            }
+        },
+        "giftcard": {
+            "delete": {
+                "dialog": {
+                    "actions": {
+                        "close": "Schließen Sie",
+                        "delete": "Löschen"
+                    },
+                    "content": "Sind Sie sicher, dass Sie diese Karte löschen wollen? Mitglieder, die die Karte bereits erworben haben, können sie weiterhin nutzen.",
+                    "title": "Löschung"
+                }
+            },
+            "detail": {
+                "manager_only": "Kein Online-Verkauf möglich",
+                "availablePaymentMethods": "Verfügbare Zahlungsmittel",
+                "expirationDate": "Gültigkeitsdauer vor Ablauf: {{ expiration_days }} Tage"
+            },
+            "configurationTitle": "Geschenkkarte"
+        },
+        "link": {
+            "copyLink": "Kopieren Sie den Kauflink"
+        },
+        "consumerGiftcard": {
+            "form": {
+                "footer": "Die Karte wird am {{- date_send }} per E-Mail an die angegebenen Adressen gesendet. Sie ist für {{ expiry_days }} Tage nach Versand der E-Mail gültig.",
+                "actions": {
+                    "submit": "In den Warenkorb legen"
+                },
+                "date_send": {
+                    "label": "Datum, an dem die E-Mail gesendet wurde"
+                },
+                "recipients": {
+                    "label": "E-Mail des Empfängers"
+                },
+                "message_content": {
+                    "label": "Persönliche Nachricht"
+                },
+                "message_is_from": {
+                    "label": "Von "
+                },
+                "message_is_for": {
+                    "label": "Zu Händen von "
+                },
+                "name": {
+                    "label": "Name der Karte"
+                }
+            },
+            "previewPlaceholder": {
+                "message_content": "[Personalisierte Nachricht].",
+                "message_is_for": "[Name des Empfängers].",
+                "message_is_from": "[Name des Käufers]",
+                "name": "[Name der Karte]"
+            },
+            "sendTo": "Einladung zurücksenden",
+            "expiresOn": "Läuft ab am {{- d }}",
+            "notAttributedYet": "Nicht validiert",
+            "willInviteOn": "Einladung zum Senden am",
+            "invitedOn": "Envoyée le {{- d }}",
+            "value": "Wert",
+            "isFrom": "Von ",
+            "isFor": "Zu Händen von ",
+            "isEmpty": "Keine Geschenkkarten",
+            "linkedInvoice": "Verknüpfte Rechnung",
+            "list": {
+                "myGifted": "Erhaltene Geschenkkarten",
+                "myPurchases": "Gekaufte Geschenkkarten"
+            },
+            "invitationForm": {
+                "actions": {
+                    "submit": "Senden Sie",
+                    "close": "Schließen Sie"
+                },
+                "content": "Sie können die Empfänger der Geschenkkarte ändern. Bitte beachten Sie, dass er nur von einer Person genutzt werden kann.",
+                "title": "Senden Sie eine Einladungs-E-Mail",
+                "activationCodeLink": "Die Einladungs-E-Mail wurde versandt und kann nicht mehr geändert werden. Sollte sie nicht den richtigen Empfänger erreicht haben, können Sie diesen Aktivierungslink weiterleiten, um die Geschenkkarte anzubieten: "
+            },
+            "activation": {
+                "alreadyActivated": "Diese Geschenkkarte wurde bereits von einem anderen Benutzer verwendet",
+                "activate": "Aktivieren Sie meine Geschenkkarte",
+                "content3": "Wenn Sie nicht mit dem richtigen Konto angemeldet sind, melden Sie sich bitte ab und melden Sie sich mit dem richtigen Konto an. Wenn dieser Geschenkgutschein nicht für Sie bestimmt ist, lösen Sie ihn bitte nicht ein.",
+                "content2": "Sie wird automatisch als Zahlungsmethode zu Ihrem Einkaufswagen hinzugefügt. Alle Informationen zu Ihrer Geschenkkarte finden Sie in Ihrem Profil.",
+                "content1": "Ihre Geschenkkarte im Wert von {{Preis}} ist mit allen Produkten in unserem Shop kompatibel. Diese Karte hat kein Verfallsdatum, also gönnen Sie sich etwas!",
+                "subtitle": "Es scheint, als hätte Ihnen jemand eine Überraschung bereitet.",
+                "title": "Jemand wollte Ihnen eine Freude machen!"
+            }
+        },
+        "list": {
+            "actions": {
+                "create": "Eine Geschenkkarte erstellen"
+            },
+            "addBackgroundImage": "Hinzufügen von Anpassungsbildern",
+            "isEmpty": "Keine Geschenkkarten verfügbar",
+            "archivedTitle": "Archiviert",
+            "explainIfEmpty": "Mit Geschenkkarten können Ihre Mitglieder ihren Liebsten einen Betrag anbieten, den sie in Ihrem Studio ausgeben können.",
+            "unavailableForSaleTitle": "Nicht zum Verkauf verfügbar",
+            "activeTitle": "Zum Verkauf verfügbar",
+            "visibility": "Nicht sichtbar",
+            "unlimited": "Unbegrenzt",
+            "validity": "Gültig {{ duration }} für Tage"
+        },
+        "delete": {
+            "submit": "Bestätigen Sie",
+            "cancel": "Abbrechen",
+            "content": "Wollen Sie diese Geschenkkarte wirklich archivieren? Sie wird nicht mehr über das Backoffice abrechenbar sein. Sie können sie später wieder aktivieren.",
+            "title": "Archivierung der Geschenkkarte"
         }
     }
 }

@@ -1386,7 +1386,9 @@
                 "addTagToAll": "Añadir etiqueta a todos",
                 "addTag": "Añadir un tag"
             }
-        }
+        },
+        "select": "Seleccione una etiqueta",
+        "memberStatus": "Estado de miembro : "
     },
     "login": {
         "forms": {
@@ -1867,7 +1869,8 @@
                 "workshop": "Talleres",
                 "calendar": "Calendario",
                 "newsletter": "Newsletter",
-                "loginButton": "Botón de inicio de sesión"
+                "loginButton": "Botón de inicio de sesión",
+                "giftcard": "Tarjeta regalo"
             },
             "preview": "Vista previa",
             "saveButton": "Guardar",
@@ -1893,6 +1896,19 @@
             "header": "Grupos de facturación",
             "helperText": "Si tiene varios estudios con diferentes nombres de empresa, puede agruparlos aquí por grupo de facturación. Los grupos de facturación aparecerán en sus informes para facilitar la vinculación de cada factura con el nombre de la empresa correcta.",
             "add": "Añadir un grupo"
+        },
+        "quickbooks": {
+            "confirmDialog": {
+                "text": "¿Estás seguro de que quieres permitir que Bsport acceda a tu aplicación?",
+                "title": "Conexión con QuickBooks"
+            },
+            "buttonRevoke": "Desactivar Quickbooks",
+            "buttonReConnect": "Refrescar mi conexión",
+            "buttonConnect": "Conectar con Quickbooks",
+            "explainEnable": "Transfiera todas sus facturas directamente a QuickBooks. Las facturas se transferirán cada 24 horas.",
+            "submit": "Guardar",
+            "enable": "Activar la integración de Quickbooks",
+            "title": "QuickBooks"
         }
     },
     "datetime": {
@@ -2085,7 +2101,15 @@
         },
         "method": {
             "CREDIT_ACCOUNT": "Pago en el acto",
-            "CB": "Tarjeta de crédito"
+            "CB": "Tarjeta de crédito",
+            "GIROPAY": "Giropay",
+            "EPS": "EPS",
+            "IDEAL": "iDEAL",
+            "SOFORT": "Sofort",
+            "BANCONTACT": "Contacto bancario",
+            "SEPA": "SEPA",
+            "CHECK": "Consulte",
+            "CASH": "Especies"
         },
         "paymentComboSectionTitle": "Pack",
         "actions": {
@@ -2272,7 +2296,8 @@
                 "9": "Tarjeta de cita",
                 "3": "Crédito",
                 "2": "Tienda",
-                "1": "Bono"
+                "1": "Bono",
+                "undefined": "tarjeta regalo"
             },
             "discount": "Descuento"
         },
@@ -2393,7 +2418,8 @@
                 "date": "Fecha de la factura",
                 "id": "Identificador",
                 "member": "Miembro",
-                "invoiceType": "Tipo"
+                "invoiceType": "Tipo",
+                "quickbooks": "QuickBooks"
             },
             "actions": {
                 "goToInvoice": "Ver la factura"
@@ -2549,6 +2575,44 @@
         "paymentGroup": {
             "requiresAction": "El banco no autentificó el pago (3DSecure)",
             "validateRequiresAction": "Confirmar el método de pago"
+        },
+        "quickbooks": {
+            "send": {
+                "errors": {
+                    "title": "Error en el envío de la factura",
+                    "934006": "Esta factura ya está registrada en QuickBooks",
+                    "934005": "Su factura no puede ser enviada a QuickBooks",
+                    "934004": "No se puede enviar una factura inacabada en QuickBooks",
+                    "934003": "No se puede enviar una factura inacabada en QuickBooks",
+                    "934002": "No se puede enviar una factura cancelada en QuickBooks",
+                    "934001": "Imposible crear una factura sin artículos asociados",
+                    "934000": "La factura no tiene la información mínima para ser creada en Quickbooks",
+                    "933102": "Error al crear la factura en Quickbooks",
+                    "933101": "No se ha podido crear el cliente asociado al miembro de la factura",
+                    "933100": "No se ha podido crear el cliente asociado al miembro de la factura",
+                    "933000": "El miembro asociado a la factura no tiene la información necesaria para ser registrado en QuickBooks",
+                    "932100": "No se puede acceder a la información de su cuenta de Quickbooks",
+                    "932001": "Tu cuenta ya no está autentificada en Bsport",
+                    "932000": "Tu cuenta ya no está autentificada en Bsport",
+                    "931101": "Quickbooks no puede enviarnos sus datos",
+                    "931100": "Error al actualizar las claves de autenticación",
+                    "931004": "No ha configurado su aplicación QuickBooks",
+                    "931003": "Claves de autenticación caducadas",
+                    "931002": "Claves de autenticación caducadas",
+                    "931001": "Error al autenticar en Quickbooks",
+                    "931000": "Error al autenticar en Quickbooks"
+                }
+            },
+            "invoice": {
+                "sendToQuickbooks": "Transferir la factura a QuickBooks",
+                "onQuickbooks": "Transferido"
+            }
+        },
+        "invoicePaymentPackTagWarningDialog": {
+            "confirm": "Confirmar",
+            "cancel": "Cancelar",
+            "content": "Tenga en cuenta que está intentando cargar una tarjeta a un miembro que no tiene las etiquetas necesarias para comprarla. ¿Aún quieres cobrarle por este elemento? ",
+            "title": "Información"
         }
     },
     "coach": {
@@ -3231,7 +3295,8 @@
             "invoice_time": "Tiempo de emisión de la factura",
             "payment_amount_by_payment_method": "Recaudación por método de pago",
             "billing_establishment": "Dirección",
-            "billing_group": "Grupo de facturación"
+            "billing_group": "Grupo de facturación",
+            "company_name": "Franquicia"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -3505,7 +3570,8 @@
             "contact": "Contacto",
             "relation": "Relaciones",
             "vod": "VOD",
-            "form": "Formularios"
+            "form": "Formularios",
+            "giftcard": "Tarjeta regalo"
         },
         "row": {
             "headers": {
@@ -4189,7 +4255,8 @@
             "dashboard": "Resumen",
             "myVideos": "Mis videos",
             "pick_a_language": "Seleccione el idioma",
-            "automaticLanguage": "Detección automática de idiomas"
+            "automaticLanguage": "Detección automática de idiomas",
+            "giftcard": "Tarjetas de regalo"
         },
         "actions": {
             "goToCalendar": "Ver el calendario completo",
@@ -5605,6 +5672,13 @@
                 "text": "Si ya ha introducido manualmente los enlaces de videoconferencia en sus sesiones, se eliminarán y se sustituirán por enlaces de zoom generados automáticamente. Las reuniones ya creadas en el calendario de ZOOM tendrán que ser eliminadas manualmente, serán sustituidas por reuniones creadas automáticamente.",
                 "title": "Integración de ZOOM"
             }
+        },
+        "quickbooks": {
+            "confirmDialog": {
+                "text": "¿Estás seguro de que quieres permitir que Bsport acceda a tu aplicación?",
+                "title": "Conexión con QuickBooks"
+            },
+            "title": "QuickBooks"
         }
     },
     "role": {
@@ -6171,6 +6245,34 @@
                 "error": {
                     "unAuthorizedEstablishmentModification": "Imposible modificar el establecimiento de facturación, sólo los administradores tienen derecho a modificarlo"
                 }
+            },
+            "sendToQuickbooks": {
+                "errors": {
+                    "title": "Error en el envío de la factura",
+                    "934006": "Esta factura ya está registrada en QuickBooks",
+                    "934005": "Su factura no puede ser enviada a QuickBooks",
+                    "934004": "No se puede enviar una factura impagada en QuickBooks",
+                    "934003": "No se puede enviar una factura inacabada en QuickBooks",
+                    "934002": "No se puede enviar una factura cancelada en QuickBooks",
+                    "934001": "Imposible crear una factura sin artículos asociados",
+                    "934000": "La factura no tiene la información mínima para ser creada en Quickbooks",
+                    "933102": "Error al crear la factura en Quickbooks",
+                    "933101": "No se ha podido crear el cliente asociado al miembro de la factura",
+                    "933100": "No se ha podido crear el cliente asociado al miembro de la factura",
+                    "933000": "El miembro asociado a la factura no tiene la información necesaria para ser registrado en QuickBooks",
+                    "932100": "No se puede acceder a la información de su cuenta de Quickbooks",
+                    "932001": "Tu cuenta ya no está autentificada en Bsport",
+                    "932000": "Tu cuenta ya no está autentificada en Bsport",
+                    "931101": "Quickbooks no puede enviarnos sus datos",
+                    "931100": "Error al actualizar las claves de autenticación",
+                    "931004": "No ha configurado su aplicación QuickBooks",
+                    "931003": "Claves de autenticación caducadas",
+                    "931002": "Claves de autenticación caducadas",
+                    "931001": "Error al autenticar en Quickbooks",
+                    "931000": "Error al autenticar en Quickbooks"
+                },
+                "error": "Se ha producido un error al transferir su factura a Quickbooks",
+                "success": "Su factura ha sido transferida a Quickbooks"
             }
         },
         "playlist": {
@@ -6795,6 +6897,16 @@
                 "error": "No se puede crear la regla de notificación",
                 "success": "Regla de notificación creada"
             }
+        },
+        "quickbooks": {
+            "revoke": {
+                "error": "No puede salir de su cuenta de Quickbooks",
+                "success": "Su cuenta de Quickbooks está desconectada"
+            },
+            "create": {
+                "error": "No se puede conectar su cuenta de quickbooks",
+                "success": "Su cuenta de Quickbooks está ahora autentificada"
+            }
         }
     },
     "paymentPack": {
@@ -6961,6 +7073,18 @@
                 },
                 "error": {
                     "start_date_method_type": "Indique el inicio de la validez de la tarjeta."
+                },
+                "advancedOptions": {
+                    "tag": {
+                        "doNotSelectToAllowAllMembers": "No seleccione nada para permitir a todos los miembros",
+                        "notAllowedFor": "No está permitido para",
+                        "notAllowed": "No se permite",
+                        "allowedFor": "Autorizado para",
+                        "allowed": "Autorizado",
+                        "helperText": "Utiliza etiquetas para que el mapa sea visible sólo para el grupo de miembros que desees en el mercado, el widget y la aplicación. Puede seleccionar etiquetas para que el mapa sea visible sólo para los miembros con una etiqueta seleccionada. O puede seleccionar etiquetas para que el mapa sea invisible sólo para los miembros con una de las etiquetas seleccionadas. ",
+                        "header": "Etiquetas"
+                    },
+                    "header": "Avanzado"
                 }
             }
         },
@@ -7460,7 +7584,8 @@
                 "marketplaceSettings": "Parámetros marketplace",
                 "widget": "Widget",
                 "paymentMethod": "Medios de pago",
-                "forms": "Formularios"
+                "forms": "Formularios",
+                "quickbooks": "QuickBooks"
             },
             "pass": "Bono",
             "goBack": "Volver",
@@ -7494,7 +7619,8 @@
             "cashBookTooltip": "Libro de caja",
             "redirecting": "Será redirigido a su página",
             "backToFranchiseWorskpace": "Volver a la cuenta principal",
-            "franchiseConnectedAs": "Conectado como: {{name}}"
+            "franchiseConnectedAs": "Conectado como: {{name}}",
+            "giftcard": "Tarjetas de regalo"
         },
         "deprecatedNavigator": {
             "close": "Cerrar",
@@ -7509,7 +7635,8 @@
         },
         "franchiseMenu": {
             "members": "Miembros",
-            "franchises": "Franquicias"
+            "franchises": "Franquicias",
+            "reporting": "Informes"
         },
         "multiSession": {
             "current": "Sesión actual",
@@ -8842,6 +8969,159 @@
             "franchiseEmails": "Mis plantillas",
             "emptyStateDescription": "Seleccione una plantilla",
             "emptyStateTitle": "Vista previa del correo"
+        }
+    },
+    "giftcard": {
+        "backgroundImage": {
+            "dialog": {
+                "explain": "Añada imágenes para que sus socios puedan personalizar su tarjeta regalo. Al crear su tarjeta, sus miembros podrán elegir una imagen de fondo en la tarjeta de regalo.",
+                "actions": {
+                    "close": "Cerrar"
+                },
+                "title": "Imágenes de personalización"
+            }
+        },
+        "form": {
+            "giftcard": {
+                "manager_only": {
+                    "label": "Invisible para los clientes"
+                },
+                "unlimited": {
+                    "label": "Ilimitado"
+                },
+                "expiration_days": {
+                    "helperText": "La validez de la tarjeta comienza en la fecha de envío del correo electrónico de la tarjeta regalo",
+                    "label": "Duración de la validez en días"
+                },
+                "price": {
+                    "helperText": "Definirá el valor de la tarjeta ofrecida",
+                    "label": "Precio de venta"
+                },
+                "section": {
+                    "parameters": {
+                        "title": "Parámetros"
+                    }
+                },
+                "description": {
+                    "label": "Descripción"
+                },
+                "available_payment_method_identifiers": {
+                    "label": "Medios de pago disponibles"
+                },
+                "name": {
+                    "label": "Nombre"
+                },
+                "title": "Tarjeta regalo",
+                "actions": {
+                    "submit": "Validar",
+                    "cancel": "Cerrar"
+                }
+            }
+        },
+        "giftcard": {
+            "delete": {
+                "dialog": {
+                    "actions": {
+                        "close": "Cerrar",
+                        "delete": "Borrar"
+                    },
+                    "content": "¿Estás seguro de que quieres borrar esta tarjeta? Los miembros que ya hayan comprado la tarjeta podrán seguir utilizándola.",
+                    "title": "Supresión"
+                }
+            },
+            "detail": {
+                "manager_only": "No está disponible para la venta en línea",
+                "availablePaymentMethods": "Medios de pago disponibles",
+                "expirationDate": "Validez antes de la expiración: {{ expiration_days }} días"
+            },
+            "configurationTitle": "Tarjeta regalo"
+        },
+        "link": {
+            "copyLink": "Copiar el enlace de compra"
+        },
+        "consumerGiftcard": {
+            "form": {
+                "footer": "La tarjeta se enviará por correo electrónico el {{- date_send }} a las direcciones indicadas. Será válido durante {{ expiry_days }} días después del envío del correo electrónico.",
+                "actions": {
+                    "submit": "Añadir a la cesta"
+                },
+                "date_send": {
+                    "label": "Fecha de envío del correo electrónico"
+                },
+                "recipients": {
+                    "label": "Correo electrónico del destinatario"
+                },
+                "message_content": {
+                    "label": "Mensaje personal"
+                },
+                "message_is_from": {
+                    "label": "Desde "
+                },
+                "message_is_for": {
+                    "label": "A la atención de "
+                },
+                "name": {
+                    "label": "Nombre de la tarjeta"
+                }
+            },
+            "previewPlaceholder": {
+                "message_content": "[Mensaje personalizado]",
+                "message_is_for": "[Nombre del destinatario]",
+                "message_is_from": "[Nombre del comprador]",
+                "name": "[Nombre de la tarjeta]"
+            },
+            "sendTo": "Enviar la invitación de vuelta",
+            "notAttributedYet": "No validado",
+            "expiresOn": "Expira el {{- d }}",
+            "willInviteOn": "Invitación a enviar en {{- d }}",
+            "invitedOn": "Enviado el {{- d }}",
+            "value": "Valor",
+            "isFrom": "Desde ",
+            "isFor": "A la atención de ",
+            "isEmpty": "No hay tarjetas de regalo",
+            "linkedInvoice": "Factura vinculada",
+            "list": {
+                "myGifted": "Tarjetas regalo recibidas",
+                "myPurchases": "Tarjetas regalo compradas"
+            },
+            "invitationForm": {
+                "actions": {
+                    "submit": "Enviar",
+                    "close": "Cerrar"
+                },
+                "content": "Puedes cambiar los destinatarios de la tarjeta regalo. Tenga en cuenta que sólo puede utilizarlo una persona.",
+                "title": "Enviar un correo electrónico de invitación",
+                "activationCodeLink": "El correo electrónico de invitación se ha enviado y ya no se puede cambiar, si no ha llegado al destinatario correcto puede reenviar este enlace de activación para ofrecer la tarjeta regalo: "
+            },
+            "activation": {
+                "alreadyActivated": "Esta tarjeta regalo ya ha sido utilizada por otro usuario",
+                "activate": "Activar mi tarjeta regalo",
+                "content3": "Si no está conectado a la cuenta correcta, por favor, cierre la sesión para conectarse a la cuenta correcta. Si esta tarjeta regalo no es para usted, no la canjee.",
+                "content2": "Se añadirá automáticamente como método de pago a su cesta de la compra. Puedes encontrar toda la información sobre tu tarjeta regalo en tu perfil.",
+                "content1": "Tu tarjeta regalo por valor de {{precio}} es compatible con todos los productos de nuestra tienda. Esta tarjeta no tiene fecha de caducidad, así que aprovecha!",
+                "subtitle": "Parece que alguien le ha dado una sorpresa.",
+                "title": "¡Alguien quería complacerte!"
+            }
+        },
+        "list": {
+            "actions": {
+                "create": "Crear una tarjeta regalo"
+            },
+            "addBackgroundImage": "Añadir imágenes de personalización",
+            "isEmpty": "No hay tarjetas regalo disponibles",
+            "archivedTitle": "Archivado",
+            "unavailableForSaleTitle": "No disponible para la venta",
+            "activeTitle": "Disponible a la venta",
+            "visibility": "No es visible",
+            "explainIfEmpty": "Las tarjetas regalo permiten a sus socios ofrecer a sus seres queridos una cantidad para gastar en su estudio.",
+            "unlimited": "Ilimitado",
+            "validity": "Válido {{ duración }} días"
+        },
+        "delete": {
+            "submit": "Confirmar",
+            "cancel": "Cancelar",
+            "content": "¿Realmente quieres archivar esta tarjeta de regalo? Ya no será facturable a través del back office. Puedes reactivarlo más tarde.",
+            "title": "Archivar la tarjeta regalo"
         }
     }
 }

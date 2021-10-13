@@ -1204,7 +1204,8 @@
             "subscription": "Abbonamento",
             "myVideos": "I miei video",
             "pick_a_language": "Selezionare una lingua",
-            "automaticLanguage": "Rilevamento automatico della lingua"
+            "automaticLanguage": "Rilevamento automatico della lingua",
+            "giftcard": "Carte regalo"
         },
         "debt": {
             "regularize": "Regolarizza",
@@ -2575,7 +2576,8 @@
                 "marketplaceSettings": "Impostazioni marketplace",
                 "widget": "Widget",
                 "paymentMethod": "Modo di pagamento",
-                "forms": "Modulo di registrazione"
+                "forms": "Modulo di registrazione",
+                "quickbooks": "QuickBooks"
             },
             "myClub": "Il mio club",
             "subscription": "Addebiti",
@@ -2604,7 +2606,8 @@
             "cashBookTooltip": "Libro cassa",
             "redirecting": "Sarai reindirizzato alla tua pagina",
             "backToFranchiseWorskpace": "Ritorno al conto principale",
-            "franchiseConnectedAs": "Registrato come:{{name}}"
+            "franchiseConnectedAs": "Registrato come:{{name}}",
+            "giftcard": "Carte regalo"
         },
         "deprecatedNavigator": {
             "close": "Chiudi",
@@ -2619,7 +2622,8 @@
         },
         "franchiseMenu": {
             "members": "Membri",
-            "franchises": "Franchisee"
+            "franchises": "Franchisee",
+            "reporting": "Riporta"
         },
         "multiSession": {
             "current": "Sessione corrente",
@@ -3829,7 +3833,8 @@
                 "2": "Negozio",
                 "10": "Pacchetto",
                 "9": "Pass per appuntamenti",
-                "3": "Credito"
+                "3": "Credito",
+                "undefined": "carta regalo"
             },
             "voucher": "Riduzione: {{voucher}}",
             "quantity": "Quantità",
@@ -3961,7 +3966,8 @@
                 "amount": "Importo dovuto",
                 "date": "Data di fatturazione",
                 "id": "Identificativo",
-                "member": "Membro"
+                "member": "Membro",
+                "quickbooks": "QuickBooks"
             },
             "actions": {
                 "goToInvoice": "Vedi fattura"
@@ -4117,6 +4123,44 @@
         "paymentGroup": {
             "requiresAction": "La banca non ha autenticato il pagamento (3DSecure)",
             "validateRequiresAction": "Confermare il metodo di pagamento"
+        },
+        "quickbooks": {
+            "send": {
+                "errors": {
+                    "title": "Errore nell'invio della fattura",
+                    "934006": "Questa fattura è già registrata in QuickBooks",
+                    "934005": "La tua fattura non può essere inviata a QuickBooks",
+                    "934004": "Impossibile inviare una fattura non pagata in QuickBooks",
+                    "934003": "Impossibile inviare una fattura non finita in QuickBooks",
+                    "934002": "Impossibile inviare una fattura annullata in QuickBooks",
+                    "934001": "Impossibile creare una fattura senza elementi associati",
+                    "934000": "La fattura non ha le informazioni minime per essere creata in Quickbooks",
+                    "933102": "Errore durante la creazione della fattura in Quickbooks",
+                    "933101": "Impossibile creare il cliente associato al membro della fattura",
+                    "933100": "Impossibile creare il cliente associato al membro della fattura",
+                    "933000": "Il membro associato alla fattura non ha le informazioni necessarie per essere registrato su QuickBooks",
+                    "932100": "Impossibile accedere alle informazioni del tuo conto Quickbooks",
+                    "932001": "Il tuo account non è più autenticato su Bsport",
+                    "932000": "Il tuo account non è più autenticato su Bsport",
+                    "931101": "Quickbooks non è in grado di inviarci i tuoi dati",
+                    "931100": "Errore durante l'aggiornamento delle chiavi di autenticazione",
+                    "931004": "Non hai configurato la tua applicazione QuickBooks",
+                    "931003": "Chiavi di autenticazione scadute",
+                    "931002": "Chiavi di autenticazione scadute",
+                    "931001": "Errore durante l'autenticazione a Quickbooks",
+                    "931000": "Errore durante l'autenticazione a Quickbooks"
+                }
+            },
+            "invoice": {
+                "sendToQuickbooks": "Trasferire la fattura in QuickBooks",
+                "onQuickbooks": "Trasferito"
+            }
+        },
+        "invoicePaymentPackTagWarningDialog": {
+            "confirm": "Confermare",
+            "cancel": "Cancella",
+            "content": "Si prega di notare che si sta cercando di addebitare una carta a un membro che non ha i tag necessari per acquistarla. Vuoi ancora fargli pagare questo elemento? ",
+            "title": "Informazioni"
         }
     },
     "coach": {
@@ -5611,7 +5655,8 @@
             "privateBooking": "Appuntamenti",
             "privateConsumerPass": "Pass per appuntamenti",
             "vod": "VOD",
-            "form": "Moduli"
+            "form": "Moduli",
+            "giftcard": "Carta regalo"
         },
         "addMember": "Aggiungi il profilo di un membro",
         "name": "Nome",
@@ -7134,7 +7179,9 @@
         "bookAnotherOption": "Iscrivimi nuovamente nella lista di attesa",
         "method": {
             "CREDIT_ACCOUNT": "Pagamento in loco",
-            "CB": "Carta di credito"
+            "CB": "Carta di credito",
+            "CHECK": "Controlla",
+            "CASH": "Specie"
         },
         "generalTermsAndConditions": {
             "iAccept": "Accetto le ",
@@ -8806,6 +8853,159 @@
             "franchiseEmails": "I miei modelli",
             "emptyStateDescription": "Seleziona un modello",
             "emptyStateTitle": "Anteprima della posta"
+        }
+    },
+    "giftcard": {
+        "backgroundImage": {
+            "dialog": {
+                "explain": "Aggiungete delle immagini per permettere ai vostri membri di personalizzare la loro carta regalo. Durante la creazione della loro carta i tuoi membri saranno in grado di scegliere un'immagine di sfondo sulla carta regalo.",
+                "actions": {
+                    "close": "chiudere"
+                },
+                "title": "Immagini di personalizzazione"
+            }
+        },
+        "form": {
+            "giftcard": {
+                "manager_only": {
+                    "label": "Invisibile ai clienti"
+                },
+                "unlimited": {
+                    "label": "Illimitato"
+                },
+                "expiration_days": {
+                    "helperText": "La validità della carta inizia dalla data di invio dell'e-mail della carta regalo",
+                    "label": "Durata della validità in giorni"
+                },
+                "price": {
+                    "helperText": "Imposta il valore della carta offerta",
+                    "label": "Prezzo di vendita"
+                },
+                "section": {
+                    "parameters": {
+                        "title": "Parametri"
+                    }
+                },
+                "description": {
+                    "label": "Descrizione"
+                },
+                "available_payment_method_identifiers": {
+                    "label": "Mezzi di pagamento disponibili"
+                },
+                "name": {
+                    "label": "Nome"
+                },
+                "title": "Carta regalo",
+                "actions": {
+                    "submit": "Convalidare",
+                    "cancel": "Chiudere"
+                }
+            }
+        },
+        "giftcard": {
+            "delete": {
+                "dialog": {
+                    "actions": {
+                        "close": "Chiudere",
+                        "delete": "Cancellare"
+                    },
+                    "content": "Sei sicuro di voler cancellare questa scheda? I membri che hanno già acquistato la carta potranno ancora utilizzarla.",
+                    "title": "Cancellazione"
+                }
+            },
+            "detail": {
+                "manager_only": "Non disponibile per la vendita online",
+                "availablePaymentMethods": "Mezzi di pagamento disponibili",
+                "expirationDate": "Validità prima della scadenza : {{ expiration_days }} giorni"
+            },
+            "configurationTitle": "Carta regalo"
+        },
+        "link": {
+            "copyLink": "Copia il link di acquisto"
+        },
+        "consumerGiftcard": {
+            "form": {
+                "footer": "La carta sarà inviata per posta il {{- date_send }} agli indirizzi indicati. Sarà valido per {{ expiration_days }} giorni dopo l'invio dell'e-mail.",
+                "actions": {
+                    "submit": "Aggiungi al carrello"
+                },
+                "date_send": {
+                    "label": "Data di invio dell'e-mail"
+                },
+                "recipients": {
+                    "label": "Email del destinatario"
+                },
+                "message_content": {
+                    "label": "Messaggio personale"
+                },
+                "message_is_from": {
+                    "label": "Da "
+                },
+                "message_is_for": {
+                    "label": "Per l'attenzione di "
+                },
+                "name": {
+                    "label": "Nome della carta"
+                }
+            },
+            "previewPlaceholder": {
+                "message_content": "[Messaggio personalizzato]",
+                "message_is_for": "[Nome del destinatario]",
+                "message_is_from": "[Nome dell'acquirente]",
+                "name": "[Nome della carta]"
+            },
+            "sendTo": "Rispedire l'invito",
+            "notAttributedYet": "Non convalidato",
+            "expiresOn": "Scade il {{- d }}",
+            "willInviteOn": "Invito da inviare su {{- d }}",
+            "invitedOn": "Inviato il {{- d }}",
+            "value": "Valore",
+            "isFrom": "Da ",
+            "isFor": "Per l'attenzione di ",
+            "isEmpty": "Nessuna carta regalo",
+            "linkedInvoice": "Fattura collegata",
+            "list": {
+                "myGifted": "Carte regalo ricevute",
+                "myPurchases": "Carte regalo acquistate"
+            },
+            "invitationForm": {
+                "actions": {
+                    "submit": "inviare",
+                    "close": "chiudere"
+                },
+                "content": "Puoi cambiare i destinatari della carta regalo. Si prega di notare che solo una persona può usarlo.",
+                "title": "Inviare un'e-mail di invito",
+                "activationCodeLink": "L'e-mail di invito è stata inviata e non può più essere modificata, se non ha raggiunto il destinatario giusto puoi inoltrare questo link di attivazione per offrire la carta regalo: "
+            },
+            "activation": {
+                "alreadyActivated": "Questa carta regalo è già stata utilizzata da un altro utente",
+                "activate": "Attivare la mia carta regalo",
+                "content3": "Se non hai effettuato l'accesso all'account corretto, effettua il logout per accedere all'account corretto. Se questa carta regalo non è per te, per favore non riscattarla.",
+                "content2": "Sarà automaticamente aggiunto come metodo di pagamento al suo carrello. Puoi trovare tutte le informazioni sulla tua carta regalo sul tuo profilo.",
+                "content1": "La tua carta regalo del valore di {{price}} è compatibile con tutti i prodotti del nostro negozio. Questa carta non ha una data di scadenza, per cui si prega di te stesso!",
+                "subtitle": "Sembra che qualcuno vi abbia fatto una sorpresa.",
+                "title": "Qualcuno voleva compiacerti!"
+            }
+        },
+        "list": {
+            "actions": {
+                "create": "Creare una carta regalo"
+            },
+            "addBackgroundImage": "Aggiungere immagini di personalizzazione",
+            "isEmpty": "Nessuna carta regalo disponibile",
+            "archivedTitle": "Archiviato",
+            "unavailableForSaleTitle": "Non disponibile per la vendita",
+            "activeTitle": "Disponibile per la vendita",
+            "visibility": "Non visibile",
+            "explainIfEmpty": "Le carte regalo permettono ai vostri membri di offrire ai loro cari un importo da spendere nel vostro studio.",
+            "unlimited": "Illimitato",
+            "validity": "Valido {{ duration }} giorni"
+        },
+        "delete": {
+            "submit": "Confermare",
+            "cancel": "cancellare",
+            "content": "Vuoi davvero archiviare questa carta regalo? Non sarà più fatturabile tramite il back office. Puoi riattivarlo più tardi.",
+            "title": "Archiviare la carta regalo"
         }
     }
 }

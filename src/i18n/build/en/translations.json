@@ -4872,7 +4872,7 @@
                 "hidePaymentPack": "Hide passes for group classes"
             },
             "componentType": {
-                "playlist": "Video Playlist",
+                "playlist": "Video playlist",
                 "shop": "Webshop",
                 "subscription": "Subscription",
                 "vod": "Video On Demand",
@@ -5259,7 +5259,7 @@
         "hasOneOrMoreOption": "You are already on the waiting-list",
         "method": {
             "CB": "Credit card",
-            "CREDIT_ACCOUNT": "Payment in studio available",
+            "CREDIT_ACCOUNT": "In-studio payments",
             "GIROPAY": "Giropay",
             "EPS": "EPS",
             "IDEAL": "iDEAL",
@@ -5275,7 +5275,7 @@
         "forms": {
             "cancelPayment": "Previous",
             "credit": {
-                "explain": "Your club will ne notified of your debit, you will pay in studio",
+                "explain": "The studio will be informed of your debit and the payment will be completed in the studio, too.",
                 "pay": "Confirm"
             },
             "paymentIntent": {
@@ -5367,7 +5367,7 @@
         "returnedAmount": "Reimbursed: ",
         "payout": {
             "isEmptyWarning": "Attention: payouts before March 15th 2021 might not be listed.",
-            "isEmpty": "No payouts.",
+            "isEmpty": "There are no payouts to display for now.",
             "invoice": "Invoice {{ uuid }}",
             "seeMore": "See more",
             "paymentNb": "{{nb}} payments",
@@ -5717,7 +5717,7 @@
                 "4": "Vacation check",
                 "3": "Check",
                 "2": "SEPA",
-                "1": "Credit Card",
+                "1": "Credit card",
                 "0": "Cash",
                 "8": "Other",
                 "6": "Dispute",
@@ -7206,7 +7206,7 @@
             "activateVideo": "Connect to the livestream"
         },
         "disabled": "Cancelled",
-        "credit_price": " Credit",
+        "credit_price": " Credit(s)",
         "booking": {
             "confirmed": "Booking(s)",
             "fillRate": "Occupancy rate",
@@ -7400,7 +7400,7 @@
                 "srcMember": "Member to merge (deleted)",
                 "dstMember": "Member to keep",
                 "title": "Merge member",
-                "explainCredit": "The internal credit balance will be transfered",
+                "explainCredit": "The internal credit balance will be transferred",
                 "explainBookingsAndPassAndInvoiceAndNotes": "Bookings, passes, notes and invoices will be transfered.",
                 "explainTags": "Tags from the deleted member will not be transfered",
                 "cancel": "Cancel",
@@ -7586,7 +7586,7 @@
             "recurrentBooking": "Recurrent booking",
             "notCancelled": "Not cancelled"
         },
-        "creditConsumed": "{{ credit_consumed }} credit",
+        "creditConsumed": "{{ credit_consumed }} credit(s)",
         "creditConsumed_plural": "{{credit_consumed}} credits",
         "actions": {
             "unregister": "Unregister",
@@ -7738,7 +7738,7 @@
                 "numberOfBook": "{{count}} enrolment",
                 "numberOfBook_plural": "{{count}} enrolments"
             },
-            "bookingsTitle": "Book",
+            "bookingsTitle": "You're booking",
             "addSession": "Add sessions",
             "noPackAvailable": "This session does not have any compatible memberships!",
             "noPackAvailable_plural": "No single pass is compatible with all these sessions simultaneously. Please book them separately.",
@@ -7802,7 +7802,7 @@
             "backToBackoffice": "Manager interface"
         },
         "workshop": {
-            "noWorkshopAvailable": "No workshop planned in the future",
+            "noWorkshopAvailable": "No upcoming workshops have been planned in yer.",
             "card": {
                 "showMore": "Show More",
                 "book": "Book",
@@ -8711,7 +8711,7 @@
                 "submit": "Merge",
                 "cancel": "Cancel",
                 "explainTags": "Member tags will not be transfered",
-                "explainBookingsAndPassAndInvoiceAndNotes": "Passes, booking, bills and notes will be transfered.",
+                "explainBookingsAndPassAndInvoiceAndNotes": "Passes, booking, bills, and notes will be transferred.",
                 "explainCredit": "Internal account of the member will be transferred",
                 "title": "Merge",
                 "dstMember": "Member to keep",
@@ -8980,7 +8980,7 @@
             },
             "createOrUpdate": {
                 "error": "It is impossible to save the playlist",
-                "success": "Playlist succesfully saved"
+                "success": "Playlist successfully saved"
             }
         },
         "privatePass": {
@@ -9260,7 +9260,7 @@
                 "company": "Company",
                 "platform_billing": "Subscription",
                 "marketplaceSettings": "MarketPlace",
-                "widget": "Widget",
+                "widget": "Widgets",
                 "paymentMethod": "Payment methods",
                 "forms": "Sign up form",
                 "quickbooks": "QuickBooks"
@@ -9309,7 +9309,7 @@
             "marketing_automation": "Marketing automation",
             "digital": "Digital offer",
             "podcast": "Podcasts",
-            "playlist": "Playlist",
+            "playlist": "Playlists",
             "video": "Video library",
             "cashBook": {
                 "save": "Save",
@@ -9518,7 +9518,7 @@
             "sectionTitle": "Payment method"
         },
         "platformInvoice": {
-            "noInvoice": "No bills",
+            "noInvoice": "There are no invoices to display as of now.",
             "sectionTitle": "My invoices",
             "label": "Invoice {{month}} / {{year}}"
         },
@@ -9895,9 +9895,9 @@
     "franchise": {
         "companies": {
             "pageTitle": "Franchisees",
-            "navigateToCompany": "Connection to the franchisee account",
-            "membersEmptyState": "No member in this company",
-            "establishmentEmptyState": "No establishment in this company",
+            "navigateToCompany": "Log in to the franchisee's account",
+            "membersEmptyState": "This franchisee has no members to display.",
+            "establishmentEmptyState": "This franchisee has no establishments to display.",
             "establishment": "Establishments",
             "members": "Members",
             "emptySelect": "Select a franchisee to see more information.",
@@ -9929,7 +9929,7 @@
             "franchised": "Franchise",
             "groupBy": "Group by",
             "pageTitle": "Template",
-            "companiesEmails": "Franchise templates",
+            "companiesEmails": "Franchisee templates",
             "create": "Add a template",
             "franchiseEmails": "My templates",
             "emptyStateDescription": "Select a template",

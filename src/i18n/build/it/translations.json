@@ -3276,7 +3276,12 @@
                     "933101": "Impossibile creare il cliente associato al membro della fattura",
                     "934002": "Impossibile inviare una fattura annullata in QuickBooks",
                     "934001": "Impossibile creare una fattura senza elementi associati",
-                    "934000": "La fattura non ha le informazioni minime per essere creata in Quickbooks"
+                    "934000": "La fattura non ha le informazioni minime per essere creata in Quickbooks",
+                    "title": "Errore nell'invio della fattura",
+                    "934006": "Questa fattura è già registrata in QuickBooks",
+                    "934005": "La tua fattura non può essere inviata a QuickBooks",
+                    "934004": "Impossibile inviare una fattura non pagata in QuickBooks",
+                    "934003": "Impossibile inviare una fattura non finita in QuickBooks"
                 },
                 "error": "Si è verificato un errore durante il trasferimento della fattura a Quickbooks",
                 "success": "La tua fattura è stata trasferita a Quickbooks"
@@ -3651,6 +3656,12 @@
             "create": {
                 "error": "Impossibile creare la regola di notifica",
                 "success": "Regola di notifica creata"
+            }
+        },
+        "quickbooks": {
+            "create": {
+                "error": "Impossibile collegare il tuo account quickbooks",
+                "success": "Il tuo account Quickbooks è ora autenticato"
             }
         }
     },

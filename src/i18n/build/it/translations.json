@@ -3264,7 +3264,8 @@
                     "931003": "Chiavi di autenticazione scadute",
                     "931002": "Chiavi di autenticazione scadute",
                     "931001": "Errore durante l'autenticazione a Quickbooks",
-                    "931000": "Errore durante l'autenticazione a Quickbooks"
+                    "931000": "Errore durante l'autenticazione a Quickbooks",
+                    "931100": "Errore durante l'aggiornamento delle chiavi di autenticazione"
                 },
                 "error": "Si è verificato un errore durante il trasferimento della fattura a Quickbooks",
                 "success": "La tua fattura è stata trasferita a Quickbooks"

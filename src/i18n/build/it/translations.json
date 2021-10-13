@@ -2916,6 +2916,9 @@
                 "text": "Se hai già inserito manualmente dei link di videoconferenza nelle tue sessioni, questi saranno cancellati per essere sostituiti da link zoom generati automaticamente. Le riunioni già create sul calendario Zoom dovranno essere cancellate manualmente, sarano sostituite da riunioni create automaticamente.",
                 "title": "Integrazione ZOOM"
             }
+        },
+        "quickbooks": {
+            "title": "QuickBooks"
         }
     },
     "order": {
@@ -3664,7 +3667,8 @@
                 "success": "Il tuo account Quickbooks è ora autenticato"
             },
             "revoke": {
-                "success": "Il tuo account Quickbooks è disconnesso"
+                "success": "Il tuo account Quickbooks è disconnesso",
+                "error": "Impossibile uscire dal tuo account Quickbooks"
             }
         }
     },
@@ -6942,7 +6946,9 @@
                 "smartlist_count": "Regole di etichettatura",
                 "actions": "Azioni "
             }
-        }
+        },
+        "select": "Seleziona un tag",
+        "memberStatus": "Stato membro : "
     },
     "establishment": {
         "capacity": {

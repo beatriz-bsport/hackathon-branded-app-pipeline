@@ -3662,6 +3662,9 @@
             "create": {
                 "error": "Impossibile collegare il tuo account quickbooks",
                 "success": "Il tuo account Quickbooks è ora autenticato"
+            },
+            "revoke": {
+                "success": "Il tuo account Quickbooks è disconnesso"
             }
         }
     },

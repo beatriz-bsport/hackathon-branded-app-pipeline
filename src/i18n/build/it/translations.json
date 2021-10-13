@@ -3265,7 +3265,11 @@
                     "931002": "Chiavi di autenticazione scadute",
                     "931001": "Errore durante l'autenticazione a Quickbooks",
                     "931000": "Errore durante l'autenticazione a Quickbooks",
-                    "931100": "Errore durante l'aggiornamento delle chiavi di autenticazione"
+                    "931100": "Errore durante l'aggiornamento delle chiavi di autenticazione",
+                    "932100": "Impossibile accedere alle informazioni del tuo conto Quickbooks",
+                    "932001": "Il tuo account non è più autenticato su Bsport",
+                    "932000": "Il tuo account non è più autenticato su Bsport",
+                    "931101": "Quickbooks non è in grado di inviarci i tuoi dati"
                 },
                 "error": "Si è verificato un errore durante il trasferimento della fattura a Quickbooks",
                 "success": "La tua fattura è stata trasferita a Quickbooks"

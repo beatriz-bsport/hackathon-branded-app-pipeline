@@ -2406,7 +2406,7 @@
         "blockedCpp": "Deze leskaart is van {{-blocked_from}} tot en met {{-blocked_until}} geblokkeerd",
         "penalty": {
             "block": "Bij {{nb_cancellations}} te late annuleringen binnen {{nb_days}} dagen, wordt deze leskaart voor {{days_blocked}} dagen geblokkeerd.",
-            "account": "Bij {{nb_cancellations}} te late annuleringen binnen {{nb_days}} dagen, wordt een sanctie t.w.v. €{{account_value}} gefactureerd.",
+            "account": "Bij {{nb_cancellations}} te late annuleringen binnen {{nb_days}} dag(en), wordt een sanctie t.w.v. {{account_value}} in de lokale munt gefactureerd.",
             "title": "Annuleringsbeleid"
         },
         "only_vod_access": "Alleen beschikbaar voor Video On Demand",
@@ -7854,7 +7854,8 @@
                 "3": "Krediet(en)",
                 "2": "Webshop",
                 "1": "Leskaarten",
-                "undefined": "Cadeaubon"
+                "undefined": "Cadeaubon",
+                "11": "Cadeaubon"
             },
             "discount": "Korting"
         },
@@ -8086,7 +8087,8 @@
                 "pm_associated_to_registered_ppe": "Je kunt dit niet verwijderen, omdat er een abonnement aan deze betaalmethode is gekoppeld",
                 "pm_associated_to_protected_bp": "Je kunt dit niet verwijderen, omdat er een abonnement aan deze betaalmethode is gekoppeld",
                 "pm_deleted": "Betaalmethode verwijderd"
-            }
+            },
+            "inconsistent": "Deze betaalmethode is niet meer geldig. Het is mogelijk dat het lid deze betaalmethode heeft gedeactiveerd of dat het profiel met een ander profiel is samengevoegd. In beide gevallen is het niet langer mogelijk om deze betaalmethode te gebruiken."
         },
         "paymentEngine": {
             "label": {
@@ -8506,7 +8508,7 @@
             "manager": "Manager",
             "franchisor": "Franchisegever",
             "continue": "Verder met deze sessie",
-            "currentSession": "Je bent momenten als \"{{name}}\" verbonden",
+            "currentSession": "Je bent momenteel als \"{{name}}\" verbonden",
             "restore": "Sessie herstellen",
             "previousSession": " Je was als \"{{name}}\" verbonden",
             "title": " Het lijkt erop dat je meerdere tabbladen tegelijk gebruikt"

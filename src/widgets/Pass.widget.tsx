@@ -89,6 +89,8 @@ class PassWidget extends Component<Props> {
           addComboToCart={this.addComboToCart}
           addPaymentPackToCart={this.addPaymentPackToCart}
           addPrivatePassToCart={this.addPrivatePassToCart}
+          memberTagList={this.props.memberTagList}
+          authenticated={this.props.authenticated}
         />
       </div>
     );

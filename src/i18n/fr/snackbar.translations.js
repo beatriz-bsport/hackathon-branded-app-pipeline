@@ -116,7 +116,7 @@ exports.default = {
     sendToQuickbooks: {
       success: 'Votre facture a été transférée sur Quickbooks',
       error:
-        'Une erreur est survenu pendant le transfère de votre factur sur Quickbooks',
+        'Une erreur est survenue pendant le transfère de votre facture sur Quickbooks',
       errors: {
         title: "Erreur lors de l'envoi de votre facture",
         931000: "Erreur lors de l'authentification à Quickbooks",

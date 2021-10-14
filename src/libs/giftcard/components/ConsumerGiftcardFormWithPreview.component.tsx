@@ -46,7 +46,6 @@ const ConsumerGiftcardFormWithPreview = React.memo((props: Props) => {
   const C = GridWrapper[!props.forceVertical];
   const D1 = GridFirstChildWrapper[!props.forceVertical];
   const D2 = GridSecondChildWrapper[!props.forceVertical];
-
   return (
     <Form className={classes.container}>
       <C className={classes.verticalContainer}>

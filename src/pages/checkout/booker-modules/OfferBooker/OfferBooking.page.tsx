@@ -119,6 +119,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
           this.props.fetchRoomBlueprintDetail(o.room_blueprint);
           this.props.fetchAssetForBlueprint({ blueprint: o.room_blueprint });
         }
+        this.props.fetchMemberTagList(o.company);
       },
     });
   }

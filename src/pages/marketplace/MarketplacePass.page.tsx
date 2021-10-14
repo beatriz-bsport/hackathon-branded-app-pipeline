@@ -30,7 +30,8 @@ import MarketplacePaymentComboList from '../../libs/marketplace/components/Marke
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
-  excludePaymentPackTagged,
+  getMarketplacePaymentPacks,
+  excludeUnaccessiblePacks,
   getPaymentPackCategoryWithPaymentPacks,
   getPaymentPackUnCategoryWithPaymentPacks,
   withMetaActivities,
@@ -230,10 +231,14 @@ const mapStateToProps = (
   establishmentLoading: state.establishment.bulkRetrieve.loading,
   activityLoading: state.metaActivity.loading,
   paymentPackUnCategorized: getPaymentPackUnCategoryWithPaymentPacks(
-    withEstablishments(withMetaActivities(excludePaymentPackTagged)),
+    withEstablishments(
+      withMetaActivities(excludeUnaccessiblePacks(getMarketplacePaymentPacks)),
+    ),
   )(state, { memberTagList, authenticated }),
   paymentPackByCategory: getPaymentPackCategoryWithPaymentPacks(
-    withEstablishments(withMetaActivities(excludePaymentPackTagged)),
+    withEstablishments(
+      withMetaActivities(excludeUnaccessiblePacks(getMarketplacePaymentPacks)),
+    ),
   )(state, { memberTagList, authenticated }),
 });
 

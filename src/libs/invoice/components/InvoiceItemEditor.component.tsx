@@ -241,7 +241,12 @@ const InvoiceItemEditor = (props: Props) => {
       );
     }
     return setWarnManagerOnInvoice(false);
-  }, [buyableItemIdentifier, props.availableBuyableItems, props.member]);
+  }, [
+    buyableItemIdentifier,
+    props.availableBuyableItems,
+    props.member,
+    buyableItemId,
+  ]);
   return (
     <div>
       <Paper>

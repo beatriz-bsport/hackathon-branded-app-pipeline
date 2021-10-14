@@ -26,7 +26,10 @@ import {
   getPaymentComboForBooking,
   withPaymentPack as withPaymentPackForCombo,
 } from '../../../../libs/payment-combo/selectors';
-import { getPaymentPackForBooking } from '../../../../libs/payment-packs/selectors';
+import {
+  excludeUnaccessiblePacks,
+  getPaymentPackForBooking,
+} from '../../../../libs/payment-packs/selectors';
 import {
   fetchPaymentPackForBooking,
   fetchPaymentPackBulk as fetchPaymentPackBulkAction,
@@ -56,6 +59,9 @@ import {
   withPaymentPack as withPaymentPackForContract,
 } from '../../../../libs/subscription/selectors';
 import { OfferData } from '../../../../libs/booker-module/types';
+import { fetchMemberTagList } from '../../../../libs/tag/actions';
+import { getMemberTagsIdsList } from '../../../../libs/tag/selectors';
+import type { Tag } from '../../../../libs/tag/types';
 
 type OwnProps = {
   offerId: number;
@@ -304,11 +310,32 @@ const mapHandlers = {
   },
 };
 
-const mapStateToProps = (state: RootState) => ({
+const mapMemberInfoStateToProps = (
+  // Have to do this separation here for widget purpose
+
+  state: RootState,
+  {
+    memberTagList,
+    authenticated,
+  }: { memberTagList: Array<Tag>; authenticated: boolean },
+) => ({
+  memberTagList: memberTagList || getMemberTagsIdsList(state),
+  authenticated: authenticated || state.auth.authenticated,
+});
+const mapStateToProps = (
+  state: RootState,
+  {
+    memberTagList,
+    authenticated,
+  }: { memberTagList: Array<Tag>; authenticated: boolean },
+) => ({
   consumerPaymentPackList: withPaymentPackForConsumer(
     getConsumerPaymentPackForBooking,
   )(state) as ConsumerPaymentPack<PaymentPack>[],
-  paymentPackList: getPaymentPackForBooking(state) as PaymentPack[],
+  paymentPackList: excludeUnaccessiblePacks(getPaymentPackForBooking)(state, {
+    memberTagList,
+    authenticated,
+  }) as PaymentPack[],
   paymentComboList: withPaymentPackForCombo(getPaymentComboForBooking)(
     state,
   ) as PaymentCombo[],
@@ -326,12 +353,14 @@ const mapDispatchToProps = {
   fetchContractForBooking: fetchContractForBookingAction,
   resetContractForBooking: resetContractForBookingAction,
   fetchConsumerPaymentPackMaxoutBooking,
+  fetchMemberTagList,
 };
 
 export default compose<any, OwnProps>(
   // @ts-ignore
   withStyles(styles),
   withTranslation(['paymentPack', 'booking']),
+  connect(mapMemberInfoStateToProps),
   connect(mapStateToProps, mapDispatchToProps),
   withHandlers(mapHandlers),
   withStateHandlers(

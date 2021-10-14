@@ -1115,7 +1115,7 @@
         "recipients": { "label": "Email du destinataire" },
         "date_send": { "label": "Date d’envoi de l’email" },
         "actions": { "submit": "Ajouter au panier" },
-        "footer": "La carte sera envoyée par mail le {{- date_send }} aux l’adresses indiquées. Elle sera valide pendant {{ expiration_days }} jours après l’envoi du mail."
+        "footer": "La carte sera envoyée par mail le {{- date_send }} aux adresses indiquées. Elle sera valide pendant {{ expiration_days }} jours après l’envoi du mail et créditera votre compte de {{- price }} pour vos prochains achats."
       }
     },
     "link": { "copyLink": "Copier le lien d'achat" },
@@ -4791,7 +4791,7 @@
       },
       "sendToQuickbooks": {
         "success": "Votre facture a été transférée sur Quickbooks",
-        "error": "Une erreur est survenu pendant le transfère de votre factur sur Quickbooks",
+        "error": "Une erreur est survenue pendant le transfère de votre facture sur Quickbooks",
         "errors": {
           "931000": "Erreur lors de l'authentification à Quickbooks",
           "931001": "Erreur lors de l'authentification à Quickbooks",

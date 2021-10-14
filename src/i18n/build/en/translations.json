@@ -10040,7 +10040,7 @@
             "sendTo": "Resend the invitation",
             "notAttributedYet": "Not validated",
             "expiresOn": "Expires on {{- d }}",
-            "willInviteOn": "Invitation has been sent on {{- d }}",
+            "willInviteOn": "Invitation will be sent on {{- d }}",
             "invitedOn": "Sent on {{- d }}",
             "value": "Value",
             "isFrom": "From ",

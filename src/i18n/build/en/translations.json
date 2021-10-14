@@ -5737,7 +5737,8 @@
                 "last_payment_method": "You must have at least one payment method",
                 "pm_associated_to_pi": "Impossible: You have a subscription associated with this payment method",
                 "pm_associated_to_registered_ppe": "Impossible: You have a subscription associated with this payment method"
-            }
+            },
+            "inconsistent": "This payment method has been invalidated. It's possible that the member has requested to deactivate this payment method or that this profile has been merged with another profile. Either way, this payment method is no longer usable."
         },
         "paymentEngine": {
             "label": {
@@ -7076,7 +7077,7 @@
         "maxNBookingsByMonth2": " bookings per month",
         "blockedCpp": "Card blocked from {{-blocked_from}} to {{-blocked_until}}",
         "penalty": {
-            "account": "If there are {{nb_cancellations}} late cancellations over a period of {{nb_days}} days, a charge of €{{account_value}} will be applied.",
+            "account": "If there are {{nb_cancellations}} late cancellations within a period of {{nb_days}} day(s), a penalty of {{account_value}} in the local currency will be applied.",
             "block": "If there are {{nb_cancellations}} late cancellations over a period of {{nb_days}} days, the pass will be blocked for {{days_blocked}} days.",
             "title": "Cancellation policy"
         },

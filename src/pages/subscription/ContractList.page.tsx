@@ -531,7 +531,7 @@ export default compose(
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:subscription.subscriptions'),
   ),
-  withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
   connect(mapStateToProps, mapDispatchToProps),
+  withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
   withHandlers(mapWithHandlers),
 )(SubscriptionList);

@@ -9,6 +9,7 @@ import {
 } from '../../private-service/types';
 import { Video } from '../../video/types';
 import ExportableComponentSettingForm from './settings';
+import { PaymentPackCategory } from '../../payment-packs/types';
 
 type Props = {
   componentType: string;
@@ -23,6 +24,7 @@ type Props = {
   config: any;
   onChange: (config: any) => void;
   errors: { [componentType: string]: string } | null;
+  paymentPackCategories: Array<PaymentPackCategory>;
 };
 
 export const ExportableComponentConfigurator = (props: Props) => {
@@ -51,6 +53,7 @@ export const ExportableComponentConfigurator = (props: Props) => {
       onChange={(config) =>
         props.onChange({ ...props.config, [props.componentType]: config })
       }
+      paymentPackCategories={props.paymentPackCategories}
     />
   );
 };

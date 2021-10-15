@@ -20,6 +20,7 @@ import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
 import { fetchAllActivities } from '../../libs/meta-activity/actions';
+import { fetchAllPaymentPackCategory } from '../../libs/payment-packs/actions';
 import {
   getEnabledWorkshops,
   getPageEnabledMetaActivities,
@@ -29,6 +30,7 @@ import {
   fetchMarketplaceSettings,
   updateMarketplaceSettings,
 } from '../../libs/marketplace/actions';
+import { getAllPaymentPackCategory } from '../../libs/payment-packs/selectors';
 import { fetchPlaylistList } from '../../libs/playlist/actions';
 import { getPlaylistList } from '../../libs/playlist/selectors';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
@@ -63,6 +65,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
     props.fetchVideoList({ mine: true });
     props.fetchPlaylistList({ mine: true });
     props.fetchPrivateServiceGroupList({ mine: true });
+    props.fetchAllPaymentPackCategory();
   }, []);
 
   useEffect(() => {
@@ -171,6 +174,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
           videos={props.videoList}
           index={currentTab !== null ? currentTab : config.length}
           tab={currentTab !== null ? config[currentTab] : defaultTab}
+          paymentPackCategories={props.paymentPackCategories}
         />
       )}
 
@@ -246,6 +250,7 @@ const mapStateToProps = (state: RootState) => ({
   videoList: getVideoList(state),
   serviceGroupList: getPrivateServiceGroupList(state),
   theme: state.theme.theme,
+  paymentPackCategories: getAllPaymentPackCategory(state),
 });
 
 const mapDispatchToProps = {
@@ -258,6 +263,7 @@ const mapDispatchToProps = {
   fetchPlaylistList,
   fetchVideoList,
   fetchPrivateServiceGroupList,
+  fetchAllPaymentPackCategory,
 };
 
 export default connect(

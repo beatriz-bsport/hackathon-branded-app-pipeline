@@ -461,6 +461,7 @@ exports.default = {
     listItemNbDays: '+{{nbDays}} jours',
   },
   category: {
+    category: 'Catégories de cartes de cours',
     add: 'Ajouter une categorie',
     form: {
       dialog: {

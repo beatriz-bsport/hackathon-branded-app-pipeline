@@ -133,7 +133,7 @@ export function attachPaymentToBasketId(
 export function addItemToBasket(
   basketId: string,
   data: CheckoutItemData,
-  options: OptionCallback,
+  options?: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(currentBasket.isLoading(true));

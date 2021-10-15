@@ -33,6 +33,7 @@ type OwnProps = {
     publicPacks: Array<PaymentPack>;
     managerPacks: Array<PaymentPack>;
   };
+  paymentPackCategories: number[];
 };
 
 type Props = OwnProps &
@@ -78,7 +79,16 @@ export function MarketplacePassList(props: Props) {
     selectedPass,
     paymentPackByCategory,
     paymentPackUnCategorized,
+    paymentPackCategories,
   } = props;
+
+  const filteredPaymentPackByCategory =
+    paymentPackCategories?.length > 0
+      ? paymentPackByCategory?.filter((pp) =>
+          paymentPackCategories?.includes(pp.id),
+        )
+      : paymentPackByCategory;
+
   return (
     <>
       <div>
@@ -90,7 +100,8 @@ export function MarketplacePassList(props: Props) {
           {props.t('marketplace.passListTitle')}
         </Typography>
       </div>
-      {paymentPackUnCategorized?.publicPacks?.length !== 0 ? (
+      {paymentPackUnCategorized?.publicPacks?.length !== 0 &&
+      (!paymentPackCategories || paymentPackCategories.length === 0) ? (
         <Paper>
           <List dense disablePadding>
             {paymentPackUnCategorized.publicPacks.map((pp: PaymentPack) => (
@@ -134,61 +145,63 @@ export function MarketplacePassList(props: Props) {
         </Paper>
       ) : null}
 
-      {paymentPackByCategory.map((ppCat: PaymentPackCategoryWithPacks) => {
-        return ppCat?.publicPacks?.length !== 0 ? (
-          <div>
-            <Typography
-              component="h3"
-              variant="subtitle1"
-              className={props.classes.sectionTitleWithDivider}
-            >
-              {ppCat.name}
-            </Typography>
-            <Divider className={props.classes.sectionDivider} />
-            <Paper>
-              <List dense disablePadding>
-                {ppCat.publicPacks.map((pp: PaymentPack) => (
-                  <PaymentPackMarketplaceListItem
-                    onSelect={() => {
-                      props.setSelectedPass(pp);
-                      Analytics.selectPaymentPack(pp);
-                    }}
-                    disabled={!pushPackCheckout}
-                    onCartAdd={() => {
-                      pushPackCheckout(pp.id);
-                      Analytics.addPassToCart(pp, 'payment_pack');
-                    }}
-                    key={pp.id}
-                    paymentPack={pp}
-                    t={props.t}
-                  />
-                ))}
-              </List>
-              <Dialog
-                open={!!selectedPass}
-                onClose={() => props.setSelectedPass(null)}
+      {filteredPaymentPackByCategory.map(
+        (ppCat: PaymentPackCategoryWithPacks) => {
+          return ppCat?.publicPacks?.length !== 0 ? (
+            <div>
+              <Typography
+                component="h3"
+                variant="subtitle1"
+                className={props.classes.sectionTitleWithDivider}
               >
-                <div>
-                  {selectedPass ? (
-                    <PaymentPackCard pack={selectedPass} onlyPublic />
-                  ) : null}
-                  <Button
-                    style={{ width: '100%' }}
-                    onClick={() => {
-                      pushPackCheckout(selectedPass.id);
-                      Analytics.addPassToCart(selectedPass, 'payment_pack');
-                    }}
-                    color="primary"
-                    variant="contained"
-                  >
-                    {t('marketplace.buyPack')}
-                  </Button>
-                </div>
-              </Dialog>
-            </Paper>
-          </div>
-        ) : null;
-      })}
+                {ppCat.name}
+              </Typography>
+              <Divider className={props.classes.sectionDivider} />
+              <Paper>
+                <List dense disablePadding>
+                  {ppCat.publicPacks.map((pp: PaymentPack) => (
+                    <PaymentPackMarketplaceListItem
+                      onSelect={() => {
+                        props.setSelectedPass(pp);
+                        Analytics.selectPaymentPack(pp);
+                      }}
+                      disabled={!pushPackCheckout}
+                      onCartAdd={() => {
+                        pushPackCheckout(pp.id);
+                        Analytics.addPassToCart(pp, 'payment_pack');
+                      }}
+                      key={pp.id}
+                      paymentPack={pp}
+                      t={props.t}
+                    />
+                  ))}
+                </List>
+                <Dialog
+                  open={!!selectedPass}
+                  onClose={() => props.setSelectedPass(null)}
+                >
+                  <div>
+                    {selectedPass ? (
+                      <PaymentPackCard pack={selectedPass} onlyPublic />
+                    ) : null}
+                    <Button
+                      style={{ width: '100%' }}
+                      onClick={() => {
+                        pushPackCheckout(selectedPass.id);
+                        Analytics.addPassToCart(selectedPass, 'payment_pack');
+                      }}
+                      color="primary"
+                      variant="contained"
+                    >
+                      {t('marketplace.buyPack')}
+                    </Button>
+                  </div>
+                </Dialog>
+              </Paper>
+            </div>
+          ) : null;
+        },
+      )}
     </>
   );
 }

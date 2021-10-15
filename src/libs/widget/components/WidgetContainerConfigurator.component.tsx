@@ -27,7 +27,7 @@ import { LanguageSelect } from '../../../components/button/LanguageButton.compon
 type OwnProps = {
   showFab: boolean;
   useIframe: boolean;
-  onChangeContainerConfiguration: (param: any) => void;
+  onChangeContainerConfiguration: (args: any) => void;
   dialogMode: number;
   language: string | null;
   fullScreenPopup: boolean;

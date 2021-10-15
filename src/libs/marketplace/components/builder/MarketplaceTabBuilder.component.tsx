@@ -30,6 +30,7 @@ import { EXPORTABLE_COMPONENT_TYPE_CALENDAR } from '../../../exportable-componen
 import ExportableComponentConfigurator from '../../../exportable-components/components/ExportableComponentConfigurator.component';
 import { Video } from '../../../video/types';
 import { MARKETPLACE_COMPONENT_TYPE_LIST } from '../../constants';
+import { PaymentPackCategory } from '../../../payment-packs/types';
 
 type Props = {
   onClose: () => void;
@@ -44,6 +45,7 @@ type Props = {
   onSubmit: (tab: any) => void;
   index: number;
   tab: any;
+  paymentPackCategories: Array<PaymentPackCategory>;
 };
 
 const TabCreation: React.FC<Props> = (props) => {
@@ -180,6 +182,7 @@ const TabCreation: React.FC<Props> = (props) => {
             onChange={(config) =>
               setTabConfig({ [componentType]: config[componentType] })
             }
+            paymentPackCategories={props.paymentPackCategories}
           />
         )}
       </DialogContent>

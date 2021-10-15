@@ -19,10 +19,12 @@ import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions'
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { fetchAllActivities } from '../../libs/meta-activity/actions';
 import { fetchPlaylistList } from '../../libs/playlist/actions';
+import { fetchAllPaymentPackCategory } from '../../libs/payment-packs/actions';
 import {
   getAvailablePrivateServices,
   getPrivateServiceGroupList,
 } from '../../libs/private-service/selectors/private-service';
+import { getAllPaymentPackCategory } from '../../libs/payment-packs/selectors';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
 import {
@@ -108,6 +110,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
     this.props.fetchAllActivities();
     this.props.fetchAllPrivateServices();
     this.props.fetchEstablishments();
+    this.props.fetchAllPaymentPackCategory();
     this.props.fetchPlaylistList({ mine: true });
     this.props.fetchVideoList({ mine: true });
     this.props.fetchPrivateServiceGroupList({ mine: true });
@@ -231,6 +234,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
               serviceGroupList={this.props.serviceGroupList}
               config={this.state.config}
               onConfigChange={this.onConfigChange}
+              paymentPackCategories={this.props.paymentPackCategories}
             />
           </fieldset>
           <WidgetMarketplaceConfigBuilder
@@ -307,6 +311,7 @@ const mapStateToProps = (state: RootState) => ({
   metaActivitiesLoading: state.metaActivity.loading,
   serviceGroupList: getPrivateServiceGroupList(state),
   themeLoading: state.theme.loading,
+  paymentPackCategories: getAllPaymentPackCategory(state),
 });
 
 const mapDispatchToProps = {
@@ -317,6 +322,7 @@ const mapDispatchToProps = {
   fetchPlaylistList,
   fetchVideoList,
   fetchPrivateServiceGroupList,
+  fetchAllPaymentPackCategory,
   snackbarInfo,
 };
 

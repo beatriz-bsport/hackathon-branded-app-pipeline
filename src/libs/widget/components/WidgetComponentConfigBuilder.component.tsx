@@ -19,6 +19,7 @@ import {
   getDefaultConfigByIdentifier,
   checkExportableComponentConfig,
 } from '../../exportable-components/utils';
+import { PaymentPackCategory } from '../../payment-packs/types';
 
 type Props = {
   componentType: string;
@@ -38,13 +39,14 @@ type Props = {
   videos: Array<Video>;
   playlists: Array<Playlist>;
   hideTypeSelector?: boolean;
+  paymentPackCategories?: Array<PaymentPackCategory>;
 };
 
 export const WidgetComponentConfigBuilder = (props: Props) => {
   const { t } = useTranslation(['settings']);
 
   const onConfigChange = (config: any) => {
-    const errors = checkExportableComponentConfig(config);
+    const errors = checkExportableComponentConfig(props.componentType, config);
 
     props.onConfigChange({
       config,
@@ -97,6 +99,7 @@ export const WidgetComponentConfigBuilder = (props: Props) => {
         config={props.config}
         onChange={onConfigChange}
         errors={props.config?.error}
+        paymentPackCategories={props.paymentPackCategories}
       />
     </div>
   );

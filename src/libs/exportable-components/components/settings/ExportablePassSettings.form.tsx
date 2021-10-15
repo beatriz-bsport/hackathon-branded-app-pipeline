@@ -1,16 +1,20 @@
 import React from 'react';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import {
   makeStyles,
   FormControl,
   FormControlLabel,
   Checkbox,
+  TextField,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { MarketplacePassData } from '../../../marketplace/types';
+import { PaymentPackCategory } from '../../../payment-packs/types';
 
 interface Props {
   config?: MarketplacePassData;
+  paymentPackCategories: Array<PaymentPackCategory>;
   onChange: (config: MarketplacePassData) => void;
 }
 
@@ -22,10 +26,38 @@ const defaultConfig = {
 
 const MarketplacePassSettingsForm: React.FC<Props> = (props) => {
   const classes = useStyles();
-  const { t } = useTranslation('settings');
+  const { t } = useTranslation();
 
   return (
     <div className={classes.flexCol}>
+      {props.paymentPackCategories && (
+        <Autocomplete
+          multiple
+          options={[...props.paymentPackCategories]}
+          getOptionLabel={(cat) => cat.name}
+          value={[
+            ...props.paymentPackCategories.filter(
+              (cat) =>
+                props.config.paymentPackCategories &&
+                props.config.paymentPackCategories.includes(cat.id),
+            ),
+          ]}
+          onChange={(e, cat) =>
+            props.onChange({
+              ...props.config,
+              paymentPackCategories: cat.map((c) => c.id),
+            })
+          }
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              variant="standard"
+              label={t('paymentPack:category.category')}
+              placeholder={t('paymentPack:category.category')}
+            />
+          )}
+        />
+      )}
       <FormControl className={classes.marginTop}>
         <FormControlLabel
           control={
@@ -41,7 +73,7 @@ const MarketplacePassSettingsForm: React.FC<Props> = (props) => {
               name="gilad"
             />
           }
-          label={t('marketplaceSettings.createDialog.hidePaymentPack')}
+          label={t('settings:marketplaceSettings.createDialog.hidePaymentPack')}
         />
         <FormControlLabel
           control={
@@ -57,7 +89,7 @@ const MarketplacePassSettingsForm: React.FC<Props> = (props) => {
               name="gilad"
             />
           }
-          label={t('marketplaceSettings.createDialog.hidePrivatePass')}
+          label={t('settings:marketplaceSettings.createDialog.hidePrivatePass')}
         />
         <FormControlLabel
           control={
@@ -73,7 +105,9 @@ const MarketplacePassSettingsForm: React.FC<Props> = (props) => {
               name="gilad"
             />
           }
-          label={t('marketplaceSettings.createDialog.hidePaymentCombo')}
+          label={t(
+            'settings:marketplaceSettings.createDialog.hidePaymentCombo',
+          )}
         />
       </FormControl>
     </div>
@@ -85,6 +119,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
+    marginTop: theme.spacing(2),
   },
   marginTop: {
     marginTop: theme.spacing(4),

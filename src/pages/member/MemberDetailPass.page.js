@@ -16,6 +16,7 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
+import flatten from 'lodash/flatten';
 import PaginatedListBase from '../../components/PaginatedListBase.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
@@ -47,6 +48,7 @@ import {
 } from '../../libs/dashboard/actions';
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
 import { fetchSpecificInvoice } from '../../libs/invoice/actions';
+import { fetchConsumerPaymentPackLinks as fetchConsumerPaymentPackLinksAction } from '../../libs/relationship/actions';
 
 import RefundConsumerPaymentPackDialog from '../../libs/consumer-payment-pack/components/RefundConsumerPaymentPackDialog.component';
 
@@ -71,6 +73,8 @@ import type { Invoice } from '../../libs/invoice/types';
 import type { Booking } from '../../libs/booking/types';
 import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
 import { SignUpFormConfigDict } from '../../libs/sign-up-form/types';
+import { withIsSharedActive } from '../../libs/relationship/selectors';
+import { WithIsSharedActive } from '../../libs/relationship/types';
 
 type Props = {
   member: ?Member,
@@ -83,7 +87,7 @@ type Props = {
   refreshConsumerPack: (id: number) => void,
   passExtensions: Array<ConsumerPaymentPackExtension>,
   consumerPackLoading: boolean,
-  consumerPacks: Array<ConsumerPaymentPack>,
+  consumerPacks: Array<WithIsSharedActive<ConsumerPaymentPack>>,
   selectedConsumerPass: ?ConsumerPaymentPack,
   onSelectConsumerPass: (memberId: number, consumerPassId: number) => void,
   consumerPackInvoice: Invoice,
@@ -159,6 +163,10 @@ type Props = {
   userFiltersLoading: boolean,
 
   managerFormConfig: SignUpFormConfigDict,
+  fetchConsumerPaymentPackLinks: (
+    links: Array<number>,
+    options: OptionCallBack,
+  ) => void,
 };
 
 type State = {
@@ -224,10 +232,18 @@ export class MemberDetailPass extends Component<Props, State> {
     }
     if (prevProps.filters !== this.props.filters) {
       this.props.fetchConsumerPacks(this.props.id, 1, 7, this.props.filters, {
-        onSuccess: (cppList) =>
+        onSuccess: (cppList) => {
           this.props.fetchPaymentPackBulk(
             cppList.map((cpp) => cpp.payment_pack),
-          ),
+          );
+          this.props.fetchConsumerPaymentPackLinks(
+            flatten(
+              cppList.map((cpp) =>
+                cpp.src_consumer_payment_pack.map((id) => id),
+              ),
+            ),
+          );
+        },
       });
       this.props.updateFiltersSettings(this.props.filters);
     }
@@ -474,7 +490,9 @@ export default compose(
   connect(
     (state, { id, consumerPassId, relatedInvoice }) => ({
       member: getMember(state, id),
-      consumerPacks: withPaymentPack(getConsumerPaymentPackByMember)(state, id),
+      consumerPacks: withIsSharedActive(
+        withPaymentPack(getConsumerPaymentPackByMember),
+      )(state, id),
       consumerPackCount: state.consumerPaymentPack.byMember.count,
       consumerPackCurrentPage: state.consumerPaymentPack.byMember.page,
       selectedConsumerPass: withPaymentPack(getConsumerPack)(
@@ -549,6 +567,7 @@ export default compose(
         }),
       resetConsumerPackByMemberAction,
       fetchConsumerPaymentPackPenalty: fetchConsumerPaymentPackPenaltyAction,
+      fetchConsumerPaymentPackLinks: fetchConsumerPaymentPackLinksAction,
     },
   ),
   withState('filters', 'setFilters', (props) => {
@@ -580,10 +599,17 @@ export default compose(
       filters,
       fetchConsumerPacks,
       fetchPaymentPackBulk,
+      fetchConsumerPaymentPackLinks,
     }) => (page, pageSize) => {
       fetchConsumerPacks(id, page, pageSize, filters, {
-        onSuccess: (cppList) =>
-          fetchPaymentPackBulk(cppList.map((cpp) => cpp.payment_pack)),
+        onSuccess: (cppList) => {
+          fetchPaymentPackBulk(cppList.map((cpp) => cpp.payment_pack));
+          fetchConsumerPaymentPackLinks(
+            flatten(
+              cppList.map((cpp) => cpp.src_consumer_payment_pack.map((i) => i)),
+            ),
+          );
+        },
       });
     },
     setOpenValue: ({ setOpen, open }) => (name: string) => {

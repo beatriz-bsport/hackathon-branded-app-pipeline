@@ -11,6 +11,7 @@ import ConsumerPackRowItem from './ConsumerPackRowItem.component';
 
 import type { ConsumerPaymentPack } from '../types';
 import type { PaymentPack } from '../../payment-packs/types';
+import { WithIsSharedActive } from '../../relationship/types';
 
 type Props = {
   paymentPack: PaymentPack,
@@ -18,7 +19,7 @@ type Props = {
   consumerPacksUpdating: Array<number>,
   decrementCredit: (id: number) => void,
   incrementCredit: (id: number) => void,
-  items: Array<ConsumerPaymentPack>,
+  items: Array<WithIsSharedActive<ConsumerPaymentPack>>,
   nbItems: number,
   loading: boolean,
   page: number,

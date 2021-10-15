@@ -80,6 +80,37 @@ export function fetchSharedConsumerPaymentPacks(
   };
 }
 
+export const consumerPackLinksActions = {
+  isLoading: createAction('RELATIONSHIP/LINK/LOADING'),
+  error: createAction('RELATIONSHIP/LINK/ERROR'),
+  success: createAction('RELATIONSHIP/LINK/SUCCESS'),
+};
+
+export function fetchConsumerPaymentPackLinks(
+  links: Array<number>,
+  options?: OptionCallback,
+) {
+  if (!links.length)
+    return (dispatch: Dispatch) =>
+      dispatch(consumerPackLinksActions.success([]));
+  return async (dispatch: Dispatch) => {
+    dispatch(consumerPackLinksActions.isLoading(true));
+    dispatch(consumerPackLinksActions.error(null));
+    try {
+      const response = await fetchSharedConsumerPacksAPI({
+        id__in: links,
+      });
+      dispatch(consumerPackLinksActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(consumerPackLinksActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(consumerPackLinksActions.isLoading(false));
+  };
+}
+
 export const memberRelationListActions = {
   isLoading: createAction('MEMBER_RELATION/LIST/LOADING'),
   error: createAction('MEMBER_RELATION/LIST/ERROR'),

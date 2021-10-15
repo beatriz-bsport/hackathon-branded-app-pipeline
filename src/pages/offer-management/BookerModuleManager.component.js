@@ -25,14 +25,16 @@ import { getAvailableEstablishmentList } from '../../libs/establishment/selector
 import BookingModuleManagerComponent from '../../libs/booking/components/booker-module/BookerModuleManager.component';
 import { RootState } from '../../reducers';
 import themeSelectors from '../../libs/theme/selectors';
+import { withIsSharedActive } from '../../libs/relationship/selectors';
+import { fetchConsumerPaymentPackLinks } from '../../libs/relationship/actions';
 
 export default compose(
   connect(
     (state: RootState) => ({
       consumerPacksLoading: state.consumerPaymentPack.byOfferByMember.loading,
-      consumerPacks: withPaymentPack(getByOfferByMember)(state),
-      consumerPacksNonCompatible: withPaymentPack(
-        getNonCompatibleByOfferByMember,
+      consumerPacks: withIsSharedActive(getByOfferByMember)(state),
+      consumerPacksNonCompatible: withIsSharedActive(
+        withPaymentPack(getNonCompatibleByOfferByMember),
       )(state),
       similarOfferLoading:
         state.offer.similarOffers.loading ||
@@ -56,6 +58,7 @@ export default compose(
       fetchConsumerPaymentPackMaxoutBooking,
       fetchEstablishments,
       fetchAllEstablishmentBillingGroup,
+      fetchConsumerPaymentPackLinks,
     },
   ),
 

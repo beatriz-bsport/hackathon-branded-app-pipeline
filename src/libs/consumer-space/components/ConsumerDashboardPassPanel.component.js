@@ -11,11 +11,13 @@ import type { TFunction } from 'react-i18next';
 import Divider from '@material-ui/core/Divider';
 import ConsumerPackRowItem from '../../consumer-payment-pack/components/ConsumerPackRowItem.component';
 import PrivateConsumerPassBookerListItem from '../../private-service/components/booking-module/PrivateConsumerPassBookerListItem.component';
+import { WithIsSharedActive } from '../../relationship/types';
+import { ConsumerPaymentPack } from '../../consumer-payment-pack/types';
 
 type Props = {
   t: TFunction,
   classes: Object,
-  consumerPackList: Array<ConsumerPaymentPack>,
+  consumerPackList: Array<WithIsSharedActive<ConsumerPaymentPack>>,
   consumerPackLoading: boolean,
   privateConsumerPassList: Array<PrivateConsumerPass>,
   privateConsumerPassLoading: boolean,

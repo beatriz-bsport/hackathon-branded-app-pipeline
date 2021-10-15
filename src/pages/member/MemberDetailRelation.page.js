@@ -35,6 +35,7 @@ import {
   getMemberRelationById,
   getSharedConsumerPacksByRelation,
   getSharedPrivateConsumerPassesByRelation,
+  withIsSharedActive,
 } from '../../libs/relationship/selectors';
 import {
   getMemberDetail,
@@ -62,9 +63,13 @@ import {
   fetchPrivateConsumerPassBulk as fetchPrivateConsumerPassBulkAction,
   fetchPrivateConsumerPassByMember as fetchPrivateConsumerPassByMemberAction,
 } from '../../libs/private-service/actions';
-import type { PrivateConsumerPassLink } from '../../libs/relationship/types';
+import type {
+  PrivateConsumerPassLink,
+  WithIsSharedActive,
+} from '../../libs/relationship/types';
 import type { PrivateConsumerPass } from '../../libs/private-service/types';
 import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
+import { ConsumerPack } from '../consumer/ConsumerPack.page';
 
 type Props = {
   relationList: Array<MemberRelation>,
@@ -108,7 +113,7 @@ type Props = {
 
   setOpenRelationFormDialog: (data: *) => void,
   setOpenConsumerPackLinking: (boolean) => void,
-  memberConsumerPacks: Array<ConsumerPack>,
+  memberConsumerPacks: Array<WithIsSharedActive<ConsumerPack>>,
   member: Member,
   selectedRelation: ?MemberRelation,
   sharedConsumerPaymentPackLinks: Array<ConsumerPackLink>,
@@ -395,10 +400,9 @@ export default compose(
       theme: state.theme.theme,
       relationList: getMemberRelations(state),
       relation: getMemberRelationById(state, selectedRelationId),
-      memberConsumerPacks: getConsumerPacksByMemberWithPaymentPack(
-        state,
-        memberId,
-      ),
+      memberConsumerPacks: withIsSharedActive(
+        getConsumerPacksByMemberWithPaymentPack,
+      )(state, memberId),
       consumerPackCount: state.consumerPaymentPack.byMember.count,
       consumerPackCurrentPage: state.consumerPaymentPack.byMember.page,
       sharedConsumerPaymentPackLinks: getSharedConsumerPacksByRelation(

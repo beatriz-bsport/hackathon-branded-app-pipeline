@@ -13,6 +13,7 @@ import { push } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
+import flatten from 'lodash/flatten';
 import { WidgetUtils } from '../../libs/widget/WidgetUtils';
 
 import PaginatedListBase from '../../components/PaginatedListBase.component';
@@ -32,13 +33,16 @@ import type { PrivateConsumerPass } from '../../libs/private-service/types';
 import type { ConsumerPaymentPack } from '../../libs/consumer-payment-pack/types';
 import type { Membership } from '../../libs/membership/types';
 import { urlToMarketplace } from '../../libs/marketplace/utils';
+import { withIsSharedActive } from '../../libs/relationship/selectors';
+import { fetchConsumerPaymentPackLinks as fetchConsumerPaymentPackLinksAction } from '../../libs/relationship/actions';
+import { WithIsSharedActive } from '../../libs/relationship/types';
 
 type Props = {
   t: TFunction,
   classes: Object,
   fetchPrivateConsumerPassList: () => void,
   consumerPackLoading: boolean,
-  consumerPacks: Array<ConsumerPaymentPack>,
+  consumerPacks: Array<WithIsSharedActive<ConsumerPaymentPack>>,
   consumerPackCount: number,
   consumerPackCurrentPage: number,
   fetchConsumerPacks: (
@@ -172,10 +176,9 @@ export default compose(
   withStyles(styles),
   connect(
     (state, { membership }) => ({
-      consumerPacks: getConsumerPacksByMemberWithPaymentPack(
-        state,
-        membership.member,
-      ),
+      consumerPacks: withIsSharedActive(
+        getConsumerPacksByMemberWithPaymentPack,
+      )(state, membership.member),
       consumerPackCount: state.consumerPaymentPack.byMember.count,
       consumerPackCurrentPage: state.consumerPaymentPack.byMember.page,
       consumerPackLoading: state.consumerPaymentPack.byMember.loading,
@@ -204,22 +207,36 @@ export default compose(
       fetchPrivateConsumerPassList,
       goToPass: (name: string, id: number) =>
         push(`${urlToMarketplace(name, id)}/pass`),
+      fetchConsumerPaymentPackLinks: fetchConsumerPaymentPackLinksAction,
     },
   ),
-  withProps(({ fetchPaymentPackBulk, fetchConsumerPacks }) => ({
-    fetchConsumerPacks: (memberId, page, page_size, options, params) =>
-      fetchConsumerPacks(
-        memberId,
-        page,
-        page_size,
-        {
-          onSuccess: (cpps) => {
-            fetchPaymentPackBulk(cpps.map((c) => c.payment_pack));
-            if (options && options.onSuccess) options.onSuccess(cpps);
+  withProps(
+    ({
+      fetchPaymentPackBulk,
+      fetchConsumerPacks,
+      fetchConsumerPaymentPackLinks,
+    }) => ({
+      fetchConsumerPacks: (memberId, page, page_size, options, params) =>
+        fetchConsumerPacks(
+          memberId,
+          page,
+          page_size,
+          {
+            onSuccess: (cpps) => {
+              fetchPaymentPackBulk(cpps.map((c) => c.payment_pack));
+              if (options && options.onSuccess) options.onSuccess(cpps);
+              fetchConsumerPaymentPackLinks(
+                flatten(
+                  cpps.map((cpp) =>
+                    cpp.src_consumer_payment_pack.map((id) => id),
+                  ),
+                ),
+              );
+            },
+            onError: options && options.onError,
           },
-          onError: options && options.onError,
-        },
-        { ...(params || {}), mine: true, reverted: false },
-      ),
-  })),
+          { ...(params || {}), mine: true, reverted: false },
+        ),
+    }),
+  ),
 )(ConsumerPack);

@@ -24,14 +24,15 @@ import EstablishmentSelector from '../../../establishment/components/Establishme
 import ModalConfirm from '../../../../components/ModalConfirm.component';
 import { paymentPackTagsAndMemberTagsCompatibilty } from '../../../payment-packs/utils';
 import type { Member } from '../../../member/types';
+import { WithIsSharedActive } from '../../../relationship/types';
 
 type Props = {
   consumerPacks: Array<ConsumerPaymentPack>,
-  consumerPacksNonCompatible: Array<ConsumerPaymentPack>,
+  consumerPacksNonCompatible: Array<WithIsSharedActive<ConsumerPaymentPack>>,
   compatiblePacks: Array<PaymentPack>,
   registerToOffer: (
     {
-      consumerPaymentPack?: ConsumerPaymentPack,
+      consumerPaymentPack?: WithIsSharedActive<ConsumerPaymentPack>,
       paymentPack?: PaymentPack,
     },
     voucher?: number,

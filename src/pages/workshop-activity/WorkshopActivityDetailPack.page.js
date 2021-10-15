@@ -13,6 +13,7 @@ import type { TFunction } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import withStyles from '@material-ui/core/styles/withStyles';
+import flatten from 'lodash/flatten';
 import PaymentPackListItem from '../../libs/payment-packs/components/PaymentPackListItem.component';
 import PaginatedListBase from '../../components/PaginatedListBase.component';
 import {
@@ -37,6 +38,8 @@ import {
 import { fetchFilteredMembers } from '../../libs/member/actions';
 
 import { getMetaActivity } from '../../libs/meta-activity/selectors';
+import { fetchConsumerPaymentPackLinks } from '../../libs/relationship/actions';
+import { withIsSharedActive } from '../../libs/relationship/selectors';
 
 type Props = {
   id: number,
@@ -44,6 +47,10 @@ type Props = {
   classes: Object,
   metaActivity: MetaActivity,
   fetchPaymentPacks: (id: number) => void,
+  fetchConsumerPaymentPackLinks: (
+    links_id: number,
+    options: OptionCallback,
+  ) => void,
 };
 
 const PAGE_SIZE = 10;
@@ -87,6 +94,11 @@ export class WorkshopActivityDetailPacks extends Component<state, Props> {
             this.props.fetchFilteredMembers({
               id__in: cpps.map((b) => b.member_id),
             });
+            this.props.fetchConsumerPaymentPackLinks(
+              flatten(
+                cpps.map((cpp) => cpp.src_consumer_payment_pack.map((i) => i)),
+              ),
+            );
           },
         },
       );
@@ -234,7 +246,7 @@ export default compose(
       },
       selectedPaymentPack: getPaymentPackById(state)[packId],
       consumerPacks: {
-        items: getConsumerPacksByPackWithMember(state),
+        items: withIsSharedActive(getConsumerPacksByPackWithMember)(state),
         count: state.consumerPaymentPack.byPaymentPack.count,
         loading:
           state.consumerPaymentPack.byPaymentPack.loading ||
@@ -258,6 +270,7 @@ export default compose(
         routerPush(`/workshop-activity/${id}/pack/${ppId}`),
       goToConsumerPackDetail: (memberId, passId) =>
         routerPush(`/member/${memberId}/pass/${passId}`),
+      fetchConsumerPaymentPackLinks,
     },
   ),
 )(WorkshopActivityDetailPacks);

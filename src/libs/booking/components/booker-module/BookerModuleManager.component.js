@@ -16,6 +16,7 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import Dialog from '@material-ui/core/Dialog';
 
+import flatten from 'lodash/flatten';
 import Avatar from '../../../../components/Avatar.component';
 import Tooltip from '../../../../components/Tooltip.component';
 import PaymentPackListItem from '../../../payment-packs/components/PaymentPackListItem.component';
@@ -23,9 +24,13 @@ import ConsumerPackRowItem from '../../../consumer-payment-pack/components/Consu
 
 import BookingModuleRegisterMethodChoice from './BookingModuleRegisterMethodChoice.component';
 import BookingModuleOfferChoice from './BookingModuleOfferChoice.component';
-import { MaxoutBooking } from '../../../consumer-payment-pack/types';
+import {
+  ConsumerPaymentPack,
+  MaxoutBooking,
+} from '../../../consumer-payment-pack/types';
 import type { Establishment } from '../../../establishment/types';
 import type { Theme as CompanyTheme } from '../../../theme/types';
+import { WithIsSharedActive } from '../../../relationship/types';
 
 type Props = {
   loading: boolean,
@@ -33,8 +38,8 @@ type Props = {
   offerId: number,
   offer: ?Offer,
   compatiblePacks: Array<PaymentPack>,
-  consumerPacks: Array<ConsumerPaymentPack>,
-  consumerPacksNonCompatible: Array<ConsumerPaymentPack>,
+  consumerPacks: Array<WithIsSharedActive<ConsumerPaymentPack>>,
+  consumerPacksNonCompatible: Array<WithIsSharedActive<ConsumerPaymentPack>>,
   keep_credits: boolean,
   notify_member: boolean,
   setNotifyMember: () => void,
@@ -83,6 +88,11 @@ type Props = {
   establishments: Array<Establishment>,
   companyTheme: CompanyTheme,
   memberDetails: { [id: number]: Member },
+
+  fetchConsumerPaymentPackLinks: (
+    links_id: Array<number>,
+    options: OptionCallback,
+  ) => void,
 };
 
 const REGISTER_METHOD_CHOICE = 0;
@@ -93,6 +103,17 @@ export class BookingModuleManager extends PureComponent<Props> {
     this.props.fetchByOfferByMemberAction(
       this.props.offerId,
       this.props.member.id,
+      {
+        onSuccess: (cppList) => {
+          this.props.fetchConsumerPaymentPackLinks(
+            flatten(
+              cppList.map((cpp) =>
+                cpp.src_consumer_payment_pack.map((id) => id),
+              ),
+            ),
+          );
+        },
+      },
     );
     this.props.fetchNoncompatibleConsumerPackByOfferByMember(
       this.props.offerId,
@@ -101,6 +122,13 @@ export class BookingModuleManager extends PureComponent<Props> {
         onSuccess: (cppList) => {
           const cpp_ids = cppList.map((cpp) => cpp.payment_pack);
           this.props.fetchPaymentPackBulk(cpp_ids);
+          this.props.fetchConsumerPaymentPackLinks(
+            flatten(
+              cppList.map((cpp) =>
+                cpp.src_consumer_payment_pack.map((id) => id),
+              ),
+            ),
+          );
         },
       },
     );

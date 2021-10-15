@@ -10,6 +10,7 @@ import { push as pushRouter } from 'connected-react-router';
 import TodayIcon from '@material-ui/icons/Today';
 
 import { Theme } from '@material-ui/core/styles';
+import flatten from 'lodash/flatten';
 import { WidgetUtils } from '../../libs/widget/WidgetUtils';
 import themeSelectors from '../../libs/theme/selectors';
 import BookingCancellationDialog from '../../libs/booking/components/BookingCancellationDialog.component';
@@ -92,6 +93,8 @@ import { getAssetByBlueprintByIdentifier } from '../../libs/spot-scheduling/sele
 import CanvasPreviewDialog from '../../libs/spot-scheduling/component/SpotPreview/CanvasPreviewDialog.Component';
 
 import withQueryParams from '../../hocs/with-query-params.hoc';
+import { fetchConsumerPaymentPackLinks } from '../../libs/relationship/actions';
+import { withIsSharedActive } from '../../libs/relationship/selectors';
 
 type OwnProps = {
   hideCoach: boolean;
@@ -349,7 +352,9 @@ const mapStateToProps = (state: RootState, props) => ({
   consumerPackLoading: state.consumerPaymentPack.byMember.loading,
 
   companyTheme: themeSelectors.getTheme(state),
-  consumerPackList: getConsumerPacksByMemberWithPaymentPack(state),
+  consumerPackList: withIsSharedActive(getConsumerPacksByMemberWithPaymentPack)(
+    state,
+  ),
   favoriteMetaActivity: getFavoriteMetaActivity(state),
   favoriteEstablishment: getFavoriteEstablishment(state),
   unpaidInvoiceList: withInvoiceItem(getInvoiceList)(state),
@@ -396,6 +401,7 @@ const mapDispatchToProps = {
   snackbarSuccessMsg: snackbarSuccess,
   fetchRoomBlueprintDetail,
   fetchAssetForBlueprint,
+  fetchConsumerPaymentPackLinks,
 };
 
 type StateHandlerInit = {
@@ -524,6 +530,13 @@ const mapWithHandlers = {
       {
         onSuccess: (cpps: any) => {
           props.fetchPaymentPackBulk(cpps.map((c: any) => c.payment_pack));
+          props.fetchConsumerPaymentPackLinks(
+            flatten(
+              cpps.map((cpp) =>
+                cpp.src_consumer_payment_pack.map((id: number) => id),
+              ),
+            ),
+          );
         },
       },
       { mine: true, reverted: false, current: true, disabled: false },

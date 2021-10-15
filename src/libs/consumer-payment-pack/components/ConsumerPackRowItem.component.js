@@ -25,13 +25,13 @@ import Tooltip from '../../../components/Tooltip.component';
 
 import { formatAsDate } from '../../../utils/datetime';
 import RedButton from '../../../components/button/RedButton.component';
-import type { ConsumerPaymentPack } from '../types';
 import type { PaymentPack } from '../../payment-packs/types';
-import { MaxoutBooking } from '../types';
+import { MaxoutBooking, ConsumerPaymentPack } from '../types';
 
 import CreditStatus from './CreditStatus.component';
 import { showDeleteDialog } from '../../../components/GenericDialog/CustomDialogs';
 import { Offer } from '../../offer/types';
+import { WithIsSharedActive } from '../../relationship/types';
 
 type Props = {
   loading: boolean,
@@ -40,7 +40,7 @@ type Props = {
   noDivider: ?boolean,
   disabled: ?boolean,
 
-  consumerPack: ConsumerPaymentPack,
+  consumerPack: WithIsSharedActive<ConsumerPaymentPack>,
   paymentPack: ?PaymentPack,
   maxoutBooking?: MaxoutBooking,
   button: ?Node,
@@ -343,10 +343,6 @@ export class ConsumerPackRowItem extends Component<Props> {
     const { consumer } = consumerPack;
     const isExpired = moment(consumerPack.ending_date).isBefore(moment());
     const isFromShare = consumerPack && consumerPack.dst_consumer_payment_pack;
-    const isOwnerOfShares =
-      consumerPack &&
-      consumerPack.src_consumer_payment_pack &&
-      consumerPack.src_consumer_payment_pack.length;
     return (
       <div>
         <ListItem
@@ -402,7 +398,7 @@ export class ConsumerPackRowItem extends Component<Props> {
           />
           {button || this.renderButton()}
         </ListItem>
-        {isFromShare || isOwnerOfShares ? (
+        {isFromShare || consumerPack.isSharedActive ? (
           <React.Fragment>
             <Typography
               style={{ paddingLeft: 16 }}
@@ -410,7 +406,7 @@ export class ConsumerPackRowItem extends Component<Props> {
               color="textSecondary"
             >
               {' '}
-              {isOwnerOfShares ? t('consumer.isOwnerOfShares') : ''}
+              {consumerPack.isSharedActive ? t('consumer.isOwnerOfShares') : ''}
               {isFromShare && consumerPack.disabled
                 ? t('consumer.isFromDisabledShare')
                 : ''}

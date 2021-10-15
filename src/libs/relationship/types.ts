@@ -17,6 +17,10 @@ export type ConsumerPaymentPackLink = {
   member_relation: number;
 };
 
+export type WithIsSharedActive<T> = T & {
+  isSharedActive: boolean;
+};
+
 export type PrivateConsumerPassLink = {
   id: number;
   is_active: boolean;
@@ -32,6 +36,7 @@ export type RelationshipState = {
   };
   consumer_payment_pack_link: ErrorAndLoading & {
     items: Array<ConsumerPaymentPackLink>;
+    byId: { [id: number]: Array<ConsumerPaymentPackLink> };
   };
   private_consumer_pass_link: ErrorAndLoading & {
     items: Array<PrivateConsumerPassLink>;

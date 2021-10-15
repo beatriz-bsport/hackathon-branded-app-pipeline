@@ -1,8 +1,9 @@
 // @flow
 
+import memoize from 'memoize-one';
 import { createSelector } from 'reselect';
 import { RootState } from '../../reducers';
-import { MemberRelation } from './types';
+import { ConsumerPaymentPackLink, MemberRelation } from './types';
 
 import { getAllMembers } from '../member/selectors';
 import { getConsumerPacksWithPaymentPack } from '../consumer-payment-pack/selectors';
@@ -45,6 +46,25 @@ export const getAllSharedConsumerPaymentPacks = createSelector(
           (cpp_link.src && cpp_link.src.id) ||
           (cpp_link.dst && cpp_link.dst.id),
       ),
+);
+
+const _getConsumerPackWithLinks = (
+  state: RootState,
+): Array<ConsumerPaymentPackLink> =>
+  state.relationship.consumer_payment_pack_link.byId;
+
+export const withIsSharedActive = memoize((selector) =>
+  createSelector([selector, _getConsumerPackWithLinks], (cppList, links) =>
+    cppList.map((cpp) => ({
+      ...cpp,
+      isSharedActive:
+        links[cpp.id] && links[cpp.id].length
+          ? links[cpp.id].reduce((acc: number, e: ConsumerPaymentPackLink) => {
+              return acc || e.is_active;
+            }, 0)
+          : false,
+    })),
+  ),
 );
 
 export const getSharedConsumerPacksByRelation = (

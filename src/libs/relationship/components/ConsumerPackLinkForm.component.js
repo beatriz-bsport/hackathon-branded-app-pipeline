@@ -10,14 +10,15 @@ import Button from '@material-ui/core/Button';
 
 import ConsumerPackRowItem from '../../consumer-payment-pack/components/ConsumerPackRowItem.component';
 import PaginatedListBase from '../../../components/PaginatedListBase.component';
+import { WithIsSharedActive } from '../types';
 
 const CONSUMER_PAYMENT_PACK_PAGE_SIZE = 6;
 
 type Props = {
-  consumerPacks: Array<ConsumerPassWithPack>,
+  consumerPacks: Array<WithIsSharedActive<ConsumerPassWithPack>>,
   onCancel: () => void,
   onSubmit: (consumerPackId: number) => void,
-  selectedConsumerPass: ?ConsumerPassWithPack,
+  selectedConsumerPass: ?WithIsSharedActive<ConsumerPassWithPack>,
   loading: boolean,
   classes: Object,
   setSelectedConsumerPass: (id: number) => void,

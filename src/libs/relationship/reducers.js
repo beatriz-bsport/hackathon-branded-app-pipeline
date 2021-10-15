@@ -11,9 +11,10 @@ import {
   sharedPrivateConsumerPassListActions,
   sharedPrivateConsumerPassCreateOrUpdateActions,
   listRelatedMembersActions,
+  consumerPackLinksActions,
 } from './actions';
 
-import type { RelationshipState } from './types';
+import type { ConsumerPaymentPackLink, RelationshipState } from './types';
 
 const initialState: RelationshipState = Immutable({
   my_related_members: {
@@ -35,6 +36,7 @@ const initialState: RelationshipState = Immutable({
     loading: false,
     error: null,
     items: [],
+    byId: {},
     createOrUpdate: {
       loading: false,
       error: null,
@@ -83,6 +85,30 @@ export default handleActions(
       return state.setIn(['consumer_payment_pack_link', 'loading'], payload);
     },
     [sharedConsumerPackListActions.error]: (state, { payload }) => {
+      return state.setIn(['consumer_payment_pack_link', 'error'], payload);
+    },
+
+    [consumerPackLinksActions.success]: (state, { payload }) => {
+      return state.merge(
+        {
+          consumer_payment_pack_link: {
+            byId: payload.reduce(
+              (acc: { [id: number]: Array<ConsumerPaymentPackLink> }, curr) => {
+                if (acc[curr.id]) acc[curr.src].push(curr);
+                else acc[curr.src] = [curr];
+                return acc;
+              },
+              {},
+            ),
+          },
+        },
+        { deep: true },
+      );
+    },
+    [consumerPackLinksActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['consumer_payment_pack_link', 'loading'], payload);
+    },
+    [consumerPackLinksActions.error]: (state, { payload }) => {
       return state.setIn(['consumer_payment_pack_link', 'error'], payload);
     },
 

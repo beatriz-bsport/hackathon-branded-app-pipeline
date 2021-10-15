@@ -10,6 +10,9 @@ import { emails_factory } from '../factory.ts';
         emailList:{
             description: "list of emails to which the gift card will be sent"
         },
+        textFieldLabel:{
+            description: "input label"
+        },
     }}
 />
 
@@ -34,6 +37,7 @@ export const emailListBig = emails_factory(15);
         handleDelete: actionsData.handleDelete,
         onChange: actionsData.onChange,
         onKeyDown: actionsData.onKeyDown,
+        textFieldLabel: "Recipients' emails"
     }}>
     {Template.bind({})}
     </Story>
@@ -49,6 +53,7 @@ export const emailListBig = emails_factory(15);
         handleDelete: actionsData.handleDelete,
         onChange: actionsData.onChange,
         onKeyDown: actionsData.onKeyDown,
+        textFieldLabel: "Recipients' emails"
     }}>
     {Template.bind({})}
     </Story>
@@ -64,6 +69,7 @@ export const emailListBig = emails_factory(15);
         handleDelete: actionsData.handleDelete,
         onChange: actionsData.onChange,
         onKeyDown: actionsData.onKeyDown,
+        textFieldLabel: "Recipients' emails"
     }}>
     {Template.bind({})}
     </Story>

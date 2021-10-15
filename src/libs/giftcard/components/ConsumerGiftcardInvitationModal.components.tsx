@@ -5,13 +5,13 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { OptionCallback } from '../../../state/types';
 
 import { makeActivationLink } from '../utils';
 import { ConsumerGiftcard } from '../types';
+import EmailInputWithChipsGenerator from '../../../components/input/EmailInputWithChipsGenerator.component';
 
 type Props = {
   onSubmit: (
@@ -26,14 +26,20 @@ const ConsumerGiftcardInvitationModal = (props: Props) => {
   const { t } = useTranslation(['giftcard']);
   const classes = useStyles();
   const [recipient, setRecipient] = React.useState(
-    props.consumerGiftcard.giftcard_recipients
-      .map((r) => r.email_sent_to)
-      .join(', '),
+    props.consumerGiftcard.giftcard_recipients.map((r) => r.email_sent_to),
   );
   const [processing, setProcessing] = React.useState(false);
   const hasBeenSent =
     !!props.consumerGiftcard.date_activated ||
     !!props.consumerGiftcard?.invitation_sent;
+
+  const addEmailToList = (email: string) => {
+    setRecipient([...recipient, email]);
+  };
+
+  const removeEmailFromList = (index: number) => {
+    setRecipient([...recipient].filter((_, i) => i !== index));
+  };
 
   return (
     <Dialog open>
@@ -52,11 +58,13 @@ const ConsumerGiftcardInvitationModal = (props: Props) => {
             props.consumerGiftcard.activation_code,
           )}
         </Typography>
-        <TextField
-          fullWidth
-          value={recipient}
+        <EmailInputWithChipsGenerator
           disabled={hasBeenSent || processing}
-          onChange={(ev) => setRecipient(ev.target.value)}
+          emailList={recipient}
+          textFieldLabel="recipients"
+          textFieldName="recipients"
+          addEmailToList={addEmailToList}
+          removeEmailFromList={removeEmailFromList}
         />
       </DialogContent>
       <DialogActions>
@@ -69,7 +77,7 @@ const ConsumerGiftcardInvitationModal = (props: Props) => {
           onClick={() => {
             setProcessing(true);
             props.onSubmit(
-              { email_sent_to: [recipient] },
+              { email_sent_to: recipient },
               {
                 onSuccess: () => setProcessing(false),
                 onError: () => setProcessing(false),

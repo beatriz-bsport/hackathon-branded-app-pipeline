@@ -9,6 +9,7 @@ import { TextField, DateField } from '../../../components/forms';
 
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { Giftcard } from '../types';
+import { EmailInputWithChipsField } from '../../../components/input/EmailInputWithChipsGenerator.component';
 
 type Props = {
   giftcard: Giftcard;
@@ -26,6 +27,7 @@ type Props = {
 export const ConsumerGiftcardForm = (props: Props) => {
   const { t } = useTranslation(['giftcard']);
   const classes = useStyles();
+
   return (
     <div className={classes.container}>
       <div className={classes.titleContainer}>
@@ -64,10 +66,10 @@ export const ConsumerGiftcardForm = (props: Props) => {
         helperText={`${props.values.message_content.length}/2000`}
         inputProps={{ maxLength: 2000 }}
       />
-      <TextField
-        name="recipients"
-        type="email"
-        label={t('consumerGiftcard.form.recipients.label')}
+      <EmailInputWithChipsField
+        emailList={props.values.recipients}
+        textFieldLabel={t('consumerGiftcard.form.recipients.label')}
+        textFieldName="recipients"
       />
       <DateField
         label={t('consumerGiftcard.form.date_send.label')}
@@ -119,7 +121,7 @@ export const ConsumerGiftcardSchema = Yup.object().shape({
   message_content: Yup.string().required(),
   name: Yup.string().required(),
   // background_image: Yup.number().required(),
-  recipients: Yup.string().required(),
+  recipients: Yup.array().required(),
   date_to_send: Yup.string(),
 });
 

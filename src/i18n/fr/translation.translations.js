@@ -243,7 +243,6 @@ exports.default = {
       "Attention, vous n'êtes pas en train de saisir un prix. Êtes-vous sûr de la valeur ?",
     warningCreditChange:
       'NB : Les réservations anciennes ne prennent pas en compte les modifications des crédits',
-
     address: {
       streetNumber: 'N°',
       addressLine1: 'Adresse',
@@ -252,9 +251,9 @@ exports.default = {
       country: 'Pays',
       zipcode: 'Code postal',
     },
+    warningAddEmail: 'Cet email a déjà été ajouté.',
     login: {
       changePasswordTitle: 'Modification du mot de passe',
-
       password: 'Mot de passe',
       confirmPassword: 'Confirmer',
       resetAgainPassword: 'Demande de réinitialisation',

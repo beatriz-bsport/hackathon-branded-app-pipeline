@@ -12,6 +12,7 @@ interface Props {
   onSelectSpot: (spot: number) => void;
   selectedSpot?: number;
   onSelectTakenSpot: () => void;
+  coach?: any;
 }
 
 export default class SpotSelector extends React.PureComponent<Props> {
@@ -43,6 +44,7 @@ export default class SpotSelector extends React.PureComponent<Props> {
         selectedTool={CANVAS_SELECTABLE_TOOLS.spot_selector}
         disableEdit
         onSelectElement={this.onSelectElement}
+        coach={this.props.coach}
       />
     );
   }

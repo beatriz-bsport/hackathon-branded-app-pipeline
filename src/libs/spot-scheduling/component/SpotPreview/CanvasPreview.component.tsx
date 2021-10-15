@@ -13,6 +13,7 @@ interface OwnProps {
   assets: { [identifier: string]: AssetForBlueprint };
   takenSpot?: number[];
   selectedSpot?: number;
+  coach?: any;
 }
 
 type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
@@ -38,6 +39,7 @@ class CanvasPreview extends React.PureComponent<Props> {
         assets={this.props.assets}
         selectedTool={CANVAS_SELECTABLE_TOOLS.hand}
         disableEdit
+        coach={this.props.coach}
       />
     );
   }

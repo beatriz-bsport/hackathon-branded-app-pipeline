@@ -7035,8 +7035,10 @@
       "dialogTitle": "Personalisation de Widget",
       "widgetPreviewError": "Veuillez finir votre configuration",
       "dialogModeLabel": "Type de popup (login, paiement, réservation)",
+      "dialogSizeLabel": "Dimension de la popup",
       "showFabLabel": "Bsport EasyConnect button",
       "dialogMode": { "tab": "Nouvel onglet", "popup": "Nouvelle fenêtre", "iframe": "Rester sur le site" },
+      "dialogSize": { "fullScreen": "Plein écran", "window": "Fenêtre popup" },
       "pickALanguage": "Choisir la langue par défaut",
       "languageHelper": "Le widget aura par défaut le langue sélectionné ici. Sélectionner \"Langue du navigateur\" pour que la langue du widget s'adapte automatiquement à la langue de votre client.",
       "browserLanguage": "Langue du navigateur"

@@ -42,6 +42,7 @@ type OwnProps = {
   ) => void;
   assets: { [identifier: string]: AssetForBlueprint };
   onSelectElement?: (element: CanvasElement<any>) => void;
+  coach?: any;
 };
 
 type Props = OwnProps &
@@ -224,6 +225,7 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
               onSelectElement={this.props.onSelectElement}
               disabledEdit={this.props.disableEdit}
               showGrid={this.state.showGrid && !this.props.disableEdit}
+              coach={this.props.coach}
             />
           </div>
         </div>

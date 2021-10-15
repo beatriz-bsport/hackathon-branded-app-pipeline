@@ -104,6 +104,7 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
               onSelectSpot={this.onSelectSpot}
               onSelectTakenSpot={this.onSelectTakenSpot}
               selectedSpot={this.props.selectedSpot}
+              coach={this.props.offer?.coach}
             />
           </div>
         )}

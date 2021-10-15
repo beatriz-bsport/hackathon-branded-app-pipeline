@@ -29,6 +29,7 @@ interface OwnProps {
   onSelectElement: (element: CanvasElement<any>) => void;
   disabledEdit?: boolean;
   showGrid: boolean;
+  coach?: any;
 }
 
 type Props = OwnProps &
@@ -341,6 +342,7 @@ class CanvasViewController extends React.PureComponent<Props> {
               onMouseDown={(evt: any) => this.onMouseDownElement(evt, element)}
               onMouseUp={(evt: any) => this.onMouseUpElement(evt, element)}
               {...element.data}
+              coach={this.props.coach}
             />
           );
         }

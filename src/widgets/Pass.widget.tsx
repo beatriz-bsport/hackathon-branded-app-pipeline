@@ -64,6 +64,7 @@ class PassWidget extends Component<Props> {
       hidePaymentPack: 'false',
       hidePrivatePass: 'false',
       hidePaymentCombo: 'false',
+      paymentPackCategories: [],
     };
 
     if (this.props.config) {
@@ -75,6 +76,9 @@ class PassWidget extends Component<Props> {
       }
       if (this.props.config.hidePaymentCombo) {
         params.hidePaymentCombo = 'false';
+      }
+      if (this.props.config.paymentPackCategories?.length > 0) {
+        params.paymentPackCategories = this.props.config.paymentPackCategories;
       }
     }
 

@@ -955,7 +955,8 @@
             },
             "completeInformation": "Voltooi je gegevens",
             "emergencyContact": "Contactpersoon voor noodgevallen",
-            "modify": "Bewerken"
+            "modify": "Bewerken",
+            "warningAddEmail": "Deze e-mail is al toegevoegd."
         },
         "shop": {
             "noProvisionUpdates": "Geen voorraad",
@@ -1893,7 +1894,22 @@
             "last_payment_date": "Laatste betalingsdatum",
             "billing_establishment": "Adres",
             "billing_group": "Groepsfacturatie",
-            "company_name": "Franchisenemer"
+            "company_name": "Franchisenemer",
+            "nb_non_activated": "Aantal ongeactiveerde kaarten",
+            "nb_activated": "Aantal geactiveerde kaarten",
+            "nb_purchase": "Aantal aankopen",
+            "consumed_amount_gifted": "Gebruikt bedrag",
+            "id": "ID",
+            "dst_gender": "Geslacht ontvanger",
+            "dst_phonenumber": "Telefoon ontvanger",
+            "dst_email": "E-mailadres ontvanger",
+            "dst_lastname": "Achternaam ontvanger",
+            "dst_firstname": "Voornaam ontvanger",
+            "src_gender": "Geslacht koper",
+            "src_phonenumber": "Telefoon koper",
+            "src_email": "E-mailadres koper",
+            "src_lastname": "Achternaam koper",
+            "src_firstname": "Voornaam koper"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -2444,7 +2460,8 @@
                     "helper": "De categorieën verschijnen op de marktplaats en de mobiele app voor kaarten die te koop zijn."
                 }
             },
-            "add": "Een categorie toevoegen"
+            "add": "Een categorie toevoegen",
+            "category": "Leskaart categorieën"
         }
     },
     "establishment": {
@@ -8550,7 +8567,12 @@
             "configTitle": "Mijn widget",
             "containerConfiguration": {
                 "title": "Algemene configuratie"
-            }
+            },
+            "dialogSize": {
+                "window": "Venster",
+                "fullScreen": "Volledig scherm"
+            },
+            "dialogSizeLabel": "Dimensie van de pop-up"
         }
     },
     "platformBilling": {
@@ -9047,7 +9069,8 @@
                 },
                 "name": {
                     "label": "Naam van de cadeaubon"
-                }
+                },
+                "footerUnlimited": "De cadeaubon heeft een waarde van {{- price }} en wordt op {{- date_send }} naar de ontvanger verstuurd. Vervolgens heeft de ontvanger {{ expiration_days }} dag(en) om de cadeaubon te gebruiken, voordat het vervalt."
             },
             "previewPlaceholder": {
                 "message_content": "[Gepersonaliseerd bericht]",

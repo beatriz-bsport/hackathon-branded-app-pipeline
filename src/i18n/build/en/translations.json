@@ -1625,7 +1625,8 @@
             },
             "completeInformation": "Complete your information",
             "emergencyContact": "Emergency contact",
-            "modify": "Edit"
+            "modify": "Edit",
+            "warningAddEmail": "This email has already been added."
         },
         "shop": {
             "noProvisionUpdates": "No stock available",
@@ -6518,7 +6519,22 @@
             "payment_amount_by_payment_method": "Collection by payment method",
             "billing_establishment": "Address",
             "billing_group": "Billing group",
-            "company_name": "Franchisee"
+            "company_name": "Franchisee",
+            "nb_non_activated": "Number of unactivated passes",
+            "nb_activated": "Number of activated passes",
+            "nb_purchase": "Number of purchases",
+            "consumed_amount_gifted": "Amount used",
+            "id": "ID",
+            "dst_gender": "Recipient's sex",
+            "dst_phonenumber": "Recipient's telephone",
+            "dst_email": "Recipient's email",
+            "dst_lastname": "Recipient's last name",
+            "dst_firstname": "Receiver's first name",
+            "src_gender": "Buyer's sex",
+            "src_phonenumber": "Buyer's telephone",
+            "src_email": "Buyer's email",
+            "src_lastname": "Buyer's last name",
+            "src_firstname": "Buyer's first name"
         },
         "yes": "Yes",
         "no": "No",
@@ -7116,7 +7132,8 @@
                     "titleEdit": "Category",
                     "helper": "The categories will appear on the marketplace and the mobile application for cards available for sale."
                 }
-            }
+            },
+            "category": "Pass categories"
         }
     },
     "metaActivity": {
@@ -9596,7 +9613,12 @@
             "configTitle": "My widget",
             "containerConfiguration": {
                 "title": "General configuration"
-            }
+            },
+            "dialogSize": {
+                "window": "Window",
+                "fullScreen": "Full screen"
+            },
+            "dialogSizeLabel": "Dimension on the pop up"
         }
     },
     "marketing": {
@@ -10008,7 +10030,7 @@
         },
         "consumerGiftcard": {
             "form": {
-                "footer": "The gift card will be sent to the recipient on {{- date_send }}. It'll be valid for {{ expiration_days }} day(s) after sending this message and has a value of {{- price }}.",
+                "footer": "The gift card will be sent to the recipient on {{- date_send }}. It'll be valid for {{ expiration_days }} day(s) after sending this message and the recipient's account will be topped up with {{- price }}.",
                 "actions": {
                     "submit": "Add to basket"
                 },
@@ -10029,7 +10051,8 @@
                 },
                 "name": {
                     "label": "Gift card's name"
-                }
+                },
+                "footerUnlimited": "The gift card will be sent to the recipient on {{- date_send }}. It has no expiration date and the receiver's account balance will be topped up with {{- price }} for future purchases."
             },
             "previewPlaceholder": {
                 "message_content": "[Custom message]",

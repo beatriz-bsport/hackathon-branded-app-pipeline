@@ -9026,7 +9026,7 @@
         },
         "consumerGiftcard": {
             "form": {
-                "footer": "De cadeaubon wordt op {{- date_send }} naar de ontvanger verstuurd. Vervolgens heeft de ontvanger {{ expiration_days }} dag(en) om de cadeaubon te gebruiken, voordat het vervalt.",
+                "footer": "De cadeaubon heeft een waarde van {{- price }} en wordt op {{- date_send }} naar de ontvanger verstuurd. Vervolgens heeft de ontvanger {{ expiration_days }} dag(en) om de cadeaubon te gebruiken, voordat het vervalt.",
                 "actions": {
                     "submit": "Aan mijn winkelmandje toevoegen"
                 },

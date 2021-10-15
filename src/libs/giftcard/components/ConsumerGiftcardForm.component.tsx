@@ -76,11 +76,16 @@ export const ConsumerGiftcardForm = (props: Props) => {
         name="date_to_send"
       />
       <Typography className={classes.footer}>
-        {t('consumerGiftcard.form.footer', {
-          expiration_days: props.giftcard?.expiration_days || 0,
-          date_send: moment(props.values.date_send).format('L'),
-          price: props.giftcard.price,
-        })}
+        {props.giftcard?.expiration_days
+          ? t('consumerGiftcard.form.footer', {
+              expiration_days: props.giftcard?.expiration_days || 0,
+              date_send: moment(props.values.date_send).format('L'),
+              price: getCurrencyDisplayWithPrice(props.giftcard.price),
+            })
+          : t('consumerGiftcard.form.footerUnlimited', {
+              date_send: moment(props.values.date_send).format('L'),
+              price: getCurrencyDisplayWithPrice(props.giftcard.price),
+            })}
       </Typography>
     </div>
   );

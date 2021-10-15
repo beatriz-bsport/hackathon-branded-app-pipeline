@@ -90,7 +90,12 @@ export class BasketFinalizer extends React.Component<Props, State> {
         );
       case PAYMENT_STEP.id:
       default: {
-        if (!this.props.basket.total_price_cts) {
+        if (
+          !(
+            (this.props.basket.total_price_cts || 0) -
+            (this.props.basket.total_price_prepaid_lines_cts || 0)
+          )
+        ) {
           return (
             <Button
               disabled={this.props.selfProcessing}

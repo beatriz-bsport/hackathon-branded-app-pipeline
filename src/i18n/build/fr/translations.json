@@ -1115,7 +1115,8 @@
         "recipients": { "label": "Email du destinataire" },
         "date_send": { "label": "Date d’envoi de l’email" },
         "actions": { "submit": "Ajouter au panier" },
-        "footer": "La carte sera envoyée par mail le {{- date_send }} aux adresses indiquées. Elle sera valide pendant {{ expiration_days }} jours après l’envoi du mail et créditera votre compte de {{- price }} pour vos prochains achats."
+        "footer": "La carte sera envoyée par mail le {{- date_send }} aux adresses indiquées. Elle sera valide pendant {{ expiration_days }} jours après l’envoi du mail. Le compte du destinataire sera crédité de {{- price }} pour les prochains achats.",
+        "footerUnlimited": "La carte sera envoyée par mail le {{- date_send }} aux adresses indiquées. Elle ne contient pas de date d'expiration. Le compte du destinataire sera crédité de {{- price }} pour les prochains achats."
       }
     },
     "link": { "copyLink": "Copier le lien d'achat" },
@@ -4034,7 +4035,22 @@
       "payment_amount_by_payment_method": "Encaissement par méthode de paiement",
       "billing_group": "Groupe de facturation",
       "billing_establishment": "Adresse",
-      "company_name": "Franchisé"
+      "company_name": "Franchisé",
+      "src_firstname": "Prénom acheteur",
+      "src_lastname": "Nom acheteur",
+      "src_email": "Email acheteur",
+      "src_phonenumber": "Téléphone acheteur",
+      "src_gender": "Sexe acheteur",
+      "dst_firstname": "Prénom receveur",
+      "dst_lastname": "Nom receveur",
+      "dst_email": "Email receveur",
+      "dst_phonenumber": "Téléphone receveur",
+      "dst_gender": "Sexe receveur",
+      "id": "ID",
+      "consumed_amount_gifted": "Montant consommé",
+      "nb_purchase": "Nombre d'achats",
+      "nb_activated": "Nb de cartes activées",
+      "nb_non_activated": "Nb de cartes non activées"
     },
     "yes": "Oui",
     "no": "Non",
@@ -6136,6 +6152,7 @@
         "country": "Pays",
         "zipcode": "Code postal"
       },
+      "warningAddEmail": "Cet email a déjà été ajouté.",
       "login": {
         "changePasswordTitle": "Modification du mot de passe",
         "password": "Mot de passe",

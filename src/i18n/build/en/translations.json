@@ -9332,7 +9332,7 @@
             "addMemberTooltip": "Add member",
             "cashBookTooltip": "Ledger",
             "franchiseConnectedAs": "You're currently connected as: {{name}}",
-            "redirecting": "You'll be redirected to your page.",
+            "redirecting": "You're being redirected to your page",
             "backToFranchiseWorskpace": "Return to your Master Account",
             "giftcard": "Gift cards"
         },
@@ -10008,7 +10008,7 @@
         },
         "consumerGiftcard": {
             "form": {
-                "footer": "The gift card will be sent to the recipient on {{- date_send }}. It'll be valid for {{ expiration_days }} day(s) after sending this message.",
+                "footer": "The gift card will be sent to the recipient on {{- date_send }}. It'll be valid for {{ expiration_days }} day(s) after sending this message and has a value of {{- price }}.",
                 "actions": {
                     "submit": "Add to basket"
                 },
@@ -10075,7 +10075,7 @@
             "archivedTitle": "Archived gift cards",
             "unavailableForSaleTitle": "Unavailable gift cards",
             "activeTitle": "Available gift cards",
-            "explainIfEmpty": "Gift cards allow your members to share offers with their loved ones and to increase your studio's reach.",
+            "explainIfEmpty": "Gift cards allow your members to share offers with their loved ones and to increase your studio's potential reach.",
             "actions": {
                 "create": "Add a gift card"
             },

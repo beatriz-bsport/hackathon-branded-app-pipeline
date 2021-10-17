@@ -4050,7 +4050,12 @@
       "consumed_amount_gifted": "Montant consommé",
       "nb_purchase": "Nombre d'achats",
       "nb_activated": "Nb de cartes activées",
-      "nb_non_activated": "Nb de cartes non activées"
+      "nb_non_activated": "Nb de cartes non activées",
+      "nb_expired": "Nb de cartes expirées",
+      "sum_consumed_amount": "Crédits offerts",
+      "sum_available_amount_expired": "Crédits offerts et expirés",
+      "sum_available_amount_non_expired": "Crédits offers toujours disponibles",
+      "reverted": "Annulé"
     },
     "yes": "Oui",
     "no": "Non",

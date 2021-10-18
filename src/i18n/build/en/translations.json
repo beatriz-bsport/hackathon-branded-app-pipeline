@@ -1130,7 +1130,7 @@
             "loginAsPro": "A manager",
             "choseYourUserspace": "I'm",
             "invalidPhone": "Unknown phone number.",
-            "signUpConsumer": "Create an account",
+            "signUpConsumer": "Don't have an account yet?",
             "welcome": "Welcome!"
         },
         "paginatedList": {
@@ -1408,7 +1408,7 @@
                     "force": "Delete even if reservations are saved",
                     "advanced": "Advanced"
                 },
-                "explainNotificationOnEdit": "Notify signed up members",
+                "explainNotificationOnEdit": "Notify enrolled members",
                 "explainRecursiveOfferEdit": "Select the sessions that will be modified",
                 "explainRecursiveOfferDelete": "Would you like to delete similar sessions?",
                 "broadcast_link": {
@@ -4010,7 +4010,7 @@
             "addShopItemToCart": "When a user adds a webshop item to their basket",
             "paymentSuccess": "When a user successfully completed their payment",
             "signinShow": "When a user opens the login page",
-            "signupShow": "When a user clicks on the registration form",
+            "signupShow": "When a user clicks on the enrolment form",
             "signupSuccess": "When a user created an account",
             "sessionShow": "When a user clicks on a session",
             "contractPaymentSuccess": "When a user signed up for a subscription",
@@ -4027,8 +4027,8 @@
             "show": "Display",
             "label": "Label",
             "field_identifier": "Fields",
-            "account_modification": "Edit an account",
-            "account_creation": "Create an account",
+            "account_modification": "Editing an account",
+            "account_creation": "Creating an account",
             "title": "[Form] Enrolment",
             "fields": {
                 "waiver": "Liability Waiver",
@@ -4276,7 +4276,7 @@
         "or": " or ",
         "contactUs": "Are you the owner or manager of a boutique studio, and would you like to learn more about how BSPORT Solution helps you to automate, streamline, and facilitate all your daily tasks? Contact us for a no-strings-attached call and for more information.",
         "signup": {
-            "title": "Signup"
+            "title": "Enrolment"
         },
         "doubleLogin": {
             "disconnect": "Login again",
@@ -4330,7 +4330,7 @@
                     "label": "Country"
                 },
                 "password2": {
-                    "error": "Passwords mismatch",
+                    "error": "Passwords don't match",
                     "label": "Confirm"
                 },
                 "password1": {
@@ -4344,7 +4344,7 @@
                 "name": {
                     "helperText": "This name will be visible to your members",
                     "placeholder": "Yoga Shala",
-                    "label": "Name of your studio / club / company"
+                    "label": "Your studio's name"
                 },
                 "title": "My information",
                 "timezone": {
@@ -4353,7 +4353,7 @@
             },
             "welcome": {
                 "next": "Continue",
-                "content": "bsport brings enthusiasts together whose goal is to simplify your IT tools and allow you to better understand your community.",
+                "content": "BSPORT is a community of enthusiasts that facilitate, automate, and streamline your studio's day-to-day management.",
                 "title": "Welcome!"
             }
         },
@@ -4757,7 +4757,7 @@
             "paymentRules": "Teacher payroll rules",
             "notificationRule": "Transactional emails",
             "company": "Company",
-            "broadcast": "Streaming",
+            "broadcast": "Livestreaming",
             "invoice": "Billing",
             "waitingList": "Waiting-list",
             "shop": "Webshop",
@@ -6523,7 +6523,7 @@
             "nb_non_activated": "Number of unactivated passes",
             "nb_activated": "Number of activated passes",
             "nb_purchase": "Number of purchases",
-            "consumed_amount_gifted": "Amount used",
+            "consumed_amount_gifted": "Consumed amount",
             "id": "ID",
             "dst_gender": "Recipient's sex",
             "dst_phonenumber": "Recipient's telephone",
@@ -6534,7 +6534,12 @@
             "src_phonenumber": "Buyer's telephone",
             "src_email": "Buyer's email",
             "src_lastname": "Buyer's last name",
-            "src_firstname": "Buyer's first name"
+            "src_firstname": "Buyer's first name",
+            "reverted": "Canceled",
+            "sum_available_amount_non_expired": "Non-expired credits",
+            "sum_consumed_amount": "Consumed credits",
+            "sum_available_amount_expired": "Offered and expired credits",
+            "nb_expired": "Number of expired passes"
         },
         "yes": "Yes",
         "no": "No",
@@ -6782,7 +6787,7 @@
             },
             "daysLeft": {
                 "second": "days",
-                "first": "Send this message when this pass has"
+                "first": "Send this notification when this pass has"
             },
             "creditsLeft": {
                 "second": "credits remaining",
@@ -9264,7 +9269,7 @@
             "settings": {
                 "paymentRules": "Teacher payroll rules",
                 "notificationRule": "Transactional emails",
-                "broadcast": "Streaming",
+                "broadcast": "Livestreaming",
                 "general": "General",
                 "settings": "Settings",
                 "active_campaign": "ActiveCampaign",
@@ -9280,7 +9285,7 @@
                 "marketplaceSettings": "MarketPlace",
                 "widget": "Widgets",
                 "paymentMethod": "Payment methods",
-                "forms": "Sign up form",
+                "forms": "Enrolment form",
                 "quickbooks": "QuickBooks"
             },
             "pass": "Passes",

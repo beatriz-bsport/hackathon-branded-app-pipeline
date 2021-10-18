@@ -112,7 +112,7 @@
             "dashboard": "Overzicht",
             "myVideos": "Video On Demand",
             "pick_a_language": "Selecteer een taal",
-            "automaticLanguage": "Detecteer automatisch de taal",
+            "automaticLanguage": "Automatisch de taal detecteren",
             "giftcard": "Cadeaubonnen"
         },
         "unsubscriber": {
@@ -1826,7 +1826,7 @@
             "marketplace_enabled": "Beschikbaar op de webshop",
             "description": "Beschrijving",
             "bsport_fee": "Transactiekosten",
-            "nb_bookings_same_pass": "Aantal reserveringen met dezelfde pas",
+            "nb_bookings_same_pass": "Aantal reserveringen met dezelfde kaart",
             "author": "Auteur",
             "credit_consumed": "Geconsumeerd krediet",
             "effectif_rate": "Bezettingsgraad",
@@ -2035,10 +2035,10 @@
             "edit": "Bewerken",
             "delete": "Verwijderen",
             "scaleCredit": "Kredieten vermenigvuldigen / delen",
-            "massExtension": "De geldigheid verlengen"
+            "massExtension": "Geldigheid verlengen"
         },
         "consumerPaymentPack": {
-            "addExtension": "De geldigheid verlengen",
+            "addExtension": "Geldigheid verlengen",
             "refund": {
                 "actions": {
                     "submit": "Opslaan",
@@ -2065,7 +2065,7 @@
             "details": {
                 "actions": {
                     "refund": "Omzetten in saldo",
-                    "applyVoucher": "Korting toepassing"
+                    "applyVoucher": "Saldo terugstorten"
                 }
             },
             "maxout": {
@@ -2417,7 +2417,7 @@
             "isExpired": "Verlopen",
             "invoice": "Factuur",
             "reverted": "Geannuleerde factuur",
-            "notReverted": "Niet-geannuleerde facturen",
+            "notReverted": "Geldige facturen",
             "credits": "Krediet(en)",
             "expiration": "Geldigheid",
             "all": "Alle kaarten"
@@ -2432,7 +2432,7 @@
         },
         "only_vod_access": "Alleen beschikbaar voor Video On Demand",
         "massExtension": {
-            "title": "De geldigheid voor alle leden verlengen",
+            "title": "Geldigheid voor iedereen verlengen",
             "minDate": "Niet eerder dan",
             "dateHelpText": "Verleng alle kaarten die tussen X en Y verlopen",
             "helpText": "Hier kun je de geldigheid van deze kaart voor al je leden in één keer verlengen. Let op: deze actie is definitief.",
@@ -3218,14 +3218,14 @@
             "autoDiscard": "Deze sessie wordt automatisch {{hours}} uur voor het begin van de sessie geannuleerd als er minder dan {{nb_bookings}} reserveringen zijn."
         },
         "metaActivity": "Activiteit",
-        "search": "Zoek een activiteit",
+        "search": "Zoek een groepsactiviteit",
         "packsAvailable": "Beschikbare leskaarten:",
         "reviews": "Ledenbeoordelingen: ",
         "navigation": {
             "goToPaymentPack": "Leskaarten"
         },
         "actions": {
-            "search": "Zoek een activiteit",
+            "search": "Zoek een groepsactiviteit",
             "addActivity": "Een activiteit toevoegen"
         },
         "noActivities": "In dit onderdeel kun je al je groepsactiviteiten toevoegen, beheren, wijzigen en verwijderen.",
@@ -3441,11 +3441,11 @@
             "title": "Gebruikersinformatie"
         },
         "user": {
-            "existsWithEmail": "Er bestaat al een gebruiker met dit e-mailadres {{email}}.",
+            "existsWithEmail": "Er bestaat al een gebruiker met dit e-mailadres ({{email}}).",
             "existsWithPhone": "Er bestaat al een gebruiker met dit telefoonnummer {{phonenumber}}."
         },
         "member": {
-            "existsWithEmail": "Er bestaat al een lid met dit e-mailadres {{email}}.",
+            "existsWithEmail": "Er bestaat al een lid met dit e-mailadres ({{email}}).",
             "existsWithPhone": "Er bestaat al een lid met dit telefoonnummer {{phonenumber}}."
         },
         "exists": {
@@ -3563,7 +3563,7 @@
             }
         },
         "details": {
-            "pleaseSelectABooking": "Selecteer een reservering om de details te zien",
+            "pleaseSelectABooking": "Selecteer een reservering om meer informatie te zien.",
             "title": "Gegevens",
             "offerTitle": "Gekoppelde reserveringen",
             "consumerPaymentPackTitle": "Gebruikte kaart"
@@ -3631,15 +3631,15 @@
                     "after": "Melding {{hours}} uur na de sessie",
                     "before": "Deze melding wordt {{hours}} uur/uren voor het begin van de sessie verstuurd.",
                     "notRefunded": "Aantal te late annuleringen: {{notify_booking_nb}}",
-                    "cancelledDeprecated": "Aantal annuleringen {{notify_booking_nb}}",
-                    "bookingDeprecated": "Aantal reserveringen {{notify_booking_nb}}",
-                    "refunded": "Aantal terugbetaalde annuleringen {{notify_booking_nb}}",
+                    "cancelledDeprecated": "Aantal annuleringen: {{notify_booking_nb}}",
+                    "bookingDeprecated": "Aantal reserveringen: {{notify_booking_nb}}",
+                    "refunded": "Aantal terugbetaalde annuleringen: {{notify_booking_nb}}",
                     "absence": "Aantal keer afwezig: {{notify_booking_nb}}",
                     "notifyAllEvents": {
-                        "notRefunded": "Bij elke te late annulering",
-                        "refunded": "Bij elke terugbetaalde annulering",
-                        "attendance": "Elke keer aanwezig",
-                        "absence": "Elke keer afwezig"
+                        "notRefunded": "Bij iedere te late annulering",
+                        "refunded": "Bij iedere terugbetaalde annulering",
+                        "attendance": "Bij iedere aanwezigheid",
+                        "absence": "Bij iedere afwezigheid"
                     }
                 },
                 "cancel": "Annuleren",
@@ -4196,7 +4196,7 @@
         },
         "save": "bevestigen",
         "table": {
-            "noContent": "Dit abonnement heeft nog geen abonnees."
+            "noContent": "Er zijn geen abonnementen om weer te geven."
         },
         "subscription": {
             "list": {
@@ -4616,7 +4616,7 @@
             "duplicate": "Dupliceren"
         },
         "details": {
-            "pleaseSelectVod": "Selecteer een video voor een gedetailleerd overzicht.",
+            "pleaseSelectVod": "Selecteer een video om meer informatie te zien.",
             "invoiceTitle": "Bijbehorende factuur",
             "consumerPaymentPackTitle": "Gebruikte kaart",
             "title": "Details van de video"
@@ -4839,12 +4839,12 @@
             "methodPaymentSubscriptionHelper": "Selecteer welke betaalmethode(n) je voor abonnementen (contracten) wilt accepteren:",
             "methodPaymentBasketHelper": "Selecteer welke betaalmethode(n) je voor eenmalige betalingen wilt accepteren:",
             "subtitle2": "Als Systeembeheerder of Eigenaar heb je altijd toegang tot alle betaalmethoden.",
-            "subtitle": "Je kunt bepaalde betaalmethoden aan- en/of uitzetten voor je leden.",
+            "subtitle": "Je kunt bepaalde betaalmethoden voor je leden aan- en/of uitzetten.",
             "title": "Online betalingen"
         },
         "billing_group": {
             "header": "Groepsfacturatie",
-            "helperText": "Je kunt meerdere studio's en/of vestigingen die aan verschillende rechtspersonen verbonden zijn aan een groepsfacturatie toevoegen. Groepsfacturaties verschijnen op je facturen en maakt het makkelijker om elke factuur aan de juiste rechtspersonen te koppelen.",
+            "helperText": "Je kunt meerdere studio's en/of vestigingen die aan verschillende rechtspersonen verbonden zijn aan een groepsfacturatie toevoegen. Groepsfacturaties verschijnen op je facturen en maakt het makkelijker om facturen aan de juiste rechtspersonen/studio's te koppelen.",
             "add": "Een groep toevoegen"
         },
         "quickbooks": {
@@ -5543,7 +5543,7 @@
             "isExpired": "Verlopen",
             "invoice": "Factuur",
             "reverted": "Geannuleerde factuur",
-            "notReverted": "Niet-geannuleerde facturen",
+            "notReverted": "Geldige facturen",
             "credits": "Krediet(en)",
             "expiration": "Geldigheid",
             "all": "Alle kaarten"
@@ -5910,7 +5910,7 @@
             "taxe_rate": "Het btw-tarief over de marginale waarde niet in de berekening opnemen",
             "max_remuneration": "Max.",
             "min_remuneration": "Min.",
-            "remunerationLimits": "Bonus beperken",
+            "remunerationLimits": "Limiet",
             "differentRemunerationForCancellation": "Andere payroll-regels voor afwezige leden en te late annuleringen toepassen ",
             "addRemunerationOnCancellation": "Betaal instructeurs voor afwezige leden en te late annuleringen",
             "percentage_base": "Een percentage over de marginale waarde van de reserveringen toevoegen",
@@ -7716,7 +7716,7 @@
             "customQuestionDialog": {
                 "confirm": "Een formulier toevoegen",
                 "cancel": "Annuleer",
-                "content": "Je kunt zelf gepersonaliseerde vragen aan je inschrijfformulier toevoegen door een nieuw inschrijfformulier via Marketing > Formulieren aan te maken. Door je vragen zelf toe te voegen en op \"Nieuwe leden\" te klikken.",
+                "content": "Je kunt zelf gepersonaliseerde vragen aan je inschrijfformulier toevoegen door een nieuw inschrijfformulier via Marketing > Formulieren aan te maken.",
                 "title": "Gepersonaliseerde vragen"
             },
             "addQuestions": "Een vraag toevoegen",
@@ -8249,7 +8249,7 @@
                 "registeredOn": "Ingeschreven op",
                 "title": "Details van de wachtlijst"
             },
-            "empty": "De wachtlijst is vooralsnog leeg",
+            "empty": "Er zijn nog geen wachtlijsten om weer te geven.",
             "delete": "Verwijderen",
             "addToBook": "Aanmelden",
             "listTitle": "Wachtlijst"
@@ -8534,6 +8534,9 @@
             "restore": "Sessie herstellen",
             "previousSession": " Je was als \"{{name}}\" verbonden",
             "title": " Het lijkt erop dat je meerdere tabbladen tegelijk gebruikt"
+        },
+        "stripeOnboardingPending": {
+            "banner": "Klik hier om je facturatie-instellingen te voltooien en om online betalingen te activeren."
         }
     },
     "widget": {
@@ -8892,7 +8895,7 @@
         "saveError": "Error",
         "saved": "Plattegrond opgeslagen",
         "searchHelper": "Weetje: leden kunnen m.b.v. een plattegrond hun gewenste plaats in je vestiging reserveren. Het veld is niet verplicht.",
-        "search": "Zoek een plattegrond voor Spot Scheduling",
+        "search": "Zoek een plattegrond voor de Spot Scheduling",
         "roomBlueprintSelectorTitle": "Kies een plattegrond",
         "spotSelectorDialog": {
             "takeSpotError": "De plaats die je hebt geselecteerd is niet meer beschikbaar. Selecteer een andere plaats.",
@@ -8934,15 +8937,15 @@
         "companies": {
             "pageTitle": "Franchisenemers",
             "navigateToCompany": "Log in als franchisenemer",
-            "membersEmptyState": "Geen lid binnen dit bedrijf",
-            "establishmentEmptyState": "Geen vestigingen binnen dit bedrijf",
+            "membersEmptyState": "Deze franchisenemer heeft geen leden om weer te geven.",
+            "establishmentEmptyState": "Deze franchisenemer heeft geen vestigingen om weer te geven.",
             "establishment": "Vestigingen",
             "members": "Leden",
             "emptySelect": "Selecteer een franchisenemer om diepgaande informatie te zien.",
-            "searchPlaceholder": "Een franchise zoeken"
+            "searchPlaceholder": "Zoek een franchisenemer"
         },
         "pagination": {
-            "outOf": "{{from}} - {{to}} van de {{count}}",
+            "outOf": "{{from}} - {{to}} / {{count}}",
             "rowPerPage": "Elementen per pagina",
             "nextPage": "Volgende pagina",
             "previousPage": "Vorige pagina"
@@ -8961,11 +8964,11 @@
             "franchised": "Franchisenemer",
             "groupBy": "Groep per",
             "pageTitle": "Sjabloon",
-            "companiesEmails": "Franchise sjablonen",
+            "companiesEmails": "E-mailsjablonen van franchisenemers",
             "create": "Een sjabloon toevoegen",
             "franchiseEmails": "Mijn sjablonen",
             "emptyStateDescription": "Selecteer een sjabloon",
-            "emptyStateTitle": "e-mailadres"
+            "emptyStateTitle": "Voorvertoning"
         }
     },
     "giftcard": {

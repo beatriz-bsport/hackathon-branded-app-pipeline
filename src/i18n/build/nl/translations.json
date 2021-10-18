@@ -1909,7 +1909,12 @@
             "src_phonenumber": "Telefoon koper",
             "src_email": "E-mailadres koper",
             "src_lastname": "Achternaam koper",
-            "src_firstname": "Voornaam koper"
+            "src_firstname": "Voornaam koper",
+            "reverted": "Geannuleerd",
+            "sum_available_amount_non_expired": "Beschikbare kredieten (onbeperkt)",
+            "sum_available_amount_expired": "Gebruikte en verlopen kredieten",
+            "sum_consumed_amount": "Gebruikte kredieten",
+            "nb_expired": "Aantal verlopen kredieten"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -2299,7 +2304,7 @@
                         "notAllowed": "Afgekeurd",
                         "allowedFor": "Goedgekeurd voor",
                         "allowed": "Goedgekeurd",
-                        "helperText": "Gebruik tags om deze kaart alleen aan bepaalde leden op de MarketPlace, op de widget of op de app te tonen. Je kunt tags ook gebruiken om de kaart juist wel óf niet aan leden met bepaalde tags weer te geven. ",
+                        "helperText": "Gebruik tags om deze kaart juist wel óf niet aan bepaalde leden op de MarketPlace, op de widget of op de app te tonen. ",
                         "header": "Tags"
                     },
                     "header": "Geavanceerd"
@@ -9070,7 +9075,7 @@
                 "name": {
                     "label": "Naam van de cadeaubon"
                 },
-                "footerUnlimited": "De cadeaubon heeft een waarde van {{- price }} en wordt op {{- date_send }} naar de ontvanger verstuurd. Vervolgens heeft de ontvanger {{ expiration_days }} dag(en) om de cadeaubon te gebruiken, voordat het vervalt."
+                "footerUnlimited": "De cadeaubon heeft een waarde van {{- price }} en wordt op {{- date_send }} naar de ontvanger verstuurd. Deze cadeaubon heeft een onbeperkte geldigheid."
             },
             "previewPlaceholder": {
                 "message_content": "[Gepersonaliseerd bericht]",

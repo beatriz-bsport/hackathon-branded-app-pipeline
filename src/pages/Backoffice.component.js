@@ -352,6 +352,11 @@ export class Backoffice extends Component<Props, State> {
               tempPasswordState={this.props.tempPasswordState}
               generateTempPassword={this.props.generateTempPassword}
               paymentMethodMissing={this.props.theme.payment_method_missing}
+              stripeOnboardingPending={
+                !!this.props.alertings
+                  .filter((ag) => (ag.results || []).length)
+                  .find((ag) => ag.alert_kind === 5)?.length || true
+              }
               fetchTempPassword={this.props.fetchTempPassword}
               openCreateMember={this.props.openCreateMember}
               openCalendar={this.props.openCalendar}

@@ -76,6 +76,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { getTextColorFromRGB } from '../../utils/color';
 
 import BillingBanner from './BillingBanner.component';
+import StripeOnboardingBanner from './StripeOnboardingBanner.component';
 import LanguageButton from '../button/LanguageButton.component';
 import TempPasswordDialog from '../../libs/login/components/TempPasswordDialog.component';
 import CashBookForm from '../../libs/cashbook/components/CashBookForm.component';
@@ -129,6 +130,7 @@ type Props = {
   isFranchisorNavigation: boolean,
   navigateBackToFranchisor: () => void,
   companyName: string,
+  stripeOnboardingPending: ?boolean,
 };
 
 type State = {
@@ -555,9 +557,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             <BillingBanner
               paymentMethodMissing={this.props.paymentMethodMissing}
             />
+            <StripeOnboardingBanner
+              stripeOnboardingPending={this.props.stripeOnboardingPending}
+            />
             {this.props.children}
           </div>
-          ;
         </div>
       );
     }
@@ -1007,6 +1011,9 @@ class ResponsiveDrawer extends React.Component<Props, State> {
           )}
           <BillingBanner
             paymentMethodMissing={this.props.paymentMethodMissing}
+          />
+          <StripeOnboardingBanner
+            stripeOnboardingPending={this.props.stripeOnboardingPending}
           />
           {this.props.children}
         </main>

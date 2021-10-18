@@ -6,6 +6,10 @@ exports.default = {
     banner:
       "Vous n'avez pas entré de moyen de paiement pour votre abonnement bsport. Cliquez ici.",
   },
+  stripeOnboardingPending: {
+    banner:
+      "Vous n'avez pas terminé la configuration de votre facturation, les paiements en ligne peuvent être désactivés. Cliquez ici pour terminer votre configuration.",
+  },
   backofficeMenu: {
     cashBookTooltip: 'Livret de caisse',
     addMemberTooltip: 'Ajouter membre',

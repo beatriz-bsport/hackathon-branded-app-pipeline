@@ -355,7 +355,7 @@ export class Backoffice extends Component<Props, State> {
               stripeOnboardingPending={
                 !!this.props.alertings
                   .filter((ag) => (ag.results || []).length)
-                  .find((ag) => ag.alert_kind === 5)?.length || true
+                  .find((ag) => ag.alert_kind === 5)?.length
               }
               fetchTempPassword={this.props.fetchTempPassword}
               openCreateMember={this.props.openCreateMember}

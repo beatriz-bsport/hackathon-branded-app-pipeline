@@ -105,6 +105,7 @@ export class OfferState extends React.PureComponent<Props, State> {
     this.fetchPaymentPack();
     this.fetchComboPack();
     this.props.fetchContractForBooking(this.props.offerId, this.props.company);
+    this.props.fetchMemberTagList(this.props.company);
   }
 
   fetchConsumerPaymentPack = () => {

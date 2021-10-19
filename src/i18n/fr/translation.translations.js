@@ -252,6 +252,8 @@ exports.default = {
       zipcode: 'Code postal',
     },
     warningAddEmail: 'Cet email a déjà été ajouté.',
+    emailHelper:
+      'Pour ajouter plusieurs emails, tapez une virgule ou un espace après chaque email.',
     login: {
       changePasswordTitle: 'Modification du mot de passe',
       password: 'Mot de passe',

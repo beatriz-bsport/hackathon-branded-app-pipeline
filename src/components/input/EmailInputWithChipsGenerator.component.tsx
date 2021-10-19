@@ -27,10 +27,7 @@ export const EmailInputWithChipsGenerator = (props: Props) => {
   const handleKeyDown = (e: any) => {
     const text = currentTextInput;
     if (
-      (e.key === 'Enter' ||
-        e.key === ' ' ||
-        e.key === ',' ||
-        e.key === 'Tab') &&
+      (e.key === ' ' || e.key === ',' || e.key === 'Tab') &&
       text.length > 0
     ) {
       if (emailRegexp.test(text) && emailList.includes(text)) {
@@ -60,6 +57,14 @@ export const EmailInputWithChipsGenerator = (props: Props) => {
     setWrongChips(updatedWrongChips);
   };
 
+  const handleBlur = () => {
+    const text = currentTextInput;
+    if (emailRegexp.test(text) && !emailList.includes(text)) {
+      addEmailToList(text);
+      setCurrentTextInput('');
+    }
+  };
+
   return (
     <div className={classes.container}>
       <TextField
@@ -69,10 +74,10 @@ export const EmailInputWithChipsGenerator = (props: Props) => {
         variant="standard"
         onChange={(e) => handleChange(e)}
         onKeyDown={(e) => handleKeyDown(e)}
-        helperText={error ? t('form.warningAddEmail') : ''}
+        helperText={error ? t('form.warningAddEmail') : t('form.emailHelper')}
         name={props.textFieldName}
-        type="email"
         disabled={props.disabled}
+        onBlur={handleBlur}
       />
       <div className={classes.chipContainer}>
         {wrongChips &&

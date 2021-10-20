@@ -21,6 +21,7 @@ type Props = {
   platformInvoice: PlatformInvoice,
   divider?: boolean,
   payNowInvoice: (payment_backend_id: string) => void,
+  hasPaymentMethod: boolean,
 };
 
 const StatusIcon = ({ status }: any) => {
@@ -79,20 +80,24 @@ export const PlatformInvoiceListItem = (props: Props) => {
         primary={t('platformInvoice.label', { month, year })}
         secondary={secondaryText}
       />
-      <Button
-        color="primary"
-        variant="outlined"
-        disabled={paymentProcessing}
-        onClick={() => {
-          setPaymentProcessing(true);
-          props.payNowInvoice(platformInvoice.payment_backend_id, {
-            onSuccess: () => setPaymentProcessing(false),
-            onError: () => setPaymentProcessing(false),
-          });
-        }}
-      >
-        {t('platformInvoice.bill')}
-      </Button>
+      {['missing_charge', 'failed'].includes(platformInvoice.status) &&
+        !!props.hasPaymentMethod &&
+        !!props.payNowInvoice && (
+          <Button
+            color="primary"
+            variant="outlined"
+            disabled={paymentProcessing}
+            onClick={() => {
+              setPaymentProcessing(true);
+              props.payNowInvoice(platformInvoice.payment_backend_id, {
+                onSuccess: () => setPaymentProcessing(false),
+                onError: () => setPaymentProcessing(false),
+              });
+            }}
+          >
+            {t('platformInvoice.bill')}
+          </Button>
+        )}
       {!!pdf_url && (
         <IconButton
           onClick={() => {

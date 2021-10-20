@@ -85,8 +85,6 @@ export class MarketplaceCalendar extends PureComponent<Props> {
       width,
     } = this.props;
 
-    console.log(width);
-
     // compact calendar
     const isCompact =
       (compactMode != null && compactMode === true) ||

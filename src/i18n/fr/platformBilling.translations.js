@@ -3,6 +3,14 @@ exports.default = {
     label: 'Facture {{ month }}/{{year}}',
     sectionTitle: 'Mes factures',
     noInvoice: 'Aucune facture',
+    bill: 'Régulariser',
+    status: {
+      missing_charge: 'Aucun paiement tenté',
+      succeeded: 'Paiement réussi',
+      disputed: 'Paiement contesté',
+      processing: 'Paiement en cours',
+      failed: 'Paiement échoué',
+    },
   },
   paymentMethod: {
     sectionTitle: 'Moyen de paiement',

@@ -8,7 +8,8 @@ import { withTranslation } from 'react-i18next';
 
 import { push } from 'connected-react-router';
 import {
-  fetchPlatformInvoiceList,
+  fetchPlatformInvoiceList as fetchPlatformInvoiceListAction,
+  payNowInvoice as payNowInvoiceAction,
   fetchPlatformBillingPlanList,
   fetchPlatformBillingStageList,
   retrievePlatformSubscription,
@@ -69,6 +70,7 @@ type Props = {
   onOpenInvoice: (uuid: string) => void,
 
   checkSubscriptionSetup: () => void,
+  payNowInvoice: (payment_backend_id: string) => void,
 };
 
 export class PlatformBillingSettings extends React.Component<Props> {
@@ -98,6 +100,7 @@ export class PlatformBillingSettings extends React.Component<Props> {
           openInvoice={this.props.onOpenInvoice}
         />
         <CompanyPlatformBillingPaymentDetail
+          payNowInvoice={this.props.payNowInvoice}
           paymentMethodList={this.props.savedPaymentMethodList}
           platformInvoiceList={this.props.platformInvoiceList}
           refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
@@ -139,7 +142,7 @@ export default compose(
       payoutLoading: state.paymentBackend.payout.loading,
     }),
     {
-      fetchPlatformInvoiceList,
+      fetchPlatformInvoiceList: fetchPlatformInvoiceListAction,
       fetchPaymentMethodList: fetchPaymentMethodListAction,
       retrievePlatformSubscription,
       retrievePlatformBillingGroup,
@@ -151,6 +154,7 @@ export default compose(
       requestUpsellPackage: requestUpsellPackageAction,
       fetchCompanyTheme: fetchCompanyThemeAction,
       fetchPayoutList: fetchPayoutListAction,
+      payNowInvoice: payNowInvoiceAction,
       onOpenInvoice: (uuid) => push(`/invoice/${uuid}`),
     },
   ),
@@ -164,6 +168,19 @@ export default compose(
         onSuccess: fetchCompanyTheme,
       });
     },
+    payNowInvoice: ({ payNowInvoice, fetchPlatformInvoiceList }) => (
+      payment_backend_id,
+      options,
+    ) =>
+      payNowInvoice(payment_backend_id, {
+        onError: options && options.onError,
+        onSuccess: () => {
+          fetchPlatformInvoiceList();
+          if (options && options.onSuccess) {
+            options.onSuccess();
+          }
+        },
+      }),
     fetchPayoutList: ({ fetchPayoutList }) => (params, options) =>
       fetchPayoutList({ ...(params || {}), page_size: 3 }, options),
     requestSetupIntentSecret: () => () =>

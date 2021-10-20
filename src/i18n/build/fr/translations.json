@@ -2884,7 +2884,19 @@
     }
   },
   "platformBilling": {
-    "platformInvoice": { "label": "Facture {{ month }}/{{year}}", "sectionTitle": "Mes factures", "noInvoice": "Aucune facture" },
+    "platformInvoice": {
+      "label": "Facture {{ month }}/{{year}}",
+      "sectionTitle": "Mes factures",
+      "noInvoice": "Aucune facture",
+      "bill": "Régulariser",
+      "status": {
+        "missing_charge": "Aucun paiement tenté",
+        "succeeded": "Paiement réussi",
+        "disputed": "Paiement contesté",
+        "processing": "Paiement en cours",
+        "failed": "Paiement échoué"
+      }
+    },
     "paymentMethod": {
       "sectionTitle": "Moyen de paiement",
       "actions": { "createSepa": "Ajouter un IBAN", "createCard": "Ajouter une CB" }
@@ -4847,7 +4859,8 @@
       "update": { "success": "Règle de notification modifiée", "error": "Impossible de modifier la règle de notification" },
       "delete": { "success": "Règle de notification supprimée", "error": "Impossible de supprimer la règle de notification" },
       "customError": { "3": "Impossible de créer une règle avec le même temps d'apparition" }
-    }
+    },
+    "platformBilling": { "payNowInvoice": { "success": "Paiement réussi", "error": "Paiement refusé" } }
   },
   "spotScheduling": {
     "toolsMenu": {

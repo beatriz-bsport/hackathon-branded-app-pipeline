@@ -4,8 +4,16 @@ import { getAuth, postAuth, buildUrlParams, API_V1_URI } from '../../http';
 
 export const fetchPlatformInvoiceList = async (params: any = {}) => {
   return getAuth(
-    `${API_V1_URI}/platform_billing/platform_invoice/${buildUrlParams(params)}`,
+    `${API_V1_URI}/platform_billing/platform_invoice/from_payment_backend/${buildUrlParams(
+      params,
+    )}`,
   );
+};
+
+export const payInvoice = async (payment_backend_id: string) => {
+  return postAuth(`${API_V1_URI}/platform_billing/platform_invoice/bill_now/`, {
+    payment_backend_id,
+  });
 };
 
 export const retrievePlatformBillingPlanGroup = async () => {

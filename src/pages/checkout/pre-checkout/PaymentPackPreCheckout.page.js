@@ -76,7 +76,6 @@ export class PaymentPackPaymentPage extends Component<Props, State> {
                 {
                   onError: () => this.setState({ error: true }),
                   onSuccess: () => {
-                    console.log('jhello');
                     this.props.goToCheckout(paymentPack.company_id);
                   },
                 },

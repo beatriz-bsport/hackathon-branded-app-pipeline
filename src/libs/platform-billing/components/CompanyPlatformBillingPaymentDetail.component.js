@@ -6,6 +6,7 @@ import { withState, compose } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 import PlatformInvoiceListItem from './PlatformInvoiceListItem.component';
 import PaymentMethodListItem from '../../payment/components/PaymentMethodListItem.component';
 import CollectPaymentMethod from '../../payment/components/CollectPaymentMethod.component';
@@ -24,14 +25,15 @@ type Props = {
   onCollectPaymentMethodSuccess: ?() => void,
   sepaDefaultName?: string,
   sepaDefaultEmail?: string,
+  payNowInvoice: (payment_backend_id: string) => void,
 };
 
 export const CompanyPlatformBillingDetail = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['platformBilling']);
   return (
-    <div className={classes.container}>
-      <div className={classes.leftColumn}>
+    <Grid direction="row" container className={classes.container}>
+      <Grid item xs={12} md={6} className={classes.leftColumn}>
         <Typography variant="h4" className={classes.sectionTitle}>
           {t('platformInvoice.sectionTitle')}
         </Typography>
@@ -42,12 +44,18 @@ export const CompanyPlatformBillingDetail = (props: Props) => {
         ) : (
           <Paper>
             {props.platformInvoiceList.map((pi) => (
-              <PlatformInvoiceListItem platformInvoice={pi} key={pi.id} />
+              <PlatformInvoiceListItem
+                divider
+                platformInvoice={pi}
+                key={pi.id}
+                hasPaymentMethod={!!props.paymentMethodList?.length}
+                payNowInvoice={props.payNowInvoice}
+              />
             ))}
           </Paper>
         )}
-      </div>
-      <div className={classes.leftColumn}>
+      </Grid>
+      <Grid item xs={12} md={6} className={classes.leftColumn}>
         <Typography variant="h4" className={classes.sectionTitle}>
           {t('paymentMethod.sectionTitle')}
         </Typography>
@@ -99,8 +107,8 @@ export const CompanyPlatformBillingDetail = (props: Props) => {
             onClose={() => props.setCollectPaymentMethodCBIsOpen(false)}
           />
         )}
-      </div>
-    </div>
+      </Grid>
+    </Grid>
   );
 };
 

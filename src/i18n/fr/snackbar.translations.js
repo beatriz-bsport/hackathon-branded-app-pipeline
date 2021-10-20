@@ -712,4 +712,10 @@ exports.default = {
       3: "Impossible de créer une règle avec le même temps d'apparition",
     },
   },
+  platformBilling: {
+    payNowInvoice: {
+      success: 'Paiement réussi',
+      error: 'Paiement refusé',
+    },
+  },
 };

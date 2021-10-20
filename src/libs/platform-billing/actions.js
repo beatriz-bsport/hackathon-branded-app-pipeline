@@ -12,9 +12,11 @@ import {
   retrievePlatformBillingPlanGroup as retrievePlatformBillingPlanGroupAPI,
   requestUpsellPackage as requestUpsellPackageAPI,
   checkPlatformSubscriptionSetup as checkPlatformSubscriptionSetupAPI,
+  payInvoice as payInvoiceAPI,
 } from './api';
 
 import type { Dispatch, OptionCallback } from '../../state/types';
+import { snackbarError, snackbarSuccess } from '../../actions/snackbar.actions';
 
 export const listPlatformInvoiceActions = {
   isLoading: createAction('PLATFORM_INVOICE/LIST/IS_LOADING'),
@@ -256,5 +258,35 @@ export function checkPlatformSubscriptionSetup(options: OptionCallback) {
       if (options && options.onError) options.onError();
     }
     dispatch(checkPlatformSubscriptionSetupActions.isLoading(false));
+  };
+}
+
+export const payInvoiceActions = {
+  isLoading: createAction('PLATFORM_INVOICE/PAY/IS_LOADING'),
+  error: createAction('PLATFORM_INVOICE/PAY/ERROR'),
+  success: createAction('PLATFORM_INVOICE/PAY/SUCCESS'),
+};
+
+export function payNowInvoice(
+  payment_backend_id: string,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(payInvoiceActions.isLoading(true));
+    dispatch(payInvoiceActions.error(null));
+    try {
+      const response = await payInvoiceAPI(payment_backend_id);
+      dispatch(payInvoiceActions.success(response.data));
+      if (options && options.onSuccess) {
+        dispatch(snackbarSuccess('platformBilling.payNowInvoice.success'));
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(payInvoiceActions.error(err));
+      dispatch(snackbarError('platformBilling.payNowInvoice.error'));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(payInvoiceActions.isLoading(false));
   };
 }

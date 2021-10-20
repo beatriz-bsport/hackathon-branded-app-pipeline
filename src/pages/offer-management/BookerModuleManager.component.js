@@ -32,7 +32,9 @@ export default compose(
   connect(
     (state: RootState) => ({
       consumerPacksLoading: state.consumerPaymentPack.byOfferByMember.loading,
-      consumerPacks: withIsSharedActive(getByOfferByMember)(state),
+      consumerPacks: withIsSharedActive(withPaymentPack(getByOfferByMember))(
+        state,
+      ),
       consumerPacksNonCompatible: withIsSharedActive(
         withPaymentPack(getNonCompatibleByOfferByMember),
       )(state),

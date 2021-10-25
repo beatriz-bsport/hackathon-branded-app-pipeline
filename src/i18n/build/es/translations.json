@@ -9073,7 +9073,7 @@
         },
         "consumerGiftcard": {
             "form": {
-                "footer": "La tarjeta se enviará por correo electrónico el {{- date_send }} a las direcciones indicadas. Será válido durante {{ expiry_days }} días después del envío del correo electrónico.",
+                "footer": "La tarjeta se enviará por correo electrónico el día {{- date_send }} a las direcciones indicadas. Será válido durante {{ expiration_days }} días después del envío del correo electrónico. La cuenta del destinatario será acreditada con {{- price }} para futuras compras.",
                 "actions": {
                     "submit": "Añadir a la cesta"
                 },
@@ -9122,7 +9122,7 @@
                     "submit": "Enviar",
                     "close": "Cerrar"
                 },
-                "content": "Puedes cambiar los destinatarios de la tarjeta regalo. Tenga en cuenta que sólo puede utilizarlo una persona.",
+                "content": "Puedes cambiar los destinatarios de la tarjeta regalo. Tenga en cuenta que sólo puede utilizarlo una persona. Si no ha recibido el correo electrónico, también puede reenviar este enlace de activación:",
                 "title": "Enviar un correo electrónico de invitación",
                 "activationCodeLink": "El correo electrónico de invitación se ha enviado y ya no se puede cambiar, si no ha llegado al destinatario correcto puede reenviar este enlace de activación para ofrecer la tarjeta regalo: "
             },

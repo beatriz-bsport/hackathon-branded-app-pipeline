@@ -554,7 +554,8 @@
             },
             "modify": "Editar",
             "completeInformation": "Completar mi información",
-            "emergencyContact": "Contacto de emergencia"
+            "emergencyContact": "Contacto de emergencia",
+            "warningAddEmail": "Este correo electrónico ya ha sido añadido."
         },
         "marketing": {
             "dashboard": "Tablero de mando",
@@ -2297,7 +2298,8 @@
                 "3": "Crédito",
                 "2": "Tienda",
                 "1": "Bono",
-                "undefined": "tarjeta regalo"
+                "undefined": "tarjeta regalo",
+                "11": "tarjeta de regalo"
             },
             "discount": "Descuento"
         },
@@ -2537,7 +2539,8 @@
                 "pm_associated_to_protected_bp": "Imposible: Tiene una suscripción asociada a este método de pago",
                 "last_payment_method": "No se puede eliminar el único método de pago",
                 "pm_deleted": "Método de pago borrado"
-            }
+            },
+            "inconsistent": "Método de pago desautorizado, por favor reconfigúrelo. El cliente puede haber solicitado la desautorización de su tarjeta o usted puede haber fusionado dos socios, en ambos casos el método de pago ya no es utilizable"
         },
         "paymentEngine": {
             "label": {
@@ -3296,7 +3299,27 @@
             "payment_amount_by_payment_method": "Recaudación por método de pago",
             "billing_establishment": "Dirección",
             "billing_group": "Grupo de facturación",
-            "company_name": "Franquicia"
+            "company_name": "Franquicia",
+            "reverted": "Cancelado",
+            "sum_available_amount_non_expired": "Créditos ofrecidos todavía disponibles",
+            "sum_available_amount_expired": "Créditos ofrecidos y expirados",
+            "sum_consumed_amount": "Créditos ofrecidos",
+            "nb_expired": "Número de tarjetas caducadas",
+            "nb_non_activated": "Número de tarjetas no activadas",
+            "nb_activated": "Número de tarjetas activadas",
+            "nb_purchase": "Número de compras",
+            "consumed_amount_gifted": "Cantidad consumida",
+            "id": "ID",
+            "dst_gender": "Género del destinatario",
+            "dst_phonenumber": "Teléfono receptor",
+            "dst_email": "Correo electrónico del beneficiaro",
+            "dst_lastname": "Apellido del beneficiario",
+            "dst_firstname": "Nombre del beneficiario",
+            "src_gender": "Género del comprador",
+            "src_phonenumber": "Teléfono del comprador",
+            "src_email": "Correo electrónico del comprador",
+            "src_lastname": "Nombre del comprador",
+            "src_firstname": "Nombre del comprador"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -7344,7 +7367,8 @@
             "popover": {
                 "edit": "Cambiar el nombre de",
                 "delete": "Borrar"
-            }
+            },
+            "category": "Categorías de bonos"
         }
     },
     "selfCheckIn": {
@@ -7648,6 +7672,9 @@
             "restore": "Restaurar esta sesión",
             "previousSession": " Has iniciado la sesión como {{name}}",
             "title": " Parece que está utilizando varias pestañas simultáneamente"
+        },
+        "stripeOnboardingPending": {
+            "banner": "Si no ha completado la configuración de la facturación, los pagos en línea pueden estar desactivados. Haga clic aquí para completar su configuración."
         }
     },
     "video": {
@@ -8580,7 +8607,12 @@
             "containerConfiguration": {
                 "title": "Configuración general"
             },
-            "configTitle": "Mi Widget"
+            "configTitle": "Mi Widget",
+            "dialogSize": {
+                "window": "Ventana emergente",
+                "fullScreen": "Pantalla completa"
+            },
+            "dialogSizeLabel": "Tamaño de la ventana emergente"
         }
     },
     "platformBilling": {
@@ -9062,7 +9094,8 @@
                 },
                 "name": {
                     "label": "Nombre de la tarjeta"
-                }
+                },
+                "footerUnlimited": "La tarjeta se enviará por correo el {{- date_send }} a las direcciones indicadas. No contiene fecha de caducidad. La cuenta del destinatario se acreditará con {{- price }} para futuras compras."
             },
             "previewPlaceholder": {
                 "message_content": "[Mensaje personalizado]",

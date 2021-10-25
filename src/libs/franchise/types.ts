@@ -21,6 +21,7 @@ export type Franchise = {
   cover?: string;
   primaryRGB: [number, number, number];
   secondaryRGB: [number, number, number];
+  marketing_email?: string;
 };
 
 export type FranchiseUser = {

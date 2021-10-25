@@ -18,5 +18,10 @@ exports.default = {
     showLessText: 'Voir moins',
     showMoreText: 'Voir plus',
   },
+  selector: {
+    selectAll: 'Tout sélectionner',
+    unselectAll: 'Tout désélectionner',
+    validate: 'Valider',
+  },
   close: 'Fermer',
 };

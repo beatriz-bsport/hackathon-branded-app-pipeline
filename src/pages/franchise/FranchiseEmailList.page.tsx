@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 
 import { compose } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
@@ -67,8 +67,6 @@ const FranchiseEmailList = (props: Props) => {
     t,
   } = props;
 
-  const ref = useRef(null);
-
   useEffect(() => {
     fetchFranchise();
     emailTemplatesSummaries();
@@ -80,14 +78,6 @@ const FranchiseEmailList = (props: Props) => {
       emailTemplateDetail(id);
     }
   }, [emailTemplateDetail, id]);
-
-  useEffect(() => {
-    if (ref) {
-      ref?.current?.scrollIntoView({
-        behavior: 'smooth',
-      });
-    }
-  }, [ref, emailDetail]);
 
   const navigateToCreate = () => {
     push('/f/email-template/create');
@@ -151,7 +141,7 @@ const FranchiseEmailList = (props: Props) => {
         </Grid>
 
         <Grid item xs={12} md={6}>
-          <div ref={ref}>
+          <div>
             <EmailPreview
               title={t('emails.emptyStateTitle')}
               html={emailDetail?.[id]?.html ?? null}

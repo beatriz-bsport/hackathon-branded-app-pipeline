@@ -17,16 +17,22 @@ import {
 import EmailEditorPanel from '../../libs/email-editor/components/EmailEditor.component';
 
 import { EmailTemplate } from '../../libs/email-editor/types';
-import { getFranchiseId } from '../../libs/franchise/selectors';
+import {
+  getFranchiseCompanies,
+  getFranchiseId,
+} from '../../libs/franchise/selectors';
 import {
   getAllEmailTemplatesDict,
   getEmailTemplatesDetail,
 } from '../../libs/email-editor/selectors';
 import { fetchTagList as fetchTagListAction } from '../../libs/notification-rule/actions';
 import { getTagCategories } from '../../libs/notification-rule/selectors';
+import { fetchFranchise as fetchFranchiseAction } from '../../libs/franchise/actions';
+import { FranchiseCompany } from '../../libs/franchise/types';
 
 type OwnProps = {
   id: number;
+  companies: FranchiseCompany[];
 };
 
 type Props = OwnProps & ConnectedProps<typeof connector>;
@@ -39,25 +45,36 @@ const FranchiseEmailEditor = (props: Props) => {
     emailTemplatesDetails,
     emailTemplatesSummaries,
     tagCategories,
+    companies,
     emailTemplateComplete,
     goToList,
     goToListDetail,
     emailTemplateUpdate,
     snackbarError,
     fetchTagList,
+    fetchFranchise,
   } = props;
+
+  useEffect(() => {
+    fetchFranchise();
+  }, [fetchFranchise]);
 
   useEffect(() => {
     emailTemplateComplete(id);
     fetchTagList();
   }, [emailTemplateComplete, fetchTagList, id]);
 
-  const onSave = (emailId: number, data: EmailTemplate) => {
+  const onSave = (
+    emailId: number,
+    data: EmailTemplate,
+    availableCompanies: number[],
+  ) => {
     emailTemplateUpdate(
       emailId,
       {
         ...data,
         franchise_id,
+        available_for_companies: availableCompanies,
       },
       {
         onSuccess: (templateId: number) => {
@@ -94,6 +111,7 @@ const FranchiseEmailEditor = (props: Props) => {
           tags={tagCategories}
           goToList={goToList}
           displayEmptyError={snackbarError}
+          companies={companies}
         />
       )}
     </DrawerContext.Consumer>
@@ -107,8 +125,10 @@ const connector = connect(
     emailTemplatesSummaries: getAllEmailTemplatesDict(state),
     tagCategories: getTagCategories(state),
     loading: state.emailTemplate.detail.isLoading,
+    companies: getFranchiseCompanies(state),
   }),
   {
+    fetchFranchise: fetchFranchiseAction,
     fetchTagList: fetchTagListAction,
     snackbarError: snackbarErrorAction,
     emailTemplateUpdate: emailTemplateUpdateAction,

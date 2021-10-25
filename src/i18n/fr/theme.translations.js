@@ -262,4 +262,10 @@ exports.default = {
         'Etes-vous sur de vouloir vous autoriser Bsport à accéder à votre application ?',
     },
   },
+  marketingEmail: {
+    label: 'Email de suivi',
+    placeholder: 'Email',
+    caption:
+      'Les copies des emails transactionnels seront envoyés à cette adresse si le paramètre est activé',
+  },
 };

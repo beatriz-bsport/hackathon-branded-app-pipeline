@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Prompt } from 'react-router-dom';
 import { createStyles, WithStyles } from '@material-ui/styles';
-import { Theme } from '@material-ui/core';
+import { Theme, Typography } from '@material-ui/core';
 import moment from 'moment-timezone';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
@@ -15,14 +15,26 @@ import Paper from '@material-ui/core/Paper';
 import Checkbox from '../../../components/input/Checkbox.component';
 import { EmailTemplate, EmailTemplateSummary } from '../types';
 import i18n from '../../../i18n';
+import { FranchiseCompany } from '../../franchise/types';
+import { OptionTypeBase } from '../../../components/Selector/MaterialUISelector.component';
+import FranchiseCompaniesSelector from '../../franchise/components/FranchiseCompaniesSelector.component';
 
-type OwnProps = {
+export type OwnProps = {
   autoSaveEnabled?: boolean;
   emailToEdit?: EmailTemplate & EmailTemplateSummary;
   company_name?: string;
   tags?: { [tag_name: string]: string[] };
-  saveEmail: (id: number, data: Omit<EmailTemplate, 'id'>) => void;
-  autoSaveEmail?: (id: number, data: Omit<EmailTemplate, 'id'>) => void;
+  companies?: FranchiseCompany[];
+  saveEmail: (
+    id: number,
+    data: Omit<EmailTemplate, 'id'>,
+    availableCompanies?: number[],
+  ) => void;
+  autoSaveEmail?: (
+    id: number,
+    data: Omit<EmailTemplate, 'id'>,
+    availableCompanies?: number[],
+  ) => void;
   displayEmptyError: (msg: string) => void;
   goToList: () => void;
   hideLeftMenuAction: () => void;
@@ -36,10 +48,13 @@ type State = {
   title: string;
   autoSave: boolean;
   notReadyToLeave: boolean;
+  selectedCompanies: OptionTypeBase[];
 };
 
 export class EmailEditorPanel extends Component<Props, State> {
   interval: any;
+
+  companyDic: Record<number, FranchiseCompany>;
 
   intervalPeriod: number;
 
@@ -47,11 +62,29 @@ export class EmailEditorPanel extends Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
+
+    this.companyDic = this.props?.companies?.reduce<
+      Record<number, FranchiseCompany>
+    >((dic, company) => {
+      // eslint-disable-next-line no-param-reassign
+      dic[company.id] = company;
+      return dic;
+    }, {});
+
     this.state = {
       title: props.emailToEdit?.title ?? '',
       subject: props.emailToEdit?.subject ?? '',
       autoSave: true,
       notReadyToLeave: true,
+      selectedCompanies: props.emailToEdit?.available_for_companies?.map(
+        (comp) => {
+          const _company = this.companyDic?.[comp];
+          return {
+            value: `${_company.id}`,
+            label: _company.name,
+          };
+        },
+      ),
     };
     this.intervalPeriod = 60 * 1000; // Run every minutes
   }
@@ -90,13 +123,19 @@ export class EmailEditorPanel extends Component<Props, State> {
         return;
       }
 
-      this.props.saveEmail(this.props.emailToEdit?.id, {
-        title: this.state.title,
-        subject: this.state.subject,
-        html,
-        design: JSON.stringify(design),
-        date_modified: moment(),
-      });
+      this.props.saveEmail(
+        this.props.emailToEdit?.id,
+        {
+          title: this.state.title,
+          subject: this.state.subject,
+          html,
+          design: JSON.stringify(design),
+          date_modified: moment(),
+        },
+        this.state.selectedCompanies?.map((opt) =>
+          parseInt(opt?.value ?? '', 10),
+        ),
+      );
     });
   };
 
@@ -107,13 +146,19 @@ export class EmailEditorPanel extends Component<Props, State> {
         return;
       }
 
-      this.props.autoSaveEmail(this.props.emailToEdit?.id, {
-        title: this.state.title,
-        subject: this.state.subject,
-        html,
-        design: JSON.stringify(design),
-        date_modified: moment(),
-      });
+      this.props.autoSaveEmail(
+        this.props.emailToEdit?.id,
+        {
+          title: this.state.title,
+          subject: this.state.subject,
+          html,
+          design: JSON.stringify(design),
+          date_modified: moment(),
+        },
+        this.state.selectedCompanies?.map((opt) =>
+          parseInt(opt?.value ?? '', 10),
+        ),
+      );
     });
   };
 
@@ -210,13 +255,38 @@ export class EmailEditorPanel extends Component<Props, State> {
             className={classes.field}
           />
           <TextField
-            onChange={(event) => this.handleObjectChange(event.target.value)}
+            onChange={(event) => {
+              this.handleObjectChange(event.target.value);
+            }}
             label={t('emailTemplate:editor.subject')}
             value={this.state.subject}
             inputProps={{ maxLength: 500 }}
             required
             className={classes.field}
           />
+          {this.props?.companies?.length > 0 && (
+            <div className={classes.companies}>
+              <Typography variant="body1" className={classes.subtitle}>
+                {t('editor.shareWith')}
+              </Typography>
+              <div className={classes.selector}>
+                <FranchiseCompaniesSelector
+                  onChange={(newValue) => {
+                    this.setState({ selectedCompanies: newValue });
+                  }}
+                  selectedCompanies={this.state.selectedCompanies}
+                  companyDic={this.companyDic}
+                  companies={this.props.companies}
+                  withAllCompaniesTag
+                />
+              </div>
+              <div className={classes.helper}>
+                <Typography variant="caption">
+                  {t('editor.shareWithHelper')}
+                </Typography>
+              </div>
+            </div>
+          )}
         </div>
         <div className={classes.buttonsContainer}>
           <Button className={classes.button} onClick={this.props.goToList}>
@@ -251,7 +321,6 @@ export class EmailEditorPanel extends Component<Props, State> {
           </div>
         </div>
         <Paper>
-          {/* TODO TAGS */}
           {!!Object.entries(mergeTags).length && (
             <EmailEditor
               ref={this.editor}
@@ -301,6 +370,20 @@ const styles = (theme: Theme) =>
     rightContainer: {
       display: 'flex',
       alignItems: 'center',
+    },
+    subtitle: {
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(1),
+    },
+    selector: {
+      maxWidth: 400,
+    },
+    companies: {
+      marginLeft: theme.spacing(1),
+    },
+    helper: {
+      color: theme.palette.grey[500],
+      marginTop: theme.spacing(1),
     },
   });
 

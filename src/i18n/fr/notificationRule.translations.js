@@ -221,4 +221,54 @@ exports.default = {
     [NOTIFICATION_SUBSCRIPTION_PAYMENT_FAIL_WILL_RETRY]:
       "Paiement d'une souscription échoué, sera retenté",
   },
+  franchise: {
+    emptySelect:
+      'Sélectionner un email transactionnel pour voir sur quel franchisé il est partagé et utilisé.',
+    addConfiguration: 'Ajouter une configuration',
+    emptyStateConfiguration:
+      "Créer une configuration pour forcer l'utilisation de templates d’email à chacun de vos franchisés.",
+    form: {
+      title: 'Configuration',
+      description:
+        'Le template choisi sera utilisé pour l’email transactionnel “{{name}}“ pour l’ensemble des franchisés sélectionnés ici.',
+      name: 'Nom',
+      pickTemplate: 'Choisir un template',
+      useFor: 'Utiliser pour ',
+      parameters: 'Paramètres',
+      activate: 'Activé',
+      activateSubtitleActivate:
+        'L’email transationnel est activé, il sera envoyé aux membres',
+      activateSubtitleDeactivate:
+        'L’email transationnel est désactivé, il ne sera pas envoyé aux membres',
+      receiveCC: 'Recevoir une copie du mail',
+      receiveCarbonCopySubtitle:
+        'Vous recevrez une copie de chaque email envoyé',
+
+      mailSelection: 'Choisir un template',
+      cancel: 'Annuler',
+      save: 'Enregister',
+
+      error: {
+        name: 'Veuillez remplir un nom',
+        selectCompanies: 'Sélectionner au moins un franchisé',
+        email_design: 'Sélectionner un template',
+      },
+    },
+    card: {
+      template: 'Template',
+      parameters: 'Paramètres',
+      companies: 'Franchisés',
+      activated: 'Activé',
+      deactivated: 'Désactivé',
+      carbonCopy: 'Recevoir une copie du mail',
+    },
+    delete: {
+      title: 'Suppression',
+      content:
+        "Êtes-vous sûr de vouloir supprimer cette configuration ? Les paramètres et templates d’email sélectionnés reprendront leurs valeurs d'origine.",
+      delete: 'Supprimer',
+    },
+  },
+  franchiseOwned:
+    'Votre franchiseur gère actuellement cet email transactionnel',
 };

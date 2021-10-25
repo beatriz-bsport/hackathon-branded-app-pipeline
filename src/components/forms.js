@@ -62,6 +62,7 @@ const styles = (theme) => ({
 export const AlertError = withTranslation([])(
   withStyles(styles)((props: AlertErrorProps) => {
     const { classes, t } = props;
+
     return (
       <ErrorMessage
         {...props}

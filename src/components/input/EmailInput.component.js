@@ -4,7 +4,7 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 
 // prettier-ignore
-const emailRegexp = new RegExp('[A-z0-9-_]+@[A-z0-9-_]+.[A-z]+$');
+export const emailRegexp = /[A-z0-9-_]+@[A-z0-9-_]+\.[A-z]+$/
 
 type Props = {
   value: *,

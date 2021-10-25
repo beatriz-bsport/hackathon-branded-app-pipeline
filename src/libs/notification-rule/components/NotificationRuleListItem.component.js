@@ -12,6 +12,7 @@ import { compose } from 'recompose';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import EmailSelector from '../../email-editor/components/EmailSelector.component';
+import Tooltip from '../../../components/Tooltip.component';
 
 type Props = {
   t: TFunction,
@@ -30,17 +31,27 @@ type Props = {
 
   disabled: boolean,
   sendCompany: boolean,
+  franchisedOwned: Boolean,
   onDisable: (ev: Object) => void,
   onSendCompany: (ev: Object) => void,
 };
 export const NotificationRuleListItem = (props: Props) => {
   return (
     <Paper className={props.classes.container}>
-      <Checkbox
-        className={props.classes.checkbox}
-        checked={!props.disabled}
-        onChange={(ev) => props.onDisable(ev)}
-      />
+      <Tooltip
+        hide={!props.franchisedOwned}
+        title={<>{props.t('franchiseOwned')}</>}
+      >
+        <div>
+          {/* div is need here for the tooltip */}
+          <Checkbox
+            className={props.classes.checkbox}
+            checked={!props.disabled}
+            onChange={(ev) => props.onDisable(ev)}
+            disabled={props.franchisedOwned}
+          />
+        </div>
+      </Tooltip>
       <Checkbox
         className={props.classes.checkbox}
         checked={props.sendCompany}
@@ -70,26 +81,35 @@ export const NotificationRuleListItem = (props: Props) => {
             </IconButton>
           </div>
           <div style={{ minWidth: 400 }}>
-            <EmailSelector
-              emails={props.emailDesignList}
-              value={(props.rule || {}).email_design}
-              helperText={props.t('emailDesign.placeholder')}
-              onChange={(option) => {
-                if (!option) {
-                  return props.onDeleteNotificationRule(props.rule.id);
-                }
-                if (props.rule) {
-                  return props.onChangeEmailDesign({
-                    ...props.rule,
-                    email_design: option.value,
-                  });
-                }
-                return props.onChangeEmailDesign({
-                  notification_event: props.event,
-                  email_design: option.value,
-                });
-              }}
-            />
+            <Tooltip
+              hide={!props.franchisedOwned}
+              title={<>{props.t('franchiseOwned')}</>}
+            >
+              <div>
+                {/* div is need here for the tooltip */}
+                <EmailSelector
+                  emails={props.emailDesignList}
+                  value={(props.rule || {}).email_design}
+                  helperText={props.t('emailDesign.placeholder')}
+                  onChange={(option) => {
+                    if (!option) {
+                      return props.onDeleteNotificationRule(props.rule.id);
+                    }
+                    if (props.rule.company) {
+                      return props.onChangeEmailDesign({
+                        ...props.rule,
+                        email_design: option.value,
+                      });
+                    }
+                    return props.onChangeEmailDesign({
+                      notification_event: props.event,
+                      email_design: option.value,
+                    });
+                  }}
+                  disabled={props.franchisedOwned}
+                />
+              </div>
+            </Tooltip>
           </div>
         </div>
       </div>
@@ -103,7 +123,6 @@ const styles = (theme) => ({
     padding: theme.spacing(1),
     display: 'flex',
     flexDirection: 'row',
-    // justifyContent: 'space-between',
     alignItems: 'center',
   },
   text: {

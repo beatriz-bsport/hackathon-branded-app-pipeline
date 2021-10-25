@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {
+  Chip,
   ListItem,
   ListItemIcon,
   makeStyles,
@@ -20,15 +21,20 @@ import withConfirm from '../../../hocs/with-confirm.hoc';
 import { EmailTemplateSummary } from '../types';
 import HighlightedText from '../../../components/HighlightedText/HighlightedText.component';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
+import { FranchiseCompany } from '../../franchise/types';
+import CompanyChip from '../../../components/franchise/CompanyChip.component';
+import FranchiseCompaniesListingTooltip from '../../franchise/components/FranchiseCompaniesListingTooltip.component';
 
 export type OwnProps = {
   email: EmailTemplateSummary;
   selectedId?: number;
   navigateTo: () => void;
-  onEdit: () => void;
-  onDuplicate: () => void;
-  onDelete: () => void;
+  onEdit?: () => void;
+  onDuplicate?: () => void;
+  onDelete?: () => void;
   search?: string;
+  companies?: FranchiseCompany[];
+  allCompanies?: boolean;
 };
 
 const DeleteButton = (props: { onClick: () => void }) => (
@@ -88,10 +94,14 @@ const EmailListItem = (props: OwnProps) => {
     onDuplicate,
     navigateTo,
     onDelete,
+    companies,
+    allCompanies,
     search,
   } = props;
   const classes = useStyles();
+  const { t } = useTranslation(['emailTemplate']);
 
+  if (!email) return null;
   return (
     <ListItem
       button
@@ -111,22 +121,48 @@ const EmailListItem = (props: OwnProps) => {
             <HighlightedText text={email.subject} highlight={search} />
           }
         />
+        {companies?.length > 0 && !allCompanies && (
+          <>
+            {companies
+              .slice(0, 2)
+              .map(
+                (company) =>
+                  company && (
+                    <CompanyChip
+                      key={company.id}
+                      className={classes.chip}
+                      company={company}
+                    />
+                  ),
+              )}
+            {companies.length > 2 && (
+              <FranchiseCompaniesListingTooltip companies={companies.slice(2)}>
+                <Chip variant="outlined" color="primary" label={t('seeAll')} />
+              </FranchiseCompaniesListingTooltip>
+            )}
+          </>
+        )}
+        {allCompanies && (
+          <FranchiseCompaniesListingTooltip companies={companies}>
+            <Chip color="primary" label={t('allCompanies')} />
+          </FranchiseCompaniesListingTooltip>
+        )}
         <div className={classes.actionList}>
           <ListItemResponsiveAction
             actions={[
-              {
+              onEdit && {
                 icon: EditIcon,
                 label: `edit-${email.id}`,
                 color: 'primary',
                 onClick: onEdit,
               },
-              {
+              onDuplicate && {
                 icon: FileCopyIcon,
                 label: `duplicate-${email.id}`,
                 color: 'primary',
                 onClick: onDuplicate,
               },
-              {
+              onDelete && {
                 icon: DeleteButton,
                 iconButtonComponent: ButtonWithConfirm,
                 menuItemComponent: ButtonWithConfirmMenuItem,
@@ -158,7 +194,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingBottom: 0,
   },
   chip: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(1),
   },
   listItem: {
     padding: theme.spacing(1),

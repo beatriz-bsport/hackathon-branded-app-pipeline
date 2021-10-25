@@ -4,6 +4,7 @@ import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import { Button, createStyles, Theme } from '@material-ui/core';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
+import EmailInput from '../../../components/input/EmailInput.component';
 
 import ImageUploader169 from '../../../components/input/ImageUploader169.component';
 import ColorInput from '../../../components/input/ColorInput.component';
@@ -11,12 +12,13 @@ import ColorInput from '../../../components/input/ColorInput.component';
 export type OwnProps = {
   id: number;
   cover: string;
-  primaryColor: string;
+  primaryColor: string | File;
   secondaryColor: string;
+  marketingEmail: string;
   submitIsDisabled: boolean;
   handleCoverChange: (value: File) => void;
   handleChange: (
-    key: 'primaryColor' | 'secondaryColor' | 'cover',
+    key: 'primaryColor' | 'secondaryColor' | 'marketingEmail',
   ) => (value: string) => void;
   onSubmit: () => void;
 };
@@ -42,6 +44,7 @@ const FranchiseThemeForm = (props: Props) => {
   const {
     primaryColor,
     secondaryColor,
+    marketingEmail,
     cover,
     id,
     classes,
@@ -71,7 +74,7 @@ const FranchiseThemeForm = (props: Props) => {
           onChange={onCoverChange}
           initial={cover}
         >
-          <FranchiseCoverPreview />
+          <FranchiseCoverPreview classes={classes} />
         </ImageUploader169>
       </div>
       <div className={classes.inputContainer}>
@@ -92,11 +95,27 @@ const FranchiseThemeForm = (props: Props) => {
           />
         </div>
       </div>
+      <div>
+        <EmailInput
+          value={marketingEmail}
+          label={t('marketingEmail.label')}
+          placeholder={t('marketingEmail.placeholder')}
+          onChange={(ev) => handleChange('marketingEmail')(ev.target.value)}
+          type="email"
+          autoComplete="email"
+        />
+        <div>
+          <Typography variant="caption" className={classes.grey}>
+            {t('marketingEmail.caption')}
+          </Typography>
+        </div>
+      </div>
       <Button
         onClick={onSubmit}
         disabled={submitIsDisabled}
         variant="contained"
         color="primary"
+        className={classes.submit}
       >
         {t('forms.submit')}
       </Button>
@@ -130,9 +149,15 @@ const styles = (theme: Theme) =>
       height: '100%',
       width: '100%',
     },
+    submit: {
+      marginTop: theme.spacing(2),
+    },
+    grey: {
+      color: theme.palette.grey[700],
+    },
   });
 
-export default compose(
+export default compose<any, OwnProps>(
   withStyles(styles),
   withTranslation(['theme']),
 )(FranchiseThemeForm);

@@ -9,7 +9,6 @@ import Select from 'react-select';
 import FuzzySearch from '../../../components/search/FuzzySearch.component';
 import { EmailTemplateSummary } from '../../email-editor/types';
 import { FranchiseCompany } from '../types';
-import CompanyEmailTemplateListItem from './CompanyEmailTemplateListItem.components';
 import EmailListItem from '../../email-editor/components/EmailListItem.components';
 
 export type OwnProps = {
@@ -67,7 +66,7 @@ const FranchiseEmailListing = (props: Props) => {
     <div>
       <FuzzySearch
         items={[...franchiseEmails, ...companiesEmails]}
-        placeholder={t('companies.searchPlaceholder')}
+        placeholder={t('emails.searchPlaceholder')}
         searchFields={['title', 'subject']}
         itemRenderer={(email, search) => {
           if (franchiseEmails.some((e) => e.id === email.id)) {
@@ -81,12 +80,19 @@ const FranchiseEmailListing = (props: Props) => {
                 onDuplicate={onDuplicate(email.id)}
                 onDelete={onDelete(email.id)}
                 search={search}
+                companies={email?.available_for_companies.map(
+                  (comp) => companyDic?.[comp],
+                )}
+                allCompanies={
+                  email?.available_for_companies.length ===
+                  Object.keys(companyDic).length
+                }
               />
             );
           }
           if (companiesEmails.some((e) => e.id === email.id)) {
             return (
-              <CompanyEmailTemplateListItem
+              <EmailListItem
                 key={`search_company_${email.id}`}
                 email={email}
                 selectedId={selectedId}
@@ -94,8 +100,7 @@ const FranchiseEmailListing = (props: Props) => {
                 onEdit={onEdit(email.id)}
                 onDelete={onDelete(email.id)}
                 search={search}
-                withTag
-                company={companyDic?.[email.company_id]}
+                companies={[companyDic?.[email.company_id]]}
               />
             );
           }
@@ -144,6 +149,13 @@ const FranchiseEmailListing = (props: Props) => {
                   onEdit={onEdit(email.id)}
                   onDuplicate={onDuplicate(email.id)}
                   onDelete={onDelete(email.id)}
+                  companies={email?.available_for_companies.map(
+                    (comp) => companyDic?.[comp],
+                  )}
+                  allCompanies={
+                    email?.available_for_companies.length ===
+                    Object.keys(companyDic).length
+                  }
                 />
               ))}
             </List>
@@ -169,14 +181,13 @@ const FranchiseEmailListing = (props: Props) => {
                       <List className={classes.list}>
                         {companiesEmailsByCompanyId[parseInt(companyId)]?.map(
                           (email) => (
-                            <CompanyEmailTemplateListItem
+                            <EmailListItem
                               key={`group-by-${email.id}`}
                               email={email}
                               selectedId={selectedId}
                               navigateTo={navigateTo(email.id)}
                               onEdit={onEdit(email.id)}
                               onDelete={onDelete(email.id)}
-                              company={companyDic?.[email.company_id]}
                             />
                           ),
                         )}
@@ -188,15 +199,14 @@ const FranchiseEmailListing = (props: Props) => {
             {!isGrouped && (
               <List className={classes.list}>
                 {companiesEmails.map((email) => (
-                  <CompanyEmailTemplateListItem
+                  <EmailListItem
                     key={email.id}
                     email={email}
                     selectedId={selectedId}
                     navigateTo={navigateTo(email.id)}
                     onEdit={onEdit(email.id)}
                     onDelete={onDelete(email.id)}
-                    company={companyDic?.[email.company_id]}
-                    withTag
+                    companies={[companyDic?.[email.company_id]]}
                   />
                 ))}
               </List>
@@ -225,7 +235,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingBottom: 0,
   },
   scroll: {
-    maxHeight: '80vh',
+    maxHeight: '75vh',
     paddingRight: theme.spacing(2),
     overflowY: 'auto',
   },

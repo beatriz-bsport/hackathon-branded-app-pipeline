@@ -110,7 +110,7 @@ const connector = connect(
   },
 );
 
-export default compose(
+export default compose<any, {}>(
   withTranslation(['franchise']),
   withTitle(({ t }: { t: TFunction }) => t('membersList.pageTitle')),
   withStyles(styles, { withTheme: true }),

@@ -42,6 +42,9 @@ const FranchiseEmailEditor = asyncComponent(
 const FranchiseEmailList = asyncComponent(
   () => import('./FranchiseEmailList.page'),
 );
+const FranchiseNotificationRulesPage = asyncComponent(
+  () => import('./FranchiseNotificationRules.page'),
+);
 
 const ReportingGeneration = asyncComponent(
   () => import('../reporting/ReportingGeneration.page'),
@@ -134,6 +137,10 @@ const FranchiseRouter = (props: Props) => {
               component={ReportingGeneration}
             />
             <Route path="/f/reporting" component={FranchiseReportList} />
+            <Route
+              path="/f/settings/notification-rule/:notificationId?"
+              component={FranchiseNotificationRulesPage}
+            />
             <Redirect to="/f/franchises" />
           </Switch>
         </FranchiseDrawer>

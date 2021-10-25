@@ -141,7 +141,10 @@ export const emailTemplateDetailAction = {
   success: createAction('EMAIL/DETAIL/SUCCESS'),
 };
 
-export function emailTemplateDetail(id: number): ThunkAction {
+export function emailTemplateDetail(
+  id: number,
+  options?: OptionCallback,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(emailTemplateDetailAction.isLoading(true));
     dispatch(emailTemplateDetailAction.error(null));
@@ -154,8 +157,10 @@ export function emailTemplateDetail(id: number): ThunkAction {
         }),
       );
       dispatch(emailTemplateDetailAction.error(null));
+      typeof options?.onSuccess === 'function' && options.onSuccess();
     } catch (error) {
       dispatch(emailTemplateDetailAction.error(error));
+      typeof options?.onError === 'function' && options.onError();
     }
     dispatch(emailTemplateDetailAction.isLoading(false));
   };
@@ -168,7 +173,7 @@ export const createEmailDesignAction = {
 };
 
 export function emailDesignCreate(
-  data: EmailTemplate,
+  data: EmailTemplate & { available_for_companies?: number[] },
   options?: OptionCallback<number>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
@@ -218,7 +223,7 @@ export const updateEmailTemplateAction = {
 
 export function emailTemplateUpdate(
   id: number,
-  data: EmailTemplate,
+  data: EmailTemplate & { available_for_companies?: number[] },
   options?: OptionCallback<number>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
@@ -282,6 +287,7 @@ export function emailTemplateDuplicate(props: {
         html: response.data.html,
         title: `${response.data.title} (${props.copyTranslation || 'copy'})`,
         subject: response.data.subject,
+        available_for_companies: response.data.available_for_companies,
       };
       const newTemplate = await createEmailTemplateAPI(data);
 

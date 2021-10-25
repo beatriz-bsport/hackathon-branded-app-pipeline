@@ -8,12 +8,13 @@ import { getTheme } from '../../theme';
 
 export type OwnProps = {
   company: FranchiseCompany;
+  onDelete?: () => void;
   className?: string;
 };
 
 type Props = OwnProps;
 const CompanyChip = (props: Props) => {
-  const { company, className } = props;
+  const { company, className, onDelete } = props;
 
   if (!company) return null;
   return (
@@ -31,7 +32,12 @@ const CompanyChip = (props: Props) => {
         ).hex(),
       })}
     >
-      <Chip className={className} color="primary" label={company.name} />
+      <Chip
+        className={className}
+        color="primary"
+        label={company.name}
+        onDelete={onDelete}
+      />
     </MuiThemeProvider>
   );
 };

@@ -436,6 +436,7 @@
     },
     "colorPicker": { "noColor": "Aucune couleur", "delete": "Effacer", "validate": "Enregistrer" },
     "text": { "showLessText": "Voir moins", "showMoreText": "Voir plus" },
+    "selector": { "selectAll": "Tout sélectionner", "unselectAll": "Tout désélectionner", "validate": "Valider" },
     "close": "Fermer"
   },
   "communication": {
@@ -847,7 +848,7 @@
     "modal": {
       "delete": {
         "title": "Suppression modèle email",
-        "content": "Êtes-vous sûr de vouloir supprimer ce modèle d'email ? Cette opération est définitive",
+        "content": "Si ce template est lié à une configuration d'email transactionnel, elle sera supprimée aussi. Êtes-vous sûr de vouloir supprimer ce modèle d'email ? Cette opération est définitive",
         "cancel": "Annuler",
         "confirm": "Supprimer"
       }
@@ -874,14 +875,21 @@
       "exportHtml": "Exporter HTML",
       "subject": "Objet du mail",
       "cancel": "Annuler",
+      "shareWith": "Partager avec",
+      "shareWithHelper": "Le template ne pourra pas être modifié par les franchisés",
       "error": {
         "title": "Veuillez renseigner un nom",
         "content": "Veuillez introduire du contenu dans le mail",
         "subject": "Veuillez renseigner un object"
-      }
+      },
+      "selectorPlaceholder": "Sélectionner des franchisés"
     },
+    "companieEmails": "Mes templates",
+    "franchiseEmails": "Templates franchise",
     "leaveAlert": "Voulez-vous vraiment quitter cette page ?",
-    "autoSave": "Sauvegarde automatique"
+    "autoSave": "Sauvegarde automatique",
+    "seeAll": "Voir tous",
+    "allCompanies": "Tous les franchisés"
   },
   "establishment": {
     "list": { "section": { "archived": "Salles archivées" } },
@@ -1052,7 +1060,8 @@
       "franchised": "Franchisé",
       "groupByPlaceholder": "Grouper par",
       "copy": "copie",
-      "chooseGroup": "Choisir un groupe"
+      "chooseGroup": "Choisir un groupe",
+      "searchPlaceholder": "Rechercher un template"
     }
   },
   "giftcard": {
@@ -2270,7 +2279,47 @@
       "601": "Trop peu de réservations N heures avant le début de la séance",
       "701": "Pénalité carte de cours : carte bloquée (élève)",
       "702": "Pénalité carte de cours : acompte créé (élève)"
-    }
+    },
+    "franchise": {
+      "emptySelect": "Sélectionner un email transactionnel pour voir sur quel franchisé il est partagé et utilisé.",
+      "addConfiguration": "Ajouter une configuration",
+      "emptyStateConfiguration": "Créer une configuration pour forcer l'utilisation de templates d’email à chacun de vos franchisés.",
+      "form": {
+        "title": "Configuration",
+        "description": "Le template choisi sera utilisé pour l’email transactionnel “{{name}}“ pour l’ensemble des franchisés sélectionnés ici.",
+        "name": "Nom",
+        "pickTemplate": "Choisir un template",
+        "useFor": "Utiliser pour ",
+        "parameters": "Paramètres",
+        "activate": "Activé",
+        "activateSubtitleActivate": "L’email transationnel est activé, il sera envoyé aux membres",
+        "activateSubtitleDeactivate": "L’email transationnel est désactivé, il ne sera pas envoyé aux membres",
+        "receiveCC": "Recevoir une copie du mail",
+        "receiveCarbonCopySubtitle": "Vous recevrez une copie de chaque email envoyé",
+        "mailSelection": "Choisir un template",
+        "cancel": "Annuler",
+        "save": "Enregister",
+        "error": {
+          "name": "Veuillez remplir un nom",
+          "selectCompanies": "Sélectionner au moins un franchisé",
+          "email_design": "Sélectionner un template"
+        }
+      },
+      "card": {
+        "template": "Template",
+        "parameters": "Paramètres",
+        "companies": "Franchisés",
+        "activated": "Activé",
+        "deactivated": "Désactivé",
+        "carbonCopy": "Recevoir une copie du mail"
+      },
+      "delete": {
+        "title": "Suppression",
+        "content": "Êtes-vous sûr de vouloir supprimer cette configuration ? Les paramètres et templates d’email sélectionnés reprendront leurs valeurs d'origine.",
+        "delete": "Supprimer"
+      }
+    },
+    "franchiseOwned": "Votre franchiseur gère actuellement cet email transactionnel"
   },
   "offer": {
     "deleteImpossibleTitle": "Impossible de supprimer la séance",
@@ -5884,6 +5933,11 @@
         "title": "QuickBooks Connection",
         "text": "Etes-vous sur de vouloir vous autoriser Bsport à accéder à votre application ?"
       }
+    },
+    "marketingEmail": {
+      "label": "Email de suivi",
+      "placeholder": "Email",
+      "caption": "Les copies des emails transactionnels seront envoyés à cette adresse si le paramètre est activé"
     }
   },
   "titles": {

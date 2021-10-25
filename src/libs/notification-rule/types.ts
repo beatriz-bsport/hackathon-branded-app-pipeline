@@ -5,6 +5,11 @@ export type NotificationRule = {
   company: number;
   notification_event: number;
   email_design: number;
+  title: string;
+  companies: number[];
+  is_active: boolean;
+  send_franchisor_carbon_copy: boolean;
+  franchisor: number | null;
 };
 
 export type NotificationRuleState = {

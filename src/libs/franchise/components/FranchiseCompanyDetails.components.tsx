@@ -197,6 +197,9 @@ const styles = (theme: Theme) =>
       alignItems: 'center',
       marginTop: theme.spacing(2),
     },
+    info: {
+      marginBottom: theme.spacing(2),
+    },
     divider: {
       width: '100%',
       height: 1,
@@ -217,9 +220,6 @@ const styles = (theme: Theme) =>
     },
     pin: {
       marginRight: theme.spacing(1),
-    },
-    info: {
-      marginBottom: theme.spacing(2),
     },
     pointer: {
       cursor: 'pointer',

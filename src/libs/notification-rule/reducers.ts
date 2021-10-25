@@ -11,7 +11,7 @@ import {
   notificationRuleSettingUpdateActions,
 } from './actions';
 
-import type { NotificationRuleState } from './types';
+import type { NotificationRuleState, NotificationRule } from './types';
 
 const initialState: Immutable.Immutable<NotificationRuleState> = Immutable<NotificationRuleState>(
   {
@@ -47,7 +47,7 @@ const initialState: Immutable.Immutable<NotificationRuleState> = Immutable<Notif
   },
 );
 
-export default handleActions<typeof initialState>(
+export default handleActions<Immutable.Immutable<NotificationRuleState>, any>(
   {
     [tagAvailableListActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['tag', 'loading'], payload);
@@ -62,14 +62,17 @@ export default handleActions<typeof initialState>(
       return state
         .setIn(
           ['rule', 'byId'],
-          payload.reduce((acc, ps) => {
-            acc[ps.id] = ps;
-            return acc;
-          }, {}),
+          payload.reduce(
+            (acc: { [id: number]: NotificationRule }, ps: NotificationRule) => {
+              acc[ps.id] = ps;
+              return acc;
+            },
+            {},
+          ),
         )
         .setIn(
           ['rule', 'allIds'],
-          payload.map((pc) => pc.id),
+          payload.map((pc: NotificationRule) => pc.id),
         );
     },
 

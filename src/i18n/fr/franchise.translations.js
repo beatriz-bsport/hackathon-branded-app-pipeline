@@ -40,5 +40,6 @@ exports.default = {
     groupByPlaceholder: 'Grouper par',
     copy: 'copie',
     chooseGroup: 'Choisir un groupe',
+    searchPlaceholder: 'Rechercher un template',
   },
 };

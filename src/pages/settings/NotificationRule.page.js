@@ -97,6 +97,7 @@ export class NotificationRule extends React.Component<Props> {
     const notificationRuleSettings = settingsData.length
       ? settingsData[0].settings
       : {};
+
     return (
       <div className={this.props.classes.container}>
         {this.props.loading ? (
@@ -150,6 +151,7 @@ export class NotificationRule extends React.Component<Props> {
                   showEmailPreview={this.props.showEmailPreview}
                   showEmailPreviewHTML={this.props.setPreviewEmailHTML}
                   onDeleteNotificationRule={this.props.deleteNotificationRule}
+                  franchisedOwned={e.rule?.franchisor ?? false}
                   disabled={
                     notificationRuleSettings[e.notification_event]
                       ? notificationRuleSettings[e.notification_event].disabled

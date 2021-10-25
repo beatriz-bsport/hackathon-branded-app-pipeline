@@ -37,9 +37,16 @@ const _getEventListWithRule = createSelector(
           is_instance_specific,
           is_editable,
           notification_group,
-          rule: ruleList.find(
-            (r) => !!r.company && r.notification_event === notification_event,
-          ),
+          rule:
+            ruleList.find(
+              (r) =>
+                r.notification_event === notification_event &&
+                !!r.companies &&
+                r.companies.length,
+            ) ||
+            ruleList.find(
+              (r) => r.notification_event === notification_event && !!r.company,
+            ),
         }),
       )
       .map((e) => {
@@ -65,6 +72,17 @@ const onlyGeneric = createSelector(_getEventListWithRule, (eventWithRuleList) =>
 
 const all = createSelector(_getEventListWithRule, (eventWithRuleList) =>
   eventWithRuleList.reduce(_groupEvents, {}),
+);
+
+export const getFranchiseNotificationRules = createSelector(
+  [
+    getRuleList,
+    (state: RootState, notificationEventId: number) => notificationEventId,
+  ],
+  (ruleList, notificationEventId) =>
+    ruleList.filter(
+      (r) => r.notification_event === notificationEventId && !!r.franchisor,
+    ),
 );
 
 export const getEventByGroup = {

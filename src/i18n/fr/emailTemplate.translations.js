@@ -3,7 +3,7 @@ exports.default = {
     delete: {
       title: 'Suppression modèle email',
       content:
-        "Êtes-vous sûr de vouloir supprimer ce modèle d'email ? Cette opération est définitive",
+        "Si ce template est lié à une configuration d'email transactionnel, elle sera supprimée aussi. Êtes-vous sûr de vouloir supprimer ce modèle d'email ? Cette opération est définitive",
       cancel: 'Annuler',
       confirm: 'Supprimer',
     },
@@ -30,12 +30,20 @@ exports.default = {
     exportHtml: 'Exporter HTML',
     subject: 'Objet du mail',
     cancel: 'Annuler',
+    shareWith: 'Partager avec',
+    shareWithHelper:
+      'Le template ne pourra pas être modifié par les franchisés',
     error: {
       title: 'Veuillez renseigner un nom',
       content: 'Veuillez introduire du contenu dans le mail',
       subject: 'Veuillez renseigner un object',
     },
+    selectorPlaceholder: 'Sélectionner des franchisés',
   },
+  companieEmails: 'Mes templates',
+  franchiseEmails: 'Templates franchise',
   leaveAlert: 'Voulez-vous vraiment quitter cette page ?',
   autoSave: 'Sauvegarde automatique',
+  seeAll: 'Voir tous',
+  allCompanies: 'Tous les franchisés',
 };

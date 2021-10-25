@@ -59,7 +59,6 @@ export class EmailTemplateCreate extends Component<Props> {
             saveEmail={this.onSave}
             hideLeftMenuAction={context.hideLeftMenuAction}
             showLeftMenuAction={context.showLeftMenuAction}
-            emailLoad=""
             tags={this.props.tagCategories}
             goToList={this.props.goToList}
             displayEmptyError={this.props.snackbarError}

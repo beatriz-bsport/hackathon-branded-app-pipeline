@@ -27,13 +27,15 @@ export const fetchEmailTemplate = async (id: number) => {
   return getAuth(`${MARKETING_EMAIL_URI}${id}/`);
 };
 
-export const createEmailTemplate = async (data: Omit<EmailTemplate, 'id'>) => {
+export const createEmailTemplate = async (
+  data: Omit<EmailTemplate, 'id'> & { available_for_companies?: number[] },
+) => {
   return postAuth(MARKETING_EMAIL_URI, data);
 };
 
 export const updateEmailTemplate = (
   id: string | number,
-  data: EmailTemplate,
+  data: EmailTemplate & { available_for_companies?: number[] },
 ) => {
   return patchAuth(`${MARKETING_EMAIL_URI}${id}/`, data);
 };

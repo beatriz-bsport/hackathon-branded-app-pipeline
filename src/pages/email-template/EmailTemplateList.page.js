@@ -8,6 +8,7 @@ import { compose } from 'recompose';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
+import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -159,15 +160,27 @@ export class MarketingEmail extends Component<Props> {
                           navigateTo={() => {
                             this.selected(email.id);
                           }}
-                          onEdit={() => {
-                            this.props.goToEdit(email.id);
-                          }}
-                          onDuplicate={() => {
-                            this.onDuplicate(email.id);
-                          }}
-                          onDelete={() => {
-                            this.props.emailTemplateDelete(email.id);
-                          }}
+                          onEdit={
+                            email.company_id
+                              ? () => {
+                                  this.props.goToEdit(email.id);
+                                }
+                              : undefined
+                          }
+                          onDuplicate={
+                            email.company_id
+                              ? () => {
+                                  this.onDuplicate(email.id);
+                                }
+                              : undefined
+                          }
+                          onDelete={
+                            email.company_id
+                              ? () => {
+                                  this.props.emailTemplateDelete(email.id);
+                                }
+                              : undefined
+                          }
                           search={this.state.searchText}
                         />
                       ))}
@@ -176,36 +189,79 @@ export class MarketingEmail extends Component<Props> {
                 </Paper>
               </div>
             ) : null}
-            <Paper className={classes.panel}>
-              <List
-                component="nav"
-                disablePadding
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}
-              >
-                {this.props.email_templates.map((email) => (
-                  <EmailListItem
-                    key={email.id}
-                    email={email}
-                    selected={email.id === this.props.id}
-                    navigateTo={() => {
-                      this.selected(email.id);
-                    }}
-                    onEdit={() => {
-                      this.props.goToEdit(email.id);
-                    }}
-                    onDuplicate={() => {
-                      this.onDuplicate(email.id);
-                    }}
-                    onDelete={() => {
-                      this.props.emailTemplateDelete(email.id);
-                    }}
-                  />
-                ))}
-              </List>
-            </Paper>
+            <div className={classes.panel}>
+              {this.props.email_templates?.filter((email) => !!email.company_id)
+                .length > 0 && (
+                <>
+                  <Typography className={classes.title} variant="h5">
+                    {t('companieEmails')}
+                  </Typography>
+                  <Paper className={classes.list}>
+                    <List
+                      component="nav"
+                      disablePadding
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                      }}
+                    >
+                      {this.props.email_templates
+                        .filter((email) => !!email.company_id)
+                        .map((email) => (
+                          <EmailListItem
+                            key={email.id}
+                            email={email}
+                            selected={email.id === this.props.id}
+                            navigateTo={() => {
+                              this.selected(email.id);
+                            }}
+                            onEdit={() => {
+                              this.props.goToEdit(email.id);
+                            }}
+                            onDuplicate={() => {
+                              this.onDuplicate(email.id);
+                            }}
+                            onDelete={() => {
+                              this.props.emailTemplateDelete(email.id);
+                            }}
+                          />
+                        ))}
+                    </List>
+                  </Paper>
+                </>
+              )}
+              {this.props?.email_templates?.filter((email) => !email.company_id)
+                ?.length > 0 && (
+                <>
+                  <Typography className={classes.title} variant="h5">
+                    {t('franchiseEmails')}
+                  </Typography>
+                  <Paper className={classes.list}>
+                    <List
+                      component="nav"
+                      disablePadding
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                      }}
+                    >
+                      {this.props.email_templates
+                        .filter((email) => !email.company_id)
+                        .map((email) => (
+                          <EmailListItem
+                            key={email.id}
+                            email={email}
+                            selected={email.id === this.props.id}
+                            navigateTo={() => {
+                              this.props.selectTemplate(email.id);
+                            }}
+                          />
+                        ))}
+                    </List>
+                  </Paper>
+                </>
+              )}
+            </div>
           </Grid>
           <Grid item xs={12} md={6}>
             <EmailPreview
@@ -228,6 +284,12 @@ const styles = (theme) => ({
   panel: {
     maxHeight: '90vh',
     overflow: 'auto',
+  },
+  list: {
+    marginBottom: theme.spacing(4),
+  },
+  title: {
+    marginBottom: theme.spacing(2),
   },
   panelTitle: {
     margin: theme.spacing(1),

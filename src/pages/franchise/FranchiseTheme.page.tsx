@@ -19,6 +19,7 @@ import {
 import { getFranchiseId, getFranchisor } from '../../libs/franchise/selectors';
 import { RootState } from '../../reducers';
 import FranchiseThemeForm from '../../libs/franchise/components/FranchiseThemeForm.components';
+import { emailRegexp } from '../../components/input/EmailInput.component';
 
 type OwnProps = {};
 
@@ -46,26 +47,34 @@ const FranchiseTheme = (props: Props) => {
   const [secondaryColor, setSecondaryColor] = useState(
     RGBtoHex(franchisor.secondaryRGB),
   );
+  const [marketingEmail, setMarketingEmail] = useState(
+    franchisor?.marketing_email ?? '',
+  );
 
   if (!franchiseId) return <CircularProgress />;
 
   const checkSubmitDisabled = () => {
     return (
-      cover === franchisor.cover &&
-      primaryColor === RGBtoHex(franchisor.primaryRGB) &&
-      secondaryColor === RGBtoHex(franchisor.secondaryRGB)
+      (cover === franchisor.cover &&
+        primaryColor === RGBtoHex(franchisor.primaryRGB) &&
+        secondaryColor === RGBtoHex(franchisor.secondaryRGB) &&
+        marketingEmail === franchisor.marketing_email) ||
+      (marketingEmail !== '' && !emailRegexp.test(marketingEmail))
     );
   };
 
-  const handleChange = (key: 'primaryColor' | 'secondaryColor') => (
-    value: string,
-  ) => {
+  const handleChange = (
+    key: 'primaryColor' | 'secondaryColor' | 'marketingEmail',
+  ) => (value: string) => {
     switch (key) {
       case 'primaryColor':
         setPrimaryColor(value);
         break;
       case 'secondaryColor':
         setSecondaryColor(value);
+        break;
+      case 'marketingEmail':
+        setMarketingEmail(value);
         break;
       default:
         break;
@@ -80,6 +89,7 @@ const FranchiseTheme = (props: Props) => {
     const data = new FormData();
     data.append('primary_color', primaryColor);
     data.append('secondary_color', secondaryColor);
+    data.append('marketing_email', marketingEmail?.toLowerCase());
 
     if (cover && typeof cover !== 'string') {
       data.append('cover', cover);
@@ -96,6 +106,7 @@ const FranchiseTheme = (props: Props) => {
           cover={cover}
           primaryColor={primaryColor}
           secondaryColor={secondaryColor}
+          marketingEmail={marketingEmail}
           submitIsDisabled={checkSubmitDisabled()}
           handleCoverChange={handleCoverChange}
           handleChange={handleChange}
@@ -130,4 +141,7 @@ const connector = connect(
   },
 );
 
-export default compose(withStyles(styles), connector)(FranchiseTheme);
+export default compose<any, OwnProps>(
+  withStyles(styles),
+  connector,
+)(FranchiseTheme);

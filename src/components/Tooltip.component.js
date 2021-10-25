@@ -32,7 +32,7 @@ const styles = (theme) => ({
 });
 
 export default withStyles(styles)((props: Props) => {
-  if (!props.title) return props.children;
+  if (!props.title || props?.hide) return props.children;
   return (
     <Tooltip
       title={props.title || null}

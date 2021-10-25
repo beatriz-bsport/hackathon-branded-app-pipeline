@@ -18,6 +18,7 @@ type Props = {
   value: ?number,
   selectorClass: string,
   nullCurrentValue?: boolean,
+  disabled?: boolean,
 };
 
 type OptionProps = {
@@ -56,10 +57,10 @@ export function EmailSelector(props: Props) {
     selectorClass,
     helperText,
     nullCurrentValue,
+    disabled,
   } = props;
 
-  const suggestions = emails
-    .asMutable()
+  const suggestions = [...emails]
     .sort((pp, pp_) => {
       if (moment(pp.date_modifed) > moment(pp_.date_modifed)) return 1;
       return -1;
@@ -80,6 +81,7 @@ export function EmailSelector(props: Props) {
       placeholder={helperText}
       onChange={onChange}
       isClearable
+      isDisabled={disabled}
     />
   );
 }

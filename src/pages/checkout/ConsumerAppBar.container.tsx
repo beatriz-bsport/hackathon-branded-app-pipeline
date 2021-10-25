@@ -13,13 +13,14 @@ import { getTheme } from '../../theme';
 import { getCurrentBasket } from '../../libs/checkout/selectors';
 
 import { Theme } from '../../libs/theme/types';
+import { RootState } from '../../reducers';
 
 type Props = {
   theme?: Theme;
   auth: any;
-  goToUserSpace: (number) => void;
+  goToUserSpace: (id: number) => void;
   disconnect: () => void;
-  companyId: number;
+  companyId?: number;
   children: any;
 };
 
@@ -58,13 +59,13 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default connect(
-  (state) => ({
+  (state: RootState) => ({
     currentBasket: getCurrentBasket(state),
     theme: themeSelectors.getTheme(state),
     auth: state.auth,
   }),
   {
     disconnect: authActions.disconnect,
-    goToUserSpace: (id) => push(`/c/${id}`),
+    goToUserSpace: (id: number) => push(`/c/${id}`),
   },
 )(ConsumerAppBar);

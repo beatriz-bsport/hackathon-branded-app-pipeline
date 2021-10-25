@@ -14,11 +14,18 @@ import {
 import EmailEditorPanel from '../../libs/email-editor/components/EmailEditor.component';
 import { EmailTemplate } from '../../libs/email-editor/types';
 
-import { getFranchiseId } from '../../libs/franchise/selectors';
+import {
+  getFranchiseCompanies,
+  getFranchiseId,
+} from '../../libs/franchise/selectors';
 import { fetchTagList as fetchTagListAction } from '../../libs/notification-rule/actions';
 import { getTagCategories } from '../../libs/notification-rule/selectors';
+import { FranchiseCompany } from '../../libs/franchise/types';
+import { fetchFranchise as fetchFranchiseAction } from '../../libs/franchise/actions';
 
-type OwnProps = {};
+type OwnProps = {
+  companies: FranchiseCompany[];
+};
 
 type Props = OwnProps & ConnectedProps<typeof connector>;
 
@@ -26,22 +33,30 @@ const FranchiseEmailCreate = (props: Props) => {
   const {
     franchise_id,
     tagCategories,
+    companies,
     snackbarError,
     goToList,
     goToListDetail,
     emailDesignCreate,
     fetchTagList,
+    fetchFranchise,
   } = props;
 
   useEffect(() => {
+    fetchFranchise();
     fetchTagList();
-  }, [fetchTagList]);
+  }, [fetchTagList, fetchFranchise]);
 
-  const onSave = (id: number, data: EmailTemplate) => {
+  const onSave = (
+    id: number,
+    data: EmailTemplate,
+    availableCompanies: number[],
+  ) => {
     emailDesignCreate(
       {
         ...data,
         franchise_id,
+        available_for_companies: availableCompanies,
       },
       {
         onSuccess: (templateId: number) => {
@@ -61,6 +76,7 @@ const FranchiseEmailCreate = (props: Props) => {
           tags={tagCategories}
           goToList={goToList}
           displayEmptyError={snackbarError}
+          companies={companies}
         />
       )}
     </DrawerContext.Consumer>
@@ -72,8 +88,10 @@ const connector = connect(
     franchise_id: getFranchiseId(state),
     hasBeenLoadedOnce: state.emailTemplate.hasBeenLoadedOnce,
     tagCategories: getTagCategories(state),
+    companies: getFranchiseCompanies(state),
   }),
   {
+    fetchFranchise: fetchFranchiseAction,
     fetchTagList: fetchTagListAction,
     setEmailEditorHasBeenLoaded: setEmailEditorHasBeenLoadedAction,
     snackbarError: snackbarErrorAction,

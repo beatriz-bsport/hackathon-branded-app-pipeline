@@ -5,6 +5,7 @@ export type EmailTemplateSummary = {
   subject: string;
   title: string;
   company_id?: number;
+  available_for_companies?: number[];
 };
 
 export type EmailTemplateDetail = {

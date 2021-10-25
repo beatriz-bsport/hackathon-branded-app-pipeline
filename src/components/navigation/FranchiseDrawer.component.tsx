@@ -496,6 +496,11 @@ const getNavigationItems = (props: {
           dense: true,
           text: 'backofficeMenu.settings.general',
         },
+        {
+          to: '/f/settings/notification-rule',
+          dense: true,
+          text: 'backofficeMenu.settings.notificationRule',
+        },
       ],
     },
     {

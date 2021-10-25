@@ -51,6 +51,7 @@ export function fetchTagList(options?: OptionCallback) {
 }
 
 export function fetchNotificationRuleList(
+  params: any = {},
   options?: OptionCallback<any /* TODO Types */>,
 ) {
   return async (dispatch: Dispatch) => {
@@ -59,7 +60,9 @@ export function fetchNotificationRuleList(
 
     try {
       const response_custom = await fetchNotificationRuleListAPI();
-      const response_generic_rules = await fetchNotificationRuleGenericListAPI();
+      const response_generic_rules = await fetchNotificationRuleGenericListAPI(
+        params,
+      );
 
       const { rules, tags } = response_generic_rules.data;
       const genericRulesList = rules.map((r: any) => ({

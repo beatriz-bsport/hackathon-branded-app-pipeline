@@ -27,6 +27,7 @@ import {
   addItemToBasket,
   fetchCurrentBasket,
 } from '../../../libs/checkout/actions';
+import { Giftcard } from '../../../libs/giftcard/types';
 
 import { getCurrentBasket } from '../../../libs/checkout/selectors';
 

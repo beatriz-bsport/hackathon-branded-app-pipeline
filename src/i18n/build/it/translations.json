@@ -509,7 +509,8 @@
             },
             "completeInformation": "Completare le mie informazioni",
             "emergencyContact": "Contatto d'emergenza",
-            "modify": "Modificare"
+            "modify": "Modificare",
+            "warningAddEmail": "Questa e-mail è già stata aggiunta."
         },
         "marketing": {
             "dashboard": "Pannello di controllo",
@@ -2635,6 +2636,9 @@
             "restore": "Ripristina questa sessione",
             "previousSession": " Sei stato loggato come{{name}}",
             "title": " Sembra che tu stia usando diverse schede simultaneamente"
+        },
+        "stripeOnboardingPending": {
+            "banner": "Se non hai completato l'impostazione della fatturazione, i pagamenti online potrebbero essere disabilitati. Clicca qui per completare la tua configurazione."
         }
     },
     "stripe": {
@@ -3893,7 +3897,8 @@
                 "10": "Pacchetto",
                 "9": "Pass per appuntamenti",
                 "3": "Credito",
-                "undefined": "carta regalo"
+                "undefined": "carta regalo",
+                "11": "carta regalo"
             },
             "voucher": "Riduzione: {{voucher}}",
             "quantity": "Quantità",
@@ -4144,7 +4149,8 @@
                 "pm_associated_to_protected_bp": "Impossibile : Devi avere un abbonamento associato a questo metodo di pagamento",
                 "last_payment_method": "Impossibile di cancellare il tuo unico metodo di pagamento",
                 "pm_deleted": "Metodo di pagamento cancellato"
-            }
+            },
+            "inconsistent": "Metodo di pagamento non autorizzato, si prega di riconfigurarlo. Il cliente potrebbe aver richiesto di de-autorizzare la sua carta o potresti aver unito due membri, in entrambi i casi il metodo di pagamento non è più utilizzabile"
         },
         "paymentEngine": {
             "label": {
@@ -4901,7 +4907,27 @@
             "payment_amount_by_payment_method": "Raccolta per metodo di pagamento",
             "billing_establishment": "indirizzo",
             "billing_group": "Gruppo di fatturazione",
-            "company_name": "Franchisee"
+            "company_name": "Franchisee",
+            "reverted": "Cancellato",
+            "sum_available_amount_non_expired": "Offerte di credito ancora disponibili",
+            "sum_available_amount_expired": "Crediti offerti e scaduti",
+            "sum_consumed_amount": "Crediti offerti",
+            "nb_expired": "Numero di carte scadute",
+            "nb_non_activated": "Numero di carte non attivate",
+            "nb_activated": "Numero di carte attivate",
+            "nb_purchase": "Numero di acquisti",
+            "consumed_amount_gifted": "Quantità consumata",
+            "id": "ID",
+            "dst_gender": "Sesso del destinatario",
+            "dst_phonenumber": "Telefono ricevitore",
+            "dst_email": "Ricezione dello smalto",
+            "dst_lastname": "Nome del ricevitore",
+            "dst_firstname": "Nome del destinatario",
+            "src_gender": "Sesso dell'acquirente",
+            "src_phonenumber": "Telefono dell'acquirente",
+            "src_email": "Email dell'acquirente",
+            "src_lastname": "Cognome dell'acquirente",
+            "src_firstname": "Nome dell'acquirente"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -5490,7 +5516,8 @@
                 "content": "Sei sicuro di voler cancellare questa categoria? Tutti gli elementi che contiene saranno inseriti nella sezione delle schede di corso non categorizzate",
                 "cancel": "Cancellare",
                 "confirm": "Confirmare"
-            }
+            },
+            "category": "Categorie di schede dei corsi"
         }
     },
     "metaActivity": {
@@ -8544,7 +8571,12 @@
             "configTitle": "Il mio widget",
             "containerConfiguration": {
                 "title": "Configurazione generale"
-            }
+            },
+            "dialogSize": {
+                "window": "Finestra popup",
+                "fullScreen": "Schermo intero"
+            },
+            "dialogSizeLabel": "Dimensione del popup"
         }
     },
     "platformBilling": {
@@ -9005,7 +9037,7 @@
         },
         "consumerGiftcard": {
             "form": {
-                "footer": "La carta sarà inviata per posta il {{- date_send }} agli indirizzi indicati. Sarà valido per {{ expiration_days }} giorni dopo l'invio dell'e-mail.",
+                "footer": "La carta sarà inviata via email il {{- data_send }} agli indirizzi indicati. Sarà valido per {{ expiration_days }} giorni dopo l'invio dell'email. L'account del destinatario sarà accreditato con {{- price }} per gli acquisti futuri.",
                 "actions": {
                     "submit": "Aggiungi al carrello"
                 },
@@ -9026,7 +9058,8 @@
                 },
                 "name": {
                     "label": "Nome della carta"
-                }
+                },
+                "footerUnlimited": "La carta sarà inviata via email il {{- data_send }} agli indirizzi indicati. Non contiene una data di scadenza. L'account del destinatario sarà accreditato con {{- price }} per gli acquisti futuri."
             },
             "previewPlaceholder": {
                 "message_content": "[Messaggio personalizzato]",
@@ -9053,7 +9086,7 @@
                     "submit": "inviare",
                     "close": "chiudere"
                 },
-                "content": "Puoi cambiare i destinatari della carta regalo. Si prega di notare che solo una persona può usarlo.",
+                "content": "Puoi cambiare i destinatari della carta regalo. Si prega di notare che solo una persona può usarlo. Se l'email non è stata ricevuta puoi anche inoltrare questo link di attivazione:",
                 "title": "Inviare un'e-mail di invito",
                 "activationCodeLink": "L'e-mail di invito è stata inviata e non può più essere modificata, se non ha raggiunto il destinatario giusto puoi inoltrare questo link di attivazione per offrire la carta regalo: "
             },

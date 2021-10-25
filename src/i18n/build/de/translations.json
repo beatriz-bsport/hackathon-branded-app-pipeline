@@ -1204,7 +1204,8 @@
             },
             "emergencyContact": "Kontakt für Notfälle",
             "completeInformation": "Meine Informationen vervollständigen",
-            "modify": "Ändern Sie"
+            "modify": "Ändern Sie",
+            "warningAddEmail": "Diese E-Mail ist bereits hinzugefügt worden."
         },
         "booking": {
             "revertBookingExplain": {
@@ -2880,7 +2881,8 @@
                     "name": "Name der Kategorie"
                 }
             },
-            "add": "Eine Kategorie hinzufügen"
+            "add": "Eine Kategorie hinzufügen",
+            "category": "Kategorien von Kurskarten"
         }
     },
     "alerting": {
@@ -3149,7 +3151,27 @@
             "last_payment_date": "Datum der letzten Zahlung",
             "billing_establishment": "Adresse",
             "billing_group": "Abrechnungsgruppe",
-            "company_name": "Franchisenehmer"
+            "company_name": "Franchisenehmer",
+            "reverted": "Abgesagt",
+            "sum_available_amount_non_expired": "Kreditangebote noch verfügbar",
+            "sum_available_amount_expired": "Angebotene und abgelaufene Kredite",
+            "sum_consumed_amount": "Angebotene Kredite",
+            "nb_expired": "Anzahl der nicht aktivierten Karten",
+            "nb_non_activated": "Anzahl der nicht aktivierten Karten",
+            "nb_activated": "Anzahl der aktivierten Karten",
+            "nb_purchase": "Anzahl der Käufe",
+            "consumed_amount_gifted": "Verbrauchte Menge",
+            "id": "ID",
+            "dst_gender": "Geschlecht des Empfängers",
+            "dst_phonenumber": "Telefon des Empfängers",
+            "dst_email": "Empfangender Zahnschmelz",
+            "dst_lastname": "Name des Empfängers",
+            "dst_firstname": "Vorname des Empfängers",
+            "src_gender": "Geschlecht des Käufers",
+            "src_phonenumber": "E-Mail des Käufers",
+            "src_email": "E-Mail des Käufers",
+            "src_lastname": "Name des Käufers",
+            "src_firstname": "Vorname Käufer"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -4011,7 +4033,8 @@
                 "3": "Kredit",
                 "2": "Shop",
                 "1": "Kurskarte",
-                "undefined": "Geschenkkarte"
+                "undefined": "Geschenkkarte",
+                "11": "Geschenkkarte"
             },
             "discount": "Reduktion"
         },
@@ -4104,7 +4127,8 @@
                 "pm_associated_to_protected_bp": "Unmöglich: Sie haben ein Abonnement, das mit dieser Zahlungsmethode verknüpft ist",
                 "last_payment_method": "Sie können Ihre einzige Zahlungsmethode nicht löschen",
                 "pm_deleted": "Gelöschte Zahlungsmethode"
-            }
+            },
+            "inconsistent": "De-autorisierte Zahlungsmethode, bitte konfigurieren Sie sie neu. Der Kunde hat möglicherweise beantragt, seine Karte nicht mehr zu autorisieren, oder Sie haben zwei Mitglieder zusammengelegt; in beiden Fällen ist die Zahlungsmethode nicht mehr verwendbar."
         },
         "table": {
             "nested": {
@@ -4422,7 +4446,7 @@
                     "label": "Wiederholen Sie alle"
                 },
                 "recurrence": {
-                    "explain": "Die Zahlung wird auf alle Jahre verteilt und bringt",
+                    "explain": "Die Zahlung wird über {{ total_interval_duration }} {{ interval }} jedes {{ recurrence_basis }} {{ interval }} verteilt und erzeugt {{ nb_interval }} Zahlungseingänge",
                     "section": "Wiederholung"
                 },
                 "interval": {
@@ -7537,6 +7561,9 @@
             "restore": "Diese Sitzung wiederherstellen",
             "previousSession": " Sie waren eingeloggt als",
             "title": " Sie scheinen mehrere Tabs gleichzeitig zu verwenden"
+        },
+        "stripeOnboardingPending": {
+            "banner": "Wenn Sie die Einrichtung der Rechnungsstellung nicht abgeschlossen haben, sind Online-Zahlungen möglicherweise deaktiviert. Klicken Sie hier, um Ihre Einrichtung abzuschließen."
         }
     },
     "emailTemplate": {
@@ -8584,7 +8611,12 @@
             "configTitle": "Mein Widget",
             "containerConfiguration": {
                 "title": "Allgemeine Konfiguration"
-            }
+            },
+            "dialogSize": {
+                "window": "Popup-Fenster",
+                "fullScreen": "Vollbild"
+            },
+            "dialogSizeLabel": "Größe des Popups"
         }
     },
     "marketing": {
@@ -9016,7 +9048,8 @@
                 },
                 "name": {
                     "label": "Name der Karte"
-                }
+                },
+                "footerUnlimited": "Die Karte wird am {{- date_send }} per E-Mail an die angegebenen Adressen gesendet. Sie enthält kein Verfallsdatum. Dem Konto des Empfängers wird der {{- Price }} für zukünftige Einkäufe gutgeschrieben."
             },
             "previewPlaceholder": {
                 "message_content": "[Personalisierte Nachricht].",

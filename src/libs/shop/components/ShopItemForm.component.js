@@ -236,7 +236,7 @@ export class ShopItemForm extends Component<Props, State> {
                 fullWidth
                 max={100}
                 InputProps={{
-                  inputProps: { min: 0, max: 100, step: 0.01 },
+                  inputProps: { min: 0, max: 100, step: 0.005 },
                   endAdornment: (
                     <InputAdornment position="end">%</InputAdornment>
                   ),

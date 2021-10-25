@@ -192,7 +192,7 @@ export const PaymentComboForm = (props: Props) => (
       name="tax"
       fullWidth
       required
-      step={0.01}
+      step={0.005}
       label={props.t('form.tax.label')}
     />
     <CheckboxField

@@ -78,6 +78,9 @@ const ButtonSaveWithInfo = withConfirm(Button, 'onClick', {
 });
 export function CustomFormConfigurationTable(props: Props) {
   const { t, isSubmitting, classes } = props;
+  const layoutActive =
+    props.initial?.layout &&
+    Object.keys(props.initial?.layout || {})?.length === 4;
   const [openFieldCreationDialog, setOpenCreationDialog] = React.useState(
     false,
   );
@@ -353,6 +356,7 @@ export function CustomFormConfigurationTable(props: Props) {
                                   customFormFieldType="custom_form_field_enabled"
                                   isSignUpForm={props.initial.is_signup}
                                   isMemberForm={props.initial.is_member_form}
+                                  isLayoutActive={layoutActive}
                                 />
                               </Paper>
                             </SortableItem>

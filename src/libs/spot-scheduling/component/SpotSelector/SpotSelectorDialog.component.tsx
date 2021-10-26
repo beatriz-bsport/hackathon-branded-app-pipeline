@@ -163,9 +163,12 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'column',
     height: '100%',
+    maxWidth: '100%',
   },
   topRow: {
-    display: 'flex',
+    '&>*': {
+      marginBottom: theme.spacing(1),
+    },
   },
   dateContainer: {
     flex: 1,

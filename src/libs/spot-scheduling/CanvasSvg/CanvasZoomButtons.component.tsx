@@ -26,20 +26,12 @@ class CanvasZoomButtons extends React.PureComponent<Props> {
         </Button>
 
         {this.props.onClickCenter && (
-          <Button
-            className={classes.item}
-            variant="contained"
-            onClick={this.props.onClickCenter}
-          >
+          <Button variant="contained" onClick={this.props.onClickCenter}>
             <CenterFocusStrongIcon />
           </Button>
         )}
 
-        <Button
-          className={classes.item}
-          variant="contained"
-          onClick={this.props.onClickZoomOut}
-        >
+        <Button variant="contained" onClick={this.props.onClickZoomOut}>
           <ZoomOutIcon />
         </Button>
       </div>
@@ -53,10 +45,7 @@ const styles = (theme) => ({
     left: 20,
     top: 20,
     display: 'flex',
-    flexDirection: 'column',
-  },
-  item: {
-    marginTop: theme.spacing(1),
+    flexDirection: 'row',
   },
 });
 

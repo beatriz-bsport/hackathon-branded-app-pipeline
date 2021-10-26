@@ -38,8 +38,8 @@ const PrivatePassPreCheckout = asyncComponent(() =>
   import('./pre-checkout/PrivatePassPreCheckout.page'),
 );
 
-const MarketplaceSubscriptionPayment = asyncComponent(() =>
-  import('./MarketplaceSubscriptionPayment.page'),
+const ContractCheckout = asyncComponent(() =>
+  import('./ContractCheckout.page'),
 );
 const GiftcardCheckoutPage = asyncComponent(() =>
   import('./giftcard/GiftcardCheckout.page'),
@@ -99,7 +99,7 @@ export class PaymentRouter extends React.Component<Props> {
         />
         <Route
           path="/(|customer/)checkout/:companyId/subscription/:contractId"
-          component={MarketplaceSubscriptionPayment}
+          component={ContractCheckout}
         />
         <Route
           path="/(|customer/)checkout/:companyId/pre-checkout/payment-pack/:id"

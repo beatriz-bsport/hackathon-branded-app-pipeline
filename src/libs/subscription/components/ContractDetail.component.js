@@ -99,7 +99,7 @@ const ContractDetail = (props: Props) => {
         {props.company ? (
           <div className={classes.block}>
             <CopyToClipboard
-              text={`${window.location.origin}/checkout/${props.company.id}/subscription/${props.contract.id}`}
+              text={`${window.location.origin}/checkout/${props.company.id}/subscription/${props.contract.id}?force=true`}
             >
               <ButtonBase
                 className={classes.link}

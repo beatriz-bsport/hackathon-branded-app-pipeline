@@ -16,6 +16,7 @@ import {
 } from 'connected-react-router';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
+import withQueryParams from '../../hocs/with-query-params.hoc';
 import { RootState } from '../../reducers';
 import { MaterialStyleType } from '../../utils/types';
 import themeSelectors, { getStripePkKey } from '../../libs/theme/selectors';
@@ -30,9 +31,13 @@ import {
 } from '../../libs/private-service/actions';
 import {
   getMarketplaceContractList as getContractList,
+  getContract,
   withPaymentPack,
 } from '../../libs/subscription/selectors';
-import { fetchMarketplaceContractList } from '../../libs/subscription/actions';
+import {
+  fetchMarketplaceContractList,
+  fetchContractDetail,
+} from '../../libs/subscription/actions';
 import { postContractSubscription as postContractSubscriptionAPI } from '../../libs/subscription/api';
 import SubscriptionPayment from '../../libs/subscription/components/SubscriptionPayment.component';
 import SubscriptionContractDetail from '../../libs/subscription/components/SubscriptionContractDetail.component';
@@ -60,7 +65,7 @@ import ConsumerAppBar from './ConsumerAppBar.container';
 const stripePromise = loadStripe(getStripePkKey());
 type ownProps = {
   companyId: number;
-  fetchContracts: () => void;
+  fetchContractList: (companyId: number) => void;
   contractLoading: boolean;
   classes: Object;
   contractList: Array<ContractWithPaymentPack>;
@@ -110,7 +115,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
   };
 
   componentWillMount() {
-    this.props.fetchContracts(this.props.companyId);
+    this.props.fetchContractList(this.props.companyId);
     this.props.fetchPaymentMethodList();
     this.props.fetchPaymentComboList({
       company: this.props.companyId,
@@ -124,6 +129,12 @@ export class MarketplaceSubscriptionPayment extends React.Component<
       page_size: 300,
     });
     this.props.fetchPrivatePassAsConsumerList(this.props.companyId);
+  }
+
+  componentDidMount() {
+    if (this.props.queryParams?.force === 'true' && this.props.contractId) {
+      this.props.fetchContractDetail(this.props.contractId);
+    }
   }
 
   onSubmit = async (
@@ -144,10 +155,11 @@ export class MarketplaceSubscriptionPayment extends React.Component<
       });
 
       try {
-        const contract = this.props.contractList.find(
-          (c: ContractWithPaymentPack) =>
-            c.id === parseInt(this.props.contractId),
-        );
+        const contract =
+          this.props.contractList.find(
+            (c: ContractWithPaymentPack) =>
+              c.id === parseInt(this.props.contractId),
+          ) || this.props.contract;
         Analytics.contractPaymentSuccess(contract);
       } catch (err) {
         console.error(err);
@@ -168,7 +180,9 @@ export class MarketplaceSubscriptionPayment extends React.Component<
     const { classes } = this.props;
     if (
       this.props.contractLoading ||
-      (this.props.contractId && this.props.contractList.length === 0)
+      (this.props.contractId &&
+        this.props.contractList.length === 0 &&
+        !this.props.contract)
     ) {
       return <LinearProgress />;
     }
@@ -203,12 +217,14 @@ export class MarketplaceSubscriptionPayment extends React.Component<
               <Grid item xs={12} md={6}>
                 {this.props.contractId &&
                   this.props.contractList &&
-                  this.props.contractList !== [] && (
+                  (this.props.contractList.length || this.props.contract) && (
                     <SubscriptionContractDetail
-                      contract={this.props.contractList.find(
-                        (c: ContractWithPaymentPack) =>
-                          c.id === parseInt(this.props.contractId),
-                      )}
+                      contract={
+                        this.props.contractList.find(
+                          (c: ContractWithPaymentPack) =>
+                            c.id === parseInt(this.props.contractId),
+                        ) || this.props.contract
+                      }
                     />
                   )}
               </Grid>
@@ -226,10 +242,12 @@ export class MarketplaceSubscriptionPayment extends React.Component<
                       }
                       savedPaymentMethodList={this.props.savedPaymentMethodList}
                       withCoupon
-                      contract={this.props.contractList.find(
-                        (c: ContractWithPaymentPack) =>
-                          c.id === parseInt(this.props.contractId),
-                      )}
+                      contract={
+                        this.props.contractList.find(
+                          (c: ContractWithPaymentPack) =>
+                            c.id === parseInt(this.props.contractId),
+                        ) || this.props.contract
+                      }
                       refreshSavedPaymentMethodList={
                         this.props.fetchPaymentMethodList
                       }
@@ -287,8 +305,12 @@ const styles = (theme: Theme) => ({
   },
 });
 
-const mapStateToProps = (state: RootState) => ({
+const mapStateToProps = (
+  state: RootState,
+  { contractId }: { contractId: string },
+) => ({
   contractList: withPaymentPack(getContractList)(state),
+  contract: getContract(state, parseInt(contractId, 10)),
   contractLoading: state.subscription.contract.byMarketplace.loading,
   companyTheme: themeSelectors.getTheme(state),
   savedPaymentMethodList: getSavedPaymentMethodList(state),
@@ -299,7 +321,8 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = {
   fetchMarketplaceContractList,
   replace: replaceAction,
-  fetchContracts: fetchMarketplaceContractList,
+  fetchContractList: fetchMarketplaceContractList,
+  fetchContractDetail,
   fetchPaymentPackBulk: fetchPaymentPackBulkAction,
   fetchPrivatePassBulk: fetchPrivatePassBulkAction,
   fetchPaymentMethodList: fetchPaymentMethodListAction,
@@ -321,8 +344,9 @@ const mapDispatchToProps = {
 };
 
 export default compose<any, ownProps>(
-  connect(mapStateToProps, mapDispatchToProps),
   routerParamsToProps({ contractId: 'contractId', companyId: 'companyId' }),
+  connect(mapStateToProps, mapDispatchToProps),
+  withQueryParams([['force'], 'queryParams']),
   // @ts-ignore
   withStyles(styles),
   withState('date', 'setDate', moment()),
@@ -336,9 +360,9 @@ export default compose<any, ownProps>(
       fetchPaymentMethodList({ company: companyId }),
   }),
   withProps(
-    ({ fetchContracts, fetchPaymentPackBulk, fetchPrivatePassBulk }) => ({
-      fetchContracts: (params) =>
-        fetchContracts(params, {
+    ({ fetchContractList, fetchPaymentPackBulk, fetchPrivatePassBulk }) => ({
+      fetchContractList: (params) =>
+        fetchContractList(params, {
           onSuccess: (contractList: Array<ContractWithPaymentPack>) => {
             fetchPaymentPackBulk([
               ...contractList.map((contract) => contract.payment_pack),

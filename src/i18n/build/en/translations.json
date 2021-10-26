@@ -2087,7 +2087,7 @@
         "caption": {
             "emailDesign": "Transactional email template",
             "event": "Event",
-            "sendCopy": "CC myself",
+            "sendCopy": "Activate this option to receive a copy",
             "active": "Enable"
         },
         "marketingNotification": {
@@ -2100,7 +2100,7 @@
                 "title": "Delete"
             },
             "card": {
-                "carbonCopy": "CC myself",
+                "carbonCopy": "Activate this option to receive a copy",
                 "deactivated": "Deactivated",
                 "activated": "Activated",
                 "companies": "Franchisees",
@@ -2117,7 +2117,7 @@
                 "cancel": "Cancel",
                 "mailSelection": "Choose a template",
                 "receiveCarbonCopySubtitle": "You'll receive a copy of each sent email.",
-                "receiveCC": "CC myself",
+                "receiveCC": "Activate this option to receive a copy",
                 "activateSubtitleDeactivate": "The transactional email has been activated. It won't be sent to members",
                 "activateSubtitleActivate": "The transactional email has been activated. It'll be sent to members",
                 "activate": "Activated",
@@ -2176,10 +2176,10 @@
             "content": "Your purchase has been confirmed!"
         },
         "actions": {
-            "goToSubscription": "Show all subscriptions",
-            "goToPass": "Show all passes",
-            "goToCalendar": "Show the calendar",
-            "goToHome": "Show all services"
+            "goToSubscription": "See all subscriptions",
+            "goToPass": "See all passes",
+            "goToCalendar": "Open the calendar",
+            "goToHome": "See all services"
         },
         "debt": {
             "explainPayment": "This amount will be paid to the studio to regularize your outstanding debt.",
@@ -2195,7 +2195,7 @@
         },
         "myVideos": {
             "title": "My videos",
-            "gotToVOD": "Show all videos"
+            "gotToVOD": "See all videos"
         },
         "widget": {
             "noBookingPast": "There are no previous bookings to display.",
@@ -2405,7 +2405,7 @@
             "showReport": "Reports",
             "list": {
                 "showMore": "Show more",
-                "isEmpty": "There are no previously sent messages to display yet."
+                "isEmpty": "There are no previously sent messages to display."
             },
             "report": {
                 "totalRead": "Open rate",
@@ -3947,7 +3947,13 @@
                     },
                     "label": "Limit the amount of future bookings per member"
                 },
-                "hiddenFromMarketplace": "Activate this to display your studio on the general BSPORT app"
+                "hiddenFromMarketplace": "Activate this to display your studio on the general BSPORT app",
+                "schedule": {
+                    "alert": "The schedule's start time must be earlier than the end time",
+                    "end": "End time",
+                    "begin": "Start time",
+                    "title": "Schedule configuration"
+                }
             },
             "cover": {
                 "label": "Logo",
@@ -4023,7 +4029,7 @@
             },
             "waiver": {
                 "placeholder": "I certify that I'm over the age of 13.",
-                "helperText": "This must be accepted for all registrations.",
+                "helperText": "All members must accept this during their enrolment.",
                 "label": "Liability Waiver"
             }
         },
@@ -4547,7 +4553,7 @@
             "sections": {
                 "offerNotBookable": "Unable to register for",
                 "offerPreBooked": "You are on the waiting list for",
-                "offerBooked": "You've successfully booked for",
+                "offerBooked": "You've successfully booked",
                 "basket": "Your basket",
                 "title": "Summary"
             },
@@ -4678,7 +4684,7 @@
                     "confirm": "Delete"
                 }
             },
-            "groupButton": "Grouping establishments",
+            "groupButton": "Group establishments",
             "addLocalisation": "Add a location",
             "actions": "Action",
             "form": {
@@ -4938,8 +4944,8 @@
             },
             "preview": "Preview",
             "saveButton": "Save",
-            "link": "Access the customer marketplace (you'll be logged out)",
-            "explainMarketplace": "Your members can access your marketplace (calendar, store, VOD, etc.) online on a computer, tablet or phone. Personalize your page here!",
+            "link": "Logout and open the MarketPlace",
+            "explainMarketplace": "Here you can edit your MarketPlace (calendar, agenda, appointments, etc.), in which you members can consult and purchase your offer over their phone, tablet, and computer.",
             "addButton": "Add a tab"
         },
         "companyOnboarding": {
@@ -5511,7 +5517,7 @@
                     "revert_bookings_on_fail_subscription_payment": {
                         "label": "Cancel all bookings if payment fails",
                         "warning": "Attention: previously cancelled bookings resulting from a failed payment won't be recreated after another payment was successful!",
-                        "helperText": "If the subscription payment fails or is declared disputed, bookings made with these cards will be cancelled (and the credit re-credited)"
+                        "helperText": "If the subscription payment fails or is declared disputed, bookings made with these passes will be cancelled (and the credit re-credited)"
                     },
                     "disable_pass_on_fail_subscription_payment": {
                         "label": "Block passes if payment fails",
@@ -5523,7 +5529,7 @@
                     },
                     "activateSmartRetries": {
                         "label": "Enable Smart Retries on failed payments",
-                        "helperText": "bsport will automatically retry failed subscription payments at the best time."
+                        "helperText": "The system will automatically retry failed payments at the best time."
                     }
                 },
                 "title": "Subscription"
@@ -5563,7 +5569,7 @@
                 },
                 "clientAuthor": "Customer",
                 "author": "Created by : {{ name }}",
-                "date": "Date : {{ date }}",
+                "date": "Date: {{ date }}",
                 "reverseInvoice": "Refunded via ",
                 "sourceInvoice": "Cancel the invoice",
                 "noEstablishment": "No establishment has been associated to this invoice"
@@ -5657,7 +5663,7 @@
                         "product": "Name",
                         "voucher": "Discount",
                         "priceExcTax": "Total (excl. VAT)",
-                        "price": "Total VAT incl"
+                        "price": "Total (incl. VAT)"
                     },
                     "isEmpty": "No purchases",
                     "title": "Purchases"
@@ -5667,7 +5673,7 @@
                 "pdf": "PDF",
                 "missing": "Amount due",
                 "amount": "Total cost",
-                "date": "Invoice date",
+                "date": "Billing date",
                 "id": "Identifier",
                 "member": "Member",
                 "invoiceType": "Type",
@@ -5684,15 +5690,15 @@
                     "submit": "Submit"
                 },
                 "debt": "Debit",
-                "explainTopup": "An increase of €{{ amount }} will be recorded in the member's balance.",
-                "explainDecaissement": "A decrease of {{ amount }} {{ currencyDisplay }} will be recorded in the member's balance.",
+                "explainTopup": "The member's account balance will be increased by: €{{ amount }}.",
+                "explainDecaissement": "The member's balance will be decreased by: {{ currencyDisplay }}{{ amount }}.",
                 "balanceValueLabel": "Amount",
                 "title": "Balance adjustment",
                 "typeLabel": "Adjustment type",
                 "topup": "Charge",
                 "withoutPaymentNote": {
-                    "warning": "Be careful : we don't keep any track of this operation. Only to be use with caution.",
-                    "label": "No invoice created"
+                    "warning": "Attention: only use this option when absolutely necessary. This action won't be registered in your account.",
+                    "label": "Don't generate an invoice"
                 }
             }
         },
@@ -5778,7 +5784,7 @@
             "select": {
                 "label": "Payment method"
             },
-            "isInternalExplain": "This member's account balance will be automatically charged.",
+            "isInternalExplain": "The account balance will be automatically charged if no payment method has been added.",
             "add": "Add",
             "edit": "Edit",
             "title": "Payment method",
@@ -5822,8 +5828,8 @@
         },
         "mandate": {
             "content": "By completing this payment and by using your IBAN, you authorize BSPORT Solution and Stripe (our payment processor) to start billing you for all payments. You can request refunds through your bank and should be done within 8 weeks of the first payment.",
-            "email": "Email adress",
-            "name": "Last name and first name"
+            "email": "Email address",
+            "name": "Accountholder's full name"
         },
         "paymentGroup": {
             "requiresAction": "The bank did not authenticate payment (3DSecure)",
@@ -6030,9 +6036,9 @@
                 "label": "Invoice {{uuid}} : {{price}}"
             },
             "listItem": {
-                "nextBillingDate": "Next billing on {{ d }}",
+                "nextBillingDate": "Upcoming billing date: {{ d }}",
                 "startingAt": "Starting on the {{ d }}",
-                "recurrencePriceIs": "Recurring payment of {{currencyDisplay}}{{amount }}"
+                "recurrencePriceIs": "Recurring payment: {{currencyDisplay}}{{amount }}"
             }
         },
         "contract": {
@@ -6048,7 +6054,7 @@
             "legal": "Legal notice",
             "actions": {
                 "iAcceptCondition": "I accept the legal notice.",
-                "iwanttostarton": "The start date of my subscription: ",
+                "iwanttostarton": "Preferred starting date of my subscription: ",
                 "subscribe": "Subscribe",
                 "create": "Add a subscription",
                 "iAcceptGeneralCondition": " I accept the legal notice."
@@ -6232,7 +6238,7 @@
             "payment_method": {
                 "label": "Payment method",
                 "2": "Credit",
-                "1": "SEPA transfer",
+                "1": "SEPA Transfer",
                 "0": "Credit card"
             },
             "private_pass": "Appointment pass",
@@ -6250,8 +6256,8 @@
             "paymentMethodTitle": "Payment method"
         },
         "paymentMethod": {
-            "sepa": "SEPA debit",
-            "card": "Card",
+            "sepa": "SEPA Direct Debit",
+            "card": "Credit Card",
             "credit": {
                 "explain": "The member will be billed on his internal account each periods. Use this payment method if you do not have (yet) access to a billing method such as a credit card or IBAN. You can update the subscription payment method later."
             },
@@ -6482,7 +6488,7 @@
             "total_basket": "Basket total",
             "products": "Contents of the basket",
             "time": "Hour",
-            "billing_date_start": "Date of first invoice",
+            "billing_date_start": "First billing date",
             "payment_status": "Payment status",
             "adjusted_price": "Adjusted price",
             "nb_interval": "Number of recurrences",
@@ -6564,8 +6570,8 @@
             "recurrent_price": "Amount",
             "invoice_date": "Invoice date",
             "last_payment_date": "Date of last payment",
-            "invoice_date_created": "Date of issue of the invoice",
-            "invoice_datetime": "Date and time of issue of the invoice",
+            "invoice_date_created": "Issue date",
+            "invoice_datetime": "Issue date and time",
             "invoice_time": "Time of issue of the invoice",
             "payment_amount_by_payment_method": "Collection by payment method",
             "billing_establishment": "Address",
@@ -7396,7 +7402,7 @@
         "delete": "Delete",
         "edit": "Edit",
         "allCompanies": "All franchisees",
-        "seeAll": "Show all",
+        "seeAll": "See all",
         "franchiseEmails": "Franchise-wide templates",
         "companieEmails": "My templates"
     },
@@ -7602,7 +7608,7 @@
                 "maleUnavailable": "The session is no longer available for reservation for men.",
                 "femaleUnavailable": "The session is no longer available for reservation for women."
             },
-            "hasRegistered": "You are registered for this session",
+            "hasRegistered": "You've already booked your spot for this session.",
             "recurrent": {
                 "backToRegistererChoice": "Back",
                 "bookMultiple": "Book",
@@ -7878,12 +7884,12 @@
             "addToCart": "Add to cart"
         },
         "warning": {
-            "isManager": "Currently, you're connected with a staff account. Please log out to access the customer view.",
+            "isManager": "You're connected with a staff account. Log out to open the customer view or return to your Back Office.",
             "disconnect": "Logout",
-            "backToBackoffice": "Manager interface"
+            "backToBackoffice": "Return to Back Office"
         },
         "workshop": {
-            "noWorkshopAvailable": "No upcoming workshops have been planned in yer.",
+            "noWorkshopAvailable": "There are no upcoming workshops to display.",
             "card": {
                 "showMore": "Show More",
                 "book": "Book",
@@ -9593,7 +9599,7 @@
             "playlist": "Playlist"
         },
         "details": {
-            "pleaseSelectVod": "Select a purchase to view details",
+            "pleaseSelectVod": "Select a purchase for a more detailed overview.",
             "invoiceTitle": "Associated invoice",
             "consumerPaymentPackTitle": "Used pass",
             "title": "Details of the video"
@@ -9686,7 +9692,7 @@
             "dialogModeLabel": "Popup type",
             "widgetPreviewError": "Please finish the settings",
             "dialogTitle": "Personalized Widget",
-            "showFabLabel": "EasyConnect button",
+            "showFabLabel": "Add an EasyConnect button",
             "browserLanguage": "Browser language",
             "languageHelper": "The widget will by default be in the language selected here. Select \"Browser language\" so the language on the widget automatically adapts to the language of the end user.",
             "pickALanguage": "Choose the default language",
@@ -9972,7 +9978,7 @@
             "submit": "Confirm",
             "cancel": "Cancel",
             "spot": "Place {{count}}",
-            "title": "Choose a place"
+            "title": "Book your spot"
         },
         "toolbar": {
             "loadExistingBlueprint": "Load an existing plan",

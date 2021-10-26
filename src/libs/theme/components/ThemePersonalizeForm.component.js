@@ -19,12 +19,15 @@ import {
   BOOKING_LASTNAME_ORDER,
 } from '@bsport/common/lib/master-data/settings';
 
-import NumericInput from '../../../components/input/NumericInput.component';
+import moment from 'moment-timezone';
+import TextField from '@material-ui/core/TextField';
+import clx from 'classnames';
+import type { CompanyTheme } from '../types';
 import Checkbox from '../../../components/input/Checkbox.component';
-import type { Theme } from '../types';
+import NumericInput from '../../../components/input/NumericInput.component';
 
 type Props = {
-  theme: Theme,
+  theme: CompanyTheme,
   onSubmit: (id: number, data: *) => void,
   processing: boolean,
   t: TFunction,
@@ -32,7 +35,8 @@ type Props = {
 };
 
 type State = {
-  theme: Theme,
+  theme: CompanyTheme,
+  timerange: string,
 };
 
 export class ThemePersonalize extends Component<Props, State> {
@@ -86,7 +90,11 @@ export class ThemePersonalize extends Component<Props, State> {
       this.state.theme.nb_to_check_balance ===
         this.props.theme.nb_to_check_balance &&
       this.state.theme.gender_max_shift_for_booking ===
-        this.props.theme.gender_max_shift_for_booking
+        this.props.theme.gender_max_shift_for_booking &&
+      this.state.theme.schedule_timerange_begin ===
+        this.props.theme.schedule_timerange_begin &&
+      this.state.theme.schedule_timerange_end ===
+        this.props.theme.schedule_timerange_end
     );
   };
 
@@ -109,18 +117,72 @@ export class ThemePersonalize extends Component<Props, State> {
       'is_checking_balance',
       'nb_to_check_balance',
       'gender_max_shift_for_booking',
+      'schedule_timerange_begin',
+      'schedule_timerange_end',
     ].map((key) => data.append(key, this.state.theme[key]));
     if (
-      !!this.state.theme.basket_expiration_days ||
-      this.state.theme.basket_expiration_days === 0
+      (!!this.state.theme.basket_expiration_days ||
+        this.state.theme.basket_expiration_days === 0) &&
+      (moment(this.state.theme?.schedule_timerange_end).get('hour') || 23) >
+        (moment(this.state.theme?.schedule_timerange_begin).get('hour') || 6)
     ) {
       this.props.onSubmit(this.props.theme.company, data);
+    } else if (
+      !(
+        (moment(this.state.theme?.schedule_timerange_end).get('hour') || 23) >
+        (moment(this.state.theme?.schedule_timerange_begin).get('hour') || 6)
+      )
+    ) {
+      alert(this.props.t('forms.themePersonalization.schedule.alert'));
     } else {
       alert(
         this.props.t('forms.themePersonalization.basket_expiration_days.alert'),
       );
     }
   };
+
+  rebuildDatetime(ev) {
+    const hour = ev.target.value.split(':')[0] || moment().get('hour');
+    const minute = ev.target.value.split(':')[1] || moment().get('minute');
+    return moment()
+      .tz(this.props.theme.timezone_name)
+      .set('hour', hour)
+      .set('minute', minute)
+      .format();
+  }
+
+  renderScheduleConfig(begin: boolean, classes) {
+    const timerange = begin
+      ? this.state.theme?.schedule_timerange_begin
+      : this.state.theme?.schedule_timerange_end;
+    return (
+      <TextField
+        id="time_picker"
+        className={clx([
+          classes.timeRange,
+          begin ? classes.timeRangeF : classes.timeRangeS,
+        ])}
+        type="time"
+        value={
+          timerange
+            ? moment(timerange).format('HH:mm')
+            : moment()
+                .set('hour', begin ? 6 : 23)
+                .set('minute', 0)
+                .format('HH:mm')
+        }
+        onChange={(ev) =>
+          begin
+            ? this.handleChange('schedule_timerange_begin')(
+                this.rebuildDatetime(ev),
+              )
+            : this.handleChange('schedule_timerange_end')(
+                this.rebuildDatetime(ev),
+              )
+        }
+      />
+    );
+  }
 
   render() {
     const { t, classes } = this.props;
@@ -315,6 +377,23 @@ export class ThemePersonalize extends Component<Props, State> {
             {t('forms.themePersonalization.showGenderOffer')}
           </Typography>
         </div>
+        <Typography>
+          {t('forms.themePersonalization.schedule.title')}
+        </Typography>
+        <div className={classes.sched}>
+          <div className={classes.timeText}>
+            <Typography>
+              {t('forms.themePersonalization.schedule.begin')}
+            </Typography>
+            <Typography className={classes.timeTextS}>
+              {t('forms.themePersonalization.schedule.end')}
+            </Typography>
+          </div>
+          <div className={classes.time}>
+            {this.renderScheduleConfig(true, classes)}
+            {this.renderScheduleConfig(false, classes)}
+          </div>
+        </div>
         <Typography className={classes.namesHeader}>
           {t('forms.themePersonalization.offerBalance')}
         </Typography>
@@ -505,6 +584,34 @@ const styles = (theme) => ({
     marginBottom: theme.spacing(2),
   },
   verticalInput: {
+    marginBottom: theme.spacing(2),
+  },
+  time: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+  },
+  timeText: {
+    marginTop: theme.spacing(2.5),
+    marginLeft: theme.spacing(1.5),
+  },
+  timeTextS: {
+    marginTop: theme.spacing(2.5),
+  },
+  timeRange: {
+    minWidth: 100,
+    marginLeft: theme.spacing(2),
+  },
+  timeRangeF: {
+    marginTop: theme.spacing(2),
+  },
+  timeRangeS: {
+    marginTop: theme.spacing(1.4),
+  },
+  sched: {
+    display: 'flex',
+    maxWidth: 400,
     marginBottom: theme.spacing(2),
   },
 });

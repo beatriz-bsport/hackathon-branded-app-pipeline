@@ -44,11 +44,10 @@ import { fetchCoachBulk } from '../../libs/associated-coach/actions';
 
 import { getCustomEventList } from '../../libs/private-service/selectors/custom-event';
 import CustomEvenFormDialog from '../../libs/private-service/components/custom-event/CustomEventFormDialog.component';
-import { UserPreference } from '../../libs/user-preference/types';
-import { setScheduleTimerange } from '../../libs/user-preference/actions';
+import { CompanyTheme } from '../../libs/theme/types';
 
 type Props = {
-  theme: CompanyTheme,
+  companyTheme: CompanyTheme,
   classes: Object,
   fetchAvailabilitySlots: (data: { coach: number }) => void,
   availabilitySlots: Array<AvailabilitySlot>,
@@ -91,9 +90,6 @@ type Props = {
   coach: ?Coach,
   createOrUpdateCustomEvent: (CustomEventData, OptionCallback) => void,
   closeCustomEventDialog: () => void,
-
-  userPreference: UserPreference,
-  setScheduleTimerange: ({ begin: string, end: string }) => void,
 };
 
 const styles = (theme) => ({
@@ -183,7 +179,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
           enableResourceAvailabilitySlot={this.enableCoachAvailabilitySlot}
           availabilitySlots={this.props.availabilitySlots}
           privateBookings={this.props.privateBookingList}
-          timezone={this.props.theme.timezone_name}
+          timezone={this.props.companyTheme.timezone_name}
           availabilitySlotUpdating={this.props.availabilitySlotUpdating}
           goToMember={this.props.goToMember}
           onDateChange={this.props.handleDateChange}
@@ -196,8 +192,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
           customEventList={this.props.customEventList}
           createCustomEvent={this.props.onRequestCustomEvent}
           showCustomEventsToogle
-          userPreference={this.props.userPreference}
-          setScheduleTimerange={this.props.setScheduleTimerange}
+          companyTheme={this.props.companyTheme}
         />
         {this.props.customEventData && (
           <CustomEvenFormDialog
@@ -232,7 +227,7 @@ export default compose(
       availabilitySlots: getCoachAvailabilitySlots(state, id),
       coach: getCoach(state, id),
       customEventList: getCustomEventList(state, periodFilter),
-      theme: state.theme.theme,
+      companyTheme: state.theme.theme,
       privateBookingList: withRelatedFields(getPrivateBookingListFiltered)(
         state,
         null,
@@ -246,7 +241,6 @@ export default compose(
       loading:
         state.privateService.availabilitySlot.loading ||
         state.privateService.privateBooking.loading,
-      userPreference: state.userPreference,
     }),
     {
       fetchCoach: (id) => fetchCoachBulk([id]),
@@ -264,7 +258,6 @@ export default compose(
       enableCoachAvailabilitySlot,
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,
       createOrUpdateCustomEvent: createOrUpdateCustomEventActions,
-      setScheduleTimerange,
     },
   ),
   withHandlers({

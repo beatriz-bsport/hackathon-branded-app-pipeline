@@ -31,7 +31,6 @@ const persistConfig = {
     'marketplace',
     'theme',
     'membership',
-    'userPreference',
   ],
   stateReconciler: seamlessImmutableReconciler,
   transforms: [createCompressor(seamlessImmutableTransformCreator({}))],

@@ -8,7 +8,7 @@ import { compose } from 'recompose';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-import type { Theme } from '../../libs/theme/types';
+import type { CompanyTheme } from '../../libs/theme/types';
 import ThemePersonalizeForm from '../../libs/theme/components/ThemePersonalizeForm.component';
 import {
   updateCompanyTheme,
@@ -18,7 +18,7 @@ import themeSelectors from '../../libs/theme/selectors';
 import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {
-  theme: Theme,
+  theme: CompanyTheme,
   loading: boolean,
   processing: boolean,
   submitTheme: (companyId: number, data: *) => void,

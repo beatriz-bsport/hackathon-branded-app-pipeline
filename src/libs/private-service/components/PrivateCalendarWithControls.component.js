@@ -30,7 +30,7 @@ import PrivateBookingBooker from '../containers/PrivateBookingBooker.container';
 
 import type { ResourceData } from '../types';
 import FabPrivateCalendar from './FabPrivateCalendar.component';
-import { UserPreference } from '../../user-preference/types';
+import { CompanyTheme } from '../../theme/types';
 
 type Props = {
   t: TFunction,
@@ -100,12 +100,7 @@ type Props = {
   toogleExand: () => void,
   expanded: boolean,
   updateRessourcesFilters: (data: any) => void,
-
-  userPreference: UserPreference,
-  setScheduleTimerange: ({
-    begin: string,
-    end: string,
-  }) => void,
+  companyTheme: CompanyTheme,
 };
 
 export const PrivateCalendarMultiResource = (props: Props) => {
@@ -263,8 +258,8 @@ export const PrivateCalendarMultiResource = (props: Props) => {
           }}
           onEventClick={props.handleEventClick}
           onBookRequest={props.onRequestPrivateBooking}
-          userPreference={props.userPreference}
-          setScheduleTimerange={props.setScheduleTimerange}
+          scheduleTimerangeBegin={props.companyTheme.schedule_timerange_begin}
+          scheduleTimerangeEnd={props.companyTheme.schedule_timerange_end}
         />
         <CalendarEventDetail
           popoverAnchor={props.popoverAnchor}

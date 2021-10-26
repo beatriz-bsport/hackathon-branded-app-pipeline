@@ -7,6 +7,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import GoogleAnalytics from './GoogleAnalytics';
 import FacebookPixel from './FacebookPixel';
 import { analytics } from './Analytics';
+import { CompanyTheme } from '../../libs/theme/types';
 
 type Props = {
   theme?: ?CompanyTheme,

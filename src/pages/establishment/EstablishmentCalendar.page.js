@@ -40,11 +40,10 @@ import {
   fetchPrivateServiceBulk as fetchPrivateServiceBulkAction,
 } from '../../libs/private-service/actions';
 import { fetchEstablishmentBulk } from '../../libs/establishment/actions';
-import { setScheduleTimerange } from '../../libs/user-preference/actions';
-import { UserPreference } from '../../libs/user-preference/types';
+import { CompanyTheme } from '../../libs/theme/types';
 
 type Props = {
-  theme: CompanyTheme,
+  companyTheme: CompanyTheme,
   classes: Object,
   fetchAvailabilitySlots: (data: any) => void,
   loading: boolean,
@@ -77,8 +76,6 @@ type Props = {
 
   fetchEstablishmentBulk: (es: Array<number>) => void,
   periodFilter: { start: string, end: string },
-  userPreference: UserPreference,
-  setScheduleTimerange: ({ begin: string, end: string }) => void,
 };
 
 const styles = (theme) => ({
@@ -183,9 +180,8 @@ export class CoachPrivateCalendar extends React.Component<Props> {
           onDateChange={this.props.handleDateChange}
           refreshOffers={this.fetchWeekData}
           refreshPrivateBookings={this.fetchWeekData}
-          timezone={this.props.theme.timezone_name}
-          userPreference={this.props.userPreference}
-          setScheduleTimerange={this.props.setScheduleTimerange}
+          timezone={this.props.companyTheme.timezone_name}
+          companyTheme={this.props.companyTheme}
         />
       </div>
     );
@@ -203,7 +199,7 @@ export default compose(
   connect(
     (state, { id, periodFilter }) => ({
       availabilitySlots: getEstablishmentAvailabilitySlots(state, id),
-      theme: state.theme.theme,
+      companyTheme: state.theme.theme,
       establishment: getEstablishment(state, id),
       privateBookingList: withRelatedFields(getPrivateBookingListFiltered)(
         state,
@@ -218,7 +214,6 @@ export default compose(
       loading:
         state.privateService.availabilitySlot.loading ||
         state.privateService.privateBooking.loading,
-      userPreference: state.userPreference,
     }),
     {
       fetchAvailabilitySlots,
@@ -233,7 +228,6 @@ export default compose(
       fetchPrivateSlotBulk: fetchPrivateSlotBulkAction,
       fetchPrivateServiceBulk: fetchPrivateServiceBulkAction,
       fetchMemberBulk: fetchMemberBulkAction,
-      setScheduleTimerange,
     },
   ),
   withHandlers({

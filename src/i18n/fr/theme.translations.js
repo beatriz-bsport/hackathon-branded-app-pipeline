@@ -17,6 +17,13 @@ exports.default = {
             'Vos membres ne pourront pas avoir plus de ce nombre de réservations dans le futur',
         },
       },
+      schedule: {
+        title: "Configuration de l'emploi du temps",
+        begin: 'Heure de début',
+        end: 'Heure de fin',
+        alert:
+          "L'heure de début de l'emploi du temps doit être plus tôt que l'heure de fin",
+      },
       hideCoach: 'Cacher les infos professeurs sur les interfaces client',
       acceptDoubleBooking: 'Accepter la double réservation',
       hiddenFromMarketplace: "Apparaître sur l'application bsport",

@@ -50,6 +50,8 @@ export type Theme = {
   enable_multi_localization: boolean;
   is_quickbook_integration_allowed: boolean;
   is_quickbook_integration_enabled: boolean;
+  schedule_timerange_begin: string;
+  schedule_timerange_end: string;
 };
 
 export type ThemeState = {
@@ -61,3 +63,5 @@ export type ThemeState = {
   loading: boolean;
   error?: Error;
 };
+
+export type CompanyTheme = Theme;

@@ -51,8 +51,7 @@ import {
   fetchManagerRessourcesFilters as fetchManagerRessourcesFiltersAction,
   updateManagerRessourcesFilters as updateManagerRessourcesFiltersAction,
 } from '../libs/dashboard/actions';
-import { UserPreference } from '../libs/user-preference/types';
-import { setScheduleTimerange } from '../libs/user-preference/actions';
+import { CompanyTheme } from '../libs/theme/types';
 
 type Props = {
   classes: Object,
@@ -91,17 +90,11 @@ type Props = {
   setResourceFiltersArray: (Array<Ressource>) => void,
   fetchResourceList: () => void,
   closeCustomEventDialog: () => void,
-  theme: CompanyTheme,
+  companyTheme: CompanyTheme,
 
   resourceFiltersArray: Array<Ressource>,
   fetchRessourcesFilters: () => void,
   updateManagerRessourcesFilters: (*) => void,
-
-  userPreference: UserPreference,
-  setScheduleTimerange: ({
-    begin: string,
-    end: string,
-  }) => void,
 };
 
 const styles = (theme) => ({
@@ -233,7 +226,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
           enableResourceAvailabilitySlot={this.enableResourceAvailabilitySlot}
           disableResourceAvailabilitySlot={this.disableResourceAvailabilitySlot}
           availabilitySlots={this.props.availabilitySlots}
-          timezone={this.props.theme.timezone_name}
+          timezone={this.props.companyTheme.timezone_name}
           customEventList={this.props.customEventList}
           privateBookings={this.props.privateBookingList}
           createCustomEvent={this.props.onRequestCustomEvent}
@@ -252,8 +245,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
           showPrivateBookingToogle
           showCustomEventsToogle
           showHideCancelledEventsToggle
-          userPreference={this.props.userPreference}
-          setScheduleTimerange={this.props.setScheduleTimerange}
+          companyTheme={this.props.companyTheme}
         />
         {this.state.updateAvailabilitySlotData ? (
           <AvailabilityUpdateResourceChoserDialog
@@ -294,8 +286,7 @@ export default compose(
   }),
   connect(
     (state, { periodFilter, resourceFiltersArray }) => ({
-      theme: state.theme.theme,
-      userPreference: state.userPreference,
+      companyTheme: state.theme.theme,
       availabilitySlots: withResourceColor(getFilteredAvailabilitySlots)(
         state,
         periodFilter,
@@ -360,7 +351,6 @@ export default compose(
       updateManagerRessourcesFilters: updateManagerRessourcesFiltersAction,
       disableAvailabilitySlotMultipleResource,
       enableAvailabilitySlotMultipleResource,
-      setScheduleTimerange,
     },
   ),
   withHandlers({

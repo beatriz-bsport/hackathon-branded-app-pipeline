@@ -18,6 +18,7 @@ import MomentUtils from '@date-io/moment';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import PhoneInput from 'react-phone-number-input';
+import flags from 'react-phone-number-input/flags';
 import 'react-phone-number-input/style.css';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -394,6 +395,7 @@ export class FormField extends Component<Props, State> {
               {t('form.signup.typePhone')}
             </InputLabel>
             <PhoneInput
+              flags={flags}
               fullWidth
               country={browserCountryCode()}
               autoComplete="tel"

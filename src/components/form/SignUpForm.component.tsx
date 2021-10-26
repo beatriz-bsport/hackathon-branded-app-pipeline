@@ -17,6 +17,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Theme as MaterialTheme } from '@material-ui/core';
 import PhoneInput from 'react-phone-number-input';
+import flags from 'react-phone-number-input/flags';
 import 'react-phone-number-input/style.css';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
@@ -356,6 +357,7 @@ export class SignUpForm extends Component<Props, State> {
                 {t('form.signup.typePhone')}
               </InputLabel>
               <PhoneInput
+                flags={flags}
                 fullWidth
                 country={browserCountryCode()}
                 autoComplete="tel"

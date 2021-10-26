@@ -38,6 +38,7 @@ import MuiFormControl from '@material-ui/core/FormControl';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
 import PhoneInput from 'react-phone-number-input';
+import flags from 'react-phone-number-input/flags';
 import { getCurrencyDisplay } from '../libs/theme/selectors';
 import 'react-phone-number-input/style.css';
 import { Moment } from '../i18n';
@@ -488,6 +489,7 @@ export const PhoneField = withTranslation([])(
                 {label}
               </InputLabel>
               <PhoneInput
+                flags={flags}
                 country="FR"
                 autoComplete="tel"
                 {...field}

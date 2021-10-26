@@ -108,13 +108,14 @@ const styles = () => ({
     justifyContent: 'center',
     zIndex: 2147483647,
     position: 'fixed',
-    width: '100%',
-    height: '100%',
+    width: '100vw',
+    height: '100vh',
     top: 0,
     bottom: 0,
     left: 0,
     right: 0,
     backgroundColor: 'rgba(0,0,0,.2)',
+    overflow: 'hidden',
   },
   innerContainer: {
     display: 'flex',
@@ -122,13 +123,12 @@ const styles = () => ({
     flexDirection: 'column',
     width: '100%',
     height: '100%',
+    overflow: 'hidden',
     backgroundColor: 'white',
     boxShadow: '3px 10px 44px 9px rgba(0,0,0,0.17)',
     borderRadius: 12,
-    maxHeight: (props: any) =>
-      props.fullScreenPopup ? window.innerHeight : window.innerHeight * 0.75,
-    maxWidth: (props: any) =>
-      props.fullScreenPopup ? window.innerWidth : window.innerWidth * 0.75,
+    maxHeight: (props: any) => (props.fullScreenPopup ? '100vh' : '75vh'),
+    maxWidth: (props: any) => (props.fullScreenPopup ? '100vw' : '75vw'),
     '@media (max-width: 600px), (max-height: 600px)': {
       maxHeight: window.screen.height,
       maxWidth: window.screen.width,

@@ -4160,7 +4160,7 @@
             "legal": "Juridische kennisgeving",
             "actions": {
                 "iAcceptCondition": "Ik accepteer de voorwaarden.",
-                "iwanttostarton": "Startdatum van mijn abonnement: ",
+                "iwanttostarton": "Gewenste startdatum van mijn abonnement: ",
                 "subscribe": "Inschrijven",
                 "create": "Een abonnement toevoegen",
                 "iAcceptGeneralCondition": " Ik accepteer de juridische kennisgeving"
@@ -7629,7 +7629,13 @@
                         "helperText": "Dit is het maximum aantal toekomstige reserveringen voor je leden"
                     }
                 },
-                "hiddenFromMarketplace": "Activeer om op je studio op de algemene BSPORT app te worden getoond"
+                "hiddenFromMarketplace": "Activeer om op je studio op de algemene BSPORT app te worden getoond",
+                "schedule": {
+                    "alert": "De starttijd moet vroeger dan de eindtijd zijn",
+                    "end": "Eindtijd",
+                    "begin": "Starttijd",
+                    "title": "Configuratie van je rooster"
+                }
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",

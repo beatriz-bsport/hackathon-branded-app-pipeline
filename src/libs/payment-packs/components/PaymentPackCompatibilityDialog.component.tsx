@@ -24,12 +24,13 @@ type Props = {
   onClose: () => void;
   onModify: () => void;
   open: boolean;
+  isManager: boolean;
 };
 
 export const PaymentPackCompatibilityDialog = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['paymentPack']);
-  const { open, categories, establishments, activities } = props;
+  const { open, categories, establishments, activities, isManager } = props;
 
   return (
     <Dialog open={open} className={classes.dialog} maxWidth="xl">
@@ -81,9 +82,11 @@ export const PaymentPackCompatibilityDialog = (props: Props) => {
         ) : null}
       </div>
       <DialogActions>
-        <Button id="button_modify" color="primary" onClick={props.onModify}>
-          {t('actions.edit')}
-        </Button>
+        {isManager && (
+          <Button id="button_modify" color="primary" onClick={props.onModify}>
+            {t('actions.edit')}
+          </Button>
+        )}
         <Button id="button_exit" onClick={props.onClose}>
           {t('actions.close')}
         </Button>

@@ -458,7 +458,8 @@ exports.default = {
     bookingsThisWeek: 'réservation(s) cette semaine',
   },
   validForDuration: {
-    valid: 'Valide pendant ',
+    valid: 'Valide ',
+    validFor: 'pendant ',
     days: '{{ count }} jour',
     days_plural: '{{ count }} jours',
     months: '{{ count }} mois',
@@ -483,9 +484,10 @@ exports.default = {
   expirationDate: 'Expire au',
   never: 'Jamais',
   unlimitedCredits: 'Illimité',
-  unlimitedAndMargin: 'Illimités - Apport marginal théorique de ',
+  unlimitedPlural: 'Illimités',
+  unlimitedAndMargin: ' - Apport marginal théorique de ',
   unlimitedAndCalculatedMargin:
-    'Illimités - Apport marginal théorique calculé : prix / nb_réservations ',
+    ' - Apport marginal théorique calculé : prix / nb_réservations ',
   credits: 'Crédit',
   credits_plural: 'Crédits',
   ht: 'Hors-taxe',

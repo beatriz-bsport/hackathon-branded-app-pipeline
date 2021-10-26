@@ -146,7 +146,8 @@ export class PaymentPackCard extends Component<Props, State> {
   };
 
   renderCardHeader = () => {
-    const { pack, t, onlyPublic, classes, paymentPackCategory } = this.props;
+    const { pack, t, onlyPublic, classes, paymentPackCategory, isManager } =
+      this.props;
     const { base_price, name, tax } = pack;
 
     return (
@@ -175,16 +176,18 @@ export class PaymentPackCard extends Component<Props, State> {
                 </div>
               )}
 
-              <div className={classes.detailInfo}>
-                <div className={classes.detailCategory}>
-                  <StarIcon className={classes.leftIcon} />
-                  <Typography className={classes.categoryTitle} variant="h6">
-                    {t('detailTitles.credit_quantity')}
+              <div className={isManager ? '' : classes.marginTop}>
+                <div className={classes.detailInfo}>
+                  <div className={classes.detailCategory}>
+                    <StarIcon className={classes.leftIcon} />
+                    <Typography className={classes.categoryTitle} variant="h6">
+                      {t('detailTitles.credit_quantity')}
+                    </Typography>
+                  </div>
+                  <Typography variant="body1" className={classes.packInfo}>
+                    {getCreditInfo(pack, t, isManager)}
                   </Typography>
                 </div>
-                <Typography variant="body1" className={classes.packInfo}>
-                  {getCreditInfo(pack, t)}
-                </Typography>
               </div>
             </div>
           </div>
@@ -370,7 +373,7 @@ export class PaymentPackCard extends Component<Props, State> {
               </Typography>
             </div>
             <Typography variant="body1" className={classes.packInfo}>
-              {getValidityInfo(pack, t)}
+              {getValidityInfo(pack, t, true)}
             </Typography>
           </div>
 
@@ -473,7 +476,7 @@ export class PaymentPackCard extends Component<Props, State> {
   };
 
   render() {
-    const { classes, pack } = this.props;
+    const { classes, pack, isManager } = this.props;
     const {
       categories,
       establishments,
@@ -505,6 +508,7 @@ export class PaymentPackCard extends Component<Props, State> {
           open={this.state.compatibilityDialogOpen}
           onClose={() => this.setState({ compatibilityDialogOpen: false })}
           onModify={() => this.props.goToEdit(pack.id)}
+          isManager={isManager}
         />
         <PaymentPackTagsDialog
           blacklistTags={blacklist_tags}
@@ -637,6 +641,9 @@ const styles = (theme) => ({
   },
   seeAllCompatibility: {
     marginBottom: -theme.spacing(0.2),
+  },
+  marginTop: {
+    marginTop: theme.spacing(3),
   },
 });
 

@@ -1,13 +1,20 @@
 import { TFunction } from 'i18next';
 import moment from 'moment-timezone';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../theme/selectors';
 import { formatAsDate, formatAsDatetime } from '../../utils/datetime';
 import type { ConsumerPaymentPack } from '../consumer-payment-pack/types';
 import type { VideoPurchase } from '../video/types';
 import { PaymentPack } from './types';
 
-export const getValidityInfo = (pack: PaymentPack, t: TFunction) => {
+export const getValidityInfo = (
+  pack: PaymentPack,
+  t: TFunction,
+  startInfo: boolean = false,
+) => {
   let dateInfo = t('validForDuration.valid');
+  if (startInfo) {
+    dateInfo += t('validForDuration.validFor');
+  }
   const {
     validity_daterange,
     duration_days,
@@ -45,7 +52,7 @@ export const getValidityInfo = (pack: PaymentPack, t: TFunction) => {
       moment(JSON.parse(validity_daterange).upper),
     )}`;
   }
-  if (!validity_daterange && !!dateInfo) {
+  if (!validity_daterange && !!dateInfo && startInfo) {
     if (start_date_method === 0) {
       dateInfo += ` ${t('validForDuration.booking')}`;
     }
@@ -225,17 +232,28 @@ export const getCompatibilityInfo = (pack: PaymentPack, t: TFunction) => {
   return compatibilityInfo;
 };
 
-export const getCreditInfo = (pack: PaymentPack, t: TFunction) => {
+export const getCreditInfo = (
+  pack: PaymentPack,
+  t: TFunction,
+  isManager: boolean = false,
+) => {
   const { unlimited, theorical_margin_value, credits } = pack;
   let creditInfo: string = '';
   if (!unlimited) {
-    creditInfo = credits + t('credits', { count: credits }).toLowerCase();
-  } else if (theorical_margin_value > 0) {
-    creditInfo =
-      t('unlimitedAndMargin') +
-      getCurrencyDisplayWithPrice(theorical_margin_value);
+    creditInfo = `${credits}\u00A0${t('credits', {
+      count: credits,
+    }).toLowerCase()}`;
   } else {
-    creditInfo = t('unlimitedAndCalculatedMargin');
+    creditInfo = t('unlimitedPlural');
+    if (isManager) {
+      if (theorical_margin_value > 0) {
+        creditInfo +=
+          t('unlimitedAndMargin') +
+          getCurrencyDisplayWithPrice(theorical_margin_value);
+      } else {
+        creditInfo += t('unlimitedAndCalculatedMargin');
+      }
+    }
   }
   return creditInfo;
 };

@@ -12,7 +12,7 @@ import { makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import MultipleImageUploader from '../../../components/MultipleImageUploader.component';
 import ConsumerGiftcardPreview from './ConsumerGiftcardPreview.component';
-import { CarouselInput } from '../../../components/input/CarouselInput.component';
+import CarouselInput from '../../../components/input/carousel-input';
 import { GiftcardBackgroundImage } from '../types';
 
 const useStyles = makeStyles((theme: Theme) => ({

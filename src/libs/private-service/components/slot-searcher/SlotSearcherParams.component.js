@@ -11,7 +11,7 @@ import { RESOURCE_ATTRIBUTION_CONSUMER } from '@bsport/common/lib/master-data/re
 import moment from 'moment-timezone';
 import InfoOutlineIcon from '@material-ui/icons/InfoOutlined';
 import PrivateServiceSelectorWithSlot from '../service/PrivateServiceSelectorWithSlot.component';
-import CoachSelector from '../../../associated-coach/components/CoachSelector.component';
+import CoachSelector from '../../../associated-coach/components/coach-selector/CoachSelector.component';
 import EstablishmentSelector from '../../../establishment/components/EstablishmentSelector.component';
 import type { PrivateService } from '../../types';
 

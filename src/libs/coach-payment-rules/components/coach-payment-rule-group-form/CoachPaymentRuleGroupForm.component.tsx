@@ -30,13 +30,13 @@ import {
 import { TextField, AlertError } from '../../../../components/forms';
 
 import CoachPaymentRuleGroupSchema from './schemaValidation';
-import CoachSelector from '../../../associated-coach/components/CoachSelector.component';
+import CoachSelector from '../../../associated-coach/components/coach-selector/CoachSelector.component';
 import CoachListItem from '../../../associated-coach/components/CoachListItem.component';
 import type { Coach } from '../../../associated-coach/types';
 import type { CoachPaymentRule } from '../../types';
 import type { MaterialStyleType } from '../../../../utils/types';
 import { PrivateServiceWithSlots } from '../../../private-service/types';
-import CoachPaymentRuleSelectorStyled from '../CoachPaymentRuleSelectorStyled.component';
+import CoachPaymentRuleSelectorStyled from '../coach-payment-rule-selector/CoachPaymentRuleSelectorStyled.component';
 import PrivateSlotSelectorStyled from '../PrivateSlotSelectorStyled.component';
 
 type OwnProps = {

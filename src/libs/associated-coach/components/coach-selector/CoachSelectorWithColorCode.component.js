@@ -6,8 +6,8 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import CoachInput from '../../../components/input/CoachInput.component';
-import CoachColorModifier from './CoachColorModifier.component';
+import CoachInput from '../../../../components/input/CoachInput.component';
+import CoachColorModifier from '../CoachColorModifier.component';
 
 type Props = {
   coachId: number,

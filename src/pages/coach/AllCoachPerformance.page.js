@@ -60,7 +60,7 @@ import {
 
 import CoachPerformanceForm from '../../libs/associated-coach/components/performance/CoachPerformanceForm.component';
 import CoachPerformanceSummary from '../../libs/associated-coach/components/performance/CoachPerformanceSummary.component';
-import CoachPaymentRuleSelectorStyled from '../../libs/coach-payment-rules/components/CoachPaymentRuleSelectorStyled.component';
+import CoachPaymentRuleSelectorStyled from '../../libs/coach-payment-rules/components/coach-payment-rule-selector/CoachPaymentRuleSelectorStyled.component';
 
 import CoachPerformanceTabs from '../../libs/associated-coach/components/performance/CoachPerformanceTabs.component';
 

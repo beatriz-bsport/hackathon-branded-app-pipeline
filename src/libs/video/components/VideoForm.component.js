@@ -14,7 +14,7 @@ import * as Yup from 'yup';
 
 import ImageField from '../../../components/forms/ImageField.component';
 import SCTSelectField from '../../category/components/SCTSelectorField.component';
-import CoachSelector from '../../associated-coach/components/CoachSelector.component';
+import CoachSelector from '../../associated-coach/components/coach-selector/CoachSelector.component';
 import CoachListItemBasic from '../../associated-coach/components/CoachListItemBasic.component';
 import {
   TextField,

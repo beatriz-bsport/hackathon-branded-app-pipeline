@@ -56,7 +56,7 @@ CompleteDefaultState.args = {
 };
 
 export default {
-  title: 'Franchise/Notification/Card',
+  title: 'Library/Franchise/Notification Rule Card',
   component: FranchiseNotificationRuleCard,
   parameters: {
     docs: {

@@ -11,7 +11,7 @@ import { OptionCallback } from '../../../state/types';
 
 import { makeActivationLink } from '../utils';
 import { ConsumerGiftcard } from '../types';
-import EmailInputWithChipsGenerator from '../../../components/input/EmailInputWithChipsGenerator.component';
+import EmailInputWithChips from '../../../components/input/email-input-with-chip';
 
 type Props = {
   onSubmit: (
@@ -58,7 +58,7 @@ const ConsumerGiftcardInvitationModal = (props: Props) => {
             props.consumerGiftcard.activation_code,
           )}
         </Typography>
-        <EmailInputWithChipsGenerator
+        <EmailInputWithChips
           disabled={hasBeenSent || processing}
           emailList={recipient}
           textFieldLabel={t('consumerGiftcard.form.recipients.label')}

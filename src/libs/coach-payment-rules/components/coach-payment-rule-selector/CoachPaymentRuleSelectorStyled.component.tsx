@@ -11,9 +11,9 @@ import chroma from 'chroma-js';
 import BlockIcon from '@material-ui/icons/Block';
 import GroupIcon from '@material-ui/icons/Group';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import type { CoachPaymentRule } from '../types';
-import type { MaterialStyleType } from '../../../utils/types';
-import { DISSOCIATED_COACH_PAYMENT_RULE } from '../utils';
+import type { CoachPaymentRule } from '../../types';
+import type { MaterialStyleType } from '../../../../utils/types';
+import { DISSOCIATED_COACH_PAYMENT_RULE } from '../../utils';
 
 const getPaymentRuleOptions = (coachPaymentRule: Array<CoachPaymentRule>) =>
   coachPaymentRule.map((rule) => ({ value: rule.id, label: rule.name }));

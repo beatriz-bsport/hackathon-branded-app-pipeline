@@ -25,14 +25,14 @@ NoMatchState.args = {
       >
         <Avatar alt={item.name} src={item.cover} style={{ marginRight: 25 }} />
         <HighlightedText text={item.name} highlight={search} />
-        (Customizable render)
+        (Customizable render by providing the right itemRenderer function)
       </div>
     </ListItem>
   ),
 };
 
 export default {
-  title: 'General/FuzzySearch',
+  title: 'Components/Commons/FuzzySearch',
   component: FuzzySearch,
   parameters: {
     docs: {

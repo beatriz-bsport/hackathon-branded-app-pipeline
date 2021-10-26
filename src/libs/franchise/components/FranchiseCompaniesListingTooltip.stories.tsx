@@ -20,7 +20,7 @@ CompleteDefaultState.args = {
 };
 
 export default {
-  title: 'Franchise/Company/Tooltip',
+  title: 'Library/Franchise/Company Tooltip',
   component: FranchiseCompaniesListingTooltip,
   parameters: {
     docs: {

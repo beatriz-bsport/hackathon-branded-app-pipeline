@@ -18,7 +18,7 @@ CompleteDefaultState.args = {
 };
 
 export default {
-  title: 'Franchise/Member/Details',
+  title: 'Library/Franchise/Member Details',
   component: FranchiseMemberDetailsCard,
   parameters: {
     docs: {

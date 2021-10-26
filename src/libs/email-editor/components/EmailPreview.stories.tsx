@@ -20,7 +20,7 @@ CompleteValueState.args = {
 };
 
 export default {
-  title: 'Email/Preview',
+  title: 'Library/Email Editor/Preview',
   component: EmailPreview,
   parameters: {
     docs: {

@@ -59,7 +59,7 @@ EditRule.args = {
 };
 
 export default {
-  title: 'Franchise/Notification/Form',
+  title: 'Library/Franchise/Notification Form',
   component: FranchiseNotificationRuleFormModal,
   parameters: {
     docs: {

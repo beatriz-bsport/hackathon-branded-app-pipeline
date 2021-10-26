@@ -52,7 +52,7 @@ CustomTemplate.args = {
 };
 
 export default {
-  title: 'Franchise/Company/Details',
+  title: 'Library/Franchise/Company Details',
   component: FranchiseCompanyDetails,
   parameters: {
     docs: {

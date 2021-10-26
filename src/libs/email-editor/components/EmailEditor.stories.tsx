@@ -60,7 +60,7 @@ CreateFranchiseEmail.args = {
 };
 
 export default {
-  title: 'Email/Editor',
+  title: 'Library/Email Editor/Editor',
   component: EmailEditor,
   parameters: {
     docs: {

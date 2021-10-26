@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 
 import CoachListItemBasic from '../../../associated-coach/components/CoachListItemBasic.component';
-import CoachSelector from '../../../associated-coach/components/CoachSelector.component';
+import CoachSelector from '../../../associated-coach/components/coach-selector/CoachSelector.component';
 
 import { TextField, ColorField } from '../../../../components/forms';
 

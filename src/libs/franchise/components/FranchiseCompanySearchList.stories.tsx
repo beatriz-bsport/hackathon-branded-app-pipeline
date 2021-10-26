@@ -18,7 +18,7 @@ CompleteDefaultState.args = {
 };
 
 export default {
-    title: 'Franchise/Company/List',
+    title: 'Library/Franchise/Company List',
     component: FranchiseCompanySearchList,
     parameters: {
         docs: {

@@ -9,8 +9,8 @@ import moment from 'moment-timezone';
 import { TextField, DateField } from '../../../components/forms';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { Giftcard, GiftcardBackgroundImage } from '../types';
-import { EmailInputWithChipsField } from '../../../components/input/EmailInputWithChipsGenerator.component';
-import CarouselInputField from '../../../components/input/CarouselInputField.component';
+import EmailInputWithChipsField from '../../../components/input/email-input-with-chip/EmailInputWithChipsField.component';
+import CarouselInputField from '../../../components/input/carousel-input/CarouselInputField.component';
 
 type Props = {
   giftcard: Giftcard;

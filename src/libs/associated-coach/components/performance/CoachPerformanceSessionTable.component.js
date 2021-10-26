@@ -15,7 +15,7 @@ import Button from '@material-ui/core/Button';
 import AttachIcon from '@material-ui/icons/AttachFile';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import CoachPaymentRuleSelector from '../../../coach-payment-rules/components/CoachPaymentRuleSelector.component';
+import CoachPaymentRuleSelector from '../../../coach-payment-rules/components/coach-payment-rule-selector/CoachPaymentRuleSelector.component';
 import type { CoachPaymentRule } from '../../../coach-payment-rules/types';
 import { downloadAsCsv } from '../../../../utils/downloader';
 import { getCurrencyDisplayWithPrice } from '../../../theme/selectors';

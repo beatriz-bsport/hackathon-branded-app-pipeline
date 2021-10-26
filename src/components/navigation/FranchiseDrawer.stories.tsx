@@ -36,7 +36,7 @@ CompleteInitialState.args = {
 };
 
 export default {
-    title: 'Franchise/Navigation',
+    title: 'Pages/Franchise/Navigation',
     component: FranchiseDrawer,
     parameters: {
         docs: {

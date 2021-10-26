@@ -20,7 +20,7 @@ import {
 } from '@bsport/common/lib/master-data/resource-attribution-methods';
 import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
 import EstablishmentSelector from '../../../establishment/components/EstablishmentSelector.component';
-import CoachSelector from '../../../associated-coach/components/CoachSelector.component';
+import CoachSelector from '../../../associated-coach/components/coach-selector/CoachSelector.component';
 import CoachListItemBasic from '../../../associated-coach/components/CoachListItemBasic.component';
 import PrivateServiceGroupField from '../service-group/PrivateServiceGroupField.component';
 

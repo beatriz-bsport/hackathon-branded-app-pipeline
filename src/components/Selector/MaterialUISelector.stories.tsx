@@ -159,7 +159,7 @@ MultiSelectGroupedOption.args = {
 };
 
 export default {
-  title: 'General/Selector',
+  title: 'Components/Input/Selector',
   component: MaterialUISelector,
   parameters: {
     docs: {

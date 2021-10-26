@@ -10,7 +10,7 @@ import {
   fetchAccessLevel as fetchAccessLevelAction,
   fetchAccessLevelWithoutConnect as fetchAccessLevelWithoutConnectAction,
 } from '../actions/auth.actions';
-import MultipleSessionDetails from './MultipleSessions.component';
+import MultipleSessionDetails from '../components/navigation/MultipleSessions.component';
 
 type OwnProps = {
   newToken: string;

@@ -10,7 +10,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 
 import LevelSelector from '../../category/components/LevelSelector.component';
 import SCTSelector from '../../category/components/SCTSelectorBase.component';
-import CoachSelector from '../../associated-coach/components/CoachSelector.component';
+import CoachSelector from '../../associated-coach/components/coach-selector/CoachSelector.component';
 import DelayedTextField from '../../../components/DelayedTextField.component';
 import DurationSelector from './DurationSelector.component';
 

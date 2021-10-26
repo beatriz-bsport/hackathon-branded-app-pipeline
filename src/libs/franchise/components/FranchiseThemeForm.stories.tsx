@@ -25,7 +25,7 @@ CompleteDefaultState.args = {
 };
 
 export default {
-  title: 'Franchise/Settings/Theme',
+  title: 'Library/Franchise/Settings Theme',
   component: FranchiseThemeForm,
   parameters: {
     docs: {

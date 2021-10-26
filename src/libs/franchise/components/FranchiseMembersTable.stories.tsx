@@ -28,7 +28,7 @@ CompleteDefaultState.args = {
 };
 
 export default {
-    title: 'Franchise/Members/Table',
+    title: 'Library/Franchise/Members Table',
     component: FranchiseMembersTable,
     parameters: {
         docs: {

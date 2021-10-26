@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Theme } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
-import CoachSelector from '../../associated-coach/components/CoachSelector.component';
+import CoachSelector from '../../associated-coach/components/coach-selector/CoachSelector.component';
 import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
 import MetaActivitySelector from '../../meta-activity/components/MetaActivitySelector.component';
 import LevelSelector from '../../category/components/LevelSelector.component';

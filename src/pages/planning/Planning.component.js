@@ -93,7 +93,7 @@ import DeleteOfferForm from '../../libs/offer/DeleteOfferForm.component';
 import { createOffers as createOffersAPI } from '../../libs/meta-activity/api/meta-activity';
 import { DATE_FORMAT } from '../../utils/datetime';
 
-import CoachSelector from '../../libs/associated-coach/components/CoachSelector.component';
+import CoachSelector from '../../libs/associated-coach/components/coach-selector/CoachSelector.component';
 import EstablishmentSelector from '../../libs/establishment/components/EstablishmentSelector.component';
 import MetaActivitySelector from '../../libs/meta-activity/components/MetaActivitySelector.component';
 

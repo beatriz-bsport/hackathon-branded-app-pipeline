@@ -71,7 +71,7 @@ WithAllCompaniesTagActivated.args = {
 };
 
 export default {
-  title: 'Franchise/Selector/Company',
+  title: 'Library/Franchise/Company Selector',
   component: FranchiseCompaniesSelector,
   parameters: {
     docs: {

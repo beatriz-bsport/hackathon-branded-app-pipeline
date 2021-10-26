@@ -61,7 +61,7 @@ CompleteStateList.args = {
 };
 
 export default {
-  title: 'Franchise/Email/List',
+  title: 'Library/Franchise/Email List',
   component: FranchiseEmailListing,
   parameters: {
     docs: {

@@ -5,10 +5,10 @@ import { withTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import type { TFunction } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
-import Selector from '../../../components/Selector.component';
-import type { Suggestion } from '../../../components/Selector.component';
-import type { CoachPaymentRule } from '../types';
-import { DISSOCIATED_COACH_PAYMENT_RULE } from '../utils';
+import Selector from '../../../../components/Selector.component';
+import type { Suggestion } from '../../../../components/Selector.component';
+import type { CoachPaymentRule } from '../../types';
+import { DISSOCIATED_COACH_PAYMENT_RULE } from '../../utils';
 
 type Props = {
   t: TFunction,

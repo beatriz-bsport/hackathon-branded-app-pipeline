@@ -33,7 +33,7 @@ import {
 } from '../../../coach-payment-rules/utils';
 import PrivateSlotSelectorStyled from '../../../coach-payment-rules/components/PrivateSlotSelectorStyled.component';
 import { PrivateServiceWithSlots } from '../../../private-service/types';
-import CoachPaymentRuleSelectorStyled from '../../../coach-payment-rules/components/CoachPaymentRuleSelectorStyled.component';
+import CoachPaymentRuleSelectorStyled from '../../../coach-payment-rules/components/coach-payment-rule-selector/CoachPaymentRuleSelectorStyled.component';
 
 type OwnProps = {
   coach: Coach;

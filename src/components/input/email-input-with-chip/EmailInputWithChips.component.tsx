@@ -3,10 +3,9 @@ import lodash from 'lodash';
 import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
 import Chip from '@material-ui/core/Chip';
-import { FieldArray } from 'formik';
 import { makeStyles, Theme } from '@material-ui/core';
 
-type Props = {
+export type Props = {
   emailList: Array<string>;
   textFieldLabel: string;
   textFieldName: string;
@@ -18,7 +17,7 @@ type Props = {
 
 const emailRegexp = /[A-z0-9-_]+@[A-z0-9-_]+\.[A-z]+$/;
 
-export const EmailInputWithChipsGenerator = (props: Props) => {
+export const EmailInputWithChips = (props: Props) => {
   const { removeEmailFromList, emailList, addEmailToList } = props;
   const { t } = useTranslation(['translation']);
   const classes = useStyles();
@@ -145,22 +144,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default EmailInputWithChipsGenerator;
-
-export const EmailInputWithChipsField = (props: Props) => {
-  return (
-    <FieldArray {...props} name={props.textFieldName}>
-      {({ remove, push }) => {
-        return (
-          <div>
-            <EmailInputWithChipsGenerator
-              {...props}
-              addEmailToList={push}
-              removeEmailFromList={remove}
-            />
-          </div>
-        );
-      }}
-    </FieldArray>
-  );
-};
+export default EmailInputWithChips;

@@ -17,7 +17,7 @@ CompleteDefaultState.args = {
 };
 
 export default {
-  title: 'MultipleSession',
+  title: 'Pages/Navigation/MultipleSession',
   component: MultipleSessionDetails,
   parameters: {
     docs: {

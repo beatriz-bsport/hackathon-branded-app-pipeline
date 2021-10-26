@@ -7,8 +7,8 @@ import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 
-import CoachListItem from './CoachListItemBasic.component';
-import FuzeSearch from '../../../components/FuzeSearch.component';
+import CoachListItem from '../CoachListItemBasic.component';
+import FuzeSearch from '../../../../components/FuzeSearch.component';
 
 type Props = {
   classes: Object,

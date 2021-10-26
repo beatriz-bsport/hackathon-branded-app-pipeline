@@ -66,7 +66,7 @@ WithAllCompanyTagState.args = {
 };
 
 export default {
-  title: 'Email/ListItem',
+  title: 'Library/Email Editor/ListItem',
   component: EmailListItem,
   parameters: {
     docs: {

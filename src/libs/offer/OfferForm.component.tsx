@@ -26,7 +26,7 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import moment, { Moment } from 'moment-timezone';
 import { COACH_PAYMENT_RULE_FOR_SESSION } from '@bsport/common/lib/master-data/coach_payment_rule';
 import EstablishmentSelector from '../establishment/components/EstablishmentSelectorWithCard.component';
-import CoachSelector from '../associated-coach/components/CoachSelectorWithCard.component';
+import CoachSelector from '../associated-coach/components/coach-selector/CoachSelectorWithCard.component';
 import FeatureListProvider from '../company/hocs/feature-list-provider.hoc';
 
 import FormField, {
@@ -43,7 +43,7 @@ import { RoomBlueprint } from '../spot-scheduling/types';
 import RoomBlueprintSelector from '../spot-scheduling/component/RoomBlueprintSelector.component';
 import SpotSchedulingHelper from '../spot-scheduling/utils';
 import type { CoachPaymentRule } from '../coach-payment-rules/types';
-import CoachPaymentRuleSelectorStyled from '../coach-payment-rules/components/CoachPaymentRuleSelectorStyled.component';
+import CoachPaymentRuleSelectorStyled from '../coach-payment-rules/components/coach-payment-rule-selector/CoachPaymentRuleSelectorStyled.component';
 
 const styles = (theme: Theme) => ({
   paperContainer: {

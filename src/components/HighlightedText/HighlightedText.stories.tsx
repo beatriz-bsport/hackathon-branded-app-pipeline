@@ -24,7 +24,7 @@ MatchState.args = {
 
 
 export default {
-    title: 'General/HighlitedText',
+    title: 'Components/Commons/HighligthedText',
     component: HighlitedText,
     parameters: {
         docs: {

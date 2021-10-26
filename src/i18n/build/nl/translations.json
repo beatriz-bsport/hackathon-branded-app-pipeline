@@ -299,6 +299,46 @@
         },
         "marketingNotification": {
             "birthday": "Van harte gefeliciteerd!"
+        },
+        "franchiseOwned": "De franchisegever beheert deze transactionele e-mail.",
+        "franchise": {
+            "delete": {
+                "delete": "Verwijderen",
+                "content": "Weet je zeker dat je deze configuratie wilt verwijderen? De instellingen en sjablonen zullen worden hersteld.",
+                "title": "Verwijderen"
+            },
+            "card": {
+                "carbonCopy": "Mezelf CC'en",
+                "deactivated": "Gedeactiveerd",
+                "activated": "Geactiveerd",
+                "companies": "Franchisenemers",
+                "parameters": "Instellingen",
+                "template": "Sjabloon"
+            },
+            "form": {
+                "error": {
+                    "email_design": "Selecteer een sjabloon",
+                    "selectCompanies": "Selecteer minimaal één franchisenemer",
+                    "name": "Selecteer een naam"
+                },
+                "save": "Opslaan",
+                "cancel": "Annuleer",
+                "mailSelection": "Kies een sjabloon",
+                "receiveCarbonCopySubtitle": "Je ontvangt een kopie van iedere verstuurde e-mail.",
+                "receiveCC": "Mezelf CC'en",
+                "activateSubtitleDeactivate": "De transactionele e-mail is geactiveerd en wordt niet naar leden verstuurd.",
+                "activateSubtitleActivate": "De transactionele e-mail is geactiveerd en wordt naar leden verstuurd.",
+                "activate": "Geactiveerd",
+                "parameters": "Instellingen",
+                "useFor": "Gebruik voor ",
+                "pickTemplate": "Kies een sjabloon",
+                "name": "Naam",
+                "description": "Het gekozen sjabloon wordt voor \"{{name}}\" van alle geselecteerde franchisenemers gebruikt.",
+                "title": "Configuratie"
+            },
+            "emptyStateConfiguration": "Voeg een configuratie toe om het gebruik van bepaalde sjablonen te forceren.",
+            "addConfiguration": "Een configuratie toevoegen",
+            "emptySelect": "Selecteer een transactionele e-mail om te zien met welke franchisenemers het is gedeeld en om te zien welke franchisenemers er gebruik van maken."
         }
     },
     "membership": {
@@ -956,7 +996,8 @@
             "completeInformation": "Voltooi je gegevens",
             "emergencyContact": "Contactpersoon voor noodgevallen",
             "modify": "Bewerken",
-            "warningAddEmail": "Deze e-mail is al toegevoegd."
+            "warningAddEmail": "Deze e-mail is al toegevoegd.",
+            "emailHelper": "Voeg meerdere e-mailadressen toe door ze met een komma te scheiden."
         },
         "shop": {
             "noProvisionUpdates": "Geen voorraad",
@@ -3323,7 +3364,7 @@
             "delete": {
                 "confirm": "Verwijderen",
                 "title": "E-mailsjabloon verwijderen",
-                "content": "Weet je zeker dat je dit e-mailsjabloon wilt verwijderen? Deze actie is definitief",
+                "content": "Dit sjabloon wordt ook verwijderd van de gekoppelde transactionele e-mails. Weet je zeker dat je dit e-mailsjabloon wilt verwijderen? Deze actie is definitief",
                 "cancel": "Annuleren"
             }
         },
@@ -3348,13 +3389,20 @@
             "save": "Opslaan",
             "subject": "Onderwerp van de e-mail",
             "cancel": "Annuleren",
-            "exportHtml": "Als HTML exporteren"
+            "exportHtml": "Als HTML exporteren",
+            "selectorPlaceholder": "Selecteer franchisenemers",
+            "shareWithHelper": "Franchisenemers kunnen deze sjabloon niet bewerken",
+            "shareWith": "Delen met"
         },
         "copy": "kopie",
         "autoSave": "Automatische back-ups maken",
         "leaveAlert": "Weet je zeker dat je deze pagina wilt verlaten?",
         "delete": "Verwijderen",
-        "edit": "Wijzigen"
+        "edit": "Wijzigen",
+        "allCompanies": "Alle franchisenemers",
+        "seeAll": "Toon alles",
+        "franchiseEmails": "Franchise-sjablonen",
+        "companieEmails": "Mijn sjablonen"
     },
     "member": {
         "pass_owner": "Geldige leskaart",
@@ -6826,6 +6874,12 @@
                 "error": "Fout bij het verifiëren van je account bij QuickBooks",
                 "success": "Je account van QuickBooks is geverifieerd"
             }
+        },
+        "platformBilling": {
+            "payNowInvoice": {
+                "error": "Betaling: geweigerd",
+                "success": "Betaling: succesvol"
+            }
         }
     },
     "coach": {
@@ -7341,7 +7395,12 @@
             "showLessText": "Toon minder",
             "showMoreText": "Toon meer"
         },
-        "close": "Sluiten"
+        "close": "Sluiten",
+        "selector": {
+            "validate": "Confirm",
+            "unselectAll": "Deselecteer alles",
+            "selectAll": "Selecteer alles"
+        }
     },
     "workshop": {
         "modal": {
@@ -7728,6 +7787,11 @@
                 "title": "QuickBooks verbinding"
             },
             "title": "QuickBooks"
+        },
+        "marketingEmail": {
+            "caption": "Indien ingeschakeld worden de kopieën naar het volgende e-mailadres verzonden",
+            "placeholder": "E-mail",
+            "label": "Aanvullende e-mail"
         }
     },
     "checkout": {
@@ -8630,7 +8694,15 @@
         "platformInvoice": {
             "noInvoice": "Je facturen komen hier als PDF te staan zodra je ze betaald hebt. Momenteel zijn er nog geen facturen beschikbaar.",
             "sectionTitle": "Mijn facturen",
-            "label": "Factuur {{month}} / {{year}}"
+            "label": "Factuur {{month}} / {{year}}",
+            "status": {
+                "failed": "Betaling: mislukt",
+                "processing": "Betaling: in behandeling",
+                "disputed": "Betaling: betwist",
+                "succeeded": "Betaling: succesvol",
+                "missing_charge": "Er zijn geen betalingspogingen om weer te geven."
+            },
+            "bill": "Regulariseren"
         }
     },
     "marketing": {
@@ -8968,7 +9040,8 @@
             "create": "Een sjabloon toevoegen",
             "franchiseEmails": "Mijn sjablonen",
             "emptyStateDescription": "Selecteer een sjabloon",
-            "emptyStateTitle": "Voorvertoning"
+            "emptyStateTitle": "Voorvertoning",
+            "searchPlaceholder": "Zoek een sjabloon"
         }
     },
     "giftcard": {
@@ -9058,7 +9131,8 @@
             "form": {
                 "footer": "De cadeaubon heeft een waarde van {{- price }} en wordt op {{- date_send }} naar de ontvanger verstuurd. Vervolgens heeft de ontvanger {{ expiration_days }} dag(en) om de cadeaubon te gebruiken, voordat het vervalt.",
                 "actions": {
-                    "submit": "Aan mijn winkelmandje toevoegen"
+                    "submit": "Aan mijn winkelmandje toevoegen",
+                    "cancel": "Annuleer"
                 },
                 "date_send": {
                     "label": "Verzenddatum van de e-mail"
@@ -9078,13 +9152,15 @@
                 "name": {
                     "label": "Naam van de cadeaubon"
                 },
-                "footerUnlimited": "De cadeaubon heeft een waarde van {{- price }} en wordt op {{- date_send }} naar de ontvanger verstuurd. Deze cadeaubon heeft een onbeperkte geldigheid."
+                "footerUnlimited": "De cadeaubon heeft een waarde van {{- price }} en wordt op {{- date_send }} naar de ontvanger verstuurd. Deze cadeaubon heeft een onbeperkte geldigheid.",
+                "select_image": "Selecteer je achtergrondafbeelding"
             },
             "previewPlaceholder": {
                 "message_content": "[Gepersonaliseerd bericht]",
                 "message_is_for": "[Naam van de ontvanger]",
                 "message_is_from": "[Naam van de koper]",
-                "name": "[Naam van de cadeaubon]"
+                "name": "[Naam van de cadeaubon]",
+                "giftcard_amount": "[Bedrag van de cadeaubon]"
             },
             "sendTo": "Opnieuw de uitnodiging versturen",
             "notAttributedYet": "Niet gevalideerd",

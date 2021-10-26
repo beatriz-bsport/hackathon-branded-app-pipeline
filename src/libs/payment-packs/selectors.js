@@ -284,13 +284,15 @@ export const excludeUnaccessiblePacks = memoize(
         if (Array.isArray(paymentPacks)) {
           if (!authenticated) {
             return paymentPacks
-              ? paymentPacks.filter(
-                  (pack) =>
-                    pack.whitelist_tags &&
-                    pack.whitelist_tags.length === 0 &&
-                    pack.blacklist_tags &&
-                    pack.blacklist_tags.length === 0,
-                )
+              ? paymentPacks
+                  .filter((pack) => !!pack)
+                  .filter(
+                    (pack) =>
+                      pack.whitelist_tags &&
+                      pack.whitelist_tags.length === 0 &&
+                      pack.blacklist_tags &&
+                      pack.blacklist_tags.length === 0,
+                  )
               : [];
           }
           if (memberTagList && memberTagList.length === 0) {
@@ -302,21 +304,23 @@ export const excludeUnaccessiblePacks = memoize(
               : [];
           }
           return paymentPacks
-            ? paymentPacks.filter(
-                (pack) =>
-                  ((pack.blacklist_tags &&
-                    pack.blacklist_tags.length !== 0 &&
-                    !pack.blacklist_tags.some((tag) =>
-                      memberTagList.includes(tag),
-                    )) ||
-                    pack.blacklist_tags.length === 0) &&
-                  ((pack.whitelist_tags &&
-                    pack.whitelist_tags.length !== 0 &&
-                    pack.whitelist_tags.some((tag) =>
-                      memberTagList.includes(tag),
-                    )) ||
-                    pack.whitelist_tags.length === 0),
-              )
+            ? paymentPacks
+                .filter((pack) => !!pack)
+                .filter(
+                  (pack) =>
+                    ((pack.blacklist_tags &&
+                      pack.blacklist_tags.length !== 0 &&
+                      !pack.blacklist_tags.some((tag) =>
+                        memberTagList.includes(tag),
+                      )) ||
+                      pack.blacklist_tags.length === 0) &&
+                    ((pack.whitelist_tags &&
+                      pack.whitelist_tags.length !== 0 &&
+                      pack.whitelist_tags.some((tag) =>
+                        memberTagList.includes(tag),
+                      )) ||
+                      pack.whitelist_tags.length === 0),
+                )
             : [];
         }
         return paymentPacks;

@@ -89,7 +89,7 @@ CompleteInitialState.args = {
 
 
 export default {
-  title: 'Marketing/CustomForm',
+  title: 'Library/Custom-Form/Builder',
   component: CustomFormPaper,
   parameters: {
     docs: {

@@ -13,6 +13,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import withStyles from '@material-ui/styles/withStyles';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import WarningIcon from '@material-ui/icons/Warning';
+import { Theme } from '@material-ui/core/styles';
 import moment from 'moment-timezone';
 
 import { AssetForBlueprint, RoomBlueprint } from '../../types';
@@ -30,6 +31,8 @@ interface OwnProps {
   onSubmit: () => void;
   onSelectSpot: (spot: number) => void;
   selectedSpot?: number;
+  forceFullScreen: boolean | null;
+  fullScreen: boolean;
 }
 
 type Props = OwnProps &
@@ -125,7 +128,10 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
     const { t } = this.props;
 
     return (
-      <Dialog fullScreen={this.props.fullScreen} open={this.props.open}>
+      <Dialog
+        fullScreen={this.props.fullScreen || !!this.props.forceFullScreen}
+        open={this.props.open}
+      >
         <MuiDialogTitle
           disableTypography
           style={{
@@ -158,7 +164,7 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
   }
 }
 
-const styles = (theme) => ({
+const styles = (theme: Theme) => ({
   content: {
     display: 'flex',
     flexDirection: 'column',

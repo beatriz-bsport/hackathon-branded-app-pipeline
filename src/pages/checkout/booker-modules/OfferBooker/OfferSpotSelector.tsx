@@ -106,6 +106,7 @@ class OfferSpotSelector extends React.PureComponent<Props, State> {
           takenSpot={takenSpot}
           selectedSpot={selectedSpot}
           onSelectSpot={(spot) => this.onSelectSpot(offer.id, spot)}
+          forceFullScreen
         />
       );
     }

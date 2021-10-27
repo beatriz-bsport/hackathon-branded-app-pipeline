@@ -406,7 +406,6 @@ type Props = MaterialStyleType<ReturnType<typeof styles>> &
   HandlersType;
 
 const mapStateToProps = (state: RootState, props: StateHandlerType) => ({
-  selectedContractData: getContract(state, props.selectedContract),
   theme: themeSelectors.getTheme(state),
   contractListManagerOnly: withPaymentPack(getAvailableContractListManager)(
     state,
@@ -534,4 +533,7 @@ export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
   withHandlers(mapWithHandlers),
+  connect((state, { selectedContract }) => ({
+    selectedContractData: getContract(state, selectedContract),
+  })),
 )(SubscriptionList);

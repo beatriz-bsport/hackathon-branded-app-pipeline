@@ -313,12 +313,14 @@ export const excludeUnaccessiblePacks = memoize(
                       !pack.blacklist_tags.some((tag) =>
                         memberTagList.includes(tag),
                       )) ||
+                      !pack.blacklist_tags ||
                       pack.blacklist_tags.length === 0) &&
                     ((pack.whitelist_tags &&
                       pack.whitelist_tags.length !== 0 &&
                       pack.whitelist_tags.some((tag) =>
                         memberTagList.includes(tag),
                       )) ||
+                      !pack.whitelist_tags ||
                       pack.whitelist_tags.length === 0),
                 )
             : [];

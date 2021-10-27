@@ -622,7 +622,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             text: t('backofficeMenu.coaches'),
           },
           {
-            to: '/establishment',
+            to: '/establishment/room',
             icon: LocationOn,
             text: t('backofficeMenu.establishment'),
           },

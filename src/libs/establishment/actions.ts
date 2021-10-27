@@ -154,7 +154,7 @@ export function createOrUpdateEstablishment(establishmentData: FormData) {
         ? 'establishment.update.success'
         : 'establishment.create.success';
       dispatch(snackbarSuccess(message));
-      dispatch(push('/establishment'));
+      dispatch(push('/establishment/room'));
     } catch (error) {
       dispatch(snackbarError('establishment.error'));
       dispatch(upsertError(error));

@@ -238,7 +238,7 @@ export default compose(
         push(`/establishment/edit/${id}`),
       fetchOffersByDay: fetchOffersByDayAction,
       goToOffer: (offerId: number) => push(`/offer/${offerId}`),
-      goToList: () => push('/establishment'),
+      goToList: () => push('/establishment/room'),
       deleteEstablishment,
       fetchEstablishmentEvents: fetchEstablishmentEventsAction,
       fetchEmailTemplatesSummaries,

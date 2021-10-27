@@ -135,7 +135,7 @@ export default compose(
       upsertEstablishmentV2: createOrUpdateEstablishmentV2,
       addImage: addImageToEstablishment,
       removeImage: removeImageFromEstablishment,
-      goToEstablishmentList: () => push('/establishment'),
+      goToEstablishmentList: () => push('/establishment/room'),
     },
   ),
   withTitle(({ t }: { t: TFunction }) =>

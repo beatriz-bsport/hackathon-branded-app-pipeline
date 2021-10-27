@@ -50,10 +50,10 @@ export class EstablishmentGroup extends React.Component<Props> {
   }
 
   render() {
-    const { t } = this.props;
     if (!this.props.companyTheme.enable_multi_localization) {
-      return <Redirect to="/establishment" />;
+      return <Redirect to="/establishment/room" />;
     }
+    const { t } = this.props;
     if (this.props.loading || !this.props.establishments) {
       return <BackofficeLinearProgress />;
     }

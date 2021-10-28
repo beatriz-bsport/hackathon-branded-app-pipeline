@@ -2,7 +2,7 @@ import React from 'react';
 
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
-import { withStyles } from '@material-ui/core';
+import { withStyles, Modal } from '@material-ui/core';
 
 import { compose } from 'recompose';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
@@ -82,7 +82,7 @@ class UserInteractionPortal extends React.PureComponent<Props> {
     const { classes } = this.props;
 
     return (
-      <div className={classes.container}>
+      <Modal open className={classes.container}>
         <div className={classes.innerContainer}>
           <div className={classes.topBar}>
             <IconButton onClick={this.props.onClose}>
@@ -95,7 +95,7 @@ class UserInteractionPortal extends React.PureComponent<Props> {
             src={this.props.url}
           />
         </div>
-      </div>
+      </Modal>
     );
   }
 }
@@ -127,11 +127,11 @@ const styles = () => ({
     backgroundColor: 'white',
     boxShadow: '3px 10px 44px 9px rgba(0,0,0,0.17)',
     borderRadius: 12,
-    maxHeight: (props: any) => (props.fullScreenPopup ? '100vh' : '75vh'),
-    maxWidth: (props: any) => (props.fullScreenPopup ? '100vw' : '75vw'),
-    '@media (max-width: 600px), (max-height: 600px)': {
-      maxHeight: window.screen.height,
-      maxWidth: window.screen.width,
+    '@media (min-width: 600px)': {
+      maxHeight: (props: any) =>
+        props.fullScreenPopup ? window.innerHeight : window.innerHeight * 0.75,
+      maxWidth: (props: any) =>
+        props.fullScreenPopup ? window.innerWidth : window.innerWidth * 0.75,
     },
   },
   topBar: {

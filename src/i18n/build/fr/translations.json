@@ -3904,7 +3904,9 @@
       "privateServiceEst": "Rendez-vous par salle",
       "dayBookings": "Réservations (cours collectif) par jour",
       "video": "Vidéo",
-      "video_purchase": "Achat vidéo"
+      "video_purchase": "Achat vidéo",
+      "giftcard": "Carte cadeau",
+      "consumer_giftcard": "Cartes cadeaux achetées"
     },
     "header": { "sum": "Somme", "average": "En moyenne" },
     "columns": {
@@ -4108,8 +4110,9 @@
       "nb_expired": "Nb de cartes expirées",
       "sum_consumed_amount": "Crédits offerts",
       "sum_available_amount_expired": "Crédits offerts et expirés",
-      "sum_available_amount_non_expired": "Crédits offers toujours disponibles",
-      "reverted": "Annulé"
+      "sum_available_amount_non_expired": "Crédits offerts toujours disponibles",
+      "reverted": "Annulé",
+      "price_bought": "Prix d`'achat"
     },
     "yes": "Oui",
     "no": "Non",

@@ -13,6 +13,7 @@ type Props = {
   addEmailToList: (email: string) => void;
   removeEmailFromList: (index: number) => void;
   disabled: boolean;
+  required: true;
 };
 
 const emailRegexp = /[A-z0-9-_]+@[A-z0-9-_]+\.[A-z]+$/;
@@ -86,7 +87,7 @@ export const EmailInputWithChipsGenerator = (props: Props) => {
   return (
     <div className={classes.container}>
       <TextField
-        error={error}
+        error={error || (props.required && !emailList?.length)}
         value={currentTextInput}
         label={props.textFieldLabel}
         variant="standard"

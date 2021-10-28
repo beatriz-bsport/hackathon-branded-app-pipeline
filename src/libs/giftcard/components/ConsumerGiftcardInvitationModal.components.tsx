@@ -61,7 +61,8 @@ const ConsumerGiftcardInvitationModal = (props: Props) => {
         <EmailInputWithChipsGenerator
           disabled={hasBeenSent || processing}
           emailList={recipient}
-          textFieldLabel="recipients"
+          textFieldLabel={t('consumerGiftcard.form.recipients.label')}
+          required
           textFieldName="recipients"
           addEmailToList={addEmailToList}
           removeEmailFromList={removeEmailFromList}
@@ -72,7 +73,7 @@ const ConsumerGiftcardInvitationModal = (props: Props) => {
           {t('consumerGiftcard.invitationForm.actions.close')}
         </Button>
         <Button
-          disabled={processing || hasBeenSent}
+          disabled={!!(processing || hasBeenSent || recipient?.length)}
           color="primary"
           onClick={() => {
             setProcessing(true);

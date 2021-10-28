@@ -1952,10 +1952,11 @@
             "src_lastname": "Achternaam koper",
             "src_firstname": "Voornaam koper",
             "reverted": "Geannuleerd",
-            "sum_available_amount_non_expired": "Beschikbare kredieten (onbeperkt)",
+            "sum_available_amount_non_expired": "Beschikbare kredieten",
             "sum_available_amount_expired": "Gebruikte en verlopen kredieten",
             "sum_consumed_amount": "Gebruikte kredieten",
-            "nb_expired": "Aantal verlopen kredieten"
+            "nb_expired": "Aantal verlopen kredieten",
+            "price_bought": "Koopprijs"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -1997,7 +1998,9 @@
             "on_spot_payments": "Handmatige betalingen",
             "video": "Video",
             "unpaid_invoices": "Openstaande facturen",
-            "video_purchase": "Gekochte video's"
+            "video_purchase": "Gekochte video's",
+            "giftcard": "Cadeaubon",
+            "consumer_giftcard": "Gekochte cadeaubonnen"
         },
         "globalCategories": {
             "subheader": {

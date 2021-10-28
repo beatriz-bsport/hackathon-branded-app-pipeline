@@ -820,7 +820,7 @@ export default compose(
           onsite_payment_available: false,
           full_vod_access: true,
           only_vod_access: false,
-          start_date_method: `${START_ON_FIRST_BOOKING}`,
+          start_date_method: `${START_ON_PURCHASE}`,
           expiration_days_before_first_use: 365,
           unlimited: false,
           theorical_margin_value: 0,

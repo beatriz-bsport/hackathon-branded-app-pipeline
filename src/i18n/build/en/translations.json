@@ -5265,7 +5265,7 @@
             "set_base_remuneration": "Define a fixed compensation base"
         },
         "tabs": {
-            "all": "All classes",
+            "all": "All activities",
             "appointment": "Appointments",
             "session": "Group activities & Workshops",
             "groups": "Compensation group"
@@ -5967,9 +5967,9 @@
             "billing_plan-create": "Create",
             "billing_plan-stop": "End",
             "billing_plan-renew": "Auto-renew",
-            "billing_plan-payment_dispute": "Payment dispute",
-            "billing_plan-payment_success": "Payment successfull",
-            "billing_plan-payment_failure": "Payment refused",
+            "billing_plan-payment_dispute": "Payment: disputed",
+            "billing_plan-payment_success": "Payment: successful",
+            "billing_plan-payment_failure": "Payment: refused",
             "billing_plan-update_payment_method": "Payment method updated",
             "billing_plan-update_payment_pack": "Pass updated"
         },
@@ -5983,14 +5983,14 @@
             "actions": {
                 "switchPaymentMethod": "Change the payment method",
                 "switchPack": "Edit pass",
-                "freeze": "Pause",
+                "freeze": "Pause this subscription",
                 "advanceTime": "Advance the invoice",
                 "postPone": "Postpone the invoice",
                 "changeDate": "Edit date",
                 "showInvoice": "See invoice",
                 "changePrice": "Edit price",
                 "stop": "Stop after this invoice",
-                "disableAutoRenew": "Desactivate auto-renew",
+                "disableAutoRenew": "Deactivate the auto-renewal",
                 "enableAutoRenew": "Activate auto-renew"
             },
             "freeze": {
@@ -6027,10 +6027,10 @@
             "edit": "Edit",
             "buy": "Buy",
             "scheduledStop": {
-                "title": "Program the termination of the subscription",
+                "title": "Program the termination of this subscription",
                 "explain": "Choose the last payment for the subscription.",
-                "listItem": "Termination of the subscription programmed",
-                "summary": "The date of the last programmed payment will be {{-date}}, it will correspond to the last valid card."
+                "listItem": "Stop this subscription",
+                "summary": "The programmed termination of the last payment is {{-date}}, which corresponds to the last valid pass."
             },
             "invoice": {
                 "label": "Invoice {{uuid}} : {{price}}"
@@ -6198,7 +6198,7 @@
         "plannedInvoiceStatus": {
             "pending": "Pending",
             "canceled": "Discarded",
-            "failed": "Payment refused",
+            "failed": "Payment: refused",
             "succeeded": "Billed",
             "processing": "Payment processing",
             "reverted": "Cancelled"
@@ -6214,7 +6214,7 @@
             "stopExplain": "Future payments, invoices, and bookings will be discarded deleted.",
             "revertCurrentExplain": "Cancel last past invoice and block the pass",
             "revertCurrentExplainHelper": "If the payment was valid, a credit will be attributed to the customer, you can also enter the invoice and click refund on the payment. If the payment was failed, the debt will be cancelled.",
-            "planStop": "Program the termination of the subscription"
+            "planStop": "Program the termination of this subscription"
         },
         "parameters": {
             "parameters": "Settings",
@@ -6593,10 +6593,11 @@
             "src_lastname": "Buyer's last name",
             "src_firstname": "Buyer's first name",
             "reverted": "Canceled",
-            "sum_available_amount_non_expired": "Valid credits",
+            "sum_available_amount_non_expired": "Remaining credits",
             "sum_consumed_amount": "Consumed credits",
             "sum_available_amount_expired": "Offered and expired credits",
-            "nb_expired": "Number of expired passes"
+            "nb_expired": "Number of expired passes",
+            "price_bought": "Purchase price"
         },
         "yes": "Yes",
         "no": "No",
@@ -6677,7 +6678,9 @@
             "on_spot_payments": "In-studio payments",
             "video": "Video On Demand",
             "unpaid_invoices": "Unpaid invoices",
-            "video_purchase": "Video On Demand purchases"
+            "video_purchase": "Video On Demand purchases",
+            "giftcard": "Gift card",
+            "consumer_giftcard": "Purchased gift cards"
         },
         "globalCategories": {
             "subheader": {
@@ -8254,7 +8257,7 @@
                 "combo": "Pack",
                 "private_pass": "Appointment pass",
                 "workshop": "Passes for workshops",
-                "name": "Expenses",
+                "name": "Expenditure",
                 "first": "Has spent",
                 "second": "{{ currencyDisplay }} between",
                 "third": "and",
@@ -8500,7 +8503,7 @@
             "all": "All",
             "isEmpty": "This Smartlist displays your entire member database, as no filters have been added as of now.",
             "24": {
-                "name": "Expenses",
+                "name": "Expenditure",
                 "workshop": "Passes for workshops",
                 "private_pass": "Appointment pass",
                 "between": "and",

@@ -27,6 +27,7 @@ import {
   updateSmartListAutoTagRules as updateSmartListAutoTagRulesAPI,
   deleteSmartListAutoTagRules as deleteSmartListAutoTagRulesAPI,
   applySmartListAutoTagRules as applySmartListAutoTagRulesAPI,
+  applyAsyncSmartListAutoTagRules as applyAsyncSmartListAutoTagRulesAPI,
   deleteMultiSmartListAutoTagRules as deleteMultiSmartListAutoTagRulesAPI,
 } from './api';
 
@@ -35,6 +36,7 @@ import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 import { SmartList } from './types';
 import { RootState } from '../../reducers';
+import { monitorBackgroundTask } from '../background-task/actions';
 
 export const smartListListAction = {
   error: createAction('SMART-LIST/LIST/ERROR'),
@@ -511,5 +513,38 @@ export function applySmartListAutoTagRules(id: number) {
       dispatch(snackbarError('smartlist.tag_rules.error'));
     }
     dispatch(applySmartListAutotagRulesAction.isLoading(false));
+  };
+}
+
+export const applyAsyncSmartListAutoTagRulesActions = {
+  error: createAction('SMART-LIST/AUTO-TAG/APPLY_ASYNC/ERROR'),
+  isLoading: createAction('SMART-LIST/AUTO-TAG/APPLY_ASYNC/IS_LOADING'),
+  success: createAction('SMARTLIST/AUTO-TAG/APPLY_ASYNC/SUCCESS'),
+};
+
+export function applyAsyncSmartListAutoTagRules(
+  id: number,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(applyAsyncSmartListAutoTagRulesActions.isLoading(true));
+    dispatch(applyAsyncSmartListAutoTagRulesActions.error(null));
+    try {
+      const response = await applyAsyncSmartListAutoTagRulesAPI(id);
+      dispatch(applyAsyncSmartListAutoTagRulesActions.success(response));
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onSuccess: () => {
+            if (options && options.onSuccess) options.onSuccess();
+          },
+        }),
+      );
+    } catch (err) {
+      dispatch(applyAsyncSmartListAutoTagRulesActions.error(err));
+      if (options && options.onError) options.onError();
+      dispatch(snackbarError('smartlist.tag_rules.error'));
+    }
+    dispatch(applyAsyncSmartListAutoTagRulesActions.isLoading(false));
   };
 }

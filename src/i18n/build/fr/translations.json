@@ -4823,7 +4823,11 @@
       "display_tag_rules": "Afficher les règles de Tag",
       "cancel": "Annuler",
       "tag_name": "Nom du Tag",
-      "tag_group": "Nom du groupe"
+      "tag_group": "Nom du groupe",
+      "asyncDialog": {
+        "title": "Mises à jour des règles de Tag ",
+        "message": "Suite à vos changements dans les règles de Tag de la smartlist {{name}}, nous devons mettre à jours les Tags de vos membres."
+      }
     }
   },
   "snackbar": {

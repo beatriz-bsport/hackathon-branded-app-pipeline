@@ -15,9 +15,6 @@ import Divider from '@material-ui/core/Divider';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { uniq, uniqBy } from 'lodash';
-// import IconButton from '@material-ui/core/IconButton';
-
-// import EditIcon from '@material-ui/icons/Edit';
 
 import MemberTable from '../../libs/member/MemberTable.component';
 import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/selectors';
@@ -46,6 +43,7 @@ import {
   updateSmartListAutoTag,
   smartListAutoTagDelete,
   applySmartListAutoTagRules,
+  applyAsyncSmartListAutoTagRules as applyAsyncSmartListAutoTagRulesAction,
 } from '../../libs/smart-list/actions';
 import {
   fetchSmartListMembers as fetchSmartListMembersAPI,
@@ -102,6 +100,7 @@ import {
   getAvailablePrivateServices,
 } from '../../libs/private-service/selectors/private-service';
 import type { PrivateService } from '../../libs/private-service/types';
+import { showInformativeDialog } from '../../components/GenericDialog/CustomDialogs';
 
 type Props = {
   id: number,
@@ -184,6 +183,7 @@ type Props = {
   updateAutoTag: (id: number, data: object) => void,
   fetchAllAutoTagRulesAction: () => void,
   smartlistAutoTagLoading: boolean,
+  openAutoTagRulesDialog: boolean,
 };
 
 type State = {
@@ -333,6 +333,7 @@ export class SmartListDetailMember extends Component<Props, State> {
           updateAutoTag={this.props.updateAutoTag}
           tags={this.props.tags}
           tag_groups={this.props.tag_groups}
+          openUpdateDialog={this.props.openAutoTagRulesDialog}
         />
         <div className={this.props.classes.memberWrapper}>
           <ButtonBase
@@ -485,6 +486,7 @@ export default compose(
   routerParamsToProps({ id: 'id:number', create: 'create:number' }),
   withState('openSendEmail', 'setOpenSendEmail', false),
   withState('closeMemberTable', 'setCloseMemberTable', true),
+  withState('openAutoTagRulesDialog', 'setOpenAutoTagRulesDialog', false),
   withTranslation(['smartList', 'member', 'communication']),
   withStyles(styles),
   connect(
@@ -556,6 +558,7 @@ export default compose(
       updateAutoTagAction: updateSmartListAutoTag,
       deleteAutoTagAction: smartListAutoTagDelete,
       applySmartListTagRules: applySmartListAutoTagRules,
+      applyAsyncSmartListAutoTagRules: applyAsyncSmartListAutoTagRulesAction,
     },
   ),
   withProps(
@@ -587,25 +590,47 @@ export default compose(
       sendCommunication({ ...data, smartlist_id: id }),
   }),
   withHandlers({
-    createAutoTag: ({ createAutoTagAction, applySmartListTagRules, id }) => (
-      data,
-    ) => {
+    createAutoTag: ({
+      createAutoTagAction,
+      applyAsyncSmartListAutoTagRules,
+      setOpenAutoTagRulesDialog,
+      t,
+      id,
+    }) => async (data) => {
+      setOpenAutoTagRulesDialog(true);
+      const res = await showInformativeDialog(
+        t('smartList:tag_rules.asyncDialog.title'),
+        t('smartList:tag_rules.asyncDialog.message'),
+      );
       createAutoTagAction(
         { ...data, smartlist: id },
         {
-          onSuccess: () => applySmartListTagRules(id),
+          onSuccess: () =>
+            applyAsyncSmartListAutoTagRules(id, {
+              onSuccess: () => res && setOpenAutoTagRulesDialog(false),
+            }),
         },
       );
     },
     deleteAutoTag: ({ deleteAutoTagAction }) => (id) => {
       deleteAutoTagAction(id);
     },
-    updateAutoTag: ({ updateAutoTagAction, applySmartListTagRules, id }) => (
-      tg_id,
-      data,
-    ) => {
+    updateAutoTag: ({
+      updateAutoTagAction,
+      applyAsyncSmartListAutoTagRules,
+      setOpenAutoTagRulesDialog,
+      t,
+      id,
+    }) => async (tg_id, data) => {
+      const res = await showInformativeDialog(
+        t('smartList:tag_rules.asyncDialog.title'),
+        t('smartList:tag_rules.asyncDialog.message'),
+      );
       updateAutoTagAction(tg_id, data, {
-        onSuccess: () => applySmartListTagRules(id),
+        onSuccess: () =>
+          applyAsyncSmartListAutoTagRules(id, {
+            onSuccess: () => res && setOpenAutoTagRulesDialog(false),
+          }),
       });
     },
   }),

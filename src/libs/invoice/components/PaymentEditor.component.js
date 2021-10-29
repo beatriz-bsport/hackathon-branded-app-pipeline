@@ -33,7 +33,7 @@ import { getStripePkKey } from '../../theme/selectors';
 
 import PriceInput from '../../../components/input/PriceInput.component';
 import StripeForm from '../../../components/form/StripeForm.component';
-import PaymentMethodList from '../../payment/components/PaymentMethodList.component';
+import PaymentMethodList from '../../payment/components/payment-method-list/PaymentMethodList.component';
 
 const stripePromise = loadStripe(getStripePkKey());
 

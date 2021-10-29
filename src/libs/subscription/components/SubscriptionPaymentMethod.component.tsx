@@ -13,7 +13,7 @@ import {
 } from '@bsport/common/lib/master-data/payment-group';
 import PaymentMethodListItem from '../../payment/components/PaymentMethodListItem.component';
 
-import { PaymentMethod } from '../../invoice/types';
+import { PaymentMethod } from '../../payment/types';
 
 type Props = {
   paymentEngine: number;

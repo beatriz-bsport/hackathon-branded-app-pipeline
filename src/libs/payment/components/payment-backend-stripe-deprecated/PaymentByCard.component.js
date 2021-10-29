@@ -20,7 +20,7 @@ import { loadStripe } from '@stripe/stripe-js';
 
 import StripeErrorCode from './StripeErrorCode.component';
 import AcceptTermsAndConditions from '../AcceptTermsAndConditions.component';
-import PaymentMethodList from '../PaymentMethodList.component';
+import PaymentMethodList from '../payment-method-list/PaymentMethodList.component';
 
 import { getStripePkKey } from '../../../theme/selectors';
 

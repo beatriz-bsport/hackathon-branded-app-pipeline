@@ -43,9 +43,16 @@ export const AcceptTermsAndConditions = (props: Props) => {
           />
         }
         label={
-          <Typography component="div" variant="caption">
+          <Typography
+            component="div"
+            variant="caption"
+            className={props.classes.termsAndConditions}
+          >
             <span>{props.t('generalTermsAndConditions.iAccept')}</span>
-            <ButtonBase onClick={() => props.setShowTermsAndConditions(true)}>
+            <ButtonBase
+              onClick={() => props.setShowTermsAndConditions(true)}
+              className={props.classes.terms}
+            >
               <Typography variant="caption" color="secondary">
                 {props.t(`generalTermsAndConditions.${props.type}`)}
               </Typography>
@@ -77,6 +84,13 @@ const styles = () => ({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
+  },
+  termsAndConditions: {
+    display: 'flex',
+    alignItems: 'flex-end',
+  },
+  terms: {
+    paddingLeft: '4px',
   },
 });
 

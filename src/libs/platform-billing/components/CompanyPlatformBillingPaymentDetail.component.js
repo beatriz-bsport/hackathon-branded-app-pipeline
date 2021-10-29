@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Divider } from '@material-ui/core';
 import PlatformInvoiceListItem from './PlatformInvoiceListItem.component';
-import PaymentMethodListItem from '../../payment/components/PaymentMethodListItem.component';
+import PaymentMethodList from '../../payment/components/payment-method-list/PaymentMethodList.component';
 import CollectPaymentMethod from '../../payment/components/CollectPaymentMethod.component';
 
 import { getCurrencyCode } from '../../theme/selectors';
@@ -64,15 +64,11 @@ export const CompanyPlatformBillingDetail = (props: Props) => {
         </Typography>
         <Divider className={classes.divider} />
 
-        {!!props.paymentMethodList.length && (
-          <Paper>
-            {props.paymentMethodList.map((paymentMethod) => (
-              <PaymentMethodListItem
-                paymentMethod={paymentMethod}
-                key={paymentMethod.id}
-              />
-            ))}
-          </Paper>
+        {!!props.paymentMethodList?.length && (
+          <PaymentMethodList
+            savedPaymentMethodList={props.paymentMethodList}
+            refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
+          />
         )}
         <div className={classes.addPaymentMethodButtonRow}>
           {(getCurrencyCode() || '').toLowerCase() === 'eur' && (

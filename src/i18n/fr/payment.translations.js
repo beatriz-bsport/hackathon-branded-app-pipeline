@@ -118,7 +118,7 @@ exports.default = {
     cancelPayment: 'Précédent',
     savePaymentMethod: {
       label: 'Sauvegarder ce moyen de paiement',
-      section: 'Mes moyens de paiement ({{count}})',
+      section: 'Sélectionner une méthode de paiement',
     },
     credit: {
       explain:
@@ -142,13 +142,15 @@ exports.default = {
         close: 'Fermer',
         collect: 'Sauvegarder',
         retry: 'Réessayer',
-        addPaymentMethod: 'Ajouter un moyen de paiement',
+        addPaymentMethod: 'Ajouter une méthode de paiement',
+        selectPaymentMethod: 'Sélectionner votre moyen de paiement',
+        displayPaymentMethod: 'Afficher mes méthodes de paiement',
       },
     },
   },
   generalTermsAndConditions: {
     iAccept: "J'accepte les ",
-    theTermsAndConditions: 'conditions générales de ventes.',
+    theTermsAndConditions: 'conditions générales de vente.',
     generalTermsOfUse: " conditions générales d'utilisation",
     waiver: 'décharge de responsabilité',
     close: 'Fermer',

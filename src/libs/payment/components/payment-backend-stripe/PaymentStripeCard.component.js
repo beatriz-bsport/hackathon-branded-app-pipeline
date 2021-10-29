@@ -8,9 +8,11 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import AddIcon from '@material-ui/icons/Add';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import StripeErrorCode from './StripeErrorCode.component';
-import PaymentMethodList from '../PaymentMethodList.component';
+import PaymentMethodList from '../payment-method-list/PaymentMethodList.component';
 import {
   fetchPaymentMethodList as fetchPaymentMethodListAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
@@ -78,7 +80,7 @@ const CardSection = (props: { error: any }) => {
 
 export const StripePaymentCard = (props: Props) => {
   const classes = useStyles();
-  const { t } = useTranslation(['invoice']);
+  const { t } = useTranslation(['invoice', 'payment']);
 
   const stripe = useStripe();
   const elements = useElements();
@@ -89,12 +91,20 @@ export const StripePaymentCard = (props: Props) => {
     null,
   );
   const [hasDetached, setHasDetached] = React.useState(null);
+  const [addPaymentMethod, setAddPaymentMethod] = React.useState(true);
 
   React.useEffect(() => {
     fetchPaymentMethodListAPI({ member: props.memberId }).then((r) =>
       setPaymentMethodList(r.data.filter((pm) => pm.type === 'card')),
     );
-  }, [props.clientSecret, hasDetached]);
+  }, [props.memberId, props.clientSecret, hasDetached]);
+
+  React.useEffect(() => {
+    setAddPaymentMethod(!paymentMethodList.length);
+    if (paymentMethodList.length) {
+      setPaymentMethodSelected(paymentMethodList[0].id);
+    }
+  }, [paymentMethodList]);
 
   const handleSubmit = async (event) => {
     // We don't want to let default form submission happen here,
@@ -155,38 +165,72 @@ export const StripePaymentCard = (props: Props) => {
   };
   return (
     <form onSubmit={handleSubmit} className={classes.container}>
-      <CardSection
-        saveForLater={saveForLater}
-        setSaveForLater={setSaveForLater}
-        error={props.error}
-      />
-      <div className={classes.row}>
-        <Checkbox
-          checked={saveForLater}
-          onChange={(ev) => setSaveForLater(ev.target.checked)}
-        />
-        <Typography variant="caption">
-          {t('paymentPanel.actions.saveForLater')}
-        </Typography>
-      </div>
-      {!!paymentMethodList.length && (
-        <PaymentMethodList
-          savedPaymentMethodList={paymentMethodList}
-          selectedSavedPaymentMethodId={paymentMethodSelected}
-          isExpandable={false}
-          paymentMethodType="card"
-          onSelect={setPaymentMethodSelected}
-          setHasDetached={setHasDetached}
-          memberId={props.memberId}
-          detachPaymentMethodLoading={props.detachPaymentMethodLoading}
-          detachPaymentMethod={props.detachPaymentMethod}
-          snackbarErrorMsg={props.snackbarErrorMsg}
-          snackbarSuccessMsg={props.snackbarSuccessMsg}
-          companyId={props.companyId}
-          sepaDefaultName={props.sepaDefaultName}
-          sepaDefaultEmail={props.sepaDefaultEmail}
-        />
+      <Typography variant="h6">
+        {t('payment:forms.savePaymentMethod.section')}
+      </Typography>
+      {addPaymentMethod && (
+        <div>
+          <CardSection
+            saveForLater={saveForLater}
+            setSaveForLater={setSaveForLater}
+            error={props.error}
+          />
+          <div className={classes.saveAndDisplay}>
+            <div className={classes.row}>
+              <Checkbox
+                checked={saveForLater}
+                onChange={(ev) => setSaveForLater(ev.target.checked)}
+              />
+              <Typography variant="caption">
+                {t('paymentPanel.actions.saveForLater')}
+              </Typography>
+            </div>
+            {!!paymentMethodList.length && (
+              <ButtonBase
+                onClick={() => setAddPaymentMethod(false)}
+                className={classes.displayButton}
+              >
+                <Typography variant="body1" align="right" color="primary">
+                  {t(
+                    'payment:forms.paymentMethod.actions.displayPaymentMethod',
+                  )}
+                </Typography>
+              </ButtonBase>
+            )}
+          </div>
+        </div>
       )}
+      {!addPaymentMethod && !!paymentMethodList.length && (
+        <div>
+          <PaymentMethodList
+            savedPaymentMethodList={paymentMethodList}
+            selectedSavedPaymentMethodId={paymentMethodSelected}
+            isExpandable={false}
+            paymentMethodType="card"
+            onSelect={setPaymentMethodSelected}
+            setHasDetached={setHasDetached}
+            memberId={props.memberId}
+            detachPaymentMethodLoading={props.detachPaymentMethodLoading}
+            detachPaymentMethod={props.detachPaymentMethod}
+            snackbarErrorMsg={props.snackbarErrorMsg}
+            snackbarSuccessMsg={props.snackbarSuccessMsg}
+            companyId={props.companyId}
+            sepaDefaultName={props.sepaDefaultName}
+            sepaDefaultEmail={props.sepaDefaultEmail}
+          />
+          <ButtonBase
+            disabled={false}
+            onClick={() => setAddPaymentMethod(true)}
+            className={classes.addButton}
+          >
+            <AddIcon className={classes.leftIcon} color="primary" />
+            <Typography variant="body1" align="left" color="primary">
+              {t('payment:forms.paymentMethod.actions.addPaymentMethod')}
+            </Typography>
+          </ButtonBase>
+        </div>
+      )}
+
       <div className={classes.conditionRow}>
         {props.AcceptTermsAndConditionsComponent}
       </div>
@@ -238,22 +282,40 @@ const useStyles = makeStyles((theme) => ({
   },
   row: {
     marginTop: theme.spacing(-1),
-    marginBottom: theme.spacing(1),
   },
   conditionRow: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: -theme.spacing(1),
     marginLeft: theme.spacing(1.5),
   },
   actionRow: {
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(2),
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  addButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    paddingTop: theme.spacing(0.5),
+    paddingLeft: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
+  leftIcon: {
+    marginRight: theme.spacing(1),
+  },
+  saveAndDisplay: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  displayButton: {
+    paddingBottom: theme.spacing(2),
+    marginLeft: '50px',
   },
 }));
 

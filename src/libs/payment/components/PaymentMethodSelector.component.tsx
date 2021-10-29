@@ -1,5 +1,5 @@
 import React from 'react';
-import PaymentMethodList from './PaymentMethodList.component';
+import PaymentMethodList from './payment-method-list/PaymentMethodList.component';
 import { fromPaymentGroupIdentifierToPaymentMethodIdentifier } from '../utils';
 import { PaymentMethod } from '../types';
 

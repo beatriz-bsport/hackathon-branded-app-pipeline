@@ -32,7 +32,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import MomentUtils from '@date-io/moment';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
-import PaymentMethodList from '../../payment/components/PaymentMethodList.component';
+import PaymentMethodList from '../../payment/components/payment-method-list/PaymentMethodList.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { appliesToContract } from '../../coupon/api';
 import CouponCodeForm from '../../coupon/components/CouponCodeForm.component';
@@ -145,6 +145,7 @@ type State = {
   coupon_code: string,
   voucher: number | null,
   billing_establishment_id: number | null,
+  selectedSavedPaymentMethodId: number | null,
 };
 
 export class SubscriptionPayment extends React.Component<Props, State> {
@@ -156,6 +157,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       coupon_code: '',
       loading: false,
       billing_establishment_id: null,
+      selectedSavedPaymentMethodId: null,
     };
   }
 
@@ -163,13 +165,32 @@ export class SubscriptionPayment extends React.Component<Props, State> {
     if (this.props.refreshSavedPaymentMethodList) {
       this.props.refreshSavedPaymentMethodList();
     }
+    this.handleSelectedPaymentMethod();
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (prevProps && prevProps.contract !== this.props.contract) {
+    if (prevProps.contract !== this.props.contract) {
       this.deleteCoupon();
     }
+    if (
+      prevProps.savedPaymentMethodList?.length !==
+        this.props.savedPaymentMethodList?.length ||
+      prevProps.paymentMethod !== this.props.paymentMethod
+    ) {
+      this.handleSelectedPaymentMethod();
+    }
   }
+
+  handleSelectedPaymentMethod = () => {
+    const selectedPaymentMethodList = this.props.savedPaymentMethodList?.filter(
+      (pm) => pm.type === this.props.paymentMethod,
+    );
+    if (selectedPaymentMethodList.length) {
+      this.setState({
+        selectedSavedPaymentMethodId: selectedPaymentMethodList[0].id,
+      });
+    }
+  };
 
   isZeroPrice = () => {
     if (this.props.contract) {
@@ -253,6 +274,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       setDate,
       withGeneralConditions,
     } = this.props;
+
     return (
       <div>
         {withGeneralConditions && (

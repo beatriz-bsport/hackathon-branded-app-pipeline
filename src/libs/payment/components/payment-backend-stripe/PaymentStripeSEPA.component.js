@@ -6,6 +6,8 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import AddIcon from '@material-ui/icons/Add';
 
 /**
  * Use the CSS tab above to style your Element's container.
@@ -14,7 +16,7 @@ import { useStripe, useElements, IbanElement } from '@stripe/react-stripe-js';
 import Checkbox from '@material-ui/core/Checkbox';
 import StripeErrorCode from './StripeErrorCode.component';
 
-import PaymentMethodList from '../PaymentMethodList.component';
+import PaymentMethodList from '../payment-method-list/PaymentMethodList.component';
 import {
   fetchPaymentMethodList as fetchPaymentMethodListAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
@@ -154,12 +156,21 @@ export const PaymentStripeSEPA = (props: Props) => {
   const [paymentMethodSelected, setPaymentMethodSelected] = React.useState(
     null,
   );
-  const [detechPmId, setDetachPmId] = React.useState(null);
+  const [detachPmId, setDetachPmId] = React.useState(null);
+  const [addPaymentMethod, setAddPaymentMethod] = React.useState(true);
+
   React.useEffect(() => {
     fetchPaymentMethodListAPI({ member: props.memberId }).then((r) =>
       setPaymentMethodList(r.data.filter((pm) => pm.type === 'sepa_debit')),
     );
-  }, [props.clientSecret, detechPmId]);
+  }, [props.memberId, props.clientSecret, detachPmId]);
+
+  React.useEffect(() => {
+    setAddPaymentMethod(!paymentMethodList.length);
+    if (paymentMethodList.length) {
+      setPaymentMethodSelected(paymentMethodList[0].id);
+    }
+  }, [paymentMethodList]);
 
   const [billingDetails, setBillingDetails] = React.useState({
     name: props.userDefaultName || '',
@@ -224,40 +235,75 @@ export const PaymentStripeSEPA = (props: Props) => {
       onSubmit={handleSubmit}
       style={{ display: 'flex', flexDirection: 'column' }}
     >
-      <IbanForm
-        setBillingDetails={setBillingDetails}
-        billingDetails={billingDetails}
-        error={error}
-        disabled={!stripe || !props.clientSecret}
-        processing={processing}
-        isActive={!paymentMethodSelected}
-      />
-      <div className={classes.row}>
-        <Checkbox
-          checked={saveForLater}
-          onChange={(ev) => setSaveForLater(ev.target.checked)}
-        />
-        <Typography variant="caption">
-          {t('paymentPanel.actions.saveForLater')}
-        </Typography>
-      </div>
-      {!!paymentMethodList.length && (
-        <PaymentMethodList
-          savedPaymentMethodList={paymentMethodList}
-          selectedSavedPaymentMethodId={paymentMethodSelected}
-          isExpandable={false}
-          paymentMethodType="sepa_debit"
-          onSelect={setPaymentMethodSelected}
-          setDetachPmId={setDetachPmId}
-          memberId={props.memberId}
-          detachPaymentMethodLoading={props.detachPaymentMethodLoading}
-          detachPaymentMethod={props.detachPaymentMethod}
-          snackbarErrorMsg={props.snackbarErrorMsg}
-          snackbarSuccessMsg={props.snackbarSuccessMsg}
-          companyId={props.companyId}
-          sepaDefaultName={props.userDefaultName}
-          sepaDefaultEmail={props.userDefaultEmail}
-        />
+      <Typography variant="h6">
+        {t('payment:forms.savePaymentMethod.section')}
+      </Typography>
+      {addPaymentMethod && (
+        <div>
+          <IbanForm
+            setBillingDetails={setBillingDetails}
+            billingDetails={billingDetails}
+            error={error}
+            disabled={!stripe || !props.clientSecret}
+            processing={processing}
+            isActive={!paymentMethodSelected}
+          />
+          <div className={classes.saveAndDisplay}>
+            <div className={classes.row}>
+              <Checkbox
+                checked={saveForLater}
+                onChange={(ev) => setSaveForLater(ev.target.checked)}
+              />
+              <Typography variant="caption">
+                {t('paymentPanel.actions.saveForLater')}
+              </Typography>
+            </div>
+
+            {!!paymentMethodList.length && (
+              <ButtonBase
+                onClick={() => setAddPaymentMethod(false)}
+                className={classes.displayButton}
+              >
+                <Typography variant="body1" align="right" color="primary">
+                  {t(
+                    'payment:forms.paymentMethod.actions.displayPaymentMethod',
+                  )}
+                </Typography>
+              </ButtonBase>
+            )}
+          </div>
+        </div>
+      )}
+
+      {!addPaymentMethod && !!paymentMethodList.length && (
+        <div>
+          <PaymentMethodList
+            savedPaymentMethodList={paymentMethodList}
+            selectedSavedPaymentMethodId={paymentMethodSelected}
+            isExpandable={false}
+            paymentMethodType="sepa_debit"
+            onSelect={setPaymentMethodSelected}
+            setDetachPmId={setDetachPmId}
+            memberId={props.memberId}
+            detachPaymentMethodLoading={props.detachPaymentMethodLoading}
+            detachPaymentMethod={props.detachPaymentMethod}
+            snackbarErrorMsg={props.snackbarErrorMsg}
+            snackbarSuccessMsg={props.snackbarSuccessMsg}
+            companyId={props.companyId}
+            sepaDefaultName={props.userDefaultName}
+            sepaDefaultEmail={props.userDefaultEmail}
+          />
+          <ButtonBase
+            disabled={false}
+            onClick={() => setAddPaymentMethod(true)}
+            className={classes.addButton}
+          >
+            <AddIcon className={classes.leftIcon} color="primary" />
+            <Typography variant="body1" align="left" color="primary">
+              {t('payment:forms.paymentMethod.actions.addPaymentMethod')}
+            </Typography>
+          </ButtonBase>
+        </div>
       )}
       <div className={classes.conditions}>
         {props.AcceptTermsAndConditionsComponent}
@@ -330,6 +376,25 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'alignItems',
     justifyContent: 'space-between',
     marginTop: theme.spacing(2),
+  },
+  saveAndDisplay: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  addButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    paddingTop: theme.spacing(0.5),
+    paddingLeft: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
+  displayButton: {
+    marginLeft: '50px',
+  },
+  leftIcon: {
+    marginRight: theme.spacing(1),
   },
 }));
 

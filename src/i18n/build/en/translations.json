@@ -5344,7 +5344,9 @@
                     "addPaymentMethod": "Add a payment method",
                     "retry": "Try again",
                     "collect": "Save",
-                    "close": "Close"
+                    "close": "Close",
+                    "displayPaymentMethod": "View my payment methods",
+                    "selectPaymentMethod": "Select your payment method"
                 },
                 "collect": {
                     "content": "This payment method will be saved in your account to be invoiced in accordance with the contract.",
@@ -5356,7 +5358,7 @@
                 }
             },
             "savePaymentMethod": {
-                "section": "My payment methods ({{count}})",
+                "section": "Select a payment method",
                 "label": "Save this payment method"
             }
         },

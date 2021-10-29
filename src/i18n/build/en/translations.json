@@ -3953,7 +3953,8 @@
                     "end": "End time",
                     "begin": "Start time",
                     "title": "Schedule configuration"
-                }
+                },
+                "coach_can_edit_attendance": "Teachers can modify the present/absent status in the mobile app."
             },
             "cover": {
                 "label": "Logo",
@@ -5902,8 +5903,8 @@
             "nbBookings": "Bookings",
             "nbOffersTotal": "Sessions",
             "nbBookingsOverThreshold": "Bookings over threshold",
-            "pricePerOffer": "Price per offer",
-            "pricePerAdditionalBooking": "Price per additional booking",
+            "pricePerOffer": "Amount per session",
+            "pricePerAdditionalBooking": "Amount per booking",
             "calculate": "Calculate",
             "payment": "Payroll"
         },
@@ -7985,7 +7986,7 @@
         },
         "coach": {
             "coachList": "Teachers",
-            "coachPerformance": "{{name}} performance",
+            "coachPerformance": "Payroll for {{name}}",
             "coachFormPage": "[Form] Teacher",
             "allCoachPerformance": "Teacher payroll"
         },
@@ -8617,7 +8618,11 @@
             "tag_on_join_and_untag_on_left": "Tag if a member is present in this Smartlist",
             "tag_on_join": "Tag if a member enters this Smartlist",
             "type_of_rule": "Type of rule",
-            "activeSince": "Activated on: {{ since }}"
+            "activeSince": "Activated on: {{ since }}",
+            "asyncDialog": {
+                "message": "We'll update all members' Tags of the \"{{name}}\" Smartlist.",
+                "title": "Update Tagging Rules "
+            }
         }
     },
     "coachPerformance": {
@@ -8628,9 +8633,9 @@
             "nb_bookings": "Bookings",
             "name": "Session name",
             "date": "Date",
-            "rule": "Activity Payroll Rule",
+            "rule": "Payroll rule per activity",
             "error": "This activity has no payroll rule associated. Please choose a payroll rule and associate a payroll rule to the teacher.",
-            "total": "Total Payout",
+            "total": "Total payout",
             "cancelled_bookings": "Cancelled bookings",
             "confirmed_bookings": "Attendees"
         },
@@ -8641,7 +8646,7 @@
         "addBonus": "Add a rule",
         "dateTitle": "Date range",
         "remuneration": "Remuneration",
-        "pricePerOffer": "Price per offer",
+        "pricePerOffer": "Amount per session",
         "bonus": "Bonus",
         "bookingThresholdLabel": "Booking threshold triggering rule",
         "bookingThresholdHelper": "Every booking over this threshold will add a bonus",

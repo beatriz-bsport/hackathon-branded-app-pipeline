@@ -6080,11 +6080,13 @@
                     "addPaymentMethod": "Betaalmethode toevoegen",
                     "retry": "Opnieuw proberen",
                     "collect": "Opslaan",
-                    "close": "Sluiten"
+                    "close": "Sluiten",
+                    "displayPaymentMethod": "Toon mijn betaalmethoden",
+                    "selectPaymentMethod": "Selecteer je gewenste betaalmethode"
                 },
                 "collect": {
                     "content": "Deze betaalmethode wordt in je account conform het contract toegevoegd.",
-                    "title": "Voeg betaalmethode toe"
+                    "title": "Een betaalmethode toevoegen"
                 },
                 "message": {
                     "error": "Deze betaalmethode kan niet worden toegevoegd",
@@ -6092,7 +6094,7 @@
                 }
             },
             "savePaymentMethod": {
-                "section": "Mijn betaalmethoden ({{count}})",
+                "section": "Selecteer een betaalmethode",
                 "label": "Betaalmethode opslaan"
             }
         },

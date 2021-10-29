@@ -14,6 +14,7 @@ export type Theme = {
   is_whereby_integration_allowed: boolean;
   is_whereby_integration_enabled: boolean;
   default_booking_ordering: string;
+  coach_can_edit_attendance: boolean;
   general_terms_and_conditions: string;
   general_terms_of_use: string;
   waiver: string;

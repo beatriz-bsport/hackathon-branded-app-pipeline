@@ -7,6 +7,8 @@ exports.default = {
   forms: {
     themePersonalization: {
       calendarPersonalizationTitle: 'Configuration du calendrier',
+      coach_can_edit_attendance:
+        "Dans l'application mobile, le professeur peut modifier modifier les présences/absences",
       consumerRegularizeDebt: 'Le client peut régulariser son acompte en ligne',
       maxFutureBooking: {
         label:

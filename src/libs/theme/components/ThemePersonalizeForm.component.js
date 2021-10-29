@@ -72,6 +72,8 @@ export class ThemePersonalize extends Component<Props, State> {
         this.props.theme.consumer_regularize_debt &&
       this.state.theme.default_booking_ordering ===
         this.props.theme.default_booking_ordering &&
+      this.state.theme.coach_can_edit_attendance ===
+        this.props.theme.coach_can_edit_attendance &&
       this.state.theme.default_attendance ===
         this.props.theme.default_attendance &&
       this.state.theme.show_cancelled_offers_manager ===
@@ -107,6 +109,7 @@ export class ThemePersonalize extends Component<Props, State> {
       'hidden_from_marketplace',
       'max_future_booking',
       'default_booking_ordering',
+      'coach_can_edit_attendance',
       'default_attendance',
       'show_cancelled_offers_customer',
       'hideCoach',
@@ -458,6 +461,19 @@ export class ThemePersonalize extends Component<Props, State> {
             </Typography>
           </div>
         ) : null}
+        <div className={classes.inputContainer}>
+          <Switch
+            checked={this.state.theme.coach_can_edit_attendance}
+            onChange={() =>
+              this.handleChange('coach_can_edit_attendance')(
+                !this.state.theme.coach_can_edit_attendance,
+              )
+            }
+          />
+          <Typography>
+            {t('forms.themePersonalization.coach_can_edit_attendance')}
+          </Typography>
+        </div>
         <Typography className={classes.namesHeader}>
           {t('forms.themePersonalization.default_booking_ordering.title')}
         </Typography>

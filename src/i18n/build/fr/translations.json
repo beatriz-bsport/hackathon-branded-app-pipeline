@@ -1093,7 +1093,7 @@
       "archivedTitle": "Archivé",
       "isEmpty": "Aucune carte cadeau disponible",
       "addBackgroundImage": "Ajouter des images de personnalisation",
-      "actions": { "create": "Créer une carte cadeau" }
+      "actions": { "create": "Créer une carte cadeau", "goToGiftcard": "Voir toutes les cartes cadeaux" }
     },
     "consumerGiftcard": {
       "activation": {
@@ -1109,7 +1109,7 @@
       "invitationForm": {
         "activationCodeLink": "Le mail d'invitation a été envoyé et ne peut plus être modifié, si celui-ci n'est pas arrivé au bon destinataire vous pouvez transmettre ce lien d'activation pour offrir la carte cadeau : ",
         "title": "Envoyer un email d'invitation",
-        "content": "Vous pouvez modifier les destinataires de la carte cadeau. Attention, un seul pourra l'utiliser. Si l'email n'a pas été reçu vous pouvez aussi transmetter ce lien d'activation :",
+        "content": "Vous pouvez modifier les destinataires de la carte cadeau. Attention, un seul pourra l'utiliser. Si l'email n'a pas été reçu vous pouvez aussi transmettre ce lien d'activation :",
         "actions": { "close": "Fermer", "submit": "Envoyer" }
       },
       "list": { "myPurchases": "Carte cadeaux achetées", "myGifted": "Cartes cadeaux reçues" },
@@ -1143,7 +1143,7 @@
         "footerUnlimited": "La carte sera envoyée par mail le {{- date_send }} aux adresses indiquées. Elle ne contient pas de date d'expiration. Le compte du destinataire sera crédité de {{- price }} pour les prochains achats."
       }
     },
-    "link": { "copyLink": "Copier le lien d'achat" },
+    "link": { "copyLink": "Copier le lien d'achat", "activationLink": "Copier le lien d'activation" },
     "giftcard": {
       "configurationTitle": "Carte cadeau",
       "detail": {

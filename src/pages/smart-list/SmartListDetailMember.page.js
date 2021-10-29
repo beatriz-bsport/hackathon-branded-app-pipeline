@@ -182,6 +182,7 @@ type Props = {
   updateAutoTag: (id: number, data: object) => void,
   fetchAllAutoTagRulesAction: () => void,
   smartlistAutoTagLoading: boolean,
+  openAutoTagRulesDialog: boolean,
 };
 
 type State = {

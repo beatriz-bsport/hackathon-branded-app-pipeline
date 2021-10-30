@@ -3196,7 +3196,11 @@
             "type_of_rule": "Type regel",
             "tag_on_left": "Tag als een lid de Smartlist heeft verlaten",
             "tag_on_join": "Tag als een lid in de Smartlist is gezet",
-            "activeSince": "Actief sinds {{ since }}."
+            "activeSince": "Actief sinds {{ since }}.",
+            "asyncDialog": {
+                "message": "We updaten de tags van alle leden in de Smartlist genaamd \"{{name}}\".",
+                "title": "Tag-regels bijwerken "
+            }
         }
     },
     "metaActivity": {
@@ -7640,7 +7644,8 @@
                     "end": "Eindtijd",
                     "begin": "Starttijd",
                     "title": "Configuratie van je rooster"
-                }
+                },
+                "coach_can_edit_attendance": "Instructeurs kunnen de aanwezigheid/afwezigheid in de mobiele app wijzigen."
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",

@@ -26,7 +26,7 @@ import MT_FLAG from './flags/MT.png';
 import CH_FLAG from './flags/CH.png';
 import NO_FLAG from './flags/NO.png';
 import FI_FLAG from './flags/FI.png';
-import SE_FLAG from './flags/SE.png';
+// import SE_FLAG from './flags/SE.png';
 import DK_FLAG from './flags/DK.png';
 import LU_FLAG from './flags/LU.png';
 import CA_FLAG from './flags/CA.png';
@@ -37,19 +37,19 @@ import MX_FLAG from './flags/MX.png';
 import CY_FLAG from './flags/CY.png';
 import SK_FLAG from './flags/SK.png';
 import AU_FLAG from './flags/AU.png';
-import HK_FLAG from './flags/HK.png';
+// import HK_FLAG from './flags/HK.png';
 import PL_FLAG from './flags/PL.png';
-import BR_FLAG from './flags/BR.png';
-import SG_FLAG from './flags/SG.png';
-import NZ_FLAG from './flags/NZ.png';
+// import BR_FLAG from './flags/BR.png';
+// import SG_FLAG from './flags/SG.png';
+// import NZ_FLAG from './flags/NZ.png';
 import LT_FLAG from './flags/LT.png';
 import LV_FLAG from './flags/LV.png';
-import MY_FLAG from './flags/MY.png';
-import IN_FLAG from './flags/IN.png';
+// import MY_FLAG from './flags/MY.png';
+// import IN_FLAG from './flags/IN.png';
 import GR_FLAG from './flags/GR.png';
 import CZ_FLAG from './flags/CZ.png';
-import BG_FLAG from './flags/BG.png';
-import RO_FLAG from './flags/RO.png';
+// import BG_FLAG from './flags/BG.png';
+// import RO_FLAG from './flags/RO.png';
 import SI_FLAG from './flags/SI.png';
 
 type Props = {
@@ -188,12 +188,14 @@ const localeList: Array<Locale> = [
     currencyCode: 'nok',
     currencyDisplay: 'kr.',
   },
+  /*
   {
     locale: 'en_SE',
     icon: SE_FLAG,
     currencyCode: 'sek',
     currencyDisplay: 'kr.',
   },
+  */
   {
     locale: 'en_DK',
     icon: DK_FLAG,
@@ -248,6 +250,7 @@ const localeList: Array<Locale> = [
     currencyDisplay: 'A$',
     showLang: true,
   },
+  /*
   {
     locale: 'en_BG',
     icon: BG_FLAG,
@@ -262,6 +265,7 @@ const localeList: Array<Locale> = [
     currencyDisplay: 'R$',
     showLang: true,
   },
+  */
   {
     locale: 'en_CY',
     icon: CY_FLAG,
@@ -283,6 +287,7 @@ const localeList: Array<Locale> = [
     currencyDisplay: 'Kč',
     showLang: true,
   },
+  /*
   {
     locale: 'en_HK',
     icon: HK_FLAG,
@@ -297,6 +302,7 @@ const localeList: Array<Locale> = [
     currencyDisplay: '₹',
     showLang: true,
   },
+  */
   {
     locale: 'en_LT',
     icon: LT_FLAG,
@@ -311,6 +317,7 @@ const localeList: Array<Locale> = [
     currencyDisplay: '€',
     showLang: true,
   },
+  /*
   {
     locale: 'en_MY',
     icon: MY_FLAG,
@@ -325,6 +332,7 @@ const localeList: Array<Locale> = [
     currencyDisplay: 'NZ$',
     showLang: true,
   },
+  */
   {
     locale: 'en_PL',
     icon: PL_FLAG,
@@ -332,6 +340,7 @@ const localeList: Array<Locale> = [
     currencyDisplay: 'zł',
     showLang: true,
   },
+  /*
   {
     locale: 'en_RO',
     icon: RO_FLAG,
@@ -346,6 +355,7 @@ const localeList: Array<Locale> = [
     currencyDisplay: '$S',
     showLang: true,
   },
+  */
   {
     locale: 'en_SI',
     icon: SI_FLAG,

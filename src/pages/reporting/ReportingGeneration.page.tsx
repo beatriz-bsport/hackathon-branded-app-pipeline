@@ -93,8 +93,8 @@ export class ReportingGeneration extends Component<Props, State> {
     page?: number;
   }) => {
     this.handleGenerateHeaders({
-      dateStart: values.dateStart.format('YYYY-MM-DD'),
-      dateEnd: values.dateEnd.format('YYYY-MM-DD'),
+      date_start: values.dateStart.format('YYYY-MM-DD'),
+      date_end: values.dateEnd.format('YYYY-MM-DD'),
     });
     this.props.fetchExtractResult(
       this.props.id,
@@ -113,7 +113,10 @@ export class ReportingGeneration extends Component<Props, State> {
     );
   };
 
-  handleGenerateHeaders = (params?: { dateStart: string; dateEnd: string }) => {
+  handleGenerateHeaders = (params?: {
+    date_start: string;
+    date_end: string;
+  }) => {
     this.props.fecthRelatedHeaders(this.props.id, params);
   };
 

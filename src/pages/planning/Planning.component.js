@@ -70,7 +70,7 @@ import {
 } from '../../libs/offer/api';
 
 import { fetchFilteredMembers as fetchFilteredMembersAction } from '../../libs/member/actions';
-import { getAllMembers } from '../../libs/member/selectors';
+import { getAllMembers, withTags } from '../../libs/member/selectors';
 
 import { fetchBookingsByOffer as fetchBookingsByOfferAction } from '../../libs/booking/actions';
 import { getOfferBookingList } from '../../libs/booking/selectors';
@@ -111,6 +111,7 @@ import { CoachPaymentRuleByKindSelector } from '../../libs/coach-payment-rules/s
 import type { CoachPaymentRule } from '../../libs/coach-payment-rules/types';
 import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
 import { SignUpFormConfigDict } from '../../libs/sign-up-form/types';
+import { OptionCallback } from '../../state/types';
 
 const styles = (theme) => ({
   container: {
@@ -176,7 +177,7 @@ type Props = {
 
   fetchAssociatedCoachesList: () => void,
   fetchAllActivities: () => void,
-  fetchFilteredMembers: (params: any) => void,
+  fetchFilteredMembers: (params: any, OptionCallback) => void,
   fetchBookingsByOffer: (params: any) => void,
   fetchBookingStatsOfTheWeek: () => void,
   fetchBookingInOfferStats: () => void,
@@ -212,7 +213,7 @@ type Props = {
 
   pushToSchedule: () => void,
 
-  members: Array<Member>,
+  members: Array<Member<Tag<TagGroup>>>,
   membersLoading: boolean,
   bookings: Array<Booking>,
   bookingsLoading: boolean,
@@ -970,7 +971,7 @@ export default compose(
       offerFilters: state.offer.managerFilter.filters,
       offerByDayLoading: state.offer.byDay.loading,
 
-      members: getAllMembers(state),
+      members: withTags(getAllMembers)(state),
       membersLoading: state.member.loading,
 
       managerFormConfig: getSignUpFormConfigurationDict(state),

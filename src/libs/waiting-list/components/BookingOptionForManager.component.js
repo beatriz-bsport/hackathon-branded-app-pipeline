@@ -17,6 +17,7 @@ import type { TFunction } from 'react-i18next';
 import { withTranslation } from 'react-i18next';
 
 import { formatAsDatetime } from '../../../utils/datetime';
+import { Member } from '../../member/types';
 
 type Props = {
   t: TFunction,

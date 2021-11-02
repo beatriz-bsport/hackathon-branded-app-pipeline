@@ -1,0 +1,85 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import AvatarWithBadge from "./AvatarWithBadge.component"
+import FactoryBotTag from "../../tag/factory";
+import FactoryBotMember from '../../member/factories/MemberMinimal';
+
+
+<Meta title="Library/Member/Components/AvatarWithBadge"
+    component={AvatarWithBadge}
+    argTypes ={{
+    }}/>
+
+export const Template = (args) => <AvatarWithBadge {...args} />;
+const member = (number) => {
+const randomMember = FactoryBotMember.MemberMinimal.create(1);
+  return {
+    ...randomMember ,
+    tags: FactoryBotTag.Tag.create(5),
+  };
+};
+
+
+#  AvatarWithBadge : 15  Badges 
+
+<Canvas>
+    <Story 
+    name="AvatarWithBadge : 15 "
+    args={{
+        member:member(15),
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story="AvatarWithBadge : 15" />
+
+#  AvatarWithBadge : 1 Badge 
+
+<Canvas>
+    <Story 
+    name="AvatarWithBadge : 1"
+    args={{
+        member:member(1),
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+
+
+#  AvatarWithBadge : 2 Badges 
+
+<Canvas>
+    <Story 
+    name="AvatarWithBadge : 2"
+    args={{
+        member:member(2),
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+#  AvatarWithBadge : 3 Badges 
+
+<Canvas>
+    <Story 
+    name="AvatarWithBadge : 3"
+    args={{
+        member:member(3),
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+#  AvatarWithBadge : 4 Badges 
+
+<Canvas>
+    <Story 
+    name="AvatarWithBadge : 4"
+    args={{
+        member:member(4),
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+

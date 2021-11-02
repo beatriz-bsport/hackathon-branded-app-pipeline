@@ -19,6 +19,7 @@ import { getPrivateConsumerPassDict } from './private-consumer-pass';
 
 import { getAllCoachesDict } from '../../associated-coach/selectors';
 import { getAllEstablishmentsDict } from '../../establishment/selectors';
+import { getTagGroupsDict, getTagsDict } from '../../tag/selectors';
 
 /*
 export const getPrivateConsumerPassListWithPass = createSelector(
@@ -48,6 +49,9 @@ export const withRelatedFields = memoize((selector) =>
       getMemberListData,
       getMemberDetailData,
       getPrivateConsumerPassDict,
+
+      getTagsDict,
+      getTagGroupsDict,
     ],
     (
       bookings,
@@ -58,6 +62,9 @@ export const withRelatedFields = memoize((selector) =>
       memberData,
       memberDetailData,
       privateConsumerPassData,
+
+      tagDict,
+      tagGroupData,
     ) => {
       if (!bookings) return null;
       if (!Array.isArray(bookings)) {
@@ -70,8 +77,21 @@ export const withRelatedFields = memoize((selector) =>
           private_consumer_pass:
             privateConsumerPassData[bookings.private_consumer_pass] ||
             bookings.private_consumer_pass,
-          member:
-            memberData[bookings.member] || memberDetailData[bookings.member],
+          member: {
+            ...memberData[bookings.member],
+            tags: memberData[bookings.member]?.tags?.map((tag_id: number) => ({
+              ...tagDict[tag_id],
+              group: tagGroupData[tagDict[tag_id]?.group],
+            })),
+          } || {
+            ...memberDetailData[bookings.member],
+            tags: memberDetailData[bookings.member]?.tags?.map(
+              (tag_id: number) => ({
+                ...tagDict[tag_id],
+                group: tagGroupData[tagDict[tag_id]?.group],
+              }),
+            ),
+          },
         };
       }
       return bookings.map((b) => ({
@@ -80,7 +100,19 @@ export const withRelatedFields = memoize((selector) =>
         establishment: estalbishmentData[b.establishment],
         private_service: serviceData[b.private_service],
         private_slot: slotData[b.private_slot],
-        member: memberData[b.member] || memberDetailData[b.member],
+        member: {
+          ...memberData[b.member],
+          tags: memberData[b.member]?.tags?.map((tag_id: number) => ({
+            ...tagDict[tag_id],
+            group: tagGroupData[tagDict[tag_id]?.group],
+          })),
+        } || {
+          ...memberDetailData[b.member],
+          tags: memberDetailData[b.member]?.tags?.map((tag_id: number) => ({
+            ...tagDict[tag_id],
+            group: tagGroupData[tagDict[tag_id]?.group],
+          })),
+        },
         private_consumer_pass:
           privateConsumerPassData[b.private_consumer_pass] ||
           b.private_consumer_pass,

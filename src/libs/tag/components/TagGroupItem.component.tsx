@@ -6,8 +6,6 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import EditIcon from '@material-ui/icons/Edit';
-import SaveIcon from '@material-ui/icons/Save';
-import CancelIcon from '@material-ui/icons/Cancel';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import MenuIcon from '@material-ui/core/ListItemIcon';
@@ -17,7 +15,6 @@ import Collapse from '@material-ui/core/Collapse';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
-import ButtonBase from '@material-ui/core/ButtonBase';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu/Menu';
 import Dialog from '@material-ui/core/Dialog';
@@ -27,10 +24,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 import TableContainer from '@material-ui/core/TableContainer';
-
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
@@ -38,9 +33,12 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import Paper from '@material-ui/core/Paper';
 import { FormControl } from '@material-ui/core';
+import { withTheme } from '@material-ui/styles';
 import { Tag, TagGroup } from '../types';
 import { DeepPartial, MaterialStyleType } from '../../../utils/types';
 import { showDeleteDialog } from '../../../components/GenericDialog/CustomDialogs';
+import TagForm from './TagForm.component';
+import MuiIcon from '../../../components/MuiIcon.component';
 
 type OwnProps = {
   tagGroup: TagGroup;
@@ -61,14 +59,23 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
 
+type Data = {
+  color: string;
+  name: string;
+  icon: string;
+};
+
+type Options = {
+  onSuccess: () => void;
+  onError: () => void;
+};
+
 interface State {
   expand: boolean;
   anchorEl: any;
   name: string | null;
-  createTag: string | null;
+  createTag: boolean;
   editTag: Tag | null;
-
-  loadingEdit: boolean;
 }
 
 class TagGroupItem extends React.PureComponent<Props, State> {
@@ -76,10 +83,8 @@ class TagGroupItem extends React.PureComponent<Props, State> {
     expand: true,
     anchorEl: null,
     name: null,
-    createTag: null,
+    createTag: false,
     editTag: null,
-
-    loadingEdit: false,
   };
 
   onClickExpand = () => {
@@ -122,21 +127,13 @@ class TagGroupItem extends React.PureComponent<Props, State> {
     this.setState({ name: null });
   };
 
-  onSubmitNewTag = async (ev: React.FormEvent) => {
-    ev.preventDefault();
-    this.setState({ loadingEdit: true });
+  onSubmitNewTag = async (values: Data, options: Options) => {
+    options.onError();
     await this.props.onCreateTag({
-      name: this.state.createTag,
+      ...values,
       group: this.props.tagGroup.id,
     });
-    this.setState({ loadingEdit: false, createTag: null });
-  };
-
-  onSubmitEditTag = async (ev: React.FormEvent) => {
-    ev.preventDefault();
-    this.setState({ loadingEdit: true });
-    await this.props.onUpdateTag(this.state.editTag);
-    this.setState({ loadingEdit: false, editTag: null });
+    options.onSuccess();
   };
 
   onClickDeleteTag = async (tag: Tag) => {
@@ -180,7 +177,7 @@ class TagGroupItem extends React.PureComponent<Props, State> {
             }}
           >
             <IconButton
-              onClick={() => this.setState({ createTag: '' })}
+              onClick={() => this.setState({ createTag: true })}
               size="small"
             >
               <AddIcon color="primary" />
@@ -204,7 +201,7 @@ class TagGroupItem extends React.PureComponent<Props, State> {
               open={Boolean(this.state.anchorEl)}
               onClose={this.closeShowMore}
             >
-              <MenuItem onClick={() => this.setState({ createTag: '' })}>
+              <MenuItem onClick={() => this.setState({ createTag: true })}>
                 <MenuIcon>
                   <AddIcon />
                 </MenuIcon>
@@ -237,12 +234,12 @@ class TagGroupItem extends React.PureComponent<Props, State> {
               {!!this.props.tagGroup.tags.length && (
                 <TableHead>
                   <TableRow>
-                    <TableCell>
-                      <div className={classes.row} style={{ width: 180 }}>
+                    <TableCell align="left">
+                      <div className={classes.iconAndName}>
                         <LabelIcon
                           color="disabled"
                           size="small"
-                          className={classes.leftIcon}
+                          className={classes.icon}
                         />
                         {t('management.tagColumn.tag')}
                       </div>
@@ -257,156 +254,71 @@ class TagGroupItem extends React.PureComponent<Props, State> {
                 </TableHead>
               )}
               <TableBody>
-                {this.state.createTag !== null && (
-                  <TableRow key="create">
-                    <TableCell
-                      component="th"
-                      scope="row"
-                      className={classes.addRow}
-                    >
-                      <form onSubmit={this.onSubmitNewTag}>
-                        <TextField
-                          required
-                          placeholder={t('management.form.tagGroupName')}
-                          value={this.state.createTag}
-                          onChange={(ev) =>
-                            this.setState({ createTag: ev.target.value })
-                          }
-                        />
-
-                        {this.state.loadingEdit ? (
-                          <CircularProgress
-                            size={26}
-                            className={classes.addLoader}
-                          />
-                        ) : (
-                          <>
-                            <ButtonBase
-                              className={classes.addRowButton}
-                              type="submit"
-                            >
-                              <SaveIcon color="primary" />
-                            </ButtonBase>
-
-                            <ButtonBase
-                              className={classes.addRowButton}
-                              onClick={() => this.setState({ createTag: null })}
-                            >
-                              <CancelIcon />
-                            </ButtonBase>
-                          </>
-                        )}
-                      </form>
-                    </TableCell>
-                    <TableCell align="right" />
-                  </TableRow>
-                )}
-                {this.props.tagGroup.tags.map((tag: Tag) =>
-                  this.state.editTag && this.state.editTag.id === tag.id ? (
-                    <TableRow key={`edit${tag.id}`}>
-                      <TableCell
-                        component="th"
-                        scope="row"
-                        className={classes.addRow}
-                      >
-                        <form onSubmit={this.onSubmitEditTag}>
-                          <TextField
-                            required
-                            placeholder={t('management.form.tagGroupName')}
-                            value={this.state.editTag.name}
-                            onChange={(ev) => {
-                              this.setState({
-                                editTag: {
-                                  ...tag,
-                                  name: ev.target.value,
-                                },
-                              });
-                            }}
-                          />
-
-                          {this.state.loadingEdit ? (
-                            <CircularProgress
-                              size={26}
-                              className={classes.addLoader}
-                            />
-                          ) : (
-                            <>
-                              <IconButton
-                                className={classes.addRowButton}
-                                type="submit"
-                              >
-                                <SaveIcon color="primary" />
-                              </IconButton>
-
-                              <IconButton
-                                className={classes.addRowButton}
-                                onClick={() => this.setState({ editTag: null })}
-                              >
-                                <CancelIcon />
-                              </IconButton>
-                            </>
-                          )}
-                        </form>
-                      </TableCell>
-                      <TableCell align="left" />
-                      <TableCell align="right" />
-                    </TableRow>
-                  ) : (
-                    <TableRow
-                      key={tag.id}
-                      className={
-                        this.props.selectedTag &&
-                        this.props.selectedTag.id === tag.id
-                          ? classes.selectedTag
-                          : ''
-                      }
-                      hover
-                      onClick={(ev) => {
-                        ev.preventDefault();
-                        this.props.onSelectTag(tag);
-                      }}
-                    >
-                      <TableCell component="th" scope="row">
-                        <Typography noWrap variant="subtitle2">
-                          {tag.name.slice(0, 25) +
-                            (tag.name.length > 25 ? '...' : '')}
+                {this.props.tagGroup.tags.map((tag: Tag) => (
+                  <TableRow
+                    key={tag.id}
+                    className={
+                      this.props.selectedTag &&
+                      this.props.selectedTag.id === tag.id
+                        ? classes.selectedTag
+                        : ''
+                    }
+                    style={{
+                      borderLeft:
+                        tag.color !== '' ? `5px solid ${tag.color}` : '0px',
+                    }}
+                    hover
+                    onClick={(ev) => {
+                      ev.preventDefault();
+                      this.props.onSelectTag(tag);
+                    }}
+                  >
+                    <TableCell component="th" scope="row">
+                      <div className={classes.iconAndName}>
+                        <MuiIcon icon={tag.icon} className={classes.icon} />
+                        <Typography
+                          noWrap
+                          variant="subtitle2"
+                          className={classes.tagName}
+                        >
+                          {tag.name}
                         </Typography>
-                      </TableCell>
-                      <TableCell align="left">
-                        {this.getTagUsage(tag.id)}
-                      </TableCell>
-                      <TableCell align="right">
-                        <IconButton
-                          className={classes.tagButton}
-                          onClick={(ev) => {
-                            ev.stopPropagation();
-                            this.setState({ editTag: tag });
-                          }}
-                        >
-                          <EditIcon />
-                        </IconButton>
-                        <IconButton
-                          onClick={(ev) => {
-                            ev.stopPropagation();
-                            this.onClickDeleteTag(tag);
-                          }}
-                          className={classes.tagButton}
-                        >
-                          <DeleteIcon />
-                        </IconButton>
-                        <IconButton
-                          onClick={(ev) => {
-                            ev.stopPropagation();
-                            this.props.onSelectTag(tag);
-                          }}
-                          className={classes.tagButton}
-                        >
-                          <ArrowForwardIcon color="primary" />
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  ),
-                )}
+                      </div>
+                    </TableCell>
+                    <TableCell align="left">
+                      {this.getTagUsage(tag.id)}
+                    </TableCell>
+                    <TableCell align="right">
+                      <IconButton
+                        className={classes.tagButton}
+                        onClick={(ev) => {
+                          ev.stopPropagation();
+                          this.setState({ editTag: tag });
+                        }}
+                      >
+                        <EditIcon />
+                      </IconButton>
+                      <IconButton
+                        onClick={(ev) => {
+                          ev.stopPropagation();
+                          this.onClickDeleteTag(tag);
+                        }}
+                        className={classes.tagButton}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                      <IconButton
+                        onClick={(ev) => {
+                          ev.stopPropagation();
+                          this.props.onSelectTag(tag);
+                        }}
+                        className={classes.tagButton}
+                      >
+                        <ArrowForwardIcon color="primary" />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
               </TableBody>
             </Table>
           </TableContainer>
@@ -445,6 +357,22 @@ class TagGroupItem extends React.PureComponent<Props, State> {
                 </Button>
               </DialogActions>
             </form>
+          </DialogContent>
+        </Dialog>
+
+        <Dialog
+          open={this.state.createTag || this.state.editTag !== null}
+          fullWidth
+        >
+          <DialogTitle>{t('management.tagColumn.tag')}</DialogTitle>
+          <DialogContent>
+            <TagForm
+              onCancel={() => {
+                this.setState({ createTag: false, editTag: null });
+              }}
+              onSubmit={this.onSubmitNewTag}
+              initial={this.state.editTag}
+            />
           </DialogContent>
         </Dialog>
       </div>
@@ -495,17 +423,26 @@ const styles = (theme: Theme) => ({
   selectedTag: {
     backgroundColor: '#EFEFEF',
   },
-  leftIcon: {
-    marginRight: theme.spacing(0.5),
-  },
   row: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  tagName: {
+    maxWidth: theme.spacing(15),
+  },
+  iconAndName: {
+    display: 'flex',
+  },
+  icon: {
+    marginRight: theme.spacing(2),
+    width: theme.spacing(3),
+    height: theme.spacing(3),
   },
 });
 
 export default compose<any, OwnProps>(
   withStyles(styles),
   withTranslation(['tag']),
+  withTheme,
 )(TagGroupItem);

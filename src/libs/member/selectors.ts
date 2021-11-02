@@ -3,6 +3,8 @@ import { createSelector } from 'reselect';
 
 import { RootState } from '../../reducers';
 import { getMembership } from '../membership/selectors';
+import { Member } from './types';
+import { getTagGroupsDict, getTagsDict } from '../tag/selectors';
 
 export const getMemberDetailData = (state: RootState) =>
   state.member.detailData;
@@ -41,6 +43,39 @@ export const getMemberThroughMembership = memoize(
       if (!memberdetail || !membership) return null;
       return memberdetail[membership.id];
     }),
+);
+
+export const withTags = memoize(
+  (selector: (state: RootState) => Array<Member>) =>
+    createSelector(
+      [selector, getMemberDetailData, getTagsDict, getTagGroupsDict],
+      (memberDetailsList, memberDetailData, tagDict, tagGroupData) => {
+        if (!memberDetailsList) return [];
+        if (Array.isArray(memberDetailsList)) {
+          return memberDetailsList.map((member: Member) => {
+            if (member?.tags?.length !== 0) {
+              return {
+                ...member,
+                tags: member?.tags?.map((tag_id: number) => ({
+                  ...tagDict[tag_id],
+                  group: tagGroupData[tagDict[tag_id]?.group],
+                })),
+              };
+            }
+            return {
+              ...member,
+              tags: memberDetailData[member?.id]?.tags?.map(
+                (tag_id: number) => ({
+                  ...tagDict[tag_id],
+                  group: tagGroupData[tagDict[tag_id]?.group],
+                }),
+              ),
+            };
+          });
+        }
+        return [];
+      },
+    ),
 );
 
 export const getMemberHistory = createSelector(

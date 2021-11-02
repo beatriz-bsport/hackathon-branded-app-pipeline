@@ -57,28 +57,30 @@ class TagGroupList extends React.PureComponent<Props> {
     return (
       <div className={classes.container}>
         <Button
+          className={classes.addGroup}
           variant="outlined"
           color="primary"
           onClick={() => this.setState({ createTag: '' })}
         >
           {t('management.addGroup')}
         </Button>
-
-        {this.props.tagGroupList.map((tagGroup) => (
-          <TagGroupItem
-            key={tagGroup.id}
-            filterBy={this.props.tagKind}
-            tagGroup={tagGroup}
-            tagUsageById={this.props.tagUsageById}
-            onUpdateTagGroup={this.props.onCreateOrUpdateTagGroup}
-            onDeleteTagGroup={this.props.onDeleteTagGroup}
-            onCreateTag={this.props.onCreateOrUpdateTag}
-            onUpdateTag={this.props.onCreateOrUpdateTag}
-            onDeleteTag={this.props.onDeleteTag}
-            onSelectTag={this.props.onSelectTag}
-            selectedTag={this.props.selectedTag}
-          />
-        ))}
+        <div className={classes.tagList}>
+          {this.props.tagGroupList.map((tagGroup) => (
+            <TagGroupItem
+              key={tagGroup.id}
+              filterBy={this.props.tagKind}
+              tagGroup={tagGroup}
+              tagUsageById={this.props.tagUsageById}
+              onUpdateTagGroup={this.props.onCreateOrUpdateTagGroup}
+              onDeleteTagGroup={this.props.onDeleteTagGroup}
+              onCreateTag={this.props.onCreateOrUpdateTag}
+              onUpdateTag={this.props.onCreateOrUpdateTag}
+              onDeleteTag={this.props.onDeleteTag}
+              onSelectTag={this.props.onSelectTag}
+              selectedTag={this.props.selectedTag}
+            />
+          ))}
+        </div>
 
         <Dialog open={this.state.createTag !== null}>
           <DialogTitle>{t('management.createGroupDialog.title')}</DialogTitle>
@@ -127,6 +129,13 @@ class TagGroupList extends React.PureComponent<Props> {
 const styles = (theme: Theme) => ({
   container: {
     width: '100%',
+  },
+  addGroup: {
+    marginBottom: theme.spacing(1),
+  },
+  tagList: {
+    maxHeight: '85vh',
+    overflow: 'auto',
   },
   tagGroup: {
     marginTop: theme.spacing(2),

@@ -45,6 +45,7 @@ import { Moment } from '../i18n';
 import DelayedTextField from './DelayedTextField.component';
 import ColorInput from './input/ColorInput.component';
 import Selector from './Selector.component';
+import IconInput from './input/IconInput.component';
 
 type AlertErrorProps = {
   t: TFunction,
@@ -435,6 +436,20 @@ export const ColorField = (props: ColorFieldProps) => {
           {...props}
           onChange={(color) => setFieldValue(props.name, color)}
           color={field.value}
+        />
+      )}
+    />
+  );
+};
+
+export const IconField = (props: { name: string }) => {
+  return (
+    <Field
+      {...props}
+      render={({ field, form: { setFieldValue } }) => (
+        <IconInput
+          icon={field.value}
+          onChange={(icon) => setFieldValue(props.name, icon)}
         />
       )}
     />

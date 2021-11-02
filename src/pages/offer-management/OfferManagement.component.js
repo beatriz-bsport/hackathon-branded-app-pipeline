@@ -45,6 +45,7 @@ import AsyncSpotSelector, {
 } from '../../libs/spot-scheduling/component/SpotSelector/AsyncSpotSelector.container';
 import DiscardBookingOptionDialogV2 from '../../libs/waiting-list/components/DiscardBookingOptionDialogV2.component';
 import { MemberMap } from '../../libs/member/utils';
+import { Tag, TagGroup } from '../../libs/tag/types';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
@@ -62,9 +63,9 @@ type Props = {
 
   goToOffer: (id: number) => void,
 
-  members: Array<Member>,
+  members: Array<Member<Tag<TagGroup>>>,
   memberDetails: { [id: number]: Member },
-  memberHistory: Array<member>,
+  memberHistory: Array<Member>,
   bookingOptionsPending: Array<BookingOption>,
   bookings: Array<Booking>,
   compatiblePacks: Array<PaymentPack>,
@@ -447,6 +448,7 @@ export class OfferManagement extends Component<Props, State> {
       fullScreen,
       members,
     } = this.props;
+
     if (!this.props.offer) {
       return (
         <Grid container direction="row" spacing={2}>

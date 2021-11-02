@@ -13,6 +13,8 @@ import type { Booking } from '../types';
 import type { PaymentPack } from '../../../libs/payment-packs/types';
 
 import BookingItemForManagerV2 from './BookingItemForManagerV2.component';
+import { Member } from '../../member/types';
+import { Tag, TagGroup } from '../../tag/types';
 
 type Props = {
   classes: Object,
@@ -27,7 +29,7 @@ type Props = {
   newTab: ?boolean, // how to open member
 
   bookings: Array<Object>,
-  members: Array<Member>,
+  members: Array<Member<Tag<TagGroup>>>,
 
   onQuickInvoiceClick: (member: Member) => void,
   handleRevert: (booking: Booking) => void,

@@ -7,7 +7,6 @@ import {
   push as routerPush,
 } from 'connected-react-router';
 import { compose, withProps, withHandlers } from 'recompose';
-
 import {
   revertQuickInvoice as revertQuickInvoiceAction,
   createQuickInvoice as createQuickInvoiceAction,
@@ -77,7 +76,6 @@ import {
   fetchFilteredMembers as fetchFilteredMembersAction,
   fetchMemberBulk as fetchMemberBulkAction,
   refreshFilteredMembers as refreshFilteredMembersAction,
-  fetchMember as fetchMemberAction,
   createOrUpdateMember,
   search as searchMembersAction,
 } from '../../libs/member/actions';
@@ -86,6 +84,7 @@ import {
   getAllMembers,
   getMemberDetailData,
   getMemberHistory,
+  withTags,
 } from '../../libs/member/selectors';
 
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
@@ -141,7 +140,7 @@ export default compose(
       compatiblePacksLoading: state.offer.compatiblePacks.loading,
       // member
       membersloading: state.member.loading,
-      members: getAllMembers(state),
+      members: withTags(getAllMembers)(state),
       memberDetails: getMemberDetailData(state),
       memberHistory: getMemberHistory(state).slice(0, 5),
       memberSearchLoading: state.member.search.loading,
@@ -149,6 +148,7 @@ export default compose(
       memberCreationPending: state.member.upsert.loading,
       memberCreationErrors: state.member.upsert.error,
       country: state.theme.theme.locale.split('_')[1],
+
       // booking
       bookings: getOfferBookingListWithConsumerPack(state),
       bookingLoading: state.booking.loading,
@@ -221,7 +221,6 @@ export default compose(
 
       // member
       createMember: createOrUpdateMember,
-      fetchMember: fetchMemberAction,
       refreshFilteredMembers: refreshFilteredMembersAction,
       fetchFilteredMembers: fetchFilteredMembersAction,
       fetchMemberBulk: fetchMemberBulkAction,
@@ -287,6 +286,7 @@ export default compose(
       fetchFilteredMembers({ offer: id, withNotes: true });
     },
   }),
+
   withHandlers({
     addBooking: ({ refresh, registerBooking, fetchOfferStatus }) => (
       consumerPaymentPackId,

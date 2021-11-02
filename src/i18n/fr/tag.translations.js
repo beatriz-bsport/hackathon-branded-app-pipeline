@@ -36,7 +36,15 @@ exports.default = {
       deleteCategory: 'Supprimer la catégorie',
     },
     tag: {
+      icon: 'Icône (facultatif)',
+      searchIcon: 'Rechercher une icone (recherche en anglais)',
+      selectIcon: 'Selectionner une icône',
+      info:
+        'Si vous sélectionné une icône, elle apparaitra en tant que badge à coté de la photo de profil pour l’ensemble des membres taggués avec ce tag.',
       namePlaceholder: 'Nom du tag',
+      color: 'Couleur',
+      name: 'Nom du Tag',
+      submit: 'Enregistrer',
       delete: {
         title: 'Suppression',
         explain:

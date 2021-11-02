@@ -27,7 +27,7 @@ import {
   fetchCommunicationsPaginatedMembers as fetchCommunicationsPaginatedMembersAPI,
   adjustCreditWithoutPaymentNote as adjustCreditWithoutPaymentNoteAPI,
 } from './api';
-import type { Member } from './types';
+import type { Member, MemberMinimal } from './types';
 
 import type { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
 import {
@@ -125,13 +125,19 @@ export const memberListActions = {
   success: createAction('MEMBER/LIST/SUCCESS'),
 };
 
-export function refreshFilteredMembers(params: any, options: OptionCallback) {
+export function refreshFilteredMembers(
+  params: any,
+  options: OptionCallback<MemberMinimal[]>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(memberListActions.isLoading(true));
     try {
       const response = await fetchFilteredMembersAPI(params);
       dispatch(memberListActions.success(response.data));
-      options?.onSuccess(response.data.results);
+      const member = response.data.results;
+      if (options && options.onSuccess) {
+        options.onSuccess(member);
+      }
     } catch (err) {
       console.error(err);
       dispatch(memberListActions.error(err));

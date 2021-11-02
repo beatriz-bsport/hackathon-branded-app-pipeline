@@ -12,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import { SketchPicker } from 'react-color';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Popover from '@material-ui/core/Popover';
+import { withTheme } from '@material-ui/styles';
 
 export class ColorInput extends Component<Props> {
   constructor(props) {
@@ -20,7 +21,8 @@ export class ColorInput extends Component<Props> {
   }
 
   render() {
-    const { classes, t } = this.props;
+    const { classes, t, theme } = this.props;
+
     return (
       <FormControl>
         <FormLabel>{this.props.label}</FormLabel>
@@ -61,12 +63,19 @@ export class ColorInput extends Component<Props> {
             }
             color={this.props.color}
           />
-          {this.props.transparentColorAvailable ? (
+          {this.props.transparentColorAvailable ||
+          this.props.defaultCompanyThemeColor ? (
             <div className={classes.buttonContainer}>
               <Button
                 onClick={() => {
-                  this.props.onChange('');
-                  this.props.setPickerOpen(!this.props.pickerOpen);
+                  if (this.props.transparentColorAvailable) {
+                    this.props.onChange('');
+                    this.props.setPickerOpen(!this.props.pickerOpen);
+                  }
+                  if (this.props.defaultCompanyThemeColor) {
+                    this.props.onChange(theme.palette.primary.main);
+                    this.props.setPickerOpen(!this.props.pickerOpen);
+                  }
                 }}
                 className={classes.buttons}
               >
@@ -124,6 +133,7 @@ const styles = (theme) => ({
   },
 });
 export default compose(
+  withTheme,
   withStyles(styles),
   withTranslation(['common']),
   withState('pickerOpen', 'setPickerOpen', false),

@@ -7,12 +7,11 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Avatar from '@material-ui/core/Avatar';
-
-import CreditMemberBadge from './CreditMemberBadge.component';
 import VaccinationBadge from './VaccinationBadge.component';
+import AvatarWithBadge from './AvatarWithBadge.component';
 
 type Props = {
-  member: Member,
+  member: Member<Tags<TagGroup>>,
   onEdit?: () => void,
   onClick?: () => void,
   firstBooking?: boolean,
@@ -51,9 +50,7 @@ export const MemberMinimalListItem = (props: Props) => {
     >
       <ListItemAvatar>
         <Wrapper>
-          <CreditMemberBadge credit={props.member.credit_account_balance}>
-            <Avatar src={props.member.photo} />
-          </CreditMemberBadge>
+          <AvatarWithBadge member={props.member} />
         </Wrapper>
       </ListItemAvatar>
       <ListItemText

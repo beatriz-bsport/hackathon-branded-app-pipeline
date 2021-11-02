@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 import { compose } from 'recompose';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
@@ -15,7 +14,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Typography from '@material-ui/core/Typography';
 import ListItemText from '@material-ui/core/ListItemText';
-import Badge from '@material-ui/core/Badge';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
 import Menu from '@material-ui/core/Menu';
@@ -35,6 +33,8 @@ import {
   BOOKING_STATUS_CANCELLED_BY_CONSUMER,
   BOOKING_STATUS_OK,
 } from '@bsport/common/lib/master-data/booking_status_code';
+import Avatar from '@material-ui/core/Avatar';
+import Badge from '@material-ui/core/Badge';
 import { getBookingStatusCode } from '../utils';
 
 import Tooltip from '../../../components/Tooltip.component';
@@ -50,6 +50,7 @@ import type { PaymentPack } from '../../../libs/payment-packs/types';
 import type { Member } from '../../../libs/member/types';
 import { Booking } from '../types';
 import VaccinationBadge from '../../member/components/VaccinationBadge.component';
+import { TagBadge } from '../../member/components/TagBadge';
 
 type Props = {
   t: TFunction,
@@ -435,13 +436,18 @@ export class BookingItemForManager extends Component<Props, State> {
         return (
           <ListItemAvatar>
             <Wrapper>
-              <Badge
-                badgeContent={creditsFormatted}
-                color={creditColor}
-                classes={{ badge: classes.badge }}
+              <TagBadge
+                tags={this.props.member?.tags}
+                name={this.props.member?.name}
               >
-                <Avatar src={this.props.member.photo} />
-              </Badge>
+                <Badge
+                  badgeContent={creditsFormatted}
+                  color={creditColor}
+                  classes={{ badge: classes.badge }}
+                >
+                  <Avatar src={this.props.member?.photo} />
+                </Badge>
+              </TagBadge>
             </Wrapper>
           </ListItemAvatar>
         );

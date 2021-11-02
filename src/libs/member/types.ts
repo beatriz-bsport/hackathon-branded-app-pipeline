@@ -43,7 +43,7 @@ type MemberCountData = {
   nb_subscriptions: number;
 };
 
-export type MemberMinimal = {
+export type MemberMinimal<Tag = number> = {
   id: number;
   name: string;
   credit_account_balance: number;
@@ -51,9 +51,10 @@ export type MemberMinimal = {
   consumer: number;
   date_joined: string;
   phone: string;
+  tags: Array<Tag>;
 };
 
-export type Member = {
+export type Member<Tag = number> = {
   id: number;
   name: string;
   consumer: number;
@@ -71,7 +72,7 @@ export type Member = {
   internal_account: number;
   credit_account_balance: number;
   notes: Array<MemberNote>;
-  tags: Array<number>;
+  tags: Array<Tag>;
   next_booking: string; // date
   previous_booking: string; // date
   billing_plans: any;
@@ -87,7 +88,7 @@ export type Member = {
 export type MemberState = ErrorAndLoading &
   ModelReducerI<Member> & {
     allIds: number[];
-    detailData: any;
+    detailData: { [key: string]: Member };
     listData: { [key: string]: Member };
     listCount: number;
     quickFetched: Array<Member>;

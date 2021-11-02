@@ -43,6 +43,7 @@ import type { Member } from '../../libs/member/types';
 import type { Invoice } from '../../libs/invoice/types';
 import { PermissionContext } from '../../context';
 import CheckPermission from '../../libs/role/components/CheckPermission.component';
+import { Tag, TagGroup } from '../../libs/tag/types';
 
 const getMemberFromId = (id: number, membersList: Array<Member>) => {
   const member = membersList.find((m) => m.id === id);
@@ -89,7 +90,7 @@ type Props = {
   unevenSavedInvoices: Array<Invoice>,
   revertQuickInvoiceAndRefreshOffer: (uuid: string) => void,
   registerToWaitingList: (offerId: number, memberId: number) => void,
-  members: Array<Member>,
+  members: Array<Member<Tag<TagGroup>>>,
   switchWaitingListFreeze: (offerId: number, freezeStatus: boolean) => void,
   recurrenceRuleBookingList: Array,
   onDeleteRecurrenceRuleBooking: (id: number) => void,

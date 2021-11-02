@@ -119,7 +119,13 @@ class TagManagement extends React.PureComponent<Props> {
     this.props.fetchTagUsage();
   };
 
-  createOrUpdateTag = (data: { id?: number; name: string; group?: number }) => {
+  createOrUpdateTag = (data: {
+    id?: number;
+    name: string;
+    group?: number;
+    color?: string;
+    icon?: string;
+  }) => {
     this.props.createOrUpdateTag(data);
   };
 
@@ -317,55 +323,57 @@ class TagManagement extends React.PureComponent<Props> {
 
           <div className={classes.rightPanel}>
             <TagDetailHeader tag={this.props.selectedTag} />
+            <div className={classes.tagDetail}>
+              {this.props.selectedTag &&
+                this.props.tagKind === TAG_KIND_MEMBER && (
+                  <TagDetailMembers
+                    tag={this.props.selectedTag}
+                    membersWithTagList={membersWithTagList.items}
+                    membersWithTagListCount={membersWithTagList.count}
+                    membersWithTagListLoading={membersWithTagList.loading}
+                    membersWithTagListPage={membersWithTagList.page}
+                    membersWithoutTagList={membersWithoutTagList.items}
+                    membersWithoutTagListCount={membersWithoutTagList.count}
+                    membersWithoutTagListLoading={membersWithoutTagList.loading}
+                    membersWithoutTagListPage={membersWithoutTagList.page}
+                    onPageRequestWithTag={this.loadMembersWithTag}
+                    onPageRequestWithoutTag={this.loadMembersWithoutTag}
+                    onClickTagMember={this.onClickTagMember}
+                    onClickMember={this.props.onClickMember}
+                    onClickUntagMember={this.onClickUntagMember}
+                    itemPerPage={MEMBERS_ITEM_PER_PAGE}
+                    untagAll={this.untagAllMember}
+                    tagAll={this.tagAllMember}
+                  />
+                )}
 
-            {this.props.selectedTag &&
-              this.props.tagKind === TAG_KIND_MEMBER && (
-                <TagDetailMembers
-                  tag={this.props.selectedTag}
-                  membersWithTagList={membersWithTagList.items}
-                  membersWithTagListCount={membersWithTagList.count}
-                  membersWithTagListLoading={membersWithTagList.loading}
-                  membersWithTagListPage={membersWithTagList.page}
-                  membersWithoutTagList={membersWithoutTagList.items}
-                  membersWithoutTagListCount={membersWithoutTagList.count}
-                  membersWithoutTagListLoading={membersWithoutTagList.loading}
-                  membersWithoutTagListPage={membersWithoutTagList.page}
-                  onPageRequestWithTag={this.loadMembersWithTag}
-                  onPageRequestWithoutTag={this.loadMembersWithoutTag}
-                  onClickTagMember={this.onClickTagMember}
-                  onClickMember={this.props.onClickMember}
-                  onClickUntagMember={this.onClickUntagMember}
-                  itemPerPage={MEMBERS_ITEM_PER_PAGE}
-                  untagAll={this.untagAllMember}
-                  tagAll={this.tagAllMember}
-                />
-              )}
+              {this.props.selectedTag &&
+                this.props.tagKind === TAG_KIND_COUPON && (
+                  <TagDetailCoupon
+                    coupons={this.props.coupons}
+                    loading={this.props.couponsLoading}
+                    tag={this.props.selectedTag}
+                    onClickRemoveTag={this.onClickUntagCoupon}
+                    goToCoupon={this.props.goToCoupon}
+                  />
+                )}
 
-            {this.props.selectedTag &&
-              this.props.tagKind === TAG_KIND_COUPON && (
-                <TagDetailCoupon
-                  coupons={this.props.coupons}
-                  loading={this.props.couponsLoading}
-                  tag={this.props.selectedTag}
-                  onClickRemoveTag={this.onClickUntagCoupon}
-                  goToCoupon={this.props.goToCoupon}
-                />
-              )}
-
-            {this.props.selectedTag &&
-              this.props.tagKind === TAG_KIND_SMARTLIST && (
-                <TagDetailSmartlist
-                  smartlistList={this.props.smartlist}
-                  autotagRuleBySmartlist={this.props.autotagRuleBySmartList}
-                  loading={
-                    this.props.smartlistLoading || this.props.autotagRuleLoading
-                  }
-                  tag={this.props.selectedTag}
-                  onClickRemoveTag={this.onClickUntagSmartlist}
-                  onChangeTagRule={this.onChangeSmartListTagRule}
-                  goToSmartlist={this.props.goToSmartlist}
-                />
-              )}
+              {this.props.selectedTag &&
+                this.props.tagKind === TAG_KIND_SMARTLIST && (
+                  <TagDetailSmartlist
+                    smartlistList={this.props.smartlist}
+                    autotagRuleBySmartlist={this.props.autotagRuleBySmartList}
+                    loading={
+                      this.props.smartlistLoading ||
+                      this.props.autotagRuleLoading
+                    }
+                    tag={this.props.selectedTag}
+                    onClickRemoveTag={this.onClickUntagSmartlist}
+                    onChangeTagRule={this.onChangeSmartListTagRule}
+                    goToSmartlist={this.props.goToSmartlist}
+                  />
+                )}
+            </div>
           </div>
         </div>
       </div>
@@ -418,6 +426,10 @@ const mapDispatchToProps = {
 };
 
 const styles = (theme) => ({
+  tagDetail: {
+    maxHeight: '90vh',
+    overflow: 'auto',
+  },
   container: {
     display: 'flex',
     flexDirection: 'column',
@@ -446,13 +458,13 @@ const styles = (theme) => ({
   leftPanel: {
     flex: 1,
     maxWidth: '50%',
-    paddingBottom: '20vh',
+    paddingBottom: '2vh',
   },
   rightPanel: {
     flex: 1,
     maxWidth: '50%',
     marginLeft: theme.spacing(4),
-    paddingBottom: '20vh',
+    paddingBottom: '2vh',
   },
 });
 

@@ -15,7 +15,7 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import { getSearchedMembers } from '../libs/member/selectors';
+import { getSearchedMembers, withTags } from '../libs/member/selectors';
 
 import ResultList from '../components/search/ResultList.component';
 import SearchBar from '../components/SearchBar.component';
@@ -164,7 +164,7 @@ function mapStateToProps(state) {
   const { selectedId } = state.search;
   return {
     selected: selectedId,
-    members: getSearchedMembers(state),
+    members: withTags(getSearchedMembers)(state),
     loading: state.member.search.loading,
     searchText: state.search.text,
     member: member && member.id === selectedId ? member : null,

@@ -74,6 +74,8 @@ import { fetchCompanyRoles } from '../libs/role/actions';
 import GenericDialog from '../components/GenericDialog/GenericDialog';
 import { fetchSignFormUpConfiguration } from '../libs/sign-up-form/actions';
 
+import { fetchTags } from '../libs/tag/actions';
+
 const MarketingRouter = asyncComponent(() =>
   import('./marketing/Marketing.router'),
 );
@@ -176,6 +178,8 @@ type Props = {
   fetchAllPrivateSlots: () => void,
   pushRouter: (string) => void,
 
+  fetchTags: () => void,
+
   checkEmailValidation: () => void,
   checkingEmailValidation: boolean,
   name?: string,
@@ -260,6 +264,7 @@ export class Backoffice extends Component<Props, State> {
     this.props.fetchAssociatedCoaches();
     this.props.fetchAllPrivateSlots();
     this.props.fetchSignFormUpConfiguration();
+    this.props.fetchTags();
   }
 
   componentWillUnmount() {
@@ -482,6 +487,7 @@ export default compose(
     }),
     {
       fetchCompanyTheme,
+      fetchTags,
       fetchCompanyRoles,
       getFeatureList,
       fetchAccessLevel,

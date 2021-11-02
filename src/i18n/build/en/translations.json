@@ -1504,7 +1504,7 @@
                 "referenceNumberHelper": "(Optional) If empty, a number will automatically be generated for your members.",
                 "referenceNumber": "Membership Number",
                 "birthdayYear": "Year of birth",
-                "rgpdTitle": "Accepted channels for marketing communication:",
+                "rgpdTitle": "Accepted communication channels:",
                 "phone": "Telephone",
                 "delete": {
                     "success": "Note deleted",
@@ -1512,11 +1512,11 @@
                 },
                 "createOrUpdate": {
                     "success": "Note saved",
-                    "error": "Error saving note"
+                    "error": "Error while saving note"
                 },
                 "rgpd": {
-                    "sms": "Accepts SMS notifications",
-                    "email": "Accepts email notifications"
+                    "sms": "I'd like to receive relevant communication by SMS.",
+                    "email": "I'd like to receive relevant communication by email."
                 },
                 "barcodeHelper": "(Optional) Use this barcode for your access cards.",
                 "barcode": "Barcode",
@@ -4077,7 +4077,7 @@
             "field_identifier": "Fields",
             "account_modification": "Editing an account",
             "account_creation": "Creating an account",
-            "title": "[Form] Enrolment",
+            "title": "[Form] Member",
             "fields": {
                 "waiver": "Liability Waiver",
                 "general_terms_and_conditions_accepted": "General Terms & Conditions",
@@ -7524,7 +7524,7 @@
                     "memberOfCompany": "Tell us more about yourself.",
                     "notMemberYet": "Looks like this is your first time logging into this studio"
                 },
-                "welcome": "Hello {{first_name}}"
+                "welcome": "Hello {{firstname}}"
             },
             "title": "User information"
         },
@@ -9276,6 +9276,21 @@
                     "success": "Field has been restored",
                     "error": "Error when restoring field"
                 }
+            },
+            "upsert": {
+                "errors": {
+                    "84006": "Define your liability waiver in Settings > General."
+                }
+            },
+            "signupViaCustomForm": {
+                "errors": {
+                    "84104": "This phone number isn't valid",
+                    "84103": "This specific gender isn't valid",
+                    "84102": "This email is already in use.",
+                    "84101": "The mandatory fields must be completed"
+                },
+                "error": "Error when enrolling",
+                "success": "You've successfully enrolled!"
             }
         },
         "establishmentGroup": {
@@ -9795,7 +9810,30 @@
                 "signature": "Signature",
                 "link_to_tag_popover": "Link a tag to this option",
                 "tag_group": "Main Tag",
-                "tag_name": "Sub Tag"
+                "tag_name": "Sub Tag",
+                "isMandatoryOnSignUp": "This field is mandatory upon enrolment",
+                "accept_sms": "I'd like to receive relevant communication by SMS.",
+                "accept_email": "I'd like to receive relevant communication by email.",
+                "waiver": "Liability waiver",
+                "repeatPassword": "Please repeat the password",
+                "general_terms_and_conditions": "General Terms of Use",
+                "country": "Country",
+                "city": "City",
+                "additional_adress": "Additional address information",
+                "password": "Password",
+                "phone": "Phone",
+                "email": "Email address",
+                "vaccination_status": "COVID-19 Sanitary Pass Status",
+                "emergency_contact": "Emergency contact",
+                "photo": "Profile picture",
+                "zipcode": "Postal code",
+                "gender": "Sex",
+                "address_line_2": "Address line 2",
+                "address_line_1": "Address line 1",
+                "birthday": "Date of birth",
+                "last_name": "Last name",
+                "first_name": "First name",
+                "sign_up_question": "Enrolment form questions"
             },
             "title": "Forms",
             "CustomFormLink": "Link to form",
@@ -9820,13 +9858,14 @@
             "selectCustomFormFilled": "Select a form to see its content.",
             "emptyCustomForm": "This form has no fields to display.",
             "addFieldLong": "Add a field",
-            "unaccessibleForm": "This form is currently deactivated. Please click on the link below to return to your profile.",
+            "unaccessibleForm": "This form is currently inaccessible. Please click on the link below to return to your profile.",
             "backToUserSpace": "My profile",
             "changesDetected": "Save this form to apply the changes.",
             "noChanges": "Form has been updated",
             "actions": {
                 "configure": "Configure",
-                "statistics": "Statistics"
+                "statistics": "Statistics",
+                "customization": "Personalization"
             },
             "modal": {
                 "delete": {
@@ -9839,7 +9878,8 @@
             "tab": {
                 "general": "Content",
                 "campaign": "Campaign",
-                "statistics": "Statistics"
+                "statistics": "Statistics",
+                "layout": "Personalization"
             },
             "customFormField": {
                 "modal": {
@@ -9859,7 +9899,10 @@
                     },
                     "error": {
                         "choicesLength": "You must select at least two fields",
-                        "emptyChoice": "Fields can't be empty"
+                        "emptyChoice": "Fields can't be empty",
+                        "signupQuestionShouldBeSelected": " You must selecte a question from the enrolment form",
+                        "tooShort": "A password must be at least 8 characters",
+                        "passwordsDontMatch": "These passwords don't match"
                     },
                     "signature": {
                         "addSignature": "Add signature",
@@ -9879,7 +9922,10 @@
                 "errors": {
                     "requiredField": "This field is mandatory.",
                     "requiredSignature": "Your signature is required to complete this form.",
-                    "requiredFile": "Add a document"
+                    "requiredFile": "Add a document",
+                    "passwordConfirmationError": "These passwords don't match",
+                    "invalidEmail": "Invalid email",
+                    "passwordMinimumRequirementsError": "Your password must contain at least 6 characters."
                 }
             },
             "statistics": {
@@ -9936,14 +9982,48 @@
                 "unSnoozableMinimal": "Obligatory",
                 "snoozableMinimal": "Can be ignored",
                 "forcedDisplayMinimal": "Also display this form to members that have previously completed this form",
-                "unForcedModeMinimal": "Don't display this form to members that have previously completed this form"
+                "unForcedModeMinimal": "Don't display this form to members that have previously completed this form",
+                "forbiddenForSignup": "This form can't be associated to the notification rules"
             },
             "disconnect": "Disconnect",
             "resetSubmit": "Edit my answers",
             "allStepsCompleted": "You have completed all the steps",
             "submitLater": "Answer later",
             "previous": "Back",
-            "next": "Next"
+            "next": "Next",
+            "navigateToMemberForm": "Edit the modification form",
+            "signupFormHelper": "The mandatory questions of the enrolment form must be editable by your members on their profile. These questions will be added automatically to the modification form and can be edited by members.",
+            "signUp": {
+                "helperMemberForm": "The modification form can be customized and will be shown on your members' profile page and allows them to add or edit their information.",
+                "helperSignup": "You can personalize your studio's enrolment form with custom questions and fields.",
+                "signupFields": "Form questions"
+            },
+            "signUpInfoModal": {
+                "content": "The mandatory questions on your enrolment form must be editable by members on their profile page. These questions have now been automatically added and can be customized on the modification form and are displayed/editable by default.",
+                "confirm": "Continue",
+                "cancel": "Cancel",
+                "title": "Information"
+            },
+            "memberFormHelper": "The mandatory questions of the enrolment form are displayed and editable by default. These can't be deleted.",
+            "clientForms": {
+                "modify": "Edit",
+                "customize": "Personalize",
+                "modification": "Edit",
+                "signup": "Enrolment",
+                "preview": "Overview"
+            },
+            "editable": "Editable",
+            "display": "Show",
+            "navigateToSignup": "Edit enrolment form",
+            "memberFormTitle": "Modification form",
+            "signupFormTitle": "Enrolment form",
+            "layout": {
+                "save": "Save",
+                "redo": " Reapply",
+                "reset": "Reset",
+                "undo": "Undo",
+                "editLayout": "Edit layout"
+            }
         }
     },
     "spotScheduling": {

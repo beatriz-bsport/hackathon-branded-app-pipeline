@@ -1,7 +1,10 @@
 export const downloadAsCsv = (headers, data, filename) => {
   const csvContent = `data:text/csv;charset=utf-8,\uFEFF${[headers, ...data]
     .map((row) => row.join(';'))
-    .join('\n')}`;
+    .join('\n')
+    .replace(/#/, ' ')
+    .replace(/;/, ' ')
+    .replace(/,/, ' ')}`;
 
   const encodedUri = encodeURI(csvContent);
 

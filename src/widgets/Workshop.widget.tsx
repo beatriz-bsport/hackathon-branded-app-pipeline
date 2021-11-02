@@ -35,6 +35,7 @@ class WorkshopWidget extends Component<Props, State> {
       establishments: props.config.establishments || [],
       activity__in: props.config.metaActivities || [],
       levels: props.config.levels || [],
+      establishment_group__in: props.config.establishmentGroups || [],
     };
 
     this.state = { filters };

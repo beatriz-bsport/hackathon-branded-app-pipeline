@@ -4,9 +4,9 @@ import omit from 'lodash/omit';
 
 import React from 'react';
 
-import { Field, ErrorMessage } from 'formik';
+import { Field, ErrorMessage, useField } from 'formik';
 
-import { withTranslation } from 'react-i18next';
+import { useTranslation, withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import MomentUtils from '@date-io/moment';
@@ -44,6 +44,7 @@ import 'react-phone-number-input/style.css';
 import { Moment } from '../i18n';
 import DelayedTextField from './DelayedTextField.component';
 import ColorInput from './input/ColorInput.component';
+import Selector from './Selector.component';
 
 type AlertErrorProps = {
   t: TFunction,
@@ -87,14 +88,14 @@ export const TextField = withStyles(textFieldStyles)((props: Props) => {
   const { classes, shrink } = props;
   return (
     <Field {...props}>
-      {({ field, form: { touched, errors } }) => {
+      {({ field, meta: { touched, error } }) => {
         return (
           <MuiTextField
             className={classes.field}
             shrink={shrink}
             {...field}
             {...omit(props, ['field'])}
-            error={!!(touched[field.name] && errors[field.name])}
+            error={!!(touched && error)}
           />
         );
       }}
@@ -102,17 +103,52 @@ export const TextField = withStyles(textFieldStyles)((props: Props) => {
   );
 });
 
+export const TextFieldEnhancedLabelWithError = withStyles(textFieldStyles)(
+  (props: Props) => {
+    const { classes, shrink } = props;
+    const { t } = useTranslation();
+    const [field, meta] = useField(props);
+    return (
+      <Field {...props}>
+        {() => {
+          return (
+            <>
+              <MuiTextField
+                className={classes.field}
+                shrink={shrink}
+                {...field}
+                {...omit(props, ['field'])}
+                onChange={field?.onChange(field.name)}
+                onBlur={field?.onBlur(field.name)}
+                error={!!(meta.touched && meta.error)}
+                label={
+                  meta.touched && meta.error ? (
+                    <Typography variant="caption" color="error">
+                      {`${props.label}: ${t(meta.error)}`}
+                    </Typography>
+                  ) : (
+                    props.label
+                  )
+                }
+              />
+            </>
+          );
+        }}
+      </Field>
+    );
+  },
+);
 export const DelayTextField = withStyles(textFieldStyles)((props: Props) => {
   const { classes } = props;
   return (
     <Field {...props}>
-      {({ field, form: { touched, errors } }) => (
+      {({ field, meta: { touched, error } }) => (
         <div>
           <DelayedTextField
             className={classes.field}
             {...field}
             {...omit(props, ['field'])}
-            error={!!(touched[field.name] && errors[field.name])}
+            error={!!(touched && error)}
           />
         </div>
       )}
@@ -194,10 +230,15 @@ export const Actions = withStyles(actionsStyles)((props: ActionsProps) => {
 });
 
 export const DateField = (props: DateFieldProps) => {
+  const { t } = useTranslation();
   return (
     <Field
       {...props}
-      render={({ field, form: { touched, errors, setFieldValue } }) => (
+      render={({
+        field,
+        meta: { touched, error },
+        form: { setFieldValue },
+      }) => (
         <MuiPickersUtilsProvider
           utils={MomentUtils}
           moment={Moment}
@@ -214,7 +255,16 @@ export const DateField = (props: DateFieldProps) => {
               );
             }}
             format="L"
-            error={!!(touched[field.name] && errors[field.name])}
+            error={!!(touched && error)}
+            label={
+              touched && error ? (
+                <Typography variant="caption" color="error">
+                  {`${props.label}: ${t(error)}`}
+                </Typography>
+              ) : (
+                props.label
+              )
+            }
           />
         </MuiPickersUtilsProvider>
       )}
@@ -227,7 +277,11 @@ export const DurationField = withStyles(styles)(
     return (
       <Field
         {...props}
-        render={({ field, form: { touched, errors, setFieldValue } }) => {
+        render={({
+          field,
+          form: { setFieldValue },
+          meta: { touched, error },
+        }) => {
           const total = parseInt(field.value || 0, 10);
           const days = parseInt(total / (60 * 24), 10);
           const hours = parseInt((total - days * 24 * 60) / 60, 10);
@@ -238,7 +292,7 @@ export const DurationField = withStyles(styles)(
                 display: 'flex',
                 flexDirection: 'column',
               }}
-              error={!!(touched[field.name] && errors[field.name])}
+              error={!!(touched && error)}
             >
               {!!props.label && (
                 <div className={props.classes.inputLabelContainer}>
@@ -471,11 +525,11 @@ export const PhoneField = withTranslation([])(
     const { t, label, name, classes, fullWidth, required } = props;
     return (
       <Field {...props}>
-        {({ field, form: { touched, errors, setFieldValue } }) => (
+        {({ field, meta: { touched, error }, form: { setFieldValue } }) => (
           <div>
             <MuiFormControl
               required={required}
-              error={!!(touched[field.name] && errors[field.name])}
+              error={!!(touched && error)}
               fullWidth={fullWidth}
             >
               <InputLabel
@@ -525,14 +579,14 @@ export const PhoneField = withTranslation([])(
 
 export const GenderField = withStyles(styles)(
   withTranslation([])((props: GenderFieldProps) => {
-    const { t, label, fullWidth, classes, required } = props;
+    const { t, label, fullWidth, required } = props;
     return (
       <Field {...props}>
-        {({ field, form: { touched, errors } }) => (
+        {({ field, meta: { touched, error } }) => (
           <MuiFormControl
             fullWidth={fullWidth}
             required={required}
-            error={!!(touched[field.name] && errors[field.name])}
+            error={!!(touched && error)}
           >
             <InputLabel shrink htmlFor="gender-helper">
               {label}
@@ -565,7 +619,7 @@ export const GenderField = withStyles(styles)(
             </Select>
             <ErrorMessage {...props}>
               {(message) => (
-                <Typography variant="body2" className={classes.alertError}>
+                <Typography variant="caption" color="error">
                   {t(message)}
                 </Typography>
               )}
@@ -582,12 +636,12 @@ export const VaccinationStatusField = withStyles(styles)(
     const { t, label, fullWidth, classes, required } = props;
     return (
       <Field {...props}>
-        {({ field, form: { touched, errors } }) => {
+        {({ field, meta: { touched, error } }) => {
           return (
             <MuiFormControl
               fullWidth={fullWidth}
               required={required}
-              error={!!(touched[field.name] && errors[field.name])}
+              error={!!(touched && error)}
             >
               <InputLabel shrink htmlFor="vaccination-helper">
                 {label}
@@ -638,11 +692,11 @@ export const SelectField = withStyles(styles)(
     const { t, choices, label, fullWidth, classes, required } = props;
     return (
       <Field {...props}>
-        {({ field, form: { touched, errors } }) => (
+        {({ field, meta: { touched, error } }) => (
           <MuiFormControl
             fullWidth={fullWidth}
             required={required}
-            error={!!(touched[field.name] && errors[field.name])}
+            error={!!(touched && error)}
           >
             <InputLabel shrink htmlFor="select-helper">
               {label}
@@ -750,7 +804,11 @@ export const CheckboxField = (props: Props) => {
     <FormControl>
       <Field
         {...props}
-        render={({ field, form: { setFieldValue, touched, errors } }) => (
+        render={({
+          field,
+          form: { setFieldValue },
+          meta: { touched, error },
+        }) => (
           <FormControlLabel
             label={label}
             id="checkbox"
@@ -765,7 +823,7 @@ export const CheckboxField = (props: Props) => {
                 onChange={() => {
                   setFieldValue(field.name, !field.value);
                 }}
-                error={!!(touched[field.name] && errors[field.name])}
+                error={!!(touched && error)}
               />
             }
           />
@@ -961,3 +1019,40 @@ export function defaultHandleSubmit<T>(
 ) {
   onSubmit(values, bindFormHandlers({ setSubmitting, setFieldError }));
 }
+
+const selectFieldStyles = (theme) => ({
+  field: {
+    marginBottom: theme.spacing(1),
+  },
+});
+
+export const SelectFieldWithEnhancedLabeLError = withStyles(selectFieldStyles)(
+  (props: Props) => {
+    const { classes, shrink } = props;
+    const { t } = useTranslation();
+    return (
+      <Field {...props}>
+        {({ field, meta: { touched, error } }) => {
+          return (
+            <Selector
+              className={classes.field}
+              shrink={shrink}
+              {...field}
+              {...omit(props, ['field'])}
+              error={!!(touched && error)}
+              placeholder={
+                touched && error ? (
+                  <Typography variant="caption" color="error">
+                    {`${props.label}: ${t(error)}`}
+                  </Typography>
+                ) : (
+                  props.label
+                )
+              }
+            />
+          );
+        }}
+      </Field>
+    );
+  },
+);

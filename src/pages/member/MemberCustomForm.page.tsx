@@ -30,8 +30,9 @@ import {
 } from '../../libs/custom-form/selectors';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import CustomFormCompletedList from '../../libs/custom-form/components/CustomFormCompletedList.component';
-import CustomForm from '../../libs/custom-form/components/consumer-form/CustomForm.form';
+import CustomFormView from '../../libs/custom-form/components/consumer-form/CustomFormView.form';
 import type { CustomFormFieldAnswerAPI } from '../../libs/custom-form/types';
+import themeSelector from '../../libs/theme/selectors';
 
 type StateHandlerInit = {
   customFormFilledSelected: boolean;
@@ -105,11 +106,15 @@ export class MemberCustomForm extends React.Component<Props> {
                   {this.getCustomFormEnabledFieldWithAnswer()?.custom_form_field
                     ?.length ? (
                     <Paper className={classes.paperContainer}>
-                      <CustomForm
+                      <CustomFormView
                         key={this.props.customFormFilledSelected}
                         initialWithAnswer={this.getCustomFormEnabledFieldWithAnswer()}
                         refreshLoading={this.props.customFormViewLoading}
                         asManager
+                        waiver={this.props?.theme.waiver}
+                        general_terms_and_conditions={
+                          this.props.theme.general_terms_and_conditions
+                        }
                       />
                     </Paper>
                   ) : (
@@ -165,11 +170,16 @@ export class MemberCustomForm extends React.Component<Props> {
                     <Divider className={classes.divider} />
                     <Collapse in={this.props.showDisabledField}>
                       <Paper className={classes.paperContainer}>
-                        <CustomForm
+                        <CustomFormView
                           key={this.props.customFormFilledSelected}
                           initialWithAnswer={this.getCustomFormDisabledFieldWithAnswer()}
                           refreshLoading={this.props.customFormViewLoading}
                           asManager
+                          waiver={this.props?.theme.waiver}
+                          general_terms_and_conditions={
+                            this.props.theme.general_terms_and_conditions
+                          }
+                          layouts={this.props.customFormFilledSelected?.layout}
                         />
                       </Paper>
                     </Collapse>
@@ -217,6 +227,7 @@ const styles = (theme: Theme) => ({
 });
 
 const mapStateToProps = (state: RootState, props: OwnAndConnectedProps) => ({
+  theme: themeSelector.getTheme(state),
   loading: state.customForm.loading || state.customForm.filled.loading,
   customFormFilledList: excludeDraftCustomFormFilled(getMemberCustomFormFilled)(
     state,

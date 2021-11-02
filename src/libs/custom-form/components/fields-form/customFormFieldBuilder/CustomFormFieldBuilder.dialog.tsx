@@ -21,6 +21,11 @@ import amber from '@material-ui/core/colors/amber';
 import ClearIcon from '@material-ui/icons/Clear';
 
 import {
+  CUSTOM_FORM_FIELD_FILE_OPTION,
+  CUSTOM_FORM_FIELD_SHORT_ANSWER_OPTION,
+  CUSTOM_FORM_FIELD_SIGNUP_QUESTION_OPTION,
+} from '@bsport/common/lib/master-data/custom-form';
+import {
   TextField,
   AlertError,
   CheckboxField,
@@ -29,22 +34,26 @@ import CustomFormFieldSelector from '../CustomFormBuilderField.selector';
 import {
   CUSTOM_FORM_FIELDS_OPTIONS,
   CUSTOM_FORM_FIELDS_WITH_CHOICES,
-  CUSTOM_FORM_FIELD_FILE_OPTION,
   CUSTOM_FORM_FIELD_LINKABLE_TO_NOTE,
   MAX_LENGTH_FOR_SHORT_ANSWER,
   MAX_LENGTH_FOR_LONG_ANSWER,
-  CUSTOM_FORM_FIELD_SHORT_ANSWER_OPTION,
+  CUSTOM_FORM_FIELD_SIGNUP_QUESTIONS_CHOICES,
 } from '../../../utils';
-import type { CustomForm } from '../../../types';
+
+import type { CustomFormField } from '../../../types';
 import { MaterialStyleType } from '../../../../../utils/types';
 import CustomFormFieldTagRuleSelector from '../CustomFormBuilderTagRule.selector';
+import { TagGroup, Tag } from '../../../../tag/types';
 
 type OwnProps = {
   open: boolean;
   handleClose: () => void;
   onSubmit: (data: any) => void;
-  isSubmitting: boolean;
-  initial?: CustomForm;
+  isSubmitting?: boolean;
+  initial?: CustomFormField;
+  registeredSignUpQuestions: Array<number>;
+  tag_groups: Array<TagGroup>;
+  tags: Array<Tag>;
 };
 
 type Props = OwnProps &
@@ -79,11 +88,28 @@ const CustomFormFieldFormSchema = Yup.object().shape({
     ),
   disabled: Yup.boolean().nullable(true),
   mandatory: Yup.boolean().nullable(true),
+  editable: Yup.boolean().nullable(true),
   link_to_note: Yup.boolean().nullable(true),
+  signup_question_kind: Yup.number()
+    .nullable(true)
+    .test(
+      'test_signup_question_choice',
+      'marketing:customForm.customFormField.modal.error.signupQuestionShouldBeSelected',
+      function (item) {
+        if (this.parent.kind !== CUSTOM_FORM_FIELD_SIGNUP_QUESTION_OPTION) {
+          return true;
+        }
+        return !!item;
+      },
+    ),
 });
 
 export function CustomFormFieldBuilderDialog(props: Props) {
   const { t, open, handleClose, isSubmitting, classes } = props;
+  const signupQuestionsChoices = CUSTOM_FORM_FIELD_SIGNUP_QUESTIONS_CHOICES.filter(
+    (choice: { value: number; label: string }) =>
+      !props?.registeredSignUpQuestions?.includes(choice.value),
+  );
   return (
     <Dialog
       fullWidth
@@ -125,8 +151,11 @@ export function CustomFormFieldBuilderDialog(props: Props) {
                 mandatory: false,
                 link_to_note: false,
                 custom_form_field_tag_rule: [],
+                signup_question_kind: null,
+                editable: true,
               }
         }
+        enableReinitialize
         onSubmit={(values) => {
           return props.onSubmit({
             ...values,
@@ -173,6 +202,29 @@ export function CustomFormFieldBuilderDialog(props: Props) {
                 disabled={!!formik.values.id}
               />
               <AlertError name="choices" />
+              <div className={classes.signupQuestionSelector}>
+                {formik.values.kind ===
+                  CUSTOM_FORM_FIELD_SIGNUP_QUESTION_OPTION && (
+                  <CustomFormFieldSelector
+                    formFieldOptionList={signupQuestionsChoices}
+                    selectedOptions={[formik.values.signup_question_kind]}
+                    placeholder={t(
+                      'customForm.customFormField.modal.add.select',
+                    )}
+                    onChange={(option: { value: number; label: string }) => {
+                      formik.setFieldValue(
+                        'signup_question_kind',
+                        option ? option.value : null,
+                      );
+                    }}
+                    noMulti
+                    isClearable
+                    closeMenuOnSelect
+                    disabled={!!formik.values.id}
+                  />
+                )}
+              </div>
+              <AlertError name="signup_question_kind" />
               {CUSTOM_FORM_FIELDS_WITH_CHOICES.includes(formik.values.kind) && (
                 <div className={classes.paddingTop}>
                   <FieldArray name="choices">
@@ -364,6 +416,9 @@ const styles = (theme: Theme) => ({
   warningIcon: {
     color: amber[900],
     marginRight: theme.spacing(1),
+  },
+  signupQuestionSelector: {
+    paddingTop: theme.spacing(2),
   },
 });
 export default compose<any, OwnProps>(

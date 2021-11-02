@@ -13,7 +13,16 @@ import ConsumerFormFields, {
   ConsumerFormFieldsHOC,
 } from './CustomForm.formik-hoc';
 import { MaterialStyleType } from '../../../../utils/types';
-import { CustomForm, CustomFormFieldAnswer } from '../../types';
+import {
+  CustomForm,
+  CustomFormFieldAnswer,
+  CustomFormFilled,
+  ResponsiveLayouts,
+} from '../../types';
+import {
+  USER_STATUS_VALIDATION_WITH_USER_NOT_MEMBER_OF_COMPANY,
+  USER_STATUS_VALIDATION_WITH_MEMBER_OF_COMPANY,
+} from '../../../member/utils';
 
 type OwnProps = {
   asManager?: boolean;
@@ -24,9 +33,14 @@ type OwnProps = {
   initialWithAnswer?: CustomFormFieldAnswer;
   refreshLoading?: boolean;
   onCancel?: (data?: FormData) => void;
-  onSubmitDraft?: (customFormwithAnswer: CustomForm) => void;
+  onSubmitDraft?: (customFormwithAnswer: CustomFormFilled) => void;
   isMulti?: boolean;
   disconnectOnCancel?: boolean;
+  waiver?: string;
+  layouts?: ResponsiveLayouts;
+  general_terms_and_conditions?: string;
+  userStatus?: number;
+  textButtonConfirm?: boolean;
 };
 type Props = OwnProps &
   WithTranslation &
@@ -34,6 +48,18 @@ type Props = OwnProps &
 
 export function ConsumerFormView(props: Props) {
   const { t, isSubmitting, classes, asManager } = props;
+  const renderConfirmButtonText = (userStatus?: number) => {
+    if (userStatus === USER_STATUS_VALIDATION_WITH_USER_NOT_MEMBER_OF_COMPANY) {
+      return 'member:forms.needInformationValidation.button.notMemberYet';
+    }
+    if (userStatus === USER_STATUS_VALIDATION_WITH_MEMBER_OF_COMPANY) {
+      return 'member:forms.needInformationValidation.button.memberOfCompany';
+    }
+    if (props.textButtonConfirm) {
+      return 'customForm.clientForms.modify';
+    }
+    return 'customForm.send';
+  };
   if (props.refreshLoading) {
     return <LinearProgress />;
   }
@@ -82,7 +108,9 @@ export function ConsumerFormView(props: Props) {
             id="button_custom_form_save"
             disabled={isSubmitting}
           >
-            {props.isMulti ? t('customForm.next') : t('customForm.send')}
+            {props.isMulti
+              ? t('customForm.next')
+              : t(renderConfirmButtonText(props.userStatus))}
           </Button>
         </div>
       )}

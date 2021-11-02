@@ -1,6 +1,6 @@
 import React from 'react';
 import { compose } from 'recompose';
-import { WithTranslation, withTranslation } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
@@ -10,7 +10,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import FormLabel from '@material-ui/core/FormLabel';
 import { ErrorMessage } from 'formik';
-import { MaterialStyleType } from '../../../../utils/types';
+import amber from '@material-ui/core/colors/amber';
 import {
   CUSTOM_FORM_FIELD_TITLE_OPTION,
   CUSTOM_FORM_FIELD_PARAGRAPH_OPTION,
@@ -21,18 +21,26 @@ import {
   CUSTOM_FORM_FIELD_SELECT_OPTION,
   CUSTOM_FORM_FIELD_FILE_OPTION,
   CUSTOM_FORM_FIELD_SIGNATURE_OPTION,
+  CUSTOM_FORM_FIELD_SIGNUP_QUESTION_OPTION,
+} from '@bsport/common/lib/master-data/custom-form';
+import {
   MAX_LENGTH_FOR_SHORT_ANSWER,
   MAX_LENGTH_FOR_LONG_ANSWER,
 } from '../../utils';
+
+import { MaterialStyleType } from '../../../../utils/types';
+import FileUploaderCustomized from '../../../../components/FileUploaderCustomized';
+import type { CustomFormField, ResponsiveLayouts } from '../../types';
+import SignatureCanvas from './SignatureCanvas.component';
+
 import {
-  TextField,
   MultipleCheckboxField,
   RadioGroupField,
+  TextFieldEnhancedLabelWithError,
+  SelectFieldWithEnhancedLabeLError,
 } from '../../../../components/forms';
-import Selector from '../../../../components/Selector.component';
-import FileUploaderCustomized from '../../../../components/FileUploaderCustomized';
-import type { CustomFormField } from '../../types';
-import SignatureCanvas from './SignatureCanvas.component';
+
+import CustomFormFieldSignUpInput from './CustomFormField.signup-input';
 
 interface CustomFormFilledTagule {
   answer_for_tag: string;
@@ -57,7 +65,6 @@ interface FormikCustomFormFilled {
   date_created: string;
   custom_form_field: Array<CustomFormFieldAnswer>;
 }
-
 type OwnProps = {
   field: CustomFormField;
   index: number;
@@ -65,6 +72,8 @@ type OwnProps = {
   setFieldValue: (field_name: string, value: any) => void;
   handleBlur: (str: string) => void;
   values: FormikCustomFormFilled;
+  layouts: ResponsiveLayouts;
+  waiver?: string;
 };
 type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
@@ -82,21 +91,23 @@ export const CustomFormConsumerInput = (props: Props) => {
   switch (props.field.kind) {
     case CUSTOM_FORM_FIELD_TITLE_OPTION:
       return (
-        <div className={classes.title}>
+        <div className={classes.spacedField}>
           <Typography variant="h4"> {props.field.label}</Typography>
         </div>
       );
     case CUSTOM_FORM_FIELD_PARAGRAPH_OPTION:
       return (
-        <Typography variant="legend" component="div">
-          {props.field.label}
-        </Typography>
+        <div className={classes.spacedField}>
+          <Typography variant="legend" component="div">
+            {props.field.label}
+          </Typography>
+        </div>
       );
     case CUSTOM_FORM_FIELD_SHORT_ANSWER_OPTION:
       return (
         <div key={props.index}>
           <div className={classes.spacedField}>
-            <TextField
+            <TextFieldEnhancedLabelWithError
               name={`custom_form_field.${props.index}.answer`}
               required={props.field.mandatory}
               onBlur={props.handleBlur}
@@ -112,7 +123,7 @@ export const CustomFormConsumerInput = (props: Props) => {
     case CUSTOM_FORM_FIELD_LONG_ANSWER_OPTION:
       return (
         <div className={classes.spacedField}>
-          <TextField
+          <TextFieldEnhancedLabelWithError
             name={`custom_form_field.${props.index}.answer`}
             variant="outlined"
             required={props.field.mandatory}
@@ -180,7 +191,10 @@ export const CustomFormConsumerInput = (props: Props) => {
             {props.field.mandatory && ' *'}
           </FormLabel>
           <div style={{ maxWidth: '400px' }}>
-            <Selector
+            <SelectFieldWithEnhancedLabeLError
+              name={`custom_form_field.${props.index}.answer`}
+              label={props.field.label}
+              placeholder={t('customForm.field.select_placeholder')}
               suggestions={[...props.field.choices.slice()].map(
                 (choice: string) => ({
                   label: choice,
@@ -196,16 +210,8 @@ export const CustomFormConsumerInput = (props: Props) => {
               }
               isDisabled={props.asManager}
               selected={props.values.custom_form_field[props.index].answer}
-              placeholder={t('customForm.field.select_placeholder')}
             />
           </div>
-          <ErrorMessage name={`custom_form_field.${props.index}.answer`}>
-            {(error_msg) => (
-              <Typography variant="caption" color="error">
-                {t(`${error_msg}`)}
-              </Typography>
-            )}
-          </ErrorMessage>
         </div>
       );
     case CUSTOM_FORM_FIELD_SIGNATURE_OPTION:
@@ -300,6 +306,8 @@ export const CustomFormConsumerInput = (props: Props) => {
           </ErrorMessage>
         </div>
       );
+    case CUSTOM_FORM_FIELD_SIGNUP_QUESTION_OPTION:
+      return <CustomFormFieldSignUpInput {...props} />;
     default:
       return <div />;
   }
@@ -342,7 +350,21 @@ const styles = (theme: Theme) => ({
   fixedButton: {
     padding: '0 10 0 0',
   },
+  formChangeContainer: {
+    padding: theme.spacing(1),
+    display: 'flex',
+    alignItems: 'center',
+    border: `1px solid ${amber[900]}`,
+    borderRadius: theme.spacing(0.5),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
+  changeWarning: {
+    color: amber[900],
+    marginRight: theme.spacing(1),
+  },
 });
+
 export default compose<any, OwnProps>(
   withTranslation('marketing'),
   withStyles(styles),

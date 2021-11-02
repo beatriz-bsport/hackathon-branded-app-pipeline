@@ -1,3 +1,5 @@
+import { ErrorAndLoading } from '../types';
+
 export type CustomForm = {
   id: number;
   company: number;
@@ -7,6 +9,9 @@ export type CustomForm = {
   url: string;
   custom_form_field: Array<CustomFormField>;
   display_rules: Array<CustomFormDisplayRule>;
+  layout: ResponsiveLayouts;
+  is_signup: boolean;
+  is_member_form: boolean;
 };
 
 export type FormikCustomForm = {
@@ -29,36 +34,34 @@ export type CustomFormField = {
   choices: Array<string>;
   mandatory: boolean;
   link_to_note: boolean;
+  signup_question_kind: number | null;
+  editable: boolean;
 };
 
 export type CustomFormState = {
   allIds: Array<number>;
   byId: { [id: number]: CustomForm };
-  loading: boolean;
-  error?: Error;
-  upsert: {
-    loading: boolean;
-    error: Error;
-  };
+  upsert: ErrorAndLoading;
+  layout: ErrorAndLoading;
   filled: {
     byId: { [id: number]: CustomFormFilledAPI };
     allIds: Array<number>;
-    loading: boolean;
-    error?: Error;
-  };
+  } & ErrorAndLoading;
   statistics: {
     byId: { [id: number]: CustomFromStatistics };
     allIds: Array<number>;
-    loading: boolean;
-    error: Error;
-  };
+  } & ErrorAndLoading;
   display_rule: {
     byId: { [id: number]: CustomFormDisplayRule };
     allIds: Array<number>;
-    loading: boolean;
-    error?: Error;
-  };
-};
+  } & ErrorAndLoading;
+  signUp: {
+    form: CustomForm | null;
+  } & ErrorAndLoading;
+  memberForm: {
+    form: CustomForm | null;
+  } & ErrorAndLoading;
+} & ErrorAndLoading;
 
 export type CustomFormFilled = {
   id: number;
@@ -80,6 +83,7 @@ export type CustomFormFieldAnswer = {
   choices: Array<string>;
   mandatory: boolean;
   answer: string | any;
+  signup_question_kind: number | null;
 };
 
 export type CustomFormFilledAPI = {
@@ -124,4 +128,16 @@ export type CustomFormDisplayRule<C = number> = {
   disabled: boolean;
   snoozable: boolean;
   timedelta_after_snooze: number;
+};
+export type Layout = {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  i: string;
+  minW?: number;
+  maxW?: number;
+};
+export type ResponsiveLayouts = {
+  [key: string]: Array<Layout>;
 };

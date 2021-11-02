@@ -242,7 +242,7 @@ exports.default = {
         "Conditions Générales d'Utilisation",
       waiver: 'Décharge de responsabilité',
     },
-    title: "Formulaire d'inscription",
+    title: 'Formulaire membre',
     account_creation: "Création d'un compte",
     account_modification: "Edition d'un compte",
     field_identifier: 'Champs',

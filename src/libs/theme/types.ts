@@ -53,6 +53,7 @@ export type Theme = {
   is_quickbook_integration_enabled: boolean;
   schedule_timerange_begin: string;
   schedule_timerange_end: string;
+  is_premium: boolean;
 };
 
 export type ThemeState = {

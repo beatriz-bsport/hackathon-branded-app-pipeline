@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment-timezone';
 import Grid from '@material-ui/core/Grid';
-import CustomFormPaper from './CustomFormPaper.component';
+import CustomFormConfigurationTable from './CustomFormConfigurationTable.form';
 import {
   CUSTOM_FORM_FIELDS_OPTIONS,
 } from '../../../utils';
@@ -26,7 +26,7 @@ const CustomTemplate = (args: argTypes) => (
     }}
   >
     <Grid item xs={6}>
-      <CustomFormPaper {...args} />
+      <CustomFormConfigurationTable {...args} />
     </Grid>
   </Grid>
 );
@@ -89,8 +89,8 @@ CompleteInitialState.args = {
 
 
 export default {
-  title: 'Library/Custom-Form/Builder',
-  component: CustomFormPaper,
+  title: 'Marketing/CustomForm',
+  component: CustomFormConfigurationTable,
   parameters: {
     docs: {
       page: null

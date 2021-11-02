@@ -47,7 +47,6 @@ type Props = {
   openCreateForm: () => void,
   closeCreateForm: () => void,
   isOpenCreateForm: boolean,
-  managerFormConfig: SignUpFormConfigDict,
   waiver: string,
   generalTermsAndConditions: string,
 };
@@ -91,7 +90,6 @@ export function MemberSearchModal(props: Props) {
           goToMember={() => {}}
           goToMemberList={() => {}}
           country={props.country}
-          managerFormConfig={props.managerFormConfig}
           waiver={props.waiver}
           generalTermsAndConditions={props.generalTermsAndConditions}
         />

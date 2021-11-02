@@ -723,6 +723,21 @@ exports.default = {
         error: "Impossible de restaurer l'élément",
       },
     },
+    upsert: {
+      errors: {
+        84006: "Vous devez définir une décharge de responsabilité dans Paramètres > Général pour pourvoir ajouter la question 'Décharge de responsabilité'.",
+      },
+    },
+    signupViaCustomForm: {
+      success: 'Inscription validée',
+      error: "Erreur lors de l'inscription, vauillez réessayer",
+      errors: {
+        84101: "Des champs obligatoires n'ont pas été remplis",
+        84102: 'Cet email est déjà utilisé',
+        84103: "Le sexe spécifié n'est pas valide",
+        84104: "Le numéro de téléphone n'est pas valide",
+      },
+    },
   },
   customFormDisplayRule: {
     create: {

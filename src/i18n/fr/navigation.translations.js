@@ -95,7 +95,7 @@ exports.default = {
       active_campaign: 'ActiveCampaign',
       settings: 'Paramètres',
       platform_billing: 'Abonnement bsport',
-      forms: "Formulaire d'inscription",
+      forms: 'Formulaire membre',
     },
     marketingNotification: 'Notifications',
     tags: 'Tags',

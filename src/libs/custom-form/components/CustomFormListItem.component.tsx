@@ -15,13 +15,13 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Typography from '@material-ui/core/Typography';
 import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 import Chip from '@material-ui/core/Chip';
-import { CUSTOM_FORM_DISPLAY_ON_CONNECTION } from '@bsport/common/lib/master-data/custom-form';
-import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
-import type { CustomForm } from '../types';
 import {
+  CUSTOM_FORM_DISPLAY_ON_CONNECTION,
   CUSTOM_FORM_FIELD_TITLE_OPTION,
   CUSTOM_FORM_FIELD_PARAGRAPH_OPTION,
-} from '../utils';
+} from '@bsport/common/lib/master-data/custom-form';
+import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
+import type { CustomForm } from '../types';
 
 type Props = {
   customform: CustomForm;
@@ -81,6 +81,15 @@ export const CustomFormListItem = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['marketing']);
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
+  const customFormName = () => {
+    if (props.customform.is_signup) {
+      return t('customForm.signupFormTitle');
+    }
+    if (props.customform.is_member_form) {
+      return t('customForm.memberFormTitle');
+    }
+    return props.customform.name;
+  };
   return (
     <>
       <ListItem
@@ -96,7 +105,7 @@ export const CustomFormListItem = (props: Props) => {
         <Grid container>
           <Grid item xs={3} className={classes.nameItem}>
             <div>
-              <Typography component="span">{props.customform.name}</Typography>
+              <Typography component="span">{customFormName()}</Typography>
             </div>
           </Grid>
           <Grid
@@ -162,6 +171,7 @@ export const CustomFormListItem = (props: Props) => {
                   icon: DeleteIcon,
                   onClick: () => setDeleteDialogOpen(true),
                   color: 'secondary',
+                  label: t('delete'),
                 },
                 props.onRestore && {
                   icon: RestoreFromTrashIcon,

@@ -59,6 +59,19 @@ exports.default = {
     }
   },
   customForm: {
+    layout: {
+      editLayout: "Editer l'agencement",
+      undo: "Retour",
+      reset: 'Réinitialiser',
+      redo: ' Réappliquer',
+      save:"Sauvegarder",
+    },
+    signupFormTitle: "Formulaire d'inscription",
+    memberFormTitle: "Formulaire de modification",
+    signupFormHelper: "Les questions obligatoires du formulaire d’inscription doivent être éditables par vos membres sur leur profil. Ces questions seront ajoutées automatiquement au formulaire de modification et sont affichées et modifiables.",
+    memberFormHelper : "Les questions obligatoires du formulaire d’inscription sont par défaut affichées et modifiables. Elles ne peuvent être supprimées.",
+    navigateToSignup: "Editer le formulaire d'inscription",
+    navigateToMemberForm : 'Editer le formulaire de modification',
     title: 'Formulaires',
     CustomFormLink: 'Lien du formulaire',
     linkHelper: 'Pour envoyer le formulaire à vos membres, collez le lien ci-dessus dans vos mails. Seules les modifications sauvegardées seront visibles.',
@@ -75,6 +88,8 @@ exports.default = {
     submitLater : 'Répondre plus tard',
     send: 'Envoyer',
     mandatory: 'Obligatoire',
+    display: 'Afficher',
+    editable : 'Modifiable',
     numberQuestions: "Nombre de questions",
     listActions: 'Actions',
     disabledCustomForm: 'Formulaires archivés',
@@ -85,7 +100,7 @@ exports.default = {
     selectCustomFormFilled: 'Sélectionner un des formulaires complétés pour voir son contenu',
     emptyCustomForm: 'Ce formulaire est vide, vous pouvez ajouter des éléments le configurant.',
     addFieldLong: 'Ajouter un élement',
-    unaccessibleForm: 'Ce formulaire est actuellement désactivé, pour retourner sur votre page de profile cliquez sur le boutton ci-dessous.',
+    unaccessibleForm: 'Ce formulaire est actuellement inaccessible, pour retourner sur votre page de profil cliquez sur le boutton ci-dessous.',
     backToUserSpace: 'Profile',
     changesDetected: 'Des changements ont été effectués. Sauvegardez le formulaire pour les appliquer.',
     noChanges: 'Formulaire à jour.',
@@ -97,6 +112,7 @@ exports.default = {
     actions: {
       configure: 'Configurer',
       statistics: 'Statistiques',
+      customization : 'Personnalisation',
     },
     modal: {
       delete: {
@@ -106,13 +122,41 @@ exports.default = {
         content: "En archivant ce formulaire il sera placé dans vos formulaires archivés et ne sera plus accessible pour vos membres.",
       }
     },
+    signUpInfoModal: {
+      title: 'Informations',
+      content : 'Vous venez de rendre certaines questions du formulaire d’inscription obligatoires. Les questions obligatoires du formulaire d’inscription doivent être éditables par vos membres sur leur profil. Ces questions ont donc été ajoutées automatiquement au formulaire de modification et sont affichées et modifiables. Rendez-vous sur l’édition du formulaire de modification pour le personnaliser.',
+      cancel: 'Annuler',
+      confirm:'Continuer',
+    },
     tab: {
       general: 'Contenu',
       campaign: 'Campagne',
       statistics: 'Statistiques',
+      layout: "Personnalisation"
     },
     field: {
+      sign_up_question: "Question du formulaire d'inscription",
+      first_name: 'Prénom',
+      last_name: 'Nom de famille',
+      birthday: 'Date de naissance',
+      address_line_1: 'Adresse',
+      address_line_2: "Complément d'adresse",
+      gender : "Sexe",
+      zipcode: "Code postal",
+      photo: "Photo de profil",
+      emergency_contact: "Contact d'urgence",
+      accept_email: "Accepte email",
+      accept_sms: "Accepte sms",
+      vaccination_status : "Status pass sanitaire COVID-19",
       title: 'Titre',
+      email: "Adresse email",
+      phone: "Téléphone",
+      password: "Mot de passe",
+      additional_adress: "Complément d'adresse",
+      city: "Ville",
+      country: 'Pays',
+      general_terms_and_conditions : "J'accepte les conditions générales d'utilisation",
+      repeatPassword: "Saisissez de nouveau le mot de passe",
       paragraph: 'Paragraphe',
       short_answer: 'Réponse courte',
       long_answer: 'Réponse longue',
@@ -130,6 +174,9 @@ exports.default = {
       tag_group: 'Catégorie',
       tag_name: 'Tag',
       choice_warning: "Toutes les options enregistrées lors de la sauvegarde du formulaire ne seront plus modifiables. Vous pourrez tout de même les supprimer ou en ajouter de nouvelles.",
+      waiver: 'Décharge de responsabilité',
+      general_terms_and_conditions: "Conditions générales d'utilisation",
+      isMandatoryOnSignUp : "La question est obligatoire à l'inscription",
     },
     customFormField: {
       modal: {
@@ -150,6 +197,9 @@ exports.default = {
         error: {
           choicesLength: "Vous devez défnir au moins 2 choix",
           emptyChoice: "Les choix ne peuvent pas être vides",
+          passwordsDontMatch: "Les deux mots de passes ne sont pas les mêmes",
+          tooShort: "Le mot de passe doit être formé d'au moins 8 caractères",
+          signupQuestionShouldBeSelected :" Vous devez sélectionner une question du formulaire d'inscription",
         },
         signature: {
           addSignature: 'Ajouter  une signature',
@@ -158,6 +208,7 @@ exports.default = {
           clear: 'Effacer la signature',
         },
       },
+
     },
     submit: {
       date_submitted: 'Date de complétion',
@@ -167,9 +218,12 @@ exports.default = {
         confirmButton: 'Continuer',
       },
       errors: {
-        requiredField: 'Ce champ est obligatoire, veuillez sélectionner une réponse.',
+        requiredField: 'Obligatoire',
         requiredSignature: 'Veuillez signer le formulaire.',
         requiredFile: 'Veuillez joindre un fichier',
+        passwordMinimumRequirementsError: 'Le mot de passe doit contenir au moins 6 caratères',
+        passwordConfirmationError: 'Les mots de passes ne sont pas indetiques',
+        invalidEmail : 'Email invalide',
       }
     },
     statistics: {
@@ -190,7 +244,8 @@ exports.default = {
     displayRule: {
       header : "Règles de notifications",
       addNewDisplayRule: "Ajouter une règle",
-      empty : 'Aucune règle de notification pour ce formulaire',
+      empty: 'Aucune règle de notification pour ce formulaire',
+      forbiddenForSignup : 'Ce formulaire ne peut pas être associé à des règles de notifications',
       kind: {
         signUp: 'Les nouveaux membres',
         signUpAlreadyExists : ' Règle existante',
@@ -225,6 +280,20 @@ exports.default = {
       snoozableMinimal: 'Peut être ignoré',
       unSnoozableMinimal : 'Obligatoire',
       snoozeTime : 'Veille de {{ count }} heures',
+    },
+    signUp: {
+      signupFields: 'Questions des formulaires',
+      helperSignup : "Vous pouvez modifier ici le formulaire d’inscription de votre studio. Choisissez et personnalisez les questions à remplir pour devenir membre de votre club.",
+      helperMemberForm : "Le formulaire de modification est le formulaire présent sur la page de profil de vos membres. Il leur permet de voir et de modifier leurs informations. Ce formulaire est lui aussi personnalisable."
+    },
+    clientForms: {
+      preview: "Aperçu de mes formulaires",
+      signup: 'Inscription',
+      modification: 'Modification',
+      customize: 'Personnaliser',
+      modify : 'modifier'
+      
+      
     }
   }
 };

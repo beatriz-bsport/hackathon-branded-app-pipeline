@@ -21,6 +21,7 @@ type OwnProps = {
   required?: boolean;
   termsAndConditions: string;
   type: 'generalTermsOfUse' | 'theTermsAndConditions' | 'waiver';
+  disabled?: boolean;
 };
 
 type StateHandlerType = typeof withStateHandlersInit &
@@ -40,20 +41,14 @@ export const AcceptTermsAndConditions = (props: Props) => {
             required={props.required}
             checked={props.accepted}
             onChange={(ev) => props.onChecked(ev.target.checked)}
+            disabled={props.disabled}
           />
         }
         label={
-          <Typography
-            component="div"
-            variant="caption"
-            className={props.classes.termsAndConditions}
-          >
+          <Typography component="div" variant="caption" align="left">
             <span>{props.t('generalTermsAndConditions.iAccept')}</span>
-            <ButtonBase
-              onClick={() => props.setShowTermsAndConditions(true)}
-              className={props.classes.terms}
-            >
-              <Typography variant="caption" color="secondary">
+            <ButtonBase onClick={() => props.setShowTermsAndConditions(true)}>
+              <Typography variant="caption" color="secondary" align="left">
                 {props.t(`generalTermsAndConditions.${props.type}`)}
               </Typography>
             </ButtonBase>
@@ -84,6 +79,7 @@ const styles = () => ({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
+    width: '100%',
   },
   termsAndConditions: {
     display: 'flex',

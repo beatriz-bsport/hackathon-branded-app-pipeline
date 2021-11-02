@@ -99,7 +99,7 @@ exports.default = {
   forms: {
     title: 'Informations utilisateur',
     needInformationValidation: {
-      welcome: 'Bonjour {{first_name}}',
+      welcome: 'Bonjour {{firstname}}',
       subtitle: {
         notMemberYet:
           'Il semblerait que ce soit la première fois que vous vous connectez à ce studio',

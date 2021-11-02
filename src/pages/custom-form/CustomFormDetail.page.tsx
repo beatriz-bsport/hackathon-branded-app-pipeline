@@ -1,5 +1,6 @@
 import React from 'react';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
+import { push as pushRouter } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
@@ -12,7 +13,8 @@ import Button from '@material-ui/core/Button';
 import InfoIcon from '@material-ui/icons/Info';
 import Paper from '@material-ui/core/Paper';
 import { CUSTOM_FORM_DISPLAY_ON_SIGN_UP } from '@bsport/common/lib/master-data/custom-form';
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import { TFunction } from 'i18next';
+import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import withTitle from '../../hocs/with-title.hoc';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers/index';
@@ -23,13 +25,17 @@ import {
   fetchAllCustomFormDisplayRule,
   upsertCustomFormDisplayRule as upsertCustomFormDisplayRuleAction,
   deleteCustomFormDisplayRule as deleteCustomFormDisplayRuleAction,
+  fetchCompanyCustomSignUp,
+  fetchCompanyCustomMemberForm,
 } from '../../libs/custom-form/actions';
 import {
   getCustomForm,
   withDisplayRule,
+  getSignUpCustomForm,
+  getMemberCustomForm,
 } from '../../libs/custom-form/selectors';
-import CustomFormPaper from '../../libs/custom-form/components/form/customFormPaper/CustomFormPaper.component';
-import CustomFormConsumerView from '../../libs/custom-form/components/consumer-form/CustomForm.form';
+import CustomFormConfigurationTable from '../../libs/custom-form/components/form/customFormConfigurationTable/CustomFormConfigurationTable.form';
+
 import type {
   CustomForm,
   CustomFormDisplayRule,
@@ -40,6 +46,9 @@ import tagSelectors from '../../libs/tag/selectors';
 import CustomFormDisplayRulePanel from '../../libs/custom-form/components/display-rule/CustomFormDisplayRulePanel.component';
 import CustomFormDisplayFormDialog from '../../libs/custom-form/components/display-rule/CustomFormDisplayRuleFormDialog.component';
 import { generateMarketPlaceCustomFormLink } from '../../libs/marketplace/routing-utils';
+
+import CustomFormView from '../../libs/custom-form/components/consumer-form/CustomFormView.form';
+import CustomFormsKeleton from '../../libs/custom-form/components/CustomFormSkeleton.component';
 
 type StateHandlerInit = {
   customFormRefresh: CustomForm;
@@ -52,7 +61,9 @@ type StateHandlerInit = {
 };
 type StateHandlerType = typeof withStateHandlersInit &
   WithHandlerType<typeof withStateHandlersSetter>;
-type OwnProps = {};
+type OwnProps = {
+  id: number;
+};
 type ConnectedProps = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
 type OwnAndConnectedProps = OwnProps & ConnectedProps & StateHandlerType;
@@ -66,10 +77,13 @@ export class CustomFormDetail extends React.Component<Props, State> {
     this.props.fetchAllCustomForm();
     this.props.fetchTags();
     this.props.fetchAllCustomFormDisplayRule();
+    this.props.fetchCompanyCustomSignUp({ company: this.props.theme.company });
+    this.props.fetchCompanyCustomMemberForm({
+      company: this.props.theme.company,
+    });
   }
 
   handleUpdateView = async (customFormRefresh: CustomForm) => {
-    this.props.setRefreshLoading(true);
     this.props.setCustomFormRefresh(customFormRefresh);
     this.props.setCustomFormView({
       ...customFormRefresh,
@@ -77,10 +91,6 @@ export class CustomFormDetail extends React.Component<Props, State> {
         (field) => !field.disabled,
       ),
     });
-    await new Promise((resolve) => {
-      setTimeout(resolve, 2000);
-    });
-    this.props.setRefreshLoading(false);
   };
 
   componentDidUpdate(prevProps: Props) {
@@ -91,6 +101,9 @@ export class CustomFormDetail extends React.Component<Props, State> {
       (this.props.customForm && !this.props.customFormRefresh)
     ) {
       this.handleUpdateView({ ...this.props.customForm });
+    }
+    if (prevProps.id !== this.props.id) {
+      this.props.fetchAllCustomForm();
     }
   }
 
@@ -108,88 +121,107 @@ export class CustomFormDetail extends React.Component<Props, State> {
       !this.props.customFormRefresh.custom_form_field ||
       this.props.loading
     ) {
-      return <LinearProgress color="primary" />;
+      return <BackofficeLinearProgress color="secondary" />;
     }
+
     return (
       <>
         <div className={classes.container}>
           <Grid container direction="row" spacing={3}>
             <Grid item xs={12} md={6}>
-              <Typography variant="h5">
-                {t('customForm.CustomFormLink')}
-              </Typography>
-              <div className={classes.textAndIcon}>
-                <div className={classes.textAndIconInner}>
-                  <InfoIcon className={classes.leftIcon} fontSize="small" />
-                  <Typography variant="caption">
-                    {t('customForm.linkHelper')}
+              {this.props.customForm?.is_member_form ||
+              this.props.customForm?.is_signup ? null : (
+                <>
+                  <Typography variant="h5">
+                    {t('customForm.CustomFormLink')}
                   </Typography>
-                </div>
-                <CopyToClipboard
-                  text={generateMarketPlaceCustomFormLink(
-                    this.props.theme.company_name,
-                    this.props.theme.company,
-                    this.props.customForm.id,
-                  )}
-                >
-                  <div className={classes.clipBoard}>
-                    <div className={classes.linkContainer}>
-                      <Button
-                        className={classes.buttonBase}
-                        variant="outlined"
-                        onClick={() =>
-                          this.props.snackbarSuccess('link.copied')
-                        }
-                      >
-                        <LinkIcon className={classes.linkIcon} />
-                        <Typography variant="caption">
-                          {generateMarketPlaceCustomFormLink(
-                            this.props.theme.company_name,
-                            this.props.theme.company,
-                            this.props.customForm.id,
-                          )}
-                        </Typography>
-                      </Button>
+                  <div className={classes.textAndIcon}>
+                    <div className={classes.textAndIconInner}>
+                      <InfoIcon className={classes.leftIcon} fontSize="small" />
+                      <Typography variant="caption">
+                        {t('customForm.linkHelper')}
+                      </Typography>
                     </div>
+                    <CopyToClipboard
+                      text={generateMarketPlaceCustomFormLink(
+                        this.props.theme.company_name,
+                        this.props.theme.company,
+                        this.props.customForm.id,
+                      )}
+                    >
+                      <div className={classes.clipBoard}>
+                        <div className={classes.linkContainer}>
+                          <Button
+                            className={classes.buttonBase}
+                            variant="outlined"
+                            onClick={() =>
+                              this.props.snackbarSuccess('link.copied')
+                            }
+                          >
+                            <LinkIcon className={classes.linkIcon} />
+                            <Typography variant="caption">
+                              {generateMarketPlaceCustomFormLink(
+                                this.props.theme.company_name,
+                                this.props.theme.company,
+                                this.props.customForm.id,
+                              )}
+                            </Typography>
+                          </Button>
+                        </div>
+                      </div>
+                    </CopyToClipboard>
                   </div>
-                </CopyToClipboard>
-              </div>
-              <CustomFormPaper
-                initial={this.props.customFormRefresh}
+                </>
+              )}
+
+              <CustomFormConfigurationTable
+                initial={this.props.customForm}
                 onSubmit={this.props.upsertCustomForm}
                 handleUpdateView={this.handleUpdateView}
                 tag_groups={this.props.tag_groups}
                 tags={this.props.tags}
                 isSubmitting={this.props.isSubmitting}
+                navigateToSignup={this.props.navigateToSignup}
+                navigateToMemberForm={this.props.navigateToMemberForm}
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <div className={classes.displayRulePanel}>
-                <CustomFormDisplayRulePanel
-                  customForm={this.props.customForm}
-                  onDeleteDisplayRule={this.props.deleteCustomFormDisplayRule}
-                  onEditDisplayRule={(display_rule: CustomFormDisplayRule) => {
-                    this.props.setInitialDisplayRule(display_rule);
-                    this.props.setOpenDisplayRuleDialog(true);
-                  }}
-                  onAddRule={() => this.props.setOpenDisplayRuleDialog(true)}
-                  withItemDivider
-                />
-              </div>
+              {this.props.customForm?.is_member_form ||
+              this.props.customForm?.is_signup ? null : (
+                <div className={classes.displayRulePanel}>
+                  <CustomFormDisplayRulePanel
+                    customForm={this.props.customForm}
+                    onDeleteDisplayRule={this.props.deleteCustomFormDisplayRule}
+                    onEditDisplayRule={(
+                      display_rule: CustomFormDisplayRule,
+                    ) => {
+                      this.props.setInitialDisplayRule(display_rule);
+                      this.props.setOpenDisplayRuleDialog(true);
+                    }}
+                    onAddRule={() => this.props.setOpenDisplayRuleDialog(true)}
+                    withItemDivider
+                  />
+                </div>
+              )}
 
               <Typography variant="h6" className={classes.previewTitle}>
                 {t('customForm.preview')}
               </Typography>
               <Paper className={classes.paperContainer}>
-                <CustomFormConsumerView
-                  refreshLoading={
-                    this.props.refreshLoading ||
-                    this.props.loading ||
-                    this.props.isSubmitting
-                  }
-                  initial={this.props.customFormView}
-                  asManager
-                />
+                {this.props.isSubmitting ? (
+                  <CustomFormsKeleton
+                    layouts={this.props.customFormView?.layout}
+                    customForm={this.props.customFormView}
+                  />
+                ) : (
+                  <CustomFormView
+                    refreshLoading={this.props.isSubmitting}
+                    layouts={this.props.customFormView?.layout}
+                    initial={this.props.customFormView}
+                    asManager
+                    waiver={this.props.theme?.waiver}
+                  />
+                )}
               </Paper>
             </Grid>
           </Grid>
@@ -258,10 +290,12 @@ const styles = (theme: Theme) => ({
 });
 const mapStateToProps = (state: RootState, { id }: { id: number }) => ({
   customForm: withDisplayRule(getCustomForm)(state, id),
-  loading: state.customForm.upsert.loading,
+  loading: state.customForm.loading,
   theme: state.theme.theme,
   tag_groups: tagSelectors.getMemberTagGroups(state),
   tags: tagSelectors.getMemberTags(state),
+  signUpCustomForm: getSignUpCustomForm(state),
+  memberCustomForm: getMemberCustomForm(state),
 });
 const mapDispatchToProps = {
   fetchAllCustomForm,
@@ -271,6 +305,9 @@ const mapDispatchToProps = {
   fetchAllCustomFormDisplayRule,
   upsertCustomFormDisplayRuleAction,
   deleteCustomFormDisplayRuleAction,
+  fetchCompanyCustomSignUp,
+  fetchCompanyCustomMemberForm,
+  push: pushRouter,
 };
 const mapWithHandlers = {
   upsertCustomForm: (props: OwnAndConnectedProps) => (form: CustomForm) => {
@@ -314,6 +351,12 @@ const mapWithHandlers = {
       },
     });
   },
+  navigateToSignup: (props: OwnAndConnectedProps) => () => {
+    props.push(`/custom-form/details/${props.signUpCustomForm.id}/general`);
+  },
+  navigateToMemberForm: (props: OwnAndConnectedProps) => () => {
+    props.push(`/custom-form/details/${props.memberCustomForm.id}/general`);
+  },
 };
 const withStateHandlersInit: StateHandlerInit = {
   customFormRefresh: null,
@@ -355,7 +398,13 @@ export default compose<any, OwnProps>(
   withStyles(styles),
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
   connect(mapStateToProps, mapDispatchToProps),
-  withTitle(({ customForm }: { customForm: CustomForm }) => {
+  withTitle(({ customForm, t }: { customForm: CustomForm; t: TFunction }) => {
+    if (customForm?.is_signup) {
+      return t('marketing:customForm.signupFormTitle');
+    }
+    if (customForm?.is_member_form) {
+      return t('marketing:customForm.memberFormTitle');
+    }
     return customForm ? `${customForm.name}` : '';
   }),
   withHandlers(mapWithHandlers),

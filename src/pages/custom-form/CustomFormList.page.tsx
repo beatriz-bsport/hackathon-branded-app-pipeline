@@ -42,7 +42,7 @@ import {
   withDisplayRule,
   getCustomFormWithEnableField,
 } from '../../libs/custom-form/selectors';
-import CustomFormConsumerView from '../../libs/custom-form/components/consumer-form/CustomForm.form';
+import CustomFormConsumerView from '../../libs/custom-form/components/consumer-form/CustomFormView.form';
 import CustomFormCreateDialog from '../../libs/custom-form/components/CustomFormCreateDialog.component';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers/index';

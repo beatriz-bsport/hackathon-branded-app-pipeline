@@ -15,7 +15,10 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { MaterialStyleType } from '../../utils/types';
 import CustomFormDetail from './CustomFormDetail.page';
 import CustomFormStatistics from './CustomFormStatistics.page';
+import CustomFormLayout from './CustomFormLayout.page';
 import { CustomForm } from '../../libs/custom-form/types';
+import themeSelectors from '../../libs/theme/selectors';
+import type { RootState } from '../../reducers';
 
 type OwnProps = {
   classes: Object;
@@ -28,21 +31,31 @@ type OwnProps = {
 type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
 export const CustomFormDetailRouter = (props: Props) => (
   <div className={props.classes.container}>
-    <AppBar position="static" color="default">
-      <Tabs
-        scrollButtons="off"
-        variant="scrollable"
-        value={props.tab}
-        onChange={(e, newTab) => {
-          props.pushToTab(props.id, newTab);
-        }}
-      >
-        <Tab label={props.t('customForm.tab.general')} value="general" />
-        <Tab label={props.t('customForm.tab.statistics')} value="statistics" />
-      </Tabs>
-    </AppBar>
+    <div className={props.classes.stickyNavbar}>
+      <AppBar position="static" color="default">
+        <Tabs
+          scrollButtons="off"
+          variant="scrollable"
+          value={props.tab}
+          onChange={(e, newTab) => {
+            props.pushToTab(props.id, newTab);
+          }}
+        >
+          <Tab label={props.t('customForm.tab.general')} value="general" />
+          <Tab
+            label={props.t('customForm.tab.statistics')}
+            value="statistics"
+          />
+          <Tab label={props.t('customForm.tab.layout')} value="layout" />
+        </Tabs>
+      </AppBar>
+    </div>
     <div className={props.classes.content}>
       <Switch>
+        <Route
+          path="/custom-form/details/:id/layout"
+          component={CustomFormLayout}
+        />
         <Route
           exact
           path="/custom-form/details/:id/statistics"
@@ -59,8 +72,8 @@ export const CustomFormDetailRouter = (props: Props) => (
 );
 const styles = (theme: Theme) => ({
   container: {
-    marginBottom: theme.spacing(4),
     marginTop: theme.spacing(-3),
+    marginBottom: theme.spacing(4),
     width: '100vw',
     [theme.breakpoints.up('md')]: {
       marginLeft: theme.spacing(-3),
@@ -69,7 +82,14 @@ const styles = (theme: Theme) => ({
       marginTop: theme.spacing(-2),
     },
   },
+  stickyNavbar: {
+    position: 'fixed',
+    width: '100%',
+    top: theme.spacing(8.1),
+    zIndex: 100,
+  },
   content: {
+    paddingTop: theme.spacing(6),
     marginBottom: theme.spacing(8),
     [theme.breakpoints.up('md')]: {
       margin: theme.spacing(2),
@@ -86,10 +106,15 @@ export default compose<any, Props>(
   }),
   withTranslation('marketing'),
   withStyles(styles),
-  connect(null, {
-    pushToTab: (id: number, tab: string) =>
-      push(`/custom-form/details/${id}/${tab}`),
-  }),
+  connect(
+    (state: RootState) => ({
+      theme: themeSelectors.getTheme(state),
+    }),
+    {
+      pushToTab: (id: number, tab: string) =>
+        push(`/custom-form/details/${id}/${tab}`),
+    },
+  ),
   withTitle(({ customForm }: { customForm: CustomForm }) => {
     return customForm ? `${customForm.name}` : '';
   }),

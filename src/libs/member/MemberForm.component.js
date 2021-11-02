@@ -30,12 +30,6 @@ import {
 } from '../../components/forms';
 import AlertExistingUser from './AlertExistingUser.component';
 import { DATE_FORMAT } from '../../utils/datetime';
-import type { SignUpFormConfigDict } from '../sign-up-form/types';
-import {
-  USER_STATUS_VALIDATION_WITH_USER_NOT_MEMBER_OF_COMPANY,
-  USER_STATUS_VALIDATION_WITH_MEMBER_OF_COMPANY,
-  USER_STATUS_VALIDATION_COMPLETED,
-} from './utils';
 import withConfirm from '../../hocs/with-confirm.hoc';
 
 const styles = (theme) => ({
@@ -84,7 +78,6 @@ type Props = {
   memberId: number,
   emailExistsError: boolean,
   asManager?: boolean,
-  managerFormConfig: ?SignUpFormConfigDict,
   onCancel?: () => void,
   checkUserExists: (data: { email?: string, phonenumber?: string }) => void,
   goToMember: (id: number) => void,
@@ -167,51 +160,7 @@ const MemberFormTitle = (props: { t: TFunction }) => {
     </>
   );
 };
-const MemberGreetingBanner = (props: {
-  userStatus: number,
-  t: TFunction,
-  initial: object,
-}) => {
-  const { userStatus, t, initial } = props;
-  if (userStatus === USER_STATUS_VALIDATION_COMPLETED) {
-    return null;
-  }
-  if (userStatus === USER_STATUS_VALIDATION_WITH_MEMBER_OF_COMPANY) {
-    return (
-      <>
-        <Typography variant="h5">
-          {t('member:forms.needInformationValidation.welcome', {
-            firstname: initial.firstname,
-          })}
-        </Typography>
-        <Typography variant="h6">
-          {t('member:forms.needInformationValidation.subtitle.memberOfCompany')}
-        </Typography>
-        <Typography variant="body1">
-          {t('member:forms.needInformationValidation.legend.memberOfCompany')}
-        </Typography>
-      </>
-    );
-  }
-  if (userStatus === USER_STATUS_VALIDATION_WITH_USER_NOT_MEMBER_OF_COMPANY) {
-    return (
-      <>
-        <Typography variant="h5">
-          {t('member:forms.needInformationValidation.welcome', {
-            firstname: initial.firstname,
-          })}
-        </Typography>
-        <Typography variant="h6">
-          {t('member:forms.needInformationValidation.subtitle.notMemberYet')}
-        </Typography>
-        <Typography variant="body1">
-          {t('member:forms.needInformationValidation.legend.notMemberYet')}
-        </Typography>
-      </>
-    );
-  }
-  return null;
-};
+
 const checkIfMemberExists = (
   currentFormikState,
   nextFormikState,
@@ -224,26 +173,6 @@ const checkIfMemberExists = (
   }
 };
 
-const renderConfirmButtonText = (userStatus: number) => {
-  if (userStatus === USER_STATUS_VALIDATION_WITH_USER_NOT_MEMBER_OF_COMPANY) {
-    return 'member:forms.needInformationValidation.button.notMemberYet';
-  }
-  if (userStatus === USER_STATUS_VALIDATION_WITH_MEMBER_OF_COMPANY) {
-    return 'member:forms.needInformationValidation.button.memberOfCompany';
-  }
-  return 'translation:form.send';
-};
-
-const renderCancelButtonText = (userStatus: number) => {
-  if (userStatus === USER_STATUS_VALIDATION_WITH_USER_NOT_MEMBER_OF_COMPANY) {
-    return 'translation:common.disconnect';
-  }
-  if (userStatus === USER_STATUS_VALIDATION_WITH_MEMBER_OF_COMPANY) {
-    return 'translation:common.disconnect';
-  }
-  return 'translation:common.cancel';
-};
-
 export function MemberForm(props: Props) {
   const {
     classes,
@@ -253,7 +182,6 @@ export function MemberForm(props: Props) {
     variant,
     checkUserExists,
     asManager,
-    managerFormConfig,
     userStatus,
     setFieldValue,
   } = props;
@@ -272,28 +200,6 @@ export function MemberForm(props: Props) {
     }
     return [];
   };
-  if (
-    !managerFormConfig ||
-    !managerFormConfig.first_name ||
-    !managerFormConfig.last_name ||
-    !managerFormConfig.email ||
-    !managerFormConfig.gender ||
-    !managerFormConfig.phone ||
-    !managerFormConfig.birthday ||
-    !managerFormConfig.address_line_1 ||
-    !managerFormConfig.address_line_2 ||
-    !managerFormConfig.city ||
-    !managerFormConfig.zipcode ||
-    !managerFormConfig.country ||
-    !managerFormConfig.photo ||
-    !managerFormConfig.emergency_contact ||
-    !managerFormConfig.accept_email ||
-    !managerFormConfig.accept_sms ||
-    !managerFormConfig.general_terms_and_conditions_accepted ||
-    !managerFormConfig.waiver
-  ) {
-    return <LinearProgress />;
-  }
   const WaiverPopUp = withConfirm(ButtonBase, 'onClick', {
     title: 'translation:form.member.waiver.dialog.title',
     confirm: 'translation:form.member.waiver.dialog.confirm',
@@ -344,19 +250,10 @@ export function MemberForm(props: Props) {
           </div>
         ) : null}
 
-        {userStatus ? (
-          <Grid className={classes.memberGreeting}>
-            <MemberGreetingBanner
-              userStatus={userStatus}
-              t={t}
-              initial={props.initial}
-            />
-          </Grid>
-        ) : (
-          <div className={classes.title}>
-            <MemberFormTitle userStatus={userStatus} t={t} />
-          </div>
-        )}
+        <div className={classes.title}>
+          <MemberFormTitle userStatus={userStatus} t={t} />
+        </div>
+
         <Form>
           <Effect
             onChange={(prev, nxt) =>
@@ -364,48 +261,29 @@ export function MemberForm(props: Props) {
             }
           />
           <Grid container spacing={2}>
-            {((managerFormConfig &&
-              managerFormConfig.photo &&
-              managerFormConfig.photo.show_on_edition) ||
-              !managerFormConfig) && (
-              <Grid item xs={12} className={classes.photoContainer}>
-                <div className={classes.photoWithError}>
-                  <AvatarFieldWithButton
-                    name="avatar"
-                    disabled={
-                      disabled ||
-                      (!asManager &&
-                        !managerFormConfig.photo.editable_on_edition)
-                    }
-                    required={
-                      !asManager &&
-                      !checkUserProfilePicture() &&
-                      managerFormConfig.photo.mandatory_on_creation
-                    }
-                    buttonText={t('translation:form.modify')}
-                  />
-                  {!asManager &&
-                    managerFormConfig.photo.mandatory_on_creation &&
-                    !checkUserProfilePicture() && (
-                      <Typography variant="caption" color="error">
-                        {t('form.signup.addProfilePictureRequiredLabel')}
-                      </Typography>
-                    )}
-                </div>
-              </Grid>
-            )}
+            <Grid item xs={12} className={classes.photoContainer}>
+              <div className={classes.photoWithError}>
+                <AvatarFieldWithButton
+                  name="avatar"
+                  disabled={disabled}
+                  required={!asManager && !checkUserProfilePicture()}
+                  buttonText={t('translation:form.modify')}
+                />
+                {!asManager && !checkUserProfilePicture() && (
+                  <Typography variant="caption" color="error">
+                    {t('form.signup.addProfilePictureRequiredLabel')}
+                  </Typography>
+                )}
+              </div>
+            </Grid>
+
             <Grid container spacing={2}>
               <Grid item xs={12} md={mdSize}>
                 <div className={classes.marginLeft}>
                   <TextField
                     shrink
                     name="firstname"
-                    label={
-                      (managerFormConfig &&
-                        managerFormConfig.first_name &&
-                        managerFormConfig.first_name.label) ||
-                      t('translation:form.firstname')
-                    }
+                    label={t('translation:form.firstname')}
                     required
                     disabled={disabled}
                     fullWidth
@@ -416,12 +294,7 @@ export function MemberForm(props: Props) {
                 <TextField
                   name="lastname"
                   shrink
-                  label={
-                    (managerFormConfig &&
-                      managerFormConfig.last_name &&
-                      managerFormConfig.last_name.label) ||
-                    t('translation:form.lastname')
-                  }
+                  label={t('translation:form.lastname')}
                   required
                   fullWidth
                   disabled={disabled}
@@ -433,12 +306,7 @@ export function MemberForm(props: Props) {
                     <TextField
                       name="email"
                       shrink
-                      label={
-                        (managerFormConfig &&
-                          managerFormConfig.email &&
-                          managerFormConfig.email.label) ||
-                        t('translation:form.email')
-                      }
+                      label={t('translation:form.email')}
                       type="email"
                       fullWidth
                       required={!asManager}
@@ -447,12 +315,7 @@ export function MemberForm(props: Props) {
                   ) : (
                     <DelayTextField
                       name="email"
-                      label={
-                        (managerFormConfig &&
-                          managerFormConfig.email &&
-                          managerFormConfig.email.label) ||
-                        t('translation:form.email')
-                      }
+                      label={t('translation:form.email')}
                       type="email"
                       fullWidth
                       required={!asManager}
@@ -462,29 +325,13 @@ export function MemberForm(props: Props) {
                 </div>
               </Grid>
               <Grid item xs={12} md={mdSize}>
-                {((managerFormConfig &&
-                  managerFormConfig.gender.show_on_edition) ||
-                  !managerFormConfig) && (
-                  <GenderField
-                    name="gender"
-                    label={
-                      (managerFormConfig && managerFormConfig.gender.label) ||
-                      t('translation:form.gender')
-                    }
-                    fullWidth
-                    required={
-                      !asManager &&
-                      managerFormConfig &&
-                      managerFormConfig.gender.mandatory_on_creation
-                    }
-                    disabled={
-                      disabled ||
-                      (!asManager &&
-                        managerFormConfig &&
-                        !managerFormConfig.gender.editable_on_edition)
-                    }
-                  />
-                )}
+                <GenderField
+                  name="gender"
+                  label={t('translation:form.gender')}
+                  fullWidth
+                  required={!asManager}
+                  disabled={disabled || !asManager}
+                />
               </Grid>
             </Grid>
 
@@ -514,39 +361,24 @@ export function MemberForm(props: Props) {
             )}
             <Grid item xs={12} md={mdSize}>
               <Grid container direction="row" spacing={2}>
-                {((managerFormConfig &&
-                  managerFormConfig.birthday.show_on_edition) ||
-                  !managerFormConfig) && (
-                  <Grid item>
-                    <DateField
-                      keyboard
-                      format="L"
-                      required={
-                        !asManager &&
-                        (!!props.fromConsumerAccess ||
-                          managerFormConfig.birthday.mandatory_on_creation)
-                      }
-                      openToYearSelection
-                      clearable
-                      disabled={
-                        disabled ||
-                        (!asManager &&
-                          managerFormConfig &&
-                          !managerFormConfig.birthday.editable_on_edition)
-                      }
-                      label={
-                        managerFormConfig.birthday.label ||
-                        t('translation:form.birthday')
-                      }
-                      name="birthday"
-                      returnMoment={false}
-                      disableFuture
-                      clearLabel={t('translation:form.clearDate')}
-                      cancelLabel={t('translation:common.cancel')}
-                      initialFocusedDate="1990/01/01"
-                    />
-                  </Grid>
-                )}
+                <Grid item>
+                  <DateField
+                    keyboard
+                    format="L"
+                    required={!asManager}
+                    openToYearSelection
+                    clearable
+                    disabled={disabled || !asManager}
+                    label={t('translation:form.birthday')}
+                    name="birthday"
+                    returnMoment={false}
+                    disableFuture
+                    clearLabel={t('translation:form.clearDate')}
+                    cancelLabel={t('translation:common.cancel')}
+                    initialFocusedDate="1990/01/01"
+                  />
+                </Grid>
+
                 {!asManager ? null : (
                   <Grid item>
                     <DateField
@@ -564,175 +396,72 @@ export function MemberForm(props: Props) {
             </Grid>
             <Grid item xs={12} md={mdSize}>
               <Grid container direction="row" spacing={2}>
-                {((managerFormConfig &&
-                  managerFormConfig.phone.show_on_edition) ||
-                  !managerFormConfig) && (
-                  <Grid item md={12} xs={12}>
-                    <PhoneField
-                      name="phone"
-                      label={t('translation:form.phone')}
-                      fullWidth
-                      required={
-                        !asManager &&
-                        managerFormConfig.phone.mandatory_on_creation
-                      }
-                      disabled={
-                        disabled ||
-                        (!asManager &&
-                          managerFormConfig &&
-                          !managerFormConfig.phone.editable_on_edition)
-                      }
-                      country={browserCountryCode()}
-                    />
-                  </Grid>
-                )}
+                <Grid item md={12} xs={12}>
+                  <PhoneField
+                    name="phone"
+                    label={t('translation:form.phone')}
+                    fullWidth
+                    required={!asManager}
+                    disabled={disabled || !asManager}
+                    country={browserCountryCode()}
+                  />
+                </Grid>
               </Grid>
             </Grid>
             <Grid container xs={12} md={12} direction="row">
               <Grid item xs={12} md={mdSize}>
                 <div className={classes.gridColumn}>
-                  {((managerFormConfig &&
-                    managerFormConfig.address_line_1.show_on_edition) ||
-                    !managerFormConfig) && (
-                    <TextField
-                      required={
-                        !asManager &&
-                        managerFormConfig.address_line_1.mandatory_on_creation
-                      }
-                      name="address_line_1"
-                      fullWidth
-                      disabled={
-                        disabled ||
-                        (!asManager &&
-                          managerFormConfig &&
-                          !managerFormConfig.address_line_1.editable_on_edition)
-                      }
-                      label={
-                        managerFormConfig.address_line_1.label ||
-                        t('form.address.addressLine1')
-                      }
-                    />
-                  )}
-                  {((managerFormConfig &&
-                    managerFormConfig.address_line_2.show_on_edition) ||
-                    !managerFormConfig) && (
-                    <TextField
-                      name="address_line_2"
-                      required={
-                        !asManager &&
-                        managerFormConfig.address_line_2.mandatory_on_creation
-                      }
-                      fullWidth
-                      disabled={
-                        disabled ||
-                        (!asManager &&
-                          managerFormConfig &&
-                          !managerFormConfig.address_line_2.editable_on_edition)
-                      }
-                      label={
-                        managerFormConfig.address_line_2.label ||
-                        t('form.address.addressLine2')
-                      }
-                    />
-                  )}
+                  <TextField
+                    required={!asManager}
+                    name="address_line_1"
+                    fullWidth
+                    disabled={disabled || !asManager}
+                    label={t('form.address.addressLine1')}
+                  />
+                  <TextField
+                    name="address_line_2"
+                    required={!asManager}
+                    fullWidth
+                    disabled={disabled || !asManager}
+                    label={t('form.address.addressLine2')}
+                  />
                   <Grid container direction="row" spacing={2}>
-                    {((managerFormConfig &&
-                      managerFormConfig.zipcode.show_on_edition) ||
-                      !managerFormConfig) && (
-                      <Grid item>
-                        <TextField
-                          name="zipcode"
-                          label={
-                            managerFormConfig.zipcode.label ||
-                            t('form.address.zipcode')
-                          }
-                          disabled={
-                            disabled ||
-                            (!asManager &&
-                              managerFormConfig &&
-                              !managerFormConfig.zipcode.editable_on_edition)
-                          }
-                          required={
-                            !asManager &&
-                            managerFormConfig.zipcode.mandatory_on_creation
-                          }
-                        />
-                      </Grid>
-                    )}
-                    {((managerFormConfig &&
-                      managerFormConfig.city.show_on_edition) ||
-                      !managerFormConfig) && (
-                      <Grid item>
-                        <TextField
-                          name="city"
-                          label={
-                            managerFormConfig.city.label ||
-                            t('form.address.city')
-                          }
-                          disabled={
-                            disabled ||
-                            (!asManager &&
-                              managerFormConfig &&
-                              !managerFormConfig.city.editable_on_edition)
-                          }
-                          required={
-                            !asManager &&
-                            managerFormConfig.city.mandatory_on_creation
-                          }
-                        />
-                      </Grid>
-                    )}
+                    <Grid item>
+                      <TextField
+                        name="zipcode"
+                        label={t('form.address.zipcode')}
+                        disabled={disabled || !asManager}
+                        required={!asManager}
+                      />
+                    </Grid>
+
+                    <Grid item>
+                      <TextField
+                        name="city"
+                        label={t('form.address.city')}
+                        disabled={disabled || !asManager}
+                        required={!asManager}
+                      />
+                    </Grid>
                   </Grid>
-                  {((managerFormConfig &&
-                    managerFormConfig.country.show_on_edition) ||
-                    !managerFormConfig) && (
-                    <TextField
-                      name="country"
-                      required={
-                        !asManager &&
-                        managerFormConfig.country.mandatory_on_creation
-                      }
-                      disabled={
-                        disabled ||
-                        (!asManager &&
-                          managerFormConfig &&
-                          !managerFormConfig.country.editable_on_edition)
-                      }
-                      label={
-                        managerFormConfig.country.label ||
-                        t('form.address.country')
-                      }
-                    />
-                  )}
+                  <TextField
+                    name="country"
+                    required={!asManager}
+                    disabled={disabled || !asManager}
+                    label={t('form.address.country')}
+                  />
                 </div>
               </Grid>
               <Grid item xs={6} md={mdSize}>
                 <div className={classes.gridColumn}>
                   <Grid container direction="column">
-                    {((managerFormConfig &&
-                      managerFormConfig.emergency_contact.show_on_edition) ||
-                      !managerFormConfig) && (
-                      <TextField
-                        name="emergency_contact"
-                        label={
-                          managerFormConfig.emergency_contact.label ||
-                          t('translation:form.emergencyContact')
-                        }
-                        fullWidth
-                        required={
-                          !asManager &&
-                          managerFormConfig.emergency_contact
-                            .mandatory_on_creation
-                        }
-                        disabled={
-                          disabled ||
-                          (!asManager &&
-                            managerFormConfig &&
-                            !managerFormConfig.emergency_contact
-                              .editable_on_edition)
-                        }
-                      />
-                    )}
+                    <TextField
+                      name="emergency_contact"
+                      label={t('translation:form.emergencyContact')}
+                      fullWidth
+                      required={!asManager}
+                      disabled={disabled || !asManager}
+                    />
                   </Grid>
                   <Grid
                     style={{ marginTop: 12, marginBottom: 12 }}
@@ -740,125 +469,69 @@ export function MemberForm(props: Props) {
                     xs={12}
                     md={mdSize}
                   >
-                    {((managerFormConfig &&
-                      managerFormConfig.vaccination_status?.show_on_edition) ||
-                      !managerFormConfig) && (
-                      <VaccinationStatusField
-                        name="vaccination_status"
-                        label={
-                          (managerFormConfig &&
-                            managerFormConfig.vaccination_status.label) ||
-                          t('translation:common.vaccination_status')
-                        }
-                        fullWidth
-                        required={
-                          !asManager &&
-                          managerFormConfig &&
-                          managerFormConfig.vaccination_status
-                            .mandatory_on_creation
-                        }
-                        disabled={
-                          disabled ||
-                          (!asManager &&
-                            managerFormConfig &&
-                            !managerFormConfig.vaccination_status
-                              .editable_on_edition)
-                        }
-                      />
-                    )}
+                    <VaccinationStatusField
+                      name="vaccination_status"
+                      label={t('translation:common.vaccination_status')}
+                      fullWidth
+                      required={!asManager}
+                      disabled={disabled || !asManager}
+                    />
                   </Grid>
                   <Grid item xs={12} md={12}>
                     <FormControl>
-                      {((managerFormConfig &&
-                        (managerFormConfig.accept_email.show_on_edition ||
-                          managerFormConfig.accept_sms.show_on_edition)) ||
-                        !managerFormConfig) && (
-                        <Grid item xs={12} md={12}>
-                          <FormLabel>
-                            {t('translation:form.member.rgpdTitle')}
-                          </FormLabel>
-                        </Grid>
-                      )}
-
                       <Grid item xs={12} md={12}>
-                        {((managerFormConfig &&
-                          managerFormConfig.accept_email.show_on_edition) ||
-                          !managerFormConfig) && (
-                          <CheckboxField
-                            id="checkbox_accept_email"
-                            name="accept_email"
-                            disabled={
-                              disabled ||
-                              (!asManager &&
-                                managerFormConfig &&
-                                !managerFormConfig.accept_email
-                                  .editable_on_edition)
-                            }
-                            label={t('translation:form.member.rgpd.email')}
-                          />
-                        )}
-                      </Grid>
-                      <Grid item xs={12} md={12}>
-                        {((managerFormConfig &&
-                          managerFormConfig.accept_sms.show_on_edition) ||
-                          !managerFormConfig) && (
-                          <CheckboxField
-                            id="checkbox_accept_sms"
-                            name="accept_sms"
-                            disabled={
-                              disabled ||
-                              (!asManager &&
-                                managerFormConfig &&
-                                !managerFormConfig.accept_sms
-                                  .editable_on_edition)
-                            }
-                            label={t('translation:form.member.rgpd.sms')}
-                          />
-                        )}
+                        <FormLabel>
+                          {t('translation:form.member.rgpdTitle')}
+                        </FormLabel>
                       </Grid>
 
                       <Grid item xs={12} md={12}>
-                        {props.waiver &&
-                          ((managerFormConfig &&
-                            managerFormConfig.waiver.show_on_edition) ||
-                            !managerFormConfig) && (
-                            <CheckboxField
-                              id="checkbox_waiver"
-                              name="waiver"
-                              disabled={
-                                disabled ||
-                                (props.initial && props.initial.waiver) ||
-                                (!asManager &&
-                                  managerFormConfig &&
-                                  !managerFormConfig.waiver.editable_on_edition)
-                              }
-                              required={
-                                !asManager &&
-                                managerFormConfig.waiver.mandatory_on_creation
-                              }
-                              label={
-                                <Typography component="div">
-                                  {t('translation:form.member.waiver.iAccept')}
-                                  <WaiverPopUp
-                                    waiver={props.waiver}
-                                    onClick={() =>
-                                      !asManager &&
-                                      managerFormConfig &&
-                                      !managerFormConfig.waiver
-                                        .editable_on_edition &&
-                                      setFieldValue('waiver', true)
-                                    }
-                                  >
-                                    <Typography color="secondary">
-                                      {`${' '}${t(
-                                        'translation:form.member.waiver.conditions',
-                                      )}`}
-                                    </Typography>
-                                  </WaiverPopUp>
-                                </Typography>
-                              }
-                            />
-                          )}
+                        <CheckboxField
+                          id="checkbox_accept_email"
+                          name="accept_email"
+                          disabled={disabled || !asManager}
+                          label={t('translation:form.member.rgpd.email')}
+                        />
+                      </Grid>
+                      <Grid item xs={12} md={12}>
+                        <CheckboxField
+                          id="checkbox_accept_sms"
+                          name="accept_sms"
+                          disabled={disabled || !asManager}
+                          label={t('translation:form.member.rgpd.sms')}
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} md={12}>
+                        {props.waiver && (
+                          <CheckboxField
+                            id="checkbox_waiver"
+                            name="waiver"
+                            disabled={
+                              disabled ||
+                              (props.initial && props.initial.waiver) ||
+                              !asManager
+                            }
+                            required={!asManager}
+                            label={
+                              <Typography component="div">
+                                {t('translation:form.member.waiver.iAccept')}
+                                <WaiverPopUp
+                                  waiver={props.waiver}
+                                  onClick={() =>
+                                    !asManager && setFieldValue('waiver', true)
+                                  }
+                                >
+                                  <Typography color="secondary">
+                                    {`${' '}${t(
+                                      'translation:form.member.waiver.conditions',
+                                    )}`}
+                                  </Typography>
+                                </WaiverPopUp>
+                              </Typography>
+                            }
+                          />
+                        )}
                       </Grid>
                     </FormControl>
                   </Grid>
@@ -880,11 +553,11 @@ export function MemberForm(props: Props) {
                 <Actions>
                   {props.onCancel ? (
                     <Button onClick={props.onCancel} disabled={isSubmitting}>
-                      {t(renderCancelButtonText(userStatus))}
+                      {t('translation:common.cancel')}
                     </Button>
                   ) : null}
                   <Submit disabled={isSubmitting || props.emailExists}>
-                    {t(renderConfirmButtonText(userStatus))}
+                    {t('translation:form.send')}
                   </Submit>
                 </Actions>
               ) : null}
@@ -970,8 +643,8 @@ export default compose(
     },
   })),
   withFormik({
-    mapPropsToValues: ({ initial, managerFormConfig }) =>
-      (initial && { ...initial, managerFormConfig }) || {
+    mapPropsToValues: ({ initial }) =>
+      (initial && { ...initial }) || {
         avatar: '',
         firstname: '',
         lastname: '',
@@ -991,15 +664,14 @@ export default compose(
         city: '',
         country: '',
         zipcode: '',
-        managerFormConfig,
+
         vaccination_status: 'null',
       },
     enableReinitialize: true,
 
     handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
       setSubmitting(true);
-      const { managerFormConfig, ...cleanedValues } = values;
-      let { avatar } = cleanedValues;
+      let { avatar } = values;
       if (typeof avatar === 'string' && avatar.includes('data:image/')) {
         const byteString = atob(avatar.split(',')[1]);
         const mimeString = avatar.split(',')[0].split(':')[1].split(';')[0];
@@ -1018,16 +690,15 @@ export default compose(
         );
       }
       const data = {
-        ...cleanedValues,
-        date_joined: Moment(cleanedValues.date_joined).format(DATE_FORMAT),
+        ...values,
         avatar: typeof avatar !== 'string' ? avatar : undefined,
-        email: cleanedValues.email || '',
-        emergency_contact: cleanedValues.emergency_contact || undefined,
-        gender: cleanedValues.gender || 'X',
+        email: values.email || '',
+        emergency_contact: values.emergency_contact || undefined,
+        gender: values.gender || 'X',
         birthday:
-          cleanedValues &&
-          cleanedValues.birthday &&
-          Moment(cleanedValues.birthday).format('DD/MM/YYYY'),
+          values &&
+          values.birthday &&
+          Moment(values.birthday).format('YYYY-MM-DD'),
       };
       onSubmit(data, {
         onSuccess: () => setSubmitting(false),

@@ -10,7 +10,6 @@ import { unmap } from '../../../pages/form.utils';
 import { MemberMap } from '../utils';
 import type { Member } from '../types';
 import MemberForm from '../MemberForm.component';
-import type { SignUpFormConfigDict } from '../../sign-up-form/types';
 
 type Props = {
   dstMember: ?Member,
@@ -22,7 +21,6 @@ type Props = {
   onSubmit: (data: *, options: any) => void,
   switchSrcDst: (src: number, dst: number) => void,
 
-  managerFormConfig: ?SignUpFormConfigDict,
   waiver: string,
   generalTermsAndConditions: string,
 };
@@ -57,7 +55,6 @@ export class MemberMergeForm extends Component<Props> {
             ignoreMail="true"
             onSubmit={(data, options) => this.props.onSubmit(data, options)}
             country={this.props.country}
-            managerFormConfig={this.props.managerFormConfig}
             waiver={this.props.waiver}
             generalTermsAndConditions={this.props.generalTermsAndConditions}
           />
@@ -71,7 +68,6 @@ export class MemberMergeForm extends Component<Props> {
             variant="merge-form"
             disabled
             initial={prepareData(this.props.srcMember)}
-            managerFormConfig={this.props.managerFormConfig}
             waiver={this.props.waiver}
             generalTermsAndConditions={this.props.generalTermsAndConditions}
           />

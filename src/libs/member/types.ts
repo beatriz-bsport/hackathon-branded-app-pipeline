@@ -11,10 +11,18 @@ export type UserProfile = {
   last_name: string;
   photo: string;
   email: string;
-  phonenumber: string;
+  phone: string;
   birthday: string;
   emergency_contact: string;
-  gender: string;
+  gender: 'F' | 'M' | 'X';
+  address: {
+    address_line_1: string;
+    address_line_2: string;
+    city: string;
+    country: string;
+    zipcode: string;
+  };
+  vaccination_status: boolean | null;
 };
 
 export type MemberNote = {
@@ -107,7 +115,7 @@ export type MemberState = ErrorAndLoading &
       page: number;
     };
     userProfile: ErrorAndLoading & {
-      profile: Member | null;
+      profile: UserProfile | null;
     };
     generic: {};
   };

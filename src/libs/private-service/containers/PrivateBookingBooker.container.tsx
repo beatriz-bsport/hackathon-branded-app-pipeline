@@ -240,7 +240,6 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
             this.setState({ member })
           }
           country={this.props.country}
-          managerFormConfig={this.props.managerFormConfig?.poll_fields}
           waiver={this.props.waiver}
           generalTermsAndConditions={this.props.generalTermsAndConditions}
         />

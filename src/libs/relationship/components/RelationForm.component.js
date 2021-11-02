@@ -26,7 +26,6 @@ type Props = {
 
   classes: Object,
   t: TFunction,
-  managerFormConfig: SignUpFormConfigDict,
   waiver: string,
   generalTermsAndConditions: string,
 };
@@ -81,7 +80,6 @@ export class RelationForm extends React.Component<Props, State> {
           handlMemberSelected={(id, member) =>
             this.setState({ dst_member: member })
           }
-          managerFormConfig={this.props.managerFormConfig}
           waiver={this.props.waiver}
           generalTermsAndConditions={this.props.generalTermsAndConditions}
         />

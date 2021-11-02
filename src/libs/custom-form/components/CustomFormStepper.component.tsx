@@ -17,7 +17,7 @@ import SnoozeIcon from '@material-ui/icons/Snooze';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import { MaterialStyleType } from '../../../utils/types';
 import type { CustomForm, CustomFormDisplayRule } from '../types';
-import CustomFormView from './consumer-form/CustomForm.form';
+import CustomFormView from './consumer-form/CustomFormView.form';
 
 type OwnProps = {
   customFormList: Array<CustomForm>;

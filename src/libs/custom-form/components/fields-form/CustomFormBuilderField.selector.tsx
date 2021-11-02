@@ -11,7 +11,9 @@ import type { MaterialStyleType } from '../../../../utils/types';
 
 import FieldIcon from '../FieldIcon.component';
 
-const getFieldOptions = (fieldOptions) =>
+const getFieldOptions = (
+  fieldOptions: Array<{ value: number; label: string }>,
+) =>
   fieldOptions.map((option) => ({ value: option.value, label: option.label }));
 
 const SingleValue = ({ children, ...props }) => (
@@ -102,6 +104,7 @@ type OwnProps = {
   noMulti: boolean;
   closeMenuOnSelect: boolean;
   isClearable: boolean;
+  formFieldOptionList: Array<{ value: number; label: string }>;
 };
 
 type Props = OwnProps &

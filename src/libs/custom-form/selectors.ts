@@ -7,7 +7,7 @@ import type {
   CustomFormFieldAnswerAPI,
   CustomFormDisplayRule,
 } from './types';
-import { checkDisabledHasAnswer } from './utils';
+import { checkDisabledHasAnswer, insertUserProfileDataToAnswer } from './utils';
 
 export const getCustomForm = (state: RootState, id: number) =>
   state.customForm.byId[id];
@@ -28,9 +28,19 @@ const _getMemberStatisticsData = (state: RootState) =>
 export const getAllCustomForm = createSelector(
   [getCustomFormList, getCustomFormDict],
   (ids: Array<number>, data: { [id: number]: CustomForm }) => {
-    return ids.map((id) => data[id]);
+    return ids
+      .map((id) => data[id])
+      .filter(
+        (customForm: CustomForm) =>
+          !customForm.is_member_form && !customForm.is_signup,
+      );
   },
 );
+
+export const getSignUpCustomForm = (state: RootState) =>
+  state.customForm.signUp.form;
+export const getMemberCustomForm = (state: RootState) =>
+  state.customForm.memberForm.form;
 
 export const getCustomFormWithEnableField = createSelector(
   [getCustomFormDict, (_: RootState, id: number) => id],
@@ -44,6 +54,36 @@ export const getCustomFormWithEnableField = createSelector(
         }
       : null;
   },
+);
+
+const _getUserProfile = (state: RootState) => state.member.userProfile.profile;
+export const withUserProfileData = memoize(
+  (selector: (state: RootState) => CustomForm | Array<CustomForm>) =>
+    createSelector(
+      [selector, _getUserProfile],
+      (custom_form, userProfileData) => {
+        if (!custom_form) return null;
+        if (!userProfileData) return custom_form;
+        if (!Array.isArray(custom_form)) {
+          return {
+            ...custom_form,
+            custom_form_field: custom_form.custom_form_field.map((field) => ({
+              ...field,
+              answer: insertUserProfileDataToAnswer(field, userProfileData),
+            })),
+          };
+        }
+        return custom_form?.map((cf) => {
+          return {
+            ...cf,
+            custom_form_field: cf?.custom_form_field.map((field) => ({
+              ...field,
+              answer: insertUserProfileDataToAnswer(field, userProfileData),
+            })),
+          };
+        });
+      },
+    ),
 );
 export const getCustomFormListWithEnableField = createSelector(
   [getCustomFormDict, (_: RootState, ids: Array<number>) => ids],
@@ -236,7 +276,7 @@ export const withDisplayRule = memoize(
     ),
 );
 
-export const excludeCustoomFormWithoutDisplayRule = memoize(
+export const excludeCustomFormWithoutDisplayRule = memoize(
   (selector: (state: RootState) => Array<CustomForm> | CustomForm) =>
     createSelector([selector], (custom_form) => {
       if (!custom_form) return null;
@@ -247,4 +287,30 @@ export const excludeCustoomFormWithoutDisplayRule = memoize(
         (form: CustomForm) => form?.display_rules?.length !== 0,
       );
     }),
+);
+
+export const getSignUpCustomFormWithEnabledField = createSelector(
+  [getSignUpCustomForm],
+  (customSignupForm) => {
+    if (!customSignupForm) return null;
+    return {
+      ...customSignupForm,
+      custom_form_field: customSignupForm.custom_form_field.filter(
+        (field) => !field.disabled,
+      ),
+    };
+  },
+);
+
+export const getMemberCustomFormWithEnabledField = createSelector(
+  [getMemberCustomForm],
+  (customSignupForm) => {
+    if (!customSignupForm) return null;
+    return {
+      ...customSignupForm,
+      custom_form_field: customSignupForm.custom_form_field.filter(
+        (field) => !field.disabled,
+      ),
+    };
+  },
 );

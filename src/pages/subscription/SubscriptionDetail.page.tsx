@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { compose, withState, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import { push as pushRouter } from 'connected-react-router';
-
+import type { Theme } from '@material-ui/core';
 import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
@@ -52,9 +52,11 @@ import { Subscription } from '../../libs/subscription/types';
 import { OptionCallback } from '../../state/types';
 import { PaymentPack } from '../../libs/payment-packs/types';
 import { PaymentMethod } from '../../libs/payment/types';
+import { MaterialStyleType } from '../../utils/types';
+import { RootState } from '../../reducers';
+import { Member } from '../../libs/member/types';
 
 type Props = {
-  classes: Object;
   loading: boolean;
 
   subscription?: Subscription;
@@ -64,37 +66,45 @@ type Props = {
   goToMember: (id: number) => void;
   goToSubscribe: (id: number) => void;
 
-  setFreezeDialogOpen: (boolean) => void;
+  setFreezeDialogOpen: (open: boolean) => void;
   freezeDialogOpen: boolean;
-  freezeSubscription: ({ days: number }) => void;
+  freezeSubscription: ({ days }: { days: number }) => void;
 
-  setSwitchPaymentMethodDialogOpen: (boolean) => void;
+  setSwitchPaymentMethodDialogOpen: (open: boolean) => void;
   switchPaymentMethodDialogOpen: boolean;
   switchPaymentMethod: (source: string) => void;
   openPaymentMethodSwitch: () => void;
 
   switchPackDialogOpen: boolean;
-  setSiwtchPackDialogOpen: (boolean) => void;
+  setSiwtchPackDialogOpen: (open: boolean) => void;
   switchSubscriptionPaymentPack: (payment_pack: number) => void;
   availablePaymentPackList: Array<PaymentPack>;
 
-  setStopDialogOpen: (boolean) => void;
+  setStopDialogOpen: (open: boolean) => void;
   stopDialogOpen: boolean;
 
   eventList: Array<any>;
   eventPage: number;
   eventLoading: boolean;
   fetchSubscriptionEventList: ({
-    page: number,
-    page_size: number,
-    billing_plan: number,
+    page,
+    page_size,
+    billing_plan,
+  }: {
+    page: number;
+    page_size: number;
+    billing_plan?: number;
   }) => void;
 
   memberLoading: boolean;
 
   openPackSwitcherDialog: () => void;
 
-  updateSubscriptionRenewal: ({ auto_renewal: boolean }) => void;
+  updateSubscriptionRenewal: ({
+    auto_renewal,
+  }: {
+    auto_renewal: boolean;
+  }) => void;
   updatePlannedInvoicePrice: (
     id: number,
     data: {
@@ -109,10 +119,12 @@ type Props = {
   fetchPaymentMethodList: () => void;
   savedPaymentMethodList: Array<PaymentMethod>;
   scheduledStopDialogOpen: boolean;
-  setScheduledStopDialogOpen: (boolean) => void;
+  setScheduledStopDialogOpen: (open: boolean) => void;
   flagPlannedInvoiceAsLast: (id: number) => void;
   unflagPlannedInvoiceAsLast: (id: number) => void;
-};
+  memberById: { [key: number]: Member };
+  cancelPause: (pauseId: number, options: OptionCallback<Subscription>) => void;
+} & MaterialStyleType<ReturnType<typeof styles>>;
 
 export class SubscriptionDetail extends Component<Props> {
   componentWillMount() {
@@ -136,7 +148,6 @@ export class SubscriptionDetail extends Component<Props> {
       goToMember,
       goToSubscribe,
     } = this.props;
-
     return (
       <div className={this.props.classes.container}>
         {loading ? <LinearProgress /> : null}
@@ -229,7 +240,7 @@ export class SubscriptionDetail extends Component<Props> {
   }
 }
 
-const styles = (theme) => ({
+const styles = (theme: Theme) => ({
   container: {
     paddingBottom: '30vh',
   },
@@ -259,7 +270,7 @@ export default compose(
   ),
   withState('scheduledStopDialogOpen', 'setScheduledStopDialogOpen', false),
   connect(
-    (state, { id }) => ({
+    (state: RootState, { id }: { id: number }) => ({
       subscription: getSubscriptionById(state, id),
       memberLoading: state.member.loading,
       loading:
@@ -309,7 +320,11 @@ export default compose(
       id,
       switchSubscriptionPaymentMethod,
       setSwitchPaymentMethodDialogOpen,
-    }) => (source, options, payment_method_id) => {
+    }) => (
+      source,
+      options: OptionCallback<Subscription>,
+      payment_method_id: number,
+    ) => {
       switchSubscriptionPaymentMethod(
         id,
         {
@@ -318,7 +333,7 @@ export default compose(
           payment_engine: PAYMENT_ENGINE_STRIPE,
         },
         {
-          onSuccess: (sub) => {
+          onSuccess: (sub: Subscription) => {
             if (options && options.onSuccess) options.onSuccess(sub);
             setSwitchPaymentMethodDialogOpen(false);
           },
@@ -333,7 +348,7 @@ export default compose(
       id,
     }) => () => {
       fetchSubscription(id, {
-        onSuccess: (sub) => {
+        onSuccess: (sub: Subscription) => {
           fetchPaymentPackBulk([sub.payment_pack]);
           fetchMember(sub.member);
         },
@@ -351,11 +366,11 @@ export default compose(
       switchSubscriptionPaymentPack,
       fetchPaymentPackBulk,
       setSiwtchPackDialogOpen,
-    }) => (data, options) => {
+    }) => (data, options: OptionCallback<Subscription>) => {
       switchSubscriptionPaymentPack(id, data, {
-        onSuccess: (sub) => {
+        onSuccess: (sub: Subscription) => {
           setSiwtchPackDialogOpen(false);
-          if (options && options.onSucess) options.onSuccess(sub);
+          if (options && options.onSuccess) options.onSuccess(sub);
           fetchPaymentPackBulk([sub.payment_pack]);
         },
         onError: (err) => {
@@ -365,7 +380,7 @@ export default compose(
     },
     freezeSubscription: ({ id, freezeSubscription, setFreezeDialogOpen }) => (
       data,
-      options,
+      options: OptionCallback<Subscription>,
     ) => {
       const options_ = {
         onSuccess: (...args) => {
@@ -381,15 +396,15 @@ export default compose(
     },
     updateSubscriptionRenewal: ({ id, updateSubscriptionRenewal }) => (
       data,
-      options,
+      options: OptionCallback<Subscription>,
     ) => {
       updateSubscriptionRenewal(id, data, options);
     },
   }),
   withHandlers({
     cancelPause: ({ cancelPause, fetchSubscription, id }) => (
-      pauseId,
-      options,
+      pauseId: number,
+      options: OptionCallback<Subscription>,
     ) => {
       cancelPause(id, pauseId, {
         onSuccess: () => {
@@ -405,7 +420,7 @@ export default compose(
       updatePlannedInvoiceDate,
       fetchSubscription,
       id,
-    }) => (data, options) => {
+    }) => (data, options: OptionCallback<Subscription>) => {
       updatePlannedInvoiceDate(id, data, {
         onSuccess: () => {
           if (options && options.onSuccess) options.onSuccess();
@@ -419,20 +434,20 @@ export default compose(
     flagPlannedInvoiceAsLast: ({
       flagPlannedInvoiceAsLast,
       fetchSubscription,
-    }) => (id) => {
+    }) => (id: number) => {
       flagPlannedInvoiceAsLast(id, { onSuccess: () => fetchSubscription() });
     },
     unflagPlannedInvoiceAsLast: ({
       unflagPlannedInvoiceAsLast,
       fetchSubscription,
-    }) => (id) => {
+    }) => (id: number) => {
       unflagPlannedInvoiceAsLast(id, { onSuccess: () => fetchSubscription() });
     },
     updatePlannedInvoicePrice: ({
       updatePlannedInvoicePrice,
       id,
       fetchSubscription,
-    }) => (data, options) => {
+    }) => (data, options: OptionCallback<Subscription>) => {
       updatePlannedInvoicePrice(id, data, {
         onSuccess: (...args) => {
           if (options && options.onSuccess) {

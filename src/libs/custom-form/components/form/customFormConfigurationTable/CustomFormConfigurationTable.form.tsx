@@ -3,10 +3,10 @@ import { compose } from 'recompose';
 import green from '@material-ui/core/colors/green';
 import amber from '@material-ui/core/colors/amber';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { connect, FieldArray, Formik, FormikProps } from 'formik';
-import Grow from '@material-ui/core/Grow';
+import { connect, FieldArray, Formik, FormikProps, Form } from 'formik';
 import Typography from '@material-ui/core/Typography';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import CheckOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import { Theme } from '@material-ui/core/styles';
@@ -21,17 +21,19 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import Divider from '@material-ui/core/Divider';
-
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
-
+import { TFunction } from 'i18next';
 import CustomFormFieldListItem from '../../CustomFormFieldListItem.component';
-import CustomFormFieldFormDialog from '../../fields-form/customFormFieldBuilder';
+import CustomFormFieldBuilderDialog from '../../fields-form/customFormFieldBuilder';
 import type {
   CustomForm,
   CustomFormField,
   FormikCustomForm,
 } from '../../../types';
 import { MaterialStyleType } from '../../../../../utils/types';
+import { TagGroup, Tag } from '../../../../tag/types';
+import withConfirm from '../../../../../hocs/with-confirm.hoc';
+import CustomFormConfigurationBanner from '../../CustomFormConfigurationBanner.component';
 
 const SortableItem = SortableElement((props: any) => (
   <div style={{ display: 'flex', opacity: '1', zIndex: 99999, width: '100%' }}>
@@ -46,9 +48,13 @@ type InitialValues = {
 };
 type OwnProps = InitialValues & {
   onSubmit: (customForm: CustomForm) => void;
-  setCustomFormView?: (values: CustomForm) => void;
   isSubmitting: boolean;
-  handleUpdateView: (customform: CustomForm) => void;
+  handleUpdateView?: (customform: CustomForm) => void;
+  tag_groups: Array<TagGroup>;
+  tags: Array<Tag>;
+  setIsDirty?: (dirty: boolean) => void;
+  navigateToSignup?: () => void;
+  navigateToMemberForm?: () => void;
 };
 type Props = OwnProps &
   WithTranslation &
@@ -56,14 +62,28 @@ type Props = OwnProps &
   OwnProps &
   MaterialStyleType<ReturnType<typeof styles>>;
 
-type FormikChangesLookUpProps = FormikProps<InitialValues> &
-  WithTranslation &
+type FormikLookUpOwnProps = {
+  setIsDirty?: (dirty: boolean) => void;
+  t: TFunction;
+  setregisteredSignUpQuestions: (kind_list: Array<number>) => void;
+  registeredSignUpQuestions: Array<number>;
+};
+
+type InitialFormikValues = {
+  initial?: CustomForm;
+  custom_form_field_enabled: Array<CustomFormField>;
+  custom_form_field_disabled: Array<CustomFormField>;
+  custom_form_field: Array<CustomFormField>;
+};
+type FormikChangesLookUpProps = FormikLookUpOwnProps & {
+  formik: FormikProps<InitialFormikValues>;
+} & WithTranslation &
   MaterialStyleType<ReturnType<typeof styles>>;
 type FormikChangesLookUpState = {
   detectedChanges: boolean;
 };
 
-const FormikChangesLookUp = connect<FormikProps<InitialValues>>(
+const FormikChangesLookUp = connect<FormikProps<InitialFormikValues>>(
   class __ extends React.Component<
     FormikChangesLookUpProps,
     FormikChangesLookUpState
@@ -75,15 +95,22 @@ const FormikChangesLookUp = connect<FormikProps<InitialValues>>(
       };
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(PrevProps: FormikChangesLookUpProps) {
       if (
-        !this.state.detectedChanges &&
-        this.props.formik &&
-        this.props.formik.initialValues &&
-        this.props.formik.values &&
-        this.props.formik.initialValues !== this.props.formik.values
+        !PrevProps?.formik?.dirty &&
+        this.props.formik?.dirty &&
+        !this.state.detectedChanges
       ) {
         this.setState({ detectedChanges: true });
+        this.props.setIsDirty && this.props.setIsDirty(true);
+      }
+      if (
+        !PrevProps?.formik?.dirty &&
+        !this.props.formik?.dirty &&
+        this.state.detectedChanges
+      ) {
+        this.setState({ detectedChanges: false });
+        this.props.setIsDirty && this.props.setIsDirty(false);
       }
     }
 
@@ -91,21 +118,38 @@ const FormikChangesLookUp = connect<FormikProps<InitialValues>>(
       const { detectedChanges } = this.state;
       const { t, classes } = this.props;
       return (
-        <Grow in={detectedChanges} timeout={1000}>
-          <div className={classes.formChangeContainer}>
-            <InfoOutlinedIcon className={classes.changeWarning} />
+        <>
+          {detectedChanges ? (
+            <div className={classes.formChangeContainer}>
+              <InfoOutlinedIcon className={classes.changeWarning} />
 
-            <Typography variant="caption" className={classes.changeWarning}>
-              {t('customForm.changesDetected')}
-            </Typography>
-          </div>
-        </Grow>
+              <Typography variant="caption" className={classes.changeWarning}>
+                {t('customForm.changesDetected')}
+              </Typography>
+            </div>
+          ) : (
+            <div className={classes.formNoChangeContainer}>
+              <CheckOutlinedIcon className={classes.noChangeWarning} />
+
+              <Typography variant="caption" className={classes.noChangeWarning}>
+                {t('customForm.noChanges')}
+              </Typography>
+            </div>
+          )}
+        </>
       );
     }
   },
 );
-
-export function CustomFormAnswer(props: Props) {
+const ButtonSaveWithInfo = withConfirm(Button, 'onClick', {
+  title: 'marketing:customForm.signUpInfoModal.title',
+  cancel: 'marketing:customForm.signUpInfoModal.cancel',
+  confirm: 'marketing:customForm.signUpInfoModal.confirm',
+  Content: ({ t }: { t: TFunction }) => (
+    <p>{t('marketing:customForm.signUpInfoModal.content')}</p>
+  ),
+});
+export function CustomFormConfigurationTable(props: Props) {
   const { t, isSubmitting, classes } = props;
   const [openFieldCreationDialog, setOpenCreationDialog] = React.useState(
     false,
@@ -114,6 +158,19 @@ export function CustomFormAnswer(props: Props) {
     null,
   );
   const [showDisabledField, setShowDisabledField] = React.useState(false);
+  const [
+    registeredSignUpQuestions,
+    setregisteredSignUpQuestions,
+  ] = React.useState([]);
+  const [showInfoDialogOnsave, setShowInfoDialogOnSave] = React.useState(false);
+  React.useEffect(() => {
+    props.initial &&
+      setregisteredSignUpQuestions(
+        props.initial?.custom_form_field.map(
+          (field: CustomFormField) => field.signup_question_kind,
+        ),
+      );
+  }, [props.initial]);
   const handleFieldUpdate = (field: CustomFormField, index: number) => {
     setInitialFieldWithIndex({ field, index });
     setOpenCreationDialog(true);
@@ -124,13 +181,14 @@ export function CustomFormAnswer(props: Props) {
       custom_form_field_disabled,
       ...otherValues
     } = values;
-    props.handleUpdateView({
-      ...otherValues,
-      custom_form_field: [
-        ...custom_form_field_enabled,
-        ...custom_form_field_disabled,
-      ],
-    });
+    props.handleUpdateView &&
+      props.handleUpdateView({
+        ...otherValues,
+        custom_form_field: [
+          ...custom_form_field_enabled,
+          ...custom_form_field_disabled,
+        ],
+      });
   };
   const updateCustomFormField = async (
     field: CustomFormField,
@@ -175,9 +233,6 @@ export function CustomFormAnswer(props: Props) {
     },
     [],
   );
-  if (props.isSubmitting) {
-    return <LinearProgress color="primary" />;
-  }
   return (
     <Formik
       initialValues={
@@ -204,6 +259,7 @@ export function CustomFormAnswer(props: Props) {
               custom_form_field_disabled: [],
             }
       }
+      enableReinitialize
       onSubmit={(values) => {
         const {
           custom_form_field_enabled,
@@ -219,7 +275,7 @@ export function CustomFormAnswer(props: Props) {
         });
       }}
     >
-      {(mainFormik) => (
+      {(mainFormik: FormikProps<InitialFormikValues>) => (
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -228,7 +284,23 @@ export function CustomFormAnswer(props: Props) {
           }}
         >
           <>
-            <FormikChangesLookUp t={t} classes={classes} />
+            <CustomFormConfigurationBanner
+              customForm={props.initial}
+              navigateTo={
+                props?.initial.is_signup
+                  ? props.navigateToMemberForm
+                  : props.navigateToSignup
+              }
+            />
+            <FormikChangesLookUp
+              t={t}
+              classes={classes}
+              setIsDirty={props.setIsDirty}
+              setregisteredSignUpQuestions={setregisteredSignUpQuestions}
+              registeredSignUpQuestions={registeredSignUpQuestions}
+            />
+            {props.isSubmitting && <LinearProgress color="primary" />}
+
             <List component="nav" disablePadding>
               <Paper square>
                 <ListItem divider className={classes.listitem}>
@@ -242,17 +314,23 @@ export function CustomFormAnswer(props: Props) {
                       {t('customForm.kind')}
                     </Typography>
                   </div>
-
                   <Typography variant="subtitle2" className={classes.label}>
                     {t('customForm.label')}
                   </Typography>
-
-                  <div className={classes.mandatory}>
-                    <Typography variant="subtitle2" component="span">
-                      {t('customForm.mandatory')}
-                    </Typography>
-                  </div>
-
+                  {!props?.initial?.is_member_form && (
+                    <div className={classes.mandatory}>
+                      <Typography variant="subtitle2" component="span">
+                        {t('customForm.mandatory')}
+                      </Typography>
+                    </div>
+                  )}
+                  {props?.initial?.is_member_form && (
+                    <div className={classes.mandatory}>
+                      <Typography variant="subtitle2" component="span">
+                        {t('customForm.editable')}
+                      </Typography>
+                    </div>
+                  )}
                   <div className={classes.actions}>
                     <Typography variant="subtitle2" component="span">
                       {t('customForm.listActions')}
@@ -275,6 +353,7 @@ export function CustomFormAnswer(props: Props) {
                   <>
                     <Container
                       useDragHandle
+                      transitionDuration={500}
                       hideSortableGhost={false}
                       onSortEnd={(e) =>
                         onSortEnd(
@@ -286,29 +365,60 @@ export function CustomFormAnswer(props: Props) {
                     >
                       {custom_form_field_enabled.map(
                         (field: CustomFormField, i: number) => (
-                          <SortableItem index={i} key={i}>
+                          <SortableItem index={i} key={`${i}${field.id}`}>
                             <Paper square className={classes.paperItem}>
                               <CustomFormFieldListItem
                                 key={`enabled_field${i}`}
-                                {...props}
                                 customFormField={field}
-                                onClickRequired={() =>
+                                onClickRequired={() => {
                                   mainFormik.setFieldValue(
                                     `custom_form_field_enabled.${i}.mandatory`,
                                     !mainFormik.values
                                       .custom_form_field_enabled[i].mandatory,
+                                  );
+                                  if (
+                                    !mainFormik.values
+                                      .custom_form_field_enabled[i].mandatory
+                                  ) {
+                                    mainFormik.setFieldValue(
+                                      `custom_form_field_enabled.${i}.editable`,
+                                      true,
+                                    );
+                                  }
+                                  if (
+                                    props.initial?.is_signup &&
+                                    !mainFormik.values
+                                      .custom_form_field_enabled[i].mandatory &&
+                                    field.signup_question_kind
+                                  ) {
+                                    const initialValue = mainFormik.initialValues?.custom_form_field.find(
+                                      (f: CustomFormField) => f.id === field.id,
+                                    );
+                                    initialValue &&
+                                      !initialValue.mandatory &&
+                                      setShowInfoDialogOnSave(true);
+                                  }
+                                }}
+                                onClickEditable={() =>
+                                  mainFormik.setFieldValue(
+                                    `custom_form_field_enabled.${i}.editable`,
+                                    !mainFormik.values
+                                      .custom_form_field_enabled[i].editable,
                                   )
                                 }
                                 onClickEdit={() => handleFieldUpdate(field, i)}
                                 onClickDelete={() => {
                                   custom_form_field_disabled.push({
-                                    ...mainFormik.values.custom_form_field[i],
+                                    ...mainFormik.values
+                                      .custom_form_field_enabled[i],
                                     disabled: true,
                                   });
                                   remove(i);
                                 }}
                                 index={i}
                                 customFormFieldType="custom_form_field_enabled"
+                                isSignUpForm={props.initial.is_signup}
+                                isMemberForm={props.initial.is_member_form}
                               />
                             </Paper>
                           </SortableItem>
@@ -319,25 +429,41 @@ export function CustomFormAnswer(props: Props) {
                           color="primary"
                           variant="outlined"
                           onClick={() => setOpenCreationDialog(true)}
+                          disabled={mainFormik.dirty || isSubmitting}
                         >
                           <AddIcon className={classes.leftIcon} />
                           {t('customForm.addFieldLong')}
                         </Button>
                         <div className={classes.submit}>
-                          <Button
-                            type="submit"
-                            id="button_submit_custom_form"
-                            disabled={isSubmitting}
-                            variant="contained"
-                            color="primary"
-                          >
-                            <SaveIcon className={classes.leftIcon} />
-                            {t('customForm.save')}
-                          </Button>
+                          {!showInfoDialogOnsave ? (
+                            <Button
+                              type="submit"
+                              id="button_submit_custom_form"
+                              disabled={isSubmitting}
+                              variant="contained"
+                              color="primary"
+                            >
+                              <SaveIcon className={classes.leftIcon} />
+                              {t('customForm.save')}
+                            </Button>
+                          ) : (
+                            <ButtonSaveWithInfo
+                              disabled={isSubmitting}
+                              variant="contained"
+                              color="primary"
+                              onClick={() => {
+                                mainFormik.handleSubmit();
+                                setShowInfoDialogOnSave(false);
+                              }}
+                            >
+                              <SaveIcon className={classes.leftIcon} />
+                              {t('customForm.save')}
+                            </ButtonSaveWithInfo>
+                          )}
                         </div>
                       </div>
                       {(openFieldCreationDialog || initialFieldWithIndex) && (
-                        <CustomFormFieldFormDialog
+                        <CustomFormFieldBuilderDialog
                           open={openFieldCreationDialog}
                           handleClose={() => {
                             setOpenCreationDialog(false);
@@ -351,11 +477,10 @@ export function CustomFormAnswer(props: Props) {
                               mainFormik.values,
                             );
                           }}
-                          initial={
-                            initialFieldWithIndex && initialFieldWithIndex.field
-                          }
+                          initial={initialFieldWithIndex?.field}
                           tag_groups={props.tag_groups}
                           tags={props.tags}
+                          registeredSignUpQuestions={registeredSignUpQuestions}
                         />
                       )}
                     </Container>
@@ -401,21 +526,24 @@ export function CustomFormAnswer(props: Props) {
                       <>
                         {custom_form_field_disabled.map(
                           (field: CustomFormField, i: number) => (
-                            <CustomFormFieldListItem
-                              key={`disabled_field${i}`}
-                              {...props}
-                              customFormField={field}
-                              onClickRestore={() => {
-                                custom_form_field_enabled.push({
-                                  ...mainFormik.values
-                                    .custom_form_field_disabled[i],
-                                  disabled: false,
-                                });
-                                remove(i);
-                              }}
-                              index={i}
-                              customFormFieldType="custom_form_field_disabled"
-                            />
+                            <Form>
+                              <CustomFormFieldListItem
+                                key={`disabled_field${i}`}
+                                customFormField={field}
+                                onClickRestore={() => {
+                                  custom_form_field_enabled.push({
+                                    ...mainFormik.values
+                                      .custom_form_field_disabled[i],
+                                    disabled: false,
+                                  });
+                                  remove(i);
+                                }}
+                                index={i}
+                                customFormFieldType="custom_form_field_disabled"
+                                isSignUpForm={props.initial.is_signup}
+                                isMemberForm={props.initial.is_member_form}
+                              />
+                            </Form>
                           ),
                         )}
                       </>
@@ -447,7 +575,8 @@ const styles = (theme: Theme) => ({
   actions: {
     width: '20%',
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
+    paddingRight: theme.spacing(3),
   },
   alignRight: {
     marginRight: theme.spacing(6),
@@ -487,6 +616,15 @@ const styles = (theme: Theme) => ({
     alignItems: 'center',
     border: `1px solid ${amber[900]}`,
     borderRadius: theme.spacing(0.5),
+    marginBottom: theme.spacing(1),
+  },
+  formNoChangeContainer: {
+    padding: theme.spacing(1),
+    display: 'flex',
+    alignItems: 'center',
+    border: `1px solid ${green[600]}`,
+    borderRadius: theme.spacing(0.5),
+    marginBottom: theme.spacing(1),
   },
   noChange: {
     color: green[600],
@@ -496,6 +634,10 @@ const styles = (theme: Theme) => ({
     color: amber[900],
     marginRight: theme.spacing(1),
   },
+  noChangeWarning: {
+    color: green[600],
+    marginRight: theme.spacing(1),
+  },
   leftIcon: {
     marginRight: theme.spacing(1),
   },
@@ -503,4 +645,4 @@ const styles = (theme: Theme) => ({
 export default compose<any, OwnProps>(
   withTranslation('marketing'),
   withStyles(styles),
-)(CustomFormAnswer);
+)(CustomFormConfigurationTable);

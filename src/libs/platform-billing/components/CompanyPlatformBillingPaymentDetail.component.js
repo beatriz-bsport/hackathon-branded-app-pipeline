@@ -11,7 +11,6 @@ import { Divider } from '@material-ui/core';
 import PlatformInvoiceListItem from './PlatformInvoiceListItem.component';
 import PaymentMethodList from '../../payment/components/payment-method-list/PaymentMethodList.component';
 import CollectPaymentMethod from '../../payment/components/CollectPaymentMethod.component';
-
 import { getCurrencyCode } from '../../theme/selectors';
 
 type Props = {

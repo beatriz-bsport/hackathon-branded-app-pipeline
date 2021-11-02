@@ -15,7 +15,6 @@ type Props = {
   onClose: () => void,
   onAlreadyLinkMember: (memberId: number) => void,
   onLinkMember: () => void,
-  managerFormConfig: SignUpFormConfigDict,
   waiver: string,
   generalTermsAndConditions: string,
 };
@@ -28,7 +27,6 @@ export const CheckInOfferDetailMemberForm = (props: Props) => {
       goToMemberList={props.onLinkMember}
       snackbarSuccess={props.snackbarSuccess}
       fromConsumerAccess
-      managerFormConfig={props.managerFormConfig}
       waiver={props.waiver}
       generalTermsAndConditions={props.generalTermsAndConditions}
     />

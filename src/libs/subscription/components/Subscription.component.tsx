@@ -16,14 +16,18 @@ import SubscriptionPaymentMethod from './SubscriptionPaymentMethod.component';
 import { Subscription } from '../types';
 
 import { COMPANY_EVENTS } from './event.utils';
-import { OptionsCallback } from '../../../state/types';
+import { OptionCallback } from '../../../state/types';
 
 type Props = {
   subscription: Subscription;
   loading: boolean;
 
   requestUpdatePrice: (PlannedInvoice) => void;
-  updateSubscriptionRenewal: ({ auto_renewal: boolean }) => void;
+  updateSubscriptionRenewal: ({
+    auto_renewal,
+  }: {
+    auto_renewal: boolean;
+  }) => void;
   requestPaymentPackSwitch: () => void;
   requestPaymentMethodSwitch: () => void;
   requestStop: () => void;
@@ -37,14 +41,18 @@ type Props = {
   eventList: Array<any>;
   eventLoading: boolean;
   fetchSubscriptionEventList: ({
-    page: number,
-    page_size: number,
-    billing_plan: number,
+    page,
+    page_size,
+    billing_plan,
+  }: {
+    page: number;
+    page_size: number;
+    billing_plan: number;
   }) => void;
   unflagPlannedInvoiceAsLast: (id: number) => void;
 
-  updateDate: (data: any, options: OptionsCallback) => void;
-  cancelPause: (id: number) => void;
+  updateDate: (data: any, options: OptionCallback) => void;
+  cancelPause: (id: number, options: OptionCallback<Subscription>) => void;
 };
 
 export function SubscriptionComponent(props: Props) {

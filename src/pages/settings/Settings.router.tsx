@@ -28,7 +28,7 @@ import CompanyOnboardingSettingPage from './CompanyOnboardingSetting.page';
 import PlatformBillingSettingPage from './PlatformBillingSetting.page';
 import PaymentMethodSettings from './PaymentMethodSettings/PaymentMethodSettings.pages';
 import MarketplaceSettings from './MarketplaceSettings.page';
-import FormsConfiguration from './FormsConfiguration.pages';
+import CustomSignUpConfiguration from './CustomSignUpConfiguration.page';
 import WidgetGeneratorPage from './WidgetGenerator.page';
 import QuickBookPage from './QuickBooks.page';
 
@@ -103,7 +103,11 @@ export const Settings = (props: Props) => {
           path="/settings/personalization"
           component={SettingsPersonalizePage}
         />
-        <Route exact path="/settings/forms" component={FormsConfiguration} />
+        <Route
+          exact
+          path="/settings/forms"
+          component={CustomSignUpConfiguration}
+        />
         <Route
           exact
           path="/settings/webhook"

@@ -65,8 +65,6 @@ import {
   fetchSubscriptionBulk as fetchSubscriptionBulkAction,
 } from '../../libs/subscription/actions';
 
-import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
-
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import type { OptionCallback } from '../../state/types';
 import type { Contract } from '../../libs/subscription/types';
@@ -329,7 +327,6 @@ export class SubscriptionList extends React.Component<Props, State> {
               BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
               BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
             ]}
-            managerFormConfig={this.props.managerFormConfig?.poll_fields}
             waiver={this.props.theme.waiver}
             generalTermsAndConditions={
               this.props.theme.general_terms_and_conditions
@@ -420,7 +417,6 @@ const mapStateToProps = (state: RootState) => ({
   paymentComboList: getPaymentComboList(state),
   searchedMembers: getSearchedMembers(state),
   savedPaymentMethodList: getSavedPaymentMethodList(state),
-  managerFormConfig: getSignUpFormConfigurationDict(state),
 });
 
 const mapDispatchToProps = {

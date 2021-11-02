@@ -4,58 +4,98 @@ import { compose, withProps } from 'recompose';
 import { connect } from 'react-redux';
 
 import { goBack as goBackAction } from 'connected-react-router';
-import { snackbar } from '../../libs/snackbar/actions';
-import MemberForm from '../../libs/member/MemberForm.component';
+import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/styles';
+import { snackbar } from '../../actions/snackbar.actions';
 import { createOrUpdateMember } from '../../libs/member/actions';
 import { MemberMap } from '../../libs/member/utils';
+import CustomFormView from '../../libs/custom-form/components/consumer-form/CustomFormView.form';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import { mapFormData } from '../form.utils';
-import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
-import { fetchSignFormUpConfiguration } from '../../libs/sign-up-form/actions';
+import {
+  fetchCompanyCustomSignUp,
+  submitSignUpCustomForm,
+} from '../../libs/custom-form/actions';
+import { getSignUpCustomFormWithEnabledField } from '../../libs/custom-form/selectors';
+import type { CustomForm } from '../../libs/custom-form/types';
+import type { Theme } from '../../libs/theme/types';
+import type { OptionCallback } from '../../state/types';
 
 type Props = {
   theme: Theme,
-  snackbarSuccess: (msg: string) => void,
-  onSubmit: (*) => void,
   goBack: () => void,
-  country: string,
-  managerFormConfig: SignUpFormConfigDict,
-  fetchSignFormUpConfiguration: () => void,
+  fetchCompanyCustomSignUp: (params: { company?: number }) => void,
+  signUpCustomForm: CustomForm,
+  submitSignUpCustomForm: (
+    formData: FormData,
+    company_id: number | null,
+    options?: OptionCallback,
+  ) => void,
+  companyId: number,
 };
+
+const useStyles = makeStyles((theme) => ({
+  customFormPaper: {
+    padding: theme.spacing(4),
+    width: '100%',
+  },
+  paper: {
+    padding: theme.spacing(4),
+  },
+}));
+
 export const CompanyExternalAddMember = (props: Props) => {
+  const classes = useStyles();
   React.useEffect(() => {
-    props.fetchSignFormUpConfiguration();
+    props.fetchCompanyCustomSignUp({ company: props.companyId });
   }, []);
+  const submitCustomForm = (formdata: FormData, options?: OptionCallback) => {
+    props.submitSignUpCustomForm(formdata, props.companyId, {
+      onSuccess: () => {
+        props.goBack();
+        if (options && options.onSuccess) options.onSuccess();
+      },
+      onError: () => {
+        if (options && options.onError) options.onError();
+      },
+    });
+  };
   return (
-    <MemberForm
-      onCancel={props.goBack}
-      onSubmit={props.onSubmit}
-      goToMember={props.goBack}
-      goToMemberList={props.goBack}
-      snackbarSuccess={props.snackbarSuccess}
-      fromConsumerAccess
-      country={props.country}
-      managerFormConfig={props.managerFormConfig?.poll_fields}
-      waiver={props.theme.waiver}
-      generalTermsAndConditions={props.theme.generalTermsAndConditions}
-    />
+    <div className={classes.customFormPaper}>
+      {props.signUpCustomForm && (
+        <Paper className={classes.paper}>
+          <CustomFormView
+            initial={props.signUpCustomForm}
+            onSubmit={submitCustomForm}
+            layouts={props.signUpCustomForm.layout}
+            waiver={props.theme.waiver}
+            general_terms_and_conditions={
+              props.theme.general_terms_and_conditions
+            }
+            onCancel={() => props.goBack()}
+          />
+        </Paper>
+      )}
+    </div>
   );
 };
 
 export default compose(
+  routerParamsToProps({ companyId: 'companyId:number' }),
   connect(
     (state) => ({
       theme: state.theme.theme,
       errors: state.member.upsert.error,
       country: state.theme.theme.locale.split('_')[1],
-      companyId: state.theme.companyId,
-      managerFormConfig: getSignUpFormConfigurationDict(state),
+      signUpCustomForm: getSignUpCustomFormWithEnabledField(state),
     }),
     {
       goBack: goBackAction,
       snackbarSuccess: (msg) => snackbar.success(msg),
       upsertMember: createOrUpdateMember,
-      fetchSignFormUpConfiguration,
+      fetchCompanyCustomSignUp,
+      submitSignUpCustomForm,
     },
   ),
   withProps(({ upsertMember, goBack }) => ({

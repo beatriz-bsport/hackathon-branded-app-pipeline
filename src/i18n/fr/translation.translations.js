@@ -330,7 +330,7 @@ exports.default = {
     },
     member: {
       rgpd: {
-        email: 'Accepte les notification par email',
+        email: 'Accepte les notifications par email',
         sms: 'Accepte les notifications SMS',
       },
       createOrUpdate: {

@@ -1,21 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
-import moment from 'moment-timezone';
 import Dialog from '@material-ui/core/Dialog';
+import type { Theme } from '@material-ui/core/styles';
 import {
   CUSTOM_FORM_SUBMITTION_SNOOZED,
   CUSTOM_FORM_SUBMITTION_COMPLETED,
   CUSTOM_FORM_SUBMITTION_DRAFT,
 } from '@bsport/common/lib/master-data/custom-form';
-import { fetchSignFormUpConfiguration } from '../../libs/sign-up-form/actions';
-import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
+import withStyles from '@material-ui/core/styles/withStyles';
 import { fetchCurrentBasket as fetchCurrentBasketAction } from '../../libs/checkout/actions';
-import MemberForm from '../../libs/member/MemberForm.component';
+import CustomFormView from '../../libs/custom-form/components/consumer-form/CustomFormView.form';
 import WidgetUtils from '../../libs/widget/WidgetUtils';
-import { snackbarWarning, snackbarSuccess } from '../../libs/snackbar/actions';
 import {
-  createOrUpdateMember,
   fetchMember as fetchMemberAction,
   fetchMyUserProfile,
 } from '../../libs/member/actions';
@@ -31,8 +28,6 @@ import {
   submitCustomForm,
   submitCustomFormDraft,
 } from '../../libs/custom-form/actions';
-import { MemberMap } from '../../libs/member/utils';
-import { mapFormData, unmap } from '../form.utils';
 import { RootState } from '../../reducers';
 import type { Membership } from '../../libs/membership/types';
 import { getMembership } from '../../libs/membership/selectors';
@@ -40,11 +35,15 @@ import { disconnect } from '../../actions/auth.actions';
 import {
   getCustomFormListWithEnableField,
   getCustomFormDisplayRuleBlockingList,
+  withUserProfileData,
+  getMemberCustomFormWithEnabledField,
 } from '../../libs/custom-form/selectors';
 import CustomFormStepper from '../../libs/custom-form/components/CustomFormStepper.component';
 import type { CustomForm } from '../../libs/custom-form/types';
 import { WithHandlerType } from '../../utils/types';
 import { OptionCallback } from '../../state/types';
+import MemberGreetingBanner from '../../libs/custom-form/components/consumer-form/CustomFormMemberGreetingBanner.component';
+import { Member } from '../../libs/member/types';
 
 type StateHandlerInit = {
   temporaryCustomFormData: {
@@ -59,7 +58,7 @@ type OwnProps = {
   companyId: number;
   membership: Membership;
   disconnect: () => void;
-  onUpdateMember: (values: MemberMap, options?: any) => void;
+  submitCustomMembeForm: (formData: FormData, options?: OptionCallback) => void;
   authenticated: boolean;
   customFormIdsList: Array<number>;
   isFormUrl: boolean;
@@ -139,65 +138,48 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
   };
 
   render() {
+    const { classes } = this.props;
     if (!this.props.theme) {
       return this.props.children;
     }
-    const initial = this.props.member || this.props.userProfile;
-    const initialData = initial
-      ? {
-          ...unmap(initial, MemberMap),
-          date_joined: moment(initial.date_joined),
-          waiver: !!initial.waiver_accepted,
-          ...(!Object.keys(initial).includes('accept_email')
-            ? {
-                accept_email: true,
-                accept_sms: true,
-              }
-            : {}),
-        }
-      : {
-          birthday: null,
-          gender: 'F',
-          accept_email: true,
-          accept_sms: true,
-        };
-
-    if (initialData && initial) {
-      if (initial.phone_number) {
-        initialData.phone = initial.phone_number;
-      }
-      delete initialData.address;
-    }
     return (
       <>
-        <Dialog
-          fullScreen={window.innerWidth < 700 || WidgetUtils.isWidget()}
-          open={
-            !this.props.managerFormConfigLoading &&
-            this.props.authenticated &&
-            !this.props.isValidated
-          }
-        >
-          {initialData && !this.props.managerFormConfigLoading && (
-            <MemberForm
-              hideManagerStuff
-              managerFormConfig={this.props.managerFormConfig?.poll_fields}
-              onCancel={() => this.props.disconnect()}
-              memberId={this.props.member && this.props.member.id}
-              theme={this.props.theme}
-              onSubmit={this.props.onUpdateMember}
-              initial={initialData}
-              snackbarSuccess={this.props.snackbarSuccessMsg}
-              country={this.props.country}
-              missingInformation={this.props.missingInformation}
-              userStatus={this.props.userStatus}
-              waiver={this.props.theme?.waiver}
-              generalTermsAndConditions={
-                this.props.theme.general_terms_and_conditions
-              }
-            />
-          )}
-        </Dialog>
+        {this.props.memberCustomForm && (
+          <Dialog
+            fullScreen={window.innerWidth < 700 || WidgetUtils.isWidget()}
+            open={
+              !this.props.memberCustomFormLoading &&
+              this.props.authenticated &&
+              !this.props.isValidated
+            }
+            maxWidth="md"
+            fullWidth
+          >
+            <div className={classes.customFormContainer}>
+              {this.props.memberCustomForm && (
+                <>
+                  <div className={classes.greetingContainer}>
+                    <MemberGreetingBanner
+                      userStatus={this.props.userStatus}
+                      userProfile={this.props.userProfile}
+                    />
+                  </div>
+                  <CustomFormView
+                    initial={this.props.memberCustomForm}
+                    onSubmit={this.props.submitCustomMembeForm}
+                    layouts={this.props.memberCustomForm.layout}
+                    waiver={this.props.theme.waiver}
+                    general_terms_and_conditions={
+                      this.props.theme.general_terms_and_conditions
+                    }
+                    onCancel={() => this.props.disconnect()}
+                    disconnectOnCancel
+                  />
+                </>
+              )}
+            </div>
+          </Dialog>
+        )}
         {!this.props.isFormUrl &&
           !this.props.customFormLoading &&
           this.props.customFormIdsList &&
@@ -267,27 +249,27 @@ const mapStateToProps = (
   missingInformation:
     state.membership.memberShipValidation.missingInformation.fields,
   userStatus: state.membership.memberShipValidation.missingInformation.status,
-  managerFormConfig: getSignUpFormConfigurationDict(state),
-  managerFormConfigLoading: state.poll.signUpForm.loading,
   member: getMemberThroughMembership(getMemberDetailData)(state, companyId),
   membership: getMembership(state, companyId),
   userProfile: state.member.userProfile.profile,
   memberLoading: state.member.loading,
   customFormLoading: state.customForm.loading,
-  customFormList: getCustomFormListWithEnableField(state, customFormIdsList),
+  customFormList: withUserProfileData(getCustomFormListWithEnableField)(
+    state,
+    customFormIdsList,
+  ),
   customFormDisplayRuleList: getCustomFormDisplayRuleBlockingList(
     state,
     customFormDisplayRuleList,
   ),
+  memberCustomForm: withUserProfileData(getMemberCustomFormWithEnabledField)(
+    state,
+  ),
+  memberCustomFormLoading: state.customForm.memberForm.loading,
 });
 
 const mapDispatchToProps = {
   fetchMember: fetchMemberAction,
-  upsertMember: (id: number, data, options) =>
-    createOrUpdateMember(id, data, options),
-  fetchSignFormUpConfiguration,
-  snackbarErrorMsg: snackbarWarning,
-  snackbarSuccessMsg: snackbarSuccess,
   fetchMyUserProfile,
   linkMeToCompany: linkMeToCompanyAction,
   requestMembershipValidation: requestMembershipValidationAction,
@@ -358,8 +340,20 @@ const withStateHandlersSetter = {
     return { currentCustomFormSubmittingId };
   },
 };
+
+const styles = (theme: Theme) => ({
+  customFormContainer: {
+    padding: theme.spacing(4),
+  },
+  greetingContainer: {
+    paddingBottom: theme.spacing(2),
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+  },
+});
 export default compose<any, OwnProps>(
   connect(mapStateToProps, mapDispatchToProps),
+  withStyles(styles),
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
   withHandlers({
     disconnect: ({ disconnectAction }) => () => {
@@ -367,27 +361,21 @@ export default compose<any, OwnProps>(
     },
   }),
   withHandlers({
-    onUpdateMember: ({
-      upsertMember,
+    submitCustomMembeForm: ({
+      submitCustomFormAction,
       membership,
       fetchMember,
       requestMembershipValidation,
       companyId,
       linkMeToCompany,
       fetchCurrentBasket,
-    }) => (values: MemberMap, options?: any) => {
-      if (!values.birthday) {
-        // eslint-disable-next-line
-          delete values.birthday;
-      }
-      const formData = mapFormData(values, MemberMap);
+    }) => (formdata: FormData, options?: OptionCallback) => {
       if (!membership) {
         linkMeToCompany(
           { company: companyId },
           {
-            onSuccess: (payload) => {
-              formData.append('id', payload.id);
-              upsertMember(payload.id, formData, {
+            onSuccess: (payload: Member) => {
+              submitCustomFormAction(formdata, companyId, {
                 ...options,
                 onSuccess: () => {
                   fetchMember(payload.id);
@@ -400,8 +388,7 @@ export default compose<any, OwnProps>(
           },
         );
       } else {
-        formData.append('id', membership.id);
-        upsertMember(membership.id, formData, {
+        submitCustomFormAction(formdata, companyId, {
           ...(options || {}),
           onSuccess: () => {
             fetchMember(membership.id);

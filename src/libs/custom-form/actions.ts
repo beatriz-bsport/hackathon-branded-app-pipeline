@@ -22,12 +22,17 @@ import {
   createCustomFormDisplayRule as createCustomFormDisplayRuleAPI,
   deleteCustomFormDisplayRule as deleteCustomFormDisplayRuleAPI,
   requestMemberCustomFormNotification as requestMemberCustomFormNotificationAPI,
+  updateCustomFormLayout as updateCustomFormLayoutAPI,
+  fetchCompanyCustomFormSignUp as fetchCompanyCustomFormSignUpAPI,
+  fetchCompanyCustomMemberForm as fetchCompanyCustomMemberFormAPI,
+  submitSignUpCustomForm as submitSignUpCustomFormAPI,
 } from './api';
 import { snackbarError, snackbarSuccess } from '../snackbar/actions';
 import type {
   CustomForm,
   CustomFormFieldAnswer,
   CustomFormDisplayRule,
+  ResponsiveLayouts,
 } from './types';
 
 export const fetchAllCustomFormActions = {
@@ -131,6 +136,7 @@ export function fetchCustomForm({
     dispatch(fetchCustomFormActions.isLoading(false));
   };
 }
+
 export const upsertCustomFormActions = {
   isLoading: createAction('CUSTOM_FORM/UPSERT/IS_LOADING'),
   error: createAction('CUSTOM_FORM/UPSERT/ERROR'),
@@ -151,11 +157,46 @@ export function upsertCustomForm(form: CustomForm, options?: OptionCallback) {
       dispatch(snackbarSuccess(`customForm.${kind}.success`));
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
-      dispatch(snackbarError(`customForm.${kind}.error`));
-      dispatch(upsertCustomFormActions.error(error.response.data));
       if (options && options.onError) options.onError();
+      if (error.response?.status === 499 && error.response?.data?.error_code) {
+        dispatch(
+          snackbarError(
+            `customForm.upsert.errors.${error.response.data.error_code}`,
+          ),
+        );
+      } else {
+        dispatch(snackbarError(`customForm.${kind}.error`));
+      }
+      dispatch(upsertCustomFormActions.error(error.response.data));
     }
     dispatch(upsertCustomFormActions.isLoading(false));
+  };
+}
+export const updateCustomFormLayoutActions = {
+  isLoading: createAction('CUSTOM_FORM_LAYOUT/UPSERT/IS_LOADING'),
+  error: createAction('CUSTOM_FORM_LAYOUT/UPSERT/ERROR'),
+  success: createAction('CUSTOM_FORM_LAYOUT/UPSERT/SUCCESS'),
+};
+
+export function updateCutsomFormLayout(
+  params: { formId: number; layout: ResponsiveLayouts },
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(updateCustomFormLayoutActions.isLoading(true));
+    dispatch(updateCustomFormLayoutActions.error(null));
+    try {
+      const response = await updateCustomFormLayoutAPI(params);
+
+      dispatch(updateCustomFormLayoutActions.success(response.data));
+      dispatch(snackbarSuccess(`customForm.update.success`));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(snackbarError(`customForm.update.error`));
+      dispatch(updateCustomFormLayoutActions.error(error.response.data));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(updateCustomFormLayoutActions.isLoading(false));
   };
 }
 
@@ -323,6 +364,7 @@ export function submitCustomForm(
     dispatch(submitCustomFormActions.isLoading(false));
   };
 }
+
 export const submitCustomFormDratActions = {
   isLoading: createAction('CUSTOM_FORM_DRAFT/SUBMIT/IS_LOADING'),
   error: createAction('CUSTOM_FORM_DRAFT/SUBMIT/ERROR'),
@@ -511,5 +553,102 @@ export function requestMemberCustomFormNotification(
       }
     }
     dispatch(requestCustomFormNotificationActions.isLoading(false));
+  };
+}
+
+export const fetchCompanyCustomSignUpActions = {
+  isLoading: createAction('CUSTOM_FORM_SIGNUP/RETRIEVE/IS_LOADING'),
+  error: createAction('CUSTOM_FORM_SIGNUP/RETRIEVE/ERROR'),
+  success: createAction('CUSTOM_FORM_SIGNUP/RETRIEVE/SUCCESS'),
+};
+export function fetchCompanyCustomSignUp({
+  company,
+  options,
+}: {
+  company?: number;
+  options?: OptionCallback;
+}) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchCompanyCustomSignUpActions.isLoading(true));
+    dispatch(fetchCompanyCustomSignUpActions.error(null));
+    try {
+      const response = await fetchCompanyCustomFormSignUpAPI(company);
+      dispatch(fetchCompanyCustomSignUpActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      console.error(err);
+      dispatch(fetchCompanyCustomSignUpActions.error(err));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(fetchCompanyCustomSignUpActions.isLoading(false));
+  };
+}
+
+export const fetchCompanyCustomMemberFormActions = {
+  isLoading: createAction('CUSTOM_FORM_MEMBER/RETRIEVE/IS_LOADING'),
+  error: createAction('CUSTOM_FORM_MEMBER/RETRIEVE/ERROR'),
+  success: createAction('CUSTOM_FORM_MEMBER/RETRIEVE/SUCCESS'),
+};
+export function fetchCompanyCustomMemberForm({
+  company,
+  options,
+}: {
+  company?: number;
+  options?: OptionCallback;
+}) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchCompanyCustomMemberFormActions.isLoading(true));
+    dispatch(fetchCompanyCustomMemberFormActions.error(null));
+    try {
+      const response = await fetchCompanyCustomMemberFormAPI(company);
+      dispatch(fetchCompanyCustomMemberFormActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      console.error(err);
+      dispatch(fetchCompanyCustomMemberFormActions.error(err));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(fetchCompanyCustomMemberFormActions.isLoading(false));
+  };
+}
+
+export const signUpViaCustomFormActions = {
+  isLoading: createAction('CUSTOM_FORM/SIGN_UP/IS_LOADING'),
+  error: createAction('CUSTOM_FORM/SIGN_UP/ERROR'),
+  success: createAction('CUSTOM_FORM/SIGN_UP/SUCCESS'),
+};
+
+export function submitSignUpCustomForm(
+  sign_up_custom_form_filled: FormData,
+  company: number | string,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(signUpViaCustomFormActions.isLoading(true));
+    dispatch(signUpViaCustomFormActions.error(null));
+    try {
+      const response = await submitSignUpCustomFormAPI(
+        sign_up_custom_form_filled,
+        company,
+      );
+
+      dispatch(signUpViaCustomFormActions.success(response.data));
+      dispatch(snackbarSuccess(`customForm.signupViaCustomForm.success`));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      if (options && options.onError) options.onError();
+      if (error.response?.status === 499 && error.response?.data?.error_code) {
+        dispatch(
+          snackbarError(
+            `customForm.signupViaCustomForm.errors.${error.response.data.error_code}`,
+          ),
+        );
+      } else {
+        dispatch(snackbarError(`customForm.signupViaCustomForm.error`));
+      }
+
+      dispatch(signUpViaCustomFormActions.error(error?.response?.data));
+    }
+    dispatch(signUpViaCustomFormActions.isLoading(false));
   };
 }

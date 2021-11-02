@@ -12,14 +12,14 @@ import { connect } from 'react-redux';
 import Fade from '@material-ui/core/Fade';
 import { parseQueryString } from '../../http';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
-import { fetchSignFormUpConfiguration } from '../../libs/sign-up-form/actions';
-import { getSignUpFormConfiguration } from '../../libs/sign-up-form/selectors';
 import { disconnect } from '../../actions/auth.actions';
 import themeSelectors from '../../libs/theme/selectors';
 import { getTheme } from '../../theme';
 import asyncComponent from '../../AsyncComponent';
 
 import WidgetUtils from '../../libs/widget/WidgetUtils';
+import { fetchCompanyCustomSignUp } from '../../libs/custom-form/actions';
+import type { Theme as CompanyTheme } from '../../libs/theme/types';
 
 const Signout = asyncComponent(() => import('./Signout.page'));
 
@@ -40,23 +40,22 @@ const CompanyOnboardingRouter = asyncComponent(() =>
 );
 
 type Props = {
-  membership: ?string,
-  fetchCompanyTheme: (string) => void,
-  fetchSignFormUpConfiguration: ({ membership: ?string }) => void,
+  membership: string,
+  fetchCompanyTheme: (membership: string) => void,
   classes: Object,
   theme: CompanyTheme,
   loginProcessing: boolean,
   disconnect: () => void,
+  fetchCompanyCustomSignUp: (params: { company?: string | number }) => void,
 };
 
 export class LoginRouter extends React.Component<Props> {
   componentDidMount() {
     if (this.props.membership) {
       this.props.fetchCompanyTheme(this.props.membership);
+    } else {
+      this.props.fetchCompanyCustomSignUp({});
     }
-    this.props.fetchSignFormUpConfiguration({
-      membership: this.props.membership,
-    });
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -65,6 +64,7 @@ export class LoginRouter extends React.Component<Props> {
       this.props.membership
     ) {
       this.props.fetchCompanyTheme(this.props.membership);
+      this.props.fetchCompanyCustomSignUp({ company: this.props.membership });
     }
   }
 
@@ -182,13 +182,12 @@ export default compose(
   connect(
     (state, { membership }) => ({
       theme: !!membership && themeSelectors.getTheme(state),
-      signUpConfig: getSignUpFormConfiguration(state),
       loginProcessing: state.auth.loading,
     }),
     {
       fetchCompanyTheme,
-      fetchSignFormUpConfiguration,
       disconnect,
+      fetchCompanyCustomSignUp,
     },
   ),
 )(LoginRouter);

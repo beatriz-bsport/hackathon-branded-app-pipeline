@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import URI from 'urijs';
-import { compose, withProps, withHandlers } from 'recompose';
+import { compose, withProps, withHandlers, withStateHandlers } from 'recompose';
 import { withRouter } from 'react-router';
 
 import Grid from '@material-ui/core/Grid';
@@ -22,12 +22,15 @@ import { replace, push as pushRouter } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
+import {
+  CUSTOM_FORM_FIELD_SIGN_UP_EMAIL,
+  CUSTOM_FORM_FIELD_SIGN_UP_PASSWORD,
+} from '@bsport/common/lib/master-data/custom-form';
 import { getTheme } from '../../theme';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 
 import Login from '../../libs/login/components/Login.component';
 import MarketplaceAppBar from './MarketplaceAppBar.component';
-import CustomSignUpForm from '../../libs/sign-up-form/components/CustomSignUpForm.component';
 import Analytics from '../../components/analytics/Analytics.component';
 import { parseQueryString } from '../../http';
 
@@ -54,15 +57,6 @@ import asyncComponent from '../../AsyncComponent';
 
 import { auth as authActions } from '../../actions';
 import { signupV2 } from '../../actions/auth.actions';
-import { fetchSignFormUpConfiguration } from '../../libs/sign-up-form/actions';
-import {
-  getSignUpFormConfiguration,
-  getSignUpFormConfigurationDict,
-} from '../../libs/sign-up-form/selectors';
-import type {
-  SignUpFormConfig,
-  signUpConfigDict,
-} from '../../libs/sign-up-form/types';
 import { fetchProfile } from '../../libs/consumer-space/actions';
 
 import MarketplaceBasketDialog from './MarketplaceBasketDialog.component';
@@ -73,6 +67,16 @@ import {
 import { EXPORTABLE_COMPONENT_TYPE_VOD } from '../../libs/exportable-components/constants.ts';
 import { fetchMarketplaceSettings } from '../../libs/marketplace/actions';
 import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
+import {
+  fetchCompanyCustomSignUp,
+  submitSignUpCustomForm,
+} from '../../libs/custom-form/actions';
+import CustomFormView from '../../libs/custom-form/components/consumer-form/CustomFormView.form';
+import CustomFormViewDialogComponent from '../../libs/custom-form/components/consumer-form/CustomFormViewDialog.component';
+import { getSignUpCustomFormWithEnabledField } from '../../libs/custom-form/selectors';
+import type { OptionCallback } from '../../state/types';
+import type { CustomFormFilled } from '../../libs/custom-form/types';
+import type { RootState } from '../../reducers';
 
 const MarketplacePassPage = asyncComponent(() =>
   import('./MarketplacePass.page'),
@@ -99,6 +103,9 @@ const MarketplaceVodRouter = asyncComponent(() =>
 const MarketplaceGiftcardPage = asyncComponent(() =>
   import('./MarketplaceGiftcard.page'),
 );
+
+type StateHandlerType = typeof withStateHandlersInit &
+  WithHandlerType<typeof withStateHandlersSetter>;
 type Props = {
   companyName: string,
   companyId: number,
@@ -115,10 +122,6 @@ type Props = {
   removeItemFromBasket: (basketId: string, data: any) => void,
   addItemToBasket: (basketId: string, data: any) => void,
   goToCheckout: (companyId: number) => void,
-
-  emailExists: boolean,
-  checkEmailExistsLoading: boolean,
-  checkEmailExists: (email: string) => void,
   fetchProfile: () => void,
   doEmailLogin: ({ email: string, password: string }, () => void) => void,
   goToTab: (
@@ -144,11 +147,13 @@ type Props = {
   tabSelected: ?number,
   fetchMarketplaceSettings: (companyId: string) => void,
   location: any,
-
-  fetchSignFormUpConfiguration: () => void,
-  signUpConfig: SignUpFormConfig,
-  signUpConfigDict: signUpConfigDict,
-};
+  fetchCompanyCustomSignUp: (params: { company?: number }) => void,
+  submitSignUpCustomForm: (
+    formdata: FormData,
+    company: number,
+    options: OptionCallback,
+  ) => void,
+} & StateHandlerType;
 
 type State = {
   signupDialogOpen: boolean,
@@ -174,6 +179,7 @@ export class MarketPlace extends Component<Props, State> {
 
   fetchData = () => {
     this.props.fetchCompanyTheme(this.props.companyId);
+    this.props.fetchCompanyCustomSignUp({ company: this.props.companyId });
     this.props.fetchMarketplaceSettings(this.props.companyId, {
       onSuccess: this.sanitizeURL,
     });
@@ -227,7 +233,6 @@ export class MarketPlace extends Component<Props, State> {
 
   componentDidMount() {
     this.fetchData();
-    this.props.fetchSignFormUpConfiguration();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -376,12 +381,24 @@ export class MarketPlace extends Component<Props, State> {
 
   closeSignup = () => this.setState({ signupDialogOpen: false });
 
-  doEmailLogin = ({ email, password }) => {
+  doEmailLogin = ({ email, password }: { email: string, password: string }) => {
     this.props.doEmailLogin({ email, password }, () => {
       this.props.fetchProfile({
         onSuccess: (profile) => Analytics.signinSuccess(profile),
       });
       this.props.fetchCurrentBasket(this.props.companyId);
+    });
+  };
+
+  submitCustomForm = (formdata: FormData, options?: OptionCallback) => {
+    this.props.submitSignUpCustomForm(formdata, this.props.companyId, {
+      onSuccess: () => {
+        this.doEmailLogin(this.props.loginInformations);
+        if (options && options.onSuccess) options.onSuccess();
+      },
+      onError: () => {
+        if (options && options.onError) options.onError();
+      },
     });
   };
 
@@ -508,42 +525,39 @@ export class MarketPlace extends Component<Props, State> {
                 />
               </DialogContent>
             </Dialog>
-            <Dialog
+            <CustomFormViewDialogComponent
               open={
-                this.state.signupDialogOpen && !this.props.auth.authenticated
+                this.state.signupDialogOpen &&
+                !this.props.auth.authenticated &&
+                this.props.signUpCustomForm
               }
               onClose={this.closeSignup}
+              maxWidth="md"
+              fullWidth
             >
               <DialogTitle>{t('form.signUpTitle')}</DialogTitle>
-              <div className={classes.signupContainer}>
-                <CustomSignUpForm
-                  loading={this.props.auth.loading}
-                  theme={this.props.theme}
-                  emailExists={this.props.emailExists}
-                  checkEmailExistsLoading={this.props.checkEmailExistsLoading}
-                  checkEmailExists={this.props.checkEmailExists}
-                  signUpConfig={this.props.signUpConfig}
-                  signUpConfigDict={this.props.signUpConfigDict}
-                  onComplete={(formdata: *, options: OptionCallback) =>
-                    this.signup(formdata, {
-                      onError: options && options.onError,
-                      onSuccess: () => {
-                        this.props.fetchProfile({
-                          onSuccess: (profile) => {
-                            Analytics.signupSuccess(profile);
-                          },
-                        });
-                      },
-                    })
+              <div className={classes.customFormContainer}>
+                <CustomFormView
+                  initial={this.props.signUpCustomForm}
+                  onSubmit={this.submitCustomForm}
+                  onSubmitDraft={(values: CustomFormFilled) =>
+                    this.props.setLoginInformations(values)
                   }
-                  onCancel={() => this.setState({ signupDialogOpen: false })}
+                  layouts={
+                    this.props.signUpCustomForm
+                      ? this.props.signUpCustomForm.layout
+                      : null
+                  }
                   waiver={this.props.theme.waiver}
-                  generalTermsAndConditions={
+                  general_terms_and_conditions={
                     this.props.theme.general_terms_and_conditions
                   }
+                  onCancel={() => {
+                    this.setState({ signupDialogOpen: false });
+                  }}
                 />
               </div>
-            </Dialog>
+            </CustomFormViewDialogComponent>
           </div>
         </MemberShipValidationWrapper>
       </MuiThemeProvider>
@@ -559,10 +573,8 @@ const styles = (theme) => ({
     flex: 1,
     width: '100%',
   },
-  signupContainer: {
+  customFormContainer: {
     padding: theme.spacing(2),
-    paddingTop: 0,
-    maxWidth: 600,
   },
   content: {
     overflowY: 'auto',
@@ -582,6 +594,26 @@ const styles = (theme) => ({
   },
 });
 
+const withStateHandlersInit = {
+  loginInformations: { email: '', password: '' },
+};
+
+const withStateHandlersSetter = {
+  setLoginInformations: () => (customFormAnswers: CustomFormFilled) => {
+    const email =
+      customFormAnswers?.custom_form_field.find(
+        (field: CustomFormFieldAnswer) =>
+          field.signup_question_kind === CUSTOM_FORM_FIELD_SIGN_UP_EMAIL,
+      )?.answer || '';
+
+    const password =
+      customFormAnswers?.custom_form_field.find(
+        (field: CustomFormFieldAnswer) =>
+          field.signup_question_kind === CUSTOM_FORM_FIELD_SIGN_UP_PASSWORD,
+      )?.answer || '';
+    return { loginInformations: { email, password } };
+  },
+};
 export default compose(
   withStyles(styles),
   withTranslation(),
@@ -610,9 +642,7 @@ export default compose(
       errorFields: state.auth.invalidFields,
       checkEmailExistsLoading: state.auth.emailExists.loading,
       emailExists: state.auth.emailExists.exists,
-      signUpConfig: getSignUpFormConfiguration(state),
-      signUpConfigDict: getSignUpFormConfigurationDict(state),
-      signUpConfigLoading: state.poll.signUpForm.loading,
+      signUpCustomForm: getSignUpCustomFormWithEnabledField(state),
     }),
     {
       // General information
@@ -635,7 +665,8 @@ export default compose(
       disconnect: authActions.disconnect,
       checkEmailExists: authActions.checkEmailExists,
       push: pushRouter,
-      fetchSignFormUpConfiguration,
+      fetchCompanyCustomSignUp,
+      submitSignUpCustomForm,
 
       // navigation
       replace,
@@ -645,16 +676,5 @@ export default compose(
     goToTab: ({ companyName, companyId, push }) => (path) =>
       push(getMarketplaceRoute(companyName, companyId, path)),
   }),
-  withHandlers({
-    signup: ({ signupAction, checkEmailExists }) => (formdata, options) => {
-      checkEmailExists(formdata.get('email'), {
-        onError: options && options.onError,
-        onSuccess: () =>
-          signupAction(formdata, {
-            onError: options && options.onError,
-          }),
-      });
-      if (options && options.onSuccess) options.onSuccess();
-    },
-  }),
+  withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
 )(MarketPlace);

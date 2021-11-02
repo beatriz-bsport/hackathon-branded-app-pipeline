@@ -1,18 +1,62 @@
+import {
+  CUSTOM_FORM_FIELD_TITLE_OPTION,
+  CUSTOM_FORM_FIELD_PARAGRAPH_OPTION,
+  CUSTOM_FORM_FIELD_SHORT_ANSWER_OPTION,
+  CUSTOM_FORM_FIELD_LONG_ANSWER_OPTION,
+  CUSTOM_FORM_FIELD_RADIO_OPTION,
+  CUSTOM_FORM_FIELD_CHECHBOX_OPTION,
+  CUSTOM_FORM_FIELD_SELECT_OPTION,
+  CUSTOM_FORM_FIELD_SIGNATURE_OPTION,
+  CUSTOM_FORM_FIELD_FILE_OPTION,
+  CUSTOM_FORM_FIELD_SIGNUP_QUESTION_OPTION,
+  CUSTOM_FORM_FIELD_SIGN_UP_PASSWORD,
+  CUSTOM_FORM_FIELD_SIGN_UP_FIRST_NAME,
+  CUSTOM_FORM_FIELD_SIGN_UP_LAST_NAME,
+  CUSTOM_FORM_FIELD_SIGN_UP_EMAIL,
+  CUSTOM_FORM_FIELD_SIGN_UP_GENDER,
+  CUSTOM_FORM_FIELD_SIGN_UP_PHONE,
+  CUSTOM_FORM_FIELD_SIGN_UP_BIRTHDAY,
+  CUSTOM_FORM_FIELD_SIGN_UP_ADDRESS_LINE_1,
+  CUSTOM_FORM_FIELD_SIGN_UP_ADDRESS_LINE_2,
+  CUSTOM_FORM_FIELD_SIGN_UP_CITY,
+  CUSTOM_FORM_FIELD_SIGN_UP_ZIPCODE,
+  CUSTOM_FORM_FIELD_SIGN_UP_COUNTRY,
+  CUSTOM_FORM_FIELD_SIGN_UP_PHOTO,
+  CUSTOM_FORM_FIELD_SIGN_UP_EMERGENCY_CONTACT,
+  CUSTOM_FORM_FIELD_SIGN_UP_ACCEPT_EMAIL,
+  CUSTOM_FORM_FIELD_SIGN_UP_ACCEPT_SMS,
+  CUSTOM_FORM_FIELD_SIGN_UP_VACCINATION_STATUS,
+  CUSTOM_FORM_FIELD_SIGN_UP_GENERAL_TERMS_AND_CONDITIONS,
+  CUSTOM_FORM_FIELD_SIGN_UP_WAIVER,
+} from '@bsport/common/lib/master-data/custom-form';
 import type {
   CustomFormField,
   CustomFormFilledAPI,
   CustomFormFieldAnswerAPI,
+  Layout,
 } from './types';
+import type { UserProfile } from '../member/types';
 
-export const CUSTOM_FORM_FIELD_TITLE_OPTION = 0;
-export const CUSTOM_FORM_FIELD_PARAGRAPH_OPTION = 1;
-export const CUSTOM_FORM_FIELD_SHORT_ANSWER_OPTION = 2;
-export const CUSTOM_FORM_FIELD_LONG_ANSWER_OPTION = 3;
-export const CUSTOM_FORM_FIELD_RADIO_OPTION = 4;
-export const CUSTOM_FORM_FIELD_CHECHBOX_OPTION = 5;
-export const CUSTOM_FORM_FIELD_SELECT_OPTION = 6;
-export const CUSTOM_FORM_FIELD_SIGNATURE_OPTION = 7;
-export const CUSTOM_FORM_FIELD_FILE_OPTION = 8;
+export const ALL_CUSTOM_FORM_SIGNUP_KIND_LIST = [
+  CUSTOM_FORM_FIELD_SIGN_UP_PASSWORD,
+  CUSTOM_FORM_FIELD_SIGN_UP_FIRST_NAME,
+  CUSTOM_FORM_FIELD_SIGN_UP_LAST_NAME,
+  CUSTOM_FORM_FIELD_SIGN_UP_EMAIL,
+  CUSTOM_FORM_FIELD_SIGN_UP_GENDER,
+  CUSTOM_FORM_FIELD_SIGN_UP_PHONE,
+  CUSTOM_FORM_FIELD_SIGN_UP_BIRTHDAY,
+  CUSTOM_FORM_FIELD_SIGN_UP_ADDRESS_LINE_1,
+  CUSTOM_FORM_FIELD_SIGN_UP_ADDRESS_LINE_2,
+  CUSTOM_FORM_FIELD_SIGN_UP_CITY,
+  CUSTOM_FORM_FIELD_SIGN_UP_ZIPCODE,
+  CUSTOM_FORM_FIELD_SIGN_UP_COUNTRY,
+  CUSTOM_FORM_FIELD_SIGN_UP_PHOTO,
+  CUSTOM_FORM_FIELD_SIGN_UP_EMERGENCY_CONTACT,
+  CUSTOM_FORM_FIELD_SIGN_UP_ACCEPT_EMAIL,
+  CUSTOM_FORM_FIELD_SIGN_UP_ACCEPT_SMS,
+  CUSTOM_FORM_FIELD_SIGN_UP_GENERAL_TERMS_AND_CONDITIONS,
+  CUSTOM_FORM_FIELD_SIGN_UP_WAIVER,
+];
 
 export const CUSTOM_FORM_FIELDS_OPTIONS = [
   { label: 'title', value: CUSTOM_FORM_FIELD_TITLE_OPTION },
@@ -24,8 +68,51 @@ export const CUSTOM_FORM_FIELDS_OPTIONS = [
   { label: 'select', value: CUSTOM_FORM_FIELD_SELECT_OPTION },
   { label: 'signature', value: CUSTOM_FORM_FIELD_SIGNATURE_OPTION },
   { label: 'file', value: CUSTOM_FORM_FIELD_FILE_OPTION },
+  {
+    label: 'sign_up_question',
+    value: CUSTOM_FORM_FIELD_SIGNUP_QUESTION_OPTION,
+  },
 ];
 
+export const CUSTOM_FORM_FIELD_SIGNUP_QUESTIONS_CHOICES = [
+  { label: 'first_name', value: CUSTOM_FORM_FIELD_SIGN_UP_FIRST_NAME },
+  { label: 'last_name', value: CUSTOM_FORM_FIELD_SIGN_UP_LAST_NAME },
+  { label: 'email', value: CUSTOM_FORM_FIELD_SIGN_UP_EMAIL },
+  { label: 'gender', value: CUSTOM_FORM_FIELD_SIGN_UP_GENDER },
+  { label: 'phone', value: CUSTOM_FORM_FIELD_SIGN_UP_PHONE },
+  { label: 'birthday', value: CUSTOM_FORM_FIELD_SIGN_UP_BIRTHDAY },
+  { label: 'address_line_1', value: CUSTOM_FORM_FIELD_SIGN_UP_ADDRESS_LINE_1 },
+  { label: 'address_line_2', value: CUSTOM_FORM_FIELD_SIGN_UP_ADDRESS_LINE_2 },
+  { label: 'city', value: CUSTOM_FORM_FIELD_SIGN_UP_CITY },
+  { label: 'zipcode', value: CUSTOM_FORM_FIELD_SIGN_UP_ZIPCODE },
+  { label: 'country', value: CUSTOM_FORM_FIELD_SIGN_UP_COUNTRY },
+  { label: 'photo', value: CUSTOM_FORM_FIELD_SIGN_UP_PHOTO },
+  {
+    label: 'emergency_contact',
+    value: CUSTOM_FORM_FIELD_SIGN_UP_EMERGENCY_CONTACT,
+  },
+  { label: 'accept_email', value: CUSTOM_FORM_FIELD_SIGN_UP_ACCEPT_EMAIL },
+  { label: 'accept_sms', value: CUSTOM_FORM_FIELD_SIGN_UP_ACCEPT_SMS },
+  {
+    label: 'vaccination_status',
+    value: CUSTOM_FORM_FIELD_SIGN_UP_VACCINATION_STATUS,
+  },
+  { label: 'waiver', value: CUSTOM_FORM_FIELD_SIGN_UP_WAIVER },
+  {
+    label: 'general_terms_and_conditions',
+    value: CUSTOM_FORM_FIELD_SIGN_UP_GENERAL_TERMS_AND_CONDITIONS,
+  },
+];
+
+export const get_custom_form_sign_question_label = () => {
+  return CUSTOM_FORM_FIELD_SIGNUP_QUESTIONS_CHOICES.reduce(
+    (acc: { [key: number]: string }, pp: { value: number; label: string }) => {
+      acc[pp.value] = pp.label;
+      return acc;
+    },
+    { [CUSTOM_FORM_FIELD_SIGN_UP_PASSWORD]: 'password' },
+  );
+};
 export const CUSTOM_FORM_FIELDS_WITH_CHOICES = [
   CUSTOM_FORM_FIELD_RADIO_OPTION,
   CUSTOM_FORM_FIELD_CHECHBOX_OPTION,
@@ -37,6 +124,13 @@ export const CUSTOM_FORM_FIELD_LINKABLE_TO_NOTE = [
   CUSTOM_FORM_FIELD_LONG_ANSWER_OPTION,
 ];
 
+export const CUSTOM_FORM_IMMUTABLE_SIGNUP_FIELDS = [
+  CUSTOM_FORM_FIELD_SIGN_UP_FIRST_NAME,
+  CUSTOM_FORM_FIELD_SIGN_UP_LAST_NAME,
+  CUSTOM_FORM_FIELD_SIGN_UP_PASSWORD,
+  CUSTOM_FORM_FIELD_SIGN_UP_EMAIL,
+  CUSTOM_FORM_FIELD_SIGN_UP_GENERAL_TERMS_AND_CONDITIONS,
+];
 export const MAX_LENGTH_FOR_SHORT_ANSWER = 1000;
 export const MAX_LENGTH_FOR_LONG_ANSWER = 10000;
 export function checkDisabledHasAnswer(
@@ -73,11 +167,96 @@ export function checkDisabledHasAnswer(
   return false;
 }
 
-export const CUSTOM_FORM_DISPLAY_ON_SIGN_UP = 0;
-export const CUSTOM_FORM_DISPLAY_ON_CONNECTION = 1;
+export const layoutBuilder = (custom_form_field: Array<CustomFormField>) =>
+  custom_form_field
+    ? [
+        ...custom_form_field?.reduce(
+          (
+            acc: { y: number; layout: Array<Layout> },
+            field: CustomFormField,
+          ) => {
+            acc.layout.push({
+              x: 0,
+              y: 12,
+              h:
+                field.signup_question_kind === CUSTOM_FORM_FIELD_SIGN_UP_PHOTO
+                  ? 2
+                  : 1,
+              i: field.id.toString(),
+              w: 12,
+              minW: 4,
+              maxW: 12,
+            });
+            acc.y +=
+              field.signup_question_kind === CUSTOM_FORM_FIELD_SIGN_UP_PHOTO
+                ? 2
+                : 1;
+            return acc;
+          },
+          { y: 0, layout: [] },
+        ).layout,
+      ]
+    : [];
 
-export const CUSTOM_FORM_SUBMITTION_COMPLETED = 0;
-export const CUSTOM_FORM_SUBMITTION_DRAFT = 1;
-export const CUSTOM_FORM_SUBMITTION_SNOOZED = 2;
+export const layoutsBuilder = (custom_form_field: Array<CustomFormField>) => {
+  const layout = layoutBuilder(custom_form_field);
 
-export const ERROR_CUSTOM_FORM_DISPLAY_RULE_WITH_SAME_TIME_DELTA_ALREADY_EXISTS = 3;
+  return {
+    lg: layout,
+    md: layout,
+    sm: layout,
+    xs: layout,
+  };
+};
+
+export const insertUserProfileDataToAnswer = (
+  customFormField: CustomFormField,
+  UserProfileData: UserProfile,
+) => {
+  switch (customFormField.signup_question_kind) {
+    case CUSTOM_FORM_FIELD_SIGN_UP_FIRST_NAME:
+      return UserProfileData?.first_name;
+    case CUSTOM_FORM_FIELD_SIGN_UP_LAST_NAME:
+      return UserProfileData?.last_name;
+    case CUSTOM_FORM_FIELD_SIGN_UP_EMAIL:
+      return UserProfileData?.email;
+    case CUSTOM_FORM_FIELD_SIGN_UP_GENDER:
+      return UserProfileData?.gender;
+    case CUSTOM_FORM_FIELD_SIGN_UP_PHONE:
+      return UserProfileData?.phone;
+    case CUSTOM_FORM_FIELD_SIGN_UP_BIRTHDAY:
+      return UserProfileData?.birthday;
+    case CUSTOM_FORM_FIELD_SIGN_UP_ADDRESS_LINE_1:
+      return UserProfileData?.address?.address_line_1;
+    case CUSTOM_FORM_FIELD_SIGN_UP_ADDRESS_LINE_2:
+      return UserProfileData?.address?.address_line_2;
+    case CUSTOM_FORM_FIELD_SIGN_UP_CITY:
+      return UserProfileData?.address?.city;
+    case CUSTOM_FORM_FIELD_SIGN_UP_ZIPCODE:
+      return UserProfileData?.address?.zipcode;
+    case CUSTOM_FORM_FIELD_SIGN_UP_COUNTRY:
+      return UserProfileData?.address?.country;
+    case CUSTOM_FORM_FIELD_SIGN_UP_PHOTO:
+      return UserProfileData?.photo;
+    case CUSTOM_FORM_FIELD_SIGN_UP_EMERGENCY_CONTACT:
+      return UserProfileData?.emergency_contact;
+    case CUSTOM_FORM_FIELD_SIGN_UP_ACCEPT_EMAIL:
+      return true;
+    case CUSTOM_FORM_FIELD_SIGN_UP_ACCEPT_SMS:
+      return true;
+    case CUSTOM_FORM_FIELD_SIGN_UP_VACCINATION_STATUS:
+      if (UserProfileData?.vaccination_status === true) {
+        return 1;
+      }
+      if (UserProfileData?.vaccination_status === false) {
+        return 2;
+      }
+      return 0;
+    case CUSTOM_FORM_FIELD_SIGN_UP_GENERAL_TERMS_AND_CONDITIONS:
+      return true;
+    case CUSTOM_FORM_FIELD_SIGN_UP_WAIVER:
+      return true;
+    default:
+      return null;
+  }
+};

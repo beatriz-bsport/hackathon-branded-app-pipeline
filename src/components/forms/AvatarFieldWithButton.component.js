@@ -35,7 +35,7 @@ export class AvatarFieldWithButton extends Component<Props, State> {
     return (
       <Field {...this.props}>
         {({ field, form: { setFieldValue } }) => (
-          <div>
+          <div className={classes.root}>
             <input
               accept="image/*"
               className={classes.input}
@@ -59,7 +59,7 @@ export class AvatarFieldWithButton extends Component<Props, State> {
               <Badge
                 badgeContent={
                   disabled ? null : (
-                    <div style={{ marginBottom: 40, marginLeft: 20 }}>
+                    <div className={classes.chip}>
                       <Chip
                         icon={<ImageIcon />}
                         size="small"
@@ -70,12 +70,15 @@ export class AvatarFieldWithButton extends Component<Props, State> {
                   )
                 }
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                className={classes.badge}
               >
-                <Avatar
-                  user={{ photo: getUrl(previewUrl, field.value) }}
-                  noname
-                  variant="large"
-                />
+                <div className={classes.avatar}>
+                  <Avatar
+                    user={{ photo: getUrl(previewUrl, field.value) }}
+                    noname
+                    variant="large"
+                  />
+                </div>
               </Badge>
             </label>
           </div>
@@ -87,6 +90,25 @@ export class AvatarFieldWithButton extends Component<Props, State> {
 const styles = () => ({
   input: {
     display: 'none',
+  },
+  avatar: {
+    transition: 'transform .5s ease-in-out',
+    transform: '.5s ease-in-out',
+  },
+  chip: {
+    transition: 'all .5s ease-in-out',
+    marginBottom: '40px',
+    marginLeft: '20px',
+  },
+  badge: {
+    '&:hover': {
+      '& $avatar': {
+        transform: 'scale(1.05)',
+      },
+      '& $chip': {
+        marginLeft: '100px',
+      },
+    },
   },
 });
 

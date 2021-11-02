@@ -11,6 +11,7 @@ import type {
   CustomForm,
   CustomFormFieldAnswer,
   CustomFormDisplayRule,
+  ResponsiveLayouts,
 } from './types';
 
 export async function fetchAllCustomForm(companyId?: number) {
@@ -25,6 +26,31 @@ export async function fetchAllCustomForm(companyId?: number) {
     );
   }
   return getAuth(`${API_V1_URI}/custom_form/custom_form/`);
+}
+
+export async function fetchCompanyCustomFormSignUp(company?: number) {
+  if (company) {
+    return getAuth(
+      `${API_V1_URI}/custom_form/custom_form/get_company_custom_signup_form/${buildUrlParams(
+        {
+          company,
+        },
+      )}`,
+    );
+  }
+  return getAuth(
+    `${API_V1_URI}/custom_form/custom_form/get_company_custom_signup_form/`,
+  );
+}
+
+export async function fetchCompanyCustomMemberForm(company: number) {
+  return getAuth(
+    `${API_V1_URI}/custom_form/custom_form/get_company_custom_member_form/${buildUrlParams(
+      {
+        company,
+      },
+    )}`,
+  );
 }
 
 export async function fetchCustomFormBulk(params: { id__in: Array<number> }) {
@@ -110,6 +136,24 @@ export async function submitCustomForm(
   );
 }
 
+export async function submitSignUpCustomForm(
+  signup_form_filled: FormData,
+  companyId: number | string | null,
+) {
+  if (companyId) {
+    return postBaseAuth(
+      `${API_V1_URI}/custom_form/custom_form_filled/signup/${buildUrlParams({
+        companyId,
+      })}`,
+      signup_form_filled,
+    );
+  }
+  return postBaseAuth(
+    `${API_V1_URI}/custom_form/custom_form_filled/signup/`,
+    signup_form_filled,
+  );
+}
+
 export async function submitDraftCustomForm({
   custom_form_id,
   companyId,
@@ -174,5 +218,18 @@ export async function requestMemberCustomFormNotification(data: {
   return postAuth(
     `${API_V1_URI}/custom_form/display_rule/retrieve_missing_custom_forms_information/`,
     data,
+  );
+}
+
+export async function updateCustomFormLayout({
+  formId,
+  layout,
+}: {
+  formId: number;
+  layout: ResponsiveLayouts;
+}) {
+  return postAuth(
+    `${API_V1_URI}/custom_form/custom_form/${formId}/update_layout/`,
+    { layout: { ...layout } },
   );
 }

@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { Theme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import CustomFormConsumerView from '../../libs/custom-form/components/consumer-form/CustomForm.form';
+
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
@@ -21,12 +21,19 @@ import {
   fetchCustomForm as fetchCustomFormAction,
   submitCustomForm as submitCustomFormAction,
 } from '../../libs/custom-form/actions';
-import { getCustomFormWithEnableField } from '../../libs/custom-form/selectors';
+import {
+  getCustomFormWithEnableField,
+  withUserProfileData,
+} from '../../libs/custom-form/selectors';
 import ConsumerAppBar from '../checkout/ConsumerAppBar.container';
 import CustomFormSubmitDialog from '../../libs/custom-form/components/consumer-form/CustomFormSubmit.dialog';
 import type { CustomForm } from '../../libs/custom-form/types';
 import { getMembership } from '../../libs/membership/selectors';
 import { fetchMembershipByCompany } from '../../libs/membership/actions';
+import CustomFormView from '../../libs/custom-form/components/consumer-form/CustomFormView.form';
+import { OptionCallback } from '../../state/types';
+import { fetchCompanyTheme } from '../../libs/theme/actions';
+import themeSelectors from '../../libs/theme/selectors';
 
 type StateHandlerInit = {
   submitSuccess: boolean;
@@ -49,12 +56,14 @@ export class MarketplaceCustomForm extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.activeMemberShip &&
+    if (this.props.activeMemberShip) {
       this.props.fetchCustomForm({
         companyId: this.props.companyId,
         customFormId: this.props.customFormId,
         memberId: this.props.activeMemberShip.id,
       });
+      this.props.fetchCompanyTheme(this.props.companyId);
+    }
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -70,6 +79,7 @@ export class MarketplaceCustomForm extends React.Component<Props, State> {
         customFormId: this.props.customFormId,
         memberId: this.props.activeMemberShip.id,
       });
+      this.props.fetchCompanyTheme(this.props.companyId);
     }
   }
 
@@ -90,17 +100,18 @@ export class MarketplaceCustomForm extends React.Component<Props, State> {
 
     if (
       this.props.customFormLoading ||
-      !this.props.customFormWithEnabledField
+      !this.props.customFormWithEnabledField ||
+      !this.props.theme
     ) {
       return <LinearProgress color="primary" />;
     }
-
     return (
       <ConsumerAppBar>
         <div className={classes.container}>
           <Grid container className={classes.gridContainer}>
             <Grid item md={6} xs={12}>
-              {this.props.customFormWithEnabledField.disabled ? (
+              {this.props.customFormWithEnabledField?.disabled ||
+              this.props.customFormWithEnabledField?.is_signup ? (
                 <Paper className={classes.disabledFormPaper}>
                   <Typography
                     variant="h5"
@@ -122,9 +133,14 @@ export class MarketplaceCustomForm extends React.Component<Props, State> {
                 </Paper>
               ) : (
                 <Paper className={classes.paperContainer}>
-                  <CustomFormConsumerView
+                  <CustomFormView
                     initial={this.props.customFormWithEnabledField}
                     onSubmit={this.props.submitCustomForm}
+                    layouts={this.props.customFormWithEnabledField?.layout}
+                    waiver={this.props.theme.waiver}
+                    general_terms_and_conditions={
+                      this.props.theme.general_terms_and_conditions
+                    }
                   />
                 </Paper>
               )}
@@ -174,13 +190,19 @@ const styles = (theme: Theme) => ({
     marginRight: theme.spacing(1),
   },
   paperContainer: {
-    padding: theme.spacing(6),
+    [theme.breakpoints.up('md')]: {
+      padding: theme.spacing(6),
+    },
+    [theme.breakpoints.down('md')]: {
+      padding: theme.spacing(2),
+    },
   },
 });
 const mapStateToProps = (state: RootState, props: OwnAndConnectedProps) => ({
+  theme: themeSelectors.getTheme(state),
   activeMemberShip: getMembership(state, props.companyId),
   customFormLoading: state.customForm.loading,
-  customFormWithEnabledField: getCustomFormWithEnableField(
+  customFormWithEnabledField: withUserProfileData(getCustomFormWithEnableField)(
     state,
     props.customFormId,
   ),
@@ -191,11 +213,12 @@ const mapDispatchToProps = {
   submitCustomFormAction,
   fetchMembershipByCompany,
   pushRouter,
+  fetchCompanyTheme,
 };
 const mapWithHandlers = {
   submitCustomForm: (props: OwnAndConnectedProps) => (
-    form_filled: any,
-    options: any,
+    form_filled: FormData,
+    options?: OptionCallback,
   ) => {
     props.submitCustomFormAction(form_filled, props.companyId, {
       onSuccess: () => {

@@ -20,6 +20,10 @@ import {
   upsertCustomFormDisplayRuleActions,
   deleteCustomFormDisplayRuleActions,
   fetchBlockingCustomFormDisplayRuleBulkActions,
+  updateCustomFormLayoutActions,
+  fetchCompanyCustomSignUpActions,
+  fetchCompanyCustomMemberFormActions,
+  signUpViaCustomFormActions,
 } from './actions';
 
 const initialState: Immutable.Immutable<CustomFormState> = Immutable<CustomFormState>(
@@ -29,6 +33,10 @@ const initialState: Immutable.Immutable<CustomFormState> = Immutable<CustomFormS
     loading: false,
     error: null,
     upsert: {
+      loading: false,
+      error: null,
+    },
+    layout: {
       loading: false,
       error: null,
     },
@@ -49,6 +57,16 @@ const initialState: Immutable.Immutable<CustomFormState> = Immutable<CustomFormS
       allIds: [],
       loading: false,
       error: null,
+    },
+    signUp: {
+      loading: false,
+      error: null,
+      form: null,
+    },
+    memberForm: {
+      loading: false,
+      error: null,
+      form: null,
     },
   },
 );
@@ -181,6 +199,21 @@ export default handleActions(
     },
     [upsertCustomFormActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['upsert', 'error'], payload);
+    },
+    [updateCustomFormLayoutActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['byId', payload.id], payload);
+    },
+    [updateCustomFormLayoutActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['layout', 'loading'], payload);
+    },
+    [updateCustomFormLayoutActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['layout', 'error'], payload);
     },
     [duplicateCustomFormActions.success.toString()]: (state, { payload }) => {
       return state
@@ -377,6 +410,48 @@ export default handleActions(
         ['display_rule', 'allIds'],
         state.display_rule.allIds.filter((id) => id !== payload),
       );
+    },
+    [fetchCompanyCustomSignUpActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['signUp', 'loading'], payload);
+    },
+    [fetchCompanyCustomSignUpActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['signUp', 'loading'], payload);
+    },
+    [fetchCompanyCustomSignUpActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['signUp', 'form'], payload);
+    },
+    [fetchCompanyCustomMemberFormActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['memberForm', 'loading'], payload);
+    },
+    [fetchCompanyCustomMemberFormActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['memberForm', 'loading'], payload);
+    },
+    [fetchCompanyCustomMemberFormActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['memberForm', 'form'], payload);
+    },
+    [signUpViaCustomFormActions.isLoading.toString()]: (state, { payload }) => {
+      return state.setIn(['upsert', 'loading'], payload);
+    },
+    [signUpViaCustomFormActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['upsert', 'error'], payload);
     },
   },
   initialState,

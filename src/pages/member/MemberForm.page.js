@@ -22,9 +22,6 @@ import themeSelectors from '../../libs/theme/selectors';
 
 import { mapFormData, unmap } from '../form.utils';
 import withTitle from '../../hocs/with-title.hoc';
-import { fetchSignFormUpConfiguration } from '../../libs/sign-up-form/actions';
-import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
-import type { SignUpFormConfigDict } from '../../libs/sign-up-form/types';
 
 type Props = {
   id: number,
@@ -38,13 +35,10 @@ type Props = {
   onSubmit: (*) => void,
   onCancel: () => void,
   country: string,
-  managerFormConfig: SignUpFormConfigDict,
-  fetchSignFormUpConfiguration: () => void,
 };
 
 export class MemberFormPage extends Component<Props> {
   async componentDidMount() {
-    this.props.fetchSignFormUpConfiguration();
     if (this.props.id) {
       this.props.fetchMemberInitial(this.props.id);
     }
@@ -84,7 +78,6 @@ export class MemberFormPage extends Component<Props> {
           goToMemberList={this.props.goToMemberList}
           snackbarSuccess={this.props.snackbarSuccess}
           country={this.props.country}
-          managerFormConfig={this.props.managerFormConfig?.poll_fields}
           waiver={this.props.theme.waiver}
           generalTermsAndConditions={
             this.props.theme.general_terms_and_conditions
@@ -105,11 +98,9 @@ export default compose(
       initial: id !== null ? getMember(state, id) : null,
       theme: themeSelectors.getTheme(state),
       country: state.theme.theme.locale.split('_')[1],
-      managerFormConfig: getSignUpFormConfigurationDict(state),
     }),
     {
       fetchMemberInitial: fetchMember,
-      fetchSignFormUpConfiguration,
       upsertMember: createOrUpdateMember,
       onCancel: goBack,
       goToMember: (pk) => pushRouter(`/member/${pk}/`),

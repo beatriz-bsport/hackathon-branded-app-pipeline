@@ -14,6 +14,7 @@ import {
   requestMemberCustomFormNotification,
   fetchMissingCustomFormBulk,
   fetchBlockingCustomFormDisplayRuleBulk,
+  fetchCompanyCustomMemberForm,
 } from '../../libs/custom-form/actions';
 import { fetchCurrentBasket as fetchCurrentBasketAction } from '../../libs/checkout/actions';
 import {
@@ -43,8 +44,8 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
   componentDidMount() {
     if (this.props.companyId) {
       this.props.fetchMembershipByCompany(this.props.companyId);
-      this.props.fetchSignFormUpConfiguration({
-        membership: this.props.companyId,
+      this.props.fetchCompanyCustomMemberForm({
+        company: this.props.companyId,
       });
       if (this.props.authenticated) {
         this.props.requestMembershipValidation({
@@ -84,6 +85,7 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
           ? this.props.membership
           : this.props.membership.id,
       );
+      this.props.fetchMyUserProfile();
     } else {
       this.props.fetchMyUserProfile();
     }
@@ -98,6 +100,9 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
   componentDidUpdate(prevProps: Props) {
     if (this.props.companyId !== prevProps.companyId && this.props.companyId) {
       this.props.fetchMembershipByCompany(this.props.companyId);
+      this.props.fetchCompanyCustomMemberForm({
+        company: this.props.companyId,
+      });
     }
     if (this.props.authenticated && !prevProps.authenticated) {
       this.props.requestMembershipValidation({
@@ -153,6 +158,7 @@ const mapDispatchToProps = {
   requestMemberCustomFormNotification,
   fetchMissingCustomFormBulk,
   fetchBlockingCustomFormDisplayRuleBulk,
+  fetchCompanyCustomMemberForm,
 };
 export default compose<any, OwnProps>(
   connect(mapStateToProps, mapDispatchToProps),

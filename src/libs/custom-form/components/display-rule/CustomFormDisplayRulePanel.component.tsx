@@ -44,7 +44,9 @@ export const CustomFormDisplayRulePanel = (props: Props) => {
             <div className={classes.textAndIconInner}>
               <InfoIcon className={classes.leftIcon} fontSize="small" />
               <Typography variant="caption">
-                {t('customForm.displayRule.empty')}
+                {props.customForm?.is_member_form || props.customForm?.is_signup
+                  ? t('customForm.displayRule.forbiddenForSignup')
+                  : t('customForm.displayRule.empty')}
               </Typography>
             </div>
           </div>
@@ -73,7 +75,9 @@ export const CustomFormDisplayRulePanel = (props: Props) => {
               color="primary"
               disabled={
                 props.customForm?.custom_form_field?.length === 0 ||
-                props.customForm?.disabled
+                props.customForm?.disabled ||
+                props.customForm?.is_member_form ||
+                props.customForm?.is_signup
               }
             >
               <AddIcon color="inherit" className={classes.addIcon} />

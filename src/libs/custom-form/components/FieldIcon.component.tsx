@@ -8,6 +8,7 @@ import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import ArrowDropDownCircleIcon from '@material-ui/icons/ArrowDropDownCircle';
 import BorderColorIcon from '@material-ui/icons/BorderColor';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import {
   CUSTOM_FORM_FIELD_TITLE_OPTION,
   CUSTOM_FORM_FIELD_PARAGRAPH_OPTION,
@@ -18,10 +19,12 @@ import {
   CUSTOM_FORM_FIELD_SELECT_OPTION,
   CUSTOM_FORM_FIELD_SIGNATURE_OPTION,
   CUSTOM_FORM_FIELD_FILE_OPTION,
-} from '../utils';
+  CUSTOM_FORM_FIELD_SIGNUP_QUESTION_OPTION,
+} from '@bsport/common/lib/master-data/custom-form';
 
 type Props = {
   field_id: number;
+  fontSize: string;
 };
 export function FieldIcon(props: Props) {
   switch (props.field_id) {
@@ -43,6 +46,8 @@ export function FieldIcon(props: Props) {
       return <BorderColorIcon {...props} />;
     case CUSTOM_FORM_FIELD_FILE_OPTION:
       return <CloudUploadIcon {...props} />;
+    case CUSTOM_FORM_FIELD_SIGNUP_QUESTION_OPTION:
+      return <HelpOutlineIcon {...props} />;
     default:
       return <div />;
   }

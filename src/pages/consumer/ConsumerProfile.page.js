@@ -6,17 +6,16 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { push as pushRouter } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
-import Dialog from '@material-ui/core/Dialog';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import moment from 'moment-timezone';
 import WidgetUtils from '../../libs/widget/WidgetUtils';
 import MemberSummaryCard from '../../libs/member/components/MemberSummaryCard.component';
 import MemberPaymentMethodPanel from '../../libs/member/components/MemberPaymentMethodPanel.component';
-import MemberForm from '../../libs/member/MemberForm.component';
+import CustomFormView from '../../libs/custom-form/components/consumer-form/CustomFormView.form';
+import CustomFormViewDialog from '../../libs/custom-form/components/consumer-form/CustomFormViewDialog.component';
 import {
-  createOrUpdateMember,
   fetchMember as fetchMemberAction,
+  fetchMyUserProfile,
 } from '../../libs/member/actions';
 import {
   fetchPaymentMethodList,
@@ -25,16 +24,28 @@ import {
 import { fetchSignFormUpConfiguration } from '../../libs/sign-up-form/actions';
 import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
 import type { SignUpFormConfigDict } from '../../libs/sign-up-form/types';
-import { MemberMap } from '../../libs/member/utils';
 import themeSelectors from '../../libs/theme/selectors';
 
-import { mapFormData, unmap } from '../form.utils';
 import { getMemberDetail } from '../../libs/member/selectors';
 
 import type { Membership } from '../../libs/membership/types';
 import type { Member } from '../../libs/member/types';
 import type { Theme } from '../../libs/theme/types';
-import { snackbarWarning, snackbarSuccess } from '../../libs/snackbar/actions';
+import {
+  snackbarWarning,
+  snackbarSuccess,
+} from '../../actions/snackbar.actions';
+import {
+  fetchCompanyCustomMemberForm,
+  submitCustomForm,
+} from '../../libs/custom-form/actions';
+import {
+  getMemberCustomFormWithEnabledField,
+  withUserProfileData,
+} from '../../libs/custom-form/selectors';
+import type { CustomForm } from '../../libs/custom-form/types';
+import { disconnect } from '../../actions/auth.actions';
+import type { OptionCallback } from '../../state/types';
 
 type Props = {
   fetchMember: (number) => void,
@@ -44,19 +55,22 @@ type Props = {
   setEditMember: (boolean) => void,
   theme: Theme,
   classes: Object,
-  onUpdateMember: (data: *) => void,
-  snackbarSuccess: (string) => void,
-  country: string,
-  fetchMemberPaymentMethod: (memberId: str) => void,
+  fetchMemberPaymentMethod: (memberId: string) => void,
   paymentMethodLoading: boolean,
   detachPaymentMethodLoading: boolean,
   paymentMethod: Array<any>,
   detachPaymentMethod: (pm_id: string) => void,
   snackbarErrorMsg: (msg: string) => void,
   snackbarSuccessMsg: (msg: string) => void,
-  fetchSignFormUpConfiguration: (membership: string) => void,
   managerFormConfig: SignUpFormConfigDict,
-  managerFormConfigLoading: boolean,
+  memberCustomForm: CustomForm,
+  fetchCompanyCustomMemberForm: (params: { company: string }) => void,
+  submitCustomForm: (
+    formdata: FormData,
+    company_id: number,
+    options: OptionCallback,
+  ) => void,
+  fetchMyUserProfile: () => void,
 };
 
 export class ConsumerProfile extends React.Component<Props> {
@@ -69,48 +83,46 @@ export class ConsumerProfile extends React.Component<Props> {
   fetchData = () => {
     this.props.fetchMember(this.props.membership.id);
     this.props.fetchMemberPaymentMethod();
-    this.props.fetchSignFormUpConfiguration({
-      membership: this.props.membership.company,
+    this.props.fetchCompanyCustomMemberForm({
+      company: this.props.membership.company,
     });
+    this.props.fetchMyUserProfile();
   };
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props) {
     if (!prevProps.membership && this.props.membership) {
       this.fetchData();
     }
   }
 
+  submitCustomForm = (formdata: FormData, options?: OptionCallback) => {
+    this.props.submitCustomForm(formdata, this.props.membership.company, {
+      onSuccess: () => {
+        this.props.setEditMember(false);
+        this.props.fetchMember(this.props.membership.id);
+        this.props.fetchMyUserProfile();
+        if (options && options.onSuccess) options.onSuccess();
+      },
+      onError: () => {
+        if (options && options.onError) options.onError();
+      },
+    });
+  };
+
   render() {
+    const { classes } = this.props;
     if (!this.props.membership) {
       return (
-        <Grid container className={this.props.classes.flexGrid} spacing={2}>
+        <Grid container className={classes.flexGrid} spacing={2}>
           <Grid item xs={12} md={6}>
             <CircularProgress />
           </Grid>
         </Grid>
       );
     }
-    const initial = this.props.member;
-    const initialData = initial
-      ? {
-          ...unmap(initial, MemberMap),
-          date_joined: moment(initial.date_joined),
-          waiver: !!initial.waiver_accepted,
-        }
-      : {
-          birthday: null,
-          gender: 'F',
-        };
-
-    if (initialData && initial) {
-      if (initial.phone_number) {
-        initialData.phone = initial.phone_number;
-      }
-      delete initialData.address;
-    }
 
     return (
-      <Grid container className={this.props.classes.flexGrid} spacing={2}>
+      <Grid container className={classes.flexGrid} spacing={2}>
         <Grid item xs={12} md={6}>
           <MemberSummaryCard
             memberId={this.props.membership.id}
@@ -127,31 +139,30 @@ export class ConsumerProfile extends React.Component<Props> {
           />
         </Grid>
 
-        <Dialog
-          fullScreen={WidgetUtils.isWidget()}
+        <CustomFormViewDialog
+          isWidget={WidgetUtils.isWidget()}
           open={this.props.editMember}
-          maxWidth="lg"
+          maxWidth="md"
+          fullWidth
         >
-          {!this.props.managerFormConfigLoading && (
-            <MemberForm
-              hideManagerStuff
-              managerFormConfig={this.props.managerFormConfig?.poll_fields}
-              onCancel={() => this.props.setEditMember(false)}
-              memberId={this.props.membership.id}
-              theme={this.props.theme}
-              onSubmit={this.props.onUpdateMember}
-              initial={initialData}
-              snackbarSuccess={this.props.snackbarSuccess}
-              country={this.props.country}
-              waiver={this.props.theme.waiver}
-              generalTermsAndConditions={
-                this.props.theme.general_terms_and_conditions
-              }
-            />
-          )}
-        </Dialog>
+          <div className={classes.customFormContainer}>
+            {this.props.memberCustomForm && (
+              <CustomFormView
+                initial={this.props.memberCustomForm}
+                onSubmit={this.submitCustomForm}
+                layouts={this.props.memberCustomForm.layout}
+                waiver={this.props.theme.waiver}
+                general_terms_and_conditions={
+                  this.props.theme.general_terms_and_conditions
+                }
+                onCancel={() => this.props.setEditMember(false)}
+                textButtonConfirm
+              />
+            )}
+          </div>
+        </CustomFormViewDialog>
         <Grid item xs={12} md={6}>
-          <Paper className={this.props.classes.paymentContainer}>
+          <Paper className={classes.paymentContainer}>
             <MemberPaymentMethodPanel
               memberId={this.props.membership.id}
               paymentMethod={this.props.paymentMethod}
@@ -176,6 +187,9 @@ const styles = (theme) => ({
   paymentContainer: {
     padding: theme.spacing(2),
   },
+  customFormContainer: {
+    padding: theme.spacing(4),
+  },
 });
 export default compose(
   connect(
@@ -184,53 +198,31 @@ export default compose(
       member: getMemberDetail(state, membership && membership.id),
       theme: themeSelectors.getTheme(state),
       managerFormConfig: getSignUpFormConfigurationDict(state),
-      managerFormConfigLoading: state.poll.signUpForm.loading,
-      country: state.theme.theme.locale.split('_')[1],
       paymentMethod: state.paymentBackend.paymentMethod.items,
       paymentMethodLoading: state.paymentBackend.paymentMethod.loading,
       detachPaymentMethodLoading:
         state.paymentBackend.detachPaymentMethod.loading,
+      memberCustomForm: withUserProfileData(
+        getMemberCustomFormWithEnabledField,
+      )(state),
     }),
     {
       fetchMember: fetchMemberAction,
       fetchSignFormUpConfiguration,
       push: pushRouter,
-      upsertMember: (id, data, options) =>
-        createOrUpdateMember(id, data, options),
       fetchPaymentMethodListActions: fetchPaymentMethodList,
       detachPaymentMethodAction: detachPaymentMethod,
       snackbarErrorMsg: snackbarWarning,
       snackbarSuccessMsg: snackbarSuccess,
+      fetchCompanyCustomMemberForm,
+      submitCustomForm,
+      disconnect,
+      fetchMyUserProfile,
     },
   ),
   withTranslation(['snackbar']),
   withState('editMember', 'setEditMember', false),
   withStyles(styles),
-  withHandlers({
-    onUpdateMember: ({
-      upsertMember,
-      setEditMember,
-      membership,
-      fetchMember,
-    }) => (values, options) => {
-      if (!values.birthday) {
-        // eslint-disable-next-line
-          delete values.birthday;
-      }
-      const formData = mapFormData(values, MemberMap);
-
-      formData.append('id', membership.id);
-
-      upsertMember(membership.id, formData, {
-        ...options,
-        onSuccess: () => {
-          fetchMember(membership.id);
-          setEditMember(false);
-          options.onSuccess();
-        },
-      });
-    },
-  }),
   withHandlers({
     fetchMemberPaymentMethod: ({
       fetchPaymentMethodListActions,

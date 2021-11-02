@@ -888,7 +888,7 @@
                 },
                 "rgpd": {
                     "sms": "Accepteer sms-meldingen",
-                    "email": "Accepteer e-mailmeldingen"
+                    "email": "Ik ontvang graag relevante e-mails."
                 },
                 "errors": {
                     "waiver": "Het is een vereiste dat de Waiver / Vrijstelling geaccepteerd is",
@@ -3491,7 +3491,7 @@
                     "memberOfCompany": "Een korte introductie misschien?",
                     "notMemberYet": "Het lijkt erop dat je voor het eerst naar deze studio gaat."
                 },
-                "welcome": "Hoi {{first_name}}!"
+                "welcome": "Hoi {{firstname}}!"
             },
             "title": "Gebruikersinformatie"
         },
@@ -6827,6 +6827,21 @@
                     "success": "Veld is hersteld",
                     "error": "Veld kon niet worden hersteld"
                 }
+            },
+            "signupViaCustomForm": {
+                "errors": {
+                    "84104": "Dit telefoonnummer is niet geldig",
+                    "84103": "Het opgegeven geslacht is niet geldig",
+                    "84102": "Dit e-mailadres is al in gebruik.",
+                    "84101": "De verplichte velden moeten worden voltooid"
+                },
+                "error": "Fout tijdens het inschrijven",
+                "success": "Je hebt je succesvol ingeschreven!"
+            },
+            "upsert": {
+                "errors": {
+                    "84006": "Voeg je vrijstelling / waiver onder Instellingen > Algemeen toe."
+                }
             }
         },
         "establishmentGroup": {
@@ -7787,7 +7802,7 @@
             "field_identifier": "Velden",
             "account_modification": "Account bewerken",
             "account_creation": "Account aanmaken",
-            "title": "[Formulier] Inschrijven",
+            "title": "Ledenformulier",
             "customQuestionDialog": {
                 "confirm": "Een formulier toevoegen",
                 "cancel": "Annuleer",
@@ -8553,7 +8568,7 @@
                 "marketplaceSettings": "MarketPlace",
                 "widget": "Widgets",
                 "paymentMethod": "Betaalmethoden",
-                "forms": "Inschrijfformulier",
+                "forms": "Ledenformulier",
                 "quickbooks": "QuickBooks"
             },
             "pass": "Leskaarten",
@@ -8813,7 +8828,30 @@
                 "link_to_note_helper": "Door de vraag aan een notitie te koppelen, zullen de antwoorden automatisch in je ledenprofielen worden opgeslagen.",
                 "text_size_limit": "Maximaal aantal tekens: {{count}}.",
                 "signature": "Handtekening",
-                "tag_name": "Sub-tag"
+                "tag_name": "Sub-tag",
+                "sign_up_question": "Inschrijfvragen",
+                "isMandatoryOnSignUp": "Dit is een verplichte vraag",
+                "waiver": "Waiver / Vrijstelling",
+                "repeatPassword": "Gelieve het wachtwoord opnieuw invoeren",
+                "general_terms_and_conditions": "Algemene gebruiksvoorwaarden",
+                "country": "Land",
+                "city": "Stad",
+                "additional_adress": "Aanvulling adres",
+                "password": "Wachtwoord",
+                "phone": "Telefoonnummer",
+                "email": "E-mailadres",
+                "vaccination_status": "Status coronabewijs",
+                "accept_sms": "Ik ontvang graag relevante SMS'jes.",
+                "accept_email": "Ik ontvang graag relevante e-mails.",
+                "emergency_contact": "Contactpersoon voor noodgevallen",
+                "photo": "Profielfoto",
+                "zipcode": "Postcode",
+                "gender": "Geslacht",
+                "address_line_2": "Aanvulling adres",
+                "address_line_1": "Adres",
+                "birthday": "Geboortedatum",
+                "last_name": "Achternaam",
+                "first_name": "Voornaam"
             },
             "customFormField": {
                 "modal": {
@@ -8827,7 +8865,10 @@
                     },
                     "error": {
                         "emptyChoice": "De keuzes mogen niet leeg zijn.",
-                        "choicesLength": "Kies minimaal 2 opties"
+                        "choicesLength": "Kies minimaal 2 opties",
+                        "signupQuestionShouldBeSelected": " Je moet een vraag van het inschrijfformulier selecteren",
+                        "tooShort": "Het wachtwoord moet minimaal 8 tekens bevatten.",
+                        "passwordsDontMatch": "Deze wachtwoorden komen niet overeen"
                     },
                     "disable": {
                         "title": "Een veld verwijderen",
@@ -8847,7 +8888,10 @@
                 "errors": {
                     "requiredSignature": "Dit formulier vereist een handtekening.",
                     "requiredField": "Dit veld is verplicht.",
-                    "requiredFile": "Een bestand toevoegen"
+                    "requiredFile": "Een bestand toevoegen",
+                    "passwordConfirmationError": "Deze wachtwoorden komen niet met elkaar overeen",
+                    "invalidEmail": "Ongeldig e-mailadres",
+                    "passwordMinimumRequirementsError": "Je wachtwoord moet minimaal 6 tekens bevatten."
                 },
                 "date_submitted": "Datum",
                 "dialog": {
@@ -8879,12 +8923,14 @@
             "noChanges": "Het formulier is bijgewerkt.",
             "actions": {
                 "configure": "Configureer",
-                "statistics": "Statistieken"
+                "statistics": "Statistieken",
+                "customization": "Personalisering"
             },
             "tab": {
                 "general": "Inhoud",
                 "campaign": "Campagne",
-                "statistics": "Statistieken"
+                "statistics": "Statistieken",
+                "layout": "Personalisering"
             },
             "statistics": {
                 "byMember": "Details per lid",
@@ -8940,14 +8986,48 @@
                 "unForcedModeMinimal": "Toon dit formulier niet aan leden die dit formulier eerder hebben voltooid",
                 "forRegisteredMemberMinimal": ">{{ count }} dag(en)",
                 "forRegisteredMember": "Dit formulier is voor leden die al {{ count }} dag(en) lid zijn.",
-                "forNewMember": "Voor nieuwe leden"
+                "forNewMember": "Voor nieuwe leden",
+                "forbiddenForSignup": "Dit formulier kan niet aan een melding worden gekoppeld"
             },
             "disconnect": "Loskoppelen van",
             "resetSubmit": "Bewerk mijn antwoorden",
             "allStepsCompleted": "U heeft alle stappen voltooid",
             "submitLater": "Antwoord later",
             "previous": "Terug",
-            "next": "Volgende"
+            "next": "Volgende",
+            "signUp": {
+                "helperMemberForm": "Het wijzigingsformulier kun je wijzigen en wordt getoond zodra leden naar hun profiel gaan. Op het wijzigingsformulier kunnen leden hun informatie inzien en eventueel bewerken.",
+                "helperSignup": "Je kunt je inschrijfformulier wijzigen met gepersonaliseerde vragen/velden.",
+                "signupFields": "Formuliervragen"
+            },
+            "signUpInfoModal": {
+                "content": "De verplichte inschrijvingsvragen moeten door je leden kunnen worden bewerkt als ze naar hun profiel gaan. Deze vragen worden automatisch voor leden aan het wijzigingsformulier toegevoegd.",
+                "confirm": "Bevestigen",
+                "cancel": "Annuleer",
+                "title": "Informatie"
+            },
+            "memberFormHelper": "De verplichte inschrijvingsvragen kunnen niet worden verwijderd en worden standaard getoond en zijn altijd wijzigbaar.",
+            "signupFormHelper": "De verplichte inschrijvingsvragen moeten door je leden kunnen worden bewerkt als ze naar hun profiel gaan. Deze vragen worden automatisch voor leden aan het wijzigingsformulier toegevoegd.",
+            "clientForms": {
+                "preview": "Overzicht",
+                "modify": "Bewerken",
+                "customize": "Personaliseren",
+                "modification": "Bewerken",
+                "signup": "Inschrijving"
+            },
+            "editable": "Bewerkbaar",
+            "display": "Toon",
+            "navigateToMemberForm": "Wijzigingsformulier bewerken",
+            "navigateToSignup": "Inschrijfformulier bewerken",
+            "memberFormTitle": "Wijzigingsformulier",
+            "signupFormTitle": "Inschrijfformulier",
+            "layout": {
+                "save": "Opslaan",
+                "redo": " Opnieuw",
+                "reset": "Resetten",
+                "undo": "Terug",
+                "editLayout": "Layout bewerken"
+            }
         }
     },
     "spotScheduling": {

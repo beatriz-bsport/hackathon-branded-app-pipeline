@@ -128,6 +128,7 @@ export class CustomFormDetail extends React.Component<Props, State> {
     ) {
       return <BackofficeLinearProgress color="secondary" />;
     }
+
     return (
       <>
         <div className={classes.container}>

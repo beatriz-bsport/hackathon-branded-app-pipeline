@@ -1430,7 +1430,7 @@
                 "levelChangeWarning": "Editing the level will affect all future sessions. All other modifications (establishment, price, etc.) will also be applied to all sessions."
             },
             "payment": {
-                "additionalInformationHelper": "(Optional) Add an important note",
+                "additionalInformationHelper": "(Optional) Payment reference",
                 "additionalInformationLabel": "Information",
                 "noPaymentExtraInfo": "There is no additional information to display.",
                 "unpaid": "Pending",
@@ -3140,7 +3140,7 @@
         },
         "recurrenceRule": {
             "item": {
-                "explain": "Every {{dayOfWeek}} - {{time}}, {{delayWeek}} week(s) before",
+                "explain": "Every {{dayOfWeek}} at {{time}} - {{delayWeek}} week(s) before",
                 "startFrom": "From: {{ date }}"
             },
             "forms": {
@@ -4236,7 +4236,14 @@
                     "explain": "Be careful ! This tag will be deleted for all members, are you sure you want to do that ? This operation is not reversable.",
                     "submit": "Delete",
                     "cancel": "Cancel"
-                }
+                },
+                "icon": "(Optional) Icon",
+                "submit": "Save",
+                "name": "Tag",
+                "color": "Color",
+                "info": "Selected icons will appear as a badge next to your tagged members' profile pictures.",
+                "selectIcon": "Select an icon",
+                "searchIcon": "Search an icon"
             }
         },
         "management": {
@@ -4541,7 +4548,7 @@
                 "checkoutBasket": "Buy",
                 "payZero": "Confirm my basket"
             },
-            "isFinalized": "Your cart has been validated",
+            "isFinalized": "Your basket has been validated",
             "checkingPaymentStatus": "Please wait, we are checking the status of your payment",
             "totalQuantity": "Contains {{ qty }} element(s)"
         },
@@ -4679,7 +4686,7 @@
             "noGroupHelper": "Locations allow you to group several addresses together. If you have several studios in different cities, you can group the studios in the same city into one location. On the marketplace, the widget and the personalized application your students will be able to select the location they are most interested in to see only the classes near their home.",
             "modal": {
                 "delete": {
-                    "content": "This location will no longer appear in the filters available on the marketplace, the widget and the custom application.",
+                    "content": "This establishment will no longer appear in the available filters on the marketplace, the widget, and the branded mobile app.",
                     "cancel": "Cancel",
                     "title": "Delete a location",
                     "confirm": "Delete"
@@ -5306,7 +5313,7 @@
                 "addPrivateSlot": "Add a rule"
             }
         },
-        "search": "Apply a payroll rulle (optional)",
+        "search": "(Optional) Apply a payroll rule",
         "simulate": "Simulate"
     },
     "payment": {
@@ -5399,7 +5406,7 @@
             "current": "Current account"
         },
         "paymentNote": {
-            "helperText": "(optional) check number, cashing date...",
+            "helperText": "(Optional) Payment reference",
             "label": "Note"
         },
         "bankAccount": {
@@ -5600,7 +5607,7 @@
                 "isEmpty": "No purchases",
                 "title": "Purchases",
                 "titleReverse": "Purchase return",
-                "billing_establishment": "Billing establishment (optional)"
+                "billing_establishment": "(Optional) Billing establishment"
             }
         },
         "invoiceItem": {
@@ -5750,7 +5757,7 @@
                 "label": "Payment date"
             },
             "paymentNote": {
-                "helperText": "(optional) check number, payment date...",
+                "helperText": "(Optional) Payment reference",
                 "label": "Note"
             },
             "amount": {
@@ -6295,12 +6302,12 @@
         },
         "pause": {
             "pausedInterval": "{{start}} → {{ end }} : {{ days }} days",
-            "pausedAt": "{{days}} days - {{date}}",
+            "pausedAt": "{{days}} day(s) - {{date}}",
             "actions": {
                 "delete": "Cancel the pause"
             },
             "secondaryLabel": " : {{ note }}",
-            "label": "Paused for {{days}} days",
+            "label": "Paused for {{days}} day(s)",
             "createdAt": "Create the "
         },
         "messages": {
@@ -6739,7 +6746,7 @@
         "privateBookingIncomplete": {
             "explain": "The appointment of <1>{{name}}</1> has no assigned teacher.",
             "name": "Member : {{ user_name }}",
-            "date": "Date : {{ date_start }}"
+            "date": "Date: {{ date_start }}"
         },
         "companyOnboarding": {
             "creation": {
@@ -7020,7 +7027,7 @@
                     "start_date_method_type": "Please indicate the beginning of validity of the card."
                 },
                 "category": {
-                    "label": "Category (optional)",
+                    "label": "(Optional) Category",
                     "helperText": "Name of the category"
                 },
                 "advancedOptions": {
@@ -7218,9 +7225,9 @@
                 },
                 "steps": {
                     "activity_form": "Activity creation",
-                    "pass_form": "Pass creation (optional)",
+                    "pass_form": "(Optional) Pass creation",
                     "pass_list": "Finalization",
-                    "offer_form": "Session creation (optional)",
+                    "offer_form": "(Optional) Session creation",
                     "workshop_form": "Workshop creation"
                 }
             },
@@ -7793,7 +7800,7 @@
             },
             "recurrentRuleBooking": "Recurrent booking",
             "item": {
-                "explain": "Every {{dayOfWeek}} - {{hour}}:{{minute}}, {{delayWeek}} weeks before"
+                "explain": "Every {{dayOfWeek}} at {{hour}}:{{minute}} - {{delayWeek}} weeks before"
             },
             "needConsumerPack": "This member does not have a compatible class pass, it is impossible to schedule a recurrence",
             "recurrentBookings": "Recurrent bookings",
@@ -8004,7 +8011,7 @@
             "couponCreate": "Create coupon",
             "couponDetail": "{{name}}",
             "couponEdit": "Coupon form",
-            "couponList": "Coupons"
+            "couponList": "Promotions"
         },
         "establishment": {
             "establishmentList": "Establishments",
@@ -8046,7 +8053,7 @@
         "coachList": "Teachers",
         "offerManagement": "Bookings",
         "metaActivityFormPage": "Activity form",
-        "offerFormPage": "Add offers",
+        "offerFormPage": "Add sessions",
         "searchResults": "Search",
         "privateService": {
             "serviceList": "Appointments"
@@ -9690,7 +9697,7 @@
     },
     "widget": {
         "widget": {
-            "ownStyle": "Compatibility mode (ignore site theme)",
+            "ownStyle": "Compatibility mode (ignores website theme)",
             "copyUrl": "Go to the link of your agenda.",
             "codeSource": "See the code you need to copy to your own site",
             "copy": "Copy",
@@ -9708,7 +9715,7 @@
             "listDisplay": "Week view (list)",
             "codeInfo": "Integrate this code into your website",
             "linkToConfig": "Link for this configuration",
-            "creationPageInfo": "In this tab, you can configure, filter, and personalize your widgets to copy paste the specific code for your website.",
+            "creationPageInfo": "Configure and personalize your widgets to your brand and to your liking. Afterwards, simply copy-paste the specific code on your website.",
             "dialogMode": {
                 "iframe": "Popup on my website",
                 "popup": "Open a new window",
@@ -9716,7 +9723,7 @@
             },
             "dialogModeLabel": "Popup type",
             "widgetPreviewError": "Please finish the settings",
-            "dialogTitle": "Personalized Widget",
+            "dialogTitle": "Widget personalization",
             "showFabLabel": "Add an EasyConnect button",
             "browserLanguage": "Browser language",
             "languageHelper": "The widget will by default be in the language selected here. Select \"Browser language\" so the language on the widget automatically adapts to the language of the end user.",
@@ -9969,7 +9976,7 @@
                         "modify": "Edit",
                         "cancel": "Cancel",
                         "create": "Add",
-                        "helperTextNewMembers": "The form will appear as a pop-up on the marketplace and the widget after the registration form."
+                        "helperTextNewMembers": "The form will appear as a pop-up on the marketplace and the widget after the enrolment form."
                     },
                     "errors": {
                         "timedeltaBeforeDisplayMustBeGraterThanZero": "This value must be greater than 0."

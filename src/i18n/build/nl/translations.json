@@ -244,7 +244,7 @@
             },
             "User": {
                 "tags": {
-                    "lastname": "Familienaam lid",
+                    "lastname": "Achternaam lid",
                     "firstname": "Voornaam lid",
                     "unsubscribe_link": "Uitschrijven voor de nieuwsbrief"
                 },
@@ -733,7 +733,7 @@
             "birthday": "Geboortedatum",
             "birthdayYear": "Geboortejaar",
             "gender": "Geslacht",
-            "lastname": "Familienaam",
+            "lastname": "Achternaam",
             "firstname": "Voornaam",
             "newCoach": "Nieuwe instructeur",
             "newMember": "Nieuw lid",
@@ -860,7 +860,7 @@
                     "passwordConfirm": "Wachtwoord bevestigen",
                     "password": "Wachtwoord",
                     "email": "E-mailadres",
-                    "last_name": "Familienaam",
+                    "last_name": "Achternaam",
                     "first_name": "Voornaam"
                 },
                 "addProfilePicture": "Een profielfoto toevoegen",
@@ -1262,7 +1262,7 @@
             "booking": "Reservering(en)",
             "saveAndAdd": "Opslaan en opnieuw toevoegen",
             "save": "Opslaan",
-            "lastname": "Familienaam",
+            "lastname": "Achternaam",
             "firstname": "Voornaam",
             "previous": "Terug",
             "delete": "Verwijderen",
@@ -1795,7 +1795,7 @@
             "total_payments": "Totaal aantal betalingen",
             "name": "Naam",
             "identifier": "Gebruikersnaam",
-            "last_name": "Familienaam",
+            "last_name": "Achternaam",
             "email": "E-mail",
             "phonenumber": "Telefoon",
             "gender": "Geslacht",
@@ -3317,7 +3317,7 @@
         "offerManagement": {
             "bookingOrder": {
                 "date": "Sorteer op: datum",
-                "lastname": "Sorteer op: familienaam",
+                "lastname": "Sorteer op: achternaam",
                 "firstname": "Sorteer op: voornaam"
             },
             "unevenQuickInvoices": "Er bevinden zich openstaande facturen zonder betaalmethode op deze pagina. Weet je zeker dat je wilt stoppen?"
@@ -4713,7 +4713,7 @@
         "form": {
             "delivery": {
                 "first_name": "Voornaam",
-                "last_name": "Familienaam"
+                "last_name": "Achternaam"
             }
         },
         "actions": {
@@ -7480,7 +7480,14 @@
                     "explain": "Let op: deze tag wordt van ALLE leden verwijderd. Deze actie is definitief",
                     "submit": "Verwijderen",
                     "cancel": "Annuleren"
-                }
+                },
+                "submit": "Opslaan",
+                "name": "Sub-tag",
+                "color": "Kleur",
+                "info": "Geselecteerde iconen worden als een badge naast de profielfoto's van getagde leden vertoond.",
+                "selectIcon": "Selecteer een icoon",
+                "searchIcon": "Zoek een icoon",
+                "icon": "Icoon (optioneel)"
             },
             "filter": {
                 "title": "Filters",
@@ -7604,19 +7611,19 @@
                 "default_booking_ordering": {
                     "date": "Sorteer op: meest recent",
                     "firstname": "Sorteer op: voornaam (alfabetisch)",
-                    "lastname": "Sorteer op: familienaam (alfabetisch)",
+                    "lastname": "Sorteer op: achternaam (alfabetisch)",
                     "title": "Kies de standaard sorteervolgorde voor reserveringen op je agenda"
                 },
-                "names_label_info": "Wijzig het label van de velden Voornaam en Familienaam in je aanmeldformulier.",
+                "names_label_info": "Wijzig het label van de velden Voornaam en Achternaam in je aanmeldformulier.",
                 "first_name_label": {
                     "placeholder": "Voornaam label",
                     "label": "Voornaam label",
                     "helperText": "Voer het label in voor de voornaam"
                 },
                 "last_name_label": {
-                    "placeholder": "Familienaam label",
-                    "label": "Familienaam label",
-                    "helperText": "Voer het label in voor de familienaam"
+                    "placeholder": "Achternaam label",
+                    "label": "Achternaam label",
+                    "helperText": "Voer het label in voor de achternaam"
                 },
                 "offersFilling": "Toon het aantal reserveringen van een sessie op de agenda van je leden",
                 "acceptDoubleBooking": "Dubbele reserveringen aanvaarden (alleen voor groepsactiviteiten)",
@@ -7784,7 +7791,7 @@
                 "main_phone": "Telefoonnummer",
                 "gender": "Geslacht",
                 "email": "E-mailadres",
-                "last_name": "Familienaam",
+                "last_name": "Achternaam",
                 "first_name": "Voornaam",
                 "photo": "Profielfoto",
                 "address_line_2": "Aanvulling adres",
@@ -7833,7 +7840,7 @@
                     "cancel": "Terug"
                 },
                 "first_name": "Voornaam",
-                "last_name": "Familienaam"
+                "last_name": "Achternaam"
             }
         },
         "autoAdd": {
@@ -8744,7 +8751,7 @@
             },
             "form": {
                 "validate": "Bevestigen",
-                "lastName": "Familienaam",
+                "lastName": "Achternaam",
                 "firstName": "Voornaam",
                 "email": "E-mailadres",
                 "title": "Schrijf je hieronder in voor onze nieuwsbrief en ontvang interessante updates en artikelen."

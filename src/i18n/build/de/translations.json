@@ -2698,8 +2698,8 @@
         "specifications": {
             "price": "{{price, price}}",
             "unlimitedCredits": "Unbegrenzt",
-            "nbCredits": "{{credits}} Credits",
-            "nbCredits_plural": "Krediten"
+            "nbCredits": "{{credits}} Credit",
+            "nbCredits_plural": "{{credits}} Credits"
         },
         "unlimitedCredits": "Unbegrenzt",
         "never": "Nie",
@@ -9049,7 +9049,8 @@
                 "name": {
                     "label": "Name der Karte"
                 },
-                "footerUnlimited": "Die Karte wird am {{- date_send }} per E-Mail an die angegebenen Adressen gesendet. Sie enthält kein Verfallsdatum. Dem Konto des Empfängers wird der {{- Price }} für zukünftige Einkäufe gutgeschrieben."
+                "footerUnlimited": "Die Karte wird am {{- date_send }} per E-Mail an die angegebenen Adressen gesendet. Sie enthält kein Verfallsdatum. Dem Konto des Empfängers wird der {{- Price }} für zukünftige Einkäufe gutgeschrieben.",
+                "select_image": "Wählen Sie Ihr Hintergrundbild"
             },
             "previewPlaceholder": {
                 "message_content": "[Personalisierte Nachricht].",

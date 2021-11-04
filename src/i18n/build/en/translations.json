@@ -4015,7 +4015,7 @@
                 "label": "Android"
             },
             "ios_app_url": {
-                "placeholder": "https://apps.apple.com/en/app/id1356621554",
+                "placeholder": "https://apps.apple.com/us/app/id1356621554",
                 "helperText": "Use this field to add the link to your iOS app (Apple App Store).",
                 "label": "iOS"
             },
@@ -4872,7 +4872,7 @@
             "zoom": {
                 "enabled": "Activate ZOOM integration",
                 "label": "Configuring ZOOM Accounts",
-                "explainValid": "Valid account: ZOOM meeting links will be created for each session 15 minutes before they start automatically. The teacher will receive a link to host the meeting while registrants will receive another link to join the meeting. Note that if the ZOOM account is unpaid, the ZOOM meeting is limited to 40 minutes",
+                "explainValid": "We automatically generate your Zoom Meetings 15 minutes before the start of your livestreams. Relevant members will also be automatically notified 15 minutes beforehand so they can join your Meeting Room straight away. Check if you've got a valid Zoom Account. Important: Zoom only allows one connection per licence and non-Premium Zoom Accounts are limited to 40 minute sessions.",
                 "explainInvalid": "Invalid account",
                 "revoke": "Deactivate ZOOM"
             }
@@ -8146,6 +8146,14 @@
                 "textFieldPlaceholder": "Find an appointment",
                 "helperSelectedText": "selected appointments",
                 "helperText": "select appointments"
+            },
+            "level": {
+                "allLevels": "all levels",
+                "beginner": "beginner",
+                "intermediate": "intermediate",
+                "advanced": "advanced",
+                "select": "select a level",
+                "warning": "Select at least one level"
             }
         },
         "selectToShowPreview": "Select an email to see a preview of it.",
@@ -8339,7 +8347,10 @@
                 "payment_pack": {
                     "first": "with the passes"
                 },
-                "attendance": "status:"
+                "attendance": "status:",
+                "level": {
+                    "first": "level "
+                }
             },
             "22": {
                 "name": "Number of bookings",
@@ -8367,7 +8378,10 @@
                 },
                 "explanation": "Display an overview of members that booked X classes of activity A in establishment X with pass Z",
                 "between": "and",
-                "attendance": "with status"
+                "attendance": "with status",
+                "level": {
+                    "first": "level"
+                }
             },
             "23": {
                 "name": "First booking",

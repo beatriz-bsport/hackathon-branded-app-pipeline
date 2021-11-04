@@ -2668,7 +2668,7 @@
         "multiSelector": {
             "establishments": {
                 "textFieldPlaceholder": "Zoek een vestiging",
-                "helperText": "vestiging(en):",
+                "helperText": "Selecteer vestigingen:",
                 "helperSelectedText": "geselecteerde vestiging(en):",
                 "helperAllSelectedText": "alle vestigingen",
                 "warning": "Selecteer minimaal één vestiging"
@@ -2680,17 +2680,17 @@
                 "textFieldPlaceholder": "Zoek een leskaart",
                 "helperAllSelectedText": "alle leskaarten",
                 "warning": "Selecteer minimaal één leskaart",
-                "helperText": "selecteer leskaarten"
+                "helperText": "Selecteer leskaarten"
             },
             "metaActivities": {
-                "helperText": "selecteer activiteiten",
+                "helperText": "Selecteer activiteiten",
                 "helperSelectedText": "geselecteerde activiteiten",
                 "textFieldPlaceholder": "Zoek een activiteit",
                 "helperAllSelectedText": "Alle activiteiten",
                 "warning": "Selecteer minimaal één activiteit"
             },
             "coaches": {
-                "helperText": "selecteer instructeurs",
+                "helperText": "Selecteer instructeurs",
                 "helperSelectedText": "geselecteerde instructeurs",
                 "textFieldPlaceholder": "Zoek een instructeur",
                 "helperAllSelectedText": "alle instructeurs",
@@ -2707,7 +2707,7 @@
                 "helperAllSelectedText": "alle afspraakkaarten",
                 "textFieldPlaceholder": "Zoek een afspraakkaart",
                 "helperSelectedText": "Geselecteerde afspraakkaarten",
-                "helperText": "Kies een afspraakkaart"
+                "helperText": "Selecteer afspraakkaarten"
             },
             "privateServices": {
                 "warning": "Selecteer minimaal één afspraak",
@@ -2715,6 +2715,14 @@
                 "textFieldPlaceholder": "Zoek een afspraak",
                 "helperSelectedText": "Geselecteerde afspraken",
                 "helperText": "Selecteer afspraken"
+            },
+            "level": {
+                "allLevels": "alle niveaus",
+                "warning": "Selecteer ten minste één niveau",
+                "beginner": "beginner",
+                "intermediate": "intermediair",
+                "advanced": "geavanceerd",
+                "select": "Selecteer een niveau"
             }
         },
         "modal": {
@@ -2893,7 +2901,10 @@
                 "payment_pack": {
                     "first": "leskaart(en):"
                 },
-                "attendance": "status:"
+                "attendance": "status:",
+                "level": {
+                    "first": "niveau "
+                }
             },
             "22": {
                 "name": "Aantal reserveringen",
@@ -2921,7 +2932,10 @@
                     "third": "Uur"
                 },
                 "between": "en",
-                "attendance": "status:"
+                "attendance": "status:",
+                "level": {
+                    "first": "niveau"
+                }
             },
             "isEmpty": "Deze Smartlist vertegenwoordigd je volledige database, omdat er geen actieve filters zijn toegevoegd",
             "calendarPicker": {

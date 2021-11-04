@@ -105,6 +105,20 @@ export const withEstablishment = memoize(
     ),
 );
 
+export const withSpecificCoach = memoize(
+  (selector: (state: RootState) => any) =>
+    createSelector([selector, getAllCoachesDict], (offers, coachData) => {
+      if (!offers) return null;
+      return {
+        ...offers,
+        coach: coachData[offers.coach.id] || offers.coach,
+        coach_override: offers.coach_override
+          ? coachData[offers.coach_override]
+          : null,
+      };
+    }),
+);
+
 export const withCoach = memoize((selector: (state: RootState) => any) =>
   createSelector([selector, getAllCoachesDict], (offers, coachData) => {
     if (!offers) return null;

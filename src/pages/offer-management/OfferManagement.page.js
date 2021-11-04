@@ -25,6 +25,7 @@ import {
 import {
   compatiblePacksWithOfferAndEnabled,
   getDetailedOffer,
+  withSpecificCoach,
 } from '../../libs/offer/selectors';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -132,7 +133,7 @@ export default compose(
   connect(
     (state: RootState) => ({
       // offer
-      offer: getDetailedOffer(state),
+      offer: withSpecificCoach(getDetailedOffer)(state),
       offerLoading: state.offer.retrieve.loading,
       // payment pack
       paymentPacksEnabled: getPaymentPackEnabled(state),

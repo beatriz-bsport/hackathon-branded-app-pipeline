@@ -33,21 +33,40 @@ export default class CanvasTeacherComponent extends CanvasBaseComponent<CanvasTe
           rotation || 0,
         )}
       >
-        {this.props.coach?.photo ? (
-          <image
-            x={1}
-            y={1}
-            href={this.props.coach.photo}
-            width={60}
-            height={60}
+        <svg
+          width={CanvasTeacherComponent.avatarSize}
+          height={CanvasTeacherComponent.avatarSize}
+          x={-CanvasTeacherComponent.avatarSize / 4}
+          y={-CanvasTeacherComponent.avatarSize / 4}
+        >
+          <defs>
+            <pattern
+              id="image"
+              patternUnits="userSpaceOnUse"
+              height={CanvasTeacherComponent.avatarSize}
+              width={CanvasTeacherComponent.avatarSize}
+            >
+              <image
+                x={0}
+                y={0}
+                height={CanvasTeacherComponent.avatarSize}
+                width={CanvasTeacherComponent.avatarSize}
+                xlinkHref={
+                  this.props.coach?.photo ||
+                  'https://d2r95z4j5cc9cx.cloudfront.net/gymnast-female.png'
+                }
+                preserveAspectRatio="xMidYMid slice"
+              />
+            </pattern>
+          </defs>
+          <circle
+            id="top"
+            cx={CanvasTeacherComponent.avatarSize / 2}
+            cy={CanvasTeacherComponent.avatarSize / 2}
+            r={CanvasTeacherComponent.avatarSize / 2}
+            fill="url(#image)"
           />
-        ) : (
-          <path
-            d="M30.875 7.5C26.3075 8.725 20.9525 9.25 16 9.25C11.0475 9.25 5.6925 8.725 1.125 7.5L0.25 11C3.505 11.875 7.25 12.4525 10.75 12.75V35.5H14.25V25H17.75V35.5H21.25V12.75C24.75 12.4525 28.495 11.875 31.75 11L30.875 7.5ZM16 7.5C17.925 7.5 19.5 5.925 19.5 4C19.5 2.075 17.925 0.5 16 0.5C14.075 0.5 12.5 2.075 12.5 4C12.5 5.925 14.075 7.5 16 7.5Z"
-            fill={this.props.fill || '#757575'}
-            stroke={this.props.stroke || 'transparent'}
-          />
-        )}
+        </svg>
         <rect
           visibility="visible"
           width={40 * 2}
@@ -58,13 +77,13 @@ export default class CanvasTeacherComponent extends CanvasBaseComponent<CanvasTe
           fill="transparent"
         />
         <text
-          x={0}
-          y={CanvasTeacherComponent.avatarSize + 15}
+          x={CanvasTeacherComponent.avatarSize / 4}
+          y={CanvasTeacherComponent.avatarSize}
           dominantBaseline="middle"
           textAnchor="middle"
           style={{ userSelect: 'none' }}
         >
-          {this.props?.coach?.name || CanvasTeacherComponent.label}
+          {this.props.coach?.name || CanvasTeacherComponent.label}
         </text>
       </g>
     );

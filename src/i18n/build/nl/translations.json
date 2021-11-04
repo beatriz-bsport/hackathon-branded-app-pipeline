@@ -74,7 +74,7 @@
             "goToHome": "Alle diensten bekijken"
         },
         "dashboard": {
-            "noBooking": "Je hebt je nog niet ergens voor ingeschreven.",
+            "noBooking": "Je hebt nog geen reserveringen om weer te geven.",
             "noPackCurrentlyActive": "Je bezit nog geen enkele leskaart.",
             "showMore": "Toon meer",
             "currentPassTitle": "Mijn kaarten",
@@ -127,7 +127,7 @@
         },
         "widget": {
             "noBookingPast": "Hier komt een overzicht van al je vorige reserveringen te staan.",
-            "noBookingFuture": "Je hebt je nog niet ergens voor ingeschreven.",
+            "noBookingFuture": "Je hebt nog geen reserveringen om weer te geven.",
             "pastBooking": "Geschiedenis",
             "futureBooking": "Mijn reserveringen"
         },
@@ -410,7 +410,7 @@
                 "members": "Leden",
                 "paymentPackList": "Leskaarten",
                 "paymentPackFormPage": "Een leskaart toevoegen",
-                "invoiceList": "Transacties",
+                "invoiceList": "Facturen",
                 "invoiceCreatePage": "In rekening brengen",
                 "invoiceFormPage": "Factuur",
                 "coachFormPage": "Instructeur",
@@ -2283,7 +2283,7 @@
                 },
                 "theoricalMarginValue": {
                     "helperText": "Dit wordt gebruikt om de payroll van de instructeur(s) te berekenen. Voorbeeld: €10 betekent dat bij 1 reservering, de instructeur €10 ontvangt. Indien dit veld leeg of €0 is, dan wordt de payroll op basis van PRIJS / AANTAL RESERVERINGEN berekend.",
-                    "label": "Theoretische marginale bijdrage incl. btw (alleen voor onbeperkte leskaarten)"
+                    "label": "Theoretische marginale waarde per reservering (alleen voor onbeperkte leskaarten)"
                 },
                 "establishments": "Vestiging",
                 "from": "Van ",
@@ -2511,6 +2511,11 @@
             },
             "add": "Een categorie toevoegen",
             "category": "Leskaart categorieën"
+        },
+        "noCategory": {
+            "help": "Deze kaarten verschijnen in een naamloze categorie op je MarketPlace.",
+            "name": "Naamloze categorie",
+            "empty": "Er zijn geen kaarten aan deze categorie gekoppeld om weer te geven."
         }
     },
     "establishment": {
@@ -3620,7 +3625,7 @@
                 "maleUnavailable": "Mannen kunnen zich niet meer inschrijven voor deze sessie.",
                 "femaleUnavailable": "Vrouwen kunnen zich niet meer inschrijven voor deze sessie."
             },
-            "hasRegistered": "Je hebt je aangemeld voor deze sessie.",
+            "hasRegistered": "Je hebt deze sessie al gereserveerd.",
             "recurrent": {
                 "backToRegistererChoice": "Terug",
                 "bookMultiple": "Reserveer",
@@ -3847,7 +3852,7 @@
                 "registerWaitingList": "Op de wachtlijst inschrijven",
                 "book": "Reserveer"
             },
-            "bookingsTitle": "Reserveer",
+            "bookingsTitle": "Mijn reservering",
             "addSession": "Sessies toevoegen",
             "noPackAvailable": "Deze sessie heeft geen compatibele kaarten!",
             "noPackAvailable_plural": "Deze sessies hebben geen compatibele kaarten. Sessies moeten apart worden gereserveerd!",
@@ -4003,7 +4008,7 @@
             "metaActivityList": "Activiteiten"
         },
         "invoice": {
-            "invoiceList": "Transacties",
+            "invoiceList": "Facturen",
             "invoiceCreate": "In rekening brengen",
             "invoiceEdit": "Factuur"
         },
@@ -5712,7 +5717,7 @@
             "recurrentBookings": "Terugkerende afspraken"
         },
         "marketplace": {
-            "isEmpty": "Geen afspraken beschikbaar."
+            "isEmpty": "Er zijn geen afspraken om weer te geven."
         },
         "popup": {
             "end": "Eindtijd",

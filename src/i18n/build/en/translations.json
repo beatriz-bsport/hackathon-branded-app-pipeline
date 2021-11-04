@@ -1774,9 +1774,9 @@
             "pickALanguage": "Language",
             "emergencyContact": "Emergency contact",
             "disconnect": "Log out",
-            "vaccinationDontWantToCommunicate": "Prefer not to answer.",
-            "vaccinationNotDone": "I'm not in possession of a valid COVID-19 Sanitary Pass.",
-            "vaccinationDone": "I'm in possession of a valid COVID-19 Sanitary Pass.",
+            "vaccinationDontWantToCommunicate": "Prefer not to answer",
+            "vaccinationNotDone": "I'm not in possession of a valid COVID-19 Sanitary Pass",
+            "vaccinationDone": "I'm in possession of a valid COVID-19 Sanitary Pass",
             "vaccination_status": "COVID-19 Sanitary Pass Status"
         },
         "members": {
@@ -2350,7 +2350,7 @@
             "submit": "Delete"
         },
         "edit": "Edit",
-        "search": "Find a pack"
+        "search": "Search a pack"
     },
     "communication": {
         "table": {
@@ -3235,14 +3235,14 @@
         "marketplace": {
             "isEmpty": "There are no appointments to display."
         },
-        "search": "Find an appointment",
+        "search": "Search an appointment",
         "popup": {
             "begin": "Start time",
             "end": "End time",
             "button": "Schedule",
             "validate": "Save"
         },
-        "searshAppointmentPass": "Find an appointment pass"
+        "searshAppointmentPass": "Search an appointment pass"
     },
     "relationship": {
         "member": {
@@ -3922,7 +3922,7 @@
                     "alert": "Add the amount of days before abandoned baskets gets emptied.",
                     "placeholder": "Days",
                     "helperText": "This is the number of days before an abandoned basket is automatically emptied.",
-                    "label": "Expiration date of baskets"
+                    "label": "Basket expiration date"
                 },
                 "cancelledOffersManager": "Show cancelled sessions on the calendar your calendar",
                 "checkBalance": {
@@ -4189,7 +4189,7 @@
             "goToPaymentPack": "Passes"
         },
         "actions": {
-            "search": "Find a workshop",
+            "search": "Search a workshop",
             "addWorkshopActivity": "Add a workshop"
         },
         "noWorkshops": "In this module, you can add, manage, edit, and delete all your workshops.",
@@ -4656,7 +4656,7 @@
         "notificationToolTip": "Some notifications are set for bookings regarding this item",
         "list": {
             "section": {
-                "archived": "Archived establishment"
+                "archived": "Archived establishments"
             }
         },
         "location": {
@@ -4666,7 +4666,7 @@
             "address_line_2": "Address line 2",
             "address_line_1": "Address line 1",
             "address": "Address",
-            "search_address": "Find an address"
+            "search_address": "Search an address"
         },
         "spotScheduling": {
             "untitled": "Untitled",
@@ -4887,7 +4887,7 @@
                 "dialogTitle": "My ActiveCampaign API informations",
                 "token": "Authentication key",
                 "error": "Your informations are incorrect",
-                "helper": "Where can I find this information ?",
+                "helper": "Where can I find this information?",
                 "empty": "Use this field to add the URL of your API."
             },
             "webhooks": {
@@ -5153,7 +5153,7 @@
             "coachPaymentRuleForPrivateService": "Appointments",
             "coachPaymentRuleForSessions": "Group classes",
             "reset": "Use the teacher's default payroll rule",
-            "group": "Compensation group",
+            "group": "Payroll group",
             "coachPaymentRuleForWorkshops": "Workshops"
         },
         "common": {
@@ -5219,17 +5219,17 @@
                 "taxeRateTypeError": "The VAT rate has to be a number between 0 and 100.",
                 "taxeRateRequired": "VAT is a required field if you have ticked the box \"Calculate VAT\" above.",
                 "percentagebaseRemunerationRequired": "This field is mandatory if you have ticked the \"Percentage\" box.",
-                "baseRemunerationTypeError": "Fixed Pay needs to be a positive number.",
+                "baseRemunerationTypeError": "The fixed amount must be a positive number.",
                 "invalideUpperInterval": "The upper interval must be a number.",
                 "invalidLowerInterval": "The superior interval must be higher than the inferior interval.",
                 "invalidBonusAmount": "The bonus must be greater than or equal to 0.1.",
                 "nameRequired": "This field is mandatory.",
                 "invalideIntervals": "The intersection of intervals for bonuses of the same type is not allowed.",
                 "invalidMaximum": "The maximum remuneration must be higher than the minimum remuneration",
-                "invalidMinimum": "The minimum remuneration must be equal to or higher than the fixed base",
+                "invalidMinimum": "The minimum remuneration must be equal to or higher than the fixed amount",
                 "invalidCancelledBookingRules": "If you want to apply different bonuses for absent students you must define at least one bonus or a percentage basis in the section below.",
                 "percentagebaseRemunerationTypeError": "Percentage pay must be a number between 0 and 100.",
-                "baseRemunerationRequired": "This is a mandatory field if you have ticked the 'Fixed Pay' box above.",
+                "baseRemunerationRequired": "This is a mandatory field if you have ticked the 'Fixed amount' box above.",
                 "privateSlotAlreadySelected": "A remuneration rule is already defined for this appointment",
                 "uniqueRuleForPrivateSlot": "This appointment appears several times in the list",
                 "invalidCoachPaymentRule": "A pay rule must be selected",
@@ -5261,7 +5261,7 @@
             "differentRemunerationForCancellation": "Apply different payroll rules when for absentees and late-cancellations ",
             "addRemunerationOnCancellation": "Compensate teachers for absentees and late-cancellations",
             "percentage_base": "Add a percentage of the margin value of the bookings",
-            "base_remuneration": "Fixed base",
+            "base_remuneration": "Fixed amount",
             "forCancelledBookings": "For cancellations after the deadline and absences",
             "forConfirmedBookings": "Payroll rule for attendees",
             "calculationMethod": "Calculation method",
@@ -5270,18 +5270,18 @@
             "name": "Name",
             "addNewCoachPaymentRule": "New payment rule",
             "base_remuneration_helper": "Teachers will always receive this as compensation for their session.",
-            "set_base_remuneration": "Define a fixed compensation base"
+            "set_base_remuneration": "Define a fixed amount that'll be paid out by default per session"
         },
         "tabs": {
             "all": "All activities",
             "appointment": "Appointments",
             "session": "Group activities & Workshops",
-            "groups": "Compensation group"
+            "groups": "Payroll group"
         },
         "fabButton": {
             "addNewForRDV": "Appointment",
             "addNewForSession": "Group activities & Workshops",
-            "addNewPaymentRuleGroup": "Compensation group"
+            "addNewPaymentRuleGroup": "Payroll group"
         },
         "paymentRules": "Payment rules",
         "coach_payment_rule_groups": {
@@ -5294,7 +5294,7 @@
             "workshop": "Workshops",
             "session": "Group classes",
             "private_service": "Appointment",
-            "dialogTitle": "Compensation group",
+            "dialogTitle": "Payroll group",
             "dissociate": "Customize the rules",
             "modal": {
                 "delete": {
@@ -5435,7 +5435,7 @@
         "returnedAmount": "Reimbursed: ",
         "payout": {
             "isEmptyWarning": "Attention: payouts before March 15th 2021 might not be listed.",
-            "isEmpty": "There are no payouts to display for now.",
+            "isEmpty": "There are no payouts to display.",
             "invoice": "Invoice {{ uuid }}",
             "seeMore": "See more",
             "paymentNb": "{{nb}} payments",
@@ -6400,7 +6400,7 @@
             "fromUntil": "Only if invoiced between {{from}} and {{until}} included"
         },
         "seeMore": "Show more",
-        "search": "Find a subscription"
+        "search": "Search a subscription"
     },
     "reporting": {
         "columns": {
@@ -6714,7 +6714,7 @@
             "average": "Average",
             "sum": "Total"
         },
-        "search": "Find a report"
+        "search": "Search a report"
     },
     "alerting": {
         "list": {
@@ -6927,7 +6927,7 @@
                 },
                 "unlimited": "Unlimited",
                 "theoricalMarginValue": {
-                    "label": "Theorical margin value (only unlimited pass)",
+                    "label": "Theoretical Margin Value per Booking (only applies to unlimited passes)",
                     "helperText": "This is used to calculate the payroll of the teachers. Example: $10 for 1 booking means that the teacher will be paid $10.  When left empty, the marginal value will be calculated as PRICE / NUMBER OF BOOKINGS."
                 },
                 "expirationDaysBeforeFirstUse": {
@@ -6988,7 +6988,7 @@
                     "helperText": "Price of the pass"
                 },
                 "startOnFirstUseHelper": "Otherwise it starts at the billing date",
-                "notEditable": "This course card is the result of a migration, some fields cannot be modified to respect the history. Compatible activities / categories remain modifiable.",
+                "notEditable": "This pass originates from a previously completed data migration. Some fields may not editable to preserve the data. Compatible activities/categories can still be modified.",
                 "maxPurchasePerMember": {
                     "helperText": "Leave this field empty to not set up any restrictions.",
                     "label": "Maximum purchase per member"
@@ -7146,9 +7146,9 @@
             "title": "Change in total credit"
         },
         "notificationForm": "Notification form",
-        "noPaymentPack": "Passes allow members to register for activities, it is necessary to have a pass to register.",
+        "noPaymentPack": "Members need a valid pass to book your group activities and workshops.",
         "disabledPacks": {
-            "hide": "Mask the archived passes",
+            "hide": "Hide archived passes",
             "show": "See the archived passes"
         },
         "disabledPacksTitle": "Archived passes",
@@ -7209,6 +7209,11 @@
                 }
             },
             "category": "Pass categories"
+        },
+        "noCategory": {
+            "help": "These passes will appear in an unnamed category on the marketplace.",
+            "name": "No category",
+            "empty": "There are no passes associated with this category to display."
         }
     },
     "metaActivity": {
@@ -7285,7 +7290,7 @@
             "addActivity": "Add an activity"
         },
         "noActivities": "Manage your activities here, an activity allows you to group together a set of sessions (usually collective) of the same practice.",
-        "disabledMetaActivities": "Archived activities",
+        "disabledMetaActivities": "Archived group activities",
         "workshop": "Workshop"
     },
     "offer": {
@@ -7392,13 +7397,13 @@
         "modification_date": "Last modified on",
         "selectToShowPreview": "Select an email to see a preview of it.",
         "templateListEmpty": "In our Drag-&-Drop Email Editor, you can design beautiful and personalized email templates to automatically send them to your members, from your BSPORT account.",
-        "subject": "Mail object:",
+        "subject": "Subject:",
         "preview": "Preview",
-        "no_subject": "No object",
+        "no_subject": "No subject",
         "editor": {
             "title": "Template title",
             "save": "Save",
-            "subject": "Mail object",
+            "subject": "Subject",
             "cancel": "Cancel",
             "error": {
                 "title": "Please fill the title",
@@ -7838,7 +7843,7 @@
                 "numberOfBook": "{{count}} enrolment",
                 "numberOfBook_plural": "{{count}} enrolments"
             },
-            "bookingsTitle": "You're booking",
+            "bookingsTitle": "My booking",
             "addSession": "Add sessions",
             "noPackAvailable": "This session does not have any compatible memberships!",
             "noPackAvailable_plural": "No single pass is compatible with all these sessions simultaneously. Please book them separately.",
@@ -8136,14 +8141,14 @@
             "privatePass": {
                 "warning": "Select at least one appointment pass",
                 "helperAllSelectedText": "all appointment passes",
-                "textFieldPlaceholder": "Find an appointment pass",
+                "textFieldPlaceholder": "Search an appointment pass",
                 "helperSelectedText": "selected appointment passes",
                 "helperText": "select appointment passes"
             },
             "privateServices": {
                 "warning": "Select at least one appointment",
                 "helperAllSelectedText": "all appointments",
-                "textFieldPlaceholder": "Find an appointment",
+                "textFieldPlaceholder": "Search an appointment",
                 "helperSelectedText": "selected appointments",
                 "helperText": "select appointments"
             },
@@ -9195,7 +9200,7 @@
         "bookerModule": {
             "pass": {
                 "nothingAvailable": "No pass allows you to book these sessions at the same time",
-                "changed": "The pass to book must have been modified"
+                "changed": "We've selected the correct pass to complete your booking"
             }
         },
         "settings": {
@@ -9660,7 +9665,7 @@
             "sectionTitle": "Payment method"
         },
         "platformInvoice": {
-            "noInvoice": "There are no invoices to display as of now.",
+            "noInvoice": "There are no invoices to display.",
             "sectionTitle": "My invoices",
             "label": "Invoice {{month}} / {{year}}",
             "status": {
@@ -10082,7 +10087,7 @@
         "saved": "Seating plan saved",
         "effectifError": "The number of places must be greater than or equal to the size of the session",
         "searchHelper": "Help: Allows your students to reserve the location they want in the room. Fields not required",
-        "search": "Find a plan for spot scheduling",
+        "search": "Search a plan for Spot Scheduling",
         "roomBlueprintSelectorTitle": "Choose a plan",
         "spotSelectorDialog": {
             "takeSpotError": "The place you selected for this course is no longer available. Please select a new one.",

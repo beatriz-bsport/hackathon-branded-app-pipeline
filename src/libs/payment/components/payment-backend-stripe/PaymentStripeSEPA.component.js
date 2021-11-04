@@ -230,6 +230,12 @@ export const PaymentStripeSEPA = (props: Props) => {
     }
   };
 
+  const defineSelectedPaymentMethod = (id: string) => {
+    if (id !== paymentMethodSelected) {
+      setPaymentMethodSelected(id);
+    }
+  };
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -282,7 +288,7 @@ export const PaymentStripeSEPA = (props: Props) => {
             selectedSavedPaymentMethodId={paymentMethodSelected}
             isExpandable={false}
             paymentMethodType="sepa_debit"
-            onSelect={setPaymentMethodSelected}
+            onSelect={(id: string) => defineSelectedPaymentMethod(id)}
             setDetachPmId={setDetachPmId}
             memberId={props.memberId}
             detachPaymentMethodLoading={props.detachPaymentMethodLoading}

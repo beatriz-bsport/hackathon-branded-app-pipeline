@@ -163,6 +163,13 @@ export const StripePaymentCard = (props: Props) => {
       console.error(err);
     }
   };
+
+  const defineSelectedPaymentMethod = (id: string) => {
+    if (id !== paymentMethodSelected) {
+      setPaymentMethodSelected(id);
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit} className={classes.container}>
       <Typography variant="h6">
@@ -207,7 +214,7 @@ export const StripePaymentCard = (props: Props) => {
             selectedSavedPaymentMethodId={paymentMethodSelected}
             isExpandable={false}
             paymentMethodType="card"
-            onSelect={setPaymentMethodSelected}
+            onSelect={(id: string) => defineSelectedPaymentMethod(id)}
             setHasDetached={setHasDetached}
             memberId={props.memberId}
             detachPaymentMethodLoading={props.detachPaymentMethodLoading}

@@ -102,7 +102,7 @@ export class OrderDetail extends Component<Props> {
           emailDetailLoading={this.props.emailDetailLoading}
           showVaccinationStatus={
             this.props.managerFormConfig?.poll_fields?.vaccination_status
-              ?.show_on_creation &&
+              ?.show_on_creation ||
             this.props.managerFormConfig?.poll_fields?.vaccination_status
               ?.show_on_edition
           }

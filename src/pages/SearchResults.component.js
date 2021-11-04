@@ -147,7 +147,7 @@ export class SearchResults extends Component<Props, State> {
               className={selected && !isLoadingMember ? classes.hidden : ''}
               showVaccinationStatus={
                 this.props.managerFormConfig?.poll_fields?.vaccination_status
-                  ?.show_on_creation &&
+                  ?.show_on_creation ||
                 this.props.managerFormConfig?.poll_fields?.vaccination_status
                   ?.show_on_edition
               }

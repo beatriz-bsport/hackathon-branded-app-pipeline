@@ -123,7 +123,7 @@ export class ConsumerProfile extends React.Component<Props> {
             editMember={() => this.props.setEditMember(true)}
             showVaccinationStatus={
               this.props.managerFormConfig?.poll_fields?.vaccination_status
-                ?.show_on_creation &&
+                ?.show_on_creation ||
               this.props.managerFormConfig?.poll_fields?.vaccination_status
                 ?.show_on_edition
             }

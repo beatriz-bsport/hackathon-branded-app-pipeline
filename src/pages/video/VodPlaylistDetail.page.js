@@ -19,12 +19,14 @@ import {
   fetchVideoBulk as fetchVideoBulkAction,
   retrieveVideo as retrieveVideoAction,
   searchVideo as searchVideoAction,
+  getPlaybackUrl,
 } from '../../libs/video/actions';
 import {
   getVideoSearchList,
   getVideo,
   withCoach,
   withCategory,
+  getPlaybackUrlById,
 } from '../../libs/video/selectors';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -32,6 +34,10 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 type Props = {
   id: number,
   videoId: number,
+
+  playbackUrl: string,
+  playbackUrlLoading: boolean,
+  accessDenied: boolean,
 
   loading: boolean,
   retrievePlaylist: () => void,
@@ -48,6 +54,7 @@ type Props = {
   addVideoToPlaylist: (Video, OptionCallback) => void,
 
   videoSearchOpen: boolean,
+  getPlaybackUrl: (videoId: number, options: OptionCallback) => void,
 
   openVideoSearch: () => void,
   subVideoToPlaylist: (Video, OptionCallback) => void,
@@ -61,6 +68,7 @@ export class VodPlaylistDetailPage extends React.Component<Props> {
     this.props.retrievePlaylist();
     if (this.props.videoId) {
       this.props.retrieveVideo(this.props.videoId);
+      this.props.getPlaybackUrl(this.props.videoId);
     }
 
     const currentFirstVideoId = this.getFirstVideoId(this.props);
@@ -78,6 +86,9 @@ export class VodPlaylistDetailPage extends React.Component<Props> {
     }
     if (!!this.props.videoId && this.props.videoId !== prevProps.videoId) {
       this.props.retrieveVideo(this.props.videoId);
+    }
+    if (this.props.videoId !== prevProps.videoId && this.props.videoId) {
+      this.props.getPlaybackUrl(this.props.videoId);
     }
   }
 
@@ -104,10 +115,14 @@ export class VodPlaylistDetailPage extends React.Component<Props> {
           onAddVideo={this.props.openVideoSearch}
           onSubVideo={this.props.subVideoToPlaylist}
           playlist={this.props.playlist}
+          getPlaybackUrl={this.props.getPlaybackUrl}
           videoPlayingId={this.props.videoId}
           selectedVideo={this.props.selectedVideo}
           onOpenVideo={this.props.goToVideoInPlaylist}
           authenticated
+          playbackUrl={this.props.playbackUrl}
+          playbackUrlLoading={this.props.playbackUrlLoading}
+          accessDenied={this.props.accessDenied}
         />
         {!!this.props.videoSearchOpen && (
           <VideoSearchModal
@@ -140,11 +155,15 @@ export default compose(
       searchedVideoList: getVideoSearchList(state),
       searchLoading: state.video.search.loading,
       selectedVideo: withCategory(withCoach(getVideo))(state, videoId),
+      playbackUrl: getPlaybackUrlById(state, videoId),
+      playbackUrlLoading: state.video.playbackUrl.loading,
+      accessDenied: state.video.playbackUrl.accessDenied,
     }),
     {
       retrievePlaylist: retrievePlaylistAction,
       retrieveVideo: retrieveVideoAction,
       fetchAssociatedCoachBulk: fetchAssociatedCoachBulkAction,
+      getPlaybackUrl,
       fetchVideoBulk: fetchVideoBulkAction,
       addVideoToPlaylist: addVideoToPlaylistAction,
       subVideoToPlaylist: subVideoToPlaylistAction,

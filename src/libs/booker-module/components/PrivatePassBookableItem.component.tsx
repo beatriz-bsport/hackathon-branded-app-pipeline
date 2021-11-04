@@ -1,43 +1,41 @@
 import { makeStyles, Typography } from '@material-ui/core';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { PaymentPack } from '../../payment-packs/types';
-import { getValidityInfo } from '../../payment-packs/utils';
+import { PrivatePass } from '../../private-service/types';
+import { getValidityInfo } from '../../private-service/utils';
+
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 interface Props {
-  paymentPack: PaymentPack;
+  privatePass: PrivatePass;
 }
 
-const PaymentPackItem = (props: Props) => {
+const PrivatePassBookableItem = (props: Props) => {
   const classes = useStyles();
-  const { t } = useTranslation(['paymentPack']);
+  const { t } = useTranslation(['privateService']);
 
-  const credits = !props.paymentPack.unlimited
-    ? t('paymentPack:specifications.nbCredits', {
-        credits: props.paymentPack.credits,
-        count: props.paymentPack.credits,
-      })
-    : t('paymentPack:specifications.unlimitedCredits');
-
-  const price = t('paymentPack:specifications.price', {
-    price: props.paymentPack.price,
+  const creditText = t('privatePass.parameters.nbCredits', {
+    credits: props.privatePass.credits,
+    count: props.privatePass.credits,
   });
 
-  const date = getValidityInfo(props.paymentPack, t);
+  const date = getValidityInfo(props.privatePass, t);
 
   return (
     <div className={classes.itemContainer}>
       <div className={classes.row}>
-        <Typography variant="h6">{price}</Typography>
+        <Typography variant="h6">
+          {getCurrencyDisplayWithPrice(props.privatePass.price)}
+        </Typography>
         <Typography className={classes.creditText} variant="h6" align="left">
-          {credits}
+          {creditText}
         </Typography>
       </div>
       <Typography variant="body1" color="textSecondary" align="left">
         {date}
       </Typography>
       <Typography variant="body1" color="textPrimary" align="left">
-        {props.paymentPack.name}
+        {props.privatePass.name}
       </Typography>
     </div>
   );
@@ -60,4 +58,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default PaymentPackItem;
+export default PrivatePassBookableItem;

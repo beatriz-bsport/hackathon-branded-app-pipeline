@@ -16,6 +16,7 @@ import {
   retrieveVideoPurchase as retrieveVideoPurchaseAPI,
   removeVideoSource as removeVideoSourceAPI,
   duplicateVideo as duplicateVideoAPI,
+  getPlaybackUrl as getPlaybackUrlAPI,
 } from './api';
 
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
@@ -524,5 +525,41 @@ export function setVideoProviderIdentifier(
       if (options && options.onError) options.onError(error);
     }
     dispatch(setVideoProviderActions.isLoading(false));
+  };
+}
+
+export const getPlaybackUrlActions = {
+  isLoading: createAction('VIDEO/PLAYBACK_URL/IS_LOADING'),
+  error: createAction('VIDEO/PLAYBACK_URL/ERROR'),
+  success: createAction('VIDEO/PLAYBACK_URL/SUCCESS'),
+  accessDenied: createAction('VIDEO/PLAYBACK_URL/ACCESS_DENIED'),
+};
+
+export function getPlaybackUrl(videoId: number, options?: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(getPlaybackUrlActions.isLoading(true));
+    dispatch(getPlaybackUrlActions.error(null));
+    dispatch(getPlaybackUrlActions.accessDenied(false));
+
+    try {
+      const response = await getPlaybackUrlAPI(videoId);
+      const { playback_url } = response.data;
+
+      dispatch(
+        getPlaybackUrlActions.success({ videoId, playbackUrl: playback_url }),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess(playback_url);
+      }
+    } catch (err) {
+      console.error(err);
+      if (err?.response?.status === 403) {
+        dispatch(getPlaybackUrlActions.accessDenied(true));
+        if (options && options.onAccessDenied) options.onAccessDenied(true);
+      }
+      if (options && options.onError) options.onError(err);
+      dispatch(getPlaybackUrlActions.error(err));
+    }
+    dispatch(getPlaybackUrlActions.isLoading(false));
   };
 }

@@ -16,6 +16,9 @@ type Props = {
   onSubVideo: (id: number, options: OptionCallback) => void,
   authenticated: boolean,
   requestVideoAccess: ?() => void,
+  playbackUrl: string,
+  playbackUrlLoading: boolean,
+  accessDenied: boolean,
 };
 
 const PlaylistDetail = (props: Props) => {
@@ -27,6 +30,9 @@ const PlaylistDetail = (props: Props) => {
             authenticated={props.authenticated}
             video={props.selectedVideo}
             requestVideoAccess={props.requestVideoAccess}
+            playbackUrl={props.playbackUrl}
+            playbackUrlLoading={props.playbackUrlLoading}
+            accessDenied={props.accessDenied}
           />
         ) : (
           <PlaylistEmpty onAddVideo={props.onAddVideo} />

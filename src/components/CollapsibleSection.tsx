@@ -17,7 +17,7 @@ import DividerLinearGradient from './DividerLinearGradient.component';
 type OwnProps = {
   title: string;
   in: boolean;
-  onSwitch: () => void;
+  onSwitch?: () => void;
   titleVariant?: Variant | 'inherit';
 };
 
@@ -31,23 +31,26 @@ class CollapsibleSection extends React.PureComponent<Props> {
   };
 
   render() {
+    const Wrapper = this.props.onSwitch ? ButtonBase : (p) => <div {...p} />;
     return (
       <div className={this.props.classes.container}>
-        <ButtonBase
-          onClick={this.onSwitch}
+        <Wrapper
+          onClick={this.props.onSwitch ? this.onSwitch : undefined}
           className={this.props.classes.topBar}
           disableRipple={this.props.in}
         >
-          <div className={this.props.classes.topBarIconContainer}>
-            {this.props.in ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-          </div>
+          {!!this.props.onSwitch && (
+            <div className={this.props.classes.topBarIconContainer}>
+              {this.props.in ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            </div>
+          )}
           <Typography
             variant={this.props.titleVariant || 'h5'}
             color={this.props.in ? 'inherit' : 'textSecondary'}
           >
             {this.props.title}
           </Typography>
-        </ButtonBase>
+        </Wrapper>
         {this.props.in ? <DividerLinearGradient /> : <Divider />}
 
         <Collapse in={this.props.in}>{this.props.children}</Collapse>

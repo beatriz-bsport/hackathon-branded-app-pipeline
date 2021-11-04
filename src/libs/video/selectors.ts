@@ -217,3 +217,6 @@ export const withVideoCategory = (selector) =>
       SCT: SCTList.find((sct) => sct.id === videoList.SCT),
     };
   });
+
+export const getPlaybackUrlById = (state: RootState, videoId) =>
+  state.video.playbackUrl.byId[videoId];

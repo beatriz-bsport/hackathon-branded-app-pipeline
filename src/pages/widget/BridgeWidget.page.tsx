@@ -16,6 +16,7 @@ import { WidgetMessageType } from '../../libs/widget/types';
 import { CheckoutItem, Basket } from '../../libs/checkout/types';
 import { getAuthToken } from '../../http';
 import { fetchMemberTagList } from '../../libs/tag/actions';
+import { getPlaybackUrl } from '../../libs/video/actions';
 
 type OwnProps = {
   companyId: number;
@@ -103,6 +104,35 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
     });
   };
 
+  fetchPlaybackUrl = (videoId: number) => {
+    this.props.getPlaybackUrl(videoId, {
+      onAccessDenied: (payload: number) => {
+        WidgetUtils.sendBridgeResponse(
+          WidgetMessageType.RESPONSE_PLAYBACK_URL_ACCESS_DENIED,
+          {
+            data: { videoId, playbackUrl: '', accessDenied: payload },
+          },
+        );
+      },
+      onSuccess: (payload: string) => {
+        WidgetUtils.sendBridgeResponse(
+          WidgetMessageType.RESPONSE_PLAYBACK_URL_SUCCESS,
+          {
+            data: { videoId, playbackUrl: payload, accessDenied: false },
+          },
+        );
+      },
+      onError: (payload: string) => {
+        WidgetUtils.sendBridgeResponse(
+          WidgetMessageType.RESPONSE_PLAYBACK_URL_ERROR,
+          {
+            data: { videoId, playbackUrl: '', error: payload },
+          },
+        );
+      },
+    });
+  };
+
   sendBasketCount = () => {
     this.props.fetchCurrentBasket(this.props.companyId, {
       onSuccess: (basket: Basket) => {
@@ -148,6 +178,11 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
         case WidgetMessageType.REQUEST_MEMBER_TAG:
           this.fetchMemberTagList();
           break;
+        case WidgetMessageType.REQUEST_PLAYBACK_URL:
+          if (event.data?.data?.videoId) {
+            this.fetchPlaybackUrl(event.data.data.videoId);
+          }
+          break;
         default:
           break;
       }
@@ -174,6 +209,7 @@ const mapDispatchToProps = {
   fetchBookingsAndPrivateBookings,
   disconnect,
   fetchMemberTagList,
+  getPlaybackUrl,
 };
 
 export default compose(

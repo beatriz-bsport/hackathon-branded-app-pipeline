@@ -258,7 +258,7 @@ export const searchAvailableSlots = (
   );
 };
 
-export const fetchPrivatePassList = (params?: any) => {
+export const fetchPrivatePassList = (params?: any = {}) => {
   return getAuth(
     `${API_V1_URI}/private_service/private_pass/${buildUrlParams(params)}`,
   );

@@ -15,6 +15,7 @@ import {
   listVideoViewsActions,
   listVideoFilterableParamsActions,
   retrieveVideoAnalyticsByMemberActions,
+  getPlaybackUrlActions,
 } from './actions';
 import { Video, VideoState } from './types';
 
@@ -66,6 +67,12 @@ const initialState: Immutable.Immutable<VideoState> = Immutable<VideoState>({
     items: [],
     page: 1,
     count: 0,
+  },
+  playbackUrl: {
+    loading: false,
+    error: null,
+    accessDenied: false,
+    byId: {},
   },
   filterableParams: {
     items: {
@@ -275,6 +282,21 @@ export default handleActions<Immutable.Immutable<VideoState>>(
     },
     [numberVideoPurchaseActions.success]: (state, { payload }: any) => {
       return state.setIn(['purchase', 'purchaseByMember'], payload);
+    },
+    [getPlaybackUrlActions.isLoading]: (state, { payload }: any) => {
+      return state.setIn(['playbackUrl', 'loading'], payload);
+    },
+    [getPlaybackUrlActions.error]: (state, { payload }: any) => {
+      return state.setIn(['playbackUrl', 'error'], payload);
+    },
+    [getPlaybackUrlActions.accessDenied]: (state, { payload }: any) => {
+      return state.setIn(['playbackUrl', 'accessDenied'], payload);
+    },
+    [getPlaybackUrlActions.success]: (state, { payload }: any) => {
+      return state.setIn(
+        ['playbackUrl', 'byId', payload.videoId],
+        payload.playbackUrl,
+      );
     },
   },
   initialState,

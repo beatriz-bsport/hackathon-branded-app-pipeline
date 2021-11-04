@@ -20,6 +20,7 @@ import {
   listAllPaymentPackCategoryActions,
   upsertPaymenPackCategoryActions,
   deletePaymentPackCategoryActions,
+  listPaymentPackActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -160,19 +161,38 @@ export const newPaymentPackReducer = handleActions(
     [updatePaymentPackActions.success]: (state, { payload }) => {
       return state.setIn(['byId', payload.id], payload);
     },
-    [listAllPaymentPackActions.isLoading]: (state, { payload }) => {
-      return state.set('loading', payload);
-    },
-    [listAllPaymentPackActions.error]: (state, { payload }) => {
-      return state.set('error', payload);
-    },
     [scalePaymentPackCreditActions.isLoading]: (state, { payload }) => {
       return state.setIn(['scaleCredit', 'loading'], payload);
     },
     [scalePaymentPackCreditActions.error]: (state, { payload }) => {
       return state.setIn(['scaleCredit', 'error'], payload);
     },
+    [listAllPaymentPackActions.isLoading]: (state, { payload }) => {
+      return state.set('loading', payload);
+    },
+    [listAllPaymentPackActions.error]: (state, { payload }) => {
+      return state.set('error', payload);
+    },
     [listAllPaymentPackActions.success]: (state, { payload }) => {
+      return state
+        .set(
+          'allIds',
+          payload.map((pp) => pp.id),
+        )
+        .merge(
+          {
+            byId: payload.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
+          },
+          { deep: true },
+        );
+    },
+    [listPaymentPackActions.isLoading]: (state, { payload }) => {
+      return state.set('loading', payload);
+    },
+    [listPaymentPackActions.error]: (state, { payload }) => {
+      return state.set('error', payload);
+    },
+    [listPaymentPackActions.success]: (state, { payload }) => {
       return state
         .set(
           'allIds',

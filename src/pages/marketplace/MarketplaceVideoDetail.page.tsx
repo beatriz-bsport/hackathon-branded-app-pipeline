@@ -8,6 +8,7 @@ import flatten from 'lodash/flatten';
 import { push as pushRouter } from 'connected-react-router';
 import { LinearProgress, Theme } from '@material-ui/core';
 
+import Modal from '@material-ui/core/Modal';
 import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions';
 import VideoThumbnailList from '../../libs/video/components/VideoThumbnailList.component';
 import VideoPlayerFull from '../../libs/video/components/VideoPlayerFull.component';
@@ -17,34 +18,22 @@ import {
   retrieveVideo as retrieveVideoAction,
   fetchMoreVideo as fetchMoreVideoAction,
   fetchVideoList as fetchVideoListAction,
-  registerVideo as registerVideoAction,
+  getPlaybackUrl,
 } from '../../libs/video/actions';
 import {
   getVideo,
   getVideoList,
   withCategory,
   withCoach,
+  getPlaybackUrlById,
 } from '../../libs/video/selectors';
 
-import {
-  getConsumerPaymentPackCompatibleList,
-  withPaymentPack,
-} from '../../libs/consumer-payment-pack/selectors';
-import { getPaymentPackCompatibleList } from '../../libs/payment-packs/selectors';
 import themeSelectors from '../../libs/theme/selectors';
-import {
-  fetchConsumerPaymentPackCompatibleList as fetchConsumerPaymentPackCompatibleListAction,
-  resetConsumerPaymentPackCompatibleList,
-} from '../../libs/consumer-payment-pack/actions';
-import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
-import VideoRegisterDialog from '../../libs/video/components/RegisterVideoDialog.component';
-
-import { fetchPrivateConsumerPassCompatibleList as fetchPrivateConsumerPassCompatibleListAction } from '../../libs/private-service/actions';
-import { getPrivateConsumerPassCompatibleList } from '../../libs/private-service/selectors/private-consumer-pass';
 
 import { RootState } from '../../reducers';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { Video } from '../../libs/video/types';
+import { VideoCheckoutComponent } from '../checkout/vod/VideoCheckout.page';
 
 type StateHandlerType = typeof withStateHandlersInit &
   WithHandlerType<typeof withStateHandlersSetter>;
@@ -72,50 +61,35 @@ export class MarketplaceVideoDetail extends React.Component<Props> {
   componentDidMount() {
     this.props.retrieveVideo();
     this.props.fetchVideoListSimilar();
-    this.props.resetConsumerPaymentPackCompatibleList();
+    if (this.props.authenticated) {
+      this.props.getPlaybackUrl(this.props.videoId);
+    }
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (this.props.requestVideoAccessRefreshFlag !== undefined) {
-      if (
-        prevProps.requestVideoAccessRefreshFlag !==
-        this.props.requestVideoAccessRefreshFlag
-      ) {
-        this.requestVideoAccess();
-      }
+    if (
+      (this.props.videoId !== prevProps.videoId && this.props.authenticated) ||
+      (this.props.authenticated && !prevProps.authenticated)
+    ) {
+      this.props.getPlaybackUrl(this.props.videoId);
     }
   }
 
   requestVideoAccess = () => {
-    if (!this.props.authenticated) {
-      this.props.requestSignUp();
-      return;
+    if (this.props.requestVideoAccess) {
+      return this.props.requestVideoAccess();
     }
 
-    this.props.fetchPrivateConsumerPassCompatibleList(
-      {
-        video: this.props.videoId,
-      },
-      {
-        onSuccess: () => this.props.setPrivateConsumerPassReady(true),
-        onError: () => this.props.setPrivateConsumerPassReady(true),
-      },
-    );
-    this.props.fetchConsumerPaymentPackCompatibleList(
-      {
-        video: this.props.videoId,
-      },
-      {
-        onSuccess: (cppList: any) => {
-          this.props.fetchPaymentPackBulk(
-            cppList.map((cpp: any) => cpp.payment_pack),
-          );
-          this.props.setConsumerPaymentPackReady(true);
-        },
-        onError: () => this.props.setConsumerPaymentPackReady(true),
-      },
-    );
-    this.props.setRegisterVideoOpen(true);
+    if (!this.props.authenticated) {
+      return this.props.requestSignUp();
+    }
+
+    return this.props.setRegisterVideoOpen(true);
+  };
+
+  onRegisterSuccess = () => {
+    this.props.getPlaybackUrl(this.props.videoId);
+    this.props.setRegisterVideoOpen(false);
   };
 
   render() {
@@ -135,7 +109,9 @@ export class MarketplaceVideoDetail extends React.Component<Props> {
                 video={this.props.video}
                 hideCoach={this.props.theme && this.props.theme.hideCoach}
                 requestVideoAccess={this.requestVideoAccess}
-                videoPlayerKey={this.props.videoPlayerKey}
+                playbackUrl={this.props.playbackUrl}
+                playbackUrlLoading={this.props.playbackUrlLoading}
+                accessDenied={this.props.accessDenied}
               />
             )}
           </Grid>
@@ -150,21 +126,24 @@ export class MarketplaceVideoDetail extends React.Component<Props> {
             />
           </Grid>
         </Grid>
-        <VideoRegisterDialog
-          consumerPaymentPackList={this.props.consumerPaymentPackCompatibleList}
-          privateConsumerPassList={this.props.privateConsumerPassCompatibleList}
-          creditPrice={this.props.video && this.props.video.credit_price}
-          registerVideo={this.props.registerVideo}
-          open={this.props.registerVideoOpen}
-          onBuyPass={this.props.onRequestBuyPass}
-          onClose={() => this.props.setRegisterVideoOpen(false)}
-          loading={
-            !(
-              this.props.consumerPaymentPackReady &&
-              this.props.privateConsumerPassReady
-            )
-          }
-        />
+        {this.props.registerVideoOpen && (
+          <Modal open onClose={() => this.props.setRegisterVideoOpen(false)}>
+            <div
+              style={{
+                transform: 'translate(-50%, -50%)',
+                top: '50%',
+                left: '50%',
+              }}
+              className={this.props.classes.modal}
+            >
+              <VideoCheckoutComponent
+                id={this.props.video.id}
+                companyId={this.props.video.company}
+                onSuccess={this.onRegisterSuccess}
+              />
+            </div>
+          </Modal>
+        )}
       </div>
     );
   }
@@ -182,22 +161,25 @@ const styles = (theme: Theme) => ({
   gridContainer: {
     maxWidth: 1400,
   },
+  modal: {
+    position: 'absolute',
+    backgroundColor: theme.palette.background.paper,
+    borderRadius: 8,
+    overflow: 'auto',
+    maxHeight: '100vh',
+    maxWidth: '60%',
+    [theme.breakpoints.up('sm')]: {
+      minWidth: 600,
+    },
+  },
 });
 
 const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
-  authenticated: state.auth.authenticated,
   theme: themeSelectors.getTheme(state),
   video: withCoach(withCategory(getVideo))(state, ownProps.videoId),
   videoListSimilar: withCoach(withCategory(getVideoList))(state),
   hasMoreVideo: state.video.list.nextPage && state.video.list.nextPage > 1,
   similarVideoLoading: state.video.loading,
-  privateConsumerPassCompatibleList: getPrivateConsumerPassCompatibleList(
-    state,
-  ),
-  consumerPaymentPackCompatibleList: withPaymentPack(
-    getConsumerPaymentPackCompatibleList,
-  )(state),
-  paymentPackCompatibleList: getPaymentPackCompatibleList(state),
   loading: state.video.loading,
 });
 
@@ -206,30 +188,10 @@ const mapDispatchToProps = {
   fetchVideoList: fetchVideoListAction,
   fetchMoreVideo: fetchMoreVideoAction,
   fetchAssociatedCoachBulk: fetchAssociatedCoachBulkAction,
-  fetchPrivateConsumerPassCompatibleList: fetchPrivateConsumerPassCompatibleListAction,
-  fetchConsumerPaymentPackCompatibleList: fetchConsumerPaymentPackCompatibleListAction,
-  fetchPaymentPackBulk: fetchPaymentPackBulkAction,
-  resetConsumerPaymentPackCompatibleList,
-  registerVideo: registerVideoAction,
   push: pushRouter,
 };
 
 const mapHandlers = {
-  registerVideo: (props: ConnectProps & OwnProps) => (data: any) =>
-    props.registerVideo(props.videoId, data, {
-      onSuccess: () => {
-        props.retrieveVideo(props.videoId);
-        props.setRegisterVideoOpen(false);
-        props.setVideoPlayerKey(props.videoPlayerKey + 1);
-      },
-    }),
-  onRequestBuyPass: (props: ConnectProps & OwnProps) => () => {
-    if (props.onRequestBuyPass) {
-      props.onRequestBuyPass(props.companyId, props.companyName);
-      return;
-    }
-    props.push(getMarketplaceRoute(props.companyName, props.companyId, 'pass'));
-  },
   retrieveVideo: (props: ConnectProps & OwnProps) => () => {
     props.retrieveVideo(props.videoId, {
       onSuccess: (video) => {
@@ -276,24 +238,12 @@ const mapHandlers = {
 };
 
 const withStateHandlersInit = {
-  consumerPaymentPackReady: false,
   registerVideoOpen: false,
-  privateConsumerPassReady: false,
-  videoPlayerKey: 0,
 };
 
 const withStateHandlersSetter = {
-  setConsumerPaymentPackReady: () => (consumerPaymentPackReady: boolean) => {
-    return { consumerPaymentPackReady };
-  },
   setRegisterVideoOpen: () => (registerVideoOpen: boolean) => {
     return { registerVideoOpen };
-  },
-  setPrivateConsumerPassReady: () => (privateConsumerPassReady: boolean) => {
-    return { privateConsumerPassReady };
-  },
-  setVideoPlayerKey: () => (videoPlayerKey: number) => {
-    return { videoPlayerKey };
   },
 };
 
@@ -311,5 +261,16 @@ export default compose(
     companyId: 'companyId:number',
     companyName: 'companyName',
   }),
+  connect(
+    (state: RootState, ownProps: OwnProps) => ({
+      authenticated: state.auth.authenticated,
+      playbackUrl: getPlaybackUrlById(state, ownProps.videoId),
+      playbackUrlLoading: state.video.playbackUrl.loading,
+      accessDenied: state.video.playbackUrl.accessDenied,
+    }),
+    {
+      getPlaybackUrl,
+    },
+  ),
   MarketplaceVideoDetailDataProvider,
 )(MarketplaceVideoDetail);

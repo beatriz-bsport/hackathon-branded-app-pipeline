@@ -47,6 +47,9 @@ const GiftcardCheckoutPage = asyncComponent(() =>
 const GiftcardActivationPage = asyncComponent(() =>
   import('./giftcard/GiftcardActivation.page'),
 );
+const VideoCheckoutPage = asyncComponent(() =>
+  import('./vod/VideoCheckout.page'),
+);
 
 type Props = {
   fetchProfile: () => void,
@@ -128,6 +131,10 @@ export class PaymentRouter extends React.Component<Props> {
         <Route
           path="/(|customer/)checkout/:companyId/giftcard/:id"
           component={GiftcardCheckoutPage}
+        />
+        <Route
+          path="/(|customer/)checkout/:companyId/vod/:id/"
+          component={VideoCheckoutPage}
         />
         <Route
           path="/(|customer/)checkout/:companyId/"

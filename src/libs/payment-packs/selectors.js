@@ -183,6 +183,14 @@ export const getEnabled = createSelector(getAll, (pps) =>
   pps.filter((pp) => !pp.disabled),
 );
 
+export const getPaymentPackListCompatibleWithVideo = createSelector(
+  getAll,
+  (pps) =>
+    pps.filter(
+      (pp) => !pp.disabled && (pp.full_vod_access || pp.only_vod_access),
+    ),
+);
+
 export const getAllPaymentPacks = createSelector(
   getPaymentPackById,
   (paymentPacks) => Immutable(Object.values(paymentPacks)),

@@ -28,6 +28,13 @@ export class WidgetUtils {
     WidgetUtils.postMessage({ type: WidgetMessageType.PAYMENT_SUCCESS });
   }
 
+  static videoRegistered(videoId) {
+    WidgetUtils.postMessage({
+      type: WidgetMessageType.VIDEO_REGISTERED,
+      videoId,
+    });
+  }
+
   static DEPRECATEDauthenticatedStatus(
     authenticated: boolean,
     username: string,

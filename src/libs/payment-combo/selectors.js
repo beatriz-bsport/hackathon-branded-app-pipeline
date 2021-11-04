@@ -9,6 +9,7 @@ import { RootState } from '../../reducers';
 
 const _getPaymenComboIdList: (State) => Array<number> = (state) =>
   state.paymentCombo.allIds;
+
 export const getPaymenComboDataDict: (State) => {
   [id: number]: PaymentCombo,
 } = (state) => state.paymentCombo.byId;

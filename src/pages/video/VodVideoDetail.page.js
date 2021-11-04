@@ -22,6 +22,7 @@ import {
   fetchVideoPurchase as fetchVideoPurchaseAction,
   fetchVideoAnalytics as fetchVideoAnalyticsAction,
   fetchVideoViews as fetchVideoViewsAction,
+  getPlaybackUrl,
 } from '../../libs/video/actions';
 import { fetchMemberBulk as fetchMemberBulkAction } from '../../libs/member/actions';
 import {
@@ -30,6 +31,7 @@ import {
   withCoach,
   getVideoPurchasesWithMember,
   getVideoViewsWithMember,
+  getPlaybackUrlById,
 } from '../../libs/video/selectors';
 import type {
   VideoPurchase,
@@ -39,6 +41,10 @@ import type {
 
 type Props = {
   classes: any,
+  videoId: number,
+  playbackUrl: string,
+  playbackUrlLoading: boolean,
+  accessDenied: boolean,
   t: TFunction,
   retrieveVideo: () => void,
   fetchVideoAnalytics: () => void,
@@ -60,6 +66,7 @@ type Props = {
     data: VideoAnalyticsData,
     loading: boolean,
   },
+  getPlaybackUrl: (id: number) => void,
 
   goToMember: (memberId: number) => void,
   onPageRequestedPurchase: (page: number, page_size: number) => void,
@@ -73,6 +80,13 @@ export class VodVideoDetailPage extends React.Component<Props> {
   componentDidMount() {
     this.props.retrieveVideo();
     this.props.fetchVideoAnalytics();
+    this.props.getPlaybackUrl(this.props.videoId);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.videoId !== this.props.videoId && this.props.videoId) {
+      this.props.getPlaybackUrl(this.props.videoId);
+    }
   }
 
   render() {
@@ -85,6 +99,9 @@ export class VodVideoDetailPage extends React.Component<Props> {
                 authenticated
                 video={this.props.video}
                 managerOnly={this.props.video.manager_only}
+                playbackUrl={this.props.playbackUrl}
+                playbackUrlLoading={this.props.playbackUrlLoading}
+                accessDenied={this.props.accessDenied}
               />
             ) : null}
           </Grid>
@@ -195,6 +212,9 @@ export default compose(
         data: state.video.analytics.data,
         loading: state.video.analytics.loading,
       },
+      playbackUrl: getPlaybackUrlById(state, videoId),
+      playbackUrlLoading: state.video.playbackUrl.loading,
+      accessDenied: state.video.playbackUrl.accessDenied,
     }),
     {
       retrieveVideo: retrieveVideoAction,
@@ -203,6 +223,7 @@ export default compose(
       fetchVideoPurchase: fetchVideoPurchaseAction,
       fetchVideoAnalytics: fetchVideoAnalyticsAction,
       fetchVideoViews: fetchVideoViewsAction,
+      getPlaybackUrl,
     },
   ),
   withHandlers({

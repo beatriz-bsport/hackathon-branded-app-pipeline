@@ -1086,12 +1086,12 @@ export const privatePassListActions = {
   success: createAction('PRIVATE_PASS/LIST/SUCCESS'),
 };
 
-export function fetchPrivatePassList() {
+export function fetchPrivatePassList(params: any = {}) {
   return async (dispatch: Dispatch) => {
     dispatch(privatePassListActions.isLoading(true));
     dispatch(privatePassListActions.error(null));
     try {
-      const response = await fetchPrivatePassListAPI();
+      const response = await fetchPrivatePassListAPI(params);
       dispatch(privatePassListActions.success(response.data));
     } catch (err) {
       console.error(err);
@@ -2248,7 +2248,7 @@ export const listPrivateConsumerPassCompatibleActions = {
 
 export function fetchPrivateConsumerPassCompatibleList(
   params: any,
-  options: OptionCallback,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(listPrivateConsumerPassCompatibleActions.isLoading(true));

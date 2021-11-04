@@ -18,9 +18,12 @@ type Props = {
   authenticated: boolean,
   hideCoach: boolean,
   requestVideoAccess: () => void,
-  videoPlayerKey?: number,
   managerOnly?: boolean,
+  playbackUrl: string,
+  playbackUrlLoading: boolean,
+  accessDenied: boolean,
 };
+
 export const VideoPlayerFull = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['video']);
@@ -28,10 +31,12 @@ export const VideoPlayerFull = (props: Props) => {
   return (
     <div className={classes.container}>
       <VideoPlayer
-        key={props.videoPlayerKey}
         authenticated={props.authenticated}
+        playbackUrl={props.playbackUrl}
+        playbackUrlLoading={props.playbackUrlLoading}
         rounded
         video={props.video}
+        accessDenied={props.accessDenied}
         requestVideoAccess={props.requestVideoAccess}
       />
       <div className={classes.inner}>

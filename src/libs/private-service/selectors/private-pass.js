@@ -65,6 +65,11 @@ export const getPrivatePassManagerOnlyList: (State) => Array<PrivatePassWithServ
   (passList) => passList.filter((p) => p.available && p.manager_only),
 );
 
+export const getPrivatePassListCompatibleWithVideo: (State) => Array<PrivatePassWithService> = createSelector(
+  getPrivatePassListBase,
+  (passList) => passList.filter((p) => p.full_vod_access),
+);
+
 export const getPrivatePassCustomerEnabled: (State) => Array<PrivatePassWithService> = createSelector(
   getPrivatePassListBase,
   (passList) => passList.filter((p) => p.available && !p.manager_only),

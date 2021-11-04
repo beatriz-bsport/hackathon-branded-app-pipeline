@@ -79,4 +79,10 @@ export type VideoState = ErrorAndLoading & {
       coaches: Coach[];
     };
   };
+  playbackUrl: {
+    loading: boolean;
+    error: Error | null;
+    byId: { [id: number]: string };
+    accessDenied: boolean;
+  };
 };

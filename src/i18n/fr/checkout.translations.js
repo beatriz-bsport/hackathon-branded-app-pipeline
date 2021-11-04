@@ -65,6 +65,18 @@ exports.default = {
   },
   or: 'ou',
   expire_in: 'Expire dans ',
+  bookerMethod: {
+    emptyMethod:
+      "Aucune carte n'est compatible avec cette vidéo, veuillez contacter votre studio",
+    actions: {
+      bookVod: 'Débloquer la vidéo',
+    },
+    section: {
+      consumerPass: 'Mes cartes',
+      pass: 'Cartes disponibles',
+      combo: 'Packs',
+    },
+  },
   validation: {
     actions: {
       continue: 'Continuer',

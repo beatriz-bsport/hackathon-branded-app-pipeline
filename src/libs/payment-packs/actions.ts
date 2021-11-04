@@ -608,3 +608,34 @@ export function deletePaymentPackCategory(
     dispatch(deletePaymentPackCategoryActions.isLoading(false));
   };
 }
+
+export const listPaymentPackActions = {
+  isLoading: createAction('PAYMENT_PACK/LIST_BASE/IS_LOADING'),
+  error: createAction('PAYMENT_PACK/LIST_BASE/ERROR'),
+  success: createAction('PAYMENT_PACK/LIST_BASe/SUCCESS'),
+};
+
+export function fetchPaymentPackList(
+  params: any = {},
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listPaymentPackActions.error(null));
+    dispatch(listPaymentPackActions.isLoading(true));
+    try {
+      const response = await fetchPaymentPackListAPI(params);
+      dispatch(
+        listPaymentPackActions.success(response.data.results || response.data),
+      );
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results || response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(listPaymentPackActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(listPaymentPackActions.isLoading(false));
+  };
+}

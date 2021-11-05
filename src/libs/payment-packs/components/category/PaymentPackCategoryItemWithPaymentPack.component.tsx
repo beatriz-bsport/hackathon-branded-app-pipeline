@@ -218,7 +218,7 @@ export const PaymentPackCategoryItemWithPaymentPack = React.memo(
               : ''}
           </Typography>
           <div className={classes.titleActions}>
-            {paymentPackCategory.id !== -1 ? (
+            {paymentPackCategory.id ? (
               <IconButton
                 aria-haspopup="true"
                 aria-owns={anchorEl ? 'category-popover' : undefined}

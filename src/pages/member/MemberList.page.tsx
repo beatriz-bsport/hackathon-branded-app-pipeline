@@ -2,45 +2,53 @@
 
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { push } from 'connected-react-router';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
+import { createStyles, WithStyles } from '@material-ui/styles';
+import { Theme } from '@material-ui/core/styles';
+import { TFunction } from 'i18next';
 import { fetchMemberList } from '../../libs/member/api';
 import withTitle from '../../hocs/with-title.hoc';
 import MemberTable from '../../libs/member/MemberTable.component';
-
 import TagChipList from '../../libs/tag/components/TagChipList.component';
 import TagFilterForm from '../../libs/tag/components/TagFilterForm.component';
 import tagSelectors from '../../libs/tag/selectors';
-import type { Tag, TagGroup } from '../../libs/tag/types';
+import type { Tag } from '../../libs/tag/types';
 
 import { fetchTags } from '../../libs/tag/actions';
+import { RootState } from '../../reducers';
 
-type Props = {
-  goToMemberPage: (memberId: number) => void,
-  addMember: () => void,
-  tagGroups: Array<TagGroup>,
-  fetchTags: () => void,
-  tags: Array<Tag>,
+type Props = WithStyles<typeof styles> & ConnectedProps<typeof connector>;
 
-  classes: Object,
+type TagFilterFormType = {
+  include?: boolean;
+  tagId?: number;
 };
 
-export class Members extends Component<Props> {
-  state = {
-    tagsIncluded: [],
-    tagsExcluded: [],
-    showFilterForm: false,
-  };
+type State = {
+  tagsIncluded: Array<Tag['id']>;
+  tagsExcluded: Array<Tag['id']>;
+  showFilterForm: boolean;
+};
+
+export class Members extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      tagsIncluded: [],
+      tagsExcluded: [],
+      showFilterForm: false,
+    };
+  }
 
   componentDidMount() {
     this.props.fetchTags();
   }
 
-  createTagFilter = (filter) => {
+  createTagFilter = (filter: TagFilterFormType) => {
     if (filter.include) {
       this.setState((prevState) => ({
         tagsIncluded: [...prevState.tagsIncluded, filter.tagId],
@@ -57,14 +65,13 @@ export class Members extends Component<Props> {
   tagFilterBar = () => (
     <div className={this.props.classes.actionBar}>
       <TagChipList
-        tagGroups={this.props.tagGroups}
         tags={this.props.tags}
         includes={this.state.tagsIncluded}
         excludes={this.state.tagsExcluded}
         handleReinit={() =>
           this.setState({ tagsIncluded: [], tagsExcluded: [] })
         }
-        handleDeleteTag={(id, include) => {
+        handleDeleteTag={(id: number, include: boolean) => {
           if (include) {
             this.setState((prevState) => ({
               tagsIncluded: prevState.tagsIncluded.filter((id_) => id_ !== id),
@@ -105,7 +112,7 @@ export class Members extends Component<Props> {
         <TagFilterForm
           open={this.state.showFilterForm}
           onClose={() => this.setState({ showFilterForm: false })}
-          tagGroups={this.props.tagGroups}
+          tagList={this.props.tags}
           createFilter={this.createTagFilter}
         />
       </Grid>
@@ -113,33 +120,35 @@ export class Members extends Component<Props> {
   }
 }
 
-const styles = (theme) => ({
-  actionBar: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    width: '100%',
+const styles = (theme: Theme) =>
+  createStyles({
+    actionBar: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+      width: '100%',
 
-    paddingTop: theme.spacing(2),
-    marginLeft: theme.spacing(-1),
+      paddingTop: theme.spacing(2),
+      marginLeft: theme.spacing(-1),
+    },
+  });
+
+const connector = connect(
+  (state: RootState) => ({
+    loading: state.member.loading,
+    tags: tagSelectors.getMemberTagsWithTagGroup(state),
+  }),
+  {
+    fetchTags,
+    goToMemberPage: (id: number) => push(`/member/${id}/`),
+    addMember: () => push('/member/add'),
   },
-});
+);
 
-export default compose(
+export default compose<any, Props>(
   withTranslation(['titles', 'member']),
   withStyles(styles),
   withTitle(({ t }: { t: TFunction }) => t('titles:member.members')),
-  connect(
-    (state) => ({
-      loading: state.member.loading,
-      tagGroups: tagSelectors.getMemberTagGroups(state),
-      tags: tagSelectors.getMemberTags(state),
-    }),
-    {
-      fetchTags,
-      goToMemberPage: (id: number) => push(`/member/${id}/`),
-      addMember: () => push('/member/add'),
-    },
-  ),
+  connector,
 )(Members);

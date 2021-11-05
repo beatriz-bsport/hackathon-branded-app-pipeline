@@ -11,6 +11,7 @@ export type Discount = {
 
 export type Coupon = {
   id: number;
+  available: boolean;
   company: number;
   code: string;
   amount_off: number;

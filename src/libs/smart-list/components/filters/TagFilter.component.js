@@ -7,7 +7,7 @@ import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Popover from '@material-ui/core/Popover';
 import Paper from '@material-ui/core/Paper';
-import { Tag, TagGroup } from '../../../tag/types';
+import { Tag } from '../../../tag/types';
 import TagChipList from '../../../tag/components/TagChipList.component';
 import TagFilterForm from '../../../tag/components/TagRowSelector.component';
 
@@ -17,7 +17,6 @@ type Props = {
   classes: Object,
   onChange: (any) => void,
   new: boolean,
-  tag_groups: Array<TagGroup>,
   tags: Array<Tag>,
 };
 
@@ -51,7 +50,6 @@ export class TagFilter extends Component<Props, state> {
       <div className={classes.container}>
         {t(`filters.${filter_data.filter_identifier}.first`)}
         <TagChipList
-          tagGroups={this.props.tag_groups}
           tags={this.props.tags}
           includes={filter_data.tags_included || []}
           excludes={filter_data.tags_excluded || []}
@@ -92,7 +90,7 @@ export class TagFilter extends Component<Props, state> {
         >
           <Paper>
             <TagFilterForm
-              tagGroups={this.props.tag_groups}
+              tagList={this.props.tags}
               createFilter={(ev) => {
                 let new_tags = [];
                 if (ev.include) {

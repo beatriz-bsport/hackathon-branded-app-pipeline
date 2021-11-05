@@ -589,6 +589,8 @@
     },
     "detail": { "seeParameters": "Voir les paramètres" },
     "card": {
+      "allowedFor": "Autorisé pour",
+      "unallowedFor": "Non-Autorisé pour",
       "first_buy": "Utilisable sur le premier achat seulement",
       "expiration": "Date d'expiration",
       "no_expiration": "Pas de date d'expiration",
@@ -625,8 +627,9 @@
         "applies_to": "Paramètres",
         "advanced": "Avancé",
         "tags": "Tags",
-        "whitelist_tags": "Utilisable seulement par les membres disposant du tag",
-        "blacklist_tags": "Non - utilisable seulement par les membres disposant du tag"
+        "tagInfo": "Utilisez les tags pour rendre le coupon utilisable uniquement par un groupe de membre souhaité sur la marketplace, le widget et l’application. Vous pouvez sélectionner des tags pour rendre le coupon utilisable seulement par les membres possédants un des tags choisis. Ou bien vous pouvez sélectionner des tags pour rendre le coupon inutilisable seulement par les membres possédants un des tags sélectionnés. ",
+        "whitelist_tags": "Autorisé",
+        "blacklist_tags": "Non - Autorisé"
       },
       "name": { "label": "Nom" },
       "code": { "label": "Code", "helperText": "Le code que vous transmettrez aux clients concernés" },
@@ -1689,6 +1692,7 @@
       },
       "tab": { "general": "Contenu", "campaign": "Campagne", "statistics": "Statistiques", "layout": "Personnalisation" },
       "field": {
+        "location": "Localisation préférée",
         "sign_up_question": "Question du formulaire d'inscription",
         "first_name": "Prénom",
         "last_name": "Nom de famille",
@@ -4581,60 +4585,52 @@
       "selectAll": "Tout sélectionner",
       "selectNothing": "Tout désélectionner",
       "paymentPacks": {
-        "helperText": "sélectionner des cartes de cours",
+        "helperText": "selectionner des cartes de cours",
         "helperSelectedText": "cartes de cours sélectionnées",
         "textFieldPlaceholder": "Rechercher une carte de cours",
         "helperAllSelectedText": "toutes les cartes de cours",
         "warning": "Sélectionnez au moins une carte de cours"
       },
       "privatePass": {
-        "helperText": "sélectionner des cartes RDV",
+        "helperText": "selectionner des cartes RDV",
         "helperSelectedText": "cartes de RDV sélectionnées",
         "textFieldPlaceholder": "Rechercher une carte RDV",
         "helperAllSelectedText": "toutes les cartes RDV",
         "warning": "Sélectionnez au moins une carte RDV"
       },
       "buyables": {
-        "helperText": "sélectionner des catégories",
+        "helperText": "selectionner des catégories",
         "helperSelectedText": "catégories sélectionnées",
         "textFieldPlaceholder": "Rechercher une catégorie de produit",
         "helperAllSelectedText": "tous les produits"
       },
       "metaActivities": {
-        "helperText": "sélectionner des activités",
+        "helperText": "selectionner des activités",
         "helperSelectedText": "activités sélectionnées",
         "textFieldPlaceholder": "Rechercher une activité",
         "helperAllSelectedText": "toutes les activités",
         "warning": "Sélectionnez au moins une activité"
       },
       "establishments": {
-        "helperText": "sélectionner des salles",
+        "helperText": "selectionner des salles",
         "helperSelectedText": "salles sélectionnées",
         "textFieldPlaceholder": "Rechercher une salle",
         "helperAllSelectedText": "toutes les salles",
         "warning": "Sélectionnez au moins une salle"
       },
       "coaches": {
-        "helperText": "sélectionner des professeurs",
+        "helperText": "selectionner des professeurs",
         "helperSelectedText": "professeurs sélectionnées",
         "textFieldPlaceholder": "Rechercher un professeur",
         "helperAllSelectedText": "tous les professeurs",
         "warning": "Sélectionnez au moins un professeur"
       },
       "privateServices": {
-        "helperText": "sélectionner des rendez-vous",
+        "helperText": "selectionner des rendez-vous",
         "helperSelectedText": "rendez-vous sélectionnées",
         "textFieldPlaceholder": "Rechercher un rendez-vous",
         "helperAllSelectedText": "tous les rendez-vous",
         "warning": "Sélectionnez au moins un rendez-vous"
-      },
-      "level": {
-        "allLevels": "tout niveaux",
-        "beginner": "débutant",
-        "intermediate": "intermédiaire",
-        "advanced": "avancé",
-        "select": "sélectionner un niveau",
-        "warning": "Sélectionnez au moins un niveau"
       }
     },
     "noSmartLists": "Utilisez les smartlists afin de filtrer, analyser, et mieux connaitre vos membres.",
@@ -4757,8 +4753,7 @@
         "coach": { "first": "avec les professeurs" },
         "date": { "first": "la date de la séance est" },
         "hour": { "first": "l'heure de début la séance est comprise entre", "second": "heures et", "third": "heures" },
-        "attendance": "avec le statut",
-        "level": { "first": "de niveau " }
+        "attendance": "avec le statut"
       },
       "22": {
         "name": "Nombre de réservations",
@@ -4772,8 +4767,7 @@
         "coach": { "first": "avec les professeurs" },
         "date": { "first": "ayant lieu" },
         "hour": { "first": "débutant entre", "second": "heures et", "third": "heures" },
-        "attendance": "avec le statut",
-        "level": { "first": "de niveau" }
+        "attendance": "avec le statut"
       },
       "23": { "name": "Première réservation", "explanation": "A réservé sa première séance le..." },
       "24": {
@@ -4905,7 +4899,8 @@
       "asyncDialog": {
         "title": "Mises à jour des règles de Tag ",
         "message": "Suite à vos changements dans les règles de Tag de la smartlist {{name}}, nous devons mettre à jours les Tags de vos membres."
-      }
+      },
+      "tag": "Tag"
     }
   },
   "snackbar": {

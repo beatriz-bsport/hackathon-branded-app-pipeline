@@ -1,50 +1,40 @@
 // @flow
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { WithTranslation, withTranslation } from 'react-i18next';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import FormControl from '@material-ui/core/FormControl';
 import SaveIcon from '@material-ui/icons/Save';
 import IconButton from '@material-ui/core/IconButton';
 import moment from 'moment-timezone';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import Zoom from '@material-ui/core/Zoom';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import { compose } from 'recompose';
 import TagRuleSelector from './TagRuleSelector.component';
+import { Tag } from '../../tag/types';
+import TagSelector from '../../tag/components/TagSelector.selector';
+import { AutoTagRule } from '../types';
 
-type Props = {
-  t: TFunction,
-  tagRule: Object,
-  tag_groups: Object,
-  createAutoTag: (data: object) => void,
-  deleteAutoTag: (id: number) => void,
-  updateAutoTag: (id: number, data: object) => void,
-  tags: Object,
-  creationCard: boolean,
+type OwnProps = {
+  tagRule: AutoTagRule;
+  createAutoTag: (data: object) => void;
+  deleteAutoTag: (id: number) => void;
+  updateAutoTag: (id: number, data: object) => void;
+  tags: Array<Tag>;
+  creationCard: boolean;
 };
 
 const useStyles = makeStyles((theme) => ({
-  formHeader: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
   header: {
     display: 'flex',
     alignItems: 'row',
-    marginBottom: theme.spacing(2),
     '&>*': {
       marginRight: theme.spacing(1),
     },
@@ -55,23 +45,25 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
   },
   tagSelect: {
-    paddingTop: theme.spacing(2),
+    width: '100%',
+  },
+  form: {
     display: 'flex',
-    justifyContent: 'space-around',
-    margin: 'auto',
+    flexDirection: 'column',
+    gap: theme.spacing(1.5),
+  },
+  tagDisabled: {
+    color: 'rgba(0, 0, 0, 0.38)',
   },
 }));
+
+type Props = OwnProps & WithTranslation;
 
 export const TagRuleListItem = (props: Props) => {
   const { t } = props;
   const classes = useStyles();
   const [editRule, setEditRule] = useState(false);
   const [tagRuleState, setTagRuleState] = useState(props.tagRule);
-
-  const handleTagGroupSelection = (value) => {
-    setTagChoices(props.tag_groups.find((group) => group.id === value));
-  };
-  const [tagChoices, setTagChoices] = useState({});
   const handleUpdateTagRule = () => {
     setEditRule(false);
     props.updateAutoTag(props.tagRule.id, tagRuleState);
@@ -83,12 +75,6 @@ export const TagRuleListItem = (props: Props) => {
     }
     props.createAutoTag(tagRuleState);
   };
-  useEffect(() => {
-    const initialTagGroup = props.tag_groups.find((group) =>
-      group.tags.find((tag) => tag.id === props.tagRule.tag),
-    );
-    if (initialTagGroup) setTagChoices(initialTagGroup);
-  }, [props.tag_groups, props.tags, props.tagRule.tag]);
 
   if (props.createAutoTag && !editRule) {
     return (
@@ -107,57 +93,36 @@ export const TagRuleListItem = (props: Props) => {
 
   return (
     <Card>
-      <CardContent>
-        <div>
-          <div className={classes.header}>
-            <AccessTimeIcon />
-            <Typography>
-              {t('tag_rules.activeSince', {
-                since: `${moment(props.tagRule.date_created).format('L')}`,
-                interpolation: { escapeValue: false },
-              })}
-            </Typography>
-          </div>
-          <TagRuleSelector
-            selected={tagRuleState}
-            onChange={(autotagRule) => setTagRuleState(autotagRule)}
-            disabled={!editRule}
-          />
+      <CardContent className={classes.form}>
+        <div className={classes.header}>
+          <AccessTimeIcon />
+          <Typography>
+            {t('tag_rules.activeSince', {
+              since: `${moment(props.tagRule.date_created).format('L')}`,
+              interpolation: { escapeValue: false },
+            })}
+          </Typography>
         </div>
+        <TagRuleSelector
+          selected={tagRuleState}
+          onChange={(autotagRule) => setTagRuleState(autotagRule)}
+          disabled={!editRule}
+        />
+
+        <Typography className={editRule ? null : classes.tagDisabled}>
+          {t('tag_rules.tag')}
+        </Typography>
         <div className={classes.tagSelect}>
-          <FormControl>
-            <Select
-              labelId="tag-group"
-              value={`${tagChoices.id}`}
-              disabled={!editRule}
-              onChange={(event) => handleTagGroupSelection(event.target.value)}
-            >
-              {props.tag_groups.map((group) => (
-                <MenuItem key={group.id} value={group.id}>
-                  {group.name}
-                </MenuItem>
-              ))}
-            </Select>
-            <FormHelperText>{`${t('tag_rules.tag_group')}`}</FormHelperText>
-          </FormControl>
-          <FormControl error={!tagRuleState.tag}>
-            <Select
-              labelId="tag_name"
-              value={tagRuleState.tag}
-              disabled={!editRule}
-              onChange={(event) =>
-                setTagRuleState({ ...tagRuleState, tag: event.target.value })
-              }
-            >
-              {tagChoices.tags &&
-                tagChoices.tags.map((tag) => (
-                  <MenuItem key={tag.id} value={tag.id.toString()}>
-                    {tag.name}
-                  </MenuItem>
-                ))}
-            </Select>
-            <FormHelperText>{`${t('tag_rules.tag_name')}`}</FormHelperText>
-          </FormControl>
+          <TagSelector
+            noMulti
+            allTagsWithTagGroup={props.tags}
+            selectedTags={[tagRuleState.tag]}
+            onChange={(option) =>
+              setTagRuleState({ ...tagRuleState, tag: option.tag.id })
+            }
+            isDisabled={!editRule}
+            onDeleteTag={() => setTagRuleState({ ...tagRuleState, tag: null })}
+          />
         </div>
       </CardContent>
       <CardActions className={classes.formFooter}>
@@ -167,7 +132,6 @@ export const TagRuleListItem = (props: Props) => {
             aria-label="modify rule"
             component="span"
             onClick={() => setEditRule(!editRule)}
-            className={classes.editIcon}
           >
             {editRule ? <CloseIcon /> : <EditIcon />}
           </IconButton>
@@ -230,4 +194,6 @@ export const TagRuleListItem = (props: Props) => {
   );
 };
 
-export default withTranslation(['smartList'])(TagRuleListItem);
+export default compose<any, OwnProps>(withTranslation(['smartList']))(
+  TagRuleListItem,
+);

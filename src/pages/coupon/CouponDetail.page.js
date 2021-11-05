@@ -13,7 +13,11 @@ import LinearProgress from '../../components/navigation/BackofficeLinearProgress
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 
 import withTitle from '../../hocs/with-title.hoc';
-import { getCouponById, getCouponDiscounts } from '../../libs/coupon/selectors';
+import {
+  getCouponById,
+  getCouponDiscounts,
+  withTags,
+} from '../../libs/coupon/selectors';
 import {
   fetchCouponPage,
   fetchCouponDiscounts,
@@ -22,6 +26,7 @@ import {
 } from '../../libs/coupon/actions';
 import type { Coupon, Discount } from '../../libs/coupon/types';
 import CouponDetail from '../../libs/coupon/components/CouponDetail.component';
+import { fetchTags } from '../../libs/tag/actions';
 
 type Props = {
   id: number,
@@ -38,6 +43,7 @@ type Props = {
   deleteCoupon: () => void,
   goToEdit: () => void,
   resetDiscounts: () => void,
+  fetchTags: () => void,
 };
 
 const PAGE_SIZE = 5;
@@ -53,6 +59,7 @@ export class CouponCreate extends Component<Props> {
 
   componentDidMount() {
     this.props.fetchCouponPage(1);
+    this.props.fetchTags();
   }
 
   openDeleteModal = () => this.props.setDeleteModalOpen(true);
@@ -95,7 +102,7 @@ export default compose(
   withTranslation(),
   connect(
     (state, { id }) => ({
-      coupon: getCouponById(state, id),
+      coupon: withTags(getCouponById)(state, id),
       discounts: {
         items: getCouponDiscounts(state, id),
         page: state.coupon.discount.page,
@@ -109,6 +116,7 @@ export default compose(
       goToInvoice: (uuid: string) => pushRouter(`/invoice/${uuid}`),
       goToBillingPlan: (id: number) => pushRouter(`/subscription/${id}`),
       fetchCouponPage,
+      fetchTags,
       fetchCouponDiscounts,
       deleteCouponAction: deleteCoupon,
       push: pushRouter,

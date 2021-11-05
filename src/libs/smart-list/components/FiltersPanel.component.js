@@ -97,7 +97,6 @@ type Props = {
   private_passes: Array<PrivatePass>,
   private_services: Array<PrivateService>,
   tags: Array<any>,
-  tag_groups: Array<any>,
   updateFilter: (
     smartListId: number,
     filterNameId: number,
@@ -334,7 +333,6 @@ export class FiltersPanel extends Component<Props> {
                   private_services={this.props.private_services}
                   meta_activities={this.props.meta_activities}
                   establishments={this.props.establishments}
-                  tag_groups={this.props.tag_groups}
                   tags={this.props.tags}
                   coaches={this.props.coaches}
                   fetchItems={this.props.fetchItems}
@@ -352,7 +350,6 @@ export class FiltersPanel extends Component<Props> {
                   establishments={this.props.establishments}
                   new
                   onClickCreate={this.createFilter}
-                  tag_groups={this.props.tag_groups}
                   tags={this.props.tags}
                   coaches={this.props.coaches}
                   fetchItems={this.props.fetchItems}

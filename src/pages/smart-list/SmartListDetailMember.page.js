@@ -150,7 +150,6 @@ type Props = {
   emailDetailLoading: boolean,
   tags: Array<Tag>,
   loading: boolean,
-  tag_groups: any,
   setOpenSendEmail: (boolean) => void,
   openSendEmail: boolean,
   establishmentLoading: boolean,
@@ -183,7 +182,6 @@ type Props = {
   updateAutoTag: (id: number, data: object) => void,
   fetchAllAutoTagRulesAction: () => void,
   smartlistAutoTagLoading: boolean,
-  openAutoTagRulesDialog: boolean,
 };
 
 type State = {
@@ -317,7 +315,6 @@ export class SmartListDetailMember extends Component<Props, State> {
           meta_activities={this.props.meta_activities}
           establishments={this.props.establishments}
           tags={this.props.tags}
-          tag_groups={this.props.tag_groups}
           loading={this.props.loading}
           fetchItems={fetchItems}
           fetchBulkItems={fetchBulkItems}
@@ -332,8 +329,6 @@ export class SmartListDetailMember extends Component<Props, State> {
           deleteAutoTag={this.props.deleteAutoTag}
           updateAutoTag={this.props.updateAutoTag}
           tags={this.props.tags}
-          tag_groups={this.props.tag_groups}
-          openUpdateDialog={this.props.openAutoTagRulesDialog}
         />
         <div className={this.props.classes.memberWrapper}>
           <ButtonBase
@@ -507,8 +502,7 @@ export default compose(
       paymentPackLoading: state.paymentPack.loading,
       establishments: getAllEstablishments(state),
       coaches: getCoaches(state),
-      tag_groups: tagSelectors.getMemberTagGroups(state),
-      tags: tagSelectors.getMemberTags(state),
+      tags: tagSelectors.getMemberTagsWithTagGroup(state),
       email_templates_list: getAllEmailTemplatesSummaries(state),
       email_templates_details: getEmailTemplatesDetail(state),
       emailListLoading: state.emailTemplate.isLoading,

@@ -5,9 +5,8 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import chroma from 'chroma-js';
 import { colors } from '@bsport/common/lib/colors';
 import BlockIcon from '@material-ui/icons/Block';
-import GroupIcon from '@material-ui/icons/Group';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import type { Tag } from '../types';
+import type { Tag, TagGroup } from '../types';
 import TagChip from './TagChip.component';
 
 const tagGroupStyles = {
@@ -20,7 +19,12 @@ const tagGroupStyles = {
     fontSize: '14px',
     borderBottom: '1px solid #868686',
   }),
-  control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+  control: (styles) => ({
+    ...styles,
+    backgroundColor: 'white',
+    paddingTop: '4px',
+    paddingBottom: '4px',
+  }),
   menuPortal: (base) => ({ ...base, zIndex: 9999 }),
   option: (styles, { isDisabled, isFocused, isSelected }) => {
     const color = chroma(colors.secondary);
@@ -85,16 +89,19 @@ const MultiValueContainer = ({ ...props }) => (
   </components.MultiValueContainer>
 );
 
-const SingleValue = ({ ...props }) => (
-  <components.SingleValue {...props}>
-    <div style={{ display: 'flex', alignItems: 'center' }}>
-      {props.selectProps.isGroupSelect ? (
-        <GroupIcon fontSize="small" style={{ marginRight: '10px' }} />
-      ) : null}
-      {`${props.data.group.name} : ${props.data.label}`}
-    </div>
-  </components.SingleValue>
-);
+const SingleValue = ({ ...props }) => {
+  return (
+    <components.SingleValue {...props}>
+      {props?.data.tag && (
+        <TagChip
+          tag={props?.data.tag}
+          onDelete={() => props?.selectProps?.onDeleteTag(props?.data.tag.id)}
+          size="small"
+        />
+      )}
+    </components.SingleValue>
+  );
+};
 
 const DropdownIndicator = (
   props: ReturnType<typeof components.DropdownIndicator>,
@@ -144,7 +151,11 @@ const getTagGroupedByTagGroup = (tag_list: Array<Tag>) => {
 };
 
 type OwnProps = {
-  onChange: (options: { label: string; value: number }) => void;
+  onChange: (options: {
+    label: string;
+    value: number;
+    tag: Tag<TagGroup>;
+  }) => void;
   onDeleteTag: (optionId: number) => void;
   isDisabled: boolean;
   placeholder?: string;

@@ -26,18 +26,23 @@ export const TagChip = (props: Props) => {
   const { tag, onDelete, onClick, variant, size } = props;
   const classes = useStyle();
   const companyTheme = useTheme();
-  const theme = tag.color ? newTheme(tag.color) : companyTheme;
+  const theme = tag?.color ? newTheme(tag?.color) : companyTheme;
+
   return (
     <MuiThemeProvider theme={theme}>
       <Chip
-        label={`${tag.group?.name} : ${tag.name}`}
+        classes={{
+          label: classes.chipLabel,
+          avatar: classes.avatar,
+        }}
+        label={`${tag?.group?.name} : ${tag?.name}`}
         size={size || 'medium'}
         color="primary"
         onDelete={onDelete}
         onClick={onClick}
         avatar={
-          tag.icon ? (
-            <Avatar className={classes.avatar}>
+          tag?.icon ? (
+            <Avatar>
               <MuiIcon icon={tag.icon} className={classes.icon} />
             </Avatar>
           ) : null
@@ -52,6 +57,12 @@ const useStyle = makeStyles((theme: Theme) => ({
   icon: {
     width: theme.spacing(2),
     height: theme.spacing(2),
+  },
+  chipLabel: {
+    maxWidth: theme.spacing(20),
+  },
+  avatar: {
+    backgroundColor: 'transparent!important',
   },
 }));
 

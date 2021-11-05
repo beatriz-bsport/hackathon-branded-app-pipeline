@@ -24,7 +24,6 @@ type Props = {
   deleteAutoTag: (id: number) => void,
   updateAutoTag: (id: number, data: object) => void,
   tags: Array<Tag>,
-  tag_groups: object,
 };
 
 export class AutoTagPanel extends Component<Props> {
@@ -92,7 +91,6 @@ export class AutoTagPanel extends Component<Props> {
                       deleteAutoTag={this.props.deleteAutoTag}
                       updateAutoTag={this.props.updateAutoTag}
                       tags={this.props.tags}
-                      tag_groups={this.props.tag_groups}
                     />
                   </Grid>
                 );
@@ -104,7 +102,6 @@ export class AutoTagPanel extends Component<Props> {
                 createAutoTag={this.props.createAutoTag}
                 deleteAutoTag={this.props.deleteAutoTag}
                 tags={this.props.tags}
-                tag_groups={this.props.tag_groups}
               />
             </Grid>
           </Grid>

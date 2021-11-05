@@ -122,7 +122,7 @@ export function createCoupon(data: any, options?: OptionCallback): ThunkAction {
 }
 
 export function updateCoupon(
-  id: string,
+  id: string | number,
   data: any,
   options?: OptionCallback,
 ): ThunkAction {

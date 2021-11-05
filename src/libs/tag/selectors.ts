@@ -2,7 +2,7 @@ import memoize from 'memoize-one';
 import { TAG_KIND_MEMBER } from '@bsport/common/lib/master-data/tag';
 import { createSelector } from 'reselect';
 
-import type { TagGroup, Tag } from './types';
+import type { TagGroup, Tag, TagGroupAPI } from './types';
 import { RootState } from '../../reducers';
 
 const _getTags = (state: RootState) => state.tag.tag.items;
@@ -31,6 +31,21 @@ const getMemberTags: (state: RootState) => Array<Tag> = createSelector(
   (memberTagGroups, tags) => {
     const tagGroupMemberIds = memberTagGroups.map((tg) => tg.id);
     return tags.filter((tag) => tagGroupMemberIds.includes(tag.group));
+  },
+);
+
+const getMemberTagsWithTagGroup: (
+  state: RootState,
+) => Array<Tag<TagGroupAPI>> = createSelector(
+  [getMemberTagGroups, _getTags, getTagGroupsDict],
+  (memberTagGroups, tags, tagGroupData) => {
+    const tagGroupMemberIds = memberTagGroups.map((tg) => tg.id);
+    return tags
+      .filter((tag) => tagGroupMemberIds.includes(tag.group))
+      .map((tag) => ({
+        ...tag,
+        group: tagGroupData[tag.group],
+      }));
   },
 );
 
@@ -65,4 +80,4 @@ export const withTags = memoize((selector: (state: RootState) => any) =>
     }));
   }),
 );
-export default { getMemberTagGroups, getMemberTags };
+export default { getMemberTagGroups, getMemberTags, getMemberTagsWithTagGroup };

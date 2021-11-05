@@ -22,6 +22,7 @@ import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { isCurrentlyActive } from '../utils';
 
 import type { Coupon } from '../types';
+import TagChip from '../../tag/components/TagChip.component';
 
 type Props = {
   coupon: Coupon,
@@ -126,24 +127,30 @@ export const CouponCard = (props: Props) => {
           />
         </ListItem>
       </List>
-      {props.coupon.whitelist_tags &&
-      props.coupon.whitelist_tags.length !== 0 ? (
-        <ListItem>
-          <ListItemIcon>
-            <ArrowRightIcon />
-          </ListItemIcon>
-          <ListItemText primary={t('card.whitelist_tags')} />
-        </ListItem>
-      ) : null}
-      {props.coupon.blacklist_tags &&
-      props.coupon.blacklist_tags.length !== 0 ? (
-        <ListItem>
-          <ListItemIcon>
-            <ArrowRightIcon />
-          </ListItemIcon>
-          <ListItemText primary={t('card.blacklist_tags')} />
-        </ListItem>
-      ) : null}
+      <div className={classes.allTagContainer}>
+        {props.coupon?.whitelist_tags &&
+        props.coupon?.whitelist_tags?.length !== 0 ? (
+          <div className={classes.tagContainer}>
+            <Typography>{t('card.allowedFor')}</Typography>
+            <div className={classes.chipContainer}>
+              {props.coupon?.whitelist_tags?.map((tag) => {
+                return <TagChip tag={tag} />;
+              })}
+            </div>
+          </div>
+        ) : null}
+        {props.coupon?.blacklist_tags &&
+        props.coupon?.blacklist_tags?.length !== 0 ? (
+          <div className={classes.tagContainer}>
+            <Typography>{t('card.unallowedFor')}</Typography>
+            <div className={classes.chipContainer}>
+              {props.coupon?.blacklist_tags?.map((tag) => {
+                return <TagChip tag={tag} />;
+              })}
+            </div>
+          </div>
+        ) : null}
+      </div>
       <div className={classes.actionButtons}>
         <Button color="primary" onClick={props.goToEdit}>
           {props.t('detail.seeParameters')}
@@ -154,6 +161,22 @@ export const CouponCard = (props: Props) => {
 };
 
 const styles = (theme) => ({
+  allTagContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(3),
+  },
+  chipContainer: {
+    display: 'flex',
+    gap: theme.spacing(1),
+    flexWrap: 'wrap',
+  },
+  tagContainer: {
+    marginLeft: theme.spacing(3),
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
+  },
   paperContainer: {
     padding: theme.spacing(2),
     paddingBottom: theme.spacing(1),

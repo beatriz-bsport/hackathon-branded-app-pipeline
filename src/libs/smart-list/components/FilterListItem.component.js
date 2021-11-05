@@ -64,7 +64,6 @@ type Props = {
   establishments: Array<Establishment>,
   private_services: Array<PrivateService>,
   classes: Object,
-  tag_groups: Array<any>,
   tags: Array<any>,
   onClickEdit: (id: number) => void,
   onClickDelete: (id: number) => void,
@@ -246,7 +245,6 @@ export class FilterCard extends Component<Props> {
         return (
           <TagFilter
             filter_data={this.state.filter_data}
-            tag_groups={this.props.tag_groups}
             tags={this.props.tags}
             onChange={this.handleChange}
             new={this.props.new}

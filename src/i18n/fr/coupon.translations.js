@@ -24,6 +24,8 @@ exports.default = {
     seeParameters: 'Voir les paramètres',
   },
   card: {
+    allowedFor: 'Autorisé pour',
+    unallowedFor: 'Non-Autorisé pour',
     first_buy: 'Utilisable sur le premier achat seulement',
     expiration: "Date d'expiration",
     no_expiration: "Pas de date d'expiration",
@@ -68,9 +70,10 @@ exports.default = {
       applies_to: 'Paramètres',
       advanced: 'Avancé',
       tags: 'Tags',
-      whitelist_tags: 'Utilisable seulement par les membres disposant du tag',
-      blacklist_tags:
-        'Non - utilisable seulement par les membres disposant du tag',
+      tagInfo:
+        'Utilisez les tags pour rendre le coupon utilisable uniquement par un groupe de membre souhaité sur la marketplace, le widget et l’application. Vous pouvez sélectionner des tags pour rendre le coupon utilisable seulement par les membres possédants un des tags choisis. Ou bien vous pouvez sélectionner des tags pour rendre le coupon inutilisable seulement par les membres possédants un des tags sélectionnés. ',
+      whitelist_tags: 'Autorisé',
+      blacklist_tags: 'Non - Autorisé',
     },
     name: {
       label: 'Nom',

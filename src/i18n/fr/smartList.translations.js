@@ -519,5 +519,6 @@ exports.default = {
       message:
         'Suite à vos changements dans les règles de Tag de la smartlist {{name}}, nous devons mettre à jours les Tags de vos membres.',
     },
+    tag: 'Tag',
   },
 };

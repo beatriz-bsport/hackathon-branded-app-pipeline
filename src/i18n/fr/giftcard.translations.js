@@ -19,6 +19,7 @@ exports.default = {
     addBackgroundImage: 'Ajouter des images de personnalisation',
     actions: {
       create: 'Créer une carte cadeau',
+      goToGiftcard: 'Voir toutes les cartes cadeaux',
     },
   },
   consumerGiftcard: {

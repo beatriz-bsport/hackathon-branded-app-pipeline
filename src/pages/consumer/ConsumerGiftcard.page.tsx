@@ -5,6 +5,9 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
+import { push } from 'connected-react-router';
 
 import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 
@@ -13,6 +16,7 @@ import themeSelectors from '../../libs/theme/selectors';
 import ConsumerGiftcardListItem from '../../libs/giftcard/components/ConsumerGiftcardListItem.component';
 import PaginatedListBase from '../../components/PaginatedListBase.component';
 import { OptionCallback } from '../../state/types';
+import { WidgetUtils } from '../../libs/widget/WidgetUtils';
 
 import {
   fetchGiftcardBulk as fetchGiftcardBulkAction,
@@ -24,6 +28,7 @@ import {
 
 import ConsumerGiftcardInvitationModal from '../../libs/giftcard/components/ConsumerGiftcardInvitationModal.components';
 import { ConsumerGiftcard } from '../../libs/giftcard/types';
+import { urlToMarketplace } from '../../libs/marketplace/utils';
 
 import { snackbarSuccess } from '../../libs/snackbar/actions';
 import {
@@ -43,6 +48,20 @@ const styles = (theme: Theme) =>
     listConsumerGiftcard: {
       marginBottom: theme.spacing(3),
       marginTop: theme.spacing(1),
+    },
+    iconButton: {
+      display: 'flex',
+      width: '100%',
+      padding: theme.spacing(1),
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+    },
+    iconLeft: {
+      marginRight: theme.spacing(1),
+    },
+    title: {
+      marginTop: theme.spacing(2),
+      marginLeft: theme.spacing(2),
     },
   });
 
@@ -75,8 +94,25 @@ export const ConsumerGiftcardPage = (props: Props) => {
 
   return (
     <Grid container spacing={2}>
+      {!WidgetUtils.isWidget() && (
+        <div className={classes.iconButton}>
+          <Button
+            onClick={() =>
+              props.goToGiftcard(
+                props.companyTheme.company_name,
+                props.companyTheme.company,
+              )
+            }
+            color="primary"
+            variant="contained"
+          >
+            <CardGiftcardIcon className={classes.iconLeft} />
+            {t('list.actions.goToGiftcard')}
+          </Button>
+        </div>
+      )}
       <Grid item sm={12} md={6} style={{ width: '100%' }}>
-        <Typography variant="h5">
+        <Typography variant="h5" className={props.classes.title}>
           {t('consumerGiftcard.list.myPurchases')}
         </Typography>
         <Paper className={classes.listConsumerGiftcard}>
@@ -119,7 +155,7 @@ export const ConsumerGiftcardPage = (props: Props) => {
         </Paper>
       </Grid>
       <Grid item sm={12} md={6} style={{ width: '100%' }}>
-        <Typography variant="h5">
+        <Typography variant="h5" className={props.classes.title}>
           {t('consumerGiftcard.list.myGifted')}
         </Typography>
         <Paper className={classes.listConsumerGiftcard}>
@@ -194,6 +230,8 @@ const connector = connect(
     retrieveConsumerGiftcard,
     sendEmailInvitation,
     fetchConsumerGiftcardReceivedList: fetchConsumerGiftcardReceivedListAction,
+    goToGiftcard: (name: string, id: number) =>
+      push(`${urlToMarketplace(name, id)}/giftcard`),
     fetchConsumerGiftcardSentList: fetchConsumerGiftcardSentListAction,
   },
 );

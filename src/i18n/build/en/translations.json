@@ -1392,7 +1392,7 @@
             "password": "Password",
             "signInPhoneInstruction": "Please enter your phone number. A confirmation code will be sent to you by SMS.",
             "SMSSignInTitle": "Login by SMS",
-            "signUpTitle": "Enrolment",
+            "signUpTitle": "Sign up",
             "code": "Code",
             "pleaseEnterYourSMSCode": "Please enter the code sent by SMS",
             "specific_info": "Description",
@@ -1458,7 +1458,7 @@
             "signup": {
                 "privacyPolicy": "General Terms of Service and Delivery",
                 "iAcceptPrivacyPolicy": "I accept the ",
-                "signupButton": "Enrolment",
+                "signupButton": "Sign up",
                 "communication": {
                     "sms": "SMS",
                     "email": "Email"
@@ -1933,7 +1933,7 @@
     },
     "notificationRule": {
         "ruleGroup": {
-            "member": "New member enrolments",
+            "member": "New member sign up",
             "offer": "Sessions",
             "booking": "Bookings",
             "waitingList": "Waiting-list",
@@ -1997,7 +1997,7 @@
                     "subscription_name": "Subscription name",
                     "subscription_recurrent_price": "Monthly price",
                     "subscription_nb_months": "Number of months",
-                    "subscription_flat_fee": "Enrolment fee",
+                    "subscription_flat_fee": "Joining fee",
                     "subscription_payment_method": "Payment method",
                     "subscription_nb_days_pause": "Paused for X number of days",
                     "subscription_next_invoice_date": "Next billing date"
@@ -3387,7 +3387,9 @@
             "member_use": "use per member.",
             "limitation": "Limited to",
             "blacklist_tags": "[Blacklist] Not available for members with specific tag(s):",
-            "whitelist_tags": "[Whitelist} Only available to members with specific tag(s):"
+            "whitelist_tags": "[Whitelist} Only available to members with specific tag(s):",
+            "allowedFor": "Allowed for",
+            "unallowedFor": "Not allowed for"
         },
         "form": {
             "selectorPlaceholder": {
@@ -3403,9 +3405,10 @@
                 "applies_to": "Settings",
                 "advanced": "Advanced",
                 "subscription": "Subscriptions",
-                "blacklist_tags": "[Blacklist] Can not be used by members with these specific tag(s):",
-                "whitelist_tags": "[Whitelist] Can only be used by members with these specific tag(s):",
-                "tags": "Tags"
+                "blacklist_tags": "Not allowed",
+                "whitelist_tags": "Allowed",
+                "tags": "Tags",
+                "tagInfo": "Use tags to make the promo code usable only by a selected group of members on the marketplace, widget and app. You can select tags to make the promo code usable only by members with one of the chosen tags. Or you can select tags to make the promo code unusable only by members with one of the selected tags. "
             },
             "name": {
                 "label": "Name"
@@ -3867,7 +3870,7 @@
     "theme": {
         "forms": {
             "themePersonalization": {
-                "names_label_info": "Edit the fields 'First name' and 'Last name' on your enrolment form",
+                "names_label_info": "Edit the fields 'First name' and 'Last name' on your sign up form",
                 "first_name_label": {
                     "placeholder": "First name label",
                     "label": "First name label",
@@ -4006,7 +4009,7 @@
             "submit": "Save",
             "general_terms_and_conditions": {
                 "placeholder": "I certify that I'm in possession of a valid medical certificate.",
-                "helperText": "These must be accepted for all enrolments and payments.",
+                "helperText": "These must be accepted for all payments.",
                 "label": "General Terms & Conditions"
             },
             "android_app_url": {
@@ -4021,7 +4024,7 @@
             },
             "general_terms_of_use": {
                 "placeholder": "I certify that I'm over the age of 13.",
-                "helperText": "These must be accepted for all enrolments and payments.",
+                "helperText": "These must be accepted for all sign up.",
                 "label": "General Terms of Use"
             },
             "facebookPixelId": {
@@ -4030,7 +4033,7 @@
             },
             "waiver": {
                 "placeholder": "I certify that I'm over the age of 13.",
-                "helperText": "All members must accept this during their enrolment.",
+                "helperText": "All members must accept this during their sign up.",
                 "label": "Liability Waiver"
             }
         },
@@ -4058,7 +4061,7 @@
             "addShopItemToCart": "When a user adds a webshop item to their basket",
             "paymentSuccess": "When a user successfully completed their payment",
             "signinShow": "When a user opens the login page",
-            "signupShow": "When a user clicks on the enrolment form",
+            "signupShow": "When a user clicks on the sign up form",
             "signupSuccess": "When a user created an account",
             "sessionShow": "When a user clicks on a session",
             "contractPaymentSuccess": "When a user signed up for a subscription",
@@ -4110,7 +4113,7 @@
             "customQuestionDialog": {
                 "confirm": "Add a form",
                 "cancel": "Cancel",
-                "content": "You can add custom questions to your enrolment form by creating a completely new form in Marketing > Forms. You may add any new questions and select the notification rule \"new members\".",
+                "content": "You can add custom questions to your sign up form by creating a completely new form in Marketing > Forms. You may add any new questions and select the notification rule \"new members\".",
                 "title": "Custom questions"
             },
             "addQuestions": "Add a question",
@@ -4341,7 +4344,7 @@
         "or": " or ",
         "contactUs": "Are you the owner or manager of a boutique studio, and would you like to learn more about how BSPORT Solution helps you to automate, streamline, and facilitate all your daily tasks? Contact us for a no-strings-attached call and for more information.",
         "signup": {
-            "title": "Enrolment"
+            "title": "Booking"
         },
         "doubleLogin": {
             "disconnect": "Login again",
@@ -6102,8 +6105,8 @@
                     "placeholder": "Enter here all legal terms and conditions (refund etc...)."
                 },
                 "flat_fee": {
-                    "helperText": "The enrolment fee will be added to the first invoice.",
-                    "label": "Enrolment fee"
+                    "helperText": "The joining fee will be added to the first invoice.",
+                    "label": "Joining fee"
                 },
                 "description": {
                     "label": "Description",
@@ -6243,7 +6246,7 @@
             "dateStart": "First billing",
             "firstBilling": "First billing",
             "payment_pack": "Passes",
-            "flat_fee": "Enrolment fee",
+            "flat_fee": "Joining fee",
             "status": "Status",
             "payment_method": {
                 "label": "Payment method",
@@ -6439,7 +6442,7 @@
             "was_refunded": "Refunded",
             "email": "Email",
             "phonenumber": "Telephone",
-            "date_joined": "Enrolment date",
+            "date_joined": "Sign up date",
             "gender": "Sex",
             "payment_pack": "Pass",
             "activity_name": "Activity",
@@ -7425,13 +7428,13 @@
         "companieEmails": "My templates"
     },
     "member": {
-        "date_joined": "Enrolment date",
+        "date_joined": "Sign up date",
         "invoiceTitle": "Invoices",
         "subscriptionTitle": "Subscriptions",
         "offers_joined": "Activities joined",
         "pass_owner": "Not valid",
         "bornIn": "Birthday ",
-        "memberSince": "Enrolment date ",
+        "memberSince": "Sign up date ",
         "showNextBooking": "Show next bookings",
         "nextBooking": "next: ",
         "noNoteSaved": "No note saved yet",
@@ -7840,8 +7843,8 @@
             "mainButton": {
                 "registerWaitingList": "Register to waiting list",
                 "book": "Book",
-                "numberOfBook": "{{count}} enrolment",
-                "numberOfBook_plural": "{{count}} enrolments"
+                "numberOfBook": "{{count}} booking",
+                "numberOfBook_plural": "{{count}} bookings"
             },
             "bookingsTitle": "My booking",
             "addSession": "Add sessions",
@@ -7851,26 +7854,26 @@
             "offerStatus": {
                 "waiting_list_status": {
                     "3": "Full",
-                    "1": "Enrolments: closed",
+                    "1": "Bookings closed",
                     "0": "Waiting list",
-                    "2": "Enrolments: finished",
+                    "2": "Bookings closed",
                     "6003": "Already on the waiting list",
                     "6002": "The waiting list is full",
                     "7": "Unbalanced male / female ratio",
                     "6": "Unbalanced male / female ratio",
                     "5": "Already registered",
-                    "4": "Enrolments: closed",
+                    "4": "Bookings closed",
                     "9": "It's not allowed to exceed the maximum amount of future bookings"
                 },
                 "bookable_status": {
                     "4": "Session unavailable",
-                    "2": "Enrolments: finished",
-                    "1": "Enrolments: closed",
-                    "0": "Enrolments: open",
+                    "2": "Bookings closed",
+                    "1": "Bookings closed",
+                    "0": "Bookings open",
                     "9": "It's not allowed to exceed the maximum amount of future bookings"
                 },
                 "waiting_list": "Waiting list",
-                "book": "Enrolment"
+                "book": "Sign up"
             },
             "similarOffer": {
                 "showMore": "See more",
@@ -8289,7 +8292,7 @@
                 "explanation": "Has bought A and B"
             },
             "18": {
-                "name": "Enrolment date",
+                "name": "Sign up date",
                 "first": "Enroled for your studio   ",
                 "explanation": "Display an overview of all members that enrolled on..."
             },
@@ -8648,7 +8651,8 @@
             "asyncDialog": {
                 "message": "We'll update all members' Tags of the \"{{name}}\" Smartlist.",
                 "title": "Update Tagging Rules "
-            }
+            },
+            "tag": "Tag"
         }
     },
     "coachPerformance": {
@@ -9406,7 +9410,7 @@
                 "marketplaceSettings": "MarketPlace",
                 "widget": "Widgets",
                 "paymentMethod": "Payment methods",
-                "forms": "Enrolment form",
+                "forms": "Sign up form",
                 "quickbooks": "QuickBooks"
             },
             "pass": "Passes",
@@ -9837,7 +9841,7 @@
                 "link_to_tag_popover": "Link a tag to this option",
                 "tag_group": "Main Tag",
                 "tag_name": "Sub Tag",
-                "isMandatoryOnSignUp": "This field is mandatory upon enrolment",
+                "isMandatoryOnSignUp": "This field is mandatory upon sign up",
                 "accept_sms": "I'd like to receive relevant communication by SMS.",
                 "accept_email": "I'd like to receive relevant communication by email.",
                 "waiver": "Liability waiver",
@@ -9859,7 +9863,8 @@
                 "birthday": "Date of birth",
                 "last_name": "Last name",
                 "first_name": "First name",
-                "sign_up_question": "Enrolment form questions"
+                "sign_up_question": "Sign up form questions",
+                "location": "Favorite location"
             },
             "title": "Forms",
             "CustomFormLink": "Link to form",
@@ -9926,7 +9931,7 @@
                     "error": {
                         "choicesLength": "You must select at least two fields",
                         "emptyChoice": "Fields can't be empty",
-                        "signupQuestionShouldBeSelected": " You must selecte a question from the enrolment form",
+                        "signupQuestionShouldBeSelected": " You must select a question from the sign up form",
                         "tooShort": "A password must be at least 8 characters",
                         "passwordsDontMatch": "These passwords don't match"
                     },
@@ -9995,7 +10000,7 @@
                         "modify": "Edit",
                         "cancel": "Cancel",
                         "create": "Add",
-                        "helperTextNewMembers": "The form will appear as a pop-up on the marketplace and the widget after the enrolment form."
+                        "helperTextNewMembers": "The form will appear as a pop-up on the marketplace and the widget after the sign up form."
                     },
                     "errors": {
                         "timedeltaBeforeDisplayMustBeGraterThanZero": "This value must be greater than 0."
@@ -10018,31 +10023,31 @@
             "previous": "Back",
             "next": "Next",
             "navigateToMemberForm": "Edit the modification form",
-            "signupFormHelper": "The mandatory questions of the enrolment form must be editable by your members on their profile. These questions will be added automatically to the modification form and can be edited by members.",
+            "signupFormHelper": "The mandatory questions of the sign up form must be editable by your members on their profile. These questions will be added automatically to the modification form and can be edited by members.",
             "signUp": {
                 "helperMemberForm": "The modification form can be customized and will be shown on your members' profile page and allows them to add or edit their information.",
-                "helperSignup": "You can personalize your studio's enrolment form with custom questions and fields.",
+                "helperSignup": "You can personalize your studio's sign up form with custom questions and fields.",
                 "signupFields": "Form questions"
             },
             "signUpInfoModal": {
-                "content": "The mandatory questions on your enrolment form must be editable by members on their profile page. These questions have now been automatically added and can be customized on the modification form and are displayed/editable by default.",
+                "content": "The mandatory questions on your sign up form must be editable by members on their profile page. These questions have now been automatically added and can be customized on the modification form and are displayed/editable by default.",
                 "confirm": "Continue",
                 "cancel": "Cancel",
                 "title": "Information"
             },
-            "memberFormHelper": "The mandatory questions of the enrolment form are displayed and editable by default. These can't be deleted.",
+            "memberFormHelper": "The mandatory questions of the sign up form are displayed and editable by default. These can't be deleted.",
             "clientForms": {
                 "modify": "Edit",
                 "customize": "Personalize",
                 "modification": "Edit",
-                "signup": "Enrolment",
+                "signup": "Sign up",
                 "preview": "Overview"
             },
             "editable": "Editable",
             "display": "Show",
-            "navigateToSignup": "Edit enrolment form",
+            "navigateToSignup": "Edit sign up form",
             "memberFormTitle": "Modification form",
-            "signupFormTitle": "Enrolment form",
+            "signupFormTitle": "Sign up form",
             "layout": {
                 "save": "Save",
                 "redo": " Reapply",

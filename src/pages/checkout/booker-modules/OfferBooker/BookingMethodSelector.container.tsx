@@ -29,7 +29,7 @@ import {
 import {
   excludeUnaccessiblePacks,
   getPaymentPackForBooking,
-  getNonEmptyPaymentPackCategoryWithPaymentPacks,
+  getAllPaymentPackCategory,
 } from '../../../../libs/payment-packs/selectors';
 import {
   fetchPaymentPackForBooking,
@@ -163,6 +163,15 @@ export class OfferState extends React.PureComponent<Props, State> {
     }
   };
 
+  getAvailablePaymentPackCategories(packs: Array<PaymentPack>) {
+    return this.props.paymentPackCategories
+      .map((cat) => ({
+        ...cat,
+        packs: packs.filter((p) => p.category === cat.id),
+      }))
+      .filter((cat) => cat.packs.length);
+  }
+
   componentDidUpdate(prevProps: Props) {
     if (prevProps.company !== this.props.company) {
       this.fetchPaymentPack();
@@ -230,6 +239,9 @@ export class OfferState extends React.PureComponent<Props, State> {
 
     const availableConsumerPacks = this.props.getAvailableConsumerPack();
     const availablePaymentPacks = this.props.getAvailablePaymentPacks();
+    const availablePaymentPackCategories = this.getAvailablePaymentPackCategories(
+      availablePaymentPacks,
+    );
     const availableComboPacks = this.props.getAvailableComboPacks();
 
     return (
@@ -246,7 +258,7 @@ export class OfferState extends React.PureComponent<Props, State> {
           availableComboPacks={availableComboPacks}
           contractList={this.props.contractList}
           onOpenSubscriptionModal={this.props.setOpenSubscriptionModal}
-          paymentPackCategories={this.props.paymentPackCategories}
+          paymentPackCategories={availablePaymentPackCategories}
         />
         <SubscriptionContractBooking
           contract={this.props.openSubscriptionModal}
@@ -351,12 +363,7 @@ const mapStateToProps = (
   contractList: withPaymentPackForContract(getContractForBooking)(state),
   cppMaxoutBookings: state.consumerPaymentPack.maxout_booking.byId,
   paymentPacksById: state.paymentPack.byId,
-  paymentPackCategories: getNonEmptyPaymentPackCategoryWithPaymentPacks(
-    excludeUnaccessiblePacks(getPaymentPackForBooking),
-  )(state, {
-    memberTagList,
-    authenticated,
-  }),
+  paymentPackCategories: getAllPaymentPackCategory(state),
 });
 
 const mapDispatchToProps = {

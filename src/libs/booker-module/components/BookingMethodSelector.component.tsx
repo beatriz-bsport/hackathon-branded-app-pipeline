@@ -219,7 +219,8 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
       <div className={classes.container}>
         {!availableConsumerPacks.length &&
           !unCategorizedPacks.length &&
-          !availableComboPacks.length && (
+          !availableComboPacks.length &&
+          !this.props.paymentPackCategories.length && (
             <div className={classes.cannotBookContainer}>
               <BlockIcon className={classes.noItemIcon} />
               <Typography>

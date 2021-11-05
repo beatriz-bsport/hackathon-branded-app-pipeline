@@ -75,6 +75,7 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
 
     return (
       <ListItem
+        button={!!this.props.onClick}
         onClick={this.props.onClick}
         divider={this.props.divider}
         selected={this.props.selected}

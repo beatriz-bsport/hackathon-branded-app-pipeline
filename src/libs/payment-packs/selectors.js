@@ -269,30 +269,6 @@ export const groupByCategory = memoize((selector: any) =>
   ),
 );
 
-export const getNonEmptyPaymentPackCategoryWithPaymentPacks = (
-  enabledPaymentPackSelector: any,
-) =>
-  createSelector(
-    [
-      getPaymentPackCategoryAllIds,
-      getPaymentPackCategoryById,
-      enabledPaymentPackSelector,
-    ],
-    (categoryIdList, categoryData, enabledPackList) => {
-      return categoryIdList
-        .map((catId) => {
-          const packs = enabledPackList.filter((e) => e.category === catId);
-          return categoryData && packs.length
-            ? {
-                ...categoryData[catId],
-                packs,
-              }
-            : null;
-        })
-        .filter((e) => e);
-    },
-  );
-
 export const excludeUnaccessiblePacks = memoize(
   (selector: (state: RootState) => Array<PaymentPack>) =>
     createSelector(

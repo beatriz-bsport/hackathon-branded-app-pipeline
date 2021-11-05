@@ -2673,7 +2673,7 @@
         "multiSelector": {
             "establishments": {
                 "textFieldPlaceholder": "Zoek een vestiging",
-                "helperText": "Selecteer vestigingen:",
+                "helperText": "Selecteer vestigingen",
                 "helperSelectedText": "geselecteerde vestiging(en):",
                 "helperAllSelectedText": "alle vestigingen",
                 "warning": "Selecteer minimaal één vestiging"
@@ -3219,7 +3219,8 @@
             "asyncDialog": {
                 "message": "We updaten de tags van alle leden in de Smartlist genaamd \"{{name}}\".",
                 "title": "Tag-regels bijwerken "
-            }
+            },
+            "tag": "Tag"
         }
     },
     "metaActivity": {
@@ -7136,7 +7137,8 @@
                 "subscription": "Abonnementen (contracten)",
                 "whitelist_tags": "[Whitelist] Kan alleen worden gebruikt door leden met de tag(s):",
                 "tags": "Tags",
-                "blacklist_tags": "[Blacklist] Kan niet worden gebruikt door leden met de tag(s):"
+                "blacklist_tags": "[Blacklist] Kan niet worden gebruikt door leden met de tag(s):",
+                "tagInfo": "Gebruik tags om de promotiecode alleen voor bepaalde leden op de marketplace, widget en app beschikbaar te maken. Selecteer met welke tags wie wel óf niet deze promotiecode kan gebruiken. "
             },
             "name": {
                 "label": "Naam"
@@ -7225,7 +7227,9 @@
             "member_uses": "gebruik per lid",
             "limitation": "Beperkt tot",
             "blacklist_tags": "[Blacklist] Niet beschikbaar voor leden met de tag(s):",
-            "whitelist_tags": "Alleen beschikbaar voor leden met bepaalde tags"
+            "whitelist_tags": "Alleen beschikbaar voor leden met bepaalde tags",
+            "allowedFor": "Goedgekeurd voor",
+            "unallowedFor": "Afgekeurd voor"
         },
         "code": {
             "addCoupon": {
@@ -8877,7 +8881,8 @@
                 "address_line_1": "Adres",
                 "birthday": "Geboortedatum",
                 "last_name": "Achternaam",
-                "first_name": "Voornaam"
+                "first_name": "Voornaam",
+                "location": "Favoriete vestiging"
             },
             "customFormField": {
                 "modal": {

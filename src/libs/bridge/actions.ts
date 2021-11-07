@@ -3,8 +3,6 @@ import { WidgetMessageType } from 'bsport-saas/src/libs/widget/types';
 import { snackbarSuccess } from 'bsport-saas/src/actions/snackbar.actions';
 import { createAction } from 'redux-actions';
 
-import { refreshVODRequestAccessFlagAction } from '../../actions/widget';
-
 import { closeUserInteractionPortal } from '../modal/actions';
 
 import { RootState } from '../../reducers';
@@ -71,6 +69,16 @@ export function bridgeRequestMemberTag() {
   };
 }
 
+export function bridgeRequestVideoPlaybackUrl(videoId) {
+  return async (dispatch: any, getState: () => RootState) => {
+    if (getState().bridge.authentication.loading) return;
+    dispatch(getVideoPlaybackUrlActions.isLoading(true));
+    dispatch(getVideoPlaybackUrlActions.error(null));
+    dispatch(getVideoPlaybackUrlActions.accessDenied(false));
+    sendBridgeMessage(WidgetMessageType.REQUEST_PLAYBACK_URL, { videoId });
+  };
+}
+
 // Internal Actions to mutate the reducer
 // --------------------------------------
 export const authenticationStatusActions = {
@@ -95,6 +103,12 @@ export const memberTagActions = {
   success: createAction('MEMBER_TAG/GET/SUCCESS'),
   isLoading: createAction('MEMBER_TAG/GET/LOADING'),
   error: createAction('MEMBER_TAG/GET/ERROR'),
+};
+export const getVideoPlaybackUrlActions = {
+  success: createAction('VIDEO/PLAYBACK_URL/SUCCESS'),
+  isLoading: createAction('VIDEO/PLAYBACK_URL/LOADING'),
+  error: createAction('VIDEO/PLAYBACK_URL/ERROR'),
+  accessDenied: createAction('VIDEO/PLAYBACK_URL/ACCESS_DENIED'),
 };
 // Second part: how to handle messages
 // -----------------------------------
@@ -136,7 +150,6 @@ export const handleBridgeMessage = (eventData: any) => (dispatch: any) => {
     case WidgetMessageType.RESPONSE_PAYMENT_SUCCESS:
     case WidgetMessageType.PAYMENT_SUCCESS:
       dispatch(closeUserInteractionPortal());
-      dispatch(refreshVODRequestAccessFlagAction());
       dispatch(snackbarSuccess('snackbar:consumerPass.success'));
       break;
 
@@ -145,6 +158,46 @@ export const handleBridgeMessage = (eventData: any) => (dispatch: any) => {
       dispatch(memberTagActions.isLoading(false));
       dispatch(memberTagActions.error(null));
       break;
+
+    case WidgetMessageType.VIDEO_REGISTERED:
+      dispatch(closeUserInteractionPortal());
+      dispatch(bridgeRequestVideoPlaybackUrl(eventData.videoId));
+      break;
+    case WidgetMessageType.RESPONSE_PLAYBACK_URL_ACCESS_DENIED:
+      if (
+        eventData.data?.accessDenied === false ||
+        eventData.data?.accessDenied === true
+      ) {
+        dispatch(
+          getVideoPlaybackUrlActions.accessDenied(eventData.data.accessDenied),
+        );
+      }
+      break;
+    case WidgetMessageType.RESPONSE_PLAYBACK_URL_ERROR:
+      dispatch(
+        getVideoPlaybackUrlActions.success({
+          videoId: eventData.data.videoId,
+          playbackUrl: '',
+        }),
+      );
+      dispatch(getVideoPlaybackUrlActions.isLoading(false));
+      dispatch(getVideoPlaybackUrlActions.error(null));
+      break;
+
+    case WidgetMessageType.RESPONSE_PLAYBACK_URL_SUCCESS:
+      if (eventData.data?.playbackUrl) {
+        dispatch(
+          getVideoPlaybackUrlActions.success({
+            videoId: eventData.data.videoId,
+            playbackUrl: eventData.data.playbackUrl,
+          }),
+        );
+        dispatch(closeUserInteractionPortal());
+      }
+      dispatch(getVideoPlaybackUrlActions.isLoading(false));
+      dispatch(getVideoPlaybackUrlActions.error(null));
+      break;
+
     default:
       break;
   }

@@ -6,6 +6,7 @@ import {
   bookingCountActions,
   authenticationStatusActions,
   memberTagActions,
+  getVideoPlaybackUrlActions,
 } from './actions';
 
 export type BridgeState = {
@@ -29,6 +30,14 @@ export type BridgeState = {
     loading: boolean,
     error: Error | null,
     tag_list: Array<number>,
+  },
+  video: {
+    playbackUrl: {
+      byId: { [id: number]: string },
+      loading: boolean,
+      error: Error | null,
+      accessDenied: boolean,
+    },
   },
 };
 
@@ -54,6 +63,14 @@ export const initialState: Immutable.Immutable<BridgeState> = Immutable<BridgeSt
       loading: false,
       error: null,
       tag_list: [],
+    },
+    video: {
+      playbackUrl: {
+        byId: {},
+        loading: false,
+        error: null,
+        accessDenied: false,
+      },
     },
   },
 );
@@ -109,6 +126,33 @@ export default handleActions<Immutable.Immutable<BridgeState>>(
       return state.setIn(
         ['tag', 'tag_list'],
         [...payload.data.map((tag) => tag.id)],
+      );
+    },
+    [getVideoPlaybackUrlActions.error.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
+      return state.setIn(['video', 'playbackUrl', 'error'], payload);
+    },
+    [getVideoPlaybackUrlActions.accessDenied.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
+      return state.setIn(['video', 'playbackUrl', 'accessDenied'], payload);
+    },
+    [getVideoPlaybackUrlActions.isLoading.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
+      return state.setIn(['video', 'playbackUrl', 'loading'], payload);
+    },
+    [getVideoPlaybackUrlActions.success.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
+      return state.setIn(
+        ['video', 'playbackUrl', payload.videoId],
+        payload.playbackUrl,
       );
     },
   },

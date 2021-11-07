@@ -6,14 +6,12 @@ import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import { snackbarSuccess } from 'bsport-saas/src/actions/snackbar.actions';
 
 import {
-  refreshVODRequestAccessFlagAction,
   setSaasAuthenticated,
   setSaasBasketCount,
   setSaasBookingsCount,
 } from '../../actions/widget';
 import { closeUserInteractionPortal } from '../modal/actions';
 import { handleBridgeMessage } from './actions';
-import { RootState } from '../../reducers';
 import { getEnv } from '../../utils/env';
 
 type OwnProps = {
@@ -22,7 +20,6 @@ type OwnProps = {
 };
 
 type Props = OwnProps &
-  ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps &
   MaterialStyleType<ReturnType<typeof styles>>;
 const CHECKING_OTHER_EXISTENCE = 'check';
@@ -92,21 +89,16 @@ const styles = () => ({
   },
 });
 
-const mapStateToProps = (state: RootState) => ({
-  isFabContext: state.widget.isFabContext,
-});
-
 const mapDispatchToProps = {
   setSaasAuthenticated,
   setSaasBasketCount,
   setSaasBookingsCount,
   closeUserInteractionPortal,
-  refreshVODRequestAccessFlagAction,
   snackbarSuccess: (s: string) => snackbarSuccess(s),
   handleBridgeMessage,
 };
 
 export default compose<any, OwnProps>(
   withStyles(styles),
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(null, mapDispatchToProps),
 )(WidgetBridge);

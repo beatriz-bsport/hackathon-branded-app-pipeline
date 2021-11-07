@@ -2,12 +2,7 @@ import React from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 
-import {
-  ButtonBase,
-  CircularProgress,
-  Dialog,
-  DialogContent,
-} from '@material-ui/core';
+import { ButtonBase } from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
@@ -30,81 +25,15 @@ import {
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
-import { getMarketplaceRoute } from 'bsport-saas/src/libs/marketplace/routing-utils';
-import { auth as authActions } from 'bsport-saas/src/actions';
-
-import '../../vendor/video.css';
-
-// BEGIN DEPREACTED TO DELETE BECAUSE WE WILL ADD A DEDICATED PAGE TO BUY VOD
-// ----------------------------------------------------------------------
-
-import SignUpForm from 'bsport-saas/src/components/form/SignUpForm.component';
-import ConsumerLogin from 'bsport-saas/src/libs/login/components/Login.component';
+import {
+  bridgeRequestAuthenticationStatus,
+  bridgeRequestVideoPlaybackUrl,
+} from '../libs/bridge/actions';
 import { RootState } from '../reducers';
 import { getEnv } from '../utils/env';
+import { getVideoPlaybackUrlState } from '../libs/bridge/selectors';
 
-const ConsumerLoginStyled = themify(ConsumerLogin);
-const SignUpFormStyled = themify(SignUpForm);
-
-type AuthOwnProps = {
-  showLogin: boolean,
-  showSignup: boolean,
-  authenticated: boolean,
-  loading: boolean,
-  error: any,
-  errorFields: any,
-  emailExists: boolean,
-  checkEmailExists: boolean,
-  checkEmailExistsLoading: boolean,
-  theme: Theme,
-  onLogin: (data: any) => void,
-  onSignup: (data: any) => void,
-  onLoginClose: () => void,
-  onSignupClose: () => void,
-  onSignupShow: () => void,
-};
-
-const AuthDialog = (props: AuthOwnProps) => {
-  return (
-    <>
-      <Dialog open={props.showLogin} onClose={props.onLoginClose}>
-        <DialogContent>
-          <React.Suspense fallback={<CircularProgress />}>
-            <ConsumerLoginStyled
-              doEmailLogin={props.onLogin}
-              errorFields={props.errorFields}
-              error={props.error}
-              loading={props.loading}
-              requestSignUp={props.onSignupShow}
-            />
-          </React.Suspense>
-        </DialogContent>
-      </Dialog>
-
-      <Dialog open={props.showSignup} onClose={props.onSignupClose}>
-        <React.Suspense fallback={<CircularProgress />}>
-          <div className="cleanslate" style={{ padding: 16 }}>
-            <div style={{ padding: 16 }}>
-              <SignUpFormStyled
-                loading={props.loading}
-                theme={props.theme}
-                emailExists={props.emailExists}
-                checkEmailExistsLoading={props.checkEmailExistsLoading}
-                checkEmailExists={props.checkEmailExists}
-                onComplete={props.onSignup}
-                onCancel={props.onSignupClose}
-                consumerProfile={props.consumerProfile}
-              />
-            </div>
-          </div>
-        </React.Suspense>
-      </Dialog>
-    </>
-  );
-};
-
-// END DEPREACTED
-// --------------------------------------------------------------------------------
+import '../../vendor/video.css';
 
 type OwnProps = {
   companyId: number,
@@ -161,8 +90,6 @@ class VODWidget extends React.PureComponent<Props, State> {
         search: '',
         levels: '',
       },
-      showLogin: false,
-      showSignup: false,
     };
   }
 
@@ -183,29 +110,14 @@ class VODWidget extends React.PureComponent<Props, State> {
     }));
   };
 
-  onRequestBuyPass = () => {
+  requestVideoAccess = () => {
     const { PUBLIC_URL } = getEnv();
-    const path = getMarketplaceRoute(
-      this.props.theme.company_name,
-      this.props.companyId,
-      'pass',
-    );
-    const url = `${PUBLIC_URL}${path}?authToken=${this.props.auth.token}`;
-    window.open(url, '_blank');
+    const url = `${PUBLIC_URL}/checkout/${this.props.companyId}/vod/${this.state.videoId}`;
+    this.props.onWindowOpen(url);
   };
 
-  login = (data: { email: string, password: string }) => {
-    const _this = this;
-    this.props.login(data, () => {
-      _this.setState({ showLogin: false });
-    });
-  };
-
-  signup = (data: any) => {
-    const _this = this;
-    this.props.signup(data, () => {
-      _this.setState({ showSignup: false, showLogin: false });
-    });
+  requestPlaybackUrl = () => {
+    this.props.bridgeRequestVideoPlaybackUrl(this.state.videoId);
   };
 
   render() {
@@ -251,12 +163,12 @@ class VODWidget extends React.PureComponent<Props, State> {
                 companyId={this.props.companyId}
                 videoId={this.state.videoId}
                 companyName=""
-                requestSignUp={() => this.setState({ showLogin: true })}
-                onRequestBuyPass={this.onRequestBuyPass}
+                requestVideoAccess={this.requestVideoAccess}
+                playbackUrlLoading={this.props.playbackUrlLoading}
+                accessDenied={this.props.accessDenied}
+                getPlaybackUrl={this.requestPlaybackUrl}
+                authenticated={this.props.authenticated}
                 openVideo={this.openVideo}
-                requestVideoAccessRefreshFlag={
-                  this.props.requestVideoAccessRefreshFlag
-                }
                 store={this.props.store}
                 theme={this.props.theme}
               />
@@ -283,7 +195,11 @@ class VODWidget extends React.PureComponent<Props, State> {
                 companyName=""
                 id={this.state.playlistId}
                 videoId={this.state.videoId}
-                requestSignUp={() => this.setState({ showLogin: true })}
+                authenticated={this.props.authenticated}
+                accessDenied={this.props.accessDenied}
+                getPlaybackUrl={this.requestPlaybackUrl}
+                playbackUrlLoading={this.props.playbackUrlLoading}
+                requestVideoAccess={this.requestVideoAccess}
                 goToVideoInPlaylist={this.openPlaylist}
                 replaceVideoInPlaylist={this.openPlaylist}
                 store={this.props.store}
@@ -292,26 +208,6 @@ class VODWidget extends React.PureComponent<Props, State> {
             </div>
           </div>
         )}
-
-        {(!!this.state.showLogin || !!this.state.showSignup) &&
-          !this.props.auth.authenticated && (
-            <AuthDialog
-              showLogin={this.state.showLogin}
-              showSignup={this.state.showSignup}
-              loading={this.props.auth.loading}
-              error={this.props.auth.error}
-              errorFields={this.props.errorFields}
-              emailExists={this.props.emailExists}
-              checkEmailExists={this.props.checkEmailExists}
-              checkEmailExistsLoading={this.props.checkEmailExistsLoading}
-              theme={this.props.theme}
-              onLogin={this.login}
-              onSignup={this.signup}
-              onLoginClose={() => this.setState({ showLogin: false })}
-              onSignupClose={() => this.setState({ showSignup: false })}
-              onSignupShow={() => this.setState({ showSignup: true })}
-            />
-          )}
       </div>
     );
   }
@@ -343,19 +239,15 @@ const styles = () => ({
 });
 
 const mapStateToProps = (state: RootState) => ({
-  auth: state.auth,
-  requestVideoAccessRefreshFlag: state.widget.requestVideoAccessRefreshFlag,
-  errorFields: state.auth.invalidFields,
-  checkEmailExistsLoading: state.auth.emailExists.loading,
-  emailExists: state.auth.emailExists.exists,
+  authenticated: state.bridge.authentication.authenticated,
+  playbackUrl: getVideoPlaybackUrlState(state),
+  playbackUrlLoading: state.bridge.video.playbackUrl.loading,
+  accessDenied: state.bridge.video.playbackUrl.accessDenied,
 });
 
 const mapDispatchToProps = {
-  signup: (data: any, callback: () => void) =>
-    authActions.signup(data, { onDone: callback }),
-  login: ({ email, password }: any, callback: () => void) =>
-    authActions.requestLogin(email, password, { onDone: callback }),
-  checkEmailExists: authActions.checkEmailExists,
+  requestAuthenticationStatus: bridgeRequestAuthenticationStatus,
+  bridgeRequestVideoPlaybackUrl,
 };
 
 export default compose<any, OwnProps>(

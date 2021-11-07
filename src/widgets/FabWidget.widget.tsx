@@ -76,6 +76,7 @@ class FabWidget extends React.PureComponent<Props, State> {
       this.fetchData();
       if (this.props.dialogUrl.includes(`${PUBLIC_URL}/login`)) {
         this.props.closeUserInteractionPortal();
+        // eslint-disable-next-line
         this.setState({ showActions: true });
       }
     }

@@ -1,6 +1,9 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 
+// INHERITED FROM BSPORT-SAAS
+//  -----------------------------------------
+//
 import offer from 'bsport-saas/src/libs/offer/reducers';
 import establishment from 'bsport-saas/src/libs/establishment/reducers';
 import metaActivity from 'bsport-saas/src/libs/meta-activity/reducers';
@@ -29,9 +32,13 @@ import { ThemeState } from 'bsport-saas/src/libs/theme/types';
 import { GiftcardState } from 'bsport-saas/src/libs/giftcard/types';
 import { createBrowserHistory } from 'history';
 import { TagState } from 'bsport-saas/src/libs/tag/types';
-import widget, { WidgetState } from './widget';
+//  -----------------------------------------
+
+// FROM WIDGET ONLY
+//  -----------------------------------------
 import modal, { ModalState } from '../libs/modal/reducers';
 import bridge, { BridgeState } from '../libs/bridge/reducers';
+//  -----------------------------------------
 
 const reducer = (history: ReturnType<typeof createBrowserHistory>) =>
   combineReducers({
@@ -54,7 +61,6 @@ const reducer = (history: ReturnType<typeof createBrowserHistory>) =>
     consumerPaymentPack,
     paymentPack,
     category,
-    widget,
     subscription,
     modal,
     bridge,
@@ -82,7 +88,6 @@ export interface RootState {
   consumerPaymentPack: any;
   category: any;
   paymentPack: any;
-  widget: WidgetState;
   modal: ModalState;
   bridge: BridgeState;
   tag: TagState;

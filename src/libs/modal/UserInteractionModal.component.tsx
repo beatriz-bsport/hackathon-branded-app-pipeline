@@ -55,7 +55,7 @@ class UserInteractionPortal extends React.PureComponent<Props> {
   };
 
   componentDidUpdate(prevProps: Props) {
-    if (prevProps.url !== this.props.url) {
+    if (prevProps.url !== this.props.url && this.props.url) {
       if (this.props.url) {
         switch (this.props.dialogMode) {
           case DIALOG_MODE_POPUP:
@@ -82,7 +82,7 @@ class UserInteractionPortal extends React.PureComponent<Props> {
     const { classes } = this.props;
 
     return (
-      <Modal open className={classes.container}>
+      <Modal open={!!this.props.url} className={classes.container}>
         <div className={classes.innerContainer}>
           <div className={classes.topBar}>
             <IconButton onClick={this.props.onClose}>

@@ -166,15 +166,12 @@ class BsportWidget extends Component<Props> {
                 <BsportLogo theme={this.props.theme} />
               )}
             <Snackbar theme={this.props.theme} />
-            {!!this.props.dialog.url && (
-              <UserInteractionPortal
-                url={this.props.dialog.url}
-                dialogMode={this.props.dialog.dialogMode}
-                onClose={this.props.closeUserInteractionPortal}
-                fullScreenPopup={this.props.fullScreenPopup}
-              />
-            )}
-
+            <UserInteractionPortal
+              url={this.props.dialog.url}
+              dialogMode={this.props.dialog.dialogMode}
+              onClose={this.props.closeUserInteractionPortal}
+              fullScreenPopup={this.props.fullScreenPopup}
+            />
             <WidgetBridge
               companyId={this.props.companyId}
               companyName={this.props.theme.company_name}

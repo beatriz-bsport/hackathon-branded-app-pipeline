@@ -4585,7 +4585,18 @@
             "sectionTitle": "Events",
             "pleaseSelectABasket": "Select a basket to see the history"
         },
-        "historyTitle": "Basket history"
+        "historyTitle": "Basket history",
+        "bookerMethod": {
+            "section": {
+                "combo": "Packs",
+                "pass": "Available passes",
+                "consumerPass": "My passes"
+            },
+            "actions": {
+                "bookVod": "Unblock video"
+            },
+            "emptyMethod": "The studio hasn't created any compatible passes with this video."
+        }
     },
     "establishment": {
         "establishment": "Establishment",

@@ -7929,6 +7929,17 @@
             "basket-additem": "Aan het winkelmandje toevoegen",
             "basket-finalize": "Winkelmandje klaar / betaald",
             "basket-created": "Winkelmandje is aangemaakt"
+        },
+        "bookerMethod": {
+            "section": {
+                "combo": "Pakketten",
+                "pass": "Beschikbare kaarten",
+                "consumerPass": "Mijn kaarten"
+            },
+            "actions": {
+                "bookVod": "Video deblokkeren"
+            },
+            "emptyMethod": "De studio heeft geen compatible kaarten voor deze video beschikbaar gesteld."
         }
     },
     "invoice": {

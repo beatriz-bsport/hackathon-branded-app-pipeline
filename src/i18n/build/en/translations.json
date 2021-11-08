@@ -3521,7 +3521,8 @@
                 "content": "Are you sure that you want to delete this promotion? You'll use the usage history. This action can't be undone.",
                 "title": "Delete"
             }
-        }
+        },
+        "search": "Search a promotion"
     },
     "dashboard": {
         "current_week": "Last week",
@@ -10312,7 +10313,8 @@
                 "content2": "The gift card will automatically be added as a payment method to your basket. All gift card related information is stored in your profile.",
                 "content1": "Your gift card of {{price}} is compatible with all of our store's products and has no expiration date. Enjoy!",
                 "subtitle": "Looks like someone wanted to surprise you.",
-                "title": "Someone wanted to make you happy!"
+                "title": "Someone wanted to make you happy!",
+                "content1withDate": "Your {{price}} gift card can be used for any of our products. Please bear in mind that your gift card expires in {{ expiration_days }} day(s) after activation. Enjoy!"
             }
         },
         "list": {
@@ -10334,6 +10336,7 @@
             "cancel": "Cancel",
             "content": "Are you sure that you want to archive this gift card? It won't appear on your Back Office anymore, but you can reactivate it in the future.",
             "title": "Archive this gift card"
-        }
+        },
+        "search": "Search a gift card"
     }
 }

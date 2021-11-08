@@ -32,7 +32,6 @@ export const TagChip = (props: Props) => {
     <MuiThemeProvider theme={theme}>
       <Chip
         classes={{
-          label: classes.chipLabel,
           avatar: classes.avatar,
         }}
         label={`${tag?.group?.name} : ${tag?.name}`}
@@ -48,6 +47,7 @@ export const TagChip = (props: Props) => {
           ) : null
         }
         variant={variant || 'default'}
+        className={classes.chip}
       />
     </MuiThemeProvider>
   );
@@ -58,8 +58,8 @@ const useStyle = makeStyles((theme: Theme) => ({
     width: theme.spacing(2),
     height: theme.spacing(2),
   },
-  chipLabel: {
-    maxWidth: theme.spacing(20),
+  chip: {
+    maxWidth: '100%',
   },
   avatar: {
     backgroundColor: 'transparent!important',

@@ -22,12 +22,17 @@ import ReceiversCollapseItem from './ReceiversCollapseItem.component';
 import SelectTemplate from './SelectTemplate.component';
 import WriteEmail from './WriteEmail.component';
 import WriteSMS from './WriteSMS.component';
+import WriteNotification, {
+  MAX_LENGTH_PUSH_TITLE,
+  MAX_LENGTH_PUSH_CONTENT,
+} from './WriteNotification.component';
 
 import type { MemberMailData } from '../types';
 
 const WRITE_EMAIL = 0;
 const SELECT_EMAIL = 1;
 const SEND_SMS = 2;
+const SEND_PUSH_NOTIFICATION = 3;
 
 type Props = {
   receiversNotEditable: boolean,
@@ -65,7 +70,7 @@ type Props = {
 
 const MEMBER_PAGE_SIZE = 5;
 
-export class SendMailToMembers extends Component<Props> {
+export class CommunicationDialog extends Component<Props> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -73,10 +78,11 @@ export class SendMailToMembers extends Component<Props> {
       unCheckedMembers: [],
       mailTitle: props.mailDefaultTitle || null,
       mailContent: '',
-      // eslint-disable-next-line
       actionType: props.actionType ? props.actionType : SELECT_EMAIL,
       selectedTemplate: null,
       smsContent: '',
+      notificationTitle: '',
+      notificationContent: '',
       page_size: props.page_size || MEMBER_PAGE_SIZE,
     };
   }
@@ -118,7 +124,7 @@ export class SendMailToMembers extends Component<Props> {
   renderTypeEmailChoice = () => {
     return (
       <div className={this.props.classes.radioContainer}>
-        {this.props.hideWrittenMail ? null : (
+        {!this.props.hideWrittenMail && (
           <FormControlLabel
             control={
               <Radio
@@ -136,7 +142,7 @@ export class SendMailToMembers extends Component<Props> {
             labelPlacement="bottom"
           />
         )}
-        {this.props.hideTemplateMail ? null : (
+        {!this.props.hideTemplateMail && (
           <FormControlLabel
             control={
               <Radio
@@ -186,6 +192,31 @@ export class SendMailToMembers extends Component<Props> {
             />
           )}
         </FeatureListProvider>
+        <FeatureListProvider>
+          {(featureList) => (
+            <FormControlLabel
+              control={
+                <Radio
+                  checked={this.state.actionType === SEND_PUSH_NOTIFICATION}
+                  disabled={
+                    !featureList.upsell ||
+                    !featureList.upsell.find(
+                      (f) => f.readable_identifier === 'push_notification',
+                    )
+                  }
+                  onChange={() =>
+                    this.setState({
+                      actionType: SEND_PUSH_NOTIFICATION,
+                      unCheckedMembers: [],
+                    })
+                  }
+                />
+              }
+              label={this.props.t('mail.sendNotification')}
+              labelPlacement="bottom"
+            />
+          )}
+        </FeatureListProvider>
       </div>
     );
   };
@@ -195,10 +226,11 @@ export class SendMailToMembers extends Component<Props> {
       unCheckedMembers: [],
       mailTitle: this.props.mailDefaultTitle || null,
       mailContent: '',
-      // eslint-disable-next-line
       actionType: this.props.actionType ? this.props.actionType : SELECT_EMAIL,
       selectedTemplate: null,
       smsContent: '',
+      notificationTitle: '',
+      notificationContent: '',
     });
   };
 
@@ -211,37 +243,142 @@ export class SendMailToMembers extends Component<Props> {
   };
 
   checkValidity = () => {
-    if (this.state.actionType === WRITE_EMAIL) {
-      return (
-        this.state.mailContent === '' ||
-        this.state.mailTitle === '' ||
-        this.props.allIdsWithEmail.filter(
-          (item) => !this.state.unCheckedMembers.includes(item),
-        ).length === 0
-      );
-    }
-    if (this.state.actionType === SELECT_EMAIL) {
-      return (
-        !this.state.selectedTemplate ||
-        this.state.mailTitle === '' ||
-        this.props.allIdsWithEmail.filter(
-          (item) => !this.state.unCheckedMembers.includes(item),
-        ).length === 0
-      );
-    }
-    if (this.state.actionType === SEND_SMS) {
-      return (
-        this.state.smsContent === '' ||
-        this.props.allIdsWithPhone.filter(
-          (item) => !this.state.unCheckedMembers.includes(item),
-        ).length === 0
-      );
+    switch (this.state.actionType) {
+      case WRITE_EMAIL:
+        return (
+          this.state.mailContent === '' ||
+          this.state.mailTitle === '' ||
+          this.props.allIdsWithEmail.filter(
+            (item) => !this.state.unCheckedMembers.includes(item),
+          ).length === 0
+        );
+      case SEND_SMS:
+        return (
+          this.state.smsContent === '' ||
+          this.props.allIdsWithPhone.filter(
+            (item) => !this.state.unCheckedMembers.includes(item),
+          ).length === 0
+        );
+      case SELECT_EMAIL:
+        return (
+          !this.state.selectedTemplate ||
+          this.state.mailTitle === '' ||
+          this.props.allIdsWithEmail.filter(
+            (item) => !this.state.unCheckedMembers.includes(item),
+          ).length === 0
+        );
+      case SEND_PUSH_NOTIFICATION:
+        if (
+          this.state.notificationTitle === '' ||
+          this.state.notificationContent === ''
+        )
+          return true;
+
+        if (
+          this.state.notificationTitle?.length > MAX_LENGTH_PUSH_TITLE ||
+          this.state.notificationContent?.length > MAX_LENGTH_PUSH_CONTENT
+        )
+          return true;
+        break;
+      default:
+        break;
     }
     return false;
   };
 
+  onSubmit = (ev) => {
+    ev.preventDefault();
+    switch (this.state.actionType) {
+      case WRITE_EMAIL:
+        this.props.send({
+          members: this.props.allIdsWithEmail.filter(
+            (item) => !this.state.unCheckedMembers.includes(item),
+          ),
+          subject: this.state.mailTitle,
+          body: this.state.mailContent,
+        });
+        break;
+      case SEND_SMS:
+        this.props.send({
+          members: this.props.allIdsWithPhone.filter(
+            (item) => !this.state.unCheckedMembers.includes(item),
+          ),
+          sms: this.state.smsContent,
+        });
+        break;
+      case SELECT_EMAIL:
+        this.props.send({
+          members: this.props.allIdsWithEmail.filter(
+            (item) => !this.state.unCheckedMembers.includes(item),
+          ),
+          email_template: this.state.selectedTemplate,
+          subject: this.state.mailTitle,
+        });
+        break;
+      case SEND_PUSH_NOTIFICATION:
+        this.props.send({
+          members: this.props.allIds.filter(
+            (item) => !this.state.unCheckedMembers.includes(item),
+          ),
+          notification_title: this.state.notificationTitle,
+          notification_content: this.state.notificationContent,
+        });
+        break;
+      default:
+        break;
+    }
+    this.onClose();
+    this.props.onCancel();
+  };
+
+  getCheckedMember = () => {
+    switch (this.state.actionType) {
+      case SEND_SMS:
+        return this.props.allIdsWithPhone.filter(
+          (item) => !this.state.unCheckedMembers.includes(item),
+        );
+      case WRITE_EMAIL:
+      case SELECT_EMAIL:
+        return this.props.allIdsWithEmail.filter(
+          (item) => !this.state.unCheckedMembers.includes(item),
+        );
+      case SEND_PUSH_NOTIFICATION:
+        return this.props.allIds.filter(
+          (item) => !this.state.unCheckedMembers.includes(item),
+        );
+      default:
+        break;
+    }
+    return [];
+  };
+
   render() {
-    const { t, send, onCancel, classes, fullScreen, open } = this.props;
+    const {
+      open,
+      allIds,
+      allIdsWithPhone,
+      emailDetailLoading,
+      emailDetails,
+      emailListLoading,
+      emails,
+      fullScreen,
+      hideTemplateMail,
+      hideWrittenMail,
+      mailDefaultTitle,
+      membersAllLoading,
+      membersByPageLoading,
+      membersToDisplay,
+      onCancel,
+      page,
+      receiversNotEditable,
+      getEmailDetail,
+      getEmails,
+      fetchNextPage,
+      fetchPreviousPage,
+      t,
+      classes,
+    } = this.props;
+
     return (
       <Dialog fullScreen={fullScreen} open={open}>
         <div className={classes.title}>
@@ -249,38 +386,7 @@ export class SendMailToMembers extends Component<Props> {
         </div>
         <DialogContent>
           <div className={classes.sendMailDialogBox}>
-            <form
-              className={classes.formContent}
-              onSubmit={(ev) => {
-                ev.preventDefault();
-                if (this.state.actionType === WRITE_EMAIL) {
-                  send({
-                    members: this.props.allIdsWithEmail.filter(
-                      (item) => !this.state.unCheckedMembers.includes(item),
-                    ),
-                    subject: this.state.mailTitle,
-                    body: this.state.mailContent,
-                  });
-                } else if (this.state.actionType === SEND_SMS) {
-                  send({
-                    members: this.props.allIdsWithPhone.filter(
-                      (item) => !this.state.unCheckedMembers.includes(item),
-                    ),
-                    sms: this.state.smsContent,
-                  });
-                } else {
-                  send({
-                    members: this.props.allIdsWithEmail.filter(
-                      (item) => !this.state.unCheckedMembers.includes(item),
-                    ),
-                    email_template: this.state.selectedTemplate,
-                    subject: this.state.mailTitle,
-                  });
-                }
-                this.onClose();
-                onCancel();
-              }}
-            >
+            <form className={classes.formContent} onSubmit={this.onSubmit}>
               <Dialog open={this.state.openRefreshDialog}>
                 <DialogContent>
                   <p>
@@ -310,40 +416,23 @@ export class SendMailToMembers extends Component<Props> {
               </Dialog>
               {this.renderTypeEmailChoice()}
               <ReceiversCollapseItem
-                members={this.props.membersToDisplay}
-                membersCount={this.props.allIds.length}
+                members={membersToDisplay}
+                membersCount={allIds.length}
                 page_size={this.state.page_size}
-                page={this.props.page}
+                page={page}
                 fetchPreviousPage={() =>
-                  this.props.fetchPreviousPage(
-                    this.props.page,
-                    this.state.page_size,
-                  )
+                  fetchPreviousPage(page, this.state.page_size)
                 }
-                fetchNextPage={() =>
-                  this.props.fetchNextPage(
-                    this.props.page,
-                    this.state.page_size,
-                  )
-                }
-                checkedMembers={
-                  this.state.actionType === SEND_SMS
-                    ? this.props.allIdsWithPhone.filter(
-                        (item) => !this.state.unCheckedMembers.includes(item),
-                      )
-                    : this.props.allIdsWithEmail.filter(
-                        (item) => !this.state.unCheckedMembers.includes(item),
-                      )
-                }
+                fetchNextPage={() => fetchNextPage(page, this.state.page_size)}
+                checkedMembers={this.getCheckedMember()}
                 keyword={this.state.actionType === SEND_SMS ? 'phone' : 'email'}
-                receiversNotEditable={this.props.receiversNotEditable}
+                receiversNotEditable={receiversNotEditable}
                 handleToggle={this.handleToggle}
                 openMemberPage={this.openMemberPage}
-                loading={this.props.membersAllLoading}
-                membersByPageLoading={this.props.membersByPageLoading}
+                loading={membersAllLoading}
+                membersByPageLoading={membersByPageLoading}
               />
-              {this.state.actionType === SELECT_EMAIL &&
-              !this.props.hideTemplateMail ? (
+              {this.state.actionType === SELECT_EMAIL && !hideTemplateMail && (
                 <SelectTemplate
                   title={this.state.mailTitle}
                   selectedMail={this.state.selectedTemplate}
@@ -351,31 +440,22 @@ export class SendMailToMembers extends Component<Props> {
                   onChangeTemplate={(id) => {
                     this.setState({
                       selectedTemplate: id,
+                      mailTitle: id
+                        ? emails.find((email) => email.id === id).subject
+                        : '',
                     });
-                    if (id) {
-                      this.setState({
-                        mailTitle: this.props.emails.find(
-                          (email) => email.id === id,
-                        ).subject,
-                      });
-                    } else {
-                      this.setState({
-                        mailTitle: '',
-                      });
-                    }
                   }}
                   onCancel={onCancel}
-                  getEmails={this.props.getEmails}
-                  getEmailDetail={this.props.getEmailDetail}
-                  emailListLoading={this.props.emailListLoading}
-                  emails={this.props.emails}
-                  emailDetailLoading={this.props.emailDetailLoading}
-                  emailDetails={this.props.emailDetails}
-                  mailDefaultTitle={this.props.mailDefaultTitle}
+                  getEmails={getEmails}
+                  getEmailDetail={getEmailDetail}
+                  emailListLoading={emailListLoading}
+                  emails={emails}
+                  emailDetailLoading={emailDetailLoading}
+                  emailDetails={emailDetails}
+                  mailDefaultTitle={mailDefaultTitle}
                 />
-              ) : null}
-              {this.state.actionType === WRITE_EMAIL &&
-              !this.props.hideWrittenMail ? (
+              )}
+              {this.state.actionType === WRITE_EMAIL && !hideWrittenMail && (
                 <WriteEmail
                   mailContent={this.state.mailContent}
                   title={this.state.mailTitle}
@@ -384,12 +464,12 @@ export class SendMailToMembers extends Component<Props> {
                   }
                   onChangeTitle={(text) => this.setState({ mailTitle: text })}
                 />
-              ) : null}
-              {this.state.actionType === SEND_SMS ? (
+              )}
+              {this.state.actionType === SEND_SMS && (
                 <WriteSMS
                   smsContent={this.state.smsContent}
                   countReceivers={
-                    this.props.allIdsWithPhone.filter(
+                    allIdsWithPhone.filter(
                       (item) => !this.state.unCheckedMembers.includes(item),
                     ).length
                   }
@@ -397,7 +477,19 @@ export class SendMailToMembers extends Component<Props> {
                     this.setState({ smsContent: text })
                   }
                 />
-              ) : null}
+              )}
+              {this.state.actionType === SEND_PUSH_NOTIFICATION && (
+                <WriteNotification
+                  notificationTitle={this.state.notificationTitle}
+                  onNotificationTitleChange={(text) => {
+                    this.setState({ notificationTitle: text });
+                  }}
+                  notificationContent={this.state.notificationContent}
+                  onNotificationContentChange={(text) => {
+                    this.setState({ notificationContent: text });
+                  }}
+                />
+              )}
               <DialogActions>
                 <Button
                   color="secondary"
@@ -472,4 +564,4 @@ const styles = (theme) => ({
 export default compose(
   withTranslation(['communication']),
   withStyles(styles),
-)(SendMailToMembers);
+)(CommunicationDialog);

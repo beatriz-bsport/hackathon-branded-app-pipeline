@@ -40,7 +40,7 @@ type Props = {
   mailDefaultTitle: string,
 };
 
-export class SendMailToMembers extends Component<Props> {
+export class MailDialog extends Component<Props> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -274,4 +274,4 @@ const styles = (theme) => ({
 export default compose(
   withTranslation(['communication']),
   withStyles(styles),
-)(SendMailToMembers);
+)(MailDialog);

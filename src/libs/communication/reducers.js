@@ -13,6 +13,7 @@ import {
   recipientBulkActions,
   campaignByMemberActions,
   marketingNotificationCampaignDetailActions,
+  pushNotificationRecipientBulkActions,
 } from './actions';
 
 import type { MailState } from './types';
@@ -61,6 +62,11 @@ const initialState: MailState = Immutable({
   },
   marketingNotification: {
     byId: {},
+    loading: false,
+    error: null,
+  },
+  availablePushNotificationRecipient: {
+    allIds: [],
     loading: false,
     error: null,
   },
@@ -211,6 +217,24 @@ export default handleActions(
     ) => {
       return state.setIn(
         ['marketingNotification', 'byId', payload.id],
+        payload,
+      );
+    },
+    [pushNotificationRecipientBulkActions.isLoading]: (state, { payload }) => {
+      return state.setIn(
+        ['availablePushNotificationRecipient', 'loading'],
+        payload,
+      );
+    },
+    [pushNotificationRecipientBulkActions.error]: (state, { payload }) => {
+      return state.setIn(
+        ['availablePushNotificationRecipient', 'error'],
+        payload,
+      );
+    },
+    [pushNotificationRecipientBulkActions.success]: (state, { payload }) => {
+      return state.setIn(
+        ['availablePushNotificationRecipient', 'allIds'],
         payload,
       );
     },

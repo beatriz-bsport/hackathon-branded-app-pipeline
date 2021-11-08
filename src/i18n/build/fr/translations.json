@@ -467,7 +467,10 @@
       "sendSms": "Envoyer un sms",
       "refreshText": "Veuillez recharger la page pour actualiser le changement d'email",
       "refreshTextPhone": "Veuillez recharger la page pour actualiser le changement de téléphone",
-      "noObject": "Pas d'objet"
+      "noObject": "Pas d'objet",
+      "sendNotification": "Notification push",
+      "titleNotification": "Titre",
+      "contentNotification": "Contenu"
     },
     "recipients": "Destinataires",
     "common": { "cancel": "Annuler", "submit": "Envoyer", "refresh": "Actualiser" },

@@ -30,6 +30,7 @@ import {
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { sendCommunication } from '../../libs/communication/actions';
+
 import { fetchShopItemAsManager as fetchShopItems } from '../../libs/shop/actions/shopitem';
 import themeSelectors from '../../libs/theme/selectors';
 import {

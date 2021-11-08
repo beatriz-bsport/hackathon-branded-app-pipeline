@@ -11,6 +11,7 @@ import {
   sendSmsToMembers as sendSmsToMembersAPI,
   sendCommunication as sendCommunicationAPI,
   fetchCampaignSummary as fetchCampaignSummaryAPI,
+  fetchPushNotificationAvailableMember as fetchPushNotificationAvailableMemberAPI,
 } from './api';
 
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
@@ -305,5 +306,33 @@ export function fetchRecipientBulk(
       if (options && options.onError) options.onError(error);
     }
     dispatch(recipientBulkActions.isLoading(false));
+  };
+}
+
+export const pushNotificationRecipientBulkActions = {
+  error: createAction('RECIPIENT_PUSH/BULK/ERROR'),
+  isLoading: createAction('RECIPIENT_PUSH/BULK/LOADING'),
+  success: createAction('RECIPIENT_PUSH/BULK/SUCCESS'),
+};
+
+export function fetchNotificationRecipientBulk(
+  ids: number[],
+  options: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(pushNotificationRecipientBulkActions.isLoading(true));
+    dispatch(pushNotificationRecipientBulkActions.error(null));
+    try {
+      const response = await fetchPushNotificationAvailableMemberAPI(ids);
+      dispatch(pushNotificationRecipientBulkActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      dispatch(pushNotificationRecipientBulkActions.error(error));
+      console.error(error);
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(pushNotificationRecipientBulkActions.isLoading(false));
   };
 }

@@ -63,7 +63,9 @@ export class OrderDetail extends Component<Props> {
   fetchData = () => {
     const { orderId } = this.props;
     this.props.fetchOrder(this.props.orderId, {
-      onSuccess: (order) => this.props.fetchMember(order.member),
+      onSuccess: (order) => {
+        this.props.fetchMember(order.member);
+      },
     });
     this.props.fetchByQueryInvoice({ order: orderId });
   };

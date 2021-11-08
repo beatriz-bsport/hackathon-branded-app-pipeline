@@ -49,6 +49,10 @@ exports.default = {
     refreshTextPhone:
       'Veuillez recharger la page pour actualiser le changement de téléphone',
     noObject: "Pas d'objet",
+
+    sendNotification: 'Notification push',
+    titleNotification: 'Titre',
+    contentNotification: 'Contenu',
   },
   recipients: 'Destinataires',
   common: {

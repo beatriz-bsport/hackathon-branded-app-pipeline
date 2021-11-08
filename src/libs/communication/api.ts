@@ -44,3 +44,11 @@ export const fetchRecipientList = async (params: any) => {
     `${API_V1_URI}/communication/recipient/${buildUrlParams(params)}`,
   );
 };
+
+export const fetchPushNotificationAvailableMember = (ids: number[]) => {
+  return getAuth(
+    `${API_V1_URI}/push_notification/get_available_member/${buildUrlParams({
+      ids,
+    })}`,
+  );
+};

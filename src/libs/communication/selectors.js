@@ -47,3 +47,6 @@ export const getCampaignAndRecipientByMember = memoize((state, member) => {
   );
   return campaignList.map((c, idx) => [c, recipientList[idx]]);
 });
+
+export const getAvailableRecipientNotification = (state) =>
+  state.communication.availablePushNotificationRecipient.allIds;

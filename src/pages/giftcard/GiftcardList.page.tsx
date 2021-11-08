@@ -37,6 +37,7 @@ import {
   deleteGiftcardBackgroundImage,
   fetchGiftcardBackgroundImageList,
   restoreGiftcard,
+  makeGiftcardCopy as makeGiftcardCopyAction,
 } from '../../libs/giftcard/actions';
 import {
   getGiftcardBackgroundImageList,
@@ -92,6 +93,7 @@ type OwnProps = {
   queryParams: any;
   giftcardBackgroundImageList: Array<GiftcardBackgroundImage>;
   companyCover: string;
+  makeGiftcardCopy: (id: number, options: OptionCallback) => void;
 };
 
 type Props = OwnProps &
@@ -224,6 +226,7 @@ export class GiftcardListPage extends Component<Props, State> {
               onRemove={this.props.deleteGiftcard}
               giftcardList={this.props.giftcardListActive}
               onClick={this.props.goToGiftcard}
+              onDuplicate={this.props.makeGiftcardCopy}
             />
           </>
         )}
@@ -329,6 +332,7 @@ const connector = connect(
     deleteGiftcard: deleteGiftcardActions,
     restoreGiftcard,
     push: pushAction,
+    makeGiftcardCopy: makeGiftcardCopyAction,
   },
 );
 
@@ -406,6 +410,13 @@ export default compose(
           options?.onSuccess();
         },
         onError: options?.onError,
+      });
+    },
+    makeGiftcardCopy: ({ makeGiftcardCopy, fetchGiftcardList }) => (
+      id: number,
+    ) => {
+      makeGiftcardCopy(id, {
+        onSuccess: () => fetchGiftcardList(),
       });
     },
     goToGiftcard: ({ push }) => (id: number) => {

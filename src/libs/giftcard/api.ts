@@ -105,3 +105,7 @@ export const fetchGiftcardBackgroundList = (
     `${API_V1_URI}/giftcard/giftcard_background_image/?company=${companyId}`,
   );
 };
+
+export async function makeGiftcardCopy(id: number) {
+  return postAuth(`${API_V1_URI}/giftcard/giftcard/${id}/copy/`);
+}

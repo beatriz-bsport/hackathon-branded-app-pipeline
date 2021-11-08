@@ -16,10 +16,9 @@ import {
   retrieveConsumerGiftcardByActivationCode as retrieveConsumerGiftcardByActivationCodeAPI,
   createGiftcardBackgroundImage as createGiftcardBackgroundImageAPI,
   restoreGiftcard as restoreGiftcardAPI,
+  makeGiftcardCopy as makeGiftcardCopyAPI,
 } from './api';
 import { ConsumerGiftcard, Giftcard, GiftcardBackgroundImage } from './types';
-import type { Dispatch } from '../../state/types';
-import { OptionCallback } from '../../state/types';
 
 export const retrieveGiftcardActions = {
   error: createAction('GIFTCARD/RETRIEVE/ERROR'),
@@ -555,5 +554,21 @@ export function fetchConsumerGiftcardSentList(
     }
 
     dispatch(listConsumerGiftcardSentActions.isLoading(false));
+  };
+}
+
+export function makeGiftcardCopy(id: number, options: OptionCallback) {
+  return async () => {
+    try {
+      const response = await makeGiftcardCopyAPI(id);
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
   };
 }

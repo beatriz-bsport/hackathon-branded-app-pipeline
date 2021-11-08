@@ -10065,8 +10065,11 @@
                 "redo": " Reapply",
                 "reset": "Reset",
                 "undo": "Undo",
-                "editLayout": "Edit layout"
-            }
+                "editLayout": "Edit layout",
+                "layoutUpdating": "A backup is in progress.",
+                "saveAndExit": "Save & Close"
+            },
+            "editLayoutTitle": "Edit layout"
         }
     },
     "spotScheduling": {

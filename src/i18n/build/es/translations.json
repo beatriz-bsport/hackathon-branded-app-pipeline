@@ -4446,7 +4446,8 @@
             "expiration": "Fecha de expiración",
             "first_buy": "Utilizable solo en la primera compra",
             "blacklist_tags": "No disponible para miembros con determinados tags",
-            "whitelist_tags": "Disponible sólo para miembros con determinados tags"
+            "whitelist_tags": "Disponible sólo para miembros con determinados tags",
+            "allowedFor": "Autorizado para"
         },
         "detail": {
             "seeParameters": "Ver los parámetros"
@@ -5367,7 +5368,10 @@
             "contentSms": "Contenido de los SMS",
             "selectTemplate": "Seleccione una plantilla",
             "writeMail": "Escribir un email",
-            "dialogTitle": "Comunicación"
+            "dialogTitle": "Comunicación",
+            "contentNotification": "Contenido",
+            "titleNotification": "Título",
+            "sendNotification": "Notificación push"
         },
         "table": {
             "columns": {
@@ -6130,7 +6134,18 @@
             "sectionTitle": "Eventos",
             "pleaseSelectABasket": "Seleccione una cesta para ver el historial"
         },
-        "historyTitle": "Historia de la canasta"
+        "historyTitle": "Historia de la canasta",
+        "bookerMethod": {
+            "section": {
+                "combo": "Paquetes",
+                "pass": "Tarjetas disponibles",
+                "consumerPass": "Mis tarjetas"
+            },
+            "actions": {
+                "bookVod": "Desbloquear el vídeo"
+            },
+            "emptyMethod": "Ninguna tarjeta es compatible con este vídeo, póngase en contacto con su estudio"
+        }
     },
     "waitingList": {
         "dialog": {
@@ -6252,6 +6267,11 @@
                 "minute": "Minuto:",
                 "minute_plural": "Minutos:"
             }
+        },
+        "selector": {
+            "validate": "Validar",
+            "unselectAll": "Deseleccionar todo",
+            "selectAll": "Seleccionar todo"
         }
     },
     "snackbar": {

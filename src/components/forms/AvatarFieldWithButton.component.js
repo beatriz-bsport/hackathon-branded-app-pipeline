@@ -105,9 +105,6 @@ const styles = () => ({
       '& $avatar': {
         transform: 'scale(1.05)',
       },
-      '& $chip': {
-        marginLeft: '100px',
-      },
     },
   },
 });

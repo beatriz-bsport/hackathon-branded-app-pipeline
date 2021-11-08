@@ -3,6 +3,7 @@ import { compose, withHandlers, withStateHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { WithTranslation, withTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
 import Grid from '@material-ui/core/Grid';
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -96,7 +97,13 @@ export default compose<any, OwnProps>(
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
   connect(mapStateToProps, mapDispatchToProps),
   withHandlers(mapWithHandlers),
-  withTitle(({ customForm }: { customForm: CustomForm }) => {
+  withTitle(({ customForm, t }: { customForm: CustomForm; t: TFunction }) => {
+    if (customForm?.is_signup) {
+      return t('marketing:customForm.signupFormTitle');
+    }
+    if (customForm?.is_member_form) {
+      return t('marketing:customForm.memberFormTitle');
+    }
     return customForm ? `${customForm.name}` : '';
   }),
 )(CustomFormStatistics);

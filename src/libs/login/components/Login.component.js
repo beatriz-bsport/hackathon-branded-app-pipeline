@@ -67,6 +67,10 @@ const styles = (theme) => ({
       minWidth: 300,
     },
   },
+  forgetPassword: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
 });
 
 type Props = {
@@ -186,14 +190,16 @@ export class ConsumerLogin extends Component<Props, State> {
           >
             {t('actions.signin')}
           </Button>
-          <a
-            href="https://backoffice.bsport.io/login/reset_password"
-            style={{ textDecoration: 'none' }}
-          >
-            <Typography color="secondary" variant="caption">
-              {t('actions.forgottenPassword')}
-            </Typography>
-          </a>
+          <div className={classes.forgetPassword}>
+            <a
+              href="https://backoffice.bsport.io/login/reset_password"
+              style={{ textDecoration: 'none' }}
+            >
+              <Typography color="secondary" variant="caption" align="center">
+                {t('actions.forgottenPassword')}
+              </Typography>
+            </a>
+          </div>
         </form>
       </div>
     );

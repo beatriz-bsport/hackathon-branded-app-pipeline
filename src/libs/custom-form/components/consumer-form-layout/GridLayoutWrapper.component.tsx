@@ -43,6 +43,7 @@ export const GridLayoutWrapper = (props: Props) => {
         rowHeight={50}
         resizeHandles={['s', 'n', 'se']}
         customProviderWidth={props.customProviderWidth}
+        compactType="horizontal"
       >
         {props.children}
       </ResponsiveGridLayout>

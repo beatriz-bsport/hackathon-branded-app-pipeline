@@ -56,7 +56,7 @@ export const ConsumerFormFields = (props: Props) => {
             isEditing={props.isEditing}
             customProviderWidth={props.customProviderWidth}
           >
-            {custom_form_field.map((field: CustomFormField, i: number) => (
+            {custom_form_field?.map((field: CustomFormField, i: number) => (
               <div key={field?.id?.toString()}>
                 <CustomFormConsumerInput
                   {...restProps}

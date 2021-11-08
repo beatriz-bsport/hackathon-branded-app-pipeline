@@ -7,6 +7,7 @@ import { Theme } from '@material-ui/core/styles';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import ViewCompactIcon from '@material-ui/icons/ViewCompact';
 import LinkIcon from '@material-ui/icons/Link';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -27,6 +28,7 @@ import {
   deleteCustomFormDisplayRule as deleteCustomFormDisplayRuleAction,
   fetchCompanyCustomSignUp,
   fetchCompanyCustomMemberForm,
+  updateCutsomFormLayout,
 } from '../../libs/custom-form/actions';
 import {
   getCustomForm,
@@ -49,6 +51,7 @@ import { generateMarketPlaceCustomFormLink } from '../../libs/marketplace/routin
 
 import CustomFormView from '../../libs/custom-form/components/consumer-form/CustomFormView.form';
 import CustomFormsKeleton from '../../libs/custom-form/components/CustomFormSkeleton.component';
+import CustomFormLayoutEditor from '../../libs/custom-form/components/consumer-form-layout/CustomFormLayoutEditor.dialog';
 
 type StateHandlerInit = {
   customFormRefresh: CustomForm;
@@ -58,6 +61,8 @@ type StateHandlerInit = {
   displayRuleSubmitting: boolean;
   initialDisplayRule: null | CustomFormDisplayRule;
   openDisplayRuleDialog: boolean;
+  numberOfQuestionsHasChanged: boolean;
+  openLayoutUpdateDialog: boolean;
 };
 type StateHandlerType = typeof withStateHandlersInit &
   WithHandlerType<typeof withStateHandlersSetter>;
@@ -123,7 +128,6 @@ export class CustomFormDetail extends React.Component<Props, State> {
     ) {
       return <BackofficeLinearProgress color="secondary" />;
     }
-
     return (
       <>
         <div className={classes.container}>
@@ -183,6 +187,9 @@ export class CustomFormDetail extends React.Component<Props, State> {
                 isSubmitting={this.props.isSubmitting}
                 navigateToSignup={this.props.navigateToSignup}
                 navigateToMemberForm={this.props.navigateToMemberForm}
+                setNumberOfQuestionsHasChanged={
+                  this.props.setNumberOfQuestionsHasChanged
+                }
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -203,10 +210,21 @@ export class CustomFormDetail extends React.Component<Props, State> {
                   />
                 </div>
               )}
-
-              <Typography variant="h6" className={classes.previewTitle}>
-                {t('customForm.preview')}
-              </Typography>
+              <div className={classes.previewTitle}>
+                <Typography variant="h6">{t('customForm.preview')}</Typography>
+                {this.props.customForm?.layout &&
+                  Object.keys(this.props.customForm.layout || {})?.length ===
+                    4 && (
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={() => this.props.setOpenLayoutUpdateDialog(true)}
+                    >
+                      <ViewCompactIcon className={classes.leftIcon} />
+                      {t('marketing:customForm.actions.customization')}
+                    </Button>
+                  )}
+              </div>
               <Paper className={classes.paperContainer}>
                 {this.props.isSubmitting ? (
                   <CustomFormsKeleton
@@ -220,6 +238,9 @@ export class CustomFormDetail extends React.Component<Props, State> {
                     initial={this.props.customFormView}
                     asManager
                     waiver={this.props.theme?.waiver}
+                    general_terms_and_conditions={
+                      this.props.theme?.general_terms_and_conditions
+                    }
                   />
                 )}
               </Paper>
@@ -238,6 +259,24 @@ export class CustomFormDetail extends React.Component<Props, State> {
             signUpRuleAlreadyExists={
               !!this.getDisplayRuleOnSignUpAlreadyExists()
             }
+          />
+        )}
+
+        {this.props.openLayoutUpdateDialog && (
+          <CustomFormLayoutEditor
+            open={this.props.openLayoutUpdateDialog}
+            initial={this.props.customFormView}
+            waiver={this.props.theme?.waiver}
+            general_terms_and_conditions={
+              this.props.theme?.general_terms_and_conditions
+            }
+            saveLayouts={(layouts) =>
+              this.props.updateCutsomFormLayout(
+                { formId: this.props.customForm.id, layout: layouts },
+                { noSuccessMessage: true },
+              )
+            }
+            closeEditor={() => this.props.setOpenLayoutUpdateDialog(false)}
           />
         )}
       </>
@@ -274,6 +313,9 @@ const styles = (theme: Theme) => ({
   },
   previewTitle: {
     paddingBottom: theme.spacing(1),
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   buttonBase: {
     '&:hover': {
@@ -296,6 +338,7 @@ const mapStateToProps = (state: RootState, { id }: { id: number }) => ({
   tags: tagSelectors.getMemberTags(state),
   signUpCustomForm: getSignUpCustomForm(state),
   memberCustomForm: getMemberCustomForm(state),
+  layoutLoading: state.customForm.layout.loading,
 });
 const mapDispatchToProps = {
   fetchAllCustomForm,
@@ -308,12 +351,22 @@ const mapDispatchToProps = {
   fetchCompanyCustomSignUp,
   fetchCompanyCustomMemberForm,
   push: pushRouter,
+  updateCutsomFormLayout,
 };
 const mapWithHandlers = {
   upsertCustomForm: (props: OwnAndConnectedProps) => (form: CustomForm) => {
     props.setSubmitting(true);
     props.upsertCustomFormActions(form, {
-      onSuccess: () => props.setSubmitting(false),
+      onSuccess: () => {
+        props.setSubmitting(false);
+        if (
+          props.numberOfQuestionsHasChanged &&
+          form.layout &&
+          Object.keys(form?.layout || {})?.length === 4
+        ) {
+          props.setOpenLayoutUpdateDialog(true);
+        }
+      },
       onError: () => props.setSubmitting(false),
     });
   },
@@ -366,6 +419,8 @@ const withStateHandlersInit: StateHandlerInit = {
   displayRuleSubmitting: false,
   initialDisplayRule: null,
   openDisplayRuleDialog: false,
+  numberOfQuestionsHasChanged: false,
+  openLayoutUpdateDialog: false,
 };
 const withStateHandlersSetter = {
   setCustomFormRefresh: () => (customFormRefresh: CustomForm) => {
@@ -390,6 +445,14 @@ const withStateHandlersSetter = {
     initialDisplayRule: null | CustomFormDisplayRule,
   ) => {
     return { initialDisplayRule };
+  },
+  setNumberOfQuestionsHasChanged: () => (
+    numberOfQuestionsHasChanged: boolean,
+  ) => {
+    return { numberOfQuestionsHasChanged };
+  },
+  setOpenLayoutUpdateDialog: () => (openLayoutUpdateDialog: boolean) => {
+    return { openLayoutUpdateDialog };
   },
 };
 export default compose<any, OwnProps>(

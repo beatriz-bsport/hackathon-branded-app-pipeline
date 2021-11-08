@@ -346,9 +346,9 @@ const styles = (theme: Theme) => ({
     padding: theme.spacing(4),
   },
   greetingContainer: {
-    paddingBottom: theme.spacing(2),
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
+    paddingBottom: theme.spacing(1),
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
   },
 });
 export default compose<any, OwnProps>(

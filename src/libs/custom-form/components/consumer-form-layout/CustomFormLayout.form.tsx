@@ -33,6 +33,7 @@ type OwnProps = {
   onLayoutChange: (allLayouts: ResponsiveLayouts) => void;
   waiver?: string;
   general_terms_and_conditions?: string;
+  setOutterContainerWidth: (width: number) => void;
 };
 
 type Props = OwnProps & WithTranslation;
@@ -47,7 +48,7 @@ export const CustomFormLayoutView = (props: Props) => {
     Object.keys(props?.layouts || {})?.length !== 4 ? null : props.layouts,
   );
   const [customLoading, setCustomLoading] = React.useState(false);
-  const [containerWidth, setContainerWith] = React.useState(970);
+  const [containerWidth, setContainerWith] = React.useState(385);
   const theme: Theme = useTheme();
 
   React.useEffect(() => {
@@ -67,6 +68,8 @@ export const CustomFormLayoutView = (props: Props) => {
     setTimeout(() => {
       setCustomLoading(false);
     }, 500);
+    props.setOutterContainerWidth &&
+      props.setOutterContainerWidth(containerWidth);
   }, [containerWidth]);
 
   const handleLayoutChange = (
@@ -114,19 +117,19 @@ export const CustomFormLayoutView = (props: Props) => {
   const marks = [
     {
       value: 375 + 10,
-      label: 'XS',
+      label: t('customForm.breakpoints.xs'),
     },
     {
       value: theme.breakpoints.values.sm + 10,
-      label: 'SM',
+      label: t('customForm.breakpoints.sm'),
     },
     {
       value: theme.breakpoints.values.md + 10,
-      label: 'MD',
+      label: t('customForm.breakpoints.md'),
     },
     {
       value: theme.breakpoints.values.lg + 10,
-      label: 'LG',
+      label: t('customForm.breakpoints.lg'),
     },
   ];
   function valuetext(value: number) {
@@ -202,7 +205,7 @@ export const CustomFormLayoutView = (props: Props) => {
                     </Grid>
                     <Grid item xs>
                       <Slider
-                        defaultValue={theme.breakpoints.values.md + 10}
+                        defaultValue={375 + 10}
                         value={containerWidth}
                         onChange={(e: any, value: number) =>
                           handleWidthChange(value)

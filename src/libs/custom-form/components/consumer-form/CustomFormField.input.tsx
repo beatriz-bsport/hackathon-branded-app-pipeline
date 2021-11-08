@@ -92,15 +92,19 @@ export const CustomFormConsumerInput = (props: Props) => {
     case CUSTOM_FORM_FIELD_TITLE_OPTION:
       return (
         <div className={classes.spacedField}>
-          <Typography variant="h4"> {props.field.label}</Typography>
+          <div style={{ overflowWrap: 'break-word' }}>
+            <Typography variant="h4">{props.field.label}</Typography>
+          </div>
         </div>
       );
     case CUSTOM_FORM_FIELD_PARAGRAPH_OPTION:
       return (
         <div className={classes.spacedField}>
-          <Typography variant="legend" component="div">
-            {props.field.label}
-          </Typography>
+          <div style={{ overflowWrap: 'break-word' }}>
+            <Typography variant="legend" component="div">
+              {props.field.label}
+            </Typography>
+          </div>
         </div>
       );
     case CUSTOM_FORM_FIELD_SHORT_ANSWER_OPTION:

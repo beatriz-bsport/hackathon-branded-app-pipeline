@@ -76,6 +76,11 @@ import { fetchSignFormUpConfiguration } from '../libs/sign-up-form/actions';
 
 import { fetchTags } from '../libs/tag/actions';
 
+import {
+  fetchCompanyCustomMemberForm,
+  fetchCompanyCustomSignUp,
+} from '../libs/custom-form/actions';
+
 const MarketingRouter = asyncComponent(() =>
   import('./marketing/Marketing.router'),
 );
@@ -196,6 +201,8 @@ type Props = {
   navigateBackToFranchise: () => void,
   t: TFunction,
   isPluginActivated: boolean,
+  fetchCompanyCustomMemberForm: () => void,
+  fetchCompanyCustomSignUp: () => void,
 };
 
 const BackofficeRoute = withSentryErrorReporting((props) => {
@@ -265,6 +272,14 @@ export class Backoffice extends Component<Props, State> {
     this.props.fetchAllPrivateSlots();
     this.props.fetchSignFormUpConfiguration();
     this.props.fetchTags();
+    if (this.props.theme?.company) {
+      this.props.fetchCompanyCustomSignUp({
+        company: this.props.theme.company,
+      });
+      this.props.fetchCompanyCustomMemberForm({
+        company: this.props.theme.company,
+      });
+    }
   }
 
   componentWillUnmount() {
@@ -521,6 +536,8 @@ export default compose(
       fetchSignFormUpConfiguration,
 
       navigateBackToFranchise: navigateBackToFranchiseAction,
+      fetchCompanyCustomMemberForm,
+      fetchCompanyCustomSignUp,
     },
   ),
   withHandlers({

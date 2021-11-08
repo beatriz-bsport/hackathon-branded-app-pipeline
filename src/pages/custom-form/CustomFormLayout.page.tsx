@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { getCustomFormWithEnableField } from '../../libs/custom-form/selectors';
@@ -55,9 +56,9 @@ export class CustomFormLayoutPage extends Component<Props> {
           }
           editable
           asManager
-          onLayoutChange={(allLayouts: ResponsiveLayouts) => {
-            this.props.setCurrentResponsiveLayouts(allLayouts);
-          }}
+          onLayoutChange={(allLayouts: ResponsiveLayouts) =>
+            this.props.setCurrentResponsiveLayouts(allLayouts)
+          }
           layouts={this.props.customForm?.layout}
           waiver={this.props.theme?.waiver}
           general_terms_and_conditions={
@@ -103,7 +104,13 @@ export default compose<any, Props>(
   connect(mapStateToProps, mapDispatchToProps),
   withHandlers(mapWithHandlers),
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
-  withTitle(({ customForm }: { customForm: CustomForm }) => {
+  withTitle(({ customForm, t }: { customForm: CustomForm; t: TFunction }) => {
+    if (customForm?.is_signup) {
+      return t('marketing:customForm.signupFormTitle');
+    }
+    if (customForm?.is_member_form) {
+      return t('marketing:customForm.memberFormTitle');
+    }
     return customForm ? `${customForm.name}` : '';
   }),
 )(CustomFormLayoutPage);

@@ -179,7 +179,6 @@ export class MemberCustomForm extends React.Component<Props> {
                           general_terms_and_conditions={
                             this.props.theme.general_terms_and_conditions
                           }
-                          layouts={this.props.customFormFilledSelected?.layout}
                         />
                       </Paper>
                     </Collapse>

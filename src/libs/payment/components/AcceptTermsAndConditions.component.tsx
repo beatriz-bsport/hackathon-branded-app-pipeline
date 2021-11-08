@@ -22,6 +22,7 @@ type OwnProps = {
   termsAndConditions: string;
   type: 'generalTermsOfUse' | 'theTermsAndConditions' | 'waiver';
   disabled?: boolean;
+  label?: string;
 };
 
 type StateHandlerType = typeof withStateHandlersInit &
@@ -46,16 +47,18 @@ export const AcceptTermsAndConditions = (props: Props) => {
         }
         label={
           <Typography component="div" variant="caption" align="left">
-            <span>{props.t('generalTermsAndConditions.iAccept')}</span>
+            {!props.label && (
+              <span>{props.t('generalTermsAndConditions.iAccept')}</span>
+            )}
             <ButtonBase onClick={() => props.setShowTermsAndConditions(true)}>
               <Typography variant="caption" color="secondary" align="left">
-                {props.t(`generalTermsAndConditions.${props.type}`)}
+                {props.label ||
+                  props.t(`generalTermsAndConditions.${props.type}`)}
               </Typography>
             </ButtonBase>
           </Typography>
         }
       />
-
       <Dialog
         open={props.showTermsAndConditions}
         onClose={() => props.setShowTermsAndConditions(false)}

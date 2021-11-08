@@ -196,7 +196,7 @@ export class FormsConfiguration extends React.Component<Props> {
                     <div className={classes.column}>
                       <InfoIcon className={classes.leftIcon} />
                       <Typography variant="caption">
-                        {t('customForm.selectCustomForm')}
+                        {t('marketing:customForm.selectCustomForm')}
                       </Typography>
                     </div>
                   </div>

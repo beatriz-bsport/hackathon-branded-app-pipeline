@@ -119,8 +119,6 @@ export const TextFieldEnhancedLabelWithError = withStyles(textFieldStyles)(
                 shrink={shrink}
                 {...field}
                 {...omit(props, ['field'])}
-                onChange={field?.onChange(field.name)}
-                onBlur={field?.onBlur(field.name)}
                 error={!!(meta.touched && meta.error)}
                 label={
                   meta.touched && meta.error ? (
@@ -232,6 +230,7 @@ export const Actions = withStyles(actionsStyles)((props: ActionsProps) => {
 
 export const DateField = (props: DateFieldProps) => {
   const { t } = useTranslation();
+  const now = moment().startOf('year').add(-30, 'years').format('YYYY-MM-DD');
   return (
     <Field
       {...props}
@@ -249,6 +248,7 @@ export const DateField = (props: DateFieldProps) => {
             {...field}
             {...props}
             style={{ minWidth: 120 }}
+            value={field.value || now}
             onChange={(date) => {
               setFieldValue(
                 props.name,

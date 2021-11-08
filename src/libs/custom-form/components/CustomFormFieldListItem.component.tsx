@@ -24,14 +24,15 @@ import {
 import withConfirm from '../../../hocs/with-confirm.hoc';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 import FieldIcon from './FieldIcon.component';
-import { TextField, CheckboxField } from '../../../components/forms';
+import { CheckboxField } from '../../../components/forms';
+import { TextField } from './GenericFormik.input';
 import type { CustomFormField } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
 import {
   CUSTOM_FORM_FIELDS_OPTIONS,
-  CUSTOM_FORM_FIELD_SIGNUP_QUESTIONS_CHOICES,
   CUSTOM_FORM_IMMUTABLE_SIGNUP_FIELDS,
   ALL_CUSTOM_FORM_SIGNUP_KIND_LIST,
+  get_custom_form_sign_question_label,
 } from '../utils';
 
 const DragHandle = SortableHandle(() => <DragHandleIcon color="action" />);
@@ -73,7 +74,7 @@ const ButtonWithConfirm = withConfirm(DeleteButton, 'onClick', {
     <p>{t('marketing:customForm.customFormField.modal.disable.content')}</p>
   ),
 });
-
+const CUSTOM_FORM_SIGNUP_FIELD_DEFAULT_LABEL_DICT = get_custom_form_sign_question_label();
 export const CustomFormFieldListItem = (props: Props) => {
   const { t } = props;
   const classes = useStyles();
@@ -83,10 +84,14 @@ export const CustomFormFieldListItem = (props: Props) => {
         option.value === props.customFormField.kind,
     )?.label || '';
   const signupQuestionLabel =
-    CUSTOM_FORM_FIELD_SIGNUP_QUESTIONS_CHOICES.find(
-      (choice: { label: string; value: number }) =>
-        choice.value === props.customFormField.signup_question_kind,
-    )?.label || '';
+    props.customFormField.label ||
+    t(
+      `customForm.field.${
+        CUSTOM_FORM_SIGNUP_FIELD_DEFAULT_LABEL_DICT[
+          props.customFormField?.signup_question_kind
+        ]
+      }`,
+    );
 
   const immutableSignAndMemberField =
     (props.isSignUpForm || props.isMemberForm) &&
@@ -108,12 +113,10 @@ export const CustomFormFieldListItem = (props: Props) => {
     >
       <ToolTip
         title={
-          customFormFieldLabel
-            ? `${t(`customForm.field.${customFormFieldLabel}`)}${
-                signupQuestionLabel
-                  ? `: ${t(`customForm.field.${signupQuestionLabel}`)}`
-                  : ''
-              }`
+          signupQuestionLabel
+            ? `${t(
+                `customForm.field.${customFormFieldLabel}`,
+              )} : ${signupQuestionLabel}`
             : ''
         }
       >
@@ -124,22 +127,25 @@ export const CustomFormFieldListItem = (props: Props) => {
           </div>
         </ListItemIcon>
       </ToolTip>
-      <TextField
-        name={`${props.customFormFieldType}.${props.index}.label`}
-        id="label"
-        variant="outlined"
-        label={
-          signupQuestionLabel
-            ? t(`customForm.field.${signupQuestionLabel}`)
-            : t('customForm.label')
-        }
-        required={!props.customFormField.signup_question_kind}
-        disabled={
-          props.customFormField.signup_question_kind ===
-          CUSTOM_FORM_FIELD_SIGN_UP_PHOTO
-        }
-        className={classes.label}
-      />
+      <div className={classes.label}>
+        <TextField
+          name={`${props.customFormFieldType}.${props.index}.label`}
+          id="label"
+          variant="outlined"
+          label={
+            props.customFormField?.signup_question_kind
+              ? signupQuestionLabel
+              : t('customForm.label')
+          }
+          required={!props.customFormField.signup_question_kind}
+          disabled={
+            props.customFormField.signup_question_kind ===
+            CUSTOM_FORM_FIELD_SIGN_UP_PHOTO
+          }
+          className={classes.label}
+        />
+      </div>
+
       {!props.customFormField?.disabled && !props.isMemberForm && (
         <div className={classes.mandatory}>
           <CheckboxField
@@ -160,7 +166,7 @@ export const CustomFormFieldListItem = (props: Props) => {
           />
         </div>
       )}
-      {props.isMemberForm && (
+      {props.isMemberForm && !props.customFormField.disabled && (
         <div className={classes.editable}>
           <ToolTip
             title={

@@ -1,7 +1,7 @@
 import React from 'react';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { Theme } from '@material-ui/core/styles';
+import { Theme, makeStyles } from '@material-ui/core/styles';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import { ErrorMessage } from 'formik';
@@ -16,6 +16,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import moment from 'moment-timezone';
 import {
   CUSTOM_FORM_FIELD_SIGN_UP_PASSWORD,
   CUSTOM_FORM_FIELD_SIGN_UP_FIRST_NAME,
@@ -50,12 +51,12 @@ import { browserCountryCode } from '../../../../i18n';
 
 import {
   DateField,
-  CheckboxField,
   TextFieldEnhancedLabelWithError,
   SelectFieldWithEnhancedLabeLError,
 } from '../../../../components/forms';
 import AvatarFieldWithButton from '../../../../components/forms/AvatarFieldWithButton.component';
 import AcceptTermsAndConditions from '../../../payment/components/AcceptTermsAndConditions.component';
+import { CheckboxField } from '../GenericFormik.input';
 
 interface CustomFormFilledTagule {
   answer_for_tag: string;
@@ -97,7 +98,10 @@ type Props = OwnProps &
 
 const CUSTOM_FORM_SIGNUP_FIELD_DEFAULT_LABEL_DICT = get_custom_form_sign_question_label();
 export const CustomFormConsumerInput = (props: Props) => {
-  const { t, classes, waiver, general_terms_and_conditions } = props;
+  const { t, waiver, general_terms_and_conditions } = props;
+  const layoutActive =
+    props.values.layout && Object.keys(props.values.layout || {})?.length === 4;
+  const classes = useStyles(layoutActive);
   const [passwordVisibility, setPasswordVibility] = React.useState(false);
   const [
     confirmPasswordVisibility,
@@ -120,6 +124,8 @@ export const CustomFormConsumerInput = (props: Props) => {
         ]
       }`,
     );
+
+  const now = moment().startOf('year').add(-1, 'years').format('YYYY-MM-DD');
   switch (props.field.signup_question_kind) {
     case CUSTOM_FORM_FIELD_SIGN_UP_FIRST_NAME:
     case CUSTOM_FORM_FIELD_SIGN_UP_LAST_NAME:
@@ -319,7 +325,8 @@ export const CustomFormConsumerInput = (props: Props) => {
             disableFuture
             clearLabel={t('translation:form.clearDate')}
             cancelLabel={t('translation:common.cancel')}
-            initialFocusedDate="1990/01/01"
+            initialFocusedDate={now}
+            parseAsString
           />
         </>
       );
@@ -346,18 +353,16 @@ export const CustomFormConsumerInput = (props: Props) => {
       );
     case CUSTOM_FORM_FIELD_SIGN_UP_ACCEPT_EMAIL:
       return (
-        <div className={classes.acceptEmailField}>
-          <CheckboxField
-            name={`custom_form_field.${props.index}.answer`}
-            label={
-              <Typography variant="caption">
-                {t('translation:form.signup.fields.accept_email')}
-              </Typography>
-            }
-            disabled={props.asManager}
-            required={props.field.mandatory}
-          />
-        </div>
+        <CheckboxField
+          name={`custom_form_field.${props.index}.answer`}
+          label={
+            <Typography variant="caption">
+              {t('translation:form.signup.fields.accept_email')}
+            </Typography>
+          }
+          disabled={props.asManager}
+          required={props.field.mandatory}
+        />
       );
     case CUSTOM_FORM_FIELD_SIGN_UP_ACCEPT_SMS:
       return (
@@ -422,6 +427,7 @@ export const CustomFormConsumerInput = (props: Props) => {
               }
               termsAndConditions={waiver}
               type="waiver"
+              label={label}
             />
             <ErrorMessage name={`custom_form_field.${props.index}.answer`}>
               {(error_msg) => (
@@ -437,7 +443,12 @@ export const CustomFormConsumerInput = (props: Props) => {
     case CUSTOM_FORM_FIELD_SIGN_UP_GENERAL_TERMS_AND_CONDITIONS:
       if (general_terms_and_conditions) {
         return (
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
             <AcceptTermsAndConditions
               accepted={props.values.custom_form_field[props.index]?.answer}
               required
@@ -453,6 +464,7 @@ export const CustomFormConsumerInput = (props: Props) => {
               }
               termsAndConditions={general_terms_and_conditions}
               type="generalTermsOfUse"
+              label={label}
             />
             <ErrorMessage name={`custom_form_field.${props.index}.answer`}>
               {(error_msg) => (
@@ -587,6 +599,87 @@ const styles = (theme: Theme) => ({
     width: '100%',
   },
 });
+
+const useStyles = makeStyles((theme: Theme) => ({
+  textField: {
+    marginTop: (layoutActive) =>
+      layoutActive ? theme.spacing(-2) : theme.spacing(0),
+  },
+  emailField: {
+    marginTop: (layoutActive) =>
+      layoutActive ? theme.spacing(-2) : theme.spacing(0),
+  },
+  phoneField: {
+    paddingTop: theme.spacing(1.4),
+  },
+  countryField: {
+    maringTop: theme.spacing(0),
+  },
+  spacedField: {
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+  },
+  labelClass: {
+    color: 'black',
+    paddingBottom: theme.spacing(1),
+  },
+  title: {
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+  },
+  signature: {
+    maxWidth: '100%',
+    maxHeight: '100px',
+  },
+  signatureContainer: {
+    border: `1px solid ${theme.palette.grey[600]}`,
+    borderRadius: theme.spacing(0.5),
+    padding: theme.spacing(1),
+    width: '80%',
+    position: 'relative',
+  },
+  fixedIconContainer: {
+    width: '100%',
+    position: 'absolute',
+    zIndex: 1000,
+    margin: 0,
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+  fixedIcon: {
+    marginLeft: 'auto',
+  },
+  fixedButton: {
+    padding: '0 10 0 0',
+  },
+  formChangeContainer: {
+    padding: theme.spacing(1),
+    display: 'flex',
+    alignItems: 'center',
+    border: `1px solid ${amber[900]}`,
+    borderRadius: theme.spacing(0.5),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
+  changeWarning: {
+    color: amber[900],
+    marginRight: theme.spacing(1),
+  },
+  photoContainerOutter: {
+    '&& img': {
+      width: '100px',
+      height: '100px',
+    },
+  },
+  photoContainerInner: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  acceptEmailField: {
+    width: '100%',
+  },
+}));
 export default compose<any, OwnProps>(
   withTranslation('marketing'),
   withStyles(styles),

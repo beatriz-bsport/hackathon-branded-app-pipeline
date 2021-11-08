@@ -180,7 +180,7 @@ export const updateCustomFormLayoutActions = {
 
 export function updateCutsomFormLayout(
   params: { formId: number; layout: ResponsiveLayouts },
-  options?: OptionCallback,
+  options?: OptionCallback & { noSuccessMessage?: boolean },
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(updateCustomFormLayoutActions.isLoading(true));
@@ -189,7 +189,8 @@ export function updateCutsomFormLayout(
       const response = await updateCustomFormLayoutAPI(params);
 
       dispatch(updateCustomFormLayoutActions.success(response.data));
-      dispatch(snackbarSuccess(`customForm.update.success`));
+      if (!options?.noSuccessMessage)
+        dispatch(snackbarSuccess(`customForm.update.success`));
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(snackbarError(`customForm.update.error`));

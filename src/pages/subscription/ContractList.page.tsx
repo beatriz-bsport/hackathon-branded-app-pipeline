@@ -405,7 +405,7 @@ type Props = MaterialStyleType<ReturnType<typeof styles>> &
   StateHandlerType &
   HandlersType;
 
-const mapStateToProps = (state: RootState, props: StateHandlerType) => ({
+const mapStateToProps = (state: RootState) => ({
   theme: themeSelectors.getTheme(state),
   contractListManagerOnly: withPaymentPack(getAvailableContractListManager)(
     state,

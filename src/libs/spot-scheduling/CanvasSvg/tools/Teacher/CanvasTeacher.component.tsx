@@ -1,5 +1,4 @@
 import React from 'react';
-import { Avatar } from '@material-ui/core';
 import CanvasBaseComponent from '../BaseClasses/Base.component';
 
 export interface CanvasTeacherProps {

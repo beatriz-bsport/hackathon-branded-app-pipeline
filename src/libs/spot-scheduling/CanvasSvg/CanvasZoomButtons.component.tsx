@@ -39,7 +39,7 @@ class CanvasZoomButtons extends React.PureComponent<Props> {
   }
 }
 
-const styles = (theme) => ({
+const styles = () => ({
   container: {
     position: 'absolute',
     left: 20,

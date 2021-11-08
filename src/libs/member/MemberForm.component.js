@@ -551,6 +551,8 @@ export function MemberForm(props: Props) {
                   <Grid item>
                     <DateField
                       keyboard
+                      returnMoment={false}
+                      format="YYYY-MM-DD"
                       name="date_joined"
                       disabled={disabled}
                       label={t('member:date_joined')}
@@ -1017,6 +1019,7 @@ export default compose(
       }
       const data = {
         ...cleanedValues,
+        date_joined: Moment(cleanedValues.date_joined).format(DATE_FORMAT),
         avatar: typeof avatar !== 'string' ? avatar : undefined,
         email: cleanedValues.email || '',
         emergency_contact: cleanedValues.emergency_contact || undefined,

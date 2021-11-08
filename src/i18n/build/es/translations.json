@@ -555,7 +555,8 @@
             "modify": "Editar",
             "completeInformation": "Completar mi información",
             "emergencyContact": "Contacto de emergencia",
-            "warningAddEmail": "Este correo electrónico ya ha sido añadido."
+            "warningAddEmail": "Este correo electrónico ya ha sido añadido.",
+            "emailHelper": "Para añadir varios correos electrónicos, escriba una coma o un espacio después de cada correo."
         },
         "marketing": {
             "dashboard": "Tablero de mando",
@@ -1322,7 +1323,14 @@
                     "explain": "Tiene en cuenta que este tag se suprimirá de TODOS los miembros. Esta operación es irreversible",
                     "submit": "Suprimir",
                     "cancel": "Cancelar"
-                }
+                },
+                "submit": "Salvar",
+                "name": "Nombre de la etiqueta",
+                "color": "Color",
+                "info": "Si selecciona un icono, aparecerá como una insignia junto a la foto del perfil de todos los miembros etiquetados con esa etiqueta.",
+                "selectIcon": "Seleccione un icono",
+                "searchIcon": "Buscar un icono (búsqueda en inglés)",
+                "icon": "Icono (opcional)"
             }
         },
         "management": {
@@ -2084,7 +2092,9 @@
                     "addPaymentMethod": "Añadir un método de pago",
                     "retry": "Inténtalo de nuevo",
                     "collect": "Guardar",
-                    "close": "Cerrar"
+                    "close": "Cerrar",
+                    "displayPaymentMethod": "Ver mis métodos de pago",
+                    "selectPaymentMethod": "Seleccione su método de pago"
                 },
                 "collect": {
                     "content": "Esta forma de pago se guardará en su cuenta para ser facturada de acuerdo con el contrato.",
@@ -2096,7 +2106,7 @@
                 }
             },
             "savePaymentMethod": {
-                "section": "Mis métodos de pago ({{count}})",
+                "section": "Seleccione un método de pago",
                 "label": "Guarda este método de pago"
             }
         },
@@ -2540,7 +2550,7 @@
                 "last_payment_method": "No se puede eliminar el único método de pago",
                 "pm_deleted": "Método de pago borrado"
             },
-            "inconsistent": "Método de pago desautorizado, por favor reconfigúrelo. El cliente puede haber solicitado la desautorización de su tarjeta o usted puede haber fusionado dos socios, en ambos casos el método de pago ya no es utilizable"
+            "inconsistent": "Método de pago desautorizado, por favor reconfigúrelo. El cliente puede haber solicitado la desautorización de su método de pago, o puede haber fusionado dos miembros, en ambos casos el método de pago ya no es utilizable"
         },
         "paymentEngine": {
             "label": {
@@ -3319,7 +3329,8 @@
             "src_phonenumber": "Teléfono del comprador",
             "src_email": "Correo electrónico del comprador",
             "src_lastname": "Nombre del comprador",
-            "src_firstname": "Nombre del comprador"
+            "src_firstname": "Nombre del comprador",
+            "price_bought": "Precio de compra"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -3399,7 +3410,9 @@
             "on_spot_payments": "Pagos en persona",
             "video": "Vídeo",
             "unpaid_invoices": "Facturas impagadas",
-            "video_purchase": "Compra de vídeos"
+            "video_purchase": "Compra de vídeos",
+            "consumer_giftcard": "Tarjetas regalo compradas",
+            "giftcard": "Tarjeta regalo"
         },
         "globalCategories": {
             "subheader": {
@@ -3637,7 +3650,7 @@
                     "notMemberYet": "Transmisión de información",
                     "memberOfCompany": "Completar mi información"
                 },
-                "welcome": "Hola {{first_name}}",
+                "welcome": "Hola {{firstname}}",
                 "subtitle": {
                     "notMemberYet": "Parece que es la primera vez que se conecta a este estudio",
                     "memberOfCompany": "Cuéntenos más sobre usted."
@@ -4211,6 +4224,46 @@
         },
         "marketingNotification": {
             "birthday": "Email de cumpleaños"
+        },
+        "franchiseOwned": "Su franquiciador está gestionando actualmente este correo electrónico transaccional",
+        "franchise": {
+            "delete": {
+                "delete": "Borrar",
+                "content": "¿Está seguro de que quiere eliminar esta configuración? Los ajustes seleccionados y las plantillas de correo electrónico se restablecerán a sus valores originales.",
+                "title": "Supresión"
+            },
+            "card": {
+                "carbonCopy": "Recibir una copia del correo electrónico",
+                "deactivated": "Desactiado",
+                "activated": "Activado",
+                "companies": "Franquiciados",
+                "parameters": "Parámetros",
+                "template": "Plantilla"
+            },
+            "form": {
+                "error": {
+                    "email_design": "Seleccione una plantilla",
+                    "selectCompanies": "Seleccione al menos un franquiciado",
+                    "name": "Por favor, rellene un nombre"
+                },
+                "save": "Salvar",
+                "cancel": "Cancelar",
+                "mailSelection": "Elija una plantilla",
+                "receiveCarbonCopySubtitle": "Recibirá una copia de cada correo electrónico enviado",
+                "receiveCC": "Recibir una copia del correo electrónico",
+                "activateSubtitleDeactivate": "El correo electrónico transaccional está desactivado, no se enviará a los afiliados",
+                "activateSubtitleActivate": "El correo electrónico transacional está activado, se enviará a los miembros",
+                "activate": "Activado",
+                "parameters": "Parámetros",
+                "useFor": "Uso para ",
+                "pickTemplate": "Elija una plantilla",
+                "name": "Nombre",
+                "description": "La plantilla elegida se utilizará para el correo electrónico transaccional \"{{name}}\" para todos los franquiciados seleccionados aquí.",
+                "title": "Configuración"
+            },
+            "emptyStateConfiguration": "Cree una configuración para forzar el uso de plantillas de correo electrónico para cada uno de sus franquiciados.",
+            "addConfiguration": "Añadir una configuración",
+            "emptySelect": "Seleccione un correo electrónico transaccional para ver con qué franquiciado es compartido y utilizado."
         }
     },
     "partnership": {
@@ -4398,8 +4451,9 @@
                 "general": "General",
                 "subscription": "Suscripción (contrato)",
                 "tags": "Tags",
-                "whitelist_tags": "Utilizable sólo por los miembros con el tag",
-                "blacklist_tags": "No puede ser utilizado sólo por los miembros con el tag"
+                "whitelist_tags": "Autorizado",
+                "blacklist_tags": "No autorizado",
+                "tagInfo": "Utiliza etiquetas para que el cupón sólo pueda ser utilizado por el grupo de miembros que desees en el marketplace, el widget y la app. Puede seleccionar etiquetas para que el cupón sólo pueda ser utilizado por los miembros con una de las etiquetas elegidas. O puede seleccionar etiquetas para que el cupón sólo pueda ser utilizado por los miembros con una de las etiquetas seleccionadas. "
             },
             "selectorPlaceholder": {
                 "shopitem": "Seleccione productos de la tienda (válido en todos los productos si no se selecciona ninguno)",
@@ -4447,7 +4501,8 @@
             "first_buy": "Utilizable solo en la primera compra",
             "blacklist_tags": "No disponible para miembros con determinados tags",
             "whitelist_tags": "Disponible sólo para miembros con determinados tags",
-            "allowedFor": "Autorizado para"
+            "allowedFor": "Autorizado para",
+            "unallowedFor": "No está permitido para"
         },
         "detail": {
             "seeParameters": "Ver los parámetros"
@@ -4456,7 +4511,8 @@
             "activeCoupons": "Promociones activas",
             "inactiveCoupons": "Promociones desactivadas o expiradas",
             "isEmpty": "Código promocional registrado"
-        }
+        },
+        "search": "Buscar un código promocional"
     },
     "privateService": {
         "service": {
@@ -5548,7 +5604,14 @@
                     },
                     "label": "Limitar el número máximo de reservas previstas en el futuro por cliente"
                 },
-                "hiddenFromMarketplace": "Aparecer en la solicitud de bsport"
+                "hiddenFromMarketplace": "Aparecer en la solicitud de bsport",
+                "schedule": {
+                    "alert": "La hora de inicio del horario debe ser anterior a la hora de finalización",
+                    "end": "Hora de finalización",
+                    "begin": "Hora de inicio",
+                    "title": "Establecimiento del horario"
+                },
+                "coach_can_edit_attendance": "En la aplicación móvil, el profesor puede modificar la asistencia/ausencia"
             },
             "submit": "Guardar",
             "instagramURL": {
@@ -5655,7 +5718,7 @@
             "field_identifier": "Campos",
             "account_modification": "Editar una cuenta",
             "account_creation": "Crear una cuenta",
-            "title": "Formulario de inscripción",
+            "title": "Formulario de miembro",
             "fields": {
                 "waiver": "Exención de responsabilidad",
                 "general_terms_and_conditions_accepted": "Condiciones de uso",
@@ -5706,6 +5769,11 @@
                 "title": "Conexión con QuickBooks"
             },
             "title": "QuickBooks"
+        },
+        "marketingEmail": {
+            "caption": "Las copias de los correos electrónicos transaccionales se enviarán a esta dirección si la configuración está activada",
+            "placeholder": "Correo electrónico",
+            "label": "Correo electrónico de seguimiento"
         }
     },
     "role": {
@@ -6908,6 +6976,21 @@
             "restore": {
                 "success": "Forma restaurada",
                 "error": "No se puede restaurar el formulario"
+            },
+            "signupViaCustomForm": {
+                "errors": {
+                    "84104": "El número de teléfono no es válido",
+                    "84103": "El género especificado no es válido",
+                    "84102": "Este correo electrónico ya está en uso",
+                    "84101": "No se han rellenado los campos obligatorios"
+                },
+                "error": "Error al registrarse, por favor, inténtelo de nuevo",
+                "success": "Registro validado"
+            },
+            "upsert": {
+                "errors": {
+                    "84006": "Es necesario definir una exención de responsabilidad en Configuración > General para poder añadir la pregunta \"Exención de responsabilidad\"."
+                }
             }
         },
         "establishmentBillingGroup": {
@@ -6949,6 +7032,12 @@
             "create": {
                 "error": "No se puede conectar su cuenta de quickbooks",
                 "success": "Su cuenta de Quickbooks está ahora autentificada"
+            }
+        },
+        "platformBilling": {
+            "payNowInvoice": {
+                "error": "Pago rechazado",
+                "success": "Pago satisfactorio"
             }
         }
     },
@@ -7389,6 +7478,11 @@
                 "delete": "Borrar"
             },
             "category": "Categorías de bonos"
+        },
+        "noCategory": {
+            "empty": "No hay tarjetas en esta categoría",
+            "name": "Sin categoría",
+            "help": "Estos pases aparecerán en una categoría sin nombre en el mercado"
         }
     },
     "selfCheckIn": {
@@ -7464,7 +7558,10 @@
             "subject": "Asunto del email",
             "save": "Guardar",
             "title": "Nombre del modelo",
-            "exportHtml": "Exportar HTML"
+            "exportHtml": "Exportar HTML",
+            "selectorPlaceholder": "Selección de franquiciados",
+            "shareWithHelper": "La plantilla no puede ser modificada por los franquiciados",
+            "shareWith": "Compartir con"
         },
         "no_subject": "Ningún objeto",
         "preview": "Vista previa de correo",
@@ -7487,9 +7584,13 @@
                 "confirm": "Suprimir",
                 "cancel": "Cancelar",
                 "title": "Supresión plantilla email",
-                "content": "¿Seguro que quieres eliminar esta plantilla de email? Esta operación es final"
+                "content": "Si esta plantilla está vinculada a una configuración de correo electrónico transaccional, también se eliminará. ¿Estás seguro de que quieres eliminar esta plantilla de correo electrónico? Esta operación es definitiva"
             }
-        }
+        },
+        "allCompanies": "Todos los franquiciados",
+        "seeAll": "Ver todo",
+        "franchiseEmails": "Plantillas de franquicia",
+        "companieEmails": "Mis plantillas"
     },
     "metaActivity": {
         "reviews": "Opinión de los clientes: ",
@@ -7628,7 +7729,7 @@
                 "marketplaceSettings": "Parámetros marketplace",
                 "widget": "Widget",
                 "paymentMethod": "Medios de pago",
-                "forms": "Formularios",
+                "forms": "Formularios miembros",
                 "quickbooks": "QuickBooks"
             },
             "pass": "Bono",
@@ -8069,7 +8170,10 @@
                 "first": "Ha reservado",
                 "explanation": "Ha reservado X sesiones de actividad A, en el lugar B, con el bono C ...",
                 "name": "Número de reservas",
-                "attendance": "con estado"
+                "attendance": "con estado",
+                "level": {
+                    "first": "nivel"
+                }
             },
             "21": {
                 "hour": {
@@ -8097,7 +8201,10 @@
                 "first": "Ha reservado su ",
                 "explanation": "Ha reservado su X a sesión de actividad A, en el establecimiento B ...",
                 "name": "Número de reserva",
-                "attendance": "con estado"
+                "attendance": "con estado",
+                "level": {
+                    "first": "nivel "
+                }
             },
             "20": {
                 "explanation": "Ha abandonado una cesta de cantidad…",
@@ -8358,6 +8465,14 @@
                 "textFieldPlaceholder": "Buscar una cita",
                 "helperSelectedText": "citas seleccionadas",
                 "helperText": "seleccionar citas"
+            },
+            "level": {
+                "warning": "Seleccione al menos un nivel",
+                "select": "seleccione un nivel",
+                "advanced": "avanzado",
+                "intermediary": "intermedio",
+                "beginner": "debutante",
+                "all": "todos los niveles"
             }
         },
         "description": "Descripción",
@@ -8378,7 +8493,12 @@
             "tag_on_join": "Tag si entra en la smartlist",
             "tag_on_join_and_untag_on_left": "Tag si está presente en la smartlist",
             "type_of_rule": "Tipo de regla",
-            "activeSince": "Activo desde {{ since }}"
+            "activeSince": "Activo desde {{ since }}",
+            "tag": "Etiqueta",
+            "asyncDialog": {
+                "message": "A raíz de sus cambios en las reglas de las etiquetas de la lista inteligente {{name}}, tenemos que actualizar las etiquetas de sus miembros.",
+                "title": "Actualización de las normas de la etiqueta "
+            }
         }
     },
     "relationship": {
@@ -8682,7 +8802,15 @@
         "platformInvoice": {
             "noInvoice": "No hay facturas",
             "sectionTitle": "Mis facturas",
-            "label": "Factura {{month}} / {{year}}"
+            "label": "Factura {{month}} / {{year}}",
+            "status": {
+                "failed": "Pago fallido",
+                "processing": "Pago en curso",
+                "disputed": "Pago impugnado",
+                "succeeded": "Pago satisfactorio",
+                "missing_charge": "No se ha intentado el pago"
+            },
+            "bill": "Regularizar"
         }
     },
     "marketing": {
@@ -8745,7 +8873,7 @@
             "notificationDetails": "Detalles de la notificación"
         },
         "customForm": {
-            "unaccessibleForm": "Este formulario está actualmente desactivado, para volver a su página de perfil haga clic en el botón de abajo.",
+            "unaccessibleForm": "Este formulario no está disponible actualmente, para volver a su página de perfil haga clic en el botón de abajo.",
             "field": {
                 "link_to_note_helper": "Al vincular la pregunta a una nota, la respuesta se añadirá automáticamente a una nota en el formulario del afiliado.",
                 "text_size_limit": "La longitud de la respuesta estará limitada a {{count}} caracteres.",
@@ -8764,12 +8892,36 @@
                 "select_placeholder": "Seleccionar",
                 "file": "Adjuntar un archivo",
                 "fileHelper": "Los archivos cargados se añadirán directamente a la sección \"Mis documentos\" del perfil del miembro.",
-                "link_to_tag_popover": "Vincular una etiqueta a esta opción"
+                "link_to_tag_popover": "Vincular una etiqueta a esta opción",
+                "isMandatoryOnSignUp": "La pregunta es obligatoria en la inscripción",
+                "waiver": "Exención de responsabilidad",
+                "repeatPassword": "Confirmar contraseña",
+                "general_terms_and_conditions": "Condiciones de uso",
+                "country": "País",
+                "city": "Ciudad",
+                "additional_adress": "Dirección adicional",
+                "password": "Contraseña",
+                "phone": "Teléfono",
+                "email": "Dirección de correo electrónico",
+                "vaccination_status": "Estado del pase sanitario COVID-19",
+                "accept_sms": "Aceptar sms",
+                "accept_email": "Aceptar el correo electrónico",
+                "emergency_contact": "Contacto de emergencia",
+                "photo": "Foto de perfil",
+                "zipcode": "Código postal",
+                "gender": "Género",
+                "address_line_2": "Dirección adicional",
+                "address_line_1": "Dirección",
+                "birthday": "Fecha de nacimiento",
+                "last_name": "Apellido",
+                "first_name": "Nombre",
+                "sign_up_question": "Pregunta en el formulario de inscripción"
             },
             "tab": {
                 "general": "Contenido",
                 "campaign": "Campaña",
-                "statistics": "Estadísticas"
+                "statistics": "Estadísticas",
+                "layout": "Personalización"
             },
             "title": "Formularios",
             "CustomFormLink": "Enlace al formulario",
@@ -8781,7 +8933,8 @@
             "allFieldDisabled": "Todas las preguntas están archivadas",
             "actions": {
                 "configure": "Configurar",
-                "statistics": "Estadísticas"
+                "statistics": "Estadísticas",
+                "customization": "Personalización"
             },
             "customFormField": {
                 "modal": {
@@ -8801,7 +8954,10 @@
                     },
                     "error": {
                         "choicesLength": "Debe hacer al menos 2 elecciones",
-                        "emptyChoice": "Las opciones no pueden estar vacías"
+                        "emptyChoice": "Las opciones no pueden estar vacías",
+                        "signupQuestionShouldBeSelected": " Debe seleccionar una pregunta en el formulario de inscripción",
+                        "tooShort": "La contraseña debe tener al menos 8 caracteres",
+                        "passwordsDontMatch": "Las dos contraseñas no son iguales"
                     },
                     "signature": {
                         "addSignature": "Añadir una firma",
@@ -8821,7 +8977,10 @@
                 "errors": {
                     "requiredSignature": "Por favor, firme el formulario.",
                     "requiredFile": "Adjunte un archivo",
-                    "requiredField": "Este campo es obligatorio, por favor seleccione una respuesta."
+                    "requiredField": "Obligatorio",
+                    "invalidEmail": "Correo electrónico no válido",
+                    "passwordConfirmationError": "Las contraseñas no son indefinidas",
+                    "passwordMinimumRequirementsError": "La contraseña debe contener al menos 6 caracteres"
                 }
             },
             "statistics": {
@@ -8904,14 +9063,60 @@
                 "empty": "No hay normas de notificación para este formulario",
                 "addNewDisplayRule": "Añadir una regla",
                 "header": "Normas de notificación",
-                "snoozeTime": "Reloj de {{ count }} horas"
+                "snoozeTime": "Reloj de {{ count }} horas",
+                "forbiddenForSignup": "Este formulario no puede asociarse a las normas de notificación"
             },
             "disconnect": "Desconectarse",
             "resetSubmit": "Editar mis respuestas",
             "allStepsCompleted": "Has completado todos los pasos",
             "submitLater": "Responder más tarde",
             "previous": "Vuelta",
-            "next": "Siguiente"
+            "next": "Siguiente",
+            "clientForms": {
+                "modify": "editar",
+                "customize": "Personalice",
+                "modification": "Modificación",
+                "signup": "Registro",
+                "preview": "Resumen de mis formularios"
+            },
+            "signUp": {
+                "helperMemberForm": "El formulario de edición es el que se encuentra en la página de perfil de sus miembros. Les permite ver y editar su información. Este formulario también es personalizable.",
+                "helperSignup": "Aquí puede editar el formulario de registro de su estudio. Elige y personaliza las preguntas que debes rellenar para hacerte socio de tu club.",
+                "signupFields": "Preguntas sobre los formularios"
+            },
+            "breakpoints": {
+                "lg": "Pantalla ancha",
+                "md": "Pantalla mediana",
+                "sm": "Pantalla pequeña",
+                "xs": "Móviles"
+            },
+            "signUpInfoModal": {
+                "confirm": "Continuar",
+                "cancel": "Cancelar",
+                "content": "Acaba de hacer obligatorias algunas de las preguntas del formulario de inscripción. Las preguntas obligatorias del formulario de inscripción deben ser editables por sus miembros en su perfil. Por lo tanto, estas preguntas se han añadido automáticamente al formulario de edición y se muestran y pueden editarse. Vaya al formulario de edición para personalizarlo.",
+                "title": "Información"
+            },
+            "changesAreSubmitting": "El formulario se está actualizando.",
+            "editable": "Cambiable",
+            "display": "Ver",
+            "navigateToMemberForm": "Editar el formulario de inscripción",
+            "navigateToSignup": "Editar el formulario de inscripción",
+            "memberFormHelper": "Las preguntas obligatorias del formulario de registro se muestran y se pueden editar por defecto. No se pueden borrar.",
+            "signupFormHelper": "Las preguntas obligatorias del formulario de inscripción deben ser editables por sus miembros en su perfil. Estas preguntas se añadirán automáticamente al formulario de edición y se podrán visualizar y editar.",
+            "memberFormTitle": "Cambiar el formulario",
+            "signupFormTitle": "Formulario de inscripción",
+            "editLayoutSubtitle": "Ha modificado un formulario utilizando un diseño personalizado, compruebe aquí, y modifique si es necesario, la vista previa de su formulario en los diferentes tamaños de pantalla",
+            "editLayoutTitle": "Editar el diseño del formulario",
+            "layout": {
+                "layoutUpdating": "Una copia de seguridad está en marcha",
+                "layoutUpTodate": "No hay grabaciones en curso",
+                "saveAndExit": "Guardar y cerrar",
+                "save": "Guardar",
+                "redo": " Volver a aplicar",
+                "reset": "Reiniciar",
+                "undo": "Volver",
+                "editLayout": "Editar el diseño"
+            }
         }
     },
     "spotScheduling": {
@@ -9020,7 +9225,8 @@
             "create": "Crear un modelo",
             "franchiseEmails": "Mis plantillas",
             "emptyStateDescription": "Seleccione una plantilla",
-            "emptyStateTitle": "Vista previa del correo"
+            "emptyStateTitle": "Vista previa del correo",
+            "searchPlaceholder": "Buscar una plantilla"
         }
     },
     "giftcard": {
@@ -9095,7 +9301,8 @@
             "form": {
                 "footer": "La tarjeta se enviará por correo electrónico el día {{- date_send }} a las direcciones indicadas. Será válido durante {{ expiration_days }} días después del envío del correo electrónico. La cuenta del destinatario será acreditada con {{- price }} para futuras compras.",
                 "actions": {
-                    "submit": "Añadir a la cesta"
+                    "submit": "Añadir a la cesta",
+                    "cancel": "Cancelar"
                 },
                 "date_send": {
                     "label": "Fecha de envío del correo electrónico"
@@ -9115,13 +9322,15 @@
                 "name": {
                     "label": "Nombre de la tarjeta"
                 },
-                "footerUnlimited": "La tarjeta se enviará por correo el {{- date_send }} a las direcciones indicadas. No contiene fecha de caducidad. La cuenta del destinatario se acreditará con {{- price }} para futuras compras."
+                "footerUnlimited": "La tarjeta se enviará por correo el {{- date_send }} a las direcciones indicadas. No contiene fecha de caducidad. La cuenta del destinatario se acreditará con {{- price }} para futuras compras.",
+                "select_image": "Seleccione su imagen de fondo"
             },
             "previewPlaceholder": {
                 "message_content": "[Mensaje personalizado]",
                 "message_is_for": "[Nombre del destinatario]",
                 "message_is_from": "[Nombre del comprador]",
-                "name": "[Nombre de la tarjeta]"
+                "name": "[Nombre de la tarjeta]",
+                "giftcard_amount": "[Importe de la tarjeta]"
             },
             "sendTo": "Enviar la invitación de vuelta",
             "notAttributedYet": "No validado",
@@ -9153,7 +9362,8 @@
                 "content2": "Se añadirá automáticamente como método de pago a su cesta de la compra. Puedes encontrar toda la información sobre tu tarjeta regalo en tu perfil.",
                 "content1": "Tu tarjeta regalo por valor de {{precio}} es compatible con todos los productos de nuestra tienda. Esta tarjeta no tiene fecha de caducidad, así que aprovecha!",
                 "subtitle": "Parece que alguien le ha dado una sorpresa.",
-                "title": "¡Alguien quería complacerte!"
+                "title": "¡Alguien quería complacerte!",
+                "content1withDate": "iTu tarjeta regalo {{price}} es compatible con todos los productos de nuestra tienda. Esta tarjeta caduca {{expiration_days }} días después de su activación, así que date un capricho!"
             }
         },
         "list": {
@@ -9175,6 +9385,7 @@
             "cancel": "Cancelar",
             "content": "¿Realmente quieres archivar esta tarjeta de regalo? Ya no será facturable a través del back office. Puedes reactivarlo más tarde.",
             "title": "Archivar la tarjeta regalo"
-        }
+        },
+        "search": "Buscar una tarjeta regalo"
     }
 }

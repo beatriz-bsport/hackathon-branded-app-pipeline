@@ -12,6 +12,9 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { RootState } from '../../../reducers';
 import ConsumerAppBarContainer from '../ConsumerAppBar.container';
+import themeSelectors, {
+  getCurrencyDisplayWithPrice,
+} from '../../../libs/theme/selectors';
 
 import {
   getConsumerGiftcardByActivationCode,
@@ -22,7 +25,7 @@ import {
   attributeToMember,
 } from '../../../libs/giftcard/actions';
 import ConsumerGiftcardPreview from '../../../libs/giftcard/components/ConsumerGiftcardPreview.component';
-import themeSelectors from '../../../libs/theme/selectors';
+
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import { fetchCompanyTheme } from '../../../libs/theme/actions';
 
@@ -81,7 +84,18 @@ export class GiftcardCheckout extends React.Component<Props> {
                 variant="body2"
                 className={classes.text}
               >
-                {t('consumerGiftcard.activation.content1')}
+                {t(
+                  this.props.consumerGiftcard?.giftcard.expiration_days
+                    ? 'consumerGiftcard.activation.content1withDate'
+                    : 'consumerGiftcard.activation.content1',
+                  {
+                    expiration_days: this.props.consumerGiftcard.giftcard
+                      .expiration_days,
+                    price: getCurrencyDisplayWithPrice(
+                      this.props.consumerGiftcard?.giftcard?.price,
+                    ),
+                  },
+                )}
               </Typography>
               <Typography
                 color="textSecondary"

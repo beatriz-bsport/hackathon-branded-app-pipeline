@@ -27,6 +27,8 @@ exports.default = {
       subtitle: 'Il semblerait que quelqu’un vous ait fait une surprise.',
       content1:
         'Votre carte cadeaux d’une valeur de {{price}} est compatible avec l’ensemble des produits de notre magasin. Cette carte n’a pas de date limite d’utilisation, faites vous plaisir !',
+      content1withDate:
+        'Votre carte cadeaux d’une valeur de {{price}} est compatible avec l’ensemble des produits de notre magasin. Cette carte expire {{ expiration_days }} jours après activation, faites vous plaisir !',
       content2:
         'Elle viendra automatiquement s’ajouter comme moyen de paiement dans votre panier. Vous pouvez retrouver toutes les informations de votre carte cadeau sur votre profil.',
       content3:

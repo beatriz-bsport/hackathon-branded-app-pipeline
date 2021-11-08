@@ -160,4 +160,5 @@ exports.default = {
       placeholder: 'SPECIAL_RENTREE',
     },
   },
+  search: 'Rechercher un code promo',
 };

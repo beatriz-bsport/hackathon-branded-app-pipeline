@@ -25,7 +25,7 @@ exports.default = {
   baseEstablishment: 'Habituel',
   overrider: 'Remplacement',
   establishment_override: 'Salle de remplacement',
-  search: 'Chercher une salle',
+  search: 'Rechercher une salle',
   addButton: 'Ajouter une salle',
   pleaseSelectOne: 'Veuillez sélectionner un club sur la carte',
   noEstablishement:

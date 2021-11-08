@@ -157,7 +157,7 @@ exports.default = {
       second: 'jours',
     },
   },
-  search: 'Chercher une carte',
+  search: 'Rechercher une carte',
   extension: {
     nbDaysAdded: '+{{nb_days}}j',
     addedOn: 'Ajouté le ',

@@ -24,7 +24,7 @@ exports.default = {
   selector: {
     label: 'Professeur',
   },
-  search: 'Chercher un professeur',
+  search: 'Rechercher un professeur',
   performance: {
     title: 'Récapitulatif professeur',
     coachName: 'Professeur',

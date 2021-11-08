@@ -3,7 +3,14 @@ import { connect, ConnectedProps } from 'react-redux';
 import { push as pushAction } from 'connected-react-router';
 import { compose, withHandlers } from 'recompose';
 
-import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
+import {
+  WithStyles,
+  createStyles,
+  withStyles,
+  Theme,
+  Paper,
+  List,
+} from '@material-ui/core';
 
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
@@ -39,16 +46,18 @@ import {
 } from '../../libs/giftcard/selectors';
 import GiftcardFormDialog from '../../libs/giftcard/components/GiftcardFormDialog.component';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
-
+import FuzeSearch from '../../components/FuzeSearch.component';
 import GiftcardList from '../../libs/giftcard/components/GiftcardList.component';
 import DividerLoader from '../../components/DividerLoader.component';
 import GiftcardBackgroundImageUploader from '../../libs/giftcard/components/GiftcardBackgroundImageUploader.component';
 
 import {
   ConsumerGiftcard,
+  Giftcard,
   GiftcardBackgroundImage,
 } from '../../libs/giftcard/types';
 import { OptionCallback } from '../../state/types';
+import GiftcardListItem from '../../libs/giftcard/components/GiftcardListItem.component';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -64,6 +73,10 @@ const styles = (theme: Theme) =>
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
+    },
+    buttonRow: {
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
     },
   });
 
@@ -86,10 +99,14 @@ type Props = OwnProps &
   WithStyles &
   WithTranslation;
 
-type State = { showDisabled: boolean };
+type State = {
+  showDisabled: boolean;
+  searchText: string;
+  searchResult: Array<Giftcard>;
+};
 
 export class GiftcardListPage extends Component<Props, State> {
-  state = { showDisabled: false };
+  state = { showDisabled: false, searchText: '', searchResult: [] };
 
   componentDidMount() {
     this.props.fetchGiftcardList();
@@ -108,19 +125,75 @@ export class GiftcardListPage extends Component<Props, State> {
     this.props.removeImage(id);
   };
 
+  changeSearch = (fuse: string) => (ev: MouseEvent) => {
+    this.setState({
+      searchText: ev.target.value,
+      searchResult: fuse.search(ev.target.value),
+    });
+  };
+
+  clearSearch = () => {
+    this.setState({ searchText: '', searchResult: [] });
+  };
+
   render() {
     const { classes, t } = this.props;
     return (
       <div className={classes.container}>
+        {this.props.giftcardListActive?.length ? (
+          <>
+            <FuzeSearch
+              searchText={this.state.searchText}
+              clearSearch={this.clearSearch}
+              changeSearch={this.changeSearch}
+              items={[...this.props.giftcardListActive]}
+              placeholder={t('search')}
+              searchFields={['name']}
+              searchResult={this.state.searchResult}
+            />
+            <Paper
+              className={
+                this.state.searchResult.length > 0 &&
+                this.state.searchText !== ''
+                  ? classes.searchPaperDisplayed
+                  : classes.searchPaperHidden
+              }
+            >
+              <Collapse
+                in={
+                  this.state.searchResult.length > 0 &&
+                  this.state.searchText !== ''
+                }
+              >
+                <Paper>
+                  <List disablePadding>
+                    {this.state.searchResult.map((giftcard) => (
+                      <GiftcardListItem
+                        giftcard={giftcard}
+                        divider
+                        onEdit={this.props.openEditForm}
+                        key={giftcard.id}
+                        onRemove={this.props.deleteGiftcard}
+                        onClick={this.props.goToGiftcard}
+                      />
+                    ))}
+                  </List>
+                </Paper>
+              </Collapse>
+            </Paper>
+          </>
+        ) : null}
         {this.props.loading && <BackofficeLinearProgressComponent />}
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={this.props.toggleBackgroundImageForm}
-        >
-          <AddIcon />
-          {t('list.addBackgroundImage')}
-        </Button>
+        <div className={classes.buttonRow}>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={this.props.toggleBackgroundImageForm}
+          >
+            <AddIcon />
+            {t('list.addBackgroundImage')}
+          </Button>
+        </div>
         {this.props.giftcardListActive.length === 0 &&
         this.props.giftcardListUnavailableForSale.length === 0 &&
         this.props.giftcardListInactive.length === 0 &&

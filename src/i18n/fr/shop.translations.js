@@ -6,7 +6,7 @@ exports.default = {
     copyLink: 'Copier le lien vers la page de paiement',
     copied: 'Lien copié',
   },
-  search: 'Chercher un produit',
+  search: 'Rechercher un produit',
   dialog: {
     delete: {
       title: 'Suppression de {{shopitem.name}}',

@@ -169,4 +169,5 @@ exports.default = {
         'Ajouter des images pour permettre à vos membres de personnaliser leur carte cadeau. Pendant la création de leur carte vos membres pourront choisir une image de fond sur la carte cadeau.',
     },
   },
+  search: 'Rechercher une carte cadeau',
 };

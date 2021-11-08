@@ -2383,7 +2383,10 @@
             "writeMail": "New email",
             "dialogTitle": "Message",
             "noMailAvailable": "There are no email templates available yet. Start by adding your first template.",
-            "showMail": "Show email"
+            "showMail": "Show email",
+            "contentNotification": "Content",
+            "titleNotification": "Title",
+            "sendNotification": "Push notification"
         },
         "recipients": "Recipients",
         "common": {
@@ -9857,7 +9860,7 @@
                 "accept_sms": "I'd like to receive relevant communication by SMS.",
                 "accept_email": "I'd like to receive relevant communication by email.",
                 "waiver": "Liability waiver",
-                "repeatPassword": "Please repeat the password",
+                "repeatPassword": "Confirm the password",
                 "general_terms_and_conditions": "General Terms of Use",
                 "country": "Country",
                 "city": "City",
@@ -10066,10 +10069,19 @@
                 "reset": "Reset",
                 "undo": "Undo",
                 "editLayout": "Edit layout",
-                "layoutUpdating": "A backup is in progress.",
-                "saveAndExit": "Save & Close"
+                "layoutUpdating": "A backup is in progress",
+                "saveAndExit": "Save & Close",
+                "layoutUpTodate": "No layout to update"
             },
-            "editLayoutTitle": "Edit layout"
+            "editLayoutTitle": "Edit layout",
+            "changesAreSubmitting": "Form is being updated.",
+            "editLayoutSubtitle": "You've modified a form with a custom layout. Click here to review the display of your forms on varying screen sizes.",
+            "breakpoints": {
+                "lg": "Large screen",
+                "md": "Average screen",
+                "sm": "Small screen",
+                "xs": "Mobile"
+            }
         }
     },
     "spotScheduling": {

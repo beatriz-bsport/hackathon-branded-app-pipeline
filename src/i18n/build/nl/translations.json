@@ -1436,7 +1436,10 @@
             "contentSms": "Inhoud van de sms",
             "selectTemplate": "Bestaand e-mailsjabloon",
             "writeMail": "Nieuwe e-mail",
-            "dialogTitle": "Bericht"
+            "dialogTitle": "Bericht",
+            "contentNotification": "Inhoud",
+            "titleNotification": "Titel",
+            "sendNotification": "Push-notificatie"
         },
         "table": {
             "columns": {
@@ -8874,7 +8877,7 @@
                 "sign_up_question": "Inschrijfvragen",
                 "isMandatoryOnSignUp": "Dit is een verplichte vraag",
                 "waiver": "Waiver / Vrijstelling",
-                "repeatPassword": "Gelieve het wachtwoord opnieuw invoeren",
+                "repeatPassword": "Bevestig je wachtwoord",
                 "general_terms_and_conditions": "Algemene gebruiksvoorwaarden",
                 "country": "Land",
                 "city": "Stad",
@@ -9071,9 +9074,18 @@
                 "undo": "Terug",
                 "editLayout": "Layout bewerken",
                 "layoutUpdating": "Er wordt een back-up gemaakt.",
-                "saveAndExit": "Opslaan & Sluiten"
+                "saveAndExit": "Opslaan & Sluiten",
+                "layoutUpTodate": "Er is geen layout om weer te geven"
             },
-            "editLayoutTitle": "Layout bewerken"
+            "editLayoutTitle": "Layout bewerken",
+            "changesAreSubmitting": "Formulier wordt bijgewerkt.",
+            "editLayoutSubtitle": "Je hebt een formulier bewerkt met een zelfgemaakte layout. Klik hier om de weergave van je formulieren op verschillende schermgroottes te bekijken.",
+            "breakpoints": {
+                "lg": "Groot scherm",
+                "md": "Gemiddeld scherm",
+                "sm": "Klein scherm",
+                "xs": "Mobiel"
+            }
         }
     },
     "spotScheduling": {

@@ -9069,8 +9069,11 @@
                 "redo": " Opnieuw",
                 "reset": "Resetten",
                 "undo": "Terug",
-                "editLayout": "Layout bewerken"
-            }
+                "editLayout": "Layout bewerken",
+                "layoutUpdating": "Er wordt een back-up gemaakt.",
+                "saveAndExit": "Opslaan & Sluiten"
+            },
+            "editLayoutTitle": "Layout bewerken"
         }
     },
     "spotScheduling": {

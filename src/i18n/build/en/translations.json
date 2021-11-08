@@ -8176,7 +8176,9 @@
                 "intermediate": "intermediate",
                 "advanced": "advanced",
                 "select": "select a level",
-                "warning": "Select at least one level"
+                "warning": "Select at least one level",
+                "intermediary": "intermediate",
+                "all": "all levels"
             }
         },
         "selectToShowPreview": "Select an email to see a preview of it.",
@@ -10052,7 +10054,7 @@
             },
             "memberFormHelper": "The mandatory questions of the sign up form are displayed and editable by default. These can't be deleted.",
             "clientForms": {
-                "modify": "Edit",
+                "modify": "edit",
                 "customize": "Personalize",
                 "modification": "Edit",
                 "signup": "Sign up",
@@ -10071,7 +10073,7 @@
                 "editLayout": "Edit layout",
                 "layoutUpdating": "A backup is in progress",
                 "saveAndExit": "Save & Close",
-                "layoutUpTodate": "No layout to update"
+                "layoutUpTodate": "No recordings in progress"
             },
             "editLayoutTitle": "Edit layout",
             "changesAreSubmitting": "Form is being updated.",

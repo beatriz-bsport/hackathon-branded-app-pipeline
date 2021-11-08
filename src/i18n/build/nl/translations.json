@@ -3914,7 +3914,7 @@
             "isManager": "Momenteel ben je als een medewerker ingelogd. Meld je af om je ledenweergave (MarketPlace) te bekijken."
         },
         "workshop": {
-            "noWorkshopAvailable": "Er zijn nog geen workshops ingepland.",
+            "noWorkshopAvailable": "Er zijn geen workshops om weer te geven.",
             "card": {
                 "showMore": "Meer informatie",
                 "book": "Reserveer",
@@ -7238,7 +7238,8 @@
                 "cancel": "annuleren",
                 "submit": "Bevestigen"
             }
-        }
+        },
+        "search": "Zoek een promotiecode"
     },
     "stripe": {
         "errors": {
@@ -9330,7 +9331,8 @@
                 "content2": "Deze cadeaubon wordt automatisch als betaalmethode aan je winkelmandje toegevoegd. Alle informatie over je cadeaubon staat in je profiel.",
                 "content1": "Je kunt je cadeaubon t.w.v. {{price}} voor al onze producten gebruiken en heeft geen vervaldatum. Geniet ervan!",
                 "subtitle": "Het lijkt erop dat iemand je wilde verrassen.",
-                "title": "Iemand wilde je blij maken!"
+                "title": "Iemand wilde je blij maken!",
+                "content1withDate": "Je kunt je cadeaubon t.w.v. {{price}} is op al onze producten geldig. Gelieve rekening houden met het feit dat de cadeaubon {{ expiration_days }} dag(en) na activatie verloopt. Geniet ervan!"
             }
         },
         "delete": {
@@ -9338,6 +9340,7 @@
             "cancel": "Annuleer",
             "content": "Weet je zeker dat je deze cadeaubon wilt archiveren? Het zal niet meer in je Back Office verschijnen, maar je kunt het op een later moment heractiveren.",
             "title": "Archiveer de cadeaubon"
-        }
+        },
+        "search": "Zoek een cadeaubon"
     }
 }

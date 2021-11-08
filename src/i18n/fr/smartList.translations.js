@@ -104,9 +104,9 @@ exports.default = {
       warning: 'Sélectionnez au moins un rendez-vous',
     },
     level: {
-      allLevels: 'tout niveaux',
+      all: 'tout niveaux',
       beginner: 'débutant',
-      intermediate: 'intermédiaire',
+      intermediary: 'intermédiaire',
       advanced: 'avancé',
       select: 'sélectionner un niveau',
       warning: 'Sélectionnez au moins un niveau',

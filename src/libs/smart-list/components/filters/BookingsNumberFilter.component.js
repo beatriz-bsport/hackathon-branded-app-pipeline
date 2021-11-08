@@ -492,7 +492,10 @@ export class BookingsNumberFilter extends Component<Props, state> {
               )}
             </div>
             <CheckboxSelector
-              items={LEVELS}
+              items={LEVELS.map((level) => ({
+                id: level.id,
+                text: t(`multiSelector.level.${level.text}`),
+              }))}
               renderItem={(item) => <ListItemText primary={item.text} />}
               onChange={(item) => {
                 onChange({ level: item });

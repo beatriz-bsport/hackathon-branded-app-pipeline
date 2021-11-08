@@ -510,7 +510,8 @@
             "completeInformation": "Completare le mie informazioni",
             "emergencyContact": "Contatto d'emergenza",
             "modify": "Modificare",
-            "warningAddEmail": "Questa e-mail è già stata aggiunta."
+            "warningAddEmail": "Questa e-mail è già stata aggiunta.",
+            "emailHelper": "Per aggiungere più email, digita una virgola o uno spazio dopo ogni email."
         },
         "marketing": {
             "dashboard": "Pannello di controllo",
@@ -1182,6 +1183,46 @@
         },
         "marketingNotification": {
             "birthday": "E-mail di compleanno"
+        },
+        "franchiseOwned": "Il tuo franchisor sta attualmente gestendo questa e-mail transazionale",
+        "franchise": {
+            "delete": {
+                "delete": "Cancellare",
+                "content": "Sei sicuro di voler cancellare questa configurazione? Le impostazioni selezionate e i modelli di e-mail saranno ripristinati ai loro valori originali.",
+                "title": "Cancellazione"
+            },
+            "card": {
+                "carbonCopy": "Ricevere una copia dell'e-mail",
+                "deactivated": "Disattivato",
+                "activated": "Attivato",
+                "companies": "Franchisees",
+                "parameters": "Parametri",
+                "template": "Template"
+            },
+            "form": {
+                "error": {
+                    "email_design": "Seleziona un modello",
+                    "selectCompanies": "Selezionare almeno un franchisee",
+                    "name": "Si prega di compilare un nome"
+                },
+                "save": "Registra",
+                "cancel": "Cancellare",
+                "mailSelection": "Scegliere un modello",
+                "receiveCarbonCopySubtitle": "Riceverai una copia di ogni e-mail inviata",
+                "receiveCC": "Ricevere una copia dell'e-mail",
+                "activateSubtitleDeactivate": "L'email transazionale è disabilitata, non sarà inviata ai membri",
+                "activateSubtitleActivate": "L'email transazionale è attivata, sarà inviata ai membri",
+                "activate": "Attivato",
+                "parameters": "Parametri",
+                "useFor": "Utilizzare per ",
+                "pickTemplate": "Scegliere un modello",
+                "name": "Nome",
+                "description": "Il modello scelto sarà usato per l'email transazionale \"{{name}}\" per tutti gli affiliati selezionati qui.",
+                "title": "Configurazione"
+            },
+            "emptyStateConfiguration": "Crea una configurazione per forzare l'uso di modelli di e-mail per ciascuno dei tuoi franchisee.",
+            "addConfiguration": "Aggiungere una configurazione",
+            "emptySelect": "Seleziona un'email transazionale per vedere con quale franchisee è condivisa e utilizzata."
         }
     },
     "consumerSpace": {
@@ -1419,7 +1460,10 @@
             "mailSelection": "Seleziona una email",
             "showMail": "Visualizza email",
             "sendSms": "Invia un sms",
-            "refreshTextPhone": "Ricaricare la pagina per aggiornare il numero di telefono"
+            "refreshTextPhone": "Ricaricare la pagina per aggiornare il numero di telefono",
+            "contentNotification": "Contenuto",
+            "titleNotification": "Titolo",
+            "sendNotification": "Notifica push"
         },
         "campaign": {
             "list": {
@@ -2577,7 +2621,7 @@
                 "marketplaceSettings": "Impostazioni marketplace",
                 "widget": "Widget",
                 "paymentMethod": "Modo di pagamento",
-                "forms": "Modulo di registrazione",
+                "forms": "Modulo di membro",
                 "quickbooks": "QuickBooks"
             },
             "myClub": "Il mio club",
@@ -2778,7 +2822,14 @@
                     },
                     "label": "Limitare il numero massimo di prenotazioni future per cliente"
                 },
-                "hiddenFromMarketplace": "Appaiono nell' APP Bsport"
+                "hiddenFromMarketplace": "Appaiono nell' APP Bsport",
+                "schedule": {
+                    "alert": "L'ora di inizio dell'orario dovrebbe essere prima dell'ora di fine",
+                    "end": "Tempo di fine",
+                    "begin": "Ora di inizio",
+                    "title": "Impostazione dell'orario"
+                },
+                "coach_can_edit_attendance": "Nell'applicazione mobile, l'insegnante può cambiare le presenze/assenze"
             },
             "instagramURL": {
                 "label": "URL di Instagram",
@@ -2876,7 +2927,7 @@
             "field_identifier": "Campi",
             "account_modification": "Edizione di un account",
             "account_creation": "Creazione di un account",
-            "title": "Forma d'iscrizione",
+            "title": "Modulo di membro",
             "fields": {
                 "waiver": "Rilascio di risponsabilità",
                 "general_terms_and_conditions_accepted": "Condizioni generali di utilizzo",
@@ -2927,6 +2978,11 @@
                 "title": "Connessione QuickBooks",
                 "text": "Sei sicuro di voler permettere a Bsport di accedere alla tua applicazione?"
             }
+        },
+        "marketingEmail": {
+            "caption": "Le copie delle email transazionali saranno inviate a questo indirizzo se l'impostazione è abilitata",
+            "placeholder": "Email",
+            "label": "Email di follow-up"
         }
     },
     "order": {
@@ -3636,6 +3692,21 @@
             "restore": {
                 "error": "Impossibile ripristinare il modulo",
                 "success": "Forma restaurata"
+            },
+            "signupViaCustomForm": {
+                "errors": {
+                    "84104": "Il numero di telefono non è valido",
+                    "84103": "Il genere specificato non è valido",
+                    "84102": "Questa e-mail è già in uso",
+                    "84101": "I campi obbligatori non sono stati compilati"
+                },
+                "error": "Errore durante la registrazione, per favore riprova",
+                "success": "Registrazione convalidata"
+            },
+            "upsert": {
+                "errors": {
+                    "84006": "Devi definire un disclaimer in Settings > General per poter aggiungere la domanda 'Disclaimers'."
+                }
             }
         },
         "establishmentBillingGroup": {
@@ -3677,6 +3748,12 @@
             "revoke": {
                 "success": "Il tuo account Quickbooks è disconnesso",
                 "error": "Impossibile uscire dal tuo account Quickbooks"
+            }
+        },
+        "platformBilling": {
+            "payNowInvoice": {
+                "error": "Pagamento rifiutato",
+                "success": "Pagamento riuscito"
             }
         }
     },
@@ -4150,7 +4227,7 @@
                 "last_payment_method": "Impossibile di cancellare il tuo unico metodo di pagamento",
                 "pm_deleted": "Metodo di pagamento cancellato"
             },
-            "inconsistent": "Metodo di pagamento non autorizzato, si prega di riconfigurarlo. Il cliente potrebbe aver richiesto di de-autorizzare la sua carta o potresti aver unito due membri, in entrambi i casi il metodo di pagamento non è più utilizzabile"
+            "inconsistent": "Metodo di pagamento non autorizzato, per favore riconfiguralo. Il cliente potrebbe aver richiesto di de-autorizzare il suo metodo di pagamento, o potresti aver unito due membri, in entrambi i casi il metodo di pagamento non è più utilizzabile"
         },
         "paymentEngine": {
             "label": {
@@ -4927,7 +5004,8 @@
             "src_phonenumber": "Telefono dell'acquirente",
             "src_email": "Email dell'acquirente",
             "src_lastname": "Cognome dell'acquirente",
-            "src_firstname": "Nome dell'acquirente"
+            "src_firstname": "Nome dell'acquirente",
+            "price_bought": "Prezzo d'acquisto"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -5007,7 +5085,9 @@
             "on_spot_payments": "Pagamento in persona",
             "video": "Video",
             "unpaid_invoices": "Fatture non pagate",
-            "video_purchase": "Acquisto video"
+            "video_purchase": "Acquisto video",
+            "consumer_giftcard": "Carte regalo acquistate",
+            "giftcard": "Carta regalo"
         },
         "globalCategories": {
             "subheader": {
@@ -5518,6 +5598,11 @@
                 "confirm": "Confirmare"
             },
             "category": "Categorie di schede dei corsi"
+        },
+        "noCategory": {
+            "empty": "Aucune catégorie",
+            "name": "Nessuna categoria",
+            "help": "Questi pass appariranno in una categoria senza nome nel mercato"
         }
     },
     "metaActivity": {
@@ -5603,7 +5688,7 @@
             "delete": {
                 "title": "Elimina modello email",
                 "cancel": "Annulla",
-                "content": "Sei sicuro di voler eliminare questo modello di email? Questa operazione è definitiva",
+                "content": "Se questo modello è collegato a una configurazione di email transazionali, anch'esso sarà rimosso. Sei sicuro di voler cancellare questo modello di email? Questa operazione è definitiva",
                 "confirm": "Rimuovi"
             }
         },
@@ -5623,7 +5708,10 @@
             },
             "subject": "Oggetto della mail",
             "cancel": "Annulla",
-            "exportHtml": "Esporta HTML"
+            "exportHtml": "Esporta HTML",
+            "selectorPlaceholder": "Selezione dei franchisee",
+            "shareWithHelper": "Il modello non può essere modificato dagli affiliati",
+            "shareWith": "Condividi con"
         },
         "preview": "Anteprima mail",
         "editTitle": "Modifica modello",
@@ -5635,7 +5723,11 @@
         "autoSave": "Backup automatico",
         "leaveAlert": "Sei sicuro di voler lasciare questa pagina?",
         "delete": "Rimuovi",
-        "edit": "Modifica"
+        "edit": "Modifica",
+        "allCompanies": "Tutti gli affiliati",
+        "seeAll": "Vedi tutti",
+        "franchiseEmails": "Modelli di franchising",
+        "companieEmails": "I miei modelli"
     },
     "member": {
         "showNextBooking": "Vedi le prenotazioni future",
@@ -5678,7 +5770,7 @@
                     "memberOfCompany": "Dicci di più su di te.",
                     "notMemberYet": "Sembra che questa sia la prima volta che ti connetti a questo studio"
                 },
-                "welcome": "Buongiorno {{first_name}}"
+                "welcome": "Buongiorno {{firstname}}"
             },
             "title": "Informazioni sull'utente"
         },
@@ -6172,7 +6264,10 @@
                 "first": "Ha prenotato",
                 "second": "sessioni",
                 "between": "e",
-                "attendance": "con lo status"
+                "attendance": "con lo status",
+                "level": {
+                    "first": "livello"
+                }
             },
             "booking_status": {
                 "booked": "prenotato",
@@ -6368,7 +6463,10 @@
                 "payment_pack": {
                     "first": "con le carte"
                 },
-                "attendance": "con lo status"
+                "attendance": "con lo status",
+                "level": {
+                    "first": "livello "
+                }
             },
             "400": {
                 "explain": "ha una password su bsport",
@@ -6594,6 +6692,14 @@
                 "textFieldPlaceholder": "Cercare un appuntamento",
                 "helperSelectedText": "appuntamenti selezionati",
                 "helperText": "seleziona appuntamenti"
+            },
+            "level": {
+                "warning": "Seleziona almeno un livello",
+                "select": "selezionare un livello",
+                "advanced": "avanzato",
+                "intermediary": "intermedio",
+                "beginner": "debuttante",
+                "all": "tutti i livelli"
             }
         },
         "detail": {
@@ -6634,7 +6740,12 @@
             "display_tag_rules": "Mostrare le regole dei Tag",
             "cancel": "Cancellare",
             "tag_name": "Nome del Tag",
-            "activeSince": "Attivo dal {{ since }}"
+            "activeSince": "Attivo dal {{ since }}",
+            "tag": "Tag",
+            "asyncDialog": {
+                "message": "In seguito alle tue modifiche alle regole dei tag {{name}} della smartlist, dobbiamo aggiornare i tag dei tuoi membri.",
+                "title": "Aggiornamenti alle regole dei tag "
+            }
         }
     },
     "relationship": {
@@ -6752,7 +6863,9 @@
             "member_use": "utilizzi per membro",
             "limitation": "Limitato a",
             "whitelist_tags": "Disponibile solo per i membri con determinati tag",
-            "blacklist_tags": "Indisponibile per i membri con determinati tag"
+            "blacklist_tags": "Indisponibile per i membri con determinati tag",
+            "unallowedFor": "Non consentito per",
+            "allowedFor": "Autorizzato per"
         },
         "modal": {
             "delete": {
@@ -6773,9 +6886,10 @@
                 "applies_to": "Impostazioni",
                 "advanced": "Avanzato",
                 "subscription": "Iscrizione (contratto)",
-                "blacklist_tags": "Non può essere usato dai membri che hanno il tag",
-                "whitelist_tags": "Può essere usato solo dai membri che hanno il tag",
-                "tags": "Tag"
+                "blacklist_tags": "No - Permesso",
+                "whitelist_tags": "Autorizzato",
+                "tags": "Tag",
+                "tagInfo": "Usa i tag per rendere il coupon utilizzabile solo da un gruppo desiderato di membri sul marketplace, widget e app. Puoi selezionare i tag per rendere il coupon utilizzabile solo dai membri con uno dei tag scelti. Oppure puoi selezionare i tag per rendere il coupon inutilizzabile solo dai membri con uno dei tag selezionati. "
             },
             "is_active": {
                 "helperText": "Il codice non attivo non può essere utilizzato dai clienti",
@@ -6869,7 +6983,8 @@
                 "cancel": "Annullare",
                 "submit": "Confermare"
             }
-        }
+        },
+        "search": "Cerca un codice promozionale"
     },
     "tag": {
         "form": {
@@ -6892,7 +7007,14 @@
                     "submit": "Rimuovi",
                     "cancel": "Annulla"
                 },
-                "namePlaceholder": "Nome del tag"
+                "namePlaceholder": "Nome del tag",
+                "submit": "Registrare",
+                "name": "Nome dell'etichetta",
+                "color": "Colore",
+                "info": "Se selezioni un'icona, essa apparirà come un badge accanto alla foto del profilo per tutti i membri etichettati con quel tag.",
+                "selectIcon": "Seleziona un'icona",
+                "searchIcon": "Cerca un'icona (ricerca in inglese)",
+                "icon": "Icona (opzionale)"
             },
             "filter": {
                 "includeLabel": "Tipo",
@@ -7241,10 +7363,12 @@
                     "title": "Aggiungi un metodo di pagamento"
                 },
                 "actions": {
-                    "addPaymentMethod": "Aggiungi un metodo di pagamento",
+                    "addPaymentMethod": "Aggiungere un metodo di pagamento",
                     "retry": "Prova di nuovo",
                     "collect": "Salva",
-                    "close": "Chiudi"
+                    "close": "Chiudi",
+                    "displayPaymentMethod": "Visualizza i miei metodi di pagamento",
+                    "selectPaymentMethod": "Seleziona il tuo metodo di pagamento"
                 },
                 "message": {
                     "error": "Impossibile registrare questo metodo di pagamento",
@@ -7252,7 +7376,7 @@
                 }
             },
             "savePaymentMethod": {
-                "section": "Metodi di pagamento ({{count}})",
+                "section": "Selezionare un metodo di pagamento",
                 "label": "Salva il metodo di pagamento"
             }
         },
@@ -7936,7 +8060,12 @@
             "showLessText": "Vedi meno",
             "showMoreText": "Vedi altro"
         },
-        "close": "Chiudi"
+        "close": "Chiudi",
+        "selector": {
+            "validate": "Convalidare",
+            "unselectAll": "Deseleziona tutti",
+            "selectAll": "Seleziona tutti"
+        }
     },
     "titles": {
         "metaActivity": {
@@ -8234,7 +8363,18 @@
             "sectionTitle": "Eventi",
             "pleaseSelectABasket": "Seleziona un cestino per vedere la storia"
         },
-        "historyTitle": "Storia della cesta"
+        "historyTitle": "Storia della cesta",
+        "bookerMethod": {
+            "section": {
+                "combo": "Pacchetto",
+                "pass": "Carte disponibili",
+                "consumerPass": "Le mie carte"
+            },
+            "actions": {
+                "bookVod": "Sblocca il video"
+            },
+            "emptyMethod": "Nessuna scheda è compatibile con questo video, contatta il tuo studio"
+        }
     },
     "marketplace": {
         "selector": {
@@ -8626,7 +8766,15 @@
         "platformInvoice": {
             "noInvoice": "No fatture",
             "sectionTitle": "Le mie fatture",
-            "label": "Fattura {{ month }}/{{year}}"
+            "label": "Fattura {{ month }}/{{year}}",
+            "status": {
+                "failed": "Pagamento fallito",
+                "processing": "Pagamento in corso",
+                "disputed": "Pagamento contestato",
+                "succeeded": "Pagamento riuscito",
+                "missing_charge": "Nessun pagamento tentato"
+            },
+            "bill": "Regolarizzare"
         }
     },
     "marketing": {
@@ -8691,7 +8839,7 @@
         "customForm": {
             "title": "Moduli",
             "noCustomForm": "Usa i moduli per raccogliere ulteriori informazioni sui tuoi membri.",
-            "unaccessibleForm": "Questo modulo è attualmente disattivato, per tornare alla pagina del tuo profilo clicca sul pulsante qui sotto.",
+            "unaccessibleForm": "Questo modulo non è attualmente disponibile, per tornare alla pagina del tuo profilo clicca sul pulsante qui sotto.",
             "modal": {
                 "delete": {
                     "content": "Archiviando questo modulo sarà messo nei tuoi moduli archiviati e non sarà più accessibile ai tuoi membri.",
@@ -8718,7 +8866,30 @@
                 "file": "Allegare un file",
                 "link_to_note": "Creare una nota",
                 "link_to_note_helper": "Collegando la domanda a una nota, la risposta sarà automaticamente aggiunta a una nota sul modulo del membro.",
-                "signature": "Firma"
+                "signature": "Firma",
+                "isMandatoryOnSignUp": "La domanda è obbligatoria alla registrazione",
+                "waiver": "Rilascio di responsabilità",
+                "repeatPassword": "Conferma la password",
+                "general_terms_and_conditions": "Termini e condizioni d'uso",
+                "country": "Paese",
+                "city": "Città",
+                "additional_adress": "Indirizzo aggiuntivo",
+                "password": "Password",
+                "phone": "Telefono",
+                "email": "Indirizzo e-mail",
+                "vaccination_status": "Stato del passo sanitario COVID-19",
+                "accept_sms": "Accettare sms",
+                "accept_email": "Accetta l'e-mail",
+                "emergency_contact": "Contatto d'emergenza",
+                "photo": "Foto del profilo",
+                "zipcode": "Codice postale",
+                "gender": "Genere",
+                "address_line_2": "Indirizzo aggiuntivo",
+                "address_line_1": "Indirizzo",
+                "birthday": "Data di nascita",
+                "last_name": "Nome di famiglia",
+                "first_name": "Nome",
+                "sign_up_question": "Domanda sul modulo di registrazione"
             },
             "customFormField": {
                 "modal": {
@@ -8744,7 +8915,10 @@
                     },
                     "error": {
                         "choicesLength": "Devi fare almeno 2 scelte",
-                        "emptyChoice": "Le scelte non possono essere vuote"
+                        "emptyChoice": "Le scelte non possono essere vuote",
+                        "signupQuestionShouldBeSelected": " Devi selezionare una domanda dal modulo di registrazione",
+                        "tooShort": "La password deve essere lunga almeno 8 caratteri",
+                        "passwordsDontMatch": "Le due password non sono uguali"
                     }
                 }
             },
@@ -8768,7 +8942,8 @@
             "backToUserSpace": "Profilo",
             "actions": {
                 "statistics": "Statistiche",
-                "configure": "Configurare"
+                "configure": "Configurare",
+                "customization": "Personalizzazione"
             },
             "numberQuestions": "Numero di domande",
             "listActions": "Azioni",
@@ -8785,7 +8960,8 @@
             "tab": {
                 "general": "Contenuto",
                 "campaign": "Campagna",
-                "statistics": "Statistiche"
+                "statistics": "Statistiche",
+                "layout": "Personalizzazione"
             },
             "CustomFormLink": "Link al modulo",
             "label": "Etichetta",
@@ -8806,9 +8982,12 @@
                     "confirmButton": "Continuare"
                 },
                 "errors": {
-                    "requiredField": "Questo campo è obbligatorio, seleziona una risposta.",
+                    "requiredField": "Obbligatorio",
                     "requiredSignature": "Si prega di firmare il modulo.",
-                    "requiredFile": "Si prega di allegare un file"
+                    "requiredFile": "Si prega di allegare un file",
+                    "invalidEmail": "Email non valida",
+                    "passwordConfirmationError": "Le password non sono indefinite",
+                    "passwordMinimumRequirementsError": "La password deve contenere almeno 6 caratteri"
                 }
             },
             "displayRule": {
@@ -8848,14 +9027,60 @@
                 },
                 "empty": "Nessuna regola di notifica per questo modulo",
                 "addNewDisplayRule": "Aggiungere una regola",
-                "header": "Regole di notifica"
+                "header": "Regole di notifica",
+                "forbiddenForSignup": "Questo modulo non può essere associato a regole di notifica"
             },
             "disconnect": "Scollegare",
             "resetSubmit": "Modifica le mie risposte",
             "allStepsCompleted": "Hai completato tutti i passi",
             "submitLater": "Rispondi più tardi",
             "previous": "Indietro",
-            "next": "Prossimo"
+            "next": "Prossimo",
+            "clientForms": {
+                "modify": "editare",
+                "customize": "Personalizzare",
+                "modification": "Modifica",
+                "signup": "Registrazione",
+                "preview": "Il modulo di modifica è il modulo nella pagina del profilo Panoramica dei miei moduli"
+            },
+            "signUp": {
+                "helperMemberForm": "Il modulo di modifica è il modulo nella pagina del profilo dei tuoi membri. Permette loro di visualizzare e modificare le loro informazioni. Anche questo modulo è personalizzabile.",
+                "helperSignup": "Qui puoi modificare il modulo di registrazione del tuo studio. Scegli e personalizza le domande da compilare per diventare membro del tuo club.",
+                "signupFields": "Domande sui moduli"
+            },
+            "breakpoints": {
+                "lg": "Schermo ampio",
+                "md": "Schermo medio",
+                "sm": "Piccolo schermo",
+                "xs": "Mobile"
+            },
+            "signUpInfoModal": {
+                "confirm": "Continua",
+                "cancel": "Cancellare",
+                "content": "Avete appena reso obbligatorie alcune delle domande del modulo di registrazione. Le domande obbligatorie sul modulo d'iscrizione devono essere modificabili dai tuoi membri sul loro profilo. Queste domande sono state quindi aggiunte automaticamente al modulo di modifica e sono visualizzate e modificabili. Vai al modulo di modifica per personalizzarlo.",
+                "title": "Informazioni"
+            },
+            "changesAreSubmitting": "Il modulo è attualmente in fase di aggiornamento.",
+            "editable": "Cambiabile",
+            "display": "Vedi",
+            "navigateToMemberForm": "Modifica del modulo di modifica",
+            "navigateToSignup": "Modifica il modulo di registrazione",
+            "memberFormHelper": "Le domande obbligatorie nel modulo di registrazione sono visualizzate e modificabili di default. Non possono essere cancellati.",
+            "signupFormHelper": "Le domande obbligatorie sul modulo d'iscrizione devono essere modificabili dai tuoi membri sul loro profilo. Queste domande saranno aggiunte automaticamente al modulo di modifica e sono visualizzate e modificabili.",
+            "memberFormTitle": "Cambiare forma",
+            "signupFormTitle": "Modulo di registrazione",
+            "editLayoutSubtitle": "Hai modificato un modulo utilizzando un layout personalizzato, controlla qui, e modifica se necessario, l'anteprima del tuo modulo sulle diverse dimensioni dello schermo",
+            "editLayoutTitle": "Modificare il layout del modulo",
+            "layout": {
+                "layoutUpdating": "È in corso un backup",
+                "layoutUpTodate": "Nessuna registrazione in corso",
+                "saveAndExit": "Salva e chiudi",
+                "save": "Salva",
+                "redo": " Réinitialiser",
+                "reset": "Azzerare",
+                "undo": "Indietro",
+                "editLayout": "Modifica del layout"
+            }
         }
     },
     "spotScheduling": {
@@ -8964,7 +9189,8 @@
             "create": "Creare un modello",
             "franchiseEmails": "I miei modelli",
             "emptyStateDescription": "Seleziona un modello",
-            "emptyStateTitle": "Anteprima della posta"
+            "emptyStateTitle": "Anteprima della posta",
+            "searchPlaceholder": "Cerca un modello"
         }
     },
     "giftcard": {
@@ -9039,7 +9265,8 @@
             "form": {
                 "footer": "La carta sarà inviata via email il {{- data_send }} agli indirizzi indicati. Sarà valido per {{ expiration_days }} giorni dopo l'invio dell'email. L'account del destinatario sarà accreditato con {{- price }} per gli acquisti futuri.",
                 "actions": {
-                    "submit": "Aggiungi al carrello"
+                    "submit": "Aggiungi al carrello",
+                    "cancel": "Cancellare"
                 },
                 "date_send": {
                     "label": "Data di invio dell'e-mail"
@@ -9059,13 +9286,15 @@
                 "name": {
                     "label": "Nome della carta"
                 },
-                "footerUnlimited": "La carta sarà inviata via email il {{- data_send }} agli indirizzi indicati. Non contiene una data di scadenza. L'account del destinatario sarà accreditato con {{- price }} per gli acquisti futuri."
+                "footerUnlimited": "La carta sarà inviata via email il {{- data_send }} agli indirizzi indicati. Non contiene una data di scadenza. L'account del destinatario sarà accreditato con {{- price }} per gli acquisti futuri.",
+                "select_image": "Seleziona la tua immagine di sfondo"
             },
             "previewPlaceholder": {
                 "message_content": "[Messaggio personalizzato]",
                 "message_is_for": "[Nome del destinatario]",
                 "message_is_from": "[Nome dell'acquirente]",
-                "name": "[Nome della carta]"
+                "name": "[Nome della carta]",
+                "giftcard_amount": "[Importo della carta]"
             },
             "sendTo": "Rispedire l'invito",
             "notAttributedYet": "Non convalidato",
@@ -9097,7 +9326,8 @@
                 "content2": "Sarà automaticamente aggiunto come metodo di pagamento al suo carrello. Puoi trovare tutte le informazioni sulla tua carta regalo sul tuo profilo.",
                 "content1": "La tua carta regalo del valore di {{price}} è compatibile con tutti i prodotti del nostro negozio. Questa carta non ha una data di scadenza, per cui si prega di te stesso!",
                 "subtitle": "Sembra che qualcuno vi abbia fatto una sorpresa.",
-                "title": "Qualcuno voleva compiacerti!"
+                "title": "Qualcuno voleva compiacerti!",
+                "content1withDate": "La tua carta regalo {{price}} è compatibile con tutti i prodotti del nostro negozio. Questa carta scade {{ expiration_days }} giorni dopo l'attivazione, quindi fatti un regalo!"
             }
         },
         "list": {
@@ -9119,6 +9349,7 @@
             "cancel": "cancellare",
             "content": "Vuoi davvero archiviare questa carta regalo? Non sarà più fatturabile tramite il back office. Puoi riattivarlo più tardi.",
             "title": "Archiviare la carta regalo"
-        }
+        },
+        "search": "Cerca una carta regalo"
     }
 }

@@ -198,6 +198,9 @@ export const handleBridgeMessage = (eventData: any) => (dispatch: any) => {
       dispatch(getVideoPlaybackUrlActions.error(null));
       break;
 
+    case WidgetMessageType.RESPONSE_CLOSE_SUBSCRIPTION_MODAL_ON_ERROR:
+      dispatch(closeUserInteractionPortal());
+      break;
     default:
       break;
   }

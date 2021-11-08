@@ -2730,7 +2730,9 @@
                 "beginner": "beginner",
                 "intermediate": "intermediair",
                 "advanced": "geavanceerd",
-                "select": "Selecteer een niveau"
+                "select": "Selecteer een niveau",
+                "intermediary": "intermediair",
+                "all": "alle niveaus"
             }
         },
         "modal": {

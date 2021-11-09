@@ -1684,7 +1684,7 @@
             "rowPerPage": "Elements per page"
         },
         "common": {
-            "otherGender": "Other",
+            "otherGender": "Non-binary",
             "female": "Female",
             "male": "Male",
             "places": "Establishments",
@@ -4691,11 +4691,11 @@
             "placeCount": "{{count}} places",
             "delete": {
                 "content": "Are you sure you want to delete this video? This operation is irreversible.",
-                "title": "Seating plan deletion"
+                "title": "Spot selection deletion"
             },
-            "add": "Add a seating plan",
+            "add": "Add a spot selection",
             "subtitle": "Used for spot scheduling. Allows your students to reserve any location they want in the room.",
-            "title": "Seating plan"
+            "title": "Spot selection"
         },
         "localisation": "Location",
         "room": "Establishment",
@@ -10115,10 +10115,10 @@
             "pointer": "Cursor"
         },
         "placeCount": "{{count}} spot(s)",
-        "roomBlueprints": "Seating plan",
+        "roomBlueprints": "Spot selection",
         "saveError": "Error",
-        "errorLessSpotThanEffectif": "Cannot save. The seating plan must contain more space than the size of the session capacity",
-        "saved": "Seating plan saved",
+        "errorLessSpotThanEffectif": "Cannot save. The spot selection must contain more space than the size of the session capacity",
+        "saved": "Spot selection saved",
         "effectifError": "The number of places must be greater than or equal to the size of the session",
         "searchHelper": "Help: Allows your students to reserve the location they want in the room. Fields not required",
         "search": "Search a plan for Spot Scheduling",

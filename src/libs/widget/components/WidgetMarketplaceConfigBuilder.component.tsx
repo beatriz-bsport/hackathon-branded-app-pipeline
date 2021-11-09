@@ -33,11 +33,13 @@ export class WidgetMarketplaceConfigBuilder extends React.Component<Props> {
       component_type: this.props.componentType,
       config: this.props.config,
     });
+
     if (!urlParams || urlParams === '/') {
       return '';
     }
 
     url = `${Config.PUBLIC_URL}/m/${this.props.theme.company_name}/${this.props.theme.company}/${urlParams}`;
+
     return url;
   };
 

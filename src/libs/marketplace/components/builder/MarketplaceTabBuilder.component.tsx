@@ -13,7 +13,10 @@ import {
 } from '@material-ui/core';
 
 import { Coach } from '../../../associated-coach/types';
-import { Establishment } from '../../../establishment/types';
+import {
+  Establishment,
+  EstablishmentGroup,
+} from '../../../establishment/types';
 import { MetaActivity } from '../../../meta-activity/types';
 import {
   PrivateService,
@@ -46,6 +49,7 @@ type Props = {
   index: number;
   tab: any;
   paymentPackCategories: Array<PaymentPackCategory>;
+  establishmentGroupList: Array<EstablishmentGroup>;
 };
 
 const TabCreation: React.FC<Props> = (props) => {
@@ -183,6 +187,7 @@ const TabCreation: React.FC<Props> = (props) => {
               setTabConfig({ [componentType]: config[componentType] })
             }
             paymentPackCategories={props.paymentPackCategories}
+            establishmentGroupList={props.establishmentGroupList}
           />
         )}
       </DialogContent>

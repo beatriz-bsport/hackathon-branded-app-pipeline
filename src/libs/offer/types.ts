@@ -8,6 +8,7 @@ export type OfferFilter = {
   coaches?: number[];
   levels?: number[];
   metaActivities?: number[];
+  establishmentGroup?: number[];
   available?: boolean;
 };
 
@@ -16,6 +17,7 @@ export type OfferFilterData = {
   coach__in?: number[];
   level__in?: number[];
   activity__in?: number[];
+  establishment_group__in?: number[];
 };
 
 //

@@ -6,6 +6,7 @@ export type MarketplaceCommonFilter = {
   establishments?: number[];
   metaActivities?: number[];
   levels?: number[];
+  establishmentGroups?: number[];
 };
 
 export type MarketplaceCalendarData = MarketplaceCommonFilter & {

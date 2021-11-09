@@ -12,13 +12,17 @@ import {
 } from '../../types';
 
 import { Coach } from '../../../associated-coach/types';
-import { Establishment } from '../../../establishment/types';
+import {
+  Establishment,
+  EstablishmentGroup,
+} from '../../../establishment/types';
 import { MetaActivity } from '../../../meta-activity/types';
 
 interface Props {
   coaches: Array<Coach>;
   establishments: Array<Establishment>;
   metaActivities: Array<MetaActivity>;
+  establishmentGroupList: Array<EstablishmentGroup>;
   config?: MarketplaceCalendarData | MarketplaceWorkshopData;
   onChange: (
     calendarConfig: MarketplaceCalendarData | MarketplaceWorkshopData,
@@ -32,9 +36,23 @@ const MarketplaceCommonFilterForm: React.FC<Props> = (props) => {
         ...props.config,
         [key]: values.map((a: any) => a.id),
       };
+      if (key === 'establishmentGroups') {
+        config.establishments = values
+          .flatMap((eg: EstablishmentGroup) => eg.establishment)
+          .map((e: Establishment) => e.id);
+      }
+      if (key === 'establishments') {
+        config.establishmentGroups = props.establishmentGroupList
+          .filter((eg: EstablishmentGroup) =>
+            (eg.establishment || [])
+              .map((e: Establishment) => e.id)
+              .every((e_id) => values.includes(e_id)),
+          )
+          .filter((group) => group.establishment.length !== 0);
+      }
       props.onChange(config);
     },
-    [props.config],
+    [props.config, props.establishmentGroupList],
   );
 
   const classes = useStyles();
@@ -68,6 +86,33 @@ const MarketplaceCommonFilterForm: React.FC<Props> = (props) => {
           )}
         />
       </div>
+      {!!props.establishmentGroupList && (
+        <div className={classes.marginTop}>
+          <Autocomplete
+            multiple
+            options={[...props.establishmentGroupList]}
+            getOptionLabel={(option) => option.name}
+            value={[
+              ...props.establishmentGroupList.filter(
+                (l) =>
+                  props.config.establishmentGroups &&
+                  props.config.establishmentGroups.includes(l.id),
+              ),
+            ]}
+            onChange={(e, newValue) => {
+              setData('establishmentGroups', newValue);
+            }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="standard"
+                label={t('establishment:localisation')}
+                placeholder={t('establishment:localisation')}
+              />
+            )}
+          />
+        </div>
+      )}
       <div className={classes.marginTop}>
         <Autocomplete
           multiple

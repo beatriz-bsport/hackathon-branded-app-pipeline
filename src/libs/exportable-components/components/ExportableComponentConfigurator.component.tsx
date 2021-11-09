@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Coach } from '../../associated-coach/types';
-import { Establishment } from '../../establishment/types';
+import { Establishment, EstablishmentGroup } from '../../establishment/types';
 import { MetaActivity } from '../../meta-activity/types';
 import {
   PrivateService,
@@ -25,6 +25,7 @@ type Props = {
   onChange: (config: any) => void;
   errors: { [componentType: string]: string } | null;
   paymentPackCategories: Array<PaymentPackCategory>;
+  establishmentGroupList: Array<EstablishmentGroup>;
 };
 
 export const ExportableComponentConfigurator = (props: Props) => {
@@ -50,10 +51,11 @@ export const ExportableComponentConfigurator = (props: Props) => {
       privateServices={props.privateServices}
       serviceGroupList={props.serviceGroupList}
       errors={errors}
-      onChange={(config) =>
+      onChange={(config: any) =>
         props.onChange({ ...props.config, [props.componentType]: config })
       }
       paymentPackCategories={props.paymentPackCategories}
+      establishmentGroupList={props.establishmentGroupList}
     />
   );
 };

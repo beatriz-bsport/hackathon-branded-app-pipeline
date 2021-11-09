@@ -9,12 +9,13 @@ import { EXPORTABLE_COMPONENT_TYPE_PLAYLIST } from '../../exportable-components/
 
 import { MetaActivity } from '../../meta-activity/types';
 import { Coach } from '../../associated-coach/types';
-import { Video, Playlist } from '../../video/types';
+import { Video } from '../../video/types';
+import { Playlist } from '../../playlist/types';
 import {
   PrivateService,
   PrivateServiceGroup,
 } from '../../private-service/types';
-import { Establishment } from '../../establishment/types';
+import { Establishment, EstablishmentGroup } from '../../establishment/types';
 import {
   getDefaultConfigByIdentifier,
   checkExportableComponentConfig,
@@ -40,6 +41,7 @@ type Props = {
   playlists: Array<Playlist>;
   hideTypeSelector?: boolean;
   paymentPackCategories?: Array<PaymentPackCategory>;
+  establishmentGroupList: Array<EstablishmentGroup>;
 };
 
 export const WidgetComponentConfigBuilder = (props: Props) => {
@@ -100,6 +102,7 @@ export const WidgetComponentConfigBuilder = (props: Props) => {
         onChange={onConfigChange}
         errors={props.config?.error}
         paymentPackCategories={props.paymentPackCategories}
+        establishmentGroupList={props.establishmentGroupList}
       />
     </div>
   );

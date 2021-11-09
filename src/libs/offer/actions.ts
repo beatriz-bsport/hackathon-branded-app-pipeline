@@ -342,6 +342,12 @@ export function fetchMarketplaceOfferList(
         if (filters.levels && filters.levels.length > 0) {
           filterData.level__in = filters.levels;
         }
+        if (
+          filters.establishmentGroups &&
+          filters.establishmentGroups.length > 0
+        ) {
+          filterData.establishment_group__in = filters.establishmentGroups;
+        }
       }
       // eslint-disable-next-line
       delete params.filters;
@@ -551,6 +557,12 @@ export function fetchBookedGender(params: any, options: OptionCallback) {
       const filterData = {};
       const { filters } = params;
       if (filters) {
+        if (
+          filters.establishmentGroups &&
+          filters.establishmentGroups.length > 0
+        ) {
+          filterData.establishment_group__in = filters.establishmentGroups;
+        }
         if (filters.establishments && filters.establishments.length > 0) {
           filterData.establishment__in = filters.establishments;
         }

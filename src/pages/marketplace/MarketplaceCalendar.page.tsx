@@ -59,6 +59,10 @@ import Analytics from '../../components/analytics/Analytics.component';
 import { RootState } from '../../reducers';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { OfferFilterData } from '../../libs/offer/types';
+import {
+  Establishment,
+  EstablishmentGroup,
+} from '../../libs/establishment/types';
 
 type OwnProps = {
   companyId: number;
@@ -77,6 +81,7 @@ type OwnProps = {
     establishments: number[];
     activity__in: number[];
     levels: number[];
+    establishment_group__in: number[];
   };
   setOtherParams: (key: string) => (value: any) => void;
   setFilters: (key: string) => (value: any) => void;
@@ -146,6 +151,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       ...this.props.filters,
       ...optionalParams,
     });
+
     this.props.fetchAllEstablishmentGroup(this.props.companyId);
   };
 
@@ -209,7 +215,29 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       establishments,
       coaches,
       startWeekThisWeekday,
+      establishmentGroupList,
+      loading,
+      metaActivities,
+      compactMode,
     } = this.props;
+
+    let filteredEstablishments: Array<Establishment> = [...establishments];
+    if (filters.establishment_group__in?.length) {
+      const filteredEstablishmentIds: Array<number> = establishmentGroupList
+        .filter((eg: EstablishmentGroup) =>
+          filters.establishment_group__in.includes(eg.id),
+        )
+        .flatMap((eg: EstablishmentGroup) => eg.establishment)
+        .map((e: Establishment) => e.id);
+
+      const uniqueEstIds = filters.establishments?.length
+        ? [...new Set(filteredEstablishmentIds.concat(filters.establishments))]
+        : filteredEstablishmentIds;
+
+      filteredEstablishments = [...establishments].filter((e: Establishment) =>
+        uniqueEstIds.includes(e.id),
+      );
+    }
 
     return (
       <div className={classes.container}>
@@ -230,8 +258,8 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           showOfferGender={this.props.theme.show_booked_gender_offer}
           setFilters={this.props.setFilters}
           filters={filters}
-          loading={this.props.loading}
-          offersLoading={this.props.loading}
+          loading={loading}
+          offersLoading={loading}
           onClickOffer={this.openOfferDialog}
           onClickBook={this.goToBook}
           onClickBookOption={this.props.goToBookOption}
@@ -240,14 +268,14 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
             this.props.otherParams.date || moment().format('YYYY-MM-DD')
           }
           coaches={coaches}
-          establishments={establishments}
-          metaActivities={this.props.metaActivities}
+          establishments={filteredEstablishments}
+          metaActivities={metaActivities}
           filtersOpen={this.props.otherParams.filtersOpen === 'true'}
           forceDayDisplayOnly={this.props.otherParams.onlyDay === 'true'}
           toogleFiltersOpen={this.toogleFiltersOpen}
-          compactMode={this.props.compactMode}
+          compactMode={compactMode}
           startWeekThisWeekday={startWeekThisWeekday}
-          establishmentGroupList={this.props.establishmentGroupList}
+          establishmentGroupList={establishmentGroupList}
           showMultiLocalization={this.props.theme.enable_multi_localization}
         />
       </div>
@@ -390,11 +418,29 @@ export default compose(
   withRouter,
   connect(null, { replace: replaceRouter }),
   withReplaceQueryParams(
-    ['f_coaches', 'f_metaActivities', 'f_levels', 'f_establishments'],
-    ['coaches', 'activity__in', 'levels', 'establishments'],
+    [
+      'f_coaches',
+      'f_metaActivities',
+      'f_levels',
+      'f_establishments',
+      'f_establishmentGroups',
+    ],
+    [
+      'coaches',
+      'activity__in',
+      'levels',
+      'establishments',
+      'establishment_group__in',
+    ],
   ),
   withQueryParams([
-    ['coaches', 'establishments', 'activity__in', 'levels'],
+    [
+      'coaches',
+      'establishments',
+      'activity__in',
+      'levels',
+      'establishment_group__in',
+    ],
     'filters',
     'setFilters',
     'arrayNumber',

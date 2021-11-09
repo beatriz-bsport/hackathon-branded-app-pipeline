@@ -12,7 +12,10 @@ import { useTranslation } from 'react-i18next';
 import { MarketplaceCalendarData } from '../../../marketplace/types';
 
 import { Coach } from '../../../associated-coach/types';
-import { Establishment } from '../../../establishment/types';
+import {
+  Establishment,
+  EstablishmentGroup,
+} from '../../../establishment/types';
 import { MetaActivity } from '../../../meta-activity/types';
 import CommonSettings from './CommonSettings.form';
 
@@ -23,6 +26,7 @@ interface Props {
   config?: MarketplaceCalendarData;
   onChange: (calendarConfig: MarketplaceCalendarData) => void;
   showCompactMode?: boolean;
+  establishmentGroupList: Array<EstablishmentGroup>;
 }
 
 const COMPACT_MODE_TYPE = {
@@ -94,6 +98,7 @@ const MarketplaceCalendarSettingsForm: React.FC<Props> = (props) => {
 
       <CommonSettings
         coaches={props.coaches}
+        establishmentGroupList={props.establishmentGroupList}
         establishments={props.establishments}
         metaActivities={props.metaActivities}
         config={props.config}

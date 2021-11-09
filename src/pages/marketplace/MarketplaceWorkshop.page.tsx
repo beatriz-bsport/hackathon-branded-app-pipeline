@@ -57,6 +57,7 @@ type OwnProps = {
     establishments: number[];
     activity__in: number[];
     levels: number[];
+    establishment_group__in: number[];
   };
   setFilters: (key: string) => (value: any) => void;
   onCompletePurchase?: (packId: number, offerId: number) => void;
@@ -315,11 +316,29 @@ export default compose(
   withRouter,
   connect(null, { replace: replaceRouter }),
   withReplaceQueryParams(
-    ['f_coaches', 'f_metaActivities', 'f_levels', 'f_establishments'],
-    ['coaches', 'activity__in', 'levels', 'establishments'],
+    [
+      'f_coaches',
+      'f_metaActivities',
+      'f_levels',
+      'f_establishments',
+      'f_establishmentGroups',
+    ],
+    [
+      'coaches',
+      'activity__in',
+      'levels',
+      'establishments',
+      'establishment_group__in',
+    ],
   ),
   withQueryParams([
-    ['coaches', 'establishments', 'activity__in', 'levels'],
+    [
+      'coaches',
+      'establishments',
+      'activity__in',
+      'levels',
+      'establishment_group__in',
+    ],
     'filters',
     'setFilters',
     'arrayNumber',

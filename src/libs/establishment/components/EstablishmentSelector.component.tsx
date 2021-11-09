@@ -87,7 +87,7 @@ const getGroupedEstablishmentOptions = (
     }
     return 1;
   });
-  const establishmentGourpByAddress = establishments.reduce(
+  const establishmentGroupByAddress = establishments.reduce(
     (accumulator, establishmentItem) => {
       const temp = accumulator.findIndex(
         (group) =>
@@ -111,7 +111,7 @@ const getGroupedEstablishmentOptions = (
     },
     [],
   );
-  return establishmentGourpByAddress;
+  return establishmentGroupByAddress;
 };
 
 const getEstablishmentList = (establishments: Array<Establishment>) => {

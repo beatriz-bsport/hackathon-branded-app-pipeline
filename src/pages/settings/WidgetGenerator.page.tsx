@@ -16,17 +16,25 @@ import {
   fetchPrivateServiceGroupList,
 } from '../../libs/private-service/actions';
 import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
-import { fetchEstablishments } from '../../libs/establishment/actions';
+import {
+  fetchEstablishments,
+  fetchAllEstablishmentGroup,
+} from '../../libs/establishment/actions';
 import { fetchAllActivities } from '../../libs/meta-activity/actions';
 import { fetchPlaylistList } from '../../libs/playlist/actions';
 import { fetchAllPaymentPackCategory } from '../../libs/payment-packs/actions';
+
 import {
   getAvailablePrivateServices,
   getPrivateServiceGroupList,
 } from '../../libs/private-service/selectors/private-service';
 import { getAllPaymentPackCategory } from '../../libs/payment-packs/selectors';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
-import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
+import {
+  getAvailableEstablishmentList,
+  getAssociatedEstablishmentGroup,
+  withEstablishment as groupWithEstablishment,
+} from '../../libs/establishment/selectors';
 import {
   getEnabledWorkshops,
   getPageEnabledMetaActivities,
@@ -114,6 +122,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
     this.props.fetchPlaylistList({ mine: true });
     this.props.fetchVideoList({ mine: true });
     this.props.fetchPrivateServiceGroupList({ mine: true });
+    this.props.fetchAllEstablishmentGroup();
   }
 
   onComponentTypeChange = ({
@@ -235,6 +244,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
               config={this.state.config}
               onConfigChange={this.onConfigChange}
               paymentPackCategories={this.props.paymentPackCategories}
+              establishmentGroupList={this.props.establishmentGroupList}
             />
           </fieldset>
           <WidgetMarketplaceConfigBuilder
@@ -312,6 +322,9 @@ const mapStateToProps = (state: RootState) => ({
   serviceGroupList: getPrivateServiceGroupList(state),
   themeLoading: state.theme.loading,
   paymentPackCategories: getAllPaymentPackCategory(state),
+  establishmentGroupList: groupWithEstablishment(
+    getAssociatedEstablishmentGroup,
+  )(state),
 });
 
 const mapDispatchToProps = {
@@ -323,6 +336,7 @@ const mapDispatchToProps = {
   fetchVideoList,
   fetchPrivateServiceGroupList,
   fetchAllPaymentPackCategory,
+  fetchAllEstablishmentGroup,
   snackbarInfo,
 };
 

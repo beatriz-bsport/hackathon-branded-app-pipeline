@@ -23,6 +23,7 @@ type Props = {
     establishments: number[];
     levels: number[];
     activity__in: number[];
+    establishment_group__in: number[];
   };
   setFilters: (key: string) => (value: any) => void;
   variant: 'activity' | 'workshop';
@@ -46,15 +47,7 @@ class MarketplaceFilterComponent extends React.PureComponent<Props> {
       filters,
       establishmentGroupList,
     } = this.props;
-    const selectedEstablishmentGroups = establishmentGroupList
-      ? establishmentGroupList
-          .filter((group) =>
-            (group.establishment || [])
-              .map((est) => est.id)
-              .every((est_id) => filters?.establishments?.includes(est_id)),
-          )
-          .filter((group) => group.establishment.length !== 0)
-      : [];
+
     return (
       <Grid container>
         <Grid item xs={12} md={12} className={classes.selector}>
@@ -67,14 +60,10 @@ class MarketplaceFilterComponent extends React.PureComponent<Props> {
                   (group) => group.establishment.length !== 0,
                 )}
                 selectOption={(ev: SelectOptions) => {
-                  setFilters('establishments')(
-                    ev.reduce((acc, est_group) => {
-                      return [...acc, ...est_group.establishments];
-                    }, []),
-                  );
+                  setFilters('establishment_group__in')(ev.map((e) => e.value));
                 }}
                 closeMenuOnSelect
-                selectedEstablishmentGroups={selectedEstablishmentGroups}
+                selectedEstablishmentGroups={filters.establishment_group__in}
               />
             )}
         </Grid>

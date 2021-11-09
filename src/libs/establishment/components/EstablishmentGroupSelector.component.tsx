@@ -15,8 +15,8 @@ const getEstablishmentGroupOptions = (
       label: group.name,
       value: group.id,
       establishments: group.establishment
-        .filter((est) => !!est)
-        .map((est) => est.id),
+        ? group.establishment.filter((est) => !!est).map((est) => est.id)
+        : [],
     };
   });
 };
@@ -78,14 +78,14 @@ const establishmentGroupStyles = {
 };
 
 type OwnProps = {
-  establishmentGroups: EstablishmentGroup[];
+  establishmentGroups: Array<EstablishmentGroup>;
   selectOption: (Suggestion: {
     label: string;
     value: number | string;
     establishmentList?: Array<Establishment>;
   }) => void;
   selectMultipleOptions: (itemsValueList: Array<number>) => void;
-  selectedEstablishmentGroups: Array<EstablishmentGroup> | null;
+  selectedEstablishmentGroups: Array<number> | null;
   disabled?: boolean;
   noMulti: boolean;
   closeMenuOnSelect: boolean;
@@ -111,9 +111,15 @@ export function EstablishmentGroupSelector(props: Props) {
     isLoading,
     onChange,
   } = props;
-  const roomsSelected = nullCurrentValue
-    ? null
-    : getEstablishmentGroupOptions([...selectedEstablishmentGroups]);
+  const roomsSelected =
+    !nullCurrentValue && selectedEstablishmentGroups
+      ? getEstablishmentGroupOptions([
+          ...establishmentGroups.filter((eg) =>
+            selectedEstablishmentGroups.includes(eg.id),
+          ),
+        ])
+      : null;
+
   return (
     <Select
       closeMenuOnSelect={!!closeMenuOnSelect}

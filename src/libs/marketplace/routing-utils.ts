@@ -66,6 +66,11 @@ export const fromConfigToUrl = (
     conf.coaches &&
       conf.coaches.length &&
       Object.assign(query, { coaches: conf.coaches.join(',') });
+    conf.establishmentGroups &&
+      conf.establishmentGroups.length &&
+      Object.assign(query, {
+        establishment_group__in: conf.establishmentGroups.join(','),
+      });
     conf.establishments &&
       conf.establishments.length &&
       Object.assign(query, {
@@ -90,6 +95,11 @@ export const fromConfigToUrl = (
       conf.coaches &&
         conf.coaches.length &&
         Object.assign(query, { coaches: conf.coaches.join(',') });
+      conf.establishmentGroups &&
+        conf.establishmentGroups.length &&
+        Object.assign(query, {
+          establishment_group__in: conf.establishmentGroups.join(','),
+        });
       conf.establishments &&
         conf.establishments.length &&
         Object.assign(query, {

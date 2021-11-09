@@ -17,8 +17,15 @@ import {
 } from '../../libs/private-service/selectors/private-service';
 import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
-import { fetchEstablishments } from '../../libs/establishment/actions';
-import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
+import {
+  fetchEstablishments,
+  fetchAllEstablishmentGroup,
+} from '../../libs/establishment/actions';
+import {
+  getAvailableEstablishmentList,
+  getAssociatedEstablishmentGroup,
+  withEstablishment as groupWithEstablishment,
+} from '../../libs/establishment/selectors';
 import { fetchAllActivities } from '../../libs/meta-activity/actions';
 import { fetchAllPaymentPackCategory } from '../../libs/payment-packs/actions';
 import {
@@ -66,6 +73,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
     props.fetchPlaylistList({ mine: true });
     props.fetchPrivateServiceGroupList({ mine: true });
     props.fetchAllPaymentPackCategory();
+    props.fetchAllEstablishmentGroup();
   }, []);
 
   useEffect(() => {
@@ -175,6 +183,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
           index={currentTab !== null ? currentTab : config.length}
           tab={currentTab !== null ? config[currentTab] : defaultTab}
           paymentPackCategories={props.paymentPackCategories}
+          establishmentGroupList={props.establishmentGroupList}
         />
       )}
 
@@ -251,6 +260,9 @@ const mapStateToProps = (state: RootState) => ({
   serviceGroupList: getPrivateServiceGroupList(state),
   theme: state.theme.theme,
   paymentPackCategories: getAllPaymentPackCategory(state),
+  establishmentGroupList: groupWithEstablishment(
+    getAssociatedEstablishmentGroup,
+  )(state),
 });
 
 const mapDispatchToProps = {
@@ -264,6 +276,7 @@ const mapDispatchToProps = {
   fetchVideoList,
   fetchPrivateServiceGroupList,
   fetchAllPaymentPackCategory,
+  fetchAllEstablishmentGroup,
 };
 
 export default connect(

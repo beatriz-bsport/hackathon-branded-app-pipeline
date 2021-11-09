@@ -893,7 +893,7 @@
                 "register": {
                     "forceNotify": "Send a confirmation email",
                     "passCompatibleNotOwnedByMember": "Bill a new pass",
-                    "passOwnedByMember": "Passes owned by the member",
+                    "passOwnedByMember": "Owned passes",
                     "registerToOffer": "Book",
                     "doNotConsumeCredit": "Don't charge the member credits for this booking"
                 }
@@ -1643,7 +1643,7 @@
         },
         "offer": {
             "manageOffer": "Manage bookings",
-            "myOpenedInvoices": "Quick invoicing",
+            "myOpenedInvoices": "Quick Billing",
             "noQuickInvoiceOpened": "Start by creating an invoice and by adding products.",
             "reCreateBooking": "Book in again",
             "createBookingOption": "Waiting list",
@@ -1661,7 +1661,7 @@
             "nextOffer": "Upcoming session",
             "previousOffer": "Previous session",
             "backToCalendar": "Calendar",
-            "noConsumerPackAvailableForPurchase": "This member owns no compatible passes as of yet!",
+            "noConsumerPackAvailableForPurchase": "This member doesn't own any compatible pass for this booking.",
             "noncompatibleConsumerPaymentPacksAre": "You own the following passes which are incompatible with his session:",
             "noPackAvailableForOfferPurchase": "There is no compatible pass with this session!",
             "offersPendingDelete": "Sessions that will be deleted:",
@@ -5963,7 +5963,7 @@
                 "success": "Teacher deleted",
                 "error": "Impossible to delete this teacher",
                 "content": {
-                    "cannotDelete": "You can not delete this teacher because sessions are planned in the future !",
+                    "cannotDelete": "This teacher is booked in for upcoming sessions and can therefore not be deleted!",
                     "canDelete": "Are you sure you want to delete this teacher ? You will not have access to his previous performance. You will still be able to add him again with his email."
                 },
                 "title": "Teacher deletion",
@@ -7648,7 +7648,7 @@
             "recurrent": {
                 "backToRegistererChoice": "Back",
                 "bookMultiple": "Book",
-                "title": "Future sessions"
+                "title": "Upcoming sessions"
             },
             "isLoading": "Looking for sessions...",
             "book": {

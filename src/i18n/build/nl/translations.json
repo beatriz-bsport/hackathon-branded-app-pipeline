@@ -211,10 +211,10 @@
             },
             "PrivateBooking": {
                 "tags": {
-                    "establishment_practical_info": "Toegangsinformatie (optioneel)",
+                    "establishment_practical_info": "(Optioneel) Toegangsinformatie",
                     "address": "Adres",
                     "date": "Uur/Datum",
-                    "coach": "Instructeur (optioneel)",
+                    "coach": "(Optioneel) Instructeur",
                     "activity": "Activiteit",
                     "establishment": "Vestiging"
                 },
@@ -840,7 +840,7 @@
                 "emailExistsInDB1": "Je gebruikt dit e-mailadres al bij een andere studio dat BSPORT gebruikt. Je kunt dezelfde inloggegevens blijven gebruiken.",
                 "typePhone": "Mobiel*",
                 "error": {
-                    "passwordConfirm": "De wachtwoorden komen niet overeen.",
+                    "passwordConfirm": "Deze wachtwoorden komen niet overeen",
                     "password": "Je wachtwoord moet minimaal 6 tekens bevatten."
                 },
                 "fields": {
@@ -873,7 +873,7 @@
             "member": {
                 "referenceNumberHelper": "(Optioneel) Een lid krijgt automatisch een lidmaatschapsnummer toegewezen als dit veld leeg is.",
                 "referenceNumber": "Lidmaatschapsnummer",
-                "barcodeHelper": "(Optioneel) Je kunt deze streepjescode als toegangsbewijs gebruiken.",
+                "barcodeHelper": "(Optioneel) Gebruik deze streepjescode als toegangsbewijs.",
                 "barcode": "Streepjescode",
                 "birthdayYear": "Geboortejaar",
                 "rgpdTitle": "Geaccepteerde marketingcommunicatiekanalen:",
@@ -887,7 +887,7 @@
                     "error": "Fout bij het opslaan van de notitie"
                 },
                 "rgpd": {
-                    "sms": "Accepteer sms-meldingen",
+                    "sms": "Ik ontvang graag relevante sms'jes.",
                     "email": "Ik ontvang graag relevante e-mails."
                 },
                 "errors": {
@@ -896,7 +896,7 @@
                     "accept_sms": "Het is een vereiste dat sms-meldingen geaccepteerd zijn"
                 },
                 "waiver": {
-                    "conditions": " de Waiver / Vrijstelling",
+                    "conditions": " de Waiver / Vrijstelling.",
                     "iAccept": "Ik accepteer ",
                     "dialog": {
                         "confirm": "Accepteer",
@@ -963,7 +963,7 @@
                 }
             },
             "login": {
-                "passwordMismatch": "Wachtwoorden komen niet overeen",
+                "passwordMismatch": "Deze wachtwoorden komen niet overeen",
                 "passwordChangedSuccess": "Wachtwoord succesvol gewijzigd!",
                 "passwordTooEasy": "Je wachtwoord moet uit tenminste 6 tekens en tenminste 1 cijfer en 1 letter bestaan",
                 "confirmPassword": "Bevestigen",
@@ -1670,7 +1670,7 @@
                     "label": "Land"
                 },
                 "password2": {
-                    "error": "Wachtwoorden komen niet overeen",
+                    "error": "Deze wachtwoorden komen niet overeen",
                     "label": "Bevestiging"
                 },
                 "password1": {
@@ -2044,9 +2044,9 @@
         "showMore": "Zie meer",
         "unevenInvoice": {
             "title": "Openstaande facturen",
-            "priceDue": "Openstaand bedrag: {{price_due }}.",
+            "priceDue": "Openstaand bedrag: {{price_due }}",
             "explainUneven": "Factuur \"<1> nr. {{uuid, uuid}} </1>\" staat nog open.",
-            "pricePayed": "Betaald: {{price_payed}}."
+            "pricePayed": "Betaald: {{price_payed}}"
         },
         "newOrder": {
             "price": "Bedrag: {{ price }}.",
@@ -2156,7 +2156,7 @@
                 "creditType": "Resterende kredieten",
                 "daysType": "Resterende geldigheid",
                 "mailSelection": "Kies een e-mail",
-                "smartListSelection": "Smartlist(s) selecteren (optioneel)",
+                "smartListSelection": "(Optioneel) Smartlist(s) selecteren",
                 "showMail": "E-mail tonen",
                 "settingTitle": "Instellingen",
                 "hideMail": "E-mail verbergen",
@@ -2339,7 +2339,7 @@
                 "only_vod_access": "Alleen voor Video On Demand",
                 "category": {
                     "helperText": "Naam van de categorie",
-                    "label": "Categorie (optioneel)"
+                    "label": "(Optioneel) Categorie"
                 },
                 "error": {
                     "start_date_method_type": "Geef het begin van de geldigheid van de kaart aan."
@@ -2473,7 +2473,7 @@
         "maxNBookingsByMonth2": " reservering(en) per maand",
         "blockedCpp": "Deze leskaart is van {{-blocked_from}} tot en met {{-blocked_until}} geblokkeerd",
         "penalty": {
-            "block": "Bij {{nb_cancellations}} te late annuleringen binnen {{nb_days}} dagen, wordt deze leskaart voor {{days_blocked}} dagen geblokkeerd.",
+            "block": "Bij {{nb_cancellations}} te late annuleringen binnen {{nb_days}} dagen, wordt deze leskaart voor {{days_blocked}} dag(en) geblokkeerd.",
             "account": "Bij {{nb_cancellations}} te late annuleringen binnen {{nb_days}} dag(en), wordt een sanctie t.w.v. {{account_value}} in de lokale munt gefactureerd.",
             "title": "Annuleringsbeleid"
         },
@@ -2771,7 +2771,7 @@
             }
         },
         "mail": {
-            "sendMailTitle": "Send a message",
+            "sendMailTitle": "Een bericht versturen",
             "sendMail": "Een bericht versturen",
             "send": "Verzenden",
             "noMailAvailable": "Er zijn nog geen e-mailsjablonen aangemaakt en beschikbaar.",
@@ -3251,9 +3251,9 @@
                 },
                 "steps": {
                     "activity_form": "Activiteit toevoegen",
-                    "pass_form": "Een leskaart toevoegen (optioneel)",
+                    "pass_form": "(Optioneel) Een leskaart toevoegen",
                     "pass_list": "Afronden",
-                    "offer_form": "Sessies toevoegen (optioneel)",
+                    "offer_form": "(Optioneel) Sessies toevoegen",
                     "workshop_form": "Workshop toevoegen"
                 }
             }
@@ -3729,13 +3729,13 @@
                     "cancellation": "zijn/haar annulering van de reservering n° {{notify_booking_nb}}",
                     "attendance": "als een lid {{notify_booking_nb}} keer heeft gereserveerd.",
                     "booking": "zijn/haar reservering n° {{notify_booking_nb}}",
-                    "text": "Deze melding wordt automatisch verstuurd",
+                    "text": "Deze melding wordt automatisch verstuurd wanneer een lid",
                     "notRefunded": "{{notify_booking_nb}} keer te laat heeft geannuleerd.",
                     "refunded": "aantal terugbetaalde annuleringen {{notify_booking_nb}}",
                     "absence": "{{notify_booking_nb}} keer heeft geannuleerd.",
                     "allEvents": {
                         "notRefunded": "Leden ontvangen deze melding iedere keer zij te laat annuleren.",
-                        "refunded": "Weetje: deze melding wordt bij elke terugbetaalde annulering verstuurd.",
+                        "refunded": "Deze melding wordt bij elke terugbetaalde annulering verstuurd.",
                         "absence": "Weetje: deze melding wordt verstuurd elke keer een lid afwezig is.",
                         "attendance": "Deze melding wordt automatisch iedere keer verstuurd wanneer een lid aanwezig."
                     }
@@ -3748,7 +3748,7 @@
                 "chooseKindTitle": "Gebeurtenis die de melding activeert",
                 "chooseTime": {
                     "second_after": "uur na het einde van de sessie.",
-                    "second_before": "uur voor het begin van de sessie.",
+                    "second_before": "uur/uren voor het begin van de sessie.",
                     "first": "Verstuur deze melding"
                 },
                 "sendAfterMail": "Stuur deze melding nadat de sessie afgelopen is",
@@ -3758,8 +3758,8 @@
                 "typeTitle": "Evenement",
                 "title": "[Formulier] Melding",
                 "chooseKind": {
-                    "notRefunded": "Te late annulering",
-                    "refunded": "Terugbetaalde annulering",
+                    "notRefunded": "Te late annuleringen",
+                    "refunded": "Terugbetaalde annuleringen",
                     "absence": "Afwezigheid",
                     "attendance": "Aanwezigheid",
                     "title": "Activiteit"
@@ -3775,7 +3775,7 @@
                 "bookingNumber": "Alle reserveringen",
                 "bookingNumber_plural": "1e reservering",
                 "ifKind": {
-                    "notRefunded": "Te late annulering",
+                    "notRefunded": "Te late annuleringen",
                     "refunded": "Tijdige annulering",
                     "absence": "Afwezigheid",
                     "attendance": "Aanwezigheid"
@@ -5678,10 +5678,10 @@
             "listItemPrimary": {
                 "notifyAllEvents": {
                     "cancelledNotRefunded": "Bij elke te late annulering",
-                    "cancelledRefunded": "Bij elke terugbetaalde annulering",
+                    "cancelledRefunded": "Voor iedere terugbetaalde annulering",
                     "valid": "Bij elke afspraak"
                 },
-                "cancelledRefunded": "Aantal terugbetaalde annuleringen {{notify_booking_nb}}",
+                "cancelledRefunded": "Aantal terugbetaalde annuleringen: {{notify_booking_nb}}",
                 "cancelledNotRefunded": "Aantal te late annuleringen: {{notify_booking_nb}}",
                 "valid": "Afspraaknummer {{notify_booking_nb}}",
                 "after": "Stuur deze melding {{hours}}u na het einde van de afspraak",
@@ -6046,7 +6046,7 @@
                 }
             }
         },
-        "search": "Zoek een payroll-regel (optioneel)",
+        "search": "(Optioneel) Een payroll-regel toevoegen",
         "simulate": "Simuleer"
     },
     "payment": {
@@ -6054,8 +6054,8 @@
             "theTermsAndConditions": "algemene servicevoorwaarden.",
             "iAccept": "Ik aanvaard de ",
             "close": "Sluiten",
-            "generalTermsOfUse": " algemene servicevoorwaarden",
-            "waiver": "Waiver en de Vrijstelling"
+            "generalTermsOfUse": " algemene servicevoorwaarden.",
+            "waiver": "Waiver / Vrijstelling"
         },
         "paymentMethod": {
             "2": "Cheque",
@@ -6136,7 +6136,7 @@
             "current": "Lopende rekening"
         },
         "paymentNote": {
-            "helperText": "Betalingskenmerk (optioneel)",
+            "helperText": "(Optioneel) Betalingskenmerk",
             "label": "Notitie"
         },
         "bankAccount": {
@@ -7516,7 +7516,7 @@
                 "info": "Geselecteerde iconen worden als een badge naast de profielfoto's van getagde leden vertoond.",
                 "selectIcon": "Selecteer een icoon",
                 "searchIcon": "Zoek een icoon",
-                "icon": "Icoon (optioneel)"
+                "icon": "(Optioneel) Icoon"
             },
             "filter": {
                 "title": "Filters",
@@ -7555,11 +7555,11 @@
                 "createViaCoupon": "Open promoties"
             },
             "memberDetail": {
-                "addTag": "Voeg sub-tag toe",
-                "addTagToAll": "Voeg deze sub-tag aan alle leden toe.",
+                "addTag": "Sub-tag toevoegen",
+                "addTagToAll": "Deze sub-tag aan alle leden toevoegen",
                 "memberWithoutTag": "Niet-getagde leden",
-                "removeTag": "Verwijder sub-tag",
-                "removeTagFromAll": "Verwijder deze sub-tag van alle leden",
+                "removeTag": "Sub-tag verwijderen",
+                "removeTagFromAll": "Deze sub-tag van alle leden verwijderen",
                 "memberWithTag": "Getagde leden"
             },
             "tagKind": {
@@ -7771,7 +7771,7 @@
             "broadcast": "Livestreamen"
         },
         "analytics": {
-            "eventDesc": "Beschrijving van de activiteiten",
+            "eventDesc": "Evenementen",
             "cancel": "Annuleer",
             "addPrivatePassToCart": "Wanneer een gebruiker een afspraakkaart aan zijn/haar winkelmandje toevoegt",
             "gtmEvent": "[Google Tag Management] Evenementen",
@@ -7785,7 +7785,7 @@
             "contractPaymentSuccess": "Wanneer een gebruiker een abonnement heeft gekocht",
             "contractShow": "Wanneer een gebruiker op een abonnement klikt",
             "contractPaymentShow": "Wanneer een gebruiker zich op de betaalpagina van een abonnement bevindt",
-            "showAnalyticsInformation": "Toon evenementen",
+            "showAnalyticsInformation": "Toon retargeting evenementen",
             "addPassToCart": "Wanneer een gebruiker een leskaart aan zijn/haar winkelmandje toevoegt",
             "paymentSuccess": "Wanneer een gebruiker een succesvolle betaling verricht",
             "signinShow": "Wanneer een gebruiker de inlogpagina opent",
@@ -7985,7 +7985,7 @@
                     },
                     "disable_pass_on_fail_subscription_payment": {
                         "label": "Deactiveer abonnementen als de betaling mislukt",
-                        "helperText": "Het systeem zal de les- en/of afspraakkaarten van de factuur in kwestie deactiveren als de betaling mislukt of wordt gedisputeerd."
+                        "helperText": "Het systeem zal automatisch de kaarten van abonnementen voor mislukte/gedisputeerde betalingen blokkeren tot de betaling is voltooid."
                     }
                 },
                 "title": "Abonnement"
@@ -8107,7 +8107,7 @@
                 "pay": "Betaal factuur",
                 "basketInconsistent": "Uw winkelmandje is gewijzigd, ververs uw pagina voordat u uw betaling valideert.\nEr zijn verder geen kosten in rekening gebracht.",
                 "billByInstalment": "Termijnbetaling",
-                "paymentLink": "Link voor betaling",
+                "paymentLink": "Betaallink",
                 "generatePaymentLink": "Een betaallink genereren"
             },
             "sumup": {
@@ -8125,7 +8125,7 @@
                 "label": "Incassodatum"
             },
             "paymentNote": {
-                "helperText": "Betalingskenmerk (optioneel)",
+                "helperText": "(Optioneel) Betalingskenmerk",
                 "label": "Notitie"
             },
             "amount": {
@@ -8615,7 +8615,7 @@
                 "marketplaceSettings": "MarketPlace",
                 "widget": "Widgets",
                 "paymentMethod": "Betaalmethoden",
-                "forms": "Ledenformulier",
+                "forms": "Inschrijfformulier",
                 "quickbooks": "QuickBooks"
             },
             "pass": "Leskaarten",
@@ -8937,7 +8937,7 @@
                     "requiredSignature": "Dit formulier vereist een handtekening.",
                     "requiredField": "Dit veld is verplicht.",
                     "requiredFile": "Een bestand toevoegen",
-                    "passwordConfirmationError": "Deze wachtwoorden komen niet met elkaar overeen",
+                    "passwordConfirmationError": "Deze wachtwoorden komen niet overeen",
                     "invalidEmail": "Ongeldig e-mailadres",
                     "passwordMinimumRequirementsError": "Je wachtwoord moet minimaal 6 tekens bevatten."
                 },
@@ -9038,9 +9038,9 @@
                 "forbiddenForSignup": "Dit formulier kan niet aan een melding worden gekoppeld"
             },
             "disconnect": "Loskoppelen van",
-            "resetSubmit": "Bewerk mijn antwoorden",
-            "allStepsCompleted": "U heeft alle stappen voltooid",
-            "submitLater": "Antwoord later",
+            "resetSubmit": "Mijn antwoorden bewerken",
+            "allStepsCompleted": "Je hebt alle formulieren voltooid.",
+            "submitLater": "Later beantwoorden",
             "previous": "Terug",
             "next": "Volgende",
             "signUp": {
@@ -9195,7 +9195,7 @@
             "companiesEmails": "E-mailsjablonen van franchisenemers",
             "create": "Een sjabloon toevoegen",
             "franchiseEmails": "Mijn sjablonen",
-            "emptyStateDescription": "Selecteer een sjabloon",
+            "emptyStateDescription": "Selecteer een e-mail om de voorvertoning te zien.",
             "emptyStateTitle": "Voorvertoning",
             "searchPlaceholder": "Zoek een sjabloon"
         }

@@ -862,7 +862,7 @@
                 "marketingRule": "Marketing strategies",
                 "establishmentFormPage": "[Form] Establishment",
                 "establishmentList": "Establishments",
-                "memberFormPage": "[Form] Member",
+                "memberFormPage": "[Form] Enrolment",
                 "member": "Member",
                 "members": "Members",
                 "paymentPackList": "Passes",
@@ -1477,7 +1477,7 @@
                     "accept_sms": "I agree to be notified by SMS with relevant information (e.g. cancellations, schedule updates, new workshops, etc.).",
                     "accept_email": "I agree to be notified by email with relevant information (e.g. cancellations, schedule updates, new workshops, etc.).",
                     "waiver": "I accept the Liability Waiver.",
-                    "general_terms_and_conditions_accepted": "I accept the Terms & Conditions.",
+                    "general_terms_and_conditions_accepted": "I accept the General Terms & Conditions.",
                     "emergency_contact": "Emergency contact",
                     "city": "City",
                     "birthday": "Date of birth",
@@ -1487,7 +1487,7 @@
                     "address_line_2": "Additional address information",
                     "address_line_1": "Address",
                     "gender": "Sex",
-                    "passwordConfirm": "Password confirmation",
+                    "passwordConfirm": "Confirm password",
                     "password": "Password",
                     "email": "E-mail address",
                     "last_name": "Last name",
@@ -4053,7 +4053,7 @@
         },
         "analytics": {
             "showAnalyticsInformation": "Show retargeting events",
-            "eventDesc": "Event description",
+            "eventDesc": "Events",
             "gtmEvent": "[Google Tag Management] Event",
             "fbPixelEvent": "[Facebook Pixel] Event",
             "cancel": "Cancel",
@@ -4084,7 +4084,7 @@
             "field_identifier": "Fields",
             "account_modification": "Editing an account",
             "account_creation": "Creating an account",
-            "title": "[Form] Member",
+            "title": "[Form] Enrolment",
             "fields": {
                 "waiver": "Liability Waiver",
                 "general_terms_and_conditions_accepted": "General Terms & Conditions",
@@ -4270,10 +4270,10 @@
             },
             "memberDetail": {
                 "addTag": "Tag",
-                "addTagToAll": "Add Sub Tag to all members",
+                "addTagToAll": "Add this Sub Tag to all members",
                 "memberWithoutTag": "Untagged members",
                 "removeTag": "Untag",
-                "removeTagFromAll": "Remove this Sub Tag from all members",
+                "removeTagFromAll": "Remove this Sub Tag from all tagged members",
                 "memberWithTag": "Tagged members"
             },
             "tagKind": {
@@ -5371,7 +5371,7 @@
                     "retry": "Try again",
                     "collect": "Save",
                     "close": "Close",
-                    "displayPaymentMethod": "View my payment methods",
+                    "displayPaymentMethod": "Display my payment methods",
                     "selectPaymentMethod": "Select your payment method"
                 },
                 "collect": {
@@ -5545,18 +5545,18 @@
                     "revert_bookings_on_fail_subscription_payment": {
                         "label": "Cancel all bookings if payment fails",
                         "warning": "Attention: previously cancelled bookings resulting from a failed payment won't be recreated after another payment was successful!",
-                        "helperText": "If the subscription payment fails or is declared disputed, bookings made with these passes will be cancelled (and the credit re-credited)"
+                        "helperText": "The system will automatically refund the credits and cancel associated bookings for blocked passes for subscriptions whose payments have failed or have been disputed."
                     },
                     "disable_pass_on_fail_subscription_payment": {
                         "label": "Block passes if payment fails",
-                        "helperText": "If the subscription payment fails or is disputed, all passes related included in this invoice will be blocked until the total amount is paid."
+                        "helperText": "The system will automatically block passes from subscriptions whose payments have failed or have been disputed until the outstanding amount has been paid."
                     },
                     "nbRetriesSubscriptionPayments": {
                         "helperText": "Between 0 and 5 attempts",
                         "label": "Number of attempts after a failed payment"
                     },
                     "activateSmartRetries": {
-                        "label": "Enable Smart Retries on failed payments",
+                        "label": "Enable Smart Retries for failed payments",
                         "helperText": "The system will automatically retry failed payments at the best time."
                     }
                 },
@@ -6065,7 +6065,7 @@
             },
             "listItem": {
                 "nextBillingDate": "Upcoming billing date: {{ d }}",
-                "startingAt": "Starting on the {{ d }}",
+                "startingAt": "Start date: {{ d }}",
                 "recurrencePriceIs": "Recurring payment: {{currencyDisplay}}{{amount }}"
             }
         },
@@ -7248,10 +7248,10 @@
                 },
                 "steps": {
                     "activity_form": "Activity creation",
-                    "pass_form": "(Optional) Pass creation",
+                    "pass_form": "(Optional) Add a pass",
                     "pass_list": "Finalization",
-                    "offer_form": "(Optional) Session creation",
-                    "workshop_form": "Workshop creation"
+                    "offer_form": "(Optional) Add sessions",
+                    "workshop_form": "Add a workshop"
                 }
             },
             "delete": {
@@ -7604,8 +7604,8 @@
             "cancel": "Close",
             "createMember": "Add a member"
         },
-        "memberTermsAccepted": " were accepted on {{- date}}",
-        "termsAndConditions": "General Terms & Conditions.",
+        "memberTermsAccepted": " were accepted on {{- date}}.",
+        "termsAndConditions": "The General Terms & Conditions",
         "applyBalanceToUnpaidInvoices": "Use the member's account balance to regularize unpaid invoices",
         "adjustBalance": "Adjust balance",
         "unpaidInvoiceTitle": "Unpaid invoice",
@@ -7798,7 +7798,7 @@
             },
             "form": {
                 "delayWeek": {
-                    "helperText": "Indicate how many weeks in advance the member will be registered",
+                    "helperText": "Indicate how many weeks in advance the member will be enrolled",
                     "label": "Number of weeks"
                 },
                 "metaActivity": {
@@ -8224,8 +8224,8 @@
             "statTitle": "Statistics"
         },
         "mail": {
-            "sendMail": "Send email",
-            "sendMailTitle": "Send notification",
+            "sendMail": "Send a message",
+            "sendMailTitle": "Send a message",
             "cancel": "Cancel",
             "send": "Send",
             "noMailAvailable": "There are no email templates available to display.",
@@ -8866,7 +8866,7 @@
             },
             "createOrUpdate": {
                 "error": "Error while saving",
-                "success": "Information saved"
+                "success": "Your modification has been successfully saved"
             }
         },
         "establishment": {
@@ -9427,7 +9427,7 @@
                 "marketplaceSettings": "MarketPlace",
                 "widget": "Widgets",
                 "paymentMethod": "Payment methods",
-                "forms": "Sign up form",
+                "forms": "Enrolment form",
                 "quickbooks": "QuickBooks"
             },
             "pass": "Passes",
@@ -9584,7 +9584,7 @@
             "delete": {
                 "cancel": "Cancel",
                 "confirm": "Confirm",
-                "content": "Are you sure you want to remove this video? This operation is irreversible.",
+                "content": "Are you sure you want to remove this video? This action can't be undone.",
                 "title": "Deletion"
             },
             "status": {
@@ -9859,8 +9859,8 @@
                 "tag_group": "Main Tag",
                 "tag_name": "Sub Tag",
                 "isMandatoryOnSignUp": "This field is mandatory upon sign up",
-                "accept_sms": "I'd like to receive relevant communication by SMS.",
-                "accept_email": "I'd like to receive relevant communication by email.",
+                "accept_sms": "I'd like to receive relevant communication by SMS",
+                "accept_email": "I'd like to receive relevant communication by email",
                 "waiver": "Liability waiver",
                 "repeatPassword": "Confirm the password",
                 "general_terms_and_conditions": "General Terms of Use",
@@ -9885,7 +9885,7 @@
             },
             "title": "Forms",
             "CustomFormLink": "Link to form",
-            "linkHelper": "Copy and paste the above link in your message to send to your members.",
+            "linkHelper": "Send the following link directly to your members:",
             "search": "Search a form",
             "name": "Name",
             "content": "Content",
@@ -10035,7 +10035,7 @@
             },
             "disconnect": "Disconnect",
             "resetSubmit": "Edit my answers",
-            "allStepsCompleted": "You have completed all the steps",
+            "allStepsCompleted": "You've completed all forms.",
             "submitLater": "Answer later",
             "previous": "Back",
             "next": "Next",

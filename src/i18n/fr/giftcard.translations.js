@@ -43,7 +43,7 @@ exports.default = {
         "Le mail d'invitation a été envoyé et ne peut plus être modifié, si celui-ci n'est pas arrivé au bon destinataire vous pouvez transmettre ce lien d'activation pour offrir la carte cadeau : ",
       title: "Envoyer un email d'invitation",
       content:
-        "Vous pouvez modifier les destinataires de la carte cadeau. Attention, un seul pourra l'utiliser. Si l'email n'a pas été reçu vous pouvez aussi transmetter ce lien d'activation :",
+        "Vous pouvez modifier les destinataires de la carte cadeau. Attention, un seul pourra l'utiliser. Si l'email n'a pas été reçu vous pouvez aussi transmettre ce lien d'activation :",
       actions: {
         close: 'Fermer',
         submit: 'Envoyer',
@@ -100,6 +100,7 @@ exports.default = {
   },
   link: {
     copyLink: "Copier le lien d'achat",
+    activationLink: "Copier le lien d'activation",
   },
   giftcard: {
     configurationTitle: 'Carte cadeau',

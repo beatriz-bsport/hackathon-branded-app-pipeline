@@ -112,7 +112,7 @@ export const ConsumerGiftcardPage = (props: Props) => {
                 consumerGiftcard={cgc}
                 giftcard={cgc.giftcard}
                 divider
-                selected={cgc.id === props.selectedConsumerGiftcardId}
+                selected={cgc.id === consumerGiftcardToInvite}
               />
             )}
           />
@@ -162,6 +162,7 @@ export const ConsumerGiftcardPage = (props: Props) => {
           consumerGiftcard={consumerGiftcardToInvite}
           companyId={props.companyTheme.company}
           onClose={() => selectConsumerGiftcardToInvite(null)}
+          snackbarSuccess={props.snackbarSuccess}
         />
       )}
     </Grid>

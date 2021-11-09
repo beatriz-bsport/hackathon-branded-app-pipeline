@@ -11,13 +11,16 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import { push } from 'connected-react-router';
 import { BUYABLE_ITEM_GIFTCARD } from '@bsport/common/lib/master-data/buyable-items';
+import themeSelectors from '../../libs/theme/selectors';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
   fetchGiftcardBulk as fetchGiftcardBulkAction,
   fetchConsumerGiftcardReceivedList as fetchConsumerGiftcardReceivedListAction,
   fetchConsumerGiftcardSentList as fetchConsumerGiftcardSentListAction,
   retrieveConsumerGiftcard,
+  sendEmailInvitation,
 } from '../../libs/giftcard/actions';
+import { OptionCallback } from '../../state/types';
 
 import ConsumerGiftcardListItem from '../../libs/giftcard/components/ConsumerGiftcardListItem.component';
 import { fetchByInvoiceItem as fetchInvoiceByInvoiceItemAction } from '../../libs/invoice/actions';
@@ -43,6 +46,7 @@ import { fetchMemberBulkById as fetchMemberBulkAction } from '../../libs/member/
 
 import { RootState } from '../../reducers';
 import { Invoice } from '../../libs/invoice/types';
+import ConsumerGiftcardInvitationModal from '../../libs/giftcard/components/ConsumerGiftcardInvitationModal.components';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -74,7 +78,14 @@ type Props = OwnProps &
 
 const PAGE_SIZE = 15;
 
-export class MemberDetailGiftcard extends Component<Props> {
+type State = {
+  consumerGiftcardToInvite: ConsumerGiftcard;
+};
+export class MemberDetailGiftcard extends Component<Props, State> {
+  state = {
+    consumerGiftcardToInvite: null,
+  };
+
   componentDidMount() {
     this.fetchData();
   }
@@ -115,6 +126,23 @@ export class MemberDetailGiftcard extends Component<Props> {
     memberId: number,
   ) => {
     this.props.goToMemberGiftcard(consumerGiftcardId, memberId);
+  };
+
+  sendInvitations = (data: any, options: OptionCallback) => {
+    this.props.sendEmailInvitation(
+      this.state.consumerGiftcardToInvite.id,
+      data,
+      {
+        onSuccess: (...args) => {
+          this.props.retrieveConsumerGiftcard(
+            this.state.consumerGiftcardToInvite.id,
+          );
+          this.setState({ consumerGiftcardToInvite: null });
+          if (options?.onSuccess) options.onSuccess(...args);
+        },
+        onError: options?.onError,
+      },
+    );
   };
 
   render() {
@@ -166,10 +194,24 @@ export class MemberDetailGiftcard extends Component<Props> {
                   memberSender={cgc.src_member}
                   onClickSender={this.goToMemberGiftcard}
                   onClickReceiver={cgc.dst_member && this.goToMemberGiftcard}
+                  onClickSendInvitation={
+                    cgc.date_activated
+                      ? null
+                      : () => this.setState({ consumerGiftcardToInvite: cgc })
+                  }
                 />
               )}
             />
           </Paper>
+          {!!this.state.consumerGiftcardToInvite && (
+            <ConsumerGiftcardInvitationModal
+              onSubmit={this.sendInvitations}
+              consumerGiftcard={this.state.consumerGiftcardToInvite}
+              companyId={this.props.companyTheme.company}
+              onClose={() => this.setState({ consumerGiftcardToInvite: null })}
+              snackbarSuccess={this.props.snackbarSuccess}
+            />
+          )}
           <Typography variant="h5">
             {t('consumerGiftcard.list.myGifted')}
           </Typography>
@@ -261,6 +303,7 @@ const connector = connect(
       state,
       selectedConsumerGiftcardId,
     ),
+    companyTheme: themeSelectors.getTheme(state),
   }),
   {
     fetchGiftcardBulk: fetchGiftcardBulkAction,
@@ -274,6 +317,7 @@ const connector = connect(
     fetchInvoiceByInvoiceItem: fetchInvoiceByInvoiceItemAction,
     retrieveConsumerGiftcard,
     goToGiftcard: (giftcardId: number) => push(`/giftcard/${giftcardId}`),
+    sendEmailInvitation,
   },
 );
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
@@ -6,6 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
+import LinkIcon from '@material-ui/icons/Link';
 import Typography from '@material-ui/core/Typography';
 import { OptionCallback } from '../../../state/types';
 
@@ -20,6 +22,8 @@ type Props = {
   ) => void;
   onClose: () => void;
   consumerGiftcard: ConsumerGiftcard;
+  snackbarSuccess: (msg: string) => void;
+  companyId: number;
 };
 
 const ConsumerGiftcardInvitationModal = (props: Props) => {
@@ -52,12 +56,24 @@ const ConsumerGiftcardInvitationModal = (props: Props) => {
               : 'consumerGiftcard.invitationForm.content',
           )}
         </Typography>
-        <Typography className={classes.activationLink}>
-          {makeActivationLink(
+        <CopyToClipboard
+          text={makeActivationLink(
             props.companyId,
             props.consumerGiftcard.activation_code,
           )}
-        </Typography>
+        >
+          <Button
+            className={classes.link}
+            onClick={() =>
+              props.snackbarSuccess && props.snackbarSuccess('link.copied')
+            }
+          >
+            <LinkIcon />
+            <Typography className={classes.linkTypo}>
+              {t('link.activationLink')}
+            </Typography>
+          </Button>
+        </CopyToClipboard>
         <EmailInputWithChips
           disabled={hasBeenSent || processing}
           emailList={recipient}
@@ -97,10 +113,21 @@ const useStyles = makeStyles((theme: Theme) => ({
   description: {
     marginBottom: theme.spacing(2),
   },
-  activationLink: {
+  link: {
     padding: theme.spacing(1),
-    marginBottom: theme.spacing(2),
-    marginTop: theme.spacing(2),
+    paddingLeft: theme.spacing(2),
+    '&:hover': {
+      backgroundColor: '#EFEFEF',
+      borderRadius: 5,
+    },
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderRadius: 5,
+    borderColor: '#696969',
+  },
+  linkTypo: {
+    paddingLeft: theme.spacing(1),
+    marginRight: theme.spacing(1.5),
   },
 }));
 

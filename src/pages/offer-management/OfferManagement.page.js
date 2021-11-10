@@ -79,6 +79,7 @@ import {
   fetchMemberBulk as fetchMemberBulkAction,
   refreshFilteredMembers as refreshFilteredMembersAction,
   createOrUpdateMember,
+  fetchMember as fetchMemberAction,
   search as searchMembersAction,
 } from '../../libs/member/actions';
 import {
@@ -222,6 +223,7 @@ export default compose(
       confirmBookingAttendance: confirmBookingAttendanceAction,
 
       // member
+      fetchMember: fetchMemberAction,
       createMember: createOrUpdateMember,
       refreshFilteredMembers: refreshFilteredMembersAction,
       fetchFilteredMembers: fetchFilteredMembersAction,

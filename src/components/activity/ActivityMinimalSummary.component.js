@@ -25,7 +25,7 @@ const styles = () => ({
 type Props = {
   activity: ActivitySimplified,
   additionalInfo: ?string,
-  additionalInfoTypoProps: *,
+  additionalInfoTypoProps: any,
   additionalInfoSecondary: string,
   date: string,
   showCoach: ?boolean,
@@ -51,15 +51,8 @@ export function ActivityMinimalSummary(props: Props) {
     t,
     classes,
   } = props;
-  const {
-    name,
-    id,
-    parent_category,
-    level,
-    etablissement,
-    next_slot,
-    coach,
-  } = activity;
+  const { name, id, parent_category, level, etablissement, next_slot, coach } =
+    activity;
 
   const nextSlotFormatted = next_slot
     ? formatAsDatetime(next_slot)

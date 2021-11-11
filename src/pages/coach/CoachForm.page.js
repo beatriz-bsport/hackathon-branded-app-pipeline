@@ -30,9 +30,9 @@ import withTitle from '../../hocs/with-title.hoc';
 import { browserCountryCode } from '../../i18n';
 
 type Props = {
-  initial: *,
-  onSubmit: (*) => void,
-  onCancel: (*) => void,
+  initial: any,
+  onSubmit: () => void,
+  onCancel: () => void,
 
   coachId: ?number,
   initialEmail: ?string,

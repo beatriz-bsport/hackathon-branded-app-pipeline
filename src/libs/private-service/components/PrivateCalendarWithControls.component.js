@@ -349,7 +349,9 @@ export default compose(
       expanded: false,
     },
     {
-      toogleExand: ({ expanded }) => () => ({ expanded: !expanded }),
+      toogleExand:
+        ({ expanded }) =>
+        () => ({ expanded: !expanded }),
       closePrivateBooker: () => () => ({
         privateBookerOpen: false,
         privateBookingRequestedSlot: null,
@@ -358,24 +360,20 @@ export default compose(
         privateBookerOpen: true,
         privateBookingRequestedSlot,
       }),
-      setPrivateCalendarDateStart: () => (data: {
-        date_start: string,
-        date_end: string,
-      }) => {
-        return { privateCalendarDateStart: data.date_start };
-      },
+      setPrivateCalendarDateStart:
+        () => (data: { date_start: string, date_end: string }) => {
+          return { privateCalendarDateStart: data.date_start };
+        },
     },
   ),
   withStateHandlers(
     { resourceItemsFilter: [], resourceDatatypeFilter: null },
     {
-      setResourceFilter: () => (
-        resourceDatatypeFilter,
-        resourceItemsFilter,
-      ) => ({
-        resourceDatatypeFilter,
-        resourceItemsFilter,
-      }),
+      setResourceFilter:
+        () => (resourceDatatypeFilter, resourceItemsFilter) => ({
+          resourceDatatypeFilter,
+          resourceItemsFilter,
+        }),
     },
   ),
   withStateHandlers(
@@ -386,18 +384,26 @@ export default compose(
       hideCancelledEvents: showHideCancelledEventsToggle ? true : undefined,
     }),
     {
-      toogleShowOfferList: ({ showOfferList }) => () => ({
-        showOfferList: !showOfferList,
-      }),
-      toogleShowPrivateBookings: ({ showPrivateBookings }) => () => ({
-        showPrivateBookings: !showPrivateBookings,
-      }),
-      toogleShowCustomEvents: ({ showCustomEvents }) => () => ({
-        showCustomEvents: !showCustomEvents,
-      }),
-      toogleHideCancelledEvents: ({ hideCancelledEvents }) => () => ({
-        hideCancelledEvents: !hideCancelledEvents,
-      }),
+      toogleShowOfferList:
+        ({ showOfferList }) =>
+        () => ({
+          showOfferList: !showOfferList,
+        }),
+      toogleShowPrivateBookings:
+        ({ showPrivateBookings }) =>
+        () => ({
+          showPrivateBookings: !showPrivateBookings,
+        }),
+      toogleShowCustomEvents:
+        ({ showCustomEvents }) =>
+        () => ({
+          showCustomEvents: !showCustomEvents,
+        }),
+      toogleHideCancelledEvents:
+        ({ hideCancelledEvents }) =>
+        () => ({
+          hideCancelledEvents: !hideCancelledEvents,
+        }),
     },
   ),
   withStateHandlers(

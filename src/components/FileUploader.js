@@ -12,9 +12,9 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 
 type Props = {
-  classes: *,
+  classes: any,
   t: TFunction,
-  onChange: (ImageFile[]) => void,
+  onChange: (image: ImageFile[]) => void,
   onAddFile: (File) => void,
   name: string,
   file: File,

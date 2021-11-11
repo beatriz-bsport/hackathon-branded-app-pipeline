@@ -25,7 +25,7 @@ const styles = (theme) => ({
 type Props = {
   classes: Object,
   shopItems: Array<ShopItem>,
-  onChange: (?number) => void,
+  onChange: (item: ?number) => void,
   helperText: string,
   value: ?number,
   label: ?string,

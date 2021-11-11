@@ -61,13 +61,8 @@ type Props = {
 export class OfferCard extends Component<Props> {
   getHeader = () => {
     const { classes, t, offer } = this.props;
-    const {
-      available,
-      name,
-      parent_category,
-      credit_price_override,
-      level,
-    } = offer;
+    const { available, name, parent_category, credit_price_override, level } =
+      offer;
 
     return (
       <div className={classes.header}>
@@ -96,12 +91,8 @@ export class OfferCard extends Component<Props> {
 
   getStatsBody = () => {
     const { classes, t } = this.props;
-    const {
-      nb_bookings,
-      nb_option,
-      waiting_list_max_size,
-      effectif,
-    } = this.props.offer;
+    const { nb_bookings, nb_option, waiting_list_max_size, effectif } =
+      this.props.offer;
     return (
       <div className={classes.statContainer}>
         <div className={classNames(classes.rightBorder, classes.stat)}>

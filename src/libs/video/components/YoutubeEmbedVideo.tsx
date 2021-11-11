@@ -10,7 +10,6 @@ const YoutubeEmbedVideo: React.FC<Props> = (props) => {
   const classes = useStyles();
   const video = getVideoId(props.url);
 
-  /* eslint-disable */
   return (
     <div className={classes.container}>
       <div className={classes.iframeWrapper}>
@@ -23,13 +22,11 @@ const YoutubeEmbedVideo: React.FC<Props> = (props) => {
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
-        ></iframe>
+        />
       </div>
     </div>
   );
 };
-
-/* eslint-enable */
 
 const useStyles = makeStyles(() => ({
   container: {

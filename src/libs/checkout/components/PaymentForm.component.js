@@ -75,7 +75,7 @@ const PayButton = withStyles(styles)(
 
 const ChosenPaymentModule = (props: {
   paymentMethod: number,
-  submitPayment: (*) => void,
+  submitPayment: () => void,
   loading: boolean,
   processing: boolean,
   termsAndConditions: any,

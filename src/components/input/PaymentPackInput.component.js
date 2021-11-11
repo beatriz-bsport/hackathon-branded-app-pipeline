@@ -25,7 +25,7 @@ const styles = (theme) => ({
 type Props = {
   classes: Object,
   paymentPacks: Array<PaymentPack>,
-  onChange: (?number) => void,
+  onChange: (pp: ?number) => void,
   helperText: string,
   value: ?number,
   label: ?string,

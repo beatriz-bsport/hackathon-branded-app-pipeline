@@ -216,20 +216,19 @@ const mapDispatchToProps = {
   fetchCompanyTheme,
 };
 const mapWithHandlers = {
-  submitCustomForm: (props: OwnAndConnectedProps) => (
-    form_filled: FormData,
-    options?: OptionCallback,
-  ) => {
-    props.submitCustomFormAction(form_filled, props.companyId, {
-      onSuccess: () => {
-        if (options && options.onSuccess) options.onSuccess();
-        props.setSubmitSuccess(true);
-      },
-      onError: () => {
-        if (options && options.onError) options.onError();
-      },
-    });
-  },
+  submitCustomForm:
+    (props: OwnAndConnectedProps) =>
+    (form_filled: FormData, options?: OptionCallback) => {
+      props.submitCustomFormAction(form_filled, props.companyId, {
+        onSuccess: () => {
+          if (options && options.onSuccess) options.onSuccess();
+          props.setSubmitSuccess(true);
+        },
+        onError: () => {
+          if (options && options.onError) options.onError();
+        },
+      });
+    },
 };
 const withStateHandlersInit: StateHandlerInit = {
   submitSuccess: false,

@@ -17,8 +17,8 @@ import {
 } from './actions';
 import { MetaActivity, MetaActivityState } from './types';
 
-const initialState: Immutable.Immutable<MetaActivityState> = Immutable<MetaActivityState>(
-  {
+const initialState: Immutable.Immutable<MetaActivityState> =
+  Immutable<MetaActivityState>({
     byId: {},
     allIds: [],
     loading: false,
@@ -37,8 +37,7 @@ const initialState: Immutable.Immutable<MetaActivityState> = Immutable<MetaActiv
       loading: false,
       error: null,
     },
-  },
-);
+  });
 
 export default handleActions<Immutable.Immutable<MetaActivityState>, any>(
   {

@@ -44,7 +44,7 @@ const styles = (theme) => ({
 type Props = {
   t: TFunction,
   loading: ?boolean,
-  data: *,
+  data: any,
   classes: Object,
   renderRow: (Object, () => void, boolean) => Object,
   columnData: Object,

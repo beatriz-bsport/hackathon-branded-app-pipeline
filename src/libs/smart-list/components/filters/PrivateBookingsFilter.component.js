@@ -41,18 +41,14 @@ type Props = {
   private_passes: Array<PrivatePass>,
   private_services: Array<PrivateService>,
   coaches: Array<any>,
-  setNotNullableData: (Array<string>) => void,
+  setNotNullableData: (data: Array<string>) => void,
   renderSelectorWarning: (string, boolean) => void,
 };
 
 export class PrivateBookingsFilter extends Component<Props, state> {
   componentDidMount() {
-    const {
-      establishments,
-      private_passes,
-      coaches,
-      private_services,
-    } = this.props.filter_data;
+    const { establishments, private_passes, coaches, private_services } =
+      this.props.filter_data;
     if (coaches && coaches.length === 1) {
       this.props.fetchBulkItems.coaches(coaches);
     }
@@ -171,7 +167,8 @@ export class PrivateBookingsFilter extends Component<Props, state> {
             checked={filter_data.establishment_filter_active}
             onChange={() =>
               onChange({
-                establishment_filter_active: !filter_data.establishment_filter_active,
+                establishment_filter_active:
+                  !filter_data.establishment_filter_active,
               })
             }
             value="checkedA"
@@ -312,7 +309,8 @@ export class PrivateBookingsFilter extends Component<Props, state> {
             checked={filter_data.private_pass_filter_active}
             onChange={() =>
               onChange({
-                private_pass_filter_active: !filter_data.private_pass_filter_active,
+                private_pass_filter_active:
+                  !filter_data.private_pass_filter_active,
               })
             }
             value="checkedA"
@@ -385,7 +383,8 @@ export class PrivateBookingsFilter extends Component<Props, state> {
             checked={filter_data.private_service_filter_active}
             onChange={() =>
               onChange({
-                private_service_filter_active: !filter_data.private_service_filter_active,
+                private_service_filter_active:
+                  !filter_data.private_service_filter_active,
               })
             }
             value="checkedA"

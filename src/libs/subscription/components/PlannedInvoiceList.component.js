@@ -40,7 +40,7 @@ type Props = {
   plannedInvoiceList: Array<PlannedInvoice>,
   itemPerPage: number,
   page: number,
-  fetchPlannedInvoicePage: (*) => void,
+  fetchPlannedInvoicePage: () => void,
   onClick: (billingPlanId: number) => void,
 };
 

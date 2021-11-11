@@ -137,9 +137,7 @@ export default abstract class CanvasAbstractTool<D> {
    */
   hideNativeCursor?: boolean;
 
-  getBoundaries?: (
-    element: CanvasElement<D>,
-  ) => {
+  getBoundaries?: (element: CanvasElement<D>) => {
     minX: number;
     minY: number;
     maxX: number;

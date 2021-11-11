@@ -23,7 +23,7 @@ type Props = {
   t: TFunction,
   classes: Object,
   establishments: Array<Establishment>,
-  onChange: (?number) => void,
+  onChange: (establishment: ?number) => void,
   value: ?number,
   noBlank: ?boolean,
   label: ?string,

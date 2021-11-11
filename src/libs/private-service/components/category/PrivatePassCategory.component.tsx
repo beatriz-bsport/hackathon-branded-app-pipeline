@@ -30,10 +30,8 @@ type Props = {
 export const PrivatePassCategory = (props: Props) => {
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
 
-  const [
-    frontendOrderingOverride,
-    setFrontendOrderingOverride,
-  ] = React.useState({});
+  const [frontendOrderingOverride, setFrontendOrderingOverride] =
+    React.useState({});
 
   const handleDragEnd = (event) => {
     const { active, over } = event;

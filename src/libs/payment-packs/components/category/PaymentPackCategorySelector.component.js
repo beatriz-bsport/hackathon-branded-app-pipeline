@@ -201,8 +201,7 @@ const packPackcategoryStyles = {
   menuPortal: (base) => ({ ...base, zIndex: 9999 }),
   option: (styles, { isDisabled, isFocused, isSelected }) => {
     const color = chroma(colors.secondary);
-    /* eslint-disable */;
-    return {
+    /* eslint-disable */ return {
       ...styles,
       backgroundColor: isDisabled
         ? null
@@ -351,7 +350,7 @@ const styles = (theme) => ({
     height: theme.spacing(2),
   },
 });
-export default compose<any, OwnProps>(
+export default compose(
   withStyles(styles, { withTheme: true }),
   withTranslation(['paymentPack']),
 )(PaymentPackCategorySelector);

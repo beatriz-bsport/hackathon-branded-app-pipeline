@@ -61,9 +61,8 @@ type Props = { t: TFunction, classes: * } & CoachPaymentRule & {
 export function CoachPaymentRuleFields(props: Props) {
   const { t, classes, setFieldValue } = props;
   const [anchorEl, setAnchorEl] = useState(null);
-  const [bonusCreationApplicability, setBonusCreationApplicability] = useState(
-    null,
-  );
+  const [bonusCreationApplicability, setBonusCreationApplicability] =
+    useState(null);
   const handlePopover = (event, applicability) => {
     if (
       anchorEl === null ||
@@ -84,9 +83,8 @@ export function CoachPaymentRuleFields(props: Props) {
   };
 
   const [openLimitSection, setOpenLimitSection] = React.useState(false);
-  const [openExcludePaymentPack, setOpenExcludePaymentPack] = React.useState(
-    false,
-  );
+  const [openExcludePaymentPack, setOpenExcludePaymentPack] =
+    React.useState(false);
   const toogleLimitSection = () => setOpenLimitSection(!openLimitSection);
   const toogleExcludePaymentPack = () =>
     setOpenExcludePaymentPack(!openExcludePaymentPack);

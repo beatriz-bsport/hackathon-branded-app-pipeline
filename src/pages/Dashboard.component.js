@@ -90,11 +90,8 @@ const CURRENT_TAB_INDEX = 0;
 
 export class Dashboard extends Component<Props> {
   componentDidMount() {
-    const {
-      fetchDashboardSettings,
-      fetchStatistics,
-      dashboardTab,
-    } = this.props;
+    const { fetchDashboardSettings, fetchStatistics, dashboardTab } =
+      this.props;
     fetchDashboardSettings({
       onSuccess: () => {
         if (dashboardTab && dashboardTab.graphs) {
@@ -158,9 +155,8 @@ export class Dashboard extends Component<Props> {
                 graphRessources[graph.ressourceIdentifier].chartComponents[
                   graph.chart
                 ] || (() => null);
-              const { timeSettings } = graphRessources[
-                graph.ressourceIdentifier
-              ];
+              const { timeSettings } =
+                graphRessources[graph.ressourceIdentifier];
               return (
                 <Grid item xs={12} lg={6} key={graph.name}>
                   <DashboardChart
@@ -306,24 +302,22 @@ export default compose(
         return { dateRangeByIdentifier, chartFilterByIdentifier };
       },
       {
-        setChartFilters: ({ chartFilterByIdentifier }) => (
-          identifier,
-          filters,
-        ) => ({
-          chartFilterByIdentifier: {
-            ...chartFilterByIdentifier,
-            [identifier]: filters,
-          },
-        }),
-        setDateRangeByIdentifier: ({ dateRangeByIdentifier }) => (
-          identifier,
-          range,
-        ) => ({
-          dateRangeByIdentifier: {
-            ...dateRangeByIdentifier,
-            [identifier]: range,
-          },
-        }),
+        setChartFilters:
+          ({ chartFilterByIdentifier }) =>
+          (identifier, filters) => ({
+            chartFilterByIdentifier: {
+              ...chartFilterByIdentifier,
+              [identifier]: filters,
+            },
+          }),
+        setDateRangeByIdentifier:
+          ({ dateRangeByIdentifier }) =>
+          (identifier, range) => ({
+            dateRangeByIdentifier: {
+              ...dateRangeByIdentifier,
+              [identifier]: range,
+            },
+          }),
       },
     ),
   ),
@@ -357,110 +351,115 @@ export default compose(
     ),
   ),
   withHandlers({
-    fetchStatistics: ({
-      dateRangeByIdentifier,
-      chartFilterByIdentifier,
-      graphActionByIdentifier,
-    }) => (graph: Graph) => {
-      const { timeSettings } = graphRessources[graph.ressourceIdentifier];
-      const params = {
-        ...graph.baseFilters,
-        ...chartFilterByIdentifier[graph.name],
-      };
-      if (timeSettings !== 'none') {
-        if (!graph.aggregate) {
-          params[
-            graphRessources[graph.ressourceIdentifier].dateFiltersName.start
-          ] = dateRangeByIdentifier[graph.name].start;
-          params[
-            graphRessources[graph.ressourceIdentifier].dateFiltersName.end
-          ] = dateRangeByIdentifier[graph.name].end;
+    fetchStatistics:
+      ({
+        dateRangeByIdentifier,
+        chartFilterByIdentifier,
+        graphActionByIdentifier,
+      }) =>
+      (graph: Graph) => {
+        const { timeSettings } = graphRessources[graph.ressourceIdentifier];
+        const params = {
+          ...graph.baseFilters,
+          ...chartFilterByIdentifier[graph.name],
+        };
+        if (timeSettings !== 'none') {
+          if (!graph.aggregate) {
+            params[
+              graphRessources[graph.ressourceIdentifier].dateFiltersName.start
+            ] = dateRangeByIdentifier[graph.name].start;
+            params[
+              graphRessources[graph.ressourceIdentifier].dateFiltersName.end
+            ] = dateRangeByIdentifier[graph.name].end;
+          }
         }
-      }
-      graphActionByIdentifier[graph.name](graph.name, params);
-    },
-    setChartFiltersByIdentifier: ({ setChartFilters }) => (
-      identifier: string,
-    ) => {
-      return (filters) => setChartFilters(identifier, filters);
-    },
-    setChartDateRangeByIdentifier: ({ setDateRangeByIdentifier }) => (
-      identifier: string,
-      timeSettings: string,
-      range,
-    ) => {
-      if (timeSettings === 'range') {
-        setDateRangeByIdentifier(identifier, range);
-      }
-    },
-    resetSettings: ({ updateDashboardSettings }) => () => {
-      updateDashboardSettings([]);
-    },
-    onSaveGraphByIdentifier: ({
-      updateDashboardSettings,
-      dashboardConfiguration,
-      chartFilterByIdentifier,
-      dateRangeByIdentifier,
-    }) => (graphIdentifier: string) =>
-      updateDashboardSettings(
-        dashboardConfiguration.map((tab) => ({
-          ...tab,
-          graphs: tab.graphs.map((currentGraph) => {
-            if (graphIdentifier === currentGraph.name) {
-              return {
-                ...currentGraph,
-                dataFilters: {
-                  ...(currentGraph.dataFilters || {}),
-                  ...(chartFilterByIdentifier[graphIdentifier] || {}),
-                },
-                dateRange: {
-                  ...(currentGraph.dateRange || {}),
-                  ...(dateRangeByIdentifier[graphIdentifier] || {}),
-                },
-              };
-            }
-            return currentGraph;
-          }),
-        })),
-      ),
-    addGraph: ({
-      setDateRangeByIdentifier,
-      setChartFilters,
-      updateDashboardSettings,
-      dashboardConfiguration,
-    }) => (tab_label, graph) => {
-      const all_settings = dashboardConfiguration.map((t) => {
-        if (t.tab_label === tab_label) {
-          const graphs = [...t.graphs, graph];
-          return { ...t, graphs };
+        graphActionByIdentifier[graph.name](graph.name, params);
+      },
+    setChartFiltersByIdentifier:
+      ({ setChartFilters }) =>
+      (identifier: string) => {
+        return (filters) => setChartFilters(identifier, filters);
+      },
+    setChartDateRangeByIdentifier:
+      ({ setDateRangeByIdentifier }) =>
+      (identifier: string, timeSettings: string, range) => {
+        if (timeSettings === 'range') {
+          setDateRangeByIdentifier(identifier, range);
         }
-        return t;
-      });
-      if (graph.dateRange.kind === 'custom') {
-        setDateRangeByIdentifier(graph.name, graph.dateRange);
-      } else {
-        const range = quickRanges.filter(
-          (item) => item.key === graph.dateRange.kind,
-        )[0];
-        setDateRangeByIdentifier(graph.name, {
-          start: range.start,
-          end: range.end,
-          kind: graph.dateRange.kind,
+      },
+    resetSettings:
+      ({ updateDashboardSettings }) =>
+      () => {
+        updateDashboardSettings([]);
+      },
+    onSaveGraphByIdentifier:
+      ({
+        updateDashboardSettings,
+        dashboardConfiguration,
+        chartFilterByIdentifier,
+        dateRangeByIdentifier,
+      }) =>
+      (graphIdentifier: string) =>
+        updateDashboardSettings(
+          dashboardConfiguration.map((tab) => ({
+            ...tab,
+            graphs: tab.graphs.map((currentGraph) => {
+              if (graphIdentifier === currentGraph.name) {
+                return {
+                  ...currentGraph,
+                  dataFilters: {
+                    ...(currentGraph.dataFilters || {}),
+                    ...(chartFilterByIdentifier[graphIdentifier] || {}),
+                  },
+                  dateRange: {
+                    ...(currentGraph.dateRange || {}),
+                    ...(dateRangeByIdentifier[graphIdentifier] || {}),
+                  },
+                };
+              }
+              return currentGraph;
+            }),
+          })),
+        ),
+    addGraph:
+      ({
+        setDateRangeByIdentifier,
+        setChartFilters,
+        updateDashboardSettings,
+        dashboardConfiguration,
+      }) =>
+      (tab_label, graph) => {
+        const all_settings = dashboardConfiguration.map((t) => {
+          if (t.tab_label === tab_label) {
+            const graphs = [...t.graphs, graph];
+            return { ...t, graphs };
+          }
+          return t;
         });
-      }
-      setChartFilters(graph.name, graph.dataFilters);
-      updateDashboardSettings(all_settings);
-    },
-    onDeleteGraphByIdentifier: ({
-      updateDashboardSettings,
-      dashboardConfiguration,
-    }) => (graphIdentifier: string) =>
-      updateDashboardSettings(
-        dashboardConfiguration.map((tab) => ({
-          ...tab,
-          graphs: tab.graphs.filter((gr) => gr.name !== graphIdentifier),
-        })),
-      ),
+        if (graph.dateRange.kind === 'custom') {
+          setDateRangeByIdentifier(graph.name, graph.dateRange);
+        } else {
+          const range = quickRanges.filter(
+            (item) => item.key === graph.dateRange.kind,
+          )[0];
+          setDateRangeByIdentifier(graph.name, {
+            start: range.start,
+            end: range.end,
+            kind: graph.dateRange.kind,
+          });
+        }
+        setChartFilters(graph.name, graph.dataFilters);
+        updateDashboardSettings(all_settings);
+      },
+    onDeleteGraphByIdentifier:
+      ({ updateDashboardSettings, dashboardConfiguration }) =>
+      (graphIdentifier: string) =>
+        updateDashboardSettings(
+          dashboardConfiguration.map((tab) => ({
+            ...tab,
+            graphs: tab.graphs.filter((gr) => gr.name !== graphIdentifier),
+          })),
+        ),
   }),
   withTitle(({ t }: { t: TFunction }) => t('titles:dashboard.dashboard')),
 )(Dashboard);

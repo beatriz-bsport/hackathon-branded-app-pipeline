@@ -91,7 +91,7 @@ function getTotal(acc, invoiceItem) {
 }
 
 const DownloadButton = (props: {
-  onClick: (*) => void,
+  onClick: () => void,
   classes: Object,
   t: TFunction,
 }) => (
@@ -113,7 +113,7 @@ const DownloadButton = (props: {
 const RevertButton = (props: {
   reverted: boolean,
   processing: boolean,
-  onClick: (*) => void,
+  onClick: () => void,
   classes: Object,
   t: TFunction,
 }) => (
@@ -134,8 +134,8 @@ const RevertButton = (props: {
 
 const SaveButton = (props: {
   t: TFunction,
-  onClick: (*) => void,
-  classes: *,
+  onClick: () => void,
+  classes: any,
   processing: boolean,
 }) => (
   <Button

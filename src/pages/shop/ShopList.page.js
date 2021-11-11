@@ -414,11 +414,10 @@ export default compose(
   withStyles(styles),
   withtitle(({ t }: { t: TFunction }) => t('titles:shop')),
   withHandlers({
-    duplicateShopItem: ({ duplicateShopItem, fetchShopItems }) => (
-      id,
-      suffix,
-    ) => {
-      duplicateShopItem(id, suffix, { onSuccess: () => fetchShopItems() });
-    },
+    duplicateShopItem:
+      ({ duplicateShopItem, fetchShopItems }) =>
+      (id, suffix) => {
+        duplicateShopItem(id, suffix, { onSuccess: () => fetchShopItems() });
+      },
   }),
 )(ShopItemList);

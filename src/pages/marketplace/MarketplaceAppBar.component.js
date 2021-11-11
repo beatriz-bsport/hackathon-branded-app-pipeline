@@ -108,31 +108,32 @@ export class MarketplaceAppBar extends Component<Props, State> {
     const Wrapper = this.props.paper ? React.Fragment : Toolbar;
     return (
       <Wrapper>
-        {
-          // eslint-disable-next-line
-	  this.props.isWidget ? (
-            <div />
-          ) : this.props.logo ? (
-            <ButtonBase
-              onClick={() => {
-                if (this.props.websiteURL) {
-                  window.location.href = this.props.websiteURL;
-                }
-              }}
-            >
-              <img height={40} src={this.props.logo} alt="bsport logo" />
-            </ButtonBase>
-          ) : (
-            <Typography
-              className={classes.title}
-              variant="h6"
-              color="inherit"
-              noWrap
-            >
-              {title}
-            </Typography>
-          )
-        }
+        {this.props.isWidget && <div />}
+        {!this.props.isWidget && (
+          <>
+            {this.props.logo && (
+              <ButtonBase
+                onClick={() => {
+                  if (this.props.websiteURL) {
+                    window.location.href = this.props.websiteURL;
+                  }
+                }}
+              >
+                <img height={40} src={this.props.logo} alt="bsport logo" />
+              </ButtonBase>
+            )}
+            {!this.props.logo && (
+              <Typography
+                className={classes.title}
+                variant="h6"
+                color="inherit"
+                noWrap
+              >
+                {title}
+              </Typography>
+            )}
+          </>
+        )}
         <div className={classes.grow} />
         {this.props.currentBasket ? (
           <ButtonBase

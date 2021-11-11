@@ -998,12 +998,10 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         />
         <main
           className={classnames({
-            [classes.fullContent]: this.props.location.pathname.includes(
-              '/spot-scheduling',
-            ),
-            [classes.content]: !this.props.location.pathname.includes(
-              '/spot-scheduling',
-            ),
+            [classes.fullContent]:
+              this.props.location.pathname.includes('/spot-scheduling'),
+            [classes.content]:
+              !this.props.location.pathname.includes('/spot-scheduling'),
           })}
         >
           {this.props.isFranchisorNavigation && (

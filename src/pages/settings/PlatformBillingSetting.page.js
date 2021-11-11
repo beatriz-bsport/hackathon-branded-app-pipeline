@@ -160,33 +160,35 @@ export default compose(
   ),
   withState('openFeatureRequest', 'setOpenFeatureRequest', false),
   withHandlers({
-    checkSubscriptionSetup: ({
-      checkSubscriptionSetup,
-      fetchCompanyTheme,
-    }) => () => {
-      checkSubscriptionSetup({
-        onSuccess: fetchCompanyTheme,
-      });
-    },
-    payNowInvoice: ({ payNowInvoice, fetchPlatformInvoiceList }) => (
-      payment_backend_id,
-      options,
-    ) =>
-      payNowInvoice(payment_backend_id, {
-        onError: options && options.onError,
-        onSuccess: () => {
-          fetchPlatformInvoiceList();
-          if (options && options.onSuccess) {
-            options.onSuccess();
-          }
-        },
-      }),
-    fetchPayoutList: ({ fetchPayoutList }) => (params, options) =>
-      fetchPayoutList({ ...(params || {}), page_size: 3 }, options),
+    checkSubscriptionSetup:
+      ({ checkSubscriptionSetup, fetchCompanyTheme }) =>
+      () => {
+        checkSubscriptionSetup({
+          onSuccess: fetchCompanyTheme,
+        });
+      },
+    payNowInvoice:
+      ({ payNowInvoice, fetchPlatformInvoiceList }) =>
+      (payment_backend_id, options) =>
+        payNowInvoice(payment_backend_id, {
+          onError: options && options.onError,
+          onSuccess: () => {
+            fetchPlatformInvoiceList();
+            if (options && options.onSuccess) {
+              options.onSuccess();
+            }
+          },
+        }),
+    fetchPayoutList:
+      ({ fetchPayoutList }) =>
+      (params, options) =>
+        fetchPayoutList({ ...(params || {}), page_size: 3 }, options),
     requestSetupIntentSecret: () => () =>
       requestSetupIntentSecretAPI(null, null, true),
-    fetchPaymentMethodList: ({ fetchPaymentMethodList }) => () =>
-      fetchPaymentMethodList({ as_company: true }),
+    fetchPaymentMethodList:
+      ({ fetchPaymentMethodList }) =>
+      () =>
+        fetchPaymentMethodList({ as_company: true }),
     /*
     onKnowMore: () => (readable_identifier) => {
       window.Intercom('trackEvent', 'Upsell info requested', {
@@ -194,14 +196,14 @@ export default compose(
       });
     },
     */
-    onRequestUpsell: ({ requestUpsellPackage, setOpenFeatureRequest }) => (
-      readable_identifier,
-    ) => {
-      setOpenFeatureRequest(true);
-      requestUpsellPackage(readable_identifier);
-      window.Intercom('trackEvent', 'Upsell feature requested', {
-        readable_identifier,
-      });
-    },
+    onRequestUpsell:
+      ({ requestUpsellPackage, setOpenFeatureRequest }) =>
+      (readable_identifier) => {
+        setOpenFeatureRequest(true);
+        requestUpsellPackage(readable_identifier);
+        window.Intercom('trackEvent', 'Upsell feature requested', {
+          readable_identifier,
+        });
+      },
   }),
 )(PlatformBillingSettings);

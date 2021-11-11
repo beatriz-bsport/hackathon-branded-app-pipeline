@@ -118,13 +118,8 @@ export class CalendarPicker extends Component<Props, state> {
 
   renderInlineText = () => {
     const { t } = this.props;
-    const {
-      date_filter_type,
-      date_second,
-      date,
-      duration,
-      duration_second,
-    } = this.state;
+    const { date_filter_type, date_second, date, duration, duration_second } =
+      this.state;
     if (date_filter_type === DATE_BETWEEN) {
       return (
         <Typography variant="body2">

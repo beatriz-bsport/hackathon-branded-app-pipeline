@@ -48,6 +48,7 @@ export const PaymentStripeEPS = (props: {
         props.basketTotalPriceCts !== data
       ) {
         setProcessing(false);
+        // eslint-disable-next-line
         window.alert(t('paymentPanel.actions.basketInconsistent'));
         window.location.reload();
         return;

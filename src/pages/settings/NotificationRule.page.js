@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 // @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -315,75 +314,75 @@ export default compose(
     },
   ),
   withHandlers({
-    closeEmailPreview: ({ setPreviewEmailId, setPreviewEmailHTML }) => () => {
-      setPreviewEmailHTML(null);
-      setPreviewEmailId(null);
-    },
+    closeEmailPreview:
+      ({ setPreviewEmailId, setPreviewEmailHTML }) =>
+      () => {
+        setPreviewEmailHTML(null);
+        setPreviewEmailId(null);
+      },
   }),
   withHandlers({
-    handleUpdate: ({ settingsData, updateSettings }) => (
-      notificationRuleSettings,
-    ) => {
-      updateSettings({
-        ...settingsData[0],
-        settings: notificationRuleSettings,
-      });
-    },
+    handleUpdate:
+      ({ settingsData, updateSettings }) =>
+      (notificationRuleSettings) => {
+        updateSettings({
+          ...settingsData[0],
+          settings: notificationRuleSettings,
+        });
+      },
   }),
   withHandlers({
-    showEmailPreview: ({ setPreviewEmailId, fetchEmailDesignDetail }) => (
-      id,
-    ) => {
-      setPreviewEmailId(id);
-      fetchEmailDesignDetail(id);
-    },
-    handleSettingsDisable: ({ settingsData, handleUpdate }) => (
-      notification_event,
-      ev,
-    ) => {
-      let notificationRuleSettings = { ...settingsData[0].settings };
-      if (!notificationRuleSettings[notification_event]) {
-        notificationRuleSettings = {
-          ...notificationRuleSettings,
-          [notification_event]: {
-            disabled: !ev.target.checked,
-            send_company: false,
-          },
-        };
-      } else {
-        notificationRuleSettings = {
-          ...notificationRuleSettings,
-          [notification_event]: {
-            ...notificationRuleSettings[notification_event],
-            disabled: !ev.target.checked,
-          },
-        };
-      }
-      handleUpdate(notificationRuleSettings);
-    },
-    handleSettingsCopy: ({ settingsData, handleUpdate }) => (
-      notification_event,
-      ev,
-    ) => {
-      let notificationRuleSettings = { ...settingsData[0].settings };
-      if (!notificationRuleSettings[notification_event]) {
-        notificationRuleSettings = {
-          ...notificationRuleSettings,
-          [notification_event]: {
-            disabled: false,
-            send_company: ev.target.checked,
-          },
-        };
-      } else {
-        notificationRuleSettings = {
-          ...notificationRuleSettings,
-          [notification_event]: {
-            ...notificationRuleSettings[notification_event],
-            send_company: ev.target.checked,
-          },
-        };
-      }
-      handleUpdate(notificationRuleSettings);
-    },
+    showEmailPreview:
+      ({ setPreviewEmailId, fetchEmailDesignDetail }) =>
+      (id) => {
+        setPreviewEmailId(id);
+        fetchEmailDesignDetail(id);
+      },
+    handleSettingsDisable:
+      ({ settingsData, handleUpdate }) =>
+      (notification_event, ev) => {
+        let notificationRuleSettings = { ...settingsData[0].settings };
+        if (!notificationRuleSettings[notification_event]) {
+          notificationRuleSettings = {
+            ...notificationRuleSettings,
+            [notification_event]: {
+              disabled: !ev.target.checked,
+              send_company: false,
+            },
+          };
+        } else {
+          notificationRuleSettings = {
+            ...notificationRuleSettings,
+            [notification_event]: {
+              ...notificationRuleSettings[notification_event],
+              disabled: !ev.target.checked,
+            },
+          };
+        }
+        handleUpdate(notificationRuleSettings);
+      },
+    handleSettingsCopy:
+      ({ settingsData, handleUpdate }) =>
+      (notification_event, ev) => {
+        let notificationRuleSettings = { ...settingsData[0].settings };
+        if (!notificationRuleSettings[notification_event]) {
+          notificationRuleSettings = {
+            ...notificationRuleSettings,
+            [notification_event]: {
+              disabled: false,
+              send_company: ev.target.checked,
+            },
+          };
+        } else {
+          notificationRuleSettings = {
+            ...notificationRuleSettings,
+            [notification_event]: {
+              ...notificationRuleSettings[notification_event],
+              send_company: ev.target.checked,
+            },
+          };
+        }
+        handleUpdate(notificationRuleSettings);
+      },
   }),
 )(NotificationRule);

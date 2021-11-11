@@ -231,58 +231,57 @@ export default compose(
     },
   ),
   withHandlers({
-    fetchOfferList: ({
-      fetchAllOffers,
-      fetchMetaActivityBulk,
-      periodFilter,
-      id,
-    }) => () => {
-      fetchAllOffers(
-        {
-          establishment: id,
-          min_date: periodFilter.start,
-          max_date: periodFilter.end,
-        },
-        {
-          onSuccess: (offers) => {
-            fetchMetaActivityBulk(offers.map((o) => o.meta_activity));
+    fetchOfferList:
+      ({ fetchAllOffers, fetchMetaActivityBulk, periodFilter, id }) =>
+      () => {
+        fetchAllOffers(
+          {
+            establishment: id,
+            min_date: periodFilter.start,
+            max_date: periodFilter.end,
           },
-        },
-      );
-    },
-    handleDateChange: ({ setPeriodFilter }) => ({
-      date_start,
-      date_end,
-    }: {
-      date_start: string,
-      date_end: string,
-    }) => {
-      setPeriodFilter({ start: date_start, end: date_end });
-    },
-    fetchPrivateBookingList: ({
-      fetchPrivateBookings,
-      periodFilter,
-      fetchPrivateServiceBulk,
-      fetchPrivateSlotBulk,
-      fetchMemberBulk,
-      id,
-    }) => () => {
-      fetchPrivateBookings(
-        {
-          establishment: id,
-          date_start__gte: periodFilter.start,
-          date_start__lte: periodFilter.end,
-          page_size: null,
-        },
-        {
-          onSuccess: (bookingList) => {
-            fetchPrivateServiceBulk(bookingList.map((b) => b.private_service));
-            fetchPrivateSlotBulk(bookingList.map((b) => b.private_slot));
-            fetchMemberBulk({ id__in: uniq(bookingList.map((b) => b.member)) });
+          {
+            onSuccess: (offers) => {
+              fetchMetaActivityBulk(offers.map((o) => o.meta_activity));
+            },
           },
-        },
-      );
-    },
+        );
+      },
+    handleDateChange:
+      ({ setPeriodFilter }) =>
+      ({ date_start, date_end }: { date_start: string, date_end: string }) => {
+        setPeriodFilter({ start: date_start, end: date_end });
+      },
+    fetchPrivateBookingList:
+      ({
+        fetchPrivateBookings,
+        periodFilter,
+        fetchPrivateServiceBulk,
+        fetchPrivateSlotBulk,
+        fetchMemberBulk,
+        id,
+      }) =>
+      () => {
+        fetchPrivateBookings(
+          {
+            establishment: id,
+            date_start__gte: periodFilter.start,
+            date_start__lte: periodFilter.end,
+            page_size: null,
+          },
+          {
+            onSuccess: (bookingList) => {
+              fetchPrivateServiceBulk(
+                bookingList.map((b) => b.private_service),
+              );
+              fetchPrivateSlotBulk(bookingList.map((b) => b.private_slot));
+              fetchMemberBulk({
+                id__in: uniq(bookingList.map((b) => b.member)),
+              });
+            },
+          },
+        );
+      },
   }),
   withTitle(({ establishment }) => {
     return establishment ? `${establishment.title}` : '';

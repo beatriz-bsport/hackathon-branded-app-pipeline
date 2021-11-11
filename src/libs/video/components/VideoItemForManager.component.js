@@ -10,7 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { getStatusText, getHeading } from '../../payment-packs/utils';
 
 type Props = {
-  classes: *,
+  classes: any,
   t: Tfunction,
   id: number,
   memberId: number,
@@ -34,13 +34,8 @@ export class VideoItemForManager extends Component<Props, State> {
     if (this.props.onClick) {
       this.props.onClick(event);
     }
-    const {
-      redirectToMember,
-      video,
-      newTab,
-      redirectToOffer,
-      memberId,
-    } = this.props;
+    const { redirectToMember, video, newTab, redirectToOffer, memberId } =
+      this.props;
     const url = `/member/${memberId}/`;
     if (redirectToOffer) {
       this.props.push(`/offer/${video.id}`);

@@ -53,16 +53,11 @@ type Props = OwnProps &
 
 export function CoachPaymentRuleGroupFormFields(props: Props) {
   const { t, classes } = props;
-  const {
-    rulesByKind,
-    setFieldValue,
-    privateServices,
-    associated_coaches,
-  } = props;
+  const { rulesByKind, setFieldValue, privateServices, associated_coaches } =
+    props;
 
-  const [openPrivateSlotSection, setOpenPrivateSlotSection] = React.useState(
-    false,
-  );
+  const [openPrivateSlotSection, setOpenPrivateSlotSection] =
+    React.useState(false);
   const [openCoachSection, setOpenCoachSection] = React.useState(false);
   const tooglePrivateSlotSection = () =>
     setOpenPrivateSlotSection(!openPrivateSlotSection);
@@ -470,9 +465,10 @@ export const CoachPaymentRuleGroupFormHOC = withFormik({
         workshop_coach_payment_rule: initial.workshop_coach_payment_rule
           ? initial.workshop_coach_payment_rule.id
           : null,
-        private_service_coach_payment_rule: initial.private_service_coach_payment_rule
-          ? initial.private_service_coach_payment_rule.id
-          : null,
+        private_service_coach_payment_rule:
+          initial.private_service_coach_payment_rule
+            ? initial.private_service_coach_payment_rule.id
+            : null,
       };
     }
     return {

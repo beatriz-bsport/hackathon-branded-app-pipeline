@@ -14,7 +14,7 @@ import TextField from '@material-ui/core/TextField';
 type Props = {
   t: TFunction,
   email: string,
-  setEmail: (SyntheticEvent<HTMLElement>) => void,
+  setEmail: (ev: SyntheticEvent<HTMLElement>) => void,
   submit: (email: string) => void,
   onCancel: () => void,
 };

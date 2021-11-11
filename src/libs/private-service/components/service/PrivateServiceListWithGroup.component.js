@@ -20,7 +20,7 @@ import PrivateServiceListItem from './PrivateServiceListItem.component';
 type Props = {
   t: TFunction,
   classes: Object,
-  setMenuOpen: ([?HTMLElement, ?ServiceGroup]) => void,
+  setMenuOpen: (ev: [?HTMLElement, ?ServiceGroup]) => void,
   menuOpen: [?HTMLElement, ?ServiceGroup],
   openServiceGroupToEdit: (ServiceGroup) => void,
   deleteServiceGroup: (id: number) => void,

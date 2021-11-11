@@ -26,7 +26,7 @@ type Props = {
   resourceAvailable: Array<ResourceData>,
   selectedResourceIdentifier: string,
   setSelectedResourceIdentifier: (string) => void,
-  onSubmit: ({ [resourceDatatype: string]: string }) => void,
+  onSubmit: (data: { [resourceDatatype: string]: string }) => void,
   isSubmitting: boolean,
 };
 

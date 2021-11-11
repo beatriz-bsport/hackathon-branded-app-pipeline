@@ -35,7 +35,7 @@ type Props = {
   fetchAllWorkshops: () => void,
   removeImage: () => void,
   addImage: () => void,
-  onSubmit: (*) => void,
+  onSubmit: () => void,
 
   goToPreviousPage: () => void,
 };

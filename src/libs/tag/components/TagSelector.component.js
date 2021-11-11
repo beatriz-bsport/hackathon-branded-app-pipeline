@@ -33,7 +33,7 @@ type Props = {
   t: TFunction,
   classes: Object,
   menuAnchorEl: ?HTMLElement,
-  setMenuAnchor: (?HTMLElement) => void,
+  setMenuAnchor: (anchor: ?HTMLElement) => void,
 };
 
 export function TagSelector(props: Props) {

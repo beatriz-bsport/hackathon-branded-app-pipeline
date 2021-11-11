@@ -19,7 +19,7 @@ type ImageFile = {
 };
 
 type Props = {
-  classes: *,
+  classes: any,
   initial: string,
   t: TFunction,
   onChange: (images: ImageFile[]) => void,

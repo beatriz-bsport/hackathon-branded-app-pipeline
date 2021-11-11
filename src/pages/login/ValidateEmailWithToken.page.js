@@ -46,14 +46,16 @@ export default compose(
     validateEmail: validateEmailAction,
   }),
   withHandlers({
-    validateEmail: ({ validateEmail, goToRoot }) => (data, options) => {
-      validateEmail(data, {
-        onSuccess: (...args) => {
-          if (options && options.onSuccess) options.onSuccess(...args);
-          goToRoot();
-        },
-        onError: options && options.onError,
-      });
-    },
+    validateEmail:
+      ({ validateEmail, goToRoot }) =>
+      (data, options) => {
+        validateEmail(data, {
+          onSuccess: (...args) => {
+            if (options && options.onSuccess) options.onSuccess(...args);
+            goToRoot();
+          },
+          onError: options && options.onError,
+        });
+      },
   }),
 )(ValidateEmailWithTokenPage);

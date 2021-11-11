@@ -242,9 +242,8 @@ export class OfferState extends React.PureComponent<Props, State> {
 
     const availableConsumerPacks = this.props.getAvailableConsumerPack();
     const availablePaymentPacks = this.props.getAvailablePaymentPacks();
-    const availablePaymentPackCategories = this.getAvailablePaymentPackCategories(
-      availablePaymentPacks,
-    );
+    const availablePaymentPackCategories =
+      this.getAvailablePaymentPackCategories(availablePaymentPacks);
     const availableComboPacks = this.props.getAvailableComboPacks();
 
     return (
@@ -322,15 +321,14 @@ const mapHandlers = {
       props.offer.timezone_name,
     );
   },
-  fetchContractForBooking: ({
-    fetchContractForBooking,
-    fetchPaymentPackBulk,
-  }) => (offer, company) => {
-    fetchContractForBooking(offer, company, {
-      onSuccess: (contractList) =>
-        fetchPaymentPackBulk(contractList.map((c) => c.payment_pack)),
-    });
-  },
+  fetchContractForBooking:
+    ({ fetchContractForBooking, fetchPaymentPackBulk }) =>
+    (offer, company) => {
+      fetchContractForBooking(offer, company, {
+        onSuccess: (contractList) =>
+          fetchPaymentPackBulk(contractList.map((c) => c.payment_pack)),
+      });
+    },
 };
 
 const mapMemberInfoStateToProps = (

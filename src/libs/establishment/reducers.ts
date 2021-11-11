@@ -25,8 +25,8 @@ import {
 } from './actions';
 import { EstablishmentBillingGroup, EstablishmentState } from './types';
 
-const initialState: Immutable.Immutable<EstablishmentState> = Immutable<EstablishmentState>(
-  {
+const initialState: Immutable.Immutable<EstablishmentState> =
+  Immutable<EstablishmentState>({
     byId: {},
     allIds: [],
     loading: false,
@@ -77,8 +77,7 @@ const initialState: Immutable.Immutable<EstablishmentState> = Immutable<Establis
         error: null,
       },
     },
-  },
-);
+  });
 
 export default handleActions(
   {

@@ -123,7 +123,7 @@ type Props = {
   fetchBookingOptionForBooking: (offer: number) => void,
   fetchOffer: (number) => void,
   disconnect: () => void,
-  auth: *,
+  auth: any,
 
   fetchContactForBooking: (number, number) => void,
   fetchConsumerPaymentPackForBooking: (number) => void,
@@ -135,7 +135,7 @@ type Props = {
   buyPaymentPack: (number) => void,
   buyPaymentCombo: (number) => void,
   consumerPaymentPackLoading: boolean,
-  setSelectedContract: (?Contract) => void,
+  setSelectedContract: (contact: ?Contract) => void,
   selectedContract: ?Contract,
 
   requestSetupIntentSecret: (id: number) => void,
@@ -388,12 +388,10 @@ export default compose(
       contractLoading: state.subscription.contract.forBooking.loading,
       paymentPackLoading: state.paymentPack.forBooking.loading,
 
-      bookingOptionListConvertible: getBookingOptionListForBookingConvertible(
-        state,
-      ),
-      bookingOptionListUnconvertible: getBookingOptionListForBookingNotConvertible(
-        state,
-      ),
+      bookingOptionListConvertible:
+        getBookingOptionListForBookingConvertible(state),
+      bookingOptionListUnconvertible:
+        getBookingOptionListForBookingNotConvertible(state),
 
       theme: themeSelectors.getTheme(state),
     }),
@@ -409,7 +407,8 @@ export default compose(
       addItemToBasket,
       removeItemFromBasket,
 
-      fetchConsumerPaymentPackForBooking: fetchConsumerPaymentPackForBookingAction,
+      fetchConsumerPaymentPackForBooking:
+        fetchConsumerPaymentPackForBookingAction,
       resetConsumerPackForBooking: resetConsumerPackForBookingAction,
 
       fetchPaymentPackForBooking,
@@ -440,52 +439,54 @@ export default compose(
   withHandlers({
     requestSetupIntentSecret: () => (companyId) =>
       requestSetupIntentSecretAPI(null, companyId),
-    resetBuyableItems: ({
-      resetPaymentComboForBooking,
-      resetBookingOptionForBooking,
-      resetPaymentPackForBooking,
-      resetContractForBooking,
-      resetConsumerPackForBooking,
-    }) => () => {
-      resetPaymentPackForBooking();
-      resetPaymentComboForBooking();
-      resetConsumerPackForBooking();
-      resetContractForBooking();
-      resetBookingOptionForBooking();
-    },
-    fetchContactForBooking: ({
-      fetchContactForBooking,
-      fetchPaymentPackBulk,
-    }) => (offer, company) => {
-      fetchContactForBooking(offer, company, {
-        onSuccess: (contractList) =>
-          fetchPaymentPackBulk(contractList.map((c) => c.payment_pack)),
-      });
-    },
-    fetchConsumerPaymentPackForBooking: ({
-      fetchConsumerPaymentPackForBooking,
-      fetchPaymentPackBulk,
-    }) => (offer) => {
-      fetchConsumerPaymentPackForBooking(offer, {
-        onSuccess: (cppList) =>
-          fetchPaymentPackBulk(cppList.map((cpp) => cpp.payment_pack)),
-      });
-    },
-    fetchOffer: ({
-      fetchOffer,
-      fetchEstablishmentBulk,
-      fetchMetaActivityBulk,
-      fetchCoachBulk,
-      offerId,
-    }) => () => {
-      fetchOffer(offerId, {
-        onSuccess: (o) => {
-          fetchEstablishmentBulk([o.establishment, o.establishment_override]);
-          fetchCoachBulk([o.coach, o.coach_override]);
-          fetchMetaActivityBulk([o.meta_activity]);
-        },
-      });
-    },
+    resetBuyableItems:
+      ({
+        resetPaymentComboForBooking,
+        resetBookingOptionForBooking,
+        resetPaymentPackForBooking,
+        resetContractForBooking,
+        resetConsumerPackForBooking,
+      }) =>
+      () => {
+        resetPaymentPackForBooking();
+        resetPaymentComboForBooking();
+        resetConsumerPackForBooking();
+        resetContractForBooking();
+        resetBookingOptionForBooking();
+      },
+    fetchContactForBooking:
+      ({ fetchContactForBooking, fetchPaymentPackBulk }) =>
+      (offer, company) => {
+        fetchContactForBooking(offer, company, {
+          onSuccess: (contractList) =>
+            fetchPaymentPackBulk(contractList.map((c) => c.payment_pack)),
+        });
+      },
+    fetchConsumerPaymentPackForBooking:
+      ({ fetchConsumerPaymentPackForBooking, fetchPaymentPackBulk }) =>
+      (offer) => {
+        fetchConsumerPaymentPackForBooking(offer, {
+          onSuccess: (cppList) =>
+            fetchPaymentPackBulk(cppList.map((cpp) => cpp.payment_pack)),
+        });
+      },
+    fetchOffer:
+      ({
+        fetchOffer,
+        fetchEstablishmentBulk,
+        fetchMetaActivityBulk,
+        fetchCoachBulk,
+        offerId,
+      }) =>
+      () => {
+        fetchOffer(offerId, {
+          onSuccess: (o) => {
+            fetchEstablishmentBulk([o.establishment, o.establishment_override]);
+            fetchCoachBulk([o.coach, o.coach_override]);
+            fetchMetaActivityBulk([o.meta_activity]);
+          },
+        });
+      },
     goToPassMarketplace: ({ theme, goBack }) => {
       if (theme && theme.scheduleURL) {
         window.location.href = theme.scheduleURL;
@@ -494,59 +495,62 @@ export default compose(
       }
     },
 
-    buyPaymentPack: ({ offerId, push }) => (packId: number) =>
-      push(`/customer/payment/pass/${packId}?nextOffer=${offerId}`),
+    buyPaymentPack:
+      ({ offerId, push }) =>
+      (packId: number) =>
+        push(`/customer/payment/pass/${packId}?nextOffer=${offerId}`),
 
-    buyPaymentCombo: ({ offerId, push }) => (paymentComboId: number) =>
-      push(`/customer/payment/combo/${paymentComboId}?nextOffer=${offerId}`),
+    buyPaymentCombo:
+      ({ offerId, push }) =>
+      (paymentComboId: number) =>
+        push(`/customer/payment/combo/${paymentComboId}?nextOffer=${offerId}`),
 
-    bookWithConsumerPaymentPack: ({ offer, push, t, snackbarError }) => (
-      consumerPaymentPackId,
-      options,
-    ) => {
-      payWithConsumerPaymentPackAPI(consumerPaymentPackId, offer.id)
-        .then(() => {
-          if (WidgetUtils.isWidget()) {
-            WidgetUtils.paymentSuccess();
-          }
-
-          push(`/c/${offer.company}/?from_direct_booking=${offer.id}`);
-          if (options && options.onSuccess) options.onSuccess();
-        })
-        .catch((err) => {
-          console.error(err);
-          if (err && err.response && err.response.status === 423) {
-            switch (err.response.data) {
-              case 'unavailable for female':
-                snackbarError(t('bookingModule.messages.femaleUnavailable'));
-                break;
-              case 'unavailable for male':
-                snackbarError(t('bookingModule.messages.maleUnavailable'));
-                break;
-              default:
-                snackbarError(t('bookingModule.messages.offerLocked'));
-                break;
+    bookWithConsumerPaymentPack:
+      ({ offer, push, t, snackbarError }) =>
+      (consumerPaymentPackId, options) => {
+        payWithConsumerPaymentPackAPI(consumerPaymentPackId, offer.id)
+          .then(() => {
+            if (WidgetUtils.isWidget()) {
+              WidgetUtils.paymentSuccess();
             }
-          }
-          if (options && options.onError) options.onError(err);
-        });
-    },
 
-    registerOption: ({ registerOption, offer, push, setProcessing }) => (
-      options,
-    ) => {
-      setProcessing(true);
-      registerOption(offer.id, null, {
-        onSuccess: (...args) => {
-          setProcessing(false);
-          push(`/c/${offer.company}/`);
-          if (options && options.onSuccess) options.onSuccess(...args);
-        },
-        onError: (err) => {
-          setProcessing(false);
-          if (options && options.onError) options.onError(err);
-        },
-      });
-    },
+            push(`/c/${offer.company}/?from_direct_booking=${offer.id}`);
+            if (options && options.onSuccess) options.onSuccess();
+          })
+          .catch((err) => {
+            console.error(err);
+            if (err && err.response && err.response.status === 423) {
+              switch (err.response.data) {
+                case 'unavailable for female':
+                  snackbarError(t('bookingModule.messages.femaleUnavailable'));
+                  break;
+                case 'unavailable for male':
+                  snackbarError(t('bookingModule.messages.maleUnavailable'));
+                  break;
+                default:
+                  snackbarError(t('bookingModule.messages.offerLocked'));
+                  break;
+              }
+            }
+            if (options && options.onError) options.onError(err);
+          });
+      },
+
+    registerOption:
+      ({ registerOption, offer, push, setProcessing }) =>
+      (options) => {
+        setProcessing(true);
+        registerOption(offer.id, null, {
+          onSuccess: (...args) => {
+            setProcessing(false);
+            push(`/c/${offer.company}/`);
+            if (options && options.onSuccess) options.onSuccess(...args);
+          },
+          onError: (err) => {
+            setProcessing(false);
+            if (options && options.onError) options.onError(err);
+          },
+        });
+      },
   }),
 )(OfferPaymentPage);

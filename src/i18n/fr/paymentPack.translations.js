@@ -307,14 +307,10 @@ exports.default = {
       },
       managerOnly: 'Invisible pour les clients',
       helper: {
-        // eslint-disable-next-line
-        // eslint-disable-next-line
         starting_date:
           'Début de validité du pass, laisser vide pour le rendre valable immédiatement',
-        // eslint-disable-next-line
         ending_date:
           "Fin de validité du pass, laisser vide pour qu'il reste toujours actif",
-        // eslint-disable-next-line
       },
       start_date_method: {
         on_purchase: 'Débute à la facturation',
@@ -563,8 +559,7 @@ exports.default = {
     },
   },
   noCategory: {
-    help:
-      'Ces passes apparaîtront dans une catégorie sans nom sur la marketplace',
+    help: 'Ces passes apparaîtront dans une catégorie sans nom sur la marketplace',
     name: 'Sans catégorie',
     empty: 'Aucune carte dans cette catégorie',
   },

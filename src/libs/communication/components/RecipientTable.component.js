@@ -88,7 +88,7 @@ type Props = {
   recipientState: Object,
   recipientList: Array<Recipient>,
   goToMember: (id: number) => void,
-  setShowLinkOpened: ({ [link: string]: number }) => void,
+  setShowLinkOpened: (data: { [link: string]: number }) => void,
   showLinkOpened: { [link: string]: number },
 };
 

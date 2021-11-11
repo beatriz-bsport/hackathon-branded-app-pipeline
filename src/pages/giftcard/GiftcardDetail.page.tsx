@@ -191,47 +191,44 @@ export default compose(
   withState('editIsOpen', 'setEditIsOpen', false),
   withState('deleteIsOpen', 'setDeleteIsOpen', false),
   withHandlers({
-    deleteGiftcard: ({ deleteGiftcard, goToGiftcardList, id }) => (
-      options: OptionCallback<Giftcard>,
-    ) => {
-      deleteGiftcard(id, {
-        onSuccess: (g: Giftcard) => {
-          goToGiftcardList();
-          if (options?.onSuccess) {
-            options.onSuccess(g);
-          }
-        },
-      });
-    },
-    updateGiftcard: ({ setEditIsOpen, createOrUpdateGiftcard, id }) => (
-      data: Giftcard,
-      options: OptionCallback<Giftcard>,
-    ) => {
-      createOrUpdateGiftcard(id, data, {
-        onSuccess: () => {
-          setEditIsOpen(false);
-          options?.onSuccess();
-        },
-        onError: options?.onError,
-      });
-    },
-    fetchConsumerGiftcardList: ({
-      fetchConsumerGiftcardList,
-      id,
-      fetchMemberBulk,
-    }) => (page: number, page_size: number) => {
-      fetchConsumerGiftcardList(
-        { page, page_size, giftcard: id },
-        {
-          onSuccess: (consumerGiftcardList: Array<ConsumerGiftcard>) => {
-            fetchMemberBulk([
-              ...consumerGiftcardList.map((cg) => cg.src_member),
-              ...consumerGiftcardList.map((cg) => cg.dst_member),
-            ]);
+    deleteGiftcard:
+      ({ deleteGiftcard, goToGiftcardList, id }) =>
+      (options: OptionCallback<Giftcard>) => {
+        deleteGiftcard(id, {
+          onSuccess: (g: Giftcard) => {
+            goToGiftcardList();
+            if (options?.onSuccess) {
+              options.onSuccess(g);
+            }
           },
-        },
-      );
-    },
+        });
+      },
+    updateGiftcard:
+      ({ setEditIsOpen, createOrUpdateGiftcard, id }) =>
+      (data: Giftcard, options: OptionCallback<Giftcard>) => {
+        createOrUpdateGiftcard(id, data, {
+          onSuccess: () => {
+            setEditIsOpen(false);
+            options?.onSuccess();
+          },
+          onError: options?.onError,
+        });
+      },
+    fetchConsumerGiftcardList:
+      ({ fetchConsumerGiftcardList, id, fetchMemberBulk }) =>
+      (page: number, page_size: number) => {
+        fetchConsumerGiftcardList(
+          { page, page_size, giftcard: id },
+          {
+            onSuccess: (consumerGiftcardList: Array<ConsumerGiftcard>) => {
+              fetchMemberBulk([
+                ...consumerGiftcardList.map((cg) => cg.src_member),
+                ...consumerGiftcardList.map((cg) => cg.dst_member),
+              ]);
+            },
+          },
+        );
+      },
   }),
   withTitle(({ giftcard }) => (giftcard ? giftcard.name : '')),
 )(GiftcardDetailPage);

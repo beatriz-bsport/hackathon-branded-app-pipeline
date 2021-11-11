@@ -231,34 +231,37 @@ export default compose(
   withState('date', 'setDate', moment().format('YYYY-MM-DD')),
   withState('processing', 'setProcessing', false),
   withHandlers({
-    onSubmit: ({ date, setProcessing, member, contract, onSuccess }) => async (
-      token: string,
-      paymentMethodId?: string,
-      options,
-      coupon,
-      note,
-      billing_establishment_id: number | null,
-    ) => {
-      const first_billing_timestamp = moment(date, 'YYYY-MM-DD').unix();
-      setProcessing(true);
-      let response = null;
-      try {
-        response = await postContractSubscriptionAPI(contract.id, {
-          stripe_source: token,
-          member: member.id,
-          payment_method_id: paymentMethodId,
-          coupon,
-          first_billing_timestamp: moment(first_billing_timestamp).unix() + 20,
-          note,
-          billing_establishment_id,
-        });
-      } catch (err) {
-        console.error(err);
-      }
-      setProcessing(false);
-      if (response && response.data) {
-        onSuccess(response.data);
-      }
-    },
+    onSubmit:
+      ({ date, setProcessing, member, contract, onSuccess }) =>
+      async (
+        token: string,
+        paymentMethodId?: string,
+        options,
+        coupon,
+        note,
+        billing_establishment_id: number | null,
+      ) => {
+        const first_billing_timestamp = moment(date, 'YYYY-MM-DD').unix();
+        setProcessing(true);
+        let response = null;
+        try {
+          response = await postContractSubscriptionAPI(contract.id, {
+            stripe_source: token,
+            member: member.id,
+            payment_method_id: paymentMethodId,
+            coupon,
+            first_billing_timestamp:
+              moment(first_billing_timestamp).unix() + 20,
+            note,
+            billing_establishment_id,
+          });
+        } catch (err) {
+          console.error(err);
+        }
+        setProcessing(false);
+        if (response && response.data) {
+          onSuccess(response.data);
+        }
+      },
   }),
 )(SubscriptionContractRegistrationManagerDialog);

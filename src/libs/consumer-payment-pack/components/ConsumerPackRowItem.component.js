@@ -354,14 +354,8 @@ export class ConsumerPackRowItem extends Component<Props> {
   };
 
   render() {
-    const {
-      t,
-      consumerPack,
-      button,
-      hideConsumer,
-      paymentPack,
-      onClick,
-    } = this.props;
+    const { t, consumerPack, button, hideConsumer, paymentPack, onClick } =
+      this.props;
     const { consumer } = consumerPack;
     const isExpired = moment(consumerPack.ending_date).isBefore(moment());
     const isFromShare = consumerPack && consumerPack.dst_consumer_payment_pack;

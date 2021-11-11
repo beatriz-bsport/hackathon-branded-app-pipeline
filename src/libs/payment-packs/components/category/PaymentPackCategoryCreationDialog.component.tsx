@@ -28,9 +28,8 @@ export const PaymentPackCategoryCreationDialog = (props: Props) => {
   const name = paymentPackCategorySelected
     ? paymentPackCategorySelected.name
     : '';
-  const [paymentPackCategoryName, setPaymentPackCategoryName] = React.useState(
-    name,
-  );
+  const [paymentPackCategoryName, setPaymentPackCategoryName] =
+    React.useState(name);
   React.useEffect(() => {
     paymentPackCategorySelected &&
       setPaymentPackCategoryName(paymentPackCategorySelected.name);

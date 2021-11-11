@@ -87,9 +87,8 @@ export const StripePaymentCard = (props: Props) => {
 
   const [saveForLater, setSaveForLater] = React.useState(false);
   const [paymentMethodList, setPaymentMethodList] = React.useState([]);
-  const [paymentMethodSelected, setPaymentMethodSelected] = React.useState(
-    null,
-  );
+  const [paymentMethodSelected, setPaymentMethodSelected] =
+    React.useState(null);
   const [hasDetached, setHasDetached] = React.useState(null);
   const [addPaymentMethod, setAddPaymentMethod] = React.useState(true);
 
@@ -132,6 +131,7 @@ export const StripePaymentCard = (props: Props) => {
         props.basketTotalPriceCts !== data
       ) {
         props.setProcessing(false);
+        // eslint-disable-next-line
         window.alert(t('paymentPanel.actions.basketInconsistent'));
         window.location.reload();
         return;

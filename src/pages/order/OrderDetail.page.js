@@ -134,13 +134,13 @@ export default compose(
     },
   ),
   withHandlers({
-    fetchByQueryInvoice: ({ fetchByQueryInvoice, setRelatedInvoice }) => (
-      id,
-    ) => {
-      fetchByQueryInvoice(id, {
-        onSuccess: (inv) => setRelatedInvoice(inv.uuid),
-      });
-    },
+    fetchByQueryInvoice:
+      ({ fetchByQueryInvoice, setRelatedInvoice }) =>
+      (id) => {
+        fetchByQueryInvoice(id, {
+          onSuccess: (inv) => setRelatedInvoice(inv.uuid),
+        });
+      },
   }),
   withTranslation(),
   withTitle(({ t }) => t('titles:order.orderDetail')),

@@ -585,10 +585,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
           eventDidMount={this.handleEventRender}
           locale={i18n.language === 'en' ? 'en-GB' : i18n.language}
           firstDay={Moment.localeData()._week.dow}
-          slotDuration={
-            // eslint-disable-next-line
-            `00:${15 * 2 ** this.props.zoomLevel}:00`
-          }
+          slotDuration={`00:${15 * 2 ** this.props.zoomLevel}:00`}
           locales={[frLocale, itLocale, deLocale, nlLocale]}
           slotMinTime={
             this.props.scheduleTimerangeBegin
@@ -689,12 +686,16 @@ export default compose(
   withStateHandlers(
     { zoomLevel: 1 },
     {
-      zoomIn: ({ zoomLevel }) => () => ({
-        zoomLevel: Math.max(zoomLevel - 1, 0),
-      }),
-      zoomOut: ({ zoomLevel }) => () => ({
-        zoomLevel: Math.min(zoomLevel + 1, 2),
-      }),
+      zoomIn:
+        ({ zoomLevel }) =>
+        () => ({
+          zoomLevel: Math.max(zoomLevel - 1, 0),
+        }),
+      zoomOut:
+        ({ zoomLevel }) =>
+        () => ({
+          zoomLevel: Math.min(zoomLevel + 1, 2),
+        }),
     },
   ),
   withTranslation(['privateService']),

@@ -47,6 +47,7 @@ const EmailPreview = (props: Props) => {
       {loading && <CircularProgress />}
       <Paper>
         <div
+          // eslint-disable-next-line
           dangerouslySetInnerHTML={{
             __html: sanitizedHTML,
           }}

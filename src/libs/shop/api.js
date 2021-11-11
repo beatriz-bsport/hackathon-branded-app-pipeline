@@ -33,7 +33,7 @@ export async function createItem(shopItemData: *) {
   return postAuth(`${API_V1_URI}/shop/item/`, shopItemData);
 }
 
-export async function updateItem(shopItemData: *, id: number) {
+export async function updateItem(shopItemData: any, id: number) {
   return patchAuth(`${API_V1_URI}/shop/item/${id}/`, shopItemData);
 }
 

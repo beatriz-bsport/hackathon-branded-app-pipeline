@@ -264,12 +264,8 @@ class TagManagement extends React.PureComponent<Props> {
   };
 
   render() {
-    const {
-      classes,
-      t,
-      membersWithTagList,
-      membersWithoutTagList,
-    } = this.props;
+    const { classes, t, membersWithTagList, membersWithoutTagList } =
+      this.props;
 
     return (
       <div className={classes.container}>

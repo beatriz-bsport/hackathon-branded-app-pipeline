@@ -271,9 +271,9 @@ export const getCustomFormStatistics = createSelector(
     return statisticsDict[id]
       ? {
           ...statisticsDict[id],
-          allMemberIds: Object.keys(
-            statisticsDict[id].detail_by_member,
-          ).map((_id: string) => parseInt(_id)),
+          allMemberIds: Object.keys(statisticsDict[id].detail_by_member).map(
+            (_id: string) => parseInt(_id),
+          ),
         }
       : null;
   },

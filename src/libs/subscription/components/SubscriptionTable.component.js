@@ -75,27 +75,24 @@ const getColumnData = (
                   '&>*': { marginRight: 8 },
                 }}
               >
-                {
-                  // eslint-disable-next-line
-		  addPayment && !value.hasEnded ? (
-                    <RedButton
-                      variant="outlined"
-                      onClick={(ev) => {
-                        ev.stopPropagation();
-                        addPayment(value.subscriptionId);
-                      }}
-                    >
-                      <AddIcon />
-                      {t(
-                        `parameters.payment_method_group.${value.payment_method_identifier}`,
-                      )}
-                    </RedButton>
-                  ) : (
-                    t(
+                {addPayment && !value.hasEnded ? (
+                  <RedButton
+                    variant="outlined"
+                    onClick={(ev) => {
+                      ev.stopPropagation();
+                      addPayment(value.subscriptionId);
+                    }}
+                  >
+                    <AddIcon />
+                    {t(
                       `parameters.payment_method_group.${value.payment_method_identifier}`,
-                    )
+                    )}
+                  </RedButton>
+                ) : (
+                  t(
+                    `parameters.payment_method_group.${value.payment_method_identifier}`,
                   )
-                }
+                )}
               </div>
             );
           }

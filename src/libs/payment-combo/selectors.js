@@ -17,24 +17,23 @@ export const getPaymenComboDataDict: (State) => {
 export const getPaymentCombo: (State, number) => ?PaymentCombo = (state, id) =>
   state.paymentCombo.byId[id];
 
-export const getPaymentComboList: (State) => Array<PaymentCombo> = createSelector(
-  [_getPaymenComboIdList, getPaymenComboDataDict],
-  (ids, data) =>
+export const getPaymentComboList: (State) => Array<PaymentCombo> =
+  createSelector([_getPaymenComboIdList, getPaymenComboDataDict], (ids, data) =>
     ids
       .map((id) => data[id])
       .filter((pc) => !!pc)
       .filter((pc) => pc.available),
-);
+  );
 
-export const getPaymentComboListAvailableOnline: (State) => Array<PaymentCombo> = createSelector(
-  getPaymentComboList,
-  (pcList) => pcList.filter((pc) => !pc.manager_only),
-);
+export const getPaymentComboListAvailableOnline: (State) => Array<PaymentCombo> =
+  createSelector(getPaymentComboList, (pcList) =>
+    pcList.filter((pc) => !pc.manager_only),
+  );
 
-export const getPaymentComboListUnavailableOnline: (State) => Array<PaymentCombo> = createSelector(
-  getPaymentComboList,
-  (pcList) => pcList.filter((pc) => pc.manager_only),
-);
+export const getPaymentComboListUnavailableOnline: (State) => Array<PaymentCombo> =
+  createSelector(getPaymentComboList, (pcList) =>
+    pcList.filter((pc) => pc.manager_only),
+  );
 
 const _getPaymentComboPurchaseList = (state: State) =>
   state.paymentCombo.purchase.items;

@@ -15,7 +15,7 @@ type Props = {
   classes: Object,
   onChange: (any) => void,
   new: boolean,
-  setNotNullableData: (Array<string>) => void,
+  setNotNullableData: (data: Array<string>) => void,
 };
 
 export class GenderFilter extends Component<Props, state> {

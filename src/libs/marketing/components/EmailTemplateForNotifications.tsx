@@ -305,6 +305,7 @@ class EmailTemplateForNotifications extends React.PureComponent<Props> {
             <Divider className={classes.divider} />
             <Paper className={classes.mailPreview}>
               <div
+                // eslint-disable-next-line
                 dangerouslySetInnerHTML={{
                   __html: this.props.emailDetails.html,
                 }}

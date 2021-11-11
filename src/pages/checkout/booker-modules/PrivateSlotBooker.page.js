@@ -110,7 +110,7 @@ type Props = {
 
   fetchProfile: () => void,
 
-  auth: *,
+  auth: any,
 };
 
 type State = {
@@ -145,12 +145,8 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
 
   handleConsumerPassClick = (consumerPassId: number) => {
     this.setState({ processing: true });
-    const {
-      associated_establishment,
-      associated_coach,
-      establishment,
-      date,
-    } = this.props.data;
+    const { associated_establishment, associated_coach, establishment, date } =
+      this.props.data;
     this.props.registerPrivateBooking(
       {
         private_slot: this.props.privateSlotId,
@@ -182,12 +178,8 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
 
   handlePrivatePassClick = (privatePassId: number) => {
     this.setState({ processing: true });
-    const {
-      associated_establishment,
-      establishment,
-      associated_coach,
-      date,
-    } = this.props.data;
+    const { associated_establishment, establishment, associated_coach, date } =
+      this.props.data;
     this.props.addItemToBasket(
       this.props.basket.id,
       {

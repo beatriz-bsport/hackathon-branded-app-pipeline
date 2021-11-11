@@ -15,7 +15,6 @@ import { getTextColorFromRGB } from '../../utils/color';
 
 interface Props {
   startDate: string;
-  endDate: string;
   onRangeChange: (startDate: string, endDate: string) => void;
 }
 
@@ -84,7 +83,7 @@ const DateRangePicker: React.FC<Props> = (props) => {
         </div>
       );
     },
-    [classes, props.startDate, props.endDate, activeDate, dates],
+    [classes, activeDate, dates],
   );
 
   return (

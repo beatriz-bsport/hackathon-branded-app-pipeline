@@ -69,12 +69,8 @@ export class SubscriptionCreate extends Component<Props, State> {
   }
 
   onSubmit = () => {
-    const {
-      member,
-      paymentPacks,
-      privatePassList,
-      paymentComboList,
-    } = this.props;
+    const { member, paymentPacks, privatePassList, paymentComboList } =
+      this.props;
 
     const {
       recurrent_voucher,

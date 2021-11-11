@@ -11,7 +11,7 @@ import type { ShopItem } from '../../../api/types';
 
 type Props = {
   shopItems: Array<ShopItem>,
-  onChange: (?number) => void,
+  onChange: (item: ?number) => void,
   helperText: string,
   value: ?number,
   selectorClass: string,

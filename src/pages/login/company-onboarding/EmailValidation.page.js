@@ -37,18 +37,25 @@ export default compose(
     disconnect: disconnectAction,
   }),
   withHandlers({
-    disconnect: ({ disconnect, goToRoot }) => () => disconnect(goToRoot),
-    requestValidationEmail: ({ requestValidationEmail, email }) => (options) =>
-      requestValidationEmail(email, options),
-    checkEmailValidation: ({ email, goToRoot }) => (callback) => {
-      checkEmailValidationAPI(decodeURIComponent(email))
-        .then((r) => {
-          if (r.data.validated) {
-            callback();
-            setTimeout(goToRoot, 3000);
-          }
-        })
-        .catch(() => {});
-    },
+    disconnect:
+      ({ disconnect, goToRoot }) =>
+      () =>
+        disconnect(goToRoot),
+    requestValidationEmail:
+      ({ requestValidationEmail, email }) =>
+      (options) =>
+        requestValidationEmail(email, options),
+    checkEmailValidation:
+      ({ email, goToRoot }) =>
+      (callback) => {
+        checkEmailValidationAPI(decodeURIComponent(email))
+          .then((r) => {
+            if (r.data.validated) {
+              callback();
+              setTimeout(goToRoot, 3000);
+            }
+          })
+          .catch(() => {});
+      },
   }),
 )(EmailValidationPage);

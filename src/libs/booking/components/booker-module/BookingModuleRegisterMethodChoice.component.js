@@ -31,13 +31,13 @@ type Props = {
   consumerPacksNonCompatible: Array<WithIsSharedActive<ConsumerPaymentPack>>,
   compatiblePacks: Array<PaymentPack>,
   registerToOffer: (
-    {
+    offer: {
       consumerPaymentPack?: WithIsSharedActive<ConsumerPaymentPack>,
       paymentPack?: PaymentPack,
     },
     voucher?: number,
   ) => void,
-  onBookMultiple: ({
+  onBookMultiple: (bookings: {
     consumerPaymentPack?: ConsumerPaymentPack,
     paymentPack?: PaymentPack,
   }) => void,

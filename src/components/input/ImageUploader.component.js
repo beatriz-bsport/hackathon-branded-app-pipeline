@@ -13,14 +13,14 @@ import Typography from '@material-ui/core/Typography';
 import { styles as baseStyles } from './uploader.styles';
 
 type Props = {
-  classes: *,
+  classes: any,
   initial: string,
   onChange: (data: any) => void,
   t: TFunction,
   name: string,
 };
 type State = {
-  photo: *,
+  photo: any,
   previewURL: string | *,
 };
 

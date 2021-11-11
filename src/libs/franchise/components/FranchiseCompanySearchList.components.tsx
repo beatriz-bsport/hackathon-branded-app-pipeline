@@ -28,13 +28,8 @@ export type OwnProps = {
 type Props = OwnProps & WithStyles<typeof styles> & WithTranslation;
 
 const FranchiseCompanySearchList = (props: Props) => {
-  const {
-    selectedCompanyId,
-    companies,
-    classes,
-    handleCompanySelected,
-    t,
-  } = props;
+  const { selectedCompanyId, companies, classes, handleCompanySelected, t } =
+    props;
 
   return (
     <div>

@@ -24,13 +24,8 @@ type Props = {
 };
 
 export const BookingCapabilities = (props: Props) => {
-  const {
-    t,
-    classes,
-    loading,
-    privateConsumerPassList,
-    privatePassList,
-  } = props;
+  const { t, classes, loading, privateConsumerPassList, privatePassList } =
+    props;
   if (loading) {
     return <LinearProgress />;
   }

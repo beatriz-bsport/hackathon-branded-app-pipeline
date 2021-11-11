@@ -30,10 +30,8 @@ export function IEMessage(props: Props) {
     <UserAgentProvider ua={window.navigator.userAgent}>
       <UserAgent returnFullParser>
         {(parser) => {
-          const {
-            name: browserName,
-            major: browserMajor,
-          } = parser.getBrowser();
+          const { name: browserName, major: browserMajor } =
+            parser.getBrowser();
 
           const shouldDialogOpen =
             (browserName === 'IE' && parseInt(browserMajor, 10) <= 11) ||

@@ -181,8 +181,7 @@ exports.default = {
     buttonRevoke: 'Désactiver Quickbooks',
     confirmDialog: {
       title: 'QuickBooks Connection',
-      text:
-        'Etes-vous sur de vouloir vous autoriser Bsport à accéder à votre application ?',
+      text: 'Etes-vous sur de vouloir vous autoriser Bsport à accéder à votre application ?',
     },
   },
 };

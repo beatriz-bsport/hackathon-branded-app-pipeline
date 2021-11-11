@@ -719,9 +719,8 @@ export const fetchMemberListWithTagsAction = GenericListAsyncAction(
   fetchFilteredMembersAPI,
 );
 
-export const membersListWithoutTagRepo = GenericListRepo<Member>(
-  'membersWithoutTag',
-);
+export const membersListWithoutTagRepo =
+  GenericListRepo<Member>('membersWithoutTag');
 export const fetchMemberListWithoutTagsAction = GenericListAsyncAction(
   membersListWithoutTagRepo,
   fetchFilteredMembersAPI,

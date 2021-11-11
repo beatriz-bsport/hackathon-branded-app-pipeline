@@ -26,8 +26,8 @@ import {
   signUpViaCustomFormActions,
 } from './actions';
 
-const initialState: Immutable.Immutable<CustomFormState> = Immutable<CustomFormState>(
-  {
+const initialState: Immutable.Immutable<CustomFormState> =
+  Immutable<CustomFormState>({
     allIds: [],
     byId: {},
     loading: false,
@@ -68,8 +68,7 @@ const initialState: Immutable.Immutable<CustomFormState> = Immutable<CustomFormS
       error: null,
       form: null,
     },
-  },
-);
+  });
 
 export default handleActions(
   {

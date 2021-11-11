@@ -101,7 +101,7 @@ type Props = {
   confirmBookingAttendance: (id: number) => void,
   goToRelationship: (memberId: number) => void,
 
-  fetchPaymentPackBulk: (Array<number>) => void,
+  fetchPaymentPackBulk: (pps: Array<number>) => void,
   fetchConsumerPackList: (page: number, pageSize: number) => void,
   timezone: string,
 
@@ -124,7 +124,7 @@ type Props = {
   refundConsumerPaymentPack: (id: number, data: any) => void,
 
   consumerPassId: ?number,
-  retrieveConsumerPackBulk: (Array<number>, OptionCallback) => void,
+  retrieveConsumerPackBulk: (cpps: Array<number>, opt: OptionCallback) => void,
   resetConsumerPackByMemberAction: () => void,
 
   passExtensionsLoading: boolean,
@@ -158,7 +158,7 @@ type Props = {
   open: any,
   setOpenValue: (name: string) => void,
   setFilterValue: (name: string, bool: Boolean) => void,
-  updateFiltersSettings: (*) => void,
+  updateFiltersSettings: () => void,
   userFiltersLoading: boolean,
 
   fetchConsumerPaymentPackLinks: (
@@ -539,7 +539,8 @@ export default compose(
       createExtension: createPackExtension,
       deleteExtension: deletePackExtension,
       refreshConsumerPack: (id) => retrieveConsumerPackBulk([id]),
-      fetchConsumerPaymentPackCreditRefundList: fetchConsumerPaymentPackCreditRefundListAction,
+      fetchConsumerPaymentPackCreditRefundList:
+        fetchConsumerPaymentPackCreditRefundListAction,
       fetchPaymentPackBulk: fetchPaymentPackBulkAction,
 
       discardBookingAttendance,
@@ -591,89 +592,101 @@ export default compose(
     },
   ),
   withHandlers({
-    fetchInvoice: ({ fetchInvoice, setRelatedInvoice }) => (uuid) => {
-      setRelatedInvoice(null);
-      fetchInvoice(uuid, {
-        onSuccess: (inv) => setRelatedInvoice(inv.uuid),
-      });
-    },
-    fetchConsumerPackList: ({
-      id,
-      filters,
-      fetchConsumerPacks,
-      fetchPaymentPackBulk,
-      fetchConsumerPaymentPackLinks,
-    }) => (page, pageSize) => {
-      fetchConsumerPacks(id, page, pageSize, filters, {
-        onSuccess: (cppList) => {
-          fetchPaymentPackBulk(cppList.map((cpp) => cpp.payment_pack));
-          fetchConsumerPaymentPackLinks(
-            flatten(
-              cppList.map((cpp) => cpp.src_consumer_payment_pack.map((i) => i)),
-            ),
-          );
-        },
-      });
-    },
-    setOpenValue: ({ setOpen, open }) => (name: string) => {
-      setOpen({
-        ...open,
-        [name]: !open[name],
-      });
-    },
-    setFilterValue: ({ setFilters, filters }) => (name: string, value) => {
-      if (value === null) {
-        setFilters(omit(filters, name));
-      } else {
-        setFilters({
-          ...filters,
-          [name]: value,
+    fetchInvoice:
+      ({ fetchInvoice, setRelatedInvoice }) =>
+      (uuid) => {
+        setRelatedInvoice(null);
+        fetchInvoice(uuid, {
+          onSuccess: (inv) => setRelatedInvoice(inv.uuid),
         });
-      }
-    },
-    refundConsumerPaymentPack: ({
-      refundConsumerPaymentPack,
-      fetchConsumerPaymentPackCreditRefundList,
-      id,
-      fetchMember,
-      closeRefund,
-      refreshConsumerPack,
-    }) => (idPass, data) => {
-      refundConsumerPaymentPack(idPass, data, {
-        onSuccess: () => {
-          fetchMember(id);
-          refreshConsumerPack(idPass);
-          closeRefund();
+      },
+    fetchConsumerPackList:
+      ({
+        id,
+        filters,
+        fetchConsumerPacks,
+        fetchPaymentPackBulk,
+        fetchConsumerPaymentPackLinks,
+      }) =>
+      (page, pageSize) => {
+        fetchConsumerPacks(id, page, pageSize, filters, {
+          onSuccess: (cppList) => {
+            fetchPaymentPackBulk(cppList.map((cpp) => cpp.payment_pack));
+            fetchConsumerPaymentPackLinks(
+              flatten(
+                cppList.map((cpp) =>
+                  cpp.src_consumer_payment_pack.map((i) => i),
+                ),
+              ),
+            );
+          },
+        });
+      },
+    setOpenValue:
+      ({ setOpen, open }) =>
+      (name: string) => {
+        setOpen({
+          ...open,
+          [name]: !open[name],
+        });
+      },
+    setFilterValue:
+      ({ setFilters, filters }) =>
+      (name: string, value) => {
+        if (value === null) {
+          setFilters(omit(filters, name));
+        } else {
+          setFilters({
+            ...filters,
+            [name]: value,
+          });
+        }
+      },
+    refundConsumerPaymentPack:
+      ({
+        refundConsumerPaymentPack,
+        fetchConsumerPaymentPackCreditRefundList,
+        id,
+        fetchMember,
+        closeRefund,
+        refreshConsumerPack,
+      }) =>
+      (idPass, data) => {
+        refundConsumerPaymentPack(idPass, data, {
+          onSuccess: () => {
+            fetchMember(id);
+            refreshConsumerPack(idPass);
+            closeRefund();
 
-          fetchConsumerPaymentPackCreditRefundList(idPass);
-        },
-      });
-    },
-    fetchConsumerPaymentPackPenalty: ({ fetchConsumerPaymentPackPenalty }) => (
-      consumerPassId,
-      page,
-      pageSize,
-    ) => {
-      fetchConsumerPaymentPackPenalty(consumerPassId, page, pageSize);
-    },
+            fetchConsumerPaymentPackCreditRefundList(idPass);
+          },
+        });
+      },
+    fetchConsumerPaymentPackPenalty:
+      ({ fetchConsumerPaymentPackPenalty }) =>
+      (consumerPassId, page, pageSize) => {
+        fetchConsumerPaymentPackPenalty(consumerPassId, page, pageSize);
+      },
   }),
   withHandlers({
-    fetchFiltersSettings: ({ fetchManagerFilters, setFilters }) => () => {
-      fetchManagerFilters({
-        onSuccess: (payload) => {
-          setFilters(payload.filters.pass_filters);
-        },
-      });
-    },
+    fetchFiltersSettings:
+      ({ fetchManagerFilters, setFilters }) =>
+      () => {
+        fetchManagerFilters({
+          onSuccess: (payload) => {
+            setFilters(payload.filters.pass_filters);
+          },
+        });
+      },
   }),
   withHandlers({
-    updateFiltersSettings: ({ updateManagerFilters, userFilters }) => (
-      filters: object,
-    ) => {
-      updateManagerFilters({
-        ...userFilters,
-        pass_filters: filters,
-      });
-    },
+    updateFiltersSettings:
+      ({ updateManagerFilters, userFilters }) =>
+      (filters: object) => {
+        updateManagerFilters({
+          ...userFilters,
+          pass_filters: filters,
+        });
+      },
   }),
 )(MemberDetailPass);

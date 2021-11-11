@@ -19,14 +19,15 @@ interface Props {
 }
 
 const MarketplacePlaylistSettingsForm: React.FC<Props> = (props) => {
+  const { playlists, config, onChange, error } = props;
   const classes = useStyles();
   const { t } = useTranslation('settings');
 
   useEffect(() => {
-    if (props.config.playlistId === undefined && props.playlists.length) {
-      props.onChange({ playlistId: props.playlists[0].id });
+    if (config.playlistId === undefined && playlists.length) {
+      onChange({ playlistId: playlists[0].id });
     }
-  }, []);
+  }, [config, playlists, onChange]);
 
   return (
     <div className={classes.flexCol}>
@@ -36,21 +37,19 @@ const MarketplacePlaylistSettingsForm: React.FC<Props> = (props) => {
         </InputLabel>
         <Select
           value={
-            props.config.playlistId !== undefined
-              ? props.config.playlistId
-              : (props.playlists.length && props.playlists[0].id) || -1
+            config.playlistId !== undefined
+              ? config.playlistId
+              : (playlists.length && playlists[0].id) || -1
           }
-          onChange={(ev: any) =>
-            props.onChange({ playlistId: ev.target.value })
-          }
+          onChange={(ev: any) => onChange({ playlistId: ev.target.value })}
         >
-          {props.playlists.map((p) => (
+          {playlists.map((p) => (
             <MenuItem key={p.id} value={p.id}>
               {p.name}
             </MenuItem>
           ))}
         </Select>
-        {props.error && <Typography color="error">{t(props.error)}</Typography>}
+        {error && <Typography color="error">{t(error)}</Typography>}
       </FormControl>
     </div>
   );

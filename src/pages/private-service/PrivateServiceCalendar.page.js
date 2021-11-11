@@ -55,7 +55,7 @@ type Props = {
 
   resourceData: ?ResourceData,
   resourceFiltersArray: Array<string>,
-  setResourceFiltersArray: (Array<string>) => void,
+  setResourceFiltersArray: (filters: Array<string>) => void,
   resourceDataLoading: boolean,
   resetAvailabilitySlots: () => void,
 
@@ -86,7 +86,7 @@ type Props = {
   periodFilter: { start: string, end: string },
 
   fetchPrivateServiceResourceData: (id: number, OptionCallback) => void,
-  setResourceFiltersArray: (Array<string>) => void,
+  setResourceFiltersArray: (ressources: Array<string>) => void,
   fetchPrivateBookingList: () => void,
   fetchCustomEventList: () => void,
   resetCustomEvent: () => void,
@@ -174,22 +174,22 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
     this.props.resetCustomEvent();
   }
 
-  storeResourceAvailabilityUpdate = (kind: string) => (...data: any) => {
-    this.setState({
-      updateAvailabilitySlotData: {
-        data,
-        kind,
-      },
-    });
-  };
+  storeResourceAvailabilityUpdate =
+    (kind: string) =>
+    (...data: any) => {
+      this.setState({
+        updateAvailabilitySlotData: {
+          data,
+          kind,
+        },
+      });
+    };
 
-  enableResourceAvailabilitySlot = this.storeResourceAvailabilityUpdate(
-    'enable',
-  );
+  enableResourceAvailabilitySlot =
+    this.storeResourceAvailabilityUpdate('enable');
 
-  disableResourceAvailabilitySlot = this.storeResourceAvailabilityUpdate(
-    'disable',
-  );
+  disableResourceAvailabilitySlot =
+    this.storeResourceAvailabilityUpdate('disable');
 
   onCancelAvailabilityUpdate = () =>
     this.setState({ updateAvailabilitySlotData: null });
@@ -307,15 +307,11 @@ export default compose(
     },
   ),
   withHandlers({
-    handleDateChange: ({ setPeriodFilter }) => ({
-      date_start,
-      date_end,
-    }: {
-      date_start: string,
-      date_end: string,
-    }) => {
-      setPeriodFilter({ start: date_start, end: date_end });
-    },
+    handleDateChange:
+      ({ setPeriodFilter }) =>
+      ({ date_start, date_end }: { date_start: string, date_end: string }) => {
+        setPeriodFilter({ start: date_start, end: date_end });
+      },
   }),
 
   connect(
@@ -355,58 +351,55 @@ export default compose(
     },
   ),
   withHandlers({
-    createOrUpdateCustomEvent: ({
-      createOrUpdateCustomEvent,
-      customEventData,
-      closeCustomEventDialog,
-    }) => (data, options) => {
-      createOrUpdateCustomEvent(
-        { ...data, ...customEventData },
-        {
-          onSuccess: (...args) => {
-            if (options && options.onSuccess) options.onSuccess(...args);
-            closeCustomEventDialog();
+    createOrUpdateCustomEvent:
+      ({
+        createOrUpdateCustomEvent,
+        customEventData,
+        closeCustomEventDialog,
+      }) =>
+      (data, options) => {
+        createOrUpdateCustomEvent(
+          { ...data, ...customEventData },
+          {
+            onSuccess: (...args) => {
+              if (options && options.onSuccess) options.onSuccess(...args);
+              closeCustomEventDialog();
+            },
+            onError: options && options.onError,
           },
-          onError: options && options.onError,
-        },
-      );
-    },
-    fetchCustomEventList: ({
-      fetchCustomEventList,
-      periodFilter,
-      service,
-    }) => () => {
-      fetchCustomEventList({
-        date_start__gte: periodFilter.start,
-        date_start__lte: periodFilter.end,
-        page_size: null,
-        associated_coach_in: service.coaches.map((c) => c.id),
-      });
-    },
-    fetchPrivateBookingList: ({
-      fetchPrivateBookings,
-      periodFilter,
-      id,
-      fetchMemberBulk,
-    }) => () => {
-      fetchPrivateBookings(
-        {
-          private_service: id,
+        );
+      },
+    fetchCustomEventList:
+      ({ fetchCustomEventList, periodFilter, service }) =>
+      () => {
+        fetchCustomEventList({
           date_start__gte: periodFilter.start,
           date_start__lte: periodFilter.end,
           page_size: null,
-        },
-        {
-          onSuccess: (bookings) => {
-            if (bookings.length) {
-              fetchMemberBulk({
-                id__in: uniq(bookings.map((b) => b.member)),
-              });
-            }
+          associated_coach_in: service.coaches.map((c) => c.id),
+        });
+      },
+    fetchPrivateBookingList:
+      ({ fetchPrivateBookings, periodFilter, id, fetchMemberBulk }) =>
+      () => {
+        fetchPrivateBookings(
+          {
+            private_service: id,
+            date_start__gte: periodFilter.start,
+            date_start__lte: periodFilter.end,
+            page_size: null,
           },
-        },
-      );
-    },
+          {
+            onSuccess: (bookings) => {
+              if (bookings.length) {
+                fetchMemberBulk({
+                  id__in: uniq(bookings.map((b) => b.member)),
+                });
+              }
+            },
+          },
+        );
+      },
   }),
   withTitle(({ service }) => {
     return service ? `${service.name}` : '';

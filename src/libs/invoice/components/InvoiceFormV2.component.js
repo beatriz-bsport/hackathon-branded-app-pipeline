@@ -31,7 +31,7 @@ type Props = {
   member: Member,
   finalizeInvoice: (uuid: string) => void,
   onSubmit: (
-    {
+    data: {
       buyable_items: Array<BuyableItem>,
     },
     options: OptionCallback,

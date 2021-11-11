@@ -80,20 +80,20 @@ export class VideoPlayerBase extends React.Component<Props> {
           <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
         </Helmet>
 
-          <div data-vjs-player>
-            <video
-              style={
-                this.props.rounded
-                  ? {
-                      borderRadius: 12,
-                      border: '1px transparent rgba(0, 0, 0, 0)',
-                    }
-                  : {}
-              }
-              ref={this.onVideoJSRef}
-              className="video-js fluid vjs-big-play-centered"
-            />
-          </div>
+        <div data-vjs-player>
+          <video
+            style={
+              this.props.rounded
+                ? {
+                    borderRadius: 12,
+                    border: '1px transparent rgba(0, 0, 0, 0)',
+                  }
+                : {}
+            }
+            ref={this.onVideoJSRef}
+            className="video-js fluid vjs-big-play-centered"
+          />
+        </div>
       </div>
     );
     /* eslint-enable */

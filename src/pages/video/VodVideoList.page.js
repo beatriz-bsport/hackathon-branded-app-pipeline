@@ -73,14 +73,14 @@ type Props = {
   videoList: Array<Video>,
   openEditForm: (Video) => void,
   closeEditForm: () => void,
-  setVideoToStream: (?Video) => void,
+  setVideoToStream: (stream: ?Video) => void,
   closeVideoStream: () => void,
   createOrUpdateVideo: (data: any, options: OptionCallback) => void,
   deleteVideo: (video: Video) => void,
 
   videoToUploadId: ?number,
   videoToUpload: ?Video,
-  setVideoToUpload: (?Video) => void,
+  setVideoToUpload: (stream: ?Video) => void,
 
   closeUploadVideoForm: () => void,
   createOpen: boolean,
@@ -304,97 +304,88 @@ export default compose(
     },
   ),
   withHandlers({
-    turnSearchParamsIntoQueryParams: ({ searchParams }) => () => {
-      const params = {};
-      if (searchParams.SCTs) {
-        params.SCT__pk__in = searchParams.SCTs;
-      }
-      if (searchParams.coaches) {
-        params.coaches__id__in = searchParams.coaches;
-      }
-      if (searchParams.levels) {
-        params.level__pk__in = searchParams.levels;
-      }
-      return params;
-    },
+    turnSearchParamsIntoQueryParams:
+      ({ searchParams }) =>
+      () => {
+        const params = {};
+        if (searchParams.SCTs) {
+          params.SCT__pk__in = searchParams.SCTs;
+        }
+        if (searchParams.coaches) {
+          params.coaches__id__in = searchParams.coaches;
+        }
+        if (searchParams.levels) {
+          params.level__pk__in = searchParams.levels;
+        }
+        return params;
+      },
   }),
   withHandlers({
-    fetchMoreVideo: ({
-      fetchMoreVideo,
-      turnSearchParamsIntoQueryParams,
-    }) => () => {
-      const params = turnSearchParamsIntoQueryParams();
-      fetchMoreVideo({ mine: true, ...params });
-    },
-    fetchVideoList: ({ fetchVideoList, turnSearchParamsIntoQueryParams }) => (
-      options,
-    ) => {
-      const params = turnSearchParamsIntoQueryParams();
-      fetchVideoList({ mine: true, ...params }, 1, {
-        onError: options && options.onError,
-        onSuccess: (videoList) => {
-          if (options && options.onSuccess) {
-            options.onSuccess(videoList);
-          }
-        },
-      });
-    },
+    fetchMoreVideo:
+      ({ fetchMoreVideo, turnSearchParamsIntoQueryParams }) =>
+      () => {
+        const params = turnSearchParamsIntoQueryParams();
+        fetchMoreVideo({ mine: true, ...params });
+      },
+    fetchVideoList:
+      ({ fetchVideoList, turnSearchParamsIntoQueryParams }) =>
+      (options) => {
+        const params = turnSearchParamsIntoQueryParams();
+        fetchVideoList({ mine: true, ...params }, 1, {
+          onError: options && options.onError,
+          onSuccess: (videoList) => {
+            if (options && options.onSuccess) {
+              options.onSuccess(videoList);
+            }
+          },
+        });
+      },
   }),
   withHandlers({
-    submitVideoProviderIdentifier: ({
-      submitVideoProviderIdentifier,
-      retrieveVideo,
-      videoToUploadId,
-    }) => (data, options) => {
-      submitVideoProviderIdentifier(videoToUploadId, data, {
-        onSuccess: (...args) => {
-          retrieveVideo(videoToUploadId);
-          if (options && options.onSuccess) {
-            options.onSuccess(...args);
-          }
-        },
-        onError: options && options.onError,
-      });
-    },
-    deleteVideo: ({
-      deleteVideo,
-      fetchVideoList,
-      fetchVideoFilterableParams,
-    }) => (video, options) => {
-      deleteVideo(video.id, {
-        onSuccess: (...args) => {
-          if (options && options.onSuccess) {
-            options.onSuccess(...args);
-          }
-          fetchVideoList();
-          fetchVideoFilterableParams({ mine: true });
-        },
-        onError: (options && options.onError) || null,
-      });
-    },
-    createOrUpdateVideo: ({
-      createOrUpdateVideo,
-      fetchVideoList,
-      closeEditForm,
-      closeCreateDialog,
-      fetchVideoFilterableParams,
-    }) => (values, options) => {
-      const formData = mapFormData(values, VideoMap);
-      createOrUpdateVideo(formData, {
-        onError: (options && options.onError) || null,
-        onSuccess: (...args) => {
-          if (options && options.onSuccess) {
-            options.onSuccess(...args);
-          }
-          closeCreateDialog();
-          closeEditForm();
-          fetchVideoFilterableParams({ mine: true });
-          if (!formData.get('id')) {
+    submitVideoProviderIdentifier:
+      ({ submitVideoProviderIdentifier, videoToUploadId }) =>
+      (data, options) => {
+        submitVideoProviderIdentifier(videoToUploadId, data, options);
+      },
+    deleteVideo:
+      ({ deleteVideo, fetchVideoList, fetchVideoFilterableParams }) =>
+      (video, options) => {
+        deleteVideo(video.id, {
+          onSuccess: (...args) => {
+            if (options && options.onSuccess) {
+              options.onSuccess(...args);
+            }
             fetchVideoList();
-          }
-        },
-      });
-    },
+            fetchVideoFilterableParams({ mine: true });
+          },
+          onError: (options && options.onError) || null,
+        });
+      },
+    createOrUpdateVideo:
+      ({
+        createOrUpdateVideo,
+        fetchVideoList,
+        closeEditForm,
+        closeCreateDialog,
+        fetchVideoFilterableParams,
+      }) =>
+      (values, options) => {
+        const formData = mapFormData(values, VideoMap);
+        createOrUpdateVideo(formData, {
+          onError: (options && options.onError) || null,
+          onSuccess: (...args) => {
+            if (options && options.onSuccess) {
+              options.onSuccess(...args);
+            }
+            closeCreateDialog();
+            closeEditForm();
+            fetchVideoFilterableParams({ mine: true });
+            if (!formData.get('id')) {
+              fetchVideoList();
+            }
+          },
+        });
+      },
     removeVideoSource: (props) => async (video: Video) => {
       const res = await showDeleteDialog(
         props.t('video.form.video_source.change_popup_title'),

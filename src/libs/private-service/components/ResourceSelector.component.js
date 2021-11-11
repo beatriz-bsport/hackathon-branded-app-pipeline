@@ -188,17 +188,17 @@ export default compose(
   withTranslation(['privateService']),
   withStyles(styles),
   withHandlers({
-    onUnselectResource: ({ setResourceFiltered, resourceSelectedListIds }) => (
-      resource_identifier,
-    ) => {
-      setResourceFiltered(
-        resourceSelectedListIds.filter((i) => i !== resource_identifier),
-      );
-    },
-    onSelectResource: ({ setResourceFiltered, resourceSelectedListIds }) => (
-      resource_identifier,
-    ) => {
-      setResourceFiltered([...resourceSelectedListIds, resource_identifier]);
-    },
+    onUnselectResource:
+      ({ setResourceFiltered, resourceSelectedListIds }) =>
+      (resource_identifier) => {
+        setResourceFiltered(
+          resourceSelectedListIds.filter((i) => i !== resource_identifier),
+        );
+      },
+    onSelectResource:
+      ({ setResourceFiltered, resourceSelectedListIds }) =>
+      (resource_identifier) => {
+        setResourceFiltered([...resourceSelectedListIds, resource_identifier]);
+      },
   }),
 )(ResourceSelector);

@@ -112,8 +112,8 @@ type Props = {
   offerStatusById: { [number]: OfferStatus },
   assetsForBlueprintById: { [number]: AssetForBlueprint },
 
-  createMember: (id: ?number, data: [*], options: *, offerId: number) => void,
-  createInvoice: ([*], number, number) => void,
+  createMember: (id: ?number, data: [*], options: any, offerId: number) => void,
+  createInvoice: ([any], number, number) => void,
   resetQuickInvoices: () => void,
   createQuickUnevenInvoice: (
     {
@@ -142,7 +142,7 @@ type Props = {
   company_theme: Object,
 
   setMemberToRegister: (
-    ?{
+    member: ?{
       name: string,
       photo: ?string,
       id: number,
@@ -321,7 +321,7 @@ export class OfferManagement extends Component<Props, State> {
     });
   };
 
-  createMember = (data: *, options: OptionCallback) => {
+  createMember = (data: any, options: OptionCallback) => {
     if (
       !(
         data.address_line_1 ||
@@ -768,17 +768,21 @@ export default compose(
         addMemberModal: true,
       }),
       clearSearch: () => () => ({ searchedText: '' }),
-      searchMembers: (_, { searchMembers }) => (searchedText) => {
-        searchMembers(searchedText);
-        return { searchedText };
-      },
-      registerOption: (_, { setMemberToRegister }) => (optionId, member) => {
-        setMemberToRegister(member);
-        return {
-          optionToDiscard: optionId,
-          confirmOptionToDiscard: false,
-        };
-      },
+      searchMembers:
+        (_, { searchMembers }) =>
+        (searchedText) => {
+          searchMembers(searchedText);
+          return { searchedText };
+        },
+      registerOption:
+        (_, { setMemberToRegister }) =>
+        (optionId, member) => {
+          setMemberToRegister(member);
+          return {
+            optionToDiscard: optionId,
+            confirmOptionToDiscard: false,
+          };
+        },
       cancelDiscardOption: () => () => ({
         optionToDiscard: null,
         confirmOptionToDiscard: null,
@@ -794,14 +798,14 @@ export default compose(
       booking_ordering: company_theme.default_booking_ordering,
     }),
     {
-      onChangeBookingOrdering: (_, { fetchOfferData }) => (
-        booking_ordering,
-      ) => {
-        fetchOfferData(booking_ordering);
-        return {
-          booking_ordering,
-        };
-      },
+      onChangeBookingOrdering:
+        (_, { fetchOfferData }) =>
+        (booking_ordering) => {
+          fetchOfferData(booking_ordering);
+          return {
+            booking_ordering,
+          };
+        },
     },
   ),
   withHandlers({
@@ -810,45 +814,43 @@ export default compose(
       const win = window.open(url);
       win.focus();
     },
-    onDeleteRecurrenceRuleBooking: ({
-      deleteRecurrenceRuleBooking,
-      fetchOfferData,
-      clearSearch,
-      setBookerInAvanceDialog,
-      booking_ordering,
-    }) => (id, data) => {
-      deleteRecurrenceRuleBooking(id, data, {
-        onSuccess: () => {
-          fetchOfferData(booking_ordering);
-          clearSearch();
-          setBookerInAvanceDialog(false);
-        },
-      });
-    },
-    recurrentBookingOnPageRequested: ({
-      fetchRecurrenceRuleBooking,
-      fetchMemberBulk,
-      offerId,
-    }) => (page, page_size) => {
-      fetchRecurrenceRuleBooking(
-        { offer: offerId, page, page_size },
-        {
-          onSuccess: (recurrenceRuleList) => {
-            if (recurrenceRuleList.length) {
-              fetchMemberBulk({
-                id__in: recurrenceRuleList.map((nr) => nr.member),
-              });
-            }
+    onDeleteRecurrenceRuleBooking:
+      ({
+        deleteRecurrenceRuleBooking,
+        fetchOfferData,
+        clearSearch,
+        setBookerInAvanceDialog,
+        booking_ordering,
+      }) =>
+      (id, data) => {
+        deleteRecurrenceRuleBooking(id, data, {
+          onSuccess: () => {
+            fetchOfferData(booking_ordering);
+            clearSearch();
+            setBookerInAvanceDialog(false);
           },
-        },
-      );
-    },
-    revertQuickInvoiceAndRefreshOffer: ({
-      booking_ordering,
-      offerId,
-      revertQuickInvoiceAndRefreshOffer,
-    }) => (uuid) => {
-      revertQuickInvoiceAndRefreshOffer(uuid, offerId, booking_ordering);
-    },
+        });
+      },
+    recurrentBookingOnPageRequested:
+      ({ fetchRecurrenceRuleBooking, fetchMemberBulk, offerId }) =>
+      (page, page_size) => {
+        fetchRecurrenceRuleBooking(
+          { offer: offerId, page, page_size },
+          {
+            onSuccess: (recurrenceRuleList) => {
+              if (recurrenceRuleList.length) {
+                fetchMemberBulk({
+                  id__in: recurrenceRuleList.map((nr) => nr.member),
+                });
+              }
+            },
+          },
+        );
+      },
+    revertQuickInvoiceAndRefreshOffer:
+      ({ booking_ordering, offerId, revertQuickInvoiceAndRefreshOffer }) =>
+      (uuid) => {
+        revertQuickInvoiceAndRefreshOffer(uuid, offerId, booking_ordering);
+      },
   }),
 )(OfferManagement);

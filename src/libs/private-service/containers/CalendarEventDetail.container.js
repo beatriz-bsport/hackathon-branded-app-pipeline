@@ -184,14 +184,8 @@ export class CalendarEventDetail extends React.Component<Props> {
   }
 
   renderContent = () => {
-    const {
-      t,
-      classes,
-      goToMember,
-      offer,
-      privateBooking,
-      customEvent,
-    } = this.props;
+    const { t, classes, goToMember, offer, privateBooking, customEvent } =
+      this.props;
     if (
       (this.props.selectedPrivateBooking && !this.props.privateBooking) ||
       (this.props.offerId && !offer)
@@ -493,24 +487,26 @@ const OfferEditorContainer = compose(
     },
   ),
   withHandlers({
-    fetchSimilarOffers: ({
-      fetchEstablishmentBulk,
-      fetchMetaActivityBulk,
-      fetchCoachBulk,
-      fetchSimilarOffers,
-    }) => (id) => {
-      fetchSimilarOffers(
-        id,
-        {},
-        {
-          onSuccess: (oList) => {
-            fetchCoachBulk(oList.map((o) => o.coach));
-            fetchEstablishmentBulk(oList.map((o) => o.establishment));
-            fetchMetaActivityBulk(oList.map((o) => o.meta_activity));
+    fetchSimilarOffers:
+      ({
+        fetchEstablishmentBulk,
+        fetchMetaActivityBulk,
+        fetchCoachBulk,
+        fetchSimilarOffers,
+      }) =>
+      (id) => {
+        fetchSimilarOffers(
+          id,
+          {},
+          {
+            onSuccess: (oList) => {
+              fetchCoachBulk(oList.map((o) => o.coach));
+              fetchEstablishmentBulk(oList.map((o) => o.establishment));
+              fetchMetaActivityBulk(oList.map((o) => o.meta_activity));
+            },
           },
-        },
-      );
-    },
+        );
+      },
   }),
 
   withStateHandlers(
@@ -520,16 +516,15 @@ const OfferEditorContainer = compose(
       offerProcessing: false,
     },
     {
-      openOfferEditModal: (
-        _,
-        { fetchEstablishments, fetchAssociatedCoachesList },
-      ) => () => {
-        fetchEstablishments();
-        fetchAssociatedCoachesList();
-        return {
-          offerEditModalOpen: true,
-        };
-      },
+      openOfferEditModal:
+        (_, { fetchEstablishments, fetchAssociatedCoachesList }) =>
+        () => {
+          fetchEstablishments();
+          fetchAssociatedCoachesList();
+          return {
+            offerEditModalOpen: true,
+          };
+        },
       closeOfferEditModal: () => () => {
         return { offerEditModalOpen: false };
       },
@@ -570,42 +565,44 @@ const PrivateBookingCancellatorContainer = compose(
     },
   ),
   withHandlers({
-    disableOrDeletePrivateBooking: ({
-      disablePrivateBooking,
-      deletePrivateBooking,
-      closeDisablePrivateBookingModal,
-      setPrivateBookingProcessing,
-    }) => (private_booking, force_refund, send_mail, options) => {
-      setPrivateBookingProcessing(true);
-      const isDisabled =
-        private_booking.booking_status_code !== BOOKING_STATUS_OK.id;
-      let action = disablePrivateBooking;
-      if (isDisabled) {
-        action = deletePrivateBooking;
-      }
-      action(
-        private_booking.id,
-        { force_refund, send_mail },
-        {
-          onSuccess: (...args) => {
-            closeDisablePrivateBookingModal();
-            setPrivateBookingProcessing(false);
-            if (options && options.onSuccess) options.onSuccess(...args);
+    disableOrDeletePrivateBooking:
+      ({
+        disablePrivateBooking,
+        deletePrivateBooking,
+        closeDisablePrivateBookingModal,
+        setPrivateBookingProcessing,
+      }) =>
+      (private_booking, force_refund, send_mail, options) => {
+        setPrivateBookingProcessing(true);
+        const isDisabled =
+          private_booking.booking_status_code !== BOOKING_STATUS_OK.id;
+        let action = disablePrivateBooking;
+        if (isDisabled) {
+          action = deletePrivateBooking;
+        }
+        action(
+          private_booking.id,
+          { force_refund, send_mail },
+          {
+            onSuccess: (...args) => {
+              closeDisablePrivateBookingModal();
+              setPrivateBookingProcessing(false);
+              if (options && options.onSuccess) options.onSuccess(...args);
+            },
+            onError: (...args) => {
+              setPrivateBookingProcessing(false);
+              if (options && options.onError) options.onError(...args);
+            },
           },
-          onError: (...args) => {
-            setPrivateBookingProcessing(false);
-            if (options && options.onError) options.onError(...args);
-          },
-        },
-      );
-    },
-    restorePrivateBooking: ({ restorePrivateBooking, onClose }) => (
-      privateBookingId,
-    ) => {
-      restorePrivateBooking(privateBookingId, {
-        onSuccess: () => onClose(),
-      });
-    },
+        );
+      },
+    restorePrivateBooking:
+      ({ restorePrivateBooking, onClose }) =>
+      (privateBookingId) => {
+        restorePrivateBooking(privateBookingId, {
+          onSuccess: () => onClose(),
+        });
+      },
   }),
 );
 
@@ -651,88 +648,90 @@ export default compose(
     },
   ),
   withHandlers({
-    updatePrivateBookingDatetime: ({
-      updatePrivateBookingDatetime,
-      privateBookingId,
-      fetchAvailabilitySlots,
-      onClose,
-    }) => (date, options) => {
-      updatePrivateBookingDatetime(privateBookingId, date, {
-        onSuccess: (b) => {
-          if (options && options.onSuccess) {
-            options.onSuccess(b);
-          }
-          if (fetchAvailabilitySlots) {
-            fetchAvailabilitySlots();
-          }
-          onClose();
-        },
-        onError: options && options.onError,
-      });
-    },
-    updatePrivateBookingCoachHandler: ({
-      updatePrivateBookingCoach,
-      privateBookingId,
-      setIsUpdateCoachFormOpen,
-      fetchAvailabilitySlots,
-    }) => (updatedCoachId, options) => {
-      updatePrivateBookingCoach(privateBookingId, updatedCoachId, {
-        onError: options && options.onError,
-        onSuccess: () => {
-          if (fetchAvailabilitySlots) {
-            fetchAvailabilitySlots();
-          }
-          if (options && options.onSuccess) options.onSuccess();
-        },
-      });
-      setIsUpdateCoachFormOpen(false);
-    },
-    deleteCustomEvent: ({
-      deleteCustomEvent,
-      fetchAvailabilitySlots,
-      onClose,
-    }) => (id) => {
-      deleteCustomEvent(id, {
-        onSuccess: () => {
-          if (fetchAvailabilitySlots) {
-            fetchAvailabilitySlots();
-          }
-          onClose();
-        },
-      });
-    },
-    fetchPrivateBookingById: ({
-      fetchCoachBulk,
-      fetchEstablishmentBulk,
-      fetchPrivateService,
-      fetchPrivateSlot,
-      fetchPrivateBooking,
-      fetchMemberBulk,
-    }) => (id) => {
-      fetchPrivateBooking(id, {
-        onSuccess: ([booking]) => {
-          if (booking.coach) fetchCoachBulk([booking.coach]);
-          if (booking.establishment) {
-            fetchEstablishmentBulk([booking.establishment]);
-          }
-          fetchPrivateSlot(booking.private_service, booking.private_slot);
-          fetchPrivateService(booking.private_service);
-          fetchMemberBulk({ id__in: [booking.member] });
-        },
-      });
-    },
-    fetchOfferById: ({
-      fetchCoachBulk,
-      fetchEstablishmentBulk,
-      retrieveOfferAsManager,
-    }) => (id) => {
-      retrieveOfferAsManager(id, {
-        onSuccess: (offer) => {
-          fetchCoachBulk([offer.coach]);
-          fetchEstablishmentBulk([offer.establishment]);
-        },
-      });
-    },
+    updatePrivateBookingDatetime:
+      ({
+        updatePrivateBookingDatetime,
+        privateBookingId,
+        fetchAvailabilitySlots,
+        onClose,
+      }) =>
+      (date, options) => {
+        updatePrivateBookingDatetime(privateBookingId, date, {
+          onSuccess: (b) => {
+            if (options && options.onSuccess) {
+              options.onSuccess(b);
+            }
+            if (fetchAvailabilitySlots) {
+              fetchAvailabilitySlots();
+            }
+            onClose();
+          },
+          onError: options && options.onError,
+        });
+      },
+    updatePrivateBookingCoachHandler:
+      ({
+        updatePrivateBookingCoach,
+        privateBookingId,
+        setIsUpdateCoachFormOpen,
+        fetchAvailabilitySlots,
+      }) =>
+      (updatedCoachId, options) => {
+        updatePrivateBookingCoach(privateBookingId, updatedCoachId, {
+          onError: options && options.onError,
+          onSuccess: () => {
+            if (fetchAvailabilitySlots) {
+              fetchAvailabilitySlots();
+            }
+            if (options && options.onSuccess) options.onSuccess();
+          },
+        });
+        setIsUpdateCoachFormOpen(false);
+      },
+    deleteCustomEvent:
+      ({ deleteCustomEvent, fetchAvailabilitySlots, onClose }) =>
+      (id) => {
+        deleteCustomEvent(id, {
+          onSuccess: () => {
+            if (fetchAvailabilitySlots) {
+              fetchAvailabilitySlots();
+            }
+            onClose();
+          },
+        });
+      },
+    fetchPrivateBookingById:
+      ({
+        fetchCoachBulk,
+        fetchEstablishmentBulk,
+        fetchPrivateService,
+        fetchPrivateSlot,
+        fetchPrivateBooking,
+        fetchMemberBulk,
+      }) =>
+      (id) => {
+        fetchPrivateBooking(id, {
+          onSuccess: ([booking]) => {
+            if (booking.coach) fetchCoachBulk([booking.coach]);
+            if (booking.establishment) {
+              fetchEstablishmentBulk([booking.establishment]);
+            }
+            fetchPrivateSlot(booking.private_service, booking.private_slot);
+            fetchPrivateService(booking.private_service);
+            fetchMemberBulk({ id__in: [booking.member] });
+          },
+        });
+      },
+    fetchOfferById:
+      ({ fetchCoachBulk, fetchEstablishmentBulk, retrieveOfferAsManager }) =>
+      (id) => {
+        retrieveOfferAsManager(id, {
+          onSuccess: (offer) => {
+            fetchCoachBulk([offer.coach]);
+            fetchEstablishmentBulk([offer.establishment]);
+          },
+        });
+      },
   }),
   OfferEditorContainer,
   PrivateBookingCancellatorContainer,

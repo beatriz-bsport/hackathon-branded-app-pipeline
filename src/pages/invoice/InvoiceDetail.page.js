@@ -558,62 +558,61 @@ export default compose(
     },
   ),
   withHandlers({
-    editCustomFooter: ({ editCustomFooter, uuid }) => (customFooter, options) =>
-      editCustomFooter(uuid, customFooter, options),
-    fetchPaymentGroupRequiringActionList: ({
-      fetchPaymentGroupList,
-      uuid,
-    }) => () => {
-      return fetchPaymentGroupList({
-        invoice: uuid,
-        status: PAYMENT_INTENT_STATUS_REQUIRES_ACTION,
-      });
-    },
-    editBillingEstablishment: ({ editBillingEstablishment, uuid }) => (
-      establishment_billing_id,
-      options,
-    ) => editBillingEstablishment(uuid, establishment_billing_id, options),
-    updatePaymentMethod: ({ updatePaymentMethod }) => (
-      paymentUuid,
-      newMethod,
-      options,
-    ) =>
-      updatePaymentMethod(paymentUuid, newMethod, {
-        onSuccess: (payment) => {
-          if (options && options.onSuccess) options.onSuccess(payment);
-        },
-        onError: options && options.onError,
-      }),
-    finalizeInvoice: ({ finalizeInvoice, uuid }) => () =>
-      finalizeInvoice(uuid, {
-        onSuccess: (invoice) => {
-          window.open(invoice.stripe_invoice_pdf);
-        },
-      }),
-    revertInvoice: ({ revertInvoice, goToInvoice, uuid }) => (
-      reverse_type,
-      payment_method_to_reverse,
-      options,
-    ) => {
-      revertInvoice(
-        uuid,
-        {
-          reverse_type,
-          payment_method_to_reverse,
-        },
-        {
-          onSuccess: (invoice) => {
-            goToInvoice(
-              invoice.reverse_invoices[invoice.reverse_invoices.length - 1],
-            );
-            if (options && options.onSuccess) {
-              options.onSuccess(invoice);
-            }
+    editCustomFooter:
+      ({ editCustomFooter, uuid }) =>
+      (customFooter, options) =>
+        editCustomFooter(uuid, customFooter, options),
+    fetchPaymentGroupRequiringActionList:
+      ({ fetchPaymentGroupList, uuid }) =>
+      () => {
+        return fetchPaymentGroupList({
+          invoice: uuid,
+          status: PAYMENT_INTENT_STATUS_REQUIRES_ACTION,
+        });
+      },
+    editBillingEstablishment:
+      ({ editBillingEstablishment, uuid }) =>
+      (establishment_billing_id, options) =>
+        editBillingEstablishment(uuid, establishment_billing_id, options),
+    updatePaymentMethod:
+      ({ updatePaymentMethod }) =>
+      (paymentUuid, newMethod, options) =>
+        updatePaymentMethod(paymentUuid, newMethod, {
+          onSuccess: (payment) => {
+            if (options && options.onSuccess) options.onSuccess(payment);
           },
           onError: options && options.onError,
-        },
-      );
-    },
+        }),
+    finalizeInvoice:
+      ({ finalizeInvoice, uuid }) =>
+      () =>
+        finalizeInvoice(uuid, {
+          onSuccess: (invoice) => {
+            window.open(invoice.stripe_invoice_pdf);
+          },
+        }),
+    revertInvoice:
+      ({ revertInvoice, goToInvoice, uuid }) =>
+      (reverse_type, payment_method_to_reverse, options) => {
+        revertInvoice(
+          uuid,
+          {
+            reverse_type,
+            payment_method_to_reverse,
+          },
+          {
+            onSuccess: (invoice) => {
+              goToInvoice(
+                invoice.reverse_invoices[invoice.reverse_invoices.length - 1],
+              );
+              if (options && options.onSuccess) {
+                options.onSuccess(invoice);
+              }
+            },
+            onError: options && options.onError,
+          },
+        );
+      },
   }),
   withTitle(
     ({ t, uuid, invoice }) =>

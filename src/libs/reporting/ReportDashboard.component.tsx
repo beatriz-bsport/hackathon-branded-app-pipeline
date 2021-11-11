@@ -51,19 +51,13 @@ export function ReportDashboard(props: Props) {
     t,
   } = props;
 
-  const [
-    selectedCategory,
-    setSelectedCategory,
-  ] = useState<ReportCategoryEnum | null>(null);
-  const [
-    reportConfiguration,
-    setReportConfigurationToEdit,
-  ] = useState<ReportConfiguration | null>(null);
+  const [selectedCategory, setSelectedCategory] =
+    useState<ReportCategoryEnum | null>(null);
+  const [reportConfiguration, setReportConfigurationToEdit] =
+    useState<ReportConfiguration | null>(null);
   const [showModalAdd, setShowModalAdd] = useState(false);
-  const [
-    selectedForDeletion,
-    setSelectedForDeletion,
-  ] = useState<ReportConfiguration | null>(null);
+  const [selectedForDeletion, setSelectedForDeletion] =
+    useState<ReportConfiguration | null>(null);
 
   const configurations = selectedCategory
     ? reportConfigurations.filter((c) => c.category === selectedCategory)

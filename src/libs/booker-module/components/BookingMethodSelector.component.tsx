@@ -83,11 +83,8 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
   }
 
   shouldAutoSelectDefaultPack = () => {
-    const {
-      availableConsumerPacks,
-      unCategorizedPacks,
-      availableComboPacks,
-    } = this.props;
+    const { availableConsumerPacks, unCategorizedPacks, availableComboPacks } =
+      this.props;
 
     /** If selected pack not existed anymore */
     if (
@@ -148,11 +145,8 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
   };
 
   openPacks = (id: CollapsePackEnum | number, isCategory: boolean) => {
-    const {
-      availableConsumerPacks,
-      unCategorizedPacks,
-      availableComboPacks,
-    } = this.props;
+    const { availableConsumerPacks, unCategorizedPacks, availableComboPacks } =
+      this.props;
 
     let selectedPack = this.props.selectedPack;
 

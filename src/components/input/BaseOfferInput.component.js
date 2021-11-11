@@ -25,7 +25,7 @@ type Props = {
   classes: Object,
   events: Array<Event>,
   label: ?string,
-  onChange: (?number) => void,
+  onChange: (number: ?number) => void,
   helperText: string,
   value: ?number,
 };

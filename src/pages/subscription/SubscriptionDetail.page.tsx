@@ -141,13 +141,8 @@ export class SubscriptionDetail extends Component<Props> {
   }
 
   render() {
-    const {
-      loading,
-      subscription,
-      goToInvoice,
-      goToMember,
-      goToSubscribe,
-    } = this.props;
+    const { loading, subscription, goToInvoice, goToMember, goToSubscribe } =
+      this.props;
 
     return (
       <div className={this.props.classes.container}>
@@ -307,158 +302,158 @@ export default compose(
     },
   ),
   withHandlers({
-    requestSetupIntentSecret: ({ subscription }) => () =>
-      requestSetupIntentSecretAPI(subscription.member),
-    fetchPaymentMethodList: ({ subscription, fetchPaymentMethodList }) => () =>
-      fetchPaymentMethodList({ member: subscription.member }),
-    fetchSubscriptionEventList: ({ fetchSubscriptionEventList, id }) => (
-      params = {},
-    ) => fetchSubscriptionEventList({ ...params, object_id: id }),
-    openPaymentMethodSwitch: ({ setSwitchPaymentMethodDialogOpen }) => () => {
-      setSwitchPaymentMethodDialogOpen(true);
-    },
-    switchPaymentMethod: ({
-      id,
-      switchSubscriptionPaymentMethod,
-      setSwitchPaymentMethodDialogOpen,
-    }) => (
-      source,
-      options: OptionCallback<Subscription>,
-      payment_method_id: number,
-    ) => {
-      switchSubscriptionPaymentMethod(
+    requestSetupIntentSecret:
+      ({ subscription }) =>
+      () =>
+        requestSetupIntentSecretAPI(subscription.member),
+    fetchPaymentMethodList:
+      ({ subscription, fetchPaymentMethodList }) =>
+      () =>
+        fetchPaymentMethodList({ member: subscription.member }),
+    fetchSubscriptionEventList:
+      ({ fetchSubscriptionEventList, id }) =>
+      (params = {}) =>
+        fetchSubscriptionEventList({ ...params, object_id: id }),
+    openPaymentMethodSwitch:
+      ({ setSwitchPaymentMethodDialogOpen }) =>
+      () => {
+        setSwitchPaymentMethodDialogOpen(true);
+      },
+    switchPaymentMethod:
+      ({
         id,
-        {
-          is_v2: true,
-          payment_method_id,
-          payment_engine: PAYMENT_ENGINE_STRIPE,
-        },
-        {
-          onSuccess: (sub: Subscription) => {
-            if (options && options.onSuccess) options.onSuccess(sub);
-            setSwitchPaymentMethodDialogOpen(false);
+        switchSubscriptionPaymentMethod,
+        setSwitchPaymentMethodDialogOpen,
+      }) =>
+      (
+        source,
+        options: OptionCallback<Subscription>,
+        payment_method_id: number,
+      ) => {
+        switchSubscriptionPaymentMethod(
+          id,
+          {
+            is_v2: true,
+            payment_method_id,
+            payment_engine: PAYMENT_ENGINE_STRIPE,
           },
-          onError: options ? options.onError : null,
-        },
-      );
-    },
-    fetchSubscription: ({
-      fetchSubscription,
-      fetchPaymentPackBulk,
-      fetchMember,
-      id,
-    }) => () => {
-      fetchSubscription(id, {
-        onSuccess: (sub: Subscription) => {
-          fetchPaymentPackBulk([sub.payment_pack]);
-          fetchMember(sub.member);
-        },
-      });
-    },
-    openPackSwitcherDialog: ({
-      setSiwtchPackDialogOpen,
-      fetchAllPaymentPacks,
-    }) => () => {
-      setSiwtchPackDialogOpen(true);
-      fetchAllPaymentPacks();
-    },
-    switchSubscriptionPaymentPack: ({
-      id,
-      switchSubscriptionPaymentPack,
-      fetchPaymentPackBulk,
-      setSiwtchPackDialogOpen,
-    }) => (data, options: OptionCallback<Subscription>) => {
-      switchSubscriptionPaymentPack(id, data, {
-        onSuccess: (sub: Subscription) => {
-          setSiwtchPackDialogOpen(false);
-          if (options && options.onSuccess) options.onSuccess(sub);
-          fetchPaymentPackBulk([sub.payment_pack]);
-        },
-        onError: (err) => {
-          if (options && options.onError) options.onError(err);
-        },
-      });
-    },
-    freezeSubscription: ({ id, freezeSubscription, setFreezeDialogOpen }) => (
-      data,
-      options: OptionCallback<Subscription>,
-    ) => {
-      const options_ = {
-        onSuccess: (...args) => {
-          if (options && options.onSuccess) options.onSuccess(...args);
-          setFreezeDialogOpen(false);
-        },
-        onError: (err) => {
-          if (options && options.onError) options.onError(err);
-        },
-      };
+          {
+            onSuccess: (sub: Subscription) => {
+              if (options && options.onSuccess) options.onSuccess(sub);
+              setSwitchPaymentMethodDialogOpen(false);
+            },
+            onError: options ? options.onError : null,
+          },
+        );
+      },
+    fetchSubscription:
+      ({ fetchSubscription, fetchPaymentPackBulk, fetchMember, id }) =>
+      () => {
+        fetchSubscription(id, {
+          onSuccess: (sub: Subscription) => {
+            fetchPaymentPackBulk([sub.payment_pack]);
+            fetchMember(sub.member);
+          },
+        });
+      },
+    openPackSwitcherDialog:
+      ({ setSiwtchPackDialogOpen, fetchAllPaymentPacks }) =>
+      () => {
+        setSiwtchPackDialogOpen(true);
+        fetchAllPaymentPacks();
+      },
+    switchSubscriptionPaymentPack:
+      ({
+        id,
+        switchSubscriptionPaymentPack,
+        fetchPaymentPackBulk,
+        setSiwtchPackDialogOpen,
+      }) =>
+      (data, options: OptionCallback<Subscription>) => {
+        switchSubscriptionPaymentPack(id, data, {
+          onSuccess: (sub: Subscription) => {
+            setSiwtchPackDialogOpen(false);
+            if (options && options.onSuccess) options.onSuccess(sub);
+            fetchPaymentPackBulk([sub.payment_pack]);
+          },
+          onError: (err) => {
+            if (options && options.onError) options.onError(err);
+          },
+        });
+      },
+    freezeSubscription:
+      ({ id, freezeSubscription, setFreezeDialogOpen }) =>
+      (data, options: OptionCallback<Subscription>) => {
+        const options_ = {
+          onSuccess: (...args) => {
+            if (options && options.onSuccess) options.onSuccess(...args);
+            setFreezeDialogOpen(false);
+          },
+          onError: (err) => {
+            if (options && options.onError) options.onError(err);
+          },
+        };
 
-      freezeSubscription(id, data, options_);
-    },
-    updateSubscriptionRenewal: ({ id, updateSubscriptionRenewal }) => (
-      data,
-      options: OptionCallback<Subscription>,
-    ) => {
-      updateSubscriptionRenewal(id, data, options);
-    },
+        freezeSubscription(id, data, options_);
+      },
+    updateSubscriptionRenewal:
+      ({ id, updateSubscriptionRenewal }) =>
+      (data, options: OptionCallback<Subscription>) => {
+        updateSubscriptionRenewal(id, data, options);
+      },
   }),
   withHandlers({
-    cancelPause: ({ cancelPause, fetchSubscription, id }) => (
-      pauseId: number,
-      options: OptionCallback<Subscription>,
-    ) => {
-      cancelPause(id, pauseId, {
-        onSuccess: () => {
-          if (options && options.onSuccess) options.onSuccess();
-          fetchSubscription();
-        },
-        onError: () => {
-          if (options && options.onError) options.onError();
-        },
-      });
-    },
-    updatePlannedInvoiceDate: ({
-      updatePlannedInvoiceDate,
-      fetchSubscription,
-      id,
-    }) => (data, options: OptionCallback<Subscription>) => {
-      updatePlannedInvoiceDate(id, data, {
-        onSuccess: () => {
-          if (options && options.onSuccess) options.onSuccess();
-          fetchSubscription();
-        },
-        onError: () => {
-          if (options && options.onError) options.onError();
-        },
-      });
-    },
-    flagPlannedInvoiceAsLast: ({
-      flagPlannedInvoiceAsLast,
-      fetchSubscription,
-    }) => (id: number) => {
-      flagPlannedInvoiceAsLast(id, { onSuccess: () => fetchSubscription() });
-    },
-    unflagPlannedInvoiceAsLast: ({
-      unflagPlannedInvoiceAsLast,
-      fetchSubscription,
-    }) => (id: number) => {
-      unflagPlannedInvoiceAsLast(id, { onSuccess: () => fetchSubscription() });
-    },
-    updatePlannedInvoicePrice: ({
-      updatePlannedInvoicePrice,
-      id,
-      fetchSubscription,
-    }) => (data, options: OptionCallback<Subscription>) => {
-      updatePlannedInvoicePrice(id, data, {
-        onSuccess: (...args) => {
-          if (options && options.onSuccess) {
-            options.onSuccess(...args);
-          }
-          fetchSubscription();
-        },
-        onError: options.onError,
-      });
-    },
+    cancelPause:
+      ({ cancelPause, fetchSubscription, id }) =>
+      (pauseId: number, options: OptionCallback<Subscription>) => {
+        cancelPause(id, pauseId, {
+          onSuccess: () => {
+            if (options && options.onSuccess) options.onSuccess();
+            fetchSubscription();
+          },
+          onError: () => {
+            if (options && options.onError) options.onError();
+          },
+        });
+      },
+    updatePlannedInvoiceDate:
+      ({ updatePlannedInvoiceDate, fetchSubscription, id }) =>
+      (data, options: OptionCallback<Subscription>) => {
+        updatePlannedInvoiceDate(id, data, {
+          onSuccess: () => {
+            if (options && options.onSuccess) options.onSuccess();
+            fetchSubscription();
+          },
+          onError: () => {
+            if (options && options.onError) options.onError();
+          },
+        });
+      },
+    flagPlannedInvoiceAsLast:
+      ({ flagPlannedInvoiceAsLast, fetchSubscription }) =>
+      (id: number) => {
+        flagPlannedInvoiceAsLast(id, { onSuccess: () => fetchSubscription() });
+      },
+    unflagPlannedInvoiceAsLast:
+      ({ unflagPlannedInvoiceAsLast, fetchSubscription }) =>
+      (id: number) => {
+        unflagPlannedInvoiceAsLast(id, {
+          onSuccess: () => fetchSubscription(),
+        });
+      },
+    updatePlannedInvoicePrice:
+      ({ updatePlannedInvoicePrice, id, fetchSubscription }) =>
+      (data, options: OptionCallback<Subscription>) => {
+        updatePlannedInvoicePrice(id, data, {
+          onSuccess: (...args) => {
+            if (options && options.onSuccess) {
+              options.onSuccess(...args);
+            }
+            fetchSubscription();
+          },
+          onError: options.onError,
+        });
+      },
   }),
   withTitle(({ subscription }) => (subscription ? subscription.name : '')),
 )(SubscriptionDetail);

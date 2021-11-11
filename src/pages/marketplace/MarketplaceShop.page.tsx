@@ -18,7 +18,6 @@ import withTitle from '../../hocs/with-title.hoc';
 import { RootState } from '../../reducers';
 
 type OwnProps = {
-  /* eslint-disable-next-line */
   companyId: number;
   toogleCurrentBasketOpen: (v: boolean) => void;
   requestSignUp: () => void;

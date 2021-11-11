@@ -26,13 +26,13 @@ import withTitle from '../../hocs/with-title.hoc';
 type Props = {
   id: number,
   theme: Object,
-  initial: *,
+  initial: any,
   fetchMemberInitial: () => void,
   goToMember: (id: number) => void,
   goToMerge: (id: number, existingId: number) => void,
   goToMemberList: () => void,
   snackbarSuccess: (msg: string) => void,
-  onSubmit: (*) => void,
+  onSubmit: () => void,
   onCancel: () => void,
   country: string,
 };

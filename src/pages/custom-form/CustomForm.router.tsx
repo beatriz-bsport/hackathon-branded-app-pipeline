@@ -26,6 +26,7 @@ export const CustomFormRouter = () => {
   );
 };
 
-export default withStayEvent('custom-form', [30, 60, 120, 240, 680])(
-  CustomFormRouter,
-);
+export default withStayEvent(
+  'custom-form',
+  [30, 60, 120, 240, 680],
+)(CustomFormRouter);

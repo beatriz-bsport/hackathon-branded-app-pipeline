@@ -56,14 +56,8 @@ export class OrderConfigrationPage extends Component<Props> {
   }
 
   render() {
-    const {
-      configuration,
-      deliveryFees,
-      loading,
-      processing,
-      classes,
-      t,
-    } = this.props;
+    const { configuration, deliveryFees, loading, processing, classes, t } =
+      this.props;
     if (loading || !configuration) {
       return <LinearProgress />;
     }

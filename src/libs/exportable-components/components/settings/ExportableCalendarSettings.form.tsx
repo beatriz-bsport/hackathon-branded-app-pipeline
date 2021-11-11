@@ -37,21 +37,31 @@ const COMPACT_MODE_TYPE = {
 };
 
 const MarketplaceCalendarSettingsForm: React.FC<Props> = (props) => {
+  const {
+    coaches,
+    establishments,
+    metaActivities,
+    config,
+    onChange,
+    showCompactMode,
+    establishmentGroupList,
+  } = props;
+
   const setCompactMode = useCallback(
     (value: keyof typeof COMPACT_MODE_TYPE) => {
-      const config: MarketplaceCalendarData = {
-        ...props.config,
+      const newConfig: MarketplaceCalendarData = {
+        ...config,
         compactMode: COMPACT_MODE_TYPE[value],
       };
-      props.onChange(config);
+      onChange(newConfig);
     },
-    [props.config],
+    [config, onChange],
   );
 
   const classes = useStyles();
   const { t } = useTranslation();
 
-  if (!props.config) {
+  if (!config) {
     return null;
   }
 
@@ -61,11 +71,11 @@ const MarketplaceCalendarSettingsForm: React.FC<Props> = (props) => {
         className={classes.todayOnly}
         control={
           <Checkbox
-            checked={props.config.todayOnly}
+            checked={config.todayOnly}
             onChange={() =>
-              props.onChange({
-                ...props.config,
-                todayOnly: !props.config.todayOnly,
+              onChange({
+                ...config,
+                todayOnly: !config.todayOnly,
               })
             }
             name="checkedB"
@@ -74,14 +84,14 @@ const MarketplaceCalendarSettingsForm: React.FC<Props> = (props) => {
         }
         label={t('settings:marketplaceSettings.createDialog.todayOnly')}
       />
-      {props.showCompactMode && (
+      {showCompactMode && (
         <FormControl className={classes.compactModeContainer}>
           <InputLabel>{t('widget:widget.choice')}</InputLabel>
           <Select
             className={classes.fullWidth}
             value={Object.keys(COMPACT_MODE_TYPE).find(
               (key: keyof typeof COMPACT_MODE_TYPE) =>
-                COMPACT_MODE_TYPE[key] === props.config.compactMode,
+                COMPACT_MODE_TYPE[key] === config.compactMode,
             )}
             onChange={(ev: any) => setCompactMode(ev.target.value)}
           >
@@ -97,12 +107,12 @@ const MarketplaceCalendarSettingsForm: React.FC<Props> = (props) => {
       )}
 
       <CommonSettings
-        coaches={props.coaches}
-        establishmentGroupList={props.establishmentGroupList}
-        establishments={props.establishments}
-        metaActivities={props.metaActivities}
-        config={props.config}
-        onChange={props.onChange}
+        coaches={coaches}
+        establishmentGroupList={establishmentGroupList}
+        establishments={establishments}
+        metaActivities={metaActivities}
+        config={config}
+        onChange={onChange}
       />
     </div>
   );

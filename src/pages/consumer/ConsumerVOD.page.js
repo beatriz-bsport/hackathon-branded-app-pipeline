@@ -133,39 +133,47 @@ export default compose(
   }),
   withTranslation(['consumerSpace']),
   withHandlers({
-    openVideo: ({ membership, push }) => (videoId) => {
-      const url = getMarketplaceRoute(
-        membership.company_name,
-        membership.company,
-        `vod/video/${videoId}`,
-      );
-      push(url);
-    },
-    goToVodPage: ({ membership, push }) => () =>
-      push(
-        getMarketplaceRoute(
+    openVideo:
+      ({ membership, push }) =>
+      (videoId) => {
+        const url = getMarketplaceRoute(
           membership.company_name,
           membership.company,
-          'vod/video',
+          `vod/video/${videoId}`,
+        );
+        push(url);
+      },
+    goToVodPage:
+      ({ membership, push }) =>
+      () =>
+        push(
+          getMarketplaceRoute(
+            membership.company_name,
+            membership.company,
+            'vod/video',
+          ),
         ),
-      ),
-    fetchMoreVideo: ({ fetchMoreVideo, companyId }) => () => {
-      fetchMoreVideo({
-        status: STATUS_PROCESSED,
-        company: companyId,
-        my_purchases: true,
-      });
-    },
-    fetchVideoList: ({ companyId, fetchVideoList }) => (options) => {
-      fetchVideoList(
-        {
+    fetchMoreVideo:
+      ({ fetchMoreVideo, companyId }) =>
+      () => {
+        fetchMoreVideo({
           status: STATUS_PROCESSED,
           company: companyId,
           my_purchases: true,
-        },
-        1,
-        options,
-      );
-    },
+        });
+      },
+    fetchVideoList:
+      ({ companyId, fetchVideoList }) =>
+      (options) => {
+        fetchVideoList(
+          {
+            status: STATUS_PROCESSED,
+            company: companyId,
+            my_purchases: true,
+          },
+          1,
+          options,
+        );
+      },
   }),
 )(ConsumerVOD);

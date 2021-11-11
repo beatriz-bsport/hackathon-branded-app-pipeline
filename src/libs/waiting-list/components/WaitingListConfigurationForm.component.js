@@ -127,10 +127,8 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
 
   renderOrderedForm = () => {
     const { classes, t } = this.props;
-    const {
-      nbMinutesBeforeOffer,
-      nbMinutesBeforeBookingOptionExpire,
-    } = this.computeExample();
+    const { nbMinutesBeforeOffer, nbMinutesBeforeBookingOptionExpire } =
+      this.computeExample();
     return (
       <div>
         <div className={classes.row}>

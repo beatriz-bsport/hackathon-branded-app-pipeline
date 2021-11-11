@@ -4,8 +4,8 @@ import { actionsType } from './actions';
 import authActionTypes from '../../actions/auth.types';
 import { ConsumerState } from './types';
 
-const initialState: Immutable.Immutable<ConsumerState> = Immutable<ConsumerState>(
-  {
+const initialState: Immutable.Immutable<ConsumerState> =
+  Immutable<ConsumerState>({
     error: false,
     errorMsg: null,
     optionsLoading: false,
@@ -34,8 +34,7 @@ const initialState: Immutable.Immutable<ConsumerState> = Immutable<ConsumerState
       error: null,
       hasMore: true,
     },
-  },
-);
+  });
 
 export default function consumerReducers(state = initialState, action: any) {
   switch (action.type) {

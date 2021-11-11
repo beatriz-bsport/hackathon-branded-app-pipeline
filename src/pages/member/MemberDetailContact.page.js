@@ -64,17 +64,17 @@ export default compose(
     },
   ),
   withHandlers({
-    fetchCampaignList: ({ id, fetchCampaignByMember, fetchRecipientBulk }) => (
-      page,
-    ) => {
-      fetchCampaignByMember(id, page, {
-        onSuccess: (campaignList) => {
-          fetchRecipientBulk(
-            id,
-            campaignList.map((c) => c.uuid),
-          );
-        },
-      });
-    },
+    fetchCampaignList:
+      ({ id, fetchCampaignByMember, fetchRecipientBulk }) =>
+      (page) => {
+        fetchCampaignByMember(id, page, {
+          onSuccess: (campaignList) => {
+            fetchRecipientBulk(
+              id,
+              campaignList.map((c) => c.uuid),
+            );
+          },
+        });
+      },
   }),
 )(MemberDetailContact);

@@ -151,48 +151,50 @@ const BankAccountFormComposed = compose(
   withState('error', 'setError', false),
   withState('loading', 'setLoading', false),
   withHandlers({
-    onSubmit: ({
-      onSubmit,
-      account_number,
-      account_holder_name,
-      routing_number,
-      country,
-      currency,
-      stripe,
-      setError,
-      onClose,
-      setLoading,
-    }) => () => {
-      setLoading(true);
-      stripe
-        .createToken('bank_account', {
-          account_number,
-          account_holder_name,
-          country,
-          currency,
-          ...(routing_number ? { routing_number } : {}),
-        })
-        .then((r: any) => {
-          const { token } = r;
+    onSubmit:
+      ({
+        onSubmit,
+        account_number,
+        account_holder_name,
+        routing_number,
+        country,
+        currency,
+        stripe,
+        setError,
+        onClose,
+        setLoading,
+      }) =>
+      () => {
+        setLoading(true);
+        stripe
+          .createToken('bank_account', {
+            account_number,
+            account_holder_name,
+            country,
+            currency,
+            ...(routing_number ? { routing_number } : {}),
+          })
+          .then((r: any) => {
+            const { token } = r;
 
-          setLoading(true);
-          setError(false);
-          onSubmit(token.id, {
-            onSuccess: () => {
-              onClose();
-              setLoading(false);
-            },
-            onError: () => {
-              setLoading(false);
-              setError(true);
-            },
+            setLoading(true);
+            setError(false);
+            onSubmit(token.id, {
+              onSuccess: () => {
+                onClose();
+                setLoading(false);
+              },
+              onError: () => {
+                setLoading(false);
+                setError(true);
+              },
+            });
+          })
+          .catch(() => {
+            setError(true);
+            setLoading(false);
           });
-        })
-        .catch(() => {
-          setError(true);
-          setLoading(false);
-        });
-    },
+      },
   }),
 )(BankAccountForm);
 

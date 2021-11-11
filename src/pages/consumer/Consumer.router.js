@@ -78,8 +78,7 @@ export default compose(
   lifecycle({
     componentWillMount() {
       let id = this.props.companyId;
-      /* eslint-disable-next-line */
-      if (isNaN(id) || id === undefined) {
+      if (Number.isNaN(id) || id === undefined) {
         if (this.props.theme.company !== undefined) {
           id = this.props.theme.company;
         }

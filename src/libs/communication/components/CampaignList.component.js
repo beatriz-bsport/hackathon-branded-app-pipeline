@@ -22,7 +22,7 @@ type Props = {
   fetchMore: () => void,
   loading: boolean,
   showEmail: ?string,
-  setShowEmail: (?string) => void,
+  setShowEmail: (email: ?string) => void,
   campaignList: Array<Campaign>,
   onClickReport: (string) => void,
 };
@@ -59,7 +59,8 @@ export const CampaignList = (props: Props) => {
         <DialogContent>
           <div
             // eslint-disable-next-line
-	  dangerouslySetInnerHTML={{ __html: props.showEmail }} />
+            dangerouslySetInnerHTML={{ __html: props.showEmail }}
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={() => props.setShowEmail(null)}>

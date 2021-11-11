@@ -14,8 +14,8 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import { mapFormData } from '../form.utils';
 import {
-  fetchCompanyCustomSignUp,
-  submitSignUpCustomForm,
+  fetchCompanyCustomSignUp as fetchCompanyCustomSignUpAction,
+  submitSignUpCustomForm as submitSignUpCustomFormAction,
 } from '../../libs/custom-form/actions';
 import { getSignUpCustomFormWithEnabledField } from '../../libs/custom-form/selectors';
 import type { CustomForm } from '../../libs/custom-form/types';
@@ -46,14 +46,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const CompanyExternalAddMember = (props: Props) => {
+  const {
+    theme,
+    goBack,
+    fetchCompanyCustomSignUp,
+    signUpCustomForm,
+    submitSignUpCustomForm,
+    companyId,
+  } = props;
+
   const classes = useStyles();
   React.useEffect(() => {
-    props.fetchCompanyCustomSignUp({ company: props.companyId });
-  }, []);
+    fetchCompanyCustomSignUp({ company: companyId });
+  }, [fetchCompanyCustomSignUp, companyId]);
+
   const submitCustomForm = (formdata: FormData, options?: OptionCallback) => {
-    props.submitSignUpCustomForm(formdata, props.companyId, {
+    submitSignUpCustomForm(formdata, companyId, {
       onSuccess: () => {
-        props.goBack();
+        goBack();
         if (options && options.onSuccess) options.onSuccess();
       },
       onError: () => {
@@ -61,17 +71,18 @@ export const CompanyExternalAddMember = (props: Props) => {
       },
     });
   };
+
   return (
     <div className={classes.customFormPaper}>
-      {props.signUpCustomForm && (
+      {signUpCustomForm && (
         <Paper className={classes.paper}>
           <CustomFormView
-            initial={props.signUpCustomForm}
+            initial={signUpCustomForm}
             onSubmit={submitCustomForm}
-            layouts={props.signUpCustomForm.layout}
-            waiver={props.theme.waiver}
-            general_terms_and_conditions={props.theme.general_terms_of_use}
-            onCancel={() => props.goBack()}
+            layouts={signUpCustomForm.layout}
+            waiver={theme.waiver}
+            general_terms_and_conditions={theme.general_terms_of_use}
+            onCancel={() => goBack()}
           />
         </Paper>
       )}
@@ -92,8 +103,8 @@ export default compose(
       goBack: goBackAction,
       snackbarSuccess: (msg) => snackbar.success(msg),
       upsertMember: createOrUpdateMember,
-      fetchCompanyCustomSignUp,
-      submitSignUpCustomForm,
+      fetchCompanyCustomSignUp: fetchCompanyCustomSignUpAction,
+      submitSignUpCustomForm: submitSignUpCustomFormAction,
     },
   ),
   withProps(({ upsertMember, goBack }) => ({

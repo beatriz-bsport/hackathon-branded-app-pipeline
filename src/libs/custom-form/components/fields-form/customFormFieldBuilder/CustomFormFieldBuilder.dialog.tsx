@@ -70,7 +70,7 @@ const CustomFormFieldFormSchema = Yup.object().shape({
         .test(
           'empty_choice',
           'marketing:customForm.customFormField.modal.error.emptyChoice',
-          function (item) {
+          function checkEmpty(item) {
             return !!item;
           },
         ),
@@ -78,7 +78,7 @@ const CustomFormFieldFormSchema = Yup.object().shape({
     .test(
       'test_choices_length',
       'marketing:customForm.customFormField.modal.error.choicesLength',
-      function (item) {
+      function checkChoiceLength(item) {
         return (
           !CUSTOM_FORM_FIELDS_WITH_CHOICES.includes(this.parent.kind) ||
           (CUSTOM_FORM_FIELDS_WITH_CHOICES.includes(this.parent.kind) &&
@@ -95,7 +95,7 @@ const CustomFormFieldFormSchema = Yup.object().shape({
     .test(
       'test_signup_question_choice',
       'marketing:customForm.customFormField.modal.error.signupQuestionShouldBeSelected',
-      function (item) {
+      function checkSignupQuestion(item) {
         if (this.parent.kind !== CUSTOM_FORM_FIELD_SIGNUP_QUESTION_OPTION) {
           return true;
         }
@@ -106,10 +106,11 @@ const CustomFormFieldFormSchema = Yup.object().shape({
 
 export function CustomFormFieldBuilderDialog(props: Props) {
   const { t, open, handleClose, isSubmitting, classes } = props;
-  const signupQuestionsChoices = CUSTOM_FORM_FIELD_SIGNUP_QUESTIONS_CHOICES.filter(
-    (choice: { value: number; label: string }) =>
-      !props?.registeredSignUpQuestions?.includes(choice.value),
-  );
+  const signupQuestionsChoices =
+    CUSTOM_FORM_FIELD_SIGNUP_QUESTIONS_CHOICES.filter(
+      (choice: { value: number; label: string }) =>
+        !props?.registeredSignUpQuestions?.includes(choice.value),
+    );
   return (
     <Dialog
       fullWidth

@@ -37,6 +37,7 @@ export const SubscriptionContractListItem = (props: Props) => {
       );
       if (element) element.scrollIntoView();
     }
+    // eslint-disable-next-line
   }, []);
 
   return (

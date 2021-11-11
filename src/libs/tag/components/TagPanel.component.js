@@ -28,7 +28,7 @@ type Props = {
   createTag: (data: { name: string, group: number }) => void,
   createTagGroup: (data: { name: string }) => void,
   deleteTagGroup: (id: number) => void,
-  updateTag: (Tag | TagGroup) => void,
+  updateTag: (tag: Tag | TagGroup) => void,
   updateTagGroup: ({ name: string, id: number }) => void,
   deleteTag: (id: number) => void,
 

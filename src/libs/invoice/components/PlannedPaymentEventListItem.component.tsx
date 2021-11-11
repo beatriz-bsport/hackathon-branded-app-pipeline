@@ -37,27 +37,30 @@ type Props = {
   };
 };
 
-const onlyIfFuture = (
-  plannedPaymentEvent: PlannedPaymentEvent,
-  t: TFunction,
-  callback: () => void,
-) => () => {
-  if (
-    moment(
-      plannedPaymentEvent.next_retry_date || plannedPaymentEvent.future_date,
-    ).isSameOrBefore(moment())
-  ) {
+const onlyIfFuture =
+  (
+    plannedPaymentEvent: PlannedPaymentEvent,
+    t: TFunction,
+    callback: () => void,
+  ) =>
+  () => {
     if (
-      Math.abs(
-        moment(plannedPaymentEvent.date_created).diff(moment(), 'minutes'),
-      ) > 30
+      moment(
+        plannedPaymentEvent.next_retry_date || plannedPaymentEvent.future_date,
+      ).isSameOrBefore(moment())
     ) {
-      alert(t('plannedPaymentEvent.lockedToday'));
-      return;
+      if (
+        Math.abs(
+          moment(plannedPaymentEvent.date_created).diff(moment(), 'minutes'),
+        ) > 30
+      ) {
+        // eslint-disable-next-line no-alert
+        alert(t('plannedPaymentEvent.lockedToday'));
+        return;
+      }
     }
-  }
-  callback();
-};
+    callback();
+  };
 
 export const PlannedPaymentEventListItem = (props: Props) => {
   const classes = useStyles();

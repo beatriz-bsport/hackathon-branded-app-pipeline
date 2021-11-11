@@ -217,25 +217,23 @@ export default compose(
   withTranslation(['selfCheckIn']),
   withStyles(styles),
   withHandlers({
-    onBarcodeDetected: ({ fetchMemberByBarcode, onMemberSearched }) => (
-      data,
-    ) => {
-      fetchMemberByBarcode(data.codeResult.code, {
-        onSuccess: (member) => {
-          onMemberSearched(member);
-        },
-      });
-    },
-    onFaceDetected: ({ onMemberSearched, openIncompleteMemberForm }) => (
-      member,
-      imageBlob,
-      options,
-    ) => {
-      if (!member) {
-        openIncompleteMemberForm({ avatar: imageBlob }, options);
-      } else {
-        onMemberSearched(member, options);
-      }
-    },
+    onBarcodeDetected:
+      ({ fetchMemberByBarcode, onMemberSearched }) =>
+      (data) => {
+        fetchMemberByBarcode(data.codeResult.code, {
+          onSuccess: (member) => {
+            onMemberSearched(member);
+          },
+        });
+      },
+    onFaceDetected:
+      ({ onMemberSearched, openIncompleteMemberForm }) =>
+      (member, imageBlob, options) => {
+        if (!member) {
+          openIncompleteMemberForm({ avatar: imageBlob }, options);
+        } else {
+          onMemberSearched(member, options);
+        }
+      },
   }),
 )(CheckInOffer);

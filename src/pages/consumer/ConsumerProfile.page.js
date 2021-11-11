@@ -219,35 +219,36 @@ export default compose(
   withState('editMember', 'setEditMember', false),
   withStyles(styles),
   withHandlers({
-    fetchMemberPaymentMethod: ({
-      fetchPaymentMethodListActions,
-      membership,
-    }) => () => {
-      fetchPaymentMethodListActions({ member: membership.id });
-    },
+    fetchMemberPaymentMethod:
+      ({ fetchPaymentMethodListActions, membership }) =>
+      () => {
+        fetchPaymentMethodListActions({ member: membership.id });
+      },
   }),
   withHandlers({
-    detachPaymentMethod: ({
-      detachPaymentMethodAction,
-      fetchPaymentMethodListActions,
-      snackbarErrorMsg,
-      snackbarSuccessMsg,
-      membership,
-      t,
-    }) => (pm_id, options) => {
-      detachPaymentMethodAction(
-        { member: membership.id, payment_method_id: pm_id },
-        {
-          onSuccess: () => {
-            fetchPaymentMethodListActions({ member: membership.id });
-            snackbarSuccessMsg(t('paymentMethod.detach.pm_deleted'));
-            if (options && options.onSuccess) options.onSuccess();
+    detachPaymentMethod:
+      ({
+        detachPaymentMethodAction,
+        fetchPaymentMethodListActions,
+        snackbarErrorMsg,
+        snackbarSuccessMsg,
+        membership,
+        t,
+      }) =>
+      (pm_id, options) => {
+        detachPaymentMethodAction(
+          { member: membership.id, payment_method_id: pm_id },
+          {
+            onSuccess: () => {
+              fetchPaymentMethodListActions({ member: membership.id });
+              snackbarSuccessMsg(t('paymentMethod.detach.pm_deleted'));
+              if (options && options.onSuccess) options.onSuccess();
+            },
+            onError: (data) => {
+              snackbarErrorMsg(t(`paymentMethod.detach.${data}`));
+            },
           },
-          onError: (data) => {
-            snackbarErrorMsg(t(`paymentMethod.detach.${data}`));
-          },
-        },
-      );
-    },
+        );
+      },
   }),
 )(ConsumerProfile);

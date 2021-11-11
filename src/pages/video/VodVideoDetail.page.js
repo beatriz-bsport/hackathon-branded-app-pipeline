@@ -232,61 +232,63 @@ export default compose(
       const win = window.open(url);
       win.focus();
     },
-    retrieveVideo: ({
-      retrieveVideo,
-      videoId,
-      fetchAssociatedCoachBulk,
-    }) => () => {
-      retrieveVideo(videoId, {
-        onSuccess: (video) => {
-          fetchAssociatedCoachBulk(video.coaches);
-        },
-      });
-    },
-    fetchVideoPurchase: ({ fetchVideoPurchase, fetchMemberBulk, videoId }) => (
-      page,
-      pageSize,
-    ) => {
-      fetchVideoPurchase(
-        page,
-        pageSize,
-        { video: videoId },
-        {
-          onSuccess: (purchases) => {
-            fetchMemberBulk({
-              id__in: purchases.map((purchase) => purchase.member_id),
-            });
+    retrieveVideo:
+      ({ retrieveVideo, videoId, fetchAssociatedCoachBulk }) =>
+      () => {
+        retrieveVideo(videoId, {
+          onSuccess: (video) => {
+            fetchAssociatedCoachBulk(video.coaches);
           },
-        },
-      );
-    },
-    fetchVideoViews: ({ fetchVideoViews, fetchMemberBulk, videoId }) => (
-      page,
-      pageSize,
-    ) => {
-      fetchVideoViews(
-        page,
-        pageSize,
-        { video_analytics__video: videoId },
-        {
-          onSuccess: (views) => {
-            fetchMemberBulk({
-              id__in: views.map((view) => view.member_id),
-            });
+        });
+      },
+    fetchVideoPurchase:
+      ({ fetchVideoPurchase, fetchMemberBulk, videoId }) =>
+      (page, pageSize) => {
+        fetchVideoPurchase(
+          page,
+          pageSize,
+          { video: videoId },
+          {
+            onSuccess: (purchases) => {
+              fetchMemberBulk({
+                id__in: purchases.map((purchase) => purchase.member_id),
+              });
+            },
           },
-        },
-      );
-    },
-    fetchVideoAnalytics: ({ fetchVideoAnalytics, videoId }) => () => {
-      fetchVideoAnalytics(videoId);
-    },
+        );
+      },
+    fetchVideoViews:
+      ({ fetchVideoViews, fetchMemberBulk, videoId }) =>
+      (page, pageSize) => {
+        fetchVideoViews(
+          page,
+          pageSize,
+          { video_analytics__video: videoId },
+          {
+            onSuccess: (views) => {
+              fetchMemberBulk({
+                id__in: views.map((view) => view.member_id),
+              });
+            },
+          },
+        );
+      },
+    fetchVideoAnalytics:
+      ({ fetchVideoAnalytics, videoId }) =>
+      () => {
+        fetchVideoAnalytics(videoId);
+      },
   }),
   withHandlers({
-    onPageRequestedPurchase: ({ fetchVideoPurchase }) => (page, pageSize) => {
-      fetchVideoPurchase(page, pageSize);
-    },
-    onPageRequestedView: ({ fetchVideoViews }) => (page, pageSize) => {
-      fetchVideoViews(page, pageSize);
-    },
+    onPageRequestedPurchase:
+      ({ fetchVideoPurchase }) =>
+      (page, pageSize) => {
+        fetchVideoPurchase(page, pageSize);
+      },
+    onPageRequestedView:
+      ({ fetchVideoViews }) =>
+      (page, pageSize) => {
+        fetchVideoViews(page, pageSize);
+      },
   }),
 )(VodVideoDetailPage);

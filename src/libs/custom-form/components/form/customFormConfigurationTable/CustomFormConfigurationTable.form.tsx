@@ -78,20 +78,13 @@ const ButtonSaveWithInfo = withConfirm(Button, 'onClick', {
 });
 export function CustomFormConfigurationTable(props: Props) {
   const { t, isSubmitting, classes } = props;
-  const layoutActive =
-    props.initial?.layout &&
-    Object.keys(props.initial?.layout || {})?.length === 4;
-  const [openFieldCreationDialog, setOpenCreationDialog] = React.useState(
-    false,
-  );
-  const [initialFieldWithIndex, setInitialFieldWithIndex] = React.useState(
-    null,
-  );
+  const [openFieldCreationDialog, setOpenCreationDialog] =
+    React.useState(false);
+  const [initialFieldWithIndex, setInitialFieldWithIndex] =
+    React.useState(null);
   const [showDisabledField, setShowDisabledField] = React.useState(false);
-  const [
-    registeredSignUpQuestions,
-    setregisteredSignUpQuestions,
-  ] = React.useState([]);
+  const [registeredSignUpQuestions, setregisteredSignUpQuestions] =
+    React.useState([]);
   const [showInfoDialogOnsave, setShowInfoDialogOnSave] = React.useState(false);
   React.useEffect(() => {
     props.initial &&
@@ -325,10 +318,11 @@ export function CustomFormConfigurationTable(props: Props) {
                                         .mandatory &&
                                       field.signup_question_kind
                                     ) {
-                                      const initialValue = mainFormik.initialValues?.custom_form_field.find(
-                                        (f: CustomFormField) =>
-                                          f.id === field.id,
-                                      );
+                                      const initialValue =
+                                        mainFormik.initialValues?.custom_form_field.find(
+                                          (f: CustomFormField) =>
+                                            f.id === field.id,
+                                        );
                                       initialValue &&
                                         !initialValue.mandatory &&
                                         setShowInfoDialogOnSave(true);

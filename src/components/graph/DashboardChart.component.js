@@ -200,50 +200,48 @@ export default compose(
   withStateHandlers(
     ({ filters }) => ({ openFilters: {}, filtersValue: filters }),
     {
-      setOpenFiltersValue: ({ openFilters }) => (name: string) => {
-        return {
-          openFilters: {
-            ...openFilters,
-            [name]: !openFilters[name],
-          },
-        };
-      },
-      setFilters: (
-        { filtersValue },
-        { setChartFilters, setShowSaveButton },
-      ) => (name: string, value: any) => {
-        setShowSaveButton(true);
-        let newFilters = { ...filtersValue };
-        if (value === null) {
-          delete newFilters[name];
-        } else {
-          newFilters = {
-            ...filtersValue,
-            [name]: value,
+      setOpenFiltersValue:
+        ({ openFilters }) =>
+        (name: string) => {
+          return {
+            openFilters: {
+              ...openFilters,
+              [name]: !openFilters[name],
+            },
           };
-        }
-        setChartFilters(newFilters);
-        return { filtersValue: newFilters };
-      },
+        },
+      setFilters:
+        ({ filtersValue }, { setChartFilters, setShowSaveButton }) =>
+        (name: string, value: any) => {
+          setShowSaveButton(true);
+          let newFilters = { ...filtersValue };
+          if (value === null) {
+            delete newFilters[name];
+          } else {
+            newFilters = {
+              ...filtersValue,
+              [name]: value,
+            };
+          }
+          setChartFilters(newFilters);
+          return { filtersValue: newFilters };
+        },
     },
   ),
   withHandlers({
-    setDateRange: ({ setDateRange, setShowSaveButton, graphIdentifier }) => (
-      timeSettings,
-      range,
-    ) => {
-      if (setDateRange) {
-        setShowSaveButton(true);
-        setDateRange(graphIdentifier, timeSettings, range);
-      }
-    },
-    onSaveGraph: ({
-      onSaveGraph,
-      setShowSaveButton,
-      graphIdentifier,
-    }) => () => {
-      setShowSaveButton(false);
-      onSaveGraph(graphIdentifier);
-    },
+    setDateRange:
+      ({ setDateRange, setShowSaveButton, graphIdentifier }) =>
+      (timeSettings, range) => {
+        if (setDateRange) {
+          setShowSaveButton(true);
+          setDateRange(graphIdentifier, timeSettings, range);
+        }
+      },
+    onSaveGraph:
+      ({ onSaveGraph, setShowSaveButton, graphIdentifier }) =>
+      () => {
+        setShowSaveButton(false);
+        onSaveGraph(graphIdentifier);
+      },
   }),
 )(DashboardChart);

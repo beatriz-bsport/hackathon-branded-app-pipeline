@@ -184,8 +184,10 @@ export default compose(
     return coach ? `${coach.name}` : '';
   }),
   withHandlers({
-    updateCoach: ({ coachId, upsertCoachAction }) => (coachData) => {
-      upsertCoachAction(coachId, coachData);
-    },
+    updateCoach:
+      ({ coachId, upsertCoachAction }) =>
+      (coachData) => {
+        upsertCoachAction(coachId, coachData);
+      },
   }),
 )(Coach);

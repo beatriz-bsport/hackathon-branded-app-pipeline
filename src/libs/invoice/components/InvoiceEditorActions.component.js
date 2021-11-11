@@ -39,7 +39,7 @@ const RevertButton = (props: {
   reverted: boolean,
   processing: boolean,
   disabled: boolean,
-  onClick: (*) => void,
+  onClick: () => void,
   classes: Object,
   t: TFunction,
 }) => {

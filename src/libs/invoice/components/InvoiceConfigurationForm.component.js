@@ -17,7 +17,7 @@ import type { TFunction } from 'react-i18next';
 import NumberInput from '../../../components/input/NumericInput.component';
 
 type Props = {
-  classes: *,
+  classes: any,
   t: TFunction,
   configuration: {
     stripe_footer: string,
@@ -213,12 +213,12 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
               variant="contained"
               onClick={() =>
                 this.props.onSubmit({
-                  disable_pass_on_fail_subscription_payment: this.state
-                    .disable_pass_on_fail_subscription_payment,
-                  revert_bookings_on_fail_subscription_payment: this.state
-                    .revert_bookings_on_fail_subscription_payment,
-                  nb_retries_subscription_payments: this.state
-                    .nb_retries_subscription_payments,
+                  disable_pass_on_fail_subscription_payment:
+                    this.state.disable_pass_on_fail_subscription_payment,
+                  revert_bookings_on_fail_subscription_payment:
+                    this.state.revert_bookings_on_fail_subscription_payment,
+                  nb_retries_subscription_payments:
+                    this.state.nb_retries_subscription_payments,
                 })
               }
               disabled={
@@ -280,8 +280,8 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
               onClick={() =>
                 this.props.onSubmit({
                   stripe_footer: this.state.stripe_footer,
-                  show_company_email_in_invoice: this.state
-                    .show_company_email_in_invoice,
+                  show_company_email_in_invoice:
+                    this.state.show_company_email_in_invoice,
                 })
               }
               disabled={

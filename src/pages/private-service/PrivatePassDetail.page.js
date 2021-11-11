@@ -304,73 +304,74 @@ export default compose(
       (privatePass && privatePass.name) || t('pageTitles.passList'),
   ),
   withHandlers({
-    setOpenValue: ({ setOpen, open }) => (name: string) => {
-      setOpen({
-        ...open,
-        [name]: !open[name],
-      });
-    },
-    setFilterValue: ({ setFilters, filters }) => (name: string, value) => {
-      if (value === null) {
-        setFilters(omit(filters, name));
-      } else {
-        setFilters({
-          ...filters,
-          [name]: value,
+    setOpenValue:
+      ({ setOpen, open }) =>
+      (name: string) => {
+        setOpen({
+          ...open,
+          [name]: !open[name],
         });
-      }
-    },
-    deletePrivatePass: ({
-      deletePrivatePass,
-      setOpenDeletePassDialog,
-      goToPrivatePassList,
-    }) => (pass) => {
-      deletePrivatePass(pass, {
-        onSuccess: () => {
-          setOpenDeletePassDialog(null);
-          goToPrivatePassList();
-        },
-      });
-    },
-    onSubmit: ({ createOrUpdatePrivatePass, setOpenEditForm, id }) => (data) =>
-      createOrUpdatePrivatePass(data, id, {
-        onSuccess: () => {
-          setOpenEditForm(false);
-        },
-      }),
-    fetchConsumerPrivatePassWithMember: ({
-      id,
-      fetchConsumerPrivatePass,
-      fetchFilteredMembers,
-      filters,
-    }) => (page: number, pageSize: number) =>
-      fetchConsumerPrivatePass(id, page, pageSize, filters, {
-        onSuccess: (cpps) =>
-          fetchFilteredMembers({
-            id__in: cpps.map((b) => b.member),
-          }),
-      }),
-    createCompatibleServicePass: ({
-      createCompatibleServicePass,
-      fetchPrivateSlotsByService,
-      fetchCompatibleServicePassList,
-    }) => (passId: number, serviceId: number) =>
-      createCompatibleServicePass(passId, serviceId, {
-        onSuccess: () => {
-          fetchPrivateSlotsByService({ private_service: serviceId });
-          fetchCompatibleServicePassList(passId);
-        },
-      }),
-    fetchCompatibleServicePasses: ({
-      id,
-      fetchCompatibleServicePassList,
-      fetchPrivateSlotsByService,
-    }) => () =>
-      fetchCompatibleServicePassList(id, {
-        onSuccess: (csps) =>
-          fetchPrivateSlotsByService({
-            private_service__in: csps.map((c) => c.private_service),
-          }),
-      }),
+      },
+    setFilterValue:
+      ({ setFilters, filters }) =>
+      (name: string, value) => {
+        if (value === null) {
+          setFilters(omit(filters, name));
+        } else {
+          setFilters({
+            ...filters,
+            [name]: value,
+          });
+        }
+      },
+    deletePrivatePass:
+      ({ deletePrivatePass, setOpenDeletePassDialog, goToPrivatePassList }) =>
+      (pass) => {
+        deletePrivatePass(pass, {
+          onSuccess: () => {
+            setOpenDeletePassDialog(null);
+            goToPrivatePassList();
+          },
+        });
+      },
+    onSubmit:
+      ({ createOrUpdatePrivatePass, setOpenEditForm, id }) =>
+      (data) =>
+        createOrUpdatePrivatePass(data, id, {
+          onSuccess: () => {
+            setOpenEditForm(false);
+          },
+        }),
+    fetchConsumerPrivatePassWithMember:
+      ({ id, fetchConsumerPrivatePass, fetchFilteredMembers, filters }) =>
+      (page: number, pageSize: number) =>
+        fetchConsumerPrivatePass(id, page, pageSize, filters, {
+          onSuccess: (cpps) =>
+            fetchFilteredMembers({
+              id__in: cpps.map((b) => b.member),
+            }),
+        }),
+    createCompatibleServicePass:
+      ({
+        createCompatibleServicePass,
+        fetchPrivateSlotsByService,
+        fetchCompatibleServicePassList,
+      }) =>
+      (passId: number, serviceId: number) =>
+        createCompatibleServicePass(passId, serviceId, {
+          onSuccess: () => {
+            fetchPrivateSlotsByService({ private_service: serviceId });
+            fetchCompatibleServicePassList(passId);
+          },
+        }),
+    fetchCompatibleServicePasses:
+      ({ id, fetchCompatibleServicePassList, fetchPrivateSlotsByService }) =>
+      () =>
+        fetchCompatibleServicePassList(id, {
+          onSuccess: (csps) =>
+            fetchPrivateSlotsByService({
+              private_service__in: csps.map((c) => c.private_service),
+            }),
+        }),
   }),
 )(PrivatePassDetails);

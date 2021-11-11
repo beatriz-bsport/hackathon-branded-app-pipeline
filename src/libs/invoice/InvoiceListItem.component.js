@@ -14,7 +14,8 @@ type Props = {
   onClick: (uuid: string) => void,
   invoice: Invoice,
 };
-export default function (props: Props) {
+
+const InvoiceListItem = (props: Props) => {
   const { invoice } = props;
 
   if (!invoice) {
@@ -52,4 +53,6 @@ export default function (props: Props) {
       </ListItemSecondaryAction>
     </ListItem>
   );
-}
+};
+
+export default InvoiceListItem;

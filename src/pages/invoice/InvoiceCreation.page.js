@@ -137,13 +137,8 @@ export class InvoiceCreation extends Component<Props, State> {
   };
 
   render() {
-    const {
-      member,
-      goToInvoiceList,
-      loading,
-      goToMemberPage,
-      memberId,
-    } = this.props;
+    const { member, goToInvoiceList, loading, goToMemberPage, memberId } =
+      this.props;
 
     if (
       !member ||
@@ -235,21 +230,20 @@ export default compose(
     },
   ),
   withHandlers({
-    createInvoice: ({ createInvoice, goToInvoice }) => (
-      invoiceData,
-      options,
-    ) => {
-      createInvoice(invoiceData, {
-        onSuccess: (invoice) => {
-          if (options && options.onSuccess) {
-            options.onSuccess(invoice);
-          }
-          // TODO goto payment page
-          goToInvoice(invoice.uuid);
-        },
-        onError: options && options.onError,
-      });
-    },
+    createInvoice:
+      ({ createInvoice, goToInvoice }) =>
+      (invoiceData, options) => {
+        createInvoice(invoiceData, {
+          onSuccess: (invoice) => {
+            if (options && options.onSuccess) {
+              options.onSuccess(invoice);
+            }
+            // TODO goto payment page
+            goToInvoice(invoice.uuid);
+          },
+          onError: options && options.onError,
+        });
+      },
   }),
   withQueryParams([['withCredit', 'withPrivatePass'], 'initialItems']),
   withTitle(

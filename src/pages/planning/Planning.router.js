@@ -73,28 +73,32 @@ const PlanningWithDateAndOffer = compose(
     },
   ),
   withHandlers({
-    loadOfferData: ({ day, month, year, pushRouter }) => (offer) =>
-      pushRouter(`/calendar/${year}/${month}/${day}/${offer.id}`),
-    fetchOffersByDay: ({
-      fetchCoachBulk,
-      fetchEstablishmentBulk,
-      fetchOffersByDay,
-      fetchMetaActivityBulk,
-    }) => (params) => {
-      fetchOffersByDay(omit(params, 'available'), {
-        onSuccess: (offers) => {
-          fetchMetaActivityBulk(offers.map((o) => o.meta_activity));
-          fetchCoachBulk([
-            ...offers.map((o) => o.coach),
-            ...offers.map((o) => o.coach_override),
-          ]);
-          fetchEstablishmentBulk([
-            ...offers.map((o) => o.establishment),
-            ...offers.map((o) => o.establishment_override),
-          ]);
-        },
-      });
-    },
+    loadOfferData:
+      ({ day, month, year, pushRouter }) =>
+      (offer) =>
+        pushRouter(`/calendar/${year}/${month}/${day}/${offer.id}`),
+    fetchOffersByDay:
+      ({
+        fetchCoachBulk,
+        fetchEstablishmentBulk,
+        fetchOffersByDay,
+        fetchMetaActivityBulk,
+      }) =>
+      (params) => {
+        fetchOffersByDay(omit(params, 'available'), {
+          onSuccess: (offers) => {
+            fetchMetaActivityBulk(offers.map((o) => o.meta_activity));
+            fetchCoachBulk([
+              ...offers.map((o) => o.coach),
+              ...offers.map((o) => o.coach_override),
+            ]);
+            fetchEstablishmentBulk([
+              ...offers.map((o) => o.establishment),
+              ...offers.map((o) => o.establishment_override),
+            ]);
+          },
+        });
+      },
   }),
   withProps(({ offers, day, month, year, offerId }) => {
     const date = formatDate(

@@ -36,7 +36,7 @@ export const provisionCreateOrUpdateActions = {
   success: createAction('PROVISION/CREATE_OR_UPDATE/SUCCESS'),
 };
 
-export function createOrUpdateProvision(data_: *, callback: ?() => void) {
+export function createOrUpdateProvision(data_: any, callback: ?() => void) {
   return async (dispatch: Dispatch) => {
     dispatch(provisionCreateOrUpdateActions.isLoading(true));
     dispatch(provisionCreateOrUpdateActions.error(null));

@@ -24,7 +24,7 @@ type Props = {
   onBook: () => void,
   onBookOption: () => void,
   t: TFunction,
-  classes: *,
+  classes: any,
   showOfferFilling: boolean,
 };
 

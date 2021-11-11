@@ -39,10 +39,8 @@ export const PaymentMethodList = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['payment']);
   const [disableDuringDetach, setDisableDuringDetach] = React.useState(false);
-  const [
-    collectPaymentMethodIsOpen,
-    setCollectPaymentMethodIsOpen,
-  ] = React.useState(false);
+  const [collectPaymentMethodIsOpen, setCollectPaymentMethodIsOpen] =
+    React.useState(false);
 
   if (
     !props.showEmpty &&

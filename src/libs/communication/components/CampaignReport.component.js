@@ -31,7 +31,7 @@ type Props = {
   goBack: () => void,
   goToMember: (id: number) => void,
   showMail: ?string,
-  setShowMail: (?string) => void,
+  setShowMail: (email: ?string) => void,
 };
 
 const styles = (theme) => ({
@@ -220,7 +220,8 @@ export const CampaignReport = (props: Props) => (
       <DialogContent>
         <div
           // eslint-disable-next-line
-	dangerouslySetInnerHTML={{ __html: props.showMail }} />
+          dangerouslySetInnerHTML={{ __html: props.showMail }}
+        />
       </DialogContent>
       <DialogActions>
         <Button onClick={() => props.setShowMail(null)}>

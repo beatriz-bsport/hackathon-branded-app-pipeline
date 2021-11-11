@@ -522,18 +522,16 @@ const mapWithHandlers = {
       });
     }
   },
-  fetchConsumerPacksList: (props: WithStateProps) => (
-    page: number,
-    pageSize: number,
-  ) => {
-    props.fetchConsumerPacks(props.pack.id, page, pageSize, props.filters, {
-      onSuccess: (cpps: any) => {
-        props.fetchFilteredMembers({
-          id__in: cpps.map((b: any) => b.member_id),
-        });
-      },
-    });
-  },
+  fetchConsumerPacksList:
+    (props: WithStateProps) => (page: number, pageSize: number) => {
+      props.fetchConsumerPacks(props.pack.id, page, pageSize, props.filters, {
+        onSuccess: (cpps: any) => {
+          props.fetchFilteredMembers({
+            id__in: cpps.map((b: any) => b.member_id),
+          });
+        },
+      });
+    },
   scaleCredit: (props: WithStateProps) => (id_: number, data: any) => {
     props.scaleCredit(id_, data, {
       onSuccess: () => {
@@ -542,36 +540,37 @@ const mapWithHandlers = {
       },
     });
   },
-  fetchNotificationsAndTemplatesAndSmartLists: (
-    props: WithStateProps,
-  ) => () => {
-    props.fetchMarketingNotificationList(
-      {
-        kind__in: [
-          CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME,
-          CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT,
-        ],
-        event_rules__payment_pack_id: props.id,
-      },
-      {
-        onSuccess: (notificationList: any) => {
-          props.fetchEmailTemplateSummariesBulk(
-            notificationList.map(
-              (notification: any) => notification.email_design,
-            ),
-          );
-          props.fetchSmartListBulk([
-            ...notificationList.map(
-              (notification: any) => notification.event_rules.smartlist_include,
-            ),
-            ...notificationList.map(
-              (notification: any) => notification.event_rules.smartlist_exclude,
-            ),
-          ]);
+  fetchNotificationsAndTemplatesAndSmartLists:
+    (props: WithStateProps) => () => {
+      props.fetchMarketingNotificationList(
+        {
+          kind__in: [
+            CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME,
+            CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT,
+          ],
+          event_rules__payment_pack_id: props.id,
         },
-      },
-    );
-  },
+        {
+          onSuccess: (notificationList: any) => {
+            props.fetchEmailTemplateSummariesBulk(
+              notificationList.map(
+                (notification: any) => notification.email_design,
+              ),
+            );
+            props.fetchSmartListBulk([
+              ...notificationList.map(
+                (notification: any) =>
+                  notification.event_rules.smartlist_include,
+              ),
+              ...notificationList.map(
+                (notification: any) =>
+                  notification.event_rules.smartlist_exclude,
+              ),
+            ]);
+          },
+        },
+      );
+    },
 };
 
 type StateHandlerInit = {

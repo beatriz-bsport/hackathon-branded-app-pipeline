@@ -302,15 +302,14 @@ const mapWithHandlers = {
       onError: () => props.setSubmitting(false),
     });
   },
-  handleCustomFormSelection: (props: OwnAndConnectedProps) => (
-    customFormId: number,
-  ) => {
-    if (customFormId === props.signUpCustomForm?.id) {
-      return props.setCustomFormSelected(props.signUpCustomForm);
-    }
+  handleCustomFormSelection:
+    (props: OwnAndConnectedProps) => (customFormId: number) => {
+      if (customFormId === props.signUpCustomForm?.id) {
+        return props.setCustomFormSelected(props.signUpCustomForm);
+      }
 
-    return props.setCustomFormSelected(props.memberCustomForm);
-  },
+      return props.setCustomFormSelected(props.memberCustomForm);
+    },
   goToEdit: (props: OwnAndConnectedProps) => (formId: number) => {
     props.push(`/custom-form/details/${formId}/general`);
   },

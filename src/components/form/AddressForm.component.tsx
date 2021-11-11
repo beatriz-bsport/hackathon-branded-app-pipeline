@@ -54,16 +54,15 @@ export class AddressForm extends Component<Props, State> {
     country: null,
   };
 
-  handleChange = (id: keyof Address) => (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    event.persist();
-    if (this.props.onChange) {
-      this.props.onChange(id)(event);
-    } else {
-      this.setState({ [id]: event.target.value });
-    }
-  };
+  handleChange =
+    (id: keyof Address) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      event.persist();
+      if (this.props.onChange) {
+        this.props.onChange(id)(event);
+      } else {
+        this.setState({ [id]: event.target.value });
+      }
+    };
 
   onSkip = () => {
     this.props.onSkip();

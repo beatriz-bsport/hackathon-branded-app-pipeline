@@ -33,8 +33,8 @@ const styles = (theme) => ({
 
 type Props = {
   t: TFunction,
-  classes: *,
-  onChange: (*) => void,
+  classes: any,
+  onChange: () => void,
   id: number,
 };
 type State = {
@@ -62,7 +62,10 @@ export class ImageField extends Component<Props, State> {
                 const { files } = e.target;
                 this.setState({
                   // eslint-disable-next-line
-                  previewUrl: (window.URL ? window.URL : window.webkitURL).createObjectURL(files[0])
+                  previewUrl: (window.URL
+                    ? window.URL
+                    : window.webkitURL
+                  ).createObjectURL(files[0]),
                 });
                 setFieldValue(field.name, files[0]);
               }}

@@ -63,26 +63,24 @@ export class SubscriptionPaymentMethodSwitcherDialog extends React.Component<Pro
 export default compose(
   withState('processing', 'setProcessing', false),
   withHandlers({
-    onSubmit: ({ onSubmit, setProcessing }) => (
-      source: string,
-      payment_method_id,
-      options,
-    ) => {
-      setProcessing(true);
-      onSubmit(
-        source,
-        {
-          onSuccess: (...args) => {
-            if (options && options.onSuccess) options.onSuccess(...args);
-            setProcessing(false);
+    onSubmit:
+      ({ onSubmit, setProcessing }) =>
+      (source: string, payment_method_id, options) => {
+        setProcessing(true);
+        onSubmit(
+          source,
+          {
+            onSuccess: (...args) => {
+              if (options && options.onSuccess) options.onSuccess(...args);
+              setProcessing(false);
+            },
+            onError: () => {
+              setProcessing(false);
+              if (options && options.onError) options.onError();
+            },
           },
-          onError: () => {
-            setProcessing(false);
-            if (options && options.onError) options.onError();
-          },
-        },
-        payment_method_id,
-      );
-    },
+          payment_method_id,
+        );
+      },
   }),
 )(SubscriptionPaymentMethodSwitcherDialog);

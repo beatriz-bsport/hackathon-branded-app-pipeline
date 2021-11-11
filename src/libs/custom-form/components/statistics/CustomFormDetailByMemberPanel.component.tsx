@@ -142,12 +142,11 @@ export class CutsomFormDetailByMemberPanel extends React.Component<
     if (id__in && page !== this.state.tableState.page && !this.state.loading) {
       this.setState({ loading: true });
       try {
-        const response: MemberAPIDataPaginated = await this.props.fetchMemberList(
-          {
+        const response: MemberAPIDataPaginated =
+          await this.props.fetchMemberList({
             id__in,
             page_size: MEMBER_PER_PAGE,
-          },
-        );
+          });
         this.setState((prevState) => ({
           members: response.data.results
             .filter((_member: Member) =>

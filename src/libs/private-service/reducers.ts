@@ -56,8 +56,8 @@ import {
 import { getResourceSlotsExistState } from './selectors/availability-slot';
 import { PrivateServiceState } from './types';
 
-const initialState: Seamless.Immutable<PrivateServiceState> = Seamless<PrivateServiceState>(
-  {
+const initialState: Seamless.Immutable<PrivateServiceState> =
+  Seamless<PrivateServiceState>({
     customEvent: {
       byId: {},
       loading: false,
@@ -226,8 +226,7 @@ const initialState: Seamless.Immutable<PrivateServiceState> = Seamless<PrivateSe
       error: null,
       allIds: [],
     },
-  },
-);
+  });
 
 export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
   {
@@ -482,7 +481,7 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
           payload.resourceIdentifier,
         ],
         getResourceSlotsExistState(
-          (state as unknown) as PrivateServiceState,
+          state as unknown as PrivateServiceState,
           payload.resourceDatatype,
           payload.resourceIdentifier,
           // @ts-ignore
@@ -501,7 +500,7 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
           payload.resourceIdentifier,
         ],
         getResourceSlotsExistState(
-          (state as unknown) as PrivateServiceState,
+          state as unknown as PrivateServiceState,
           payload.resourceDatatype,
           payload.resourceIdentifier,
           // @ts-ignore
@@ -517,7 +516,7 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
           payload.resourceIdentifier,
         ],
         getResourceSlotsExistState(
-          (state as unknown) as PrivateServiceState,
+          state as unknown as PrivateServiceState,
           payload.resourceDatatype,
           payload.resourceIdentifier,
           // @ts-ignore

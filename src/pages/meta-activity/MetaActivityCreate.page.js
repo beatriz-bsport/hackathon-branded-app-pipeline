@@ -70,7 +70,7 @@ type Props = {
   fetchEstablishments: () => void,
   SCTs: *[],
 
-  onSubmitMetaActivity: (*) => void,
+  onSubmitMetaActivity: () => void,
   coaches: Array<Coach>,
   fetchAssociatedCoachesList: () => void,
   setStep: (step: StepType) => void,
@@ -78,7 +78,7 @@ type Props = {
   upsertedMetaActivity: ?MetaActivity,
   fetchPaymentPacks: (id: number) => void,
   offerHadError: ?Error,
-  createOffers: (*) => void,
+  createOffers: () => void,
   offerIsProcessing: boolean,
   goToMetaActivity: (id: number) => void,
   t: TFunction,

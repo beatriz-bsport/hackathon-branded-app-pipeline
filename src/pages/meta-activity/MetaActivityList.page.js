@@ -55,7 +55,7 @@ type Props = {
   deleteMetaActivity: (metaActivityId: number) => void,
   restoreMetaActivity: (MetaActivityId: number) => void,
   setActivityToDelete: (number) => void,
-  activityToDelete: (?number) => void,
+  activityToDelete: (activity: ?number) => void,
   fetchMarketingNotificationList: (params: any) => void,
 
   t: TFunction,
@@ -311,14 +311,13 @@ export default compose(
     },
   ),
   withHandlers({
-    makeActivityCopy: ({ makeActivityCopy, fetchAllMetactivities }) => (
-      id,
-      suffix,
-    ) => {
-      makeActivityCopy(id, suffix, {
-        onSuccess: () => fetchAllMetactivities({ customer_enabled: true }),
-      });
-    },
+    makeActivityCopy:
+      ({ makeActivityCopy, fetchAllMetactivities }) =>
+      (id, suffix) => {
+        makeActivityCopy(id, suffix, {
+          onSuccess: () => fetchAllMetactivities({ customer_enabled: true }),
+        });
+      },
   }),
   withState('activityToDelete', 'setActivityToDelete', null),
 )(MetaActivityListPage);

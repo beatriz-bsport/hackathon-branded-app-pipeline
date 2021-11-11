@@ -93,8 +93,22 @@ const renderEmptyOrLoading = (
 };
 
 const PrivateBookingNotificationForm = (props: Props) => {
+  const {
+    isSubmitting,
+    emails,
+    getEmails,
+    getEmailDetail,
+    emailDetails,
+    emailListLoading,
+    emailDetailLoading,
+    onCancel,
+    initial,
+    values,
+    setFieldValue,
+    errors,
+  } = props;
+
   const { t } = useTranslation(['paymentPack', 'privateService']);
-  const { values, setFieldValue } = props;
   const { kind, notify_booking_nb, email_design } = values;
   const classes = useStyles();
   const [formIsSecondStep, setFormIsSecondStep] = useState(false);
@@ -107,9 +121,10 @@ const PrivateBookingNotificationForm = (props: Props) => {
   }
 
   useEffect(() => {
-    if (props.initial) props.getEmailDetail(props.initial.email_design);
-    props.getEmails();
-  }, []);
+    if (initial) getEmailDetail(initial.email_design);
+    getEmails();
+  }, [initial, getEmailDetail, getEmails]);
+
   return (
     <Dialog open>
       <div className={classes.dialog}>
@@ -118,7 +133,7 @@ const PrivateBookingNotificationForm = (props: Props) => {
         </DialogTitle>
         <Form>
           {/* First step */}
-          {!formIsSecondStep && !props.initial && (
+          {!formIsSecondStep && !initial && (
             <>
               <DialogContent>
                 <Typography variant="body2">
@@ -144,13 +159,15 @@ const PrivateBookingNotificationForm = (props: Props) => {
                         label: t(
                           'privateService:privateBookingNotification.form.chooseKind.cancelledRefunded',
                         ),
-                        value: PRIVATE_BOOKING_NOTIFICATION_KIND_CANCELLED_REFUNDED,
+                        value:
+                          PRIVATE_BOOKING_NOTIFICATION_KIND_CANCELLED_REFUNDED,
                       },
                       {
                         label: t(
                           'privateService:privateBookingNotification.form.chooseKind.cancelledNotRefunded',
                         ),
-                        value: PRIVATE_BOOKING_NOTIFICATION_KIND_CANCELLED_NOT_REFUNDED,
+                        value:
+                          PRIVATE_BOOKING_NOTIFICATION_KIND_CANCELLED_NOT_REFUNDED,
                       },
                     ]}
                   />
@@ -190,13 +207,13 @@ const PrivateBookingNotificationForm = (props: Props) => {
                 </Typography>
               </DialogContent>
               <DialogActions>
-                <Button onClick={props.onCancel}>
+                <Button onClick={onCancel}>
                   {t('privateService:serviceGroup.form.actions.cancel')}
                 </Button>
                 <Button
                   color="primary"
                   onClick={() => setFormIsSecondStep(true)}
-                  disabled={!!props.errors.notify_booking_nb}
+                  disabled={!!errors.notify_booking_nb}
                 >
                   {t('privateService:privateBookingNotification.form.next')}
                 </Button>
@@ -204,7 +221,7 @@ const PrivateBookingNotificationForm = (props: Props) => {
             </>
           )}
           {/* Second Step */}
-          {(!!props.initial || formIsSecondStep) && (
+          {(!!initial || formIsSecondStep) && (
             <>
               <DialogContent>
                 <div className={classes.fieldContainer}>
@@ -259,13 +276,11 @@ const PrivateBookingNotificationForm = (props: Props) => {
                 <div className={classes.fieldContainer}>
                   <Typography
                     variant="caption"
-                    className={
-                      props.errors.email_design ? classes.errorText : null
-                    }
+                    className={errors.email_design ? classes.errorText : null}
                   >
                     {t('paymentPack:notification.form.mailTitle')}
                   </Typography>
-                  {props.emailListLoading ? (
+                  {emailListLoading ? (
                     <LinearProgress className={classes.selectorContainer} />
                   ) : (
                     <div
@@ -275,11 +290,11 @@ const PrivateBookingNotificationForm = (props: Props) => {
                       <EmailSelector
                         error
                         name="email_design"
-                        emails={props.emails}
+                        emails={emails}
                         value={email_design}
                         onChange={(ev) => {
                           setFieldValue('email_design', ev ? ev.value : null);
-                          if (ev) props.getEmailDetail(ev.value);
+                          if (ev) getEmailDetail(ev.value);
                         }}
                         helperText={t(
                           'paymentPack:notification.form.mailSelection',
@@ -314,20 +329,21 @@ const PrivateBookingNotificationForm = (props: Props) => {
                   </div>
                   <Collapse in={displayMailPreview}>
                     <div className={classes.mailPreview}>
-                      {email_design && !!props.emailDetails[email_design] ? (
+                      {email_design && !!emailDetails[email_design] ? (
                         <div>
                           <div
+                            // eslint-disable-next-line
                             dangerouslySetInnerHTML={{
-                              __html: props.emailDetails
-                                ? props.emailDetails[email_design].html
+                              __html: emailDetails
+                                ? emailDetails[email_design].html
                                 : null,
                             }}
                           />
                         </div>
                       ) : (
                         renderEmptyOrLoading(
-                          props.emailDetailLoading,
-                          props.emails,
+                          emailDetailLoading,
+                          emails,
                           t,
                           classes,
                         )
@@ -340,16 +356,16 @@ const PrivateBookingNotificationForm = (props: Props) => {
               <Actions>
                 <Button
                   onClick={() => {
-                    props.onCancel();
+                    onCancel();
                     setFormIsSecondStep(false);
                   }}
-                  disabled={props.isSubmitting}
+                  disabled={isSubmitting}
                 >
                   {t('privateService:serviceGroup.form.actions.cancel')}
                 </Button>
                 <Submit
                   color="primary"
-                  disabled={!!props.errors.hours || !!props.errors.email_design}
+                  disabled={!!errors.hours || !!errors.email_design}
                 >
                   {t('privateService:serviceGroup.form.actions.submit')}
                 </Submit>
@@ -434,12 +450,8 @@ export default compose(
     mapPropsToValues: ({ initial, serviceId }) => {
       if (initial) {
         const { kind: marketingKind, email_design } = initial;
-        const {
-          kind,
-          private_service_id,
-          notify_booking_nb,
-          hours,
-        } = initial.event_rules;
+        const { kind, private_service_id, notify_booking_nb, hours } =
+          initial.event_rules;
 
         return {
           marketingKind,

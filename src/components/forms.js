@@ -851,15 +851,8 @@ export const CheckboxField = (props: Props) => {
 };
 
 export const MultipleCheckboxField = (props: Props) => {
-  const {
-    choices,
-    disabled,
-    asFieldset,
-    label,
-    name,
-    helperText,
-    labelClass,
-  } = props;
+  const { choices, disabled, asFieldset, label, name, helperText, labelClass } =
+    props;
   const Container = asFieldset ? (p) => <fieldset {...p} /> : FormControl;
   const Label = asFieldset ? (p) => <legend {...p} /> : FormLabel;
   return (

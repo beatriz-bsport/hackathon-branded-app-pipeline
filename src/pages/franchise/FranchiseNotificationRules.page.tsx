@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 // @flow
 import React, { useEffect, useState } from 'react';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';

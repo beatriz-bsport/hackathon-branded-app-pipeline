@@ -14,16 +14,8 @@ export interface CanvasRectProps {
 
 export default class CanvasRectComponent extends CanvasBaseComponent<CanvasRectProps> {
   render() {
-    const {
-      x,
-      y,
-      width,
-      height,
-      stroke,
-      fill,
-      strokeWidth,
-      rotation,
-    } = this.props;
+    const { x, y, width, height, stroke, fill, strokeWidth, rotation } =
+      this.props;
 
     return (
       <rect

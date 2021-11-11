@@ -127,40 +127,41 @@ export default compose(
     },
   ),
   withHandlers({
-    deletePlaylist: ({ deletePlaylist, fetchPlaylistList }) => (
-      playlist,
-      options,
-    ) => {
-      deletePlaylist(playlist.id, {
-        onSuccess: (...args) => {
-          if (options && options.onSuccess) {
-            options.onSuccess(...args);
-          }
-          fetchPlaylistList(1);
-        },
-        onError: (options && options.onError) || null,
-      });
-    },
-    createOrUpdatePlaylist: ({
-      createOrUpdatePlaylist,
-      fetchPlaylistList,
-      closeEditForm,
-      closeCreateDialog,
-    }) => (values, options) => {
-      const formData = mapFormData(values, PlaylistMap);
-      createOrUpdatePlaylist(formData, {
-        onError: (options && options.onError) || null,
-        onSuccess: (...args) => {
-          if (options && options.onSuccess) {
-            options.onSuccess(...args);
-          }
-          closeCreateDialog();
-          closeEditForm();
-          if (!formData.get('id')) {
+    deletePlaylist:
+      ({ deletePlaylist, fetchPlaylistList }) =>
+      (playlist, options) => {
+        deletePlaylist(playlist.id, {
+          onSuccess: (...args) => {
+            if (options && options.onSuccess) {
+              options.onSuccess(...args);
+            }
             fetchPlaylistList(1);
-          }
-        },
-      });
-    },
+          },
+          onError: (options && options.onError) || null,
+        });
+      },
+    createOrUpdatePlaylist:
+      ({
+        createOrUpdatePlaylist,
+        fetchPlaylistList,
+        closeEditForm,
+        closeCreateDialog,
+      }) =>
+      (values, options) => {
+        const formData = mapFormData(values, PlaylistMap);
+        createOrUpdatePlaylist(formData, {
+          onError: (options && options.onError) || null,
+          onSuccess: (...args) => {
+            if (options && options.onSuccess) {
+              options.onSuccess(...args);
+            }
+            closeCreateDialog();
+            closeEditForm();
+            if (!formData.get('id')) {
+              fetchPlaylistList(1);
+            }
+          },
+        });
+      },
   }),
 )(VodPlaylistListPage);

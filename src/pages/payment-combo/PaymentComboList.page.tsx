@@ -85,14 +85,14 @@ export class PaymentComboListPage extends React.Component<Props, State> {
       },
     });
 
-  changeSearch = (fuse: Fuse<PaymentCombo, FuseOptions<PaymentCombo>>) => (
-    ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
-  ) => {
-    this.setState({
-      searchText: ev.target.value,
-      searchResult: fuse.search(ev.target.value),
-    });
-  };
+  changeSearch =
+    (fuse: Fuse<PaymentCombo, FuseOptions<PaymentCombo>>) =>
+    (ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+      this.setState({
+        searchText: ev.target.value,
+        searchResult: fuse.search(ev.target.value),
+      });
+    };
 
   clearSearch = () => {
     this.setState({ searchText: '', searchResult: [] });
@@ -226,12 +226,10 @@ export default compose(
   connect(
     (state: RootState) => ({
       loading: state.paymentCombo.loading,
-      paymentComboListAvailableOnline: getPaymentComboListAvailableOnline(
-        state,
-      ),
-      paymentComboListUnavailableOnline: getPaymentComboListUnavailableOnline(
-        state,
-      ),
+      paymentComboListAvailableOnline:
+        getPaymentComboListAvailableOnline(state),
+      paymentComboListUnavailableOnline:
+        getPaymentComboListUnavailableOnline(state),
       error: state.paymentCombo.createOrUpdate.error,
       paymentComboList: getPaymentComboList(state),
     }),

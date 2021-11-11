@@ -88,7 +88,7 @@ type Props = {
   addShopItemToBasket: (shopitemId: number) => void,
   fetchProfile: () => void,
   goToUserSpace: () => void,
-  auth: *,
+  auth: any,
 
   onSuccess: () => void,
 
@@ -413,56 +413,62 @@ export default compose(
     },
   ),
   withHandlers({
-    addShopItemToBasket: ({ addItemToBasket, basket }) => (shopItemId) =>
-      addItemToBasket(basket.id, {
-        buyable_item_identifier: BUYABLE_ITEM_SHOP_ITEM,
-        quantity: 1,
-        buyable_item_id: shopItemId,
-        extra_data: {},
-      }),
-    onSuccess: ({ replace, basket, queryParams }) => () => {
-      replace(
-        `/checkout/${basket.company}/validation/?basket=${basket.id}${
-          queryParams?.context
-            ? `&context=${queryParams && queryParams.context}`
-            : ''
-        }${
-          queryParams?.user_registration_response
-            ? `&user_registration_response=${
-                queryParams && queryParams.user_registration_response
-              }`
-            : ''
-        }${
-          queryParams?.onValidation
-            ? `&onValidation=${queryParams && queryParams.onValidation}`
-            : ''
-        }`,
-      );
-    },
+    addShopItemToBasket:
+      ({ addItemToBasket, basket }) =>
+      (shopItemId) =>
+        addItemToBasket(basket.id, {
+          buyable_item_identifier: BUYABLE_ITEM_SHOP_ITEM,
+          quantity: 1,
+          buyable_item_id: shopItemId,
+          extra_data: {},
+        }),
+    onSuccess:
+      ({ replace, basket, queryParams }) =>
+      () => {
+        replace(
+          `/checkout/${basket.company}/validation/?basket=${basket.id}${
+            queryParams?.context
+              ? `&context=${queryParams && queryParams.context}`
+              : ''
+          }${
+            queryParams?.user_registration_response
+              ? `&user_registration_response=${
+                  queryParams && queryParams.user_registration_response
+                }`
+              : ''
+          }${
+            queryParams?.onValidation
+              ? `&onValidation=${queryParams && queryParams.onValidation}`
+              : ''
+          }`,
+        );
+      },
   }),
   withHandlers({
-    detachPaymentMethod: ({
-      detachPaymentMethodAction,
-      fetchpaymentMethod,
-      snackbarErrorMsg,
-      snackbarSuccessMsg,
-      companyId,
-      t,
-    }) => (pm_id, options) => {
-      detachPaymentMethodAction(
-        { company: companyId, payment_method_id: pm_id },
-        {
-          onSuccess: () => {
-            fetchpaymentMethod({ company: companyId });
-            snackbarSuccessMsg(t('invoice:paymentMethod.detach.pm_deleted'));
-            if (options && options.onSuccess) options.onSuccess();
+    detachPaymentMethod:
+      ({
+        detachPaymentMethodAction,
+        fetchpaymentMethod,
+        snackbarErrorMsg,
+        snackbarSuccessMsg,
+        companyId,
+        t,
+      }) =>
+      (pm_id, options) => {
+        detachPaymentMethodAction(
+          { company: companyId, payment_method_id: pm_id },
+          {
+            onSuccess: () => {
+              fetchpaymentMethod({ company: companyId });
+              snackbarSuccessMsg(t('invoice:paymentMethod.detach.pm_deleted'));
+              if (options && options.onSuccess) options.onSuccess();
+            },
+            onError: (data) => {
+              snackbarErrorMsg(t(`invoice:paymentMethod.detach.${data}`));
+            },
           },
-          onError: (data) => {
-            snackbarErrorMsg(t(`invoice:paymentMethod.detach.${data}`));
-          },
-        },
-      );
-    },
+        );
+      },
   }),
   withState('basketError', 'setBasketError', null),
 )(BasketPage);

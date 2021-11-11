@@ -29,10 +29,8 @@ export const _getUpsellPackage = (state, id) => {
 export const getPlatformSubscription = (state) => {
   const platformSubscription = _getPlatformSubscription(state);
   if (!platformSubscription) return null;
-  const {
-    minimal_platform_billing_stage,
-    maximum_platform_billing_stage,
-  } = platformSubscription;
+  const { minimal_platform_billing_stage, maximum_platform_billing_stage } =
+    platformSubscription;
 
   return {
     ...platformSubscription,

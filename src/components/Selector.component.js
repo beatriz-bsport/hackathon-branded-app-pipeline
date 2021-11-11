@@ -31,13 +31,13 @@ type SelectProps = {
     inputIcon: string,
     inputWrapper: string,
   },
-  textFieldProps: *,
+  textFieldProps: any,
   searchIcon: boolean,
 };
 
 type NoOptionsMessageProps = {
   selectProps: SelectProps,
-  innerProps: *,
+  innerProps: any,
   children: React.Node,
 };
 
@@ -54,7 +54,7 @@ function NoOptionsMessage(props: NoOptionsMessageProps) {
 }
 
 type InputComponentProps = {
-  inputRef: *,
+  inputRef: any,
 };
 function inputComponent({ inputRef, ...props }: InputComponentProps) {
   return <div ref={inputRef} {...props} />;
@@ -62,9 +62,9 @@ function inputComponent({ inputRef, ...props }: InputComponentProps) {
 
 type ControlProps = {
   selectProps: SelectProps,
-  innerRef: *,
+  innerRef: any,
   children: React.Node,
-  innerProps: *,
+  innerProps: any,
 };
 
 function Control(props: ControlProps) {
@@ -92,10 +92,10 @@ function Control(props: ControlProps) {
 }
 
 type OptionProps = {
-  innerRef: *,
+  innerRef: any,
   isFocused: boolean,
   isSelected: boolean,
-  innerProps: *,
+  innerProps: any,
   children: React.Node,
 };
 function Option(props: OptionProps) {
@@ -117,7 +117,7 @@ function Option(props: OptionProps) {
 type PlaceholderProps = {
   selectProps: SelectProps,
   children: React.Node,
-  innerProps: *,
+  innerProps: any,
 };
 function Placeholder(props: PlaceholderProps) {
   return (
@@ -134,7 +134,7 @@ function Placeholder(props: PlaceholderProps) {
 type SingleValueProps = {
   selectProps: SelectProps,
   children: React.Node,
-  innerProps: *,
+  innerProps: any,
 };
 
 function SingleValue(props: SingleValueProps) {
@@ -165,7 +165,7 @@ function ValueContainer(props: ValueContainerProps) {
 
 type MultiValueProps = {
   selectProps: SelectProps,
-  removeProps: *,
+  removeProps: any,
   children: React.Node,
 };
 function MultiValue(props: MultiValueProps) {
@@ -182,7 +182,7 @@ function MultiValue(props: MultiValueProps) {
 
 type MenuProps = {
   children: React.Node,
-  innerProps: *,
+  innerProps: any,
   selectProps: SelectProps,
 };
 function Menu(props: MenuProps) {

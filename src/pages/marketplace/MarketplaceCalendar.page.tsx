@@ -314,7 +314,8 @@ const mapDispatchToProps = {
   snackbarSuccess: snackbarSuccessActions,
   fetchOfferList: fetchOfferListAction,
   fetchEstablishmentBulk: fetchEstablishmentBulkAction,
-  fetchAssociatedCoachBulkFromCoachIds: fetchAssociatedCoachBulkFromCoachIdsAction,
+  fetchAssociatedCoachBulkFromCoachIds:
+    fetchAssociatedCoachBulkFromCoachIdsAction,
   fetchMetaActivityBulk: fetchMetaActivityBulkAction,
   fetchBookedGender: fetchBookedGenderAction,
   pushAction: push,
@@ -324,37 +325,39 @@ const mapDispatchToProps = {
 };
 
 const mapWithHandlers = {
-  fetchOfferList: (props: Props) => (params: {
-    company: number;
-    max_date: string;
-    min_date: string;
-    is_workshop?: boolean;
-    available?: boolean;
-    filters: OfferFilterData;
-  }) => {
-    props.fetchOfferList(params, {
-      onSuccess: (offerList: any) => {
-        props.fetchEstablishmentBulk([
-          ...offerList.map((o: any) => o.establishment),
-          ...offerList.map((o: any) => o.establishment_override),
-        ]);
-        props.fetchAssociatedCoachBulkFromCoachIds(
-          [
-            ...offerList.map((o: any) => o.coach),
-            ...offerList.map((o: any) => o.coach_override),
-          ],
-          props.companyId,
-        );
+  fetchOfferList:
+    (props: Props) =>
+    (params: {
+      company: number;
+      max_date: string;
+      min_date: string;
+      is_workshop?: boolean;
+      available?: boolean;
+      filters: OfferFilterData;
+    }) => {
+      props.fetchOfferList(params, {
+        onSuccess: (offerList: any) => {
+          props.fetchEstablishmentBulk([
+            ...offerList.map((o: any) => o.establishment),
+            ...offerList.map((o: any) => o.establishment_override),
+          ]);
+          props.fetchAssociatedCoachBulkFromCoachIds(
+            [
+              ...offerList.map((o: any) => o.coach),
+              ...offerList.map((o: any) => o.coach_override),
+            ],
+            props.companyId,
+          );
 
-        props.fetchMetaActivityBulk([
-          ...offerList.map((o: any) => o.meta_activity),
-        ]);
-      },
-    });
-    if (props.theme && props.theme.show_booked_gender_offer) {
-      props.fetchBookedGender(params);
-    }
-  },
+          props.fetchMetaActivityBulk([
+            ...offerList.map((o: any) => o.meta_activity),
+          ]);
+        },
+      });
+      if (props.theme && props.theme.show_booked_gender_offer) {
+        props.fetchBookedGender(params);
+      }
+    },
   onBookOfferFromPack: (props: Props) => (offerId: number, packId: number) => {
     payWithConsumerPaymentPackAPI(packId, offerId, {})
       .then(() => {

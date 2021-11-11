@@ -345,83 +345,89 @@ export default compose(
     'setQueryParams',
   ]),
   withHandlers({
-    closeForms: ({ setQueryParams, queryParams }) => (
-      callback: (() => void) | null,
-    ) => {
-      if (queryParams?.isCreateFormOpen) {
-        setQueryParams('isCreateFormOpen')('', callback);
-      }
-      if (queryParams?.giftcardToEdit) {
-        setQueryParams('giftcardToEdit')('', callback);
-      }
-    },
-    openCreateForm: ({ setQueryParams, queryParams }) => () => {
-      if (queryParams?.isCreateFormOpen) {
-        setQueryParams('isCreateFormOpen')('');
-      } else {
-        setQueryParams('isCreateFormOpen')('true');
-      }
-    },
-    toggleBackgroundImageForm: ({ setQueryParams, queryParams }) => () => {
-      if (queryParams?.isBackgroundImageUploaderOpen) {
-        setQueryParams('isBackgroundImageUploaderOpen')('');
-      } else {
-        setQueryParams('isBackgroundImageUploaderOpen')('true');
-      }
-    },
-    openEditForm: ({ setQueryParams }) => (giftcardId: number | null) => {
-      if (!giftcardId) {
-        setQueryParams('giftcardToEdit')('');
-      } else {
-        setQueryParams('giftcardToEdit')(`${giftcardId}`);
-      }
-    },
+    closeForms:
+      ({ setQueryParams, queryParams }) =>
+      (callback: (() => void) | null) => {
+        if (queryParams?.isCreateFormOpen) {
+          setQueryParams('isCreateFormOpen')('', callback);
+        }
+        if (queryParams?.giftcardToEdit) {
+          setQueryParams('giftcardToEdit')('', callback);
+        }
+      },
+    openCreateForm:
+      ({ setQueryParams, queryParams }) =>
+      () => {
+        if (queryParams?.isCreateFormOpen) {
+          setQueryParams('isCreateFormOpen')('');
+        } else {
+          setQueryParams('isCreateFormOpen')('true');
+        }
+      },
+    toggleBackgroundImageForm:
+      ({ setQueryParams, queryParams }) =>
+      () => {
+        if (queryParams?.isBackgroundImageUploaderOpen) {
+          setQueryParams('isBackgroundImageUploaderOpen')('');
+        } else {
+          setQueryParams('isBackgroundImageUploaderOpen')('true');
+        }
+      },
+    openEditForm:
+      ({ setQueryParams }) =>
+      (giftcardId: number | null) => {
+        if (!giftcardId) {
+          setQueryParams('giftcardToEdit')('');
+        } else {
+          setQueryParams('giftcardToEdit')(`${giftcardId}`);
+        }
+      },
   }),
   connector,
   withHandlers({
-    deleteGiftcard: ({ deleteGiftcard, fetchGiftcardList }) => (
-      id: number,
-      options: OptionCallback<number>,
-    ) => {
-      deleteGiftcard(id, {
-        onSuccess: (id_: number) => {
-          fetchGiftcardList();
-          if (options?.onSuccess) {
-            options.onSuccess(id_);
-          }
-        },
-      });
-    },
-    createOrUpdate: ({
-      createOrUpdateGiftcard,
-      fetchGiftcardList,
-      queryParams,
-      closeForms,
-      push,
-    }) => (
-      data: ConsumerGiftcard,
-      options: OptionCallback<ConsumerGiftcard>,
-    ) => {
-      const id = parseInt(queryParams?.giftcardToEdit, 10);
-      createOrUpdateGiftcard(id, data, {
-        onSuccess: (g) => {
-          fetchGiftcardList();
-          closeForms(() => push(`/giftcard/${g.id}/`));
-          options?.onSuccess();
-        },
-        onError: options?.onError,
-      });
-    },
-    makeGiftcardCopy: ({ makeGiftcardCopy, fetchGiftcardList }) => (
-      id: number,
-    ) => {
-      makeGiftcardCopy(id, {
-        onSuccess: () => fetchGiftcardList(),
-      });
-    },
-    goToGiftcard: ({ push }) => (id: number) => {
-      push(`/giftcard/${id}/`);
-    },
+    deleteGiftcard:
+      ({ deleteGiftcard, fetchGiftcardList }) =>
+      (id: number, options: OptionCallback<number>) => {
+        deleteGiftcard(id, {
+          onSuccess: (id_: number) => {
+            fetchGiftcardList();
+            if (options?.onSuccess) {
+              options.onSuccess(id_);
+            }
+          },
+        });
+      },
+    createOrUpdate:
+      ({
+        createOrUpdateGiftcard,
+        fetchGiftcardList,
+        queryParams,
+        closeForms,
+        push,
+      }) =>
+      (data: ConsumerGiftcard, options: OptionCallback<ConsumerGiftcard>) => {
+        const id = parseInt(queryParams?.giftcardToEdit, 10);
+        createOrUpdateGiftcard(id, data, {
+          onSuccess: (g) => {
+            fetchGiftcardList();
+            closeForms(() => push(`/giftcard/${g.id}/`));
+            options?.onSuccess();
+          },
+          onError: options?.onError,
+        });
+      },
+    makeGiftcardCopy:
+      ({ makeGiftcardCopy, fetchGiftcardList }) =>
+      (id: number) => {
+        makeGiftcardCopy(id, {
+          onSuccess: () => fetchGiftcardList(),
+        });
+      },
+    goToGiftcard:
+      ({ push }) =>
+      (id: number) => {
+        push(`/giftcard/${id}/`);
+      },
   }),
   withTitle(({ t }: { t: TFunction }) => t('titles:giftcard')),
 )(GiftcardListPage);

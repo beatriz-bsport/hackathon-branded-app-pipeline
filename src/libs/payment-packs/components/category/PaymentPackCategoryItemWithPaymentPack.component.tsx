@@ -88,19 +88,14 @@ type PackListItemProps = MaterialStyleType<ReturnType<typeof styles>> & {
 
 const SortablePaymentPackListItem = React.memo((props: PackListItemProps) => {
   const { pack } = props;
-  const {
-    listeners,
-    attributes,
-    setNodeRef,
-    transform,
-    transition,
-  } = useSortable({
-    id: props.pack.id.toString(10),
-    data: {
-      category: { packs: props.sortedItems },
-      pack,
-    },
-  });
+  const { listeners, attributes, setNodeRef, transform, transition } =
+    useSortable({
+      id: props.pack.id.toString(10),
+      data: {
+        category: { packs: props.sortedItems },
+        pack,
+      },
+    });
   return (
     <Paper
       ref={setNodeRef}
@@ -248,16 +243,11 @@ export const PaymentPackCategoryItemWithPaymentPack = React.memo(
 
     const [expandCollapse, setExpandCollapse] = useState(true);
 
-    const {
-      setNodeRef,
-      attributes,
-      listeners,
-      transition,
-      transform,
-    } = useSortable({
-      id: paymentPackCategory.id?.toString(10) || 'null',
-      data: { categoryIds: props.paymentPackCategoryIds },
-    });
+    const { setNodeRef, attributes, listeners, transition, transform } =
+      useSortable({
+        id: paymentPackCategory.id?.toString(10) || 'null',
+        data: { categoryIds: props.paymentPackCategoryIds },
+      });
 
     const handlePopover = (event: any, ppCategory: PaymentPackCategory) => {
       event.stopPropagation();

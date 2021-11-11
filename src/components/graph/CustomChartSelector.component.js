@@ -18,11 +18,11 @@ type Props = {
   t: TFunction,
   classes: Object,
   menuAnchor: ?HTMLElement,
-  setMenuAnchor: (?HTMLElement) => void,
+  setMenuAnchor: (anchor: ?HTMLElement) => void,
 
   itemList: ?Array<any>,
   itemSelected: ?any,
-  setItemSelected: (?string) => void,
+  setItemSelected: (item: ?string) => void,
   iconList: ?any,
 };
 

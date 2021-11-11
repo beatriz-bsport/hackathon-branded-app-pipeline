@@ -18,7 +18,7 @@ type Props = {
   goToMember: () => void,
   country: string,
 
-  onSubmit: (data: *, options: any) => void,
+  onSubmit: (data: any, options: any) => void,
   switchSrcDst: (src: number, dst: number) => void,
 
   waiver: string,

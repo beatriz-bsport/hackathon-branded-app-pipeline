@@ -141,9 +141,8 @@ export function OfferMinimalSummary(props: Props) {
   const currentEstablishment =
     establishment_override || establishment || offer.etablissement;
   const dateFormatter = noDate ? formatAsTime : formatAsDatetime;
-  const [fillingInfo, fillingInfoProps, formattedFillingRate] = getFillingInfo(
-    offer,
-  );
+  const [fillingInfo, fillingInfoProps, formattedFillingRate] =
+    getFillingInfo(offer);
 
   let actualCoachName = '  -  ';
   if (coach && !coach_override) {

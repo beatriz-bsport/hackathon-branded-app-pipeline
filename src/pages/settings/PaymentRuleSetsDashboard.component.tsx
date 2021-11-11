@@ -294,31 +294,28 @@ const mapWithHandlers = {
     props.setInitial(null);
     props.resetCoachPaymentSimulation();
   },
-  handlePrevious: (props: OwnAndConnectedProps) => (
-    payment_rule: CoachPaymentRule,
-  ) => {
-    props.setInitial(payment_rule);
-    props.showDialog(true);
-    props.showSimulationDialog(false);
-    props.resetCoachPaymentSimulation();
-  },
-  upsertCoachPaymentRule: (props: OwnAndConnectedProps) => (
-    p: CoachPaymentRule,
-  ) =>
-    props.upsertCoachPaymentRule(p, {
-      onSuccess: (payload: CoachPaymentRule) => {
-        props.showSimulationDialog(true);
-        props.setRuleForSimulation(payload);
-      },
-    }),
-  upsertCoachPaymentRuleGroup: (props: OwnAndConnectedProps) => (
-    g: CoachPaymentRuleGroup,
-    options: OptionCallback,
-  ) => props.upsertCoachPaymentRuleGroup(g, options),
-  runCoachPaymenrRuleSimulation: (props: OwnAndConnectedProps) => (
-    id: number,
-    params: any,
-  ) => props.runCoachPaymenrRuleSimulation(id, params),
+  handlePrevious:
+    (props: OwnAndConnectedProps) => (payment_rule: CoachPaymentRule) => {
+      props.setInitial(payment_rule);
+      props.showDialog(true);
+      props.showSimulationDialog(false);
+      props.resetCoachPaymentSimulation();
+    },
+  upsertCoachPaymentRule:
+    (props: OwnAndConnectedProps) => (p: CoachPaymentRule) =>
+      props.upsertCoachPaymentRule(p, {
+        onSuccess: (payload: CoachPaymentRule) => {
+          props.showSimulationDialog(true);
+          props.setRuleForSimulation(payload);
+        },
+      }),
+  upsertCoachPaymentRuleGroup:
+    (props: OwnAndConnectedProps) =>
+    (g: CoachPaymentRuleGroup, options: OptionCallback) =>
+      props.upsertCoachPaymentRuleGroup(g, options),
+  runCoachPaymenrRuleSimulation:
+    (props: OwnAndConnectedProps) => (id: number, params: any) =>
+      props.runCoachPaymenrRuleSimulation(id, params),
 };
 
 const withStateHandlersInit: StateHandlerInit = {

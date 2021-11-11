@@ -101,24 +101,22 @@ const mapDispatchToProps = {
   toogleFilter: toogleFilterAction,
 };
 const mapWithHandlers = {
-  fetchOffersByDay: (props: ConnectedProps) => (params: {
-    year: number;
-    month: number;
-    day: number;
-  }) => {
-    props.fetchOffersByDay(params, {
-      onSuccess: (offers: Array<Offer>) => {
-        props.fetchCoachBulk([
-          ...offers.map((o) => o.coach),
-          ...offers.map((o) => o.coach_override),
-        ]);
-        props.fetchEstablishmentBulk([
-          ...offers.map((o) => o.establishment),
-          ...offers.map((o) => o.establishment_override),
-        ]);
-      },
-    });
-  },
+  fetchOffersByDay:
+    (props: ConnectedProps) =>
+    (params: { year: number; month: number; day: number }) => {
+      props.fetchOffersByDay(params, {
+        onSuccess: (offers: Array<Offer>) => {
+          props.fetchCoachBulk([
+            ...offers.map((o) => o.coach),
+            ...offers.map((o) => o.coach_override),
+          ]);
+          props.fetchEstablishmentBulk([
+            ...offers.map((o) => o.establishment),
+            ...offers.map((o) => o.establishment_override),
+          ]);
+        },
+      });
+    },
 };
 export default compose<any, OwnProps>(
   withStyles(styles),

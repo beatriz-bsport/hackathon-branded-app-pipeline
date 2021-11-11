@@ -28,14 +28,12 @@ const CheckoutForm = (props: { clientSecret: string }) => {
           setPaymentRequest(pr);
           paymentRequest.on('paymentmethod', async (ev) => {
             // Confirm the PaymentIntent without handling potential next actions (yet).
-            const {
-              paymentIntent,
-              error: confirmError,
-            } = await stripe.confirmCardPayment(
-              props.clientSecret,
-              { payment_method: ev.paymentMethod.id },
-              { handleActions: false },
-            );
+            const { paymentIntent, error: confirmError } =
+              await stripe.confirmCardPayment(
+                props.clientSecret,
+                { payment_method: ev.paymentMethod.id },
+                { handleActions: false },
+              );
 
             if (confirmError) {
               // Report to the browser that the payment failed, prompting it to
@@ -67,6 +65,7 @@ const CheckoutForm = (props: { clientSecret: string }) => {
         }
       });
     }
+    // eslint-disable-next-line
   }, [stripe]);
 
   if (paymentRequest) {

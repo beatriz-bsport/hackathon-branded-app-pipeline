@@ -66,7 +66,7 @@ type Props = {
   paymentPacks: Array<PaymentPack>,
   contractToEdit: ?Contract,
   setDeleteModalOpen: (boolean) => void,
-  setContractToEdit: (?Contract) => void,
+  setContractToEdit: (contract: ?Contract) => void,
   refreshAllPaymentPack: () => void,
   fetchContractDetail: (id: number) => void,
   fetchMembersBySubscription: (subscriptions: Array<Subscription>) => void,
@@ -94,7 +94,10 @@ type Props = {
   contractPauseList: Array<ContractPause>,
   contractPauseFormOpen: boolean,
   setContractPauseOpen: (boolnea) => void,
-  fetchSubscriptionBulk: (Array<number>, OptionsCallback) => void,
+  fetchSubscriptionBulk: (
+    subscriptions: Array<number>,
+    opt: OptionsCallback,
+  ) => void,
 };
 
 type State = {
@@ -331,41 +334,37 @@ export default compose(
     },
   ),
   withHandlers({
-    fetchSubscriptionsByContract: ({
-      fetchSubscriptionList,
-      setPage,
-      contractId,
-    }) => (page, page_size, options) => {
-      setPage(page);
-      fetchSubscriptionList(
-        {
-          contract: contractId,
-          page,
-          page_size,
-        },
-        options,
-      );
-    },
-    submitEditForm: ({
-      createOrUpdateContract,
-      fetchContractDetail,
-      contractId,
-    }) => (data, options) => {
-      createOrUpdateContract(data, {
-        onSuccess: () => {
-          fetchContractDetail(contractId);
-          if (options && options.onSuccess) {
-            options.onSuccess();
-          }
-        },
-      });
-    },
-    fetchMembersBySubscription: ({ fetchFilteredMembers }) => (
-      subscriptions,
-    ) => {
-      fetchFilteredMembers({
-        id__in: subscriptions.map((b) => b.member),
-      });
-    },
+    fetchSubscriptionsByContract:
+      ({ fetchSubscriptionList, setPage, contractId }) =>
+      (page, page_size, options) => {
+        setPage(page);
+        fetchSubscriptionList(
+          {
+            contract: contractId,
+            page,
+            page_size,
+          },
+          options,
+        );
+      },
+    submitEditForm:
+      ({ createOrUpdateContract, fetchContractDetail, contractId }) =>
+      (data, options) => {
+        createOrUpdateContract(data, {
+          onSuccess: () => {
+            fetchContractDetail(contractId);
+            if (options && options.onSuccess) {
+              options.onSuccess();
+            }
+          },
+        });
+      },
+    fetchMembersBySubscription:
+      ({ fetchFilteredMembers }) =>
+      (subscriptions) => {
+        fetchFilteredMembers({
+          id__in: subscriptions.map((b) => b.member),
+        });
+      },
   }),
 )(ContractDetailPage);

@@ -12,7 +12,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { styles as baseStyles } from './uploader.styles';
 
 type Props = {
-  classes: *,
+  classes: any,
   initial: string,
   label: ?string,
   helperText: ?string,

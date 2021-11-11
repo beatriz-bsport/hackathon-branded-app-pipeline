@@ -26,7 +26,7 @@ type Props = {
   onChange: (any) => void,
   buyable_identifiers: any,
   new: boolean,
-  setNotNullableData: (Array<string>) => void,
+  setNotNullableData: (data: Array<string>) => void,
 };
 
 export class ExpensesPerCategoryFilter extends Component<Props, state> {
@@ -50,13 +50,8 @@ export class ExpensesPerCategoryFilter extends Component<Props, state> {
   }
 
   render() {
-    const {
-      filter_data,
-      t,
-      classes,
-      onChange,
-      buyable_identifiers,
-    } = this.props;
+    const { filter_data, t, classes, onChange, buyable_identifiers } =
+      this.props;
     return (
       <div>
         <div className={classes.wrapper}>

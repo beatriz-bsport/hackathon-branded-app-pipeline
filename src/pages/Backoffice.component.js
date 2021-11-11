@@ -423,9 +423,8 @@ export class Backoffice extends Component<Props, State> {
               <main
                 className={clx({
                   [classes.content]: true,
-                  [classes.fullContent]: this.props.location.pathname.includes(
-                    '/spot-scheduling',
-                  ),
+                  [classes.fullContent]:
+                    this.props.location.pathname.includes('/spot-scheduling'),
                 })}
               >
                 <BackofficeRoute
@@ -541,30 +540,30 @@ export default compose(
     },
   ),
   withHandlers({
-    disconnect: ({ signout, theme }) => () => {
-      signout(theme.company);
-    },
-    checkEmailValidation: ({
-      checkEmailValidation,
-      pushRouter,
-      username,
-    }) => () => {
-      checkEmailValidation(null, {
-        onError: (err) => {
-          if (
-            err &&
-            err.response &&
-            err.response.data &&
-            !err.response.data.validated
-          ) {
-            pushRouter(
-              `/login/company_onboarding/email_validation/${encodeURIComponent(
-                username,
-              )}`,
-            );
-          }
-        },
-      });
-    },
+    disconnect:
+      ({ signout, theme }) =>
+      () => {
+        signout(theme.company);
+      },
+    checkEmailValidation:
+      ({ checkEmailValidation, pushRouter, username }) =>
+      () => {
+        checkEmailValidation(null, {
+          onError: (err) => {
+            if (
+              err &&
+              err.response &&
+              err.response.data &&
+              !err.response.data.validated
+            ) {
+              pushRouter(
+                `/login/company_onboarding/email_validation/${encodeURIComponent(
+                  username,
+                )}`,
+              );
+            }
+          },
+        });
+      },
   }),
 )(themedBackoffice);

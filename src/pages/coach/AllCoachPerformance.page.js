@@ -454,7 +454,7 @@ const styles = (theme) => ({
     marginBottom: theme.spacing(1),
   },
 });
-export default compose<any, Props>(
+export default compose(
   withStyles(styles),
   withState('formDates', 'setFormDates', {}),
   connect(
@@ -463,18 +463,19 @@ export default compose<any, Props>(
       coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
       coachLoading: state.coach.loading,
       performanceLoading: state.coachPaymentRules.performance.loading,
-      associatedCoachWithCoachPaymentRuleAndPerformance: withCoachPerformance(
-        getActiveCoaches,
-      )(state),
+      associatedCoachWithCoachPaymentRuleAndPerformance:
+        withCoachPerformance(getActiveCoaches)(state),
       coachPaymentRuleGroups: getCoachPaymentRuleGroups(state),
       coachPaymentRuleGroupsDict: state.coachPaymentRules.groups.byId,
     }),
     {
       setSessionCoachPaymentRuleAction: setSessionCoachPaymentRule,
-      updatePrivateBookingCoachPaymentRuleAction: updatePrivateBookingCoachPaymentRule,
+      updatePrivateBookingCoachPaymentRuleAction:
+        updatePrivateBookingCoachPaymentRule,
       fetchAssociatedCoachesList,
       fetchCoachSessionPerformance: fetchCoachSessionPerformanceAction,
-      fetchCoachPrivateServicePerformance: fetchCoachPrivateServicePerformanceAction,
+      fetchCoachPrivateServicePerformance:
+        fetchCoachPrivateServicePerformanceAction,
       setCoachPaymentRuleAction: setCoachPaymentRule,
       setCoachPrivatePaymentRule,
       setCoachWorkshopPaymentRuleAction: setCoachWorkshopPaymentRule,
@@ -493,178 +494,177 @@ export default compose<any, Props>(
     },
   ),
   withHandlers({
-    onSubmit: ({
-      associatedCoachWithCoachPaymentRuleAndPerformance,
-      fetchCoachSessionPerformance,
-      fetchCoachPrivateServicePerformance,
-      setPerformanceLoading,
-      setFormDates,
-    }) => async (data: Object, options) => {
-      const { dateStart, dateEnd } = data;
-      setFormDates({ dateStart: dateStart.unix(), dateEnd: dateEnd.unix() });
-      setPerformanceLoading(true);
-      const promises = associatedCoachWithCoachPaymentRuleAndPerformance.map(
-        (coach) => {
-          return (
-            fetchCoachSessionPerformance(
-              {
-                associatedCoachId: coach.associated_coach_id,
-                start_timestamp: dateStart.unix(),
-                end_timestamp: dateEnd.unix(),
-              },
-              options,
-            ),
-            fetchCoachPrivateServicePerformance(
-              {
-                associatedCoachId: coach.associated_coach_id,
-                start_timestamp: dateStart.unix(),
-                end_timestamp: dateEnd.unix(),
-              },
-              options,
-            )
-          );
-        },
-      );
-      await Promise.all(promises);
-      setPerformanceLoading(false);
-    },
+    onSubmit:
+      ({
+        associatedCoachWithCoachPaymentRuleAndPerformance,
+        fetchCoachSessionPerformance,
+        fetchCoachPrivateServicePerformance,
+        setPerformanceLoading,
+        setFormDates,
+      }) =>
+      async (data: Object, options) => {
+        const { dateStart, dateEnd } = data;
+        setFormDates({ dateStart: dateStart.unix(), dateEnd: dateEnd.unix() });
+        setPerformanceLoading(true);
+        const promises = associatedCoachWithCoachPaymentRuleAndPerformance.map(
+          (coach) => {
+            return (
+              fetchCoachSessionPerformance(
+                {
+                  associatedCoachId: coach.associated_coach_id,
+                  start_timestamp: dateStart.unix(),
+                  end_timestamp: dateEnd.unix(),
+                },
+                options,
+              ),
+              fetchCoachPrivateServicePerformance(
+                {
+                  associatedCoachId: coach.associated_coach_id,
+                  start_timestamp: dateStart.unix(),
+                  end_timestamp: dateEnd.unix(),
+                },
+                options,
+              )
+            );
+          },
+        );
+        await Promise.all(promises);
+        setPerformanceLoading(false);
+      },
   }),
   withHandlers({
-    setCoachPaymentRule: ({
-      setCoachPaymentRuleAction,
-      fetchCoachSessionPerformance,
-      setPerformanceLoading,
-      formDates,
-    }) => (
-      coachId: number,
-      paymentRuleId: number,
-      associatedCoachId: number,
-    ) => {
-      setCoachPaymentRuleAction(coachId, paymentRuleId, {
-        onSuccess: async () => {
-          setPerformanceLoading(true);
-          const promises = [
-            fetchCoachSessionPerformance({
-              associatedCoachId,
-              start_timestamp: formDates.dateStart,
-              end_timestamp: formDates.dateEnd,
-            }),
-          ];
-          await Promise.all(promises);
-          setPerformanceLoading(false);
-        },
-      });
-    },
+    setCoachPaymentRule:
+      ({
+        setCoachPaymentRuleAction,
+        fetchCoachSessionPerformance,
+        setPerformanceLoading,
+        formDates,
+      }) =>
+      (coachId: number, paymentRuleId: number, associatedCoachId: number) => {
+        setCoachPaymentRuleAction(coachId, paymentRuleId, {
+          onSuccess: async () => {
+            setPerformanceLoading(true);
+            const promises = [
+              fetchCoachSessionPerformance({
+                associatedCoachId,
+                start_timestamp: formDates.dateStart,
+                end_timestamp: formDates.dateEnd,
+              }),
+            ];
+            await Promise.all(promises);
+            setPerformanceLoading(false);
+          },
+        });
+      },
   }),
   withHandlers({
-    setCoachWorkShopPaymentRule: ({
-      setCoachWorkshopPaymentRuleAction,
-      fetchCoachSessionPerformance,
-      setPerformanceLoading,
-      formDates,
-    }) => (
-      coachId: number,
-      paymentRuleId: number,
-      associatedCoachId: number,
-    ) => {
-      setCoachWorkshopPaymentRuleAction(coachId, paymentRuleId, {
-        onSuccess: async () => {
-          setPerformanceLoading(true);
-          const promises = [
-            fetchCoachSessionPerformance({
-              associatedCoachId,
-              start_timestamp: formDates.dateStart,
-              end_timestamp: formDates.dateEnd,
-            }),
-          ];
-          await Promise.all(promises);
-          setPerformanceLoading(false);
-        },
-      });
-    },
+    setCoachWorkShopPaymentRule:
+      ({
+        setCoachWorkshopPaymentRuleAction,
+        fetchCoachSessionPerformance,
+        setPerformanceLoading,
+        formDates,
+      }) =>
+      (coachId: number, paymentRuleId: number, associatedCoachId: number) => {
+        setCoachWorkshopPaymentRuleAction(coachId, paymentRuleId, {
+          onSuccess: async () => {
+            setPerformanceLoading(true);
+            const promises = [
+              fetchCoachSessionPerformance({
+                associatedCoachId,
+                start_timestamp: formDates.dateStart,
+                end_timestamp: formDates.dateEnd,
+              }),
+            ];
+            await Promise.all(promises);
+            setPerformanceLoading(false);
+          },
+        });
+      },
   }),
   withHandlers({
-    updatePrivateBookingCoachPaymentRule: ({
-      updatePrivateBookingCoachPaymentRuleAction,
-      fetchCoachPrivateServicePerformance,
-      setPerformanceLoading,
-      formDates,
-    }) => (
-      coachId: number,
-      paymentRuleId: number,
-      associatedCoachId: number,
-    ) => {
-      updatePrivateBookingCoachPaymentRuleAction(coachId, paymentRuleId, {
-        onSuccess: async () => {
-          setPerformanceLoading(true);
-          const promises = [
-            fetchCoachPrivateServicePerformance({
-              associatedCoachId,
-              start_timestamp: formDates.dateStart,
-              end_timestamp: formDates.dateEnd,
-            }),
-          ];
-          await Promise.all(promises);
-          setPerformanceLoading(false);
-        },
-      });
-    },
+    updatePrivateBookingCoachPaymentRule:
+      ({
+        updatePrivateBookingCoachPaymentRuleAction,
+        fetchCoachPrivateServicePerformance,
+        setPerformanceLoading,
+        formDates,
+      }) =>
+      (coachId: number, paymentRuleId: number, associatedCoachId: number) => {
+        updatePrivateBookingCoachPaymentRuleAction(coachId, paymentRuleId, {
+          onSuccess: async () => {
+            setPerformanceLoading(true);
+            const promises = [
+              fetchCoachPrivateServicePerformance({
+                associatedCoachId,
+                start_timestamp: formDates.dateStart,
+                end_timestamp: formDates.dateEnd,
+              }),
+            ];
+            await Promise.all(promises);
+            setPerformanceLoading(false);
+          },
+        });
+      },
   }),
   withHandlers({
-    setSessionCoachPaymentRule: ({
-      setSessionCoachPaymentRuleAction,
-      fetchCoachSessionPerformance,
-      formDates,
-      setPerformanceLoading,
-    }) => (data) => {
-      setSessionCoachPaymentRuleAction(data, {
-        onSuccess: async (payload) => {
-          setPerformanceLoading(true);
-          const promises = [
-            fetchCoachSessionPerformance({
-              associatedCoachId: payload.associatedCoachId,
-              start_timestamp: formDates.dateStart,
-              end_timestamp: formDates.dateEnd,
-              sessionId: payload.sessionId,
-            }),
-          ];
-          await Promise.all(promises);
-          setPerformanceLoading(false);
-        },
-      });
-    },
+    setSessionCoachPaymentRule:
+      ({
+        setSessionCoachPaymentRuleAction,
+        fetchCoachSessionPerformance,
+        formDates,
+        setPerformanceLoading,
+      }) =>
+      (data) => {
+        setSessionCoachPaymentRuleAction(data, {
+          onSuccess: async (payload) => {
+            setPerformanceLoading(true);
+            const promises = [
+              fetchCoachSessionPerformance({
+                associatedCoachId: payload.associatedCoachId,
+                start_timestamp: formDates.dateStart,
+                end_timestamp: formDates.dateEnd,
+                sessionId: payload.sessionId,
+              }),
+            ];
+            await Promise.all(promises);
+            setPerformanceLoading(false);
+          },
+        });
+      },
   }),
   withHandlers({
-    setCoachPaymentRuleGroup: ({ setCoachPaymentRuleGroupAction }) => (
-      coachId,
-      value,
-    ) => {
-      setCoachPaymentRuleGroupAction(coachId, value);
-    },
+    setCoachPaymentRuleGroup:
+      ({ setCoachPaymentRuleGroupAction }) =>
+      (coachId, value) => {
+        setCoachPaymentRuleGroupAction(coachId, value);
+      },
   }),
   withHandlers({
-    updatePrivateBookingCoachPaymentRule: ({
-      updatePrivateBookingCoachPaymentRuleAction,
-      fetchCoachPrivateServicePerformance,
-      formDates,
-      setPerformanceLoading,
-    }) => (data) => {
-      updatePrivateBookingCoachPaymentRuleAction(data, {
-        onSuccess: async (payload) => {
-          setPerformanceLoading(true);
-          const promises = [
-            fetchCoachPrivateServicePerformance({
-              associatedCoachId: payload.associatedCoachId,
-              start_timestamp: formDates.dateStart,
-              end_timestamp: formDates.dateEnd,
-              privateBookingId: payload.privateBookingId,
-            }),
-          ];
-          await Promise.all(promises);
-          setPerformanceLoading(false);
-        },
-      });
-    },
+    updatePrivateBookingCoachPaymentRule:
+      ({
+        updatePrivateBookingCoachPaymentRuleAction,
+        fetchCoachPrivateServicePerformance,
+        formDates,
+        setPerformanceLoading,
+      }) =>
+      (data) => {
+        updatePrivateBookingCoachPaymentRuleAction(data, {
+          onSuccess: async (payload) => {
+            setPerformanceLoading(true);
+            const promises = [
+              fetchCoachPrivateServicePerformance({
+                associatedCoachId: payload.associatedCoachId,
+                start_timestamp: formDates.dateStart,
+                end_timestamp: formDates.dateEnd,
+                privateBookingId: payload.privateBookingId,
+              }),
+            ];
+            await Promise.all(promises);
+            setPerformanceLoading(false);
+          },
+        });
+      },
   }),
   withTranslation(),
   withTitle(({ t }) => t('titles:coach.allCoachPerformance')),

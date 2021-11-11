@@ -73,9 +73,8 @@ const getCoachPerformanceStateById = (
   state: RootState,
   associatedCoachId: number,
 ) => {
-  const performanceContainer = getCoachPerformanceState(state)[
-    associatedCoachId
-  ];
+  const performanceContainer =
+    getCoachPerformanceState(state)[associatedCoachId];
   if (performanceContainer) {
     return performanceContainer;
   }

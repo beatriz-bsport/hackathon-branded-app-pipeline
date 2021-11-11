@@ -95,14 +95,14 @@ export class SubscriptionList extends React.Component<Props, State> {
     }
   };
 
-  changeSearch = (fuse: Fuse<Contract, FuseOptions<Contract>>) => (
-    ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
-  ) => {
-    this.setState({
-      searchText: ev.target.value,
-      searchResult: fuse.search(ev.target.value),
-    });
-  };
+  changeSearch =
+    (fuse: Fuse<Contract, FuseOptions<Contract>>) =>
+    (ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+      this.setState({
+        searchText: ev.target.value,
+        searchResult: fuse.search(ev.target.value),
+      });
+    };
 
   clearSearch = () => {
     this.setState({ searchText: '', searchResult: [] });
@@ -454,61 +454,69 @@ const withStateHandlersSetter = {
   setShowDisabled: () => (showDisabled: boolean) => ({ showDisabled }),
   onCloseCreate: () => () => ({ createContractFormOpen: false }),
   onRequestCreate: () => () => ({ createContractFormOpen: true }),
-  onCreate: (
-    _,
-    { createOrUpdateContract, fetchContractList }: typeof mapDispatchToProps,
-  ) => (data, options) => {
-    createOrUpdateContract(data, {
-      onSuccess: () => {
-        fetchContractList();
-        if (options && options.onSuccess) {
-          options.onSuccess();
-        }
-      },
-    });
-    return { createContractFormOpen: false };
-  },
+  onCreate:
+    (
+      _,
+      { createOrUpdateContract, fetchContractList }: typeof mapDispatchToProps,
+    ) =>
+    (data, options) => {
+      createOrUpdateContract(data, {
+        onSuccess: () => {
+          fetchContractList();
+          if (options && options.onSuccess) {
+            options.onSuccess();
+          }
+        },
+      });
+      return { createContractFormOpen: false };
+    },
 };
 
 const mapWithHandlers = {
-  openContractRegister: ({
-    setContractRegisterOpen,
-    setSelectedContract,
-    setMemberToBill,
-  }: WithHandlerType<typeof withStateHandlersSetter>) => (
-    contract: Contract,
-  ) => {
-    setSelectedContract(contract.id);
-    setContractRegisterOpen(true);
-    setMemberToBill(null);
-  },
-  closeContractRegister: ({
-    setMemberToBill,
-    setContractRegisterOpen,
-  }: WithHandlerType<typeof withStateHandlersSetter>) => () => {
-    setContractRegisterOpen(false);
-    setMemberToBill(null);
-  },
-  onRegisteredBillingPlan: ({
-    setMemberToBill,
-    pushRouter,
-    setContractRegisterOpen,
-  }: WithHandlerType<typeof withStateHandlersSetter> &
-    typeof mapDispatchToProps) => (billingPlan: any) => {
-    setContractRegisterOpen(false);
-    setMemberToBill(null);
-    pushRouter(`/subscription/${billingPlan.id}`);
-  },
-  requestSetupIntentSecret: ({
-    memberToBill,
-  }: typeof withStateHandlersInit) => () =>
-    requestSetupIntentSecretAPI(memberToBill.id),
-  fetchPaymentMethodList: ({
-    memberToBill,
-    fetchPaymentMethodList,
-  }: typeof mapDispatchToProps & typeof withStateHandlersInit) => () => {
-    fetchPaymentMethodList({ member: memberToBill.id });
-  },
+  openContractRegister:
+    ({
+      setContractRegisterOpen,
+      setSelectedContract,
+      setMemberToBill,
+    }: WithHandlerType<typeof withStateHandlersSetter>) =>
+    (contract: Contract) => {
+      setSelectedContract(contract.id);
+      setContractRegisterOpen(true);
+      setMemberToBill(null);
+    },
+  closeContractRegister:
+    ({
+      setMemberToBill,
+      setContractRegisterOpen,
+    }: WithHandlerType<typeof withStateHandlersSetter>) =>
+    () => {
+      setContractRegisterOpen(false);
+      setMemberToBill(null);
+    },
+  onRegisteredBillingPlan:
+    ({
+      setMemberToBill,
+      pushRouter,
+      setContractRegisterOpen,
+    }: WithHandlerType<typeof withStateHandlersSetter> &
+      typeof mapDispatchToProps) =>
+    (billingPlan: any) => {
+      setContractRegisterOpen(false);
+      setMemberToBill(null);
+      pushRouter(`/subscription/${billingPlan.id}`);
+    },
+  requestSetupIntentSecret:
+    ({ memberToBill }: typeof withStateHandlersInit) =>
+    () =>
+      requestSetupIntentSecretAPI(memberToBill.id),
+  fetchPaymentMethodList:
+    ({
+      memberToBill,
+      fetchPaymentMethodList,
+    }: typeof mapDispatchToProps & typeof withStateHandlersInit) =>
+    () => {
+      fetchPaymentMethodList({ member: memberToBill.id });
+    },
 };
 
 export default compose(

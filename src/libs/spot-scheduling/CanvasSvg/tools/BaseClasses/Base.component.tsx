@@ -16,7 +16,7 @@ export interface CanvasComponentBaseProps extends CanvasComponentMouseProps {
 
 class CanvasBaseComponent<
   InheritedProps = {},
-  InheritedState = {}
+  InheritedState = {},
 > extends React.PureComponent<
   CanvasComponentBaseProps & InheritedProps,
   InheritedState

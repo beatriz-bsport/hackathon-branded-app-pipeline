@@ -27,7 +27,7 @@ import { getStripePkKey } from '../../../theme/selectors';
 const stripePromise = loadStripe(getStripePkKey());
 
 type Props = {
-  submitPaymentIntent: (*) => Promise<any>,
+  submitPaymentIntent: () => Promise<any>,
   stripe: Object,
   elements: Object,
   t: TFunction,

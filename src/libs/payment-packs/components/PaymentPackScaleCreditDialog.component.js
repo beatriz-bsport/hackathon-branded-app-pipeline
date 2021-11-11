@@ -107,9 +107,11 @@ export default compose(
   withStateHandlers(
     { factor: 2, scaleDirection: true },
     {
-      toogleScaleDirection: ({ scaleDirection }) => () => ({
-        scaleDirection: !scaleDirection,
-      }),
+      toogleScaleDirection:
+        ({ scaleDirection }) =>
+        () => ({
+          scaleDirection: !scaleDirection,
+        }),
       handleFactorChange: () => (ev) => ({
         factor: parseInt(ev.target.value, 10),
       }),

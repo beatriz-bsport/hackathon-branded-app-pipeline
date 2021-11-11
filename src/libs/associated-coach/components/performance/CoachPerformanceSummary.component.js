@@ -17,7 +17,7 @@ import type { CoachPerformance } from '../../../coach-payment-rules/types';
 type Props = {
   performances: Object<Array<CoachPerformance>>,
   t: (x: string) => string,
-  classes: *,
+  classes: any,
 };
 
 export function CoachPerformanceSummary(props: Props) {

@@ -42,30 +42,26 @@ export const ResourceItem = (props: Props) => {
       <Typography noWrap className={classes.resourceName}>
         {name}
       </Typography>
-      {
-        // eslint-disable-next-line
-      !!onSelectResource && !!onUnselectResource ? (
-          isSelected ? (
-            <ButtonBase
-              onClick={(ev) => {
-                ev.stopPropagation();
-                onUnselectResource(resource_identifier);
-              }}
-            >
-              <VisibilityOnIcon />
-            </ButtonBase>
-          ) : (
-            <ButtonBase
-              onClick={(ev) => {
-                ev.stopPropagation();
-                onSelectResource(resource_identifier);
-              }}
-            >
-              <VisibilityOffIcon />
-            </ButtonBase>
-          )
-        ) : null
-      }
+      {!!onSelectResource && !!onUnselectResource && isSelected && (
+        <ButtonBase
+          onClick={(ev) => {
+            ev.stopPropagation();
+            onUnselectResource(resource_identifier);
+          }}
+        >
+          <VisibilityOnIcon />
+        </ButtonBase>
+      )}
+      {!!onSelectResource && !!onUnselectResource && !isSelected && (
+        <ButtonBase
+          onClick={(ev) => {
+            ev.stopPropagation();
+            onSelectResource(resource_identifier);
+          }}
+        >
+          <VisibilityOffIcon />
+        </ButtonBase>
+      )}
     </ButtonBase>
   );
 };

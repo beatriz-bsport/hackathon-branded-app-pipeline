@@ -27,12 +27,12 @@ import { showVaccinationStatus } from '../libs/custom-form/selectors';
 
 type Props = {
   members: *[],
-  classes: *,
-  member: *,
+  classes: any,
+  member: any,
   selected: number,
   pushToMember: (memberId: number) => void,
   // membersLoading: boolean, unused
-  selectEntity: (*) => void,
+  selectEntity: () => void,
   t: TFunction,
   loading: boolean,
   openCreateMember: () => void,

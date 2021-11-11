@@ -91,16 +91,32 @@ const renderEmptyOrLoading = (
 };
 
 const PaymentPackNotificationForm = (props: Props) => {
+  const {
+    getEmails,
+    getSmartLists,
+    getEmailDetail,
+    emailListLoading,
+    emails,
+    smartLists,
+    emailDetailLoading,
+    emailDetails,
+    onCancel,
+    goToSmartlist,
+    initial,
+    values,
+    setFieldValue,
+    errors,
+    isSubmitting,
+  } = props;
   const { t } = useTranslation(['paymentPack']);
   const classes = useStyles();
-  const { values, setFieldValue, errors } = props;
   const [displayMailPreview, setDisplayMailPreview] = useState(false);
 
   useEffect(() => {
-    if (props.initial) props.getEmailDetail(props.initial.email_design);
-    props.getEmails();
-    props.getSmartLists();
-  }, []);
+    if (initial) getEmailDetail(initial.email_design);
+    getEmails();
+    getSmartLists();
+  }, [initial, getEmailDetail, getEmails, getSmartLists]);
 
   if (values.verboseNotifKind !== 'creditsLeft' && values.credits_left === '') {
     setFieldValue('credits_left', 0);
@@ -191,10 +207,10 @@ const PaymentPackNotificationForm = (props: Props) => {
                     {t('notification.form.smartListHelper')}
                   </Typography>
                   <SmartListSelector
-                    smartLists={props.smartLists}
+                    smartLists={smartLists}
                     values={values.smartlist_exclude}
                     onChange={(ev) =>
-                      props.setFieldValue(
+                      setFieldValue(
                         'smartlist_exclude',
                         ev.map((item) => item.value),
                       )
@@ -207,10 +223,10 @@ const PaymentPackNotificationForm = (props: Props) => {
                     {t('notification.form.smartListHelperInclude')}
                   </Typography>
                   <SmartListSelector
-                    smartLists={props.smartLists}
+                    smartLists={smartLists}
                     values={values.smartlist_include}
                     onChange={(ev) =>
-                      props.setFieldValue(
+                      setFieldValue(
                         'smartlist_include',
                         ev.map((item) => item.value),
                       )
@@ -227,7 +243,7 @@ const PaymentPackNotificationForm = (props: Props) => {
                       >
                         {t('notification.form.warning')}
                       </Typography>
-                      <Button variant="outlined" onClick={props.goToSmartlist}>
+                      <Button variant="outlined" onClick={goToSmartlist}>
                         {t('notification.form.createSmartList')}
                       </Button>
                     </div>
@@ -245,17 +261,17 @@ const PaymentPackNotificationForm = (props: Props) => {
             >
               {t('notification.form.mailTitle')}
             </Typography>
-            {props.emailListLoading ? (
+            {emailListLoading ? (
               <LinearProgress className={classes.selectorContainer} />
             ) : (
               <div name="email_design" className={classes.selectorContainer}>
                 <EmailSelector
                   name="email_design"
-                  emails={props.emails}
+                  emails={emails}
                   value={values.email_design}
                   onChange={(ev) => {
                     setFieldValue('email_design', ev ? ev.value : null);
-                    if (ev) props.getEmailDetail(ev.value);
+                    if (ev) getEmailDetail(ev.value);
                   }}
                   helperText={t('paymentPack:notification.form.mailSelection')}
                 />
@@ -286,24 +302,19 @@ const PaymentPackNotificationForm = (props: Props) => {
             </div>
             <Collapse in={displayMailPreview}>
               <div className={classes.mailPreview}>
-                {values.email_design &&
-                !!props.emailDetails[values.email_design] ? (
+                {values.email_design && !!emailDetails[values.email_design] ? (
                   <div>
                     <div
+                      // eslint-disable-next-line
                       dangerouslySetInnerHTML={{
-                        __html: props.emailDetails
-                          ? props.emailDetails[values.email_design].html
+                        __html: emailDetails
+                          ? emailDetails[values.email_design].html
                           : null,
                       }}
                     />
                   </div>
                 ) : (
-                  renderEmptyOrLoading(
-                    props.emailDetailLoading,
-                    props.emails,
-                    t,
-                    classes,
-                  )
+                  renderEmptyOrLoading(emailDetailLoading, emails, t, classes)
                 )}
               </div>
             </Collapse>
@@ -311,9 +322,9 @@ const PaymentPackNotificationForm = (props: Props) => {
           <Actions>
             <Button
               onClick={() => {
-                props.onCancel();
+                onCancel();
               }}
-              disabled={props.isSubmitting}
+              disabled={isSubmitting}
             >
               {t('booking:notification.form.cancel')}
             </Button>

@@ -73,13 +73,11 @@ export const MemberBillingProblemCard = (props: Props) => {
   const [ajustBalanceOpen, setAdjustBalanceDialogOpen] = React.useState(false);
   const [regularizeFullDebt, setRegularizeFullDebt] = React.useState(false);
   const [amountToBill, setAmountToBill] = React.useState(null);
-  const [billingEstablishmentId, setBillingEstablishmentId] = React.useState(
-    null,
-  );
+  const [billingEstablishmentId, setBillingEstablishmentId] =
+    React.useState(null);
   const [paymentGroupCompletedCheckSeconds] = React.useState(0.5);
-  const [retryPaymentGroupStatus, setRetryPaymentGroupStatus] = React.useState(
-    0,
-  );
+  const [retryPaymentGroupStatus, setRetryPaymentGroupStatus] =
+    React.useState(0);
   const requestClientSecret = (paymentEngine) => {
     setClientSecret(null);
     setClientSecretLoading(true);

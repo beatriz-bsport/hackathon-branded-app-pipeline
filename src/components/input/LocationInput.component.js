@@ -188,11 +188,8 @@ export class LocationInput extends Component<Props, State> {
   };
 
   selectCandidate = (c) => {
-    const {
-      street_number,
-      route,
-      ...InputToState
-    } = this.handleFormatingCandidateAddressToState(c);
+    const { street_number, route, ...InputToState } =
+      this.handleFormatingCandidateAddressToState(c);
     const { zoom } = this.state;
     this.setState(
       {
@@ -406,13 +403,8 @@ export class LocationInput extends Component<Props, State> {
   };
 
   render() {
-    const {
-      geometry,
-      address_line_1,
-      address_line_2,
-      center,
-      zoom,
-    } = this.state;
+    const { geometry, address_line_1, address_line_2, center, zoom } =
+      this.state;
     return (
       <div>
         {this.renderInputWithCandidates()}

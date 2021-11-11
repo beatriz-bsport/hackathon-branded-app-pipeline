@@ -15,14 +15,14 @@ import type { DeliveryFee } from '../types';
 
 type Props = {
   deliveryFees: Array<DeliveryFee>,
-  configuration: *,
+  configuration: any,
   onSubmit: (DeliveryFee) => void,
   t: TFunction,
-  classes: *,
+  classes: any,
 };
 
 type State = {
-  configuration: *,
+  configuration: any,
 };
 
 export class OrderConfigrationForm extends Component<Props, State> {

@@ -30,7 +30,7 @@ type RegisterMemberProps = {
   ) => void,
 
   member: ?Member,
-  setSearchedMember: (?Member) => void,
+  setSearchedMember: (member: ?Member) => void,
   offer: Offer,
 
   onClose: () => void,
@@ -100,19 +100,19 @@ type Props = {
   setSearchedMember: (member: ?Member) => void,
   registerWithPass: (
     consumerPaymentPackId: number,
-    { onSuccess: () => void, onError: () => void },
+    opt: { onSuccess: () => void, onError: () => void },
   ) => void,
 
   member: ?Member,
   searchedMemberList: Array<Member>,
   searchMembers: (txt: string) => void,
 
-  setSearchedMember: (?Member) => void,
+  setSearchedMember: (member: ?Member) => void,
   offer: Offer,
 
   onClose: () => void,
   upsertMember: (id: ?number, FormData, options: OptionCallback) => void,
-  memberDataToComplete: (?{ avatar: string }) => void,
+  memberDataToComplete: (data: ?{ avatar: string }) => void,
   managerFormConfig: SignUpFormConfigDict,
   waiver: string,
   generalTermsAndConditions: string,

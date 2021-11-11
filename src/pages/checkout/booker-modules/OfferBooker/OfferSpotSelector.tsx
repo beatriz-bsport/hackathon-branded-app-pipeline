@@ -87,9 +87,8 @@ class OfferSpotSelector extends React.PureComponent<Props, State> {
     if (spotForOffer) {
       const offer = spotForOffer.offer;
       const roomBlueprint = this.props.roomBlueprintsById[offer.room_blueprint];
-      const assets = this.props.assetByIdBlueprintByIdentifier[
-        roomBlueprint?.id
-      ];
+      const assets =
+        this.props.assetByIdBlueprintByIdentifier[roomBlueprint?.id];
 
       const offerStatus = this.props.offerStatusById[offer.id];
       const takenSpot = offerStatus?.taken_spots || [];

@@ -9,6 +9,48 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import type { Tag, TagGroup } from '../types';
 import TagChip from './TagChip.component';
 
+const getBackgroundColor = (
+  isDisabled: boolean,
+  isSelected: boolean,
+  isFocused: boolean,
+) => {
+  if (isDisabled) {
+    return null;
+  }
+
+  if (isSelected) {
+    return colors.primary;
+  }
+  const color = chroma(colors.secondary);
+
+  if (isFocused) {
+    return color.alpha(0.1).css();
+  }
+
+  return null;
+};
+
+const getColor = (
+  isDisabled: boolean,
+  isSelected: boolean,
+  isFocused: boolean,
+) => {
+  if (isDisabled) {
+    return '#ccc';
+  }
+  const color = chroma(colors.secondary);
+
+  if (isSelected) {
+    return chroma.contrast(color, 'white') > 2 ? 'white' : 'black';
+  }
+
+  if (isFocused) {
+    return colors.secondary;
+  }
+
+  return null;
+};
+
 const tagGroupStyles = {
   groupHeading: (base) => ({
     ...base,
@@ -26,37 +68,29 @@ const tagGroupStyles = {
     paddingBottom: '4px',
   }),
   menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-  option: (styles, { isDisabled, isFocused, isSelected }) => {
+  option: (
+    styles,
+    {
+      isDisabled,
+      isFocused,
+      isSelected,
+    }: { isDisabled: boolean; isFocused: boolean; isSelected: boolean },
+  ) => {
     const color = chroma(colors.secondary);
-    /* eslint-disable */
-        return {
-            ...styles,
-            backgroundColor: isDisabled
-                ? null
-                : isSelected
-                    ? colors.secondary
-                    : isFocused
-                        ? color.alpha(0.1).css()
-                        : null,
-            color: isDisabled
-                ? '#ccc'
-                : isSelected
-                    ? chroma.contrast(color, 'white') > 2
-                        ? 'white'
-                        : 'black'
-                    : colors.secondary,
-            cursor: isDisabled ? 'not-allowed' : 'default',
 
-            ':active': {
-                ...styles[':active'],
-                backgroundColor:
-                    !isDisabled &&
-                    (isSelected ? colors.secondary : color.alpha(0.3).css()),
-            },
-          
-        };
+    return {
+      ...styles,
+      backgroundColor: getBackgroundColor(isDisabled, isFocused, isSelected),
+      color: getColor(isDisabled, isFocused, isSelected),
+      cursor: isDisabled ? 'not-allowed' : 'default',
 
-        /* eslint-enable */
+      ':active': {
+        ...styles[':active'],
+        backgroundColor:
+          !isDisabled &&
+          (isSelected ? colors.secondary : color.alpha(0.3).css()),
+      },
+    };
   },
   multiValue: (styles) => {
     return {
@@ -181,10 +215,9 @@ export function TagSelector(props: Props) {
     onDeleteTag,
   } = props;
   const tagsOptionsSelected = selectedTags
-    ? getTagListOptions(
-        allTagsWithTagGroup,
-      ).filter((tagOption: { value: number; label: string }) =>
-        selectedTags.includes(tagOption.value),
+    ? getTagListOptions(allTagsWithTagGroup).filter(
+        (tagOption: { value: number; label: string }) =>
+          selectedTags.includes(tagOption.value),
       )
     : null;
   return (

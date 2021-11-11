@@ -17,19 +17,18 @@ export const getPrivateConsumerPassDict: (State) => {
 export const getPrivateConsumerPass = (state: State, id: number) =>
   getPrivateConsumerPassDict(state)[id];
 
-export const getPrivateConsumerPassList: (State) => Array<PrivateConsumerPass> = createSelector(
-  [_getPrivateConsumerPassIdList, getPrivateConsumerPassDict],
-  (ids, data) => ids.map((id) => data[id]),
-);
+export const getPrivateConsumerPassList: (State) => Array<PrivateConsumerPass> =
+  createSelector(
+    [_getPrivateConsumerPassIdList, getPrivateConsumerPassDict],
+    (ids, data) => ids.map((id) => data[id]),
+  );
 
-// eslint-disable-next-line
-export const getPrivateConsumerPassListWithCredit: (State) => Array<PrivateConsumerPass> = createSelector(
-  [getPrivateConsumerPassList],
-  (privateConsumerPassList) =>
+export const getPrivateConsumerPassListWithCredit: (State) => Array<PrivateConsumerPass> =
+  createSelector([getPrivateConsumerPassList], (privateConsumerPassList) =>
     privateConsumerPassList.filter(
       (pcp) => pcp.used_credits < pcp.private_pass.credits,
     ),
-);
+  );
 
 // -------------------------
 

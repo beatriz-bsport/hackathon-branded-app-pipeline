@@ -18,9 +18,8 @@ export const getGraphData = (
 ) => {
   const data = {};
   graphList.forEach((graph) => {
-    const { timeSettings, selector } = graphRessources[
-      graph.ressourceIdentifier
-    ];
+    const { timeSettings, selector } =
+      graphRessources[graph.ressourceIdentifier];
     if (timeSettings !== 'none') {
       data[graph.name] = selector(
         state,

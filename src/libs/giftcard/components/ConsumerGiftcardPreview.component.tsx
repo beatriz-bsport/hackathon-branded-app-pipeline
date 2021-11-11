@@ -16,12 +16,8 @@ const ConsumerGiftcardPreview = (props: Props) => {
   const { t } = useTranslation(['giftcard']);
   const classes = useStyles(props);
   const { consumerGiftcard, companyCover, giftcard } = props;
-  const {
-    name,
-    message_is_from,
-    message_is_for,
-    message_content,
-  } = consumerGiftcard;
+  const { name, message_is_from, message_is_for, message_content } =
+    consumerGiftcard;
 
   return (
     <div className={classes.container}>

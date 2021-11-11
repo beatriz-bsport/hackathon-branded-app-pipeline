@@ -63,8 +63,8 @@ export class PaymentPackNotificationList extends React.PureComponent<
         )}
 
         {Object.keys(this.props.notificationsByPaymentPack).map((id) => {
-          const notifications: MarketingNotification[] = this.props
-            .notificationsByPaymentPack[id];
+          const notifications: MarketingNotification[] =
+            this.props.notificationsByPaymentPack[id];
           const paymentPack = this.props.paymentPackById[id];
 
           const byCredits = notifications.filter(

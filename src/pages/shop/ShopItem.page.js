@@ -59,7 +59,7 @@ type Props = {
     page: number,
     loading: boolean,
   },
-  deleteShopItem: (number, () => void) => void,
+  deleteShopItem: (number, callback: () => void) => void,
   goToShopList: () => void,
 
   t: TFunction,

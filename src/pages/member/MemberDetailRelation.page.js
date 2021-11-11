@@ -591,24 +591,23 @@ export default compose(
     }),
   ),
   withHandlers({
-    deleteRelation: ({ deleteRelation, fetchMemberRelations, memberId }) => (
-      id,
-      options,
-    ) => {
-      deleteRelation(id, {
-        onSuccess: () => {
-          if (options && options.onSuccess) {
-            options.onSuccess();
-          }
-          fetchMemberRelations(memberId);
-        },
-        onError: () => {
-          if (options && options.onError) {
-            options.onError();
-          }
-        },
-      });
-    },
+    deleteRelation:
+      ({ deleteRelation, fetchMemberRelations, memberId }) =>
+      (id, options) => {
+        deleteRelation(id, {
+          onSuccess: () => {
+            if (options && options.onSuccess) {
+              options.onSuccess();
+            }
+            fetchMemberRelations(memberId);
+          },
+          onError: () => {
+            if (options && options.onError) {
+              options.onError();
+            }
+          },
+        });
+      },
   }),
   withTitle(({ member }) => (member && member.name) || ''),
 )(MemberDetailRelation);

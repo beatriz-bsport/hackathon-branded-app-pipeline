@@ -14,7 +14,7 @@ import type { TFunction } from 'react-i18next';
 import MemberSearchModal from '../../member/components/MemberSearchModal.component';
 
 type Props = {
-  initial: *,
+  initial: any,
 
   src_member: Member,
   dst_member: ?Member,

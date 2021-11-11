@@ -49,6 +49,8 @@ type Props = {
   snackbarErrorMsg: (msg: string) => void,
   snackbarSuccessMsg: (msg: string) => void,
   memberId: ?number,
+  payment_note: string,
+  setPaymentNote: (string) => void,
 };
 
 const PaymentItemForm = (props: Props) => {

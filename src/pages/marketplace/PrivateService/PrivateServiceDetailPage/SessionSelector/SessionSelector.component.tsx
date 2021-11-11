@@ -23,7 +23,6 @@ type Props = {
   establishments: Establishment[];
   showCoach: boolean;
   showEstablishment: boolean;
-  duration: number;
   timezoneName: string;
   durationMinutes: number;
   bookingIntervalMinutes: number;
@@ -90,6 +89,7 @@ const SessionSelector: React.FC<Props> = (props) => {
       props.durationMinutes,
       props.bookingIntervalMinutes,
       props.sessionMoment,
+      props.availabilitySlot,
     ],
   );
 
@@ -125,23 +125,24 @@ const SessionSelector: React.FC<Props> = (props) => {
     getEstablishmentWithSession(),
   );
 
-  const [
-    selectedEstablishment,
-    setSelectedEstablishment,
-  ] = useState<Establishment>(establishmentWithSession[0]);
+  const [selectedEstablishment, setSelectedEstablishment] =
+    useState<Establishment>(establishmentWithSession[0]);
 
   useEffect(() => {
     const _establishmentWithSession = getEstablishmentWithSession();
     setEstablishmentWithSession(_establishmentWithSession);
     setSelectedEstablishment(_establishmentWithSession[0]);
+    // eslint-disable-next-line
   }, [props.establishments, props.coaches, props.sessionMoment]);
 
   let coaches: Array<Coach | null> = [null];
 
   if (props.showCoach || props.choseCoach) {
     /* eslint-disable */
-    coaches = props.coaches
-    if (!props.coaches.length) { coaches = null }
+    coaches = props.coaches;
+    if (!props.coaches.length) {
+      coaches = null;
+    }
     /* eslint-enable */
   }
 

@@ -19,8 +19,8 @@ const styles = () => ({
 
 type Props = {
   t: TFunction,
-  classes: *,
-  onChange: (*) => void,
+  classes: any,
+  onChange: () => void,
 };
 type State = {
   previewUrl: string,

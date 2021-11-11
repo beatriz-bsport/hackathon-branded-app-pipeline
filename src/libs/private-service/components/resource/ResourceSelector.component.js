@@ -130,35 +130,40 @@ export default compose(
   withStateHandlers(
     { expanded: false },
     {
-      toogleExand: ({ expanded }) => () => ({ expanded: !expanded }),
+      toogleExand:
+        ({ expanded }) =>
+        () => ({ expanded: !expanded }),
     },
   ),
   withHandlers({
-    onUnselectResource: ({ setResourceFiltered, resourceSelectedListIds }) => (
-      resource_identifier,
-    ) => {
-      if (Array.isArray(resource_identifier)) {
-        setResourceFiltered(
-          resourceSelectedListIds.filter(
-            (i) => !resource_identifier.includes(i),
-          ),
-        );
-      } else {
-        setResourceFiltered(
-          resourceSelectedListIds.filter((i) => i !== resource_identifier),
-        );
-      }
-    },
-    onSelectResource: ({ setResourceFiltered, resourceSelectedListIds }) => (
-      resource_identifier,
-    ) => {
-      if (Array.isArray(resource_identifier)) {
-        setResourceFiltered(
-          uniq([...resourceSelectedListIds, ...resource_identifier]),
-        );
-      } else {
-        setResourceFiltered([...resourceSelectedListIds, resource_identifier]);
-      }
-    },
+    onUnselectResource:
+      ({ setResourceFiltered, resourceSelectedListIds }) =>
+      (resource_identifier) => {
+        if (Array.isArray(resource_identifier)) {
+          setResourceFiltered(
+            resourceSelectedListIds.filter(
+              (i) => !resource_identifier.includes(i),
+            ),
+          );
+        } else {
+          setResourceFiltered(
+            resourceSelectedListIds.filter((i) => i !== resource_identifier),
+          );
+        }
+      },
+    onSelectResource:
+      ({ setResourceFiltered, resourceSelectedListIds }) =>
+      (resource_identifier) => {
+        if (Array.isArray(resource_identifier)) {
+          setResourceFiltered(
+            uniq([...resourceSelectedListIds, ...resource_identifier]),
+          );
+        } else {
+          setResourceFiltered([
+            ...resourceSelectedListIds,
+            resource_identifier,
+          ]);
+        }
+      },
   }),
 )(ResourceSelector);

@@ -207,8 +207,7 @@ exports.default = {
   zoom: {
     confirmDialog: {
       title: 'Intégration ZOOM',
-      text:
-        'Si vous avez déjà renseigné des liens de visioconférences manuellement sur vos séances, ils seront supprimés pour être remplacés par des liens zoom générés automatiquement. Les meetings déjà créés sur le calendrier ZOOM devront être supprimés à la main, ils seront remplacés par des meetings créés automatiquement.',
+      text: 'Si vous avez déjà renseigné des liens de visioconférences manuellement sur vos séances, ils seront supprimés pour être remplacés par des liens zoom générés automatiquement. Les meetings déjà créés sur le calendrier ZOOM devront être supprimés à la main, ils seront remplacés par des meetings créés automatiquement.',
     },
   },
   signUpForm: {
@@ -267,8 +266,7 @@ exports.default = {
     title: 'QuickBooks',
     confirmDialog: {
       title: 'QuickBooks Connection',
-      text:
-        'Etes-vous sur de vouloir vous autoriser Bsport à accéder à votre application ?',
+      text: 'Etes-vous sur de vouloir vous autoriser Bsport à accéder à votre application ?',
     },
   },
   marketingEmail: {

@@ -68,13 +68,8 @@ export class ExpensesPerCategoryFilter extends Component<Props, state> {
   }
 
   render() {
-    const {
-      filter_data,
-      t,
-      classes,
-      onChange,
-      buyable_identifiers,
-    } = this.props;
+    const { filter_data, t, classes, onChange, buyable_identifiers } =
+      this.props;
     return (
       <div className={classes.wrapper}>
         {t(`filters.${filter_data.filter_identifier}.first`)}

@@ -86,7 +86,6 @@ const ResourceGroup = (props: Props) => {
                   !!onSelectResource &&
                   !!onUnselectResource
                 ) {
-                  /* eslint-disable */
                   if (!isSelected)
                     onSelectResource(resourceData.resource_identifier);
                   if (isSelected)

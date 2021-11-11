@@ -55,7 +55,7 @@ const CustomFormDisplayRuleSchema = Yup.object().shape({
     .test(
       'gt_zero_if_connection',
       'marketing:customForm.displayRule.form.errors.timedeltaBeforeDisplayMustBeGraterThanZero',
-      function (item) {
+      function checkZeroIfConnect(item) {
         return this.parent.kind === CUSTOM_FORM_DISPLAY_ON_SIGN_UP || item > 0;
       },
     ),
@@ -65,9 +65,8 @@ const CustomFormDisplayRuleSchema = Yup.object().shape({
 });
 export function CustomFormDisplayRuleFormDialog(props: Props) {
   const { t, isSubmitting, classes, open } = props;
-  const [expandAdvancedOptions, setExpandAdvancedOptions] = React.useState(
-    false,
-  );
+  const [expandAdvancedOptions, setExpandAdvancedOptions] =
+    React.useState(false);
   if (props.isSubmitting) {
     return <LinearProgress color="primary" />;
   }

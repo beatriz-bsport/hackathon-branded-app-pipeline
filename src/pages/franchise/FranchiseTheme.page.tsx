@@ -63,23 +63,23 @@ const FranchiseTheme = (props: Props) => {
     );
   };
 
-  const handleChange = (
-    key: 'primaryColor' | 'secondaryColor' | 'marketingEmail',
-  ) => (value: string) => {
-    switch (key) {
-      case 'primaryColor':
-        setPrimaryColor(value);
-        break;
-      case 'secondaryColor':
-        setSecondaryColor(value);
-        break;
-      case 'marketingEmail':
-        setMarketingEmail(value);
-        break;
-      default:
-        break;
-    }
-  };
+  const handleChange =
+    (key: 'primaryColor' | 'secondaryColor' | 'marketingEmail') =>
+    (value: string) => {
+      switch (key) {
+        case 'primaryColor':
+          setPrimaryColor(value);
+          break;
+        case 'secondaryColor':
+          setSecondaryColor(value);
+          break;
+        case 'marketingEmail':
+          setMarketingEmail(value);
+          break;
+        default:
+          break;
+      }
+    };
 
   const handleCoverChange = (value: File) => {
     setCover(value);

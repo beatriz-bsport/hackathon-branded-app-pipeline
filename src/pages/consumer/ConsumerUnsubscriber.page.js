@@ -66,22 +66,19 @@ export default compose(
   withState('success', 'setSuccess', false),
   withState('error', 'setError', null),
   withHandlers({
-    doUnsubscribe: ({
-      unsubscribe_uuid,
-      setLoading,
-      setSuccess,
-      setError,
-    }) => async () => {
-      try {
-        setLoading(true);
-        setError(false);
-        await postUnsubscribe(unsubscribe_uuid);
-        setLoading(false);
-        setSuccess(true);
-      } catch (err) {
-        console.error(err);
-        setLoading(false);
-      }
-    },
+    doUnsubscribe:
+      ({ unsubscribe_uuid, setLoading, setSuccess, setError }) =>
+      async () => {
+        try {
+          setLoading(true);
+          setError(false);
+          await postUnsubscribe(unsubscribe_uuid);
+          setLoading(false);
+          setSuccess(true);
+        } catch (err) {
+          console.error(err);
+          setLoading(false);
+        }
+      },
   }),
 )(ConsumerUnsubscriber);

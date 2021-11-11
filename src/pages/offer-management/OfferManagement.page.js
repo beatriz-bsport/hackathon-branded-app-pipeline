@@ -15,24 +15,24 @@ import {
   resetQuickInvoices,
   fetchSpecificInvoice as fetchInvoice,
   fetchInvoiceList as fetchInvoiceListAction,
-} from '../../libs/invoice/actions';
+} from '#libs/invoice/actions';
 import {
   fetchOfferById as fetchOfferByIdAction,
   toogleWaitingListFreeze as toogleWaitingListFreezeAction,
   fetchCompatiblePacks as fetchCompatiblePacksAction,
   fetchOfferStatus as fetchOfferStatusAction,
-} from '../../libs/offer/actions';
+} from '#libs/offer/actions';
 import {
   compatiblePacksWithOfferAndEnabled,
   getDetailedOffer,
   withSpecificCoach,
-} from '../../libs/offer/selectors';
+} from '#libs/offer/selectors';
 
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { sendCommunication } from '../../libs/communication/actions';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import { sendCommunication } from '#libs/communication/actions';
 
-import { fetchShopItemAsManager as fetchShopItems } from '../../libs/shop/actions/shopitem';
-import themeSelectors from '../../libs/theme/selectors';
+import { fetchShopItemAsManager as fetchShopItems } from '#libs/shop/actions/shopitem';
+import themeSelectors from '#libs/theme/selectors';
 import {
   registerBooking as registerBookingAction,
   fetchBookingsByOffer as fetchBookingsByOfferAction,
@@ -45,34 +45,34 @@ import {
   deleteRecurrenceRuleBooking,
   updateRecurrenceRuleBooking,
   setSpotForBooking as setSpotForBookingAction,
-} from '../../libs/booking/actions';
+} from '#libs/booking/actions';
 import {
   discardBookingOption as discardBookingOptionAction,
   registerToWaitingList as registerToWaitingListAction_,
   fetchByOffer as fetchBookingOptionByOfferAction,
-} from '../../libs/waiting-list/actions';
+} from '#libs/waiting-list/actions';
 import {
   getOfferBookingListWithConsumerPack,
   getRecurrenceRuleBookingList,
-} from '../../libs/booking/selectors';
-import { retrieveConsumerPackBulk as retrieveConsumerPackBulkAction } from '../../libs/consumer-payment-pack/actions';
+} from '#libs/booking/selectors';
+import { retrieveConsumerPackBulk as retrieveConsumerPackBulkAction } from '#libs/consumer-payment-pack/actions';
 
-import { fetchPrivatePassList } from '../../libs/private-service/actions';
-import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
+import { fetchPrivatePassList } from '#libs/private-service/actions';
+import { fetchPaymentComboList } from '#libs/payment-combo/actions';
 import {
   emailTemplateDetail,
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
-} from '../../libs/email-editor/actions';
+} from '#libs/email-editor/actions';
 
-import { fetchEstablishments } from '../../libs/establishment/actions';
-import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
+import { fetchEstablishments } from '#libs/establishment/actions';
+import { getAvailableEstablishmentList } from '#libs/establishment/selectors';
 
 import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
-} from '../../libs/email-editor/selectors';
-import { snackbar } from '../../libs/snackbar/actions';
-import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/selectors';
+} from '#libs/email-editor/selectors';
+import { snackbar } from '../../actions/snackbar.actions';
+import { getEnabled as getPaymentPackEnabled } from '#libs/payment-packs/selectors';
 
 import {
   fetchFilteredMembers as fetchFilteredMembersAction,
@@ -81,38 +81,38 @@ import {
   createOrUpdateMember,
   fetchMember as fetchMemberAction,
   search as searchMembersAction,
-} from '../../libs/member/actions';
+} from '#libs/member/actions';
 import {
   getSearchedMembers,
   getAllMembers,
   getMemberDetailData,
   getMemberHistory,
   withTags,
-} from '../../libs/member/selectors';
+} from '#libs/member/selectors';
 
-import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
-import { getEnabledMetaActivities } from '../../libs/meta-activity/selectors';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
+import { getEnabledMetaActivities } from '#libs/meta-activity/selectors';
 
 import {
   withInvoiceItem,
   withMember,
   getInvoiceListUnpaid,
   getBuyableItem,
-} from '../../libs/invoice/selectors';
+} from '#libs/invoice/selectors';
 
-import withTitle from '../../hocs/with-title.hoc';
+import withTitle from '#hocs/with-title.hoc';
 import OfferManagementComponent from './OfferManagement.component';
 
 import type { Offer } from '../../api/types';
 import {
   fetchAssetForBlueprint as fetchAssetForBlueprintAction,
   fetchRoomBlueprintDetail as fetchRoomBlueprintDetailAction,
-} from '../../libs/spot-scheduling/actions';
+} from '#libs/spot-scheduling/actions';
 import { RootState } from '../../reducers';
-import { getAssetByBlueprintByIdentifier } from '../../libs/spot-scheduling/selector';
-import { Booking } from '../../libs/booking/types';
-import { fetchSignFormUpConfiguration } from '../../libs/sign-up-form/actions';
-import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
+import { getAssetByBlueprintByIdentifier } from '#libs/spot-scheduling/selector';
+import { Booking } from '#libs/booking/types';
+import { fetchSignFormUpConfiguration } from '#libs/sign-up-form/actions';
+import { getSignUpFormConfigurationDict } from '#libs/sign-up-form/selectors';
 
 import { showVaccinationStatus } from '../../libs/custom-form/selectors';
 
@@ -257,238 +257,239 @@ export default compose(
     },
   ),
   withHandlers({
-    fetchBookingOptionByOffer: ({ fetchBookingOptionByOffer }) => (offerId) => {
-      return fetchBookingOptionByOffer(offerId, { show_cancelled: true });
-    },
-    fetchInvoiceListUnpaid: ({ fetchInvoiceList }) => (params) => {
-      fetchInvoiceList({
-        is_v2: true,
-        is_draft: false,
-        unpaid: true,
-        ...(params || {}),
-      });
-    },
+    fetchBookingOptionByOffer:
+      ({ fetchBookingOptionByOffer }) =>
+      (offerId) => {
+        return fetchBookingOptionByOffer(offerId, { show_cancelled: true });
+      },
+    fetchInvoiceListUnpaid:
+      ({ fetchInvoiceList }) =>
+      (params) => {
+        fetchInvoiceList({
+          is_v2: true,
+          is_draft: false,
+          unpaid: true,
+          ...(params || {}),
+        });
+      },
   }),
   withProps(({ id }) => ({
     offerId: id,
   })),
   withHandlers({
-    refresh: ({
-      refreshBookingsByOffer,
-      fetchFilteredMembers,
-      retrieveConsumerPackBulk,
-      id,
-    }) => (ordering_field) => {
-      refreshBookingsByOffer(
+    refresh:
+      ({
+        refreshBookingsByOffer,
+        fetchFilteredMembers,
+        retrieveConsumerPackBulk,
         id,
-        {
-          onSuccess: (bookings) => {
-            retrieveConsumerPackBulk(
-              bookings.map((b) => b.consumer_payment_pack),
-            );
+      }) =>
+      (ordering_field) => {
+        refreshBookingsByOffer(
+          id,
+          {
+            onSuccess: (bookings) => {
+              retrieveConsumerPackBulk(
+                bookings.map((b) => b.consumer_payment_pack),
+              );
+            },
           },
-        },
-        ordering_field,
-      );
-      fetchFilteredMembers({ offer: id, withNotes: true });
-    },
+          ordering_field,
+        );
+        fetchFilteredMembers({ offer: id, withNotes: true });
+      },
   }),
 
   withHandlers({
-    addBooking: ({ refresh, registerBooking, fetchOfferStatus }) => (
-      consumerPaymentPackId,
-      data,
-      ordering_field,
-    ) => {
-      registerBooking(consumerPaymentPackId, data, {
-        onSuccess: () => {
-          fetchOfferStatus(data.offer);
-          refresh(ordering_field);
-        },
-      });
-    },
-    deleteBooking: ({ refresh, cancelBooking, fetchOfferStatus, id }) => (
-      bookingId,
-      ordering_field,
-      options,
-      data,
-    ) => {
-      cancelBooking(bookingId, data || {}, {
-        onSuccess: () => {
-          fetchOfferStatus(id);
-          refresh(ordering_field);
-          if (options && options.onSuccess) {
-            options.onSuccess();
-          }
-        },
-      });
-    },
-    fetchOfferData: ({
-      fetchOffer,
-      fetchBookingsByOffer,
-      fetchRecurrenceRuleBooking,
-      fetchBookingOptionByOffer,
-      retrieveConsumerPackBulk,
-      fetchCompatiblePacks,
-      fetchFilteredMembers,
-      fetchMemberBulk,
-      offerId,
-      fetchInvoiceListUnpaid,
-      fetchRoomBlueprintDetail,
-      fetchAssetForBlueprint,
-      fetchOfferStatus,
-    }) => (ordering_field) => {
-      fetchOffer(offerId, {
-        onSuccess: (offer: Offer) => {
-          if (offer.room_blueprint) {
-            fetchRoomBlueprintDetail(offer.room_blueprint);
-            fetchAssetForBlueprint({
-              blueprint: offer.room_blueprint,
-            });
-          }
-        },
-      });
-      fetchOfferStatus(offerId);
-      fetchBookingsByOffer(
+    addBooking:
+      ({ refresh, registerBooking, fetchOfferStatus }) =>
+      (consumerPaymentPackId, data, ordering_field) => {
+        registerBooking(consumerPaymentPackId, data, {
+          onSuccess: () => {
+            fetchOfferStatus(data.offer);
+            refresh(ordering_field);
+          },
+        });
+      },
+    deleteBooking:
+      ({ refresh, cancelBooking, fetchOfferStatus, id }) =>
+      (bookingId, ordering_field, options, data) => {
+        cancelBooking(bookingId, data || {}, {
+          onSuccess: () => {
+            fetchOfferStatus(id);
+            refresh(ordering_field);
+            if (options && options.onSuccess) {
+              options.onSuccess();
+            }
+          },
+        });
+      },
+    fetchOfferData:
+      ({
+        fetchOffer,
+        fetchBookingsByOffer,
+        fetchRecurrenceRuleBooking,
+        fetchBookingOptionByOffer,
+        retrieveConsumerPackBulk,
+        fetchCompatiblePacks,
+        fetchFilteredMembers,
+        fetchMemberBulk,
         offerId,
-        {
-          onSuccess: (bookings) => {
-            retrieveConsumerPackBulk(
-              bookings.map((b) => b.consumer_payment_pack),
+        fetchInvoiceListUnpaid,
+        fetchRoomBlueprintDetail,
+        fetchAssetForBlueprint,
+        fetchOfferStatus,
+      }) =>
+      (ordering_field) => {
+        fetchOffer(offerId, {
+          onSuccess: (offer: Offer) => {
+            if (offer.room_blueprint) {
+              fetchRoomBlueprintDetail(offer.room_blueprint);
+              fetchAssetForBlueprint({
+                blueprint: offer.room_blueprint,
+              });
+            }
+          },
+        });
+        fetchOfferStatus(offerId);
+        fetchBookingsByOffer(
+          offerId,
+          {
+            onSuccess: (bookings) => {
+              retrieveConsumerPackBulk(
+                bookings.map((b) => b.consumer_payment_pack),
+              );
+            },
+          },
+          ordering_field,
+        );
+        fetchFilteredMembers(
+          { offer: offerId, withNotes: true },
+          {
+            onSuccess: (memberList) => {
+              if (memberList && memberList.length) {
+                fetchInvoiceListUnpaid({
+                  member__in: memberList.map((m) => m.id),
+                });
+              }
+            },
+          },
+        );
+        fetchBookingOptionByOffer(offerId);
+        fetchCompatiblePacks(offerId);
+        fetchRecurrenceRuleBooking(
+          { offer: offerId, page: 1, page_size: RECURRENT_BOOKING_PAGE_SIZE },
+          {
+            onSuccess: (recurrenceRuleList) => {
+              if (recurrenceRuleList.length) {
+                fetchMemberBulk({
+                  id__in: recurrenceRuleList.map((nr) => nr.member),
+                });
+              }
+            },
+          },
+        );
+      },
+    switchWaitingListFreeze:
+      ({ toogleWaitingListFreeze, fetchOffer, fetchBookingOptionByOffer }) =>
+      (offerId, newFreezeState) => {
+        toogleWaitingListFreeze(offerId, newFreezeState, {
+          onSuccess: () => {
+            fetchOffer(offerId);
+            fetchBookingOptionByOffer(offerId);
+          },
+        });
+      },
+    registerToWaitingList:
+      ({ registerToWaitingListAction, refreshFilteredMembers }) =>
+      (offerId, memberId) => {
+        registerToWaitingListAction(offerId, memberId, {
+          onSuccess: () => refreshFilteredMembers({ offer: offerId }),
+        });
+      },
+    createQuickUnevenInvoice:
+      ({
+        createQuickInvoice,
+        fetchInvoiceItemList,
+        refresh,
+        fetchInvoiceListUnpaid,
+        id,
+        fetchFilteredMembers,
+        fetchOfferStatus,
+      }) =>
+      (data) => {
+        createQuickInvoice(data, {
+          onSuccess: (invoice) => {
+            fetchOfferStatus(id);
+            fetchFilteredMembers(
+              { offer: id, withNotes: true },
+
+              {
+                onSuccess: (memberList) => {
+                  if (memberList && memberList.length) {
+                    fetchInvoiceListUnpaid({
+                      member__in: memberList.map((m) => m.id),
+                    });
+                  }
+                },
+              },
+            );
+            fetchInvoiceItemList({
+              invoice__uuid: invoice.uuid,
+              page_size: 10,
+            });
+            refresh();
+          },
+        });
+      },
+    revertQuickInvoiceAndRefreshOffer:
+      ({
+        revertQuickInvoice,
+        refreshBookingsByOffer,
+        fetchInvoiceListUnpaid,
+      }) =>
+      (uuid, offerId, ordering_field) => {
+        revertQuickInvoice(uuid, {
+          onSuccess: () => {
+            refreshBookingsByOffer(
+              offerId,
+              {
+                onSuccess: (bookingList) => {
+                  if (bookingList && bookingList.length) {
+                    fetchInvoiceListUnpaid({
+                      member__in: bookingList.map((b) => b.member),
+                    });
+                  }
+                },
+              },
+              ordering_field,
             );
           },
-        },
-        ordering_field,
-      );
-      fetchFilteredMembers(
-        { offer: offerId, withNotes: true },
-        {
-          onSuccess: (memberList) => {
-            if (memberList && memberList.length) {
-              fetchInvoiceListUnpaid({
-                member__in: memberList.map((m) => m.id),
-              });
+        });
+      },
+    createInvoice:
+      ({ createOrUpdateInvoice, refreshFilteredMembers }) =>
+      (invoiceData, offer, options) => {
+        createOrUpdateInvoice(invoiceData, {
+          onSuccess: (invoice) => {
+            if (options && options.onSuccess) {
+              options.onSuccess(invoice);
             }
-          },
-        },
-      );
-      fetchBookingOptionByOffer(offerId);
-      fetchCompatiblePacks(offerId);
-      fetchRecurrenceRuleBooking(
-        { offer: offerId, page: 1, page_size: RECURRENT_BOOKING_PAGE_SIZE },
-        {
-          onSuccess: (recurrenceRuleList) => {
-            if (recurrenceRuleList.length) {
-              fetchMemberBulk({
-                id__in: recurrenceRuleList.map((nr) => nr.member),
-              });
-            }
-          },
-        },
-      );
-    },
-    switchWaitingListFreeze: ({
-      toogleWaitingListFreeze,
-      fetchOffer,
-      fetchBookingOptionByOffer,
-    }) => (offerId, newFreezeState) => {
-      toogleWaitingListFreeze(offerId, newFreezeState, {
-        onSuccess: () => {
-          fetchOffer(offerId);
-          fetchBookingOptionByOffer(offerId);
-        },
-      });
-    },
-    registerToWaitingList: ({
-      registerToWaitingListAction,
-      refreshFilteredMembers,
-    }) => (offerId, memberId) => {
-      registerToWaitingListAction(offerId, memberId, {
-        onSuccess: () => refreshFilteredMembers({ offer: offerId }),
-      });
-    },
-    createQuickUnevenInvoice: ({
-      createQuickInvoice,
-      fetchInvoiceItemList,
-      refresh,
-      fetchInvoiceListUnpaid,
-      id,
-      fetchFilteredMembers,
-      fetchOfferStatus,
-    }) => (data) => {
-      createQuickInvoice(data, {
-        onSuccess: (invoice) => {
-          fetchOfferStatus(id);
-          fetchFilteredMembers(
-            { offer: id, withNotes: true },
 
-            {
-              onSuccess: (memberList) => {
-                if (memberList && memberList.length) {
-                  fetchInvoiceListUnpaid({
-                    member__in: memberList.map((m) => m.id),
-                  });
-                }
-              },
-            },
-          );
-          fetchInvoiceItemList({
-            invoice__uuid: invoice.uuid,
-            page_size: 10,
-          });
-          refresh();
-        },
-      });
-    },
-    revertQuickInvoiceAndRefreshOffer: ({
-      revertQuickInvoice,
-      refreshBookingsByOffer,
-      fetchInvoiceListUnpaid,
-    }) => (uuid, offerId, ordering_field) => {
-      revertQuickInvoice(uuid, {
-        onSuccess: () => {
-          refreshBookingsByOffer(
-            offerId,
-            {
-              onSuccess: (bookingList) => {
-                if (bookingList && bookingList.length) {
-                  fetchInvoiceListUnpaid({
-                    member__in: bookingList.map((b) => b.member),
-                  });
-                }
-              },
-            },
-            ordering_field,
-          );
-        },
-      });
-    },
-    createInvoice: ({ createOrUpdateInvoice, refreshFilteredMembers }) => (
-      invoiceData,
-      offer,
-      options,
-    ) => {
-      createOrUpdateInvoice(invoiceData, {
-        onSuccess: (invoice) => {
-          if (options && options.onSuccess) {
-            options.onSuccess(invoice);
-          }
-
-          refreshFilteredMembers({ offer });
-        },
-        onError: options && options.onError,
-      });
-    },
-    setSpotForBooking: ({ setSpotForBooking, fetchOfferStatus, id }) => (
-      booking?: Booking,
-      spot_id: number,
-    ) => {
-      setSpotForBooking(booking.id, spot_id, {
-        onSuccess: () => {
-          fetchOfferStatus(id);
-        },
-      });
-    },
+            refreshFilteredMembers({ offer });
+          },
+          onError: options && options.onError,
+        });
+      },
+    setSpotForBooking:
+      ({ setSpotForBooking, fetchOfferStatus, id }) =>
+      (booking?: Booking, spot_id: number) => {
+        setSpotForBooking(booking.id, spot_id, {
+          onSuccess: () => {
+            fetchOfferStatus(id);
+          },
+        });
+      },
   }),
   withTitle(
     ({ offer, offerLoading }: { offer: Offer, offerLoading: boolean }) =>

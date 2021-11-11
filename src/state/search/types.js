@@ -6,7 +6,7 @@ export type SearchState = Immutable<{
   text: string,
   path: string,
   selectedId: ?number,
-  detail: *,
+  detail: any,
 }>;
 export type SearchAction =
   | { type: null }

@@ -35,6 +35,7 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>>;
 
 const PaymentPackMassExtensionDialog: React.FC<Props> = (props) => {
+  const { open, onClose, onSubmit } = props;
   const [minDate, setMinDate] = useState(
     moment().startOf('month').format('YYYY-MM-DD'),
   );
@@ -46,17 +47,17 @@ const PaymentPackMassExtensionDialog: React.FC<Props> = (props) => {
 
   const { classes, t } = props;
 
-  const onSubmit = useCallback(() => {
-    props.onSubmit({
+  const handleSubmit = useCallback(() => {
+    onSubmit({
       minDate,
       maxDate,
       nbDays,
       note,
     });
-  }, [minDate, maxDate, nbDays, note]);
+  }, [minDate, maxDate, nbDays, note, onSubmit]);
 
   return (
-    <Dialog open={props.open} onClose={props.onClose} fullWidth maxWidth="sm">
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
       <DialogTitle>{`${t('massExtension.title')}`}</DialogTitle>
       <DialogContent>
         <DialogContentText className={classes.helpTextContainer}>
@@ -97,7 +98,7 @@ const PaymentPackMassExtensionDialog: React.FC<Props> = (props) => {
           classes={{ textInput: classes.marginTop }}
           value={nbDays}
           fullWidth
-          label={props.t('extension.create.nbDays.label')}
+          label={t('extension.create.nbDays.label')}
           onChange={(ev: any) => setNbDays(ev.target.value)}
           InputProps={{
             inputProps: { step: 1, min: 0 },
@@ -109,15 +110,15 @@ const PaymentPackMassExtensionDialog: React.FC<Props> = (props) => {
           value={note}
           fullWidth
           inputProps={{ maxLength: 42 }}
-          label={props.t('extension.create.note.label')}
+          label={t('extension.create.note.label')}
           onChange={(ev) => setNote(ev.target.value)}
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={props.onClose} variant="outlined" color="secondary">
+        <Button onClick={onClose} variant="outlined" color="secondary">
           {t('massExtension.cancel')}
         </Button>
-        <Button variant="contained" color="primary" onClick={onSubmit}>
+        <Button variant="contained" color="primary" onClick={handleSubmit}>
           {t('massExtension.submit')}
         </Button>
       </DialogActions>

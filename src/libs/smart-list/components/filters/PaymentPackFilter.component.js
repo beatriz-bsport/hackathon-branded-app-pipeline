@@ -38,7 +38,7 @@ type Props = {
   fetchBulkItems: (any) => void,
   renderSelectorWarning: (string, boolean) => void,
 
-  setNotNullableData: (Array<string>) => void,
+  setNotNullableData: (data: Array<string>) => void,
 };
 
 export class PaymentPackFilter extends Component<Props, state> {
@@ -191,7 +191,8 @@ export class PaymentPackFilter extends Component<Props, state> {
             checked={filter_data.expiration_date_filter_active}
             onChange={() =>
               onChange({
-                expiration_date_filter_active: !filter_data.expiration_date_filter_active,
+                expiration_date_filter_active:
+                  !filter_data.expiration_date_filter_active,
               })
             }
             value="checkedA"

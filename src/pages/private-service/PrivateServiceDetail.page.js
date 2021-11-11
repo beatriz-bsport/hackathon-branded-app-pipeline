@@ -68,7 +68,7 @@ const PRIVATE_BOOKING_CREATION_NOTIFICATION = 1;
 type Props = {
   privateService: PrivateService,
   createOrUpdatePrivateService: (
-    data: *,
+    data: any,
     options: { onSuccess: () => void },
   ) => void,
   fetchAllPrivateSlots: () => void,
@@ -302,32 +302,36 @@ export default compose(
     },
   ),
   withHandlers({
-    deletePrivateSlot: ({ deletePrivateSlot, fetchPrivateService, id }) => (
-      slotId,
-    ) => {
-      deletePrivateSlot(id, slotId, {
-        onSuccess: () => fetchPrivateService(id),
-      });
-    },
-    fetchNotificationsAndTemplates: ({
-      fetchMarketingNotificationList,
-      fetchEmailTemplateSummariesBulk,
-      id,
-    }) => () => {
-      fetchMarketingNotificationList(
-        {
-          kind: PRIVATE_BOOKING_CREATION_NOTIFICATION,
-          event_rules__private_service_id: id,
-        },
-        {
-          onSuccess: (notificationList) => {
-            fetchEmailTemplateSummariesBulk(
-              notificationList.map((notification) => notification.email_design),
-            );
+    deletePrivateSlot:
+      ({ deletePrivateSlot, fetchPrivateService, id }) =>
+      (slotId) => {
+        deletePrivateSlot(id, slotId, {
+          onSuccess: () => fetchPrivateService(id),
+        });
+      },
+    fetchNotificationsAndTemplates:
+      ({
+        fetchMarketingNotificationList,
+        fetchEmailTemplateSummariesBulk,
+        id,
+      }) =>
+      () => {
+        fetchMarketingNotificationList(
+          {
+            kind: PRIVATE_BOOKING_CREATION_NOTIFICATION,
+            event_rules__private_service_id: id,
           },
-        },
-      );
-    },
+          {
+            onSuccess: (notificationList) => {
+              fetchEmailTemplateSummariesBulk(
+                notificationList.map(
+                  (notification) => notification.email_design,
+                ),
+              );
+            },
+          },
+        );
+      },
   }),
   withState('openEditForm', 'setOpenEditForm', null),
   withStateHandlers(
@@ -342,28 +346,29 @@ export default compose(
     },
   ),
   withHandlers({
-    createOrUpdateServiceGroup: ({
-      createOrUpdateServiceGroup,
-      closeServiceGroupForm,
-      fetchPrivateServiceGroupList,
-    }) => (data, options) => {
-      createOrUpdateServiceGroup(data, {
-        onSuccess: (g) => {
-          closeServiceGroupForm();
-          if (options && options.onSuccess) options.onSuccess(g);
-          fetchPrivateServiceGroupList({ mine: true });
-        },
-      });
-    },
-    createNotification: ({
-      fetchNotificationsAndTemplates,
-      createMarketingNotification,
-    }) => (data) => {
-      createMarketingNotification(data, {
-        onSuccess: () => {
-          fetchNotificationsAndTemplates();
-        },
-      });
-    },
+    createOrUpdateServiceGroup:
+      ({
+        createOrUpdateServiceGroup,
+        closeServiceGroupForm,
+        fetchPrivateServiceGroupList,
+      }) =>
+      (data, options) => {
+        createOrUpdateServiceGroup(data, {
+          onSuccess: (g) => {
+            closeServiceGroupForm();
+            if (options && options.onSuccess) options.onSuccess(g);
+            fetchPrivateServiceGroupList({ mine: true });
+          },
+        });
+      },
+    createNotification:
+      ({ fetchNotificationsAndTemplates, createMarketingNotification }) =>
+      (data) => {
+        createMarketingNotification(data, {
+          onSuccess: () => {
+            fetchNotificationsAndTemplates();
+          },
+        });
+      },
   }),
 )(PrivateServiceList);

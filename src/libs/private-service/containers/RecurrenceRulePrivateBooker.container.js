@@ -43,8 +43,8 @@ type Props = {
   private_services: Array<PrivateService>,
   privateServicesLoading: boolean,
   fetchAllPrivateServices: (OptionCallback) => void,
-  fetchEstablishmentBulk: (Array<number>) => void,
-  fetchCoachBulk: (Array<number>) => void,
+  fetchEstablishmentBulk: (establishments: Array<number>) => void,
+  fetchCoachBulk: (coaches: Array<number>) => void,
   fetchAllPrivateSlots: () => void,
   updateDialogOpen: boolean,
   setUpdateDialogOpen: (boolean) => void,
@@ -125,12 +125,8 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
   }
 
   handleConfigurationChange = (configuration: any) => {
-    const {
-      coach,
-      establishment,
-      private_slot,
-      private_service,
-    } = configuration;
+    const { coach, establishment, private_slot, private_service } =
+      configuration;
     this.setState({
       configuration: {
         coach,
@@ -142,13 +138,8 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
   };
 
   handleTimeSettingChange = (time_setting: any) => {
-    const {
-      nb_of_weeks,
-      day_of_week,
-      hour,
-      minute,
-      start_from_date,
-    } = time_setting;
+    const { nb_of_weeks, day_of_week, hour, minute, start_from_date } =
+      time_setting;
     this.setState({
       time_setting: {
         nb_of_weeks,
@@ -318,26 +309,25 @@ export default compose(
     },
   ),
   withHandlers({
-    createOrUpdateRecurrentRule: ({ initial, createOrUpdateRecurrentRule }) => (
-      data,
-      options,
-    ) => {
-      if (initial) {
-        createOrUpdateRecurrentRule(
-          { ...data, id: initial.id },
-          {
+    createOrUpdateRecurrentRule:
+      ({ initial, createOrUpdateRecurrentRule }) =>
+      (data, options) => {
+        if (initial) {
+          createOrUpdateRecurrentRule(
+            { ...data, id: initial.id },
+            {
+              onSuccess: (b) => {
+                if (options && options.onSuccess) options.onSuccess(b);
+              },
+            },
+          );
+        } else {
+          createOrUpdateRecurrentRule(data, {
             onSuccess: (b) => {
               if (options && options.onSuccess) options.onSuccess(b);
             },
-          },
-        );
-      } else {
-        createOrUpdateRecurrentRule(data, {
-          onSuccess: (b) => {
-            if (options && options.onSuccess) options.onSuccess(b);
-          },
-        });
-      }
-    },
+          });
+        }
+      },
   }),
 )(RecurrenceRulePrivateBooker);

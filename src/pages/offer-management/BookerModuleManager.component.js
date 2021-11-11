@@ -50,7 +50,8 @@ export default compose(
     }),
     {
       fetchPaymentPackBulk,
-      fetchNoncompatibleConsumerPackByOfferByMember: fetchNonCompatibleByOfferByMember,
+      fetchNoncompatibleConsumerPackByOfferByMember:
+        fetchNonCompatibleByOfferByMember,
       fetchByOfferByMemberAction: fetchByOfferByMember,
       fetchMemberAction: fetchMember,
       fetchSimilarOffers: fetchSimilarOffersAction,
@@ -65,24 +66,26 @@ export default compose(
   ),
 
   withHandlers({
-    fetchSimilarOffers: ({
-      fetchMetaActivityBulk,
-      fetchEstablishmentBulk,
-      fetchCoachBulk,
-      fetchSimilarOffers,
-      offerId,
-    }) => () => {
-      fetchSimilarOffers(
+    fetchSimilarOffers:
+      ({
+        fetchMetaActivityBulk,
+        fetchEstablishmentBulk,
+        fetchCoachBulk,
+        fetchSimilarOffers,
         offerId,
-        { wide: true },
-        {
-          onSuccess: (offers) => {
-            fetchMetaActivityBulk(offers.map((o) => o.meta_activity));
-            fetchEstablishmentBulk(offers.map((o) => o.establishment));
-            fetchCoachBulk(offers.map((o) => o.coach));
+      }) =>
+      () => {
+        fetchSimilarOffers(
+          offerId,
+          { wide: true },
+          {
+            onSuccess: (offers) => {
+              fetchMetaActivityBulk(offers.map((o) => o.meta_activity));
+              fetchEstablishmentBulk(offers.map((o) => o.establishment));
+              fetchCoachBulk(offers.map((o) => o.coach));
+            },
           },
-        },
-      );
-    },
+        );
+      },
   }),
 )(BookingModuleManagerComponent);

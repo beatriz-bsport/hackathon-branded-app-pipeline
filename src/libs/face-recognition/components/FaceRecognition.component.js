@@ -23,7 +23,11 @@ type Props = {
   setProcessing: (boolean) => void,
   classes: any,
   t: TFunction,
-  onDetectMember: (?Member, ?string, ?() => void) => void,
+  onDetectMember: (
+    member: ?Member,
+    string: ?string,
+    callback: ?() => void,
+  ) => void,
 };
 
 type State = {

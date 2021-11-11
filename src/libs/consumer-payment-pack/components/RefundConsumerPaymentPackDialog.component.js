@@ -22,9 +22,9 @@ type Props = {
   note: string,
   credits: number,
   consumerPaymentPack: ConsumerPaymentPack,
-  handlePriceChange: (SyntheticEvent<HTMLElement>) => void,
-  handleCreditChange: (SyntheticEvent<HTMLEvent>) => void,
-  handleNoteChange: (SyntheticEvent<HTMLEvent>) => void,
+  handlePriceChange: (ev: SyntheticEvent<HTMLElement>) => void,
+  handleCreditChange: (ev: SyntheticEvent<HTMLEvent>) => void,
+  handleNoteChange: (ev: SyntheticEvent<HTMLEvent>) => void,
   showCreditRefund: boolean,
   blockUnlimited: boolean,
   toogleBlockUnlimited: () => void,
@@ -192,9 +192,11 @@ export default compose(
       handlePriceChange: () => (ev) => ({
         price: ev.target.value,
       }),
-      toogleBlockUnlimited: ({ blockUnlimited }) => () => ({
-        blockUnlimited: !blockUnlimited,
-      }),
+      toogleBlockUnlimited:
+        ({ blockUnlimited }) =>
+        () => ({
+          blockUnlimited: !blockUnlimited,
+        }),
     },
   ),
 )(RefundConsumerPaymentPack);

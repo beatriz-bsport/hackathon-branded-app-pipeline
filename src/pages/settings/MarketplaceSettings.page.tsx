@@ -8,43 +8,43 @@ import { getDefaultTitleForComponent } from '../../libs/exportable-components/ut
 
 import { RootState } from '../../reducers';
 import {
-  fetchAllPrivateServices,
-  fetchPrivateServiceGroupList,
+  fetchAllPrivateServices as fetchAllPrivateServicesAction,
+  fetchPrivateServiceGroupList as fetchPrivateServiceGroupListAction,
 } from '../../libs/private-service/actions';
 import {
   getAvailablePrivateServices,
   getPrivateServiceGroupList,
 } from '../../libs/private-service/selectors/private-service';
-import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
+import { fetchAssociatedCoachesList as fetchAssociatedCoachesListAction } from '../../libs/associated-coach/actions';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import {
-  fetchEstablishments,
-  fetchAllEstablishmentGroup,
+  fetchEstablishments as fetchEstablishmentsAction,
+  fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
 } from '../../libs/establishment/actions';
 import {
   getAvailableEstablishmentList,
   getAssociatedEstablishmentGroup,
   withEstablishment as groupWithEstablishment,
 } from '../../libs/establishment/selectors';
-import { fetchAllActivities } from '../../libs/meta-activity/actions';
-import { fetchAllPaymentPackCategory } from '../../libs/payment-packs/actions';
+import { fetchAllActivities as fetchAllActivitiesAction } from '../../libs/meta-activity/actions';
+import { fetchAllPaymentPackCategory as fetchAllPaymentPackCategoryAction } from '../../libs/payment-packs/actions';
 import {
   getEnabledWorkshops,
   getPageEnabledMetaActivities,
 } from '../../libs/meta-activity/selectors';
 import { MarketplaceTabConfig } from '../../libs/marketplace/types';
 import {
-  fetchMarketplaceSettings,
-  updateMarketplaceSettings,
+  fetchMarketplaceSettings as fetchMarketplaceSettingsAction,
+  updateMarketplaceSettings as updateMarketplaceSettingsAction,
 } from '../../libs/marketplace/actions';
 import { getAllPaymentPackCategory } from '../../libs/payment-packs/selectors';
-import { fetchPlaylistList } from '../../libs/playlist/actions';
+import { fetchPlaylistList as fetchPlaylistListAction } from '../../libs/playlist/actions';
 import { getPlaylistList } from '../../libs/playlist/selectors';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
 
 import WidgetGeneratorDialog from '../../libs/widget/components/WidgetGeneratorDialog.component';
 import { getVideoList } from '../../libs/video/selectors';
-import { fetchVideoList } from '../../libs/video/actions';
+import { fetchVideoList as fetchVideoListAction } from '../../libs/video/actions';
 import MarketplaceBuilder from '../../libs/marketplace/components/builder/MarketplaceBuilder.component';
 import MarketplaceTabPreview from '../../libs/marketplace/components/builder/MarketplaceTabPreview.component';
 import MarketplaceTabBuilder from '../../libs/marketplace/components/builder/MarketplaceTabBuilder.component';
@@ -58,34 +58,68 @@ const defaultTab = {
 type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
 const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
+  const {
+    fetchMarketplaceSettings,
+    updateMarketplaceSettings,
+    fetchAllPrivateServices,
+    fetchAssociatedCoachesList,
+    fetchEstablishments,
+    fetchAllActivities,
+    fetchPlaylistList,
+    fetchVideoList,
+    fetchPrivateServiceGroupList,
+    fetchAllPaymentPackCategory,
+    fetchAllEstablishmentGroup,
+    settings,
+    loading,
+    privateServices,
+    coaches,
+    establishments,
+    metaActivities,
+    metaActivitiesWorkshop,
+    playlists,
+    videoList,
+    serviceGroupList,
+    theme,
+    paymentPackCategories,
+    establishmentGroupList,
+  } = props;
+
   const [openCreation, setOpenCreation] = useState<boolean>(false);
   const [openWidgetDialog, setOpenWidgetDialog] = useState<boolean>(false);
   const [config, setConfig] = useState<MarketplaceTabConfig[]>([]);
   const [currentTab, setCurrentTab] = useState<number>(null);
 
   useEffect(() => {
-    props.fetchMarketplaceSettings('me');
-    props.fetchAllPrivateServices({ mine: true });
-    props.fetchAssociatedCoachesList();
-    props.fetchEstablishments();
-    props.fetchAllActivities();
-    props.fetchVideoList({ mine: true });
-    props.fetchPlaylistList({ mine: true });
-    props.fetchPrivateServiceGroupList({ mine: true });
-    props.fetchAllPaymentPackCategory();
-    props.fetchAllEstablishmentGroup();
-  }, []);
+    fetchMarketplaceSettings('me');
+    fetchAllPrivateServices({ mine: true });
+    fetchAssociatedCoachesList();
+    fetchEstablishments();
+    fetchAllActivities();
+    fetchVideoList({ mine: true });
+    fetchPlaylistList({ mine: true });
+    fetchPrivateServiceGroupList({ mine: true });
+    fetchAllPaymentPackCategory();
+    fetchAllEstablishmentGroup();
+  }, [
+    fetchMarketplaceSettings,
+    fetchAllPrivateServices,
+    fetchAssociatedCoachesList,
+    fetchEstablishments,
+    fetchAllActivities,
+    fetchVideoList,
+    fetchPlaylistList,
+    fetchPrivateServiceGroupList,
+    fetchAllPaymentPackCategory,
+    fetchAllEstablishmentGroup,
+  ]);
 
   useEffect(() => {
-    if (
-      props.settings &&
-      props.settings.config &&
-      Array.isArray(props.settings.config)
-    ) {
-      const _config = [...props.settings.config];
+    if (settings && settings.config && Array.isArray(settings.config)) {
+      const _config = [...settings.config];
       setConfig(_config);
     }
-  }, [props.settings]);
+  }, [settings]);
 
   const onSubmitTab = useCallback(
     (tab: MarketplaceTabConfig) => {
@@ -102,14 +136,14 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
       });
       setOpenCreation(false);
     },
-    [config, currentTab],
+    [currentTab],
   );
 
   const { t: tAll } = useTranslation();
 
   const onSaveConfig = useCallback(() => {
-    const settings = {
-      ...props.settings,
+    const newSettings = {
+      ...settings,
       is_custom: true,
       config: config.map((tab, i) => ({
         ...tab,
@@ -119,40 +153,34 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
       })),
     };
 
-    props.updateMarketplaceSettings('me', settings);
-  }, [config]);
+    updateMarketplaceSettings('me', newSettings);
+  }, [config, settings, tAll, updateMarketplaceSettings]);
 
   const onCreateNewTab = useCallback(() => {
     setCurrentTab(null);
     setOpenCreation(true);
   }, []);
 
-  const onDeleteTab = useCallback(
-    (index: number) => {
-      setConfig((prevState) => prevState.filter((tab, i) => index !== i));
-    },
-    [config],
-  );
+  const onDeleteTab = useCallback((index: number) => {
+    setConfig((prevState) => prevState.filter((tab, i) => index !== i));
+  }, []);
 
-  const onEditTab = useCallback(
-    (index: number) => {
-      setCurrentTab(index);
-      setOpenCreation(true);
-    },
-    [config],
-  );
+  const onEditTab = useCallback((index: number) => {
+    setCurrentTab(index);
+    setOpenCreation(true);
+  }, []);
 
   const classes = useStyles();
   const { t } = useTranslation('settings');
 
   return (
     <div className={classes.container}>
-      {props.loading && <LinearProgress style={{ width: '100%' }} />}
-      {props.settings && props.settings.config && config && !props.loading && (
+      {loading && <LinearProgress style={{ width: '100%' }} />}
+      {settings && settings.config && config && !loading && (
         <MarketplaceBuilder
-          theme={props.theme}
+          theme={theme}
           config={config}
-          settings={props.settings}
+          settings={settings}
           setConfig={setConfig}
           onEditTab={onEditTab}
           onDeleteTab={onDeleteTab}
@@ -161,7 +189,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
           onSaveConfig={onSaveConfig}
         />
       )}
-      <MarketplaceTabPreview theme={props.theme} config={config} />
+      <MarketplaceTabPreview theme={theme} config={config} />
 
       <BottomActionsButton
         onCreate={onCreateNewTab}
@@ -172,18 +200,18 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
         <MarketplaceTabBuilder
           onSubmit={onSubmitTab}
           onClose={() => setOpenCreation(false)}
-          coaches={props.coaches}
-          establishments={props.establishments}
-          metaActivities={props.metaActivities}
-          metaActivitiesWorkshop={props.metaActivitiesWorkshop}
-          privateServices={props.privateServices}
-          serviceGroupList={props.serviceGroupList}
-          playlists={props.playlists || []}
-          videos={props.videoList}
+          coaches={coaches}
+          establishments={establishments}
+          metaActivities={metaActivities}
+          metaActivitiesWorkshop={metaActivitiesWorkshop}
+          privateServices={privateServices}
+          serviceGroupList={serviceGroupList}
+          playlists={playlists || []}
+          videos={videoList}
           index={currentTab !== null ? currentTab : config.length}
           tab={currentTab !== null ? config[currentTab] : defaultTab}
-          paymentPackCategories={props.paymentPackCategories}
-          establishmentGroupList={props.establishmentGroupList}
+          paymentPackCategories={paymentPackCategories}
+          establishmentGroupList={establishmentGroupList}
         />
       )}
 
@@ -266,17 +294,17 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = {
-  fetchMarketplaceSettings,
-  updateMarketplaceSettings,
-  fetchAllPrivateServices,
-  fetchAssociatedCoachesList,
-  fetchEstablishments,
-  fetchAllActivities,
-  fetchPlaylistList,
-  fetchVideoList,
-  fetchPrivateServiceGroupList,
-  fetchAllPaymentPackCategory,
-  fetchAllEstablishmentGroup,
+  fetchMarketplaceSettings: fetchMarketplaceSettingsAction,
+  updateMarketplaceSettings: updateMarketplaceSettingsAction,
+  fetchAllPrivateServices: fetchAllPrivateServicesAction,
+  fetchAssociatedCoachesList: fetchAssociatedCoachesListAction,
+  fetchEstablishments: fetchEstablishmentsAction,
+  fetchAllActivities: fetchAllActivitiesAction,
+  fetchPlaylistList: fetchPlaylistListAction,
+  fetchVideoList: fetchVideoListAction,
+  fetchPrivateServiceGroupList: fetchPrivateServiceGroupListAction,
+  fetchAllPaymentPackCategory: fetchAllPaymentPackCategoryAction,
+  fetchAllEstablishmentGroup: fetchAllEstablishmentGroupAction,
 };
 
 export default connect(

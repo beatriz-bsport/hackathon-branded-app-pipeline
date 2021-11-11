@@ -218,29 +218,35 @@ export default compose(
     false,
   ),
   withHandlers({
-    requestSetupIntentSecret: ({ membership }) => () =>
-      requestSetupIntentSecretAPI(null, membership.company),
-    fetchPaymentMethodList: ({ membership, fetchPaymentMethodList }) => () =>
-      fetchPaymentMethodList({ company: membership.company }),
-    switchPaymentMethod: ({
-      switchPaymentMethodDialogOpen,
-      switchSubscriptionPaymentMethod,
-      setSwitchPaymentMethodDialogOpen,
-    }) => (source, options, payment_method_id) => {
-      switchSubscriptionPaymentMethod(
+    requestSetupIntentSecret:
+      ({ membership }) =>
+      () =>
+        requestSetupIntentSecretAPI(null, membership.company),
+    fetchPaymentMethodList:
+      ({ membership, fetchPaymentMethodList }) =>
+      () =>
+        fetchPaymentMethodList({ company: membership.company }),
+    switchPaymentMethod:
+      ({
         switchPaymentMethodDialogOpen,
-        {
-          source: source || payment_method_id,
-          payment_method_identifier: BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-        },
-        {
-          onSuccess: (sub) => {
-            if (options && options.onSuccess) options.onSuccess(sub);
-            setSwitchPaymentMethodDialogOpen(null);
+        switchSubscriptionPaymentMethod,
+        setSwitchPaymentMethodDialogOpen,
+      }) =>
+      (source, options, payment_method_id) => {
+        switchSubscriptionPaymentMethod(
+          switchPaymentMethodDialogOpen,
+          {
+            source: source || payment_method_id,
+            payment_method_identifier: BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
           },
-          onError: options ? options.onError : null,
-        },
-      );
-    },
+          {
+            onSuccess: (sub) => {
+              if (options && options.onSuccess) options.onSuccess(sub);
+              setSwitchPaymentMethodDialogOpen(null);
+            },
+            onError: options ? options.onError : null,
+          },
+        );
+      },
   }),
 )(ConsumerSubscription);

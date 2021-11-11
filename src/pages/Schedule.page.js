@@ -87,14 +87,14 @@ type Props = {
   customEventList: Array<CustomEvent>,
   onRequestCustomEvent: (data: any) => void,
   resourceData: Array<ResourceData>,
-  setResourceFiltersArray: (Array<Ressource>) => void,
+  setResourceFiltersArray: (resources: Array<Ressource>) => void,
   fetchResourceList: () => void,
   closeCustomEventDialog: () => void,
   companyTheme: CompanyTheme,
 
   resourceFiltersArray: Array<Ressource>,
   fetchRessourcesFilters: () => void,
-  updateManagerRessourcesFilters: (*) => void,
+  updateManagerRessourcesFilters: () => void,
 };
 
 const styles = (theme) => ({
@@ -165,22 +165,22 @@ export class CoachPrivateCalendar extends React.Component<Props> {
     });
   };
 
-  storeResourceAvailabilityUpdate = (kind: string) => (...data: any) => {
-    this.setState({
-      updateAvailabilitySlotData: {
-        data,
-        kind,
-      },
-    });
-  };
+  storeResourceAvailabilityUpdate =
+    (kind: string) =>
+    (...data: any) => {
+      this.setState({
+        updateAvailabilitySlotData: {
+          data,
+          kind,
+        },
+      });
+    };
 
-  enableResourceAvailabilitySlot = this.storeResourceAvailabilityUpdate(
-    'enable',
-  );
+  enableResourceAvailabilitySlot =
+    this.storeResourceAvailabilityUpdate('enable');
 
-  disableResourceAvailabilitySlot = this.storeResourceAvailabilityUpdate(
-    'disable',
-  );
+  disableResourceAvailabilitySlot =
+    this.storeResourceAvailabilityUpdate('disable');
 
   onCancelAvailabilityUpdate = () =>
     this.setState({ updateAvailabilitySlotData: null });
@@ -355,100 +355,94 @@ export default compose(
     },
   ),
   withHandlers({
-    createOrUpdateCustomEvent: ({
-      createOrUpdateCustomEvent,
-      customEventData,
-      closeCustomEventDialog,
-    }) => (data, options) => {
-      createOrUpdateCustomEvent(
-        { ...data, ...customEventData },
-        {
-          onSuccess: (...args) => {
-            if (options && options.onSuccess) options.onSuccess(...args);
-            closeCustomEventDialog();
+    createOrUpdateCustomEvent:
+      ({
+        createOrUpdateCustomEvent,
+        customEventData,
+        closeCustomEventDialog,
+      }) =>
+      (data, options) => {
+        createOrUpdateCustomEvent(
+          { ...data, ...customEventData },
+          {
+            onSuccess: (...args) => {
+              if (options && options.onSuccess) options.onSuccess(...args);
+              closeCustomEventDialog();
+            },
+            onError: options && options.onError,
           },
-          onError: options && options.onError,
-        },
-      );
-    },
-    fetchOfferList: ({
-      fetchAllOffers,
-      fetchMetaActivityBulk,
-      periodFilter,
-    }) => () => {
-      fetchAllOffers(
-        {
-          min_date: periodFilter.start,
-          max_date: periodFilter.end,
-        },
-        {
-          onSuccess: (offers) =>
-            fetchMetaActivityBulk(offers.map((o) => o.meta_activity)),
-        },
-      );
-    },
-    handleDateChange: ({ setPeriodFilter }) => ({
-      date_start,
-      date_end,
-    }: {
-      date_start: string,
-      date_end: string,
-    }) => {
-      setPeriodFilter({ start: date_start, end: date_end });
-    },
-    fetchPrivateBookingList: ({
-      fetchPrivateBookings,
-      fetchMemberBulk,
-      periodFilter,
-    }) => () => {
-      fetchPrivateBookings(
-        {
+        );
+      },
+    fetchOfferList:
+      ({ fetchAllOffers, fetchMetaActivityBulk, periodFilter }) =>
+      () => {
+        fetchAllOffers(
+          {
+            min_date: periodFilter.start,
+            max_date: periodFilter.end,
+          },
+          {
+            onSuccess: (offers) =>
+              fetchMetaActivityBulk(offers.map((o) => o.meta_activity)),
+          },
+        );
+      },
+    handleDateChange:
+      ({ setPeriodFilter }) =>
+      ({ date_start, date_end }: { date_start: string, date_end: string }) => {
+        setPeriodFilter({ start: date_start, end: date_end });
+      },
+    fetchPrivateBookingList:
+      ({ fetchPrivateBookings, fetchMemberBulk, periodFilter }) =>
+      () => {
+        fetchPrivateBookings(
+          {
+            date_start__gte: periodFilter.start,
+            date_start__lte: periodFilter.end,
+            page_size: null,
+          },
+          {
+            onSuccess: (bookingList) => {
+              if (bookingList.length) {
+                fetchMemberBulk({
+                  id__in: uniq(bookingList.map((b) => b.member)),
+                });
+              }
+            },
+          },
+        );
+      },
+    fetchCustomEventList:
+      ({ fetchCustomEventList, periodFilter }) =>
+      () => {
+        fetchCustomEventList({
           date_start__gte: periodFilter.start,
           date_start__lte: periodFilter.end,
           page_size: null,
-        },
-        {
-          onSuccess: (bookingList) => {
-            if (bookingList.length) {
-              fetchMemberBulk({
-                id__in: uniq(bookingList.map((b) => b.member)),
-              });
-            }
+        });
+      },
+  }),
+  withHandlers({
+    fetchRessourcesFilters:
+      ({ fetchManagerRessourcesFilters, setResourceFiltersArray }) =>
+      () => {
+        fetchManagerRessourcesFilters({
+          onSuccess: (payload) => {
+            setResourceFiltersArray(payload);
           },
-        },
-      );
-    },
-    fetchCustomEventList: ({ fetchCustomEventList, periodFilter }) => () => {
-      fetchCustomEventList({
-        date_start__gte: periodFilter.start,
-        date_start__lte: periodFilter.end,
-        page_size: null,
-      });
-    },
+        });
+      },
   }),
   withHandlers({
-    fetchRessourcesFilters: ({
-      fetchManagerRessourcesFilters,
-      setResourceFiltersArray,
-    }) => () => {
-      fetchManagerRessourcesFilters({
-        onSuccess: (payload) => {
-          setResourceFiltersArray(payload);
-        },
-      });
-    },
-  }),
-  withHandlers({
-    updateRessourcesFilters: ({
-      updateManagerRessourcesFilters,
-      resourceFiltersArray,
-    }) => () => {
-      updateManagerRessourcesFilters([
-        {
-          name: 'schedule',
-          filters: resourceFiltersArray,
-        },
-      ]);
-    },
+    updateRessourcesFilters:
+      ({ updateManagerRessourcesFilters, resourceFiltersArray }) =>
+      () => {
+        updateManagerRessourcesFilters([
+          {
+            name: 'schedule',
+            filters: resourceFiltersArray,
+          },
+        ]);
+      },
   }),
 )(CoachPrivateCalendar);

@@ -18,7 +18,7 @@ import { colors as bsportColors } from '@bsport/common/lib/colors';
 
 type Props = {
   height: number,
-  data: *,
+  data: any,
   color: 'blue' | 'blueLight' | 'yellow' | 'red',
   xKey: Object,
   yKey: Object,
@@ -78,16 +78,8 @@ export function SimpleBarChart(props: Props) {
 type BarChartProps = Props;
 
 export function BarChart(props: BarChartProps) {
-  const {
-    height,
-    data,
-    xKey,
-    yKey,
-    color,
-    domain,
-    xFormatter,
-    yFormatter,
-  } = props;
+  const { height, data, xKey, yKey, color, domain, xFormatter, yFormatter } =
+    props;
   return (
     <ResponsiveContainer width="100%" height={height}>
       <BarChartBase

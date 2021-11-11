@@ -25,8 +25,8 @@ export class BroadcastRoomJitsi extends React.Component<Props> {
     if (
       !window.JitsiMeetExternalAPI ||
       (this.props.date_start &&
-        (this.props.userType !== 'coach' &&
-          moment(this.props.date_start).isAfter(moment())))
+        this.props.userType !== 'coach' &&
+        moment(this.props.date_start).isAfter(moment()))
     ) {
       setTimeout(this.initializeJitsi, 1000);
     } else {

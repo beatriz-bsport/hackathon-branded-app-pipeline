@@ -7,7 +7,7 @@ import TextField from '@material-ui/core/TextField';
 export const emailRegexp = /[A-z0-9-_]+@[A-z0-9-_]+\.[A-z]+$/
 
 type Props = {
-  value: *,
+  value: any,
 };
 
 export default function EmailFied(props: Props) {

@@ -83,14 +83,8 @@ export class MailDialog extends Component<Props, State> {
   };
 
   render() {
-    const {
-      bookings,
-      bookingOptionsPending,
-      t,
-      classes,
-      fullScreen,
-      onClose,
-    } = this.props;
+    const { bookings, bookingOptionsPending, t, classes, fullScreen, onClose } =
+      this.props;
 
     return (
       <div>
@@ -157,7 +151,8 @@ export class MailDialog extends Component<Props, State> {
                     edge="end"
                     onChange={() =>
                       this.setState((prevState) => ({
-                        mailToCanceledBookings: !prevState.mailToCanceledBookings,
+                        mailToCanceledBookings:
+                          !prevState.mailToCanceledBookings,
                       }))
                     }
                     checked={this.state.mailToCanceledBookings}

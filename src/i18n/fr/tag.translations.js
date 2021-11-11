@@ -39,8 +39,7 @@ exports.default = {
       icon: 'Icône (facultatif)',
       searchIcon: 'Rechercher une icone (recherche en anglais)',
       selectIcon: 'Selectionner une icône',
-      info:
-        'Si vous sélectionné une icône, elle apparaitra en tant que badge à coté de la photo de profil pour l’ensemble des membres taggués avec ce tag.',
+      info: 'Si vous sélectionné une icône, elle apparaitra en tant que badge à coté de la photo de profil pour l’ensemble des membres taggués avec ce tag.',
       namePlaceholder: 'Nom du tag',
       color: 'Couleur',
       name: 'Nom du Tag',
@@ -75,13 +74,11 @@ exports.default = {
     },
     deleteTagGroupDialog: {
       title: 'Suppression catégorie',
-      text:
-        'Êtes vous sûr de vouloir supprimer cette catégorie ? L’ensemble des tags compris dans la catégorie seront aussi supprimés. ',
+      text: 'Êtes vous sûr de vouloir supprimer cette catégorie ? L’ensemble des tags compris dans la catégorie seront aussi supprimés. ',
     },
     deleteTagDialog: {
       title: 'Suppression tag',
-      text:
-        'Êtes vous sûr de vouloir supprimer ce tag ? L’ensemble des règles liées à ce tag seront supprimées.',
+      text: 'Êtes vous sûr de vouloir supprimer ce tag ? L’ensemble des règles liées à ce tag seront supprimées.',
     },
     createGroupDialog: {
       title: 'Catégorie',

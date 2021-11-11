@@ -11,7 +11,7 @@ import { mapFormData } from '../../../pages/form.utils';
 
 type Props = {
   snackbarSuccess: (msg: string) => void,
-  onSubmit: (*) => void,
+  onSubmit: () => void,
   onClose: () => void,
   onAlreadyLinkMember: (memberId: number) => void,
   onLinkMember: () => void,

@@ -126,42 +126,45 @@ export default compose(
     },
   ),
   withHandlers({
-    finalizeInvoice: ({ finalizeInvoice }) => (uuid, options) =>
-      finalizeInvoice(uuid, {
-        onError: (err) => {
-          if (options && options.onError) options.onError(err);
-        },
-        onSuccess: (invoice) => {
-          window.open(invoice.stripe_invoice_pdf);
-          if (options && options.onSuccess) options.onSuccess();
-        },
-      }),
-    fetchInvoiceList: ({ fetchInvoiceList, membership }) => () => {
-      fetchInvoiceList({
-        is_draft: false,
-        member: membership.id,
-      });
-    },
-    submitPayment: ({ regularizeDebt, membership, fetchMembership }) => (
-      data,
-      options,
-    ) => {
-      regularizeDebt(membership.id, data, {
-        onSuccess: (response) => {
-          if (options && options.onSuccess) {
-            options.onSuccess(response);
-          }
-          fetchMembership(membership.id, {
-            onSuccess: () => window.location.reload(),
-          });
-        },
-        onError: (err) => {
-          console.error(err);
-          if (options && options.onError) {
-            options.onError(err);
-          }
-        },
-      });
-    },
+    finalizeInvoice:
+      ({ finalizeInvoice }) =>
+      (uuid, options) =>
+        finalizeInvoice(uuid, {
+          onError: (err) => {
+            if (options && options.onError) options.onError(err);
+          },
+          onSuccess: (invoice) => {
+            window.open(invoice.stripe_invoice_pdf);
+            if (options && options.onSuccess) options.onSuccess();
+          },
+        }),
+    fetchInvoiceList:
+      ({ fetchInvoiceList, membership }) =>
+      () => {
+        fetchInvoiceList({
+          is_draft: false,
+          member: membership.id,
+        });
+      },
+    submitPayment:
+      ({ regularizeDebt, membership, fetchMembership }) =>
+      (data, options) => {
+        regularizeDebt(membership.id, data, {
+          onSuccess: (response) => {
+            if (options && options.onSuccess) {
+              options.onSuccess(response);
+            }
+            fetchMembership(membership.id, {
+              onSuccess: () => window.location.reload(),
+            });
+          },
+          onError: (err) => {
+            console.error(err);
+            if (options && options.onError) {
+              options.onError(err);
+            }
+          },
+        });
+      },
   }),
 )(ConsumerInvoice);

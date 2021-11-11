@@ -50,7 +50,7 @@ import type {
 
 const VIDEO_PURCHASES_PAGE_SIZE = 5;
 type Props = {
-  classes: *,
+  classes: any,
   fetchVideoPurchase: (page: number, page_size: number) => void,
   vodId: ?number,
   id: number,
@@ -59,7 +59,7 @@ type Props = {
   onPageRequested: (page: number, page_sizz: number) => void,
   onSelectVideoPurchase: () => void,
   loading: boolean,
-  purchasedVideoList: object<VideoPurchase>,
+  purchasedVideoList: VideoPurchase,
   videoCurrentPage: number,
   selectedPurchasedVideo: ?VideoPurchase,
   getPass: (id: number) => void,
@@ -295,87 +295,97 @@ export default compose(
   ),
 
   withHandlers({
-    onSelectVideoPurchase: ({
-      setRelatedInvoice,
-      fetchInvoiceByInvoiceItemAction,
-      retrieveVideoPurchase,
-      retrieveVideoAction,
-      fetchVideoAnalyticsbyMemberAction,
-      id,
-    }) => (purchaseVideoId) => {
-      retrieveVideoPurchase(purchaseVideoId, {
-        onSuccess: (videoPurchase) => {
-          retrieveVideoAction(videoPurchase.video);
-          fetchVideoAnalyticsbyMemberAction(videoPurchase.video, {
-            member: id,
-          });
-          if (videoPurchase.consumer_payment_pack) {
-            fetchInvoiceByInvoiceItemAction(
-              BUYABLE_ITEM_PASS,
-              videoPurchase.consumer_payment_pack,
-              {
-                onSuccess: (inv) => {
-                  setRelatedInvoice(inv.uuid);
+    onSelectVideoPurchase:
+      ({
+        setRelatedInvoice,
+        fetchInvoiceByInvoiceItemAction,
+        retrieveVideoPurchase,
+        retrieveVideoAction,
+        fetchVideoAnalyticsbyMemberAction,
+        id,
+      }) =>
+      (purchaseVideoId) => {
+        retrieveVideoPurchase(purchaseVideoId, {
+          onSuccess: (videoPurchase) => {
+            retrieveVideoAction(videoPurchase.video);
+            fetchVideoAnalyticsbyMemberAction(videoPurchase.video, {
+              member: id,
+            });
+            if (videoPurchase.consumer_payment_pack) {
+              fetchInvoiceByInvoiceItemAction(
+                BUYABLE_ITEM_PASS,
+                videoPurchase.consumer_payment_pack,
+                {
+                  onSuccess: (inv) => {
+                    setRelatedInvoice(inv.uuid);
+                  },
                 },
-              },
-            );
-          } else if (videoPurchase.private_consumer_pass) {
-            fetchInvoiceByInvoiceItemAction(
-              BUYABLE_ITEM_PRIVATE_PASS,
-              videoPurchase.private_consumer_pass,
-              {
-                onSuccess: (inv) => {
-                  setRelatedInvoice(inv.uuid);
+              );
+            } else if (videoPurchase.private_consumer_pass) {
+              fetchInvoiceByInvoiceItemAction(
+                BUYABLE_ITEM_PRIVATE_PASS,
+                videoPurchase.private_consumer_pass,
+                {
+                  onSuccess: (inv) => {
+                    setRelatedInvoice(inv.uuid);
+                  },
                 },
-              },
-            );
-          }
-        },
-      });
-    },
+              );
+            }
+          },
+        });
+      },
   }),
   withHandlers({
-    fetchVideoPurchase: ({
-      id,
-      fetchVideoPurchaseAction,
-      fetchVideoListBulkAction,
-      retrieveConsumerPackBulkAction,
-    }) => (page, page_size) => {
-      fetchVideoPurchaseAction(
-        page,
-        page_size,
-        { member_id: id },
-        {
-          onSuccess: (payload) => {
-            fetchVideoListBulkAction(payload.map((purVideo) => purVideo.video));
-            retrieveConsumerPackBulkAction(
-              payload.map((v) => v.consumer_payment_pack),
-            );
+    fetchVideoPurchase:
+      ({
+        id,
+        fetchVideoPurchaseAction,
+        fetchVideoListBulkAction,
+        retrieveConsumerPackBulkAction,
+      }) =>
+      (page, page_size) => {
+        fetchVideoPurchaseAction(
+          page,
+          page_size,
+          { member_id: id },
+          {
+            onSuccess: (payload) => {
+              fetchVideoListBulkAction(
+                payload.map((purVideo) => purVideo.video),
+              );
+              retrieveConsumerPackBulkAction(
+                payload.map((v) => v.consumer_payment_pack),
+              );
+            },
           },
-        },
-      );
-    },
-    onPageRequested: ({
-      id,
-      fetchVideoPurchaseAction,
-      fetchVideoListBulkAction,
-      retrieveConsumerPackBulkAction,
-      fetchNumberVideoPurchaseAction,
-    }) => (page, page_size) => {
-      fetchVideoPurchaseAction(
-        page,
-        page_size,
-        { member_id: id },
-        {
-          onSuccess: (payload) => {
-            fetchVideoListBulkAction(payload.map((purVideo) => purVideo.video));
-            retrieveConsumerPackBulkAction(
-              payload.map((v) => v.consumer_payment_pack),
-            );
-            fetchNumberVideoPurchaseAction({ member_id: id });
+        );
+      },
+    onPageRequested:
+      ({
+        id,
+        fetchVideoPurchaseAction,
+        fetchVideoListBulkAction,
+        retrieveConsumerPackBulkAction,
+        fetchNumberVideoPurchaseAction,
+      }) =>
+      (page, page_size) => {
+        fetchVideoPurchaseAction(
+          page,
+          page_size,
+          { member_id: id },
+          {
+            onSuccess: (payload) => {
+              fetchVideoListBulkAction(
+                payload.map((purVideo) => purVideo.video),
+              );
+              retrieveConsumerPackBulkAction(
+                payload.map((v) => v.consumer_payment_pack),
+              );
+              fetchNumberVideoPurchaseAction({ member_id: id });
+            },
           },
-        },
-      );
-    },
+        );
+      },
   }),
 )(MemberDetailVod);

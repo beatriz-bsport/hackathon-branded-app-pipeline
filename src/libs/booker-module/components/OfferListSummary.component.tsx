@@ -62,16 +62,12 @@ class OfferListSummary extends React.PureComponent<Props> {
       );
     }
 
-    const {
-      isBookable,
-      isWaitingList,
-      isRegistered,
-      noInteraction,
-    } = getOfferFeature(
-      offer,
-      this.props.offerStatusById,
-      this.props.acceptDoubleBooking,
-    );
+    const { isBookable, isWaitingList, isRegistered, noInteraction } =
+      getOfferFeature(
+        offer,
+        this.props.offerStatusById,
+        this.props.acceptDoubleBooking,
+      );
 
     return (
       <div className={classes.container}>

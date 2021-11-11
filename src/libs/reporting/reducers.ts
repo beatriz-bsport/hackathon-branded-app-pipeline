@@ -12,8 +12,8 @@ import {
 } from './actions';
 import { ReportingState } from './types';
 
-const initialState: Immutable.Immutable<ReportingState> = Immutable<ReportingState>(
-  {
+const initialState: Immutable.Immutable<ReportingState> =
+  Immutable<ReportingState>({
     reportResponse: {
       reportId: {
         result: [],
@@ -45,8 +45,7 @@ const initialState: Immutable.Immutable<ReportingState> = Immutable<ReportingSta
       error: null,
       results: [],
     },
-  },
-);
+  });
 
 export default handleActions<Immutable.Immutable<ReportingState>>(
   {

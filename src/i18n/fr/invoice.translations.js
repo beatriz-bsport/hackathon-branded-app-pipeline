@@ -435,12 +435,15 @@ exports.default = {
         931101: 'Quickbooks ne parvient pas à nous transmettre vos données',
         932000: "Votre compte n'est plus authentifié sur Bsport",
         932001: "Votre compte n'est plus authentifié sur Bsport",
-        932100: "Impossible d'accéder aux informations de votre compte Quickbooks",
-        933000: 'Le membre associé à la facture ne possède pas les informations nécessaires pour être enregistrer sur QuickBooks',
+        932100:
+          "Impossible d'accéder aux informations de votre compte Quickbooks",
+        933000:
+          'Le membre associé à la facture ne possède pas les informations nécessaires pour être enregistrer sur QuickBooks',
         933100: 'Impossible de créer le client associé au membre de la facture',
         933101: 'Impossible de créer le client associé au membre de la facture',
         933102: 'Erreur lors de la création de la facture sur Quickbooks',
-        934000: 'La facture ne possède pas les informations minimales pour être créée sur Quickbooks',
+        934000:
+          'La facture ne possède pas les informations minimales pour être créée sur Quickbooks',
         934001: 'Impossible de créer une facture sans items associés',
         934002: "Impossible d'envoyer une facture annulée sur QuickBooks",
         934003: "Imposible d'envoyer une facture non finalisée sur QuickBooks",

@@ -31,9 +31,9 @@ type Props = {
     date_selected: string,
   ) => void,
 
-  onPrivateServiceChange: (?PrivateService) => void,
-  onPrivateSlotChange: (?PrivateSlot) => void,
-  onCoachChange: (Array<Coach>) => void,
+  onPrivateServiceChange: (privateService: ?PrivateService) => void,
+  onPrivateSlotChange: (slot: ?PrivateSlot) => void,
+  onCoachChange: (coach: Array<Coach>) => void,
   onDateChange: (Object) => void,
 };
 
@@ -166,10 +166,8 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
 
   render() {
     const { t, classes } = this.props;
-    const {
-      coachResourceState,
-      establishmentResourceState,
-    } = this.getResourceState();
+    const { coachResourceState, establishmentResourceState } =
+      this.getResourceState();
     return (
       <div className={this.props.classes.container}>
         <Typography variant="h6" className={classes.sectionTitle}>

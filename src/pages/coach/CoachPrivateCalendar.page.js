@@ -261,92 +261,87 @@ export default compose(
     },
   ),
   withHandlers({
-    createOrUpdateCustomEvent: ({
-      createOrUpdateCustomEvent,
-      customEventData,
-      closeCustomEventDialog,
-    }) => (data, options) => {
-      createOrUpdateCustomEvent(
-        { ...data, ...customEventData },
-        {
-          onSuccess: (...args) => {
-            if (options && options.onSuccess) options.onSuccess(...args);
-            closeCustomEventDialog();
+    createOrUpdateCustomEvent:
+      ({
+        createOrUpdateCustomEvent,
+        customEventData,
+        closeCustomEventDialog,
+      }) =>
+      (data, options) => {
+        createOrUpdateCustomEvent(
+          { ...data, ...customEventData },
+          {
+            onSuccess: (...args) => {
+              if (options && options.onSuccess) options.onSuccess(...args);
+              closeCustomEventDialog();
+            },
+            onError: options && options.onError,
           },
-          onError: options && options.onError,
-        },
-      );
-    },
-    fetchOfferList: ({
-      fetchAllOffers,
-      fetchMetaActivityBulk,
-      periodFilter,
-      id,
-    }) => () => {
-      fetchAllOffers(
-        {
-          coach: id,
-          min_date: periodFilter.start,
-          max_date: periodFilter.end,
-        },
-        {
-          onSuccess: (offers) =>
-            fetchMetaActivityBulk(offers.map((o) => o.meta_activity)),
-        },
-      );
-    },
-    handleDateChange: ({ setPeriodFilter }) => ({
-      date_start,
-      date_end,
-    }: {
-      date_start: string,
-      date_end: string,
-    }) => {
-      setPeriodFilter({ start: date_start, end: date_end });
-    },
-    fetchPrivateBookingList: ({
-      fetchPrivateBookings,
-      fetchPrivateSlotBulk,
-      fetchPrivateServiceBulk,
-      fetchMemberBulk,
-      periodFilter,
-      id,
-    }) => () => {
-      fetchPrivateBookings(
-        {
-          coach: id,
+        );
+      },
+    fetchOfferList:
+      ({ fetchAllOffers, fetchMetaActivityBulk, periodFilter, id }) =>
+      () => {
+        fetchAllOffers(
+          {
+            coach: id,
+            min_date: periodFilter.start,
+            max_date: periodFilter.end,
+          },
+          {
+            onSuccess: (offers) =>
+              fetchMetaActivityBulk(offers.map((o) => o.meta_activity)),
+          },
+        );
+      },
+    handleDateChange:
+      ({ setPeriodFilter }) =>
+      ({ date_start, date_end }: { date_start: string, date_end: string }) => {
+        setPeriodFilter({ start: date_start, end: date_end });
+      },
+    fetchPrivateBookingList:
+      ({
+        fetchPrivateBookings,
+        fetchPrivateSlotBulk,
+        fetchPrivateServiceBulk,
+        fetchMemberBulk,
+        periodFilter,
+        id,
+      }) =>
+      () => {
+        fetchPrivateBookings(
+          {
+            coach: id,
+            date_start__gte: periodFilter.start,
+            date_start__lte: periodFilter.end,
+            page_size: null,
+          },
+
+          {
+            onSuccess: (bookingList) => {
+              if (bookingList.length) {
+                fetchMemberBulk({
+                  id__in: uniq(bookingList.map((b) => b.member)),
+                });
+                fetchPrivateServiceBulk(
+                  bookingList.map((b) => b.private_service),
+                );
+                fetchPrivateSlotBulk(bookingList.map((b) => b.private_slot));
+              }
+            },
+          },
+        );
+      },
+    fetchCustomEventList:
+      ({ fetchCustomEventList, periodFilter, id }) =>
+      () => {
+        fetchCustomEventList({
           date_start__gte: periodFilter.start,
           date_start__lte: periodFilter.end,
           page_size: null,
-        },
-
-        {
-          onSuccess: (bookingList) => {
-            if (bookingList.length) {
-              fetchMemberBulk({
-                id__in: uniq(bookingList.map((b) => b.member)),
-              });
-              fetchPrivateServiceBulk(
-                bookingList.map((b) => b.private_service),
-              );
-              fetchPrivateSlotBulk(bookingList.map((b) => b.private_slot));
-            }
-          },
-        },
-      );
-    },
-    fetchCustomEventList: ({
-      fetchCustomEventList,
-      periodFilter,
-      id,
-    }) => () => {
-      fetchCustomEventList({
-        date_start__gte: periodFilter.start,
-        date_start__lte: periodFilter.end,
-        page_size: null,
-        coach: id,
-      });
-    },
+          coach: id,
+        });
+      },
   }),
   withTitle(({ coach }) => {
     return coach ? `${coach.name}` : '';

@@ -220,23 +220,21 @@ export class EditLiveOfferForm extends Component<Props, State> {
 
   selectAll = () => {
     this.setState((prevState) => ({
-      similarOffersWithSelectedStatus: prevState.similarOffersWithSelectedStatus.map(
-        (so) => ({
+      similarOffersWithSelectedStatus:
+        prevState.similarOffersWithSelectedStatus.map((so) => ({
           ...so,
           selected: true,
-        }),
-      ),
+        })),
     }));
   };
 
   unselectAll = () => {
     this.setState((prevState) => ({
-      similarOffersWithSelectedStatus: prevState.similarOffersWithSelectedStatus.map(
-        (so, index) => ({
+      similarOffersWithSelectedStatus:
+        prevState.similarOffersWithSelectedStatus.map((so, index) => ({
           ...so,
           selected: index === 0,
-        }),
-      ),
+        })),
     }));
   };
 

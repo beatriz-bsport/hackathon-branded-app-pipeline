@@ -177,7 +177,8 @@ export class BookerModuleConsumer extends React.PureComponent<Props> {
       localDate[0].toUpperCase() + localDate.slice(1, localDate.length);
 
     const hasBookingOptionConvertible = !!bookingOptionListConvertible.length;
-    const hasBookingOptionUnConvertible = !!bookingOptionListUnconvertible.length;
+    const hasBookingOptionUnConvertible =
+      !!bookingOptionListUnconvertible.length;
 
     const isAvailable = offer.available;
     const isTooLate = moment(offer.date_start)

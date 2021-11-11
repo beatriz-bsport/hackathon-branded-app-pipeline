@@ -99,9 +99,22 @@ const renderEmptyOrLoading = (
 };
 
 const BookingCreationNotificationForm = (props: Props) => {
+  const {
+    isSubmitting,
+    onCancel,
+    getEmails,
+    emails,
+    getEmailDetail,
+    emailDetails,
+    emailListLoading,
+    emailDetailLoading,
+    initial,
+    values,
+    setFieldValue,
+    errors,
+  } = props;
   const { t } = useTranslation(['booking', 'paymentPack']);
   const classes = useStyles();
-  const { values, setFieldValue } = props;
   const { kind, notify_booking_nb, email_design, bookingStatus } = values;
   const [formIsSecondStep, setFormIsSecondStep] = useState(false);
   const [displayMailPreview, setDisplayMailPreview] = useState(false);
@@ -113,9 +126,9 @@ const BookingCreationNotificationForm = (props: Props) => {
   }
 
   useEffect(() => {
-    if (props.initial) props.getEmailDetail(props.initial.email_design);
-    props.getEmails();
-  }, []);
+    if (initial) getEmailDetail(initial.email_design);
+    getEmails();
+  }, [initial, getEmails, getEmailDetail]);
 
   // Update kind when bookingStatus changes so that we always have a checked
   // radio input on the screen
@@ -144,7 +157,7 @@ const BookingCreationNotificationForm = (props: Props) => {
         <DialogTitle>{t('booking:notification.form.title')}</DialogTitle>
         <Form>
           {/* First step */}
-          {!formIsSecondStep && !props.initial && (
+          {!formIsSecondStep && !initial && (
             <>
               <DialogContent>
                 <Typography variant="body2">
@@ -246,9 +259,7 @@ const BookingCreationNotificationForm = (props: Props) => {
                           kind,
                         )}`,
                       )
-                    : `${t(
-                        'booking:notification.form.help.text',
-                      )} ${t(
+                    : `${t('booking:notification.form.help.text')} ${t(
                         `booking:notification.form.help.${getNotificationKind(
                           kind,
                         )}`,
@@ -257,13 +268,13 @@ const BookingCreationNotificationForm = (props: Props) => {
                 </Typography>
               </DialogContent>
               <DialogActions>
-                <Button onClick={props.onCancel}>
+                <Button onClick={onCancel}>
                   {t('booking:notification.form.cancel')}
                 </Button>
                 <Button
                   color="primary"
                   onClick={() => setFormIsSecondStep(true)}
-                  disabled={!!props.errors.notify_booking_nb}
+                  disabled={!!errors.notify_booking_nb}
                 >
                   {t('booking:notification.form.next')}
                 </Button>
@@ -271,7 +282,7 @@ const BookingCreationNotificationForm = (props: Props) => {
             </>
           )}
           {/* Second Step */}
-          {(!!props.initial || formIsSecondStep) && (
+          {(!!initial || formIsSecondStep) && (
             <>
               <DialogContent>
                 <div className={classes.fieldContainer}>
@@ -316,13 +327,11 @@ const BookingCreationNotificationForm = (props: Props) => {
                 <div className={classes.fieldContainer}>
                   <Typography
                     variant="caption"
-                    className={
-                      props.errors.email_design ? classes.errorText : null
-                    }
+                    className={errors.email_design ? classes.errorText : null}
                   >
                     {t('paymentPack:notification.form.mailTitle')}
                   </Typography>
-                  {props.emailListLoading ? (
+                  {emailListLoading ? (
                     <LinearProgress className={classes.selectorContainer} />
                   ) : (
                     <div
@@ -331,11 +340,11 @@ const BookingCreationNotificationForm = (props: Props) => {
                     >
                       <EmailSelector
                         name="email_design"
-                        emails={props.emails}
+                        emails={emails}
                         value={email_design}
                         onChange={(ev) => {
                           setFieldValue('email_design', ev ? ev.value : null);
-                          if (ev) props.getEmailDetail(ev.value);
+                          if (ev) getEmailDetail(ev.value);
                         }}
                         helperText={t(
                           'paymentPack:notification.form.mailSelection',
@@ -370,20 +379,21 @@ const BookingCreationNotificationForm = (props: Props) => {
                   </div>
                   <Collapse in={displayMailPreview}>
                     <div className={classes.mailPreview}>
-                      {email_design && !!props.emailDetails[email_design] ? (
+                      {email_design && !!emailDetails[email_design] ? (
                         <div>
                           <div
+                            // eslint-disable-next-line
                             dangerouslySetInnerHTML={{
-                              __html: props.emailDetails
-                                ? props.emailDetails[email_design].html
+                              __html: emailDetails
+                                ? emailDetails[email_design].html
                                 : null,
                             }}
                           />
                         </div>
                       ) : (
                         renderEmptyOrLoading(
-                          props.emailDetailLoading,
-                          props.emails,
+                          emailDetailLoading,
+                          emails,
                           t,
                           classes,
                         )
@@ -395,16 +405,16 @@ const BookingCreationNotificationForm = (props: Props) => {
               <Actions>
                 <Button
                   onClick={() => {
-                    props.onCancel();
+                    onCancel();
                     setFormIsSecondStep(false);
                   }}
-                  disabled={props.isSubmitting}
+                  disabled={isSubmitting}
                 >
                   {t('booking:notification.form.cancel')}
                 </Button>
                 <Submit
                   color="primary"
-                  disabled={!!props.errors.hours || !!props.errors.email_design}
+                  disabled={!!errors.hours || !!errors.email_design}
                 >
                   {t('booking:notification.form.submit')}
                 </Submit>

@@ -107,7 +107,7 @@ type Props = {
   classes: Object,
   associatedCoachList: Array<AssociatedCoach>,
   selectedAssociatedCoach: AssociatedCoach,
-  setSelectedAssociatedCoach: (?AssociatedCoach) => void,
+  setSelectedAssociatedCoach: (coach: ?AssociatedCoach) => void,
   updateCoach: (data: any) => void,
   t: TFunction,
 };

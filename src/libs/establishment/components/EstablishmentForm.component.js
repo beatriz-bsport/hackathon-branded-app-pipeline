@@ -100,14 +100,8 @@ export class EstablishmentForm extends Component<Props, State> {
 
   onSubmit = (e: SyntheticEvent<HTMLElement>) => {
     e.preventDefault();
-    const {
-      title,
-      specific_info,
-      practical_info,
-      location,
-      cover,
-      capacity,
-    } = this.state;
+    const { title, specific_info, practical_info, location, cover, capacity } =
+      this.state;
     const data = {
       title,
       specific_info,

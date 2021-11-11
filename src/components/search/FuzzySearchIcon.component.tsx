@@ -37,13 +37,13 @@ function FuzzySearchIcon<T>(props: Props<T>) {
 
   const classes = useStyles();
 
-  const changeSearch = (fuse: Fuse<T, FuseOptions<T>>) => (
-    ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
-  ) => {
-    setSearch(ev.target.value);
-    const result = fuse.search(ev.target.value) as T[];
-    setSearchResult(result);
-  };
+  const changeSearch =
+    (fuse: Fuse<T, FuseOptions<T>>) =>
+    (ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+      setSearch(ev.target.value);
+      const result = fuse.search(ev.target.value) as T[];
+      setSearchResult(result);
+    };
 
   const Cell = ({ columnIndex, rowIndex, style }) => (
     <div style={style} className={classes.cell}>

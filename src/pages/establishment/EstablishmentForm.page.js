@@ -31,7 +31,7 @@ type Props = {
   fetchEstablishments: () => void,
   establishmentId: number,
   pending: boolean,
-  update: *,
+  update: any,
   isNew: boolean,
 };
 const establishmentMap = {
@@ -88,13 +88,8 @@ export class EstablishmentFormPage extends Component<Props> {
   };
 
   render() {
-    const {
-      update,
-      isNew,
-      addImage,
-      removeImage,
-      establishmentId,
-    } = this.props;
+    const { update, isNew, addImage, removeImage, establishmentId } =
+      this.props;
     const imageUploader = isNew
       ? null
       : {

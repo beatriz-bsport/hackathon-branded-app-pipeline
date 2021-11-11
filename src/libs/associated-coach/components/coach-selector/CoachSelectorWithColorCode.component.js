@@ -13,7 +13,7 @@ type Props = {
   coachId: number,
   loading: boolean,
   associatedCoachList: Array<AssociatedCoach>,
-  onChangeCoach: (?AssociatedCoach) => void,
+  onChangeCoach: (coach: ?AssociatedCoach) => void,
   updateCoach: (
     data: any,
     options: { onSuccess?: () => void, onError?: () => void },

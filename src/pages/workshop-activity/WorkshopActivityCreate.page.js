@@ -69,15 +69,15 @@ type Props = {
   establishments: Array<Establishment>,
   SCTs: *[],
 
-  onSubmitPass: (*) => void,
-  onSubmitWorkshopActivity: (*) => void,
+  onSubmitPass: () => void,
+  onSubmitWorkshopActivity: () => void,
   metaActivitiesAndWorkshops: Array<MetaActivity>,
   step: StepType,
   setStep: (StepType) => void,
   upsertedWorkshop: ?MetaActivity,
 
   offerHadError: ?Error,
-  createOffers: (*) => void,
+  createOffers: () => void,
   offerIsProcessing: boolean,
   goToWorkshop: (id: number) => void,
   fetchEstablishments: () => void,

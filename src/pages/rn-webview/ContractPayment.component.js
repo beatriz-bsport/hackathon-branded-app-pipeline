@@ -159,8 +159,10 @@ export default compose(
     },
   ),
   withHandlers({
-    requestSetupIntentSecret: ({ memberId }) => () =>
-      requestSetupIntentSecretAPI(memberId),
+    requestSetupIntentSecret:
+      ({ memberId }) =>
+      () =>
+        requestSetupIntentSecretAPI(memberId),
   }),
   withProps(() => ({
     onSuccess: () => {

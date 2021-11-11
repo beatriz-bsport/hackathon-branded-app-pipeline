@@ -370,40 +370,38 @@ const mapWithHandlers = {
       onError: () => props.setSubmitting(false),
     });
   },
-  upsertCustomFormDisplayRule: (props: OwnAndConnectedProps) => (
-    display_rule: CustomFormDisplayRule,
-  ) => {
-    props.setDisplayRuleSubmitting(true);
-    props.upsertCustomFormDisplayRuleAction(
-      { ...display_rule, custom_form_id: props.customForm.id },
-      {
+  upsertCustomFormDisplayRule:
+    (props: OwnAndConnectedProps) => (display_rule: CustomFormDisplayRule) => {
+      props.setDisplayRuleSubmitting(true);
+      props.upsertCustomFormDisplayRuleAction(
+        { ...display_rule, custom_form_id: props.customForm.id },
+        {
+          onSuccess: () => {
+            props.setDisplayRuleSubmitting(false);
+            props.setInitialDisplayRule(null);
+            props.setOpenDisplayRuleDialog(false);
+          },
+          onError: () => {
+            props.setDisplayRuleSubmitting(false);
+            props.setInitialDisplayRule(null);
+          },
+        },
+      );
+    },
+  deleteCustomFormDisplayRule:
+    (props: OwnAndConnectedProps) => (display_rule_id: number) => {
+      props.setDisplayRuleSubmitting(true);
+      props.deleteCustomFormDisplayRuleAction(display_rule_id, {
         onSuccess: () => {
           props.setDisplayRuleSubmitting(false);
           props.setInitialDisplayRule(null);
-          props.setOpenDisplayRuleDialog(false);
         },
         onError: () => {
           props.setDisplayRuleSubmitting(false);
           props.setInitialDisplayRule(null);
         },
-      },
-    );
-  },
-  deleteCustomFormDisplayRule: (props: OwnAndConnectedProps) => (
-    display_rule_id: number,
-  ) => {
-    props.setDisplayRuleSubmitting(true);
-    props.deleteCustomFormDisplayRuleAction(display_rule_id, {
-      onSuccess: () => {
-        props.setDisplayRuleSubmitting(false);
-        props.setInitialDisplayRule(null);
-      },
-      onError: () => {
-        props.setDisplayRuleSubmitting(false);
-        props.setInitialDisplayRule(null);
-      },
-    });
-  },
+      });
+    },
   navigateToSignup: (props: OwnAndConnectedProps) => () => {
     props.push(`/custom-form/details/${props.signUpCustomForm.id}/general`);
   },
@@ -441,16 +439,14 @@ const withStateHandlersSetter = {
   setOpenDisplayRuleDialog: () => (openDisplayRuleDialog: boolean) => {
     return { openDisplayRuleDialog };
   },
-  setInitialDisplayRule: () => (
-    initialDisplayRule: null | CustomFormDisplayRule,
-  ) => {
-    return { initialDisplayRule };
-  },
-  setNumberOfQuestionsHasChanged: () => (
-    numberOfQuestionsHasChanged: boolean,
-  ) => {
-    return { numberOfQuestionsHasChanged };
-  },
+  setInitialDisplayRule:
+    () => (initialDisplayRule: null | CustomFormDisplayRule) => {
+      return { initialDisplayRule };
+    },
+  setNumberOfQuestionsHasChanged:
+    () => (numberOfQuestionsHasChanged: boolean) => {
+      return { numberOfQuestionsHasChanged };
+    },
   setOpenLayoutUpdateDialog: () => (openLayoutUpdateDialog: boolean) => {
     return { openLayoutUpdateDialog };
   },

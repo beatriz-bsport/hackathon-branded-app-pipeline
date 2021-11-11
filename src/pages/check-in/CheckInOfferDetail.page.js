@@ -225,28 +225,29 @@ export default compose(
         faceIdEnabled: false,
         barcodeDetectorEnabled: false,
       }),
-      toogleFaceId: ({ faceIdEnabled, barcodeDetectorEnabled }) => () => ({
-        faceIdEnabled: !faceIdEnabled,
-        barcodeDetectorEnabled: barcodeDetectorEnabled && !!faceIdEnabled,
-      }),
-      toogleBarcodeDetector: ({
-        faceIdEnabled,
-        barcodeDetectorEnabled,
-      }) => () => ({
-        faceIdEnabled: faceIdEnabled && !!barcodeDetectorEnabled,
-        barcodeDetectorEnabled: !barcodeDetectorEnabled,
-      }),
+      toogleFaceId:
+        ({ faceIdEnabled, barcodeDetectorEnabled }) =>
+        () => ({
+          faceIdEnabled: !faceIdEnabled,
+          barcodeDetectorEnabled: barcodeDetectorEnabled && !!faceIdEnabled,
+        }),
+      toogleBarcodeDetector:
+        ({ faceIdEnabled, barcodeDetectorEnabled }) =>
+        () => ({
+          faceIdEnabled: faceIdEnabled && !!barcodeDetectorEnabled,
+          barcodeDetectorEnabled: !barcodeDetectorEnabled,
+        }),
       setOnMemberUnSelectedCallback: () => (onMemberUnselectedCallback) => ({
         onMemberUnselectedCallback,
       }),
-      executeOnMemberUnselectedCallback: ({
-        onMemberUnselectedCallback,
-      }) => () => {
-        if (typeof onMemberUnselectedCallback === 'function') {
-          onMemberUnselectedCallback();
-        }
-        return { onMemberUnselectedCallback: null };
-      },
+      executeOnMemberUnselectedCallback:
+        ({ onMemberUnselectedCallback }) =>
+        () => {
+          if (typeof onMemberUnselectedCallback === 'function') {
+            onMemberUnselectedCallback();
+          }
+          return { onMemberUnselectedCallback: null };
+        },
     },
   ),
   withProps(
@@ -302,44 +303,42 @@ export default compose(
     },
   ),
   withHandlers({
-    fetchByOfferByMember: ({
-      fetchByOfferByMember,
-      offerId,
-      searchedMember,
-    }) => () => {
-      fetchByOfferByMember(offerId, searchedMember.id);
-    },
-    fetchOfferData: ({
-      offerId,
-      fetchFilteredMembers,
-      fetchBookingsByOffer,
-      retrieveConsumerPackBulk,
-    }) => () => {
-      fetchBookingsByOffer(
+    fetchByOfferByMember:
+      ({ fetchByOfferByMember, offerId, searchedMember }) =>
+      () => {
+        fetchByOfferByMember(offerId, searchedMember.id);
+      },
+    fetchOfferData:
+      ({
         offerId,
-        {
-          onSuccess: (bs) => {
-            retrieveConsumerPackBulk(bs.map((b) => b.consumer_payment_pack));
+        fetchFilteredMembers,
+        fetchBookingsByOffer,
+        retrieveConsumerPackBulk,
+      }) =>
+      () => {
+        fetchBookingsByOffer(
+          offerId,
+          {
+            onSuccess: (bs) => {
+              retrieveConsumerPackBulk(bs.map((b) => b.consumer_payment_pack));
+            },
           },
-        },
-        null,
-        { booking_status_code: 0 },
-      );
-      fetchFilteredMembers({ offer: offerId });
-    },
-    upsertMember: ({ upsertMember, closeRegistrationFlow }) => (
-      id,
-      data,
-      options,
-    ) => {
-      upsertMember(id, data, {
-        onError: options && options.onError,
-        onSuccess: (member) => {
-          if (options && options.onSuccess) options.onSuccess(member);
-          closeRegistrationFlow();
-        },
-      });
-    },
+          null,
+          { booking_status_code: 0 },
+        );
+        fetchFilteredMembers({ offer: offerId });
+      },
+    upsertMember:
+      ({ upsertMember, closeRegistrationFlow }) =>
+      (id, data, options) => {
+        upsertMember(id, data, {
+          onError: options && options.onError,
+          onSuccess: (member) => {
+            if (options && options.onSuccess) options.onSuccess(member);
+            closeRegistrationFlow();
+          },
+        });
+      },
   }),
   withProps(({ bookings, members }) => ({
     // ugly FIXME
@@ -349,24 +348,21 @@ export default compose(
     })),
   })),
   withHandlers({
-    registerWithPass: ({
-      fetchOfferData,
-      registerBooking,
-      offerId,
-      closeRegistrationFlow,
-    }) => (consumerPaymentPackId, options) => {
-      registerBooking(
-        consumerPaymentPackId,
-        { offer: offerId },
-        {
-          onError: options && options.onError,
-          onSuccess: () => {
-            fetchOfferData();
-            closeRegistrationFlow();
-            if (options && options.onSuccess) options.onSuccess();
+    registerWithPass:
+      ({ fetchOfferData, registerBooking, offerId, closeRegistrationFlow }) =>
+      (consumerPaymentPackId, options) => {
+        registerBooking(
+          consumerPaymentPackId,
+          { offer: offerId },
+          {
+            onError: options && options.onError,
+            onSuccess: () => {
+              fetchOfferData();
+              closeRegistrationFlow();
+              if (options && options.onSuccess) options.onSuccess();
+            },
           },
-        },
-      );
-    },
+        );
+      },
   }),
 )(CheckInOfferDetailPage);

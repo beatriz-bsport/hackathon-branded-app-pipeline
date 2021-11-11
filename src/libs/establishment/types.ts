@@ -107,7 +107,8 @@ export type EstablishmentGroupByAddress = {
   establishmentList: Array<Establishment>;
 };
 
-export type EstablishmentListGroupByAddress = Array<EstablishmentGroupByAddress>;
+export type EstablishmentListGroupByAddress =
+  Array<EstablishmentGroupByAddress>;
 export type EstablishmentGroupAPI = {
   id?: number;
   name: string;

@@ -169,13 +169,12 @@ export default compose(
     },
   ),
   withHandlers({
-    requestClasspassPartnership: ({
-      requestPartnership,
-      setHasRequested,
-    }) => () => {
-      requestPartnership('classpass', {
-        onSuccess: () => setHasRequested(true),
-      });
-    },
+    requestClasspassPartnership:
+      ({ requestPartnership, setHasRequested }) =>
+      () => {
+        requestPartnership('classpass', {
+          onSuccess: () => setHasRequested(true),
+        });
+      },
   }),
 )(Partnership);

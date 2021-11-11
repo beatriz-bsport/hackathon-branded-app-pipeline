@@ -173,12 +173,14 @@ export default compose(
   withStyles(styles),
   withTranslation(['booking']),
   withStateHandlers(({ offerId }) => ({ offersSelected: [offerId] }), {
-    toogleChecked: ({ offersSelected }) => (id) => {
-      if (offersSelected.includes(id)) {
-        return { offersSelected: offersSelected.filter((i) => i !== id) };
-      }
-      return { offersSelected: [...offersSelected, id] };
-    },
+    toogleChecked:
+      ({ offersSelected }) =>
+      (id) => {
+        if (offersSelected.includes(id)) {
+          return { offersSelected: offersSelected.filter((i) => i !== id) };
+        }
+        return { offersSelected: [...offersSelected, id] };
+      },
   }),
   withProps(({ similarOfferLoading, paymentPack, consumerPaymentPack }) => ({
     loading: similarOfferLoading || (!paymentPack && !consumerPaymentPack),

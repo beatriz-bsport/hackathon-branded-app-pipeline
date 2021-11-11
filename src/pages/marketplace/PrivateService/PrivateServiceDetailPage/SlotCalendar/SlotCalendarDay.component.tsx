@@ -32,15 +32,25 @@ type Props = {
 };
 
 const SlotCalendarDay: React.FC<Props> = (props) => {
+  const {
+    timezoneName,
+    privateService,
+    privateSlot,
+    slots,
+    date,
+    selectedSessionMoment,
+    onSessionMomentSelect,
+  } = props;
+
   const isSelected = useCallback(
     (sessionMoment) => {
       return (
-        props.selectedSessionMoment &&
-        sessionMoment.date === props.selectedSessionMoment.date &&
-        sessionMoment.identifier === props.selectedSessionMoment.identifier
+        selectedSessionMoment &&
+        sessionMoment.date === selectedSessionMoment.date &&
+        sessionMoment.identifier === selectedSessionMoment.identifier
       );
     },
-    [props.selectedSessionMoment],
+    [selectedSessionMoment],
   );
 
   const classes = useStyles();
@@ -55,23 +65,23 @@ const SlotCalendarDay: React.FC<Props> = (props) => {
         </Typography>{' '}
       </div>
     );
-  }, []);
+  }, [classes.centerView]);
 
   const renderSessionsMoment = useCallback(() => {
     let sessions = [];
 
-    if (props.slots?.length && props.privateService && props.privateSlot) {
+    if (slots?.length && privateService && privateSlot) {
       sessions = splitIntervalList(
-        props.slots,
-        props.privateSlot.duration_minutes,
-        props.privateSlot.booking_interval_minutes,
+        slots,
+        privateSlot.duration_minutes,
+        privateSlot.booking_interval_minutes,
       );
     }
 
     const sessionsByDayMoment = groupSessionsByDayMoment(
       sessions,
-      props.timezoneName,
-      props.date.format('YYYY-MM-DD'),
+      timezoneName,
+      date.format('YYYY-MM-DD'),
     );
 
     const sessionByDayElement: any[] = [];
@@ -102,9 +112,7 @@ const SlotCalendarDay: React.FC<Props> = (props) => {
           className={classes.slotMomentContainer}
         >
           <ButtonBase
-            onClick={() =>
-              props.privateSlot && props.onSessionMomentSelect(sessionMoment)
-            }
+            onClick={() => privateSlot && onSessionMomentSelect(sessionMoment)}
             className={`${classes.slotMoment} ${
               selected ? classes.selected : ''
             }`}
@@ -142,13 +150,27 @@ const SlotCalendarDay: React.FC<Props> = (props) => {
       return sessionByDayElement;
     }
     return renderNoSessions();
-  }, [props.privateSlot, props.privateService, props.timezoneName, props.date]);
+  }, [
+    privateSlot,
+    privateService,
+    timezoneName,
+    date,
+    classes.absoluteTopLeft,
+    classes.interval,
+    classes.row,
+    classes.selected,
+    classes.slotMoment,
+    classes.slotMomentContainer,
+    isSelected,
+    onSessionMomentSelect,
+    renderNoSessions,
+    slots,
+    t,
+  ]);
 
-  const weekDay = t(
-    `datetime:time.isoWeekdayNumber.${props.date.isoWeekday()}`,
-  );
+  const weekDay = t(`datetime:time.isoWeekdayNumber.${date.isoWeekday()}`);
   const month = t(
-    `datetime:time.monthShort.${props.date
+    `datetime:time.monthShort.${date
       .locale('en-US')
       .format('MMMM')
       .toLowerCase()}`,
@@ -159,13 +181,11 @@ const SlotCalendarDay: React.FC<Props> = (props) => {
       <div className={classes.dateContainer}>
         <Typography variant="subtitle1">{weekDay}</Typography>
         <Typography variant="subtitle2" color="textSecondary">
-          {`${month} ${props.date.date()}`}
+          {`${month} ${date.date()}`}
         </Typography>
       </div>
 
-      {!!props.slots && !!props.slots.length
-        ? renderSessionsMoment()
-        : renderNoSessions()}
+      {!!slots && !!slots.length ? renderSessionsMoment() : renderNoSessions()}
     </div>
   );
 };

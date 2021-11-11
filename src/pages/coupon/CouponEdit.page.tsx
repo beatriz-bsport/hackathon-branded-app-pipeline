@@ -116,23 +116,24 @@ const connector = connect(
 );
 
 const mapWithHandlers = {
-  updateCoupon: (props: ConnectedProps<typeof connector> & { id: number }) => (
-    data: any,
-  ) =>
-    props.updateCouponAction(props.id, data, {
-      onSuccess: props.goToCouponList,
-    }),
-  fetchCouponPage: (
-    props: ConnectedProps<typeof connector> & { id: number },
-  ) => (pageId: number) =>
-    props.fetchCouponPage(pageId, {
-      onSuccess: (coupons: Array<Coupon>) => {
-        const coupon = coupons.find((couponItem) => couponItem.id === props.id);
-        if (coupon.applies_to === BUYABLE_ITEM_SHOP_ITEM) {
-          props.fetchShopBulk(coupon.company, coupon.only_on_objects);
-        }
-      },
-    }),
+  updateCoupon:
+    (props: ConnectedProps<typeof connector> & { id: number }) => (data: any) =>
+      props.updateCouponAction(props.id, data, {
+        onSuccess: props.goToCouponList,
+      }),
+  fetchCouponPage:
+    (props: ConnectedProps<typeof connector> & { id: number }) =>
+    (pageId: number) =>
+      props.fetchCouponPage(pageId, {
+        onSuccess: (coupons: Array<Coupon>) => {
+          const coupon = coupons.find(
+            (couponItem) => couponItem.id === props.id,
+          );
+          if (coupon.applies_to === BUYABLE_ITEM_SHOP_ITEM) {
+            props.fetchShopBulk(coupon.company, coupon.only_on_objects);
+          }
+        },
+      }),
 };
 
 export default compose(

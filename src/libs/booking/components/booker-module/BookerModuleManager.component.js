@@ -54,14 +54,14 @@ type Props = {
     consumerPaymentPack?: ConsumerPaymentPack,
   },
   fetchByOfferByMemberAction: () => void,
-  fetchPaymentPackBulk: (Array<number>) => void,
+  fetchPaymentPackBulk: (pps: Array<number>) => void,
   fetchNoncompatibleConsumerPackByOfferByMember: (
     offerId: number,
     memberId: number,
     options: OptionCallback,
   ) => void,
   step: number,
-  setRegistererObject: ({
+  setRegistererObject: (data: {
     consumerPaymentPack?: ConsumerPaymentPack,
     paymentPack?: PaymentPack,
   }) => void,
@@ -337,40 +337,46 @@ export default compose(
   withState('keep_credits', 'setKeepCredits', false),
   withState('memberDetail', 'setMemberDetail', {}),
   withHandlers({
-    backToRegistererChoice: ({ setRegistererObject, setStep }) => () => {
-      setStep(REGISTER_METHOD_CHOICE);
-      setRegistererObject({});
-    },
-    setRegistererObject: ({ setRegistererObject, setStep }) => (object) => {
-      setRegistererObject(object);
-      setStep(OFFER_CHOICE);
-    },
+    backToRegistererChoice:
+      ({ setRegistererObject, setStep }) =>
+      () => {
+        setStep(REGISTER_METHOD_CHOICE);
+        setRegistererObject({});
+      },
+    setRegistererObject:
+      ({ setRegistererObject, setStep }) =>
+      (object) => {
+        setRegistererObject(object);
+        setStep(OFFER_CHOICE);
+      },
   }),
   withHandlers({
-    registerToOffer: ({
-      registerToOffer,
-      notify_member,
-      keep_credits,
-      registererObject,
-      member,
-    }) => (
-      offerId,
-      registererObjectOverride,
-      voucher?,
-      billingEstablishmentId?,
-    ) => {
-      registerToOffer(
-        member.id,
+    registerToOffer:
+      ({
+        registerToOffer,
+        notify_member,
+        keep_credits,
+        registererObject,
+        member,
+      }) =>
+      (
         offerId,
-        registererObjectOverride || registererObject,
-        {
-          notify_member,
-          keep_credits,
-        },
-        voucher,
-        billingEstablishmentId,
-      );
-    },
+        registererObjectOverride,
+        voucher?,
+        billingEstablishmentId?,
+      ) => {
+        registerToOffer(
+          member.id,
+          offerId,
+          registererObjectOverride || registererObject,
+          {
+            notify_member,
+            keep_credits,
+          },
+          voucher,
+          billingEstablishmentId,
+        );
+      },
   }),
   withProps(
     ({

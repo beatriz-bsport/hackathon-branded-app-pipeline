@@ -191,33 +191,33 @@ const mapWithHandlers = {
       onError: () => props.snackbarError('settings.update.error'),
     });
   },
-  upsertEstablishmentBillingGroup: (props: OwnAndConnectedProps) => (
-    establishmentBillingGroup: EstablishmentBillingGroupType,
-  ) => {
-    props.setSubmitting(true);
-    props.upsertEstablishmentBillingGroupAction(establishmentBillingGroup, {
-      onSuccess: () => {
-        props.setSubmitting(false);
-        props.setInitialBillingGroup(null);
-        props.setOpenDialogForm(false);
-        props.fetchEstablishments();
-      },
-      onError: () => props.setSubmitting(false),
-    });
-  },
-  deleteEstablishmentBillingGroup: (props: OwnAndConnectedProps) => (
-    establishmentBillingGroup: EstablishmentBillingGroupType,
-  ) => {
-    props.setSubmitting(true);
-    props.deleteEstablishmentBillingGroupAction(establishmentBillingGroup, {
-      onSuccess: () => {
-        props.setSubmitting(false);
-        props.setInitialBillingGroup(null);
-        props.fetchEstablishments();
-      },
-      onError: () => props.setSubmitting(false),
-    });
-  },
+  upsertEstablishmentBillingGroup:
+    (props: OwnAndConnectedProps) =>
+    (establishmentBillingGroup: EstablishmentBillingGroupType) => {
+      props.setSubmitting(true);
+      props.upsertEstablishmentBillingGroupAction(establishmentBillingGroup, {
+        onSuccess: () => {
+          props.setSubmitting(false);
+          props.setInitialBillingGroup(null);
+          props.setOpenDialogForm(false);
+          props.fetchEstablishments();
+        },
+        onError: () => props.setSubmitting(false),
+      });
+    },
+  deleteEstablishmentBillingGroup:
+    (props: OwnAndConnectedProps) =>
+    (establishmentBillingGroup: EstablishmentBillingGroupType) => {
+      props.setSubmitting(true);
+      props.deleteEstablishmentBillingGroupAction(establishmentBillingGroup, {
+        onSuccess: () => {
+          props.setSubmitting(false);
+          props.setInitialBillingGroup(null);
+          props.fetchEstablishments();
+        },
+        onError: () => props.setSubmitting(false),
+      });
+    },
 };
 const withStateHandlersInit: StateHandlerInit = {
   openDialogForm: false,
@@ -228,11 +228,10 @@ const withStateHandlersSetter = {
   setOpenDialogForm: () => (openDialogForm: boolean) => {
     return { openDialogForm };
   },
-  setInitialBillingGroup: () => (
-    initialBillingGroup: EstablishmentBillingGroupType | null,
-  ) => {
-    return { initialBillingGroup };
-  },
+  setInitialBillingGroup:
+    () => (initialBillingGroup: EstablishmentBillingGroupType | null) => {
+      return { initialBillingGroup };
+    },
   setSubmitting: () => (submitting: boolean) => {
     return { submitting };
   },

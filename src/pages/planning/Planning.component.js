@@ -223,7 +223,7 @@ type Props = {
     filters: any,
     options: OptionCallback,
   ) => void,
-  setMassDisablerStartDate: (?string) => void,
+  setMassDisablerStartDate: (date: ?string) => void,
   setShowCancelledOffers: (boolean) => void,
   setOpenDeleteDialog: () => void,
   openDeleteDialog: boolean,
@@ -444,6 +444,7 @@ export class Planning extends PureComponent<Props, State> {
       }
     } catch (err) {
       if (err.response && err.response.status === 403) {
+        // eslint-disable-next-line
         alert(this.props.t('calendar.canDeleteWithBooking'));
       } else {
         this.props.snackbarError('background.cannotFetch');
@@ -1014,33 +1015,17 @@ export default compose(
     },
   ),
   withHandlers({
-    setShowCancelledOffers: ({ offerFilters, setFilters }) => (
-      showCancelled,
-    ) => {
-      let filters = { ...offerFilters };
-      filters = { ...filters, available: !showCancelled };
-      setFilters(filters);
-    },
-    fetchRelevantOffers: ({
-      fetchAllOffers,
-      theme,
-      fetchBookedGender,
-      offerFilters,
-      date,
-    }) => () => {
-      fetchAllOffers({
-        min_date: moment(date)
-          .startOf('month')
-          .startOf('week')
-          .format('YYYY-MM-DD'),
-        max_date: moment(date)
-          .endOf('month')
-          .endOf('week')
-          .format('YYYY-MM-DD'),
-        ...omit(offerFilters || {}, 'available'),
-      });
-      if (theme && theme.show_booked_gender_offer) {
-        fetchBookedGender({
+    setShowCancelledOffers:
+      ({ offerFilters, setFilters }) =>
+      (showCancelled) => {
+        let filters = { ...offerFilters };
+        filters = { ...filters, available: !showCancelled };
+        setFilters(filters);
+      },
+    fetchRelevantOffers:
+      ({ fetchAllOffers, theme, fetchBookedGender, offerFilters, date }) =>
+      () => {
+        fetchAllOffers({
           min_date: moment(date)
             .startOf('month')
             .startOf('week')
@@ -1051,54 +1036,63 @@ export default compose(
             .format('YYYY-MM-DD'),
           ...omit(offerFilters || {}, 'available'),
         });
-      }
-    },
-    fetchBookingInOfferStats: ({
-      selectedOffer,
-      fetchBookingStatistics,
-    }) => () => {
-      fetchBookingStatistics('createdBookings', {
-        offer: selectedOffer.id,
-        date_field: 'date_created',
-        kind: 'count',
-      });
-      fetchBookingStatistics('cancelledBookings', {
-        offer: selectedOffer.id,
-        booking_status_code__in: [
-          BOOKING_STATUS_CANCELLED_BY_MANAGER.id,
-          BOOKING_STATUS_CANCELLED_BY_CONSUMER.id,
-          BOOKING_STATUS_CANCELLED_BY_OFFER.id,
-        ],
-        date_field: 'date_updated',
-        // date_field: 'date_canceled',
-        kind: 'count',
-      });
-    },
-    fetchBookingStatsOfTheWeek: ({
-      date,
-      fetchBookingStatistics,
-      offerFilters,
-    }) => () => {
-      fetchBookingStatistics('createdBookings', {
-        min_date: moment(date).startOf('week').format('YYYY-MM-DD'),
-        max_date: moment(date).endOf('week').format('YYYY-MM-DD'),
-        ...omit(offerFilters || {}, 'available'),
-        date_field: 'offer__date_start',
-        kind: 'count',
-      });
-      fetchBookingStatistics('cancelledBookings', {
-        min_date: moment(date).startOf('week').format('YYYY-MM-DD'),
-        max_date: moment(date).endOf('week').format('YYYY-MM-DD'),
-        booking_status_code__in: [
-          BOOKING_STATUS_CANCELLED_BY_CONSUMER.id,
-          BOOKING_STATUS_CANCELLED_BY_MANAGER.id,
-          BOOKING_STATUS_CANCELLED_BY_OFFER.id,
-        ],
-        ...omit(offerFilters || {}, 'available'),
-        date_field: 'offer__date_start',
-        kind: 'count',
-      });
-    },
+        if (theme && theme.show_booked_gender_offer) {
+          fetchBookedGender({
+            min_date: moment(date)
+              .startOf('month')
+              .startOf('week')
+              .format('YYYY-MM-DD'),
+            max_date: moment(date)
+              .endOf('month')
+              .endOf('week')
+              .format('YYYY-MM-DD'),
+            ...omit(offerFilters || {}, 'available'),
+          });
+        }
+      },
+    fetchBookingInOfferStats:
+      ({ selectedOffer, fetchBookingStatistics }) =>
+      () => {
+        fetchBookingStatistics('createdBookings', {
+          offer: selectedOffer.id,
+          date_field: 'date_created',
+          kind: 'count',
+        });
+        fetchBookingStatistics('cancelledBookings', {
+          offer: selectedOffer.id,
+          booking_status_code__in: [
+            BOOKING_STATUS_CANCELLED_BY_MANAGER.id,
+            BOOKING_STATUS_CANCELLED_BY_CONSUMER.id,
+            BOOKING_STATUS_CANCELLED_BY_OFFER.id,
+          ],
+          date_field: 'date_updated',
+          // date_field: 'date_canceled',
+          kind: 'count',
+        });
+      },
+    fetchBookingStatsOfTheWeek:
+      ({ date, fetchBookingStatistics, offerFilters }) =>
+      () => {
+        fetchBookingStatistics('createdBookings', {
+          min_date: moment(date).startOf('week').format('YYYY-MM-DD'),
+          max_date: moment(date).endOf('week').format('YYYY-MM-DD'),
+          ...omit(offerFilters || {}, 'available'),
+          date_field: 'offer__date_start',
+          kind: 'count',
+        });
+        fetchBookingStatistics('cancelledBookings', {
+          min_date: moment(date).startOf('week').format('YYYY-MM-DD'),
+          max_date: moment(date).endOf('week').format('YYYY-MM-DD'),
+          booking_status_code__in: [
+            BOOKING_STATUS_CANCELLED_BY_CONSUMER.id,
+            BOOKING_STATUS_CANCELLED_BY_MANAGER.id,
+            BOOKING_STATUS_CANCELLED_BY_OFFER.id,
+          ],
+          ...omit(offerFilters || {}, 'available'),
+          date_field: 'offer__date_start',
+          kind: 'count',
+        });
+      },
   }),
   withState('openDeleteDialog', 'setOpenDeleteDialog', false),
   withState('massDisablerStartDate', 'setMassDisablerStartDate', null),

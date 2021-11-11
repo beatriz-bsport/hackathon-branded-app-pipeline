@@ -169,6 +169,7 @@ export class SelectTemplate extends Component<Props> {
               !!this.props.emailDetails[this.props.selectedMail] ? (
                 <div>
                   <div
+                    // eslint-disable-next-line
                     dangerouslySetInnerHTML={{
                       __html: this.props.emailDetails
                         ? this.props.emailDetails[this.props.selectedMail].html

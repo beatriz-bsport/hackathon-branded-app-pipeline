@@ -174,7 +174,8 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
   hasBlueprintChanged = () => {
     let old_elements = [];
     if (this.props.selectedRoomBlueprint.canvas?.elements?.asMutable) {
-      old_elements = this.props.selectedRoomBlueprint.canvas?.elements?.asMutable();
+      old_elements =
+        this.props.selectedRoomBlueprint.canvas?.elements?.asMutable();
     } else {
       old_elements = this.props.selectedRoomBlueprint.canvas?.elements;
     }

@@ -15,7 +15,7 @@ type Props = {
 
   itemList: ?Array<any>,
   itemSelected: ?any,
-  setItemSelected: (?any) => void,
+  setItemSelected: (item: ?any) => void,
   iconList: ?{ [string]: any },
 };
 

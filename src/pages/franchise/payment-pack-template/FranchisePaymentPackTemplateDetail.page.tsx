@@ -158,59 +158,65 @@ export default compose(
   ),
   connector,
   withHandlers({
-    deletePaymentPackTemplateInstance: ({
-      deletePaymentPackTemplateInstance,
-      paymentPackTemplateId,
-      retrievePaymentPackTemplate,
-      closeDeleteDialog,
-    }) => (id, options) => {
-      deletePaymentPackTemplateInstance(id, {
-        onSuccess: (...args) => {
-          retrievePaymentPackTemplate(paymentPackTemplateId);
-          closeDeleteDialog();
-          if (options && options.onSuccess) options.onSuccess(...args);
-        },
-        onError: options?.onError,
-      });
-    },
-    createPaymentPackTemplateInstance: ({
-      createPaymentPackTemplateInstance,
-      paymentPackTemplateId,
-      retrievePaymentPackTemplate,
-      closeCreateForm,
-    }) => (data, options) => {
-      createPaymentPackTemplateInstance(
-        { ...data, payment_pack_template: paymentPackTemplateId },
-        {
+    deletePaymentPackTemplateInstance:
+      ({
+        deletePaymentPackTemplateInstance,
+        paymentPackTemplateId,
+        retrievePaymentPackTemplate,
+        closeDeleteDialog,
+      }) =>
+      (id, options) => {
+        deletePaymentPackTemplateInstance(id, {
           onSuccess: (...args) => {
             retrievePaymentPackTemplate(paymentPackTemplateId);
-            closeCreateForm();
+            closeDeleteDialog();
             if (options && options.onSuccess) options.onSuccess(...args);
           },
           onError: options?.onError,
-        },
-      );
-    },
-    fetchConsumerPaymentPackList: ({
-      fetchConsumerPaymentPackList,
-      fetchPaymentPackBulk,
-      fetchFilteredMembers,
-      paymentPackTemplateId: payment_pack_template,
-    }) => (page: number, page_size: number) => {
-      fetchConsumerPaymentPackList(
-        { page, page_size, payment_pack_template },
-        {
-          onSuccess: (consumerPackList) => {
-            fetchPaymentPackBulk(
-              consumerPackList.map((cpp) => cpp.payment_pack),
-            );
-            fetchFilteredMembers({
-              id__in: consumerPackList.map((b: any) => b.member_id),
-            });
+        });
+      },
+    createPaymentPackTemplateInstance:
+      ({
+        createPaymentPackTemplateInstance,
+        paymentPackTemplateId,
+        retrievePaymentPackTemplate,
+        closeCreateForm,
+      }) =>
+      (data, options) => {
+        createPaymentPackTemplateInstance(
+          { ...data, payment_pack_template: paymentPackTemplateId },
+          {
+            onSuccess: (...args) => {
+              retrievePaymentPackTemplate(paymentPackTemplateId);
+              closeCreateForm();
+              if (options && options.onSuccess) options.onSuccess(...args);
+            },
+            onError: options?.onError,
           },
-        },
-      );
-    },
+        );
+      },
+    fetchConsumerPaymentPackList:
+      ({
+        fetchConsumerPaymentPackList,
+        fetchPaymentPackBulk,
+        fetchFilteredMembers,
+        paymentPackTemplateId: payment_pack_template,
+      }) =>
+      (page: number, page_size: number) => {
+        fetchConsumerPaymentPackList(
+          { page, page_size, payment_pack_template },
+          {
+            onSuccess: (consumerPackList) => {
+              fetchPaymentPackBulk(
+                consumerPackList.map((cpp) => cpp.payment_pack),
+              );
+              fetchFilteredMembers({
+                id__in: consumerPackList.map((b: any) => b.member_id),
+              });
+            },
+          },
+        );
+      },
   }),
   withTitle(({ paymentPackTemplate }) =>
     paymentPackTemplate ? paymentPackTemplate.name : '',

@@ -198,8 +198,10 @@ export default compose<any, OwnProps>(
   // withOpenEvent('backoffice'),
   connector,
   withHandlers({
-    disconnect: ({ signout, theme }) => () => {
-      signout(theme?.company);
-    },
+    disconnect:
+      ({ signout, theme }) =>
+      () => {
+        signout(theme?.company);
+      },
   }),
 )(FranchiseRouter);

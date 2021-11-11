@@ -155,21 +155,25 @@ export default compose(
     },
   ),
   withHandlers({
-    removeUrlCode: ({ replace }) => () => {
-      replace(window.location.pathname);
-    },
-    revokeZoomApp: ({ revokeZoomApp, theme }) => () => {
-      revokeZoomApp(theme.company);
-    },
-    submitZoomApp: ({ submitZoomApp, fetchZoomApp, theme }) => (
-      zoomAppData,
-    ) => {
-      submitZoomApp(theme.company, zoomAppData, {
-        onSuccess: () => {
-          fetchZoomApp(theme.company);
-        },
-      });
-    },
+    removeUrlCode:
+      ({ replace }) =>
+      () => {
+        replace(window.location.pathname);
+      },
+    revokeZoomApp:
+      ({ revokeZoomApp, theme }) =>
+      () => {
+        revokeZoomApp(theme.company);
+      },
+    submitZoomApp:
+      ({ submitZoomApp, fetchZoomApp, theme }) =>
+      (zoomAppData) => {
+        submitZoomApp(theme.company, zoomAppData, {
+          onSuccess: () => {
+            fetchZoomApp(theme.company);
+          },
+        });
+      },
   }),
   withRouter,
   withProps(({ location }) => ({

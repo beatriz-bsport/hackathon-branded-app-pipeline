@@ -69,7 +69,7 @@ type Props = {
   classes: Object,
   fetchPaymentPack: (id: number, options: OptionCallback) => void,
   paymentPackId: number,
-  fetchMetaActivityBulk: (Array<number>) => void,
+  fetchMetaActivityBulk: (metactivities: Array<number>) => void,
   fetchVideoFilterableParams: (params: any) => void,
   videoSCTs: Array<number>,
   fetchAllPaymentPackCategory: () => void,

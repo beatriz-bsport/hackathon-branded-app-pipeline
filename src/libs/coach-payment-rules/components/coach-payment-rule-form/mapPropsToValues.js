@@ -6,32 +6,38 @@ import {
 
 export const mapInitalPropsToValues = (initial, ruleTypeCreation) => {
   if (initial) {
-    const purcentage_base_exists_confirmed_bookings = initial.bonus_coach_payment.find(
-      (bonus) =>
-        bonus.kind === BONUS_COACH_PAYMENT_RULE_MARGIN_VALUE &&
-        bonus.applicability ===
-          BONUS_COACH_PAYMENT_RULE_APPLICABILITY_CONFIRMED_BOOKING,
-    );
-    const purcentage_base_exists_cancelled_bookings = initial.bonus_coach_payment.find(
-      (bonus) =>
-        bonus.kind === BONUS_COACH_PAYMENT_RULE_MARGIN_VALUE &&
-        bonus.applicability ===
-          BONUS_COACH_PAYMENT_RULE_APPLICABILITY_CANCELLED_BOOKING,
-    );
-    const purcentage_base_confirmed_bookings = purcentage_base_exists_confirmed_bookings
-      ? purcentage_base_exists_confirmed_bookings.bonus
-      : 0;
-    const purcentage_base_cancelled_bookings = purcentage_base_exists_cancelled_bookings
-      ? purcentage_base_exists_cancelled_bookings.bonus
-      : 0;
+    const purcentage_base_exists_confirmed_bookings =
+      initial.bonus_coach_payment.find(
+        (bonus) =>
+          bonus.kind === BONUS_COACH_PAYMENT_RULE_MARGIN_VALUE &&
+          bonus.applicability ===
+            BONUS_COACH_PAYMENT_RULE_APPLICABILITY_CONFIRMED_BOOKING,
+      );
+    const purcentage_base_exists_cancelled_bookings =
+      initial.bonus_coach_payment.find(
+        (bonus) =>
+          bonus.kind === BONUS_COACH_PAYMENT_RULE_MARGIN_VALUE &&
+          bonus.applicability ===
+            BONUS_COACH_PAYMENT_RULE_APPLICABILITY_CANCELLED_BOOKING,
+      );
+    const purcentage_base_confirmed_bookings =
+      purcentage_base_exists_confirmed_bookings
+        ? purcentage_base_exists_confirmed_bookings.bonus
+        : 0;
+    const purcentage_base_cancelled_bookings =
+      purcentage_base_exists_cancelled_bookings
+        ? purcentage_base_exists_cancelled_bookings.bonus
+        : 0;
     return {
       ...initial,
       add_overall_base_remuneration:
         parseFloat(initial.base_remuneration) !== 0,
       add_base_remuneration_for_cancellation:
         parseFloat(initial.base_remuneration_for_cancellation) !== 0,
-      add_percentage_base_confirmed_bookings: purcentage_base_exists_confirmed_bookings,
-      add_percentage_base_cancelled_bookings: purcentage_base_exists_cancelled_bookings,
+      add_percentage_base_confirmed_bookings:
+        purcentage_base_exists_confirmed_bookings,
+      add_percentage_base_cancelled_bookings:
+        purcentage_base_exists_cancelled_bookings,
       excluded_payment_packs: [...initial.excluded_payment_packs],
       percentage_base_confirmed_bookings: purcentage_base_confirmed_bookings,
       percentage_base_cancelled_bookings: purcentage_base_cancelled_bookings,

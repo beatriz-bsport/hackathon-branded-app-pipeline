@@ -28,8 +28,8 @@ function getAddress(object, prefix) {
 
 type Props = {
   t: TFunction,
-  classes: *,
-  company: *,
+  classes: any,
+  company: any,
   updateCompanyDetail: () => void,
   setAddExternalAccountOpen: (boolean) => void,
   addExternalAccountOpen: boolean,

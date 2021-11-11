@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import FolderOutlinedIcon from '@material-ui/icons/FolderOutlined';
 
 type Props = {
-  classes: *,
+  classes: any,
   t: TFunction,
   onChange: (images: ImageFile[]) => void,
   onAddFile: (File) => void,

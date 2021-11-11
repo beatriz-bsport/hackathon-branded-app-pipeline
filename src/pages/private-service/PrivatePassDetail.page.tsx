@@ -389,16 +389,14 @@ const mapWithHandlers = {
         props.setOpenEditForm(false);
       },
     }),
-  fetchConsumerPrivatePassWithMember: (props: WithStateProps) => (
-    page: number,
-    pageSize: number,
-  ) =>
-    props.fetchConsumerPrivatePass(props.id, page, pageSize, props.filters, {
-      onSuccess: (cpps) =>
-        props.fetchFilteredMembers({
-          id__in: cpps.map((b) => b.member),
-        }),
-    }),
+  fetchConsumerPrivatePassWithMember:
+    (props: WithStateProps) => (page: number, pageSize: number) =>
+      props.fetchConsumerPrivatePass(props.id, page, pageSize, props.filters, {
+        onSuccess: (cpps) =>
+          props.fetchFilteredMembers({
+            id__in: cpps.map((b) => b.member),
+          }),
+      }),
 };
 
 type StateHandlerInit = {

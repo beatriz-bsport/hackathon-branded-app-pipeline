@@ -43,7 +43,7 @@ type Props = {
 
   removeImage: (id: number, imageId: number) => void,
   addImage: (id: number, File) => void,
-  onSubmit: (*) => void,
+  onSubmit: () => void,
 
   goToPreviousPage: () => void,
 };

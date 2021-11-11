@@ -428,87 +428,73 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {lodash
-                      .values(specificPrivateSlots)
-                      .map(
-                        (
-                          privateSlot: {
-                            private_slot: number;
-                            coach_payment_rule: number;
-                          },
-                          i: number,
-                        ) => (
-                          <>
-                            <TableRow>
-                              <TableCell>
-                                <PrivateSlotSelectorStyled
-                                  privateServiceList={privateServices}
-                                  selectedServices={[privateSlot.private_slot]}
-                                  placeholder={t('paymentRules:label')}
-                                  disabled={!!coach.coach_payment_rule_group_id}
-                                  onChange={(item: {
-                                    value: number;
-                                    label: string;
-                                  }) => {
-                                    if (!checkPrivateSlotUnicity(item)) {
-                                      displayPrivateSlotError();
-                                    } else {
-                                      updateState(
-                                        'private_slot',
-                                        item.value,
-                                        i,
-                                      );
-                                    }
-                                  }}
-                                  noMulti
-                                />
-                              </TableCell>
-                              <TableCell>
-                                <CoachPaymentRuleSelectorStyled
-                                  coachPaymentRulesList={
-                                    coachPaymentRulesByKind[
-                                      COACH_PERFORMANCE_FOR_APPOINTMENT
-                                    ]
+                    {lodash.values(specificPrivateSlots).map(
+                      (
+                        privateSlot: {
+                          private_slot: number;
+                          coach_payment_rule: number;
+                        },
+                        i: number,
+                      ) => (
+                        <>
+                          <TableRow>
+                            <TableCell>
+                              <PrivateSlotSelectorStyled
+                                privateServiceList={privateServices}
+                                selectedServices={[privateSlot.private_slot]}
+                                placeholder={t('paymentRules:label')}
+                                disabled={!!coach.coach_payment_rule_group_id}
+                                onChange={(item: {
+                                  value: number;
+                                  label: string;
+                                }) => {
+                                  if (!checkPrivateSlotUnicity(item)) {
+                                    displayPrivateSlotError();
+                                  } else {
+                                    updateState('private_slot', item.value, i);
                                   }
-                                  selectedRules={[
-                                    privateSlot.coach_payment_rule,
-                                  ]}
-                                  placeholder={t('paymentRules:label')}
+                                }}
+                                noMulti
+                              />
+                            </TableCell>
+                            <TableCell>
+                              <CoachPaymentRuleSelectorStyled
+                                coachPaymentRulesList={
+                                  coachPaymentRulesByKind[
+                                    COACH_PERFORMANCE_FOR_APPOINTMENT
+                                  ]
+                                }
+                                selectedRules={[privateSlot.coach_payment_rule]}
+                                placeholder={t('paymentRules:label')}
+                                disabled={!!coach.coach_payment_rule_group_id}
+                                onChange={(item: {
+                                  value: number;
+                                  label: string;
+                                }) =>
+                                  updateState(
+                                    'coach_payment_rule',
+                                    item.value,
+                                    i,
+                                  )
+                                }
+                                noMulti
+                              />
+                            </TableCell>
+                            <TableCell align="left" padding="none" size="small">
+                              {!coach.coach_payment_rule_group_id && (
+                                <IconButton
+                                  onClick={() => updateState('delete', 0, i)}
+                                  aria-label="Delete"
                                   disabled={!!coach.coach_payment_rule_group_id}
-                                  onChange={(item: {
-                                    value: number;
-                                    label: string;
-                                  }) =>
-                                    updateState(
-                                      'coach_payment_rule',
-                                      item.value,
-                                      i,
-                                    )
-                                  }
-                                  noMulti
-                                />
-                              </TableCell>
-                              <TableCell
-                                align="left"
-                                padding="none"
-                                size="small"
-                              >
-                                {!coach.coach_payment_rule_group_id && (
-                                  <IconButton
-                                    onClick={() => updateState('delete', 0, i)}
-                                    aria-label="Delete"
-                                    disabled={
-                                      !!coach.coach_payment_rule_group_id
-                                    }
-                                  >
-                                    <ClearIcon />
-                                  </IconButton>
-                                )}
-                              </TableCell>
-                            </TableRow>
-                          </>
-                        ),
-                      )}
+                                >
+                                  <ClearIcon />
+                                </IconButton>
+                              )}
+                            </TableCell>
+                          </TableRow>
+                        </>
+                      ),
+                    )}
                   </TableBody>
                 </>
               </Table>

@@ -4,13 +4,12 @@ import { handleActions } from 'redux-actions';
 import { marketplaceSettingsAction } from './actions';
 import { MarketplaceSettingState } from './types';
 
-const initialState: Immutable.Immutable<MarketplaceSettingState> = Immutable<MarketplaceSettingState>(
-  {
+const initialState: Immutable.Immutable<MarketplaceSettingState> =
+  Immutable<MarketplaceSettingState>({
     loading: false,
     error: null,
     settings: null,
-  },
-);
+  });
 
 export default handleActions<Immutable.Immutable<MarketplaceSettingState>>(
   {

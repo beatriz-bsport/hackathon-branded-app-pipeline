@@ -18,7 +18,7 @@ type Props = {
   termsAccepted: boolean,
   loading: boolean,
   onCancel: () => void,
-  submitPayment: (data: *, options: OptionCallback) => void,
+  submitPayment: (data: any, options: OptionCallback) => void,
   t: TFunction,
   classes: Object,
 };

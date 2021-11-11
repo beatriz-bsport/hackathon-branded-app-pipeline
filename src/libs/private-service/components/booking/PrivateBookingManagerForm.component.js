@@ -269,10 +269,8 @@ export class PrivateBookingManagerForm extends React.Component<Props, State> {
       );
     }
 
-    const [
-      selectableService,
-      selectableSlots,
-    ] = this.getSelectableServiceAndSlotForCoach(this.state.coachId);
+    const [selectableService, selectableSlots] =
+      this.getSelectableServiceAndSlotForCoach(this.state.coachId);
 
     const { t } = this.props;
     return (

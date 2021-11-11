@@ -13,8 +13,8 @@ import {
 
 import type { NotificationRuleState, NotificationRule } from './types';
 
-const initialState: Immutable.Immutable<NotificationRuleState> = Immutable<NotificationRuleState>(
-  {
+const initialState: Immutable.Immutable<NotificationRuleState> =
+  Immutable<NotificationRuleState>({
     rule: {
       byId: {},
       allIds: [],
@@ -44,8 +44,7 @@ const initialState: Immutable.Immutable<NotificationRuleState> = Immutable<Notif
         error: null,
       },
     },
-  },
-);
+  });
 
 export default handleActions<Immutable.Immutable<NotificationRuleState>, any>(
   {

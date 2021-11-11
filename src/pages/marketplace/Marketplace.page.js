@@ -123,7 +123,10 @@ type Props = {
   addItemToBasket: (basketId: string, data: any) => void,
   goToCheckout: (companyId: number) => void,
   fetchProfile: () => void,
-  doEmailLogin: ({ email: string, password: string }, () => void) => void,
+  doEmailLogin: (
+    data: { email: string, password: string },
+    callback: () => void,
+  ) => void,
   goToTab: (
     companyName: string,
     companyId: number,
@@ -133,13 +136,13 @@ type Props = {
   replace: (path: string) => void,
   goToUserSpace: () => void,
 
-  auth: *,
+  auth: any,
 
   t: TFunction,
   classes: Object,
 
   disconnect: () => void,
-  signup: (formdata: *, callback: () => void) => void,
+  signup: (formdata: any, callback: () => void) => void,
   fetchCompanyTheme: () => void,
   theme: any,
   settings: MarketplaceSettings,
@@ -237,8 +240,7 @@ export class MarketPlace extends Component<Props, State> {
 
   componentDidUpdate(prevProps: Props) {
     if (
-      /* eslint-disable-next-line */
-      !isNaN(this.props.companyId) &&
+      !Number.isNaN(this.props.companyId) &&
       (this.props.companyId !== prevProps.companyId ||
         this.props.auth.authenticated !== prevProps.auth.authenticated)
     ) {
@@ -249,8 +251,7 @@ export class MarketPlace extends Component<Props, State> {
       this.sanitizeURL();
     }
 
-    /* eslint-disable-next-line */
-    if (isNaN(this.props.companyId)) {
+    if (Number.isNaN(this.props.companyId)) {
       this.props.replace('/');
     }
   }
@@ -260,9 +261,8 @@ export class MarketPlace extends Component<Props, State> {
 
     // if (parseInt(tabSelected, 10) === parseInt(value, 10)) return;
 
-    const tabConfig: MarketplaceTabConfig = this.props.settings.config[
-      value.toString()
-    ];
+    const tabConfig: MarketplaceTabConfig =
+      this.props.settings.config[value.toString()];
 
     const newPath = fromConfigToUrl(tabConfig, { tabSelected: value });
     this.props.goToTab(newPath);
@@ -673,8 +673,10 @@ export default compose(
     },
   ),
   withHandlers({
-    goToTab: ({ companyName, companyId, push }) => (path) =>
-      push(getMarketplaceRoute(companyName, companyId, path)),
+    goToTab:
+      ({ companyName, companyId, push }) =>
+      (path) =>
+        push(getMarketplaceRoute(companyName, companyId, path)),
   }),
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
 )(MarketPlace);

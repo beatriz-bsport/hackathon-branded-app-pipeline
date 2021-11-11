@@ -197,8 +197,8 @@ export class ValidationCheckout extends React.Component<Props> {
             </Typography>
             <Paper className={classes.paper}>
               {this.props.offerNotBookableList.map((o, idx) => {
-                const error_code = this.props
-                  .offerNotBookableIdWithErrorCodeList[idx][1];
+                const error_code =
+                  this.props.offerNotBookableIdWithErrorCodeList[idx][1];
                 return (
                   <div key={o.id} className={classes.paper}>
                     <OfferBookableItem
@@ -369,15 +369,17 @@ export default compose(
   ),
   withQueryParams([['onValidation'], 'queryParams', 'setQueryParams']),
   withHandlers({
-    onContinue: ({ replace, companyId, queryParams }) => () => {
-      if (WidgetUtils.isWidget()) {
-        WidgetUtils.paymentSuccess();
-        if (queryParams && queryParams.onValidation === 'close') {
-          window.close();
+    onContinue:
+      ({ replace, companyId, queryParams }) =>
+      () => {
+        if (WidgetUtils.isWidget()) {
+          WidgetUtils.paymentSuccess();
+          if (queryParams && queryParams.onValidation === 'close') {
+            window.close();
+          }
+          return;
         }
-        return;
-      }
-      replace(`/c/${companyId}`);
-    },
+        replace(`/c/${companyId}`);
+      },
   }),
 )(ValidationCheckout);

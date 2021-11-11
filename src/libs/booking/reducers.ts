@@ -21,8 +21,8 @@ import {
 } from './actions';
 import { BookingsState } from './types';
 
-export const initialState: Immutable.Immutable<BookingsState> = Immutable<BookingsState>(
-  {
+export const initialState: Immutable.Immutable<BookingsState> =
+  Immutable<BookingsState>({
     byId: {},
     broadcast: {
       byId: {},
@@ -107,8 +107,7 @@ export const initialState: Immutable.Immutable<BookingsState> = Immutable<Bookin
         error: null,
       },
     },
-  },
-);
+  });
 
 export default handleActions<Immutable.Immutable<BookingsState>>(
   {

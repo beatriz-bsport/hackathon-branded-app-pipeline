@@ -30,14 +30,14 @@ type Props = {
   dstMember: ?Member,
   goToMember: (id: number) => void,
   fetchMember: (id: number) => void,
-  onSubmit: (data: *, options: any) => void,
+  onSubmit: (data: any, options: any) => void,
   replace: (path: string) => void,
   country: string,
 };
 
 type State = {
   showConfirmDialog: boolean,
-  data: *,
+  data: any,
 };
 
 export class MemberMergeFormPage extends Component<Props, State> {
@@ -61,7 +61,7 @@ export class MemberMergeFormPage extends Component<Props, State> {
     }
   }
 
-  preSubmit = (data: *, options: any) =>
+  preSubmit = (data: any, options: any) =>
     this.setState({ data, showConfirmDialog: true, options });
 
   mergeMembers = () => {

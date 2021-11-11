@@ -31,7 +31,7 @@ type Props = {
   unevenInvoiceAlertOpen: boolean,
   closeUnevenInvoiceDialog: () => void,
   onSubmit: (
-    {
+    data: {
       buyable_items: Array<BuyableItem>,
       payment_methods: Array<PaymentMethod>,
     },

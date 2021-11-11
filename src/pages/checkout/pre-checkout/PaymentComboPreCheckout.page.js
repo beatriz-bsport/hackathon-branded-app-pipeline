@@ -165,14 +165,16 @@ export default compose(
     },
   ),
   withHandlers({
-    goToCheckout: ({ replace, queryParams }) => (companyId) =>
-      replace(
-        `/checkout/${companyId}${buildUrlParams({
-          ...(queryParams?.context ? { context: queryParams.context } : {}),
-          ...(queryParams?.onValidation
-            ? { onValidation: queryParams.onValidation }
-            : {}),
-        })}`,
-      ),
+    goToCheckout:
+      ({ replace, queryParams }) =>
+      (companyId) =>
+        replace(
+          `/checkout/${companyId}${buildUrlParams({
+            ...(queryParams?.context ? { context: queryParams.context } : {}),
+            ...(queryParams?.onValidation
+              ? { onValidation: queryParams.onValidation }
+              : {}),
+          })}`,
+        ),
   }),
 )(PaymentComboPreCheckout);

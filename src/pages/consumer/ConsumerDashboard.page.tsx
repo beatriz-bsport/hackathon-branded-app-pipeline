@@ -419,48 +419,47 @@ const withStateHandlersSetter = {
   setBookingToCancel: () => (bookingToCancel: Booking | null) => {
     return { bookingToCancel };
   },
-  setPrivateBookingToCancel: () => (
-    privateBookingToCancel: PrivateBooking | null,
-  ) => {
-    return { privateBookingToCancel };
-  },
+  setPrivateBookingToCancel:
+    () => (privateBookingToCancel: PrivateBooking | null) => {
+      return { privateBookingToCancel };
+    },
   setOptionToCancel: () => (optionToCancel: number | null) => {
     return { optionToCancel };
   },
-  setSpotPreview: () => (
-    spotPreview: { blueprint: number; spot: number } | null,
-  ) => {
-    return { spotPreview };
-  },
+  setSpotPreview:
+    () => (spotPreview: { blueprint: number; spot: number } | null) => {
+      return { spotPreview };
+    },
 };
 
 const mapWithHandlers = {
-  confirmBookingOption: (props: OwnConnectedStateHandlerProps) => (
-    offerId: number,
-    optionId: number,
-  ) => {
-    props.push(`/payment/offer/${offerId}?option_id=${optionId}`);
-  },
-  goToBroadcast: (props: OwnConnectedStateHandlerProps) => (
-    bookingId: number,
-  ) => {
-    props.push(`/c/${props.membership.company}/broadcast/${bookingId}/`);
-  },
-  goToCalendar: (props: OwnConnectedStateHandlerProps) => (
-    params: any,
-    metaActivityId: number,
-  ) => {
-    const metaActivity: MetaActivity = props.metaActivitiesById[metaActivityId];
-    const componentType =
-      metaActivity && metaActivity.is_workshop ? 'workshop' : 'calendar';
+  confirmBookingOption:
+    (props: OwnConnectedStateHandlerProps) =>
+    (offerId: number, optionId: number) => {
+      props.push(`/payment/offer/${offerId}?option_id=${optionId}`);
+    },
+  goToBroadcast:
+    (props: OwnConnectedStateHandlerProps) => (bookingId: number) => {
+      props.push(`/c/${props.membership.company}/broadcast/${bookingId}/`);
+    },
+  goToCalendar:
+    (props: OwnConnectedStateHandlerProps) =>
+    (params: any, metaActivityId: number) => {
+      const metaActivity: MetaActivity =
+        props.metaActivitiesById[metaActivityId];
+      const componentType =
+        metaActivity && metaActivity.is_workshop ? 'workshop' : 'calendar';
 
-    props.push(
-      `${urlToMarketplace(
-        props.membership.company_name,
-        props.membership.company.toString(),
-      )}/${componentType}/${buildUrlParams({ ...params, filtersOpen: true })}`,
-    );
-  },
+      props.push(
+        `${urlToMarketplace(
+          props.membership.company_name,
+          props.membership.company.toString(),
+        )}/${componentType}/${buildUrlParams({
+          ...params,
+          filtersOpen: true,
+        })}`,
+      );
+    },
   goToPrivateService: (props: OwnConnectedStateHandlerProps) => () => {
     props.push(
       `${urlToMarketplace(
@@ -469,44 +468,43 @@ const mapWithHandlers = {
       )}/private-service/`,
     );
   },
-  fetchBookingsAndPrivateBookings: (props: OwnConnectedStateHandlerProps) => (
-    page?: number,
-  ) => {
-    props.fetchBookingsAndPrivateBookings({
-      page,
-      date_start: moment().format('YYYY-MM-DD'),
-      member: props.membership.id,
-      options: {
-        onSuccess: (allObj) => {
-          props.fetchOfferBulk(
-            allObj.booking.results.map((b) => b.offer),
-            {
-              // @ts-ignore
-              onSuccess: (offerList) => {
+  fetchBookingsAndPrivateBookings:
+    (props: OwnConnectedStateHandlerProps) => (page?: number) => {
+      props.fetchBookingsAndPrivateBookings({
+        page,
+        date_start: moment().format('YYYY-MM-DD'),
+        member: props.membership.id,
+        options: {
+          onSuccess: (allObj) => {
+            props.fetchOfferBulk(
+              allObj.booking.results.map((b) => b.offer),
+              {
                 // @ts-ignore
-                props.fetchMetaActivityBulk(
+                onSuccess: (offerList) => {
                   // @ts-ignore
-                  offerList.map((b) => b.meta_activity),
-                );
-                props.fetchCoachBulk([
-                  // @ts-ignore
-                  ...offerList.map((b) => b.coach),
-                  // @ts-ignore
-                  ...offerList.map((b) => b.coach_override),
-                ]);
-                props.fetchEstablishmentBulk([
-                  // @ts-ignore
-                  ...offerList.map((b) => b.establishment),
-                  // @ts-ignore
-                  ...offerList.map((b) => b.establishment_override),
-                ]);
+                  props.fetchMetaActivityBulk(
+                    // @ts-ignore
+                    offerList.map((b) => b.meta_activity),
+                  );
+                  props.fetchCoachBulk([
+                    // @ts-ignore
+                    ...offerList.map((b) => b.coach),
+                    // @ts-ignore
+                    ...offerList.map((b) => b.coach_override),
+                  ]);
+                  props.fetchEstablishmentBulk([
+                    // @ts-ignore
+                    ...offerList.map((b) => b.establishment),
+                    // @ts-ignore
+                    ...offerList.map((b) => b.establishment_override),
+                  ]);
+                },
               },
-            },
-          );
+            );
+          },
         },
-      },
-    });
-  },
+      });
+    },
   fetchInvoiceListUnpaid: (props: OwnConnectedStateHandlerProps) => () => {
     props.fetchInvoiceList({
       is_draft: false,
@@ -515,56 +513,52 @@ const mapWithHandlers = {
       member: props.membership.id,
     });
   },
-  fetchConsumerPacks: (props: OwnConnectedStateHandlerProps) => (
-    memberId: number,
-    page: number,
-    page_size: number,
-  ) =>
-    props.fetchConsumerPacks(
-      memberId,
-      page,
-      page_size,
-      {
-        onSuccess: (cpps: any) => {
-          props.fetchPaymentPackBulk(cpps.map((c: any) => c.payment_pack));
-          props.fetchConsumerPaymentPackLinks(
-            flatten(
-              cpps.map((cpp) =>
-                cpp.src_consumer_payment_pack.map((id: number) => id),
+  fetchConsumerPacks:
+    (props: OwnConnectedStateHandlerProps) =>
+    (memberId: number, page: number, page_size: number) =>
+      props.fetchConsumerPacks(
+        memberId,
+        page,
+        page_size,
+        {
+          onSuccess: (cpps: any) => {
+            props.fetchPaymentPackBulk(cpps.map((c: any) => c.payment_pack));
+            props.fetchConsumerPaymentPackLinks(
+              flatten(
+                cpps.map((cpp) =>
+                  cpp.src_consumer_payment_pack.map((id: number) => id),
+                ),
               ),
-            ),
-          );
+            );
+          },
         },
-      },
-      { mine: true, reverted: false, current: true, disabled: false },
-    ),
-  detachPaymentMethod: (props: OwnConnectedStateHandlerProps) => (
-    pm_id: string,
-    options: any,
-  ) => {
-    const {
-      detachPaymentMethodAction,
-      fetchMemberPaymentMethod,
-      snackbarErrorMsg,
-      snackbarSuccessMsg,
-      membership,
-      t,
-    } = props;
+        { mine: true, reverted: false, current: true, disabled: false },
+      ),
+  detachPaymentMethod:
+    (props: OwnConnectedStateHandlerProps) => (pm_id: string, options: any) => {
+      const {
+        detachPaymentMethodAction,
+        fetchMemberPaymentMethod,
+        snackbarErrorMsg,
+        snackbarSuccessMsg,
+        membership,
+        t,
+      } = props;
 
-    detachPaymentMethodAction(
-      { member: membership.id, payment_method_id: pm_id },
-      {
-        onSuccess: () => {
-          fetchMemberPaymentMethod({ member: membership.id });
-          snackbarSuccessMsg(t('invoice:paymentMethod.detach.pm_deleted'));
-          if (options && options.onSuccess) options.onSuccess();
+      detachPaymentMethodAction(
+        { member: membership.id, payment_method_id: pm_id },
+        {
+          onSuccess: () => {
+            fetchMemberPaymentMethod({ member: membership.id });
+            snackbarSuccessMsg(t('invoice:paymentMethod.detach.pm_deleted'));
+            if (options && options.onSuccess) options.onSuccess();
+          },
+          onError: (data: any) => {
+            snackbarErrorMsg(t(`invoice:paymentMethod.detach.${data}`));
+          },
         },
-        onError: (data: any) => {
-          snackbarErrorMsg(t(`invoice:paymentMethod.detach.${data}`));
-        },
-      },
-    );
-  },
+      );
+    },
   goToHomeTab: (props: Props) => () => {
     const tabConfig: MarketplaceTabConfig = props.marketplaceSettings.config[0];
     const path = fromConfigToUrl(tabConfig, { tabSelected: 0 });
@@ -577,16 +571,16 @@ const mapWithHandlers = {
       ),
     );
   },
-  previewSpotHandler: (props: OwnConnectedStateHandlerProps) => (
-    booking: Booking<Offer<Coach, Establishment, MetaActivity>>,
-  ) => {
-    props.fetchRoomBlueprintDetail(booking.offer.room_blueprint);
-    props.fetchAssetForBlueprint({ blueprint: booking.offer.room_blueprint });
-    props.setSpotPreview({
-      blueprint: booking.offer.room_blueprint,
-      spot: booking.spot_id,
-    });
-  },
+  previewSpotHandler:
+    (props: OwnConnectedStateHandlerProps) =>
+    (booking: Booking<Offer<Coach, Establishment, MetaActivity>>) => {
+      props.fetchRoomBlueprintDetail(booking.offer.room_blueprint);
+      props.fetchAssetForBlueprint({ blueprint: booking.offer.room_blueprint });
+      props.setSpotPreview({
+        blueprint: booking.offer.room_blueprint,
+        spot: booking.spot_id,
+      });
+    },
 };
 export default compose(
   withTranslation(['consumerSpace']),

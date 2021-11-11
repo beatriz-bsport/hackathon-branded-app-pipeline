@@ -15,7 +15,7 @@ import Avatar from '../Avatar.component';
 
 type Props = {
   t: TFunction,
-  classes: *,
+  classes: any,
   onChange: (data: any) => void,
   buttonText: string,
   required: boolean,

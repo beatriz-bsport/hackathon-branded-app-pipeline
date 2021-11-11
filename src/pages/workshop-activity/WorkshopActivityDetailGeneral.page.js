@@ -88,7 +88,7 @@ type Props = {
 
 type State = {
   editable: boolean,
-  data: *,
+  data: any,
   sportCategories: Array<number>,
   dateSelected: Object,
   deleteOpen: boolean,
@@ -240,31 +240,28 @@ export default compose(
     },
   })),
   withHandlers({
-    fetchNotificationsAndTemplates: ({
-      fetchNotifications,
-      fetchEmailTemplateSummariesBulk,
-    }) => (params) => {
-      fetchNotifications(params, {
-        onSuccess: (notificationList) => {
-          fetchEmailTemplateSummariesBulk(
-            notificationList.map((notification) => notification.email_design),
-          );
-        },
-      });
-    },
+    fetchNotificationsAndTemplates:
+      ({ fetchNotifications, fetchEmailTemplateSummariesBulk }) =>
+      (params) => {
+        fetchNotifications(params, {
+          onSuccess: (notificationList) => {
+            fetchEmailTemplateSummariesBulk(
+              notificationList.map((notification) => notification.email_design),
+            );
+          },
+        });
+      },
   }),
   withHandlers({
-    createNotification: ({
-      fetchNotificationsAndTemplates,
-      createNotification,
-      id,
-    }) => (data) => {
-      createNotification(data, {
-        onSuccess: () => {
-          fetchNotificationsAndTemplates({ meta_activity: id });
-        },
-      });
-    },
+    createNotification:
+      ({ fetchNotificationsAndTemplates, createNotification, id }) =>
+      (data) => {
+        createNotification(data, {
+          onSuccess: () => {
+            fetchNotificationsAndTemplates({ meta_activity: id });
+          },
+        });
+      },
   }),
   withTitle(({ id, workshopActivities }) => {
     if (id) {

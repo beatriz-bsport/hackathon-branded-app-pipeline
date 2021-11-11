@@ -32,7 +32,7 @@ class EditableTag extends Component<
   {
     tag: Tag,
     delete?: () => void,
-    updateTag: (Tag | TagGroup) => void,
+    updateTag: (tag: Tag | TagGroup) => void,
     key?: string,
   },
   { editMode: boolean, name: string },

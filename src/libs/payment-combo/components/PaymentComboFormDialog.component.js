@@ -24,7 +24,7 @@ import PaymentComboFields, {
 type Props = {
   open: boolean,
   handleClose: () => void,
-  onSubmit: (*) => void,
+  onSubmit: () => void,
   isSubmitting: boolean,
   fullScreen?: boolean,
   t: TFunction,

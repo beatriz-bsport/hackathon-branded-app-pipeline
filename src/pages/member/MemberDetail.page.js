@@ -481,7 +481,10 @@ export default compose(
     },
   ),
   withHandlers({
-    requestSetupIntentSecret: ({ id }) => () => requestSetupIntentSecretAPI(id),
+    requestSetupIntentSecret:
+      ({ id }) =>
+      () =>
+        requestSetupIntentSecretAPI(id),
 
     fetchContractList: (props) => () => {
       props.fetchContractList(
@@ -496,29 +499,30 @@ export default compose(
   withState('contractDialogOpen', 'setContractDialogOpen', false),
   withState('contractToBill', 'setContractToBill', null),
   withHandlers({
-    closeContractDialog: ({
-      setContractDialogOpen,
-      setContractToBill,
-    }) => () => {
-      setContractDialogOpen(false);
-      setContractToBill(null);
-    },
-    openContractDialog: ({
-      setContractDialogOpen,
-      fetchContractList,
-      setContractToBill,
-    }) => () => {
-      fetchContractList();
-      setContractDialogOpen(true);
-      setContractToBill(null);
-    },
-    fetchPaymentMethodList: ({ id, fetchPaymentMethodList }) => () =>
-      fetchPaymentMethodList({ member: id }),
+    closeContractDialog:
+      ({ setContractDialogOpen, setContractToBill }) =>
+      () => {
+        setContractDialogOpen(false);
+        setContractToBill(null);
+      },
+    openContractDialog:
+      ({ setContractDialogOpen, fetchContractList, setContractToBill }) =>
+      () => {
+        fetchContractList();
+        setContractDialogOpen(true);
+        setContractToBill(null);
+      },
+    fetchPaymentMethodList:
+      ({ id, fetchPaymentMethodList }) =>
+      () =>
+        fetchPaymentMethodList({ member: id }),
   }),
   withHandlers({
-    fetchFiltersSettings: ({ fetchManagerFilters }) => () => {
-      fetchManagerFilters();
-    },
+    fetchFiltersSettings:
+      ({ fetchManagerFilters }) =>
+      () => {
+        fetchManagerFilters();
+      },
   }),
   withTitle(({ member }) => (member ? member.name : '')),
 )(MemberDetail);

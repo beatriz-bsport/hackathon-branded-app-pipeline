@@ -11,7 +11,7 @@ import type { User } from '../types';
 type Props = {
   classes: Object,
   userList: Array<User>,
-  onChange: (?number) => void,
+  onChange: (user: ?number) => void,
   nullCurrentValue?: boolean,
   helperText: string,
   value: ?number,
@@ -40,14 +40,8 @@ function UserItemOption(props: OptionProps) {
 }
 
 export function UserSelector(props: Props) {
-  const {
-    value,
-    onChange,
-    userList,
-    classes,
-    selectorClass,
-    helperText,
-  } = props;
+  const { value, onChange, userList, classes, selectorClass, helperText } =
+    props;
   const suggestions = userList
     ? [...userList]
         .sort((u, u_) => u.email > u_.email)

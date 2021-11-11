@@ -185,10 +185,14 @@ export default compose(
     },
   ),
   withHandlers({
-    requestSetupIntentSecret: ({ memberId }) => () =>
-      requestSetupIntentSecretAPI(memberId),
-    fetchPaymentMethodList: ({ memberId, fetchPaymentMethodList }) => () =>
-      fetchPaymentMethodList({ member: memberId }),
+    requestSetupIntentSecret:
+      ({ memberId }) =>
+      () =>
+        requestSetupIntentSecretAPI(memberId),
+    fetchPaymentMethodList:
+      ({ memberId, fetchPaymentMethodList }) =>
+      () =>
+        fetchPaymentMethodList({ member: memberId }),
   }),
   withFetchDetail((props) => ({
     id: props.memberId,

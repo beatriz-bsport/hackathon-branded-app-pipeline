@@ -13,8 +13,8 @@ import { requestCustomFormNotificationActions } from '../custom-form/actions';
 import { Membership, MembershipState } from './types';
 import { USER_STATUS_VALIDATION_WITH_USER_NOT_MEMBER_OF_COMPANY } from '../member/utils';
 
-const initialState: Immutable.Immutable<MembershipState> = Immutable<MembershipState>(
-  {
+const initialState: Immutable.Immutable<MembershipState> =
+  Immutable<MembershipState>({
     byId: {},
     activeMembership: null,
     retrieve: {
@@ -49,8 +49,7 @@ const initialState: Immutable.Immutable<MembershipState> = Immutable<MembershipS
         missingCustomFormInfos: [],
       },
     },
-  },
-);
+  });
 
 export default handleActions<Immutable.Immutable<MembershipState>>(
   {

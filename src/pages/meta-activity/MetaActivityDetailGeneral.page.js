@@ -229,37 +229,40 @@ export default compose(
     },
   })),
   withHandlers({
-    fetchNotificationsAndTemplates: ({
-      fetchMarketingNotificationList,
-      fetchEmailTemplateSummariesBulk,
-      id,
-    }) => () => {
-      fetchMarketingNotificationList(
-        {
-          kind: BOOKING_CREATION_NOTIFICATION,
-          event_rules__meta_activity_id: id,
-        },
-        {
-          onSuccess: (notificationList) => {
-            fetchEmailTemplateSummariesBulk(
-              notificationList.map((notification) => notification.email_design),
-            );
+    fetchNotificationsAndTemplates:
+      ({
+        fetchMarketingNotificationList,
+        fetchEmailTemplateSummariesBulk,
+        id,
+      }) =>
+      () => {
+        fetchMarketingNotificationList(
+          {
+            kind: BOOKING_CREATION_NOTIFICATION,
+            event_rules__meta_activity_id: id,
           },
-        },
-      );
-    },
+          {
+            onSuccess: (notificationList) => {
+              fetchEmailTemplateSummariesBulk(
+                notificationList.map(
+                  (notification) => notification.email_design,
+                ),
+              );
+            },
+          },
+        );
+      },
   }),
   withHandlers({
-    createNotification: ({
-      fetchNotificationsAndTemplates,
-      createMarketingNotification,
-    }) => (data) => {
-      createMarketingNotification(data, {
-        onSuccess: () => {
-          fetchNotificationsAndTemplates();
-        },
-      });
-    },
+    createNotification:
+      ({ fetchNotificationsAndTemplates, createMarketingNotification }) =>
+      (data) => {
+        createMarketingNotification(data, {
+          onSuccess: () => {
+            fetchNotificationsAndTemplates();
+          },
+        });
+      },
   }),
   withTitle(({ metaActivity }) => (metaActivity ? metaActivity.name : '')),
 )(MetaActivityDetailGeneral);

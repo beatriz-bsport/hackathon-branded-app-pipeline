@@ -16,7 +16,7 @@ type Props = {
   initial: ?DeliveryFee,
   onCancel: () => void,
   onSubmit: (data: DeliveryFee) => void,
-  classes: *,
+  classes: any,
 };
 
 type State = {

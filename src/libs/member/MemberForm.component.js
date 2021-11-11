@@ -71,7 +71,7 @@ type Props = {
   classes: Object,
   t: TFunction,
   isSubmitting: boolean,
-  emailExists: *,
+  emailExists: any,
   variant?: 'merge-form' | '',
   disabled?: boolean,
   fromConsumerAccess: ?boolean,

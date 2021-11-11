@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { useState } from 'react';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';

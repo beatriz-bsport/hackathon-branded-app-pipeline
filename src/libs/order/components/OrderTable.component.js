@@ -157,7 +157,7 @@ export class OrderTable extends Component<Props, State> {
     this.doFetch(1);
   }
 
-  onRowClick = (rowData: *, { rowIndex }: { rowIndex: number }) => {
+  onRowClick = (rowData: any, { rowIndex }: { rowIndex: number }) => {
     this.props.onOrderClick(this.state.orders[rowIndex].id);
   };
 

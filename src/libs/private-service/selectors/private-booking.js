@@ -127,10 +127,11 @@ export const getPrivateBooking = (state, id) =>
 const _getPrivateBookingListId: (State) => Array<number> = (state) =>
   state.privateService.privateBooking.allIds;
 
-export const getPrivateBookingListBase: (State) => Array<PrivateBooking> = createSelector(
-  [_getPrivateBookingListId, getPrivateBookingDict],
-  (ids, data) => ids.map((id) => data[id]).filter((b) => !!b),
-);
+export const getPrivateBookingListBase: (State) => Array<PrivateBooking> =
+  createSelector(
+    [_getPrivateBookingListId, getPrivateBookingDict],
+    (ids, data) => ids.map((id) => data[id]).filter((b) => !!b),
+  );
 
 export const getPrivateBookingFutureAvailable = createSelector(
   getPrivateBookingListBase,
@@ -138,22 +139,22 @@ export const getPrivateBookingFutureAvailable = createSelector(
     bookings.filter((b) => b.booking_status_code === BOOKING_STATUS_OK.id),
 );
 
-// eslint-disable-next-line
-export const getPrivateBookingList: (State) => Array<PrivateBookingWithRelatedFields> = createSelector(
-  [
-    getPrivateBookingListBase,
-    getMemberListData,
-    _getPrivateServicesById,
-    getAllPrivateSlotsDict,
-  ],
-  (bookings, memberData, services, slots) =>
-    bookings.map((b) => ({
-      ...b,
-      member: memberData[b.member],
-      private_service: services[b.private_service],
-      private_slot: slots[b.private_slot],
-    })),
-);
+export const getPrivateBookingList: (State) => Array<PrivateBookingWithRelatedFields> =
+  createSelector(
+    [
+      getPrivateBookingListBase,
+      getMemberListData,
+      _getPrivateServicesById,
+      getAllPrivateSlotsDict,
+    ],
+    (bookings, memberData, services, slots) =>
+      bookings.map((b) => ({
+        ...b,
+        member: memberData[b.member],
+        private_service: services[b.private_service],
+        private_slot: slots[b.private_slot],
+      })),
+  );
 
 const paramFilter = (state, params, periodFilter) => [params, periodFilter];
 

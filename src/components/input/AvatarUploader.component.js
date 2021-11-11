@@ -13,11 +13,11 @@ const styles = () => ({
 });
 
 type Props = {
-  classes: *,
-  onChange: (*) => void,
+  classes: any,
+  onChange: () => void,
 };
 type State = {
-  photo: *,
+  photo: any,
   previewUrl: string,
 };
 

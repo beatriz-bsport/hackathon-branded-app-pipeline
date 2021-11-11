@@ -136,8 +136,10 @@ export class ThemePersonalize extends Component<Props, State> {
         (moment(this.state.theme?.schedule_timerange_begin).get('hour') || 6)
       )
     ) {
+      // eslint-disable-next-line
       alert(this.props.t('forms.themePersonalization.schedule.alert'));
     } else {
+      // eslint-disable-next-line
       alert(
         this.props.t('forms.themePersonalization.basket_expiration_days.alert'),
       );
@@ -455,8 +457,8 @@ export class ThemePersonalize extends Component<Props, State> {
             <Typography variant="body2">
               {t('forms.themePersonalization.checkBalance.shiftRatio.explain', {
                 numberCheck: this.state.theme.nb_to_check_balance,
-                gender_max_shift_for_booking: this.state.theme
-                  .gender_max_shift_for_booking,
+                gender_max_shift_for_booking:
+                  this.state.theme.gender_max_shift_for_booking,
               })}
             </Typography>
           </div>

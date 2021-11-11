@@ -80,12 +80,11 @@ class PaymentMethodSettings extends React.PureComponent<Props, State> {
       this.props.theme.payment_method_available_basket &&
       this.props.theme.payment_method_available_subscription
     ) {
-      // eslint-disable-next-line
       this.setState({
-        payment_method_available_basket: this.props.theme
-          .payment_method_available_basket,
-        payment_method_available_subscription: this.props.theme
-          .payment_method_available_subscription,
+        payment_method_available_basket:
+          this.props.theme.payment_method_available_basket,
+        payment_method_available_subscription:
+          this.props.theme.payment_method_available_subscription,
       });
     }
   }
@@ -128,8 +127,8 @@ class PaymentMethodSettings extends React.PureComponent<Props, State> {
 
   onClickSave = () => {
     this.setState((prevState: State) => ({
-      subscriptionError: !prevState.payment_method_available_subscription
-        .length,
+      subscriptionError:
+        !prevState.payment_method_available_subscription.length,
     }));
 
     if (!this.state.payment_method_available_subscription.length) {
@@ -139,10 +138,10 @@ class PaymentMethodSettings extends React.PureComponent<Props, State> {
     this.props.updateCompanyTheme(
       this.props.theme.company,
       {
-        payment_method_available_basket: this.state
-          .payment_method_available_basket,
-        payment_method_available_subscription: this.state
-          .payment_method_available_subscription,
+        payment_method_available_basket:
+          this.state.payment_method_available_basket,
+        payment_method_available_subscription:
+          this.state.payment_method_available_subscription,
       },
       {
         onSuccess: () => this.props.snackbarSuccess('dashboard.save.success'),

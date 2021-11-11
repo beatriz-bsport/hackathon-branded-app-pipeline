@@ -38,7 +38,7 @@ type Props = {
   loading: boolean,
   count: number,
   classes: Object,
-  fetchInvoiceList: (params: *, options: OptionCallback) => void,
+  fetchInvoiceList: (params: any, options: OptionCallback) => void,
   fetchPaymentList: (params: any) => void,
   fetchInvoiceItemList: (params: any) => void,
   nestedDataLoading: boolean,
@@ -129,26 +129,27 @@ export default compose(
     },
   ),
   withHandlers({
-    finalizeInvoice: ({ finalizeInvoice }) => (uuid, options) =>
-      finalizeInvoice(uuid, {
-        onError: (err) => {
-          if (options && options.onError) options.onError(err);
-        },
-        onSuccess: (invoice) => {
-          window.open(invoice.stripe_invoice_pdf);
-          if (options && options.onSuccess) options.onSuccess();
-        },
-      }),
+    finalizeInvoice:
+      ({ finalizeInvoice }) =>
+      (uuid, options) =>
+        finalizeInvoice(uuid, {
+          onError: (err) => {
+            if (options && options.onError) options.onError(err);
+          },
+          onSuccess: (invoice) => {
+            window.open(invoice.stripe_invoice_pdf);
+            if (options && options.onSuccess) options.onSuccess();
+          },
+        }),
   }),
   withHandlers({
-    sendInvoiceToQuickbooks: ({
-      sendInvoiceToQuickbooksAction,
-      fetchSpecificInvoiceAction,
-    }) => (uuid) => {
-      sendInvoiceToQuickbooksAction(uuid, {
-        onSuccess: () => fetchSpecificInvoiceAction(uuid),
-      });
-    },
+    sendInvoiceToQuickbooks:
+      ({ sendInvoiceToQuickbooksAction, fetchSpecificInvoiceAction }) =>
+      (uuid) => {
+        sendInvoiceToQuickbooksAction(uuid, {
+          onSuccess: () => fetchSpecificInvoiceAction(uuid),
+        });
+      },
   }),
   withTitle(({ t }: { t: TFunction }) => t('titles:invoice.invoiceList')),
 )(InvoiceList);

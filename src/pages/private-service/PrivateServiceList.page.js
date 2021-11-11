@@ -59,7 +59,7 @@ import type { PrivateService } from '../../libs/private-service/types';
 type Props = {
   fetchAllPrivateServices: () => void,
   createOrUpdatePrivateService: (
-    data: *,
+    data: any,
     options: { onSuccess: () => void },
   ) => void,
   goToPrivateService: (id: number) => void,
@@ -365,29 +365,30 @@ export default compose(
     },
   ),
   withHandlers({
-    deleteServiceGroup: ({ deleteServiceGroup, fetchAllPrivateServices }) => (
-      id,
-      options,
-    ) => {
-      deleteServiceGroup(id, {
-        onSuccess: (...args) => {
-          if (options && options.onSuccess) options.onSuccess(...args);
-          fetchAllPrivateServices();
-        },
-      });
-    },
-    createOrUpdateServiceGroup: ({
-      createOrUpdateServiceGroup,
-      closeServiceGroupForm,
-      fetchPrivateServiceGroupList,
-    }) => (data, options) => {
-      createOrUpdateServiceGroup(data, {
-        onSuccess: (g) => {
-          closeServiceGroupForm();
-          if (options && options.onSuccess) options.onSuccess(g);
-          fetchPrivateServiceGroupList({ mine: true });
-        },
-      });
-    },
+    deleteServiceGroup:
+      ({ deleteServiceGroup, fetchAllPrivateServices }) =>
+      (id, options) => {
+        deleteServiceGroup(id, {
+          onSuccess: (...args) => {
+            if (options && options.onSuccess) options.onSuccess(...args);
+            fetchAllPrivateServices();
+          },
+        });
+      },
+    createOrUpdateServiceGroup:
+      ({
+        createOrUpdateServiceGroup,
+        closeServiceGroupForm,
+        fetchPrivateServiceGroupList,
+      }) =>
+      (data, options) => {
+        createOrUpdateServiceGroup(data, {
+          onSuccess: (g) => {
+            closeServiceGroupForm();
+            if (options && options.onSuccess) options.onSuccess(g);
+            fetchPrivateServiceGroupList({ mine: true });
+          },
+        });
+      },
   }),
 )(PrivateServiceList);

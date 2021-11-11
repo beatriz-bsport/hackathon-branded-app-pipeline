@@ -95,18 +95,18 @@ const ValidationSchema = Yup.object().shape({
         .test(
           'test_mandatory_field',
           'marketing:customForm.submit.errors.requiredField',
-          function (item) {
+          function checkMandatoryFields(item) {
             if (
               this.parent.signup_question_kind ===
-                CUSTOM_FORM_FIELD_SIGN_UP_GENERAL_TERMS_AND_CONDITIONS
+              CUSTOM_FORM_FIELD_SIGN_UP_GENERAL_TERMS_AND_CONDITIONS
             ) {
               return item === 'true';
             }
             if (
               this.parent.signup_question_kind ===
-              CUSTOM_FORM_FIELD_SIGN_UP_WAIVER 
+              CUSTOM_FORM_FIELD_SIGN_UP_WAIVER
             ) {
-              return !this.parent.mandatory ||  item === 'true';
+              return !this.parent.mandatory || item === 'true';
             }
             return (
               this.parent.signup_question_kind ===
@@ -145,7 +145,7 @@ const ValidationSchema = Yup.object().shape({
     .test(
       'password_confimration',
       'marketing:customForm.submit.errors.passwordConfirmationError',
-      function (item) {
+      function checkPasswordConfirm(item) {
         const password_field = this.parent.custom_form_field.find(
           (field: CustomFormField) =>
             field.signup_question_kind === CUSTOM_FORM_FIELD_SIGN_UP_PASSWORD,
@@ -225,7 +225,7 @@ export const ConsumerFormFieldsHOC = withFormik({
       CustomFormFilledMap,
       [],
     );
-    
+
     values.custom_form_field
       .filter((_field: CustomFormFieldAnswer) =>
         [
@@ -233,17 +233,17 @@ export const ConsumerFormFieldsHOC = withFormik({
           CUSTOM_FORM_FIELD_SIGNATURE_OPTION,
         ].includes(_field.kind),
       )
-      .map((field: CustomFormFieldAnswer) =>
-        field.answer && formData.append(`file:${field.id}`, field.answer),
-    );
+      .map(
+        (field: CustomFormFieldAnswer) =>
+          field.answer && formData.append(`file:${field.id}`, field.answer),
+      );
     values.custom_form_field
       .filter((_field: CustomFormFieldAnswer) =>
-        [
-          CUSTOM_FORM_FIELD_SIGN_UP_PHOTO,
-        ].includes(_field.signup_question_kind),
+        [CUSTOM_FORM_FIELD_SIGN_UP_PHOTO].includes(_field.signup_question_kind),
       )
-      .map((field: CustomFormFieldAnswer) =>
-        field.answer && formData.append(`file:${field.id}`, field.answer),
+      .map(
+        (field: CustomFormFieldAnswer) =>
+          field.answer && formData.append(`file:${field.id}`, field.answer),
       );
     onSubmit(formData, {
       onSuccess: () => setSubmitting(false),
@@ -251,6 +251,4 @@ export const ConsumerFormFieldsHOC = withFormik({
     });
   },
 });
-export default compose<any, OwnProps>(
-  withTranslation(),
-)(ConsumerFormFields);
+export default compose<any, OwnProps>(withTranslation())(ConsumerFormFields);

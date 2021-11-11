@@ -9,19 +9,15 @@ import Radio from '@material-ui/core/Radio';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation, withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import { PaymentMethod } from '../types';
 
 type Props = {
   paymentMethod: PaymentMethod;
-  t: TFunction;
   selected?: boolean;
   onClick?: (id?: string) => void;
-  onDelete?: (id: string) => void;
   onEdit?: (id: string) => void;
-  snackbarSuccessMsg2: (msg: string) => void;
   withGeneralConditions?: boolean;
   disabled?: boolean;
   detachPaymentMethod?: (id: string) => void;

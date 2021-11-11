@@ -9,8 +9,8 @@ import {
 
 import type { QuickbooksState } from './types';
 
-const initialState: Immutable.Immutable<QuickbooksState> = Immutable<QuickbooksState>(
-  {
+const initialState: Immutable.Immutable<QuickbooksState> =
+  Immutable<QuickbooksState>({
     loading: false,
     error: null,
     detail: {},
@@ -22,8 +22,7 @@ const initialState: Immutable.Immutable<QuickbooksState> = Immutable<QuickbooksS
       loading: false,
       error: null,
     },
-  },
-);
+  });
 
 export default handleActions(
   {

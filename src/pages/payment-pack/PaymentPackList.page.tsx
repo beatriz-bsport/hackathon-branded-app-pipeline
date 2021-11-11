@@ -300,13 +300,8 @@ export class ComponentName extends React.Component<Props, State> {
   };
 
   render() {
-    const {
-      loading,
-      incrementCredit,
-      decrementCredit,
-      classes,
-      t,
-    } = this.props;
+    const { loading, incrementCredit, decrementCredit, classes, t } =
+      this.props;
 
     if (loading) {
       return <LinearProgress />;
@@ -569,32 +564,27 @@ const mapDispatchToProps = {
   setPaymentPackManagerOnlyFilter,
 };
 const mapWithHandlers = {
-  incrementCredit: (props: OwnAndConnectedProps) => (
-    consumerPackId: number,
-  ) => {
-    props.updateCreditAction(consumerPackId, 1);
-  },
-  decrementCredit: (props: OwnAndConnectedProps) => (
-    consumerPackId: number,
-  ) => {
-    props.updateCreditAction(consumerPackId, -1);
-  },
-  updatePaymentPack: (props: OwnAndConnectedProps) => (
-    paymentPackId: number,
-    data: PaymentPack,
-  ) => {
-    props.patchPaymentPack(paymentPackId, data);
-  },
+  incrementCredit:
+    (props: OwnAndConnectedProps) => (consumerPackId: number) => {
+      props.updateCreditAction(consumerPackId, 1);
+    },
+  decrementCredit:
+    (props: OwnAndConnectedProps) => (consumerPackId: number) => {
+      props.updateCreditAction(consumerPackId, -1);
+    },
+  updatePaymentPack:
+    (props: OwnAndConnectedProps) =>
+    (paymentPackId: number, data: PaymentPack) => {
+      props.patchPaymentPack(paymentPackId, data);
+    },
   pushToEdit: (props: OwnAndConnectedProps) => (paymentPackId: number) => {
     props.pushRouter(`/payment-pack/${paymentPackId}/edit`);
   },
-  fetchConsumerPacks: (props: OwnAndConnectedProps) => (
-    paymentPackId: number,
-    page: number,
-    pageSize: number,
-  ) => {
-    props.fetchByPaymentPackAction(paymentPackId, page, pageSize);
-  },
+  fetchConsumerPacks:
+    (props: OwnAndConnectedProps) =>
+    (paymentPackId: number, page: number, pageSize: number) => {
+      props.fetchByPaymentPackAction(paymentPackId, page, pageSize);
+    },
   goToPack: (props: OwnAndConnectedProps) => (paymentPackId: number) => {
     props.pushRouter(`/payment-pack/${paymentPackId}`);
   },
@@ -607,33 +597,32 @@ const mapWithHandlers = {
   fetchMarketingNotificationList: (props: OwnAndConnectedProps) => (params) => {
     props.fetchMarketingNotificationList(params);
   },
-  upsertPaymenPackCategory: (props: OwnAndConnectedProps) => (
-    category: PaymentPackCategory,
-  ) => {
-    props.setUpsertCategoryLoading(true);
-    props.upsertPaymenPackCategoryAction(category, {
-      onSuccess: () => {
-        props.setShowCategoryDialog(false);
-        props.setSelectedCategory(null);
-        props.setUpsertCategoryLoading(false);
-        props.fetchAllPaymentPackCategory();
-      },
-    });
-  },
-  deletePaymentPackCategory: (props: OwnAndConnectedProps) => (
-    category: PaymentPackCategoryWithPacks,
-  ) => {
-    props.setUpsertCategoryLoading(true);
-    props.deletePaymentPackCategoryAction(category, {
-      onSuccess: () => {
-        props.fetchPaymentPackBulk(
-          category.packs.filter((p) => p?.id).map((p) => p.id),
-        );
-        props.setSelectedCategory(null);
-        props.setUpsertCategoryLoading(false);
-      },
-    });
-  },
+  upsertPaymenPackCategory:
+    (props: OwnAndConnectedProps) => (category: PaymentPackCategory) => {
+      props.setUpsertCategoryLoading(true);
+      props.upsertPaymenPackCategoryAction(category, {
+        onSuccess: () => {
+          props.setShowCategoryDialog(false);
+          props.setSelectedCategory(null);
+          props.setUpsertCategoryLoading(false);
+          props.fetchAllPaymentPackCategory();
+        },
+      });
+    },
+  deletePaymentPackCategory:
+    (props: OwnAndConnectedProps) =>
+    (category: PaymentPackCategoryWithPacks) => {
+      props.setUpsertCategoryLoading(true);
+      props.deletePaymentPackCategoryAction(category, {
+        onSuccess: () => {
+          props.fetchPaymentPackBulk(
+            category.packs.filter((p) => p?.id).map((p) => p.id),
+          );
+          props.setSelectedCategory(null);
+          props.setUpsertCategoryLoading(false);
+        },
+      });
+    },
 };
 const withStateHandlersInit: StateHandlerInit = {
   showCategoryDialog: false,

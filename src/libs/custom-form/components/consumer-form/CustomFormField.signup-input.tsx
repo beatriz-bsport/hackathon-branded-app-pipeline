@@ -97,7 +97,8 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
 
-const CUSTOM_FORM_SIGNUP_FIELD_DEFAULT_LABEL_DICT = get_custom_form_sign_question_label();
+const CUSTOM_FORM_SIGNUP_FIELD_DEFAULT_LABEL_DICT =
+  get_custom_form_sign_question_label();
 export const CustomFormConsumerInput = (props: Props) => {
   const { t, waiver, general_terms_and_conditions } = props;
   const layoutActive =
@@ -106,10 +107,8 @@ export const CustomFormConsumerInput = (props: Props) => {
     !props.disableLayout;
   const classes = useStyles(layoutActive);
   const [passwordVisibility, setPasswordVibility] = React.useState(false);
-  const [
-    confirmPasswordVisibility,
-    setConfirmPasswordVibility,
-  ] = React.useState(false);
+  const [confirmPasswordVisibility, setConfirmPasswordVibility] =
+    React.useState(false);
   const VACCINATION_STATUS_CHOICES = [
     { value: 2, label: t('translation:common.vaccinationNotDone') },
     { value: 1, label: t('translation:common.vaccinationDone') },

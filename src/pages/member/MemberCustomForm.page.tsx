@@ -235,9 +235,8 @@ const mapStateToProps = (state: RootState, props: OwnAndConnectedProps) => ({
     props.id,
   ),
   customFormWithAnswer: getCustomFormListWithEnabledFieldAnswered(state),
-  customFormDisabledFieldwithAnswer: getCustomFormListWithDisabledFieldAnswered(
-    state,
-  ),
+  customFormDisabledFieldwithAnswer:
+    getCustomFormListWithDisabledFieldAnswered(state),
 });
 const mapDispatchToProps = {
   fetchAllCustomForm,
@@ -250,11 +249,10 @@ const withStateHandlersInit: StateHandlerInit = {
   showDisabledField: false,
 };
 const withStateHandlersSetter = {
-  setCustomFormFilledSelected: () => (
-    customFormFilledSelected: number | null,
-  ) => {
-    return { customFormFilledSelected };
-  },
+  setCustomFormFilledSelected:
+    () => (customFormFilledSelected: number | null) => {
+      return { customFormFilledSelected };
+    },
   setCustomFormViewLoading: () => (customFormViewLoading: boolean) => {
     return { customFormViewLoading };
   },

@@ -285,60 +285,56 @@ const withStateHandlersInit: StateHandlerInit = {
   currentCustomFormSubmittingId: null,
 };
 const withStateHandlersSetter = {
-  setTemporaryCustomFormData: (props: OwnAndConnectedProps) => (
-    customFormId: number,
-    status: number,
-    data?: FormData | CustomForm,
-  ) => {
-    if (status === CUSTOM_FORM_SUBMITTION_DRAFT) {
+  setTemporaryCustomFormData:
+    (props: OwnAndConnectedProps) =>
+    (customFormId: number, status: number, data?: FormData | CustomForm) => {
+      if (status === CUSTOM_FORM_SUBMITTION_DRAFT) {
+        return {
+          temporaryCustomFormData: {
+            ...props.temporaryCustomFormData,
+            [customFormId]: {
+              ...props.temporaryCustomFormData[customFormId],
+              draft: data,
+              snoozed: false,
+            },
+          },
+        };
+      }
+      if (status === CUSTOM_FORM_SUBMITTION_COMPLETED) {
+        return {
+          temporaryCustomFormData: {
+            ...props.temporaryCustomFormData,
+            [customFormId]: {
+              ...props.temporaryCustomFormData[customFormId],
+              completed: data,
+              snoozed: false,
+            },
+          },
+        };
+      }
       return {
         temporaryCustomFormData: {
           ...props.temporaryCustomFormData,
           [customFormId]: {
-            ...props.temporaryCustomFormData[customFormId],
-            draft: data,
-            snoozed: false,
+            snoozed: true,
           },
         },
       };
-    }
-    if (status === CUSTOM_FORM_SUBMITTION_COMPLETED) {
-      return {
-        temporaryCustomFormData: {
-          ...props.temporaryCustomFormData,
-          [customFormId]: {
-            ...props.temporaryCustomFormData[customFormId],
-            completed: data,
-            snoozed: false,
-          },
-        },
-      };
-    }
-    return {
-      temporaryCustomFormData: {
-        ...props.temporaryCustomFormData,
-        [customFormId]: {
-          snoozed: true,
-        },
-      },
-    };
-  },
+    },
   setCustomFormSelected: () => (customFormId: number | null) => {
     return { customFormSelected: customFormId };
   },
   setLoading: () => (loading: boolean) => {
     return { loading };
   },
-  setCustomFormListIsSubmitting: () => (
-    customFormListIsSubmitting: boolean,
-  ) => {
-    return { customFormListIsSubmitting };
-  },
-  setCurrentCustomFormSubmittingId: () => (
-    currentCustomFormSubmittingId: null | number,
-  ) => {
-    return { currentCustomFormSubmittingId };
-  },
+  setCustomFormListIsSubmitting:
+    () => (customFormListIsSubmitting: boolean) => {
+      return { customFormListIsSubmitting };
+    },
+  setCurrentCustomFormSubmittingId:
+    () => (currentCustomFormSubmittingId: null | number) => {
+      return { currentCustomFormSubmittingId };
+    },
 };
 
 const styles = (theme: Theme) => ({
@@ -356,120 +352,128 @@ export default compose<any, OwnProps>(
   withStyles(styles),
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
   withHandlers({
-    disconnect: ({ disconnectAction }) => () => {
-      disconnectAction();
-    },
+    disconnect:
+      ({ disconnectAction }) =>
+      () => {
+        disconnectAction();
+      },
   }),
   withHandlers({
-    submitCustomMembeForm: ({
-      submitCustomFormAction,
-      membership,
-      fetchMember,
-      requestMembershipValidation,
-      companyId,
-      linkMeToCompany,
-      fetchCurrentBasket,
-    }) => (formdata: FormData, options?: OptionCallback) => {
-      if (!membership) {
-        linkMeToCompany(
-          { company: companyId },
-          {
-            onSuccess: (payload: Member) => {
-              submitCustomFormAction(formdata, companyId, {
-                ...options,
-                onSuccess: () => {
-                  fetchMember(payload.id);
-                  options.onSuccess();
-                  requestMembershipValidation({ company: companyId });
-                  fetchCurrentBasket(companyId);
-                },
-              });
+    submitCustomMembeForm:
+      ({
+        submitCustomFormAction,
+        membership,
+        fetchMember,
+        requestMembershipValidation,
+        companyId,
+        linkMeToCompany,
+        fetchCurrentBasket,
+      }) =>
+      (formdata: FormData, options?: OptionCallback) => {
+        if (!membership) {
+          linkMeToCompany(
+            { company: companyId },
+            {
+              onSuccess: (payload: Member) => {
+                submitCustomFormAction(formdata, companyId, {
+                  ...options,
+                  onSuccess: () => {
+                    fetchMember(payload.id);
+                    options.onSuccess();
+                    requestMembershipValidation({ company: companyId });
+                    fetchCurrentBasket(companyId);
+                  },
+                });
+              },
             },
-          },
-        );
-      } else {
-        submitCustomFormAction(formdata, companyId, {
-          ...(options || {}),
-          onSuccess: () => {
-            fetchMember(membership.id);
-            if (options && options.onSuccess) options.onSuccess();
-            requestMembershipValidation({ company: companyId });
-            fetchCurrentBasket(companyId);
-          },
-        });
-      }
-    },
+          );
+        } else {
+          submitCustomFormAction(formdata, companyId, {
+            ...(options || {}),
+            onSuccess: () => {
+              fetchMember(membership.id);
+              if (options && options.onSuccess) options.onSuccess();
+              requestMembershipValidation({ company: companyId });
+              fetchCurrentBasket(companyId);
+            },
+          });
+        }
+      },
   }),
   withHandlers({
-    submitCustomFormList: ({
-      submitCustomFormAction,
-      submitCustomFormDraftAction,
-      temporaryCustomFormData,
-      setCustomFormListIsSubmitting,
-      setCurrentCustomFormSubmittingId,
-      companyId,
-    }) => async (options?: OptionCallback) => {
-      setCustomFormListIsSubmitting(true);
-      try {
-        for (const customFormId of Object.keys(temporaryCustomFormData)) {
-          if (customFormId !== null) {
-            setCurrentCustomFormSubmittingId(customFormId);
-            const request_data = temporaryCustomFormData[customFormId];
-            const callBacks = {
-              onSuccess: () => {
-                setCurrentCustomFormSubmittingId(null);
-              },
-              onError: () => {
-                setCurrentCustomFormSubmittingId(null);
-              },
-            };
-            if (request_data.snoozed) {
-              await submitCustomFormDraftAction(
-                {
-                  custom_form_id: customFormId,
-                  companyId,
+    submitCustomFormList:
+      ({
+        submitCustomFormAction,
+        submitCustomFormDraftAction,
+        temporaryCustomFormData,
+        setCustomFormListIsSubmitting,
+        setCurrentCustomFormSubmittingId,
+        companyId,
+      }) =>
+      async (options?: OptionCallback) => {
+        setCustomFormListIsSubmitting(true);
+        try {
+          for (const customFormId of Object.keys(temporaryCustomFormData)) {
+            if (customFormId !== null) {
+              setCurrentCustomFormSubmittingId(customFormId);
+              const request_data = temporaryCustomFormData[customFormId];
+              const callBacks = {
+                onSuccess: () => {
+                  setCurrentCustomFormSubmittingId(null);
                 },
-                callBacks,
-              );
-            } else {
-              await submitCustomFormAction(
-                request_data.completed,
-                companyId,
-                callBacks,
-              );
+                onError: () => {
+                  setCurrentCustomFormSubmittingId(null);
+                },
+              };
+              if (request_data.snoozed) {
+                await submitCustomFormDraftAction(
+                  {
+                    custom_form_id: customFormId,
+                    companyId,
+                  },
+                  callBacks,
+                );
+              } else {
+                await submitCustomFormAction(
+                  request_data.completed,
+                  companyId,
+                  callBacks,
+                );
+              }
             }
           }
+          if (options && options.onSuccess) options.onSuccess();
+        } catch (err) {
+          console.error(err);
         }
-        if (options && options.onSuccess) options.onSuccess();
-      } catch (err) {
-        console.error(err);
-      }
-      setCustomFormListIsSubmitting(false);
-    },
+        setCustomFormListIsSubmitting(false);
+      },
   }),
   withHandlers({
-    directSubmitcustomForm: ({
-      submitCustomFormAction,
-      submitCustomFormDraftAction,
-      setCustomFormListIsSubmitting,
-      companyId,
-    }) => async (
-      formData: FormData | null,
-      customFormId: number,
-      isDraft: boolean,
-      options?: OptionCallback,
-    ) => {
-      setCustomFormListIsSubmitting(true);
-      if (isDraft === true) {
-        await submitCustomFormDraftAction({
-          custom_form_id: customFormId,
-          companyId,
-        });
-      } else {
-        await submitCustomFormAction(formData, companyId);
-      }
-      if (options && options.onSuccess) options.onSuccess();
-      setCustomFormListIsSubmitting(false);
-    },
+    directSubmitcustomForm:
+      ({
+        submitCustomFormAction,
+        submitCustomFormDraftAction,
+        setCustomFormListIsSubmitting,
+        companyId,
+      }) =>
+      async (
+        formData: FormData | null,
+        customFormId: number,
+        isDraft: boolean,
+        options?: OptionCallback,
+      ) => {
+        setCustomFormListIsSubmitting(true);
+        if (isDraft === true) {
+          await submitCustomFormDraftAction({
+            custom_form_id: customFormId,
+            companyId,
+          });
+        } else {
+          await submitCustomFormAction(formData, companyId);
+        }
+        if (options && options.onSuccess) options.onSuccess();
+        setCustomFormListIsSubmitting(false);
+      },
   }),
 )(MemberShipValidationWrapper);

@@ -55,23 +55,20 @@ export default compose(
       parseQueryString(window.location.search || '').access_code || null,
   }),
   withHandlers({
-    createCompany: ({
-      createCompany,
-      access_code,
-      requestLogin,
-      goToEmailValidation,
-    }) => (data, options) => {
-      createCompany(
-        { ...data, access_code },
-        {
-          onSuccess: (...args) => {
-            requestLogin(data.email, data.password);
-            goToEmailValidation(data.email);
-            if (options && options.onSuccess) options.onSuccess(...args);
+    createCompany:
+      ({ createCompany, access_code, requestLogin, goToEmailValidation }) =>
+      (data, options) => {
+        createCompany(
+          { ...data, access_code },
+          {
+            onSuccess: (...args) => {
+              requestLogin(data.email, data.password);
+              goToEmailValidation(data.email);
+              if (options && options.onSuccess) options.onSuccess(...args);
+            },
+            onError: options && options.onError,
           },
-          onError: options && options.onError,
-        },
-      );
-    },
+        );
+      },
   }),
 )(CompanyOnboardingFormPage);

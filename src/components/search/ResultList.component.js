@@ -16,12 +16,12 @@ import MemberMinimalListItem from '../../libs/member/components/MemberMinimalLis
 
 type Props = {
   items: *[],
-  selectEntity: (*) => void,
+  selectEntity: () => void,
   className: number,
 
   loading: boolean,
   t: TFunction,
-  renderListComponent: (*) => Node,
+  renderListComponent: () => Node,
   classes: Object,
   showVaccinationStatus: boolean,
 };

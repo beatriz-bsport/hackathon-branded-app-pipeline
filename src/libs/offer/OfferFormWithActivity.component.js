@@ -52,14 +52,8 @@ export class OfferFormWithActivity extends Component<Props, State> {
   };
 
   render() {
-    const {
-      coaches,
-      metaActivities,
-      onCancel,
-      processing,
-      establishments,
-      t,
-    } = this.props;
+    const { coaches, metaActivities, onCancel, processing, establishments, t } =
+      this.props;
     const { step, selectedMetaActivity } = this.state;
     if (step === STEP_META_ACTIVITY_CHOSER || selectedMetaActivity === null) {
       return (

@@ -62,9 +62,9 @@ export class DeleteOfferForm extends Component<Props, State> {
       (this.props.similarOffers || []).length
     ) {
       this.setState({
-        similarOffersWithSelectedStatus: (
-          this.props.similarOffers || []
-        ).map((so) => ({ ...so, selected: true })),
+        similarOffersWithSelectedStatus: (this.props.similarOffers || []).map(
+          (so) => ({ ...so, selected: true }),
+        ),
       });
     }
   }
@@ -84,23 +84,21 @@ export class DeleteOfferForm extends Component<Props, State> {
 
   selectAll = () => {
     this.setState((prevState) => ({
-      similarOffersWithSelectedStatus: prevState.similarOffersWithSelectedStatus.map(
-        (so) => ({
+      similarOffersWithSelectedStatus:
+        prevState.similarOffersWithSelectedStatus.map((so) => ({
           ...so,
           selected: true,
-        }),
-      ),
+        })),
     }));
   };
 
   unselectAll = () => {
     this.setState((prevState) => ({
-      similarOffersWithSelectedStatus: prevState.similarOffersWithSelectedStatus.map(
-        (so, index) => ({
+      similarOffersWithSelectedStatus:
+        prevState.similarOffersWithSelectedStatus.map((so, index) => ({
           ...so,
           selected: index === 0,
-        }),
-      ),
+        })),
     }));
   };
 
@@ -127,9 +125,10 @@ export class DeleteOfferForm extends Component<Props, State> {
           (so) => !so.available && !so.selected,
         ).length &&
         !!this.state.similarOffersWithSelectedStatus.length;
-      const custom_selection = !!this.state.similarOffersWithSelectedStatus.filter(
-        (so) => !so.available && !so.selected,
-      ).length;
+      const custom_selection =
+        !!this.state.similarOffersWithSelectedStatus.filter(
+          (so) => !so.available && !so.selected,
+        ).length;
       const custom_selection_ids = this.state.similarOffersWithSelectedStatus
         .filter((so) => !so.available && so.selected)
         .map((so) => so.id);
@@ -146,9 +145,10 @@ export class DeleteOfferForm extends Component<Props, State> {
         (so) => so.available && !so.selected,
       ).length &&
       !!this.state.similarOffersWithSelectedStatus.length;
-    const custom_selection = !!this.state.similarOffersWithSelectedStatus.filter(
-      (so) => so.available && !so.selected,
-    ).length;
+    const custom_selection =
+      !!this.state.similarOffersWithSelectedStatus.filter(
+        (so) => so.available && !so.selected,
+      ).length;
     const custom_selection_ids = this.state.similarOffersWithSelectedStatus
       .filter((so) => so.available && so.selected)
       .map((so) => so.id);

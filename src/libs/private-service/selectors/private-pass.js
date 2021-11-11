@@ -27,10 +27,10 @@ export const getPrivatePass = (
   id: number,
 ): PrivatePassWithService => getPrivatePassById(state)[id];
 
-export const getPrivatePassListBase: (State) => Array<PrivatePass> = createSelector(
-  [_getPrivatePassData, _getPrivatePassListIds],
-  (data, ids) => ids.map((id) => data[id]),
-);
+export const getPrivatePassListBase: (State) => Array<PrivatePass> =
+  createSelector([_getPrivatePassData, _getPrivatePassListIds], (data, ids) =>
+    ids.map((id) => data[id]),
+  );
 
 export const getPrivatePassAvailable = createSelector(
   getPrivatePassListBase,
@@ -44,41 +44,40 @@ export const getPrivatePassAsConsumer = createSelector(
   (data, ids) => ids.map((id) => data[id]).filter((p) => p.available),
 );
 
-// eslint-disable-next-line
-export const getPrivatePassListWithPrivateService: (State) => Array<PrivatePassWithService> = createSelector(
-  [_getPrivateServiceDict, getPrivatePassListBase],
-  (servicesById, passesList) =>
-    passesList.map((pass) => ({
-      ...pass,
-      private_services: pass.private_services.map((ps) => servicesById[ps]),
-    })),
-);
+export const getPrivatePassListWithPrivateService: (State) => Array<PrivatePassWithService> =
+  createSelector(
+    [_getPrivateServiceDict, getPrivatePassListBase],
+    (servicesById, passesList) =>
+      passesList.map((pass) => ({
+        ...pass,
+        private_services: pass.private_services.map((ps) => servicesById[ps]),
+      })),
+  );
 
-// eslint-disable-next-line
-export const getPrivatePassAvailableListWithPrivateService: (State) => Array<PrivatePassWithService> = createSelector(
-  getPrivatePassListWithPrivateService,
-  (passList) => passList.filter((p) => p.available),
-);
+export const getPrivatePassAvailableListWithPrivateService: (State) => Array<PrivatePassWithService> =
+  createSelector(getPrivatePassListWithPrivateService, (passList) =>
+    passList.filter((p) => p.available),
+  );
 
-export const getPrivatePassManagerOnlyList: (State) => Array<PrivatePassWithService> = createSelector(
-  getPrivatePassListBase,
-  (passList) => passList.filter((p) => p.available && p.manager_only),
-);
+export const getPrivatePassManagerOnlyList: (State) => Array<PrivatePassWithService> =
+  createSelector(getPrivatePassListBase, (passList) =>
+    passList.filter((p) => p.available && p.manager_only),
+  );
 
-export const getPrivatePassListCompatibleWithVideo: (State) => Array<PrivatePassWithService> = createSelector(
-  getPrivatePassListBase,
-  (passList) => passList.filter((p) => p.full_vod_access),
-);
+export const getPrivatePassListCompatibleWithVideo: (State) => Array<PrivatePassWithService> =
+  createSelector(getPrivatePassListBase, (passList) =>
+    passList.filter((p) => p.full_vod_access),
+  );
 
-export const getPrivatePassCustomerEnabled: (State) => Array<PrivatePassWithService> = createSelector(
-  getPrivatePassListBase,
-  (passList) => passList.filter((p) => p.available && !p.manager_only),
-);
+export const getPrivatePassCustomerEnabled: (State) => Array<PrivatePassWithService> =
+  createSelector(getPrivatePassListBase, (passList) =>
+    passList.filter((p) => p.available && !p.manager_only),
+  );
 
-export const getAvailablePrivatePasses: (State) => Array<PrivatePassWithService> = createSelector(
-  getPrivatePassListBase,
-  (passList) => passList.filter((p) => p.available),
-);
+export const getAvailablePrivatePasses: (State) => Array<PrivatePassWithService> =
+  createSelector(getPrivatePassListBase, (passList) =>
+    passList.filter((p) => p.available),
+  );
 
 export const withServices = memoize((selector) =>
   createSelector(
@@ -114,11 +113,11 @@ export const withAvailable = memoize((selector) =>
     return null;
   }),
 );
-// eslint-disable-next-line
-export const getDisabledPrivatePassAvailableListWithPrivateService: (State) => Array<PrivatePassWithService> = createSelector(
-  getPrivatePassListWithPrivateService,
-  (passList) => passList.filter((p) => !p.available),
-);
+
+export const getDisabledPrivatePassAvailableListWithPrivateService: (State) => Array<PrivatePassWithService> =
+  createSelector(getPrivatePassListWithPrivateService, (passList) =>
+    passList.filter((p) => !p.available),
+  );
 
 const _getServiceCompatibiltyPassDict = (state: State) =>
   state.privateService.compatibleServicePass.byId;
@@ -126,56 +125,60 @@ const _getServiceCompatibiltyPassDict = (state: State) =>
 const _getServiceCompatibiltyPassIds = (state: State) =>
   state.privateService.compatibleServicePass.allIds;
 
-export const getServiceCompatibiltyPassList: (State) => Array<ServiceCompatibilityPass> = createSelector(
-  [_getServiceCompatibiltyPassDict, _getServiceCompatibiltyPassIds],
-  (data, ids) => ids.map((id) => data[id]),
-);
+export const getServiceCompatibiltyPassList: (State) => Array<ServiceCompatibilityPass> =
+  createSelector(
+    [_getServiceCompatibiltyPassDict, _getServiceCompatibiltyPassIds],
+    (data, ids) => ids.map((id) => data[id]),
+  );
 
-export const getCompatibilityPassWithService: (State) => Array<PrivatePassWithService> = createSelector(
-  [
-    _getPrivateServiceDict,
-    getAllPrivateSlotsDict,
-    getServiceCompatibiltyPassList,
-  ],
-  (servicesById, slotData, compatibilityList) => {
-    if (!compatibilityList) return compatibilityList;
-    if (Array.isArray(compatibilityList)) {
-      return compatibilityList.map((c) => ({
-        ...c,
-        private_service: {
-          ...servicesById[c.private_service],
-          slots: servicesById[c.private_service]
-            ? servicesById[c.private_service].slots.map((s) => slotData[s])
-            : [],
-        },
-        included_slots:
-          servicesById[c.private_service] && c.excluded_slot_ids
-            ? servicesById[c.private_service].slots
-                .filter((s) => !c.excluded_slot_ids.includes(s))
-                .map((s) => slotData[s])
-            : null,
-      }));
-    }
-    if (compatibilityList) {
-      return {
-        ...compatibilityList,
-        private_service: {
-          ...servicesById[compatibilityList.private_service],
-          slots: servicesById[compatibilityList.private_service]
-            ? servicesById[compatibilityList.private_service].slots.map(
-                (s) => slotData[s],
-              )
-            : [],
-        },
-        included_slots:
-          servicesById[compatibilityList.private_service] &&
-          compatibilityList.excluded_slot_ids
-            ? servicesById[compatibilityList.private_service].slots
-                .filter((s) => !compatibilityList.excluded_slot_ids.includes(s))
-                .map((s) => slotData[s])
-            : null,
-      };
-    }
-    return [];
-  },
-);
+export const getCompatibilityPassWithService: (State) => Array<PrivatePassWithService> =
+  createSelector(
+    [
+      _getPrivateServiceDict,
+      getAllPrivateSlotsDict,
+      getServiceCompatibiltyPassList,
+    ],
+    (servicesById, slotData, compatibilityList) => {
+      if (!compatibilityList) return compatibilityList;
+      if (Array.isArray(compatibilityList)) {
+        return compatibilityList.map((c) => ({
+          ...c,
+          private_service: {
+            ...servicesById[c.private_service],
+            slots: servicesById[c.private_service]
+              ? servicesById[c.private_service].slots.map((s) => slotData[s])
+              : [],
+          },
+          included_slots:
+            servicesById[c.private_service] && c.excluded_slot_ids
+              ? servicesById[c.private_service].slots
+                  .filter((s) => !c.excluded_slot_ids.includes(s))
+                  .map((s) => slotData[s])
+              : null,
+        }));
+      }
+      if (compatibilityList) {
+        return {
+          ...compatibilityList,
+          private_service: {
+            ...servicesById[compatibilityList.private_service],
+            slots: servicesById[compatibilityList.private_service]
+              ? servicesById[compatibilityList.private_service].slots.map(
+                  (s) => slotData[s],
+                )
+              : [],
+          },
+          included_slots:
+            servicesById[compatibilityList.private_service] &&
+            compatibilityList.excluded_slot_ids
+              ? servicesById[compatibilityList.private_service].slots
+                  .filter(
+                    (s) => !compatibilityList.excluded_slot_ids.includes(s),
+                  )
+                  .map((s) => slotData[s])
+              : null,
+        };
+      }
+      return [];
+    },
+  );

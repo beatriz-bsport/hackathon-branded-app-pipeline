@@ -47,9 +47,11 @@ export const CustomFormStepper = (props: Props) => {
   const [currentCustomFormId, setCurrentCustomFormId] = React.useState(
     customFormList[0]?.id,
   );
+
   const userCanDisconnect = customFormDisplayRuleList?.find(
     (rule) => !rule?.snoozable,
   );
+
   React.useEffect(() => {
     if (customFormStep === -1) {
       setCurrentCustomFormId(null);
@@ -58,7 +60,8 @@ export const CustomFormStepper = (props: Props) => {
         customFormStep &&
         setCurrentCustomFormId(customFormList[customFormStep].id);
     }
-  }, [customFormStep]);
+  }, [customFormStep, customFormList, setCurrentCustomFormId]);
+
   if (!customFormList || customFormList.length === 0) {
     return <div />;
   }

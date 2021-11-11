@@ -238,24 +238,28 @@ export default compose(
   withState('selectedNotification', 'setSelectedNotification', null),
   withState('isFormOpen', 'setIsFormOpen', false),
   withHandlers({
-    closeForm: ({ setIsFormOpen, setSelectedNotification }) => () => {
-      setSelectedNotification(null);
-      setIsFormOpen(false);
-    },
-    onSubmit: ({
-      createNotification,
-      updateNotification,
-      selectedNotification,
-      setIsFormOpen,
-      setSelectedNotification,
-    }) => (data: any) => {
-      if (selectedNotification !== null) {
-        updateNotification(selectedNotification.id, data);
-      } else {
-        createNotification(data);
-      }
-      setIsFormOpen(false);
-      setSelectedNotification(null);
-    },
+    closeForm:
+      ({ setIsFormOpen, setSelectedNotification }) =>
+      () => {
+        setSelectedNotification(null);
+        setIsFormOpen(false);
+      },
+    onSubmit:
+      ({
+        createNotification,
+        updateNotification,
+        selectedNotification,
+        setIsFormOpen,
+        setSelectedNotification,
+      }) =>
+      (data: any) => {
+        if (selectedNotification !== null) {
+          updateNotification(selectedNotification.id, data);
+        } else {
+          createNotification(data);
+        }
+        setIsFormOpen(false);
+        setSelectedNotification(null);
+      },
   }),
 )(PrivateBookingNotification);

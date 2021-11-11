@@ -5,12 +5,9 @@ import { compose } from 'recompose';
 import withStyles from '@material-ui/styles/withStyles';
 import { Theme } from '@material-ui/core/styles';
 
-import CanvasPreview from '../../libs/spot-scheduling/component/SpotPreview/CanvasPreview.component';
-import {
-  AssetForBlueprint,
-  RoomBlueprint,
-} from '../../libs/spot-scheduling/types';
-import { Offer, OfferStatus } from '../../libs/offer/types';
+import CanvasPreview from '#libs/spot-scheduling/component/SpotPreview/CanvasPreview.component';
+import { AssetForBlueprint, RoomBlueprint } from '#libs/spot-scheduling/types';
+import { Offer, OfferStatus } from '#libs/offer/types';
 import { MaterialStyleType } from '../../utils/types';
 
 interface OwnProps {
@@ -28,12 +25,10 @@ class OfferManagementRoomBlueprint extends React.PureComponent<Props> {
   render() {
     const { classes } = this.props;
 
-    const roomBlueprint = this.props.roomBlueprintById[
-      this.props.offer.room_blueprint
-    ];
-    const offerStatus: OfferStatus = this.props.offerStatusById[
-      this.props.offer.id
-    ];
+    const roomBlueprint =
+      this.props.roomBlueprintById[this.props.offer.room_blueprint];
+    const offerStatus: OfferStatus =
+      this.props.offerStatusById[this.props.offer.id];
 
     const takenSpot = offerStatus?.taken_spots || [];
 

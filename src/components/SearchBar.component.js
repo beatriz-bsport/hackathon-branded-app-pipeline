@@ -35,7 +35,7 @@ type Props = {
   searchText: string,
   clearSearch: (boolean) => void,
   history: Object,
-  classes: *,
+  classes: any,
   className: string,
   changeLocation: boolean,
   push: (string) => void,

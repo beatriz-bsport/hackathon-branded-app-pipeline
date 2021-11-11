@@ -92,11 +92,10 @@ const withStateHandlersInit = {
   responsiveLayouts: null,
 };
 const withStateHandlersSetter = {
-  setCurrentResponsiveLayouts: () => (
-    responsiveLayouts: ResponsiveLayouts | null,
-  ) => {
-    return { responsiveLayouts };
-  },
+  setCurrentResponsiveLayouts:
+    () => (responsiveLayouts: ResponsiveLayouts | null) => {
+      return { responsiveLayouts };
+    },
 };
 export default compose<any, Props>(
   routerParamsToProps({ id: 'id:number' }),

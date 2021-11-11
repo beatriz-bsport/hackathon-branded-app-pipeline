@@ -153,9 +153,8 @@ export const PaymentStripeSEPA = (props: Props) => {
 
   const [saveForLater, setSaveForLater] = React.useState(false);
   const [paymentMethodList, setPaymentMethodList] = React.useState([]);
-  const [paymentMethodSelected, setPaymentMethodSelected] = React.useState(
-    null,
-  );
+  const [paymentMethodSelected, setPaymentMethodSelected] =
+    React.useState(null);
   const [detachPmId, setDetachPmId] = React.useState(null);
   const [addPaymentMethod, setAddPaymentMethod] = React.useState(true);
 
@@ -202,6 +201,7 @@ export const PaymentStripeSEPA = (props: Props) => {
         props.basketTotalPriceCts !== data
       ) {
         setProcessing(false);
+        // eslint-disable-next-line
         window.alert(t('paymentPanel.actions.basketInconsistent'));
         window.location.reload();
         return;

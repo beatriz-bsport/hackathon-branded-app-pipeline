@@ -233,38 +233,35 @@ const mapHandlers = {
       },
     });
   },
-  goToVideoInPlaylist: (props: OwnProps & ConnectProps) => (
-    videoId: number,
-  ) => {
-    if (props.goToVideoInPlaylist) {
-      props.goToVideoInPlaylist(
-        props.id,
-        videoId,
-        props.companyId,
-        props.companyName,
-      );
-      return;
-    }
-    const url = `/m/${props.companyName}/${props.companyId}/vod/playlist/${props.id}/video/${videoId}`;
-    props.pushRouter(url);
-  },
-  replaceToVideoInPlaylist: (props: OwnProps & ConnectProps) => (
-    id: number,
-    videoId: number,
-  ) => {
-    if (props.replaceVideoInPlaylist) {
-      props.replaceVideoInPlaylist(
-        props.id,
-        videoId,
-        props.companyId,
-        props.companyName,
-      );
-      return;
-    }
+  goToVideoInPlaylist:
+    (props: OwnProps & ConnectProps) => (videoId: number) => {
+      if (props.goToVideoInPlaylist) {
+        props.goToVideoInPlaylist(
+          props.id,
+          videoId,
+          props.companyId,
+          props.companyName,
+        );
+        return;
+      }
+      const url = `/m/${props.companyName}/${props.companyId}/vod/playlist/${props.id}/video/${videoId}`;
+      props.pushRouter(url);
+    },
+  replaceToVideoInPlaylist:
+    (props: OwnProps & ConnectProps) => (id: number, videoId: number) => {
+      if (props.replaceVideoInPlaylist) {
+        props.replaceVideoInPlaylist(
+          props.id,
+          videoId,
+          props.companyId,
+          props.companyName,
+        );
+        return;
+      }
 
-    const url = `/m/${props.companyName}/${props.companyId}/vod/playlist/${id}/video/${videoId}`;
-    props.replaceRouter(url);
-  },
+      const url = `/m/${props.companyName}/${props.companyId}/vod/playlist/${id}/video/${videoId}`;
+      props.replaceRouter(url);
+    },
 };
 
 const withStateHandlersInit = {

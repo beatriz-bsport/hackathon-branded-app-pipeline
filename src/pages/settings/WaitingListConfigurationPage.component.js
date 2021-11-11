@@ -24,7 +24,7 @@ type Props = {
     smart_delay_minutes: number,
   },
 
-  classes: *,
+  classes: any,
 };
 
 export class WaitingListConfigurationPage extends Component<Props> {

@@ -186,24 +186,22 @@ const mapWithHandlers = {
   removeUrlCode: (props: OwnAndConnectedProps) => () => {
     props.replace(window.location.pathname);
   },
-  revokeQuickBookApp: (props: OwnAndConnectedProps) => (
-    options?: OptionCallback,
-  ) => {
-    props.revokeQuickbooksAppAction(props.theme.company, options);
-  },
-  requestQuickBooksAccessToken: (props: OwnAndConnectedProps) => (
-    options?: OptionCallback,
-  ) => {
-    props.requestQuickBooksAccessTokenAction(
-      {
-        companyId: props.theme.company,
-        code: props.quickbooksCode,
-        realm_Id: props.quickbooksRealmId,
-        redirect_uri: window.location.href,
-      },
-      options,
-    );
-  },
+  revokeQuickBookApp:
+    (props: OwnAndConnectedProps) => (options?: OptionCallback) => {
+      props.revokeQuickbooksAppAction(props.theme.company, options);
+    },
+  requestQuickBooksAccessToken:
+    (props: OwnAndConnectedProps) => (options?: OptionCallback) => {
+      props.requestQuickBooksAccessTokenAction(
+        {
+          companyId: props.theme.company,
+          code: props.quickbooksCode,
+          realm_Id: props.quickbooksRealmId,
+          redirect_uri: window.location.href,
+        },
+        options,
+      );
+    },
 };
 const withStateHandlersInit: StateHandlerInit = {};
 const withStateHandlersSetter = {};

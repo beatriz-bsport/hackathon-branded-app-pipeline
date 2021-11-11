@@ -142,12 +142,10 @@ export class FranchisePaymentPackTemplatePage extends Component<Props> {
 
 const connector = connect(
   (state: RootState) => ({
-    paymentPackTemplateListManagerOnly: getPaymentPackTemplateListManagerOnly(
-      state,
-    ),
-    paymentPackTemplateListAvailable: getPaymentPackTemplateListAvailable(
-      state,
-    ),
+    paymentPackTemplateListManagerOnly:
+      getPaymentPackTemplateListManagerOnly(state),
+    paymentPackTemplateListAvailable:
+      getPaymentPackTemplateListAvailable(state),
     paymentPackTemplateData: getPaymentPackTemplateData(state),
   }),
   {
@@ -172,45 +170,53 @@ export default compose(
     {
       openCreateDialog: () => () => ({ createModalOpen: true }),
       closeCreateDialog: () => () => ({ createModalOpen: false }),
-      openEditDialog: (_, { paymentPackTemplateData }) => (id) => ({
-        paymentPackTemplateForEdit: paymentPackTemplateData[id],
-      }),
+      openEditDialog:
+        (_, { paymentPackTemplateData }) =>
+        (id) => ({
+          paymentPackTemplateForEdit: paymentPackTemplateData[id],
+        }),
       closeEditDialog: () => () => ({ paymentPackTemplateForEdit: null }),
       openDeleteDialog: () => (id) => ({ templateToDelete: id }),
       closeDeleteDialog: () => () => ({ templateToDelete: null }),
     },
   ),
   withHandlers({
-    deletePaymentPackTemplate: ({
-      deletePaymentPackTemplate,
-      templateToDelete,
-      closeDeleteDialog,
-      fetchPaymentPackTemplateList,
-    }) => () =>
-      deletePaymentPackTemplate(templateToDelete, {
-        onSuccess: () => {
-          fetchPaymentPackTemplateList();
-          closeDeleteDialog();
-        },
-      }),
-    createOrUpdatePaymentPackTemplate: ({
-      createOrUpdatePaymentPackTemplate,
-      closeCreateDialog,
-      closeEditDialog,
-      goToTemplateDetail,
-    }) => (data: any, options: OptionCallback<PaymentPackTemplateAPI>) =>
-      createOrUpdatePaymentPackTemplate(data, {
-        onError: options && options.onError,
-        onSuccess: (template: PaymentPackTemplateAPI) => {
-          if (!template.payment_pack_template_instances.length) {
-            goToTemplateDetail(template.id, { openTemplateInstanceForm: true });
-          }
-          closeCreateDialog();
-          closeEditDialog();
-          if (options && options.onSuccess) {
-            options.onSuccess(template);
-          }
-        },
-      }),
+    deletePaymentPackTemplate:
+      ({
+        deletePaymentPackTemplate,
+        templateToDelete,
+        closeDeleteDialog,
+        fetchPaymentPackTemplateList,
+      }) =>
+      () =>
+        deletePaymentPackTemplate(templateToDelete, {
+          onSuccess: () => {
+            fetchPaymentPackTemplateList();
+            closeDeleteDialog();
+          },
+        }),
+    createOrUpdatePaymentPackTemplate:
+      ({
+        createOrUpdatePaymentPackTemplate,
+        closeCreateDialog,
+        closeEditDialog,
+        goToTemplateDetail,
+      }) =>
+      (data: any, options: OptionCallback<PaymentPackTemplateAPI>) =>
+        createOrUpdatePaymentPackTemplate(data, {
+          onError: options && options.onError,
+          onSuccess: (template: PaymentPackTemplateAPI) => {
+            if (!template.payment_pack_template_instances.length) {
+              goToTemplateDetail(template.id, {
+                openTemplateInstanceForm: true,
+              });
+            }
+            closeCreateDialog();
+            closeEditDialog();
+            if (options && options.onSuccess) {
+              options.onSuccess(template);
+            }
+          },
+        }),
   }),
 )(FranchisePaymentPackTemplatePage);

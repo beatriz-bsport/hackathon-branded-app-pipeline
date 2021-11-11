@@ -30,19 +30,27 @@ interface Props {
 }
 
 const MarketplaceCommonFilterForm: React.FC<Props> = (props) => {
+  const {
+    coaches,
+    establishments,
+    metaActivities,
+    establishmentGroupList,
+    config,
+    onChange,
+  } = props;
+
   const setData = useCallback(
     (key: keyof MarketplaceCommonFilter, values: any) => {
-      const config = {
-        ...props.config,
-        [key]: values.map((a: any) => a.id),
-      };
+      let newEstablishments: number[];
+      let establishmentGroups: number[];
+
       if (key === 'establishmentGroups') {
-        config.establishments = values
+        newEstablishments = values
           .flatMap((eg: EstablishmentGroup) => eg.establishment)
           .map((e: Establishment) => e.id);
       }
       if (key === 'establishments') {
-        config.establishmentGroups = props.establishmentGroupList
+        establishmentGroups = establishmentGroupList
           .filter((eg: EstablishmentGroup) =>
             (eg.establishment || [])
               .map((e: Establishment) => e.id)
@@ -50,15 +58,21 @@ const MarketplaceCommonFilterForm: React.FC<Props> = (props) => {
           )
           .filter((group) => group.establishment.length !== 0);
       }
-      props.onChange(config);
+      const newConfig = {
+        ...config,
+        [key]: values.map((a: any) => a.id),
+        establishments: newEstablishments,
+        establishmentGroups,
+      };
+      onChange(newConfig);
     },
-    [props.config, props.establishmentGroupList],
+    [config, establishmentGroupList, onChange],
   );
 
   const classes = useStyles();
   const { t } = useTranslation();
 
-  if (!props.config) {
+  if (!config) {
     return null;
   }
 
@@ -67,12 +81,11 @@ const MarketplaceCommonFilterForm: React.FC<Props> = (props) => {
       <div className={classes.marginTop}>
         <Autocomplete
           multiple
-          options={[...props.coaches]}
+          options={[...coaches]}
           getOptionLabel={(option) => option.name}
           value={[
-            ...props.coaches.filter(
-              (c) =>
-                props.config.coaches && props.config.coaches.includes(c.id),
+            ...coaches.filter(
+              (c) => config.coaches && config.coaches.includes(c.id),
             ),
           ]}
           onChange={(e, newValue) => setData('coaches', newValue)}
@@ -86,17 +99,17 @@ const MarketplaceCommonFilterForm: React.FC<Props> = (props) => {
           )}
         />
       </div>
-      {!!props.establishmentGroupList && (
+      {!!establishmentGroupList && (
         <div className={classes.marginTop}>
           <Autocomplete
             multiple
-            options={[...props.establishmentGroupList]}
+            options={[...establishmentGroupList]}
             getOptionLabel={(option) => option.name}
             value={[
-              ...props.establishmentGroupList.filter(
+              ...establishmentGroupList.filter(
                 (l) =>
-                  props.config.establishmentGroups &&
-                  props.config.establishmentGroups.includes(l.id),
+                  config.establishmentGroups &&
+                  config.establishmentGroups.includes(l.id),
               ),
             ]}
             onChange={(e, newValue) => {
@@ -116,13 +129,12 @@ const MarketplaceCommonFilterForm: React.FC<Props> = (props) => {
       <div className={classes.marginTop}>
         <Autocomplete
           multiple
-          options={[...props.establishments]}
+          options={[...establishments]}
           getOptionLabel={(option) => option.title}
           value={[
-            ...props.establishments.filter(
+            ...establishments.filter(
               (e) =>
-                props.config.establishments &&
-                props.config.establishments.includes(e.id),
+                config.establishments && config.establishments.includes(e.id),
             ),
           ]}
           onChange={(e, newValue) => setData('establishments', newValue)}
@@ -140,13 +152,12 @@ const MarketplaceCommonFilterForm: React.FC<Props> = (props) => {
       <div className={classes.marginTop}>
         <Autocomplete
           multiple
-          options={[...props.metaActivities]}
+          options={[...metaActivities]}
           getOptionLabel={(option) => option.name}
           value={[
-            ...props.metaActivities.filter(
+            ...metaActivities.filter(
               (m) =>
-                props.config.metaActivities &&
-                props.config.metaActivities.includes(m.id),
+                config.metaActivities && config.metaActivities.includes(m.id),
             ),
           ]}
           onChange={(e, newValue) => setData('metaActivities', newValue)}
@@ -166,8 +177,7 @@ const MarketplaceCommonFilterForm: React.FC<Props> = (props) => {
           options={LEVELS}
           getOptionLabel={(option) => t(`level.${option.text}`)}
           value={LEVELS.filter(
-            (l: any) =>
-              props.config.levels && props.config.levels.includes(l.id),
+            (l: any) => config.levels && props.config.levels.includes(l.id),
           )}
           onChange={(e, newValue) => setData('levels', newValue)}
           renderInput={(params) => (

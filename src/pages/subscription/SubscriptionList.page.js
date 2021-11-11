@@ -148,40 +148,37 @@ export default compose(
     },
   ),
   withHandlers({
-    fetchSubscriptionList: ({ fetchSubscriptionList }) => (
-      page: number,
-      params: any = {},
-    ) => {
-      fetchSubscriptionList({
-        page,
-        page_size: 10,
-        ...params,
-      });
-    },
+    fetchSubscriptionList:
+      ({ fetchSubscriptionList }) =>
+      (page: number, params: any = {}) => {
+        fetchSubscriptionList({
+          page,
+          page_size: 10,
+          ...params,
+        });
+      },
   }),
   withHandlers({
-    fetchPlannedInvoicePage: ({ fetchPlannedInvoiceList }) => (
-      page,
-      page_size,
-    ) => {
-      fetchPlannedInvoiceList(
-        page,
-        {
-          status: PLANNED_INVOICE_PENDING.id,
-          billing_plan__active: true,
-          date__gte: moment().format('YYYY-MM-DD'),
-        },
-        page_size,
-      );
-    },
-    fetchSubscriptionEventList: ({
-      fetchSubscriptionEventList,
-      fetchSubscriptionBulk,
-    }) => (params) => {
-      fetchSubscriptionEventList(params, {
-        onSuccess: (eventList) =>
-          fetchSubscriptionBulk(eventList.map((e) => e.data.billing_plan)),
-      });
-    },
+    fetchPlannedInvoicePage:
+      ({ fetchPlannedInvoiceList }) =>
+      (page, page_size) => {
+        fetchPlannedInvoiceList(
+          page,
+          {
+            status: PLANNED_INVOICE_PENDING.id,
+            billing_plan__active: true,
+            date__gte: moment().format('YYYY-MM-DD'),
+          },
+          page_size,
+        );
+      },
+    fetchSubscriptionEventList:
+      ({ fetchSubscriptionEventList, fetchSubscriptionBulk }) =>
+      (params) => {
+        fetchSubscriptionEventList(params, {
+          onSuccess: (eventList) =>
+            fetchSubscriptionBulk(eventList.map((e) => e.data.billing_plan)),
+        });
+      },
   }),
 )(SubscriptionList);

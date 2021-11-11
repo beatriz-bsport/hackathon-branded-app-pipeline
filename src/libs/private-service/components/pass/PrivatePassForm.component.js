@@ -35,7 +35,7 @@ type Props = {
   isSubmitting: boolean,
   classes: Object,
   onCancel: () => void,
-  values: *,
+  values: any,
   initial: ?PrivatePass,
 };
 

@@ -20,12 +20,13 @@ import {
   getMainOfferNotBookableReason,
   getCanIBook,
 } from '@bsport/common/lib/master-data/available-payment';
-import Analytics from '../../../../components/analytics/Analytics.component';
+
+import Analytics from '#components/analytics/Analytics.component';
 
 import { RootState } from '../../../../reducers';
 import ConsumerAppBarContainer from '../../ConsumerAppBar.container';
 
-import themeSelectors from '../../../../libs/theme/selectors';
+import themeSelectors from '#libs/theme/selectors';
 
 import {
   getOfferById,
@@ -33,43 +34,44 @@ import {
   withCoach,
   getSimilars,
   withMetaActivity,
-} from '../../../../libs/offer/selectors';
+} from '#libs/offer/selectors';
 import {
   fetchOfferStatusList,
   offerUserRegistration,
   fetchSimilarOffers,
   resetSimilarOffers,
   retrieveOffer as fetchOffer,
-} from '../../../../libs/offer/actions';
+} from '#libs/offer/actions';
 import {
   snackbarError as snackbarErrorAction,
   snackbarWarning as snackbarWarningAction,
 } from '../../../../libs/snackbar/actions';
 
-import routerParamsToProps from '../../../../hocs/router-params-to-props.hoc';
-import { fetchMetaActivityBulk } from '../../../../libs/meta-activity/actions';
-import { fetchCoachBulk } from '../../../../libs/associated-coach/actions';
-import { fetchEstablishmentBulk } from '../../../../libs/establishment/actions';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import { fetchMetaActivityBulk } from '#libs/meta-activity/actions';
+import { fetchCoachBulk } from '#libs/associated-coach/actions';
+import { fetchEstablishmentBulk } from '#libs/establishment/actions';
 import { MaterialStyleType } from '../../../../utils/types';
-import { Offer_FULL, Offer } from '../../../../libs/offer/types';
-import SimilarOffers from '../../../../libs/booker-module/components/SimilarOfferSelector.component';
-import BookerModuleHeader from '../../../../libs/booker-module/components/BookerModuleHeader.component';
-import OfferListSummary from '../../../../libs/booker-module/components/OfferListSummary.component';
+import { Offer_FULL, Offer } from '#libs/offer/types';
+import SimilarOffers from '#libs/booker-module/components/SimilarOfferSelector.component';
+import BookerModuleHeader from '#libs/booker-module/components/BookerModuleHeader.component';
+import OfferListSummary from '#libs/booker-module/components/OfferListSummary.component';
 
-import { getMyRelatedMemberList } from '../../../../libs/relationship/selectors';
-import { fetchMyRelatedMemberList } from '../../../../libs/relationship/actions';
+import { getMyRelatedMemberList } from '#libs/relationship/selectors';
+import { fetchMyRelatedMemberList } from '#libs/relationship/actions';
+
 import BookingMethodSelector from './BookingMethodSelector.container';
 import {
   OfferData,
   SelectedPack,
   OfferConstraint,
-} from '../../../../libs/booker-module/types';
-import { MemberMinimal } from '../../../../libs/member/types';
+} from '#libs/booker-module/types';
+import { MemberMinimal } from '#libs/member/types';
 import {
   fetchRoomBlueprintDetail,
   fetchAssetForBlueprint,
-} from '../../../../libs/spot-scheduling/actions';
-import { getAssetByBlueprintByIdentifier } from '../../../../libs/spot-scheduling/selector';
+} from '#libs/spot-scheduling/actions';
+import { getAssetByBlueprintByIdentifier } from '#libs/spot-scheduling/selector';
 
 import OfferSpotSelector from './OfferSpotSelector';
 
@@ -130,11 +132,8 @@ class OfferBooking extends React.PureComponent<Props, State> {
       !!prevState.selectedPack
     ) {
       const { selectedPack } = this.state;
-      const {
-        paymentPack,
-        paymentPackCombo,
-        consumerPaymentPack,
-      } = selectedPack;
+      const { paymentPack, paymentPackCombo, consumerPaymentPack } =
+        selectedPack;
       const pass = paymentPack || paymentPackCombo || consumerPaymentPack;
       if (this.state.showSimilarOffers) {
         if (!pass) {
@@ -243,7 +242,8 @@ class OfferBooking extends React.PureComponent<Props, State> {
     this.setState({ showLoader: true });
     const data: any = {};
     if (this.state.selectedPack.consumerPaymentPack) {
-      data.consumer_payment_pack = this.state.selectedPack.consumerPaymentPack.id;
+      data.consumer_payment_pack =
+        this.state.selectedPack.consumerPaymentPack.id;
     } else if (this.state.selectedPack.paymentPack) {
       data.payment_pack = this.state.selectedPack.paymentPack.id;
       Analytics.addPassToCart(this.state.selectedPack.paymentPack);

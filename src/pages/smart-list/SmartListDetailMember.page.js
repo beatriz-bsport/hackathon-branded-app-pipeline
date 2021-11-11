@@ -207,7 +207,8 @@ export class SmartListDetailMember extends Component<Props, State> {
     filter.smartlist = this.props.id;
     this.props.createFilter(filter_identifier, filter, this.props.id, () => {
       this.setState((prevState) => ({
-        onValueChangeActiveMemberFetch: !prevState.onValueChangeActiveMemberFetch,
+        onValueChangeActiveMemberFetch:
+          !prevState.onValueChangeActiveMemberFetch,
       }));
     });
   };
@@ -215,7 +216,8 @@ export class SmartListDetailMember extends Component<Props, State> {
   updateFilter = (filterNameId, filterId, data) => {
     this.props.updateFilter(this.props.id, filterNameId, filterId, data, () => {
       this.setState((prevState) => ({
-        onValueChangeActiveMemberFetch: !prevState.onValueChangeActiveMemberFetch,
+        onValueChangeActiveMemberFetch:
+          !prevState.onValueChangeActiveMemberFetch,
       }));
     });
   };
@@ -223,7 +225,8 @@ export class SmartListDetailMember extends Component<Props, State> {
   deleteFilter = (filterNameId, filterId) => {
     this.props.deleteFilter(filterNameId, filterId, this.props.id, () => {
       this.setState((prevState) => ({
-        onValueChangeActiveMemberFetch: !prevState.onValueChangeActiveMemberFetch,
+        onValueChangeActiveMemberFetch:
+          !prevState.onValueChangeActiveMemberFetch,
       }));
     });
   };
@@ -582,49 +585,47 @@ export default compose(
     },
   ),
   withHandlers({
-    sendCommunication: ({ sendCommunication, id }) => (data) =>
-      sendCommunication({ ...data, smartlist_id: id }),
+    sendCommunication:
+      ({ sendCommunication, id }) =>
+      (data) =>
+        sendCommunication({ ...data, smartlist_id: id }),
   }),
   withHandlers({
-    createAutoTag: ({
-      createAutoTagAction,
-      applyAsyncSmartListAutoTagRules,
-      t,
-      id,
-    }) => async (data) => {
-      const res = await showInformativeDialog(
-        t('smartList:tag_rules.asyncDialog.title'),
-        t('smartList:tag_rules.asyncDialog.message'),
-      );
-      createAutoTagAction(
-        { ...data, smartlist: id },
-        {
+    createAutoTag:
+      ({ createAutoTagAction, applyAsyncSmartListAutoTagRules, t, id }) =>
+      async (data) => {
+        const res = await showInformativeDialog(
+          t('smartList:tag_rules.asyncDialog.title'),
+          t('smartList:tag_rules.asyncDialog.message'),
+        );
+        createAutoTagAction(
+          { ...data, smartlist: id },
+          {
+            onSuccess: () =>
+              applyAsyncSmartListAutoTagRules(id, {
+                onSuccess: () => res,
+              }),
+          },
+        );
+      },
+    deleteAutoTag:
+      ({ deleteAutoTagAction }) =>
+      (id) => {
+        deleteAutoTagAction(id);
+      },
+    updateAutoTag:
+      ({ updateAutoTagAction, applyAsyncSmartListAutoTagRules, t, id }) =>
+      async (tg_id, data) => {
+        const res = await showInformativeDialog(
+          t('smartList:tag_rules.asyncDialog.title'),
+          t('smartList:tag_rules.asyncDialog.message'),
+        );
+        updateAutoTagAction(tg_id, data, {
           onSuccess: () =>
             applyAsyncSmartListAutoTagRules(id, {
               onSuccess: () => res,
             }),
-        },
-      );
-    },
-    deleteAutoTag: ({ deleteAutoTagAction }) => (id) => {
-      deleteAutoTagAction(id);
-    },
-    updateAutoTag: ({
-      updateAutoTagAction,
-      applyAsyncSmartListAutoTagRules,
-      t,
-      id,
-    }) => async (tg_id, data) => {
-      const res = await showInformativeDialog(
-        t('smartList:tag_rules.asyncDialog.title'),
-        t('smartList:tag_rules.asyncDialog.message'),
-      );
-      updateAutoTagAction(tg_id, data, {
-        onSuccess: () =>
-          applyAsyncSmartListAutoTagRules(id, {
-            onSuccess: () => res,
-          }),
-      });
-    },
+        });
+      },
   }),
 )(SmartListDetailMember);

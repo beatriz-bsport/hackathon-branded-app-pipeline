@@ -76,17 +76,20 @@ export const FormikChangesLookUp = (props: Props) => {
         initialValues.custom_form_field_enabled?.length
     ) {
       props.setNumberOfQuestionsHasChanged(true);
-      const signup_questions_registered_disabled = values.custom_form_field_disabled
-        .filter((field) => field.signup_question_kind)
-        .map((field) => field.signup_question_kind);
-      const signup_questions_registered_enabled = values.custom_form_field_enabled
-        .filter((field) => field.signup_question_kind)
-        .map((field) => field.signup_question_kind);
+      const signup_questions_registered_disabled =
+        values.custom_form_field_disabled
+          .filter((field) => field.signup_question_kind)
+          .map((field) => field.signup_question_kind);
+      const signup_questions_registered_enabled =
+        values.custom_form_field_enabled
+          .filter((field) => field.signup_question_kind)
+          .map((field) => field.signup_question_kind);
       props.setregisteredSignUpQuestions([
         ...signup_questions_registered_disabled,
         ...signup_questions_registered_enabled,
       ]);
     }
+    //  eslint-disable-next-line
   }, [props.isSubmitting, initialValues, values]);
 
   return (

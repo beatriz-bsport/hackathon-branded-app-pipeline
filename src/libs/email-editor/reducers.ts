@@ -21,8 +21,8 @@ import {
 
 import type { EmailTemplateState } from './types';
 
-const initialState: Immutable.Immutable<EmailTemplateState> = Immutable<EmailTemplateState>(
-  {
+const initialState: Immutable.Immutable<EmailTemplateState> =
+  Immutable<EmailTemplateState>({
     isLoading: false,
     error: null,
     byId: {},
@@ -43,8 +43,7 @@ const initialState: Immutable.Immutable<EmailTemplateState> = Immutable<EmailTem
       error: null,
       filters: [],
     },
-  },
-);
+  });
 
 export default handleActions(
   {

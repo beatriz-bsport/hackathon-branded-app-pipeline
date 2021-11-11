@@ -383,14 +383,10 @@ type Props = {
 
 export function PlannedInvoiceListDetail(props: Props) {
   const classes = useStyles();
-  const [
-    plannedInvoiceToUpdatePrice,
-    setPlannedInvoiceToUpdatePrice,
-  ] = React.useState(null);
-  const [
-    plannedInvoiceToUpdateDate,
-    setPlannedInvoiceToUpdateDate,
-  ] = React.useState(null);
+  const [plannedInvoiceToUpdatePrice, setPlannedInvoiceToUpdatePrice] =
+    React.useState(null);
+  const [plannedInvoiceToUpdateDate, setPlannedInvoiceToUpdateDate] =
+    React.useState(null);
   let fullDisable = false;
   return (
     <div className={classes.container}>

@@ -114,39 +114,39 @@ export default compose(
     },
   ),
   withHandlers({
-    fetchBookingList: ({
-      fetchBookingsAsConsumer,
-      retrieveConsumerPackBulk,
-      fetchPaymentPackBulk,
-    }) => (member, page, page_size) =>
-      fetchBookingsAsConsumer(member, page, page_size, {
-        onSuccess: (bookings) =>
-          retrieveConsumerPackBulk(
-            bookings.map((b) => b.consumer_payment_pack),
-            {
-              onSuccess: (consumerPacks) =>
-                fetchPaymentPackBulk(
-                  consumerPacks.map((cpp) => cpp.payment_pack),
-                ),
-            },
-          ),
-      }),
-    goToCalendar: (props: Props) => (
-      companyName: string,
-      companyId: string,
-    ) => {
-      const index = props.marketplaceSettings.config.findIndex(
-        (tab) => tab.component_type === 'calendar',
-      );
-      if (index > -1) {
-        const tabConfig: MarketplaceTabConfig =
-          props.marketplaceSettings.config[index];
-        const path = fromConfigToUrl(tabConfig, { tabSelected: index });
+    fetchBookingList:
+      ({
+        fetchBookingsAsConsumer,
+        retrieveConsumerPackBulk,
+        fetchPaymentPackBulk,
+      }) =>
+      (member, page, page_size) =>
+        fetchBookingsAsConsumer(member, page, page_size, {
+          onSuccess: (bookings) =>
+            retrieveConsumerPackBulk(
+              bookings.map((b) => b.consumer_payment_pack),
+              {
+                onSuccess: (consumerPacks) =>
+                  fetchPaymentPackBulk(
+                    consumerPacks.map((cpp) => cpp.payment_pack),
+                  ),
+              },
+            ),
+        }),
+    goToCalendar:
+      (props: Props) => (companyName: string, companyId: string) => {
+        const index = props.marketplaceSettings.config.findIndex(
+          (tab) => tab.component_type === 'calendar',
+        );
+        if (index > -1) {
+          const tabConfig: MarketplaceTabConfig =
+            props.marketplaceSettings.config[index];
+          const path = fromConfigToUrl(tabConfig, { tabSelected: index });
 
-        props.push(getMarketplaceRoute(companyName, props.companyId, path));
-      } else {
-        push(urlToMarketplace(companyName, companyId));
-      }
-    },
+          props.push(getMarketplaceRoute(companyName, props.companyId, path));
+        } else {
+          push(urlToMarketplace(companyName, companyId));
+        }
+      },
   }),
 )(ConsumerBooking);

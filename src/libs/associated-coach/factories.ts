@@ -104,9 +104,8 @@ export function coachFactory(): Coach {
     instagram_url: `${name}.insta.com`,
     disabled: randomBoolean(),
     associatedcoach_set: randomArray(10),
-    private_slots_coach_payment_rules: randomPrivate_slots_coach_payment_rules(
-      3,
-    ),
+    private_slots_coach_payment_rules:
+      randomPrivate_slots_coach_payment_rules(3),
   };
 }
 

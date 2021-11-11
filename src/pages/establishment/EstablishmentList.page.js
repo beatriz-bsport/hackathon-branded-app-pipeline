@@ -312,10 +312,10 @@ export default compose(
     },
   ),
   withHandlers({
-    restoreEstablishment: ({ restoreEstablishment, fetchEstablishments }) => (
-      id,
-    ) => {
-      restoreEstablishment(id, { onSuccess: () => fetchEstablishments() });
-    },
+    restoreEstablishment:
+      ({ restoreEstablishment, fetchEstablishments }) =>
+      (id) => {
+        restoreEstablishment(id, { onSuccess: () => fetchEstablishments() });
+      },
   }),
 )(EstablishmentList);

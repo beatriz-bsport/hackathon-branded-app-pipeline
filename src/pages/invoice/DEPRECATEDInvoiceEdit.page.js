@@ -278,35 +278,32 @@ export default compose(
     memberId: invoice && invoice.member && invoice.member.id,
   })),
   withHandlers({
-    updatePaymentMethod: ({ updatePaymentMethod }) => (
-      paymentUuid,
-      newMethod,
-      options,
-    ) =>
-      updatePaymentMethod(paymentUuid, newMethod, {
-        onSuccess: (payment) => {
-          if (options && options.onSuccess) options.onSuccess(payment);
-        },
-        onError: options && options.onError,
-      }),
-    requestSetupIntentSecret: ({ memberId }) => () =>
-      requestSetupIntentSecretAPI(memberId),
-    updateInvoice: ({
-      updateInvoice,
-      uuid,
-      checkInvoiceInfo,
-      goToMemberPage,
-    }) => (invoiceData) => {
-      updateInvoice(
-        { ...invoiceData, uuid },
-        {
-          onSuccess: (invoice) => {
-            goToMemberPage(invoice.member);
-            checkInvoiceInfo(invoice.uuid);
+    updatePaymentMethod:
+      ({ updatePaymentMethod }) =>
+      (paymentUuid, newMethod, options) =>
+        updatePaymentMethod(paymentUuid, newMethod, {
+          onSuccess: (payment) => {
+            if (options && options.onSuccess) options.onSuccess(payment);
           },
-        },
-      );
-    },
+          onError: options && options.onError,
+        }),
+    requestSetupIntentSecret:
+      ({ memberId }) =>
+      () =>
+        requestSetupIntentSecretAPI(memberId),
+    updateInvoice:
+      ({ updateInvoice, uuid, checkInvoiceInfo, goToMemberPage }) =>
+      (invoiceData) => {
+        updateInvoice(
+          { ...invoiceData, uuid },
+          {
+            onSuccess: (invoice) => {
+              goToMemberPage(invoice.member);
+              checkInvoiceInfo(invoice.uuid);
+            },
+          },
+        );
+      },
   }),
   withTitle(
     ({ t, uuid, invoice }) =>

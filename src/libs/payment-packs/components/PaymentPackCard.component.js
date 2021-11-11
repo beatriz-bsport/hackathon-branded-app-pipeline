@@ -636,9 +636,11 @@ export default compose(
   withStateHandlers(
     { scaleMenuOpen: false },
     {
-      toogleScaleMenuOpen: ({ scaleMenuOpen }) => () => ({
-        scaleMenuOpen: !scaleMenuOpen,
-      }),
+      toogleScaleMenuOpen:
+        ({ scaleMenuOpen }) =>
+        () => ({
+          scaleMenuOpen: !scaleMenuOpen,
+        }),
     },
   ),
 )(PaymentPackCard);

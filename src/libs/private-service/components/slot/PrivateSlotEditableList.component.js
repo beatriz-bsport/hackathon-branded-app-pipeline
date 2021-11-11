@@ -27,7 +27,7 @@ type Props = {
   setOpenSlotForm: (boolean) => void,
   openSlotForm: boolean,
   editSlotForm: PrivatSlotData,
-  setEditSlotForm: (?PrivateSlotData) => void,
+  setEditSlotForm: (privateSlot: ?PrivateSlotData) => void,
 
   createPrivateSlot: (
     privateServiceId: number,
@@ -41,7 +41,6 @@ type Props = {
     id: ?number,
     options: ?{ onSuccess?: () => void, onError?: () => void },
   ) => void,
-  // eslint-disable-next-line
   deletePrivateSlot: (slotId: number) => void,
 
   t: TFunction,

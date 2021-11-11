@@ -195,6 +195,5 @@ export const ConsumerGiftcardFormFieldHOC = withFormik({
   },
 });
 
-export const ConsumerGiftcardFormComposed = ConsumerGiftcardFormFieldHOC(
-  ConsumerGiftcardForm,
-);
+export const ConsumerGiftcardFormComposed =
+  ConsumerGiftcardFormFieldHOC(ConsumerGiftcardForm);

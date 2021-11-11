@@ -9,8 +9,8 @@ import {
 } from './actions';
 import { Playlist, PlaylistState } from './types';
 
-const initialState: Immutable.Immutable<PlaylistState> = Immutable<PlaylistState>(
-  {
+const initialState: Immutable.Immutable<PlaylistState> =
+  Immutable<PlaylistState>({
     byId: {},
     list: {
       page: null,
@@ -23,8 +23,7 @@ const initialState: Immutable.Immutable<PlaylistState> = Immutable<PlaylistState
       loading: false,
       error: null,
     },
-  },
-);
+  });
 
 export default handleActions<Immutable.Immutable<PlaylistState>>(
   {

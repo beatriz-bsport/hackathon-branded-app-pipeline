@@ -252,10 +252,12 @@ export default compose(
       setUpdatedTime: () => (updatedTime) => ({ updatedTime }),
       setUpdateTimeForm: () => () => ({ isUpdateTimeFormOpen: true }),
       closeUpdateTimeForm: () => () => ({ isUpdateTimeFormOpen: false }),
-      updateTimeAndClose: (_, { updateTime }) => (...args) => {
-        updateTime(...args);
-        return { isUpdateTimeFormOpen: false };
-      },
+      updateTimeAndClose:
+        (_, { updateTime }) =>
+        (...args) => {
+          updateTime(...args);
+          return { isUpdateTimeFormOpen: false };
+        },
     },
   ),
 )(PrivateBookingCard);

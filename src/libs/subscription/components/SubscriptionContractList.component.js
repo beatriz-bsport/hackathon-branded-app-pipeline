@@ -21,7 +21,7 @@ type Props = {
   contractList: Array<Contract>,
   loading: boolean,
   contractToEdit: ?Contract,
-  setContractToEdit: (?Contract) => void,
+  setContractToEdit: (contract: ?Contract) => void,
   createOpen: boolean,
   setCreateOpen: (boolean) => void,
   dense?: boolean,
@@ -39,8 +39,8 @@ type Props = {
   onDelete: (id: number, options: OptionCallback) => void,
   paymentPacks: Array<PaymentPack>,
   privatePassList: Array<PrivatePass>,
-  onEdit: ?(data: *, options: OptionCallback) => void,
-  onCreate: ?(data: *, options: OptionCallback) => void,
+  onEdit: ?(data: any, options: OptionCallback) => void,
+  onCreate: ?(data: any, options: OptionCallback) => void,
   onRestore: (id: number, options: OptionCallback) => void,
 };
 export const SubscriptionContractList = (props: Props) => {

@@ -43,15 +43,10 @@ type Props = {
 
 export const PrivatePassListItem = React.memo((props: Props) => {
   const dateInfo = getValidityInfo(props.pass, props.t);
-  const {
-    listeners,
-    attributes,
-    transition,
-    transform,
-    setNodeRef,
-  } = useSortable({
-    id: props.pass.id.toString(10),
-  });
+  const { listeners, attributes, transition, transform, setNodeRef } =
+    useSortable({
+      id: props.pass.id.toString(10),
+    });
 
   return (
     <Paper

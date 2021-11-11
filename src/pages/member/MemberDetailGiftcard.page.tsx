@@ -331,53 +331,52 @@ export default compose(
   connector,
   withState('relatedInvoice', 'setRelatedInvoice', null),
   withHandlers({
-    fetchConsumerGiftcardSentList: ({
-      fetchConsumerGiftcardSentList,
-      fetchGiftcardBulk,
-      fetchMemberBulk,
-    }) => (id: number, page: number, page_size: number) => {
-      fetchConsumerGiftcardSentList(
-        id,
-        { page, page_size },
-        {
-          onSuccess: (consumerGiftcardList) => {
-            fetchGiftcardBulk(consumerGiftcardList.map((cg) => cg.giftcard));
-            fetchMemberBulk([
-              ...consumerGiftcardList.map((cg) => cg.src_member),
-              ...consumerGiftcardList.map((cg) => cg.dst_member),
-            ]);
+    fetchConsumerGiftcardSentList:
+      ({ fetchConsumerGiftcardSentList, fetchGiftcardBulk, fetchMemberBulk }) =>
+      (id: number, page: number, page_size: number) => {
+        fetchConsumerGiftcardSentList(
+          id,
+          { page, page_size },
+          {
+            onSuccess: (consumerGiftcardList) => {
+              fetchGiftcardBulk(consumerGiftcardList.map((cg) => cg.giftcard));
+              fetchMemberBulk([
+                ...consumerGiftcardList.map((cg) => cg.src_member),
+                ...consumerGiftcardList.map((cg) => cg.dst_member),
+              ]);
+            },
           },
-        },
-      );
-    },
-    fetchConsumerGiftcardReceivedList: ({
-      fetchConsumerGiftcardReceivedList,
-      fetchGiftcardBulk,
-      fetchMemberBulk,
-    }) => (id, page: number, page_size: number) => {
-      fetchConsumerGiftcardReceivedList(
-        id,
-        { page, page_size },
-        {
-          onSuccess: (consumerGiftcardList: Array<ConsumerGiftcard>) => {
-            fetchGiftcardBulk(consumerGiftcardList.map((cg) => cg.giftcard));
-            fetchMemberBulk([
-              ...consumerGiftcardList.map((cg) => cg.src_member),
-              ...consumerGiftcardList.map((cg) => cg.dst_member),
-            ]);
+        );
+      },
+    fetchConsumerGiftcardReceivedList:
+      ({
+        fetchConsumerGiftcardReceivedList,
+        fetchGiftcardBulk,
+        fetchMemberBulk,
+      }) =>
+      (id, page: number, page_size: number) => {
+        fetchConsumerGiftcardReceivedList(
+          id,
+          { page, page_size },
+          {
+            onSuccess: (consumerGiftcardList: Array<ConsumerGiftcard>) => {
+              fetchGiftcardBulk(consumerGiftcardList.map((cg) => cg.giftcard));
+              fetchMemberBulk([
+                ...consumerGiftcardList.map((cg) => cg.src_member),
+                ...consumerGiftcardList.map((cg) => cg.dst_member),
+              ]);
+            },
           },
-        },
-      );
-    },
-    fetchInvoiceByInvoiceItem: ({
-      fetchInvoiceByInvoiceItem,
-      setRelatedInvoice,
-    }) => (objectId: number) => {
-      fetchInvoiceByInvoiceItem(BUYABLE_ITEM_GIFTCARD, objectId, {
-        onSuccess: (inv: Invoice) => {
-          setRelatedInvoice(inv);
-        },
-      });
-    },
+        );
+      },
+    fetchInvoiceByInvoiceItem:
+      ({ fetchInvoiceByInvoiceItem, setRelatedInvoice }) =>
+      (objectId: number) => {
+        fetchInvoiceByInvoiceItem(BUYABLE_ITEM_GIFTCARD, objectId, {
+          onSuccess: (inv: Invoice) => {
+            setRelatedInvoice(inv);
+          },
+        });
+      },
   }),
 )(MemberDetailGiftcard);

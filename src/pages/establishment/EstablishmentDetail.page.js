@@ -270,69 +270,70 @@ export default compose(
     },
   })),
   withHandlers({
-    fetchNotificationsAndTemplates: ({
-      fetchMarketingNotificationList,
-      fetchEmailTemplateSummariesBulk,
-      id,
-    }) => () => {
-      fetchMarketingNotificationList(
-        {
-          kind: BOOKING_CREATION_NOTIFICATION,
-          event_rules__establishment_id: id,
-        },
-        {
-          onSuccess: (notificationList) => {
-            fetchEmailTemplateSummariesBulk(
-              notificationList.map((notification) => notification.email_design),
-            );
+    fetchNotificationsAndTemplates:
+      ({
+        fetchMarketingNotificationList,
+        fetchEmailTemplateSummariesBulk,
+        id,
+      }) =>
+      () => {
+        fetchMarketingNotificationList(
+          {
+            kind: BOOKING_CREATION_NOTIFICATION,
+            event_rules__establishment_id: id,
           },
-        },
-      );
-    },
+          {
+            onSuccess: (notificationList) => {
+              fetchEmailTemplateSummariesBulk(
+                notificationList.map(
+                  (notification) => notification.email_design,
+                ),
+              );
+            },
+          },
+        );
+      },
   }),
   withHandlers({
-    createNotification: ({
-      fetchNotificationsAndTemplates,
-      createMarketingNotification,
-    }) => (data) => {
-      createMarketingNotification(data, {
-        onSuccess: () => {
-          fetchNotificationsAndTemplates();
-        },
-      });
-    },
-    createRoomBlueprint: ({
-      pushRouter,
-      createRoomBlueprint,
-      theme,
-      id,
-      t,
-    }) => () => {
-      createRoomBlueprint(
-        {
-          name: t('spotScheduling.untitled'),
-          company: theme.company,
-          establishment: id,
-        },
-        {
-          onSuccess: (data) => {
-            pushRouter(`/spot-scheduling/${data.id}`);
+    createNotification:
+      ({ fetchNotificationsAndTemplates, createMarketingNotification }) =>
+      (data) => {
+        createMarketingNotification(data, {
+          onSuccess: () => {
+            fetchNotificationsAndTemplates();
           },
-        },
-      );
-    },
-    gotoSpotSchedulingEditor: ({ pushRouter }) => (room: RoomBlueprint) => {
-      pushRouter(`/spot-scheduling/${room.id}`);
-    },
-    deleteRoomBlueprint: ({ t, deleteRoomBlueprint }) => async (
-      room: RoomBlueprint,
-    ) => {
-      const confirm = await showDeleteDialog(
-        t('spotScheduling.delete.title'),
-        t('spotScheduling.delete.content'),
-      );
-      if (confirm) deleteRoomBlueprint(room.id);
-    },
+        });
+      },
+    createRoomBlueprint:
+      ({ pushRouter, createRoomBlueprint, theme, id, t }) =>
+      () => {
+        createRoomBlueprint(
+          {
+            name: t('spotScheduling.untitled'),
+            company: theme.company,
+            establishment: id,
+          },
+          {
+            onSuccess: (data) => {
+              pushRouter(`/spot-scheduling/${data.id}`);
+            },
+          },
+        );
+      },
+    gotoSpotSchedulingEditor:
+      ({ pushRouter }) =>
+      (room: RoomBlueprint) => {
+        pushRouter(`/spot-scheduling/${room.id}`);
+      },
+    deleteRoomBlueprint:
+      ({ t, deleteRoomBlueprint }) =>
+      async (room: RoomBlueprint) => {
+        const confirm = await showDeleteDialog(
+          t('spotScheduling.delete.title'),
+          t('spotScheduling.delete.content'),
+        );
+        if (confirm) deleteRoomBlueprint(room.id);
+      },
   }),
   withTitle(({ establishment }) => {
     return establishment ? `${establishment.title}` : '';

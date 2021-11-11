@@ -155,7 +155,7 @@ export function fetchConfiguration(): ThunkAction {
 
 export function patchOrder(
   id: string,
-  data_: *,
+  data_: any,
   options: ?{ onError: ?() => void, onSuccess: ?() => void },
 ): ThunkAction {
   return async (dispatch: Dispatch) => {

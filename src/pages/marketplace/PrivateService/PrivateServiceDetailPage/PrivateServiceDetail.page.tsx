@@ -5,20 +5,20 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 // @ts-ignore
 import { RESOURCE_ATTRIBUTION_CONSUMER } from '@bsport/common/lib/master-data/resource-attribution-methods';
 import moment from 'moment-timezone';
-import { push } from 'connected-react-router';
+import { push as pushAction } from 'connected-react-router';
 
 import { compose } from 'recompose';
 import {
-  fetchMarketplacePrivateSlots,
-  fetchPrivateService,
+  fetchMarketplacePrivateSlots as fetchMarketplacePrivateSlotsAction,
+  fetchPrivateService as fetchPrivateServiceAction,
   searchAvailableSlots as searchAvailableSlotsAction,
 } from '../../../../libs/private-service/actions';
 import {
   getPrivateService,
   getPrivateServiceById,
 } from '../../../../libs/private-service/selectors/private-service';
-import { fetchAssociatedEstablishmentBulk } from '../../../../libs/establishment/actions';
-import { fetchAssociatedCoachBulk } from '../../../../libs/associated-coach/actions';
+import { fetchAssociatedEstablishmentBulk as fetchAssociatedEstablishmentBulkAction } from '../../../../libs/establishment/actions';
+import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../../../libs/associated-coach/actions';
 
 import { getSearchedSlots } from '../../../../libs/private-service/selectors/availability-slot';
 import PrivateSlotSelector from './PrivateSlotSelector.component';
@@ -56,15 +56,15 @@ const useNumberOfDayToShow = () => {
   const [numberOfDayToShow, setNumberOfDayToShow] = useState(nbOfDayToShow);
 
   useEffect(() => {
-    nbOfDayToShow = 2;
+    let newNbOfDayToDisplay = 2;
     if (isSM && !isXS) {
-      nbOfDayToShow = 3;
+      newNbOfDayToDisplay = 3;
     }
     if (isMD) {
-      nbOfDayToShow = 7;
+      newNbOfDayToDisplay = 7;
     }
 
-    setNumberOfDayToShow(nbOfDayToShow);
+    setNumberOfDayToShow(newNbOfDayToDisplay);
   }, [isMD, isSM, isXS]);
 
   return numberOfDayToShow;
@@ -82,7 +82,7 @@ type OwnProps = typeof mapParamsToProps & {
   ) => void;
   hideDetailSummary?: boolean;
   /** store is override by the widget */
-  store: any;
+  // store: any;
 };
 
 type Props = OwnProps &
@@ -90,6 +90,24 @@ type Props = OwnProps &
   typeof mapDispatchToProps;
 
 export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
+  const {
+    onSessionSelect,
+    hideDetailSummary,
+    fetchMarketplacePrivateSlots,
+    fetchPrivateService,
+    fetchAssociatedEstablishmentBulk,
+    fetchAssociatedCoachBulk,
+    searchAvailableSlots,
+    push,
+    _privateService,
+    privateService,
+    availabilitySlotByDate,
+    availabilitySlot,
+    availableSlotsLoading,
+    theme,
+    companyId,
+    serviceId,
+  } = props;
   const sessionSelectorRefs = useRef();
 
   /** STATE */
@@ -101,47 +119,29 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
   const [selectedEstablishments, setSelectedEstablishments] = useState<
     Establishment[]
   >([]);
-  const [
-    selectedSessionMoment,
-    setSelectedSessionMoment,
-  ] = useState<SessionMoment>(null);
+  const [selectedSessionMoment, setSelectedSessionMoment] =
+    useState<SessionMoment>(null);
 
   const numberOfDayToShow = useNumberOfDayToShow();
 
-  const { companyId, serviceId } = props;
-
   /** EFFECTS */
   useEffect(() => {
-    props.fetchMarketplacePrivateSlots(parseInt(companyId));
-    props.fetchPrivateService(parseInt(serviceId));
-  }, []);
+    fetchMarketplacePrivateSlots(parseInt(companyId));
+    fetchPrivateService(parseInt(serviceId));
+  }, [fetchMarketplacePrivateSlots, fetchPrivateService, companyId, serviceId]);
 
   useEffect(() => {
-    if (props._privateService) {
-      props.fetchAssociatedEstablishmentBulk(
-        props._privateService.establishments,
-      );
-      props.fetchAssociatedCoachBulk(props._privateService.coaches);
-    }
-  }, [props._privateService]);
-
-  useEffect(() => {
-    if (props.privateService && selectedSlot) {
-      searchAvailableSlots();
+    if (_privateService) {
+      fetchAssociatedEstablishmentBulk(_privateService.establishments);
+      fetchAssociatedCoachBulk(_privateService.coaches);
     }
   }, [
-    selectedSlot,
-    selectedDate,
-    selectedCoaches,
-    selectedEstablishments,
-    numberOfDayToShow,
+    _privateService,
+    fetchAssociatedEstablishmentBulk,
+    fetchAssociatedCoachBulk,
   ]);
 
-  useEffect(() => {
-    setSelectedSessionMoment(null);
-  }, [numberOfDayToShow]);
-
-  const searchAvailableSlots = useCallback(() => {
+  const handleSearchAvailableSlots = useCallback(() => {
     const dates = [];
 
     for (let i = 0; i < numberOfDayToShow; i += 1) {
@@ -159,32 +159,51 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
       establishments = selectedEstablishments.map((e) => e.id);
     }
 
-    props.searchAvailableSlotsAction(
-      props.privateService.id,
+    searchAvailableSlots(
+      privateService.id,
       selectedSlot.id,
       coaches,
       dates,
       establishments,
     );
   }, [
+    searchAvailableSlots,
     selectedSlot,
     selectedDate,
     selectedEstablishments,
     selectedCoaches,
-    props.privateService,
+    privateService,
     numberOfDayToShow,
   ]);
+
+  useEffect(() => {
+    if (privateService && selectedSlot) {
+      handleSearchAvailableSlots();
+    }
+  }, [
+    privateService,
+    selectedSlot,
+    handleSearchAvailableSlots,
+    selectedDate,
+    selectedCoaches,
+    selectedEstablishments,
+    numberOfDayToShow,
+  ]);
+
+  useEffect(() => {
+    setSelectedSessionMoment(null);
+  }, [numberOfDayToShow]);
 
   const onPrivateSlotSelect = useCallback(
     (slot: PrivateSlot) => {
       setSelectedSlot(slot);
       // @ts-ignore
-      setSelectedCoaches([...props.privateService.coaches]);
+      setSelectedCoaches([...privateService.coaches]);
       // @ts-ignore
-      setSelectedEstablishments([...props.privateService.establishments]);
+      setSelectedEstablishments([...privateService.establishments]);
       setSelectedSessionMoment(null);
     },
-    [props.privateService],
+    [privateService],
   );
 
   const toggleFromArray = (array: any, item: any) => {
@@ -233,57 +252,52 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
     setSelectedSessionMoment(null);
   }, []);
 
-  const onSessionSelect = useCallback(
+  const handleSessionSelect = useCallback(
     (date: string, establishment: number, associated_coach: number) => {
       const data = { date, establishment, associated_coach };
 
-      if (props.onSessionSelect) {
+      if (onSessionSelect) {
         // override by the widget
-        props.onSessionSelect(data, selectedSlot);
+        onSessionSelect(data, selectedSlot);
         return;
       }
 
-      props.push(
-        `/customer/payment/private-service/${
-          props.privateService?.id
-        }/private-slot/${
+      push(
+        `/customer/payment/private-service/${privateService?.id}/private-slot/${
           selectedSlot?.id
         }/?membership=${companyId}&data=${encodeURIComponent(
           JSON.stringify(data),
         )}`,
       );
     },
-    [props.privateService, selectedSlot, companyId],
+    [privateService, selectedSlot, companyId, onSessionSelect, push],
   );
 
   const classes = useStyles();
 
   const showCoachSelector = !!(
-    props.privateService?.coaches.length &&
-    props.privateService?.coach_attribution === RESOURCE_ATTRIBUTION_CONSUMER
+    privateService?.coaches.length &&
+    privateService?.coach_attribution === RESOURCE_ATTRIBUTION_CONSUMER
   );
 
   const showEstablishmentSelector = !!(
-    props.privateService &&
-    props.privateService.establishments.length &&
-    !props.privateService.is_home_service &&
-    props.privateService.establishment_attribution ===
-      RESOURCE_ATTRIBUTION_CONSUMER
+    privateService &&
+    privateService.establishments.length &&
+    !privateService.is_home_service &&
+    privateService.establishment_attribution === RESOURCE_ATTRIBUTION_CONSUMER
   );
 
-  const multipleCoach =
-    showCoachSelector && props.privateService?.coaches.length > 1;
+  const multipleCoach = showCoachSelector && privateService?.coaches.length > 1;
   const multipleEstablishment =
-    showEstablishmentSelector &&
-    props.privateService?.establishments.length > 1;
+    showEstablishmentSelector && privateService?.establishments.length > 1;
 
   return (
     <div className={classes.pageContainer}>
       <div className={classes.container}>
         <div className={classes.container2}>
-          {!!props.privateService?.slots?.length && (
+          {!!privateService?.slots?.length && (
             <PrivateSlotSelector
-              privateService={props.privateService}
+              privateService={privateService}
               privateSlot={selectedSlot}
               onSelect={onPrivateSlotSelect}
             />
@@ -291,7 +305,7 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
 
           {showCoachSelector && (
             <CoachSelector
-              privateService={props.privateService}
+              privateService={privateService}
               privateSlot={selectedSlot}
               selectedCoaches={selectedCoaches}
               onSelect={onCoachSelect}
@@ -300,22 +314,22 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
 
           {showEstablishmentSelector && (
             <EstablishmentSelector
-              privateService={props.privateService}
+              privateService={privateService}
               privateSlot={selectedSlot}
               selectedEstablishments={selectedEstablishments}
               onSelect={onEstablishmentSelect}
             />
           )}
 
-          {props.privateService && (
+          {privateService && (
             <SlotCalendar
-              availabilitySlotByDate={props.availabilitySlotByDate}
-              timezoneName={props.theme.timezone_name}
+              availabilitySlotByDate={availabilitySlotByDate}
+              timezoneName={theme.timezone_name}
               selectedDate={selectedDate}
-              privateService={props.privateService}
+              privateService={privateService}
               privateSlot={selectedSlot}
               numberOfDayToShow={numberOfDayToShow}
-              availableSlotsLoading={props.availableSlotsLoading}
+              availableSlotsLoading={availableSlotsLoading}
               onSessionMomentSelect={onSessionMomentSelect}
               selectedSessionMoment={selectedSessionMoment}
               onDateChange={onDateChange}
@@ -328,24 +342,24 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
                 sessionMoment={selectedSessionMoment}
                 showCoach={multipleCoach}
                 choseCoach={
-                  props.privateService.coach_attribution ===
+                  privateService.coach_attribution ===
                   RESOURCE_ATTRIBUTION_CONSUMER
                 }
                 showEstablishment={multipleEstablishment}
                 coaches={
                   selectedCoaches?.length
                     ? selectedCoaches
-                    : props.privateService.coaches
+                    : privateService.coaches
                 }
                 establishments={
                   selectedEstablishments?.length
                     ? selectedEstablishments
-                    : props.privateService.establishments
+                    : privateService.establishments
                 }
                 durationMinutes={selectedSlot.duration_minutes}
-                timezoneName={props.theme.timezone_name}
-                availabilitySlot={props.availabilitySlot}
-                onSessionSelect={onSessionSelect}
+                timezoneName={theme.timezone_name}
+                availabilitySlot={availabilitySlot}
+                onSessionSelect={handleSessionSelect}
                 bookingIntervalMinutes={selectedSlot.booking_interval_minutes}
                 duration={selectedSlot.duration_minutes}
               />
@@ -354,8 +368,8 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
         </div>
       </div>
 
-      {!props.hideDetailSummary && (
-        <PrivateServiceDetailSummary privateService={props.privateService} />
+      {!hideDetailSummary && (
+        <PrivateServiceDetailSummary privateService={privateService} />
       )}
     </div>
   );
@@ -398,12 +412,12 @@ const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
 });
 
 const mapDispatchToProps = {
-  fetchMarketplacePrivateSlots,
-  fetchPrivateService,
-  fetchAssociatedEstablishmentBulk,
-  fetchAssociatedCoachBulk,
-  searchAvailableSlotsAction,
-  push,
+  fetchMarketplacePrivateSlots: fetchMarketplacePrivateSlotsAction,
+  fetchPrivateService: fetchPrivateServiceAction,
+  fetchAssociatedEstablishmentBulk: fetchAssociatedEstablishmentBulkAction,
+  fetchAssociatedCoachBulk: fetchAssociatedCoachBulkAction,
+  searchAvailableSlots: searchAvailableSlotsAction,
+  push: pushAction,
 };
 
 export const PrivateServiceDetailDataProvider = compose<any, OwnProps>(

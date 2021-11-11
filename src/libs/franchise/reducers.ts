@@ -11,8 +11,8 @@ import {
 } from './actions';
 import { FranchiseCompany, FranchiseState, FranchiseUser } from './types';
 
-const initialState: Immutable.Immutable<FranchiseState> = Immutable<FranchiseState>(
-  {
+const initialState: Immutable.Immutable<FranchiseState> =
+  Immutable<FranchiseState>({
     error: false,
     loading: false,
     franchisor: undefined,
@@ -26,8 +26,7 @@ const initialState: Immutable.Immutable<FranchiseState> = Immutable<FranchiseSta
       byId: {},
       allIds: [],
     },
-  },
-);
+  });
 
 export default handleActions<Immutable.Immutable<FranchiseState>>(
   {

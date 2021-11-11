@@ -212,7 +212,8 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = {
   fetchOfferList: fetchOfferListAction,
   fetchEstablishmentBulk: fetchEstablishmentBulkAction,
-  fetchAssociatedCoachBulkFromCoachIds: fetchAssociatedCoachBulkFromCoachIdsAction,
+  fetchAssociatedCoachBulkFromCoachIds:
+    fetchAssociatedCoachBulkFromCoachIdsAction,
   fetchMetaActivityBulk: fetchMetaActivityBulkAction,
   snackbarSuccess: snackbarSuccessAction,
   snackbarError: snackbarErrorAction,

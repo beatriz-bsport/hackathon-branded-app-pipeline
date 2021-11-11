@@ -101,7 +101,7 @@ type Props = {
   open: any,
   setOpenValue: (name: string) => void,
   setFilterValue: (name: string, bool: Boolean) => void,
-  updateFiltersSettings: (*) => void,
+  updateFiltersSettings: () => void,
   userFiltersLoading: boolean,
 };
 
@@ -322,58 +322,63 @@ export default compose(
   withState('openCreateExtension', 'setOpenCreateExtension', false),
   withTranslation(['privateService']),
   withHandlers({
-    fetchInvoiceByInvoiceItem: ({
-      fetchInvoiceByInvoiceItem,
-      setRelatedInvoice,
-    }) => (buyableId, objectId, options) => {
-      fetchInvoiceByInvoiceItem(buyableId, objectId, {
-        onSuccess: (inv) => {
-          setRelatedInvoice(inv.uuid);
-          if (options && options.onSuccess) {
-            options.onSuccess(inv);
-          }
-        },
-        onError: (err) => {
-          if (options && options.onError) {
-            options.onError(err);
-          }
-        },
-      });
-    },
-    setOpenValue: ({ setOpen, open }) => (name: string) => {
-      setOpen({
-        ...open,
-        [name]: !open[name],
-      });
-    },
-    setFilterValue: ({ setFilters, filters }) => (name: string, value) => {
-      if (value === null) {
-        setFilters(omit(filters, name));
-      } else {
-        setFilters({
-          ...filters,
-          [name]: value,
+    fetchInvoiceByInvoiceItem:
+      ({ fetchInvoiceByInvoiceItem, setRelatedInvoice }) =>
+      (buyableId, objectId, options) => {
+        fetchInvoiceByInvoiceItem(buyableId, objectId, {
+          onSuccess: (inv) => {
+            setRelatedInvoice(inv.uuid);
+            if (options && options.onSuccess) {
+              options.onSuccess(inv);
+            }
+          },
+          onError: (err) => {
+            if (options && options.onError) {
+              options.onError(err);
+            }
+          },
         });
-      }
-    },
+      },
+    setOpenValue:
+      ({ setOpen, open }) =>
+      (name: string) => {
+        setOpen({
+          ...open,
+          [name]: !open[name],
+        });
+      },
+    setFilterValue:
+      ({ setFilters, filters }) =>
+      (name: string, value) => {
+        if (value === null) {
+          setFilters(omit(filters, name));
+        } else {
+          setFilters({
+            ...filters,
+            [name]: value,
+          });
+        }
+      },
   }),
   withHandlers({
-    fetchFiltersSettings: ({ fetchManagerFilters, setFilters }) => () => {
-      fetchManagerFilters({
-        onSuccess: (payload) => {
-          setFilters(payload.filters.private_pass_filters);
-        },
-      });
-    },
+    fetchFiltersSettings:
+      ({ fetchManagerFilters, setFilters }) =>
+      () => {
+        fetchManagerFilters({
+          onSuccess: (payload) => {
+            setFilters(payload.filters.private_pass_filters);
+          },
+        });
+      },
   }),
   withHandlers({
-    updateFiltersSettings: ({ updateManagerFilters, userFilters }) => (
-      filters: object,
-    ) => {
-      updateManagerFilters({
-        ...userFilters,
-        private_pass_filters: filters,
-      });
-    },
+    updateFiltersSettings:
+      ({ updateManagerFilters, userFilters }) =>
+      (filters: object) => {
+        updateManagerFilters({
+          ...userFilters,
+          private_pass_filters: filters,
+        });
+      },
   }),
 )(MemberDetailPrivateConsumerPass);

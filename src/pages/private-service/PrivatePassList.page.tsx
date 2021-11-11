@@ -100,14 +100,14 @@ export class PrivatePassList extends React.Component<Props, State> {
     this.props.restorePrivatePass(id);
   };
 
-  changeSearch = (fuse: Fuse<PrivatePass, FuseOptions<PrivatePass>>) => (
-    ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
-  ) => {
-    this.setState({
-      searchText: ev.target.value,
-      searchResult: fuse.search(ev.target.value),
-    });
-  };
+  changeSearch =
+    (fuse: Fuse<PrivatePass, FuseOptions<PrivatePass>>) =>
+    (ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+      this.setState({
+        searchText: ev.target.value,
+        searchResult: fuse.search(ev.target.value),
+      });
+    };
 
   clearSearch = () => {
     this.setState({ searchText: '', searchResult: [] });
@@ -297,9 +297,8 @@ const styles = (theme: Theme) => ({
 const mapStateToProps = (state: RootState) => ({
   privatePassListCustomerEnabled: getPrivatePassCustomerEnabled(state),
   privatePassList: getAvailablePrivatePasses(state),
-  disabledPrivatePassList: getDisabledPrivatePassAvailableListWithPrivateService(
-    state,
-  ),
+  disabledPrivatePassList:
+    getDisabledPrivatePassAvailableListWithPrivateService(state),
   loading: state.privateService.privatePass.loading,
   theme: themeSelectors.getTheme(state),
 });

@@ -164,15 +164,14 @@ export default compose(
   withTranslation(['event']),
   withStyles(styles),
   withHandlers({
-    fetchEventPage: ({ fetchEventList, eventSpec, extraFetchParams }) => (
-      page,
-      eventTypeList,
-    ) =>
-      fetchEventList({
-        page,
-        page_size: 10,
-        event_types: eventTypeList || Object.keys(eventSpec),
-        ...(extraFetchParams || {}),
-      }),
+    fetchEventPage:
+      ({ fetchEventList, eventSpec, extraFetchParams }) =>
+      (page, eventTypeList) =>
+        fetchEventList({
+          page,
+          page_size: 10,
+          event_types: eventTypeList || Object.keys(eventSpec),
+          ...(extraFetchParams || {}),
+        }),
   }),
 )(SubscriptionEventPanel);

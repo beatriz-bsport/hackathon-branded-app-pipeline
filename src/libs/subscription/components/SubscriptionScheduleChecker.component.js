@@ -71,9 +71,8 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
       return null;
     }
 
-    const scheduledInvoices = getScheduledInvoicesFromSubscriptionData(
-      subscriptionData,
-    );
+    const scheduledInvoices =
+      getScheduledInvoicesFromSubscriptionData(subscriptionData);
     return (
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>

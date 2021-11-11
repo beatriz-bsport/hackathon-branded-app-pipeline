@@ -13,14 +13,8 @@ type Props = {
 };
 
 export function GiftcardList(props: Props) {
-  const {
-    giftcardList,
-    onDuplicate,
-    onEdit,
-    onRemove,
-    onRestore,
-    onClick,
-  } = props;
+  const { giftcardList, onDuplicate, onEdit, onRemove, onRestore, onClick } =
+    props;
   if (!giftcardList.length) return null;
   return (
     <Paper>

@@ -28,8 +28,8 @@ import type {
   GiftcardBackgroundImage,
 } from './types';
 
-const initialState: Immutable.Immutable<GiftcardState> = Immutable<GiftcardState>(
-  {
+const initialState: Immutable.Immutable<GiftcardState> =
+  Immutable<GiftcardState>({
     giftcard: {
       byId: {},
       allIds: [],
@@ -64,8 +64,7 @@ const initialState: Immutable.Immutable<GiftcardState> = Immutable<GiftcardState
       loading: false,
       error: null,
     },
-  },
-);
+  });
 
 export default handleActions(
   {

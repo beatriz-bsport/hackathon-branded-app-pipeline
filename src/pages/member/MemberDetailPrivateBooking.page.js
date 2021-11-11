@@ -107,7 +107,7 @@ type Props = {
   fetchPrivateConsumerPass: (id: number) => void,
   privateBookingsLoading: boolean,
   goToPrivateBooking: (memberId: number, privateBookingId: number) => void,
-  setBookingToDelete: (?PrivateBooking) => void,
+  setBookingToDelete: (booking: ?PrivateBooking) => void,
   bookingToDelete: ?PrivateBooking,
   disablePrivateBooking: (
     id: number,
@@ -364,7 +364,8 @@ export default compose(
       fetchPrivateConsumerPassBulk: fetchPrivateConsumerPassBulkAction,
       fetchAssociatedCoachBulk: fetchAssociatedCoachBulkAction,
       fetchRecurrenceRulePrivateBooking: fetchRecurenceRulePrivateBookingAction,
-      deleteRecurrenceRulePrivateBooking: deleteRecurrenceRulePrivateBookingAction,
+      deleteRecurrenceRulePrivateBooking:
+        deleteRecurrenceRulePrivateBookingAction,
       deletePrivateBooking: deletePrivateBookingAction,
       resetPrivateBookingList,
       disablePrivateBooking: disablePrivateBookingAction,
@@ -400,108 +401,117 @@ export default compose(
     ),
   })),
   withHandlers({
-    onPrivateSlotClick: ({ goToPrivateService, private_booking }) => () =>
-      goToPrivateService(private_booking.private_service.id),
+    onPrivateSlotClick:
+      ({ goToPrivateService, private_booking }) =>
+      () =>
+        goToPrivateService(private_booking.private_service.id),
   }),
   withHandlers({
-    fetchPrivateBookings: ({
-      fetchPrivateBookings,
-      fetchPrivateConsumerPassBulk,
-    }) => (params, options) =>
-      fetchPrivateBookings(params, {
-        onSuccess: (pbs) => {
-          if (options && options.onSuccess) options.onSuccess(pbs);
-          fetchPrivateConsumerPassBulk(
-            pbs.map((pb) => pb.private_consumer_pass),
-          );
-        },
-        onError: options && options.onError,
-      }),
+    fetchPrivateBookings:
+      ({ fetchPrivateBookings, fetchPrivateConsumerPassBulk }) =>
+      (params, options) =>
+        fetchPrivateBookings(params, {
+          onSuccess: (pbs) => {
+            if (options && options.onSuccess) options.onSuccess(pbs);
+            fetchPrivateConsumerPassBulk(
+              pbs.map((pb) => pb.private_consumer_pass),
+            );
+          },
+          onError: options && options.onError,
+        }),
   }),
   withState('bookingToDelete', 'setBookingToDelete', null),
   withStateHandlers(
     { isOpenAttachCoach: null },
     {
-      openAttachCoach: (_, { private_booking }) => () => ({
-        isOpenAttachCoach: private_booking,
-      }),
+      openAttachCoach:
+        (_, { private_booking }) =>
+        () => ({
+          isOpenAttachCoach: private_booking,
+        }),
       closeAttachCoach: () => () => ({ isOpenAttachCoach: null }),
     },
   ),
   withHandlers({
-    attachCoach: ({ attachCoach, closeAttachCoach, privateBookingId }) => (
-      data,
-    ) => {
-      attachCoach(privateBookingId, data, {
-        onSuccess: () => closeAttachCoach(),
-      });
-    },
-    fetchPrivateBookingDetails: ({
-      privateBookingId,
-      fetchPrivateConsumerPass,
-      fetchAssociatedCoachBulk,
-      fetchPrivateService,
-      fetchPrivateSlot,
-      fetchPrivateBooking,
-    }) => () => {
-      fetchPrivateBooking(privateBookingId, {
-        onSuccess: (privateBooking) => {
-          fetchPrivateService(privateBooking.private_service, {
-            onSuccess: (service) => {
-              if (service && service.coaches.length) {
-                fetchAssociatedCoachBulk(service.coaches);
+    attachCoach:
+      ({ attachCoach, closeAttachCoach, privateBookingId }) =>
+      (data) => {
+        attachCoach(privateBookingId, data, {
+          onSuccess: () => closeAttachCoach(),
+        });
+      },
+    fetchPrivateBookingDetails:
+      ({
+        privateBookingId,
+        fetchPrivateConsumerPass,
+        fetchAssociatedCoachBulk,
+        fetchPrivateService,
+        fetchPrivateSlot,
+        fetchPrivateBooking,
+      }) =>
+      () => {
+        fetchPrivateBooking(privateBookingId, {
+          onSuccess: (privateBooking) => {
+            fetchPrivateService(privateBooking.private_service, {
+              onSuccess: (service) => {
+                if (service && service.coaches.length) {
+                  fetchAssociatedCoachBulk(service.coaches);
+                }
+              },
+            });
+            fetchPrivateSlot(
+              privateBooking.private_service,
+              privateBooking.private_slot,
+            );
+            fetchPrivateConsumerPass(privateBooking.private_consumer_pass);
+          },
+        });
+      },
+    fetchRecurrenceRulePrivateBooking:
+      ({
+        fetchRecurrenceRulePrivateBooking,
+        fetchAssociatedCoachBulk,
+        fetchAssociatedEstablishmentBulk,
+        fetchPrivateSlotBulk,
+        id,
+      }) =>
+      () => {
+        fetchRecurrenceRulePrivateBooking(
+          {
+            member: id,
+          },
+          {
+            onSuccess: (recurrentRuleList) => {
+              if (recurrentRuleList.length) {
+                fetchAssociatedCoachBulk([
+                  ...recurrentRuleList.map((o) => o.associated_coach),
+                ]);
+                fetchAssociatedEstablishmentBulk([
+                  ...recurrentRuleList.map((o) => o.associated_establishment),
+                ]);
+                fetchPrivateSlotBulk([
+                  ...recurrentRuleList.map((o) => o.private_slot),
+                ]);
               }
             },
-          });
-          fetchPrivateSlot(
-            privateBooking.private_service,
-            privateBooking.private_slot,
-          );
-          fetchPrivateConsumerPass(privateBooking.private_consumer_pass);
-        },
-      });
-    },
-    fetchRecurrenceRulePrivateBooking: ({
-      fetchRecurrenceRulePrivateBooking,
-      fetchAssociatedCoachBulk,
-      fetchAssociatedEstablishmentBulk,
-      fetchPrivateSlotBulk,
-      id,
-    }) => () => {
-      fetchRecurrenceRulePrivateBooking(
-        {
-          member: id,
-        },
-        {
-          onSuccess: (recurrentRuleList) => {
-            if (recurrentRuleList.length) {
-              fetchAssociatedCoachBulk([
-                ...recurrentRuleList.map((o) => o.associated_coach),
-              ]);
-              fetchAssociatedEstablishmentBulk([
-                ...recurrentRuleList.map((o) => o.associated_establishment),
-              ]);
-              fetchPrivateSlotBulk([
-                ...recurrentRuleList.map((o) => o.private_slot),
-              ]);
-            }
           },
-        },
-      );
-    },
-    onDeleteRecurrenceRulePrivateBooking: ({
-      deleteRecurrenceRulePrivateBooking,
-      fetchRecurrenceRulePrivateBooking,
-      fetchPrivateBookings,
-      fetchMember,
-    }) => (recurrentBooking, memberId) => {
-      deleteRecurrenceRulePrivateBooking(recurrentBooking.id, {
-        onSuccess: () => {
-          fetchMember(memberId);
-          fetchRecurrenceRulePrivateBooking({ member: memberId });
-          fetchPrivateBookings({ member: memberId });
-        },
-      });
-    },
+        );
+      },
+    onDeleteRecurrenceRulePrivateBooking:
+      ({
+        deleteRecurrenceRulePrivateBooking,
+        fetchRecurrenceRulePrivateBooking,
+        fetchPrivateBookings,
+        fetchMember,
+      }) =>
+      (recurrentBooking, memberId) => {
+        deleteRecurrenceRulePrivateBooking(recurrentBooking.id, {
+          onSuccess: () => {
+            fetchMember(memberId);
+            fetchRecurrenceRulePrivateBooking({ member: memberId });
+            fetchPrivateBookings({ member: memberId });
+          },
+        });
+      },
   }),
 )(MemberDetailBooking);

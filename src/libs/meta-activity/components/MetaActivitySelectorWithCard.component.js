@@ -13,7 +13,7 @@ import FuzeSearch from '../../../components/FuzeSearch.component';
 type Props = {
   classes: Object,
   metaActivities: Array,
-  onChange: (?number) => void,
+  onChange: (metaActivity: ?number) => void,
   placeholder: string,
   value: any,
 };

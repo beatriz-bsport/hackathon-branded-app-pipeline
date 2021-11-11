@@ -6,8 +6,8 @@ import type { Dispatch, Action, State } from '../state/types';
 
 export function createListHandler(
   objectName: string,
-  listEndpoint: *,
-  fetchFromEndpoint: *,
+  listEndpoint: any,
+  fetchFromEndpoint: any,
 ) {
   const listActions = {
     isLoading: createAction(`${objectName.toUpperCase()}/LIST/IS_LOADING`),

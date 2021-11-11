@@ -19,6 +19,7 @@ export const SmartListRouter = () => {
   );
 };
 
-export default withStayEvent('smartlist', [30, 60, 120, 240, 680])(
-  SmartListRouter,
-);
+export default withStayEvent(
+  'smartlist',
+  [30, 60, 120, 240, 680],
+)(SmartListRouter);

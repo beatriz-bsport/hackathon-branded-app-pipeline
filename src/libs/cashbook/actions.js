@@ -34,7 +34,7 @@ export function fetchCashBook(companyId: ?number) {
 }
 
 export function updateCashBook(
-  data: *,
+  data: any,
   options: ?{ onError: ?() => void, onSuccess: ?() => void },
 ) {
   return async (dispatch: Dispatch) => {

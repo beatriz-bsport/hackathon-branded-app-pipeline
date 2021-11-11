@@ -7,12 +7,8 @@ import { PaymentPack } from './types';
 
 export const getValidityInfo = (pack: PaymentPack, t: TFunction) => {
   let dateInfo = '';
-  const {
-    validity_daterange,
-    duration_days,
-    duration_months,
-    duration_years,
-  } = pack;
+  const { validity_daterange, duration_days, duration_months, duration_years } =
+    pack;
   if (duration_days && duration_months && duration_years) {
     dateInfo = t('validForDuration.general', {
       duration_days,
@@ -44,12 +40,8 @@ export const getValidityInfo = (pack: PaymentPack, t: TFunction) => {
 };
 
 export const getPaymentPackTimeLimitation = (paymentPack, baseDate) => {
-  const {
-    validity_daterange,
-    duration_days,
-    duration_months,
-    duration_years,
-  } = paymentPack;
+  const { validity_daterange, duration_days, duration_months, duration_years } =
+    paymentPack;
 
   if (!paymentPack) {
     return { start: null, end: null };

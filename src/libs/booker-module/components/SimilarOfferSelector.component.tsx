@@ -172,16 +172,12 @@ class SimilarOffers extends React.PureComponent<Props> {
               );
             }
 
-            const {
-              isBookable,
-              isRegistered,
-              isWaitingList,
-              noInteraction,
-            } = getOfferFeature(
-              o,
-              this.props.offerStatusById,
-              this.props.acceptDoubleBooking,
-            );
+            const { isBookable, isRegistered, isWaitingList, noInteraction } =
+              getOfferFeature(
+                o,
+                this.props.offerStatusById,
+                this.props.acceptDoubleBooking,
+              );
 
             const isSelected = Boolean(
               this.props.selectedOffers.find(

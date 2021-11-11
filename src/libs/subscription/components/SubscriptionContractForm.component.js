@@ -229,24 +229,36 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
   payment_pack: Yup.number()
     .integer()
     .nullable()
-    .test('is-nullable', 'missing', function (payment_pack) {
-      const { object_type } = this.parent;
-      return object_type !== OBJECT_TYPE_PAYMENT_PACK || !!payment_pack;
-    }),
+    .test(
+      'is-nullable',
+      'missing',
+      function checkPaymentPackIsNullable(payment_pack) {
+        const { object_type } = this.parent;
+        return object_type !== OBJECT_TYPE_PAYMENT_PACK || !!payment_pack;
+      },
+    ),
   private_pass: Yup.number()
     .integer()
     .nullable()
-    .test('is-nullable', 'missing', function (private_pass) {
-      const { object_type } = this.parent;
-      return object_type !== OBJECT_TYPE_PRIVATE_PASS || !!private_pass;
-    }),
+    .test(
+      'is-nullable',
+      'missing',
+      function checkPrivatePassIsNullable(private_pass) {
+        const { object_type } = this.parent;
+        return object_type !== OBJECT_TYPE_PRIVATE_PASS || !!private_pass;
+      },
+    ),
   payment_combo: Yup.number()
     .integer()
     .nullable()
-    .test('is-nullable', 'missing', function (payment_combo) {
-      const { object_type } = this.parent;
-      return object_type !== OBJECT_TYPE_PAYMENT_COMBO || !!payment_combo;
-    }),
+    .test(
+      'is-nullable',
+      'missing',
+      function checkPaymentComboIsNullable(payment_combo) {
+        const { object_type } = this.parent;
+        return object_type !== OBJECT_TYPE_PAYMENT_COMBO || !!payment_combo;
+      },
+    ),
   description: Yup.string().required(),
   contract: Yup.string().required(),
   manager_only: Yup.boolean(),

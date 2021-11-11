@@ -171,7 +171,7 @@ export const shopItemCreateOrUpdateActions = {
 };
 
 export function createOrUpdateShopItem(
-  shopItemData: *,
+  shopItemData: any,
   id: ?number,
   options: OptionCallback,
 ) {

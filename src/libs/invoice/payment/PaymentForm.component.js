@@ -89,12 +89,8 @@ export class PaymentForm extends Component<Props, State> {
     payment_note_override: ?string,
     extraData: Object,
   ) => {
-    const {
-      payment_method,
-      price,
-      payment_received,
-      payment_note,
-    } = this.state;
+    const { payment_method, price, payment_received, payment_note } =
+      this.state;
     if (price !== 0) {
       SEED_ID += 1;
       const id = SEED_ID;

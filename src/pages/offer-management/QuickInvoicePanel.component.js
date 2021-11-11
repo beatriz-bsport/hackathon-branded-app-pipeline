@@ -23,7 +23,7 @@ type Props = {
   closeQuickInvoice: (memberId: number) => void,
   availableBuyableItems: { [buyable_item_identifier: number]: BuyableItem },
   invoiceToBill: Array<Invoice>,
-  setInvoiceToBill: (?Invoice) => void,
+  setInvoiceToBill: (invoice: ?Invoice) => void,
   refreshInvoice: () => void,
   availablePaymentMethodList: number[],
   className: {},

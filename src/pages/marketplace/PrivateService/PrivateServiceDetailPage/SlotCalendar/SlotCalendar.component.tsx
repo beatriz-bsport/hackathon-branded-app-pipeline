@@ -38,28 +38,39 @@ type Props = {
 };
 
 const SlotCalendar: React.FC<Props> = (props) => {
+  const {
+    privateSlot,
+    privateService,
+    availabilitySlotByDate,
+    availableSlotsLoading,
+    timezoneName,
+    selectedDate,
+    numberOfDayToShow,
+    selectedSessionMoment,
+    onSessionMomentSelect,
+    onDateChange,
+  } = props;
+
   const selectPreviousDay = useCallback(() => {
-    const date = moment(props.selectedDate)
-      .add(-props.numberOfDayToShow, 'days')
+    const date = moment(selectedDate)
+      .add(-numberOfDayToShow, 'days')
       .format('YYYY-MM-DD');
 
-    props.onDateChange(date);
-  }, [props.selectedDate, props.numberOfDayToShow]);
+    onDateChange(date);
+  }, [selectedDate, numberOfDayToShow, onDateChange]);
 
   const selectNextDay = useCallback(() => {
-    const date = moment(props.selectedDate)
-      .add(props.numberOfDayToShow, 'days')
+    const date = moment(selectedDate)
+      .add(numberOfDayToShow, 'days')
       .format('YYYY-MM-DD');
 
-    props.onDateChange(date);
-  }, [props.selectedDate, props.numberOfDayToShow]);
+    onDateChange(date);
+  }, [selectedDate, numberOfDayToShow, onDateChange]);
 
   const dates = [];
 
-  for (let i = 0; i < props.numberOfDayToShow; i += 1) {
-    dates.push(
-      moment(props.selectedDate).tz(props.timezoneName).add(i, 'days'),
-    );
+  for (let i = 0; i < numberOfDayToShow; i += 1) {
+    dates.push(moment(selectedDate).tz(timezoneName).add(i, 'days'));
   }
 
   const classes = useStyles(props);
@@ -72,7 +83,7 @@ const SlotCalendar: React.FC<Props> = (props) => {
         <Paper className={classes.container2}>
           <div className={classes.calendarToolbar}>
             <IconButton
-              disabled={!props.privateSlot}
+              disabled={!privateSlot}
               aria-label="left"
               onClick={selectPreviousDay}
             >
@@ -81,13 +92,13 @@ const SlotCalendar: React.FC<Props> = (props) => {
 
             <Typography
               variant="h6"
-              color={!props.privateSlot ? 'textSecondary' : 'primary'}
+              color={!privateSlot ? 'textSecondary' : 'primary'}
             >
               {t('service.detail.tab.calendar')}
             </Typography>
 
             <IconButton
-              disabled={!props.privateSlot}
+              disabled={!privateSlot}
               aria-label="left"
               onClick={selectNextDay}
             >
@@ -96,25 +107,25 @@ const SlotCalendar: React.FC<Props> = (props) => {
           </div>
 
           <div className={classes.slotByDateContainer}>
-            {props.availableSlotsLoading ? (
+            {availableSlotsLoading ? (
               <div className={classes.loadingContainer}>
                 <CircularProgress />
               </div>
             ) : (
               dates.map((date) => {
                 const dateStr = date.format('YYYY-MM-DD');
-                const slotByDate = props.availabilitySlotByDate[dateStr];
+                const slotByDate = availabilitySlotByDate[dateStr];
 
                 return (
                   <div className={classes.itemLayout} key={dateStr}>
                     <SlotCalendarDay
                       slots={slotByDate}
-                      timezoneName={props.timezoneName}
-                      privateService={props.privateService}
-                      privateSlot={props.privateSlot}
+                      timezoneName={timezoneName}
+                      privateService={privateService}
+                      privateSlot={privateSlot}
                       date={date}
-                      selectedSessionMoment={props.selectedSessionMoment}
-                      onSessionMomentSelect={props.onSessionMomentSelect}
+                      selectedSessionMoment={selectedSessionMoment}
+                      onSessionMomentSelect={onSessionMomentSelect}
                     />
                   </div>
                 );

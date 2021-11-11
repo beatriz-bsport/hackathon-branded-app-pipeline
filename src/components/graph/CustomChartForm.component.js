@@ -132,9 +132,8 @@ export class CustomChartForm extends React.Component<Props, State> {
     const { graphRessources } = this.props;
     const { ressourceIdentifierSelected } = this.state;
 
-    const { dateFiltersName, choices } = graphRessources[
-      ressourceIdentifierSelected
-    ];
+    const { dateFiltersName, choices } =
+      graphRessources[ressourceIdentifierSelected];
 
     const baseFilters = {};
     for (const key in choices) {

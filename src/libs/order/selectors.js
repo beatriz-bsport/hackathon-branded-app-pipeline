@@ -15,10 +15,8 @@ export const getOrder = (state: State, id: ?string): ?OrderWithProducts =>
 const getDeliveryFees = (state: State): Array<DeliveryFee> =>
   state.order.deliveryFee.items;
 
-export const getDeliveryFeesActive: (State) => Array<DeliveryFee> = createSelector(
-  getDeliveryFees,
-  (fees) => fees.filter((df) => !df.disabled),
-);
+export const getDeliveryFeesActive: (State) => Array<DeliveryFee> =
+  createSelector(getDeliveryFees, (fees) => fees.filter((df) => !df.disabled));
 
 export const withMember = memoize((selector) =>
   createSelector([selector, getMemberDetailData], (orders, memberData) => {

@@ -4,8 +4,8 @@ import React, { Component } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 type Props = {
-  address: *,
-  classes: *,
+  address: any,
+  classes: any,
 };
 type State = {};
 

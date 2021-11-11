@@ -40,15 +40,22 @@ type OwnProps = {
 type Props = OwnProps & WithTranslation;
 
 export const CustomFormLayoutView = (props: Props) => {
+  const {
+    initial,
+    editable,
+    layouts: propsLayouts,
+    saveLayouts,
+    onLayoutChange,
+    setOutterContainerWidth,
+    defaultEditMode,
+  } = props;
   const [currentLayoutIndex, setCurrentLayoutIndex] = React.useState(-1);
-  const [isEditing, setIsEditing] = React.useState(
-    props.defaultEditMode || false,
-  );
+  const [isEditing, setIsEditing] = React.useState(defaultEditMode || false);
   const [recordLayouts, setRecordLayouts] = React.useState(
-    Object.keys(props?.layouts || {})?.length === 4 ? [props.layouts] : [],
+    Object.keys(props?.layouts || {})?.length === 4 ? [propsLayouts] : [],
   );
   const [layouts, setLayouts] = React.useState(
-    Object.keys(props?.layouts || {})?.length !== 4 ? null : props.layouts,
+    Object.keys(props?.layouts || {})?.length !== 4 ? null : propsLayouts,
   );
   const [customLoading, setCustomLoading] = React.useState(false);
   const [containerWidth, setContainerWith] = React.useState(385);
@@ -62,7 +69,7 @@ export const CustomFormLayoutView = (props: Props) => {
 
   const onNewLayout = () => {
     setCurrentLayoutIndex(0);
-    setRecordLayouts(props.layouts?.length ? [props.layouts] : []);
+    setRecordLayouts(layouts?.length ? [layouts] : []);
     setLayouts(null);
   };
 
@@ -71,9 +78,8 @@ export const CustomFormLayoutView = (props: Props) => {
     setTimeout(() => {
       setCustomLoading(false);
     }, 500);
-    props.setOutterContainerWidth &&
-      props.setOutterContainerWidth(containerWidth);
-  }, [containerWidth]);
+    setOutterContainerWidth && setOutterContainerWidth(containerWidth);
+  }, [containerWidth, setOutterContainerWidth]);
 
   const handleLayoutChange = (
     newLayouts: Array<Layout>,
@@ -83,7 +89,7 @@ export const CustomFormLayoutView = (props: Props) => {
       return;
     }
 
-    if (!props.editable) {
+    if (!editable) {
       return;
     }
 
@@ -94,26 +100,24 @@ export const CustomFormLayoutView = (props: Props) => {
     ]);
     setCurrentLayoutIndex(currentLayoutIndex + 1);
     setLayouts(allLayouts);
-    props.onLayoutChange(allLayouts);
+    onLayoutChange(allLayouts);
   };
 
   const onGoingBack = () => {
     setLayouts(recordLayouts[currentLayoutIndex - 1]);
     setCurrentLayoutIndex(currentLayoutIndex - 1);
-    props.onLayoutChange(recordLayouts[currentLayoutIndex - 1]);
+    onLayoutChange(recordLayouts[currentLayoutIndex - 1]);
   };
 
   const onGoingForward = () => {
     setCurrentLayoutIndex(currentLayoutIndex + 1);
     setLayouts(recordLayouts[currentLayoutIndex + 1]);
-    props.onLayoutChange(recordLayouts[currentLayoutIndex + 1]);
+    onLayoutChange(recordLayouts[currentLayoutIndex + 1]);
   };
 
   const handleWidthChange = (newValue: number) => {
     setContainerWith(newValue);
   };
-
-  const { initial } = props;
 
   const classes = useStyles();
   const { t } = useTranslation('marketing');
@@ -135,13 +139,14 @@ export const CustomFormLayoutView = (props: Props) => {
       label: t('customForm.breakpoints.lg'),
     },
   ];
-  function valuetext(value: number) {
-    return `${value}`;
-  }
 
-  function valueLabelFormat(value: number) {
+  const valuetext = (value: number) => {
+    return `${value}`;
+  };
+
+  const valueLabelFormat = (value: number) => {
     return marks.findIndex((mark) => mark.value === value) + 1;
-  }
+  };
   return (
     <div>
       {initial?.custom_form_field ? (
@@ -193,7 +198,7 @@ export const CustomFormLayoutView = (props: Props) => {
 
                   <Tooltip
                     title={t('customForm.layout.save')}
-                    onClick={() => props.saveLayouts()}
+                    onClick={() => saveLayouts()}
                   >
                     <Fab color="primary" size="small">
                       <SaveIcon />
@@ -238,7 +243,7 @@ export const CustomFormLayoutView = (props: Props) => {
                 >
                   {customLoading ? (
                     <CustomFormSkeleton
-                      customForm={props.initial}
+                      customForm={initial}
                       layouts={layouts}
                     />
                   ) : (
@@ -256,7 +261,7 @@ export const CustomFormLayoutView = (props: Props) => {
           </div>
         </>
       ) : (
-        <CustomFormSkeleton customForm={props.initial} layouts={layouts} />
+        <CustomFormSkeleton customForm={initial} layouts={layouts} />
       )}
     </div>
   );

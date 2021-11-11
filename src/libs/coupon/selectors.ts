@@ -11,11 +11,10 @@ export const getAllCoupons = (state: RootState) => state.coupon.coupon.items;
 export const getAllDiscounts = (state: RootState) =>
   state.coupon.discount.items;
 
-export const getAvailableCoupons: (
-  state: RootState,
-) => Array<Coupon> = createSelector(getAllCoupons, (coupons) =>
-  coupons.filter((coupon) => coupon.available),
-);
+export const getAvailableCoupons: (state: RootState) => Array<Coupon> =
+  createSelector(getAllCoupons, (coupons) =>
+    coupons.filter((coupon) => coupon.available),
+  );
 export const getCouponById: (state: RootState, number: number) => Coupon = (
   state,
   id,
@@ -39,14 +38,12 @@ export const getCouponDiscounts: (
 ) => Array<Discount> = (state, id) =>
   getAllDiscounts(state).filter((discount) => discount.coupon === id);
 
-export const getActiveCoupons: (
-  state: RootState,
-) => Array<Coupon> = createSelector(getAvailableCoupons, (coupons) =>
-  coupons.filter((coupon) => isCurrentlyActive(coupon)),
-);
+export const getActiveCoupons: (state: RootState) => Array<Coupon> =
+  createSelector(getAvailableCoupons, (coupons) =>
+    coupons.filter((coupon) => isCurrentlyActive(coupon)),
+  );
 
-export const getInactiveCoupons: (
-  State,
-) => Array<Coupon> = createSelector(getAvailableCoupons, (coupons) =>
-  coupons.filter((coupon) => !isCurrentlyActive(coupon)),
+export const getInactiveCoupons: (State) => Array<Coupon> = createSelector(
+  getAvailableCoupons,
+  (coupons) => coupons.filter((coupon) => !isCurrentlyActive(coupon)),
 );

@@ -5,14 +5,13 @@ import { listActions, performActionAction, deleteActions } from './actions';
 
 import { AlertingState } from './types';
 
-const initialState: Immutable.Immutable<AlertingState> = Immutable<AlertingState>(
-  {
+const initialState: Immutable.Immutable<AlertingState> =
+  Immutable<AlertingState>({
     items_by_kind: {},
     items_processing: [],
     loading: false,
     error: null,
-  },
-);
+  });
 
 export default handleActions(
   {

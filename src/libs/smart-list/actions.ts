@@ -436,7 +436,6 @@ export function updateSmartListAutoTag(
     dispatch(updateSmartListAutoTagActions.error(null));
     try {
       const response = await updateSmartListAutoTagRulesAPI(id, params);
-      // eslint-disable-next-line
       data = response.data;
       dispatch(updateSmartListAutoTagActions.success(data));
       if (options && options.onSuccess) options.onSuccess();

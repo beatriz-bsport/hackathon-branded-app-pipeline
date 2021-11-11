@@ -130,14 +130,15 @@ const ButtonAddWithWarning = withConfirm(Button, 'onClick', {
     <p>{t('invoice:invoicePaymentPackTagWarningDialog.content')}</p>
   ),
 });
+
 // TODO Types BuyableItem
 const InvoiceItemEditor = (props: Props) => {
+  const { onAddBuyableItem, availableBuyableItems, member } = props;
   const classes = useStyles();
   const { t } = useTranslation(['invoice']);
 
-  const [buyableItemIdentifier, setBuyableItemIdentifier] = useState(
-    BUYABLE_ITEM_PASS,
-  );
+  const [buyableItemIdentifier, setBuyableItemIdentifier] =
+    useState(BUYABLE_ITEM_PASS);
   const [buyableItemId, setBuyableItemId] = useState(null);
   const [quantity, setQuantity] = useState(1);
 
@@ -152,14 +153,14 @@ const InvoiceItemEditor = (props: Props) => {
         voucher: parseFloat(voucher || 0).toFixed(2),
         name: t('invoiceItem.credit.label'),
       };
-      props.onAddBuyableItem(buyableItemIdentifier, data);
+      onAddBuyableItem(buyableItemIdentifier, data);
     } else {
-      const buyableItem = props.availableBuyableItems[
-        buyableItemIdentifier
-      ].find((bi) => bi.id === buyableItemId);
+      const buyableItem = availableBuyableItems[buyableItemIdentifier].find(
+        (bi) => bi.id === buyableItemId,
+      );
       // eslint-disable-next-line
       for (let i = 0; i < quantity; i++) {
-        props.onAddBuyableItem(buyableItemIdentifier, {
+        onAddBuyableItem(buyableItemIdentifier, {
           ...buyableItem,
           buyable_item_id: buyableItem.id,
           price: parseFloat(buyableItem.price).toFixed(2),
@@ -167,7 +168,15 @@ const InvoiceItemEditor = (props: Props) => {
         });
       }
     }
-  }, [buyableItemId, buyableItemIdentifier, quantity, voucher, voucherPercent]);
+  }, [
+    buyableItemId,
+    buyableItemIdentifier,
+    quantity,
+    voucher,
+    availableBuyableItems,
+    onAddBuyableItem,
+    t,
+  ]);
 
   const onChangeVoucherCredit = useCallback(
     (value: number) => {
@@ -176,9 +185,9 @@ const InvoiceItemEditor = (props: Props) => {
       if (
         buyableItemIdentifier &&
         buyableItemId !== null &&
-        props.availableBuyableItems[buyableItemIdentifier]
+        availableBuyableItems[buyableItemIdentifier]
       ) {
-        const item = props.availableBuyableItems[buyableItemIdentifier].find(
+        const item = availableBuyableItems[buyableItemIdentifier].find(
           (b) => b.id === buyableItemId,
         );
 
@@ -190,13 +199,7 @@ const InvoiceItemEditor = (props: Props) => {
         }
       }
     },
-    [
-      voucher,
-      voucherPercent,
-      buyableItemIdentifier,
-      buyableItemId,
-      props.availableBuyableItems,
-    ],
+    [buyableItemIdentifier, buyableItemId, availableBuyableItems],
   );
 
   const onChangeVoucherPercent = useCallback(
@@ -206,9 +209,9 @@ const InvoiceItemEditor = (props: Props) => {
       if (
         buyableItemIdentifier &&
         buyableItemId !== null &&
-        props.availableBuyableItems[buyableItemIdentifier]
+        availableBuyableItems[buyableItemIdentifier]
       ) {
-        const item = props.availableBuyableItems[buyableItemIdentifier].find(
+        const item = availableBuyableItems[buyableItemIdentifier].find(
           (b) => b.id === buyableItemId,
         );
 
@@ -220,33 +223,22 @@ const InvoiceItemEditor = (props: Props) => {
         }
       }
     },
-    [
-      voucher,
-      voucherPercent,
-      buyableItemIdentifier,
-      buyableItemId,
-      props.availableBuyableItems,
-    ],
+    [buyableItemIdentifier, buyableItemId, availableBuyableItems],
   );
   React.useEffect(() => {
-    if (!buyableItemId || !buyableItemIdentifier || !props.member) {
+    if (!buyableItemId || !buyableItemIdentifier || !member) {
       return setWarnManagerOnInvoice(false);
     }
-    const item = props.availableBuyableItems[buyableItemIdentifier].find(
+    const item = availableBuyableItems[buyableItemIdentifier].find(
       (bi) => bi.id === buyableItemId,
     );
     if (buyableItemIdentifier === BUYABLE_ITEM_PASS) {
       return setWarnManagerOnInvoice(
-        paymentPackTagsAndMemberTagsCompatibilty(item, props.member?.tags),
+        paymentPackTagsAndMemberTagsCompatibilty(item, member?.tags),
       );
     }
     return setWarnManagerOnInvoice(false);
-  }, [
-    buyableItemIdentifier,
-    props.availableBuyableItems,
-    props.member,
-    buyableItemId,
-  ]);
+  }, [buyableItemIdentifier, availableBuyableItems, member, buyableItemId]);
   return (
     <div>
       <Paper>
@@ -296,7 +288,7 @@ const InvoiceItemEditor = (props: Props) => {
       <div className={classes.innerEditor}>
         <div className={classes.innerEditorTop}>
           <BuyableItemSelector
-            availableBuyableItems={props.availableBuyableItems}
+            availableBuyableItems={availableBuyableItems}
             buyableItemIdentifier={buyableItemIdentifier}
             value={buyableItemId}
             onSelect={(id: number) => {
@@ -304,7 +296,7 @@ const InvoiceItemEditor = (props: Props) => {
               setVoucher(null);
               setVoucherPercent(null);
             }}
-            member={props.member}
+            member={member}
           />
           <div className={classes.numericInputRow}>
             <NumberInput

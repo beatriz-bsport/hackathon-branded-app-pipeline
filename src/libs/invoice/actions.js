@@ -39,7 +39,7 @@ export const invoiceConfigurationPatchActions = {
   error: createAction('INVOICE-CONFIGURATION/PATCH/ERROR'),
 };
 
-export function patchInvoiceConfiguration(data: *, options: OptionCallback) {
+export function patchInvoiceConfiguration(data: any, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(invoiceConfigurationPatchActions.isLoading(true));
     dispatch(invoiceConfigurationPatchActions.error(null));
@@ -217,7 +217,7 @@ export const retrieveInvoiceActions = {
   success: createAction('INVOICE/RETRIEVE/SUCCESS'),
 };
 
-export function fetchByQueryInvoice(params: *, options: OptionCallback) {
+export function fetchByQueryInvoice(params: any, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveInvoiceActions.isLoading(true));
     dispatch(retrieveInvoiceActions.error(null));

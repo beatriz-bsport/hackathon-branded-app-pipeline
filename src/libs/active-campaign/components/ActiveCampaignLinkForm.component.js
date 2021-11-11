@@ -61,14 +61,8 @@ export class ActiveCampaignFormDialog extends React.Component<Props, State> {
   }
 
   render() {
-    const {
-      open,
-      smartLists,
-      t,
-      classes,
-      updateLink,
-      activeCampaignLists,
-    } = this.props;
+    const { open, smartLists, t, classes, updateLink, activeCampaignLists } =
+      this.props;
     return (
       <Dialog open={open}>
         <DialogTitle id="dialog-title">

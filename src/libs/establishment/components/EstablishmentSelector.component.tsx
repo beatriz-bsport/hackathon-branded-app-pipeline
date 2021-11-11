@@ -32,6 +32,7 @@ const GroupHeading = ({ children, ...props }) => {
     </components.GroupHeading>
   );
 };
+
 const Menu = ({ children, ...props }) => {
   if (props.selectProps.isLoading) {
     return <div />;
@@ -167,7 +168,7 @@ const establishmentStyles = {
           !isDisabled &&
           (isSelected ? colors.secondary : color.alpha(0.3).css()),
       },
-      groupHeading: (base) => ({...base,margin: 0}),
+      groupHeading: (base) => ({ ...base, margin: 0 }),
     };
 
     /* eslint-enable */

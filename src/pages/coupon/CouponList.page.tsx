@@ -71,14 +71,14 @@ export class CouponList extends React.PureComponent<Props, State> {
     this.props.fetchCouponPage(1);
   }
 
-  changeSearch = (fuse: Fuse<PaymentCombo, FuseOptions<PaymentCombo>>) => (
-    ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
-  ) => {
-    this.setState({
-      searchText: ev.target.value,
-      searchResult: fuse.search(ev.target.value),
-    });
-  };
+  changeSearch =
+    (fuse: Fuse<PaymentCombo, FuseOptions<PaymentCombo>>) =>
+    (ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+      this.setState({
+        searchText: ev.target.value,
+        searchResult: fuse.search(ev.target.value),
+      });
+    };
 
   clearSearch = () => {
     this.setState({ searchText: '', searchResult: [] });

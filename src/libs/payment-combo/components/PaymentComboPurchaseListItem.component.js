@@ -37,11 +37,7 @@ export const PaymentComboPurchaseListItem = (props: Props) => {
       onClick={props.onClick}
     >
       <ListItemText
-        primary={
-          `${payment_combo.name} - ${payment_combo.member}`
-            ? paymentComboPurchase.member.name
-            : '...'
-        }
+        primary={payment_combo ? paymentComboPurchase.member.name : '...'}
         secondary={`${getCurrencyDisplayWithPrice(
           paymentComboPurchase.price,
         )} - ${formatAsDatetime(paymentComboPurchase.date)}`}

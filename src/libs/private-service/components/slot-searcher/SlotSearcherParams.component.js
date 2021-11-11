@@ -314,10 +314,8 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
 
   render() {
     const { t, classes } = this.props;
-    const {
-      coachResourceState,
-      establishmentResourceState,
-    } = this.getResourceState();
+    const { coachResourceState, establishmentResourceState } =
+      this.getResourceState();
     return (
       <div className={classes.container}>
         <PrivateServiceSelectorWithSlot

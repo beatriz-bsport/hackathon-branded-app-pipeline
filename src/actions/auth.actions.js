@@ -59,14 +59,8 @@ export function fetchAccessLevel(
   return async (dispatch: Dispatch) => {
     try {
       const response = await api.auth.accessLevel(token);
-      const {
-        is_manager,
-        is_consumer,
-        is_franchisor,
-        role,
-        name,
-        username,
-      } = response.data;
+      const { is_manager, is_consumer, is_franchisor, role, name, username } =
+        response.data;
 
       if (!is_manager && !is_franchisor && is_consumer) {
         dispatch(errorLogin());
@@ -117,14 +111,8 @@ export function fetchAccessLevelWithoutConnect(
   return async (dispatch: Dispatch) => {
     try {
       const response = await api.auth.accessLevel(token);
-      const {
-        is_manager,
-        is_consumer,
-        is_franchisor,
-        role,
-        name,
-        username,
-      } = response.data;
+      const { is_manager, is_consumer, is_franchisor, role, name, username } =
+        response.data;
 
       dispatch({
         type: types.CHECK_ACCESS_LEVEL,

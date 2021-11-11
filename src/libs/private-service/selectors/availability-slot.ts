@@ -156,26 +156,23 @@ export const getFilteredAvailabilitySlots = createSelector(
 const _getSearchedSlotRaw = (state) =>
   state.privateService.availabilitySlot.searched.items;
 
-export const getSearchedSlots: (
-  state: RootState,
-) => { [key: string]: Array<Array<string>> } = createSelector(
-  _getSearchedSlotRaw,
-  (slotByResourceList) => {
-    const slotByDate = {};
-    slotByResourceList.map((slotByResource) =>
-      // eslint-disable-next-line
-      slotByResource.slots.map((interval) => {
-        const date = moment(interval[0]).format('YYYY-MM-DD');
-        if (slotByDate[date]) {
-          slotByDate[date].push(interval);
-        } else {
-          slotByDate[date] = [interval];
-        }
-      }),
-    );
-    return slotByDate;
-  },
-);
+export const getSearchedSlots: (state: RootState) => {
+  [key: string]: Array<Array<string>>;
+} = createSelector(_getSearchedSlotRaw, (slotByResourceList) => {
+  const slotByDate = {};
+  slotByResourceList.map((slotByResource) =>
+    // eslint-disable-next-line
+    slotByResource.slots.map((interval) => {
+      const date = moment(interval[0]).format('YYYY-MM-DD');
+      if (slotByDate[date]) {
+        slotByDate[date].push(interval);
+      } else {
+        slotByDate[date] = [interval];
+      }
+    }),
+  );
+  return slotByDate;
+});
 
 const _getCalendarEventData = (state) =>
   state.privateService.calendarEvent.byId;

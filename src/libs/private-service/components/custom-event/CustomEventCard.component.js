@@ -25,14 +25,8 @@ export const CustomEventCard = (props: Props) => {
       <Typography className={classes.title} variant="h4">
         {customEvent.name}
       </Typography>
-      {customEvent.coaches.map(
-        // eslint-disable-next-line
-        (c) =>
-          c ? (
-            <CoachListItemBasic coach={c} key={c.id} />
-          ) : (
-            <CircularProgress />
-          ),
+      {customEvent.coaches.map((c) =>
+        c ? <CoachListItemBasic coach={c} key={c.id} /> : <CircularProgress />,
       )}
       <Typography className={classes.description}>
         {customEvent.description}

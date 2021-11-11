@@ -20,7 +20,7 @@ import InvoiceListItem from '../../../invoice/InvoiceListItem.component';
 
 type Props = {
   private_booking_list: Array<PrivateBooking>,
-  setPrivateBookingToDelete: (?PrivateBooking) => void,
+  setPrivateBookingToDelete: (privateBooking: ?PrivateBooking) => void,
   privateBookingToDelete: ?PrivateBooking,
   privateBookingsLoading: boolean,
   fetchPrivateConsumerPass: (id: number) => void,

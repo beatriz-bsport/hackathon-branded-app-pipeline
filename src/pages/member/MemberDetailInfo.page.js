@@ -115,7 +115,7 @@ type Props = {
 
   // NOTES
   // -----
-  createOrUpdateNote: ({
+  createOrUpdateNote: (note: {
     id: ?number,
     text: string,
     memberId: number,
@@ -152,7 +152,7 @@ type Props = {
   tagGroupsLoading: boolean,
 
   fetchTags: () => void,
-  createTag: (data: *, memberId?: number) => void,
+  createTag: (data: any, memberId?: number) => void,
   updateTag: (data: *) => void,
   updateTagGroup: (data: *) => void,
   deleteTag: (id: number) => void,
@@ -473,46 +473,52 @@ export default compose(
     },
   })),
   withHandlers({
-    fetchInvoiceListUnpaid: ({
-      fetchInvoiceList,
-      // fetchInvoiceItemList,
-      id,
-    }) => () => {
-      fetchInvoiceList({
-        is_v2: true,
-        is_draft: false,
-        unpaid: true,
-        member: id,
-      });
-    },
+    fetchInvoiceListUnpaid:
+      ({
+        fetchInvoiceList,
+        // fetchInvoiceItemList,
+        id,
+      }) =>
+      () => {
+        fetchInvoiceList({
+          is_v2: true,
+          is_draft: false,
+          unpaid: true,
+          member: id,
+        });
+      },
   }),
   withHandlers({
-    fetchMemberPaymentMethod: ({ fetchPaymentMethodListActions, id }) => () => {
-      fetchPaymentMethodListActions({ member: id });
-    },
+    fetchMemberPaymentMethod:
+      ({ fetchPaymentMethodListActions, id }) =>
+      () => {
+        fetchPaymentMethodListActions({ member: id });
+      },
   }),
   withHandlers({
-    detachPaymentMethod: ({
-      detachPaymentMethodAction,
-      fetchMemberPaymentMethod,
-      snackbarErrorMsg,
-      snackbarSuccessMsg,
-      id,
-      t,
-    }) => (pm_id, options) => {
-      detachPaymentMethodAction(
-        { member: id, payment_method_id: pm_id },
-        {
-          onSuccess: () => {
-            fetchMemberPaymentMethod({ member: id });
-            snackbarSuccessMsg(t('invoice:paymentMethod.detach.pm_deleted'));
-            if (options && options.onSuccess) options.onSuccess();
+    detachPaymentMethod:
+      ({
+        detachPaymentMethodAction,
+        fetchMemberPaymentMethod,
+        snackbarErrorMsg,
+        snackbarSuccessMsg,
+        id,
+        t,
+      }) =>
+      (pm_id, options) => {
+        detachPaymentMethodAction(
+          { member: id, payment_method_id: pm_id },
+          {
+            onSuccess: () => {
+              fetchMemberPaymentMethod({ member: id });
+              snackbarSuccessMsg(t('invoice:paymentMethod.detach.pm_deleted'));
+              if (options && options.onSuccess) options.onSuccess();
+            },
+            onError: (data) => {
+              snackbarErrorMsg(t(`invoice:paymentMethod.detach.${data}`));
+            },
           },
-          onError: (data) => {
-            snackbarErrorMsg(t(`invoice:paymentMethod.detach.${data}`));
-          },
-        },
-      );
-    },
+        );
+      },
   }),
 )(MemberDetailPage);

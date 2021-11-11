@@ -126,19 +126,19 @@ const mapDispatchToProps = {
   deleteEstablishmentGroupAction,
 };
 const mapWithHandlers = {
-  upsertEstablishmentGroup: (props: OwnAndConnectedProps) => (
-    establishmentGroup: EstablishmentGroupType,
-  ) => {
-    props.setSubmitting(true);
-    props.upsertEstablishmentGroupAction(establishmentGroup, {
-      onSuccess: () => {
-        props.setSubmitting(false);
-        props.setInitialGroup(null);
-        props.setOpenDialogForm(false);
-      },
-      onError: () => props.setSubmitting(false),
-    });
-  },
+  upsertEstablishmentGroup:
+    (props: OwnAndConnectedProps) =>
+    (establishmentGroup: EstablishmentGroupType) => {
+      props.setSubmitting(true);
+      props.upsertEstablishmentGroupAction(establishmentGroup, {
+        onSuccess: () => {
+          props.setSubmitting(false);
+          props.setInitialGroup(null);
+          props.setOpenDialogForm(false);
+        },
+        onError: () => props.setSubmitting(false),
+      });
+    },
 };
 const withStateHandlersInit: StateHandlerInit = {
   openDialogForm: false,

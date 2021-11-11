@@ -15,9 +15,8 @@ const getAllBookingAndPrivateBookingWithIds = (state: RootState) => {
 };
 
 export const getAllBookingAndPrivateBooking = (state: RootState) => {
-  const bookingsAndPrivateBookings = getAllBookingAndPrivateBookingWithIds(
-    state,
-  );
+  const bookingsAndPrivateBookings =
+    getAllBookingAndPrivateBookingWithIds(state);
 
   const bookingById = state.consumer.bookingAndPrivateBooking.booking.byId;
   const privateBookingById =

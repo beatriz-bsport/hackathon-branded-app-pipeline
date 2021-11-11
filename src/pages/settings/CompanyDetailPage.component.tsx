@@ -75,21 +75,20 @@ export default compose(
   withTitle(({ t }) => t('tab.company')),
   connector,
   withHandlers({
-    attachExternalAccount: ({
-      attachExternalAccount,
-      retrieveMyCompanySetup,
-    }) => (data, options) => {
-      attachExternalAccount(data, {
-        onSuccess: () => {
-          retrieveMyCompanySetup({
-            onError: options && options.onError,
-            onSuccess: (setup: CompanySetup) => {
-              if (options && options.onSuccess) options.onSuccess(setup);
-            },
-          });
-        },
-        onError: options && options.onError,
-      });
-    },
+    attachExternalAccount:
+      ({ attachExternalAccount, retrieveMyCompanySetup }) =>
+      (data, options) => {
+        attachExternalAccount(data, {
+          onSuccess: () => {
+            retrieveMyCompanySetup({
+              onError: options && options.onError,
+              onSuccess: (setup: CompanySetup) => {
+                if (options && options.onSuccess) options.onSuccess(setup);
+              },
+            });
+          },
+          onError: options && options.onError,
+        });
+      },
   }),
 )(CompanyDetailPage);

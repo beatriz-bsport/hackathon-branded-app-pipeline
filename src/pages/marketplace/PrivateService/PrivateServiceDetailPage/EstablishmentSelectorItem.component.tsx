@@ -1,79 +1,62 @@
-import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Fade, Typography } from '@material-ui/core';
+import React from 'react';
+import { CardMedia, Typography, ButtonBase } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import classNames from 'classnames';
 
-import {
-  PrivateService,
-  PrivateSlot,
-} from '../../../../libs/private-service/types';
+import { PrivateSlot } from '../../../../libs/private-service/types';
 import { Establishment } from '../../../../libs/establishment/types';
-import { Coach } from '../../../../libs/associated-coach/types';
-import EstablishmentSelectorItem from './EstablishmentSelectorItem.component';
 
 type Props = {
-  privateService: PrivateService<Coach, Establishment, PrivateSlot>;
   privateSlot: PrivateSlot;
-  selectedEstablishments: Establishment[];
+  establishment: Establishment;
   onSelect: (establishments: Establishment) => void;
+  isEstablishmentSelected: (establishment: Establishment) => Establishment;
 };
 
-const EstablishmentSelector: React.FC<Props> = (props) => {
-  const { privateService, privateSlot, selectedEstablishments, onSelect } =
+const EstablishmentSelectorItem: React.FC<Props> = (props) => {
+  const { establishment, privateSlot, onSelect, isEstablishmentSelected } =
     props;
 
-  const isEstablishmentSelected = useCallback(
-    (establishment) => {
-      return (
-        selectedEstablishments?.length &&
-        selectedEstablishments.find((e) => e.id === establishment.id)
-      );
-    },
-    [selectedEstablishments],
-  );
-
   const classes = useStyles();
-  const { t } = useTranslation('privateService');
-
-  const renderEstablishment = useCallback(() => {
-    return privateService.establishments.map((establishment: Establishment) => {
-      return (
-        <EstablishmentSelectorItem
-          key={establishment.id}
-          privateSlot={privateSlot}
-          establishment={establishment}
-          onSelect={onSelect}
-          isEstablishmentSelected={isEstablishmentSelected}
-        />
-      );
-    });
-  }, [privateService, privateSlot, isEstablishmentSelected, onSelect]);
 
   return (
-    <Fade in timeout={500}>
-      <div className={classes.container}>
-        <Typography className={classes.titleMargin} variant="h5">
-          {t('slotSearcher.establishment')}
-        </Typography>
-        <div className={classes.container2}>{renderEstablishment()}</div>
-      </div>
-    </Fade>
+    <div className={classes.cardItemLayout}>
+      <ButtonBase
+        className={classNames({
+          [classes.cardContainer]: true,
+          [classes.selected]: isEstablishmentSelected(establishment),
+        })}
+        onClick={() => privateSlot && onSelect(establishment)}
+      >
+        <CardMedia
+          className={classes.image}
+          image={establishment.cover}
+          title={establishment.title}
+        />
+        <div className={classes.cardDesc}>
+          <Typography className={classes.establishmentName} variant="subtitle2">
+            {establishment.title}
+          </Typography>
+
+          <Typography
+            className={classes.establishmentAddress}
+            variant="subtitle2"
+            color={
+              isEstablishmentSelected(establishment)
+                ? 'inherit'
+                : 'textSecondary'
+            }
+          >
+            {establishment.location.address}
+          </Typography>
+        </div>
+        {!privateSlot && <div className={classes.mask} />}
+      </ButtonBase>
+    </div>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    marginTop: theme.spacing(2),
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  container2: {
-    display: 'flex',
-    flex: 1,
-    width: '100%',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
   cardItemLayout: {
     display: 'flex',
     padding: theme.spacing(1),
@@ -150,4 +133,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default EstablishmentSelector;
+export default EstablishmentSelectorItem;

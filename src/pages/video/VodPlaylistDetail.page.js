@@ -47,7 +47,7 @@ type Props = {
 
   classes: Object,
   searchVideoText: string,
-  searchVideo: (SyntheticEvent<>) => void,
+  searchVideo: (ev: SyntheticEvent<>) => void,
   searchLoading: boolean,
   searchedVideoList: Array<Video>,
   closeVideoSearch: () => void,
@@ -175,27 +175,26 @@ export default compose(
     },
   ),
   withHandlers({
-    retrieveVideo: ({ retrieveVideo, fetchAssociatedCoachBulk }) => (id) => {
-      retrieveVideo(id, {
-        onSuccess: (video) => fetchAssociatedCoachBulk(video.coaches),
-      });
-    },
-    retrievePlaylist: ({
-      id,
-      retrievePlaylist,
-      fetchVideoBulk,
-      fetchAssociatedCoachBulk,
-    }) => () => {
-      retrievePlaylist(id, {
-        onSuccess: (pl) => {
-          fetchVideoBulk(pl.videos, {
-            onSuccess: (videos) => {
-              fetchAssociatedCoachBulk(flatten(videos.map((v) => v.coaches)));
-            },
-          });
-        },
-      });
-    },
+    retrieveVideo:
+      ({ retrieveVideo, fetchAssociatedCoachBulk }) =>
+      (id) => {
+        retrieveVideo(id, {
+          onSuccess: (video) => fetchAssociatedCoachBulk(video.coaches),
+        });
+      },
+    retrievePlaylist:
+      ({ id, retrievePlaylist, fetchVideoBulk, fetchAssociatedCoachBulk }) =>
+      () => {
+        retrievePlaylist(id, {
+          onSuccess: (pl) => {
+            fetchVideoBulk(pl.videos, {
+              onSuccess: (videos) => {
+                fetchAssociatedCoachBulk(flatten(videos.map((v) => v.coaches)));
+              },
+            });
+          },
+        });
+      },
   }),
   withStateHandlers(
     {
@@ -209,54 +208,62 @@ export default compose(
     },
   ),
   withHandlers({
-    goToVideoInPlaylist: ({ goToVideoInPlaylist, id }) => (videoId) =>
-      goToVideoInPlaylist(id, videoId),
-    searchVideo: ({ searchVideo, setSearchVideoText }) => (ev) => {
-      setSearchVideoText(ev.target.value);
-      if (ev.target.value) {
-        searchVideo({ search: ev.target.value, mine: true });
-      }
-    },
-    addVideoToPlaylist: ({
-      retrievePlaylist,
-      addVideoToPlaylist,
-      closeVideoSearch,
-      id,
-      replaceToVideoInPlaylist,
-    }) => (video, options) => {
-      addVideoToPlaylist(id, video, {
-        onSuccess: (playlist) => {
-          closeVideoSearch();
-          retrievePlaylist();
-          if (options && options.onSuccess) {
-            options.onSuccess(playlist);
-          }
-          replaceToVideoInPlaylist(id, video);
-        },
-        onError: options && options.onError,
-      });
-    },
-    subVideoToPlaylist: ({
-      subVideoToPlaylist,
-      retrievePlaylist,
-      closeVideoSearch,
-      id,
-      videoId,
-      replaceToVideoInPlaylist,
-    }) => (video, options) => {
-      subVideoToPlaylist(id, video, {
-        onSuccess: (playlist) => {
-          if (options && options.onSuccess) {
-            options.onSuccess(playlist);
-          }
-          closeVideoSearch();
-          retrievePlaylist();
-          if (videoId === video) {
-            replaceToVideoInPlaylist(id, '');
-          }
-        },
-        onError: options && options.onError,
-      });
-    },
+    goToVideoInPlaylist:
+      ({ goToVideoInPlaylist, id }) =>
+      (videoId) =>
+        goToVideoInPlaylist(id, videoId),
+    searchVideo:
+      ({ searchVideo, setSearchVideoText }) =>
+      (ev) => {
+        setSearchVideoText(ev.target.value);
+        if (ev.target.value) {
+          searchVideo({ search: ev.target.value, mine: true });
+        }
+      },
+    addVideoToPlaylist:
+      ({
+        retrievePlaylist,
+        addVideoToPlaylist,
+        closeVideoSearch,
+        id,
+        replaceToVideoInPlaylist,
+      }) =>
+      (video, options) => {
+        addVideoToPlaylist(id, video, {
+          onSuccess: (playlist) => {
+            closeVideoSearch();
+            retrievePlaylist();
+            if (options && options.onSuccess) {
+              options.onSuccess(playlist);
+            }
+            replaceToVideoInPlaylist(id, video);
+          },
+          onError: options && options.onError,
+        });
+      },
+    subVideoToPlaylist:
+      ({
+        subVideoToPlaylist,
+        retrievePlaylist,
+        closeVideoSearch,
+        id,
+        videoId,
+        replaceToVideoInPlaylist,
+      }) =>
+      (video, options) => {
+        subVideoToPlaylist(id, video, {
+          onSuccess: (playlist) => {
+            if (options && options.onSuccess) {
+              options.onSuccess(playlist);
+            }
+            closeVideoSearch();
+            retrievePlaylist();
+            if (videoId === video) {
+              replaceToVideoInPlaylist(id, '');
+            }
+          },
+          onError: options && options.onError,
+        });
+      },
   }),
 )(VodPlaylistDetailPage);

@@ -111,12 +111,12 @@ import PaginatedBookingOptionList from '../../libs/waiting-list/components/Pagin
 import DiscardBookingOptionDialogV2 from '../../libs/waiting-list/components/DiscardBookingOptionDialogV2.component';
 
 type Props = {
-  classes: *,
+  classes: any,
   t: TFunction,
   id: number,
   bookingId: ?number,
   retrieveBooking: (number, OptionCallback) => void,
-  retrieveConsumerPackBulk: (Array<number>) => void,
+  retrieveConsumerPackBulk: (cpps: Array<number>) => void,
   member: Member,
 
   bookings: Array<Booking>,
@@ -179,7 +179,7 @@ type Props = {
   fetchMemberBookingStatistics: () => void,
   chartRange: { start: string, end: string, kind: string },
   setChartRange: ({ start: string, end: string, kind: string }) => void,
-  updateFiltersSettings: (*) => void,
+  updateFiltersSettings: () => void,
   recurrentBookingLoading: boolean,
   userFiltersLoading: boolean,
   setSpotForBooking: () => void,
@@ -751,156 +751,164 @@ export default compose(
     return {};
   }),
   withHandlers({
-    fetchRecurrenceRuleBooking: ({
-      fetchRecurrenceRuleBooking,
-      fetchMetaActivityBulk,
-      fetchEstablishmentBulk,
-      id,
-    }) => (page) => {
-      fetchRecurrenceRuleBooking(
-        {
-          member: id,
-          page,
-          page_size: RECURRENT_BOOKING_PAGE_SIZE,
-        },
-        {
-          onSuccess: (recurrenceRuleList) => {
-            if (recurrenceRuleList.length) {
-              fetchMetaActivityBulk([
-                ...recurrenceRuleList.map((o) => o.meta_activity),
-              ]);
-              fetchEstablishmentBulk([
-                ...recurrenceRuleList.map((o) => o.establishment),
-              ]);
-            }
-          },
-        },
-      );
-    },
-  }),
-  withHandlers({
-    fetchMemberBookingStatistics: ({
-      id,
-      fetchBookingStatistics,
-      chartRange,
-      filters,
-    }) => () => {
-      fetchBookingStatistics('memberBooking', {
-        date_field: 'offer__date_start',
-        min_date: chartRange.start,
-        max_date: chartRange.end,
-        member: id,
-        aggregate_function: 'count',
-        aggregate_field: 'pk',
-        aggregate_period: 'day',
-        ...filters,
-      });
-    },
-    onSubmitRecurrentBooking: ({
-      id,
-      updateRecurrenceRuleBooking,
-      selectedRecurrentBooking,
-      setSelectedRecurrentBooking,
-      createRecurrenceRuleBooking,
-    }) => (data, options) => {
-      if (id && selectedRecurrentBooking) {
-        updateRecurrenceRuleBooking(
+    fetchRecurrenceRuleBooking:
+      ({
+        fetchRecurrenceRuleBooking,
+        fetchMetaActivityBulk,
+        fetchEstablishmentBulk,
+        id,
+      }) =>
+      (page) => {
+        fetchRecurrenceRuleBooking(
           {
-            ...data,
             member: id,
+            page,
+            page_size: RECURRENT_BOOKING_PAGE_SIZE,
           },
-          selectedRecurrentBooking.id,
-          options,
+          {
+            onSuccess: (recurrenceRuleList) => {
+              if (recurrenceRuleList.length) {
+                fetchMetaActivityBulk([
+                  ...recurrenceRuleList.map((o) => o.meta_activity),
+                ]);
+                fetchEstablishmentBulk([
+                  ...recurrenceRuleList.map((o) => o.establishment),
+                ]);
+              }
+            },
+          },
         );
-      }
-      if (id && !selectedRecurrentBooking) {
-        createRecurrenceRuleBooking({ ...data, member: id }, options);
-      }
-      setSelectedRecurrentBooking(null);
-    },
-    refresh: ({
-      fetchRecurrenceRuleBooking,
-      fetchMemberBookings,
-      filters,
-      retrieveConsumerPackBulk,
-      setBookerInAvanceDialog,
-      id,
-    }) => () => {
-      fetchRecurrenceRuleBooking(1);
-      fetchMemberBookings(id, 1, BOOKING_PAGE_SIZE, filters, {
-        onSuccess: (bookings) =>
-          retrieveConsumerPackBulk(
-            bookings.map((b) => b.consumer_payment_pack),
-          ),
-      });
-      setBookerInAvanceDialog(false);
-    },
-    setOpenValue: ({ setOpen, open }) => (name: string) => {
-      setOpen({
-        ...open,
-        [name]: !open[name],
-      });
-    },
-    onDeleteRecurrenceRuleBooking: ({
-      deleteRecurrenceRuleBooking,
-      fetchMemberBookings,
-      retrieveConsumerPackBulk,
-      fetchRecurrenceRuleBooking,
-      filters,
-    }) => (r, memberId, data) => {
-      deleteRecurrenceRuleBooking(r.id, data, {
-        onSuccess: () => {
-          fetchRecurrenceRuleBooking(1);
-          fetchMemberBookings(memberId, 1, BOOKING_PAGE_SIZE, filters, {
-            onSuccess: (bookings) =>
-              retrieveConsumerPackBulk(
-                bookings.map((b) => b.consumer_payment_pack),
-              ),
-          });
-        },
-      });
-    },
-    fetchMemberBookingsList: ({
-      id,
-      filters,
-      fetchMemberBookings,
-      retrieveConsumerPackBulk,
-    }) => (page, page_size) => {
-      fetchMemberBookings(id, page, page_size, filters, {
-        onSuccess: (bookings) =>
-          retrieveConsumerPackBulk(
-            bookings.map((b) => b.consumer_payment_pack),
-          ),
-      });
-    },
-    setFilterValue: ({ setFilters, filters }) => (name: string, value) => {
-      if (value === null) {
-        setFilters(omit(filters, name));
-      } else {
-        setFilters({
+      },
+  }),
+  withHandlers({
+    fetchMemberBookingStatistics:
+      ({ id, fetchBookingStatistics, chartRange, filters }) =>
+      () => {
+        fetchBookingStatistics('memberBooking', {
+          date_field: 'offer__date_start',
+          min_date: chartRange.start,
+          max_date: chartRange.end,
+          member: id,
+          aggregate_function: 'count',
+          aggregate_field: 'pk',
+          aggregate_period: 'day',
           ...filters,
-          [name]: value,
         });
-      }
-    },
+      },
+    onSubmitRecurrentBooking:
+      ({
+        id,
+        updateRecurrenceRuleBooking,
+        selectedRecurrentBooking,
+        setSelectedRecurrentBooking,
+        createRecurrenceRuleBooking,
+      }) =>
+      (data, options) => {
+        if (id && selectedRecurrentBooking) {
+          updateRecurrenceRuleBooking(
+            {
+              ...data,
+              member: id,
+            },
+            selectedRecurrentBooking.id,
+            options,
+          );
+        }
+        if (id && !selectedRecurrentBooking) {
+          createRecurrenceRuleBooking({ ...data, member: id }, options);
+        }
+        setSelectedRecurrentBooking(null);
+      },
+    refresh:
+      ({
+        fetchRecurrenceRuleBooking,
+        fetchMemberBookings,
+        filters,
+        retrieveConsumerPackBulk,
+        setBookerInAvanceDialog,
+        id,
+      }) =>
+      () => {
+        fetchRecurrenceRuleBooking(1);
+        fetchMemberBookings(id, 1, BOOKING_PAGE_SIZE, filters, {
+          onSuccess: (bookings) =>
+            retrieveConsumerPackBulk(
+              bookings.map((b) => b.consumer_payment_pack),
+            ),
+        });
+        setBookerInAvanceDialog(false);
+      },
+    setOpenValue:
+      ({ setOpen, open }) =>
+      (name: string) => {
+        setOpen({
+          ...open,
+          [name]: !open[name],
+        });
+      },
+    onDeleteRecurrenceRuleBooking:
+      ({
+        deleteRecurrenceRuleBooking,
+        fetchMemberBookings,
+        retrieveConsumerPackBulk,
+        fetchRecurrenceRuleBooking,
+        filters,
+      }) =>
+      (r, memberId, data) => {
+        deleteRecurrenceRuleBooking(r.id, data, {
+          onSuccess: () => {
+            fetchRecurrenceRuleBooking(1);
+            fetchMemberBookings(memberId, 1, BOOKING_PAGE_SIZE, filters, {
+              onSuccess: (bookings) =>
+                retrieveConsumerPackBulk(
+                  bookings.map((b) => b.consumer_payment_pack),
+                ),
+            });
+          },
+        });
+      },
+    fetchMemberBookingsList:
+      ({ id, filters, fetchMemberBookings, retrieveConsumerPackBulk }) =>
+      (page, page_size) => {
+        fetchMemberBookings(id, page, page_size, filters, {
+          onSuccess: (bookings) =>
+            retrieveConsumerPackBulk(
+              bookings.map((b) => b.consumer_payment_pack),
+            ),
+        });
+      },
+    setFilterValue:
+      ({ setFilters, filters }) =>
+      (name: string, value) => {
+        if (value === null) {
+          setFilters(omit(filters, name));
+        } else {
+          setFilters({
+            ...filters,
+            [name]: value,
+          });
+        }
+      },
   }),
   withHandlers({
-    fetchFiltersSettings: ({ fetchManagerFilters, setFilters }) => () => {
-      fetchManagerFilters({
-        onSuccess: (payload) => {
-          setFilters(payload.filters.booking_filters);
-        },
-      });
-    },
+    fetchFiltersSettings:
+      ({ fetchManagerFilters, setFilters }) =>
+      () => {
+        fetchManagerFilters({
+          onSuccess: (payload) => {
+            setFilters(payload.filters.booking_filters);
+          },
+        });
+      },
   }),
   withHandlers({
-    updateFiltersSettings: ({ updateManagerFilters, userFilters }) => (
-      filters: object,
-    ) => {
-      updateManagerFilters({
-        ...userFilters,
-        booking_filters: filters,
-      });
-    },
+    updateFiltersSettings:
+      ({ updateManagerFilters, userFilters }) =>
+      (filters: object) => {
+        updateManagerFilters({
+          ...userFilters,
+          booking_filters: filters,
+        });
+      },
   }),
 )(MemberDetailBooking);

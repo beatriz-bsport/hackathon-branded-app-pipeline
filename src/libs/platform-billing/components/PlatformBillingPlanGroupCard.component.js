@@ -70,6 +70,7 @@ const PlatformBillingPlanCard = (props: {
       <div className={classes.planDescription}>
         {platformBillingPlan.description_html ? (
           <div
+            // eslint-disable-next-line
             dangerouslySetInnerHTML={{
               __html: platformBillingPlan.description_html,
             }}

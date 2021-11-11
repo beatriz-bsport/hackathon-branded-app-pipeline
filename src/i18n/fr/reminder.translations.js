@@ -1,10 +1,7 @@
 const TASK = require('@bsport/common/lib/master-data/tasks');
 
-const {
-  TASK_STATUS_UNSTARTED,
-  TASK_STATUS_FINISHED,
-  TASK_STATUS_CANCELLED,
-} = TASK;
+const { TASK_STATUS_UNSTARTED, TASK_STATUS_FINISHED, TASK_STATUS_CANCELLED } =
+  TASK;
 
 exports.default = {
   task: {

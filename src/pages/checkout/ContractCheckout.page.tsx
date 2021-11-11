@@ -408,10 +408,14 @@ export default compose<any, ownProps>(
   withTranslation(['subscription', 'payment', 'invoice', 'translation']),
   withRouter,
   withHandlers({
-    requestSetupIntentSecret: ({ companyId }) => () =>
-      requestSetupIntentSecretAPI(null, companyId),
-    fetchPaymentMethodList: ({ companyId, fetchPaymentMethodList }) => () =>
-      fetchPaymentMethodList({ company: companyId }),
+    requestSetupIntentSecret:
+      ({ companyId }) =>
+      () =>
+        requestSetupIntentSecretAPI(null, companyId),
+    fetchPaymentMethodList:
+      ({ companyId, fetchPaymentMethodList }) =>
+      () =>
+        fetchPaymentMethodList({ company: companyId }),
   }),
   withProps(
     ({ fetchContractList, fetchPaymentPackBulk, fetchPrivatePassBulk }) => ({
@@ -435,27 +439,29 @@ export default compose<any, ownProps>(
     },
   })),
   withHandlers({
-    detachPaymentMethod: ({
-      detachPaymentMethodAction,
-      fetchpaymentMethod,
-      snackbarErrorMsg,
-      snackbarSuccessMsg,
-      companyId,
-      t,
-    }) => (pm_id: number, options: OptionCallback) => {
-      detachPaymentMethodAction(
-        { company: companyId, payment_method_id: pm_id },
-        {
-          onSuccess: () => {
-            fetchpaymentMethod({ company: companyId });
-            snackbarSuccessMsg(t('invoice:paymentMethod.detach.pm_deleted'));
-            if (options && options.onSuccess) options.onSuccess();
+    detachPaymentMethod:
+      ({
+        detachPaymentMethodAction,
+        fetchpaymentMethod,
+        snackbarErrorMsg,
+        snackbarSuccessMsg,
+        companyId,
+        t,
+      }) =>
+      (pm_id: number, options: OptionCallback) => {
+        detachPaymentMethodAction(
+          { company: companyId, payment_method_id: pm_id },
+          {
+            onSuccess: () => {
+              fetchpaymentMethod({ company: companyId });
+              snackbarSuccessMsg(t('invoice:paymentMethod.detach.pm_deleted'));
+              if (options && options.onSuccess) options.onSuccess();
+            },
+            onError: (data: any) => {
+              snackbarErrorMsg(t(`invoice:paymentMethod.detach.${data}`));
+            },
           },
-          onError: (data: any) => {
-            snackbarErrorMsg(t(`invoice:paymentMethod.detach.${data}`));
-          },
-        },
-      );
-    },
+        );
+      },
   }),
 )(MarketplaceSubscriptionPayment);

@@ -75,7 +75,8 @@ const ButtonWithConfirm = withConfirm(DeleteButton, 'onClick', {
     <p>{t('marketing:customForm.customFormField.modal.disable.content')}</p>
   ),
 });
-const CUSTOM_FORM_SIGNUP_FIELD_DEFAULT_LABEL_DICT = get_custom_form_sign_question_label();
+const CUSTOM_FORM_SIGNUP_FIELD_DEFAULT_LABEL_DICT =
+  get_custom_form_sign_question_label();
 export const CustomFormFieldListItem = (props: Props) => {
   const { t } = props;
   const classes = useStyles();

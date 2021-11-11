@@ -39,17 +39,13 @@ type Props = {
   fetchBulkItems: any,
   fetchItems: any,
   renderSelectorWarning: (string, boolean) => void,
-  renderAttendanceSelectorWarning: (string, boolean | null) => void,
+  renderAttendanceSelectorWarning: (string, boolean) => void,
 };
 
 export class BookingsNumberFilter extends Component<Props, state> {
   componentDidMount() {
-    const {
-      meta_activities,
-      establishments,
-      coaches,
-      payment_packs,
-    } = this.props.filter_data;
+    const { meta_activities, establishments, coaches, payment_packs } =
+      this.props.filter_data;
     if (meta_activities && meta_activities.length === 1) {
       this.props.fetchBulkItems.meta_activities(meta_activities);
     }
@@ -269,7 +265,8 @@ export class BookingsNumberFilter extends Component<Props, state> {
             checked={filter_data.establishment_filter_active}
             onChange={() =>
               onChange({
-                establishment_filter_active: !filter_data.establishment_filter_active,
+                establishment_filter_active:
+                  !filter_data.establishment_filter_active,
               })
             }
             value="checkedA"
@@ -405,7 +402,8 @@ export class BookingsNumberFilter extends Component<Props, state> {
             checked={filter_data.payment_pack_filter_active}
             onChange={() =>
               onChange({
-                payment_pack_filter_active: !filter_data.payment_pack_filter_active,
+                payment_pack_filter_active:
+                  !filter_data.payment_pack_filter_active,
               })
             }
             value="checkedA"

@@ -20,11 +20,10 @@ export const getAll: (state: RootState) => Array<TagGroup> = createSelector(
     })),
 );
 
-const getMemberTagGroups: (
-  state: RootState,
-) => Array<TagGroup> = createSelector(getAll, (tgs) =>
-  tgs.filter((g) => g.kind === TAG_KIND_MEMBER.id),
-);
+const getMemberTagGroups: (state: RootState) => Array<TagGroup> =
+  createSelector(getAll, (tgs) =>
+    tgs.filter((g) => g.kind === TAG_KIND_MEMBER.id),
+  );
 
 const getMemberTags: (state: RootState) => Array<Tag> = createSelector(
   [getMemberTagGroups, _getTags],
@@ -34,20 +33,19 @@ const getMemberTags: (state: RootState) => Array<Tag> = createSelector(
   },
 );
 
-const getMemberTagsWithTagGroup: (
-  state: RootState,
-) => Array<Tag<TagGroupAPI>> = createSelector(
-  [getMemberTagGroups, _getTags, getTagGroupsDict],
-  (memberTagGroups, tags, tagGroupData) => {
-    const tagGroupMemberIds = memberTagGroups.map((tg) => tg.id);
-    return tags
-      .filter((tag) => tagGroupMemberIds.includes(tag.group))
-      .map((tag) => ({
-        ...tag,
-        group: tagGroupData[tag.group],
-      }));
-  },
-);
+const getMemberTagsWithTagGroup: (state: RootState) => Array<Tag<TagGroupAPI>> =
+  createSelector(
+    [getMemberTagGroups, _getTags, getTagGroupsDict],
+    (memberTagGroups, tags, tagGroupData) => {
+      const tagGroupMemberIds = memberTagGroups.map((tg) => tg.id);
+      return tags
+        .filter((tag) => tagGroupMemberIds.includes(tag.group))
+        .map((tag) => ({
+          ...tag,
+          group: tagGroupData[tag.group],
+        }));
+    },
+  );
 
 export const getallTagsWithTagGroup = createSelector(
   [_getTags, getTagGroupsDict],

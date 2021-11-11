@@ -181,6 +181,7 @@ export class SendEmailDialog extends Component<Props> {
             !!this.props.emailDetails[this.state.selectedMail] ? (
               <div>
                 <div
+                  // eslint-disable-next-line
                   dangerouslySetInnerHTML={{
                     __html: this.props.emailDetails
                       ? this.props.emailDetails[this.state.selectedMail].html

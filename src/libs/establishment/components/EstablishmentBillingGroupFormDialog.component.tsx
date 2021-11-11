@@ -49,7 +49,7 @@ const EstablishmentBillingGroupSchema = Yup.object().shape({
     .test(
       'billing_group_should_contains_at_least_one_establishment',
       'establishment:billing_group.form.error.groupShouldContainsOneRoom',
-      function () {
+      function checkEstablishmentLength() {
         return this.parent.establishments?.length > 0;
       },
     ),
@@ -214,9 +214,10 @@ export function EstablishmentBillingGroupForm(props: Props) {
                                 noDivider
                                 button
                                 onClickDelete={() => {
-                                  const establishmentIndex = formik.values.establishments.findIndex(
-                                    (esta: number) => esta === est.id,
-                                  );
+                                  const establishmentIndex =
+                                    formik.values.establishments.findIndex(
+                                      (esta: number) => esta === est.id,
+                                    );
 
                                   remove(establishmentIndex);
                                 }}

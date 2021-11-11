@@ -144,14 +144,15 @@ export class ConsumerHome extends React.Component<Props> {
 
   buildPath = (path) => this.props.push(this.props.buildUrl(path));
 
-  attachConsumerProps = (MyComponent: React.Component<*>) => (props: any) => (
-    <MyComponent
-      companyId={this.props.companyId}
-      {...props}
-      membership={this.props.membership}
-      push={this.buildPath}
-    />
-  );
+  attachConsumerProps = (MyComponent: React.Component<*>) => (props: any) =>
+    (
+      <MyComponent
+        companyId={this.props.companyId}
+        {...props}
+        membership={this.props.membership}
+        push={this.buildPath}
+      />
+    );
 
   render() {
     return (
@@ -276,9 +277,8 @@ export default compose(
       membershipList: getConsumerMembershipList(state),
       username: state.auth.username,
       basketGeneratedObjects: getBasketGeneratedObjects(state),
-      subscriptionPendingActionCount: getSubscriptionByMemberPendingAction(
-        state,
-      ).length,
+      subscriptionPendingActionCount:
+        getSubscriptionByMemberPendingAction(state).length,
       offerBooked: from_direct_booking
         ? getOfferWithRelated(state, parseInt(from_direct_booking, 10))
         : null,
@@ -305,71 +305,80 @@ export default compose(
     },
   ),
   withHandlers({
-    disconnect: ({ companyId, push }) => () => {
-      push(`/login/signout?membership=${companyId}`);
-    },
-    fetchOfferBulk: ({
-      fetchOfferBulk,
-      fetchCoachBulk,
-      fetchEstablishmentBulk,
-      fetchMetaActivityBulk,
-    }) => (ids) => {
-      fetchOfferBulk(ids, {
-        onSuccess: (offerList) => {
-          fetchMetaActivityBulk(offerList.map((b) => b.meta_activity));
-          fetchCoachBulk([
-            ...offerList.map((b) => b.coach),
-            ...offerList.map((b) => b.coach_override),
-          ]);
-          fetchEstablishmentBulk([
-            ...offerList.map((b) => b.establishment),
-            ...offerList.map((b) => b.establishment_override),
-          ]);
-        },
-      });
-    },
+    disconnect:
+      ({ companyId, push }) =>
+      () => {
+        push(`/login/signout?membership=${companyId}`);
+      },
+    fetchOfferBulk:
+      ({
+        fetchOfferBulk,
+        fetchCoachBulk,
+        fetchEstablishmentBulk,
+        fetchMetaActivityBulk,
+      }) =>
+      (ids) => {
+        fetchOfferBulk(ids, {
+          onSuccess: (offerList) => {
+            fetchMetaActivityBulk(offerList.map((b) => b.meta_activity));
+            fetchCoachBulk([
+              ...offerList.map((b) => b.coach),
+              ...offerList.map((b) => b.coach_override),
+            ]);
+            fetchEstablishmentBulk([
+              ...offerList.map((b) => b.establishment),
+              ...offerList.map((b) => b.establishment_override),
+            ]);
+          },
+        });
+      },
   }),
   withHandlers({
-    fetchBasketGeneratedObjects: ({
-      fetchBasketGeneratedObjects,
-      fetchOfferBulk,
-    }) => (company: number) => {
-      fetchBasketGeneratedObjects(company, {
-        onSuccess: (objects) =>
-          fetchOfferBulk(
-            objects.offerList
-              .filter((o) => o.extra_data && o.extra_data.next_offer)
-              .map((o) => o.extra_data.next_offer),
-          ),
-      });
-    },
+    fetchBasketGeneratedObjects:
+      ({ fetchBasketGeneratedObjects, fetchOfferBulk }) =>
+      (company: number) => {
+        fetchBasketGeneratedObjects(company, {
+          onSuccess: (objects) =>
+            fetchOfferBulk(
+              objects.offerList
+                .filter((o) => o.extra_data && o.extra_data.next_offer)
+                .map((o) => o.extra_data.next_offer),
+            ),
+        });
+      },
   }),
   withHandlers({
-    buildUrl: ({ companyId }) => (path) => {
-      if (
-        path.includes('login') ||
-        path.includes('/c/') ||
-        path.includes('/m/')
-      ) {
-        return path;
-      }
-      return `/c/${companyId}${path}`;
-    },
-    goToCalendar: ({ membership, push }) => (params) =>
-      push(
-        `${urlToMarketplace(
-          membership.company_name,
-          membership.company,
-        )}/calendar/${buildUrlParams({ ...params, filtersOpen: true })}`,
-      ),
-    resetCongratulations: ({ location, replace }) => () => {
-      const params = location.search.slice(1).split('&');
-      const filtered_params = params.filter(
-        (p) =>
-          !p.includes('from_basket=') && !p.includes('from_direct_booking='),
-      );
-      replace(`${location.pathname}?${filtered_params.join('&')}`);
-    },
+    buildUrl:
+      ({ companyId }) =>
+      (path) => {
+        if (
+          path.includes('login') ||
+          path.includes('/c/') ||
+          path.includes('/m/')
+        ) {
+          return path;
+        }
+        return `/c/${companyId}${path}`;
+      },
+    goToCalendar:
+      ({ membership, push }) =>
+      (params) =>
+        push(
+          `${urlToMarketplace(
+            membership.company_name,
+            membership.company,
+          )}/calendar/${buildUrlParams({ ...params, filtersOpen: true })}`,
+        ),
+    resetCongratulations:
+      ({ location, replace }) =>
+      () => {
+        const params = location.search.slice(1).split('&');
+        const filtered_params = params.filter(
+          (p) =>
+            !p.includes('from_basket=') && !p.includes('from_direct_booking='),
+        );
+        replace(`${location.pathname}?${filtered_params.join('&')}`);
+      },
   }),
   withTitle(({ membership }) => (membership ? membership.company_name : '')),
 )(ConsumerHome);

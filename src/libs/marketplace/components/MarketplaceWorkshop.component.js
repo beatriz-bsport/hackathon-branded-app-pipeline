@@ -14,7 +14,7 @@ import MarketplaceActivityDialog from './MarketplaceActivityDialog.component';
 
 type Props = {
   offers: Array<Offer>,
-  classes: *,
+  classes: any,
   offerSelected: ?Offer,
   hideMap: boolean,
   selectOffer: (Offer) => void,

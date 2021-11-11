@@ -79,13 +79,8 @@ const renderActions = (id, goToMemberPage, t) => (
   </Button>
 );
 const renderRow = (member, t, goToMemberPage) => {
-  const {
-    credit_account_balance,
-    date_joined,
-    name,
-    id,
-    accept_email,
-  } = member;
+  const { credit_account_balance, date_joined, name, id, accept_email } =
+    member;
   return {
     name,
     date_joined: formatAsDate(date_joined),

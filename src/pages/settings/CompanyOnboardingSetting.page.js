@@ -81,15 +81,17 @@ const CompanyOnboardingSettingPageComposed = compose(
   withTranslation(['settings']),
   withState('error', 'setError', null),
   withHandlers({
-    getOnboardingLink: ({ setError }) => (tokenId) =>
-      getOnboardingLinkAPI({ account_token: tokenId })
-        .then((r) => {
-          window.location = r.data.url;
-        })
-        .catch((err) => {
-          console.error(err);
-          setError(err);
-        }),
+    getOnboardingLink:
+      ({ setError }) =>
+      (tokenId) =>
+        getOnboardingLinkAPI({ account_token: tokenId })
+          .then((r) => {
+            window.location = r.data.url;
+          })
+          .catch((err) => {
+            console.error(err);
+            setError(err);
+          }),
   }),
 )(CompanyOnboardingSettingPage);
 

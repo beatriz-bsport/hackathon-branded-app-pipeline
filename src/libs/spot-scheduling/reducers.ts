@@ -3,8 +3,8 @@ import { handleActions } from 'redux-actions';
 import { SpotSchedulingState } from './types';
 import { assetForBlueprintActions, roomBlueprintActions } from './actions';
 
-const initialState: Immutable.Immutable<SpotSchedulingState> = Immutable<SpotSchedulingState>(
-  {
+const initialState: Immutable.Immutable<SpotSchedulingState> =
+  Immutable<SpotSchedulingState>({
     roomBlueprint: {
       byId: {},
       ids: [],
@@ -17,8 +17,7 @@ const initialState: Immutable.Immutable<SpotSchedulingState> = Immutable<SpotSch
       loading: false,
       error: null,
     },
-  },
-);
+  });
 
 export default handleActions(
   {

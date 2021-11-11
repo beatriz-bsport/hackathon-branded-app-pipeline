@@ -25,7 +25,7 @@ type Props = {
   classes: Object,
   activities: Array<Activity>,
   label: ?string,
-  onChange: (?number) => void,
+  onChange: (name: ?number) => void,
   helperText: string,
   value: ?number,
 };

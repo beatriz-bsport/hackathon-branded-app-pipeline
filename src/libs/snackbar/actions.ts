@@ -62,13 +62,12 @@ export function pendingBackgroundSnackbar(
 }
 
 export function displayBackgroundSnackbar(kind: BackgroundSnackKind) {
-  return (uuid: string, backgroundMessage: string) => async (
-    dispatch: Dispatch,
-  ) => {
-    dispatch(backgroundSnackbarDisplay({ uuid, backgroundMessage, kind }));
-    await sleep(5000);
-    dispatch(backgroundSnackbarDestroy(uuid));
-  };
+  return (uuid: string, backgroundMessage: string) =>
+    async (dispatch: Dispatch) => {
+      dispatch(backgroundSnackbarDisplay({ uuid, backgroundMessage, kind }));
+      await sleep(5000);
+      dispatch(backgroundSnackbarDestroy(uuid));
+    };
 }
 
 export function deleteBackgroundSnackbar(uuid: string) {

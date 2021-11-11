@@ -505,13 +505,8 @@ export class BookingItemForManager extends Component<Props, State> {
   };
 
   render() {
-    const {
-      t,
-      booking,
-      redirectToMember,
-      disabled,
-      redirectToOffer,
-    } = this.props;
+    const { t, booking, redirectToMember, disabled, redirectToOffer } =
+      this.props;
     // <TableCell>{t(`booking.sources.${b.source}`)}</TableCell>
     const bookingStatus = this.getStatusText();
 

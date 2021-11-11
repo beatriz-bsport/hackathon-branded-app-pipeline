@@ -279,49 +279,51 @@ const mapDispatchToProps = {
 };
 
 const mapWithHandlers = {
-  fetchBookingsAndPrivateBookings: (props: OwnAndConnectedProps) => (args: {
-    member: number;
-    page?: number;
-    type?: BookingsAndPrivateBookingsTypeEnum;
-  }) => {
-    const { member, page, type } = args;
+  fetchBookingsAndPrivateBookings:
+    (props: OwnAndConnectedProps) =>
+    (args: {
+      member: number;
+      page?: number;
+      type?: BookingsAndPrivateBookingsTypeEnum;
+    }) => {
+      const { member, page, type } = args;
 
-    props.fetchBookingsAndPrivateBookings({
-      page,
-      date_start: moment().format('YYYY-MM-DD'),
-      member,
-      type,
-      options: {
-        onSuccess: (allObj) => {
-          props.fetchOfferBulk(
-            allObj.booking.results.map((b) => b.offer),
-            {
-              // @ts-ignore
-              onSuccess: (offerList) => {
+      props.fetchBookingsAndPrivateBookings({
+        page,
+        date_start: moment().format('YYYY-MM-DD'),
+        member,
+        type,
+        options: {
+          onSuccess: (allObj) => {
+            props.fetchOfferBulk(
+              allObj.booking.results.map((b) => b.offer),
+              {
                 // @ts-ignore
-                props.fetchMetaActivityBulk(
+                onSuccess: (offerList) => {
                   // @ts-ignore
-                  offerList.map((b) => b.meta_activity),
-                );
-                props.fetchCoachBulk([
-                  // @ts-ignore
-                  ...offerList.map((b) => b.coach),
-                  // @ts-ignore
-                  ...offerList.map((b) => b.coach_override),
-                ]);
-                props.fetchEstablishmentBulk([
-                  // @ts-ignore
-                  ...offerList.map((b) => b.establishment),
-                  // @ts-ignore
-                  ...offerList.map((b) => b.establishment_override),
-                ]);
+                  props.fetchMetaActivityBulk(
+                    // @ts-ignore
+                    offerList.map((b) => b.meta_activity),
+                  );
+                  props.fetchCoachBulk([
+                    // @ts-ignore
+                    ...offerList.map((b) => b.coach),
+                    // @ts-ignore
+                    ...offerList.map((b) => b.coach_override),
+                  ]);
+                  props.fetchEstablishmentBulk([
+                    // @ts-ignore
+                    ...offerList.map((b) => b.establishment),
+                    // @ts-ignore
+                    ...offerList.map((b) => b.establishment_override),
+                  ]);
+                },
               },
-            },
-          );
+            );
+          },
         },
-      },
-    });
-  },
+      });
+    },
 };
 
 type StateHandlerInit = {
@@ -338,11 +340,10 @@ const withStateHandlersSetter = {
   setBookingToCancel: () => (bookingToCancel: Booking | null) => {
     return { bookingToCancel };
   },
-  setPrivateBookingToCancel: () => (
-    privateBookingToCancel: PrivateBooking | null,
-  ) => {
-    return { privateBookingToCancel };
-  },
+  setPrivateBookingToCancel:
+    () => (privateBookingToCancel: PrivateBooking | null) => {
+      return { privateBookingToCancel };
+    },
 };
 
 export default compose(

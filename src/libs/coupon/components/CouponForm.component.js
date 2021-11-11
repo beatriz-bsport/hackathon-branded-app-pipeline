@@ -77,9 +77,8 @@ type Props = {
   tagsLoading: boolean,
 };
 type State = {
-  ...Coupon,
   with_expiration_date: boolean,
-};
+} & Coupon;
 
 export class CouponForm extends React.Component<Props, State> {
   constructor(props: Props) {

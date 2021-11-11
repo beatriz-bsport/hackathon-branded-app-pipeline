@@ -34,7 +34,7 @@ type Props = {
   classes: Object,
   membership: Membership,
 
-  setBookingToCancel: (?Booking) => void,
+  setBookingToCancel: (booking: ?Booking) => void,
   bookingToCancel: ?Booking,
 
   bookings: Array<Booking>,
@@ -165,16 +165,18 @@ export default compose(
   withStyles(styles),
   withState('bookingToCancel', 'setBookingToCancel', null),
   withHandlers({
-    cancelBooking: ({ cancelBooking, setBookingToCancel }) => (id, options) => {
-      cancelBooking(id, null, {
-        onSuccess: () => {
-          setBookingToCancel(null);
-          if (options && options.onSuccess) options.onSuccess();
-        },
-        onError: () => {
-          if (options && options.onError) options.onError();
-        },
-      });
-    },
+    cancelBooking:
+      ({ cancelBooking, setBookingToCancel }) =>
+      (id, options) => {
+        cancelBooking(id, null, {
+          onSuccess: () => {
+            setBookingToCancel(null);
+            if (options && options.onSuccess) options.onSuccess();
+          },
+          onError: () => {
+            if (options && options.onError) options.onError();
+          },
+        });
+      },
   }),
 )(ConsumerBookingPage);

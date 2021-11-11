@@ -76,10 +76,8 @@ const PAGE_SIZE = 15;
 
 export const ConsumerGiftcardPage = (props: Props) => {
   const { classes, t } = props;
-  const [
-    consumerGiftcardToInvite,
-    selectConsumerGiftcardToInvite,
-  ] = React.useState(null);
+  const [consumerGiftcardToInvite, selectConsumerGiftcardToInvite] =
+    React.useState(null);
 
   const sendInvitations = (data: any, options: OptionCallback) => {
     props.sendEmailInvitation(consumerGiftcardToInvite.id, data, {
@@ -241,33 +239,31 @@ export default compose(
   withTranslation(['giftcard']),
   connector,
   withHandlers({
-    fetchConsumerGiftcardSentList: ({
-      fetchConsumerGiftcardSentList,
-      fetchGiftcardBulk,
-    }) => (id: number, page: number, page_size: number) => {
-      fetchConsumerGiftcardSentList(
-        id,
-        { page, page_size },
-        {
-          onSuccess: (consumerGiftcardList: Array<ConsumerGiftcard>) => {
-            fetchGiftcardBulk(consumerGiftcardList.map((cg) => cg.giftcard));
+    fetchConsumerGiftcardSentList:
+      ({ fetchConsumerGiftcardSentList, fetchGiftcardBulk }) =>
+      (id: number, page: number, page_size: number) => {
+        fetchConsumerGiftcardSentList(
+          id,
+          { page, page_size },
+          {
+            onSuccess: (consumerGiftcardList: Array<ConsumerGiftcard>) => {
+              fetchGiftcardBulk(consumerGiftcardList.map((cg) => cg.giftcard));
+            },
           },
-        },
-      );
-    },
-    fetchConsumerGiftcardReceivedList: ({
-      fetchConsumerGiftcardReceivedList,
-      fetchGiftcardBulk,
-    }) => (id, page: number, page_size: number) => {
-      fetchConsumerGiftcardReceivedList(
-        id,
-        { page, page_size },
-        {
-          onSuccess: (consumerGiftcardList: Array<ConsumerGiftcard>) => {
-            fetchGiftcardBulk(consumerGiftcardList.map((cg) => cg.giftcard));
+        );
+      },
+    fetchConsumerGiftcardReceivedList:
+      ({ fetchConsumerGiftcardReceivedList, fetchGiftcardBulk }) =>
+      (id, page: number, page_size: number) => {
+        fetchConsumerGiftcardReceivedList(
+          id,
+          { page, page_size },
+          {
+            onSuccess: (consumerGiftcardList: Array<ConsumerGiftcard>) => {
+              fetchGiftcardBulk(consumerGiftcardList.map((cg) => cg.giftcard));
+            },
           },
-        },
-      );
-    },
+        );
+      },
   }),
 )(ConsumerGiftcardPage);

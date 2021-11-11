@@ -302,12 +302,11 @@ export default compose(
     },
   ),
   withHandlers({
-    makeActivityCopy: ({ makeActivityCopy, fetchAllWorkshops }) => (
-      id,
-      suffix,
-    ) => {
-      makeActivityCopy(id, suffix, { onSuccess: fetchAllWorkshops });
-    },
+    makeActivityCopy:
+      ({ makeActivityCopy, fetchAllWorkshops }) =>
+      (id, suffix) => {
+        makeActivityCopy(id, suffix, { onSuccess: fetchAllWorkshops });
+      },
   }),
   withState('workshopToDelete', 'setWorkshopToDelete', null),
 )(WorkshopActivityList);

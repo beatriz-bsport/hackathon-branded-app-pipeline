@@ -39,7 +39,7 @@ type Props = {
   onEdit: (relation: MemberRelation) => void,
   onDelete: (id: number) => void,
   menuAnchorEl: ?HTMLElement,
-  toogleMenu: (?HTMLElement) => void,
+  toogleMenu: (menu: ?HTMLElement) => void,
 
   setDeleteModalOpen: (boolean) => void,
   deleteModalOpen: boolean,

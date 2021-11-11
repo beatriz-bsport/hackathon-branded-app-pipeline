@@ -134,12 +134,8 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
 
   // TODO(ts) any
   handleConfigurationChange = (private_booking_data: any) => {
-    const {
-      coach,
-      establishment,
-      private_service,
-      private_slot,
-    } = private_booking_data;
+    const { coach, establishment, private_service, private_slot } =
+      private_booking_data;
     this.setState({
       private_booking_data: {
         coach,
@@ -320,36 +316,30 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
               />
             </fieldset>
           )}
-          {
-            // eslint-disable-next-line
-            missingResources.filter((l) => l !== 'address').length === 0 ? (
-              this.props.compatiblePassLoading || this.props.processing ? (
-                <LinearProgress
-                  className={this.props.classes.loadingContainer}
+          {[...missingResources].filter((l) => l !== 'address').length === 0 &&
+            (this.props.compatiblePassLoading || this.props.processing) && (
+              <LinearProgress className={this.props.classes.loadingContainer} />
+            )}
+          {[...missingResources].filter((l) => l !== 'address').length === 0 &&
+            !this.props.compatiblePassLoading &&
+            !this.props.processing && (
+              <fieldset>
+                <legend>{t('bookerModule.step.billing')}</legend>
+                <PrivatePassCapabilities
+                  registerPrivateBooking={this.registerPrivateBooking}
+                  createRecurrentRule={this.createRecurrentRule}
+                  recurrenceRule={this.props.recurrenceRule}
+                  billMemberPrivatePass={(ppId: number) =>
+                    this.props.billMemberPrivatePass(this.state.member.id, ppId)
+                  }
+                  fetchPass={this.fetchPass}
+                  compatiblePrivatePass={this.props.compatiblePrivatePass}
+                  compatiblePrivateConsumerPass={
+                    this.props.compatiblePrivateConsumerPass
+                  }
                 />
-              ) : (
-                <fieldset>
-                  <legend>{t('bookerModule.step.billing')}</legend>
-                  <PrivatePassCapabilities
-                    registerPrivateBooking={this.registerPrivateBooking}
-                    createRecurrentRule={this.createRecurrentRule}
-                    recurrenceRule={this.props.recurrenceRule}
-                    billMemberPrivatePass={(ppId: number) =>
-                      this.props.billMemberPrivatePass(
-                        this.state.member.id,
-                        ppId,
-                      )
-                    }
-                    fetchPass={this.fetchPass}
-                    compatiblePrivatePass={this.props.compatiblePrivatePass}
-                    compatiblePrivateConsumerPass={
-                      this.props.compatiblePrivateConsumerPass
-                    }
-                  />
-                </fieldset>
-              )
-            ) : null
-          }
+              </fieldset>
+            )}
         </div>
         <DialogActions>
           <Button onClick={this.onClose}>{t('bookerModule.cancel')}</Button>
@@ -433,62 +423,54 @@ const mapWithHandlers = {
       `/invoice/bill-member/${memberId}?withPrivatePass=${privatePassId}`,
     ),
 
-  registerPrivateBooking: (props: OwnAndConnectedProps) => (
-    data: any,
-    options: any,
-  ) => {
-    props.registerPrivateBooking(data, {
-      onSuccess: (b: any) => {
-        props.fetchMember(b.member);
-        if (options && options.onSuccess) {
-          options.onSuccess(b);
-        }
-      },
-    });
-  },
-  createRecurrentRule: (props: OwnAndConnectedProps) => (
-    data: any,
-    options: OptionCallback,
-  ) => {
-    props.createRecurrentRule(data, {
-      onSuccess: (b) => {
-        if (options && options.onSuccess) options.onSuccess(b);
-      },
-    });
-  },
-  fetchPass: (props: OwnAndConnectedProps) => (
-    privateSlotId: number,
-    memberId: number,
-    date: string,
-  ) => {
-    props.fetchCompatiblePrivatePass(privateSlotId);
-    props.fetchCompatiblePrivateConsumerPass(privateSlotId, {
-      member: memberId,
-      date,
-    });
-  },
-  createMember: (props: OwnAndConnectedProps) => (
-    values: any,
-    options: any,
-  ) => {
-    if (!values.birthday) {
-      // eslint-disable-next-line
-      delete values.birthday;
-    }
-    const formData = mapFormData(values, MemberMap);
+  registerPrivateBooking:
+    (props: OwnAndConnectedProps) => (data: any, options: any) => {
+      props.registerPrivateBooking(data, {
+        onSuccess: (b: any) => {
+          props.fetchMember(b.member);
+          if (options && options.onSuccess) {
+            options.onSuccess(b);
+          }
+        },
+      });
+    },
+  createRecurrentRule:
+    (props: OwnAndConnectedProps) => (data: any, options: OptionCallback) => {
+      props.createRecurrentRule(data, {
+        onSuccess: (b) => {
+          if (options && options.onSuccess) options.onSuccess(b);
+        },
+      });
+    },
+  fetchPass:
+    (props: OwnAndConnectedProps) =>
+    (privateSlotId: number, memberId: number, date: string) => {
+      props.fetchCompatiblePrivatePass(privateSlotId);
+      props.fetchCompatiblePrivateConsumerPass(privateSlotId, {
+        member: memberId,
+        date,
+      });
+    },
+  createMember:
+    (props: OwnAndConnectedProps) => (values: any, options: any) => {
+      if (!values.birthday) {
+        // eslint-disable-next-line
+        delete values.birthday;
+      }
+      const formData = mapFormData(values, MemberMap);
 
-    props.createMember(null, formData, {
-      onSuccess: () => {
-        getLatestMember()
-          .then((res) => {
-            props.fetchMember(res.data, options);
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-      },
-    });
-  },
+      props.createMember(null, formData, {
+        onSuccess: () => {
+          getLatestMember()
+            .then((res) => {
+              props.fetchMember(res.data, options);
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+        },
+      });
+    },
 };
 
 export default compose<any, OwnProps>(

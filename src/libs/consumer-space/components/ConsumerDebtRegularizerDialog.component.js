@@ -154,12 +154,14 @@ export default compose(
   withStateHandlers(
     { openByButton: false },
     {
-      openDialog: (_, { refreshPaymentMethodList }) => () => {
-        if (refreshPaymentMethodList) {
-          refreshPaymentMethodList();
-        }
-        return { openByButton: true };
-      },
+      openDialog:
+        (_, { refreshPaymentMethodList }) =>
+        () => {
+          if (refreshPaymentMethodList) {
+            refreshPaymentMethodList();
+          }
+          return { openByButton: true };
+        },
       closeDialog: () => () => ({ openByButton: false }),
     },
   ),

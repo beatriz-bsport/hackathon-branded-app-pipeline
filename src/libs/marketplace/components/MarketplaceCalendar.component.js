@@ -30,7 +30,7 @@ const LoadingIndicator = () => (
 type Props = {
   classes: { [string]: string },
   onSelectDate: () => void,
-  selectedDate: *,
+  selectedDate: any,
   offers: *[],
   loading: boolean,
   onClickOffer: () => void,
@@ -38,7 +38,7 @@ type Props = {
   establishments: *[],
   metaActivities: Array<MetaActivity>,
   setFilters: (any) => void,
-  filters: *,
+  filters: any,
   toogleFiltersOpen: () => void,
   filtersOpen: boolean,
   forceDayDisplayOnly: ?boolean,

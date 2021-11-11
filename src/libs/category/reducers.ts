@@ -3,13 +3,12 @@ import Immutable from 'seamless-immutable';
 import { actions } from './actions';
 import { CategoryState, EasyAccess, SCT } from './types';
 
-const initialState: Immutable.Immutable<CategoryState> = Immutable<CategoryState>(
-  {
+const initialState: Immutable.Immutable<CategoryState> =
+  Immutable<CategoryState>({
     SCTs: [],
     SCSs: [],
     easyAccesses: [],
-  },
-);
+  });
 
 export default function categoryReducers(
   state = initialState,
@@ -17,10 +16,8 @@ export default function categoryReducers(
 ) {
   switch (action.type) {
     case actions.HAS_FETCHED_SCTS: {
-      const {
-        SCTs,
-        easyAccesses,
-      }: { SCTs: SCT[]; easyAccesses: EasyAccess } = action;
+      const { SCTs, easyAccesses }: { SCTs: SCT[]; easyAccesses: EasyAccess } =
+        action;
       const SCSs = SCTs.map((sct) => sct.SCS.id)
         .filter((v, i, a) => a.indexOf(v) === i)
         .map((scsId) => SCTs.find((sct) => sct.SCS.id === scsId).SCS);

@@ -147,12 +147,16 @@ export default compose(
   withStateHandlers(
     { force_notify: false, force_refund: true },
     {
-      toogleForceNotify: ({ force_notify }) => () => ({
-        force_notify: !force_notify,
-      }),
-      toggleForceRefund: ({ force_refund }) => () => ({
-        force_refund: !force_refund,
-      }),
+      toogleForceNotify:
+        ({ force_notify }) =>
+        () => ({
+          force_notify: !force_notify,
+        }),
+      toggleForceRefund:
+        ({ force_refund }) =>
+        () => ({
+          force_refund: !force_refund,
+        }),
     },
   ),
   withTranslation(),

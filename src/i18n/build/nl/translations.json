@@ -840,7 +840,7 @@
                 "emailExistsInDB1": "Je gebruikt dit e-mailadres al bij een andere studio dat BSPORT gebruikt. Je kunt dezelfde inloggegevens blijven gebruiken.",
                 "typePhone": "Mobiel*",
                 "error": {
-                    "passwordConfirm": "Deze wachtwoorden komen niet overeen",
+                    "passwordConfirm": "Deze wachtwoorden komen niet overeen.",
                     "password": "Je wachtwoord moet minimaal 6 tekens bevatten."
                 },
                 "fields": {
@@ -963,7 +963,7 @@
                 }
             },
             "login": {
-                "passwordMismatch": "Deze wachtwoorden komen niet overeen",
+                "passwordMismatch": "Deze wachtwoorden komen niet overeen.",
                 "passwordChangedSuccess": "Wachtwoord succesvol gewijzigd!",
                 "passwordTooEasy": "Je wachtwoord moet uit tenminste 6 tekens en tenminste 1 cijfer en 1 letter bestaan",
                 "confirmPassword": "Bevestigen",
@@ -1670,7 +1670,7 @@
                     "label": "Land"
                 },
                 "password2": {
-                    "error": "Deze wachtwoorden komen niet overeen",
+                    "error": "Deze wachtwoorden komen niet overeen.",
                     "label": "Bevestiging"
                 },
                 "password1": {
@@ -1682,7 +1682,7 @@
                     "label": "E-mail"
                 },
                 "name": {
-                    "helperText": "Dit is de naam die je leden zullen zien",
+                    "helperText": "Dit is de weergavenaam van je studio voor je leden.",
                     "placeholder": "Yoga Shala",
                     "label": "Naam van je studio"
                 },
@@ -2218,7 +2218,7 @@
         "form": {
             "paymentPack": {
                 "name": {
-                    "helperText": "Dit is de weergavenaam van de leskaart.",
+                    "helperText": "Naam van de leskaart",
                     "label": "Naam"
                 },
                 "priceIncludingTax": {

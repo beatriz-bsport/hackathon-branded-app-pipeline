@@ -1871,15 +1871,15 @@
         "replaceCoach": "Substitute the teacher",
         "onlyNewMember": "Only accept bookings from passes of new customers.",
         "bookingStatistics": {
-            "weekOf": "Week of {{date}}",
+            "weekOf": "Week: {{date}}",
             "keys": {
-                "cancelled": "Cancelled bookings",
-                "created": "Maintained bookings"
+                "cancelled": "Cancellations",
+                "created": "Bookings"
             },
-            "maintenedBookings": "{{nb}} maintained booking",
-            "maintenedBookings_plural": "{{nb}} maintained bookings",
-            "cancelledBookings": "{{nb}} cancelled booking",
-            "cancelledBookings_plural": "{{nb}} cancelled bookings",
+            "maintenedBookings": "{{nb}} booking",
+            "maintenedBookings_plural": "{{nb}} bookings",
+            "cancelledBookings": "{{nb}} cancellation",
+            "cancelledBookings_plural": "{{nb}} cancellations",
             "totalBookings": "{{nb}} booking in total",
             "totalBookings_plural": "{{nb}} bookings in total",
             "offerFilteredBookingRecap": "Session: {{date}}",
@@ -2395,7 +2395,7 @@
             "refresh": "Refresh"
         },
         "dialogReceiverChoice": {
-            "reservation": "Maintained bookings",
+            "reservation": "Bookings",
             "waitingList": "Waiting list",
             "title": "Select the recipients",
             "canceledReservation": "Cancelled bookings"
@@ -4199,7 +4199,7 @@
             "search": "Search a workshop",
             "addWorkshopActivity": "Add a workshop"
         },
-        "noWorkshops": "In this module, you can add, manage, edit, and delete all your workshops.",
+        "noWorkshops": "Workshops are events which you can add, edit, delete, and manage in this tab.",
         "disabledWorkshops": "Archived workshops"
     },
     "tag": {
@@ -4327,10 +4327,10 @@
             }
         },
         "tempPassword": {
-            "title": "Temp password",
+            "title": "Creating and sharing a temporary password",
             "close": "Close",
             "submit": "Generate",
-            "explainRequest": "Ask for a temporary password available for one week and send it to a tier to give him an access to your account for a limited amount of time. Your main password will not be affected.",
+            "explainRequest": "You may generate and request a temporary password which will be valid for up to 1 week to share it with our Support Team for assistance. Your main and usual password won't be affected.",
             "explain": "This password is valid until {{expirationDate }}. You main password has not changed.",
             "copied": "Password copied",
             "copy": "Copy the password to the clipboard"
@@ -4694,8 +4694,8 @@
                 "title": "Spot selection deletion"
             },
             "add": "Add a spot selection",
-            "subtitle": "Used for spot scheduling. Allows your students to reserve any location they want in the room.",
-            "title": "Spot selection"
+            "subtitle": "Add a custom seating plan to your establishment to allow members book their specific spot for your sessions.",
+            "title": "Spot Scheduling"
         },
         "localisation": "Location",
         "room": "Establishment",
@@ -10109,7 +10109,7 @@
             "undo": "Previous",
             "redo": "Next",
             "showGrid": "Show grid",
-            "customIconButton": "Download my icons",
+            "customIconButton": "Upload custom icons",
             "customIconLabel": "Location icons",
             "hand": "Hand",
             "pointer": "Cursor"
@@ -10132,7 +10132,7 @@
         },
         "toolbar": {
             "loadExistingBlueprint": "Load an existing plan",
-            "exit": "To leave",
+            "exit": "Close",
             "titleLabel": "Plan name",
             "save": "Save"
         },

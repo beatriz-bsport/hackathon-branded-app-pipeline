@@ -9561,7 +9561,7 @@
                 "dropHere": "Click here to add a video.",
                 "content": "Drop here or select a video",
                 "title": "Upload a video",
-                "urlInputError": "Please enter your URL.",
+                "urlInputError": "Please enter your URL",
                 "urlInputLabel": "Youtube link",
                 "type": {
                     "url": "YouTube",
@@ -9578,7 +9578,7 @@
                 "hours": "Hours",
                 "durationInputError": "Please enter the video duration",
                 "durationLabel": "Video duration",
-                "vimeoUrlInput": "Lin to Vimeo",
+                "vimeoUrlInput": "Link to Vimeo",
                 "youtubeUrlInput": "Link to YouTube"
             },
             "delete": {

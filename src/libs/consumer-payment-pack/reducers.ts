@@ -17,6 +17,7 @@ import {
   listConsumerPaymentPackPenaltyActions,
   massExtensionActions,
   consumerPaymentPackMaxoutBookingAction,
+  listConsumerPaymentPackActions,
 } from './actions';
 
 import { ConsumerPaymentPackState } from './types';
@@ -97,6 +98,13 @@ const initialState = Immutable<ConsumerPaymentPackState>({
     count: 0,
   },
   byId: {},
+  basePaginationState: {
+    page: 1,
+    count: 0,
+    loading: false,
+    error: null,
+    allIds: [],
+  },
   maxout_booking: {
     byId: {},
     error: null,
@@ -368,6 +376,43 @@ export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
         .setIn(['penalty', 'items'], payload.results)
         .setIn(['penalty', 'page'], payload.page)
         .setIn(['penalty', 'count'], payload.count);
+    },
+    [listConsumerPaymentPackActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['basePaginationState', 'loading'], payload);
+    },
+    [listConsumerPaymentPackActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['basePaginationState', 'error'], payload);
+    },
+    [listConsumerPaymentPackActions.reset.toString()]: (state) => {
+      return state
+        .setIn(['basePaginationState', 'allIds'], [])
+        .setIn(['basePaginationState', 'count'], 0)
+        .setIn(['basePaginationState', 'page'], 1)
+        .setIn(['basePaginationState', 'loading'], false);
+    },
+    [listConsumerPaymentPackActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state
+        .setIn(
+          ['basePaginationState', 'allIds'],
+          payload.results.map((cpp) => cpp.id),
+        )
+        .setIn(['basePaginationState', 'page'], payload.page)
+        .setIn(['basePaginationState', 'count'], payload.count)
+        .merge(
+          {
+            byId: payload.results.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+          { deep: true },
+        );
     },
   },
   initialState,

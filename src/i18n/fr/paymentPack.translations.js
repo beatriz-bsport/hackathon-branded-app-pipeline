@@ -3,6 +3,67 @@ const PAYMENT_PACK_NOTIFICATION_CREDIT_LEFT = 1;
 const PAYMENT_PACK_NOTIFICATION_DAY_PAST = 2;
 
 exports.default = {
+  paymentPackTemplateInstance: {
+    paymentPackSharedFromFranchisor: 'Carte franchise',
+    consumerPaymentPackSharedFromOtherFranchisee: 'Partagé depuis franchisé',
+    form: {
+      title: 'Configurer mes studios',
+      explain1:
+        'Les studios suivant auront automatiquement cette carte disponible à la vente. Ils ne pourront pas en modifier le prix ni le nombre de crédit.',
+      explain2:
+        "Si un membre achète cette carte dans l'un des studios compatible, il pourra également l'utiliser dans les autres studios que vous avez défini.",
+      actions: {
+        close: 'Fermer',
+        submit: 'Enregistrer',
+      },
+    },
+    deleteForm: {
+      title: 'Désactivation',
+      content:
+        "En désactivant ce studio du partage de la carte, tous les membres possédant cette carte et l'ayant acheté dans ce studio pourront toujours l'utiliser. En revanche ils ne pourront plus l'utiliser dans les autres studios. Enfin, les cartes ayant achetées dans les autres studios ne seront plus utilisable dans le studio désactivé, quelle que soit la date d'achat.",
+      actions: {
+        close: 'Fermer',
+        submit: 'Désactiver le partage',
+      },
+    },
+    companyEmpty:
+      "Aucun studio n'est configuré pour accepter cette carte de cours",
+    actions: {
+      addCompany: 'Ajouter un studio',
+    },
+  },
+  paymentPackTemplate: {
+    specification: {
+      companySharedWithTitle: 'Partagée avec les studios:',
+    },
+    isEmptyExplain:
+      "Les cartes de cours partagées sont disponibles dans les studios de votre choix, et permettent à vos membres d'utiliser indifféremment leurs crédits dans les studios que vous auez choisi.",
+    section: {
+      titleAvailable: 'Disponible à la vente',
+      titleManagerOnly: 'Indisponible à la vente',
+    },
+    form: {
+      title: 'Carte de cours partagée',
+      close: 'Fermer',
+      submit: 'Valider',
+      actions: {
+        close: 'Fermer',
+        submit: 'Enregistrer',
+      },
+    },
+    deleteForm: {
+      title: 'Désactivation',
+      content:
+        "En désactivant une carte partagée, les membres possédant cette carte ne pourront plus l'utiliser que dans le studio dans lequel il l'ont acheté.",
+      actions: {
+        close: 'Fermer',
+        submit: 'Désactiver le partage',
+      },
+    },
+    actions: {
+      create: 'Créer une carte partagée',
+    },
+  },
   filters: {
     all: 'Toutes les cartes',
     expiration: 'Validité',

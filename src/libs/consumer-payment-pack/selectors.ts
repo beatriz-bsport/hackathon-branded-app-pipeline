@@ -106,15 +106,34 @@ export const withPaymentPack = memoize((selector: (State: RootState) => any) =>
             ],
         };
       }
-      return consumerPaymentPacks.map((cpp) => ({
-        ...cpp,
-        payment_pack:
-          paymentPackData[
-            cpp.payment_pack ? cpp.payment_pack : cpp.payment_pack_id
-          ],
-      }));
+      return consumerPaymentPacks.map((cpp) => {
+        return {
+          ...cpp,
+          payment_pack:
+            paymentPackData[cpp.payment_pack || cpp.payment_pack_id],
+        };
+      });
     },
   ),
+);
+
+export const withMember = memoize((selector: (State: RootState) => any) =>
+  createSelector([selector, getAllMembers], (cpps, members) => {
+    if (!cpps) return null;
+    if (Array.isArray(cpps)) {
+      return cpps
+        .map((cpp) => ({
+          ...cpp,
+          consumer: members.find((m) => m.id === cpp.member_id),
+        }))
+        .map((cpp) => ({ ...cpp, member: cpp.consumer }));
+    }
+    return {
+      ...cpps,
+      consumer: members.find((m) => m.id === cpps.member_id),
+      member: members.find((m) => m.id === cpps.member_id),
+    };
+  }),
 );
 
 const _getConsumerPaymentPackCompatibleListIds = (state: RootState) =>
@@ -132,3 +151,14 @@ export const getConsumerPaymentPackMassExtension = (state: RootState) => {
     return state.consumerPaymentPack.massExtension.byId[id];
   });
 };
+
+const getConsumerPaymentPackData = (state: RootState) =>
+  state.consumerPaymentPack.byId;
+
+const getConsumerPaymentPackListId = (state: RootState) =>
+  state.consumerPaymentPack.basePaginationState.allIds;
+
+export const getPaginatedConsumerPaymentPackList = createSelector(
+  [getConsumerPaymentPackData, getConsumerPaymentPackListId],
+  (data, ids) => ids.map((id) => data[id]),
+);

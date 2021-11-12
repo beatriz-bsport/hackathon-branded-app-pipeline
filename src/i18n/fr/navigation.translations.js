@@ -122,6 +122,7 @@ exports.default = {
     franchises: 'Franchisés',
     members: 'Membres',
     reporting: 'Rapports',
+    paymentPack: 'Cartes de cours',
   },
   deprecatedNavigator: {
     navigatorError:

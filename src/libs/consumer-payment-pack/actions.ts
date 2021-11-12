@@ -619,3 +619,39 @@ export function fetchConsumerPaymentPackPenalty(
     dispatch(listConsumerPaymentPackPenaltyActions.isLoading(false));
   };
 }
+
+export const listConsumerPaymentPackActions = {
+  isLoading: createAction('CONSUMER_PAYMENT_PACK/LIST/IS_LOADING'),
+  error: createAction('CONSUMER_PAYMENT_PACK/LIST/ERROR'),
+  success: createAction('CONSUMER_PAYMENT_PACK/LIST/SUCCESS'),
+  reset: createAction('CONSUMER_PAYMENT_PACK/LIST/RESET'),
+};
+
+export function fetchConsumerPaymentPackList(
+  params: any,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listConsumerPaymentPackActions.isLoading(true));
+    dispatch(listConsumerPaymentPackActions.error(null));
+    try {
+      const response = await fetchConsumerPaymentPackListAPI(params);
+      dispatch(
+        listConsumerPaymentPackActions.success({
+          ...response.data,
+          page: params?.page || 1,
+        }),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(listConsumerPaymentPackActions.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
+    dispatch(listConsumerPaymentPackActions.isLoading(false));
+  };
+}

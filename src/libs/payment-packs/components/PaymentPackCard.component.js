@@ -449,14 +449,16 @@ export class PaymentPackCard extends Component<Props> {
     }
     return (
       <div className={classes.buttonContainer}>
-        <Button
-          id="button_pass_multdiv"
-          color="primary"
-          onClick={this.props.toogleScaleMenuOpen}
-        >
-          <HeightIcon className={classes.iconLeft} />
-          <Hidden xsDown>{t('actions.scaleCredit')}</Hidden>
-        </Button>
+        {!!this.props.onScaleCredit && (
+          <Button
+            id="button_pass_multdiv"
+            color="primary"
+            onClick={this.props.toogleScaleMenuOpen}
+          >
+            <HeightIcon className={classes.iconLeft} />
+            <Hidden xsDown>{t('actions.scaleCredit')}</Hidden>
+          </Button>
+        )}
         <Button
           id="button_pass_modify"
           color="primary"

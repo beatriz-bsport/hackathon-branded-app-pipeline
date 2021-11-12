@@ -255,7 +255,11 @@ export class PaymentPackDetail extends Component<Props, State> {
             onEditButtonClick={() => this.requestEdit(pack)}
             onDeleteButtonClick={() => this.requestDelete(pack)}
             snackbarSuccess={this.props.snackbarSuccess}
-            onScaleCredit={this.props.scaleCredit}
+            onScaleCredit={
+              !!this.props.pack &&
+              !this.props.pack.template_instance &&
+              this.props.scaleCredit
+            }
             scaleCreditLoading={this.props.scaleCreditLoading}
             loadingMassExtension={this.props.loadingMassExtension}
             isManager
@@ -336,19 +340,21 @@ export class PaymentPackDetail extends Component<Props, State> {
                 />
               </React.Fragment>
             )}
-            <div className={classes.buttonContainerCenter}>
-              {this.props.loadingMassExtension ? (
-                <CircularProgress />
-              ) : (
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  onClick={() => this.props.setOpenMassExtensionDialog(true)}
-                >
-                  {this.props.t('paymentPack:massExtension.title')}
-                </Button>
-              )}
-            </div>
+            {!!this.props.pack && !this.props.pack.template_instance && (
+              <div className={classes.buttonContainerCenter}>
+                {this.props.loadingMassExtension ? (
+                  <CircularProgress />
+                ) : (
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    onClick={() => this.props.setOpenMassExtensionDialog(true)}
+                  >
+                    {this.props.t('paymentPack:massExtension.title')}
+                  </Button>
+                )}
+              </div>
+            )}
           </div>
         </Grid>
 
@@ -381,7 +387,6 @@ export class PaymentPackDetail extends Component<Props, State> {
           }
           onCancel={this.cancelDelete}
         />
-
         <PaymentPackMassExtensionDialog
           open={this.props.openMassExtensionDialog}
           onClose={() => this.props.setOpenMassExtensionDialog(false)}

@@ -9,38 +9,47 @@ import { makeStyles } from '@material-ui/core/styles';
 import BottomActionsButton from '../button/BottomActionsButton.component';
 
 type Props = {
-  onCreate: () => void,
-  text: String,
-  button?: String,
-  onCreateLabel: String,
-  filledIcon?: boolean,
+  onCreate: () => void;
+  text: string;
+  button?: string;
+  onCreateLabel: string;
+  filledIcon?: boolean;
+  hideEmptyText?: boolean;
 };
 export const IsEmptyList = (props: Props) => {
   const classes = useStyles(props);
   return (
-    <div className={classes.container}>
-      <div className={classes.emptyTool}>
-        <div className={classes.textAndIcon}>
-          {props.filledIcon ? (
-            <InfoIcon className={classes.leftIcon} fontSize="large" />
-          ) : (
-            <InfoOutlined className={classes.leftIcon} fontSize="large" />
-          )}
-          <Typography variant="caption">{props.text}</Typography>
+    <>
+      {!props.hideEmptyText && (
+        <div className={classes.container}>
+          <div className={classes.emptyTool}>
+            <div className={classes.textAndIcon}>
+              {props.filledIcon ? (
+                <InfoIcon className={classes.leftIcon} fontSize="large" />
+              ) : (
+                <InfoOutlined className={classes.leftIcon} fontSize="large" />
+              )}
+              <Typography variant="caption">{props.text}</Typography>
+            </div>
+            <div className={classes.buttonTool}>
+              {props.button && (
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={props.onCreate}
+                >
+                  {props.button}
+                </Button>
+              )}
+            </div>
+          </div>
         </div>
-        <div className={classes.buttonTool}>
-          {props.button && (
-            <Button variant="outlined" color="primary" onClick={props.onCreate}>
-              {props.button}
-            </Button>
-          )}
-        </div>
-        <BottomActionsButton
-          onCreate={props.onCreate}
-          onCreateLabel={props.onCreateLabel}
-        />
-      </div>
-    </div>
+      )}
+      <BottomActionsButton
+        onCreate={props.onCreate}
+        onCreateLabel={props.onCreateLabel}
+      />
+    </>
   );
 };
 

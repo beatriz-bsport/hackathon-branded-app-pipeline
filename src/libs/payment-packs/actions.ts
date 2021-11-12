@@ -23,6 +23,12 @@ import {
   fetchPaymentPackCompatibleList as fetchPaymentPackCompatibleListAPI,
   deletePaymentPackCategory as deletePaymentPackCategoryAPI,
   editOrder,
+  fetchPaymentPackTemplateList as fetchPaymentPackTemplateListAPI,
+  retrievePaymentPackTemplate as retrievePaymentPackTemplateAPI,
+  createOrUpdatePaymentPackTemplate as createOrUpdatePaymentPackTemplateAPI,
+  deletePaymentPackTemplate as deletePaymentPackTemplateAPI,
+  createPaymentPackTemplateInstance as createPaymentPackTemplateInstanceAPI,
+  deletePaymentPackTemplateInstance as deletePaymentPackTemplateInstanceAPI,
 } from './api';
 
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
@@ -637,5 +643,183 @@ export function fetchPaymentPackList(
       if (options && options.onError) options.onError(err);
     }
     dispatch(listPaymentPackActions.isLoading(false));
+  };
+}
+
+export const listPaymentPackTemplateActions = {
+  isLoading: createAction('PAYMENT_PACK_TEMPLATE/LIST/IS_LOADING'),
+  error: createAction('PAYMENT_PACK_TEMPLATE/LIST/ERROR'),
+  success: createAction('PAYMENT_PACK_TEMPLATE/LIST/SUCCESS'),
+};
+
+export function fetchPaymentPackTemplateList(
+  params: any = {},
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listPaymentPackTemplateActions.error(null));
+    dispatch(listPaymentPackTemplateActions.isLoading(true));
+    try {
+      const response = await fetchPaymentPackTemplateListAPI(params);
+      dispatch(
+        listPaymentPackTemplateActions.success(
+          response.data.results || response.data,
+        ),
+      );
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results || response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(listPaymentPackTemplateActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(listPaymentPackTemplateActions.isLoading(false));
+  };
+}
+
+export const createOrUpdatePaymentPackTemplateActions = {
+  isLoading: createAction('PAYMENT_PACK_TEMPLATE/CREATE_OR_UPDATE/IS_LOADING'),
+  error: createAction('PAYMENT_PACK_TEMPLATE/CREATE_OR_UPDATE/ERROR'),
+  success: createAction('PAYMENT_PACK_TEMPLATE/CREATE_OR_UPDATE/SUCCESS'),
+};
+
+export function createOrUpdatePaymentPackTemplate(
+  data: any = {},
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(createOrUpdatePaymentPackTemplateActions.error(null));
+    dispatch(createOrUpdatePaymentPackTemplateActions.isLoading(true));
+    try {
+      const response = await createOrUpdatePaymentPackTemplateAPI(data);
+      dispatch(createOrUpdatePaymentPackTemplateActions.success(response.data));
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(createOrUpdatePaymentPackTemplateActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(createOrUpdatePaymentPackTemplateActions.isLoading(false));
+  };
+}
+
+export const retrievePaymentPackTemplateActions = {
+  isLoading: createAction('PAYMENT_PACK_TEMPLATE/RETRIEVE/IS_LOADING'),
+  error: createAction('PAYMENT_PACK_TEMPLATE/RETRIEVE/ERROR'),
+  success: createAction('PAYMENT_PACK_TEMPLATE/RETRIEVE/SUCCESS'),
+};
+
+export function retrievePaymentPackTemplate(
+  id: number,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrievePaymentPackTemplateActions.error(null));
+    dispatch(retrievePaymentPackTemplateActions.isLoading(true));
+    try {
+      const response = await retrievePaymentPackTemplateAPI(id);
+      dispatch(retrievePaymentPackTemplateActions.success(response.data));
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(retrievePaymentPackTemplateActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(retrievePaymentPackTemplateActions.isLoading(false));
+  };
+}
+
+export const deletePaymentPackTemplateActions = {
+  isLoading: createAction('PAYMENT_PACK_TEMPLATE/DELETE/IS_LOADING'),
+  error: createAction('PAYMENT_PACK_TEMPLATE/DELETE/ERROR'),
+  success: createAction('PAYMENT_PACK_TEMPLATE/DELETE/SUCCESS'),
+};
+
+export function deletePaymentPackTemplate(
+  id: number,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(deletePaymentPackTemplateActions.error(null));
+    dispatch(deletePaymentPackTemplateActions.isLoading(true));
+    try {
+      const response = await deletePaymentPackTemplateAPI(id);
+      dispatch(deletePaymentPackTemplateActions.success(id));
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(deletePaymentPackTemplateActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(deletePaymentPackTemplateActions.isLoading(false));
+  };
+}
+
+export const createPaymentPackTemplateInstanceActions = {
+  isLoading: createAction('PAYMENT_PACK_TEMPLATE_INSTANCE/CREATE/IS_LOADING'),
+  error: createAction('PAYMENT_PACK_TEMPLATE_INSTANCE/CREATE/ERROR'),
+  success: createAction('PAYMENT_PACK_TEMPLATE_INSTANCE/CREATE/SUCCESS'),
+};
+
+export function createPaymentPackTemplateInstance(
+  data: any,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(createPaymentPackTemplateInstanceActions.error(null));
+    dispatch(createPaymentPackTemplateInstanceActions.isLoading(true));
+    try {
+      const response = await createPaymentPackTemplateInstanceAPI(data);
+      dispatch(createPaymentPackTemplateInstanceActions.success(response.data));
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(createPaymentPackTemplateInstanceActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(createPaymentPackTemplateInstanceActions.isLoading(false));
+  };
+}
+
+export const deletePaymentPackTemplateInstanceActions = {
+  isLoading: createAction('PAYMENT_PACK_TEMPLATE_INSTANCE/DELETE/IS_LOADING'),
+  error: createAction('PAYMENT_PACK_TEMPLATE_INSTANCE/DELETE/ERROR'),
+  success: createAction('PAYMENT_PACK_TEMPLATE_INSTANCE/DELETE/SUCCESS'),
+};
+
+export function deletePaymentPackTemplateInstance(
+  id: number,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(deletePaymentPackTemplateInstanceActions.error(null));
+    dispatch(deletePaymentPackTemplateInstanceActions.isLoading(true));
+    try {
+      const response = await deletePaymentPackTemplateInstanceAPI(id);
+      dispatch(deletePaymentPackTemplateInstanceActions.success(response.data));
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(deletePaymentPackTemplateInstanceActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(deletePaymentPackTemplateInstanceActions.isLoading(false));
   };
 }

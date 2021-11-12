@@ -2,7 +2,7 @@ import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 import lodash from 'lodash';
 
-import { actionTypes } from './types';
+import { actionTypes, PaymentPackState } from './types';
 import {
   fetchActivityCompatibleAction,
   fetchOneAction,
@@ -21,9 +21,13 @@ import {
   upsertPaymenPackCategoryActions,
   deletePaymentPackCategoryActions,
   listPaymentPackActions,
+  listPaymentPackTemplateActions,
+  createOrUpdatePaymentPackTemplateActions,
+  deletePaymentPackTemplateActions,
+  retrievePaymentPackTemplateActions,
 } from './actions';
 
-const initialState = Immutable({
+const initialState: PaymentPackState = Immutable({
   updatingConsumerPacks: [],
   updatingPaymentPacks: [],
   createOrUpdatePending: false,
@@ -66,6 +70,16 @@ const initialState = Immutable({
     },
     update: {
       id: null,
+      error: null,
+    },
+  },
+  paymentPackTemplate: {
+    byId: {},
+    allIds: [],
+    loading: false,
+    error: null,
+    upsert: {
+      loading: false,
       error: null,
     },
   },
@@ -134,46 +148,55 @@ export function paymentPackReducer(state = initialState, action = {}) {
 
 export const newPaymentPackReducer = handleActions(
   {
-    [fetchActivityCompatibleAction.reset]: (state) => {
+    [fetchActivityCompatibleAction.reset.toString()]: (state) => {
       return state
         .setIn(['byActivity', 'allIds'], [])
         .setIn(['byActivity', 'page'], 1)
         .setIn(['byActivity', 'count'], 0);
     },
-    [paymentPackForBookingActions.reset]: (state) => {
+    [paymentPackForBookingActions.reset.toString()]: (state) => {
       return state.setIn(['forBooking', 'allIds'], []);
     },
-    [paymentPackForBookingActions.isLoading]: (state, { payload }) => {
+    [paymentPackForBookingActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['forBooking', 'loading'], payload);
     },
-    [updatePaymentPackActions.isLoading]: (state, { payload }) => {
+    [updatePaymentPackActions.isLoading.toString()]: (state, { payload }) => {
       return state.set('updatingPaymentPacks', [
         ...state.updatingPaymentPacks,
         payload,
       ]);
     },
-    [updatePaymentPackActions.isNotLoading]: (state, { payload }) => {
+    [updatePaymentPackActions.isNotLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.set(
         'updatingPaymentPacks',
         state.updatingPaymentPacks.filter((p) => p !== payload),
       );
     },
-    [updatePaymentPackActions.success]: (state, { payload }) => {
+    [updatePaymentPackActions.success.toString()]: (state, { payload }) => {
       return state.setIn(['byId', payload.id], payload);
     },
-    [scalePaymentPackCreditActions.isLoading]: (state, { payload }) => {
+    [scalePaymentPackCreditActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['scaleCredit', 'loading'], payload);
     },
-    [scalePaymentPackCreditActions.error]: (state, { payload }) => {
+    [scalePaymentPackCreditActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['scaleCredit', 'error'], payload);
     },
-    [listAllPaymentPackActions.isLoading]: (state, { payload }) => {
+    [listAllPaymentPackActions.isLoading.toString()]: (state, { payload }) => {
       return state.set('loading', payload);
     },
-    [listAllPaymentPackActions.error]: (state, { payload }) => {
+    [listAllPaymentPackActions.error.toString()]: (state, { payload }) => {
       return state.set('error', payload);
     },
-    [listAllPaymentPackActions.success]: (state, { payload }) => {
+    [listAllPaymentPackActions.success.toString()]: (state, { payload }) => {
       return state
         .set(
           'allIds',
@@ -186,13 +209,13 @@ export const newPaymentPackReducer = handleActions(
           { deep: true },
         );
     },
-    [listPaymentPackActions.isLoading]: (state, { payload }) => {
+    [listPaymentPackActions.isLoading.toString()]: (state, { payload }) => {
       return state.set('loading', payload);
     },
-    [listPaymentPackActions.error]: (state, { payload }) => {
+    [listPaymentPackActions.error.toString()]: (state, { payload }) => {
       return state.set('error', payload);
     },
-    [listPaymentPackActions.success]: (state, { payload }) => {
+    [listPaymentPackActions.success.toString()]: (state, { payload }) => {
       return state
         .set(
           'allIds',
@@ -205,10 +228,104 @@ export const newPaymentPackReducer = handleActions(
           { deep: true },
         );
     },
-    [paymentPackForBookingActions.error]: (state, { payload }) => {
+    [listPaymentPackTemplateActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['paymentPackTemplate', 'loading'], payload);
+    },
+    [listPaymentPackTemplateActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['paymentPackTemplate', 'error'], payload);
+    },
+    [listPaymentPackTemplateActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state
+        .setIn(
+          ['paymentPackTemplate', 'allIds'],
+          payload.map((pp) => pp.id),
+        )
+        .merge(
+          {
+            paymentPackTemplate: {
+              byId: payload.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [deletePaymentPackTemplateActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['paymentPackTemplate', 'upsert', 'loading'], payload);
+    },
+    [deletePaymentPackTemplateActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['paymentPackTemplate', 'upsert', 'error'], payload);
+    },
+    [deletePaymentPackTemplateActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['paymentPackTemplate', 'byId', payload, 'disabled'],
+        true,
+      );
+    },
+    [retrievePaymentPackTemplateActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['paymentPackTemplate', 'loading'], payload);
+    },
+    [retrievePaymentPackTemplateActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['paymentPackTemplate', 'error'], payload);
+    },
+    [retrievePaymentPackTemplateActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['paymentPackTemplate', 'byId', payload.id], payload);
+    },
+    [createOrUpdatePaymentPackTemplateActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['paymentPackTemplate', 'upsert', 'loading'], payload);
+    },
+    [createOrUpdatePaymentPackTemplateActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['paymentPackTemplate', 'upsert', 'error'], payload);
+    },
+    [createOrUpdatePaymentPackTemplateActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state
+        .setIn(
+          ['paymentPackTemplate', 'allIds'],
+          [
+            payload.id,
+            ...state.paymentPackTemplate.allIds.filter(
+              (id) => id !== payload.id,
+            ),
+          ],
+        )
+        .setIn(['paymentPackTemplate', 'byId', payload.id], payload);
+    },
+    [paymentPackForBookingActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['forBooking', 'error'], payload);
     },
-    [paymentPackForBookingActions.success]: (state, { payload }) => {
+    [paymentPackForBookingActions.success.toString()]: (state, { payload }) => {
       return state.merge(
         {
           forBooking: {
@@ -221,13 +338,19 @@ export const newPaymentPackReducer = handleActions(
         { deep: true },
       );
     },
-    [fetchActivityCompatibleAction.isLoading]: (state, { payload }) => {
+    [fetchActivityCompatibleAction.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['byActivity', 'loading'], payload);
     },
-    [fetchActivityCompatibleAction.error]: (state, { payload }) => {
+    [fetchActivityCompatibleAction.error.toString()]: (state, { payload }) => {
       return state.setIn(['byActivity', 'error'], payload);
     },
-    [fetchActivityCompatibleAction.success]: (state, { payload }) => {
+    [fetchActivityCompatibleAction.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.merge(
         {
           byActivity: {
@@ -240,7 +363,10 @@ export const newPaymentPackReducer = handleActions(
         { deep: true },
       );
     },
-    [listPaymentPackCompatibleActions.success]: (state, { payload }) => {
+    [listPaymentPackCompatibleActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.merge(
         {
           compatible: {
@@ -253,13 +379,19 @@ export const newPaymentPackReducer = handleActions(
         { deep: true },
       );
     },
-    [listPaymentPackCompatibleActions.isLoading]: (state, { payload }) => {
+    [listPaymentPackCompatibleActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['compatible', 'loading'], payload);
     },
-    [listPaymentPackCompatibleActions.error]: (state, { payload }) => {
+    [listPaymentPackCompatibleActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['compatible', 'error'], payload);
     },
-    [listPaymentPackCompatibleActions.reset]: (state) => {
+    [listPaymentPackCompatibleActions.reset.toString()]: (state) => {
       return state.merge(
         {
           compatible: {
@@ -271,88 +403,100 @@ export const newPaymentPackReducer = handleActions(
         { deep: true },
       );
     },
-    [fetchMarketplacePacksAction.isLoading]: (state, { payload }) => {
+    [fetchMarketplacePacksAction.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.set('loading', payload);
     },
-    [fetchMarketplacePacksAction.error]: (state, { payload }) => {
+    [fetchMarketplacePacksAction.error.toString()]: (state, { payload }) => {
       return state.set('error', payload);
     },
-    [fetchMarketplacePacksAction.success]: (state, { payload }) => {
+    [fetchMarketplacePacksAction.success.toString()]: (state, { payload }) => {
       return state.merge(
         { allIds: payload.paymentPacksAllIds, byId: payload.paymentPacksById },
         { deep: true },
       );
     },
-    [paymentPackBulkActions.isLoading]: (state, { payload }) => {
+    [paymentPackBulkActions.isLoading.toString()]: (state, { payload }) => {
       return state.set('loading', payload);
     },
-    [paymentPackBulkActions.error]: (state, { payload }) => {
+    [paymentPackBulkActions.error.toString()]: (state, { payload }) => {
       return state.set('error', payload);
     },
-    [paymentPackBulkActions.success]: (state, { payload }) => {
+    [paymentPackBulkActions.success.toString()]: (state, { payload }) => {
       return state.merge({ byId: payload.paymentPacksById }, { deep: true });
     },
-    [fetchOneAction.isLoading]: (state, { payload }) => {
+    [fetchOneAction.isLoading.toString()]: (state, { payload }) => {
       return state.set('loading', payload);
     },
-    [fetchOneAction.error]: (state, { payload }) => {
+    [fetchOneAction.error.toString()]: (state, { payload }) => {
       return state.setIn(['byActivity', 'error'], payload);
     },
-    [fetchOneAction.success]: (state, { payload }) => {
+    [fetchOneAction.success.toString()]: (state, { payload }) => {
       return state.setIn(['byId', payload.id], payload);
     },
 
-    [notificationCreateActions.isLoading]: (state, { payload }) => {
+    [notificationCreateActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['notification', 'create', 'loading'], payload);
     },
-    [notificationCreateActions.error]: (state, { payload }) => {
+    [notificationCreateActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['notification', 'create', 'error'], payload);
     },
-    [notificationCreateActions.success]: (state, { payload }) => {
+    [notificationCreateActions.success.toString()]: (state, { payload }) => {
       return state.merge(
         { notification: { itemsById: { [payload.id]: payload } } },
         { deep: true },
       );
     },
-    [notificationListActions.isLoading]: (state, { payload }) => {
+    [notificationListActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['notification', 'loading'], payload);
     },
-    [notificationListActions.error]: (state, { payload }) => {
+    [notificationListActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['notification', 'error'], payload);
     },
-    [notificationListActions.success]: (state, { payload }) => {
+    [notificationListActions.success.toString()]: (state, { payload }) => {
       return state.setIn(['notification', 'itemsById'], payload);
     },
-    [notificationUpdateActions.isLoading]: (state, { payload }) => {
+    [notificationUpdateActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['notification', 'update', 'id'], payload);
     },
-    [notificationUpdateActions.error]: (state, { payload }) => {
+    [notificationUpdateActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['notification', 'update', 'error'], payload);
     },
-    [notificationUpdateActions.success]: (state, { payload }) => {
+    [notificationUpdateActions.success.toString()]: (state, { payload }) => {
       return state.merge(
         { notification: { itemsById: { [payload.id]: payload } } },
         { deep: true },
       );
     },
-    [notificationDeleteActions.isLoading]: (state, { payload }) => {
+    [notificationDeleteActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['notification', 'delete', 'loading'], payload);
     },
-    [notificationDeleteActions.error]: (state, { payload }) => {
+    [notificationDeleteActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['notification', 'delete', 'error'], payload);
     },
-    [notificationDeleteActions.success]: (state, { payload }) => {
+    [notificationDeleteActions.success.toString()]: (state, { payload }) => {
       const items = { ...state.notification.itemsById };
       delete items[payload];
       return state.setIn(['notification', 'itemsById'], items);
     },
-    [listAllPaymentPackCategoryActions.isLoading]: (state, { payload }) => {
+    [listAllPaymentPackCategoryActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['paymentPackCategory', 'loading'], payload);
     },
-    [listAllPaymentPackCategoryActions.error]: (state, { payload }) => {
+    [listAllPaymentPackCategoryActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['paymentPackCategory', 'error'], payload);
     },
-    [listAllPaymentPackCategoryActions.success]: (state, { payload }) => {
+    [listAllPaymentPackCategoryActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state
         .setIn(
           ['paymentPackCategory', 'allIds'],
@@ -370,13 +514,22 @@ export const newPaymentPackReducer = handleActions(
           { deep: true },
         );
     },
-    [upsertPaymenPackCategoryActions.isLoading]: (state, { payload }) => {
+    [upsertPaymenPackCategoryActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['paymentPackCategory', 'upsert', 'loading'], payload);
     },
-    [upsertPaymenPackCategoryActions.error]: (state, { payload }) => {
+    [upsertPaymenPackCategoryActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['paymentPackCategory', 'upsert', 'error'], payload);
     },
-    [upsertPaymenPackCategoryActions.success]: (state, { payload }) => {
+    [upsertPaymenPackCategoryActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       if (!state.paymentPackCategory.allIds.includes(payload.id)) {
         return state
           .setIn(['paymentPackCategory', 'byId', payload.id], payload)
@@ -387,13 +540,22 @@ export const newPaymentPackReducer = handleActions(
       }
       return state.setIn(['paymentPackCategory', 'byId', payload.id], payload);
     },
-    [deletePaymentPackCategoryActions.isLoading]: (state, { payload }) => {
+    [deletePaymentPackCategoryActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['paymentPackCategory', 'upsert', 'loading'], payload);
     },
-    [deletePaymentPackCategoryActions.error]: (state, { payload }) => {
+    [deletePaymentPackCategoryActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['paymentPackCategory', 'upsert', 'error'], payload);
     },
-    [deletePaymentPackCategoryActions.success]: (state, { payload }) => {
+    [deletePaymentPackCategoryActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state
         .setIn(
           ['paymentPackCategory', 'byId'],

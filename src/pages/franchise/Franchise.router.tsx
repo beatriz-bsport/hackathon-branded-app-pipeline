@@ -53,6 +53,9 @@ const ReportingGeneration = asyncComponent(
 const FranchiseReportList = asyncComponent(
   () => import('./FranchiseReportList.page'),
 );
+const FranchisePaymentPackTemplateRouter = asyncComponent(
+  () => import('./payment-pack-template/FranchisePaymentPackTemplate.router'),
+);
 
 type OwnProps = {
   disconnect: () => void;
@@ -138,6 +141,10 @@ const FranchiseRouter = (props: Props) => {
             />
             <Route path="/f/reporting" component={FranchiseReportList} />
             <Route
+              path="/f/payment-pack-template"
+              component={FranchisePaymentPackTemplateRouter}
+            />
+            <Route
               path="/f/settings/notification-rule/:notificationId?"
               component={FranchiseNotificationRulesPage}
             />
@@ -163,7 +170,6 @@ const EmailTemplate = () => {
         component={FranchiseEmailCreate}
       />
       <Route path="/f/email-template/:id?" component={FranchiseEmailList} />
-
       <Redirect to="/f/email-template" />
     </Switch>
   );

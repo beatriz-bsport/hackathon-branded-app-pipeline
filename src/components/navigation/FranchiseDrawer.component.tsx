@@ -40,6 +40,7 @@ import {
   VpnKey,
   PowerSettingsNew,
 } from '@material-ui/icons';
+import StarIcon from '@material-ui/icons/Star';
 import Email from '@material-ui/icons/Email';
 import Settings from '@material-ui/icons/Settings';
 import DescriptionIcon from '@material-ui/icons/Description';
@@ -466,17 +467,19 @@ const getNavigationItems = (props: {
       icon: Group,
     },
     {
+      to: '/f/payment-pack-template',
+      text: 'franchiseMenu.paymentPack',
+      icon: VpnKey,
+    },
+    {
       icon: Email,
-      text: 'backofficeMenu.message',
-      type: 'nested',
-      nestedItems: [
-        'divider',
-        {
-          to: '/f/email-template',
-          icon: Email,
-          text: 'backofficeMenu.email_template',
-        },
-      ],
+      to: '/f/email-template',
+      text: 'backofficeMenu.email_template',
+    },
+    {
+      to: '/f/settings/notification-rule',
+      text: 'backofficeMenu.settings.notificationRule',
+      icon: StarIcon,
     },
     {
       to: '/f/reporting',
@@ -488,20 +491,6 @@ const getNavigationItems = (props: {
       icon: Settings,
       text: 'backofficeMenu.settings.settings',
       to: '/f/settings/theme',
-      type: 'nested',
-      nestedItems: [
-        'divider',
-        {
-          to: '/f/settings/theme',
-          dense: true,
-          text: 'backofficeMenu.settings.general',
-        },
-        {
-          to: '/f/settings/notification-rule',
-          dense: true,
-          text: 'backofficeMenu.settings.notificationRule',
-        },
-      ],
     },
     {
       action: disconnect,

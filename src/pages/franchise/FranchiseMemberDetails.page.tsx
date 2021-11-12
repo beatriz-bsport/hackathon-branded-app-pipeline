@@ -7,13 +7,9 @@ import { withTranslation } from 'react-i18next';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
 import { withStyles } from '@material-ui/styles';
-import {
-  CircularProgress,
-  createStyles,
-  Theme,
-  WithStyles,
-} from '@material-ui/core';
+import { createStyles, Theme, WithStyles } from '@material-ui/core';
 import classnames from 'classnames';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import {
   fetchFranchise as fetchFranchiseAction,
@@ -92,7 +88,7 @@ const FranchiseMemberDetails = (props: Props) => {
           </div>
         </>
       )}
-      {!user && <CircularProgress className={classes.loader} />}
+      {!user && <LinearProgress />}
     </div>
   );
 };

@@ -54,7 +54,7 @@ export const PaginatedConsumerPackList = (props: Props) => (
       <ConsumerPackRowItem
         key={cpp.id}
         consumerPack={cpp}
-        paymentPack={props.paymentPack}
+        paymentPack={props.paymentPack || cpp.payment_pack || null}
         decrementCredit={props.decrementCredit}
         incrementCredit={props.incrementCredit}
         onClick={props.onClick ? () => props.onClick(cpp) : null}

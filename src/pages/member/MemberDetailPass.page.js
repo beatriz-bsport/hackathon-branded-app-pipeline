@@ -209,9 +209,11 @@ export class MemberDetailPass extends Component<Props, State> {
         onSuccess: ([pass]) => this.props.fetchInvoice(pass.invoice),
       });
     }
-    this.props.fetchConsumerPaymentPackCreditRefundList(
-      this.props.consumerPassId,
-    );
+    if (this.props.consumerPassId) {
+      this.props.fetchConsumerPaymentPackCreditRefundList(
+        this.props.consumerPassId,
+      );
+    }
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -256,9 +258,11 @@ export class MemberDetailPass extends Component<Props, State> {
       this.props.fetchInvoice(this.props.selectedConsumerPass.invoice);
       this.props.fetchExtensions(this.props.selectedConsumerPass.id);
       this.fetchBookings(1, 5);
-      this.props.fetchConsumerPaymentPackCreditRefundList(
-        this.props.consumerPassId,
-      );
+      if (this.props.consumerPassId) {
+        this.props.fetchConsumerPaymentPackCreditRefundList(
+          this.props.consumerPassId,
+        );
+      }
     }
   }
 
@@ -381,7 +385,12 @@ export class MemberDetailPass extends Component<Props, State> {
               }
               penaltyPageSize={PENALTY_PAGE_SIZE}
               onInvoiceClick={this.props.goToInvoice}
-              onCreateExtension={() => this.props.setOpenCreateExtension(true)}
+              onCreateExtension={
+                this.props.selectedConsumerPass?.payment_pack &&
+                !this.props.selectedConsumerPass.payment_pack
+                  ?.template_instance &&
+                (() => this.props.setOpenCreateExtension(true))
+              }
               deleteExtension={(id) => {
                 this.props.deleteExtension(id, {
                   onSuccess: () =>

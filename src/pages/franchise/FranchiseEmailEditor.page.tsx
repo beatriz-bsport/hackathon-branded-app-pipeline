@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { compose } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
-import { LinearProgress } from '@material-ui/core';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { DrawerContext, DrawerContextValue } from '../../context';

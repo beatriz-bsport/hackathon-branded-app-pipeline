@@ -108,6 +108,45 @@ export async function fetchAllPaymentPackCategory({
   );
 }
 
+export async function fetchPaymentPackTemplateList(params: any = {}) {
+  return getAuth(
+    `${API_V1_URI}/payment-pack/payment-pack-template/${buildUrlParams(
+      params,
+    )}`,
+  );
+}
+
+export async function retrievePaymentPackTemplate(id: number) {
+  return getAuth(`${API_V1_URI}/payment-pack/payment-pack-template/${id}/`);
+}
+
+export async function createOrUpdatePaymentPackTemplate(data: any) {
+  if (!data.id) {
+    return postAuth(`${API_V1_URI}/payment-pack/payment-pack-template/`, data);
+  }
+  return putAuth(
+    `${API_V1_URI}/payment-pack/payment-pack-template/${data.id}/`,
+    data,
+  );
+}
+
+export async function createPaymentPackTemplateInstance(data: any) {
+  return postAuth(
+    `${API_V1_URI}/payment-pack/payment-pack-template-instance/multi_create/`,
+    data,
+  );
+}
+
+export async function deletePaymentPackTemplateInstance(id: number) {
+  return deleteAuth(
+    `${API_V1_URI}/payment-pack/payment-pack-template-instance/${id}/`,
+  );
+}
+
+export async function deletePaymentPackTemplate(id: number) {
+  return deleteAuth(`${API_V1_URI}/payment-pack/payment-pack-template/${id}/`);
+}
+
 export async function updatePaymentPackCategory(
   paymentPackCategory: PaymentPackCategory,
 ) {

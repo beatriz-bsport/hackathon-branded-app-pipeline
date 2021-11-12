@@ -5,9 +5,9 @@ import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { WithTranslation, withTranslation } from 'react-i18next';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import { push } from 'connected-react-router';
 import { createStyles, Grid, Theme } from '@material-ui/core';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {

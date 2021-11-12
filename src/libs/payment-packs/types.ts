@@ -1,3 +1,8 @@
+import Immutable from 'seamless-immutable';
+import { ErrorAndLoading } from '../../state/types';
+
+import { Company } from '../company/types';
+
 export type ConsumerPaymentPackExtension = {
   note: string;
   date_created: string;
@@ -68,15 +73,95 @@ export type ConsumerPaymentPack = {
   payment_pack_id: string;
 };
 
-export type PaymentPackState = {
-  all: Array<PaymentPack>;
+export type PaymentPackTemplateInstance = {
+  tax: number | null;
+  id: number;
+  price: number | null;
+  disabled: boolean;
+  company: number;
+  payment_pack: number;
+  theorical_margin_value: number;
+  payment_pack_template: number;
+};
+
+export type PaymentPackTemplateAPI = {
+  id: number;
+  name: string;
+  manager_only: boolean;
+  credits: number;
+  duration_days: number;
+  duration_months: number;
+  duration_years: number;
+  validity_daterange: null | {
+    upper: string;
+    lower: string;
+  };
+  disabled: boolean;
+  tax: number;
+  price: string;
+  franchisor: number | null;
+  payment_pack_template_instances: Array<PaymentPackTemplateInstance>;
+  theorical_margin_value: number;
+  start_date_method: number;
+  expiration_days_before_first_use: number;
+};
+
+export type PaymentPackTemplate = PaymentPackTemplateAPI & {
+  companies: Array<Company>;
+};
+
+export type PaymentPackCategory = {
+  id: number;
+  name: string;
+  company_id: number;
+  category_ordering: number;
+  payment_pack_category: Array<number>; // bad naming but this means the id of the payment packs
+};
+
+export type PaymentPackState = Immutable.Immutable<{
   updatingConsumerPacks: Array<ConsumerPaymentPack>;
   updatingPaymentPacks: Array<number>;
   createOrUpdatePending: boolean;
   loading: boolean;
   error: boolean;
   errorMsg: string;
-};
+  paymentPackTemplate: {
+    allIds: Array<number>;
+    byId: { [id: number]: PaymentPackTemplateAPI };
+    loading: boolean;
+    error: null | Error;
+  };
+  byActivity: ErrorAndLoading & {
+    allIds: Array<number>;
+    page: number;
+    count: number;
+  };
+  forBooking: ErrorAndLoading & {
+    allIds: Array<number>;
+  };
+  scaleCredit: ErrorAndLoading;
+  byId: { [id: number]: PaymentPack };
+  allIds: Array<number>;
+  compatible: ErrorAndLoading & {
+    allIds: Array<number>;
+  };
+  notification: ErrorAndLoading & {
+    itemsById: { [id: number]: any }; // deprecate anyway
+    loading: false;
+    error: null;
+    create: ErrorAndLoading;
+    delete: ErrorAndLoading;
+    update: {
+      id: null | number;
+      error: Error | null;
+    };
+  };
+  paymentPackCategory: ErrorAndLoading & {
+    byId: { [id: number]: PaymentPackCategory };
+    allIds: Array<number>;
+    upsert: ErrorAndLoading;
+  };
+}>;
 
 export const actionTypes = {
   HAS_FETCHED_ALL_PAYMENT_PACKS: 'HAS_FETCHED_ALL_PAYMENT_PACKS_SUCCESS',
@@ -104,14 +189,6 @@ export const actionTypes = {
     'HAS_FETCHED_ACTIVITY_COMPATIBLE_PAYMENT_PACKS_SUCCESS',
   RESET_ACTIVITY_COMPATIBLE_PAYMENT_PACKS:
     'RESET_ACTIVITY_COMPATIBLE_PAYMENT_PACKS',
-};
-
-export type PaymentPackCategory = {
-  id: number;
-  name: string;
-  company_id: number;
-  category_ordering: number;
-  payment_pack_category: Array<number>; // bad naming but this means the id of the payment packs
 };
 
 export type PaymentPackCategoryWithPacks = PaymentPackCategory & {

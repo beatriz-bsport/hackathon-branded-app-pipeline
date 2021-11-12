@@ -5,7 +5,6 @@ import { connect, ConnectedProps } from 'react-redux';
 import {
   createStyles,
   Grid,
-  LinearProgress,
   Theme,
   WithStyles,
   withStyles,
@@ -13,6 +12,7 @@ import {
 import { push as pushAction } from 'connected-react-router';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import { RootState } from '../../reducers';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';

@@ -9,6 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
+import Chip from '@material-ui/core/Chip';
 import { compose } from 'recompose';
 import EventIcon from '@material-ui/icons/Event';
 import DateRangeIcon from '@material-ui/icons/DateRange';
@@ -220,6 +221,27 @@ export class ConsumerPackRowItem extends Component<Props> {
         <div>
           <CircularProgress />
         </div>
+      );
+    }
+
+    if (consumerPack.consumer_payment_pack_source) {
+      return (
+        <Chip
+          color="primary"
+          label={t(
+            'paymentPackTemplateInstance.consumerPaymentPackSharedFromOtherFranchisee',
+          )}
+        />
+      );
+    }
+    if (paymentPack && paymentPack.template_instance) {
+      return (
+        <Chip
+          color="primary"
+          label={t(
+            'paymentPackTemplateInstance.paymentPackSharedFromFranchisor',
+          )}
+        />
       );
     }
 

@@ -59,6 +59,13 @@ export type PaymentPackMassExtension = {
 
 export type ConsumerPaymentPackState = ErrorAndLoading & {
   byId: { [key: string]: ConsumerPaymentPack };
+  basePaginationState: {
+    page: number;
+    count: number;
+    loading: boolean;
+    error: Error | null;
+    allIds: Array<number>;
+  };
   byOfferByMember: ErrorAndLoading & { items: number[] };
   nonCompatibleByOfferByMember: ErrorAndLoading & { items: number[] };
   compatible: ErrorAndLoading & { allIds: number[] };

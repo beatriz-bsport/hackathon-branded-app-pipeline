@@ -16,6 +16,7 @@ import {
 } from '@material-ui/core';
 import InfoOutlineIcon from '@material-ui/icons/Info';
 import Skeleton from '@material-ui/lab/Skeleton';
+import { getOfferFeature } from '@bsport/common/lib/master-data/available-payment';
 
 import CloseIcon from '@material-ui/icons/Close';
 
@@ -23,7 +24,6 @@ import { MaterialStyleType } from '../../../utils/types';
 import { Offer, Offer_FULL, OfferStatus } from '../../offer/types';
 import { OfferData } from '../types';
 import OfferItem from './OfferBookableItem.component';
-import { getOfferFeature } from '../utils';
 
 type OwnProps = {
   offer?: Offer_FULL;

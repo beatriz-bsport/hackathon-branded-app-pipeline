@@ -11,6 +11,12 @@ import {
   OFFER_BOOKABLE_STATUS_BOOKABLE,
   OFFER_BOOKABLE_STATUS_FULL,
 } from '@bsport/common/lib/master-data/bookable-status';
+import {
+  getAvailablePaymentPacks,
+  getAvailableConsumerPack,
+  getAvailableComboPacks,
+} from '@bsport/common/lib/master-data/available-payment';
+
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../../../libs/payment/api';
 import { Offer_FULL, OfferStatus } from '../../../../libs/offer/types';
 import { MaterialStyleType, WithHandlerType } from '../../../../utils/types';
@@ -42,13 +48,6 @@ import {
   fetchConsumerPaymentPackMaxoutBooking,
 } from '../../../../libs/consumer-payment-pack/actions';
 import BookingMethodSelector from '../../../../libs/booker-module/components/BookingMethodSelector.component';
-import {
-  getAvailableConsumerPack,
-  getAvailablePaymentPacks,
-  getAvailableComboPacks,
-  OfferConstraint,
-  SelectedPack,
-} from '../../../../libs/booker-module/utils';
 
 import SubscriptionContractBooking from '../SubscriptionPaymentDialog.component';
 
@@ -60,7 +59,11 @@ import {
   getContractForBooking,
   withPaymentPack as withPaymentPackForContract,
 } from '../../../../libs/subscription/selectors';
-import { OfferData } from '../../../../libs/booker-module/types';
+import {
+  OfferData,
+  OfferConstraint,
+  SelectedPack,
+} from '../../../../libs/booker-module/types';
 import { fetchMemberTagList } from '../../../../libs/tag/actions';
 import { getMemberTagsIdsList } from '../../../../libs/tag/selectors';
 import type { Tag } from '../../../../libs/tag/types';

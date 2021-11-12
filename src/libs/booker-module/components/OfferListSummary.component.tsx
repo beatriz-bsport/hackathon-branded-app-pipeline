@@ -16,8 +16,7 @@ import {
 import AddIcon from '@material-ui/icons/Add';
 import Skeleton from '@material-ui/lab/Skeleton';
 import moment from 'moment-timezone';
-
-import { getOfferFeature } from '../utils';
+import { getOfferFeature } from '@bsport/common/lib/master-data/available-payment';
 import { MaterialStyleType } from '../../../utils/types';
 import { Offer_FULL, OfferStatus } from '../../offer/types';
 import OfferBookableItem from './OfferBookableItem.component';

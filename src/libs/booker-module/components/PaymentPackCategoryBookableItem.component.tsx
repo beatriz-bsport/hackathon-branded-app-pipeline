@@ -9,7 +9,7 @@ import PaymentPackBookableItem from './PaymentPackBookableItem.component';
 import { RadioItem } from '../../../components/radio/RadioItem';
 import { PaymentPackCategoryWithPacks } from '../../payment-packs/types';
 import { MaterialStyleType } from '../../../utils/types';
-import { SelectedPack } from '../utils';
+import { SelectedPack } from '../types';
 import CollapsibleSection from '../../../components/CollapsibleSection';
 
 type OwnProps = {

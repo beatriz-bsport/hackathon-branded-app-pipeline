@@ -14,6 +14,13 @@ import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import BlockIcon from '@material-ui/icons/Block';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
+import {
+  getOfferContraints,
+  getOfferFeature,
+  getMainOfferNotBookableReason,
+  getCanIBook,
+} from '@bsport/common/lib/master-data/available-payment';
+
 import Analytics from '../../../../components/analytics/Analytics.component';
 
 import { RootState } from '../../../../reducers';
@@ -50,20 +57,15 @@ import SimilarOffers from '../../../../libs/booker-module/components/SimilarOffe
 import BookerModuleHeader from '../../../../libs/booker-module/components/BookerModuleHeader.component';
 import OfferListSummary from '../../../../libs/booker-module/components/OfferListSummary.component';
 
-import { OfferData } from '../../../../libs/booker-module/types';
-
 import { getMyRelatedMemberList } from '../../../../libs/relationship/selectors';
 import { fetchMyRelatedMemberList } from '../../../../libs/relationship/actions';
 
 import BookingMethodSelector from './BookingMethodSelector.container';
 import {
-  getOfferContraints,
+  OfferData,
   SelectedPack,
-  getCanIBook,
-  getOfferFeature,
-  getMainOfferNotBookableReason,
   OfferConstraint,
-} from '../../../../libs/booker-module/utils';
+} from '../../../../libs/booker-module/types';
 import { MemberMinimal } from '../../../../libs/member/types';
 import {
   fetchRoomBlueprintDetail,
@@ -521,11 +523,9 @@ class OfferBooking extends React.PureComponent<Props, State> {
         },
         this.props.t,
       );
-
       let TheIcon = BlockIcon;
       if (icon === 'wait') TheIcon = HourglassEmptyIcon;
       if (icon === 'block') TheIcon = BlockIcon;
-
       return (
         <div className={this.props.classes.cannotBookContainer}>
           <TheIcon className={this.props.classes.noItemIcon} />

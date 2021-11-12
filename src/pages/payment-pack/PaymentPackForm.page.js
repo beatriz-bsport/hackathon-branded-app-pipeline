@@ -82,11 +82,13 @@ type Props = {
 
 export class PaymentPackFormPage extends React.Component<Props> {
   componentDidMount() {
-    this.props.fetchPaymentPack(this.props.paymentPackId, {
-      onSuccess: (pp) => {
-        this.props.fetchMetaActivityBulk(pp.metaActivities);
-      },
-    });
+    if (this.props.paymentPackId) {
+      this.props.fetchPaymentPack(this.props.paymentPackId, {
+        onSuccess: (pp) => {
+          this.props.fetchMetaActivityBulk(pp.metaActivities);
+        },
+      });
+    }
     this.props.fetchEstablishments();
     this.props.fetchAllActivities({ customer_enabled: true });
     this.props.fetchWorkhops();
@@ -168,7 +170,7 @@ export default compose(
     (state, { paymentPackId }) => {
       const paymentPackInitial = getPaymentPackById(state)[paymentPackId];
       return {
-        initial: paymentPackId !== null ? paymentPackInitial : null,
+        initial: paymentPackId ? paymentPackInitial : null,
         categories: state.category.SCTs,
         theme: themeSelectors.getTheme(state),
         metaActivities: uniqBy(

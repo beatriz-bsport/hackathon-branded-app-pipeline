@@ -717,12 +717,12 @@ export class Planning extends PureComponent<Props, State> {
           <CoachSelector
             coaches={Immutable(coachList)}
             selectedCoaches={this.props.offerFilters.coaches}
-            selectOption={(ev) =>
+            selectOption={(ev) => {
               this.props.setFilters({
                 ...this.props.offerFilters,
                 coaches: ev.map((e) => e.value),
-              })
-            }
+              });
+            }}
             isLoading={this.props.coachesLoading}
           />
         </Grid>
@@ -745,12 +745,12 @@ export class Planning extends PureComponent<Props, State> {
               (ma) => ma.customer_enabled && !ma.is_workshop,
             )}
             selectedMetaActivities={this.props.offerFilters.metaActivities}
-            selectOption={(ev) =>
+            selectOption={(ev) => {
               this.props.setFilters({
                 ...this.props.offerFilters,
-                metaActivities: ev.map((e) => e.value),
-              })
-            }
+                activity__in: ev.map((e) => e.value),
+              });
+            }}
             isLoading={this.props.activitiesLoading}
           />
         </Grid>

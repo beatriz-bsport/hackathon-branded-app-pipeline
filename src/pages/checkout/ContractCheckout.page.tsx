@@ -58,6 +58,8 @@ import type { OptionCallback } from '../../state/types';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
 import ConsumerAppBar from './ConsumerAppBar.container';
+import SubscriptionPaymentStatusDialog from '../../libs/subscription/components/SubscriptionPaymentDialog.component';
+import { getMarketplaceRoute } from '../../libs/marketplace/routing-utils';
 
 const stripePromise = loadStripe(getStripePkKey());
 type ownProps = {
@@ -92,6 +94,16 @@ type ownProps = {
   date: string;
   setDate: (value: string) => void;
   onPayRequest: (date: string) => void;
+  setShowPaymentStatusDialog: ({
+    open,
+    error,
+    success,
+  }: {
+    open: boolean;
+    error: boolean;
+    success: boolean;
+  }) => void;
+  showPaymentStatusDialog: { open: boolean; error: boolean; success: boolean };
 };
 
 type ConnectedProps = ownProps &
@@ -150,7 +162,11 @@ export class MarketplaceSubscriptionPayment extends React.Component<
         coupon,
         ...(_ === 'bsport:credit' ? { stripe_source: 'bsport:credit' } : {}), // TODO: payment refacto
       });
-
+      this.props.setShowPaymentStatusDialog({
+        open: true,
+        success: true,
+        error: false,
+      });
       try {
         const contract =
           this.props.contractList.find(
@@ -161,10 +177,13 @@ export class MarketplaceSubscriptionPayment extends React.Component<
       } catch (err) {
         console.error(err);
       }
-
-      this.props.goToUserSpace(this.props.companyId);
     } catch (err) {
       console.error(err);
+      this.props.setShowPaymentStatusDialog({
+        open: true,
+        success: false,
+        error: true,
+      });
       if (options && options.onError) options.onError(err);
     }
     if (options && options.onSuccess) {
@@ -275,6 +294,30 @@ export class MarketplaceSubscriptionPayment extends React.Component<
               </Grid>
             </Grid>
           </div>
+          <SubscriptionPaymentStatusDialog
+            open={this.props.showPaymentStatusDialog.open}
+            success={this.props.showPaymentStatusDialog.success}
+            onNext={
+              this.props.showPaymentStatusDialog.success
+                ? () =>
+                    this.props.goToUserSpace(
+                      this.props.companyId,
+                      this.props.companyTheme.company_name,
+                    )
+                : () =>
+                    this.props.setShowPaymentStatusDialog({
+                      open: false,
+                      error: false,
+                      success: false,
+                    })
+            }
+            goToSubscriptionList={() =>
+              this.props.goToSubscriptionList(
+                this.props.companyId,
+                this.props.companyTheme.company_name,
+              )
+            }
+          />
         </div>
       </ConsumerAppBar>
     );
@@ -335,6 +378,15 @@ const mapDispatchToProps = {
       `/widget/${companyName}/${companyId}/subscription?context=widget`,
     );
   },
+  goToSubscriptionList: (companyId: number, companyName: string) => {
+    if (!WidgetUtils.isWidget()) {
+      return replaceAction(
+        getMarketplaceRoute(companyName, companyId, 'subscription'),
+      );
+    }
+    WidgetUtils.closeContractModalOnError();
+    return window.close();
+  },
   fetchPaymentComboList,
   fetchPaymentPacks: fetchMarketplacePacks,
   fetchPrivatePassAsConsumerList,
@@ -348,6 +400,11 @@ export default compose<any, ownProps>(
   withStyles(styles),
   withState('date', 'setDate', moment()),
   withState('acceptContract', 'setAcceptContract', false),
+  withState('showPaymentStatusDialog', 'setShowPaymentStatusDialog', {
+    open: false,
+    error: false,
+    success: false,
+  }),
   withTranslation(['subscription', 'payment', 'invoice', 'translation']),
   withRouter,
   withHandlers({

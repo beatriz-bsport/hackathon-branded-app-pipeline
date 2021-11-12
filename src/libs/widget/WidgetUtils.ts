@@ -28,6 +28,12 @@ export class WidgetUtils {
     WidgetUtils.postMessage({ type: WidgetMessageType.PAYMENT_SUCCESS });
   }
 
+  static closeContractModalOnError() {
+    WidgetUtils.postMessage({
+      type: WidgetMessageType.RESPONSE_CLOSE_SUBSCRIPTION_MODAL_ON_ERROR,
+    });
+  }
+
   static videoRegistered(videoId) {
     WidgetUtils.postMessage({
       type: WidgetMessageType.VIDEO_REGISTERED,

@@ -2665,6 +2665,19 @@
       "invoice": "Facture {{ uuid }}",
       "isEmpty": "Aucun encaissement.",
       "isEmptyWarning": "NB: certains encaissements avant le 15 Mars 2021 peuvent ne pas être listés ci-dessous."
+    },
+    "subscriptionPaymentDialog": {
+      "title": "Acheter un abonnement",
+      "success": {
+        "text_content": "Votre achat a bien été pris en compte, vous pouvez dès maintenant retrouver les détails de votre abonnement sur votre espace membre.",
+        "text_status": "Achat réalisé avec succès !",
+        "button_text": "Continuer"
+      },
+      "error": {
+        "text_content": "Votre achat n’a pas pu être effectué, vous pouvez réessayer en cliquant sur le bouton ci-dessous ou vous pouvez revenir à la liste des abonnements en fermant cette fenêtre.",
+        "text_status": "Votre achat n’a pas pu aboutir !",
+        "button_text": "Réessayer"
+      }
     }
   },
   "paymentCombo": {

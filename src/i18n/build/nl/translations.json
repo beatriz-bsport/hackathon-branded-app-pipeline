@@ -2251,12 +2251,12 @@
                 "validByDuration": "Deze leskaart is N aantal dagen na aankoop geldig",
                 "validByDaterange": "Deze leskaart is tussen X en Y geldig",
                 "durationDays": {
-                    "helperText": "Geldigheidsduur in aantal dagen na aankoop ",
+                    "helperText": "Geldigheidsduur in dagen na aankoop. ",
                     "label": "Geldigheidsduur (in dagen) indien van toepassing"
                 },
                 "durationMonths": {
                     "label": "Geldigheidsduur (in maanden) indien van toepassing",
-                    "helperText": "Wordt aan het aantal dagen toegevoegd"
+                    "helperText": "Dit wordt aan het aantal dagen toegevoegd."
                 },
                 "durationYears": {
                     "label": "Geldigheidsduur (in jaren) indien van toepassing",
@@ -3870,7 +3870,7 @@
                     "1": "Gesloten",
                     "0": "Wachtlijst",
                     "6003": "Ingeschreven op de wachtlijst",
-                    "6002": "De wachtlijst is vol",
+                    "6002": "Wachtlijst: vol",
                     "7": "Onevenwichtige man/vrouw-verhouding",
                     "6": "Onevenwichtige man/vrouw-verhouding",
                     "5": "Ingeschreven",

@@ -1589,7 +1589,7 @@
                         "success": "Category added"
                     },
                     "namePlaceholder": "Juices",
-                    "nameTitle": "New category"
+                    "nameTitle": "Add a category"
                 }
             },
             "login": {
@@ -1848,7 +1848,7 @@
         },
         "bookingConfirmed": "Booking confirmed",
         "activityUpdated": "Activity modified",
-        "activityCreated": "Activity added",
+        "activityCreated": "Group activity added",
         "openSchedule": "Show schedule",
         "strategy": {
             "strategy": "Strategy",
@@ -5763,7 +5763,7 @@
                 "basketInconsistent": "Your cart has been modified, please refresh your page before validating your payment.\n You have not been charged.",
                 "billByInstalment": "Pay in instalments",
                 "paymentLink": "Payment link",
-                "generatePaymentLink": "Create a payment link"
+                "generatePaymentLink": "Generate a payment link"
             },
             "sumup": {
                 "amountRemaining": "Outstanding amount",
@@ -6826,40 +6826,40 @@
         "notificationToolTip": "Notifications are definied for this pass",
         "notification": {
             "0": {
-                "first": "Send an email if there is ",
+                "first": "Send this notification if there's ",
                 "second": "days of validity remaining on the pass"
             },
             "1": {
-                "first": "Send an email when there is",
-                "second": "credits remaining on the pass"
+                "first": "Send this notification if there's",
+                "second": "credit(s) remaining on the pass"
             },
             "2": {
-                "first": "Send an email when the pass has expired since ",
-                "second": "days"
+                "first": "Send this notification when the pass has expired for ",
+                "second": "day(s)"
             },
             "listItem": {
-                "mail": "Mail ",
+                "mail": "Email ",
                 "deleteModal": {
                     "title": "Delete notification",
                     "cancel": "Cancel",
                     "confirm": "Delete",
-                    "content": "Are you sure you want to delete this notification ? This choice is definitive"
+                    "content": "Are you sure that you want to delete this notification? This action can't be undone."
                 },
                 "smartList": "Excluded Smartlist(s)",
                 "smartListInclude": "Included Smartlist(s)"
             },
             "addButton": "Add a notification",
             "form": {
-                "noMailAvailable": "No mail available, think about creating one",
+                "noMailAvailable": "There are no email templates to display.",
                 "selectToShowPreview": "Select an email to see a preview of it.",
                 "mailTitle": "Select the email that will be sent",
-                "typeTitle": "Notification type",
+                "typeTitle": "Type of notification",
                 "creditType": "Remaining credits",
                 "daysType": "Remaining validity",
                 "daysPastType": "Expiration",
-                "mailSelection": "Select mail",
+                "mailSelection": "Select an email template",
                 "smartListSelection": "(Optional) Select Smartlist(s)",
-                "showMail": "See mail",
+                "showMail": "Show email",
                 "settingTitle": "Settings",
                 "hideMail": "Hide email",
                 "submit": "Confirm",
@@ -6878,8 +6878,8 @@
                 "first": "Send this notification when this pass has"
             },
             "creditsLeft": {
-                "second": "credits remaining",
-                "first": "Send an email when there is"
+                "second": "credit(s) remaining",
+                "first": "Send a notification when there's"
             },
             "daysPastLabel": "This notification will be sent when the pass has expired for {{day}} day.",
             "daysPastLabel_plural": "This notification will be sent when the pass has expired for {{day}} days.",
@@ -7241,7 +7241,7 @@
             "create": {
                 "compatible_packs": {
                     "seeMore": "See more",
-                    "createPass": "Create a pass",
+                    "createPass": "Add a pass",
                     "goToActivity": "Go to activity",
                     "passHelperText": "These passes are available for the created activity:",
                     "noCompatiblePass": "No pass available for this activity, remind to create one"
@@ -7305,7 +7305,7 @@
         },
         "actions": {
             "search": "Search an activity",
-            "addActivity": "Add an activity"
+            "addActivity": "Add a group activity"
         },
         "noActivities": "Manage your activities here, an activity allows you to group together a set of sessions (usually collective) of the same practice.",
         "disabledMetaActivities": "Archived group activities",
@@ -7728,25 +7728,25 @@
                     "before": "This notification will be sent {{hours}} hour(s) before the start of the session.",
                     "notifyAllEvents": {
                         "notRefunded": "For every late cancellation",
-                        "refunded": "At each reimbursed cancellation",
-                        "absence": "At each absence",
-                        "attendance": "At each attendance"
+                        "refunded": "For every refunded cancellation",
+                        "absence": "For each time a member is absent",
+                        "attendance": "For each time the member is present"
                     }
                 },
                 "cancel": "Cancel",
                 "next": "Next",
                 "submit": "Submit",
                 "help": {
-                    "notRefunded": "his cancellation after deadline n ° {{notify_booking_nb}}",
-                    "refunded": "his cancellation refunded n ° {{notify_booking_nb}}",
-                    "absence": "his absence n ° {{notify_booking_nb}}",
-                    "attendance": "his presence n ° {{notify_booking_nb}}",
-                    "text": "Help: the notification will be sent to the member when",
+                    "notRefunded": "Number of late cancellations: {{notify_booking_nb}}",
+                    "refunded": "Number of refunded cancellations: {{notify_booking_nb}}",
+                    "absence": "Absence: {{notify_booking_nb}}",
+                    "attendance": "Presence: {{notify_booking_nb}}",
+                    "text": "This notification will be sent to the member when",
                     "allEvents": {
-                        "notRefunded": "This notification will be sent out every time a member late cancels.",
-                        "refunded": "This notification will be sent for every refunded cancellation.",
+                        "notRefunded": "This notification will be sent every time a member late cancels.",
+                        "refunded": "This notification will be sent after every refunded cancellation.",
                         "absence": "This notification will be sent every time a member is absent.",
-                        "attendance": "This notification will be sent every time a member books."
+                        "attendance": "This notification will be sent every time a member is present."
                     }
                 },
                 "chooseKind": {
@@ -7757,16 +7757,16 @@
                     "title": "Trigger"
                 },
                 "chooseStatus": {
-                    "cancelled": "Cancelled bookings (from members)",
-                    "valid": "Valid bookings",
+                    "cancelled": "Cancellations (from members)",
+                    "valid": "Bookings",
                     "title": "Event"
                 },
                 "chooseTime": {
-                    "second_after": "hour(s) after the session",
+                    "second_after": "hour(s) after the end of the session.",
                     "second_before": "hour(s) before the start of the session.",
                     "first": "Send email"
                 },
-                "sendAfterMail": "Send this notification after a session has ended",
+                "sendAfterMail": "Send this notification after the session has ended",
                 "sendBeforeMail": "Send this notification before the start of the session",
                 "eventNb": "Set up which booking triggers the notification:",
                 "settingTitle": "Settings",
@@ -8026,9 +8026,9 @@
         },
         "metaActivity": {
             "metaActivity": "Activities",
-            "metaActivityEditForm": "Activity form",
+            "metaActivityEditForm": "[Form] Group activity",
             "metaActivityList": "Activities",
-            "metaActivityFormPage": "Activity form"
+            "metaActivityFormPage": "[Form] Group activity"
         },
         "coupon": {
             "couponCreate": "Create coupon",
@@ -9796,7 +9796,7 @@
         "notifications": {
             "selectNotificationRules": "Select a rule to display more information.",
             "createNotificationFabLabel": "Add a notification",
-            "notificationsEmpty": "There are no automatic notifications set up for this group as of now.",
+            "notificationsEmpty": "There are no automatic notifications set up for this group to display.",
             "deleteDialogText": "Are you sure that you want to delete this rule? This operation can't be undone.",
             "deleteDialogTitle": "Deleting the rule",
             "removeRule": "Delete rule",

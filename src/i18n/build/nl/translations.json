@@ -4627,11 +4627,11 @@
                 "urlInputLabel": "De directe link naar je video op YouTube",
                 "type": {
                     "url": "YouTube",
-                    "file": "Bestand",
+                    "file": "Eigen bestand",
                     "fileExplain": "Gebruik deze optie om je eigen videobestand (MP4, MOV, AVI) op de privéservers van BSPORT te plaatsen.",
                     "urlExplain": "Je video is al beschikbaar op YouTube, maar je wilt een nieuwe inkomstenbron via BSPORT aanboren.",
-                    "vimeoExplain": "Je video is al beschikbaar op Vimeo, maar je wilt een nieuwe inkomstenbron via BSPORT aanboren.",
-                    "youtubeExplain": "Je video is al beschikbaar op YouTube, maar je wilt een nieuwe inkomstenbron via BSPORT aanboren.",
+                    "vimeoExplain": "Gebruik deze optie om de video's die je op Vimeo hebt geplaatst op de beschermde mediaspeler van je BSPORT-account te zetten.",
+                    "youtubeExplain": "Gebruik deze optie om de video's die je op YouTube hebt geplaatst op de beschermde mediaspeler van je BSPORT-account te zetten.",
                     "vimeo": "Vimeo",
                     "youtube": "YouTube"
                 },
@@ -7063,7 +7063,7 @@
                     "create": "Een relatie toevoegen"
                 },
                 "title": "Relaties",
-                "isEmpty": "Nog geen relaties aangemaakt"
+                "isEmpty": "Er zijn geen relaties om weer te geven."
             }
         },
         "private_consumer_pass_links": {
@@ -7531,7 +7531,7 @@
         },
         "panel": {
             "title": "Tags",
-            "noTagAvailable": "Nog geen tags aangemaakt"
+            "noTagAvailable": "Er zijn nog geen tags om weer te geven."
         },
         "filter": {
             "addATagFilter": "Filter op tag(s)..."

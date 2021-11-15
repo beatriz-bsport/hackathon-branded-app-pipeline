@@ -3,6 +3,7 @@ import { compose } from 'recompose';
 import { withStyles } from '@material-ui/styles';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { MarketplaceGiftcardBase } from 'bsport-saas/src/pages/marketplace/MarketplaceGiftcard.page';
+import { MarketplaceGiftcardData } from 'bsport-saas/src/libs/marketplace/types';
 
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
@@ -14,13 +15,13 @@ type OwnProps = {
   companyId: number,
   store: any,
   theme: Theme,
-  config?: any,
+  config?: MarketplaceGiftcardData,
   onWindowOpen: (url: string) => void,
 };
 
 type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
 
-class GiftcardWidget extends Component<Props> {
+export class GiftcardWidget extends Component<Props> {
   openGiftcardConfig = (giftcardId: number, companyId: number) => {
     const { PUBLIC_URL } = getEnv();
     const url = `${PUBLIC_URL}/checkout/${companyId}/giftcard/${giftcardId}/`;
@@ -28,7 +29,7 @@ class GiftcardWidget extends Component<Props> {
   };
 
   render() {
-    const { companyId, store, theme } = this.props;
+    const { companyId, store, theme, config } = this.props;
     return (
       <div className={this.props.classes.container}>
         <MarketplaceGiftcardThemed
@@ -36,6 +37,7 @@ class GiftcardWidget extends Component<Props> {
           store={store}
           theme={theme}
           goToGiftcardCheckout={this.openGiftcardConfig}
+          params={config}
         />
       </div>
     );

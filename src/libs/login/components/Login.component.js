@@ -54,14 +54,18 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: theme.spacing(2),
+    [theme.breakpoints.up('sm')]: {
+      padding: theme.spacing(2),
+    },
     position: 'relative',
   },
   column: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'stretch',
-    minWidth: 300,
+    [theme.breakpoints.up('sm')]: {
+      minWidth: 300,
+    },
   },
 });
 

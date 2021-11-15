@@ -229,7 +229,12 @@ function mapDispatchToProps(dispatch, props) {
 const styles = (theme) => ({
   container: {
     textAlign: 'center',
-    padding: theme.spacing(6),
+    [theme.breakpoints.up('sm')]: {
+      padding: theme.spacing(6),
+    },
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(2),
+    },
     width: '100%',
     overflow: 'auto',
     height: '90vh',

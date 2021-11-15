@@ -22,6 +22,7 @@ import {
 } from '../../../libs/giftcard/selectors';
 import {
   retrieveConsumerGiftcardByActivationCode,
+  retrieveGiftcard,
   attributeToMember,
 } from '../../../libs/giftcard/actions';
 import ConsumerGiftcardPreview from '../../../libs/giftcard/components/ConsumerGiftcardPreview.component';
@@ -44,6 +45,10 @@ export class GiftcardCheckout extends React.Component<Props> {
     this.props.fetchCompanyTheme(this.props.companyId);
     this.props.retrieveConsumerGiftcardByActivationCode(
       this.props.activationCode,
+      {
+        onSuccess: (consumerGiftcard) =>
+          this.props.retrieveGiftcard(consumerGiftcard.giftcard),
+      },
     );
   }
 
@@ -61,7 +66,12 @@ export class GiftcardCheckout extends React.Component<Props> {
   };
 
   render() {
-    if (!this.props.theme || !this.props.consumerGiftcard) return null;
+    if (
+      !this.props.theme ||
+      !this.props.consumerGiftcard ||
+      !this.props.consumerGiftcard.giftcard
+    )
+      return null;
     const { classes, t } = this.props;
     return (
       <ConsumerAppBarContainer companyId={this.props.companyId}>
@@ -194,6 +204,7 @@ const connector = connect(
   }),
   {
     retrieveConsumerGiftcardByActivationCode,
+    retrieveGiftcard,
     fetchCompanyTheme,
     attributeToMember,
     goToConsumerGiftcard: (companyId: number) =>

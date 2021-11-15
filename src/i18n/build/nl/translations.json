@@ -75,7 +75,7 @@
         },
         "dashboard": {
             "noBooking": "Je hebt nog geen reserveringen om weer te geven.",
-            "noPackCurrentlyActive": "Je bezit nog geen enkele leskaart.",
+            "noPackCurrentlyActive": "Je bezit nog geen kaarten om weer te geven.",
             "showMore": "Toon meer",
             "currentPassTitle": "Mijn kaarten",
             "nextBookingTitle": "Mijn reserveringen",
@@ -1399,10 +1399,10 @@
                 "cancelled": "Geannuleerde reserveringen",
                 "created": "Geldige reserveringen"
             },
-            "maintenedBookings": "{{nb}} geldige reservering",
-            "maintenedBookings_plural": "{{nb}} geldige reserveringen",
-            "cancelledBookings": "{{nb}} geannuleerde reservering",
-            "cancelledBookings_plural": "{{nb}} geannuleerde reserveringen",
+            "maintenedBookings": "{{nb}} reservering",
+            "maintenedBookings_plural": "{{nb}} reserveringen",
+            "cancelledBookings": "{{nb}} annulering",
+            "cancelledBookings_plural": "{{nb}} annuleringen",
             "totalBookings": "{{nb}} reservering in totaal",
             "totalBookings_plural": "{{nb}} reserveringen in totaal",
             "offerFilteredBookingRecap": "Sessie van {{date}}",
@@ -2509,7 +2509,7 @@
                     "titleEdit": "Categorie",
                     "titleNew": "Nieuwe categorie",
                     "name": "Naam van de categorie",
-                    "helper": "De categorieën verschijnen op de marktplaats en de mobiele app voor kaarten die te koop zijn."
+                    "helper": "De categorieën verschijnen op de marketplace en de mobiele app voor kaarten die te koop zijn."
                 }
             },
             "add": "Een categorie toevoegen",
@@ -3518,7 +3518,7 @@
                 },
                 "welcome": "Hoi {{firstname}}!"
             },
-            "title": "Gebruikersinformatie"
+            "title": "[Formulier] Inschrijfformulier"
         },
         "user": {
             "existsWithEmail": "Er bestaat al een gebruiker met dit e-mailadres ({{email}}).",
@@ -4959,17 +4959,17 @@
         },
         "privateBooking": {
             "managerAdd": {
-                "compatiblePrivateConsumerPass": "Afspraakkaarten in bezit:",
+                "compatiblePrivateConsumerPass": "Beschikbare afspraakkaarten",
                 "title": "Nieuwe reservering",
                 "address": "Adres",
                 "coachSelector": {
                     "label": "Instructeur"
                 },
-                "pleaseSelectCoachAndSlot": "Selecteer eerst de instructeur en de sessie",
+                "pleaseSelectCoachAndSlot": "Selecteer eerst een instructeur en een sessie",
                 "cancel": "Annuleren",
                 "compatiblePrivatePass": "Een afspraakkaart factureren",
                 "emptyPrivateConsumerPass": "Dit lid bezit momenteel nog geen compatibele afspraakkaart.",
-                "emptyPrivatePass": "Geen compatibele afspraakkaart",
+                "emptyPrivatePass": "Er zijn geen compatibele afspraakkaarten om weer te geven.",
                 "privateConsumerPassNeedRefresh": "Verversen"
             },
             "delete": {
@@ -7371,7 +7371,7 @@
             "content": "De instellingen van de verschillende grafieken keren terug naar hun standaardwaarden. Weet je zeker dat je wilt doorgaan?",
             "confirm": "Doorgaan",
             "cancel": "Annuleren",
-            "title": "Instellingen herstellen"
+            "title": "Standaardgrafieken herstellen"
         },
         "invoiceItemDropdown": {
             "contentType": {
@@ -8146,7 +8146,7 @@
                 "debt": "Debet",
                 "explainTopup": "Het saldo de interne rekening van dit lid wordt met €{{ amount }} verhoogd.",
                 "explainDecaissement": "Het saldo van de interne rekening van dit lid wordt met {{ currencyDisplay }}{{ amount }} verlaagd.",
-                "title": "Het saldo aanpassen",
+                "title": "Saldo wijzigen",
                 "actions": {
                     "cancel": "Annuleren",
                     "submit": "Volgende"
@@ -8399,7 +8399,7 @@
     },
     "role": {
         "permissions": "Rollen en bevoegdheden",
-        "explainStaffDo": "Je medewerkers kunnen via https://backoffice.bsport.io op hun telefoon, computer of tablet inloggen",
+        "explainStaffDo": "Medewerkers kunnen via https://backoffice.bsport.io op hun telefoon, computer of tablet inloggen.",
         "explainStaffDoNot": "Alleen instructeurs en leden kunnen op de app inloggen. Een medewerker met een Medewerkersaccount kan dat dus niet.",
         "forms": {
             "user": {
@@ -8710,7 +8710,7 @@
                 "tab": "Nieuw tabblad openen"
             },
             "dialogModeLabel": "Type pop-up",
-            "showFabLabel": "EasyConnect knop",
+            "showFabLabel": "EasyConnect-knop toevoegen",
             "browserLanguage": "Browsertaal",
             "languageHelper": "De widget zal standaard de hier geselecteerde taal gebruiken. Selecteer \"Browsertaal\" om de widget de systeemtaal van je leden toe te laten passen.",
             "pickALanguage": "Kies de standaardtaal",

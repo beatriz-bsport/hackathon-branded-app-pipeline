@@ -96,6 +96,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: '100%',
   },
   previewContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    alignItems: 'center',
     paddingRight: theme.spacing(3),
     paddingBottom: theme.spacing(3),
   },
@@ -131,6 +135,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   verticalContainer: {
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
     padding: theme.spacing(3),
     '&>*': {
       marginBottom: theme.spacing(2),

@@ -21,7 +21,7 @@ type Props = {
     name: string;
     background_image: string;
     recipients: Array<string>;
-    date_send: string;
+    date_to_send: string;
   };
   giftcardBackgroundImageList: Array<GiftcardBackgroundImage>;
   isManager: boolean;
@@ -98,11 +98,11 @@ export const ConsumerGiftcardForm = (props: Props) => {
         {props.giftcard?.expiration_days
           ? t('consumerGiftcard.form.footer', {
               expiration_days: props.giftcard?.expiration_days || 0,
-              date_send: moment(props.values.date_send).format('L'),
+              date_send: moment(props.values.date_to_send).format('L'),
               price: getCurrencyDisplayWithPrice(props.giftcard.price),
             })
           : t('consumerGiftcard.form.footerUnlimited', {
-              date_send: moment(props.values.date_send).format('L'),
+              date_send: moment(props.values.date_to_send).format('L'),
               price: getCurrencyDisplayWithPrice(props.giftcard.price),
             })}
       </Typography>
@@ -158,7 +158,7 @@ export const ConsumerGiftcardFormFieldHOC = withFormik({
       name: giftcard.name,
       background_image: null,
       recipients: [],
-      date_send: moment().format('YYYY-MM-DD'),
+      date_to_send: moment().format('YYYY-MM-DD'),
     },
   }),
   validationSchema: ConsumerGiftcardSchema,

@@ -40,7 +40,7 @@ import AU_FLAG from './flags/AU.png';
 // import HK_FLAG from './flags/HK.png';
 import PL_FLAG from './flags/PL.png';
 // import BR_FLAG from './flags/BR.png';
-// import SG_FLAG from './flags/SG.png';
+import SG_FLAG from './flags/SG.png';
 // import NZ_FLAG from './flags/NZ.png';
 import LT_FLAG from './flags/LT.png';
 import LV_FLAG from './flags/LV.png';
@@ -348,6 +348,7 @@ const localeList: Array<Locale> = [
     currencyDisplay: 'L',
     showLang: true,
   },
+  */
   {
     locale: 'en_SG',
     icon: SG_FLAG,
@@ -355,7 +356,6 @@ const localeList: Array<Locale> = [
     currencyDisplay: '$S',
     showLang: true,
   },
-  */
   {
     locale: 'en_SI',
     icon: SI_FLAG,

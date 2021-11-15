@@ -2753,7 +2753,7 @@
             "isAtHome": "This appointment will be done at home, meaning you'll need to share your address to complete the booking.",
             "bookingCapabilities": {
                 "compatibleConsumerPassTitle": "Your compatible passes",
-                "emptyConsumerPassList": "You don't any valid passes with sufficient credits yet.",
+                "emptyConsumerPassList": "You're not yet in possession of any valid pass.",
                 "compatiblePassTitle": "Compatible passes:",
                 "emptyPassList": "There are no compatible passes to display."
             },

@@ -1726,7 +1726,7 @@
             "amex": "AMEX",
             "event_brite": "EventBrite",
             "none": "Geen",
-            "credit_account": "Saldo van het lid",
+            "credit_account": "Interne rekening (saldo)",
             "other": "Overige",
             "cash": "Contant geld",
             "check": "Cheque",
@@ -1933,7 +1933,7 @@
             "invoice_date": "Factuurdatum",
             "payment_amount_by_payment_method": "Opladen via betaalmethode",
             "invoice_time": "Factuur uitgifte tijd",
-            "invoice_datetime": "Datum en tijdstip van uitgifte van de factuur",
+            "invoice_datetime": "Tijd en datum factuuruitgave",
             "invoice_date_created": "Uitgiftedatum factuur",
             "last_payment_date": "Laatste betalingsdatum",
             "billing_establishment": "Adres",
@@ -4245,7 +4245,7 @@
             "revertCurrentExplainHelper": "Als de betaling geldig was, dan zal het lid een tegoed ontvangen. Je kunt het tegoed aan de klant terugbetalen door op \"Terugbetalen\" op de factuur te klikken. De schuld wordt kwijt gescholden indien de betaling mislukte.",
             "stopExplain": "De volgende betalingen worden geannuleerd en de bijbehorende facturen worden verwijderd. Als een reservering is geregistreerd met een abonnement waarvoor de factuur is geannuleerd, wordt deze ook geannuleerd.",
             "stop": "Stoppen",
-            "planStop": "De beëindiging van dit abonnement inplannen"
+            "planStop": "Beëindiging inplannen"
         },
         "paymentMethod": {
             "credit": {
@@ -4265,14 +4265,14 @@
                 "title": "Recente gebeurtenissen"
             },
             "billing_plan-pause": "Pauze",
-            "billing_plan-create": "Aanmaken",
-            "billing_plan-stop": "Stop",
-            "billing_plan-renew": "Vernieuwing",
-            "billing_plan-payment_dispute": "Betwiste betaling",
-            "billing_plan-payment_success": "Betaling gelukt",
-            "billing_plan-payment_failure": "Betaling geweigerd",
-            "billing_plan-update_payment_method": "Betaalmethode gewijzigd",
-            "billing_plan-update_payment_pack": "De leskaart is bijgewerkt"
+            "billing_plan-create": "Toevoegen",
+            "billing_plan-stop": "Stoppen",
+            "billing_plan-renew": "Automatische verlengingen",
+            "billing_plan-payment_dispute": "Betwiste betalingen",
+            "billing_plan-payment_success": "Succesvolle betalingen",
+            "billing_plan-payment_failure": "Geweigerde betalingen",
+            "billing_plan-update_payment_method": "Gewijzigde betaalmethoden",
+            "billing_plan-update_payment_pack": "Gewijzigde kaarten"
         },
         "save": "bevestigen",
         "table": {
@@ -4329,8 +4329,8 @@
             "edit": "Bewerken",
             "buy": "Kopen",
             "scheduledStop": {
-                "title": "De beëindiging van dit abonnement inplannen",
-                "explain": "Selecteer de laatste betaling voor het abonnement.",
+                "title": "Beëindiging inplannen",
+                "explain": "Selecteer de laatste betaling voor het abonnement:",
                 "summary": "De laatste geprogrammeerde betaling is op {{-date}} en komt overeen met de laatste geldige leskaart.",
                 "listItem": "Geplande opzegging van het abonnement"
             },

@@ -3295,7 +3295,7 @@
             "form": {
                 "create": {
                     "title": "Share a pass",
-                    "explain": "This pass is shared with multiple accounts. Every associated account can use its credits.",
+                    "explain": "This pass is shared with multiple accounts. Every associated account can use this pass' credits.",
                     "cancel": "Cancel",
                     "previous": "Previous",
                     "submit": "Share",
@@ -3350,7 +3350,7 @@
                     "submit": "Share",
                     "previous": "Previous",
                     "cancel": "Cancel",
-                    "explain": "This appointment pass is shared with multiple accounts. Every associated account can use its credits.",
+                    "explain": "This appointment pass is shared with multiple accounts. Every associated account can use this appointment pass' credits.",
                     "title": "Share appointment pass"
                 }
             },
@@ -6287,7 +6287,7 @@
             "sepa": "SEPA Direct Debit",
             "card": "Credit Card",
             "credit": {
-                "explain": "The member will be billed on his internal account each periods. Use this payment method if you do not have (yet) access to a billing method such as a credit card or IBAN. You can update the subscription payment method later."
+                "explain": "Use this payment method to bill members if there is no direct payment method available, such as Credit Card or IBAN. The member's internal account balance will be billed and this payment method can be changed later on."
             },
             "bsportCredit": "Credit account"
         },
@@ -7556,7 +7556,7 @@
                 },
                 "welcome": "Hello {{firstname}}"
             },
-            "title": "User information"
+            "title": "[Form] Enrolment"
         },
         "user": {
             "existsWithEmail": "A user with the email address {{email}} already exists.",

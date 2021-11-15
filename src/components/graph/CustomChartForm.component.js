@@ -3,7 +3,6 @@ import React from 'react';
 import type { TFunction } from 'react-i18next';
 import { withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
-import { Form } from 'formik';
 import { v4 as uuidv4 } from 'uuid';
 import {
   Button,
@@ -191,7 +190,7 @@ export class CustomChartForm extends React.Component<Props, State> {
     }
     return (
       <Dialog open={this.props.formOpen}>
-        <Form>
+        <div>
           <DialogTitle>{t('customChart.form.title')}</DialogTitle>
           <DialogContent>
             <CustomChartSelector
@@ -294,7 +293,7 @@ export class CustomChartForm extends React.Component<Props, State> {
               {t('customChart.form.submit')}
             </Button>
           </DialogActions>
-        </Form>
+        </div>
       </Dialog>
     );
   }

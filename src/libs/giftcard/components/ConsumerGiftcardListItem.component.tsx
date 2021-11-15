@@ -108,13 +108,15 @@ const GiftcardReceiver = (props: ReceiverProps) => {
         ).toFixed(2)}
         /${getCurrencyDisplayWithPrice(props.giftcard.price)}`}
       </span>
-      <span>
-        {` - ${t('consumerGiftcard.expiresOn', {
-          d: moment(props.consumerGiftcard.date_activated)
-            .add(props.giftcard.expiration_days, 'days')
-            .format('L'),
-        })}`}
-      </span>
+      {!!props.giftcard.expiration_days && (
+        <span>
+          {` - ${t('consumerGiftcard.expiresOn', {
+            d: moment(props.consumerGiftcard.date_activated)
+              .add(props.giftcard.expiration_days, 'days')
+              .format('L'),
+          })}`}
+        </span>
+      )}
     </span>
   ) : (
     t(

@@ -61,7 +61,22 @@ const CONSUMER_PAYMENT_PACK_PAGE_SIZE = 10;
 
 export class ConsumerPack extends React.Component<Props> {
   componentDidMount() {
-    this.props.fetchPrivateConsumerPassList();
+    if (this.props.membership) {
+      this.props.fetchPrivateConsumerPassList({
+        member: this.props.membership.id,
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (
+      this.props.membership &&
+      this.props.membership.id !== prevProps.membership?.id
+    ) {
+      this.props.fetchPrivateConsumerPassList({
+        member: this.props.membership.id,
+      });
+    }
   }
 
   render() {

@@ -114,8 +114,12 @@ const SortablePaymentPackListItem = React.memo((props: PackListItemProps) => {
 const SortablePaymentPackList = (props: PackListProps) => {
   const packs = [...props.paymentPackCategory.packs].sort(
     (p1, p2) =>
-      (props.orderingOverride[p1.id] || p1.ordering_in_category) -
-      (props.orderingOverride[p2.id] || p2.ordering_in_category),
+      (props.orderingOverride[p1.id] || props.orderingOverride[p1.id] === 0
+        ? props.orderingOverride[p1.id]
+        : p1.ordering_in_category) -
+      (props.orderingOverride[p2.id] || props.orderingOverride[p2.id] === 0
+        ? props.orderingOverride[p2.id]
+        : p2.ordering_in_category),
   );
 
   const items = packs.map((e) => e.id.toString(10));

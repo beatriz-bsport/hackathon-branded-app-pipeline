@@ -131,6 +131,7 @@ export type PrivatePass = {
   start_date_method: number;
   new_member_only: boolean;
   company: number;
+  ordering_in_category: number;
 };
 
 export type PrivateConsumerPass = {

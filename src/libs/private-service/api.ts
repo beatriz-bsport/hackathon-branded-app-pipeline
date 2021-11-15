@@ -275,6 +275,13 @@ export const createOrUpdatePrivatePass = (data: any, id?: number) => {
   return postAuth(`${API_V1_URI}/private_service/private_pass/`, data);
 };
 
+export const editOrderPrivatePass = (data: any) => {
+  return patchAuth(
+    `${API_V1_URI}/private_service/private_pass/set_order/`,
+    data,
+  );
+};
+
 export const deletePrivatePass = (id: number) => {
   return deleteAuth(`${API_V1_URI}/private_service/private_pass/${id}/`);
 };

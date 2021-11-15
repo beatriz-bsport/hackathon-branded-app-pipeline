@@ -5,7 +5,6 @@ import { compose, withStateHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
-import Grid from '@material-ui/core/Grid';
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 import Dialog from '@material-ui/core/Dialog';
@@ -26,8 +25,8 @@ import themeSelectors from '../../libs/theme/selectors';
 import withTitle from '../../hocs/with-title.hoc';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import {
-  getPrivatePassManagerOnlyList,
   getPrivatePassCustomerEnabled,
+  getAvailablePrivatePasses,
   getDisabledPrivatePassAvailableListWithPrivateService,
 } from '../../libs/private-service/selectors/private-pass';
 import {
@@ -36,6 +35,7 @@ import {
   createOrUpdatePrivatePass,
   deletePrivatePass,
   restorePrivatePass,
+  editOrderPrivatePass,
 } from '../../libs/private-service/actions';
 import PrivatePassListItem from '../../libs/private-service/components/pass/PrivatePassListItem.component';
 import PrivatePassForm from '../../libs/private-service/components/pass/PrivatePassForm.component';
@@ -45,6 +45,7 @@ import FuzeSearch from '../../components/FuzeSearch.component';
 import { Coach as AssociatedCoach } from '../../libs/associated-coach/types';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers';
+import { PrivatePassCategory } from '../../libs/private-service/components/category/PrivatePassCategory.component';
 
 type StateHandlerInit = {
   openCreateForm: boolean;
@@ -81,10 +82,9 @@ export class PrivatePassList extends React.Component<Props, State> {
 
   createOrUpdatePass = (data: any) => {
     this.props.createOrUpdatePrivatePass(data, data.id, {
-      onSuccess: (pass: any) => {
+      onSuccess: () => {
         this.props.setOpenCreateForm(false);
         this.props.fetchPrivatePassList();
-        this.props.goToPass(pass.id);
       },
     });
   };
@@ -116,8 +116,7 @@ export class PrivatePassList extends React.Component<Props, State> {
   render() {
     const { classes, t } = this.props;
     if (
-      this.props.privatePassListCustomerEnabled.length +
-        this.props.privatePassListManagerOnly.length +
+      this.props.privatePassList +
         (this.props.disabledPrivatePassList || []).length ===
         0 &&
       !this.props.loading
@@ -144,6 +143,7 @@ export class PrivatePassList extends React.Component<Props, State> {
     }
     return (
       <div>
+        {!!this.props.loading && <BackofficeLinearProgress />}
         <div className={classes.search}>
           <FuzeSearch
             searchText={this.state.searchText}
@@ -188,82 +188,25 @@ export class PrivatePassList extends React.Component<Props, State> {
             </Collapse>
           </Paper>
         </div>
-        {!!this.props.loading && <BackofficeLinearProgress />}
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
-            <Typography
-              variant="h5"
-              className={this.props.classes.sectionTitle}
-            >
-              {t('privatePass.list.availableCustomer')}
-            </Typography>
-            <Divider className={this.props.classes.divider} />
-            <div className={this.props.classes.leftPanel}>
-              {!this.props.privatePassListCustomerEnabled.length &&
-                !this.props.loading && (
-                  <Typography variant="caption">
-                    {this.props.t('privatePass.list.isEmpty')}
-                  </Typography>
-                )}
-              <Paper>
-                <List disablePadding>
-                  {this.props.privatePassListCustomerEnabled
-                    .filter((pp: PrivatePass) => !pp.manager_only)
-                    .map((pass: PrivatePass) => (
-                      <PrivatePassListItem
-                        pass={pass}
-                        key={pass.id}
-                        divider
-                        onClick={() => {
-                          this.props.goToPass(pass.id);
-                        }}
-                        onDelete={() =>
-                          this.props.setOpenDeletePassDialog(pass.id)
-                        }
-                        updatePrivatePass={this.props.createOrUpdatePrivatePass}
-                      />
-                    ))}
-                </List>
-              </Paper>
-            </div>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Typography
-              variant="h5"
-              className={this.props.classes.sectionTitle}
-            >
-              {this.props.t('privatePass.list.managerOnly')}
-            </Typography>
-            <Divider className={this.props.classes.divider} />
-            <div className={this.props.classes.leftPanel}>
-              {!this.props.privatePassListManagerOnly.length &&
-                !this.props.loading && (
-                  <Typography variant="caption">
-                    {this.props.t('privatePass.list.isEmpty')}
-                  </Typography>
-                )}
-              <Paper>
-                <List disablePadding>
-                  {this.props.privatePassListManagerOnly
-                    .filter((pp: PrivatePass) => !!pp.manager_only)
-                    .map((pass: PrivatePass) => (
-                      <PrivatePassListItem
-                        pass={pass}
-                        key={pass.id}
-                        divider
-                        onClick={() => {
-                          this.props.goToPass(pass.id);
-                        }}
-                        onDelete={() =>
-                          this.props.setOpenDeletePassDialog(pass.id)
-                        }
-                        updatePrivatePass={this.props.createOrUpdatePrivatePass}
-                      />
-                    ))}
-                </List>
-              </Paper>
-            </div>
-          </Grid>
+        <>
+          <Typography variant="h5" className={this.props.classes.sectionTitle}>
+            {t('privatePass.list.availableCustomer')}
+          </Typography>
+          <Divider className={this.props.classes.divider} />
+          <div className={this.props.classes.leftPanel}>
+            {!this.props.privatePassList.length && !this.props.loading && (
+              <Typography variant="caption">
+                {this.props.t('privatePass.list.isEmpty')}
+              </Typography>
+            )}
+            <PrivatePassCategory
+              privatePassList={this.props.privatePassList}
+              goToPass={this.props.goToPass}
+              setOpenDeletePassDialog={this.props.setOpenDeletePassDialog}
+              updatePrivatePass={this.props.createOrUpdatePrivatePass}
+              updatePassOrder={this.props.editOrderPrivatePass}
+            />
+          </div>
           <Dialog open={this.props.openCreateForm}>
             <DialogTitle>{this.props.t('privatePass.form.title')}</DialogTitle>
             <DialogContent>
@@ -303,7 +246,7 @@ export class PrivatePassList extends React.Component<Props, State> {
             <AddIcon className={this.props.classes.leftIcon} />
             {this.props.t('privatePass.list.createButton')}
           </Fab>
-        </Grid>
+        </>
       </div>
     );
   }
@@ -352,8 +295,8 @@ const styles = (theme: Theme) => ({
 });
 
 const mapStateToProps = (state: RootState) => ({
-  privatePassListManagerOnly: getPrivatePassManagerOnlyList(state),
   privatePassListCustomerEnabled: getPrivatePassCustomerEnabled(state),
+  privatePassList: getAvailablePrivatePasses(state),
   disabledPrivatePassList: getDisabledPrivatePassAvailableListWithPrivateService(
     state,
   ),
@@ -368,6 +311,7 @@ const mapDispatchToProps = {
   createOrUpdatePrivatePass,
   deletePrivatePass,
   restorePrivatePass,
+  editOrderPrivatePass,
 };
 
 const withStateHandlersInit: StateHandlerInit = {

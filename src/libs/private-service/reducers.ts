@@ -50,6 +50,7 @@ import {
   deleteRecurrenceRulePrivateBookingActions,
   privateConsumerPassMassExtensionActions,
   privateServiceCompatiblePassActions,
+  privatePassUpdateOrderActions,
 } from './actions';
 
 import { getResourceSlotsExistState } from './selectors/availability-slot';
@@ -1139,7 +1140,31 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
         { deep: true },
       );
     },
-
+    [privatePassUpdateOrderActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['privatePass', 'createOrUpdate', 'loading'], payload);
+    },
+    [privatePassUpdateOrderActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['privatePass', 'createOrUpdate', 'error'], payload);
+    },
+    [privatePassUpdateOrderActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.merge(
+        {
+          privatePass: {
+            byId: payload.reduce(
+              (acc, curr) => ({ ...acc, [curr.id]: curr }),
+              state.privatePass.byId,
+            ),
+          },
+        },
+        { deep: true },
+      );
+    },
     [byPrivatePass.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(
         ['privateConsumerPass', 'byPrivatePass', 'loading'],

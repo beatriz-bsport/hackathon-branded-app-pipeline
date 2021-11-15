@@ -50,6 +50,7 @@ import {
   deleteCompatibleServicePass as deleteCompatibleServicePassAPI,
   updateCompatibleServicePass as updateCompatibleServicePassAPI,
   fetchCompatibleServicePassList as fetchCompatibleServicePassListAPI,
+  editOrderPrivatePass as editOrderPrivatePassAPI,
   // private-consumer-pass
   fetchCompatiblePrivateConsumerPass as fetchCompatiblePrivateConsumerPassAPI,
   fetchCompatiblePrivatePass as fetchCompatiblePrivatePassAPI,
@@ -1266,6 +1267,32 @@ export function createOrUpdatePrivatePass(
       if (options && options.onError) options.onError(err);
     }
     dispatch(privatePassCreateOrUpdateActions.isLoading(false));
+  };
+}
+
+export const privatePassUpdateOrderActions = {
+  error: createAction('PRIVATE_PASS/UPDATE_ORDER/ERROR'),
+  isLoading: createAction('PRIVATE_PASS/UPDATE_ORDER/IS_LOADING'),
+  success: createAction('PRIVATE_PASS/UPDATE_ORDER/SUCCESS'),
+};
+
+export function editOrderPrivatePass(
+  data: Array<{ id: number; ordering_in_category: number }>,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(privatePassUpdateOrderActions.isLoading(true));
+    dispatch(privatePassUpdateOrderActions.error(null));
+    try {
+      const response = await editOrderPrivatePassAPI(data);
+      dispatch(privatePassUpdateOrderActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(privatePassUpdateOrderActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(privatePassUpdateOrderActions.isLoading(false));
   };
 }
 

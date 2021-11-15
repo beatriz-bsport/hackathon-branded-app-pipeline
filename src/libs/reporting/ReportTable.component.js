@@ -301,7 +301,6 @@ ReportTable.defaultProps = {
 const styles = (theme) => ({
   responsive: {
     overflowX: 'scroll',
-    maxWidth: 'calc(100vw - 300px)',
   },
   right: {
     textAlign: 'right',

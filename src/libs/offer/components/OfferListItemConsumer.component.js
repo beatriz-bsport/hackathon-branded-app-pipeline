@@ -114,13 +114,15 @@ export const MarketplaceOffer = (props: Props) => {
                 align="left"
                 levelId={offer.level ? offer.level : null}
               />
-              <Typography className={classes.coachName} variant="caption">
-                {`  ${coachName}${
-                  props.showOfferFilling
-                    ? ` (${offer.tot_slots}/${offer.effectif})`
-                    : ''
-                }`}
-              </Typography>
+              {!props.hideCoach && (
+                <Typography className={classes.coachName} variant="caption">
+                  {`  ${coachName}${
+                    props.showOfferFilling
+                      ? ` (${offer.tot_slots}/${offer.effectif})`
+                      : ''
+                  }`}
+                </Typography>
+              )}
             </div>
           </div>
         }

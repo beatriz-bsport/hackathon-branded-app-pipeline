@@ -285,7 +285,7 @@ export const groupByCategory = memoize((selector: PaymentPackArraySelector) =>
         {
           id: null,
           name: '',
-          category_ordering: 0,
+          category_ordering: categoryIdList.length,
           packs: packList.filter((pack) => !pack.category),
         },
       ]);

@@ -37,7 +37,7 @@ export async function edit(data: any) {
 
 export async function editOrder(data: any) {
   return patchAuth(
-    `${API_V1_URI}/payment-pack/payment-pack/${data.id}/set_order/`,
+    `${API_V1_URI}/payment-pack/payment-pack/set_multiple_order/`,
     data,
   );
 }
@@ -153,6 +153,13 @@ export async function updatePaymentPackCategory(
   return putAuth(
     `${API_V1_URI}/payment-pack/payment-pack-category/${paymentPackCategory.id}/`,
     paymentPackCategory,
+  );
+}
+
+export async function editCategoryOrder(data: any) {
+  return patchAuth(
+    `${API_V1_URI}/payment-pack/payment-pack-category/set_order/`,
+    data,
   );
 }
 

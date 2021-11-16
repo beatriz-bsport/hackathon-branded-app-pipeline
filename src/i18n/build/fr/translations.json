@@ -3069,6 +3069,23 @@
       "createdAt": "Ajouté le {{date}}",
       "listItemNbDays": "+{{nbDays}} jours"
     },
+    "selector": {
+      "sorting": {
+        "customSort": "Ordre côté client (marketplace et app)",
+        "ascendingPrice": "Prix croissant",
+        "descendingPrice": "Prix décroissant",
+        "ascendingCredit": "Crédit croissant",
+        "descendingCredit": "Crédit décroissant"
+      },
+      "titleCategory": "Catégories",
+      "titleManagerOnly": "Disponibilité à la vente",
+      "titleSort": "Trier",
+      "filterCategory": "Toutes les catégories",
+      "filterManagerOnly": "Toutes les disponibilités",
+      "managerOnly": "Indisponible à la vente",
+      "noManagerOnly": "Disponible à la vente",
+      "noAvailable": "Aucune carte correspondant aux disponibilités choisies"
+    },
     "category": {
       "category": "Catégories de cartes de cours",
       "add": "Ajouter une categorie",

@@ -115,7 +115,6 @@ export type PaymentPackCategory = {
   name: string;
   company_id: number;
   category_ordering: number;
-  payment_pack_category: Array<number>; // bad naming but this means the id of the payment packs
 };
 
 export type PaymentPackState = Immutable.Immutable<{

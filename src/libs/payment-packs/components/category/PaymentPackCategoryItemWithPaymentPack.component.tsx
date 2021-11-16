@@ -19,11 +19,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import HelpIcon from '@material-ui/icons/Help';
 import { Paper, Tooltip } from '@material-ui/core';
 import {
-  useSortable,
   SortableContext,
+  useSortable,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import DragHandleIcon from '@material-ui/icons/DragHandle';
 import PaymentPackListItem from '../PaymentPackListItem.component';
 import type {
   PaymentPack,
@@ -32,6 +33,7 @@ import type {
 } from '../../types';
 import { MaterialStyleType } from '../../../../utils/types';
 import withConfirm from '../../../../hocs/with-confirm.hoc';
+import { ManagerOnly } from '../PaymentPackFilterAndSortHeader.component';
 
 type OwnProps = {
   onEdit: (pp: PaymentPack) => void;
@@ -42,6 +44,12 @@ type OwnProps = {
   setSelectedCategory?: (category: PaymentPackCategory) => void;
   showCategoryEditDialog?: () => void;
   deletePaymentPackCategory?: (category: PaymentPackCategory) => void;
+  isCategoryDragging: boolean;
+  orderingOverride: any;
+  filterManagerOnly: ManagerOnly;
+  paymentPackOrder: any;
+  isCategoryFiltered: boolean;
+  paymentPackCategoryIds: Array<number>;
 };
 type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
@@ -62,6 +70,10 @@ type PackListProps = MaterialStyleType<ReturnType<typeof styles>> & {
   onClick: (ppId: number) => void;
   onRestore: (ppId: number) => void;
   paymentPackCategory: PaymentPackCategoryWithPacks;
+  orderingOverride?: any;
+  filterManagerOnly: ManagerOnly;
+  empty: string;
+  paymentPackOrder: any;
 };
 
 type PackListItemProps = MaterialStyleType<ReturnType<typeof styles>> & {
@@ -70,6 +82,8 @@ type PackListItemProps = MaterialStyleType<ReturnType<typeof styles>> & {
   onClick: () => void;
   onRestore: () => void;
   pack: PaymentPack;
+  sortedItems: Array<PaymentPack>;
+  draggable: boolean;
 };
 
 const SortablePaymentPackListItem = React.memo((props: PackListItemProps) => {
@@ -97,7 +111,7 @@ const SortablePaymentPackListItem = React.memo((props: PackListItemProps) => {
       <PaymentPackListItem
         attributes={attributes}
         listeners={listeners}
-        draggable
+        draggable={props.draggable}
         pack={pack}
         divider
         onEdit={props.onEdit}
@@ -111,49 +125,139 @@ const SortablePaymentPackListItem = React.memo((props: PackListItemProps) => {
   );
 });
 
-const SortablePaymentPackList = (props: PackListProps) => {
-  const packs = [...props.paymentPackCategory.packs].sort(
-    (p1, p2) =>
-      (props.orderingOverride[p1.id] || props.orderingOverride[p1.id] === 0
-        ? props.orderingOverride[p1.id]
-        : p1.ordering_in_category) -
-      (props.orderingOverride[p2.id] || props.orderingOverride[p2.id] === 0
-        ? props.orderingOverride[p2.id]
-        : p2.ordering_in_category),
-  );
+const SortablePaymentPackList = React.memo((props: PackListProps) => {
+  const packs = props.paymentPackOrder
+    ? [...props.paymentPackCategory.packs].sort(
+        (p1, p2) =>
+          (props.paymentPackOrder[p1.id] || props.paymentPackOrder[p1.id] === 0
+            ? props.paymentPackOrder[p1.id]
+            : p1.ordering_in_category) -
+          (props.paymentPackOrder[p2.id] || props.paymentPackOrder[p2.id] === 0
+            ? props.paymentPackOrder[p2.id]
+            : p2.ordering_in_category),
+      )
+    : [...props.paymentPackCategory.packs].sort(
+        (p1, p2) =>
+          (props.orderingOverride[p1.id] || props.orderingOverride[p1.id] === 0
+            ? props.orderingOverride[p1.id]
+            : p1.ordering_in_category) -
+          (props.orderingOverride[p2.id] || props.orderingOverride[p2.id] === 0
+            ? props.orderingOverride[p2.id]
+            : p2.ordering_in_category),
+      );
 
   const items = packs.map((e) => e.id.toString(10));
 
+  const showManagerOnly =
+    props.filterManagerOnly === ManagerOnly.showManagerOnly &&
+    packs.filter((pp) => pp.manager_only).length;
+
+  const showManagerExclude =
+    props.filterManagerOnly === ManagerOnly.showManagerExclude &&
+    packs.filter((pp) => !pp.manager_only).length;
+
   return (
     <SortableContext items={items} strategy={verticalListSortingStrategy}>
-      {packs.map((pack: PaymentPack) => {
-        const onEdit = () => props.onEdit(pack);
-        const onDelete = () => props.onDelete(pack);
-        const onClick = !pack.disabled ? () => props.onClick(pack.id) : null;
-        const onRestore = () => props.onRestore(pack.id);
-        return (
-          <SortablePaymentPackListItem
-            key={pack.id}
-            pack={pack}
-            onEdit={onEdit}
-            onClick={onClick}
-            onDelete={onDelete}
-            onRestore={onRestore}
-            classes={props.classes}
-            sortedItems={packs}
-          />
-        );
-      })}
+      {props.filterManagerOnly === ManagerOnly.showAll ||
+      showManagerOnly ||
+      showManagerExclude ? (
+        packs.map((pack: PaymentPack) => {
+          return props.filterManagerOnly === ManagerOnly.showAll ||
+            (props.filterManagerOnly === ManagerOnly.showManagerOnly &&
+              pack.manager_only) ||
+            (props.filterManagerOnly === ManagerOnly.showManagerExclude &&
+              !pack.manager_only) ? (
+            <SortablePaymentPackListItem
+              draggable={
+                !props.paymentPackOrder &&
+                props.filterManagerOnly === ManagerOnly.showAll
+              }
+              key={pack.id}
+              pack={pack}
+              onEdit={props.onEdit ? () => props.onEdit(pack) : null}
+              onClick={
+                !pack.disabled && props.onClick
+                  ? () => props.onClick(pack.id)
+                  : null
+              }
+              onDelete={props.onDelete ? () => props.onDelete(pack) : null}
+              onRestore={
+                props.onRestore ? () => props.onRestore(pack.id) : null
+              }
+              classes={props.classes}
+              sortedItems={packs}
+            />
+          ) : null;
+        })
+      ) : (
+        <Typography color="textSecondary">{props.empty}</Typography>
+      )}
     </SortableContext>
   );
+});
+
+type SimplifiedCategoryProps = {
+  paymentPackCategory: PaymentPackCategoryWithPacks;
 };
+
+type SimplifiedProps = SimplifiedCategoryProps &
+  MaterialStyleType<ReturnType<typeof styles>> &
+  WithTranslation;
+
+export const PresentationalComponentPaymentPackCategory = React.memo(
+  (props: SimplifiedProps) => {
+    const { t, classes, paymentPackCategory } = props;
+
+    return (
+      <div>
+        <div className={classes.flex}>
+          <IconButton>
+            <DragHandleIcon />
+          </IconButton>
+          <Typography variant="h5" component="h2">
+            {paymentPackCategory
+              ? `${paymentPackCategory.name || t('noCategory.name')} (${
+                  paymentPackCategory.packs?.length || 0
+                })`
+              : ''}
+          </Typography>
+        </div>
+        <div className={classes.titleActions}>
+          {paymentPackCategory.id !== -1 ? (
+            <IconButton aria-haspopup="true">
+              <MoreVertIcon />
+            </IconButton>
+          ) : (
+            <Tooltip title={t('noCategory.help')}>
+              <IconButton>
+                <HelpIcon />
+              </IconButton>
+            </Tooltip>
+          )}
+          <ExpandMoreIcon />
+        </div>
+      </div>
+    );
+  },
+);
 
 export const PaymentPackCategoryItemWithPaymentPack = React.memo(
   (props: Props) => {
     const { t, classes, paymentPackCategory } = props;
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
 
     const [expandCollapse, setExpandCollapse] = useState(true);
+
+    const {
+      setNodeRef,
+      attributes,
+      listeners,
+      transition,
+      transform,
+    } = useSortable({
+      id: paymentPackCategory.id?.toString(10) || 'null',
+      data: { categoryIds: props.paymentPackCategoryIds },
+    });
 
     const handlePopover = (event: any, ppCategory: PaymentPackCategory) => {
       event.stopPropagation();
@@ -170,8 +274,12 @@ export const PaymentPackCategoryItemWithPaymentPack = React.memo(
         props.setSelectedCategory(null);
       }
     };
+
     return (
-      <>
+      <div
+        ref={setNodeRef}
+        style={{ transform: CSS.Transform.toString(transform), transition }}
+      >
         <Popover
           id="category-popover"
           open={!!anchorEl}
@@ -214,13 +322,20 @@ export const PaymentPackCategoryItemWithPaymentPack = React.memo(
         </Popover>
 
         <div className={classes.header}>
-          <Typography variant="h5" component="h2">
-            {paymentPackCategory
-              ? `${paymentPackCategory.name || t('noCategory.name')} (${
-                  paymentPackCategory.packs?.length || 0
-                })`
-              : ''}
-          </Typography>
+          <div className={classes.flex}>
+            {paymentPackCategory.id && !props.isCategoryFiltered && (
+              <IconButton {...listeners} {...attributes}>
+                <DragHandleIcon />
+              </IconButton>
+            )}
+            <Typography variant="h5" component="h2">
+              {paymentPackCategory
+                ? `${paymentPackCategory.name || t('noCategory.name')} (${
+                    paymentPackCategory.packs?.length || 0
+                  })`
+                : ''}
+            </Typography>
+          </div>
           <div className={classes.titleActions}>
             {paymentPackCategory.id ? (
               <IconButton
@@ -243,17 +358,22 @@ export const PaymentPackCategoryItemWithPaymentPack = React.memo(
           </div>
         </div>
         <Divider className={classes.divider} />
-        <Collapse className={classes.collapse} in={expandCollapse}>
-          {!!(paymentPackCategory && paymentPackCategory.packs) &&
-            (paymentPackCategory.packs.length ? (
-              <SortablePaymentPackList {...props} />
-            ) : (
-              <Typography color="textSecondary">
-                {t('noCategory.empty')}
-              </Typography>
-            ))}
-        </Collapse>
-      </>
+        {!props.isCategoryDragging && (
+          <Collapse className={classes.collapse} in={expandCollapse}>
+            {!!(paymentPackCategory && paymentPackCategory.packs) &&
+              (paymentPackCategory.packs.length ? (
+                <SortablePaymentPackList
+                  {...props}
+                  empty={t('selector.noAvailable')}
+                />
+              ) : (
+                <Typography color="textSecondary">
+                  {t('noCategory.empty')}
+                </Typography>
+              ))}
+          </Collapse>
+        )}
+      </div>
     );
   },
 );
@@ -288,10 +408,23 @@ const styles = (theme: Theme) => ({
     marginLeft: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
+  flex: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   paper: {
     width: '100%',
   },
 });
+
+export const PresentationalComponentPackCategory = compose<
+  any,
+  SimplifiedCategoryProps
+>(
+  withTranslation('paymentPack'),
+  withStyles(styles),
+)(PresentationalComponentPaymentPackCategory);
+
 export default compose<any, OwnProps>(
   withTranslation('paymentPack'),
   withStyles(styles),

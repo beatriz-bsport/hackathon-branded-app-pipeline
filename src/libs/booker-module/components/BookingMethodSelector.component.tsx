@@ -312,6 +312,17 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
           </div>
         )}
 
+        {this.props.paymentPackCategories.length
+          ? this.props.paymentPackCategories.map((cat) => (
+              <PaymentPackCategoryBookableItem
+                paymentPackCategory={cat}
+                selectedPack={this.props.selectedPack}
+                onPackChange={this.props.onPackChange}
+                opened={this.state.openedCategory === cat.id}
+                openPacks={(id) => this.openPacks(id, true)}
+              />
+            ))
+          : null}
         {unCategorizedPacks.length ? (
           <>
             <div className={classes.marginTop} />
@@ -356,17 +367,6 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
             </CollapsibleSection>
           </>
         ) : null}
-        {this.props.paymentPackCategories.length
-          ? this.props.paymentPackCategories.map((cat) => (
-              <PaymentPackCategoryBookableItem
-                paymentPackCategory={cat}
-                selectedPack={this.props.selectedPack}
-                onPackChange={this.props.onPackChange}
-                opened={this.state.openedCategory === cat.id}
-                openPacks={(id) => this.openPacks(id, true)}
-              />
-            ))
-          : null}
 
         {!!availableComboPacks.length && (
           <>

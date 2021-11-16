@@ -162,7 +162,7 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
         ) : null}
         {!this.props.onDelete && this.props.onEdit ? (
           <ListItemSecondaryAction>
-            <IconButton onClick={this.props.onEdit}>
+            <IconButton color="primary" onClick={this.props.onEdit}>
               <EditIcon />
             </IconButton>
           </ListItemSecondaryAction>
@@ -220,7 +220,7 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
   }
 }
 
-export default compose<any, Props>(
+export default compose<any, OwnProps>(
   // @ts-ignore
   withStyles(styles),
   withTranslation(['paymentPack']),

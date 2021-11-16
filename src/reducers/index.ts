@@ -60,6 +60,7 @@ import waitingListReducers from '../libs/waiting-list/reducers';
 import webhook from '../libs/webhook/reducers';
 import zoomAppReducers from '../libs/zoom-app/reducers';
 import giftcard from '../libs/giftcard/reducers';
+import userPreference from '../libs/user-preference/reducers';
 
 import pollReducers from '../libs/sign-up-form/reducers';
 import CustomFormReducer from '../libs/custom-form/reducers';
@@ -103,6 +104,7 @@ import { QuickbooksState } from '../libs/quickbooks/types';
 import { BackgroundDialogState } from '../libs/background-dialog/types';
 import { SnackbarState } from '../libs/snackbar/types';
 import { GiftcardState } from '../libs/giftcard/types';
+import { UserPreference } from '../libs/user-preference/types';
 import actionTypes from '../actions/auth.types';
 
 const rootReducer = (history: any) =>
@@ -170,6 +172,7 @@ const rootReducer = (history: any) =>
     plugin,
     quickbooks: QuickbooksAppReducer,
     giftcard,
+    userPreference,
   });
 
 export type RootState = {
@@ -236,6 +239,7 @@ export type RootState = {
   zoomApp: any;
   quickbooks: QuickbooksState;
   backgroundDialog: BackgroundDialogState;
+  userPreference: UserPreference;
 };
 
 export default (history: any) => (state: any, action: any) => {

@@ -29,6 +29,7 @@ import {
   deletePaymentPackTemplate as deletePaymentPackTemplateAPI,
   createPaymentPackTemplateInstance as createPaymentPackTemplateInstanceAPI,
   deletePaymentPackTemplateInstance as deletePaymentPackTemplateInstanceAPI,
+  editCategoryOrder,
 } from './api';
 
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
@@ -169,23 +170,29 @@ export function fetchOne(id: number, options: OptionCallback) {
   };
 }
 
+export const updatePaymentPackOrderActions = {
+  isLoading: createAction('PAYMENT_PACK/PATCH_ORDER/IS_LOADING'),
+  error: createAction('PAYMENT_PACK/PATCH_ORDER/ERROR'),
+  success: createAction('PAYMENT_PACK/PATCH_ORDER/SUCCESS'),
+};
+
 export function updateOrder(
-  data: { id: number; ordering_in_category: number },
+  data: Array<{ id: number; ordering_in_category: number }>,
   options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
-    dispatch(updatePaymentPackActions.isLoading(data.id));
+    dispatch(updatePaymentPackOrderActions.isLoading(data));
     try {
       const response = await editOrder(data);
-      dispatch(updatePaymentPackActions.success(response.data));
+      dispatch(updatePaymentPackOrderActions.success(response.data));
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
-      dispatch(updatePaymentPackActions.error(err));
+      dispatch(updatePaymentPackOrderActions.error(err));
       dispatch(snackbarError('paymentPack.createOrUpdate.fail'));
       if (options && options.onError) options.onError();
     }
-    dispatch(updatePaymentPackActions.isLoading(data.id));
+    dispatch(updatePaymentPackOrderActions.isLoading(data));
   };
 }
 
@@ -540,30 +547,39 @@ export function fetchAllPaymentPackCategory(companyId?: number) {
     dispatch(listAllPaymentPackCategoryActions.isLoading(false));
   };
 }
+
+export const updatePaymentPackCategoryOrderActions = {
+  isLoading: createAction('PAYMENT_PACK_CATEGORY/UPDATE_ORDER/IS_LOADING'),
+  error: createAction('PAYMENT_PACK_CATEGORY/UPDATE_ORDER/ERROR'),
+  success: createAction('PAYMENT_PACK_CATEGORY/UPDATE_ORDER/SUCCESS'),
+};
+
+export function updatePaymentPackCategoryOrder(
+  data: Array<{ id: number; category_ordering: number }>,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(updatePaymentPackCategoryOrderActions.isLoading(true));
+    try {
+      const response = await editCategoryOrder(data);
+      dispatch(updatePaymentPackCategoryOrderActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(snackbarError(`paymentPack.category.update.error`));
+      dispatch(
+        updatePaymentPackCategoryOrderActions.error(error.response.data),
+      );
+      if (options && options.onError) options.onError();
+    }
+    dispatch(updatePaymentPackCategoryOrderActions.isLoading(false));
+  };
+}
+
 export const upsertPaymenPackCategoryActions = {
   isLoading: createAction('PAYMENT_PACK_CATEGORY/UPSERT/IS_LOADING'),
   error: createAction('PAYMENT_PACK_CATEGORY/UPSERT/ERROR'),
   success: createAction('PAYMENT_PACK_CATEGORY/UPSERT/SUCCESS'),
 };
-
-export function updatePaymentPackCategoryOrder(
-  category: PaymentPackCategory,
-  options?: OptionCallback,
-) {
-  return async (dispatch: Dispatch) => {
-    dispatch(upsertPaymenPackCategoryActions.isLoading(true));
-    try {
-      const response = await updatePaymentPackCategoryAPI(category);
-      dispatch(upsertPaymenPackCategoryActions.success(response.data));
-      if (options && options.onSuccess) options.onSuccess(response.data);
-    } catch (error) {
-      dispatch(snackbarError(`paymentPack.category.update.error`));
-      dispatch(upsertPaymenPackCategoryActions.error(error.response.data));
-      if (options && options.onError) options.onError();
-    }
-    dispatch(upsertPaymenPackCategoryActions.isLoading(false));
-  };
-}
 
 export function upsertPaymenPackCategory(
   category: PaymentPackCategory,

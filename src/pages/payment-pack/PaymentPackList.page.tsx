@@ -16,6 +16,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import { push as pushRouter } from 'connected-react-router';
 import IconButton from '@material-ui/core/IconButton';
+import memoize from 'memoize-one';
 import { RootState } from '../../reducers/index';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import PaginatedConsumerPackList from '../../libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
@@ -37,6 +38,7 @@ import {
   upsertPaymenPackCategory,
   deletePaymentPackCategory,
   fetchPaymentPackBulk,
+  updatePaymentPackCategoryOrder,
   updateOrder as updatePaymentPack,
 } from '../../libs/payment-packs/actions';
 import {
@@ -54,6 +56,15 @@ import { fetchMarketingNotificationList } from '../../libs/marketing/actions';
 import { withPaymentPackNotification } from '../../libs/marketing/selectors';
 import PaymentPackCategoryCreationDialog from '../../libs/payment-packs/components/category/PaymentPackCategoryCreationDialog.component';
 import PaymentPackCategoryList from '../../libs/payment-packs/components/category/PaymentPackCategoryList.component';
+import {
+  setPaymentPackCategoryFilter,
+  setPaymentPackManagerOnlyFilter,
+  setPaymentPackSort,
+} from '../../libs/user-preference/actions';
+import PaymentPackFilterAndSortHeader, {
+  ManagerOnly,
+  SortOption,
+} from '../../libs/payment-packs/components/PaymentPackFilterAndSortHeader.component';
 
 type StateHandlerInit = {
   showCategoryDialog: boolean;
@@ -75,6 +86,13 @@ type State = {
   showDisabled: boolean;
   searchText: string;
   searchResult: Array<PaymentPack>;
+  selectedCategories: Array<number>;
+  selectedDisponibility: ManagerOnly;
+  selectedSortOption: SortOption;
+  paymentPackOrderByCategory: Array<{
+    id: number;
+    ordering_in_category: number;
+  }> | null;
 };
 
 const CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME = 3;
@@ -88,7 +106,27 @@ export class ComponentName extends React.Component<Props, State> {
       showDisabled: false,
       searchText: '',
       searchResult: [],
+      selectedCategories: this.props.userPreferenceSelectedCategories,
+      selectedDisponibility: this.props.userPreferenceSelectedDisponibility,
+      selectedSortOption: this.props.userPreferenceSortOption,
+      paymentPackOrderByCategory: null,
     };
+  }
+
+  componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>) {
+    if (prevState.selectedSortOption !== this.state.selectedSortOption)
+      this.updateSortOption(this.state.selectedSortOption);
+    if (prevState.selectedCategories !== this.state.selectedCategories)
+      this.props.setPaymentPackCategoryFilter(this.state.selectedCategories);
+    if (prevState.selectedDisponibility !== this.state.selectedDisponibility)
+      this.props.setPaymentPackManagerOnlyFilter(
+        this.state.selectedDisponibility,
+      );
+    if (
+      prevProps.paymentPackByCategory.length !==
+      this.props.paymentPackByCategory.length
+    )
+      this.categoryOptions.apply({}, []);
   }
 
   componentDidMount() {
@@ -101,6 +139,75 @@ export class ComponentName extends React.Component<Props, State> {
         CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME,
       ],
     });
+    if (this.state.selectedSortOption !== SortOption.customSort)
+      this.updateSortOption(this.state.selectedSortOption);
+  }
+
+  updateOrderBySortOption(
+    sortFunction: (pp1: PaymentPack, pp2: PaymentPack) => number,
+  ) {
+    const toUpdate = [];
+    this.props.paymentPackByCategory.forEach(
+      (category: PaymentPackCategoryWithPacks) => {
+        const sorted = [...category.packs].sort((pp1, pp2) =>
+          sortFunction(pp1, pp2),
+        );
+        toUpdate.push(
+          ...sorted
+            .map((pp, index) => {
+              return pp.ordering_in_category !== index
+                ? {
+                    id: pp.id,
+                    ordering_in_category: index,
+                  }
+                : null;
+            })
+            .filter((data) => data),
+        );
+      },
+    );
+    toUpdate.push(
+      ...[...this.props.disabledPacks]
+        .sort((pp1, pp2) => sortFunction(pp1, pp2))
+        .map((pp, index) => {
+          return pp.ordering_in_category !== index
+            ? {
+                id: pp.id,
+                ordering_in_category: index,
+              }
+            : null;
+        })
+        .filter((data) => data),
+    );
+    this.setState({ paymentPackOrderByCategory: toUpdate });
+  }
+
+  updateSortOption(option: SortOption) {
+    this.props.setPaymentPackSort(option);
+    switch (option) {
+      case SortOption.ascendingPrice:
+        return this.updateOrderBySortOption(
+          (pp1, pp2) => pp1.price - pp2.price,
+        );
+      case SortOption.descendingPrice:
+        return this.updateOrderBySortOption(
+          (pp1, pp2) => pp2.price - pp1.price,
+        );
+      case SortOption.ascendingCredit:
+        return this.updateOrderBySortOption((pp1, pp2) => {
+          if (pp1.credits !== 0 && !pp1.credits) return 1;
+          if (pp2.credits !== 0 && !pp2.credits) return -1;
+          return pp1.credits - pp2.credits;
+        });
+      case SortOption.descendingCredit:
+        return this.updateOrderBySortOption((pp1, pp2) => {
+          if (pp2.credits !== 0 && !pp2.credits) return 1;
+          if (pp1.credits !== 0 && !pp1.credits) return -1;
+          return pp2.credits - pp1.credits;
+        });
+      default:
+        return this.setState({ paymentPackOrderByCategory: null });
+    }
   }
 
   requestEdit = (pp: PaymentPack) => {
@@ -143,7 +250,7 @@ export class ComponentName extends React.Component<Props, State> {
     this.setState({ searchText: '', searchResult: [] });
   };
 
-  renderPackList = (packs: Array<PaymentPack>, disabled: boolean) => (
+  renderPackList = (packs: Array<PaymentPack>) => (
     <Paper>
       <List disablePadding>
         {packs.map((pack) => (
@@ -155,7 +262,7 @@ export class ComponentName extends React.Component<Props, State> {
             onClick={!pack.disabled ? () => this.props.goToPack(pack.id) : null}
             onRestore={() => this.restorePaymentPack(pack.id)}
             key={pack.id}
-            disabled={disabled}
+            disabled
           />
         ))}
       </List>
@@ -164,6 +271,32 @@ export class ComponentName extends React.Component<Props, State> {
 
   onShowDisabled = () => {
     this.setState((prevState) => ({ showDisabled: !prevState.showDisabled }));
+  };
+
+  categoryOptions = memoize(() => [
+    ...this.props.paymentPackByCategory.map((cat) => {
+      return {
+        value: cat.id || -1,
+        label: cat.name || this.props.t('noCategory.name'),
+      };
+    }),
+  ]);
+
+  categoryFilterOnchange = (categories) => {
+    this.setState({
+      selectedCategories: categories,
+    });
+  };
+
+  managerOnlyOnChange = (value) =>
+    this.setState({
+      selectedDisponibility: value,
+    });
+
+  sortOnChange = (sortOpt) => {
+    this.setState({
+      selectedSortOption: sortOpt,
+    });
   };
 
   render() {
@@ -244,23 +377,36 @@ export class ComponentName extends React.Component<Props, State> {
                   </Paper>
                 </Collapse>
               </Paper>
-              <div className={classes.buttonRow}>
-                <Button
-                  variant="outlined"
-                  onClick={() => {
-                    this.props.setSelectedCategory(null);
-                    this.props.setShowCategoryDialog(true);
-                  }}
-                  color="primary"
-                >
-                  <AddIcon color="primary" />
-                  {t('category.add')}
-                </Button>
-              </div>
             </>
           ) : null}
 
+          <div className={classes.buttonRow}>
+            <Button
+              variant="outlined"
+              onClick={() => {
+                this.props.setSelectedCategory(null);
+                this.props.setShowCategoryDialog(true);
+              }}
+              color="primary"
+            >
+              <AddIcon color="primary" />
+              {t('category.add')}
+            </Button>
+          </div>
+          <PaymentPackFilterAndSortHeader
+            categoryOptions={this.categoryOptions()}
+            categoryFilterOnchange={this.categoryFilterOnchange}
+            categoryValue={this.state.selectedCategories}
+            managerOnlyOnChange={this.managerOnlyOnChange}
+            managerOnlyValue={this.state.selectedDisponibility}
+            sortOnChange={this.sortOnChange}
+            sortValue={this.state.selectedSortOption}
+          />
+
           <PaymentPackCategoryList
+            paymentPackOrder={this.state.paymentPackOrderByCategory}
+            filterManagerOnly={this.state.selectedDisponibility}
+            filteredCategories={this.state.selectedCategories}
             paymentPackByCategory={this.props.paymentPackByCategory}
             onEdit={this.requestEdit}
             onDelete={this.requestDelete}
@@ -272,8 +418,8 @@ export class ComponentName extends React.Component<Props, State> {
               this.props.setShowCategoryDialog(true)
             }
             deletePaymentPackCategory={this.props.deletePaymentPackCategory}
+            updateCategory={this.props.updateCategoryOrder}
           />
-
           {(this.props.disabledPacks || []).length ? (
             <div className={classes.container}>
               <div className={this.props.classes.buttonTitle}>
@@ -294,13 +440,7 @@ export class ComponentName extends React.Component<Props, State> {
               <Divider className={classes.divider} />
               <Collapse in={this.state.showDisabled}>
                 {this.state.showDisabled &&
-                  this.renderPackList(
-                    [...this.props.disabledPacks].sort(
-                      (prev, curr) =>
-                        prev.ordering_in_category - curr.ordering_in_category,
-                    ),
-                    true,
-                  )}
+                  this.renderPackList(this.props.disabledPacks)}
               </Collapse>
             </div>
           ) : null}
@@ -404,6 +544,11 @@ const mapStateToProps = (state: RootState) => ({
     page: state.consumerPaymentPack.byPaymentPack.page,
     updating: state.consumerPaymentPack.updatingConsumerPacks,
   },
+  userPreferenceSortOption: state.userPreference.paymentPackSort,
+  userPreferenceSelectedCategories:
+    state.userPreference.paymentPackCategoryFilter,
+  userPreferenceSelectedDisponibility:
+    state.userPreference.paymentPackManagerOnlyFilter,
 });
 const mapDispatchToProps = {
   fetchAllPaymentPacks,
@@ -418,6 +563,10 @@ const mapDispatchToProps = {
   deletePaymentPackCategoryAction: deletePaymentPackCategory,
   fetchPaymentPackBulk,
   updatePackOrder: updatePaymentPack,
+  updateCategoryOrder: updatePaymentPackCategoryOrder,
+  setPaymentPackSort,
+  setPaymentPackCategoryFilter,
+  setPaymentPackManagerOnlyFilter,
 };
 const mapWithHandlers = {
   incrementCredit: (props: OwnAndConnectedProps) => (
@@ -480,6 +629,8 @@ const mapWithHandlers = {
         props.fetchPaymentPackBulk(
           category.packs.filter((p) => p?.id).map((p) => p.id),
         );
+        props.setSelectedCategory(null);
+        props.setUpsertCategoryLoading(false);
       },
     });
   },

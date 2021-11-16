@@ -25,6 +25,8 @@ import {
   createOrUpdatePaymentPackTemplateActions,
   deletePaymentPackTemplateActions,
   retrievePaymentPackTemplateActions,
+  updatePaymentPackOrderActions,
+  updatePaymentPackCategoryOrderActions,
 } from './actions';
 
 const initialState: PaymentPackState = Immutable({
@@ -163,6 +165,9 @@ export const newPaymentPackReducer = handleActions(
     ) => {
       return state.setIn(['forBooking', 'loading'], payload);
     },
+    [updatePaymentPackActions.success.toString()]: (state, { payload }) => {
+      return state.setIn(['byId', payload.id], payload);
+    },
     [updatePaymentPackActions.isLoading.toString()]: (state, { payload }) => {
       return state.set('updatingPaymentPacks', [
         ...state.updatingPaymentPacks,
@@ -180,6 +185,24 @@ export const newPaymentPackReducer = handleActions(
     },
     [updatePaymentPackActions.success.toString()]: (state, { payload }) => {
       return state.setIn(['byId', payload.id], payload);
+    },
+    [updatePaymentPackOrderActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['byId', payload.id], payload);
+    },
+    [updatePaymentPackOrderActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.set('updatingPaymentPacks', [
+        ...state.updatingPaymentPacks,
+        payload,
+      ]);
+    },
+    [updatePaymentPackOrderActions.error.toString()]: (state, { payload }) => {
+      return state.set('error', payload);
     },
     [scalePaymentPackCreditActions.isLoading.toString()]: (
       state,
@@ -513,6 +536,34 @@ export const newPaymentPackReducer = handleActions(
           },
           { deep: true },
         );
+    },
+    [updatePaymentPackCategoryOrderActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['paymentPackCategory', 'upsert', 'loading'], payload);
+    },
+    [updatePaymentPackCategoryOrderActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['paymentPackCategory', 'error', 'loading'], payload);
+    },
+    [updatePaymentPackCategoryOrderActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.merge(
+        {
+          paymentPackCategory: {
+            byId: payload.reduce(
+              (acc, v) => ({ ...acc, [v.id]: v }),
+              state.paymentPackCategory.byId,
+            ),
+          },
+        },
+        { deep: true },
+      );
     },
     [upsertPaymenPackCategoryActions.isLoading.toString()]: (
       state,

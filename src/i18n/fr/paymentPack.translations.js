@@ -209,7 +209,7 @@ exports.default = {
       theoricalMarginValue: {
         label: 'Apport marginal théorique TTC (carte illimité seulement)',
         helperText:
-          "Utilisée pour calculer la rémunération des professeurs, 10€ signifie qu'une réservation faite avec cette carte est rémunérée 10€. Si vide ou 0€ l'apport d'une carte sera PRIX/NB_RESERVATION",
+          "Utilisée pour calculer la rémunération des professeurs, 10{{currency}} signifie qu'une réservation faite avec cette carte est rémunérée 10{{currency}}. Si vide ou 0{{currency}} l'apport d'une carte sera PRIX/NB_RESERVATION",
       },
       credits: {
         label: 'Crédit',
@@ -322,7 +322,7 @@ exports.default = {
         },
         account: {
           label: "Montant de l'acompte :",
-          helperText: 'Un accompte de {{value}}€ sera appliqué pour ce membre',
+          helperText: 'Un accompte de {{value}} sera appliqué pour ce membre',
         },
       },
       category: {
@@ -367,7 +367,7 @@ exports.default = {
     block:
       "S'il y a {{nb_cancellations}} annulations hors délai sur une période de {{nb_days}} jours, la carte sera bloquée pendant {{days_blocked}} jours.",
     account:
-      "S'il y a {{nb_cancellations}} annulations hors délai sur une période de {{nb_days}} jours, un acompte de {{account_value}}€ sera appliqué.",
+      "S'il y a {{nb_cancellations}} annulations hors délai sur une période de {{nb_days}} jours, un acompte de {{account_value}} sera appliqué.",
   },
   newMemberOnly: 'Disponible uniquement pour les nouveaux inscrits',
   only_vod_access: 'Disponible uniquement pour la VOD',

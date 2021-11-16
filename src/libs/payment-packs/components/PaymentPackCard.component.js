@@ -425,7 +425,9 @@ export class PaymentPackCard extends Component<Props> {
               {t('penalty.account', {
                 nb_cancellations: penalty_nb_late_cancellations,
                 nb_days: penalty_nb_days,
-                account_value: penalty_account_value,
+                account_value: getCurrencyDisplayWithPrice(
+                  penalty_account_value,
+                ),
               })}
             </Typography>
           )}

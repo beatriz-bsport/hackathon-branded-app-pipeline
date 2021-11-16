@@ -50,6 +50,10 @@ import {
 } from '../../../components/forms';
 import PaymentPackCategorySelector from './category/PaymentPackCategorySelector.component';
 import TagSelector from '../../tag/components/TagSelector.selector';
+import {
+  getCurrencyDisplayWithPrice,
+  getCurrencyDisplay,
+} from '../../theme/selectors';
 
 type Props = {
   categories: *[],
@@ -208,7 +212,12 @@ export function PaymentPackForm(props: Props) {
               type="number"
               fullWidth
               disabled={!unlimited}
-              helperText={t('form.paymentPack.theoricalMarginValue.helperText')}
+              helperText={t(
+                'form.paymentPack.theoricalMarginValue.helperText',
+                {
+                  currency: getCurrencyDisplay(),
+                },
+              )}
             />
           </Grid>
         </Grid>
@@ -285,7 +294,9 @@ export function PaymentPackForm(props: Props) {
                     helperText={t(
                       'form.paymentPack.penalty.account.helperText',
                       {
-                        value: penalty_account_value,
+                        value: getCurrencyDisplayWithPrice(
+                          penalty_account_value,
+                        ),
                       },
                     )}
                     fullWidth

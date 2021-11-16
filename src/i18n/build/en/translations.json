@@ -4803,7 +4803,7 @@
             "name": "Name",
             "fee": "Delivery fee",
             "free_threshold": "Minimum spending for free delivery",
-            "offeredAboveAmount": "Offered above {{ free_threshold, price }} order",
+            "offeredAboveAmount": "Free delivery from {{ free_threshold, price }}",
             "modal": {
                 "delete": {
                     "title": "Delete delivery fee",
@@ -4817,7 +4817,7 @@
                 "title": "Delivery fee form",
                 "feeLabel": "Delivery fee",
                 "nameLabel": "Name",
-                "freeThresholdLabel": "Free if above",
+                "freeThresholdLabel": "Free delivery from",
                 "freeThresholdHelper": "When order price is above this amount delivery is free",
                 "onCancel": "Cancel",
                 "onSubmit": "Save"
@@ -7414,7 +7414,7 @@
         "create": "Add a template",
         "modification_date": "Last modified on",
         "selectToShowPreview": "Select an email to see a preview of it.",
-        "templateListEmpty": "In our Drag-&-Drop Email Editor, you can design beautiful and personalized email templates to automatically send them to your members, from your BSPORT account.",
+        "templateListEmpty": "In this tab, you can design beautiful and personalized email templates with our Drag-&-Drop Email Editor. You can send these directly to members and connect these to automatic notifications to streamline your member engagement.",
         "subject": "Subject:",
         "preview": "Preview",
         "no_subject": "No subject",
@@ -7554,7 +7554,7 @@
                     "memberOfCompany": "Tell us more about yourself.",
                     "notMemberYet": "Looks like this is your first time logging into this studio"
                 },
-                "welcome": "Hello {{firstname}}"
+                "welcome": "Hello!"
             },
             "title": "[Form] Enrolment"
         },
@@ -8650,7 +8650,7 @@
                 "name": "Payment method"
             }
         },
-        "noSmartLists": "Use Smartlists to filter, analyze, and get to know your members better.",
+        "noSmartLists": "Smartlists are specific segments of your member data base. Add filters to directly send messages (emails, push notifications, SMSes) to these target audiences and gather detailed information about the opening rates, click rates, etc. for increasing customer retention and client value.",
         "delete": "Delete",
         "edit": "Configure",
         "tag_rules": {
@@ -9788,7 +9788,7 @@
             "form": {
                 "validate": "Send",
                 "lastName": "Last Name",
-                "firstName": "First Name",
+                "firstName": "First name",
                 "email": "Email address",
                 "title": "Sign up for our newsletter down below to receive relevant updates."
             }

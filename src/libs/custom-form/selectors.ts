@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
+import { CUSTOM_FORM_FIELD_SIGN_UP_VACCINATION_STATUS } from '@bsport/common/lib/master-data/custom-form';
 import { RootState } from '../../reducers';
 import type {
   CustomForm,
@@ -313,4 +314,36 @@ export const getMemberCustomFormWithEnabledField = createSelector(
       ),
     };
   },
+);
+
+export const memberCovidStatusInMemberForm = createSelector(
+  [getMemberCustomForm],
+  (customMemberForm) => {
+    if (!customMemberForm) return false;
+    const covid_question = customMemberForm.custom_form_field.filter(
+      (field) =>
+        !field.disabled &&
+        field.signup_question_kind ===
+          CUSTOM_FORM_FIELD_SIGN_UP_VACCINATION_STATUS,
+    );
+    return covid_question && covid_question.length !== 0;
+  },
+);
+export const memberCovidStatusInSignUpForm = createSelector(
+  [getSignUpCustomForm],
+  (signUpCustomForm) => {
+    if (!signUpCustomForm) return false;
+    const covid_question = signUpCustomForm.custom_form_field.filter(
+      (field) =>
+        !field.disabled &&
+        field.signup_question_kind ===
+          CUSTOM_FORM_FIELD_SIGN_UP_VACCINATION_STATUS,
+    );
+    return covid_question && covid_question.length !== 0;
+  },
+);
+
+export const showVaccinationStatus = createSelector(
+  [memberCovidStatusInMemberForm, memberCovidStatusInSignUpForm],
+  (isInMemberForm, isInSignUpForm) => isInMemberForm && isInSignUpForm,
 );

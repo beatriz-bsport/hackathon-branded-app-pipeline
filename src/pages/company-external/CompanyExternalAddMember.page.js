@@ -70,9 +70,7 @@ export const CompanyExternalAddMember = (props: Props) => {
             onSubmit={submitCustomForm}
             layouts={props.signUpCustomForm.layout}
             waiver={props.theme.waiver}
-            general_terms_and_conditions={
-              props.theme.general_terms_and_conditions
-            }
+            general_terms_and_conditions={props.theme.general_terms_of_use}
             onCancel={() => props.goBack()}
           />
         </Paper>

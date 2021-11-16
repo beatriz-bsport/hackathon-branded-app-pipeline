@@ -239,7 +239,7 @@ export class CustomFormDetail extends React.Component<Props, State> {
                     asManager
                     waiver={this.props.theme?.waiver}
                     general_terms_and_conditions={
-                      this.props.theme?.general_terms_and_conditions
+                      this.props.theme?.general_terms_of_use
                     }
                   />
                 )}

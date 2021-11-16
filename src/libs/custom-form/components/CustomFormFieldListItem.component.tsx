@@ -50,6 +50,7 @@ type OwnProps = {
   customFormFieldType: string;
   isSignUpForm?: boolean;
   isMemberForm?: boolean;
+  isLayoutActive?: boolean;
 };
 type Props = OwnProps &
   WithTranslation &
@@ -121,7 +122,7 @@ export const CustomFormFieldListItem = (props: Props) => {
         }
       >
         <ListItemIcon className={classes.type}>
-          <DragHandle />
+          {!props.isLayoutActive && <DragHandle />}
           <div className={classes.marginLeft}>
             <FieldIcon field_id={props.customFormField.kind} fontSize="small" />
           </div>
@@ -134,7 +135,13 @@ export const CustomFormFieldListItem = (props: Props) => {
           variant="outlined"
           label={
             props.customFormField?.signup_question_kind
-              ? signupQuestionLabel
+              ? t(
+                  `customForm.field.${
+                    CUSTOM_FORM_SIGNUP_FIELD_DEFAULT_LABEL_DICT[
+                      props.customFormField?.signup_question_kind
+                    ]
+                  }`,
+                )
               : t('customForm.label')
           }
           required={!props.customFormField.signup_question_kind}

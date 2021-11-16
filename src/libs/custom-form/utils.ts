@@ -178,7 +178,7 @@ export const layoutBuilder = (custom_form_field: Array<CustomFormField>) =>
           ) => {
             acc.layout.push({
               x: 0,
-              y: 12,
+              y: acc.y || 0,
               h:
                 field.signup_question_kind === CUSTOM_FORM_FIELD_SIGN_UP_PHOTO
                   ? 2
@@ -201,7 +201,6 @@ export const layoutBuilder = (custom_form_field: Array<CustomFormField>) =>
 
 export const layoutsBuilder = (custom_form_field: Array<CustomFormField>) => {
   const layout = layoutBuilder(custom_form_field);
-
   return {
     lg: layout,
     md: layout,

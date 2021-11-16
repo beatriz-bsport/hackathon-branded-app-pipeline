@@ -22,8 +22,6 @@ import {
   detachPaymentMethod,
 } from '../../libs/payment/actions';
 import { fetchSignFormUpConfiguration } from '../../libs/sign-up-form/actions';
-import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
-import type { SignUpFormConfigDict } from '../../libs/sign-up-form/types';
 import themeSelectors from '../../libs/theme/selectors';
 
 import { getMemberDetail } from '../../libs/member/selectors';
@@ -42,6 +40,7 @@ import {
 import {
   getMemberCustomFormWithEnabledField,
   withUserProfileData,
+  showVaccinationStatus,
 } from '../../libs/custom-form/selectors';
 import type { CustomForm } from '../../libs/custom-form/types';
 import { disconnect } from '../../actions/auth.actions';
@@ -62,7 +61,6 @@ type Props = {
   detachPaymentMethod: (pm_id: string) => void,
   snackbarErrorMsg: (msg: string) => void,
   snackbarSuccessMsg: (msg: string) => void,
-  managerFormConfig: SignUpFormConfigDict,
   memberCustomForm: CustomForm,
   fetchCompanyCustomMemberForm: (params: { company: string }) => void,
   submitCustomForm: (
@@ -71,6 +69,7 @@ type Props = {
     options: OptionCallback,
   ) => void,
   fetchMyUserProfile: () => void,
+  showVaccinationStatus: boolean,
 };
 
 export class ConsumerProfile extends React.Component<Props> {
@@ -130,12 +129,7 @@ export class ConsumerProfile extends React.Component<Props> {
             hideContactButton
             hideCreditAccount
             editMember={() => this.props.setEditMember(true)}
-            showVaccinationStatus={
-              this.props.managerFormConfig?.poll_fields?.vaccination_status
-                ?.show_on_creation ||
-              this.props.managerFormConfig?.poll_fields?.vaccination_status
-                ?.show_on_edition
-            }
+            showVaccinationStatus={this.props.showVaccinationStatus}
           />
         </Grid>
 
@@ -153,7 +147,7 @@ export class ConsumerProfile extends React.Component<Props> {
                 layouts={this.props.memberCustomForm.layout}
                 waiver={this.props.theme.waiver}
                 general_terms_and_conditions={
-                  this.props.theme.general_terms_and_conditions
+                  this.props.theme.general_terms_of_use
                 }
                 onCancel={() => this.props.setEditMember(false)}
                 textButtonConfirm
@@ -197,7 +191,6 @@ export default compose(
       memberLoading: state.member.loading,
       member: getMemberDetail(state, membership && membership.id),
       theme: themeSelectors.getTheme(state),
-      managerFormConfig: getSignUpFormConfigurationDict(state),
       paymentMethod: state.paymentBackend.paymentMethod.items,
       paymentMethodLoading: state.paymentBackend.paymentMethod.loading,
       detachPaymentMethodLoading:
@@ -205,6 +198,7 @@ export default compose(
       memberCustomForm: withUserProfileData(
         getMemberCustomFormWithEnabledField,
       )(state),
+      showVaccinationStatus: showVaccinationStatus(state),
     }),
     {
       fetchMember: fetchMemberAction,

@@ -34,13 +34,16 @@ type OwnProps = {
   waiver?: string;
   general_terms_and_conditions?: string;
   setOutterContainerWidth: (width: number) => void;
+  defaultEditMode?: boolean;
 };
 
 type Props = OwnProps & WithTranslation;
 
 export const CustomFormLayoutView = (props: Props) => {
   const [currentLayoutIndex, setCurrentLayoutIndex] = React.useState(-1);
-  const [isEditing, setIsEditing] = React.useState(false);
+  const [isEditing, setIsEditing] = React.useState(
+    props.defaultEditMode || false,
+  );
   const [recordLayouts, setRecordLayouts] = React.useState(
     Object.keys(props?.layouts || {})?.length === 4 ? [props.layouts] : [],
   );

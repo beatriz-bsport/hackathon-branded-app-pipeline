@@ -149,7 +149,7 @@ function StyledDropzone(props: Props) {
   );
 }
 
-const styles = (theme) => ({
+const styles = () => ({
   dropHere: {
     display: 'flex',
     flexDirection: 'column',
@@ -158,9 +158,6 @@ const styles = (theme) => ({
   iconContainer: {
     display: 'flex',
     alignItems: 'center',
-  },
-  typography: {
-    marginBottom: theme.spacing(2),
   },
 });
 export default withTranslation(['member'])(withStyles(styles)(StyledDropzone));

@@ -71,8 +71,7 @@ import type { ConsumerPaymentPack } from '../../libs/payment-packs/types';
 import type { ConsumerPaymentPackPenalty } from '../../libs/consumer-payment-pack/types';
 import type { Invoice } from '../../libs/invoice/types';
 import type { Booking } from '../../libs/booking/types';
-import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
-import { SignUpFormConfigDict } from '../../libs/sign-up-form/types';
+import { showVaccinationStatus } from '../../libs/custom-form/selectors';
 import { withIsSharedActive } from '../../libs/relationship/selectors';
 import { WithIsSharedActive } from '../../libs/relationship/types';
 
@@ -162,11 +161,11 @@ type Props = {
   updateFiltersSettings: (*) => void,
   userFiltersLoading: boolean,
 
-  managerFormConfig: SignUpFormConfigDict,
   fetchConsumerPaymentPackLinks: (
     links: Array<number>,
     options: OptionCallBack,
   ) => void,
+  showVaccinationStatus: boolean,
 };
 
 type State = {
@@ -391,12 +390,7 @@ export class MemberDetailPass extends Component<Props, State> {
                     ),
                 });
               }}
-              showVaccinationStatus={
-                this.props.managerFormConfig?.poll_fields?.vaccination_status
-                  ?.show_on_creation ||
-                this.props.managerFormConfig?.poll_fields?.vaccination_status
-                  ?.show_on_edition
-              }
+              showVaccinationStatus={this.props.showVaccinationStatus}
             />
           ) : (
             <ClickOnConsumerPack classes={this.props.classes} />
@@ -520,7 +514,7 @@ export default compose(
       userFilters: state.dashboardSettings.managerFiltersSettings.data.filters,
       userFiltersLoading:
         state.dashboardSettings.managerFiltersSettings.loading,
-      managerFormConfig: getSignUpFormConfigurationDict(state),
+      showVaccinationStatus: showVaccinationStatus(state),
     }),
     {
       goToInvoice: (uuid) => push(`/invoice/${uuid}`),

@@ -85,9 +85,9 @@ import {
 } from '../../libs/email-editor/selectors';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
-import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
 import type { Theme as CompanyTheme } from '../../libs/theme/types';
 import themeSelectors from '../../libs/theme/selectors';
+import { showVaccinationStatus } from '../../libs/custom-form/selectors';
 
 type Props = {
   // GENERAL
@@ -175,11 +175,11 @@ type Props = {
   detachPaymentMethod: (pm_id: string) => void,
   snackbarErrorMsg: (msg: string) => void,
   snackbarSuccessMsg: (msg: string) => void,
-  managerFormConfig: SignUpFormConfigDict,
   fetchEstablishments: () => void,
   establishmentList: Array<Estalsihment>,
   companyTheme: CompanyTheme,
   companyId?: number,
+  showVaccinationStatus: boolean,
 };
 
 type State = {
@@ -256,12 +256,7 @@ export class MemberDetailPage extends Component<Props, State> {
             emailListLoading={this.props.emailListLoading}
             emailDetailLoading={this.props.emailDetailLoading}
             sendCommunication={this.props.sendCommunication}
-            showVaccinationStatus={
-              this.props.managerFormConfig?.poll_fields?.vaccination_status
-                ?.show_on_creation ||
-              this.props.managerFormConfig?.poll_fields?.vaccination_status
-                ?.show_on_edition
-            }
+            showVaccinationStatus={this.props.showVaccinationStatus}
           />
           <MemberBillingProblemCard
             invoiceLoading={this.props.invoiceLoading}
@@ -345,7 +340,6 @@ export class MemberDetailPage extends Component<Props, State> {
             this.props.mergeInto(this.props.id, id)
           }
           country={this.props.country}
-          managerFormConfig={this.props.managerFormConfig.poll_fields}
         />
         <TagDeleteDialog
           open={!!this.state.tagToDelete}
@@ -417,9 +411,9 @@ export default compose(
       paymentMethodLoading: state.paymentBackend.paymentMethod.loading,
       detachPaymentMethodLoading:
         state.paymentBackend.detachPaymentMethod.loading,
-      managerFormConfig: getSignUpFormConfigurationDict(state),
       establishmentList: getAvailableEstablishmentList(state),
       companyTheme: themeSelectors.getTheme(state),
+      showVaccinationStatus: showVaccinationStatus(state),
     }),
     {
       fetchInvoiceList: fetchInvoiceListAction,

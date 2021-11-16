@@ -91,6 +91,7 @@ type OwnProps = {
   waiver?: string;
   general_terms_and_conditions: string;
   initial: FormikCustomFormFilled;
+  disableLayout: boolean;
 };
 type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
@@ -100,7 +101,9 @@ const CUSTOM_FORM_SIGNUP_FIELD_DEFAULT_LABEL_DICT = get_custom_form_sign_questio
 export const CustomFormConsumerInput = (props: Props) => {
   const { t, waiver, general_terms_and_conditions } = props;
   const layoutActive =
-    props.values.layout && Object.keys(props.values.layout || {})?.length === 4;
+    props.values.layout &&
+    Object.keys(props.values.layout || {})?.length === 4 &&
+    !props.disableLayout;
   const classes = useStyles(layoutActive);
   const [passwordVisibility, setPasswordVibility] = React.useState(false);
   const [
@@ -139,9 +142,8 @@ export const CustomFormConsumerInput = (props: Props) => {
           <TextFieldEnhancedLabelWithError
             name={`custom_form_field.${props.index}.answer`}
             label={label}
-            disabled={props.asManager}
+            disabled={props.asManager || !props.field.editable}
             required={props.field.mandatory}
-            onBlur={props.handleBlur}
             fullWidth
             InputLabelProps={{ color: 'red' }}
             inputProps={{ maxlength: MAX_LENGTH_FOR_SHORT_ANSWER }}
@@ -155,7 +157,7 @@ export const CustomFormConsumerInput = (props: Props) => {
           <TextFieldEnhancedLabelWithError
             name={`custom_form_field.${props.index}.answer`}
             label={label}
-            disabled={props.asManager}
+            disabled={props.asManager || !props.field.editable}
             required={props.field.mandatory}
             onBlur={props.handleBlur}
             fullWidth
@@ -174,7 +176,7 @@ export const CustomFormConsumerInput = (props: Props) => {
             flags={flags}
             value={props.field?.answer}
             label={label}
-            disabled={props.asManager}
+            disabled={props.asManager || !props.field.editable}
             required={props.field.mandatory}
             fullWidth
             country={browserCountryCode()}
@@ -266,7 +268,7 @@ export const CustomFormConsumerInput = (props: Props) => {
             name={`custom_form_field.${props.index}.answer`}
             label={label}
             placeholder={label}
-            isDisabled={props.asManager}
+            isDisabled={props.asManager || !props.field.editable}
             required={props.field.mandatory}
             suggestions={[...countries.slice()].map(
               (country: { code: string; label: string; phone: string }) => ({
@@ -291,7 +293,7 @@ export const CustomFormConsumerInput = (props: Props) => {
             name={`custom_form_field.${props.index}.answer`}
             label={label}
             placeholder={label}
-            isDisabled={props.asManager}
+            isDisabled={props.asManager || !props.field.editable}
             required={props.field.mandatory}
             suggestions={[
               { label: t('translation:common.female'), value: 'F' },
@@ -314,7 +316,7 @@ export const CustomFormConsumerInput = (props: Props) => {
           <DateField
             name={`custom_form_field.${props.index}.answer`}
             label={label}
-            disabled={props.asManager}
+            disabled={props.asManager || !props.field.editable}
             required={props.field.mandatory}
             keyboard
             format="L"
@@ -337,7 +339,7 @@ export const CustomFormConsumerInput = (props: Props) => {
             <AvatarFieldWithButton
               name={`custom_form_field.${props.index}.answer`}
               label={label}
-              disabled={props.asManager}
+              disabled={props.asManager || !props.field.editable}
               required={props.field.mandatory}
               buttonText={t('translation:form.modify')}
             />
@@ -415,10 +417,7 @@ export const CustomFormConsumerInput = (props: Props) => {
             <AcceptTermsAndConditions
               accepted={props.values?.custom_form_field[props.index]?.answer}
               required={props.field.mandatory}
-              disabled={
-                props.asManager ||
-                props.initial?.custom_form_field[props.index]?.answer
-              }
+              disabled={props.asManager || !props.field.editable}
               onChecked={(checked: boolean) =>
                 props.setFieldValue(
                   `custom_form_field.${props.index}.answer`,

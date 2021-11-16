@@ -95,11 +95,15 @@ const ValidationSchema = Yup.object().shape({
           function (item) {
             if (
               this.parent.signup_question_kind ===
-                CUSTOM_FORM_FIELD_SIGN_UP_WAIVER ||
-              this.parent.signup_question_kind ===
                 CUSTOM_FORM_FIELD_SIGN_UP_GENERAL_TERMS_AND_CONDITIONS
             ) {
               return item === 'true';
+            }
+            if (
+              this.parent.signup_question_kind ===
+              CUSTOM_FORM_FIELD_SIGN_UP_WAIVER 
+            ) {
+              return !this.parent.mandatory ||  item === 'true';
             }
             return (
               this.parent.signup_question_kind ===

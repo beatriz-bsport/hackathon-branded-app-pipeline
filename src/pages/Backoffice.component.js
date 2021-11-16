@@ -201,8 +201,8 @@ type Props = {
   navigateBackToFranchise: () => void,
   t: TFunction,
   isPluginActivated: boolean,
-  fetchCompanyCustomMemberForm: () => void,
-  fetchCompanyCustomSignUp: () => void,
+  fetchCompanyCustomMemberForm: (prams: { company: number }) => void,
+  fetchCompanyCustomSignUp: (prams: { company: number }) => void,
 };
 
 const BackofficeRoute = withSentryErrorReporting((props) => {
@@ -272,7 +272,7 @@ export class Backoffice extends Component<Props, State> {
     this.props.fetchAllPrivateSlots();
     this.props.fetchSignFormUpConfiguration();
     this.props.fetchTags();
-    if (this.props.theme?.company) {
+    if (this.props.theme && this.props.theme.company) {
       this.props.fetchCompanyCustomSignUp({
         company: this.props.theme.company,
       });

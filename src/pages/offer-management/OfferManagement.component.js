@@ -190,10 +190,10 @@ type Props = {
   setSpotForBooking: () => void,
   optionToDiscardWithDialog: number,
   setOptionToDiscardWithDialog: (optionId: number | null) => void,
-  managerFormConfig: SignUpFormConfigDict,
   waiver: string,
   general_terms_and_conditions: string,
   companyId: number,
+  showVaccinationStatus: boolean,
 };
 
 type State = {
@@ -570,12 +570,7 @@ export class OfferManagement extends Component<Props, State> {
               this.props.onDeleteRecurrenceRuleBooking
             }
             onClickChangeSpot={this.onClickChangeSpot}
-            showVaccinationStatus={
-              this.props.managerFormConfig?.poll_fields?.vaccination_status
-                ?.show_on_creation ||
-              this.props.managerFormConfig?.poll_fields?.vaccination_status
-                ?.show_on_edition
-            }
+            showVaccinationStatus={this.props.showVaccinationStatus}
           />
         </Grid>
         <Grid item xs={12} lg={6}>
@@ -643,7 +638,6 @@ export class OfferManagement extends Component<Props, State> {
               goToMemberList={() => {}}
               snackbarSuccess={this.props.snackbarSuccess}
               country={this.props.country}
-              managerFormConfig={this.props.managerFormConfig?.poll_fields}
               waiver={this.props.company_theme.waiver}
               generalTermsAndConditions={
                 this.props.company_theme.general_terms_and_conditions

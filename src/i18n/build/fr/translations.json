@@ -1648,11 +1648,11 @@
       "editLayoutTitle": "Editer l'agencement du formulaire",
       "editLayoutSubtitle": "Vous avez modifié un formulaire utilisant un agencement personnalisé, verifiez ici, et modifiez si besoin, l'apercu de vos formulaire sur les différentes tailles d'écran",
       "signupFormTitle": "Formulaire d'inscription",
-      "memberFormTitle": "Formulaire de modification",
-      "signupFormHelper": "Les questions obligatoires du formulaire d’inscription doivent être éditables par vos membres sur leur profil. Ces questions seront ajoutées automatiquement au formulaire de modification et sont affichées et modifiables.",
+      "memberFormTitle": "Formulaire d'édition de profil (page de profile de vos membres)",
+      "signupFormHelper": "Les questions obligatoires du formulaire d’inscription doivent être éditables par vos membres sur leur profil. Ces questions seront ajoutées automatiquement au formulaire d'édition de profil client et sont affichées et modifiables.",
       "memberFormHelper": "Les questions obligatoires du formulaire d’inscription sont par défaut affichées et modifiables. Elles ne peuvent être supprimées.",
       "navigateToSignup": "Editer le formulaire d'inscription",
-      "navigateToMemberForm": "Editer le formulaire de modification",
+      "navigateToMemberForm": "Editer le formulaire d'édition de profil client",
       "title": "Formulaires",
       "CustomFormLink": "Lien du formulaire",
       "linkHelper": "Pour envoyer le formulaire à vos membres, collez le lien ci-dessus dans vos mails. Seules les modifications sauvegardées seront visibles.",
@@ -1702,7 +1702,7 @@
       },
       "signUpInfoModal": {
         "title": "Informations",
-        "content": "Vous venez de rendre certaines questions du formulaire d’inscription obligatoires. Les questions obligatoires du formulaire d’inscription doivent être éditables par vos membres sur leur profil. Ces questions ont donc été ajoutées automatiquement au formulaire de modification et sont affichées et modifiables. Rendez-vous sur l’édition du formulaire de modification pour le personnaliser.",
+        "content": "Vous venez de rendre certaines questions du formulaire d’inscription obligatoires. Les questions obligatoires du formulaire d’inscription doivent être éditables par vos membres sur leur profil. Ces questions ont donc été ajoutées automatiquement au formulaire de profile client et sont affichées et modifiables. Rendez-vous sur l’édition du formulaire de profile client pour le personnaliser.",
         "cancel": "Annuler",
         "confirm": "Continuer"
       },
@@ -1851,7 +1851,7 @@
       "signUp": {
         "signupFields": "Questions des formulaires",
         "helperSignup": "Vous pouvez modifier ici le formulaire d’inscription de votre studio. Choisissez et personnalisez les questions à remplir pour devenir membre de votre club.",
-        "helperMemberForm": "Le formulaire de modification est le formulaire présent sur la page de profil de vos membres. Il leur permet de voir et de modifier leurs informations. Ce formulaire est lui aussi personnalisable."
+        "helperMemberForm": "Le formulaire de midification de profil est le formulaire présent sur la page de profil de vos membres. Il leur permet de voir et de modifier leurs informations. Ce formulaire est lui aussi personnalisable."
       },
       "clientForms": {
         "preview": "Aperçu de mes formulaires",

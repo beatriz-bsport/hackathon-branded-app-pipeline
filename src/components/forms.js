@@ -119,6 +119,7 @@ export const TextFieldEnhancedLabelWithError = withStyles(textFieldStyles)(
                 shrink={shrink}
                 {...field}
                 {...omit(props, ['field'])}
+                onBlur={field.onBlur}
                 error={!!(meta.touched && meta.error)}
                 label={
                   meta.touched && meta.error ? (

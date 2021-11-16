@@ -56,7 +56,7 @@ import { PrivateService } from '../types';
 import { MaterialStyleType, WithHandlerType } from '../../../utils/types';
 import { Member } from '../../member/types';
 import { OptionCallback } from '../../../state/types';
-import { getSignUpFormConfigurationDict } from '../../sign-up-form/selectors';
+import { showVaccinationStatus } from '../../custom-form/selectors';
 
 type OwnProps = {
   open: boolean;
@@ -255,12 +255,7 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
         <div className={this.props.classes.innerDialog}>
           <MemberMinimalListItem
             member={this.state.member}
-            showVaccinationStatus={
-              this.props.managerFormConfig?.poll_fields?.vaccination_status
-                ?.show_on_creation ||
-              this.props.managerFormConfig?.poll_fields?.vaccination_status
-                ?.show_on_edition
-            }
+            showVaccinationStatus={this.props.showVaccinationStatus}
           />
           <DateTimeForm
             timezone={this.props.timezone}
@@ -394,7 +389,7 @@ const mapStateToProps = (state: RootState) => ({
   processing: state.privateService.privateBooking.createOrUpdate.loading,
   country: state.theme.theme.locale.split('_')[1],
   searchedMembers: getSearchedMembers(state),
-  managerFormConfig: getSignUpFormConfigurationDict(state),
+  showVaccinationStatus: showVaccinationStatus(state),
 });
 
 const mapDispatchToProps = {

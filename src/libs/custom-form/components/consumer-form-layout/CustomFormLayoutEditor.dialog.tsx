@@ -64,6 +64,7 @@ export const CustomFormLayoutEditor = (props: Props) => {
           waiver={props.waiver}
           general_terms_and_conditions={props.general_terms_and_conditions}
           setOutterContainerWidth={(width: number) => handleWidthChange(width)}
+          defaultEditMode
         />
       </div>
       <DialogActions className={classes.dialogActions}>

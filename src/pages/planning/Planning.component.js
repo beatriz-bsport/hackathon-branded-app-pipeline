@@ -109,9 +109,8 @@ import { RoomBlueprint } from '../../libs/spot-scheduling/types';
 import { fetchAllCoachPaymentRules } from '../../libs/coach-payment-rules/actions';
 import { CoachPaymentRuleByKindSelector } from '../../libs/coach-payment-rules/selectors';
 import type { CoachPaymentRule } from '../../libs/coach-payment-rules/types';
-import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
-import { SignUpFormConfigDict } from '../../libs/sign-up-form/types';
 import { OptionCallback } from '../../state/types';
+import { showVaccinationStatus } from '../../libs/custom-form/selectors';
 
 const styles = (theme) => ({
   container: {
@@ -236,8 +235,7 @@ type Props = {
   allRoomBlueprints: Array<RoomBlueprint>,
   fetchAllCoachPaymentRules: () => void,
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> },
-
-  managerFormConfig: SignUpFormConfigDict,
+  showVaccinationStatus: boolean,
 };
 
 type State = {
@@ -879,12 +877,7 @@ export class Planning extends PureComponent<Props, State> {
                     this.props.theme &&
                     this.props.theme.show_booked_gender_offer
                   }
-                  showVaccinationStatus={
-                    this.props.managerFormConfig?.poll_fields
-                      ?.vaccination_status?.show_on_creation ||
-                    this.props.managerFormConfig?.poll_fields
-                      ?.vaccination_status?.show_on_edition
-                  }
+                  showVaccinationStatus={this.props.showVaccinationStatus}
                 />
               </div>
             ) : (
@@ -974,8 +967,6 @@ export default compose(
       members: withTags(getAllMembers)(state),
       membersLoading: state.member.loading,
 
-      managerFormConfig: getSignUpFormConfigurationDict(state),
-
       bookings: getOfferBookingList(state),
       bookingsLoading: state.booking.byOffer.loading,
 
@@ -996,6 +987,7 @@ export default compose(
       roomBlueprints: getAvailableRoomBlueprints(state),
       allRoomBlueprints: getRoomBlueprints(state),
       coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
+      showVaccinationStatus: showVaccinationStatus(state),
     }),
     {
       goBack: goBackRouter,

@@ -1044,7 +1044,7 @@
             "attendant": "aanwezig",
             "noEmptyDuration": "De duur kan enkel positief zijn",
             "restoreModal": {
-                "explain": "De annulering van deze sessie is ongedaan gemaakt. Leden kunnen zich dus weer voor deze sessie inschrijven. Geannuleerde reserveringen worden niet hersteld.",
+                "explain": "De annulering van deze sessie wordt hierna ongedaan gemaakt. Leden kunnen vervolgens zich opnieuw inschrijven. Geannuleerde reserveringen worden niet hersteld.",
                 "title": "Sessies herstellen"
             },
             "unpaidInvoices": "Openstaande facturen"
@@ -3206,7 +3206,7 @@
             "statTitle": "Statistieken"
         },
         "selectToShowPreview": "Selecteer een e-mail om de voorvertoning te zien.",
-        "noSmartLists": "Smartlists zijn specifieke segmenten van je ledenbestand. Voeg filters toe om een bepaalde doelgroep aan te maken en stuur hun prachtige e-mails of sms'jes. Verbeter je klantbehoud en verhoog je klantwaarde met de Smartlists!",
+        "noSmartLists": "Smartlists zijn specifieke segmenten van je ledenbestand. Door filters toe te voegen kun je direct berichten (e-mails, push-notificaties, sms'jes) naar deze doelgroepen versturen om vervolgens een gedetailleerd inzicht te krijgen in het openingspercentage, klikpercentage, enz. om je klantbehoud te verbeteren en je klantwaarde te verhogen.",
         "delete": "Verwijderen",
         "edit": "Configuratie",
         "tag_rules": {
@@ -3406,7 +3406,7 @@
         "detail": "Gedetailleerde informatie",
         "selectToShowPreview": "Selecteer een e-mail om de voorvertoning te zien.",
         "create": "Een sjabloon toevoegen",
-        "templateListEmpty": "In dit onderdeel kun je prachtige, gepersonaliseerde en unieke e-mails met onze Drag-&-Drop Bewerker ontwerpen en gelijk vanuit je BSPORT-account automatisch versturen.",
+        "templateListEmpty": "In dit onderdeel kun je prachtige, gepersonaliseerde en unieke e-mailsjablonen aanmaken m.b.v. onze Drag-&-Drop Bewerker. Vervolgens kun je deze direct naar leden versturen en aan automatische notificaties koppelen om in contact met je leden te blijven.",
         "modification_date": "Laatste wijziging op",
         "subject": "Onderwerp van de e-mail:",
         "preview": "Voorvertoning",
@@ -3513,10 +3513,10 @@
                     "notMemberYet": "Informatie verzenden"
                 },
                 "subtitle": {
-                    "memberOfCompany": "Een korte introductie misschien?",
+                    "memberOfCompany": "We verzoeken je vriendelijk om het volgende formulier te voltooien.",
                     "notMemberYet": "Het lijkt erop dat je voor het eerst naar deze studio gaat."
                 },
-                "welcome": "Hoi {{firstname}}!"
+                "welcome": "Hoi!"
             },
             "title": "[Formulier] Inschrijfformulier"
         },
@@ -4710,14 +4710,14 @@
                 "title": "[Formulier] Verzendkosten",
                 "feeLabel": "Verzendkosten",
                 "nameLabel": "Naam",
-                "freeThresholdLabel": "Aangeboden vanaf",
+                "freeThresholdLabel": "Gratis bezorging vanaf",
                 "onCancel": "Annuleren",
                 "onSubmit": "Opslaan"
             },
             "name": "Naam",
             "fee": "Verzendkosten",
             "free_threshold": "Verkrijgbaar vanaf",
-            "offeredAboveAmount": "Aangeboden vanaf {{ free_threshold, price }}",
+            "offeredAboveAmount": "Gratis bezorging vanaf {{ free_threshold, price }}",
             "modal": {
                 "delete": {
                     "title": "Verzendkosten verwijderen",
@@ -7659,7 +7659,7 @@
                 "consumerRegularizeDebt": "Sta leden toe hun om uitstaande bedragen online te betalen",
                 "workshopsCustomer": "Toon workshops op de agenda van je leden",
                 "cancelledOffersCustomer": "Toon geannuleerde sessies op de agenda van je leden",
-                "calendarPersonalizationTitle": "Instellingen voor je agenda",
+                "calendarPersonalizationTitle": "Agenda-instellingen",
                 "basket_expiration_days": {
                     "alert": "Geef de vervaldagen van het mandje op!",
                     "placeholder": "Aantal dagen voor de vervaldatum",
@@ -7681,7 +7681,7 @@
                 },
                 "offerBalance": "Een regel instellen dat de MAN / VROUW verhouding per sessie reguleert",
                 "showGenderOffer": "Toon het aantal ingeschreven MANNEN / VROUWEN op de agenda van je leden",
-                "hideCoach": "Verberg de docentinformatie op de agenda van je leden",
+                "hideCoach": "Verberg de informatie van instructeurs op de agenda van je leden",
                 "maxFutureBooking": {
                     "label": "Beperk het maximaal aantal toekomstige reserveringen per lid",
                     "numberCheck": {
@@ -7694,7 +7694,7 @@
                     "alert": "De starttijd moet vroeger dan de eindtijd zijn",
                     "end": "Eindtijd",
                     "begin": "Starttijd",
-                    "title": "Configuratie van je rooster"
+                    "title": "Rooster-instellingen"
                 },
                 "coach_can_edit_attendance": "Instructeurs kunnen de aanwezigheid/afwezigheid in de mobiele app wijzigen."
             },

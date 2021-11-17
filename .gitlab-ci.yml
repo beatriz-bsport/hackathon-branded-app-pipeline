@@ -84,7 +84,7 @@ Lint:
     - cat slack_template2.json
     - 'curl -s -d @slack_template2.json --header "Content-Type: application/json" "${SLACK_WEBHOOK_URL}" || exit 0'
 
-Buid Deploy Staging:
+Build Deploy Staging:
   extends: .Build and deploy Base
   only:
     refs:
@@ -96,7 +96,7 @@ Buid Deploy Staging:
     SLACK_WEBHOOK_URL: "${SLACK_STAGING_WEBHOOK_URL}"
     CDN_DOMAIN: cdn.staging.bsport.io
 
-Buid Deploy Production:
+Build Deploy Production:
   extends: .Build and deploy Base
   only:
     refs:
@@ -107,15 +107,15 @@ Buid Deploy Production:
     CLOUDFRONT_ID: E3PVSAXDFQZX1T 
     SLACK_WEBHOOK_URL: "${SLACK_PRODUCTION_WEBHOOK_URL}"
     CDN_DOMAIN: cdn.bsport.io
-# 
-# Buid Deploy Dev:
-#   extends: .Build and deploy Base
-#   only:
-#     refs:
-#       - dev
-#   variables:
-#     ENVIRONMENT: dev
-#     SLACK_WEBHOOK_URL: "${SLACK_DEV_WEBHOOK_URL}"
-#     S3BUCKETNAME: bsport-eu-cdn-dev
-#     CLOUDFRONT_ID: ESH8WNSF9KT1H
-#     CDN_DOMAIN: cdn.dev.bsport.io
+ 
+Build Deploy Dev:
+  extends: .Build and deploy Base
+  only:
+    refs:
+      - dev
+  variables:
+    ENVIRONMENT: dev
+    SLACK_WEBHOOK_URL: "${SLACK_DEV_WEBHOOK_URL}"
+    S3BUCKETNAME: bsport-eu-cdn-dev
+    CLOUDFRONT_ID: ESH8WNSF9KT1H
+    CDN_DOMAIN: cdn.dev.bsport.io

@@ -2,6 +2,7 @@ import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 
 // import { snackbarSuccess, snackbarError } from '../../libs/snackbar/actions';
+import { OptionCallback, Dispatch } from '../../state/types';
 import {
   fetchGiftcardList as fetchGiftcardListAPI,
   retrieveGiftcard as retrieveGiftcardAPI,

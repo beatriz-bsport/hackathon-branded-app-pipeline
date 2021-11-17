@@ -91,7 +91,7 @@ const connector = connect(
     updateReport: updateReportAction,
     createReport: createReportAction,
     deleteReport: deleteReportAction,
-    goToReport: (id: number) => push(`reporting/${id}`),
+    goToReport: (id: number) => push(`/reporting/${id}`),
   },
 );
 

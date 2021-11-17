@@ -27,7 +27,7 @@ import {
   snackbarSuccess,
   snackbarWarning,
   snackbarError,
-} from '../../actions/snackbar.actions';
+} from '../snackbar/actions';
 import { monitorBackgroundTask } from '../background-task/actions';
 
 import { fetchEventList } from '../event/actions';

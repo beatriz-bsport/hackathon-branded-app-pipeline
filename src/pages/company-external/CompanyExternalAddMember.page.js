@@ -4,7 +4,7 @@ import { compose, withProps } from 'recompose';
 import { connect } from 'react-redux';
 
 import { goBack as goBackAction } from 'connected-react-router';
-import { snackbar } from '../../actions/snackbar.actions';
+import { snackbar } from '../../libs/snackbar/actions';
 import MemberForm from '../../libs/member/MemberForm.component';
 import { createOrUpdateMember } from '../../libs/member/actions';
 import { MemberMap } from '../../libs/member/utils';

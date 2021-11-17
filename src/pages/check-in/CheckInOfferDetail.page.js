@@ -22,13 +22,21 @@ import {
 import { fetchOfferById as fetchOfferByIdAction } from '../../libs/offer/actions';
 import { getSearchedMembers, getAllMembers } from '../../libs/member/selectors';
 import { getOfferBookingListWithConsumerPack } from '../../libs/booking/selectors';
-import { fetchCompatiblePass as fetchCompatiblePassAction } from '../../actions/payment.actions';
 import RegistrationFlowDialog from '../../libs/check-in/components/SearchAndRegisterMember.component';
+import {
+  retrieveConsumerPackBulk as retrieveConsumerPackBulkAction,
+  fetchByOfferByMember as fetchByOfferByMemberAction,
+} from '../../libs/consumer-payment-pack/actions';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { retrieveConsumerPackBulk as retrieveConsumerPackBulkAction } from '../../libs/consumer-payment-pack/actions';
+
 import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
 import { checkFaceIDAvailable as checkFaceIDAvailableAPI } from '../../libs/face-recognition/api';
+
+import {
+  getConsumerPaymentPackForBooking,
+  withPaymentPack as withPaymentPackForConsumer,
+} from '../../libs/consumer-payment-pack/selectors';
 
 import boop from '../../sounds/boop.mp3';
 import type { OptionCallback } from '../../state/types';
@@ -52,7 +60,7 @@ type Props = {
 
   compatibleConsumerPacks: Array<ConsumerPaymentPack>,
   compatibleConsumerPacksLoading: boolean,
-  fetchCompatiblePass: (offerId: number, memberId: number) => void,
+  fetchByOfferByMember: (offerId: number, memberId: number) => void,
 
   registerWithPass: (
     consumerPaymentPackId: number,
@@ -64,7 +72,6 @@ type Props = {
   goBack: () => void,
   redirectToConfirmPage: (offerId: number, bookingId: number) => void,
 
-  fetchCompatiblePass: (offerId: number, memberId: number) => void,
   fetchMemberByBarcode: (string, OptionCallback) => void,
 
   searchedMember: ?Member,
@@ -74,8 +81,6 @@ type Props = {
   toogleFaceId: () => void,
   closeBarcodeAndFaceID: () => void,
   registrationFlowOpen: boolean,
-
-  fetchCompatiblePass: () => void,
 
   executeOnMemberUnselectedCallback: () => void,
   openSearchMemberModal: () => void,
@@ -123,7 +128,7 @@ export class CheckInOfferDetailPage extends React.Component<Props, State> {
       prevProps.searchedMember !== this.props.searchedMember &&
       this.props.searchedMember
     ) {
-      this.props.fetchCompatiblePass();
+      this.props.fetchByOfferByMember();
     }
     if (!!prevProps.searchedMember && !this.props.searchedMember) {
       this.props.executeOnMemberUnselectedCallback();
@@ -271,7 +276,9 @@ export default compose(
         state.booking.loading ||
         state.member.loading ||
         state.offer.byDay.loading,
-      compatibleConsumerPacks: state.payment.compatibleConsumerPacks,
+      compatibleConsumerPacks: withPaymentPackForConsumer(
+        getConsumerPaymentPackForBooking,
+      )(state),
       compatibleConsumerPacksLoading:
         state.payment.compatibleConsumerPacksLoading,
       managerFormConfig: getSignUpFormConfigurationDict(state),
@@ -280,7 +287,7 @@ export default compose(
       fetchOfferById: fetchOfferByIdAction,
       fetchFilteredMembers: fetchFilteredMembersAction,
       fetchBookingsByOffer: fetchBookingsByOfferAction,
-      fetchCompatiblePass: fetchCompatiblePassAction,
+      fetchByOfferByMember: fetchByOfferByMemberAction,
       confirmBookingAttendance: confirmBookingAttendanceAction,
       retrieveConsumerPackBulk: retrieveConsumerPackBulkAction,
 
@@ -299,12 +306,12 @@ export default compose(
     },
   ),
   withHandlers({
-    fetchCompatiblePass: ({
-      fetchCompatiblePass,
+    fetchByOfferByMember: ({
+      fetchByOfferByMember,
       offerId,
       searchedMember,
     }) => () => {
-      fetchCompatiblePass(offerId, searchedMember.id);
+      fetchByOfferByMember(offerId, searchedMember.id);
     },
     fetchOfferData: ({
       offerId,

@@ -34,7 +34,7 @@ import type {
   CustomForm,
   CustomFormDisplayRule,
 } from '../../libs/custom-form/types';
-import { snackbarSuccess } from '../../actions/snackbar.actions';
+import { snackbarSuccess } from '../../libs/snackbar/actions';
 import { fetchTags } from '../../libs/tag/actions';
 import tagSelectors from '../../libs/tag/selectors';
 import CustomFormDisplayRulePanel from '../../libs/custom-form/components/display-rule/CustomFormDisplayRulePanel.component';

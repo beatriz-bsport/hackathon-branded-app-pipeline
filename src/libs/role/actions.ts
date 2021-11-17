@@ -10,7 +10,7 @@ import {
   deleteCompanyRole as deleteCompanyRoleAPI,
 } from './api';
 import type { Dispatch } from '../../state/types';
-import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
+import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 import { Permission, Role, UserRoleData } from './types';
 
 export const userRoleList = {

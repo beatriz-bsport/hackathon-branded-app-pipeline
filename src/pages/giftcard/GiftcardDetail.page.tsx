@@ -28,7 +28,7 @@ import ConsumerGiftcardListItem from '../../libs/giftcard/components/ConsumerGif
 
 import { fetchMemberBulkById as fetchMemberBulkAction } from '../../libs/member/actions';
 import PaginatedListBase from '../../components/PaginatedListBase.component';
-import { snackbarSuccess } from '../../actions/snackbar.actions';
+import { snackbarSuccess } from '../../libs/snackbar/actions';
 import { OptionCallback } from '../../state/types';
 import {
   withSender,

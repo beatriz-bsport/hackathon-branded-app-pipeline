@@ -12,7 +12,7 @@ import {
 } from '../../libs/email-editor/selectors';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import withTitle from '../../hocs/with-title.hoc';
-import { snackbarError } from '../../actions/snackbar.actions';
+import { snackbarError } from '../../libs/snackbar/actions';
 
 import {
   emailTemplateComplete,

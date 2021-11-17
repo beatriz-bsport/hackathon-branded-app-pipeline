@@ -28,7 +28,7 @@ import {
   schedulePayment as schedulePaymentAPI,
   sendInvoiceToQuickbooks as sendInvoiceToQuickbooksAPI,
 } from './api';
-import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
+import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 
 import type { Dispatch, OptionCallback } from '../../state/types';
 

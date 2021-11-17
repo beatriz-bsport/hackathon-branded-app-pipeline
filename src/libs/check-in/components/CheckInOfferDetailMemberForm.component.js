@@ -3,7 +3,7 @@ import React from 'react';
 import { compose, withProps } from 'recompose';
 import { connect } from 'react-redux';
 
-import { snackbar } from '../../../actions/snackbar.actions';
+import { snackbar } from '../../snackbar/actions';
 import MemberForm from '../../member/MemberForm.component';
 import { MemberMap } from '../../member/utils';
 

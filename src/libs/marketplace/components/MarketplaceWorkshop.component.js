@@ -20,12 +20,8 @@ type Props = {
   selectOffer: (Offer) => void,
   onBook: (id: number) => void,
   onBookOption: (id: number) => void,
-  fetchPaymentPacks: (offerId: number) => void,
-  fetchCompatiblePass: (offerId: number) => void,
   goToPackPayment: (offerId: number) => void,
   hideCoach: boolean,
-  compatibleConsumerPacks: Array<ConsumerPaymentPack>,
-  compatiblePaymentPacks: Array<PaymentPack>,
   activityLoading: boolean,
   establishmentLoading: boolean,
   loading: boolean,
@@ -84,10 +80,6 @@ export const MarketplaceWorkshop = (props: Props) => {
         displayPacksInformation
         onClose={() => props.selectOffer(null)}
         open={!!props.offerSelected}
-        fetchPassData={() => {
-          props.fetchPaymentPacks(props.offerSelected.id);
-          props.fetchCompatiblePass(props.offerSelected.id);
-        }}
         goToPackPayment={props.goToPackPayment}
         goToPaymentComboPayment={props.goToPaymentComboPayment}
         goToOfferPayment={() =>
@@ -100,8 +92,6 @@ export const MarketplaceWorkshop = (props: Props) => {
           props.onBookOfferFromPack(props.offerSelected.id, packId)
         }
         offerId={props.offerSelected ? props.offerSelected.id : null}
-        compatibleConsumerPacks={props.compatibleConsumerPacks}
-        compatiblePaymentPacks={props.compatiblePaymentPacks}
         paymentComboList={props.paymentComboList}
         mapContainerClassName={props.mapContainerClassName}
       />

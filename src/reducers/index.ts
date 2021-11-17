@@ -4,7 +4,7 @@ import { connectRouter } from 'connected-react-router';
 import activeCampaign from '../libs/active-campaign/reducers';
 import alertingReducer from '../libs/alerting/reducers';
 import authReducers from './auth';
-import backgroundDialogReducer from './backgroundDialog.reducers';
+import backgroundDialogReducer from '../libs/background-dialog/reducers';
 import backgroundTaskReducers from '../libs/background-task/reducers';
 import bookingReducers from '../libs/booking/reducers';
 import cashBookReducers from '../libs/cashbook/reducers';
@@ -37,7 +37,6 @@ import partnership from '../libs/partnership/reducers';
 import paymentBackend from '../libs/payment/reducers';
 import paymentCombo from '../libs/payment-combo/reducers';
 import paymentPack from '../libs/payment-packs/reducers';
-import paymentReducers from './payment';
 import paymentRulesReducer from '../libs/payment-rules/reducers';
 import platformBilling from '../libs/platform-billing/reducers';
 import playlist from '../libs/playlist/reducers';
@@ -50,7 +49,7 @@ import roleReducers from '../libs/role/reducers';
 import searchReducer from './search.reducers';
 import shopReducer from '../libs/shop/reducers';
 import smartListReducer from '../libs/smart-list/reducers';
-import snackbarReducer from './snackbar.reducers';
+import snackbarReducer from '../libs/snackbar/reducers';
 import spotSchedulingReducers from '../libs/spot-scheduling/reducers';
 import statsReducers from './stats';
 import subscriptionReducer from '../libs/subscription/reducers';
@@ -101,6 +100,8 @@ import { TagState } from '../libs/tag/types';
 import { ThemeState } from '../libs/theme/types';
 import { VideoState } from '../libs/video/types';
 import { QuickbooksState } from '../libs/quickbooks/types';
+import { BackgroundDialogState } from '../libs/background-dialog/types';
+import { SnackbarState } from '../libs/snackbar/types';
 import { GiftcardState } from '../libs/giftcard/types';
 import actionTypes from '../actions/auth.types';
 import userPreference from '../libs/user-preference/reducers';
@@ -114,7 +115,6 @@ const rootReducer = (history: any) =>
     checkout: checkoutReducers,
     paymentRules: paymentRulesReducer,
     coachPaymentRules: CoachPaymentRuleReducer,
-    payment: paymentReducers,
     consumer: consumerReducers,
     auth: authReducers,
     establishment: establishmentReducers,
@@ -211,7 +211,6 @@ export type RootState = {
   offer: OfferState;
   order: any;
   partnership: any;
-  payment: any;
   paymentBackend: any;
   paymentCombo: any;
   paymentPack: any;
@@ -228,7 +227,7 @@ export type RootState = {
   search: any;
   shop: any;
   smartList: SmartListState;
-  snackbar: any;
+  snackbar: SnackbarState;
   spotScheduling: SpotSchedulingState;
   stats: any;
   subscription: any;
@@ -240,6 +239,7 @@ export type RootState = {
   webhook: any;
   zoomApp: any;
   quickbooks: QuickbooksState;
+  backgroundDialog: BackgroundDialogState;
 };
 
 export default (history: any) => (state: any, action: any) => {

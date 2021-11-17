@@ -10,7 +10,7 @@ import {
 } from './api';
 import type { Dispatch, OptionCallback } from '../../state/types';
 import type { CoachPaymentRule, CoachPaymentRuleGroup } from '../types';
-import { snackbarError, snackbarSuccess } from '../../actions/snackbar.actions';
+import { snackbarError, snackbarSuccess } from '../snackbar/actions';
 import { postBaseAuth, putAuth, API_V1_URI, deleteAuth } from '../../http';
 
 export const fetchAllPaymentRules = {

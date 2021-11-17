@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 
-// import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
+// import { snackbarSuccess, snackbarError } from '../../libs/snackbar/actions';
 import {
   fetchGiftcardList as fetchGiftcardListAPI,
   retrieveGiftcard as retrieveGiftcardAPI,

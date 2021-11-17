@@ -16,7 +16,7 @@ import {
 } from './api';
 
 import type { Dispatch, OptionCallback } from '../../state/types';
-import { snackbarError, snackbarSuccess } from '../../actions/snackbar.actions';
+import { snackbarError, snackbarSuccess } from '../snackbar/actions';
 
 export const listPlatformInvoiceActions = {
   isLoading: createAction('PLATFORM_INVOICE/LIST/IS_LOADING'),

@@ -38,7 +38,7 @@ import {
 import {
   snackbarError as snackbarErrorAction,
   snackbarWarning as snackbarWarningAction,
-} from '../../../../actions/snackbar.actions';
+} from '../../../../libs/snackbar/actions';
 
 import routerParamsToProps from '../../../../hocs/router-params-to-props.hoc';
 import { fetchMetaActivityBulk } from '../../../../libs/meta-activity/actions';

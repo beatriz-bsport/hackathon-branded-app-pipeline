@@ -26,10 +26,7 @@ import SubscriptionContractCard from '../../libs/subscription/components/Subscri
 
 import Analytics from '../../components/analytics/Analytics.component';
 
-import {
-  snackbarWarning,
-  snackbarSuccess,
-} from '../../actions/snackbar.actions';
+import { snackbarWarning, snackbarSuccess } from '../../libs/snackbar/actions';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 type Props = {

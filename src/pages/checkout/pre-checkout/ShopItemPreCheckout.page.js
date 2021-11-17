@@ -14,7 +14,6 @@ import { BUYABLE_ITEM_SHOP_ITEM } from '@bsport/common/lib/master-data/buyable-i
 import InfoIcon from '@material-ui/icons/Info';
 import type { TFunction } from 'react-i18next';
 import withQueryParams from '../../../hocs/with-query-params.hoc';
-import { payment as paymentActions } from '../../../actions';
 import themeSelectors from '../../../libs/theme/selectors';
 import type { Theme } from '../../../libs/theme/types';
 import { buildUrlParams } from '../../../http';
@@ -27,6 +26,7 @@ import {
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import { getCurrentBasket } from '../../../libs/checkout/selectors';
 import Analytics from '../../../components/analytics/Analytics.component';
+import { fetchShopItem } from '../../../libs/shop/actions/shopitem';
 
 type Props = {
   fetchShopItem: (number, options: OptionCallback) => void,
@@ -142,7 +142,6 @@ export default compose(
   routerParamsToProps({ id: 'itemId:number' }),
   connect(
     (state) => ({
-      shopItem: state.payment.wantedShopItem,
       theme: themeSelectors.getTheme(state),
       basket: getCurrentBasket(state),
     }),
@@ -150,7 +149,7 @@ export default compose(
       addItemToBasket,
       removeItemFromBasket,
       fetchCurrentBasket,
-      fetchShopItem: paymentActions.fetchShopItem,
+      fetchShopItem,
       goBack,
       push,
       replace: replaceAction,

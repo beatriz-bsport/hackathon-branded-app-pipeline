@@ -1,18 +1,16 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
-import {
-  backgroundDialogDisplay,
-  backgroundDialogDestroy,
-} from '../actions/backgroundDialog.actions';
+import { backgroundDialogDisplay, backgroundDialogDestroy } from './actions';
+import { BackgroundDialogState } from './types';
 
-const initialState = Immutable({
+const initialState: Immutable.Immutable<BackgroundDialogState> = Immutable({
   messages: [],
 });
 
 export default handleActions(
   {
-    [backgroundDialogDisplay]: (state, { payload }) => {
+    [backgroundDialogDisplay.toString()]: (state, { payload }) => {
       const messages = state.messages.asMutable();
       messages.push({
         id: payload.uuid,
@@ -22,7 +20,7 @@ export default handleActions(
       });
       return state.merge({ messages });
     },
-    [backgroundDialogDestroy]: (state, { payload }) => {
+    [backgroundDialogDestroy.toString()]: (state, { payload }) => {
       const messages = state.messages.asMutable();
       const pos = messages.findIndex((message) => message.id === payload);
       if (pos === -1) {

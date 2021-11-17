@@ -85,7 +85,7 @@ import {
 import type { Offer, Coach } from '../../api/types';
 import type { OfferFilter } from '../../libs/offer/types';
 
-import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
+import { snackbarSuccess, snackbarError } from '../../libs/snackbar/actions';
 import OfferEditForm from '../../libs/offer/OfferEditForm.component';
 import MassDisablerDialog from '../../libs/offer/components/MassDisablerDialog.component';
 import OfferFormWithActivity from '../../libs/offer/OfferFormWithActivity.component';

@@ -25,7 +25,7 @@ import {
 import ConsumerGiftcardInvitationModal from '../../libs/giftcard/components/ConsumerGiftcardInvitationModal.components';
 import { ConsumerGiftcard } from '../../libs/giftcard/types';
 
-import { snackbarSuccess } from '../../actions/snackbar.actions';
+import { snackbarSuccess } from '../../libs/snackbar/actions';
 import {
   getConsumerGiftcardReceivedList,
   withGiftcard,

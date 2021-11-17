@@ -12,7 +12,7 @@ import { compose, withProps } from 'recompose';
 import moment from 'moment-timezone';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { snackbar } from '../../actions/snackbar.actions';
+import { snackbar } from '../../libs/snackbar/actions';
 import MemberForm from '../../libs/member/MemberForm.component';
 import { createOrUpdateMember, fetchMember } from '../../libs/member/actions';
 import { getMember } from '../../libs/member/selectors';

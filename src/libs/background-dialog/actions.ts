@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { Dispatch } from '../state/types';
+import { Dispatch } from '../../state/types';
 
 export const backgroundDialogDisplay = createAction(
   'BACKGROUND_DIALOG/DISPLAY',

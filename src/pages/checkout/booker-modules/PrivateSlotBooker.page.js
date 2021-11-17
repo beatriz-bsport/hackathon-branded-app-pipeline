@@ -35,7 +35,7 @@ import {
   fetchCurrentBasket,
 } from '../../../libs/checkout/actions';
 import { getCurrentBasket } from '../../../libs/checkout/selectors';
-import { snackbarError } from '../../../actions/snackbar.actions';
+import { snackbarError } from '../../../libs/snackbar/actions';
 import ConsumerAppBar from '../ConsumerAppBar.container';
 
 import BookingCapabilities from '../../../libs/private-service/components/booking-module/BookingCapabilitiesList.component';

@@ -33,7 +33,7 @@ import {
 } from '../../libs/meta-activity/selectors';
 import { getPlaylistList } from '../../libs/playlist/selectors';
 import { WidgetCodeStringGenerator } from '../../libs/marketplace/utils';
-import { snackbarInfo } from '../../actions/snackbar.actions';
+import { snackbarInfo } from '../../libs/snackbar/actions';
 import { fetchVideoList } from '../../libs/video/actions';
 import { getVideoList } from '../../libs/video/selectors';
 

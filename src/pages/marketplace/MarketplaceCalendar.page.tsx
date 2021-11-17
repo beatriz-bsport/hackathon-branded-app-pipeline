@@ -13,7 +13,6 @@ import withQueryParams from '../../hocs/with-query-params.hoc';
 import withReplaceQueryParams from '../../hocs/with-replace-query-params.hoc';
 import { consumerPayWithConsumerPaymentPack as payWithConsumerPaymentPackAPI } from '../../api/payment';
 import { addItemToBasket as addItemToBasketAction } from '../../libs/checkout/actions';
-import * as paymentActions from '../../actions/payment.actions';
 import MarketplaceCalendarComponent from '../../libs/marketplace/components/MarketplaceCalendar.component';
 import MarketplaceActivityDialog from '../../libs/marketplace/components/MarketplaceActivityDialog.component';
 import { getCurrentBasket } from '../../libs/checkout/selectors';
@@ -33,7 +32,7 @@ import {
 import {
   snackbarSuccess as snackbarSuccessActions,
   snackbarError as snackbarErrorActions,
-} from '../../actions/snackbar.actions';
+} from '../../libs/snackbar/actions';
 
 import {
   fetchMarketplaceOfferList as fetchOfferListAction,
@@ -275,8 +274,6 @@ const mapStateToProps = (state: RootState) => ({
   metaActivities: getMetaActivities(state),
   theme: themeSelectors.getTheme(state),
 
-  compatibleConsumerPacks: state.payment.compatibleConsumerPacks || [],
-  compatiblePaymentPacks: state.payment.compatiblePaymentPacks || [],
   paymentComboList: getPaymentComboListAvailableOnline(state),
   currentBasket: getCurrentBasket(state),
   establishmentGroupList: groupWithEstablishment(
@@ -293,8 +290,6 @@ const mapDispatchToProps = {
   fetchMetaActivityBulk: fetchMetaActivityBulkAction,
   fetchBookedGender: fetchBookedGenderAction,
   pushAction: push,
-  fetchPaymentPacks: paymentActions.fetchCompatiblePaymentPacks,
-  fetchCompatiblePass: paymentActions.fetchCompatiblePass,
   addItemToBasket: addItemToBasketAction,
   fetchPaymentComboList,
   fetchAllEstablishmentGroup,

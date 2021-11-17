@@ -76,7 +76,7 @@ import { PaymentPack } from '../../libs/payment-packs/types';
 import { fetchFilteredMembers as fetchFilteredMembersAction } from '../../libs/member/actions';
 import { OptionCallback } from '../../state/types';
 
-import { snackbarSuccess } from '../../actions/snackbar.actions';
+import { snackbarSuccess } from '../../libs/snackbar/actions';
 import { getAllSmartList } from '../../libs/smart-list/selectors';
 
 import {

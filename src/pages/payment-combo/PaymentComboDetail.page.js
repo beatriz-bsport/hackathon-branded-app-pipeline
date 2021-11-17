@@ -23,7 +23,7 @@ import {
 import PaymentComboDetailComponent from '../../libs/payment-combo/components/PaymentComboDetail.component';
 import PaymentComboDeleteDialog from '../../libs/payment-combo/components/PaymentComboDeleteDialog.component';
 import PaymentComboFormDialogContainer from './PaymentComboFormDialog.container';
-import { snackbarSuccess } from '../../actions/snackbar.actions';
+import { snackbarSuccess } from '../../libs/snackbar/actions';
 
 import type { PaymentCombo } from '../../libs/payment-combo/types';
 

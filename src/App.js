@@ -17,8 +17,8 @@ import { Moment } from './i18n';
 import LoadingBackoffice from './components/navigation/LoadingBackoffice.component';
 
 import SnackbarPile from './SnackbarPile.component';
-import BackgroundSnackbar from './BackgroundSnackbar.component';
-import BackgroundDialog from './BackgroundDialog.component';
+import BackgroundSnackbar from './libs/background-task/components/BackgroundSnackbar.component';
+import BackgroundDialog from './libs/background-dialog/components/BackgroundDialog.component';
 import Root from './Root';
 
 import initStore from './store';

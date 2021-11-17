@@ -1,5 +1,3 @@
-// @flow
-
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
@@ -8,9 +6,10 @@ import {
   snackbarDestroy,
   backgroundSnackbarDestroy,
   backgroundSnackbarDisplay,
-} from '../actions/snackbar.actions';
+} from './actions';
+import { SnackbarState } from './types';
 
-const initialState = Immutable({
+const initialState: Immutable.Immutable<SnackbarState> = Immutable({
   messages: [],
   backgroundMessages: [],
 });

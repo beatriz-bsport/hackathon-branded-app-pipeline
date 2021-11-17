@@ -17,7 +17,7 @@ import {
   fetchBasketHistoryList as fetchBasketHistoryListAPI,
 } from './api';
 import { getCurrentBasket } from './selectors';
-import { snackbarError } from '../../actions/snackbar.actions';
+import { snackbarError } from '../snackbar/actions';
 
 import { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 import { RootState } from '../../reducers';

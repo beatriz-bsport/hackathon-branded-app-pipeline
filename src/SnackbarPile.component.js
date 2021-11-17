@@ -12,7 +12,7 @@ import SnackbarContent from '@material-ui/core/SnackbarContent';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/styles';
-import { deleteSnackbar } from './actions/snackbar.actions';
+import { deleteSnackbar } from './libs/snackbar/actions';
 import type { Snack } from './libs/snackbar/types';
 
 type Props = {

@@ -55,7 +55,7 @@ import {
   snackbarError,
   snackbarWarning,
   snackbarSuccess,
-} from '../../../actions/snackbar.actions';
+} from '../../../libs/snackbar/actions';
 
 import { fetchProfile } from '../../../libs/consumer-space/actions';
 

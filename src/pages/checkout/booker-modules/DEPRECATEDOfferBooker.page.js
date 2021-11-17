@@ -33,7 +33,7 @@ import {
   withCoach,
   withMetaActivity,
 } from '../../../libs/offer/selectors';
-import { snackbarError as snackbarErrorActions } from '../../../actions/snackbar.actions';
+import { snackbarError as snackbarErrorActions } from '../../../libs/snackbar/actions';
 import Analytics from '../../../components/analytics/Analytics.component';
 import { consumerPayWithConsumerPaymentPack as payWithConsumerPaymentPackAPI } from '../../../api/payment';
 import { retrieveOffer as fetchOfferAction } from '../../../libs/offer/actions';

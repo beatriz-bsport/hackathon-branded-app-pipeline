@@ -14,7 +14,7 @@ import themeSelectors from '../../libs/theme/selectors';
 import {
   snackbarSuccess as snackbarSuccessAction,
   snackbarError as snackbarErrorAction,
-} from '../../actions/snackbar.actions';
+} from '../../libs/snackbar/actions';
 import { consumerPayWithConsumerPaymentPack as payWithConsumerPaymentPackAPI } from '../../api/payment';
 import { fetchAssociatedCoachBulkFromCoachIds as fetchAssociatedCoachBulkFromCoachIdsAction } from '../../libs/associated-coach/actions';
 import {
@@ -23,7 +23,6 @@ import {
 } from '../../libs/establishment/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
 import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
-import * as paymentActions from '../../actions/payment.actions';
 import MarketplaceWorkshop from '../../libs/marketplace/components/MarketplaceWorkshop.component';
 
 import {
@@ -152,10 +151,6 @@ export class MarketplaceWorkshopPage extends React.Component<FinalProps> {
             hideCoach={this.props.theme && this.props.theme.hideCoach}
             establishmentLoading={this.props.establishmentLoading}
             loading={this.props.loading}
-            fetchPaymentPacks={this.props.fetchPaymentPacks}
-            fetchCompatiblePass={this.props.fetchCompatiblePass}
-            compatibleConsumerPacks={this.props.compatibleConsumerPacks}
-            compatiblePaymentPacks={this.props.compatiblePaymentPacks}
             paymentComboList={this.props.paymentComboList}
             onBook={this.goToBook}
             onBookOfferFromPack={this.props.onBookOfferFromPack}
@@ -200,8 +195,6 @@ const mapStateToProps = (state: RootState) => ({
     withCoach(withEstablishment(getListCalendarOfferFromNow)),
   )(state),
   loading: state.offer.marketplace.loading,
-  compatibleConsumerPacks: state.payment.compatibleConsumerPacks || [],
-  compatiblePaymentPacks: state.payment.compatiblePaymentPacks || [],
   paymentComboList: getPaymentComboListAvailableOnline(state),
   coachLoading: state.coach.loading,
   establishmentLoading: state.establishment.bulkRetrieve.loading,
@@ -220,8 +213,6 @@ const mapDispatchToProps = {
   fetchEstablishmentBulk: fetchEstablishmentBulkAction,
   fetchAssociatedCoachBulkFromCoachIds: fetchAssociatedCoachBulkFromCoachIdsAction,
   fetchMetaActivityBulk: fetchMetaActivityBulkAction,
-  fetchPaymentPacks: paymentActions.fetchCompatiblePaymentPacks,
-  fetchCompatiblePass: paymentActions.fetchCompatiblePass,
   snackbarSuccess: snackbarSuccessAction,
   snackbarError: snackbarErrorAction,
   pushRouter: push,

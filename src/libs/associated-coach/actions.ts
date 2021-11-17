@@ -5,7 +5,7 @@ import uniq from 'lodash/uniq';
 import { Dispatch } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { putAuth, API_V1_URI, buildUrlParams } from '../../http';
-import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
+import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 import {
   updateCoach as updateCoachAPI,
   addCoach as addCoachAPI,

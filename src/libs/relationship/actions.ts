@@ -2,7 +2,7 @@
 
 import { createAction } from 'redux-actions';
 
-import { snackbarError, snackbarSuccess } from '../../actions/snackbar.actions';
+import { snackbarError, snackbarSuccess } from '../snackbar/actions';
 import {
   fetchMemberRelations as fetchMemberRelationsAPI,
   createRelation as createRelationAPI,

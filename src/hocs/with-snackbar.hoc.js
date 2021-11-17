@@ -3,7 +3,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { snackbar } from '../actions/snackbar.actions';
+import { snackbar } from '../libs/snackbar/actions';
 
 export default function withSnackbar(WrappedComponent) {
   return connect(null, (dispatch) => ({

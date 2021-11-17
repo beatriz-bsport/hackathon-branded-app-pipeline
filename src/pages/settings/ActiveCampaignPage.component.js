@@ -49,7 +49,7 @@ import {
   getActiveCampaignLinks,
   getAccount,
 } from '../../libs/active-campaign/selectors';
-import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
+import { snackbarSuccess, snackbarError } from '../../libs/snackbar/actions';
 import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {

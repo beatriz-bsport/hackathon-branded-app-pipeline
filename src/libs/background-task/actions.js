@@ -9,7 +9,7 @@ import {
   backgroundSnackbarSuccess,
   backgroundSnackbarError,
   backgroundSnackbarWarning,
-} from '../../actions/snackbar.actions';
+} from '../snackbar/actions';
 
 const BACKGROUND_TASK_STATUS_CODE_PENDING = 0;
 const BACKGROUND_TASK_STATUS_CODE_SUCCESS = 1;

@@ -47,7 +47,7 @@ import {
 } from '../../libs/subscription/actions';
 import { fetchFilteredMembers as fetchFilteredMembersAction } from '../../libs/member/actions';
 import { refreshAllPaymentPack } from '../../libs/payment-packs/actions';
-import { snackbarSuccess } from '../../actions/snackbar.actions';
+import { snackbarSuccess } from '../../libs/snackbar/actions';
 
 type Props = {
   theme: Theme,

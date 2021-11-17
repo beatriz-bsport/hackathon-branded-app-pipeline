@@ -16,10 +16,7 @@ import TaskList from '../../libs/reminder/components/TaskList.component';
 import { getUsersWithRole } from '../../libs/role/selectors';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import {
-  snackbarWarning,
-  snackbarSuccess,
-} from '../../actions/snackbar.actions';
+import { snackbarWarning, snackbarSuccess } from '../../libs/snackbar/actions';
 import {
   createOrUpdateNote as createOrUpdateMemberNote,
   deleteNote,

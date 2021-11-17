@@ -3,7 +3,7 @@ import uniq from 'lodash/uniq';
 import { createAction } from 'redux-actions';
 
 import * as Sentry from '@sentry/react';
-import { snackbarError, snackbarSuccess } from '../../actions/snackbar.actions';
+import { snackbarError, snackbarSuccess } from '../snackbar/actions';
 import {
   fetchMyUserProfileAPI,
   updateMember,

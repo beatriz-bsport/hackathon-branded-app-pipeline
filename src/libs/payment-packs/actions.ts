@@ -24,7 +24,7 @@ import {
   deletePaymentPackCategory as deletePaymentPackCategoryAPI,
 } from './api';
 
-import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
+import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 import {
   actionTypes as types,
   PaymentPack,

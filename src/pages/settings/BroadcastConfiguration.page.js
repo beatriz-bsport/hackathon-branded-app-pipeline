@@ -25,7 +25,7 @@ import {
   fetchZoomApp as fetchZoomAppAction,
   revokeZoomApp as revokeZoomAppAction,
 } from '../../libs/zoom-app/actions';
-import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
+import { snackbarSuccess, snackbarError } from '../../libs/snackbar/actions';
 import { requestZoomAccessToken as requestZoomAccessTokenAPI } from '../../libs/zoom-app/api';
 import { showDeleteDialog } from '../../components/GenericDialog/CustomDialogs';
 

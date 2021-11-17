@@ -13,7 +13,7 @@ import { DrawerContext, DrawerContextValue } from '../../context';
 
 import EmailEditorPanel from '../../libs/email-editor/components/EmailEditor.component';
 import withTitle from '../../hocs/with-title.hoc';
-import { snackbarError } from '../../actions/snackbar.actions';
+import { snackbarError } from '../../libs/snackbar/actions';
 
 import { fetchTagList } from '../../libs/notification-rule/actions';
 import { getTagCategories } from '../../libs/notification-rule/selectors';

@@ -58,7 +58,7 @@ import {
 } from '../../libs/payment/actions';
 
 import { fetchCompanyUserRoles } from '../../libs/role/actions';
-import { snackbarSuccess } from '../../actions/snackbar.actions';
+import { snackbarSuccess } from '../../libs/snackbar/actions';
 import InvoiceHeader from '../../libs/invoice/components/InvoiceHeader.component';
 import InvoiceContent from '../../libs/invoice/components/InvoiceContent.component';
 import InvoicePaymentPanel from '../../libs/invoice/components/InvoicePaymentPanel.component';

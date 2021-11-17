@@ -1,12 +1,9 @@
-// @flow
-
 import React, { useState } from 'react';
 
-import type { TFunction } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
-import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
-import { withTranslation } from 'react-i18next';
+
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -14,34 +11,24 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import GetAppIcon from '@material-ui/icons/GetApp';
-import { deletebackgroundDialog } from './actions/backgroundDialog.actions';
-import withIntercomAction from './hocs/tracking/dispatch-action.hoc';
+import { deletebackgroundDialog } from '../actions';
+import { RootState } from '../../../reducers';
 
-const styles = (theme) => ({
-  circularProgress: {
-    color: 'white',
-    marginLeft: theme.spacing(1.5),
-    marginRight: theme.spacing(1.5),
-  },
-  snackContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-});
 type Props = {
-  t: TFunction,
-  backgroundDialog: Object,
-  deletebackgroundDialog: (id: number) => void,
+  backgroundDialog: Object;
+  deletebackgroundDialog: (id: number) => void;
 };
+
 export function BackgroundDialog(props: Props) {
-  const { t } = props;
+  const { t } = useTranslation();
+
   const [downloadDisable, setDownloadDisable] = useState(true);
   const handleDownloadDisable = () => {
     setDownloadDisable(false);
   };
   return (
     <div>
-      {props.backgroundDialog.map((dialog) => (
+      {props.backgroundDialog.map((dialog: any) => (
         <Dialog
           open
           fullWidth
@@ -57,11 +44,11 @@ export function BackgroundDialog(props: Props) {
           </DialogContent>
           <DialogActions>
             <Button
-              onClick={withIntercomAction('Exported a report')(async () => {
+              onClick={async () => {
                 window.open(dialog.link);
                 window.close();
                 handleDownloadDisable();
-              })}
+              }}
               variant="contained"
               color="primary"
               autoFocus
@@ -85,7 +72,7 @@ export function BackgroundDialog(props: Props) {
   );
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: RootState) {
   return {
     backgroundDialog: state.backgroundDialog.messages,
   };
@@ -95,8 +82,4 @@ const mapDispatchToProps = {
   deletebackgroundDialog,
 };
 
-export default withTranslation()(
-  withStyles(styles)(
-    connect(mapStateToProps, mapDispatchToProps)(BackgroundDialog),
-  ),
-);
+export default connect(mapStateToProps, mapDispatchToProps)(BackgroundDialog);

@@ -30,7 +30,7 @@ import {
 } from '../../libs/giftcard/types';
 import ConsumerGiftcardDetail from '../../libs/giftcard/components/ConsumerGiftcardDetail.component';
 import PaginatedListBase from '../../components/PaginatedListBase.component';
-import { snackbarSuccess } from '../../actions/snackbar.actions';
+import { snackbarSuccess } from '../../libs/snackbar/actions';
 import {
   getConsumerGiftcardReceivedList,
   withGiftcard,

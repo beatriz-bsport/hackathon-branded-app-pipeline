@@ -6,7 +6,7 @@
 import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 
-import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
+import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 
 import withIntercomAction from '../../hocs/tracking/dispatch-action.hoc';
 

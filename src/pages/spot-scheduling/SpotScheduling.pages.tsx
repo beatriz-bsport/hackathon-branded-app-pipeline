@@ -25,7 +25,7 @@ import {
   getRoomBlueprint,
   getAvailableRoomBlueprints,
 } from '../../libs/spot-scheduling/selector';
-import { snackbar } from '../../actions/snackbar.actions';
+import { snackbar } from '../../libs/snackbar/actions';
 import { OptionCallback } from '../../state/types';
 
 type OwnProps = {

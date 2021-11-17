@@ -5,10 +5,7 @@ import { createAction } from 'redux-actions';
 
 import * as api from '../api';
 
-import {
-  snackbarSuccess,
-  snackbarError,
-} from '../../../actions/snackbar.actions';
+import { snackbarSuccess, snackbarError } from '../../snackbar/actions';
 import type { Dispatch, OptionCallback } from '../../../state/types';
 import { getFreshShopIds } from '../selectors';
 

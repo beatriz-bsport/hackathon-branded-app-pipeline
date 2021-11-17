@@ -23,7 +23,7 @@ import {
 } from './api';
 import { monitorBackgroundTask } from '../background-task/actions';
 
-import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
+import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 import type { Dispatch, OptionCallback, RootState } from '../../reducers';
 import { OfferFilter, OfferFilterData, OfferStatus, Offer } from './types';
 

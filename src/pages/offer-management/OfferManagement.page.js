@@ -70,7 +70,7 @@ import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
 } from '../../libs/email-editor/selectors';
-import { snackbar } from '../../actions/snackbar.actions';
+import { snackbar } from '../../libs/snackbar/actions';
 import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/selectors';
 
 import {

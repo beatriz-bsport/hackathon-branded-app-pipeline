@@ -16,7 +16,7 @@ import Paper from '@material-ui/core/Paper';
 import { CircularProgress, Theme, Typography } from '@material-ui/core';
 import { push as pushRouter } from 'connected-react-router';
 import themeSelectors from '../../libs/theme/selectors';
-import { snackbarSuccess } from '../../actions/snackbar.actions';
+import { snackbarSuccess } from '../../libs/snackbar/actions';
 
 import withTitle from '../../hocs/with-title.hoc';
 import {

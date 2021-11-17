@@ -22,10 +22,7 @@ import { RootState } from '../../../reducers';
 import BackofficeLinearProgress from '../../../components/navigation/BackofficeLinearProgress.component';
 import PaymentMethodMultiSelector from '../../../libs/payment/components/PaymentMethodMultiSelector.component';
 import { updateCompanyTheme } from '../../../libs/theme/actions';
-import {
-  snackbarError,
-  snackbarSuccess,
-} from '../../../actions/snackbar.actions';
+import { snackbarError, snackbarSuccess } from '../../../libs/snackbar/actions';
 
 type OwnProps = {};
 

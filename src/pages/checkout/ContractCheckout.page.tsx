@@ -49,10 +49,7 @@ import {
 } from '../../libs/payment/actions';
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 import Analytics from '../../components/analytics/Analytics.component';
-import {
-  snackbarWarning,
-  snackbarSuccess,
-} from '../../actions/snackbar.actions';
+import { snackbarWarning, snackbarSuccess } from '../../libs/snackbar/actions';
 import WidgetUtils from '../../libs/widget/WidgetUtils';
 import type { ContractWithPaymentPack } from '../../libs/subscription/types';
 import type { Theme as CompanyTheme } from '../../libs/theme/types';

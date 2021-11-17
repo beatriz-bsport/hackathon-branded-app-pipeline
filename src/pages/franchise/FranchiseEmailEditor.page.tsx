@@ -8,7 +8,7 @@ import { LinearProgress } from '@material-ui/core';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { DrawerContext, DrawerContextValue } from '../../context';
 import { RootState } from '../../reducers';
-import { snackbarError as snackbarErrorAction } from '../../actions/snackbar.actions';
+import { snackbarError as snackbarErrorAction } from '../../libs/snackbar/actions';
 import {
   emailDesignCreate as emailDesignCreateAction,
   emailTemplateComplete as emailTemplateCompleteAction,

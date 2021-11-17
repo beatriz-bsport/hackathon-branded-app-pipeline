@@ -34,10 +34,7 @@ import { getMemberDetail } from '../../libs/member/selectors';
 import type { Membership } from '../../libs/membership/types';
 import type { Member } from '../../libs/member/types';
 import type { Theme } from '../../libs/theme/types';
-import {
-  snackbarWarning,
-  snackbarSuccess,
-} from '../../actions/snackbar.actions';
+import { snackbarWarning, snackbarSuccess } from '../../libs/snackbar/actions';
 
 type Props = {
   fetchMember: (number) => void,

@@ -6,7 +6,7 @@ import { push } from 'connected-react-router';
 
 import { DrawerContext, DrawerContextValue } from '../../context';
 import { RootState } from '../../reducers';
-import { snackbarError as snackbarErrorAction } from '../../actions/snackbar.actions';
+import { snackbarError as snackbarErrorAction } from '../../libs/snackbar/actions';
 import {
   emailDesignCreate as emailDesignCreateAction,
   setEmailEditorHasBeenLoaded as setEmailEditorHasBeenLoadedAction,

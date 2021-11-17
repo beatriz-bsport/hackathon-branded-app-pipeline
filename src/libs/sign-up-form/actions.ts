@@ -6,7 +6,7 @@ import {
   updateSignUpFormConfiguration as updateSignUpFormConfigurationAPI,
 } from './api';
 
-import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
+import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 
 export const fetchSignUpConfigurationActions = {
   isLoading: createAction('SIGNUPCONFIG/GET/IS_LOADING'),

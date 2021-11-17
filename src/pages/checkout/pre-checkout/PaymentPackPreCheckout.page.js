@@ -15,7 +15,6 @@ import InfoIcon from '@material-ui/icons/Info';
 import type { TFunction } from 'react-i18next';
 import { buildUrlParams, parseQueryString } from '../../../http';
 import withQueryParams from '../../../hocs/with-query-params.hoc';
-import { payment as paymentActions } from '../../../actions';
 
 import themeSelectors from '../../../libs/theme/selectors';
 import type { Theme } from '../../../libs/theme/types';
@@ -25,6 +24,7 @@ import {
   removeItemFromBasket,
   fetchCurrentBasket,
 } from '../../../libs/checkout/actions';
+import { fetchOne } from '../../../libs/payment-packs/actions';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import Analytics from '../../../components/analytics/Analytics.component';
 
@@ -166,7 +166,7 @@ export default compose(
       addItemToBasket,
       removeItemFromBasket,
       fetchCurrentBasket,
-      fetchPaymentPack: paymentActions.fetchPaymentPack,
+      fetchPaymentPack: fetchOne,
       goBack,
       replace: replaceRouter,
       push,

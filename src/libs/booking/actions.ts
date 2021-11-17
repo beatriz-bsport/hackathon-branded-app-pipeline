@@ -3,7 +3,7 @@ import moment from 'moment-timezone';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 
-import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
+import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 
 import {
   fetchBookingList as fetchBookingListAPI,

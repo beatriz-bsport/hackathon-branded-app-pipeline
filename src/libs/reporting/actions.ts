@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
 import { OptionCallback, Dispatch } from '../../state/types';
 import { monitorBackgroundTask } from '../background-task/actions';
-import { displayBackgroundDialog } from '../../actions/backgroundDialog.actions';
+import { displayBackgroundDialog } from '../background-dialog/actions';
 import {
   fetchReportGeneration as fetchReportGenerationAPI,
   fetchReportHeaders as fetchReportHeadersAPI,

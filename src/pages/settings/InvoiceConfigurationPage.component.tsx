@@ -23,7 +23,7 @@ import {
 import {
   snackbarSuccess as snackbarSuccessAction,
   snackbarError as snackbarErrorAction,
-} from '../../actions/snackbar.actions';
+} from '../../libs/snackbar/actions';
 
 import {
   getEstablishmentBillingroup,

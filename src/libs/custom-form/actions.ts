@@ -23,7 +23,7 @@ import {
   deleteCustomFormDisplayRule as deleteCustomFormDisplayRuleAPI,
   requestMemberCustomFormNotification as requestMemberCustomFormNotificationAPI,
 } from './api';
-import { snackbarError, snackbarSuccess } from '../../actions/snackbar.actions';
+import { snackbarError, snackbarSuccess } from '../snackbar/actions';
 import type {
   CustomForm,
   CustomFormFieldAnswer,

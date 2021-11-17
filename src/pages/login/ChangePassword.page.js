@@ -14,7 +14,7 @@ import { push as pushRouter } from 'connected-react-router';
 
 import LoginBase from '../../components/navigation/LoginBase.component';
 import api from '../../api';
-import { snackbarSuccess } from '../../actions/snackbar.actions';
+import { snackbarSuccess } from '../../libs/snackbar/actions';
 
 const styles = (theme) => ({
   formContainer: {

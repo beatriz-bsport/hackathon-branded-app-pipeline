@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 
-import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
+import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 import {
   fetchCouponPage as fetchCouponPageAPI,
   fetchCouponDiscounts as fetchCouponDiscountsAPI,

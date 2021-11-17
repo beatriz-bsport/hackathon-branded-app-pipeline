@@ -9,3 +9,8 @@ export type BackgroundSnack = {
   backgroundMessage: string;
   kind: BackgroundSnackKind;
 };
+
+export type SnackbarState = {
+  messages: Array<Snack>;
+  backgroundMessages: Array<BackgroundSnack>;
+};

@@ -13,10 +13,7 @@ import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selector
 import { fetchCurrentBasket as fetchCurrentBasketAction } from '../../libs/checkout/actions';
 import MemberForm from '../../libs/member/MemberForm.component';
 import WidgetUtils from '../../libs/widget/WidgetUtils';
-import {
-  snackbarWarning,
-  snackbarSuccess,
-} from '../../actions/snackbar.actions';
+import { snackbarWarning, snackbarSuccess } from '../../libs/snackbar/actions';
 import {
   createOrUpdateMember,
   fetchMember as fetchMemberAction,

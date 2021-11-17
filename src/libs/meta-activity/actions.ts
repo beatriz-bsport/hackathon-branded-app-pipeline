@@ -1,7 +1,7 @@
 import * as Sentry from '@sentry/react';
 import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
-import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
+import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 
 import { getFreshMetaActivityList } from './selectors';

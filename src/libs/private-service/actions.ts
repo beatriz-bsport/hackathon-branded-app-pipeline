@@ -6,7 +6,7 @@ import {
   snackbarSuccess,
   snackbarError,
   snackbarWarning,
-} from '../../actions/snackbar.actions';
+} from '../snackbar/actions';
 
 import {
   // availability-slot

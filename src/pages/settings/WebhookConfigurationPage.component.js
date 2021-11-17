@@ -21,7 +21,7 @@ import {
 } from '../../libs/webhook/actions';
 import { getAllWebhooks } from '../../libs/webhook/selectors';
 import { testWebhookUrl as testWebhookUrlAPI } from '../../libs/webhook/api';
-import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
+import { snackbarSuccess, snackbarError } from '../../libs/snackbar/actions';
 import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {

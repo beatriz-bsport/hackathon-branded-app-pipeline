@@ -31,7 +31,7 @@ import {
   createOrUpdateShopItem,
   deleteItem as deleteShopItem,
 } from '../../libs/shop/actions/shopitem';
-import { snackbarSuccess } from '../../actions/snackbar.actions';
+import { snackbarSuccess } from '../../libs/snackbar/actions';
 
 import {
   fetchProvisions,

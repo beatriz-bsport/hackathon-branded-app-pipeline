@@ -27,7 +27,7 @@ import {
   deleteEstablishmentBillingGroup as deleteEstablishmentBillingGroupAPI,
 } from './api';
 import { API_URI, postAuth, deleteAuth } from '../../http';
-import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
+import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 import { getFreshEstablishmentIds } from './selectors';

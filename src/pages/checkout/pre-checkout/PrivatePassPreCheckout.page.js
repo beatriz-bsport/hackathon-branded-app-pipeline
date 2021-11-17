@@ -142,7 +142,6 @@ export default compose(
   routerParamsToProps({ id: 'privatePassId:number' }),
   connect(
     (state) => ({
-      loading: state.payment.loading || state.checkout.basket.current.loading,
       theme: themeSelectors.getTheme(state),
       basket: getCurrentBasket(state),
     }),

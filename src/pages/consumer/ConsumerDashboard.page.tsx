@@ -72,10 +72,7 @@ import {
   detachPaymentMethod,
   fetchPaymentMethodList,
 } from '../../libs/payment/actions';
-import {
-  snackbarWarning,
-  snackbarSuccess,
-} from '../../actions/snackbar.actions';
+import { snackbarWarning, snackbarSuccess } from '../../libs/snackbar/actions';
 import {
   fromConfigToUrl,
   getMarketplaceRoute,

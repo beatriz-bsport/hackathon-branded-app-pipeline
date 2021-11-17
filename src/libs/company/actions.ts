@@ -5,9 +5,11 @@ import {
   fetchCompanyList as fetchCompanyListAPI,
   createCompany as createCompanyAPI,
   attachExternalAccount as attachExternalAccountAPI,
+  retrieveMyCompanySetup as retrieveMyCompanySetupAPI,
   getFeatureList as getFeatureListAPI,
 } from './api';
 import type { Dispatch, OptionCallback } from '../../state/types';
+import { Company, CompanySetup, UpsellSumup } from './types';
 
 export const searchActions = {
   success: createAction('COMPANY/SEARCH/SUCCESS'),
@@ -15,7 +17,10 @@ export const searchActions = {
   error: createAction('COMPANY/SEARCH/ERROR'),
 };
 
-export function searchCompany(text: string, options: OptionCallback) {
+export function searchCompany(
+  text: string,
+  options: OptionCallback<Array<Company>>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(searchActions.isLoading(true));
     dispatch(searchActions.error(null));
@@ -44,8 +49,8 @@ export const createCompanyActions = {
 };
 
 export function createCompany(
-  data: { email: string, password: string, name: string, country: string },
-  options: OptionCallback,
+  data: { email: string; password: string; name: string; country: string },
+  options: OptionCallback<Company>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(createCompanyActions.isLoading(true));
@@ -72,7 +77,10 @@ export const attachExternalAccountActions = {
   error: createAction('COMPANY/ATTACH_EXTERNAL_ACCOUNT/ERROR'),
 };
 
-export function attachExternalAccount(token: string, options: OptionCallback) {
+export function attachExternalAccount(
+  token: string,
+  options: OptionCallback<string>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(attachExternalAccountActions.isLoading(true));
     dispatch(attachExternalAccountActions.error(null));
@@ -98,7 +106,7 @@ export const listFeatureActions = {
   error: createAction('COMPANY/LIST_FEATURE/ERROR'),
 };
 
-export function getFeatureList(options: OptionCallback) {
+export function getFeatureList(options: OptionCallback<UpsellSumup>) {
   return async (dispatch: Dispatch) => {
     dispatch(listFeatureActions.isLoading(true));
     dispatch(listFeatureActions.error(null));
@@ -115,5 +123,30 @@ export function getFeatureList(options: OptionCallback) {
       if (options && options.onError) options.onError(err);
     }
     dispatch(listFeatureActions.isLoading(false));
+  };
+}
+export const retrieveMyCompanyActions = {
+  success: createAction('COMPANY/ME/SUCCESS'),
+  isLoading: createAction('COMPANY/ME/IS_LOADING'),
+  error: createAction('COMPANY/ME/ERROR'),
+};
+
+export function retrieveMyCompanySetup(options: OptionCallback<CompanySetup>) {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrieveMyCompanyActions.isLoading(true));
+    dispatch(retrieveMyCompanyActions.error(null));
+
+    try {
+      const response = await retrieveMyCompanySetupAPI();
+      dispatch(retrieveMyCompanyActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(retrieveMyCompanyActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(retrieveMyCompanyActions.isLoading(false));
   };
 }

@@ -53,20 +53,21 @@ import CZ_FLAG from './flags/CZ.png';
 import SI_FLAG from './flags/SI.png';
 
 type Props = {
-  withCurrency?: boolean,
-  onChange: (SyntheticEvent<HTMLElement>) => void,
-  value: string,
-  label?: string,
+  withCurrency?: boolean;
+  onChange: (event: React.ChangeEvent<HTMLElement>) => void;
+  value: string;
+  label?: string;
 };
 
 type Locale = {
-  locale: string,
-  icon: string,
-  currencyCode: string,
-  currencyDisplay: string,
+  locale: string;
+  icon: string;
+  currencyCode: string;
+  currencyDisplay: string;
+  showLang?: boolean;
 };
 
-const localeList: Array<Locale> = [
+export const LOCALE_LIST: Array<Locale> = [
   {
     locale: 'fr_FR',
     icon: FR_FLAG,
@@ -381,7 +382,7 @@ export const CountrySelector = (props: Props) => {
         <InputLabel id="locale-simple-select-label">{props.label}</InputLabel>
       )}
       <Select value={props.value} onChange={props.onChange}>
-        {localeList.map((localeContainer) => {
+        {LOCALE_LIST.map((localeContainer) => {
           const [lang, country] = localeContainer.locale.split('_');
           return (
             <MenuItem

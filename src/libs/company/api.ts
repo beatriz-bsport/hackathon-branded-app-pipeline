@@ -33,3 +33,7 @@ export const attachExternalAccount = (token: string) => {
 export const getFeatureList = () => {
   return getAuth(`${API_V1_URI}/company/features/`);
 };
+
+export const retrieveMyCompanySetup = () => {
+  return postAuth(`${API_V1_URI}/company/setup/me/`);
+};

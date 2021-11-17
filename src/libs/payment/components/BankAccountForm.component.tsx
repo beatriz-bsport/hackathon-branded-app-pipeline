@@ -11,46 +11,35 @@ import { ElementsConsumer, Elements } from '@stripe/react-stripe-js';
 
 import { loadStripe } from '@stripe/stripe-js';
 import { getStripePkKey } from '../../theme/selectors';
+import { LOCALE_LIST } from '../../../components/input/LocaleSelector.component';
+import { CompanySetup } from '../types';
 
 const stripePromise = loadStripe(getStripePkKey());
 
 type Props = {
-  company: Company,
-  setAccountHolderName: (string) => void,
-  account_holder_name: string,
-  account_number: string,
-  setAccountNumber: (string) => void,
-  onSubmit: () => void,
-  error: ?Error,
-  loading: boolean,
-  onClose: () => void,
+  company: CompanySetup;
+  setAccountHolderName: (name: string) => void;
+  account_holder_name: string;
+  routing_number: string;
+  setRoutingNumber: (routing: string) => void;
+  account_number: string;
+  setAccountNumber: (account: string) => void;
+  onSubmit: () => void;
+  error: Error | null;
+  loading: boolean;
+  onClose: () => void;
+  currency: string;
 };
 
 export const BankAccountForm = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['payment']);
   let content = <Typography>{t('bankAccount.form.unknownCountry')}</Typography>;
+
   if (
-    [
-      'FR',
-      'BE',
-      'IT',
-      'MT',
-      'DE',
-      'AT',
-      'GB',
-      'NL',
-      'ES',
-      'IE',
-      'CH',
-      'NO',
-      'SE',
-      'FI',
-      'DK',
-      'LU',
-      'CA',
-      'AE',
-    ].includes(props.company.country)
+    LOCALE_LIST.map((l) => l.locale.split('_')[1]).includes(
+      props.company.country,
+    )
   ) {
     content = (
       <div className={classes.field}>
@@ -70,12 +59,34 @@ export const BankAccountForm = (props: Props) => {
           value={props.account_holder_name || ''}
           onChange={(ev) => props.setAccountHolderName(ev.target.value)}
         />
+        {props.currency !== 'eur' && (
+          <TextField
+            fullWidth
+            className={classes.field}
+            label={t('bankAccount.form.routingNumber.label')}
+            placeholder={
+              t('bankAccount.form.routingNumber.placeholder') +
+              (props.currency.toLowerCase() === 'usd'
+                ? t('bankAccount.form.routingNumber.usdSpecific')
+                : '')
+            }
+            required
+            variant="outlined"
+            value={props.routing_number || ''}
+            onChange={(ev) => props.setRoutingNumber(ev.target.value)}
+          />
+        )}
         <TextField
           fullWidth
           label={t('bankAccount.form.accountNumber.label')}
           required
           className={classes.field}
-          placeholder={t('bankAccount.form.accountNumber.placeholder')}
+          placeholder={
+            t('bankAccount.form.accountNumber.placeholder') +
+            (props.currency.toLowerCase() === 'eur'
+              ? t('bankAccount.form.accountNumber.eurSpecific')
+              : '')
+          }
           variant="outlined"
           value={props.account_number || ''}
           onChange={(ev) => props.setAccountNumber(ev.target.value)}
@@ -136,6 +147,7 @@ const useStyles = makeStyles((theme) => ({
 const BankAccountFormComposed = compose(
   withState('account_number', 'setAccountNumber', ''),
   withState('account_holder_name', 'setAccountHolderName', ''),
+  withState('routing_number', 'setRoutingNumber', ''),
   withState('error', 'setError', false),
   withState('loading', 'setLoading', false),
   withHandlers({
@@ -143,6 +155,7 @@ const BankAccountFormComposed = compose(
       onSubmit,
       account_number,
       account_holder_name,
+      routing_number,
       country,
       currency,
       stripe,
@@ -157,8 +170,9 @@ const BankAccountFormComposed = compose(
           account_holder_name,
           country,
           currency,
+          ...(routing_number ? { routing_number } : {}),
         })
-        .then((r) => {
+        .then((r: any) => {
           const { token } = r;
 
           setLoading(true);
@@ -182,7 +196,7 @@ const BankAccountFormComposed = compose(
   }),
 )(BankAccountForm);
 
-export default (props) => (
+export default (props: Props) => (
   <Elements stripe={stripePromise}>
     <ElementsConsumer>
       {({ stripe, elements }) => (

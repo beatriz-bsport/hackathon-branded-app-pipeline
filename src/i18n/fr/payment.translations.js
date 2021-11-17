@@ -187,11 +187,17 @@ exports.default = {
         label: 'Titulaire du compte bancaire',
         placeholder: 'Jacques Chirac',
       },
+      routingNumber: {
+        label: 'Numéro de routage',
+        placeholder: '000001',
+        usdSpecific: ' (ACH routing number)',
+      },
       invalid:
         "IBAN invalide. Attention : l'IBAN doit correspondre à un compte bancaire domicilié dans le même pays que votre entreprise",
       accountNumber: {
-        label: 'Identifiant bancaire (IBAN)',
+        label: 'Numéro de compte',
         placeholder: 'FR89370400440532013000',
+        eurSpecific: ' (IBAN)',
       },
       unknownCountry:
         'Opération manuelle pour ce pays, veuillez contacter bsport via contact@bsport.io',

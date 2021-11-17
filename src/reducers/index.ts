@@ -13,7 +13,6 @@ import checkoutReducers from '../libs/checkout/reducers';
 import CoachPaymentRuleReducer from '../libs/coach-payment-rules/reducers';
 import coachReducers from '../libs/associated-coach/reducers';
 import communicationReducers from '../libs/communication/reducers';
-import companiesReducers from './companies.reducers';
 import company from '../libs/company/reducers';
 import consumerPaymentPackReducers from '../libs/consumer-payment-pack/reducers';
 import consumerReducers from '../libs/consumer-space/reducers';
@@ -132,7 +131,6 @@ const rootReducer = (history: any) =>
     snackbar: snackbarReducer,
     backgroundDialog: backgroundDialogReducer,
     search: searchReducer,
-    companies: companiesReducers,
     shop: shopReducer,
     subscription: subscriptionReducer,
     alerting: alertingReducer,
@@ -190,7 +188,6 @@ export type RootState = {
   coach: CoachState;
   coachPaymentRules: CoachPaymentRuleState;
   communication: MailState;
-  companies: any;
   company: CompanyState;
   consumer: ConsumerState;
   consumerPaymentPack: ConsumerPaymentPackState;

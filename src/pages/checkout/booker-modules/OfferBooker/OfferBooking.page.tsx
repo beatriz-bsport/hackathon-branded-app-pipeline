@@ -20,7 +20,6 @@ import {
   getMainOfferNotBookableReason,
   getCanIBook,
 } from '@bsport/common/lib/master-data/available-payment';
-
 import Analytics from '../../../../components/analytics/Analytics.component';
 
 import { RootState } from '../../../../reducers';
@@ -59,7 +58,6 @@ import OfferListSummary from '../../../../libs/booker-module/components/OfferLis
 
 import { getMyRelatedMemberList } from '../../../../libs/relationship/selectors';
 import { fetchMyRelatedMemberList } from '../../../../libs/relationship/actions';
-
 import BookingMethodSelector from './BookingMethodSelector.container';
 import {
   OfferData,

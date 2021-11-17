@@ -437,10 +437,11 @@ const InvoiceRow = React.memo((props: Props) => {
                                   {payment.payment_received === null && (
                                     <HourglassEmptyIcon size="small" />
                                   )}
-                                  {payment.payment_received === false && (
-                                    <ErrorIcon color="error" size="small" />
-                                  )}
-                                  {payment.payment_received === true && (
+                                  {!payment.payment_received &&
+                                    payment.payment_received !== null && (
+                                      <ErrorIcon color="error" size="small" />
+                                    )}
+                                  {payment.payment_received && (
                                     <CheckIcon color="primary" size="small" />
                                   )}
                                 </TableCell>

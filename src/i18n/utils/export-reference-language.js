@@ -13,6 +13,7 @@ const generateSourceTranslations = (lang) => {
     } catch (err) {
       console.log(`MISSING: ${ns}`);
       console.error(err);
+      throw Error(`Failted to parsed: ${ns}: ${err}`);
     }
     return { ...acc, [ns]: m.default };
   }, {});

@@ -153,7 +153,7 @@ export class ConsumerDashboardBookingPanel extends React.PureComponent<Props> {
   render() {
     return (
       <div className={this.props.classes.container}>
-        {this.props.hideTitle !== true && (
+        {!this.props.hideTitle && (
           <>
             <Typography
               variant="h4"

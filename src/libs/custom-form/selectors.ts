@@ -8,7 +8,12 @@ import type {
   CustomFormFieldAnswerAPI,
   CustomFormDisplayRule,
 } from './types';
-import { checkDisabledHasAnswer, insertUserProfileDataToAnswer } from './utils';
+import {
+  checkDisabledHasAnswer,
+  insertUserProfileDataToAnswer,
+  insertMemberProfileDataToAnswer,
+} from './utils';
+import { getMemberDetail } from '../member/selectors';
 
 export const getCustomForm = (state: RootState, id: number) =>
   state.customForm.byId[id];
@@ -85,6 +90,34 @@ export const withUserProfileData = memoize(
         });
       },
     ),
+);
+
+export const withMemberProfileData = memoize(
+  (
+    selector: (state: RootState, id: number) => CustomForm | Array<CustomForm>,
+  ) =>
+    createSelector([selector, getMemberDetail], (custom_form, memberData) => {
+      if (!custom_form) return null;
+      if (!memberData) return custom_form;
+      if (!Array.isArray(custom_form)) {
+        return {
+          ...custom_form,
+          custom_form_field: custom_form.custom_form_field.map((field) => ({
+            ...field,
+            answer: insertMemberProfileDataToAnswer(field, memberData),
+          })),
+        };
+      }
+      return custom_form?.map((cf) => {
+        return {
+          ...cf,
+          custom_form_field: cf?.custom_form_field.map((field) => ({
+            ...field,
+            answer: insertMemberProfileDataToAnswer(field, memberData),
+          })),
+        };
+      });
+    }),
 );
 export const getCustomFormListWithEnableField = createSelector(
   [getCustomFormDict, (_: RootState, ids: Array<number>) => ids],

@@ -6,6 +6,15 @@ export type User = {
   photo: string;
 };
 
+export type MemberAddress = {
+  address: {
+    address_line_1: string;
+    address_line_2: string;
+    city: string;
+    country: string;
+    zipcode: string;
+  };
+};
 export type UserProfile = {
   first_name: string;
   last_name: string;
@@ -83,6 +92,7 @@ export type Member<Tag = number> = {
   general_terms_and_conditions_date_accepted: string | null;
   general_terms_and_conditions_accepted: boolean | null;
   waiver_accepted: string;
+  emergency_contact: string;
 };
 
 export type MemberState = ErrorAndLoading &

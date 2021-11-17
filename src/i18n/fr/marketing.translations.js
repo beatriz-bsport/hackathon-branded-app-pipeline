@@ -72,8 +72,18 @@ exports.default = {
     editLayoutTitle: "Editer l'agencement du formulaire",
     editLayoutSubtitle : "Vous avez modifié un formulaire utilisant un agencement personnalisé, verifiez ici, et modifiez si besoin, l'apercu de vos formulaire sur les différentes tailles d'écran",
     signupFormTitle: "Formulaire d'inscription",
-    memberFormTitle: "Formulaire d'édition de profil (page de profile de vos membres)",
+    memberFormTitle: "Formulaire d'édition de profil (page de profil de vos membres)",
     signupFormHelper: "Les questions obligatoires du formulaire d’inscription doivent être éditables par vos membres sur leur profil. Ces questions seront ajoutées automatiquement au formulaire d'édition de profil client et sont affichées et modifiables.",
+    memberFormHelper : "Les questions obligatoires du formulaire d’inscription sont par défaut affichées et modifiables. Elles ne peuvent être supprimées.",
+    navigateToSignup: "Editer le formulaire d'inscription",
+    navigateToMemberForm : "Editer le formulaire d'édition de profil client",
+      save:"Sauvegarder",
+    },
+    editLayoutTitle: "Editer l'agencement du formulaire",
+    editLayoutSubtitle : "Vous avez modifié un formulaire utilisant un agencement personnalisé, verifiez ici, et modifiez si besoin, l'apercu de vos formulaire sur les différentes tailles d'écran",
+    signupFormTitle: "Formulaire d'inscription",
+    memberFormTitle: "Formulaire de modification",
+    signupFormHelper: "Les questions obligatoires du formulaire d’inscription doivent être éditables par vos membres sur leur profil. Ces questions seront ajoutées automatiquement au formulaire de modification et sont affichées et modifiables.",
     memberFormHelper : "Les questions obligatoires du formulaire d’inscription sont par défaut affichées et modifiables. Elles ne peuvent être supprimées.",
     navigateToSignup: "Editer le formulaire d'inscription",
     navigateToMemberForm : "Editer le formulaire d'édition de profil client",
@@ -307,5 +317,4 @@ exports.default = {
       
       
     }
-  }
 };

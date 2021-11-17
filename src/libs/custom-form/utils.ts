@@ -36,6 +36,7 @@ import type {
   Layout,
 } from './types';
 import type { UserProfile } from '../member/types';
+import { Member, MemberAddress } from '../member/types';
 
 export const ALL_CUSTOM_FORM_SIGNUP_KIND_LIST = [
   CUSTOM_FORM_FIELD_SIGN_UP_PASSWORD,
@@ -256,6 +257,63 @@ export const insertUserProfileDataToAnswer = (
       return true;
     case CUSTOM_FORM_FIELD_SIGN_UP_WAIVER:
       return true;
+    default:
+      return null;
+  }
+};
+
+export const insertMemberProfileDataToAnswer = (
+  customFormField: CustomFormField,
+  memberProfileData: Member &
+    MemberAddress & {
+      accept_email: boolean;
+      accept_sms: boolean;
+      waiver_accepted: string;
+    },
+) => {
+  switch (customFormField.signup_question_kind) {
+    case CUSTOM_FORM_FIELD_SIGN_UP_FIRST_NAME:
+      return memberProfileData?.firstname;
+    case CUSTOM_FORM_FIELD_SIGN_UP_LAST_NAME:
+      return memberProfileData?.lastname;
+    case CUSTOM_FORM_FIELD_SIGN_UP_EMAIL:
+      return memberProfileData?.email;
+    case CUSTOM_FORM_FIELD_SIGN_UP_GENDER:
+      return memberProfileData?.gender;
+    case CUSTOM_FORM_FIELD_SIGN_UP_PHONE:
+      return memberProfileData?.phone_number;
+    case CUSTOM_FORM_FIELD_SIGN_UP_BIRTHDAY:
+      return memberProfileData?.birthday;
+    case CUSTOM_FORM_FIELD_SIGN_UP_ADDRESS_LINE_1:
+      return memberProfileData?.address?.address_line_1;
+    case CUSTOM_FORM_FIELD_SIGN_UP_ADDRESS_LINE_2:
+      return memberProfileData?.address?.address_line_2;
+    case CUSTOM_FORM_FIELD_SIGN_UP_CITY:
+      return memberProfileData?.address?.city;
+    case CUSTOM_FORM_FIELD_SIGN_UP_ZIPCODE:
+      return memberProfileData?.address?.zipcode;
+    case CUSTOM_FORM_FIELD_SIGN_UP_COUNTRY:
+      return memberProfileData?.address?.country;
+    case CUSTOM_FORM_FIELD_SIGN_UP_PHOTO:
+      return memberProfileData?.photo;
+    case CUSTOM_FORM_FIELD_SIGN_UP_EMERGENCY_CONTACT:
+      return memberProfileData?.emergency_contact;
+    case CUSTOM_FORM_FIELD_SIGN_UP_ACCEPT_EMAIL:
+      return memberProfileData?.accept_email;
+    case CUSTOM_FORM_FIELD_SIGN_UP_ACCEPT_SMS:
+      return memberProfileData?.accept_sms;
+    case CUSTOM_FORM_FIELD_SIGN_UP_VACCINATION_STATUS:
+      if (memberProfileData?.vaccination_status === true) {
+        return 1;
+      }
+      if (memberProfileData?.vaccination_status === false) {
+        return 2;
+      }
+      return 0;
+    case CUSTOM_FORM_FIELD_SIGN_UP_GENERAL_TERMS_AND_CONDITIONS:
+      return !!memberProfileData?.general_terms_and_conditions_accepted;
+    case CUSTOM_FORM_FIELD_SIGN_UP_WAIVER:
+      return !!memberProfileData?.waiver_accepted;
     default:
       return null;
   }

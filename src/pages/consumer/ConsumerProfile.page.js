@@ -17,6 +17,7 @@ import {
   fetchMember as fetchMemberAction,
   fetchMyUserProfile,
 } from '../../libs/member/actions';
+
 import {
   fetchPaymentMethodList,
   detachPaymentMethod,
@@ -39,8 +40,8 @@ import {
 } from '../../libs/custom-form/actions';
 import {
   getMemberCustomFormWithEnabledField,
-  withUserProfileData,
   showVaccinationStatus,
+  withMemberProfileData,
 } from '../../libs/custom-form/selectors';
 import type { CustomForm } from '../../libs/custom-form/types';
 import { disconnect } from '../../actions/auth.actions';
@@ -195,9 +196,9 @@ export default compose(
       paymentMethodLoading: state.paymentBackend.paymentMethod.loading,
       detachPaymentMethodLoading:
         state.paymentBackend.detachPaymentMethod.loading,
-      memberCustomForm: withUserProfileData(
+      memberCustomForm: withMemberProfileData(
         getMemberCustomFormWithEnabledField,
-      )(state),
+      )(state, membership?.id),
       showVaccinationStatus: showVaccinationStatus(state),
     }),
     {

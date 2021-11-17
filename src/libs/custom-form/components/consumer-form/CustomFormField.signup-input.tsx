@@ -417,7 +417,10 @@ export const CustomFormConsumerInput = (props: Props) => {
             <AcceptTermsAndConditions
               accepted={props.values?.custom_form_field[props.index]?.answer}
               required={props.field.mandatory}
-              disabled={props.asManager || !props.field.editable}
+              disabled={
+                props.asManager ||
+                props.initial?.custom_form_field[props.index]?.answer
+              }
               onChecked={(checked: boolean) =>
                 props.setFieldValue(
                   `custom_form_field.${props.index}.answer`,

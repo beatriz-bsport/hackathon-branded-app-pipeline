@@ -51,7 +51,6 @@ import {
   fetchManagerRessourcesFilters as fetchManagerRessourcesFiltersAction,
   updateManagerRessourcesFilters as updateManagerRessourcesFiltersAction,
 } from '../libs/dashboard/actions';
-
 import { CompanyTheme } from '../libs/theme/types';
 
 type Props = {

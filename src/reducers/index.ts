@@ -11,8 +11,7 @@ import associatedCoach from 'bsport-saas/src/libs/associated-coach/reducers';
 import shopReducers from 'bsport-saas/src/libs/shop/reducers';
 import themeReducers from 'bsport-saas/src/libs/theme/reducers';
 import authReducers from 'bsport-saas/src/reducers/auth';
-import paymentReducers from 'bsport-saas/src/reducers/payment';
-import snackbar from 'bsport-saas/src/reducers/snackbar.reducers';
+import snackbar from 'bsport-saas/src/libs/snackbar/reducers';
 import paymentCombo from 'bsport-saas/src/libs/payment-combo/reducers';
 import consumerPaymentPack from 'bsport-saas/src/libs/consumer-payment-pack/reducers';
 import paymentPack from 'bsport-saas/src/libs/payment-packs/reducers';
@@ -43,7 +42,6 @@ import bridge, { BridgeState } from '../libs/bridge/reducers';
 const reducer = (history: ReturnType<typeof createBrowserHistory>) =>
   combineReducers({
     router: connectRouter(history),
-    payment: paymentReducers,
     offer,
     metaActivity,
     coach: associatedCoach,
@@ -70,7 +68,6 @@ const reducer = (history: ReturnType<typeof createBrowserHistory>) =>
 
 export interface RootState {
   router: ReturnType<typeof connectRouter>;
-  payment: any;
   offer: any;
   metaActivity: any;
   coach: CoachState;

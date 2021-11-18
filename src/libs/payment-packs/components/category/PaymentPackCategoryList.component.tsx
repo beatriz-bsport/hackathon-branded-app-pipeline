@@ -62,7 +62,10 @@ const handleDragEndCategory = memoize(
     let overrideIndex = categoryOrderingOverride;
     if (over && active.id !== over.id) {
       // new position of the dragged category
-      const newIndex = over.data.current.sortable.index;
+      const newIndex =
+        over.data.current.sortable.index >= 0
+          ? over.data.current.sortable.index
+          : over.data.current.sortable.items.length - 1;
       // old position
       const oldIndex = active.data.current.sortable.index;
       let arr: Array<number>;
@@ -115,7 +118,6 @@ const handleDragEndPaymentPack = memoize(
     // packs of the right category sorted in the right order
     const packs = [...active.data.current.category.packs];
     let overrideIndex = frontendOrderingOverride;
-
     if (
       over &&
       active.id !== over.id &&

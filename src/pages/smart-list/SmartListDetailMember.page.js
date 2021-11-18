@@ -587,11 +587,9 @@ export default compose(
     createAutoTag: ({
       createAutoTagAction,
       applyAsyncSmartListAutoTagRules,
-      setOpenAutoTagRulesDialog,
       t,
       id,
     }) => async (data) => {
-      setOpenAutoTagRulesDialog(true);
       const res = await showInformativeDialog(
         t('smartList:tag_rules.asyncDialog.title'),
         t('smartList:tag_rules.asyncDialog.message'),
@@ -601,7 +599,7 @@ export default compose(
         {
           onSuccess: () =>
             applyAsyncSmartListAutoTagRules(id, {
-              onSuccess: () => res && setOpenAutoTagRulesDialog(false),
+              onSuccess: () => res,
             }),
         },
       );
@@ -612,7 +610,6 @@ export default compose(
     updateAutoTag: ({
       updateAutoTagAction,
       applyAsyncSmartListAutoTagRules,
-      setOpenAutoTagRulesDialog,
       t,
       id,
     }) => async (tg_id, data) => {
@@ -623,7 +620,7 @@ export default compose(
       updateAutoTagAction(tg_id, data, {
         onSuccess: () =>
           applyAsyncSmartListAutoTagRules(id, {
-            onSuccess: () => res && setOpenAutoTagRulesDialog(false),
+            onSuccess: () => res,
           }),
       });
     },

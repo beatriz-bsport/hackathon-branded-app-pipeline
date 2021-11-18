@@ -1,0 +1,126 @@
+exports.default = {
+  list: {
+    validity: 'Valable {{ duration }} jours',
+    unlimited: 'Illimitée',
+    explainIfEmpty:
+      "Les cartes cadeaux permettent à vos membres d'offrir à leurs proches un montant à dépenser dans votre studio.",
+    visibility: 'Non visible',
+    activeTitle: 'Disponible à la vente',
+    unavailableForSaleTitle: 'Indisponible à la vente',
+    archivedTitle: 'Archivé',
+    isEmpty: 'Aucune carte cadeau disponible',
+    addBackgroundImage: 'Ajouter des images de personnalisation',
+    actions: {
+      create: 'Créer une carte cadeau',
+    },
+  },
+  consumerGiftcard: {
+    isEmpty: 'Aucune carte achetée',
+    isFor: "A l'attention de ",
+    isFrom: 'De la part de ',
+    value: 'Valeur',
+    invitedOn: 'Envoyée le {{- d }}',
+    expiresOn: 'Expire le {{- d }}',
+    notAttributedYet: 'Non validée',
+    sendTo: 'Renvoyer lèinvitation',
+    previewPlaceholder: {
+      name: '[Nom de la carte]',
+      message_is_from: '[Nom acheteur]',
+      message_is_for: '[Nom destinataire]',
+      message_content: '[Message personnalisé]',
+    },
+    form: {
+      name: {
+        label: 'Nom de la carte',
+      },
+      message_is_for: {
+        label: "A l'attention de ",
+      },
+      message_is_from: {
+        label: 'De la part de ',
+      },
+      message_content: { label: 'Message personnel' },
+      recipients: {
+        label: 'Email du destinataire',
+      },
+      date_send: {
+        label: 'Date d’envoi de l’email',
+      },
+      actions: {
+        submit: 'Ajouter au panier',
+      },
+      footer:
+        'La carte sera envoyée par mail le {{- date_send }} aux l’adresses indiquées. Elle sera valide pendant {{ expiration_days }} jours après l’envoi du mail.',
+    },
+  },
+  link: {
+    copyLink: "Copier le lien d'achat",
+  },
+  giftcard: {
+    detail: {
+      expirationDate: 'Validité avant expiration : {{ expiration_days }} jours',
+      availablePaymentMethods: 'Moyens de paiement disponibles',
+    },
+    delete: {
+      dialog: {
+        title: 'Suppression',
+        content:
+          "Êtes-vous sûr de vouloir supprimer cette carte ? Les membres ayant déjà acheté la carte pourront continuer à s'en servir.",
+        actions: {
+          delete: 'Supprimer',
+          close: 'Fermer',
+        },
+      },
+    },
+  },
+  form: {
+    giftcard: {
+      actions: {
+        cancel: 'Fermer',
+        submit: 'Valider',
+      },
+      title: 'Carte cadeau',
+      name: {
+        label: 'Nom',
+      },
+      available_payment_method_identifiers: {
+        helperText: '',
+        label: 'Moyens de paiement disponibles',
+      },
+      description: {
+        label: 'Description',
+      },
+      section: {
+        parameters: {
+          title: 'Paramètres',
+        },
+      },
+      price: {
+        label: 'Prix de vente',
+        helperText: 'Définiera la valeur de la carte offerte',
+      },
+      expiration_days: {
+        label: 'Durée de validité en jours',
+        helperText:
+          'La validité de la carte commence à la date d’envoi de l’email carte cadeau',
+      },
+      unlimited: {
+        label: 'Illimité',
+      },
+      manager_only: {
+        label: 'Invisible pour les clients',
+      },
+    },
+  },
+  backgroundImage: {
+    dialog: {
+      title: 'Images de personnalisation',
+      actions: {
+        close: 'Fermer',
+      },
+      explain:
+        'Ajouter des images pour permettre à vos membres de personnaliser leur carte cadeau. Pendant la création de leur carte vos membres pourront choisir une image de fond sur la carte cadeau.',
+    },
+  },
+};
+

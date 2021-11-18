@@ -2,15 +2,15 @@ import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 import { userPreferenceActions } from './actions';
 import { UserPreference } from './types';
-import {
-  ManagerOnly,
-  SortOption,
-} from '../payment-packs/components/PaymentPackFilterAndSortHeader.component';
+// import {
+//   ManagerOnly,
+//   SortOption,
+// } from '../payment-packs/components/PaymentPackFilterAndSortHeader.component';
 
 const initialState: Immutable.Immutable<UserPreference> = Immutable({
-  paymentPackSort: SortOption.customSort,
+  // paymentPackSort: SortOption.customSort,
   paymentPackCategoryFilter: [],
-  paymentPackManagerOnlyFilter: ManagerOnly.showAll,
+  // paymentPackManagerOnlyFilter: ManagerOnly.showAll,
   scheduleTimerange: {
     begin: '06:00:00',
     end: '23:00:00',

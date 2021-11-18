@@ -1,4 +1,26 @@
 #!/bin/sh
+
 . "$(dirname "$0")/_/husky.sh"
 
-(test -d ".git/rebase-merge" || test -d ".git/rebase-apply") || exec < /dev/tty && git cz --hook || true
+COMMIT_MSG_FILE=$1
+
+COMMIT_MSG=`cat $COMMIT_MSG_FILE`
+
+echo $COMMIT_MSG | grep -q -P '[a-z]\(.+\): .+' && MATCHING=1 || MATCHING=0;
+
+(test -d ".git/rebase-merge" || test -d ".git/rebase-apply") && IS_REBASE=1 || IS_REBASE=0
+
+if [ $MATCHING = 1 ]
+then
+	exit 0
+else
+	if [ IS_REBASE = 1 ]
+	then
+		exit 0
+	else
+		exec < /dev/tty && git cz --hook || true
+	fi
+
+fi
+
+exit 0

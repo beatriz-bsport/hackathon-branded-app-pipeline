@@ -78,6 +78,9 @@ const ButtonSaveWithInfo = withConfirm(Button, 'onClick', {
 });
 export function CustomFormConfigurationTable(props: Props) {
   const { t, isSubmitting, classes } = props;
+  const layoutActive =
+    props.initial?.layout &&
+    Object.keys(props.initial?.layout || {})?.length === 4;
   const [openFieldCreationDialog, setOpenCreationDialog] =
     React.useState(false);
   const [initialFieldWithIndex, setInitialFieldWithIndex] =

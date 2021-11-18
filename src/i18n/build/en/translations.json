@@ -5717,13 +5717,13 @@
                     "cancel": "Cancel",
                     "submit": "Submit"
                 },
-                "debt": "Debit",
+                "debt": "Deduct",
                 "explainTopup": "The member's account balance will be increased by: €{{ amount }}.",
                 "explainDecaissement": "The member's balance will be decreased by: {{ currencyDisplay }}{{ amount }}.",
                 "balanceValueLabel": "Amount",
                 "title": "Balance adjustment",
                 "typeLabel": "Adjustment type",
-                "topup": "Charge",
+                "topup": "Add",
                 "withoutPaymentNote": {
                     "warning": "Attention: only use this option when absolutely necessary. This action won't be registered in your account.",
                     "label": "Don't generate an invoice"

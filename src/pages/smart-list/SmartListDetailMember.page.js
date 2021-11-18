@@ -482,6 +482,7 @@ export default compose(
   withState('openSendEmail', 'setOpenSendEmail', false),
   withState('closeMemberTable', 'setCloseMemberTable', true),
   withTranslation(['smartList', 'member', 'communication']),
+  withState('openAutoTagRulesDialog', 'setOpenAutoTagRulesDialog', false),
   withStyles(styles),
   connect(
     (state, { id }) => ({

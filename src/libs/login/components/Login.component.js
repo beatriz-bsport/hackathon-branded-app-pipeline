@@ -71,10 +71,6 @@ const styles = (theme) => ({
     display: 'flex',
     justifyContent: 'center',
   },
-  forgetPassword: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
 });
 
 type Props = {

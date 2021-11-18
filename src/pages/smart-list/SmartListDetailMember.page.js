@@ -182,7 +182,6 @@ type Props = {
   updateAutoTag: (id: number, data: object) => void,
   fetchAllAutoTagRulesAction: () => void,
   smartlistAutoTagLoading: boolean,
-  openAutoTagRulesDialog: boolean,
 };
 
 type State = {
@@ -482,7 +481,6 @@ export default compose(
   routerParamsToProps({ id: 'id:number', create: 'create:number' }),
   withState('openSendEmail', 'setOpenSendEmail', false),
   withState('closeMemberTable', 'setCloseMemberTable', true),
-  withState('openAutoTagRulesDialog', 'setOpenAutoTagRulesDialog', false),
   withTranslation(['smartList', 'member', 'communication']),
   withStyles(styles),
   connect(

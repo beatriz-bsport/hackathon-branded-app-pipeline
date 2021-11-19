@@ -232,6 +232,7 @@ const InvoiceItemEditor = (props: Props) => {
     const item = availableBuyableItems[buyableItemIdentifier].find(
       (bi) => bi.id === buyableItemId,
     );
+
     if (buyableItemIdentifier === BUYABLE_ITEM_PASS) {
       return setWarnManagerOnInvoice(
         paymentPackTagsAndMemberTagsCompatibilty(item, member?.tags),

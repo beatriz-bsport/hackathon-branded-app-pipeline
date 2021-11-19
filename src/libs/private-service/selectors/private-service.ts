@@ -1,4 +1,6 @@
 import { createSelector } from 'reselect';
+import memoize from 'memoize-one';
+
 // @ts-ignore
 import { State } from '../../../state/types';
 
@@ -138,6 +140,87 @@ export const getPrivateServiceById: (
       .filter((e) => !!e),
   };
 };
+
+export const withAssociatedCoach = memoize(
+  (selector: (State: RootState) => any) =>
+    createSelector(
+      [selector, getAllCoachesDict],
+      (privateServices, coachData) => {
+        if (!privateServices) return privateServices;
+        if (Array.isArray(privateServices)) {
+          return privateServices.map((ps) => ({
+            ...ps,
+            coaches: ps.coaches
+              .map((c) =>
+                Object.values(coachData).find(
+                  (c_) => c_.associated_coach_id === c,
+                ),
+              )
+              .filter((c) => !!c),
+          }));
+        }
+        return {
+          ...privateServices,
+          coaches: privateServices.coaches
+            .map((c) =>
+              Object.values(coachData).find(
+                (c_) => c_.associated_coach_id === c,
+              ),
+            )
+            .filter((c) => !!c),
+        };
+      },
+    ),
+);
+
+export const withAssociatedEstablishment = memoize(
+  (selector: (State: RootState) => any) =>
+    createSelector(
+      [selector, getAllEstablishmentsDict],
+      (privateServices, establishmentData) => {
+        if (!privateServices) return privateServices;
+        if (Array.isArray(privateServices)) {
+          return privateServices.map((ps) => ({
+            ...ps,
+            establishments: ps.establishments.map((c) =>
+              Object.values(establishmentData).find(
+                (c_) => c_.associatedestablishment_set === c,
+              ),
+            ),
+          }));
+        }
+        return {
+          ...privateServices,
+          establishments: privateServices.establishments.map((c) =>
+            Object.values(establishmentData).find(
+              (c_) => c_.associatedestablishment_set === c,
+            ),
+          ),
+        };
+      },
+    ),
+);
+
+export const withSlots = memoize((selector: (State: RootState) => any) =>
+  createSelector(
+    [selector, getAllPrivateSlotsDict],
+    (privateServices, slotsData) => {
+      if (!privateServices) return privateServices;
+      if (Array.isArray(privateServices)) {
+        return privateServices.map((ps) => ({
+          ...ps,
+          slots: ps.slots.map((s) => slotsData[s]).filter((s) => !!s),
+        }));
+      }
+      return {
+        ...privateServices,
+        slots: privateServices.slots
+          .map((s) => slotsData[s])
+          .filter((s) => !!s),
+      };
+    },
+  ),
+);
 
 export const getPrivateServicesList: (
   state: State,

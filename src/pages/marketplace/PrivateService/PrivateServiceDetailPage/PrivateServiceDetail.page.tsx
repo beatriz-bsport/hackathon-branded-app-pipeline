@@ -15,7 +15,9 @@ import {
 } from '../../../../libs/private-service/actions';
 import {
   getPrivateService,
-  getPrivateServiceById,
+  withAssociatedCoach,
+  withSlots,
+  withAssociatedEstablishment,
 } from '../../../../libs/private-service/selectors/private-service';
 import { fetchAssociatedEstablishmentBulk as fetchAssociatedEstablishmentBulkAction } from '../../../../libs/establishment/actions';
 import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../../../libs/associated-coach/actions';
@@ -141,31 +143,33 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
     fetchAssociatedCoachBulk,
   ]);
 
-  const handleSearchAvailableSlots = useCallback(() => {
-    const dates = [];
+  useEffect(() => {
+    if (privateService && selectedSlot) {
+      const dates = [];
 
-    for (let i = 0; i < numberOfDayToShow; i += 1) {
-      dates.push(moment(selectedDate).add(i, 'days').format('YYYY-MM-DD'));
+      for (let i = 0; i < numberOfDayToShow; i += 1) {
+        dates.push(moment(selectedDate).add(i, 'days').format('YYYY-MM-DD'));
+      }
+
+      let coaches: number[] = [];
+      let establishments: number[] = [];
+
+      if (selectedCoaches) {
+        coaches = selectedCoaches.map((c) => c.id);
+      }
+
+      if (selectedEstablishments) {
+        establishments = selectedEstablishments.map((e) => e.id);
+      }
+
+      searchAvailableSlots(
+        privateService.id,
+        selectedSlot.id,
+        coaches,
+        dates,
+        establishments,
+      );
     }
-
-    let coaches: number[] = [];
-    let establishments: number[] = [];
-
-    if (selectedCoaches) {
-      coaches = selectedCoaches.map((c) => c.id);
-    }
-
-    if (selectedEstablishments) {
-      establishments = selectedEstablishments.map((e) => e.id);
-    }
-
-    searchAvailableSlots(
-      privateService.id,
-      selectedSlot.id,
-      coaches,
-      dates,
-      establishments,
-    );
   }, [
     searchAvailableSlots,
     selectedSlot,
@@ -173,20 +177,6 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
     selectedEstablishments,
     selectedCoaches,
     privateService,
-    numberOfDayToShow,
-  ]);
-
-  useEffect(() => {
-    if (privateService && selectedSlot) {
-      handleSearchAvailableSlots();
-    }
-  }, [
-    privateService,
-    selectedSlot,
-    handleSearchAvailableSlots,
-    selectedDate,
-    selectedCoaches,
-    selectedEstablishments,
     numberOfDayToShow,
   ]);
 
@@ -404,7 +394,9 @@ const useStyles = makeStyles((theme) => ({
 
 const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
   _privateService: getPrivateService(state, ownProps.serviceId),
-  privateService: getPrivateServiceById(state, ownProps.serviceId),
+  privateService: withAssociatedCoach(
+    withSlots(withAssociatedEstablishment(getPrivateService)),
+  )(state, ownProps.serviceId),
   availabilitySlotByDate: getSearchedSlots(state),
   availabilitySlot: state.privateService.availabilitySlot.searched.items,
   availableSlotsLoading: state.privateService.availabilitySlot.searched.loading,

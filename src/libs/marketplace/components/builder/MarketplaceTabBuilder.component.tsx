@@ -67,21 +67,10 @@ const TabCreation: React.FC<Props> = (props) => {
   const { t } = useTranslation(['settings']);
 
   useEffect(() => {
-    if (tabConfig) {
-      if (tabConfig[componentType]) {
-        const componentConfig = tabConfig[componentType];
-        for (const key in componentConfig) {
-          if (key in componentConfig) {
-            // @ts-ignore
-            const val = componentConfig[key];
-            if (Array.isArray(val)) {
-              val.length && setShowAdvanceSettings(true);
-            } else {
-              val && setShowAdvanceSettings(true);
-            }
-          }
-        }
-      }
+    if (
+      Object.values(tabConfig?.[componentType] ?? {}).some((value) => value)
+    ) {
+      setShowAdvanceSettings(true);
     }
   }, [setShowAdvanceSettings, tabConfig, componentType]);
 

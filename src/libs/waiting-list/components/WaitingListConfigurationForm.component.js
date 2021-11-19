@@ -146,7 +146,7 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
             fullWidth={false}
             value={this.state.configuration.autokick_delay}
             InputProps={{
-              inputProps: { min: 1, step: 1, max: 100 },
+              inputProps: { min: 2, step: 1, max: 100 },
             }}
             onChange={(ev) =>
               this.handleChange('autokick_delay')(parseInt(ev.target.value, 10))

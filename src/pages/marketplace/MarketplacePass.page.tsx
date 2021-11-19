@@ -65,7 +65,7 @@ type OwnProps = {
     hidePaymentPack?: string;
     hidePrivatePass?: string;
     hidePaymentCombo?: string;
-    paymentPackCategories?: number[];
+    paymentPackCategories?: any;
   };
   companyId: number;
   requestSignUp: () => void;
@@ -156,6 +156,17 @@ export class MarketPlacePassPage extends Component<Props> {
     const hidePaymentPack = this.props.params?.hidePaymentPack === 'true';
     const hidePrivatePass = this.props.params?.hidePrivatePass === 'true';
     const hidePaymentCombo = this.props.params?.hidePaymentCombo === 'true';
+    const paymentPackCategories =
+      this.props.params?.paymentPackCategories || null;
+    let ppCategories = [];
+    if (typeof paymentPackCategories === 'string') {
+      ppCategories = paymentPackCategories
+        .split(',')
+        .map((id: string) => Number(id));
+    } else {
+      ppCategories = paymentPackCategories;
+    }
+
     return (
       <Grid container direction="row" justify="space-evenly">
         {this.props.paymentComboList.length && !hidePaymentCombo ? (
@@ -171,7 +182,7 @@ export class MarketPlacePassPage extends Component<Props> {
             <MarketplacePassList
               pushPackCheckout={this.addPaymentPackToCart}
               paymentPackByCategory={this.props.paymentPackByCategory}
-              paymentPackCategories={this.props.params?.paymentPackCategories}
+              paymentPackCategories={ppCategories}
             />
           </Grid>
         )}

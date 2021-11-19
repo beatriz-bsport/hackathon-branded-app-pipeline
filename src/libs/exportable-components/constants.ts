@@ -68,6 +68,9 @@ export const EXPORTABLE_COMPONENTS = [
   {
     identifier: EXPORTABLE_COMPONENT_TYPE_GIFTCARD,
     label: 'giftcard',
+    defaultConfig: {
+      giftcards: [],
+    },
   },
   {
     identifier: EXPORTABLE_COMPONENT_TYPE_LOGIN_BUTTON,

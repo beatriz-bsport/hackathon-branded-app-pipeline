@@ -16,6 +16,8 @@ import {
   PrivateServiceGroup,
 } from '../../private-service/types';
 import { Establishment, EstablishmentGroup } from '../../establishment/types';
+
+import { Giftcard } from '../../giftcard/types';
 import {
   getDefaultConfigByIdentifier,
   checkExportableComponentConfig,
@@ -42,6 +44,7 @@ type Props = {
   hideTypeSelector?: boolean;
   paymentPackCategories?: Array<PaymentPackCategory>;
   establishmentGroupList: Array<EstablishmentGroup>;
+  giftcards?: Array<Giftcard>;
 };
 
 export const WidgetComponentConfigBuilder = (props: Props) => {
@@ -103,6 +106,7 @@ export const WidgetComponentConfigBuilder = (props: Props) => {
         errors={props.config?.error}
         paymentPackCategories={props.paymentPackCategories}
         establishmentGroupList={props.establishmentGroupList}
+        giftcards={props.giftcards}
       />
     </div>
   );

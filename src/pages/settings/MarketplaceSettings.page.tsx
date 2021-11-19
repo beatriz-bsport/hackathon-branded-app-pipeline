@@ -26,6 +26,8 @@ import {
   getAssociatedEstablishmentGroup,
   withEstablishment as groupWithEstablishment,
 } from '../../libs/establishment/selectors';
+import { fetchGiftcardList as fetchGiftcardListAction } from '../../libs/giftcard/actions';
+import { getGiftcardListEnabled } from '../../libs/giftcard/selectors';
 import { fetchAllActivities as fetchAllActivitiesAction } from '../../libs/meta-activity/actions';
 import { fetchAllPaymentPackCategory as fetchAllPaymentPackCategoryAction } from '../../libs/payment-packs/actions';
 import {
@@ -70,6 +72,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
     fetchPrivateServiceGroupList,
     fetchAllPaymentPackCategory,
     fetchAllEstablishmentGroup,
+    fetchGiftcardList,
     settings,
     loading,
     privateServices,
@@ -83,6 +86,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
     theme,
     paymentPackCategories,
     establishmentGroupList,
+    giftcards,
   } = props;
 
   const [openCreation, setOpenCreation] = useState<boolean>(false);
@@ -101,6 +105,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
     fetchPrivateServiceGroupList({ mine: true });
     fetchAllPaymentPackCategory();
     fetchAllEstablishmentGroup();
+    fetchGiftcardList();
   }, [
     fetchMarketplaceSettings,
     fetchAllPrivateServices,
@@ -112,6 +117,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
     fetchPrivateServiceGroupList,
     fetchAllPaymentPackCategory,
     fetchAllEstablishmentGroup,
+    fetchGiftcardList,
   ]);
 
   useEffect(() => {
@@ -212,6 +218,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
           tab={currentTab !== null ? config[currentTab] : defaultTab}
           paymentPackCategories={paymentPackCategories}
           establishmentGroupList={establishmentGroupList}
+          giftcards={giftcards}
         />
       )}
 
@@ -291,6 +298,7 @@ const mapStateToProps = (state: RootState) => ({
   establishmentGroupList: groupWithEstablishment(
     getAssociatedEstablishmentGroup,
   )(state),
+  giftcards: getGiftcardListEnabled(state),
 });
 
 const mapDispatchToProps = {
@@ -305,6 +313,7 @@ const mapDispatchToProps = {
   fetchPrivateServiceGroupList: fetchPrivateServiceGroupListAction,
   fetchAllPaymentPackCategory: fetchAllPaymentPackCategoryAction,
   fetchAllEstablishmentGroup: fetchAllEstablishmentGroupAction,
+  fetchGiftcardList: fetchGiftcardListAction,
 };
 
 export default connect(

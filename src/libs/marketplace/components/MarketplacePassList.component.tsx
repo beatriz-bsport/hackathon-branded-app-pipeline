@@ -77,12 +77,14 @@ export function MarketplacePassList(props: Props) {
     paymentPackCategories,
   } = props;
 
-  const filteredPaymentPackByCategory =
-    paymentPackCategories?.length > 0
-      ? paymentPackByCategory?.filter((pp) =>
-          paymentPackCategories?.includes(pp.id),
-        )
-      : paymentPackByCategory;
+  let filteredPaymentPackByCategory: Array<PaymentPackCategoryWithPacks> =
+    paymentPackByCategory;
+
+  if (paymentPackCategories?.length) {
+    filteredPaymentPackByCategory = paymentPackByCategory?.filter((pp) =>
+      paymentPackCategories.includes(pp.id),
+    );
+  }
 
   return (
     <>

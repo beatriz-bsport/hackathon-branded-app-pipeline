@@ -3,6 +3,7 @@ import React from 'react';
 import { Coach } from '../../associated-coach/types';
 import { Establishment, EstablishmentGroup } from '../../establishment/types';
 import { MetaActivity } from '../../meta-activity/types';
+import { Giftcard } from '../../giftcard/types';
 import {
   PrivateService,
   PrivateServiceGroup,
@@ -26,6 +27,7 @@ type Props = {
   errors: { [componentType: string]: string } | null;
   paymentPackCategories: Array<PaymentPackCategory>;
   establishmentGroupList: Array<EstablishmentGroup>;
+  giftcards: Array<Giftcard>;
 };
 
 export const ExportableComponentConfigurator = (props: Props) => {
@@ -56,6 +58,7 @@ export const ExportableComponentConfigurator = (props: Props) => {
       }
       paymentPackCategories={props.paymentPackCategories}
       establishmentGroupList={props.establishmentGroupList}
+      giftcards={props.giftcards}
     />
   );
 };

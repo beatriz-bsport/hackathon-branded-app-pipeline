@@ -172,4 +172,5 @@ exports.default = {
     },
   },
   search: 'Rechercher une carte cadeau',
+  widget: 'Choisir des cartes cadeaux',
 };

@@ -1183,7 +1183,8 @@
         "explain": "Ajouter des images pour permettre à vos membres de personnaliser leur carte cadeau. Pendant la création de leur carte vos membres pourront choisir une image de fond sur la carte cadeau."
       }
     },
-    "search": "Rechercher une carte cadeau"
+    "search": "Rechercher une carte cadeau",
+    "widget": "Choisir des cartes cadeaux"
   },
   "invoice": {
     "paymentGroup": {
@@ -6182,7 +6183,8 @@
       "marketplaceShop": "Magasin",
       "marketplaceWorkshop": "Ateliers",
       "marketplaceCalendar": "Calendrier",
-      "marketplacePass": "Cartes de cours"
+      "marketplacePass": "Cartes de cours",
+      "marketplaceGiftcard": "Cartes cadeaux"
     },
     "dashboard": { "marketingDashboard": "Marketing", "reportingDashboard": "Rapports", "dashboard": "dashboard" },
     "subscription": { "subscriptionCreate": "Créer une souscription", "subscriptions": "Souscriptions" },

@@ -30,6 +30,10 @@ export type MarketplacePassData = {
   paymentPackCategoriesList?: number[];
 };
 
+export type MarketplaceGiftcardData = {
+  giftcards?: number[];
+};
+
 export type MarketplaceVODData = {
   videoId?: number;
 };

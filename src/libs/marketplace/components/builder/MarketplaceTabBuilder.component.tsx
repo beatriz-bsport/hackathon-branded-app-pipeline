@@ -22,7 +22,7 @@ import {
   PrivateService,
   PrivateServiceGroup,
 } from '../../../private-service/types';
-
+import { Giftcard } from '../../../giftcard/types';
 import ExportableComponentSelector from '../../../exportable-components/components/ExportableComponentSelector.component';
 import {
   getDefaultConfigByIdentifier,
@@ -50,6 +50,7 @@ type Props = {
   tab: any;
   paymentPackCategories: Array<PaymentPackCategory>;
   establishmentGroupList: Array<EstablishmentGroup>;
+  giftcards: Array<Giftcard>;
 };
 
 const TabCreation: React.FC<Props> = (props) => {
@@ -177,6 +178,7 @@ const TabCreation: React.FC<Props> = (props) => {
             }
             paymentPackCategories={props.paymentPackCategories}
             establishmentGroupList={props.establishmentGroupList}
+            giftcards={props.giftcards}
           />
         )}
       </DialogContent>

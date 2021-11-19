@@ -55,6 +55,7 @@ exports.default = {
     marketplaceWorkshop: 'Ateliers',
     marketplaceCalendar: 'Calendrier',
     marketplacePass: 'Cartes de cours',
+    marketplaceGiftcard: 'Cartes cadeaux',
   },
   dashboard: {
     marketingDashboard: 'Marketing',

@@ -23,7 +23,7 @@ import {
 import { fetchAllActivities } from '../../libs/meta-activity/actions';
 import { fetchPlaylistList } from '../../libs/playlist/actions';
 import { fetchAllPaymentPackCategory } from '../../libs/payment-packs/actions';
-
+import { fetchGiftcardList } from '../../libs/giftcard/actions';
 import {
   getAvailablePrivateServices,
   getPrivateServiceGroupList,
@@ -39,6 +39,7 @@ import {
   getEnabledWorkshops,
   getPageEnabledMetaActivities,
 } from '../../libs/meta-activity/selectors';
+import { getGiftcardListEnabled } from '../../libs/giftcard/selectors';
 import { getPlaylistList } from '../../libs/playlist/selectors';
 import { WidgetCodeStringGenerator } from '../../libs/marketplace/utils';
 import { snackbarInfo } from '../../libs/snackbar/actions';
@@ -123,6 +124,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
     this.props.fetchVideoList({ mine: true });
     this.props.fetchPrivateServiceGroupList({ mine: true });
     this.props.fetchAllEstablishmentGroup();
+    this.props.fetchGiftcardList();
   }
 
   onComponentTypeChange = ({
@@ -245,6 +247,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
               onConfigChange={this.onConfigChange}
               paymentPackCategories={this.props.paymentPackCategories}
               establishmentGroupList={this.props.establishmentGroupList}
+              giftcards={this.props.giftcards}
             />
           </fieldset>
           <WidgetMarketplaceConfigBuilder
@@ -325,6 +328,7 @@ const mapStateToProps = (state: RootState) => ({
   establishmentGroupList: groupWithEstablishment(
     getAssociatedEstablishmentGroup,
   )(state),
+  giftcards: getGiftcardListEnabled(state),
 });
 
 const mapDispatchToProps = {
@@ -337,6 +341,7 @@ const mapDispatchToProps = {
   fetchPrivateServiceGroupList,
   fetchAllPaymentPackCategory,
   fetchAllEstablishmentGroup,
+  fetchGiftcardList,
   snackbarInfo,
 };
 

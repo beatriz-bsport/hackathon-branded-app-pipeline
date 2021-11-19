@@ -40,6 +40,8 @@ type OwnProps = {
 type State = {
   showDialog: boolean;
   disableContinue: boolean;
+  dateStart: moment.Moment;
+  dateEnd: moment.Moment;
 };
 
 type Props = OwnProps & ConnectedProps<typeof connector> & WithTranslation;
@@ -51,6 +53,8 @@ export class ReportingGeneration extends Component<Props, State> {
     this.state = {
       showDialog: false,
       disableContinue: true,
+      dateStart: null,
+      dateEnd: null,
     };
   }
 
@@ -92,21 +96,27 @@ export class ReportingGeneration extends Component<Props, State> {
     dateEnd: moment.Moment;
     page?: number;
   }) => {
+    const date_start = values.dateStart.format('YYYY-MM-DD');
+    const date_end = values.dateEnd.format('YYYY-MM-DD');
+    if (this.state.dateStart !== values.dateStart)
+      this.setState({ dateStart: values.dateStart });
+    if (this.state.dateEnd !== values.dateEnd)
+      this.setState({ dateEnd: values.dateEnd });
     this.handleGenerateHeaders({
-      date_start: values.dateStart.format('YYYY-MM-DD'),
-      date_end: values.dateEnd.format('YYYY-MM-DD'),
+      date_start,
+      date_end,
     });
     this.props.fetchExtractResult(
       this.props.id,
       this.props.report?.date_type === 'range'
         ? {
-            date_start: values.dateStart.format('YYYY-MM-DD'),
-            date_end: values.dateEnd.format('YYYY-MM-DD'),
+            date_start,
+            date_end,
             page_size: this.props.pageSize,
             page: values.page || 1,
           }
         : {
-            date_start: values.dateStart.format('YYYY-MM-DD'),
+            date_start,
             page_size: this.props.pageSize,
             page: values.page || 1,
           },
@@ -125,8 +135,14 @@ export class ReportingGeneration extends Component<Props, State> {
     dateEnd: moment.Moment;
   }) => {
     this.handleGenerate({
-      dateStart: values.dateStart || moment(this.props.report.date_start),
-      dateEnd: values.dateEnd || moment(this.props.report.date_end),
+      dateStart:
+        values.dateStart ||
+        this.state.dateStart ||
+        moment(this.props.report.date_start),
+      dateEnd:
+        values.dateEnd ||
+        this.state.dateEnd ||
+        moment(this.props.report.date_end),
       page: this.props.previousPage,
     });
   };
@@ -136,8 +152,14 @@ export class ReportingGeneration extends Component<Props, State> {
     dateEnd: moment.Moment;
   }) => {
     this.handleGenerate({
-      dateStart: values.dateStart || moment(this.props.report.date_start),
-      dateEnd: values.dateEnd || moment(this.props.report.date_end),
+      dateStart:
+        values.dateStart ||
+        this.state.dateStart ||
+        moment(this.props.report.date_start),
+      dateEnd:
+        values.dateEnd ||
+        this.state.dateEnd ||
+        moment(this.props.report.date_end),
       page: this.props.nextPage,
     });
   };

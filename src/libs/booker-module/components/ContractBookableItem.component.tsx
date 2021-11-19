@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 type Props = {};
 
@@ -14,10 +14,7 @@ const ContractBookableItem = (props: Props) => {
     <div className={classes.itemContainer}>
       <div className={classes.row}>
         <Typography variant="h6">
-          {t('contract.item.recurrentPriceLabel', {
-            recurrent_price: contract.recurrent_price,
-            currency_display: getCurrencyDisplay(),
-          })}
+          {getCurrencyDisplayWithPrice(contract.recurrent_price)}
         </Typography>
         <Typography className={classes.creditText} variant="h6" align="left">
           {t('contract.item.identifier')}

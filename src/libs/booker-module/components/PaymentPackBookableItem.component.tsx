@@ -3,6 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PaymentPack } from '../../payment-packs/types';
 import { getValidityInfo } from '../../payment-packs/utils';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 interface Props {
   paymentPack: PaymentPack;
@@ -19,16 +20,14 @@ const PaymentPackItem = (props: Props) => {
       })
     : t('paymentPack:specifications.unlimitedCredits');
 
-  const price = t('paymentPack:specifications.price', {
-    price: props.paymentPack.price,
-  });
-
   const date = getValidityInfo(props.paymentPack, t);
 
   return (
     <div className={classes.itemContainer}>
       <div className={classes.row}>
-        <Typography variant="h6">{price}</Typography>
+        <Typography variant="h6">
+          {getCurrencyDisplayWithPrice(props.paymentPack.price)}
+        </Typography>
         <Typography className={classes.creditText} variant="h6" align="left">
           {credits}
         </Typography>

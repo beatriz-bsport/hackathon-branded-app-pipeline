@@ -1,4 +1,5 @@
-import lodash from 'lodash';
+import sortBy from 'lodash/sortBy';
+import sumBy from 'lodash/sumBy';
 import { PAYMENT_RULE_CALCULATION_BOOKINGS } from '@bsport/common/lib/master-data/payment-rule';
 
 const findBonusValue = (booking, bonusIntervalList) => {
@@ -83,16 +84,16 @@ export function computePerformance(performance, allRates, defaultRate) {
 
   const rates = (allRates || []).map((rate) => ({
     ...rate,
-    bonuses: lodash.sortBy(rate.bonuses, 'threshold'),
+    bonuses: sortBy(rate.bonuses, 'threshold'),
   }));
 
   const sessions = performance
     .map((s) => setRateForSession(s, rates, defaultRate))
     .map(computeSessionPayment);
 
-  const nbBookings = lodash.sumBy(sessions, 'nb_accountable_bookings');
-  const base = lodash.sumBy(sessions, 'base');
-  const bonus = lodash.sumBy(sessions, 'bonus');
+  const nbBookings = sumBy(sessions, 'nb_accountable_bookings');
+  const base = sumBy(sessions, 'base');
+  const bonus = sumBy(sessions, 'bonus');
 
   return {
     sessions,

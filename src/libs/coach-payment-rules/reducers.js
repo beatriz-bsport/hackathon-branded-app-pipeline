@@ -1,4 +1,4 @@
-import lodash from 'lodash';
+import omit from 'lodash/omit';
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
@@ -93,7 +93,7 @@ export default handleActions(
       return state.setIn(['upsert', 'error'], payload);
     },
     [coachPaymentRuleSetDelete.success]: (state, { payload }) => {
-      return state.set('items', lodash.omit(state.items, payload.id));
+      return state.set('items', omit(state.items, payload.id));
     },
     [coachPaymentSimulation.success]: (state, { payload }) => {
       return state.setIn(['simulation', 'result', payload.id], payload);
@@ -264,7 +264,7 @@ export default handleActions(
     },
     [coachPaymentRuleGroupDelete.success]: (state, { payload }) => {
       return state
-        .setIn(['groups', 'byId'], lodash.omit(state.groups.byId, payload.id))
+        .setIn(['groups', 'byId'], omit(state.groups.byId, payload.id))
         .setIn(
           ['groups', 'allIds'],
           state.groups.allIds.filter((id) => id !== payload.id),

@@ -1,6 +1,7 @@
 // @flow
 
-import lodash from 'lodash';
+import compact from 'lodash/compact';
+import values from 'lodash/values';
 
 import type { State } from '../../state/types';
 
@@ -12,9 +13,9 @@ export const paymentRuleSelector = (state: State, id: number) =>
   state.paymentRules.items[id];
 
 export const paymentRulesSelector = (state: State) =>
-  lodash.values(state.paymentRules.items).map((rule: PaymentRule) => ({
+  values(state.paymentRules.items).map((rule: PaymentRule) => ({
     ...rule,
-    coaches: lodash.compact(
+    coaches: compact(
       rule.coaches.map((coachId: number) => getCoach(state, coachId)),
     ),
   }));

@@ -5,7 +5,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { compose, withProps, withState, withHandlers } from 'recompose';
 import Dialog from '@material-ui/core/Dialog';
-import _ from 'lodash';
+import flatten from 'lodash/flatten';
 import DialogContent from '@material-ui/core/DialogContent';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
@@ -209,11 +209,11 @@ export class MemberDetailRelation extends React.Component<Props> {
     if (!this.props.member) {
       return <LinearProgress />;
     }
-    const relatedMemberIds = _.flatten([
+    const relatedMemberIds = flatten([
       this.props.relationList.map((r) => r.src_member.id),
       this.props.relationList.map((r) => r.dst_member.id),
     ]);
-    const linkedPassIds = _.flatten([
+    const linkedPassIds = flatten([
       this.props.sharedConsumerPaymentPackLinks
         .filter((s_cpp) => s_cpp.src)
         .map((s_cpp) => s_cpp.src.id),
@@ -221,7 +221,7 @@ export class MemberDetailRelation extends React.Component<Props> {
         .filter((s_cpp) => s_cpp.dst)
         .map((s_cpp) => s_cpp.dst.id),
     ]);
-    const linkedPrivatePassIds = _.flatten([
+    const linkedPrivatePassIds = flatten([
       this.props.sharedPrivateConsumerPassLinks
         .filter((s_pcp) => s_pcp.src)
         .map((s_pcp) => s_pcp.src.id),

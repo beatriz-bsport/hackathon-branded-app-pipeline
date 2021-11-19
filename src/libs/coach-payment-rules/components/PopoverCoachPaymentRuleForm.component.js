@@ -1,4 +1,5 @@
-import lodash from 'lodash';
+import last from 'lodash/last';
+import sortBy from 'lodash/sortBy';
 import React from 'react';
 
 import Popover from '@material-ui/core/Popover';
@@ -56,14 +57,14 @@ const PopoverCoachPaymentRuleForm = (props: Props) => {
               bonusCoachPaymentRuleConstructor(id, {
                 applicability: bonusCreationApplicability,
                 kind: BONUS_COACH_PAYMENT_RULE_FIXED_VLAUE,
-                lower_interval: lodash.last(
-                  lodash.sortBy(
+                lower_interval: last(
+                  sortBy(
                     bonusesSortByApplicability[bonusCreationApplicability],
                     'lower_interval',
                   ),
                 )
-                  ? lodash.last(
-                      lodash.sortBy(
+                  ? last(
+                      sortBy(
                         bonusesSortByApplicability[bonusCreationApplicability],
                         'lower_interval',
                       ),
@@ -85,14 +86,14 @@ const PopoverCoachPaymentRuleForm = (props: Props) => {
               bonusCoachPaymentRuleConstructor(id, {
                 applicability: bonusCreationApplicability,
                 kind: BONUS_COACH_PAYMENT_RULE_EVERY_BOOKING,
-                lower_interval: lodash.last(
-                  lodash.sortBy(
+                lower_interval: last(
+                  sortBy(
                     bonusesSortByApplicability[bonusCreationApplicability],
                     'lower_interval',
                   ),
                 )
-                  ? lodash.last(
-                      lodash.sortBy(
+                  ? last(
+                      sortBy(
                         bonusesSortByApplicability[bonusCreationApplicability],
                         'lower_interval',
                       ),

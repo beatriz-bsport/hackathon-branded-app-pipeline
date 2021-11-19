@@ -1,6 +1,8 @@
 import moment from 'moment-timezone';
 import memoize from 'memoize-one';
-import { pickBy, groupBy, flatten } from 'lodash';
+import pickBy from 'lodash/pickBy';
+import groupBy from 'lodash/groupBy';
+import flatten from 'lodash/flatten';
 import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 

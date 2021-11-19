@@ -1,6 +1,7 @@
 // @flow
 
-import lodash from 'lodash';
+import keyBy from 'lodash/keyBy';
+import omit from 'lodash/omit';
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
@@ -39,7 +40,7 @@ export default handleActions(
     },
     [paymentRuleSet.success]: (state, { payload }) => {
       return state.merge({
-        items: lodash.keyBy(payload, 'id'),
+        items: keyBy(payload, 'id'),
         lastFetched: new Date(),
       });
     },
@@ -59,7 +60,7 @@ export default handleActions(
       return state.setIn(['items', payload.id, 'deleting'], undefined);
     },
     [paymentRuleSetDelete.success]: (state, { payload }) => {
-      return state.set('items', lodash.omit(state.items, payload.id));
+      return state.set('items', omit(state.items, payload.id));
     },
     [showDialog]: (state, { payload }) => {
       return state.set('dialog', payload);

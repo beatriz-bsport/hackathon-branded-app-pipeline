@@ -1,6 +1,6 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
-import lodash from 'lodash';
+import omit from 'lodash/omit';
 
 import { actionTypes, PaymentPackState } from './types';
 import {
@@ -610,7 +610,7 @@ export const newPaymentPackReducer = handleActions(
       return state
         .setIn(
           ['paymentPackCategory', 'byId'],
-          lodash.omit(state.paymentPackCategory.byId, payload.id),
+          omit(state.paymentPackCategory.byId, payload.id),
         )
         .setIn(
           ['paymentPackCategory', 'allIds'],

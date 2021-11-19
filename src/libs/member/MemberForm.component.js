@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import lodash from 'lodash';
+import debounce from 'lodash/debounce';
 import Button from '@material-ui/core/Button';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Grid from '@material-ui/core/Grid';
@@ -573,7 +573,7 @@ export default compose(
     ({ setEmailExists, setemailExistsError, ignoreMail }) => {
       if (!ignoreMail) {
         return {
-          checkUserExists: lodash.debounce(({ email, phonenumber }) => {
+          checkUserExists: debounce(({ email, phonenumber }) => {
             const q = email
               ? `email=${email}`
               : `phonenumber=${encodeURIComponent(phonenumber)}`;
@@ -595,7 +595,7 @@ export default compose(
         };
       }
       return {
-        checkUserExists: lodash.debounce(() => {}, 1000),
+        checkUserExists: debounce(() => {}, 1000),
       };
     },
   ),

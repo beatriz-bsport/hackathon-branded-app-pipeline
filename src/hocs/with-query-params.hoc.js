@@ -34,18 +34,13 @@ export default function withQueryParams([
   paramGroupName,
   paramSetterName,
   mode = 'string',
-]: [
-   Array<string>,
-   ?string,
-   ?string,
-   ?string,
-]) {
+]: [Array<string>, ?string, ?string, ?string]) {
   return (WrappedComponent) => {
     return compose(
       connect(null, { replace: replaceRouter }),
       withHandlers({
         setParam: ({ replace, location }) => (key) => (value, callback) => {
-	  if (!paramsArray.includes(key)) return
+          if (!paramsArray.includes(key)) return;
           const { search, pathname } = location;
           const allParams = parseQueryString(search);
           if (value === 'null' || value === '' || value === null) {

@@ -1,4 +1,4 @@
-import lodash from 'lodash';
+import pick from 'lodash/pick';
 import React, { useState } from 'react';
 import { compose } from 'recompose';
 import { withTranslation } from 'react-i18next';
@@ -216,7 +216,7 @@ export function CoachPaymentRuleFields(props: Props) {
                         {t('coach_payment_rules.Bonuses.bonus_rules')}
                       </Typography>
                       <TableHead>
-                        <TableRow classes={lodash.pick(classes, ['root'])}>
+                        <TableRow classes={pick(classes, ['root'])}>
                           <TableCell colSpan={2} className={classes.dense}>
                             {t(
                               'coach_payment_rules.Bonuses.bookingsThresholds',
@@ -232,7 +232,7 @@ export function CoachPaymentRuleFields(props: Props) {
                           <React.Fragment>
                             <TableRow
                               key={bonus.id}
-                              classes={lodash.pick(classes, ['root'])}
+                              classes={pick(classes, ['root'])}
                             >
                               <TableCell
                                 align="left"
@@ -541,7 +541,7 @@ export function CoachPaymentRuleFields(props: Props) {
                         {t('coach_payment_rules.Bonuses.bonus_rules')}
                       </Typography>
                       <TableHead>
-                        <TableRow classes={lodash.pick(classes, ['root'])}>
+                        <TableRow classes={pick(classes, ['root'])}>
                           <TableCell colSpan={2} className={classes.dense}>
                             {t(
                               'coach_payment_rules.Bonuses.bookingsThresholds',
@@ -557,7 +557,7 @@ export function CoachPaymentRuleFields(props: Props) {
                           <React.Fragment>
                             <TableRow
                               key={bonus.id}
-                              classes={lodash.pick(classes, ['root'])}
+                              classes={pick(classes, ['root'])}
                             >
                               <TableCell
                                 align="left"
@@ -904,8 +904,7 @@ export const CoachPaymentRuleFormHoc = withFormik({
       valuesWithConcatBonuses.bonus_coach_payment.push(
         bonusCoachPaymentRuleConstructor(values.id, {
           // eslint-disable-next-line
-          applicability:
-            BONUS_COACH_PAYMENT_RULE_APPLICABILITY_CONFIRMED_BOOKING,
+          applicability: BONUS_COACH_PAYMENT_RULE_APPLICABILITY_CONFIRMED_BOOKING,
           kind: BONUS_COACH_PAYMENT_RULE_MARGIN_VALUE,
           bonus: values.percentage_base_confirmed_bookings,
           lower_interval: 1,
@@ -916,8 +915,7 @@ export const CoachPaymentRuleFormHoc = withFormik({
       valuesWithConcatBonuses.bonus_coach_payment.push(
         bonusCoachPaymentRuleConstructor(values.id, {
           // eslint-disable-next-line
-          applicability:
-            BONUS_COACH_PAYMENT_RULE_APPLICABILITY_CANCELLED_BOOKING,
+          applicability: BONUS_COACH_PAYMENT_RULE_APPLICABILITY_CANCELLED_BOOKING,
           kind: BONUS_COACH_PAYMENT_RULE_MARGIN_VALUE,
           bonus: values.percentage_base_cancelled_bookings,
           lower_interval: 1,

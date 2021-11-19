@@ -2,7 +2,7 @@ import React from 'react';
 
 import { compose } from 'recompose';
 import { withStyles } from '@material-ui/styles';
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 
 import { DeepPartial, MaterialStyleType } from '../../../utils/types';
 import CanvasToolsMenu from './CanvasToolsMenu.component';

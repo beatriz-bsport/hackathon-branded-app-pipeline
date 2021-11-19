@@ -1,6 +1,7 @@
 // @flow
 
-import _ from 'lodash';
+import debounce from 'lodash/debounce';
+import uniqBy from 'lodash/uniqBy';
 import { Icon } from 'leaflet';
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
@@ -84,7 +85,7 @@ export class LocationInput extends Component<Props, State> {
   /**
    * Load address candidates from a user typed address
    */
-  loadReversed = _.debounce(async (searchText) => {
+  loadReversed = debounce(async (searchText) => {
     const address = encodeURIComponent(searchText);
     this.setState({ isLoading: true });
     const response = await fetch(
@@ -437,7 +438,7 @@ export class LocationInput extends Component<Props, State> {
 }
 
 function selectEstablishmentFromLocations(candidates) {
-  return _.uniqBy(
+  return uniqBy(
     candidates.filter((c) => {
       const { types } = c;
       return (

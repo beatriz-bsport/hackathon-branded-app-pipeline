@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { compose } from 'recompose';
-import lodash from 'lodash';
+import isEqual from 'lodash/isEqual';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import { Theme, Paper, Fab, Tooltip, makeStyles } from '@material-ui/core';
@@ -85,7 +85,7 @@ export const CustomFormLayoutView = (props: Props) => {
     newLayouts: Array<Layout>,
     allLayouts: ResponsiveLayouts,
   ) => {
-    if (lodash.isEqual(allLayouts, layouts)) {
+    if (isEqual(allLayouts, layouts)) {
       return;
     }
 

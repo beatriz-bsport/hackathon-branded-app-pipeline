@@ -1,6 +1,7 @@
 // @flow
 
-import lodash from 'lodash';
+import filter from 'lodash/filter';
+import groupBy from 'lodash/groupBy';
 import moment from 'moment-timezone';
 import type { Moment } from 'moment-timezone';
 import { createSelector } from 'reselect';
@@ -60,10 +61,7 @@ export const getStats = (
 };
 
 function filterDataTable(table, dateRange) {
-  return lodash.filter(
-    table,
-    (x) => x.d >= dateRange.start && x.d <= dateRange.end,
-  );
+  return filter(table, (x) => x.d >= dateRange.start && x.d <= dateRange.end);
 }
 
 /*
@@ -153,7 +151,7 @@ function discretizeByAndFillMissing(dateRange, table, duration, reducer) {
   let grouped = {};
 
   if (duration === 'month') {
-    grouped = lodash.groupBy(table, (u) => moment(u.d).format('YYYY-MM'));
+    grouped = groupBy(table, (u) => moment(u.d).format('YYYY-MM'));
 
     for (
       let m = moment(dateRange.start);
@@ -171,7 +169,7 @@ function discretizeByAndFillMissing(dateRange, table, duration, reducer) {
   }
 
   if (duration === 'week') {
-    grouped = lodash.groupBy(table, (u) =>
+    grouped = groupBy(table, (u) =>
       moment(u.d).startOf('week').format('YYYY-MM-DD'),
     );
     for (
@@ -190,7 +188,7 @@ function discretizeByAndFillMissing(dateRange, table, duration, reducer) {
   }
 
   if (duration === 'day') {
-    grouped = lodash.groupBy(table, (u) => moment(u.d).format('YYYY-MM-DD'));
+    grouped = groupBy(table, (u) => moment(u.d).format('YYYY-MM-DD'));
     for (
       let m = moment(dateRange.start);
       m.isBefore(dateRange.end) || m.isSame(dateRange.end);
@@ -207,7 +205,7 @@ function discretizeByAndFillMissing(dateRange, table, duration, reducer) {
   }
 
   if (duration === 'hour') {
-    grouped = lodash.groupBy(table, (u) => moment(u.d).format('YYYY-MM-DD LT'));
+    grouped = groupBy(table, (u) => moment(u.d).format('YYYY-MM-DD LT'));
     for (
       let m = moment(dateRange.start);
       m.isBefore(dateRange.end) || m.isSame(dateRange.end);

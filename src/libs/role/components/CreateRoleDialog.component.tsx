@@ -18,7 +18,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { Theme } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import Immutable from 'seamless-immutable';
 
 import { WithTranslation, withTranslation } from 'react-i18next';

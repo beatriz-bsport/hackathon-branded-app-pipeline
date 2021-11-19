@@ -1,6 +1,6 @@
 // @flow
 
-import lodash from 'lodash';
+import omit from 'lodash/omit';
 
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
@@ -41,7 +41,7 @@ export class AvatarField extends Component<Props, State> {
               accept="image/*"
               className={classes.input}
               id="avatar-loader-button"
-              {...lodash.omit(field, ['value'])}
+              {...omit(field, ['value'])}
               {...this.inputProps}
               onChange={(e) => {
                 const { files } = e.target;

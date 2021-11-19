@@ -1,6 +1,6 @@
 // @flow
 
-import _ from 'lodash';
+import pick from 'lodash/pick';
 import React from 'react';
 import { compose } from 'recompose';
 
@@ -899,7 +899,7 @@ export default compose(
         'whitelist_tags',
         'blacklist_tags',
       ];
-      const data = _.pick(values, keys);
+      const data = pick(values, keys);
 
       if (values.timeType === VALID_BY_DATERANGE) {
         data.duration_days = null;

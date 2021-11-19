@@ -13,7 +13,6 @@ import { ConnectedRouter } from 'connected-react-router';
 import { Moment } from '../src/i18n';
 import initStore from '../src/store';
 
-
 import _ from '../envs/local';
 
 import Config from '../src/config.ts';
@@ -23,9 +22,11 @@ const { store } = initStore();
 
 export const decorators = [
   (Story) => (
-  <MuiThemeProvider theme={theme}>
-    <CssBaseline><Story/></CssBaseline>
-  </MuiThemeProvider>
+    <MuiThemeProvider theme={theme}>
+      <CssBaseline>
+        <Story />
+      </CssBaseline>
+    </MuiThemeProvider>
   ),
   (Story) => (
     <MuiPickersUtilsProvider
@@ -33,21 +34,32 @@ export const decorators = [
       moment={Moment}
       locale={Moment.locale()}
     >
-      <Story/>
+      <Story />
     </MuiPickersUtilsProvider>
   ),
-  Story => <MemoryRouter><Story/></MemoryRouter>,
-  Story => <React.Suspense fallback={<LinearProgress />}><Story/></React.Suspense>,
-  Story => <Provider store={store}><Story/></Provider>,
-]
-
+  (Story) => (
+    <MemoryRouter>
+      <Story />
+    </MemoryRouter>
+  ),
+  (Story) => (
+    <React.Suspense fallback={<LinearProgress />}>
+      <Story />
+    </React.Suspense>
+  ),
+  (Story) => (
+    <Provider store={store}>
+      <Story />
+    </Provider>
+  ),
+];
 
 export const parameters = {
-  actions: { argTypesRegex: "^on[A-Z].*" },
+  actions: { argTypesRegex: '^on[A-Z].*' },
   controls: {
     matchers: {
       color: /(background|color)$/i,
       date: /Date$/,
     },
   },
-}
+};

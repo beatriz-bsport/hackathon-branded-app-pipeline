@@ -1,4 +1,5 @@
-import lodash from 'lodash';
+import values from 'lodash/values';
+import compact from 'lodash/compact';
 import memoize from 'memoize-one';
 import { createSelector } from 'reselect';
 import {
@@ -19,36 +20,32 @@ export const CoachPaymentSelector = (state: RootState, id: number) =>
 const _CoachPaymentRulesDict = (state: RootState) =>
   state.coachPaymentRules.items;
 export const CoachPaymentRulesSelector = (state: RootState) =>
-  lodash
-    .values(state.coachPaymentRules.items)
-    .map((rule: CoachPaymentRule) => ({
-      ...rule,
-      coaches: lodash.compact(
-        rule.associated_coach.map((coachId: number) =>
-          associatedCoachSelector.get(state, coachId),
-        ),
+  values(state.coachPaymentRules.items).map((rule: CoachPaymentRule) => ({
+    ...rule,
+    coaches: compact(
+      rule.associated_coach.map((coachId: number) =>
+        associatedCoachSelector.get(state, coachId),
       ),
-    }));
+    ),
+  }));
 
 export const CoachPaymentRuleByKindSelector = (state: RootState) => {
   return {
-    [COACH_PAYMENT_RULE_FOR_SESSION]: lodash
-      .values(state.coachPaymentRules.items)
+    [COACH_PAYMENT_RULE_FOR_SESSION]: values(state.coachPaymentRules.items)
       .filter((rule) => rule.kind === COACH_PAYMENT_RULE_FOR_SESSION)
       .map((rule: CoachPaymentRule) => ({
         ...rule,
-        coaches: lodash.compact(
+        coaches: compact(
           rule.associated_coach.map((coachId: number) =>
             associatedCoachSelector.get(state, coachId),
           ),
         ),
       })),
-    [COACH_PAYMENT_RULE_FOR_APPOINTMENT]: lodash
-      .values(state.coachPaymentRules.items)
+    [COACH_PAYMENT_RULE_FOR_APPOINTMENT]: values(state.coachPaymentRules.items)
       .filter((rule) => rule.kind === COACH_PAYMENT_RULE_FOR_APPOINTMENT)
       .map((rule: CoachPaymentRule) => ({
         ...rule,
-        coaches: lodash.compact(
+        coaches: compact(
           rule.private_associated_coach.map((coachId: number) =>
             associatedCoachSelector.get(state, coachId),
           ),
@@ -152,7 +149,7 @@ export const getCoachPaymentRuleGroups = createSelector(
           coach_payment_rule_items[
             groups[id].private_service_coach_payment_rule
           ],
-        associated_coach: lodash.compact(
+        associated_coach: compact(
           groups[id].associated_coach.map((coachId: number) =>
             allCoaches.find((coach) => coach.associated_coach_id === coachId),
           ),

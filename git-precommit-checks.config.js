@@ -48,11 +48,11 @@ module.exports = {
       regex: /^import \{ .* \} from '@material-ui'/,
     },
     // to UNCOMMENT after the cleaning PR is pass
-    // {
-    //   filter: /\.(js|ts|tsx|jsx)$/,
-    //   message:
-    //     '😫 It look like your importing to much of lodash use name imported ex: import omit from "lodash/omit"',
-    //   regex: /^.* from 'lodash'/,
-    // },
+    {
+      filter: /\.(js|ts|tsx|jsx)$/,
+      message:
+        '😫 It look like your importing to much of lodash use name imported ex: import omit from "lodash/omit"',
+      regex: /^.* from 'lodash'/,
+    },
   ],
 };

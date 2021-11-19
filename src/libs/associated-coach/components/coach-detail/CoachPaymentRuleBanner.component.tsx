@@ -1,5 +1,5 @@
 import React from 'react';
-import lodash from 'lodash';
+import values from 'lodash/values';
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -428,7 +428,7 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {lodash.values(specificPrivateSlots).map(
+                    {values(specificPrivateSlots).map(
                       (
                         privateSlot: {
                           private_slot: number;

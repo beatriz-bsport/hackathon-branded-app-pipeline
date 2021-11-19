@@ -1,7 +1,9 @@
 // @flow
 
-import lodash from 'lodash';
-
+import pick from 'lodash/pick';
+import sortBy from 'lodash/sortBy';
+import maxBy from 'lodash/maxBy';
+import sumBy from 'lodash/sumBy';
 import React from 'react';
 import { compose } from 'recompose';
 
@@ -118,7 +120,7 @@ export function PaymentRuleFields(props: Props) {
                 <div>
                   <Table padding="dense">
                     <TableHead>
-                      <TableRow classes={lodash.pick(classes, ['root'])}>
+                      <TableRow classes={pick(classes, ['root'])}>
                         <TableCell padding="none">
                           {t('bookingThreshold')}
                         </TableCell>
@@ -132,7 +134,7 @@ export function PaymentRuleFields(props: Props) {
                       {bonuses.map((bonus, i) => (
                         <TableRow
                           key={bonus.id}
-                          classes={lodash.pick(classes, ['root'])}
+                          classes={pick(classes, ['root'])}
                         >
                           <TableCell className={classes.dense}>
                             <TextField
@@ -141,7 +143,7 @@ export function PaymentRuleFields(props: Props) {
                               onBlur={() => {
                                 setFieldValue(
                                   'bonuses',
-                                  lodash.sortBy(bonuses, 'threshold'),
+                                  sortBy(bonuses, 'threshold'),
                                 );
                               }}
                               InputProps={{
@@ -177,10 +179,10 @@ export function PaymentRuleFields(props: Props) {
                   </Table>
                   <Button
                     onClick={() => {
-                      const max = lodash.maxBy(bonuses, 'variable_bonus');
+                      const max = maxBy(bonuses, 'variable_bonus');
                       push({
                         id: Math.ceil(-Math.random() * 10000),
-                        threshold: lodash.sumBy(bonuses, 'threshold') + 5,
+                        threshold: sumBy(bonuses, 'threshold') + 5,
                         variable_bonus:
                           (max || { variable_bonus: 0 }).variable_bonus + 1,
                       });

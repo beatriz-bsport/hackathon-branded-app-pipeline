@@ -5,7 +5,7 @@ import { RouteChildrenProps, withRouter } from 'react-router';
 import { push, replace as replaceRouter } from 'connected-react-router';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { WithTranslation, withTranslation } from 'react-i18next';
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 import moment from 'moment-timezone';
 
 import { TFunction } from 'i18next';

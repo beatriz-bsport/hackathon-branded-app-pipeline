@@ -14,7 +14,8 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { uniq, uniqBy } from 'lodash';
+import uniq from 'lodash/uniq';
+import uniqBy from 'lodash/uniqBy';
 
 import MemberTable from '../../libs/member/MemberTable.component';
 import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/selectors';

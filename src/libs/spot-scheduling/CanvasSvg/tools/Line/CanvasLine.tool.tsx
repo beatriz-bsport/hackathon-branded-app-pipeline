@@ -1,5 +1,5 @@
 import React from 'react';
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import CreateIcon from '@material-ui/icons/Create';
 
 import CanvasAbstractTool, {

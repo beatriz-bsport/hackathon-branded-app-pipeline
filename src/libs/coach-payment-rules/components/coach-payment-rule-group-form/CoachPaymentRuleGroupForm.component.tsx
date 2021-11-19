@@ -1,5 +1,5 @@
 import React from 'react';
-import lodash from 'lodash';
+import compact from 'lodash/compact';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -453,10 +453,10 @@ export const CoachPaymentRuleGroupFormHOC = withFormik({
     if (initial) {
       return {
         ...initial,
-        private_slots_coach_payment_rules: lodash.compact(
+        private_slots_coach_payment_rules: compact(
           initial.private_slots_coach_payment_rules,
         ),
-        associated_coach: lodash.compact(
+        associated_coach: compact(
           initial.associated_coach.map((ass: Coach) => ass.associated_coach_id),
         ),
         session_coach_payment_rule: initial.session_coach_payment_rule

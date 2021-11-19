@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 import { Link } from 'react-router-dom';
 import {
   Button,

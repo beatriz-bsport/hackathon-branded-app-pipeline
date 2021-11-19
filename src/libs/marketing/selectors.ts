@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
-import { get, setWith } from 'lodash';
+import get from 'lodash/get';
+import setWith from 'lodash/setWith';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
 import { RootState } from '../../reducers';
 import { MarketingNotification } from './types';

@@ -8,7 +8,7 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
-import _ from 'lodash';
+import flattenDeep from 'lodash/flattenDeep';
 import moment from 'moment-timezone';
 
 import ExpandLess from '@material-ui/icons/ExpandLess';
@@ -123,7 +123,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
     const { panelsStatus } = this.state;
     const offersRows = this.periodByRow(period);
 
-    return _.flattenDeep(period).length ? (
+    return flattenDeep(period).length ? (
       <div key={i}>
         <div className={classes.periodTitle}>
           <Typography component="h3" variant="h6" align="center">
@@ -187,7 +187,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
     const size = 100 / 7;
     // if we start from firday we have to reorder the array of days
     const weekOffers = getWeekOffers(this.props.date, this.props.offers);
-    if (!_.flattenDeep(weekOffers).length) {
+    if (!flattenDeep(weekOffers).length) {
       return (
         <Typography variant="caption" className={classes.emptyContent}>
           {t('marketplace.noSessionToday')}

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Typography } from '@material-ui/core';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { WithTranslation, withTranslation } from 'react-i18next';
-import { merge } from 'lodash';
+import merge from 'lodash/merge';
 
 import { DIALOG_MODE_IFRAME } from '@bsport/common/lib/master-data/widget-dialog-mode';
 import { MaterialStyleType } from '../../utils/types';

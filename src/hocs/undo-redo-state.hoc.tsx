@@ -1,5 +1,5 @@
 import React from 'react';
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import { DeepPartial } from '../utils/types';
 
 interface State<S> {

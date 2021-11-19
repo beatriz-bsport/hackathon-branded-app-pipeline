@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import lodash from 'lodash';
+import debounce from 'lodash/debounce';
 import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
 import Chip from '@material-ui/core/Chip';
@@ -26,7 +26,7 @@ export const EmailInputWithChips = (props: Props) => {
   const [error, setError] = useState(false);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const generateAutomaticChip = useCallback(
-    lodash.debounce(
+    debounce(
       (
         text: string,
         addTextToList: (text: string) => void,

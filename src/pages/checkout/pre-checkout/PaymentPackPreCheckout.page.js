@@ -56,33 +56,38 @@ export class PaymentPackPaymentPage extends Component<Props, State> {
   componentDidMount() {
     this.props.fetchPaymentPack(this.props.packId, {
       onSuccess: (paymentPack) => {
-        this.props.fetchCurrentBasket(paymentPack.company_id, {
-          onSuccess: (basket) => {
-            if (!this.state.processing) {
-              this.setState({ processing: true });
-              const { nextOffer } = parseQueryString(
-                this.props.location.search,
-              );
-              const { force } = parseQueryString(this.props.location.search);
-              Analytics.addPassToCart(paymentPack, 'payment_pack');
-              this.props.addItemToBasket(
-                basket.id,
-                {
-                  buyable_item_identifier: BUYABLE_ITEM_PASS,
-                  quantity: 1,
-                  buyable_item_id: paymentPack.id,
-                  extra_data: { offer_next: nextOffer, force },
-                },
-                {
-                  onError: () => this.setState({ error: true }),
-                  onSuccess: () => {
-                    this.props.goToCheckout(paymentPack.company_id);
+        this.props.fetchCurrentBasket(
+          paymentPack.company_id || paymentPack.company,
+          {
+            onSuccess: (basket) => {
+              if (!this.state.processing) {
+                this.setState({ processing: true });
+                const { nextOffer } = parseQueryString(
+                  this.props.location.search,
+                );
+                const { force } = parseQueryString(this.props.location.search);
+                Analytics.addPassToCart(paymentPack, 'payment_pack');
+                this.props.addItemToBasket(
+                  basket.id,
+                  {
+                    buyable_item_identifier: BUYABLE_ITEM_PASS,
+                    quantity: 1,
+                    buyable_item_id: paymentPack.id,
+                    extra_data: { offer_next: nextOffer, force },
                   },
-                },
-              );
-            }
+                  {
+                    onError: () => this.setState({ error: true }),
+                    onSuccess: () => {
+                      this.props.goToCheckout(
+                        paymentPack.company_id || paymentPack.company,
+                      );
+                    },
+                  },
+                );
+              }
+            },
           },
-        });
+        );
       },
     });
   }

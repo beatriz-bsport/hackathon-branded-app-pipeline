@@ -172,6 +172,12 @@ export const PaymentStripeSEPA = (props: Props) => {
     }
   }, [paymentMethodList]);
 
+  React.useEffect(() => {
+    if (addPaymentMethod) {
+      setPaymentMethodSelected(null);
+    }
+  }, [addPaymentMethod]);
+
   const [billingDetails, setBillingDetails] = React.useState({
     name: props.userDefaultName || '',
     email: props.userDefaultEmail || '',

@@ -23,6 +23,7 @@ import {
   getPrivatePass,
   withServices,
   withAvailable,
+  getCompatibilityPassWithService as getCompatibleServicePass,
 } from '../../libs/private-service/selectors/private-pass';
 import {
   getPrivateConsumerPassByPrivatePass,
@@ -37,13 +38,16 @@ import {
   createOrUpdatePrivatePass as createOrUpdatePrivatePassAction,
   deleteCompatibleServicePass,
   createCompatibleServicePass,
+  updateCompatibleServicePass,
   deletePrivatePass as deletePrivatePassAction,
   updatePrivateConsumerPassCredits as updatePrivatePassCredit,
+  fetchCompatibleServicePassList as fetchCompatibleServicePassListAction,
   resetByPrivatePass as resetByPrivatePassAction,
   updatePrivateConsumerPassCredits,
   fetchPrivatePassMassExtensionList,
   createPrivatePassMassExtension,
   deletePrivatePassMassExtension,
+  fetchAllPrivateSlots,
 } from '../../libs/private-service/actions';
 import { fetchFilteredMembers as fetchFilteredMembersActions } from '../../libs/member/actions';
 import PrivatePassDetail from '../../libs/private-service/components/pass/PrivatePassDetail.component';
@@ -88,6 +92,7 @@ export class PrivatePassDetails extends Component<Props> {
   componentDidMount() {
     this.props.fetchPrivatePass(this.props.id);
     this.props.fetchAllPrivateServices();
+    this.props.fetchCompatibleServicePasses();
 
     this.props.fetchPrivatePassMassExtensionList({
       privatePass: this.props.id,
@@ -149,6 +154,17 @@ export class PrivatePassDetails extends Component<Props> {
     });
   };
 
+  getCompatibleService = () => {
+    if (
+      !this.props.compatibleServicePass ||
+      this.props.compatibleServicePass.filter((c) => c.excluded_slot_ids)
+        .length === 0
+    ) {
+      return null;
+    }
+    return this.props.compatibleServicePass;
+  };
+
   render() {
     const { classes, t } = this.props;
     return (
@@ -162,6 +178,8 @@ export class PrivatePassDetails extends Component<Props> {
             onDelete={() => this.props.setOpenDeletePassDialog(this.props.id)}
             deleteCompatibleServicePass={this.props.deleteCompatibleServicePass}
             createCompatibleServicePass={this.props.createCompatibleServicePass}
+            updateCompatibleServicePass={this.props.updateCompatibleServicePass}
+            compatibleServicePass={this.getCompatibleService()}
             pass={this.props.privatePass}
           />
         </Grid>
@@ -326,6 +344,7 @@ const mapStateToProps = (state: RootState, { id }: { id: number }) => ({
       state.privateService.privateConsumerPass.massExtension.firstLoadDone,
     page: state.privateService.privateConsumerPass.massExtension.page,
   },
+  compatibleServicePass: getCompatibleServicePass(state),
 });
 
 const mapDispatchToProps = {
@@ -334,6 +353,7 @@ const mapDispatchToProps = {
   createOrUpdatePrivatePass: createOrUpdatePrivatePassAction,
   createCompatibleServicePass,
   deleteCompatibleServicePass,
+  updateCompatibleServicePass,
   updatePrivateConsumerPassCredits,
   deletePrivatePass: deletePrivatePassAction,
   snackbarSuccess,
@@ -356,6 +376,8 @@ const mapDispatchToProps = {
   fetchPrivatePassMassExtensionList,
   createPrivatePassMassExtension,
   deletePrivatePassMassExtension,
+  fetchPrivateSlotsByService: fetchAllPrivateSlots,
+  fetchCompatibleServicePassList: fetchCompatibleServicePassListAction,
 };
 
 const mapWithHandlers = {
@@ -397,6 +419,13 @@ const mapWithHandlers = {
             id__in: cpps.map((b) => b.member),
           }),
       }),
+  fetchCompatibleServicePasses: (props: WithStateProps) => () =>
+    props.fetchCompatibleServicePassList(props.id, {
+      onSuccess: (csps) =>
+        props.fetchPrivateSlotsByService({
+          private_service__in: csps.map((c) => c.private_service),
+        }),
+    }),
 };
 
 type StateHandlerInit = {

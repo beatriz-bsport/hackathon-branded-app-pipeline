@@ -182,20 +182,24 @@ export const withAssociatedEstablishment = memoize(
         if (Array.isArray(privateServices)) {
           return privateServices.map((ps) => ({
             ...ps,
-            establishments: ps.establishments.map((c) =>
-              Object.values(establishmentData).find(
-                (c_) => c_.associatedestablishment_set === c,
-              ),
-            ),
+            establishments: ps.establishments
+              .map((e) =>
+                Object.values(establishmentData).find(
+                  (e_) => e_.associatedestablishment_set === e,
+                ),
+              )
+              .filter((e) => !!e),
           }));
         }
         return {
           ...privateServices,
-          establishments: privateServices.establishments.map((c) =>
-            Object.values(establishmentData).find(
-              (c_) => c_.associatedestablishment_set === c,
-            ),
-          ),
+          establishments: privateServices.establishments
+            .map((e) =>
+              Object.values(establishmentData).find(
+                (e_) => e_.associatedestablishment_set === e,
+              ),
+            )
+            .filter((e) => !!e),
         };
       },
     ),

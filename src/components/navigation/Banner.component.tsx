@@ -10,10 +10,11 @@ import { useTranslation } from 'react-i18next';
 type Props = {
   networkAvailable: boolean;
   environment?: string;
+  isPluginActivated: boolean;
 };
 
 export const Banner = (props: Props) => {
-  const { environment, networkAvailable } = props;
+  const { environment, networkAvailable, isPluginActivated } = props;
   const { t } = useTranslation(['titles']);
   const classes = useStyles();
 
@@ -22,14 +23,14 @@ export const Banner = (props: Props) => {
       <div className={classes.visible}>
         <Slide in={!networkAvailable}>
           <ButtonBase
-            onClick={() => document.location.reload()}
+            onClick={() => document.location.reload(true)}
             className={classes.errorBanner}
           >
             <div className={classes.text}>{t('banner.networkError')}</div>
           </ButtonBase>
         </Slide>
       </div>
-      {environment === 'staging' && (
+      {environment === 'staging' && !isPluginActivated && (
         <div className={classes.infoBanner}>
           <div className={classes.visible}>
             <a
@@ -92,3 +93,5 @@ const useStyles = makeStyles((theme) => ({
     visibility: 'visible',
   },
 }));
+
+export default Banner;

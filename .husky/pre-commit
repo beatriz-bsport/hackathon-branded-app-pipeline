@@ -2,7 +2,9 @@
 . "$(dirname "$0")/_/husky.sh"
 
 echo '------------------------\n----- Translations ----- \n------------------------' &&
-yarn updateTranslation && git add src/i18n/*
+yarn updateTranslation && git add src/i18n/* &&
+echo '\n\n------------------------\n----- Check for duplicate ----- \n------------------------' &&
+./scripts/check-duplicate-file.sh &&
 echo '\n\n----------------------------\n----- Pre Commit check ----- \n----------------------------' &&
 npx --no-install git-precommit-checks &&
 echo '\n\n------------------\n----- Commit ----- \n------------------'

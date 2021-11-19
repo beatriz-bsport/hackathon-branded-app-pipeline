@@ -21,7 +21,7 @@ type OwnProps = {
 
 type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
 
-export class GiftcardWidget extends Component<Props> {
+class GiftcardWidget extends Component<Props> {
   openGiftcardConfig = (giftcardId: number, companyId: number) => {
     const { PUBLIC_URL } = getEnv();
     const url = `${PUBLIC_URL}/checkout/${companyId}/giftcard/${giftcardId}/`;

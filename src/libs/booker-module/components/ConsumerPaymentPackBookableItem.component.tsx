@@ -29,7 +29,7 @@ const ConsumerPaymentPackItem = (props: Props) => {
         {expireDate}
       </Typography>
       <Typography variant="body1" color="textPrimary" align="left">
-        {props.consumerPaymentPack.payment_pack.name}
+        {props.consumerPaymentPack?.payment_pack?.name || ' - '}
       </Typography>
     </div>
   );

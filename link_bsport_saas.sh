@@ -7,7 +7,10 @@ echo cloning saas repo
 git clone https://${GIT_USERNAME}:${GIT_PASSWORD}@gitlab.com/bsport/bsport-saas.git /bsport-saas
 
 cd /bsport-saas
-
+if [ $CI_COMMIT_REF_NAME != "dev" ] && [ $CI_COMMIT_REF_NAME != "master" ] && [ $CI_COMMIT_REF_NAME != "production" ]
+then
+  CI_COMMIT_REF_NAME="dev"
+fi
 echo checkout saas to $CI_COMMIT_REF_NAME
 git checkout $CI_COMMIT_REF_NAME
 mkdir -p ./build

@@ -59,7 +59,6 @@ type Props = {
   fetchAllPaymentPacks: () => void,
 
   compatibleConsumerPacks: Array<ConsumerPaymentPack>,
-  compatibleConsumerPacksLoading: boolean,
   fetchByOfferByMember: (offerId: number, memberId: number) => void,
 
   registerWithPass: (
@@ -173,7 +172,6 @@ export class CheckInOfferDetailPage extends React.Component<Props, State> {
             searchedMemberList={this.props.searchedMemberList}
             setSearchedMember={this.props.setSearchedMember}
             open
-            consumerPacksLoading={this.props.compatibleConsumerPacksLoading}
             offer={this.props.offer}
             consumerPaymentPacks={this.props.compatibleConsumerPacks}
             registerWithPass={this.props.registerWithPass}
@@ -279,8 +277,6 @@ export default compose(
       compatibleConsumerPacks: withPaymentPackForConsumer(
         getConsumerPaymentPackForBooking,
       )(state),
-      compatibleConsumerPacksLoading:
-        state.payment.compatibleConsumerPacksLoading,
       managerFormConfig: getSignUpFormConfigurationDict(state),
     }),
     {

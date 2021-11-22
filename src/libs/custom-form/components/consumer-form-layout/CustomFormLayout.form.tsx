@@ -79,7 +79,8 @@ export const CustomFormLayoutView = (props: Props) => {
       setCustomLoading(false);
     }, 500);
     setOutterContainerWidth && setOutterContainerWidth(containerWidth);
-  }, [containerWidth, setOutterContainerWidth]);
+    // eslint-disable-next-line
+  }, [containerWidth]);
 
   const handleLayoutChange = (
     newLayouts: Array<Layout>,

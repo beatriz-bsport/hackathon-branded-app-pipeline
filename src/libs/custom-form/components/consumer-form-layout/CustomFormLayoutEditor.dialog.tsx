@@ -26,7 +26,7 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof useStyles>> &
   WithTranslation;
 export const CustomFormLayoutEditor = (props: Props) => {
-  const { t } = props;
+  const { t, saveLayouts } = props;
   const [maxWidth, setMaxWidth] = React.useState<number>(385);
   const [layouts, setLayouts] = React.useState(
     Object.keys(props.initial?.layout || {})?.length !== 4
@@ -34,10 +34,13 @@ export const CustomFormLayoutEditor = (props: Props) => {
       : props.initial?.layout,
   );
   const classes = useStyles(maxWidth);
-  const handleWidthChange = (width: number) => {
-    props.saveLayouts(layouts);
-    setMaxWidth(width);
-  };
+  const handleWidthChange = React.useCallback(
+    (width: number) => {
+      saveLayouts(layouts);
+      setMaxWidth(width);
+    },
+    [layouts, saveLayouts],
+  );
   return (
     <Dialog open={props.open} fullWidth classes={{ paper: classes.paper }}>
       <div className={classes.dialogTitle}>
@@ -54,7 +57,7 @@ export const CustomFormLayoutEditor = (props: Props) => {
       <div className={classes.container}>
         <CustomFormLayout
           initial={props.initial}
-          saveLayouts={() => props.saveLayouts(layouts)}
+          saveLayouts={() => saveLayouts(layouts)}
           editable
           asManager
           onLayoutChange={(allLayouts: ResponsiveLayouts) =>
@@ -63,14 +66,14 @@ export const CustomFormLayoutEditor = (props: Props) => {
           layouts={props.initial?.layout}
           waiver={props.waiver}
           general_terms_and_conditions={props.general_terms_and_conditions}
-          setOutterContainerWidth={(width: number) => handleWidthChange(width)}
+          setOutterContainerWidth={handleWidthChange}
           defaultEditMode
         />
       </div>
       <DialogActions className={classes.dialogActions}>
         <Button
           onClick={() => {
-            props.saveLayouts(layouts);
+            saveLayouts(layouts);
             props.closeEditor();
           }}
           variant="outlined"

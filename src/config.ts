@@ -36,6 +36,7 @@ export default Config;
 // function checkConfigValue(name: keyof ConfigType, silent?: boolean) {
 //   const value = Config[name];
 //   if (!value) {
+//
 //     const text = `The config value for ${name} is invalid (got: ${value})`;
 //     if (!silent) {
 //       throw new Error(text);

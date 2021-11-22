@@ -101,6 +101,7 @@ import {
 } from '../../libs/private-service/selectors/private-service';
 import type { PrivateService } from '../../libs/private-service/types';
 import { showInformativeDialog } from '../../components/GenericDialog/CustomDialogs';
+import type { TagGroup } from '../../libs/tag/types';
 
 type Props = {
   id: number,

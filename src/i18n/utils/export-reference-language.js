@@ -5,7 +5,7 @@ const beautify = require('json-beautify');
 const NAMESPACES = require('../namespaces.json');
 
 const generateSourceTranslations = (lang) => {
-  console.log('* Generating the source translation');
+  console.log('* Generating the source translation...');
   const concatenatedTranslations = NAMESPACES.reduce((acc, ns) => {
     let m = { default: {} };
     try {
@@ -22,8 +22,7 @@ const generateSourceTranslations = (lang) => {
     `./src/i18n/build/${lang}/translations.json`,
     beautify(concatenatedTranslations, null, 2, 120),
   );
-  console.log('* Generation successful');
-  console.log('---------------------');
+  console.log('> Done !\n');
 };
 
 generateSourceTranslations('fr');

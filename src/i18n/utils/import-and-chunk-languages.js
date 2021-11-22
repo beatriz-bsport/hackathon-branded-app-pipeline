@@ -14,7 +14,7 @@ const generateChunkJSONTranslations = () => {
   fs.mkdirSync(buildDir);
 
   dirList.map((dirName) => {
-    console.log(`-> ${dirName}`);
+    console.log(`- ${dirName}`);
     const tr = require(path.join(
       path.dirname(fs.realpathSync(__filename)),
       `../build/${dirName}/translations.json`,
@@ -31,6 +31,6 @@ const generateChunkJSONTranslations = () => {
       );
     });
   });
-  console.log('---------------------');
+  console.log('> Done !\n');
 };
 generateChunkJSONTranslations();

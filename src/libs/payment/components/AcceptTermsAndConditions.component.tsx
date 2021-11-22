@@ -91,13 +91,6 @@ const styles = () => ({
   terms: {
     paddingLeft: '4px',
   },
-  termsAndConditions: {
-    display: 'flex',
-    alignItems: 'flex-end',
-  },
-  terms: {
-    paddingLeft: '4px',
-  },
 });
 
 const withStateHandlersInit = {

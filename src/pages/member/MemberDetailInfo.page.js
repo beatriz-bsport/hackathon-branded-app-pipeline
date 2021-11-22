@@ -423,7 +423,8 @@ export default compose(
       sendCommunication,
       fetchCompanyUserRoles,
       fetchMember,
-      searchMembers,
+      searchMembers: (text: string) =>
+        searchMembers(text, { hide_archived: true }),
       tagMember,
       untagMember,
       fetchTags,

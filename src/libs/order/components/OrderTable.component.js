@@ -51,9 +51,21 @@ const renderRow = (order: OrderWithProducts, t: TFunction) => {
     first_name,
     last_name,
     state,
+    member_archived,
   } = order;
   return {
-    name: `${first_name || ''} ${last_name || ''}`,
+    name: (
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <Typography>
+          {first_name || ''} {last_name || ''}
+        </Typography>
+        {member_archived && (
+          <Typography variant="caption" color="secondary">
+            {`${'\u00A0'}(${t('member:archived')})`}
+          </Typography>
+        )}
+      </div>
+    ),
     updated_at: formatAsDatetime(updated_at),
     created_at: formatAsDatetime(created_at),
     state: renderState(state, t),

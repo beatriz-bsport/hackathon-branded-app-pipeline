@@ -32,7 +32,6 @@ import {
 
 import type SmartList from '../../libs/smart-list/types';
 import SmartListListItem from '../../libs/smart-list/components/SmartListListItem.component';
-// import { fetchDetails } from '../../libs/smart-list/api';
 import SmartListEditDialog from '../../libs/smart-list/components/SmartListFormDialog.component';
 import type { OptionCallback } from '../../state/types';
 import SmartListCard from '../../libs/smart-list/components/SmartlistCard.component';

@@ -521,4 +521,12 @@ exports.default = {
     },
     tag: 'Tag',
   },
+  memberBase: {
+    helperText: "Cette smartlist s'applique à tous les membres",
+    options: {
+      1: 'Non archivés',
+      2: 'Archivés',
+      0: 'Non archivés et archivés',
+    },
+  },
 };

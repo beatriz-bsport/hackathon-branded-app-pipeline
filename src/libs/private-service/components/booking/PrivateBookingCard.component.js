@@ -24,7 +24,7 @@ import Button from '@material-ui/core/Button';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 
-import MemberListItem from '../../../member/components/MemberMinimalListItem.component';
+import MemberMinimalListItem from '../../../member/components/MemberMinimalListItem.component';
 import type { PrivateBookingWithRelatedFields } from '../../types';
 import RedButton from '../../../../components/button/RedButton.component';
 import RedChip from '../../../../components/chip/RedChip.component';
@@ -108,7 +108,6 @@ export const PrivateBookingCard = (props: Props) => {
       </div>
     );
   }
-
   return (
     <div className={classes.container}>
       <div className={classes.header}>
@@ -176,7 +175,7 @@ export const PrivateBookingCard = (props: Props) => {
         </ListItemSecondaryAction>
       </ListItem>
 
-      <MemberListItem
+      <MemberMinimalListItem
         member={private_booking.member}
         onClick={() => props.goToMember(private_booking.member.id)}
         showVaccinationStatus={props.showVaccinationStatus}

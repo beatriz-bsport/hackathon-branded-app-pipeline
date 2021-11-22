@@ -53,7 +53,11 @@ const FranchiseMemberList = (props: Props) => {
   }, [fetchFranchise]);
 
   useEffect(() => {
-    fetchFranchiseUsers({ page, page_size: rowsPerPage });
+    fetchFranchiseUsers({
+      page,
+      page_size: rowsPerPage,
+      exclude_archived: true,
+    });
   }, [fetchFranchiseUsers, page, rowsPerPage]);
 
   const handleChangePage = (

@@ -12,6 +12,7 @@ export const fetchFranchise = async (): Promise<AxiosResponse<Franchise>> => {
 export const fetchFranchiseUsers = async (params: {
   page: number;
   page_size: number;
+  exclude_archived: boolean;
 }): Promise<AxiosResponse<GenericPaginationResults<FranchiseUser>>> => {
   return getAuth(`${API_V1_URI}/user${buildUrlParams(params)}`);
 };

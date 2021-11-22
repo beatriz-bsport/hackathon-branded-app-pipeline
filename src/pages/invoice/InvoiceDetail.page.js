@@ -73,6 +73,7 @@ import CheckPermission from '../../libs/role/components/CheckPermission.componen
 import type { Establishment } from '../../libs/establishment/types';
 import themeSelectors from '../../libs/theme/selectors';
 import type { Theme as CompanyThemeType } from '../../libs/theme/types';
+import { withMemberBannerHOC } from '../../hocs/banner.hoc';
 
 const PAYMENT_INTENT_STATUS_REQUIRES_ACTION = 150;
 
@@ -315,155 +316,159 @@ export class InvoiceDetail extends React.Component<Props, State> {
 
   render() {
     return (
-      <div className={this.props.classes.container}>
-        <Grid container direction="row">
-          <Grid item xs={12} md={6}>
-            <InvoiceHeader
-              onClickInvoice={this.props.goToInvoice}
-              invoice={this.props.invoice}
-              establishments={this.props.establishments}
-              editBillingEstablishment={this.props.editBillingEstablishment}
-              enableMultiLocalization={
-                this.props.companyTheme.enable_multi_localization
-              }
-            />
-            {this.props.invoice.invoice_type !==
-              INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER && (
-              <InvoiceContent
+      <>
+        <div className={this.props.classes.container}>
+          <Grid container direction="row">
+            <Grid item xs={12} md={6}>
+              <InvoiceHeader
+                onClickInvoice={this.props.goToInvoice}
                 invoice={this.props.invoice}
-                invoiceItemLoading={this.props.invoiceItemLoading}
-                editCustomFooter={this.props.editCustomFooter}
-                invoiceItemList={this.props.invoice.invoice_items.filter(
-                  (ii) => !!ii,
-                )}
-                amountInvoiceitem={this.props.invoice.amount_due_cts / 100}
-                finalizeInvoice={this.props.finalizeInvoice}
-                goToSubscription={this.props.goToSubscription}
+                establishments={this.props.establishments}
+                editBillingEstablishment={this.props.editBillingEstablishment}
+                enableMultiLocalization={
+                  this.props.companyTheme.enable_multi_localization
+                }
+              />
+              {this.props.invoice.invoice_type !==
+                INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER && (
+                <InvoiceContent
+                  invoice={this.props.invoice}
+                  invoiceItemLoading={this.props.invoiceItemLoading}
+                  editCustomFooter={this.props.editCustomFooter}
+                  invoiceItemList={this.props.invoice.invoice_items.filter(
+                    (ii) => !!ii,
+                  )}
+                  amountInvoiceitem={this.props.invoice.amount_due_cts / 100}
+                  finalizeInvoice={this.props.finalizeInvoice}
+                  goToSubscription={this.props.goToSubscription}
+                />
+              )}
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <InvoicePaymentPanel
+                invoice={this.props.invoice}
+                paymentList={this.props.paymentList}
+                plannedPaymentEventList={this.props.plannedPaymentEventList}
+                onValidate={this.onValidatePaymentGroup}
+                paymentGroupRequiringActionList={
+                  this.props.paymentGroupRequiringActionList
+                }
+                handleChangeMethod={this.props.updatePaymentMethod}
+                onRevert={this.props.openRevertDialog}
+                onPaymentIntent={() => this.props.setOpenPaymentDialog(true)}
+                onInstalmentPayment={this.props.openInstalmentPaymentDialog}
+                paymentLoading={this.props.paymentLoading}
+                consumeBalance={this.allocateDebt}
+                accountBalanceLoading={this.props.memberLoading}
+                accountBalance={
+                  this.props.invoice &&
+                  this.props.invoice.member &&
+                  this.props.invoice.member.credit_account_balance
+                }
+                plannedPaymentEventActions={{
+                  onDisable: this.cancelPlannedPaymentEvent,
+                  onEnable: this.enablePlannedPaymentEvent,
+                  onRegisterNow: this.registerNowPlannedPaymentEvent,
+                }}
+                companyId={this.props.companyId}
+                snackbarSuccess={this.props.snackbarSuccess}
+              />
+            </Grid>
+            {!!this.props.isOpenInstalmentPaymentDialog && (
+              <InstalmentPaymentDialog
+                requestSetupIntentSecret={this.requestSetupIntentSecret}
+                totalPriceCts={
+                  this.props.invoice.amount_due_cts -
+                  this.props.invoice.amount_paid_cts
+                }
+                enabledPaymentGroupMethodIdentifier={[1, 2]}
+                availablePaymentMethodList={
+                  this.props.payment_method_available_manager
+                }
+                onClose={this.props.closeInstalmentPaymentDialog}
+                savedPaymentMethodList={this.props.savedPaymentMethodList}
+                fetchPaymentMethodList={this.fetchPaymentMethodList}
+                onSubmit={this.schedulePayment}
+              />
+            )}
+
+            {!!this.props.openPaymentDialog && (
+              <PaymentDialog
+                memberId={this.props.invoice.member.id}
+                onError={() =>
+                  setTimeout(() => {
+                    this.props.fetchPaymentList({
+                      invoice__uuid: this.props.uuid,
+                      page_size: 100,
+                    });
+                  }, 2000)
+                }
+                onSuccess={(callback) => {
+                  setTimeout(() => {
+                    this.props.setOpenPaymentDialog(false);
+                    this.fetchInvoiceData();
+                    if (typeof callback === 'function') callback();
+                  }, 2000);
+                }}
+                requestClientSecret={this.requestClientSecret}
+                clientSecret={
+                  this.state.clientSecretLoading
+                    ? null
+                    : this.state.clientSecret
+                }
+                clientSecretLoading={this.state.clientSecretLoading}
+                paymentGroupId={this.state.paymentGroupId}
+                termsAndConditionsAccepted
+                paymentGroupPriceCts={this.state.paymentGroupPriceCts}
+                updatePriceCts={this.updatePaymentGroupPriceCts}
+                amountToPay={parseFloat(
+                  this.props.invoice.amount_due_cts -
+                    this.props.invoice.amount_paid_cts,
+                ).toFixed(2)}
+                onCancel={() => this.props.setOpenPaymentDialog(false)}
+                availablePaymentMethodList={
+                  this.props.payment_method_available_manager
+                }
+                defaultUserName={this.props.invoice.member.name}
+                defaultUserEmail={this.props.invoice.member.email}
               />
             )}
           </Grid>
-          <Grid item xs={12} md={6}>
-            <InvoicePaymentPanel
-              invoice={this.props.invoice}
-              paymentList={this.props.paymentList}
-              plannedPaymentEventList={this.props.plannedPaymentEventList}
-              onValidate={this.onValidatePaymentGroup}
-              paymentGroupRequiringActionList={
-                this.props.paymentGroupRequiringActionList
-              }
-              handleChangeMethod={this.props.updatePaymentMethod}
-              onRevert={this.props.openRevertDialog}
-              onPaymentIntent={() => this.props.setOpenPaymentDialog(true)}
-              onInstalmentPayment={this.props.openInstalmentPaymentDialog}
-              paymentLoading={this.props.paymentLoading}
-              consumeBalance={this.allocateDebt}
-              accountBalanceLoading={this.props.memberLoading}
-              accountBalance={
-                this.props.invoice &&
-                this.props.invoice.member &&
-                this.props.invoice.member.credit_account_balance
-              }
-              plannedPaymentEventActions={{
-                onDisable: this.cancelPlannedPaymentEvent,
-                onEnable: this.enablePlannedPaymentEvent,
-                onRegisterNow: this.registerNowPlannedPaymentEvent,
-              }}
-              companyId={this.props.companyId}
-              snackbarSuccess={this.props.snackbarSuccess}
-            />
-          </Grid>
-          {!!this.props.isOpenInstalmentPaymentDialog && (
-            <InstalmentPaymentDialog
-              requestSetupIntentSecret={this.requestSetupIntentSecret}
-              totalPriceCts={
-                this.props.invoice.amount_due_cts -
-                this.props.invoice.amount_paid_cts
-              }
-              enabledPaymentGroupMethodIdentifier={[1, 2]}
-              availablePaymentMethodList={
-                this.props.payment_method_available_manager
-              }
-              onClose={this.props.closeInstalmentPaymentDialog}
-              savedPaymentMethodList={this.props.savedPaymentMethodList}
-              fetchPaymentMethodList={this.fetchPaymentMethodList}
-              onSubmit={this.schedulePayment}
-            />
-          )}
-
-          {!!this.props.openPaymentDialog && (
-            <PaymentDialog
-              memberId={this.props.invoice.member.id}
-              onError={() =>
-                setTimeout(() => {
-                  this.props.fetchPaymentList({
-                    invoice__uuid: this.props.uuid,
-                    page_size: 100,
-                  });
-                }, 2000)
-              }
-              onSuccess={(callback) => {
-                setTimeout(() => {
-                  this.props.setOpenPaymentDialog(false);
-                  this.fetchInvoiceData();
-                  if (typeof callback === 'function') callback();
-                }, 2000);
-              }}
-              requestClientSecret={this.requestClientSecret}
-              clientSecret={
-                this.state.clientSecretLoading ? null : this.state.clientSecret
-              }
-              clientSecretLoading={this.state.clientSecretLoading}
-              paymentGroupId={this.state.paymentGroupId}
-              termsAndConditionsAccepted
-              paymentGroupPriceCts={this.state.paymentGroupPriceCts}
-              updatePriceCts={this.updatePaymentGroupPriceCts}
-              amountToPay={parseFloat(
-                this.props.invoice.amount_due_cts -
-                  this.props.invoice.amount_paid_cts,
-              ).toFixed(2)}
-              onCancel={() => this.props.setOpenPaymentDialog(false)}
-              availablePaymentMethodList={
-                this.props.payment_method_available_manager
-              }
-              defaultUserName={this.props.invoice.member.name}
-              defaultUserEmail={this.props.invoice.member.email}
-            />
-          )}
-        </Grid>
-        <InvoiceReverterDialog
-          invoice={this.props.invoice}
-          payments={this.props.paymentList}
-          onSubmit={this.props.revertInvoice}
-          open={this.props.revertDialogOpen}
-          onClose={this.props.closeRevertDialog}
-        />
-        <CheckPermission requiredPermissions="member.retrieve">
-          {this.props.invoice.member && (
-            <div className={this.props.classes.navigationButton}>
-              <Grow in={this.props.invoice && this.props.invoice.member}>
-                <CreditMemberBadge
-                  credit={this.props.invoice.member.credit_account_balance}
-                >
-                  <Fab
-                    variant="contained"
-                    color="secondary"
-                    onClick={() =>
-                      this.props.goToMemberPage(this.props.invoice.member.id)
-                    }
+          <InvoiceReverterDialog
+            invoice={this.props.invoice}
+            payments={this.props.paymentList}
+            onSubmit={this.props.revertInvoice}
+            open={this.props.revertDialogOpen}
+            onClose={this.props.closeRevertDialog}
+          />
+          <CheckPermission requiredPermissions="member.retrieve">
+            {this.props.invoice.member && (
+              <div className={this.props.classes.navigationButton}>
+                <Grow in={this.props.invoice && this.props.invoice.member}>
+                  <CreditMemberBadge
+                    credit={this.props.invoice.member.credit_account_balance}
                   >
-                    <PersonIcon />
-                    <Hidden xsDown>
-                      <span className={this.props.classes.rightText}>
-                        {this.props.invoice.member.name}
-                      </span>
-                    </Hidden>
-                  </Fab>
-                </CreditMemberBadge>
-              </Grow>
-            </div>
-          )}
-        </CheckPermission>
-      </div>
+                    <Fab
+                      variant="contained"
+                      color="secondary"
+                      onClick={() =>
+                        this.props.goToMemberPage(this.props.invoice.member.id)
+                      }
+                    >
+                      <PersonIcon />
+                      <Hidden xsDown>
+                        <span className={this.props.classes.rightText}>
+                          {this.props.invoice.member.name}
+                        </span>
+                      </Hidden>
+                    </Fab>
+                  </CreditMemberBadge>
+                </Grow>
+              </div>
+            )}
+          </CheckPermission>
+        </div>
+      </>
     );
   }
 }
@@ -620,4 +625,5 @@ export default compose(
         uuid ? uuid.slice(0, 8).toUpperCase() : ''
       } - ${invoice && invoice.date ? formatAsDate(invoice.date) : ''}`,
   ),
+  withMemberBannerHOC(({ invoice }) => invoice.member),
 )(InvoiceDetail);

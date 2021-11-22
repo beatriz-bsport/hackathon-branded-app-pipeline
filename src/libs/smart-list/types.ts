@@ -6,6 +6,7 @@ export type SmartList = {
   name: string;
   description: string;
   members: Array<any>;
+  member_base: number;
 };
 
 export type AutoTagRule = {

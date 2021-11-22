@@ -55,6 +55,7 @@ import { PaymentMethod } from '../../libs/payment/types';
 import { MaterialStyleType } from '../../utils/types';
 import { RootState } from '../../reducers';
 import { Member } from '../../libs/member/types';
+import { withMemberBannerHOC } from '../../hocs/banner.hoc';
 
 type Props = {
   loading: boolean;
@@ -143,7 +144,6 @@ export class SubscriptionDetail extends Component<Props> {
   render() {
     const { loading, subscription, goToInvoice, goToMember, goToSubscribe } =
       this.props;
-
     return (
       <div className={this.props.classes.container}>
         {loading ? <LinearProgress /> : null}
@@ -456,4 +456,8 @@ export default compose(
       },
   }),
   withTitle(({ subscription }) => (subscription ? subscription.name : '')),
+  withMemberBannerHOC(({ subscription }) => ({
+    name: subscription.memberName,
+    archived: subscription.memberArchived,
+  })),
 )(SubscriptionDetail);

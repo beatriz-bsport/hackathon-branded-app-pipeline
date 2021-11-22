@@ -46,10 +46,10 @@ export const fetchFranchiseUsersActions = {
 export function fetchFranchiseUsers(props: {
   page: number;
   page_size: number;
+  exclude_archived: boolean;
   options?: OptionCallback;
 }) {
-  const { page, page_size, options } = props;
-
+  const { page, page_size, exclude_archived, options } = props;
   return async (dispatch: Dispatch) => {
     dispatch(fetchFranchiseUsersActions.isLoading(true));
     dispatch(fetchFranchiseUsersActions.error(null));
@@ -58,6 +58,7 @@ export function fetchFranchiseUsers(props: {
       const response = await fetchFranchiseUsersAPI({
         page,
         page_size,
+        exclude_archived,
       });
 
       dispatch(fetchFranchiseUsersActions.success(response.data));

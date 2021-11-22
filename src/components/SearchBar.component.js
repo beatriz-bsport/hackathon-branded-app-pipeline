@@ -28,10 +28,12 @@ import { parseQueryString } from '../http';
 import DelayedTextField from './DelayedTextField.component';
 
 import { search as searchActions } from '../actions';
+import { searchArchived as searchArchivedMembers } from '../libs/member/actions';
 
 type Props = {
   t: TFunction,
   searchForText: (string, path: ?string, changeLocation: boolean) => void,
+  searchForTextAmoungArchived: (text: string) => void,
   searchText: string,
   clearSearch: (boolean) => void,
   history: Object,
@@ -141,7 +143,21 @@ export class SearchBar extends Component<Props> {
 function mapDisPatchToProps(dispatch) {
   return {
     searchForText(text: string, replace: boolean, changeLocation: boolean) {
-      dispatch(searchActions.searchText(text, replace, changeLocation));
+      dispatch(
+        searchActions.searchText(
+          text,
+          replace,
+          changeLocation,
+          {
+            hide_archived: true,
+          },
+          {
+            onSuccess: () => {
+              dispatch(searchArchivedMembers(text, { only_archived: true }));
+            },
+          },
+        ),
+      );
     },
     clearSearch(changeLocation: boolean) {
       dispatch(searchActions.clearSearch(changeLocation));

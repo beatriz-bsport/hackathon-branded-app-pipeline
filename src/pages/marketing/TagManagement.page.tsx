@@ -172,6 +172,7 @@ class TagManagement extends React.PureComponent<Props> {
       tags_included: [this.props.selectedTagId],
       page,
       page_size,
+      exclude_archived: true,
     });
   };
 
@@ -180,6 +181,7 @@ class TagManagement extends React.PureComponent<Props> {
       tags_excluded: [this.props.selectedTagId],
       page,
       page_size,
+      exclude_archived: true,
     });
   };
 

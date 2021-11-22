@@ -22,6 +22,7 @@ import themeSelectors from '../../libs/theme/selectors';
 
 import { mapFormData, unmap } from '../form.utils';
 import withTitle from '../../hocs/with-title.hoc';
+import { withMemberBannerHOC } from '../../hocs/banner.hoc';
 
 type Props = {
   id: number,
@@ -141,4 +142,5 @@ export default compose(
     },
   })),
   withTitle(({ t }: { t: TFunction }) => t('titles:member.memberFormPage')),
+  withMemberBannerHOC(({ initial }) => initial),
 )(MemberFormPage);

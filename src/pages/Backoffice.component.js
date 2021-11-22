@@ -80,6 +80,7 @@ import {
   fetchCompanyCustomMemberForm,
   fetchCompanyCustomSignUp,
 } from '../libs/custom-form/actions';
+import { BannerProvider } from '../hocs/banner.hoc';
 
 const MarketingRouter = asyncComponent(() =>
   import('./marketing/Marketing.router'),
@@ -355,83 +356,85 @@ export class Backoffice extends Component<Props, State> {
               showLeftMenuAction: this.showLeftMenuAction.bind(this),
             }}
           >
-            <ResponsiveDrawer
-              logo={this.props.theme ? this.props.theme.cover : null}
-              fetchCashBook={this.props.fetchCashBook}
-              onSpotPaymentReportId={this.props.onSpotPaymentReportId}
-              theme={this.props.theme}
-              onSubmit={(data) => this.props.updateCashBook(data)}
-              alertings={this.props.alertings}
-              nbAlerting={this.props.nbAlerting}
-              deleteAlert={this.props.deleteAlert}
-              disconnect={this.props.disconnect}
-              displayLeftMenu={this.state.displayLeftMenu}
-              fetchMoreAlertingKind={this.props.fetchMoreAlertingKind}
-              showSearch={this.props.permission.member.search}
-              showActions={this.props.permission.appbarActions}
-              tempPasswordState={this.props.tempPasswordState}
-              generateTempPassword={this.props.generateTempPassword}
-              paymentMethodMissing={this.props.theme.payment_method_missing}
-              stripeOnboardingPending={
-                !!this.props.alertings
-                  .filter((ag) => (ag.results || []).length)
-                  .find((ag) => ag.alert_kind === '5')
-                  ?.results?.filter((a) =>
-                    ['verification', 'creation'].includes(a.data.type),
-                  ).length
-              }
-              fetchTempPassword={this.props.fetchTempPassword}
-              openCreateMember={this.props.openCreateMember}
-              openCalendar={this.props.openCalendar}
-              push={this.props.pushRouter}
-              fetchOnSpotPaymentReport={this.props.fetchOnSpotPaymentReport}
-              permissions={this.props.permission}
-              showCashBook={[
-                RoleType.USER_ROLE_NO_RESTRICTION,
-                RoleType.USER_ROLE_ADMIN,
-              ].includes(this.props.roleId)}
-              isFranchisorNavigation={
-                !!window.localStorage.getItem('bsport:franchise:http:token')
-              }
-              navigateBackToFranchisor={this.props.navigateBackToFranchise}
-              companyName={this.props.theme.company_name}
-            >
-              {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
-                Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging') &&
-              !this.props.isPluginActivated &&
-              !this.props.theme.hide_intercom ? (
-                <Intercom
-                  appID="q6foivp2"
-                  email={this.props.username}
-                  company={
-                    this.props.theme && this.props.theme.company_name
-                      ? {
-                          name: this.props.theme.company_name,
-                          id: this.props.theme.company,
-                        }
-                      : {}
-                  }
-                  {...(this.props.name ? { name: this.props.name } : {})}
-                  user_id={this.props.username}
-                  environment={Config.REACT_APP_SENTRY_ENVIRONMENT || 'dev'}
-                  release={RELEASE}
-                  role={this.props.permission.name}
-                  action_color={this.props.theme.primary_color}
-                />
-              ) : null}
-              <Analytics username={this.props.username} isInternal />
-              <main
-                className={clx({
-                  [classes.content]: true,
-                  [classes.fullContent]:
-                    this.props.location.pathname.includes('/spot-scheduling'),
-                })}
+            <BannerProvider>
+              <ResponsiveDrawer
+                logo={this.props.theme ? this.props.theme.cover : null}
+                fetchCashBook={this.props.fetchCashBook}
+                onSpotPaymentReportId={this.props.onSpotPaymentReportId}
+                theme={this.props.theme}
+                onSubmit={(data) => this.props.updateCashBook(data)}
+                alertings={this.props.alertings}
+                nbAlerting={this.props.nbAlerting}
+                deleteAlert={this.props.deleteAlert}
+                disconnect={this.props.disconnect}
+                displayLeftMenu={this.state.displayLeftMenu}
+                fetchMoreAlertingKind={this.props.fetchMoreAlertingKind}
+                showSearch={this.props.permission.member.search}
+                showActions={this.props.permission.appbarActions}
+                tempPasswordState={this.props.tempPasswordState}
+                generateTempPassword={this.props.generateTempPassword}
+                paymentMethodMissing={this.props.theme.payment_method_missing}
+                stripeOnboardingPending={
+                  !!this.props.alertings
+                    .filter((ag) => (ag.results || []).length)
+                    .find((ag) => ag.alert_kind === '5')
+                    ?.results?.filter(
+                      (a) => a.type in ['verification', 'creation'],
+                    )?.length
+                }
+                fetchTempPassword={this.props.fetchTempPassword}
+                openCreateMember={this.props.openCreateMember}
+                openCalendar={this.props.openCalendar}
+                push={this.props.pushRouter}
+                fetchOnSpotPaymentReport={this.props.fetchOnSpotPaymentReport}
+                permissions={this.props.permission}
+                showCashBook={[
+                  RoleType.USER_ROLE_NO_RESTRICTION,
+                  RoleType.USER_ROLE_ADMIN,
+                ].includes(this.props.roleId)}
+                isFranchisorNavigation={
+                  !!window.localStorage.getItem('bsport:franchise:http:token')
+                }
+                navigateBackToFranchisor={this.props.navigateBackToFranchise}
+                companyName={this.props.theme.company_name}
               >
-                <BackofficeRoute
-                  vodEnabled={this.props.theme ? this.props.theme.vod : null}
-                />
-              </main>
-            </ResponsiveDrawer>
+                {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
+                  Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging') &&
+                !this.props.isPluginActivated &&
+                !this.props.theme.hide_intercom ? (
+                  <Intercom
+                    appID="q6foivp2"
+                    email={this.props.username}
+                    company={
+                      this.props.theme && this.props.theme.company_name
+                        ? {
+                            name: this.props.theme.company_name,
+                            id: this.props.theme.company,
+                          }
+                        : {}
+                    }
+                    {...(this.props.name ? { name: this.props.name } : {})}
+                    user_id={this.props.username}
+                    environment={Config.REACT_APP_SENTRY_ENVIRONMENT || 'dev'}
+                    release={RELEASE}
+                    role={this.props.permission.name}
+                    action_color={this.props.theme.primary_color}
+                  />
+                ) : null}
+                <Analytics username={this.props.username} isInternal />
+                <main
+                  className={clx({
+                    [classes.content]: true,
+                    [classes.fullContent]:
+                      this.props.location.pathname.includes('/spot-scheduling'),
+                  })}
+                >
+                  <BackofficeRoute
+                    vodEnabled={this.props.theme ? this.props.theme.vod : null}
+                  />
+                </main>
+              </ResponsiveDrawer>
+            </BannerProvider>
             <GenericDialog />
           </DrawerContext.Provider>
         </PermissionContext.Provider>

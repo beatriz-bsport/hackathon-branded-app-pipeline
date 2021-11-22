@@ -18,6 +18,7 @@ import type { Tag, TagGroup } from '../types';
 
 import TagEditor from './TagEditor.component';
 import TagGroupCreator from './TagGroupCreator.component';
+import type { Member } from '../../member/types';
 
 type Props = {
   tagGroups: Array<TagGroup>,
@@ -38,6 +39,7 @@ type Props = {
   expanded: boolean,
   t: TFunction,
   classes: Object,
+  member: Member,
 };
 
 const EmptyTags = (props: { t: TFunction, classes: Object }) => (
@@ -107,6 +109,7 @@ export function MemberTagPanel(props: Props) {
                 deleteTagGroup={(tagGroup: TagGroup) =>
                   props.deleteTagGroup(tagGroup.id)
                 }
+                disabled={props.member.archived}
               />
             ))
           )}
@@ -125,6 +128,7 @@ export function MemberTagPanel(props: Props) {
             color="primary"
             variant="outlined"
             onClick={() => props.setCreateMode(!props.createMode)}
+            disabled={props.member.archived}
           >
             <AddIcon className={classes.leftIcon} />
             {t('form.group.addTagGroup')}

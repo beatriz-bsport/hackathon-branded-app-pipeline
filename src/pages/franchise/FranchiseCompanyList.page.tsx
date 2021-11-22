@@ -194,7 +194,9 @@ const connector = connect(
   }),
   {
     fetchFranchise: fetchFranchiseAction,
-    fetchFilteredMembers: fetchFilteredMembersAction,
+    fetchFilteredMembers: (params: {
+      [key: string]: number | boolean | string;
+    }) => fetchFilteredMembersAction({ ...params, exclude_archived: true }),
     fetchAssociatedEstablishments: fetchAssociatedEstablishmentsAction,
     fetchEstablishmentBulk: fetchEstablishmentBulkAction,
     navigateAsCompanyAdmin: navigateAsCompanyAdminAction,

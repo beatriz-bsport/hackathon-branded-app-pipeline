@@ -35,8 +35,11 @@ export async function fetchMemberList(params: {
 
 export const fetchFilteredMembers = fetchMemberList;
 
-export async function search(text: string) {
-  return postAuth(`${API_V1_URI}/member/search/`, { text });
+export async function search(
+  text: string,
+  params: { [key: string]: boolean | string | number },
+) {
+  return postAuth(`${API_V1_URI}/member/search/`, { text, params });
 }
 
 export async function tag(memberId: number, tagId: number) {
@@ -160,6 +163,20 @@ export async function adjustCreditWithoutPaymentNote(
   return postAuth(`${API_V1_URI}/member/${memberId}/adjust_credit/`, {
     amount,
   });
+}
+
+export async function archiveMember(memberId: number) {
+  return postAuth(`${API_V1_URI}/member/${memberId}/archive/`);
+}
+
+export async function unArchiveMember(memberId: number) {
+  return postAuth(`${API_V1_URI}/member/${memberId}/unarchive/`);
+}
+
+export async function interrogateMemberStatus(memberId: number) {
+  return getAuth(
+    `${API_V1_URI}/member/${memberId}/interrogate_member_before_archive/`,
+  );
 }
 
 export default {

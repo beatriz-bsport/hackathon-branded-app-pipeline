@@ -34,6 +34,8 @@ export type OrderWithProducts = {
   total_price: number,
   product_lines: Array<Product>,
   updated_at: string,
+  created_at: string,
+  member_archived: boolean,
 } & DeliveryData;
 
 export type ProductData = {

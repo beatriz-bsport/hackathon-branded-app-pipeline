@@ -14,6 +14,7 @@ import EmailIcon from '@material-ui/icons/Email';
 import IconButton from '@material-ui/core/IconButton';
 import CartIcon from '@material-ui/icons/ShoppingCart';
 
+import Typography from '@material-ui/core/Typography';
 import { Giftcard, ConsumerGiftcard } from '../types';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { Member } from '../../member/types';
@@ -33,7 +34,7 @@ type SenderProps = {
 
 const GiftcardSender = (props: SenderProps) => {
   const classes = useStyles();
-
+  const { t } = useTranslation('member');
   return (
     <ListItem
       selected={props.selected}
@@ -57,11 +58,24 @@ const GiftcardSender = (props: SenderProps) => {
         primary={
           <div className={classes.row}>
             <CartIcon className={classes.icon} fontSize="small" />
-            <span>
-              {props.showMember
-                ? props.memberSender?.name || ' - '
-                : props.giftcard?.name || ''}
-            </span>
+            {props.showMember ? (
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <Typography>
+                  {`${
+                    props.memberSender && props.memberSender.name
+                      ? props.memberSender.name
+                      : '-'
+                  }`}
+                </Typography>
+                {props.memberSender && props.memberSender.archived && (
+                  <Typography variant="caption" color="secondary">
+                    {`${'\u00A0'}(${t('archived')})`}
+                  </Typography>
+                )}
+              </div>
+            ) : (
+              <span>{props.giftcard?.name}</span>
+            )}
           </div>
         }
         secondary={`${getCurrencyDisplayWithPrice(
@@ -157,11 +171,20 @@ const GiftcardReceiver = (props: ReceiverProps) => {
               <EmailIcon className={classes.icon} fontSize="small" />
             )}
             <span>
-              {props.showMember
-                ? receiverName
-                : props.consumerGiftcard.giftcard_recipients
-                    .map((gr) => gr.email_sent_to)
-                    .join(', ') || ''}
+              {props.showMember ? (
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <Typography>{`${receiverName || '-'}`}</Typography>
+                  {props.memberReceiver && props.memberReceiver.archived && (
+                    <Typography variant="caption" color="secondary">
+                      {`${'\u00A0'}(${t('member:archived')})`}
+                    </Typography>
+                  )}
+                </div>
+              ) : (
+                props.consumerGiftcard.giftcard_recipients
+                  .map((gr) => gr.email_sent_to)
+                  .join(', ') || ''
+              )}
             </span>
           </div>
         }

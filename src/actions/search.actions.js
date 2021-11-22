@@ -28,6 +28,8 @@ export function searchText(
   text: string,
   path: string,
   changeLocation: boolean,
+  params: { [key: string]: string | boolean | number },
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(actionSearchTextStart(text, path, changeLocation));
@@ -37,9 +39,15 @@ export function searchText(
         const mustPush = path !== '/search/results';
         const goto = mustPush ? push : replace;
         dispatch(goto(`/search/results?q=${encodeURIComponent(text)}`));
-        dispatch(searchMember(text));
+        dispatch(searchMember(text, params));
+        if (options && options.onSuccess) {
+          options.onSuccess();
+        }
       } catch (error) {
         dispatch(actionSearchTextError(error));
+        if (options && options.onError) {
+          options.onError();
+        }
       }
     }
   };

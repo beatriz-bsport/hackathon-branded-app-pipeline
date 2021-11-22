@@ -394,7 +394,7 @@ const mapDispatchToProps = {
   fetchCompatiblePrivateConsumerPass: fetchCompatiblePrivateConsumerPassAction,
   registerPrivateBooking: registerPrivateBookingAction,
   createRecurrentRule: createOrUpdateRecurrenceRulePrivateBooking,
-  searchMembers,
+  searchMembers: (text: string) => searchMembers(text, { hide_archived: true }),
   createMember: createOrUpdateMember,
 };
 

@@ -9,12 +9,15 @@ import { getTagGroupsDict, getTagsDict } from '../tag/selectors';
 export const getMemberDetailData = (state: RootState) =>
   state.member.detailData;
 const _getMemberListIds = (state: RootState) => state.member.allIds;
-const _getSearchedMemberIds = (state: RootState) =>
-  state.member.search.allIds || [];
+const _getSearchedMemberIds = (state: RootState) => state.member.search.allIds;
+const _getSearchedMemberArchivedIds = (state: RootState) =>
+  state.member.search.archived.allIds;
 const _getMemberHistoryIds = (state: RootState) => state.member.historyListIds;
-
+const _getMemberArchiveStatus = (state: RootState) =>
+  state.member.archive.interrogate.byId;
 export const getMemberListData = (state: RootState) => state.member.listData;
-
+export const getMemberArchivedData = (state: RootState) =>
+  state.member.search.archived.data;
 export const getAllMembers = createSelector(
   [getMemberListData, _getMemberListIds],
   (data, ids) => {
@@ -26,7 +29,10 @@ export const getSearchedMembers = createSelector(
   [_getSearchedMemberIds, getMemberListData],
   (ids, data) => ids.map((id) => data[id]).filter((m) => !!m),
 );
-
+export const getSearchedMembersArchived = createSelector(
+  [_getSearchedMemberArchivedIds, getMemberArchivedData],
+  (ids, data) => ids.map((id) => data[id]).filter((m) => !!m),
+);
 export const getMember = (state: RootState, id: number) => {
   const detail = getMemberDetailData(state)[id];
   if (detail) return detail;
@@ -37,6 +43,9 @@ export const getMemberDetail = (state: RootState, id: number) => {
   return getMemberDetailData(state)[id];
 };
 
+export const getMemberArchiveStatus = (state: RootState, id: number) => {
+  return _getMemberArchiveStatus(state)[id];
+};
 export const getMemberThroughMembership = memoize(
   (selector: (state: RootState) => any) =>
     createSelector([selector, getMembership], (memberdetail, membership) => {

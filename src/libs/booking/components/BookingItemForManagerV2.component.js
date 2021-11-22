@@ -381,6 +381,11 @@ export class BookingItemForManager extends Component<Props, State> {
     }
   };
 
+  getArchivedStatus = () => {
+    const { member, t } = this.props;
+    return member?.archived ? `(${t('member:archived')})` : '';
+  };
+
   getIsFirstIndicator = () => (this.props.booking.first_in_company ? '★' : '');
 
   getIsRecurrentBooking = () => {
@@ -546,6 +551,9 @@ export class BookingItemForManager extends Component<Props, State> {
                 primary={
                   <div className={this.props.classes.rowPrimary}>
                     <Typography variant="body2">{this.getHeading()}</Typography>
+                    <Typography variant="caption" color="secondary">
+                      {this.getArchivedStatus()}
+                    </Typography>
                     <Typography color="primary">
                       {this.getIsFirstIndicator()}
                     </Typography>

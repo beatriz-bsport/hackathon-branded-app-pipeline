@@ -54,6 +54,7 @@ import LanguageButton from '../button/LanguageButton.component';
 import LOGO_ASSET from '../../public/images/banner_lowres.png';
 import { windowTitleToProps } from '../../hocs/with-title.hoc';
 import type { TempPasswordState } from '../../libs/login/types';
+import { BannerContext, BannerContextValue } from '../../hocs/banner.hoc';
 // import SearchBar from '../SearchBar.component';
 
 export const drawerWidth = 260;
@@ -393,57 +394,64 @@ export const FranchiseDrawer = (props: Props) => {
   return (
     <DrawerContext.Consumer>
       {({ displayLeftMenu }: DrawerContextValue) => (
-        <div
-          className={
-            isMobileDevice || !displayLeftMenu
-              ? classes.rootFullWidth
-              : classes.root
-          }
-        >
-          {renderAppBar(displayLeftMenu)}
-          {displayLeftMenu && (
-            <div>
-              <Hidden mdUp>
-                <Drawer
-                  variant="temporary"
-                  anchor="left"
-                  open={mobileOpen}
-                  onClose={handleDrawerToggle}
-                  classes={{
-                    paper: classes.drawerPaper,
-                  }}
-                  ModalProps={{
-                    keepMounted: true, // Better open performance on mobile.
-                  }}
-                >
-                  {drawer}
-                </Drawer>
-              </Hidden>
-              <Hidden smDown implementation="css">
-                <Drawer
-                  variant="permanent"
-                  open
-                  anchor="left"
-                  elevation={20}
-                  classes={{
-                    paper: classes.drawerPaper,
-                  }}
-                >
-                  {drawer}
-                </Drawer>
-              </Hidden>
+        <BannerContext.Consumer>
+          {({ banner }: BannerContextValue) => (
+            <div
+              className={
+                isMobileDevice || !displayLeftMenu
+                  ? classes.rootFullWidth
+                  : classes.root
+              }
+            >
+              {renderAppBar(displayLeftMenu)}
+              {displayLeftMenu && (
+                <div>
+                  <Hidden mdUp>
+                    <Drawer
+                      variant="temporary"
+                      anchor="left"
+                      open={mobileOpen}
+                      onClose={handleDrawerToggle}
+                      classes={{
+                        paper: classes.drawerPaper,
+                      }}
+                      ModalProps={{
+                        keepMounted: true, // Better open performance on mobile.
+                      }}
+                    >
+                      {drawer}
+                    </Drawer>
+                  </Hidden>
+                  <Hidden smDown implementation="css">
+                    <Drawer
+                      variant="permanent"
+                      open
+                      anchor="left"
+                      elevation={20}
+                      classes={{
+                        paper: classes.drawerPaper,
+                      }}
+                    >
+                      {drawer}
+                    </Drawer>
+                  </Hidden>
+                </div>
+              )}
+              <TempPasswordDialog
+                generateTempPassword={generateTempPassword}
+                tempPassword={tempPasswordState.password}
+                loading={tempPasswordState.loading}
+                tempPasswordExpirationDate={tempPasswordState.expiration_date}
+                onClose={closeTempPasswordDialog}
+                open={tempPasswordDialogOpen}
+              />
+              <main className={classes.content}>
+                {banner}
+                {children}
+              </main>
             </div>
           )}
-          <TempPasswordDialog
-            generateTempPassword={generateTempPassword}
-            tempPassword={tempPasswordState.password}
-            loading={tempPasswordState.loading}
-            tempPasswordExpirationDate={tempPasswordState.expiration_date}
-            onClose={closeTempPasswordDialog}
-            open={tempPasswordDialogOpen}
-          />
-          <main className={classes.content}>{children}</main>
-        </div>
+        </BannerContext.Consumer>
       )}
     </DrawerContext.Consumer>
   );

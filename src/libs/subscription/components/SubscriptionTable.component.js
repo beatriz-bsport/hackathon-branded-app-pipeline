@@ -6,6 +6,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import AddIcon from '@material-ui/icons/Add';
+import Typography from '@material-ui/core/Typography';
 import RedButton from '../../../components/button/RedButton.component';
 
 import { formatAsDate } from '../../../utils/datetime';
@@ -16,7 +17,13 @@ import { getStatus } from '../utils';
 const renderRows = (subscriptions, t) => {
   return subscriptions.map((sub) => ({
     key: sub.id,
-    member: sub.memberName,
+    member: renderMemberName(
+      {
+        memberName: sub.memberName,
+        memberArchived: sub.memberArchived,
+      },
+      t,
+    ),
     name: sub.name,
     nb_interval: parseInt(sub.nb_interval, 10),
     first_billing_date: formatAsDate(sub.first_billing_date),
@@ -34,6 +41,27 @@ const renderRows = (subscriptions, t) => {
   }));
 };
 
+const renderMemberName = (
+  {
+    memberName,
+    memberArchived,
+  }: {
+    memberName: string,
+    memberArchived: string,
+  },
+  t: TFunction,
+) => {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <Typography>{memberName || ''}</Typography>
+      {memberArchived && (
+        <Typography variant="caption" color="secondary">
+          {`${'\u00A0'}(${t('member:archived')})`}
+        </Typography>
+      )}
+    </div>
+  );
+};
 const getColumnData = (
   t: TFunction,
   showOnlyCoreColumns: boolean,

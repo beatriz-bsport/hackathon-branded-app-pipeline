@@ -106,10 +106,21 @@ const renderDisplayAccount = (display_count: number) => (
     {display_count}
   </Typography>
 );
+
+const renderMemberName = (name: string, archived: boolean, t: TFunction) => (
+  <div style={{ display: 'flex', alignItems: 'center' }}>
+    <Typography>{name}</Typography>
+    {archived && (
+      <Typography variant="caption" color="secondary">
+        {`\u00A0(${t('member:archived')})`}
+      </Typography>
+    )}
+  </div>
+);
 const renderRow = (member: MemberStatistics, t: TFunction) => {
-  const { display_count, last_display, completed, name } = member;
+  const { display_count, last_display, completed, name, archived } = member;
   return {
-    name,
+    name: renderMemberName(name, archived, t),
     last_display: formatAsDate(moment.unix(last_display).format('MM/DD/YYYY')),
     display_count: renderDisplayAccount(display_count),
     completed: renderCompleted(completed, t),

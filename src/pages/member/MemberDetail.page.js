@@ -15,19 +15,32 @@ import PaymentIcon from '@material-ui/icons/Payment';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose, withHandlers, withState } from 'recompose';
-
 import {
   BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
+import DeleteIcon from '@material-ui/icons/Delete';
+import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
+import RedFab from '../../components/button/RedFab.component';
+import GreenFab from '../../components/button/GreenFab.component';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
 import { fetchManagerFiltersSettings } from '../../libs/dashboard/actions';
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 
-import { getMember } from '../../libs/member/selectors';
-import { fetchCountObjects as fetchCountObjectsAction } from '../../libs/member/actions';
+import {
+  getMember,
+  getMemberDetail,
+  getMemberArchiveStatus,
+} from '../../libs/member/selectors';
+import {
+  fetchCountObjects as fetchCountObjectsAction,
+  archiveMember,
+  unArchiveMember,
+  interrogateMemberStatus,
+  fetchMember,
+} from '../../libs/member/actions';
 import withTitle from '../../hocs/with-title.hoc';
 
 import { getAvailableContractListWithPaymentPack } from '../../libs/subscription/selectors';
@@ -58,6 +71,9 @@ import { fetchEstablishments } from '../../libs/establishment/actions';
 import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
 import type { CustomFormFilled } from '../../libs/custom-form/types';
 import type { Establishment } from '../../libs/establishment/types';
+import type { OptionCallback } from '../../state/types';
+import MemberArchiveDialog from '../../libs/member/components/MemberArchiveDialog.component';
+import { withMemberBannerHOC } from '../../hocs/banner.hoc';
 
 const MemberDetailInfo = asyncComponent(() =>
   import('./MemberDetailInfo.page'),
@@ -132,6 +148,15 @@ type Props = {
   fetchMemberCustomFormFilled: (memberId: number) => void,
   fetchEstablishments: () => void,
   establishmentList: Array<Establishment>,
+  fetchMember: (id: number) => void,
+  setOpenArchiveDialog: (b: boolean) => void,
+  interrogateMemberStatus: (id: number, options?: OptionCallback) => void,
+  archiveMember: (id: number, options?: OptionCallback) => void,
+  unArchiveMember: (id: number, options?: OptionCallback) => void,
+  openArchiveDialog: boolean,
+  memberToArchive: Member,
+  memberArchiveStatus: Array<number>,
+  memberArchiveLoading: boolean,
 };
 
 const MemberActions = (props: {
@@ -139,6 +164,9 @@ const MemberActions = (props: {
   classes: Object,
   billMember: (id: number) => void,
   subscribeMember: (id: number) => void,
+  interrogateMemberStatus: () => void,
+  unArchiveMember: () => void,
+  member: Member,
 }) => (
   <div className={props.classes.bottomButtonContainer}>
     <Fab
@@ -159,6 +187,25 @@ const MemberActions = (props: {
       <PaymentIcon className={props.classes.leftIcon} />
       {props.t('paymentAction.toSubscribe')}
     </Fab>
+    <>
+      {props.member && props.member.archived ? (
+        <GreenFab
+          variant="extended"
+          className={props.classes.bottomButton}
+          onClick={() => props.unArchiveMember()}
+        >
+          <RestoreFromTrashIcon className={props.classes.leftIcon} />
+          {props.t('restoreMember')}
+        </GreenFab>
+      ) : (
+        <RedFab
+          className={props.classes.bottomButton}
+          onClick={() => props.interrogateMemberStatus()}
+        >
+          <DeleteIcon />
+        </RedFab>
+      )}
+    </>
   </div>
 );
 
@@ -172,8 +219,33 @@ export class MemberDetail extends React.Component<Props> {
       this.props.fetchNumberVideoPurchase({ member_id: this.props.id });
       this.props.fetchMemberCustomFormFilled(this.props.id);
       this.props.fetchEstablishments();
+      this.props.fetchMember(this.props.id);
     }
   }
+
+  archiveMember = (id: number) => {
+    this.props.archiveMember(id, {
+      onSuccess: () => {
+        this.props.setOpenArchiveDialog(false);
+        this.props.fetchMember(this.props.id);
+      },
+    });
+  };
+
+  unArchiveMember = () => {
+    this.props.unArchiveMember(this.props.id, {
+      onSuccess: () => this.props.fetchMember(this.props.id),
+    });
+  };
+
+  interrogateMemberStatus = () => {
+    this.props.setOpenArchiveDialog(true);
+    this.props.interrogateMemberStatus(this.props.id, {
+      onError: () => {
+        this.props.setOpenArchiveDialog(false);
+      },
+    });
+  };
 
   render() {
     const {
@@ -361,6 +433,9 @@ export class MemberDetail extends React.Component<Props> {
           classes={classes}
           billMember={() => billMember(id)}
           subscribeMember={this.props.openContractDialog}
+          interrogateMemberStatus={this.interrogateMemberStatus}
+          member={this.props.member}
+          unArchiveMember={this.unArchiveMember}
         />
         {!!this.props.invoiceInfo && (
           <InvoiceInfoDialog
@@ -402,6 +477,16 @@ export class MemberDetail extends React.Component<Props> {
           }
           establishments={this.props.establishmentList}
           enableMultiLocalization={this.props.theme.enable_multi_localization}
+        />
+        <MemberArchiveDialog
+          open={this.props.openArchiveDialog}
+          member={this.props.memberToArchive}
+          archiveMemberStatus={this.props.memberArchiveStatus}
+          loading={this.props.memberArchiveLoading}
+          onClose={() => {
+            this.props.setOpenArchiveDialog(false);
+          }}
+          onConfirm={this.archiveMember}
         />
       </div>
     );
@@ -461,6 +546,9 @@ export default compose(
         getMemberCustomFormFilled,
       )(state, id),
       establishmentList: getAvailableEstablishmentList(state),
+      memberArchiveStatus: getMemberArchiveStatus(state, id),
+      memberArchiveLoading: state.member.archive.loading,
+      memberToArchive: getMemberDetail(state, id),
     }),
     {
       fetchAllPaymentPacks,
@@ -478,6 +566,10 @@ export default compose(
       fetchNumberVideoPurchase,
       fetchMemberCustomFormFilled,
       fetchEstablishments,
+      archiveMember,
+      unArchiveMember,
+      interrogateMemberStatus,
+      fetchMember,
     },
   ),
   withHandlers({
@@ -498,6 +590,7 @@ export default compose(
   }),
   withState('contractDialogOpen', 'setContractDialogOpen', false),
   withState('contractToBill', 'setContractToBill', null),
+  withState('openArchiveDialog', 'setOpenArchiveDialog', false),
   withHandlers({
     closeContractDialog:
       ({ setContractDialogOpen, setContractToBill }) =>
@@ -525,4 +618,5 @@ export default compose(
       },
   }),
   withTitle(({ member }) => (member ? member.name : '')),
+  withMemberBannerHOC(({ member }) => member),
 )(MemberDetail);

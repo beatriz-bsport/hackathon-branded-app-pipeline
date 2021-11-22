@@ -6,6 +6,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import { useTranslation } from 'react-i18next';
 import type { VideoView, VideoPurchase } from '../types';
 
 type Props = {
@@ -17,6 +18,7 @@ type Props = {
 const VodMemberGenericListItem = (props: Props) => {
   const { secondaryText } = props;
   const { member } = props.item;
+  const { t } = useTranslation('member');
   return (
     <ListItem
       dense
@@ -29,9 +31,16 @@ const VodMemberGenericListItem = (props: Props) => {
       </ListItemAvatar>
       <ListItemText
         primary={
-          <Typography>
-            {`${member && member.name ? member.name : '-'}`}
-          </Typography>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <Typography>
+              {`${member && member.name ? member.name : '-'}`}
+            </Typography>
+            {member && member.archived && (
+              <Typography variant="caption" color="secondary">
+                {`${'\u00A0'}(${t('member:archived')})`}
+              </Typography>
+            )}
+          </div>
         }
         secondary={secondaryText}
       />

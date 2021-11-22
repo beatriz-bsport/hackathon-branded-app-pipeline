@@ -280,7 +280,11 @@ export class MemberSummaryCard extends Component<Props> {
           }}
         >
           {this.props.mergeMember ? (
-            <Button onClick={this.props.mergeMember} color="secondary">
+            <Button
+              onClick={this.props.mergeMember}
+              color="secondary"
+              disabled={this.props.member?.archived}
+            >
               <Hidden xsDown>{t('common.merge')}</Hidden>
               <MergeTypeIcon className={this.props.classes.rightIcon} />
             </Button>

@@ -11,6 +11,9 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 import AddIcon from '@material-ui/icons/Add';
+import IconButton from '@material-ui/core/IconButton';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Typography from '@material-ui/core/Typography';
 import type { TFunction } from 'react-i18next';
 import { getCurrencyDisplayWithPrice } from '../theme/selectors';
@@ -19,8 +22,10 @@ import { formatAsDate } from '../../utils/datetime';
 
 const MEMBER_PER_PAGE = 50;
 
-const renderRows = (members, t, goToMember) => {
-  return members.map((member) => renderRow(member, t, goToMember));
+const renderRows = (members, t, goToMember, interrogateMemberStatus) => {
+  return members.map((member) =>
+    renderRow(member, t, goToMember, interrogateMemberStatus),
+  );
 };
 const getColumnData = (t) => {
   return [
@@ -49,16 +54,16 @@ const getColumnData = (t) => {
       },
     },
     {
-      name: 'actions',
-      label: t('row.headers.actions'),
+      name: 'accept_email',
+      label: t('row.headers.newsletter_email'),
       options: {
         filter: false,
         sort: false,
       },
     },
     {
-      name: 'accept_email',
-      label: t('row.headers.newsletter_email'),
+      name: 'actions',
+      label: t('row.headers.actions'),
       options: {
         filter: false,
         sort: false,
@@ -73,19 +78,32 @@ const renderCreditAccountBalance = (credit_account_balance: number) => (
   </Typography>
 );
 
-const renderActions = (id, goToMemberPage, t) => (
-  <Button onClick={() => goToMemberPage(id)} color="primary">
-    {t('table.show')}
-  </Button>
+const renderActions = (id, goToMemberPage, interrogateMemberStatus) => (
+  <>
+    <IconButton onClick={() => goToMemberPage(id)} color="primary">
+      <VisibilityIcon />
+    </IconButton>
+    {interrogateMemberStatus && (
+      <IconButton
+        onClick={(e) => {
+          e.stopPropagation();
+          interrogateMemberStatus(id);
+        }}
+        color="primary"
+      >
+        <DeleteIcon />
+      </IconButton>
+    )}
+  </>
 );
-const renderRow = (member, t, goToMemberPage) => {
+const renderRow = (member, t, goToMemberPage, interrogateMemberStatus) => {
   const { credit_account_balance, date_joined, name, id, accept_email } =
     member;
   return {
     name,
     date_joined: formatAsDate(date_joined),
     credit_account_balance: renderCreditAccountBalance(credit_account_balance),
-    actions: renderActions(id, goToMemberPage, t),
+    actions: renderActions(id, goToMemberPage, interrogateMemberStatus),
     accept_email: (
       <Typography color={accept_email ? 'primary' : 'error'}>
         {accept_email ? t('row.yes') : t('row.no')}
@@ -105,6 +123,8 @@ type Props = {
   customToolBar: () => any,
   onValueChangeActiveMemberFetch: boolean,
   hideAddButton: boolean,
+  interrogateMemberStatus: (id: number) => void,
+  disabledMemberId: Array<number>,
 };
 
 type State = {
@@ -114,7 +134,7 @@ type State = {
   tableState: { page: number },
 };
 
-export class InvoiceTable extends Component<Props, State> {
+export class MemberTable extends Component<Props, State> {
   state = {
     members: [],
     loading: false,
@@ -133,6 +153,7 @@ export class InvoiceTable extends Component<Props, State> {
           page_size: MEMBER_PER_PAGE,
           tags_included: this.props.tagsIncluded,
           tags_excluded: this.props.tagsExcluded,
+          exclude_archived: true,
         })
         .then((response) => {
           this.setState((prevState) => ({
@@ -254,7 +275,14 @@ export class InvoiceTable extends Component<Props, State> {
 
     return (
       <MUIDataTable
-        data={renderRows(this.state.members, t, this.props.goToMember)}
+        data={renderRows(
+          this.state.members?.filter(
+            (mem) => !this.props.disabledMemberId?.includes(mem.id),
+          ),
+          t,
+          this.props.goToMember,
+          this.props.interrogateMemberStatus,
+        )}
         columns={getColumnData(t)}
         options={options}
       />
@@ -277,4 +305,4 @@ const styles = (theme) => ({
 export default compose(
   withStyles(styles),
   withTranslation(['member']),
-)(InvoiceTable);
+)(MemberTable);

@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { push } from 'connected-react-router';
 import { connect, ConnectedProps } from 'react-redux';
-import { compose } from 'recompose';
+import { compose, withState } from 'recompose';
 import { createStyles, WithStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core/styles';
 import { TFunction } from 'i18next';
@@ -17,11 +17,28 @@ import TagChipList from '../../libs/tag/components/TagChipList.component';
 import TagFilterForm from '../../libs/tag/components/TagFilterForm.component';
 import tagSelectors from '../../libs/tag/selectors';
 import type { Tag } from '../../libs/tag/types';
-
 import { fetchTags } from '../../libs/tag/actions';
 import { RootState } from '../../reducers';
+import {
+  archiveMember,
+  interrogateMemberStatus,
+  fetchMember,
+} from '../../libs/member/actions';
+import {
+  getMemberDetail,
+  getMemberArchiveStatus,
+} from '../../libs/member/selectors';
+import MemberArchiveDialog from '../../libs/member/components/MemberArchiveDialog.component';
 
-type Props = WithStyles<typeof styles> & ConnectedProps<typeof connector>;
+type WithStateProps = {
+  openArchiveDialog: boolean;
+  setOpenArchiveDialog: (b: boolean) => void;
+  setMemberSelectedForArchive: (id: number | null) => void;
+  memberSelectedForArchive: number | null;
+};
+type Props = WithStateProps &
+  WithStyles<typeof styles> &
+  ConnectedProps<typeof connector>;
 
 type TagFilterFormType = {
   include?: boolean;
@@ -32,6 +49,7 @@ type State = {
   tagsIncluded: Array<Tag['id']>;
   tagsExcluded: Array<Tag['id']>;
   showFilterForm: boolean;
+  disabledMemberId: Array<number>;
 };
 
 export class Members extends Component<Props, State> {
@@ -41,6 +59,7 @@ export class Members extends Component<Props, State> {
       tagsIncluded: [],
       tagsExcluded: [],
       showFilterForm: false,
+      disabledMemberId: [],
     };
   }
 
@@ -94,28 +113,69 @@ export class Members extends Component<Props, State> {
     });
   };
 
+  archiveMember = (id: number) => {
+    this.props.archiveMember(id, {
+      onSuccess: () => {
+        this.props.setOpenArchiveDialog(false);
+        this.props.setMemberSelectedForArchive(null);
+        this.setState((prevState) => ({
+          disabledMemberId: [...prevState.disabledMemberId, id],
+        }));
+      },
+    });
+  };
+
+  interrogateMemberStatus = (id: number) => {
+    this.props.fetchMember(id);
+    this.props.setOpenArchiveDialog(true);
+    this.props.setMemberSelectedForArchive(id);
+    this.props.interrogateMemberStatus(id, {
+      onError: () => {
+        this.props.setOpenArchiveDialog(false);
+        this.props.setMemberSelectedForArchive(null);
+      },
+    });
+  };
+
   render() {
     const { addMember, goToMemberPage } = this.props;
 
     return (
-      <Grid container direction="row" spacing={4}>
-        <Grid item xs={12}>
-          <MemberTable
-            tagsExcluded={this.state.tagsExcluded}
-            tagsIncluded={this.state.tagsIncluded}
-            fetch={this.fetchMemberList}
-            goToMember={goToMemberPage}
-            addMember={addMember}
-            customToolBar={this.tagFilterBar}
+      <>
+        <Grid container direction="row" spacing={4}>
+          <Grid item xs={12}>
+            <MemberTable
+              tagsExcluded={this.state.tagsExcluded}
+              tagsIncluded={this.state.tagsIncluded}
+              fetch={this.fetchMemberList}
+              goToMember={goToMemberPage}
+              addMember={addMember}
+              customToolBar={this.tagFilterBar}
+              interrogateMemberStatus={(id: number) =>
+                this.interrogateMemberStatus(id)
+              }
+              disabledMemberId={this.state.disabledMemberId}
+            />
+          </Grid>
+          <TagFilterForm
+            open={this.state.showFilterForm}
+            onClose={() => this.setState({ showFilterForm: false })}
+            tagList={this.props.tags}
+            createFilter={this.createTagFilter}
           />
         </Grid>
-        <TagFilterForm
-          open={this.state.showFilterForm}
-          onClose={() => this.setState({ showFilterForm: false })}
-          tagList={this.props.tags}
-          createFilter={this.createTagFilter}
+        <MemberArchiveDialog
+          open={this.props.openArchiveDialog}
+          member={this.props.memberToArchive}
+          archiveMemberStatus={this.props.memberArchiveStatus}
+          loading={this.props.memberArchiveLoading}
+          onClose={() => {
+            this.props.setOpenArchiveDialog(false);
+            this.props.setMemberSelectedForArchive(null);
+          }}
+          onConfirm={this.archiveMember}
         />
-      </Grid>
+      </>
     );
   }
 }
@@ -128,26 +188,39 @@ const styles = (theme: Theme) =>
       justifyContent: 'flex-end',
       alignItems: 'center',
       width: '100%',
-
       paddingTop: theme.spacing(2),
       marginLeft: theme.spacing(-1),
     },
   });
 
 const connector = connect(
-  (state: RootState) => ({
+  (
+    state: RootState,
+    { memberSelectedForArchive }: { memberSelectedForArchive: number },
+  ) => ({
     loading: state.member.loading,
     tags: tagSelectors.getMemberTagsWithTagGroup(state),
+    memberArchiveStatus: getMemberArchiveStatus(
+      state,
+      memberSelectedForArchive,
+    ),
+    memberArchiveLoading: state.member.archive.loading,
+    memberToArchive: getMemberDetail(state, memberSelectedForArchive),
   }),
   {
     fetchTags,
     goToMemberPage: (id: number) => push(`/member/${id}/`),
     addMember: () => push('/member/add'),
+    archiveMember,
+    interrogateMemberStatus,
+    fetchMember,
   },
 );
 
 export default compose<any, Props>(
   withTranslation(['titles', 'member']),
+  withState('openArchiveDialog', 'setOpenArchiveDialog', false),
+  withState('memberSelectedForArchive', 'setMemberSelectedForArchive', null),
   withStyles(styles),
   withTitle(({ t }: { t: TFunction }) => t('titles:member.members')),
   connector,

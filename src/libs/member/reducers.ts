@@ -16,6 +16,10 @@ import {
   membersListWithoutTagRepo,
   tagAllMemberRepo,
   untagAllMemberRepo,
+  archiveMemberActions,
+  unArchiveMemberActions,
+  interrogateMemberStatusActions,
+  searchArchivedMembers,
 } from './actions';
 import { Member, MemberNote, MemberState } from './types';
 import { GenericListReducer, GenericReducer } from '../../utils/reduxHelper';
@@ -36,6 +40,12 @@ const initialState: Immutable.Immutable<MemberState> = Immutable<MemberState>({
     allIds: [],
     loading: false,
     error: null,
+    archived: {
+      loading: false,
+      error: null,
+      allIds: [],
+      data: {},
+    },
   },
   upsert: {
     loading: false,
@@ -71,6 +81,13 @@ const initialState: Immutable.Immutable<MemberState> = Immutable<MemberState>({
     ...membersListWithoutTagRepo.initialState,
     ...tagAllMemberRepo.initialState,
     ...untagAllMemberRepo.initialState,
+  },
+  archive: {
+    error: null,
+    loading: false,
+    interrogate: {
+      byId: {},
+    },
   },
 });
 
@@ -244,7 +261,36 @@ export default handleActions<Immutable.Immutable<MemberState>>(
           { deep: true },
         );
     },
-
+    [searchArchivedMembers.isLoading.toString()]: (state) => {
+      return state.setIn(['search', 'archived', 'loading'], false);
+    },
+    [searchArchivedMembers.error.toString()]: (state, action) => {
+      return state.setIn(['search', 'archived', 'error'], action.error);
+    },
+    [searchArchivedMembers.success.toString()]: (state, action) => {
+      return state
+        .setIn(
+          ['search', 'archived', 'allIds'],
+          action.payload?.map((m: Member) => m.id) || [],
+        )
+        .setIn(['search', 'archived', 'loading'], false)
+        .merge(
+          {
+            search: {
+              archived: {
+                data: action.payload.reduce(
+                  (acc: MemberState['byId'], m: Member) => {
+                    acc[m.id] = m;
+                    return acc;
+                  },
+                  {},
+                ),
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
     [actionTypes.START_FETCH_MEMBER.toString()]: (state) => {
       return state.set('loading', true);
     },
@@ -353,6 +399,36 @@ export default handleActions<Immutable.Immutable<MemberState>>(
     },
     [fetchMyUserProfileActions.success.toString()]: (state, action) => {
       return state.setIn(['userProfile', 'profile'], action.payload);
+    },
+    [archiveMemberActions.error.toString()]: (state, action) => {
+      return state.setIn(['archive', 'error'], action.payload);
+    },
+    [archiveMemberActions.isLoading.toString()]: (state, action) => {
+      return state.setIn(['archive', 'loading'], action.payload);
+    },
+    [unArchiveMemberActions.error.toString()]: (state, action) => {
+      return state.setIn(['archive', 'error'], action.payload);
+    },
+    [unArchiveMemberActions.isLoading.toString()]: (state, action) => {
+      return state.setIn(['archive', 'loading'], action.payload);
+    },
+    [interrogateMemberStatusActions.error.toString()]: (state, action) => {
+      return state.setIn(['archive', 'error'], action.payload);
+    },
+    [interrogateMemberStatusActions.isLoading.toString()]: (state, action) => {
+      return state.setIn(['archive', 'loading'], action.payload);
+    },
+    [interrogateMemberStatusActions.success.toString()]: (state, action) => {
+      return state.merge(
+        {
+          archive: {
+            interrogate: {
+              byId: { [action.payload.memberId]: action.payload.data },
+            },
+          },
+        },
+        { deep: true },
+      );
     },
     ...GenericListReducer(membersListWithTagRepo),
     ...GenericListReducer(membersListWithoutTagRepo),

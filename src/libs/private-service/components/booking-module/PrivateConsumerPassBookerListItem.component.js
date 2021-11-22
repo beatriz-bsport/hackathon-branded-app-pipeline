@@ -50,12 +50,21 @@ export const PrivateConsumerPassBookerListItem = (props: Props) => {
     private_consumer_pass.src_private_consumer_pass.length;
   const expirationDate = getExpirationDate(private_consumer_pass);
   const [processing, setProcessing] = React.useState(false);
-  let { name } = private_pass;
-  if (showMember) {
-    name =
-      (private_consumer_pass.member && private_consumer_pass.member.name) ||
-      ' - ';
-  }
+  const renderMemberName = () => (
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <Typography>
+        {`${
+          (private_consumer_pass.member && private_consumer_pass.member.name) ||
+          ' - '
+        }`}
+      </Typography>
+      {private_consumer_pass.member && private_consumer_pass.member.archived && (
+        <Typography variant="caption" color="secondary">
+          {`${'\u00A0'}(${t('member:archived')})`}
+        </Typography>
+      )}
+    </div>
+  );
   const renderButton = () => {
     if (processing) {
       return <CircularProgress />;
@@ -145,7 +154,11 @@ export const PrivateConsumerPassBookerListItem = (props: Props) => {
         <ListItemText
           primary={
             <div>
-              <Typography>{name}</Typography>
+              {!showMember ? (
+                <Typography>{private_pass.name}</Typography>
+              ) : (
+                renderMemberName()
+              )}
               <Typography variant="caption">
                 {t('consumerPass.current_credits', {
                   credits: private_pass.credits,

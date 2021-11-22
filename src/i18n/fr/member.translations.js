@@ -8,6 +8,8 @@ exports.default = {
   unpaidInvoiceTitle: 'Facture impayée',
   unpaidInvoiceTitle_plural: 'Factures impayées',
   adjustBalance: 'Ajuster le solde',
+  restoreMember: 'Restaurer',
+  archived: 'Archivé',
   table: {
     show: 'Voir',
   },
@@ -174,5 +176,29 @@ exports.default = {
     done: 'Pass sanitaire valide',
     notDone: 'Pas de pass sanitaire valide',
     unknown: 'Status pass sanitaire inconnu',
+  },
+  archive: {
+    archivedMember: 'Membre Archivé : {{name}}',
+    dialog: {
+      title: 'Archiver un membre',
+      helper_text_1: 'Êtes-vous sûr de vouloir archiver ce membre ?',
+      helper_text_2:
+        "Ce membre n'apparaitra plus dans la liste de vos membres.",
+      warning: {
+        general:
+          'Nous avons identifié les points ci-dessous, nous vous conseillons de régulariser le compte de ce client avant archivage:',
+        0: 'Solde interne négatif',
+        1: 'Facture(s) impayée(s)',
+        2: 'Abonnement en cours',
+        3: 'Abonnement avec renouvelement automatique en cours',
+        4: 'Réservation()s prévue(s) dans le future',
+        5: 'Réservation(s) récurrente(s) enregistrée(s)',
+        6: 'Rendez-vous prévu(s)',
+      },
+      actions: {
+        close: 'Fermer',
+        confirm: 'Confirmer',
+      },
+    },
   },
 };

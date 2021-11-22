@@ -27,6 +27,7 @@ type Props = {
   createMode: boolean,
   setCreateMode: (boolean) => void,
   classes: Object,
+  disabled: boolean,
 };
 
 const styles = () => ({
@@ -74,6 +75,7 @@ export function TagEditor(props: Props) {
               props.setCreateMode(false);
             }}
             onCancel={() => props.setCreateMode(false)}
+            disabled={props.disabled}
           />
         ) : (
           <TagSelector
@@ -85,6 +87,7 @@ export function TagEditor(props: Props) {
             deleteTagGroup={props.deleteTagGroup}
             editTagGroup={() => props.setEditMode(true)}
             onCreate={props.onCreate}
+            disabled={props.disabled}
           />
         )}
       </div>

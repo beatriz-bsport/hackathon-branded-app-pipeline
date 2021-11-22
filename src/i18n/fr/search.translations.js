@@ -9,6 +9,8 @@ exports.default = {
     packs: {
       title: 'Cartes de cours',
     },
+    archived: 'Membres archivés',
+    closeMemberMatch: 'Recherchez-vous ce membre ?',
   },
   actions: {
     addMember: 'Ajouter un membre',

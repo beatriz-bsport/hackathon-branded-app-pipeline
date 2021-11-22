@@ -102,6 +102,7 @@ import {
 } from '../../libs/private-service/selectors/private-service';
 import type { PrivateService } from '../../libs/private-service/types';
 import { showInformativeDialog } from '../../components/GenericDialog/CustomDialogs';
+import type { TagGroup } from '../../libs/tag/types';
 
 type Props = {
   id: number,
@@ -208,8 +209,7 @@ export class SmartListDetailMember extends Component<Props, State> {
     filter.smartlist = this.props.id;
     this.props.createFilter(filter_identifier, filter, this.props.id, () => {
       this.setState((prevState) => ({
-        onValueChangeActiveMemberFetch:
-          !prevState.onValueChangeActiveMemberFetch,
+        onValueChangeActiveMemberFetch: !prevState.onValueChangeActiveMemberFetch,
       }));
     });
   };
@@ -217,8 +217,7 @@ export class SmartListDetailMember extends Component<Props, State> {
   updateFilter = (filterNameId, filterId, data) => {
     this.props.updateFilter(this.props.id, filterNameId, filterId, data, () => {
       this.setState((prevState) => ({
-        onValueChangeActiveMemberFetch:
-          !prevState.onValueChangeActiveMemberFetch,
+        onValueChangeActiveMemberFetch: !prevState.onValueChangeActiveMemberFetch,
       }));
     });
   };
@@ -226,8 +225,7 @@ export class SmartListDetailMember extends Component<Props, State> {
   deleteFilter = (filterNameId, filterId) => {
     this.props.deleteFilter(filterNameId, filterId, this.props.id, () => {
       this.setState((prevState) => ({
-        onValueChangeActiveMemberFetch:
-          !prevState.onValueChangeActiveMemberFetch,
+        onValueChangeActiveMemberFetch: !prevState.onValueChangeActiveMemberFetch,
       }));
     });
   };
@@ -324,6 +322,7 @@ export class SmartListDetailMember extends Component<Props, State> {
           fetchItems={fetchItems}
           fetchBulkItems={fetchBulkItems}
           onRequestEmail={() => this.props.setOpenSendEmail(true)}
+          smartListUpdate={this.props.smartListUpdate}
         />
         <AutoTagPanel
           smartlistAutoTag={this.props.smartlistAutoTag.filter(
@@ -334,6 +333,8 @@ export class SmartListDetailMember extends Component<Props, State> {
           deleteAutoTag={this.props.deleteAutoTag}
           updateAutoTag={this.props.updateAutoTag}
           tags={this.props.tags}
+          tag_groups={this.props.tag_groups}
+          openUpdateDialog={this.props.openAutoTagRulesDialog}
         />
         <div className={this.props.classes.memberWrapper}>
           <ButtonBase
@@ -586,47 +587,52 @@ export default compose(
     },
   ),
   withHandlers({
-    sendCommunication:
-      ({ sendCommunication, id }) =>
-      (data) =>
-        sendCommunication({ ...data, smartlist_id: id }),
+    sendCommunication: ({ sendCommunication, id }) => (data) =>
+      sendCommunication({ ...data, smartlist_id: id }),
   }),
   withHandlers({
-    createAutoTag:
-      ({ createAutoTagAction, applyAsyncSmartListAutoTagRules, t, id }) =>
-      async (data) => {
-        const res = await showInformativeDialog(
-          t('smartList:tag_rules.asyncDialog.title'),
-          t('smartList:tag_rules.asyncDialog.message'),
-        );
-        createAutoTagAction(
-          { ...data, smartlist: id },
-          {
-            onSuccess: () =>
-              applyAsyncSmartListAutoTagRules(id, {
-                onSuccess: () => res,
-              }),
-          },
-        );
-      },
-    deleteAutoTag:
-      ({ deleteAutoTagAction }) =>
-      (id) => {
-        deleteAutoTagAction(id);
-      },
-    updateAutoTag:
-      ({ updateAutoTagAction, applyAsyncSmartListAutoTagRules, t, id }) =>
-      async (tg_id, data) => {
-        const res = await showInformativeDialog(
-          t('smartList:tag_rules.asyncDialog.title'),
-          t('smartList:tag_rules.asyncDialog.message'),
-        );
-        updateAutoTagAction(tg_id, data, {
+    createAutoTag: ({
+      createAutoTagAction,
+      applyAsyncSmartListAutoTagRules,
+      setOpenAutoTagRulesDialog,
+      t,
+      id,
+    }) => async (data) => {
+      setOpenAutoTagRulesDialog(true);
+      const res = await showInformativeDialog(
+        t('smartList:tag_rules.asyncDialog.title'),
+        t('smartList:tag_rules.asyncDialog.message'),
+      );
+      createAutoTagAction(
+        { ...data, smartlist: id },
+        {
           onSuccess: () =>
             applyAsyncSmartListAutoTagRules(id, {
-              onSuccess: () => res,
+              onSuccess: () => res && setOpenAutoTagRulesDialog(false),
             }),
-        });
-      },
+        },
+      );
+    },
+    deleteAutoTag: ({ deleteAutoTagAction }) => (id) => {
+      deleteAutoTagAction(id);
+    },
+    updateAutoTag: ({
+      updateAutoTagAction,
+      applyAsyncSmartListAutoTagRules,
+      setOpenAutoTagRulesDialog,
+      t,
+      id,
+    }) => async (tg_id, data) => {
+      const res = await showInformativeDialog(
+        t('smartList:tag_rules.asyncDialog.title'),
+        t('smartList:tag_rules.asyncDialog.message'),
+      );
+      updateAutoTagAction(tg_id, data, {
+        onSuccess: () =>
+          applyAsyncSmartListAutoTagRules(id, {
+            onSuccess: () => res && setOpenAutoTagRulesDialog(false),
+          }),
+      });
+    },
   }),
 )(SmartListDetailMember);

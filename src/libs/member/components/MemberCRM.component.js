@@ -7,7 +7,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 import MemberNotePanel from './MemberNotePanel.component';
 import TagPanel from '../../tag/components/TagPanel.component';
-import type { MemberNote } from '../types';
+import type { MemberNote, Member } from '../types';
 import type { Tag, TagGroup } from '../../tag/types';
 import MemberFilesPanel from './MemberFilesPanel.component';
 import { MemberPaymentMethodPanel } from './MemberPaymentMethodPanel.component';
@@ -39,6 +39,7 @@ type Props = {
   detachPaymentMethod: (pm_id: string) => void,
   snackbarErrorMsg: (msg: string) => void,
   snackbarSuccessMsg: (msg: string) => void,
+  member: Member,
 };
 
 export const MemberCRM = (props: Props) => (
@@ -55,6 +56,7 @@ export const MemberCRM = (props: Props) => (
       deleteTag={props.deleteTag}
       updateTag={props.updateTag}
       updateTagGroup={props.updateTagGroup}
+      member={props.member}
     />
     <div className={props.classes.separator} />
     <MemberNotePanel

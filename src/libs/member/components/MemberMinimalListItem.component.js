@@ -7,6 +7,8 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Avatar from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography';
+import { useTranslation } from 'react-i18next';
 import VaccinationBadge from './VaccinationBadge.component';
 import AvatarWithBadge from './AvatarWithBadge.component';
 
@@ -19,6 +21,7 @@ type Props = {
   showVaccinationStatus: boolean,
 };
 export const MemberMinimalListItem = (props: Props) => {
+  const { t } = useTranslation('member');
   if (!props.member) {
     return (
       <ListItem>
@@ -54,7 +57,21 @@ export const MemberMinimalListItem = (props: Props) => {
         </Wrapper>
       </ListItemAvatar>
       <ListItemText
-        primary={props.member.name + (props.firstBooking ? ' ★' : '')}
+        primary={
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
+            <Typography>
+              {props.member.name + (props.firstBooking ? ' ★' : '')}
+            </Typography>
+            <Typography color="secondary" variant="caption">
+              {props.member.archived ? `${'\u00A0'}(${t('archived')})` : ''}
+            </Typography>
+          </div>
+        }
         secondary={secondaryInfo}
       />
       <ListItemSecondaryAction>

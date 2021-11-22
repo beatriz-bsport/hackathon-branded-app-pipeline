@@ -364,26 +364,28 @@ export class BookingManagement extends React.PureComponent<Props, State> {
               )}
               <PermissionContext.Consumer>
                 {(permissions) => (
-                  <BookingTable
-                    redirectToMember={permissions.member.retrieve}
-                    newTab
-                    members={this.props.members}
-                    loading={this.props.loading}
-                    bookings={this.props.bookings}
-                    confirmBookingAttendance={
-                      this.props.confirmBookingAttendance
-                    }
-                    discardBookingAttendance={
-                      this.props.discardBookingAttendance
-                    }
-                    showQuickInvoiceButton
-                    showRevertBookingButton
-                    handleRevert={this.handleBookingRevert}
-                    onQuickInvoiceClick={this.props.addToQuickInvoicePanel}
-                    spotSchedulingEnabled={!!this.props.offer.room_blueprint}
-                    onClickChangeSpot={this.props.onClickChangeSpot}
-                    showVaccinationStatus={this.props.showVaccinationStatus}
-                  />
+                  <>
+                    <BookingTable
+                      redirectToMember={permissions.member.retrieve}
+                      newTab
+                      members={this.props.members}
+                      loading={this.props.loading}
+                      bookings={this.props.bookings}
+                      confirmBookingAttendance={
+                        this.props.confirmBookingAttendance
+                      }
+                      discardBookingAttendance={
+                        this.props.discardBookingAttendance
+                      }
+                      showQuickInvoiceButton
+                      showRevertBookingButton
+                      handleRevert={this.handleBookingRevert}
+                      onQuickInvoiceClick={this.props.addToQuickInvoicePanel}
+                      spotSchedulingEnabled={!!this.props.offer.room_blueprint}
+                      onClickChangeSpot={this.props.onClickChangeSpot}
+                      showVaccinationStatus={this.props.showVaccinationStatus}
+                    />
+                  </>
                 )}
               </PermissionContext.Consumer>
 

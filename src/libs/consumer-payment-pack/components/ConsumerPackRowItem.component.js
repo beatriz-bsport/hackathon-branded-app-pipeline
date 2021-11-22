@@ -382,20 +382,29 @@ export class ConsumerPackRowItem extends Component<Props> {
           <ListItemText
             primary={
               <div>
-                <Typography>
-                  {hideConsumer
-                    ? (paymentPack && paymentPack.name) || ' - '
-                    : `${
-                        // eslint-disable-next-line
-                        consumer && consumer.name
-                          ? consumer.name
-                          : consumer && consumer.first_name
-                          ? consumer.first_name
-                          : ' - '
-                      } ${
-                        consumer && consumer.last_name ? consumer.last_name : ''
-                      }`}
-                </Typography>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <Typography>
+                    {hideConsumer
+                      ? (paymentPack && paymentPack.name) || ' - '
+                      : `${
+                          // eslint-disable-next-line
+                      consumer && consumer.name
+                            ? consumer.name
+                            : consumer && consumer.first_name
+                            ? consumer.first_name
+                            : ' - '
+                        } ${
+                          consumer && consumer.last_name
+                            ? consumer.last_name
+                            : ''
+                        }`}
+                  </Typography>
+                  {consumer && consumer.archived && (
+                    <Typography color="secondary" variant="caption">
+                      {`(${t('member:archived')})`}
+                    </Typography>
+                  )}
+                </div>
                 <CreditStatus
                   paymentPack={paymentPack}
                   consumerPack={consumerPack}

@@ -231,7 +231,7 @@ export default compose(
       refreshFilteredMembers: refreshFilteredMembersAction,
       fetchFilteredMembers: fetchFilteredMembersAction,
       fetchMemberBulk: fetchMemberBulkAction,
-      searchMembers: (txt) => searchMembersAction(txt),
+      searchMembers: (txt) => searchMembersAction(txt, { hide_archived: true }),
 
       sendCommunication,
 

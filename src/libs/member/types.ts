@@ -92,12 +92,13 @@ export type Member<Tag = number> = {
   general_terms_and_conditions_date_accepted: string | null;
   general_terms_and_conditions_accepted: boolean | null;
   waiver_accepted: string;
-  emergency_contact: string;
+  ergency_contact: string;
+  archived: boolean;
 };
 
 export type MemberState = ErrorAndLoading &
   ModelReducerI<Member> & {
-    allIds: number[];
+    allIds: Array<number>;
     detailData: { [key: string]: Member };
     listData: { [key: string]: Member };
     listCount: number;
@@ -106,7 +107,11 @@ export type MemberState = ErrorAndLoading &
       data: Array<Member>;
     };
     search: ErrorAndLoading & {
-      allIds: number[];
+      allIds: Array<number>;
+      archived: ErrorAndLoading & {
+        allIds: Array<number>;
+        data: { [key: string]: Member };
+      };
     };
     upsert: ErrorAndLoading;
     bulk: ErrorAndLoading;
@@ -117,16 +122,21 @@ export type MemberState = ErrorAndLoading &
       items: Array<Member>;
       loading: boolean;
     };
-    historyListIds: number[];
+    historyListIds: Array<number>;
     communication: ErrorAndLoading & {
-      allPageIds: number[];
-      allIdsWithoutPhone: number[];
-      allIdsWithoutEmail: number[];
-      allIds: number[];
+      allPageIds: Array<number>;
+      allIdsWithoutPhone: Array<number>;
+      allIdsWithoutEmail: Array<number>;
+      allIds: Array<number>;
       page: number;
     };
     userProfile: ErrorAndLoading & {
       profile: UserProfile | null;
     };
     generic: {};
+    archive: ErrorAndLoading & {
+      interrogate: {
+        byId: { [key: number]: Array<number> };
+      };
+    };
   };

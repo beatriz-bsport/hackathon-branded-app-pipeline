@@ -50,6 +50,7 @@ import type { Establishment } from '../../establishment/types';
 import type { PrivatePass, PrivateService } from '../../private-service/types';
 
 import FilterCard from './FilterListItem.component';
+import MemberBaseFilter from './filters/MemberBaseFilter.component';
 
 const MEMBER_INFO = 1;
 const PAYMENT_PACK = 2;
@@ -121,6 +122,7 @@ type Props = {
   fetchItems: any,
   fetchBulkItems: any,
   coaches: Array<any>,
+  smartListUpdate: (id: number, smartlist: SmartList) => void,
 };
 
 export class FiltersPanel extends Component<Props> {
@@ -317,6 +319,10 @@ export class FiltersPanel extends Component<Props> {
         <Divider className={this.props.classes.divider} />
         <Collapse in={this.state.displayFilters}>
           <Paper>
+            <MemberBaseFilter
+              smartlist={this.props.smartList}
+              smartListUpdate={this.props.smartListUpdate}
+            />
             <List
               component="nav"
               disablePadding

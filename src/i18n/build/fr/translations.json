@@ -1893,6 +1893,8 @@
     "unpaidInvoiceTitle": "Facture impayée",
     "unpaidInvoiceTitle_plural": "Factures impayées",
     "adjustBalance": "Ajuster le solde",
+    "restoreMember": "Restaurer",
+    "archived": "Archivé",
     "table": { "show": "Voir" },
     "date_joined": "Date d'inscription",
     "invoiceTitle": "Factures",
@@ -2019,6 +2021,25 @@
       "done": "Pass sanitaire valide",
       "notDone": "Pas de pass sanitaire valide",
       "unknown": "Status pass sanitaire inconnu"
+    },
+    "archive": {
+      "archivedMember": "Membre Archivé : {{name}}",
+      "dialog": {
+        "title": "Archiver un membre",
+        "helper_text_1": "Êtes-vous sûr de vouloir archiver ce membre ?",
+        "helper_text_2": "Ce membre n'apparaitra plus dans la liste de vos membres.",
+        "warning": {
+          "0": "Solde interne négatif",
+          "1": "Facture(s) impayée(s)",
+          "2": "Abonnement en cours",
+          "3": "Abonnement avec renouvelement automatique en cours",
+          "4": "Réservation()s prévue(s) dans le future",
+          "5": "Réservation(s) récurrente(s) enregistrée(s)",
+          "6": "Rendez-vous prévu(s)",
+          "general": "Nous avons identifié les points ci-dessous, nous vous conseillons de régulariser le compte de ce client avant archivage:"
+        },
+        "actions": { "close": "Fermer", "confirm": "Confirmer" }
+      }
     }
   },
   "membership": {
@@ -4410,7 +4431,12 @@
     "input": "Rechercher...",
     "go_back": "Retourner aux résultats",
     "noResult": "Aucun résultat",
-    "member": { "sessions": { "title": "Séances" }, "packs": { "title": "Cartes de cours" } },
+    "member": {
+      "sessions": { "title": "Séances" },
+      "packs": { "title": "Cartes de cours" },
+      "archived": "Membres archivés",
+      "closeMemberMatch": "Recherchez-vous ce membre ?"
+    },
     "actions": { "addMember": "Ajouter un membre" }
   },
   "selfCheckIn": {
@@ -4989,6 +5015,10 @@
         "message": "Suite à vos changements dans les règles de Tag de la smartlist {{name}}, nous devons mettre à jours les Tags de vos membres."
       },
       "tag": "Tag"
+    },
+    "memberBase": {
+      "helperText": "Cette smartlist s'applique à tous les membres",
+      "options": { "0": "Non archivés et archivés", "1": "Non archivés", "2": "Archivés" }
     }
   },
   "snackbar": {

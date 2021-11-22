@@ -34,15 +34,18 @@ type Props = {
   classes: Object,
   menuAnchorEl: ?HTMLElement,
   setMenuAnchor: (anchor: ?HTMLElement) => void,
+  disabled: boolean,
 };
 
 export function TagSelector(props: Props) {
   const { tag, tagGroup } = props;
   return (
     <div className={props.classes.tagSelectorContainer}>
-      <IconButton onClick={props.onToogleCreate}>
-        <AddIcon />
-      </IconButton>
+      {!props.disabled && (
+        <IconButton onClick={props.onToogleCreate} disabled={props.disabled}>
+          <AddIcon />
+        </IconButton>
+      )}
       <div className={props.classes.userInput}>
         <Selector
           isClearable
@@ -66,30 +69,37 @@ export function TagSelector(props: Props) {
                 }))
               : []
           }
+          isDisabled={props.disabled}
         />
       </div>
-      <IconButton onClick={(event) => props.setMenuAnchor(event.currentTarget)}>
-        <MoreVertIcon />
-      </IconButton>
-      <Menu
-        id="simple-menu"
-        anchorEl={props.menuAnchorEl}
-        open={Boolean(props.menuAnchorEl)}
-        onClose={() => props.setMenuAnchor(null)}
-      >
-        <MenuItem onClick={() => props.editTagGroup(tagGroup)}>
-          <ListItemIcon>
-            <EditIcon />
-          </ListItemIcon>
-          {props.t('form.group.edit')}
-        </MenuItem>
-        <MenuItem onClick={() => props.deleteTagGroup(tagGroup)}>
-          <ListItemIcon>
-            <DeleteIcon />
-          </ListItemIcon>
-          {props.t('form.group.deleteCategory')}
-        </MenuItem>
-      </Menu>
+      {!props.disabled && (
+        <>
+          <IconButton
+            onClick={(event) => props.setMenuAnchor(event.currentTarget)}
+          >
+            <MoreVertIcon />
+          </IconButton>
+          <Menu
+            id="simple-menu"
+            anchorEl={props.menuAnchorEl}
+            open={Boolean(props.menuAnchorEl)}
+            onClose={() => props.setMenuAnchor(null)}
+          >
+            <MenuItem onClick={() => props.editTagGroup(tagGroup)}>
+              <ListItemIcon>
+                <EditIcon />
+              </ListItemIcon>
+              {props.t('form.group.edit')}
+            </MenuItem>
+            <MenuItem onClick={() => props.deleteTagGroup(tagGroup)}>
+              <ListItemIcon>
+                <DeleteIcon />
+              </ListItemIcon>
+              {props.t('form.group.deleteCategory')}
+            </MenuItem>
+          </Menu>
+        </>
+      )}
     </div>
   );
 }

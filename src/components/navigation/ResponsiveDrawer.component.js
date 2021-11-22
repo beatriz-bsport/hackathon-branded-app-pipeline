@@ -90,6 +90,7 @@ import { TempPasswordState } from '../../libs/login/types';
 import Config from '../../config';
 import { Permission } from '../../libs/role/types';
 import { checkRequiredPermissions } from '../../libs/role/utils';
+import { BannerContext, BannerContextValue } from '../../hocs/banner.hoc';
 
 export const drawerWidth = 260;
 
@@ -298,172 +299,179 @@ class ResponsiveDrawer extends React.Component<Props, State> {
     } = this.props;
 
     return (
-      <AppBar
-        className={fullWidth ? classes.appBarFullWidth : classes.appBar}
-        color="inherit"
-      >
-        <Toolbar>
-          <Grid
-            container
-            direction="row"
-            alignItems="center"
-            justify="space-between"
-            wrap="nowrap"
-            style={{ width: '100%' }}
+      <BannerContext.Consumer>
+        {({ banner }: BannerContextValue) => (
+          <AppBar
+            className={fullWidth ? classes.appBarFullWidth : classes.appBar}
+            color="inherit"
           >
-            <Grid item zeroMinWidth>
+            <Toolbar>
               <Grid
                 container
                 direction="row"
                 alignItems="center"
-                justify="flex-start"
+                justify="space-between"
                 wrap="nowrap"
+                style={{ width: '100%' }}
               >
                 <Grid item zeroMinWidth>
-                  {displayMenuIcon && !forced_hide ? (
-                    <Hidden smDown>
-                      <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={this.handleDrawerToggleButton}
-                      >
-                        <MenuIcon />
-                      </IconButton>
-                    </Hidden>
-                  ) : null}
-                  {!forced_hide ? (
-                    <Hidden mdUp>
-                      <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={this.handleDrawerToggleButton}
-                      >
-                        <MenuIcon />
-                      </IconButton>
-                    </Hidden>
-                  ) : null}
-                </Grid>
-                <Grid item zeroMinWidth>
-                  <Typography
-                    id="app-title"
-                    color="inherit"
-                    noWrap
-                    variant="h6"
-                    className={classes.title}
+                  <Grid
+                    container
+                    direction="row"
+                    alignItems="center"
+                    justify="flex-start"
+                    wrap="nowrap"
                   >
-                    {this.props.title}
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Grid
-                container
-                alignItems="center"
-                direction="row"
-                wrap="nowrap"
-                implementation="css"
-              >
-                {forced_hide && !!this.props.showActions ? (
-                  <React.Fragment>
-                    <Hidden mdUp>
-                      <Grid item>
-                        {!!this.props.showSearch && (
-                          <Link to="/search/results">
-                            <IconButton>
-                              <Search />
-                            </IconButton>
-                          </Link>
-                        )}
-                      </Grid>
-                    </Hidden>
-                    <Grid item>
-                      <IconButton onClick={this.props.openCalendar}>
-                        <TodayIcon />
-                      </IconButton>
-                    </Grid>
-                  </React.Fragment>
-                ) : null}
-                {this.props.showActions && (
-                  <React.Fragment>
-                    {this.props.showCashBook && (
-                      <Grid item>
-                        <IconButton
-                          onClick={() => {
-                            this.props.fetchOnSpotPaymentReport({
-                              name: this.props.t(
-                                'reporting:categories.on_spot_payments',
-                              ),
-                            });
-                            this.props.setOpenCash(true);
-                            this.props.fetchCashBook(this.props.theme.company);
-                          }}
-                        >
-                          <Tooltip
-                            title={this.props.t(
-                              'navigation:backofficeMenu.cashBookTooltip',
-                            )}
+                    <Grid item zeroMinWidth>
+                      {displayMenuIcon && !forced_hide ? (
+                        <Hidden smDown>
+                          <IconButton
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={this.handleDrawerToggleButton}
                           >
-                            <BusinessCenterIcon />
-                          </Tooltip>
-                        </IconButton>
-                      </Grid>
+                            <MenuIcon />
+                          </IconButton>
+                        </Hidden>
+                      ) : null}
+                      {!forced_hide ? (
+                        <Hidden mdUp>
+                          <IconButton
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={this.handleDrawerToggleButton}
+                          >
+                            <MenuIcon />
+                          </IconButton>
+                        </Hidden>
+                      ) : null}
+                    </Grid>
+                    <Grid item zeroMinWidth>
+                      <Typography
+                        id="app-title"
+                        color="inherit"
+                        noWrap
+                        variant="h6"
+                        className={classes.title}
+                      >
+                        {this.props.title}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid item>
+                  <Grid
+                    container
+                    alignItems="center"
+                    direction="row"
+                    wrap="nowrap"
+                    implementation="css"
+                  >
+                    {forced_hide && !!this.props.showActions ? (
+                      <React.Fragment>
+                        <Hidden mdUp>
+                          <Grid item>
+                            {!!this.props.showSearch && (
+                              <Link to="/search/results">
+                                <IconButton>
+                                  <Search />
+                                </IconButton>
+                              </Link>
+                            )}
+                          </Grid>
+                        </Hidden>
+                        <Grid item>
+                          <IconButton onClick={this.props.openCalendar}>
+                            <TodayIcon />
+                          </IconButton>
+                        </Grid>
+                      </React.Fragment>
+                    ) : null}
+                    {this.props.showActions && (
+                      <React.Fragment>
+                        {this.props.showCashBook && (
+                          <Grid item>
+                            <IconButton
+                              onClick={() => {
+                                this.props.fetchOnSpotPaymentReport({
+                                  name: this.props.t(
+                                    'reporting:categories.on_spot_payments',
+                                  ),
+                                });
+                                this.props.setOpenCash(true);
+                                this.props.fetchCashBook(
+                                  this.props.theme.company,
+                                );
+                              }}
+                            >
+                              <Tooltip
+                                title={this.props.t(
+                                  'navigation:backofficeMenu.cashBookTooltip',
+                                )}
+                              >
+                                <BusinessCenterIcon />
+                              </Tooltip>
+                            </IconButton>
+                          </Grid>
+                        )}
+                        <Grid item>
+                          <IconButton onClick={this.props.openCreateMember}>
+                            <Tooltip
+                              title={this.props.t(
+                                'navigation:backofficeMenu.addMemberTooltip',
+                              )}
+                            >
+                              <PersonAddIcon />
+                            </Tooltip>
+                          </IconButton>
+                        </Grid>
+                        <Grid item>
+                          <AlertButtonMenu
+                            alertings={alertings}
+                            nbAlerting={nbAlerting}
+                            deleteAlert={deleteAlert}
+                            showMore={fetchMoreAlertingKind}
+                          />
+                        </Grid>
+                      </React.Fragment>
                     )}
                     <Grid item>
-                      <IconButton onClick={this.props.openCreateMember}>
-                        <Tooltip
-                          title={this.props.t(
-                            'navigation:backofficeMenu.addMemberTooltip',
-                          )}
-                        >
-                          <PersonAddIcon />
-                        </Tooltip>
+                      <IconButton onClick={openIntercomHelp}>
+                        <HelpIcon />
                       </IconButton>
                     </Grid>
-                    <Grid item>
-                      <AlertButtonMenu
-                        alertings={alertings}
-                        nbAlerting={nbAlerting}
-                        deleteAlert={deleteAlert}
-                        showMore={fetchMoreAlertingKind}
-                      />
-                    </Grid>
-                  </React.Fragment>
-                )}
-                <Grid item>
-                  <IconButton onClick={openIntercomHelp}>
-                    <HelpIcon />
-                  </IconButton>
-                </Grid>
-                {this.props.showSearch ? (
-                  <Grid item className={classes.searchBar}>
-                    <SearchBar changeLocation />
+                    {this.props.showSearch ? (
+                      <Grid item className={classes.searchBar}>
+                        <SearchBar changeLocation />
+                      </Grid>
+                    ) : null}
+                    {this.renderAdditionalButtons()}
                   </Grid>
-                ) : null}
-                {this.renderAdditionalButtons()}
+                </Grid>
               </Grid>
-            </Grid>
-          </Grid>
-        </Toolbar>
-        {this.props.isFranchisorNavigation && (
-          <div className={classes.franchisorBanner}>
-            <div className={classes.text}>
-              {this.props.t('backofficeMenu.franchiseConnectedAs', {
-                name: this.props.companyName,
-              })}
-              <ButtonBase
-                className={classes.buttonFranchise}
-                onClick={this.props.navigateBackToFranchisor}
-              >
-                {this.props
-                  .t('backofficeMenu.backToFranchiseWorskpace')
-                  ?.toUpperCase()}
-              </ButtonBase>
-            </div>
-          </div>
+            </Toolbar>
+            {banner}
+            {this.props.isFranchisorNavigation && (
+              <div className={classes.franchisorBanner}>
+                <div className={classes.text}>
+                  {this.props.t('backofficeMenu.franchiseConnectedAs', {
+                    name: this.props.companyName,
+                  })}
+                  <ButtonBase
+                    className={classes.buttonFranchise}
+                    onClick={this.props.navigateBackToFranchisor}
+                  >
+                    {this.props
+                      .t('backofficeMenu.backToFranchiseWorskpace')
+                      ?.toUpperCase()}
+                  </ButtonBase>
+                </div>
+              </div>
+            )}
+            {this.props.loading ? null : this.openCashDialog()}
+          </AppBar>
         )}
-        {this.props.loading ? null : this.openCashDialog()}
-      </AppBar>
+      </BannerContext.Consumer>
     );
   };
 
@@ -930,17 +938,49 @@ class ResponsiveDrawer extends React.Component<Props, State> {
     );
 
     return (
-      <div
-        className={
-          this.props.displayLeftMenu ? classes.root : classes.rootFullWidth
-        }
-      >
-        {this.props.displayLeftMenu
-          ? this.renderAppBar()
-          : this.renderAppBar(true, false, true)}
-        {this.props.displayLeftMenu ? (
-          <div>
-            <Hidden mdUp>
+      <BannerContext.Consumer>
+        {({ displayBanner }: BannerContextValue) => (
+          <div
+            className={
+              this.props.displayLeftMenu ? classes.root : classes.rootFullWidth
+            }
+          >
+            {this.props.displayLeftMenu
+              ? this.renderAppBar()
+              : this.renderAppBar(true, false, true)}
+            {this.props.displayLeftMenu ? (
+              <div>
+                <Hidden mdUp>
+                  <Drawer
+                    variant="temporary"
+                    anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+                    open={this.state.mobileOpen}
+                    onClose={this.handleDrawerToggle}
+                    classes={{
+                      paper: classes.drawerPaper,
+                    }}
+                    ModalProps={{
+                      keepMounted: true, // Better open performance on mobile.
+                    }}
+                  >
+                    {drawer}
+                  </Drawer>
+                </Hidden>
+                <Hidden smDown implementation="css">
+                  <Drawer
+                    variant="permanent"
+                    open
+                    anchor="left"
+                    elevation={20}
+                    classes={{
+                      paper: classes.drawerPaper,
+                    }}
+                  >
+                    {drawer}
+                  </Drawer>
+                </Hidden>
+              </div>
+            ) : (
               <Drawer
                 variant="temporary"
                 anchor={theme.direction === 'rtl' ? 'right' : 'left'}
@@ -955,67 +995,43 @@ class ResponsiveDrawer extends React.Component<Props, State> {
               >
                 {drawer}
               </Drawer>
-            </Hidden>
-            <Hidden smDown implementation="css">
-              <Drawer
-                variant="permanent"
-                open
-                anchor="left"
-                elevation={20}
-                classes={{
-                  paper: classes.drawerPaper,
-                }}
-              >
-                {drawer}
-              </Drawer>
-            </Hidden>
+            )}
+            <TempPasswordDialog
+              generateTempPassword={this.props.generateTempPassword}
+              tempPassword={this.props.tempPasswordState.password}
+              loading={this.props.tempPasswordState.loading}
+              tempPasswordExpirationDate={
+                this.props.tempPasswordState.expiration_date
+              }
+              onClose={this.closeTempPasswordDialog}
+              open={this.state.tempPasswordDialogOpen}
+            />
+            <main
+              className={classnames({
+                [classes.fullContent]:
+                  this.props.location.pathname.includes('/spot-scheduling'),
+                [classes.content]:
+                  !this.props.location.pathname.includes('/spot-scheduling'),
+              })}
+            >
+              {this.props.isFranchisorNavigation && (
+                <div className={classes.fillerFranchisor} />
+              )}
+              {displayBanner && (
+                <div className={classes.bannerContextspacing} />
+              )}
+
+              <BillingBanner
+                paymentMethodMissing={this.props.paymentMethodMissing}
+              />
+              <StripeOnboardingBanner
+                stripeOnboardingPending={this.props.stripeOnboardingPending}
+              />
+              {this.props.children}
+            </main>
           </div>
-        ) : (
-          <Drawer
-            variant="temporary"
-            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-            open={this.state.mobileOpen}
-            onClose={this.handleDrawerToggle}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-          >
-            {drawer}
-          </Drawer>
         )}
-        <TempPasswordDialog
-          generateTempPassword={this.props.generateTempPassword}
-          tempPassword={this.props.tempPasswordState.password}
-          loading={this.props.tempPasswordState.loading}
-          tempPasswordExpirationDate={
-            this.props.tempPasswordState.expiration_date
-          }
-          onClose={this.closeTempPasswordDialog}
-          open={this.state.tempPasswordDialogOpen}
-        />
-        <main
-          className={classnames({
-            [classes.fullContent]:
-              this.props.location.pathname.includes('/spot-scheduling'),
-            [classes.content]:
-              !this.props.location.pathname.includes('/spot-scheduling'),
-          })}
-        >
-          {this.props.isFranchisorNavigation && (
-            <div className={classes.fillerFranchisor} />
-          )}
-          <BillingBanner
-            paymentMethodMissing={this.props.paymentMethodMissing}
-          />
-          <StripeOnboardingBanner
-            stripeOnboardingPending={this.props.stripeOnboardingPending}
-          />
-          {this.props.children}
-        </main>
-      </div>
+      </BannerContext.Consumer>
     );
   }
 }
@@ -1179,6 +1195,9 @@ const styles = (theme) => ({
   buttonFranchise: {
     textDecoration: 'underline',
     marginLeft: theme.spacing(2),
+  },
+  bannerContextspacing: {
+    height: theme.spacing(3),
   },
 });
 

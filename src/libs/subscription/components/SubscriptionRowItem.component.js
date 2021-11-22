@@ -46,7 +46,16 @@ export class SubscriptionRowItem extends Component<Props> {
             />
           </ListItemAvatar>
           <ListItemText
-            primary={subscription.memberName}
+            primary={
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <Typography>{subscription.memberName}</Typography>
+                {subscription?.memberArchived && (
+                  <Typography variant="caption" color="secondary">
+                    {`${'\u00A0'}(${this.props.t('member:archived')})`}
+                  </Typography>
+                )}
+              </div>
+            }
             secondary={this.props.t('listItem.subscribedOn', {
               date: formatAsDate(subscription.first_billing_date),
             })}

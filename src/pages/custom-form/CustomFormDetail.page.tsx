@@ -150,7 +150,7 @@ export class CustomFormDetail extends React.Component<Props, State> {
                       text={generateMarketPlaceCustomFormLink(
                         this.props.theme.company_name,
                         this.props.theme.company,
-                        this.props.customForm.id,
+                        this.props.id,
                       )}
                     >
                       <div className={classes.clipBoard}>
@@ -167,7 +167,7 @@ export class CustomFormDetail extends React.Component<Props, State> {
                               {generateMarketPlaceCustomFormLink(
                                 this.props.theme.company_name,
                                 this.props.theme.company,
-                                this.props.customForm.id,
+                                this.props.id,
                               )}
                             </Typography>
                           </Button>

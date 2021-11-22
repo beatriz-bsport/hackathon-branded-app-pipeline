@@ -26,6 +26,9 @@ import {
   fetchCountObject as fetchCountObjectAPI,
   fetchCommunicationsPaginatedMembers as fetchCommunicationsPaginatedMembersAPI,
   adjustCreditWithoutPaymentNote as adjustCreditWithoutPaymentNoteAPI,
+  archiveMember as archiveMemberAPI,
+  unArchiveMember as unArchiveMemberAPI,
+  interrogateMemberStatus as interrogateMemberStatusAPI,
 } from './api';
 import type { Member, MemberMinimal } from './types';
 
@@ -332,19 +335,63 @@ export function successSearch(members: Array<Member>) {
   return { type: actionTypes.MEMBER_SEARCH_SUCCESS, members };
 }
 
-export function search(text: string) {
+export function search(
+  text: string,
+  params: { [key: string]: boolean | string | number },
+  options?: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(startSearch(text));
     try {
       if (text) {
-        const response = await searchApi(text);
+        const response = await searchApi(text, params);
         const members = response.data;
         dispatch(successSearch(members));
+        if (options && options.onSuccess) {
+          options.onSuccess(response);
+        }
       } else dispatch(successSearch([]));
     } catch (err) {
       console.error(err);
       dispatch(errorSearch(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
     }
+  };
+}
+
+export const searchArchivedMembers = {
+  isLoading: createAction('MEMBER/SEARCH_ARCHIVED/LOADING'),
+  error: createAction('MEMBER/SEARCH_ARCHIVED/ERROR'),
+  success: createAction('MEMBER/SEARCH_ARCHIVED/SUCCESS'),
+};
+
+export function searchArchived(
+  text: string,
+  params: { [key: string]: boolean | string | number },
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(searchArchivedMembers.isLoading(true));
+
+    try {
+      const response = await searchApi(text, {
+        ...params,
+        only_archived: true,
+      });
+      dispatch(searchArchivedMembers.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(searchArchivedMembers.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(searchArchivedMembers.isLoading(false));
   };
 }
 
@@ -737,3 +784,96 @@ export const fetchUntagAllMemberAction = GenericAsyncAction(
   untagAllMemberRepo,
   untagAllApi,
 );
+
+export const archiveMemberActions = {
+  isLoading: createAction('MEMBER/ARCHIVE/LOADING'),
+  error: createAction('MEMBER/ARCHIVE/ERROR'),
+  success: createAction('MEMBER/ARCHIVE/SUCCESS'),
+};
+
+export function archiveMember(
+  memberId: number,
+  options: OptionCallback<Member>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(archiveMemberActions.isLoading(true));
+
+    try {
+      const response = await archiveMemberAPI(memberId);
+      dispatch(archiveMemberActions.success(response.data));
+      const { data }: { data: Member } = response;
+      if (options && options.onSuccess) {
+        options.onSuccess(data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(archiveMemberActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(archiveMemberActions.isLoading(false));
+  };
+}
+
+export const unArchiveMemberActions = {
+  isLoading: createAction('MEMBER/UNARCHIVE/LOADING'),
+  error: createAction('MEMBER/UNARCHIVE/ERROR'),
+  success: createAction('MEMBER/UNARCHIVE/SUCCESS'),
+};
+
+export function unArchiveMember(
+  memberId: number,
+  options: OptionCallback<Member>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(unArchiveMemberActions.isLoading(true));
+
+    try {
+      const response = await unArchiveMemberAPI(memberId);
+      dispatch(unArchiveMemberActions.success(response.data));
+      const { data }: { data: Member } = response;
+      if (options && options.onSuccess) {
+        options.onSuccess(data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(unArchiveMemberActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(unArchiveMemberActions.isLoading(false));
+  };
+}
+
+export const interrogateMemberStatusActions = {
+  isLoading: createAction('MEMBER/ARCHIVE/INTERROGATE/LOADING'),
+  error: createAction('MEMBER/ARCHIVE/INTERROGATE/ERROR'),
+  success: createAction('MEMBER/ARCHIVE/INTERROGATE/SUCCESS'),
+};
+
+export function interrogateMemberStatus(
+  memberId: number,
+  options: OptionCallback<Array<number>>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(interrogateMemberStatusActions.isLoading(true));
+
+    try {
+      const response = await interrogateMemberStatusAPI(memberId);
+      const { data }: { data: Array<number> } = response;
+      dispatch(interrogateMemberStatusActions.success({ memberId, data }));
+      if (options && options.onSuccess) {
+        options.onSuccess(data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(interrogateMemberStatusActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(interrogateMemberStatusActions.isLoading(false));
+  };
+}

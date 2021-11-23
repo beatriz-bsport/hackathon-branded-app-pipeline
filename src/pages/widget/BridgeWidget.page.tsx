@@ -122,11 +122,11 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
           },
         );
       },
-      onError: (payload: string) => {
+      onError: () => {
         WidgetUtils.sendBridgeResponse(
           WidgetMessageType.RESPONSE_PLAYBACK_URL_ERROR,
           {
-            data: { videoId, playbackUrl: '', error: payload },
+            data: { videoId, playbackUrl: '', error: 'error' },
           },
         );
       },

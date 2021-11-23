@@ -114,6 +114,8 @@ import { Booking } from '../../libs/booking/types';
 import { fetchSignFormUpConfiguration } from '../../libs/sign-up-form/actions';
 import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
 
+import { showVaccinationStatus } from '../../libs/custom-form/selectors';
+
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
 const formatTitle = (offer: Offer, offerLoading: boolean) => {
@@ -183,6 +185,7 @@ export default compose(
       offerStatusById: state.offer.offerStatus.byId,
       managerFormConfig: getSignUpFormConfigurationDict(state),
       companyId: state.theme.theme.company,
+      showVaccinationStatus: showVaccinationStatus(state),
     }),
     {
       fetchOffer: fetchOfferByIdAction,

@@ -167,6 +167,7 @@ class VODWidget extends React.PureComponent<Props, State> {
                 playbackUrlLoading={this.props.playbackUrlLoading}
                 accessDenied={this.props.accessDenied}
                 getPlaybackUrl={this.requestPlaybackUrl}
+                playbackUrl={this.props.playbackUrl}
                 authenticated={this.props.authenticated}
                 openVideo={this.openVideo}
                 store={this.props.store}
@@ -199,6 +200,7 @@ class VODWidget extends React.PureComponent<Props, State> {
                 accessDenied={this.props.accessDenied}
                 getPlaybackUrl={this.requestPlaybackUrl}
                 playbackUrlLoading={this.props.playbackUrlLoading}
+                playbackUrl={this.props.playbackUrl}
                 requestVideoAccess={this.requestVideoAccess}
                 goToVideoInPlaylist={this.openPlaylist}
                 replaceVideoInPlaylist={this.openPlaylist}

@@ -130,6 +130,14 @@ class VODWidget extends React.PureComponent<Props, State> {
       this.state.videoId !== null &&
       !this.state.playlistId;
 
+    try {
+      console.log(this.props.playbackUrlData);
+      console.log(this.state.videoId);
+      console.log(this.props.playbackUrlData[this.state.videoId]);
+    } catch (err) {
+      console.error(err);
+    }
+
     return (
       <div className={this.props.classes.container}>
         {showVODList && (

@@ -151,7 +151,7 @@ export default handleActions<Immutable.Immutable<BridgeState>>(
       { payload }: any,
     ) => {
       return state.setIn(
-        ['video', 'playbackUrl', payload.videoId],
+        ['video', 'playbackUrl', 'byId', payload.videoId],
         payload.playbackUrl,
       );
     },

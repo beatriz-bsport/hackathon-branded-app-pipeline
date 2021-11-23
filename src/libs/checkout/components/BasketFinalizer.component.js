@@ -13,7 +13,10 @@ import UpdateIcon from '@material-ui/icons/Update';
 import type { TFunction } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { CREDIT_ACCOUNT as PAYMENT_METHOD_CREDIT_ACCOUNT } from '@bsport/common/lib/master-data/payment-methods';
+import {
+  CREDIT_ACCOUNT as PAYMENT_METHOD_CREDIT_ACCOUNT,
+  CB as PAYMENT_METHOD_CB,
+} from '@bsport/common/lib/master-data/payment-methods';
 import type { Basket } from '../types';
 
 import BasketDeliveryForm from './BasketDeliveryForm.component';
@@ -123,22 +126,30 @@ export class BasketFinalizer extends React.Component<Props, State> {
 
         return (
           <React.Fragment>
-            {this.props.paymentModule}
+            {this.props.basket.available_payment_methods.includes(
+              PAYMENT_METHOD_CB.id,
+            ) && this.props.paymentModule}
             {this.props.basket.available_payment_methods.includes(
               PAYMENT_METHOD_CREDIT_ACCOUNT.id,
             ) && (
               <div>
-                <div className={this.props.classes.separatorContainer}>
-                  <div className={this.props.classes.separatorLine} />
-                  <Typography color="textSecondary">
-                    {this.props.t('or')}
-                  </Typography>
-                  <div className={this.props.classes.separatorLine} />
-                </div>
-                <div className={this.props.classes.payLaterText}>
-                  <Typography color="textSecondary">
-                    {this.props.t('payLater.explain')}
-                  </Typography>
+                {this.props.basket.available_payment_methods.includes(
+                  PAYMENT_METHOD_CB.id,
+                ) && (
+                  <div className={this.props.classes.separatorContainer}>
+                    <div className={this.props.classes.separatorLine} />
+                    <Typography color="textSecondary">
+                      {this.props.t('or')}
+                    </Typography>
+                    <div className={this.props.classes.separatorLine} />
+                  </div>
+                )}
+                <div className={this.props.classes.payLaterContainer}>
+                  <div className={this.props.classes.payLaterText}>
+                    <Typography color="textSecondary">
+                      {this.props.t('payLater.explain')}
+                    </Typography>
+                  </div>
                 </div>
                 {!!this.props.termsAndConditions && (
                   <AcceptTermsAndConditions
@@ -291,6 +302,10 @@ const styles = (theme) => ({
   },
   circularProgress: {
     marginLeft: theme.spacing(1),
+  },
+  payLaterContainer: {
+    display: 'flex',
+    justifyContent: 'center',
   },
 });
 

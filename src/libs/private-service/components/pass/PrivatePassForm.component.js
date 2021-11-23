@@ -242,9 +242,7 @@ export const PrivatePassSchema = Yup.object().shape({
   duration_years: Yup.number().required().integer().min(0),
   start_date_method: Yup.number().required().integer().min(0).max(2),
   expiration_days_before_first_use: Yup.number(),
-  available_payment_method_identifiers: Yup.array()
-    .of(Yup.number().integer())
-    .min(1),
+  available_payment_method_identifiers: Yup.array().of(Yup.number().integer()),
 });
 
 export const PrivatePassFormikHOC = withFormik({
@@ -274,7 +272,14 @@ export const PrivatePassFormikHOC = withFormik({
   },
   validationSchema: PrivatePassSchema,
   handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
-    onSubmit(values, {
+    const newValues = {
+      ...values,
+      available_payment_method_identifiers:
+        values.available_payment_method_identifiers.length === 0
+          ? [CB.id]
+          : values.available_payment_method_identifiers,
+    };
+    onSubmit(newValues, {
       onSuccess: () => setSubmitting(false),
       onError: () => setSubmitting(false),
     });

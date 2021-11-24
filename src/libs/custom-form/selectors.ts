@@ -271,9 +271,9 @@ export const getCustomFormStatistics = createSelector(
     return statisticsDict[id]
       ? {
           ...statisticsDict[id],
-          allMemberIds: Object.keys(
-            statisticsDict[id].detail_by_member,
-          ).map((_id: string) => parseInt(_id)),
+          allMemberIds: Object.keys(statisticsDict[id].detail_by_member).map(
+            (_id: string) => parseInt(_id),
+          ),
         }
       : null;
   },
@@ -378,5 +378,5 @@ export const memberCovidStatusInSignUpForm = createSelector(
 
 export const showVaccinationStatus = createSelector(
   [memberCovidStatusInMemberForm, memberCovidStatusInSignUpForm],
-  (isInMemberForm, isInSignUpForm) => isInMemberForm && isInSignUpForm,
+  (isInMemberForm, isInSignUpForm) => isInMemberForm || isInSignUpForm,
 );

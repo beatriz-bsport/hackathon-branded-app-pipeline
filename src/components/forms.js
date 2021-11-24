@@ -12,7 +12,7 @@ import type { TFunction } from 'react-i18next';
 import MomentUtils from '@date-io/moment';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
-
+import TimePicker from 'material-ui-pickers/TimePicker';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import Select from '@material-ui/core/Select';
@@ -28,6 +28,7 @@ import Switch from '@material-ui/core/Switch';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import AddIcon from '@material-ui/icons/Add';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import moment from 'moment-timezone';
 
 import * as Yup from 'yup';
@@ -41,7 +42,7 @@ import PhoneInput from 'react-phone-number-input';
 import flags from 'react-phone-number-input/flags';
 import { getCurrencyDisplay } from '../libs/theme/selectors';
 import 'react-phone-number-input/style.css';
-import { Moment } from '../i18n';
+import i18n, { Moment } from '../i18n';
 import DelayedTextField from './DelayedTextField.component';
 import ColorInput from './input/ColorInput.component';
 import Selector from './Selector.component';
@@ -269,6 +270,55 @@ export const DateField = (props: DateFieldProps) => {
             }
           />
         </MuiPickersUtilsProvider>
+      )}
+    />
+  );
+};
+
+export const TimeField = (props: TimeFieldProps) => {
+  const { t } = useTranslation();
+  return (
+    <Field
+      {...props}
+      render={({
+        field,
+        meta: { touched, error },
+        form: { setFieldValue },
+      }) => (
+        <>
+          <MuiPickersUtilsProvider
+            utils={MomentUtils}
+            moment={Moment}
+            locale={Moment.locale()}
+          >
+            <TimePicker
+              {...field}
+              {...props}
+              style={{ width: 100 }}
+              onChange={(time) => {
+                setFieldValue(
+                  props.name,
+                  props.parseAsString ? moment(time).format('LT') : time,
+                );
+              }}
+              format="LT"
+              error={!!(touched && error)}
+              label={
+                touched && error ? (
+                  <Typography variant="caption" color="error">
+                    {t(error)}
+                  </Typography>
+                ) : (
+                  props.label
+                )
+              }
+              ampm={i18n.language === 'en-US'}
+            />
+          </MuiPickersUtilsProvider>
+          <AccessTimeIcon
+            style={{ marginLeft: -25, marginBottom: 4, color: 'grey' }}
+          />
+        </>
       )}
     />
   );

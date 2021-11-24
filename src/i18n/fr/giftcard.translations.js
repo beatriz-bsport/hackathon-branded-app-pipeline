@@ -89,14 +89,15 @@ exports.default = {
       date_send: {
         label: 'Date d’envoi de l’email',
       },
+      hour_send: "Heure d'envoi",
       actions: {
         submit: 'Ajouter au panier',
         cancel: 'Annuler',
       },
       footer:
-        'La carte sera envoyée par mail le {{- date_send }} aux adresses indiquées. Elle sera valide pendant {{ expiration_days }} jours après l’envoi du mail. Le compte du destinataire sera crédité de {{- price }} pour les prochains achats.',
+        'La carte sera envoyée par mail le {{- date_send }} à {{- hour_send }} aux adresses indiquées. Elle sera valide pendant {{ expiration_days }} jours après l’envoi du mail. Le compte du destinataire sera crédité de {{- price }} pour les prochains achats.',
       footerUnlimited:
-        "La carte sera envoyée par mail le {{- date_send }} aux adresses indiquées. Elle ne contient pas de date d'expiration. Le compte du destinataire sera crédité de {{- price }} pour les prochains achats.",
+        "La carte sera envoyée par mail le {{- date_send }} à {{- hour_send }} aux adresses indiquées. Elle ne contient pas de date d'expiration. Le compte du destinataire sera crédité de {{- price }} pour les prochains achats.",
     },
   },
   link: {

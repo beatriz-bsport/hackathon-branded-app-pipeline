@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import * as Yup from 'yup';
 import moment from 'moment-timezone';
 
-import { TextField, DateField } from '../../../components/forms';
+import { TextField, DateField, TimeField } from '../../../components/forms';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { Giftcard, GiftcardBackgroundImage } from '../types';
 import EmailInputWithChipsField from '../../../components/input/email-input-with-chip/EmailInputWithChipsField.component';
@@ -94,15 +94,23 @@ export const ConsumerGiftcardForm = (props: Props) => {
         label={t('consumerGiftcard.form.date_send.label')}
         name="date_to_send"
       />
+      <div className={classes.clockField}>
+        <Typography className={classes.clockText}>
+          {t('consumerGiftcard.form.hour_send')}
+        </Typography>
+        <TimeField name="date_to_send" />
+      </div>
       <Typography className={classes.footer}>
         {props.giftcard?.expiration_days
           ? t('consumerGiftcard.form.footer', {
               expiration_days: props.giftcard?.expiration_days || 0,
               date_send: moment(props.values.date_to_send).format('L'),
+              hour_send: moment(props.values.date_to_send).format('LT'),
               price: getCurrencyDisplayWithPrice(props.giftcard.price),
             })
           : t('consumerGiftcard.form.footerUnlimited', {
               date_send: moment(props.values.date_to_send).format('L'),
+              hour_send: moment(props.values.date_to_send).format('LT'),
               price: getCurrencyDisplayWithPrice(props.giftcard.price),
             })}
       </Typography>
@@ -135,6 +143,16 @@ const useStyles = makeStyles((theme: Theme) => ({
   footer: {
     marginTop: theme.spacing(3),
   },
+  clockField: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    marginTop: theme.spacing(1),
+  },
+  clockText: {
+    marginRight: theme.spacing(2),
+    marginBottom: theme.spacing(0.5),
+  },
 }));
 
 export default ConsumerGiftcardForm;
@@ -158,7 +176,12 @@ export const ConsumerGiftcardFormFieldHOC = withFormik({
       name: giftcard.name,
       background_image: null,
       recipients: [],
-      date_to_send: moment().format('YYYY-MM-DD'),
+      date_to_send: moment()
+        .hours(7)
+        .minutes(0)
+        .seconds(0)
+        .milliseconds(0)
+        .format(),
     },
   }),
   validationSchema: ConsumerGiftcardSchema,

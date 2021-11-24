@@ -24,6 +24,7 @@ type Props = {
   forceVertical?: boolean;
   giftcardBackgroundImageList: Array<String>;
   isManager: boolean;
+  timezone: string;
 };
 
 const GridWrapper = {
@@ -31,12 +32,12 @@ const GridWrapper = {
   false: (p: any) => <div {...p} />,
 };
 const GridFirstChildWrapper = {
-  true: (p: any) => <Grid item sm={12} md={4} {...p} />,
+  true: (p: any) => <Grid item xs={12} sm={12} md={4} {...p} />,
   false: (p: any) => <div>{p.children}</div>,
 };
 
 const GridSecondChildWrapper = {
-  true: (p: any) => <Grid item sm={12} md={8} {...p} />,
+  true: (p: any) => <Grid item xs={12} sm={12} md={8} {...p} />,
   false: (p: any) => <div>{p.children}</div>,
 };
 
@@ -96,15 +97,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: '100%',
   },
   previewContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '100%',
-    alignItems: 'center',
-    paddingRight: theme.spacing(3),
-    paddingBottom: theme.spacing(3),
+    padding: theme.spacing(1.5),
   },
   innerContainer: {
     width: '100%',
+    padding: theme.spacing(1.5),
   },
   formContainer: {
     display: 'flex',

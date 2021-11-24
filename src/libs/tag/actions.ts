@@ -118,7 +118,7 @@ export function createOrUpdateTag(
 
 export function createOrUpdateTagGroup(
   data: any,
-  options: OptionCallback,
+  options?: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(tagGroupCreateOrUpdateActions.isLoading(true));

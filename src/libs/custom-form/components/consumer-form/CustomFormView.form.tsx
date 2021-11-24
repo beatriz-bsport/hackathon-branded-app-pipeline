@@ -2,7 +2,7 @@ import React from 'react';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
-import { Theme } from '@material-ui/core/styles';
+import { createStyles, Theme } from '@material-ui/core/styles';
 import { Form } from 'formik';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
@@ -119,31 +119,32 @@ export function ConsumerFormView(props: Props) {
   );
 }
 
-const styles = (theme: Theme) => ({
-  paperContainer: {
-    padding: theme.spacing(6),
-  },
-  submit: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
-  submitAndCancel: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-  emptyContainer: {
-    padding: theme.spacing(10),
-  },
-  column: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  leftIcon: {
-    marginRight: theme.spacing(1),
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    paperContainer: {
+      padding: theme.spacing(6),
+    },
+    submit: {
+      display: 'flex',
+      justifyContent: 'flex-end',
+    },
+    submitAndCancel: {
+      display: 'flex',
+      justifyContent: 'space-between',
+    },
+    emptyContainer: {
+      padding: theme.spacing(10),
+    },
+    column: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    leftIcon: {
+      marginRight: theme.spacing(1),
+    },
+  });
 export default compose<any, OwnProps>(
   withTranslation('marketing'),
   withStyles(styles),

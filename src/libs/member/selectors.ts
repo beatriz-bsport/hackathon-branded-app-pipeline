@@ -5,6 +5,7 @@ import { RootState } from '../../reducers';
 import { getMembership } from '../membership/selectors';
 import { Member } from './types';
 import { getTagGroupsDict, getTagsDict } from '../tag/selectors';
+import { getAllAssociatedEstablishmentGroupDict } from '../establishment/selectors';
 
 export const getMemberDetailData = (state: RootState) =>
   state.member.detailData;
@@ -84,6 +85,20 @@ export const withTags = memoize(
         }
         return [];
       },
+    ),
+);
+
+export const withEstablishmentGroup = memoize(
+  (selector: typeof getMemberDetail) =>
+    createSelector(
+      [selector, getAllAssociatedEstablishmentGroupDict],
+      (member, associatedGroupData) => ({
+        ...member,
+        favourite_establishment_group:
+          member?.favourite_establishment_group?.map(
+            (id) => associatedGroupData[id],
+          ),
+      }),
     ),
 );
 

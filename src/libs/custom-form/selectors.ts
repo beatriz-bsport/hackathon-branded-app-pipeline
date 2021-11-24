@@ -12,12 +12,18 @@ import {
   checkDisabledHasAnswer,
   insertUserProfileDataToAnswer,
   insertMemberProfileDataToAnswer,
+  CUSTOM_FORM_DATATYPE_ESTABLISHMENT_GROUP,
+  MODEL_BASED_QUESTION_FAVORITE,
 } from './utils';
 import { getMemberDetail } from '../member/selectors';
 
+import { getAllAssociatedEstablishmentGroupDict } from '../establishment/selectors';
+import { getTheme } from '../theme/selectors';
+
 export const getCustomForm = (state: RootState, id: number) =>
   state.customForm.byId[id];
-
+export const getModelBasedAnswerByMemberDict = (state: RootState) =>
+  state.customForm.modelBasedAnswer.byMemberId;
 export const getCustomFormDict = (state: RootState) => state.customForm.byId;
 export const getCustomFormList = (state: RootState) => state.customForm.allIds;
 export const getCustomFormFilledDict = (state: RootState) =>
@@ -40,6 +46,23 @@ export const getAllCustomForm = createSelector(
         (customForm: CustomForm) =>
           !customForm.is_member_form && !customForm.is_signup,
       );
+  },
+);
+
+export const getFavoriteEstablishmentGroupList = createSelector(
+  [
+    getTheme,
+    getModelBasedAnswerByMemberDict,
+    getAllAssociatedEstablishmentGroupDict,
+    (_: RootState, id: number) => id,
+  ],
+  (theme, customAnswerByMember, associatedGroupdata, id) => {
+    if (!customAnswerByMember || !theme.enable_multi_localization) return null;
+    return customAnswerByMember?.[id]?.[
+      CUSTOM_FORM_DATATYPE_ESTABLISHMENT_GROUP
+    ][MODEL_BASED_QUESTION_FAVORITE].answer
+      ?.map((establishmentGroupId) => associatedGroupdata[establishmentGroupId])
+      .filter((establishmentGroup) => establishmentGroup);
   },
 );
 

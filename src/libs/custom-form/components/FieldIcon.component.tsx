@@ -9,6 +9,7 @@ import ArrowDropDownCircleIcon from '@material-ui/icons/ArrowDropDownCircle';
 import BorderColorIcon from '@material-ui/icons/BorderColor';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import LocationCityIcon from '@material-ui/icons/LocationCity';
 import {
   CUSTOM_FORM_FIELD_TITLE_OPTION,
   CUSTOM_FORM_FIELD_PARAGRAPH_OPTION,
@@ -21,6 +22,8 @@ import {
   CUSTOM_FORM_FIELD_FILE_OPTION,
   CUSTOM_FORM_FIELD_SIGNUP_QUESTION_OPTION,
 } from '@bsport/common/lib/master-data/custom-form';
+
+import { CUSTOM_FORM_FIELD_LOCATION_OPTION } from '../utils';
 
 type Props = {
   field_id: number;
@@ -48,6 +51,8 @@ export function FieldIcon(props: Props) {
       return <CloudUploadIcon {...props} />;
     case CUSTOM_FORM_FIELD_SIGNUP_QUESTION_OPTION:
       return <HelpOutlineIcon {...props} />;
+    case CUSTOM_FORM_FIELD_LOCATION_OPTION:
+      return <LocationCityIcon {...props} />;
     default:
       return <div />;
   }

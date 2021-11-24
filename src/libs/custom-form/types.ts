@@ -61,6 +61,13 @@ export type CustomFormState = {
   memberForm: {
     form: CustomForm | null;
   } & ErrorAndLoading;
+  modelBasedAnswer: {
+    byMemberId: {
+      [memberId: number]: {
+        [datatype: number]: { [kind: number]: ModelBasedAnswer };
+      };
+    };
+  } & ErrorAndLoading;
 } & ErrorAndLoading;
 
 export type CustomFormFilled = {
@@ -91,11 +98,11 @@ export type CustomFormFilledAPI = {
   custom_form_id: number;
   member_id: number;
   date_created: string;
-  custom_form_field: Array<CustomFormFieldAnswerAPI>;
+  custom_form_field: Array<FormikCustomFormFieldAnswerAPI>;
   is_draft: boolean;
 };
 
-export type CustomFormFieldAnswerAPI = {
+export type FormikCustomFormFieldAnswerAPI = {
   id: number;
   custom_form_filled_id: number;
   custom_form_field_id: number;
@@ -141,3 +148,39 @@ export type Layout = {
 export type ResponsiveLayouts = {
   [key: string]: Array<Layout>;
 };
+
+export type ModelBasedAnswer = {
+  custom_form_field: number;
+  timestamp: string;
+  label: string;
+  kind: number;
+  answer: Array<{ answer: Array<number>; timestamp: number }>;
+  datatype: number;
+};
+
+export interface CustomFormFilledTagRule {
+  answer_for_tag: string;
+  custom_form_field_id: number;
+  id: number;
+  tag_id: number;
+}
+
+export interface FormikCustomFormFieldAnswer {
+  id: number;
+  kind: number;
+  label: string;
+  mandatory: boolean;
+  custom_form_id: number;
+  choices: Array<string>;
+  answer: string | Array<string> | File;
+  custom_form_field_tag_rule: Array<CustomFormFilledTagRule>;
+}
+
+export interface FormikCustomFormFilled {
+  layout: Layout;
+  id: number;
+  name: string;
+  disabled: boolean;
+  date_created: string;
+  custom_form_field: Array<FormikCustomFormFieldAnswer>;
+}

@@ -233,3 +233,15 @@ export async function updateCustomFormLayout({
     { layout: { ...layout } },
   );
 }
+
+export async function fetchModelBasedAnswerApi(params: {
+  memberId: number;
+  datatype: number;
+  kind: number;
+}) {
+  return getAuth(
+    `${API_V1_URI}/custom_form/model_based_answer/get_last_model_based_answer/${buildUrlParams(
+      params,
+    )}`,
+  );
+}

@@ -53,6 +53,8 @@ import CustomFormView from '../../libs/custom-form/components/consumer-form/Cust
 import CustomFormsKeleton from '../../libs/custom-form/components/CustomFormSkeleton.component';
 import CustomFormLayoutEditor from '../../libs/custom-form/components/consumer-form-layout/CustomFormLayoutEditor.dialog';
 
+import themeSelectors from '../../libs/theme/selectors';
+
 type StateHandlerInit = {
   customFormRefresh: CustomForm;
   customFormView: CustomForm;
@@ -190,6 +192,7 @@ export class CustomFormDetail extends React.Component<Props, State> {
                 setNumberOfQuestionsHasChanged={
                   this.props.setNumberOfQuestionsHasChanged
                 }
+                companyTheme={this.props.companyTheme}
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -339,6 +342,7 @@ const mapStateToProps = (state: RootState, { id }: { id: number }) => ({
   signUpCustomForm: getSignUpCustomForm(state),
   memberCustomForm: getMemberCustomForm(state),
   layoutLoading: state.customForm.layout.loading,
+  companyTheme: themeSelectors.getTheme(state),
 });
 const mapDispatchToProps = {
   fetchAllCustomForm,

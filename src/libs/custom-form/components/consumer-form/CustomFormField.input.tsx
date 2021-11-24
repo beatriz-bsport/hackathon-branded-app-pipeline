@@ -24,13 +24,18 @@ import {
   CUSTOM_FORM_FIELD_SIGNUP_QUESTION_OPTION,
 } from '@bsport/common/lib/master-data/custom-form';
 import {
+  CUSTOM_FORM_FIELD_LOCATION_OPTION,
   MAX_LENGTH_FOR_SHORT_ANSWER,
   MAX_LENGTH_FOR_LONG_ANSWER,
 } from '../../utils';
 
 import { MaterialStyleType } from '../../../../utils/types';
 import FileUploaderCustomized from '../../../../components/FileUploaderCustomized';
-import type { CustomFormField, ResponsiveLayouts } from '../../types';
+import type {
+  CustomFormField,
+  FormikCustomFormFilled,
+  ResponsiveLayouts,
+} from '../../types';
 import SignatureCanvas from './SignatureCanvas.component';
 
 import {
@@ -41,30 +46,8 @@ import {
 } from '../../../../components/forms';
 
 import CustomFormFieldSignUpInput from './CustomFormField.signup-input';
+import CustomFormFieldLocationInput from './CustomFormField.location-input';
 
-interface CustomFormFilledTagule {
-  answer_for_tag: string;
-  custom_form_field_id: number;
-  id: number;
-  tag_id: number;
-}
-interface CustomFormFieldAnswer {
-  id: number;
-  kind: number;
-  label: string;
-  mandatory: boolean;
-  custom_form_id: number;
-  choices: Array<string>;
-  answer: string | Array<string> | File;
-  custom_form_field_tag_rule: Array<CustomFormFilledTagule>;
-}
-interface FormikCustomFormFilled {
-  id: number;
-  name: string;
-  disabled: boolean;
-  date_created: string;
-  custom_form_field: Array<CustomFormFieldAnswer>;
-}
 type OwnProps = {
   field: CustomFormField;
   index: number;
@@ -312,6 +295,8 @@ export const CustomFormConsumerInput = (props: Props) => {
       );
     case CUSTOM_FORM_FIELD_SIGNUP_QUESTION_OPTION:
       return <CustomFormFieldSignUpInput {...props} />;
+    case CUSTOM_FORM_FIELD_LOCATION_OPTION:
+      return <CustomFormFieldLocationInput {...props} />;
     default:
       return <div />;
   }

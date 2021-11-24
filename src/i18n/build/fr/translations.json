@@ -909,6 +909,7 @@
     "establishment": "Établissement",
     "description": "Description",
     "localisation": "Localisation",
+    "favouriteLocation": "Localisation préférée",
     "room": "Salle",
     "capacity": {
       "label": "Capacité de la salle",
@@ -1710,6 +1711,7 @@
       "tab": { "general": "Contenu", "campaign": "Campagne", "statistics": "Statistiques", "layout": "Personnalisation" },
       "breakpoints": { "xs": "Mobile", "sm": "Petit écran", "md": "Ecran moyen", "lg": "Ecran large" },
       "field": {
+        "location": "Localisation préférée",
         "sign_up_question": "Question du formulaire d'inscription",
         "first_name": "Prénom",
         "last_name": "Nom de famille",

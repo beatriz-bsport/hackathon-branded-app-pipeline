@@ -26,6 +26,7 @@ import {
   fetchCompanyCustomFormSignUp as fetchCompanyCustomFormSignUpAPI,
   fetchCompanyCustomMemberForm as fetchCompanyCustomMemberFormAPI,
   submitSignUpCustomForm as submitSignUpCustomFormAPI,
+  fetchModelBasedAnswerApi,
 } from './api';
 import { snackbarError, snackbarSuccess } from '../snackbar/actions';
 import type {
@@ -651,5 +652,34 @@ export function submitSignUpCustomForm(
       dispatch(signUpViaCustomFormActions.error(error?.response?.data));
     }
     dispatch(signUpViaCustomFormActions.isLoading(false));
+  };
+}
+
+export const fetchModelBasedAnswerActions = {
+  isLoading: createAction('CUSTOM_FORM/CUSTOM_ANSWER/IS_LOADING'),
+  error: createAction('CUSTOM_FORM/CUSTOM_ANSWER/ERROR'),
+  success: createAction('CUSTOM_FORM/CUSTOM_ANSWER/SUCCESS'),
+};
+
+export function fetchModelBasedAnswer(
+  params: {
+    memberId: number;
+    datatype: number;
+    kind: number;
+  },
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchModelBasedAnswerActions.isLoading(true));
+    dispatch(fetchModelBasedAnswerActions.error(null));
+    try {
+      const response = await fetchModelBasedAnswerApi(params);
+      dispatch(fetchModelBasedAnswerActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      if (options && options.onError) options.onError();
+      dispatch(fetchModelBasedAnswerActions.error(error?.response?.data));
+    }
+    dispatch(fetchModelBasedAnswerActions.isLoading(false));
   };
 }

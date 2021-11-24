@@ -24,6 +24,7 @@ import {
   fetchCompanyCustomSignUpActions,
   fetchCompanyCustomMemberFormActions,
   signUpViaCustomFormActions,
+  fetchModelBasedAnswerActions,
 } from './actions';
 
 const initialState: Immutable.Immutable<CustomFormState> =
@@ -67,6 +68,11 @@ const initialState: Immutable.Immutable<CustomFormState> =
       loading: false,
       error: null,
       form: null,
+    },
+    modelBasedAnswer: {
+      loading: false,
+      error: null,
+      byMemberId: {},
     },
   });
 
@@ -451,6 +457,31 @@ export default handleActions(
     },
     [signUpViaCustomFormActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['upsert', 'error'], payload);
+    },
+    [fetchModelBasedAnswerActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['modelBasedAnswer', 'loading'], payload);
+    },
+    [fetchModelBasedAnswerActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['modelBasedAnswer', 'error'], payload);
+    },
+    [fetchModelBasedAnswerActions.success.toString()]: (state, { payload }) => {
+      return state.merge(
+        {
+          modelBasedAnswer: {
+            byMemberId: {
+              [payload.member_id]: {
+                [payload.datatype]: {
+                  [payload.kind]: payload,
+                },
+              },
+            },
+          },
+        },
+        { deep: true },
+      );
     },
   },
   initialState,

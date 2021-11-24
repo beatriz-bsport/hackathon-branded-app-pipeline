@@ -4,10 +4,9 @@ import React, { Component } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import { push as routerPush } from 'connected-react-router';
-import { connect } from 'react-redux';
-import { compose, withProps, withHandlers } from 'recompose';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { connect, ConnectedProps } from 'react-redux';
+import { compose, withHandlers } from 'recompose';
+import { WithTranslation, withTranslation } from 'react-i18next';
 
 import { TAG_KIND_MEMBER } from '@bsport/common/lib/master-data/tag';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
@@ -32,7 +31,6 @@ import {
   getSearchedMembers,
   getMemberDetail,
 } from '../../libs/member/selectors';
-import type { Member } from '../../libs/member/types';
 import MemberSummaryCard from '../../libs/member/components/MemberSummaryCard.component';
 import TagDeleteDialog from '../../libs/tag/components/TagDeleteDialog.component';
 import TagGroupDeleteDialog from '../../libs/tag/components/TagGroupDeleteDialog.component';
@@ -41,7 +39,6 @@ import ModalDeleteFile from '../../components/ModalConfirm.component';
 import MemberSearchModal from '../../libs/member/components/MemberSearchModal.component';
 import FileUploadDialog from '../../components/FileUploadDialog';
 import MemberBillingProblemCard from '../../libs/member/components/MemberBillingProblemCard.component';
-import type { TagGroup } from '../../libs/tag/types';
 import tagSelectors from '../../libs/tag/selectors';
 import {
   fetchTags,
@@ -60,7 +57,6 @@ import {
   createOrUpdateTask as createOrUpdateTaskAction,
   updateTaskStatus,
 } from '../../libs/reminder/actions';
-import type { Task } from '../../libs/reminder/types';
 import type { OptionCallback } from '../../state/types';
 import { memberTaskListSelector } from '../../libs/reminder/selectors';
 import { fetchCompanyUserRoles } from '../../libs/role/actions';
@@ -83,111 +79,41 @@ import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
 } from '../../libs/email-editor/selectors';
-import { fetchEstablishments } from '../../libs/establishment/actions';
+import {
+  fetchEstablishments,
+  fetchAllEstablishmentGroup,
+} from '../../libs/establishment/actions';
 import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
-import type { Theme as CompanyTheme } from '../../libs/theme/types';
 import themeSelectors from '../../libs/theme/selectors';
-import { showVaccinationStatus } from '../../libs/custom-form/selectors';
+import { RootState } from '../../reducers';
+import { WithHandlerType } from '../../utils/types';
+import { fetchModelBasedAnswer } from '../../libs/custom-form/actions';
+import {
+  CUSTOM_FORM_DATATYPE_ESTABLISHMENT_GROUP,
+  MODEL_BASED_QUESTION_FAVORITE,
+} from '../../libs/custom-form/utils';
+import {
+  getFavoriteEstablishmentGroupList,
+  showVaccinationStatus,
+} from '../../libs/custom-form/selectors';
 
-type Props = {
-  // GENERAL
-  // -------
-  id: number,
-  memberLoading: boolean,
-  member: Member,
-  t: TFunction,
-  editMember: (id: number) => void,
-  fetchMember: (id: number) => void,
-  searchMembers: (text: string) => void,
-  searchedMembers: Array<Member>,
-  mergeInto: (src: number, dst: number) => void,
-  country: string,
-
-  applyBalanceToUnpaid: (memberId: number, options: OptionCallback) => void,
-
-  // FILES
-  addFile: (file: any) => void,
-  removeFile: (id: number) => void,
-
-  fetchInvoiceListUnpaid: () => void,
-  invoiceLoading: boolean,
-  unpaidInvoiceList: Array<Invoice>,
-
-  // NOTES
-  // -----
-  createOrUpdateNote: (note: {
-    id: ?number,
-    text: string,
-    memberId: number,
-    highlighted: boolean,
-    is_medical: boolean,
-  }) => void,
-  deleteNote: ({ memberId: number, noteId: number }) => void,
-
-  // MAIL
-  fetchEmailTemplatesSummaries: () => void,
-  fetchEmailTemplateDetail: (id: number) => void,
-  emailListLoading: boolean,
-  emailDetailLoading: boolean,
-  email_templates_list: Array<any>,
-  email_templates_details: Array<any>,
-  sendCommunication: (any) => void,
-
-  // TASK
-  taskList: Array<Task>,
-  taskLoading: ?boolean,
-  fetchCompanyUserRoles: () => void,
-  staffList: Array<User>,
-  createOrUpdateTask: (data: any, options: OptionCallback) => void,
-  updateTaskStatus: (
-    id: number,
-    status: number,
-    options: OptionCallback,
-  ) => void,
-  fetchTaskListByMember: () => void,
-
-  // TAGS
-  // ----
-  tagGroups: Array<TagGroup>,
-  tagGroupsLoading: boolean,
-
-  fetchTags: () => void,
-  createTag: (data: any, memberId?: number) => void,
-  updateTag: (data: *) => void,
-  updateTagGroup: (data: *) => void,
-  deleteTag: (id: number) => void,
-  deleteTagGroup: (id: number) => void,
-  createTagGroup: ({ name: string, group: number }) => void,
-  tagMember: (memberId: number, tagId: number) => void,
-  untagMember: (memberId: number, tagId: number) => void,
-
-  adjustCreditWithoutPaymentNote: (
-    memberId: number,
-    amount: number,
-    options: OptionCallback,
-  ) => void,
-
-  goToInvoice: (string) => void,
-  payment_method_available_manager: number[],
-  paymentMethod: Array<any>,
-  paymentMethodLoading: boolean,
-  detachPaymentMethodLoading: boolean,
-  detachPaymentMethod: (pm_id: string) => void,
-  snackbarErrorMsg: (msg: string) => void,
-  snackbarSuccessMsg: (msg: string) => void,
-  fetchEstablishments: () => void,
-  establishmentList: Array<Estalsihment>,
-  companyTheme: CompanyTheme,
-  companyId?: number,
-  showVaccinationStatus: boolean,
-};
+type Props = RouterParamsProps &
+  ConnectProps &
+  HandlerProps1 &
+  HandlerProps2 &
+  WithTranslation &
+  HandlerProps3;
 
 type State = {
-  searchModalOpen: boolean,
+  searchModalOpen: boolean;
+  tagToDelete: number;
+  tagGroupToDelete: number;
+  fileToUpload: number;
+  fileToDelete: number;
 };
 
-export class MemberDetailPage extends Component<Props, State> {
-  state = {
+export class MemberDetailPage extends Component<Props> {
+  state: State = {
     searchModalOpen: false,
     tagToDelete: null,
     tagGroupToDelete: null,
@@ -201,6 +127,12 @@ export class MemberDetailPage extends Component<Props, State> {
     this.props.fetchTaskListByMember();
     this.props.fetchInvoiceListUnpaid();
     this.props.fetchEstablishments();
+    this.props.fetchAllEstablishmentGroup();
+    this.props.fetchModelBasedAnswer({
+      memberId: this.props.id,
+      datatype: CUSTOM_FORM_DATATYPE_ESTABLISHMENT_GROUP,
+      kind: MODEL_BASED_QUESTION_FAVORITE,
+    });
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -208,6 +140,11 @@ export class MemberDetailPage extends Component<Props, State> {
       this.props.fetchMember(this.props.id);
       this.props.fetchTaskListByMember();
       this.props.fetchInvoiceListUnpaid();
+      this.props.fetchModelBasedAnswer({
+        memberId: this.props.id,
+        datatype: CUSTOM_FORM_DATATYPE_ESTABLISHMENT_GROUP,
+        kind: MODEL_BASED_QUESTION_FAVORITE,
+      });
     }
   }
 
@@ -247,6 +184,9 @@ export class MemberDetailPage extends Component<Props, State> {
           <MemberSummaryCard
             memberId={this.props.id}
             member={this.props.member}
+            favoriteEstablishmentGroupList={
+              this.props.favoriteEstablishmentGroupList
+            }
             editMember={() => this.props.editMember(this.props.id)}
             mergeMember={() => this.setState({ searchModalOpen: true })}
             getEmails={this.props.fetchEmailTemplatesSummaries}
@@ -383,88 +323,123 @@ export class MemberDetailPage extends Component<Props, State> {
     );
   }
 }
+type RouterParamsProps = {
+  id: number;
+};
 
-export default compose(
-  routerParamsToProps({ id: 'id:number' }),
-  withTranslation(['member', 'invoice']),
-  connect(
-    (state, { id }) => ({
-      memberLoading: state.member.loading,
-      member: getMemberDetail(state, id),
-      searchedMembers: getSearchedMembers(state),
-      tagGroups: tagSelectors.getMemberTagGroups(state),
-      tagGroupsLoading: state.tag.group.loading,
-      taskList: memberTaskListSelector(state),
-      staffList: getUsersWithRole(state),
-      // email emailTemplatesSummaries
-      email_templates_list: getAllEmailTemplatesSummaries(state),
-      email_templates_details: getEmailTemplatesDetail(state),
-      emailListLoading: state.emailTemplate.isLoading,
-      emailDetailLoading: state.emailTemplate.detail.isLoading,
-      country: state.theme.theme.locale.split('_')[1],
-      companyId: state.theme.theme.company,
-      unpaidInvoiceList: withInvoiceItem(getInvoiceList)(state),
-      invoiceLoading: state.invoice.list.loading,
-      payment_method_available_manager:
-        state.theme.theme.payment_method_available_manager,
-      paymentMethod: state.paymentBackend.paymentMethod.items,
-      paymentMethodLoading: state.paymentBackend.paymentMethod.loading,
-      detachPaymentMethodLoading:
-        state.paymentBackend.detachPaymentMethod.loading,
-      establishmentList: getAvailableEstablishmentList(state),
-      companyTheme: themeSelectors.getTheme(state),
-      showVaccinationStatus: showVaccinationStatus(state),
-    }),
-    {
-      fetchInvoiceList: fetchInvoiceListAction,
-      fetchPaymentMethodListActions: fetchPaymentMethodList,
-      detachPaymentMethodAction: detachPaymentMethod,
-      // fetchInvoiceItemList: fetchInvoiceItemListAction,
-      sendCommunication,
-      fetchCompanyUserRoles,
-      fetchMember,
-      searchMembers: (text: string) =>
-        searchMembers(text, { hide_archived: true }),
-      tagMember,
-      untagMember,
-      fetchTags,
-      fetchEmailTemplateDetail: (id) => emailTemplateDetail(id),
-      fetchEmailTemplatesSummaries,
-      mergeInto: (src: number, dst: number) =>
-        routerPush(`/member/merge/${src}/into/${dst}`),
-      editMember: (id) => routerPush(`/member/edit/${id}`),
-      createOrUpdateNote: ({ id, text, memberId, highlighted, is_medical }) =>
-        createOrUpdateMemberNote(id, text, memberId, highlighted, is_medical),
-      deleteNote,
-      createTag: createOrUpdateTag,
-      applyBalanceToUnpaid,
-      adjustCreditWithoutPaymentNote,
-      createTagGroup: (data) =>
-        createOrUpdateTagGroup({ ...data, kind: TAG_KIND_MEMBER.id }),
-      updateTag: createOrUpdateTag,
-      updateTagGroup: createOrUpdateTagGroup,
-      deleteTagGroup,
-      deleteTag,
-      addFile: (data) => addFileToMember(data),
-      removeFile: removeFileFromMember,
-      fetchTaskListByMember: fetchTaskListByMemberAction,
-      createOrUpdateTask: createOrUpdateTaskAction,
-      updateTaskStatus,
-      goToInvoice: (uuid) => routerPush(`/invoice/${uuid}/`),
-      snackbarErrorMsg: snackbarWarning,
-      snackbarSuccessMsg: snackbarSuccess,
-      fetchEstablishments,
+type ConnectProps = ConnectedProps<typeof connector>;
+
+const connector = connect(
+  (state: RootState, props: RouterParamsProps) => ({
+    memberLoading: state.member.loading,
+    member: getMemberDetail(state, props.id),
+    favoriteEstablishmentGroupList: getFavoriteEstablishmentGroupList(
+      state,
+      props.id,
+    ),
+    searchedMembers: getSearchedMembers(state),
+    tagGroups: tagSelectors.getMemberTagGroups(state),
+    tagGroupsLoading: state.tag.group.loading,
+    taskList: memberTaskListSelector(state),
+    staffList: getUsersWithRole(state),
+    // email emailTemplatesSummaries
+    email_templates_list: getAllEmailTemplatesSummaries(state),
+    email_templates_details: getEmailTemplatesDetail(state),
+    emailListLoading: state.emailTemplate.isLoading,
+    emailDetailLoading: state.emailTemplate.detail.isLoading,
+    country: state.theme.theme.locale.split('_')[1],
+    companyId: state.theme.theme.company,
+    unpaidInvoiceList: withInvoiceItem(getInvoiceList)(state),
+    invoiceLoading: state.invoice.list.loading,
+    payment_method_available_manager:
+      state.theme.theme.payment_method_available_manager,
+    paymentMethod: state.paymentBackend.paymentMethod.items,
+    paymentMethodLoading: state.paymentBackend.paymentMethod.loading,
+    detachPaymentMethodLoading:
+      state.paymentBackend.detachPaymentMethod.loading,
+    establishmentList: getAvailableEstablishmentList(state),
+    companyTheme: themeSelectors.getTheme(state),
+    showVaccinationStatus: showVaccinationStatus(state),
+  }),
+  {
+    fetchInvoiceList: fetchInvoiceListAction,
+    fetchPaymentMethodListActions: fetchPaymentMethodList,
+    detachPaymentMethodAction: detachPaymentMethod,
+    // fetchInvoiceItemList: fetchInvoiceItemListAction,
+    sendCommunication,
+    fetchCompanyUserRoles,
+    fetchMember,
+    searchMembers: (text: string) =>
+      searchMembers(text, { hide_archived: true }),
+    tagMember,
+    untagMember,
+    fetchTags,
+    fetchEmailTemplateDetail: (id: number) => emailTemplateDetail(id),
+    fetchEmailTemplatesSummaries,
+    mergeInto: (src: number, dst: number) =>
+      routerPush(`/member/merge/${src}/into/${dst}`),
+    editMember: (id: number) => routerPush(`/member/edit/${id}`),
+    createOrUpdateNote: ({
+      id,
+      text,
+      memberId,
+      highlighted,
+      is_medical,
+    }: {
+      id: number;
+      text: string;
+      memberId: number;
+      highlighted: boolean;
+      is_medical: boolean;
+    }) => createOrUpdateMemberNote(id, text, memberId, highlighted, is_medical),
+    deleteNote,
+    createTag: createOrUpdateTag,
+    applyBalanceToUnpaid,
+    adjustCreditWithoutPaymentNote,
+    createTagGroup: (data: any) =>
+      createOrUpdateTagGroup({ ...data, kind: TAG_KIND_MEMBER.id }),
+    updateTag: createOrUpdateTag,
+    updateTagGroup: createOrUpdateTagGroup,
+    deleteTagGroup,
+    deleteTag,
+    addFile: (data: any) => addFileToMember(data),
+    removeFile: removeFileFromMember,
+    fetchTaskListByMember: fetchTaskListByMemberAction,
+    createOrUpdateTask: createOrUpdateTaskAction,
+    updateTaskStatus,
+    goToInvoice: (uuid: number) => routerPush(`/invoice/${uuid}/`),
+    snackbarErrorMsg: snackbarWarning,
+    snackbarSuccessMsg: snackbarSuccess,
+    fetchEstablishments,
+    fetchAllEstablishmentGroup,
+    fetchModelBasedAnswer,
+  },
+);
+
+type HandlerProps1 = WithHandlerType<typeof mapWithHandler1>;
+
+const mapWithHandler1 = {
+  fetchTaskListByMember:
+    ({ fetchTaskListByMember, id }: RouterParamsProps & ConnectProps) =>
+    () => {
+      fetchTaskListByMember(id);
     },
-  ),
-  withProps(({ fetchTaskListByMember, id }) => ({
-    fetchTaskListByMember: () => fetchTaskListByMember(id),
-  })),
-  withProps(({ fetchTaskListByMember, createOrUpdateTask, id }) => ({
-    createOrUpdateTask: (data, options) => {
+};
+
+type HandlerProps2 = WithHandlerType<typeof mapWithHandler2>;
+
+const mapWithHandler2 = {
+  createOrUpdateTask:
+    ({
+      fetchTaskListByMember,
+      createOrUpdateTask,
+      id,
+    }: RouterParamsProps & ConnectProps & HandlerProps1) =>
+    (data: any, options: OptionCallback) => {
       createOrUpdateTask(
         { ...data, member_id: id },
         {
-          onSuccess: (...args) => {
+          onSuccess: (...args: any) => {
             options.onSuccess(...args);
             fetchTaskListByMember();
           },
@@ -472,54 +447,65 @@ export default compose(
         },
       );
     },
-  })),
-  withHandlers({
-    fetchInvoiceListUnpaid:
-      ({
-        fetchInvoiceList,
-        // fetchInvoiceItemList,
-        id,
-      }) =>
-      () => {
-        fetchInvoiceList({
-          is_v2: true,
-          is_draft: false,
-          unpaid: true,
-          member: id,
-        });
-      },
-  }),
-  withHandlers({
-    fetchMemberPaymentMethod:
-      ({ fetchPaymentMethodListActions, id }) =>
-      () => {
-        fetchPaymentMethodListActions({ member: id });
-      },
-  }),
-  withHandlers({
-    detachPaymentMethod:
-      ({
-        detachPaymentMethodAction,
-        fetchMemberPaymentMethod,
-        snackbarErrorMsg,
-        snackbarSuccessMsg,
-        id,
-        t,
-      }) =>
-      (pm_id, options) => {
-        detachPaymentMethodAction(
-          { member: id, payment_method_id: pm_id },
-          {
-            onSuccess: () => {
-              fetchMemberPaymentMethod({ member: id });
-              snackbarSuccessMsg(t('invoice:paymentMethod.detach.pm_deleted'));
-              if (options && options.onSuccess) options.onSuccess();
-            },
-            onError: (data) => {
-              snackbarErrorMsg(t(`invoice:paymentMethod.detach.${data}`));
-            },
+  fetchInvoiceListUnpaid:
+    ({
+      fetchInvoiceList,
+      // fetchInvoiceItemList,
+      id,
+    }: RouterParamsProps & ConnectProps) =>
+    () => {
+      fetchInvoiceList({
+        is_v2: true,
+        is_draft: false,
+        unpaid: true,
+        member: id,
+      });
+    },
+  fetchMemberPaymentMethod:
+    ({ fetchPaymentMethodListActions, id }: RouterParamsProps & ConnectProps) =>
+    () => {
+      fetchPaymentMethodListActions({ member: id });
+    },
+};
+
+type HandlerProps3 = WithHandlerType<typeof mapWithHandler3>;
+
+const mapWithHandler3 = {
+  detachPaymentMethod:
+    ({
+      detachPaymentMethodAction,
+      fetchMemberPaymentMethod,
+      snackbarErrorMsg,
+      snackbarSuccessMsg,
+      id,
+      t,
+    }: RouterParamsProps &
+      ConnectProps &
+      HandlerProps1 &
+      HandlerProps2 &
+      WithTranslation) =>
+    (pm_id: number, options: OptionCallback) => {
+      detachPaymentMethodAction(
+        { member: id, payment_method_id: pm_id },
+        {
+          onSuccess: () => {
+            fetchMemberPaymentMethod({ member: id });
+            snackbarSuccessMsg(t('invoice:paymentMethod.detach.pm_deleted'));
+            if (options && options.onSuccess) options.onSuccess();
           },
-        );
-      },
-  }),
+          onError: (data: any) => {
+            snackbarErrorMsg(t(`invoice:paymentMethod.detach.${data}`));
+          },
+        },
+      );
+    },
+};
+
+export default compose(
+  routerParamsToProps({ id: 'id:number' }),
+  withTranslation(['member', 'invoice']),
+  connector,
+  withHandlers(mapWithHandler1),
+  withHandlers(mapWithHandler2),
+  withHandlers(mapWithHandler3),
 )(MemberDetailPage);

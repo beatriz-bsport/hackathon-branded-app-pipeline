@@ -13,7 +13,7 @@ import IconButton from '@material-ui/core/IconButton';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Hidden from '@material-ui/core/Hidden';
-import withStyles from '@material-ui/core/styles/withStyles';
+import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import TodayIcon from '@material-ui/icons/Today';
 import EditIcon from '@material-ui/icons/Edit';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
@@ -26,16 +26,19 @@ import DialogActions from '@material-ui/core/DialogActions';
 
 import moment from 'moment-timezone';
 
-import { withTranslation } from 'react-i18next';
+import { WithTranslation, withTranslation } from 'react-i18next';
 
 import { compose, withState } from 'recompose';
-import type { TFunction } from 'react-i18next';
+
+import { Theme } from '@material-ui/core/styles';
+import createStyles from '@material-ui/core/styles/createStyles';
+
 import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 import CreditMemberBadge from './CreditMemberBadge.component';
 
 import { formatAsDate } from '../../../utils/datetime';
 import Avatar from '../../../components/Avatar.component';
-import type { Member } from '../../../api/types';
+import type { Member } from '../types';
 
 import EmailItem from '../../communication/components/EmailItem.component';
 import PhoneItem from '../../communication/components/PhoneItem.component';
@@ -43,31 +46,34 @@ import TypographyMultiline from '../../../components/TypographyMultiline.compone
 import CommunicationDialog from '../../communication/components/CommunicationDialog.component';
 import EmergencyContactItemComponent from '../../communication/components/EmergencyContactItem.component';
 import VaccinationStatus from './VaccinationStatus.component';
+import { EstablishmentGroup } from '../../establishment/types';
+import FavouriteEstablishmentGroupItemComponent from '../../establishment/components/FavouriteEstablishmentGroupItem.component';
 
 const SELECT_EMAIL = 1;
 const SEND_SMS = 2;
 
-type Props = {
-  editMember: () => void,
-  mergeMember: () => void,
-  goToMember: () => void,
-  member: Member,
-  t: TFunction,
-  classes: Object,
-  hideContactButton: ?boolean,
-  showTermsAndConditions: boolean,
-  setShowTermsAndConditions: (boolean) => void,
+type OwnProps = {
+  editMember: () => void;
+  mergeMember: () => void;
+  goToMember: () => void;
+  member: Member<number>;
+  hideContactButton?: boolean;
+  showTermsAndConditions: boolean;
+  setShowTermsAndConditions: (show: boolean) => void;
 
-  getEmails: () => void,
-  getEmailDetail: (id: number) => void,
-  emailListLoading: boolean,
-  emails: Array<any>,
-  emailDetailLoading: boolean,
-  emailDetails: Array<any>,
-  sendCommunication: (any) => void,
+  getEmails: () => void;
+  getEmailDetail: (id: number) => void;
+  emailListLoading: boolean;
+  emails: Array<any>;
+  emailDetailLoading: boolean;
+  emailDetails: Array<any>;
+  sendCommunication: (com: any) => void;
 
-  showVaccinationStatus: boolean,
+  showVaccinationStatus: boolean;
+  favoriteEstablishmentGroupList: Array<EstablishmentGroup>;
 };
+
+type Props = OwnProps & WithTranslation & WithStyles<typeof styles>;
 
 export class MemberSummaryCard extends Component<Props> {
   state = {
@@ -184,6 +190,12 @@ export class MemberSummaryCard extends Component<Props> {
             emergency_contact={member.emergency_contact}
           />
         )}
+        {this.props.favoriteEstablishmentGroupList &&
+          this.props.favoriteEstablishmentGroupList?.length !== 0 && (
+            <FavouriteEstablishmentGroupItemComponent
+              establishmentGroupList={this.props.favoriteEstablishmentGroupList}
+            />
+          )}
         {this.props.showVaccinationStatus && (
           <VaccinationStatus vaccinationStatus={member.vaccination_status} />
         )}
@@ -385,63 +397,64 @@ export class MemberSummaryCard extends Component<Props> {
   }
 }
 
-const styles = (theme) => ({
-  rightIcon: {
-    marginLeft: theme.spacing(1),
-  },
-  rowInfo: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  listItemText: {
-    marginLeft: theme.spacing(2),
-  },
-  infoContainer: {
-    padding: theme.spacing(2),
-  },
-  consumerName: {
-    marginLeft: theme.spacing(2),
-    display: 'flew',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  accountBalance: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%',
-  },
-  regularize: {
-    marginTop: theme.spacing(1),
-  },
-  visibilityIcon: {
-    marginLeft: theme.spacing(1),
-  },
-  accountBalanceBloc: {
-    backgroundColor: '#F8F8F8',
-    padding: theme.spacing(2),
-    border: '2px solid #E8E8E8',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-end',
-    width: '100%',
-  },
-  emailMargin: {
-    marginLeft: theme.spacing(9),
-  },
-  balance: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-end',
-  },
-  termsAndConditions: {
-    paddingLeft: theme.spacing(2),
-    paddingTop: theme.spacing(2),
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    rightIcon: {
+      marginLeft: theme.spacing(1),
+    },
+    rowInfo: {
+      display: 'flex',
+      alignItems: 'center',
+    },
+    listItemText: {
+      marginLeft: theme.spacing(2),
+    },
+    infoContainer: {
+      padding: theme.spacing(2),
+    },
+    consumerName: {
+      marginLeft: theme.spacing(2),
+      display: 'flew',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    accountBalance: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      width: '100%',
+    },
+    regularize: {
+      marginTop: theme.spacing(1),
+    },
+    visibilityIcon: {
+      marginLeft: theme.spacing(1),
+    },
+    accountBalanceBloc: {
+      backgroundColor: '#F8F8F8',
+      padding: theme.spacing(2),
+      border: '2px solid #E8E8E8',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-end',
+      width: '100%',
+    },
+    emailMargin: {
+      marginLeft: theme.spacing(9),
+    },
+    balance: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-end',
+    },
+    termsAndConditions: {
+      paddingLeft: theme.spacing(2),
+      paddingTop: theme.spacing(2),
+    },
+  });
 
-export default compose(
+export default compose<any, Props>(
   withStyles(styles),
   withTranslation(['translation', 'member']),
   withState('showTermsAndConditions', 'setShowTermsAndConditions', false),

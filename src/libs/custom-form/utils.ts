@@ -38,6 +38,13 @@ import type {
 import type { UserProfile } from '../member/types';
 import { Member, MemberAddress } from '../member/types';
 
+export const MODEL_BASED_QUESTION_ANY = 0;
+export const MODEL_BASED_QUESTION_FAVORITE = 1;
+export const CUSTOM_FORM_FIELD_LOCATION_OPTION = 10;
+
+export const CUSTOM_FORM_DATATYPE_ESTABLISHMENT_GROUP = 0;
+export const CUSTOM_FORM_DATATYPE_COACH = 1;
+
 export const ALL_CUSTOM_FORM_SIGNUP_KIND_LIST = [
   CUSTOM_FORM_FIELD_SIGN_UP_PASSWORD,
   CUSTOM_FORM_FIELD_SIGN_UP_FIRST_NAME,
@@ -70,6 +77,7 @@ export const CUSTOM_FORM_FIELDS_OPTIONS = [
   { label: 'select', value: CUSTOM_FORM_FIELD_SELECT_OPTION },
   { label: 'signature', value: CUSTOM_FORM_FIELD_SIGNATURE_OPTION },
   { label: 'file', value: CUSTOM_FORM_FIELD_FILE_OPTION },
+  { label: 'location', value: CUSTOM_FORM_FIELD_LOCATION_OPTION },
   {
     label: 'sign_up_question',
     value: CUSTOM_FORM_FIELD_SIGNUP_QUESTION_OPTION,

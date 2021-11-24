@@ -10,7 +10,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { Theme } from '@material-ui/core/styles';
+import { createStyles, Theme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 import withTitle from '../../hocs/with-title.hoc';
@@ -27,7 +27,10 @@ import {
 } from '../../libs/custom-form/selectors';
 import ConsumerAppBar from '../checkout/ConsumerAppBar.container';
 import CustomFormSubmitDialog from '../../libs/custom-form/components/consumer-form/CustomFormSubmit.dialog';
-import type { CustomForm } from '../../libs/custom-form/types';
+import type {
+  CustomForm,
+  CustomFormFieldAnswer,
+} from '../../libs/custom-form/types';
 import { getMembership } from '../../libs/membership/selectors';
 import { fetchMembershipByCompany } from '../../libs/membership/actions';
 import CustomFormView from '../../libs/custom-form/components/consumer-form/CustomFormView.form';
@@ -40,10 +43,15 @@ type StateHandlerInit = {
 };
 type StateHandlerType = typeof withStateHandlersInit &
   WithHandlerType<typeof withStateHandlersSetter>;
-type OwnProps = {};
+type RouterParamsToPropsProps = {
+  companyId: number;
+  customFormId: number;
+};
 type ConnectedProps = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
-type OwnAndConnectedProps = OwnProps & ConnectedProps & StateHandlerType;
+type OwnAndConnectedProps = RouterParamsToPropsProps &
+  ConnectedProps &
+  StateHandlerType;
 type Props = OwnAndConnectedProps &
   WithHandlerType<typeof mapWithHandlers> &
   MaterialStyleType<ReturnType<typeof styles>> &
@@ -157,48 +165,53 @@ export class MarketplaceCustomForm extends React.Component<Props, State> {
     );
   }
 }
-const styles = (theme: Theme) => ({
-  container: {
-    width: '100vw',
-    height: '100vh',
-    margin: 0,
-  },
-  gridContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  form: {
-    width: '40%',
-    margin: 'auto',
-    paddingTop: theme.spacing(5),
-  },
-  disabledFormPaper: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    minHeight: '20vh',
-    paddingRight: theme.spacing(2),
-    paddingLeft: theme.spacing(2),
-    border: '2px solid',
-    borderColor: theme.palette.primary.main,
-  },
-  disabledTitle: {
-    marginBottom: theme.spacing(2),
-  },
-  arrowIcon: {
-    marginRight: theme.spacing(1),
-  },
-  paperContainer: {
-    [theme.breakpoints.up('md')]: {
-      padding: theme.spacing(6),
+const styles = (theme: Theme) =>
+  createStyles({
+    container: {
+      width: '100vw',
+      height: '100vh',
+      margin: 0,
     },
-    [theme.breakpoints.down('md')]: {
-      padding: theme.spacing(2),
+    gridContainer: {
+      display: 'flex',
+      justifyContent: 'center',
     },
-  },
-});
-const mapStateToProps = (state: RootState, props: OwnAndConnectedProps) => ({
+    form: {
+      width: '40%',
+      margin: 'auto',
+      paddingTop: theme.spacing(5),
+    },
+    disabledFormPaper: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      minHeight: '20vh',
+      paddingRight: theme.spacing(2),
+      paddingLeft: theme.spacing(2),
+      border: '2px solid',
+      borderColor: theme.palette.primary.main,
+    },
+    disabledTitle: {
+      marginBottom: theme.spacing(2),
+    },
+    arrowIcon: {
+      marginRight: theme.spacing(1),
+    },
+    paperContainer: {
+      [theme.breakpoints.up('md')]: {
+        padding: theme.spacing(6),
+      },
+      [theme.breakpoints.down('md')]: {
+        padding: theme.spacing(2),
+      },
+    },
+  });
+
+const mapStateToProps = (
+  state: RootState,
+  props: RouterParamsToPropsProps,
+) => ({
   theme: themeSelectors.getTheme(state),
   activeMemberShip: getMembership(state, props.companyId),
   customFormLoading: state.customForm.loading,
@@ -218,7 +231,7 @@ const mapDispatchToProps = {
 const mapWithHandlers = {
   submitCustomForm:
     (props: OwnAndConnectedProps) =>
-    (form_filled: FormData, options?: OptionCallback) => {
+    (form_filled: CustomFormFieldAnswer, options?: OptionCallback) => {
       props.submitCustomFormAction(form_filled, props.companyId, {
         onSuccess: () => {
           if (options && options.onSuccess) options.onSuccess();
@@ -238,7 +251,7 @@ const withStateHandlersSetter = {
     return { submitSuccess };
   },
 };
-export default compose<any, OwnProps>(
+export default compose<any, Props>(
   withTranslation('marketing'),
   routerParamsToProps({
     companyId: 'companyId',

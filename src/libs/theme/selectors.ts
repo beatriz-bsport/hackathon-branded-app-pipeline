@@ -3,7 +3,7 @@ import Config from '../../config';
 
 const storage = window.localStorage;
 
-const getTheme = (state: RootState) => state.theme.theme;
+export const getTheme = (state: RootState) => state.theme.theme;
 
 export const getStripePkKey = () => {
   const key = storage.getItem('bsport:stripe:pk_key');

@@ -13,6 +13,7 @@ exports.default = {
   establishment: 'Établissement',
   description: 'Description',
   localisation: 'Localisation',
+  favouriteLocation: 'Localisation préférée',
   room: 'Salle',
   capacity: {
     label: 'Capacité de la salle',

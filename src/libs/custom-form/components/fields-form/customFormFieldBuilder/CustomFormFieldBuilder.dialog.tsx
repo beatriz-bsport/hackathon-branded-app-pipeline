@@ -38,12 +38,16 @@ import {
   MAX_LENGTH_FOR_SHORT_ANSWER,
   MAX_LENGTH_FOR_LONG_ANSWER,
   CUSTOM_FORM_FIELD_SIGNUP_QUESTIONS_CHOICES,
+  CUSTOM_FORM_FIELD_LOCATION_OPTION,
+  CUSTOM_FORM_DATATYPE_ESTABLISHMENT_GROUP,
+  MODEL_BASED_QUESTION_FAVORITE,
 } from '../../../utils';
 
 import type { CustomFormField } from '../../../types';
 import { MaterialStyleType } from '../../../../../utils/types';
 import CustomFormFieldTagRuleSelector from '../CustomFormBuilderTagRule.selector';
 import { TagGroup, Tag } from '../../../../tag/types';
+import { Theme as CompanyTheme } from '../../../../theme/types';
 
 type OwnProps = {
   open: boolean;
@@ -54,6 +58,7 @@ type OwnProps = {
   registeredSignUpQuestions: Array<number>;
   tag_groups: Array<TagGroup>;
   tags: Array<Tag>;
+  companyTheme: CompanyTheme;
 };
 
 type Props = OwnProps &
@@ -88,6 +93,9 @@ const CustomFormFieldFormSchema = Yup.object().shape({
     ),
   disabled: Yup.boolean().nullable(true),
   mandatory: Yup.boolean().nullable(true),
+  action: Yup.number().nullable(true),
+  datatype: Yup.number().nullable(true),
+  model_based_question_kind: Yup.number().nullable(true),
   editable: Yup.boolean().nullable(true),
   link_to_note: Yup.boolean().nullable(true),
   signup_question_kind: Yup.number()
@@ -154,6 +162,8 @@ export function CustomFormFieldBuilderDialog(props: Props) {
                 custom_form_field_tag_rule: [],
                 signup_question_kind: null,
                 editable: true,
+                datatype: null,
+                model_based_question_kind: null,
               }
         }
         enableReinitialize
@@ -191,11 +201,29 @@ export function CustomFormFieldBuilderDialog(props: Props) {
               </div>
 
               <CustomFormFieldSelector
-                formFieldOptionList={CUSTOM_FORM_FIELDS_OPTIONS}
+                formFieldOptionList={CUSTOM_FORM_FIELDS_OPTIONS.filter(
+                  (option) =>
+                    !(
+                      option.value === CUSTOM_FORM_FIELD_LOCATION_OPTION &&
+                      !props.companyTheme?.enable_multi_localization
+                    ),
+                )}
                 selectedOptions={[formik.values.kind]}
                 placeholder={t('customForm.customFormField.modal.add.select')}
                 onChange={(option: { value: number; label: string }) => {
                   formik.setFieldValue('kind', option ? option.value : null);
+                  formik.setFieldValue(
+                    'model_based_question_kind',
+                    option.value === CUSTOM_FORM_FIELD_LOCATION_OPTION
+                      ? MODEL_BASED_QUESTION_FAVORITE
+                      : null,
+                  );
+                  formik.setFieldValue(
+                    'datatype',
+                    option.value === CUSTOM_FORM_FIELD_LOCATION_OPTION
+                      ? CUSTOM_FORM_DATATYPE_ESTABLISHMENT_GROUP
+                      : null,
+                  );
                 }}
                 noMulti
                 isClearable

@@ -38,6 +38,7 @@ import {
   CUSTOM_FORM_FIELD_SIGN_UP_WAIVER,
   CUSTOM_FORM_FIELD_SIGN_UP_GENERAL_TERMS_AND_CONDITIONS,
 } from '@bsport/common/lib/master-data/custom-form';
+
 import {
   MAX_LENGTH_FOR_SHORT_ANSWER,
   get_custom_form_sign_question_label,
@@ -46,7 +47,7 @@ import {
 import { countries } from '../../../../i18n/utils/countries';
 import { MaterialStyleType } from '../../../../utils/types';
 import Selector from '../../../../components/Selector.component';
-import type { CustomFormField } from '../../types';
+import type { CustomFormField, FormikCustomFormFilled } from '../../types';
 import { browserCountryCode } from '../../../../i18n';
 
 import {
@@ -58,29 +59,6 @@ import AvatarFieldWithButton from '../../../../components/forms/AvatarFieldWithB
 import AcceptTermsAndConditions from '../../../payment/components/AcceptTermsAndConditions.component';
 import { CheckboxField } from '../GenericFormik.input';
 
-interface CustomFormFilledTagule {
-  answer_for_tag: string;
-  custom_form_field_id: number;
-  id: number;
-  tag_id: number;
-}
-interface CustomFormFieldAnswer {
-  id: number;
-  kind: number;
-  label: string;
-  mandatory: boolean;
-  custom_form_id: number;
-  choices: Array<string>;
-  answer: string | Array<string> | File;
-  custom_form_field_tag_rule: Array<CustomFormFilledTagule>;
-}
-interface FormikCustomFormFilled {
-  id: number;
-  name: string;
-  disabled: boolean;
-  date_created: string;
-  custom_form_field: Array<CustomFormFieldAnswer>;
-}
 type OwnProps = {
   field: CustomFormField & { answer: string | number | boolean };
   index: number;

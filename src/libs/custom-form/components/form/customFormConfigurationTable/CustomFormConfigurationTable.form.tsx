@@ -33,6 +33,7 @@ import { TagGroup, Tag } from '../../../../tag/types';
 import withConfirm from '../../../../../hocs/with-confirm.hoc';
 import CustomFormConfigurationBanner from '../../CustomFormConfigurationBanner.component';
 import FormikChangesLookUp from './CustomFormConfigurationTableConnect.component';
+import { Theme as CompanyTheme } from '../../../../theme/types';
 
 const SortableItem = SortableElement((props: any) => (
   <div style={{ display: 'flex', opacity: '1', zIndex: 99999, width: '100%' }}>
@@ -61,6 +62,7 @@ type OwnProps = InitialValues & {
   navigateToSignup?: () => void;
   navigateToMemberForm?: () => void;
   setNumberOfQuestionsHasChanged: (open: boolean) => void;
+  companyTheme: CompanyTheme;
 };
 type Props = OwnProps &
   WithTranslation &
@@ -418,6 +420,7 @@ export function CustomFormConfigurationTable(props: Props) {
                             registeredSignUpQuestions={
                               registeredSignUpQuestions
                             }
+                            companyTheme={props.companyTheme}
                           />
                         )}
                       </Container>

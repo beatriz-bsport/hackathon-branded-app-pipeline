@@ -488,6 +488,7 @@ export default compose(
   routerParamsToProps({ id: 'id:number', create: 'create:number' }),
   withState('openSendEmail', 'setOpenSendEmail', false),
   withState('closeMemberTable', 'setCloseMemberTable', true),
+  withState('openAutoTagRulesDialog', 'setOpenAutoTagRulesDialog', false),
   withTranslation(['smartList', 'member', 'communication']),
   withState('openAutoTagRulesDialog', 'setOpenAutoTagRulesDialog', false),
   withStyles(styles),

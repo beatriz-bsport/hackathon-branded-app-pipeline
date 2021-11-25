@@ -89,7 +89,6 @@ type Props = {
   errors: any,
   setFieldValue: (fieldname: string, value: any) => void,
   waiver: string,
-  values: any,
 };
 
 const Effect = formikConnect(
@@ -205,21 +204,6 @@ export function MemberForm(props: Props) {
     confirm: 'translation:form.member.waiver.dialog.confirm',
     Content: () => <p>{props.waiver}</p>,
   });
-  const checkUserProfilePicture = () => {
-    if (props.values && !props.values.avatar) {
-      return false;
-    }
-    if (props.values && props.values.avatar) {
-      if (
-        typeof props.values.avatar === 'string' &&
-        (props.values.avatar.includes('gymnast-female.png') ||
-          props.values.avatar.includes('gymnast-male.png'))
-      ) {
-        return false;
-      }
-    }
-    return true;
-  };
   return (
     <div>
       {variant === 'merge-form' || !asManager ? null : (
@@ -266,14 +250,8 @@ export function MemberForm(props: Props) {
                 <AvatarFieldWithButton
                   name="avatar"
                   disabled={disabled}
-                  required={!asManager && !checkUserProfilePicture()}
                   buttonText={t('translation:form.modify')}
                 />
-                {!asManager && !checkUserProfilePicture() && (
-                  <Typography variant="caption" color="error">
-                    {t('form.signup.addProfilePictureRequiredLabel')}
-                  </Typography>
-                )}
               </div>
             </Grid>
 

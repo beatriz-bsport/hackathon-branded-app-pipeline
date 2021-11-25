@@ -50,7 +50,17 @@ class VideoProviderVimeo extends React.PureComponent<Props, State> {
     if (video.service !== 'vimeo') {
       return '';
     }
-    return video.id;
+    const { id } = video;
+    const splittedData = this.state.url.split(id);
+    let hash_key = '';
+    if (splittedData.length > 1) {
+      try {
+        hash_key = `?h=${splittedData[1].match(/([0-9]|[a-f])+/)[0]}`;
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    return id + hash_key;
   };
 
   submit = async () => {

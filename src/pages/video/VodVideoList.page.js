@@ -24,6 +24,7 @@ import {
 } from '../../libs/video/selectors';
 import {
   fetchVideoList as fetchVideoListAction,
+  retrieveVideo as retrieveVideoAction,
   createOrUpdateVideo as createOrUpdateVideoAction,
   deleteVideo as deleteVideoAction,
   fetchMoreVideo as fetchMoreVideoAction,
@@ -127,6 +128,11 @@ export class VodVideoListPage extends React.PureComponent<Props> {
     }
   }
 
+  closeUploadVideoForm = () => {
+    this.props.retrieveVideo(this.props.videoToUploadId);
+    this.props.closeUploadVideoForm();
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -186,7 +192,7 @@ export class VodVideoListPage extends React.PureComponent<Props> {
             video={this.props.videoToUpload}
             videoProviderList={this.props.theme.vod_providers}
             submitProviderIdentifier={this.props.submitVideoProviderIdentifier}
-            onClose={this.props.closeUploadVideoForm}
+            onClose={this.closeUploadVideoForm}
           />
         )}
         {!!this.props.createOpen && (
@@ -284,6 +290,7 @@ export default compose(
     }),
     {
       fetchVideoList: fetchVideoListAction,
+      retrieveVideo: retrieveVideoAction,
       fetchAssociatedCoachesList,
       goToDetail: (videoId) => push(`/vod/video/${videoId}/`),
       deleteVideo: deleteVideoAction,
@@ -335,9 +342,18 @@ export default compose(
   withHandlers({
     submitVideoProviderIdentifier: ({
       submitVideoProviderIdentifier,
+      retrieveVideo,
       videoToUploadId,
     }) => (data, options) => {
-      submitVideoProviderIdentifier(videoToUploadId, data, options);
+      submitVideoProviderIdentifier(videoToUploadId, data, {
+        onSuccess: (...args) => {
+          retrieveVideo(videoToUploadId);
+          if (options && options.onSuccess) {
+            options.onSuccess(...args);
+          }
+        },
+        onError: options && options.onError,
+      });
     },
     deleteVideo: ({
       deleteVideo,

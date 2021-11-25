@@ -39,6 +39,7 @@ import { getAvailableEstablishmentList } from '../../libs/establishment/selector
 import type { Establishment } from '../../libs/establishment/types';
 import type { Theme as CompanyTheme } from '../../libs/theme/types';
 import themeSelectors from '../../libs/theme/selectors';
+import { withMemberBannerHOC } from '../../hocs/banner.hoc';
 
 type Props = {
   member: Member,
@@ -199,4 +200,5 @@ export default compose(
     fetch: props.fetchMember,
     loading: props.memberLoading,
   })),
+  withMemberBannerHOC(({ member }) => member),
 )(SubscriptionCreate);

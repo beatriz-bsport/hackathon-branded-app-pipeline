@@ -52,6 +52,7 @@ import InvoiceDateDialog from '../../libs/invoice/dialog/InvoiceDateDialog.compo
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import type { Establishment } from '../../libs/establishment/types';
 import type { Theme as CompanyThemeType } from '../../libs/theme/types';
+import { withMemberBannerHOC } from '../../hocs/banner.hoc';
 
 type Props = {
   member: ?Member,
@@ -252,4 +253,5 @@ export default compose(
         member ? member.name : ' '
       }`,
   ),
+  withMemberBannerHOC(({ member }) => member),
 )(InvoiceCreation);

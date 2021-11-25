@@ -191,7 +191,7 @@ exports.default = {
         1: 'Facture(s) impayée(s)',
         2: 'Abonnement en cours',
         3: 'Abonnement avec renouvelement automatique en cours',
-        4: 'Réservation()s prévue(s) dans le future',
+        4: 'Réservation(s) prévue(s) dans le future',
         5: 'Réservation(s) récurrente(s) enregistrée(s)',
         6: 'Rendez-vous prévu(s)',
       },

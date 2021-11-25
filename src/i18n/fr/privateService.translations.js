@@ -790,10 +790,18 @@ exports.default = {
       },
       chooseWhen: {
         title: 'Type de notification',
-        before:
+        beforeMail:
           'Envoyer le mail au membre avant le RDV concerné par la notification',
-        after:
+        beforeNotifications:
+          'Envoyer les notifications au membre avant le RDV concerné par la notification',
+        beforeNotification:
+          'Envoyer la notification push au membre avant le RDV concerné par la notification',
+        afterMail:
           'Envoyer le mail au membre après le RDV concerné par la notification',
+        afterNotifications:
+          'Envoyer les notifications au membre après le RDV concerné par la notification',
+        afterNotification:
+          'Envoyer la notification push au membre après le RDV concerné par la notification',
       },
       chooseTime: {
         title: 'Paramètres',

@@ -44,6 +44,7 @@ type OwnProps = {
   establishments: Establishment[];
   privateServices: PrivateService[];
   paymentPacks: PaymentPack[];
+  tags: { [tag_name: string]: string[] };
 };
 
 type Props = OwnProps & WithTranslation;
@@ -162,6 +163,7 @@ export class NotificationFormGeneric extends React.PureComponent<Props, State> {
           initial={this.props.selectedNotification}
           onCancel={this.onCancel}
           onSubmit={this.onSubmit}
+          tags={this.getMergeTags()}
         />
       );
     }
@@ -179,6 +181,7 @@ export class NotificationFormGeneric extends React.PureComponent<Props, State> {
           initial={this.props.selectedNotification}
           onCancel={this.onCancel}
           onSubmit={this.onSubmit}
+          tags={this.getMergeTags()}
         />
       );
     }
@@ -200,10 +203,34 @@ export class NotificationFormGeneric extends React.PureComponent<Props, State> {
           initial={this.props.selectedNotification}
           onCancel={this.onCancel}
           onSubmit={this.onSubmit}
+          tags={this.getMergeTags()}
         />
       );
     }
 
+    return null;
+  };
+
+  getMergeTags = () => {
+    if (this.props.tags) {
+      return [
+        ...Object.entries(this.props.tags).reduce(
+          (acc, [tagCategory, tagList]) => {
+            acc.push({
+              label: this.props.t(`notificationRule:tag.${tagCategory}.name`),
+              options: [...tagList].map((tag) => ({
+                label: this.props.t(
+                  `notificationRule:tag.${tagCategory}.tags.${tag}`,
+                ),
+                value: `{${tag}}`,
+              })),
+            });
+            return acc;
+          },
+          [],
+        ),
+      ];
+    }
     return null;
   };
 

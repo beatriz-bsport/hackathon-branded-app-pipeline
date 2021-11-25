@@ -22,10 +22,8 @@ import ReceiversCollapseItem from './ReceiversCollapseItem.component';
 import SelectTemplate from './SelectTemplate.component';
 import WriteEmail from './WriteEmail.component';
 import WriteSMS from './WriteSMS.component';
-import WriteNotification, {
-  MAX_LENGTH_PUSH_TITLE,
-  MAX_LENGTH_PUSH_CONTENT,
-} from './WriteNotification.component';
+import WriteNotification from './WriteNotification.component';
+import { MAX_LENGTH_PUSH_TITLE, MAX_LENGTH_PUSH_CONTENT } from '../constant';
 
 import type { MemberMailData } from '../types';
 

@@ -95,7 +95,7 @@ export const NotificationRuleListItem = (props: Props) => {
                     if (!option) {
                       return props.onDeleteNotificationRule(props.rule.id);
                     }
-                    if (props.rule.company) {
+                    if (props?.rule?.company) {
                       return props.onChangeEmailDesign({
                         ...props.rule,
                         email_design: option.value,

@@ -201,8 +201,16 @@ exports.default = {
       notifyAllEvents: 'Notifier le membre à chaque évènement',
       sendBeforeMail:
         'Envoyer le mail au membre avant la séance concernée par la notification',
+      sendBeforeNotification:
+        'Envoyer la notification push au membre avant la séance concernée par la notification',
+      sendBeforeNotifications:
+        'Envoyer les notifications au membre avant la séance concernée par la notification',
       sendAfterMail:
         'Envoyer le mail au membre après la séance concernée par la notification',
+      sendAfterNotification:
+        'Envoyer la notification push au membre après la séance concernée par la notification',
+      sendAfterNotifications:
+        'Envoyer les notifications au membre après la séance concernée par la notification',
       chooseTime: {
         first: 'Envoyer un mail',
         second_before: 'heure(s) avant la séance',
@@ -268,6 +276,14 @@ exports.default = {
           notRefunded: 'À chaque annulation hors délai',
         },
       },
+      sendingMethod: 'Méthode d’envoi',
+      mail: 'Mail',
+      push: 'Notification push',
+      needPushUpsell:
+        "Vous n'avez pas souscrit à l'add-on de notification push",
+      pushHelper:
+        'Attention, les notifications push sont à utiliser avec parcimonie. Trop de notifications push peut amener certains membres à désinstaller l’application.',
+      addVariable: 'Ajouter une balise',
     },
   },
   memberGraph: {

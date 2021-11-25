@@ -1,13 +1,11 @@
 // @flow
 
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';
 import Switch from '@material-ui/core/Switch';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -25,13 +23,7 @@ import { compose, withState, withHandlers } from 'recompose';
 
 import BookingCreationNotificationForm from './BookingCreationNotificationForm.component';
 
-const BOOKING_CREATION_NOTIFICATION_BOOKING_DEPRECATED = 0;
-const BOOKING_CREATION_NOTIFICATION_ATTENDANCE_DEPRECATED = 1;
-const BOOKING_CREATION_NOTIFICATION_CANCELLATION_DEPRECATED = 2;
-
-const BOOKING_NOTIFICATION_VALID_ATTENDANCE = 3;
-const BOOKING_NOTIFICATION_VALID_ABSENCE = 4;
-const BOOKING_NOTIFICATION_CANCELLED_REFUNDED = 5;
+import NotificationListInner from '../../marketing/components/NotificationListInner.component';
 
 type Props = {
   getEmails: () => void,
@@ -57,68 +49,6 @@ type Props = {
   onSubmit: (data: any) => void,
 };
 
-const getNotificationKind = (kind: number) => {
-  // Deprecated stuff, for compatibility reasons
-  if (kind === BOOKING_CREATION_NOTIFICATION_BOOKING_DEPRECATED) {
-    return 'bookingDeprecated';
-  }
-  if (kind === BOOKING_CREATION_NOTIFICATION_CANCELLATION_DEPRECATED) {
-    return 'cancelledDeprecated';
-  }
-  // ---------------------------------------------------------------------------
-  if (
-    kind === BOOKING_NOTIFICATION_VALID_ATTENDANCE ||
-    kind === BOOKING_CREATION_NOTIFICATION_ATTENDANCE_DEPRECATED
-  ) {
-    return 'attendance';
-  }
-  if (kind === BOOKING_NOTIFICATION_VALID_ABSENCE) {
-    return 'absence';
-  }
-  if (kind === BOOKING_NOTIFICATION_CANCELLED_REFUNDED) {
-    return 'refunded';
-  }
-  return 'notRefunded';
-};
-
-const renderPrimaryText = (notif, t) => {
-  const { notify_booking_nb, kind, hours } = notif.event_rules;
-  return (
-    <Typography>
-      {`${
-        notify_booking_nb === 0
-          ? t(
-              `notification.form.listItemPrimary.notifyAllEvents.${getNotificationKind(
-                kind,
-              )}`,
-            )
-          : t(
-              `notification.form.listItemPrimary.${getNotificationKind(kind)}`,
-              {
-                notify_booking_nb,
-              },
-            )
-      } | ${t(
-        `notification.form.listItemPrimary.${hours > 0 ? 'after' : 'before'}`,
-        {
-          hours: Math.abs(hours),
-        },
-      )}`}
-    </Typography>
-  );
-};
-
-const renderSecondaryText = (notif, emails, t) => {
-  const mailTitle = emails.find((email) => email.id === notif.email_design)
-    ? emails.find((email) => email.id === notif.email_design).title
-    : ' - ';
-  return (
-    <Typography variant="caption">
-      {`${t('paymentPack:notification.listItem.mail')}: ${mailTitle}`}
-    </Typography>
-  );
-};
-
 const BookingCreationNotification = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['booking', 'paymentPack']);
@@ -139,18 +69,22 @@ const BookingCreationNotification = (props: Props) => {
           .filter((n) => !!n.event_rules)
           .map((notif) => (
             <ListItem key={notif.id} divider>
+              <div className={classes.text}>
+                <NotificationListInner
+                  notification={notif}
+                  emailTitle={
+                    props?.emails?.find(
+                      (email) => email.id === notif.email_design,
+                    )?.title ?? ''
+                  }
+                />
+              </div>
               <Switch
                 checked={notif.active}
                 onChange={() =>
                   props.updateNotification(notif.id, { active: !notif.active })
                 }
               />
-              <div className={classes.text}>
-                <ListItemText
-                  primary={renderPrimaryText(notif, t)}
-                  secondary={renderSecondaryText(notif, props.emails, t)}
-                />
-              </div>
               <ListItemSecondaryAction>
                 <IconButton
                   edge="end"

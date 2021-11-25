@@ -8,7 +8,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';
 import Switch from '@material-ui/core/Switch';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -16,10 +15,10 @@ import EditIcon from '@material-ui/icons/Edit';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
-import Typography from '@material-ui/core/Typography';
 import DialogContent from '@material-ui/core/DialogContent';
 
 import PrivateBookingNotificationForm from './PrivateBookingNotificationForm.component';
+import NotificationListInner from '../../../marketing/components/NotificationListInner.component';
 
 type Props = {
   getEmails: () => void,
@@ -44,62 +43,6 @@ type Props = {
   onSubmit: (data: any) => void,
 };
 
-const PRIVATE_BOOKING_NOTIFICATION_KIND_VALID = 0;
-const PRIVATE_BOOKING_NOTIFICATION_KIND_CANCELLED_REFUNDED = 1;
-
-const getNotificationKind = (kind: number) => {
-  switch (kind) {
-    case PRIVATE_BOOKING_NOTIFICATION_KIND_VALID:
-      return 'valid';
-    case PRIVATE_BOOKING_NOTIFICATION_KIND_CANCELLED_REFUNDED:
-      return 'cancelledRefunded';
-    default:
-      return 'cancelledNotRefunded';
-  }
-};
-
-const renderPrimaryText = (notif, t) => {
-  const { notify_booking_nb, kind, hours } = notif.event_rules;
-  return (
-    <Typography>
-      {`${
-        notify_booking_nb === 0
-          ? t(
-              `privateService:privateBookingNotification.listItemPrimary.notifyAllEvents.${getNotificationKind(
-                kind,
-              )}`,
-            )
-          : t(
-              `privateService:privateBookingNotification.listItemPrimary.${getNotificationKind(
-                kind,
-              )}`,
-              {
-                notify_booking_nb,
-              },
-            )
-      } | ${t(
-        `privateService:privateBookingNotification.listItemPrimary.${
-          hours > 0 ? 'after' : 'before'
-        }`,
-        {
-          hours: Math.abs(hours),
-        },
-      )}`}
-    </Typography>
-  );
-};
-
-const renderSecondaryText = (notif, emails, t) => {
-  const mailTitle = emails.find((email) => email.id === notif.email_design)
-    ? emails.find((email) => email.id === notif.email_design).title
-    : ' - ';
-  return (
-    <Typography variant="caption">
-      {`${t('paymentPack:notification.listItem.mail')}: ${mailTitle}`}
-    </Typography>
-  );
-};
-
 const PrivateBookingNotification = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['paymentPack', 'privateService']);
@@ -115,6 +58,16 @@ const PrivateBookingNotification = (props: Props) => {
       <Paper className={classes.paper}>
         {props.notifications.items.map((notif) => (
           <ListItem key={notif.id} divider>
+            <div className={classes.text}>
+              <NotificationListInner
+                notification={notif}
+                emailTitle={
+                  props?.emails?.find(
+                    (email) => email.id === notif.email_design,
+                  )?.title ?? ''
+                }
+              />
+            </div>
             <Switch
               checked={notif.active}
               onChange={() =>
@@ -123,12 +76,6 @@ const PrivateBookingNotification = (props: Props) => {
                 })
               }
             />
-            <div className={classes.text}>
-              <ListItemText
-                primary={renderPrimaryText(notif, t)}
-                secondary={renderSecondaryText(notif, props.emails, t)}
-              />
-            </div>
             <ListItemSecondaryAction>
               <IconButton
                 edge="end"

@@ -4,54 +4,18 @@ import {
   Paper,
   Switch,
   Theme,
-  Typography,
   withStyles,
 } from '@material-ui/core';
 import clx from 'classnames';
 import { compose } from 'recompose';
-import { TFunction } from 'i18next';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
 
 import { MarketingNotification } from '../types';
 import { DeepPartial, MaterialStyleType } from '../../../utils/types';
 import { EmailTemplateSummary } from '../../email-editor/types';
-
-const getLabelForRules = (
-  notification: MarketingNotification,
-  t: TFunction,
-) => {
-  if (
-    [
-      NOTIFICATION_KIND.BOOKING_CREATION,
-      NOTIFICATION_KIND.PRIVATE_BOOKING_CREATION,
-    ].includes(notification.kind)
-  ) {
-    const key =
-      notification.event_rules.hours < 0 ? 'second_before' : 'second_after';
-    const trad = t(`booking:notification.form.chooseTime.${key}`);
-    return `${Math.abs(notification.event_rules.hours)} ${trad}`;
-  }
-
-  if (notification.kind === NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_TIME) {
-    const key =
-      notification.event_rules.days_left < 0
-        ? 'daysPastLabel'
-        : 'daysLeftLabel';
-    const absDay = Math.abs(notification.event_rules.days_left);
-    return t(`paymentPack:notification.${key}`, {
-      count: absDay,
-      day: absDay,
-    });
-  }
-  if (notification.kind === NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_CREDIT) {
-    return t('paymentPack:notification.creditsLeftLabel', {
-      credit: notification.event_rules.credits_left,
-      count: notification.event_rules.credits_left,
-    });
-  }
-  return '';
-};
+import NotificationListInner from './NotificationListInner.component';
+import { SmartList } from '../../smart-list/types';
 
 type OwnProps = {
   notifications: MarketingNotification[];
@@ -61,6 +25,7 @@ type OwnProps = {
     data: DeepPartial<MarketingNotification>,
   ) => void;
   emailSummariesById: { [key: string]: EmailTemplateSummary };
+  smartLists: SmartList[];
 };
 
 type Props = OwnProps &
@@ -87,7 +52,7 @@ const sortNotifications = (
 
 export class MarketingNotificationsList extends React.PureComponent<Props> {
   render() {
-    const { classes, t, notifications } = this.props;
+    const { classes, notifications, smartLists } = this.props;
 
     return (
       <Paper className={classes.notificationList}>
@@ -98,7 +63,7 @@ export class MarketingNotificationsList extends React.PureComponent<Props> {
             emailTitle = email.title;
           }
           return (
-            <div className={classes.notificationListContainer}>
+            <div className={classes.notificationListContainer} key={notif.id}>
               <ButtonBase
                 className={clx({
                   [classes.notificationListItem]: true,
@@ -107,12 +72,11 @@ export class MarketingNotificationsList extends React.PureComponent<Props> {
                 })}
                 onClick={() => this.props.onClickNotification(notif)}
               >
-                <div className={classes.contentContainer}>
-                  <Typography>{getLabelForRules(notif, t)}</Typography>
-                  <Typography variant="caption" color="textSecondary">
-                    {t('marketing:notifications.mail')}: {emailTitle}
-                  </Typography>
-                </div>
+                <NotificationListInner
+                  notification={notif}
+                  emailTitle={emailTitle}
+                  smartLists={smartLists}
+                />
 
                 <div>
                   <Switch
@@ -164,6 +128,16 @@ const styles = (theme: Theme) => ({
     flexDirection: 'column',
     alignItems: 'flex-start',
     flex: 1,
+  },
+  title: {
+    marginBottom: theme.spacing(2),
+  },
+  row: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  icon: {
+    marginRight: theme.spacing(1),
   },
 });
 

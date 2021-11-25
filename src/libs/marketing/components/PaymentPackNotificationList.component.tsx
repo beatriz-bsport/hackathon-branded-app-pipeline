@@ -19,6 +19,7 @@ import { MarketingNotification } from '../types';
 import { PaymentPack } from '../../../api/types';
 import MarketingNotificationsList from './NotificationsList.Component';
 import { EmailTemplateSummary } from '../../email-editor/types';
+import { SmartList } from '../../smart-list/types';
 
 type OwnProps = {
   notificationsByPaymentPack: { [key: string]: MarketingNotification[] };
@@ -29,6 +30,7 @@ type OwnProps = {
     id: number,
     data: DeepPartial<MarketingNotification>,
   ) => void;
+  smartLists: SmartList[];
 };
 
 type Props = OwnProps &
@@ -76,7 +78,7 @@ export class PaymentPackNotificationList extends React.PureComponent<
 
           if (paymentPack) {
             return (
-              <div className={classes.paymentPackItem}>
+              <div className={classes.paymentPackItem} key={id}>
                 <ButtonBase
                   className={classes.buttonTitleContainer}
                   onClick={() => {
@@ -114,6 +116,7 @@ export class PaymentPackNotificationList extends React.PureComponent<
                           emailSummariesById={this.props.emailSummariesById}
                           onClickNotification={this.props.onClickNotification}
                           onUpdateNotification={this.props.onUpdateNotification}
+                          smartLists={this.props.smartLists}
                         />
                       </div>
                     </div>
@@ -133,6 +136,7 @@ export class PaymentPackNotificationList extends React.PureComponent<
                           emailSummariesById={this.props.emailSummariesById}
                           onClickNotification={this.props.onClickNotification}
                           onUpdateNotification={this.props.onUpdateNotification}
+                          smartLists={this.props.smartLists}
                         />
                       </div>
                     </div>

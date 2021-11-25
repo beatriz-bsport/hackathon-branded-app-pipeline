@@ -10,9 +10,15 @@ import { push } from 'connected-react-router';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
 
 import withTitle from '../../hocs/with-title.hoc';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { RootState } from '../../reducers';
-import { getNotificationGrouped } from '../../libs/marketing/selectors';
 import {
+  getNotificationGrouped,
+  getNotificationForMarketingPage,
+} from '../../libs/marketing/selectors';
+import { getTheme } from '../../libs/theme/selectors';
+import {
+  fetchMarketingNotification,
   fetchMarketingNotificationList,
   createMarketingNotification,
   updateMarketingNotification,
@@ -47,6 +53,8 @@ import {
 } from '../../libs/email-editor/selectors';
 import { fetchMarketingNotificationCampaignSummary } from '../../libs/communication/actions';
 import { getAll as getAllPaymentPacks } from '../../libs/payment-packs/selectors';
+import { fetchTagList } from '../../libs/notification-rule/actions';
+import { getTagCategories } from '../../libs/notification-rule/selectors';
 
 import { MaterialStyleType } from '../../utils/types';
 import PaymentPackNotificationList from '../../libs/marketing/components/PaymentPackNotificationList.component';
@@ -69,49 +77,41 @@ import BackofficeLinearProgress from '../../components/navigation/BackofficeLine
 type Props = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps &
   MaterialStyleType<ReturnType<typeof styles>> &
-  WithTranslation;
+  WithTranslation & {
+    notificationId?: number;
+  };
 
 type State = {
-  selectedNotification?: MarketingNotification | null;
+  selectedNotification?: number | null;
   editNotification?: MarketingNotification | null;
-  emailTemplateLoading: boolean;
   loading: boolean;
 };
 
 export class MarketingNotifications extends Component<Props, State> {
-  state: State = {
-    selectedNotification: null,
-    editNotification: null,
-    emailTemplateLoading: false,
-    loading: true,
-  };
-
-  get selectedEmailTemplateSummary() {
-    const { selectedNotification } = this.state;
-    const { emailSummariesById } = this.props;
-    if (
-      selectedNotification &&
-      emailSummariesById[selectedNotification.email_design]
-    ) {
-      return emailSummariesById[selectedNotification.email_design];
-    }
-    return undefined;
-  }
-
-  get selectedEmailTemplateDetail() {
-    const { selectedNotification } = this.state;
-    const { emailDetailById } = this.props;
-    if (
-      selectedNotification &&
-      emailDetailById[selectedNotification.email_design]
-    ) {
-      return emailDetailById[selectedNotification.email_design];
-    }
-    return undefined;
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      selectedNotification: props.notificationId,
+      editNotification: null,
+      loading: false,
+    };
   }
 
   componentDidMount() {
     this.fetchData();
+
+    if (this.props.notificationId) {
+      this.props.fetchMarketingNotificationCampaignSummary(
+        this.props.notificationId,
+      );
+      this.props.fetchMarketingNotification(this.props.notificationId, {
+        onSuccess: (data) => {
+          if (data.email_design) {
+            this.props.fetchEmailTemplateComplete(data.email_design);
+          }
+        },
+      });
+    }
   }
 
   fetchData = async () => {
@@ -156,19 +156,54 @@ export class MarketingNotifications extends Component<Props, State> {
       this.props.fetchEstablishments(),
       this.props.fetchAllPrivateServices(),
       this.props.fetchAllPaymentPacks(),
+      this.props.fetchTagList(),
+      this.props.getSmartLists(),
     ]);
 
     this.setState({ loading: false });
   };
 
-  onClickNotification = async (notification: MarketingNotification) => {
-    this.setState({ emailTemplateLoading: true });
+  getSelectedEmailTemplateSummary = () => {
+    if (!this.state.selectedNotification || !this.props.emailSummariesById) {
+      return undefined;
+    }
+
+    const notifcationDetail = this.props.notificationList.find(
+      (n) => n.id === this.state.selectedNotification,
+    );
+
+    if (!notifcationDetail) {
+      return undefined;
+    }
+
+    return this.props.emailSummariesById[notifcationDetail.email_design];
+  };
+
+  getSelectedEmailTemplateDetail = () => {
+    if (!this.state.selectedNotification || !this.props.emailDetailById) {
+      return undefined;
+    }
+
+    const notifcationDetail = this.props.notificationList.find(
+      (n) => n.id === this.state.selectedNotification,
+    );
+
+    if (!notifcationDetail) {
+      return undefined;
+    }
+
+    return this.props.emailDetailById[notifcationDetail.email_design];
+  };
+
+  onClickNotification = (notification: MarketingNotification) => {
     this.props.fetchMarketingNotificationCampaignSummary(notification.id);
-    await this.props.fetchEmailTemplateComplete(notification.email_design);
     this.setState({
-      selectedNotification: notification,
-      emailTemplateLoading: false,
+      selectedNotification: notification.id,
     });
+    if (notification.email_design) {
+      this.props.fetchEmailTemplateComplete(notification.email_design);
+    }
+    this.props.push(`/marketing/notifications/${notification.id}`);
   };
 
   onClickRemove = async () => {
@@ -178,23 +213,25 @@ export class MarketingNotifications extends Component<Props, State> {
       t('marketing:notifications.deleteDialogText'),
     );
     if (res && this.state.selectedNotification) {
-      this.props.deleteMarketingNotification(
-        this.state.selectedNotification.id,
-      );
+      this.props.deleteMarketingNotification(this.state.selectedNotification);
       this.setState({ selectedNotification: null });
+      this.props.push(`/marketing/notifications`);
     }
   };
 
   onEditNotification = async (id: number, n: MarketingNotification) => {
     this.setState({ editNotification: null });
-    this.props.updateMarketingNotification(id, n, {
+    this.props.updateMarketingNotification(id, n);
+  };
+
+  handleCreate = (notification: MarketingNotification) => {
+    this.props.createMarketingNotification(notification, {
       onSuccess: (data: MarketingNotification) => {
-        if (
-          this.state.selectedNotification &&
-          this.state.selectedNotification.id === data.id
-        ) {
-          this.setState({ selectedNotification: data });
+        if (data.email_design) {
+          this.props.fetchEmailTemplateComplete(data.email_design);
         }
+        this.props.fetchMarketingNotificationCampaignSummary(data.id);
+        this.props.push(`/marketing/notifications/${data.id}`);
       },
     });
   };
@@ -231,6 +268,7 @@ export class MarketingNotifications extends Component<Props, State> {
             onClickNotification={this.onClickNotification}
             emailSummariesById={this.props.emailSummariesById}
             onUpdateNotification={this.props.updateMarketingNotification}
+            smartLists={this.props.smartLists}
           />
 
           <div className={classes.bottomPaddingFix} />
@@ -238,24 +276,29 @@ export class MarketingNotifications extends Component<Props, State> {
 
         <div className={classes.emailContainer}>
           <EmailTemplateForNotifications
-            emailSummary={this.selectedEmailTemplateSummary}
-            emailDetails={this.selectedEmailTemplateDetail}
+            emailSummary={this.getSelectedEmailTemplateSummary()}
+            emailDetails={this.getSelectedEmailTemplateDetail()}
             loading={
-              this.state.emailTemplateLoading ||
+              this.props.emailTemplateLoading ||
               this.props.notificationStatLoading
             }
             onClickEdit={() =>
               this.setState((prevState: State) => ({
-                editNotification: prevState.selectedNotification,
+                editNotification: this.props.notificationList.find(
+                  (n) => n.id === prevState.selectedNotification,
+                ),
               }))
             }
             onClickRemove={this.onClickRemove}
-            selectedNotification={this.state.selectedNotification}
+            selectedNotification={this.props.notificationList.find(
+              (n) => n.id === this.state.selectedNotification,
+            )}
             establishmentById={this.props.establishmentById}
             metaActivityBydId={this.props.metaActivityById}
             privateServiceById={this.props.privateServicebyId}
             paymentPackById={this.props.paymentPackById}
             notificationsStatById={this.props.notificationsStatById}
+            theme={this.props.theme}
           />
         </div>
 
@@ -273,12 +316,13 @@ export class MarketingNotifications extends Component<Props, State> {
           goToSmartlist={this.props.goToSmartlist}
           onCancel={() => this.setState({ editNotification: null })}
           onUpdateMarketingNotification={this.onEditNotification}
-          onCreateMarketingNotification={this.props.createMarketingNotification}
+          onCreateMarketingNotification={this.handleCreate}
           metaActivities={this.props.metaActivities}
           workshopList={this.props.workshopList}
           establishments={this.props.establishments}
           privateServices={this.props.privateServices}
           paymentPacks={this.props.paymentPacks}
+          tags={this.props.tagCategories}
         />
       </div>
     );
@@ -316,10 +360,12 @@ const mapStateToProps = (state: RootState) => ({
   notifications: {
     ...getNotificationGrouped(state),
   },
+  notificationList: getNotificationForMarketingPage(state),
   paymentPackById: state.paymentPack.byId,
   establishmentById: state.establishment.byId,
   privateServicebyId: state.privateService.privateService.byId,
   metaActivityById: state.metaActivity.byId,
+  emailTemplateLoading: state.emailTemplate.isLoading,
   emailSummariesById: getAllEmailTemplatesDict(state),
   emailDetailById: getEmailTemplatesDetail(state),
   notificationsStatById: state.communication.marketingNotification.byId,
@@ -337,9 +383,12 @@ const mapStateToProps = (state: RootState) => ({
   privateServices: _getPrivateServices(state),
   paymentPacks: getAllPaymentPacks(state),
   comm: state.communication,
+  theme: getTheme(state),
+  tagCategories: getTagCategories(state),
 });
 
 const mapDispatchToProps = {
+  fetchMarketingNotification,
   fetchMarketingNotificationList,
   fetchEmailTemplateSummariesBulk,
   fetchEstablishmentBulk,
@@ -359,11 +408,14 @@ const mapDispatchToProps = {
   fetchAllPrivateServices: () => fetchAllPrivateServices({ mine: true }),
   fetchAllPaymentPacks,
   fetchMarketingNotificationCampaignSummary,
+  fetchTagList,
+  push,
 };
 
 export default compose(
   // @ts-ignore
   withStyles(styles),
+  routerParamsToProps({ notificationId: 'notificationId:number' }),
   withTranslation(['paymentPack']),
   withTitle(({ t }: { t: TFunction }) => t('titles:marketing.notifications')),
   connect(mapStateToProps, mapDispatchToProps),

@@ -164,7 +164,9 @@ exports.default = {
     form: {
       noMailAvailable: 'Aucun mail disponible, pensez à en créer un',
       selectToShowPreview: 'Sélectionnez un mail pour avoir son apperçu',
+      mailSettings: 'Paramètres du mail',
       mailTitle: 'Mail à envoyer',
+      pushTitle: 'Paramètres de la notification',
       typeTitle: 'Type de notification',
       creditType: 'Crédits restants',
       daysType: 'Jours de validité restants',

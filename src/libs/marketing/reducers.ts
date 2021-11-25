@@ -3,6 +3,7 @@ import { handleActions } from 'redux-actions';
 
 import {
   marketingNotificationListActions,
+  marketingNotificationActions,
   marketingNotificationCreateOrUpdateActions,
   deleteMarketingNotificationActions,
   marketingNotificationCreateActions,
@@ -62,6 +63,21 @@ export default handleActions<
       { payload },
     ) => {
       return state.set('error', payload);
+    },
+    [marketingNotificationActions.success.toString()]: (
+      state,
+      { payload }: { payload: any },
+    ) => {
+      return state.setIn(['byId', payload.id], payload);
+    },
+    [marketingNotificationActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['detail', 'loading'], payload);
+    },
+    [marketingNotificationActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['detail', 'error'], payload);
     },
 
     [marketingNotificationCreateOrUpdateActions.error.toString()]: (

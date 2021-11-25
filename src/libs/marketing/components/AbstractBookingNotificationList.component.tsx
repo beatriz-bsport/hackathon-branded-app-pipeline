@@ -102,7 +102,10 @@ interface State {
   hideById: { [key: string]: boolean | undefined };
 }
 
-export class BookingNotificationList extends React.PureComponent<Props, State> {
+export class AbstractBookingNotificationList extends React.PureComponent<
+  Props,
+  State
+> {
   state: State = {
     hideById: {},
   };
@@ -114,7 +117,7 @@ export class BookingNotificationList extends React.PureComponent<Props, State> {
       <div className={classes.byKindContainer}>
         {Object.entries(byKind).map(([kind, notifications]) => {
           return (
-            <div className={classes.byKindItem}>
+            <div className={classes.byKindItem} key={kind}>
               <Typography>• {getLabelForKind(parseInt(kind), t)}</Typography>
               <MarketingNotificationsList
                 notifications={notifications}
@@ -143,7 +146,7 @@ export class BookingNotificationList extends React.PureComponent<Props, State> {
       const byKind = bySession[sessionNumber];
 
       return (
-        <div className={classes.bySessionItem}>
+        <div className={classes.bySessionItem} key={sessionNumber}>
           <div className={classes.sessionTitleContainer}>
             <EventIcon />
 
@@ -205,7 +208,7 @@ export class BookingNotificationList extends React.PureComponent<Props, State> {
         {Object.entries(notifications).map(([key, group]) => {
           const name = this.getLabel(key, group.identifier);
           return (
-            <div className={classes.itemContainer}>
+            <div className={classes.itemContainer} key={key}>
               <ButtonBase
                 className={classes.buttonTitleContainer}
                 onClick={() => {
@@ -325,4 +328,4 @@ export default compose<any, OwnProps>(
   // @ts-ignore
   withStyles(styles),
   withTranslation(['booking', 'privateService', 'marketing']),
-)(BookingNotificationList);
+)(AbstractBookingNotificationList);

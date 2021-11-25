@@ -18,6 +18,8 @@ export type MarketingNotification = {
   email_design: number;
   is_event_based: boolean;
   active: boolean;
+  push_notification_content: string;
+  push_notification_title: string;
 };
 
 export type MarketingNotificationState = {

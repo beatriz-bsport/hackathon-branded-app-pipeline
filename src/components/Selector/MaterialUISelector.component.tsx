@@ -49,6 +49,7 @@ type BaseProps<T extends OptionTypeBase> = {
     isDisabled: boolean;
   }) => React.ReactNode;
   leftIcon?: React.ReactNode;
+  withoutPortal?: Boolean;
 } & Omit<NamedProps, 'options' | 'isMulti' | 'onChange' | 'value'>;
 
 export type OwnProps<T extends OptionTypeBase> =
@@ -73,6 +74,7 @@ function MaterialUISelector<T extends OptionTypeBase>(props: Props<T>) {
     value,
     leftIcon,
     menuPortalTarget,
+    withoutPortal = false,
     chipsRenderer,
     itemRenderer,
     onChange,
@@ -115,7 +117,11 @@ function MaterialUISelector<T extends OptionTypeBase>(props: Props<T>) {
       hideSelectedOptions={false}
       tabSelectsValue={false}
       captureMenuScroll
-      menuPortalTarget={menuPortalTarget || document.querySelector('body')}
+      menuPortalTarget={
+        withoutPortal
+          ? undefined
+          : menuPortalTarget || document.querySelector('body')
+      }
       styles={{
         menuPortal: (base) => ({ ...base, zIndex: 9999 }),
       }}

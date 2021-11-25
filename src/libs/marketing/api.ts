@@ -11,10 +11,14 @@ import {
 
 const MARKETING_ENDPOINT = `${API_V1_URI}/marketing`;
 
-export const fetchMarketingNotification = async (params: any = {}) => {
+export const fetchMarketingNotificationList = async (params: any = {}) => {
   return getAuth(
     `${API_V1_URI}/marketing/marketing_notification/${buildUrlParams(params)}`,
   );
+};
+
+export const fetchMarketingNotification = async (id: number) => {
+  return getAuth(`${API_V1_URI}/marketing/marketing_notification/${id}`);
 };
 
 export const createOrUpdateMarketingNotification = (data: any) => {

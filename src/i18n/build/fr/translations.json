@@ -176,7 +176,11 @@
         "eventNb": "Notifier le membre lors de l'évènement n° :",
         "notifyAllEvents": "Notifier le membre à chaque évènement",
         "sendBeforeMail": "Envoyer le mail au membre avant la séance concernée par la notification",
+        "sendBeforeNotification": "Envoyer la notification push au membre avant la séance concernée par la notification",
+        "sendBeforeNotifications": "Envoyer les notifications au membre avant la séance concernée par la notification",
         "sendAfterMail": "Envoyer le mail au membre après la séance concernée par la notification",
+        "sendAfterNotification": "Envoyer la notification push au membre après la séance concernée par la notification",
+        "sendAfterNotifications": "Envoyer les notifications au membre après la séance concernée par la notification",
         "chooseTime": {
           "first": "Envoyer un mail",
           "second_before": "heure(s) avant la séance",
@@ -236,7 +240,13 @@
             "refunded": "À chaque annulation remboursée",
             "notRefunded": "À chaque annulation hors délai"
           }
-        }
+        },
+        "sendingMethod": "Méthode d’envoi",
+        "mail": "Mail",
+        "push": "Notification push",
+        "needPushUpsell": "Vous n'avez pas souscrit à l'add-on de notification push",
+        "pushHelper": "Attention, les notifications push sont à utiliser avec parcimonie. Trop de notifications push peut amener certains membres à désinstaller l’application.",
+        "addVariable": "Ajouter une balise"
       }
     },
     "memberGraph": { "title": "Récapitulatif des réservations", "label": "Réservations" },
@@ -1623,6 +1633,7 @@
       "paymentPackKind": { "validity": "Validité de la carte", "credit": "Nombre de crédits" },
       "notificationDetails": "Détails de la notification",
       "statisticDetails": "Statistiques",
+      "notificationPreview": "Apercu de la notification",
       "editRule": "Modifier la règle",
       "removeRule": "Supprimer la règle",
       "deleteDialogTitle": "Supprimer la règle",
@@ -1649,14 +1660,14 @@
         "layoutUpdating": "Une sauvegarde est en cours"
       },
       "save": "Sauvegarder",
-      "editLayoutTitle": "Editer l'agencement du formulaire",
-      "editLayoutSubtitle": "Vous avez modifié un formulaire utilisant un agencement personnalisé, verifiez ici, et modifiez si besoin, l'apercu de vos formulaire sur les différentes tailles d'écran",
       "signupFormTitle": "Formulaire d'inscription",
-      "memberFormTitle": "Formulaire de modification",
-      "signupFormHelper": "Les questions obligatoires du formulaire d’inscription doivent être éditables par vos membres sur leur profil. Ces questions seront ajoutées automatiquement au formulaire de modification et sont affichées et modifiables.",
+      "memberFormTitle": "Formulaire d'édition de profil (page de profil de vos membres)",
+      "signupFormHelper": "Les questions obligatoires du formulaire d’inscription doivent être éditables par vos membres sur leur profil. Ces questions seront ajoutées automatiquement au formulaire d'édition de profil client et sont affichées et modifiables.",
       "memberFormHelper": "Les questions obligatoires du formulaire d’inscription sont par défaut affichées et modifiables. Elles ne peuvent être supprimées.",
       "navigateToSignup": "Editer le formulaire d'inscription",
       "navigateToMemberForm": "Editer le formulaire d'édition de profil client",
+      "editLayoutTitle": "Editer l'agencement du formulaire",
+      "editLayoutSubtitle": "Vous avez modifié un formulaire utilisant un agencement personnalisé, verifiez ici, et modifiez si besoin, l'apercu de vos formulaire sur les différentes tailles d'écran",
       "title": "Formulaires",
       "CustomFormLink": "Lien du formulaire",
       "linkHelper": "Pour envoyer le formulaire à vos membres, collez le lien ci-dessus dans vos mails. Seules les modifications sauvegardées seront visibles.",
@@ -1705,7 +1716,7 @@
       },
       "signUpInfoModal": {
         "title": "Informations",
-        "content": "Vous venez de rendre certaines questions du formulaire d’inscription obligatoires. Les questions obligatoires du formulaire d’inscription doivent être éditables par vos membres sur leur profil. Ces questions ont donc été ajoutées automatiquement au formulaire de profile client et sont affichées et modifiables. Rendez-vous sur l’édition du formulaire de profile client pour le personnaliser.",
+        "content": "Vous venez de rendre certaines questions du formulaire d’inscription obligatoires. Les questions obligatoires du formulaire d’inscription doivent être éditables par vos membres sur leur profil. Ces questions ont donc été ajoutées automatiquement au formulaire de modification et sont affichées et modifiables. Rendez-vous sur l’édition du formulaire de modification pour le personnaliser.",
         "cancel": "Annuler",
         "confirm": "Continuer"
       },
@@ -1855,7 +1866,7 @@
       "signUp": {
         "signupFields": "Questions des formulaires",
         "helperSignup": "Vous pouvez modifier ici le formulaire d’inscription de votre studio. Choisissez et personnalisez les questions à remplir pour devenir membre de votre club.",
-        "helperMemberForm": "Le formulaire de midification de profil est le formulaire présent sur la page de profil de vos membres. Il leur permet de voir et de modifier leurs informations. Ce formulaire est lui aussi personnalisable."
+        "helperMemberForm": "Le formulaire de modification est le formulaire présent sur la page de profil de vos membres. Il leur permet de voir et de modifier leurs informations. Ce formulaire est lui aussi personnalisable."
       },
       "clientForms": {
         "preview": "Aperçu de mes formulaires",
@@ -2856,7 +2867,9 @@
       "form": {
         "noMailAvailable": "Aucun mail disponible, pensez à en créer un",
         "selectToShowPreview": "Sélectionnez un mail pour avoir son apperçu",
+        "mailSettings": "Paramètres du mail",
         "mailTitle": "Mail à envoyer",
+        "pushTitle": "Paramètres de la notification",
         "typeTitle": "Type de notification",
         "creditType": "Crédits restants",
         "daysType": "Jours de validité restants",
@@ -3889,8 +3902,12 @@
         },
         "chooseWhen": {
           "title": "Type de notification",
-          "before": "Envoyer le mail au membre avant le RDV concerné par la notification",
-          "after": "Envoyer le mail au membre après le RDV concerné par la notification"
+          "beforeMail": "Envoyer le mail au membre avant le RDV concerné par la notification",
+          "beforeNotifications": "Envoyer les notifications au membre avant le RDV concerné par la notification",
+          "beforeNotification": "Envoyer la notification push au membre avant le RDV concerné par la notification",
+          "afterMail": "Envoyer le mail au membre après le RDV concerné par la notification",
+          "afterNotifications": "Envoyer les notifications au membre après le RDV concerné par la notification",
+          "afterNotification": "Envoyer la notification push au membre après le RDV concerné par la notification"
         },
         "chooseTime": {
           "title": "Paramètres",

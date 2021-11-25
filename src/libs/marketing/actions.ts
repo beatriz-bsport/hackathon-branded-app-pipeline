@@ -2,6 +2,7 @@ import { createAction } from 'redux-actions';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 
 import {
+  fetchMarketingNotificationList as fetchMarketingNotificationListAPI,
   fetchMarketingNotification as fetchMarketingNotificationAPI,
   createOrUpdateMarketingNotification as createOrUpdateMarketingNotificationAPI,
   deleteMarketingNotification as deleteMarketingNotificationAPI,
@@ -26,7 +27,7 @@ export function fetchMarketingNotificationList(
     dispatch(marketingNotificationListActions.error(null));
     let data = null;
     try {
-      const response_custom = await fetchMarketingNotificationAPI(params);
+      const response_custom = await fetchMarketingNotificationListAPI(params);
       data = [...response_custom.data];
       dispatch(marketingNotificationListActions.success(data));
       if (options && options.onSuccess) {
@@ -42,6 +43,38 @@ export function fetchMarketingNotificationList(
 
     dispatch(marketingNotificationListActions.isLoading(false));
     return data;
+  };
+}
+
+export const marketingNotificationActions = {
+  error: createAction('MARKETING_NOTIFICATION/DETAIL/ERROR'),
+  isLoading: createAction('MARKETING_NOTIFICATION/DETAIL/IS_LOADING'),
+  success: createAction('MARKETING_NOTIFICATION/DETAIL/SUCCESS'),
+};
+
+export function fetchMarketingNotification(
+  id: number,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(marketingNotificationActions.isLoading(true));
+    dispatch(marketingNotificationActions.error(null));
+
+    try {
+      const response = await fetchMarketingNotificationAPI(id);
+      dispatch(marketingNotificationActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(marketingNotificationActions.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
+
+    dispatch(marketingNotificationActions.isLoading(false));
   };
 }
 

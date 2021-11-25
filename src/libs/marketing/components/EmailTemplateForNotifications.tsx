@@ -1,6 +1,7 @@
 import React from 'react';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import moment from 'moment-timezone';
 import {
   BOOKING_EVENT_RULES,
   PAYMENT_PACK_EVENT_RULE,
@@ -27,6 +28,8 @@ import { MetaActivity } from '../../meta-activity/types';
 import { PrivateService } from '../../private-service/types';
 import { PaymentPack } from '../../payment-packs/types';
 import { MarketingNotificationMailStat } from '../../communication/types';
+import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
+import { CompanyTheme } from '../../theme/types';
 
 type OwnProps = {
   emailSummary?: EmailTemplateSummary;
@@ -41,6 +44,7 @@ type OwnProps = {
   privateServiceById: { [key: string]: PrivateService };
   paymentPackById: { [key: string]: PaymentPack };
   notificationsStatById: { [key: string]: MarketingNotificationMailStat };
+  theme: CompanyTheme;
 };
 
 type Props = OwnProps &
@@ -48,47 +52,6 @@ type Props = OwnProps &
   WithTranslation;
 
 class EmailTemplateForNotifications extends React.PureComponent<Props> {
-  getLabel = () => {
-    const {
-      selectedNotification,
-      privateServiceById,
-      metaActivityBydId,
-      paymentPackById,
-      establishmentById,
-    } = this.props;
-
-    if (!selectedNotification) {
-      return '';
-    }
-
-    const {
-      establishment_id,
-      meta_activity_id,
-      payment_pack_id,
-      private_service_id,
-    } = selectedNotification.event_rules;
-
-    if (establishment_id !== undefined && establishmentById[establishment_id]) {
-      return establishmentById[establishment_id].title;
-    }
-    if (meta_activity_id !== undefined && metaActivityBydId[meta_activity_id]) {
-      return metaActivityBydId[meta_activity_id].name;
-    }
-
-    if (
-      private_service_id !== undefined &&
-      privateServiceById[private_service_id]
-    ) {
-      return privateServiceById[private_service_id].name;
-    }
-
-    if (payment_pack_id && paymentPackById[payment_pack_id]) {
-      return paymentPackById[payment_pack_id].name;
-    }
-
-    return '';
-  };
-
   get statData() {
     const { notificationsStatById, selectedNotification } = this.props;
 
@@ -226,9 +189,7 @@ class EmailTemplateForNotifications extends React.PureComponent<Props> {
 
     return (
       <div className={classes.container}>
-        {this.props.emailSummary &&
-        this.props.emailDetails &&
-        this.props.selectedNotification &&
+        {this.props.selectedNotification &&
         this.statData &&
         !this.props.loading ? (
           <div className={classes.container2}>
@@ -238,7 +199,7 @@ class EmailTemplateForNotifications extends React.PureComponent<Props> {
             <Divider className={classes.divider} />
 
             <Paper className={classes.paperDetail}>
-              <Typography variant="h6">{this.getLabel()}</Typography>
+              <Typography variant="h6">{getLabel(this.props)}</Typography>
               {this.renderPrimaryText(this.props.selectedNotification)}
 
               <div className={classes.notificationActions}>
@@ -261,56 +222,107 @@ class EmailTemplateForNotifications extends React.PureComponent<Props> {
               </div>
             </Paper>
 
-            <Typography variant="h5" className={classes.titleMarginTop}>
-              {t('marketing:notifications.statisticDetails')}
-            </Typography>
-
-            <Divider className={classes.divider} />
-
-            <Paper className={classes.paperStats}>
-              <div className={classes.statItem}>
-                <Typography variant="h5" align="center">
-                  {this.statDataForDisplay.total_recipients}
+            {this.props.emailSummary && this.props.emailDetails && (
+              <>
+                <Typography variant="h5" className={classes.titleMarginTop}>
+                  {t('marketing:notifications.statisticDetails')}
                 </Typography>
 
-                <Typography variant="caption" align="center" component="p">
-                  {t('marketing:notifications.stats.total_mail_send')}
-                </Typography>
-              </div>
+                <Divider className={classes.divider} />
+                <Paper className={classes.paperStats}>
+                  <div className={classes.statItem}>
+                    <Typography variant="h5" align="center">
+                      {this.statDataForDisplay.total_recipients}
+                    </Typography>
 
-              <div className={classes.statItem}>
-                <Typography variant="h5" align="center">
-                  {this.statDataForDisplay.opened_rate}
-                </Typography>
+                    <Typography variant="caption" align="center" component="p">
+                      {t('marketing:notifications.stats.total_mail_send')}
+                    </Typography>
+                  </div>
 
-                <Typography variant="caption" align="center" component="p">
-                  {t('marketing:notifications.stats.opened_rate')}
-                </Typography>
-              </div>
+                  <div className={classes.statItem}>
+                    <Typography variant="h5" align="center">
+                      {this.statDataForDisplay.opened_rate}
+                    </Typography>
 
-              <div className={classes.statItem}>
-                <Typography variant="h5" align="center">
-                  {this.statDataForDisplay.total_read}
-                </Typography>
+                    <Typography variant="caption" align="center" component="p">
+                      {t('marketing:notifications.stats.opened_rate')}
+                    </Typography>
+                  </div>
 
-                <Typography variant="caption" align="center" component="p">
-                  {t('marketing:notifications.stats.total_mail_opened')}
-                </Typography>
-              </div>
-            </Paper>
+                  <div className={classes.statItem}>
+                    <Typography variant="h5" align="center">
+                      {this.statDataForDisplay.total_read}
+                    </Typography>
 
-            <Typography variant="h5" className={classes.emailSummary}>
-              {t('marketing:notifications.mailTitle')}
-            </Typography>
-            <Divider className={classes.divider} />
-            <Paper className={classes.mailPreview}>
-              <div
-                // eslint-disable-next-line
-                dangerouslySetInnerHTML={{
-                  __html: this.props.emailDetails.html,
-                }}
-              />
-            </Paper>
+                    <Typography variant="caption" align="center" component="p">
+                      {t('marketing:notifications.stats.total_mail_opened')}
+                    </Typography>
+                  </div>
+                </Paper>
+
+                <Typography variant="h5" className={classes.emailSummary}>
+                  {t('marketing:notifications.mailTitle')}
+                </Typography>
+                <Divider className={classes.divider} />
+                <Paper className={classes.mailPreview}>
+                  <div
+                    // eslint-disable-next-line
+                    dangerouslySetInnerHTML={{
+                      __html: this.props.emailDetails.html,
+                    }}
+                  />
+                </Paper>
+              </>
+            )}
+            <FeatureListProvider>
+              {(featureList) => (
+                <>
+                  {featureList.upsell &&
+                    featureList.upsell.find(
+                      (f) => f.readable_identifier === 'push_notification',
+                    ) &&
+                    this.props.selectedNotification.push_notification_title !==
+                      '' && (
+                      <>
+                        <Typography
+                          variant="h5"
+                          className={classes.titleMarginTop}
+                        >
+                          {t('marketing:notifications.notificationPreview')}
+                        </Typography>
+
+                        <Divider className={classes.divider} />
+
+                        <div className={classes.greyBack}>
+                          <Paper className={classes.notification}>
+                            <div className={classes.notificationHeader}>
+                              <div className={classes.notificationCompany}>
+                                {this.props.theme.company_name}
+                              </div>
+                              <div className={classes.notificationHour}>
+                                {moment().format('HH:mm')}
+                              </div>
+                            </div>
+                            <div className={classes.notificationTitle}>
+                              {
+                                this.props.selectedNotification
+                                  .push_notification_title
+                              }
+                            </div>
+                            <Typography>
+                              {
+                                this.props.selectedNotification
+                                  .push_notification_content
+                              }
+                            </Typography>
+                          </Paper>
+                        </div>
+                      </>
+                    )}
+                </>
+              )}
+            </FeatureListProvider>
           </div>
         ) : (
           <div>
@@ -330,6 +342,47 @@ class EmailTemplateForNotifications extends React.PureComponent<Props> {
     );
   }
 }
+
+const getLabel = (props: Props) => {
+  const {
+    selectedNotification,
+    privateServiceById,
+    metaActivityBydId,
+    paymentPackById,
+    establishmentById,
+  } = props;
+
+  if (!selectedNotification) {
+    return '';
+  }
+
+  const {
+    establishment_id,
+    meta_activity_id,
+    payment_pack_id,
+    private_service_id,
+  } = selectedNotification.event_rules;
+
+  if (establishment_id !== undefined && establishmentById[establishment_id]) {
+    return establishmentById[establishment_id].title;
+  }
+  if (meta_activity_id !== undefined && metaActivityBydId[meta_activity_id]) {
+    return metaActivityBydId[meta_activity_id].name;
+  }
+
+  if (
+    private_service_id !== undefined &&
+    privateServiceById[private_service_id]
+  ) {
+    return privateServiceById[private_service_id].name;
+  }
+
+  if (payment_pack_id && paymentPackById[payment_pack_id]) {
+    return paymentPackById[payment_pack_id].name;
+  }
+
+  return '';
+};
 
 const styles = (theme: Theme) => ({
   divider: {
@@ -401,6 +454,38 @@ const styles = (theme: Theme) => ({
   },
   sectionTitle: {
     marginBottom: theme.spacing(1),
+  },
+  greyBack: {
+    background: theme.palette.grey[300],
+    boxShadow: theme.shadows[1],
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
+  },
+  notification: {
+    width: 360,
+    padding: theme.spacing(2),
+    borderRadius: 12,
+    boxShadow: theme.shadows[2],
+  },
+  notificationTitle: {
+    fontWeight: 'bold',
+    marginBottom: theme.spacing(1),
+  },
+  notificationHeader: {
+    display: 'flex',
+    alignItem: 'center',
+    justifyContent: 'space-between',
+  },
+  notificationCompany: {
+    fontSize: 13,
+    color: theme.palette.grey[500],
+  },
+  notificationHour: {
+    fontSize: 13,
+    color: theme.palette.grey[700],
   },
 });
 

@@ -7,7 +7,9 @@ import {
   deleteAuth,
   buildUrlParams,
   API_V1_URI,
+  postBaseAuth,
 } from '../../http';
+import { PrivatePassCategory } from './types';
 
 export const fetchAvailabilitySlots = (params: any = {}) => {
   return getAuth(
@@ -277,7 +279,7 @@ export const createOrUpdatePrivatePass = (data: any, id?: number) => {
 
 export const editOrderPrivatePass = (data: any) => {
   return patchAuth(
-    `${API_V1_URI}/private_service/private_pass/set_order/`,
+    `${API_V1_URI}/private_service/private_pass/set_multiple_order/`,
     data,
   );
 };
@@ -589,5 +591,46 @@ export async function resourceAllocationChecker(
       resource_type,
       date,
     },
+  );
+}
+export async function fetchAllPrivatePassCategory({
+  companyId,
+}: {
+  companyId?: number;
+}) {
+  return getAuth(
+    `${API_V1_URI}/private_service/private_pass_category/${buildUrlParams({
+      companyId,
+    })}`,
+  );
+}
+export async function updatePrivatePassCategory(
+  privatePassCategory: PrivatePassCategory,
+) {
+  return putAuth(
+    `${API_V1_URI}/private_service/private_pass_category/${privatePassCategory.id}/`,
+    privatePassCategory,
+  );
+}
+
+export async function createPrivatePassCategory(
+  privatePassCategory: PrivatePassCategory,
+) {
+  return postBaseAuth(
+    `${API_V1_URI}/private_service/private_pass_category/`,
+    privatePassCategory,
+  );
+}
+export async function deletePrivatePassCategory(
+  privatePassCategory: PrivatePassCategory,
+) {
+  return deleteAuth(
+    `${API_V1_URI}/private_service/private_pass_category/${privatePassCategory.id}/`,
+  );
+}
+export async function editCategoryOrder(data: any) {
+  return patchAuth(
+    `${API_V1_URI}/private_service/private_pass_category/set_order/`,
+    data,
   );
 }

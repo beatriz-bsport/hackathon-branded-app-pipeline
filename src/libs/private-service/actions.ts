@@ -84,6 +84,13 @@ import {
   fetchPrivatePassMassExtensions as fetchPrivatePassMassExtensionsAPI,
   createPrivatePassMassExtension as createPrivatePassMassExtensionAPI,
   deletePrivatePassMassExtension as deletePrivatePassMassExtensionAPI,
+
+  // category
+  fetchAllPrivatePassCategory as fetchAllPrivatePassCategoryAPI,
+  createPrivatePassCategory as createPrivatePassCategoryAPI,
+  deletePrivatePassCategory as deletePrivatePassCategoryAPI,
+  updatePrivatePassCategory as updatePrivatePassCategoryAPI,
+  editCategoryOrder,
 } from './api';
 
 import { monitorBackgroundTask } from '../background-task/actions';
@@ -93,6 +100,8 @@ import { fetchAll as fetchAlerting } from '../alerting/actions';
 import { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 import {
   PrivateConsumerPassMassExtension,
+  PrivatePassCategory,
+  PrivatePassCategoryWithPasses,
   PrivateService,
   PrivateSlot,
 } from './types';
@@ -2290,5 +2299,109 @@ export function fetchPrivateConsumerPassCompatibleList(
       if (options && options.onError) options.onError();
     }
     dispatch(listPrivateConsumerPassCompatibleActions.isLoading(false));
+  };
+}
+
+export const listAllPrivatePassCategoryActions = {
+  isLoading: createAction('PRIVATE_PASS_CATEGORY/LIST/IS_LOADING'),
+  error: createAction('PRIVATE_PASS_CATEGORY/LIST/ERROR'),
+  success: createAction('PRIVATE_PASS_CATEGORY/LIST/SUCCESS'),
+};
+
+export function fetchAllPrivatePassCategory(companyId?: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listAllPrivatePassCategoryActions.error(null));
+    try {
+      const response = await fetchAllPrivatePassCategoryAPI({ companyId });
+      const privatePasses = response.data;
+      dispatch(listAllPrivatePassCategoryActions.success(privatePasses));
+    } catch (err) {
+      console.error(err);
+      dispatch(listAllPrivatePassCategoryActions.error(err));
+    }
+    dispatch(listAllPrivatePassCategoryActions.isLoading(false));
+  };
+}
+
+export const updatePrivatePassCategoryOrderActions = {
+  isLoading: createAction('PRIVATE_PASS_CATEGORY/UPDATE_ORDER/IS_LOADING'),
+  error: createAction('PRIVATE_PASS_CATEGORY/UPDATE_ORDER/ERROR'),
+  success: createAction('PRIVATE_PASS_CATEGORY/UPDATE_ORDER/SUCCESS'),
+};
+
+export function updatePrivatePassCategoryOrder(
+  data: Array<{ id: number; category_ordering: number }>,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(updatePrivatePassCategoryOrderActions.isLoading(true));
+    try {
+      const response = await editCategoryOrder(data);
+      dispatch(updatePrivatePassCategoryOrderActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(snackbarError(`paymentPack.category.update.error`));
+      dispatch(
+        updatePrivatePassCategoryOrderActions.error(error.response.data),
+      );
+      if (options && options.onError) options.onError();
+    }
+    dispatch(updatePrivatePassCategoryOrderActions.isLoading(false));
+  };
+}
+
+export const upsertPrivatePassCategoryActions = {
+  isLoading: createAction('PRIVATE_PASS_CATEGORY/UPSERT/IS_LOADING'),
+  error: createAction('PRIVATE_PASS_CATEGORY/UPSERT/ERROR'),
+  success: createAction('PRIVATE_PASS_CATEGORY/UPSERT/SUCCESS'),
+};
+
+export function upsertPrivatePassCategory(
+  category: PrivatePassCategory,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(upsertPrivatePassCategoryActions.isLoading(true));
+    dispatch(upsertPrivatePassCategoryActions.error(null));
+    const kind = category.id ? 'update' : 'create';
+    try {
+      const response = category.id
+        ? await updatePrivatePassCategoryAPI(category)
+        : await createPrivatePassCategoryAPI(category);
+      dispatch(upsertPrivatePassCategoryActions.success(response.data));
+      dispatch(snackbarSuccess(`paymentPack.category.${kind}.success`));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(snackbarError(`paymentPack.category.${kind}.error`));
+      dispatch(upsertPrivatePassCategoryActions.error(error.response.data));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(upsertPrivatePassCategoryActions.isLoading(false));
+  };
+}
+
+export const deletePrivatePassCategoryActions = {
+  error: createAction('PRIVATE_PASS_CATEGORY/DELETE/ERROR'),
+  isLoading: createAction('PRIVATE_PASS_CATEGORY/DELETE/IS_LOADING'),
+  success: createAction('PRIVATE_PASS_CATEGORY/DELETE/SUCCESS'),
+};
+
+export function deletePrivatePassCategory(
+  category: PrivatePassCategoryWithPasses,
+  options?: OptionCallback<PrivatePassCategoryWithPasses>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(deletePrivatePassCategoryActions.isLoading(true));
+    try {
+      await deletePrivatePassCategoryAPI(category);
+      dispatch(deletePrivatePassCategoryActions.success(category));
+      dispatch(snackbarSuccess('paymentPack.category.delete.success'));
+      if (options && options.onSuccess) options.onSuccess(category);
+    } catch (error) {
+      dispatch(deletePrivatePassCategoryActions.error(category));
+      dispatch(snackbarError('paymentPack.category.delete.error'));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(deletePrivatePassCategoryActions.isLoading(false));
   };
 }

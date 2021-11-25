@@ -131,6 +131,7 @@ export type PrivatePass = {
   start_date_method: number;
   new_member_only: boolean;
   company: number;
+  category: number;
   ordering_in_category: number;
 };
 
@@ -223,6 +224,17 @@ export type PrivateConsumerPassMassExtension = {
   note: string;
   nb_days: number;
   date_created: string;
+};
+
+export type PrivatePassCategory = {
+  id: number;
+  name: string;
+  company_id: number;
+  category_ordering: number;
+};
+
+export type PrivatePassCategoryWithPasses = PrivatePassCategory & {
+  passes: Array<PrivatePass>;
 };
 
 type ErrorAndLoading = {
@@ -329,5 +341,10 @@ export interface PrivateServiceState {
   compatibleServicePass: ErrorAndLoading & {
     byId: { [id: string]: ServiceCompatibilityPass };
     allIds: Array<number>;
+  };
+  privatePassCategory: ErrorAndLoading & {
+    byId: { [id: number]: PrivatePassCategory };
+    allIds: Array<number>;
+    upsert: ErrorAndLoading;
   };
 }

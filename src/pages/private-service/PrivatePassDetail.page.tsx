@@ -62,6 +62,7 @@ import { OptionCallback } from '../../state/types';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import PaymentPackMassExtensionDialog from '../../libs/payment-packs/components/PaymentPackMassExtensionDialog.component';
 import { PrivateConsumerPassMassExtension } from '../../libs/private-service/types';
+import { getPrivatePassCategories } from '../../libs/private-service/selectors/private-pass-category';
 
 type OwnProps = {
   id: number;
@@ -171,6 +172,7 @@ export class PrivatePassDetails extends Component<Props> {
       <Grid container spacing={3} alignItems="stretch">
         <Grid item xs={12} md={6} className={classes.privatePassDetail}>
           <PrivatePassDetail
+            privatePassCategories={this.props.privatePassCategories}
             private_services={this.props.private_services}
             theme={this.props.theme}
             snackbarSuccess={this.props.snackbarSuccess}
@@ -265,6 +267,7 @@ export class PrivatePassDetails extends Component<Props> {
           <DialogTitle>{this.props.t('privatePass.form.title')}</DialogTitle>
           <DialogContent>
             <PrivatePassForm
+              privatePassCategories={this.props.privatePassCategories}
               initial={this.props.privatePass}
               onSubmit={(data) => this.props.onSubmit(data)}
               onCancel={() => this.props.setOpenEditForm(false)}
@@ -345,6 +348,7 @@ const mapStateToProps = (state: RootState, { id }: { id: number }) => ({
     page: state.privateService.privateConsumerPass.massExtension.page,
   },
   compatibleServicePass: getCompatibleServicePass(state),
+  privatePassCategories: getPrivatePassCategories(state),
 });
 
 const mapDispatchToProps = {

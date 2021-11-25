@@ -2,6 +2,7 @@
 
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
+import Immutable from 'seamless-immutable';
 import type { State } from '../../../state/types';
 import type {
   PrivatePass,
@@ -10,6 +11,11 @@ import type {
 } from '../types';
 import { _getPrivateServiceDict } from './private-service';
 import { getAllPrivateSlotsDict } from './private-slot';
+import { RootState } from '../../../reducers';
+
+export type PrivatePassSelector = (
+  state: RootState,
+) => Immutable.Immutable<Array<PrivatePass> | PrivatePass>;
 
 const _getPrivatePassData = (state) => state.privateService.privatePass.byId;
 const _getPrivatePassAsConsumerIds = (state) =>
@@ -77,6 +83,11 @@ export const getPrivatePassCustomerEnabled: (State) => Array<PrivatePassWithServ
 export const getAvailablePrivatePasses: (State) => Array<PrivatePassWithService> =
   createSelector(getPrivatePassListBase, (passList) =>
     passList.filter((p) => p.available),
+  );
+
+export const getUnavailablePrivatePasses: (State) => Array<PrivatePassWithService> =
+  createSelector(getPrivatePassListBase, (passList) =>
+    passList.filter((p) => !p.available),
   );
 
 export const withServices = memoize((selector) =>

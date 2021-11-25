@@ -472,7 +472,7 @@ exports.default = {
       delete: 'Supprimer',
       title: 'Suppression de la carte',
       explain:
-        'Êtes-vous sûr de vouloir supprimer cette carte ? Les personnes possédant encore des crédits pourront toujours les utiliser. Cette opération est définitive',
+        'Êtes-vous sûr de vouloir supprimer cette carte ? Les personnes possédant encore des crédits pourront toujours les utiliser.',
       cancel: 'Annuler',
       submit: 'Confirmer',
     },
@@ -865,4 +865,5 @@ exports.default = {
         'Tous les {{dayOfWeek}} - {{time}}, {{delayWeek}} semaines avant',
     },
   },
+  disabledPacksTitle: 'Cartes RDV archivées',
 };

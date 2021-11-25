@@ -11,6 +11,9 @@ const initialState: Immutable.Immutable<UserPreference> = Immutable({
   paymentPackSort: SortOption.customSort,
   paymentPackCategoryFilter: [],
   paymentPackManagerOnlyFilter: ManagerOnly.showAll,
+  privatePassSort: SortOption.customSort,
+  privatePassCategoryFilter: [],
+  privatePassManagerOnlyFilter: ManagerOnly.showAll,
   scheduleTimerange: {
     begin: '06:00:00',
     end: '23:00:00',
@@ -36,6 +39,24 @@ export default handleActions<Immutable.Immutable<UserPreference>, any>(
       { payload },
     ) => {
       return state.set('paymentPackManagerOnlyFilter', payload);
+    },
+    [userPreferenceActions.setPrivatePassSort.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.set('privatePassSort', payload);
+    },
+    [userPreferenceActions.setPrivatePassCategoryFilter.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.set('privatePassCategoryFilter', payload);
+    },
+    [userPreferenceActions.setPrivatePassManagerOnlyFilter.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.set('privatePassManagerOnlyFilter', payload);
     },
     [userPreferenceActions.setScheduleTimerange.toString()]: (
       state,

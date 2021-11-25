@@ -13,6 +13,13 @@ export const userPreferenceActions = {
   setPaymentPackManagerOnlyFilter: createAction(
     'USER_PREFERENCE/PAYMENT_PACK_MANAGERONLY_FILTER',
   ),
+  setPrivatePassSort: createAction('USER_PREFERENCE/PRIVATE_PASS_SORT'),
+  setPrivatePassCategoryFilter: createAction(
+    'USER_PREFERENCE/PRIVATE_PASS_CATEGORY_FILTER',
+  ),
+  setPrivatePassManagerOnlyFilter: createAction(
+    'USER_PREFERENCE/PRIVATE_PASS_MANAGERONLY_FILTER',
+  ),
   setScheduleTimerange: createAction('USER_PREFERENCE/SCHEDULE/TIMERANGE'),
 };
 
@@ -31,6 +38,24 @@ export function setPaymentPackCategoryFilter(categories: Array<number>) {
 export function setPaymentPackManagerOnlyFilter(option: ManagerOnly) {
   return async (dispatch: Dispatch) => {
     dispatch(userPreferenceActions.setPaymentPackManagerOnlyFilter(option));
+  };
+}
+
+export function setPrivatePassSort(sortOption: SortOption) {
+  return async (dispatch: Dispatch) => {
+    dispatch(userPreferenceActions.setPrivatePassSort(sortOption));
+  };
+}
+
+export function setPrivatePassCategoryFilter(categories: Array<number>) {
+  return async (dispatch: Dispatch) => {
+    dispatch(userPreferenceActions.setPrivatePassCategoryFilter(categories));
+  };
+}
+
+export function setPrivatePassManagerOnlyFilter(option: ManagerOnly) {
+  return async (dispatch: Dispatch) => {
+    dispatch(userPreferenceActions.setPrivatePassManagerOnlyFilter(option));
   };
 }
 

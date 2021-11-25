@@ -1,6 +1,7 @@
 import Seamless from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
+import lodash from 'lodash';
 import {
   availabilitySlotListActions,
   availabilitySlotUpdateActions,
@@ -51,6 +52,10 @@ import {
   privateConsumerPassMassExtensionActions,
   privateServiceCompatiblePassActions,
   privatePassUpdateOrderActions,
+  deletePrivatePassCategoryActions,
+  upsertPrivatePassCategoryActions,
+  listAllPrivatePassCategoryActions,
+  updatePrivatePassCategoryOrderActions,
 } from './actions';
 
 import { getResourceSlotsExistState } from './selectors/availability-slot';
@@ -225,6 +230,16 @@ const initialState: Seamless.Immutable<PrivateServiceState> =
       loading: false,
       error: null,
       allIds: [],
+    },
+    privatePassCategory: {
+      byId: {},
+      allIds: [],
+      loading: false,
+      error: null,
+      upsert: {
+        loading: false,
+        error: null,
+      },
     },
   });
 
@@ -1429,6 +1444,119 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
           },
           { deep: true },
         );
+    },
+    [listAllPrivatePassCategoryActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['privatePassCategory', 'loading'], payload);
+    },
+    [listAllPrivatePassCategoryActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['privatePassCategory', 'error'], payload);
+    },
+    [listAllPrivatePassCategoryActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state
+        .setIn(
+          ['privatePassCategory', 'allIds'],
+          payload.results.map((pp) => pp.id),
+        )
+        .merge(
+          {
+            privatePassCategory: {
+              byId: payload.results.reduce(
+                (acc, v) => ({ ...acc, [v.id]: v }),
+                {},
+              ),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [upsertPrivatePassCategoryActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['privatePassCategory', 'upsert', 'loading'], payload);
+    },
+    [upsertPrivatePassCategoryActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['privatePassCategory', 'upsert', 'error'], payload);
+    },
+    [upsertPrivatePassCategoryActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      if (!state.privatePassCategory.allIds.includes(payload.id)) {
+        return state
+          .setIn(['privatePassCategory', 'byId', payload.id], payload)
+          .setIn(
+            ['privatePassCategory', 'allIds'],
+            [...state.privatePassCategory.allIds, payload.id],
+          );
+      }
+      return state.setIn(['privatePassCategory', 'byId', payload.id], payload);
+    },
+    [deletePrivatePassCategoryActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['privatePassCategory', 'upsert', 'loading'], payload);
+    },
+    [deletePrivatePassCategoryActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['privatePassCategory', 'upsert', 'error'], payload);
+    },
+    [deletePrivatePassCategoryActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state
+        .setIn(
+          ['privatePassCategory', 'byId'],
+          lodash.omit(state.privatePassCategory.byId, payload.id),
+        )
+        .setIn(
+          ['privatePassCategory', 'allIds'],
+          state.privatePassCategory.allIds.filter((id) => id !== payload.id),
+        );
+    },
+    [updatePrivatePassCategoryOrderActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.merge(
+        {
+          privatePassCategory: {
+            byId: payload.reduce(
+              (acc, cat) => ({ ...acc, [cat.id]: cat }),
+              state.privatePassCategory.byId,
+            ),
+          },
+        },
+        { deep: true },
+      );
+    },
+    [updatePrivatePassCategoryOrderActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['privatePassCategory', 'upsert', 'loading'], payload);
+    },
+    [updatePrivatePassCategoryOrderActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['privatePassCategory', 'upsert', 'error'], payload);
     },
   },
   initialState,

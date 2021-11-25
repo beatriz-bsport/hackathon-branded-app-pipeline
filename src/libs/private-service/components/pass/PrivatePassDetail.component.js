@@ -28,6 +28,7 @@ import PrivateServiceListItem from '../service/PrivateServiceListItem.component'
 import EmptyListWarning from '../EmptyListWarning.component';
 import type {
   PrivatePass,
+  PrivatePassCategory,
   PrivateService,
   ServiceCompatibilityPass,
 } from '../../types';
@@ -74,6 +75,7 @@ type Props = {
   ) => void,
   classes: Object,
   t: TFunction,
+  privatePassCategories: Array<PrivatePassCategory>,
 };
 
 export const PrivatePassDetail = (props: Props) => {
@@ -213,6 +215,7 @@ export const PrivatePassDetail = (props: Props) => {
         <DialogTitle>{props.t('privatePass.form.title')}</DialogTitle>
         <DialogContent>
           <PrivatePassForm
+            privatePassCategories={props.privatePassCategories}
             initial={props.pass}
             onSubmit={(data) =>
               props.updatePrivatePass(data, props.pass.id, {

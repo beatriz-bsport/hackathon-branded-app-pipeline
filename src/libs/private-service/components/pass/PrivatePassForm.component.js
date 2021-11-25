@@ -29,14 +29,18 @@ import {
   Submit,
   RadioGroupField,
 } from '../../../../components/forms';
+import { PrivatePassCategory, PrivatePass } from '../../types';
+import PrivatePassCategorySelector from '../../../payment-packs/components/category/PaymentPackCategorySelector.component';
 
 type Props = {
   t: TFunction,
   isSubmitting: boolean,
   classes: Object,
   onCancel: () => void,
-  values: any,
-  initial: ?PrivatePass,
+  values: *,
+  initial?: PrivatePass,
+  privatePassCategories: Array<PrivatePassCategory>,
+  setFieldValue: (field_identifier: string, value: string | null) => void,
 };
 
 export const PrivatePassForm = (props: Props) => {
@@ -48,6 +52,19 @@ export const PrivatePassForm = (props: Props) => {
           name="name"
           fullWidth
           label={t('privatePass.form.name.label')}
+        />
+      </div>
+      <div className={classes.field}>
+        <PrivatePassCategorySelector
+          packPackCategoryList={props.privatePassCategories}
+          value={props.values.category}
+          nullCurrentValue={!!props.values.category}
+          onChange={(item: { value: number, label: string }) =>
+            props.setFieldValue('category', item ? item.value : null)
+          }
+          isClearable
+          closeMenuOnSelect
+          noMulti
         />
       </div>
       <div className={classes.field}>
@@ -233,6 +250,7 @@ export const PrivatePassSchema = Yup.object().shape({
   // cover_main: Yup.object().nullable(),
   name: Yup.string().required(),
   tax: Yup.number().required(),
+  category: Yup.number().nullable(true),
   price: Yup.number().required(),
   manager_only: Yup.boolean().required(),
   new_member_only: Yup.boolean().required(),
@@ -256,6 +274,7 @@ export const PrivatePassFormikHOC = withFormik({
 
     return {
       name: null,
+      category: null,
       tax: 0,
       credits: 1,
       price: null,

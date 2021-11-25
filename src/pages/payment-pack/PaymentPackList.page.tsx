@@ -166,19 +166,6 @@ export class ComponentName extends React.Component<Props, State> {
         );
       },
     );
-    toUpdate.push(
-      ...[...this.props.disabledPacks]
-        .sort((pp1, pp2) => sortFunction(pp1, pp2))
-        .map((pp, index) => {
-          return pp.ordering_in_category !== index
-            ? {
-                id: pp.id,
-                ordering_in_category: index,
-              }
-            : null;
-        })
-        .filter((data) => data),
-    );
     this.setState({ paymentPackOrderByCategory: toUpdate });
   }
 

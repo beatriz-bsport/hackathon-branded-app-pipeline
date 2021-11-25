@@ -1,14 +1,11 @@
 // @flow
 import React from 'react';
-import { compose, withState } from 'recompose';
+import { compose } from 'recompose';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
 import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -16,12 +13,10 @@ import type { TFunction } from 'react-i18next';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import Tooltip from '@material-ui/core/Tooltip';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
-import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
 import Paper from '@material-ui/core/Paper';
+import { DraggableSyntheticListeners } from '@dnd-kit/core';
 import type { PrivatePass } from '../../types';
 import { getValidityInfo } from '../../utils';
-import PrivatePassForm from './PrivatePassForm.component';
 import ListItemResponsiveAction from '../../../../components/button/ListItemResponsiveAction.component';
 
 type Props = {
@@ -31,35 +26,24 @@ type Props = {
   onDelete?: () => void,
   onRestore?: () => void,
   divider?: boolean,
-  setOpenEditForm: (boolean) => void,
-  openEditForm: boolean,
-  updatePrivatePass: (
-    data: any,
-    privatePassId: number,
-    options?: { onSuccess?: () => void, onError?: () => void },
-  ) => void,
+  onEdit?: () => void,
   draggable?: boolean,
+  listeners?: DraggableSyntheticListeners,
+  attributes?: any,
 };
 
 export const PrivatePassListItem = React.memo((props: Props) => {
   const dateInfo = getValidityInfo(props.pass, props.t);
-  const { listeners, attributes, transition, transform, setNodeRef } =
-    useSortable({
-      id: props.pass.id.toString(10),
-    });
 
   return (
-    <Paper
-      ref={setNodeRef}
-      style={{ transition, transform: CSS.Transform.toString(transform) }}
-    >
+    <Paper>
       <ListItem
         divider={props.divider}
         button={!!props.onClick}
         onClick={props.onClick}
       >
         {props.draggable && (
-          <IconButton {...listeners} {...attributes}>
+          <IconButton {...props.listeners} {...props.attributes}>
             <DragHandleIcon />
           </IconButton>
         )}
@@ -71,7 +55,7 @@ export const PrivatePassListItem = React.memo((props: Props) => {
             credits: props.pass.credits,
           })} - ${dateInfo}`}
         />
-        {props.pass.manager_only && (
+        {props.pass.manager_only && props.pass.available && (
           <Tooltip title={props.t('privatePass.form.managerOnly.label')}>
             <IconButton>
               <VisibilityOffIcon />
@@ -81,15 +65,12 @@ export const PrivatePassListItem = React.memo((props: Props) => {
 
         <ListItemResponsiveAction
           actions={[
-            props.updatePrivatePass &&
-              props.setOpenEditForm && {
-                icon: EditIcon,
-                label: props.t('privatePass.edit'),
-                color: 'primary',
-                onClick: () => {
-                  props.setOpenEditForm(true);
-                },
-              },
+            props.onEdit && {
+              icon: EditIcon,
+              label: props.t('privatePass.edit'),
+              color: 'primary',
+              onClick: props.onEdit,
+            },
             props.onDelete && {
               icon: DeleteIcon,
               label: props.t('privatePass.delete.delete'),
@@ -97,33 +78,16 @@ export const PrivatePassListItem = React.memo((props: Props) => {
             },
             props.onRestore && {
               icon: RestoreFromTrashIcon,
+              color: 'secondary',
               onClick: props.onRestore,
             },
           ]}
         />
       </ListItem>
-      <Dialog open={props.openEditForm}>
-        <DialogTitle>{props.t('privatePass.form.title')}</DialogTitle>
-        <DialogContent>
-          <PrivatePassForm
-            initial={props.pass}
-            onSubmit={(data) => {
-              props.updatePrivatePass(data, props.pass.id, {
-                onSuccess: () => props.setOpenEditForm(false),
-              });
-            }}
-            onCancel={(ev) => {
-              ev.stopPropagation();
-              props.setOpenEditForm(false);
-            }}
-          />
-        </DialogContent>
-      </Dialog>
     </Paper>
   );
 });
 
-export default compose(
-  withTranslation(['privateService']),
-  withState('openEditForm', 'setOpenEditForm', false),
-)(PrivatePassListItem);
+export default compose(withTranslation(['privateService']))(
+  PrivatePassListItem,
+);

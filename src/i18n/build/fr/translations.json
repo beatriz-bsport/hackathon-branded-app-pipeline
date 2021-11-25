@@ -3701,7 +3701,7 @@
       "delete": {
         "delete": "Supprimer",
         "title": "Suppression de la carte",
-        "explain": "Êtes-vous sûr de vouloir supprimer cette carte ? Les personnes possédant encore des crédits pourront toujours les utiliser. Cette opération est définitive",
+        "explain": "Êtes-vous sûr de vouloir supprimer cette carte ? Les personnes possédant encore des crédits pourront toujours les utiliser.",
         "cancel": "Annuler",
         "submit": "Confirmer"
       },
@@ -3958,7 +3958,8 @@
         "startFrom": "A partir du {{ date }}",
         "explain": "Tous les {{dayOfWeek}} - {{time}}, {{delayWeek}} semaines avant"
       }
-    }
+    },
+    "disabledPacksTitle": "Cartes RDV archivées"
   },
   "relationship": {
     "relationship": {

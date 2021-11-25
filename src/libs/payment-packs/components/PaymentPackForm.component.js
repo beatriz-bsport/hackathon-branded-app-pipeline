@@ -678,6 +678,7 @@ const PackSchema = Yup.object().shape({
   tax: Yup.number().min(0),
   credits: Yup.number().min(0).nullable(),
   timeType: Yup.string().required(),
+  category: Yup.number().nullable(true),
   expiration_days_before_first_use: Yup.number(),
   unlimited: Yup.boolean(),
   theorical_margin_value: Yup.number(),

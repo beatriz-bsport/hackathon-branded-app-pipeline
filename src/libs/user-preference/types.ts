@@ -7,5 +7,8 @@ export type UserPreference = {
   paymentPackSort: SortOption;
   paymentPackCategoryFilter: Array<number>;
   paymentPackManagerOnlyFilter: ManagerOnly;
+  privatePassSort: SortOption;
+  privatePassCategoryFilter: Array<number>;
+  privatePassManagerOnlyFilter: ManagerOnly;
   scheduleTimerange: { begin: string; end: string };
 };

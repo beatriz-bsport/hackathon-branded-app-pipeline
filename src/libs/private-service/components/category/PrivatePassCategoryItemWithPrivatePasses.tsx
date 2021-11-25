@@ -256,7 +256,6 @@ export const PrivatePassCategoryItemWithPrivatePass = React.memo(
         props.setSelectedCategory(null);
       }
     };
-
     return (
       <div
         ref={setNodeRef}

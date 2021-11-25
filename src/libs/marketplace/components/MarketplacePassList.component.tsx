@@ -99,9 +99,9 @@ export function MarketplacePassList(props: Props) {
       </div>
       {filteredPaymentPackByCategory.map(
         (ppCat: PaymentPackCategoryWithPacks) => {
-          return ppCat?.packs?.filter((e) => !e.manager_only).length ? (
-            <div>
-              {ppCat?.name && (
+          return ppCat.packs?.filter((e) => !e.manager_only).length ? (
+            <div className={!ppCat.name ? props.classes.noCategory : ''}>
+              {ppCat.name && (
                 <Typography
                   component="h3"
                   variant="subtitle1"
@@ -165,13 +165,16 @@ export function MarketplacePassList(props: Props) {
 const styles = (theme: Theme) => ({
   sectionTitle: {
     marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(1) * 1,
+    marginBottom: theme.spacing(1),
   },
   sectionTitleWithDivider: {
     marginTop: theme.spacing(2),
   },
   sectionDivider: {
     marginBottom: theme.spacing(1),
+  },
+  noCategory: {
+    marginTop: theme.spacing(5),
   },
 });
 

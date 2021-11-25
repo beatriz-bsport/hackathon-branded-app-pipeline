@@ -43,7 +43,10 @@ import { getCurrentBasket } from '../../libs/checkout/selectors';
 
 // private-service
 // -----------------------------
-import { fetchPrivatePassAsConsumerList } from '../../libs/private-service/actions';
+import {
+  fetchPrivatePassAsConsumerList,
+  fetchAllPrivatePassCategory,
+} from '../../libs/private-service/actions';
 import { getPrivatePassAsConsumer } from '../../libs/private-service/selectors/private-pass';
 
 // payment-combo
@@ -59,6 +62,7 @@ import { RootState } from '../../reducers';
 import { fetchMemberTagList } from '../../libs/tag/actions';
 import { getMemberTagsIdsList } from '../../libs/tag/selectors';
 import type { Tag } from '../../libs/tag/types';
+import { getPrivatePassByCategoryWithPasses } from '../../libs/private-service/selectors/private-pass-category';
 
 type OwnProps = {
   params?: {
@@ -98,6 +102,7 @@ export class MarketPlacePassPage extends Component<Props> {
     });
     this.props.fetchPrivatePassAsConsumerList(this.props.companyId);
     this.props.fetchAllPaymentPackCategory(this.props.companyId);
+    this.props.fetchAllPrivatePassCategory(this.props.companyId);
     this.props.fetchMemberTagList(this.props.companyId);
   };
 
@@ -187,10 +192,10 @@ export class MarketPlacePassPage extends Component<Props> {
           </Grid>
         )}
 
-        {this.props.privatePassList.length && !hidePrivatePass ? (
+        {!hidePrivatePass ? (
           <Grid item xs={11} md={5}>
             <MarketplacePrivatePassList
-              privatePassList={this.props.privatePassList}
+              privatePassByCategory={this.props.privatePassByCategory}
               onAddBasket={this.addPrivatePassToCart}
             />
           </Grid>
@@ -246,6 +251,9 @@ const mapStateToProps = (
       withMetaActivities(excludeUnaccessiblePacks(getMarketplacePaymentPacks)),
     ),
   )(state, { memberTagList, authenticated }),
+  privatePassByCategory: getPrivatePassByCategoryWithPasses(
+    getPrivatePassAsConsumer,
+  )(state),
 });
 
 const mapDispatchToProps = {
@@ -254,6 +262,7 @@ const mapDispatchToProps = {
   fetchPaymentPacks: fetchMarketplacePacks,
   fetchAllPaymentPackCategory,
   fetchPrivatePassAsConsumerList,
+  fetchAllPrivatePassCategory,
   pushPrivatePassCheckout: (packId: number, basketId: string) =>
     addItemToBasket(basketId, {
       buyable_item_identifier: BUYABLE_ITEM_PRIVATE_PASS,

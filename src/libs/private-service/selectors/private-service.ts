@@ -183,9 +183,9 @@ export const withAssociatedEstablishment = memoize(
           return privateServices.map((ps) => ({
             ...ps,
             establishments: ps.establishments
-              .map((e) =>
+              .map((c) =>
                 Object.values(establishmentData).find(
-                  (e_) => e_.associatedestablishment_set === e,
+                  (c_) => c_.associatedestablishment_set === c,
                 ),
               )
               .filter((e) => !!e),
@@ -194,9 +194,9 @@ export const withAssociatedEstablishment = memoize(
         return {
           ...privateServices,
           establishments: privateServices.establishments
-            .map((e) =>
+            .map((c) =>
               Object.values(establishmentData).find(
-                (e_) => e_.associatedestablishment_set === e,
+                (c_) => c_.associatedestablishment_set === c,
               ),
             )
             .filter((e) => !!e),

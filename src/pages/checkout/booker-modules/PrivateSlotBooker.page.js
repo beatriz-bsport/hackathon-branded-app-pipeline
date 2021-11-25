@@ -51,13 +51,15 @@ import {
   fetchCompatiblePrivatePass,
   fetchCompatiblePrivateConsumerPass,
   registerPrivateBooking,
+  fetchAllPrivatePassCategory,
 } from '../../../libs/private-service/actions';
 import type {
   PrivateSlot,
   PrivateConsumerPass,
-  PrivatePass,
+  PrivatePassCategoryWithPasses,
 } from '../../../libs/private-service/types';
 import WidgetUtils from '../../../libs/widget/WidgetUtils';
+import { getPrivatePassByCategoryWithPasses } from '../../../libs/private-service/selectors/private-pass-category';
 
 type Props = {
   privateServiceId: number,
@@ -76,6 +78,7 @@ type Props = {
 
   fetchCompatiblePrivatePass: (privateSlotId: number, params: any) => void,
   fetchCompatiblePrivateConsumerPass: (privateSlotId: number) => void,
+  fetchAllPrivatePassCategory: (company: number) => void,
 
   addItemToBasket: (
     basketId: string,
@@ -92,7 +95,7 @@ type Props = {
   ) => void,
 
   compatiblePrivateConsumerPass: Array<PrivateConsumerPass>,
-  compatiblePrivatePass: Array<PrivatePass>,
+  compatiblePrivatePassByCategory: Array<PrivatePassCategoryWithPasses>,
 
   goToConsumerHome: () => void,
   displaySnackbarError: (steing) => void,
@@ -129,6 +132,7 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
       this.props.privateSlotId,
     );
     this.props.fetchCurrentBasket(this.props.company);
+    this.props.fetchAllPrivatePassCategory(this.props.company);
 
     this.props.fetchCompatiblePrivatePass(this.props.privateSlotId, {
       as_consumer: true,
@@ -274,7 +278,9 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
                   privateConsumerPassList={
                     this.props.compatiblePrivateConsumerPass
                   }
-                  privatePassList={this.props.compatiblePrivatePass}
+                  privatePassByCategory={this.props.compatiblePrivatePassByCategory.filter(
+                    (cat) => cat.passes.length,
+                  )}
                   onConsumerPassClick={this.handleConsumerPassClick}
                   onPrivatePassClick={this.handlePrivatePassClick}
                 />
@@ -371,7 +377,9 @@ export default compose(
       theme: themeSelectors.getTheme(state),
 
       compatiblePrivateConsumerPass: getPrivateConsumerPassList(state),
-      compatiblePrivatePass: getPrivatePassListWithPrivateService(state),
+      compatiblePrivatePassByCategory: getPrivatePassByCategoryWithPasses(
+        getPrivatePassListWithPrivateService,
+      )(state),
       privateSlot: getPrivateSlot(state, privateSlotId),
       privateService: getPrivateService(state, privateServiceId),
       basket: getCurrentBasket(state),
@@ -386,7 +394,7 @@ export default compose(
       fetchCompanyTheme,
       goBack: goBackRouter,
       fetchProfile,
-
+      fetchAllPrivatePassCategory,
       fetchPrivateSlot,
       fetchPrivateService,
       fetchCompatiblePrivatePass,

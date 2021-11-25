@@ -12,13 +12,14 @@ import { Theme } from '@material-ui/core';
 import { compose } from 'recompose';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
+import Divider from '@material-ui/core/Divider';
 import Analytics from '../../../components/analytics/Analytics.component';
 import PaymentPackItem from '../../payment-packs/components/PaymentPackBookableItem.component';
-import { PrivatePass } from '../../private-service/types';
+import { PrivatePassCategoryWithPasses } from '../../private-service/types';
 import { MaterialStyleType } from '../../../utils/types';
 
 type OwnProps = {
-  privatePassList: Array<PrivatePass>;
+  privatePassByCategory: Array<PrivatePassCategoryWithPasses>;
   onAddBasket: (privatePassId: number) => void;
 };
 
@@ -27,9 +28,17 @@ type Props = OwnProps &
   WithTranslation;
 
 export const MarketplacePrivatePassList = (props: Props) => {
-  if (!props.privatePassList || !props.privatePassList.length) {
+  const nonEmtptyPrivatePassCategories = props.privatePassByCategory?.filter(
+    (ppcat) => ppcat.passes.length,
+  );
+
+  if (
+    !nonEmtptyPrivatePassCategories ||
+    !nonEmtptyPrivatePassCategories.length
+  ) {
     return null;
   }
+
   return (
     <div>
       <Typography
@@ -39,27 +48,43 @@ export const MarketplacePrivatePassList = (props: Props) => {
       >
         {props.t('marketplace.privatePassListTitle')}
       </Typography>
-      <Paper>
-        <List disablePadding dense>
-          {props.privatePassList.map((pp) => (
-            <ListItem divider key={pp.id}>
-              <PaymentPackItem paymentPack={pp} />
-              <ListItemSecondaryAction>
-                <IconButton
-                  color="primary"
-                  disabled={!props.onAddBasket}
-                  onClick={() => {
-                    props.onAddBasket(pp.id);
-                    Analytics.addPrivatePassToCart(pp);
-                  }}
-                >
-                  <AddShoppingCartIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-          ))}
-        </List>
-      </Paper>
+      {nonEmtptyPrivatePassCategories.map((ppcat) => {
+        return (
+          <div className={!ppcat.name ? props.classes.noCategory : null}>
+            {ppcat?.name && (
+              <Typography
+                component="h3"
+                variant="subtitle1"
+                className={props.classes.sectionTitleWithDivider}
+              >
+                {ppcat.name}
+              </Typography>
+            )}
+            <Divider className={props.classes.sectionDivider} />
+            <Paper>
+              <List disablePadding dense>
+                {ppcat.passes.map((pp) => (
+                  <ListItem divider key={pp.id}>
+                    <PaymentPackItem paymentPack={pp} />
+                    <ListItemSecondaryAction>
+                      <IconButton
+                        color="primary"
+                        disabled={!props.onAddBasket}
+                        onClick={() => {
+                          props.onAddBasket(pp.id);
+                          Analytics.addPrivatePassToCart(pp);
+                        }}
+                      >
+                        <AddShoppingCartIcon />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                ))}
+              </List>
+            </Paper>
+          </div>
+        );
+      })}
     </div>
   );
 };
@@ -67,7 +92,16 @@ export const MarketplacePrivatePassList = (props: Props) => {
 const styles = (theme: Theme) => ({
   sectionTitle: {
     marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(1) * 1,
+    marginBottom: theme.spacing(1),
+  },
+  sectionTitleWithDivider: {
+    marginTop: theme.spacing(2),
+  },
+  sectionDivider: {
+    marginBottom: theme.spacing(1),
+  },
+  noCategory: {
+    marginTop: theme.spacing(5),
   },
 });
 

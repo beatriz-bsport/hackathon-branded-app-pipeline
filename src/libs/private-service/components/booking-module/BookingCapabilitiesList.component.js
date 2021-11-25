@@ -11,21 +11,23 @@ import type { TFunction } from 'react-i18next';
 
 import PrivateConsumerPassBookerListItem from './PrivateConsumerPassBookerListItem.component';
 import PrivatePassBookerListItem from './PrivatePassBookerListItem.component';
-import type { PrivateConsumerPass, PrivatePass } from '../../types';
+import type {
+  PrivateConsumerPass,
+  PrivatePassCategoryWithPasses,
+} from '../../types';
 
 type Props = {
   t: TFunction,
   classes: Object,
   loading: boolean,
   privateConsumerPassList: Array<PrivateConsumerPass>,
-  privatePassList: Array<PrivatePass>,
+  privatePassByCategory: Array<PrivatePassCategoryWithPasses>,
   onPrivatePassClick: (privatePassId: number) => void,
   onConsumerPassClick: (consumerPass: number) => void,
 };
 
 export const BookingCapabilities = (props: Props) => {
-  const { t, classes, loading, privateConsumerPassList, privatePassList } =
-    props;
+  const { t, classes, loading, privateConsumerPassList } = props;
   if (loading) {
     return <LinearProgress />;
   }
@@ -54,31 +56,47 @@ export const BookingCapabilities = (props: Props) => {
           ))}
         </Paper>
       </div>
-      <div classsName={classes.section}>
-        <Typography
-          className={classes.sectionTitle}
-          variant="h5"
-          component="h4"
-        >
-          {t('bookerModule.bookingCapabilities.compatiblePassTitle')}
-        </Typography>
-        {privatePassList.length === 0 ? (
+
+      {props.privatePassByCategory.length === 0 ? (
+        <div classsName={classes.section}>
+          <Typography
+            className={classes.sectionTitle}
+            variant="h5"
+            component="h4"
+          >
+            {t('bookerModule.bookingCapabilities.compatiblePassTitle')}
+          </Typography>
+
           <Typography color="textSecondary" variant="body1">
             {t('bookerModule.bookingCapabilities.emptyPassList')}
           </Typography>
-        ) : null}
-        <List disablePadding>
-          <Paper>
-            {privatePassList.map((pp) => (
-              <PrivatePassBookerListItem
-                private_pass={pp}
-                key={pp.id}
-                onClick={() => props.onPrivatePassClick(pp.id)}
-              />
-            ))}
-          </Paper>
-        </List>
-      </div>
+        </div>
+      ) : (
+        props.privatePassByCategory.map((cat) => (
+          <div classsName={classes.section}>
+            <Typography
+              className={classes.sectionTitle}
+              variant="h5"
+              component="h4"
+            >
+              {cat.name
+                ? cat.name
+                : t('bookerModule.bookingCapabilities.compatiblePassTitle')}
+            </Typography>
+            <List disablePadding>
+              <Paper>
+                {cat.passes.map((pp) => (
+                  <PrivatePassBookerListItem
+                    private_pass={pp}
+                    key={pp.id}
+                    onClick={() => props.onPrivatePassClick(pp.id)}
+                  />
+                ))}
+              </Paper>
+            </List>
+          </div>
+        ))
+      )}
     </div>
   );
 };

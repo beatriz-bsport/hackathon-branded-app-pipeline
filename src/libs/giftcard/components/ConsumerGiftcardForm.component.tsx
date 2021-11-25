@@ -5,6 +5,7 @@ import { withFormik } from 'formik';
 import Typography from '@material-ui/core/Typography';
 import * as Yup from 'yup';
 import moment from 'moment-timezone';
+import TypographyMultiline from '../../../components/TypographyMultiline.component';
 
 import { TextField, DateField, TimeField } from '../../../components/forms';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
@@ -44,9 +45,12 @@ export const ConsumerGiftcardForm = (props: Props) => {
           {getCurrencyDisplayWithPrice(props.giftcard.price)}
         </Typography>
       </div>
-      <Typography className={classes.description} color="textSecondary">
+      <TypographyMultiline
+        className={classes.description}
+        color="textSecondary"
+      >
         {props.giftcard.description}
-      </Typography>
+      </TypographyMultiline>
       <TextField
         name="name"
         label={t('consumerGiftcard.form.name.label')}

@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import TypographyMultiline from '../../../components/TypographyMultiline.component';
 import PaymentPackListItem from '../../payment-packs/components/PaymentPackListItem.component';
 import PrivatePassListItem from '../../private-service/components/pass/PrivatePassListItem.component';
 import PaymentComboListItem from '../../payment-combo/components/PaymentComboListItem.component';
@@ -84,11 +85,11 @@ const SubscriptionContractDetail = (props: Props) => {
         )}
         <div className={classes.block}>
           <Typography variant="h6">{t('contract.description')}</Typography>
-          <Typography>{description}</Typography>
+          <TypographyMultiline>{description}</TypographyMultiline>
         </div>
         <div className={classes.block}>
           <Typography variant="h6">{t('contract.legal')}</Typography>
-          <Typography>{contract}</Typography>
+          <TypographyMultiline>{contract}</TypographyMultiline>
         </div>
       </Paper>
     </div>

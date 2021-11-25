@@ -16,12 +16,6 @@ export default (props: { children: string }) => (
       'multiline',
     ])}
   >
-    {(props.children || '').split('\n\n').map((p, idx) => (
-      <p key={idx}>
-        {p.split('\n').map((d, idx_) => (
-          <div key={idx_}>{d}</div>
-        ))}
-      </p>
-    ))}
+    <p style={{ whiteSpace: 'pre-line' }}>{props.children || ''}</p>
   </Typography>
 );

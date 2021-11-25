@@ -92,6 +92,7 @@ import Config from '../../config';
 import { Permission } from '../../libs/role/types';
 import { checkRequiredPermissions } from '../../libs/role/utils';
 import { BannerContext, BannerContextValue } from '../../hocs/banner.hoc';
+import VersionVisualizer from '../VersionVisualizer.component';
 
 export const drawerWidth = 260;
 
@@ -910,28 +911,31 @@ class ResponsiveDrawer extends React.Component<Props, State> {
 
     const drawer = (
       <div className={classes.scrollable}>
-        <div className={classes.toolbar}>
-          <Grid
-            container
-            style={{ paddingTop: 10 }}
-            justify="center"
-            alignItems="center"
-          >
-            <Hidden smDown>
-              <img
-                height={40}
-                src={this.props.logo || LOGO_ASSET}
-                alt="bsport logo"
-              />
-            </Hidden>
-          </Grid>
+        <div>
+          <div className={classes.toolbar}>
+            <Grid
+              container
+              style={{ paddingTop: 10 }}
+              justify="center"
+              alignItems="center"
+            >
+              <Hidden smDown>
+                <img
+                  height={40}
+                  src={this.props.logo || LOGO_ASSET}
+                  alt="bsport logo"
+                />
+              </Hidden>
+            </Grid>
+          </div>
+          <List>
+            {items}
+            <ListItem />
+            <ListItem />
+            <ListItem />
+          </List>
         </div>
-        <List>
-          {items}
-          <ListItem />
-          <ListItem />
-          <ListItem />
-        </List>
+        <VersionVisualizer />
       </div>
     );
 
@@ -1090,6 +1094,10 @@ const styles = (theme) => ({
     overflow: 'auto',
     paddingRight: 50,
     marginRight: -50,
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100vh',
+    justifyContent: 'space-between',
   },
   drawerPaper: {
     overflowX: 'hidden',

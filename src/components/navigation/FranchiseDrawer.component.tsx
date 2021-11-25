@@ -55,6 +55,8 @@ import LOGO_ASSET from '../../public/images/banner_lowres.png';
 import { windowTitleToProps } from '../../hocs/with-title.hoc';
 import type { TempPasswordState } from '../../libs/login/types';
 import { BannerContext, BannerContextValue } from '../../hocs/banner.hoc';
+import VersionVisualizer from '../VersionVisualizer.component';
+
 // import SearchBar from '../SearchBar.component';
 
 export const drawerWidth = 260;
@@ -370,24 +372,27 @@ export const FranchiseDrawer = (props: Props) => {
 
   const drawer = (
     <div className={classes.scrollable}>
-      <div className={classes.toolbar}>
-        <Grid
-          container
-          style={{ paddingTop: 10 }}
-          justify="center"
-          alignItems="center"
-        >
-          <Hidden smDown>
-            <img height={40} src={cover ?? LOGO_ASSET} alt="bsport logo" />
-          </Hidden>
-        </Grid>
+      <div>
+        <div className={classes.toolbar}>
+          <Grid
+            container
+            style={{ paddingTop: 10 }}
+            justify="center"
+            alignItems="center"
+          >
+            <Hidden smDown>
+              <img height={40} src={cover ?? LOGO_ASSET} alt="bsport logo" />
+            </Hidden>
+          </Grid>
+        </div>
+        <List>
+          {items}
+          <ListItem />
+          <ListItem />
+          <ListItem />
+        </List>
       </div>
-      <List>
-        {items}
-        <ListItem />
-        <ListItem />
-        <ListItem />
-      </List>
+      <VersionVisualizer />
     </div>
   );
 
@@ -566,6 +571,10 @@ const styles = (theme: Theme) =>
       overflow: 'auto',
       paddingRight: 50,
       marginRight: -50,
+      display: 'flex',
+      flexDirection: 'column',
+      minHeight: '100vh',
+      justifyContent: 'space-between',
     },
     drawerPaper: {
       overflowX: 'hidden',

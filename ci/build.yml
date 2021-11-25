@@ -1,6 +1,6 @@
 .Build and deploy Base:
   image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
-  stage: build-deploy 
+  stage: build-deploy
   # cache:
   #   files:
   #     - yarn.lock
@@ -17,18 +17,20 @@
     - echo "FAILED" > .job_status
     - VERSION=`echo "$(cat ./VERSION)"`
     - echo "Preparing VERSION:${VERSION} on ${ENVIRONMENT}"
+    - echo "export default '`date +%F+%H+%M`';" > src/release-date.js
     - echo "export default '$VERSION';" > src/release.js
+    - echo "\"$VERSION\"" > public/version.json
     - VERSION_SHA="${VERSION}-${CI_COMMIT_SHORT_SHA}"
     - echo "export default '$VERSION_SHA';" > src/release-sha.js
     - yarn updateTranslation
     - yarn build
     - mv envs/$ENVIRONMENT build/env.js
     - export SENTRY_NO_PROGRESS_BAR=1
-    - ./scripts/prepare-sentry-release.sh $VERSION_SHA $FRONTEND_URL 
+    - ./scripts/prepare-sentry-release.sh $VERSION_SHA $FRONTEND_URL
     - rm ./build/static/js/*.js.map
     - aws s3 cp ./build/ $S3_BUCKET --recursive --only-show-errors
     - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths /index.html /env.js /service-worker.js /manifest.json "/locales/*" "/locales/*/*.json"
-    - scripts/prepare-sentry-deploy.sh $VERSION_SHA $ENVIRONMENT 
+    - scripts/prepare-sentry-deploy.sh $VERSION_SHA $ENVIRONMENT
     - echo "SUCCESS" > .job_status
     - cat .job_status
 
@@ -57,8 +59,8 @@ Buid Deploy Staging:
   variables:
     ENVIRONMENT: staging
     FRONTEND_URL: backoffice.staging.bsport.io
-    S3_BUCKET: s3://bsport-eu-backoffice-staging/ 
-    CLOUDFRONT_ID: E3HVVKK3QMOC4B 
+    S3_BUCKET: s3://bsport-eu-backoffice-staging/
+    CLOUDFRONT_ID: E3HVVKK3QMOC4B
     SLACK_WEBHOOK_URL: "${SLACK_STAGING_WEBHOOK_URL}"
 
 Buid Deploy Production:
@@ -69,7 +71,7 @@ Buid Deploy Production:
   variables:
     ENVIRONMENT: production
     FRONTEND_URL: backoffice.bsport.io
-    S3_BUCKET: s3://bsport-eu-backoffice-production/ 
+    S3_BUCKET: s3://bsport-eu-backoffice-production/
     CLOUDFRONT_ID: E321VOI5045USU
     SLACK_WEBHOOK_URL: "${SLACK_PRODUCTION_WEBHOOK_URL}"
 
@@ -81,7 +83,7 @@ Buid Deploy Dev:
   variables:
     ENVIRONMENT: dev
     FRONTEND_URL: backoffice.dev.bsport.io
-    S3_BUCKET: s3://bsport-eu-backoffice-dev/ 
+    S3_BUCKET: s3://bsport-eu-backoffice-dev/
     CLOUDFRONT_ID: E17M3KEJFTN7MM
     SLACK_WEBHOOK_URL: "${SLACK_DEV_WEBHOOK_URL}"
 
@@ -93,7 +95,7 @@ Build Deploy Alpha:
   variables:
     ENVIRONMENT: alpha
     FRONTEND_URL: backoffice.fb-alpha.bsport.io
-    S3_BUCKET: s3://bsport-eu-backoffice-fb-alpha/ 
+    S3_BUCKET: s3://bsport-eu-backoffice-fb-alpha/
     CLOUDFRONT_ID: E26DURIBD1IZ6H
     SLACK_WEBHOOK_URL: "${SLACK_DEV_WEBHOOK_URL}"
 
@@ -106,6 +108,6 @@ Build Deploy Beta:
   variables:
     ENVIRONMENT: beta
     FRONTEND_URL: backoffice.fb-beta.bsport.io
-    S3_BUCKET: s3://bsport-eu-backoffice-fb-beta/ 
+    S3_BUCKET: s3://bsport-eu-backoffice-fb-beta/
     CLOUDFRONT_ID: E31SNYTE4NLU27
     SLACK_WEBHOOK_URL: "${SLACK_DEV_WEBHOOK_URL}"

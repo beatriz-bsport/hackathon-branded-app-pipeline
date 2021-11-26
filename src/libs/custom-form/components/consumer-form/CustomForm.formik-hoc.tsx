@@ -14,7 +14,10 @@ import {
   CUSTOM_FORM_FIELD_SIGN_UP_GENERAL_TERMS_AND_CONDITIONS,
 } from '@bsport/common/lib/master-data/custom-form';
 import CustomFormConsumerInput from './CustomFormField.input';
-import { CUSTOM_FORM_FIELDS_WITH_CHOICES } from '../../utils';
+import {
+  CUSTOM_FORM_FIELDS_WITH_CHOICES,
+  CUSTOM_FORM_FIELD_LOCATION_OPTION,
+} from '../../utils';
 import type {
   CustomFormField,
   CustomFormFieldAnswer,

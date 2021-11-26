@@ -318,3 +318,4 @@ export const insertMemberProfileDataToAnswer = (
       return null;
   }
 };
+export const CUSTOM_FORM_FIELD_LOCATION_OPTION = 10;

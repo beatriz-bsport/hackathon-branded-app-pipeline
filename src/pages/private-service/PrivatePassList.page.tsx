@@ -35,7 +35,7 @@ import {
 import {
   fetchPrivatePassList,
   fetchAllPrivateServices,
-  createOrUpdatePrivatePass,
+  createOrUpdatePrivatePass as createOrUpdatePrivatePassAction,
   deletePrivatePass,
   restorePrivatePass,
   editOrderPrivatePass,
@@ -139,15 +139,6 @@ export class PrivatePassList extends React.Component<Props, State> {
     )
       this.categoryOptions.apply({}, []);
   }
-
-  createOrUpdatePass = (data: any) => {
-    this.props.createOrUpdatePrivatePass(data, data.id, {
-      onSuccess: () => {
-        this.props.closePrivatePassForm();
-        this.props.fetchPrivatePassList();
-      },
-    });
-  };
 
   onShowDisabled = () => {
     this.props.setShowDisabled(!this.props.showDisabled);
@@ -274,7 +265,7 @@ export class PrivatePassList extends React.Component<Props, State> {
             <DialogContent>
               <PrivatePassForm
                 privatePassCategories={this.props.privatePassCategories}
-                onSubmit={this.createOrUpdatePass}
+                onSubmit={this.props.createOrUpdatePrivatePass}
                 onCancel={() => this.props.closePrivatePassForm()}
               />
             </DialogContent>
@@ -413,27 +404,17 @@ export class PrivatePassList extends React.Component<Props, State> {
               </Collapse>
             </div>
           ) : null}
-          <Dialog open={this.props.openEditForm}>
+          <Dialog open={this.props.openEditForm || this.props.openCreateForm}>
             <DialogTitle>{this.props.t('privatePass.form.title')}</DialogTitle>
             <DialogContent>
               <PrivatePassForm
                 privatePassCategories={this.props.privatePassCategories}
                 initial={this.props.selectedPrivatePass}
-                onSubmit={(data) => this.props.createOrUpdatePrivatePass(data)}
+                onSubmit={this.props.createOrUpdatePrivatePass}
                 onCancel={(ev) => {
                   ev.stopPropagation();
                   this.props.closePrivatePassForm();
                 }}
-              />
-            </DialogContent>
-          </Dialog>
-          <Dialog open={this.props.openCreateForm}>
-            <DialogTitle>{this.props.t('privatePass.form.title')}</DialogTitle>
-            <DialogContent>
-              <PrivatePassForm
-                privatePassCategories={this.props.privatePassCategories}
-                onSubmit={this.createOrUpdatePass}
-                onCancel={() => this.props.closePrivatePassForm()}
               />
             </DialogContent>
           </Dialog>
@@ -551,7 +532,7 @@ const mapDispatchToProps = {
   fetchPrivatePassList,
   fetchAllPrivateServices: () => fetchAllPrivateServices({ mine: true }),
   goToPass: (id: number) => pushRouter(`/private-service/pass/${id}`),
-  createOrUpdatePrivatePass,
+  createOrUpdatePrivatePass: createOrUpdatePrivatePassAction,
   deletePrivatePass,
   restorePrivatePass,
   editOrderPrivatePass,
@@ -636,17 +617,20 @@ const mapWithHandlers = {
     props.closePrivatePassForm();
   },
   createOrUpdatePrivatePass:
-    (props: OwnAndConnectedProps) =>
-    (data, id?: number, options?: OptionCallback) => {
-      props.createOrUpdatePrivatePass(data, props.selectedPrivatePass.id, {
-        onSuccess: () => {
-          if (options?.onSuccess) options.onSuccess();
-          props.closePrivatePassForm();
+    (props: OwnAndConnectedProps) => (data, options?: OptionCallback) => {
+      props.createOrUpdatePrivatePass(
+        data,
+        props.selectedPrivatePass?.id || null,
+        {
+          onSuccess: () => {
+            if (options?.onSuccess) options.onSuccess();
+            props.closePrivatePassForm();
+          },
+          onError: () => {
+            if (options?.onError) options.onError();
+          },
         },
-        onError: () => {
-          if (options?.onError) options.onError();
-        },
-      });
+      );
     },
 };
 

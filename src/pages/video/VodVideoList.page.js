@@ -68,6 +68,7 @@ type Props = {
   videoToStream: ?Video,
   hasMoreVideo: boolean,
   fetchMoreVideo: () => void,
+  retrieveVideo: (id: number) => void,
 
   videoList: Array<Video>,
   openEditForm: (Video) => void,

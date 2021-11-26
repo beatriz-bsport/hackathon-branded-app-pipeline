@@ -15,7 +15,7 @@ export type Props = {
   required: true;
 };
 
-const emailRegexp = /[A-z0-9-_]+@[A-z0-9-_]+\.[A-z]+$/;
+const emailRegexp = /^([A-z0-9-_]|\.)+@[A-z0-9-_]+(\.[A-z]+)+$/;
 
 export const EmailInputWithChips = (props: Props) => {
   const { removeEmailFromList, emailList, addEmailToList } = props;

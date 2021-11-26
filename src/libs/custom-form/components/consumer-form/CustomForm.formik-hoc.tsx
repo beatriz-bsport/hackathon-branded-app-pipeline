@@ -116,14 +116,14 @@ const ValidationSchema = Yup.object().shape({
         .when('signup_question_kind', {
           is: CUSTOM_FORM_FIELD_SIGN_UP_PASSWORD,
           then: Yup.string().matches(
-            /^(?=.*[a-z])(?=.{6,})/,
+            /^[^\s]{6,}$/,
             'marketing:customForm.submit.errors.passwordMinimumRequirementsError',
           ),
         })
         .when('signup_question_kind', {
           is: CUSTOM_FORM_FIELD_SIGN_UP_EMAIL,
           then: Yup.string().matches(
-            /[A-z0-9-_]+@[A-z0-9-_]+.[A-z]+$/,
+            /^([A-z0-9-_]|\.)+@[A-z0-9-_]+(\.[A-z]+)+$/,
             'marketing:customForm.submit.errors.invalidEmail',
           ),
         }),
@@ -165,7 +165,8 @@ export const ConsumerFormFieldsHOC = withFormik({
             // eslint-disable-next-line
             answer: field.answer
               ? field.answer
-              : CUSTOM_FORM_FIELDS_WITH_CHOICES.includes(field.kind)
+              : CUSTOM_FORM_FIELDS_WITH_CHOICES.includes(field.kind) ||
+                field.kind === CUSTOM_FORM_FIELD_LOCATION_OPTION
               ? []
               : null,
           }),
@@ -181,7 +182,8 @@ export const ConsumerFormFieldsHOC = withFormik({
             // eslint-disable-next-line
             answer: field.answer
               ? field.answer
-              : CUSTOM_FORM_FIELDS_WITH_CHOICES.includes(field.kind)
+              : CUSTOM_FORM_FIELDS_WITH_CHOICES.includes(field.kind) ||
+                field.kind === CUSTOM_FORM_FIELD_LOCATION_OPTION
               ? []
               : null,
           }),

@@ -39,6 +39,10 @@ module.exports = {
         setItem: (key, value) => null,
         getItem: (key) => null,
       },
+      storage: {
+        setItem: () => null,
+        getItem: () => null,
+      },
       runtime: {
         env: {
           REACT_APP_SENTRY_DSN: '',

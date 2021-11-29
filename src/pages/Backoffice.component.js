@@ -11,7 +11,6 @@ import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import { CircularProgress, Typography } from '@material-ui/core';
 import { withTranslation } from 'react-i18next';
 
-import { RoleType } from '@bsport/common/lib/master-data/user-role';
 import clx from 'classnames';
 import Analytics from '../components/analytics/Analytics.component';
 import RELEASE from '../release';
@@ -369,8 +368,6 @@ export class Backoffice extends Component<Props, State> {
                 disconnect={this.props.disconnect}
                 displayLeftMenu={this.state.displayLeftMenu}
                 fetchMoreAlertingKind={this.props.fetchMoreAlertingKind}
-                showSearch={this.props.permission.member.search}
-                showActions={this.props.permission.appbarActions}
                 tempPasswordState={this.props.tempPasswordState}
                 generateTempPassword={this.props.generateTempPassword}
                 paymentMethodMissing={this.props.theme.payment_method_missing}
@@ -388,10 +385,6 @@ export class Backoffice extends Component<Props, State> {
                 push={this.props.pushRouter}
                 fetchOnSpotPaymentReport={this.props.fetchOnSpotPaymentReport}
                 permissions={this.props.permission}
-                showCashBook={[
-                  RoleType.USER_ROLE_NO_RESTRICTION,
-                  RoleType.USER_ROLE_ADMIN,
-                ].includes(this.props.roleId)}
                 isFranchisorNavigation={
                   !!window.localStorage.getItem('bsport:franchise:http:token')
                 }

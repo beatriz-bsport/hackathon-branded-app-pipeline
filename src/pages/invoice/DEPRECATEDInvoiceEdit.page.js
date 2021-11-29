@@ -176,7 +176,7 @@ export class DEPRECATEDInvoiceFormPage extends Component<Props, State> {
               }
               revertInvoice={() => this.setState({ revertDialogOpen: true })}
               goToMemberPage={
-                permissions.member.retrieve &&
+                permissions?.member?.retrieve &&
                 (() => goToMemberPage(invoice.member.id))
               }
               finalizeInvoice={(options) =>

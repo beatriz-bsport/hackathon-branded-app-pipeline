@@ -4402,7 +4402,11 @@
       }
     },
     "rolePermissions": {
-      "appbarActions": { "_label": "Actions appbar", "_helper": "Création membre, rapport paiement sur place.." },
+      "appbarButtons": {
+        "_label": "Actions appbar",
+        "ledger": { "_label": "Livret de caisse" },
+        "notificationCenter": { "_label": "Centre de notification" }
+      },
       "search": { "_label": "Recherche membre" },
       "offer": {
         "_label": "Séances",
@@ -4412,14 +4416,13 @@
       },
       "member": {
         "_label": "Membre",
-        "create": { "_label": "Création" },
+        "create": { "_label": "Création de membre" },
         "retrieve": { "_label": "Accès fiche membre" },
         "edit": { "_label": "Modification" },
         "search": { "_label": "Recherche" }
       },
       "navigationMenu": {
         "_label": "Menu de navigation",
-        "search": { "_label": "Recherche membre", "_helper": "Mobile uniquement" },
         "dashboard": { "_label": "Dashboard" },
         "calendar": { "_label": "Calendrier" },
         "schedule": { "_label": "Emploi du temps" },

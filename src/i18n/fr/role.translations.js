@@ -62,10 +62,16 @@ exports.default = {
     },
   },
   rolePermissions: {
-    appbarActions: {
+    appbarButtons: {
       _label: 'Actions appbar',
-      _helper: 'Création membre, rapport paiement sur place..',
+      ledger: {
+        _label: 'Livret de caisse',
+      },
+      notificationCenter: {
+        _label: 'Centre de notification',
+      },
     },
+
     search: {
       _label: 'Recherche membre',
     },
@@ -84,7 +90,7 @@ exports.default = {
     member: {
       _label: 'Membre',
       create: {
-        _label: 'Création',
+        _label: 'Création de membre',
       },
       retrieve: {
         _label: 'Accès fiche membre',
@@ -98,10 +104,6 @@ exports.default = {
     },
     navigationMenu: {
       _label: 'Menu de navigation',
-      search: {
-        _label: 'Recherche membre',
-        _helper: 'Mobile uniquement',
-      },
       dashboard: {
         _label: 'Dashboard',
       },

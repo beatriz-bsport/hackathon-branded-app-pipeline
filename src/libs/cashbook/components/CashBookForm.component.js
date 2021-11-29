@@ -23,6 +23,7 @@ type Props = {
     amount_received: number,
   },
   handleOpenOnSpotPaymentReport: () => void,
+  permissions: Permission,
 };
 
 export const CashBookForm = (props: Props) => {
@@ -33,6 +34,7 @@ export const CashBookForm = (props: Props) => {
     setOpenCash,
     initial,
     handleOpenOnSpotPaymentReport,
+    permissions,
   } = props;
   return (
     <Form className={classes.container}>
@@ -74,17 +76,19 @@ export const CashBookForm = (props: Props) => {
           ).format('LLLL')}`}
         </Typography>
       </div>
-      <div className={classes.fieldCenter}>
-        <Button
-          variant="outlined"
-          onClick={() => {
-            handleOpenOnSpotPaymentReport();
-            setOpenCash(false);
-          }}
-        >
-          {t('backofficeMenu.cashBook.onSpotPaymentReport')}
-        </Button>
-      </div>
+      {permissions?.navigationMenu?.reporting && (
+        <div className={classes.fieldCenter}>
+          <Button
+            variant="outlined"
+            onClick={() => {
+              handleOpenOnSpotPaymentReport();
+              setOpenCash(false);
+            }}
+          >
+            {t('backofficeMenu.cashBook.onSpotPaymentReport')}
+          </Button>
+        </div>
+      )}
       <div className={classes.buttonContainer}>
         <Button
           onClick={() => {

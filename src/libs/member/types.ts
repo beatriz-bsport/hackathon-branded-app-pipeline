@@ -92,7 +92,7 @@ export type Member<Tag = number> = {
   general_terms_and_conditions_date_accepted: string | null;
   general_terms_and_conditions_accepted: boolean | null;
   waiver_accepted: string;
-  ergency_contact: string;
+  emenrgency_contact: string;
   archived: boolean;
 };
 

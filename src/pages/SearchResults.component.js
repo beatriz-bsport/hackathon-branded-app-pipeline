@@ -26,6 +26,8 @@ import {
   withTags,
   getSearchedMembersArchived,
 } from '../libs/member/selectors';
+import { getPermissions } from '../libs/role/selectors';
+import Permission from '../libs/role/types';
 
 import ResultList from '../components/search/ResultList.component';
 import SearchBar from '../components/SearchBar.component';
@@ -53,6 +55,7 @@ type Props = {
   membersArchived: { [key: number]: Member },
   archivedSearchLoading: boolean,
   searchText: string,
+  permissions: Permission,
 };
 type State = {
   openArchivedSection: boolean,
@@ -216,12 +219,14 @@ export class SearchResults extends Component<Props, State> {
           )}
           <div className={classes.content}>
             <Paper className={classes.contentInner}>
-              <ListItem button divider onClick={this.props.openCreateMember}>
-                <ListItemIcon>
-                  <PersonAddIcon />
-                </ListItemIcon>
-                <ListItemText primary={t('actions.addMember')} />
-              </ListItem>
+              {this.props.permissions?.member?.create && (
+                <ListItem button divider onClick={this.props.openCreateMember}>
+                  <ListItemIcon>
+                    <PersonAddIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={t('actions.addMember')} />
+                </ListItem>
+              )}
               <ResultList
                 items={this.props.members}
                 loading={this.props.loading}
@@ -305,6 +310,7 @@ function mapStateToProps(state) {
     member: member && member.id === selectedId ? member : null,
     membersLoading: state.member.search.loading,
     showVaccinationStatus: showVaccinationStatus(state),
+    permissions: getPermissions(state),
   };
 }
 

@@ -47,7 +47,10 @@ type State = {
 };
 
 const defaultPermissions: Permission = {
-  appbarActions: true,
+  appbarButtons: {
+    ledger: true,
+    notificationCenter: true,
+  },
   navigation: true,
   checkin: false,
   offer: {
@@ -58,10 +61,10 @@ const defaultPermissions: Permission = {
   member: {
     retrieve: true,
     search: true,
+    create: true,
   },
   restrictedPaths: [],
   navigationMenu: {
-    search: true,
     dashboard: true,
     calendar: true,
     schedule: true,
@@ -76,7 +79,13 @@ const defaultPermissions: Permission = {
   },
 };
 
-const HIDDEN_PARAMS = ['restrictedPaths', 'navigation', 'checkin'];
+const HIDDEN_PARAMS = [
+  'restrictedPaths',
+  'navigation',
+  'checkin',
+  'appbarActions',
+  'navigationMenu.search',
+];
 
 type DeepKeyBoolean = { [key: string]: boolean | DeepKeyBoolean };
 
@@ -224,7 +233,11 @@ export class CreateRoleDialog extends React.Component<Props, State> {
     return (
       <div className={classes.checkboxesContainer}>
         {Object.keys(object).map((key) => {
-          if (HIDDEN_PARAMS.includes(key) && !keysAccumulator.length) {
+          if (
+            (HIDDEN_PARAMS.includes(key) ||
+              HIDDEN_PARAMS.includes([...keysAccumulator, key].join('.'))) &&
+            !keysAccumulator.length
+          ) {
             return null;
           }
 

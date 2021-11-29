@@ -120,7 +120,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
       <PermissionContext.Consumer>
         {(permissions) => (
           <MemberBookingHelper
-            anonimize={!permissions.member.search}
+            anonimize={!permissions?.member?.search}
             key={member.id}
             isFull={this.props.offer.is_full}
             onClickBill={() => this.props.addToQuickInvoicePanel(member.id)}
@@ -141,7 +141,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                 : null
             }
             showMember={
-              permissions.member.retrieve
+              permissions?.member?.retrieve
                 ? () => window.open(`/member/${member.id}/`)
                 : null
             }
@@ -251,37 +251,42 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                         <MailIcon />
                       </IconButton>
                     </CheckPermission>
-                    <IconButton
-                      onClick={this.props.openAddMemberModal}
-                      color="primary"
-                    >
-                      <PersonAddIcon />
-                    </IconButton>
                     <PermissionContext.Consumer>
                       {(permissions) => (
-                        <SearchMember
-                          onChange={(event) => {
-                            this.setState({
-                              memberHistoryAnchor: null,
-                            });
-                            this.props.searchMembers(event.target.value);
-                          }}
-                          anonimize={!permissions.member.search}
-                          value={this.props.searchedText}
-                          onReset={this.props.clearSearch}
-                          memberHistoryAnchor={this.state.memberHistoryAnchor}
-                          memberHistory={this.props.memberHistory || []}
-                          setMemberHistoryAnchor={(anchor) =>
-                            this.setState({ memberHistoryAnchor: anchor })
-                          }
-                          onClickRegister={(member) => {
-                            this.props.handleMemberToRegister({
-                              name: member.name,
-                              photo: member.photo,
-                              id: member.id,
-                            });
-                          }}
-                        />
+                        <>
+                          {permissions?.member?.create && (
+                            <IconButton
+                              onClick={this.props.openAddMemberModal}
+                              color="primary"
+                            >
+                              <PersonAddIcon />
+                            </IconButton>
+                          )}
+                          <SearchMember
+                            onChange={(event) => {
+                              this.setState({
+                                memberHistoryAnchor: null,
+                              });
+                              this.props.searchMembers(event.target.value);
+                            }}
+                            anonimize={!permissions?.member?.search}
+                            value={this.props.searchedText}
+                            onReset={this.props.clearSearch}
+                            memberHistoryAnchor={this.state.memberHistoryAnchor}
+                            memberHistory={this.props.memberHistory || []}
+                            setMemberHistoryAnchor={(anchor) =>
+                              this.setState({ memberHistoryAnchor: anchor })
+                            }
+                            onClickRegister={(member) => {
+                              this.props.handleMemberToRegister({
+                                name: member.name,
+                                photo: member.photo,
+                                id: member.id,
+                              });
+                            }}
+                            permissions={permissions}
+                          />
+                        </>
                       )}
                     </PermissionContext.Consumer>
                   </div>
@@ -334,7 +339,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                         items={this.props.searchedMembers}
                         loading={this.props.memberSearchLoading}
                         renderListComponent={this.renderSearchedMember}
-                        redirectToMember={permissions.member.retrieve}
+                        redirectToMember={permissions?.member?.retrieve}
                         showVaccinationStatus={this.props.showVaccinationStatus}
                       />
                     )}
@@ -366,7 +371,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                 {(permissions) => (
                   <>
                     <BookingTable
-                      redirectToMember={permissions.member.retrieve}
+                      redirectToMember={permissions?.member?.retrieve}
                       newTab
                       members={this.props.members}
                       loading={this.props.loading}
@@ -449,7 +454,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                                 this.props.onDeleteRecurrenceRuleBooking
                               }
                               onClick={
-                                r.member && permissions.member.retrieve
+                                r.member && permissions?.member?.retrieve
                                   ? () =>
                                       this.props.goToMemberBooking(r.member.id)
                                   : null

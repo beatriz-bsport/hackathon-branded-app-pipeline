@@ -103,7 +103,6 @@ type Props = {
   disconnect: () => void,
   logo: ?string,
   hidden: boolean,
-  showSearch: boolean,
   deleteAlert: (id: number) => void,
   fetchMoreAlertingKind: (alert_kind: number) => void,
   t: TFunction,
@@ -122,11 +121,9 @@ type Props = {
   loading: boolean,
   onSubmit: () => void,
   onSpotPaymentReportId: number,
-  showActions: boolean,
   handleOpenOnSpotPaymentReport: () => void,
   fetchOnSpotPaymentReport: () => void,
-  showCashBook: boolean,
-  permissions: Permission,
+  permissions?: Permission,
   paymentMethodMissing: boolean,
   isFranchisorNavigation: boolean,
   navigateBackToFranchisor: () => void,
@@ -367,11 +364,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                     wrap="nowrap"
                     implementation="css"
                   >
-                    {forced_hide && !!this.props.showActions ? (
+                    {forced_hide && (
                       <React.Fragment>
                         <Hidden mdUp>
                           <Grid item>
-                            {!!this.props.showSearch && (
+                            {!!this.props.permissions?.member?.search && (
                               <Link to="/search/results">
                                 <IconButton>
                                   <Search />
@@ -386,65 +383,64 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                           </IconButton>
                         </Grid>
                       </React.Fragment>
-                    ) : null}
-                    {this.props.showActions && (
-                      <React.Fragment>
-                        {this.props.showCashBook && (
-                          <Grid item>
-                            <IconButton
-                              onClick={() => {
-                                this.props.fetchOnSpotPaymentReport({
-                                  name: this.props.t(
-                                    'reporting:categories.on_spot_payments',
-                                  ),
-                                });
-                                this.props.setOpenCash(true);
-                                this.props.fetchCashBook(
-                                  this.props.theme.company,
-                                );
-                              }}
-                            >
-                              <Tooltip
-                                title={this.props.t(
-                                  'navigation:backofficeMenu.cashBookTooltip',
-                                )}
-                              >
-                                <BusinessCenterIcon />
-                              </Tooltip>
-                            </IconButton>
-                          </Grid>
-                        )}
-                        <Grid item>
-                          <IconButton onClick={this.props.openCreateMember}>
-                            <Tooltip
-                              title={this.props.t(
-                                'navigation:backofficeMenu.addMemberTooltip',
-                              )}
-                            >
-                              <PersonAddIcon />
-                            </Tooltip>
-                          </IconButton>
-                        </Grid>
-                        <Grid item>
-                          <AlertButtonMenu
-                            alertings={alertings}
-                            nbAlerting={nbAlerting}
-                            deleteAlert={deleteAlert}
-                            showMore={fetchMoreAlertingKind}
-                          />
-                        </Grid>
-                      </React.Fragment>
+                    )}
+                    {this.props.permissions?.appbarButtons?.ledger && (
+                      <Grid item>
+                        <IconButton
+                          onClick={() => {
+                            this.props.fetchOnSpotPaymentReport({
+                              name: this.props.t(
+                                'reporting:categories.on_spot_payments',
+                              ),
+                            });
+                            this.props.setOpenCash(true);
+                            this.props.fetchCashBook(this.props.theme.company);
+                          }}
+                        >
+                          <Tooltip
+                            title={this.props.t(
+                              'navigation:backofficeMenu.cashBookTooltip',
+                            )}
+                          >
+                            <BusinessCenterIcon />
+                          </Tooltip>
+                        </IconButton>
+                      </Grid>
+                    )}
+                    {this.props.permissions?.member?.create && (
+                      <Grid item>
+                        <IconButton onClick={this.props.openCreateMember}>
+                          <Tooltip
+                            title={this.props.t(
+                              'navigation:backofficeMenu.addMemberTooltip',
+                            )}
+                          >
+                            <PersonAddIcon />
+                          </Tooltip>
+                        </IconButton>
+                      </Grid>
+                    )}
+                    {this.props.permissions?.appbarButtons
+                      ?.notificationCenter && (
+                      <Grid item>
+                        <AlertButtonMenu
+                          alertings={alertings}
+                          nbAlerting={nbAlerting}
+                          deleteAlert={deleteAlert}
+                          showMore={fetchMoreAlertingKind}
+                        />
+                      </Grid>
                     )}
                     <Grid item>
                       <IconButton onClick={openIntercomHelp}>
                         <HelpIcon />
                       </IconButton>
                     </Grid>
-                    {this.props.showSearch ? (
+                    {this.props.permissions?.member?.search && (
                       <Grid item className={classes.searchBar}>
                         <SearchBar changeLocation />
                       </Grid>
-                    ) : null}
+                    )}
                     {this.renderAdditionalButtons()}
                   </Grid>
                 </Grid>
@@ -500,6 +496,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                   this.props.onSpotPaymentReportId,
                 ))
             }
+            permissions={this.props.permissions}
           />
         </DialogContent>
       </Dialog>
@@ -579,7 +576,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         text: t('backofficeMenu.search'),
         icon: Search,
         className: classes.menuMobile,
-        permission: 'navigationMenu.search',
+        permission: 'member.search',
       },
       { type: 'divider', className: classes.menuMobile },
       {

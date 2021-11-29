@@ -12,6 +12,7 @@ import { Theme } from '@material-ui/core/styles';
 import { TFunction } from 'i18next';
 import { fetchMemberList } from '../../libs/member/api';
 import withTitle from '../../hocs/with-title.hoc';
+import { getPermissions } from '../../libs/role/selectors';
 import MemberTable from '../../libs/member/MemberTable.component';
 import TagChipList from '../../libs/tag/components/TagChipList.component';
 import TagFilterForm from '../../libs/tag/components/TagFilterForm.component';
@@ -155,6 +156,7 @@ export class Members extends Component<Props, State> {
                 this.interrogateMemberStatus(id)
               }
               disabledMemberId={this.state.disabledMemberId}
+              hideAddButton={!this.props.permissions?.member?.create}
             />
           </Grid>
           <TagFilterForm
@@ -206,6 +208,7 @@ const connector = connect(
     ),
     memberArchiveLoading: state.member.archive.loading,
     memberToArchive: getMemberDetail(state, memberSelectedForArchive),
+    permissions: getPermissions(state),
   }),
   {
     fetchTags,

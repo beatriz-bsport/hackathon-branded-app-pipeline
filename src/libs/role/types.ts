@@ -16,14 +16,17 @@ export type Permission = {
   member: {
     search: boolean; // X
     retrieve: boolean; // X
+    create: boolean;
   };
   checkin: boolean; // X
-  appbarActions: boolean; // X
   navigation: boolean; // X
+  appbarButtons: {
+    ledger: boolean;
+    notificationCenter: boolean;
+  };
   calendar: boolean; // X
   restrictedPaths: string[]; // X
   navigationMenu: {
-    search: boolean;
     dashboard: boolean;
     calendar: boolean;
     schedule: boolean;

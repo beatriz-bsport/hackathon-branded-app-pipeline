@@ -1,8 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';

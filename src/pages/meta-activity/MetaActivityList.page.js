@@ -2,9 +2,8 @@
 import React from 'react';
 import { compose, withHandlers, withState } from 'recompose';
 import { connect } from 'react-redux';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
-import type { TFunction } from 'react-i18next';
 import { push } from 'connected-react-router';
 import Collapse from '@material-ui/core/Collapse';
 import Button from '@material-ui/core/Button';

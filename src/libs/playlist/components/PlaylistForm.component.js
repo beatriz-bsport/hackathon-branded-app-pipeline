@@ -2,8 +2,7 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import pick from 'lodash/pick';
 
 import { withFormik } from 'formik';

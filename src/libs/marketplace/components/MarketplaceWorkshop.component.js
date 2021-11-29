@@ -3,9 +3,8 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import { compose, withState } from 'recompose';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
-import type { TFunction } from 'react-i18next';
 import type { Offer } from '../types';
 import type { PaymentCombo } from '../../payment-combo/types';
 

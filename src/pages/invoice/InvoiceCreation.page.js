@@ -4,10 +4,9 @@ import React, { Component } from 'react';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { push as pushRouter } from 'connected-react-router';
 import { compose, withHandlers } from 'recompose';
-import type { TFunction } from 'react-i18next';
 
 import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyable-items';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
@@ -50,9 +49,9 @@ import {
 import InvoiceFormV2 from '../../libs/invoice/components/InvoiceFormV2.component';
 import InvoiceDateDialog from '../../libs/invoice/dialog/InvoiceDateDialog.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import type { Establishment } from '../../libs/establishment/types';
-import type { Theme as CompanyThemeType } from '../../libs/theme/types';
 import { withMemberBannerHOC } from '../../hocs/banner.hoc';
+import { Establishment } from '../../libs/establishment/types';
+import { Theme as CompanyThemeType } from '../../libs/theme/types';
 
 type Props = {
   member: ?Member,

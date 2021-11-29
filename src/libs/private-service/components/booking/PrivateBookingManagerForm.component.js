@@ -14,8 +14,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import InlineDateTimePicker from 'material-ui-pickers/DateTimePicker/DateTimePickerInline';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import { compose } from 'recompose';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import moment from 'moment-timezone';
 import MemberSearchModal from '../../../member/components/MemberSearchModal.component';

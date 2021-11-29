@@ -10,8 +10,7 @@ import Divider from '@material-ui/core/Divider';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import AlertListGroup from './AlertListGroup.component';
 import type { Alerting } from '../types';

@@ -1,8 +1,7 @@
 // @flow
 import React from 'react';
 import { compose } from 'recompose';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import WarningIcon from '@material-ui/icons/Warning';
 import FormGroup from '@material-ui/core/FormGroup';

@@ -19,8 +19,7 @@ import LinkIcon from '@material-ui/icons/Link';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { compose, withState } from 'recompose';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { getCurrencyDisplayWithPrice } from '../../../theme/selectors';
 import type { Theme } from '../../../theme/types';
 

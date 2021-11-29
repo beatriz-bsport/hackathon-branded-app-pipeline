@@ -2,9 +2,8 @@
 import React from 'react';
 
 import Typography from '@material-ui/core/Typography';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { makeStyles } from '@material-ui/styles';
-import type { TFunction } from 'react-i18next';
 
 type Props = {
   errorCode: string,

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import {
   COACH_PAYMENT_RULE_FOR_SESSION,
   COACH_PAYMENT_RULE_FOR_APPOINTMENT,

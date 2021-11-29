@@ -8,9 +8,8 @@ import { compose } from 'recompose';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import { push } from 'connected-react-router';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
-import type { TFunction } from 'react-i18next';
 
 import CoachDetail from './CoachDetail.page';
 import CoachPrivateCalendar from './CoachPrivateCalendar.page';

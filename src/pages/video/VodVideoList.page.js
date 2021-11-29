@@ -5,8 +5,7 @@ import { compose, withHandlers, withStateHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import withTitle from '../../hocs/with-title.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';

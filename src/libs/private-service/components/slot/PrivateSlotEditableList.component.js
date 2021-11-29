@@ -14,8 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import PrivateSlotForm from './PrivateSlotForm.component';
 import PrivateSlotListItem from './PrivateSlotListItem.component';

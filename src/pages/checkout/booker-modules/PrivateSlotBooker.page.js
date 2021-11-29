@@ -13,8 +13,7 @@ import { replace, goBack as goBackRouter } from 'connected-react-router';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyable-items';
 
 import themeSelectors from '../../../libs/theme/selectors';

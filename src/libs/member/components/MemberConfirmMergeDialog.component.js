@@ -7,10 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
-
-import type { TFunction } from 'react-i18next';
 
 type Props = {
   open: boolean,

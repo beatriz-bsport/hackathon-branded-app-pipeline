@@ -10,8 +10,7 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import VideoLibrary from '@material-ui/icons/VideoLibrary';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import themeSelectors from '../../libs/theme/selectors';
 
 import { WidgetUtils } from '../../libs/widget/WidgetUtils';

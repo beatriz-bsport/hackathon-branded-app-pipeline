@@ -9,7 +9,7 @@ import {
   updateCompanyRole as updateCompanyRoleAPI,
   deleteCompanyRole as deleteCompanyRoleAPI,
 } from './api';
-import type { Dispatch } from '../../state/types';
+import { Dispatch } from '../../state/types';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 import { Permission, Role, UserRoleData } from './types';
 

@@ -7,8 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import Tooltip from '@material-ui/core/Tooltip';

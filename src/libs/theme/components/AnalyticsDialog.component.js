@@ -12,8 +12,7 @@ import TableRow from '@material-ui/core/TableRow';
 import DialogActions from '@material-ui/core/DialogActions';
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { createData } from '../../../components/analytics/Analytics';
 
 type Props = {

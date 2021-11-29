@@ -12,8 +12,7 @@ import TextField from '@material-ui/core/TextField';
 import withStyles from '@material-ui/core/styles/withStyles';
 import WarningIcon from '@material-ui/icons/HelpOutlined';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import { resetPassword } from '../../actions/auth.actions';
 

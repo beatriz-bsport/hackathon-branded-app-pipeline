@@ -1,15 +1,14 @@
 // @flow
 import React from 'react';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { withStyles } from '@material-ui/core/styles';
-import type { TFunction } from 'react-i18next';
 import { compose, withState } from 'recompose';
 import EmailIcon from '@material-ui/icons/Email';
 import Typography from '@material-ui/core/Typography';
 import CheckIcon from '@material-ui/icons/Check';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
-import type { OptionCallback } from '../../../state/types';
+import { OptionCallback } from '../../../state/types';
 
 import RedButton from '../../../components/button/RedButton.component';
 

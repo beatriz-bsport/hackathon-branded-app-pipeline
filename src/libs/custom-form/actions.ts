@@ -1,6 +1,5 @@
 import { createAction } from 'redux-actions';
-import type { Dispatch } from '../../state/types';
-import { OptionCallback } from '../../state/types';
+import { OptionCallback, Dispatch } from '../../state/types';
 import {
   fetchAllCustomForm as fetchAllCustomFormAPI,
   fetchCustomFormBulk as fetchCustomFormBulkAPI,

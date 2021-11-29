@@ -2,7 +2,7 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withHandlers } from 'recompose';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
 
 import Typography from '@material-ui/core/Typography';
@@ -12,7 +12,6 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import { push, replace as replaceAction, goBack } from 'connected-react-router';
 import { BUYABLE_ITEM_COMBO_ITEM } from '@bsport/common/lib/master-data/buyable-items';
 import InfoIcon from '@material-ui/icons/Info';
-import type { TFunction } from 'react-i18next';
 import withQueryParams from '../../../hocs/with-query-params.hoc';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import { parseQueryString, buildUrlParams } from '../../../http';

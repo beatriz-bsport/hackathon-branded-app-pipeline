@@ -2,8 +2,7 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
@@ -48,8 +47,8 @@ export function WriteSMS(props: Props) {
     /**
     take a string and return a list of the unicode codepoints
     */
-    unicodeCodePoints: function(string) {
-      var charCodes = util.map(string, function(x) {
+    unicodeCodePoints: function (string) {
+      var charCodes = util.map(string, function (x) {
         return x.charCodeAt(0);
       });
       var result = [];
@@ -65,10 +64,10 @@ export function WriteSMS(props: Props) {
       return result;
     },
 
-    pickencoding: function(s) {
+    pickencoding: function (s) {
       // choose gsm if possible otherwise ucs2
       if (
-        util.unicodeCodePoints(s).every(function(x) {
+        util.unicodeCodePoints(s).every(function (x) {
           return x in unicodeToGsm;
         })
       ) {

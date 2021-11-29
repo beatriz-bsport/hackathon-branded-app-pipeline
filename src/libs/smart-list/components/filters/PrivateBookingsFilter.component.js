@@ -1,9 +1,8 @@
 // @flow
 
 import React, { Component } from 'react';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
-import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -25,8 +24,7 @@ import { Establishment } from '../../../establishment/types';
 import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
 import CoachListItem from '../../../associated-coach/components/CoachListItemBasic.component';
 import PrivatePassListItem from '../../../private-service/components/pass/PrivatePassListItem.component';
-import type { PrivatePass } from '../../../private-service/types';
-import { PrivateService } from '../../../private-service/types';
+import { PrivateService, PrivatePass } from '../../../private-service/types';
 import PrivateServiceListItem from '../../../private-service/components/service/PrivateServiceListItem.component';
 
 type Props = {

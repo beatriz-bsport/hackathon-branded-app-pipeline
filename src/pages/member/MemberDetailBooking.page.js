@@ -69,9 +69,8 @@ import {
 
 import { getEnabledMetaActivities } from '../../libs/meta-activity/selectors';
 
-import type { Member } from '../../libs/member/types';
-import type { PaymentPack } from '../../libs/payment-packs/types';
-import type { Booking } from '../../libs/booking/types';
+import { Member } from '../../libs/member/types';
+import { PaymentPack } from '../../libs/payment-packs/types';
 
 import BookingItemForManagerV2 from '../../libs/booking/components/BookingItemForManagerV2.component';
 import BookingDetail from '../../libs/booking/components/BookingDetail.component';
@@ -95,7 +94,7 @@ import themeSelectors from '../../libs/theme/selectors';
 import { fetchBookingStatistics2 as fetchBookingStatisticsAction } from '../../actions/stats.actions';
 import { getStatisticTemporal } from '../../libs/statistics/selectors';
 import ChartRange from '../../libs/dashboard/components/ChartRange.component';
-import type { Theme } from '../../libs/theme/types';
+import { Theme } from '../../libs/theme/types';
 import AsyncSpotSelector, {
   asyncSelectSpotForBlueprint,
 } from '../../libs/spot-scheduling/component/SpotSelector/AsyncSpotSelector.container';
@@ -105,7 +104,7 @@ import {
 } from '../../libs/waiting-list/actions';
 import { getBookingOptionListForMember } from '../../libs/waiting-list/selectors';
 import type { Offer } from '../../api/types';
-import { BookingOptionWithActivity } from '../../libs/booking/types';
+import { BookingOptionWithActivity, Booking } from '../../libs/booking/types';
 import WaitingListDetail from '../../libs/waiting-list/components/WaitingListDetail.component';
 import PaginatedBookingOptionList from '../../libs/waiting-list/components/PaginatedBookingOptionList.component';
 import DiscardBookingOptionDialogV2 from '../../libs/waiting-list/components/DiscardBookingOptionDialogV2.component';

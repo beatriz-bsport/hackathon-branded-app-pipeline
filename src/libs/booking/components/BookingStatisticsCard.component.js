@@ -1,8 +1,7 @@
 // @flow
 import React from 'react';
 
-import moment from 'moment-timezone';
-import type { Moment } from 'moment-timezone';
+import moment, { Moment } from 'moment-timezone';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, useTheme } from '@material-ui/core/styles';

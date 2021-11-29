@@ -4,8 +4,7 @@ import { compose } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Divider from '@material-ui/core/Divider';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import PaginatedListBase from '../../../components/PaginatedListBase.component';
 import ConsumerPackRowItem from './ConsumerPackRowItem.component';
 

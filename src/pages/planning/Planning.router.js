@@ -6,7 +6,7 @@ import { compose, withProps, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import { push, replace } from 'connected-react-router';
 import omit from 'lodash/omit';
-import Planning from './Planning.component';
+import Planning from './Planning.page';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { Moment } from '../../i18n';
 

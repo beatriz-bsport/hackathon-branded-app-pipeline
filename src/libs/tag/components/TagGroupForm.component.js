@@ -1,7 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import IconButton from '@material-ui/core/IconButton';
 import { compose } from 'recompose';
 import TextField from '@material-ui/core/TextField';

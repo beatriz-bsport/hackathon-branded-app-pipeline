@@ -6,8 +6,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { useTranslation, withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { useTranslation, withTranslation, TFunction } from 'react-i18next';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 import DeleteIcon from '@material-ui/icons/Delete';

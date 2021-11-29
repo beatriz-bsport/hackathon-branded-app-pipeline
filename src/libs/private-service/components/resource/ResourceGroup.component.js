@@ -5,8 +5,7 @@ import { compose } from 'recompose';
 import Checkbox from '@material-ui/core/Checkbox';
 
 import Typography from '@material-ui/core/Typography';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import ResourceItem from './ResourceItem.component';
 

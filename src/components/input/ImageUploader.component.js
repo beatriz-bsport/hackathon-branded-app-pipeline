@@ -3,8 +3,7 @@
 import React from 'react';
 
 import Dropzone from 'react-dropzone';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import classnames from 'classnames';
 
 import withStyles from '@material-ui/core/styles/withStyles';

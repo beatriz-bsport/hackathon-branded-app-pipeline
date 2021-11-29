@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import { compose, withProps } from 'recompose';
+// eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
 
 import { snackbar } from '../../snackbar/actions';

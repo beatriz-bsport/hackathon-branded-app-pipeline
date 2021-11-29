@@ -1,3 +1,4 @@
+// eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import withStyles from '@material-ui/core/styles/withStyles';

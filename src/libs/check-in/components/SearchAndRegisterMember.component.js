@@ -1,12 +1,11 @@
 // @flow
 import React from 'react';
 
-import type { TFunction } from 'react-i18next';
 import Dialog from '@material-ui/core/Dialog';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import List from '@material-ui/core/List';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { compose, withState } from 'recompose';
 import Button from '@material-ui/core/Button';
 import DialogContent from '@material-ui/core/DialogContent';

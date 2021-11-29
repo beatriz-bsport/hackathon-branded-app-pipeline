@@ -5,7 +5,6 @@ import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 
 import { ThunkDispatch } from 'redux-thunk';
-import type { Dispatch } from '../../state/types';
 import {
   fetchAllEstablishments as fetchEstablishmentListAPI,
   fetchEstablishment as fetchEstablishmentAPI,
@@ -32,7 +31,7 @@ import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 import { getFreshEstablishmentIds } from './selectors';
 import { RootState } from '../../reducers';
-import { OptionCallback } from '../../state/types';
+import { OptionCallback, Dispatch } from '../../state/types';
 
 import type {
   EstablishmentAddressInput,

@@ -1,11 +1,9 @@
 // @flow
 
 import React from 'react';
-import moment from 'moment-timezone';
+import moment, { Moment } from 'moment-timezone';
 import { compose } from 'recompose';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
-import type { Moment } from 'moment-timezone';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';

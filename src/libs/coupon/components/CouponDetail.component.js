@@ -6,15 +6,14 @@ import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
-import type { TFunction } from 'react-i18next';
 
 import DiscountListItem from './DiscountListItem.component';
 import CouponCard from './CouponCard.component';
 import PaginatedListBase from '../../../components/PaginatedListBase.component';
 
-import type { Discount, Coupon } from '../types';
+import { Discount, Coupon } from '../types';
 
 type Props = {
   coupon: Coupon,

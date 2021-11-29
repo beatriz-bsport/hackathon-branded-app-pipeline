@@ -3,9 +3,8 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { compose, withState } from 'recompose';
 import Paper from '@material-ui/core/Paper';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, TFunction } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
-import type { TFunction } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 

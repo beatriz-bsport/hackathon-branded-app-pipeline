@@ -8,8 +8,7 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import RedButton from '../../components/button/RedButton.component';
 import { disconnect } from '../../actions/auth.actions';
 

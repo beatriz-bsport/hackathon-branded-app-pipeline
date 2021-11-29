@@ -18,8 +18,7 @@ import Button from '@material-ui/core/Button';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import MailIcon from '@material-ui/icons/Mail';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import moment from 'moment-timezone';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';

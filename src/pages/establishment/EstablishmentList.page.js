@@ -12,8 +12,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { push } from 'connected-react-router';
 
 import Map from '../../components/map/Map.component';

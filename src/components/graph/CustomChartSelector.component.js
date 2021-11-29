@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { compose, withState } from 'recompose';
 
 import withStyles from '@material-ui/core/styles/withStyles';

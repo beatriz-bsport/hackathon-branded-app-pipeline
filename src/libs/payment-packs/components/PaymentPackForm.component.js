@@ -4,8 +4,7 @@ import pick from 'lodash/pick';
 import React from 'react';
 import { compose } from 'recompose';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import * as Yup from 'yup';
 import { withFormik, Form } from 'formik';

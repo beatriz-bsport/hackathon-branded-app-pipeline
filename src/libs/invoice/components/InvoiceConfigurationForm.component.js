@@ -8,12 +8,11 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import AttachIcon from '@material-ui/icons/Attachment';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import Collapse from '@material-ui/core/Collapse';
 import WarningIcon from '@material-ui/icons/Warning';
 import Switch from '@material-ui/core/Switch';
-import type { TFunction } from 'react-i18next';
 import NumberInput from '../../../components/input/NumericInput.component';
 
 type Props = {

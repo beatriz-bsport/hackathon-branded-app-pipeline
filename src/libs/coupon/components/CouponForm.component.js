@@ -16,8 +16,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import { compose } from 'recompose';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import moment from 'moment-timezone';
 import {
   VOUCHER_TYPE_PERCENT,

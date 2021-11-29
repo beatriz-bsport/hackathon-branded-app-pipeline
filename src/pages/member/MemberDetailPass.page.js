@@ -13,8 +13,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import { push, replace } from 'connected-react-router';
 import { compose, withState, withStateHandlers, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import flatten from 'lodash/flatten';
 import PaginatedListBase from '../../components/PaginatedListBase.component';

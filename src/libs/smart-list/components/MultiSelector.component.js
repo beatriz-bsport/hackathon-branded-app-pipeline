@@ -2,11 +2,9 @@
 
 import React, { Component } from 'react';
 
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import { compose } from 'recompose';
-
-import type { TFunction } from 'react-i18next';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';

@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -13,7 +13,6 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 import WarningIcon from '@material-ui/icons/Warning';
 import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
-import type { TFunction } from 'react-i18next';
 
 import {
   PAYMENT_ENGINE_STRIPE,
@@ -24,7 +23,7 @@ import {
 } from '@bsport/common/lib/master-data/payment-group';
 import PaymentStripe from './payment-backend-stripe/PaymentStripe.component';
 import PaymentBsportInternal from './payment-backend-internal/PaymentBsportInternal.component';
-import type { Establishment } from '../../establishment/types';
+import { Establishment } from '../../establishment/types';
 import { getPaymentGroupStatus as getPaymentGroupStatusAPI } from '../api';
 
 type Props = {

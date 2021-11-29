@@ -2,7 +2,7 @@
 import React from 'react';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 
@@ -43,7 +43,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import RedeemIcon from '@material-ui/icons/Redeem';
 import Badge from '@material-ui/core/Badge';
-import type { TFunction } from 'react-i18next';
 
 import { colors } from '@bsport/common/lib/colors';
 import LanguageButton from '../button/LanguageButton.component';

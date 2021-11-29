@@ -1,21 +1,19 @@
 // @flow
 
 import React from 'react';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
-import type { TFunction } from 'react-i18next';
 
-import Selector from '../../../components/Selector.component';
-import type { Suggestion } from '../../../components/Selector.component';
+import Selector, { Suggestion } from '../../../components/Selector.component';
 
-import type { PaymentRuleSet } from '../types';
+import { PaymentRule } from '../types';
 
 type Props = {
   t: TFunction,
   selected: number,
   onChange: (Suggestion) => void,
   classes: { [string]: string },
-  paymentRules: PaymentRuleSet[],
+  paymentRules: PaymentRule[],
   isOverride?: boolean,
   id: string,
 };

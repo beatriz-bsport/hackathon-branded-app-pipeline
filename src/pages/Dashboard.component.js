@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react';
+// eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
 import {
   compose,
@@ -9,7 +10,7 @@ import {
   withState,
   withStateHandlers,
 } from 'recompose';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -18,7 +19,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import withStyles from '@material-ui/core/styles/withStyles';
-import type { TFunction } from 'react-i18next';
 import themeSelectors from '../libs/theme/selectors';
 
 import withTitle from '../hocs/with-title.hoc';

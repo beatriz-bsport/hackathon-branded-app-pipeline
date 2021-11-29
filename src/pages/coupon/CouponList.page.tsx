@@ -5,8 +5,7 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
-import { withTranslation, WithTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, WithTranslation, TFunction } from 'react-i18next';
 
 import { compose, withState, withProps } from 'recompose';
 import { Theme } from '@material-ui/core/styles';

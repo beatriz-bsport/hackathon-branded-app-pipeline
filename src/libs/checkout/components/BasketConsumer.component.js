@@ -5,15 +5,13 @@ import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 
 import CheckoutItemListItem from './CheckoutItemListItem.component';
 import PrepaidLineListItem from './PrepaidLineListItem.component';
 
-import type { Basket, CheckoutItemData } from '../types';
-import { CheckoutItem } from '../types';
+import { CheckoutItem, Basket, CheckoutItemData } from '../types';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 type Props = {

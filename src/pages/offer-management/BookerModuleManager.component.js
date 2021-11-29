@@ -1,4 +1,5 @@
 import { compose, withHandlers } from 'recompose';
+// eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
 import { getSimilars as getSimilarsOffers } from '../../libs/offer/selectors';
 import { fetchSimilarOffers as fetchSimilarOffersAction } from '../../libs/offer/actions';

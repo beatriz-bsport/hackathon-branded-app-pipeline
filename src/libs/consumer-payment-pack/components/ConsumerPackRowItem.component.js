@@ -1,7 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
-import type { Node } from 'react';
+import React, { Component, Node } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
@@ -17,8 +16,7 @@ import ExposureNeg1Icon from '@material-ui/icons/ExposureNeg1';
 import ExposurePlus1Icon from '@material-ui/icons/ExposurePlus1';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import moment from 'moment-timezone';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -26,7 +24,7 @@ import Tooltip from '../../../components/Tooltip.component';
 
 import { formatAsDate } from '../../../utils/datetime';
 import RedButton from '../../../components/button/RedButton.component';
-import type { PaymentPack } from '../../payment-packs/types';
+import { PaymentPack } from '../../payment-packs/types';
 import { MaxoutBooking, ConsumerPaymentPack } from '../types';
 
 import CreditStatus from './CreditStatus.component';

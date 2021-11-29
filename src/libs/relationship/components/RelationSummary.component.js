@@ -11,8 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import withStyles from '@material-ui/core/styles/withStyles';
 import InfoIcon from '@material-ui/icons/Info';
 import RefreshIcon from '@material-ui/icons/Refresh';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 
 import type {

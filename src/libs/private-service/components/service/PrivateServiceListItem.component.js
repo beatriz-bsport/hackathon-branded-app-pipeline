@@ -10,13 +10,12 @@ import Avatar from '@material-ui/core/Avatar';
 import EditIcon from '@material-ui/icons/Edit';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import IconButton from '@material-ui/core/IconButton';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
-import type { TFunction } from 'react-i18next';
 import ListItemResponsiveAction from '../../../../components/button/ListItemResponsiveAction.component';
 import Tooltip from '../../../../components/Tooltip.component';
 
-import type { PrivateService, ServiceCompatibilityPass } from '../../types';
+import { PrivateService, ServiceCompatibilityPass } from '../../types';
 
 type Props = {
   privateService: PrivateService,

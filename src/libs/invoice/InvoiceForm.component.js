@@ -17,8 +17,7 @@ import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import PersonIcon from '@material-ui/icons/Person';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { CREDIT_ACCOUNT as PAYMENT_METHOD_CREDIT_ACCOUNT } from '@bsport/common/lib/master-data/payment-methods';
 import sum from 'lodash/sum';
 

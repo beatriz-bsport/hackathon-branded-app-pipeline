@@ -2,9 +2,8 @@
 
 import React, { Component } from 'react';
 
-import type { TFunction } from 'react-i18next';
+import { TFunction, withTranslation } from 'react-i18next';
 
-import { withTranslation } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -18,7 +17,7 @@ import {
   ImageUploader,
 } from '../../../components/input';
 import MultipleImageUploader from '../../../components/MultipleImageUploader.component';
-import type { Establishment as EstablishmentType } from '../../../api/types';
+import { Establishment as EstablishmentType } from '../../../api/types';
 
 import ImageList from '../../../components/ImageList.component';
 

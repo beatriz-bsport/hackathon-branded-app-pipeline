@@ -1,6 +1,6 @@
 // @flow
 
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import { push, goBack } from 'connected-react-router';
 import React, { Component } from 'react';
@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 import { withProps, compose, withState } from 'recompose';
 import Grid from '@material-ui/core/Grid';
 
-import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Stepper from '@material-ui/core/Stepper';
 import Paper from '@material-ui/core/Paper';
@@ -40,13 +39,13 @@ import { fetchEstablishments } from '../../libs/establishment/actions';
 import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
 import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
 import { Establishment } from '../../libs/establishment/types';
-import type { PaymentPack } from '../../libs/payment-packs/types';
+import { PaymentPack } from '../../libs/payment-packs/types';
 import { getAvailableRoomBlueprints } from '../../libs/spot-scheduling/selector';
 import { fetchRoomBlueprints } from '../../libs/spot-scheduling/actions';
 import { RoomBlueprint } from '../../libs/spot-scheduling/types';
 import { fetchAllCoachPaymentRules } from '../../libs/coach-payment-rules/actions';
 import { CoachPaymentRuleByKindSelector } from '../../libs/coach-payment-rules/selectors';
-import type { CoachPaymentRule } from '../../libs/coach-payment-rules/types';
+import { CoachPaymentRule } from '../../libs/coach-payment-rules/types';
 
 type StepType = {
   id: number,

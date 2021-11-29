@@ -4,8 +4,7 @@ import React, { Component } from 'react';
 
 import { push as routerPush } from 'connected-react-router';
 import { connect } from 'react-redux';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { compose, withHandlers } from 'recompose';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';

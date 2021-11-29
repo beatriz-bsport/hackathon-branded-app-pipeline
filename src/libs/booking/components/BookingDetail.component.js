@@ -5,8 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
 import InfoIcon from '@material-ui/icons/Info';
-import type { TFunction } from 'react-i18next';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 
 import { formatAsDatetime } from '../../../utils/datetime';

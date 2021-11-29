@@ -30,8 +30,7 @@ import ViewWeek from '@material-ui/icons/ViewWeek';
 import ViewComfy from '@material-ui/icons/ViewComfy';
 import Hidden from '@material-ui/core/Hidden';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { Moment } from '../../i18n';
 import { formatAsTitle, DATE_FORMAT } from '../../utils/datetime';
 import { API_URI, getAuth, buildUrlParams } from '../../http';

@@ -2,11 +2,10 @@
 
 import React, { Component } from 'react';
 import { compose, withState } from 'recompose';
-
+// eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';

@@ -6,8 +6,7 @@ import * as Yup from 'yup';
 import omit from 'lodash/omit';
 import { withFormik, FieldArray } from 'formik';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import Slide from '@material-ui/core/Collapse';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';

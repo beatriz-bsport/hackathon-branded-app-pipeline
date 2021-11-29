@@ -4,8 +4,8 @@ import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
+// eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { goBack as goBackAction } from 'connected-react-router';

@@ -8,9 +8,8 @@ import { compose, withStateHandlers } from 'recompose';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
-import type { TFunction } from 'react-i18next';
 import Checkbox from '@material-ui/core/Checkbox';
 import Divider from '@material-ui/core/Divider';
 import Collapse from '@material-ui/core/Collapse';

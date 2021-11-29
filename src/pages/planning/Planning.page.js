@@ -4,8 +4,7 @@ import memoize from 'memoize-one';
 
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { compose, withState, withHandlers } from 'recompose';
 import omit from 'lodash/omit';
 import withWidth, { isWidthUp, isWidthDown } from '@material-ui/core/withWidth';

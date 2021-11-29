@@ -4,8 +4,7 @@ import React from 'react';
 import { compose } from 'recompose';
 import Collapse from '@material-ui/core/Collapse';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import omit from 'lodash/omit';
 import Typography from '@material-ui/core/Typography';

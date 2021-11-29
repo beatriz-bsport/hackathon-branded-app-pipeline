@@ -9,8 +9,7 @@ import moment from 'moment-timezone';
 import { Helmet } from 'react-helmet';
 import { compose } from 'recompose';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 type Props = {
   t: TFunction,

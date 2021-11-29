@@ -1,6 +1,6 @@
 // @flow
-import React from 'react';
-import type { Node } from 'react';
+import React, { Node } from 'react';
+// eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';

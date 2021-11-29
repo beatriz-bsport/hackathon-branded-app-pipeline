@@ -1,4 +1,6 @@
 import React from 'react';
+
+// eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import Dialog from '@material-ui/core/Dialog';

@@ -4,8 +4,7 @@ import React, { Component } from 'react';
 
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import type { ConsumerPaymentPackConsumerView } from '../../../api/types';
 import ConsumerPackRowItem from './ConsumerPackRowItem.component';
 

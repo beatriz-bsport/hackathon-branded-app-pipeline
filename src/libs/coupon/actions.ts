@@ -11,8 +11,7 @@ import {
   untagCoupon as untagCouponAPI,
 } from './api';
 
-import type { Dispatch, ThunkAction } from '../../state/types';
-import { OptionCallback } from '../../state/types';
+import { OptionCallback, Dispatch, ThunkAction } from '../../state/types';
 
 export const couponList = {
   error: createAction('COUPON/LIST/ERROR'),

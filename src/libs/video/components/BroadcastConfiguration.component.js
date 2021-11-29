@@ -13,8 +13,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import Paper from '@material-ui/core/Paper';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 import CustomColorButton from '../../../components/button/CustomColorButton.component';

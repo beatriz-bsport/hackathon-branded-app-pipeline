@@ -2,8 +2,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import type { TFunction } from 'react-i18next';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
 

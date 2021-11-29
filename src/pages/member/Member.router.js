@@ -4,8 +4,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router';
 import { Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import { compose } from 'recompose';
 import asyncComponent from '../../AsyncComponent';

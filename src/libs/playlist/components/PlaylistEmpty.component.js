@@ -4,8 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { compose } from 'recompose';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import Typography from '@material-ui/core/Typography';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 type Props = {
   t: TFunction,

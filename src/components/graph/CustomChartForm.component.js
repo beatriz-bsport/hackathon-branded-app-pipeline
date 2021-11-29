@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
-import type { TFunction } from 'react-i18next';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import { v4 as uuidv4 } from 'uuid';
 import {

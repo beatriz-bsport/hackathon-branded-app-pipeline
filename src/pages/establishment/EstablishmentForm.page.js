@@ -7,8 +7,7 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { push } from 'connected-react-router';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import { LinearProgress } from '@material-ui/core';
 import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';

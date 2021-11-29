@@ -5,14 +5,12 @@ import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
-import type { Basket } from '../types';
+import { withTranslation, TFunction } from 'react-i18next';
 import BasketConsumer from './BasketConsumer.component';
 
 import BasketFinalizer from './BasketFinalizer.component';
 import ShopItemFeaturedBanner from './ShopItemFeaturedBanner.component';
-import { CheckoutItem } from '../types';
+import { CheckoutItem, Basket } from '../types';
 
 type Props = {
   basket: Basket,

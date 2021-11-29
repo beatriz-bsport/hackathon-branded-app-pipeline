@@ -3,8 +3,7 @@ import React, { Component } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import { Moment } from '../../i18n';
 
@@ -20,7 +19,7 @@ type State = {
   rules: Array<*>,
 };
 
-const getRules = function(t) {
+const getRules = function (t) {
   return [
     {
       id: 1,

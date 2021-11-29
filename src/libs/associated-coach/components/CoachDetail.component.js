@@ -5,15 +5,17 @@ import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import { withTranslation } from 'react-i18next';
-import type {
+import {
   CoachPaymentRule,
   CoachPaymentRuleGroup,
 } from '../../coach-payment-rules/types';
 import CoachSummaryBanner from './coach-detail/CoachSummaryBanner.component';
 import Description from './coach-detail/Description.component';
 import CoachPaymentRuleBanner from './coach-detail/CoachPaymentRuleBanner.component';
-import type { PrivateSlot } from '../../private-service/types';
-import { PrivateServiceWithSlots } from '../../private-service/types';
+import {
+  PrivateServiceWithSlots,
+  PrivateSlot,
+} from '../../private-service/types';
 
 type Props = {
   classes: Object,

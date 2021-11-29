@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import type { Node } from 'react';
 
 import Fab from '@material-ui/core/Fab';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
@@ -19,7 +18,7 @@ const greenTheme = createMuiTheme({
 });
 
 type Props = {
-  children: Node;
+  children: React.ReactChildren;
 };
 
 export default (props: Props) => (

@@ -2,14 +2,13 @@
 
 import MUIDataTable from 'mui-datatables';
 import React, { Component } from 'react';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
 
-import type { TFunction } from 'react-i18next';
 import DoneIcon from '@material-ui/icons/Done';
 import SaveIcon from '@material-ui/icons/Save';
 import CancelIcon from '@material-ui/icons/Cancel';

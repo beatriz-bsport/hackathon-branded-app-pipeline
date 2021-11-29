@@ -9,8 +9,7 @@ import { compose } from 'recompose';
 import * as Yup from 'yup';
 import { withFormik, Form } from 'formik';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';

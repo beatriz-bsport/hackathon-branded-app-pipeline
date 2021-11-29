@@ -9,8 +9,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 import { compose } from 'recompose';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import EmailSelector from '../../email-editor/components/EmailSelector.component';
 import Tooltip from '../../../components/Tooltip.component';
 

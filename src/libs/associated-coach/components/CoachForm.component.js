@@ -6,8 +6,7 @@ import * as Yup from 'yup';
 import moment from 'moment-timezone';
 import { withFormik, Form } from 'formik';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import InputAdornment from '@material-ui/core/InputAdornment';
 import HelpCircleOutlinedIcon from '@material-ui/icons/HelpOutline';

@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import type { TFunction } from 'react-i18next';
+import { TFunction, withTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Dialog from '@material-ui/core/Dialog';
@@ -9,7 +9,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { withTranslation } from 'react-i18next';
 
 type Props = { t: TFunction, onConfirm: () => void, classes: Object };
 

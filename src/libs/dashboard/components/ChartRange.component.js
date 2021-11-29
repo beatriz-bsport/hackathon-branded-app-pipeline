@@ -3,8 +3,7 @@
 import React from 'react';
 import moment from 'moment-timezone';
 import { compose } from 'recompose';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import { MenuItem } from '@material-ui/core';

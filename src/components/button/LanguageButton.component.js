@@ -36,9 +36,10 @@ const countryFlag = {
   es: ES_FLAG,
 };
 
-class LanguageSelectBase extends Component<Props> {
-  renderMenuItem = (lng) => {
-    const { classes } = this.props;
+const LanguageSelectBase = (props: Props) => {
+  const { classes, value, handleChange, closeMenu, allowNull, t } = props;
+
+  const renderMenuItem = (lng) => {
     return (
       <MenuItem key={lng} value={lng}>
         <img
@@ -46,41 +47,36 @@ class LanguageSelectBase extends Component<Props> {
           src={countryFlag[lng.replace('-', '_')]}
           alt="text"
         />
-        {this.props.t(`language.${lng}`)}
+        {t(`language.${lng}`)}
       </MenuItem>
     );
   };
 
-  render() {
-    const { t } = this.props;
-    return (
-      <FormControl>
-        <Select
-          labelId="langage-selector"
-          value={this.props.value}
-          onChange={(e) => {
-            this.props.handleChange(e);
-            if (this.props.closeMenu) {
-              return this.props.closeMenu();
-            }
-            return null;
-          }}
-          name="Language"
-        >
-          <MenuItem value="" disabled>
-            {t('navigation.pick_a_language')}
-          </MenuItem>
-          {availableLanguages.map((lng) => this.renderMenuItem(lng.lang))}
-          {!!this.props.allowNull && (
-            <MenuItem value="none">
-              {t('navigation.automaticLanguage')}
-            </MenuItem>
-          )}
-        </Select>
-      </FormControl>
-    );
-  }
-}
+  return (
+    <FormControl>
+      <Select
+        labelId="langage-selector"
+        value={value}
+        onChange={(e) => {
+          handleChange(e);
+          if (closeMenu) {
+            return closeMenu();
+          }
+          return null;
+        }}
+        name="Language"
+      >
+        <MenuItem value="" disabled>
+          {t('navigation.pick_a_language')}
+        </MenuItem>
+        {availableLanguages.map((lng) => renderMenuItem(lng.lang))}
+        {!!allowNull && (
+          <MenuItem value="none">{t('navigation.automaticLanguage')}</MenuItem>
+        )}
+      </Select>
+    </FormControl>
+  );
+};
 
 const styles = (theme) => ({
   flag: {

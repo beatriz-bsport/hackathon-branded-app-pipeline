@@ -3,8 +3,7 @@
 import omit from 'lodash/omit';
 
 import React, { Component } from 'react';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import Icon from '@material-ui/core/Icon';
 import Typography from '@material-ui/core/Typography';

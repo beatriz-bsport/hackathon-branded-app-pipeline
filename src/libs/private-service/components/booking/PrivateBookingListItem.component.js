@@ -10,8 +10,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import UpdateIcon from '@material-ui/icons/Update';
 import Typography from '@material-ui/core/Typography';
 import { compose } from 'recompose';
-import { withTranslation, useTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, useTranslation, TFunction } from 'react-i18next';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 

@@ -9,8 +9,7 @@ import Chip from '@material-ui/core/Chip';
 import MUIAvatar from '@material-ui/core/Avatar';
 import withStyles from '@material-ui/core/styles/withStyles';
 import FaceIcon from '@material-ui/icons/Face';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import type { Coach } from '../../api/types';
 

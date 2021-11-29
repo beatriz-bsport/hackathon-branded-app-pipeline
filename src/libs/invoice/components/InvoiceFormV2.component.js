@@ -10,16 +10,15 @@ import {
   BUYABLE_ITEM_GIFTCARD,
 } from '@bsport/common/lib/master-data/buyable-items';
 import Modal from '@material-ui/core/Modal';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import type { TFunction } from 'react-i18next';
 import InvoiceContent from './InvoiceContent.component';
 import InvoiceEditorV2 from './InvoiceEditorV2.component';
 import FinalizeInvoiceDialog from '../dialog/FinalizeInvoiceDialog.component';
 import { OptionCallback } from '../../../state/types';
 import { appliesToInvoice } from '../../coupon/api';
-import type { Establishment } from '../../establishment/types';
+import { Establishment } from '../../establishment/types';
 import ConsumerGiftcardFormWithPreview from '../../giftcard/components/ConsumerGiftcardFormWithPreview.component';
 import { GiftcardBackgroundImage } from '../../giftcard/types';
 

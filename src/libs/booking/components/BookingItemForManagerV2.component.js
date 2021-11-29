@@ -23,9 +23,9 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import UpdateIcon from '@material-ui/icons/Update';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { push as routerPush } from 'connected-react-router';
+// eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
 import moment from 'moment-timezone';
 import {

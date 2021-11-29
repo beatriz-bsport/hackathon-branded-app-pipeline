@@ -2,8 +2,7 @@
 
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { compose } from 'recompose';

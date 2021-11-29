@@ -11,8 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import DeleteIcon from '@material-ui/icons/Delete';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 import type { InvoiceItem } from './types';

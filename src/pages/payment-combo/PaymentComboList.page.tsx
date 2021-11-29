@@ -3,8 +3,7 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withState, withProps } from 'recompose';
 import { connect } from 'react-redux';
-import { withTranslation, WithTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, WithTranslation, TFunction } from 'react-i18next';
 import { push } from 'connected-react-router';
 import List from '@material-ui/core/List';
 

@@ -4,8 +4,7 @@ import moment from 'moment-timezone';
 
 import React from 'react';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 /*
 import flow from 'lodash/flow';
 import countBy from 'lodash/countBy';

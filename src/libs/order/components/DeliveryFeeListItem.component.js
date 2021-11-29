@@ -2,8 +2,7 @@
 import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 import type { DeliveryFee } from '../types';

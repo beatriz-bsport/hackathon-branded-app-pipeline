@@ -13,8 +13,7 @@ import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider
 import DatePicker from 'material-ui-pickers/DatePicker';
 import moment from 'moment-timezone';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { Moment } from '../../../i18n';
 
 import TypographyMultiline from '../../../components/TypographyMultiline.component';

@@ -4,11 +4,10 @@ import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 
-import type { TFunction } from 'react-i18next';
 import OfferForm from './OfferForm.component';
 import MetaActivitySelector from '../meta-activity/components/MetaActivitySelectorWithCard.component';
 import { RoomBlueprint } from '../spot-scheduling/types';

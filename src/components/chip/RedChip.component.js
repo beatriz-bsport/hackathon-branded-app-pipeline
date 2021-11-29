@@ -1,6 +1,5 @@
 // @flow
-import React from 'react';
-import type { Node } from 'react';
+import React, { Node } from 'react';
 
 import Chip from '@material-ui/core/Chip';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';

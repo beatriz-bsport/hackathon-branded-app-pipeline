@@ -7,8 +7,7 @@ import sumBy from 'lodash/sumBy';
 import React from 'react';
 import { compose } from 'recompose';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import * as Yup from 'yup';
 import { withFormik, FieldArray } from 'formik';

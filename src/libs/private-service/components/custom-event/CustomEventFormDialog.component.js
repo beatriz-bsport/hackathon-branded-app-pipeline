@@ -10,8 +10,7 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import CustomEventForm, {
   CustomEventFormikHOC,
 } from './CustomEventForm.component';

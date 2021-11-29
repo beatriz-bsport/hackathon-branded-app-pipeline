@@ -2,14 +2,13 @@
 import React from 'react';
 
 import TextField from '@material-ui/core/TextField';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
-import type { TFunction } from 'react-i18next';
 
 import PriceInput from '../../../components/input/PriceInput.component';
-import type { DeliveryFee } from '../types';
+import { DeliveryFee } from '../types';
 
 type Props = {
   t: TFunction,

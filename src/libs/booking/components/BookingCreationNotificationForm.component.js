@@ -21,8 +21,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-import { useTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { useTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import EmailSelector from '../../email-editor/components/EmailSelector.component';
 import Tooltip from '../../../components/Tooltip.component';

@@ -35,8 +35,7 @@ import type {
   CustomFormFieldAnswerAPI,
   Layout,
 } from './types';
-import type { UserProfile } from '../member/types';
-import { Member, MemberAddress } from '../member/types';
+import { Member, MemberAddress, UserProfile } from '../member/types';
 
 export const MODEL_BASED_QUESTION_ANY = 0;
 export const MODEL_BASED_QUESTION_FAVORITE = 1;

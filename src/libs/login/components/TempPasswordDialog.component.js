@@ -12,8 +12,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import LinkIcon from '@material-ui/icons/Link';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import RedButton from '../../../components/button/RedButton.component';
 import { formatAsDatetime } from '../../../utils/datetime';

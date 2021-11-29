@@ -1,8 +1,7 @@
 // @flow
 import React from 'react';
 import { compose } from 'recompose';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import Select from 'react-select';
 
 import type PrivateService from '../../types';

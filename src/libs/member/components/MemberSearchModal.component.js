@@ -19,14 +19,13 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { compose, withState, withStateHandlers } from 'recompose';
 
-import type { TFunction } from 'react-i18next';
 import SearchMemberInput from '../../../pages/offer-management/SearchMember.component';
 import MemberForm from '../MemberForm.component';
 
-import type { Member } from '../types';
+import { Member } from '../types';
 
 type Props = {
   open: boolean,

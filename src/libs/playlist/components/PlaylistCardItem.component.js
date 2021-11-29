@@ -11,8 +11,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 
-import { useTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { useTranslation, TFunction } from 'react-i18next';
 import TypographyWithShowMore from '../../../components/TypographyWithShowMore.component';
 import withConfirm from '../../../hocs/with-confirm.hoc';
 

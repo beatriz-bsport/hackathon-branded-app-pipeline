@@ -5,8 +5,7 @@ import { compose } from 'recompose';
 
 import { Form } from 'formik';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';

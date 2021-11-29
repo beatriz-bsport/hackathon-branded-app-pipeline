@@ -13,6 +13,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import NotificationIcon from '@material-ui/icons/Notifications';
 import { compose, withState } from 'recompose';
 import { push } from 'connected-react-router';
+// eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
 
 import type { AlertGroup } from '../types';

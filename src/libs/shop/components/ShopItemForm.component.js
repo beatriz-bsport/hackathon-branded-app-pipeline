@@ -11,8 +11,7 @@ import LocalDrinkIcon from '@material-ui/icons/LocalDrink';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Button from '@material-ui/core/Button';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
 import type { ShopItem } from '../types';
 import NumericInput from '../../../components/input/NumericInput.component';

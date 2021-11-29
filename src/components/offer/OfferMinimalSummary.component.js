@@ -14,8 +14,7 @@ import VideocamIcon from '@material-ui/icons/Videocam';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { pure } from 'recompose';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import Tooltip from '../Tooltip.component';
 import EmptyListItem from '../LoadingListItem.component';
 

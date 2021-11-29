@@ -1,6 +1,6 @@
 // @flow
 
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import { goBack, push } from 'connected-react-router';
 import React, { Component } from 'react';
@@ -10,7 +10,6 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import type { TFunction } from 'react-i18next';
 import { mapFormData, unmap } from '../form.utils';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import {
@@ -26,7 +25,7 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import themeSelectors from '../../libs/theme/selectors';
 import { getAllEstablishments } from '../../libs/establishment/selectors';
-import type { Establishment } from '../../libs/establishment/types';
+import { Establishment } from '../../libs/establishment/types';
 
 import MetaActivityForm from '../../libs/meta-activity/components/MetaActivityForm.component';
 

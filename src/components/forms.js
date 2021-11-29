@@ -6,8 +6,7 @@ import React from 'react';
 
 import { Field, ErrorMessage, useField } from 'formik';
 
-import { useTranslation, withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { useTranslation, withTranslation, TFunction } from 'react-i18next';
 
 import MomentUtils from '@date-io/moment';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';

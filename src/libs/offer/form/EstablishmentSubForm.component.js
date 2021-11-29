@@ -3,8 +3,7 @@
 import React, { Component } from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import WarningIcon from '@material-ui/icons/Warning';
 
 import withStyles from '@material-ui/core/styles/withStyles';

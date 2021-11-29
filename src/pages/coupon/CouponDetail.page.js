@@ -1,8 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux';
 import { push as pushRouter } from 'connected-react-router';

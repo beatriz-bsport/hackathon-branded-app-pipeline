@@ -2,8 +2,7 @@
 
 import filter from 'lodash/filter';
 import groupBy from 'lodash/groupBy';
-import moment from 'moment-timezone';
-import type { Moment } from 'moment-timezone';
+import moment, { Moment } from 'moment-timezone';
 import { createSelector } from 'reselect';
 import createCachedSelector from 're-reselect';
 

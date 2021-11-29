@@ -3,9 +3,9 @@
 import React from 'react';
 
 import withStyles from '@material-ui/core/styles/withStyles';
+// eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import green from '@material-ui/core/colors/green';
 import blue from '@material-ui/core/colors/blue';

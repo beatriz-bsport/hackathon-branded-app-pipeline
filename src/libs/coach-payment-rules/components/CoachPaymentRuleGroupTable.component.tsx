@@ -1,7 +1,6 @@
 import React from 'react';
 import { compose } from 'recompose';
-import { WithTranslation, withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { WithTranslation, withTranslation, TFunction } from 'react-i18next';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';

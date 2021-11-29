@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-
+// eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { push } from 'connected-react-router';

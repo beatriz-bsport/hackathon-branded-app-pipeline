@@ -4,8 +4,7 @@ import React from 'react';
 import { colors } from '@bsport/common/lib/colors';
 
 import { compose } from 'recompose';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import StoreIcon from '@material-ui/icons/Store';

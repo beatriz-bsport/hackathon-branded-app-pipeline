@@ -9,10 +9,8 @@ import {
   withState,
   withStateHandlers,
 } from 'recompose';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
-
-import type { TFunction } from 'react-i18next';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';
@@ -39,8 +37,8 @@ import withTitle from '../../hocs/with-title.hoc';
 import CoachPerformanceForm from '../../libs/associated-coach/components/performance/CoachPerformanceForm.component';
 import CoachPerformanceSummary from '../../libs/associated-coach/components/performance/CoachPerformanceSummary.component';
 import CoachPerformanceTabs from '../../libs/associated-coach/components/performance/CoachPerformanceTabs.component';
-import type { Coach } from '../../libs/associated-coach/types';
-import type {
+import { Coach } from '../../libs/associated-coach/types';
+import {
   CoachPaymentRule as CoachPaymentRuleType,
   CoachPerformance as CoachPerformanceType,
 } from '../../libs/coach-payment-rules/types';

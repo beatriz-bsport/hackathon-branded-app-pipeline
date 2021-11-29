@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/styles';
 import { TFunction } from 'i18next';
 import { push as pushRouter } from 'connected-react-router';
 
-import type { Theme } from '@material-ui/core/styles';
+import { Theme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
@@ -20,7 +20,7 @@ import withTitle from '../../hocs/with-title.hoc';
 import { fetchTags } from '../../libs/tag/actions';
 import { RootState } from '../../reducers';
 import themeSelectors from '../../libs/theme/selectors';
-import { MaterialStyleType } from '../../utils/types';
+import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import {
   fetchAllCustomForm,
@@ -36,9 +36,8 @@ import {
 import CustomFormList from '../../libs/custom-form/components/CustomFormList.component';
 
 import CustomFormView from '../../libs/custom-form/components/consumer-form/CustomFormView.form';
-import type { WithHandlerType } from '../../utils/types';
 import tagSelectors from '../../libs/tag/selectors';
-import type { CustomForm } from '../../libs/custom-form/types';
+import { CustomForm } from '../../libs/custom-form/types';
 
 type OwnProps = {
   isSubmitting: boolean;

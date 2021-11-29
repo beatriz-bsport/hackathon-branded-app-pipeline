@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { compose, withHandlers, withStateHandlers, withState } from 'recompose';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { makeStyles } from '@material-ui/styles';
 import { connect } from 'react-redux';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -13,7 +13,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
-import type { TFunction } from 'react-i18next';
 import {
   COACH_PERFORMANCE_FOR_SESSION,
   COACH_PERFORMANCE_FOR_APPOINTMENT,
@@ -24,7 +23,7 @@ import {
   DISSOCIATED_COACH_PAYMENT_RULE_GROUP,
 } from '../../libs/coach-payment-rules/utils';
 import { downloadAsCsv } from '../../utils/downloader';
-import type {
+import {
   CoachPaymentRule as CoachPaymentRuleType,
   CoachPaymentRuleGroup,
 } from '../../libs/coach-payment-rules/types';

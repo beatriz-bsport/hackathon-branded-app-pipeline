@@ -7,8 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import { Divider } from '@material-ui/core';
 import PaymentComboListItem from './PaymentComboListItem.component';

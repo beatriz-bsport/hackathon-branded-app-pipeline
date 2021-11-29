@@ -2,11 +2,10 @@
 
 import { bindActionCreators } from 'redux';
 import Immutable from 'seamless-immutable';
-import type { Moment } from 'moment-timezone';
-import moment from 'moment-timezone';
+import moment, { Moment } from 'moment-timezone';
 import { discretizeByAndFillMissing as discretizeAndFillMissing } from '../../state/stats/utils';
-import type { State, Dispatch } from '../../state/types';
-import type { Graph } from './types';
+import { State, Dispatch } from '../../state/types';
+import { Graph } from './types';
 
 export const getGraphData = (
   state: State,

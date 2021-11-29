@@ -3,6 +3,7 @@
 import React from 'react';
 
 import { makeStyles, Theme } from '@material-ui/core/styles';
+// eslint-disable-next-line bsport/no-redux-in-component
 import { connect, ConnectedProps } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 

@@ -5,8 +5,7 @@ import { compose, withStateHandlers, withProps } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Checkbox from '@material-ui/core/Checkbox';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import moment from 'moment-timezone';
 
 import Button from '@material-ui/core/Button';

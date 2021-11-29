@@ -24,7 +24,7 @@ const MarketPlaceRouter = asyncComponent(() =>
 );
 const LoginRouter = asyncComponent(() => import('./pages/login/Login.router'));
 const UserspaceSwitcher = asyncComponent(() =>
-  import('./pages/UserspaceSwitcher.component'),
+  import('./pages/UserspaceSwitcher.page'),
 );
 const ConsumerRouter = asyncComponent(() =>
   import('./pages/consumer/Consumer.router'),

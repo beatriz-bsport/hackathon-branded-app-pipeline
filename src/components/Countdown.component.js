@@ -2,8 +2,7 @@
 
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 
 type Props = {

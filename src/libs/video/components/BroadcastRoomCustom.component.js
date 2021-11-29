@@ -1,7 +1,7 @@
 // @flow
+// eslint-disable-next-line max-classes-per-file
 import React from 'react';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import WarningIcon from '@material-ui/icons/Warning';
@@ -56,7 +56,6 @@ class ErrorCatcher extends React.Component<
   }
 }
 
-// eslint-disable-next-line
 export class BroadcastRoomWhereby extends React.Component<Props> {
   openLink = () => {
     window.open(this.getRoomLink(), '_blank');

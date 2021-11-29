@@ -8,8 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import StepLabel from '@material-ui/core/StepLabel';
 import List from '@material-ui/core/List';
 import { compose } from 'recompose';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import TypographyMultiline from '../../../../components/TypographyMultiline.component';
 

@@ -20,8 +20,7 @@ import Button from '@material-ui/core/Button';
 import { compose } from 'recompose';
 import { withStyles } from '@material-ui/core/styles';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { loadStripe } from '@stripe/stripe-js';
 import StripeErrorCode from './StripeErrorCode.component';
 

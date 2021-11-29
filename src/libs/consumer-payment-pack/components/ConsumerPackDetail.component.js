@@ -1,8 +1,7 @@
 // @flow
 import React from 'react';
 import moment from 'moment-timezone';
-import type { TFunction } from 'react-i18next';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';

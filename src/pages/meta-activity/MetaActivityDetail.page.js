@@ -6,8 +6,7 @@ import { compose } from 'recompose';
 import Tab from '@material-ui/core/Tab';
 import { connect } from 'react-redux';
 import Tabs from '@material-ui/core/Tabs';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { push } from 'connected-react-router';
 import withStyles from '@material-ui/core/styles/withStyles';
 

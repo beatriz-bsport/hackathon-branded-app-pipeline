@@ -39,7 +39,8 @@
     "react",
     "babel",
     "cypress",
-    "i18next"
+    "i18next",
+    "bsport"
   ],
   "rules": {
     "no-console": [
@@ -99,7 +100,24 @@
       }
     ],
     "flowtype/no-types-missing-file-annotation": 0,
-    "radix": 0
+    "radix": 0,
+    "constructor-super": 1,
+    "array-callback-return": ["warn", {
+      "checkForEach": false
+    }],
+    "no-await-in-loop": 1,
+    "no-dupe-else-if": 1,
+    "no-duplicate-case": 1,
+    "no-duplicate-imports": 1,
+    "no-irregular-whitespace": 1,
+    "max-classes-per-file": ["error", 1],
+    "max-depth": ["warn", {
+      "max": 4
+    }],
+    "no-empty": 1,
+    "no-sequences": 1,
+    // Custom rules
+    "bsport/no-redux-in-component": 2
   },
   "globals": {
     "snapshot": false,

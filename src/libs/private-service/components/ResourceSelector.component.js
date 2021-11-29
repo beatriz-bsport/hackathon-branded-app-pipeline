@@ -8,8 +8,7 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import ButtonBase from '@material-ui/core/ButtonBase';
 
 import Typography from '@material-ui/core/Typography';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 const ResourceItem = ({
   resource,

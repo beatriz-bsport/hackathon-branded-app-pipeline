@@ -14,8 +14,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import {
   BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,

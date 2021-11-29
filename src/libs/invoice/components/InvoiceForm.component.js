@@ -8,8 +8,7 @@ import {
   BUYABLE_ITEM_PRIVATE_PASS,
   BUYABLE_ITEM_CREDIT,
 } from '@bsport/common/lib/master-data/buyable-items';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import InvoiceContent from './InvoiceContent.component';
 import InvoiceEditor from './InvoiceEditor.component';
 import UnevenInvoiceDialog from '../dialog/UnevenInvoiceDialog.component';

@@ -15,8 +15,7 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import HelpIcon from '@material-ui/icons/Help';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { compose, withState } from 'recompose';
 import RedIconButton from '../../../components/button/RedIconButton.component';
 

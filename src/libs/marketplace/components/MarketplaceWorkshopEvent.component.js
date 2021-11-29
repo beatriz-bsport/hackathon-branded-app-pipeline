@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 
 import Typography from '@material-ui/core/Typography';
@@ -12,7 +12,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import CardMedia from '@material-ui/core/CardMedia';
 import Skeleton from '@material-ui/lab/Skeleton';
-import type { TFunction } from 'react-i18next';
 import TypographyWithShowMore from '../../../components/TypographyWithShowMore.component';
 
 import { formatAsDatetime, formatMinutes } from '../../../utils/datetime';

@@ -5,8 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { compose, withState, withProps } from 'recompose';
 import { connect } from 'react-redux';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import PaymentByCardStripe from '../../libs/payment/components/payment-backend-stripe-deprecated/PaymentByCard.component';

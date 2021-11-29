@@ -6,8 +6,7 @@ import moment from 'moment-timezone';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import Typography from '@material-ui/core/Typography';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import BroadcastRoomJitsi from './BroadcastJitsi.component';
 import BroadcastRoomWhereby from './BroadcastRoomWhereby.component';

@@ -11,8 +11,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import isEqual from 'lodash/isEqual';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import moment from 'moment-timezone';
 import CircularProgress from '@material-ui/core/CircularProgress';

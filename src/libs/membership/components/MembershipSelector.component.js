@@ -3,8 +3,7 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withState, withProps } from 'recompose';
 
-import { useTranslation, Trans } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { useTranslation, Trans, TFunction } from 'react-i18next';
 import Hidden from '@material-ui/core/Hidden';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';

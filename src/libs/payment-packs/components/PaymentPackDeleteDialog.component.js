@@ -10,8 +10,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Typography from '@material-ui/core/Typography';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import WarningIcon from '@material-ui/icons/Warning';
 
 import RedButton from '../../../components/button/RedButton.component';

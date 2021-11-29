@@ -3,8 +3,7 @@ import React, { Component } from 'react';
 
 import MUIDataTable from 'mui-datatables';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 import RedButton from '../../../components/button/RedButton.component';

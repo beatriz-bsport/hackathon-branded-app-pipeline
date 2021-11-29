@@ -12,10 +12,9 @@ import {
   updateCutsomFormLayout,
 } from '../../libs/custom-form/actions';
 import CustomFormLayout from '../../libs/custom-form/components/consumer-form-layout/CustomFormLayout.form';
-import type { WithHandlerType } from '../../utils/types';
-import { ResponsiveLayouts } from '../../libs/custom-form/types';
+import { WithHandlerType } from '../../utils/types';
 import themeSelectors from '../../libs/theme/selectors';
-import type { CustomForm } from '../../libs/custom-form/types';
+import { CustomForm, ResponsiveLayouts } from '../../libs/custom-form/types';
 import withTitle from '../../hocs/with-title.hoc';
 
 type OwnProps = {

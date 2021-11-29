@@ -14,8 +14,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import { compose, withState } from 'recompose';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { formatAsDate } from '../../../../utils/datetime';
 import NumericInput from '../../../../components/input/NumericInput.component';
 import type { PrivateConsumerPass } from '../../types';

@@ -9,8 +9,7 @@ import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import AddIcon from '@material-ui/icons/Add';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import { Divider } from '@material-ui/core';
 import OrderConfigurationForm from '../../libs/order/components/OrderConfigurationForm.component';

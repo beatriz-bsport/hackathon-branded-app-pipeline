@@ -12,8 +12,7 @@ import { connect } from 'react-redux';
 import { push as pushRouter } from 'connected-react-router';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import PaymentIcon from '@material-ui/icons/Payment';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { compose, withHandlers, withState } from 'recompose';
 import {
   BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,

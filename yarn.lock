@@ -8729,6 +8729,11 @@ eslint-plugin-babel@^5.1.0, eslint-plugin-babel@^5.3.1:
   dependencies:
     eslint-rule-composer "^0.3.0"
 
+eslint-plugin-bsport@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-bsport/-/eslint-plugin-bsport-1.0.1.tgz#17845202e6f9adb87311efdb13a4b7b008657eb9"
+  integrity sha512-mkpbHF2bB3jarD9XA+okXdcpCpQjyJn6eLwcwTB+mjwal/3YbT2L+WSP5UdBgILp9rzeYrLQ04VCEcXq5TZepQ==
+
 eslint-plugin-cypress@^2.6.1:
   version "2.12.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-cypress/-/eslint-plugin-cypress-2.12.1.tgz#9aeee700708ca8c058e00cdafe215199918c2632"

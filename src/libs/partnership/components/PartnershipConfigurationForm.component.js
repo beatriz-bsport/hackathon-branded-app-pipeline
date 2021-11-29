@@ -5,8 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { compose } from 'recompose';
 import { withFormik, Form, FieldArray } from 'formik';
 import * as Yup from 'yup';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { CheckboxField, Submit } from '../../../components/forms';
 
 import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';

@@ -6,8 +6,7 @@ import uniqBy from 'lodash/uniqBy';
 
 import { push as pushRouter } from 'connected-react-router';
 import { connect } from 'react-redux';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';

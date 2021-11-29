@@ -1,18 +1,16 @@
 // @flow
 
 import React from 'react';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
-import type { TFunction } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
-import Selector from '../../../components/Selector.component';
-import type { Suggestion } from '../../../components/Selector.component';
-import type { PrivateSlot } from '../../private-service/types';
+import Selector, { Suggestion } from '../../../components/Selector.component';
+import { PrivateSlot } from '../../private-service/types';
 
 type Props = {
   t: TFunction,
   selected: number,
-  onChange: (Suggestion) => void,
+  onChange: (opt: Suggestion) => void,
   classes: { [string]: string },
   privateSlotList: Array<PrivateSlot>,
   id: string,

@@ -10,8 +10,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import PersonIcon from '@material-ui/icons/Person';
 import Button from '@material-ui/core/Button';
 import HelpIcon from '@material-ui/icons/Help';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import RedButton from '../../../components/button/RedButton.component';
 import PasswordInput from '../../../components/input/PasswordInput.component';

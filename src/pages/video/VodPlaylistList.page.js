@@ -2,8 +2,7 @@
 import React from 'react';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import Grid from '@material-ui/core/Grid';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 

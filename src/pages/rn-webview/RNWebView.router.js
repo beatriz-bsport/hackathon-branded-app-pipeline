@@ -1,8 +1,8 @@
 // @flow
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import BasketPaymentIntent from './BasketPaymentIntent.component';
-import ContractPayment from './ContractPayment.component';
+import BasketPaymentIntent from './BasketPaymentIntent.page';
+import ContractPayment from './ContractPayment.page';
 import SubscriptionPaymentMethod from './SubscriptionPaymentMethod';
 
 export const RNWebView = () => (

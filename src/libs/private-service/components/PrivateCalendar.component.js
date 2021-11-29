@@ -2,8 +2,7 @@
 import React from 'react';
 
 import { compose, withStateHandlers } from 'recompose';
-// import chroma from 'chroma-js';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import frLocale from '@fullcalendar/core/locales/fr';
 import itLocale from '@fullcalendar/core/locales/it';
 import deLocale from '@fullcalendar/core/locales/de';
@@ -22,7 +21,6 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import memoize from 'memoize-one';
 import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
-import type { TFunction } from 'react-i18next';
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
 
@@ -39,7 +37,6 @@ import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status
 
 import './main.scss';
 import './custom.scss';
-// import { getTextColorFromRGB } from '../../../color';
 import i18n, { Moment } from '../../../i18n';
 import type { AvailabilitySlot, PrivateBooking } from '../types';
 import RecurrentAvailabilityFormDialog from './RecurrentAvailabilityFormDialog.component';

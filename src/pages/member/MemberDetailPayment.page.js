@@ -5,10 +5,9 @@ import React, { Component } from 'react';
 import { push } from 'connected-react-router';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
-import type { TFunction } from 'react-i18next';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import {

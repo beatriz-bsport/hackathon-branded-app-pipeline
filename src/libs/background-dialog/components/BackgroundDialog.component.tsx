@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
+// eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
 
 import Dialog from '@material-ui/core/Dialog';

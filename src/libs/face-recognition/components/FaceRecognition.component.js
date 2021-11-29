@@ -13,8 +13,7 @@ import * as canvas from 'canvas';
 
 import * as faceapi from 'face-api.js';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import type { ReactRefT } from '../../../types';
 import { findMemberFromFace as findMemberFromFaceAPI } from '../api';
 

@@ -1,6 +1,6 @@
 // @flow
 
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import { goBack, push } from 'connected-react-router';
 import React, { Component } from 'react';
@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 import { withProps, compose, withState } from 'recompose';
 import Grid from '@material-ui/core/Grid';
 
-import type { TFunction } from 'react-i18next';
 import Stepper from '@material-ui/core/Stepper';
 import Paper from '@material-ui/core/Paper';
 import Step from '@material-ui/core/Step';

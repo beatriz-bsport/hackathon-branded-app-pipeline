@@ -9,13 +9,14 @@ import Divider from '@material-ui/core/Divider';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import {
   PENDING,
   SUCCEEDED,
   FAILED,
   PROCESSING,
   CANCELED,
+  StatusCode,
 } from '@bsport/common/lib/master-data/planned-invoice-status';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
@@ -23,9 +24,6 @@ import CheckIcon from '@material-ui/icons/Check';
 import ErrorIcon from '@material-ui/icons/Error';
 import CancelIcon from '@material-ui/icons/Cancel';
 import EditIcon from '@material-ui/icons/Edit';
-
-import type { StatusCode } from '@bsport/common/lib/master-data/planned-invoice-status';
-import type { TFunction } from 'react-i18next';
 
 import { formatAsDate } from '../../../utils/datetime';
 import PaginatedList from '../../../components/PaginatedListStateful.component';

@@ -14,8 +14,7 @@ import ScheduleIcon from '@material-ui/icons/Schedule';
 import PeopleIcon from '@material-ui/icons/People';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import { splitIntervalList } from '../../utils';
 

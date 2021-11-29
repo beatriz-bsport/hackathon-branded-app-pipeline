@@ -10,8 +10,7 @@ import Button from '@material-ui/core/Button';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import { push } from 'connected-react-router';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
 import flatten from 'lodash/flatten';
 import { WidgetUtils } from '../../libs/widget/WidgetUtils';

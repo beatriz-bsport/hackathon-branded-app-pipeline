@@ -3,8 +3,7 @@ import React from 'react';
 
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { compose, withState } from 'recompose';
 import Button from '@material-ui/core/Button';
 

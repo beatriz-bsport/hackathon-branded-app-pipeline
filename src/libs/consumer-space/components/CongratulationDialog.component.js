@@ -10,8 +10,7 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import Typography from '@material-ui/core/Typography';
 import moment from 'moment-timezone';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import BookingConsumerItem from '../../booking/components/BookingConsumerItem.component';
 
 type Props = {

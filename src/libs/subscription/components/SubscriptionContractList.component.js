@@ -2,8 +2,7 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withState, compose } from 'recompose';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import List from '@material-ui/core/List';

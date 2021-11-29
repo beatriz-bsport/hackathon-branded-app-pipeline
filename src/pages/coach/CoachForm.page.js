@@ -9,8 +9,7 @@ import { connect } from 'react-redux';
 import Dialog from '@material-ui/core/Dialog';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';

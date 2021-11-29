@@ -1,9 +1,7 @@
 // @flow
 
-import React, { Component } from 'react';
-import type { Node } from 'react';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import React, { Component, Node } from 'react';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import List from '@material-ui/core/List';

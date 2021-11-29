@@ -1,4 +1,5 @@
 import React from 'react';
+// eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { fetchSignFormUpConfiguration } from '../../libs/sign-up-form/actions';

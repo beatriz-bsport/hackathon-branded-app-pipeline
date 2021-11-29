@@ -3,11 +3,12 @@
 import Fuse from 'fuse.js';
 import React, { Component } from 'react';
 import { compose } from 'recompose';
+
+// eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import memoize from 'memoize-one';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';

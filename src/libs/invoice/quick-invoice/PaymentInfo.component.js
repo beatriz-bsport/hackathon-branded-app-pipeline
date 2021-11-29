@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
@@ -9,7 +9,6 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import SaveIcon from '@material-ui/icons/Save';
 import CancelIcon from '@material-ui/icons/Cancel';
-import type { TFunction } from 'react-i18next';
 
 import PriceInput from '../../../components/input/PriceInput.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';

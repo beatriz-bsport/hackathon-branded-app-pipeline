@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 
+// eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation, TFunction } from 'react-i18next';

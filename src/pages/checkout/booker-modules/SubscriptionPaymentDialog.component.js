@@ -6,8 +6,8 @@ import { compose } from 'recompose';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
+// eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
 import moment from 'moment-timezone';
 import themeSelectors from '../../../libs/theme/selectors';

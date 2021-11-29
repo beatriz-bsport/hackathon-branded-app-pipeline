@@ -19,8 +19,7 @@ import {
   ConsumerFormFields,
   ConsumerFormFieldsHOC,
 } from '../consumer-form/CustomForm.formik-hoc';
-import type { CustomForm, ResponsiveLayouts } from '../../types';
-import { Layout } from '../../types';
+import { Layout, CustomForm, ResponsiveLayouts } from '../../types';
 import { layoutsBuilder } from '../../utils';
 import CustomFormSkeleton from '../CustomFormSkeleton.component';
 

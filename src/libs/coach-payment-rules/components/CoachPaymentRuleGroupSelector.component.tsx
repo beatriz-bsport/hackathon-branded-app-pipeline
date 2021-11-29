@@ -5,9 +5,8 @@ import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
-import Selector from '../../../components/Selector.component';
-import type { Suggestion } from '../../../components/Selector.component';
-import type { CoachPaymentRuleGroup } from '../types';
+import Selector, { Suggestion } from '../../../components/Selector.component';
+import { CoachPaymentRuleGroup } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
 
 type OwnProps = {

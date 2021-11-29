@@ -1,5 +1,6 @@
 // @flow
 
+// eslint-disable-next-line max-classes-per-file
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
 import WidgetUtils from '../libs/widget/WidgetUtils';

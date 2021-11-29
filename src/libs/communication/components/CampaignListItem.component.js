@@ -14,8 +14,7 @@ import {
 import SmsIcon from '@material-ui/icons/Sms';
 import Divider from '@material-ui/core/Divider';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 type Props = {
   t: TFunction,

@@ -5,8 +5,7 @@ import { compose } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { COACH_PAYMENT_RULE_FOR_SESSION } from '@bsport/common/lib/master-data/coach_payment_rule';
 import CoachSelector from '../../associated-coach/components/coach-selector/CoachSelectorWithCard.component';
 import CoachPaymentRuleSelectorStyled from '../../coach-payment-rules/components/coach-payment-rule-selector/CoachPaymentRuleSelectorStyled.component';

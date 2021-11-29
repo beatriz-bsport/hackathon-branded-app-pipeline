@@ -10,8 +10,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Divider from '@material-ui/core/Divider';
 import Chip from '@material-ui/core/Chip';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import EventListItem from './EventListItem.component';
 import PaginatedListBase from '../../../components/PaginatedListBase.component';

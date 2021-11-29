@@ -15,9 +15,8 @@ import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
-import type { TFunction } from 'react-i18next';
 import {
   WAITING_LIST_AUTO_CANCELLATION_DUMB,
   WAITING_LIST_AUTO_CANCELLATION_SMART,

@@ -4,8 +4,7 @@ import React from 'react';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Avatar from '@material-ui/core/Avatar';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { colors } from '@bsport/common/lib/colors';
 import Tooltip from '../../../components/Tooltip.component';
 

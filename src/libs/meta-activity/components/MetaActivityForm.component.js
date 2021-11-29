@@ -5,13 +5,12 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import { withFormik, Form } from 'formik';
 import * as Yup from 'yup';
 import pick from 'lodash/pick';
 import { compose } from 'recompose';
-import type { TFunction } from 'react-i18next';
 import MultipleImageUploader from '../../../components/MultipleImageUploader.component';
 import ImageList from '../../../components/ImageList.component';
 import ImageField from '../../../components/forms/ImageField.component';

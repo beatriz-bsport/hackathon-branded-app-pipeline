@@ -2,7 +2,7 @@
 
 import MUIDataTable from 'mui-datatables';
 import React, { Component } from 'react';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import Button from '@material-ui/core/Button';
@@ -15,7 +15,6 @@ import IconButton from '@material-ui/core/IconButton';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Typography from '@material-ui/core/Typography';
-import type { TFunction } from 'react-i18next';
 import { getCurrencyDisplayWithPrice } from '../theme/selectors';
 
 import { formatAsDate } from '../../utils/datetime';

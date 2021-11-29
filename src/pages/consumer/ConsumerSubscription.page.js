@@ -13,8 +13,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Typography from '@material-ui/core/Typography';
 
 import { push } from 'connected-react-router';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,

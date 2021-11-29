@@ -13,8 +13,7 @@ import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import { compose } from 'recompose';
-import type { TFunction } from 'react-i18next';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import { formatAsDatetime } from '../../../utils/datetime';
 import { Member } from '../../member/types';

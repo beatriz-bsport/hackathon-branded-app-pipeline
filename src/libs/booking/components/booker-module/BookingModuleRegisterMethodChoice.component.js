@@ -16,14 +16,16 @@ import PercentInput from '../../../../components/input/PercentInput.component';
 import PaymentPackListItem from '../../../payment-packs/components/PaymentPackListItem.component';
 import ConsumerPackRowItem from '../../../consumer-payment-pack/components/ConsumerPackRowItem.component';
 
-import type { ConsumerPaymentPack } from '../../../consumer-payment-pack/types';
-import type { PaymentPack } from '../../../payment-packs/types';
-import { MaxoutBooking } from '../../../consumer-payment-pack/types';
+import { PaymentPack } from '../../../payment-packs/types';
+import {
+  MaxoutBooking,
+  ConsumerPaymentPack,
+} from '../../../consumer-payment-pack/types';
 import { Offer } from '../../../offer/types';
 import EstablishmentSelector from '../../../establishment/components/EstablishmentSelector.component';
 import ModalConfirm from '../../../../components/ModalConfirm.component';
 import { paymentPackTagsAndMemberTagsCompatibilty } from '../../../payment-packs/utils';
-import type { Member } from '../../../member/types';
+import { Member } from '../../../member/types';
 import { WithIsSharedActive } from '../../../relationship/types';
 
 type Props = {

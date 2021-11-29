@@ -10,8 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import Collapse from '@material-ui/core/Collapse';
 
 import FuzeSearch from '../../components/FuzeSearch.component';

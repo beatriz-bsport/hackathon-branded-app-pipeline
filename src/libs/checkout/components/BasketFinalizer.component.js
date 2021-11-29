@@ -8,9 +8,8 @@ import StepLabel from '@material-ui/core/StepLabel';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import { compose, withState } from 'recompose';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import UpdateIcon from '@material-ui/icons/Update';
-import type { TFunction } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import {

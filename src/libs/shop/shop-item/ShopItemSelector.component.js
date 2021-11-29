@@ -1,8 +1,7 @@
 // @flow
 
 import React from 'react';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import ShopItemSummary from '../../../components/shop/ShopItemSummary.component';
 
 import Selector from '../../../components/Selector.component';

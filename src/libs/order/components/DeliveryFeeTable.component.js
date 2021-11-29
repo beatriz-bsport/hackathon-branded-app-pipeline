@@ -2,8 +2,7 @@
 
 import React from 'react';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';

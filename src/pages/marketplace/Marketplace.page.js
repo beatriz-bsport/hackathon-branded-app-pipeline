@@ -19,8 +19,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
 import { replace, push as pushRouter } from 'connected-react-router';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import {
   CUSTOM_FORM_FIELD_SIGN_UP_EMAIL,

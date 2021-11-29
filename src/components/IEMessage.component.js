@@ -3,8 +3,7 @@ import React from 'react';
 
 import { compose, withStateHandlers } from 'recompose';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import { UserAgentProvider, UserAgent } from '@quentin-sommer/react-useragent';
 

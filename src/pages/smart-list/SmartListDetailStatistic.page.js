@@ -3,8 +3,7 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
 import moment from 'moment-timezone';
 import StatsPanel from '../../libs/smart-list/components/StatsPanel.component';

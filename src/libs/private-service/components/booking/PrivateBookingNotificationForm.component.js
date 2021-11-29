@@ -5,8 +5,7 @@ import * as Yup from 'yup';
 import { compose } from 'recompose';
 import classNames from 'classnames';
 
-import { useTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { useTranslation, TFunction } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Dialog from '@material-ui/core/Dialog';

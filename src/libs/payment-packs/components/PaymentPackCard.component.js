@@ -1,48 +1,55 @@
 // @flow
 import React, { Component } from 'react';
 import { compose, withStateHandlers } from 'recompose';
+
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
+
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
-import HeightIcon from '@material-ui/icons/Height';
 import Hidden from '@material-ui/core/Hidden';
-import DeleteIcon from '@material-ui/icons/Delete';
 import LinkIcon from '@material-ui/icons/Link';
-import EditIcon from '@material-ui/icons/Edit';
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import StarIcon from '@material-ui/icons/Star';
+import DateRangeIcon from '@material-ui/icons/DateRange';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import DoneAllIcon from '@material-ui/icons/DoneAll';
+import LocalOfferIcon from '@material-ui/icons/LocalOffer';
+import NotInterestedIcon from '@material-ui/icons/NotInterested';
+import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
 import { withTranslation, TFunction } from 'react-i18next';
 
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ButtonBase from '@material-ui/core/ButtonBase';
 
 import RedButton from '../../../components/button/RedButton.component';
-import MetaActivityMinimalSummary from '../../../components/activity/MetaActivityMinimalSummary.component';
-import EstablishmentSummary from '../../establishment/components/EstablishmentSummary.component';
-import Sport from '../../category/components/SCT.component';
 import type { MetaActivity } from '../../../api/types';
-import { getValidityInfo } from '../utils';
+import {
+  getValidityInfo,
+  getCompatibilityInfo,
+  getTagInfo,
+  getCreditInfo,
+} from '../utils';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 import PaymentPackScaleCreditDialog from './PaymentPackScaleCreditDialog.component';
+import PaymentPackCompatibilityDialog from './PaymentPackCompatibilityDialog.component';
+import PaymentPackTagsDialog from './PaymentPackTagsDialog.component';
 
 import type { PaymentPack } from '../types';
-import TagChip from '../../tag/components/TagChip.component';
 
 const PENALTY_KIND_BLOCK_CPP = 0;
 const PENALTY_KIND_NEGATIVE_ACCOUNT = 1;
 
-type Props = {
+type OwnProps = {
   onlyPublic: ?boolean,
 
   pack: PaymentPack,
 
   metaActivities: Array<MetaActivity>,
   establishments: Array<Establishment>,
+  paymentPackCategory: PaymentPackCategory,
 
   onEditButtonClick: () => void,
   onDeleteButtonClick: () => void,
@@ -53,288 +60,25 @@ type Props = {
   scaleMenuOpen: boolean,
   scaleCreditLoading: boolean,
   toogleScaleMenuOpen: () => void,
+  goToEdit: (paymentPackId: number) => void,
   onScaleCredit: (paymentPackId: number, data: any) => void,
   pack: PaymentPack,
   isManager?: boolean,
 };
 
-export class PaymentPackCard extends Component<Props> {
-  getSportScope = () => {
-    const { pack, t, classes } = this.props;
-    const { categories } = pack;
-    if (categories.length === 0) {
-      return null;
-    }
-    return (
-      <div>
-        <Typography variant="subtitle1">
-          {t('availableOnFollowingSports')}
-        </Typography>
-        <List className={classes.tabList}>
-          {categories.length ? (
-            categories.map((c) => (
-              <ListItem key={c.id} dense divider>
-                <Sport SCTName={c.name} parentCategory={c.SCS.id} />
-              </ListItem>
-            ))
-          ) : (
-            <Typography variant="body2">{t('anySport')}</Typography>
-          )}
-        </List>
-      </div>
-    );
-  };
+type Props = OwnProps &
+  Connected<typeof connector> &
+  WithStyles &
+  WithTranslation;
 
-  getActivityScope = () => {
-    const { pack, t, classes } = this.props;
-    const packMetaActivities = pack.metaActivities;
-    if (packMetaActivities.length === 0) {
-      return null;
-    }
-    return (
-      <div>
-        <Typography variant="subtitle1">
-          {t('availableOnFollowingActivities')}
-        </Typography>
-        <List className={classes.tabList}>
-          {packMetaActivities.length ? (
-            packMetaActivities.map((ma) => {
-              if (!ma) {
-                return (
-                  <div>
-                    <CircularProgress />
-                  </div>
-                );
-              }
-              return (
-                <MetaActivityMinimalSummary key={ma.id} metaActivity={ma} />
-              );
-            })
-          ) : (
-            <Typography variant="body2">{t('anyActivity')}</Typography>
-          )}
-        </List>
-      </div>
-    );
-  };
-
-  getEstablishmentScope = () => {
-    const { pack, t, classes } = this.props;
-    const packEstablishments = pack.establishments;
-    if (packEstablishments.length === 0) {
-      return null;
-    }
-    return (
-      <div>
-        <Typography variant="subtitle1">
-          {t('availableOnFollowingEstablishments')}
-        </Typography>
-        <List className={classes.tabList}>
-          {packEstablishments.length ? (
-            packEstablishments.map((eee) => {
-              if (!eee) return <CircularProgress />;
-              return <EstablishmentSummary key={eee.id} establishment={eee} />;
-            })
-          ) : (
-            <Typography variant="body2">{t('anyEstablishment')}</Typography>
-          )}
-        </List>
-      </div>
-    );
-  };
-
-  getWhiteListTagScope = () => {
-    const { pack, t, classes } = this.props;
-    if (!pack || pack?.whitelist_tags?.length === 0) {
-      return null;
-    }
-    return (
-      <div>
-        <Typography variant="subtitle1">
-          {t('form.paymentPack.advancedOptions.tag.allowedFor')}
-        </Typography>
-        <div className={classes.tagListSection}>
-          {pack?.whitelist_tags.map((tag) => {
-            return <TagChip key={tag.id} tag={tag} size="small" />;
-          })}
-        </div>
-      </div>
-    );
-  };
-
-  getBlackListTagScope = () => {
-    const { pack, t, classes } = this.props;
-    if (!pack || pack?.blacklist_tags?.length === 0) {
-      return null;
-    }
-    return (
-      <div>
-        <Typography variant="subtitle1">
-          {t('form.paymentPack.advancedOptions.tag.notAllowedFor')}
-        </Typography>
-        <div className={classes.tagListSection}>
-          {pack?.blacklist_tags.map((tag) => {
-            return <TagChip key={tag.id} tag={tag} size="small" />;
-          })}
-        </div>
-      </div>
-    );
-  };
-
-  renderMaxWeekBookings = () => {
-    const { t, classes, pack } = this.props;
-    const { max_bookings_per_week } = pack;
-    if (max_bookings_per_week) {
-      return (
-        <div className={classes.restrictionBlock}>
-          <Typography>
-            {t('maxNBookingsByWeek1')}
-            <b>{max_bookings_per_week}</b>
-            {t('maxNBookingsByWeek2')}
-          </Typography>
-        </div>
-      );
-    }
-    return null;
-  };
-
-  renderMaxMonthBookings = () => {
-    const { t, classes, pack } = this.props;
-    const { max_bookings_per_month } = pack;
-    if (max_bookings_per_month) {
-      return (
-        <div className={classes.restrictionBlock}>
-          <Typography>
-            {t('maxNBookingsByWeek1')}
-            <b>{max_bookings_per_month}</b>
-            {t('maxNBookingsByMonth2')}
-          </Typography>
-        </div>
-      );
-    }
-    return null;
-  };
-
-  renderTimeInfo = () => {
-    const { pack, classes, t } = this.props;
-    return (
-      <div className={classes.restrictionBlock}>
-        <Typography>{getValidityInfo(pack, t)}</Typography>
-      </div>
-    );
-  };
-
-  getPackHeadingInfo = () => {
-    const { pack, t, classes, onlyPublic } = this.props;
-    const {
-      unlimited,
-      max_bookings_per_week,
-      max_bookings_per_month,
-      new_member_only,
-      only_vod_access,
-      base_price,
-      name,
-      credits,
-      tax,
-    } = pack;
-    let creditsFormatted = t('unlimitedCredits');
-    if (!unlimited) {
-      creditsFormatted = (
-        <div>
-          <b>{credits}</b> {t('credits', { count: credits }).toLowerCase()}
-        </div>
-      );
-    }
-    if (unlimited && !!max_bookings_per_week) {
-      creditsFormatted = this.renderMaxWeekBookings();
-    }
-    if (unlimited && !max_bookings_per_week && !!max_bookings_per_month) {
-      creditsFormatted = this.renderMaxMonthBookings();
-    }
-    return (
-      <div>
-        {pack.disabled ? (
-          <div className={classes.disabledLabel}>
-            <Typography color="rror" variant="h6">
-              {t('disabled')}
-            </Typography>
-          </div>
-        ) : null}
-        <Grid
-          container
-          direction="row"
-          justify="space-between"
-          alignItems="flex-start"
-        >
-          <Grid item xs={8}>
-            <div>
-              <Typography className={classes.title} variant="h6">
-                {name}
-              </Typography>
-              {new_member_only && !onlyPublic ? (
-                <div className={classes.newMemberOnlyContainer}>
-                  <VisibilityOffIcon className={classes.iconLeft} />
-                  <Typography>{t('newMemberOnly')}</Typography>
-                </div>
-              ) : null}
-              {only_vod_access && !onlyPublic ? (
-                <div className={classes.newMemberOnlyContainer}>
-                  <Typography>{t('only_vod_access')}</Typography>
-                </div>
-              ) : null}
-              <div>
-                {this.renderTimeInfo()}
-                {!unlimited && this.renderMaxWeekBookings()}
-                {!unlimited && this.renderMaxMonthBookings()}
-              </div>
-            </div>
-          </Grid>
-          <Grid item xs={4}>
-            <div className={classes.columnLeft}>
-              <Typography variant="h4" color="primary">
-                {getCurrencyDisplayWithPrice(base_price)}
-              </Typography>
-              {onlyPublic ? null : (
-                <Typography variant="caption">
-                  {getCurrencyDisplayWithPrice(
-                    (base_price / ((100 + parseInt(tax, 10)) / 100)).toFixed(2),
-                  )}{' '}
-                  {t('ht')}
-                </Typography>
-              )}
-              <Typography variant="subtitle1">{creditsFormatted}</Typography>
-            </div>
-          </Grid>
-        </Grid>
-      </div>
-    );
-  };
-
-  renderScope = () => {
-    const { t, classes } = this.props;
-    const { metaActivities, establishments, categories } = this.props.pack;
-    if (
-      metaActivities.length === 0 &&
-      categories.length === 0 &&
-      establishments.length === 0
-    ) {
-      return (
-        <div className={classes.horizontalBlock}>
-          <div className={classes.noRestriction}>
-            <Typography>{t('noRestrictionOnActivityType')}</Typography>
-          </div>
-        </div>
-      );
-    }
-    return (
-      <div>
-        <div className={classes.horizontalBlock}>{this.getSportScope()}</div>
-        <div className={classes.horizontalBlock}>{this.getActivityScope()}</div>
-        <div className={classes.horizontalBlock}>
-          {this.getEstablishmentScope()}
-        </div>
-      </div>
-    );
+type State = {
+  compatibilityDialogOpen: boolean,
+  tagsDialogOpen: Boolean,
+};
+export class PaymentPackCard extends Component<Props, State> {
+  state = {
+    compatibilityDialogOpen: false,
+    tagsDialogOpen: false,
   };
 
   renderLinkToPaymentPage = () => {
@@ -358,82 +102,6 @@ export class PaymentPackCard extends Component<Props> {
       <CircularProgress />
     );
   };
-  /*
-  renderAdvancedOptions = () => {
-    const { classes, t } = this.props;
-    return (
-      <div className={classes.advancedContainer}>
-        <div className={classes.advancedHeader}>
-          <Typography variant="subtitle">
-            {this.props.t('options.advanced')}
-          </Typography>
-          <IconButton onClick={this.props.toogleAdvanceMenu}>
-            <ExpandMoreIcon />
-          </IconButton>
-        </div>
-        <Collapse in={this.props.advancedMenuOpen}>
-          <div className={classes.advancedContent}>
-            <List disablePadding>
-              <ListItem densebutton>
-                <ListItemText primary={t('options.scaleCredit')} />
-                <ListItemSecondaryAction>
-                  <IconButton
-                    onClick={this.props.toogleScaleMenuOpen}
-                    color="primary"
-                  >
-                    <ArrowForwardIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-            </List>
-          </div>
-        </Collapse>
-      </div>
-    );
-  };
-  */
-
-  renderPenalty = () => {
-    const { pack, t, classes } = this.props;
-    const {
-      penalty_active,
-      penalty_kind,
-      penalty_nb_late_cancellations,
-      penalty_nb_days,
-      penalty_days_blocked,
-      penalty_account_value,
-    } = pack;
-
-    return (
-      penalty_active && (
-        <>
-          <Typography variant="h6" className={classes.penaltyTitle}>
-            {t('penalty.title')}
-          </Typography>
-          {penalty_kind === PENALTY_KIND_BLOCK_CPP && (
-            <Typography>
-              {t('penalty.block', {
-                nb_cancellations: penalty_nb_late_cancellations,
-                nb_days: penalty_nb_days,
-                days_blocked: penalty_days_blocked,
-              })}
-            </Typography>
-          )}
-          {penalty_kind === PENALTY_KIND_NEGATIVE_ACCOUNT && (
-            <Typography>
-              {t('penalty.account', {
-                nb_cancellations: penalty_nb_late_cancellations,
-                nb_days: penalty_nb_days,
-                account_value: getCurrencyDisplayWithPrice(
-                  penalty_account_value,
-                ),
-              })}
-            </Typography>
-          )}
-        </>
-      )
-    );
-  };
 
   renderEditDeleteButtons = () => {
     const { pack, classes, t } = this.props;
@@ -453,8 +121,8 @@ export class PaymentPackCard extends Component<Props> {
             id="button_pass_multdiv"
             color="primary"
             onClick={this.props.toogleScaleMenuOpen}
+            className={`${classes.multiDivButton} ${classes.buttonAlign}`}
           >
-            <HeightIcon className={classes.iconLeft} />
             <Hidden xsDown>{t('actions.scaleCredit')}</Hidden>
           </Button>
         )}
@@ -462,23 +130,357 @@ export class PaymentPackCard extends Component<Props> {
           id="button_pass_modify"
           color="primary"
           onClick={this.props.onEditButtonClick}
+          className={`${classes.buttonWidth} ${classes.buttonAlign}`}
         >
-          <EditIcon className={classes.iconLeft} />
           <Hidden xsDown>{t('actions.edit')}</Hidden>
         </Button>
         <RedButton
           id="button_pass_delete"
           onClick={this.props.onDeleteButtonClick}
+          className={`${classes.buttonWidth} ${classes.buttonAlign}`}
         >
-          <DeleteIcon className={classes.iconLeft} />
           <Hidden xsDown>{t('actions.delete')}</Hidden>
         </RedButton>
       </div>
     );
   };
 
+  renderCardHeader = () => {
+    const { pack, t, onlyPublic, classes, paymentPackCategory } = this.props;
+    const { base_price, name, tax } = pack;
+
+    return (
+      <Grid
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="flex-start"
+      >
+        <Grid item xs={8}>
+          <div className={classes.header}>
+            <div>
+              <Typography className={classes.title} variant="h4">
+                {name}
+              </Typography>
+              {paymentPackCategory && (
+                <Typography className={classes.category} variant="h6">
+                  {paymentPackCategory}
+                </Typography>
+              )}
+            </div>
+            <div>
+              {!onlyPublic && (
+                <div className={classes.copyButton}>
+                  {this.renderLinkToPaymentPage()}
+                </div>
+              )}
+
+              <div className={classes.detailInfo}>
+                <div className={classes.detailCategory}>
+                  <StarIcon className={classes.leftIcon} />
+                  <Typography className={classes.categoryTitle} variant="h6">
+                    {t('detailTitles.credit_quantity')}
+                  </Typography>
+                </div>
+                <Typography variant="body1" className={classes.packInfo}>
+                  {getCreditInfo(pack, t)}
+                </Typography>
+              </div>
+            </div>
+          </div>
+        </Grid>
+
+        <Grid item xs={4}>
+          <div className={classes.columnLeft}>
+            <Typography variant="h3" color="primary" className={classes.price}>
+              {getCurrencyDisplayWithPrice(base_price)}
+            </Typography>
+            {onlyPublic ? null : (
+              <Typography variant="caption" className={classes.priceWithoutTax}>
+                {getCurrencyDisplayWithPrice(
+                  (base_price / ((100 + parseInt(tax, 10)) / 100)).toFixed(2),
+                )}{' '}
+                {t('ht')}
+              </Typography>
+            )}
+            {!onlyPublic && (
+              <div className={classes.buttonBlock}>
+                {this.renderEditDeleteButtons()}
+              </div>
+            )}
+          </div>
+        </Grid>
+      </Grid>
+    );
+  };
+
+  renderAccessibilityInfo = () => {
+    const { t, pack, classes } = this.props;
+    const { new_member_only, onsite_payment_available, manager_only } = pack;
+    if (new_member_only || onsite_payment_available || manager_only) {
+      return (
+        <>
+          {new_member_only && !manager_only && (
+            <p className={classes.detailContent}>
+              {t('accessibility.newMembers')}
+            </p>
+          )}
+          {manager_only && (
+            <p className={classes.detailContent}>
+              {t('accessibility.managerOnly')}
+            </p>
+          )}
+          {onsite_payment_available && !manager_only && (
+            <p className={classes.detailContent}>
+              {t('accessibility.onsitePayment')}
+            </p>
+          )}
+        </>
+      );
+    }
+    return null;
+  };
+
+  renderVODInfo = () => {
+    const { t, pack, classes } = this.props;
+    const { only_vod_access, full_vod_access } = pack;
+    if (only_vod_access || full_vod_access) {
+      return (
+        <>
+          {full_vod_access && !only_vod_access && (
+            <p className={classes.detailContent}>{t('full_vod')}</p>
+          )}
+          {only_vod_access && (
+            <p className={classes.detailContent}>{t('only_vod_access')}</p>
+          )}
+        </>
+      );
+    }
+    return null;
+  };
+
+  renderPenalty = () => {
+    const { pack, t, classes } = this.props;
+    const {
+      penalty_kind,
+      penalty_nb_late_cancellations,
+      penalty_nb_days,
+      penalty_days_blocked,
+      penalty_account_value,
+    } = pack;
+    return (
+      <>
+        {penalty_kind === PENALTY_KIND_BLOCK_CPP && (
+          <p className={classes.detailContent}>
+            {t('penalty.block', {
+              nb_cancellations: penalty_nb_late_cancellations,
+              nb_days: penalty_nb_days,
+              days_blocked: penalty_days_blocked,
+            })}
+          </p>
+        )}
+        {penalty_kind === PENALTY_KIND_NEGATIVE_ACCOUNT && (
+          <p className={classes.detailContent}>
+            {t('penalty.account', {
+              nb_cancellations: penalty_nb_late_cancellations,
+              nb_days: penalty_nb_days,
+              account_value: getCurrencyDisplayWithPrice(penalty_account_value),
+            })}
+          </p>
+        )}
+      </>
+    );
+  };
+
+  renderRestrictions = () => {
+    const { t, pack, classes } = this.props;
+    const {
+      max_bookings_per_day,
+      max_bookings_per_week,
+      max_bookings_per_month,
+      max_purchase_per_member,
+      penalty_active,
+    } = pack;
+    if (
+      max_bookings_per_day ||
+      max_bookings_per_week ||
+      max_bookings_per_month ||
+      max_purchase_per_member ||
+      penalty_active
+    ) {
+      return (
+        <>
+          {max_bookings_per_day && (
+            <p className={classes.detailContent}>
+              {t('cardDetails.maxBookingPerDay')}
+              {max_bookings_per_day}
+            </p>
+          )}
+          {max_bookings_per_week && (
+            <p className={classes.detailContent}>
+              {t('cardDetails.maxBookingPerWeek')}
+              {max_bookings_per_week}
+            </p>
+          )}
+          {max_bookings_per_month && (
+            <p className={classes.detailContent}>
+              {t('cardDetails.maxBookingPerMonth')}
+              {max_bookings_per_month}
+            </p>
+          )}
+          {max_purchase_per_member && (
+            <p className={classes.detailContent}>
+              {t('cardDetails.maxPurchasePerMember')}
+              {max_purchase_per_member}
+            </p>
+          )}
+          {penalty_active && this.renderPenalty()}
+        </>
+      );
+    }
+    return null;
+  };
+
+  getPackInfo = () => {
+    const { pack, t, classes, isManager } = this.props;
+    const { categories, establishments, metaActivities } = pack;
+    const accessibility = this.renderAccessibilityInfo();
+    const restrictions = this.renderRestrictions();
+    const tags = getTagInfo(pack, t);
+    const VOD = this.renderVODInfo();
+
+    return (
+      <div>
+        {pack.disabled ? (
+          <div className={classes.disabledLabel}>
+            <Typography color="error" variant="h6">
+              {t('disabled')}
+            </Typography>
+          </div>
+        ) : null}
+
+        {this.renderCardHeader()}
+
+        <div>
+          <div className={classes.detailInfo}>
+            <div className={classes.detailCategory}>
+              <DateRangeIcon className={classes.leftIcon} />
+              <Typography className={classes.categoryTitle} variant="h6">
+                {t('detailTitles.validity')}
+              </Typography>
+            </div>
+            <Typography variant="body1" className={classes.packInfo}>
+              {getValidityInfo(pack, t)}
+            </Typography>
+          </div>
+
+          <div className={classes.detailInfo}>
+            <div className={classes.titleWithSeeAll}>
+              <div className={classes.detailCategory}>
+                <DoneAllIcon className={classes.leftIcon} />
+                <Typography className={classes.categoryTitle} variant="h6">
+                  {t('detailTitles.compatibility')}
+                </Typography>
+              </div>
+              {categories.length ||
+              establishments.length ||
+              metaActivities.length ? (
+                <Button
+                  id="button_pass_seeAll"
+                  color="primary"
+                  onClick={() =>
+                    this.setState({ compatibilityDialogOpen: true })
+                  }
+                  className={classes.seeAllCompatibility}
+                >
+                  {t('seeAll')}
+                </Button>
+              ) : null}
+            </div>
+            <Typography variant="body1" className={classes.packInfo}>
+              {getCompatibilityInfo(pack, t)}
+            </Typography>
+          </div>
+
+          {accessibility && (
+            <div className={classes.detailInfo}>
+              <div className={classes.detailCategory}>
+                <VisibilityIcon className={classes.leftIcon} />
+                <Typography className={classes.categoryTitle} variant="h6">
+                  {t('detailTitles.accessibility')}
+                </Typography>
+              </div>
+              <Typography variant="body1" className={classes.packInfo}>
+                {accessibility}
+              </Typography>
+            </div>
+          )}
+
+          {VOD && (
+            <div className={classes.detailInfo}>
+              <div className={classes.detailCategory}>
+                <OndemandVideoIcon className={classes.leftIcon} />
+                <Typography className={classes.categoryTitle} variant="h6">
+                  {t('detailTitles.vod')}
+                </Typography>
+              </div>
+              <Typography variant="body1" className={classes.packInfo}>
+                {VOD}
+              </Typography>
+            </div>
+          )}
+
+          {isManager && tags && (
+            <div className={classes.detailInfo}>
+              <div className={classes.titleWithSeeAll}>
+                <div className={classes.detailCategory}>
+                  <LocalOfferIcon className={classes.leftIcon} />
+                  <Typography className={classes.categoryTitle} variant="h6">
+                    {t('detailTitles.tags')}
+                  </Typography>
+                  <Button
+                    id="button_pass_seeAll"
+                    color="primary"
+                    onClick={() => this.setState({ tagsDialogOpen: true })}
+                    className={classes.seeAllTags}
+                  >
+                    {t('seeAll')}
+                  </Button>
+                </div>
+              </div>
+              <Typography variant="body1" className={classes.packInfo}>
+                {tags}
+              </Typography>
+            </div>
+          )}
+
+          {restrictions && (
+            <div className={classes.detailInfo}>
+              <div className={classes.detailCategory}>
+                <NotInterestedIcon className={classes.leftIcon} />
+                <Typography className={classes.categoryTitle} variant="h6">
+                  {t('detailTitles.restrictions')}
+                </Typography>
+              </div>
+              <Typography variant="body1" className={classes.packInfo}>
+                {restrictions}
+              </Typography>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  };
+
   render() {
-    const { classes, onlyPublic, pack, isManager } = this.props;
+    const { classes, pack } = this.props;
+    const {
+      categories,
+      establishments,
+      metaActivities,
+      whitelist_tags,
+      blacklist_tags,
+    } = pack;
     return (
       <Paper
         className={[
@@ -486,34 +488,8 @@ export class PaymentPackCard extends Component<Props> {
           pack.disabled ? classes.disabled : null,
         ].join(' ')}
       >
-        <div className={classes.horizontalBlock}>
-          {this.getPackHeadingInfo()}
-        </div>
-        <div className={`${classes.horizontalBlock} ${classes.penaltyText}`}>
-          {this.renderPenalty()}
-        </div>
-        {!onlyPublic && (
-          <div className={classes.buttonBlock}>
-            {this.renderLinkToPaymentPage()}
-          </div>
-        )}
-        {this.renderScope()}
-        {isManager && (
-          <>
-            <div className={classes.horizontalBlock}>
-              {this.getWhiteListTagScope()}
-            </div>
-            <div className={classes.horizontalBlock}>
-              {this.getBlackListTagScope()}
-            </div>
-          </>
-        )}
+        <div className={classes.horizontalBlock}>{this.getPackInfo()}</div>
 
-        {!onlyPublic && (
-          <div className={classes.buttonBlock}>
-            {this.renderEditDeleteButtons()}
-          </div>
-        )}
         <PaymentPackScaleCreditDialog
           open={this.props.scaleMenuOpen}
           loading={this.props.scaleCreditLoading}
@@ -521,6 +497,21 @@ export class PaymentPackCard extends Component<Props> {
           onSubmit={(data) =>
             this.props.onScaleCredit(this.props.pack.id, data)
           }
+        />
+        <PaymentPackCompatibilityDialog
+          activities={metaActivities}
+          categories={categories}
+          establishments={establishments}
+          open={this.state.compatibilityDialogOpen}
+          onClose={() => this.setState({ compatibilityDialogOpen: false })}
+          onModify={() => this.props.goToEdit(pack.id)}
+        />
+        <PaymentPackTagsDialog
+          blacklistTags={blacklist_tags}
+          whitelistTags={whitelist_tags}
+          open={this.state.tagsDialogOpen}
+          onClose={() => this.setState({ tagsDialogOpen: false })}
+          onModify={() => this.props.goToEdit(pack.id)}
         />
       </Paper>
     );
@@ -530,9 +521,46 @@ export class PaymentPackCard extends Component<Props> {
 const styles = (theme) => ({
   paper: {
     paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(3),
+  },
+  header: {
+    display: 'flex',
+    flexDirection: 'column',
   },
   title: {
-    paddingBottom: theme.spacing(2),
+    fontWeight: 300,
+  },
+  category: {
+    fontStyle: 'italic',
+    color: 'rgba(0, 0, 0, 0.6)',
+    fontWeight: 400,
+  },
+  copyButton: {
+    marginLeft: -theme.spacing(1),
+  },
+  detailInfo: {
+    marginBottom: theme.spacing(2),
+  },
+  detailCategory: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  leftIcon: {
+    marginRight: theme.spacing(2),
+  },
+  packInfo: {
+    color: 'rgba(0, 0, 0, 0.6)',
+    marginLeft: theme.spacing(5),
+  },
+  titleWithSeeAll: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  detailContent: {
+    marginTop: 0,
+    marginBottom: theme.spacing(1),
   },
   penaltyTitle: {
     paddingTop: theme.spacing(2),
@@ -545,39 +573,35 @@ const styles = (theme) => ({
     paddingLeft: theme.spacing(3),
     paddingRight: theme.spacing(3),
   },
-  tabList: {
-    paddingLeft: theme.spacing(3),
-  },
   noRestriction: {
     paddingBottom: theme.spacing(3),
     paddingTop: theme.spacing(3),
   },
-  newMemberOnlyContainer: {
-    backgroundColor: '#F2F2F2',
-    padding: theme.spacing(1),
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  iconLeft: {
-    marginRight: theme.spacing(2),
-  },
   buttonBlock: {
-    padding: theme.spacing(1),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-end',
   },
-  row: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
+  multiDivButton: {
+    textAlign: 'right',
+  },
+  price: {
+    fontWeight: 700,
+  },
+  priceWithoutTax: {
+    color: 'rgba(0, 0, 0, 0.38)',
+  },
+  buttonAlign: {
+    marginRight: -theme.spacing(1),
   },
   buttonContainer: {
+    marginTop: theme.spacing(2),
     display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    flexWrap: 'nowrap',
+    flexDirection: 'column',
+  },
+  buttonWidth: {
+    width: 'min-content',
+    marginLeft: 'auto',
   },
   columnLeft: {
     paddingLeft: theme.spacing(2),
@@ -597,35 +621,22 @@ const styles = (theme) => ({
   },
   link: {
     padding: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(2),
     '&:hover': {
       backgroundColor: '#EFEFEF',
       borderRadius: 5,
     },
   },
   linkTypo: {
-    paddingLeft: theme.spacing(1),
+    paddingLeft: theme.spacing(2),
+    textAlign: 'left',
   },
-  advancedContainer: {
-    width: '100%',
+  seeAllTags: {
+    marginBottom: -theme.spacing(0.4),
   },
-  advancedHeader: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  penaltyText: {
-    paddingBottom: theme.spacing(3),
-  },
-  tagListSection: {
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(2),
-    display: 'flex',
-    justifyContent: 'flex-start',
-    flexWrap: 'wrap',
-    '& > *': {
-      margin: theme.spacing(0.5),
-    },
+  seeAllCompatibility: {
+    marginBottom: -theme.spacing(0.2),
   },
 });
 

@@ -39,7 +39,7 @@ export const getCurrencyDisplayWithPrice = (price: any) => {
     case 'sek':
     case 'nok':
     case 'dkk':
-      return `${price} ${symbol}`;
+      return `${price}${'\u00A0'}${symbol}`;
     default:
       return `${symbol}${price}`;
   }

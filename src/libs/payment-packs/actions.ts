@@ -146,7 +146,7 @@ export const fetchOneAction = {
   success: createAction('PAYMENT_PACK/DETAIL/SUCCESS'),
 };
 
-export function fetchOne(id: number, options: OptionCallback) {
+export function fetchOne(id: number, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(fetchOneAction.isLoading(true));
     dispatch(fetchOneAction.error(null));

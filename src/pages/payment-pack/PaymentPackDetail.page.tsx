@@ -52,6 +52,7 @@ import {
   patch as patchPaymentPack,
   fetchOne as fetchPaymentPackAction,
   scalePaymentPackCredit,
+  fetchAllPaymentPackCategory,
 } from '../../libs/payment-packs/actions';
 import {
   fetchMarketingNotificationList as fetchMarketingNotificationListAction,
@@ -66,6 +67,7 @@ import {
   getPaymentPack,
   withSCT,
   withTags,
+  getPaymentPackCategoryById,
 } from '../../libs/payment-packs/selectors';
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -163,6 +165,7 @@ export class PaymentPackDetail extends Component<Props, State> {
     });
     this.props.fetchAllTagGroups();
     this.props.fetchAllTags();
+    this.props.fetchAllPaymentPackCategory();
   }
 
   requestEdit = (p: PaymentPack) => {
@@ -242,10 +245,12 @@ export class PaymentPackDetail extends Component<Props, State> {
 
   render() {
     const { pack, loading, classes, notifications } = this.props;
-
     if (loading || !this.props.pack) {
       return <LinearProgress />;
     }
+    const paymentPackCategory = pack.category
+      ? this.props.paymentPackCategories[pack.category]
+      : {};
 
     return (
       <Grid container spacing={3} alignItems="stretch">
@@ -263,6 +268,8 @@ export class PaymentPackDetail extends Component<Props, State> {
             scaleCreditLoading={this.props.scaleCreditLoading}
             loadingMassExtension={this.props.loadingMassExtension}
             isManager
+            goToEdit={this.props.pushToEdit}
+            paymentPackCategory={paymentPackCategory.name}
           />
           <PaymentPackNotification
             pack={pack}
@@ -455,6 +462,7 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     smartLists: getAllSmartList(state),
     smartListLoading: state.smartList.isLoading,
     allTagsWithTagGroup: getallTagsWithTagGroup(state),
+    paymentPackCategories: getPaymentPackCategoryById(state),
   };
 };
 
@@ -493,7 +501,7 @@ const mapDispatchToProps = {
   fetchEmailTemplatesSummaries,
   getSmartLists: fetchAllSmartLists,
   scaleCredit: scalePaymentPackCredit,
-
+  fetchAllPaymentPackCategory,
   fetchMarketingNotificationList: fetchMarketingNotificationListAction,
   createMarketingNotification: createMarketingNotificationAction,
   updateMarketingNotification,

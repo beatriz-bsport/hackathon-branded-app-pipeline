@@ -442,35 +442,33 @@ class OfferBooking extends React.PureComponent<Props, State> {
 
     return (
       <div className={classes.bookingButtonContainer}>
-        <div className={classes.bookingButtonContainer2}>
-          <Button
-            onClick={this.onClickBook}
-            className={classes.bookingButton}
-            variant="contained"
-            color="primary"
-          >
-            {isRegisteringForWaitingList ? (
-              <div className={classes.waitingListButtonContent}>
-                <HourglassEmptyIcon className={classes.iconLeft} />
-                <Typography variant="button" display="block">
-                  {t('booking:offer.mainButton.registerWaitingList')}
-                </Typography>
-              </div>
-            ) : (
-              <div className={classes.bookingButtonContent}>
-                <Typography variant="button" display="block">
-                  {t('booking:offer.mainButton.book')}
-                </Typography>
-                <Typography variant="caption">
-                  {t('booking:offer.mainButton.numberOfBook', {
-                    count: selectedOffersCount,
-                  })}
-                </Typography>
-              </div>
-            )}
-            {price && <div className={classes.bookingButtonPrice}>{price}</div>}
-          </Button>
-        </div>
+        <Button
+          onClick={this.onClickBook}
+          className={classes.bookingButton}
+          variant="contained"
+          color="primary"
+        >
+          {isRegisteringForWaitingList ? (
+            <div className={classes.waitingListButtonContent}>
+              <HourglassEmptyIcon className={classes.iconLeft} />
+              <Typography variant="button" display="block">
+                {t('booking:offer.mainButton.registerWaitingList')}
+              </Typography>
+            </div>
+          ) : (
+            <div className={classes.bookingButtonContent}>
+              <Typography variant="button" display="block">
+                {t('booking:offer.mainButton.book')}
+              </Typography>
+              <Typography variant="caption">
+                {t('booking:offer.mainButton.numberOfBook', {
+                  count: selectedOffersCount,
+                })}
+              </Typography>
+            </div>
+          )}
+          {price && <div className={classes.bookingButtonPrice}>{price}</div>}
+        </Button>
       </div>
     );
   };
@@ -726,8 +724,10 @@ const styles = (theme: Theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'fixed',
+    paddingBottom: 'env(safe-area-inset-bottom)',
     [theme.breakpoints.up('md')]: {
       position: 'relative',
+      paddingBottom: 0,
     },
   },
   bookingButtonContainer2: {

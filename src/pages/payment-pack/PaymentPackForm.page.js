@@ -12,6 +12,7 @@ import type { TFunction } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
+import themeSelectors from '../../libs/theme/selectors';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -136,6 +137,7 @@ export class PaymentPackFormPage extends React.Component<Props> {
               paymentPackCategories={paymentPackCategories}
               metaActivities={metaActivities}
               establishments={establishments}
+              companyId={this.props.theme?.company}
               loading={loading}
               initial={initial}
               onCancel={onCancel}
@@ -167,6 +169,7 @@ export default compose(
       return {
         initial: paymentPackId !== null ? paymentPackInitial : null,
         categories: state.category.SCTs,
+        theme: themeSelectors.getTheme(state),
         metaActivities: uniqBy(
           [
             ...getEnabledMetaActivities(state),

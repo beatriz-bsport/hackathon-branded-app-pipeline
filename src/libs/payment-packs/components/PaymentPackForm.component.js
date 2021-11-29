@@ -547,7 +547,8 @@ export function PaymentPackForm(props: Props) {
             </Grid>
           </Grid>
         </fieldset>
-        {Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' && (
+        {(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
+          props.companyId === 615) && (
           <Grid item xs={12} className={classes.advancedOptionsSection}>
             <ButtonBase
               onClick={() => setOpenAdvancedOptions(!openAdvancedOptions)}

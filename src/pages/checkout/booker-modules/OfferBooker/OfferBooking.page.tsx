@@ -724,7 +724,7 @@ const styles = (theme: Theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'fixed',
-    paddingBottom: 'env(safe-area-inset-bottom)',
+    paddingBottom: 'calc(2 * env(safe-area-inset-bottom))',
     [theme.breakpoints.up('md')]: {
       position: 'relative',
       paddingBottom: 0,

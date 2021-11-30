@@ -6,7 +6,7 @@ exports.default = {
     nb_bookings: 'Réservations',
     name: 'Nom de la séance',
     date: 'Date',
-    rule: 'Régle de rémunération de la séance',
+    rule: 'Règle de rémunération de la séance',
     confirmed_bookings: 'Participants',
     cancelled_bookings: 'Réservations annulées',
     total: 'Rémunération totale',

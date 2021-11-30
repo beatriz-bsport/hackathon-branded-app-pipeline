@@ -9,7 +9,7 @@ import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import {
   snackbarSuccess,
   snackbarError,
-} from 'bsport-saas/src/actions/snackbar.actions';
+} from 'bsport-saas/src/libs/snackbar/actions';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 
@@ -25,9 +25,7 @@ type ConnectProps = ReturnType<typeof mapStateToProps> &
 
 type Props = OwnProps &
   ConnectProps &
-  ReturnType<typeof mapWithProps> & {} & MaterialStyleType<
-    ReturnType<typeof styles>,
-  >;
+  MaterialStyleType<ReturnType<typeof styles>>;
 
 interface State {
   showSuccessSnackbar: boolean;
@@ -43,9 +41,9 @@ export class NewsletterWidget extends Component<Props, State> {
     });
 
     if (res.status === 200) {
-      this.props.success('marketing:newsletter.messages.success');
+      this.props.snackbarSuccess('marketing:newsletter.messages.success');
     } else {
-      this.props.error('marketing:newsletter.messages.error');
+      this.props.snackbarError('marketing:newsletter.messages.error');
     }
   };
 
@@ -73,14 +71,11 @@ const styles = () => ({
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = {
-  success: (s: string) => snackbarSuccess(s),
-  error: (s: string) => snackbarError(s),
+  snackbarSuccess,
+  snackbarError,
 };
-
-const mapWithProps = () => ({});
 
 export default compose<any, OwnProps>(
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
-  withProps(mapWithProps),
 )(NewsletterWidget);

@@ -70,7 +70,7 @@ export const getDisabledPaymentPacks = createSelector(
   (paymentPacks, idList) =>
     idList
       .map((id: number) => paymentPacks[id])
-      .filter((pack: PaymentPack) => pack.disabled),
+      .filter((pack: PaymentPack) => pack.disabled && !pack.template_instance),
 );
 
 const get = (state: RootState, id: number) => {

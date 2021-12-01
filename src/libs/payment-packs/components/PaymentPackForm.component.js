@@ -120,6 +120,7 @@ export function PaymentPackForm(props: Props) {
           <Grid item xs={12}>
             <TextField
               name="name"
+              disabled={!!initial?.template_instance}
               id="textfield_pass_title"
               label={t('form.paymentPack.name.label')}
               required
@@ -155,6 +156,7 @@ export function PaymentPackForm(props: Props) {
               required
               fullWidth
               helperText={t('form.paymentPack.priceIncludingTax.helperText')}
+              disabled={!!initial?.template_instance}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -163,6 +165,7 @@ export function PaymentPackForm(props: Props) {
               id="textfield_pass_VAT"
               label={t('form.paymentPack.tax.label')}
               type="number"
+              disabled={!!initial?.template_instance}
               required
               fullWidth
               max={100}

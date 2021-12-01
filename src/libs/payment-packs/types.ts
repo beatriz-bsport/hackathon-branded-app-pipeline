@@ -61,6 +61,7 @@ export type PaymentPack = {
   notifications: Array<number>;
   whitelist_tags: Array<number>;
   blacklist_tags: Array<number>;
+  template_instance: number;
 };
 
 export type ConsumerPaymentPack = {

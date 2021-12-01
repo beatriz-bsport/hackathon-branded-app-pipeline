@@ -70,7 +70,7 @@ const PaymentPackTemplateListItem = (props: Props) => {
                   />
                 ),
             )}
-          {template.length > 2 && (
+          {template.companies.length > 2 && (
             <FranchiseCompaniesListingTooltip
               companies={template.companies.slice(2)}
             >

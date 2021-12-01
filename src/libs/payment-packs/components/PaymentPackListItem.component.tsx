@@ -115,7 +115,10 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
             </Tooltip>
           </IconButton>
         ) : null}
-        {!this.props.disabled && this.props.onEdit && this.props.onDelete ? (
+        {!this.props.disabled &&
+        this.props.onEdit &&
+        this.props.onDelete &&
+        !this.props.pack.template_instance ? (
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             {this.props.pack.hasActiveNotification && (
               <Tooltip
@@ -142,25 +145,30 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
                     this.props.onEdit();
                   },
                 },
-                this.props.onDelete && {
-                  icon: DeleteIcon,
-                  label: this.props.t('actions.delete'),
-                  onClick: () => {
-                    this.props.onDelete();
+                this.props.onDelete &&
+                  !this.props.pack.template_instance && {
+                    icon: DeleteIcon,
+                    label: this.props.t('actions.delete'),
+                    onClick: () => {
+                      this.props.onDelete();
+                    },
                   },
-                },
               ]}
             />
           </div>
         ) : null}
-        {!this.props.disabled && this.props.onDelete && !this.props.onEdit ? (
+        {!this.props.disabled &&
+        this.props.onDelete &&
+        !this.props.pack.template_instance &&
+        !this.props.onEdit ? (
           <ListItemSecondaryAction>
             <IconButton onClick={this.props.onDelete}>
               <DeleteIcon />
             </IconButton>
           </ListItemSecondaryAction>
         ) : null}
-        {!this.props.onDelete && this.props.onEdit ? (
+        {(!this.props.onDelete || !!this.props.pack.template_instance) &&
+        this.props.onEdit ? (
           <ListItemSecondaryAction>
             <IconButton color="primary" onClick={this.props.onEdit}>
               <EditIcon />

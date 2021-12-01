@@ -77,6 +77,7 @@ type Props = {
   fetchAllTagGroups: () => void,
   fetchAllTags: () => void,
   allTagsWithTagGroup: Array<Tag>,
+  theme: CompanyTheme,
 };
 
 export class PaymentPackFormPage extends React.Component<Props> {

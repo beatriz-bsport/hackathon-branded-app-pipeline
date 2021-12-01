@@ -69,6 +69,7 @@ type Props = {
   paymentPackCategories: Array<PaymentPackCategory>,
   setFieldValue: (field_indentifier: string, value: string | null) => void,
   allTagsWithTagGroup: Array<Tag>,
+  companyId: number | null,
 };
 
 /*

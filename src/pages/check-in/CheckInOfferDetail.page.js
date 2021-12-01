@@ -34,7 +34,7 @@ import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
 import { checkFaceIDAvailable as checkFaceIDAvailableAPI } from '../../libs/face-recognition/api';
 
 import {
-  getConsumerPaymentPackForBooking,
+  getByOfferByMember,
   withPaymentPack as withPaymentPackForConsumer,
 } from '../../libs/consumer-payment-pack/selectors';
 
@@ -274,9 +274,9 @@ export default compose(
         state.booking.loading ||
         state.member.loading ||
         state.offer.byDay.loading,
-      compatibleConsumerPacks: withPaymentPackForConsumer(
-        getConsumerPaymentPackForBooking,
-      )(state),
+      compatibleConsumerPacks: withPaymentPackForConsumer(getByOfferByMember)(
+        state,
+      ),
       managerFormConfig: getSignUpFormConfigurationDict(state),
     }),
     {

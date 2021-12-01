@@ -15,11 +15,15 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import Divider from '@material-ui/core/Divider';
 import Analytics from '../../../components/analytics/Analytics.component';
 import PaymentPackItem from '../../payment-packs/components/PaymentPackBookableItem.component';
-import { PrivatePassCategoryWithPasses } from '../../private-service/types';
+import {
+  PrivatePassCategory,
+  PrivatePassCategoryWithPasses,
+} from '../../private-service/types';
 import { MaterialStyleType } from '../../../utils/types';
 
 type OwnProps = {
   privatePassByCategory: Array<PrivatePassCategoryWithPasses>;
+  filteredCategories?: Array<PrivatePassCategory>;
   onAddBasket: (privatePassId: number) => void;
 };
 
@@ -28,16 +32,18 @@ type Props = OwnProps &
   WithTranslation;
 
 export const MarketplacePrivatePassList = (props: Props) => {
-  const nonEmtptyPrivatePassCategories = props.privatePassByCategory?.filter(
-    (ppcat) => ppcat.passes.length,
-  );
+  let filteredPrivatePassByCategory: Array<PrivatePassCategoryWithPasses> =
+    props.privatePassByCategory;
 
-  if (
-    !nonEmtptyPrivatePassCategories ||
-    !nonEmtptyPrivatePassCategories.length
-  ) {
-    return null;
+  if (props.filteredCategories?.length) {
+    filteredPrivatePassByCategory = props.privatePassByCategory?.filter((pp) =>
+      props.filteredCategories.includes(pp.id),
+    );
   }
+
+  filteredPrivatePassByCategory = filteredPrivatePassByCategory.filter(
+    (cat) => cat.passes.length,
+  );
 
   return (
     <div>
@@ -48,43 +54,45 @@ export const MarketplacePrivatePassList = (props: Props) => {
       >
         {props.t('marketplace.privatePassListTitle')}
       </Typography>
-      {nonEmtptyPrivatePassCategories.map((ppcat) => {
-        return (
-          <div className={!ppcat.name ? props.classes.noCategory : null}>
-            {ppcat?.name && (
-              <Typography
-                component="h3"
-                variant="subtitle1"
-                className={props.classes.sectionTitleWithDivider}
-              >
-                {ppcat.name}
-              </Typography>
-            )}
-            <Divider className={props.classes.sectionDivider} />
-            <Paper>
-              <List disablePadding dense>
-                {ppcat.passes.map((pp) => (
-                  <ListItem divider key={pp.id}>
-                    <PaymentPackItem paymentPack={pp} />
-                    <ListItemSecondaryAction>
-                      <IconButton
-                        color="primary"
-                        disabled={!props.onAddBasket}
-                        onClick={() => {
-                          props.onAddBasket(pp.id);
-                          Analytics.addPrivatePassToCart(pp);
-                        }}
-                      >
-                        <AddShoppingCartIcon />
-                      </IconButton>
-                    </ListItemSecondaryAction>
-                  </ListItem>
-                ))}
-              </List>
-            </Paper>
-          </div>
-        );
-      })}
+      {filteredPrivatePassByCategory?.length
+        ? filteredPrivatePassByCategory.map((ppcat) => {
+            return (
+              <div className={!ppcat.name ? props.classes.noCategory : null}>
+                {ppcat?.name && (
+                  <Typography
+                    component="h3"
+                    variant="subtitle1"
+                    className={props.classes.sectionTitleWithDivider}
+                  >
+                    {ppcat.name}
+                  </Typography>
+                )}
+                <Divider className={props.classes.sectionDivider} />
+                <Paper>
+                  <List disablePadding dense>
+                    {ppcat.passes.map((pp) => (
+                      <ListItem divider key={pp.id}>
+                        <PaymentPackItem paymentPack={pp} />
+                        <ListItemSecondaryAction>
+                          <IconButton
+                            color="primary"
+                            disabled={!props.onAddBasket}
+                            onClick={() => {
+                              props.onAddBasket(pp.id);
+                              Analytics.addPrivatePassToCart(pp);
+                            }}
+                          >
+                            <AddShoppingCartIcon />
+                          </IconButton>
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                    ))}
+                  </List>
+                </Paper>
+              </div>
+            );
+          })
+        : null}
     </div>
   );
 };

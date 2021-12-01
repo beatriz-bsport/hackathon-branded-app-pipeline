@@ -12,6 +12,7 @@ import { Coach } from '../../associated-coach/types';
 import { Video } from '../../video/types';
 import { Playlist } from '../../playlist/types';
 import {
+  PrivatePassCategory,
   PrivateService,
   PrivateServiceGroup,
 } from '../../private-service/types';
@@ -43,6 +44,7 @@ type Props = {
   playlists: Array<Playlist>;
   hideTypeSelector?: boolean;
   paymentPackCategories?: Array<PaymentPackCategory>;
+  privatePassCategories?: Array<PrivatePassCategory>;
   establishmentGroupList: Array<EstablishmentGroup>;
   giftcards?: Array<Giftcard>;
 };
@@ -105,6 +107,7 @@ export const WidgetComponentConfigBuilder = (props: Props) => {
         onChange={onConfigChange}
         errors={props.config?.error}
         paymentPackCategories={props.paymentPackCategories}
+        privatePassCategories={props.privatePassCategories}
         establishmentGroupList={props.establishmentGroupList}
         giftcards={props.giftcards}
       />

@@ -14,6 +14,7 @@ import { RootState } from '../../reducers';
 import {
   fetchAllPrivateServices,
   fetchPrivateServiceGroupList,
+  fetchAllPrivatePassCategory,
 } from '../../libs/private-service/actions';
 import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
 import {
@@ -53,6 +54,7 @@ import WidgetPreview from '../../libs/widget/components/WidgetPreview.component'
 import WidgetContainerConfigurator from '../../libs/widget/components/WidgetContainerConfigurator.component';
 
 import { EXPORTABLE_COMPONENT_TYPE_CALENDAR } from '../../libs/exportable-components/constants';
+import { getPrivatePassCategories } from '#libs/private-service/selectors/private-pass-category';
 
 type OwnProps = {
   defaultValue?: {
@@ -120,6 +122,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
     this.props.fetchAllPrivateServices();
     this.props.fetchEstablishments();
     this.props.fetchAllPaymentPackCategory();
+    this.props.fetchAllPrivatePassCategory();
     this.props.fetchPlaylistList({ mine: true });
     this.props.fetchVideoList({ mine: true });
     this.props.fetchPrivateServiceGroupList({ mine: true });
@@ -246,6 +249,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
               config={this.state.config}
               onConfigChange={this.onConfigChange}
               paymentPackCategories={this.props.paymentPackCategories}
+              privatePassCategories={this.props.privatePassCategories}
               establishmentGroupList={this.props.establishmentGroupList}
               giftcards={this.props.giftcards}
             />
@@ -325,6 +329,7 @@ const mapStateToProps = (state: RootState) => ({
   serviceGroupList: getPrivateServiceGroupList(state),
   themeLoading: state.theme.loading,
   paymentPackCategories: getAllPaymentPackCategory(state),
+  privatePassCategories: getPrivatePassCategories(state),
   establishmentGroupList: groupWithEstablishment(
     getAssociatedEstablishmentGroup,
   )(state),
@@ -340,6 +345,7 @@ const mapDispatchToProps = {
   fetchVideoList,
   fetchPrivateServiceGroupList,
   fetchAllPaymentPackCategory,
+  fetchAllPrivatePassCategory,
   fetchAllEstablishmentGroup,
   fetchGiftcardList,
   snackbarInfo,

@@ -11,10 +11,12 @@ import { useTranslation } from 'react-i18next';
 
 import { MarketplacePassData } from '../../../marketplace/types';
 import { PaymentPackCategory } from '../../../payment-packs/types';
+import { PrivatePassCategory } from '#libs/private-service/types';
 
 interface Props {
   config?: MarketplacePassData;
   paymentPackCategories: Array<PaymentPackCategory>;
+  privatePassCategories: Array<PrivatePassCategory>;
   onChange: (config: MarketplacePassData) => void;
 }
 
@@ -54,6 +56,35 @@ const MarketplacePassSettingsForm: React.FC<Props> = (props) => {
               variant="standard"
               label={t('paymentPack:category.category')}
               placeholder={t('paymentPack:category.category')}
+            />
+          )}
+        />
+      )}
+      {props.privatePassCategories && (
+        <Autocomplete
+          className={classes.selector}
+          multiple
+          options={[...props.privatePassCategories]}
+          getOptionLabel={(cat) => cat.name}
+          value={[
+            ...props.privatePassCategories.filter(
+              (cat) =>
+                props.config.privatePassCategories &&
+                props.config.privatePassCategories.includes(cat.id),
+            ),
+          ]}
+          onChange={(e, cat) =>
+            props.onChange({
+              ...props.config,
+              privatePassCategories: cat.map((c) => c.id),
+            })
+          }
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              variant="standard"
+              label={t('privateService:categoryTitle')}
+              placeholder={t('privateService:categoryTitle')}
             />
           )}
         />
@@ -123,6 +154,9 @@ const useStyles = makeStyles((theme) => ({
   },
   marginTop: {
     marginTop: theme.spacing(4),
+  },
+  selector: {
+    marginTop: theme.spacing(2),
   },
 }));
 

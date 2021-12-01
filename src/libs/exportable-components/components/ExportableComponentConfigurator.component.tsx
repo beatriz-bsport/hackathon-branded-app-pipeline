@@ -5,6 +5,7 @@ import { Establishment, EstablishmentGroup } from '../../establishment/types';
 import { MetaActivity } from '../../meta-activity/types';
 import { Giftcard } from '../../giftcard/types';
 import {
+  PrivatePassCategory,
   PrivateService,
   PrivateServiceGroup,
 } from '../../private-service/types';
@@ -26,6 +27,7 @@ type Props = {
   onChange: (config: any) => void;
   errors: { [componentType: string]: string } | null;
   paymentPackCategories: Array<PaymentPackCategory>;
+  privatePassCategories: Array<PrivatePassCategory>;
   establishmentGroupList: Array<EstablishmentGroup>;
   giftcards: Array<Giftcard>;
 };
@@ -57,6 +59,7 @@ export const ExportableComponentConfigurator = (props: Props) => {
         props.onChange({ ...props.config, [props.componentType]: config })
       }
       paymentPackCategories={props.paymentPackCategories}
+      privatePassCategories={props.privatePassCategories}
       establishmentGroupList={props.establishmentGroupList}
       giftcards={props.giftcards}
     />

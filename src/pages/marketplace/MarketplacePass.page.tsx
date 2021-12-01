@@ -70,6 +70,7 @@ type OwnProps = {
     hidePrivatePass?: string;
     hidePaymentCombo?: string;
     paymentPackCategories?: any;
+    privatePassCategories?: any;
   };
   companyId: number;
   requestSignUp: () => void;
@@ -163,13 +164,24 @@ export class MarketPlacePassPage extends Component<Props> {
     const hidePaymentCombo = this.props.params?.hidePaymentCombo === 'true';
     const paymentPackCategories =
       this.props.params?.paymentPackCategories || null;
-    let ppCategories = [];
+    const privatePassCategories =
+      this.props.params?.privatePassCategories || null;
+    let paymentPCategories = [];
     if (typeof paymentPackCategories === 'string') {
-      ppCategories = paymentPackCategories
+      paymentPCategories = paymentPackCategories
         .split(',')
-        .map((id: string) => Number(id));
+        .map((id: string) => parseInt(id, 10));
     } else {
-      ppCategories = paymentPackCategories;
+      paymentPCategories = paymentPackCategories;
+    }
+
+    let privatePCategories = [];
+    if (typeof privatePassCategories === 'string') {
+      privatePCategories = privatePassCategories
+        .split(',')
+        .map((id: string) => parseInt(id, 10));
+    } else {
+      privatePCategories = privatePassCategories;
     }
 
     return (
@@ -187,7 +199,7 @@ export class MarketPlacePassPage extends Component<Props> {
             <MarketplacePassList
               pushPackCheckout={this.addPaymentPackToCart}
               paymentPackByCategory={this.props.paymentPackByCategory}
-              paymentPackCategories={ppCategories}
+              paymentPackCategories={paymentPCategories}
             />
           </Grid>
         )}
@@ -197,6 +209,7 @@ export class MarketPlacePassPage extends Component<Props> {
             <MarketplacePrivatePassList
               privatePassByCategory={this.props.privatePassByCategory}
               onAddBasket={this.addPrivatePassToCart}
+              filteredCategories={privatePCategories}
             />
           </Grid>
         ) : null}
@@ -320,6 +333,7 @@ export default compose<any, OwnProps>(
       'hidePrivatePass',
       'hidePaymentCombo',
       'paymentPackCategories',
+      'privatePassCategories',
     ],
     'params',
   ]),

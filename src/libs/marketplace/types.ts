@@ -27,6 +27,7 @@ export type MarketplacePassData = {
   hidePrivatePass?: boolean;
   hidePaymentCombo?: boolean;
   paymentPackCategories?: number[];
+  privatePassCategories?: number[];
 };
 
 export type MarketplaceGiftcardData = {

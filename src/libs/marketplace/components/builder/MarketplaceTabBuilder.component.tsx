@@ -19,6 +19,7 @@ import {
 } from '../../../establishment/types';
 import { MetaActivity } from '../../../meta-activity/types';
 import {
+  PrivatePassCategory,
   PrivateService,
   PrivateServiceGroup,
 } from '../../../private-service/types';
@@ -49,6 +50,7 @@ type Props = {
   index: number;
   tab: any;
   paymentPackCategories: Array<PaymentPackCategory>;
+  privatePassCategories: Array<PrivatePassCategory>;
   establishmentGroupList: Array<EstablishmentGroup>;
   giftcards: Array<Giftcard>;
 };
@@ -177,6 +179,7 @@ const TabCreation: React.FC<Props> = (props) => {
               setTabConfig({ [componentType]: config[componentType] })
             }
             paymentPackCategories={props.paymentPackCategories}
+            privatePassCategories={props.privatePassCategories}
             establishmentGroupList={props.establishmentGroupList}
             giftcards={props.giftcards}
           />

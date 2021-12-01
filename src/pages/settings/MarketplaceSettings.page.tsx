@@ -8,6 +8,7 @@ import { getDefaultTitleForComponent } from '../../libs/exportable-components/ut
 
 import { RootState } from '../../reducers';
 import {
+  fetchAllPrivatePassCategory as fetchAllPrivatePassCategoryAction,
   fetchAllPrivateServices as fetchAllPrivateServicesAction,
   fetchPrivateServiceGroupList as fetchPrivateServiceGroupListAction,
 } from '../../libs/private-service/actions';
@@ -50,6 +51,7 @@ import { fetchVideoList as fetchVideoListAction } from '../../libs/video/actions
 import MarketplaceBuilder from '../../libs/marketplace/components/builder/MarketplaceBuilder.component';
 import MarketplaceTabPreview from '../../libs/marketplace/components/builder/MarketplaceTabPreview.component';
 import MarketplaceTabBuilder from '../../libs/marketplace/components/builder/MarketplaceTabBuilder.component';
+import { getPrivatePassCategories } from '#libs/private-service/selectors/private-pass-category';
 
 const defaultTab = {
   componentType: 'calendar',
@@ -71,6 +73,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
     fetchVideoList,
     fetchPrivateServiceGroupList,
     fetchAllPaymentPackCategory,
+    fetchAllPrivatePassCategory,
     fetchAllEstablishmentGroup,
     fetchGiftcardList,
     settings,
@@ -85,6 +88,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
     serviceGroupList,
     theme,
     paymentPackCategories,
+    privatePassCategories,
     establishmentGroupList,
     giftcards,
   } = props;
@@ -104,6 +108,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
     fetchPlaylistList({ mine: true });
     fetchPrivateServiceGroupList({ mine: true });
     fetchAllPaymentPackCategory();
+    fetchAllPrivatePassCategory();
     fetchAllEstablishmentGroup();
     fetchGiftcardList();
   }, [
@@ -116,6 +121,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
     fetchPlaylistList,
     fetchPrivateServiceGroupList,
     fetchAllPaymentPackCategory,
+    fetchAllPrivatePassCategory,
     fetchAllEstablishmentGroup,
     fetchGiftcardList,
   ]);
@@ -217,6 +223,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
           index={currentTab !== null ? currentTab : config.length}
           tab={currentTab !== null ? config[currentTab] : defaultTab}
           paymentPackCategories={paymentPackCategories}
+          privatePassCategories={privatePassCategories}
           establishmentGroupList={establishmentGroupList}
           giftcards={giftcards}
         />
@@ -295,6 +302,7 @@ const mapStateToProps = (state: RootState) => ({
   serviceGroupList: getPrivateServiceGroupList(state),
   theme: state.theme.theme,
   paymentPackCategories: getAllPaymentPackCategory(state),
+  privatePassCategories: getPrivatePassCategories(state),
   establishmentGroupList: groupWithEstablishment(
     getAssociatedEstablishmentGroup,
   )(state),
@@ -312,6 +320,7 @@ const mapDispatchToProps = {
   fetchVideoList: fetchVideoListAction,
   fetchPrivateServiceGroupList: fetchPrivateServiceGroupListAction,
   fetchAllPaymentPackCategory: fetchAllPaymentPackCategoryAction,
+  fetchAllPrivatePassCategory: fetchAllPrivatePassCategoryAction,
   fetchAllEstablishmentGroup: fetchAllEstablishmentGroupAction,
   fetchGiftcardList: fetchGiftcardListAction,
 };

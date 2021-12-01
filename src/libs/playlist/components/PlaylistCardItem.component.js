@@ -23,11 +23,11 @@ type Props = {
 };
 
 const DeleteWithConfirm = withConfirm(IconButton, 'onClick', {
-  title: 'video:playlist.delete.title',
-  cancel: 'video:playlist.delete.cancel',
-  confirm: 'video:playlist.delete.confirm',
+  title: 'video:video.delete.title',
+  cancel: 'video:video.delete.cancel',
+  confirm: 'video:video.delete.confirm',
   Content: ({ t }: { t: TFunction }) => (
-    <p>{t('video:playlist.delete.content')}</p>
+    <p>{t('video:video.delete.content')}</p>
   ),
 });
 

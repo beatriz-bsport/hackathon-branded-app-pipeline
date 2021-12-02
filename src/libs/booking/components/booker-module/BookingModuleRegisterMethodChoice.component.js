@@ -11,6 +11,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
+import { DialogContentText } from '@material-ui/core';
 import PriceInput from '../../../../components/input/PriceInput.component';
 import PercentInput from '../../../../components/input/PercentInput.component';
 import PaymentPackListItem from '../../../payment-packs/components/PaymentPackListItem.component';
@@ -51,12 +52,14 @@ type Props = {
   enableMultiLocalization: boolean,
   member: Member,
   memberDetails: { [id: number]: Member },
+  closeDialog: () => void,
 };
 
 export const BookingModuleRegisterMethodChoice = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const [voucher, setVoucher] = useState(0);
+  const [openConfirmation, setOpenConfirmation] = useState(false);
   const [voucherDialogOpen, setVoucherDialogOpen] = useState(false);
   const [selectedPack, setSelectedPack] = useState(null);
   const [billingEstablishmentId, setBillingEstablishmentId] = useState(null);
@@ -150,7 +153,11 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
                 hidePacksNumber
                 onBookOne={() => {
                   handlePackSelect(pack);
-                  setVoucherDialogOpen(true);
+                  if (props.offer.is_full) {
+                    setOpenConfirmation(true);
+                  } else {
+                    setVoucherDialogOpen(true);
+                  }
                 }}
                 onBookMultiple={
                   props.disableMultiBooking
@@ -181,6 +188,38 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
           setWarnManagerOnInvoice(false);
         }}
       />
+      <Dialog open={openConfirmation}>
+        <DialogTitle>{t('offer:maximumNumber')}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {t('offer:maximumNumberDescription', {
+              effectif: props.offer.effectif,
+            })}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            key="cancel"
+            onClick={() => {
+              props.closeDialog();
+              setOpenConfirmation(false);
+            }}
+          >
+            {t('common.cancel')}
+          </Button>
+          <Button
+            key="confirm"
+            onClick={() => {
+              setOpenConfirmation(false);
+              setVoucherDialogOpen(true);
+            }}
+            color="primary"
+            variant="contained"
+          >
+            {t('common.confirm')}
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Dialog open={voucherDialogOpen && !warnManagerOnInvoice}>
         <DialogTitle>
           {t('translation:payment.updateInvoiceVoucher')}

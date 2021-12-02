@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { pure } from 'recompose';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment-timezone';
+import WarningIcon from '@material-ui/icons/Warning';
 import { formatAsDatetime } from '../../../utils/datetime';
 import CoachAvatar from '../../associated-coach/components/CoachAvatar.component';
 import Level from '../../../components/category/Level.component';
@@ -30,6 +31,7 @@ export const OfferListItem = (props: Props) => {
   const { offer } = props;
   const { t } = useTranslation(['offer']);
   const classes = useStyles();
+
   return (
     <ListItem
       button={!!props.onClick}
@@ -67,11 +69,25 @@ export const OfferListItem = (props: Props) => {
                 align="left"
                 variant="caption"
                 levelId={offer && offer.level}
+                className={classes.level}
+                noWrap={false}
               />
 
               <Typography className={classes.marginLeft} variant="caption">
                 {` ${offer.validated_booking_count}/${offer.effectif}`}
               </Typography>
+              {offer.full ? (
+                <div className={classes.warning}>
+                  <WarningIcon
+                    color="error"
+                    size={15}
+                    className={classes.warningIcon}
+                  />
+                  <Typography variant="caption" className={classes.warningText}>
+                    {t('warningOfferFull')}
+                  </Typography>
+                </div>
+              ) : null}
             </div>
           </div>
         }
@@ -114,8 +130,19 @@ export const OfferListItem = (props: Props) => {
   );
 };
 const useStyles = makeStyles((theme) => ({
+  warningText: {
+    width: theme.spacing(30),
+  },
   text: { marginRight: theme.spacing(1) },
   inline: { display: 'flex' },
+  warning: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  warningIcon: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
   row: {
     display: 'flex',
     flexDirection: 'row',

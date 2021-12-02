@@ -279,6 +279,7 @@ export class BookingModuleManager extends PureComponent<Props> {
                 }
                 member={this.props.member}
                 memberDetails={this.props.memberDetails}
+                closeDialog={this.props.onCancel}
               />
             )}
             {this.props.step === OFFER_CHOICE && (

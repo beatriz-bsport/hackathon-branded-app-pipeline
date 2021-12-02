@@ -29,7 +29,10 @@ import OfferNavigationHeader from './OfferNavigationHeader.component';
 import OfferBroadcastHelper from './OfferBroadcastHelper.component';
 import RecurrenceRuleBookingFormDialog from '../../libs/booking/components/RecurrenceRuleBookingFormDialog.component';
 
-import type { PaymentPack } from '../../libs/payment-packs/types';
+import type {
+  PaymentPack,
+  ConsumerPaymentPack,
+} from '../../libs/payment-packs/types';
 import type { Booking, BookingOption } from '../../libs/booking/types';
 import type { Member } from '../../libs/member/types';
 import type { Invoice } from '../../libs/invoice/types';
@@ -45,6 +48,8 @@ import AsyncSpotSelector, {
 import DiscardBookingOptionDialogV2 from '../../libs/waiting-list/components/DiscardBookingOptionDialogV2.component';
 import { MemberMap } from '../../libs/member/utils';
 import { Tag, TagGroup } from '../../libs/tag/types';
+import GenericDialog from '../../components/GenericDialog/GenericDialog';
+import { showDeleteDialog } from '../../components/GenericDialog/CustomDialogs';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
@@ -59,7 +64,7 @@ type Props = {
   compatiblePacksLoading: boolean,
 
   fetchInvoiceListUnpaid: () => void,
-
+  registerToOffer: () => void,
   goToOffer: (id: number) => void,
 
   members: Array<Member<Tag<TagGroup>>>,
@@ -114,15 +119,6 @@ type Props = {
   createMember: (id: ?number, data: [*], options: any, offerId: number) => void,
   createInvoice: ([any], number, number) => void,
   resetQuickInvoices: () => void,
-  createQuickUnevenInvoice: (
-    {
-      memberId: number,
-      offerId: number,
-      paymentPackId: number,
-    },
-    offerId: number,
-  ) => void,
-  addBooking: (consumerPaymentPackId: number, data: any) => void,
   discardOption: (id: number, params: any, options: OptionCallback) => void,
   deleteBooking: (bookingId: number, data: any) => void,
 
@@ -237,73 +233,6 @@ export class OfferManagement extends Component<Props, State> {
         (qi) => qi.memberId !== memberId,
       ),
     }));
-  };
-
-  registerToOffer = async (
-    memberId: number,
-    offerId: number | number[],
-    registererObject: PaymentPack | ConsumerPaymentPack,
-    {
-      notify_member,
-      keep_credits,
-    }: { notify_member: boolean, keep_credits: boolean },
-    voucher?: number,
-    billingEstablishmentId?: number,
-  ) => {
-    let spot_id = null;
-    if (this.props.offer.room_blueprint) {
-      spot_id = await asyncSelectSpotForBlueprint();
-      if (typeof spot_id !== 'number') {
-        return;
-      }
-    }
-
-    if (registererObject.paymentPack) {
-      const offers_data = [];
-
-      const ids = typeof offerId === 'number' ? [offerId] : offerId;
-
-      ids.forEach((offer_id) => {
-        const data = { offer_id, extra_data: {} };
-        if (typeof spot_id === 'number') {
-          data.extra_data.spot_id = spot_id;
-        }
-        offers_data.push(data);
-      });
-
-      this.props.createQuickUnevenInvoice(
-        {
-          paymentPackId: registererObject.paymentPack.id,
-          offers_data,
-          keep_credits,
-          notify_member,
-          is_v2: true,
-          memberId,
-          voucher,
-          billing_establishment_id: billingEstablishmentId,
-        },
-        offerId,
-      );
-    } else if (registererObject.consumerPaymentPack) {
-      this.props.addBooking(
-        registererObject.consumerPaymentPack.id,
-        {
-          keep_credits,
-          notify_member,
-          offer: offerId,
-          spot_id,
-        },
-        this.props.booking_ordering,
-      );
-    }
-    this.props.clearSearch();
-    if (this.props.optionToDiscard) {
-      this.props.discardOption(this.props.optionToDiscard, {
-        disable_notification: true,
-      });
-      this.props.cancelDiscardOption();
-    }
-    this.props.setMemberToRegister(null);
   };
 
   createInvoice = (invoiceData: any, options: OptionCallback) => {
@@ -619,7 +548,7 @@ export class OfferManagement extends Component<Props, State> {
             compatiblePacks={this.props.compatiblePacks}
             onCancel={() => this.props.setMemberToRegister(null)}
             onClose={() => this.props.setMemberToRegister(null)}
-            registerToOffer={this.registerToOffer}
+            registerToOffer={this.props.registerToOffer}
             openRecurrenceRuleForm={this.openRecurrenceRuleForm}
           />
         )}
@@ -663,7 +592,6 @@ export class OfferManagement extends Component<Props, State> {
           }}
           onClose={this.props.cancelDiscardOption}
         />
-
         <DiscardBookingOptionDialogV2
           open={!!this.props.optionToDiscardWithDialog}
           onSubmit={(sendEmail: boolean) => {
@@ -678,7 +606,6 @@ export class OfferManagement extends Component<Props, State> {
           }}
           onClose={() => this.props.setOptionToDiscardWithDialog(null)}
         />
-
         {!!this.props.communicationDialogIsOpen && (
           <MailMembers
             fetchEmailTemplatesSummaries={
@@ -699,7 +626,6 @@ export class OfferManagement extends Component<Props, State> {
             sendCommunication={this.props.sendCommunication}
           />
         )}
-
         {!!this.props.offer.room_blueprint && (
           <AsyncSpotSelector
             fetchRoomBlueprintDetail={this.props.fetchRoomBlueprintDetail}
@@ -712,6 +638,7 @@ export class OfferManagement extends Component<Props, State> {
             assetsForBlueprintById={this.props.assetsForBlueprintById}
           />
         )}
+        <GenericDialog />
       </Grid>
     );
   }
@@ -813,6 +740,161 @@ export default compose(
       const win = window.open(url);
       win.focus();
     },
+    registerToOffer:
+      ({
+        t,
+        createQuickUnevenInvoice,
+        addBooking,
+        booking_ordering,
+        clearSearch,
+        optionToDiscard,
+        discardOption,
+        cancelDiscardOption,
+        setMemberToRegister,
+        offer,
+      }) =>
+      async (
+        memberId: number,
+        offerId: number | number[],
+        registererObject: PaymentPack | ConsumerPaymentPack,
+        {
+          notify_member,
+          keep_credits,
+        }: { notify_member: boolean, keep_credits: boolean },
+        voucher?: number,
+        billingEstablishmentId?: number,
+      ) => {
+        if (!Array.isArray(offerId)) {
+          let fullOfferConfirmation = false;
+          if (offer?.is_full && !registererObject.paymentPack) {
+            fullOfferConfirmation = await showDeleteDialog(
+              t('maximumNumber'),
+              t('maximumNumberDescription', {
+                effectif: offer.effectif,
+              }),
+            );
+          }
+          if (
+            fullOfferConfirmation ||
+            !offer?.is_full ||
+            registererObject.paymentPack
+          ) {
+            let spot_id = null;
+            if (offer.room_blueprint) {
+              spot_id = await asyncSelectSpotForBlueprint();
+              if (typeof spot_id !== 'number') {
+                return;
+              }
+            }
+
+            if (registererObject.paymentPack) {
+              const offers_data = [];
+
+              const ids = typeof offerId === 'number' ? [offerId] : offerId;
+
+              ids.forEach((offer_id) => {
+                const data = { offer_id, extra_data: {} };
+                if (typeof spot_id === 'number') {
+                  data.extra_data.spot_id = spot_id;
+                }
+                offers_data.push(data);
+              });
+              createQuickUnevenInvoice(
+                {
+                  paymentPackId: registererObject.paymentPack.id,
+                  offers_data,
+                  keep_credits,
+                  notify_member,
+                  is_v2: true,
+                  memberId,
+                  voucher,
+                  billing_establishment_id: billingEstablishmentId,
+                },
+                offerId,
+              );
+            } else if (registererObject.consumerPaymentPack) {
+              addBooking(
+                registererObject.consumerPaymentPack.id,
+                {
+                  keep_credits,
+                  notify_member,
+                  offer: offerId,
+                  spot_id,
+                },
+                booking_ordering,
+              );
+            }
+
+            clearSearch();
+            if (optionToDiscard) {
+              discardOption(optionToDiscard, {
+                disable_notification: true,
+              });
+              cancelDiscardOption();
+            }
+            setMemberToRegister(null);
+          } else {
+            clearSearch();
+            setMemberToRegister(null);
+          }
+        } else {
+          let spot_id = null;
+          if (offer.room_blueprint) {
+            spot_id = await asyncSelectSpotForBlueprint();
+            if (typeof spot_id !== 'number') {
+              return;
+            }
+          }
+
+          if (registererObject.paymentPack) {
+            const offers_data = [];
+
+            const ids = typeof offerId === 'number' ? [offerId] : offerId;
+
+            ids.forEach((offer_id) => {
+              const data = { offer_id, extra_data: {} };
+              if (typeof spot_id === 'number') {
+                data.extra_data.spot_id = spot_id;
+              }
+              offers_data.push(data);
+            });
+            createQuickUnevenInvoice(
+              {
+                paymentPackId: registererObject.paymentPack.id,
+                offers_data,
+                keep_credits,
+                notify_member,
+                is_v2: true,
+                memberId,
+                voucher,
+                billing_establishment_id: billingEstablishmentId,
+              },
+              offerId,
+            );
+          } else if (registererObject.consumerPaymentPack) {
+            addBooking(
+              registererObject.consumerPaymentPack.id,
+              {
+                keep_credits,
+                notify_member,
+                offer: offerId,
+                spot_id,
+              },
+              booking_ordering,
+            );
+          }
+
+          clearSearch();
+          if (optionToDiscard) {
+            discardOption(optionToDiscard, {
+              disable_notification: true,
+            });
+            cancelDiscardOption();
+          }
+          setMemberToRegister(null);
+        }
+      },
+
     onDeleteRecurrenceRuleBooking:
       ({
         deleteRecurrenceRuleBooking,

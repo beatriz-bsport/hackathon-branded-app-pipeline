@@ -302,10 +302,11 @@ export default compose(
 
   withHandlers({
     addBooking:
-      ({ refresh, registerBooking, fetchOfferStatus }) =>
+      ({ refresh, registerBooking, fetchOfferStatus, fetchOffer }) =>
       (consumerPaymentPackId, data, ordering_field) => {
         registerBooking(consumerPaymentPackId, data, {
           onSuccess: () => {
+            fetchOffer(data.offer);
             fetchOfferStatus(data.offer);
             refresh(ordering_field);
           },
@@ -416,10 +417,12 @@ export default compose(
         id,
         fetchFilteredMembers,
         fetchOfferStatus,
+        fetchOffer,
       }) =>
       (data) => {
         createQuickInvoice(data, {
           onSuccess: (invoice) => {
+            fetchOffer(id);
             fetchOfferStatus(id);
             fetchFilteredMembers(
               { offer: id, withNotes: true },

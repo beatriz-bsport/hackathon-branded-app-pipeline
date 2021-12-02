@@ -16,7 +16,7 @@ import LinearProgress from '../../components/navigation/BackofficeLinearProgress
 
 import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
 
-import PaymentPackForm from '../../libs/payment-packs/components/PaymentPackForm.component';
+import PaymentPackForm from '../../libs/payment-packs/components/DEPRECATEDPaymentPackForm.component';
 import {
   getPaymentPackById,
   getAllPaymentPackCategory,

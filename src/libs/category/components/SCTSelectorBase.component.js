@@ -70,7 +70,13 @@ const getSCTOptions = (scts: Array<SCT>) => {
 };
 
 const sctStyles = {
-  control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+  control: (styles, { selectProps }) => {
+    if (selectProps && selectProps.fitWithGenericSelector) {
+      return { ...styles, backgroundColor: 'white', minHeight: '46px' };
+    }
+    return { ...styles, backgroundColor: 'white' };
+  },
+
   menuPortal: (base) => ({ ...base, zIndex: 9999 }),
   option: (styles, { isDisabled, isFocused, isSelected }) => {
     const color = chroma(colors.secondary);
@@ -135,28 +141,33 @@ export default withTranslation(['translation'])(
     selectOption,
     selectedValues,
     onChange,
-  }) => (
-    <Select
-      closeMenuOnSelect={!!closeMenuOnSelect}
-      isMulti={!isNotMulti}
-      placeholder={t('common.sports')}
-      options={getSCTOptions([...scts])}
-      isClearable={isClearable}
-      value={
-        selectedValues
-          ? getSCTOptions(
-              [...scts].filter((sct) => selectedValues.includes(sct.id)),
-            )
-          : undefined
-      }
-      onChange={selectOption || onChange}
-      styles={sctStyles}
-      menuPortalTarget={document.querySelector('body')}
-      components={{
-        Option: sctOption,
-        SingleValue,
-        MultiValueLabel,
-      }}
-    />
-  ),
+    placeholder,
+    fitWithGenericSelector,
+  }) => {
+    return (
+      <Select
+        fitWithGenericSelector={fitWithGenericSelector}
+        closeMenuOnSelect={!!closeMenuOnSelect}
+        isMulti={!isNotMulti}
+        placeholder={placeholder || t('common.sports')}
+        options={getSCTOptions([...scts])}
+        isClearable={isClearable}
+        value={
+          selectedValues
+            ? getSCTOptions(
+                [...scts].filter((sct) => selectedValues.includes(sct.id)),
+              )
+            : undefined
+        }
+        onChange={selectOption || onChange}
+        styles={sctStyles}
+        menuPortalTarget={document.querySelector('body')}
+        components={{
+          Option: sctOption,
+          SingleValue,
+          MultiValueLabel,
+        }}
+      />
+    );
+  },
 );

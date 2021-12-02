@@ -29,6 +29,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import AddIcon from '@material-ui/icons/Add';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import moment from 'moment-timezone';
+import makeStyles from '@material-ui/styles/makeStyles';
 
 import * as Yup from 'yup';
 
@@ -229,8 +230,19 @@ export const Actions = withStyles(actionsStyles)((props: ActionsProps) => {
   return <div className={classes.row}>{props.children}</div>;
 });
 
+const useDateFieldStyles = makeStyles((theme) => ({
+  alertError: {
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    color: theme.palette.error.dark,
+  },
+  inputLabelContainer: {
+    paddingBottom: theme.spacing(2),
+  },
+}));
 export const DateField = (props: DateFieldProps) => {
   const { t } = useTranslation();
+  const classes = useDateFieldStyles();
   const now = moment().startOf('year').add(-30, 'years').format('YYYY-MM-DD');
   return (
     <Field
@@ -259,7 +271,7 @@ export const DateField = (props: DateFieldProps) => {
             format="L"
             error={!!(touched && error)}
             label={
-              touched && error ? (
+              touched && error && !props.bottomError ? (
                 <Typography variant="caption" color="error">
                   {`${props.label}: ${t(error)}`}
                 </Typography>
@@ -268,6 +280,16 @@ export const DateField = (props: DateFieldProps) => {
               )
             }
           />
+          {props.bottomError && (
+            <ErrorMessage
+              {...props}
+              render={(message) => (
+                <Typography variant="body2" className={classes.alertError}>
+                  {t(message)}
+                </Typography>
+              )}
+            />
+          )}
         </MuiPickersUtilsProvider>
       )}
     />

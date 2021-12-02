@@ -3,7 +3,8 @@ import { compose, withHandlers, withStateHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
-import { Theme } from '@material-ui/core/styles';
+import { Theme, createStyles } from '@material-ui/core/styles';
+
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -17,6 +18,8 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import { push as pushRouter } from 'connected-react-router';
 import IconButton from '@material-ui/core/IconButton';
 import memoize from 'memoize-one';
+import uniqBy from 'lodash/uniqBy';
+import { OptionCallback } from '../../state/types';
 import { RootState } from '../../reducers/index';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import PaginatedConsumerPackList from '../../libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
@@ -40,16 +43,19 @@ import {
   fetchPaymentPackBulk,
   updatePaymentPackCategoryOrder,
   updateOrder as updatePaymentPack,
+  createOrUpdate as createOrUpdatePaymentPackAction,
 } from '../../libs/payment-packs/actions';
 import {
   getEnabledPaymentPacks,
   getDisabledPaymentPacks,
   groupByCategory,
+  getAllPaymentPackCategory,
 } from '../../libs/payment-packs/selectors';
 import type {
   PaymentPack,
   PaymentPackCategory,
   PaymentPackCategoryWithPacks,
+  PaymentPackFormValues,
 } from '../../libs/payment-packs/types';
 import withTitle from '../../hocs/with-title.hoc';
 import { fetchMarketingNotificationList } from '../../libs/marketing/actions';
@@ -65,6 +71,19 @@ import PaymentPackFilterAndSortHeader, {
   ManagerOnly,
   SortOption,
 } from '../../libs/payment-packs/components/PaymentPackFilterAndSortHeader.component';
+import PaymentPackFormDialog from '../../libs/payment-packs/components/PaymentPackForm';
+import { fetchEstablishments } from '../../libs/establishment/actions';
+import { getallTagsWithTagGroup } from '#libs/tag/selectors';
+import { getAllEstablishments } from '#libs/establishment/selectors';
+import {
+  getActivitiesByIdList,
+  getEnabledMetaActivities,
+  getEnabledWorkshops,
+} from '#libs/meta-activity/selectors';
+import {
+  fetchAllActivities,
+  fetchAll as fetchWorkhops,
+} from '../../libs/meta-activity/actions';
 
 type StateHandlerInit = {
   showCategoryDialog: boolean;
@@ -89,10 +108,12 @@ type State = {
   selectedCategories: Array<number>;
   selectedDisponibility: ManagerOnly;
   selectedSortOption: SortOption;
+  openPaymentPackFormDialog: boolean;
   paymentPackOrderByCategory: Array<{
     id: number;
     ordering_in_category: number;
   }> | null;
+  paymentPackToEdit: PaymentPack;
 };
 
 const CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME = 3;
@@ -110,6 +131,8 @@ export class ComponentName extends React.Component<Props, State> {
       selectedDisponibility: this.props.userPreferenceSelectedDisponibility,
       selectedSortOption: this.props.userPreferenceSortOption,
       paymentPackOrderByCategory: null,
+      openPaymentPackFormDialog: false,
+      paymentPackToEdit: null,
     };
   }
 
@@ -130,6 +153,9 @@ export class ComponentName extends React.Component<Props, State> {
   }
 
   componentDidMount() {
+    this.props.fetchEstablishments();
+    this.props.fetchAllActivities({ customer_enabled: true });
+    this.props.fetchWorkhops();
     this.props.fetchAllPaymentPacks();
     this.props.fetchAllPaymentPackCategory();
     this.props.fetchMarketingNotificationList({
@@ -142,6 +168,13 @@ export class ComponentName extends React.Component<Props, State> {
     if (this.state.selectedSortOption !== SortOption.customSort)
       this.updateSortOption(this.state.selectedSortOption);
   }
+
+  onCreate = () => {
+    this.setState((prevState: State) => ({
+      ...prevState,
+      openPaymentPackFormDialog: true,
+    }));
+  };
 
   updateOrderBySortOption(
     sortFunction: (pp1: PaymentPack, pp2: PaymentPack) => number,
@@ -198,7 +231,9 @@ export class ComponentName extends React.Component<Props, State> {
   }
 
   requestEdit = (pp: PaymentPack) => {
-    this.props.pushToEdit(pp.id);
+    this.setState({ paymentPackToEdit: pp }, () =>
+      this.setState({ openPaymentPackFormDialog: true }),
+    );
   };
 
   requestDelete = (pp: PaymentPack) => {
@@ -287,8 +322,18 @@ export class ComponentName extends React.Component<Props, State> {
   };
 
   render() {
-    const { loading, incrementCredit, decrementCredit, classes, t } =
-      this.props;
+    const {
+      loading,
+      incrementCredit,
+      decrementCredit,
+      classes,
+      t,
+      categoryList,
+      allTagsWithTagGroup,
+      metaActivities,
+      establishmentList,
+      paymentPackCategories,
+    } = this.props;
 
     if (loading) {
       return <LinearProgress />;
@@ -457,9 +502,28 @@ export class ComponentName extends React.Component<Props, State> {
               ) : null
             }
           />
+          <PaymentPackFormDialog
+            open={this.state.openPaymentPackFormDialog}
+            categoryList={[...categoryList].filter(
+              (category) =>
+                metaActivities.map((a) => a.SCT).indexOf(category.id) !== -1,
+            )}
+            establishmentList={establishmentList}
+            metaActivityList={metaActivities}
+            tagList={allTagsWithTagGroup}
+            paymentPackCategories={paymentPackCategories}
+            closeDialog={() =>
+              this.setState({ openPaymentPackFormDialog: false })
+            }
+            onSubmit={this.props.createOrUpdatePaymentPack}
+            clearPaymentPackToEdit={() =>
+              this.setState({ paymentPackToEdit: null })
+            }
+            initial={this.state.paymentPackToEdit}
+          />
           <BottomActionsButton
             onCreateLabel={this.props.t('addButton')}
-            onCreate={this.props.onCreate}
+            onCreate={this.onCreate}
           />
         </div>
         {(this.props.selectedCategory || this.props.showCategoryDialog) && (
@@ -477,44 +541,59 @@ export class ComponentName extends React.Component<Props, State> {
     );
   }
 }
-const styles = (theme: Theme) => ({
-  container: {
-    paddingBottom: theme.spacing(16),
-  },
-  divider: {
-    marginBottom: theme.spacing(2),
-  },
-  titleContainer: {
-    marginBottom: theme.spacing(1),
-  },
-  searchPaperDisplayed: {
-    border: '1px solid',
-    borderColor: theme.primary_color,
-    borderTop: '0px',
-  },
-  searchPaperHidden: {
-    border: '1px solid',
-    borderColor: theme.primary_color,
-    borderTop: '0px',
-    boderBottom: '0px',
-  },
-  buttonTitle: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '100%',
-    paddingBottom: theme.spacing(1),
-    paddingTop: theme.spacing(4),
-  },
-  buttonRow: {
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    container: {
+      paddingBottom: theme.spacing(16),
+    },
+    divider: {
+      marginBottom: theme.spacing(2),
+    },
+    titleContainer: {
+      marginBottom: theme.spacing(1),
+    },
+    searchPaperDisplayed: {
+      border: '1px solid',
+      borderColor: theme.primary_color,
+      borderTop: '0px',
+    },
+    searchPaperHidden: {
+      border: '1px solid',
+      borderColor: theme.primary_color,
+      borderTop: '0px',
+      boderBottom: '0px',
+    },
+    buttonTitle: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      width: '100%',
+      paddingBottom: theme.spacing(1),
+      paddingTop: theme.spacing(4),
+    },
+    buttonRow: {
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+    },
+  });
 const mapStateToProps = (state: RootState) => ({
   loading: state.paymentPack.loading,
   enabledPacks: getEnabledPaymentPacks(state),
+
+  allTagsWithTagGroup: getallTagsWithTagGroup(state),
+  establishmentList: getAllEstablishments(state),
+  paymentPackCategories: getAllPaymentPackCategory(state),
+  metaActivities: uniqBy(
+    [
+      ...getEnabledMetaActivities(state),
+      ...getEnabledWorkshops(state),
+      ...getActivitiesByIdList(state, []),
+    ],
+    'id',
+  ),
+  categoryList: state.category.SCTs,
+
   paymentPackByCategory: groupByCategory(
     withPaymentPackNotification(getEnabledPaymentPacks),
   )(state),
@@ -533,8 +612,12 @@ const mapStateToProps = (state: RootState) => ({
     state.userPreference.paymentPackManagerOnlyFilter,
 });
 const mapDispatchToProps = {
+  fetchEstablishments,
   fetchAllPaymentPacks,
+  fetchAllActivities,
+  fetchWorkhops,
   fetchAllPaymentPackCategory,
+
   updateCreditAction,
   patchPaymentPack,
   pushRouter,
@@ -549,6 +632,7 @@ const mapDispatchToProps = {
   setPaymentPackSort,
   setPaymentPackCategoryFilter,
   setPaymentPackManagerOnlyFilter,
+  createOrUpdatePaymentPackAction,
 };
 const mapWithHandlers = {
   incrementCredit:
@@ -564,9 +648,6 @@ const mapWithHandlers = {
     (paymentPackId: number, data: PaymentPack) => {
       props.patchPaymentPack(paymentPackId, data);
     },
-  pushToEdit: (props: OwnAndConnectedProps) => (paymentPackId: number) => {
-    props.pushRouter(`/payment-pack/${paymentPackId}/edit`);
-  },
   fetchConsumerPacks:
     (props: OwnAndConnectedProps) =>
     (paymentPackId: number, page: number, pageSize: number) => {
@@ -578,9 +659,7 @@ const mapWithHandlers = {
   resetConsumerPacks: (props: OwnAndConnectedProps) => () => {
     props.resetByPaymentPackAction();
   },
-  onCreate: (props: OwnAndConnectedProps) => () => {
-    props.pushRouter('/payment-pack/add');
-  },
+
   fetchMarketingNotificationList: (props: OwnAndConnectedProps) => (params) => {
     props.fetchMarketingNotificationList(params);
   },
@@ -607,6 +686,17 @@ const mapWithHandlers = {
           );
           props.setSelectedCategory(null);
           props.setUpsertCategoryLoading(false);
+        },
+      });
+    },
+  createOrUpdatePaymentPack:
+    (props: OwnAndConnectedProps) =>
+    (data: PaymentPackFormValues, options: OptionCallback) => {
+      props.createOrUpdatePaymentPackAction(data, {
+        ...options,
+        onSuccess: (res) => {
+          options.onSuccess(res);
+          props.fetchAllPaymentPacks();
         },
       });
     },

@@ -94,10 +94,39 @@ export const getTagInfo = (pack: PaymentPack, t: TFunction) => {
   return tagInfo;
 };
 
-export const getPaymentPackTimeLimitation = (
-  paymentPack: PaymentPack,
-  baseDate: string,
+export const getValidityString = (
+  duration_day: number,
+  duration_month: number,
+  duration_year: number,
+  t: TFunction,
 ) => {
+  let dateInfo = '';
+
+  if (duration_year) {
+    dateInfo = t('addPaymentPack.validForDuration.year', {
+      duration_day,
+      duration_month,
+      duration_year,
+    });
+    return dateInfo;
+  }
+  if (duration_month) {
+    dateInfo = t('addPaymentPack.validForDuration.month', {
+      duration_day,
+      duration_month,
+    });
+    return dateInfo;
+  }
+  if (duration_day) {
+    dateInfo = t('addPaymentPack.validForDuration.day', {
+      duration_day,
+    });
+    return dateInfo;
+  }
+  return dateInfo;
+};
+
+export const getPaymentPackTimeLimitation = (paymentPack, baseDate) => {
   const { validity_daterange, duration_days, duration_months, duration_years } =
     paymentPack;
 

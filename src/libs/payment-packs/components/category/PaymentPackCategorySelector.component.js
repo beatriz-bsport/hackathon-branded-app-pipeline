@@ -318,7 +318,6 @@ const styles = (theme) => ({
   valueContainer: {
     flex: 1,
     alignItems: 'center',
-    overflow: 'hidden',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
   },

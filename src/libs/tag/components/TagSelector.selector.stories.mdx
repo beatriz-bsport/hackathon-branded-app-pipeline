@@ -38,7 +38,7 @@ export const Template = (args) => <TagSelector {...args} />;
     name="TagSelector"
     args={{
         isDisabled:false,
-        allTagsWithTagGroup:[FactoryBot.Tag.createOne()]
+        allTagsWithTagGroup:FactoryBot.Tag.create(5)
     }}>
         {Template.bind({})}
     </Story>

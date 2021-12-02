@@ -125,7 +125,10 @@ const getEstablishmentList = (establishments: Array<Establishment>) => {
 };
 
 const establishmentStyles = {
-  control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+  control: (styles) => ({
+    ...styles,
+    backgroundColor: 'white',
+  }),
   menuPortal: (base) => {
     return {
       ...base,
@@ -211,6 +214,7 @@ type OwnProps = {
   isLoading?: boolean;
   isOptionDisabled?: boolean;
   targetParentElement?: boolean;
+  placeholder?: string;
 };
 
 type Props = OwnProps & WithTranslation;
@@ -229,6 +233,7 @@ export function EstablishmentSelector(props: Props) {
     isLoading,
     isOptionDisabled,
     targetParentElement,
+    placeholder,
   } = props;
   const roomsSelected =
     selectedEstablishments && !nullCurrentValue
@@ -240,7 +245,7 @@ export function EstablishmentSelector(props: Props) {
     <Select
       closeMenuOnSelect={!!closeMenuOnSelect}
       isMulti={!noMulti}
-      placeholder={t('room')}
+      placeholder={placeholder || t('room')}
       options={getGroupedEstablishmentOptions([...establishments])}
       styles={establishmentStyles}
       onChange={selectOption}

@@ -1,4 +1,3 @@
-import * as mui from '@material-ui/icons';
 import FactoryBot from 'ya-factorybot';
 import faker from 'faker';
 
@@ -9,24 +8,18 @@ const random_hex_color_code = () => {
   return `#${n.slice(0, 6)}`;
 };
 
-const iconNameList = Object.keys(mui).filter(
-  (icon) =>
-    !icon.includes('Outlined') &&
-    !icon.includes('Rounded') &&
-    !icon.includes('Sharp') &&
-    !icon.includes('TwoTone'),
-);
+const iconNameList = ['AcUnit', 'AccessAlarm', 'Accessible', 'AddBox'];
 
 FactoryBot.define('Tag', {
-  id: Math.floor(Math.random() * 1000),
-  name: faker.random.word(),
-  group: {
+  id: FactoryBot.sequence(),
+  name: () => faker.random.word(),
+  group: () => ({
     id: Math.floor(Math.random() * 1000),
     name: faker.random.word(),
     kind: Math.floor(Math.random() * 1000),
-  },
-  color: random_hex_color_code(),
-  icon: iconNameList[Math.floor(Math.random() * iconNameList.length)],
+  }),
+  color: () => random_hex_color_code(),
+  icon: () => iconNameList[Math.floor(Math.random() * iconNameList.length)],
 });
 
 export default FactoryBot;

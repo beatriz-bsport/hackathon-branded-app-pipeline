@@ -1,0 +1,38 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import PaymentPackFormDialog from "./PaymentPackForm.dialog"
+import FactoryBotPaymentPackCategories from "../../../payment-packs/factory"
+import FactoryBotEstablishment from '../../../establishment/factories/Establishments'
+import FactoryBotTag from '../../../tag/factory'
+import { factory_scts } from '../../../category/factory'
+import { meta_activity_factory } from '../../../meta-activity/factory'
+const randomPaymentPackCategorieList=FactoryBotPaymentPackCategories.PaymentPackCategory.create(5)
+const randomSCT=factory_scts(5)
+const randomEstablishments=FactoryBotEstablishment.Establishment.create(5)
+const randomMetaActivity=meta_activity_factory(5)
+const randomTagList=FactoryBotTag.Tag.create(5)
+
+<Meta title="library/PaymentPack"
+    component={PaymentPackFormDialog}
+    argTypes ={{
+    }}/>
+
+export const Template = (args) => <PaymentPackFormDialog {...args} />;
+
+#  Add Payment Pack Dialog
+
+<Canvas>
+    <Story 
+    name="PaymentPackFormDialog"
+    args={{
+        open:true,
+        paymentPackCategories:randomPaymentPackCategorieList,
+        categoryList:randomSCT,
+        establishmentList:randomEstablishments,
+        metaActivityList:randomMetaActivity,
+        tagList:randomTagList,
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story="PaymentPackFormDialog" />

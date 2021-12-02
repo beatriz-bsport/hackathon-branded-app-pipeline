@@ -16,7 +16,7 @@ export type PaymentPack = {
   name: string;
   price: number;
   base_price: number;
-  tax: string;
+  tax: number;
   credits: number | null;
   unlimited: boolean;
   nb_consumer_payment_packs: number;
@@ -51,8 +51,8 @@ export type PaymentPack = {
   full_vod_access: boolean;
   only_vod_access: boolean;
 
-  penatly_active: boolean;
-  penalty_nd_late_cancellations: number;
+  penalty_active: boolean;
+  penalty_nb_late_cancellations: number;
   penalty_nb_days: number;
   penalty_kind: number;
   penalty_days_blocked: number;
@@ -194,3 +194,46 @@ export const actionTypes = {
 export type PaymentPackCategoryWithPacks = PaymentPackCategory & {
   packs: Array<PaymentPack>;
 };
+
+export interface PaymentPackFormValues {
+  id?: number;
+  name?: string | null;
+  category?: number;
+  price?: number;
+  tax?: number;
+  credit_number?: 'limited' | 'unlimited';
+  credits?: number;
+  theorical_margin_value?: number;
+  penalty_active?: boolean;
+  validity?: 'givenNumber' | 'slot';
+  lower_date?: string;
+  upper_date?: string;
+  validity_daterange?: {
+    lower?: string;
+    upper?: string;
+  };
+  duration_days?: number;
+  duration_months?: number;
+  duration_years?: number;
+  start_date_method?: 'billing' | 'firstBooking' | 'attendance' | number;
+  expiration_days_before_first_use?: number;
+  penalty_nb_late_cancellations?: number;
+  penalty_nb_days?: number;
+  penalty_kind?: 'block' | 'account' | number;
+  penalty_days_blocked?: number;
+  penalty_account_value?: number;
+  max_bookings_per_day?: number;
+  max_bookings_per_week?: number;
+  max_bookings_per_month?: number;
+  max_purchase_per_member?: number;
+  new_member_only?: boolean;
+  manager_only?: boolean;
+  onsite_payment_available?: boolean;
+  categories?: Array<number>;
+  establishments?: Array<number>;
+  metaActivities?: Array<number>;
+  full_vod_access?: boolean;
+  only_vod_access?: boolean;
+  whitelist_tags?: Array<number>;
+  blacklist_tags?: Array<number>;
+}

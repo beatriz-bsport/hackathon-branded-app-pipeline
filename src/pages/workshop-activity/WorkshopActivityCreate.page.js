@@ -34,7 +34,7 @@ import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import MetaActivityForm from '../../libs/meta-activity/components/MetaActivityForm.component';
-import PaymentPackForm from '../../libs/payment-packs/components/PaymentPackForm.component';
+import PaymentPackForm from '../../libs/payment-packs/components/PaymentPackForm/PaymentPackForm.component';
 import OfferForm from '../../libs/offer/OfferForm.component';
 
 import { fetchEstablishments } from '../../libs/establishment/actions';
@@ -48,6 +48,8 @@ import { CoachPaymentRuleByKindSelector } from '../../libs/coach-payment-rules/s
 import { fetchAllCoachPaymentRules } from '../../libs/coach-payment-rules/actions';
 import type { CoachPaymentRule } from '../../libs/coach-payment-rules/types';
 import type { PaymentPackCategory } from '../../libs/payment-packs/types';
+import { getallTagsWithTagGroup } from '../../libs/tag/selectors';
+import type { Tag, TagGroup } from '../../libs/tag/types';
 
 type StepType = {
   id: number,
@@ -89,6 +91,7 @@ type Props = {
   fetchAllCoachPaymentRules: () => void,
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> },
   paymentPackCategories: Array<PaymentPackCategory>,
+  allTagsWithTagGroup: Array<Tag<TagGroup>>,
 };
 const MetaActivityMap = {
   cover_main: 'cover_main',
@@ -146,19 +149,15 @@ export class WorkshopActivityFormPage extends Component<Props> {
     return (
       <PaymentPackForm
         onSubmit={this.props.onSubmitPass}
-        categories={this.props.SCTs.filter(
+        categoryList={this.props.SCTs.filter(
           (c) => availableCategoriesId.indexOf(c.id) !== -1,
         )}
-        metaActivities={this.props.metaActivitiesAndWorkshops}
-        establishments={this.props.establishments}
+        metaActivityList={this.props.metaActivitiesAndWorkshops}
+        tagList={this.props.allTagsWithTagGroup}
+        establishmentList={this.props.establishments}
         loading={this.props.loading}
         onCancel={() => this.props.setStep(STEP_OFFER)}
         onCancelText={this.props.t('common.skip')}
-        initial={
-          this.props.upsertedWorkshop
-            ? { metaActivities: [this.props.upsertedWorkshop.id] }
-            : null
-        }
         paymentPackCategories={this.props.paymentPackCategories}
       />
     );
@@ -248,6 +247,7 @@ export default compose(
       roomBlueprints: getAvailableRoomBlueprints(state),
       coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
       paymentPackCategories: getAllPaymentPackCategory(state),
+      allTagsWithTagGroup: getallTagsWithTagGroup(state),
     }),
     {
       upsertWorkshopActivity: upsert,

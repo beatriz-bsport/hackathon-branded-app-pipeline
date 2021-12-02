@@ -15,7 +15,16 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { TFunction } from 'i18next';
 import { push as pushRouter } from 'connected-react-router';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
-
+import uniqBy from 'lodash/uniqBy';
+import {
+  fetchAllActivities,
+  fetchAll as fetchWorkshops,
+  fetchMetaActivityBulk,
+} from '../../libs/meta-activity/actions';
+import {
+  fetchEstablishments,
+  fetchEstablishmentBulk,
+} from '../../libs/establishment/actions';
 import PaymentPackNotification from '../../libs/payment-packs/components/PaymentPackNotification.component';
 import PaymentPackCard from '../../libs/payment-packs/components/PaymentPackCard.component';
 import PaginatedConsumerPackList from '../../libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
@@ -52,6 +61,7 @@ import {
   patch as patchPaymentPack,
   fetchOne as fetchPaymentPackAction,
   scalePaymentPackCredit,
+  createOrUpdate as createOrUpdatePaymentPackAction,
   fetchAllPaymentPackCategory,
 } from '../../libs/payment-packs/actions';
 import {
@@ -68,13 +78,15 @@ import {
   withSCT,
   withTags,
   getPaymentPackCategoryById,
+  getAllPaymentPackCategory,
 } from '../../libs/payment-packs/selectors';
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { fetchEstablishmentBulk } from '../../libs/establishment/actions';
-import { fetchMetaActivityBulk } from '../../libs/meta-activity/actions';
 
-import { PaymentPack } from '../../libs/payment-packs/types';
+import {
+  PaymentPack,
+  PaymentPackFormValues,
+} from '../../libs/payment-packs/types';
 import { fetchFilteredMembers as fetchFilteredMembersAction } from '../../libs/member/actions';
 import { OptionCallback } from '../../state/types';
 
@@ -90,11 +102,14 @@ import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import PaymentPackMassExtensionList from '../../libs/consumer-payment-pack/components/PaymentPackMassExtensionList.component';
 import { PaymentPackMassExtension } from '../../libs/consumer-payment-pack/types';
 
-import {
-  fetchAllGroups as fetchAllTagGroups,
-  fetchAllTags,
-} from '../../libs/tag/actions';
 import { getallTagsWithTagGroup } from '../../libs/tag/selectors';
+import PaymentPackFormDialog from '#libs/payment-packs/components/PaymentPackForm';
+import { getAllEstablishments } from '#libs/establishment/selectors';
+import {
+  getActivitiesByIdList,
+  getEnabledMetaActivities,
+  getEnabledWorkshops,
+} from '#libs/meta-activity/selectors';
 
 type OwnProps = {
   id: number;
@@ -116,6 +131,8 @@ type Props = WithStateProps &
 
 type State = {
   paymentPackToDeleteId?: number | null;
+  paymentPackToEdit?: PaymentPack;
+  openPaymentPackFormDialog: boolean;
 };
 
 const PAYMENT_PACK_MASS_EXTENSION_PAGINATION_SIZE = 5;
@@ -126,6 +143,8 @@ const CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT = 4;
 export class PaymentPackDetail extends Component<Props, State> {
   state: State = {
     paymentPackToDeleteId: null,
+    paymentPackToEdit: null,
+    openPaymentPackFormDialog: false,
   };
 
   componentDidUpdate(prevProps: Props) {
@@ -151,25 +170,25 @@ export class PaymentPackDetail extends Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.fetchPaymentPack(this.props.id, {
-      onSuccess: (pp: PaymentPack) => {
-        this.props.fetchMetaActivityBulk(pp.metaActivities);
-        this.props.fetchEstablishmentBulk(pp.establishments);
-      },
-    });
+    this.props.fetchPaymentPack(this.props.id);
+    this.props.fetchEstablishments();
+    this.props.fetchAllActivities({ customer_enabled: true });
+    this.props.fetchWorkshops();
+    this.props.fetchAllPaymentPackCategory();
     this.props.fetchNotificationsAndTemplatesAndSmartLists();
     this.props.fetchMassExtensionList({
       paymentPack: this.props.id,
       page: 1,
       page_size: PAYMENT_PACK_MASS_EXTENSION_PAGINATION_SIZE,
     });
-    this.props.fetchAllTagGroups();
-    this.props.fetchAllTags();
+
     this.props.fetchAllPaymentPackCategory();
   }
 
-  requestEdit = (p: PaymentPack) => {
-    this.props.pushToEdit(p.id);
+  requestEdit = (pp: PaymentPack) => {
+    this.setState({ paymentPackToEdit: pp }, () =>
+      this.setState({ openPaymentPackFormDialog: true }),
+    );
   };
 
   requestDelete = (paymentPack: PaymentPack) => {
@@ -244,12 +263,23 @@ export class PaymentPackDetail extends Component<Props, State> {
   };
 
   render() {
-    const { pack, loading, classes, notifications } = this.props;
+    const {
+      pack,
+      loading,
+      classes,
+      notifications,
+      categoryList,
+      establishmentList,
+      metaActivities,
+      allTagsWithTagGroup,
+      paymentPackCategories,
+    } = this.props;
+
     if (loading || !this.props.pack) {
       return <LinearProgress />;
     }
     const paymentPackCategory = pack.category
-      ? this.props.paymentPackCategories[pack.category]
+      ? this.props.paymentPackCategoryById[pack.category]
       : {};
 
     return (
@@ -399,6 +429,41 @@ export class PaymentPackDetail extends Component<Props, State> {
           onClose={() => this.props.setOpenMassExtensionDialog(false)}
           onSubmit={this.createMassExtension}
         />
+        {this.state.openPaymentPackFormDialog && (
+          <PaymentPackFormDialog
+            open={this.state.openPaymentPackFormDialog}
+            categoryList={[...categoryList].filter(
+              (category) =>
+                metaActivities.map((a) => a.SCT).indexOf(category.id) !== -1,
+            )}
+            establishmentList={[...establishmentList]}
+            metaActivityList={[...metaActivities]}
+            tagList={[...allTagsWithTagGroup]}
+            paymentPackCategories={paymentPackCategories}
+            closeDialog={() =>
+              this.setState({ openPaymentPackFormDialog: false })
+            }
+            onSubmit={this.props.createOrUpdatePaymentPack}
+            clearPaymentPackToEdit={() =>
+              this.setState({ paymentPackToEdit: null })
+            }
+            initial={{
+              ...this.state.paymentPackToEdit,
+              establishments: this.state.paymentPackToEdit?.establishments.map(
+                (establishment) => establishment.id,
+              ),
+              metaActivities: this.state.paymentPackToEdit?.metaActivities.map(
+                (metaActivitie) => metaActivitie.id,
+              ),
+              blacklist_tags: this.state.paymentPackToEdit?.blacklist_tags.map(
+                (tag) => tag.id,
+              ),
+              whitelist_tags: this.state.paymentPackToEdit?.whitelist_tags.map(
+                (tag) => tag.id,
+              ),
+            }}
+          />
+        )}
       </Grid>
     );
   }
@@ -462,7 +527,18 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     smartLists: getAllSmartList(state),
     smartListLoading: state.smartList.isLoading,
     allTagsWithTagGroup: getallTagsWithTagGroup(state),
-    paymentPackCategories: getPaymentPackCategoryById(state),
+    paymentPackCategoryById: getPaymentPackCategoryById(state),
+    establishmentList: getAllEstablishments(state),
+    paymentPackCategories: getAllPaymentPackCategory(state),
+    metaActivities: uniqBy(
+      [
+        ...getEnabledMetaActivities(state),
+        ...getEnabledWorkshops(state),
+        ...getActivitiesByIdList(state, []),
+      ],
+      'id',
+    ),
+    categoryList: state.category.SCTs,
   };
 };
 
@@ -480,8 +556,6 @@ const mapDispatchToProps = {
     updateCreditAction(consumerPackId, -1),
   updatePaymentPack: (paymentPackId: number, data: any) =>
     patchPaymentPack(paymentPackId, data, true),
-  pushToEdit: (paymentPackId: number) =>
-    pushRouter(`/payment-pack/${paymentPackId}/edit`),
   resetConsumerPacks: resetByPaymentPackAction,
   goToSmartlist: () => pushRouter('/smart-list'),
 
@@ -509,8 +583,11 @@ const mapDispatchToProps = {
   createMassExtension,
   fetchMassExtensionList,
   deleteMassExtension,
-  fetchAllTagGroups,
-  fetchAllTags,
+
+  fetchEstablishments,
+  fetchAllActivities,
+  fetchWorkshops,
+  createOrUpdatePaymentPackAction,
 };
 
 const mapWithHandlers = {
@@ -548,6 +625,17 @@ const mapWithHandlers = {
       },
     });
   },
+  createOrUpdatePaymentPack:
+    (props: WithStateProps) =>
+    (data: PaymentPackFormValues, options: OptionCallback) => {
+      props.createOrUpdatePaymentPackAction(data, {
+        ...options,
+        onSuccess: () => {
+          options.onSuccess();
+          props.fetchPaymentPack(props.id);
+        },
+      });
+    },
   fetchNotificationsAndTemplatesAndSmartLists:
     (props: WithStateProps) => () => {
       props.fetchMarketingNotificationList(

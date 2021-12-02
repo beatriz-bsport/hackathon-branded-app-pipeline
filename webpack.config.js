@@ -113,6 +113,12 @@ const defaultConfig = {
     symlinks: false,
     alias: {
       react: path.resolve('./node_modules/react'),
+      '#libs': path.resolve(__dirname, './node_modules/bsport-saas/src/libs'),
+      '#hocs': path.resolve(__dirname, './node_modules/bsport-saas/src/hocs'),
+      '#components': path.resolve(
+        __dirname,
+        './node_modules/bsport-saas/src/components',
+      ),
     },
   },
 };

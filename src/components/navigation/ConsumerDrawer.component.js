@@ -356,7 +356,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         } `,
         text: t('navigation.calendar'),
       },
-      this.props.hasMultipleMembership && !WidgetUtils.isWidget()
+      !WidgetUtils.isWidget()
         ? {
             to: '/vod/',
             icon: VideoLibrary,

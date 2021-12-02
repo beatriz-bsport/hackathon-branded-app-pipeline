@@ -89,12 +89,12 @@ export class WidgetCodeStringGenerator {
         "showFab": ${args.showFab},
         "fullScreenPopup": ${args.fullScreenPopup},
         "config": {
-            "${args.componentType}": {
-${WidgetCodeStringGenerator.getComponentConfigString(
-  componentConfig,
-  3,
-)}                   
-            }
+            "${
+              args.componentType
+            }": {${WidgetCodeStringGenerator.getComponentConfigString(
+      componentConfig,
+      3,
+    )}}
         }  
     })
 </script>

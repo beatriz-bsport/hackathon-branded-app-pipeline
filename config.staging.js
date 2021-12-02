@@ -21,5 +21,5 @@ window.runtimeBsport.env.REACT_APP_STRIPE_PK_KEY =
 window.runtimeBsport.env.REACT_APP_GOOGLE_MAPS_API_KEY = 'NA';
 window.runtimeBsport.env.REACT_APP_SENTRY_DSN = '';
 window.runtimeBsport.env.I18N_TRANSLATION_DOMAIN =
-  'https://backoffice.bsport.io';
+  'https://backoffice.staging.bsport.io';
 window.runtimeBsport.env.PUBLIC_URL = 'https://backoffice.staging.bsport.io';

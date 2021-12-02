@@ -170,7 +170,8 @@ exports.default = {
     cancel: 'Annuler',
     confirm: 'Je confirme',
   },
-  termsAndConditions: "Les conditions générales d'utilisation",
+  termsAndConditions: 'Les conditions générales de vente',
+  termsOfUse: "Les conditions générales d'utilisation",
   memberTermsAccepted: ' ont été acceptées le {{- date}}',
   vaccinationStatus: {
     done: 'Pass sanitaire valide',

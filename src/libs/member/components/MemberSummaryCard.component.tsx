@@ -60,7 +60,8 @@ type OwnProps = {
   hideContactButton?: boolean;
   showTermsAndConditions: boolean;
   setShowTermsAndConditions: (show: boolean) => void;
-
+  showTermsOfUse: boolean;
+  setShowTermsOfUse: (show: boolean) => void;
   getEmails: () => void;
   getEmailDetail: (id: number) => void;
   emailListLoading: boolean;
@@ -367,6 +368,46 @@ export class MemberSummaryCard extends Component<Props> {
     return null;
   };
 
+  renderTermsOfUse = () => {
+    const {
+      general_terms_of_use_date_accepted,
+      general_terms_of_use_accepted,
+    } = this.props.member;
+
+    if (general_terms_of_use_date_accepted && general_terms_of_use_accepted) {
+      return (
+        <div className={this.props.classes.termsAndConditions}>
+          <Typography inline component="div" variant="caption" color="default">
+            <ButtonBase onClick={() => this.props.setShowTermsOfUse(true)}>
+              <Typography variant="caption" color="secondary">
+                {this.props.t('member:termsOfUse')}
+              </Typography>
+            </ButtonBase>
+            {this.props.t('member:memberTermsAccepted', {
+              date: moment(general_terms_of_use_date_accepted).format('L'),
+            })}
+          </Typography>
+          <Dialog
+            open={this.props.showTermsOfUse}
+            onClose={() => this.props.setShowTermsOfUse(false)}
+          >
+            <DialogContent>
+              <TypographyMultiline>
+                {general_terms_of_use_accepted}
+              </TypographyMultiline>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={() => this.props.setShowTermsOfUse(false)}>
+                {this.props.t('member:search.cancel')}
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
+      );
+    }
+    return null;
+  };
+
   render() {
     const { member, classes } = this.props;
     // ugly FIXME: because loading should never be set to true
@@ -382,6 +423,7 @@ export class MemberSummaryCard extends Component<Props> {
               {this.renderAddress()}
               {this.renderNotificationSettings()}
               {this.renderTermsAndConditions()}
+              {this.renderTermsOfUse()}
             </div>
           </Paper>
           <Dialog
@@ -458,4 +500,5 @@ export default compose<any, Props>(
   withStyles(styles),
   withTranslation(['translation', 'member']),
   withState('showTermsAndConditions', 'setShowTermsAndConditions', false),
+  withState('showTermsOfUse', 'setShowTermsOfUse', false),
 )(MemberSummaryCard);

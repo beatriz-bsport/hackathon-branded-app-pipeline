@@ -376,7 +376,7 @@ export const memberCovidStatusInMemberForm = createSelector(
   [getMemberCustomForm],
   (customMemberForm) => {
     if (!customMemberForm) return false;
-    const covid_question = customMemberForm.custom_form_field.filter(
+    const covid_question = customMemberForm.custom_form_field?.filter(
       (field) =>
         !field.disabled &&
         field.signup_question_kind ===
@@ -389,7 +389,7 @@ export const memberCovidStatusInSignUpForm = createSelector(
   [getSignUpCustomForm],
   (signUpCustomForm) => {
     if (!signUpCustomForm) return false;
-    const covid_question = signUpCustomForm.custom_form_field.filter(
+    const covid_question = signUpCustomForm.custom_form_field?.filter(
       (field) =>
         !field.disabled &&
         field.signup_question_kind ===

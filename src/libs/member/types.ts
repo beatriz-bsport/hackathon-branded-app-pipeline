@@ -91,8 +91,10 @@ export type Member<Tag = number> = {
   files: string;
   general_terms_and_conditions_date_accepted: string | null;
   general_terms_and_conditions_accepted: boolean | null;
+  general_terms_of_use_date_accepted: string | null;
+  general_terms_of_use_accepted: string | null;
   waiver_accepted: string;
-  emenrgency_contact: string;
+  emergency_contact: string;
   archived: boolean;
 };
 

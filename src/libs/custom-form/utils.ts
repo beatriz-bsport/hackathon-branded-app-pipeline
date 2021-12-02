@@ -318,7 +318,11 @@ export const insertMemberProfileDataToAnswer = (
       }
       return 0;
     case CUSTOM_FORM_FIELD_SIGN_UP_GENERAL_TERMS_AND_CONDITIONS:
-      return !!memberProfileData?.general_terms_and_conditions_accepted;
+      return (
+        memberProfileData &&
+        (!!memberProfileData.general_terms_of_use_accepted ||
+          !!memberProfileData.general_terms_of_use_date_accepted)
+      );
     case CUSTOM_FORM_FIELD_SIGN_UP_WAIVER:
       return !!memberProfileData?.waiver_accepted;
     default:

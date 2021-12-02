@@ -42,3 +42,44 @@ Now you can run
 yarn       // install all deps
 yarn start // start the dev server
 ```
+
+CREATE NEW ALLIAS
+=================
+
+To create a new allias you need to add them at multiple places
+
+### .babelrc
+```
+  "alias": {
+    ...
+    "#newAlias": "PATH TO NEW ALIAS FROM THE BABELRC FILE",
+  }
+```
+
+### .eslintrc
+```
+  "alias": {
+    ...
+    "#newAlias": "PATH TO NEW ALIAS FROM THE ESLINTRC FILE",
+  }
+```
+
+### .tsconfig.json
+```
+  "paths": {
+    ...
+    "#newAlias/*": ["PATH TO NEW ALIAS FROM THE TSCONFIG FILE"/*],
+  }
+```
+
+### config/webpack.config.dev.js and config/webpack.config.js
+```
+  "paths": {
+    ...
+    '#components': path.resolve(__dirname, ["PATH TO NEW ALIAS FROM THE WEBPACK FILE"/),
+  }
+```
+
+the alias need to respect some convention use a # as a prefix to make it clear it's not a path and can't have a / inside to avoid resolving problems
+
+> :warning: **Don t break the widget**: Until better bundling for the widget we also need to add the alias configuration in the widget's webpack otherwise it will break the build

@@ -1,8 +1,8 @@
 import React from 'react';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
 import {
+  NOTIFICATION_KIND,
   BOOKING_EVENT_RULES,
   PAYMENT_PACK_EVENT_RULE,
 } from '@bsport/common/lib/master-data/notification-rule-events';
@@ -30,6 +30,7 @@ import { PaymentPack } from '../../payment-packs/types';
 import { MarketingNotificationMailStat } from '../../communication/types';
 import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 import { CompanyTheme } from '../../theme/types';
+import NotificationPushPreview from '#components/notification-push/NotificationPushPreview.component';
 
 import { PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME } from '#libs/private-service/utils';
 
@@ -186,6 +187,14 @@ class EmailTemplateForNotifications extends React.PureComponent<Props> {
       );
     }
 
+    if (notif.kind === NOTIFICATION_KIND.BIRTHDAY) {
+      return (
+        <Typography>
+          {t('booking:notification.form.listItemPrimary.birthday')}
+        </Typography>
+      );
+    }
+
     return (
       <Typography>
         {`${
@@ -325,30 +334,10 @@ class EmailTemplateForNotifications extends React.PureComponent<Props> {
 
                         <Divider className={classes.divider} />
 
-                        <div className={classes.greyBack}>
-                          <Paper className={classes.notification}>
-                            <div className={classes.notificationHeader}>
-                              <div className={classes.notificationCompany}>
-                                {this.props.theme.company_name}
-                              </div>
-                              <div className={classes.notificationHour}>
-                                {moment().format('HH:mm')}
-                              </div>
-                            </div>
-                            <div className={classes.notificationTitle}>
-                              {
-                                this.props.selectedNotification
-                                  .push_notification_title
-                              }
-                            </div>
-                            <Typography>
-                              {
-                                this.props.selectedNotification
-                                  .push_notification_content
-                              }
-                            </Typography>
-                          </Paper>
-                        </div>
+                        <NotificationPushPreview
+                          notification={this.props.selectedNotification}
+                          theme={this.props.theme}
+                        />
                       </>
                     )}
                 </>
@@ -489,38 +478,6 @@ const styles = (theme: Theme) => ({
   },
   sectionTitle: {
     marginBottom: theme.spacing(1),
-  },
-  greyBack: {
-    background: theme.palette.grey[300],
-    boxShadow: theme.shadows[1],
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
-  },
-  notification: {
-    width: 360,
-    padding: theme.spacing(2),
-    borderRadius: 12,
-    boxShadow: theme.shadows[2],
-  },
-  notificationTitle: {
-    fontWeight: 'bold',
-    marginBottom: theme.spacing(1),
-  },
-  notificationHeader: {
-    display: 'flex',
-    alignItem: 'center',
-    justifyContent: 'space-between',
-  },
-  notificationCompany: {
-    fontSize: 13,
-    color: theme.palette.grey[500],
-  },
-  notificationHour: {
-    fontSize: 13,
-    color: theme.palette.grey[700],
   },
 });
 

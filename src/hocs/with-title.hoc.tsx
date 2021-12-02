@@ -64,12 +64,12 @@ function withTitle<P>(
         const title = mapPropsToTitle(this.props);
 
         return (
-          <div>
+          <>
             <Helmet>
               <title>{title}</title>
             </Helmet>
             <WrappedComponent {...(this.props as P)} />
-          </div>
+          </>
         );
       }
     }

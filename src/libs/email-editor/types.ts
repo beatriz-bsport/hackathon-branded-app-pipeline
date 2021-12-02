@@ -39,7 +39,7 @@ export type EmailTemplateState = {
   detail: {
     loading: boolean;
     error?: Error | null;
-    byId: { [key: string]: EmailTemplateDetail };
+    byId: { [key: string | number]: EmailTemplateDetail };
   };
   loading: boolean;
   error?: Error;

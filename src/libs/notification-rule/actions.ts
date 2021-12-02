@@ -105,7 +105,7 @@ export const notificatonRuleCreateOrUpdateActions = {
 
 export function createOrUpdateNotificationRule(
   data: any,
-  options: OptionCallback,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(notificatonRuleCreateOrUpdateActions.isLoading(true));
@@ -141,7 +141,7 @@ export const deleteNotificationRuleActions = {
 
 export function deleteNotificationRule(
   id: number,
-  options: OptionCallback<number>,
+  options?: OptionCallback<number>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(deleteNotificationRuleActions.isLoading(true));

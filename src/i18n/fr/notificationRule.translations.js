@@ -284,6 +284,27 @@ exports.default = {
       delete: 'Supprimer',
     },
   },
+  countElements: '{{nbr}} éléments',
+  countEmail: '{{nbr}} emails transactionnels activés',
+  countNotification: '{{nbr}} notifications push activés',
   franchiseOwned:
     'Votre franchiseur gère actuellement cet email transactionnel',
+  preview: {
+    title: 'Aperçu',
+    emptyState: 'Pour voir les aperçus, cliquez sur une des catégories',
+    emptyStateNotification:
+      'Pour voir votre aperçu, configurez votre notification push',
+    notification: 'Push',
+    email: 'Email',
+  },
+  listItem: {
+    transactionnalEmail: 'Email transactionnel',
+    sendTransactionnalEmail: 'Envoyer un email transactionnel',
+    copyCarbon: 'Recevoir une copie du mail',
+    mailToSend: 'Mail à envoyer',
+    transactionnalNotification: 'Notification push',
+    sendTransactionnalNotification: 'Envoyer une notification push',
+    modifyTransactionnalNotification: 'modifier la notification push',
+    createTransactionnalNotification: 'configurer la notification push',
+  },
 };

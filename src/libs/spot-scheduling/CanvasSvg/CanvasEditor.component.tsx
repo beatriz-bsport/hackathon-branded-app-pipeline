@@ -295,7 +295,6 @@ const styles = () => ({
     overflow: 'hidden',
   },
   toolMenuContainer: {
-    height: window.innerHeight - 64,
     width: 320,
     position: 'relative',
     overflow: 'hidden',

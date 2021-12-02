@@ -309,10 +309,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
     return (
       <BannerContext.Consumer>
         {({ banner }: BannerContextValue) => (
-          <AppBar
-            className={fullWidth ? classes.appBarFullWidth : classes.appBar}
-            color="inherit"
-          >
+          <AppBar className={classes.appBar} color="inherit">
             <Toolbar>
               <Grid
                 container
@@ -1048,9 +1045,6 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                   !this.props.location.pathname.includes('/spot-scheduling'),
               })}
             >
-              {this.props.isFranchisorNavigation && (
-                <div className={classes.fillerFranchisor} />
-              )}
               {displayBanner && (
                 <div className={classes.bannerContextspacing} />
               )}
@@ -1077,8 +1071,9 @@ const styles = (theme) => ({
     position: 'relative',
     overflow: 'hidden',
     display: 'flex',
+    flexDirection: 'column',
     width: '100vw',
-    minHeight: '100vh',
+    height: '100vh',
     [theme.breakpoints.up('md')]: {
       paddingLeft: drawerWidth,
     },
@@ -1089,8 +1084,9 @@ const styles = (theme) => ({
     position: 'relative',
     overflow: 'hidden',
     display: 'flex',
+    flexDirection: 'column',
     width: '100vw',
-    minHeight: '100vh',
+    height: '100vh',
   },
   grow: {
     flex: 1,
@@ -1106,17 +1102,14 @@ const styles = (theme) => ({
     },
   },
   appBarFullWidth: {
-    position: 'fixed',
-    [theme.breakpoints.up('md')]: {
-      width: '100%',
-    },
+    flex: '0 1 64px',
+    width: '100%',
+    position: 'relative',
   },
   appBar: {
-    position: 'fixed',
-    marginLeft: drawerWidth,
-    [theme.breakpoints.up('md')]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-    },
+    flex: '0 1 64px',
+    width: '100%',
+    position: 'relative',
   },
   menuIcon: {
     height: 32,
@@ -1142,7 +1135,9 @@ const styles = (theme) => ({
     },
   },
   content: {
-    flexGrow: 1,
+    flex: '1 1 auto',
+    display: 'flex',
+    flexDirection: 'column',
     backgroundColor: theme.palette.background.default,
     width: '100%',
     [theme.breakpoints.up('md')]: {
@@ -1150,16 +1145,15 @@ const styles = (theme) => ({
       paddingRight: theme.spacing(3),
     },
     paddingBottom: theme.spacing(1),
-    paddingTop: theme.spacing(10),
+    paddingTop: theme.spacing(2),
+    overflow: 'auto',
   },
   fullContent: {
     display: 'flex',
     flexDirection: 'column',
-    flex: 1,
-    marginTop: '56px', // toolbar height
-    [theme.breakpoints.up('sm')]: {
-      marginTop: '64px', // toolbar height
-    },
+    flex: '1 1 auto',
+    overflow: 'auto',
+    paddingTop: theme.spacing(2),
   },
   logo: {
     alignItems: 'center',

@@ -1,6 +1,8 @@
 import React from 'react';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
+import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
+
 import {
   EmailTemplateDetail,
   EmailTemplateSummary,
@@ -10,6 +12,7 @@ import { MarketingNotification } from '../types';
 import BookingCreationNotificationForm from '../../booking/components/BookingCreationNotificationForm.component';
 import PrivateBookingNotificationForm from '../../private-service/components/booking/PrivateBookingNotificationForm.component';
 import ProductNotificationForm from './ProductNotificationForm.component';
+import BirthdayNotificationForm from '../../payment-packs/components/BirthdayNotificationForm.component';
 import NotificationSourceSelector from './NotificationSourceSelector.component';
 import { MetaActivity } from '../../meta-activity/types';
 import { Establishment } from '../../establishment/types';
@@ -18,6 +21,8 @@ import { PaymentPack } from '../../payment-packs/types';
 import FabWithItems from '../../../components/button/FabWithItems';
 
 type Identifier =
+  | 'birthday'
+  | 'workshop'
   | 'meta_activity'
   | 'establishment'
   | 'private_service'
@@ -47,6 +52,7 @@ type OwnProps = {
   paymentPacks: PaymentPack[];
   tags: { [tag_name: string]: string[] };
   privatePasses: PrivatePass[];
+  withoutBirthday: boolean;
 };
 
 type Props = OwnProps & WithTranslation;
@@ -88,8 +94,8 @@ export class NotificationFormGeneric extends React.PureComponent<Props, State> {
 
   renderDialog = () => {
     if (
-      this.state.createFromSource &&
-      this.state.createFromSource.identifier &&
+      this.state.createFromSource?.identifier &&
+      this.state.createFromSource.identifier !== 'birthday' &&
       typeof this.state.createFromSource.objectId !== 'number'
     ) {
       return (
@@ -216,6 +222,27 @@ export class NotificationFormGeneric extends React.PureComponent<Props, State> {
         />
       );
     }
+
+    if (
+      this.state.createFromSource?.identifier === 'birthday' ||
+      this.props.selectedNotification?.kind === NOTIFICATION_KIND.BIRTHDAY
+    ) {
+      return (
+        <BirthdayNotificationForm
+          emailDetailLoading={this.props.emailDetailLoading}
+          emailListLoading={this.props.emailListLoading}
+          getEmails={this.props.getEmails}
+          getEmailDetail={this.props.getEmailDetail}
+          emails={this.props.emailSummaryList}
+          emailDetails={this.props.emailDetails}
+          initial={this.props.selectedNotification}
+          onCancel={this.onCancel}
+          onSubmit={this.onSubmit}
+          tags={this.getMergeTags()}
+        />
+      );
+    }
+
     return null;
   };
 
@@ -245,38 +272,48 @@ export class NotificationFormGeneric extends React.PureComponent<Props, State> {
   render() {
     const { t } = this.props;
 
+    let items = [
+      {
+        label: t('notifications.fabLabels.birthday'),
+        onClick: () => this.onClickCreateForIdentifier('birthday'),
+      },
+      {
+        label: t('notifications.fabLabels.meta_activity'),
+        onClick: () => this.onClickCreateForIdentifier('meta_activity'),
+      },
+      {
+        label: t('notifications.fabLabels.workshop'),
+        onClick: () => this.onClickCreateForIdentifier('workshop'),
+      },
+      {
+        label: t('notifications.fabLabels.establishment'),
+        onClick: () => this.onClickCreateForIdentifier('establishment'),
+      },
+      {
+        label: t('notifications.fabLabels.private_service'),
+        onClick: () => this.onClickCreateForIdentifier('private_service'),
+      },
+      {
+        label: t('notifications.fabLabels.payment_pack'),
+        onClick: () => this.onClickCreateForIdentifier('payment_pack'),
+      },
+      {
+        label: t('notifications.fabLabels.private_pass'),
+        onClick: () => this.onClickCreateForIdentifier('private_pass'),
+      },
+    ];
+
+    if (this.props.withoutBirthday) {
+      items = items.slice(1);
+    }
+
     return (
       <>
         {this.renderDialog()}
 
         <FabWithItems
           label={t('notifications.createNotificationFabLabel')}
-          items={[
-            {
-              label: t('notifications.fabLabels.meta_activity'),
-              onClick: () => this.onClickCreateForIdentifier('meta_activity'),
-            },
-            {
-              label: t('notifications.fabLabels.workshop'),
-              onClick: () => this.onClickCreateForIdentifier('workshop'),
-            },
-            {
-              label: t('notifications.fabLabels.establishment'),
-              onClick: () => this.onClickCreateForIdentifier('establishment'),
-            },
-            {
-              label: t('notifications.fabLabels.private_service'),
-              onClick: () => this.onClickCreateForIdentifier('private_service'),
-            },
-            {
-              label: t('notifications.fabLabels.payment_pack'),
-              onClick: () => this.onClickCreateForIdentifier('payment_pack'),
-            },
-            {
-              label: t('notifications.fabLabels.private_pass'),
-              onClick: () => this.onClickCreateForIdentifier('private_pass'),
-            },
-          ]}
+          items={items}
         />
       </>
     );

@@ -7,9 +7,6 @@ import { TFunction } from 'i18next';
 import { compose } from 'recompose';
 import { withRouter } from 'react-router';
 import { push } from 'connected-react-router';
-import { Theme } from '@material-ui/core';
-
-import withStyles from '@material-ui/core/styles/withStyles';
 
 import PaymentRuleSetsDashboard from './PaymentRuleSetsDashboard.page';
 import CompanyDetailPage from './CompanyDetailPage.page';
@@ -22,6 +19,7 @@ import ThemeConfigurationPage from './ThemeConfiguration.page';
 import SettingsPersonalizePage from './SettingsPersonalizePage.page';
 import WebhookConfigurationPage from './WebhookConfigurationPage.page';
 import NotificationRulePage from './NotificationRule.page';
+import NotificationRuleDetailPage from './NotificationRuleDetail.page';
 import PartnershipPage from './Partnership.page';
 import ActiveCampaignPage from './ActiveCampaignPage.page';
 import CompanyOnboardingSettingPage from './CompanyOnboardingSetting.page';
@@ -35,132 +33,106 @@ import QuickBookPage from './QuickBooks.page';
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
-import { drawerWidth } from '../../components/navigation/ResponsiveDrawer.component';
+type Props = {};
 
-type Props = {
-  classes: any;
-};
-
-export const Settings = (props: Props) => {
-  const { classes } = props;
+export const Settings = () => {
   return (
-    <div className={classes.container}>
-      <Switch>
-        <Route
-          exact
-          path="/settings/general"
-          component={ThemeConfigurationPage}
-        />
+    <Switch>
+      <Route
+        exact
+        path="/settings/general"
+        component={ThemeConfigurationPage}
+      />
 
-        <Route
-          exact
-          path="/settings/marketplace-settings"
-          component={MarketplaceSettings}
-        />
+      <Route
+        exact
+        path="/settings/marketplace-settings"
+        component={MarketplaceSettings}
+      />
 
-        <Route exact path="/settings/widget" component={WidgetGeneratorPage} />
+      <Route exact path="/settings/widget" component={WidgetGeneratorPage} />
 
-        <Route
-          exact
-          path="/settings/notification-rule"
-          component={NotificationRulePage}
-        />
-        <Route exact path="/settings/company" component={CompanyDetailPage} />
-        <Route exact path="/settings/role" component={RoleConfigurationPage} />
-        <Route
-          exact
-          path="/settings/invoice"
-          component={InvoiceConfigurationPage}
-        />
-        <Route
-          exact
-          path="/settings/payment-rules"
-          component={PaymentRuleSetsDashboard}
-        />
-        <Route
-          exact
-          path="/settings/payment-methods"
-          component={PaymentMethodSettings}
-        />
-        <Route
-          exact
-          path="/settings/broadcast"
-          component={BroadcastConfiguration}
-        />
-        <Route
-          exact
-          path="/settings/waiting-list"
-          component={WaitingListConfigurationPage}
-        />
-        <Route exact path="/settings/shop" component={ShopConfigurationPage} />
-        <Route
-          exact
-          path="/settings/theme"
-          component={ThemeConfigurationPage}
-        />
-        <Route
-          exact
-          path="/settings/personalization"
-          component={SettingsPersonalizePage}
-        />
-        <Route
-          exact
-          path="/settings/forms"
-          component={CustomSignUpConfiguration}
-        />
-        <Route
-          exact
-          path="/settings/webhook"
-          component={WebhookConfigurationPage}
-        />
-        <Route exact path="/settings/partnership" component={PartnershipPage} />
-        <Route exact path="/settings/quickbooks" component={QuickBookPage} />
-        <Route
-          exact
-          path="/settings/active-campaign"
-          component={ActiveCampaignPage}
-        />
-        <Route
-          exact
-          path="/settings/company_onboarding"
-          component={CompanyOnboardingSettingPage}
-        />
-        <Route
-          exact
-          path="/settings/platform-billing"
-          component={PlatformBillingSettingPage}
-        />
-        <Route
-          path="/settings"
-          component={() => <Redirect to="/settings/general" />}
-        />
-      </Switch>
-    </div>
+      <Route
+        exact
+        path="/settings/notification-rule"
+        component={NotificationRulePage}
+      />
+      <Route
+        exact
+        path="/settings/notification-rule/:eventName"
+        component={NotificationRuleDetailPage}
+      />
+      <Route exact path="/settings/company" component={CompanyDetailPage} />
+      <Route exact path="/settings/role" component={RoleConfigurationPage} />
+      <Route
+        exact
+        path="/settings/invoice"
+        component={InvoiceConfigurationPage}
+      />
+      <Route
+        exact
+        path="/settings/payment-rules"
+        component={PaymentRuleSetsDashboard}
+      />
+      <Route
+        exact
+        path="/settings/payment-methods"
+        component={PaymentMethodSettings}
+      />
+      <Route
+        exact
+        path="/settings/broadcast"
+        component={BroadcastConfiguration}
+      />
+      <Route
+        exact
+        path="/settings/waiting-list"
+        component={WaitingListConfigurationPage}
+      />
+      <Route exact path="/settings/shop" component={ShopConfigurationPage} />
+      <Route exact path="/settings/theme" component={ThemeConfigurationPage} />
+      <Route
+        exact
+        path="/settings/personalization"
+        component={SettingsPersonalizePage}
+      />
+      <Route
+        exact
+        path="/settings/forms"
+        component={CustomSignUpConfiguration}
+      />
+      <Route
+        exact
+        path="/settings/webhook"
+        component={WebhookConfigurationPage}
+      />
+      <Route exact path="/settings/partnership" component={PartnershipPage} />
+      <Route exact path="/settings/quickbooks" component={QuickBookPage} />
+      <Route
+        exact
+        path="/settings/active-campaign"
+        component={ActiveCampaignPage}
+      />
+      <Route
+        exact
+        path="/settings/company_onboarding"
+        component={CompanyOnboardingSettingPage}
+      />
+      <Route
+        exact
+        path="/settings/platform-billing"
+        component={PlatformBillingSettingPage}
+      />
+      <Route
+        path="/settings"
+        component={() => <Redirect to="/settings/general" />}
+      />
+    </Switch>
   );
 };
 
-const styles = (theme: Theme) => ({
-  container: {
-    maxWidth: '100vw',
-    marginTop: theme.spacing(-2),
-    [theme.breakpoints.up('md')]: {
-      marginLeft: theme.spacing(-3),
-      marginRight: theme.spacing(-3),
-    },
-  },
-  appBar: {
-    marginTop: theme.spacing(-2),
-    width: '100%',
-
-    [theme.breakpoints.up('md')]: {
-      width: `calc(100vw - ${drawerWidth}px)`,
-    },
-  },
-});
-
-export default compose(
+export default compose<any, Props>(
   withTranslation(['settings']),
-  withStyles(styles),
   routerParamsToProps({ tab: 'tab' }),
   withRouter,
   connect(null, { push }),

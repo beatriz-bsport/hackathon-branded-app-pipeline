@@ -26,7 +26,7 @@ const getLink = (str) => {
 };
 
 export const MemberRouter = (props: { t: TFunction }) => (
-  <div>
+  <>
     <Helmet>
       <title>{props.t('member.members')}</title>
     </Helmet>
@@ -42,7 +42,7 @@ export const MemberRouter = (props: { t: TFunction }) => (
         component={() => getLink(window.location.pathname)}
       />
     </Switch>
-  </div>
+  </>
 );
 
 export default compose(withTranslation('titles'))(MemberRouter);

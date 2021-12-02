@@ -79,6 +79,7 @@ export const getNotificationForMarketingPage = createSelector(
       .map((id) => data[id])
       .filter((notif) =>
         [
+          NOTIFICATION_KIND.BIRTHDAY,
           NOTIFICATION_KIND.PRIVATE_BOOKING_CREATION,
           NOTIFICATION_KIND.BOOKING_CREATION,
           NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_CREDIT,
@@ -104,6 +105,7 @@ export const getNotificationGrouped = createSelector(
       };
     } = {};
     const privateBookings = { ...bookings };
+    const birthday: MarketingNotification[] = [];
 
     notifications.forEach((n) => {
       const {
@@ -141,6 +143,7 @@ export const getNotificationGrouped = createSelector(
           kind
         ].push(n);
       }
+
       if (establishment_id !== undefined && establishment_id !== null) {
         const _path = [
           establishment_id.toString(),
@@ -155,6 +158,7 @@ export const getNotificationGrouped = createSelector(
           kind
         ].push(n);
       }
+
       if (private_service_id !== undefined && private_service_id !== null) {
         const _path = [
           private_service_id.toString(),
@@ -171,9 +175,19 @@ export const getNotificationGrouped = createSelector(
           notify_booking_nb
         ][kind].push(n);
       }
+
+      if (n.kind === NOTIFICATION_KIND.BIRTHDAY) {
+        birthday.push(n);
+      }
     });
 
-    return { byPaymentPack, byPrivatePass, bookings, privateBookings };
+    return {
+      byPaymentPack,
+      byPrivatePass,
+      bookings,
+      privateBookings,
+      birthday,
+    };
   },
 );
 

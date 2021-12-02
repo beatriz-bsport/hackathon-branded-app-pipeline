@@ -17,7 +17,15 @@ import {
 const MARKETING_EMAIL_URI = `${API_V1_URI}/email_design/`;
 
 export const fetchEmailTemplateDetail = async (id: number) => {
-  return getAuth(`${MARKETING_EMAIL_URI}${id}/get_detail/`);
+  return getAuth(`${MARKETING_EMAIL_URI}email_detail/${id}/`);
+};
+
+export const fetchBulkEmailTemplateDetail = async (params: {
+  id__in?: number[];
+}) => {
+  return getAuth(
+    `${MARKETING_EMAIL_URI}email_detail/${buildUrlParams(params)}`,
+  );
 };
 
 export const fetchEmailTemplatesSummaries = async (params?: any) => {

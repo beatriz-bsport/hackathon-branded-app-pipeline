@@ -3,7 +3,7 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import { Theme } from '@material-ui/core';
+import { Theme, Typography } from '@material-ui/core';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import { push } from 'connected-react-router';
@@ -74,6 +74,7 @@ import {
 } from '../../libs/meta-activity/selectors';
 import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
 import { _getPrivateServices } from '../../libs/private-service/selectors/private-service';
+import NotificationsList from '#libs/marketing/components/NotificationsList.Component';
 import { showDeleteDialog } from '../../components/genericDialog/CustomDialogs';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
@@ -120,12 +121,14 @@ export class MarketingNotifications extends Component<Props, State> {
   fetchData = async () => {
     const notifications: any = await this.props.fetchMarketingNotificationList({
       kind__in: [
+        NOTIFICATION_KIND.BIRTHDAY,
         NOTIFICATION_KIND.PRIVATE_BOOKING_CREATION,
         NOTIFICATION_KIND.BOOKING_CREATION,
         NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_TIME,
         NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_CREDIT,
         NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_TIME,
         NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_CREDIT,
+        NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_CREDIT,
       ],
     });
 
@@ -286,6 +289,23 @@ export class MarketingNotifications extends Component<Props, State> {
             onUpdateNotification={this.props.updateMarketingNotification}
             smartLists={this.props.smartLists}
           />
+          <Typography className={classes.classTitle} variant="h5">
+            {this.props.t('marketing:notifications.groupTitle.birthday')}
+          </Typography>
+          <div>
+            <NotificationsList
+              notifications={this.props.notifications.birthday}
+              emailSummariesById={this.props.emailSummariesById}
+              onClickNotification={this.onClickNotification}
+              onUpdateNotification={this.props.updateMarketingNotification}
+              smartLists={[]}
+            />
+            {this.props.notifications?.birthday?.length === 0 && (
+              <Typography>
+                {this.props.t('marketing:notifications.notificationsEmpty')}
+              </Typography>
+            )}
+          </div>
           <div className={classes.bottomPaddingFix} />
         </div>
 
@@ -297,13 +317,14 @@ export class MarketingNotifications extends Component<Props, State> {
               this.props.emailTemplateLoading ||
               this.props.notificationStatLoading
             }
-            onClickEdit={() =>
-              this.setState((prevState: State) => ({
-                editNotification: this.props.notificationList.find(
-                  (n) => n.id === prevState.selectedNotification,
-                ),
-              }))
-            }
+            onClickEdit={() => {
+              const editNotification = this.props.notificationList.find(
+                (n) => n.id === this.state.selectedNotification,
+              );
+              this.setState({
+                editNotification,
+              });
+            }}
             onClickRemove={this.onClickRemove}
             selectedNotification={this.props.notificationList.find(
               (n) => n.id === this.state.selectedNotification,
@@ -340,6 +361,7 @@ export class MarketingNotifications extends Component<Props, State> {
           paymentPacks={this.props.paymentPacks}
           tags={this.props.tagCategories}
           privatePasses={this.props.privatePasses}
+          withoutBirthday={this.props?.notifications?.birthday?.length > 0}
         />
       </div>
     );
@@ -370,6 +392,14 @@ const styles = (theme: Theme) => ({
   },
   loadingContainer: {
     width: '100%',
+  },
+  classTitle: {
+    borderWidth: 0,
+    borderBottomWidth: 1,
+    borderStyle: 'solid',
+    paddingBottom: theme.spacing(1),
+    marginBottom: theme.spacing(4),
+    marginTop: theme.spacing(4),
   },
 });
 

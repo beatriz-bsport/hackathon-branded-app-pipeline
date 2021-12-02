@@ -51,6 +51,10 @@ const getLabelForRules = (
       count: notification.event_rules.credits_left,
     });
   }
+
+  if (notification.kind === 0) {
+    return t('notificationRule:marketingNotification.birthday');
+  }
   return '';
 };
 
@@ -95,8 +99,8 @@ const NotificationListInner = (props: Props) => {
                 <Typography variant="caption">{emailTitle}</Typography>
               </div>
             )}
-            {notification.event_rules.smartlist_exclude &&
-              notification.event_rules.smartlist_exclude.length > 0 && (
+            {notification?.event_rules?.smartlist_exclude &&
+              notification?.event_rules?.smartlist_exclude.length > 0 && (
                 <div className={classes.inlineLeft}>
                   <Typography variant="caption">
                     {` ${t('paymentPack:notification.listItem.smartList')}: `}
@@ -104,7 +108,7 @@ const NotificationListInner = (props: Props) => {
                   <Typography variant="caption" className={classes.list}>
                     {smartLists
                       .filter((smartlist) =>
-                        notification.event_rules.smartlist_exclude.includes(
+                        notification?.event_rules?.smartlist_exclude.includes(
                           smartlist.id,
                         ),
                       )
@@ -113,8 +117,8 @@ const NotificationListInner = (props: Props) => {
                   </Typography>
                 </div>
               )}
-            {notification.event_rules.smartlist_include &&
-              notification.event_rules.smartlist_include.length > 0 && (
+            {notification?.event_rules?.smartlist_include &&
+              notification?.event_rules?.smartlist_include.length > 0 && (
                 <div className={classes.inlineLeft}>
                   <Typography variant="caption">
                     {` ${t(
@@ -124,7 +128,7 @@ const NotificationListInner = (props: Props) => {
                   <Typography variant="caption" className={classes.list}>
                     {smartLists
                       .filter((smartlist) =>
-                        notification.event_rules.smartlist_include.includes(
+                        notification?.event_rules?.smartlist_include.includes(
                           smartlist.id,
                         ),
                       )

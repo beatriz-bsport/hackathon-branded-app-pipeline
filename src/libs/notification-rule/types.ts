@@ -4,12 +4,28 @@ export type NotificationRule = {
   id: number;
   company: number;
   notification_event: number;
+  is_notification_push_active: boolean;
+  push_notification_title: string;
+  push_notification_content: string;
   email_design: number;
   title: string;
   companies: number[];
   is_active: boolean;
   send_franchisor_carbon_copy: boolean;
+  email_template?: string;
   franchisor: number | null;
+};
+
+export type NotificationRuleSettings = {
+  disabled: boolean;
+  send_company: boolean;
+};
+
+export type NotificationRuleEventType = {
+  is_editable: boolean;
+  is_instance_specific: boolean;
+  notification_event: number;
+  notification_group: string;
 };
 
 export type NotificationRuleState = {
@@ -22,10 +38,18 @@ export type NotificationRuleState = {
     createOrUpdate: ErrorAndLoading;
   };
   eventType: ErrorAndLoading & {
-    data: Array<number>;
+    data: NotificationRuleEventType[];
   };
   settings: ErrorAndLoading & {
-    data: any[];
+    data:
+      | [
+          {
+            company: number;
+            id: number;
+            settings: Record<number, NotificationRuleSettings>;
+          },
+        ]
+      | [];
     update: ErrorAndLoading;
   };
 };

@@ -9,6 +9,7 @@ import {
   fetchEmailTemplatesSummaries as fetchEmailTemplatesSummariesAPI,
   fetchEmailTemplate as fetchEmailTemplateAPI,
   fetchEmailTemplateDetail as fetchEmailTemplateDetailAPI,
+  fetchBulkEmailTemplateDetail as fetchBulkEmailTemplateDetailAPI,
   deleteEmailTemplate as deleteEmailTemplateAPI,
   restoreEmailTemplate as restoreEmailTemplateAPI,
   fetchFranchisePageFilter as fetchFranchisePageFilterAPI,
@@ -175,6 +176,32 @@ export function emailTemplateComplete(id: number): ThunkAction {
   };
 }
 
+export const bulkEmailTemplateDetailAction = {
+  error: createAction('EMAIL/DETAIL_BULK/ERROR'),
+  isLoading: createAction('EMAIL/DETAIL_BULK/IS_LOADING'),
+  success: createAction('EMAIL/DETAIL_BULK/SUCCESS'),
+};
+
+export function bulkEmailTemplateDetail(
+  id__in: number[],
+  options?: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(bulkEmailTemplateDetailAction.isLoading(true));
+    dispatch(bulkEmailTemplateDetailAction.error(null));
+
+    try {
+      const response = await fetchBulkEmailTemplateDetailAPI({ id__in });
+      dispatch(bulkEmailTemplateDetailAction.success(response.data.results));
+      dispatch(bulkEmailTemplateDetailAction.error(null));
+      typeof options?.onSuccess === 'function' && options.onSuccess();
+    } catch (error) {
+      dispatch(bulkEmailTemplateDetailAction.error(error));
+      typeof options?.onError === 'function' && options.onError();
+    }
+    dispatch(bulkEmailTemplateDetailAction.isLoading(false));
+  };
+}
 export const emailTemplateDetailAction = {
   error: createAction('EMAIL/DETAIL/ERROR'),
   loading: createAction('EMAIL/DETAIL/IS_LOADING'),

@@ -414,27 +414,27 @@ export class Backoffice extends Component<Props, State> {
               >
                 {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
                   Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging') &&
-                !this.props.isPluginActivated &&
-                !this.props.theme.hide_intercom ? (
-                  <Intercom
-                    appID="q6foivp2"
-                    email={this.props.username}
-                    company={
-                      this.props.theme && this.props.theme.company_name
-                        ? {
-                            name: this.props.theme.company_name,
-                            id: this.props.theme.company,
-                          }
-                        : {}
-                    }
-                    {...(this.props.name ? { name: this.props.name } : {})}
-                    user_id={this.props.username}
-                    environment={Config.REACT_APP_SENTRY_ENVIRONMENT || 'dev'}
-                    release={RELEASE}
-                    role={this.props.permission.name}
-                    action_color={this.props.theme.primary_color}
-                  />
-                ) : null}
+                  !this.props.isPluginActivated &&
+                  !this.props.theme.hide_intercom && (
+                    <Intercom
+                      appID="q6foivp2"
+                      email={this.props.username}
+                      company={
+                        this.props.theme && this.props.theme.company_name
+                          ? {
+                              name: this.props.theme.company_name,
+                              id: this.props.theme.company,
+                            }
+                          : {}
+                      }
+                      {...(this.props.name ? { name: this.props.name } : {})}
+                      user_id={this.props.username}
+                      environment={Config.REACT_APP_SENTRY_ENVIRONMENT || 'dev'}
+                      release={RELEASE}
+                      role={this.props.permission.name}
+                      action_color={this.props.theme.primary_color}
+                    />
+                  )}
                 <Analytics username={this.props.username} isInternal />
                 <main
                   className={clx({
@@ -443,9 +443,7 @@ export class Backoffice extends Component<Props, State> {
                       this.props.location.pathname.includes('/spot-scheduling'),
                   })}
                 >
-                  <BackofficeRoute
-                    vodEnabled={this.props.theme ? this.props.theme.vod : null}
-                  />
+                  <BackofficeRoute vodEnabled={this.props.theme?.vod ?? null} />
                 </main>
               </ResponsiveDrawer>
             </BannerProvider>
@@ -461,6 +459,8 @@ const styles = (theme: Object) => ({
   content: {
     backgroundColor: theme.palette.background.default,
     flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
   },
   fullContent: {
     display: 'flex',

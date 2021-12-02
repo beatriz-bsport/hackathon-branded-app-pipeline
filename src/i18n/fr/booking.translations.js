@@ -279,6 +279,7 @@ exports.default = {
           refunded: 'À chaque annulation remboursée',
           notRefunded: 'À chaque annulation hors délai',
         },
+        birthday: "Envoyer à la date d'anniversaire",
       },
       sendingMethod: 'Méthode d’envoi',
       mail: 'Mail',

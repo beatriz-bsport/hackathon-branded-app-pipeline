@@ -544,7 +544,8 @@ const styles = (theme: Theme) =>
       overflow: 'hidden',
       display: 'flex',
       width: '100vw',
-      minHeight: '100vh',
+      flexDirection: 'column',
+      height: '100vh',
       [theme.breakpoints.up('md')]: {
         paddingLeft: drawerWidth,
       },
@@ -556,7 +557,7 @@ const styles = (theme: Theme) =>
       overflow: 'hidden',
       display: 'flex',
       width: '100vw',
-      minHeight: '100vh',
+      height: '100vh',
     },
     grow: {
       flex: 1,
@@ -572,17 +573,14 @@ const styles = (theme: Theme) =>
       },
     },
     appBarFullWidth: {
-      position: 'fixed',
-      [theme.breakpoints.up('md')]: {
-        width: '100%',
-      },
+      flex: '0 1 64px',
+      width: '100%',
+      position: 'relative',
     },
     appBar: {
-      position: 'fixed',
-      marginLeft: drawerWidth,
-      [theme.breakpoints.up('md')]: {
-        width: `calc(100% - ${drawerWidth}px)`,
-      },
+      flex: '0 1 64px',
+      width: '100%',
+      position: 'relative',
     },
     menuIcon: {
       height: 32,
@@ -608,7 +606,9 @@ const styles = (theme: Theme) =>
       },
     },
     content: {
-      flexGrow: 1,
+      flex: '1 1 auto',
+      display: 'flex',
+      flexDirection: 'column',
       backgroundColor: theme.palette.background.default,
       width: '100%',
       [theme.breakpoints.up('md')]: {
@@ -616,7 +616,8 @@ const styles = (theme: Theme) =>
         paddingRight: theme.spacing(3),
       },
       paddingBottom: theme.spacing(1),
-      paddingTop: theme.spacing(10),
+      paddingTop: theme.spacing(2),
+      overflow: 'auto',
     },
     logo: {
       alignItems: 'center',

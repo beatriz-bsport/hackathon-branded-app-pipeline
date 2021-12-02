@@ -8,6 +8,7 @@ import {
   createEmailDesignAction,
   emailTemplatesSummariesAction,
   emailTemplateDetailAction,
+  bulkEmailTemplateDetailAction,
   updateEmailTemplateAction,
   emailTemplateCompleteAction,
   emailTemplateBulkAction,
@@ -115,6 +116,32 @@ export default handleActions(
       return state.setIn(['detail', 'loading'], payload);
     },
     [emailTemplateDetailAction.error.toString()]: (state, { payload }) => {
+      return state.setIn(['detail', 'error'], payload);
+    },
+    [bulkEmailTemplateDetailAction.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.merge(
+        {
+          detail: {
+            byId: payload.reduce((acc, email) => {
+              acc[email.id] = email;
+              return acc;
+            }, {}),
+          },
+        },
+        { deep: true },
+      );
+    },
+
+    [bulkEmailTemplateDetailAction.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['detail', 'isLoading'], payload);
+    },
+    [bulkEmailTemplateDetailAction.error.toString()]: (state, { payload }) => {
       return state.setIn(['detail', 'error'], payload);
     },
 

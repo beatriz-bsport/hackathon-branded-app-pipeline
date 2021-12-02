@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import { RootState } from '../../reducers';
+import { NotificationRule, NotificationRuleEventType } from './types';
 
 export const getEventList = (state: RootState) =>
   state.notificationRule.eventType.data;
@@ -88,4 +89,17 @@ export const getFranchiseNotificationRules = createSelector(
 export const getEventByGroup = {
   all,
   onlyGeneric,
+} as unknown as {
+  all: (
+    state: RootState,
+  ) => Record<
+    string,
+    (NotificationRuleEventType & { rule: NotificationRule })[]
+  >;
+  onlyGeneric: (
+    state: RootState,
+  ) => Record<
+    string,
+    (NotificationRuleEventType & { rule: NotificationRule })[]
+  >;
 };

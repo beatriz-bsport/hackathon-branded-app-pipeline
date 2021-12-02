@@ -29,6 +29,7 @@ exports.default = {
     next: 'Suivant',
     cancel: 'Annuler',
     fabLabels: {
+      birthday: 'Anniversaire',
       meta_activity: 'Activité',
       workshop: 'Atelier',
       establishment: 'Salle',
@@ -37,6 +38,7 @@ exports.default = {
       private_pass: 'Carte de rendez-vous',
     },
     groupTitle: {
+      birthday: 'Anniversaire',
       booking: 'Réservation',
       privateBooking: 'Rendez-vous',
       paymentPack: 'Carte de cours',

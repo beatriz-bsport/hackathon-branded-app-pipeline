@@ -31,10 +31,6 @@ const GridWrapper = {
   true: (p: any) => <Grid container>{p.children}</Grid>,
   false: (p: any) => <div {...p} />,
 };
-const GridFirstChildWrapper = {
-  true: (p: any) => <Grid item xs={12} sm={12} md={4} {...p} />,
-  false: (p: any) => <div>{p.children}</div>,
-};
 
 const GridSecondChildWrapper = {
   true: (p: any) => <Grid item xs={12} sm={12} md={8} {...p} />,
@@ -45,6 +41,11 @@ const ConsumerGiftcardFormWithPreview = React.memo((props: Props) => {
   const { t } = useTranslation(['giftcard']);
   const classes = useStyles();
   const { values } = props;
+
+  const GridFirstChildWrapper = {
+    true: (p: any) => <Grid item xs={12} sm={12} md={4} {...p} />,
+    false: (p: any) => <div className={classes.center}>{p.children}</div>,
+  };
 
   const C = GridWrapper[!props.forceVertical];
   const D1 = GridFirstChildWrapper[!props.forceVertical];
@@ -96,6 +97,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: 'row',
     width: '100%',
   },
+  center: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
   previewContainer: {
     padding: theme.spacing(1.5),
   },
@@ -136,6 +141,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: theme.spacing(3),
     '&>*': {
       marginBottom: theme.spacing(2),
+      width: '100%',
     },
     width: '100%',
   },

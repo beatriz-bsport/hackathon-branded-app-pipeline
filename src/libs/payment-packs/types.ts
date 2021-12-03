@@ -195,7 +195,7 @@ export type PaymentPackCategoryWithPacks = PaymentPackCategory & {
   packs: Array<PaymentPack>;
 };
 
-export interface PaymentPackFormValues {
+export type PaymentPackFormValues = {
   id?: number;
   name?: string | null;
   category?: number;
@@ -236,4 +236,4 @@ export interface PaymentPackFormValues {
   only_vod_access?: boolean;
   whitelist_tags?: Array<number>;
   blacklist_tags?: Array<number>;
-}
+};

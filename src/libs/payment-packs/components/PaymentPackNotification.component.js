@@ -21,7 +21,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { compose, withState, withHandlers } from 'recompose';
 
-import PaymentPackNotificationForm from './PaymentPackNotificationForm.component';
+import ProductNotificationForm from '../../marketing/components/ProductNotificationForm.component';
 import NotificationListInner from '../../marketing/components/NotificationListInner.component';
 
 type Props = {
@@ -127,7 +127,7 @@ const PaymentPackNotification = (props: Props) => {
         </Button>
       </div>
       {props.isFormOpen && (
-        <PaymentPackNotificationForm
+        <ProductNotificationForm
           id={props.pack.id}
           goToSmartlist={props.goToSmartlist}
           onCancel={props.closeForm}

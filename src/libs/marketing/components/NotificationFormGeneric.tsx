@@ -1,7 +1,6 @@
 import React from 'react';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
-
 import {
   EmailTemplateDetail,
   EmailTemplateSummary,
@@ -10,11 +9,11 @@ import { MarketingNotification } from '../types';
 
 import BookingCreationNotificationForm from '../../booking/components/BookingCreationNotificationForm.component';
 import PrivateBookingNotificationForm from '../../private-service/components/booking/PrivateBookingNotificationForm.component';
-import PaymentPackNotificationForm from '../../payment-packs/components/PaymentPackNotificationForm.component';
+import ProductNotificationForm from './ProductNotificationForm.component';
 import NotificationSourceSelector from './NotificationSourceSelector.component';
 import { MetaActivity } from '../../meta-activity/types';
 import { Establishment } from '../../establishment/types';
-import { PrivateService } from '../../private-service/types';
+import { PrivatePass, PrivateService } from '../../private-service/types';
 import { PaymentPack } from '../../payment-packs/types';
 import FabWithItems from '../../../components/button/FabWithItems';
 
@@ -22,7 +21,9 @@ type Identifier =
   | 'meta_activity'
   | 'establishment'
   | 'private_service'
-  | 'payment_pack';
+  | 'payment_pack'
+  | 'private_pass'
+  | 'workshop';
 
 type OwnProps = {
   selectedNotification?: MarketingNotification;
@@ -45,6 +46,7 @@ type OwnProps = {
   privateServices: PrivateService[];
   paymentPacks: PaymentPack[];
   tags: { [tag_name: string]: string[] };
+  privatePasses: PrivatePass[];
 };
 
 type Props = OwnProps & WithTranslation;
@@ -107,6 +109,7 @@ export class NotificationFormGeneric extends React.PureComponent<Props, State> {
           establishments={this.props.establishments}
           privateServices={this.props.privateServices}
           paymentPacks={this.props.paymentPacks}
+          privatePasses={this.props.privatePasses}
         />
       );
     }
@@ -127,6 +130,7 @@ export class NotificationFormGeneric extends React.PureComponent<Props, State> {
         meta_activity_id,
         private_service_id,
         payment_pack_id,
+        private_pass_id,
       } = this.props.selectedNotification.event_rules;
 
       if (meta_activity_id !== undefined) {
@@ -146,6 +150,10 @@ export class NotificationFormGeneric extends React.PureComponent<Props, State> {
       if (payment_pack_id !== undefined) {
         identifier = 'payment_pack';
         objectId = payment_pack_id;
+      }
+      if (private_pass_id !== undefined) {
+        identifier = 'private_pass';
+        objectId = private_pass_id;
       }
     }
 
@@ -186,9 +194,10 @@ export class NotificationFormGeneric extends React.PureComponent<Props, State> {
       );
     }
 
-    if (identifier === 'payment_pack') {
+    if (identifier === 'payment_pack' || identifier === 'private_pass') {
       return (
-        <PaymentPackNotificationForm
+        <ProductNotificationForm
+          identifier={identifier}
           id={objectId}
           emailDetailLoading={this.props.emailDetailLoading}
           emailListLoading={this.props.emailListLoading}
@@ -207,7 +216,6 @@ export class NotificationFormGeneric extends React.PureComponent<Props, State> {
         />
       );
     }
-
     return null;
   };
 
@@ -263,6 +271,10 @@ export class NotificationFormGeneric extends React.PureComponent<Props, State> {
             {
               label: t('notifications.fabLabels.payment_pack'),
               onClick: () => this.onClickCreateForIdentifier('payment_pack'),
+            },
+            {
+              label: t('notifications.fabLabels.private_pass'),
+              onClick: () => this.onClickCreateForIdentifier('private_pass'),
             },
           ]}
         />

@@ -58,7 +58,6 @@ export const getPaymentPackNotifications = createSelector(
       );
   },
 );
-
 export const getNotificationForMarketingPage = createSelector(
   [_getNotificationIds, _getNotifications],
   (ids, data) => {
@@ -70,6 +69,8 @@ export const getNotificationForMarketingPage = createSelector(
           NOTIFICATION_KIND.BOOKING_CREATION,
           NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_CREDIT,
           NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_TIME,
+          NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_TIME,
+          NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_CREDIT,
         ].includes(notif.kind),
       );
   },
@@ -79,6 +80,7 @@ export const getNotificationGrouped = createSelector(
   [getNotificationForMarketingPage],
   (notifications) => {
     const byPaymentPack: { [key: string]: MarketingNotification[] } = {};
+    const byPrivatePass: { [key: string]: MarketingNotification[] } = {};
     const bookings: {
       [key: string]: {
         identifier: 'meta_activity' | 'establishment' | 'private_service';
@@ -92,20 +94,25 @@ export const getNotificationGrouped = createSelector(
     notifications.forEach((n) => {
       const {
         payment_pack_id,
+        private_pass_id,
         establishment_id,
         meta_activity_id,
         private_service_id,
         notify_booking_nb,
         kind,
       } = n.event_rules;
-
       if (payment_pack_id !== undefined) {
         if (byPaymentPack[payment_pack_id] === undefined) {
           byPaymentPack[payment_pack_id] = [];
         }
         byPaymentPack[payment_pack_id].push(n);
       }
-
+      if (private_pass_id !== undefined) {
+        if (byPrivatePass[private_pass_id] === undefined) {
+          byPrivatePass[private_pass_id] = [];
+        }
+        byPrivatePass[private_pass_id].push(n);
+      }
       if (meta_activity_id !== undefined && meta_activity_id !== null) {
         const _path = [
           meta_activity_id.toString(),
@@ -152,7 +159,7 @@ export const getNotificationGrouped = createSelector(
       }
     });
 
-    return { byPaymentPack, bookings, privateBookings };
+    return { byPaymentPack, byPrivatePass, bookings, privateBookings };
   },
 );
 

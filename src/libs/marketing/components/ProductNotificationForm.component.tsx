@@ -1,7 +1,7 @@
 // @flow
 
 import React, { useState, useEffect } from 'react';
-import { withFormik, Form } from 'formik';
+import { withFormik, Form, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import classNames from 'classnames';
 
@@ -10,7 +10,8 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import Dialog from '@material-ui/core/Dialog';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme, Theme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Collapse from '@material-ui/core/Collapse';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
@@ -19,13 +20,13 @@ import InfoIcon from '@material-ui/icons/Info';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-import { useTranslation, TFunction } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
+import type { TFunction } from 'i18next';
 import { compose } from 'recompose';
 import WarningIcon from '@material-ui/icons/Warning';
 
 import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 import Tooltip from '../../../components/Tooltip.component';
-import SmartListSelector from '../../smart-list/components/SmartListSelector.component';
 import EmailSelector from '../../email-editor/components/EmailSelector.component';
 
 import {
@@ -38,31 +39,90 @@ import {
 } from '../../../components/forms';
 import NotificationContentInput from '../../communication/components/NotificationContentInput.component';
 import { MAX_LENGTH_PUSH_TITLE } from '../../communication/constant';
+import MaterialUISelector, {
+  OptionTypeBase,
+} from '../../../components/Selector/MaterialUISelector.component';
+import { MarketingNotification } from '../types';
 
+interface InitialFormikValues {
+  send_email: boolean;
+  send_notification_push: boolean;
+  notificationContent: string | null;
+  notificationTitle: string | null;
+  kind: number;
+  email_design: number;
+  payment_pack_id: number | null;
+  private_pass_id: number | null;
+  days_left: number | string | null;
+  credits_left: number | string | null;
+  smartlist_include: Array<number>;
+  smartlist_exclude: Array<number>;
+  verboseNotifKind: string | null;
+  identifier: string;
+}
+interface FinalFormikData extends MarketingNotification {
+  send_email: boolean;
+  send_notification_push: boolean;
+  credits_left: number | null;
+  notificationContent: string | null;
+  notificationTitle: string | null;
+  verboseNotifKind: string | null;
+  days_left: number;
+  payment_pack_id: number | null;
+  private_pass_id: number | null;
+  identifier: string;
+  id?: number;
+  company?: number;
+  kind: number;
+  email_design: number;
+  is_event_based?: boolean;
+  active: boolean;
+  push_notification_content: string;
+  push_notification_title: string;
+  smartlist_include: Array<number>;
+  smartlist_exclude: Array<number>;
+}
 const CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME = 3;
 const CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT = 4;
+const PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME = 5;
+const PRIVATE_CONSUMER_PASS_NOTIFICATION_CREDIT = 6;
 
-type Props = {
-  getEmails: () => void,
-  getSmartLists: () => void,
-  getEmailDetail: (id: number) => void,
-  emailListLoading: boolean,
-  emails: Array<any>,
-  smartLists: Array<any>,
-  emailDetailLoading: boolean,
-  emailDetails: Array<any>,
-  onCancel: () => void,
-  goToSmartlist: () => void,
-  initial: any,
-  values: any,
-  setFieldValue: (key: string, value: any) => void,
-  errors: any,
-  isSubmitting: boolean,
-  tags: OptionTypeBase[],
+const getKind = (identifer: string, values: any) => {
+  if (identifer === 'payment_pack') {
+    if (values.verboseNotifKind === 'creditsLeft') {
+      return CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT;
+    }
+    return CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME;
+  }
+  if (values.verboseNotifKind === 'creditsLeft') {
+    return PRIVATE_CONSUMER_PASS_NOTIFICATION_CREDIT;
+  }
+  return PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME;
 };
+type Props = {
+  getEmails: () => void;
+  getSmartLists: () => void;
+  getEmailDetail: (id: number) => void;
+  emailListLoading: boolean;
+  emails: Array<any>;
+  smartLists: Array<any>;
+  emailDetailLoading: boolean;
+  emailDetails: Array<any>;
+  onCancel: () => void;
+  goToSmartlist: () => void;
+  initial: MarketingNotification;
+  values: FinalFormikData;
+  setFieldValue: (key: string, value: any) => void;
+  errors: any;
+  isSubmitting: boolean;
+  tags: OptionTypeBase[];
+} & FormikProps<InitialFormikValues>;
 
 const getNotificationKind = (notif: any) => {
-  if (notif.kind === CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME) {
+  if (
+    notif.kind === CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME ||
+    notif.kind === PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME
+  ) {
     return notif.event_rules.days_left < 0 ? 'daysPast' : 'daysLeft';
   }
   return 'creditsLeft';
@@ -97,7 +157,7 @@ const renderEmptyOrLoading = (
   );
 };
 
-const PaymentPackNotificationForm = (props: Props) => {
+const ProductNotificationForm = (props: Props) => {
   const {
     getEmails,
     getSmartLists,
@@ -144,9 +204,16 @@ const PaymentPackNotificationForm = (props: Props) => {
   if (verboseNotifKind === 'creditsLeft' && days_left === '') {
     setFieldValue('days_left', 0);
   }
-
+  const smartListSelectOptions: Array<OptionTypeBase> = smartLists?.map(
+    (sm) => ({
+      label: sm.name,
+      value: sm.id,
+    }),
+  );
+  const theme: Theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
   return (
-    <Dialog open>
+    <Dialog open maxWidth="md" fullWidth fullScreen={fullScreen}>
       <DialogTitle>{t('notificationForm')}</DialogTitle>
       <div className={classes.dialogContainer}>
         <Form>
@@ -155,7 +222,6 @@ const PaymentPackNotificationForm = (props: Props) => {
               {t('notification.form.typeTitle')}
             </Typography>
             <RadioGroupField
-              classes={{ label: classes.label }}
               name="verboseNotifKind"
               choices={[
                 {
@@ -210,39 +276,50 @@ const PaymentPackNotificationForm = (props: Props) => {
                 </Typography>
               </div>
             )}
-
             {verboseNotifKind !== 'creditsLeft' && (
               <>
                 <div className={classes.smartListSelector}>
                   <Typography variant="caption">
                     {t('notification.form.smartListHelper')}
                   </Typography>
-                  <SmartListSelector
-                    smartLists={smartLists}
-                    values={smartlist_exclude}
-                    onChange={(ev) =>
+                  <MaterialUISelector
+                    onChange={(selectedValues: Array<OptionTypeBase>) =>
                       setFieldValue(
                         'smartlist_exclude',
-                        ev.map((item) => item.value),
+                        selectedValues?.map((opt) => opt?.value),
                       )
                     }
-                    helperText={t('notification.form.smartListSelection')}
+                    options={
+                      smartListSelectOptions ? [...smartListSelectOptions] : []
+                    }
+                    placeholder={t('notification.form.smartListSelection')}
+                    isMulti
+                    isClearable
+                    value={smartListSelectOptions?.filter((opt) =>
+                      smartlist_exclude?.includes(opt?.value),
+                    )}
                   />
                 </div>
                 <div className={classes.smartListSelector}>
                   <Typography variant="caption">
                     {t('notification.form.smartListHelperInclude')}
                   </Typography>
-                  <SmartListSelector
-                    smartLists={smartLists}
-                    values={smartlist_include}
-                    onChange={(ev) =>
+                  <MaterialUISelector
+                    onChange={(selectedValues: Array<OptionTypeBase>) =>
                       setFieldValue(
                         'smartlist_include',
-                        ev.map((item) => item.value),
+                        selectedValues?.map((opt) => opt?.value),
                       )
                     }
-                    helperText={t('notification.form.smartListSelection')}
+                    options={
+                      smartListSelectOptions ? [...smartListSelectOptions] : []
+                    }
+                    placeholder={t('notification.form.smartListSelection')}
+                    isMulti
+                    isClearable
+                    value={smartListSelectOptions?.filter((opt) =>
+                      smartlist_include?.includes(opt?.value),
+                    )}
                   />
                 </div>
                 {!smartlist_include.length && !smartlist_exclude.length && (
@@ -408,7 +485,7 @@ const PaymentPackNotificationForm = (props: Props) => {
                 inputProps={{ maxLength: MAX_LENGTH_PUSH_TITLE }}
                 className={classes.notificationInput}
               />
-              <Typography variant="caption" className={classes.grey}>
+              <Typography variant="caption">
                 {`${notificationTitle?.length ?? 0}/${MAX_LENGTH_PUSH_TITLE}`}
               </Typography>
               <NotificationContentInput
@@ -529,9 +606,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PaymentPackNotificationSchema = Yup.object().shape({
+const ProductNotificationSchema = Yup.object().shape({
   kind: Yup.number(),
-  payment_pack_id: Yup.number().required(),
+  payment_pack_id: Yup.number().when('identifier', {
+    is: 'payment_pack',
+    then: Yup.number().required(),
+    otherwise: Yup.number().nullable(),
+  }),
+  private_pass_id: Yup.number().when('identifier', {
+    is: 'private_pass',
+    then: Yup.number().required(),
+    otherwise: Yup.number().nullable(),
+  }),
   days_left: Yup.number().min(0).required(),
   credits_left: Yup.number().min(0).required(),
   smartlist_include: Yup.array().of(Yup.number()).nullable(),
@@ -555,12 +641,21 @@ const PaymentPackNotificationSchema = Yup.object().shape({
     then: Yup.number().required(),
     otherwise: Yup.number().nullable(),
   }),
+  identifier: Yup.string(),
 });
 
-export default compose(
+export default compose<any, Props>(
   withFormik({
     validateOnMount: true,
-    mapPropsToValues: ({ initial, id }) => {
+    mapPropsToValues: ({
+      initial,
+      id,
+      identifier,
+    }: {
+      initial: MarketingNotification;
+      id: number;
+      identifier: string;
+    }) => {
       if (initial) {
         const {
           kind,
@@ -570,6 +665,7 @@ export default compose(
         } = initial;
         const {
           payment_pack_id,
+          private_pass_id,
           days_left,
           credits_left,
           smartlist_include,
@@ -585,36 +681,43 @@ export default compose(
           kind,
           email_design,
           payment_pack_id,
+          private_pass_id,
           days_left: Math.abs(days_left) || 0,
           credits_left: credits_left || 0,
           smartlist_include: smartlist_include || [],
           smartlist_exclude: smartlist_exclude || [],
           verboseNotifKind,
+          identifier,
         };
       }
-      const values = {
+      const values: InitialFormikValues = {
         send_email: true,
         send_notification_push: false,
         notificationContent: '',
         notificationTitle: '',
-        kind: CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT,
+        kind:
+          identifier === 'payment_pack'
+            ? CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT
+            : PRIVATE_CONSUMER_PASS_NOTIFICATION_CREDIT,
         email_design: null,
-        payment_pack_id: id,
+        payment_pack_id: identifier === 'payment_pack' ? id : null,
+        private_pass_id: identifier === 'private_pass' ? id : null,
         days_left: 2,
         credits_left: 2,
         smartlist_include: [],
         smartlist_exclude: [],
         verboseNotifKind: 'creditsLeft',
+        identifier,
       };
       return values;
     },
-    validationSchema: PaymentPackNotificationSchema,
-    handleSubmit: (values, { props: { onSubmit } }) => {
-      const data = {
-        kind:
-          values.verboseNotifKind === 'creditsLeft'
-            ? CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT
-            : CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME,
+    validationSchema: ProductNotificationSchema,
+    handleSubmit: (
+      values: FinalFormikData,
+      { props: { onSubmit, identifier } },
+    ) => {
+      const data: MarketingNotification = {
+        kind: getKind(identifier, values),
         email_design: values.send_email ? values.email_design : null,
         push_notification_title: values.send_notification_push
           ? values.notificationTitle
@@ -623,7 +726,13 @@ export default compose(
           ? values.notificationContent
           : '',
         event_rules: {
-          payment_pack_id: values.payment_pack_id,
+          ...(identifier === 'payment_pack'
+            ? {
+                payment_pack_id: values.payment_pack_id,
+              }
+            : {
+                private_pass_id: values.private_pass_id,
+              }),
         },
       };
       switch (values.verboseNotifKind) {
@@ -644,4 +753,4 @@ export default compose(
       onSubmit(data);
     },
   }),
-)(PaymentPackNotificationForm);
+)(ProductNotificationForm);

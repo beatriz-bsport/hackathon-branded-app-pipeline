@@ -6,12 +6,17 @@ import {
   Theme,
   Typography,
   withStyles,
+  makeStyles,
 } from '@material-ui/core';
 import EventIcon from '@material-ui/icons/Event';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { TFunction } from 'i18next';
-import { WithTranslation, withTranslation } from 'react-i18next';
+import {
+  useTranslation,
+  WithTranslation,
+  withTranslation,
+} from 'react-i18next';
 import {
   BOOKING_EVENT_RULES,
   PRIVATEBOOKING_EVENT_RULES,
@@ -98,18 +103,7 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
 
-interface State {
-  hideById: { [key: string]: boolean | undefined };
-}
-
-export class AbstractBookingNotificationList extends React.PureComponent<
-  Props,
-  State
-> {
-  state: State = {
-    hideById: {},
-  };
-
+export class AbstractBookingNotificationList extends React.PureComponent<Props> {
   renderByKind = (byKind: { [key: string]: MarketingNotification[] }) => {
     const { classes, t } = this.props;
 
@@ -181,79 +175,22 @@ export class AbstractBookingNotificationList extends React.PureComponent<
     return label;
   };
 
-  renderNotificationByClass = (
-    notifications: {
-      [byGroup: string]: {
-        identifier: 'meta_activity' | 'establishment' | 'private_service';
-        bySession: {
-          [bySession: string]: { [byKind: string]: MarketingNotification[] };
-        };
-      };
-    },
-    label: string,
-  ) => {
-    const { classes, t } = this.props;
-
-    return (
-      <>
-        <Typography variant="h5" className={classes.classTitle}>
-          {label}
-        </Typography>
-        {!Object.entries(notifications).length && (
-          <Typography>
-            {t('marketing:notifications.notificationsEmpty')}
-          </Typography>
-        )}
-
-        {Object.entries(notifications).map(([key, group]) => {
-          const name = this.getLabel(key, group.identifier);
-          return (
-            <div className={classes.itemContainer} key={key}>
-              <ButtonBase
-                className={classes.buttonTitleContainer}
-                onClick={() => {
-                  this.setState((prevState: State) => ({
-                    hideById: {
-                      ...prevState.hideById,
-                      [key]: !prevState.hideById[key],
-                    },
-                  }));
-                }}
-              >
-                <Typography color="primary" variant="h5">
-                  {name}
-                </Typography>
-
-                {!this.state.hideById[key] ? (
-                  <ExpandLessIcon />
-                ) : (
-                  <ExpandMoreIcon />
-                )}
-              </ButtonBase>
-
-              <Collapse in={!this.state.hideById[key]}>
-                {this.renderSession(group.bySession)}
-              </Collapse>
-            </div>
-          );
-        })}
-      </>
-    );
-  };
-
   render() {
     const { classes, t } = this.props;
-
     return (
       <div className={classes.container}>
-        {this.renderNotificationByClass(
-          this.props.bookingNotifications,
-          t('marketing:notifications.groupTitle.booking'),
-        )}
-        {this.renderNotificationByClass(
-          this.props.privateBookingNotifications,
-          t('marketing:notifications.groupTitle.privateBooking'),
-        )}
+        <NotificationByClass
+          notifications={this.props.bookingNotifications}
+          label={t('marketing:notifications.groupTitle.booking')}
+          getLabel={this.getLabel}
+          renderSession={this.renderSession}
+        />
+        <NotificationByClass
+          notifications={this.props.privateBookingNotifications}
+          label={t('marketing:notifications.groupTitle.privateBooking')}
+          getLabel={this.getLabel}
+          renderSession={this.renderSession}
+        />
       </div>
     );
   }
@@ -264,25 +201,6 @@ const styles = (theme: Theme) => ({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-  },
-  classTitle: {
-    borderWidth: 0,
-    borderBottomWidth: 1,
-    borderStyle: 'solid',
-    paddingBottom: theme.spacing(1),
-    marginBottom: theme.spacing(4),
-    marginTop: theme.spacing(4),
-  },
-  buttonTitleContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-  itemContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    flex: 1,
-    width: '100 %',
-    marginBottom: theme.spacing(2),
   },
   bySessionItem: {
     display: 'flex',
@@ -329,3 +247,94 @@ export default compose<any, OwnProps>(
   withStyles(styles),
   withTranslation(['booking', 'privateService', 'marketing']),
 )(AbstractBookingNotificationList);
+
+type NotificationByClassProps = {
+  notifications: {
+    [byGroup: string]: {
+      identifier: 'meta_activity' | 'establishment' | 'private_service';
+      bySession: {
+        [bySession: string]: { [byKind: string]: MarketingNotification[] };
+      };
+    };
+  };
+  label: string;
+  getLabel: (id: string, type: string) => string;
+  renderSession: any;
+};
+const NotificationByClass = (props: NotificationByClassProps) => {
+  const { notifications, label, getLabel, renderSession } = props;
+  const { t } = useTranslation(['booking', 'privateService', 'marketing']);
+  const classes = useStyles();
+  const [showSection, setShowSection] = React.useState(true);
+  const [hideById, setHideById] = React.useState<{
+    [key: string]: boolean | undefined;
+  }>({});
+
+  return (
+    <>
+      <ButtonBase
+        onClick={() => setShowSection(!showSection)}
+        className={classes.buttonBaseHeader}
+      >
+        <Typography variant="h5">{label}</Typography>
+        {showSection ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+      </ButtonBase>
+      {!Object.entries(notifications).length && (
+        <Typography>
+          {t('marketing:notifications.notificationsEmpty')}
+        </Typography>
+      )}
+
+      {Object.entries(notifications).map(([key, group]) => {
+        const name = getLabel(key, group.identifier);
+        return (
+          <Collapse in={showSection}>
+            <div className={classes.itemContainer} key={key}>
+              <ButtonBase
+                className={classes.buttonTitleContainer}
+                onClick={() => {
+                  setHideById({ ...hideById, [key]: !hideById[key] });
+                }}
+              >
+                <Typography color="primary" variant="h5">
+                  {name}
+                </Typography>
+                {!hideById[key] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+              </ButtonBase>
+
+              <Collapse in={!hideById[key]}>
+                {renderSession(group.bySession)}
+              </Collapse>
+            </div>
+          </Collapse>
+        );
+      })}
+    </>
+  );
+};
+
+const useStyles = makeStyles((theme: Theme) => ({
+  buttonBaseHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    borderWidth: 0,
+    borderBottomWidth: 1,
+    borderStyle: 'solid',
+    paddingBottom: theme.spacing(1),
+    marginBottom: theme.spacing(4),
+    marginTop: theme.spacing(4),
+  },
+  itemContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
+    width: '100 %',
+    marginBottom: theme.spacing(2),
+  },
+  buttonTitleContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+}));

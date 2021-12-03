@@ -28,7 +28,10 @@ const getLabelForRules = (
     return `${Math.abs(notification.event_rules.hours)} ${trad}`;
   }
 
-  if (notification.kind === NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_TIME) {
+  if (
+    notification.kind === NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_TIME ||
+    notification.kind === NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_TIME
+  ) {
     const key =
       notification.event_rules.days_left < 0
         ? 'daysPastLabel'
@@ -39,7 +42,10 @@ const getLabelForRules = (
       day: absDay,
     });
   }
-  if (notification.kind === NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_CREDIT) {
+  if (
+    notification.kind === NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_CREDIT ||
+    notification.kind === NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_CREDIT
+  ) {
     return t('paymentPack:notification.creditsLeftLabel', {
       credit: notification.event_rules.credits_left,
       count: notification.event_rules.credits_left,

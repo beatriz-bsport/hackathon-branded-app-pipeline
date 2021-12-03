@@ -1,6 +1,6 @@
 export type MarketingNotification = {
-  id: number;
-  company: number;
+  id?: number;
+  company?: number;
   kind: number;
   event_rules: {
     days_left?: number; // 3
@@ -8,6 +8,7 @@ export type MarketingNotification = {
     smartlist_include?: number[]; // 3
     credits_left?: number; // 4
     payment_pack_id?: number; // 3, 4
+    private_pass_id?: number;
     meta_activity_id?: number; // 2
     establishment_id?: number; // 2
     private_service_id?: number; // 1
@@ -16,10 +17,12 @@ export type MarketingNotification = {
     kind?: number; // 1
   };
   email_design: number;
-  is_event_based: boolean;
-  active: boolean;
+  is_event_based?: boolean;
+  active?: boolean;
   push_notification_content: string;
   push_notification_title: string;
+  smartlist_include?: Array<number>;
+  smartlist_exclude?: Array<number>;
 };
 
 export type MarketingNotificationState = {

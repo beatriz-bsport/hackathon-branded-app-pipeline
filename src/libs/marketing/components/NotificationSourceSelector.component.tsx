@@ -17,9 +17,9 @@ import MetaActivitySelector from '../../meta-activity/components/MetaActivitySel
 import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
 import PrivateServiceSelector from '../../private-service/components/service/PrivateServiceSelector.component';
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
-
+import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
 import { Establishment } from '../../establishment/types';
-import { PrivateService } from '../../private-service/types';
+import { PrivatePass, PrivateService } from '../../private-service/types';
 import { PaymentPack } from '../../payment-packs/types';
 import { MaterialStyleType } from '../../../utils/types';
 
@@ -27,7 +27,9 @@ type Identifier =
   | 'meta_activity'
   | 'establishment'
   | 'private_service'
-  | 'payment_pack';
+  | 'payment_pack'
+  | 'workshop'
+  | 'private_pass';
 
 type OwnProps = {
   onClose: () => void;
@@ -37,6 +39,7 @@ type OwnProps = {
   establishments: Establishment[];
   privateServices: PrivateService[];
   paymentPacks: PaymentPack[];
+  privatePasses: PrivatePass[];
 };
 
 type Props = OwnProps &
@@ -48,6 +51,7 @@ type State = {
   selectedEstablishment: number[];
   selectedPrivateService?: number | null;
   selectedPaymentPack?: number | null;
+  selectedPrivatePass?: number | null;
 };
 
 class NotificationSourceSelector extends React.PureComponent<Props, State> {
@@ -56,6 +60,7 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
     selectedEstablishment: [],
     selectedPrivateService: null,
     selectedPaymentPack: null,
+    selectedPrivatePass: null,
   };
 
   onChange = (identifier: Identifier, value: number) => {
@@ -64,6 +69,7 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
       selectedEstablishment: [],
       selectedPrivateService: null,
       selectedPaymentPack: null,
+      selectedPrivatePass: null,
     };
 
     if (['meta_activity', 'workshop'].includes(identifier)) {
@@ -77,6 +83,9 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
     }
     if (identifier === 'payment_pack') {
       state.selectedPaymentPack = value;
+    }
+    if (identifier === 'private_pass') {
+      state.selectedPrivatePass = value;
     }
 
     this.setState(state);
@@ -101,7 +110,9 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
     if (identifier === 'payment_pack') {
       objectId = this.state.selectedPaymentPack;
     }
-
+    if (identifier === 'private_pass') {
+      objectId = this.state.selectedPrivatePass;
+    }
     this.props.onSubmit(identifier, objectId);
   };
 
@@ -120,7 +131,9 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
     if (identifier === 'payment_pack') {
       return typeof this.state.selectedPaymentPack !== 'number';
     }
-
+    if (identifier === 'private_pass') {
+      return typeof this.state.selectedPrivatePass !== 'number';
+    }
     return false;
   };
 
@@ -130,14 +143,13 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
     return (
       <Dialog open onClose={this.props.onClose}>
         <div>
-          <DialogTitle>Créer une notification</DialogTitle>
-
+          <DialogTitle>{t('notifications.dialogTitle')}</DialogTitle>
           <DialogContent className={classes.content}>
             <Typography className={classes.helperText}>
               {t(`notifications.selectIdentifierLabel.${identifier}`)}
             </Typography>
 
-            {['meta_activity', 'workshop'].includes(this.props.identifier) && (
+            {['meta_activity', 'workshop'].includes(identifier) && (
               <MetaActivitySelector
                 metaActivities={this.props.metaActivities || []}
                 closeMenuOnSelect
@@ -149,7 +161,7 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
               />
             )}
 
-            {this.props.identifier === 'establishment' && (
+            {identifier === 'establishment' && (
               <EstablishmentSelector
                 establishments={this.props.establishments}
                 selectedEstablishments={this.state.selectedEstablishment}
@@ -161,7 +173,7 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
               />
             )}
 
-            {this.props.identifier === 'private_service' && (
+            {identifier === 'private_service' && (
               <PrivateServiceSelector
                 privateServices={this.props.privateServices}
                 privateServiceId={this.state.selectedPrivateService}
@@ -169,7 +181,7 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
               />
             )}
 
-            {this.props.identifier === 'payment_pack' && (
+            {identifier === 'payment_pack' && (
               <PaymentPackSelector
                 paymentPacks={this.props.paymentPacks}
                 value={this.state.selectedPaymentPack}
@@ -178,8 +190,19 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
                 isMulti={false}
               />
             )}
-          </DialogContent>
 
+            {identifier === 'private_pass' && (
+              <PrivatePassSelector
+                value={this.state.selectedPrivatePass}
+                privatePassList={this.props.privatePasses}
+                onChange={(value: number) =>
+                  this.onChange('private_pass', value)
+                }
+                helperText={t('notifications.privatePassPlaceholder')}
+                isMulti={false}
+              />
+            )}
+          </DialogContent>
           <DialogActions>
             <Button
               onClick={() => {

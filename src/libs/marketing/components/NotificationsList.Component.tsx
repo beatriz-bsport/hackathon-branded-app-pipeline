@@ -47,6 +47,9 @@ const sortNotifications = (
   if (a.kind === NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_TIME) {
     return a.event_rules.days_left - b.event_rules.days_left;
   }
+  if (a.kind === NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_TIME) {
+    return a.event_rules.days_left - b.event_rules.days_left;
+  }
   return a.event_rules.credits_left - b.event_rules.credits_left;
 };
 

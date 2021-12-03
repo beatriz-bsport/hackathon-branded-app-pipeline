@@ -33,7 +33,10 @@ import {
 import {
   fetchAllPrivateServices,
   fetchPrivateServiceBulk,
+  fetchPrivatePassList,
 } from '../../libs/private-service/actions';
+import { getPrivatePassListBase as getPrivatePasses } from '../../libs/private-service/selectors/private-pass';
+
 import {
   fetchAllActivities,
   fetchMetaActivityBulk,
@@ -57,7 +60,7 @@ import { fetchTagList } from '../../libs/notification-rule/actions';
 import { getTagCategories } from '../../libs/notification-rule/selectors';
 
 import { MaterialStyleType } from '../../utils/types';
-import PaymentPackNotificationList from '../../libs/marketing/components/PaymentPackNotificationList.component';
+import ProductNotificationList from '../../libs/marketing/components/ProductNotificationList.component';
 import AbstractBookingNotificationList from '../../libs/marketing/components/AbstractBookingNotificationList.component';
 import { MarketingNotification } from '../../libs/marketing/types';
 import EmailTemplateForNotifications from '../../libs/marketing/components/EmailTemplateForNotifications';
@@ -121,6 +124,8 @@ export class MarketingNotifications extends Component<Props, State> {
         NOTIFICATION_KIND.BOOKING_CREATION,
         NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_TIME,
         NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_CREDIT,
+        NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_TIME,
+        NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_CREDIT,
       ],
     });
 
@@ -158,6 +163,7 @@ export class MarketingNotifications extends Component<Props, State> {
       this.props.fetchAllPaymentPacks(),
       this.props.fetchTagList(),
       this.props.getSmartLists(),
+      this.props.fetchPrivatePassList(),
     ]);
 
     this.setState({ loading: false });
@@ -262,15 +268,24 @@ export class MarketingNotifications extends Component<Props, State> {
             emailSummariesById={this.props.emailSummariesById}
             onUpdateNotification={this.props.updateMarketingNotification}
           />
-          <PaymentPackNotificationList
-            notificationsByPaymentPack={this.props.notifications.byPaymentPack}
-            paymentPackById={this.props.paymentPackById}
+          <ProductNotificationList
+            productKind="paymentPack"
+            notificationsByProduct={this.props.notifications.byPaymentPack}
+            productById={this.props.paymentPackById}
             onClickNotification={this.onClickNotification}
             emailSummariesById={this.props.emailSummariesById}
             onUpdateNotification={this.props.updateMarketingNotification}
             smartLists={this.props.smartLists}
           />
-
+          <ProductNotificationList
+            productKind="privatePass"
+            notificationsByProduct={this.props.notifications.byPrivatePass}
+            productById={this.props.privatePassById}
+            onClickNotification={this.onClickNotification}
+            emailSummariesById={this.props.emailSummariesById}
+            onUpdateNotification={this.props.updateMarketingNotification}
+            smartLists={this.props.smartLists}
+          />
           <div className={classes.bottomPaddingFix} />
         </div>
 
@@ -323,6 +338,7 @@ export class MarketingNotifications extends Component<Props, State> {
           privateServices={this.props.privateServices}
           paymentPacks={this.props.paymentPacks}
           tags={this.props.tagCategories}
+          privatePasses={this.props.privatePasses}
         />
       </div>
     );
@@ -362,6 +378,7 @@ const mapStateToProps = (state: RootState) => ({
   },
   notificationList: getNotificationForMarketingPage(state),
   paymentPackById: state.paymentPack.byId,
+  privatePassById: state.privateService.privatePass.byId,
   establishmentById: state.establishment.byId,
   privateServicebyId: state.privateService.privateService.byId,
   metaActivityById: state.metaActivity.byId,
@@ -385,6 +402,7 @@ const mapStateToProps = (state: RootState) => ({
   comm: state.communication,
   theme: getTheme(state),
   tagCategories: getTagCategories(state),
+  privatePasses: getPrivatePasses(state),
 });
 
 const mapDispatchToProps = {
@@ -406,6 +424,7 @@ const mapDispatchToProps = {
   fetchAllActivities,
   fetchEstablishments,
   fetchAllPrivateServices: () => fetchAllPrivateServices({ mine: true }),
+  fetchPrivatePassList,
   fetchAllPaymentPacks,
   fetchMarketingNotificationCampaignSummary,
   fetchTagList,

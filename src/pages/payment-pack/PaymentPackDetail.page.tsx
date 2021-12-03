@@ -298,7 +298,6 @@ export class PaymentPackDetail extends Component<Props, State> {
             scaleCreditLoading={this.props.scaleCreditLoading}
             loadingMassExtension={this.props.loadingMassExtension}
             isManager
-            goToEdit={this.props.pushToEdit}
             paymentPackCategory={paymentPackCategory.name}
           />
           <PaymentPackNotification

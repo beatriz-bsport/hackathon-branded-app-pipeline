@@ -60,7 +60,6 @@ type OwnProps = {
   scaleMenuOpen: boolean,
   scaleCreditLoading: boolean,
   toogleScaleMenuOpen: () => void,
-  goToEdit: (paymentPackId: number) => void,
   onScaleCredit: (paymentPackId: number, data: any) => void,
   pack: PaymentPack,
   isManager?: boolean,
@@ -515,7 +514,7 @@ export class PaymentPackCard extends Component<Props, State> {
           whitelistTags={whitelist_tags}
           open={this.state.tagsDialogOpen}
           onClose={() => this.setState({ tagsDialogOpen: false })}
-          onModify={() => this.props.goToEdit(pack.id)}
+          onModify={this.props.onEditButtonClick}
         />
       </Paper>
     );

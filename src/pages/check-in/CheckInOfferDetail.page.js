@@ -275,9 +275,8 @@ export default compose(
         state.booking.loading ||
         state.member.loading ||
         state.offer.byDay.loading,
-      compatibleConsumerPacks: withPaymentPackForConsumer(getByOfferByMember)(
-        state,
-      ),
+      compatibleConsumerPacks:
+        withPaymentPackForConsumer(getByOfferByMember)(state),
       managerFormConfig: getSignUpFormConfigurationDict(state),
     }),
     {

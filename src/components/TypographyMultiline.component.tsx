@@ -1,6 +1,7 @@
 import omit from 'lodash/omit';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import Linkify from 'react-linkify';
 
 export default (props: { children: string }) => (
   <Typography
@@ -16,6 +17,8 @@ export default (props: { children: string }) => (
       'multiline',
     ])}
   >
-    <p style={{ whiteSpace: 'pre-line' }}>{props.children || ''}</p>
+    <Linkify>
+      <p style={{ whiteSpace: 'pre-line' }}>{props.children || ''}</p>
+    </Linkify>
   </Typography>
 );

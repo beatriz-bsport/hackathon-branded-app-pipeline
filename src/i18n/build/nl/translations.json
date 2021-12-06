@@ -2561,7 +2561,7 @@
         },
         "selector": {
             "noAvailable": "Er is geen kaart die overeenkomt met de gekozen beschikbaarheid.",
-            "noManagerOnly": "Beschikbaarheid",
+            "noManagerOnly": "Beschikbaar",
             "managerOnly": "Niet beschikbaar",
             "filterManagerOnly": "Alle beschikbaarheid",
             "filterCategory": "Alle categorieën",

@@ -119,7 +119,7 @@ type State = {
 const CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME = 3;
 const CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT = 4;
 const CONSUMER_PACK_PAGINATION_SIZE = 10;
-export class ComponentName extends React.Component<Props, State> {
+export class PaymentPackList extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -345,12 +345,33 @@ export class ComponentName extends React.Component<Props, State> {
       !loading
     ) {
       return (
-        <IsEmptyList
-          text={this.props.t('noPaymentPack')}
-          button={this.props.t('addButton')}
-          onCreate={this.props.onCreate}
-          onCreateLabel={this.props.t('addButton')}
-        />
+        <>
+          <IsEmptyList
+            text={this.props.t('noPaymentPack')}
+            button={this.props.t('addButton')}
+            onCreate={this.onCreate}
+            onCreateLabel={this.props.t('addButton')}
+          />
+          <PaymentPackFormDialog
+            open={this.state.openPaymentPackFormDialog}
+            categoryList={[...categoryList].filter(
+              (category) =>
+                metaActivities.map((a) => a.SCT).indexOf(category.id) !== -1,
+            )}
+            establishmentList={establishmentList}
+            metaActivityList={metaActivities}
+            tagList={allTagsWithTagGroup}
+            paymentPackCategories={paymentPackCategories}
+            closeDialog={() =>
+              this.setState({ openPaymentPackFormDialog: false })
+            }
+            onSubmit={this.props.createOrUpdatePaymentPack}
+            clearPaymentPackToEdit={() =>
+              this.setState({ paymentPackToEdit: null })
+            }
+            initial={this.state.paymentPackToEdit}
+          />
+        </>
       );
     }
 
@@ -554,12 +575,11 @@ const styles = (theme: Theme) =>
     },
     searchPaperDisplayed: {
       border: '1px solid',
-      borderColor: theme.primary_color,
+      borderColor: theme.palette.primary.main,
       borderTop: '0px',
     },
     searchPaperHidden: {
       border: '1px solid',
-      borderColor: theme.primary_color,
       borderTop: '0px',
       boderBottom: '0px',
     },
@@ -726,4 +746,4 @@ export default compose<any, OwnProps>(
     t('titles:paymentPack.paymentPackList'),
   ),
   withHandlers(mapWithHandlers),
-)(ComponentName);
+)(PaymentPackList);

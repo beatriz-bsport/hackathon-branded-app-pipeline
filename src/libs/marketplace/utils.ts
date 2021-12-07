@@ -98,7 +98,7 @@ export class WidgetCodeStringGenerator {
         }  
     })
 </script>
-<div id="bsport-widget${args.uuid || ''}"/>`;
+<div><div id="bsport-widget${args.uuid || ''}"/></div>`;
 
     if (args.useIframe) {
       return `<iframe srcdoc='

@@ -2,11 +2,11 @@
 import React, { Node } from 'react';
 
 import Fab from '@material-ui/core/Fab';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
 import { colors } from '@bsport/common/lib/colors';
 
-const redTheme = createMuiTheme({
+const redTheme = createTheme({
   palette: {
     primary: {
       main: colors.orange,

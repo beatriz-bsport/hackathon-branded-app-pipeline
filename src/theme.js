@@ -1,6 +1,6 @@
 // @flow
 import chroma from 'chroma-js';
-import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
+import { responsiveFontSizes, createTheme } from '@material-ui/core/styles';
 
 import { colors } from '@bsport/common/lib/colors';
 
@@ -27,7 +27,7 @@ const defaultThemeParams = {
 export const getTheme = (theme: ?CompanyTheme) => {
   if (theme) {
     return responsiveFontSizes(
-      createMuiTheme({
+      createTheme({
         ...defaultThemeParams,
         palette: {
           primary: {
@@ -38,13 +38,13 @@ export const getTheme = (theme: ?CompanyTheme) => {
       }),
     );
   }
-  return responsiveFontSizes(createMuiTheme(defaultThemeParams));
+  return responsiveFontSizes(createTheme(defaultThemeParams));
 };
 
 export const getFranchiseTheme = (theme: FranchiseTheme) => {
   if (theme) {
     return responsiveFontSizes(
-      createMuiTheme({
+      createTheme({
         ...defaultThemeParams,
         palette: {
           primary: {
@@ -65,7 +65,7 @@ export const getFranchiseTheme = (theme: FranchiseTheme) => {
       }),
     );
   }
-  return responsiveFontSizes(createMuiTheme(defaultThemeParams));
+  return responsiveFontSizes(createTheme(defaultThemeParams));
 };
 
 export default getTheme();

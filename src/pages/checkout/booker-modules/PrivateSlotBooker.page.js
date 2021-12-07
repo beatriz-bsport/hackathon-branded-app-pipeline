@@ -10,7 +10,7 @@ import { compose, withProps } from 'recompose';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { replace, goBack as goBackRouter } from 'connected-react-router';
-import { fade } from '@material-ui/core/styles/colorManipulator';
+import { alpha } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withTranslation, TFunction } from 'react-i18next';
@@ -343,9 +343,9 @@ const styles = (theme) => ({
     marginRight: theme.spacing(1),
   },
   loginButton: {
-    backgroundColor: fade(theme.palette.common.white, 0.15),
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
     '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
     },
     borderRadius: theme.shape.borderRadius,
     padding: theme.spacing(1),

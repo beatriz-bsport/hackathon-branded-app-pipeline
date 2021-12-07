@@ -8,8 +8,7 @@ import {
   goBack as goBackRouter,
 } from 'connected-react-router';
 import { Redirect } from 'react-router-dom';
-import { MuiThemeProvider } from '@material-ui/core/styles';
-import { fade } from '@material-ui/core/styles/colorManipulator';
+import { MuiThemeProvider, alpha } from '@material-ui/core/styles';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withProps, withState, withHandlers } from 'recompose';
@@ -351,9 +350,9 @@ const styles = (theme) => ({
     marginRight: theme.spacing(1),
   },
   loginButton: {
-    backgroundColor: fade(theme.palette.common.white, 0.15),
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
     '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
     },
     borderRadius: theme.shape.borderRadius,
     padding: theme.spacing(1),

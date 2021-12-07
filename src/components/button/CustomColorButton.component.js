@@ -2,11 +2,11 @@
 import React, { Node } from 'react';
 
 import Button from '@material-ui/core/Button';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import memoize from 'memoize-one';
 
 const myTheme = memoize((color) =>
-  createMuiTheme({
+  createTheme({
     palette: {
       primary: {
         main: color,

@@ -12,7 +12,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import Badge from '@material-ui/core/Badge';
-import { fade } from '@material-ui/core/styles/colorManipulator';
+import { alpha } from '@material-ui/core/styles';
 
 import { withTranslation, TFunction } from 'react-i18next';
 
@@ -215,9 +215,9 @@ const styles = (theme) => ({
     flexGrow: 1,
   },
   loginButton: {
-    backgroundColor: fade(theme.palette.common.black, 0.12),
+    backgroundColor: alpha(theme.palette.common.black, 0.12),
     '&:hover': {
-      backgroundColor: fade(theme.palette.common.black, 0.05),
+      backgroundColor: alpha(theme.palette.common.black, 0.05),
     },
     borderRadius: theme.shape.borderRadius,
     padding: theme.spacing(1),

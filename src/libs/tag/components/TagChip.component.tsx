@@ -1,7 +1,7 @@
 import React from 'react';
 import Chip from '@material-ui/core/Chip';
 import {
-  createMuiTheme,
+  createTheme,
   MuiThemeProvider,
   Theme,
   useTheme,
@@ -14,7 +14,7 @@ import type { Tag, TagGroup } from '../types';
 import MuiIcon from '../../../components/MuiIcon.component';
 
 const newTheme = (color: string) =>
-  createMuiTheme({
+  createTheme({
     palette: {
       primary: {
         main: color,

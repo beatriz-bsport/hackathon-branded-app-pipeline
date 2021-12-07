@@ -2,11 +2,11 @@
 import React from 'react';
 
 import Fab from '@material-ui/core/Fab';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
 import { colors } from '@bsport/common/lib/colors';
 
-const greenTheme = createMuiTheme({
+const greenTheme = createTheme({
   palette: {
     primary: {
       main: colors.greenGradientRight,

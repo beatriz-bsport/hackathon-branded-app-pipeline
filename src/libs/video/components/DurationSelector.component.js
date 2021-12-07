@@ -11,6 +11,12 @@ import IconButton from '@material-ui/core/IconButton';
 import { useTranslation } from 'react-i18next';
 
 import Popover from '@material-ui/core/Popover';
+import {
+  createTheme,
+  makeStyles,
+  ThemeProvider,
+} from '@material-ui/core/styles';
+import blue from '@material-ui/core/colors/blue';
 import Tooltip from '../../../components/Tooltip.component';
 
 function ValueLabelComponent(props: { children: any, value: string }) {
@@ -28,6 +34,7 @@ type Props = {
 };
 
 const DurationSelector = (props: Props) => {
+  const classes = useStyles();
   const [value, setValue] = React.useState([0, 180]);
   const [anchorMenu, setAnchorMenu] = React.useState(null);
   const handleChange = (event, newValue) => {
@@ -49,34 +56,38 @@ const DurationSelector = (props: Props) => {
         style={{ width: '100%', backgroundColor: 'white' }}
         onClick={(ev) => setAnchorMenu(ev.currentTarget)}
       >
-        <TextField
-          fullWidth
-          disabled
-          size="small"
-          value={
-            !props.durationSecondRange
-              ? t('video.filter.duration.all')
-              : t('video.filter.duration.explain', { min, max })
-          }
-          variant="outlined"
-          InputProps={{
-            endAdornment:
-              min !== 0 || max !== 180 ? (
-                <InputAdornment position="end">
-                  <IconButton
-                    component="div"
-                    aria-label="Clear search"
-                    onClick={(ev) => {
-                      ev.stopPropagation();
-                      props.onChange(null);
-                    }}
-                  >
-                    <ClearIcon />
-                  </IconButton>
-                </InputAdornment>
-              ) : null,
-          }}
-        />
+        <ThemeProvider theme={theme}>
+          <TextField
+            fullWidth
+            size="small"
+            value={
+              !props.durationSecondRange
+                ? t('video.filter.duration.all')
+                : t('video.filter.duration.explain', { min, max })
+            }
+            variant="outlined"
+            InputProps={{
+              classes: {
+                input: classes.multilineColor,
+              },
+              endAdornment:
+                min !== 0 || max !== 180 ? (
+                  <InputAdornment position="end">
+                    <IconButton
+                      component="div"
+                      aria-label="Clear search"
+                      onClick={(ev) => {
+                        ev.stopPropagation();
+                        props.onChange(null);
+                      }}
+                    >
+                      <ClearIcon />
+                    </IconButton>
+                  </InputAdornment>
+                ) : null,
+            }}
+          />
+        </ThemeProvider>
       </ButtonBase>
       <Popover
         open={!!anchorMenu}
@@ -118,5 +129,17 @@ const DurationSelector = (props: Props) => {
     </div>
   );
 };
+
+const useStyles = makeStyles(() => ({
+  multilineColor: {
+    color: 'grey',
+  },
+}));
+
+const theme = createTheme({
+  palette: {
+    primary: blue,
+  },
+});
 
 export default DurationSelector;

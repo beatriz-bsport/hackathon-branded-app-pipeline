@@ -121,11 +121,11 @@ export const fromConfigToUrl = (
     path = 'vod';
   } else if (component_type === 'giftcard') {
     path = 'giftcard';
-    const conf = tabConfig.config.giftcard;
+    const conf = tabConfig.config.giftcard || {};
     conf.giftcards &&
       conf.giftcards.length &&
       Object.assign(query, {
-        giftcards: tabConfig.config.giftcard.giftcards.join(','),
+        giftcards: conf.giftcards.join(','),
       });
   } else {
     return '';

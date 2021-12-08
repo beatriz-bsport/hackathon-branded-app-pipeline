@@ -76,6 +76,7 @@ export class PaymentMethodFilter extends Component<Props> {
               overrideDateList={[DATE_BETWEEN, DATE_BEFORE, DATE_AFTER]}
               filter_data={filter_data}
               onChange={onChange}
+              blockValidateOnClickAway
             />
           </div>
         )}

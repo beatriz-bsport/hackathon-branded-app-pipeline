@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { WithStyles } from '@material-ui/styles';
 import moment from 'moment-timezone';
 import MomentUtils from '@date-io/moment';
 import Select from '@material-ui/core/Select';
@@ -18,6 +19,8 @@ import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 
+import { createStyles } from '@material-ui/core';
+import { Theme } from '@material-ui/core/styles';
 import {
   MuiPickersUtilsProvider,
   Calendar,
@@ -41,17 +44,34 @@ import {
 
 const DATE_LIST = [DATE_BETWEEN, DATE_BEFORE, DATE_AFTER, DATE_EXACT];
 
-type Props = {
-  filter_data: any,
-  t: TFunction,
-  classes: Object,
-  onChange: (any) => void,
-  theme: Object,
-  overrideDateList?: Array<number>,
-  hideDurationTab?: boolean,
+type OwnProps = {
+  filter_data: any;
+  t: TFunction;
+  classes: Object;
+  onChange: (data: any) => void;
+  theme: Object;
+  overrideDateList?: Array<number>;
+  hideDurationTab?: boolean;
+  blockValidateOnClickAway: boolean;
 };
 
-const renderDurationTypeEnter = (value, duration_type, value_second) => {
+type Props = OwnProps & WithStyles<typeof styles>;
+
+type State = {
+  open: boolean;
+  date_filter_type: number | unknown;
+  duration_second: number;
+  duration: number;
+  date: string;
+  date_second: string;
+  mode: number;
+};
+
+const renderDurationTypeEnter = (
+  value: number,
+  duration_type: number,
+  value_second: number,
+) => {
   if (duration_type === DURATION_EXACT && value < 0) {
     return DURATION_EXACT_PAST;
   }
@@ -61,7 +81,7 @@ const renderDurationTypeEnter = (value, duration_type, value_second) => {
   return duration_type;
 };
 
-export class CalendarPicker extends Component<Props, state> {
+export class CalendarPicker extends Component<Props, State> {
   state = {
     open: false,
     date_filter_type: renderDurationTypeEnter(
@@ -82,7 +102,7 @@ export class CalendarPicker extends Component<Props, state> {
         : 0,
   };
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props) {
     if (this.props.filter_data !== prevProps.filter_data) {
       this.setState({
         date_filter_type: renderDurationTypeEnter(
@@ -105,7 +125,7 @@ export class CalendarPicker extends Component<Props, state> {
     }
   }
 
-  handleChangeIndex = (index) => {
+  handleChangeIndex = (index: number) => {
     this.setState({ mode: index });
   };
 
@@ -170,24 +190,45 @@ export class CalendarPicker extends Component<Props, state> {
     );
   };
 
-  closePopoverAndValidate = () => {
-    const exit_values = this.renderDurationValuesExit(
-      this.state.duration,
-      this.state.date_filter_type,
-    );
-
-    this.props.onChange({
-      date_second: this.state.date_second || moment().format('YYYY-MM-DD'),
-      date: this.state.date || moment().format('YYYY-MM-DD'),
-      duration_second: this.renderDurationValuesExit(
-        this.state.duration_second,
+  closePopoverAndValidate = (validate: boolean) => {
+    if (validate) {
+      const exit_values = this.renderDurationValuesExit(
+        this.state.duration,
         this.state.date_filter_type,
-      ).value,
-      duration: exit_values.value,
-      date_filter_type: exit_values.type,
-    });
+      );
 
-    this.setState({ open: false });
+      this.props.onChange({
+        date_second: this.state.date_second || moment().format('YYYY-MM-DD'),
+        date: this.state.date || moment().format('YYYY-MM-DD'),
+        duration_second: this.renderDurationValuesExit(
+          this.state.duration_second,
+          this.state.date_filter_type,
+        ).value,
+        duration: exit_values.value,
+        date_filter_type: exit_values.type,
+      });
+      this.setState({ open: false });
+    } else {
+      this.setState({
+        date_filter_type: renderDurationTypeEnter(
+          this.props.filter_data.duration,
+          this.props.filter_data.date_filter_type,
+          this.props.filter_data.duration_second,
+        ),
+        duration: Math.abs(this.props.filter_data.duration),
+        duration_second: Math.abs(this.props.filter_data.duration_second),
+        date: this.props.filter_data.date,
+        date_second: this.props.filter_data.date_second,
+        mode:
+          this.props.filter_data.date_filter_type === DURATION_AFTER ||
+          this.props.filter_data.date_filter_type === DURATION_EXACT ||
+          this.props.filter_data.date_filter_type === DURATION_BETWEEN ||
+          this.props.filter_data.date_filter_type === DURATION_BEFORE_PAST
+            ? 1
+            : 0,
+        open: false,
+      });
+    }
   };
 
   renderDateTab = () => {
@@ -197,7 +238,6 @@ export class CalendarPicker extends Component<Props, state> {
       <div className={classes.dateTabContainer}>
         <div className={classes.dateTabSelector}>
           <Select
-            className={classes.input}
             value={this.state.date_filter_type}
             onChange={(ev) => {
               this.setState({ date_filter_type: ev.target.value });
@@ -264,7 +304,7 @@ export class CalendarPicker extends Component<Props, state> {
     );
   };
 
-  changeDurationTime = (duration_type) => {
+  changeDurationTime = (duration_type: number) => {
     if (duration_type === DURATION_BEFORE_PAST) {
       this.setState((prevState) => ({
         duration: 0,
@@ -295,7 +335,7 @@ export class CalendarPicker extends Component<Props, state> {
     return duration_type;
   };
 
-  renderDurationValuesExit = (value, duration_type) => {
+  renderDurationValuesExit = (value: number, duration_type: number) => {
     if (duration_type === DURATION_BEFORE_PAST) {
       return { value: -value, type: DURATION_BEFORE_PAST };
     }
@@ -313,7 +353,6 @@ export class CalendarPicker extends Component<Props, state> {
     return (
       <div className={classes.durationContainer}>
         <Select
-          className={classes.input}
           value={this.state.date_filter_type}
           onChange={(ev) =>
             this.setState({ date_filter_type: ev.target.value })
@@ -393,7 +432,7 @@ export class CalendarPicker extends Component<Props, state> {
     );
   };
 
-  switchTabs = (value) => {
+  switchTabs = (value: number) => {
     this.setState({ mode: value });
     if (value === 0) {
       this.setState({ date_filter_type: DATE_EXACT });
@@ -432,7 +471,12 @@ export class CalendarPicker extends Component<Props, state> {
           />
           <ArrowDropDownIcon style={{ color: '#757575' }} />
         </ListItem>
-        <Dialog open={this.state.open} onClose={this.closePopoverAndValidate}>
+        <Dialog
+          open={this.state.open}
+          onClose={() =>
+            this.closePopoverAndValidate(!this.props.blockValidateOnClickAway)
+          }
+        >
           <div style={{ width: '100%' }}>
             {!this.props.hideDurationTab && (
               <div className={classes.tabs}>
@@ -466,11 +510,19 @@ export class CalendarPicker extends Component<Props, state> {
           </div>
           <div className={classes.buttonContainer}>
             <Button
+              color="secondary"
+              variant="outlined"
+              onClick={() => this.closePopoverAndValidate(false)}
+              className={classes.cancelButton}
+            >
+              {t('modal.delete.cancel')}
+            </Button>
+            <Button
               color="primary"
               variant="outlined"
-              onClick={this.closePopoverAndValidate}
+              onClick={() => this.closePopoverAndValidate(true)}
             >
-              valider
+              {t('modal.validate')}
             </Button>
           </div>
         </Dialog>
@@ -479,86 +531,93 @@ export class CalendarPicker extends Component<Props, state> {
   }
 }
 
-const styles = (theme) => ({
-  durationContainer: {
-    marginLeft: theme.spacing(4),
-  },
-  calendarsContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    width: '100%',
-  },
-  dateTabSelector: {
-    marginBottom: theme.spacing(1),
-  },
-  dateTabContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  durationTabContainer: {
-    marginTop: theme.spacing(3),
-    display: 'flex',
-    alignItems: 'center',
-  },
-  buttonContainer: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    padding: theme.spacing(1),
-  },
-  listItemTextRoot: {
-    paddingRight: '0px',
-  },
-  textInput: {
-    width: '50px',
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-  },
-  picker: { margin: theme.spacing(1) },
-  selector: {
-    paddingRight: theme.spacing(2),
-  },
-  outlined: {
-    borderBottom: '0px',
-  },
-  tabButton: {
-    borderBottom: '1px solid black',
-    width: '50%',
-  },
-  tabButtonSelectedLeft: {
-    borderLeft: '1px solid black',
-    width: '50%',
-    background: theme.primary_color,
-  },
-  tabButtonSelectedRight: {
-    borderRight: '1px solid black',
-    width: '50%',
-    color: theme.primary_color,
-  },
-  textField: {
-    padding: '1px',
-  },
-  contained: {
-    boxShadow: '0px',
-    backgroundColor: 'red',
-  },
-  gutters: { paddingLeft: '0px' },
-  searchBar: {
-    padding: theme.spacing(1),
-  },
-  root: {
-    paddingRight: '0px',
-    paddingBottom: theme.spacing(1) / 4,
-    paddingTop: theme.spacing(3) / 8,
-    marginLeft: theme.spacing(1),
-  },
-  divider: { borderBottom: '1px solid #909090' },
-  ListItemButton: { padding: '0px', margin: '0px' },
-  tabs: { display: 'flex' },
-  button: { width: '100%' },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    durationContainer: {
+      marginLeft: theme.spacing(4),
+    },
+    calendarsContainer: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-around',
+      width: '100%',
+    },
+    dateTabSelector: {
+      marginBottom: theme.spacing(1),
+    },
+    dateTabContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    durationTabContainer: {
+      marginTop: theme.spacing(3),
+      display: 'flex',
+      alignItems: 'center',
+    },
+    buttonContainer: {
+      display: 'flex',
+      justifyContent: 'flex-end',
+      padding: theme.spacing(1),
+    },
+    listItemTextRoot: {
+      paddingRight: 0,
+    },
+    textInput: {
+      width: 50,
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+    },
+    picker: { margin: theme.spacing(1) },
+    selector: {
+      paddingRight: theme.spacing(2),
+    },
+    outlined: {
+      borderBottom: 0,
+    },
+    tabButton: {
+      borderBottom: '1px solid black',
+      width: '50%',
+    },
+    tabButtonSelectedLeft: {
+      borderLeft: '1px solid black',
+      width: '50%',
+      background: theme.palette.primary.main,
+    },
+    tabButtonSelectedRight: {
+      borderRight: '1px solid black',
+      width: '50%',
+      color: theme.palette.primary.main,
+    },
+    textField: {
+      padding: 1,
+    },
+    contained: {
+      boxShadow: '0px',
+      backgroundColor: 'red',
+    },
+    gutters: { paddingLeft: 0 },
+    searchBar: {
+      padding: theme.spacing(1),
+    },
+    root: {
+      paddingRight: 0,
+      paddingBottom: theme.spacing(1) / 4,
+      paddingTop: theme.spacing(3) / 8,
+      marginLeft: theme.spacing(1),
+    },
+    divider: { borderBottom: '1px solid #909090' },
+    listItemButton: {
+      padding: 0,
+      marginLeft: theme.spacing(1),
+      marginTop: 0,
+      marginBottom: 0,
+    },
+    tabs: { display: 'flex' },
+    button: { width: '100%' },
+    cancelButton: { marginRight: theme.spacing(2) },
+  });
 
 export default compose(
   withTranslation(['smartList']),

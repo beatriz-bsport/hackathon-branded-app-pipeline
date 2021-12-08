@@ -36,7 +36,11 @@ export class MemberDateJoinedFilter extends Component<Props, state> {
     return (
       <div className={classes.wrapper}>
         {this.props.t(`filters.${filter_data.filter_identifier}.first`)}
-        <CalendarPicker filter_data={filter_data} onChange={onChange} />
+        <CalendarPicker
+          filter_data={filter_data}
+          onChange={onChange}
+          blockValidateOnClickAway
+        />
       </div>
     );
   }

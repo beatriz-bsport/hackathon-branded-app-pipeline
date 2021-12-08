@@ -211,6 +211,7 @@ export class SmartListDetailMember extends Component<Props, State> {
         onValueChangeActiveMemberFetch:
           !prevState.onValueChangeActiveMemberFetch,
       }));
+      this.props.setCloseMemberTable(true);
     });
   };
 
@@ -220,6 +221,7 @@ export class SmartListDetailMember extends Component<Props, State> {
         onValueChangeActiveMemberFetch:
           !prevState.onValueChangeActiveMemberFetch,
       }));
+      this.props.setCloseMemberTable(true);
     });
   };
 
@@ -229,6 +231,7 @@ export class SmartListDetailMember extends Component<Props, State> {
         onValueChangeActiveMemberFetch:
           !prevState.onValueChangeActiveMemberFetch,
       }));
+      this.props.setCloseMemberTable(true);
     });
   };
 
@@ -366,10 +369,11 @@ export class SmartListDetailMember extends Component<Props, State> {
                   fetchSmartListMembersAPI(this.props.id, { page, page_size })
                 }
                 goToMember={this.props.goToMember}
-                onValueChangeActiveMemberFetch={
-                  this.state.onValueChangeActiveMemberFetch
-                }
+                // onValueChangeActiveMemberFetch={
+                //   this.state.onValueChangeActiveMemberFetch
+                // }
                 hideAddButton
+                noDataText={this.props.t('member:noData')}
               />
             )}
           </Collapse>

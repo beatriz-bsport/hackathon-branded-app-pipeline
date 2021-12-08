@@ -182,6 +182,7 @@ export class PaymentPackFilter extends Component<Props, state> {
                   date_bought: data.date,
                 })
               }
+              blockValidateOnClickAway
             />
           </div>
         </div>

@@ -124,6 +124,7 @@ type Props = {
   hideAddButton: boolean,
   interrogateMemberStatus: (id: number) => void,
   disabledMemberId: Array<number>,
+  noDataText?: string,
 };
 
 type State = {
@@ -202,6 +203,9 @@ export class MemberTable extends Component<Props, State> {
   render() {
     const { t } = this.props;
     const { loading } = this.state;
+    const noMember = this.props.noDataText
+      ? this.props.noDataText
+      : t('noMember');
     const options = {
       onRowClick: this.onRowClick,
       serverSide: true,
@@ -224,7 +228,7 @@ export class MemberTable extends Component<Props, State> {
       },
       textLabels: {
         body: {
-          noMatch: loading ? null : 'Sorry, there is no member data to display',
+          noMatch: loading ? null : noMember,
         },
       },
       onTableChange: (action, tableState) => {

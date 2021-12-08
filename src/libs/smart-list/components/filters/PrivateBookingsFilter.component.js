@@ -467,7 +467,11 @@ export class PrivateBookingsFilter extends Component<Props, state> {
             {this.props.t(
               `filters.${filter_data.filter_identifier}.date.first`,
             )}
-            <CalendarPicker filter_data={filter_data} onChange={onChange} />
+            <CalendarPicker
+              filter_data={filter_data}
+              onChange={onChange}
+              blockValidateOnClickAway
+            />
           </div>
         </div>
         <div className={classes.inlineContainer}>

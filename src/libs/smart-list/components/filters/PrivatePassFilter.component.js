@@ -177,6 +177,7 @@ export class PrivatePassFilter extends Component<Props, state> {
                   date_bought: data.date,
                 })
               }
+              blockValidateOnClickAway
             />
           </div>
         </div>

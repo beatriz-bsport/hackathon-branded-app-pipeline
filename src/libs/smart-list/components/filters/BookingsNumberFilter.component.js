@@ -529,7 +529,12 @@ export class BookingsNumberFilter extends Component<Props, state> {
             {this.props.t(
               `filters.${filter_data.filter_identifier}.date.first`,
             )}
-            <CalendarPicker filter_data={filter_data} onChange={onChange} />
+            <CalendarPicker
+              filter_data={filter_data}
+              onChange={onChange}
+              blockValidateOnClickAway
+              className={classes.calendar}
+            />
           </div>
         </div>
         <div className={classes.inlineContainer}>
@@ -639,6 +644,9 @@ const styles = (theme) => ({
   },
   levelTypo: {
     marginRight: theme.spacing(1),
+  },
+  calendar: {
+    marginLeft: theme.spacing(1),
   },
 });
 

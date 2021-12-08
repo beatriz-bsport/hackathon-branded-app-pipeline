@@ -2846,7 +2846,8 @@
                 "isEmpty": "There are no sessions to display for this appointment."
             },
             "forSlots": "Compatible sessions:",
-            "allSlots": "Compatible with all sessions"
+            "allSlots": "Compatible with all sessions",
+            "none": " None"
         },
         "privatePass": {
             "delete": {
@@ -2872,22 +2873,25 @@
             "compatibleServices": {
                 "title": "Compatible appointments",
                 "add": "Add",
-                "isEmpty": "This appointment pass can't be used for any appointment, because its compatibility hasn't been configured correctly."
+                "isEmpty": "This appointment pass can't be used for any appointment, because its compatibility hasn't been configured correctly.",
+                "unusable": "Unusable"
             },
             "form": {
-                "title": "Appointment pass",
+                "title": "[Form] Appointment pass",
                 "managerOnly": {
                     "label": "Unavailable for members"
                 },
                 "name": {
-                    "label": "Name"
+                    "label": "Name",
+                    "helperText": "Name of the appointment pass"
                 },
                 "credits": {
-                    "label": "Number of credits included with this appointment pass.",
-                    "helperText": "Select the price per session in credits."
+                    "label": "Number of included credits",
+                    "helperText": "Indicate the price per session in credits."
                 },
                 "price": {
-                    "label": "Price"
+                    "label": "Price (incl. VAT)",
+                    "helperText": "This is the selling price for members."
                 },
                 "tax": {
                     "label": "VAT"
@@ -2898,26 +2902,27 @@
                 },
                 "available_payment_method_identifiers": {
                     "helperText": "Select at least one payment method. If none is selected, a credit card payment will be offered by default.",
-                    "label": "Accepted payment methods"
+                    "label": "Accepted payment methods",
+                    "warning": "Accepted payment methods can be assigned, once the appointment pass has been made available to members."
                 },
                 "durationYears": {
                     "helperText": "Will be added to the number of days and months.",
-                    "label": "Additional duration (in years)"
+                    "label": "Validity (in years)"
                 },
                 "durationMonths": {
                     "helperText": "Will be added to the number of days.",
-                    "label": "Additional duration (in months)"
+                    "label": "Validity (in months)"
                 },
                 "durationDays": {
                     "helperText": "Validity of this pass (in days) ",
-                    "label": "Additional availability (in days)"
+                    "label": "Validity (in days)"
                 },
                 "full_vod_access": {
-                    "label": "Can be used for Video On Demand (if available)"
+                    "label": "Activate acces to Video On Demand"
                 },
                 "expirationDaysBeforeFirstUse": {
-                    "helperText": "Expiration date of the appointment pass, if it hasn't been used in X amount of days.",
-                    "label": "Amount of days in which the pass expires if no booking is made:"
+                    "helperText": "The appointment pass will automatically expire if no booking has been made in X amount of days.",
+                    "label": "Automatic expiration date:"
                 },
                 "start_date_method": {
                     "on_attendance": "Valid from the 1st attendance",
@@ -2926,6 +2931,30 @@
                 },
                 "new_member_only": {
                     "label": "Only available for new members"
+                },
+                "start_date_method_detail": {
+                    "on_purchase": " from the date of purchase",
+                    "on_attendance": " from the 1st attendance",
+                    "on_booking": " from the 1st booking"
+                },
+                "duration": {
+                    "daysMonths": "{{ duration_months }} month(s) and {{ duration_days }} year(s)",
+                    "and": " and ",
+                    "years": "{{ count }} year",
+                    "years_plural": "{{ count }} years",
+                    "months": "{{ count }} month(s)",
+                    "days": "{{ count }} day",
+                    "days_plural": "{{ count }} days",
+                    "valid": "Valid for ",
+                    "fullText": "This appointment pass will be valid for "
+                },
+                "startDate": "Start date",
+                "category": "Category name",
+                "categoryTitle": {
+                    "compatibility": "Compatibility",
+                    "validity": "Pass validity",
+                    "paymentMeans": "Payment method",
+                    "info": "General information"
                 }
             },
             "validForDuration": {
@@ -10310,7 +10339,7 @@
                         "title": "Display rules",
                         "snoozeOptionHelperText": "This form will reappear after having been snoozed for {{count}} hour(s).",
                         "snoozeOptionLabel": "Snooze duration (in hours)",
-                        "force_display": "Force the display of this form to members that completed the previous form",
+                        "force_display": "Force the display of this form to members that completed this form previously as well",
                         "snoozeOption": "Allow members to postpone the completion of this form",
                         "advancedOptions": "Advanced settings",
                         "modify": "Edit",

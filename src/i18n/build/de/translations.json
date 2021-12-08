@@ -1976,7 +1976,8 @@
                 "cancel": "Abbrechen",
                 "content": "Bist Du Dir sicher, dass Du diese Smartlist löschen möchtest? Diese Aktion ist unwiderruflich",
                 "title": "Smartlist löschen"
-            }
+            },
+            "validate": "Bestätigen"
         },
         "membersInList": "Mitglieder in der Smartlist :",
         "exportList": "Exportiere die Smartlist",
@@ -2066,6 +2067,14 @@
                 "message": "Aufgrund Ihrer Änderungen an den Tag-Regeln für die Smartlist {{name}} müssen wir die Tags Ihrer Mitglieder aktualisieren.",
                 "title": "Aktualisierungen der Tag-Regeln "
             }
+        },
+        "memberBase": {
+            "options": {
+                "2": "Archiviert",
+                "1": "Nicht archiviert",
+                "0": "Nicht archiviert und archiviert"
+            },
+            "helperText": "Diese Smartlist gilt für alle Mitglieder"
         }
     },
     "theme": {
@@ -2475,6 +2484,15 @@
             "appbarActions": {
                 "_helper": "Mitgliedererstellung, Zahlungsbericht vor Ort.",
                 "_label": "Appbar-Aktionen"
+            },
+            "appbarButtons": {
+                "notificationCenter": {
+                    "_label": "Notification Center"
+                },
+                "ledger": {
+                    "_label": "Kassenbuch"
+                },
+                "_label": "Appbar-Aktionen"
             }
         }
     },
@@ -2497,7 +2515,8 @@
             "delete": "Löschen",
             "edit": "Ändern",
             "scaleCredit": "Credits multiplizieren oder dividieren",
-            "massExtension": "Eine Verlängerung hinzufügen"
+            "massExtension": "Eine Verlängerung hinzufügen",
+            "close": "Schließen"
         },
         "details": {
             "pleaseSelectAPack": "Wähle eine Karte aus, um die Details zu sehen",
@@ -2530,7 +2549,9 @@
                 "smartListHelper": "Keine E-Mail senden, wenn das Mitglied einer der folgenden Listen angehört",
                 "smartListHelperInclude": "Eine E-Mail senden, nur wenn das Mitglied einer der folgenden Listen angehört",
                 "mailTitle": "E-Mail zum Senden",
-                "typeTitle": "Kategorie der Benachrichtigung"
+                "typeTitle": "Kategorie der Benachrichtigung",
+                "pushTitle": "Einstellungen für die Benachrichtigung",
+                "mailSettings": "Mail-Einstellungen"
             },
             "1": {
                 "second": "Credits",
@@ -2749,7 +2770,7 @@
             "isFromShare": "Gemeinsam von einem anderen Konto aus genutzt",
             "isOwnerOfShares": "Gemeinsam genutzt (Stammkarte)"
         },
-        "validity": "Gültig :",
+        "validity": "Gültig : ",
         "maxNBookingsByWeek1": "Bis ",
         "paymentPackDisabled": {
             "error": "Kann nicht gelöscht werden",
@@ -2805,8 +2826,17 @@
         "validForDuration": {
             "general": "Gültig für {{ duration_days }} Tage, {{ duration_months }} Monat(e) und {{ duration_years }} Jahr(e)",
             "years": "Gültig für {{ duration_years }} Jahr(e)",
+            "years_plural": "Gültig für {{ duration_years }} Jahr(en)",
             "months": "Gültig für {{ duration_months }} Monat(e)",
-            "days": "Gültig für {{ duration_days }} Tage"
+            "days": "Gültig für {{ duration_days }} Tage",
+            "days_plural": "Gültig für {{ duration_days }} Tagen",
+            "and": " und ",
+            "attendance": "ab der ersten Anwesenheit",
+            "booking": "ab der ersten Buchung",
+            "purchase": "ab dem Rechnungsdatum",
+            "daysMonths": "{{ duration_months }} Monate und {{ duration_days }} Tage",
+            "validFor": "während ",
+            "valid": "Gültig "
         },
         "enableConsumer": "Entsperren",
         "disableConsumer": "Sperren",
@@ -2920,6 +2950,197 @@
             "empty": "Keine Karten in dieser Kategorie",
             "name": "Keine Kategorie",
             "help": "Diese Pässe werden in einer unbenannten Kategorie auf dem Marktplatz erscheinen"
+        },
+        "noUnauthorizedTag": "Keine unerlaubten Tags",
+        "noAuthorizedTag": "Keine Tags erlaubt",
+        "blackList": "Unerlaubte Tags",
+        "whiteList": "Erlaubte Tags",
+        "activities": "Aktivitäten",
+        "categories": "Kategorien",
+        "establishments": "Räume",
+        "accessibility": {
+            "onsitePayment": "Zahlung vor Ort erlaubt",
+            "managerOnly": "Unsichtbar beim Verkauf",
+            "newMembers": "Nur für Neukunden"
+        },
+        "tags": {
+            "blackList": "unautorisiertes Tagging",
+            "blackList_plural": "nicht zugelassene Tags",
+            "whiteList": "tag erlaubt",
+            "whiteList_plural": "zugelassene Tags"
+        },
+        "full_vod": "Gültig für VOD",
+        "seeAll": "Alles sehen",
+        "compatibility": {
+            "and": " und ",
+            "establishments": "Raum",
+            "establishments_plural": "Raume",
+            "activities": "Aktivität",
+            "activities_plural": "Aktivitäten",
+            "categories": "Kategorie",
+            "categories_plural": "Kategorien",
+            "compatible": "Kompatibel mit ",
+            "all": "Kompatibel mit allen"
+        },
+        "selector": {
+            "noAvailable": "Keine Karte, die den gewählten Verfügbarkeiten entspricht",
+            "noManagerOnly": "Zum Verkauf verfügbar",
+            "managerOnly": "Nicht zum Verkauf verfügbar",
+            "filterManagerOnly": "Alle Verfügbarkeiten",
+            "filterCategory": "Alle Kategorien",
+            "titleSort": "Sortieren",
+            "titleManagerOnly": "Verfügbarkeit für den Verkauf",
+            "titleCategory": "Kategorien",
+            "sorting": {
+                "descendingCredit": "Abnehmender credit",
+                "ascendingCredit": "credit aufsteigend",
+                "descendingPrice": "Preis aufsteigend",
+                "ascendingPrice": "Preis aufsteigend",
+                "customSort": "Kundenseitiger Auftrag (Marketplace und App)"
+            }
+        },
+        "cardDetails": {
+            "packBlocking2": " nicht fristgerechte Stornierungen in einer Woche",
+            "packBlocking1": " Tage der Blockaden nach ",
+            "maxPurchasePerMember": "Maximale Anzahl von Einkäufen : ",
+            "maxBookingPerDay": "Maximale Verwendung pro Tag : ",
+            "maxBookingPerWeek": "Maximale Nutzungen pro Woche : ",
+            "maxBookingPerMonth": "Maximale Nutzungen pro Monat : "
+        },
+        "detailTitles": {
+            "vod": "VOD",
+            "restrictions": "Einschränkungen",
+            "tags": "Tags",
+            "accessibility": "Zugänglichkeit",
+            "compatibility": "Kompatibilität",
+            "validity": "Gültigkeit",
+            "credit_quantity": "Anzahl der Credits"
+        },
+        "unlimitedAndCalculatedMargin": " - Theoretisch berechneter Grenzertrag: Preis / nb_Reservierungen ",
+        "unlimitedAndMargin": " - Theoretischer Grenzertrag von ",
+        "unlimitedPlural": "Unbegrenzt",
+        "validityTo": " unter ",
+        "addPaymentPack": {
+            "sumNotZero": "die endgültige Tageszahl darf nicht null sein",
+            "only_vod_access": "Die Nutzung der Karte ausschließlich auf VOD beschränken",
+            "vodAccessCard": "Gibt Zugang zu VOD",
+            "vod": "VOD",
+            "compatibility": "Ihre Karte ist nur mit Vorstellungen kompatibel, die einer der ausgewählten Kategorien UND einem der ausgewählten Räume UND einer der ausgewählten Aktivitäten entsprechen.",
+            "letBlank": "Leer lassen, um alles zu erlauben",
+            "activities": "Aktivitäten",
+            "room": "Säle",
+            "categories": "Kategorien",
+            "inShopPayment": "Möglichkeit, vor Ort zu bezahlen",
+            "notForSell": "Nicht zum Verkauf verfügbar",
+            "newClientOnly": "Nur für Neukunden",
+            "maxUseMember": "Maximaler Einkauf pro Mitglied",
+            "maxUseMonth": "Maximale Nutzungen pro Monat",
+            "maxUseWeek": "Maximale Nutzungen pro Woche",
+            "maxUseHelper": "Leer lassen, um keine Grenzen zu setzen",
+            "maxUseDay": "Maximale Nutzungen pro Tag",
+            "restriction": "Restriktionen",
+            "penalityAccountHelper": "Für dieses Mitglied wird eine Anzahlung von {{penalityBlockAccount}}€ erhoben.",
+            "penalityBlockDayHelper": "Die Karte des betroffenen Mitglieds wird für {{penalityBlockDay}} Tage gesperrt.",
+            "penalityAccountPrice": "Betrag der Anzahlung",
+            "penalityBlockDay": "Sperrfrist für die Karte (in Tagen)",
+            "penalityType": "Art der zu verhängenden Strafe",
+            "penalityAccount": "Erstellen Sie eine Anzahlung für das betreffende Mitglied",
+            "penalityBlock": "Kurskarte vorübergehend sperren",
+            "penalityInfo": "Eine Strafe wird erhoben, wenn es innerhalb eines Zeitraums von {{penalityNumberCancel}} Tagen {{penalityNumberDay}} außerterminliche Stornierungen gibt.",
+            "penalityNumberDay": "Anzahl der Tage",
+            "penalityNumberCancel": "Anzahl der Absagen",
+            "marginalContributionHelperText": "Wird verwendet, um die Vergütung von Lehrern zu berechnen. 10€ bedeutet, dass eine mit dieser Karte vorgenommene Buchung mit 10€ vergütet wird. Wenn leer oder 0€ wird die Einbringung einer Karte PRIX/NB_RESERVATION",
+            "marginalContribution": "Theoretischer Grenzertrag TTC",
+            "expirationDateHelper": "Wenn die Kurskarte innerhalb dieser Anzahl an Tagen nicht zum ersten Mal verbraucht wird, wird sie ungültig.",
+            "expirationDate": "Verfall, wenn keine ursprüngliche Buchung",
+            "beginningDate": "Startdatum",
+            "attendance": "Bei der ersten Anwesenheit",
+            "firstBooking": "Bei der ersten Buchung",
+            "billing": "Bei der Rechnungsstellung",
+            "validForDuration": {
+                "day": "Diese Karte ist ab dem Kaufdatum {{ duration_day }} Tage lang gültig.",
+                "month": "Diese Karte ist für {{ duration_month }} Monate und {{ duration_day }} Tage ab dem Kaufdatum gültig.",
+                "year": "Diese Karte ist ab dem Kaufdatum für {{ duration_year }} Jahre, {{ duration_month }} Monate und {{ duration_day }} Tage gültig."
+            },
+            "yearValidityHelper": "Kommt zur Anzahl der Tage hinzu",
+            "monthValidityHelper": "Kommt zur Anzahl der Tage hinzu",
+            "yearValidity": "Gültigkeitsdauer der Karte in Jahren",
+            "monthValidity": "Gültigkeitsdauer der Karte in Monaten",
+            "dayValidity": "Gültigkeitsdauer der Karte in Tagen",
+            "endBeforeStart": "Das Enddatum darf nicht höher sein als das Startdatum.",
+            "toDate": "Bis zum",
+            "fromDate": "Ab dem",
+            "availabilitySlot": "Die Karte nur in einem bestimmten Datumsfenster gültig machen",
+            "availabilityGivenNumber": "Die Karte nur eine bestimmte Anzahl von Tagen gültig machen (nach dem Kaufdatum)",
+            "penalityRule": "Sie können eine Strafe nur anwenden, wenn die Anzahl der Credits unbegrenzt ist.",
+            "penality": "Verhängung einer Strafe bei zu vielen nicht fristgerechten Stornierungen",
+            "packValidity": "Gültigkeit der Karte",
+            "numberOfAvailableCredits": "Anzahl der verfügbaren Credits",
+            "credit": "Credit",
+            "unlimited": "Unbegrenzt",
+            "limited": "Begrenzt",
+            "numberOfCredit": "Anzahl der Credits",
+            "namePaymentPack": "Name der Kurskarte",
+            "name": "Name",
+            "generalInfo": "Allgemeine Informationen",
+            "paymentPack": "Kurskarte",
+            "minusZero": "dieses Feld kann ế nicht gleich 0 sein",
+            "requiredField": "Dieses Feld ist erforderlich"
+        },
+        "paymentPackTemplate": {
+            "actions": {
+                "create": "Erstellen einer geteilten Karte"
+            },
+            "deleteForm": {
+                "actions": {
+                    "submit": "Freigabe deaktivieren",
+                    "close": "Schließen"
+                },
+                "content": "Wenn Sie eine geteilte Karte deaktivieren, können Mitglieder, die diese Karte besitzen, sie nur noch in dem Studio nutzen, in dem sie sie gekauft haben.",
+                "title": "Deaktivierung"
+            },
+            "form": {
+                "actions": {
+                    "submit": "Registrieren",
+                    "close": "Schließen"
+                },
+                "submit": "Bestätigen",
+                "close": "Schließen",
+                "title": "Geteilte Kurskarte"
+            },
+            "section": {
+                "titleManagerOnly": "Zum Verkauf verfügbar",
+                "titleAvailable": "Zum Verkauf verfügbar"
+            },
+            "isEmptyExplain": "Sie ermöglichen es Ihren Mitgliedern, ihr Guthaben in den von Ihnen gewählten Studios zu nutzen.",
+            "specification": {
+                "companySharedWithTitle": "Gemeinsam mit den Studios:"
+            }
+        },
+        "paymentPackTemplateInstance": {
+            "actions": {
+                "addCompany": "Ein Studio hinzufügen"
+            },
+            "companyEmpty": "Kein Studio ist so konfiguriert, dass es diese Kurskarte akzeptiert",
+            "deleteForm": {
+                "actions": {
+                    "submit": "Freigabe deaktivieren",
+                    "close": "Schließen"
+                },
+                "content": "Wenn Sie dieses Studio für die gemeinsame Nutzung der Karte deaktivieren, können alle Mitglieder, die diese Karte besitzen und sie in diesem Studio gekauft haben, sie weiterhin verwenden. Sie können sie jedoch nicht mehr in anderen Studios verwenden. Karten, die in anderen Studios gekauft wurden, können in dem deaktivierten Studio nicht mehr verwendet werden, unabhängig davon, wann sie gekauft wurden.",
+                "title": "Deaktivierung"
+            },
+            "form": {
+                "actions": {
+                    "submit": "Registrieren",
+                    "close": "Schließen"
+                },
+                "explain2": "Wenn ein Mitglied diese Karte in einem der kompatiblen Studios kauft, kann es sie auch in den anderen Studios verwenden, die Sie festgelegt haben.",
+                "explain1": "Die folgenden Studios haben diese Karte automatisch zum Verkauf zur Verfügung. Sie können weder den Preis noch die Anzahl der Guthaben ändern.",
+                "title": "Meine Studios konfigurieren"
+            },
+            "consumerPaymentPackSharedFromOtherFranchisee": "Geteilt seit Franchisenehmer",
+            "paymentPackSharedFromFranchisor": "Franchise-Karte"
         }
     },
     "alerting": {
@@ -4462,7 +4683,8 @@
                 },
                 "accountNumber": {
                     "placeholder": "DE89370400440532013000",
-                    "label": "IBAN"
+                    "label": "IBAN",
+                    "eurSpecific": " (IBAN)"
                 },
                 "invalid": "Ungültige IBAN. Achtung: Die IBAN muss einem Bankkonto im gleichen Land wie Ihr Unternehmen entsprechen",
                 "accountHolderName": {
@@ -4471,7 +4693,10 @@
                 },
                 "content": "Dieses Bankkonto wird verwendet, um Ihnen die online über bsport bezahlten Beträge zu überweisen.",
                 "title": "Bankkonto",
-                "unknownCountry": "Manueller Vorgang für dieses Land, bitte kontaktieren Sie bsport über contact@bsport.io"
+                "unknownCountry": "Manueller Vorgang für dieses Land, bitte kontaktieren Sie bsport über contact@bsport.io",
+                "routingNumber": {
+                    "label": "Routing-Nummer"
+                }
             }
         },
         "payment": {
@@ -4544,6 +4769,19 @@
             "year_plural": "Jahre",
             "month": "Monat",
             "month_plural": "Monate"
+        },
+        "subscriptionPaymentDialog": {
+            "error": {
+                "button_text": "Erneut versuchen",
+                "text_status": "Ihr Kauf konnte nicht erfolgreich sein!",
+                "text_content": "Ihr Kauf konnte nicht abgeschlossen werden. Sie können es erneut versuchen, indem Sie auf die Schaltfläche unten klicken, oder Sie können zur Liste der Abonnements zurückkehren, indem Sie dieses Fenster schließen."
+            },
+            "success": {
+                "button_text": "Weiter",
+                "text_status": "Erfolgreich abgeschlossener Kauf!",
+                "text_content": "Ihr Kauf wurde erfolgreich abgeschlossen. Sie können ab sofort die Details Ihres Abonnements in Ihrem Mitgliederbereich abrufen."
+            },
+            "title": "Ein Abonnement kaufen"
         }
     },
     "paymentRules": {
@@ -5472,11 +5710,32 @@
             "done": "Gültiger Gesundheitspass"
         },
         "archive": {
-            "archivedMember": "Mitglied Archiviert : {{name}}"
+            "archivedMember": "Mitglied Archiviert : {{name}}",
+            "dialog": {
+                "title": "Mitglied archivieren",
+                "actions": {
+                    "confirm": "Konfirmand",
+                    "close": "Schließen"
+                },
+                "warning": {
+                    "general": "Wir haben die unten aufgeführten Punkte identifiziert. Wir empfehlen Ihnen, das Konto dieses Kunden vor der Archivierung zu bereinigen:",
+                    "6": "Geplante(r) Termin(e)",
+                    "5": "Registrierte wiederkehrende Reservierung(en)",
+                    "4": "Geplante Buchung(en) in der Zukunft",
+                    "3": "Abonnement mit laufender automatischer Verlängerung",
+                    "2": "Aktuelles Abonnement",
+                    "1": "Unbezahlte Rechnung(en)",
+                    "0": "Negativer interner Saldo"
+                },
+                "helper_text_2": "Ce membre n'apparaitra plus dans la liste de vos membres.",
+                "helper_text_1": "Sind Sie sicher, dass Sie dieses Mitglied archivieren möchten?"
+            }
         },
         "termsOfUse": "Les conditions générales d'utilisation",
         "archived": "Archiviert",
-        "restoreMember": "Restaurieren"
+        "restoreMember": "Restaurieren",
+        "noMember": "Derzeit gibt es keine Mitglieder, die angezeigt werden können.",
+        "noData": "Es gibt keine Mitglieder in dieser Smartlist."
     },
     "common": {
         "text": {
@@ -6038,7 +6297,7 @@
             "form": {
                 "credits": {
                     "helperText": "Jeder Kurs kostet eine bestimmte Anzahl von Credits",
-                    "label": "Credits"
+                    "label": "Anzahl der eingeschlossenen Credits"
                 },
                 "actions": {
                     "cancel": "Abbrechen",
@@ -6046,7 +6305,8 @@
                 },
                 "available_payment_method_identifiers": {
                     "helperText": "Wähle mindestens eine Zahlungsmethode aus. Wenn der Warenkorb des Mitglieds Produkte mit inkompatiblen Zahlungsmethoden enthält, wird eine Zahlung per Kreditkarte vorgeschlagen.",
-                    "label": "Zugelassene Zahlungsmethoden"
+                    "label": "Zugelassene Zahlungsmethoden",
+                    "warning": "Machen Sie Ihre Karte für die Kunden sichtbar, damit sie die Zahlungsmethoden auswählen können."
                 },
                 "durationYears": {
                     "helperText": "Zusätzlich der Anzahl der Tage und Monate",
@@ -6064,10 +6324,12 @@
                     "label": "Mehrwertsteuer"
                 },
                 "price": {
-                    "label": "Preis"
+                    "label": "Preis",
+                    "helperText": "Kartenpreis für den Kunden"
                 },
                 "name": {
-                    "label": "Name"
+                    "label": "Name",
+                    "helperText": "Name der Kurskarte"
                 },
                 "managerOnly": {
                     "label": "Für Kunden unsichtbar"
@@ -6083,10 +6345,34 @@
                 "start_date_method": {
                     "on_attendance": "Beginnt bei der ersten Anwesenheit",
                     "on_booking": "Beginnt bei der ersten Buchung",
-                    "on_purchase": "Beginnt bei der Rechnungsstellung"
+                    "on_purchase": "Beginnt mit der Rechnungsstellung"
                 },
                 "new_member_only": {
                     "label": "Nur für Neukunden"
+                },
+                "start_date_method_detail": {
+                    "on_attendance": " ab der ersten Anwesenheit",
+                    "on_booking": " ab der ersten Buchung",
+                    "on_purchase": " ab dem Kaufdatum"
+                },
+                "startDate": "Startdatum",
+                "duration": {
+                    "and": " und ",
+                    "years": "Jahr",
+                    "years_plural": "Jahre",
+                    "daysMonths": "Monaten {{ duration_months }} und {{ duration_days }}  Tage",
+                    "months": "Monat",
+                    "days": "Tag",
+                    "days_plural": "Tage",
+                    "valid": "Gültig während ",
+                    "fullText": "Diese Karte ist gültig für "
+                },
+                "category": "Name der Kategorie",
+                "categoryTitle": {
+                    "compatibility": "Kompatibilität",
+                    "validity": "Gültigkeit der Karte",
+                    "paymentMeans": "Zahlungsmittel",
+                    "info": "Allgemeine Informationen"
                 }
             },
             "parameters": {
@@ -6106,7 +6392,8 @@
             "compatibleServices": {
                 "title": "Kompatible Termine",
                 "isEmpty": "Kein Termin ist kompatibel - unbenutzbar",
-                "add": "Hinzufügen"
+                "add": "Hinzufügen",
+                "unusable": "Unbrauchbar"
             },
             "list": {
                 "createButton": "Eine Terminkarte erstellen",
@@ -6186,7 +6473,8 @@
                 "isEmpty": "In diesem Termin ist kein Sitzungstyp konfiguriert!"
             },
             "forSlots": "Kompatible Termine:",
-            "allSlots": "Kompatibel für alle Termine"
+            "allSlots": "Kompatibel für alle Termine",
+            "none": " keine"
         },
         "selector": {
             "privateSlot": "Einen Kurs auswählen",
@@ -6394,7 +6682,13 @@
                 "chooseWhen": {
                     "after": "Sende die E-Mail nach dem von der Benachrichtigung betroffenen Termin an das Mitglied",
                     "before": "Sende die E-Mail vor dem von der Benachrichtigung betroffenen Termin an das Mitglied",
-                    "title": "Benachrichtigungstyp"
+                    "title": "Benachrichtigungstyp",
+                    "afterNotification": "Senden der Push-Benachrichtigung an das Mitglied nach dem von der Benachrichtigung betroffenen RDV",
+                    "afterNotifications": "Benachrichtigungen an das Mitglied nach dem von der Benachrichtigung betroffenen RDV senden",
+                    "afterMail": "Senden Sie die E-Mail an das Mitglied nach dem von der Benachrichtigung betroffenen Termin",
+                    "beforeNotification": "Senden Sie die Push-Benachrichtigung an das Mitglied vor dem von der Benachrichtigung betroffenen RDV",
+                    "beforeNotifications": "Benachrichtigungen an das Mitglied vor dem von der Benachrichtigung betroffenen RDV senden",
+                    "beforeMail": "Senden Sie die E-Mail an das Mitglied vor dem Termin, der von der Benachrichtigung betroffen ist."
                 },
                 "help": {
                     "cancelledNotRefunded": {
@@ -6437,7 +6731,9 @@
             "validate": "Validieren Sie"
         },
         "searshAppointmentPass": "Suche nach einer RDV-Karte",
-        "search": "Suche nach einem Termin"
+        "search": "Suche nach einem Termin",
+        "categoryTitle": "Kategorien von RDV-Karten",
+        "disabledPacksTitle": "Archivierte RDV-Karten"
     },
     "communication": {
         "recipient": {
@@ -7214,7 +7510,8 @@
             "marketplacePass": "Kurskarten",
             "marketplaceCalendar": "Kalender",
             "marketplaceWorkshop": "Workshops",
-            "marketplaceShop": "Shop"
+            "marketplaceShop": "Shop",
+            "marketplaceGiftcard": "Geschenkkarten"
         },
         "establishment": {
             "establishmentFormPage": "Einrichtung-Formular",
@@ -7680,7 +7977,8 @@
         "franchiseMenu": {
             "members": "Mitglieder",
             "franchises": "Franchises",
-            "reporting": "Berichte"
+            "reporting": "Berichte",
+            "paymentPack": "Kurskarten"
         },
         "multiSession": {
             "current": "Aktuelle Sitzung",
@@ -8005,7 +8303,9 @@
             },
             "sessions": {
                 "title": "Kurse"
-            }
+            },
+            "closeMemberMatch": "Suchen Sie nach diesem Mitglied?",
+            "archived": "Archivierte Mitglieder"
         },
         "noResult": "Kein Ergebnis",
         "go_back": "Zurück zu den Ergebnissen",
@@ -8124,7 +8424,10 @@
             "showMonth": "Monat anzeigen"
         },
         "close": "Schließen",
-        "restoreOffer": "Kurs wiederherstellen"
+        "restoreOffer": "Kurs wiederherstellen",
+        "maximumNumberDescription": "Die maximale Anzahl an {{effectif}} Buchungen wurde bereits erreicht.Wenn Sie dieses Mitglied anmelden, überschreiten Sie die ursprünglich geplante Anzahl an Buchungen. Sind Sie sicher, dass Sie dieses Mitglied anmelden möchten?",
+        "maximumNumber": "Maximale Anzahl an Buchungen",
+        "warningOfferFull": "Die maximale Anzahl an Buchungen wurde bereits erreicht"
     },
     "settings": {
         "active_campaign": {

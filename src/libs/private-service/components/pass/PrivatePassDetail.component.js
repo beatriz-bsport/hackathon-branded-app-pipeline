@@ -210,20 +210,22 @@ export const PrivatePassDetail = (props: Props) => {
           </Button>
         )}
       </Paper>
-      <Dialog open={props.openEditForm}>
-        <DialogTitle>{props.t('privatePass.form.title')}</DialogTitle>
-        <DialogContent>
-          <PrivatePassForm
-            privatePassCategories={props.privatePassCategories}
-            initial={props.pass}
-            onSubmit={(data) =>
-              props.updatePrivatePass(data, props.pass.id, {
-                onSuccess: () => props.setOpenEditForm(false),
-              })
-            }
-            onCancel={() => props.setOpenEditForm(false)}
-          />
-        </DialogContent>
+      <Dialog open={props.openEditForm} maxWidth="md" fullWidth>
+        <Typography variant="h4" className={classes.formTitle}>
+          {props.t('privatePass.form.title')}
+        </Typography>
+        <PrivatePassForm
+          privatePassCategories={props.privatePassCategories}
+          initial={pass}
+          onSubmit={(data) =>
+            props.updatePrivatePass(data, props.pass.id, {
+              onSuccess: () => props.setOpenEditForm(false),
+            })
+          }
+          onCancel={() => props.setOpenEditForm(false)}
+          privateServices={props.private_services}
+          compatibleServicePass={props.compatibleServicePass}
+        />
       </Dialog>
       <Dialog open={props.openDeleteCompatibilityDialog}>
         <DialogTitle>
@@ -322,6 +324,13 @@ const styles = (theme) => ({
   },
   linkTypo: {
     paddingLeft: theme.spacing(1),
+  },
+  formTitle: {
+    fontWeight: 500,
+    paddingTop: theme.spacing(4),
+    paddingRight: theme.spacing(4),
+    paddingLeft: theme.spacing(4),
+    paddingBottom: theme.spacing(1),
   },
 });
 

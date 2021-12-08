@@ -8,18 +8,27 @@ import Typography from '@material-ui/core/Typography';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import EditIcon from '@material-ui/icons/Edit';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import IconButton from '@material-ui/core/IconButton';
+// import NotificationsIcon from '@material-ui/icons/Notifications';
+// import IconButton from '@material-ui/core/IconButton';
 import { withTranslation, TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import ListItemResponsiveAction from '../../../../components/button/ListItemResponsiveAction.component';
-import Tooltip from '../../../../components/Tooltip.component';
+// import Tooltip from '../../../../components/Tooltip.component';
 
-import { PrivateService, ServiceCompatibilityPass } from '../../types';
+import {
+  PrivateService,
+  ServiceCompatibilityPass,
+  PrivateSlot,
+} from '../../types';
+import { Coach } from '../../../associated-coach/types';
+import {
+  getCompatibilityText,
+  getCompatibilityTextWithSlots,
+} from '../../utils';
 
 type Props = {
   privateService: PrivateService,
-  onClick: () => void,
+  onClick: (id: number) => void,
   onEdit: () => void,
   dense?: boolean,
   selected: boolean,
@@ -28,10 +37,20 @@ type Props = {
   t: TFunction,
   compatibilityByService?: ServiceCompatibilityPass,
   classes: any,
+  excluded_slots?: number[],
+  included_slots?: Array<PrivateSlot>,
 };
 
 export const PrivateServiceListItem = (props: Props) => {
-  const { privateService, onClick, t, classes } = props;
+  const {
+    privateService,
+    onClick,
+    t,
+    classes,
+    compatibilityByService,
+    excluded_slots,
+    included_slots,
+  } = props;
 
   return (
     <ListItem
@@ -57,16 +76,18 @@ export const PrivateServiceListItem = (props: Props) => {
         primary={
           <div>
             <div>{privateService.name}</div>
-            {props.compatibilityByService && (
+            {compatibilityByService && (
               <Typography variant="caption">
-                {(props.compatibilityByService.excluded_slot_ids || []).length
-                  ? `${t('privateServiceCompatibility.forSlots')} ${
-                      props.compatibilityByService.included_slots
-                        .filter((s) => s && s.name)
-                        .map((s) => (s && s.name) || '')
-                        .join(', ') || null
-                    }`
-                  : t('privateServiceCompatibility.allSlots')}
+                {getCompatibilityText(t, compatibilityByService)}
+              </Typography>
+            )}
+            {(excluded_slots || included_slots) && (
+              <Typography variant="caption">
+                {getCompatibilityTextWithSlots(
+                  t,
+                  excluded_slots,
+                  included_slots,
+                )}
               </Typography>
             )}
           </div>
@@ -75,12 +96,12 @@ export const PrivateServiceListItem = (props: Props) => {
           props.hideSecondary
             ? null
             : privateService.coaches
-                .filter((c) => c && c.name)
-                .map((c) => (c && c.name) || '')
+                .filter((c: Coach) => c && c.name)
+                .map((c: Coach) => (c && c.name) || '')
                 .join(', ') || null
         }
       />
-      {privateService.hasActiveNotification && (
+      {/* {privateService.hasActiveNotification && (
         <Tooltip
           title={
             <Typography variant="subtitle2">
@@ -92,7 +113,7 @@ export const PrivateServiceListItem = (props: Props) => {
             <NotificationsIcon />
           </IconButton>
         </Tooltip>
-      )}
+      )} */}
 
       <ListItemResponsiveAction
         actions={[
@@ -113,7 +134,7 @@ export const PrivateServiceListItem = (props: Props) => {
   );
 };
 
-const styles = (theme) => ({
+const styles = (theme: any) => ({
   avatar: {
     width: theme.spacing(7),
     height: theme.spacing(7),

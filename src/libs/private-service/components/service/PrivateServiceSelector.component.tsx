@@ -3,19 +3,17 @@ import React from 'react';
 import { compose } from 'recompose';
 import { withTranslation, TFunction } from 'react-i18next';
 import Select from 'react-select';
+import type { PrivateService, PrivateServiceWithSlots } from '../../types';
 
-import type PrivateService from '../../types';
-
-type Option = { label: string, value: number };
 type Props = {
-  privateServices: Array<PrivateService>,
-  privateServiceId: number,
-  onChange: (option: Option) => void,
-  isDisabled?: boolean,
-
-  t: TFunction,
+  privateServices: Array<PrivateService> | Array<PrivateServiceWithSlots>;
+  privateServiceId?: number;
+  onChange: (value: number) => void;
+  isDisabled?: boolean;
+  t: TFunction;
 };
-export const PrivateSlotSelector = (props: Props) => {
+
+export const PrivateServiceSelector = (props: Props) => {
   const privateServiceOptions = [...props.privateServices].map((ps) => ({
     label: ps.name,
     value: ps.id,
@@ -39,5 +37,5 @@ export const PrivateSlotSelector = (props: Props) => {
 };
 
 export default compose(withTranslation(['privateService']))(
-  PrivateSlotSelector,
+  PrivateServiceSelector,
 );

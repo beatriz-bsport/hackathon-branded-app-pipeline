@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { compose, withHandlers, withStateHandlers } from 'recompose';
+import { compose, withHandlers, withStateHandlers, withState } from 'recompose';
 import { connect } from 'react-redux';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -63,6 +63,7 @@ import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import PaymentPackMassExtensionDialog from '../../libs/payment-packs/components/PaymentPackMassExtensionDialog.component';
 import { PrivateConsumerPassMassExtension } from '../../libs/private-service/types';
 import { getPrivatePassCategories } from '../../libs/private-service/selectors/private-pass-category';
+import { getFormInitial } from '../../libs/private-service/utils';
 
 type OwnProps = {
   id: number;
@@ -108,6 +109,12 @@ export class PrivatePassDetails extends Component<Props> {
         1,
         CONSUMER_PrivatePass_PAGINATION_SIZE,
       );
+    }
+    if (
+      prevProps.privatePass?.private_services.length !==
+      this.props.privatePass?.private_services.length
+    ) {
+      this.props.fetchCompatibleServicePasses();
     }
   }
 
@@ -155,17 +162,6 @@ export class PrivatePassDetails extends Component<Props> {
     });
   };
 
-  getCompatibleService = () => {
-    if (
-      !this.props.compatibleServicePass ||
-      this.props.compatibleServicePass.filter((c) => c.excluded_slot_ids)
-        .length === 0
-    ) {
-      return null;
-    }
-    return this.props.compatibleServicePass;
-  };
-
   render() {
     const { classes, t } = this.props;
     return (
@@ -181,7 +177,7 @@ export class PrivatePassDetails extends Component<Props> {
             deleteCompatibleServicePass={this.props.deleteCompatibleServicePass}
             createCompatibleServicePass={this.props.createCompatibleServicePass}
             updateCompatibleServicePass={this.props.updateCompatibleServicePass}
-            compatibleServicePass={this.getCompatibleService()}
+            compatibleServicePass={this.props.compatibleServicePass}
             pass={this.props.privatePass}
           />
         </Grid>
@@ -263,16 +259,21 @@ export class PrivatePassDetails extends Component<Props> {
             </div>
           </div>
         </Grid>
-        <Dialog open={this.props.openEditForm}>
-          <DialogTitle>{this.props.t('privatePass.form.title')}</DialogTitle>
-          <DialogContent>
-            <PrivatePassForm
-              privatePassCategories={this.props.privatePassCategories}
-              initial={this.props.privatePass}
-              onSubmit={(data) => this.props.onSubmit(data)}
-              onCancel={() => this.props.setOpenEditForm(false)}
-            />
-          </DialogContent>
+        <Dialog open={this.props.openEditForm} maxWidth="md" fullWidth>
+          <Typography variant="h4" className={classes.formTitle}>
+            {this.props.t('privatePass.form.title')}
+          </Typography>
+          <PrivatePassForm
+            privatePassCategories={this.props.privatePassCategories}
+            initial={getFormInitial(
+              this.props.privatePass,
+              this.props.compatibleServicePass,
+            )}
+            onSubmit={(data: any) => this.props.onSubmit(data)}
+            onCancel={() => this.props.setOpenEditForm(false)}
+            privateServices={this.props.private_services}
+            compatibleServicePass={this.props.compatibleServicePass}
+          />
         </Dialog>
 
         <Dialog open={this.props.openDeletePassDialog}>
@@ -325,6 +326,13 @@ const styles = (theme: Theme) => ({
   divider: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(2),
+  },
+  formTitle: {
+    fontWeight: 500,
+    paddingTop: theme.spacing(4),
+    paddingRight: theme.spacing(4),
+    paddingLeft: theme.spacing(4),
+    paddingBottom: theme.spacing(1),
   },
 });
 
@@ -482,5 +490,6 @@ export default compose(
     ({ t, privatePass }: Props) =>
       (privatePass && privatePass.name) || t('pageTitles.passList'),
   ),
+  withState('selectedService', 'setSelectedService', null),
   withHandlers(mapWithHandlers),
 )(PrivatePassDetails);

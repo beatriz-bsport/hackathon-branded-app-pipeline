@@ -11,7 +11,7 @@ import { push } from 'connected-react-router';
 import { compose, withState, withStateHandlers, withHandlers } from 'recompose';
 import Paper from '@material-ui/core/Paper';
 import Collapse from '@material-ui/core/Collapse';
-import PrivateServiceListItem from '../../libs/private-service/components/service/PrivateServiceListItem.component.js';
+import PrivateServiceListItem from '../../libs/private-service/components/service/PrivateServiceListItem.component';
 import FuzeSearch from '../../components/FuzeSearch.component';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';

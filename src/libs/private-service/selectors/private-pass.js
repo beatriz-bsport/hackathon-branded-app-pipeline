@@ -136,7 +136,7 @@ const _getServiceCompatibiltyPassDict = (state: State) =>
 const _getServiceCompatibiltyPassIds = (state: State) =>
   state.privateService.compatibleServicePass.allIds;
 
-export const getServiceCompatibiltyPassList: (State) => Array<ServiceCompatibilityPass> =
+export const getServiceCompatibilityPassList: (State) => Array<ServiceCompatibilityPass> =
   createSelector(
     [_getServiceCompatibiltyPassDict, _getServiceCompatibiltyPassIds],
     (data, ids) => ids.map((id) => data[id]),
@@ -147,7 +147,7 @@ export const getCompatibilityPassWithService: (State) => Array<PrivatePassWithSe
     [
       _getPrivateServiceDict,
       getAllPrivateSlotsDict,
-      getServiceCompatibiltyPassList,
+      getServiceCompatibilityPassList,
     ],
     (servicesById, slotData, compatibilityList) => {
       if (!compatibilityList) return compatibilityList;

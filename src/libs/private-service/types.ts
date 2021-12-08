@@ -135,6 +135,29 @@ export type PrivatePass = {
   ordering_in_category: number;
 };
 
+export type PrivatePassWithCompatibility = {
+  id: number;
+  name: string;
+  credits: number;
+  price: number;
+  tax: number;
+  compatibility: { private_service: number; excluded_slot_ids: number[] }[];
+  manager_only: boolean;
+  available: boolean;
+  duration_days: number;
+  duration_months: number;
+  duration_years: number;
+  available_payment_method_identifiers: number[];
+  full_vod_access: boolean;
+  editable: boolean;
+  expiration_days_before_first_use: number;
+  start_date_method: number;
+  new_member_only: boolean;
+  company: number;
+  category: number;
+  ordering_in_category: number;
+};
+
 export type PrivateConsumerPass = {
   id: number;
   used_credits: number;
@@ -211,9 +234,21 @@ export type RecurrenceRulePrivateBooking = {
 
 export type ServiceCompatibilityPass = {
   id: number;
-  private_service: number;
+  private_service: PrivateService;
   private_pass: number;
   excluded_slot_ids: number[];
+  included_slots: PrivateSlot[];
+};
+
+export type CompatiblePrivateService = {
+  private_service: number;
+  excluded_slot_ids: number[];
+};
+
+export type CompatiblePrivateServiceWithIncludedSlots = {
+  private_service: number;
+  excluded_slot_ids: number[];
+  included_slots: Array<PrivateSlot>;
 };
 
 export type PrivateConsumerPassMassExtension = {

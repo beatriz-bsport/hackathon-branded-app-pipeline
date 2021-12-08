@@ -1,8 +1,7 @@
 // @flow
 import React from 'react';
-import { compose } from 'recompose';
-import { withTranslation, TFunction } from 'react-i18next';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { useTranslation } from 'react-i18next';
+import { makeStyles } from '@material-ui/core/styles';
 import WarningIcon from '@material-ui/icons/Warning';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -11,15 +10,15 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 type Props = {
-  t: TFunction,
-  classes: Object,
   compatiblePassByService: any,
   onSubmit: (data: any) => void,
   onCancel: () => void,
 };
 
 export const PrivateSlotCompatibleServiceForm = (props: Props) => {
-  const { compatiblePassByService, t, classes } = props;
+  const classes = useStyles();
+  const { t } = useTranslation(['privateService']);
+  const { compatiblePassByService } = props;
   const slots = (
     (compatiblePassByService || {}).private_service || { slots: [] }
   ).slots.filter((s) => !!s && s.available);
@@ -39,10 +38,25 @@ export const PrivateSlotCompatibleServiceForm = (props: Props) => {
   };
   const checkChange = () => {
     if (compatiblePassByService) {
-      return (
-        unselectedSlots.length ===
+      if (
+        unselectedSlots.length !==
         compatiblePassByService.excluded_slot_ids.length
-      );
+      ) {
+        return false;
+      }
+      for (
+        let i = 0;
+        i < compatiblePassByService.excluded_slot_ids.length;
+        i += 1
+      ) {
+        if (
+          !unselectedSlots.includes(
+            compatiblePassByService.excluded_slot_ids[i],
+          )
+        ) {
+          return false;
+        }
+      }
     }
     return true;
   };
@@ -51,7 +65,7 @@ export const PrivateSlotCompatibleServiceForm = (props: Props) => {
       <FormGroup className={classes.checkboxContain}>
         {!!slots && slots.length === 0 && (
           <div className={classes.row}>
-            <WarningIcon coilor="textSecondary" />
+            <WarningIcon color="textSecondary" />
             <Typography variant="caption" color="textSecondary">
               {t('privateServiceCompatibility.excludedSlots.isEmpty')}
             </Typography>
@@ -95,7 +109,7 @@ export const PrivateSlotCompatibleServiceForm = (props: Props) => {
   );
 };
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   contain: {
     maxWidth: 300,
   },
@@ -120,9 +134,6 @@ const styles = (theme) => ({
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
-});
+}));
 
-export default compose(
-  withTranslation(['privateService']),
-  withStyles(styles),
-)(PrivateSlotCompatibleServiceForm);
+export default PrivateSlotCompatibleServiceForm;

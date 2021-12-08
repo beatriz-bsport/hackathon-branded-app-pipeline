@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { compose, withHandlers, withStateHandlers } from 'recompose';
+import { compose, withHandlers, withStateHandlers, withState } from 'recompose';
 import { connect } from 'react-redux';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
@@ -31,7 +31,9 @@ import {
   getPrivatePassCustomerEnabled,
   getAvailablePrivatePasses,
   getUnavailablePrivatePasses,
+  getCompatibilityPassWithService as getCompatibleServicePass,
 } from '../../libs/private-service/selectors/private-pass';
+import { getPrivateServices } from '../../libs/private-service/selectors/private-service';
 import {
   fetchPrivatePassList,
   fetchAllPrivateServices,
@@ -43,6 +45,8 @@ import {
   upsertPrivatePassCategory,
   updatePrivatePassCategoryOrder,
   deletePrivatePassCategory,
+  fetchCompatibleServicePassList as fetchCompatibleServicePassListAction,
+  fetchAllPrivateSlots,
 } from '../../libs/private-service/actions';
 import PrivatePassListItem from '../../libs/private-service/components/pass/PrivatePassListItem.component';
 import PrivatePassForm from '../../libs/private-service/components/pass/PrivatePassForm.component';
@@ -50,6 +54,7 @@ import type {
   PrivatePass,
   PrivatePassCategory,
   PrivatePassCategoryWithPasses,
+  ServiceCompatibilityPass,
 } from '../../libs/private-service/types';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import FuzeSearch from '../../components/FuzeSearch.component';
@@ -72,6 +77,12 @@ import {
   setPrivatePassSort,
 } from '../../libs/user-preference/actions';
 import { OptionCallback } from '../../state/types';
+import { getFormInitial } from '../../libs/private-service/utils';
+
+type OwnProps = {
+  setOpenDeleteCompatibility: (id: number) => void;
+  openDeleteCompatibilityDialog: number;
+};
 
 type StateHandlerInit = {
   openCreateForm: boolean;
@@ -81,6 +92,7 @@ type StateHandlerInit = {
   showCategoryDialog: boolean;
   selectedPrivatePass: PrivatePass | null;
   selectedCategory: PrivatePassCategory | null;
+  compatibleServicePassOfSelectedPass: ServiceCompatibilityPass | null;
 };
 
 type StateHandlerType = typeof withStateHandlersInit &
@@ -89,9 +101,10 @@ type StateHandlerType = typeof withStateHandlersInit &
 type ConnectedProps = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
 
-type OwnAndConnectedProps = ConnectedProps & StateHandlerType;
+type OwnAndConnectedProps = OwnProps & ConnectedProps & StateHandlerType;
 
-type Props = ConnectedProps &
+type Props = OwnProps &
+  ConnectedProps &
   StateHandlerType &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
@@ -138,6 +151,20 @@ export class PrivatePassList extends React.Component<Props, State> {
       this.props.privatePassByCategory.length
     )
       this.categoryOptions.apply({}, []);
+    if (
+      prevProps.selectedPrivatePass?.id !== this.props.selectedPrivatePass?.id
+    ) {
+      this.props.fetchCompatibleServicePasses();
+    }
+    if (
+      prevProps.compatibleServicePass?.length !==
+        this.props.compatibleServicePass?.length &&
+      !!this.props.selectedPrivatePass
+    ) {
+      this.props.setCompatibleServicePassOfSelectedPass(
+        this.props.compatibleServicePass,
+      );
+    }
   }
 
   onShowDisabled = () => {
@@ -244,8 +271,14 @@ export class PrivatePassList extends React.Component<Props, State> {
     });
   };
 
+  openFormAndUploadCompatibilityInfo = async (pass: PrivatePass) => {
+    this.props.setSelectedPrivatePass(pass);
+    this.props.setOpenEditForm(true);
+  };
+
   render() {
     const { classes, t } = this.props;
+
     if (
       this.props.privatePassList +
         (this.props.disabledPrivatePassList || []).length ===
@@ -260,15 +293,17 @@ export class PrivatePassList extends React.Component<Props, State> {
             onCreate={() => this.props.setOpenCreateForm(true)}
             onCreateLabel={this.props.t('privatePass.list.createButton')}
           />
-          <Dialog open={this.props.openCreateForm}>
-            <DialogTitle>{this.props.t('privatePass.form.title')}</DialogTitle>
-            <DialogContent>
-              <PrivatePassForm
-                privatePassCategories={this.props.privatePassCategories}
-                onSubmit={this.props.createOrUpdatePrivatePass}
-                onCancel={() => this.props.closePrivatePassForm()}
-              />
-            </DialogContent>
+          <Dialog open={this.props.openCreateForm} maxWidth="md" fullWidth>
+            <Typography variant="h4" className={classes.formTitle}>
+              {this.props.t('privatePass.form.title')}
+            </Typography>
+            <PrivatePassForm
+              privatePassCategories={this.props.privatePassCategories}
+              onSubmit={this.props.createOrUpdatePrivatePass}
+              onCancel={() => this.props.closePrivatePassForm()}
+              compatibleServicePass={this.props.compatibleServicePass}
+              privateServices={this.props.privateServices}
+            />
           </Dialog>
         </div>
       );
@@ -310,7 +345,9 @@ export class PrivatePassList extends React.Component<Props, State> {
                       onClick={() => {
                         this.props.goToPass(pass.id);
                       }}
-                      onEdit={() => this.props.setOpenEditForm(pass.id)}
+                      onEdit={() => {
+                        this.openFormAndUploadCompatibilityInfo(pass);
+                      }}
                       onDelete={() =>
                         this.props.setOpenDeletePassDialog(pass.id)
                       }
@@ -358,8 +395,7 @@ export class PrivatePassList extends React.Component<Props, State> {
               setOpenDeletePassDialog={this.props.setOpenDeletePassDialog}
               updatePassOrder={this.props.editOrderPrivatePass}
               onEditPass={(pass) => {
-                this.props.setSelectedPrivatePass(pass);
-                this.props.setOpenEditForm(true);
+                this.openFormAndUploadCompatibilityInfo(pass);
               }}
               updateCategoryOrder={this.props.updatePrivatePassCategoryOrder}
               setSelectedCategory={this.props.setSelectedCategory}
@@ -404,21 +440,30 @@ export class PrivatePassList extends React.Component<Props, State> {
               </Collapse>
             </div>
           ) : null}
-          <Dialog open={this.props.openEditForm || this.props.openCreateForm}>
-            <DialogTitle>{this.props.t('privatePass.form.title')}</DialogTitle>
-            <DialogContent>
-              <PrivatePassForm
-                privatePassCategories={this.props.privatePassCategories}
-                initial={this.props.selectedPrivatePass}
-                onSubmit={this.props.createOrUpdatePrivatePass}
-                onCancel={(ev) => {
-                  ev.stopPropagation();
-                  this.props.closePrivatePassForm();
-                }}
-              />
-            </DialogContent>
+          <Dialog
+            open={this.props.openEditForm || this.props.openCreateForm}
+            maxWidth="md"
+            fullWidth
+          >
+            <Typography variant="h4" className={classes.formTitle}>
+              {this.props.t('privatePass.form.title')}
+            </Typography>
+            <PrivatePassForm
+              privatePassCategories={this.props.privatePassCategories}
+              onSubmit={this.props.createOrUpdatePrivatePass}
+              onCancel={(ev: { stopPropagation: () => void }) => {
+                ev.stopPropagation();
+                this.props.closePrivatePassForm();
+              }}
+              privateServices={this.props.privateServices}
+              initial={getFormInitial(
+                this.props.selectedPrivatePass,
+                this.props.compatibleServicePassOfSelectedPass,
+              )}
+              compatibleServicePass={this.props.compatibleServicePass}
+            />
           </Dialog>
-          <Dialog open={this.props.openDeletePassDialog}>
+          <Dialog open={!!this.props.openDeletePassDialog}>
             <DialogTitle>
               {this.props.t('privatePass.delete.title')}
             </DialogTitle>
@@ -509,6 +554,13 @@ const styles = (theme: Theme) => ({
     paddingTop: theme.spacing(0.5),
     paddingBottom: theme.spacing(2),
   },
+  formTitle: {
+    fontWeight: 500,
+    paddingTop: theme.spacing(4),
+    paddingRight: theme.spacing(4),
+    paddingLeft: theme.spacing(4),
+    paddingBottom: theme.spacing(1),
+  },
 });
 
 const mapStateToProps = (state: RootState) => ({
@@ -526,6 +578,8 @@ const mapStateToProps = (state: RootState) => ({
     state.userPreference.privatePassCategoryFilter,
   userPreferenceSelectedDisponibility:
     state.userPreference.privatePassManagerOnlyFilter,
+  privateServices: getPrivateServices(state),
+  compatibleServicePass: getCompatibleServicePass(state),
 });
 
 const mapDispatchToProps = {
@@ -543,6 +597,8 @@ const mapDispatchToProps = {
   setPrivatePassCategoryFilter,
   setPrivatePassManagerOnlyFilter,
   setPrivatePassSort,
+  fetchPrivateSlotsByService: fetchAllPrivateSlots,
+  fetchCompatibleServicePassList: fetchCompatibleServicePassListAction,
 };
 
 const withStateHandlersInit: StateHandlerInit = {
@@ -553,6 +609,7 @@ const withStateHandlersInit: StateHandlerInit = {
   showCategoryDialog: false,
   selectedPrivatePass: null,
   selectedCategory: null,
+  compatibleServicePassOfSelectedPass: null,
 };
 
 const withStateHandlersSetter = {
@@ -574,6 +631,13 @@ const withStateHandlersSetter = {
   setSelectedPrivatePass: () => (selectedPrivatePass: PrivatePass | null) => {
     return { selectedPrivatePass };
   },
+  setCompatibleServicePassOfSelectedPass:
+    () =>
+    (
+      compatibleServicePassOfSelectedPass: ServiceCompatibilityPass[] | null,
+    ) => {
+      return { compatibleServicePassOfSelectedPass };
+    },
   setSelectedCategory: () => (selectedCategory: PrivatePassCategory | null) => {
     return { selectedCategory };
   },
@@ -583,6 +647,7 @@ const withStateHandlersSetter = {
       openEditForm: false,
       openDeletePassDialog: null,
       selectedPrivatePass: null,
+      compatibleServicePassOfSelectedPass: null,
     };
   },
   closePrivatePassCategoryForm: () => () => {
@@ -617,7 +682,7 @@ const mapWithHandlers = {
     props.closePrivatePassForm();
   },
   createOrUpdatePrivatePass:
-    (props: OwnAndConnectedProps) => (data, options?: OptionCallback) => {
+    (props: OwnAndConnectedProps) => (data: any, options?: OptionCallback) => {
       props.createOrUpdatePrivatePass(
         data,
         props.selectedPrivatePass?.id || null,
@@ -632,6 +697,16 @@ const mapWithHandlers = {
         },
       );
     },
+  fetchCompatibleServicePasses: (props: Props) => () => {
+    if (props.selectedPrivatePass) {
+      props.fetchCompatibleServicePassList(props.selectedPrivatePass.id, {
+        onSuccess: (csps) =>
+          props.fetchPrivateSlotsByService({
+            private_service__in: csps.map((c) => c.private_service),
+          }),
+      });
+    }
+  },
 };
 
 export default compose(
@@ -641,7 +716,12 @@ export default compose(
   withTranslation(['privateService']),
   withTitle(({ t }) => t('pageTitles.passList')),
   withStyles(styles),
-  connect(mapStateToProps, mapDispatchToProps),
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
+  connect(mapStateToProps, mapDispatchToProps),
+  withState(
+    'openDeleteCompatibilityDialog',
+    'setOpenDeleteCompatibility',
+    false,
+  ),
   withHandlers(mapWithHandlers),
 )(PrivatePassList);

@@ -1,63 +1,66 @@
 import { Meta, Canvas, Story } from '@storybook/addon-docs';
-import PrivateSlotSelector from './PrivateServiceSelector.component';
+import PrivateServiceSelector from './PrivateServiceSelector.component';
 import { action } from '@storybook/addon-actions';
 import { private_services_factory } from '../../factory.ts';
 
-<Meta 
-    title="Library/PrivateBooking/Selector/PrivateServiceSelector"
-    component={PrivateSlotSelector}
-    argTypes={{
-        privateServices:{
-            description: "list of every private service available for booking",
-        },
-        privateServiceId:{
-            description: "id of the currently selected private service",
-            defaultValue: null,
-        },
-        isDisabled:{
-            description: "when true, prevents the user from selecting a private service",
-            defaultValue: false,
-        },
-        onChange:{
-            description: "action to execute when the selected service changes",
-        },
-    }}
+<Meta
+  title="Library/PrivateBooking/Selector/PrivateServiceSelector"
+  component={PrivateServiceSelector}
+  argTypes={{
+    privateServices: {
+      description: 'list of every private service available for booking',
+    },
+    privateServiceId: {
+      description: 'id of the currently selected private service',
+      defaultValue: null,
+    },
+    isDisabled: {
+      description:
+        'when true, prevents the user from selecting a private service',
+      defaultValue: false,
+    },
+    onChange: {
+      description: 'action to execute when the selected service changes',
+    },
+  }}
 />
 
 export const actionsData = {
-    onChange: action('onChange')
+  onChange: action('onChange'),
 };
 
-export const Template = (args) => <PrivateSlotSelector {...args} />;
+export const Template = (args) => <PrivateServiceSelector {...args} />;
 
 export const privateServices = private_services_factory(5);
 
 #SELECT A PRIVATE SERVICE
 
 <Canvas>
-    <Story
+  <Story
     name="select"
     args={{
-        privateServices: privateServices,
-        privateServiceId: null,
-        isDisabled: false,
-        onChange: actionsData.onChange,
-    }}>
+      privateServices: privateServices,
+      privateServiceId: null,
+      isDisabled: false,
+      onChange: actionsData.onChange,
+    }}
+  >
     {Template.bind({})}
-    </Story>
+  </Story>
 </Canvas>
 
 #SELECTED PRIVATE SERVICE
 
 <Canvas>
-    <Story
+  <Story
     name="select-with-selected-service"
     args={{
-        privateServices: privateServices,
-        privateServiceId: privateServices[0].id,
-        isDisabled: false,
-        onChange: actionsData.onChange,
-    }}>
+      privateServices: privateServices,
+      privateServiceId: privateServices[0].id,
+      isDisabled: false,
+      onChange: actionsData.onChange,
+    }}
+  >
     {Template.bind({})}
-    </Story>
+  </Story>
 </Canvas>

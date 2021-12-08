@@ -43,7 +43,7 @@
                 "title": "Taak"
             },
             "actions": {
-                "cancel": "Archief",
+                "cancel": "Archiveren",
                 "restart": "Opnieuw",
                 "finish": "Afronden",
                 "addTask": "Een taak toevoegen"
@@ -58,7 +58,7 @@
             "sectionTitle": {
                 "past": "Gearchiveerde taken",
                 "future": "Geplande taken",
-                "pending": "Huidige taken"
+                "pending": "Openstaande taken"
             }
         }
     },
@@ -437,8 +437,8 @@
             "forms": {
                 "register": {
                     "forceNotify": "Een bevestigingsmail versturen",
-                    "passCompatibleNotOwnedByMember": "Een nieuwe leskaart factureren",
-                    "passOwnedByMember": "Leskaart(en) die het lid bezit",
+                    "passCompatibleNotOwnedByMember": "Nieuwe kaart factureren",
+                    "passOwnedByMember": "Beschikbare kaarten",
                     "registerToOffer": "Voor de sessie aanmelden",
                     "doNotConsumeCredit": "Geen kredieten voor leden hun inschrijving aftrekken"
                 }
@@ -1100,7 +1100,7 @@
         "booking": {
             "seeCustomers": "Bekijk reserveringen",
             "free": "Beschikbare plaats(en)",
-            "confirmed": "Bevestigd",
+            "confirmed": "Reserveringen",
             "waiting": "Wachtlijst",
             "lastBooking": "Volgende les",
             "sources": {
@@ -1464,7 +1464,7 @@
             "refresh": "Vernieuwen"
         },
         "campaign": {
-            "showMail": "Toon de e-mail",
+            "showMail": "Toon e-mail",
             "sentAt": "Verzonden op {{ date_created }}",
             "readCount": "Aantal keer geopend",
             "clickCount": "Aantal keer geklikt",
@@ -1492,7 +1492,7 @@
         "recipient": {
             "readCount": "Aantal keer geopend",
             "clicksCount": "Aantal keer geklikt",
-            "showEmail": "Toon de e-mail",
+            "showEmail": "Toon e-mail",
             "status": {
                 "0": "Bezig",
                 "1": "Bezig",
@@ -2039,7 +2039,7 @@
         "alert_kind": {
             "1": "Facturatie",
             "2": "Bestelling",
-            "3": "Taak",
+            "3": "Openstaande taken",
             "4": "Te voltooien afspraak",
             "5": "Juridische kennisgeving"
         },
@@ -2109,7 +2109,7 @@
                 },
                 "title": "Terugbetaling",
                 "warningSecond": "Als je het lid wenst te vergoeden via een bankoverschrijving met de gebruikte betaalmethode, annuleer dan de factuur en betaal hem/haar niet in krediet terug!",
-                "warningFirst": "Waarschuwing! Deze actie is definitief. (Maakt een factuur aan)",
+                "warningFirst": "Waarschuwing: deze actie is definitief en genereert een factuur.",
                 "blockUnlimited": "Leskaart blokkeren"
             },
             "details": {
@@ -3533,7 +3533,7 @@
         "disabled": "Geannuleerd",
         "credit_price": " Krediet(en)",
         "booking": {
-            "confirmed": "Bevestigd",
+            "confirmed": "Reserveringen",
             "fillRate": "Bezettingsgraad",
             "waiting": "Wachtlijst"
         },
@@ -3890,7 +3890,7 @@
         "details": {
             "pleaseSelectABooking": "Selecteer een reservering om meer informatie te zien.",
             "title": "Gegevens",
-            "offerTitle": "Gekoppelde reserveringen",
+            "offerTitle": "Gekoppelde reservering",
             "consumerPaymentPackTitle": "Gebruikte kaart"
         },
         "source": {
@@ -3925,7 +3925,7 @@
             "notRefunded": "Niet terugbetaald",
             "isRefunded": "Terugbetaald",
             "refunded": "Terugbetalingen",
-            "pastBooking": "Verlopen reserveringen",
+            "pastBooking": "Oude reserveringen",
             "futureBooking": "Toekomstige reserveringen",
             "time": "Ontwikkeling",
             "attendance": "Aanwezigheid",
@@ -5223,7 +5223,7 @@
                 },
                 "pleaseSelectCoachAndSlot": "Selecteer eerst een instructeur en een sessie",
                 "cancel": "Annuleren",
-                "compatiblePrivatePass": "Een afspraakkaart factureren",
+                "compatiblePrivatePass": "Nieuwe afspraakkaart factureren",
                 "emptyPrivateConsumerPass": "Dit lid bezit momenteel nog geen compatibele afspraakkaart.",
                 "emptyPrivatePass": "Er zijn geen compatibele afspraakkaarten om weer te geven.",
                 "privateConsumerPassNeedRefresh": "Verversen"
@@ -5319,7 +5319,7 @@
             "disableAvailability": "Beschikbaarheid verwijderen",
             "enableRecurrentAvailability": "Terugkerende beschikbaarheid toevoegen",
             "disableRecurrentAvailability": "Terugkerende beschikbaarheid verwijderen",
-            "addBooking": "Een afspraak inplannen",
+            "addBooking": "[Formulier] Afspraak inplannen",
             "toogle": {
                 "showOfferList": "Groepsactiviteiten",
                 "showPrivateBookings": "Afspraken",
@@ -5484,7 +5484,7 @@
                     },
                     "submit": "Aanmaken",
                     "cancel": "Annuleren",
-                    "title": "Geldigheid van een leskaart verlengen"
+                    "title": "[Formulier] Geldigheidsduur verlengen"
                 },
                 "delete": {
                     "confirm": "Bevestigen",
@@ -5513,8 +5513,9 @@
                 "title": "{{ service }} sessie(s)",
                 "isEmpty": "Configureer de compatibiliteit van deze afspraakkaart met de juiste sessie(s)!"
             },
-            "forSlots": "Compatibele sessie(s):",
-            "allSlots": "Compatibel met alle sessies"
+            "forSlots": "Compatibele sessies:",
+            "allSlots": "Compatibel met alle sessies",
+            "none": " Geen"
         },
         "privatePass": {
             "validForDuration": {
@@ -5525,48 +5526,51 @@
             },
             "form": {
                 "credits": {
-                    "label": "Aantal inbegrepen krediet(en)",
-                    "helperText": "Geef het aantal inbegrepen kredieten aan."
+                    "label": "Aantal kredieten",
+                    "helperText": "Geef aan hoeveel iedere afspraak in kredieten kost."
                 },
                 "durationDays": {
                     "helperText": "Geldigheidsduur (in dagen) ",
-                    "label": "Geldigheidsduur (in dagen) indien van toepassing"
+                    "label": "Geldigheidsduur (in dagen)"
                 },
-                "title": "Afspraakkaarten",
+                "title": "[Formulier] Afspraakkaart",
                 "managerOnly": {
                     "label": "Niet beschikbaar voor leden"
                 },
                 "name": {
-                    "label": "Naam"
+                    "label": "Naam",
+                    "helperText": "Naam van de afspraakkaart"
                 },
                 "tax": {
                     "label": "Btw"
                 },
                 "durationMonths": {
-                    "label": "Geldigheidsduur (in maanden) indien van toepassing",
+                    "label": "Geldigheidsduur (in maanden)",
                     "helperText": "Dit wordt bij het aantal dagen opgeteld."
                 },
                 "durationYears": {
-                    "label": "Geldigheidsduur (in jaren) indien van toepassing",
+                    "label": "Geldigheidsduur (in jaren)",
                     "helperText": "Dit wordt bij het aantal dagen en maanden opgeteld."
                 },
                 "available_payment_method_identifiers": {
                     "label": "Geaccepteerde betaalmethoden",
-                    "helperText": "Selecteer ten minste één betaalmethode. Als je geen enkele betaalmethode selecteert, dan biedt het systeem automatisch een creditcardbetaling aan."
+                    "helperText": "Selecteer ten minste één betaalmethode. Als je geen enkele betaalmethode selecteert, dan biedt het systeem automatisch een creditcardbetaling aan.",
+                    "warning": "Maak deze afspraakkaart beschikbaar voor leden om de geaccepteerde betaalmethode(n) in te stellen."
                 },
                 "actions": {
                     "submit": "Opslaan",
                     "cancel": "Annuleren"
                 },
                 "price": {
-                    "label": "Prijs"
+                    "label": "Prijs (incl. btw)",
+                    "helperText": "Dit is de verkoopprijs."
                 },
                 "full_vod_access": {
-                    "label": "Geeft toegang tot de Video On Demand (indien beschikbaar)"
+                    "label": "Activeer toegang tot Video On Demand"
                 },
                 "expirationDaysBeforeFirstUse": {
-                    "helperText": "Vervaldatum van de afspraakkaart indien de afspraakkaart niet binnen X aantal dagen gebruikt is.",
-                    "label": "Vervaldatum als er geen afspraak is gemaakt"
+                    "helperText": "De afspraakkaart vervalt automatisch als het niet binnen X aantal dagen gebruikt wordt.",
+                    "label": "Automatische vervaldatum:"
                 },
                 "start_date_method": {
                     "on_attendance": "Geldig vanaf de 1e aanwezigheid",
@@ -5575,6 +5579,30 @@
                 },
                 "new_member_only": {
                     "label": "Alleen voor nieuwe leden"
+                },
+                "start_date_method_detail": {
+                    "on_attendance": " vanaf de 1e aanwezigheid",
+                    "on_booking": " vanaf de 1e reservering",
+                    "on_purchase": " vanaf de aankoopdatum"
+                },
+                "startDate": "Startdatum",
+                "duration": {
+                    "and": " en ",
+                    "years": "{{ count }} jaar",
+                    "years_plural": "{{ count }} jaar",
+                    "daysMonths": "{{ duration_months }} maand(en) en {{ duration_days }} jaar",
+                    "months": "{{ count }} maand(en)",
+                    "days": "{{ count }} dag",
+                    "days_plural": "{{ count }} dagen",
+                    "valid": "Geldig voor ",
+                    "fullText": "Deze afspraakkaart is geldig voor "
+                },
+                "category": "Naam van de categorie",
+                "categoryTitle": {
+                    "compatibility": "Compatibiliteit",
+                    "validity": "Geldigheid",
+                    "paymentMeans": "Geaccepteerde betaalmethode(n)",
+                    "info": "Algemene informatie"
                 }
             },
             "delete": {
@@ -5600,7 +5628,8 @@
             "compatibleServices": {
                 "title": "Compatibele afspraken",
                 "add": "Toevoegen",
-                "isEmpty": "Waarschuwing! Je hebt nog geen compatibele afspraak/afspraken ingesteld."
+                "isEmpty": "Waarschuwing: er zijn geen compatible afspraken aan deze afspraakkaart gekoppeld.",
+                "unusable": "Niet bruikbaar"
             },
             "edit": "Wijzigen",
             "disabledTitle": "Gearchiveerde afspraakkaarten"
@@ -5638,7 +5667,7 @@
                     "isWithEstablishment": {
                         "isEmpty": "Er is geen vestiging geconfigureerd.",
                         "label": "Selecteer vestiging(en)",
-                        "helperText": "Reserveren is alleen mogelijk als de zaal voldoende vrije plaatsen heeft"
+                        "helperText": "Reserveringen is alleen mogelijk als er voldoende vrije plaatsen zijn."
                     }
                 },
                 "resourceGroup": {
@@ -5650,13 +5679,13 @@
                     "helperText": "Voorbeeld: een instructeur kan 2 leden afzonderlijk bijstaan op 2 toestellen. "
                 },
                 "use_full_establishment_capacity": {
-                    "label": "Vereist de hele zaal",
+                    "label": "Vereist de gehele vestiging",
                     "helperText": "Schakel het selectievakje uit om tegelijkertijd meerdere activiteiten/afspraken in dezelfde ruimte toe te staan als de capaciteit dit toelaat."
                 },
                 "title": "Afspraak",
                 "createButton": "Een afspraak toevoegen",
                 "addCoach": "Een instructeur toevoegen",
-                "addEstablishment": "Een zaal toevoegen",
+                "addEstablishment": "Een zaal of vestiging toevoegen",
                 "addSlot": "Een sessie toevoegen",
                 "is_home_service": {
                     "label": "Thuis",
@@ -5675,7 +5704,7 @@
                     "isEmpty": "Selecteer een of meerdere instructeurs!"
                 },
                 "establishment": {
-                    "label": "Zaal"
+                    "label": "Vestiging"
                 },
                 "description": {
                     "label": "Beschrijving"
@@ -5729,7 +5758,7 @@
                 },
                 "placeholder": "Selecteer een afspraak",
                 "establishment": {
-                    "label": "Zaal"
+                    "label": "Vestiging"
                 }
             },
             "detail": {
@@ -5748,7 +5777,7 @@
                 "totalCapacity": "Maximale capaciteit: {{capacity}} lid/leden",
                 "noFutureSlot": "De beschikbaarheid van {{resourceName}} is nog niet correct ingesteld. Klik hier om de beschikbaarheid te configureren.",
                 "title": "Beschikbaarheid",
-                "isAlwaysAvailable": "{{resourceName}} is te boeken zodra de zaal en/of de instructeurs beschikbaar zijn",
+                "isAlwaysAvailable": "{{resourceName}} is te boeken zodra de vestiging(en) en/of de instructeur(s) beschikbaar zijn.",
                 "changeIsAlwaysAvailable": "Bewerken"
             },
             "navigation": {
@@ -5822,7 +5851,7 @@
         },
         "privateEstablishment": {
             "delete": {
-                "title": "Uitschrijven van de zaal",
+                "title": "Vestiging verwijderen",
                 "explain": "Weet je zeker dat je de locatie van deze afspraak wilt wijzigen? Zonder vestiging wordt het beschouwd als een thuisafspraak. Leden moeten hun adres invoeren om de reservering te voltooien. Bestaande reserveringen worden niet gewijzigd.",
                 "cancel": "Annuleren",
                 "submit": "Bevestigen"
@@ -6563,7 +6592,7 @@
             },
             "private_consumer_pass_links": {
                 "relink": {
-                    "error": "Deze afsprakenkaart kan niet worden gedeeld",
+                    "error": "Deze afspraakkaart kan niet worden gedeeld",
                     "success": "Kaart wordt gedeeld"
                 },
                 "unlink": {
@@ -6571,7 +6600,7 @@
                     "success": "Delen gestopt"
                 },
                 "create": {
-                    "error": "Deze afsprakenkaart kan niet worden gedeeld",
+                    "error": "Deze afspraakkaart kan niet worden gedeeld",
                     "success": "Gedeelde afspraakkaart"
                 }
             },
@@ -7315,7 +7344,7 @@
                     "cancel": "Annuleren"
                 },
                 "relink": {
-                    "explain": "Delen wordt weer geactiveerd.",
+                    "explain": "Het delen van deze kaart wordt opnieuw geactiveerd.",
                     "cancel": "Annuleren",
                     "title": "Opnieuw delen",
                     "submit": "Delen"
@@ -7374,7 +7403,7 @@
                 }
             },
             "list": {
-                "isEmpty": "Geen gedeelde afspraakkaarten",
+                "isEmpty": "Er zijn geen gedeelde afspraakkaarten om weer te geven.",
                 "create": "Een afspraakkaart delen",
                 "title": "Gedeelde afspraakkaarten"
             }
@@ -9179,7 +9208,7 @@
                 "isMandatoryOnSignUp": "Dit is een verplichte vraag",
                 "waiver": "Waiver / Vrijstelling",
                 "repeatPassword": "Bevestig je wachtwoord",
-                "general_terms_and_conditions": "Ik ga akkoord met de algemene gebruiksvoorwaarden.",
+                "general_terms_and_conditions": "de algemene gebruiksvoorwaarden.",
                 "country": "Land",
                 "city": "Stad",
                 "additional_adress": "Aanvulling adres",
@@ -9309,8 +9338,8 @@
                         "title": "Toon de regels",
                         "snoozeOptionHelperText": "We tonen dit formulier opnieuw nadat het {{count}} uur/uren gesnoozed is.",
                         "snoozeOptionLabel": "Snoozen (in uren)",
-                        "force_display": "Toon dit formulier ook aan leden die dit formulier voorheen hebben ingevuld",
-                        "snoozeOption": "Sta leden toe om dit formulier later in te vullen"
+                        "force_display": "Forceer de weergave van dit formulier aan leden die het de vorige keer ook al hebben ingevuld",
+                        "snoozeOption": "Geef leden de mogelijkheid om dit formulier later in te vullen (\"snoozen\")"
                     },
                     "errors": {
                         "timedeltaBeforeDisplayMustBeGraterThanZero": "De waarde moet groter dan 0 zijn."
@@ -9319,7 +9348,7 @@
                 "kind": {
                     "connectionHelperText": "Deze melding wordt alleen naar leden gestuurd die al langer dan {{count}} dag(en) lid zijn.",
                     "connectionLabel": "Lid sinds... (in dagen)",
-                    "connection": "Reeds ingeschreven leden",
+                    "connection": "Bestaande leden",
                     "signUpAlreadyExists": " Bestaande regel",
                     "signUp": "Nieuwe leden"
                 },
@@ -9549,8 +9578,8 @@
                     "label": "Beschrijving"
                 },
                 "available_payment_method_identifiers": {
-                    "label": "Beschikbare betaalmethoden",
-                    "helperText": " "
+                    "label": "Geaccepteerde betaalmethode(n)",
+                    "helperText": "  "
                 },
                 "name": {
                     "label": "Naam"
@@ -9575,7 +9604,7 @@
             },
             "detail": {
                 "manager_only": "Kan niet door leden online worden gekocht",
-                "availablePaymentMethods": "Beschikbare betaalmethoden",
+                "availablePaymentMethods": "Geaccepteerde betaalmethode(n)",
                 "expirationDate": "Geldigheid voor de vervaldatum: {{ expiration_days }} dag(en)"
             },
             "configurationTitle": "Cadeaubon"

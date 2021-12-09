@@ -570,7 +570,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
               ? 'zoomOut,zoomIn resourceTimeGridDay,resourceTimeGridThreeDays,resourceTimeGridWeek'
               : 'zoomOut,zoomIn timeGridDay,timeGridWeek,dayGridMonth',
           }}
-          schedulerLicenseKey="0683005223-fcs-1587553109"
+          schedulerLicenseKey="0617518912-fcs-1639035029"
           filterResourcesWithEvents
           resources={this.props.resources}
           editable

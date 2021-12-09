@@ -1094,7 +1094,9 @@
             },
             "packs": {
                 "title": "Tarjetas de clase"
-            }
+            },
+            "closeMemberMatch": "¿Busca a este miembro?",
+            "archived": "Miembros archivados"
         },
         "actions": {
             "addMember": "Añadir un miembro"
@@ -1679,7 +1681,8 @@
             "actions": "acciones",
             "name": " Apellido"
         },
-        "description": "Descripción"
+        "description": "Descripción",
+        "favouriteLocation": "Ubicación preferida"
     },
     "order": {
         "products": {
@@ -2166,12 +2169,18 @@
                 },
                 "accountNumber": {
                     "placeholder": "FR89370400440532013000",
-                    "label": "Identificador bancario (IBAN)"
+                    "label": "Identificador bancario (IBAN)",
+                    "eurSpecific": " (IBAN)"
                 },
                 "invalid": "IBAN inválido. Tiene en cuenta: el IBAN debe corresponder a una cuenta bancaria domiciliada en el mismo país que tu empresa",
                 "content": "Esta cuenta bancaria se utilizará para transferirle los montos pagados en línea a través de bsport.",
                 "title": "Cuenta bancaria",
-                "unknownCountry": "Operación manual para este país, por favor contacte a bsport a través de contact@bsport.io"
+                "unknownCountry": "Operación manual para este país, por favor contacte a bsport a través de contact@bsport.io",
+                "routingNumber": {
+                    "usdSpecific": " (número de ruta ACH)",
+                    "placeholder": "000001",
+                    "label": "Número de ruta"
+                }
             }
         },
         "payment": {
@@ -2244,6 +2253,19 @@
             "year_plural": "años",
             "month": "mes",
             "month_plural": "meses"
+        },
+        "subscriptionPaymentDialog": {
+            "error": {
+                "button_text": "Inténtalo de nuevo",
+                "text_status": "Su compra no ha podido ser completada.",
+                "text_content": "Su compra no ha podido completarse, puede intentarlo de nuevo haciendo clic en el botón de abajo o puede volver a la lista de suscripciones cerrando esta ventana."
+            },
+            "success": {
+                "button_text": "Continuar",
+                "text_status": "¡Compra exitosa!",
+                "text_content": "Su compra ha sido procesada, ahora puede encontrar los detalles de su suscripción en su área de miembros."
+            },
+            "title": "Comprar una suscripción"
         }
     },
     "invoice": {
@@ -3568,7 +3590,10 @@
         "close": "Cerrar",
         "deleteImpossibleText": "No puede borrar esta sesión porque tiene reservas abiertas.",
         "deleteImpossibleTitle": "No se puede eliminar la sesión",
-        "restoreOffer": "Restablecer la sesión"
+        "restoreOffer": "Restablecer la sesión",
+        "maximumNumberDescription": "Ya se ha alcanzado el número máximo de {{effectif}} reservas y al inscribir a este miembro se superará el número original de reservas. ¿Está seguro de que quiere registrar a este miembro?",
+        "maximumNumber": "Número máximo de reservas",
+        "warningOfferFull": "Ya se ha alcanzado el número máximo de reservas"
     },
     "member": {
         "date_joined": "Fecha de registro",
@@ -3738,7 +3763,34 @@
             "unknown": "Estado del pase sanitario desconocido",
             "notDone": "Sin tarjeta sanitaria válida",
             "done": "Tarjeta sanitaria válida"
-        }
+        },
+        "noMember": "En este momento no hay miembros para mostrar.",
+        "noData": "No hay miembros en esta smartlist.",
+        "archive": {
+            "dialog": {
+                "actions": {
+                    "confirm": "Confirmar",
+                    "close": "Cerrar"
+                },
+                "warning": {
+                    "general": "Hemos identificado los siguientes puntos, le aconsejamos que regularice la cuenta de este cliente antes de archivarla:",
+                    "6": "Cita(s) programada(s)",
+                    "5": "Reserva(s) recurrente(s) registrada(s)",
+                    "4": "Futura(s) reserva(s) prevista(s)",
+                    "3": "Suscripción con renovación automática en curso",
+                    "2": "Suscripción actual",
+                    "1": "Factura(s) impagada(s)",
+                    "0": "Saldo interno negativo"
+                },
+                "helper_text_2": "Este miembro ya no aparecerá en su lista de miembros.",
+                "helper_text_1": "¿Estás seguro de que quieres archivar a este miembro?",
+                "title": "Archivar un miembro"
+            },
+            "archivedMember": "Miembro archivado : {{name}}"
+        },
+        "termsOfUse": "Condiciones generales de uso",
+        "archived": "Archivado",
+        "restoreMember": "Restaurar"
     },
     "booking": {
         "details": {
@@ -3921,7 +3973,17 @@
                 "bookingNumberFirst": "1ª reserva",
                 "bookingNumberThird": "3rd booking",
                 "bookingNumberSecond": "2ª reserva",
-                "bookingNumberN": "{{notify_booking_nb}}la reserva"
+                "bookingNumberN": "{{notify_booking_nb}}la reserva",
+                "needPushUpsell": "No te has suscrito al complemento de notificaciones push",
+                "push": "Notificación push",
+                "mail": "Correo",
+                "sendingMethod": "Método de envío",
+                "sendAfterNotifications": "Enviar notificaciones al miembro después de la sesión afectada por la notificación",
+                "sendAfterNotification": "Enviar una notificación push al miembro después de la sesión afectada por la notificación",
+                "sendBeforeNotifications": "Enviar las notificaciones al socio antes de la reunión a la que se refiere la notificación",
+                "sendBeforeNotification": "Enviar la notificación push al socio antes de la reunión a la que se refiere la notificación",
+                "addVariable": "Añadir una etiqueta",
+                "pushHelper": "Cuidado, las notificaciones push deben utilizarse con moderación. Demasiadas notificaciones push pueden llevar a algunos miembros a desinstalar la aplicación."
             },
             "addNotification": "Añadir una notificación"
         },
@@ -5262,7 +5324,13 @@
                 "chooseWhen": {
                     "after": "Envía el email al cliente después de la cita",
                     "before": "Envíe el email al cliente antes de la cita",
-                    "title": "Tipo de notificación"
+                    "title": "Tipo de notificación",
+                    "afterNotification": "Enviar una notificación push al afiliado después de la cita a la que se refiere la notificación",
+                    "afterNotifications": "Enviar notificaciones al afiliado después de la cita a la que se refiere la notificación",
+                    "afterMail": "Enviar el correo electrónico al afiliado después de la cita a la que se refiere la notificación",
+                    "beforeNotification": "Enviar la notificación push al afiliado antes de la cita a la que se refiere la notificación",
+                    "beforeNotifications": "Enviar notificaciones al afiliado antes de la cita para la que se realiza la notificación",
+                    "beforeMail": "Enviar el correo electrónico al afiliado antes de la cita a la que se refiere la notificación"
                 },
                 "help": {
                     "cancelledNotRefunded": {
@@ -5305,7 +5373,9 @@
             "validate": "Validar"
         },
         "searshAppointmentPass": "Buscar una tarjeta RDV",
-        "search": "Buscar de una cita"
+        "search": "Buscar de una cita",
+        "categoryTitle": "Categorías de tarjetas de citas",
+        "disabledPacksTitle": "Tarjetas de citas archivadas"
     },
     "reminder": {
         "task": {
@@ -5906,7 +5976,7 @@
                     "_label": "Acceso al perfil de los miembros"
                 },
                 "create": {
-                    "_label": "Crear"
+                    "_label": "Creación de miembro"
                 },
                 "_label": "Miembro"
             },
@@ -5928,6 +5998,15 @@
             "appbarActions": {
                 "_helper": "Creación de socios, informe de pago en sitio..",
                 "_label": "Actions appbar"
+            },
+            "appbarButtons": {
+                "notificationCenter": {
+                    "_label": "Centro de notificaciones"
+                },
+                "ledger": {
+                    "_label": "Libro de caja"
+                },
+                "_label": "Barra de aplicación de acciones"
             }
         }
     },
@@ -7049,7 +7128,7 @@
             "isOwnerOfShares": "Compartido (bono maestro)",
             "isFromShare": "Compartido desde otra cuenta"
         },
-        "validity": "Válido:",
+        "validity": "Válido: ",
         "maxNBookingsByWeek2": " reservas por semana",
         "maxNBookingsByWeek1": "Hasta ",
         "enableConsumer": "Desbloquear",
@@ -7266,7 +7345,9 @@
                 "typeTitle": "Tipo de notificación",
                 "mailTitle": "Mail para enviar",
                 "selectToShowPreview": "Selecciona un email para tener su visión general",
-                "noMailAvailable": "Ningún mail disponible, recorda crear uno"
+                "noMailAvailable": "Ningún mail disponible, recorda crear uno",
+                "pushTitle": "Configuración de las notificaciones",
+                "mailSettings": "Configuración del correo"
             },
             "addButton": "Añadir una notificación",
             "listItem": {
@@ -7371,7 +7452,8 @@
             "scaleCredit": "Mult/div créditos",
             "delete": "Suprimir",
             "edit": "Modificar",
-            "massExtension": "Extender la validez"
+            "massExtension": "Extender la validez",
+            "close": "Cerrar"
         },
         "notificationForm": "Formulario de notificación",
         "link": {
@@ -7413,8 +7495,17 @@
         "validForDuration": {
             "general": "Válido {{ duration_days }} días {{ duration_months }} meses y {{ duration_years }} año",
             "years": "Válido {{ duration_years }} año",
+            "years_plural": "Válido {{ duration_years }} años",
             "months": "Válido {{ duration_months }} meses",
-            "days": "Válido {{ duration_days }} días"
+            "days": "Válido {{ duration_days }} día",
+            "days_plural": "Válido {{ duration_days }} días",
+            "and": " y ",
+            "attendance": "a partir de la primera presencia",
+            "booking": "a partir de la primera reservación",
+            "purchase": "a partir de la fecha de facturación",
+            "daysMonths": "{{ duration_months }} meses y {{ duration_days }} días",
+            "validFor": "durante ",
+            "valid": "Válido "
         },
         "disabledPacks": {
             "hide": "Ocultar las tarjetas archivadas",
@@ -7483,6 +7574,197 @@
             "empty": "No hay tarjetas en esta categoría",
             "name": "Sin categoría",
             "help": "Estos pases aparecerán en una categoría sin nombre en el mercado"
+        },
+        "noUnauthorizedTag": "Ningún tag no autorizado",
+        "noAuthorizedTag": "Ningún tag autorizado",
+        "blackList": "Tags no autorizados",
+        "whiteList": "Tags autorizados",
+        "activities": "Actividades",
+        "categories": "Categorías",
+        "establishments": "Salas",
+        "accessibility": {
+            "onsitePayment": "Se permite el pago en el momento",
+            "managerOnly": "Invisible en venta",
+            "newMembers": "Solo para nuevos clientes"
+        },
+        "tags": {
+            "blackList": "{{ count }} tag no autorizado",
+            "blackList_plural": "{{ count }} tag no autorizados",
+            "whiteList": "{{ count }} tag autorizado",
+            "whiteList_plural": "{{ count }} tag autorizados"
+        },
+        "full_vod": "Válido para VOD",
+        "seeAll": "Ver todo",
+        "compatibility": {
+            "and": " y ",
+            "establishments": "{{ count }} sala",
+            "establishments_plural": "{{ count }} salas",
+            "activities": "{{ count }} actividad",
+            "activities_plural": "{{ count }} actividades",
+            "categories": "{{ count }} categoría",
+            "categories_plural": "{{ count }} categorías",
+            "compatible": "Compatible con ",
+            "all": "Compatible con todos los"
+        },
+        "selector": {
+            "noAvailable": "No hay tarjeta correspondiente a la disponibilidad elegida",
+            "noManagerOnly": "Disponible para la venta",
+            "managerOnly": "No disponible para la venta",
+            "filterManagerOnly": "Todas las disponibilidades",
+            "filterCategory": "Todas las categorías",
+            "titleSort": "Ordenar",
+            "titleManagerOnly": "Disponibilidad para la venta",
+            "titleCategory": "Categorías",
+            "sorting": {
+                "descendingCredit": "Disminución del crédito",
+                "ascendingCredit": "Crecimiento del crédito",
+                "descendingPrice": "Precio descendente",
+                "ascendingPrice": "Aumento del precio",
+                "customSort": "Pedido del lado del cliente (mercado y aplicación)"
+            }
+        },
+        "cardDetails": {
+            "packBlocking2": " cancelaciones fuera de plazo durante una semana",
+            "packBlocking1": " días de bloqueos tras ",
+            "maxPurchasePerMember": "Número máximo de compras : ",
+            "maxBookingPerDay": "Utilizaciones máximum por día ",
+            "maxBookingPerWeek": "Utilización máximum por semana ",
+            "maxBookingPerMonth": "Utilizaciones máximum por mes "
+        },
+        "detailTitles": {
+            "vod": "VOD",
+            "restrictions": "Restricciones",
+            "tags": "Tags",
+            "accessibility": "Accesibilidad",
+            "compatibility": "Compatibilidad",
+            "validity": "Validez",
+            "credit_quantity": "Número de créditos"
+        },
+        "unlimitedAndCalculatedMargin": " - Contribución marginal teórica calculada: precio / nb_bookings ",
+        "unlimitedAndMargin": " - Contribución marginal teórica de ",
+        "unlimitedPlural": "ilimitados",
+        "validityTo": " al ",
+        "addPaymentPack": {
+            "sumNotZero": "el número final de días no puede ser cero",
+            "only_vod_access": "Restringir el uso de la tarjeta sólo a VOD",
+            "vodAccessCard": "Da acceso a la VOD",
+            "vod": "VOD",
+            "compatibility": "Su tarjeta sólo será compatible con las sesiones correspondientes a una de las categorías seleccionadas Y una de las sedes seleccionadas Y una de las actividades seleccionadas",
+            "letBlank": "Déjelo vacío para permitirlo todo",
+            "activities": "Actividades",
+            "room": "Salas",
+            "categories": "Categorías",
+            "inShopPayment": "Posibilidad de pagar en el momento",
+            "notForSell": "Indisponible para la venta",
+            "newClientOnly": "Solo para nuevos clientes",
+            "maxUseMember": "Compra máxima por miembro",
+            "maxUseMonth": "Usos máximos por mes",
+            "maxUseWeek": "Usos máximos por semana",
+            "maxUseHelper": "Dejar vacío para no imponer un límite",
+            "maxUseDay": "Usos máximos por día",
+            "restriction": "Restricciones",
+            "penalityAccountHelper": "Un depósito de {{cuenta de bloqueo de la calidad}} se aplicara para este miembro",
+            "penalityBlockDayHelper": "La tarjeta del socio se bloqueará durante {{penalityBlockDay}} días",
+            "penalityAccountPrice": "Importe de la fianza",
+            "penalityBlockDay": "Periodo de bloqueo de la tarjeta (en días)",
+            "penalityType": "Tipo de sanción a aplicar",
+            "penalityAccount": "Crear un depósito para el miembro en cuestión",
+            "penalityBlock": "Bloquear temporalmente la tarjeta de curso",
+            "penalityInfo": "Se aplicará una penalización {{penalityNumberCancel}} cancelaciones fuera de plazo de en un periodo de {{penalityNumberDay}} días",
+            "penalityNumberDay": "Número de días",
+            "penalityNumberCancel": "Número de cancelaciones",
+            "marginalContributionHelperText": "Se utiliza para calcular la remuneración de los profesores. 10€ significa que una reserva hecha con esta tarjeta se paga 10€. Si está vacía o es 0€ la contribución de una tarjeta será PRICE/NB_RESERVATION",
+            "marginalContribution": "Contribución marginal teórica, incluido el IVA",
+            "expirationDateHelper": "Si la tarjeta del curso no se utiliza por primera vez dentro de este número de días, queda invalidada",
+            "expirationDate": "Caducidad si no hay reserva inicial",
+            "beginningDate": "Fecha de initio",
+            "attendance": "A la primera presencia",
+            "firstBooking": "A la primera reservación",
+            "billing": "A la facturación",
+            "validForDuration": {
+                "day": "Esta tarjeta será válida durante {{ duration_day }} días a partir de la fecha de compra",
+                "month": "Esta tarjeta será válida durante {{ duration_month }} meses y {{ duration_day }} días a partir de la fecha de compra",
+                "year": "Esta tarjeta será válida para {{ duration_year }} años, {{ duration_month }} meses y {{ duration_day }} días desde la fecha de compra"
+            },
+            "yearValidityHelper": "Sumado al número de días y meses",
+            "monthValidityHelper": "Además del número de días",
+            "yearValidity": "Periodo de validez de la tarjeta en años",
+            "monthValidity": "Periodo de validez de la tarjeta en meses",
+            "dayValidity": "Periodo de validez de la tarjeta en días",
+            "endBeforeStart": "La fecha de finalización no puede ser mayor que la fecha de inicio",
+            "toDate": "Hasta el",
+            "fromDate": "A partir del",
+            "availabilitySlot": "Hacer que la tarjeta sea válida sólo para un rango de fechas",
+            "availabilityGivenNumber": "Hacer que la tarjeta sea válida sólo durante un número determinado de días (después de la fecha de compra)",
+            "penalityRule": "Sólo se puede aplicar una penalización si el número de créditos es ilimitado",
+            "penality": "Aplicar una penalización por demasiadas cancelaciones después de la fecha límite",
+            "packValidity": "Validez de la tarjeta",
+            "numberOfAvailableCredits": "Número de créditos disponibles",
+            "credit": "Crédito",
+            "unlimited": "Ilimitado",
+            "limited": "Limitado",
+            "numberOfCredit": "Número de créditos",
+            "namePaymentPack": "Nombre del bono",
+            "name": "Apellido",
+            "generalInfo": "Informaciones generales",
+            "paymentPack": "Bono",
+            "minusZero": "este campo no puede ser igual a 0",
+            "requiredField": "Este campo es obligatorio"
+        },
+        "paymentPackTemplate": {
+            "actions": {
+                "create": "Crear un bono compartido"
+            },
+            "deleteForm": {
+                "actions": {
+                    "submit": "Desactivar el uso compartido",
+                    "close": "Cerrar"
+                },
+                "content": "Al desactivar una tarjeta compartida, los socios que la tengan sólo podrán utilizarla en el estudio donde la compraron.",
+                "title": "Desactivación"
+            },
+            "form": {
+                "actions": {
+                    "submit": "Registrar",
+                    "close": "Cerrar"
+                },
+                "submit": "Validar",
+                "close": "Cerrar",
+                "title": "Tarjeta de curso compartido"
+            },
+            "section": {
+                "titleManagerOnly": "No disponible para la venta",
+                "titleAvailable": "Disponible para la venta"
+            },
+            "isEmptyExplain": "Las tarjetas de clases compartidas están disponibles en los estudios de su elección, y permiten a sus socios utilizar sus créditos en cualquier estudio que elijan.",
+            "specification": {
+                "companySharedWithTitle": "Compartido con los estudios:"
+            }
+        },
+        "paymentPackTemplateInstance": {
+            "actions": {
+                "addCompany": "Añadir un estudio"
+            },
+            "companyEmpty": "Ningún estudio está configurado para aceptar esta tarjeta de curso",
+            "deleteForm": {
+                "actions": {
+                    "submit": "Desactivar el uso compartido",
+                    "close": "Cerrar"
+                },
+                "content": "Al desactivar este estudio de compartir el mapa, todos los miembros que posean este mapa y lo hayan comprado en este estudio podrán seguir utilizándolo. Sin embargo, ya no podrán utilizarlo en otros estudios. Por último, las tarjetas compradas en otros estudios ya no podrán utilizarse en el estudio desactivado, independientemente de cuándo se hayan comprado.",
+                "title": "Desactivación"
+            },
+            "form": {
+                "actions": {
+                    "submit": "Registrar",
+                    "close": "Cerrar"
+                },
+                "explain2": "Si un socio compra esta tarjeta en uno de los estudios compatibles, también podrá utilizarla en los demás estudios que hayas definido.",
+                "explain1": "Los siguientes estudios tendrán automáticamente esta tarjeta a la venta. No podrán cambiar el precio ni el número de créditos.",
+                "title": "Preparar mis estudios"
+            },
+            "consumerPaymentPackSharedFromOtherFranchisee": "Compartido por el franquiciado",
+            "paymentPackSharedFromFranchisor": "Tarjeta de franquicia"
         }
     },
     "selfCheckIn": {
@@ -7781,7 +8063,8 @@
         "franchiseMenu": {
             "members": "Miembros",
             "franchises": "Franquicias",
-            "reporting": "Informes"
+            "reporting": "Informes",
+            "paymentPack": "Fichas de cursos"
         },
         "multiSession": {
             "current": "Sesión actual",
@@ -7962,7 +8245,7 @@
             "download": "Descargar"
         },
         "fields": {
-            "rule": "Regla",
+            "rule": "Normativa sobre la remuneración de la sesión",
             "date": "Fecha",
             "name": "Nombre de la sesión",
             "nb_bookings": "Reservas",
@@ -8409,7 +8692,8 @@
                 "cancel": "Cancelar",
                 "content": "¿Seguro de que quieres suprimir esta smartlist? Esta operación es final",
                 "title": "Supresión smartlist"
-            }
+            },
+            "validate": "Validar"
         },
         "membersInList": "Miembros de la smartlist:",
         "exportList": "Exportar la smartlist",
@@ -8499,6 +8783,14 @@
                 "message": "A raíz de sus cambios en las reglas de las etiquetas de la lista inteligente {{name}}, tenemos que actualizar las etiquetas de sus miembros.",
                 "title": "Actualización de las normas de la etiqueta "
             }
+        },
+        "memberBase": {
+            "options": {
+                "2": "Archivado",
+                "1": "No archivado",
+                "0": "Sin archivar y archivado"
+            },
+            "helperText": "Esta lista inteligente se aplica a todos los miembros"
         }
     },
     "relationship": {
@@ -8660,7 +8952,8 @@
             "marketplacePass": "Bonos",
             "marketplaceCalendar": "Calendario",
             "marketplaceWorkshop": "Talleres",
-            "marketplaceShop": "Tienda"
+            "marketplaceShop": "Tienda",
+            "marketplaceGiftcard": "Tarjetas regalo"
         },
         "establishment": {
             "establishmentFormPage": "Formulario establecimiento",
@@ -8841,14 +9134,16 @@
             "groupTitle": {
                 "paymentPack": "Bono",
                 "privateBooking": "Cita",
-                "booking": "Reservar"
+                "booking": "Reservar",
+                "privatePass": "Tarjeta de cita"
             },
             "fabLabels": {
                 "payment_pack": "Bono",
                 "private_service": "Cita",
                 "establishment": "Establecimiento",
                 "meta_activity": "Actividad",
-                "workshop": "Taller"
+                "workshop": "Taller",
+                "private_pass": "Tarjeta de cita"
             },
             "cancel": "Cancelar",
             "next": "Siguiente",
@@ -8858,7 +9153,8 @@
                 "private_service": "Seleccione una cita privada",
                 "establishment": "Seleccione una ubicación",
                 "meta_activity": "Seleccione una actividad",
-                "workshop": "Seleccione un taller"
+                "workshop": "Seleccione un taller",
+                "private_pass": "Seleccione una tarjeta de cita"
             },
             "createNotification": "Formulario de notificación",
             "selectNotificationRules": "Seleccione una regla para ver los detalles",
@@ -8870,7 +9166,10 @@
             "mailTitle": "Vista previa del correo",
             "mail": "Correo ",
             "statisticDetails": "Estadísticas",
-            "notificationDetails": "Detalles de la notificación"
+            "notificationDetails": "Detalles de la notificación",
+            "notificationPreview": "Resumen de la notificación",
+            "privatePassPlaceholder": "Tarjeta de citas",
+            "dialogTitle": "Crear una notificación"
         },
         "customForm": {
             "unaccessibleForm": "Este formulario no está disponible actualmente, para volver a su página de perfil haga clic en el botón de abajo.",
@@ -8915,7 +9214,8 @@
                 "birthday": "Fecha de nacimiento",
                 "last_name": "Apellido",
                 "first_name": "Nombre",
-                "sign_up_question": "Pregunta en el formulario de inscripción"
+                "sign_up_question": "Pregunta en el formulario de inscripción",
+                "location": "Ubicación preferida"
             },
             "tab": {
                 "general": "Contenido",
@@ -9099,11 +9399,11 @@
             "changesAreSubmitting": "El formulario se está actualizando.",
             "editable": "Cambiable",
             "display": "Ver",
-            "navigateToMemberForm": "Editar el formulario de inscripción",
+            "navigateToMemberForm": "Editar el formulario de edición del perfil del cliente",
             "navigateToSignup": "Editar el formulario de inscripción",
             "memberFormHelper": "Las preguntas obligatorias del formulario de registro se muestran y se pueden editar por defecto. No se pueden borrar.",
             "signupFormHelper": "Las preguntas obligatorias del formulario de inscripción deben ser editables por sus miembros en su perfil. Estas preguntas se añadirán automáticamente al formulario de edición y se podrán visualizar y editar.",
-            "memberFormTitle": "Cambiar el formulario",
+            "memberFormTitle": "Formulario de edición del perfil (página de perfil de sus miembros)",
             "signupFormTitle": "Formulario de inscripción",
             "editLayoutSubtitle": "Ha modificado un formulario utilizando un diseño personalizado, compruebe aquí, y modifique si es necesario, la vista previa de su formulario en los diferentes tamaños de pantalla",
             "editLayoutTitle": "Editar el diseño del formulario",
@@ -9295,7 +9595,8 @@
             "configurationTitle": "Tarjeta regalo"
         },
         "link": {
-            "copyLink": "Copiar el enlace de compra"
+            "copyLink": "Copiar el enlace de compra",
+            "activationLink": "Copiar el enlace de activación"
         },
         "consumerGiftcard": {
             "form": {
@@ -9323,7 +9624,8 @@
                     "label": "Nombre de la tarjeta"
                 },
                 "footerUnlimited": "La tarjeta se enviará por correo el {{- date_send }} a las direcciones indicadas. No contiene fecha de caducidad. La cuenta del destinatario se acreditará con {{- price }} para futuras compras.",
-                "select_image": "Seleccione su imagen de fondo"
+                "select_image": "Seleccione su imagen de fondo",
+                "hour_send": "Hora de envío"
             },
             "previewPlaceholder": {
                 "message_content": "[Mensaje personalizado]",
@@ -9368,7 +9670,8 @@
         },
         "list": {
             "actions": {
-                "create": "Crear una tarjeta regalo"
+                "create": "Crear una tarjeta regalo",
+                "goToGiftcard": "Ver todas las tarjetas regalo"
             },
             "addBackgroundImage": "Añadir imágenes de personalización",
             "isEmpty": "No hay tarjetas regalo disponibles",
@@ -9386,6 +9689,7 @@
             "content": "¿Realmente quieres archivar esta tarjeta de regalo? Ya no será facturable a través del back office. Puedes reactivarlo más tarde.",
             "title": "Archivar la tarjeta regalo"
         },
-        "search": "Buscar una tarjeta regalo"
+        "search": "Buscar una tarjeta regalo",
+        "widget": "Elige las tarjetas regalo"
     }
 }

@@ -2540,7 +2540,7 @@
             "nb_bookings": "Prenotazioni",
             "name": "Nome della sessione",
             "date": "Data",
-            "rule": "Regola",
+            "rule": "Regola di retribuzione per la sessione",
             "bonus": "Bonus",
             "duration": "Durata",
             "error": "Sembra che alcuni corsi non abbiano una regola di retribuzione associata. Deve associare una regola di pagamento a questi corsi o associare una regola di pagamento all'allenatore.",
@@ -2668,7 +2668,8 @@
         "franchiseMenu": {
             "members": "Membri",
             "franchises": "Franchisee",
-            "reporting": "Riporta"
+            "reporting": "Riporta",
+            "paymentPack": "Schede del corso"
         },
         "multiSession": {
             "current": "Sessione corrente",
@@ -5885,7 +5886,7 @@
             "bornIn": "Nato il {{-date}} - {{age}} anni"
         },
         "memberTermsAccepted": " sono stati accettati il {{- date}}",
-        "termsAndConditions": "Condizioni di uso generali",
+        "termsAndConditions": "Condizioni generali di vendita",
         "applyBalanceToUnpaidInvoices": "Applica il saldo alle fatture non pagate",
         "adjustBalance": "Regola il saldo",
         "unpaidInvoiceTitle": "Fattura non pagata",
@@ -5894,7 +5895,34 @@
             "unknown": "Stato del pass sanitario sconosciuto",
             "notDone": "No pass sanitario valido",
             "done": "Pass sanitario valido"
-        }
+        },
+        "noMember": "Non ci sono membri da visualizzare al momento.",
+        "noData": "Non ci sono membri in questa smartlist.",
+        "archive": {
+            "dialog": {
+                "actions": {
+                    "confirm": "Confermare",
+                    "close": "Chiudere"
+                },
+                "warning": {
+                    "general": "Abbiamo individuato i seguenti punti, vi consigliamo di regolarizzare il conto di questo cliente prima di archiviarlo:",
+                    "6": "Appuntamento(i) programmato(i)",
+                    "5": "Prenotazioni ricorrenti registrate",
+                    "4": "Prenotazione(i) futura(e) prevista(e)",
+                    "3": "Abbonamento con rinnovo automatico in corso",
+                    "2": "Abbonamento corrente",
+                    "1": "Fatture non pagate",
+                    "0": "Bilancio interno negativo"
+                },
+                "helper_text_2": "Questo membro non apparirà più nella tua lista di membri.",
+                "helper_text_1": "Sei sicuro di voler archiviare questo membro?",
+                "title": "Archiviare un membro"
+            },
+            "archivedMember": "Membro archiviato: {{name}}"
+        },
+        "termsOfUse": "Condizioni generali d'uso",
+        "archived": "Archiviato",
+        "restoreMember": "Ripristinare"
     },
     "booking": {
         "statusCode": {
@@ -6077,7 +6105,16 @@
                 "bookingNumberThird": "3° prenotazione",
                 "bookingNumberSecond": "2° prenotazione",
                 "bookingNumberFirst": "1° prenotazione",
-                "bookingNumberAll": "Tutte le prenotazioni"
+                "bookingNumberAll": "Tutte le prenotazioni",
+                "addVariable": "Aggiungere un'etichetta",
+                "pushHelper": "Attenzione, le notifiche push dovrebbero essere usate con parsimonia. Troppe notifiche push possono portare alcuni membri a disinstallare l'applicazione.",
+                "needPushUpsell": "Non hai sottoscritto l'add-on di notifica push",
+                "push": "Notifica push",
+                "mail": "Posta",
+                "sendingMethod": "Metodo di invio",
+                "sendAfterNotifications": "Inviare le notifiche al membro dopo la sessione interessata dalla notifica",
+                "sendBeforeNotifications": "Inviare le notifiche al membro prima della riunione interessata dalla notifica",
+                "sendBeforeNotification": "Inviare la notifica push al membro prima della riunione a cui la notifica si riferisce"
             },
             "addNotification": "Aggiungi una notifica"
         },
@@ -7253,7 +7290,8 @@
             "actions": "Azioni",
             "name": " nome"
         },
-        "description": "Descrizione"
+        "description": "Descrizione",
+        "favouriteLocation": "Posizione preferita"
     },
     "datetime": {
         "time": {
@@ -7440,7 +7478,8 @@
                 },
                 "accountNumber": {
                     "placeholder": "FR89370400440532013000",
-                    "label": "Identificativo bancario (IBAN)"
+                    "label": "Numero di conto",
+                    "eurSpecific": " (IBAN)"
                 },
                 "invalid": "IBAN non valido. Nota: l'IBAN deve corrispondere a un conto bancario domiciliato nello stesso paese della tua azienda",
                 "accountHolderName": {
@@ -7449,7 +7488,12 @@
                 },
                 "content": "Questo conto bancario verrà utilizzato per trasferire gli importi pagati online tramite bsport.",
                 "title": "Conto bancario",
-                "unknownCountry": "Operazione manuale per questo paese, per favore contatta bsport a contact@bsport.io"
+                "unknownCountry": "Operazione manuale per questo paese, per favore contatta bsport a contact@bsport.io",
+                "routingNumber": {
+                    "usdSpecific": " (ACH routing number)",
+                    "placeholder": "000001",
+                    "label": "Numero di routing"
+                }
             }
         },
         "payment": {
@@ -7522,6 +7566,19 @@
             "year_plural": "anni",
             "month": "mese",
             "month_plural": "mesi"
+        },
+        "subscriptionPaymentDialog": {
+            "error": {
+                "button_text": "Réessayer",
+                "text_status": "Il tuo acquisto non può essere completato!",
+                "text_content": "Il tuo acquisto non può essere completato, puoi riprovare cliccando sul pulsante qui sotto o puoi tornare alla lista degli abbonamenti chiudendo questa finestra."
+            },
+            "success": {
+                "button_text": "Continua",
+                "text_status": "Acquisto riuscito!",
+                "text_content": "Il tuo acquisto è stato elaborato, ora puoi trovare i dettagli del tuo abbonamento nella tua area membri."
+            },
+            "title": "Comprare un abbonamento"
         }
     },
     "selfCheckIn": {
@@ -8518,7 +8575,10 @@
         "close": "Chiudi",
         "deleteImpossibleText": "Non puoi cancellare questa sessione perché ha delle prenotazioni in corso.",
         "deleteImpossibleTitle": "Impossibile eliminare la sessione",
-        "restoreOffer": "Ripristinare la sessione"
+        "restoreOffer": "Ripristinare la sessione",
+        "maximumNumberDescription": "Il numero massimo di prenotazioni {{effectif}} è già stato raggiunto e iscrivendo questo membro si supera il numero massimo di prenotazioni. Sei sicuro di voler registrare questo membro?",
+        "maximumNumber": "Numero massimo di prenotazioni",
+        "warningOfferFull": "Il numero massimo di prenotazioni è già stato raggiunto"
     },
     "role": {
         "userRoles": "Contabilità del personale",
@@ -8797,19 +8857,22 @@
                 "private_service": "Appuntamento",
                 "meta_activity": "Attività",
                 "payment_pack": "Tessera",
-                "workshop": "Workshop"
+                "workshop": "Workshop",
+                "private_pass": "Carta d'appuntamento"
             },
             "groupTitle": {
                 "booking": "Prenotazione",
                 "privateBooking": "Appuntamento",
-                "paymentPack": "Tessera"
+                "paymentPack": "Tessera",
+                "privatePass": "Carta d'appuntamento"
             },
             "selectIdentifierLabel": {
                 "establishment": "Seleziona una struttura",
                 "meta_activity": "Seleziona un'attività",
                 "private_service": "Seleziona un appuntamento",
                 "payment_pack": "Seleziona una tessera",
-                "workshop": "Seleziona un workshop"
+                "workshop": "Seleziona un workshop",
+                "private_pass": "Selezionare una scheda di appuntamento"
             },
             "paymentPackPlaceholder": "Tessera",
             "paymentPackKind": {
@@ -8834,7 +8897,10 @@
             "mailTitle": "Anteprima dell'email",
             "mail": "Email ",
             "statisticDetails": "Statistiche",
-            "notificationDetails": "Dettagli della notifica"
+            "notificationDetails": "Dettagli della notifica",
+            "notificationPreview": "Panoramica della notifica",
+            "privatePassPlaceholder": "Carta d'appuntamento",
+            "dialogTitle": "Creare una notifica"
         },
         "customForm": {
             "title": "Moduli",
@@ -8889,7 +8955,8 @@
                 "birthday": "Data di nascita",
                 "last_name": "Nome di famiglia",
                 "first_name": "Nome",
-                "sign_up_question": "Domanda sul modulo di registrazione"
+                "sign_up_question": "Domanda sul modulo di registrazione",
+                "location": "Posizione preferita"
             },
             "customFormField": {
                 "modal": {
@@ -9067,7 +9134,7 @@
             "navigateToSignup": "Modifica il modulo di registrazione",
             "memberFormHelper": "Le domande obbligatorie nel modulo di registrazione sono visualizzate e modificabili di default. Non possono essere cancellati.",
             "signupFormHelper": "Le domande obbligatorie sul modulo d'iscrizione devono essere modificabili dai tuoi membri sul loro profilo. Queste domande saranno aggiunte automaticamente al modulo di modifica e sono visualizzate e modificabili.",
-            "memberFormTitle": "Cambiare forma",
+            "memberFormTitle": "Modulo di modifica del profilo (pagina del profilo dei tuoi membri)",
             "signupFormTitle": "Modulo di registrazione",
             "editLayoutSubtitle": "Hai modificato un modulo utilizzando un layout personalizzato, controlla qui, e modifica se necessario, l'anteprima del tuo modulo sulle diverse dimensioni dello schermo",
             "editLayoutTitle": "Modificare il layout del modulo",
@@ -9259,7 +9326,8 @@
             "configurationTitle": "Carta regalo"
         },
         "link": {
-            "copyLink": "Copia il link di acquisto"
+            "copyLink": "Copia il link di acquisto",
+            "activationLink": "Copia il link di attivazione"
         },
         "consumerGiftcard": {
             "form": {
@@ -9287,7 +9355,8 @@
                     "label": "Nome della carta"
                 },
                 "footerUnlimited": "La carta sarà inviata via email il {{- data_send }} agli indirizzi indicati. Non contiene una data di scadenza. L'account del destinatario sarà accreditato con {{- price }} per gli acquisti futuri.",
-                "select_image": "Seleziona la tua immagine di sfondo"
+                "select_image": "Seleziona la tua immagine di sfondo",
+                "hour_send": "Tempo di invio"
             },
             "previewPlaceholder": {
                 "message_content": "[Messaggio personalizzato]",
@@ -9332,7 +9401,8 @@
         },
         "list": {
             "actions": {
-                "create": "Creare una carta regalo"
+                "create": "Creare una carta regalo",
+                "goToGiftcard": "Vedi tutte le carte regalo"
             },
             "addBackgroundImage": "Aggiungere immagini di personalizzazione",
             "isEmpty": "Nessuna carta regalo disponibile",
@@ -9350,6 +9420,7 @@
             "content": "Vuoi davvero archiviare questa carta regalo? Non sarà più fatturabile tramite il back office. Puoi riattivarlo più tardi.",
             "title": "Archiviare la carta regalo"
         },
-        "search": "Cerca una carta regalo"
+        "search": "Cerca una carta regalo",
+        "widget": "Scegliere le carte regalo"
     }
 }

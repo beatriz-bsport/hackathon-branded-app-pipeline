@@ -442,7 +442,8 @@ exports.default = {
   },
   privateServiceCompatibility: {
     allSlots: 'Compatible pour toutes les séances',
-    forSlots: 'Les séances compatibles:',
+    forSlots: 'Les séances compatibles :',
+    none: ' aucune',
     delete: {
       title: 'Modification RDV compatibles',
       explain:
@@ -492,12 +493,20 @@ exports.default = {
     compatibleServices: {
       title: 'RDV compatibles',
       add: 'Ajouter',
-      isEmpty: "Aucun rendez-vous n'est compatible - inutilisable",
+      isEmpty: 'Aucun rendez-vous compatible',
+      unusable: 'Inutilisable',
     },
     form: {
-      title: 'Carte RDV',
+      title: 'Carte de rendez-vous',
+      categoryTitle: {
+        info: 'Informations générales',
+        paymentMeans: 'Moyens de paiement',
+        validity: 'Validité de la carte',
+        compatibility: 'Compatibilité',
+      },
       full_vod_access: {
-        label: 'Donne accès à la VOD tant que valable dans le temps',
+        label:
+          'Donne accès à la VOD tant que la carte est valable dans le temps',
       },
       managerOnly: {
         label: 'Invisible pour les clients',
@@ -507,44 +516,64 @@ exports.default = {
       },
       name: {
         label: 'Nom',
+        helperText: 'Nom de la carte de cours',
       },
+      category: 'Nom de la catégorie',
       credits: {
-        label: 'Nombre de crédit inclu',
-        helperText: 'Chaque séance coûte un certain nombre de crédit',
+        label: 'Nombre de crédits inclus',
+        helperText: 'Chaque séance coûte un certain nombre de crédits',
       },
       price: {
-        label: 'Prix',
+        label: 'Prix TTC',
+        helperText: 'Prix de la carte pour le client',
       },
       tax: {
         label: 'TVA',
       },
       durationDays: {
-        label: 'Durée de validité (jours) si applicable',
-        helperText:
-          'Période en jours pour laquelle la carte sera valide après achat ',
+        label: 'Durée de validité en jours',
       },
       durationMonths: {
-        label: 'Durée de validité (mois) si applicable',
+        label: 'Durée de validité en mois',
         helperText: "S'ajoute au nombre de jours",
       },
       durationYears: {
-        label: 'Durée de validité (années) si applicable',
+        label: 'Durée de validité en années',
         helperText: "S'ajoute au nombre de jours et de mois",
+      },
+      duration: {
+        fullText: 'Cette carte sera valide pendant ',
+        valid: 'Valide pendant ',
+        days: '{{ count }} jour',
+        days_plural: '{{ count }} jours',
+        months: '{{ count }} mois',
+        daysMonths: '{{ duration_months }} mois et {{ duration_days }} jours',
+        years: '{{ count }} an',
+        years_plural: '{{ count }} ans',
+        and: ' et ',
       },
       available_payment_method_identifiers: {
         label: 'Moyens de paiement autorisés',
         helperText:
           'Sélectionnez au moins un moyen de paiement. Si le panier du membre contient des éléments dont les moyens de paiements sont incompatibles, le paiement CB sera proposé.',
+        warning:
+          'Rendez votre carte visible pour les clients pour pouvoir sélectionner les moyens de paiement.',
       },
+      startDate: 'Date de début',
       start_date_method: {
-        on_purchase: 'Débute à la facturation',
-        on_booking: 'Débute à la 1ère réservation',
-        on_attendance: 'Débute à la 1ère présence',
+        on_purchase: 'À la facturation',
+        on_booking: 'À la 1ère réservation',
+        on_attendance: 'À la 1ère présence',
+      },
+      start_date_method_detail: {
+        on_purchase: " à compter de la date d'achat",
+        on_booking: ' à compter de la première réservation',
+        on_attendance: ' à compter de la première présence',
       },
       expirationDaysBeforeFirstUse: {
-        label: 'Expiration si aucun RDV initial',
+        label: 'Expiration si aucune réservation initiale',
         helperText:
-          "Si la carte n'est pas consommé une première fois pendant ce nb de jour, elle sera rendue invalide",
+          "Si la carte de cours n'est pas consommée une première fois pendant ce nombre de jours, elle sera rendue invalide.",
       },
       actions: {
         submit: 'Enregistrer',
@@ -866,4 +895,5 @@ exports.default = {
     },
   },
   disabledPacksTitle: 'Cartes RDV archivées',
+  categoryTitle: 'Catégories de cartes de RDV',
 };

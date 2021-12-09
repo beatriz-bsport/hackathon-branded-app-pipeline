@@ -125,6 +125,7 @@ exports.default = {
       cancel: 'Annuler',
       confirm: 'Supprimer',
     },
+    validate: 'Valider',
   },
   graphs: {
     bookings: 'Réservations',

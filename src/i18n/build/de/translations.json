@@ -5178,7 +5178,17 @@
                 "bookingNumberThird": "3. Reservierung",
                 "bookingNumberSecond": "2. Reservierung",
                 "bookingNumberFirst": "1. Reservierung",
-                "bookingNumberAll": "Alle Reservierungen"
+                "bookingNumberAll": "Alle Reservierungen",
+                "addVariable": "Tag hinzufügen",
+                "pushHelper": "Achtung, les Benachrichtigungen push sont à utiliser avec parcimonie. Trop de Notifications push peut amener gewisse membres à désinstaller l'application.",
+                "needPushUpsell": "Sie haben sich nicht für das Push-Benachrichtigungs-Add-on angemeldet",
+                "push": "Push Benachrichtigungs",
+                "mail": "Mail",
+                "sendingMethod": "Methode d'envoi",
+                "sendAfterNotifications": "Gesandter les Notifications au membre après la séance Concernée par la Notification",
+                "sendAfterNotification": "Gesandter la Benachrichtigung push au membre après la séance Concréée par la Benachrichtigung",
+                "sendBeforeNotifications": "Gesandter les Notifications au membre avant la séanceconcerée par la notification",
+                "sendBeforeNotification": "Gesandter la Benachrichtigung push au membre avant la séance Concréée par la Benachrichtigung"
             },
             "addNotification": "Eine Benachrichtigung hinzufügen"
         },
@@ -5460,7 +5470,13 @@
             "unknown": "Status Sanitärpass unbekannt",
             "notDone": "Kein gültiger Gesundheitspass",
             "done": "Gültiger Gesundheitspass"
-        }
+        },
+        "archive": {
+            "archivedMember": "Mitglied Archiviert : {{name}}"
+        },
+        "termsOfUse": "Les conditions générales d'utilisation",
+        "archived": "Archiviert",
+        "restoreMember": "Restaurieren"
     },
     "common": {
         "text": {
@@ -8459,7 +8475,8 @@
             "actions": "Aktionen",
             "name": " Name"
         },
-        "description": "Beschreibung"
+        "description": "Beschreibung",
+        "favouriteLocation": "Lokalisierungspräferenzen"
     },
     "checkout": {
         "myBasket": {
@@ -8795,14 +8812,16 @@
             "groupTitle": {
                 "paymentPack": "Kurskarte",
                 "privateBooking": "Termin",
-                "booking": "Buchung"
+                "booking": "Buchung",
+                "privatePass": "Rendezvous-Karte"
             },
             "fabLabels": {
                 "payment_pack": "Kurskarte",
                 "private_service": "Termin",
                 "establishment": "Einrichtung",
                 "meta_activity": "Aktivität",
-                "workshop": "Workshop"
+                "workshop": "Workshop",
+                "private_pass": "Rendezvous-Karte"
             },
             "cancel": "Abbrechen",
             "next": "Weiter",
@@ -8812,7 +8831,8 @@
                 "private_service": "Einen Termin auswählen",
                 "establishment": "Wähle eine Einrichtung aus",
                 "meta_activity": "Wähle eine Aktivität aus",
-                "workshop": "Wählen Sie einen Workshop"
+                "workshop": "Wählen Sie einen Workshop",
+                "private_pass": "Wählen Sie eine Terminkarte aus"
             },
             "createNotification": "Benachrichtigung-Formular",
             "selectNotificationRules": "Wähle eine Regel aus, um die Details anzuzeigen",
@@ -8824,7 +8844,10 @@
             "mailTitle": "Vorschau der E-Mail",
             "mail": "Mail ",
             "statisticDetails": "Statistik",
-            "notificationDetails": "Details der Benachrichtigung"
+            "notificationDetails": "Details der Benachrichtigung",
+            "notificationPreview": "Übersicht über die Benachrichtigung",
+            "privatePassPlaceholder": "Terminkarte",
+            "dialogTitle": "Eine Benachrichtigung erstellen"
         },
         "customForm": {
             "statistics": {
@@ -8930,7 +8953,8 @@
                 "birthday": "Datum der Geburt",
                 "last_name": "Familienname",
                 "first_name": "Vornamen",
-                "sign_up_question": "Frage zum Anmeldeformular"
+                "sign_up_question": "Frage zum Anmeldeformular",
+                "location": "Bevorzugte Lokalisierung"
             },
             "tab": {
                 "statistics": "Statistik",
@@ -9249,7 +9273,8 @@
             "configurationTitle": "Geschenkkarte"
         },
         "link": {
-            "copyLink": "Kopieren Sie den Kauflink"
+            "copyLink": "Kopieren Sie den Kauflink",
+            "activationLink": "Aktivierungslink kopieren"
         },
         "consumerGiftcard": {
             "form": {
@@ -9277,7 +9302,8 @@
                     "label": "Name der Karte"
                 },
                 "footerUnlimited": "Die Karte wird am {{- date_send }} per E-Mail an die angegebenen Adressen gesendet. Sie enthält kein Verfallsdatum. Dem Konto des Empfängers wird der {{- Price }} für zukünftige Einkäufe gutgeschrieben.",
-                "select_image": "Wählen Sie Ihr Hintergrundbild"
+                "select_image": "Wählen Sie Ihr Hintergrundbild",
+                "hour_send": "Uhrzeit des Versands"
             },
             "previewPlaceholder": {
                 "message_content": "[Personalisierte Nachricht].",
@@ -9322,7 +9348,8 @@
         },
         "list": {
             "actions": {
-                "create": "Eine Geschenkkarte erstellen"
+                "create": "Eine Geschenkkarte erstellen",
+                "goToGiftcard": "Alle Geschenkkarten anzeigen"
             },
             "addBackgroundImage": "Hinzufügen von Anpassungsbildern",
             "isEmpty": "Keine Geschenkkarten verfügbar",
@@ -9340,6 +9367,7 @@
             "content": "Wollen Sie diese Geschenkkarte wirklich archivieren? Sie wird nicht mehr über das Backoffice abrechenbar sein. Sie können sie später wieder aktivieren.",
             "title": "Archivierung der Geschenkkarte"
         },
-        "search": "Suche nach einer Geschenkkarte"
+        "search": "Suche nach einer Geschenkkarte",
+        "widget": "Eine Geschenkkarte auswählen"
     }
 }

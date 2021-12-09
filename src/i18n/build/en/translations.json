@@ -1098,7 +1098,7 @@
             "firstBookingMinutesUntil": "Limit future bookings of members that take place in "
         },
         "calendar": {
-            "pleaseSelectOffer": "Click on a session for more information and double-click on a session to manage the bookings.",
+            "pleaseSelectOffer": "Click on a session for more information or double-click on a session to manage the bookings.",
             "showWeek": "Weekly overview",
             "showMonth": "Monthly overview",
             "showMore": "+{{ total}} session(s)",
@@ -1900,7 +1900,9 @@
             },
             "packs": {
                 "title": "Passes"
-            }
+            },
+            "closeMemberMatch": "Are you looking for this member?",
+            "archived": "Archived members"
         },
         "actions": {
             "addMember": "Add a member"
@@ -2849,7 +2851,7 @@
         "privatePass": {
             "delete": {
                 "title": "Delete pass",
-                "explain": "Are you sure that you want to delete this pass? Members with valid passes and credits will still be able to use them. This action can't be undone.",
+                "explain": "Are you sure that you want to delete this pass? Members with valid passes and credits will still be able to use them.",
                 "cancel": "Cancel",
                 "submit": "Confirm",
                 "delete": "Delete"
@@ -2918,9 +2920,9 @@
                     "label": "Amount of days in which the pass expires if no booking is made:"
                 },
                 "start_date_method": {
-                    "on_attendance": "Validity starts on the first attendance",
-                    "on_booking": "Validity starts on the first booking date",
-                    "on_purchase": "Validity starts on the billing date"
+                    "on_attendance": "Valid from the 1st attendance",
+                    "on_booking": "Valid from the 1st booking",
+                    "on_purchase": "Valid from the billing date"
                 },
                 "new_member_only": {
                     "label": "Only available for new members"
@@ -3202,7 +3204,13 @@
                 "chooseWhen": {
                     "after": "Send this notification after the end of the appointment",
                     "before": "Send this notification before the start of the appointment",
-                    "title": "Event"
+                    "title": "Event",
+                    "afterNotification": "Send the push notification before the start of the appointment",
+                    "afterNotifications": "Send notifications after the end of the appointment",
+                    "afterMail": "Send this notification after the end of the appointment",
+                    "beforeNotification": "Send the push notification before the start of the appointment",
+                    "beforeNotifications": "Send notifications before the start of the appointment",
+                    "beforeMail": "Send this email before the start of the session"
                 },
                 "help": {
                     "cancelledNotRefunded": {
@@ -3245,7 +3253,9 @@
             "button": "Schedule",
             "validate": "Save"
         },
-        "searshAppointmentPass": "Search an appointment pass"
+        "searshAppointmentPass": "Search an appointment pass",
+        "categoryTitle": "Categories of appointment passes",
+        "disabledPacksTitle": "Archived appointment passes"
     },
     "relationship": {
         "member": {
@@ -3489,7 +3499,7 @@
             }
         },
         "noDiscount": "This promotional code hasn't been used yet.",
-        "createCoupon": "Add a promotional code",
+        "createCoupon": "Add a promotion",
         "code": {
             "addCoupon": {
                 "label": "Promotional code",
@@ -3806,7 +3816,7 @@
                     "_label": "Edit"
                 },
                 "create": {
-                    "_label": "Add"
+                    "_label": "Adding members"
                 },
                 "_label": "Member"
             },
@@ -3868,6 +3878,15 @@
             },
             "search": {
                 "_label": "Search members"
+            },
+            "appbarButtons": {
+                "notificationCenter": {
+                    "_label": "Notification center"
+                },
+                "ledger": {
+                    "_label": "Ledger"
+                },
+                "_label": "AppBar actions"
             }
         }
     },
@@ -4758,7 +4777,8 @@
             "actions": "Actions",
             "name": " Name"
         },
-        "description": "Description"
+        "description": "Description",
+        "favouriteLocation": "Preferred location"
     },
     "order": {
         "products": {
@@ -5435,7 +5455,8 @@
                 },
                 "accountNumber": {
                     "placeholder": "GB89370400440532013000",
-                    "label": "IBAN"
+                    "label": "Account number",
+                    "eurSpecific": " (IBAN)"
                 },
                 "invalid": "IBAN invalid. Please note: the IBAN must correspond to a bank account domiciled in the same country as your company",
                 "accountHolderName": {
@@ -5444,7 +5465,12 @@
                 },
                 "content": "This bank account will be used to transfer the amounts paid online to you via bsport.",
                 "title": "Bank account",
-                "unknownCountry": "Manual operation for this country, please contact bsport via contact@bsport.io"
+                "unknownCountry": "Manual operation for this country, please contact bsport via contact@bsport.io",
+                "routingNumber": {
+                    "usdSpecific": " (ACH Routing Number)",
+                    "placeholder": "000001",
+                    "label": "Routing Number"
+                }
             }
         },
         "payment": {
@@ -5518,6 +5544,19 @@
             "year_plural": "years",
             "month": "month",
             "month_plural": "months"
+        },
+        "subscriptionPaymentDialog": {
+            "error": {
+                "button_text": "Retry",
+                "text_status": "Your purchase couldn't be completed!",
+                "text_content": "There was an error completing your purchasing. Click on the button to retry or close this window to return to the subscriptions overview."
+            },
+            "success": {
+                "button_text": "Continue",
+                "text_status": "Your purchase was successful!",
+                "text_content": "Your purchase has been taken into account, you can now find the details of your subscription on your member area."
+            },
+            "title": "Purchase a subscription"
         }
     },
     "invoice": {
@@ -5543,12 +5582,12 @@
             "subscription": {
                 "forms": {
                     "revert_bookings_on_fail_subscription_payment": {
-                        "label": "Cancel all bookings if payment fails",
+                        "label": "Cancel associated bookings for passes when payments fail",
                         "warning": "Attention: previously cancelled bookings resulting from a failed payment won't be recreated after another payment was successful!",
                         "helperText": "The system will automatically refund the credits and cancel associated bookings for blocked passes for subscriptions whose payments have failed or have been disputed."
                     },
                     "disable_pass_on_fail_subscription_payment": {
-                        "label": "Block passes if payment fails",
+                        "label": "Block passes for failed payment",
                         "helperText": "The system will automatically block passes from subscriptions whose payments have failed or have been disputed until the outstanding amount has been paid."
                     },
                     "nbRetriesSubscriptionPayments": {
@@ -6867,7 +6906,9 @@
                 "createSmartList": "Add a Smartlist",
                 "warning": "By selecting no Smartlist at all, you might notify members who've already bought another pass.",
                 "smartListHelper": "Don't send the notification if the member is present in one of the following Smartlists",
-                "smartListHelperInclude": "Only send the notification if the member is present in one of the following Smartlists"
+                "smartListHelperInclude": "Only send the notification if the member is present in one of the following Smartlists",
+                "pushTitle": "Notification settings",
+                "mailSettings": "Email settings"
             },
             "daysPast": {
                 "second": "day(s).",
@@ -6946,7 +6987,7 @@
                 "unlimited": "Unlimited",
                 "theoricalMarginValue": {
                     "label": "Theoretical Margin Value per Booking (only applies to unlimited passes)",
-                    "helperText": "This is used to calculate the payroll of the teachers. Example: $10 for 1 booking means that the teacher will be paid $10.  When left empty, the marginal value will be calculated as PRICE / NUMBER OF BOOKINGS."
+                    "helperText": "This is used to calculate the payroll of the teachers. Example: {{currency}}10 for 1 booking means that the teacher will be paid {{currency}}10.  When left empty, the marginal value will be calculated as PRICE / NUMBER OF BOOKINGS."
                 },
                 "expirationDaysBeforeFirstUse": {
                     "label": "Amount of days in which the pass expires if no booking is made:",
@@ -6957,9 +6998,9 @@
                     "ending_date": "End date for pack, leave blank for no end"
                 },
                 "start_date_method": {
-                    "on_purchase": "Starts on the billing date",
-                    "on_booking": "Starts on the date of the first booking",
-                    "on_attendance": "Starts on the first attendance"
+                    "on_purchase": "Valid from the billing date",
+                    "on_booking": "Valid from the 1st booking",
+                    "on_attendance": "Valid from the 1st attendance"
                 },
                 "timeSettingsTitle": "Validity",
                 "generalSettingsTitle": "General",
@@ -7022,7 +7063,7 @@
                 },
                 "penalty": {
                     "account": {
-                        "helperText": "A charge of €{{value}} will be applied for this member",
+                        "helperText": "A charge of {{value}} will be applied for this member",
                         "label": "Charge on the account:"
                     },
                     "block": {
@@ -7098,7 +7139,7 @@
         },
         "maxNBookingsByWeek1": "Max ",
         "maxNBookingsByWeek2": " bookings per week",
-        "validity": "Validity :",
+        "validity": "Valid from ",
         "validForNdays1": "Valid for ",
         "validForNdays2": " day(s) after purchase",
         "validFrom": "Valid from ",
@@ -7130,7 +7171,8 @@
             "delete": "Delete",
             "edit": "Edit",
             "scaleCredit": "Mult / div credits",
-            "massExtension": "Extend validity"
+            "massExtension": "Extend validity",
+            "close": "Close"
         },
         "specifications": {
             "price": "{{ price, price }}",
@@ -7141,9 +7183,18 @@
         "ht": "Excluding VAT",
         "validForDuration": {
             "general": "Valid for {{ duration_days }} day(s), {{ duration_months }} month(s), and/or {{ duration_years }} year(s).",
-            "years": "Valid for {{ duration_years }} year(s)",
-            "months": "Valid for {{ duration_months }} month(s)",
-            "days": "Valid for {{ duration_days }} day(s)"
+            "years": "{{ count }} year",
+            "years_plural": "{{ count }} years",
+            "months": "{{ count }} month(s)",
+            "days": "{{ count }} day",
+            "days_plural": "{{ count }} days",
+            "and": " and ",
+            "attendance": "Valid from the 1st attendance",
+            "booking": "Valid from the 1st booking",
+            "purchase": "Valid from the billing date",
+            "daysMonths": "{{ duration_months }} month(s) and {{ duration_days }} day(s)",
+            "valid": "Valid ",
+            "validFor": "for "
         },
         "paymentPackDisabled": {
             "error": "Impossible to delete",
@@ -7186,8 +7237,8 @@
         "maxNBookingsByMonth2": " bookings per month",
         "blockedCpp": "Card blocked from {{-blocked_from}} to {{-blocked_until}}",
         "penalty": {
-            "account": "If there are {{nb_cancellations}} late cancellations within a period of {{nb_days}} day(s), a penalty of {{account_value}} in the local currency will be applied.",
-            "block": "If there are {{nb_cancellations}} late cancellations over a period of {{nb_days}} days, the pass will be blocked for {{days_blocked}} days.",
+            "account": "A penalty of {{account_value}} will be applied if {{nb_cancellations}} late cancellation(s) are registered within {{nb_days}} day(s).",
+            "block": "This pass will be blocked for {{days_blocked}} day(s) if {{nb_cancellations}} late cancellation(s) are registered within {{days_blocked}} day(s).",
             "title": "Cancellation policy"
         },
         "only_vod_access": "Only for Video On Demand",
@@ -7232,6 +7283,197 @@
             "help": "These passes will appear in an unnamed category on the marketplace.",
             "name": "No category",
             "empty": "There are no passes associated with this category to display."
+        },
+        "paymentPackTemplate": {
+            "specification": {
+                "companySharedWithTitle": "Shared with the following studios:"
+            },
+            "actions": {
+                "create": "Add a shared pass"
+            },
+            "deleteForm": {
+                "actions": {
+                    "submit": "Disable sharing",
+                    "close": "Close"
+                },
+                "content": "Members will still be able to use a pass, of which the sharing has been deactivated, at the studio of purchase.",
+                "title": "Deactivation"
+            },
+            "form": {
+                "actions": {
+                    "submit": "Save",
+                    "close": "Close"
+                },
+                "submit": "Save",
+                "close": "Close",
+                "title": "Shared passes"
+            },
+            "section": {
+                "titleManagerOnly": "Not available for purchase",
+                "titleAvailable": "Available for purchase"
+            },
+            "isEmptyExplain": "Members can purchase and use this pass at any of the associated studios."
+        },
+        "paymentPackTemplateInstance": {
+            "actions": {
+                "addCompany": "Add a studio"
+            },
+            "companyEmpty": "No studios have been configured with this pass",
+            "deleteForm": {
+                "actions": {
+                    "submit": "Disable sharing",
+                    "close": "Close"
+                },
+                "content": "Members that've bought a pass at this studio will still be able to use this pass at other compatible studios, even after this specific studio has been deactivated. Other shared passes will no longer be useable at the deactivated studio.",
+                "title": "Deactivation"
+            },
+            "form": {
+                "actions": {
+                    "submit": "Save",
+                    "close": "Close"
+                },
+                "explain2": "Members that have bought this pass may use the pass at any of the compatible studios.",
+                "explain1": "The following studios will automatically offer this pass, but won't be able to modify the price or the number of credits.",
+                "title": "Configure my studios"
+            },
+            "consumerPaymentPackSharedFromOtherFranchisee": "Shared from a franchisee",
+            "paymentPackSharedFromFranchisor": "Franchise pass"
+        },
+        "selector": {
+            "noAvailable": "There are no compatible passes to display.",
+            "noManagerOnly": "Available for purchase",
+            "managerOnly": "Not available for purchase",
+            "filterManagerOnly": "All availabilities",
+            "filterCategory": "All categories",
+            "titleSort": "Sort",
+            "titleManagerOnly": "Available for purchase",
+            "titleCategory": "Categories",
+            "sorting": {
+                "descendingCredit": "Credits: descending",
+                "ascendingCredit": "Credits: ascending",
+                "descendingPrice": "Price: descending",
+                "ascendingPrice": "Price: ascending",
+                "customSort": "Additional orders (MarketPlace and App)"
+            }
+        },
+        "noUnauthorizedTag": "There are no refused tags to display.",
+        "noAuthorizedTag": "There are no authorized tags to display.",
+        "blackList": "Refused tags",
+        "whiteList": "Approved tags",
+        "activities": "Activities",
+        "categories": "Categories",
+        "establishments": "Establishments",
+        "accessibility": {
+            "onsitePayment": "Enable in-studio payments",
+            "managerOnly": "Unavailable for purchase",
+            "newMembers": "Only available for new customers"
+        },
+        "tags": {
+            "blackList": "{{ count }} refused tag",
+            "blackList_plural": "{{ count }} refused tags",
+            "whiteList": "{{ count }} approved tag",
+            "whiteList_plural": "{{ count }} approved tags"
+        },
+        "full_vod": "Provides access to Video On Demand",
+        "seeAll": "Show all",
+        "compatibility": {
+            "and": " and ",
+            "establishments": "{{ count }} establishment",
+            "establishments_plural": "{{ count }} establishments",
+            "activities": "{{ count }} activity",
+            "activities_plural": "{{ count }} activities",
+            "categories": "{{ count }} categorie",
+            "categories_plural": "{{ count }} categories",
+            "compatible": "Compatible with ",
+            "all": "This pass is compatible with all categories, activities, and establishments."
+        },
+        "cardDetails": {
+            "packBlocking2": " late cancellation(s) within a week",
+            "packBlocking1": " day(s) blocked after ",
+            "maxPurchasePerMember": "Maximum number of purchases: ",
+            "maxBookingPerDay": "Maximum usage per day: ",
+            "maxBookingPerWeek": "Maximum usage per week: ",
+            "maxBookingPerMonth": "Maximum usage per month: "
+        },
+        "detailTitles": {
+            "vod": "Video On Demand",
+            "restrictions": "Restrictions",
+            "tags": "Tags",
+            "accessibility": "Accessibility",
+            "compatibility": "Compatibility",
+            "validity": "Validity",
+            "credit_quantity": "Number of credits"
+        },
+        "unlimitedAndCalculatedMargin": " The marginal value per booking is calculate as PRICE / NUMBER Of BOOKINGS ",
+        "unlimitedAndMargin": " The marginal value per booking is ",
+        "validityTo": " until ",
+        "unlimitedPlural": "Unlimited",
+        "addPaymentPack": {
+            "sumNotZero": "The final number of days can't be 0",
+            "only_vod_access": "Restrict usage to Video On Demand",
+            "vodAccessCard": "Enable acces to Video On Demand",
+            "vod": "Video On Demand",
+            "compatibility": "Your pass will only be compatible with the compatible sessions, activities, categories, and/or establishments.",
+            "letBlank": "Leave this field empty to implement no restrictions",
+            "activities": "Activities",
+            "room": "Establishments",
+            "categories": "Categories",
+            "inShopPayment": "Enable on-site payments",
+            "notForSell": "Unavailable for purchase",
+            "newClientOnly": "Only available to new members",
+            "maxUseMember": "Maximum purchases per member",
+            "maxUseMonth": "Maximum usage per month",
+            "maxUseWeek": "Maximum usage per week",
+            "maxUseHelper": "Leave blank to not set a limit",
+            "maxUseDay": "Maximum usage per day",
+            "restriction": "Restrictions",
+            "penalityAccountHelper": "Members' account balance will be charged €{{penalityBlockAccount}}.",
+            "penalityBlockDayHelper": "Members' passes will be blocked for {{penalityBlockDay}} day(s).",
+            "penalityAccountPrice": "Amount to charge",
+            "penalityBlockDay": "Blocking period (in days)",
+            "penalityType": "Penalty settings",
+            "penalityAccount": "Charge the member's account balance",
+            "penalityBlock": "Temporarily block the pass",
+            "penalityInfo": "A penalty will be applied if {{penalityNumberCancel}} late cancellation(s) are registered within {{penalityNumberDay}} day(s).",
+            "penalityNumberDay": "Number of days",
+            "penalityNumberCancel": "Number of cancellations",
+            "marginalContributionHelperText": "This is used to calculate the payroll of the teachers. Example: €10 for 1 booking means that the teacher will be paid €10.  When left empty, the marginal value will be calculated as PRICE / NUMBER OF BOOKINGS.",
+            "marginalContribution": "Theoretical marginal value excl. VAT",
+            "expirationDateHelper": "If the pass hasn't been used during this set number of days, it'll automatically expire.",
+            "expirationDate": "Amount of days in which the pass expires if no booking is made",
+            "beginningDate": "Start date",
+            "attendance": "Valid from the 1st attendance",
+            "firstBooking": "Valid from the 1st booking",
+            "billing": "Valid from the billing date",
+            "validForDuration": {
+                "day": "This pass will be available for {{ duration_day }} day(s) after it's been purchased.",
+                "month": "This pass will be available for {{ duration_day }} day(s) and {{ duration_month }} month(s) after it's been purchased.",
+                "year": "This pass will be available for {{ duration_day }} day(s), {{ duration_month }} month(s), and {{ duration_year }} year(s) after it's been purchased."
+            },
+            "yearValidityHelper": "This will be added to the number of days and months",
+            "monthValidityHelper": "This will be added to the number of days",
+            "yearValidity": "Pass validity in years",
+            "monthValidity": "Pass validity in months",
+            "dayValidity": "Pass validity in days",
+            "endBeforeStart": "The end date can't be greater than the start date",
+            "toDate": "Until",
+            "fromDate": "From",
+            "availabilitySlot": "Make this pass valid during a certain time period",
+            "availabilityGivenNumber": "Make this pass valid for a set number of days after the purchase date",
+            "penalityRule": "This penalty can only be applied to unlimited passes",
+            "penality": "Apply a penalty for too many late cancellations",
+            "packValidity": "Pass validity",
+            "numberOfAvailableCredits": "Number of available credits",
+            "credit": "Credit",
+            "unlimited": "Unlimited",
+            "limited": "Limited",
+            "numberOfCredit": "Number of credits",
+            "namePaymentPack": "Name of the pass",
+            "name": "Name",
+            "generalInfo": "General information",
+            "paymentPack": "Pass",
+            "minusZero": "This field can't be 0",
+            "requiredField": "This field is mandatory"
         }
     },
     "metaActivity": {
@@ -7393,7 +7635,10 @@
         "close": "Close",
         "deleteImpossibleText": "You cannot delete this session because it has bookings that are open.",
         "deleteImpossibleTitle": "Cannot delete the session",
-        "restoreOffer": "Restore session"
+        "restoreOffer": "Restore session",
+        "maximumNumberDescription": "The maximum number of bookings ({{effectif}}) has been reached. Are you sure that you want to book in this member? This action will override the initial maximum number of bookings.",
+        "maximumNumber": "Maximum number of bookings",
+        "warningOfferFull": "Maximum number of bookings has been reached"
     },
     "emailTemplate": {
         "modal": {
@@ -7472,7 +7717,7 @@
         },
         "file": {
             "addButtonBlocked": "Delete files to add new ones",
-            "imported": "File uploaded !",
+            "imported": "The document has been successfully uploaded.",
             "deletion": "Deletion",
             "title": "Documents",
             "deleteFileMessage": "Are you sure you want to delete this file ?",
@@ -7614,7 +7859,34 @@
             "unknown": "Unknown status for the COVID-19 Sanitary Pass",
             "notDone": "I'm not in possession of a valid COVID-19 Sanitary Pass",
             "done": "I'm in possession of a valid COVID-19 Sanitary Pass"
-        }
+        },
+        "archive": {
+            "dialog": {
+                "actions": {
+                    "confirm": "Confirm",
+                    "close": "Close"
+                },
+                "warning": {
+                    "general": "Based on the following criteria, we advise that you regularize your member's internal account balance before the member is archived:",
+                    "6": "Scheduled appointments",
+                    "5": "Recurring bookings",
+                    "4": "Future bookings",
+                    "3": "Subscription with automatic renewals in progress",
+                    "2": "Current subscription",
+                    "1": "Unpaid invoice(s)",
+                    "0": "Negative internal account balance"
+                },
+                "helper_text_2": "This member will no longer appear in your database.",
+                "helper_text_1": "Are you sure that you want to archive this member?",
+                "title": "Archive a member"
+            },
+            "archivedMember": "Archived member: {{name}}"
+        },
+        "archived": "Archived",
+        "restoreMember": "Restore",
+        "termsOfUse": "The Terms of Use",
+        "noMember": "There are no members to display.",
+        "noData": "There are no members to members to display in this Smartlist."
     },
     "booking": {
         "bookingModule": {
@@ -7787,7 +8059,17 @@
                 "bookingNumberSecond": "Booking: 2",
                 "bookingNumberThird": "Booking: 3",
                 "bookingNumberN": "Booking: {{notify_booking_nb}}",
-                "bookingNumberAll": "All bookings"
+                "bookingNumberAll": "All bookings",
+                "addVariable": "Add a variable",
+                "pushHelper": "Use push notifications sparingly, as spamming members may lead to people deleting the app.",
+                "needPushUpsell": "You've not activated the Add-On for push notifications.",
+                "push": "Push notification",
+                "mail": "Email",
+                "sendingMethod": "Sending method",
+                "sendAfterNotifications": "Send the notifications after the end of the session",
+                "sendAfterNotification": "Send the push notification after the end of the session",
+                "sendBeforeNotifications": "Send the notifications before the start of the session",
+                "sendBeforeNotification": "Send the push notification before the start of the session"
             },
             "addNotification": "Add a notification"
         },
@@ -8045,7 +8327,8 @@
             "marketplaceShop": "Webshop",
             "marketplaceWorkshop": "Workshops",
             "marketplaceCalendar": "Calendar",
-            "marketplacePass": "Passes"
+            "marketplacePass": "Passes",
+            "marketplaceGiftcard": "Gift cards"
         },
         "dashboard": {
             "marketingDashboard": "Marketing",
@@ -8190,7 +8473,8 @@
                 "content": "Are you sure that you want to delete this Smartlist? This action can't be undone.",
                 "cancel": "Cancel",
                 "confirm": "Delete"
-            }
+            },
+            "validate": "Confirm"
         },
         "graphs": {
             "bookings": "Bookings",
@@ -8670,6 +8954,14 @@
                 "title": "Update Tagging Rules "
             },
             "tag": "Tag"
+        },
+        "memberBase": {
+            "options": {
+                "2": "Archived",
+                "1": "Non-archived",
+                "0": "Archived and Non-archived"
+            },
+            "helperText": "This Smartlist applies to all members."
         }
     },
     "coachPerformance": {
@@ -8680,7 +8972,7 @@
             "nb_bookings": "Bookings",
             "name": "Session name",
             "date": "Date",
-            "rule": "Payroll rule per activity",
+            "rule": "This activity's payroll rule",
             "error": "This activity has no payroll rule associated. Please choose a payroll rule and associate a payroll rule to the teacher.",
             "total": "Total payout",
             "cancelled_bookings": "Cancelled bookings",
@@ -9168,7 +9460,7 @@
             "timeout": "The server took too long to respond. Try refreshing the page",
             "error": "An error has occurred, try again later",
             "success": "Completed",
-            "pending": "Processing, please wait"
+            "pending": "The changes are being processed..."
         },
         "offer": {
             "restore": {
@@ -9497,7 +9789,7 @@
             "cashBookTooltip": "Ledger",
             "franchiseConnectedAs": "You're currently connected as: {{name}}",
             "redirecting": "You're being redirected to your page",
-            "backToFranchiseWorskpace": "Return to your Master Account",
+            "backToFranchiseWorskpace": "Return to the Master Account",
             "giftcard": "Gift cards"
         },
         "deprecatedNavigator": {
@@ -9514,16 +9806,17 @@
         "franchiseMenu": {
             "members": "Members",
             "franchises": "Franchisees",
-            "reporting": "Reports"
+            "reporting": "Reports",
+            "paymentPack": "Passes"
         },
         "multiSession": {
             "previousSession": " You were connected as: {{name}}",
             "title": " It appears that you're using multiple tabs simultaneously.",
             "currentSession": "You're currently connected as: {{name}}",
-            "restore": "Restore session",
+            "restore": "Continue with the previous account",
             "manager": "Manager",
             "franchisor": "Franchisor",
-            "continue": "Continue on this session",
+            "continue": "Continue with this account",
             "previous": "Previous session",
             "current": "Current session"
         },
@@ -9808,14 +10101,16 @@
             "groupTitle": {
                 "paymentPack": "Passes",
                 "privateBooking": "Appointments",
-                "booking": "Group activities"
+                "booking": "Group activities",
+                "privatePass": "Appointment passes"
             },
             "fabLabels": {
                 "private_service": "Appointments",
                 "payment_pack": "Passes",
                 "establishment": "Establishments",
                 "meta_activity": "Group activities",
-                "workshop": "Workshops"
+                "workshop": "Workshops",
+                "private_pass": "Appointment passes"
             },
             "cancel": "Cancel",
             "next": "Next",
@@ -9825,7 +10120,8 @@
                 "private_service": "Select an appointment",
                 "establishment": "Select a location",
                 "meta_activity": "Select an activity",
-                "workshop": "Select a workshop"
+                "workshop": "Select a workshop",
+                "private_pass": "Select an appointment pass"
             },
             "createNotification": "[Form] Notification",
             "stats": {
@@ -9834,9 +10130,12 @@
                 "total_mail_send": "Number of sent emails"
             },
             "mail": "Email ",
-            "notificationDetails": "Details",
+            "notificationDetails": "Overview",
             "mailTitle": "Preview",
-            "statisticDetails": "Statistics"
+            "statisticDetails": "Statistics",
+            "notificationPreview": "Overview",
+            "privatePassPlaceholder": "Appointment passes",
+            "dialogTitle": "Add a notification"
         },
         "customForm": {
             "field": {
@@ -9884,7 +10183,7 @@
                 "location": "Favorite location"
             },
             "title": "Forms",
-            "CustomFormLink": "Link to form",
+            "CustomFormLink": "Direct link to this form",
             "linkHelper": "Send the following link directly to your members:",
             "search": "Search a form",
             "name": "Name",
@@ -9896,7 +10195,7 @@
             "cancel": "Cancel",
             "send": "Send",
             "mandatory": "Obligatory",
-            "numberQuestions": "Number of questions",
+            "numberQuestions": "Questions",
             "listActions": "Actions",
             "disabledCustomForm": "Archived forms",
             "disabledCustomFormField": "Archived fields",
@@ -9909,7 +10208,7 @@
             "unaccessibleForm": "This form is currently inaccessible. Please click on the link below to return to your profile.",
             "backToUserSpace": "My profile",
             "changesDetected": "Save this form to apply the changes.",
-            "noChanges": "Form has been updated",
+            "noChanges": "This form is up to date.",
             "actions": {
                 "configure": "Configure",
                 "statistics": "Statistics",
@@ -10033,13 +10332,13 @@
                 "unForcedModeMinimal": "Don't display this form to members that have previously completed this form",
                 "forbiddenForSignup": "This form can't be associated to the notification rules"
             },
-            "disconnect": "Disconnect",
+            "disconnect": "Logout",
             "resetSubmit": "Edit my answers",
             "allStepsCompleted": "You've completed all forms.",
             "submitLater": "Answer later",
             "previous": "Back",
             "next": "Next",
-            "navigateToMemberForm": "Edit the modification form",
+            "navigateToMemberForm": "Edit the member profile",
             "signupFormHelper": "The mandatory questions of the sign up form must be editable by your members on their profile. These questions will be added automatically to the modification form and can be edited by members.",
             "signUp": {
                 "helperMemberForm": "The modification form can be customized and will be shown on your members' profile page and allows them to add or edit their information.",
@@ -10047,7 +10346,7 @@
                 "signupFields": "Form questions"
             },
             "signUpInfoModal": {
-                "content": "The mandatory questions on your sign up form must be editable by members on their profile page. These questions have now been automatically added and can be customized on the modification form and are displayed/editable by default.",
+                "content": "The mandatory questions on the sign up form must be editable by members on their profile page. These questions have now been automatically added and can be edited on the modification form for member profiles. These are displayed/editable by default.",
                 "confirm": "Continue",
                 "cancel": "Cancel",
                 "title": "Information"
@@ -10063,7 +10362,7 @@
             "editable": "Editable",
             "display": "Show",
             "navigateToSignup": "Edit sign up form",
-            "memberFormTitle": "Modification form",
+            "memberFormTitle": "Modification form for member profiles",
             "signupFormTitle": "Sign up form",
             "layout": {
                 "save": "Save",
@@ -10263,11 +10562,12 @@
             "configurationTitle": "Gift card"
         },
         "link": {
-            "copyLink": "Copy the direct link to the gift card"
+            "copyLink": "Copy the direct link to the gift card",
+            "activationLink": "Copy activation link"
         },
         "consumerGiftcard": {
             "form": {
-                "footer": "The gift card will be sent to the recipient on {{- date_send }}. It'll be valid for {{ expiration_days }} day(s) after sending this message and the recipient's account will be topped up with {{- price }}.",
+                "footer": "The gift card will be sent to the recipient at {{- hour_send }}. It'll be valid for {{ expiration_days }} day(s) after sending this message and the recipient's account will be topped up with {{- price }}.",
                 "actions": {
                     "submit": "Add to basket",
                     "cancel": "Cancel"
@@ -10290,8 +10590,9 @@
                 "name": {
                     "label": "Gift card's name"
                 },
-                "footerUnlimited": "The gift card will be sent to the recipient on {{- date_send }}. It has no expiration date and the receiver's account balance will be topped up with {{- price }} for future purchases.",
-                "select_image": "Select your background image"
+                "footerUnlimited": "The gift card will be sent to the recipient at {{- hour_send }}. It has no expiration date and the receiver's account balance will be topped up with {{- price }} for future purchases.",
+                "select_image": "Select your background image",
+                "hour_send": "Sending time"
             },
             "previewPlaceholder": {
                 "message_content": "[Custom message]",
@@ -10307,7 +10608,7 @@
             "invitedOn": "Sent on {{- d }}",
             "value": "Value",
             "isFrom": "From ",
-            "isFor": "To the attention of ",
+            "isFor": "For the attention of ",
             "isEmpty": "There are no gift cards to display.",
             "linkedInvoice": "Associated invoice",
             "list": {
@@ -10330,7 +10631,7 @@
                 "content2": "The gift card will automatically be added as a payment method to your basket. All gift card related information is stored in your profile.",
                 "content1": "Your gift card of {{price}} is compatible with all of our store's products and has no expiration date. Enjoy!",
                 "subtitle": "Looks like someone wanted to surprise you.",
-                "title": "Someone wanted to make you happy!",
+                "title": "You received a gift!",
                 "content1withDate": "Your {{price}} gift card can be used for any of our products. Please bear in mind that your gift card expires in {{ expiration_days }} day(s) after activation. Enjoy!"
             }
         },
@@ -10341,7 +10642,8 @@
             "activeTitle": "Available gift cards",
             "explainIfEmpty": "Gift cards allow your members to share offers with their loved ones and to increase your studio's potential reach.",
             "actions": {
-                "create": "Add a gift card"
+                "create": "Add a gift card",
+                "goToGiftcard": "See all gift cards"
             },
             "addBackgroundImage": "Add an image",
             "visibility": "Unavailable",
@@ -10354,6 +10656,7 @@
             "content": "Are you sure that you want to archive this gift card? It won't appear on your Back Office anymore, but you can reactivate it in the future.",
             "title": "Archive this gift card"
         },
-        "search": "Search a gift card"
+        "search": "Search a gift card",
+        "widget": "Choose gift cards"
     }
 }

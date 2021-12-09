@@ -13,6 +13,7 @@ exports.default = {
     },
   },
   notifications: {
+    dialogTitle: 'Créer une notification',
     selectNotificationRules: 'Sélectionnez une règle pour voir les détails',
     createNotification: 'Formulaire de notification',
     selectIdentifierLabel: {
@@ -21,8 +22,10 @@ exports.default = {
       establishment: 'Sélectionnez une salle',
       private_service: 'Sélectionnez un rendez-vous',
       payment_pack: 'Sélectionnez une carte de cours',
+      private_pass: 'Sélectionnez une carte de de rendez-vous',
     },
     paymentPackPlaceholder: 'Carte de cours',
+    privatePassPlaceholder: 'Carte de rendez-vous',
     next: 'Suivant',
     cancel: 'Annuler',
     fabLabels: {
@@ -31,11 +34,13 @@ exports.default = {
       establishment: 'Salle',
       private_service: 'Rendez-vous',
       payment_pack: 'Carte de cours',
+      private_pass: 'Carte de rendez-vous',
     },
     groupTitle: {
       booking: 'Réservation',
       privateBooking: 'Rendez-vous',
       paymentPack: 'Carte de cours',
+      privatePass: 'Carte de rendez-vous',
     },
     paymentPackKind: {
       validity: 'Validité de la carte',
@@ -164,7 +169,7 @@ exports.default = {
       lg: 'Ecran large',
     },
     field: {
-      location: "Localisation préférée",
+      location: 'Localisation préférée',
       sign_up_question: "Question du formulaire d'inscription",
       first_name: 'Prénom',
       last_name: 'Nom de famille',

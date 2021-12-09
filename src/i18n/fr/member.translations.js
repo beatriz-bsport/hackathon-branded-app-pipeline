@@ -202,4 +202,6 @@ exports.default = {
       },
     },
   },
+  noData: "Il n'y a aucun membre dans cette smartlist.",
+  noMember: "Il n'y a aucun membre à afficher pour le moment.",
 };

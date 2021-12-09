@@ -1610,6 +1610,7 @@
       "messages": { "error": "Impossible d'enregistrer votre email pour le moment", "success": "C'est enregistré !" }
     },
     "notifications": {
+      "dialogTitle": "Créer une notification",
       "selectNotificationRules": "Sélectionnez une règle pour voir les détails",
       "createNotification": "Formulaire de notification",
       "selectIdentifierLabel": {
@@ -1617,9 +1618,11 @@
         "workshop": "Sélectionnez un atelier",
         "establishment": "Sélectionnez une salle",
         "private_service": "Sélectionnez un rendez-vous",
-        "payment_pack": "Sélectionnez une carte de cours"
+        "payment_pack": "Sélectionnez une carte de cours",
+        "private_pass": "Sélectionnez une carte de de rendez-vous"
       },
       "paymentPackPlaceholder": "Carte de cours",
+      "privatePassPlaceholder": "Carte de rendez-vous",
       "next": "Suivant",
       "cancel": "Annuler",
       "fabLabels": {
@@ -1627,9 +1630,15 @@
         "workshop": "Atelier",
         "establishment": "Salle",
         "private_service": "Rendez-vous",
-        "payment_pack": "Carte de cours"
+        "payment_pack": "Carte de cours",
+        "private_pass": "Carte de rendez-vous"
       },
-      "groupTitle": { "booking": "Réservation", "privateBooking": "Rendez-vous", "paymentPack": "Carte de cours" },
+      "groupTitle": {
+        "booking": "Réservation",
+        "privateBooking": "Rendez-vous",
+        "paymentPack": "Carte de cours",
+        "privatePass": "Carte de rendez-vous"
+      },
       "paymentPackKind": { "validity": "Validité de la carte", "credit": "Nombre de crédits" },
       "notificationDetails": "Détails de la notification",
       "statisticDetails": "Statistiques",
@@ -2055,7 +2064,9 @@
         },
         "actions": { "close": "Fermer", "confirm": "Confirmer" }
       }
-    }
+    },
+    "noData": "Il n'y a aucun membre dans cette smartlist.",
+    "noMember": "Il n'y a aucun membre à afficher pour le moment."
   },
   "membership": {
     "selector": {
@@ -2498,7 +2509,10 @@
       "cancelSimilarOffers": "Voulez-vous annuler les séances similaires ?",
       "selectCancel": "Sélectionnez les séances qui seront annulées",
       "noSimilarOffer": "Aucune séance similaire trouvée. Seule cette séance sera affectée."
-    }
+    },
+    "warningOfferFull": "Le nombre maximum de réservations a déjà été atteint",
+    "maximumNumber": "Nombre maximum de réservations",
+    "maximumNumberDescription": "Le nombre maximum de {{effectif}} réservations a déjà été atteint.En inscrivant ce membre vous dépasserez l'effectif initialement prévu. Etes vous sûr de vouloir inscrire ce membre ?"
   },
   "order": {
     "pageTitle": "Magasin",
@@ -3048,6 +3062,73 @@
     "use": "Utiliser",
     "isNonCompatible": "incompatible",
     "paymentPackDisabled": { "success": "Carte de cours supprimée", "error": "Impossible de supprimer" },
+    "addPaymentPack": {
+      "requiredField": "Ce champ est requis",
+      "minusZero": "ce champ ne peut ếtre égal à 0",
+      "paymentPack": "Carte de cours",
+      "generalInfo": "Informations générales",
+      "name": "Nom",
+      "namePaymentPack": "Nom de la carte de cours",
+      "numberOfCredit": "Nombre de crédits",
+      "limited": "Limité",
+      "unlimited": "Illimité",
+      "credit": "Crédit",
+      "numberOfAvailableCredits": "Nombre de crédits disponible",
+      "packValidity": "Validité de la carte",
+      "penality": "Appliquer une pénalite en cas d’annulations hors délai trop nombreuses",
+      "penalityRule": "Vous pouvez appliquer une pénalité uniquement si le nombre de crédits est illimité",
+      "availabilityGivenNumber": "Rendre la carte valide uniquement un certain nombre de jours (après la date d’achat)",
+      "availabilitySlot": "Rendre la carte valide uniquement sur un créneau de dates",
+      "fromDate": "À partir du",
+      "toDate": "Jusqu’au",
+      "endBeforeStart": "La date de fin ne peut être supérieur à la date de début",
+      "dayValidity": "Durée de validité de la carte en jours",
+      "monthValidity": "Durée de validité de la carte en mois",
+      "yearValidity": "Durée de validité de la carte en années",
+      "monthValidityHelper": "S’ajoute au nombre de jours",
+      "yearValidityHelper": "S’ajoute au nombre de jours et de mois",
+      "validForDuration": {
+        "year": "Cette carte sera valide pendant {{ duration_year }} ans, {{ duration_month }} mois et {{ duration_day }} jours à compter de la date d’achat",
+        "month": "Cette carte sera valide pendant {{ duration_month }} mois et {{ duration_day }} jours à compter de la date d’achat",
+        "day": "Cette carte sera valide pendant {{ duration_day }} jours à compter de la date d’achat"
+      },
+      "billing": "À la facturation",
+      "firstBooking": "À la première réservation",
+      "attendance": "À la première présence",
+      "beginningDate": "Date de début",
+      "expirationDate": "Expiration si aucune réservation initiale",
+      "expirationDateHelper": "Si la carte de cours n'est pas consommée une première fois pendant ce nombre de jour, elle est rendu invalide",
+      "marginalContribution": "Apport marginal théorique TTC",
+      "marginalContributionHelperText": "Utilisé pour calculer la rémunération des professeurs. 10€ signifie qu’une réservation faite avec cette carte est rémunérée 10€. Si vide ou 0€ l’apport d’une carte sera PRIX/NB_RESERVATION",
+      "penalityNumberCancel": "Nombre d’annulations",
+      "penalityNumberDay": "Nombre de jours",
+      "penalityInfo": "Une pénalité sera appliquée si il y a {{penalityNumberCancel}} annulation hors délai sur une période de {{penalityNumberDay}} jours",
+      "penalityBlock": "Bloquer temporairement la carte de cours",
+      "penalityAccount": "Créer un acompte pour le membre concerné",
+      "penalityType": "Type de pénalité à appliquer",
+      "penalityBlockDay": "Période de blocage de la carte (en jours)",
+      "penalityAccountPrice": "Montant de l’acompte",
+      "penalityBlockDayHelper": "La carte du membre concerné sera bloquée pendant {{penalityBlockDay}} jours",
+      "penalityAccountHelper": "Un acompte de {{penalityBlockAccount}}€ sera appliqué pour ce membre",
+      "restriction": "Restrictions",
+      "maxUseDay": "Utilisations maximum par jour",
+      "maxUseHelper": "Laisser vide pour ne pas imposer de limite",
+      "maxUseWeek": "Utilisations maximum par semaine",
+      "maxUseMonth": "Utilisations maximum par mois",
+      "maxUseMember": "Achat maximum par membre",
+      "newClientOnly": "Uniquement pour les nouveaux clients",
+      "notForSell": "Indisponible à la vente",
+      "inShopPayment": "Possibilité de payer sur place",
+      "categories": "Catégories",
+      "room": "Salles",
+      "activities": "Activités",
+      "letBlank": "Laisser vide pour tout autoriser",
+      "compatibility": "Votre carte sera compatible uniquement avec les séances correspondantes à l’une des catégories sélectionnées ET l’une des salles sélectionnées ET l’une des activités sélectionnées",
+      "vod": "VOD",
+      "vodAccessCard": "Donne l’accès à la VOD",
+      "only_vod_access": "Restreindre l’utilisation de la carte à de la VOD uniquement",
+      "sumNotZero": "le nombre de jour final ne peut être nul"
+    },
     "disabled": "Désactivé",
     "disableConsumer": "Bloquer",
     "enableConsumer": "Débloquer",
@@ -3737,7 +3818,8 @@
     },
     "privateServiceCompatibility": {
       "allSlots": "Compatible pour toutes les séances",
-      "forSlots": "Les séances compatibles:",
+      "forSlots": "Les séances compatibles :",
+      "none": " aucune",
       "delete": {
         "title": "Modification RDV compatibles",
         "explain": "Êtes-vous sûr de vouloir modifier les règles d'utilisation du pass ? Cette modification est rétro-active pour les achats déjà effectués.",
@@ -3780,37 +3862,61 @@
         "tax": "TVA: {{ tax }}%",
         "managerOnly": "Invisible pour les clients"
       },
-      "compatibleServices": { "title": "RDV compatibles", "add": "Ajouter", "isEmpty": "Aucun rendez-vous n'est compatible - inutilisable" },
+      "compatibleServices": {
+        "title": "RDV compatibles",
+        "add": "Ajouter",
+        "isEmpty": "Aucun rendez-vous compatible",
+        "unusable": "Inutilisable"
+      },
       "form": {
-        "title": "Carte RDV",
-        "full_vod_access": { "label": "Donne accès à la VOD tant que valable dans le temps" },
+        "title": "Carte de rendez-vous",
+        "categoryTitle": {
+          "info": "Informations générales",
+          "paymentMeans": "Moyens de paiement",
+          "validity": "Validité de la carte",
+          "compatibility": "Compatibilité"
+        },
+        "full_vod_access": { "label": "Donne accès à la VOD tant que la carte est valable dans le temps" },
         "managerOnly": { "label": "Invisible pour les clients" },
         "new_member_only": { "label": "Uniquement pour les nouveaux clients" },
-        "name": { "label": "Nom" },
-        "credits": { "label": "Nombre de crédit inclu", "helperText": "Chaque séance coûte un certain nombre de crédit" },
-        "price": { "label": "Prix" },
+        "name": { "label": "Nom", "helperText": "Nom de la carte de cours" },
+        "category": "Nom de la catégorie",
+        "credits": { "label": "Nombre de crédits inclus", "helperText": "Chaque séance coûte un certain nombre de crédits" },
+        "price": { "label": "Prix TTC", "helperText": "Prix de la carte pour le client" },
         "tax": { "label": "TVA" },
-        "durationDays": {
-          "label": "Durée de validité (jours) si applicable",
-          "helperText": "Période en jours pour laquelle la carte sera valide après achat "
-        },
-        "durationMonths": { "label": "Durée de validité (mois) si applicable", "helperText": "S'ajoute au nombre de jours" },
-        "durationYears": {
-          "label": "Durée de validité (années) si applicable",
-          "helperText": "S'ajoute au nombre de jours et de mois"
+        "durationDays": { "label": "Durée de validité en jours" },
+        "durationMonths": { "label": "Durée de validité en mois", "helperText": "S'ajoute au nombre de jours" },
+        "durationYears": { "label": "Durée de validité en années", "helperText": "S'ajoute au nombre de jours et de mois" },
+        "duration": {
+          "fullText": "Cette carte sera valide pendant ",
+          "valid": "Valide pendant ",
+          "days": "{{ count }} jour",
+          "days_plural": "{{ count }} jours",
+          "months": "{{ count }} mois",
+          "daysMonths": "{{ duration_months }} mois et {{ duration_days }} jours",
+          "years": "{{ count }} an",
+          "years_plural": "{{ count }} ans",
+          "and": " et "
         },
         "available_payment_method_identifiers": {
           "label": "Moyens de paiement autorisés",
-          "helperText": "Sélectionnez au moins un moyen de paiement. Si le panier du membre contient des éléments dont les moyens de paiements sont incompatibles, le paiement CB sera proposé."
+          "helperText": "Sélectionnez au moins un moyen de paiement. Si le panier du membre contient des éléments dont les moyens de paiements sont incompatibles, le paiement CB sera proposé.",
+          "warning": "Rendez votre carte visible pour les clients pour pouvoir sélectionner les moyens de paiement."
         },
+        "startDate": "Date de début",
         "start_date_method": {
-          "on_purchase": "Débute à la facturation",
-          "on_booking": "Débute à la 1ère réservation",
-          "on_attendance": "Débute à la 1ère présence"
+          "on_purchase": "À la facturation",
+          "on_booking": "À la 1ère réservation",
+          "on_attendance": "À la 1ère présence"
+        },
+        "start_date_method_detail": {
+          "on_purchase": " à compter de la date d'achat",
+          "on_booking": " à compter de la première réservation",
+          "on_attendance": " à compter de la première présence"
         },
         "expirationDaysBeforeFirstUse": {
-          "label": "Expiration si aucun RDV initial",
-          "helperText": "Si la carte n'est pas consommé une première fois pendant ce nb de jour, elle sera rendue invalide"
+          "label": "Expiration si aucune réservation initiale",
+          "helperText": "Si la carte de cours n'est pas consommée une première fois pendant ce nombre de jours, elle sera rendue invalide."
         },
         "actions": { "submit": "Enregistrer", "cancel": "Annuler" }
       },
@@ -4021,7 +4127,8 @@
         "explain": "Tous les {{dayOfWeek}} - {{time}}, {{delayWeek}} semaines avant"
       }
     },
-    "disabledPacksTitle": "Cartes RDV archivées"
+    "disabledPacksTitle": "Cartes RDV archivées",
+    "categoryTitle": "Catégories de cartes de RDV"
   },
   "relationship": {
     "relationship": {
@@ -4841,7 +4948,8 @@
         "content": "Êtes-vous sûr de vouloir supprimer cette smartlist ? Cette opération est définitive",
         "cancel": "Annuler",
         "confirm": "Supprimer"
-      }
+      },
+      "validate": "Valider"
     },
     "graphs": {
       "bookings": "Réservations",

@@ -89,4 +89,8 @@ exports.default = {
     noSimilarOffer:
       'Aucune séance similaire trouvée. Seule cette séance sera affectée.',
   },
+  warningOfferFull: 'Le nombre maximum de réservations a déjà été atteint',
+  maximumNumber: 'Nombre maximum de réservations',
+  maximumNumberDescription:
+    "Le nombre maximum de {{effectif}} réservations a déjà été atteint.En inscrivant ce membre vous dépasserez l'effectif initialement prévu. Etes vous sûr de vouloir inscrire ce membre ?",
 };

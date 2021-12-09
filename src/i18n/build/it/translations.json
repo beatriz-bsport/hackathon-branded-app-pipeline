@@ -1317,7 +1317,9 @@
             },
             "packs": {
                 "title": "Schede del corso"
-            }
+            },
+            "closeMemberMatch": "Stai cercando questo membro?",
+            "archived": "Membri archiviati"
         },
         "actions": {
             "addMember": "Aggiungi un membro"
@@ -1992,7 +1994,8 @@
                 "isEmpty": "Nessun tipo di sessione configurato in questo appuntamento!"
             },
             "forSlots": "Sessioni compatibili:",
-            "allSlots": "Compatibile con tutte le sessioni"
+            "allSlots": "Compatibile con tutte le sessioni",
+            "none": " no"
         },
         "privatePass": {
             "validForDuration": {
@@ -2004,41 +2007,45 @@
             "compatibleServices": {
                 "title": "Appuntamenti compatibili",
                 "isEmpty": "Nessun appuntamento è compatibile - inutilizzabile",
-                "add": "Inserisci"
+                "add": "Inserisci",
+                "unusable": "Inutilizzabile"
             },
             "form": {
-                "title": "Pass per appuntamenti",
+                "title": "Carta d'appuntamento",
                 "tax": {
                     "label": "I.V.A."
                 },
                 "durationDays": {
-                    "label": "Periodo di validità (giorni) se applicabile",
+                    "label": "Durata della validità in giorni",
                     "helperText": "Periodo in giorni per i quali la carta sarà valida dopo l'acquisto "
                 },
                 "durationMonths": {
                     "helperText": "Si aggiunge al numero di giorni",
-                    "label": "Periodo di validità (giorni) se applicabile"
+                    "label": "Durata della validità in mesi"
                 },
                 "available_payment_method_identifiers": {
                     "helperText": "Seleziona almeno un metodo di pagamento. Se il carrello del membro contiene articoli per i quali i mezzi di pagamento sono incompatibili, verrà offerto il pagamento attraverso carta di credito.",
-                    "label": "Mezzi di pagamento autorizzati"
+                    "label": "Mezzi di pagamento autorizzati",
+                    "warning": "Rendi la tua carta visibile ai clienti in modo che possano selezionare i metodi di pagamento."
                 },
                 "actions": {
                     "submit": "Iscriviti",
                     "cancel": "Annulla"
                 },
                 "price": {
-                    "label": "Prezzo"
+                    "label": "Prezzo",
+                    "helperText": "Prezzo della carta per il cliente"
                 },
                 "durationYears": {
-                    "label": "Periodo di validità (anni) se applicabile",
+                    "label": "Durata della validità in anni",
                     "helperText": "Si aggiunge al numero di giorni e mesi"
                 },
                 "managerOnly": {
                     "label": "Invisibile ai clienti"
                 },
                 "name": {
-                    "label": "Nome"
+                    "label": "Nome",
+                    "helperText": "Nome della scheda del corso"
                 },
                 "credits": {
                     "label": "Numero di crediti inclusi",
@@ -2048,20 +2055,44 @@
                     "label": "Fornisci accesso ai video on demand finché risulta valido nel tempo"
                 },
                 "expirationDaysBeforeFirstUse": {
-                    "helperText": "Se la carta non viene utilizzata per la prima volta entro questo numero di giorni, non sarà più valida",
-                    "label": "Scadenza se nessun appuntamento iniziale"
+                    "helperText": "Se la carta del corso non viene usata una volta entro questo numero di giorni, sarà resa invalida.",
+                    "label": "Scade se nessuna prenotazione iniziale"
                 },
                 "start_date_method": {
-                    "on_attendance": "Inizia alla 1a partecipazione",
+                    "on_attendance": "Alla 1a partecipazione",
                     "on_booking": "Inizia con la 1a prenotazione",
-                    "on_purchase": "Iniziare alla data di fatturazione"
+                    "on_purchase": "À la facturation"
                 },
                 "new_member_only": {
                     "label": "Solo per i nuovi clienti"
+                },
+                "start_date_method_detail": {
+                    "on_attendance": " dalla prima partecipazione",
+                    "on_booking": " dalla prima prenotazione",
+                    "on_purchase": " dalla data di acquisto"
+                },
+                "startDate": "Data di inizio",
+                "duration": {
+                    "and": " e ",
+                    "years": "{{ count }} an",
+                    "years_plural": "{{ count }} ans",
+                    "daysMonths": "{{ duration_months }} mesi e {{ duration_days }} giorni",
+                    "months": "{{ count }} mesi",
+                    "days": "{{ count }} giorno",
+                    "days_plural": "{{ count }} giorni",
+                    "valid": "Questa scheda sarà valida per ",
+                    "fullText": "Questa carta sarà valida per "
+                },
+                "category": "Nome della categoria",
+                "categoryTitle": {
+                    "compatibility": "Compatibilità",
+                    "validity": "Validità della carta",
+                    "paymentMeans": "Informazioni generali",
+                    "info": "Informazioni generali"
                 }
             },
             "delete": {
-                "explain": "Sei sicuro di voler eliminare questa carta? Le persone che hanno ancora crediti saranno ancora in grado di usarle. Questa operazione è definitiva",
+                "explain": "Sei sicuro di voler cancellare questa scheda? Le persone che hanno ancora dei crediti possono ancora usarli.",
                 "cancel": "Annulla",
                 "submit": "Conferma",
                 "title": "Cancellazione della carta",
@@ -2334,7 +2365,13 @@
                 "chooseWhen": {
                     "after": "Inviare l'e mail al cliente dopo la sessione",
                     "before": "Inviare una e mail al cliente prima della sessione",
-                    "title": "Tipo di notifica"
+                    "title": "Tipo di notifica",
+                    "afterNotification": "Invia una notifica push al membro dopo l'appuntamento interessato dalla notifica",
+                    "afterNotifications": "Inviare le notifiche al membro dopo l'appuntamento interessato dalla notifica",
+                    "afterMail": "Inviare l'e-mail al membro dopo l'appuntamento interessato dalla notifica",
+                    "beforeNotification": "Invia la notifica push al membro prima dell'appuntamento a cui la notifica si riferisce",
+                    "beforeNotifications": "Inviare l'email al membro prima dell'appuntamento interessato dalla notifica",
+                    "beforeMail": "Inviare l'email al membro prima dell'appuntamento interessato dalla notifica"
                 },
                 "help": {
                     "cancelledNotRefunded": {
@@ -2377,7 +2414,9 @@
             "validate": "Convalidare"
         },
         "searshAppointmentPass": "Cercare una scheda RDV",
-        "search": "Cerca un appuntamento"
+        "search": "Cerca un appuntamento",
+        "categoryTitle": "Categorie di carte d'appuntamento",
+        "disabledPacksTitle": "Carte d'appuntamento archiviate"
     },
     "video": {
         "video": {
@@ -5222,7 +5261,9 @@
                 "noMailAvailable": "Nessuna email disponibile, ricordati di crearne una",
                 "typeTitle": "Tipo di notifica",
                 "settingTitle": "Impostazioni",
-                "hideMail": "Nascondi email"
+                "hideMail": "Nascondi email",
+                "pushTitle": "Impostazioni di notifica",
+                "mailSettings": "Impostazioni della posta"
             },
             "listItem": {
                 "smartList": "Elenchi esclusi",
@@ -5297,7 +5338,8 @@
             "edit": "Modifica",
             "delete": "Rimuovi",
             "scaleCredit": "Crediti mult/div",
-            "massExtension": "Aggiungere un'estensione"
+            "massExtension": "Aggiungere un'estensione",
+            "close": "Chiudere"
         },
         "scaleCredit": {
             "title": "Variazione totale del credito",
@@ -5477,16 +5519,25 @@
         },
         "validForDuration": {
             "days": "{{duration_days}} giorni validi",
-            "months": "{{duration_months}} mesi validi",
-            "years": "Valido {{duration_years}} anni",
-            "general": "{{duration_days}} giorni validi {{duration_months}} mesi e {{duration_years}} anno"
+            "days_plural": "{{ count }} giorni",
+            "months": "{{ count }} mesi",
+            "years": "{{ count }} an",
+            "years_plural": "{{ count }} ans",
+            "general": "{{duration_days}} giorni validi {{duration_months}} mesi e {{duration_years}} anno",
+            "and": " e ",
+            "attendance": "dalla prima presenza",
+            "booking": "dalla prima prenotazione",
+            "purchase": "dalla data della fattura",
+            "daysMonths": "{{ duration_months }} mesi e {{ duration_days }} giorni",
+            "validFor": "durante ",
+            "valid": "Valido "
         },
         "link": {
             "copied": "Link copiato",
             "copyLink": "Copia il link nella pagina di pagamento"
         },
         "maxNBookingsByWeek2": " prenotazioni per settimana",
-        "validity": "Valido:",
+        "validity": "Valido da ",
         "notificationToolTip": "Le notifiche sono impostate per questa carta",
         "noPaymentPackSubscribed": "Nessun pass",
         "validUntil": "Valido fino a",
@@ -5604,6 +5655,197 @@
             "empty": "Aucune catégorie",
             "name": "Nessuna categoria",
             "help": "Questi pass appariranno in una categoria senza nome nel mercato"
+        },
+        "noUnauthorizedTag": "Nessuna etichetta non autorizzata",
+        "noAuthorizedTag": "Nessun tag consentito",
+        "blackList": "Targhette non autorizzate",
+        "whiteList": "Targhette autorizzate",
+        "activities": "Attività",
+        "categories": "Categorie",
+        "establishments": "Camere",
+        "accessibility": {
+            "onsitePayment": "Pagamento sul posto consentito",
+            "managerOnly": "Invisibile in vendita",
+            "newMembers": "Solo per i nuovi clienti"
+        },
+        "tags": {
+            "blackList": "{{ count }} tag non-autorisé",
+            "blackList_plural": "{{ count }} tag non autorizzati",
+            "whiteList": "{{ count }} tag consentito",
+            "whiteList_plural": "{{ count }} tag ammessi"
+        },
+        "full_vod": "Valido per VOD",
+        "seeAll": "Vedi tutti",
+        "compatibility": {
+            "and": " e ",
+            "establishments": "{{ count }} salle",
+            "establishments_plural": "{{ count }} salles",
+            "activities": "{{ count }} activité",
+            "activities_plural": "{{ count }} attività",
+            "categories": "{{ count }} categoria",
+            "categories_plural": "{{ count }} categorie",
+            "compatible": "Compatibile con ",
+            "all": "Compatibile con tutti i"
+        },
+        "selector": {
+            "noAvailable": "Nessuna carta corrispondente alla disponibilità scelta",
+            "noManagerOnly": "Disponibile per la vendita",
+            "managerOnly": "Non disponibile per la vendita",
+            "filterManagerOnly": "Tutte le disponibilità",
+            "filterCategory": "Tutte le categorie",
+            "titleSort": "Ordina",
+            "titleManagerOnly": "Disponibilità per la vendita",
+            "titleCategory": "Categorie",
+            "sorting": {
+                "descendingCredit": "Credito decrescente",
+                "ascendingCredit": "Credito crescente",
+                "descendingPrice": "Prezzo decrescente",
+                "ascendingPrice": "Prezzo crescente",
+                "customSort": "Ordine lato client (mercato e app)"
+            }
+        },
+        "cardDetails": {
+            "packBlocking2": " cancellazioni fuori tempo massimo in una settimana",
+            "packBlocking1": " giorni di blocco dopo ",
+            "maxPurchasePerMember": "Numero massimo di acquisti : ",
+            "maxBookingPerDay": "Usi massimi al giorno : ",
+            "maxBookingPerWeek": "Usi massimi per settimana: ",
+            "maxBookingPerMonth": "Usi massimi al mese: "
+        },
+        "detailTitles": {
+            "vod": "VOD",
+            "restrictions": "Restrizioni",
+            "tags": "Tags",
+            "accessibility": "Accessibilità",
+            "compatibility": "Compatibilità",
+            "validity": "Validità",
+            "credit_quantity": "Numero di crediti"
+        },
+        "unlimitedAndCalculatedMargin": " - Input marginale teorico calcolato: prezzo / nb_riserveioni ",
+        "unlimitedAndMargin": " - Contributo marginale teorico di ",
+        "unlimitedPlural": "Illimitato",
+        "validityTo": " su ",
+        "addPaymentPack": {
+            "sumNotZero": "il numero finale di giorni non può essere zero",
+            "only_vod_access": "Limitare l'uso della carta al solo VOD",
+            "vodAccessCard": "Fornisce l'accesso al VOD",
+            "vod": "VOD",
+            "compatibility": "La tua carta sarà compatibile solo con le sessioni corrispondenti a una delle categorie selezionate E uno dei luoghi selezionati E una delle attività selezionate",
+            "letBlank": "Lasciare vuoto per permettere a tutti",
+            "activities": "Attività",
+            "room": "Camere",
+            "categories": "Categorie",
+            "inShopPayment": "Possibilità di pagare sul posto",
+            "notForSell": "Non disponibile per la vendita",
+            "newClientOnly": "Solo per i nuovi clienti",
+            "maxUseMember": "Acquisto massimo per membro",
+            "maxUseMonth": "Usi massimi al mese",
+            "maxUseWeek": "Usi massimi per settimana",
+            "maxUseHelper": "Lasciare vuoto per non imporre un limite",
+            "maxUseDay": "Usi massimi al giorno",
+            "restriction": "Restrizioni",
+            "penalityAccountHelper": "Un deposito di {{penalitàBloccoAccount}}€ sarà applicato per questo membro",
+            "penalityBlockDayHelper": "La carta del membro sarà bloccata per {{penalityBlockDay}} giorni",
+            "penalityAccountPrice": "Importo del deposito",
+            "penalityBlockDay": "Tipo di sanzione da applicare",
+            "penalityType": "Tipo di sanzione da applicare",
+            "penalityAccount": "Creare un deposito per il membro interessato",
+            "penalityBlock": "Bloccare temporaneamente la scheda del corso",
+            "penalityInfo": "Una penalità sarà applicata se ci sono {{penalityNumberCancel}} cancellazioni fuori tempo massimo in un periodo {{penalityNumberDay}}",
+            "penalityNumberDay": "Numero di giorni",
+            "penalityNumberCancel": "Numero di cancellazioni",
+            "marginalContributionHelperText": "Utilizzato per calcolare la remunerazione degli insegnanti. 10€ significa che una prenotazione fatta con questa carta viene pagata 10€. Se vuoto o 0€ il contributo di una carta sarà PRICE/NB_RESERVATION",
+            "marginalContribution": "Contributo marginale teorico comprensivo di IVA",
+            "expirationDateHelper": "Se la carta del corso non viene utilizzata per la prima volta entro questo numero di giorni, non è più valida",
+            "expirationDate": "Scade se nessuna prenotazione iniziale",
+            "beginningDate": "Data di inizio",
+            "attendance": "Alla prima presenza",
+            "firstBooking": "Alla fatturazione",
+            "billing": "Alla fatturazione",
+            "validForDuration": {
+                "day": "Questa carta sarà valida per {{ duration_day }} giorni dalla data di acquisto",
+                "month": "Questa carta sarà valida per {{ duration_month }} mesi e {{ duration_day }} giorni dalla data di acquisto",
+                "year": "Questa carta sarà valida per {{ duration_year }} anni, {{ duration_month }} mesi e {{ duration_day }} giorni dalla data di acquisto"
+            },
+            "yearValidityHelper": "Aggiunto al numero di giorni e mesi",
+            "monthValidityHelper": "Oltre al numero di giorni",
+            "yearValidity": "Periodo di validità della carta in anni",
+            "monthValidity": "Periodo di validità della carta in mesi",
+            "dayValidity": "Periodo di validità della carta in giorni",
+            "endBeforeStart": "La data di fine non può essere maggiore di quella di inizio",
+            "toDate": "Fino a",
+            "fromDate": "Dal",
+            "availabilitySlot": "Rendere la carta valida solo per un intervallo di date",
+            "availabilityGivenNumber": "Rendere la carta valida solo per un certo numero di giorni (dopo la data di acquisto)",
+            "penalityRule": "Si può applicare una penalità solo se il numero di crediti è illimitato",
+            "penality": "Applicare una penalità per troppe cancellazioni dopo la scadenza",
+            "packValidity": "Validità della carta",
+            "numberOfAvailableCredits": "Numero di crediti disponibili",
+            "credit": "Credito",
+            "unlimited": "Limitato",
+            "limited": "Limitato",
+            "numberOfCredit": "Numero di crediti",
+            "namePaymentPack": "Nome della scheda del corso",
+            "name": "Nome",
+            "generalInfo": "Informazioni generali",
+            "paymentPack": "Scheda del corso",
+            "minusZero": "questo campo non può ế essere uguale a 0",
+            "requiredField": "Questo campo è richiesto"
+        },
+        "paymentPackTemplate": {
+            "actions": {
+                "create": "Creare una mappa condivisa"
+            },
+            "deleteForm": {
+                "actions": {
+                    "submit": "Disattivare la condivisione",
+                    "close": "Chiudere"
+                },
+                "content": "Disattivando una tessera condivisa, i membri con quella tessera potranno utilizzarla solo nello studio dove l'hanno acquistata.",
+                "title": "Disattivazione"
+            },
+            "form": {
+                "actions": {
+                    "submit": "Registra",
+                    "close": "Chiudere"
+                },
+                "submit": "Convalidare",
+                "close": "Chiudere",
+                "title": "Scheda del corso condiviso"
+            },
+            "section": {
+                "titleManagerOnly": "Non disponibile per la vendita",
+                "titleAvailable": "Disponibile per la vendita"
+            },
+            "isEmptyExplain": "Le carte per le lezioni condivise sono disponibili negli studi di vostra scelta e permettono ai vostri membri di usare i loro crediti in qualsiasi studio voi scegliate.",
+            "specification": {
+                "companySharedWithTitle": "Condiviso con gli studi:"
+            }
+        },
+        "paymentPackTemplateInstance": {
+            "actions": {
+                "addCompany": "Aggiungere uno studio"
+            },
+            "companyEmpty": "Nessuno studio è configurato per accettare questa carta di corso",
+            "deleteForm": {
+                "actions": {
+                    "submit": "Disattivare la condivisione",
+                    "close": "Chiudere"
+                },
+                "content": "Disattivando questo studio dalla condivisione della mappa, tutti i membri che possiedono questa mappa e l'hanno acquistata in questo studio potranno ancora utilizzarla. Tuttavia, non potranno più usarlo in altri studi. Infine, le carte acquistate in altri studi non saranno più utilizzabili nello studio disattivato, indipendentemente da quando sono state acquistate.",
+                "title": "Disattivazione"
+            },
+            "form": {
+                "actions": {
+                    "submit": "Registra",
+                    "close": "Chiudere"
+                },
+                "explain2": "I seguenti studi avranno automaticamente questa carta disponibile per la vendita. Non potranno cambiare il prezzo o il numero di crediti.",
+                "explain1": "I seguenti studi avranno automaticamente questa carta disponibile per la vendita. Non potranno cambiare il prezzo o il numero di crediti.",
+                "title": "Allestire i miei studi"
+            },
+            "consumerPaymentPackSharedFromOtherFranchisee": "Condiviso dal franchisee",
+            "paymentPackSharedFromFranchisor": "Scheda del franchising"
         }
     },
     "metaActivity": {
@@ -6114,7 +6356,8 @@
                 "sendingMethod": "Metodo di invio",
                 "sendAfterNotifications": "Inviare le notifiche al membro dopo la sessione interessata dalla notifica",
                 "sendBeforeNotifications": "Inviare le notifiche al membro prima della riunione interessata dalla notifica",
-                "sendBeforeNotification": "Inviare la notifica push al membro prima della riunione a cui la notifica si riferisce"
+                "sendBeforeNotification": "Inviare la notifica push al membro prima della riunione a cui la notifica si riferisce",
+                "sendAfterNotification": "Invia una notifica push al membro dopo la sessione interessata dalla notifica"
             },
             "addNotification": "Aggiungi una notifica"
         },
@@ -6759,7 +7002,8 @@
                 "content": "Sei sicuro di voler eliminare questa smartlist? Questa operazione è definitiva",
                 "cancel": "Annulla",
                 "confirm": "Rimuovi"
-            }
+            },
+            "validate": "Convalidare"
         },
         "selectToShowPreview": "Seleziona un modello",
         "exportList": "Esporta la smartlist",
@@ -6783,6 +7027,14 @@
                 "message": "In seguito alle tue modifiche alle regole dei tag {{name}} della smartlist, dobbiamo aggiornare i tag dei tuoi membri.",
                 "title": "Aggiornamenti alle regole dei tag "
             }
+        },
+        "memberBase": {
+            "options": {
+                "2": "Archiviato",
+                "1": "Non archiviato",
+                "0": "Non archiviato e archiviato"
+            },
+            "helperText": "Questa smartlist si applica a tutti i membri"
         }
     },
     "relationship": {
@@ -8183,7 +8435,8 @@
             "marketplaceWorkshop": "Workshop",
             "marketplacePass": "Schede del corso",
             "marketplaceShop": "Negozio",
-            "marketplaceCalendar": "Calendario"
+            "marketplaceCalendar": "Calendario",
+            "marketplaceGiftcard": "Carte regalo"
         },
         "dashboard": {
             "marketingDashboard": "Marketing",
@@ -8710,7 +8963,7 @@
                     "_label": "Accesso al file del membro"
                 },
                 "create": {
-                    "_label": "Creazione"
+                    "_label": "Creazione di membri"
                 },
                 "_label": "Membro"
             },
@@ -8731,6 +8984,15 @@
             },
             "appbarActions": {
                 "_helper": "Creazione di membri, rapporto di pagamento sul sito.",
+                "_label": "Azioni appbar"
+            },
+            "appbarButtons": {
+                "notificationCenter": {
+                    "_label": "Centro di notifica"
+                },
+                "ledger": {
+                    "_label": "Libro cassa"
+                },
                 "_label": "Azioni appbar"
             }
         }

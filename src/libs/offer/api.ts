@@ -118,6 +118,10 @@ export const isRegistered = async (offerId: number) => {
   return getAuth(`${API_V1_URI}/offer/${offerId}/is_registered/`);
 };
 
+export const userRegistration = async () => {
+  return getAuth(`${API_V1_URI}/offer/registered/`);
+};
+
 export async function retrieveOffer(offerId: number) {
   return getAuth(`${API_V1_URI}/offer/${offerId}/?with_full=true`);
 }
@@ -138,7 +142,7 @@ export async function massDisableOffer(
   );
 }
 
-export async function toogleWaitingListFreeze(
+export async function toggleWaitingListFreeze(
   offerId: number,
   is_freezed: boolean,
 ) {
@@ -167,7 +171,7 @@ export default {
   fetchOffersByDay,
   fetchSimilarOffers,
   fetchById,
-  toogleWaitingListFreeze,
+  toggleWaitingListFreeze,
   fetchOffersList,
   fetchBookedGender,
   fetchOfferStatus,

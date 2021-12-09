@@ -15,6 +15,7 @@ import {
   retrieveByIdActions,
   bookedGenderActions,
   offerStatusActions,
+  listRegisteredIds,
 } from './actions';
 import { OfferState } from './types';
 
@@ -74,6 +75,11 @@ const initialState: Immutable.Immutable<OfferState> = Immutable<OfferState>({
     byId: {},
     error: null,
     loading: false,
+  },
+  registered: {
+    loading: false,
+    error: null,
+    allIds: [],
   },
 });
 
@@ -281,6 +287,15 @@ export default handleActions<Immutable.Immutable<OfferState>>(
         },
         { deep: true },
       );
+    },
+    [listRegisteredIds.error.toString()]: (state, { payload }) => {
+      return state.setIn(['loggedMemberBookedOffers', 'error'], payload);
+    },
+    [listRegisteredIds.isLoading.toString()]: (state, { payload }) => {
+      return state.setIn(['loggedMemberBookedOffers', 'loading'], payload);
+    },
+    [listRegisteredIds.success.toString()]: (state, { payload }) => {
+      return state.setIn(['registered', 'allIds'], payload);
     },
   },
   initialState,

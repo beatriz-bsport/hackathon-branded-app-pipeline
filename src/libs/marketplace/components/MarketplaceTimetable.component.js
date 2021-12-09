@@ -38,6 +38,7 @@ type Props = {
   establishmentLoading: boolean,
   showOfferGender: boolean,
   hideCoach: boolean,
+  bookedOffers?: number[],
 };
 
 const getWeekOffers = memoize((selectedDate, offers) => {
@@ -56,7 +57,7 @@ const getWeekOffers = memoize((selectedDate, offers) => {
 
 export class MarketplaceTimetable extends PureComponent<Props> {
   renderDayOffers(offers: Array<*>, i: number) {
-    const { date, classes } = this.props;
+    const { date, classes, bookedOffers } = this.props;
     if (!offers || offers.length === 0) return null;
 
     return (
@@ -86,6 +87,9 @@ export class MarketplaceTimetable extends PureComponent<Props> {
                 offer={o}
                 onClick={onClick}
                 onClickOffer={this.props.onClickOffer}
+                isRegistered={
+                  bookedOffers?.length ? bookedOffers.includes(o.id) : false
+                }
                 actions={
                   <div className={classes.inlineContainer}>
                     <Hidden xsDown>

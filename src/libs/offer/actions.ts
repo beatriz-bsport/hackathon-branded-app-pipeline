@@ -12,7 +12,7 @@ import {
   fetchCompatiblePacks as fetchCompatiblePacksAPI,
   fetchOffersByDay as fetchOffersByDayAPI,
   fetchById as fetchByIdAPI,
-  toogleWaitingListFreeze as toogleWaitingListFreezeAPI,
+  toggleWaitingListFreeze as toggleWaitingListFreezeAPI,
   fetchOffersList as fetchOffersListAPI,
   massDisableOffer as massDisableOfferAPI,
   restoreOffer as restoreOfferAPI,
@@ -20,6 +20,7 @@ import {
   fetchOfferStatus as fetchOfferStatusAPI,
   fetchOfferStatusList as fetchOfferStatusListAPI,
   postUserRegistration as postUserRegistrationAPI,
+  userRegistration as userRegistrationAPI,
 } from './api';
 import { monitorBackgroundTask } from '../background-task/actions';
 
@@ -266,7 +267,7 @@ export const offerWaitingListActions = {
   isLoading: createAction('OFFER/UPDATE_WAITING_LIST/IS_LOADING'),
 };
 
-export function toogleWaitingListFreeze(
+export function toggleWaitingListFreeze(
   offerId: number,
   newFreezeState: boolean,
   options: OptionCallback,
@@ -275,7 +276,7 @@ export function toogleWaitingListFreeze(
     dispatch(offerWaitingListActions.isLoading(true));
     dispatch(offerWaitingListActions.error(null));
     try {
-      const offer = await toogleWaitingListFreezeAPI(offerId, newFreezeState);
+      const offer = await toggleWaitingListFreezeAPI(offerId, newFreezeState);
       dispatch(offerWaitingListActions.success(offer));
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
@@ -527,6 +528,35 @@ export function disableMassOffers(
       if (options && options.onError) options.onError(error);
     }
     dispatch(massDisableActions.isLoading(false));
+  };
+}
+
+export const listRegisteredIds = {
+  success: createAction('OFFER/LIST_REGISTERED/SUCCESS'),
+  error: createAction('OFFER/LIST_REGISTERED/ERROR'),
+  isLoading: createAction('OFFER/LIST_REGISTERED/IS_LOADING'),
+};
+
+export function fetchOfferRegisteredIds(
+  options?: OptionCallback<Array<number>>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listRegisteredIds.isLoading(true));
+    dispatch(listRegisteredIds.error(null));
+
+    try {
+      const response = await userRegistrationAPI();
+      if (response.status === 200) {
+        if (options && options.onSuccess) {
+          options.onSuccess(response.data);
+        }
+        dispatch(listRegisteredIds.success(response.data));
+      }
+    } catch (error) {
+      dispatch(listRegisteredIds.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(listRegisteredIds.isLoading(false));
   };
 }
 

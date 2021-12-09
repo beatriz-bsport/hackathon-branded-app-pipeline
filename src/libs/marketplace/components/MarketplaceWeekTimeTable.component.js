@@ -35,6 +35,7 @@ type Props = {
   establishmentLoading: boolean,
   offers: Array<Offer>,
   showOfferGender?: boolean,
+  bookedOffers?: number[],
 };
 
 type State = {
@@ -118,7 +119,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
    * function that render offers by period
    */
   renderPeriodOffers = (period: Array<*>, i: number) => {
-    const { classes, t } = this.props;
+    const { classes, t, bookedOffers } = this.props;
     const { panelsStatus } = this.state;
     const offersRows = this.periodByRow(period);
 
@@ -162,6 +163,11 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                       coachLoading={this.props.coachLoading}
                       establishmentLoading={this.props.establishmentLoading}
                       activityLoading={this.props.activityLoading}
+                      isRegistered={
+                        bookedOffers?.length
+                          ? bookedOffers.includes(o.id)
+                          : false
+                      }
                     />
                   )}
                 </div>

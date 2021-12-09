@@ -18,7 +18,7 @@ import {
 } from '#libs/invoice/actions';
 import {
   fetchOfferById as fetchOfferByIdAction,
-  toogleWaitingListFreeze as toogleWaitingListFreezeAction,
+  toggleWaitingListFreeze as toggleWaitingListFreezeAction,
   fetchCompatiblePacks as fetchCompatiblePacksAction,
   fetchOfferStatus as fetchOfferStatusAction,
 } from '#libs/offer/actions';
@@ -198,7 +198,7 @@ export default compose(
       fetchInvoice,
       fetchInvoiceList: fetchInvoiceListAction,
 
-      toogleWaitingListFreeze: toogleWaitingListFreezeAction,
+      toggleWaitingListFreeze: toggleWaitingListFreezeAction,
       registerToWaitingListAction: registerToWaitingListAction_,
       discardOption: discardBookingOptionAction,
       fetchBookingOptionByOffer: fetchBookingOptionByOfferAction,
@@ -392,9 +392,9 @@ export default compose(
         );
       },
     switchWaitingListFreeze:
-      ({ toogleWaitingListFreeze, fetchOffer, fetchBookingOptionByOffer }) =>
+      ({ toggleWaitingListFreeze, fetchOffer, fetchBookingOptionByOffer }) =>
       (offerId, newFreezeState) => {
-        toogleWaitingListFreeze(offerId, newFreezeState, {
+        toggleWaitingListFreeze(offerId, newFreezeState, {
           onSuccess: () => {
             fetchOffer(offerId);
             fetchBookingOptionByOffer(offerId);

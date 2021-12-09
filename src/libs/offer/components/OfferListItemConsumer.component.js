@@ -2,6 +2,7 @@
 
 import React from 'react';
 
+import { useTranslation } from 'react-i18next';
 import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -13,11 +14,13 @@ import moment from 'moment-timezone';
 import Hidden from '@material-ui/core/Hidden';
 import { makeStyles } from '@material-ui/core/styles';
 import { pure } from 'recompose';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 import Level from '../../../components/category/Level.component';
 
 import { formatAsTime } from '../../../utils/datetime';
 import CoachAvatar from '../../associated-coach/components/CoachAvatar.component';
+import Tooltip from '../../../components/Tooltip.component';
 import { isOfferInThePast } from '../utils';
 
 type Props = {
@@ -29,11 +32,13 @@ type Props = {
   onClick: () => void,
   actions?: any,
   hideCoach: boolean,
+  isRegistered?: boolean,
 };
 
 export const MarketplaceOffer = (props: Props) => {
   const { offer, selected } = props;
   const classes = useStyles();
+  const { t } = useTranslation(['marketplace']);
   const isInThePast = isOfferInThePast(offer);
 
   /* eslint-disable */
@@ -103,6 +108,17 @@ export const MarketplaceOffer = (props: Props) => {
                       ),
                       offer.timezone_name,
                     )}`}
+                    {props.isRegistered && (
+                      <Tooltip
+                        title={t('calendar.registered')}
+                        placement="right"
+                      >
+                        <CheckCircleIcon
+                          className={classes.registrationIcon}
+                          color="primary"
+                        />
+                      </Tooltip>
+                    )}
                   </Typography>
                 </div>
               )}
@@ -161,6 +177,10 @@ const useStyles = makeStyles((theme) => {
     },
     videocamIcon: {
       marginRight: theme.spacing(0.5),
+    },
+    registrationIcon: {
+      marginLeft: theme.spacing(2),
+      marginBottom: -theme.spacing(0.6),
     },
   };
 });

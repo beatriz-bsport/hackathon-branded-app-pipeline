@@ -1908,7 +1908,8 @@
         "notAvailable": "Annulé",
         "duration": "Durée: {{duration}}"
       }
-    }
+    },
+    "calendar": { "registered": "Déjà inscrit(e)" }
   },
   "member": {
     "search": { "createMember": "Ajouter un membre", "cancel": "Fermer" },

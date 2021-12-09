@@ -54,6 +54,7 @@ type Props = {
   showOfferGender?: boolean,
   establishmentGroupList: Array<EstablishmentGroup>,
   showMultiLocalization: boolean,
+  bookedOffers?: number[],
 };
 const getEventsFrom = memoize((offers) => {
   const events = {};
@@ -165,6 +166,7 @@ export class MarketplaceCalendar extends PureComponent<Props> {
               coachLoading={this.props.coachLoading}
               establishmentLoading={this.props.establishmentLoading}
               activityLoading={this.props.activityLoading}
+              bookedOffers={this.props.bookedOffers}
             />
           ) : (
             <MarketplaceWeekTimetable
@@ -179,6 +181,7 @@ export class MarketplaceCalendar extends PureComponent<Props> {
               coachLoading={this.props.coachLoading}
               establishmentLoading={this.props.establishmentLoading}
               activityLoading={this.props.activityLoading}
+              bookedOffers={this.props.bookedOffers}
             />
           )
         }

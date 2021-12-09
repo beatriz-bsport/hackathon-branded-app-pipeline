@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 import Typography from '@material-ui/core/Typography';
@@ -8,10 +9,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import moment from 'moment-timezone';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import Level from '../../../components/category/Level.component';
 import { formatAsTime } from '../../../utils/datetime';
 import { isOfferInThePast } from '../utils';
 
+import Tooltip from '../../../components/Tooltip.component';
 import MarketplaceBookButton from './MarketplaceBookButton.component';
 
 type Props = {
@@ -25,12 +28,14 @@ type Props = {
   establishmentLoading: boolean,
   showOfferFilling: boolean,
   showOfferGender?: boolean,
+  isRegistered?: boolean,
 };
 
 const pairColor = '#FFFFFF';
 const impairColor = '#F8F8F8';
 
 export const MarketplaceCardOffer = (props: Props) => {
+  const { t } = useTranslation(['marketplace']);
   const { offer, onClickOffer } = props;
   const classes = useStyles();
   const isInThePast = isOfferInThePast(offer);
@@ -95,13 +100,27 @@ export const MarketplaceCardOffer = (props: Props) => {
           {props.activityLoading && metaActivityName === ' - ' ? (
             <MoreHorizIcon fontSize="small" />
           ) : (
-            <div className={classes.offerTitleText}>
+            <div
+              className={`${classes.offerTitleText} ${
+                props.isRegistered ? classes.reduceTitleWidth : ''
+              }`}
+            >
               {offer.meta_activity && offer.meta_activity.is_broadcast ? (
                 <VideocamIcon className={classes.videocamIcon} />
               ) : null}
               <Typography align="center" variant="subtitle1">
                 {metaActivityName}
               </Typography>
+              {props.isRegistered && (
+                <div className={classes.tooltip}>
+                  <Tooltip title={t('calendar.registered')}>
+                    <CheckCircleIcon
+                      className={classes.registrationIcon}
+                      color="primary"
+                    />
+                  </Tooltip>
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -202,6 +221,14 @@ const useStyles = makeStyles((theme) => {
     },
     videocamIcon: {
       marginRight: theme.spacing(1) / 2,
+    },
+    tooltip: {
+      right: '3%',
+      top: '5.5%',
+      position: 'absolute',
+    },
+    reduceTitleWidth: {
+      marginRight: 30,
     },
   };
 });

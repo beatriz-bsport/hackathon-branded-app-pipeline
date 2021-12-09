@@ -24,6 +24,9 @@ export const getDetailedOffer = (state: RootState) =>
 export const getOfferById = (state: RootState, id: number) =>
   getState(state).byId[id];
 
+export const getBookedOffers = (state: RootState) =>
+  getState(state).registered.allIds;
+
 // this will remove the offers already ended simply
 export const todayOffers = createSelector(getAll, (offers) =>
   offers.filter((offer: Offer) => {

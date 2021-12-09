@@ -37,6 +37,7 @@ import {
 import {
   fetchMarketplaceOfferList as fetchOfferListAction,
   fetchBookedGender as fetchBookedGenderAction,
+  fetchOfferRegisteredIds as fetchOfferRegisteredIdsAction,
 } from '../../libs/offer/actions';
 import {
   getMarketplaceOfferList,
@@ -44,6 +45,7 @@ import {
   withCoach,
   withEstablishment,
   withGender,
+  getBookedOffers,
 } from '../../libs/offer/selectors';
 import { fetchAssociatedCoachBulkFromCoachIds as fetchAssociatedCoachBulkFromCoachIdsAction } from '../../libs/associated-coach/actions';
 import {
@@ -153,6 +155,8 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     });
 
     this.props.fetchAllEstablishmentGroup(this.props.companyId);
+
+    this.props.fetchOfferRegisteredIds();
   };
 
   componentDidMount() {
@@ -201,7 +205,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     this.props.setOtherParams('date')(date);
   };
 
-  toogleFiltersOpen = () => {
+  toggleFiltersOpen = () => {
     this.props.setOtherParams('filtersOpen')(
       this.props.otherParams.filtersOpen === 'true' ? '' : 'true',
     );
@@ -272,11 +276,12 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           metaActivities={metaActivities}
           filtersOpen={this.props.otherParams.filtersOpen === 'true'}
           forceDayDisplayOnly={this.props.otherParams.onlyDay === 'true'}
-          toogleFiltersOpen={this.toogleFiltersOpen}
+          toggleFiltersOpen={this.toggleFiltersOpen}
           compactMode={compactMode}
           startWeekThisWeekday={startWeekThisWeekday}
           establishmentGroupList={establishmentGroupList}
           showMultiLocalization={this.props.theme.enable_multi_localization}
+          bookedOffers={this.props.bookedOffers}
         />
       </div>
     );
@@ -307,6 +312,7 @@ const mapStateToProps = (state: RootState) => ({
   establishmentGroupList: groupWithEstablishment(
     getAssociatedEstablishmentGroup,
   )(state),
+  bookedOffers: getBookedOffers(state),
 });
 
 const mapDispatchToProps = {
@@ -322,6 +328,7 @@ const mapDispatchToProps = {
   addItemToBasket: addItemToBasketAction,
   fetchPaymentComboList,
   fetchAllEstablishmentGroup,
+  fetchOfferRegisteredIds: fetchOfferRegisteredIdsAction,
 };
 
 const mapWithHandlers = {

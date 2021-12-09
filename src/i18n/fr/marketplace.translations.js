@@ -24,4 +24,7 @@ exports.default = {
       duration: 'Durée: {{duration}}',
     },
   },
+  calendar: {
+    registered: 'Déjà inscrit(e)',
+  },
 };

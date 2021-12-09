@@ -140,4 +140,7 @@ export type OfferState = ErrorAndLoading & {
   offerStatus: ErrorAndLoading & {
     byId: { [key: string]: OfferStatus };
   };
+  registered: ErrorAndLoading & {
+    allIds: number[];
+  };
 };

@@ -20,6 +20,7 @@ import {
   untagAll as untagAllApi,
   merge as mergeApi,
   addFile as addFileAPI,
+  updateFile as updateFileAPI,
   regularizeDebt as regularizeDebtAPI,
   removeFile as removeFileAPI,
   linkMeToCompany as linkMeToCompanyAPI,
@@ -30,7 +31,7 @@ import {
   unArchiveMember as unArchiveMemberAPI,
   interrogateMemberStatus as interrogateMemberStatusAPI,
 } from './api';
-import type { Member, MemberMinimal } from './types';
+import type { Member, MemberMinimal, MemberUploadedFile } from './types';
 
 import type { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
 import {
@@ -130,7 +131,7 @@ export const memberListActions = {
 
 export function refreshFilteredMembers(
   params: any,
-  options: OptionCallback<MemberMinimal[]>,
+  options?: OptionCallback<MemberMinimal[]>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(memberListActions.isLoading(true));
@@ -227,7 +228,7 @@ export const memberListPaginatedActions = {
 export function fetchCommunicationsPaginatedMembers(
   params: any,
   id__in: number[],
-  options: OptionCallback,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(memberListPaginatedActions.isLoading(true));
@@ -281,7 +282,7 @@ export function successTag(member: Member) {
   return { type: actionTypes.MEMBER_TAG_SUCCESS, member };
 }
 
-export function tag(memberId: number, tagId: number, options: OptionCallback) {
+export function tag(memberId: number, tagId: number, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(startTag(memberId, tagId));
     try {
@@ -304,7 +305,7 @@ export function tag(memberId: number, tagId: number, options: OptionCallback) {
 export function untag(
   memberId: number,
   tagId: number,
-  options: OptionCallback,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(startTag(memberId, tagId));
@@ -425,7 +426,7 @@ export const memberRegularizeDebtActions = {
 export function regularizeDebt(
   memberId: number,
   data: any,
-  options: OptionCallback,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(memberRegularizeDebtActions.isLoading(true));
@@ -697,6 +698,28 @@ export function addFileToMember({
     dispatch(actionAddFileLoading(false));
   };
 }
+
+export const updateMemberFileActions = {
+  isLoading: createAction('MEMBER/UPDATE_FILE/LOADING'),
+  error: createAction('MEMBER/UPDATE_FILE/ERROR'),
+  success: createAction('MEMBER/UPDATE_FILE/SUCCESS'),
+};
+export function updateMemberFile(file: MemberUploadedFile): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(updateMemberFileActions.isLoading(true));
+    dispatch(updateMemberFileActions.error(null));
+
+    try {
+      const response = await updateFileAPI(file);
+      dispatch(updateMemberFileActions.success(response.data));
+    } catch (error) {
+      console.error(error);
+      dispatch(updateMemberFileActions.error(error));
+    }
+    dispatch(updateMemberFileActions.isLoading(false));
+  };
+}
+
 export function actionRemoveFileSuccess(response: any) {
   return { type: actionTypes.MEMBER_REMOVE_FILE_SUCCESS, response };
 }
@@ -735,7 +758,7 @@ export const adjustCreditWithoutPaymentNoteActions = {
 export function adjustCreditWithoutPaymentNote(
   memberId: number,
   amount: number,
-  options: OptionCallback,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(adjustCreditWithoutPaymentNoteActions.isLoading(true));
@@ -793,7 +816,7 @@ export const archiveMemberActions = {
 
 export function archiveMember(
   memberId: number,
-  options: OptionCallback<Member>,
+  options?: OptionCallback<Member>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(archiveMemberActions.isLoading(true));
@@ -824,7 +847,7 @@ export const unArchiveMemberActions = {
 
 export function unArchiveMember(
   memberId: number,
-  options: OptionCallback<Member>,
+  options?: OptionCallback<Member>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(unArchiveMemberActions.isLoading(true));
@@ -855,7 +878,7 @@ export const interrogateMemberStatusActions = {
 
 export function interrogateMemberStatus(
   memberId: number,
-  options: OptionCallback<Array<number>>,
+  options?: OptionCallback<Array<number>>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(interrogateMemberStatusActions.isLoading(true));

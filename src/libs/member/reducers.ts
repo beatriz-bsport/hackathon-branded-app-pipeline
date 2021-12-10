@@ -20,6 +20,7 @@ import {
   unArchiveMemberActions,
   interrogateMemberStatusActions,
   searchArchivedMembers,
+  updateMemberFileActions,
 } from './actions';
 import { Member, MemberNote, MemberState } from './types';
 import { GenericListReducer, GenericReducer } from '../../utils/reduxHelper';
@@ -91,7 +92,7 @@ const initialState: Immutable.Immutable<MemberState> = Immutable<MemberState>({
   },
 });
 
-export default handleActions<Immutable.Immutable<MemberState>>(
+export default handleActions<Immutable.Immutable<MemberState>, any>(
   {
     [authActionTypes.DISCONNECT]: () => {
       return initialState;
@@ -367,6 +368,20 @@ export default handleActions<Immutable.Immutable<MemberState>>(
           // @ts-ignore
           [action.response, ...state.detailData[action.response.member].files],
         );
+      }
+      return state;
+    },
+
+    [updateMemberFileActions.success.toString()]: (state, { payload }) => {
+      if (state?.detailData?.[payload.member]?.files) {
+        const newFiles = state.detailData[payload.member].files?.map((file) => {
+          if (file.id === payload.id) {
+            return payload;
+          }
+          return file;
+        });
+
+        return state.setIn(['detailData', payload.member, 'files'], newFiles);
       }
       return state;
     },

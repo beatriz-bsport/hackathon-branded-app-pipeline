@@ -139,7 +139,7 @@ export function createOrUpdateTagGroup(
 
 export function deleteTagGroup(
   id: number,
-  options: OptionCallback,
+  options?: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(tagGroupCreateOrUpdateActions.isLoading(true));

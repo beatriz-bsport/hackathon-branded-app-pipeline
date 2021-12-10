@@ -88,7 +88,7 @@ export type Member<Tag = number> = {
   photo: string;
   phone_number: string;
   birthday: string;
-  files: string;
+  files: MemberUploadedFile[];
   general_terms_and_conditions_date_accepted: string | null;
   general_terms_and_conditions_accepted: boolean | null;
   general_terms_of_use_date_accepted: string | null;
@@ -142,3 +142,12 @@ export type MemberState = ErrorAndLoading &
       };
     };
   };
+
+export type MemberUploadedFile = {
+  id: number;
+  member: number;
+  name: string;
+  updated_at: string;
+  file_path: string;
+  coach_has_access: boolean;
+};

@@ -25,6 +25,7 @@ import {
   search as searchMembers,
   addFileToMember,
   removeFileFromMember,
+  updateMemberFile,
   adjustCreditWithoutPaymentNote,
 } from '../../libs/member/actions';
 import {
@@ -96,6 +97,8 @@ import {
   getFavoriteEstablishmentGroupList,
   showVaccinationStatus,
 } from '../../libs/custom-form/selectors';
+import { Tag } from '#libs/tag/types';
+import { MemberUploadedFile } from '#libs/member/types';
 
 type Props = RouterParamsProps &
   ConnectProps &
@@ -148,9 +151,43 @@ export class MemberDetailPage extends Component<Props> {
     }
   }
 
+  fetchInvoiceListUnpaid = () => {
+    this.props.fetchInvoiceListUnpaid();
+    this.props.fetchMember(this.props.id);
+  };
+
+  tagMember = (tagId: number) => {
+    this.props.tagMember(this.props.id, tagId);
+  };
+
+  unTagMember = (tagId: number) => {
+    this.props.untagMember(this.props.id, tagId);
+  };
+
+  handleCreateTag = (tag: Tag) => {
+    this.props.createTag(tag, (tagId: number) =>
+      this.props.tagMember(this.props.id, tagId),
+    );
+  };
+
   deleteTag = (id: number) => this.setState({ tagToDelete: id });
 
   deleteTagGroup = (id: number) => this.setState({ tagGroupToDelete: id });
+
+  handleOpenFileUpload = () => {
+    this.setState({ fileToUpload: true });
+  };
+
+  updateFileVisibility = (file: MemberUploadedFile) => () => {
+    this.props.updateFile({
+      ...file,
+      coach_has_access: !file.coach_has_access,
+    });
+  };
+
+  handleDeleteFile = (fileId: number) => {
+    this.setState({ fileToDelete: fileId });
+  };
 
   applyBalanceToUnpaidInvoices = () => {
     this.props.applyBalanceToUnpaid(this.props.id, {
@@ -169,6 +206,7 @@ export class MemberDetailPage extends Component<Props> {
 
   render() {
     const { memberLoading, member, t } = this.props;
+
     const fileUploader = {
       onAddFile: (file: File) => this.props.addFile(this.props.id, file),
       onRemoveFile: (fileId: number) =>
@@ -178,11 +216,11 @@ export class MemberDetailPage extends Component<Props> {
     if (!member || (memberLoading && member.id !== this.props.id)) {
       return <LinearProgress />;
     }
+
     return (
       <Grid container direction="row" spacing={2}>
         <Grid item md={6} xs={12}>
           <MemberSummaryCard
-            memberId={this.props.id}
             member={this.props.member}
             favoriteEstablishmentGroupList={
               this.props.favoriteEstablishmentGroupList
@@ -208,10 +246,7 @@ export class MemberDetailPage extends Component<Props> {
             balance={this.props.member.credit_account_balance}
             applyBalanceToUnpaidInvoices={this.applyBalanceToUnpaidInvoices}
             adjustCreditWithoutPaymentNote={this.adjustCreditWithoutPaymentNote}
-            fetchInvoiceListUnpaid={() => {
-              this.props.fetchInvoiceListUnpaid();
-              this.props.fetchMember(this.props.id);
-            }}
+            fetchInvoiceListUnpaid={this.fetchInvoiceListUnpaid}
             availablePaymentMethodList={
               this.props.payment_method_available_manager
             }
@@ -236,30 +271,31 @@ export class MemberDetailPage extends Component<Props> {
         </Grid>
         <Grid item xs={12} md={6}>
           <MemberCRM
+            memberId={this.props.id}
+            member={this.props.member}
             credit_account_balance={member.credit_account_balance}
+            // notes
             notes={member.notes || []}
             createOrUpdateNote={this.props.createOrUpdateNote}
-            memberId={this.props.id}
             deleteNote={this.props.deleteNote}
+            // Tag
             memberTags={member.tags || []}
             tagGroups={this.props.tagGroups}
-            createTag={(data) =>
-              this.props.createTag(data, (tagId: number) =>
-                this.props.tagMember(this.props.id, tagId),
-              )
-            }
+            createTag={this.handleCreateTag}
             createTagGroup={this.props.createTagGroup}
             updateTag={this.props.updateTag}
             updateTagGroup={this.props.updateTagGroup}
-            attributeTag={(tagId) => this.props.tagMember(this.props.id, tagId)}
-            untag={(tagId) => this.props.untagMember(this.props.id, tagId)}
+            attributeTag={this.tagMember}
+            untag={this.unTagMember}
             deleteTag={this.deleteTag}
             deleteTagGroup={this.deleteTagGroup}
             tagGroupsLoading={this.props.tagGroupsLoading}
-            openFileUploadDialog={() => this.setState({ fileToUpload: true })}
+            // Files
+            openFileUploadDialog={this.handleOpenFileUpload}
             uploadedFiles={member.files || []}
-            deleteFile={(fileId) => this.setState({ fileToDelete: fileId })}
-            member={this.props.member}
+            deleteFile={this.handleDeleteFile}
+            updateVisibility={this.updateFileVisibility}
+            // Payment
             paymentMethod={this.props.paymentMethod}
             paymentMethodLoading={this.props.paymentMethodLoading}
             detachPaymentMethod={this.props.detachPaymentMethod}
@@ -341,6 +377,7 @@ const connector = connect(
     tagGroups: tagSelectors.getMemberTagGroups(state),
     tagGroupsLoading: state.tag.group.loading,
     taskList: memberTaskListSelector(state),
+    taskLoading: state.reminder.task.byMember.loading,
     staffList: getUsersWithRole(state),
     // email emailTemplatesSummaries
     email_templates_list: getAllEmailTemplatesSummaries(state),
@@ -374,7 +411,7 @@ const connector = connect(
     tagMember,
     untagMember,
     fetchTags,
-    fetchEmailTemplateDetail: (id: number) => emailTemplateDetail(id),
+    fetchEmailTemplateDetail: emailTemplateDetail,
     fetchEmailTemplatesSummaries,
     mergeInto: (src: number, dst: number) =>
       routerPush(`/member/merge/${src}/into/${dst}`),
@@ -402,7 +439,8 @@ const connector = connect(
     updateTagGroup: createOrUpdateTagGroup,
     deleteTagGroup,
     deleteTag,
-    addFile: (data: any) => addFileToMember(data),
+    addFile: addFileToMember,
+    updateFile: updateMemberFile,
     removeFile: removeFileFromMember,
     fetchTaskListByMember: fetchTaskListByMemberAction,
     createOrUpdateTask: createOrUpdateTaskAction,

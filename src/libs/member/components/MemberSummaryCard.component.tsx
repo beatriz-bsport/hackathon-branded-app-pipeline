@@ -48,6 +48,7 @@ import EmergencyContactItemComponent from '../../communication/components/Emerge
 import VaccinationStatus from './VaccinationStatus.component';
 import { EstablishmentGroup } from '../../establishment/types';
 import FavouriteEstablishmentGroupItemComponent from '../../establishment/components/FavouriteEstablishmentGroupItem.component';
+import { EmailTemplateDetail } from '#libs/email-editor/types';
 
 const SELECT_EMAIL = 1;
 const SEND_SMS = 2;
@@ -67,7 +68,7 @@ type OwnProps = {
   emailListLoading: boolean;
   emails: Array<any>;
   emailDetailLoading: boolean;
-  emailDetails: Array<any>;
+  emailDetails: Record<string, EmailTemplateDetail>;
   sendCommunication: (com: any) => void;
 
   showVaccinationStatus: boolean;

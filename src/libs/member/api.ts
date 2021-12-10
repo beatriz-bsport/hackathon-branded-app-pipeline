@@ -12,7 +12,7 @@ import {
   buildUrlParams,
 } from '../../http';
 import { GenericPaginationResults } from '../types';
-import { MemberMinimal } from './types';
+import { MemberMinimal, MemberUploadedFile } from './types';
 
 const PAGE_SIZE = 300;
 
@@ -150,6 +150,10 @@ export async function deleteNote(id: number) {
 
 export async function addFile(fileData: any) {
   return postAuth(`${API_V1_URI}/member_file_upload/`, fileData);
+}
+
+export async function updateFile(fileData: MemberUploadedFile) {
+  return putAuth(`${API_V1_URI}/member_file_upload/${fileData.id}/`, fileData);
 }
 
 export async function removeFile(fileId: number) {

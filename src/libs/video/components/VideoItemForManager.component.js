@@ -8,26 +8,24 @@ import Grid from '@material-ui/core/Grid';
 import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import ListItemText from '@material-ui/core/ListItemText';
-import { getStatusText, getHeading } from '../../payment-packs/utils';
+import { getStatusText, getHeading } from '../utils';
+import { VideoPurchase } from '../types';
 
 type Props = {
   classes: any,
   t: Tfunction,
   id: number,
   memberId: number,
-  video: object,
-  t: TFunction,
-  classes: Object,
-  video: Object,
-  redirectToMember: ?boolean,
-  redirectToOffer: ?boolean,
-  newTab: ?boolean,
+  videoPurchase: VideoPurchase,
+  redirectToMember?: boolean,
+  redirectToOffer?: boolean,
+  newTab?: boolean,
   selected?: boolean,
   date_created: String,
   timezone?: string,
 
   push: (path: string) => void,
-  onClick: ?() => void,
+  onClick?: () => void,
 };
 export class VideoItemForManager extends Component<Props, State> {
   handleListItemClick = (event: SyntheticEvent<any>) => {
@@ -35,11 +33,16 @@ export class VideoItemForManager extends Component<Props, State> {
     if (this.props.onClick) {
       this.props.onClick(event);
     }
-    const { redirectToMember, video, newTab, redirectToOffer, memberId } =
-      this.props;
+    const {
+      redirectToMember,
+      videoPurchase,
+      newTab,
+      redirectToOffer,
+      memberId,
+    } = this.props;
     const url = `/member/${memberId}/`;
     if (redirectToOffer) {
-      this.props.push(`/offer/${video.id}`);
+      this.props.push(`/offer/${videoPurchase.id}`);
     }
     if (redirectToMember && newTab) {
       const win = window.open(url);
@@ -53,7 +56,7 @@ export class VideoItemForManager extends Component<Props, State> {
 
   render() {
     const { t } = this.props;
-    const videoStatus = getStatusText(this.props.video, t);
+    const videoStatus = getStatusText(this.props.videoPurchase, t);
     return (
       <ListItem
         divider
@@ -74,7 +77,7 @@ export class VideoItemForManager extends Component<Props, State> {
                   <Typography variant="body2">
                     {getHeading(
                       this.props.date_created,
-                      this.props.video,
+                      this.props.videoPurchase,
                       this.props.timezone,
                     )}
                   </Typography>

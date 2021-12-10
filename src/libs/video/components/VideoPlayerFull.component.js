@@ -6,12 +6,16 @@ import Typography from '@material-ui/core/Typography';
 
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import clx from 'classnames';
+import moment from 'moment/moment';
 import TypographyMultiline from '../../../components/TypographyMultiline.component';
 
 import CoachChip from '../../associated-coach/components/CoachChip.component';
 import SCT from '../../category/components/SCT.component';
 
 import VideoPlayer from './VideoPlayer.component';
+import { Video } from '../types';
 
 type Props = {
   video: Video,
@@ -22,6 +26,7 @@ type Props = {
   playbackUrl: string,
   playbackUrlLoading: boolean,
   accessDenied: boolean,
+  videoPurchaseDate: string,
 };
 
 export const VideoPlayerFull = (props: Props) => {
@@ -55,6 +60,25 @@ export const VideoPlayerFull = (props: Props) => {
               parentCategory={props.video.SCT.SCS.id}
               SCTName={props.video.SCT.name}
             />
+          )}
+          {props.video.rental_days > 0 && (
+            <div className={clx([classes.row, classes.rental])}>
+              <PlayCircleOutlineIcon />
+              <Typography className={classes.managerOnlyText}>
+                {props.accessDenied || !props.videoPurchaseDate
+                  ? t('video.rental.duration', {
+                      rental_days: props.video.rental_days,
+                    })
+                  : t('video.rental.expirationDate', {
+                      interpolation: {
+                        escapeValue: false,
+                      },
+                      expiration_date: moment(props.videoPurchaseDate)
+                        .add(props.video.rental_days, 'days')
+                        .format('L'),
+                    })}
+              </Typography>
+            </div>
           )}
         </div>
         {props.managerOnly && (
@@ -123,6 +147,9 @@ const useStyles = makeStyles((theme) => ({
   },
   timeTypography: {
     marginRight: theme.spacing(2),
+  },
+  rental: {
+    marginLeft: theme.spacing(2),
   },
 }));
 

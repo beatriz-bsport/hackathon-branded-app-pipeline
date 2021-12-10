@@ -24,6 +24,7 @@ export type Video<S = number, C = number> = {
   credit_price: number;
   manager_only: boolean;
   provider_identifier: VideoProvider;
+  rental_days: number;
 };
 
 export type VideoPurchase = {
@@ -33,6 +34,7 @@ export type VideoPurchase = {
   video: any;
   member_id: number;
   date_created: string;
+  available: boolean;
 };
 
 export type VideoView = {

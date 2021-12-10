@@ -6,6 +6,12 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 
 import { withTranslation, TFunction } from 'react-i18next';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import DialogActions from '@material-ui/core/DialogActions';
+import { DialogTitle } from '@material-ui/core';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import withTitle from '../../hocs/with-title.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
@@ -31,6 +37,7 @@ import {
   setVideoProviderIdentifier,
   removeVideoSource,
   duplicateVideo,
+  setExternalUrl,
 } from '../../libs/video/actions';
 
 import VideoCardGrid from '../../libs/video/components/VideoCardGrid.component';
@@ -42,6 +49,7 @@ import VideoSearchBar from '../../libs/video/components/VideoSearchBar.component
 import themeSelectors from '../../libs/theme/selectors';
 import { Video } from '../../libs/video/types';
 import { showDeleteDialog } from '../../components/GenericDialog/CustomDialogs';
+import { OptionCallback } from '../../state/types';
 
 type Props = {
   t: TFunction,
@@ -64,7 +72,7 @@ type Props = {
   SCTs: Array<SCT>,
 
   fetchVideoList: () => void,
-  videoToStream: ?Video,
+  videoToStream?: Video,
   hasMoreVideo: boolean,
   fetchMoreVideo: () => void,
   retrieveVideo: (id: number) => void,
@@ -72,19 +80,31 @@ type Props = {
   videoList: Array<Video>,
   openEditForm: (Video) => void,
   closeEditForm: () => void,
-  setVideoToStream: (stream: ?Video) => void,
+  setVideoToStream: (stream?: Video) => void,
   closeVideoStream: () => void,
   createOrUpdateVideo: (data: any, options: OptionCallback) => void,
   deleteVideo: (video: Video) => void,
+  confirmEditDialogData: { data: Video, options: OptionCallback } | null,
+  setConfirmEditDialogData: (
+    confirm: {
+      data: Video,
+      options: OptionCallback,
+    } | null,
+  ) => void,
+  setExternalUrl: (
+    videoId: number,
+    data: any,
+    options?: OptionCallback,
+  ) => void,
 
-  videoToUploadId: ?number,
-  videoToUpload: ?Video,
-  setVideoToUpload: (stream: ?Video) => void,
+  videoToUploadId?: number,
+  videoToUpload?: Video,
+  setVideoToUpload: (stream?: Video) => void,
 
   closeUploadVideoForm: () => void,
   createOpen: boolean,
   closeCreateDialog: () => void,
-  editVideo: ?Video,
+  editVideo?: Video,
   openCreateForm: () => void,
   goToDetail: (videoId: number) => void,
   fetchVideoFilterableParams: (params: any) => void,
@@ -108,6 +128,7 @@ const VideoMap = {
   credit_price: 'credit_price',
   manager_only: 'manager_only',
   duration_second: 'duration_second',
+  rental_days: 'rental_days',
 };
 
 const VIEW_MODE = {
@@ -209,11 +230,52 @@ export class VodVideoListPage extends React.PureComponent<Props> {
             open
             coaches={this.props.coaches}
             SCTs={this.props.SCTs}
-            onSubmit={this.props.createOrUpdateVideo}
+            onSubmit={(data, options) => {
+              if (
+                (this.props.editVideo.rental_days === 0 &&
+                  data.rental_days === 0) ||
+                (this.props.editVideo.rental_days > 0 && data.rental_days > 0)
+              )
+                return this.props.createOrUpdateVideo(data, options);
+              this.props.closeEditForm();
+              return this.props.setConfirmEditDialogData({ data, options });
+            }}
             initial={this.props.editVideo}
             onClose={this.props.closeEditForm}
             onRemoveVideoSource={this.props.removeVideoSource}
           />
+        )}
+        {!!this.props.confirmEditDialogData && (
+          <Dialog open>
+            <DialogTitle>
+              <Typography variant="h4">
+                {this.props.t('video.form.confirm.title')}
+              </Typography>
+            </DialogTitle>
+            <DialogContent>
+              <Typography variant="body2">
+                {this.props.confirmEditDialogData.data.rental_days > 0
+                  ? this.props.t('video.form.confirm.unlimitedToRent')
+                  : this.props.t('video.form.confirm.rentToUnlimited')}
+              </Typography>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={() => this.props.setConfirmEditDialogData(null)}>
+                {this.props.t('video.form.cancel')}
+              </Button>
+              <Button
+                color="primary"
+                onClick={() =>
+                  this.props.createOrUpdateVideo(
+                    this.props.confirmEditDialogData.data,
+                    this.props.confirmEditDialogData.options,
+                  )
+                }
+              >
+                {this.props.t('video.form.confirm.button')}
+              </Button>
+            </DialogActions>
+          </Dialog>
         )}
         <BottomActionButtons
           onCreateLabel={this.props.t('video:video.bottomActions.create')}
@@ -252,6 +314,7 @@ export default compose(
       videoToUploadId: null,
       videoToStream: null,
       viewMode: VIEW_MODE.grid,
+      confirmEditDialogData: null,
     },
     {
       openCreateForm: () => () => {
@@ -275,6 +338,16 @@ export default compose(
       },
       closeEditForm: () => () => ({ editVideo: null }),
       setViewMode: () => (viewMode: string) => ({ viewMode }),
+      setConfirmEditDialogData:
+        () =>
+        (
+          confirmEditDialogData: {
+            data: Video,
+            options: OptionCallback,
+          } | null,
+        ) => ({
+          confirmEditDialogData,
+        }),
     },
   ),
   connect(
@@ -300,6 +373,7 @@ export default compose(
       submitVideoProviderIdentifier: setVideoProviderIdentifier,
       removeVideoSourceAction: removeVideoSource,
       duplicateVideo,
+      setExternalUrl,
     },
   ),
   withHandlers({
@@ -367,6 +441,7 @@ export default compose(
         closeEditForm,
         closeCreateDialog,
         fetchVideoFilterableParams,
+        setConfirmEditDialogData,
       }) =>
       (values, options) => {
         const formData = mapFormData(values, VideoMap);
@@ -378,6 +453,7 @@ export default compose(
             }
             closeCreateDialog();
             closeEditForm();
+            setConfirmEditDialogData(null);
             fetchVideoFilterableParams({ mine: true });
             if (!formData.get('id')) {
               fetchVideoList();

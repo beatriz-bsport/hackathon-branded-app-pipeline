@@ -505,8 +505,7 @@ exports.default = {
         compatibility: 'Compatibilité',
       },
       full_vod_access: {
-        label:
-          'Donne accès à la VOD tant que la carte est valable dans le temps',
+        label: 'Donne accès à la VOD',
       },
       managerOnly: {
         label: 'Invisible pour les clients',

@@ -115,7 +115,6 @@ export const VideoCardGridItem = (props: Props) => {
                   )}
                 </div>
               </div>
-
               <div className={classes.row}>
                 <div className={classes.flex1}>
                   {props.video.SCT && (
@@ -131,6 +130,14 @@ export const VideoCardGridItem = (props: Props) => {
                   })}
                 </Typography>
               </div>
+              {props.video.rental_days > 0 && (
+                <Typography
+                  className={classes.descriptionContainer}
+                  color="primary"
+                >
+                  {t('video.rental.forRent')}
+                </Typography>
+              )}
               <div className={classes.descriptionContainer}>
                 <TypographyWithShowMore
                   multiline

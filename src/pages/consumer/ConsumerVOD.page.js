@@ -18,22 +18,31 @@ import { WidgetUtils } from '../../libs/widget/WidgetUtils';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
   getVideoList,
+  getVideoPurchases,
   withCategory,
   withCoach,
 } from '../../libs/video/selectors';
 import {
   fetchMoreVideo as fetchMoreVideoAction,
   fetchVideoList as fetchVideoListAction,
+  fetchVideoPurchaseByVideo as fetchVideoPurchaseAction,
 } from '../../libs/video/actions';
 import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
 import { getMarketplaceRoute } from '../../libs/marketplace/routing-utils';
 import VideoItemList from '../../libs/video/components/VideoItemList.component';
+import { VideoPurchase, Video } from '../../libs/video/types';
+import { OptionCallback } from '../../state/types';
 
 type Props = {
-  fetchVideoList: () => void,
+  fetchVideoList: (options?: OptionCallback) => void,
   fetchMoreVideo: () => void,
+  fetchVideoPurchaseByVideo: (
+    video_ids: Array<number>,
+    options?: OptionCallback,
+  ) => void,
   fetchAssociatedCoachesList: (params: any) => void,
   videoList: Array<Video>,
+  purchasedVideoList: Array<VideoPurchase>,
   loading: boolean,
   hasMoreVideo: boolean,
   hideCoach: boolean,
@@ -48,7 +57,12 @@ const STATUS_PROCESSED = 400;
 
 class ConsumerVOD extends React.PureComponent<Props> {
   componentDidMount() {
-    this.props.fetchVideoList();
+    this.props.fetchVideoList({
+      onSuccess: (videoList) =>
+        this.props.fetchVideoPurchaseByVideo(
+          videoList.map((video) => video.id),
+        ),
+    });
     this.props.fetchAssociatedCoachesList({ company: this.props.companyId });
   }
 
@@ -78,6 +92,7 @@ class ConsumerVOD extends React.PureComponent<Props> {
         <VideoItemList
           hideCoach={this.props.hideCoach}
           videoList={this.props.videoList}
+          purchasedVideoList={this.props.purchasedVideoList}
           openVideo={this.props.openVideo}
           onShowMore={this.props.fetchMoreVideo}
           hasMoreVideo={this.props.hasMoreVideo}
@@ -116,6 +131,7 @@ export default compose(
   connect(
     (state) => ({
       videoList: withCoach(withCategory(getVideoList))(state),
+      purchasedVideoList: getVideoPurchases(state),
       loading: state.video.loading,
       hideCoach: themeSelectors.getTheme(state).hideCoach,
       hasMoreVideo: state.video.list.nextPage && state.video.list.nextPage > 1,
@@ -124,6 +140,7 @@ export default compose(
       fetchVideoList: fetchVideoListAction,
       fetchAssociatedCoachesList,
       fetchMoreVideo: fetchMoreVideoAction,
+      fetchVideoPurchaseByVideo: fetchVideoPurchaseAction,
       push: pushRouter,
     },
   ),

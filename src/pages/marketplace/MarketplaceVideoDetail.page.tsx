@@ -19,6 +19,7 @@ import {
   fetchMoreVideo as fetchMoreVideoAction,
   fetchVideoList as fetchVideoListAction,
   getPlaybackUrl,
+  fetchVideoPurchase as fetchVideoPurchaseAction,
 } from '../../libs/video/actions';
 import {
   getVideo,
@@ -26,14 +27,16 @@ import {
   withCategory,
   withCoach,
   getPlaybackUrlById,
+  getLastVideoPurchasedByVideo,
 } from '../../libs/video/selectors';
 
 import themeSelectors from '../../libs/theme/selectors';
 
 import { RootState } from '../../reducers';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
-import { Video } from '../../libs/video/types';
+import { Video, VideoPurchase } from '../../libs/video/types';
 import { VideoCheckoutComponent } from '../checkout/vod/VideoCheckout.page';
+import { OptionCallback } from '../../state/types';
 
 type StateHandlerType = typeof withStateHandlersInit &
   WithHandlerType<typeof withStateHandlersSetter>;
@@ -47,6 +50,12 @@ type OwnProps = {
   openVideo: (videoId: number, companyId: number, companyName: string) => void;
   store?: any;
   requestVideoAccessRefreshFlag?: number;
+  accessDenied: boolean;
+  authenticated: any;
+  getPlaybackUrl: (videoId: number, options?: OptionCallback) => void;
+  playbackUrlLoading: boolean;
+  playbackUrl: string;
+  videoPurchase: VideoPurchase;
 } & StateHandlerType;
 
 type ConnectProps = ReturnType<typeof mapStateToProps> &
@@ -61,6 +70,7 @@ export class MarketplaceVideoDetail extends React.Component<Props> {
   componentDidMount() {
     this.props.retrieveVideo();
     this.props.fetchVideoListSimilar();
+    this.props.fetchVideoPurchase(1, 1, { video_id: this.props.videoId });
     if (this.props.authenticated) {
       this.props.getPlaybackUrl(this.props.videoId);
     }
@@ -73,6 +83,8 @@ export class MarketplaceVideoDetail extends React.Component<Props> {
     ) {
       this.props.getPlaybackUrl(this.props.videoId);
     }
+    if (prevProps.accessDenied && !this.props.accessDenied)
+      this.props.fetchVideoPurchase(1, 1, { video_id: this.props.videoId });
   }
 
   requestVideoAccess = () => {
@@ -112,6 +124,7 @@ export class MarketplaceVideoDetail extends React.Component<Props> {
                 playbackUrl={this.props.playbackUrl}
                 playbackUrlLoading={this.props.playbackUrlLoading}
                 accessDenied={this.props.accessDenied}
+                videoPurchaseDate={this.props.videoPurchase?.date_created}
               />
             )}
           </Grid>
@@ -188,6 +201,7 @@ const mapDispatchToProps = {
   fetchVideoList: fetchVideoListAction,
   fetchMoreVideo: fetchMoreVideoAction,
   fetchAssociatedCoachBulk: fetchAssociatedCoachBulkAction,
+  fetchVideoPurchase: fetchVideoPurchaseAction,
   push: pushRouter,
 };
 
@@ -267,6 +281,7 @@ export default compose(
       playbackUrl: getPlaybackUrlById(state, ownProps.videoId),
       playbackUrlLoading: state.video.playbackUrl.loading,
       accessDenied: state.video.playbackUrl.accessDenied,
+      videoPurchase: getLastVideoPurchasedByVideo(ownProps.videoId)(state),
     }),
     {
       getPlaybackUrl,

@@ -153,7 +153,6 @@ export function fetchReportMetadata(options?: OptionCallback) {
 
     try {
       const response = await fetchReportMetadataAPI();
-
       dispatch(
         fetchReportMetadataActions.success({
           results: response.data,

@@ -66,7 +66,6 @@ const ReportingDashboard = (props: Props) => {
       options,
     });
   };
-
   return (
     <div>
       <ReportDashboard

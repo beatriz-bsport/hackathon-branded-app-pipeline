@@ -157,7 +157,7 @@ export class VodVideoDetailPage extends React.Component<Props> {
                       onPageRequested={this.props.onPageRequestedPurchase}
                       emptyText={this.props.t('video.noVideoPurchase')}
                       renderSecondaryText={(purchase) =>
-                        this.props.t('video.viewedOn', {
+                        this.props.t('video.boughtOn', {
                           date: moment(purchase.date_created).format('L'),
                         })
                       }

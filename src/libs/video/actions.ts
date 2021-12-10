@@ -17,6 +17,9 @@ import {
   removeVideoSource as removeVideoSourceAPI,
   duplicateVideo as duplicateVideoAPI,
   getPlaybackUrl as getPlaybackUrlAPI,
+  setExternalUrl as setExternalUrlAPI,
+  setUploadInstruction as setUploadInstructionAPI,
+  fetchUniqueVideoPurchaseByMember as fetchUniqueVideoPurchaseByMemberAPI,
 } from './api';
 
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
@@ -349,6 +352,107 @@ export function fetchVideoPurchase(
   };
 }
 
+export function fetchVideoPurchaseByVideo(
+  video_ids: Array<number>,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listVideoPurchaseActions.isLoading(true));
+    dispatch(listVideoPurchaseActions.error(null));
+    try {
+      const response = await fetchVideoPurchaseAPI({ video_ids });
+      dispatch(listVideoPurchaseActions.success({ ...response.data }));
+      if (options && options.onSuccess) {
+        if (response.data.results) {
+          options.onSuccess(response.data.results);
+        } else {
+          options.onSuccess(response.data);
+        }
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(listVideoPurchaseActions.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(listVideoPurchaseActions.isLoading(false));
+  };
+}
+
+export const listVideoPurchaseByMemberByVideoActions = {
+  isLoading: createAction('VIDEO_PURCHASE/LIST_BY_MEMBER_BY_VIDEO/IS_LOADING'),
+  error: createAction('VIDEO_PURCHASE/LIST_BY_MEMBER_BY_VIDEO/ERROR'),
+  success: createAction('VIDEO_PURCHASE/LIST_BY_MEMBER_BY_VIDEO/SUCCESS'),
+};
+
+export function fetchVideoPurchaseByMemberByVideo(
+  video: number,
+  member_id: number,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listVideoPurchaseByMemberByVideoActions.isLoading(true));
+    dispatch(listVideoPurchaseByMemberByVideoActions.error(null));
+    try {
+      const response = await fetchVideoPurchaseAPI({ video, member_id });
+      dispatch(
+        listVideoPurchaseByMemberByVideoActions.success({ ...response.data }),
+      );
+      if (options && options.onSuccess) {
+        if (response.data.results) {
+          options.onSuccess(response.data.results);
+        } else {
+          options.onSuccess(response.data);
+        }
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(listVideoPurchaseByMemberByVideoActions.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(listVideoPurchaseByMemberByVideoActions.isLoading(false));
+  };
+}
+
+export const listVideoPurchaseByMemberActions = {
+  isLoading: createAction('VIDEO_PURCHASE/LIST_BY_MEMBER/IS_LOADING'),
+  error: createAction('VIDEO_PURCHASE/LIST_BY_MEMBER/ERROR'),
+  success: createAction('VIDEO_PURCHASE/LIST_BY_MEMBER/SUCCESS'),
+};
+
+export function fetchUniqueVideoPurchaseByMember(
+  memberId: number,
+  page: number,
+  page_size: number,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listVideoPurchaseByMemberActions.isLoading(true));
+    dispatch(listVideoPurchaseByMemberActions.error(null));
+    try {
+      const response = await fetchUniqueVideoPurchaseByMemberAPI({
+        page,
+        page_size,
+        member_id: memberId,
+      });
+      dispatch(
+        listVideoPurchaseByMemberActions.success({ ...response.data, page }),
+      );
+      if (options && options.onSuccess) {
+        if (response.data.results) {
+          options.onSuccess(response.data.results);
+        } else {
+          options.onSuccess(response.data);
+        }
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(listVideoPurchaseByMemberActions.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(listVideoPurchaseByMemberActions.isLoading(false));
+  };
+}
+
 export const retrieveVideoPurchaseActions = {
   isLoading: createAction('VIDEO_PURCHASE/RETRIEVE/IS_LOADING'),
   error: createAction('VIDEO_PURCHASE/RETRIEVE/ERROR'),
@@ -561,5 +665,66 @@ export function getPlaybackUrl(videoId: number, options?: OptionCallback) {
       dispatch(getPlaybackUrlActions.error(err));
     }
     dispatch(getPlaybackUrlActions.isLoading(false));
+  };
+}
+
+export const setExternalUrlActions = {
+  isLoading: createAction('VIDEO/SET_EXTERNAL_URL/IS_LOADING'),
+  error: createAction('VIDEO/SET_EXTERNAL_URL/ERROR'),
+  success: createAction('VIDEO/SET_EXTERNAL_URL/SUCCESS'),
+};
+
+export function setExternalUrl(
+  videoId: number,
+  data: any,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(setExternalUrlActions.isLoading(true));
+    dispatch(setExternalUrlActions.error(null));
+
+    try {
+      const response = await setExternalUrlAPI(videoId, data);
+
+      dispatch(setExternalUrlActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      if (options && options.onError) options.onError(err);
+      dispatch(setExternalUrlActions.error(err));
+    }
+    dispatch(setExternalUrlActions.isLoading(false));
+  };
+}
+
+export const setUploadInstructionActions = {
+  isLoading: createAction('VIDEO/SET_UPLOAD_INSTRUCTION/IS_LOADING'),
+  error: createAction('VIDEO/SET_UPLOAD_INSTRUCTION/ERROR'),
+  success: createAction('VIDEO/SET_UPLOAD_INSTRUCTION/SUCCESS'),
+};
+
+export function setUploadInstruction(
+  videoId: number,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(setUploadInstructionActions.isLoading(true));
+    dispatch(setUploadInstructionActions.error(null));
+
+    try {
+      const response = await setUploadInstructionAPI(videoId);
+
+      dispatch(setUploadInstructionActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      if (options && options.onError) options.onError(err);
+      dispatch(setUploadInstructionActions.error(err));
+    }
+    dispatch(setUploadInstructionActions.isLoading(false));
   };
 }

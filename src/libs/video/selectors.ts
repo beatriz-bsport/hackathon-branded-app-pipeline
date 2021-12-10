@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 
+import moment from 'moment/moment';
 import { getSCTs } from '../category/selectors';
 import { getAllCoachesDict } from '../associated-coach/selectors';
 import { getAllMembers } from '../member/selectors';
@@ -122,12 +123,38 @@ export const withVideoData = memoize((selector) =>
 );
 export const getVideoPurchases = (state: RootState) =>
   state.video.purchase.items;
+
+export const getAssociatedPurchases = (state: RootState) =>
+  state.video.purchase.associatedVideoPurchase;
+
 const _getMember = (_, id: number) => id;
 
 export const getVideoPurchasedByMember = createSelector(
   [getVideoPurchases, _getMember],
-  (PurchasedVideos, memberId) =>
-    PurchasedVideos.filter((v) => v.member_id === memberId),
+  (PurchasedVideos, memberId) => {
+    return PurchasedVideos.filter((v) => v.member_id === memberId);
+  },
+);
+
+export const getAssociatedVideoPurchasedByMember = createSelector(
+  [getAssociatedPurchases, _getMember],
+  (PurchasedVideos, memberId) => {
+    return PurchasedVideos.filter((v) => v.member_id === memberId);
+  },
+);
+
+export const getLastVideoPurchasedByVideo = memoize((videoId: number) =>
+  createSelector([getVideoPurchases], (purchasedVideos) => {
+    return purchasedVideos
+      .filter((v) => v.video === videoId)
+      .reduce(
+        (acc, curr) =>
+          acc && moment(acc.date_created).isAfter(moment(curr.date_created))
+            ? acc
+            : curr,
+        null,
+      );
+  }),
 );
 
 export const getConsumerPurchaseVideoListWithData = createSelector(

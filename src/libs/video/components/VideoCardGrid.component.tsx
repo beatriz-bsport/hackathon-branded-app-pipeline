@@ -27,7 +27,6 @@ type Props = {
 export const VideoCardList = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['video']);
-
   return (
     <Grid alignItems="stretch" spacing={2} container direction="row">
       {props.videoList.map((v) => (

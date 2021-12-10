@@ -13,13 +13,18 @@ import getVideoId from 'get-video-id';
 
 import { MaterialStyleType } from '../../../utils/types';
 import NumericInput from '../../../components/input/NumericInput.component';
-import { setExternalUrl as setExternalUrlAPI } from '../api';
 import { Video } from '../types';
+import { OptionCallback } from '../../../state/types';
 
 interface OwnProps {
   fowardedRef: (ref: VideoProviderUrl) => void;
   onClose: () => void;
   video: Video;
+  setExternalUrl: (
+    videoId: number,
+    data: any,
+    options?: OptionCallback,
+  ) => void;
 }
 
 type Props = OwnProps &
@@ -45,7 +50,7 @@ class VideoProviderUrl extends React.PureComponent<Props, State> {
     isUploading: false,
   };
 
-  submit = async () => {
+  submit = () => {
     const hasDuration = this.state.minutes + this.state.hours > 0;
 
     const hasUrl = !!this.state.url;
@@ -67,15 +72,19 @@ class VideoProviderUrl extends React.PureComponent<Props, State> {
     this.setState({ isUploading: true });
 
     const duration_second = this.state.minutes * 60 + this.state.hours * 3600;
-
-    setExternalUrlAPI(this.props.video.id, {
-      url: this.state.url,
-      duration_second,
-    })
-      .then(this.props.onClose)
-      .finally(() => {
-        this.setState({ isUploading: false });
-      });
+    this.props.setExternalUrl(
+      this.props.video.id,
+      {
+        url: this.state.url,
+        duration_second,
+      },
+      {
+        onSuccess: () => {
+          this.props.onClose();
+          this.setState({ isUploading: false });
+        },
+      },
+    );
   };
 
   onChangeUrl = (url: string) => {

@@ -16,6 +16,10 @@ import {
   listVideoFilterableParamsActions,
   retrieveVideoAnalyticsByMemberActions,
   getPlaybackUrlActions,
+  setExternalUrlActions,
+  setUploadInstructionActions,
+  listVideoPurchaseByMemberActions,
+  listVideoPurchaseByMemberByVideoActions,
 } from './actions';
 import { Video, VideoState } from './types';
 
@@ -60,6 +64,7 @@ const initialState: Immutable.Immutable<VideoState> = Immutable<VideoState>({
     count: 0,
     purchaseByMember: 0,
     byId: {},
+    associatedVideoPurchase: [],
   },
   views: {
     loading: false,
@@ -208,6 +213,59 @@ export default handleActions<Immutable.Immutable<VideoState>>(
           { deep: true },
         );
     },
+    [listVideoPurchaseByMemberByVideoActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['purchase', 'loading'], payload);
+    },
+    [listVideoPurchaseByMemberByVideoActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['purchase', 'error'], payload);
+    },
+    [listVideoPurchaseByMemberByVideoActions.success.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
+      return state.setIn(
+        ['purchase', 'associatedVideoPurchase'],
+        payload.results,
+      );
+    },
+    [listVideoPurchaseByMemberActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['purchase', 'loading'], payload);
+    },
+    [listVideoPurchaseByMemberActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['purchase', 'error'], payload);
+    },
+    [listVideoPurchaseByMemberActions.success.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
+      return state
+        .setIn(['purchase', 'page'], payload.page)
+        .setIn(['purchase', 'count'], payload.count)
+        .setIn(['purchase', 'items'], payload.results)
+        .merge(
+          {
+            purchase: {
+              byId: payload.results.reduce((acc, ps) => {
+                acc[ps.id] = ps;
+                return acc;
+              }, {}),
+            },
+          },
+          { deep: true },
+        );
+    },
     [retrieveVideoPurchaseActions.success.toString()]: (
       state,
       { payload }: any,
@@ -277,26 +335,53 @@ export default handleActions<Immutable.Immutable<VideoState>>(
     ) => {
       return state.setIn(['filterableParams', 'items'], payload);
     },
-    [numberVideoPurchaseActions.isLoading]: (state, { payload }) => {
+    [numberVideoPurchaseActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['purchase', 'loading'], payload);
     },
-    [numberVideoPurchaseActions.success]: (state, { payload }: any) => {
+    [numberVideoPurchaseActions.success.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
       return state.setIn(['purchase', 'purchaseByMember'], payload);
     },
-    [getPlaybackUrlActions.isLoading]: (state, { payload }: any) => {
+    [getPlaybackUrlActions.isLoading.toString()]: (state, { payload }: any) => {
       return state.setIn(['playbackUrl', 'loading'], payload);
     },
-    [getPlaybackUrlActions.error]: (state, { payload }: any) => {
+    [getPlaybackUrlActions.error.toString()]: (state, { payload }: any) => {
       return state.setIn(['playbackUrl', 'error'], payload);
     },
-    [getPlaybackUrlActions.accessDenied]: (state, { payload }: any) => {
+    [getPlaybackUrlActions.accessDenied.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
       return state.setIn(['playbackUrl', 'accessDenied'], payload);
     },
-    [getPlaybackUrlActions.success]: (state, { payload }: any) => {
+    [getPlaybackUrlActions.success.toString()]: (state, { payload }: any) => {
       return state.setIn(
         ['playbackUrl', 'byId', payload.videoId],
         payload.playbackUrl,
       );
+    },
+    [setExternalUrlActions.success.toString()]: (state, { payload }) => {
+      return state.setIn(['byId', payload.id], payload);
+    },
+    [setExternalUrlActions.error.toString()]: (state, { payload }) => {
+      return state.set('error', payload);
+    },
+    [setExternalUrlActions.isLoading.toString()]: (state, { payload }) => {
+      return state.set('loading', payload);
+    },
+    [setUploadInstructionActions.success.toString()]: (state, { payload }) => {
+      return state.set('uploadInstructions', { ...payload });
+    },
+    [setUploadInstructionActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['uploadInstructions', 'error'], payload);
+    },
+    [setUploadInstructionActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['uploadInstructions', 'loading'], payload);
     },
   },
   initialState,

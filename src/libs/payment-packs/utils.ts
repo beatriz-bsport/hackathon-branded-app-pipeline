@@ -1,9 +1,8 @@
 import { TFunction } from 'i18next';
 import moment from 'moment-timezone';
 import { getCurrencyDisplayWithPrice } from '../theme/selectors';
-import { formatAsDate, formatAsDatetime } from '../../utils/datetime';
+import { formatAsDate } from '../../utils/datetime';
 import type { ConsumerPaymentPack } from '../consumer-payment-pack/types';
-import type { VideoPurchase } from '../video/types';
 import { PaymentPack } from './types';
 
 export const getValidityInfo = (
@@ -156,52 +155,6 @@ export const getPackDate = (consumerPack: ConsumerPaymentPack) => {
     `${formatAsDate(starting_date)}→${formatAsDate(ending_date)}`,
     moment(ending_date).isBefore(moment().add(6, 'day')),
   ];
-};
-export const getStatusText = (video: VideoPurchase, t: TFunction) => {
-  const { consumer_payment_pack } = video;
-  if (!consumer_payment_pack || !consumer_payment_pack.payment_pack) {
-    return [[t('loading'), 'secondary']];
-  }
-
-  const { payment_pack } = consumer_payment_pack;
-
-  if (!payment_pack) {
-    return [[t('loading'), 'secondary']];
-  }
-  const [packDates, soonExpired] = getPackDate(consumer_payment_pack);
-  if (payment_pack.unlimited) {
-    return [
-      [`${payment_pack.name}`, 'secondary'],
-      [
-        `${packDates} - illimité${
-          video.was_refunded ? ` (${t('wasRefunded')})` : ''
-        }`,
-        soonExpired ? 'error' : 'primary',
-      ],
-    ];
-  }
-  const { available_credits } = consumer_payment_pack;
-  const { credits } = payment_pack;
-  return [
-    [payment_pack.name, 'secondary'],
-    [
-      ` ${packDates} - ${available_credits}/${credits}${
-        video.was_refunded ? `, (${t('wasRefunded')})` : ''
-      }`,
-      available_credits / credits < 0.1 || soonExpired ? 'error' : 'primary',
-    ],
-  ];
-};
-
-export const getHeading = (
-  date_created: string,
-  video: VideoPurchase,
-  timezone: string,
-) => {
-  return `${video.video.name || ''} - ${formatAsDatetime(
-    date_created,
-    timezone,
-  )}`;
 };
 
 export const paymentPackTagsAndMemberTagsCompatibilty = (

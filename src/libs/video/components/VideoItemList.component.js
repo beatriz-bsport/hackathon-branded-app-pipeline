@@ -6,9 +6,11 @@ import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import VideoItem from './VideoItem.component';
+import { VideoPurchase, Video } from '../types';
 
 type Props = {
   videoList: Array<Video>,
+  purchasedVideoList?: Array<VideoPurchase>,
   loading: boolean,
   hasMoreVideo: boolean,
   hideCoach: boolean,
@@ -19,13 +21,15 @@ type Props = {
 export const VideoCardList = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['video']);
-
   return (
     <Grid alignItems="stretch" spacing={2} container direction="row">
       {props.videoList.map((v) => (
         <Grid key={v.id} item xs={12} sm={6} md={4} lg={3}>
           <VideoItem
             video={v}
+            purchasedVideo={props.purchasedVideoList?.find(
+              (pv) => pv.video === v.id,
+            )}
             hideCoach={props.hideCoach}
             openVideo={props.openVideo}
             loading={v.coaches.includes(undefined)}

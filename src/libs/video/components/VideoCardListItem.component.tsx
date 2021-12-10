@@ -74,12 +74,21 @@ export class VideoCardListItem extends React.PureComponent<Props> {
             <Typography component="span" variant="subtitle1">
               {this.props.video.name} (
               {t('video:video.durationMinute', {
-                minute: parseInt(this.props.video.duration_second / 60, 10) + 1,
+                minute: parseInt(this.props.video.duration_second / 60, 10),
               })}
               )
             </Typography>
           }
-          secondary={this.props.video.SCT.name || ''}
+          secondary={
+            <div className={classes.flex}>
+              <Typography>{this.props.video.SCT.name || ''}</Typography>
+              {this.props.video.rental_days ? (
+                <Typography className={classes.rental} color="primary">
+                  {t('video:video.rental.forRent')}
+                </Typography>
+              ) : null}
+            </div>
+          }
         />
 
         <ListItemResponsiveAction
@@ -125,6 +134,12 @@ const styles = (theme: Theme) => ({
     width: theme.spacing(7),
     height: theme.spacing(7),
     marginRight: theme.spacing(2),
+  },
+  rental: {
+    marginLeft: theme.spacing(1),
+  },
+  flex: {
+    display: 'flex',
   },
 });
 

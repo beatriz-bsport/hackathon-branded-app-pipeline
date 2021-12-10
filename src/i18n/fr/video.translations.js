@@ -22,6 +22,20 @@ exports.default = {
       buyPass: 'Acheter un pass',
       noPassAvailable: 'Vous ne possédez pas de pass compatible',
     },
+    rental: {
+      label: 'Vidéo en location',
+      helper:
+        'Par défaut les vidéos sont débloquées à vie une fois achetées. En mettant la vidéo en location elle ne sera débloquable que pendant un certain nombre de jours.',
+      duration_helper: 'Validité de la vidéo (en jours)',
+      duration: 'En location pour {{ rental_days }} jours',
+      rental_days_helper: 'La vidéo sera débloquée le nombre de jours indiqué.',
+      forRent: 'Location',
+      valid: 'En cours',
+      expired: 'Terminé',
+      expirationDate: "Valide jusqu'au {{ expiration_date }}",
+      expiredDate: 'Expirée depuis le {{ expiration_date }}',
+      buyDate: "Heure d'achat",
+    },
     creditPrice: 'Coût (crédit)',
     lock: {
       accessDenied: "Vous n'avez pas accès à cette vidéo",
@@ -127,6 +141,14 @@ exports.default = {
           "Attention la vidéo actuelle sera supprimée. Les membres ayant acheté l'ancienne vidéo disposeront désormais de la nouvelle.",
       },
       video_label: 'Vidéo',
+      confirm: {
+        title: 'Validation',
+        rentToUnlimited:
+          'Vous venez de changer une vidéo en location en une vidéo en illimitée. Tous les membres qui ont déjà débloqué la vidéo (en cours ou expirée) la conserveront à vie. Êtes-vous sûr de vouloir changer ce paramètre ?',
+        unlimitedToRent:
+          'Vous venez de changer une vidéo illimitée en une vidéo en location. Les membres qui disposent actuellement de la vidéo perdront l’accès à celle-ci si la période de validitée indiquée est terminée. Êtes-vous sûr de vouloir changer ce paramètre ?',
+        button: 'Confirmer',
+      },
     },
     duplicate: 'Dupliquer',
     noVideoPurchase: 'Aucun achat enregistré',

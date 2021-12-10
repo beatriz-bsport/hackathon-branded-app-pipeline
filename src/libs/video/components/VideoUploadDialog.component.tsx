@@ -25,6 +25,7 @@ import VideoUploadFormVimeo from './VideoUploadFormVimeo.component';
 
 import { Video } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
+import { OptionCallback } from '../../../state/types';
 
 type State = {
   isUploading: boolean;
@@ -36,6 +37,12 @@ type OwnProps = {
   onSubmit: () => void;
   video: Video;
   onClose: () => void;
+  setExternalUrl: (
+    videoId: number,
+    data: any,
+    options?: OptionCallback,
+  ) => void;
+  submitProviderIdentifier: (data: any, options?: OptionCallback) => void;
 };
 
 type Props = OwnProps &
@@ -167,6 +174,7 @@ export class VideoUploadDialog extends React.Component<Props, State> {
               <VideoUploadFormMUX
                 onClose={this.props.onClose}
                 video={this.props.video}
+                setProviderIdentifier={this.props.submitProviderIdentifier}
               />
             )}
             {this.props.video.provider_identifier ===
@@ -174,6 +182,7 @@ export class VideoUploadDialog extends React.Component<Props, State> {
               <VideoUploadFormYoutube
                 onClose={this.props.onClose}
                 video={this.props.video}
+                setExternalUrl={this.props.setExternalUrl}
               />
             )}
 
@@ -182,6 +191,7 @@ export class VideoUploadDialog extends React.Component<Props, State> {
               <VideoUploadFormVimeo
                 onClose={this.props.onClose}
                 video={this.props.video}
+                setExternalUrl={this.props.setExternalUrl}
               />
             )}
           </div>

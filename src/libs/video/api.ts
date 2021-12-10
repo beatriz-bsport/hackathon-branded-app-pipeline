@@ -34,7 +34,7 @@ export const attachFile = async (id: number, file: Object) => {
   return postAuth(`${API_V1_URI}/vod/video/${id}/attach_video/`, file);
 };
 
-export const getUploadInstruction = async (id: number) => {
+export const setUploadInstruction = async (id: number) => {
   return postAuth(`${API_V1_URI}/vod/video/${id}/upload_instruction/`);
 };
 
@@ -80,6 +80,15 @@ export const fetchNumberVideoPurchase = async (params?: any) => {
     )}`,
   );
 };
+
+export const fetchUniqueVideoPurchaseByMember = async (params?: any) => {
+  return getAuth(
+    `${API_V1_URI}/vod/video_purchase/get_unique_video_purchased_by_member/${buildUrlParams(
+      { ...(params || {}) },
+    )}`,
+  );
+};
+
 export const fetchVideoAnalytics = async (videoId: number) => {
   return getAuth(`${API_V1_URI}/vod/video_analytics/${videoId}/`);
 };

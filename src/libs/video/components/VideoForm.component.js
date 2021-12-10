@@ -29,6 +29,7 @@ type Props = {
   SCTs: Array<SCT>,
   initial?: Video,
   onRemoveVideoSource: (v: Video) => void,
+  values: any,
 };
 export const VideoForm = (props: Props) => {
   const { t } = useTranslation(['video']);
@@ -165,6 +166,30 @@ export const VideoForm = (props: Props) => {
           label={t('video.manager_only')}
         />
       </div>
+      <div className={classes.field}>
+        <CheckboxField
+          helperText={t('video.rental.helper')}
+          name="forRent"
+          label={t('video.rental.label')}
+        />
+      </div>
+
+      {props.values.forRent && (
+        <div className={classes.field}>
+          <IntegerField
+            label={t('video.rental.duration_helper')}
+            name="rental_days"
+            fullWidth
+            InputProps={{
+              inputProps: {
+                min: 1,
+                maxLength: 500,
+              },
+            }}
+            helperText={t('video.rental.rental_days_helper')}
+          />
+        </div>
+      )}
 
       <div className={classes.field}>
         <TextField
@@ -264,9 +289,10 @@ export const VideoSchema = Yup.object().shape({
   _duration_minutes: Yup.number().when('_duration_hours', {
     is: (value) => value > 0,
     then: Yup.number(),
-    otherwise: Yup.number().min(1),
+    otherwise: Yup.number(),
   }),
   _duration_hours: Yup.number(),
+  rental_days: Yup.number().min(1),
 });
 
 export const VideoFormHOC = withFormik({
@@ -281,6 +307,8 @@ export const VideoFormHOC = withFormik({
         manager_only: initial.manager_only,
         _duration_minutes: duration.minutes(),
         _duration_hours: duration.hours(),
+        forRent: initial.rental_days > 0,
+        rental_days: initial.rental_days > 0 ? initial.rental_days : 30,
       };
     }
     return {
@@ -292,6 +320,7 @@ export const VideoFormHOC = withFormik({
       level: 1,
       credit_price: 0,
       manager_only: false,
+      rental_days: 30,
     };
   },
   validationSchema: VideoSchema,
@@ -307,7 +336,9 @@ export const VideoFormHOC = withFormik({
       'level',
       'credit_price',
       'manager_only',
+      'rental_days',
     ];
+
     const { cover_main } = values;
     const data = {
       ...pick(values, keys),
@@ -318,6 +349,7 @@ export const VideoFormHOC = withFormik({
     if (initial && initial.id) {
       data.id = initial.id;
     }
+    if (!values.forRent) data.rental_days = 0;
 
     if (
       initial &&
@@ -332,7 +364,6 @@ export const VideoFormHOC = withFormik({
       const duration_second = minutes * 60 + hours * 3600;
       data.duration_second = duration_second;
     }
-
     onSubmit(data, {
       onSuccess: () => {
         if (onSuccess && typeof onSuccess === 'function') onSuccess();

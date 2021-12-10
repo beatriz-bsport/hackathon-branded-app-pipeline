@@ -3,23 +3,38 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Skeleton from '@material-ui/lab/Skeleton';
+import { useTranslation } from 'react-i18next';
 import CoachGroupAvatar from '../../associated-coach/components/CoachGroupAvatar.component';
+import { Video, VideoPurchase } from '../types';
+import { getExpirationDate } from '../utils';
 
 type Props = {
   openVideo: (id: number) => void,
   video: Video,
+  purchasedVideo: VideoPurchase,
   loading: boolean,
   hideCoach: boolean,
 };
 
 export const VideoItem = (props: Props) => {
   const classes = useStyles();
+  const { t } = useTranslation(['video']);
+
+  let expiration_date = null;
+  if (props.video.rental_days > 0 && props.purchasedVideo) {
+    expiration_date = getExpirationDate(props.purchasedVideo);
+  }
+
   return (
     <div
       role="button"
       tabIndex={props.video.id}
-      onClick={() => props.openVideo(props.video.id)}
-      onKeyDown={() => props.openVideo(props.video.id)}
+      onClick={() => {
+        if (props.openVideo) props.openVideo(props.video.id);
+      }}
+      onKeyDown={() => {
+        if (props.openVideo) props.openVideo(props.video.id);
+      }}
       className={classes.container}
     >
       <div className={classes.imageWrapper}>
@@ -49,6 +64,25 @@ export const VideoItem = (props: Props) => {
           />
         )}
       </div>
+      {expiration_date && (
+        <Typography
+          className={classes.typo}
+          variant="body2"
+          color="textSecondary"
+        >
+          {t(
+            !props.purchasedVideo.available
+              ? 'video.rental.expiredDate'
+              : 'video.rental.expirationDate',
+            {
+              interpolation: {
+                escapeValue: false,
+              },
+              expiration_date: expiration_date.format('L'),
+            },
+          )}
+        </Typography>
+      )}
     </div>
   );
 };
@@ -84,6 +118,9 @@ const useStyles = makeStyles((theme) => ({
   skeletonContainer: {
     width: '100%',
     display: 'flex',
+  },
+  typo: {
+    marginTop: theme.spacing(1),
   },
 }));
 

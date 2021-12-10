@@ -2089,7 +2089,7 @@
         "caption": {
             "emailDesign": "Transactional email template",
             "event": "Event",
-            "sendCopy": "Activate this option to receive a copy",
+            "sendCopy": "Receive copies",
             "active": "Enable"
         },
         "marketingNotification": {
@@ -2102,7 +2102,7 @@
                 "title": "Delete"
             },
             "card": {
-                "carbonCopy": "Activate this option to receive a copy",
+                "carbonCopy": "Receive copies",
                 "deactivated": "Deactivated",
                 "activated": "Activated",
                 "companies": "Franchisees",
@@ -2119,7 +2119,7 @@
                 "cancel": "Cancel",
                 "mailSelection": "Choose a template",
                 "receiveCarbonCopySubtitle": "You'll receive a copy of each sent email.",
-                "receiveCC": "Activate this option to receive a copy",
+                "receiveCC": "Receive copies",
                 "activateSubtitleDeactivate": "The transactional email has been activated. It won't be sent to members",
                 "activateSubtitleActivate": "The transactional email has been activated. It'll be sent to members",
                 "activate": "Activated",
@@ -2918,7 +2918,7 @@
                     "label": "Validity (in days)"
                 },
                 "full_vod_access": {
-                    "label": "Activate acces to Video On Demand"
+                    "label": "Activate access to Video On Demand"
                 },
                 "expirationDaysBeforeFirstUse": {
                     "helperText": "The appointment pass will automatically expire if no booking has been made in X amount of days.",
@@ -6693,7 +6693,10 @@
             "sum_consumed_amount": "Consumed credits",
             "sum_available_amount_expired": "Offered and expired credits",
             "nb_expired": "Number of expired passes",
-            "price_bought": "Purchase price"
+            "price_bought": "Purchase price",
+            "is_rent": "Video rental",
+            "date_expiration": "Expiration date",
+            "date_bought": "Purchase date"
         },
         "yes": "Yes",
         "no": "No",
@@ -8245,6 +8248,9 @@
                 "notAvailable": "Cancelled",
                 "duration": "Duration: {{duration}}"
             }
+        },
+        "calendar": {
+            "registered": "Reservation confirmed"
         }
     },
     "selfCheckIn": {
@@ -9876,6 +9882,12 @@
                     "youtube_video": "Youtube video",
                     "title": "Video",
                     "vimeo_video": "Vimeo Video"
+                },
+                "confirm": {
+                    "button": "Confirm",
+                    "unlimitedToRent": "This video will become a rental video instead of a permanent video. All members that (previously) unlocked it will lose access to it, should the validity period have been expired. Are you sure that you want to continue?",
+                    "rentToUnlimited": "This video will become a permanent video instead of a rental video. All members that (previously) unlocked it will be able to watch it. Are you sure that you want to continue?",
+                    "title": "Availability"
                 }
             },
             "upload": {
@@ -9975,7 +9987,20 @@
             },
             "manager_only_helper": "The video will not be available for purchase, it will be visible only to managers",
             "manager_only": "Unavailable for purchase",
-            "duplicate": "Duplicate"
+            "duplicate": "Duplicate",
+            "rental": {
+                "forRent": "Video rental",
+                "expired": "Expired",
+                "valid": "Valid",
+                "buyDate": "Purchase time",
+                "expiredDate": "Expired since {{ expiration_date }}",
+                "expirationDate": "Valid until {{ expiration_date }}",
+                "rental_days_helper": "The video will be unlocked for X amount of days.",
+                "duration": "The video has been rented for {{ rental_days }} day(s).",
+                "duration_helper": "Video availability (in days)",
+                "helper": "Videos are unlocked in perpetuity by default. Renting a video will unlock it for a certain number of days.",
+                "label": "Video rental"
+            }
         },
         "playlist": {
             "bottomActions": {

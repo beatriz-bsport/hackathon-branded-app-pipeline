@@ -1961,7 +1961,10 @@
             "sum_available_amount_expired": "Gebruikte en verlopen kredieten",
             "sum_consumed_amount": "Gebruikte kredieten",
             "nb_expired": "Aantal verlopen kredieten",
-            "price_bought": "Koopprijs"
+            "price_bought": "Koopprijs",
+            "date_expiration": "Vervaldatum",
+            "date_bought": "Aankoopdatum",
+            "is_rent": "Videoverhuur"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -4186,6 +4189,9 @@
         },
         "paymentCombo": {
             "addToCart": "Winkelmandje"
+        },
+        "calendar": {
+            "registered": "Reservering bevestigd"
         }
     },
     "selfCheckIn": {
@@ -4920,6 +4926,12 @@
                     "youtube_video": "YouTube-video",
                     "title": "Video",
                     "vimeo_video": "Video van Vimeo"
+                },
+                "confirm": {
+                    "button": "Bevestigen",
+                    "unlimitedToRent": "Deze video wordt een permanent beschikbare video i.p.v. een huurvideo. Alle leden die het gekocht hebben zullen de toegang verliezen indien de vervaldatum in het verleden ligt. Weet je zeker dat je verder wilt?",
+                    "rentToUnlimited": "Deze video wordt een huurvideo i.p.v. een die permanent beschikbaar is. Alle leden die het (voorheen) gekocht hebben kunnen deze video bekijken. Weet je zeker dat je verder wilt?",
+                    "title": "Geldigheidsduur"
                 }
             },
             "level": "Niveau",
@@ -4949,7 +4961,20 @@
             },
             "manager_only_helper": "Deze video kan alleen door managers worden bekeken.",
             "manager_only": "Niet beschikbaar",
-            "duplicate": "Dupliceren"
+            "duplicate": "Dupliceren",
+            "rental": {
+                "buyDate": "Aankooptijd",
+                "expiredDate": "Vervallen sinds {{ expiration_date }}",
+                "expirationDate": "Geldig tot {{ expiration_date }}",
+                "expired": "Vervallen",
+                "valid": "Geldig",
+                "forRent": "Videoverhuur",
+                "rental_days_helper": "Deze video zal een X aantal dagen beschikbaar zijn.",
+                "duration": "Deze video is voor {{ rental_days }} dag(en) gehuurd.",
+                "duration_helper": "Geldigheidsduur (in dagen)",
+                "helper": "Standaard zijn video's permanent beschikbaar na aankoop. Met videoverhuur kunnen leden video's voor een bepaald aantal dagen bekijken.",
+                "label": "Videoverhuur"
+            }
         },
         "details": {
             "pleaseSelectVod": "Selecteer een video om meer informatie te zien.",

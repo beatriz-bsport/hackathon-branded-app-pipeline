@@ -155,6 +155,7 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
             color="primary"
             disabled={!this.props.selectedSpot}
             onClick={this.props.onSubmit}
+            className={this.props.classes.bottomButton}
           >
             {t('spotSelectorDialog.submit')}
           </Button>
@@ -180,6 +181,9 @@ const styles = (theme: Theme) => ({
     flex: 1,
     display: 'flex',
     alignItems: 'center',
+  },
+  bottomButton: {
+    paddingBottom: 'calc(2 * env(safe-area-inset-bottom))',
   },
   marginLeft: {
     marginLeft: theme.spacing(2),

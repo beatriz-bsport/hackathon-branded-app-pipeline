@@ -148,17 +148,18 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
 
         <DialogContent>{this.renderContent()}</DialogContent>
         <DialogActions>
-          <Button onClick={this.props.onClose}>
-            {t('spotSelectorDialog.cancel')}
-          </Button>
-          <Button
-            color="primary"
-            disabled={!this.props.selectedSpot}
-            onClick={this.props.onSubmit}
-            className={this.props.classes.bottomButton}
-          >
-            {t('spotSelectorDialog.submit')}
-          </Button>
+          <div className={this.props.classes.bottomButton}>
+            <Button onClick={this.props.onClose}>
+              {t('spotSelectorDialog.cancel')}
+            </Button>
+            <Button
+              color="primary"
+              disabled={!this.props.selectedSpot}
+              onClick={this.props.onSubmit}
+            >
+              {t('spotSelectorDialog.submit')}
+            </Button>
+          </div>
         </DialogActions>
       </Dialog>
     );
@@ -183,6 +184,9 @@ const styles = (theme: Theme) => ({
     alignItems: 'center',
   },
   bottomButton: {
+    display: 'flex',
+    alignItem: 'center',
+    flexDirection: 'flex-end',
     paddingBottom: 'calc(2 * env(safe-area-inset-bottom))',
   },
   marginLeft: {

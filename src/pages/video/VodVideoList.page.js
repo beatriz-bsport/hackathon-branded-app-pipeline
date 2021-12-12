@@ -213,7 +213,8 @@ export class VodVideoListPage extends React.PureComponent<Props> {
             video={this.props.videoToUpload}
             videoProviderList={this.props.theme.vod_providers}
             submitProviderIdentifier={this.props.submitVideoProviderIdentifier}
-            onClose={this.closeUploadVideoForm}
+            onClose={this.props.closeUploadVideoForm}
+            setExternalUrl={this.props.setExternalUrl}
           />
         )}
         {!!this.props.createOpen && (

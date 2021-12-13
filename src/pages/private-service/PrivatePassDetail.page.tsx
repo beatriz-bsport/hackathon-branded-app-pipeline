@@ -15,8 +15,8 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { CircularProgress, Theme, Typography } from '@material-ui/core';
 import { push as pushRouter } from 'connected-react-router';
-import themeSelectors from '../../libs/theme/selectors';
-import { snackbarSuccess } from '../../libs/snackbar/actions';
+import themeSelectors from '#libs/theme/selectors';
+import { snackbarSuccess } from '#libs/snackbar/actions';
 
 import withTitle from '../../hocs/with-title.hoc';
 import {
@@ -24,13 +24,13 @@ import {
   withServices,
   withAvailable,
   getCompatibilityPassWithService as getCompatibleServicePass,
-} from '../../libs/private-service/selectors/private-pass';
+} from '#libs/private-service/selectors/private-pass';
 import {
   getPrivateConsumerPassByPrivatePass,
   getPrivateConsumerPassMassExtension,
   withMember,
-} from '../../libs/private-service/selectors/private-consumer-pass';
-import { getPrivateServices } from '../../libs/private-service/selectors/private-service';
+} from '#libs/private-service/selectors/private-consumer-pass';
+import { getPrivateServices } from '#libs/private-service/selectors/private-service';
 import {
   fetchPrivatePassRetrieve,
   fetchByPrivatePass,
@@ -48,22 +48,49 @@ import {
   createPrivatePassMassExtension,
   deletePrivatePassMassExtension,
   fetchAllPrivateSlots,
-} from '../../libs/private-service/actions';
-import { fetchFilteredMembers as fetchFilteredMembersActions } from '../../libs/member/actions';
-import PrivatePassDetail from '../../libs/private-service/components/pass/PrivatePassDetail.component';
+} from '#libs/private-service/actions';
+import { fetchFilteredMembers as fetchFilteredMembersActions } from '#libs/member/actions';
+import PrivatePassDetail from '#libs/private-service/components/pass/PrivatePassDetail.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import PaginatedConsumerPrivatePass from '../../libs/private-service/components/pass/PaginatedConsumerPrivatePass.component';
+import PaginatedConsumerPrivatePass from '#libs/private-service/components/pass/PaginatedConsumerPrivatePass.component';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
-import PrivatePassForm from '../../libs/private-service/components/pass/PrivatePassForm.component';
-import PrivateConsumerPassFilters from '../../libs/private-service/components/pass/PrivateConsumerPassFilters.component';
-import PrivatePassMassExtensionList from '../../libs/private-service/components/consumer-pass/PrivatePassMassExtensionList.component';
+import PrivatePassForm from '#libs/private-service/components/pass/PrivatePassForm.component';
+import PrivateConsumerPassFilters from '#libs/private-service/components/pass/PrivateConsumerPassFilters.component';
+import PrivatePassMassExtensionList from '#libs/private-service/components/consumer-pass/PrivatePassMassExtensionList.component';
 import { RootState } from '../../reducers';
 import { OptionCallback } from '../../state/types';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
-import PaymentPackMassExtensionDialog from '../../libs/payment-packs/components/PaymentPackMassExtensionDialog.component';
-import { PrivateConsumerPassMassExtension } from '../../libs/private-service/types';
-import { getPrivatePassCategories } from '../../libs/private-service/selectors/private-pass-category';
-import { getFormInitial } from '../../libs/private-service/utils';
+import PaymentPackMassExtensionDialog from '#libs/payment-packs/components/PaymentPackMassExtensionDialog.component';
+import { PrivateConsumerPassMassExtension } from '#libs/private-service/types';
+import { getPrivatePassCategories } from '#libs/private-service/selectors/private-pass-category';
+import {
+  getFormInitial,
+  PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME,
+  PRIVATE_CONSUMER_PASS_NOTIFICATION_CREDIT,
+} from '#libs/private-service/utils';
+import PrivatePassNotification from '#libs/private-service/components/pass/PrivatePassNotification.component';
+import { getPrivatePassNotifications } from '#libs/marketing/selectors';
+import {
+  fetchEmailTemplateSummariesBulk as fetchEmailTemplateSummariesBulkAction,
+  emailTemplateDetail,
+  emailTemplatesSummaries as fetchEmailTemplatesSummaries,
+} from '#libs/email-editor/actions';
+import {
+  getAllEmailTemplatesSummaries,
+  getEmailTemplatesDetail,
+} from '#libs/email-editor/selectors';
+import {
+  fetchMarketingNotificationList as fetchMarketingNotificationListAction,
+  createMarketingNotification as createMarketingNotificationAction,
+  updateMarketingNotification,
+  deleteMarketingNotification as deleteMarketingNotificationAction,
+} from '#libs/marketing/actions';
+
+import {
+  fetchSmartListBulk as fetchSmartListBulkAction,
+  fetchAllSmartLists,
+} from '#libs/smart-list/actions';
+import { getAllSmartList } from '#libs/smart-list/selectors';
 
 type OwnProps = {
   id: number;
@@ -95,7 +122,7 @@ export class PrivatePassDetails extends Component<Props> {
     this.props.fetchPrivatePass(this.props.id);
     this.props.fetchAllPrivateServices();
     this.props.fetchCompatibleServicePasses();
-
+    this.props.fetchNotificationsAndTemplatesAndSmartLists();
     this.props.fetchPrivatePassMassExtensionList({
       privatePass: this.props.id,
       page: 1,
@@ -162,6 +189,12 @@ export class PrivatePassDetails extends Component<Props> {
     });
   };
 
+  createNotification = (data: any) => {
+    this.props.createMarketingNotification(data, {
+      onSuccess: () => this.props.fetchNotificationsAndTemplatesAndSmartLists(),
+    });
+  };
+
   render() {
     const { classes, t } = this.props;
     return (
@@ -179,6 +212,24 @@ export class PrivatePassDetails extends Component<Props> {
             updateCompatibleServicePass={this.props.updateCompatibleServicePass}
             compatibleServicePass={this.props.compatibleServicePass}
             pass={this.props.privatePass}
+          />
+          <PrivatePassNotification
+            private_pass={this.props.privatePass}
+            notifications={this.props.notifications}
+            getEmails={this.props.fetchEmailTemplatesSummaries}
+            emails={this.props.email_templates_list}
+            getEmailDetail={this.props.fetchEmailTemplateDetail}
+            emailDetails={this.props.email_templates_details}
+            emailListLoading={this.props.emailListLoading}
+            emailDetailLoading={this.props.emailDetailLoading}
+            createNotification={this.createNotification}
+            updateNotification={this.props.updateMarketingNotification}
+            deleteNotification={this.props.deleteMarketingNotification}
+            smartLists={this.props.smartLists}
+            smartListLoading={this.props.smartListLoading}
+            getSmartLists={this.props.getSmartLists}
+            is_expired
+            goToSmartlist={this.props.goToSmartlist}
           />
         </Grid>
         <BottomActionsButton
@@ -357,6 +408,16 @@ const mapStateToProps = (state: RootState, { id }: { id: number }) => ({
   },
   compatibleServicePass: getCompatibleServicePass(state),
   privatePassCategories: getPrivatePassCategories(state),
+  notifications: {
+    items: getPrivatePassNotifications(state),
+    loading: state.marketingNotification.loading,
+  },
+  email_templates_list: getAllEmailTemplatesSummaries(state),
+  email_templates_details: getEmailTemplatesDetail(state),
+  emailListLoading: state.emailTemplate.isLoading,
+  emailDetailLoading: state.emailTemplate.detail.isLoading,
+  smartLists: getAllSmartList(state),
+  smartListLoading: state.smartList.isLoading,
 });
 
 const mapDispatchToProps = {
@@ -390,6 +451,16 @@ const mapDispatchToProps = {
   deletePrivatePassMassExtension,
   fetchPrivateSlotsByService: fetchAllPrivateSlots,
   fetchCompatibleServicePassList: fetchCompatibleServicePassListAction,
+  fetchEmailTemplatesSummaries,
+  fetchEmailTemplateDetail: (id: number) => emailTemplateDetail(id),
+  createMarketingNotification: createMarketingNotificationAction,
+  updateMarketingNotification,
+  deleteMarketingNotification: deleteMarketingNotificationAction,
+  fetchMarketingNotificationList: fetchMarketingNotificationListAction,
+  fetchEmailTemplateSummariesBulk: fetchEmailTemplateSummariesBulkAction,
+  fetchSmartListBulk: fetchSmartListBulkAction,
+  getSmartLists: fetchAllSmartLists,
+  goToSmartlist: () => pushRouter('/smart-list'),
 };
 
 const mapWithHandlers = {
@@ -438,6 +509,37 @@ const mapWithHandlers = {
           private_service__in: csps.map((c) => c.private_service),
         }),
     }),
+  fetchNotificationsAndTemplatesAndSmartLists:
+    (props: WithStateProps) => () => {
+      props.fetchMarketingNotificationList(
+        {
+          kind__in: [
+            PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME,
+            PRIVATE_CONSUMER_PASS_NOTIFICATION_CREDIT,
+          ],
+          event_rules__private_pass_id: props.id,
+        },
+        {
+          onSuccess: (notificationList: any) => {
+            props.fetchEmailTemplateSummariesBulk(
+              notificationList.map(
+                (notification: any) => notification.email_design,
+              ),
+            );
+            props.fetchSmartListBulk([
+              ...notificationList.map(
+                (notification: any) =>
+                  notification.event_rules.smartlist_include,
+              ),
+              ...notificationList.map(
+                (notification: any) =>
+                  notification.event_rules.smartlist_exclude,
+              ),
+            ]);
+          },
+        },
+      );
+    },
 };
 
 type StateHandlerInit = {

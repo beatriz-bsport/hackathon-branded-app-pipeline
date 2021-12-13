@@ -58,6 +58,20 @@ export const getPaymentPackNotifications = createSelector(
       );
   },
 );
+export const getPrivatePassNotifications = createSelector(
+  [_getNotificationIds, _getNotifications],
+  (ids, data) => {
+    return ids
+      .map((id) => data[id])
+      .filter((notif) =>
+        [
+          NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_TIME,
+          NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_CREDIT,
+          // @ts-ignore
+        ].includes(notif.kind),
+      );
+  },
+);
 export const getNotificationForMarketingPage = createSelector(
   [_getNotificationIds, _getNotifications],
   (ids, data) => {

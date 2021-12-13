@@ -895,4 +895,19 @@ exports.default = {
   },
   disabledPacksTitle: 'Cartes RDV archivées',
   categoryTitle: 'Catégories de cartes de RDV',
+  notification: {
+    addButton: 'Ajouter une notification',
+    listItem: {
+      mail: 'Mail ',
+      deleteModal: {
+        title: 'Suppression notification',
+        cancel: 'annuler',
+        confirm: 'Supprimer',
+        content:
+          'Etes vous sûr de vouloir supprimer cette notification ? Cette opération est définitive',
+      },
+      smartList: 'Listes exclues',
+      smartListInclude: 'Listes incluses',
+    },
+  },
 };

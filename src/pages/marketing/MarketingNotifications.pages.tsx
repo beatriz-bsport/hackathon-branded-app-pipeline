@@ -312,6 +312,7 @@ export class MarketingNotifications extends Component<Props, State> {
             metaActivityBydId={this.props.metaActivityById}
             privateServiceById={this.props.privateServicebyId}
             paymentPackById={this.props.paymentPackById}
+            privatePassById={this.props.privatePassById}
             notificationsStatById={this.props.notificationsStatById}
             theme={this.props.theme}
           />

@@ -43,6 +43,10 @@ import MaterialUISelector, {
   OptionTypeBase,
 } from '../../../components/Selector/MaterialUISelector.component';
 import { MarketingNotification } from '../types';
+import {
+  PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME,
+  PRIVATE_CONSUMER_PASS_NOTIFICATION_CREDIT,
+} from '#libs/private-service/utils';
 
 interface InitialFormikValues {
   send_email: boolean;
@@ -58,7 +62,7 @@ interface InitialFormikValues {
   smartlist_include: Array<number>;
   smartlist_exclude: Array<number>;
   verboseNotifKind: string | null;
-  identifier: string;
+  identifier: 'payment_pack' | 'private_pass';
 }
 interface FinalFormikData extends MarketingNotification {
   send_email: boolean;
@@ -70,7 +74,7 @@ interface FinalFormikData extends MarketingNotification {
   days_left: number;
   payment_pack_id: number | null;
   private_pass_id: number | null;
-  identifier: string;
+  identifier: 'payment_pack' | 'private_pass';
   id?: number;
   company?: number;
   kind: number;
@@ -84,9 +88,6 @@ interface FinalFormikData extends MarketingNotification {
 }
 const CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME = 3;
 const CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT = 4;
-const PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME = 5;
-const PRIVATE_CONSUMER_PASS_NOTIFICATION_CREDIT = 6;
-
 const getKind = (identifer: string, values: any) => {
   if (identifer === 'payment_pack') {
     if (values.verboseNotifKind === 'creditsLeft') {
@@ -388,6 +389,7 @@ const ProductNotificationForm = (props: Props) => {
             className={classNames(
               [classes.spacingTop],
               [classes.spacingBottom],
+              [classes.spacingLeft],
             )}
           >
             {t('booking:notification.form.settingTitle')}
@@ -598,6 +600,9 @@ const useStyles = makeStyles((theme) => ({
   spacingBottom: {
     marginBottom: theme.spacing(2),
   },
+  spacingLeft: {
+    marginLeft: theme.spacing(2),
+  },
   notificationInput: {
     marginTop: theme.spacing(2),
   },
@@ -654,7 +659,7 @@ export default compose<any, Props>(
     }: {
       initial: MarketingNotification;
       id: number;
-      identifier: string;
+      identifier: 'payment_pack' | 'private_pass';
     }) => {
       if (initial) {
         const {

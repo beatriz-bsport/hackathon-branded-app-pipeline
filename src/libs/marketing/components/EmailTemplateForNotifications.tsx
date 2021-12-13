@@ -25,11 +25,13 @@ import { MaterialStyleType } from '../../../utils/types';
 import { MarketingNotification } from '../types';
 import { Establishment } from '../../establishment/types';
 import { MetaActivity } from '../../meta-activity/types';
-import { PrivateService } from '../../private-service/types';
+import { PrivatePass, PrivateService } from '../../private-service/types';
 import { PaymentPack } from '../../payment-packs/types';
 import { MarketingNotificationMailStat } from '../../communication/types';
 import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 import { CompanyTheme } from '../../theme/types';
+
+import { PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME } from '#libs/private-service/utils';
 
 type OwnProps = {
   emailSummary?: EmailTemplateSummary;
@@ -43,6 +45,7 @@ type OwnProps = {
   metaActivityBydId: { [key: string]: MetaActivity };
   privateServiceById: { [key: string]: PrivateService };
   paymentPackById: { [key: string]: PaymentPack };
+  privatePassById: { [key: string]: PrivatePass };
   notificationsStatById: { [key: string]: MarketingNotificationMailStat };
   theme: CompanyTheme;
 };
@@ -129,12 +132,40 @@ class EmailTemplateForNotifications extends React.PureComponent<Props> {
     return 'creditsLeft';
   };
 
+  getPrivatePassNotificationKind = (notif: any) => {
+    if (notif.kind === PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME) {
+      return notif.event_rules.days_left < 0 ? 'daysPast' : 'daysLeft';
+    }
+    return 'creditsLeft';
+  };
+
   renderPrimaryText = (notif: MarketingNotification) => {
     const { notify_booking_nb, kind, hours } = notif.event_rules;
     const { t } = this.props;
 
     if (notif.event_rules.payment_pack_id !== undefined) {
       const notificationKind = this.getPaymentPackNotificationKind(notif);
+      if (notificationKind === 'creditsLeft') {
+        return (
+          <Typography>
+            {`${t('paymentPack:notification.creditsLeft.first')} ${
+              notif.event_rules.credits_left
+            } ${t('paymentPack:notification.creditsLeft.second')}`}
+          </Typography>
+        );
+      }
+      return (
+        <Typography>
+          {`${t(
+            `paymentPack:notification.${notificationKind}.first`,
+          )} ${Math.abs(notif.event_rules.days_left)} ${t(
+            `paymentPack:notification.${notificationKind}.second`,
+          )}`}
+        </Typography>
+      );
+    }
+    if (notif.event_rules.private_pass_id !== undefined) {
+      const notificationKind = this.getPrivatePassNotificationKind(notif);
       if (notificationKind === 'creditsLeft') {
         return (
           <Typography>
@@ -350,6 +381,7 @@ const getLabel = (props: Props) => {
     metaActivityBydId,
     paymentPackById,
     establishmentById,
+    privatePassById,
   } = props;
 
   if (!selectedNotification) {
@@ -361,6 +393,7 @@ const getLabel = (props: Props) => {
     meta_activity_id,
     payment_pack_id,
     private_service_id,
+    private_pass_id,
   } = selectedNotification.event_rules;
 
   if (establishment_id !== undefined && establishmentById[establishment_id]) {
@@ -380,7 +413,9 @@ const getLabel = (props: Props) => {
   if (payment_pack_id && paymentPackById[payment_pack_id]) {
     return paymentPackById[payment_pack_id].name;
   }
-
+  if (private_pass_id && privatePassById[private_pass_id]) {
+    return privatePassById[private_pass_id].name;
+  }
   return '';
 };
 

@@ -245,3 +245,6 @@ export const getCompatibilityTextWithSlots = (
   }
   return t('privateServiceCompatibility.allSlots');
 };
+
+export const PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME = 5;
+export const PRIVATE_CONSUMER_PASS_NOTIFICATION_CREDIT = 6;

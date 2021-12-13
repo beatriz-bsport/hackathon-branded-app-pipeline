@@ -365,25 +365,26 @@ export class VideoCheckoutBase extends Component<Props, State> {
               ))}
             </CollapsibleSection>
           )}
-          <Button
-            color="primary"
-            variant="contained"
-            disabled={
-              !this.state.selectedPass.id ||
-              this.state.processing ||
-              this.props.loading
-            }
-            onClick={this.onClickBookVideo}
-          >
-            <div className={classes.innerButton}>
-              {this.props.loading || this.state.processing ? (
-                <CircularProgress size={22} color="inherit" />
-              ) : (
-                t('bookerMethod.actions.bookVod')
-              )}
-            </div>
-          </Button>
         </div>
+        <Button
+          color="primary"
+          style={{ position: 'sticky', bottom: 0, width: '100%' }}
+          variant="contained"
+          disabled={
+            !this.state.selectedPass.id ||
+            this.state.processing ||
+            this.props.loading
+          }
+          onClick={this.onClickBookVideo}
+        >
+          <div className={classes.innerButton}>
+            {this.props.loading || this.state.processing ? (
+              <CircularProgress size={22} color="inherit" />
+            ) : (
+              t('bookerMethod.actions.bookVod')
+            )}
+          </div>
+        </Button>
       </div>
     );
   }

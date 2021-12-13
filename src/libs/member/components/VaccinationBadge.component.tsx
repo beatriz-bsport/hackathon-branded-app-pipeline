@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 type Props = {
   children: any;
+  status: boolean | null;
 };
 
 export const VaccinationBadge = (props: Props) => {
@@ -17,7 +18,7 @@ export const VaccinationBadge = (props: Props) => {
           <LocalHospitalIcon color="primary" />
         </div>
       )}
-      {!props.status && (
+      {!props.status && props.status !== null && (
         <div className={classes.badge}>
           <LocalHospitalIcon color="error" />
         </div>

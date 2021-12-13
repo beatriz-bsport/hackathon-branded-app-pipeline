@@ -310,16 +310,17 @@ export const getChartPropsData = (
         break;
 
       case 'qualitativeInvoiceItem':
-        currentProps = {
-          title: t('dashboard:invoiceItems.title'),
-          height: 368,
-          baseColor: colorScale(index / graph_nb).hex(),
-          tooltip: true,
-          legend: true,
-          isCurrencyFormat: true,
-          translationKey: 'dashboard:invoiceItemDropdown.contentType',
-        };
-        break;
+        return chartProps;
+      // currentProps = {
+      //   title: t('dashboard:invoiceItems.title'),
+      //   height: 368,
+      //   baseColor: colorScale(index / graph_nb).hex(),
+      //   tooltip: true,
+      //   legend: true,
+      //   isCurrencyFormat: true,
+      //   translationKey: 'dashboard:invoiceItemDropdown.contentType',
+      // };
+      // break;
 
       default:
         currentProps = {};

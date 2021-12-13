@@ -150,45 +150,47 @@ export class Dashboard extends Component<Props> {
         {loading && <BackofficeLinearProgress />}
         {dashboardTab && dashboardTab.graphs && dashboardTab.graphs.length > 0 && (
           <Grid container="row" spacing={3} className={classes.gridRow}>
-            {dashboardTab.graphs.map((graph) => {
-              const ChartComponent =
-                graphRessources[graph.ressourceIdentifier].chartComponents[
-                  graph.chart
-                ] || (() => null);
-              const { timeSettings } =
-                graphRessources[graph.ressourceIdentifier];
-              return (
-                <Grid item xs={12} lg={6} key={graph.name}>
-                  <DashboardChart
-                    title={graph.title || chartProps[graph.name].title}
-                    popoverText={chartProps[graph.name].popoverText}
-                    loading={graphDataByIdentifier[graph.name].loading}
-                    filtersComponent={
-                      graphRessources[graph.ressourceIdentifier]
-                        .filtersComponent || (() => null)
-                    }
-                    filters={chartFilterByIdentifier[graph.name]}
-                    setChartFilters={this.props.setChartFiltersByIdentifier(
-                      graph.name,
-                    )}
-                    range={
-                      timeSettings !== 'none' &&
-                      dateRangeByIdentifier[graph.name]
-                    }
-                    setDateRange={this.props.setChartDateRangeByIdentifier}
-                    timeSettings={timeSettings}
-                    onSaveGraph={this.props.onSaveGraphByIdentifier}
-                    graphIdentifier={graph.name}
-                    onDelete={this.props.onDeleteGraphByIdentifier}
-                  >
-                    <ChartComponent
-                      data={graphDataByIdentifier[graph.name].data}
-                      {...chartProps[graph.name]}
-                    />
-                  </DashboardChart>
-                </Grid>
-              );
-            })}
+            {dashboardTab.graphs
+              .filter((g) => g.ressourceIdentifier !== 'qualitativeInvoiceItem')
+              .map((graph) => {
+                const ChartComponent =
+                  graphRessources[graph.ressourceIdentifier].chartComponents[
+                    graph.chart
+                  ] || (() => null);
+                const { timeSettings } =
+                  graphRessources[graph.ressourceIdentifier];
+                return (
+                  <Grid item xs={12} lg={6} key={graph.name}>
+                    <DashboardChart
+                      title={graph.title || chartProps[graph.name].title}
+                      popoverText={chartProps[graph.name].popoverText}
+                      loading={graphDataByIdentifier[graph.name].loading}
+                      filtersComponent={
+                        graphRessources[graph.ressourceIdentifier]
+                          .filtersComponent || (() => null)
+                      }
+                      filters={chartFilterByIdentifier[graph.name]}
+                      setChartFilters={this.props.setChartFiltersByIdentifier(
+                        graph.name,
+                      )}
+                      range={
+                        timeSettings !== 'none' &&
+                        dateRangeByIdentifier[graph.name]
+                      }
+                      setDateRange={this.props.setChartDateRangeByIdentifier}
+                      timeSettings={timeSettings}
+                      onSaveGraph={this.props.onSaveGraphByIdentifier}
+                      graphIdentifier={graph.name}
+                      onDelete={this.props.onDeleteGraphByIdentifier}
+                    >
+                      <ChartComponent
+                        data={graphDataByIdentifier[graph.name].data}
+                        {...chartProps[graph.name]}
+                      />
+                    </DashboardChart>
+                  </Grid>
+                );
+              })}
           </Grid>
         )}
 

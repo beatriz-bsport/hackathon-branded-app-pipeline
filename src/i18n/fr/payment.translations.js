@@ -192,15 +192,18 @@ exports.default = {
       routingNumber: {
         label: 'Numéro de routage',
         placeholder: '000001',
-        usdSpecific: ' (ACH routing number)',
       },
       invalid:
         "IBAN invalide. Attention : l'IBAN doit correspondre à un compte bancaire domicilié dans le même pays que votre entreprise",
       accountNumber: {
         label: 'Numéro de compte',
         placeholder: 'FR89370400440532013000',
-        eurSpecific: ' (IBAN)',
       },
+      bankCode: { label: 'Bank code' },
+      institutionNumber: { label: 'Institution number' },
+      transitNumber: { label: 'Transit number' },
+      branchCode: { label: 'Branch code' },
+      clearingCode: { label: 'Clearing code' },
       unknownCountry:
         'Opération manuelle pour ce pays, veuillez contacter bsport via contact@bsport.io',
       actions: {

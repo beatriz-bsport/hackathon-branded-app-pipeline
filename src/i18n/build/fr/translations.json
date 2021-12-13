@@ -2702,9 +2702,14 @@
         "title": "Compte bancaire",
         "content": "Ce compte bancaire sera utilisé pour vous transférer les montants payés en ligne via bsport.",
         "accountHolderName": { "label": "Titulaire du compte bancaire", "placeholder": "Jacques Chirac" },
-        "routingNumber": { "label": "Numéro de routage", "placeholder": "000001", "usdSpecific": " (ACH routing number)" },
+        "routingNumber": { "label": "Numéro de routage", "placeholder": "000001" },
         "invalid": "IBAN invalide. Attention : l'IBAN doit correspondre à un compte bancaire domicilié dans le même pays que votre entreprise",
-        "accountNumber": { "label": "Numéro de compte", "placeholder": "FR89370400440532013000", "eurSpecific": " (IBAN)" },
+        "accountNumber": { "label": "Numéro de compte", "placeholder": "FR89370400440532013000" },
+        "bankCode": { "label": "Bank code" },
+        "institutionNumber": { "label": "Institution number" },
+        "transitNumber": { "label": "Transit number" },
+        "branchCode": { "label": "Branch code" },
+        "clearingCode": { "label": "Clearing code" },
         "unknownCountry": "Opération manuelle pour ce pays, veuillez contacter bsport via contact@bsport.io",
         "actions": { "cancel": "Annuler", "submit": "Confirmer" }
       }

@@ -2,28 +2,20 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import { compose, withState, withHandlers } from 'recompose';
 import Typography from '@material-ui/core/Typography';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { ElementsConsumer, Elements } from '@stripe/react-stripe-js';
 
 import { loadStripe } from '@stripe/stripe-js';
 import { getStripePkKey } from '../../theme/selectors';
 import { LOCALE_LIST } from '../../../components/input/LocaleSelector.component';
 import { CompanySetup } from '../types';
+import BankAccountFormRegistry from './BankAccountFormRegistry';
 
 const stripePromise = loadStripe(getStripePkKey());
 
 type Props = {
   company: CompanySetup;
-  setAccountHolderName: (name: string) => void;
-  account_holder_name: string;
-  routing_number: string;
-  setRoutingNumber: (routing: string) => void;
-  account_number: string;
-  setAccountNumber: (account: string) => void;
   onSubmit: () => void;
   error: Error | null;
   loading: boolean;
@@ -41,87 +33,21 @@ export const BankAccountForm = (props: Props) => {
       props.company.country,
     )
   ) {
+    const BankAccountFormBase =
+      BankAccountFormRegistry[props.currency] || BankAccountFormRegistry.eur;
+
     content = (
-      <div className={classes.field}>
-        <Typography variant="h5" className={classes.title}>
-          {t('bankAccount.form.title')}
-        </Typography>
-        <Typography className={classes.content}>
-          {t('bankAccount.form.content')}
-        </Typography>
-        <TextField
-          fullWidth
-          className={classes.field}
-          label={t('bankAccount.form.accountHolderName.label')}
-          placeholder={t('bankAccount.form.accountHolderName.placeholder')}
-          required
-          variant="outlined"
-          value={props.account_holder_name || ''}
-          onChange={(ev) => props.setAccountHolderName(ev.target.value)}
-        />
-        {props.currency !== 'eur' && (
-          <TextField
-            fullWidth
-            className={classes.field}
-            label={t('bankAccount.form.routingNumber.label')}
-            placeholder={
-              t('bankAccount.form.routingNumber.placeholder') +
-              (props.currency.toLowerCase() === 'usd'
-                ? t('bankAccount.form.routingNumber.usdSpecific')
-                : '')
-            }
-            required
-            variant="outlined"
-            value={props.routing_number || ''}
-            onChange={(ev) => props.setRoutingNumber(ev.target.value)}
-          />
-        )}
-        <TextField
-          fullWidth
-          label={t('bankAccount.form.accountNumber.label')}
-          required
-          className={classes.field}
-          placeholder={
-            t('bankAccount.form.accountNumber.placeholder') +
-            (props.currency.toLowerCase() === 'eur'
-              ? t('bankAccount.form.accountNumber.eurSpecific')
-              : '')
-          }
-          variant="outlined"
-          value={props.account_number || ''}
-          onChange={(ev) => props.setAccountNumber(ev.target.value)}
-        />
-      </div>
+      <BankAccountFormBase
+        currency={props.currency}
+        classes={classes}
+        onSubmit={props.onSubmit}
+        error={props.error}
+        loading={props.loading}
+        onClose={props.onClose}
+      />
     );
   }
-  return (
-    <form
-      className={classes.container}
-      onSubmit={(ev) => {
-        ev.preventDefault();
-        props.onSubmit();
-      }}
-    >
-      {content}
-      {props.error && (
-        <Typography variant="caption" color="error">
-          {t('bankAccount.form.invalid')}
-        </Typography>
-      )}
-      <div className={classes.actions}>
-        <Button onClick={props.onClose} disabled={props.loading}>
-          {t('bankAccount.form.actions.cancel')}
-        </Button>
-        {props.loading ? (
-          <CircularProgress />
-        ) : (
-          <Button color="primary" type="submit">
-            {t('bankAccount.form.actions.submit')}
-          </Button>
-        )}
-      </div>
-    </form>
-  );
+  return <div className={classes.container}>{content}</div>;
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -145,18 +71,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const BankAccountFormComposed = compose(
-  withState('account_number', 'setAccountNumber', ''),
-  withState('account_holder_name', 'setAccountHolderName', ''),
-  withState('routing_number', 'setRoutingNumber', ''),
   withState('error', 'setError', false),
   withState('loading', 'setLoading', false),
   withHandlers({
     onSubmit:
       ({
         onSubmit,
-        account_number,
-        account_holder_name,
-        routing_number,
         country,
         currency,
         stripe,
@@ -164,7 +84,11 @@ const BankAccountFormComposed = compose(
         onClose,
         setLoading,
       }) =>
-      () => {
+      (
+        account_holder_name: string,
+        account_number: string,
+        routing_number: string | null,
+      ) => {
         setLoading(true);
         stripe
           .createToken('bank_account', {

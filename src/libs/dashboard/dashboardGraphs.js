@@ -55,6 +55,9 @@ const defaultDashboardConfiguration = [
         chart: 'area',
         baseFilters: {
           date_field: 'offer__date_start',
+          aggregate_field: 'pk',
+          aggregate_function: 'count',
+          aggregate_period: 'day',
         },
         dateRange: {
           start: null,

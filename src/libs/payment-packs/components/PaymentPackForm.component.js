@@ -29,7 +29,6 @@ import {
   START_ON_FIRST_BOOKING,
   START_ON_FIRST_ATTENDANCE,
 } from '@bsport/common/lib/master-data/payment-pack';
-import Config from '../../../config';
 
 import { Moment } from '../../../i18n';
 import { DATE_FORMAT } from '../../../utils/datetime';
@@ -68,7 +67,6 @@ type Props = {
   paymentPackCategories: Array<PaymentPackCategory>,
   setFieldValue: (field_indentifier: string, value: string | null) => void,
   allTagsWithTagGroup: Array<Tag>,
-  companyId: number | null,
 };
 
 /*
@@ -550,110 +548,105 @@ export function PaymentPackForm(props: Props) {
             </Grid>
           </Grid>
         </fieldset>
-        {(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
-          [615, 72].includes(props.companyId)) && (
-          <Grid item xs={12} className={classes.advancedOptionsSection}>
-            <ButtonBase
-              onClick={() => setOpenAdvancedOptions(!openAdvancedOptions)}
-              className={classes.advancedOptionsHeader}
-            >
-              <Typography variant="h6">
-                {t('form.paymentPack.advancedOptions.header')}
-              </Typography>
-              {openAdvancedOptions ? <ExpoandLessIcon /> : <ExpandMoreIcon />}
-            </ButtonBase>
-            <Collapse in={openAdvancedOptions}>
-              <div className={classes.tagSection}>
-                <div className={classes.tagSectionHeader}>
-                  <Typography variant="h6">
-                    {t('form.paymentPack.advancedOptions.tag.header')}
-                  </Typography>
-                  <Typography variant="caption" className={classes.helperText}>
-                    {t('form.paymentPack.advancedOptions.tag.helperText')}
-                  </Typography>
-                </div>
-                <div className={classes.tagSelector}>
-                  <div className={classes.tagSelectorLabel}>
-                    <CheckIcon className={classes.tagSelectorLabelIcon} />
-                    <Typography variant="subtitle1">
-                      {t('form.paymentPack.advancedOptions.tag.allowed')}
-                    </Typography>
-                  </div>
-                  <TagSelector
-                    allTagsWithTagGroup={
-                      props.allTagsWithTagGroup?.filter(
-                        (tag) =>
-                          !props.values?.blacklist_tags?.includes(tag.id),
-                      ) || []
-                    }
-                    placeholder={t(
-                      'form.paymentPack.advancedOptions.tag.doNotSelectToAllowAllMembers',
-                    )}
-                    onChange={(
-                      items: Array<{
-                        item: Tag & { label: string, value: number },
-                      }>,
-                    ) => {
-                      return props.setFieldValue('whitelist_tags', [
-                        ...items.map((item) => item.value),
-                      ]);
-                    }}
-                    onDeleteTag={(itemId: number) =>
-                      props.setFieldValue(
-                        'whitelist_tags',
-                        props?.values?.whitelist_tags.filter(
-                          (tagId) => tagId !== itemId,
-                        ),
-                      )
-                    }
-                    selectedTags={props.values.whitelist_tags}
-                    isClearable
-                    closeMenuOnSelect
-                  />
-                </div>
-                <div className={classes.tagSelector}>
-                  <div className={classes.tagSelectorLabel}>
-                    <BlockIcon className={classes.tagSelectorLabelIcon} />
-                    <Typography variant="subtitle1">
-                      {t('form.paymentPack.advancedOptions.tag.notAllowed')}
-                    </Typography>
-                  </div>
-                  <TagSelector
-                    allTagsWithTagGroup={
-                      props.allTagsWithTagGroup?.filter(
-                        (tag) =>
-                          !props.values?.whitelist_tags?.includes(tag.id),
-                      ) || []
-                    }
-                    placeholder={t(
-                      'form.paymentPack.advancedOptions.tag.doNotSelectToAllowAllMembers',
-                    )}
-                    onChange={(
-                      items: Array<{
-                        item: Tag & { label: string, value: number },
-                      }>,
-                    ) => {
-                      return props.setFieldValue('blacklist_tags', [
-                        ...items.map((item) => item.value),
-                      ]);
-                    }}
-                    onDeleteTag={(itemId: number) =>
-                      props.setFieldValue(
-                        'blacklist_tags',
-                        props?.values?.blacklist_tags.filter(
-                          (tagId) => tagId !== itemId,
-                        ),
-                      )
-                    }
-                    selectedTags={props.values.blacklist_tags}
-                    isClearable
-                    closeMenuOnSelect
-                  />
-                </div>
+        <Grid item xs={12} className={classes.advancedOptionsSection}>
+          <ButtonBase
+            onClick={() => setOpenAdvancedOptions(!openAdvancedOptions)}
+            className={classes.advancedOptionsHeader}
+          >
+            <Typography variant="h6">
+              {t('form.paymentPack.advancedOptions.header')}
+            </Typography>
+            {openAdvancedOptions ? <ExpoandLessIcon /> : <ExpandMoreIcon />}
+          </ButtonBase>
+          <Collapse in={openAdvancedOptions}>
+            <div className={classes.tagSection}>
+              <div className={classes.tagSectionHeader}>
+                <Typography variant="h6">
+                  {t('form.paymentPack.advancedOptions.tag.header')}
+                </Typography>
+                <Typography variant="caption" className={classes.helperText}>
+                  {t('form.paymentPack.advancedOptions.tag.helperText')}
+                </Typography>
               </div>
-            </Collapse>
-          </Grid>
-        )}
+              <div className={classes.tagSelector}>
+                <div className={classes.tagSelectorLabel}>
+                  <CheckIcon className={classes.tagSelectorLabelIcon} />
+                  <Typography variant="subtitle1">
+                    {t('form.paymentPack.advancedOptions.tag.allowed')}
+                  </Typography>
+                </div>
+                <TagSelector
+                  allTagsWithTagGroup={
+                    props.allTagsWithTagGroup?.filter(
+                      (tag) => !props.values?.blacklist_tags?.includes(tag.id),
+                    ) || []
+                  }
+                  placeholder={t(
+                    'form.paymentPack.advancedOptions.tag.doNotSelectToAllowAllMembers',
+                  )}
+                  onChange={(
+                    items: Array<{
+                      item: Tag & { label: string, value: number },
+                    }>,
+                  ) => {
+                    return props.setFieldValue('whitelist_tags', [
+                      ...items.map((item) => item.value),
+                    ]);
+                  }}
+                  onDeleteTag={(itemId: number) =>
+                    props.setFieldValue(
+                      'whitelist_tags',
+                      props?.values?.whitelist_tags.filter(
+                        (tagId) => tagId !== itemId,
+                      ),
+                    )
+                  }
+                  selectedTags={props.values.whitelist_tags}
+                  isClearable
+                  closeMenuOnSelect
+                />
+              </div>
+              <div className={classes.tagSelector}>
+                <div className={classes.tagSelectorLabel}>
+                  <BlockIcon className={classes.tagSelectorLabelIcon} />
+                  <Typography variant="subtitle1">
+                    {t('form.paymentPack.advancedOptions.tag.notAllowed')}
+                  </Typography>
+                </div>
+                <TagSelector
+                  allTagsWithTagGroup={
+                    props.allTagsWithTagGroup?.filter(
+                      (tag) => !props.values?.whitelist_tags?.includes(tag.id),
+                    ) || []
+                  }
+                  placeholder={t(
+                    'form.paymentPack.advancedOptions.tag.doNotSelectToAllowAllMembers',
+                  )}
+                  onChange={(
+                    items: Array<{
+                      item: Tag & { label: string, value: number },
+                    }>,
+                  ) => {
+                    return props.setFieldValue('blacklist_tags', [
+                      ...items.map((item) => item.value),
+                    ]);
+                  }}
+                  onDeleteTag={(itemId: number) =>
+                    props.setFieldValue(
+                      'blacklist_tags',
+                      props?.values?.blacklist_tags.filter(
+                        (tagId) => tagId !== itemId,
+                      ),
+                    )
+                  }
+                  selectedTags={props.values.blacklist_tags}
+                  isClearable
+                  closeMenuOnSelect
+                />
+              </div>
+            </div>
+          </Collapse>
+        </Grid>
         <Actions>
           {props.onCancel ? (
             <Button onClick={props.onCancel}>

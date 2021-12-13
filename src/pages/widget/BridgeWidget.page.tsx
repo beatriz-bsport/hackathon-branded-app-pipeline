@@ -17,6 +17,7 @@ import { CheckoutItem, Basket } from '../../libs/checkout/types';
 import { getAuthToken } from '../../http';
 import { fetchMemberTagList } from '../../libs/tag/actions';
 import { getPlaybackUrl } from '../../libs/video/actions';
+import { fetchOfferRegisteredIds } from '../../libs/offer/actions';
 
 type OwnProps = {
   companyId: number;
@@ -62,6 +63,18 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
         username,
       },
     );
+  };
+
+  fetchRegisteredOfferIds = () => {
+    this.props.fetchOfferRegisteredIds({
+      onSuccess: (offer_ids: Array<number>) =>
+        WidgetUtils.sendBridgeResponse(
+          WidgetMessageType.RESPONSE_REGISTERED_OFFER_IDS,
+          {
+            offer_ids,
+          },
+        ),
+    });
   };
 
   componentDidUpdate(prevProps: Props) {
@@ -160,6 +173,11 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
           break;
         }
 
+        case WidgetMessageType.REQUEST_REGISTERED_OFFER_IDS: {
+          this.fetchRegisteredOfferIds();
+          break;
+        }
+
         case WidgetMessageType.REQUEST_BASKET_COUNT: {
           this.sendBasketCount();
           break;
@@ -210,6 +228,7 @@ const mapDispatchToProps = {
   disconnect,
   fetchMemberTagList,
   getPlaybackUrl,
+  fetchOfferRegisteredIds,
 };
 
 export default compose(

@@ -87,7 +87,7 @@ exports.default = {
     delete: {
       title: 'Suppression',
       content:
-        'Êtes-vous sûr de vouloir supprimer cette vidéo ? Cette opération est irréversible.',
+        'Êtes-vous sûr de vouloir supprimer ce parcours ? Cette opération est irréversible.',
       confirm: 'Confirmer',
       cancel: 'Annuler',
     },

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { compose } from 'recompose';
 import Select, { components } from 'react-select';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -6,6 +6,7 @@ import chroma from 'chroma-js';
 import { colors } from '@bsport/common/lib/colors';
 import BlockIcon from '@material-ui/icons/Block';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { v4 as uuidv4 } from 'uuid';
 import type { Tag, TagGroup } from '../types';
 import TagChip from './TagChip.component';
 
@@ -198,6 +199,7 @@ type OwnProps = {
   closeMenuOnSelect?: boolean;
   selectedTags?: Array<number>;
   allTagsWithTagGroup: Array<Tag>;
+  inScrollBar: boolean;
 };
 
 type Props = WithTranslation & OwnProps;
@@ -213,13 +215,51 @@ export function TagSelector(props: Props) {
     selectedTags,
     onChange,
     onDeleteTag,
+    inScrollBar,
   } = props;
+  const uuid = useRef(uuidv4());
   const tagsOptionsSelected = selectedTags
     ? getTagListOptions(allTagsWithTagGroup).filter(
         (tagOption: { value: number; label: string }) =>
           selectedTags.includes(tagOption.value),
       )
     : null;
+  if (inScrollBar) {
+    return (
+      <div id={`selector_${uuid.current}`} style={{ position: 'relative' }}>
+        <Select
+          closeMenuOnSelect={closeMenuOnSelect}
+          options={getTagGroupedByTagGroup(
+            allTagsWithTagGroup ? [...allTagsWithTagGroup] : [],
+          )}
+          onChange={onChange}
+          value={tagsOptionsSelected}
+          menuPortalTarget={document.querySelector(`#selector_${uuid.current}`)}
+          isDisabled={isDisabled}
+          components={{
+            SingleValue,
+            DropdownIndicator,
+            MultiValueContainer,
+          }}
+          placeholder={placeholder || t('select')}
+          isMulti={!noMulti}
+          isClearable={isClearable}
+          tagList={allTagsWithTagGroup}
+          onDeleteTag={onDeleteTag}
+          styles={{
+            ...tagGroupStyles,
+            menuPortal: (base) => ({
+              ...base,
+              zIndex: 9999,
+              position: 'absolute',
+              top: '100%',
+              left: '0px',
+            }),
+          }}
+        />
+      </div>
+    );
+  }
   return (
     <Select
       closeMenuOnSelect={closeMenuOnSelect}

@@ -404,7 +404,7 @@ exports.default = {
           notAllowed: 'Non-Autorisé',
           notAllowedFor: 'Non-autorisé pour',
           doNotSelectToAllowAllMembers:
-            'Ne rien sélectionner pour autoriser à tous les membres',
+            'Laisser vide pour autoriser à tous les membres',
         },
       },
     },
@@ -465,9 +465,9 @@ exports.default = {
     fromDate: 'À partir du',
     toDate: 'Jusqu’au',
     endBeforeStart: 'La date de fin ne peut être supérieur à la date de début',
-    dayValidity: 'Durée de validité de la carte en jours',
-    monthValidity: 'Durée de validité de la carte en mois',
-    yearValidity: 'Durée de validité de la carte en années',
+    dayValidity: 'Durée de validité en jours',
+    monthValidity: 'Durée de validité en mois',
+    yearValidity: 'Durée de validité en années',
     monthValidityHelper: 'S’ajoute au nombre de jours',
     yearValidityHelper: 'S’ajoute au nombre de jours et de mois',
     validForDuration: {
@@ -476,6 +476,10 @@ exports.default = {
         'Cette carte sera valide pendant {{ duration_month }} mois et {{ duration_day }} jours à compter de la date d’achat',
       day: 'Cette carte sera valide pendant {{ duration_day }} jours à compter de la date d’achat',
     },
+    migration:
+      "Cette carte de cours est issue d'une migration, certains champs ne sont pas modifiable pour respecter l'historique. Les activités/catégories compatibles restent modifiables.",
+    creditWarning:
+      'Si vous modifiez le nombre de crédits, toutes les cartes existantes seront affectées.',
     billing: 'À la facturation',
     firstBooking: 'À la première réservation',
     attendance: 'À la première présence',

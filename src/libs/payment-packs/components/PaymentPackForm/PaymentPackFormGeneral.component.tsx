@@ -27,15 +27,20 @@ import {
 import PaymentPackCategorySelector from '../category/PaymentPackCategorySelector.component';
 
 import { CheckboxField } from '#libs/custom-form/components/GenericFormik.input';
-import { PaymentPackCategory, PaymentPackFormValues } from '../../types';
+import {
+  PaymentPack,
+  PaymentPackCategory,
+  PaymentPackFormValues,
+} from '../../types';
 
 type OwnProps = {
   paymentPackCategories: Array<PaymentPackCategory>;
   formikProps: FormikProps<PaymentPackFormValues>;
+  initial?: PaymentPack;
 };
 type Props = OwnProps & WithTranslation;
 export const PaymentPackFormGeneral = (props: Props) => {
-  const { t, formikProps, paymentPackCategories } = props;
+  const { t, formikProps, paymentPackCategories, initial } = props;
 
   const classes = useStyles();
   const CREDIT_NUMBER_CHOICE = [
@@ -54,7 +59,17 @@ export const PaymentPackFormGeneral = (props: Props) => {
   ];
   return (
     <>
-      <Grid container spacing={4}>
+      <Grid container spacing={2}>
+        {initial && !initial?.editable ? (
+          <Grid item xs={12}>
+            <div className={classes.row}>
+              <WarningIcon color="error" />
+              <Typography variant="body1" color="error">
+                {t('addPaymentPack.migration')}
+              </Typography>
+            </div>
+          </Grid>
+        ) : null}
         <Grid item xs={12}>
           <div className={classes.infoText}>
             <InfoIcon className={classes.icon} />
@@ -88,6 +103,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
         </Grid>
         <Grid item xs={12} md={6}>
           <PriceField
+            disabled={initial && !initial?.editable}
             name="price"
             id="textfield_pass_price"
             label={t('form.paymentPack.priceIncludingTax.label')}
@@ -98,6 +114,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
+            disabled={initial && !initial?.editable}
             name="tax"
             id="textfield_pass_VAT"
             label={t('form.paymentPack.tax.label')}
@@ -129,6 +146,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
                   value={value}
                   control={
                     <Radio
+                      disabled={initial && !initial?.editable}
                       checked={
                         `${formikProps.values.credit_number}` === `${value}`
                       }
@@ -142,8 +160,9 @@ export const PaymentPackFormGeneral = (props: Props) => {
         </Grid>
         {formikProps.values.credit_number === 'limited' ? (
           <>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={6}>
               <TextField
+                disabled={initial && !initial?.editable}
                 name="credits"
                 id="textfield_credit"
                 label={t('addPaymentPack.credit')}
@@ -153,12 +172,22 @@ export const PaymentPackFormGeneral = (props: Props) => {
                 helperText={t('addPaymentPack.numberOfAvailableCredits')}
               />
             </Grid>
-            <Grid item xs={0} md={6} />
+            <Grid item xs={6}>
+              {initial && initial.credits !== formikProps.values.credits ? (
+                <div className={classes.creditWarning}>
+                  <WarningIcon color="error" />
+                  <Typography variant="body2" color="error">
+                    {t('addPaymentPack.creditWarning')}
+                  </Typography>
+                </div>
+              ) : null}
+            </Grid>
           </>
         ) : (
           <>
             <Grid item xs={12} md={6}>
               <PriceField
+                disabled={initial && !initial?.editable}
                 name="theorical_margin_value"
                 id="textfield_pass_marginal_contribution"
                 label={t('addPaymentPack.marginalContribution')}
@@ -171,16 +200,21 @@ export const PaymentPackFormGeneral = (props: Props) => {
           </>
         )}
         <Grid item xs={12}>
-          <div className={classes.penality}>
+          <div className={classes.row}>
             <CheckboxField
               name="penalty_active"
               label={t('addPaymentPack.penality')}
-              disabled={formikProps.values.credit_number === 'limited'}
+              disabled={
+                formikProps.values.credit_number === 'limited' ||
+                (initial && !initial?.editable)
+              }
             />
             {formikProps.values.credit_number === 'limited' ? (
               <>
                 <WarningIcon color="primary" />
-                <Typography>{t('addPaymentPack.penalityRule')}</Typography>
+                <Typography variant="body2">
+                  {t('addPaymentPack.penalityRule')}
+                </Typography>
               </>
             ) : null}
           </div>
@@ -190,6 +224,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
             <>
               <Grid item xs={3}>
                 <TextFieldEnhancedLabelWithError
+                  disabled={initial && !initial?.editable}
                   id="textfield_penalityNumberCancel"
                   fullWidth
                   name="penalty_nb_late_cancellations"
@@ -200,6 +235,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
               </Grid>
               <Grid item xs={3}>
                 <TextFieldEnhancedLabelWithError
+                  disabled={initial && !initial?.editable}
                   id="penalty_nb_days"
                   fullWidth
                   name="penalty_nb_days"
@@ -235,6 +271,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
                         value={value}
                         control={
                           <Radio
+                            disabled={initial && !initial?.editable}
                             checked={
                               `${formikProps.values.penalty_kind}` ===
                               `${value}`
@@ -250,6 +287,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
               {formikProps.values.penalty_kind === 'block' ? (
                 <Grid item xs={6}>
                   <TextFieldEnhancedLabelWithError
+                    disabled={initial && !initial?.editable}
                     id="textfield_block"
                     fullWidth
                     name="penalty_days_blocked"
@@ -264,6 +302,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
               ) : (
                 <Grid item xs={6}>
                   <PriceField
+                    disabled={initial && !initial?.editable}
                     id="textfield_penalityAccount"
                     fullWidth
                     name="penalty_account_value"
@@ -293,7 +332,7 @@ const useStyles = makeStyles<Theme>((theme) => ({
   gridContainer: {
     margin: '0px',
   },
-  penality: {
+  row: {
     display: 'flex',
     flexDirection: 'row',
     gap: theme.spacing(2),
@@ -301,6 +340,14 @@ const useStyles = makeStyles<Theme>((theme) => ({
   },
   icon: {
     color: '#868686',
+  },
+  creditWarning: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: theme.spacing(2),
+    alignItems: 'center',
+    position: 'relative',
+    top: theme.spacing(3),
   },
 }));
 

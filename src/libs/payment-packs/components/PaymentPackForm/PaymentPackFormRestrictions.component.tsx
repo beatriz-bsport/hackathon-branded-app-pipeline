@@ -15,7 +15,7 @@ import { FormikProps } from 'formik';
 import WarningIcon from '@material-ui/icons/Warning';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { PaymentPackFormValues } from '../../types';
+import { PaymentPack, PaymentPackFormValues } from '../../types';
 import {
   TextFieldEnhancedLabelWithError,
   SwitchField,
@@ -32,16 +32,26 @@ type OwnProps = {
   categoryList: Array<SCT>;
   establishmentList: Array<Establishment>;
   metaActivityList: Array<MetaActivity>;
+  initial: PaymentPack;
 };
 type Props = OwnProps & WithTranslation;
 export const PaymentPackFormRestrictions = (props: Props) => {
-  const { t, formikProps, categoryList, establishmentList, metaActivityList } =
-    props;
-  const [openVodOptions, setOpenVodOptions] = useState<boolean>(false);
+  const {
+    t,
+    formikProps,
+    categoryList,
+    establishmentList,
+    metaActivityList,
+    initial,
+  } = props;
+  const [openVodOptions, setOpenVodOptions] = useState<boolean>(
+    !!initial?.full_vod_access,
+  );
   const classes = useStyles();
+
   return (
     <>
-      <Grid container spacing={4}>
+      <Grid container spacing={2}>
         <Grid item xs={12}>
           <div className={classes.infoText}>
             <CancelIcon className={classes.icon} />
@@ -129,7 +139,11 @@ export const PaymentPackFormRestrictions = (props: Props) => {
               }
               isMulti
               chipsRenderer={(chipProps: {
-                data: { label: string; value: number; parentCategory: number };
+                data: {
+                  label: string;
+                  value: number;
+                  parentCategory: number;
+                };
                 onDelete: () => void;
               }) => (
                 <SCTChip
@@ -154,6 +168,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                 );
               }}
               placeholder={t('addPaymentPack.letBlank')}
+              inScrollBar
             />
           </div>
         </Grid>
@@ -163,6 +178,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
               {t('addPaymentPack.room')}
             </Typography>
             <MaterialUISelector
+              menuPosition="fixed"
               options={
                 [
                   ...establishmentList?.map((establishment) => ({
@@ -195,6 +211,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                 );
               }}
               placeholder={t('addPaymentPack.letBlank')}
+              inScrollBar
             />
           </div>
         </Grid>
@@ -203,6 +220,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
             <Typography className={classes.title}>
               {t('addPaymentPack.activities')}
             </Typography>
+
             <MaterialUISelector
               options={[
                 ...metaActivityList?.map((metaActivity) => ({
@@ -231,13 +249,16 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                 );
               }}
               placeholder={t('addPaymentPack.letBlank')}
+              inScrollBar
             />
           </div>
         </Grid>
         <Grid item xs={6} className={classes.warningItem}>
           <div className={classes.warning}>
             <WarningIcon color="primary" />
-            <Typography>{t('addPaymentPack.compatibility')}</Typography>
+            <Typography variant="body2">
+              {t('addPaymentPack.compatibility')}
+            </Typography>
           </div>
         </Grid>
         <Grid item xs={12}>
@@ -251,10 +272,12 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                 name="full_vod_access"
                 label={t('addPaymentPack.vodAccessCard')}
               />
-              <CheckboxField
-                name="only_vod_access"
-                label={t('addPaymentPack.only_vod_access')}
-              />
+              <Collapse in={formikProps.values.full_vod_access}>
+                <CheckboxField
+                  name="only_vod_access"
+                  label={t('addPaymentPack.only_vod_access')}
+                />
+              </Collapse>
             </div>
           </Collapse>
         </Grid>

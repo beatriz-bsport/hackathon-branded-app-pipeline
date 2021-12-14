@@ -127,10 +127,10 @@ export const PaymentPackForm = (props: Props) => {
               id: null,
               name: '',
               category: null,
-              price: null,
-              tax: null,
+              price: 0,
+              tax: 0,
               credit_number: 'limited',
-              credits: 0,
+              credits: 1,
               penalty_active: false,
               validity: 'givenNumber',
               lower_date: now,
@@ -140,7 +140,7 @@ export const PaymentPackForm = (props: Props) => {
                 upper: oneMonthLater,
               },
               duration_days: 0,
-              duration_months: 0,
+              duration_months: 1,
               duration_years: 0,
               start_date_method: 'billing',
               expiration_days_before_first_use: 365,
@@ -275,13 +275,17 @@ export const PaymentPackForm = (props: Props) => {
           <Form>
             <div className={classes.formContainer}>
               <PaymentPackFormGeneral
+                initial={initial}
                 formikProps={formikProps}
                 paymentPackCategories={paymentPackCategories}
               />
             </div>
             <Divider className={classes.divider} />
             <div className={classes.formContainer}>
-              <PaymentPackFormValidity formikProps={formikProps} />
+              <PaymentPackFormValidity
+                formikProps={formikProps}
+                initial={initial}
+              />
             </div>
             <Divider className={classes.divider} />
             <div className={classes.formContainer}>
@@ -290,6 +294,7 @@ export const PaymentPackForm = (props: Props) => {
                 categoryList={categoryList}
                 establishmentList={establishmentList}
                 metaActivityList={metaActivityList}
+                initial={initial}
               />
             </div>
             <Divider className={classes.divider} />
@@ -297,7 +302,7 @@ export const PaymentPackForm = (props: Props) => {
               <PaymentPackFormTag formikProps={formikProps} tagList={tagList} />
             </div>
             <Divider className={classes.divider} />
-            <div className={classes.formContainer}>
+            <div className={classes.actionContainer}>
               <Actions>
                 {onCancel || closeDialog ? (
                   <Button
@@ -345,7 +350,12 @@ const useStyles = makeStyles<Theme>((theme) => ({
     backgroundColor: '#C6C6C6',
   },
   formContainer: {
-    padding: theme.spacing(5),
+    padding: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
+    paddingTop: theme.spacing(4),
+  },
+  actionContainer: {
+    padding: theme.spacing(2),
   },
 }));
 

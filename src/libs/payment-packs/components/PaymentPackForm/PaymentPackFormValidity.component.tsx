@@ -9,6 +9,7 @@ import { FormControlLabel, FormLabel, Grid, Radio } from '@material-ui/core';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import { Add } from '@material-ui/icons';
+import { PaymentPack } from '@bsport/common/lib/master-data/available-payment.type';
 import {
   TextFieldEnhancedLabelWithError,
   DateField,
@@ -18,11 +19,12 @@ import { PaymentPackFormValues } from '../../types';
 
 type OwnProps = {
   formikProps: FormikProps<PaymentPackFormValues>;
+  initial: PaymentPack;
 };
 
 type Props = OwnProps & WithTranslation;
 export const PaymentPackFormValidity = (props: Props) => {
-  const { t, formikProps } = props;
+  const { t, formikProps, initial } = props;
   const classes = useStyles();
   const VALIDITY_CARD_CHOICE = [
     {
@@ -42,7 +44,7 @@ export const PaymentPackFormValidity = (props: Props) => {
   ];
   return (
     <>
-      <Grid container spacing={4}>
+      <Grid container spacing={2}>
         <Grid item xs={12}>
           <div className={classes.infoText}>
             <DateRangeIcon className={classes.icon} />
@@ -65,6 +67,7 @@ export const PaymentPackFormValidity = (props: Props) => {
                   value={value}
                   control={
                     <Radio
+                      disabled={initial && !initial?.editable}
                       checked={`${formikProps.values.validity}` === `${value}`}
                     />
                   }
@@ -78,6 +81,7 @@ export const PaymentPackFormValidity = (props: Props) => {
           <>
             <Grid item xs={3}>
               <DateField
+                disabled={initial && !initial?.editable}
                 name="lower_date"
                 label={t('addPaymentPack.fromDate')}
                 parseAsString
@@ -86,6 +90,7 @@ export const PaymentPackFormValidity = (props: Props) => {
             </Grid>
             <Grid item xs={3}>
               <DateField
+                disabled={initial && !initial?.editable}
                 name="upper_date"
                 label={t('addPaymentPack.toDate')}
                 parseAsString
@@ -99,6 +104,7 @@ export const PaymentPackFormValidity = (props: Props) => {
             <Grid item xs={12}>
               <div className={classes.row}>
                 <TextFieldEnhancedLabelWithError
+                  disabled={initial && !initial?.editable}
                   id="dayValidity"
                   fullWidth
                   type="number"
@@ -110,6 +116,7 @@ export const PaymentPackFormValidity = (props: Props) => {
                 <Add />
 
                 <TextFieldEnhancedLabelWithError
+                  disabled={initial && !initial?.editable}
                   id="monthValidity"
                   fullWidth
                   type="number"
@@ -121,6 +128,7 @@ export const PaymentPackFormValidity = (props: Props) => {
                 <Add />
 
                 <TextFieldEnhancedLabelWithError
+                  disabled={initial && !initial?.editable}
                   id="yearValidity"
                   fullWidth
                   type="number"
@@ -135,7 +143,7 @@ export const PaymentPackFormValidity = (props: Props) => {
             formikProps.values.duration_months ||
             formikProps.values.duration_years ? (
               <Grid item xs={12}>
-                <Typography>
+                <Typography variant="body2">
                   {getValidityString(
                     formikProps.values.duration_days,
                     formikProps.values.duration_months,
@@ -160,6 +168,7 @@ export const PaymentPackFormValidity = (props: Props) => {
                       value={value}
                       control={
                         <Radio
+                          disabled={initial && !initial?.editable}
                           checked={
                             `${formikProps.values.start_date_method}` ===
                             `${value}`
@@ -176,6 +185,7 @@ export const PaymentPackFormValidity = (props: Props) => {
             formikProps.values.start_date_method === 'attendance' ? (
               <Grid item xs={6}>
                 <TextFieldEnhancedLabelWithError
+                  disabled={initial && !initial?.editable}
                   id="textfield_expiration_date"
                   fullWidth
                   name="expiration_days_before_first_use"

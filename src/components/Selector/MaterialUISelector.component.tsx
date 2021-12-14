@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   Theme,
   makeStyles,
@@ -24,6 +24,7 @@ import { NoticeProps } from 'react-select/src/components/Menu';
 import { useTranslation } from 'react-i18next';
 import { GroupHeadingProps } from 'react-select/src/components/Group';
 import classNames from 'classnames';
+import { v4 as uuidv4 } from 'uuid';
 
 export type OptionTypeBase =
   | {
@@ -38,6 +39,7 @@ export type OptionTypeBase =
 type BaseProps<T extends OptionTypeBase> = {
   id?: number | string;
   options?: T[];
+  inScrollBar?: boolean;
   chipsRenderer?: (props: {
     data: T;
     onDelete: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
@@ -56,6 +58,7 @@ export type OwnProps<T extends OptionTypeBase> =
   | ({
       onChange: (values: T[]) => void;
       isMulti: true;
+
       value: T[];
     } & BaseProps<T>)
   | ({
@@ -78,9 +81,11 @@ function MaterialUISelector<T extends OptionTypeBase>(props: Props<T>) {
     chipsRenderer,
     itemRenderer,
     onChange,
+    inScrollBar,
     ...restProps
   } = props;
   const classes = useStyles();
+  const uuid = useRef(uuidv4());
 
   const handleChange = (data: T | T[]) => {
     if (!onChange) return;
@@ -93,42 +98,61 @@ function MaterialUISelector<T extends OptionTypeBase>(props: Props<T>) {
     }
   };
 
+  let menuPortalTraget = withoutPortal
+    ? undefined
+    : menuPortalTarget || document.querySelector('body');
+  if (inScrollBar) {
+    menuPortalTraget = document.querySelector(`#selector_${uuid.current}`);
+  }
   return (
-    <Select
-      id={id}
-      value={value}
-      isMulti={isMulti}
-      classes={classes}
-      onChange={handleChange}
-      options={options}
-      components={{
-        Control,
-        Menu,
-        MenuList,
-        Option: Option(itemRenderer),
-        MultiValueContainer,
-        MultiValueLabel,
-        MultiValueRemove: MultiValueRemove(chipsRenderer),
-        Placeholder,
-        NoOptionsMessage,
-        GroupHeading,
-        ValueContainer: ValueContainer(leftIcon),
-      }}
-      hideSelectedOptions={false}
-      tabSelectsValue={false}
-      captureMenuScroll
-      menuPortalTarget={
-        withoutPortal
-          ? undefined
-          : menuPortalTarget || document.querySelector('body')
-      }
-      styles={{
-        menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-      }}
-      {...restProps}
-      // Mandatory for multi selection use
-      closeMenuOnSelect
-    />
+    <div id={`selector_${uuid.current}`} style={{ position: 'relative' }}>
+      <Select
+        id={id}
+        value={value}
+        isMulti={isMulti}
+        inScrollBar={inScrollBar}
+        classes={classes}
+        onChange={handleChange}
+        options={options}
+        components={{
+          Control,
+          Menu,
+          MenuList,
+          Option: Option(itemRenderer),
+          MultiValueContainer,
+          MultiValueLabel,
+          MultiValueRemove: MultiValueRemove(chipsRenderer),
+          Placeholder,
+          NoOptionsMessage,
+          GroupHeading,
+          ValueContainer: ValueContainer(leftIcon),
+        }}
+        hideSelectedOptions={false}
+        tabSelectsValue={false}
+        captureMenuScroll
+        menuPortalTarget={menuPortalTraget}
+        styles={{
+          menuPortal: (base) => {
+            if (inScrollBar) {
+              return {
+                ...base,
+                zIndex: 9999,
+                position: 'absolute',
+                top: '100%',
+                left: '0px',
+              };
+            }
+            return {
+              ...base,
+              zIndex: 9999,
+            };
+          },
+        }}
+        {...restProps}
+        // Mandatory for multi selection use
+        closeMenuOnSelect
+      />
+    </div>
   );
 }
 

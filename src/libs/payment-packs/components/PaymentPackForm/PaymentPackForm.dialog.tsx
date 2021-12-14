@@ -86,7 +86,7 @@ export const PaymentPackFormDialog = (props: Props) => {
 };
 const useStyles = makeStyles<Theme>((theme) => ({
   titleContainer: {
-    padding: theme.spacing(5),
+    padding: theme.spacing(4),
     paddingBottom: 0,
   },
 }));

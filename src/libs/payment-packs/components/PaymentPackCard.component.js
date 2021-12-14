@@ -65,10 +65,7 @@ type OwnProps = {
   isManager?: boolean,
 };
 
-type Props = OwnProps &
-  Connected<typeof connector> &
-  WithStyles &
-  WithTranslation;
+type Props = OwnProps & WithStyles & WithTranslation;
 
 type State = {
   compatibilityDialogOpen: boolean,
@@ -506,7 +503,7 @@ export class PaymentPackCard extends Component<Props, State> {
           establishments={establishments}
           open={this.state.compatibilityDialogOpen}
           onClose={() => this.setState({ compatibilityDialogOpen: false })}
-          onModify={() => this.props.goToEdit(pack.id)}
+          onModify={this.props.onEditButtonClick}
           isManager={isManager}
         />
         <PaymentPackTagsDialog

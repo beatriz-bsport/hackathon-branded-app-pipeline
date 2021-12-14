@@ -85,6 +85,7 @@ interface State {
     privateServiceError: string;
     playlistError: string;
   };
+  uuid: string;
 }
 
 class WidgetGeneratorPage extends React.PureComponent<Props, State> {

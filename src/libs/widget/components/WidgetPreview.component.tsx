@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 
 type Props = {
-  error: Error | null;
+  error?: Error | null;
   codeStringPreview: string;
 };
 

@@ -39,7 +39,7 @@ type Props = {
   metaActivities: Array<MetaActivity>,
   setFilters: (any) => void,
   filters: any,
-  toogleFiltersOpen: () => void,
+  toggleFiltersOpen: () => void,
   filtersOpen: boolean,
   forceDayDisplayOnly: ?boolean,
   compactMode: ?boolean,
@@ -141,7 +141,7 @@ export class MarketplaceCalendar extends PureComponent<Props> {
           hideSwitchViewButton
           searchBar={searchBar}
           searchBarOpen={this.props.filtersOpen}
-          toogleSearchBar={this.props.toogleFiltersOpen}
+          toggleSearchBar={this.props.toggleFiltersOpen}
           onDateClick={onSelectDate}
           date={selectedDate}
           events={events}

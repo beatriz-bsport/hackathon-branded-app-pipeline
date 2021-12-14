@@ -98,7 +98,7 @@ const styles = (theme: Theme) => ({
   },
 });
 
-export default compose(
+export default compose<any, Props>(
   withTranslation(['widget']),
   // @ts-ignore
   withStyles(styles),

@@ -42,7 +42,7 @@ type Props = {
   date: string,
   forceMonthDisplay: boolean,
   onDateClick: (Object) => void,
-  toogleSearchBar: ?() => void,
+  toggleSearchBar: ?() => void,
   classes: Object,
   searchBarOpen: ?boolean,
   events?: { [string]: Array<any> },
@@ -336,7 +336,7 @@ export class Calendar extends PureComponent<Props, State> {
         {!!this.props.searchBar && (
           <Button
             className={classes.absoluteLeft}
-            onClick={this.props.toogleSearchBar}
+            onClick={this.props.toggleSearchBar}
           >
             <FilterIcon />
             <Hidden xsDown>

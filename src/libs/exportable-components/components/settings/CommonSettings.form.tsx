@@ -41,28 +41,31 @@ const MarketplaceCommonFilterForm: React.FC<Props> = (props) => {
 
   const setData = useCallback(
     (key: keyof MarketplaceCommonFilter, values: any) => {
-      let newEstablishments: number[];
-      let establishmentGroups: number[];
+      let newEstablishments: number[] = config.establishments;
+      let newEstablishmentGroups: number[] = config.establishmentGroups;
 
       if (key === 'establishmentGroups') {
+        newEstablishmentGroups = values.map((eg: EstablishmentGroup) => eg.id);
         newEstablishments = values
           .flatMap((eg: EstablishmentGroup) => eg.establishment)
           .map((e: Establishment) => e.id);
       }
       if (key === 'establishments') {
-        establishmentGroups = establishmentGroupList
+        newEstablishments = values.map((e: Establishment) => e.id);
+        newEstablishmentGroups = establishmentGroupList
           .filter((eg: EstablishmentGroup) =>
             (eg.establishment || [])
               .map((e: Establishment) => e.id)
-              .every((e_id) => values.includes(e_id)),
+              .every((e_id: number) => newEstablishments.includes(e_id)),
           )
-          .filter((group) => group.establishment.length !== 0);
+          .filter((eg: EstablishmentGroup) => eg.establishment.length !== 0)
+          .map((eg: EstablishmentGroup) => eg.id);
       }
-      const newConfig = {
+      const newConfig: MarketplaceCalendarData | MarketplaceWorkshopData = {
         ...config,
         [key]: values.map((a: any) => a.id),
         establishments: newEstablishments,
-        establishmentGroups,
+        establishmentGroups: newEstablishmentGroups,
       };
       onChange(newConfig);
     },

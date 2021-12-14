@@ -156,7 +156,7 @@ export class MemberSummaryCard extends Component<Props> {
                 member.consumer.phonenumber &&
                 member.consumer.phonenumber.phone_number
               }
-              accept_contact
+              accept_contact={member.accept_sms}
               notificationIcon
               openSmsDialog={() => {
                 if (

@@ -119,6 +119,9 @@ export const fromConfigToUrl = (
     path = 'shop';
   } else if (component_type === 'vod') {
     path = 'vod';
+    if (tabConfig?.config?.vod?.videoId) {
+      path = `vod/video/${tabConfig.config.vod.videoId}`;
+    }
   } else if (component_type === 'giftcard') {
     path = 'giftcard';
     const conf = tabConfig.config.giftcard || {};

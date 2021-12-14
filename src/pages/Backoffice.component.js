@@ -375,8 +375,8 @@ export class Backoffice extends Component<Props, State> {
                   !!this.props.alertings
                     .filter((ag) => (ag.results || []).length)
                     .find((ag) => ag.alert_kind === '5')
-                    ?.results?.filter(
-                      (a) => a.type in ['verification', 'creation'],
+                    ?.results?.filter((a) =>
+                      ['verification', 'creation'].includes(a?.data?.type),
                     )?.length
                 }
                 fetchTempPassword={this.props.fetchTempPassword}

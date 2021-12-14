@@ -18,7 +18,7 @@ import { push as pushRouter } from 'connected-react-router';
 import themeSelectors from '#libs/theme/selectors';
 import { snackbarSuccess } from '#libs/snackbar/actions';
 
-import withTitle from '../../hocs/with-title.hoc';
+import withTitle from '#hocs/with-title.hoc';
 import {
   getPrivatePass,
   withServices,
@@ -48,20 +48,25 @@ import {
   createPrivatePassMassExtension,
   deletePrivatePassMassExtension,
   fetchAllPrivateSlots,
+  fetchAllPrivatePassCategory,
 } from '#libs/private-service/actions';
 import { fetchFilteredMembers as fetchFilteredMembersActions } from '#libs/member/actions';
-import PrivatePassDetail from '#libs/private-service/components/pass/PrivatePassDetail.component';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import PrivatePassCard from '#libs/private-service/components/pass/PrivatePassCard.component';
+import PrivatePassCompatibleServiceList from '#libs/private-service/components/pass/PrivatePassCompatibleServiceList.component';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import PaginatedConsumerPrivatePass from '#libs/private-service/components/pass/PaginatedConsumerPrivatePass.component';
-import BottomActionsButton from '../../components/button/BottomActionsButton.component';
 import PrivatePassForm from '#libs/private-service/components/pass/PrivatePassForm.component';
 import PrivateConsumerPassFilters from '#libs/private-service/components/pass/PrivateConsumerPassFilters.component';
 import PrivatePassMassExtensionList from '#libs/private-service/components/consumer-pass/PrivatePassMassExtensionList.component';
+import BottomActionsButton from '#components/button/BottomActionsButton.component';
 import { RootState } from '../../reducers';
 import { OptionCallback } from '../../state/types';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import PaymentPackMassExtensionDialog from '#libs/payment-packs/components/PaymentPackMassExtensionDialog.component';
-import { PrivateConsumerPassMassExtension } from '#libs/private-service/types';
+import {
+  PrivateConsumerPassMassExtension,
+  PrivatePassCategory,
+} from '#libs/private-service/types';
 import { getPrivatePassCategories } from '#libs/private-service/selectors/private-pass-category';
 import {
   getFormInitial,
@@ -123,6 +128,7 @@ export class PrivatePassDetails extends Component<Props> {
     this.props.fetchAllPrivateServices();
     this.props.fetchCompatibleServicePasses();
     this.props.fetchNotificationsAndTemplatesAndSmartLists();
+    this.props.fetchAllPrivatePassCategory();
     this.props.fetchPrivatePassMassExtensionList({
       privatePass: this.props.id,
       page: 1,
@@ -196,23 +202,46 @@ export class PrivatePassDetails extends Component<Props> {
   };
 
   render() {
-    const { classes, t } = this.props;
+    const { classes, t, privatePass, privatePassCategories } = this.props;
+    const privatePassCategory = privatePass
+      ? privatePassCategories.find(
+          (ppc: PrivatePassCategory) => ppc.id === privatePass.category,
+        )
+      : null;
     return (
       <Grid container spacing={3} alignItems="stretch">
         <Grid item xs={12} md={6} className={classes.privatePassDetail}>
-          <PrivatePassDetail
-            privatePassCategories={this.props.privatePassCategories}
-            private_services={this.props.private_services}
-            theme={this.props.theme}
-            snackbarSuccess={this.props.snackbarSuccess}
-            updatePrivatePass={this.props.createOrUpdatePrivatePass}
-            onDelete={() => this.props.setOpenDeletePassDialog(this.props.id)}
-            deleteCompatibleServicePass={this.props.deleteCompatibleServicePass}
-            createCompatibleServicePass={this.props.createCompatibleServicePass}
-            updateCompatibleServicePass={this.props.updateCompatibleServicePass}
-            compatibleServicePass={this.props.compatibleServicePass}
-            pass={this.props.privatePass}
-          />
+          {privatePass && (
+            <>
+              <PrivatePassCard
+                pass={privatePass}
+                privatePassCategory={privatePassCategory}
+                snackbarSuccess={this.props.snackbarSuccess}
+                onEditButtonClick={() => this.props.setOpenEditForm(true)}
+                onDeleteButtonClick={() =>
+                  this.props.setOpenDeletePassDialog(privatePass.id)
+                }
+                isManager
+              />
+              <div className={classes.compatiblePSCard}>
+                <PrivatePassCompatibleServiceList
+                  privateServices={this.props.private_services}
+                  deleteCompatibleServicePass={
+                    this.props.deleteCompatibleServicePass
+                  }
+                  createCompatibleServicePass={
+                    this.props.createCompatibleServicePass
+                  }
+                  updateCompatibleServicePass={
+                    this.props.updateCompatibleServicePass
+                  }
+                  compatibleServicePass={this.props.compatibleServicePass}
+                  pass={this.props.privatePass}
+                  isManager
+                />
+              </div>
+            </>
+          )}
           <PrivatePassNotification
             private_pass={this.props.privatePass}
             notifications={this.props.notifications}
@@ -236,6 +265,7 @@ export class PrivatePassDetails extends Component<Props> {
           onEdit={() => this.props.setOpenEditForm(true)}
           onDelete={() => this.props.setOpenDeletePassDialog(this.props.id)}
         />
+
         <Grid item xs={12} md={6}>
           <Paper>
             <PrivateConsumerPassFilters
@@ -254,7 +284,7 @@ export class PrivatePassDetails extends Component<Props> {
                 this.props.updatePrivateConsumerPassCredits
               }
               nbItems={this.props.consumerPass.count}
-              onClick={(cpp) => {
+              onClick={(cpp: { member: { id: number }; id: number }) => {
                 this.props.goToConsumerPrivatePassDetail(cpp.member.id, cpp.id);
               }}
               loading={this.props.consumerPass.loading}
@@ -310,6 +340,7 @@ export class PrivatePassDetails extends Component<Props> {
             </div>
           </div>
         </Grid>
+
         <Dialog open={this.props.openEditForm} maxWidth="md" fullWidth>
           <Typography variant="h4" className={classes.formTitle}>
             {this.props.t('privatePass.form.title')}
@@ -327,7 +358,7 @@ export class PrivatePassDetails extends Component<Props> {
           />
         </Dialog>
 
-        <Dialog open={this.props.openDeletePassDialog}>
+        <Dialog open={!!this.props.openDeletePassDialog}>
           <DialogTitle>{t('privatePass.delete.title')}</DialogTitle>
           <DialogContent>{t('privatePass.delete.explain')}</DialogContent>
           <DialogActions>
@@ -385,6 +416,9 @@ const styles = (theme: Theme) => ({
     paddingLeft: theme.spacing(4),
     paddingBottom: theme.spacing(1),
   },
+  compatiblePSCard: {
+    marginTop: theme.spacing(3),
+  },
 });
 
 const mapStateToProps = (state: RootState, { id }: { id: number }) => ({
@@ -423,6 +457,7 @@ const mapStateToProps = (state: RootState, { id }: { id: number }) => ({
 const mapDispatchToProps = {
   fetchPrivatePass: fetchPrivatePassRetrieve,
   fetchAllPrivateServices: () => fetchAllPrivateServices({ mine: true }),
+  fetchAllPrivatePassCategory,
   createOrUpdatePrivatePass: createOrUpdatePrivatePassAction,
   createCompatibleServicePass,
   deleteCompatibleServicePass,
@@ -499,14 +534,16 @@ const mapWithHandlers = {
       props.fetchConsumerPrivatePass(props.id, page, pageSize, props.filters, {
         onSuccess: (cpps) =>
           props.fetchFilteredMembers({
-            id__in: cpps.map((b) => b.member),
+            id__in: cpps.map((b: { member: any }) => b.member),
           }),
       }),
   fetchCompatibleServicePasses: (props: WithStateProps) => () =>
     props.fetchCompatibleServicePassList(props.id, {
       onSuccess: (csps) =>
         props.fetchPrivateSlotsByService({
-          private_service__in: csps.map((c) => c.private_service),
+          private_service__in: csps.map(
+            (c: { private_service: any }) => c.private_service,
+          ),
         }),
     }),
   fetchNotificationsAndTemplatesAndSmartLists:

@@ -87,7 +87,7 @@ type OwnProps = {
 type StateHandlerInit = {
   openCreateForm: boolean;
   openEditForm: boolean;
-  openDeletePassDialog: null | number;
+  openDeletePassDialog: number | null;
   showDisabled: boolean;
   showCategoryDialog: boolean;
   selectedPrivatePass: PrivatePass | null;
@@ -203,7 +203,7 @@ export class PrivatePassList extends React.Component<Props, State> {
   updateOrderBySortOption(
     sortFunction: (pp1: PrivatePass, pp2: PrivatePass) => number,
   ) {
-    const toUpdate = [];
+    const toUpdate: { id: number; ordering_in_category: number }[] = [];
     this.props.privatePassByCategory.forEach(
       (category: PrivatePassCategoryWithPasses) => {
         const sorted = [...category.passes].sort((pp1, pp2) =>
@@ -254,18 +254,18 @@ export class PrivatePassList extends React.Component<Props, State> {
     }
   }
 
-  categoryFilterOnchange = (categories) => {
+  categoryFilterOnchange = (categories: any) => {
     this.setState({
       selectedCategories: categories,
     });
   };
 
-  managerOnlyOnChange = (value) =>
+  managerOnlyOnChange = (value: ManagerOnly) =>
     this.setState({
       selectedDisponibility: value,
     });
 
-  sortOnChange = (sortOpt) => {
+  sortOnChange = (sortOpt: any) => {
     this.setState({
       selectedSortOption: sortOpt,
     });

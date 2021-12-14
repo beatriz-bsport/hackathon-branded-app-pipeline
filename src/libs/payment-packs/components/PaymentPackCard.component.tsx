@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { compose, withStateHandlers } from 'recompose';
+import { withStyles, WithStyles } from '@material-ui/core/styles';
 
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -8,7 +9,6 @@ import Typography from '@material-ui/core/Typography';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
-import withStyles from '@material-ui/core/styles/withStyles';
 import Hidden from '@material-ui/core/Hidden';
 import LinkIcon from '@material-ui/icons/Link';
 import StarIcon from '@material-ui/icons/Star';
@@ -18,13 +18,13 @@ import DoneAllIcon from '@material-ui/icons/DoneAll';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import NotInterestedIcon from '@material-ui/icons/NotInterested';
 import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
-import { withTranslation, TFunction } from 'react-i18next';
+import { withTranslation, WithTranslation, TFunction } from 'react-i18next';
 
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ButtonBase from '@material-ui/core/ButtonBase';
 
 import RedButton from '../../../components/button/RedButton.component';
-import type { MetaActivity } from '../../../api/types';
+import type { MetaActivity, Establishment } from '../../../api/types';
 import {
   getValidityInfo,
   getCompatibilityInfo,
@@ -37,39 +37,38 @@ import PaymentPackScaleCreditDialog from './PaymentPackScaleCreditDialog.compone
 import PaymentPackCompatibilityDialog from './PaymentPackCompatibilityDialog.component';
 import PaymentPackTagsDialog from './PaymentPackTagsDialog.component';
 
-import type { PaymentPack } from '../types';
+import type { PaymentPack, PaymentPackCategory } from '../types';
 
 const PENALTY_KIND_BLOCK_CPP = 0;
 const PENALTY_KIND_NEGATIVE_ACCOUNT = 1;
 
 type OwnProps = {
-  onlyPublic: ?boolean,
+  onlyPublic?: boolean;
 
-  pack: PaymentPack,
+  pack: PaymentPack;
 
-  metaActivities: Array<MetaActivity>,
-  establishments: Array<Establishment>,
-  paymentPackCategory: PaymentPackCategory,
+  metaActivities: Array<MetaActivity>;
+  establishments: Array<Establishment>;
+  paymentPackCategory: PaymentPackCategory;
 
-  onEditButtonClick: () => void,
-  onDeleteButtonClick: () => void,
-  snackbarSuccess: (string) => void,
+  onEditButtonClick: () => void;
+  onDeleteButtonClick: () => void;
+  snackbarSuccess: (text: string) => void;
 
-  t: TFunction,
-  classes: Object,
-  scaleMenuOpen: boolean,
-  scaleCreditLoading: boolean,
-  toogleScaleMenuOpen: () => void,
-  onScaleCredit: (paymentPackId: number, data: any) => void,
-  pack: PaymentPack,
-  isManager?: boolean,
+  t: TFunction;
+  classes: Object;
+  scaleMenuOpen: boolean;
+  scaleCreditLoading: boolean;
+  toogleScaleMenuOpen: () => void;
+  onScaleCredit: (paymentPackId: number, data: any) => void;
+  isManager?: boolean;
 };
 
 type Props = OwnProps & WithStyles & WithTranslation;
 
 type State = {
-  compatibilityDialogOpen: boolean,
-  tagsDialogOpen: Boolean,
+  compatibilityDialogOpen: boolean;
+  tagsDialogOpen: Boolean;
 };
 export class PaymentPackCard extends Component<Props, State> {
   state = {
@@ -518,7 +517,7 @@ export class PaymentPackCard extends Component<Props, State> {
   }
 }
 
-const styles = (theme) => ({
+const styles = (theme: any) => ({
   paper: {
     paddingTop: theme.spacing(3),
     paddingBottom: theme.spacing(3),

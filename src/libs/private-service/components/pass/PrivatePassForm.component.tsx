@@ -52,7 +52,7 @@ import {
   PrivatePassWithCompatibility,
   CompatiblePrivateService,
 } from '../../types';
-import { getValidityInfo } from '../../utils';
+import { getValidityInfo, filterPrivateService } from '../../utils';
 import PrivatePassCategorySelector from '../../../payment-packs/components/category/PaymentPackCategorySelector.component';
 import { PrivateServiceListItem } from '../service/PrivateServiceListItem.component';
 import { PrivateServiceSelector } from '../service/PrivateServiceSelector.component';
@@ -64,33 +64,19 @@ type Props = {
   values: any;
   initial?: PrivatePassWithCompatibility;
   privatePassCategories: Array<PrivatePassCategory>;
-  setFieldValue: (field_identifier: string, value: string | null) => void;
+  setFieldValue: (field_identifier: string, value: number | null) => void;
 
   privateServices: Array<PrivateServiceWithSlots>;
   compatibleServicePass?: Array<ServiceCompatibilityPass>;
 
   selectedService: PrivateService;
-  setSelectedService: (ps: PrivateService) => void;
+  setSelectedService: (ps: PrivateServiceWithSlots) => void;
   selectedServiceIndex: number;
   setSelectedServiceIndex: (index: number) => void;
   openCompatibleServiceForm: boolean;
   setOpenCompatibleServiceForm: (open: boolean) => void;
   openDeleteCompatibilityDialog: boolean;
   setOpenDeleteCompatibilityDialog: (open: boolean) => void;
-};
-
-const filterPrivateService = (
-  ps: PrivateServiceWithSlots,
-  cps: Array<CompatiblePrivateService>,
-  include: boolean,
-): boolean => {
-  if (cps?.length) {
-    const cpsById: number[] = cps.map(
-      (s: CompatiblePrivateService) => s.private_service,
-    );
-    return include ? cpsById.includes(ps.id) : !cpsById.includes(ps.id);
-  }
-  return !include;
 };
 
 const getExcludedSlots = (
@@ -118,13 +104,15 @@ export const PrivatePassForm = (props: Props) => {
   const classes = useStyles();
   const { isSubmitting, privateServices } = props;
 
-  const setServiceAndIndex = (ps: PrivateService, index: number) => {
+  const setServiceAndIndex = (ps: PrivateServiceWithSlots, index: number) => {
     props.setSelectedService(ps);
     props.setSelectedServiceIndex(index);
   };
 
   const updateSlotData = (
-    data: Object,
+    data: {
+      excluded_slot_ids: number[];
+    },
     replace: { (index: number, value: any): void },
   ) => {
     replace(props.selectedServiceIndex, {
@@ -388,7 +376,8 @@ export const PrivatePassForm = (props: Props) => {
                                   : [];
                               const psListForIndex: number[] =
                                 props.values.compatibility?.map(
-                                  (p_s) => p_s.private_service,
+                                  (p_s: { private_service: any }) =>
+                                    p_s.private_service,
                                 );
                               if (props.initial && psArray.includes(ps.id)) {
                                 props.setSelectedServiceIndex(
@@ -405,7 +394,8 @@ export const PrivatePassForm = (props: Props) => {
                               if (props.compatibleServicePass) {
                                 const psListForIndex: number[] =
                                   props.values.compatibility?.map(
-                                    (p_s) => p_s.private_service,
+                                    (p_s: { private_service: any }) =>
+                                      p_s.private_service,
                                   );
                                 setServiceAndIndex(
                                   ps,
@@ -451,7 +441,9 @@ export const PrivatePassForm = (props: Props) => {
                   <PrivateSlotSelectionDialog
                     compatibleServicePass={props.compatibleServicePass}
                     compatibility={props.values.compatibility}
-                    onSubmit={(data: Object) => updateSlotData(data, replace)}
+                    onSubmit={(data: { excluded_slot_ids: number[] }) =>
+                      updateSlotData(data, replace)
+                    }
                     onCancel={() => setServiceAndIndex(null, null)}
                     selectedService={props.selectedService}
                     privateServices={props.privateServices}

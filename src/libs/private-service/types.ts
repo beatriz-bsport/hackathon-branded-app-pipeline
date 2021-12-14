@@ -135,6 +135,10 @@ export type PrivatePass = {
   ordering_in_category: number;
 };
 
+export type PrivatePassWithDetailedPrivateServices = PrivatePass & {
+  private_services: Array<PrivateService>;
+};
+
 export type PrivatePassWithCompatibility = {
   id: number;
   name: string;

@@ -328,12 +328,12 @@ exports.default = {
           'Si une salle est configurée, ce nombre sera utilisé pour mettre à jour son remplissage',
       },
       credit: {
-        label: 'Nombre de crédit',
-        helperText: 'Nombre de crédit nécessaire pour une réservation',
+        label: 'Nombre de crédit(s)',
+        helperText: 'Nombre de crédit(s) nécessaire(s) pour une réservation',
       },
       duration_minutes: {
         label: 'Durée',
-        helperText: 'Adapter les crédits nécessaire en fonction de la durée',
+        helperText: 'Adapter les crédits nécessaires en fonction de la durée',
       },
       cancel: 'Annuler',
       submit: 'Enregistrer',
@@ -495,6 +495,14 @@ exports.default = {
       add: 'Ajouter',
       isEmpty: 'Aucun rendez-vous compatible',
       unusable: 'Inutilisable',
+    },
+    detailTitles: {
+      credit_quantity: 'Nombre de crédits',
+      validity: 'Validité',
+      accessibility: 'Accessibilité',
+      vod: 'VOD',
+      privateServiceCompatibility: 'Rendez-vous compatibles',
+      paymentMeans: 'Moyens de paiement',
     },
     form: {
       title: 'Carte de rendez-vous',

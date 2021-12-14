@@ -9,6 +9,8 @@ import {
   ResourceAttributionEnum,
   ServiceCompatibilityPass,
   PrivateSlot,
+  PrivateServiceWithSlots,
+  CompatiblePrivateService,
 } from './types';
 
 export const getMissingResourceForBooking = (
@@ -104,7 +106,7 @@ export const groupSessionsByDayMoment = (
 };
 
 export const getValidityInfo = (
-  pack: PrivatePass,
+  pass: PrivatePass,
   t: TFunction,
   start_method: boolean = false,
   fullText: boolean = false,
@@ -113,7 +115,7 @@ export const getValidityInfo = (
     ? t('privatePass.form.duration.fullText')
     : t('privatePass.form.duration.valid');
   const { duration_days, duration_months, duration_years, start_date_method } =
-    pack;
+    pass;
 
   if (duration_years) {
     dateInfo += t('privatePass.form.duration.years', {
@@ -244,6 +246,24 @@ export const getCompatibilityTextWithSlots = (
     )}`;
   }
   return t('privateServiceCompatibility.allSlots');
+};
+
+export const filterPrivateService = (
+  ps: PrivateServiceWithSlots,
+  cps: Array<CompatiblePrivateService> | Array<ServiceCompatibilityPass>,
+  include: boolean,
+): boolean => {
+  if (cps?.length) {
+    const cpsById = cps.map(
+      (s: CompatiblePrivateService | ServiceCompatibilityPass) =>
+        typeof s.private_service === 'number'
+          ? s.private_service
+          : s.private_service.id,
+    );
+
+    return include ? cpsById.includes(ps.id) : !cpsById.includes(ps.id);
+  }
+  return !include;
 };
 
 export const PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME = 5;

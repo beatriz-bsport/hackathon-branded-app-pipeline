@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import { compose } from 'recompose';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -10,8 +9,8 @@ import Avatar from '@material-ui/core/Avatar';
 import EditIcon from '@material-ui/icons/Edit';
 // import NotificationsIcon from '@material-ui/icons/Notifications';
 // import IconButton from '@material-ui/core/IconButton';
-import { withTranslation, TFunction } from 'react-i18next';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { useTranslation } from 'react-i18next';
+import { makeStyles } from '@material-ui/styles';
 import ListItemResponsiveAction from '../../../../components/button/ListItemResponsiveAction.component';
 // import Tooltip from '../../../../components/Tooltip.component';
 
@@ -27,26 +26,24 @@ import {
 } from '../../utils';
 
 type Props = {
-  privateService: PrivateService,
-  onClick: (id: number) => void,
-  onEdit: () => void,
-  dense?: boolean,
-  selected: boolean,
-  hideSecondary: boolean,
-  onDelete: () => void,
-  t: TFunction,
-  compatibilityByService?: ServiceCompatibilityPass,
-  classes: any,
-  excluded_slots?: number[],
-  included_slots?: Array<PrivateSlot>,
+  privateService: PrivateService;
+  onClick: (id: number) => void;
+  onEdit: () => void;
+  dense?: boolean;
+  selected: boolean;
+  hideSecondary: boolean;
+  onDelete: () => void;
+  compatibilityByService?: ServiceCompatibilityPass;
+  excluded_slots?: number[];
+  included_slots?: Array<PrivateSlot>;
 };
 
 export const PrivateServiceListItem = (props: Props) => {
+  const classes = useStyles();
+  const { t } = useTranslation(['privateService']);
   const {
     privateService,
     onClick,
-    t,
-    classes,
     compatibilityByService,
     excluded_slots,
     included_slots,
@@ -134,7 +131,7 @@ export const PrivateServiceListItem = (props: Props) => {
   );
 };
 
-const styles = (theme: any) => ({
+const useStyles = makeStyles((theme: any) => ({
   avatar: {
     width: theme.spacing(7),
     height: theme.spacing(7),
@@ -145,9 +142,6 @@ const styles = (theme: any) => ({
     flex: 1,
     marginLeft: theme.spacing(2),
   },
-});
+}));
 
-export default compose(
-  withStyles(styles),
-  withTranslation(['privateService']),
-)(PrivateServiceListItem);
+export default PrivateServiceListItem;

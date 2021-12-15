@@ -10,11 +10,13 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 
 import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
 
+import {
+  setUploadInstruction as getUploadInstructionAPI,
+  setProviderIdentifier,
+} from '../api';
 import { Video } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
 import VideoProviderDropzone from './VideoProviderDropzone.component';
-import { OptionCallback } from '../../../state/types';
-import { setUploadInstruction as getUploadInstructionAPI } from '#libs/video/api';
 
 type State = {
   progress: number;
@@ -24,7 +26,6 @@ type State = {
 type OwnProps = {
   video: Video;
   onClose: () => void;
-  setProviderIdentifier: (data: any, options?: OptionCallback) => void;
 };
 
 type Props = OwnProps &
@@ -76,8 +77,19 @@ export class VideoUploadFormMUX extends React.Component<Props, State> {
 
   onClickSubmit = async () => {
     this.setState({ isUploading: true });
-    this.props.setProviderIdentifier(VideoProvider.MUX_PROVIDER);
     try {
+      const provider_identifier = VideoProvider.MUX_PROVIDER;
+
+      const providerData = { provider_identifier };
+      const response = await setProviderIdentifier(
+        this.props.video.id,
+        providerData,
+      );
+
+      if (response.status !== 200) {
+        throw new Error();
+      }
+
       const { data } = await getUploadInstructionAPI(this.props.video.id);
       const { providerType, method, url, bodyType, fields } = data;
 

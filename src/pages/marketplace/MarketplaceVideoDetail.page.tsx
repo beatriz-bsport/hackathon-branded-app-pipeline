@@ -70,7 +70,7 @@ export class MarketplaceVideoDetail extends React.Component<Props> {
   componentDidMount() {
     this.props.retrieveVideo();
     this.props.fetchVideoListSimilar();
-    this.props.fetchVideoPurchase(1, 1, { video_id: this.props.videoId });
+    this.props.fetchVideoPurchase(1, 1, { video: this.props.videoId });
     if (this.props.authenticated) {
       this.props.getPlaybackUrl(this.props.videoId);
     }
@@ -84,7 +84,7 @@ export class MarketplaceVideoDetail extends React.Component<Props> {
       this.props.getPlaybackUrl(this.props.videoId);
     }
     if (prevProps.accessDenied && !this.props.accessDenied)
-      this.props.fetchVideoPurchase(1, 1, { video_id: this.props.videoId });
+      this.props.fetchVideoPurchase(1, 1, { video: this.props.videoId });
   }
 
   requestVideoAccess = () => {

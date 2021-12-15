@@ -174,7 +174,6 @@ export class VideoUploadDialog extends React.Component<Props, State> {
               <VideoUploadFormMUX
                 onClose={this.props.onClose}
                 video={this.props.video}
-                setProviderIdentifier={this.props.submitProviderIdentifier}
               />
             )}
             {this.props.video.provider_identifier ===

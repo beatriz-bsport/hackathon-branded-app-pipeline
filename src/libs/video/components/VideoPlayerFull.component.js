@@ -55,10 +55,10 @@ export const VideoPlayerFull = (props: Props) => {
               minute: parseInt(props.video.duration_second / 60, 10),
             })}
           </Typography>
-          {!!(props.video && props.video.SCT && props.video.SCT.SCS) && (
+          {!!(props.video && props.video.SCT && props.video.SCT?.SCS) && (
             <SCT
-              parentCategory={props.video.SCT.SCS.id}
-              SCTName={props.video.SCT.name}
+              parentCategory={props.video.SCT?.SCS?.id}
+              SCTName={props.video.SCT?.name}
             />
           )}
           {props.video.rental_days > 0 && (

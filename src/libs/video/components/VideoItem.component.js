@@ -22,7 +22,10 @@ export const VideoItem = (props: Props) => {
 
   let expiration_date = null;
   if (props.video.rental_days > 0 && props.purchasedVideo) {
-    expiration_date = getExpirationDate(props.purchasedVideo);
+    expiration_date = getExpirationDate({
+      ...props.purchasedVideo,
+      video: props.video,
+    });
   }
 
   return (
@@ -121,6 +124,7 @@ const useStyles = makeStyles((theme) => ({
   },
   typo: {
     marginTop: theme.spacing(1),
+    marginLeft: theme.spacing(0.6),
   },
 }));
 

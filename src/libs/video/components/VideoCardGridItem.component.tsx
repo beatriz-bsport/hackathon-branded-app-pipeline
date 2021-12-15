@@ -119,8 +119,8 @@ export const VideoCardGridItem = (props: Props) => {
                 <div className={classes.flex1}>
                   {props.video.SCT && (
                     <SCT
-                      SCTName={props.video.SCT.name}
-                      parentCategory={props.video.SCT.SCS.id}
+                      SCTName={props.video.SCT?.name}
+                      parentCategory={props.video.SCT?.SCS?.id}
                     />
                   )}
                 </div>

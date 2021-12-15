@@ -81,7 +81,7 @@ export class VideoCardListItem extends React.PureComponent<Props> {
           }
           secondary={
             <div className={classes.flex}>
-              <Typography>{this.props.video.SCT.name || ''}</Typography>
+              <Typography>{this.props.video.SCT?.name || ''}</Typography>
               {this.props.video.rental_days ? (
                 <Typography className={classes.rental} color="primary">
                   {t('video:video.rental.forRent')}

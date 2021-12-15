@@ -50,6 +50,7 @@ type Props = {
   setSelectedNotification: (any) => void,
   isFormOpen: boolean,
   setIsFormOpen: (boolean) => void,
+  tags: { [tag_name: string]: string[] },
 };
 
 const PaymentPackNotification = (props: Props) => {
@@ -64,6 +65,23 @@ const PaymentPackNotification = (props: Props) => {
       </div>
     );
   }
+  const getMergeTags = () => {
+    if (props.tags) {
+      return [
+        ...Object.entries(props.tags).reduce((acc, [tagCategory, tagList]) => {
+          acc.push({
+            label: t(`notificationRule:tag.${tagCategory}.name`),
+            options: [...tagList].map((tag) => ({
+              label: t(`notificationRule:tag.${tagCategory}.tags.${tag}`),
+              value: `{${tag}}`,
+            })),
+          });
+          return acc;
+        }, []),
+      ];
+    }
+    return null;
+  };
 
   return (
     <div>
@@ -143,6 +161,7 @@ const PaymentPackNotification = (props: Props) => {
           initial={props.selectedNotification}
           onSubmit={props.onSubmit}
           identifier="payment_pack"
+          tags={getMergeTags()}
         />
       )}
       <Dialog open={props.isDeleteModalOpen}>

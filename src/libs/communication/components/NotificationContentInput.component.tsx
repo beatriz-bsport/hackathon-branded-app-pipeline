@@ -29,7 +29,6 @@ const NotificationContentInput = (props: Props) => {
       helper.setValue(`${field.value} ${data.value}`, true);
     }
   };
-
   return (
     <>
       <TextField

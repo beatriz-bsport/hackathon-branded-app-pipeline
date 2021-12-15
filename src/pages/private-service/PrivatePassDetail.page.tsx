@@ -96,6 +96,8 @@ import {
   fetchAllSmartLists,
 } from '#libs/smart-list/actions';
 import { getAllSmartList } from '#libs/smart-list/selectors';
+import { getTagCategories } from '#libs/notification-rule/selectors';
+import { fetchTagList } from '#libs/notification-rule/actions';
 
 type OwnProps = {
   id: number;
@@ -134,6 +136,7 @@ export class PrivatePassDetails extends Component<Props> {
       page: 1,
       page_size: MASS_EXTENSION_PAGINATION_SIZE,
     });
+    this.props.fetchTagList();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -262,6 +265,7 @@ export class PrivatePassDetails extends Component<Props> {
             getSmartLists={this.props.getSmartLists}
             is_expired
             goToSmartlist={this.props.goToSmartlist}
+            tags={this.props.tagCategories}
           />
         </Grid>
         <BottomActionsButton
@@ -455,6 +459,7 @@ const mapStateToProps = (state: RootState, { id }: { id: number }) => ({
   emailDetailLoading: state.emailTemplate.detail.isLoading,
   smartLists: getAllSmartList(state),
   smartListLoading: state.smartList.isLoading,
+  tagCategories: getTagCategories(state),
 });
 
 const mapDispatchToProps = {
@@ -499,6 +504,7 @@ const mapDispatchToProps = {
   fetchSmartListBulk: fetchSmartListBulkAction,
   getSmartLists: fetchAllSmartLists,
   goToSmartlist: () => pushRouter('/smart-list'),
+  fetchTagList,
 };
 
 const mapWithHandlers = {

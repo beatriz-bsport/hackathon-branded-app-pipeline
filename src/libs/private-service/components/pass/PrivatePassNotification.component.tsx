@@ -50,6 +50,7 @@ type Props = {
   setSelectedNotification: (notification: any) => void;
   isFormOpen: boolean;
   setIsFormOpen: (open: boolean) => void;
+  tags: { [tag_name: string]: string[] };
 };
 const PrivatePasssNotification = (props: Props) => {
   const classes = useStyles();
@@ -63,6 +64,23 @@ const PrivatePasssNotification = (props: Props) => {
       </div>
     );
   }
+  const getMergeTags = () => {
+    if (props.tags) {
+      return [
+        ...Object.entries(props.tags).reduce((acc, [tagCategory, tagList]) => {
+          acc.push({
+            label: t(`notificationRule:tag.${tagCategory}.name`),
+            options: [...tagList].map((tag) => ({
+              label: t(`notificationRule:tag.${tagCategory}.tags.${tag}`),
+              value: `{${tag}}`,
+            })),
+          });
+          return acc;
+        }, []),
+      ];
+    }
+    return null;
+  };
 
   return (
     <div>
@@ -142,6 +160,7 @@ const PrivatePasssNotification = (props: Props) => {
           initial={props.selectedNotification}
           onSubmit={props.onSubmit}
           identifier="private_pass"
+          tags={getMergeTags()}
         />
       )}
       <Dialog open={props.isDeleteModalOpen}>

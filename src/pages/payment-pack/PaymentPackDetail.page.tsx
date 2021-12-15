@@ -20,18 +20,18 @@ import {
   fetchAllActivities,
   fetchAll as fetchWorkshops,
   fetchMetaActivityBulk,
-} from '../../libs/meta-activity/actions';
+} from '#libs/meta-activity/actions';
 import {
   fetchEstablishments,
   fetchEstablishmentBulk,
-} from '../../libs/establishment/actions';
-import PaymentPackNotification from '../../libs/payment-packs/components/PaymentPackNotification.component';
-import PaymentPackCard from '../../libs/payment-packs/components/PaymentPackCard.component';
-import PaginatedConsumerPackList from '../../libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
-import PaymentPackDeleteDialog from '../../libs/payment-packs/components/PaymentPackDeleteDialog.component';
+} from '#libs/establishment/actions';
+import PaymentPackNotification from '#libs/payment-packs/components/PaymentPackNotification.component';
+import PaymentPackCard from '#libs/payment-packs/components/PaymentPackCard.component';
+import PaginatedConsumerPackList from '#libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
+import PaymentPackDeleteDialog from '#libs/payment-packs/components/PaymentPackDeleteDialog.component';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import ConsumerPaymentPackFilters from '../../libs/payment-packs/components/ConsumerPaymentPackFilters.component';
-import PaymentPackMassExtensionDialog from '../../libs/payment-packs/components/PaymentPackMassExtensionDialog.component';
+import ConsumerPaymentPackFilters from '#libs/payment-packs/components/ConsumerPaymentPackFilters.component';
+import PaymentPackMassExtensionDialog from '#libs/payment-packs/components/PaymentPackMassExtensionDialog.component';
 
 import {
   updateCredit as updateCreditAction,
@@ -40,22 +40,22 @@ import {
   fetchMassExtensionList,
   createMassExtension,
   deleteMassExtension,
-} from '../../libs/consumer-payment-pack/actions';
+} from '#libs/consumer-payment-pack/actions';
 import {
   getConsumerPacksByPackWithMember,
   getConsumerPaymentPackMassExtension,
-} from '../../libs/consumer-payment-pack/selectors';
+} from '#libs/consumer-payment-pack/selectors';
 
 import {
   fetchEmailTemplateSummariesBulk as fetchEmailTemplateSummariesBulkAction,
   emailTemplateDetail,
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
-} from '../../libs/email-editor/actions';
+} from '#libs/email-editor/actions';
 
 import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
-} from '../../libs/email-editor/selectors';
+} from '#libs/email-editor/selectors';
 
 import {
   patch as patchPaymentPack,
@@ -63,14 +63,14 @@ import {
   scalePaymentPackCredit,
   createOrUpdate as createOrUpdatePaymentPackAction,
   fetchAllPaymentPackCategory,
-} from '../../libs/payment-packs/actions';
+} from '#libs/payment-packs/actions';
 import {
   fetchMarketingNotificationList as fetchMarketingNotificationListAction,
   createMarketingNotification as createMarketingNotificationAction,
   updateMarketingNotification,
   deleteMarketingNotification as deleteMarketingNotificationAction,
-} from '../../libs/marketing/actions';
-import { getPaymentPackNotifications } from '../../libs/marketing/selectors';
+} from '#libs/marketing/actions';
+import { getPaymentPackNotifications } from '#libs/marketing/selectors';
 import {
   withEstablishments,
   withMetaActivities,
@@ -79,30 +79,27 @@ import {
   withTags,
   getPaymentPackCategoryById,
   getAllPaymentPackCategory,
-} from '../../libs/payment-packs/selectors';
+} from '#libs/payment-packs/selectors';
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
-import {
-  PaymentPack,
-  PaymentPackFormValues,
-} from '../../libs/payment-packs/types';
-import { fetchFilteredMembers as fetchFilteredMembersAction } from '../../libs/member/actions';
+import { PaymentPack, PaymentPackFormValues } from '#libs/payment-packs/types';
+import { fetchFilteredMembers as fetchFilteredMembersAction } from '#libs/member/actions';
 import { OptionCallback } from '../../state/types';
 
-import { snackbarSuccess } from '../../libs/snackbar/actions';
-import { getAllSmartList } from '../../libs/smart-list/selectors';
+import { snackbarSuccess } from '#libs/snackbar/actions';
+import { getAllSmartList } from '#libs/smart-list/selectors';
 
 import {
   fetchSmartListBulk as fetchSmartListBulkAction,
   fetchAllSmartLists,
-} from '../../libs/smart-list/actions';
+} from '#libs/smart-list/actions';
 import { RootState } from '../../reducers';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
-import PaymentPackMassExtensionList from '../../libs/consumer-payment-pack/components/PaymentPackMassExtensionList.component';
-import { PaymentPackMassExtension } from '../../libs/consumer-payment-pack/types';
+import PaymentPackMassExtensionList from '#libs/consumer-payment-pack/components/PaymentPackMassExtensionList.component';
+import { PaymentPackMassExtension } from '#libs/consumer-payment-pack/types';
 
-import { getallTagsWithTagGroup } from '../../libs/tag/selectors';
+import { getallTagsWithTagGroup } from '#libs/tag/selectors';
 import PaymentPackFormDialog from '#libs/payment-packs/components/PaymentPackForm';
 import { getAllEstablishments } from '#libs/establishment/selectors';
 import {
@@ -110,6 +107,8 @@ import {
   getEnabledMetaActivities,
   getEnabledWorkshops,
 } from '#libs/meta-activity/selectors';
+import { getTagCategories } from '#libs/notification-rule/selectors';
+import { fetchTagList } from '#libs/notification-rule/actions';
 
 type OwnProps = {
   id: number;
@@ -183,6 +182,7 @@ export class PaymentPackDetail extends Component<Props, State> {
     });
 
     this.props.fetchAllPaymentPackCategory();
+    this.props.fetchTagList();
   }
 
   requestEdit = (pp: PaymentPack) => {
@@ -274,7 +274,6 @@ export class PaymentPackDetail extends Component<Props, State> {
       allTagsWithTagGroup,
       paymentPackCategories,
     } = this.props;
-
     if (loading || !this.props.pack) {
       return <LinearProgress />;
     }
@@ -317,6 +316,7 @@ export class PaymentPackDetail extends Component<Props, State> {
             getSmartLists={this.props.getSmartLists}
             is_expired
             goToSmartlist={this.props.goToSmartlist}
+            tags={this.props.tagCategories}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -437,7 +437,7 @@ export class PaymentPackDetail extends Component<Props, State> {
             )}
             establishmentList={[...establishmentList]}
             metaActivityList={[...metaActivities]}
-            tagList={[...allTagsWithTagGroup]}
+            tagList={allTagsWithTagGroup ? [...allTagsWithTagGroup] : []}
             paymentPackCategories={paymentPackCategories}
             closeDialog={() =>
               this.setState({ openPaymentPackFormDialog: false })
@@ -538,6 +538,7 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
       'id',
     ),
     categoryList: state.category.SCTs,
+    tagCategories: getTagCategories(state),
   };
 };
 
@@ -587,6 +588,7 @@ const mapDispatchToProps = {
   fetchAllActivities,
   fetchWorkshops,
   createOrUpdatePaymentPackAction,
+  fetchTagList,
 };
 
 const mapWithHandlers = {

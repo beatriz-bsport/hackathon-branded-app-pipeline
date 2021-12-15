@@ -111,6 +111,7 @@ exports.default = {
         establishment_practical_info: 'Accès à la salle',
         address: 'Adresse',
         ics_calendar_link: 'Lien ics calendrier',
+        spot: 'Place',
       },
     },
     PrivateConsumerPass: {
@@ -133,6 +134,7 @@ exports.default = {
         establishment: 'Salle',
         establishment_practical_info:
           "Information d'accès à la salle (optionnel)",
+        ics_calendar_link: 'Lien ics calendrier',
       },
     },
     ConsumerPaymentPack: {

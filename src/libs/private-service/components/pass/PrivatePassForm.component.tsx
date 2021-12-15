@@ -191,6 +191,7 @@ export const PrivatePassForm = (props: Props) => {
           <SwitchField
             name="new_member_only"
             label={t('privatePass.form.new_member_only.label')}
+            disabled={props.values.manager_only}
           />
           <SwitchField
             name="full_vod_access"
@@ -347,7 +348,9 @@ export const PrivatePassForm = (props: Props) => {
                       onChange={(e: any) =>
                         push({ private_service: e, excluded_slot_ids: [] })
                       }
-                      t={t}
+                      placeholder={t(
+                        'privatePass.form.selector.privateService',
+                      )}
                     />
                   </div>
                   <List>
@@ -506,7 +509,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginBottom: theme.spacing(2),
   },
   buttonContainer: {
-    marginTop: theme.spacing(2),
+    marginTop: -theme.spacing(2),
     justifyContent: 'flex-end',
     padding: theme.spacing(4),
   },
@@ -669,7 +672,7 @@ export const PrivatePassFormikHOC = withFormik({
   },
 });
 
-export default compose(
+export default compose<any, Props>(
   PrivatePassFormikHOC,
   withState(
     'openCompatibleServiceForm',

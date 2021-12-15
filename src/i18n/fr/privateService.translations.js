@@ -462,6 +462,7 @@ exports.default = {
   },
   privatePass: {
     edit: 'Modifier',
+    ht: 'Hors taxe',
     validForDuration: {
       days: 'Valide {{ duration_days }} jours',
       months: 'Valide {{ duration_months }} mois',
@@ -550,7 +551,7 @@ exports.default = {
       },
       duration: {
         fullText: 'Cette carte sera valide pendant ',
-        valid: 'Valide pendant ',
+        valid: 'Valide ',
         days: '{{ count }} jour',
         days_plural: '{{ count }} jours',
         months: '{{ count }} mois',
@@ -573,9 +574,9 @@ exports.default = {
         on_attendance: 'À la 1ère présence',
       },
       start_date_method_detail: {
-        on_purchase: " à compter de la date d'achat",
-        on_booking: ' à compter de la première réservation',
-        on_attendance: ' à compter de la première présence',
+        on_purchase: " à partir de la date d'achat",
+        on_booking: ' à partir de la première réservation',
+        on_attendance: ' à partir de la première présence',
       },
       expirationDaysBeforeFirstUse: {
         label: 'Expiration si aucune réservation initiale',
@@ -585,6 +586,9 @@ exports.default = {
       actions: {
         submit: 'Enregistrer',
         cancel: 'Annuler',
+      },
+      selector: {
+        privateService: 'Ajouter un rendez-vous compatible',
       },
     },
     disabledTitle: 'Cartes de RDV archivées',

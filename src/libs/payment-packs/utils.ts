@@ -11,9 +11,6 @@ export const getValidityInfo = (
   startInfo: boolean = false,
 ) => {
   let dateInfo = t('validForDuration.valid');
-  if (startInfo) {
-    dateInfo += t('validForDuration.validFor');
-  }
   const {
     validity_daterange,
     duration_days,

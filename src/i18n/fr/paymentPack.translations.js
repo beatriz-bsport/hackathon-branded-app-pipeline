@@ -580,7 +580,7 @@ exports.default = {
     ' - Apport marginal théorique calculé : prix / nb_réservations ',
   credits: 'Crédit',
   credits_plural: 'Crédits',
-  ht: 'Hors-taxe',
+  ht: 'Hors taxe',
   specifications: {
     nbCredits: '{{credits}} crédit',
     nbCredits_plural: '{{credits}} crédits',

@@ -149,6 +149,9 @@ export class PrivatePassDetails extends Component<Props> {
     ) {
       this.props.fetchCompatibleServicePasses();
     }
+    if (prevProps.openEditForm && !this.props.openEditForm) {
+      this.props.fetchCompatibleServicePasses();
+    }
   }
 
   createMassExtension = (data: {

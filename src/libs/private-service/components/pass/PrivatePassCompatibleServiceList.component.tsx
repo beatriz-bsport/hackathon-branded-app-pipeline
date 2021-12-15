@@ -134,7 +134,7 @@ export const PrivatePassCompatibleServiceList: React.FC<Props> = (props) => {
                   onChange={(data: number) =>
                     props.createCompatibleServicePass(props.pass.id, data)
                   }
-                  t={t}
+                  placeholder={t('privatePass.form.selector.privateService')}
                 />
               </div>
 

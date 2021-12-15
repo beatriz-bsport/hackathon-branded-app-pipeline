@@ -137,7 +137,7 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
                 {`${getCurrencyDisplayWithPrice(
                   (price / ((100 + parseInt(tax, 10)) / 100)).toFixed(2),
                 )}${'\u00A0'}
-                ${t('ht')}`}
+                ${t('privatePass.ht')}`}
               </Typography>
               {isManager && (
                 <div className={classes.buttonBlock}>

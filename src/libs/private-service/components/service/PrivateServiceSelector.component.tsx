@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
-import { compose } from 'recompose';
-import { withTranslation, TFunction } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import Select from 'react-select';
 import type { PrivateService, PrivateServiceWithSlots } from '../../types';
 
@@ -10,10 +9,11 @@ type Props = {
   privateServiceId?: number;
   onChange: (value: number) => void;
   isDisabled?: boolean;
-  t: TFunction;
+  placeholder?: string;
 };
 
 export const PrivateServiceSelector = (props: Props) => {
+  const { t } = useTranslation(['privateService']);
   const privateServiceOptions = [...props.privateServices].map((ps) => ({
     label: ps.name,
     value: ps.id,
@@ -24,7 +24,9 @@ export const PrivateServiceSelector = (props: Props) => {
   return (
     <Select
       menuPortalTarget={document.querySelector('body')}
-      placeholder={props.t('selector.privateService')}
+      placeholder={
+        props.placeholder ? props.placeholder : t('selector.privateService')
+      }
       value={selectedPrivateServiceOption}
       options={privateServiceOptions}
       styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
@@ -36,6 +38,4 @@ export const PrivateServiceSelector = (props: Props) => {
   );
 };
 
-export default compose(withTranslation(['privateService']))(
-  PrivateServiceSelector,
-);
+export default PrivateServiceSelector;

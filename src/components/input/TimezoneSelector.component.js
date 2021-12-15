@@ -13,6 +13,7 @@ const getTimezoneListExtended = (timezoneList, country) => {
       ...timezoneList,
       moment.tz.zone('Indian/Reunion'),
       moment.tz.zone('America/Martinique'),
+      moment.tz.zone('Indian/Antananarivo'),
     ];
   }
   if (country === 'US') {

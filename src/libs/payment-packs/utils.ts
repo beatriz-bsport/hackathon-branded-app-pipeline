@@ -102,16 +102,42 @@ export const getValidityString = (
   let dateInfo = '';
 
   if (duration_year) {
-    dateInfo = t('addPaymentPack.validForDuration.year', {
-      duration_day,
-      duration_month,
+    if (duration_month) {
+      if (duration_day) {
+        dateInfo = t('addPaymentPack.validForDuration.year', {
+          duration_day,
+          duration_month,
+          duration_year,
+        });
+        return dateInfo;
+      }
+      dateInfo = t('addPaymentPack.validForDuration.yearNoDay', {
+        duration_month,
+        duration_year,
+      });
+      return dateInfo;
+    }
+    if (duration_day) {
+      dateInfo = t('addPaymentPack.validForDuration.yearDayNoMonth', {
+        duration_day,
+        duration_year,
+      });
+      return dateInfo;
+    }
+    dateInfo = t('addPaymentPack.validForDuration.yearNoDayNoMonth', {
       duration_year,
     });
     return dateInfo;
   }
   if (duration_month) {
-    dateInfo = t('addPaymentPack.validForDuration.month', {
-      duration_day,
+    if (duration_day) {
+      dateInfo = t('addPaymentPack.validForDuration.month', {
+        duration_day,
+        duration_month,
+      });
+      return dateInfo;
+    }
+    dateInfo = t('addPaymentPack.validForDuration.monthNoDay', {
       duration_month,
     });
     return dateInfo;

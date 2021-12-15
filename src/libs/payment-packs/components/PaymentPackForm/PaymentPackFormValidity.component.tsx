@@ -9,13 +9,12 @@ import { FormControlLabel, FormLabel, Grid, Radio } from '@material-ui/core';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import { Add } from '@material-ui/icons';
-import { PaymentPack } from '@bsport/common/lib/master-data/available-payment.type';
+import { PaymentPack, PaymentPackFormValues } from '../../types';
 import {
   TextFieldEnhancedLabelWithError,
   DateField,
 } from '../../../../components/forms';
 import { getValidityString } from '../../utils';
-import { PaymentPackFormValues } from '../../types';
 
 type OwnProps = {
   formikProps: FormikProps<PaymentPackFormValues>;

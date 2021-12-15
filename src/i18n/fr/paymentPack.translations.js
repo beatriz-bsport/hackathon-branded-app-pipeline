@@ -472,8 +472,16 @@ exports.default = {
     yearValidityHelper: 'S’ajoute au nombre de jours et de mois',
     validForDuration: {
       year: 'Cette carte sera valide pendant {{ duration_year }} ans, {{ duration_month }} mois et {{ duration_day }} jours à compter de la date d’achat',
+      yearNoDay:
+        'Cette carte sera valide pendant {{ duration_year }} ans et {{ duration_month }} mois à compter de la date d’achat',
+      yearDayNoMonth:
+        'Cette carte sera valide pendant {{ duration_year }} ans et {{ duration_day }} jours à compter de la date d’achat',
+      yearNoDayNoMonth:
+        'Cette carte sera valide pendant {{ duration_year }} à compter de la date d’achat',
       month:
         'Cette carte sera valide pendant {{ duration_month }} mois et {{ duration_day }} jours à compter de la date d’achat',
+      monthNoDay:
+        'Cette carte sera valide pendant {{ duration_month }} mois à compter de la date d’achat',
       day: 'Cette carte sera valide pendant {{ duration_day }} jours à compter de la date d’achat',
     },
     migration:

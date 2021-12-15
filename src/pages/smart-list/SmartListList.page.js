@@ -29,7 +29,7 @@ import {
   copySmartList as copySmartListAction,
 } from '../../libs/smart-list/actions';
 
-import type SmartList from '../../libs/smart-list/types';
+import type { SmartList } from '../../libs/smart-list/types';
 import SmartListListItem from '../../libs/smart-list/components/SmartListListItem.component';
 import SmartListEditDialog from '../../libs/smart-list/components/SmartListFormDialog.component';
 import type { OptionCallback } from '../../state/types';
@@ -51,7 +51,7 @@ type Props = {
   smartListUpdate: (id: number) => void,
   onClickDuplicate: (id: number, options: any) => void,
   goToSmartlistList: () => void,
-  smartlistSelected: ?Smartlist,
+  smartlistSelected: ?SmartList,
   loading: boolean,
 };
 
@@ -75,18 +75,25 @@ export class SmartListList extends Component<Props, State> {
     this.props.fetchAllSmartLists();
   }
 
-  addNewSmartList = (data) => {
+  addNewSmartList = (data, options?: OptionCallback) => {
     const smartlist = data;
     smartlist.company = this.props.company_id;
     this.props.smartListCreate(data, {
-      onSuccess: (data_) => this.props.goToEdit(data_.id),
+      onSuccess: (data_) => {
+        if (options && options.onSuccess) options.onSuccess();
+        this.props.goToEdit(data_.id);
+      },
     });
     this.setState({ openCreateDialog: false });
   };
 
-  updateSmartList = (smartlist) => {
+  updateSmartList = (smartlist: SmartList, options?: OptionCallback) => {
     this.setState({ openEditDialog: false });
-    this.props.smartListUpdate(this.props.selectedId, smartlist);
+    this.props.smartListUpdate(this.props.selectedId, smartlist, {
+      onSuccess: () => {
+        if (options && options.onSuccess) options.onSuccess();
+      },
+    });
   };
 
   selected = (id) => {
@@ -221,21 +228,26 @@ export class SmartListList extends Component<Props, State> {
             />
           </Grid>
         </Grid>
-        <SmartListEditDialog
-          open={this.state.openEditDialog || this.state.openCreateDialog}
-          smartlist={
-            this.state.openEditDialog ? this.props.smartlistSelected : null
-          }
-          updateSmartList={
-            this.state.openEditDialog
-              ? this.updateSmartList
-              : this.addNewSmartList
-          }
-          onCancel={() =>
-            this.setState({ openEditDialog: false, openCreateDialog: false })
-          }
-          fullScreen
-        />
+        {(this.state.openEditDialog || this.state.openCreateDialog) && (
+          <SmartListEditDialog
+            open={this.state.openEditDialog || this.state.openCreateDialog}
+            smartlist={
+              this.state.openEditDialog ? this.props.smartlistSelected : null
+            }
+            updateSmartList={
+              this.state.openEditDialog
+                ? this.updateSmartList
+                : this.addNewSmartList
+            }
+            onCancel={() =>
+              this.setState({
+                openEditDialog: false,
+                openCreateDialog: false,
+              })
+            }
+            fullScreen
+          />
+        )}
         <BottomActionButtons
           onCreateLabel={this.props.t('smart_list.add')}
           onCreate={() => this.setState({ openCreateDialog: true })}
@@ -284,7 +296,6 @@ export default compose(
   withStyles(styles),
   routerParamsToProps({ id: 'selectedId:number' }),
   withTitle(({ t }) => t('smart_list.list.title')),
-
   connect(
     (state, { selectedId }) => ({
       smartlists: getAllSmartList(state),

@@ -64,7 +64,13 @@ type Props = {
   private_services: Array<PrivateService>,
   classes: Object,
   tags: Array<any>,
-  onClickEdit: (id: number) => void,
+  onClickEdit: (
+    smartListId: number,
+    filterNameId: number,
+    data: any,
+    filterId: number,
+    callback: (id: number) => void,
+  ) => void,
   onClickDelete: (id: number) => void,
   onClickCreate: (filter_identifier: number, data: any) => void,
   filter: any,
@@ -91,7 +97,7 @@ export class FilterCard extends Component<Props> {
     };
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props) {
     if (this.props.filter !== prevProps.filter) {
       this.setState({
         filter_data: this.props.filter,

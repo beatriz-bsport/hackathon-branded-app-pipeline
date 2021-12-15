@@ -12,6 +12,7 @@ import { WidgetMessageType } from '../libs/widget/types';
 import { snackbarError } from './snackbar.actions';
 import { USER_EMAIL_EXISTS } from '../api/constants';
 import { getAuthToken } from '../http';
+import { segmentIdentify } from '#components/analytics/segment/utils';
 
 export const initiateInterface = createAction('initiate');
 
@@ -59,9 +60,15 @@ export function fetchAccessLevel(
   return async (dispatch: Dispatch) => {
     try {
       const response = await api.auth.accessLevel(token);
-      const { is_manager, is_consumer, is_franchisor, role, name, username } =
-        response.data;
-
+      const {
+        id,
+        is_manager,
+        is_consumer,
+        is_franchisor,
+        role,
+        name,
+        username,
+      } = response.data;
       if (!is_manager && !is_franchisor && is_consumer) {
         dispatch(errorLogin());
       }
@@ -77,6 +84,22 @@ export function fetchAccessLevel(
           name,
         }),
       );
+      try {
+        Sentry.configureScope((scope) => {
+          scope.setUser({ email: username });
+        });
+        segmentIdentify({
+          userId: id,
+          userTraits: {
+            email: username,
+            manager: is_manager,
+            is_franchisor,
+            name,
+          },
+        });
+      } catch (err) {
+        console.error(err);
+      }
       WidgetUtils.DEPRECATEDonLoginSuccess(username);
       WidgetUtils.sendBridgeResponse(
         WidgetMessageType.RESPONSE_AUTHENTICATED_STATUS,
@@ -233,13 +256,6 @@ export function setLogin({
   role: number,
   name: string,
 }) {
-  try {
-    Sentry.configureScope((scope) => {
-      scope.setUser({ email: username });
-    });
-  } catch (err) {
-    console.error(err);
-  }
   return {
     type: types.LOGIN_SUCCESSFUL,
     username,
@@ -404,13 +420,23 @@ export function navigateAsCompanyAdmin(
       storage.setItem('bsport:franchise:http:token', franchiseConnexionToken);
 
       const {
-        data: { is_manager, is_consumer, is_franchisor, role, name, username },
+        data: {
+          id,
+          is_manager,
+          is_consumer,
+          is_franchisor,
+          role,
+          name,
+          username,
+        },
       } = await api.auth.accessLevel(newToken);
+
       dispatch((() => ({ type: types.RESET_STORE }))());
 
       // Set new access level
       await dispatch(
         setLogin({
+          id,
           username,
           token: newToken,
           is_manager,

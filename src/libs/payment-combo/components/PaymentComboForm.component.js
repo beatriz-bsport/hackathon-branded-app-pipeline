@@ -29,6 +29,7 @@ import PrivatePassListItem from '../../private-service/components/pass/PrivatePa
 import type { PaymentPack } from '../../payment-packs/types';
 import type { ShopItem } from '../../shop/types';
 import type { PrivatePass } from '../../private-service/types';
+import { WithSegmentAnalyticsFormTrackerHandlers } from '#components/analytics/segment';
 
 type Props = {
   t: TFunction,
@@ -39,7 +40,8 @@ type Props = {
   values: PaymentComboFieldsSchema,
   privatePassListLoading: boolean,
   relatedPrivatePass: Array<PrivatePass>,
-};
+  initial: PaymentComboFieldsSchema,
+} & WithSegmentAnalyticsFormTrackerHandlers;
 
 function repeat(arr, n) {
   const a = [];
@@ -55,167 +57,179 @@ const repeatQuantity = (combo_items) => [
   ),
 ];
 
-export const PaymentComboForm = (props: Props) => (
-  <div>
-    <TextField
-      name="name"
-      label={props.t('form.name.label')}
-      required
-      fullWidth
-    />
-    <div className={props.classes.description}>
+export const PaymentComboForm = (props: Props) => {
+  React.useEffect(() => {
+    if (props.formAdd) {
+      props.formAdd(
+        props.initial && props.initial.id
+          ? { payment_combo_id: props.initial.id }
+          : {},
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  return (
+    <div>
       <TextField
-        name="description"
-        label={props.t('form.description.label')}
-        multiline
-        variant="outlined"
-        rows={10}
+        name="name"
+        label={props.t('form.name.label')}
+        required
+        fullWidth
+      />
+      <div className={props.classes.description}>
+        <TextField
+          name="description"
+          label={props.t('form.description.label')}
+          multiline
+          variant="outlined"
+          rows={10}
+          fullWidth
+          required
+        />
+      </div>
+      <TextField
+        id="textfield_restrictions_maxpurchase"
+        label={props.t('form.maxPurchasePerMember.label')}
+        type="number"
+        fullWidth
+        name="max_purchase_per_member"
+        helperText={props.t('form.maxPurchasePerMember.helperText')}
+      />
+      <fieldset className={props.classes.fieldset}>
+        <legend>{props.t('form.content')}</legend>
+        <FieldArray name="payment_pack_ids">
+          {({
+            push,
+            remove,
+            form: {
+              values: { payment_pack_ids },
+            },
+          }) => (
+            <div>
+              <PaymentPackSelector
+                paymentPacks={props.paymentPackList}
+                nullCurrentValue
+                helperText={props.t('form.selectorPlaceholder.paymentPack')}
+                onChange={(id) => {
+                  if (id) push(id);
+                }}
+              />
+              {payment_pack_ids.map((id, i) => (
+                <PaymentPackListItem
+                  key={`${id}-${i}`}
+                  pack={props.paymentPackList.find((pp) => pp.id === id)}
+                  onDelete={() => remove(i)}
+                />
+              ))}
+            </div>
+          )}
+        </FieldArray>
+        <FieldArray name="shop_item_ids">
+          {({
+            push,
+            remove,
+            form: {
+              values: { shop_item_ids },
+            },
+          }) => (
+            <div>
+              <ShopItemSelector
+                shopItemList={props.shopItemList}
+                nullCurrentValue
+                helperText={props.t('form.selectorPlaceholder.shopitem')}
+                onChange={(id) => {
+                  if (id) push(id);
+                }}
+              />
+              {shop_item_ids.map((id, i) => (
+                <ShopItemListItem
+                  key={`${id}-${i}`}
+                  dense
+                  shopitem={props.shopItemList.find((si) => si.id === id)}
+                  onDelete={() => remove(i)}
+                />
+              ))}
+            </div>
+          )}
+        </FieldArray>
+        <FieldArray name="private_pass_ids">
+          {({
+            push,
+            remove,
+            form: {
+              values: { private_pass_ids },
+            },
+          }) => (
+            <div>
+              <PrivatePassSelector
+                privatePassList={props.privatePassList}
+                helperText={props.t('form.selectorPlaceholder.privatePass')}
+                nullCurrentValue
+                onChange={(id) => {
+                  if (id) push(id);
+                }}
+              />
+              {props.privatePassListLoading ? (
+                <div>{props.relatedPrivatePass && <CircularProgress />}</div>
+              ) : (
+                private_pass_ids.map((id, i) => {
+                  const passes = Object.values(
+                    props.relatedPrivatePass || {},
+                  ).concat(Object.values(props.privatePassList));
+                  const pass = passes.find((pp) => pp.id === id);
+                  if (pass) {
+                    return (
+                      <PrivatePassListItem
+                        key={`${id}-${i}`}
+                        dense
+                        pass={pass}
+                        onDelete={() => remove(i)}
+                      />
+                    );
+                  }
+                  return null;
+                })
+              )}
+            </div>
+          )}
+        </FieldArray>
+      </fieldset>
+      <PriceField
+        name="price"
         fullWidth
         required
+        label={props.t('form.price.label')}
       />
-    </div>
-    <TextField
-      id="textfield_restrictions_maxpurchase"
-      label={props.t('form.maxPurchasePerMember.label')}
-      type="number"
-      fullWidth
-      name="max_purchase_per_member"
-      helperText={props.t('form.maxPurchasePerMember.helperText')}
-    />
-    <fieldset className={props.classes.fieldset}>
-      <legend>{props.t('form.content')}</legend>
-      <FieldArray name="payment_pack_ids">
-        {({
-          push,
-          remove,
-          form: {
-            values: { payment_pack_ids },
-          },
-        }) => (
-          <div>
-            <PaymentPackSelector
-              paymentPacks={props.paymentPackList}
-              nullCurrentValue
-              helperText={props.t('form.selectorPlaceholder.paymentPack')}
-              onChange={(id) => {
-                if (id) push(id);
-              }}
-            />
-            {payment_pack_ids.map((id, i) => (
-              <PaymentPackListItem
-                key={`${id}-${i}`}
-                pack={props.paymentPackList.find((pp) => pp.id === id)}
-                onDelete={() => remove(i)}
-              />
-            ))}
-          </div>
-        )}
-      </FieldArray>
-      <FieldArray name="shop_item_ids">
-        {({
-          push,
-          remove,
-          form: {
-            values: { shop_item_ids },
-          },
-        }) => (
-          <div>
-            <ShopItemSelector
-              shopItemList={props.shopItemList}
-              nullCurrentValue
-              helperText={props.t('form.selectorPlaceholder.shopitem')}
-              onChange={(id) => {
-                if (id) push(id);
-              }}
-            />
-            {shop_item_ids.map((id, i) => (
-              <ShopItemListItem
-                key={`${id}-${i}`}
-                dense
-                shopitem={props.shopItemList.find((si) => si.id === id)}
-                onDelete={() => remove(i)}
-              />
-            ))}
-          </div>
-        )}
-      </FieldArray>
-      <FieldArray name="private_pass_ids">
-        {({
-          push,
-          remove,
-          form: {
-            values: { private_pass_ids },
-          },
-        }) => (
-          <div>
-            <PrivatePassSelector
-              privatePassList={props.privatePassList}
-              helperText={props.t('form.selectorPlaceholder.privatePass')}
-              nullCurrentValue
-              onChange={(id) => {
-                if (id) push(id);
-              }}
-            />
-            {props.privatePassListLoading ? (
-              <div>{props.relatedPrivatePass && <CircularProgress />}</div>
-            ) : (
-              private_pass_ids.map((id, i) => {
-                const passes = Object.values(
-                  props.relatedPrivatePass || {},
-                ).concat(Object.values(props.privatePassList));
-                const pass = passes.find((pp) => pp.id === id);
-                if (pass) {
-                  return (
-                    <PrivatePassListItem
-                      key={`${id}-${i}`}
-                      dense
-                      pass={pass}
-                      onDelete={() => remove(i)}
-                    />
-                  );
-                }
-                return null;
-              })
-            )}
-          </div>
-        )}
-      </FieldArray>
-    </fieldset>
-    <PriceField
-      name="price"
-      fullWidth
-      required
-      label={props.t('form.price.label')}
-    />
-    <PercentField
-      name="tax"
-      fullWidth
-      required
-      step={0.005}
-      label={props.t('form.tax.label')}
-    />
-    <CheckboxField
-      label={props.t('form.manager_only.label')}
-      name="manager_only"
-    />
-    <div className={props.classes.fieldset}>
-      <PaymentMethodSelectorField
-        name="available_payment_method_identifiers"
+      <PercentField
+        name="tax"
+        fullWidth
+        required
+        step={0.005}
+        label={props.t('form.tax.label')}
+      />
+      <CheckboxField
+        label={props.t('form.manager_only.label')}
+        name="manager_only"
+      />
+      <div className={props.classes.fieldset}>
+        <PaymentMethodSelectorField
+          name="available_payment_method_identifiers"
+          disabled={props.values.manager_only}
+          asFieldset
+          label={props.t('form.available_payment_method_identifiers.label')}
+          helperText={props.t(
+            'form.available_payment_method_identifiers.helperText',
+          )}
+        />
+      </div>
+      <CheckboxField
+        label={props.t('form.new_member_only.label')}
+        name="new_member_only"
         disabled={props.values.manager_only}
-        asFieldset
-        label={props.t('form.available_payment_method_identifiers.label')}
-        helperText={props.t(
-          'form.available_payment_method_identifiers.helperText',
-        )}
       />
     </div>
-    <CheckboxField
-      label={props.t('form.new_member_only.label')}
-      name="new_member_only"
-      disabled={props.values.manager_only}
-    />
-  </div>
-);
+  );
+};
 
 const styles = (theme) => ({
   description: {
@@ -267,9 +281,19 @@ export const PaymentComboFormHoc = withFormik({
     };
   },
   validationSchema: PaymentComboFieldsSchema,
-  handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
+  handleSubmit: (
+    values,
+    { props: { onSubmit, formSuccess, initial }, setSubmitting },
+  ) => {
     onSubmit(omit(values, ['payment_packs', 'private_passes', 'shop_items']), {
-      onSuccess: () => setSubmitting(false),
+      onSuccess: () => {
+        setSubmitting(false);
+        if (formSuccess) {
+          formSuccess(
+            initial && initial.id ? { payment_combo_id: initial.id } : {},
+          );
+        }
+      },
       onError: () => setSubmitting(false),
     });
   },

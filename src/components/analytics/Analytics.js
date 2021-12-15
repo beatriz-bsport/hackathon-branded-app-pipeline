@@ -13,6 +13,11 @@ function getAnalytics() {
     methods: FacebookPixel.methods,
     apply: FacebookPixel.applyMethod,
   });
+  analytics.push({
+    name: 'SegmentAnalytics',
+    methods: window.analytics,
+    apply: null,
+  });
   return analytics;
 }
 

@@ -14,14 +14,26 @@ import {
   SwitchField,
 } from '../../../components/forms';
 import ImageField from '../../../components/forms/ImageField.component';
+import { WithSegmentAnalyticsFormTrackerHandlers } from '#components/analytics/segment';
 
 type Props = {
   values: any;
-};
+  initial: any;
+} & WithSegmentAnalyticsFormTrackerHandlers;
 
 const GiftcardForm = (props: Props) => {
   const { t } = useTranslation(['giftcard']);
   const classes = useStyles();
+  React.useEffect(() => {
+    if (props.formAdd) {
+      props.formAdd(
+        props.initial && props.initial.id
+          ? { giftcard_id: props.initial.id }
+          : {},
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <div className={classes.container}>
       <ImageField name="cover" />
@@ -108,7 +120,7 @@ export const GiftcardSchema = Yup.object().shape({
   expiration_days: Yup.number().nullable().min(1),
 });
 
-export const GiftcardFormFieldHOC = withFormik({
+export const GiftcardFormFieldHOC = withFormik<Props, any>({
   // eslint-disable-next-line
   mapPropsToValues: ({ initial }) => {
     if (!initial) {
@@ -135,7 +147,10 @@ export const GiftcardFormFieldHOC = withFormik({
     {
       props,
       setSubmitting,
-    }: { props: Props; setSubmitting: (state: boolean) => void },
+    }: {
+      props: Props;
+      setSubmitting: (state: boolean) => void;
+    },
   ) => {
     const keys = [
       'description',
@@ -166,6 +181,12 @@ export const GiftcardFormFieldHOC = withFormik({
     );
     props.onSubmit(formData, {
       onSuccess: () => {
+        props.formSuccess &&
+          props.formSuccess(
+            props.initial && props.initial.id
+              ? { giftcard_id: props.initial.id }
+              : {},
+          );
         if (props.onSuccess && typeof props.onSuccess === 'function')
           props.onSuccess();
         setSubmitting(false);

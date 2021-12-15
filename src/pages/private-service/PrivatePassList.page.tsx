@@ -24,7 +24,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
-import themeSelectors from '../../libs/theme/selectors';
+import themeSelectors from '#libs/theme/selectors';
 import withTitle from '../../hocs/with-title.hoc';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import {
@@ -32,8 +32,8 @@ import {
   getAvailablePrivatePasses,
   getUnavailablePrivatePasses,
   getCompatibilityPassWithService as getCompatibleServicePass,
-} from '../../libs/private-service/selectors/private-pass';
-import { getPrivateServices } from '../../libs/private-service/selectors/private-service';
+} from '#libs/private-service/selectors/private-pass';
+import { getPrivateServices } from '#libs/private-service/selectors/private-service';
 import {
   fetchPrivatePassList,
   fetchAllPrivateServices,
@@ -42,42 +42,47 @@ import {
   restorePrivatePass,
   editOrderPrivatePass,
   fetchAllPrivatePassCategory,
-  upsertPrivatePassCategory,
+  upsertPrivatePassCategory as upsertPrivatePassCategoryAction,
   updatePrivatePassCategoryOrder,
   deletePrivatePassCategory,
   fetchCompatibleServicePassList as fetchCompatibleServicePassListAction,
   fetchAllPrivateSlots,
-} from '../../libs/private-service/actions';
-import PrivatePassListItem from '../../libs/private-service/components/pass/PrivatePassListItem.component';
-import PrivatePassForm from '../../libs/private-service/components/pass/PrivatePassForm.component';
+} from '#libs/private-service/actions';
+import PrivatePassListItem from '#libs/private-service/components/pass/PrivatePassListItem.component';
+import PrivatePassForm from '#libs/private-service/components/pass/PrivatePassForm.component';
 import type {
   PrivatePass,
   PrivatePassCategory,
   PrivatePassCategoryWithPasses,
   ServiceCompatibilityPass,
-} from '../../libs/private-service/types';
+  PrivateSlot,
+} from '#libs/private-service/types';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import FuzeSearch from '../../components/FuzeSearch.component';
-import { Coach as AssociatedCoach } from '../../libs/associated-coach/types';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers';
-import { PrivatePassCategoryList } from '../../libs/private-service/components/category/PrivatePassCategoryList.component';
-import PrivatePassCategoryCreationDialog from '../../libs/private-service/components/category/PrivatePassCategoryCreationDialog.component';
+import { PrivatePassCategoryList } from '#libs/private-service/components/category/PrivatePassCategoryList.component';
+import PrivatePassCategoryCreationDialog from '#libs/private-service/components/category/PrivatePassCategoryCreationDialog.component';
 import {
   getPrivatePassByCategoryWithPasses,
   getPrivatePassCategories,
-} from '../../libs/private-service/selectors/private-pass-category';
+} from '#libs/private-service/selectors/private-pass-category';
 import PaymentPackFilterAndSortHeader, {
   ManagerOnly,
   SortOption,
-} from '../../libs/payment-packs/components/PaymentPackFilterAndSortHeader.component';
+} from '#libs/payment-packs/components/PaymentPackFilterAndSortHeader.component';
 import {
   setPrivatePassCategoryFilter,
   setPrivatePassManagerOnlyFilter,
   setPrivatePassSort,
-} from '../../libs/user-preference/actions';
+} from '#libs/user-preference/actions';
 import { OptionCallback } from '../../state/types';
-import { getFormInitial } from '../../libs/private-service/utils';
+import { getFormInitial } from '#libs/private-service/utils';
+import {
+  withFormTrackingHOC,
+  WithSegmentAnalyticsFormTrackerHandlers,
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
+} from '#components/analytics/segment';
 
 type OwnProps = {
   setOpenDeleteCompatibility: (id: number) => void;
@@ -101,17 +106,22 @@ type StateHandlerType = typeof withStateHandlersInit &
 type ConnectedProps = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
 
-type OwnAndConnectedProps = OwnProps & ConnectedProps & StateHandlerType;
+type OwnAndConnectedProps = OwnProps &
+  ConnectedProps &
+  StateHandlerType &
+  WithSegmentAnalyticsFormTrackerHandlers;
 
 type Props = OwnProps &
   ConnectedProps &
   StateHandlerType &
   MaterialStyleType<ReturnType<typeof styles>> &
-  WithTranslation;
+  WithTranslation &
+  WithHandlerType<typeof mapWithHandlers> &
+  WithSegmentAnalyticsFormTrackerHandlers;
 
 type State = {
   searchText: string;
-  searchResult: Array<AssociatedCoach>;
+  searchResult: Array<PrivatePass>;
   selectedCategories: Array<number>;
   selectedDisponibility: ManagerOnly;
   selectedSortOption: SortOption;
@@ -122,14 +132,17 @@ type State = {
 };
 
 export class PrivatePassList extends React.Component<Props, State> {
-  state = {
-    searchText: '',
-    searchResult: [],
-    selectedCategories: this.props.userPreferenceSelectedCategories,
-    selectedDisponibility: this.props.userPreferenceSelectedDisponibility,
-    selectedSortOption: this.props.userPreferenceSortOption,
-    privatePassOrderByCategory: null,
-  };
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      searchText: '',
+      searchResult: [],
+      selectedCategories: this.props.userPreferenceSelectedCategories,
+      selectedDisponibility: this.props.userPreferenceSelectedDisponibility,
+      selectedSortOption: this.props.userPreferenceSortOption,
+      privatePassOrderByCategory: null,
+    };
+  }
 
   componentDidMount() {
     this.props.fetchPrivatePassList();
@@ -203,7 +216,10 @@ export class PrivatePassList extends React.Component<Props, State> {
   updateOrderBySortOption(
     sortFunction: (pp1: PrivatePass, pp2: PrivatePass) => number,
   ) {
-    const toUpdate: { id: number; ordering_in_category: number }[] = [];
+    const toUpdate: Array<{
+      id: number;
+      ordering_in_category: number;
+    }> | null = [];
     this.props.privatePassByCategory.forEach(
       (category: PrivatePassCategoryWithPasses) => {
         const sorted = [...category.passes].sort((pp1, pp2) =>
@@ -254,18 +270,18 @@ export class PrivatePassList extends React.Component<Props, State> {
     }
   }
 
-  categoryFilterOnchange = (categories: any) => {
+  categoryFilterOnchange = (categories: Array<number>) => {
     this.setState({
       selectedCategories: categories,
     });
   };
 
-  managerOnlyOnChange = (value: ManagerOnly) =>
+  managerOnlyOnChange = (value: number) =>
     this.setState({
       selectedDisponibility: value,
     });
 
-  sortOnChange = (sortOpt: any) => {
+  sortOnChange = (sortOpt: number) => {
     this.setState({
       selectedSortOption: sortOpt,
     });
@@ -364,6 +380,7 @@ export class PrivatePassList extends React.Component<Props, State> {
               variant="outlined"
               onClick={() => {
                 this.props.setShowCategoryDialog(true);
+                this.props.formAdd && this.props.formAdd({});
               }}
               color="primary"
             >
@@ -426,15 +443,17 @@ export class PrivatePassList extends React.Component<Props, State> {
               <Collapse in={this.props.showDisabled}>
                 {this.props.showDisabled && (
                   <List disablePadding>
-                    {this.props.disabledPrivatePassList.map((pass) => (
-                      <PrivatePassListItem
-                        pass={pass}
-                        divider
-                        onRestore={() => this.restorePrivatePass(pass.id)}
-                        key={pass.id}
-                        disabled
-                      />
-                    ))}
+                    {this.props.disabledPrivatePassList.map(
+                      (pass: PrivatePass) => (
+                        <PrivatePassListItem
+                          pass={pass}
+                          divider
+                          onRestore={() => this.restorePrivatePass(pass.id)}
+                          key={pass.id}
+                          disabled
+                        />
+                      ),
+                    )}
                   </List>
                 )}
               </Collapse>
@@ -496,9 +515,31 @@ export class PrivatePassList extends React.Component<Props, State> {
         {this.props.showCategoryDialog && (
           <PrivatePassCategoryCreationDialog
             open={this.props.showCategoryDialog}
-            handleClose={this.props.closePrivatePassCategoryForm}
+            handleClose={() => {
+              this.props.closePrivatePassCategoryForm();
+              this.props.formCancel &&
+                this.props.formCancel(
+                  this.props.selectedCategory
+                    ? {
+                        private_pass_category_id:
+                          this.props.selectedCategory.id || null,
+                      }
+                    : {},
+                );
+            }}
             onSubmit={this.props.upsertPrivatePassCategory}
             privatePassCategorySelected={this.props.selectedCategory}
+            trackIntent={() =>
+              this.props.formSubmitIntent &&
+              this.props.formSubmitIntent(
+                this.props.selectedCategory
+                  ? {
+                      private_pass_category_id:
+                        this.props.selectedCategory.id || null,
+                    }
+                  : {},
+              )
+            }
           />
         )}
       </div>
@@ -586,12 +627,12 @@ const mapDispatchToProps = {
   fetchPrivatePassList,
   fetchAllPrivateServices: () => fetchAllPrivateServices({ mine: true }),
   goToPass: (id: number) => pushRouter(`/private-service/pass/${id}`),
-  createOrUpdatePrivatePass: createOrUpdatePrivatePassAction,
+  createOrUpdatePrivatePassAction,
   deletePrivatePass,
   restorePrivatePass,
   editOrderPrivatePass,
   fetchAllPrivatePassCategory,
-  upsertPrivatePassCategory,
+  upsertPrivatePassCategoryAction,
   updatePrivatePassCategoryOrder,
   deletePrivatePassCategory,
   setPrivatePassCategoryFilter,
@@ -641,15 +682,13 @@ const withStateHandlersSetter = {
   setSelectedCategory: () => (selectedCategory: PrivatePassCategory | null) => {
     return { selectedCategory };
   },
-  closePrivatePassForm: () => () => {
-    return {
-      openCreateForm: false,
-      openEditForm: false,
-      openDeletePassDialog: null,
-      selectedPrivatePass: null,
-      compatibleServicePassOfSelectedPass: null,
-    };
-  },
+  closePrivatePassForm: () => () => ({
+    openCreateForm: false,
+    openEditForm: false,
+    openDeletePassDialog: null,
+    selectedPrivatePass: null,
+    compatibleServicePassOfSelectedPass: null,
+  }),
   closePrivatePassCategoryForm: () => () => {
     return { showCategoryDialog: false, selectedCategory: null };
   },
@@ -658,8 +697,16 @@ const withStateHandlersSetter = {
 const mapWithHandlers = {
   upsertPrivatePassCategory:
     (props: OwnAndConnectedProps) => (category: PrivatePassCategory) => {
-      props.upsertPrivatePassCategory(category, {
+      props.upsertPrivatePassCategoryAction(category, {
         onSuccess: () => {
+          props.formSuccess &&
+            props.formSuccess(
+              category
+                ? {
+                    private_pass_category_id: category.id || null,
+                  }
+                : {},
+            );
           props.closePrivatePassCategoryForm();
           props.fetchAllPrivatePassCategory();
         },
@@ -683,7 +730,7 @@ const mapWithHandlers = {
   },
   createOrUpdatePrivatePass:
     (props: OwnAndConnectedProps) => (data: any, options?: OptionCallback) => {
-      props.createOrUpdatePrivatePass(
+      props.createOrUpdatePrivatePassAction(
         data,
         props.selectedPrivatePass?.id || null,
         {
@@ -697,19 +744,29 @@ const mapWithHandlers = {
         },
       );
     },
-  fetchCompatibleServicePasses: (props: Props) => () => {
+  fetchCompatibleServicePasses: (props: OwnAndConnectedProps) => () => {
     if (props.selectedPrivatePass) {
       props.fetchCompatibleServicePassList(props.selectedPrivatePass.id, {
-        onSuccess: (csps) =>
-          props.fetchPrivateSlotsByService({
-            private_service__in: csps.map((c) => c.private_service),
-          }),
+        onSuccess: (csps) => {
+          const private_service__in = csps?.map(
+            (c: PrivateSlot) => c.private_service,
+          );
+          if (private_service__in?.length !== 0) {
+            props.fetchPrivateSlotsByService({
+              private_service__in,
+            });
+          }
+        },
       });
     }
   },
 };
 
 export default compose(
+  withFormTrackingHOC({
+    object_identifier:
+      SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PRIVATE_PASS_CATEGORY,
+  }),
   routerParamsToProps({
     id: 'id:number',
   }),

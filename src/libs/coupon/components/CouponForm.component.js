@@ -57,12 +57,18 @@ import { PaymentPack } from '../../payment-packs/types';
 import { ShopItem } from '../../shop/types';
 import { PrivatePass } from '../../private-service/types';
 import type { Tag, TagGroupAPI } from '../../tag/types';
+import type { OptionCallback } from '../../../state/types';
+import {
+  withFormTrackingHOC,
+  WithSegmentAnalyticsFormTrackerHandlers,
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
+} from '#components/analytics/segment';
 
 const ALL_BUYABLES = 100;
 
 type Props = {
   initial: ?Coupon,
-  onSubmit: (data: *) => void,
+  onSubmit: (data: *, options?: OptionCallback) => void,
   onCancel: () => void,
   processing: boolean,
 
@@ -74,7 +80,7 @@ type Props = {
   privatePasses: Array<PrivatePass>,
   tagList: Array<Tag<TagGroupAPI>>,
   tagsLoading: boolean,
-};
+} & WithSegmentAnalyticsFormTrackerHandlers;
 type State = {
   with_expiration_date: boolean,
 } & Coupon;
@@ -129,6 +135,16 @@ export class CouponForm extends React.Component<Props, State> {
     }
   }
 
+  componentDidMount() {
+    if (this.props.formAdd) {
+      this.props.formAdd(
+        this.props.initial && this.props.initial.id
+          ? { coupon_id: this.props.initial.id }
+          : {},
+      );
+    }
+  }
+
   handleChange = (key: string, isEvent: boolean) => (value) => {
     if (isEvent) {
       this.setState({ [key]: value.target.value });
@@ -166,7 +182,16 @@ export class CouponForm extends React.Component<Props, State> {
     } else {
       data.expiration_date = null;
     }
-    this.props.onSubmit(data);
+
+    this.props.onSubmit(data, {
+      onSuccess: () => {
+        if (this.props.formSuccess) {
+          this.props.formSuccess(
+            this.props.initial?.id ? { coupon_id: this.props.initial.id } : {},
+          );
+        }
+      },
+    });
   };
 
   renderVoucherConfig = () => {
@@ -697,15 +722,35 @@ export class CouponForm extends React.Component<Props, State> {
         {!this.props.tagsLoading && this.renderTags('whitelist_tags')}
         {!this.props.tagsLoading && this.renderTags('blacklist_tags')}
         <div className={classes.buttonContainer}>
-          <Button onClick={this.props.onCancel}>
+          <Button
+            onClick={() => {
+              if (this.props.formCancel) {
+                this.props.formCancel(
+                  this.props.initial?.id
+                    ? { coupon_id: this.props.initial.id }
+                    : {},
+                );
+              }
+              this.props.onCancel();
+            }}
+          >
             {t('form.actions.cancel')}
           </Button>
           <Button
             variant="contained"
-            type="submit"
             color="primary"
             className={classes.actionButton}
             disabled={this.props.processing || this.state.tag_selection_error}
+            onClick={(ev) => {
+              if (this.props.formSubmitIntent) {
+                this.props.formSubmitIntent(
+                  this.props.initial?.id
+                    ? { coupon_id: this.props.initial.id }
+                    : {},
+                );
+              }
+              this.onSubmit(ev);
+            }}
           >
             {t('form.actions.submit')}
           </Button>
@@ -783,6 +828,9 @@ const styles = (theme) => ({
 });
 
 export default compose(
+  withFormTrackingHOC({
+    object_identifier: SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.COUPON,
+  }),
   withTranslation(['coupon']),
   withStyles(styles),
 )(CouponForm);

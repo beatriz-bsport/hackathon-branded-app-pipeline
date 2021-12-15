@@ -28,7 +28,6 @@ import {
   getSmartListFilters,
   getSmartList,
   getSmartListAutoTag,
-  // getSmartListAutoTagFiltered,
 } from '../../libs/smart-list/selectors';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import {
@@ -101,6 +100,8 @@ import {
 } from '../../libs/private-service/selectors/private-service';
 import type { PrivateService } from '../../libs/private-service/types';
 import { showInformativeDialog } from '../../components/GenericDialog/CustomDialogs';
+import type { SmartList } from '#libs/smart-list/types';
+import type { OptionCallback } from '../../state/types';
 
 type Props = {
   id: number,
@@ -110,7 +111,7 @@ type Props = {
   fetchAllPaymentPacks: () => void,
   fetchPrivatePassList: () => void,
   fetchAllPrivateServices: () => void,
-  fetchAllActivities: () => void,
+  fetchAllActivities: (companyId: number) => void,
   fetchEmailTemplateDetail: (id: number) => void,
   fetchEmailTemplatesSummaries: () => void,
   fetchEstablishments: () => void,
@@ -121,14 +122,14 @@ type Props = {
     filterNameId: number,
     filter: any,
     smartListId: number,
-    callback: (id: number) => void,
+    options: OptionCallback & { callback: (id: number) => void },
   ) => void,
   updateFilter: (
     smartListId: number,
     filterNameId: number,
     data: any,
     filterId: number,
-    callback: (id: number) => void,
+    options: OptionCallback & { callback: (id: number) => void },
   ) => void,
   deleteFilter: (
     filterNameId: number,
@@ -166,20 +167,28 @@ type Props = {
   fetchPrivateServiceBulk: () => void,
   fetchCoaches: () => void,
   coaches: Array<Coach>,
-  smartListUpdate: () => void,
+  smartListUpdate: (id: number, data: SmartList) => void,
   members: any,
-  fetchCommunicationsPaginatedMembers: () => void,
+  fetchCommunicationsPaginatedMembers: (
+    params: {
+      smartlist?: number,
+      page: number,
+      page_size: number,
+    },
+    memberIds: Array<number> | null,
+    options: OptionCallback,
+  ) => void,
   sendCommunication: (data: any) => void,
   // statistics
-  setCloseMemberTable: () => void,
+  setCloseMemberTable: (open: boolean) => void,
   closeMemberTable: boolean,
 
   classes: Object,
   memberTitle: string,
   smartlistAutoTag: Array<any>,
-  createAutoTag: (data: object) => void,
+  createAutoTag: (data: any) => void,
   deleteAutoTag: (id: number) => void,
-  updateAutoTag: (id: number, data: object) => void,
+  updateAutoTag: (id: number, data: any) => void,
   fetchAllAutoTagRulesAction: () => void,
   smartlistAutoTagLoading: boolean,
   openAutoTagRulesDialog: boolean,
@@ -187,6 +196,8 @@ type Props = {
 
 type State = {
   onValueChangeActiveMemberFetch: boolean,
+  openEditDialog: boolean,
+  resetMembersFetchForCommunication: boolean,
 };
 
 export class SmartListDetailMember extends Component<Props, State> {
@@ -202,29 +213,48 @@ export class SmartListDetailMember extends Component<Props, State> {
     this.props.fetchAllAutoTagRulesAction();
   }
 
-  createFilter = (filter_identifier, filterData) => {
+  createFilter = (
+    filter_identifier: number,
+    filterData: any,
+    options?: OptionCallback,
+  ) => {
     const filter = filterData;
     filter.smartlist = this.props.id;
-    this.props.createFilter(filter_identifier, filter, this.props.id, () => {
-      this.setState((prevState) => ({
-        onValueChangeActiveMemberFetch:
-          !prevState.onValueChangeActiveMemberFetch,
-      }));
-      this.props.setCloseMemberTable(true);
+    this.props.createFilter(filter_identifier, filter, this.props.id, {
+      onSuccess: () => {
+        if (options && options.onSuccess) options.onSuccess();
+      },
+      callback: () => {
+        this.setState((prevState) => ({
+          onValueChangeActiveMemberFetch:
+            !prevState.onValueChangeActiveMemberFetch,
+        }));
+        this.props.setCloseMemberTable(true);
+      },
     });
   };
 
-  updateFilter = (filterNameId, filterId, data) => {
-    this.props.updateFilter(this.props.id, filterNameId, filterId, data, () => {
-      this.setState((prevState) => ({
-        onValueChangeActiveMemberFetch:
-          !prevState.onValueChangeActiveMemberFetch,
-      }));
-      this.props.setCloseMemberTable(true);
+  updateFilter = (
+    filterNameId: number,
+    filterId: number,
+    data: any,
+    options?: OptionCallback,
+  ) => {
+    this.props.updateFilter(this.props.id, filterNameId, filterId, data, {
+      onSuccess: () => {
+        if (options && options.onSuccess) options.onSuccess();
+      },
+      callback: () => {
+        this.setState((prevState) => ({
+          onValueChangeActiveMemberFetch:
+            !prevState.onValueChangeActiveMemberFetch,
+        }));
+        this.props.setCloseMemberTable(true);
+      },
     });
   };
 
-  deleteFilter = (filterNameId, filterId) => {
+  deleteFilter = (filterNameId: number, filterId: number) => {
     this.props.deleteFilter(filterNameId, filterId, this.props.id, () => {
       this.setState((prevState) => ({
         onValueChangeActiveMemberFetch:
@@ -234,12 +264,12 @@ export class SmartListDetailMember extends Component<Props, State> {
     });
   };
 
-  updateSmartList = (smartlist) => {
+  updateSmartList = (smartlist: SmartList) => {
     this.setState({ openEditDialog: false });
     this.props.smartListUpdate(this.props.smartlist.id, smartlist);
   };
 
-  fetchPaginatedMembers = (page, page_size) => {
+  fetchPaginatedMembers = (page: number, page_size: number) => {
     if (this.state.resetMembersFetchForCommunication) {
       this.props.fetchCommunicationsPaginatedMembers(
         {

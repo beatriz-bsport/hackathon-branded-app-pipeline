@@ -30,8 +30,13 @@ import { Establishment } from '#libs/establishment/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import PaymentPackFormTag from './PaymentPackFormTag.component';
 import { Tag, TagGroup } from '#libs/tag/types';
-import { Actions, Submit } from '../../../../components/forms';
+import { Actions } from '../../../../components/forms';
 import { Moment } from '../../../../i18n';
+import {
+  withFormTrackingHOC,
+  WithSegmentAnalyticsFormTrackerHandlers,
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
+} from '#components/analytics/segment';
 
 const PENALTY_KIND_BLOCK_CPP = 0;
 const PENALTY_KIND_NEGATIVE_ACCOUNT = 1;
@@ -63,9 +68,17 @@ type OwnProps = {
   ) => void;
   clearPaymentPackToEdit: () => void;
 };
-type Props = OwnProps & WithTranslation;
+type Props = OwnProps &
+  WithTranslation &
+  WithSegmentAnalyticsFormTrackerHandlers;
 
 export const PaymentPackForm = (props: Props) => {
+  React.useEffect(() => {
+    props?.formAdd(
+      props.initial?.id ? { payment_pack_id: props.initial.id } : {},
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const {
     t,
     paymentPackCategories,
@@ -251,6 +264,9 @@ export const PaymentPackForm = (props: Props) => {
         onSubmit(data, {
           onSuccess: () => {
             actions.setSubmitting(false);
+            props?.formSuccess(
+              props.initial?.id ? { payment_pack_id: props.initial.id } : {},
+            );
             if (clearPaymentPackToEdit) {
               clearPaymentPackToEdit();
             }
@@ -307,6 +323,13 @@ export const PaymentPackForm = (props: Props) => {
                 {onCancel || closeDialog ? (
                   <Button
                     onClick={() => {
+                      props?.formCancel(
+                        props.initial?.id
+                          ? {
+                              payment_pack_id: props.initial.id,
+                            }
+                          : {},
+                      );
                       if (clearPaymentPackToEdit) {
                         clearPaymentPackToEdit();
                       }
@@ -321,11 +344,23 @@ export const PaymentPackForm = (props: Props) => {
                     {onCancelText || t('form.paymentPack.actions.cancel')}
                   </Button>
                 ) : null}
-                <Submit id="button_payment_pack_onsubmit">
+                <Button
+                  onClick={() => {
+                    props?.formSubmitIntent(
+                      props.initial?.id
+                        ? { payment_pack_id: props.initial.id }
+                        : {},
+                    );
+                    formikProps.handleSubmit();
+                  }}
+                  disabled={formikProps.isSubmitting}
+                  color="primary"
+                  variant="contained"
+                >
                   {initial && initial?.id
                     ? t('form.paymentPack.actions.edit')
                     : t('form.paymentPack.actions.create')}
-                </Submit>
+                </Button>
               </Actions>
             </div>
             <LinearProgress
@@ -359,9 +394,13 @@ const useStyles = makeStyles<Theme>((theme) => ({
   },
 }));
 
-export default compose<any, OwnProps>(withTranslation('paymentPack'))(
-  PaymentPackForm,
-);
+export default compose<any, OwnProps>(
+  withFormTrackingHOC({
+    object_identifier:
+      SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PAYMENT_PACK,
+  }),
+  withTranslation('paymentPack'),
+)(PaymentPackForm);
 
 const paymentPackSchema = Yup.object().shape({
   name: Yup.string().required('paymentPack:addPaymentPack.requiredField'),

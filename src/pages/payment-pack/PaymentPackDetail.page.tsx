@@ -186,9 +186,9 @@ export class PaymentPackDetail extends Component<Props, State> {
   }
 
   requestEdit = (pp: PaymentPack) => {
-    this.setState({ paymentPackToEdit: pp }, () =>
-      this.setState({ openPaymentPackFormDialog: true }),
-    );
+    this.setState({ paymentPackToEdit: pp }, () => {
+      this.setState({ openPaymentPackFormDialog: true });
+    });
   };
 
   requestDelete = (paymentPack: PaymentPack) => {
@@ -549,7 +549,6 @@ const mapDispatchToProps = {
   fetchMetaActivityBulk,
   fetchEstablishmentBulk,
   fetchPaymentPack: fetchPaymentPackAction,
-
   incrementCredit: (consumerPackId: number) =>
     updateCreditAction(consumerPackId, 1),
   decrementCredit: (consumerPackId: number) =>
@@ -558,7 +557,6 @@ const mapDispatchToProps = {
     patchPaymentPack(paymentPackId, data, true),
   resetConsumerPacks: resetByPaymentPackAction,
   goToSmartlist: () => pushRouter('/smart-list'),
-
   goToConsumerPackDetail: (memberId: number, passId: number) =>
     pushRouter(`/member/${memberId}/pass/${passId}`),
   fetchConsumerPacks: (
@@ -583,7 +581,6 @@ const mapDispatchToProps = {
   createMassExtension,
   fetchMassExtensionList,
   deleteMassExtension,
-
   fetchEstablishments,
   fetchAllActivities,
   fetchWorkshops,

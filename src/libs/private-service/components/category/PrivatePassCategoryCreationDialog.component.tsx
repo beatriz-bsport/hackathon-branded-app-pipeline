@@ -19,6 +19,7 @@ type OwnProps = {
   handleClose: () => void;
   onSubmit: (data: any) => void;
   privatePassCategorySelected: PrivatePassCategory | null;
+  trackIntent: () => void;
 };
 type Props = OwnProps &
   WithTranslation &
@@ -79,7 +80,10 @@ export const PrivatePassCategoryCreationDialogComponent = (props: Props) => {
           {t('cancel')}
         </Button>
         <Button
-          onClick={handleSubmit}
+          onClick={() => {
+            props.trackIntent();
+            handleSubmit();
+          }}
           disabled={!privatePassCategoryName}
           color="secondary"
         >

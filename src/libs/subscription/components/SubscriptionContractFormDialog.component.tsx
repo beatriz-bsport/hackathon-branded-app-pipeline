@@ -1,63 +1,63 @@
+// @flow
 import React from 'react';
+import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
-import { useTranslation } from 'react-i18next';
-import DialogActions from '@material-ui/core/DialogActions';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
-
+import DialogActions from '@material-ui/core/DialogActions';
+import { withTranslation } from 'react-i18next';
+import type { TFunction } from 'i18next';
 import { Form, FormikProps } from 'formik';
-import GiftcardForm, { GiftcardFormFieldHOC } from './GiftcardForm.component';
-import { OptionCallback } from '../../../state/types';
-import { GiftcardData } from '../types';
+
+import SubscriptionContractFields, {
+  SubscriptionContractFormHoc,
+} from './SubscriptionContractForm.component';
 import {
   withFormTrackingHOC,
   WithSegmentAnalyticsFormTrackerHandlers,
   SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
 } from '#components/analytics/segment';
+import type { Subscription } from '../types';
 
 type Props = {
+  t: TFunction;
   open: boolean;
-  onSubmit: (data: GiftcardData, options: OptionCallback) => void;
   onClose: () => void;
-  initial: GiftcardData;
+  isSubmitting: boolean;
+  initial: Subscription;
 } & WithSegmentAnalyticsFormTrackerHandlers &
-  FormikProps<GiftcardData>;
-
-const GiftcardFormDialog = (props: Props) => {
-  const { t } = useTranslation(['giftcard']);
-  if (!props.open) {
-    return null;
-  }
-
+  FormikProps<Subscription>;
+export const SubscriptionContractFormDialog = (props: Props) => {
+  const { t } = props;
   return (
-    <Dialog open>
+    <Dialog open={props.open}>
       <Form>
-        <DialogTitle>{t('form.giftcard.title')}</DialogTitle>
+        <DialogTitle>{props.t('contract.form.title')}</DialogTitle>
         <DialogContent>
-          <GiftcardForm {...props} />
+          <SubscriptionContractFields {...props} />
         </DialogContent>
         <DialogActions>
           <Button
             onClick={() => {
-              props.onClose();
               props.formCancel &&
                 props.formCancel(
                   props.initial && props.initial.id
-                    ? { giftcard_id: props.initial.id }
+                    ? { subscription_id: props.initial.id }
                     : {},
                 );
+              props.onClose();
             }}
           >
-            {t('form.giftcard.actions.cancel')}
+            {t('cancel')}
           </Button>
           <Button
             onClick={() => {
               props.formSubmitIntent &&
                 props.formSubmitIntent(
                   props.initial && props.initial.id
-                    ? { giftcard_id: props.initial.id }
+                    ? { subscription_id: props.initial.id }
                     : {},
                 );
               props.handleSubmit();
@@ -66,7 +66,7 @@ const GiftcardFormDialog = (props: Props) => {
             color="primary"
             variant="contained"
           >
-            {t('form.giftcard.actions.submit')}
+            {t('save')}
           </Button>
         </DialogActions>
       </Form>
@@ -74,9 +74,16 @@ const GiftcardFormDialog = (props: Props) => {
   );
 };
 
+const styles = () => ({
+  container: {},
+});
+
 export default compose<any, Props>(
   withFormTrackingHOC({
-    object_identifier: SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.GIFTCARD,
+    object_identifier:
+      SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.SUBSCRIPTION,
   }),
-  GiftcardFormFieldHOC,
-)(GiftcardFormDialog);
+  withTranslation(['subscription']),
+  withStyles(styles),
+  SubscriptionContractFormHoc,
+)(SubscriptionContractFormDialog);

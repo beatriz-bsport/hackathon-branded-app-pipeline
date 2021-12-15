@@ -11,6 +11,7 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import { createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 
 import { TFunction } from 'i18next';
+import { OptionCallback } from '../../state/types';
 import { createCoupon } from '../../libs/coupon/actions';
 import withTitle from '../../hocs/with-title.hoc';
 import CouponForm from '../../libs/coupon/components/CouponForm.component';
@@ -75,6 +76,7 @@ const styles = (theme: Theme) =>
       marginBottom: theme.spacing(40),
       padding: theme.spacing(2),
       minWidth: '60vw',
+      width: '70%',
     },
   });
 
@@ -98,8 +100,15 @@ const connector = connect(
 );
 
 const mapWithHandlers = {
-  createCoupon: (props: ConnectedProps<typeof connector>) => (data) =>
-    props.createCouponAction(data, { onSuccess: props.goToCouponList }),
+  createCoupon:
+    (props: ConnectedProps<typeof connector>) =>
+    (data, options?: OptionCallback) =>
+      props.createCouponAction(data, {
+        onSuccess: () => {
+          if (options && options.onSuccess) options.onSuccess();
+          props.goToCouponList();
+        },
+      }),
 };
 
 export default compose<any, Props>(

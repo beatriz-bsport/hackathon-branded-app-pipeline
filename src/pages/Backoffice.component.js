@@ -80,6 +80,8 @@ import {
   fetchCompanyCustomSignUp,
 } from '../libs/custom-form/actions';
 import { BannerProvider } from '../hocs/banner.hoc';
+import withSegmentHistoryTracker from '../components/analytics/segment/with-segment-history-tracking';
+import { getSegmentAnalyticsToWindow } from '../components/analytics/segment/utils';
 
 const MarketingRouter = asyncComponent(() =>
   import('./marketing/Marketing.router'),
@@ -257,6 +259,7 @@ export class Backoffice extends Component<Props, State> {
   }
 
   componentDidMount() {
+    getSegmentAnalyticsToWindow();
     this.props.fetchCompanyTheme();
     this.props.fetchCompanyRoles();
     this.props.getFeatureList();
@@ -298,7 +301,6 @@ export class Backoffice extends Component<Props, State> {
 
   render() {
     const { classes } = this.props;
-
     if (this.props.loadingImpersonation) {
       return (
         <div className={classes.fullPage}>
@@ -562,4 +564,5 @@ export default compose(
         });
       },
   }),
+  withSegmentHistoryTracker,
 )(themedBackoffice);

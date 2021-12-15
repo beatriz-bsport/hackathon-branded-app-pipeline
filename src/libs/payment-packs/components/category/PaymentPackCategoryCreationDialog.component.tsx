@@ -19,6 +19,7 @@ type OwnProps = {
   handleClose: () => void;
   onSubmit: (data: any) => void;
   paymentPackCategorySelected: PaymentPackCategory | null;
+  trackIntent?: () => void;
 };
 type Props = OwnProps &
   WithTranslation &
@@ -79,7 +80,10 @@ export const PaymentPackCategoryCreationDialog = (props: Props) => {
           {t('cancel')}
         </Button>
         <Button
-          onClick={handleSubmit}
+          onClick={() => {
+            handleSubmit();
+            props.trackIntent && props.trackIntent();
+          }}
           disabled={!paymentPackCategoryName}
           color="secondary"
         >

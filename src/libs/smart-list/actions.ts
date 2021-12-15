@@ -209,7 +209,11 @@ export const updateSmartListAction = {
   success: createAction('SMART-LIST/UPDATE/SUCCESS'),
 };
 
-export function smartListUpdate(id: number, data: any): ThunkAction {
+export function smartListUpdate(
+  id: number,
+  data: any,
+  options: OptionCallback,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(updateSmartListAction.isLoading(true));
     dispatch(updateSmartListAction.error(null));
@@ -219,9 +223,11 @@ export function smartListUpdate(id: number, data: any): ThunkAction {
       dispatch(updateSmartListAction.success(response.data));
       dispatch(updateSmartListAction.error(null));
       dispatch(snackbarSuccess('smartlist.update.success'));
+      if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
       dispatch(updateSmartListAction.error(error));
       dispatch(snackbarError('smartlist.udpate.error'));
+      if (options && options.onError) options.onError();
     }
     dispatch(updateSmartListAction.isLoading(false));
   };
@@ -281,14 +287,15 @@ export function createFilter(
   filter_identifier: number,
   data: any,
   smartListId: number,
-  callback?: (id: number) => void,
+  options: OptionCallback & { callback?: (id: number) => void },
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(filterCreateAction.isLoading(true));
     dispatch(filterCreateAction.error(null));
     try {
       const response = await createFilterAPI(filter_identifier, data);
-      callback(smartListId);
+      if (options && options.callback) options.callback(smartListId);
+      if (options && options.onSuccess) options.onSuccess();
       const filterData = response.data;
       filterData.filter_identifier = filter_identifier;
       dispatch(
@@ -316,14 +323,15 @@ export function updateFilter(
   filter_identifier: number,
   id: number,
   data: any,
-  callback?: (id: number) => void,
+  options: OptionCallback & { callback?: (id: number) => void },
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(filterUpdateAction.isLoading(true));
     dispatch(filterUpdateAction.error(null));
     try {
       const response = await updateFilterAPI(filter_identifier, id, data);
-      callback(smartListId);
+      if (options && options.callback) options.callback(smartListId);
+      if (options && options.onSuccess) options.onSuccess();
       dispatch(
         filterUpdateAction.success({
           smartListId,

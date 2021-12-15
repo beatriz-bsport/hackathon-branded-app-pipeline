@@ -26,6 +26,7 @@
     "@material-ui/lab": "^4.0.0-alpha.52",
     "@material-ui/styles": "^4.9.13",
     "@quentin-sommer/react-useragent": "^3.1.0",
+    "@segment/analytics-next": "^1.31.2",
     "@sentry/react": "^6.11.0",
     "@sentry/tracing": "^6.11.0",
     "@stripe/react-stripe-js": "^1.2.1",

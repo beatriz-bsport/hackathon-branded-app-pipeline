@@ -21,3 +21,4 @@ env.I18N_TRANSLATION_DOMAIN = 'https://backoffice.fb-alpha.bsport.io';
 
 
 env.REACT_APP_QUICKBOOKS_CLIENT_ID='ABuHQoP5mP22ZN6teCzIcZykd2w8MqtKXmAdj444TLIm9UX3ax';
+env.REACT_APP_SEGMENT_API_KEY='yH7opuCLYbkx3SmUBi2zE3qltVkiTfL7'

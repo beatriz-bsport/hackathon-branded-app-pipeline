@@ -84,6 +84,11 @@ import {
   fetchAllActivities,
   fetchAll as fetchWorkhops,
 } from '../../libs/meta-activity/actions';
+import {
+  withFormTrackingHOC,
+  WithSegmentAnalyticsFormTrackerHandlers,
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
+} from '#components/analytics/segment';
 
 type StateHandlerInit = {
   showCategoryDialog: boolean;
@@ -95,7 +100,10 @@ type StateHandlerType = typeof withStateHandlersInit &
 type OwnProps = {};
 type ConnectedProps = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
-type OwnAndConnectedProps = OwnProps & ConnectedProps & StateHandlerType;
+type OwnAndConnectedProps = OwnProps &
+  ConnectedProps &
+  StateHandlerType &
+  WithSegmentAnalyticsFormTrackerHandlers;
 type Props = OwnAndConnectedProps &
   WithHandlerType<typeof mapWithHandlers> &
   MaterialStyleType<ReturnType<typeof styles>> &
@@ -434,6 +442,7 @@ export class PaymentPackList extends React.Component<Props, State> {
               onClick={() => {
                 this.props.setSelectedCategory(null);
                 this.props.setShowCategoryDialog(true);
+                this.props.formAdd && this.props.formAdd({});
               }}
               color="primary"
             >
@@ -551,11 +560,31 @@ export class PaymentPackList extends React.Component<Props, State> {
           <PaymentPackCategoryCreationDialog
             open={this.props.showCategoryDialog}
             handleClose={() => {
+              this.props.formCancel &&
+                this.props.formCancel(
+                  this.props.selectedCategory
+                    ? {
+                        payment_pack_category_id:
+                          this.props.selectedCategory.id || null,
+                      }
+                    : {},
+                );
               this.props.setShowCategoryDialog(false);
               this.props.setSelectedCategory(null);
             }}
             paymentPackCategorySelected={this.props.selectedCategory}
             onSubmit={this.props.upsertPaymenPackCategory}
+            trackIntent={() =>
+              this.props.formSubmitIntent &&
+              this.props.formSubmitIntent(
+                this.props.selectedCategory
+                  ? {
+                      payment_pack_category_id:
+                        this.props.selectedCategory.id || null,
+                    }
+                  : {},
+              )
+            }
           />
         )}
       </>
@@ -679,7 +708,9 @@ const mapWithHandlers = {
   resetConsumerPacks: (props: OwnAndConnectedProps) => () => {
     props.resetByPaymentPackAction();
   },
-
+  onCreate: (props: OwnAndConnectedProps) => () => {
+    props.pushRouter('/payment-pack/add');
+  },
   fetchMarketingNotificationList: (props: OwnAndConnectedProps) => (params) => {
     props.fetchMarketingNotificationList(params);
   },
@@ -692,6 +723,14 @@ const mapWithHandlers = {
           props.setSelectedCategory(null);
           props.setUpsertCategoryLoading(false);
           props.fetchAllPaymentPackCategory();
+          props.formSuccess &&
+            props.formSuccess(
+              category
+                ? {
+                    payment_pack_category_id: category.id || null,
+                  }
+                : {},
+            );
         },
       });
     },
@@ -738,6 +777,10 @@ const withStateHandlersSetter = {
   },
 };
 export default compose<any, OwnProps>(
+  withFormTrackingHOC({
+    object_identifier:
+      SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PAYMENT_PACK_CATEGORY,
+  }),
   withTranslation('paymentPack'),
   withStyles(styles),
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),

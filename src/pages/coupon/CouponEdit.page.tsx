@@ -25,7 +25,7 @@ import CouponForm from '../../libs/coupon/components/CouponForm.component';
 
 import { getAll as getPaymentPacks } from '../../libs/payment-packs/selectors';
 import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
-
+import { OptionCallback } from '../../state/types';
 import {
   fetchBulk as fetchShopBulkAction,
   fetchShopItemAsManager as fetchAllShop,
@@ -118,9 +118,13 @@ const connector = connect(
 
 const mapWithHandlers = {
   updateCoupon:
-    (props: ConnectedProps<typeof connector> & { id: number }) => (data: any) =>
+    (props: ConnectedProps<typeof connector> & { id: number }) =>
+    (data: any, options?: OptionCallback) =>
       props.updateCouponAction(props.id, data, {
-        onSuccess: props.goToCouponList,
+        onSuccess: () => {
+          if (options && options.onSuccess) options.onSuccess();
+          props.goToCouponList();
+        },
       }),
   fetchCouponPage:
     (props: ConnectedProps<typeof connector> & { id: number }) =>

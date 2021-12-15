@@ -27,10 +27,11 @@ import PrivatePassSelectorField from '../../private-service/components/pass/Priv
 import PaymentComboSelectorField from '../../payment-combo/components/PaymentComboSelectorField.component';
 
 import type { SubscriptionContract } from '../types';
+import { WithSegmentAnalyticsFormTrackerHandlers } from '#components/analytics/segment';
 
 type Props = { t: TFunction, classes: * } & SubscriptionContract & {
     onSubmit: (SubscriptionContract) => void,
-  };
+  } & WithSegmentAnalyticsFormTrackerHandlers;
 
 const OBJECT_TYPE_PAYMENT_PACK = 'payment_pack';
 const OBJECT_TYPE_PRIVATE_PASS = 'private_pass';
@@ -38,6 +39,16 @@ const OBJECT_TYPE_PAYMENT_COMBO = 'payment_combo';
 
 export function SubscriptionContractFields(props: Props) {
   const { t, classes } = props;
+  React.useEffect(() => {
+    if (props.formAdd) {
+      props.formAdd(
+        props.initial && props.initial.id
+          ? { subscription_id: props.initial.id }
+          : {},
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <div>
       <TextField
@@ -303,7 +314,10 @@ export const SubscriptionContractFormHoc = withFormik({
     };
   },
   validationSchema: SubscriptionContractFieldsSchema,
-  handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
+  handleSubmit: (
+    values,
+    { props: { onSubmit, formSuccess, initial }, setSubmitting },
+  ) => {
     const valuesCleaned = {
       ...omit(values, ['object_type']),
       private_pass:
@@ -321,7 +335,14 @@ export const SubscriptionContractFormHoc = withFormik({
     };
 
     onSubmit(valuesCleaned, {
-      onSuccess: () => setSubmitting(false),
+      onSuccess: () => {
+        if (formSuccess) {
+          formSuccess(
+            initial && initial.id ? { subscription_id: initial.id } : {},
+          );
+        }
+        setSubmitting(false);
+      },
       onError: () => setSubmitting(false),
     });
   },

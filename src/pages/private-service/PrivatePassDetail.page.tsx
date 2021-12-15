@@ -66,6 +66,7 @@ import PaymentPackMassExtensionDialog from '#libs/payment-packs/components/Payme
 import {
   PrivateConsumerPassMassExtension,
   PrivatePassCategory,
+  PrivateSlot,
 } from '#libs/private-service/types';
 import { getPrivatePassCategories } from '#libs/private-service/selectors/private-pass-category';
 import {
@@ -548,12 +549,16 @@ const mapWithHandlers = {
       }),
   fetchCompatibleServicePasses: (props: WithStateProps) => () =>
     props.fetchCompatibleServicePassList(props.id, {
-      onSuccess: (csps) =>
-        props.fetchPrivateSlotsByService({
-          private_service__in: csps.map(
-            (c: { private_service: any }) => c.private_service,
-          ),
-        }),
+      onSuccess: (csps) => {
+        const private_service__in = csps?.map(
+          (c: PrivateSlot) => c.private_service,
+        );
+        if (private_service__in?.length !== 0) {
+          props.fetchPrivateSlotsByService({
+            private_service__in,
+          });
+        }
+      },
     }),
   fetchNotificationsAndTemplatesAndSmartLists:
     (props: WithStateProps) => () => {

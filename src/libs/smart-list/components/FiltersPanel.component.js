@@ -47,9 +47,15 @@ import Config from '../../../config';
 
 import type { Establishment } from '../../establishment/types';
 import type { PrivatePass, PrivateService } from '../../private-service/types';
-
+import type { OptionCallback } from '../../../state/types';
 import FilterCard from './FilterListItem.component';
 import MemberBaseFilter from './filters/MemberBaseFilter.component';
+import type { SmartList } from '#libs/smart-list/types';
+import {
+  withFormTrackingHOC,
+  WithSegmentAnalyticsFormTrackerHandlers,
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
+} from '#components/analytics/segment';
 
 const MEMBER_INFO = 1;
 const PAYMENT_PACK = 2;
@@ -98,23 +104,21 @@ type Props = {
   private_services: Array<PrivateService>,
   tags: Array<any>,
   updateFilter: (
-    smartListId: number,
     filterNameId: number,
-    data: any,
     filterId: number,
-    callback: (id: number) => void,
+    data: any,
+    options?: OptionCallback,
   ) => void,
   deleteFilter: (
     filterNameId: number,
     filterId: number,
     smartListId: number,
-    callback: (id: number) => void,
+    options: OptionCallback & { callback: (id: number) => void },
   ) => void,
   createFilter: (
-    filterNameId: number,
-    filter: any,
-    smartListId: number,
-    callback: (id: number) => void,
+    filter_identifier: number,
+    filterData: any,
+    options?: OptionCallback,
   ) => void,
   onRequestEmail: () => void,
   exportMemberTable: () => void,
@@ -122,9 +126,15 @@ type Props = {
   fetchBulkItems: any,
   coaches: Array<any>,
   smartListUpdate: (id: number, smartlist: SmartList) => void,
-};
+} & WithSegmentAnalyticsFormTrackerHandlers;
 
-export class FiltersPanel extends Component<Props> {
+type State = {
+  new_filter: any,
+  displayFilters: boolean,
+  displayAddFilter: boolean,
+  displayCategoryFilters: any,
+};
+export class FiltersPanel extends Component<Props, State> {
   state = {
     new_filter: null,
     displayFilters: true,
@@ -148,8 +158,34 @@ export class FiltersPanel extends Component<Props> {
   };
 
   createFilter = (filterNameId, data) => {
+    if (this.props.formAdd) {
+      this.props.formAdd({});
+    }
     this.setState({ new_filter: null, displayFilters: true });
-    this.props.createFilter(filterNameId, data);
+    this.props.createFilter(filterNameId, data, {
+      onSuccess: () => {
+        if (this.props.formSuccess) {
+          this.props.formSuccess({});
+        }
+      },
+    });
+  };
+
+  updateFilter = (filterNameId: number, filterId: number, data: any) => {
+    if (this.props.formSubmitIntent) {
+      this.props.formSubmitIntent({
+        smartlist_filter_id: filterId,
+      });
+    }
+    this.props.updateFilter(filterNameId, filterId, data, {
+      onSuccess: () => {
+        if (this.props.formSuccess) {
+          this.props.formSuccess({
+            smartlist_filter_id: filterId,
+          });
+        }
+      },
+    });
   };
 
   render() {
@@ -180,6 +216,9 @@ export class FiltersPanel extends Component<Props> {
             <Button
               onClick={(event: React.MouseEvent<HTMLElement>) => {
                 event.stopPropagation();
+                if (this.props.formAdd) {
+                  this.props.formAdd({});
+                }
                 this.setState({ anchorEl: event.currentTarget });
                 this.setState((previousState) => ({
                   displayAddFilter: !previousState.displayAddFilter,
@@ -331,7 +370,7 @@ export class FiltersPanel extends Component<Props> {
                 <FilterCard
                   key={`${filter.id}-${filter.filter_identifier}`}
                   filter={filter}
-                  onClickEdit={this.props.updateFilter}
+                  onClickEdit={this.updateFilter}
                   onClickDelete={this.props.deleteFilter}
                   payment_packs={this.props.payment_packs}
                   private_passes={this.props.private_passes}
@@ -436,6 +475,10 @@ const styles = (theme) => ({
 });
 
 export default compose(
+  withFormTrackingHOC({
+    object_identifier:
+      SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.SMARTLIST_FILTER,
+  }),
   withStyles(styles),
   withTranslation(['smartList']),
 )(FiltersPanel);

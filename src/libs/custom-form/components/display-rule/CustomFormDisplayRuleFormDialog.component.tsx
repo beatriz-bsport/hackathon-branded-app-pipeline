@@ -32,15 +32,21 @@ import {
 } from '@bsport/common/lib/master-data/custom-form';
 import type { CustomFormDisplayRule } from '../../types';
 import { IntegerField } from '../../../../components/forms';
+import {
+  withFormTrackingHOC,
+  WithSegmentAnalyticsFormTrackerHandlers,
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
+} from '#components/analytics/segment';
+import { OptionCallback } from '../../../../state/types';
 
 type InitialValues = { initial?: CustomFormDisplayRule };
 type OwnProps = InitialValues & {
-  onSubmit: (data: CustomFormDisplayRule) => void;
+  onSubmit: (data: CustomFormDisplayRule, options?: OptionCallback) => void;
   isSubmitting: boolean;
   open: boolean;
   onClose: () => void;
   signUpRuleAlreadyExists: boolean;
-};
+} & WithSegmentAnalyticsFormTrackerHandlers;
 type Props = OwnProps &
   WithTranslation &
   FormikProps<InitialValues> &
@@ -67,12 +73,22 @@ export function CustomFormDisplayRuleFormDialog(props: Props) {
   const { t, isSubmitting, classes, open } = props;
   const [expandAdvancedOptions, setExpandAdvancedOptions] =
     React.useState(false);
+  React.useEffect(() => {
+    if (props.formAdd) {
+      props.formAdd(
+        props.initial?.id
+          ? { custom_form_display_rule_id: props.initial.id }
+          : {},
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   if (props.isSubmitting) {
     return <LinearProgress color="primary" />;
   }
   const disableSignUpRuleCreation = () => {
     return (
-      props?.initial?.kind !== CUSTOM_FORM_DISPLAY_ON_SIGN_UP &&
+      props.initial?.kind !== CUSTOM_FORM_DISPLAY_ON_SIGN_UP &&
       props.signUpRuleAlreadyExists
     );
   };
@@ -96,7 +112,18 @@ export function CustomFormDisplayRuleFormDialog(props: Props) {
       }
       validationSchema={CustomFormDisplayRuleSchema}
       onSubmit={(values) => {
-        return props.onSubmit({ ...values });
+        return props.onSubmit(
+          { ...values },
+          {
+            onSuccess: () =>
+              props.formSuccess &&
+              props.formSuccess(
+                props.initial && props.initial.id
+                  ? { custom_form_display_rule_id: props.initial.id }
+                  : {},
+              ),
+          },
+        );
       }}
     >
       {(formik) => (
@@ -272,7 +299,22 @@ export function CustomFormDisplayRuleFormDialog(props: Props) {
                 </Collapse>
               </DialogContent>
               <DialogActions>
-                <Button color="primary" variant="text" onClick={props.onClose}>
+                <Button
+                  color="primary"
+                  variant="text"
+                  onClick={() => {
+                    if (props.formCancel) {
+                      props.formCancel(
+                        props.initial && props.initial.id
+                          ? {
+                              custom_form_display_rule_id: props.initial.id,
+                            }
+                          : {},
+                      );
+                    }
+                    props.onClose();
+                  }}
+                >
                   {t('customForm.displayRule.form.dialog.cancel')}
                 </Button>
                 <Button
@@ -280,7 +322,19 @@ export function CustomFormDisplayRuleFormDialog(props: Props) {
                   disabled={isSubmitting}
                   variant="contained"
                   color="primary"
-                  onClick={() => formik.handleSubmit()}
+                  onClick={() => {
+                    if (props.formSubmitIntent) {
+                      props.formSubmitIntent(
+                        props.initial && props.initial.id
+                          ? {
+                              custom_form_display_rule_id: props.initial.id,
+                            }
+                          : {},
+                      );
+                    }
+
+                    formik.handleSubmit();
+                  }}
                 >
                   {props.initial
                     ? t('customForm.displayRule.form.dialog.modify')
@@ -327,6 +381,10 @@ const styles = (theme: Theme) =>
   });
 
 export default compose<any, OwnProps>(
+  withFormTrackingHOC({
+    object_identifier:
+      SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.CUSTOMFORM_DISPLAY_RULE,
+  }),
   withStyles(styles),
   withTranslation('marketing'),
 )(CustomFormDisplayRuleFormDialog);

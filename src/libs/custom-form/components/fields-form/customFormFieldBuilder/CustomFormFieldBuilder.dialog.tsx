@@ -48,11 +48,17 @@ import { MaterialStyleType } from '../../../../../utils/types';
 import CustomFormFieldTagRuleSelector from '../CustomFormBuilderTagRule.selector';
 import { TagGroup, Tag } from '../../../../tag/types';
 import { Theme as CompanyTheme } from '../../../../theme/types';
+import {
+  withFormTrackingHOC,
+  WithSegmentAnalyticsFormTrackerHandlers,
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
+} from '#components/analytics/segment';
+import { OptionCallback } from '../../../../../state/types';
 
 type OwnProps = {
   open: boolean;
   handleClose: () => void;
-  onSubmit: (data: any) => void;
+  onSubmit: (data: any, options?: OptionCallback) => void;
   isSubmitting?: boolean;
   initial?: CustomFormField;
   registeredSignUpQuestions: Array<number>;
@@ -63,7 +69,8 @@ type OwnProps = {
 
 type Props = OwnProps &
   WithTranslation &
-  MaterialStyleType<ReturnType<typeof styles>>;
+  MaterialStyleType<ReturnType<typeof styles>> &
+  WithSegmentAnalyticsFormTrackerHandlers;
 const CustomFormFieldFormSchema = Yup.object().shape({
   id: Yup.number().nullable(true),
   kind: Yup.number().nullable(false),
@@ -119,6 +126,17 @@ export function CustomFormFieldBuilderDialog(props: Props) {
       (choice: { value: number; label: string }) =>
         !props?.registeredSignUpQuestions?.includes(choice.value),
     );
+
+  React.useEffect(() => {
+    if (props.formAdd) {
+      props.formAdd(
+        props.initial && props.initial.id
+          ? { custom_form_question_id: props.initial.id }
+          : {},
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <Dialog
       fullWidth
@@ -168,6 +186,15 @@ export function CustomFormFieldBuilderDialog(props: Props) {
         }
         enableReinitialize
         onSubmit={(values) => {
+          if (props.formSuccess) {
+            props.formSuccess(
+              props.initial && props.initial.id
+                ? {
+                    custom_form_question_id: props.initial.id,
+                  }
+                : {},
+            );
+          }
           return props.onSubmit({
             ...values,
             ...(CUSTOM_FORM_FIELDS_WITH_CHOICES.includes(values.kind)
@@ -392,18 +419,38 @@ export function CustomFormFieldBuilderDialog(props: Props) {
             </DialogContent>
             <DialogActions>
               <Button
-                onClick={handleClose}
+                onClick={() => {
+                  if (props.formCancel) {
+                    props.formCancel(
+                      props.initial && props.initial.id
+                        ? { custom_form_question_id: props.initial.id }
+                        : {},
+                    );
+                  }
+                  handleClose();
+                }}
                 color="secondary"
                 disabled={isSubmitting}
               >
                 {t('customForm.customFormField.modal.add.cancel')}
               </Button>
               <Button
-                type="submit"
                 id="button_submit_custom_form_field"
                 disabled={isSubmitting}
                 variant="contained"
                 color="primary"
+                onClick={() => {
+                  if (props.formSubmitIntent) {
+                    props.formSubmitIntent(
+                      props.initial && props.initial.id
+                        ? {
+                            custom_form_question_id: props.initial.id,
+                          }
+                        : {},
+                    );
+                  }
+                  formik.handleSubmit();
+                }}
               >
                 {t('customForm.customFormField.modal.add.confirm')}
               </Button>
@@ -451,6 +498,10 @@ const styles = (theme: Theme) => ({
   },
 });
 export default compose<any, OwnProps>(
+  withFormTrackingHOC({
+    object_identifier:
+      SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.CUSTOMFORM_QUESTION,
+  }),
   withTranslation('marketing'),
   withStyles(styles),
 )(CustomFormFieldBuilderDialog);

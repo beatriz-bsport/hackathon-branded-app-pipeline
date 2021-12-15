@@ -59,6 +59,7 @@ import LinearProgress from '../../components/navigation/BackofficeLinearProgress
 
 import withtitle from '../../hocs/with-title.hoc';
 import Tooltip from '../../components/Tooltip.component';
+import type { OptionCallback } from '../../state/types';
 
 type Props = {
   t: TFunction,
@@ -100,7 +101,11 @@ export class ShopItemList extends Component<Props, State> {
     this.props.fetchShopItems();
   }
 
-  createOrUpdateShopItem = (shopItemData: [*], id: ?number) => {
+  createOrUpdateShopItem = (
+    shopItemData: [*],
+    id: ?number,
+    options: OptionCallback,
+  ) => {
     shopItemData.append('subshop', this.state.createItemFromSubShop);
     this.props.createOrUpdateShopItem(shopItemData, id, {
       onSuccess: () => {
@@ -108,6 +113,7 @@ export class ShopItemList extends Component<Props, State> {
           createItemFromSubShop: null,
         });
         this.props.fetchShopItems();
+        if (options && options.onSuccess) options.onSuccess();
       },
     });
   };

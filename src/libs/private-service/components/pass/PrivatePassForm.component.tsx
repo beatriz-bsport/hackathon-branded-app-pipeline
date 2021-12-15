@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import { Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
@@ -31,7 +31,8 @@ import {
 } from '@bsport/common/lib/master-data/payment-pack';
 
 import * as Yup from 'yup';
-import { Form, withFormik, FieldArray } from 'formik';
+import { Form, withFormik, FieldArray, FormikProps } from 'formik';
+import { OptionCallback } from '../../../../state/types';
 import PaymentMethodSelectorField from '../../../payment/components/PaymentMethodSelectorField.component';
 
 import {
@@ -40,7 +41,6 @@ import {
   PercentField,
   SwitchField,
   PriceField,
-  Submit,
   RadioGroupField,
 } from '../../../../components/forms';
 import {
@@ -57,10 +57,32 @@ import PrivatePassCategorySelector from '../../../payment-packs/components/categ
 import { PrivateServiceListItem } from '../service/PrivateServiceListItem.component';
 import { PrivateServiceSelector } from '../service/PrivateServiceSelector.component';
 import { PrivateSlotSelectionDialog } from '../slot/PrivateSlotSelectionDialog.component';
+import {
+  withFormTrackingHOC,
+  WithSegmentAnalyticsFormTrackerHandlers,
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
+} from '#components/analytics/segment';
 
+interface FormikValues {
+  name: string | null;
+  category: number | null;
+  tax: number;
+  credits: number;
+  price: number;
+  manager_only: boolean;
+  new_member_only: boolean;
+  full_vod_access: boolean;
+  duration_days: number;
+  duration_months: number;
+  duration_years: number;
+  available_payment_method_identifiers: Array<number>;
+  start_date_method: string;
+  expiration_days_before_first_use: number;
+  compatibility: Array<number>;
+}
 type Props = {
   isSubmitting: boolean;
-  onCancel: () => void;
+  onCancel: (ev: MouseEvent) => void;
   values: any;
   initial?: PrivatePassWithCompatibility;
   privatePassCategories: Array<PrivatePassCategory>;
@@ -77,7 +99,9 @@ type Props = {
   setOpenCompatibleServiceForm: (open: boolean) => void;
   openDeleteCompatibilityDialog: boolean;
   setOpenDeleteCompatibilityDialog: (open: boolean) => void;
-};
+  onSubmit: (data: FormikValues, options?: OptionCallback) => void;
+} & WithSegmentAnalyticsFormTrackerHandlers &
+  FormikProps<FormikValues>;
 
 const getExcludedSlots = (
   ps: PrivateServiceWithSlots,
@@ -100,6 +124,12 @@ const getIncludedSlots = (
 };
 
 export const PrivatePassForm = (props: Props) => {
+  React.useEffect(() => {
+    props?.formAdd(
+      props.initial?.id ? { private_pass_id: props.initial.id } : {},
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const { t } = useTranslation(['privateService']);
   const classes = useStyles();
   const { isSubmitting, privateServices } = props;
@@ -488,12 +518,29 @@ export const PrivatePassForm = (props: Props) => {
       <Divider className={classes.divider} />
 
       <div className={`${classes.buttonContainer} ${classes.flexRowCenter}`}>
-        <Button onClick={props.onCancel}>
+        <Button
+          onClick={(e: MouseEvent) => {
+            props.onCancel(e);
+            props?.formCancel(
+              props.initial?.id ? { private_pass_id: props.initial.id } : {},
+            );
+          }}
+        >
           {t('privatePass.form.actions.cancel')}
         </Button>
-        <Submit disabled={isSubmitting}>
+        <Button
+          onClick={() => {
+            props?.formSubmitIntent(
+              props.initial?.id ? { private_pass_id: props.initial.id } : {},
+            );
+            props.handleSubmit();
+          }}
+          disabled={isSubmitting}
+          color="primary"
+          variant="contained"
+        >
           {t('privatePass.form.actions.submit')}
-        </Submit>
+        </Button>
       </div>
     </Form>
   );
@@ -628,7 +675,7 @@ export const PrivatePassSchema = Yup.object().shape({
   ),
 });
 
-export const PrivatePassFormikHOC = withFormik({
+export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
   mapPropsToValues: ({ initial }) => {
     if (initial && initial.id)
       return {
@@ -657,7 +704,10 @@ export const PrivatePassFormikHOC = withFormik({
   },
   enableReinitialize: true,
   validationSchema: PrivatePassSchema,
-  handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
+  handleSubmit: (
+    values,
+    { props: { onSubmit, initial, formSuccess }, setSubmitting },
+  ) => {
     const newValues = {
       ...values,
       available_payment_method_identifiers:
@@ -666,13 +716,21 @@ export const PrivatePassFormikHOC = withFormik({
           : values.available_payment_method_identifiers,
     };
     onSubmit(newValues, {
-      onSuccess: () => setSubmitting(false),
+      onSuccess: () => {
+        formSuccess &&
+          formSuccess(initial?.id ? { private_pass_id: initial.id } : {});
+        setSubmitting(false);
+      },
       onError: () => setSubmitting(false),
     });
   },
 });
 
 export default compose<any, Props>(
+  withFormTrackingHOC({
+    object_identifier:
+      SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PRIVATE_PASS,
+  }),
   PrivatePassFormikHOC,
   withState(
     'openCompatibleServiceForm',

@@ -3,7 +3,8 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withState, withProps } from 'recompose';
 import { connect } from 'react-redux';
-import { withTranslation, WithTranslation, TFunction } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
+import type { TFunction } from 'i18next';
 import { push } from 'connected-react-router';
 import List from '@material-ui/core/List';
 
@@ -15,23 +16,23 @@ import {
   fetchPaymentComboList,
   createOrUpdatePaymentCombo,
   deletePaymentCombo,
-} from '../../libs/payment-combo/actions';
+} from '#libs/payment-combo/actions';
 import {
   getPaymentComboListAvailableOnline,
   getPaymentComboListUnavailableOnline,
   getPaymentComboList,
-} from '../../libs/payment-combo/selectors';
+} from '#libs/payment-combo/selectors';
 import FuzeSearch from '../../components/FuzeSearch.component';
 
-import type { PaymentCombo } from '../../libs/payment-combo/types';
+import type { PaymentCombo } from '#libs/payment-combo/types';
 import PaymentComboFormDialogContainer from './PaymentComboFormDialog.container';
-import PaymentComboList from '../../libs/payment-combo/components/PaymentComboList.component';
+import PaymentComboList from '#libs/payment-combo/components/PaymentComboList.component';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 import { MaterialStyleType } from '../../utils/types';
 import type { OptionCallback } from '../../state/types';
-import PaymentComboListItem from '../../libs/payment-combo/components/PaymentComboListItem.component';
+import PaymentComboListItem from '#libs/payment-combo/components/PaymentComboListItem.component';
 import { RootState } from '../../reducers';
 
 type OwnProps = {
@@ -219,7 +220,7 @@ const styles = (theme: Theme) => ({
   search: { marginBottom: theme.spacing(2) },
 });
 
-export default compose(
+export default compose<any, Props>(
   withTranslation(['paymentCombo']),
   withStyles(styles),
   connect(

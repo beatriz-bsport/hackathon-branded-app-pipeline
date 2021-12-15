@@ -15,6 +15,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import Paper from '@material-ui/core/Paper';
 import { CUSTOM_FORM_DISPLAY_ON_SIGN_UP } from '@bsport/common/lib/master-data/custom-form';
 import { TFunction } from 'i18next';
+import { OptionCallback } from '../../state/types';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import withTitle from '../../hocs/with-title.hoc';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
@@ -375,17 +376,21 @@ const mapWithHandlers = {
     });
   },
   upsertCustomFormDisplayRule:
-    (props: OwnAndConnectedProps) => (display_rule: CustomFormDisplayRule) => {
+    (props: OwnAndConnectedProps) =>
+    (display_rule: CustomFormDisplayRule, options?: OptionCallback) => {
       props.setDisplayRuleSubmitting(true);
       props.upsertCustomFormDisplayRuleAction(
         { ...display_rule, custom_form_id: props.customForm.id },
         {
           onSuccess: () => {
+            if (options && options.onSuccess) options.onSuccess();
             props.setDisplayRuleSubmitting(false);
             props.setInitialDisplayRule(null);
             props.setOpenDisplayRuleDialog(false);
           },
           onError: () => {
+            if (options && options.onError) options.onError();
+
             props.setDisplayRuleSubmitting(false);
             props.setInitialDisplayRule(null);
           },

@@ -1,7 +1,6 @@
 // @flow
 
 /* eslint-disable no-underscore-dangle */
-
 import thunk from 'redux-thunk';
 // import * as Sentry from '@sentry/react';
 import { createStore, applyMiddleware, compose } from 'redux';

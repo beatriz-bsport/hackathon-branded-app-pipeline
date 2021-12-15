@@ -40,7 +40,6 @@ import {
   MultipleCheckboxField,
   RadioGroupField,
   Actions,
-  Submit,
   SwitchField,
   CheckboxField,
   IntegerField,
@@ -52,6 +51,8 @@ import {
   getCurrencyDisplayWithPrice,
   getCurrencyDisplay,
 } from '../../theme/selectors';
+
+import type { TrackPaymentPackProperties } from '../../../components/analytics/segment/utils';
 
 type Props = {
   categories: *[],
@@ -67,6 +68,10 @@ type Props = {
   paymentPackCategories: Array<PaymentPackCategory>,
   setFieldValue: (field_indentifier: string, value: string | null) => void,
   allTagsWithTagGroup: Array<Tag>,
+  segmentTrackSubmitIntentPaymentPack: (
+    properties: TrackPaymentPackProperties,
+  ) => void,
+  handleSubmit: (values: any) => void,
 };
 
 /*
@@ -653,11 +658,22 @@ export function PaymentPackForm(props: Props) {
               {props.onCancelText || t('form.paymentPack.actions.cancel')}
             </Button>
           ) : null}
-          <Submit disabled={isSubmitting} id="button_payment_pack_onsubmit">
+          <Button
+            variant="contained"
+            color="primary"
+            disabled={isSubmitting}
+            id="button_payment_pack_onsubmit"
+            onClick={() => {
+              props.handleSubmit(props.values);
+              props.segmentTrackSubmitIntentPaymentPack(
+                initial && initial.id ? { paymentpack: initial.id } : {},
+              );
+            }}
+          >
             {initial && initial.id
               ? t('form.paymentPack.actions.edit')
               : t('form.paymentPack.actions.create')}
-          </Submit>
+          </Button>
         </Actions>
       </Form>
       <LinearProgress

@@ -7,7 +7,7 @@ import 'intl/locale-data/jsonp/fr';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-
+import { compose } from 'recompose';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 
@@ -77,4 +77,4 @@ export class App extends Component<{}, {}> {
 
 export const storage = window.localStorage;
 
-export default withSentryErrorReporting(App);
+export default compose(withSentryErrorReporting)(App);

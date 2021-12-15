@@ -8,26 +8,59 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import type { CustomForm } from '../types';
+import {
+  withFormTrackingHOC,
+  WithSegmentAnalyticsFormTrackerHandlers,
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
+} from '#components/analytics/segment';
+import { OptionCallback } from '../../../state/types';
 
 type OwnProps = {
   open: boolean;
   handleClose: () => void;
-  onSubmit: (data: any) => void;
+  onSubmit: (data: any, options?: OptionCallback) => void;
   customFormSelected: CustomForm;
-};
+} & WithSegmentAnalyticsFormTrackerHandlers;
 type Props = OwnProps & WithTranslation;
 export const CustomFormCreatedialog = (props: Props) => {
   const { t, customFormSelected } = props;
   const name = customFormSelected ? customFormSelected.name : '';
   const [customFormName, setCustomFormName] = React.useState(name);
   React.useEffect(() => {
+    if (props.formAdd) {
+      props.formAdd(
+        customFormSelected && customFormSelected.id
+          ? { custom_form_id: customFormSelected.id }
+          : {},
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  React.useEffect(() => {
     customFormSelected && setCustomFormName(customFormSelected.name);
   }, [customFormSelected]);
   const handleSubmit = () => {
-    props.onSubmit({
-      ...(customFormSelected && customFormSelected),
-      name: customFormName,
-    });
+    props.formSubmitIntent &&
+      props.formSubmitIntent(
+        customFormSelected && customFormSelected.id
+          ? { custom_form_id: customFormSelected.id }
+          : {},
+      );
+    props.onSubmit(
+      {
+        ...(customFormSelected && customFormSelected),
+        name: customFormName,
+      },
+      {
+        onSuccess: () =>
+          props.formSuccess &&
+          props.formSuccess(
+            customFormSelected && customFormSelected.id
+              ? { custom_form_id: customFormSelected.id }
+              : {},
+          ),
+      },
+    );
   };
   return (
     <Dialog
@@ -49,7 +82,18 @@ export const CustomFormCreatedialog = (props: Props) => {
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={props.handleClose} color="secondary">
+        <Button
+          onClick={() => {
+            props.formCancel &&
+              props.formCancel(
+                customFormSelected && customFormSelected.id
+                  ? { custom_form_id: customFormSelected.id }
+                  : {},
+              );
+            props.handleClose();
+          }}
+          color="secondary"
+        >
           {t('cancel')}
         </Button>
         <Button
@@ -63,6 +107,9 @@ export const CustomFormCreatedialog = (props: Props) => {
     </Dialog>
   );
 };
-export default compose<any, OwnProps>(withTranslation('marketing'))(
-  CustomFormCreatedialog,
-);
+export default compose<any, OwnProps>(
+  withFormTrackingHOC({
+    object_identifier: SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.CUSTOMFORM,
+  }),
+  withTranslation('marketing'),
+)(CustomFormCreatedialog);

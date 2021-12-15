@@ -23,6 +23,7 @@ import { push as pushRouter } from 'connected-react-router';
 import Button from '@material-ui/core/Button';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import { OptionCallback } from '../../state/types';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 import FuzeSearch from '../../components/FuzeSearch.component';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
@@ -466,27 +467,12 @@ const mapDispatchToProps = {
   fetchAllCustomFormDisplayRule,
 };
 const mapWithHandlers = {
-  upsertCustomForm: (props: OwnAndConnectedProps) => (form: CustomForm) => {
-    props.setLoading(true);
-    if (form.id) {
-      props.upsertCustomFromAction(form, {
-        onSuccess: () => {
-          props.setOpenCreateDialog(false);
-          props.setLoading(false);
-        },
-        onError: () => {
-          props.setOpenCreateDialog(false);
-          props.setLoading(false);
-        },
-      });
-    } else {
-      props.upsertCustomFromAction(
-        {
-          ...form,
-          company: props.theme.company,
-          custom_form_field: [],
-        },
-        {
+  upsertCustomForm:
+    (props: OwnAndConnectedProps) =>
+    (form: CustomForm, options?: OptionCallback) => {
+      props.setLoading(true);
+      if (form.id) {
+        props.upsertCustomFromAction(form, {
           onSuccess: () => {
             props.setOpenCreateDialog(false);
             props.setLoading(false);
@@ -495,10 +481,29 @@ const mapWithHandlers = {
             props.setOpenCreateDialog(false);
             props.setLoading(false);
           },
-        },
-      );
-    }
-  },
+        });
+      } else {
+        props.upsertCustomFromAction(
+          {
+            ...form,
+            company: props.theme.company,
+            custom_form_field: [],
+          },
+          {
+            onSuccess: () => {
+              if (options && options.onSuccess) options.onSuccess();
+              props.setOpenCreateDialog(false);
+              props.setLoading(false);
+            },
+            onError: () => {
+              if (options && options.onError) options.onError();
+              props.setOpenCreateDialog(false);
+              props.setLoading(false);
+            },
+          },
+        );
+      }
+    },
   disableCustomForm: (props: OwnAndConnectedProps) => (formId: number) => {
     props.disableCustomFormAction(formId, {
       onSuccess: () => props.fetchAllCustomFormDisplayRule(),

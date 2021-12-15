@@ -7,6 +7,8 @@ export type Discount = {
   invoice: string;
   voucher: number;
   member: number;
+  reverted: boolean;
+  source_invoice: string;
 };
 
 export type Coupon = {

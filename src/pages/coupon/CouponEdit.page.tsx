@@ -142,6 +142,6 @@ export default compose(
   routerParamsToProps({ id: 'id:number' }),
   connector,
   withHandlers(mapWithHandlers),
-  withTranslation('title'),
+  withTranslation('titles'),
   withTitle(({ t }: { t: TFunction }) => t('coupon.couponEdit')),
 )(CouponCreate);

@@ -694,7 +694,8 @@
     "code": {
       "addCoupon": { "submit": "Valider", "cancel": "annuler", "label": "Code promo", "placeholder": "SPECIAL_RENTREE" }
     },
-    "search": "Rechercher un code promo"
+    "search": "Rechercher un code promo",
+    "reverted": "Facture annulée"
   },
   "dashboard": {
     "save": "Sauvegarder",

@@ -161,4 +161,5 @@ exports.default = {
     },
   },
   search: 'Rechercher un code promo',
+  reverted: 'Facture annulée',
 };

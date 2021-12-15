@@ -471,18 +471,17 @@ exports.default = {
     monthValidityHelper: 'S’ajoute au nombre de jours',
     yearValidityHelper: 'S’ajoute au nombre de jours et de mois',
     validForDuration: {
-      year: 'Cette carte sera valide pendant {{ duration_year }} ans, {{ duration_month }} mois et {{ duration_day }} jours à compter de la date d’achat',
+      year: 'Cette carte sera valide pendant {{ duration_year }} ans, {{ duration_month }} mois et {{ duration_day }} jours',
       yearNoDay:
-        'Cette carte sera valide pendant {{ duration_year }} ans et {{ duration_month }} mois à compter de la date d’achat',
+        'Cette carte sera valide pendant {{ duration_year }} ans et {{ duration_month }} mois',
       yearDayNoMonth:
-        'Cette carte sera valide pendant {{ duration_year }} ans et {{ duration_day }} jours à compter de la date d’achat',
+        'Cette carte sera valide pendant {{ duration_year }} ans et {{ duration_day }} jours',
       yearNoDayNoMonth:
-        'Cette carte sera valide pendant {{ duration_year }} à compter de la date d’achat',
+        'Cette carte sera valide pendant {{ duration_year }} ans',
       month:
-        'Cette carte sera valide pendant {{ duration_month }} mois et {{ duration_day }} jours à compter de la date d’achat',
-      monthNoDay:
-        'Cette carte sera valide pendant {{ duration_month }} mois à compter de la date d’achat',
-      day: 'Cette carte sera valide pendant {{ duration_day }} jours à compter de la date d’achat',
+        'Cette carte sera valide pendant {{ duration_month }} mois et {{ duration_day }} jours',
+      monthNoDay: 'Cette carte sera valide pendant {{ duration_month }} mois',
+      day: 'Cette carte sera valide pendant {{ duration_day }} jours',
     },
     migration:
       "Cette carte de cours est issue d'une migration, certains champs ne sont pas modifiable pour respecter l'historique. Les activités/catégories compatibles restent modifiables.",

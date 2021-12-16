@@ -109,9 +109,8 @@ const styles = () => ({
     zIndex: 2147483647,
     position: 'fixed',
     width: '100vw',
-    minHeight: '100vh',
+    minHeight: '100vh -webkit-fill-available',
     /* mobile viewport bug fix */
-    minHeight: '-webkit-fill-available',
     top: 0,
     bottom: 0,
     left: 0,

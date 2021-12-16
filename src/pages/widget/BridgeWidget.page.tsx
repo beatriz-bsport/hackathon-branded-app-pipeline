@@ -66,15 +66,17 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
   };
 
   fetchRegisteredOfferIds = () => {
-    this.props.fetchOfferRegisteredIds({
-      onSuccess: (offer_ids: Array<number>) =>
-        WidgetUtils.sendBridgeResponse(
-          WidgetMessageType.RESPONSE_REGISTERED_OFFER_IDS,
-          {
-            offer_ids,
-          },
-        ),
-    });
+    if (this.props.auth.authenticated) {
+      this.props.fetchOfferRegisteredIds({
+        onSuccess: (offer_ids: Array<number>) =>
+          WidgetUtils.sendBridgeResponse(
+            WidgetMessageType.RESPONSE_REGISTERED_OFFER_IDS,
+            {
+              offer_ids,
+            },
+          ),
+      });
+    }
   };
 
   componentDidUpdate(prevProps: Props) {

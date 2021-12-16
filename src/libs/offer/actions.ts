@@ -579,7 +579,7 @@ export const bookedGenderActions = {
   success: createAction('OFFER/BOOKED_GENDER/SUCCESS'),
 };
 
-export function fetchBookedGender(params: any, options: OptionCallback) {
+export function fetchBookedGender(params: any, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(bookedGenderActions.error(null));
     dispatch(bookedGenderActions.isLoading(true));

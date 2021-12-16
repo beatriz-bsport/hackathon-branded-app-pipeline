@@ -220,7 +220,6 @@ export const PaymentPackFormRestrictions = (props: Props) => {
             <Typography className={classes.title}>
               {t('addPaymentPack.activities')}
             </Typography>
-
             <MaterialUISelector
               options={[
                 ...metaActivityList?.map((metaActivity) => ({

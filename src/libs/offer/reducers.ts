@@ -289,10 +289,10 @@ export default handleActions<Immutable.Immutable<OfferState>>(
       );
     },
     [listRegisteredIds.error.toString()]: (state, { payload }) => {
-      return state.setIn(['loggedMemberBookedOffers', 'error'], payload);
+      return state.setIn(['registered', 'error'], payload);
     },
     [listRegisteredIds.isLoading.toString()]: (state, { payload }) => {
-      return state.setIn(['loggedMemberBookedOffers', 'loading'], payload);
+      return state.setIn(['registered', 'loading'], payload);
     },
     [listRegisteredIds.success.toString()]: (state, { payload }) => {
       return state.setIn(['registered', 'allIds'], payload);

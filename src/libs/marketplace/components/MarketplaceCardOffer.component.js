@@ -102,7 +102,13 @@ export const MarketplaceCardOffer = (props: Props) => {
           ) : (
             <div
               className={`${classes.offerTitleText} ${
-                props.isRegistered ? classes.reduceTitleWidth : ''
+                props.isRegistered ? classes.titleMarginRight : ''
+              } ${
+                props.isRegistered &&
+                (!offer.meta_activity ||
+                  (offer.meta_activity && !offer.meta_activity.is_broadcast))
+                  ? classes.titleMarginLeft
+                  : ''
               }`}
             >
               {offer.meta_activity && offer.meta_activity.is_broadcast ? (
@@ -114,10 +120,7 @@ export const MarketplaceCardOffer = (props: Props) => {
               {props.isRegistered && (
                 <div className={classes.tooltip}>
                   <Tooltip title={t('calendar.registered')}>
-                    <CheckCircleIcon
-                      className={classes.registrationIcon}
-                      color="primary"
-                    />
+                    <CheckCircleIcon color="primary" />
                   </Tooltip>
                 </div>
               )}
@@ -203,6 +206,7 @@ const useStyles = makeStyles((theme) => {
       alignItems: 'center',
       paddingTop: theme.spacing(1),
       paddingBottom: theme.spacing(1),
+      position: 'relative',
     },
     title: {
       paddingBottom: theme.spacing(1),
@@ -223,12 +227,15 @@ const useStyles = makeStyles((theme) => {
       marginRight: theme.spacing(1) / 2,
     },
     tooltip: {
-      right: '3%',
-      top: '5.5%',
+      right: 4,
+      top: 10,
       position: 'absolute',
     },
-    reduceTitleWidth: {
+    titleMarginRight: {
       marginRight: 30,
+    },
+    titleMarginLeft: {
+      marginLeft: 30,
     },
   };
 });

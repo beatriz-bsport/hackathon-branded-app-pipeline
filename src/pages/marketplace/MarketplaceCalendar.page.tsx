@@ -9,36 +9,36 @@ import isEqual from 'lodash/isEqual';
 import moment from 'moment-timezone';
 
 import { TFunction } from 'i18next';
-import withQueryParams from '../../hocs/with-query-params.hoc';
-import withReplaceQueryParams from '../../hocs/with-replace-query-params.hoc';
+import withQueryParams from '#hocs/with-query-params.hoc';
+import withReplaceQueryParams from '#hocs/with-replace-query-params.hoc';
 import { consumerPayWithConsumerPaymentPack as payWithConsumerPaymentPackAPI } from '../../api/payment';
-import { addItemToBasket as addItemToBasketAction } from '../../libs/checkout/actions';
-import MarketplaceCalendarComponent from '../../libs/marketplace/components/MarketplaceCalendar.component';
-import MarketplaceActivityDialog from '../../libs/marketplace/components/MarketplaceActivityDialog.component';
-import { getCurrentBasket } from '../../libs/checkout/selectors';
-import { getPaymentComboListAvailableOnline } from '../../libs/payment-combo/selectors';
+import { addItemToBasket as addItemToBasketAction } from '#libs/checkout/actions';
+import MarketplaceCalendarComponent from '#libs/marketplace/components/MarketplaceCalendar.component';
+import MarketplaceActivityDialog from '#libs/marketplace/components/MarketplaceActivityDialog.component';
+import { getCurrentBasket } from '#libs/checkout/selectors';
+import { getPaymentComboListAvailableOnline } from '#libs/payment-combo/selectors';
 
 import { DATE_FORMAT } from '../../utils/datetime';
-import themeSelectors from '../../libs/theme/selectors';
-import { getCoaches } from '../../libs/associated-coach/selectors';
-import { getMetaActivities } from '../../libs/meta-activity/selectors';
+import themeSelectors from '#libs/theme/selectors';
+import { getCoaches } from '#libs/associated-coach/selectors';
+import { getMetaActivities } from '#libs/meta-activity/selectors';
 
 import {
   getAllEstablishments,
   getAssociatedEstablishmentGroup,
   withEstablishment as groupWithEstablishment,
-} from '../../libs/establishment/selectors';
+} from '#libs/establishment/selectors';
 
 import {
   snackbarSuccess as snackbarSuccessActions,
   snackbarError as snackbarErrorActions,
-} from '../../libs/snackbar/actions';
+} from '#libs/snackbar/actions';
 
 import {
   fetchMarketplaceOfferList as fetchOfferListAction,
   fetchBookedGender as fetchBookedGenderAction,
   fetchOfferRegisteredIds as fetchOfferRegisteredIdsAction,
-} from '../../libs/offer/actions';
+} from '#libs/offer/actions';
 import {
   getMarketplaceOfferList,
   withMetaActivity,
@@ -46,25 +46,22 @@ import {
   withEstablishment,
   withGender,
   getBookedOffers,
-} from '../../libs/offer/selectors';
-import { fetchAssociatedCoachBulkFromCoachIds as fetchAssociatedCoachBulkFromCoachIdsAction } from '../../libs/associated-coach/actions';
+} from '#libs/offer/selectors';
+import { fetchAssociatedCoachBulkFromCoachIds as fetchAssociatedCoachBulkFromCoachIdsAction } from '#libs/associated-coach/actions';
 import {
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
   fetchAllEstablishmentGroup,
-} from '../../libs/establishment/actions';
-import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
-import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
+} from '#libs/establishment/actions';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
+import { fetchPaymentComboList } from '#libs/payment-combo/actions';
 
-import withTitle from '../../hocs/with-title.hoc';
+import withTitle from '#hocs/with-title.hoc';
 
-import Analytics from '../../components/analytics/Analytics.component';
+import Analytics from '#components/analytics/Analytics.component';
 import { RootState } from '../../reducers';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
-import { OfferFilterData } from '../../libs/offer/types';
-import {
-  Establishment,
-  EstablishmentGroup,
-} from '../../libs/establishment/types';
+import { OfferFilterData } from '#libs/offer/types';
+import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
 
 type OwnProps = {
   companyId: number;
@@ -92,6 +89,7 @@ type OwnProps = {
   goToBookOption?: (id: number, companyId: number) => void;
   store?: any; // for the widget only
   mapContainerClassName?: string;
+  authenticated?: boolean;
 };
 
 type ConnectProps = ReturnType<typeof mapStateToProps> &
@@ -156,7 +154,9 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
 
     this.props.fetchAllEstablishmentGroup(this.props.companyId);
 
-    this.props.fetchOfferRegisteredIds();
+    if (this.props.authenticated) {
+      this.props.fetchOfferRegisteredIds();
+    }
   };
 
   componentDidMount() {
@@ -313,6 +313,7 @@ const mapStateToProps = (state: RootState) => ({
     getAssociatedEstablishmentGroup,
   )(state),
   bookedOffers: getBookedOffers(state),
+  authenticated: state.auth.authenticated,
 });
 
 const mapDispatchToProps = {

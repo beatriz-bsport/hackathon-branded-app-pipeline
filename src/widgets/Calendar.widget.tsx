@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
+import { connect } from 'react-redux';
 import { Moment } from 'bsport-saas/src/i18n';
 import {
   MarketplaceCalendar,
@@ -11,20 +12,30 @@ import { Theme } from 'bsport-saas/src/libs/theme/types';
 
 import '../../vendor/map.css';
 
+import { RootState } from '../reducers';
 import { getEnv } from '../utils/env';
+import {
+  bridgeRequestRegisteredOfferIdList,
+  bridgeRequestAuthenticationStatus,
+} from '../libs/bridge/actions';
 
 const DATE_FORMAT = 'YYYY-MM-DD';
 
 const MarketplaceCalendarStyled = themify(MarketplaceCalendar);
 
-type Props = {
+type OwnProps = {
   companyId: number,
   config: MarketplaceCalendarData,
   store: any,
   theme: Theme,
   onWindowOpen: (url: string) => void,
   dialogMode?: number,
+  authenticated: boolean,
 };
+
+type Props = OwnProps &
+  ReturnType<typeof mapStateToProps> &
+  typeof mapDispatchToProps;
 
 type State = {
   filtersOpen: 'true' | '',
@@ -57,6 +68,19 @@ export class CalendarWidget extends Component<Props, State> {
       filters,
       selectedDate: Moment().format(DATE_FORMAT),
     };
+  }
+
+  componentDidMount() {
+    this.props.bridgeRequestAuthenticationStatus();
+    if (this.props.authenticated) {
+      this.props.bridgeRequestRegisteredOfferIdList();
+    }
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (!prevProps.authenticated && this.props.authenticated) {
+      this.props.bridgeRequestRegisteredOfferIdList();
+    }
   }
 
   setFilters = (key: any) => {
@@ -111,4 +135,17 @@ export class CalendarWidget extends Component<Props, State> {
   }
 }
 
-export default compose<any, Props>(CalendarDataContainer)(CalendarWidget);
+const mapStateToProps = (state: RootState) => ({
+  authenticated: state.bridge.authentication.authenticated,
+  bookedOffers: state.bridge.registeredOffers.ids_list,
+});
+
+const mapDispatchToProps = {
+  bridgeRequestAuthenticationStatus,
+  bridgeRequestRegisteredOfferIdList,
+};
+
+export default compose<any, Props>(
+  CalendarDataContainer,
+  connect(mapStateToProps, mapDispatchToProps),
+)(CalendarWidget);

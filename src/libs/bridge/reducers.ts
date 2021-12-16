@@ -7,6 +7,7 @@ import {
   authenticationStatusActions,
   memberTagActions,
   getVideoPlaybackUrlActions,
+  listRegisteredIds,
 } from './actions';
 
 export type BridgeState = {
@@ -38,6 +39,11 @@ export type BridgeState = {
       error: Error | null,
       accessDenied: boolean,
     },
+  },
+  registeredOffers: {
+    loading: boolean,
+    error: Error | null,
+    ids_list: Array<number>,
   },
 };
 
@@ -71,6 +77,11 @@ export const initialState: Immutable.Immutable<BridgeState> = Immutable<BridgeSt
         error: null,
         accessDenied: false,
       },
+    },
+    registeredOffers: {
+      loading: false,
+      error: null,
+      ids_list: [],
     },
   },
 );
@@ -127,6 +138,15 @@ export default handleActions<Immutable.Immutable<BridgeState>>(
         ['tag', 'tag_list'],
         [...payload.data.map((tag) => tag.id)],
       );
+    },
+    [listRegisteredIds.error.toString()]: (state, { payload }: any) => {
+      return state.setIn(['registeredOffers', 'error'], payload);
+    },
+    [listRegisteredIds.isLoading.toString()]: (state, { payload }) => {
+      return state.setIn(['registeredOffers', 'loading'], payload);
+    },
+    [listRegisteredIds.success.toString()]: (state, { payload }) => {
+      return state.setIn(['registeredOffers', 'ids_list'], payload);
     },
     [getVideoPlaybackUrlActions.error.toString()]: (
       state,

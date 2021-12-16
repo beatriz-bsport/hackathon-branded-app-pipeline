@@ -32,6 +32,15 @@ export function bridgeRequestAuthenticationStatus() {
   };
 }
 
+export function bridgeRequestRegisteredOfferIdList() {
+  return async (dispatch: any, getState: () => RootState) => {
+    if (!getState().bridge.authentication.authenticated) return;
+    dispatch(listRegisteredIds.isLoading(true));
+    dispatch(listRegisteredIds.error(null));
+    sendBridgeMessage(WidgetMessageType.REQUEST_REGISTERED_OFFER_IDS);
+  };
+}
+
 export function bridgeRequestBasketCount() {
   return async (dispatch: any, getState: () => RootState) => {
     if (getState().bridge.basket.loading) return;
@@ -85,6 +94,12 @@ export const authenticationStatusActions = {
   success: createAction('BRIDGE/AUTHENTICATION/SUCCESS'),
   isLoading: createAction('BRIDGE/AUTHENTICATION/LOADING'),
   error: createAction('BRIDGE/AUTHENTICATION/ERROR'),
+};
+
+export const listRegisteredIds = {
+  success: createAction('BRIDGE/LIST_REGISTERED/SUCCESS'),
+  error: createAction('BRIDGE/LIST_REGISTERED/ERROR'),
+  isLoading: createAction('BRIDGE/LIST_REGISTERED/IS_LOADING'),
 };
 
 export const bookingCountActions = {
@@ -141,6 +156,12 @@ export const handleBridgeMessage = (eventData: any) => (dispatch: any) => {
       dispatch(basketCountActions.error(null));
       break;
 
+    case WidgetMessageType.RESPONSE_REGISTERED_OFFER_IDS:
+      dispatch(listRegisteredIds.success(eventData.offer_ids));
+      dispatch(listRegisteredIds.isLoading(false));
+      dispatch(listRegisteredIds.error(null));
+      break;
+
     case WidgetMessageType.RESPONSE_BOOKINGS_COUNT:
       dispatch(bookingCountActions.success(eventData.count));
       dispatch(bookingCountActions.isLoading(false));
@@ -151,6 +172,7 @@ export const handleBridgeMessage = (eventData: any) => (dispatch: any) => {
     case WidgetMessageType.PAYMENT_SUCCESS:
       dispatch(closeUserInteractionPortal());
       dispatch(snackbarSuccess('snackbar:consumerPass.success'));
+      dispatch(bridgeRequestRegisteredOfferIdList());
       break;
 
     case WidgetMessageType.REQUEST_MEMBER_TAG:

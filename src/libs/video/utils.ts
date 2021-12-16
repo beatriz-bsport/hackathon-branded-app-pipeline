@@ -3,6 +3,7 @@ import moment from 'moment/moment';
 import { VideoPurchase } from '#libs/video/types';
 import { formatAsDatetime } from '../../utils/datetime';
 import { getPackDate } from '#libs/payment-packs/utils';
+import { getPassDate } from '#libs/private-service/utils';
 
 export const getExpirationDate = (videoPurchase: VideoPurchase) => {
   return moment(videoPurchase.date_created).add(
@@ -23,17 +24,25 @@ export const getHeading = (
 };
 
 export const getStatusText = (videoPurchase: VideoPurchase, t: TFunction) => {
-  const { consumer_payment_pack } = videoPurchase;
-  if (!consumer_payment_pack || !consumer_payment_pack.payment_pack) {
+  const { consumer_payment_pack, private_consumer_pass } = videoPurchase;
+  if (
+    (!consumer_payment_pack || !consumer_payment_pack.payment_pack) &&
+    (!private_consumer_pass || !private_consumer_pass.private_pass)
+  ) {
     return [[t('loading'), 'secondary']];
   }
 
-  const { payment_pack } = consumer_payment_pack;
+  let payment_pack = null;
+
+  if (consumer_payment_pack) payment_pack = consumer_payment_pack.payment_pack;
+  else payment_pack = private_consumer_pass.private_pass;
 
   if (!payment_pack) {
-    return [[t('loading'), 'secondary']];
+    if (!payment_pack) return [[t('loading'), 'secondary']];
   }
-  const [packDates, soonExpired] = getPackDate(consumer_payment_pack);
+  const [packDates, soonExpired] = consumer_payment_pack
+    ? getPackDate(consumer_payment_pack)
+    : getPassDate(private_consumer_pass);
   if (videoPurchase.video.rental_days > 0) {
     const expiration_date = getExpirationDate(videoPurchase);
     return [
@@ -60,7 +69,9 @@ export const getStatusText = (videoPurchase: VideoPurchase, t: TFunction) => {
       ],
     ];
   }
-  const { available_credits } = consumer_payment_pack;
+  const { available_credits } =
+    consumer_payment_pack ||
+    payment_pack.credits - private_consumer_pass?.used_credits;
   const { credits } = payment_pack;
   return [
     [payment_pack.name, 'secondary'],

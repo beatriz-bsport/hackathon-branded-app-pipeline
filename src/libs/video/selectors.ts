@@ -9,6 +9,7 @@ import { RootState } from '../../reducers';
 import { Video } from './types';
 import { getConsumerPacksWithPaymentPack } from '../consumer-payment-pack/selectors';
 import { SCT } from '../category/types';
+import { getPrivateConsumerPassDict } from '../private-service/selectors/private-consumer-pass';
 
 const getVideoListIds = (state: RootState) => state.video.list.allIds;
 const getVideoSearchListIds = (state: RootState) => state.video.search.allIds;
@@ -73,19 +74,18 @@ export const withCoach = memoize((selector: any) =>
     },
   ),
 );
-export const withPack = memoize((selector) =>
+export const withConsumerPass = memoize((selector) =>
   createSelector(
-    [selector, getConsumerPacksWithPaymentPack],
-    (purchasedVideos, consumerPackList) => {
+    [selector, getConsumerPacksWithPaymentPack, getPrivateConsumerPassDict],
+    (purchasedVideos, consumerPackList, privateConsumerPassDict) => {
       if (Array.isArray(purchasedVideos)) {
         return purchasedVideos.map((pv) => ({
           ...pv,
           consumer_payment_pack: consumerPackList.find(
             (cpp) => cpp.id === pv.consumer_payment_pack,
           ),
-          private_consumer_pass: consumerPackList.find(
-            (cpp) => cpp.id === pv.private_consumer_pass,
-          ),
+          private_consumer_pass:
+            privateConsumerPassDict[pv.private_consumer_pass],
         }));
       }
       if (purchasedVideos) {
@@ -94,9 +94,8 @@ export const withPack = memoize((selector) =>
           consumer_payment_pack: consumerPackList.find(
             (cpp) => cpp.id === purchasedVideos.consumer_payment_pack,
           ),
-          private_consumer_pass: consumerPackList.find(
-            (cpp) => cpp.id === purchasedVideos.private_consumer_pass,
-          ),
+          private_consumer_pass:
+            privateConsumerPassDict[purchasedVideos.private_consumer_pass],
         };
       }
       return purchasedVideos;
@@ -131,15 +130,15 @@ const _getMember = (_, id: number) => id;
 
 export const getVideoPurchasedByMember = createSelector(
   [getVideoPurchases, _getMember],
-  (PurchasedVideos, memberId) => {
-    return PurchasedVideos.filter((v) => v.member_id === memberId);
+  (videoPurchaseList, memberId) => {
+    return videoPurchaseList.filter((v) => v.member_id === memberId);
   },
 );
 
 export const getAssociatedVideoPurchasedByMember = createSelector(
   [getAssociatedPurchases, _getMember],
-  (PurchasedVideos, memberId) => {
-    return PurchasedVideos.filter((v) => v.member_id === memberId);
+  (videoPurchaseList, memberId) => {
+    return videoPurchaseList.filter((v) => v.member_id === memberId);
   },
 );
 

@@ -176,6 +176,7 @@ export class ConsumerPackRowItem extends Component<Props> {
     }
     const { credits, unlimited } = paymentPack;
     const { available_credits, reverted } = consumerPack;
+    const available_pass_credits = credits - consumerPack.used_credits;
 
     if (reverted) {
       return <Button>{t('reverted')}</Button>;
@@ -247,7 +248,11 @@ export class ConsumerPackRowItem extends Component<Props> {
       <div style={{ display: 'flex', flexDirection: 'row' }}>
         <IconButton
           aria-label="change-credits"
-          disabled={available_credits >= credits}
+          disabled={
+            available_credits
+              ? available_credits >= credits
+              : available_pass_credits >= credits
+          }
           color="primary"
           onClick={(ev) => {
             ev.preventDefault();
@@ -260,6 +265,11 @@ export class ConsumerPackRowItem extends Component<Props> {
         <IconButton
           aria-label="change-credits"
           color="secondary"
+          disabled={
+            available_credits
+              ? available_credits === 0
+              : available_pass_credits === 0
+          }
           onClick={(ev) => {
             ev.preventDefault();
             ev.stopPropagation();

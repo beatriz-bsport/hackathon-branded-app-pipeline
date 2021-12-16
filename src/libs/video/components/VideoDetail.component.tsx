@@ -18,28 +18,37 @@ import InvoiceListItem from '../../invoice/InvoiceListItem.component';
 import { Invoice } from '../../invoice/types';
 
 type Props = {
-  classes: Object,
-  t: TFunction,
-  loading: boolean,
-  videoPurchase?: VideoPurchase,
-  associatedVideos?: Array<VideoPurchase>,
-  incrementCredit: (id: number) => void,
-  decrementCredit: (id: number) => void,
-  onConsumerPassSelected: (id: number) => void,
+  classes: Object;
+  t: TFunction;
+  loading: boolean;
+  videoPurchase?: VideoPurchase;
+  relatedVideoPurchaseList?: Array<VideoPurchase>;
+  incrementCredit: (id: number) => void;
+  decrementCredit: (id: number) => void;
+  incrementPrivatePassCredit: (id: number) => void;
+  decrementPrivatePassCredit: (id: number) => void;
+  onConsumerPassSelected: (id: number) => void;
+  onPrivatePassSelected: (id: number) => void;
   analytics: {
-    data: VideoAnalyticsData,
-    loading: boolean,
-  },
-  invoice?: Invoice,
-  onInvoiceClick?: (uuid: string) => void,
-  getInvoice: (videoPurchaseId: number) => void,
+    data: VideoAnalyticsData;
+    loading: boolean;
+  };
+  invoice?: Invoice;
+  onInvoiceClick?: (uuid: string) => void;
+  fetchVideoPurchaseInvoice: (videoPurchase: VideoPurchase) => void;
 };
 
-export class VideoDetail extends Component<Props> {
-  state = {
-    currentPage: 1,
-    selectedVideoPurchase: this.props.videoPurchase,
-  };
+type State = {
+  currentPage: number;
+};
+
+export class VideoDetail extends Component<Props, State> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentPage: 1,
+    };
+  }
 
   componentDidUpdate(prevProps: Props) {
     if (
@@ -51,7 +60,6 @@ export class VideoDetail extends Component<Props> {
     ) {
       this.setState({
         currentPage: 1,
-        selectedVideoPurchase: this.props.videoPurchase,
       });
     }
   }
@@ -59,16 +67,29 @@ export class VideoDetail extends Component<Props> {
   onPageChange(pageSwitch: number) {
     this.setState((prevState) => {
       const newPage = prevState.currentPage + pageSwitch;
-      this.props.getInvoice(this.props.associatedVideos[newPage - 1]);
+      this.props.fetchVideoPurchaseInvoice(
+        this.props.relatedVideoPurchaseList[newPage - 1],
+      );
       return {
         currentPage: newPage,
-        selectedVideoPurchase: this.props.associatedVideos[newPage - 1],
       };
     });
   }
 
+  getSelectedVideoPurchase = () => {
+    if (
+      this.state.currentPage &&
+      this.state.currentPage <=
+        (this.props.relatedVideoPurchaseList?.length || 0)
+    ) {
+      return this.props.relatedVideoPurchaseList[this.state.currentPage - 1];
+    }
+    return null;
+  };
+
   render() {
     const { classes, t } = this.props;
+    const selectedVideoPurchase = this.getSelectedVideoPurchase();
     return (
       <React.Fragment>
         {this.props.loading && <LinearProgress />}
@@ -78,20 +99,13 @@ export class VideoDetail extends Component<Props> {
               {t('details.title')}
             </Typography>
             <VodVideoAnalytics
-              loading={
-                this.props.analytics.loading ||
-                !this.state.selectedVideoPurchase
-              }
+              loading={this.props.analytics.loading || !selectedVideoPurchase}
               data={this.props.analytics.data}
-              videoDateCreated={
-                this.state.selectedVideoPurchase
-                  ? this.state.selectedVideoPurchase.video?.date_created
-                  : null
-              }
+              videoDateCreated={selectedVideoPurchase?.video?.date_created}
             />
           </div>
         ) : null}
-        {this.state.selectedVideoPurchase?.video?.rental_days > 0 && (
+        {selectedVideoPurchase?.video?.rental_days > 0 && (
           <div className={classes.detailContainer}>
             <div className={classes.rental}>
               <div className={classes.rentalContainer}>
@@ -100,7 +114,7 @@ export class VideoDetail extends Component<Props> {
                   {t('video.rental.forRent')}
                 </Typography>
               </div>
-              {this.props.associatedVideos?.length && (
+              {this.props.relatedVideoPurchaseList?.length && (
                 <div className={classes.rental}>
                   <IconButton
                     size="small"
@@ -110,14 +124,14 @@ export class VideoDetail extends Component<Props> {
                     <NavigateBeforeIcon fontSize="small" />
                   </IconButton>
                   <Typography variant="body2" className={classes.rentText}>
-                    {`${this.state.currentPage}/${this.props.associatedVideos.length}`}
+                    {`${this.state.currentPage}/${this.props.relatedVideoPurchaseList.length}`}
                   </Typography>
                   <IconButton
                     className={classes.rentText}
                     size="small"
                     disabled={
                       this.state.currentPage ===
-                      this.props.associatedVideos.length
+                      this.props.relatedVideoPurchaseList.length
                     }
                     onClick={() => this.onPageChange(1)}
                   >
@@ -131,26 +145,22 @@ export class VideoDetail extends Component<Props> {
               variant="body2"
               color="textSecondary"
             >
-              {`${moment(this.state.selectedVideoPurchase.date_created).format(
+              {`${moment(selectedVideoPurchase.date_created).format(
                 'L',
-              )} -> ${moment(this.state.selectedVideoPurchase.date_created)
-                .add(this.state.selectedVideoPurchase.video.rental_days, 'days')
+              )} -> ${moment(selectedVideoPurchase.date_created)
+                .add(selectedVideoPurchase.video.rental_days, 'days')
                 .format('L')}`}
             </Typography>
             <Typography
-              color={
-                !this.state.selectedVideoPurchase.available
-                  ? 'error'
-                  : 'primary'
-              }
+              color={!selectedVideoPurchase.available ? 'error' : 'primary'}
             >
-              {!this.state.selectedVideoPurchase.available
+              {!selectedVideoPurchase.available
                 ? t('video.rental.expired')
                 : t('video.rental.valid')}
             </Typography>
             <Typography color="textSecondary" variant="body2">
               {`${t('video.rental.buyDate')} : ${moment(
-                this.state.selectedVideoPurchase.date_created,
+                selectedVideoPurchase.date_created,
               ).format('LT')}`}
             </Typography>
           </div>
@@ -171,31 +181,28 @@ export class VideoDetail extends Component<Props> {
           </div>
         ) : null}
 
-        {this.state.selectedVideoPurchase.consumer_payment_pack ? (
+        {selectedVideoPurchase?.consumer_payment_pack && (
           <div className={classes.detailContainer}>
             <Typography component="h3" variant="h6">
               {t('details.consumerPaymentPackTitle')}
             </Typography>
             <Paper className={classes.paperContainer}>
               <ConsumerPackRowItem
-                consumerPack={
-                  this.state.selectedVideoPurchase.consumer_payment_pack
-                }
+                consumerPack={selectedVideoPurchase.consumer_payment_pack}
                 paymentPack={
-                  this.state.selectedVideoPurchase.consumer_payment_pack
-                    ? this.state.selectedVideoPurchase.consumer_payment_pack
-                        .payment_pack
+                  selectedVideoPurchase.consumer_payment_pack
+                    ? selectedVideoPurchase.consumer_payment_pack.payment_pack
                     : null
                 }
                 onClick={() =>
                   this.props.onConsumerPassSelected(
-                    this.state.selectedVideoPurchase.consumer_payment_pack.id,
+                    selectedVideoPurchase.consumer_payment_pack.id,
                   )
                 }
                 hideConsumer
                 incrementCredit={() =>
                   this.props.incrementCredit(
-                    this.state.selectedVideoPurchase.consumer_payment_pack.id,
+                    selectedVideoPurchase.consumer_payment_pack.id,
                   )
                 }
                 decrementCredit={() =>
@@ -206,7 +213,40 @@ export class VideoDetail extends Component<Props> {
               />
             </Paper>
           </div>
-        ) : null}
+        )}
+        {selectedVideoPurchase?.private_consumer_pass && (
+          <div className={classes.detailContainer}>
+            <Typography component="h3" variant="h6">
+              {t('details.consumerPaymentPackTitle')}
+            </Typography>
+            <Paper className={classes.paperContainer}>
+              <ConsumerPackRowItem
+                consumerPack={selectedVideoPurchase.private_consumer_pass}
+                paymentPack={
+                  selectedVideoPurchase.private_consumer_pass
+                    ? selectedVideoPurchase.private_consumer_pass.private_pass
+                    : null
+                }
+                onClick={() =>
+                  this.props.onPrivatePassSelected(
+                    selectedVideoPurchase.private_consumer_pass.id,
+                  )
+                }
+                hideConsumer
+                incrementCredit={() =>
+                  this.props.incrementPrivatePassCredit(
+                    selectedVideoPurchase.private_consumer_pass.id,
+                  )
+                }
+                decrementCredit={() =>
+                  this.props.decrementPrivatePassCredit(
+                    selectedVideoPurchase.private_consumer_pass.id,
+                  )
+                }
+              />
+            </Paper>
+          </div>
+        )}
       </React.Fragment>
     );
   }

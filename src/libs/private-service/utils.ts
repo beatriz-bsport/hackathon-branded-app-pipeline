@@ -12,6 +12,7 @@ import {
   PrivateServiceWithSlots,
   CompatiblePrivateService,
 } from './types';
+import { formatAsDate } from '../../utils/datetime';
 
 export const getMissingResourceForBooking = (
   service: PrivateService,
@@ -264,6 +265,16 @@ export const filterPrivateService = (
     return include ? cpsById.includes(ps.id) : !cpsById.includes(ps.id);
   }
   return !include;
+};
+
+export const getPassDate = (privateConsumerPass: PrivateConsumerPass) => {
+  const ending_date = getExpirationDate(privateConsumerPass);
+  return [
+    `${formatAsDate(privateConsumerPass.date_bought)}→${formatAsDate(
+      ending_date,
+    )}`,
+    moment(ending_date).isBefore(moment().add(6, 'day')),
+  ];
 };
 
 export const PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME = 5;

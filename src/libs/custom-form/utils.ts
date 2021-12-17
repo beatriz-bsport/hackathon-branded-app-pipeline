@@ -32,7 +32,7 @@ import {
 import type {
   CustomFormField,
   CustomFormFilledAPI,
-  CustomFormFieldAnswerAPI,
+  FormikCustomFormFieldAnswerAPI,
   Layout,
 } from './types';
 import { Member, MemberAddress, UserProfile } from '../member/types';
@@ -159,7 +159,7 @@ export function checkDisabledHasAnswer(
       const testAnswerDataNotNull = customFormFilledData[
         form_filled_id
       ]?.custom_form_field_filled.find(
-        (field_answer: CustomFormFieldAnswerAPI) =>
+        (field_answer: FormikCustomFormFieldAnswerAPI) =>
           field_answer.custom_form_field_id === field.id,
       );
       if (
@@ -271,7 +271,7 @@ export const insertUserProfileDataToAnswer = (
 
 export const insertMemberProfileDataToAnswer = (
   customFormField: CustomFormField,
-  memberProfileData: Member &
+  memberProfileData: Omit<Member, 'address'> &
     MemberAddress & {
       accept_email: boolean;
       accept_sms: boolean;

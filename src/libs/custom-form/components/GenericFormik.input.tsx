@@ -24,12 +24,13 @@ export const TextField = (props: TextFieldProps) => {
   const { variant, label, required, disabled } = props;
   const [field, meta] = useField(props);
   const classes = useTextFieldStyles();
+
   return (
     <Field>
       {() => (
         <MuiTextField
           className={classes.field}
-          error={!!(meta.touched && meta.error)}
+          error={!!meta.error}
           variant={variant}
           label={label}
           required={required}
@@ -38,6 +39,9 @@ export const TextField = (props: TextFieldProps) => {
           onChange={field.onChange}
           value={field.value}
           name={field.name}
+          inputProps={{
+            'data-testid': 'input-test',
+          }}
         />
       )}
     </Field>

@@ -98,6 +98,7 @@ export type CustomFormFilledAPI = {
   custom_form_id: number;
   member_id: number;
   date_created: string;
+  custom_form_field_filled: Array<FormikCustomFormFieldAnswerAPI>;
   custom_form_field: Array<FormikCustomFormFieldAnswerAPI>;
   is_draft: boolean;
 };

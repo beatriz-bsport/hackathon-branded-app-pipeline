@@ -45,9 +45,9 @@ function FuzzySearch<T>(props: Props<T>) {
       />
       <Paper
         className={
-          searchResult.length > 0 &&
-          search !== '' &&
-          classes.searchPaperDisplayed
+          searchResult.length > 0 && search !== ''
+            ? classes.searchPaperDisplayed
+            : ''
         }
       >
         <Collapse in={searchResult.length > 0 && search !== ''}>

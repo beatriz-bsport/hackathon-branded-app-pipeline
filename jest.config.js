@@ -3,14 +3,15 @@ module.exports = {
 
   snapshotSerializers: ['enzyme-to-json/serializer'],
   testMatch: [
+    '<rootDir>/src/**/__tests__/**/*.{js,jsx}',
     '<rootDir>/src/**/__tests__/**/*.{ts,tsx}',
     '<rootDir>/src/**/?(*.)(spec|test).{ts,tsx}',
   ],
   testEnvironment: 'node',
   testURL: 'http://localhost',
   transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest',
-    '^.+\\.(js|jsx)$': 'babel-jest',
+    // '^.+\\.(ts|tsx)$': 'ts-jest',
+    '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
   },
   transformIgnorePatterns: [
     '[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|ts|tsx)$',
@@ -29,10 +30,12 @@ module.exports = {
     'ts',
     'tsx',
   ],
+  // setupFilesAfterEnv: ['@testing-library/react/cleanup-after-each'],
   globals: {
     'ts-jest': {
-      // will not check types deep but only inside test.ts file
+      //   // will not check types deep but only inside test.ts file
       isolatedModules: true,
+      babelConfig: true,
     },
     window: {
       localStorage: {

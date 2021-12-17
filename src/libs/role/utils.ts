@@ -46,7 +46,7 @@ export const checkRequiredPermissions = (
   return hasPermissions;
 };
 
-export const parseRestrictedPath = (p) => {
+export const parseRestrictedPath = (p: any) => {
   return p
     .replace('https://backoffice.bsport.io')
     .replace('https://backoffice.staging.bsport.io');

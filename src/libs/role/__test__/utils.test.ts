@@ -15,6 +15,20 @@ const permissionA: Permission = {
     search: true,
   },
   restrictedPaths: [],
+  navigationMenu: {
+    search: true,
+    dashboard: true,
+    calendar: true,
+    schedule: true,
+    myClub: true,
+    products: true,
+    payments: true,
+    marketing: true,
+    digitalOffer: true,
+    member: true,
+    reporting: true,
+    settings: true,
+  },
 };
 
 describe('TEST OFFER UTILS', () => {

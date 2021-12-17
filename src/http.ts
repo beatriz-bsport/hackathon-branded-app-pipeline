@@ -1,5 +1,6 @@
 import axios from 'axios';
 import moment from 'moment-timezone';
+import * as Sentry from '@sentry/react';
 
 import Config from './config';
 import { setSessionId } from './sentry/session';
@@ -85,9 +86,17 @@ export async function postBase(uri: string, data: Object, headers: Object) {
     'Content-Type': 'application/json',
   };
 
-  return axios.post(uri, data, {
-    headers: Object.assign(baseHeaders, headers),
-  });
+  try {
+    const response = await axios.post(uri, data, {
+      headers: Object.assign(baseHeaders, headers),
+    });
+    return response;
+  } catch (err) {
+    if (err?.response?.status >= 500 && err?.response?.status < 600) {
+      Sentry.captureException(err);
+    }
+    throw err;
+  }
 }
 export async function post(uri: string, data?: Object, headers?: Object) {
   const baseHeaders = {
@@ -98,10 +107,17 @@ export async function post(uri: string, data?: Object, headers?: Object) {
     'Content-Type': 'application/json',
   };
 
-  const response = await axios.post(uri, data, {
-    headers: Object.assign(baseHeaders, headers),
-  });
-  return response;
+  try {
+    const response = await axios.post(uri, data, {
+      headers: Object.assign(baseHeaders, headers),
+    });
+    return response;
+  } catch (err) {
+    if (err?.response?.status >= 500 && err?.response?.status < 600) {
+      Sentry.captureException(err);
+    }
+    throw err;
+  }
 }
 
 export async function put(uri: string, data: Object, headers: Object) {
@@ -113,9 +129,17 @@ export async function put(uri: string, data: Object, headers: Object) {
     'Content-Type': 'application/json',
   };
 
-  return axios.put(uri, data, {
-    headers: Object.assign(baseHeaders, headers),
-  });
+  try {
+    const response = await axios.put(uri, data, {
+      headers: Object.assign(baseHeaders, headers),
+    });
+    return response;
+  } catch (err) {
+    if (err?.response?.status >= 500 && err?.response?.status < 600) {
+      Sentry.captureException(err);
+    }
+    throw err;
+  }
 }
 
 export async function patch(uri: string, data: Object, headers: Object) {
@@ -127,9 +151,17 @@ export async function patch(uri: string, data: Object, headers: Object) {
     'Content-Type': 'application/json',
   };
 
-  return axios.patch(uri, data, {
-    headers: Object.assign(baseHeaders, headers),
-  });
+  try {
+    const response = await axios.patch(uri, data, {
+      headers: Object.assign(baseHeaders, headers),
+    });
+    return response;
+  } catch (err) {
+    if (err?.response?.status >= 500 && err?.response?.status < 600) {
+      Sentry.captureException(err);
+    }
+    throw err;
+  }
 }
 
 export async function delete_(uri: string, data, headers: Object) {
@@ -140,20 +172,36 @@ export async function delete_(uri: string, data, headers: Object) {
     Accept: 'application/json',
     'Content-Type': 'application/json',
   };
-  return axios({
-    url: uri,
-    method: 'delete',
-    headers: Object.assign(baseHeaders, headers),
-    data,
-  });
+  try {
+    const response = await axios({
+      url: uri,
+      method: 'delete',
+      headers: Object.assign(baseHeaders, headers),
+      data,
+    });
+    return response;
+  } catch (err) {
+    if (err?.response?.status >= 500 && err?.response?.status < 600) {
+      Sentry.captureException(err);
+    }
+    throw err;
+  }
 }
 
 export async function get(uri: string, headers: {} = {}) {
-  return axios({
-    url: uri,
-    method: 'get',
-    headers,
-  });
+  try {
+    const response = await axios({
+      url: uri,
+      method: 'get',
+      headers,
+    });
+    return response;
+  } catch (err) {
+    if (err?.response?.status >= 500 && err?.response?.status < 600) {
+      Sentry.captureException(err);
+    }
+    throw err;
+  }
 }
 
 export async function getAuth(uri: string, token?: string) {

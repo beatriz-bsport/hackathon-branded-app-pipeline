@@ -574,7 +574,7 @@ export default compose(
         return {
           checkUserExists: debounce(({ email, phonenumber }) => {
             const q = email
-              ? `email=${email}`
+              ? `email=${encodeURIComponent(email)}`
               : `phonenumber=${encodeURIComponent(phonenumber)}`;
             getAuth(`${API_URI}/saas/members/members/exists/?${q}`).catch(
               (error) => {

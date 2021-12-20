@@ -1,0 +1,28 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import ProgramSelectorDialog from "./ProgramSelectorDialog.component"
+import PerformanceTrackingFactoryBot from "../../factories";
+const randomProgramList=PerformanceTrackingFactoryBot.Program.create(10)
+
+<Meta title='Library/PerformanceTracking/Program/SelectorDialog'
+    component={ProgramSelectorDialog}
+    argTypes ={{
+    }}/>
+
+export const Template = (args) => <ProgramSelectorDialog {...args} />;
+
+#  Program Selector Dialog
+
+<Canvas>
+    <Story 
+    name='ProgramSelectorDialog'
+    args={{
+        programList:randomProgramList,
+        isDialogChooseProgramOpen:true,
+        createMemberProgram:(program)=>{console.log(program);},
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story='ProgramSelectorDialog' />
+

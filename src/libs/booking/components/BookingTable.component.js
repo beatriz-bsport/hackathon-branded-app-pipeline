@@ -7,6 +7,7 @@ import List from '@material-ui/core/List';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withTranslation, TFunction } from 'react-i18next';
 
+import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import type { Booking } from '../types';
 // eslint-disable-next-line
 import type { PaymentPack } from '../../../libs/payment-packs/types';
@@ -14,6 +15,7 @@ import type { PaymentPack } from '../../../libs/payment-packs/types';
 import BookingItemForManagerV2 from './BookingItemForManagerV2.component';
 import { Member } from '../../member/types';
 import { Tag, TagGroup } from '../../tag/types';
+import type { PerformanceTrackingProgram } from '../../performance-tracking/types';
 
 type Props = {
   classes: Object,
@@ -37,6 +39,9 @@ type Props = {
   spotSchedulingEnabled?: boolean,
   onClickChangeSpot: (booking: Booking) => void,
   showVaccinationStatus: boolean,
+  updateMemberMetricValue: (data: any, options?: any) => void,
+  createMemberProgram: (data: any, options?: any) => void,
+  programList: Array<PerformanceTrackingProgram>,
 };
 
 export class BookingTable extends PureComponent<Props> {
@@ -56,6 +61,7 @@ export class BookingTable extends PureComponent<Props> {
       handleRevert,
       onQuickInvoiceClick,
       bookings,
+      members,
       onClickChangeSpot,
     } = this.props;
 
@@ -77,6 +83,10 @@ export class BookingTable extends PureComponent<Props> {
         </Typography>
       );
     }
+    const membersWithStatusOk = bookings
+      .filter((b) => b.booking_status_code === BOOKING_STATUS_OK.id)
+      .map((b) => members.find((m) => m.id === b.member));
+
     return (
       <List disablePadding dense>
         {[
@@ -93,6 +103,7 @@ export class BookingTable extends PureComponent<Props> {
             key={b.id}
             heading={heading}
             booking={b}
+            bookings={bookings}
             showRevertBookingButton={showRevertBookingButton}
             handleRevert={() => handleRevert(b)}
             discardBookingAttendance={() => discardBookingAttendance(b.id)}
@@ -100,6 +111,10 @@ export class BookingTable extends PureComponent<Props> {
             spotSchedulingEnabled={this.props.spotSchedulingEnabled}
             onClickChangeSpot={onClickChangeSpot}
             showVaccinationStatus={this.props.showVaccinationStatus}
+            updateMemberMetricValue={this.props.updateMemberMetricValue}
+            createMemberProgram={this.props.createMemberProgram}
+            programList={this.props.programList}
+            membersWithStatusOk={membersWithStatusOk}
           />
         ))}
       </List>

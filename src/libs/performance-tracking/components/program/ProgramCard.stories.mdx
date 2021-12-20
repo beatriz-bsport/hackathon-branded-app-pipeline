@@ -1,0 +1,42 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import ProgramCard from "./ProgramCard.component"
+import PerformanceTrackingFactoryBot from "../../factories";
+const randomProgram=PerformanceTrackingFactoryBot.Program.createOne()
+const randomProgramDefault=PerformanceTrackingFactoryBot.Program.createOne({is_default:true})
+
+<Meta title='Library/PerformanceTracking/Program/Card'
+    component={ProgramCard}
+    argTypes ={{
+    }}/>
+
+export const Template = (args) => <ProgramCard {...args} />;
+
+#  Program Card
+
+<Canvas>
+    <Story 
+    name='ProgramCard'
+    args={{
+        program:randomProgram
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story='ProgramCard' />
+
+
+#  Program Card Default
+
+<Canvas>
+    <Story 
+    name='ProgramCardDefault'
+    args={{
+        program:randomProgramDefault
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story='ProgramCardDefault' />
+

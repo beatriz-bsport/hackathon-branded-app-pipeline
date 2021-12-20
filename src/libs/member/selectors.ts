@@ -6,6 +6,12 @@ import { getMembership } from '../membership/selectors';
 import { Member } from './types';
 import { getTagGroupsDict, getTagsDict } from '../tag/selectors';
 import { getAllAssociatedEstablishmentGroupDict } from '../establishment/selectors';
+import {
+  getMemberProgramByMemberDict,
+  getMemberProgramDict,
+  getMetricDict,
+  getProgramDict,
+} from '#libs/performance-tracking/selector';
 
 export const getMemberDetailData = (state: RootState) =>
   state.member.detailData;
@@ -84,6 +90,61 @@ export const withTags = memoize(
           });
         }
         return [];
+      },
+    ),
+);
+
+export const withMemberProgram = memoize(
+  (selector: (state: RootState) => Array<Member>) =>
+    createSelector(
+      [
+        selector,
+        getMemberProgramByMemberDict,
+        getMemberProgramDict,
+        getProgramDict,
+        getMetricDict,
+      ],
+      (
+        memberDetailsList,
+        memberProgramByMemberDict,
+        memberProgramDict,
+        programDict,
+        metricDict,
+      ) => {
+        if (!memberDetailsList) return [];
+        if (Array.isArray(memberDetailsList)) {
+          return memberDetailsList.map((member) => {
+            return {
+              ...member,
+              memberProgramList: memberProgramByMemberDict[member.id]
+                ?.map((id) => memberProgramDict[id])
+                ?.filter((mp) => !mp.is_disabled)
+                ?.filter((mp) => programDict[mp.program]?.is_disabled === false)
+                .map((memberProgram) => ({
+                  ...memberProgram,
+                  program: programDict[memberProgram.program],
+
+                  metric_record: {
+                    ...memberProgram.metric_record,
+                    general: {
+                      ...memberProgram?.metric_record?.general,
+                      metrics: memberProgram?.metric_record?.general?.metric_ids
+                        ?.filter((id) => metricDict[id])
+                        .map(
+                          (id) =>
+                            memberProgram?.metric_record?.general?.metrics[id],
+                        )
+                        .map((metricRecord) => ({
+                          ...metricRecord,
+                          metric: metricDict[metricRecord.metric_id],
+                        })),
+                    },
+                  },
+                })),
+            };
+          });
+        }
+        return null;
       },
     ),
 );

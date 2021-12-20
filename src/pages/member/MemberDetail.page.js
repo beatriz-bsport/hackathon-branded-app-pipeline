@@ -20,12 +20,13 @@ import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../l
 import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
 import { fetchManagerFiltersSettings } from '../../libs/dashboard/actions';
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
-
+import { fetchProgram as fetchProgramAction } from '#libs/performance-tracking/actions';
 import {
   getMember,
   getMemberDetail,
   getMemberArchiveStatus,
 } from '../../libs/member/selectors';
+import { getProgramList } from '#libs/performance-tracking/selector';
 import {
   fetchCountObjects as fetchCountObjectsAction,
   archiveMember,
@@ -105,6 +106,10 @@ const MemberDetailGiftcard = asyncComponent(() =>
   import('./MemberDetailGiftcard.page'),
 );
 
+const MemberDetailProgram = asyncComponent(() =>
+  import('../performance-tracking/MemberProgramList.page'),
+);
+
 type Props = {
   theme: Theme,
   t: TFunction,
@@ -150,6 +155,8 @@ type Props = {
   memberToArchive: Member,
   memberArchiveStatus: Array<number>,
   memberArchiveLoading: boolean,
+  fetchProgram: (params: any) => void,
+  programList: Array<PerformanceTrackingProgram>,
 };
 
 export class MemberDetail extends React.Component<Props> {
@@ -163,6 +170,9 @@ export class MemberDetail extends React.Component<Props> {
       this.props.fetchMemberCustomFormFilled(this.props.id);
       this.props.fetchEstablishments();
       this.props.fetchMember(this.props.id);
+      this.props.fetchProgram({
+        is_disabled: false,
+      });
     }
   }
 
@@ -235,6 +245,9 @@ export class MemberDetail extends React.Component<Props> {
               } `}
               value="vod"
             />
+            {this.props.programList?.length !== 0 && (
+              <Tab label={t('menu.programs')} value="performance-tracking" />
+            )}
             <Tab
               label={`${t('menu.paymentPack')} ${
                 infosOfMember && infosOfMember.nb_consumer_payment_pack !== 0
@@ -303,6 +316,14 @@ export class MemberDetail extends React.Component<Props> {
               exact
               path="/member/:id/vod/:vodId/"
               component={MemberDetailVod}
+            />
+            <Route
+              path="/member/:id/performance-tracking/:memberProgramId/"
+              component={MemberDetailProgram}
+            />
+            <Route
+              path="/member/:id/performance-tracking/"
+              component={MemberDetailProgram}
             />
             <Route exact path="/member/:id/vod" component={MemberDetailVod} />
             <Route
@@ -474,6 +495,7 @@ export default compose(
   routerParamsToProps({ tab: 'tab', id: 'id:number' }),
   connect(
     (state, { id }) => ({
+      programList: getProgramList(state),
       theme: state.theme.theme,
       member: getMember(state, id),
       infosOfMember: state.member.count.data,
@@ -490,6 +512,7 @@ export default compose(
       memberArchiveStatus: getMemberArchiveStatus(state, id),
       memberArchiveLoading: state.member.archive.loading,
       memberToArchive: getMemberDetail(state, id),
+      fetchProgram: fetchProgramAction,
     }),
     {
       fetchAllPaymentPacks,

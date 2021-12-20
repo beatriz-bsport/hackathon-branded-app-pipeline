@@ -28,6 +28,7 @@ import { RelationshipState } from '../libs/relationship/types';
 
 import { BackgroundTaskState } from '../libs/background-task/types';
 import { RootState } from '../reducers';
+import { PerformanceTrackingState } from '#libs/performance-tracking/types';
 
 export type State = {
   paymentRules: PaymentRulesState;
@@ -58,6 +59,7 @@ export type State = {
   marketingNotification: MarketingNotificationState;
   dashboardSettings: DashboardSettingsState;
   relationship: RelationshipState;
+  performanceTracking: PerformanceTrackingState;
 };
 export type Action = SearchAction | AuthAction;
 

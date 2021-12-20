@@ -43,7 +43,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import RedeemIcon from '@material-ui/icons/Redeem';
 import Badge from '@material-ui/core/Badge';
-
+import OfflineBolt from '@material-ui/icons/OfflineBolt';
 import { colors } from '@bsport/common/lib/colors';
 import LanguageButton from '../button/LanguageButton.component';
 import LOGO_ASSET from '../../public/images/banner_lowres.png';
@@ -72,6 +72,7 @@ type Props = {
   membership: ?Membership,
   subscriptionPendingActionCount: number,
   infosOfMember: dict,
+  programList: Array<PerformanceTrackingProgram>,
 };
 
 type State = {
@@ -403,6 +404,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         to: '/giftcard/',
         icon: RedeemIcon,
         text: t('navigation.giftcard'),
+      },
+      this.props.programList.length !== 0 && {
+        to: '/program/',
+        icon: OfflineBolt,
+        text: t('navigation.statistic'),
       },
       {
         to: '/profile/',

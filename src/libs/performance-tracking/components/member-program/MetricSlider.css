@@ -1,0 +1,132 @@
+
+
+.mood-slider{
+    width: 300px;
+    height: 300px;
+    min-width: 300px;
+    min-height: 300px;
+    position: relative;
+}
+.mood-slider:hover>.machineContainerSlide{
+    transform: translateY(-80%) 
+
+}
+.circleCenter{
+    width: 50%;
+    height: 50%;
+    background-color:#FAFAFA;
+    position: absolute;
+    top:25%;
+    left:25%;
+    border-radius: 100%;
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.value{
+    font-size: 24px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.placeholder{
+    color:rgba(0, 0, 0, 0.38);
+    font-weight: 500;
+    max-width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.MuiButtonBase-root.MuiIconButton-root.minus{
+    position: absolute;
+}
+.MuiButtonBase-root.MuiIconButton-root.add{
+    position: absolute;
+}
+.minus{
+    padding: 0%;
+    width: 10%;
+    height: 10%;
+    background-color:#FAFAFA;
+    position: absolute;
+    top:75%;
+    left:15%;
+    border-radius: 100%;
+    background: #FFFFFF;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25), -2px -2px 4px rgba(255, 255, 255, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.add{
+    padding: 0%;
+    width: 10%;
+    height: 10%;
+    background-color:#FAFAFA;
+    position: absolute;
+    top:75%;
+    left:75%;
+    border-radius: 100%;
+    background: #FFFFFF;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25), -2px -2px 4px rgba(255, 255, 255, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.machine{
+    background-color:#424242;
+    max-width: 100%;
+    overflow: auto;
+    text-overflow: ellipsis;
+    color:#FFFFFF;
+    box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.25), inset -2px -2px 4px rgba(255, 255, 255, 0.25);
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    min-width: 36px;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.machineContainer{
+
+    position: absolute;
+    top:10%;
+    left:70%;
+    color:#FFFFFF;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+
+}
+
+.machineContainerSlide{
+    width: 90%;
+    height: 50px;
+    position: absolute;
+    top:10%;
+    left:0%;
+    color:#FFFFFF;
+    padding: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.removeIcon{
+    width: 70%;
+    height: 70%;
+}

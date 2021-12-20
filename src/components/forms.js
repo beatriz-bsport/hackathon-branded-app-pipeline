@@ -513,18 +513,33 @@ export const ColorField = (props: ColorFieldProps) => {
     />
   );
 };
-
+const IconFieldStyle = makeStyles((theme) => ({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(1),
+  },
+}));
 export const IconField = (props: { name: string }) => {
+  const classes = IconFieldStyle();
   return (
-    <Field
-      {...props}
-      render={({ field, form: { setFieldValue } }) => (
-        <IconInput
-          icon={field.value}
-          onChange={(icon) => setFieldValue(props.name, icon)}
-        />
+    <Field {...props}>
+      {({ field, form: { setFieldValue, setFieldTouched } }) => (
+        <div className={classes.container}>
+          <IconInput
+            icon={field.value}
+            onChange={(icon) => setFieldValue(props.name, icon)}
+            setFieldTouched={() => setFieldTouched(props.name, true)}
+          />
+          <ErrorMessage
+            name={props.name}
+            render={(message) => (
+              <Typography color="error">{message}</Typography>
+            )}
+          />
+        </div>
       )}
-    />
+    </Field>
   );
 };
 

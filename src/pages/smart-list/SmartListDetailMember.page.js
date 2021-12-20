@@ -99,7 +99,7 @@ import {
   getAvailablePrivateServices,
 } from '../../libs/private-service/selectors/private-service';
 import type { PrivateService } from '../../libs/private-service/types';
-import { showInformativeDialog } from '../../components/GenericDialog/CustomDialogs';
+import { showInformativeDialog } from '../../components/genericDialog/CustomDialogs';
 import type { SmartList } from '#libs/smart-list/types';
 import type { OptionCallback } from '../../state/types';
 

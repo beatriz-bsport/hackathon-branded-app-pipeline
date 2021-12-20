@@ -61,7 +61,7 @@ import {
   getRoomBlueprintsForEstablishment,
 } from '../../libs/spot-scheduling/selector';
 import { RoomBlueprint } from '../../libs/spot-scheduling/types';
-import { showDeleteDialog } from '../../components/GenericDialog/CustomDialogs';
+import { showDeleteDialog } from '../../components/genericDialog/CustomDialogs';
 import CanvasPreviewDialog from '../../libs/spot-scheduling/component/SpotPreview/CanvasPreviewDialog.Component';
 
 const BOOKING_CREATION_NOTIFICATION = 2;

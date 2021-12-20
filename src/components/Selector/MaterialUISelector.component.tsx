@@ -29,7 +29,7 @@ import { v4 as uuidv4 } from 'uuid';
 export type OptionTypeBase =
   | {
       label: string;
-      value: string;
+      value: string | number;
     }
   | {
       label: string;
@@ -40,6 +40,7 @@ type BaseProps<T extends OptionTypeBase> = {
   id?: number | string;
   options?: T[];
   inScrollBar?: boolean;
+  isMenuListPaddingDisabled?: boolean;
   chipsRenderer?: (props: {
     data: T;
     onDelete: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
@@ -58,12 +59,11 @@ export type OwnProps<T extends OptionTypeBase> =
   | ({
       onChange: (values: T[]) => void;
       isMulti: true;
-
-      value: T[];
+      value?: T[];
     } & BaseProps<T>)
   | ({
-      isMulti: false | undefined;
-      value: T | null;
+      isMulti?: false;
+      value?: T | null;
       onChange: (values: T) => void;
     } & BaseProps<T>);
 
@@ -82,6 +82,7 @@ function MaterialUISelector<T extends OptionTypeBase>(props: Props<T>) {
     itemRenderer,
     onChange,
     inScrollBar,
+    isMenuListPaddingDisabled,
     ...restProps
   } = props;
   const classes = useStyles();
@@ -104,6 +105,7 @@ function MaterialUISelector<T extends OptionTypeBase>(props: Props<T>) {
   if (inScrollBar) {
     menuPortalTraget = document.querySelector(`#selector_${uuid.current}`);
   }
+
   return (
     <div id={`selector_${uuid.current}`} style={{ position: 'relative' }}>
       <Select
@@ -111,6 +113,7 @@ function MaterialUISelector<T extends OptionTypeBase>(props: Props<T>) {
         value={value}
         isMulti={isMulti}
         inScrollBar={inScrollBar}
+        isMenuListPaddingDisabled={isMenuListPaddingDisabled}
         classes={classes}
         onChange={handleChange}
         options={options}
@@ -359,7 +362,12 @@ function MenuList<T extends OptionTypeBase>(
 ) {
   return (
     <components.MenuList {...props} getStyles={resetStyle}>
-      <MenuListMaterial dense>{props.children}</MenuListMaterial>
+      <MenuListMaterial
+        disablePadding={props.selectProps.isMenuListPaddingDisabled}
+        dense
+      >
+        {props.children}
+      </MenuListMaterial>
     </components.MenuList>
   );
 }

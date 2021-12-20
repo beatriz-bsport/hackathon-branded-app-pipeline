@@ -1,0 +1,41 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import MemberProgramList from './ConsumerProgram.page'
+import PerformanceTrackingFactoryBot from '../../libs/performance-tracking/factories'
+const randomProgramList=PerformanceTrackingFactoryBot.Program.create(10)
+const randomMemberProgramList=PerformanceTrackingFactoryBot.MemberProgram.create(10)
+
+<Meta title='Pages/PerformanceTracking/MemberProgramList'
+    component={MemberProgramList}
+    argTypes ={{
+    }}/>
+
+export const Template = (args) => <MemberProgramList {...args} />;
+
+#  Member Program List Page
+
+<Canvas>
+    <Story 
+    name='MemberProgramList'
+    args={{
+        programList:randomProgramList,
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story='MemberProgramList' />
+
+#  Member Program List Page With Member Program
+
+<Canvas>
+    <Story 
+    name='MemberProgramListWithMemberProgram'
+    args={{
+        programList:randomProgramList,
+        memberProgramList:randomMemberProgramList,
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story='MemberProgramListWithMemberProgram' />

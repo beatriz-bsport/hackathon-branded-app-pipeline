@@ -65,7 +65,11 @@ type Props = {
   paymentGroupId: ?number,
   paymentGroupPriceCts: ?number,
   requestClientSecret: (paymengEngine) => void,
+  createMemberProgram: (data: any, options?: any) => void,
+  programList: Array<PerformanceTrackingProgram>,
+  updateMemberMetricValue: (data: any, options: OptionCallback) => void,
 };
+
 export const PrivateBookingCard = (props: Props) => {
   const { private_booking, loading } = props;
   const { t } = useTranslation(['privateService']);
@@ -204,6 +208,9 @@ export const PrivateBookingCard = (props: Props) => {
           </ListItemSecondaryAction>
         </ListItem>
         <MemberMinimalListItem
+          updateMemberMetricValue={props.updateMemberMetricValue}
+          createMemberProgram={props.createMemberProgram}
+          programList={props.programList}
           member={private_booking.member}
           onClick={() => props.goToMember(private_booking.member.id)}
           showVaccinationStatus={props.showVaccinationStatus}
@@ -223,7 +230,6 @@ export const PrivateBookingCard = (props: Props) => {
             establishment={private_booking.establishment}
           />
         ) : null}
-
         {props.unpaidInvoiceList && props.unpaidInvoiceList.length ? (
           <>
             <Typography className={classes.bookingsHeader} variant="h6">
@@ -245,6 +251,19 @@ export const PrivateBookingCard = (props: Props) => {
           </>
         ) : null}
       </div>
+      {private_booking.coach ? (
+        <CoachListItem
+          onCoachSelected={() =>
+            props.goToCoachCalendar(private_booking.coach.id)
+          }
+          noEdit
+          coach={private_booking.coach}
+          onEditCoach={() => props.setIsUpdateCoachFormOpen(true)}
+        />
+      ) : null}
+      {private_booking.establishment ? (
+        <EstablishmentListItem establishment={private_booking.establishment} />
+      ) : null}
       {props.onDelete &&
       props.private_booking.booking_status_code === BOOKING_STATUS_OK.id ? (
         <div className={classes.buttonContainer}>

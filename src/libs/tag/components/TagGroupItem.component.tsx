@@ -36,7 +36,7 @@ import { FormControl } from '@material-ui/core';
 import { withTheme } from '@material-ui/styles';
 import { Tag, TagGroup } from '../types';
 import { DeepPartial, MaterialStyleType } from '../../../utils/types';
-import { showDeleteDialog } from '../../../components/GenericDialog/CustomDialogs';
+import { showDeleteDialog } from '../../../components/genericDialog/CustomDialogs';
 import TagForm from './TagForm.component';
 import MuiIcon from '../../../components/MuiIcon.component';
 

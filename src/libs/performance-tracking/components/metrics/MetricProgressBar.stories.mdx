@@ -1,0 +1,25 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import MetricProgressBar from "./MetricProgressBar.component"
+import PerformanceTrackingFactoryBot from "../../factories";
+const randomMetric=PerformanceTrackingFactoryBot.Metric.createOne()
+
+<Meta title='Library/PerformanceTracking/Metric/ProgressBar'
+    component={MetricProgressBar}
+    argTypes ={{
+    }}/>
+
+export const Template = (args) => <MetricProgressBar {...args} />;
+
+#  Metric Progress Bar
+
+<Canvas>
+    <Story 
+    name='MetricProgressBar'
+    args={{
+        metric:randomMetric
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story='MetricProgressBar' />

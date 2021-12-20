@@ -1,0 +1,42 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import MemberProgramDetailDialog from './MemberProgramDetail.dialog'
+import PerformanceTrackingFactoryBot from "../../factories";
+const randomMemberProgramList=PerformanceTrackingFactoryBot.MemberProgram.create(3)
+const randomProgramList=PerformanceTrackingFactoryBot.Program.create(3)
+
+<Meta title='Library/PerformanceTracking/MemberProgram/MemberProgramDetailDialog'
+    component={MemberProgramDetailDialog}
+    argTypes ={{
+    }}/>
+
+export const Template = (args) => <MemberProgramDetailDialog {...args} />;
+
+# MemberProgramDetail Dialog
+
+<Canvas>
+    <Story 
+    name='MemberProgramDetailDialog'
+    args={{
+        memberProgramList:randomMemberProgramList,
+        memberName:'Alphonse',
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story='MemberProgramDetail' />
+
+# MemberProgramDetail No Program Detail Dialog
+
+<Canvas>
+    <Story 
+    name='MemberProgramDetailWithNoProgramDialog'
+    args={{
+        memberName:'Alphonse',
+        programList:randomProgramList,
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story='MemberProgramDetailWithNoProgramDialog' />

@@ -35,6 +35,7 @@ import CustomEventCard from '../components/custom-event/CustomEventCard.componen
 import {
   getPrivateBooking,
   withRelatedFields,
+  composeBookingsWithMemberProgram,
 } from '../selectors/private-booking';
 import {
   fetchPrivateBooking as fetchPrivateBookingAction,
@@ -103,6 +104,12 @@ import type { OptionCallback } from '../../../state/types';
 import type { Invoice } from '#libs/invoice/types';
 import type { PaymentMethod } from '#libs/payment/types';
 import { requestClientSecret as requestClientSecretAPI } from '#libs/invoice/api';
+import { getProgramList } from '#libs/performance-tracking/selector';
+import {
+  updateMemberMetricValue as updateMemberMetricValueAction,
+  createMemberProgram as createMemberProgramAction,
+  fetchMetric as fetchMetricAction,
+} from '#libs/performance-tracking/actions';
 
 type Props = {
   offerId: number,
@@ -181,6 +188,9 @@ type Props = {
   fetchMemberPaymentMethod: (memberId: number) => void,
   invoiceToBill: Invoice,
   setInvoiceToBill: (invoice: ?Invoice) => void,
+  updateMemberMetricValue: (data: any, options: OptionCallback) => void,
+  createMemberProgram: (data: any, options?: any) => void,
+  programList: Array<PerformanceTrackingProgram>,
 };
 type State = {
   clientSecretLoading: boolean,
@@ -268,6 +278,9 @@ export class CalendarEventDetail extends React.Component<Props, State> {
         />
       ) : (
         <PrivateBookingCard
+          updateMemberMetricValue={this.props.updateMemberMetricValue}
+          createMemberProgram={this.props.createMemberProgram}
+          programList={this.props.programList}
           onRestore={() => this.props.restorePrivateBooking(privateBooking.id)}
           onDelete={this.props.openDisablePrivateBookingModal}
           private_booking={privateBooking}
@@ -692,10 +705,9 @@ export default compose(
     (state, { privateBookingId, offerId, customEventId }) => ({
       roomBlueprints: getAvailableRoomBlueprints(state),
       allRoomBlueprints: getRoomBlueprints(state),
-      privateBooking: withRelatedFields(getPrivateBooking)(
-        state,
-        privateBookingId,
-      ),
+      privateBooking: composeBookingsWithMemberProgram(
+        withRelatedFields(getPrivateBooking),
+      )(state, privateBookingId),
       privateBookingLoading:
         state.privateService.privateBooking.createOrUpdate.loading,
       theme: state.theme.theme,
@@ -709,6 +721,7 @@ export default compose(
       payment_method_available_manager:
         state.theme.theme.payment_method_available_manager,
       companyId: state.theme.theme.company,
+      programList: getProgramList(state),
     }),
     {
       retrieveOfferAsManager: retrieveOfferAsManagerAction,
@@ -733,9 +746,24 @@ export default compose(
       fetchInvoiceList: fetchInvoiceListAction,
       snackbarSuccess,
       fetchPaymentMethodListAction: fetchPaymentMethodList,
+      fetchMetric: fetchMetricAction,
+      updateMemberMetricValue: updateMemberMetricValueAction,
+      createMemberProgram: createMemberProgramAction,
     },
   ),
   withHandlers({
+    createMemberProgram:
+      ({ programList, createMemberProgram, fetchMetric }) =>
+      (data) => {
+        createMemberProgram(data, {
+          onSuccess: (memberProgram) => {
+            const program = programList.find(
+              (p) => p.id === memberProgram.program,
+            );
+            fetchMetric({ id__in: program.metric_list });
+          },
+        });
+      },
     updatePrivateBookingDatetime:
       ({
         updatePrivateBookingDatetime,

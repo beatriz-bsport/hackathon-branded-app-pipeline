@@ -9,8 +9,12 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
+import { OfflineBolt } from '@material-ui/icons';
+import { Dialog, makeStyles } from '@material-ui/core';
+import { Theme } from '@material-ui/core/styles';
 import VaccinationBadge from './VaccinationBadge.component';
 import AvatarWithBadge from './AvatarWithBadge.component';
+import MemberProgramDetailDialog from '../../performance-tracking/components/member-program/MemberProgramDetail.dialog';
 
 type Props = {
   member: Member<Tags<TagGroup>>,
@@ -19,8 +23,15 @@ type Props = {
   firstBooking?: boolean,
   anonimize?: boolean,
   showVaccinationStatus: boolean,
+  createMemberProgram: (data: any, options?: any) => void,
+  programList: Array<PerformanceTrackingProgram>,
+  updateMemberMetricValue: (data: any, options?: any) => void,
+  showMemberProgram?: boolean,
 };
 export const MemberMinimalListItem = (props: Props) => {
+  const classes = useStyles();
+  const [isMemberProgramDetailDialogOpen, setIsMemberProgramDetailDialogOpen] =
+    React.useState(false);
   const { t } = useTranslation('member');
   if (!props.member) {
     return (
@@ -47,42 +58,73 @@ export const MemberMinimalListItem = (props: Props) => {
       </VaccinationBadge>
     );
   return (
-    <ListItem
-      button={!!props.onClick}
-      onClick={props.onClick ? () => props.onClick(props.member.id) : null}
-    >
-      <ListItemAvatar>
-        <Wrapper>
-          <AvatarWithBadge member={props.member} />
-        </Wrapper>
-      </ListItemAvatar>
-      <ListItemText
-        primary={
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
-            <Typography>
-              {props.member.name + (props.firstBooking ? ' ★' : '')}
-            </Typography>
-            <Typography color="secondary" variant="caption">
-              {props.member.archived ? `${'\u00A0'}(${t('archived')})` : ''}
-            </Typography>
-          </div>
-        }
-        secondary={secondaryInfo}
-      />
-      <ListItemSecondaryAction>
-        {props.onEdit ? (
-          <IconButton onClick={props.onEdit}>
-            <EditIcon />
-          </IconButton>
-        ) : null}
-      </ListItemSecondaryAction>
-    </ListItem>
+    <>
+      <ListItem
+        className={classes.listItem}
+        button={!!props.onClick}
+        onClick={props.onClick ? () => props.onClick(props.member.id) : null}
+      >
+        <ListItemAvatar>
+          <Wrapper>
+            <AvatarWithBadge member={props.member} />
+          </Wrapper>
+        </ListItemAvatar>
+        <ListItemText
+          primary={
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              <Typography>
+                {props.member.name + (props.firstBooking ? ' ★' : '')}
+              </Typography>
+              <Typography color="secondary" variant="caption">
+                {props.member.archived ? `${'\u00A0'}(${t('archived')})` : ''}
+              </Typography>
+            </div>
+          }
+          secondary={secondaryInfo}
+        />
+        <ListItemSecondaryAction>
+          {props.showMemberProgram && props.programList?.length !== 0 && (
+            <IconButton
+              onClick={() => setIsMemberProgramDetailDialogOpen(true)}
+            >
+              <OfflineBolt />
+            </IconButton>
+          )}
+          {props.onEdit ? (
+            <IconButton onClick={props.onEdit}>
+              <EditIcon />
+            </IconButton>
+          ) : null}
+        </ListItemSecondaryAction>
+      </ListItem>
+      <Dialog open={isMemberProgramDetailDialogOpen} maxWidth="lg">
+        <MemberProgramDetailDialog
+          closeDialog={() => setIsMemberProgramDetailDialogOpen(false)}
+          memberName={props.member.name + (props.firstBooking ? ' ★' : '')}
+          memberProgramList={props.member.memberProgramList}
+          updateMemberMetricValue={props.updateMemberMetricValue}
+          createMemberProgram={(id) =>
+            props.createMemberProgram({
+              program: id,
+              member: props.member.id,
+            })
+          }
+          programList={props.programList}
+        />
+      </Dialog>
+    </>
   );
 };
+
+const useStyles = makeStyles<Theme>((theme) => ({
+  listItem: {
+    minWidth: theme.spacing(50),
+  },
+}));
 
 export default MemberMinimalListItem;

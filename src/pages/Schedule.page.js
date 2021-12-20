@@ -33,7 +33,11 @@ import {
 import AvailabilityUpdateResourceChoserDialog from '../libs/private-service/components/resource/AvailabilityUpdateResourceChoserDialog.component';
 
 import PrivateCalendarWithControls from '../libs/private-service/components/PrivateCalendarWithControls.component';
-
+import {
+  fetchMemberProgram as fetchMemberProgramAction,
+  fetchProgram as fetchProgramAction,
+  fetchMetric as fetchMetricAction,
+} from '#libs/performance-tracking/actions';
 import {
   createOrUpdateCustomEvent as createOrUpdateCustomEventActions,
   fetchCustomEventList as fetchCustomEventListAction,
@@ -356,6 +360,9 @@ export default compose(
       updateManagerRessourcesFilters: updateManagerRessourcesFiltersAction,
       disableAvailabilitySlotMultipleResource,
       enableAvailabilitySlotMultipleResource,
+      fetchMemberProgram: fetchMemberProgramAction,
+      fetchProgram: fetchProgramAction,
+      fetchMetric: fetchMetricAction,
     },
   ),
   withHandlers({
@@ -397,7 +404,14 @@ export default compose(
         setPeriodFilter({ start: date_start, end: date_end });
       },
     fetchPrivateBookingList:
-      ({ fetchPrivateBookings, fetchMemberBulk, periodFilter }) =>
+      ({
+        fetchPrivateBookings,
+        fetchMemberBulk,
+        periodFilter,
+        fetchMemberProgram,
+        fetchProgram,
+        fetchMetric,
+      }) =>
       () => {
         fetchPrivateBookings(
           {
@@ -411,6 +425,41 @@ export default compose(
                 fetchMemberBulk({
                   id__in: uniq(bookingList.map((b) => b.member)),
                 });
+                fetchMemberProgram(
+                  {
+                    member__in: uniq(bookingList.map((b) => b.member)),
+                  },
+                  {
+                    onSuccess: (data) => {
+                      const programsToFetch = uniq(
+                        data.results.map(
+                          (memberProgram) => memberProgram.program,
+                        ),
+                      );
+                      fetchProgram(
+                        { is_disabled: false },
+                        {
+                          onSuccess: (programData) => {
+                            const metricToFetch = programsToFetch
+                              .map((id) =>
+                                programData.find(
+                                  (program) => program.id === id,
+                                ),
+                              )
+                              .reduce(
+                                (acc, program) =>
+                                  acc.concat(program.metric_list),
+                                [],
+                              );
+                            if (metricToFetch?.length !== 0) {
+                              fetchMetric({ id__in: metricToFetch });
+                            }
+                          },
+                        },
+                      );
+                    },
+                  },
+                );
               }
             },
           },

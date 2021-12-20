@@ -20,6 +20,7 @@ import muiIconNames from './muiIcon/muiIconNames';
 type OwnProps = {
   onChange: (icon: string) => void;
   icon: string;
+  setFieldTouched: () => void;
 };
 
 type Props = OwnProps &
@@ -27,7 +28,7 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>>;
 
 export function IconInput(props: Props) {
-  const { classes, t, onChange } = props;
+  const { classes, t, onChange, setFieldTouched } = props;
   const [openPopup, setOpenPopup] = React.useState(false);
   const buttonRef = useRef(null);
   const itemRenderer = (data: { icon: string }) => {
@@ -52,14 +53,19 @@ export function IconInput(props: Props) {
   };
 
   return (
-    <>
+    <div>
       <Typography color="textSecondary" className={classes.title}>
         {t('form.tag.icon')}
       </Typography>
 
       {props.icon?.length !== 0 ? (
         <div className={classes.icons}>
-          <ButtonBase onClick={() => setOpenPopup(!openPopup)} ref={buttonRef}>
+          <ButtonBase
+            onClick={() => {
+              setOpenPopup(!openPopup);
+            }}
+            ref={buttonRef}
+          >
             <MuiIcon icon={props.icon} />
           </ButtonBase>
           <ButtonBase onClick={() => onChange('')}>
@@ -68,7 +74,10 @@ export function IconInput(props: Props) {
         </div>
       ) : (
         <ButtonBase
-          onClick={() => setOpenPopup(!openPopup)}
+          onClick={() => {
+            setOpenPopup(!openPopup);
+            setFieldTouched();
+          }}
           className={classes.button}
           ref={buttonRef}
         >
@@ -104,7 +113,7 @@ export function IconInput(props: Props) {
           />
         </Paper>
       </Popover>
-    </>
+    </div>
   );
 }
 

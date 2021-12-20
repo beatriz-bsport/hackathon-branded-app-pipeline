@@ -21,7 +21,7 @@ import SCT from '../../category/components/SCT.component';
 import { Video } from '../types';
 import { Coach } from '../../associated-coach/types';
 import { MaterialStyleType } from '../../../utils/types';
-import { showDeleteDialog } from '../../../components/GenericDialog/CustomDialogs';
+import { showDeleteDialog } from '../../../components/genericDialog/CustomDialogs';
 
 const VIDEO_STATUS_CREATED = 100;
 

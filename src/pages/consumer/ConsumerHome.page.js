@@ -5,11 +5,11 @@ import { connect } from 'react-redux';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import withStyles from '@material-ui/core/styles/withStyles';
-
 import {
   push as pushRouter,
   replace as replaceRouter,
 } from 'connected-react-router';
+import { getProgramList } from '#libs/performance-tracking/selector';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import Analytics from '../../components/analytics/Analytics.component';
 import withTitle from '../../hocs/with-title.hoc';
@@ -53,6 +53,8 @@ import { fetchSubscriptionListByMember } from '../../libs/subscription/actions';
 import { getSubscriptionByMemberPendingAction } from '../../libs/subscription/selectors';
 import MemberShipValidationWrapper from './MemberShipValidationWrapper.component';
 
+import { fetchProgram as fetchProgramAction } from '#libs/performance-tracking/actions';
+
 const ConsumerDashboard = asyncComponent(() =>
   import('./ConsumerDashboard.page'),
 );
@@ -70,7 +72,9 @@ const ConsumerSubscription = asyncComponent(() =>
   import('./ConsumerSubscription.page'),
 );
 const ConsumerProfile = asyncComponent(() => import('./ConsumerProfile.page'));
-
+const ConsumerProgram = asyncComponent(() =>
+  import('../performance-tracking/ConsumerProgram.page'),
+);
 type Props = {
   membership: ?Membership,
   companyId: number,
@@ -113,6 +117,9 @@ type Props = {
 
   fetchMembershipByCompany: (id: number) => void,
   membershipCount: number,
+
+  fetchProgram: (params: any) => void,
+  programList: Array<PerformanceTrackingProgram>,
 };
 
 export class ConsumerHome extends React.Component<Props> {
@@ -139,6 +146,10 @@ export class ConsumerHome extends React.Component<Props> {
         page_size: 10,
       });
     }
+    this.props.fetchProgram({
+      is_disabled: false,
+      company: this.props.companyId,
+    });
     this.props.fetchMembershipListAsConsumer({ page_size: 1 });
   }
 
@@ -161,6 +172,7 @@ export class ConsumerHome extends React.Component<Props> {
           <>
             {this.props.membership ? (
               <ConsumerDrawer
+                programList={this.props.programList}
                 disconnect={this.props.disconnect}
                 infosOfMember={this.props.infosOfMember}
                 buildUrl={this.props.buildUrl}
@@ -231,9 +243,18 @@ export class ConsumerHome extends React.Component<Props> {
                       render={this.attachConsumerProps(ConsumerGiftcard)}
                     />
                     <Route
+                      path="/c/:companyId/program/:memberProgramId/"
+                      render={this.attachConsumerProps(ConsumerProgram)}
+                    />
+                    <Route
+                      path="/c/:companyId/program/"
+                      render={this.attachConsumerProps(ConsumerProgram)}
+                    />
+                    <Route
                       path="/c/:companyId/home/"
                       render={this.attachConsumerProps(ConsumerDashboard)}
                     />
+
                     <Route
                       path="/c/:companyId/"
                       render={this.attachConsumerProps(ConsumerDashboard)}
@@ -268,6 +289,7 @@ export default compose(
   connect(
     (state, { companyId, from_direct_booking }) => ({
       membership: getMembership(state, companyId),
+      programList: getProgramList(state),
       membershipCount: state.membership.asConsumer.count,
       isValidating: state.membership.memberShipValidation.loading,
       missingInformation:
@@ -299,7 +321,7 @@ export default compose(
       fetchCoachBulk: fetchCoachBulkAction,
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
       fetchSubscriptionListByMember,
-
+      fetchProgram: fetchProgramAction,
       fetchCountObjects: (memberId: number) =>
         fetchCountObjectsAction(memberId),
     },

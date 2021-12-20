@@ -28,7 +28,7 @@ import {
 import themeSelectors from '../../libs/theme/selectors';
 import { getQuickbooksApp } from '../../libs/quickbooks/selectors';
 import { snackbarSuccess, snackbarError } from '../../libs/snackbar/actions';
-import { showDeleteDialog } from '../../components/GenericDialog/CustomDialogs';
+import { showDeleteDialog } from '../../components/genericDialog/CustomDialogs';
 import QuickBooksConfigrationForm from '../../libs/quickbooks/components/QuickBooksConfigurationForm.component';
 import { OptionCallback } from '../../state/types';
 

@@ -1,0 +1,74 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import ProgramListItem from "./ProgramListItem.component"
+import PerformanceTrackingFactoryBot from "../../factories";
+const randomProgram=PerformanceTrackingFactoryBot.Program.createOne()
+
+<Meta title='Library/PerformanceTracking/Program/ListItem'
+    component={ProgramListItem}
+    argTypes ={{
+    }}/>
+
+export const Template = (args) => <ProgramListItem {...args} />;
+
+#  Program List Item With Edit and Delete and clickOnItem
+
+<Canvas>
+    <Story 
+    name='ProgramListItem'
+    args={{
+        program:randomProgram,
+        onEdit:()=>{return;},
+        onDelete:()=>{return;},
+        onClickOnItem:()=>{return;},
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story='ProgramListItem' />
+
+#  Program List Item With Edit 
+
+<Canvas>
+    <Story 
+    name='ProgramListItemWithEdit'
+    args={{
+        program:randomProgram,
+        onEdit:()=>{return;},
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story='ProgramListItemWithEdit' />
+
+#  Program List Item With Delete
+
+<Canvas>
+    <Story 
+    name='ProgramListItemWithDelete'
+    args={{
+        program:randomProgram,
+        onDelete:()=>{return;}
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story='ProgramListItemWithDelete' />
+
+#  Program List Item With Nothing
+
+<Canvas>
+    <Story 
+    name='ProgramListItemWithNothing'
+    args={{
+        program:randomProgram,
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story='ProgramListItemWithNothing' />
+
+

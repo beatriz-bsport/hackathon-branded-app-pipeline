@@ -28,7 +28,7 @@ import { PaymentPack } from '../../payment-packs/types';
 import { MaxoutBooking, ConsumerPaymentPack } from '../types';
 
 import CreditStatus from './CreditStatus.component';
-import { showDeleteDialog } from '../../../components/GenericDialog/CustomDialogs';
+import { showDeleteDialog } from '../../../components/genericDialog/CustomDialogs';
 import { Offer } from '../../offer/types';
 import { WithIsSharedActive } from '../../relationship/types';
 

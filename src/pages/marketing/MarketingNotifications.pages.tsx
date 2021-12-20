@@ -74,7 +74,7 @@ import {
 } from '../../libs/meta-activity/selectors';
 import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
 import { _getPrivateServices } from '../../libs/private-service/selectors/private-service';
-import { showDeleteDialog } from '../../components/GenericDialog/CustomDialogs';
+import { showDeleteDialog } from '../../components/genericDialog/CustomDialogs';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 type Props = ReturnType<typeof mapStateToProps> &

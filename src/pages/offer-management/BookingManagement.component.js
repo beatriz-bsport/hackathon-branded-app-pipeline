@@ -44,6 +44,7 @@ import { PermissionContext } from '../../context';
 import CheckPermission from '../../libs/role/components/CheckPermission.component';
 import { Tag, TagGroup } from '../../libs/tag/types';
 import { OptionCallback } from '../../state/types';
+import type { PerformanceTrackingProgram } from '../../performance-tracking/types';
 
 const getMemberFromId = (id: number, membersList: Array<Member>) => {
   const member = membersList.find((m) => m.id === id);
@@ -115,6 +116,9 @@ type Props = {
     params: any,
     options?: OptionCallback,
   },
+  updateMemberMetricValue: (data: any, options?: any) => void,
+  createMemberProgram: (data: any, options?: any) => void,
+  programList: Array<PerformanceTrackingProgram>,
 };
 
 type State = {
@@ -198,7 +202,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
   handleBookingRevert = (booking: Booking) => {
     for (const inv of this.props.quickCreatedInvoices) {
       for (const ii of inv.invoice_items.filter((ii_) => !!ii_)) {
-        if (ii.object_id === booking.consumer_payment_pack.id) {
+        if (ii.object_id === booking.consumer_payment_pack?.id) {
           this.props.fetchVideoPurchase(
             1,
             1,
@@ -418,6 +422,11 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                 {(permissions) => (
                   <>
                     <BookingTable
+                      createMemberProgram={this.props.createMemberProgram}
+                      programList={this.props.programList}
+                      updateMemberMetricValue={
+                        this.props.updateMemberMetricValue
+                      }
                       redirectToMember={permissions?.member?.retrieve}
                       newTab
                       members={this.props.members}

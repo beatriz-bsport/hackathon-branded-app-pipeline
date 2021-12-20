@@ -41,7 +41,10 @@ export default function ListItemResponsiveAction(props: Props) {
 
 function ShortMenu(props: Props) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'row' }}>
+    <div
+      style={{ display: 'flex', flexDirection: 'row' }}
+      id="shortMenuContainer"
+    >
       {props.actions
         .filter((o) => o && !!o.onClick && !o.iconButtonComponent)
         .map((option) => (

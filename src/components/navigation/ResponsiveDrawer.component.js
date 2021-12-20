@@ -74,6 +74,7 @@ import LabelIcon from '@material-ui/icons/Label';
 
 import { colors } from '@bsport/common/lib/colors';
 import Tooltip from '@material-ui/core/Tooltip';
+import OfflineBoltIcon from '@material-ui/icons/OfflineBolt';
 import { getTextColorFromRGB } from '../../utils/color';
 
 import BillingBanner from './BillingBanner.component';
@@ -605,35 +606,71 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         text: t('backofficeMenu.myClub'),
         type: 'nested',
         permission: 'navigationMenu.myClub',
-        nestedItems: [
-          'divider',
-          {
-            to: '/activity',
-            icon: Star,
-            text: t('backofficeMenu.activity'),
-          },
-          {
-            to: '/workshop-activity',
-            icon: TodayIcon,
-            text: t('backofficeMenu.workshopActivities'),
-          },
-          {
-            to: '/private-service/service/',
-            icon: ScheduleIcon,
-            text: t('backofficeMenu.privateService.services'),
-          },
-          {
-            to: '/coach',
-            id: 'button_menu_teachers',
-            icon: FitnessCenter,
-            text: t('backofficeMenu.coaches'),
-          },
-          {
-            to: '/establishment/room',
-            icon: LocationOn,
-            text: t('backofficeMenu.establishment'),
-          },
-        ],
+        nestedItems:
+          Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'
+            ? [
+                'divider',
+                {
+                  to: '/activity',
+                  icon: Star,
+                  text: t('backofficeMenu.activity'),
+                },
+                {
+                  to: '/workshop-activity',
+                  icon: TodayIcon,
+                  text: t('backofficeMenu.workshopActivities'),
+                },
+                {
+                  to: '/private-service/service/',
+                  icon: ScheduleIcon,
+                  text: t('backofficeMenu.privateService.services'),
+                },
+                {
+                  to: '/coach',
+                  id: 'button_menu_teachers',
+                  icon: FitnessCenter,
+                  text: t('backofficeMenu.coaches'),
+                },
+                {
+                  to: '/establishment/room',
+                  icon: LocationOn,
+                  text: t('backofficeMenu.establishment'),
+                },
+              ]
+            : [
+                'divider',
+                {
+                  to: '/activity',
+                  icon: Star,
+                  text: t('backofficeMenu.activity'),
+                },
+                {
+                  to: '/workshop-activity',
+                  icon: TodayIcon,
+                  text: t('backofficeMenu.workshopActivities'),
+                },
+                {
+                  to: '/performance-tracking',
+                  icon: OfflineBoltIcon,
+                  text: t('backofficeMenu.programs'),
+                },
+                {
+                  to: '/private-service/service/',
+                  icon: ScheduleIcon,
+                  text: t('backofficeMenu.privateService.services'),
+                },
+                {
+                  to: '/coach',
+                  id: 'button_menu_teachers',
+                  icon: FitnessCenter,
+                  text: t('backofficeMenu.coaches'),
+                },
+                {
+                  to: '/establishment/room',
+                  icon: LocationOn,
+                  text: t('backofficeMenu.establishment'),
+                },
+              ],
       },
       {
         icon: ShoppingCartIcon,

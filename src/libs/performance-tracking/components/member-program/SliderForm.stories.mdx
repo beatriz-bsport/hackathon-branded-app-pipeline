@@ -1,0 +1,27 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import SliderForm from './SliderForm.component'
+import PerformanceTrackingFactoryBot from "../../factories";
+const randomProgram=PerformanceTrackingFactoryBot.MemberProgram.createOne()
+const metricRecord=randomProgram.metric_record.general.metrics[0]
+
+<Meta title='Library/PerformanceTracking/MemberProgram/SliderForm'
+    component={SliderForm}
+    argTypes ={{
+    }}/>
+
+export const Template = (args) => <SliderForm {...args} />;
+
+# SliderForm 
+
+<Canvas>
+    <Story 
+    name='SliderForm'
+    args={{
+        metric:metricRecord.metric,
+        value:metricRecord.value,
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story='SliderForm' />

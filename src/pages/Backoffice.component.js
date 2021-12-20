@@ -70,7 +70,7 @@ import {
 
 import type { TempPasswordState } from '../libs/login/types';
 import { fetchCompanyRoles } from '../libs/role/actions';
-import GenericDialog from '../components/GenericDialog/GenericDialog';
+import GenericDialog from '../components/genericDialog/GenericDialog';
 import { fetchSignFormUpConfiguration } from '../libs/sign-up-form/actions';
 
 import { fetchTags } from '../libs/tag/actions';
@@ -85,6 +85,10 @@ import { getSegmentAnalyticsToWindow } from '../components/analytics/segment/uti
 
 const MarketingRouter = asyncComponent(() =>
   import('./marketing/Marketing.router'),
+);
+
+const PerformanceTracking = asyncComponent(() =>
+  import('./performance-tracking/PerformanceTracking.router'),
 );
 
 const Dashboard = asyncComponent(() => import('./Dashboard.component'));
@@ -225,6 +229,9 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
       <Route path="/establishment" component={Establishment} />
       <Route path="/smart-list" component={SmartList} />
       <Route path="/custom-form" component={CustomForm} />
+      {Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' && (
+        <Route path="/performance-tracking" component={PerformanceTracking} />
+      )}
       <Route path="/marketing" component={MarketingRouter} />
       <Route path="/email-template" component={EmailTemplate} />
       <Route path="/giftcard" component={Giftcard} />

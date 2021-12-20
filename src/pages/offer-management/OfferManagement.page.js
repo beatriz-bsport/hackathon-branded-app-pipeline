@@ -7,6 +7,7 @@ import {
   push as routerPush,
 } from 'connected-react-router';
 import { compose, withProps, withHandlers } from 'recompose';
+import uniq from 'lodash/uniq';
 import {
   revertQuickInvoice as revertQuickInvoiceAction,
   createQuickInvoice as createQuickInvoiceAction,
@@ -89,6 +90,7 @@ import {
   getMemberDetailData,
   getMemberHistory,
   withTags,
+  withMemberProgram,
 } from '#libs/member/selectors';
 
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
@@ -115,9 +117,16 @@ import { getAssetByBlueprintByIdentifier } from '#libs/spot-scheduling/selector'
 import { Booking } from '#libs/booking/types';
 import { fetchSignFormUpConfiguration } from '#libs/sign-up-form/actions';
 import { getSignUpFormConfigurationDict } from '#libs/sign-up-form/selectors';
-
+import {
+  fetchMemberProgram as fetchMemberProgramAction,
+  fetchProgram as fetchProgramAction,
+  fetchMetric as fetchMetricAction,
+  updateMemberMetricValue as updateMemberMetricValueAction,
+  createMemberProgram as createMemberProgramAction,
+} from '#libs/performance-tracking/actions';
 import { showVaccinationStatus } from '../../libs/custom-form/selectors';
 import { fetchVideoPurchase } from '../../libs/video/actions';
+import { getProgramList } from '#libs/performance-tracking/selector';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
@@ -148,7 +157,7 @@ export default compose(
       compatiblePacksLoading: state.offer.compatiblePacks.loading,
       // member
       membersloading: state.member.loading,
-      members: withTags(getAllMembers)(state),
+      members: withMemberProgram(withTags(getAllMembers))(state),
       memberDetails: getMemberDetailData(state),
       memberHistory: getMemberHistory(state).slice(0, 5),
       memberSearchLoading: state.member.search.loading,
@@ -190,6 +199,7 @@ export default compose(
       managerFormConfig: getSignUpFormConfigurationDict(state),
       companyId: state.theme.theme.company,
       showVaccinationStatus: showVaccinationStatus(state),
+      programList: getProgramList(state),
     }),
     {
       fetchOffer: fetchOfferByIdAction,
@@ -259,9 +269,62 @@ export default compose(
       setSpotForBooking: setSpotForBookingAction,
       fetchVideoPurchase,
       fetchSignFormUpConfiguration,
+
+      fetchMemberProgram: fetchMemberProgramAction,
+      fetchProgram: fetchProgramAction,
+      fetchMetric: fetchMetricAction,
+
+      updateMemberMetricValue: updateMemberMetricValueAction,
+      createMemberProgram: createMemberProgramAction,
     },
   ),
   withHandlers({
+    createMemberProgram:
+      ({ programList, createMemberProgram, fetchMetric }) =>
+      (data) => {
+        createMemberProgram(data, {
+          onSuccess: (memberProgram) => {
+            const program = programList.find(
+              (p) => p.id === memberProgram.program,
+            );
+            fetchMetric({ id__in: program.metric_list });
+          },
+        });
+      },
+    fetchPerformanceTrackingData:
+      ({ fetchMemberProgram, fetchProgram, fetchMetric }) =>
+      (memberList) => {
+        fetchMemberProgram(
+          {
+            member__in: memberList.map((m) => m.id),
+          },
+          {
+            onSuccess: (data) => {
+              const programsToFetch = uniq(
+                data.results.map((memberProgram) => memberProgram.program),
+              );
+              fetchProgram(
+                { is_disabled: false },
+                {
+                  onSuccess: (programData) => {
+                    const metricToFetch = programsToFetch
+                      .map((id) =>
+                        programData.find((program) => program.id === id),
+                      )
+                      .reduce(
+                        (acc, program) => acc.concat(program.metric_list),
+                        [],
+                      );
+                    if (metricToFetch?.length !== 0) {
+                      fetchMetric({ id__in: metricToFetch });
+                    }
+                  },
+                },
+              );
+            },
+          },
+        );
+      },
     fetchBookingOptionByOffer:
       ({ fetchBookingOptionByOffer }) =>
       (offerId) => {
@@ -301,6 +364,7 @@ export default compose(
           },
           ordering_field,
         );
+
         fetchFilteredMembers({ offer: id, withNotes: true });
       },
   }),
@@ -345,6 +409,7 @@ export default compose(
         fetchRoomBlueprintDetail,
         fetchAssetForBlueprint,
         fetchOfferStatus,
+        fetchPerformanceTrackingData,
       }) =>
       (ordering_field) => {
         fetchOffer(offerId, {
@@ -374,6 +439,7 @@ export default compose(
           {
             onSuccess: (memberList) => {
               if (memberList && memberList.length) {
+                fetchPerformanceTrackingData(memberList);
                 fetchInvoiceListUnpaid({
                   member__in: memberList.map((m) => m.id),
                 });
@@ -423,6 +489,7 @@ export default compose(
         fetchFilteredMembers,
         fetchOfferStatus,
         fetchOffer,
+        fetchPerformanceTrackingData,
       }) =>
       (data) => {
         createQuickInvoice(data, {
@@ -435,6 +502,8 @@ export default compose(
               {
                 onSuccess: (memberList) => {
                   if (memberList && memberList.length) {
+                    fetchPerformanceTrackingData(memberList);
+
                     fetchInvoiceListUnpaid({
                       member__in: memberList.map((m) => m.id),
                     });

@@ -48,8 +48,8 @@ import AsyncSpotSelector, {
 import DiscardBookingOptionDialogV2 from '../../libs/waiting-list/components/DiscardBookingOptionDialogV2.component';
 import { MemberMap } from '../../libs/member/utils';
 import { Tag, TagGroup } from '../../libs/tag/types';
-import GenericDialog from '../../components/GenericDialog/GenericDialog';
-import { showDeleteDialog } from '../../components/GenericDialog/CustomDialogs';
+import GenericDialog from '../../components/genericDialog/GenericDialog';
+import { showDeleteDialog } from '../../components/genericDialog/CustomDialogs';
 import { OptionCallback } from '../../state/types';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
@@ -156,7 +156,6 @@ type Props = {
   booking_ordering: number,
   onChangeBookingOrdering: (number) => void,
   searchedText: string,
-
   optionToDiscard: number,
   confirmOptionToDiscard: ?boolean,
   cancelDiscardOption: () => void,
@@ -205,6 +204,9 @@ type Props = {
     params: any,
     options?: OptionCallback,
   },
+  updateMemberMetricValue: (data: any, options: OptionCallback) => void,
+  createMemberProgram: (data: any, options?: any) => void,
+  programList: Array<PerformanceTrackingProgram>,
 };
 
 type State = {
@@ -481,6 +483,9 @@ export class OfferManagement extends Component<Props, State> {
         </Grid>
         <Grid item xs={12} lg={6}>
           <BookingManagement
+            createMemberProgram={this.props.createMemberProgram}
+            programList={this.props.programList}
+            updateMemberMetricValue={this.props.updateMemberMetricValue}
             registerToWaitingList={this.props.registerToWaitingList}
             addToQuickInvoicePanel={this.addToQuickInvoicePanel}
             loading={this.props.offerLoading}

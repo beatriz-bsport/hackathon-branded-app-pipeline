@@ -7,7 +7,7 @@ import FuzeSearch from '../FuzeSearch.component';
 
 export type OwnProps<T> = {
   items: T[];
-  placeholder: string;
+  placeholder?: string;
   className?: string;
   searchFields: (keyof T)[];
   itemRenderer: (item: T, search?: string) => React.ReactNode;

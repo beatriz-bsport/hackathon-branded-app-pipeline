@@ -27,7 +27,7 @@ import {
 } from '../../libs/zoom-app/actions';
 import { snackbarSuccess, snackbarError } from '../../libs/snackbar/actions';
 import { requestZoomAccessToken as requestZoomAccessTokenAPI } from '../../libs/zoom-app/api';
-import { showDeleteDialog } from '../../components/GenericDialog/CustomDialogs';
+import { showDeleteDialog } from '../../components/genericDialog/CustomDialogs';
 
 type Props = {
   t: TFunction,

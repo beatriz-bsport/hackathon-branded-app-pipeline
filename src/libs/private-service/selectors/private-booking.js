@@ -21,6 +21,12 @@ import { getAllCoachesDict } from '../../associated-coach/selectors';
 import { getAllEstablishmentsDict } from '../../establishment/selectors';
 import { getTagGroupsDict, getTagsDict } from '../../tag/selectors';
 
+import {
+  getMemberProgramByMemberDict,
+  getMemberProgramDict,
+  getMetricDict,
+  getProgramDict,
+} from '#libs/performance-tracking/selector';
 /*
 export const getPrivateConsumerPassListWithPass = createSelector(
   [getPrivatePassList, _getPrivatePassDict],
@@ -52,6 +58,11 @@ export const withRelatedFields = memoize((selector) =>
 
       getTagsDict,
       getTagGroupsDict,
+
+      getMemberProgramByMemberDict,
+      getMemberProgramDict,
+      getProgramDict,
+      getMetricDict,
     ],
     (
       bookings,
@@ -119,6 +130,100 @@ export const withRelatedFields = memoize((selector) =>
       }));
     },
   ),
+);
+
+export const composeBookingsWithMemberProgram = memoize(
+  (selector: (state: RootState) => Array<PrivateBookingWithRelatedFields>) =>
+    createSelector(
+      [
+        selector,
+        getMemberProgramByMemberDict,
+        getMemberProgramDict,
+        getProgramDict,
+        getMetricDict,
+      ],
+      (
+        bookings,
+        memberProgramByMemberDict,
+        memberProgramDict,
+        programDict,
+        metricDict,
+      ) => {
+        if (!bookings) return [];
+        if (Array.isArray(bookings)) {
+          return bookings.map((booking) => {
+            return {
+              ...booking,
+              member: {
+                ...booking.member,
+                memberProgramList: memberProgramByMemberDict[booking.member.id]
+                  ?.map((id) => memberProgramDict[id])
+                  ?.filter((mp) => !mp.is_disabled)
+                  ?.filter(
+                    (mp) => programDict[mp.program]?.is_disabled === false,
+                  )
+                  .map((memberProgram) => ({
+                    ...memberProgram,
+                    program: programDict[memberProgram.program],
+
+                    metric_record: {
+                      ...memberProgram.metric_record,
+                      general: {
+                        ...memberProgram?.metric_record?.general,
+                        metrics:
+                          memberProgram?.metric_record?.general?.metric_ids
+                            ?.filter((id) => metricDict[id])
+                            .map(
+                              (id) =>
+                                memberProgram?.metric_record?.general?.metrics[
+                                  id
+                                ],
+                            )
+                            .map((metricRecord) => ({
+                              ...metricRecord,
+                              metric: metricDict[metricRecord.metric_id],
+                            })),
+                      },
+                    },
+                  })),
+              },
+            };
+          });
+        }
+
+        return {
+          ...bookings,
+          member: {
+            ...bookings.member,
+            memberProgramList: memberProgramByMemberDict[bookings.member.id]
+              ?.map((id) => memberProgramDict[id])
+              ?.filter((mp) => !mp.is_disabled)
+              ?.filter((mp) => programDict[mp.program]?.is_disabled === false)
+              .map((memberProgram) => ({
+                ...memberProgram,
+                program: programDict[memberProgram.program],
+
+                metric_record: {
+                  ...memberProgram.metric_record,
+                  general: {
+                    ...memberProgram?.metric_record?.general,
+                    metrics: memberProgram?.metric_record?.general?.metric_ids
+                      ?.filter((id) => metricDict[id])
+                      .map(
+                        (id) =>
+                          memberProgram?.metric_record?.general?.metrics[id],
+                      )
+                      .map((metricRecord) => ({
+                        ...metricRecord,
+                        metric: metricDict[metricRecord.metric_id],
+                      })),
+                  },
+                },
+              })),
+          },
+        };
+      },
+    ),
 );
 
 export const getPrivateBooking = (state, id) =>

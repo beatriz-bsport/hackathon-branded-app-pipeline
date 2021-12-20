@@ -11,7 +11,6 @@ import Hidden from '@material-ui/core/Hidden';
 import Grid from '@material-ui/core/Grid';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Typography from '@material-ui/core/Typography';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -35,6 +34,8 @@ import {
 } from '@bsport/common/lib/master-data/booking_status_code';
 import Avatar from '@material-ui/core/Avatar';
 import Badge from '@material-ui/core/Badge';
+import { EventSeat, OfflineBolt } from '@material-ui/icons';
+import { Dialog } from '@material-ui/core';
 import { getBookingStatusCode } from '../utils';
 
 import Tooltip from '../../../components/Tooltip.component';
@@ -52,11 +53,15 @@ import { Booking } from '../types';
 import VaccinationBadge from '../../member/components/VaccinationBadge.component';
 import { TagBadge } from '../../member/components/TagBadge';
 
+import MemberProgramDetailDialog from '../../performance-tracking/components/member-program/MemberProgramDetail.dialog';
+import type { PerformanceTrackingProgram } from '../../performance-tracking/types';
+
 type Props = {
   t: TFunction,
   classes: Object,
   heading: ?string,
   booking: Booking,
+  bookings: Array<Booking>,
   member: Member,
 
   disabled?: boolean,
@@ -79,6 +84,10 @@ type Props = {
   spotSchedulingEnabled?: boolean,
   onClickChangeSpot: (booking: Booking) => void,
   showVaccinationStatus: boolean,
+  updateMemberMetricValue: (data: any, options?: any) => void,
+  createMemberProgram: (data: any, options?: any) => void,
+  programList: Array<PerformanceTrackingProgram>,
+  membersWithStatusOk: Array<Member>,
 };
 
 const getPackDate = (consumerPack) => {
@@ -130,10 +139,18 @@ const AttendanceButton = (props: AttendanceButtonProps) => {
 
 type State = {
   menuAnchor: ?any,
+  isMemberProgramDetailDialogOpen?: boolean,
+  indexMemberFocused: number,
 };
 
 export class BookingItemForManager extends Component<Props, State> {
-  state = { menuAnchor: null };
+  state = {
+    menuAnchor: null,
+    isMemberProgramDetailDialogOpen: false,
+    indexMemberFocused: this.props.membersWithStatusOk.findIndex(
+      (member) => member.id === this.props.member.id,
+    ),
+  };
 
   getStatusStyleProps = (status: ?boolean) => {
     if (status) {
@@ -195,6 +212,7 @@ export class BookingItemForManager extends Component<Props, State> {
       booking,
       classes,
       t,
+      programList,
     } = this.props;
     const attendText = booking.attendance ? t('attend') : t('doNotAttend');
     const switchAttendance = booking.attendance
@@ -219,24 +237,30 @@ export class BookingItemForManager extends Component<Props, State> {
           onClose={closeAndAction(() => {})}
         >
           {showQuickInvoiceButton ? (
-            <MenuItem onClick={closeAndAction(onQuickInvoiceClick)}>
-              <ListItemText>{t('actions.bill')}</ListItemText>
-              <ListItemIcon className={classes.iconButton}>
-                <EuroSymbolIcon />
-              </ListItemIcon>
+            <MenuItem
+              onClick={closeAndAction(onQuickInvoiceClick)}
+              className={classes.menuItem}
+            >
+              <EuroSymbolIcon className={classes.icon} />
+
+              <Typography>{t('actions.bill')}</Typography>
             </MenuItem>
           ) : null}
-          <MenuItem onClick={closeAndAction(switchAttendance)}>
-            <ListItemText>{attendText}</ListItemText>
-            <ListItemIcon>
-              <CachedIcon className={classes.iconButton} />
-            </ListItemIcon>
+          <MenuItem
+            onClick={closeAndAction(switchAttendance)}
+            className={classes.menuItem}
+          >
+            <CachedIcon className={classes.icon} />
+
+            <Typography>{attendText}</Typography>
           </MenuItem>
-          <MenuItem onClick={closeAndAction(handleRevert)}>
-            <ListItemText>{t('actions.unregister')}</ListItemText>
-            <ListItemIcon className={classes.iconButton}>
-              <CancelIcon />
-            </ListItemIcon>
+          <MenuItem
+            onClick={closeAndAction(handleRevert)}
+            className={classes.menuItem}
+          >
+            <CancelIcon className={classes.icon} />
+
+            <Typography>{t('actions.unregister')}</Typography>
           </MenuItem>
 
           {this.props.spotSchedulingEnabled && this.props.onClickChangeSpot && (
@@ -244,12 +268,25 @@ export class BookingItemForManager extends Component<Props, State> {
               onClick={closeAndAction(() =>
                 this.props.onClickChangeSpot(booking),
               )}
+              className={classes.menuItem}
             >
-              <ListItemText>
+              <EventSeat className={classes.icon} />
+              <Typography>
                 {typeof booking.spot_id === 'number'
                   ? t('changeSpot')
                   : t('setSpot')}
-              </ListItemText>
+              </Typography>
+            </MenuItem>
+          )}
+          {programList?.length !== 0 && (
+            <MenuItem
+              onClick={closeAndAction(() => {
+                this.setState({ isMemberProgramDetailDialogOpen: true });
+              })}
+              className={classes.menuItem}
+            >
+              <OfflineBolt className={classes.icon} />
+              <Typography>{t('performanceTracking.stat')}</Typography>
             </MenuItem>
           )}
         </Menu>
@@ -267,6 +304,7 @@ export class BookingItemForManager extends Component<Props, State> {
       showRevertBookingButton,
       handleRevert,
       classes,
+      programList,
     } = this.props;
 
     const closeAndAction = (actionCallback) => (e: SyntheticEvent<any>) => {
@@ -331,37 +369,57 @@ export class BookingItemForManager extends Component<Props, State> {
               </IconButton>
             ) : null}
 
-            {this.props.spotSchedulingEnabled && this.props.onClickChangeSpot && (
-              <>
-                <IconButton
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    this.setState({ menuAnchor: event.currentTarget });
-                  }}
-                >
-                  <MoreVertIcon />
-                </IconButton>
-
-                <Menu
-                  id="simple-menu"
-                  anchorEl={this.state.menuAnchor}
-                  open={Boolean(this.state.menuAnchor)}
-                  onClose={closeAndAction(() => {})}
-                >
-                  <MenuItem
-                    onClick={closeAndAction(() =>
-                      this.props.onClickChangeSpot(booking),
-                    )}
+            {booking.booking_status_code === BOOKING_STATUS_OK.id &&
+              ((this.props.spotSchedulingEnabled &&
+                this.props.onClickChangeSpot) ||
+                programList?.length !== 0) && (
+                <>
+                  <IconButton
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      this.setState({ menuAnchor: event.currentTarget });
+                    }}
                   >
-                    <ListItemText>
-                      {typeof booking.spot_id === 'number'
-                        ? t('changeSpot')
-                        : t('setSpot')}
-                    </ListItemText>
-                  </MenuItem>
-                </Menu>
-              </>
-            )}
+                    <MoreVertIcon />
+                  </IconButton>
+                  <Menu
+                    id="simple-menu"
+                    anchorEl={this.state.menuAnchor}
+                    open={Boolean(this.state.menuAnchor)}
+                    onClose={closeAndAction(() => {})}
+                  >
+                    {this.props.spotSchedulingEnabled &&
+                      this.props.onClickChangeSpot && (
+                        <MenuItem
+                          onClick={closeAndAction(() =>
+                            this.props.onClickChangeSpot(booking),
+                          )}
+                          className={classes.menuItem}
+                        >
+                          <EventSeat className={classes.icon} />
+                          <Typography>
+                            {typeof booking.spot_id === 'number'
+                              ? t('changeSpot')
+                              : t('setSpot')}
+                          </Typography>
+                        </MenuItem>
+                      )}
+                    {programList?.length !== 0 && (
+                      <MenuItem
+                        onClick={closeAndAction(() => {
+                          this.setState({
+                            isMemberProgramDetailDialogOpen: true,
+                          });
+                        })}
+                        className={classes.menuItem}
+                      >
+                        <OfflineBolt className={classes.icon} />
+                        <Typography>{t('performanceTracking.stat')}</Typography>
+                      </MenuItem>
+                    )}
+                  </Menu>
+                </>
+              )}
           </div>
         </Hidden>
       </div>
@@ -386,7 +444,7 @@ export class BookingItemForManager extends Component<Props, State> {
     return member?.archived ? `(${t('member:archived')})` : '';
   };
 
-  getIsFirstIndicator = () => (this.props.booking.first_in_company ? '★' : '');
+  getIsFirstIndicator = (booking) => (booking?.first_in_company ? '★' : '');
 
   getIsRecurrentBooking = () => {
     if (this.props.booking.recurrence_rule_booking) {
@@ -510,8 +568,18 @@ export class BookingItemForManager extends Component<Props, State> {
   };
 
   render() {
-    const { t, booking, redirectToMember, disabled, redirectToOffer } =
-      this.props;
+    const {
+      t,
+      booking,
+      redirectToMember,
+      disabled,
+      redirectToOffer,
+      membersWithStatusOk,
+      member,
+    } = this.props;
+
+    const { indexMemberFocused } = this.state;
+    const memberFocused = membersWithStatusOk[indexMemberFocused];
     // <TableCell>{t(`booking.sources.${b.source}`)}</TableCell>
     const bookingStatus = this.getStatusText();
 
@@ -523,84 +591,133 @@ export class BookingItemForManager extends Component<Props, State> {
       classes = this.props.classes.cancelled;
     }
     return this.wrapToolTip(
-      <ListItem
-        divider
-        selected={!!this.props.selected}
-        button={redirectToMember || redirectToOffer || this.props.button}
-        disableRipple
-        disabled={disabled}
-        onClick={this.handleListItemClick}
-        className={classes}
-      >
-        <Grid
-          container
-          justify="space-between"
-          alignItems="center"
-          wrap="nowrap"
+      <>
+        <ListItem
+          divider
+          selected={!!this.props.selected}
+          button={redirectToMember || redirectToOffer || this.props.button}
+          disableRipple
+          disabled={disabled}
+          onClick={this.handleListItemClick}
+          className={classes}
         >
-          <Grid item>
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}
-            >
-              {this.getAvatar()}
-              <ListItemText
-                primary={
-                  <div className={this.props.classes.rowPrimary}>
-                    <Typography variant="body2">{this.getHeading()}</Typography>
-                    <Typography variant="caption" color="secondary">
-                      {this.getArchivedStatus()}
-                    </Typography>
-                    <Typography color="primary">
-                      {this.getIsFirstIndicator()}
-                    </Typography>
-                    {this.getIsRecurrentBooking()}
-                    <Typography color="primary">
-                      <strong>{this.getHasNoteIndicator()}</strong>
-                    </Typography>
-                    <Typography variant="body2" inline>
-                      {getBookingStatusCode(t, booking)}
-                    </Typography>
-                  </div>
-                }
-                secondary={
-                  <div>
-                    {bookingStatus.map(([txt, color]) => {
-                      return (
-                        <Typography key={txt} variant="body2" color={color}>
-                          {txt}
-                        </Typography>
-                      );
-                    })}
+          <Grid
+            container
+            justify="space-between"
+            alignItems="center"
+            wrap="nowrap"
+          >
+            <Grid item>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}
+              >
+                {this.getAvatar()}
+                <ListItemText
+                  primary={
+                    <div className={this.props.classes.rowPrimary}>
+                      <Typography variant="body2">
+                        {this.getHeading()}
+                      </Typography>
+                      <Typography variant="caption" color="secondary">
+                        {this.getArchivedStatus()}
+                      </Typography>
+                      <Typography color="primary">
+                        {this.getIsFirstIndicator(this.props.booking)}
+                      </Typography>
+                      {this.getIsRecurrentBooking()}
+                      <Typography color="primary">
+                        <strong>{this.getHasNoteIndicator()}</strong>
+                      </Typography>
+                      <Typography variant="body2" inline>
+                        {getBookingStatusCode(t, booking)}
+                      </Typography>
+                    </div>
+                  }
+                  secondary={
+                    <div>
+                      {bookingStatus.map(([txt, color]) => {
+                        return (
+                          <Typography key={txt} variant="body2" color={color}>
+                            {txt}
+                          </Typography>
+                        );
+                      })}
 
-                    {this.props.spotSchedulingEnabled &&
-                      (typeof this.props.booking.spot_id === 'number' ? (
-                        <Typography variant="body2">
-                          {t('placeNumber', {
-                            count: this.props.booking.spot_id,
-                          })}
-                        </Typography>
-                      ) : (
-                        <Typography variant="body2" color="error">
-                          {t('noSpotAttributed')}
-                        </Typography>
-                      ))}
-                  </div>
-                }
-              />
-            </div>
+                      {this.props.spotSchedulingEnabled &&
+                        (typeof this.props.booking.spot_id === 'number' ? (
+                          <Typography variant="body2">
+                            {t('placeNumber', {
+                              count: this.props.booking.spot_id,
+                            })}
+                          </Typography>
+                        ) : (
+                          <Typography variant="body2" color="error">
+                            {t('noSpotAttributed')}
+                          </Typography>
+                        ))}
+                    </div>
+                  }
+                />
+              </div>
+            </Grid>
+            <Grid item>{this.renderButtons()}</Grid>
           </Grid>
-          <Grid item>{this.renderButtons()}</Grid>
-        </Grid>
-      </ListItem>,
+        </ListItem>
+        <Dialog open={this.state.isMemberProgramDetailDialogOpen} maxWidth="lg">
+          <MemberProgramDetailDialog
+            closeDialog={() =>
+              this.setState(
+                {
+                  isMemberProgramDetailDialogOpen: false,
+                },
+                () =>
+                  this.setState({
+                    indexMemberFocused: membersWithStatusOk.findIndex(
+                      (m) => m.id === member.id,
+                    ),
+                  }),
+              )
+            }
+            memberName={`${memberFocused?.name} ${this.getIsFirstIndicator(
+              this.props.bookings.find((b) => b.member === memberFocused?.id),
+            )}`}
+            memberProgramList={memberFocused?.memberProgramList}
+            changeMember={(i: number) =>
+              this.setState((prevState) => ({
+                ...prevState,
+                indexMemberFocused: Math.abs(
+                  (prevState.indexMemberFocused + i) %
+                    membersWithStatusOk.length,
+                ),
+              }))
+            }
+            updateMemberMetricValue={this.props.updateMemberMetricValue}
+            createMemberProgram={(id) =>
+              this.props.createMemberProgram({
+                program: id,
+                member: memberFocused.id,
+              })
+            }
+            programList={this.props.programList}
+          />
+        </Dialog>
+      </>,
     );
   }
 }
 
 const styles = (theme) => ({
+  icon: {
+    color: '#868686',
+  },
+  menuItem: {
+    display: 'flex',
+    gap: theme.spacing(2),
+  },
   iconButton: {
     marginLeft: theme.spacing(1),
   },

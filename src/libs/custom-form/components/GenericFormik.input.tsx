@@ -49,10 +49,10 @@ export const TextField = (props: TextFieldProps) => {
 };
 
 type CheckboxFieldProps = BaseFieldProps & {
-  disabled: boolean;
-  label: string | ReactNode;
-  reverted: boolean;
-  classes: { [key: string]: any };
+  disabled?: boolean;
+  label?: string | ReactNode;
+  reverted?: boolean;
+  classes?: { [key: string]: any };
 };
 export const CheckboxField = (props: CheckboxFieldProps) => {
   const { reverted, disabled, label, classes } = props;

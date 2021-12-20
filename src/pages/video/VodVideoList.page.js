@@ -48,7 +48,7 @@ import VideoStreamDialog from '../../libs/video/components/VideoStreamDialog.com
 import VideoSearchBar from '../../libs/video/components/VideoSearchBar.component';
 import themeSelectors from '../../libs/theme/selectors';
 import { Video } from '../../libs/video/types';
-import { showDeleteDialog } from '../../components/GenericDialog/CustomDialogs';
+import { showDeleteDialog } from '../../components/genericDialog/CustomDialogs';
 import { OptionCallback } from '../../state/types';
 
 type Props = {

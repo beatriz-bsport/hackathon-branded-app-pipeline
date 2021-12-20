@@ -47,7 +47,7 @@ export function AlertExistingUser(props: Props) {
       >
         {t('exists.goTo')}
       </Button>
-      {memberId && existingMemberId ? (
+      {memberId && existingMemberId && goToMerge ? (
         <Button
           onClick={() => goToMerge(memberId, existingMemberId)}
           variant="outlined"
@@ -59,7 +59,7 @@ export function AlertExistingUser(props: Props) {
       ) : null}
     </div>
   ) : (
-    <LinkMemberDialog onConfirm={linkMember} t={t} />
+    <>{linkMember ? <LinkMemberDialog onConfirm={linkMember} t={t} /> : null}</>
   );
 
   return (

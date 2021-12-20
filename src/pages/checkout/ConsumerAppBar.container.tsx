@@ -22,10 +22,13 @@ type Props = {
   disconnect: () => void;
   companyId?: number;
   children: any;
+  backgroundColor?: string;
 };
-
+type StyleProps = {
+  backgroundColor?: string;
+};
 export const ConsumerAppBar = (props: Props) => {
-  const classes = useStyles();
+  const classes = useStyles({ backgroundColor: props.backgroundColor });
   return (
     <MuiThemeProvider theme={getTheme(props.theme)}>
       <div className={classes.container}>
@@ -45,7 +48,7 @@ export const ConsumerAppBar = (props: Props) => {
   );
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles<Theme, StyleProps>(() => ({
   container: {
     width: '100vw',
     height: '100vh',
@@ -53,7 +56,7 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
     justifyContent: 'flex-start',
     flexDirection: 'column',
-    backgroundColor: '#efefef',
+    backgroundColor: ({ backgroundColor }) => backgroundColor || '#efefef',
     overflow: 'auto',
   },
 }));

@@ -20,6 +20,7 @@ const styles = (theme) => ({
     boxShadow: theme.shadows[1],
     fontSize: 11,
     maxWidth: 200,
+    textAlign: 'center',
   },
   highlighted: {
     backgroundColor: theme.palette.common.white,

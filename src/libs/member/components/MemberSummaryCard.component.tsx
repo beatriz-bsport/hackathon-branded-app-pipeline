@@ -176,6 +176,7 @@ export class MemberSummaryCard extends Component<Props> {
         </FeatureListProvider>
         <EmailItem
           email={member.consumer.email}
+          pending_email={member.pending_email}
           accept_email={member.accept_email}
           notificationIcon
           openMailDialog={

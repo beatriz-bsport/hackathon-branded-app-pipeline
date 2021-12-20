@@ -25,7 +25,7 @@ export const MemberMap = {
   vaccination_status: 'vaccination_status',
 };
 
-export const anonymizeEmail = (email: ?string) => {
+export const anonymizeEmail = (email: string | null) => {
   if (!email || !email.includes('@')) {
     return email;
   }

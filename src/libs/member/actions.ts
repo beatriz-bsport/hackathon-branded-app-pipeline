@@ -30,6 +30,10 @@ import {
   archiveMember as archiveMemberAPI,
   unArchiveMember as unArchiveMemberAPI,
   interrogateMemberStatus as interrogateMemberStatusAPI,
+  createChangeEmailRequest as createChangeEmailRequestAPI,
+  retrieveChangeEmailRequest as retrieveChangeEmailRequestAPI,
+  answerChangeEmailRequest as answerChangeEmailRequestAPI,
+  retrievePendingEmail as retrievePendingEmailAPI,
 } from './api';
 import type { Member, MemberMinimal, MemberUploadedFile } from './types';
 
@@ -898,5 +902,141 @@ export function interrogateMemberStatus(
       }
     }
     dispatch(interrogateMemberStatusActions.isLoading(false));
+  };
+}
+
+export const createChangeEmailRequestActions = {
+  isLoading: createAction('CHANGE_EMAIL_REQUEST/CREATE/LOADING'),
+  error: createAction('CHANGE_EMAIL_REQUEST/CREATE/ERROR'),
+  success: createAction('CHANGE_EMAIL_REQUEST/CREATE/SUCCESS'),
+};
+
+export function createChangeEmailRequest(
+  data: {
+    member: number;
+    new_email: string;
+  },
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(createChangeEmailRequestActions.isLoading(true));
+
+    try {
+      const response = await createChangeEmailRequestAPI(data);
+      dispatch(createChangeEmailRequestActions.success(response.data));
+      dispatch(snackbarSuccess('member.changeEmailRequest.create.success'));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(snackbarError('member.changeEmailRequest.create.error'));
+      dispatch(createChangeEmailRequestActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+
+    dispatch(createChangeEmailRequestActions.isLoading(false));
+  };
+}
+
+export const retrieveChangeEmailRequestActions = {
+  isLoading: createAction('CHANGE_EMAIL_REQUEST/RETRIEVE/LOADING'),
+  error: createAction('CHANGE_EMAIL_REQUEST/RETRIEVE/ERROR'),
+  success: createAction('CHANGE_EMAIL_REQUEST/RETRIEVE/SUCCESS'),
+};
+
+export function retrieveChangeEmailRequest(
+  uuid: string,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrieveChangeEmailRequestActions.isLoading(true));
+    dispatch(retrieveChangeEmailRequestActions.error(null));
+    try {
+      const response = await retrieveChangeEmailRequestAPI(uuid);
+      dispatch(retrieveChangeEmailRequestActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(retrieveChangeEmailRequestActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(retrieveChangeEmailRequestActions.isLoading(false));
+  };
+}
+
+export const answerChangeEmailRequestActions = {
+  isLoading: createAction('CHANGE_EMAIL_REQUEST/ANSWER/LOADING'),
+  error: createAction('CHANGE_EMAIL_REQUEST/ANSWER/ERROR'),
+  success: createAction('CHANGE_EMAIL_REQUEST/ANSWER/SUCCESS'),
+};
+
+export function answerChangeEmailRequest(
+  uuid: string,
+  data: {
+    accepted: boolean;
+    denied: boolean;
+    company: number;
+  },
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(answerChangeEmailRequestActions.isLoading(true));
+    dispatch(answerChangeEmailRequestActions.error(null));
+    try {
+      const response = await answerChangeEmailRequestAPI(uuid, data);
+      dispatch(answerChangeEmailRequestActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(answerChangeEmailRequestActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(answerChangeEmailRequestActions.isLoading(false));
+  };
+}
+
+export const retrieveMemberPendingEmailRequestActions = {
+  isLoading: createAction('PENDING_EMAIL/RETRIEVE/LOADING'),
+  error: createAction('PENDING_EMAIL/RETRIEVE/ERROR'),
+  success: createAction('PENDING_EMAIL/RETRIEVE/SUCCESS'),
+};
+
+export function retrieveMemberPendingEmail(
+  memberId: number,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrieveMemberPendingEmailRequestActions.isLoading(true));
+    dispatch(retrieveMemberPendingEmailRequestActions.error(null));
+    try {
+      const response = await retrievePendingEmailAPI(memberId);
+      dispatch(
+        retrieveMemberPendingEmailRequestActions.success({
+          memberId,
+          data: response.data,
+        }),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(retrieveMemberPendingEmailRequestActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(retrieveMemberPendingEmailRequestActions.isLoading(false));
   };
 }

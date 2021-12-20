@@ -52,31 +52,33 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
         this.props.requestMembershipValidation({
           company: this.props.companyId,
         });
-        this.props.requestMemberCustomFormNotification(
-          {
-            company_id: this.props.companyId,
-          },
-          {
-            onSuccess: (payload) => {
-              this.props.fetchMissingCustomFormBulk({
-                id__in: payload.missing_custom_form_informations.map(
-                  (info: {
-                    custom_form_id: number;
-                    custom_form_display_rule: number;
-                  }) => info.custom_form_id,
-                ),
-              });
-              this.props.fetchBlockingCustomFormDisplayRuleBulk({
-                id__in: payload.missing_custom_form_informations.map(
-                  (info: {
-                    custom_form_id: number;
-                    custom_form_display_rule_id: number;
-                  }) => info.custom_form_display_rule_id,
-                ),
-              });
+        if (this.props.membership) {
+          this.props.requestMemberCustomFormNotification(
+            {
+              company_id: this.props.companyId,
             },
-          },
-        );
+            {
+              onSuccess: (payload) => {
+                this.props.fetchMissingCustomFormBulk({
+                  id__in: payload.missing_custom_form_informations.map(
+                    (info: {
+                      custom_form_id: number;
+                      custom_form_display_rule: number;
+                    }) => info.custom_form_id,
+                  ),
+                });
+                this.props.fetchBlockingCustomFormDisplayRuleBulk({
+                  id__in: payload.missing_custom_form_informations.map(
+                    (info: {
+                      custom_form_id: number;
+                      custom_form_display_rule_id: number;
+                    }) => info.custom_form_display_rule_id,
+                  ),
+                });
+              },
+            },
+          );
+        }
       }
     }
 

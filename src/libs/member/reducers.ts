@@ -21,6 +21,9 @@ import {
   interrogateMemberStatusActions,
   searchArchivedMembers,
   updateMemberFileActions,
+  createChangeEmailRequestActions,
+  retrieveChangeEmailRequestActions,
+  retrieveMemberPendingEmailRequestActions,
 } from './actions';
 import { Member, MemberNote, MemberState } from './types';
 import { GenericListReducer, GenericReducer } from '../../utils/reduxHelper';
@@ -89,6 +92,11 @@ const initialState: Immutable.Immutable<MemberState> = Immutable<MemberState>({
     interrogate: {
       byId: {},
     },
+  },
+  change_email_request: {
+    error: null,
+    loading: false,
+    current: null,
   },
 });
 
@@ -444,6 +452,46 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
         },
         { deep: true },
       );
+    },
+    [createChangeEmailRequestActions.isLoading.toString()]: (state, action) => {
+      return state.setIn(['change_email_request', 'loading'], action.payload);
+    },
+    [createChangeEmailRequestActions.error.toString()]: (state, action) => {
+      return state.setIn(['change_email_request', 'error'], action.payload);
+    },
+    [retrieveChangeEmailRequestActions.isLoading.toString()]: (
+      state,
+      action,
+    ) => {
+      return state.setIn(['change_email_request', 'loading'], action.payload);
+    },
+    [retrieveChangeEmailRequestActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['change_email_request', 'error'], payload);
+    },
+    [retrieveChangeEmailRequestActions.success.toString()]: (state, action) => {
+      return state.merge(
+        {
+          change_email_request: {
+            current: action.payload,
+          },
+        },
+        { deep: true },
+      );
+    },
+    [retrieveMemberPendingEmailRequestActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      if (state?.detailData?.[payload.memberId]) {
+        return state.setIn(
+          ['detailData', payload.memberId, 'pending_email'],
+          payload.data,
+        );
+      }
+      return state;
     },
     ...GenericListReducer(membersListWithTagRepo),
     ...GenericListReducer(membersListWithoutTagRepo),

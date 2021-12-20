@@ -21,6 +21,7 @@ import {
   createOrUpdateMember,
 } from '../../libs/member/actions';
 import { mapFormData } from '../form.utils';
+import type { OptionCallback } from '../../state/types';
 
 type Props = {
   theme: Theme,
@@ -38,12 +39,14 @@ type Props = {
 type State = {
   showConfirmDialog: boolean,
   data: any,
+  options: OptionCallback,
 };
 
 export class MemberMergeFormPage extends Component<Props, State> {
   state = {
     showConfirmDialog: false,
     data: null,
+    options: null,
   };
 
   componentDidMount() {

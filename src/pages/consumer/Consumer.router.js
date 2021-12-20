@@ -21,6 +21,9 @@ const ConsumerMembershipValidator = asyncComponent(() =>
   import('./ConsumerMembershipValidator.page'),
 );
 
+const ConsumerChangeEmailRequestPage = asyncComponent(() =>
+  import('./ConsumerChangeEmail.page'),
+);
 type Props = {
   companyId: ?string,
   isManager: boolean,
@@ -54,6 +57,10 @@ export const ConsumerRouter = (props: Props) => {
         exact
         path="/c/membership-validator/:companyId/"
         component={ConsumerMembershipValidator}
+      />
+      <Route
+        path="/c/:companyId/change_email/:uuid"
+        component={ConsumerChangeEmailRequestPage}
       />
       <Route path="/c/:companyId/" component={ConsumerHome} />
       <Route exact path="/(|customer)" component={ConsumerSpacePreSelector} />

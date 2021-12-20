@@ -27,6 +27,7 @@ import {
   removeFileFromMember,
   updateMemberFile,
   adjustCreditWithoutPaymentNote,
+  retrieveMemberPendingEmail,
 } from '../../libs/member/actions';
 import {
   getSearchedMembers,
@@ -125,7 +126,9 @@ export class MemberDetailPage extends Component<Props> {
   };
 
   componentDidMount() {
-    this.props.fetchMember(this.props.id);
+    this.props.fetchMember(this.props.id, {
+      onSuccess: () => this.props.retrieveMemberPendingEmail(this.props.id),
+    });
     this.props.fetchTags();
     this.props.fetchTaskListByMember();
     this.props.fetchInvoiceListUnpaid();
@@ -451,6 +454,7 @@ const connector = connect(
     fetchEstablishments,
     fetchAllEstablishmentGroup,
     fetchModelBasedAnswer,
+    retrieveMemberPendingEmail,
   },
 );
 

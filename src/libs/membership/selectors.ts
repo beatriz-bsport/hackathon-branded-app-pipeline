@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import { RootState } from '../../reducers';
 
 const _getMembershipData = (state: RootState) => state.membership.byId;
-const _getConsumerMembershipIds = (state: RootState) =>
+export const _getConsumerMembershipIds = (state: RootState) =>
   state.membership.asConsumer.allIds;
 
 export const getMembership = (state: RootState, id: number) => {

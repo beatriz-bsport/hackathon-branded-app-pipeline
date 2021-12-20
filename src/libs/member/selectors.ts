@@ -119,3 +119,6 @@ export const getPaginatedMembers = createSelector(
 );
 
 export const getListCountMembers = (state: RootState) => state.member.listCount;
+
+export const getCurrentChangeEmailRequest = (state: RootState) =>
+  state.member.change_email_request.current;

@@ -183,6 +183,37 @@ export async function interrogateMemberStatus(memberId: number) {
   );
 }
 
+export async function createChangeEmailRequest(data: {
+  member: number;
+  new_email: string;
+}) {
+  return postAuth(
+    `${API_V1_URI}/change_email_request/create_change_email_request/`,
+    data,
+  );
+}
+
+export async function retrieveChangeEmailRequest(uuid: string) {
+  return getAuth(`${API_V1_URI}/change_email_request/${uuid}/`);
+}
+
+export async function answerChangeEmailRequest(
+  uuid: string,
+  data: {
+    accepted: boolean;
+    denied: boolean;
+    company: number;
+  },
+) {
+  return postAuth(
+    `${API_V1_URI}/change_email_request/${uuid}/answer_request/`,
+    data,
+  );
+}
+
+export async function retrievePendingEmail(memberId: number) {
+  return getAuth(`${API_V1_URI}/member/${memberId}/get_pending_email/`);
+}
 export default {
   updateMember,
   fetchMember,

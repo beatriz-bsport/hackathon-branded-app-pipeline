@@ -13,9 +13,12 @@ import FormControl from '@material-ui/core/FormControl';
 import { withFormik, Form, connect as formikConnect } from 'formik';
 import { compose, withPropsOnChange, withProps, withState } from 'recompose';
 import { FormLabel } from '@material-ui/core';
+import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import { browserCountryCode, Moment } from '../../i18n';
 import { getAuth, postAuth, API_URI } from '../../http';
 import AvatarFieldWithButton from '../../components/forms/AvatarFieldWithButton.component';
+
 import {
   CheckboxField,
   TextField,
@@ -30,6 +33,7 @@ import {
 import AlertExistingUser from './AlertExistingUser.component';
 import { DATE_FORMAT } from '../../utils/datetime';
 import withConfirm from '../../hocs/with-confirm.hoc';
+import ToolTip from '#components/Tooltip.component';
 
 const styles = (theme) => ({
   redPaperContainer: {
@@ -80,9 +84,6 @@ type Props = {
   onCancel?: () => void,
   checkUserExists: (data: { email?: string, phonenumber?: string }) => void,
   goToMember: (id: number) => void,
-  goToMerge: (idSrc: number, idDst: number) => void,
-
-  linkMember: (id: number) => void,
   userStatus: number,
   initial: object,
   errors: any,
@@ -110,24 +111,15 @@ const Effect = formikConnect(
 const MemberExistsBanner = (props: {
   emailExists: { phonenumber: string, email: string, exists: boolean },
   goToMember: () => void,
-  linkMember: () => void,
-  goToMerge: () => void,
   memberId: number,
   emailExistsError: boolean,
 }) => {
-  const {
-    emailExists,
-    goToMember,
-    goToMerge,
-    linkMember,
-    memberId,
-    emailExistsError,
-  } = props;
+  const { emailExists, goToMember, memberId, emailExistsError } = props;
   if (!emailExists) {
     return null;
   }
   const { email, phonenumber, exists } = emailExists;
-  if (!exists) {
+  if (!exists || !exists.member_pk) {
     return null;
   }
 
@@ -142,8 +134,6 @@ const MemberExistsBanner = (props: {
       phonenumber={phonenumber}
       existingMemberId={exists.member_pk}
       goToMember={goToMember}
-      goToMerge={goToMerge}
-      linkMember={linkMember}
     />
   );
 };
@@ -209,9 +199,7 @@ export function MemberForm(props: Props) {
         <MemberExistsBanner
           emailExists={props.emailExists}
           emailExistsError={props.emailExistsError}
-          linkMember={props.linkMember}
           goToMember={props.goToMember}
-          goToMerge={props.goToMerge}
           memberId={props.memberId}
         />
       )}
@@ -288,16 +276,58 @@ export function MemberForm(props: Props) {
                       fullWidth
                       required={!asManager}
                       disabled={disabled || variant === 'merge-form'}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment>
+                            {props.initial && props.initial.pending_email && (
+                              <ToolTip
+                                title={t(
+                                  'member:changeEmailRequest.pendingValidation',
+                                  {
+                                    email: props.initial.pending_email,
+                                  },
+                                )}
+                              >
+                                <div className={classes.iconContainer}>
+                                  <HourglassEmptyIcon color="disabled" />
+                                </div>
+                              </ToolTip>
+                            )}
+                          </InputAdornment>
+                        ),
+                      }}
                     />
                   ) : (
-                    <DelayTextField
-                      name="email"
-                      label={t('translation:form.email')}
-                      type="email"
-                      fullWidth
-                      required={!asManager}
-                      disabled={disabled || variant === 'merge-form'}
-                    />
+                    <>
+                      <DelayTextField
+                        name="email"
+                        label={t('translation:form.email')}
+                        type="email"
+                        fullWidth
+                        required={!asManager}
+                        disabled={disabled || variant === 'merge-form'}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment>
+                              {props.initial && props.initial.pending_email && (
+                                <ToolTip
+                                  title={t(
+                                    'member:changeEmailRequest.pendingValidation',
+                                    {
+                                      email: props.initial.pending_email,
+                                    },
+                                  )}
+                                >
+                                  <div className={classes.iconContainer}>
+                                    <HourglassEmptyIcon color="disabled" />
+                                  </div>
+                                </ToolTip>
+                              )}
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                    </>
                   )}
                 </div>
               </Grid>
@@ -533,7 +563,7 @@ export function MemberForm(props: Props) {
                       {t('translation:common.cancel')}
                     </Button>
                   ) : null}
-                  <Submit disabled={isSubmitting || props.emailExists}>
+                  <Submit disabled={isSubmitting}>
                     {t('translation:form.send')}
                   </Submit>
                 </Actions>
@@ -551,9 +581,7 @@ export function MemberForm(props: Props) {
         <MemberExistsBanner
           emailExists={props.emailExists}
           emailExistsError={props.emailExistsError}
-          linkMember={props.linkMember}
           goToMember={props.goToMember}
-          goToMerge={props.goToMerge}
           memberId={props.memberId}
         />
       )}
@@ -566,7 +594,6 @@ export default compose(
   withTranslation(['translation', 'member']),
   withState('emailExists', 'setEmailExists', false),
   withState('emailExistsError', 'setemailExistsError', false),
-
   withPropsOnChange(
     ['setEmailExists', 'setCurrentEmailExist'],
     ({ setEmailExists, setemailExistsError, ignoreMail }) => {
@@ -679,9 +706,7 @@ export default compose(
       };
       onSubmit(data, {
         onSuccess: () => setSubmitting(false),
-        onError: () => {
-          setSubmitting(false);
-        },
+        onError: () => setSubmitting(false),
       });
     },
   }),

@@ -19,7 +19,7 @@ export const searchActions = {
 
 export function searchCompany(
   text: string,
-  options: OptionCallback<Array<Company>>,
+  options?: OptionCallback<Array<Company>>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(searchActions.isLoading(true));
@@ -28,6 +28,33 @@ export function searchCompany(
     try {
       const response = await fetchCompanyListAPI({
         search: text,
+      });
+      dispatch(searchActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(searchActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(searchActions.isLoading(false));
+  };
+}
+export function fetchCompanyBulk(
+  id__in: Array<number>,
+  options?: OptionCallback<Array<Company>>,
+) {
+  return async (dispatch: Dispatch) => {
+    if (!id__in || id__in?.length === 0) {
+      return;
+    }
+    dispatch(searchActions.isLoading(true));
+    dispatch(searchActions.error(null));
+
+    try {
+      const response = await fetchCompanyListAPI({
+        id__in,
       });
       dispatch(searchActions.success(response.data));
       if (options && options.onSuccess) {

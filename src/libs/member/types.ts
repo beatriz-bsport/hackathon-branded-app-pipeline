@@ -96,6 +96,7 @@ export type Member<Tag = number> = {
   waiver_accepted: string;
   emergency_contact: string;
   archived: boolean;
+  pending_email: string | null;
 };
 
 export type MemberState = ErrorAndLoading &
@@ -141,6 +142,9 @@ export type MemberState = ErrorAndLoading &
         byId: { [key: number]: Array<number> };
       };
     };
+    change_email_request: {
+      current: ChangeEmailRequest | null;
+    } & ErrorAndLoading;
   };
 
 export type MemberUploadedFile = {
@@ -150,4 +154,21 @@ export type MemberUploadedFile = {
   updated_at: string;
   file_path: string;
   coach_has_access: boolean;
+};
+
+export type ChangeEmailRequest<M = number> = {
+  company?: number;
+  requesting_manager?: number;
+  old_email_related_user?: number;
+  date_created?: number;
+  uuid?: string;
+  old_email: string;
+  new_email: string;
+  email_sent?: boolean;
+  status?: number;
+  src_company_member?: number | null;
+  dst_same_company_member?: number | null;
+  dst_other_companies_members: Array<M>;
+  kind?: number;
+  email_already_used: boolean;
 };

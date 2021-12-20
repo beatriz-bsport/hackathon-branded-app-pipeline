@@ -30,6 +30,7 @@ export function MemberConfirmMergeDialog(props: Props) {
           <Typography color="error">
             {props.t('forms.merge.explainTags')}
           </Typography>
+          <p>{props.t('forms.merge.emailWillBeSend')}</p>
         </div>
       </DialogContent>
       <DialogActions>

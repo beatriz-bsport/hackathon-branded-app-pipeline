@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React from 'react';
 
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -12,6 +12,10 @@ import NotificationOffIcon from '@material-ui/icons/NotificationsOff';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
+import { useTranslation } from 'react-i18next';
+import ToolTip from '#components/Tooltip.component';
 
 type Props = {
   email: string,
@@ -20,45 +24,57 @@ type Props = {
   notificationIcon: boolean,
   openMailDialog: () => void,
   hideContactButton?: boolean,
+  pending_email?: string,
 };
 
-export class EmailListItem extends Component<Props> {
-  renderNotificationIcon = () => {
-    return this.props.accept_email ? (
-      <NotificationActiveIcon className={this.props.classes.notificationIcon} />
+export const EmailListItem = (props: Props) => {
+  const { email, notificationIcon, pending_email, classes } = props;
+  const { t } = useTranslation('member');
+  const renderNotificationIcon = () => {
+    return props.accept_email ? (
+      <NotificationActiveIcon className={classes.notificationIcon} />
     ) : (
-      <NotificationOffIcon className={this.props.classes.notificationIcon} />
+      <NotificationOffIcon className={classes.notificationIcon} />
     );
   };
-
-  render() {
-    const { email, notificationIcon } = this.props;
-    return (
-      <div>
-        <ListItem>
-          <AlternateEmailIcon />
-          <ListItemText
-            primary={email || ' - '}
-            className={this.props.classes.listItemText}
-          />
-          {email &&
-          this.props.openMailDialog &&
-          !this.props.hideContactButton ? (
-            <Button
-              color="primary"
-              onClick={() => {
-                this.props.openMailDialog();
-              }}
-            >
-              <EmailIcon />
-            </Button>
-          ) : null}
-          {notificationIcon ? this.renderNotificationIcon() : null}
-        </ListItem>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <ListItem>
+        <AlternateEmailIcon />
+        <ListItemText
+          primary={
+            <div className={classes.flexEmail}>
+              <Typography>{email || ' - '}</Typography>
+              {pending_email && (
+                <ToolTip
+                  title={t('changeEmailRequest.pendingValidation', {
+                    email: pending_email,
+                  })}
+                >
+                  <div className={classes.iconContainer}>
+                    <HourglassEmptyIcon color="disabled" />
+                  </div>
+                </ToolTip>
+              )}
+            </div>
+          }
+          className={classes.listItemText}
+        />
+        {email && props.openMailDialog && !props.hideContactButton ? (
+          <Button
+            color="primary"
+            onClick={() => {
+              props.openMailDialog();
+            }}
+          >
+            <EmailIcon />
+          </Button>
+        ) : null}
+        {notificationIcon ? renderNotificationIcon() : null}
+      </ListItem>
+    </div>
+  );
+};
 
 const style = (theme) => ({
   listItemText: {
@@ -66,6 +82,13 @@ const style = (theme) => ({
   },
   notificationIcon: {
     marginLeft: theme.spacing(2),
+  },
+  flexEmail: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  iconContainer: {
+    paddingLeft: theme.spacing(2),
   },
 });
 

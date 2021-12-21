@@ -58,7 +58,7 @@ import {
 } from '../../libs/payment/actions';
 
 import { fetchCompanyUserRoles } from '../../libs/role/actions';
-import { snackbarSuccess } from '../../libs/snackbar/actions';
+import { snackbarSuccess, snackbarWarning } from '../../libs/snackbar/actions';
 import InvoiceHeader from '../../libs/invoice/components/InvoiceHeader.component';
 import InvoiceContent from '../../libs/invoice/components/InvoiceContent.component';
 import InvoicePaymentPanel from '../../libs/invoice/components/InvoicePaymentPanel.component';
@@ -144,7 +144,8 @@ type Props = {
   ) => void,
   companyTheme: CompanyThemeType,
   companyId: number,
-  snackbarSuccess: (string) => void,
+  snackbarSuccess: (msg: string) => void,
+  snackbarWarning: (msg: string) => void,
 };
 
 type State = {
@@ -273,8 +274,20 @@ export class InvoiceDetail extends React.Component<Props, State> {
       })
       .catch((err) => {
         console.error(err);
-        this.setState({ clientSecretLoading: false });
+        this.handleClientSecretError(err);
       });
+  };
+
+  handleClientSecretError = (error: Error) => {
+    if (error.response?.data?.error_code) {
+      this.props.setOpenPaymentDialog(false);
+      this.props.snackbarWarning(
+        `clientSecret.errors.${error.response.data.error_code}`,
+      );
+      this.setState({ clientSecretLoading: false });
+    } else {
+      this.setState({ clientSecretLoading: false });
+    }
   };
 
   requestSetupIntentSecret = () => {
@@ -560,6 +573,7 @@ export default compose(
       fetchEstablishments,
       editBillingEstablishment: editBillingEstablishmentAction,
       snackbarSuccess,
+      snackbarWarning,
     },
   ),
   withHandlers({

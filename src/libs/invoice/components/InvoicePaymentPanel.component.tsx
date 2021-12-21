@@ -167,11 +167,11 @@ const PaymentActions: FC<{
                   onClick={props.onPaymentIntent}
                   variant="contained"
                   color="primary"
-                  disabled={
-                    !props.invoice.member ||
-                    props.amountToPayCts === 0 ||
-                    processing
-                  }
+                  // disabled={
+                  //   !props.invoice.member ||
+                  //   props.amountToPayCts === 0 ||
+                  //   processing
+                  // }
                 >
                   {t('paymentPanel.actions.bill')}
                 </Button>

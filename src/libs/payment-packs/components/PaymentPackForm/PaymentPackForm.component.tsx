@@ -533,7 +533,7 @@ const paymentPackSchema = Yup.object().shape({
       'paymentPack:addPaymentPack.requiredField',
       function testExpirationDate(item) {
         if (
-          this.parent.start_date_method === 'firstBooking' ||
+          this.parent.start_date_method === 'booking' ||
           this.parent.start_date_method === 'attendance'
         ) {
           return typeof item === 'number';

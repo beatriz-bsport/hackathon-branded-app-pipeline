@@ -180,7 +180,7 @@ export const PaymentPackFormValidity = (props: Props) => {
                 ))}
               </RadioGroup>
             </Grid>
-            {formikProps.values.start_date_method === 'firstBooking' ||
+            {formikProps.values.start_date_method === 'booking' ||
             formikProps.values.start_date_method === 'attendance' ? (
               <Grid item xs={6}>
                 <TextFieldEnhancedLabelWithError

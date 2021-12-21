@@ -131,6 +131,8 @@ exports.default = {
       explainBookingsAndPassAndInvoiceAndNotes:
         'Les cartes de cours, réservations, factures et notes seront transférés.',
       explainTags: 'Les tags du membre supprimés ne seront pas transférés',
+      emailWillBeSend:
+        'Un email sera envoyé aux deux adresses pour prévenir les membres.',
       cancel: 'Annuler',
       submit: 'Fusionner',
     },
@@ -204,4 +206,169 @@ exports.default = {
   },
   noData: "Il n'y a aucun membre dans cette smartlist.",
   noMember: "Il n'y a aucun membre à afficher pour le moment.",
+  changeEmailRequest: {
+    pendingValidation: 'Changement en attente: {{ email }}',
+    dialog: {
+      title: "Changement d'email",
+      titleMerge: ' Fusion de membre',
+      simpleChange: {
+        warning:
+          "Attention, vous avez modifé l'email de connexion de ce membre :",
+        unchangedEmail: 'En attendant il conservera son ancien email.',
+      },
+      linkMember: {
+        warning: 'Attention, vous chercher à lier ces deux membres :',
+        unchangedEmail:
+          'En attendant {{ old_email }} conservera son ancien email et les membres ne seront pas liés.',
+        notIncompany:
+          "L'email {{ new_email }} appartient à un membre d'un autre studio.",
+      },
+      mergeMember: {
+        warning:
+          'Attention, vous chercher à fusionner ces deux membres de votre studio :',
+        unchangedEmail:
+          'En cliquant sur confirmer le membre {{ new_email }} récupérera les factures, réservations, solde et achats de {{ old_email }}. Le membre {{ old_email }} sera effacé. Un email sera envoyé aux deux adresses pour prévenir les membres.',
+      },
+      oldEmail: 'Ancienne adresse : {{ email }}',
+      newEmail: 'Nouvelle adresse : {{ email }}',
+      expiryText:
+        'Après son envoi, la demande de changement expirera sous 7 jours',
+      securityHelperText:
+        'Par mesure de sécurité nous allons lui envoyer un email pour confirmer ce changement.',
+      cancelHelperText:
+        'Si vous ne souhaitez pas changer l\'email du membre cliquer sur "annuler".',
+      actions: {
+        close: 'Annuler',
+        confirm: 'Confirmer',
+      },
+    },
+    memberPage: {
+      simpleEmailChange: {
+        title: 'Changement de votre email de connexion',
+        acceptRequestHelper:
+          'Si vous souhaitez effectivement changer votre adresse par cette nouvelle addrese email, merci de cliquer sur "confirmer ma nouvelle adresse".',
+        deniedRequestHelper:
+          'Si cette demande de provient pas de vous ou que vous ne souhaitez pas changer votre adresse, merci de cliquer sur "garder mon adresse"',
+        multipleCompanyHelper:
+          "Votre adrese email est commune à l'ensemble des studios utilisant la solution Bsport. Elle sera donc changée pour tous ces studios. Les studios impactés seront les suivants:",
+        submit: {
+          acceptedTitle: 'Adresse de connexion modifiée',
+          deniedTitle: 'Adresse de connexion conservée',
+          emailUpatedTo:
+            'Votre adresse de connexion a bien été changée par {{ email }}. Utilisez cette adresse comme nouvelle identifiant de connexion.',
+          emailPreservedTo: 'Votre adresse de connexion restera {{ email }}',
+        },
+        error: {
+          alreadyAccepted: {
+            title: 'Vous avez déjà validée cette demande',
+            helper:
+              'Vous avez déjà sélectionné un email de connexion chez {{ company }}, votre décision a été prise en compte.',
+            contactCompany:
+              "Si vous n'êtes pas à l'origine de ce changement ou que vous souhaitez changer votre décision, merci de contacter directement votre studio.",
+            currentEmail: 'Votre email de connexion actuel est : {{ email }}.',
+          },
+          alreadyDenied: {
+            title: 'Vous avez déjà refusée cette demande',
+            helper:
+              'Vous avez déjà sélectionné un email de connexion chez {{ company }}, votre décision a été prise en compte.',
+            contactCompany:
+              "Si vous n'êtes pas à l'origine de ce changement ou que vous souhaitez changer votre décision, merci de contacter directement votre studio.",
+            currentEmail: 'Votre email de connexion actuel est : {{ email }}.',
+          },
+          renewed: {
+            title: 'Changement de votre email de connexion',
+            helper:
+              "Il semblerait que le studio {{ company }} vous ait envoyé une demande de changement d'adresse de connexion plus récente. Cette ancienne demande est caduc. Pour trouver la nouvelle demande merci de vérifier vos emails et vos spams.",
+            contactCompany:
+              'Si vous ne trouvez pas cette nouvelle demande, veuillez contacter votre studio.',
+          },
+          delayExceeded: {
+            title: 'Change de votre email de connexion',
+            helper:
+              "Le studio {{ company }} vous avait envoyé une demande de confirmation de changement d'email de connexion. La durée de validité de 7 jours de cette demande est expirée.",
+            contactCompany:
+              "Si vous souhaitez demander de nouveau un changement d'adresse de connexion merci de contacter votre studio.",
+          },
+          emailTaken: {
+            title: 'Email de connexion déjà pris',
+            helper:
+              'Le studio {{ company }} avait fait une demande pour changer votre email de connexion à votre espace personnel:',
+            contactCompany:
+              "Cependant un compte utilisant l'adresse {{ email }} a été crée entre-temps. Cette demande est désormais caduc. Si l'adresse email {{ email }} vous appartient mais que vous n'êtes pas à l'origine de la création du compte associé, merci de contacter directement votre studio.",
+          },
+        },
+      },
+      linkAccount: {
+        title: 'Fusion de votre compte',
+        veto: {
+          requestExplanation:
+            'Nous avons détecté que l’adresse {{ email }} est déjà utilisée dans un autre studio. Le studio {{ company }} a fait la demande de fusionner votre compte avec cet autre compte. Si vous acceptez de fusionner les deux comptes, vos nouveaux identifiants de connexion (email et mot de passe) seront ceux du compte {{ email }}. Vous pourrez gérer l’ensemble des studios dans lesquels vous êtes inscrit depuis une seule adresse.',
+          acceptRequestHelper:
+            'Pour accepter la fusion des comptes merci de vous rendre sur votre adresse {{ email }} et de cliquer sur le lien dans l’email que nous vous avons envoyé.',
+          deniedRequestHelper:
+            'Si vous ne souhaitez pas fusionner ces comptes ou que vous n’êtes pas à l’origine de cette demande merci de cliquer sur “refuser la fusion”. Cela empêchera la fusion des comptes et vous conserverez vos données de connexion.',
+        },
+        dstUser: {
+          requestingStudio:
+            'Le studio {{ company }} a fait la demande de fusionner votre compte {{ new_email }} avec le compte {{ old_email }}.',
+          notMemberYet:
+            'Nous avons détecté que vous ne faisiez pas encore parti du studio {{ company }}. Si vous acceptez de fusionner les deux comptes, vous serez inscrit au studio {{ company }} et récuperez les informations et réservations du compte {{ old_email }}. Vous conserverez vos identifiants de connexion actuels sur l’adresse {{ new_email }}. Vous pourrez gérer l’ensemble des studios dans lesquels vous êtes inscrit depuis cette adresse.',
+          acceptRequestHelper:
+            'Pour accepter la fusion des comptes merci de cliquer sur “accepter la fusion”.',
+          deniedRequestHelper:
+            'Si vous ne souhaitez pas fusionner ces comptes ou que vous n’êtes pas à l’origine de cette demande merci de cliquer sur “refuser la fusion”. Cela empêchera la fusion des comptes et vous ne serez pas inscrit chez {{ company }}.',
+        },
+        submit: {
+          accept: {
+            title: 'Fusion Acceptée',
+            content:
+              "Votre compte a bien été fusionné avec le compte {{ old_email }}. Vous êtes désormais membre du studio {{ company }}. Utilisez l'adresse {{ new_email }} pour vous connecter à votre compte.",
+          },
+          denied: {
+            title: 'Fusion refusée',
+            content:
+              'Votre compte n’a pas été fusionné avec {{ new_email }}. Votre adresse de connexion restera {{ old_email}}.',
+          },
+        },
+        error: {
+          denied: {
+            title: 'Fusion refusée',
+            helper:
+              'Vous avez déjà fait le choix de refuser la demande de fusion au studio {{ company }}, votre décision a été prise en compte.',
+            contactCompany:
+              "Si vous souhaitez demander de nouveau une fusion de votre compte ou si vous n'avez pas refusé la demande de fusion, merci de contacter directement votre studio.",
+          },
+          accepted: {
+            title: 'Fusion acceptée',
+            helper: 'Votre email de connexion actuel est : {{ email }}',
+            contactCompany:
+              'Si vous souhaitez changer votre choix ou si cette demande ne provenait pas de vous, merci de contacter votre studio.',
+          },
+        },
+      },
+      actions: {
+        confirm: 'Confirmer ma nouvelle adresse',
+        cancel: 'Garder mon adresse',
+        deniedFusion: 'Refuser la fusion',
+        confirmFusion: 'Accepter la fusion',
+        continue: 'Continuer',
+      },
+      requestingStudio:
+        'Le studio {{ company }} souhaite changer votre email de connexion à votre espace personnel :',
+      generalError: {
+        title: 'Changement de mail de connexion invalide',
+        helper:
+          'Le studio {{ company }} avait fait une demande pour changer votre email de connexion à votre espace personnel:',
+        contactCompany:
+          "Cependant nous avons détecté une erreur dans la demande actuelle, par mesure de sécurité cette demande est désormais désactivée. Pour regénérer cette demande, ou si vous n'êtes pas à l'origine de cette dernière, veuillez contacter directement votre studio.",
+      },
+      unAuthorizedAccess: {
+        title: 'Accès non-autorisé',
+        helper:
+          "Vous n'êtes pas authentifé au compte pouvant accéder à cette demande, veuillez vous connecter au compte associé à l'email de confirmation envoyé.",
+        contactCompany:
+          'Si vous ne parvenez pas à accéder à cette demande, merci de contacter directment votre studio.',
+      },
+    },
+  },
 };

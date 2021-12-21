@@ -29,6 +29,10 @@ const {
   CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_MAXOUT_YEAR,
 } = require('@bsport/common/lib/master-data/buyable-item-can-not-be-bought');
 
+const {
+  PENDING_PAYMENT_INTENT_OF_PAYMENT_GROUP_BLOCKS_OTHER_PAYMENT_GROUP_CREATION,
+} = require('@bsport/common/lib/master-data/payment-group');
+
 exports.default = {
   canNotBuyErrorCode: {
     generic: 'Impossible de réserver',
@@ -413,6 +417,12 @@ exports.default = {
       success: 'Informations enregistrées',
       error: "Erreur lors de l'enregistrement",
     },
+    changeEmailRequest: {
+      create: {
+        success: "Email de confirmation de changement d'email envoyé",
+        error: "Impossible créer la demande de changement d'email",
+      },
+    },
   },
   activity: {
     create: {
@@ -527,6 +537,12 @@ exports.default = {
       restore: {
         success: 'Contrat restauré avec succès',
         error: 'Impossible de restaurer le contrat',
+      },
+    },
+    billNow: {
+      errors: {
+        [PENDING_PAYMENT_INTENT_OF_PAYMENT_GROUP_BLOCKS_OTHER_PAYMENT_GROUP_CREATION]:
+          'Un paiment est déjà en cours de validation, revenez plus tard pour enregistrer un nouveau paiement.',
       },
     },
   },
@@ -774,6 +790,12 @@ exports.default = {
     revoke: {
       success: 'Votre compte Quickbooks est déconnecté',
       error: 'Impossible de déonnecter votre compte Quickbooks',
+    },
+  },
+  clientSecret: {
+    errors: {
+      [PENDING_PAYMENT_INTENT_OF_PAYMENT_GROUP_BLOCKS_OTHER_PAYMENT_GROUP_CREATION]:
+        'Un paiment est déjà en cours de validation, revenez plus tard pour enregistrer un nouveau paiement.',
     },
   },
 };

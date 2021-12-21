@@ -38,7 +38,7 @@ export const PaymentPackFormValidity = (props: Props) => {
       label: t('addPaymentPack.billing'),
       value: 'billing',
     },
-    { label: t('addPaymentPack.firstBooking'), value: 'firstBooking' },
+    { label: t('addPaymentPack.firstBooking'), value: 'booking' },
     { label: t('addPaymentPack.attendance'), value: 'attendance' },
   ];
   return (

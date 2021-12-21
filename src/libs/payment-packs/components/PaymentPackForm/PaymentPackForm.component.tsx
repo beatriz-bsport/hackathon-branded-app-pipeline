@@ -202,7 +202,7 @@ export const PaymentPackForm = (props: Props) => {
           case 'billing':
             sanithizedValues.start_date_method = START_ON_PURCHASE;
             break;
-          case 'firstBooking':
+          case 'booking':
             sanithizedValues.start_date_method = START_ON_FIRST_BOOKING;
             break;
           default:

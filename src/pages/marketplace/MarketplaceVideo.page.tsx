@@ -8,31 +8,31 @@ import { push as pushRouter } from 'connected-react-router';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
 import Typography from '@material-ui/core/Typography';
-import { getPlaylistList } from '../../libs/playlist/selectors';
+import { getPlaylistList } from '#libs/playlist/selectors';
 import {
   getVideoList,
   withVideoCoach,
   withVideoCategory,
-} from '../../libs/video/selectors';
+} from '#libs/video/selectors';
 
-import withQueryParams from '../../hocs/with-query-params.hoc';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import withQueryParams from '#hocs/with-query-params.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
-import VideoSearchBar from '../../libs/video/components/VideoSearchBar.component';
-import VideoItemList from '../../libs/video/components/VideoItemList.component';
+import VideoSearchBar from '#libs/video/components/VideoSearchBar.component';
+import VideoItemList from '#libs/video/components/VideoItemList.component';
 import {
   fetchVideoList as fetchVideoListAction,
   fetchMoreVideo as fetchMoreVideoAction,
   fetchVideoFilterableParams,
-} from '../../libs/video/actions';
-import { fetchPlaylistList } from '../../libs/playlist/actions';
+} from '#libs/video/actions';
+import { fetchPlaylistList } from '#libs/playlist/actions';
 
-import themeSelectors from '../../libs/theme/selectors';
-import MarketplacePlaylistItem from '../../libs/playlist/components/PlaylistItemMarketplace.component';
+import themeSelectors from '#libs/theme/selectors';
+import MarketplacePlaylistItem from '#libs/playlist/components/PlaylistItemMarketplace.component';
 import { RootState } from '../../reducers';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
-import { getMarketplaceRoute } from '../../libs/marketplace/routing-utils';
-import { VideoStatusEnum } from '../../libs/video/types';
+import { getMarketplaceRoute } from '#libs/marketplace/routing-utils';
+import { VideoStatusEnum } from '#libs/video/types';
 
 type OwnProps = {
   companyId: number;

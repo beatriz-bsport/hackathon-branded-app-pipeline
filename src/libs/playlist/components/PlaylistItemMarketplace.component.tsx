@@ -4,17 +4,17 @@ import React from 'react';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 
 type Props = {
-  title: string,
-  description: string,
-  imageUrl: string,
-  videoCount: number,
-  onClick: () => void,
+  title: string;
+  description: string;
+  imageUrl: string;
+  videoCount: number;
+  onClick: () => void;
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: Theme) => ({
   container: {
     width: '100%',
     cursor: 'pointer',
@@ -33,7 +33,6 @@ const useStyles = makeStyles(() => ({
     paddingBottom: '56.2%',
     overflow: 'hidden',
   },
-
   img: {
     objectFit: 'cover',
     width: '100%',
@@ -42,14 +41,13 @@ const useStyles = makeStyles(() => ({
     left: 0,
     top: 0,
   },
-
   image_wrapper__count_wrapper: {
     position: 'absolute',
-    zIndex: '1',
+    zIndex: 1,
     paddingTop: '100%',
     height: '100%',
     width: '100%',
-    opacity: '0.5',
+    opacity: 0.5,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -62,14 +60,15 @@ const useStyles = makeStyles(() => ({
     },
   },
   image_wrapper__playlist_icon: {
-    marginLeft: '5px',
+    marginLeft: 5,
   },
   playlist_item__content: {
     display: 'flex',
     flexDirection: 'column',
-    padding: '8px',
+    padding: theme.spacing(1),
     width: '100%',
     minHeight: 92,
+    boxSizing: 'border-box',
   },
   playlist_item_title: {
     minHeight: 32,

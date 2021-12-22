@@ -95,6 +95,7 @@ type Props = {
   resourceFiltersArray: Array<Ressource>,
   fetchRessourcesFilters: () => void,
   updateManagerRessourcesFilters: () => void,
+  availabilitySlotUpdating: boolean,
 };
 
 const styles = (theme) => ({
@@ -246,6 +247,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
           showCustomEventsToogle
           showHideCancelledEventsToggle
           companyTheme={this.props.companyTheme}
+          availabilitySlotUpdating={this.props.availabilitySlotUpdating}
         />
         {this.state.updateAvailabilitySlotData ? (
           <AvailabilityUpdateResourceChoserDialog
@@ -329,6 +331,8 @@ export default compose(
         state.dashboardSettings.managerRessourcesFilters.data.filter,
       ressourceFiltersLoading:
         state.dashboardSettings.managerRessourcesFilters.loading,
+      availabilitySlotUpdating:
+        state.privateService.availabilitySlot.createOrUpdate.loading,
     }),
     {
       fetchPrivateBookings: fetchPrivateBookingsAction,

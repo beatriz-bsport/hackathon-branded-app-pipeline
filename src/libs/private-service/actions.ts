@@ -285,7 +285,7 @@ export function fetchAvailabilitySlots(params: any = {}): ThunkAction {
 
 export const availabilitySlotUpdateActions = {
   error: createAction('AVAILABILITY_SLOT/UPDATE/ERROR'),
-  isLoading: createAction('AVAILABILITY_SLOT/UPDTAE/IS_LOADING'),
+  isLoading: createAction('AVAILABILITY_SLOT/UPDATE/IS_LOADING'),
   success: createAction('AVAILABILITY_SLOT/UPDATE/SUCCESS'),
 };
 
@@ -640,7 +640,7 @@ export function fetchPrivateServiceResourceData(
 
 export function fetchResourceList(
   params: any = {},
-  options: OptionCallback,
+  options?: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(resourceListActions.isLoading(true));

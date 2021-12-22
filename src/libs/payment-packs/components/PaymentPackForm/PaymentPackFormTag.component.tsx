@@ -27,116 +27,114 @@ export const PaymentPackFormTag = (props: Props) => {
   const classes = useStyles();
   return (
     <>
-      {Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' && (
-        <div className={classes.advancedOptionsSection}>
-          <ButtonBase
-            onClick={() => setOpenAdvancedOptions(!openAdvancedOptions)}
-            className={classes.advancedOptionsHeader}
-          >
-            <SettingsIcon className={classes.settings} />
-            <Typography variant="h6">
-              {t('form.paymentPack.advancedOptions.header')}
+      <div className={classes.advancedOptionsSection}>
+        <ButtonBase
+          onClick={() => setOpenAdvancedOptions(!openAdvancedOptions)}
+          className={classes.advancedOptionsHeader}
+        >
+          <SettingsIcon className={classes.settings} />
+          <Typography variant="h6">
+            {t('form.paymentPack.advancedOptions.header')}
+          </Typography>
+          {openAdvancedOptions ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+        </ButtonBase>
+        <Collapse in={openAdvancedOptions}>
+          <div className={classes.tagSection}>
+            <Typography className={classes.title}>
+              {t('form.paymentPack.advancedOptions.tag.header')}
             </Typography>
-            {openAdvancedOptions ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-          </ButtonBase>
-          <Collapse in={openAdvancedOptions}>
-            <div className={classes.tagSection}>
-              <Typography className={classes.title}>
-                {t('form.paymentPack.advancedOptions.tag.header')}
-              </Typography>
-              <Typography variant="caption" className={classes.helperText}>
-                {t('form.paymentPack.advancedOptions.tag.helperText')}
-              </Typography>
-              <div className={classes.tagSelector}>
-                <div className={classes.tagSelectorLabel}>
-                  <CheckIcon className={classes.tagSelectorLabelIcon} />
-                  <Typography variant="subtitle1">
-                    {t('form.paymentPack.advancedOptions.tag.allowed')}
-                  </Typography>
-                </div>
-                <TagSelector
-                  allTagsWithTagGroup={
-                    [
-                      ...tagList?.filter(
-                        (tag) =>
-                          !formikProps.values?.blacklist_tags?.includes(tag.id),
-                      ),
-                    ] || []
-                  }
-                  placeholder={t(
-                    'form.paymentPack.advancedOptions.tag.doNotSelectToAllowAllMembers',
-                  )}
-                  onChange={(
-                    items: Array<{
-                      item: Tag & { label: string; value: number };
-                    }>,
-                  ) => {
-                    return formikProps.setFieldValue(
-                      'whitelist_tags',
-                      items.map((item) => item.value),
-                    );
-                  }}
-                  onDeleteTag={(itemId: number) =>
-                    formikProps.setFieldValue(
-                      'whitelist_tags',
-                      formikProps?.values?.whitelist_tags?.filter(
-                        (tagId) => tagId !== itemId,
-                      ),
-                    )
-                  }
-                  selectedTags={formikProps.values?.whitelist_tags}
-                  isClearable
-                  closeMenuOnSelect
-                  inScrollBar
-                />
+            <Typography variant="caption" className={classes.helperText}>
+              {t('form.paymentPack.advancedOptions.tag.helperText')}
+            </Typography>
+            <div className={classes.tagSelector}>
+              <div className={classes.tagSelectorLabel}>
+                <CheckIcon className={classes.tagSelectorLabelIcon} />
+                <Typography variant="subtitle1">
+                  {t('form.paymentPack.advancedOptions.tag.allowed')}
+                </Typography>
               </div>
-              <div className={classes.tagSelector}>
-                <div className={classes.tagSelectorLabel}>
-                  <BlockIcon className={classes.tagSelectorLabelIcon} />
-                  <Typography variant="subtitle1">
-                    {t('form.paymentPack.advancedOptions.tag.notAllowed')}
-                  </Typography>
-                </div>
-                <TagSelector
-                  allTagsWithTagGroup={
-                    [
-                      ...tagList?.filter(
-                        (tag) =>
-                          !formikProps.values?.whitelist_tags?.includes(tag.id),
-                      ),
-                    ] || []
-                  }
-                  placeholder={t(
-                    'form.paymentPack.advancedOptions.tag.doNotSelectToAllowAllMembers',
-                  )}
-                  onChange={(
-                    items: Array<{
-                      item: Tag & { label: string; value: number };
-                    }>,
-                  ) => {
-                    return formikProps.setFieldValue(
-                      'blacklist_tags',
-                      items.map((item) => item.value),
-                    );
-                  }}
-                  onDeleteTag={(itemId: number) =>
-                    formikProps.setFieldValue(
-                      'blacklist_tags',
-                      formikProps?.values?.blacklist_tags?.filter(
-                        (tagId) => tagId !== itemId,
-                      ),
-                    )
-                  }
-                  selectedTags={formikProps.values.blacklist_tags}
-                  isClearable
-                  closeMenuOnSelect
-                  inScrollBar
-                />
-              </div>
+              <TagSelector
+                allTagsWithTagGroup={
+                  [
+                    ...tagList?.filter(
+                      (tag) =>
+                        !formikProps.values?.blacklist_tags?.includes(tag.id),
+                    ),
+                  ] || []
+                }
+                placeholder={t(
+                  'form.paymentPack.advancedOptions.tag.doNotSelectToAllowAllMembers',
+                )}
+                onChange={(
+                  items: Array<{
+                    item: Tag & { label: string; value: number };
+                  }>,
+                ) => {
+                  return formikProps.setFieldValue(
+                    'whitelist_tags',
+                    items.map((item) => item.value),
+                  );
+                }}
+                onDeleteTag={(itemId: number) =>
+                  formikProps.setFieldValue(
+                    'whitelist_tags',
+                    formikProps?.values?.whitelist_tags?.filter(
+                      (tagId) => tagId !== itemId,
+                    ),
+                  )
+                }
+                selectedTags={formikProps.values?.whitelist_tags}
+                isClearable
+                closeMenuOnSelect
+                inScrollBar
+              />
             </div>
-          </Collapse>
-        </div>
-      )}
+            <div className={classes.tagSelector}>
+              <div className={classes.tagSelectorLabel}>
+                <BlockIcon className={classes.tagSelectorLabelIcon} />
+                <Typography variant="subtitle1">
+                  {t('form.paymentPack.advancedOptions.tag.notAllowed')}
+                </Typography>
+              </div>
+              <TagSelector
+                allTagsWithTagGroup={
+                  [
+                    ...tagList?.filter(
+                      (tag) =>
+                        !formikProps.values?.whitelist_tags?.includes(tag.id),
+                    ),
+                  ] || []
+                }
+                placeholder={t(
+                  'form.paymentPack.advancedOptions.tag.doNotSelectToAllowAllMembers',
+                )}
+                onChange={(
+                  items: Array<{
+                    item: Tag & { label: string; value: number };
+                  }>,
+                ) => {
+                  return formikProps.setFieldValue(
+                    'blacklist_tags',
+                    items.map((item) => item.value),
+                  );
+                }}
+                onDeleteTag={(itemId: number) =>
+                  formikProps.setFieldValue(
+                    'blacklist_tags',
+                    formikProps?.values?.blacklist_tags?.filter(
+                      (tagId) => tagId !== itemId,
+                    ),
+                  )
+                }
+                selectedTags={formikProps.values.blacklist_tags}
+                isClearable
+                closeMenuOnSelect
+                inScrollBar
+              />
+            </div>
+          </div>
+        </Collapse>
+      </div>
     </>
   );
 };

@@ -661,7 +661,7 @@
                 "waitingSlot": "In behandeling",
                 "confirmBooking": "Bevestigen",
                 "discardImpossibleExplain": "Weet je zeker dat je deze reservering wilt annuleren? Je annuleert te laat en je verliest je krediet(en).",
-                "discardPossibleExplain": "Weet je zeker dat je deze reservering wilt annuleren? Je krediet(en) worden vergoed.",
+                "discardPossibleExplain": "Weet je zeker dat je deze reservering wilt annuleren? Klik dan op \"Verwijderen\" en vervolgens worden je kredieten vergoed.",
                 "discardBookingTitle": "Reservering annuleren",
                 "cancelBooking": "Reservering annuleren",
                 "myPrivateBooking": "Afspraak",
@@ -2076,7 +2076,7 @@
                 "title": "Je bankgegevens zijn incompleet."
             },
             "verification": {
-                "warning": "Het is mogelijk dat online betalingen na <1> gedeactiveerd </1> worden!",
+                "warning": "Het is mogelijk dat online betalingen na deze datum <1> gedeactiveerd </1> worden!",
                 "content": "Er ontbreken documenten om het aanmaken van je account te voltooien. Je hebt tot <1>{{ date }}</1>  om je account te verifiëren.",
                 "title": "Mijn onderneming"
             }
@@ -3691,12 +3691,12 @@
             "payment": "Facturen",
             "privateBooking": "Afspraken",
             "privateConsumerPass": "Afspraakkaarten",
-            "paymentPack": "Kaarten",
+            "paymentPack": "Leskaarten",
             "invoices": "Facturen en abonnementen",
             "contact": "Contact",
             "vod": "Video On Demand",
             "form": "Formulieren",
-            "giftcard": "Cadeaubon"
+            "giftcard": "Cadeaubonnen"
         },
         "forms": {
             "merge": {
@@ -9654,7 +9654,7 @@
         },
         "consumerGiftcard": {
             "form": {
-                "footer": "De cadeaubon heeft een waarde van {{- price }} en wordt om {{- hour_send }} naar de ontvanger verstuurd. Vervolgens heeft de ontvanger {{ expiration_days }} dag(en) om de cadeaubon te gebruiken, voordat het vervalt.",
+                "footer": "De cadeaubon heeft een waarde van {{- price }} en wordt op {{- date_send }} om {{- hour_send }} naar de ontvanger verstuurd. Vervolgens heeft de ontvanger {{ expiration_days }} dag(en) om de cadeaubon te gebruiken, voordat het vervalt.",
                 "actions": {
                     "submit": "Aan mijn winkelmandje toevoegen",
                     "cancel": "Annuleer"
@@ -9677,7 +9677,7 @@
                 "name": {
                     "label": "Naam van de cadeaubon"
                 },
-                "footerUnlimited": "De cadeaubon heeft een waarde van {{- price }} en wordt om {{- hour_send }} naar de ontvanger verstuurd. Deze cadeaubon heeft een onbeperkte geldigheid.",
+                "footerUnlimited": "De cadeaubon heeft een waarde van {{- price }} en wordt op {{- date_send }} om {{- hour_send }} naar de ontvanger verstuurd. Deze cadeaubon heeft een onbeperkte geldigheid.",
                 "select_image": "Selecteer je achtergrondafbeelding",
                 "hour_send": "Verstuur om"
             },
@@ -9708,7 +9708,7 @@
                     "close": "Sluit"
                 },
                 "content": "Je kunt de ontvanger van deze cadeaubon wijzigen. Belangrijk: het kan slechts door 1 persoon worden gebruikt. Je kunt ook deze activeringslink doorsturen:",
-                "title": "Stuur de uitnodiging",
+                "title": "Cadeaubon versturen",
                 "activationCodeLink": "De uitnodiging is verstuurd en kan niet langer worden bewerkt. Indien de ontvanger het bericht niet heeft ontvangen kun je ook deze link sturen: "
             },
             "activation": {

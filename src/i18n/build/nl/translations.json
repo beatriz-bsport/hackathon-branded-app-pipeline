@@ -828,7 +828,7 @@
                 "totalPurchase": "Aankopen"
             },
             "signup": {
-                "privacyPolicy": "Algemene servicevoorwaarden",
+                "privacyPolicy": "Algemene Servicevoorwaarden",
                 "iAcceptPrivacyPolicy": "Ik aanvaard de ",
                 "signupButton": "Inschrijven",
                 "communication": {
@@ -9247,7 +9247,7 @@
                 "isMandatoryOnSignUp": "Dit is een verplichte vraag",
                 "waiver": "Waiver / Vrijstelling",
                 "repeatPassword": "Wachtwoord bevestigen",
-                "general_terms_and_conditions": "de algemene gebruiksvoorwaarden.",
+                "general_terms_and_conditions": "Algemene Gebruiksvoorwaarden",
                 "country": "Land",
                 "city": "Stad",
                 "additional_adress": "Aanvulling adres",

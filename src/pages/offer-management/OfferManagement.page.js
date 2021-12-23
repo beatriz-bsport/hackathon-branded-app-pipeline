@@ -45,6 +45,7 @@ import {
   deleteRecurrenceRuleBooking,
   updateRecurrenceRuleBooking,
   setSpotForBooking as setSpotForBookingAction,
+  fetchBookingsByConsumerPack,
 } from '#libs/booking/actions';
 import {
   discardBookingOption as discardBookingOptionAction,
@@ -98,6 +99,7 @@ import {
   withMember,
   getInvoiceListUnpaid,
   getBuyableItem,
+  getAllQuickCreatedInvoices,
 } from '#libs/invoice/selectors';
 
 import withTitle from '#hocs/with-title.hoc';
@@ -115,6 +117,7 @@ import { fetchSignFormUpConfiguration } from '#libs/sign-up-form/actions';
 import { getSignUpFormConfigurationDict } from '#libs/sign-up-form/selectors';
 
 import { showVaccinationStatus } from '../../libs/custom-form/selectors';
+import { fetchVideoPurchase } from '../../libs/video/actions';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
@@ -173,6 +176,7 @@ export default compose(
       unpaidInvoiceList: withMember(withInvoiceItem(getInvoiceListUnpaid))(
         state,
       ),
+      quickCreatedInvoices: withInvoiceItem(getAllQuickCreatedInvoices)(state),
 
       // buyable stuff
       availableBuyableItems: getBuyableItem(state),
@@ -218,6 +222,7 @@ export default compose(
       deleteRecurrenceRuleBooking,
       updateRecurrenceRuleBooking,
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,
+      fetchBookingsByConsumerPack,
 
       // modify booking
       registerBooking: registerBookingAction,
@@ -252,7 +257,7 @@ export default compose(
       push: routerPush,
       goToMember: (id) => routerPush(`/member/${id}/`),
       setSpotForBooking: setSpotForBookingAction,
-
+      fetchVideoPurchase,
       fetchSignFormUpConfiguration,
     },
   ),
@@ -268,7 +273,6 @@ export default compose(
         fetchInvoiceList({
           is_v2: true,
           is_draft: false,
-          unpaid: true,
           ...(params || {}),
         });
       },

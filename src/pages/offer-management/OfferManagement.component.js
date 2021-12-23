@@ -50,6 +50,7 @@ import { MemberMap } from '../../libs/member/utils';
 import { Tag, TagGroup } from '../../libs/tag/types';
 import GenericDialog from '../../components/GenericDialog/GenericDialog';
 import { showDeleteDialog } from '../../components/GenericDialog/CustomDialogs';
+import { OptionCallback } from '../../state/types';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
@@ -76,6 +77,8 @@ type Props = {
 
   unpaidInvoiceList: Array<Invoice>,
   fetchInvoice: () => void,
+  fetchInvoiceItemList: (params: any) => void,
+  quickCreatedInvoices: Array<Invoice>,
 
   fetchPrivatePassList: () => void,
   fetchPaymentComboList: () => void,
@@ -189,6 +192,19 @@ type Props = {
   general_terms_and_conditions: string,
   companyId: number,
   showVaccinationStatus: boolean,
+
+  fetchBookingsByConsumerPack: (
+    consumer_payment_pack: number,
+    page: number,
+    page_size: number,
+    options?: OptionCallback,
+  ) => void,
+  fetchVideoPurchase: {
+    page: number,
+    page_size: number,
+    params: any,
+    options?: OptionCallback,
+  },
 };
 
 type State = {
@@ -224,6 +240,17 @@ export class OfferManagement extends Component<Props, State> {
   componentDidUpdate(prevProps: Props) {
     if (!!this.props.offerId && this.props.offerId !== prevProps.offerId) {
       this.fetchOfferAndData();
+    }
+    if (
+      this.props.quickCreatedInvoices.length &&
+      this.props.quickCreatedInvoices.length >
+        prevProps.quickCreatedInvoices.length
+    ) {
+      this.props.fetchInvoiceItemList({
+        invoice__uuid__in: this.props.quickCreatedInvoices.map(
+          (inv) => inv.uuid,
+        ),
+      });
     }
   }
 
@@ -488,7 +515,6 @@ export class OfferManagement extends Component<Props, State> {
             recurrentBookingCount={this.props.recurrentBookingCount}
             recurrentBookingItemPerPage={RECURRENT_BOOKING_PAGE_SIZE}
             recurrentBookingCurrentPage={this.props.recurrentBookingCurrentPage}
-            unevenSavedInvoices={uniqBy(this.props.unpaidInvoiceList, 'uuid')}
             recurrentBookingNextPage={this.props.recurrentBookingNextPage}
             recurrentBookingOnPageRequested={
               this.props.recurrentBookingOnPageRequested
@@ -499,6 +525,9 @@ export class OfferManagement extends Component<Props, State> {
             }
             onClickChangeSpot={this.onClickChangeSpot}
             showVaccinationStatus={this.props.showVaccinationStatus}
+            fetchBookingsByConsumerPack={this.props.fetchBookingsByConsumerPack}
+            fetchVideoPurchase={this.props.fetchVideoPurchase}
+            quickCreatedInvoices={this.props.quickCreatedInvoices}
           />
         </Grid>
         <Grid item xs={12} lg={6}>

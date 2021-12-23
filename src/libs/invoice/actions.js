@@ -445,7 +445,9 @@ export function fetchInvoiceItemList(params: * = {}, options: OptionCallback) {
 
     try {
       const response = await fetchInvoiceItemListAPI(params);
-      dispatch(listInvoiceItemActions.success(response.data.results));
+      dispatch(
+        listInvoiceItemActions.success(response.data.results || response.data),
+      );
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
       }

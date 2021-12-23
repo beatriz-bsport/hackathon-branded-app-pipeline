@@ -59,7 +59,8 @@ export const getInvoiceList = createSelector(
 
 export const getInvoiceListUnpaid = createSelector(
   getInvoiceList,
-  (invoiceList) => invoiceList.filter((inv) => !inv.fully_payed),
+  (invoiceList) =>
+    invoiceList.filter((inv) => !inv.fully_payed && !inv.reverted),
 );
 
 const _getInvoiceItemData = (state: State) => {
@@ -211,4 +212,17 @@ export const getPaymentListInInvoice = createSelector(
   [_getPaymentData, _getPaymentListIds, _getUuid],
   (data, ids, invoiceUuid) =>
     ids.map((id) => data[id]).filter((p) => p.invoice === invoiceUuid),
+);
+
+export const getAllQuickCreatedInvoices = createSelector(
+  [_getInvoiceListIds, _getInvoiceData],
+  (ids, data) =>
+    ids
+      .map((id) => data[id])
+      .filter(
+        (inv) =>
+          inv.is_quick_invoice &&
+          !inv.reverted &&
+          (!inv.fully_payed || inv.price_due === '0.00'),
+      ),
 );

@@ -18,6 +18,7 @@ export type Invoice = {
   amount_due_cts: string;
   amount_paid_cts: string;
   quickbooks_status: number;
+  is_quick_invoice: boolean;
 };
 
 export type PlannedPaymentEvent = {

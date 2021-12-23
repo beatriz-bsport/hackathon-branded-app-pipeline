@@ -43,6 +43,7 @@ import type { Invoice } from '../../libs/invoice/types';
 import { PermissionContext } from '../../context';
 import CheckPermission from '../../libs/role/components/CheckPermission.component';
 import { Tag, TagGroup } from '../../libs/tag/types';
+import { OptionCallback } from '../../state/types';
 
 const getMemberFromId = (id: number, membersList: Array<Member>) => {
   const member = membersList.find((m) => m.id === id);
@@ -86,7 +87,7 @@ type Props = {
     { id: number, name: string, photo: string },
   ) => void,
 
-  unevenSavedInvoices: Array<Invoice>,
+  quickCreatedInvoices: Array<Invoice>,
   revertQuickInvoiceAndRefreshOffer: (uuid: string) => void,
   registerToWaitingList: (offerId: number, memberId: number) => void,
   members: Array<Member<Tag<TagGroup>>>,
@@ -101,6 +102,19 @@ type Props = {
   recurrentBookingCount: number,
   onClickChangeSpot: (booking: Booking) => void,
   showVaccinationStatus: boolean,
+
+  fetchBookingsByConsumerPack: (
+    consumer_payment_pack: number,
+    page: number,
+    page_size: number,
+    options?: OptionCallback,
+  ) => void,
+  fetchVideoPurchase: {
+    page: number,
+    page_size: number,
+    params: any,
+    options?: OptionCallback,
+  },
 };
 
 type State = {
@@ -182,10 +196,44 @@ export class BookingManagement extends React.PureComponent<Props, State> {
   };
 
   handleBookingRevert = (booking: Booking) => {
-    for (const inv of this.props.unevenSavedInvoices) {
+    for (const inv of this.props.quickCreatedInvoices) {
       for (const ii of inv.invoice_items.filter((ii_) => !!ii_)) {
         if (ii.object_id === booking.consumer_payment_pack.id) {
-          this.props.revertQuickInvoiceAndRefreshOffer(inv.uuid);
+          this.props.fetchVideoPurchase(
+            1,
+            1,
+            {
+              consumer_payment_pack: booking.consumer_payment_pack.id,
+            },
+            {
+              onSuccess: (vp) => {
+                if (vp.length === 0) {
+                  this.props.fetchBookingsByConsumerPack(
+                    booking.consumer_payment_pack.id,
+                    1,
+                    20,
+                    {
+                      onSuccess: (payload) => {
+                        let alreadyUsed = false;
+                        payload
+                          .filter((b) => b.id !== booking.id)
+                          .forEach((b) => {
+                            if (b.booking_status_code === BOOKING_STATUS_OK.id)
+                              alreadyUsed = true;
+                          });
+                        if (alreadyUsed)
+                          this.props.handleRevertBooking(booking);
+                        else
+                          this.props.revertQuickInvoiceAndRefreshOffer(
+                            inv.uuid,
+                          );
+                      },
+                    },
+                  );
+                } else this.props.handleRevertBooking(booking);
+              },
+            },
+          );
           return;
         }
       }

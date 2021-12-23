@@ -7,7 +7,7 @@ const langu =
     ? navigator.language.substr(0, 2)
     : 'en';
 
-const getCalendyLinkFromCountry = () => {
+const getCalendlyLinkFromCountry = () => {
   switch (langu) {
     case 'en':
       return 'https://calendly.com/bsport-english/demo';
@@ -29,4 +29,4 @@ const getCalendyLinkFromCountry = () => {
   }
 };
 
-export default getCalendyLinkFromCountry;
+export default getCalendlyLinkFromCountry;

@@ -9,12 +9,13 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 
 import { withTranslation, TFunction } from 'react-i18next';
 import { parseQueryString } from '../../http';
+import ClassicLoginBackground from '#libs/login/components/ClassicLoginBackground.component';
 
-type Props = {
+type OwnProps = {
   t: TFunction,
 };
 
-export const DoubleLogin = (props: Props) => {
+export const DoubleLogin = (props: OwnProps) => {
   const classes = useStyles();
   const { membership } = parseQueryString(window.location.search);
   return (
@@ -76,4 +77,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default compose(withTranslation(['login']))(DoubleLogin);
+type ThemeProps = {
+  theme: CompanyTheme,
+};
+
+type Props = OwnProps & ThemeProps;
+
+export const DoubleLoginWithBackground = (props: Props) => {
+  return (
+    <ClassicLoginBackground theme={props.theme}>
+      <DoubleLogin {...props} />
+    </ClassicLoginBackground>
+  );
+};
+
+export default compose(withTranslation(['login']))(DoubleLoginWithBackground);

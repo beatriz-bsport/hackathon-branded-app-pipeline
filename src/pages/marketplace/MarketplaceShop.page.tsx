@@ -19,7 +19,7 @@ import { RootState } from '../../reducers';
 
 type OwnProps = {
   companyId: number;
-  toogleCurrentBasketOpen: (v: boolean) => void;
+  toggleCurrentBasketOpen: (v: boolean) => void;
   requestSignUp: () => void;
   onAddToCart?: (shopItemId: number) => void;
 };
@@ -39,7 +39,7 @@ export class MarketplaceShop extends React.PureComponent<Props> {
       this.props.requestSignUp();
     } else {
       this.props.addItemToBasket(shopItemId, this.props.currentBasket.id);
-      this.props.toogleCurrentBasketOpen(true);
+      this.props.toggleCurrentBasketOpen(true);
     }
   };
 

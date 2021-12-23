@@ -74,7 +74,7 @@ type OwnProps = {
   };
   companyId: number;
   requestSignUp: () => void;
-  toogleCurrentBasketOpen: (open: boolean) => void;
+  toggleCurrentBasketOpen: (open: boolean) => void;
   addComboToCart?: (id: number) => void;
   addPaymentPackToCart?: (id: number) => void;
   addPrivatePassToCart?: (id: number) => void;
@@ -123,7 +123,7 @@ export class MarketPlacePassPage extends Component<Props> {
       this.props.requestSignUp();
     } else {
       this.props.pushComboCheckout(comboId, this.props.currentBasket.id);
-      this.props.toogleCurrentBasketOpen(true);
+      this.props.toggleCurrentBasketOpen(true);
     }
   };
 
@@ -137,7 +137,7 @@ export class MarketPlacePassPage extends Component<Props> {
       this.props.requestSignUp();
     } else {
       this.props.pushPackCheckout(packId, this.props.currentBasket.id);
-      this.props.toogleCurrentBasketOpen(true);
+      this.props.toggleCurrentBasketOpen(true);
     }
   };
 
@@ -151,7 +151,7 @@ export class MarketPlacePassPage extends Component<Props> {
       this.props.requestSignUp();
     } else {
       this.props.pushPrivatePassCheckout(packId, this.props.currentBasket.id);
-      this.props.toogleCurrentBasketOpen(true);
+      this.props.toggleCurrentBasketOpen(true);
     }
   };
 

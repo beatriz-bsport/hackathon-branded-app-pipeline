@@ -25,57 +25,59 @@ import {
   CUSTOM_FORM_FIELD_SIGN_UP_EMAIL,
   CUSTOM_FORM_FIELD_SIGN_UP_PASSWORD,
 } from '@bsport/common/lib/master-data/custom-form';
+import chroma from 'chroma-js';
 import { getTheme } from '../../theme';
-import { fetchCompanyTheme } from '../../libs/theme/actions';
+import { fetchCompanyTheme } from '#libs/theme/actions';
 
-import Login from '../../libs/login/components/Login.component';
+import Login from '#libs/login/components/Login.component';
 import MarketplaceAppBar from './MarketplaceAppBar.component';
-import Analytics from '../../components/analytics/Analytics.component';
+import Analytics from '#components/analytics/Analytics.component';
 import { parseQueryString } from '../../http';
 
 import {
   addItemToBasket,
   removeItemFromBasket,
   fetchCurrentBasket,
-} from '../../libs/checkout/actions';
+} from '#libs/checkout/actions';
 
-import { getCurrentBasket } from '../../libs/checkout/selectors';
-import type { Basket } from '../../libs/checkout/types';
+import { getCurrentBasket } from '#libs/checkout/selectors';
+import type { Basket } from '#libs/checkout/types';
 
-import { fetchSCT } from '../../libs/category/actions';
+import { fetchSCT } from '#libs/category/actions';
 
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
 import Config from '../../config';
 import {
   getMarketplaceRoute,
   fromConfigToUrl,
-} from '../../libs/marketplace/routing-utils';
-import { getDefaultTitleForComponent } from '../../libs/exportable-components/utils';
+} from '#libs/marketplace/routing-utils';
+import { getDefaultTitleForComponent } from '#libs/exportable-components/utils';
 import asyncComponent from '../../AsyncComponent';
 
 import { auth as authActions } from '../../actions';
 import { signupV2 } from '../../actions/auth.actions';
-import { fetchProfile } from '../../libs/consumer-space/actions';
+import { fetchProfile } from '#libs/consumer-space/actions';
 
 import MarketplaceBasketDialog from './MarketplaceBasketDialog.component';
 import {
   MarketplaceSettings,
   MarketplaceTabConfig,
-} from '../../libs/marketplace/types';
-import { EXPORTABLE_COMPONENT_TYPE_VOD } from '../../libs/exportable-components/constants.ts';
-import { fetchMarketplaceSettings } from '../../libs/marketplace/actions';
+} from '#libs/marketplace/types';
+import { EXPORTABLE_COMPONENT_TYPE_VOD } from '#libs/exportable-components/constants.ts';
+import { fetchMarketplaceSettings } from '#libs/marketplace/actions';
 import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
 import {
   fetchCompanyCustomSignUp,
   submitSignUpCustomForm,
-} from '../../libs/custom-form/actions';
-import CustomFormView from '../../libs/custom-form/components/consumer-form/CustomFormView.form';
-import CustomFormViewDialogComponent from '../../libs/custom-form/components/consumer-form/CustomFormViewDialog.component';
-import { getSignUpCustomFormWithEnabledField } from '../../libs/custom-form/selectors';
+} from '#libs/custom-form/actions';
+import CustomFormView from '#libs/custom-form/components/consumer-form/CustomFormView.form';
+import CustomFormViewDialogComponent from '#libs/custom-form/components/consumer-form/CustomFormViewDialog.component';
+import { getSignUpCustomFormWithEnabledField } from '#libs/custom-form/selectors';
 import type { OptionCallback } from '../../state/types';
-import type { CustomFormFilled } from '../../libs/custom-form/types';
+import type { CustomFormFilled } from '#libs/custom-form/types';
 import type { RootState } from '../../reducers';
+import { CustomFormTitle } from '#libs/custom-form/components/CustomFormTitle.component';
 
 const MarketplacePassPage = asyncComponent(() =>
   import('./MarketplacePass.page'),
@@ -278,8 +280,8 @@ export class MarketPlace extends Component<Props, State> {
           <MarketplacePassPage
             key={this.props.tabSelected}
             companyId={this.props.companyId}
-            requestSignUp={() => this.toogleLogin(true)}
-            toogleCurrentBasketOpen={this.toogleCurrentBasketOpen}
+            requestSignUp={() => this.toggleLogin(true)}
+            toggleCurrentBasketOpen={this.toggleCurrentBasketOpen}
           />
         );
       case TAB_CONTRACT:
@@ -287,7 +289,7 @@ export class MarketPlace extends Component<Props, State> {
           <MarketplaceContractPage
             key={this.props.tabSelected}
             companyId={this.props.companyId}
-            requestSignUp={() => this.toogleLogin(true)}
+            requestSignUp={() => this.toggleLogin(true)}
             authenticated={this.props.auth.authenticated}
             goToUserSpace={() => this.props.goToUserSpace(this.props.companyId)}
           />
@@ -296,8 +298,8 @@ export class MarketPlace extends Component<Props, State> {
         return (
           <MarketplaceShopPage
             key={this.props.tabSelected}
-            requestSignUp={() => this.toogleLogin(true)}
-            toogleCurrentBasketOpen={this.toogleCurrentBasketOpen}
+            requestSignUp={() => this.toggleLogin(true)}
+            toggleCurrentBasketOpen={this.toggleCurrentBasketOpen}
             companyId={this.props.companyId}
           />
         );
@@ -307,7 +309,7 @@ export class MarketPlace extends Component<Props, State> {
             key={this.props.tabSelected}
             companyId={this.props.companyId}
             authenticated={this.props.auth.authenticated}
-            requestLogin={() => this.toogleLogin(true)}
+            requestLogin={() => this.toggleLogin(true)}
           />
         );
       case TAB_WORKSHOP:
@@ -321,15 +323,15 @@ export class MarketPlace extends Component<Props, State> {
         return (
           <MarketplaceVodRouter
             key={this.props.tabSelected}
-            requestSignUp={() => this.toogleLogin(true)}
+            requestSignUp={() => this.toggleLogin(true)}
           />
         );
       case TAB_GIFTCARD:
         return (
           <MarketplaceGiftcardPage
-            requestSignUp={() => this.toogleLogin(true)}
+            requestSignUp={() => this.toggleLogin(true)}
             authenticated={this.props.auth.authenticated}
-            toogleCurrentBasketOpen={this.toogleCurrentBasketOpen}
+            toggleCurrentBasketOpen={this.toggleCurrentBasketOpen}
             key={this.props.tabSelected}
             companyId={this.props.companyId}
           />
@@ -341,8 +343,8 @@ export class MarketPlace extends Component<Props, State> {
             <MarketplaceCalendarPage
               key={this.props.tabSelected}
               companyId={this.props.companyId}
-              requestSignUp={() => this.toogleLogin(true)}
-              toogleCurrentBasketOpen={this.toogleCurrentBasketOpen}
+              requestSignUp={() => this.toggleLogin(true)}
+              toggleCurrentBasketOpen={this.toggleCurrentBasketOpen}
               startWeekThisWeekday={false}
               authenticated={this.props.auth.authenticated}
             />
@@ -352,7 +354,7 @@ export class MarketPlace extends Component<Props, State> {
     }
   };
 
-  toogleCurrentBasketOpen = (currentBasketOpen: boolean) =>
+  toggleCurrentBasketOpen = (currentBasketOpen: boolean) =>
     this.setState({ currentBasketOpen });
 
   signup = (formdata: any, options) => {
@@ -364,14 +366,14 @@ export class MarketPlace extends Component<Props, State> {
     }
   };
 
-  toogleSignUp = (value: boolean) => {
+  toggleSignUp = (value: boolean) => {
     if (value) {
       Analytics.signupShow();
     }
     this.setState({ signupDialogOpen: value });
   };
 
-  toogleLogin = (value: boolean) => {
+  toggleLogin = (value: boolean) => {
     if (value) {
       Analytics.signinShow();
     }
@@ -444,9 +446,9 @@ export class MarketPlace extends Component<Props, State> {
                 this.props.goToUserSpace(this.props.companyId)
               }
               currentBasket={this.props.currentBasket}
-              openCurrentBasket={() => this.toogleCurrentBasketOpen(true)}
-              requestSignUp={() => this.toogleSignUp(true)}
-              requestLogin={() => this.toogleLogin(true)}
+              openCurrentBasket={() => this.toggleCurrentBasketOpen(true)}
+              requestSignUp={() => this.toggleSignUp(true)}
+              requestLogin={() => this.toggleLogin(true)}
               disconnect={() => {
                 this.props.disconnect();
               }}
@@ -493,7 +495,7 @@ export class MarketPlace extends Component<Props, State> {
             <MarketplaceBasketDialog
               open={!!this.state.currentBasketOpen}
               basket={this.props.currentBasket}
-              onCancel={() => this.toogleCurrentBasketOpen(false)}
+              onCancel={() => this.toggleCurrentBasketOpen(false)}
               loading={this.props.currentBasketLoading}
               onRemoveCheckoutItem={(data) =>
                 this.props.removeItemFromBasket(
@@ -512,16 +514,22 @@ export class MarketPlace extends Component<Props, State> {
               open={
                 this.state.loginDialogOpen && !this.props.auth.authenticated
               }
-              onClose={() => this.toogleLogin(false)}
+              onClose={() => this.toggleLogin(false)}
             >
               <DialogContent>
-                <Login
-                  doEmailLogin={this.doEmailLogin}
-                  errorFields={this.props.errorFields}
-                  error={this.props.auth.error}
-                  loading={this.props.auth.loading}
-                  requestSignUp={() => this.toogleSignUp(true)}
-                />
+                <div className={classes.loginDialog}>
+                  <Login
+                    doEmailLogin={this.doEmailLogin}
+                    errorFields={this.props.errorFields}
+                    error={this.props.auth.error}
+                    loading={this.props.auth.loading}
+                    requestSignUp={() => this.toggleSignUp(true)}
+                    company
+                    isPremium
+                    logoHidden
+                    marketplace
+                  />
+                </div>
               </DialogContent>
             </Dialog>
             <CustomFormViewDialogComponent
@@ -534,7 +542,9 @@ export class MarketPlace extends Component<Props, State> {
               maxWidth="md"
               fullWidth
             >
-              <DialogTitle>{t('form.signUpTitle')}</DialogTitle>
+              <DialogTitle>
+                <CustomFormTitle title={t('form.signUpTitle')} company />
+              </DialogTitle>
               <div className={classes.customFormContainer}>
                 <CustomFormView
                   initial={this.props.signUpCustomForm}
@@ -574,14 +584,12 @@ const styles = (theme) => ({
   },
   customFormContainer: {
     padding: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
   content: {
     overflowY: 'auto',
     position: 'relative',
     paddingBottom: theme.spacing(4),
-  },
-  title: {
-    marginBottom: theme.spacing(6),
   },
   calendarContainer: {
     marginTop: theme.spacing(2),
@@ -590,6 +598,39 @@ const styles = (theme) => ({
       marginLeft: theme.spacing(4),
       marginRight: theme.spacing(4),
     },
+  },
+  loginDialog: {
+    marginTop: theme.spacing(3),
+    marginRight: theme.spacing(4),
+    marginLeft: theme.spacing(4),
+    marginBottom: theme.spacing(6),
+  },
+  signupTitle: {
+    marginBottom: theme.spacing(5),
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  rectangle: {
+    height: 5,
+    background: `linear-gradient(90deg,${
+      theme.palette.primary.main
+    } 4.66%, ${chroma(theme.palette.primary.main).darken(1.5)} 88.6%)`,
+    width: 146,
+    marginBottom: theme.spacing(3),
+  },
+  iconButton: {
+    marginLeft: theme.spacing(1),
+    marginBottom: theme.spacing(3.5),
+  },
+  signup: {
+    fontSize: 36,
+    fontWeight: 700,
+  },
+  title: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
 });
 
@@ -613,6 +654,7 @@ const withStateHandlersSetter = {
     return { loginInformations: { email, password } };
   },
 };
+
 export default compose(
   withStyles(styles),
   withTranslation(),

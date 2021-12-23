@@ -41,7 +41,7 @@ type OwnProps = {
   general_terms_and_conditions?: string;
   userStatus?: number;
   textButtonConfirm?: boolean;
-  disableLayout: boolean;
+  disableLayout?: boolean;
 };
 type Props = OwnProps &
   WithTranslation &
@@ -81,7 +81,7 @@ export function ConsumerFormView(props: Props) {
     );
   }
   return (
-    <Form>
+    <Form className={classes.form}>
       <ConsumerFormFields {...props} />
       {!asManager && (
         <div
@@ -121,8 +121,8 @@ export function ConsumerFormView(props: Props) {
 
 const styles = (theme: Theme) =>
   createStyles({
-    paperContainer: {
-      padding: theme.spacing(6),
+    form: {
+      padding: theme.spacing(1),
     },
     submit: {
       display: 'flex',

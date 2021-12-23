@@ -4,12 +4,10 @@ import React, { Component } from 'react';
 import { compose, withProps, withStateHandlers } from 'recompose';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import IconButton from '@material-ui/core/IconButton';
-import HelpIcon from '@material-ui/icons/Help';
-import Typography from '@material-ui/core/Typography';
+import Hidden from '@material-ui/core/Hidden';
+import Fade from '@material-ui/core/Fade';
 import { withRouter, RouteComponentProps } from 'react-router';
 import { Redirect } from 'react-router-dom';
-import Hidden from '@material-ui/core/Hidden';
 import { connect } from 'react-redux';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
@@ -18,30 +16,33 @@ import {
   CUSTOM_FORM_FIELD_SIGN_UP_EMAIL,
   CUSTOM_FORM_FIELD_SIGN_UP_PASSWORD,
 } from '@bsport/common/lib/master-data/custom-form';
-import getCalendyLinkFromCountry from '../../i18n/utils/calendy-link-language';
+import chroma from 'chroma-js';
 
+import classnames from 'classnames';
 import type { Dispatch, OptionCallback } from '../../state/types';
-import themeSelectors from '../../libs/theme/selectors';
+import themeSelectors from '#libs/theme/selectors';
 import { parseQueryString } from '../../http';
-import { openIntercomHelp } from '../../intercom';
 import { requestLogin } from '../../actions/auth.actions';
 
-import { fetchCompanyTheme } from '../../libs/theme/actions';
-import Analytics from '../../components/analytics/Analytics.component';
-import Login from '../../libs/login/components/Login.component';
+import { fetchCompanyTheme } from '#libs/theme/actions';
+import Analytics from '#components/analytics/Analytics.component';
+import Login from '#libs/login/components/Login.component';
+import LoginBackground from '#libs/login/components/LoginBackground.component';
 
 import {
   fetchCompanyCustomSignUp,
   submitSignUpCustomForm,
-} from '../../libs/custom-form/actions';
-import CustomFormView from '../../libs/custom-form/components/consumer-form/CustomFormView.form';
-import { getSignUpCustomFormWithEnabledField } from '../../libs/custom-form/selectors';
+} from '#libs/custom-form/actions';
+import CustomFormView from '#libs/custom-form/components/consumer-form/CustomFormView.form';
+import { getSignUpCustomFormWithEnabledField } from '#libs/custom-form/selectors';
 import type { RootState } from '../../reducers';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import {
   CustomFormFilled,
   CustomFormFieldAnswer,
-} from '../../libs/custom-form/types';
+} from '#libs/custom-form/types';
+import WidgetUtils from '#libs/widget/WidgetUtils';
+import { CustomFormTitle } from '#libs/custom-form/components/CustomFormTitle.component';
 
 type OwnProps = {
   location: RouteComponentProps;
@@ -72,7 +73,7 @@ export class ConsumerLoginPage extends Component<Props> {
 
   componentDidMount() {
     if (this.props.membership) {
-      this.props.fetchCompanyTheme(this.props.membership);
+      this.props.fetchCompanyTheme(parseInt(this.props.membership, 10));
       this.props.fetchCompanyCustomSignUp({
         company: parseInt(this.props.membership),
       });
@@ -126,63 +127,78 @@ export class ConsumerLoginPage extends Component<Props> {
       return <Redirect to="/" />;
     }
     const { step } = this.state;
-    if (step === STEPS.WELCOME) {
-      return (
-        <div className={classes.welcomeContainer}>
-          <Login
-            doEmailLogin={doEmailLogin}
-            error={errorLogin}
-            errorFields={errorFields}
-            loading={loginProcessing}
-            requestSignUp={this.switchToSignUp}
-          />
+
+    return (
+      <>
+        <Hidden
+          xsDown={this.state.step === STEPS.WELCOME}
+          mdDown={this.state.step !== STEPS.WELCOME}
+        >
+          <LoginBackground company={!!this.props.membership} />
+          <Fade in>
+            <div>
+              <img
+                src={
+                  this.props.theme ? this.props.theme.cover : '/logo_bsport.png'
+                }
+                className={classes.logo}
+                alt={
+                  this.props.theme
+                    ? `${this.props.company} - logo`
+                    : 'bsport-logo'
+                }
+              />
+            </div>
+          </Fade>
+        </Hidden>
+        <div className={classes.loginContainer}>
+          <div
+            className={classnames(classes.container, classes.flexColumnCenter)}
+          >
+            {step === STEPS.WELCOME && (
+              <Login
+                doEmailLogin={doEmailLogin}
+                error={errorLogin}
+                errorFields={errorFields}
+                loading={loginProcessing}
+                requestSignUp={this.switchToSignUp}
+                isPremium={is_premium}
+                company={!!this.props.membership}
+                theme={this.props.theme}
+                t={t}
+              />
+            )}
+            {step !== STEPS.WELCOME && (
+              <>
+                <CustomFormTitle
+                  title={t('signup.title')}
+                  company={!!this.props.membership}
+                />
+                {this.props.signUpCustomForm && (
+                  <div className={classes.customForm}>
+                    <CustomFormView
+                      initial={this.props.signUpCustomForm}
+                      onSubmit={this.submitCustomForm}
+                      onSubmitDraft={(values: CustomFormFilled) =>
+                        this.props.setLoginInformations(values)
+                      }
+                      layouts={this.props.signUpCustomForm.layout}
+                      waiver={this.props.theme.waiver}
+                      general_terms_and_conditions={
+                        this.props.theme.general_terms_of_use
+                      }
+                      onCancel={() => this.cancelSignUp()}
+                    />
+                  </div>
+                )}
+              </>
+            )}
+          </div>
           {!!this.props.theme && this.props.membership && (
             <Analytics username="" theme={this.props.theme} />
           )}
-          {!is_premium && (
-            <div className={classes.bottom}>
-              <Hidden smDown>
-                <a href={getCalendyLinkFromCountry()}>
-                  <Typography variant="caption">{t('contactUs')}</Typography>
-                </a>
-              </Hidden>
-            </div>
-          )}
         </div>
-      );
-    }
-    return (
-      <div className={classes.container}>
-        <>
-          <div className={classes.flexContainer}>
-            <Typography variant="h4">{t('signup.title')}</Typography>
-            <IconButton onClick={() => openIntercomHelp('login')}>
-              <HelpIcon />
-            </IconButton>
-          </div>
-
-          {this.props.signUpCustomForm && (
-            <div>
-              <CustomFormView
-                initial={this.props.signUpCustomForm}
-                onSubmit={this.submitCustomForm}
-                onSubmitDraft={(values: CustomFormFilled) =>
-                  this.props.setLoginInformations(values)
-                }
-                layouts={this.props.signUpCustomForm.layout}
-                waiver={this.props.theme.waiver}
-                general_terms_and_conditions={
-                  this.props.theme.general_terms_of_use
-                }
-                onCancel={() => this.cancelSignUp()}
-              />
-            </div>
-          )}
-        </>
-        {!!this.props.theme && this.props.membership && (
-          <Analytics username="" theme={this.props.theme} />
-        )}
-      </div>
+      </>
     );
   }
 }
@@ -219,6 +235,7 @@ const mapStateToProps = (
   emailExists: state.auth.emailExists.exists,
   is_premium: state.theme.theme.is_premium,
   signUpCustomForm: getSignUpCustomFormWithEnabledField(state),
+  company: state.theme.theme.company_name,
 });
 const withStateHandlersInit = {
   loginInformations: { email: '', password: '' },
@@ -240,37 +257,78 @@ const withStateHandlersSetter = {
     return { loginInformations: { email, password } };
   },
 };
-const styles = (theme: Theme) => ({
-  welcomeContainer: {
-    padding: theme.spacing(6),
-    width: '100%',
-    overflow: 'auto',
-    height: '90vh',
-    marginTop: '10vh',
-    [theme.breakpoints.down('md')]: {
-      padding: theme.spacing(1),
-    },
+const styles = (theme: Theme): any => ({
+  loginContainer: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    minHeight: '100vh',
+    position: 'absolute',
+    zIndex: 2,
   },
-  bottom: {},
   container: {
-    padding: theme.spacing(6),
+    position: 'fixed',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    padding: theme.spacing(1),
     width: '100%',
     overflow: 'auto',
-    height: '90vh',
-    marginTop: '10vh',
-    [theme.breakpoints.down('md')]: {
-      padding: theme.spacing(1),
+    height: WidgetUtils.isWidget() ? '100%' : '92vh',
+    marginTop: WidgetUtils.isWidget() ? 0 : '8vh',
+    [theme.breakpoints.down('xs')]: {
+      marginTop: 0,
     },
   },
-  flexContainer: {
+  flexColumnCenter: {
     display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  signup: {
+    fontSize: 36,
+    fontWeight: 700,
+  },
+  signupTitle: {
+    position: 'relative',
+    marginBottom: theme.spacing(5),
+  },
+  iconButton: {
+    position: 'absolute',
+    top: 4,
+    right: '-30%',
+    marginLeft: theme.spacing(2),
+  },
+  customForm: {
+    marginBottom: theme.spacing(14),
+    padding: theme.spacing(4),
+    [theme.breakpoints.down('xs')]: {
+      padding: theme.spacing(1),
+    },
+    width: '60%',
+    [theme.breakpoints.down('md')]: {
+      width: '80%',
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
+  },
+  rectangle: (props: Props) => ({
+    height: 5,
+    background: props.membership
+      ? `linear-gradient(90deg,${theme.palette.primary.main} 4.66%, ${chroma(
+          theme.palette.primary.main,
+        ).darken(1.5)} 88.6%)`
+      : 'linear-gradient(90deg, #499C7C 4.66%, #2D767F 88.6%)',
+    width: 146,
+    marginBottom: theme.spacing(3),
+  }),
+  logo: {
+    position: 'absolute',
+    left: '6%',
+    top: '6%',
+    height: 50,
+    zIndex: 9,
   },
 });
 

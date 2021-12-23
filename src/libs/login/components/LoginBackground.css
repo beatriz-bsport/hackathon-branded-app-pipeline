@@ -1,0 +1,106 @@
+.ball1 {
+  animation: appear 7s;
+}
+
+.ball2 {
+  animation: appear2 9s;
+}
+
+.ball3 {
+  animation: fade 9s;
+}
+
+.ball4 {
+  animation: fatten 9s;
+}
+
+.bigBall {
+  animation: 10s linear 2s infinite moveUpAndLeft;
+}
+
+.svgMove {
+  animation: 12s linear infinite moveDownAndLeft;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+}
+
+@keyframes appear2 {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  20% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes fatten {
+  0% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.5);
+  }
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+}
+
+@keyframes moveUpAndLeft {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-10px, -20px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes moveDownAndLeft {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-10px, 10px);
+  }
+  50% {
+    transform: translate(-10px, 10px) rotate(1deg);
+  }
+  75% {
+    transform: translate(-10px, 10px) rotate(-1deg);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}

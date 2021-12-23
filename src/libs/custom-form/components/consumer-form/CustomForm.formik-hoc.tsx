@@ -29,7 +29,7 @@ import GridLayoutWrapper from '../consumer-form-layout/GridLayoutWrapper.compone
 
 type OwnProps = {
   layouts?: ResponsiveLayouts;
-  isEditing: boolean;
+  isEditing?: boolean;
   onLayoutChange?: (l: Array<Layout>, allLayouts: ResponsiveLayouts) => void;
   customProviderWidth?: number;
 };

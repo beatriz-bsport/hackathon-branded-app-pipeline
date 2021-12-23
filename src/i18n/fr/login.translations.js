@@ -18,8 +18,11 @@ exports.default = {
   or: ' ou ',
   actions: {
     signin: 'Me connecter',
-    signup: 'Pas encore de compte ?',
-    forgottenPassword: 'Mot de passe oublié',
+    signup: {
+      noAccount: 'Pas encore de compte ?',
+      register: "M'inscrire",
+    },
+    forgottenPassword: 'Mot de passe oublié ?',
   },
   tempPassword: {
     title: 'Mot de passe temporaire',
@@ -35,18 +38,22 @@ exports.default = {
   error: {
     authError: 'Email ou mot de passe erroné',
     invalidEmail: "Cet email n'existe pas dans notre base",
-    invalidPassword: 'Le mot de passe est invalide',
+    invalidPassword: 'Mot de passe invalide',
   },
   doubleLogin: {
     explain:
       'Votre session a expirée. Vous vous êtes connecté à deux comptes différents simultanément, ou vous êtes déconnecté depuis un autre onglet / fenêtre.?',
     disconnect: 'Me reconnecter',
   },
+  signin: {
+    connection: 'Connexion',
+    connect: 'Connectez-vous pour continuer.',
+  },
   signup: {
     title: 'Inscription',
   },
   contactUs:
-    'Manager de studio, vous êtes intéressé par notre solution ? Contactez-nous.',
+    'Manager de studio, vous êtes intéressé par notre solution ?\nContactez-nous.',
   signupCompany: {
     welcome: {
       title: 'Bienvenue !',

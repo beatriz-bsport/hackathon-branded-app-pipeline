@@ -213,7 +213,7 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
     );
   };
 
-  toogleCurrentBasketOpen = (currentBasketOpen: boolean) =>
+  toggleCurrentBasketOpen = (currentBasketOpen: boolean) =>
     this.setState({ currentBasketOpen });
 
   render() {
@@ -288,7 +288,7 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
             <MarketplaceBasketDialog
               open={!!this.state.currentBasketOpen}
               basket={this.props.currentBasket}
-              onCancel={() => this.toogleCurrentBasketOpen(false)}
+              onCancel={() => this.toggleCurrentBasketOpen(false)}
               loading={this.props.currentBasketLoading}
               onRemoveCheckoutItem={(data) =>
                 this.props.removeItemFromBasket(

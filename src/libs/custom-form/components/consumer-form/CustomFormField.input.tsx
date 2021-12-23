@@ -84,7 +84,7 @@ export const CustomFormConsumerInput = (props: Props) => {
       return (
         <div className={classes.spacedField}>
           <div style={{ overflowWrap: 'break-word' }}>
-            <Typography variant="legend" component="div">
+            <Typography variant="caption" component="div">
               {props.field.label}
             </Typography>
           </div>

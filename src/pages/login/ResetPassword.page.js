@@ -15,6 +15,7 @@ import WarningIcon from '@material-ui/icons/HelpOutlined';
 import { withTranslation, TFunction } from 'react-i18next';
 
 import { resetPassword } from '../../actions/auth.actions';
+import ClassicLoginBackground from '#libs/login/components/ClassicLoginBackground.component';
 
 type Props = {
   resetPassword: (email: string, options: any) => void,
@@ -218,6 +219,20 @@ const styles = (theme) => ({
   },
 });
 
+type ThemeProps = {
+  theme: CompanyTheme,
+};
+
+type FullProps = Props & ThemeProps;
+
+export const ResetPasswordWithBackground = (props: FullProps) => {
+  return (
+    <ClassicLoginBackground theme={props.theme}>
+      <ResetPassword {...props} />
+    </ClassicLoginBackground>
+  );
+};
+
 export default compose(
   withTranslation(['authentication']),
   connect(
@@ -230,4 +245,4 @@ export default compose(
     { resetPassword },
   ),
   withStyles(styles),
-)(ResetPassword);
+)(ResetPasswordWithBackground);

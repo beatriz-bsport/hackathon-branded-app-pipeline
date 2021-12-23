@@ -68,7 +68,7 @@ type OwnProps = {
   startWeekThisWeekday?: boolean;
   compactMode: boolean;
   requestSignUp: () => void;
-  toogleCurrentBasketOpen: (value: boolean) => void;
+  toggleCurrentBasketOpen: (value: boolean) => void;
   onCompletePurchase?: (offerId: number, packId: number) => void;
   otherParams: {
     date: string;

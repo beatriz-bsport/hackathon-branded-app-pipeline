@@ -7,8 +7,6 @@ import { push } from 'connected-react-router';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import ValidateEmailWithToken from '#libs/login/components/ValidateEmailWithToken.component';
 import { validateEmail as validateEmailAction } from '#libs/login/actions';
-import ClassicLoginBackground from '#libs/login/components/ClassicLoginBackground.component';
-import type { Theme as CompanyTheme } from '#libs/theme/types';
 
 type OwnProps = {
   uid: string,
@@ -36,24 +34,13 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     padding: theme.spacing(6),
     width: '100%',
-    marginTop: '10vh',
     maxWidth: 600,
+    position: 'fixed',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
   },
 }));
-
-type ThemeProps = {
-  theme: CompanyTheme,
-};
-
-type Props = OwnProps & ThemeProps;
-
-export const ValidateEmailWithTokenPageWithBackground = (props: Props) => {
-  return (
-    <ClassicLoginBackground theme={props.theme}>
-      <ValidateEmailWithTokenPage {...props} />
-    </ClassicLoginBackground>
-  );
-};
 
 export default compose(
   routerParamsToProps({ uid: 'uid', token: 'token' }),
@@ -74,4 +61,4 @@ export default compose(
         });
       },
   }),
-)(ValidateEmailWithTokenPageWithBackground);
+)(ValidateEmailWithTokenPage);

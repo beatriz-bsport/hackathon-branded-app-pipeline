@@ -11,7 +11,6 @@ import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import CompanyOnboardingWelcomePage from './CompanyOnboardingWelcome.page';
 import CompanyOnboardingFormPage from './CompanyOnboardingForm.page';
 import EmailValidationPage from './EmailValidation.page';
-import ClassicLoginBackground from '#libs/login/components/ClassicLoginBackground.component';
 
 type OwnProps = {
   activeStep: string,
@@ -69,22 +68,8 @@ export const CompanyOnboardingRouter = (props: OwnProps) => {
   );
 };
 
-type ThemeProps = {
-  theme: CompanyTheme,
-};
-
-type Props = OwnProps & ThemeProps;
-
-export const CompanyOnboardingRouterWithBackground = (props: Props) => {
-  return (
-    <ClassicLoginBackground theme={props.theme}>
-      <CompanyOnboardingRouter {...props} />
-    </ClassicLoginBackground>
-  );
-};
-
 export default compose(routerParamsToProps({ activeStep: 'activeStep' }))(
-  CompanyOnboardingRouterWithBackground,
+  CompanyOnboardingRouter,
 );
 
 const useStyles = makeStyles((theme) => ({
@@ -92,7 +77,10 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     padding: theme.spacing(6),
     width: '100%',
-    marginTop: '10vh',
     maxWidth: 600,
+    position: 'fixed',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
   },
 }));

@@ -23,7 +23,6 @@ import { openIntercomHelp } from '../../../intercom';
 import getCalendlyLinkFromCountry from '../../../i18n/utils/calendly-link-language';
 import WidgetUtils from '#libs/widget/WidgetUtils';
 import Config from '../../../config';
-import LOGO_ASSET from '../../../public/images/banner_lowres.png';
 
 type Props = {
   doEmailLogin: (Obj: { email: string; password: string }) => void;
@@ -77,7 +76,11 @@ export class ConsumerLogin extends Component<Props, State> {
               <Fade in>
                 <div>
                   <img
-                    src={this.props.theme ? this.props.theme.cover : LOGO_ASSET}
+                    src={
+                      this.props.theme
+                        ? this.props.theme.cover
+                        : 'https://cdn.bsport.io/bsport_logo_txt.png'
+                    }
                     className={classes.logo}
                     alt={
                       this.props.theme

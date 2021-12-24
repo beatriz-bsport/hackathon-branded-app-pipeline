@@ -14,7 +14,6 @@ import { push as pushRouter } from 'connected-react-router';
 import LoginBase from '../../components/navigation/LoginBase.component';
 import api from '../../api';
 import { snackbarSuccess } from '../../libs/snackbar/actions';
-import ClassicLoginBackground from '#libs/login/components/ClassicLoginBackground.component';
 
 const styles = (theme) => ({
   formContainer: {
@@ -187,22 +186,6 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-type ThemeProps = {
-  theme: CompanyTheme,
-};
-
-type Props = OwnProps & ThemeProps;
-
-export const ChangePasswordWithBackground = (props: Props) => {
-  return (
-    <ClassicLoginBackground theme={props.theme}>
-      <ChangePassword {...props} />
-    </ClassicLoginBackground>
-  );
-};
-
 export default withStyles(styles)(
-  withTranslation()(
-    connect(null, mapDispatchToProps)(ChangePasswordWithBackground),
-  ),
+  withTranslation()(connect(null, mapDispatchToProps)(ChangePassword)),
 );

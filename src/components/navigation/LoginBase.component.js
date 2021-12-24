@@ -11,9 +11,12 @@ import B_ASSET from '../../public/images/b_dark.jpg';
 const styles = (theme) => ({
   container: {
     maxWidth: 320,
-    margin: '50px auto',
     textAlign: 'center',
     padding: 0,
+    position: 'fixed',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
   },
   bsportLogo: {
     marginTop: 30,

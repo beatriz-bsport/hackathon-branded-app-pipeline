@@ -21,6 +21,7 @@ import CampaignReport from '../../libs/communication/components/CampaignReport.c
 import type {
   Campaign,
   CampaignReport as CampaignReportType,
+  Recipient,
 } from '../../libs/communication/types';
 
 type Props = {

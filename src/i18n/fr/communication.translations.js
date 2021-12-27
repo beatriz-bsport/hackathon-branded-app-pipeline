@@ -73,6 +73,7 @@ exports.default = {
   campaign: {
     recipientCount: 'Destinataire: {{ total_recipients }}',
     showMail: "Voir l'email",
+    unavailableMail: 'Preview non disponible',
     sentAt: 'Envoyé le {{ date_created }}',
     readCount: 'Ouvertures',
     clickCount: 'Clics',

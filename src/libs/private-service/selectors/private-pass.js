@@ -142,6 +142,9 @@ export const getServiceCompatibilityPassList: (State) => Array<ServiceCompatibil
     (data, ids) => ids.map((id) => data[id]),
   );
 
+export const getCompatibleServicePassLoading = (state: State) =>
+  state.privateService.compatibleServicePass.loading;
+
 export const getCompatibilityPassWithService: (State) => Array<PrivatePassWithService> =
   createSelector(
     [

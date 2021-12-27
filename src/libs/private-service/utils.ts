@@ -171,7 +171,7 @@ export const getExpirationDate = (privateConsumerPass: PrivateConsumerPass) => {
 
 export const getFormInitial = (
   pass: PrivatePass,
-  compatibleServicePass: ServiceCompatibilityPass[] = [],
+  compatibleServicePass: Array<ServiceCompatibilityPass> = [],
 ) => {
   if (
     compatibleServicePass?.length > 0 &&

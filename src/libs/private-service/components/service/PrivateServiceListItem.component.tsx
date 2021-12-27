@@ -15,9 +15,10 @@ import ListItemResponsiveAction from '../../../../components/button/ListItemResp
 // import Tooltip from '../../../../components/Tooltip.component';
 
 import {
-  PrivateService,
+  PrivateServiceWithSlots,
   ServiceCompatibilityPass,
   PrivateSlot,
+  PrivateService,
 } from '../../types';
 import { Coach } from '../../../associated-coach/types';
 import {
@@ -26,7 +27,7 @@ import {
 } from '../../utils';
 
 type Props = {
-  privateService: PrivateService;
+  privateService: PrivateService | PrivateServiceWithSlots;
   onClick: (id: number) => void;
   onEdit: () => void;
   dense?: boolean;

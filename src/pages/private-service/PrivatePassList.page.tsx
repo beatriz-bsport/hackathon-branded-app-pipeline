@@ -23,15 +23,16 @@ import { Divider } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import IsEmptyList from '../../components/navigation/IsEmptyList.component';
+import IsEmptyList from '#components/navigation/IsEmptyList.component';
 import themeSelectors from '#libs/theme/selectors';
-import withTitle from '../../hocs/with-title.hoc';
-import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import withTitle from '#hocs/with-title.hoc';
+import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import {
   getPrivatePassCustomerEnabled,
   getAvailablePrivatePasses,
   getUnavailablePrivatePasses,
   getCompatibilityPassWithService as getCompatibleServicePass,
+  getCompatibleServicePassLoading,
 } from '#libs/private-service/selectors/private-pass';
 import { getPrivateServices } from '#libs/private-service/selectors/private-service';
 import {
@@ -57,8 +58,8 @@ import type {
   ServiceCompatibilityPass,
   PrivateSlot,
 } from '#libs/private-service/types';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import FuzeSearch from '../../components/FuzeSearch.component';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import FuzeSearch from '#components/FuzeSearch.component';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers';
 import { PrivatePassCategoryList } from '#libs/private-service/components/category/PrivatePassCategoryList.component';
@@ -98,6 +99,7 @@ type StateHandlerInit = {
   selectedPrivatePass: PrivatePass | null;
   selectedCategory: PrivatePassCategory | null;
   compatibleServicePassOfSelectedPass: ServiceCompatibilityPass | null;
+  compatibilityLoading: boolean;
 };
 
 type StateHandlerType = typeof withStateHandlersInit &
@@ -168,15 +170,6 @@ export class PrivatePassList extends React.Component<Props, State> {
       prevProps.selectedPrivatePass?.id !== this.props.selectedPrivatePass?.id
     ) {
       this.props.fetchCompatibleServicePasses();
-    }
-    if (
-      prevProps.compatibleServicePass?.length !==
-        this.props.compatibleServicePass?.length &&
-      !!this.props.selectedPrivatePass
-    ) {
-      this.props.setCompatibleServicePassOfSelectedPass(
-        this.props.compatibleServicePass,
-      );
     }
   }
 
@@ -287,7 +280,7 @@ export class PrivatePassList extends React.Component<Props, State> {
     });
   };
 
-  openFormAndUploadCompatibilityInfo = async (pass: PrivatePass) => {
+  openFormAndUploadCompatibilityInfo = (pass: PrivatePass) => {
     this.props.setSelectedPrivatePass(pass);
     this.props.setOpenEditForm(true);
   };
@@ -460,7 +453,10 @@ export class PrivatePassList extends React.Component<Props, State> {
             </div>
           ) : null}
           <Dialog
-            open={this.props.openEditForm || this.props.openCreateForm}
+            open={
+              (this.props.openEditForm || this.props.openCreateForm) &&
+              !this.props.compatibleServicePassLoading
+            }
             maxWidth="md"
             fullWidth
           >
@@ -477,7 +473,7 @@ export class PrivatePassList extends React.Component<Props, State> {
               privateServices={this.props.privateServices}
               initial={getFormInitial(
                 this.props.selectedPrivatePass,
-                this.props.compatibleServicePassOfSelectedPass,
+                this.props.compatibleServicePass,
               )}
               compatibleServicePass={this.props.compatibleServicePass}
             />
@@ -547,7 +543,7 @@ export class PrivatePassList extends React.Component<Props, State> {
   }
 }
 
-const styles = (theme: Theme) => ({
+const styles = (theme: Theme): any => ({
   leftIcon: {
     marginRight: theme.spacing(1),
   },
@@ -621,6 +617,7 @@ const mapStateToProps = (state: RootState) => ({
     state.userPreference.privatePassManagerOnlyFilter,
   privateServices: getPrivateServices(state),
   compatibleServicePass: getCompatibleServicePass(state),
+  compatibleServicePassLoading: getCompatibleServicePassLoading(state),
 });
 
 const mapDispatchToProps = {
@@ -650,7 +647,6 @@ const withStateHandlersInit: StateHandlerInit = {
   showCategoryDialog: false,
   selectedPrivatePass: null,
   selectedCategory: null,
-  compatibleServicePassOfSelectedPass: null,
 };
 
 const withStateHandlersSetter = {
@@ -672,13 +668,6 @@ const withStateHandlersSetter = {
   setSelectedPrivatePass: () => (selectedPrivatePass: PrivatePass | null) => {
     return { selectedPrivatePass };
   },
-  setCompatibleServicePassOfSelectedPass:
-    () =>
-    (
-      compatibleServicePassOfSelectedPass: ServiceCompatibilityPass[] | null,
-    ) => {
-      return { compatibleServicePassOfSelectedPass };
-    },
   setSelectedCategory: () => (selectedCategory: PrivatePassCategory | null) => {
     return { selectedCategory };
   },
@@ -687,7 +676,6 @@ const withStateHandlersSetter = {
     openEditForm: false,
     openDeletePassDialog: null,
     selectedPrivatePass: null,
-    compatibleServicePassOfSelectedPass: null,
   }),
   closePrivatePassCategoryForm: () => () => {
     return { showCategoryDialog: false, selectedCategory: null };

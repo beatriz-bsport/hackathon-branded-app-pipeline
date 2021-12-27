@@ -78,7 +78,7 @@ interface FormikValues {
   available_payment_method_identifiers: Array<number>;
   start_date_method: string;
   expiration_days_before_first_use: number;
-  compatibility: Array<number>;
+  compatibility: Array<CompatiblePrivateService>;
 }
 type Props = {
   isSubmitting: boolean;

@@ -88,15 +88,17 @@ export function fetchAccessLevel(
         Sentry.configureScope((scope) => {
           scope.setUser({ email: username });
         });
-        segmentIdentify({
-          userId: id,
-          userTraits: {
-            email: username,
-            manager: is_manager,
-            is_franchisor,
-            name,
-          },
-        });
+        if (is_manager || is_franchisor) {
+          segmentIdentify({
+            userId: id,
+            userTraits: {
+              email: username,
+              manager: is_manager,
+              is_franchisor,
+              name,
+            },
+          });
+        }
       } catch (err) {
         console.error(err);
       }

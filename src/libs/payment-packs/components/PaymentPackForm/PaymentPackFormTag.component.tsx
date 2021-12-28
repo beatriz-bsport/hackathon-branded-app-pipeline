@@ -13,7 +13,6 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import TagSelector from '#libs/tag/components/TagSelector.selector';
 import { PaymentPackFormValues } from '../../types';
 import { Tag, TagGroup } from '#libs/tag/types';
-import Config from '../../../../config';
 
 type OwnProps = {
   formikProps: FormikProps<PaymentPackFormValues>;

@@ -85,7 +85,7 @@ const EuropeanBankAccount = (props: Props) => {
           <Button
             color="primary"
             disabled={!account_holder_name || !account_number}
-            onSubmit={() => props.onSubmit(account_holder_name, account_number)}
+            onClick={() => props.onSubmit(account_holder_name, account_number)}
           >
             {t('bankAccount.form.actions.submit')}
           </Button>
@@ -167,7 +167,7 @@ const CanadaBankAccount = (props: Props) => {
             disabled={
               !!(!account_holder_name || !account_number || institutionNumber)
             }
-            onSubmit={() =>
+            onClick={() =>
               props.onSubmit(
                 account_holder_name,
                 account_number,
@@ -466,7 +466,7 @@ const BrazilBankAccount = (props: Props) => {
               !bankCode ||
               props.loading
             }
-            onSubmit={() =>
+            onClick={() =>
               props.onSubmit(
                 account_holder_name,
                 account_number,
@@ -558,7 +558,7 @@ const HongKongBankAccount = (props: Props) => {
               !clearingCode ||
               props.loading
             }
-            onSubmit={() =>
+            onClick={() =>
               props.onSubmit(
                 account_holder_name,
                 account_number,
@@ -638,7 +638,7 @@ const IndiaBankAccount = (props: Props) => {
               !ifscCode ||
               props.loading
             }
-            onSubmit={() =>
+            onClick={() =>
               props.onSubmit(account_holder_name, account_number, ifscCode)
             }
           >
@@ -697,7 +697,7 @@ const MalaysiaBankAccount = (props: Props) => {
         ) : (
           <Button
             color="primary"
-            onSubmit={() => props.onSubmit(account_holder_name, account_number)}
+            onClick={() => props.onSubmit(account_holder_name, account_number)}
             disabled={!account_holder_name || !account_number || props.loading}
           >
             {t('bankAccount.form.actions.submit')}
@@ -755,7 +755,7 @@ const NewZealandBankAccount = (props: Props) => {
         ) : (
           <Button
             color="primary"
-            onSubmit={() => props.onSubmit(account_holder_name, account_number)}
+            onClick={() => props.onSubmit(account_holder_name, account_number)}
             disabled={!account_holder_name || !account_number || props.loading}
           >
             {t('bankAccount.form.actions.submit')}
@@ -842,7 +842,7 @@ const SingapourBankAccount = (props: Props) => {
               !branchCode ||
               props.loading
             }
-            onSubmit={() =>
+            onClick={() =>
               props.onSubmit(
                 account_holder_name,
                 account_number,

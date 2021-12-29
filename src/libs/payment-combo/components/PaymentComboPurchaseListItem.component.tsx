@@ -15,9 +15,9 @@ import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import type { PaymentComboPurchase } from '../types';
 
 type Props = {
-  divider?: boolean,
-  paymentComboPurchase: PaymentComboPurchase,
-  onClick: () => void,
+  divider?: boolean;
+  paymentComboPurchase: PaymentComboPurchase;
+  onClick: () => void;
 };
 
 export const PaymentComboPurchaseListItem = (props: Props) => {
@@ -42,7 +42,9 @@ export const PaymentComboPurchaseListItem = (props: Props) => {
         primary={
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Typography>
-              {`${payment_combo.name} - ${payment_combo.member?.name || '...'}`}
+              {`${payment_combo.name} - ${
+                paymentComboPurchase.member?.name || '...'
+              }`}
             </Typography>
             {paymentComboPurchase.member &&
               paymentComboPurchase.member.archived && (

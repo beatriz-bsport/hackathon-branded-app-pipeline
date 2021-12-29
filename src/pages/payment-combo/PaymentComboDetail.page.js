@@ -1,31 +1,34 @@
 // @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { compose, withState } from 'recompose';
+import { compose, withState, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import BottomActionsButton from '../../components/button/BottomActionsButton.component';
+import { BUYABLE_ITEM_COMBO_ITEM } from '@bsport/common/lib/master-data/buyable-items';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import BottomActionsButton from '#components/button/BottomActionsButton.component';
 
 import {
   fetchPaymentCombo,
   fetchPaymentComboPurchaseList,
   createOrUpdatePaymentCombo,
   deletePaymentCombo,
-} from '../../libs/payment-combo/actions';
+} from '#libs/payment-combo/actions';
+import { fetchByInvoiceItem as fetchInvoiceByInvoiceItemAction } from '#libs/invoice/actions';
 import {
   getPaymentCombo,
   getPaymentComboPurchaseListByCombo,
-} from '../../libs/payment-combo/selectors';
-import PaymentComboDetailComponent from '../../libs/payment-combo/components/PaymentComboDetail.component';
-import PaymentComboDeleteDialog from '../../libs/payment-combo/components/PaymentComboDeleteDialog.component';
+} from '#libs/payment-combo/selectors';
+import { getInvoice } from '#libs/invoice/selectors';
+import PaymentComboDetailComponent from '#libs/payment-combo/components/PaymentComboDetail.component';
+import PaymentComboDeleteDialog from '#libs/payment-combo/components/PaymentComboDeleteDialog.component';
 import PaymentComboFormDialogContainer from './PaymentComboFormDialog.container';
-import { snackbarSuccess } from '../../libs/snackbar/actions';
+import { snackbarSuccess } from '#libs/snackbar/actions';
 
-import type { PaymentCombo } from '../../libs/payment-combo/types';
+import type { PaymentCombo } from '#libs/payment-combo/types';
 
 type OptionsCallback = { onSuccess?: () => void, onError?: () => void };
 
@@ -62,6 +65,12 @@ type Props = {
   goToInvoice: (uuid: string) => void,
   goToPaymentComboList: () => void,
   snackbarSuccess: (string) => void,
+  fetchInvoiceByInvoiceItem: (
+    buyable_item_identifier: number,
+    buyable_item_id: number,
+    options?: OptionCallback,
+  ) => void,
+  paymentComboPurchaseInvoice: Invoice,
 };
 
 export class PaymentComboDetail extends React.Component<Props> {
@@ -92,6 +101,13 @@ export class PaymentComboDetail extends React.Component<Props> {
     });
   };
 
+  goToInvoiceUsingPaymentComboPurchaseId = (id: number) => {
+    this.props.fetchInvoiceByInvoiceItem(BUYABLE_ITEM_COMBO_ITEM, id, {
+      onSuccess: () =>
+        this.props.goToInvoice(this.props.paymentComboPurchaseInvoice.uuid),
+    });
+  };
+
   render() {
     return (
       <div className={this.props.classes.container}>
@@ -106,7 +122,9 @@ export class PaymentComboDetail extends React.Component<Props> {
           onPaymentPackClick={this.props.onPaymentPackClick}
           onPrivatePassClick={this.props.onPrivatePassClick}
           onShopItemClick={this.props.onShopItemClick}
-          goToInvoice={this.props.goToInvoice}
+          goToInvoiceUsingPaymentComboPurchaseId={
+            this.goToInvoiceUsingPaymentComboPurchaseId
+          }
           snackbarSuccess={this.props.snackbarSuccess}
           fetchPaymentComboPurchaseList={(page, options) =>
             this.props.fetchPaymentComboPurchaseList(
@@ -164,19 +182,24 @@ export default compose(
   withTranslation(['paymentCombo']),
   withStyles(styles),
   routerParamsToProps({ id: 'id:number' }),
+  withState('relatedInvoice', 'setRelatedInvoice', null),
+  withState('editIsOpen', 'setEditIsOpen', false),
+  withState('deleteIsOpen', 'setDeleteIsOpen', false),
   connect(
-    (state, { id }) => ({
+    (state, { id, relatedInvoice }) => ({
       paymentCombo: getPaymentCombo(state, id),
       paymentComboPurchaseList: getPaymentComboPurchaseListByCombo(state, id),
       paymentComboPurchaseCount: state.paymentCombo.purchase.count,
       paymentComboPurchaseLoading: state.paymentCombo.purchase.loading,
       loading: state.paymentCombo.loading,
+      paymentComboPurchaseInvoice: getInvoice(state, relatedInvoice),
     }),
     {
       fetchPaymentCombo,
       fetchPaymentComboPurchaseList,
       deletePaymentCombo,
       snackbarSuccess,
+      fetchInvoiceByInvoiceItem: fetchInvoiceByInvoiceItemAction,
       updatePaymentCombo: createOrUpdatePaymentCombo,
       onShopItemClick: (id) => push(`/shop/${id}`),
       onPrivatePassClick: () => push('/private-service/pass'),
@@ -185,6 +208,23 @@ export default compose(
       goToPaymentComboList: () => push('/payment-combo/'),
     },
   ),
-  withState('editIsOpen', 'setEditIsOpen', false),
-  withState('deleteIsOpen', 'setDeleteIsOpen', false),
+  withHandlers({
+    fetchInvoiceByInvoiceItem:
+      ({ fetchInvoiceByInvoiceItem, setRelatedInvoice }) =>
+      (buyableId, objectId, options) => {
+        fetchInvoiceByInvoiceItem(buyableId, objectId, {
+          onSuccess: (inv) => {
+            setRelatedInvoice(inv.uuid);
+            if (options && options.onSuccess) {
+              options.onSuccess(inv);
+            }
+          },
+          onError: (err) => {
+            if (options && options.onError) {
+              options.onError(err);
+            }
+          },
+        });
+      },
+  }),
 )(PaymentComboDetail);

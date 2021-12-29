@@ -49,3 +49,28 @@ export type PaymentComboState = {
     loading: boolean;
   };
 };
+
+export type PaymentComboPurchase = {
+  id: number;
+  consumer_payment_packs: number[];
+  date: string;
+  member: {
+    accept_email: boolean;
+    archived: boolean;
+    consumer: number;
+    credit_account_balance: number;
+    date_joined: string;
+    email: string;
+    id: number;
+    name: string;
+    phone: string;
+    photo: string;
+    tags: number[];
+    vaccination_status: boolean;
+  };
+  payment_combo: PaymentCombo;
+  price: string;
+  private_consumer_passes: number[];
+  provision_updates: number[];
+  tax: string;
+};

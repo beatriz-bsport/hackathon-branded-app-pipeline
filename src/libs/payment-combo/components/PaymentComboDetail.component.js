@@ -29,12 +29,13 @@ type Props = {
   page: number,
   setPage: (page: number) => void,
 
-  goToInvoice: (uuid: string) => void,
+  goToInvoiceUsingPaymentComboPurchaseId: (id: string) => void,
   snackbarSuccess: (string) => void,
 
   classes: Object,
   t: TFunction,
 };
+
 export const PaymentComboDetail = (props: Props) => (
   <Grid container spacing={2}>
     <Grid item xs={12} md={6}>
@@ -61,7 +62,9 @@ export const PaymentComboDetail = (props: Props) => (
               key={item.id}
               divider
               paymentComboPurchase={item}
-              onClick={() => props.goToInvoice(item.invoice)}
+              onClick={() =>
+                props.goToInvoiceUsingPaymentComboPurchaseId(item.id)
+              }
             />
           )}
           itemPerPage={15}

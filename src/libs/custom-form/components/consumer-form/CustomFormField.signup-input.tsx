@@ -365,7 +365,7 @@ export const CustomFormConsumerInput = (props: Props) => {
               name={`custom_form_field.${props.index}.answer`}
               label={`${label}${props.field.mandatory ? ' *' : ''}`}
               placeholder={`${label}${props.field.mandatory ? ' *' : ''}`}
-              isDisabled={props.asManager}
+              isDisabled={props.asManager || !props.field.editable}
               suggestions={VACCINATION_STATUS_CHOICES}
               onChange={(item: { label: string; value: string }) =>
                 props.setFieldValue(

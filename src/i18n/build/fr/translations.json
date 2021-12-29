@@ -5637,7 +5637,7 @@
       "contract": { "restore": { "success": "Contrat restauré avec succès", "error": "Impossible de restaurer le contrat" } },
       "billNow": {
         "errors": {
-          "undefined": "Un paiment est déjà en cours de validation, revenez plus tard pour enregistrer un nouveau paiement."
+          "12102": "Un paiment est déjà en cours de validation, revenez plus tard pour enregistrer un nouveau paiement."
         }
       }
     },
@@ -5774,7 +5774,7 @@
     },
     "clientSecret": {
       "errors": {
-        "undefined": "Un paiment est déjà en cours de validation, revenez plus tard pour enregistrer un nouveau paiement."
+        "12102": "Un paiment est déjà en cours de validation, revenez plus tard pour enregistrer un nouveau paiement."
       }
     }
   },

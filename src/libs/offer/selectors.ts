@@ -116,7 +116,11 @@ export const withSpecificCoach = memoize(
         ...offers,
         coach: coachData[offers.coach.id] || offers.coach,
         coach_override: offers.coach_override
-          ? coachData[offers.coach_override]
+          ? coachData[
+              typeof offers.coach_override === 'number'
+                ? offers.coach_override
+                : offers.coach_override.id
+            ]
           : null,
       };
     }),

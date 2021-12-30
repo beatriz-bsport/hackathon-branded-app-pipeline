@@ -329,3 +329,26 @@ export const insertMemberProfileDataToAnswer = (
       return null;
   }
 };
+
+export const getCustomFormFieldMaxLength = (kind?: number) => {
+  switch (kind) {
+    case CUSTOM_FORM_FIELD_SIGN_UP_FIRST_NAME:
+      return 150;
+    case CUSTOM_FORM_FIELD_SIGN_UP_LAST_NAME:
+      return 150;
+    case CUSTOM_FORM_FIELD_SIGN_UP_ZIPCODE:
+      return 10;
+    case CUSTOM_FORM_FIELD_SIGN_UP_CITY:
+      return 50;
+    case CUSTOM_FORM_FIELD_SIGN_UP_ADDRESS_LINE_1:
+      return 300;
+    case CUSTOM_FORM_FIELD_SIGN_UP_ADDRESS_LINE_2:
+      return 300;
+    case CUSTOM_FORM_FIELD_SIGN_UP_EMERGENCY_CONTACT:
+      return 150;
+    case CUSTOM_FORM_FIELD_SIGN_UP_EMAIL:
+      return 1000;
+    default:
+      return MAX_LENGTH_FOR_SHORT_ANSWER;
+  }
+};

@@ -21,12 +21,10 @@ import { getEstablishment } from '../../libs/establishment/selectors';
 import EstablishmentForm from '../../libs/establishment/components/EstablishmentForm.component';
 import withTitle from '../../hocs/with-title.hoc';
 import { mapFormDataWithObject } from '../form.utils';
-// ee
+
 type Props = {
   upsertEstablishmentV2: () => void,
   goToEstablishmentList: () => void,
-  addImage: (number, File) => void,
-  removeImage: (number, number) => void,
   fetchEstablishments: () => void,
   establishmentId: number,
   pending: boolean,
@@ -87,15 +85,7 @@ export class EstablishmentFormPage extends Component<Props> {
   };
 
   render() {
-    const { update, isNew, addImage, removeImage, establishmentId } =
-      this.props;
-    const imageUploader = isNew
-      ? null
-      : {
-          onAddImage: (file: File) => addImage(establishmentId, file),
-          onRemoveImage: (id: number) => removeImage(establishmentId, id),
-        };
-
+    const { update } = this.props;
     if (!this.props.update && this.props.establishmentId) {
       return <LinearProgress />;
     }
@@ -105,7 +95,7 @@ export class EstablishmentFormPage extends Component<Props> {
         processing={this.props.pending}
         initial={update}
         update={this.props.update}
-        imageUploader={imageUploader}
+        // imageUploader={imageUploader}
         onCancel={this.props.goToEstablishmentList}
       />
     );

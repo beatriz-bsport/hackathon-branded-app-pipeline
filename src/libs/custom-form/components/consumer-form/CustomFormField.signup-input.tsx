@@ -42,6 +42,7 @@ import {
 import {
   MAX_LENGTH_FOR_SHORT_ANSWER,
   get_custom_form_sign_question_label,
+  getCustomFormFieldMaxLength,
 } from '../../utils';
 
 import { countries } from '../../../../i18n/utils/countries';
@@ -123,7 +124,11 @@ export const CustomFormConsumerInput = (props: Props) => {
             required={props.field.mandatory}
             fullWidth
             InputLabelProps={{ color: 'red' }}
-            inputProps={{ maxlength: MAX_LENGTH_FOR_SHORT_ANSWER }}
+            inputProps={{
+              maxlength: getCustomFormFieldMaxLength(
+                props.field.signup_question_kind,
+              ),
+            }}
             margin="dense"
           />
         </div>

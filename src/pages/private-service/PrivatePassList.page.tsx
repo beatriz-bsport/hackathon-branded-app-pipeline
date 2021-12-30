@@ -287,7 +287,6 @@ export class PrivatePassList extends React.Component<Props, State> {
 
   render() {
     const { classes, t } = this.props;
-
     if (
       this.props.privatePassList +
         (this.props.disabledPrivatePassList || []).length ===

@@ -81,7 +81,7 @@ export class PaymentPackFilterAndSortHeader extends React.PureComponent<Props> {
         spacing={2}
         className={classes.title}
       >
-        <Grid item xs={4}>
+        <Grid item md={4} xs={12}>
           <Typography className={classes.title}>
             {t('selector.titleCategory')}
           </Typography>
@@ -98,7 +98,7 @@ export class PaymentPackFilterAndSortHeader extends React.PureComponent<Props> {
             placeholder={t('selector.filterCategory')}
           />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item md={4} xs={12}>
           <Typography className={classes.title}>
             {t('selector.titleManagerOnly')}
           </Typography>
@@ -113,7 +113,7 @@ export class PaymentPackFilterAndSortHeader extends React.PureComponent<Props> {
             )}
           />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item md={4} xs={12}>
           <Typography className={classes.title}>
             {t('selector.titleSort')}
           </Typography>

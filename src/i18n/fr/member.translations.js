@@ -9,6 +9,8 @@ exports.default = {
   unpaidInvoiceTitle_plural: 'Factures impayées',
   adjustBalance: 'Ajuster le solde',
   restoreMember: 'Restaurer',
+  archiveMember: 'Archiver',
+  actions: 'Actions',
   archived: 'Archivé',
   table: {
     show: 'Voir',

@@ -11,6 +11,8 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import InfoIcon from '@material-ui/icons/Info';
 import Typography from '@material-ui/core/Typography';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core';
 import type { PaymentPackCategory } from '../../types';
 import { MaterialStyleType } from '../../../../utils/types';
 
@@ -41,6 +43,8 @@ export const PaymentPackCategoryCreationDialog = (props: Props) => {
       name: paymentPackCategoryName,
     });
   };
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Dialog
       fullWidth
@@ -49,6 +53,7 @@ export const PaymentPackCategoryCreationDialog = (props: Props) => {
       onClose={props.handleClose}
       disableBackdropClick
       disableEscapeKeyDown
+      fullScreen={fullScreen}
     >
       <DialogTitle id="form-dialog-title">
         {paymentPackCategorySelected

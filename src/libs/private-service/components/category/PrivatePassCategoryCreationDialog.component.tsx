@@ -11,6 +11,8 @@ import Button from '@material-ui/core/Button';
 import { Theme } from '@material-ui/core/styles';
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core';
 import { MaterialStyleType } from '../../../../utils/types';
 import { PrivatePassCategory } from '../../types';
 
@@ -41,6 +43,8 @@ export const PrivatePassCategoryCreationDialogComponent = (props: Props) => {
       name: privatePassCategoryName,
     });
   };
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Dialog
       fullWidth
@@ -49,6 +53,7 @@ export const PrivatePassCategoryCreationDialogComponent = (props: Props) => {
       onClose={props.handleClose}
       disableBackdropClick
       disableEscapeKeyDown
+      fullScreen={fullScreen}
     >
       <DialogTitle id="form-dialog-title">
         {privatePassCategorySelected

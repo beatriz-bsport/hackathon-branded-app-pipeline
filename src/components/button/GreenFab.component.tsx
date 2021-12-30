@@ -18,7 +18,7 @@ const greenTheme = createTheme({
 });
 
 type Props = {
-  children: React.ReactChildren;
+  children: Node;
 };
 
 export default (props: Props) => (

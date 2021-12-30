@@ -1,17 +1,14 @@
 // @flow
 import React from 'react';
-
+import { Theme } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Fab from '@material-ui/core/Fab';
 import AppBar from '@material-ui/core/AppBar';
 import { Helmet } from 'react-helmet';
 import { Route, Switch } from 'react-router-dom';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
 import { push as pushRouter } from 'connected-react-router';
-import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
-import PaymentIcon from '@material-ui/icons/Payment';
 import { withTranslation, TFunction } from 'react-i18next';
 import { compose, withHandlers, withState } from 'recompose';
 import {
@@ -19,10 +16,6 @@ import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
-import DeleteIcon from '@material-ui/icons/Delete';
-import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
-import RedFab from '../../components/button/RedFab.component';
-import GreenFab from '../../components/button/GreenFab.component';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
 import { fetchManagerFiltersSettings } from '../../libs/dashboard/actions';
@@ -73,6 +66,7 @@ import type { Establishment } from '../../libs/establishment/types';
 import type { OptionCallback } from '../../state/types';
 import MemberArchiveDialog from '../../libs/member/components/MemberArchiveDialog.component';
 import { withMemberBannerHOC } from '../../hocs/banner.hoc';
+import MemberActions from '#libs/member/components/ManagerMemberActions.components';
 
 const MemberDetailInfo = asyncComponent(() =>
   import('./MemberDetailInfo.page'),
@@ -157,56 +151,6 @@ type Props = {
   memberArchiveStatus: Array<number>,
   memberArchiveLoading: boolean,
 };
-
-const MemberActions = (props: {
-  t: TFunction,
-  classes: Object,
-  billMember: (id: number) => void,
-  subscribeMember: (id: number) => void,
-  interrogateMemberStatus: () => void,
-  unArchiveMember: () => void,
-  member: Member,
-}) => (
-  <div className={props.classes.bottomButtonContainer}>
-    <Fab
-      color="primary"
-      variant="extended"
-      className={props.classes.bottomButton}
-      onClick={props.billMember}
-    >
-      <EuroSymbolIcon className={props.classes.leftIcon} />
-      {props.t('paymentAction.toBill')}
-    </Fab>
-    <Fab
-      color="secondary"
-      className={props.classes.bottomButton}
-      variant="extended"
-      onClick={props.subscribeMember}
-    >
-      <PaymentIcon className={props.classes.leftIcon} />
-      {props.t('paymentAction.toSubscribe')}
-    </Fab>
-    <>
-      {props.member && props.member.archived ? (
-        <GreenFab
-          variant="extended"
-          className={props.classes.bottomButton}
-          onClick={() => props.unArchiveMember()}
-        >
-          <RestoreFromTrashIcon className={props.classes.leftIcon} />
-          {props.t('restoreMember')}
-        </GreenFab>
-      ) : (
-        <RedFab
-          className={props.classes.bottomButton}
-          onClick={() => props.interrogateMemberStatus()}
-        >
-          <DeleteIcon />
-        </RedFab>
-      )}
-    </>
-  </div>
-);
 
 export class MemberDetail extends React.Component<Props> {
   componentDidMount() {
@@ -428,8 +372,6 @@ export class MemberDetail extends React.Component<Props> {
           </Switch>
         </div>
         <MemberActions
-          t={t}
-          classes={classes}
           billMember={() => billMember(id)}
           subscribeMember={this.props.openContractDialog}
           interrogateMemberStatus={this.interrogateMemberStatus}

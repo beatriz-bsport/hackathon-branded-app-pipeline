@@ -6,9 +6,10 @@ import { compose, lifecycle } from 'recompose';
 import { connect } from 'react-redux';
 
 import asyncComponent from '../../AsyncComponent';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { getAuthToken } from '../../http';
-import { fetchMarketplaceSettings } from '../../libs/marketplace/actions';
+import { fetchMarketplaceSettings } from '#libs/marketplace/actions';
+import { getFranchiseId } from '#libs/franchise/selectors';
 
 const ConsumerHome = asyncComponent(() => import('./ConsumerHome.page'));
 const ConsumerSpacePreSelector = asyncComponent(() =>
@@ -24,10 +25,14 @@ const ConsumerMembershipValidator = asyncComponent(() =>
 const ConsumerChangeEmailRequestPage = asyncComponent(() =>
   import('./ConsumerChangeEmail.page'),
 );
+const ConsumerFranchiseeSelector = asyncComponent(() =>
+  import('./ConsumerFranchiseeSelector.page'),
+);
 type Props = {
   companyId: ?string,
   isManager: boolean,
   authenticated: boolean,
+  // franchisorId?: number,
 };
 
 export const ConsumerRouter = (props: Props) => {
@@ -55,6 +60,11 @@ export const ConsumerRouter = (props: Props) => {
       />
       <Route
         exact
+        path="/c/franchisee-selector/:franchisorId"
+        component={ConsumerFranchiseeSelector}
+      />
+      <Route
+        exact
         path="/c/membership-validator/:companyId/"
         component={ConsumerMembershipValidator}
       />
@@ -77,6 +87,7 @@ export default compose(
       isManager: state.auth.is_manager,
       username: state.auth.username,
       theme: state.theme.theme,
+      franchisorId: getFranchiseId(state),
     }),
     {
       fetchMarketplaceSettings,

@@ -1,7 +1,12 @@
+import { CompanyWithTheme } from '../company/types';
+
 export type FranchiseState = {
   error: null | boolean;
-  loading: boolean;
-  franchisor?: Franchise;
+  loading: {
+    payload: string;
+    loading: boolean;
+  };
+  franchisor?: Franchise | FranchiseDetails;
   users: {
     page: number;
     count: number;
@@ -52,3 +57,11 @@ export type FranchiseCompany = {
   secondaryRGB: [number, number, number];
   websiteURL: string;
 };
+
+export type FranchiseDetails = Franchise & {
+  companies: Array<CompanyWithTheme>;
+  primary_color: string;
+  secondary_color: string;
+};
+
+export type FranchiseTheme = Franchise | FranchiseDetails | FranchiseCompany;

@@ -1,6 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
+import classnames from 'classnames';
 import { compose } from 'recompose';
 import chroma from 'chroma-js';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -9,9 +10,9 @@ import IconButton from '@material-ui/core/IconButton';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import Hidden from '@material-ui/core/Hidden';
+import './Login.css';
 import HelpIcon from '@material-ui/icons/Help';
 import { withTranslation, TFunction } from 'react-i18next';
-import classnames from 'classnames';
 
 import Fade from '@material-ui/core/Fade';
 import { Theme } from '@material-ui/core/styles/createTheme';
@@ -40,6 +41,7 @@ type Props = {
   theme?: CompanyTheme;
   logoHidden?: boolean;
   marketplace?: boolean;
+  franchisor?: boolean;
 };
 
 type State = {
@@ -103,7 +105,9 @@ export class ConsumerLogin extends Component<Props, State> {
             <Typography className={classes.connection}>
               {t('signin.connection')}
             </Typography>
-            <div className={classes.rectangle} />
+            <div
+              className={classnames([classes.rectangle, 'reactangle-animated'])}
+            />
             <IconButton
               className={classes.iconButton}
               onClick={() => openIntercomHelp('login')}
@@ -258,11 +262,12 @@ const styles = (theme: Theme): any => ({
   },
   signInButton: (props: Props) => ({
     marginTop: theme.spacing(2),
-    background: props.company
-      ? `linear-gradient(90deg,${theme.palette.primary.main} 4.66%, ${chroma(
-          theme.palette.primary.main,
-        ).darken(1.2)} 88.6%)`
-      : 'linear-gradient(90deg, #499C7C 4.66%, #2D767F 88.6%)',
+    background:
+      props.company || props.franchisor
+        ? `linear-gradient(90deg,${theme.palette.primary.main} 4.66%, ${chroma(
+            theme.palette.primary.main,
+          ).darken(1.2)} 88.6%)`
+        : 'linear-gradient(90deg, #499C7C 4.66%, #2D767F 88.6%)',
     borderRadius: 8,
     height: 48,
     color:
@@ -270,13 +275,14 @@ const styles = (theme: Theme): any => ({
         ? '#000000'
         : '#ffffff',
     '&:hover': {
-      background: props.company
-        ? `linear-gradient(90deg,${chroma(theme.palette.primary.main).darken(
-            1.05,
-          )} 4.66%, ${chroma(theme.palette.primary.main).darken(1.25)} 88.6%)`
-        : `linear-gradient(90deg, ${chroma('#499C7C').darken(
-            1.05,
-          )} 4.66%, ${chroma('#2D767F').darken(1.05)} 88.6%)`,
+      background:
+        props.company || props.franchisor
+          ? `linear-gradient(90deg,${chroma(theme.palette.primary.main).darken(
+              1.05,
+            )} 4.66%, ${chroma(theme.palette.primary.main).darken(1.25)} 88.6%)`
+          : `linear-gradient(90deg, ${chroma('#499C7C').darken(
+              1.05,
+            )} 4.66%, ${chroma('#2D767F').darken(1.05)} 88.6%)`,
     },
   }),
   field: {
@@ -298,11 +304,12 @@ const styles = (theme: Theme): any => ({
   },
   rectangle: (props: Props) => ({
     height: 5,
-    background: props.company
-      ? `linear-gradient(90deg,${theme.palette.primary.main} 4.66%, ${chroma(
-          theme.palette.primary.main,
-        ).darken(1.1)} 88.6%)`
-      : 'linear-gradient(90deg, #499C7C 4.66%, #2D767F 88.6%)',
+    background:
+      props.company || props.franchisor
+        ? `linear-gradient(90deg,${theme.palette.primary.main} 4.66%, ${chroma(
+            theme.palette.primary.main,
+          ).darken(1.1)} 88.6%)`
+        : 'linear-gradient(90deg, #499C7C 4.66%, #2D767F 88.6%)',
     width: 146,
     marginBottom: theme.spacing(3),
   }),

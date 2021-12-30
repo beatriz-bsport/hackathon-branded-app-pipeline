@@ -42,4 +42,10 @@ exports.default = {
     chooseGroup: 'Choisir un groupe',
     searchPlaceholder: 'Rechercher un template',
   },
+  login: {
+    disconnect: 'Me déconnecter',
+    previous: 'Retour',
+    connect: 'Me connecter',
+    signUp: "M'inscrire",
+  },
 };

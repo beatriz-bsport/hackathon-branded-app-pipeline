@@ -5,6 +5,7 @@ import { handleActions } from 'redux-actions';
 
 import {
   fetchFranchiseActions,
+  fetchFranchiseThemeActions,
   fetchFranchiseUsersActions,
   fetchFranchiseUserActions,
   themeUpdate,
@@ -38,6 +39,45 @@ export default handleActions<Immutable.Immutable<FranchiseState>>(
       return state.set('error', payload).set('loading', false);
     },
     [fetchFranchiseActions.success.toString()]: (state, { payload }: any) => {
+      const { franchisor } = payload;
+
+      return state
+        .set('loading', false)
+        .set('error', null)
+        .set('franchisor', franchisor)
+        .setIn(
+          ['companies', 'allIds'],
+          franchisor.companies.map((company: FranchiseCompany) => company.id),
+        )
+        .merge(
+          {
+            companies: {
+              byId: franchisor.companies.reduce(
+                (
+                  acc: Record<number, FranchiseCompany>,
+                  company: FranchiseCompany,
+                ) => {
+                  acc[company.id] = company;
+                  return acc;
+                },
+                {},
+              ),
+            },
+          },
+          { deep: true },
+        );
+    },
+
+    [fetchFranchiseThemeActions.isLoading.toString()]: (state, payload) => {
+      return state.set('loading', payload).set('error', null);
+    },
+    [fetchFranchiseThemeActions.error.toString()]: (state, payload) => {
+      return state.set('error', payload).set('loading', false);
+    },
+    [fetchFranchiseThemeActions.success.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
       const { franchisor } = payload;
 
       return state

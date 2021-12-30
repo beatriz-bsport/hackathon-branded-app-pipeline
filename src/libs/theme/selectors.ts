@@ -45,4 +45,11 @@ export const getCurrencyDisplayWithPrice = (price: any) => {
   }
 };
 
+export const getThemeLoading = (state: RootState) => {
+  if (getTheme(state)) {
+    return state.theme.loading;
+  }
+  return null;
+};
+
 export default { getTheme };

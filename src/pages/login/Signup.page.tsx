@@ -47,6 +47,7 @@ type OwnProps = {
     state: string;
   };
   membership: string;
+  // franchisor: string;
   goBackToLogin: (id: string | null) => void;
   doEmailLogin: ({
     email,
@@ -91,12 +92,19 @@ export class SignupPage extends Component<Props> {
     );
   };
 
+  handleCancel = () => {
+    // if (this.props.franchisor) {
+    //   this.props.goBackToFranchisePage(this.props.franchisor);
+    // } else {
+    this.props.goBackToLogin(this.props.membership);
+    // }
+  };
+
   render() {
     const {
       authenticated,
       classes,
       t,
-      goBackToLogin,
       membership,
       signUpCustomForm,
       theme,
@@ -123,7 +131,7 @@ export class SignupPage extends Component<Props> {
               layouts={signUpCustomForm.layout}
               waiver={theme.waiver}
               general_terms_and_conditions={theme.general_terms_of_use}
-              onCancel={() => goBackToLogin(membership)}
+              onCancel={this.handleCancel}
             />
           </div>
         )}
@@ -154,6 +162,8 @@ const properMapDispatchToProps = {
   fetchCompanyCustomSignUp,
   goBackToLogin: (membership: string | null) =>
     membership ? push(`/login?membership=${membership}`) : push(`/login`),
+  goBackToFranchisePage: (franchisor: string | null) =>
+    franchisor ? push(`/login?franchisor=${franchisor}`) : push(`/login`),
 };
 const mapStateToProps = (
   state: RootState,
@@ -223,6 +233,7 @@ export default compose(
   withTranslation(['login']),
   withProps((props: OwnProps) => ({
     membership: parseQueryString(props.location.search).membership,
+    franchisor: parseQueryString(props.location.search).franchisor,
     goNext: parseQueryString(props.location.search).next,
   })),
   connect(mapStateToProps, mapDispatchToProps),

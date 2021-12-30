@@ -8,6 +8,7 @@ import {
   fetchFranchiseUsers as fetchFranchiseUsersAPI,
   fetchFranchiseUser as fetchFranchiseUserAPI,
   updateFranchiseTheme as updateFranchiseThemeAPI,
+  fetchFranchiseTheme as fetchFranchiseThemeAPI,
 } from './api';
 
 export const fetchFranchiseActions = {
@@ -28,10 +29,43 @@ export function fetchFranchise(options?: OptionCallback) {
       options?.onSuccess();
     } catch (error) {
       dispatch(fetchFranchiseActions.error(error));
-      options?.onError(error);
+      if (options && options.onError) {
+        options.onError(error);
+      }
     }
 
     dispatch(fetchFranchiseActions.isLoading(false));
+  };
+}
+
+export const fetchFranchiseThemeActions = {
+  error: createAction('FRANCHISE/THEME/ERROR'),
+  isLoading: createAction('FRANCHISE/THEME/IS_LOADING'),
+  success: createAction('FRANCHISE/THEME/SUCCESS'),
+};
+
+export function fetchFranchiseTheme(
+  franchiseId: number,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchFranchiseThemeActions.isLoading(true));
+    dispatch(fetchFranchiseThemeActions.error(null));
+
+    try {
+      const response = await fetchFranchiseThemeAPI(franchiseId);
+      dispatch(
+        fetchFranchiseThemeActions.success({ franchisor: response.data }),
+      );
+      options?.onSuccess();
+    } catch (error) {
+      dispatch(fetchFranchiseThemeActions.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
+
+    dispatch(fetchFranchiseThemeActions.isLoading(false));
   };
 }
 

@@ -6,6 +6,11 @@ export type Company = {
   cover: string;
 };
 
+export type CompanyWithTheme = Company & {
+  primaryRGB: [number, number, number];
+  secondaryRGB: [number, number, number];
+};
+
 export type CompanySetup = {
   id: number;
   name: string;

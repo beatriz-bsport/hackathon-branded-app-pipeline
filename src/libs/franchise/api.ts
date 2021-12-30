@@ -2,8 +2,14 @@
 
 import { AxiosResponse } from 'axios';
 import { GenericPaginationResults } from '../types';
-import { API_V1_URI, buildUrlParams, getAuth, patchAuth } from '../../http';
-import { FranchiseUser, Franchise } from './types';
+import {
+  API_V1_URI,
+  buildUrlParams,
+  getAuth,
+  patchAuth,
+  get,
+} from '../../http';
+import { FranchiseUser, Franchise, FranchiseDetails } from './types';
 
 export const fetchFranchise = async (): Promise<AxiosResponse<Franchise>> => {
   return getAuth(`${API_V1_URI}/franchisor/franchisor/me`);
@@ -32,4 +38,10 @@ export const updateFranchiseTheme = async (
   },
 ) => {
   return patchAuth(`${API_V1_URI}/franchisor/franchisor/${franchiseId}/`, data);
+};
+
+export const fetchFranchiseTheme = async (
+  franchiseId: number,
+): Promise<AxiosResponse<FranchiseDetails>> => {
+  return get(`${API_V1_URI}/franchisor/franchisor/${franchiseId}/`);
 };

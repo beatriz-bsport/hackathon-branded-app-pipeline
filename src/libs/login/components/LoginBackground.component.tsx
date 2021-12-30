@@ -1,13 +1,13 @@
 import React from 'react';
 import { compose } from 'recompose';
-import { withStyles, WithTheme } from '@material-ui/styles';
-import { Theme } from '@material-ui/core';
+import { withStyles, WithTheme, Theme } from '@material-ui/styles';
 import classNames from 'classnames';
 import { MaterialStyleType } from '../../../utils/types';
 import './LoginBackground.css';
 
 type OwnProps = {
   company?: boolean;
+  franchise?: boolean;
 };
 
 type Props = OwnProps &
@@ -89,7 +89,7 @@ export const LoginBackgroundComponent = (props: Props) => {
             d="M335 203C565 209 863.5 212.5 910.5 294.5H0V0.5C34 50 105 197 335 203Z"
             fillOpacity="0.6"
             fill={
-              props.company
+              props.company || props.franchise
                 ? props.theme.palette.primary.main
                 : 'rgba(44, 118, 126)'
             }
@@ -113,15 +113,17 @@ const styles = (theme: Theme): any => ({
     position: 'absolute',
   },
   dark: (props: Props) => ({
-    background: props.company
-      ? theme.palette.primary.main
-      : 'rgba(44, 118, 126)',
+    background:
+      props.franchise || props.company
+        ? theme.palette.primary.main
+        : 'rgba(44, 118, 126)',
     opacity: 0.6,
   }),
   light: (props: Props) => ({
-    background: props.company
-      ? theme.palette.secondary.main
-      : 'rgba(73, 156, 124)',
+    background:
+      props.franchise || props.company
+        ? theme.palette.secondary.main
+        : 'rgba(73, 156, 124)',
     opacity: 0.6,
   }),
   size1: {

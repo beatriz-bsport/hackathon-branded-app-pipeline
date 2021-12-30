@@ -11,6 +11,7 @@ type Props = {
   location: Object,
   requestedMembership: ?string,
   activeMembership: ?number,
+  // franchiseId: ?number,
 };
 
 export const ConsumerSpacePreSelector = (props: Props) => {
@@ -32,6 +33,11 @@ export const ConsumerSpacePreSelector = (props: Props) => {
 
   // the customer request a lambda consumer space, we r gonna
   // look what we can propose him based on last connection and current memberships
+
+  // if (props.authenticated && props.franchiseId) {
+  //   return <Redirect to={`/c/franchisee-selector/${props.franchiseId}`} />;
+  // }
+
   return <Redirect to="/c/membership-selector/" />;
 };
 

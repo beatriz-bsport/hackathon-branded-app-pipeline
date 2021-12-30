@@ -111,7 +111,7 @@ export function fetchAccessLevel(
         },
       );
       if (options && options?.goNext) {
-        options.goNext();
+        options.goNext({ is_franchisor, is_manager });
       } else if (options && options.company) {
         dispatch(push(`/c/membership-validator/${options.company}/`));
       }

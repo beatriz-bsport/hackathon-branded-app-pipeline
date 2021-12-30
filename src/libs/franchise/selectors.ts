@@ -31,6 +31,13 @@ export const getFranchiseTheme = (state: RootState) => {
   return null;
 };
 
+export const getFranchiseThemeLoading = (state: RootState) => {
+  if (getState(state)?.franchisor) {
+    return getState(state).loading.loading;
+  }
+  return null;
+};
+
 // Users
 
 export const getFranchiseUserPage = (state: RootState) => {

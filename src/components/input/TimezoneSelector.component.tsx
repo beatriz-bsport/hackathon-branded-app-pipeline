@@ -1,13 +1,15 @@
-// @flow
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
-import moment from 'moment-timezone';
+import moment, { MomentZoneOffset, MomentZone } from 'moment-timezone';
 
-const getTimezoneListExtended = (timezoneList, country) => {
+const getTimezoneListExtended = (
+  timezoneList: Array<MomentZone | MomentZoneOffset>,
+  country: string,
+) => {
   if (country === 'FR') {
     return [
       ...timezoneList,
@@ -20,6 +22,14 @@ const getTimezoneListExtended = (timezoneList, country) => {
     return [...timezoneList, moment.tz.zone('America/Jamaica')];
   }
   return timezoneList;
+};
+
+type Props = {
+  timezoneList: Array<MomentZone | MomentZoneOffset>;
+  country: string;
+  onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: string;
+  label?: string;
 };
 
 export const TimezoneSelector = (props: Props) => {
@@ -46,7 +56,7 @@ export const TimezoneSelector = (props: Props) => {
             offsetName = abbrs.join('');
           }
           return (
-            <MenuItem key={name} value={name} className={classes.menuItem}>
+            <MenuItem key={name} value={name}>
               {`${name.split('/').slice(1).join(', ')} (${offsetName})`}
             </MenuItem>
           );
@@ -56,7 +66,7 @@ export const TimezoneSelector = (props: Props) => {
   );
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,

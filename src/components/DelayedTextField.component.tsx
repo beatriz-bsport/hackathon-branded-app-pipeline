@@ -8,6 +8,14 @@ type Props = {
   value?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   delay?: number;
+  fullWidth?: boolean;
+  required?: boolean;
+  autoComplete?: string;
+  type?: string;
+  label?: string;
+  placeholder?: string;
+  helperText?: string;
+  error?: boolean;
 };
 
 type State = {
@@ -58,7 +66,9 @@ export default class DelayedTextField extends Component<Props, State> {
     return (
       <TextField
         {...this.props}
-        onChange={(event) => this.handleChange(event)}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          this.handleChange(event)
+        }
         value={this.state.value}
       />
     );

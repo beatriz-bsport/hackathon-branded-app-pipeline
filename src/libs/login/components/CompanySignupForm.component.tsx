@@ -1,10 +1,7 @@
-// @flow
-//
-
 import React from 'react';
 import { compose, withHandlers, withStateHandlers, withProps } from 'recompose';
 import ReCAPTCHA from 'react-google-recaptcha';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
@@ -16,37 +13,38 @@ import PasswordInput from '../../../components/input/PasswordInput.component';
 import LocaleSelector from '../../../components/input/LocaleSelector.component';
 import TimezoneSelector from '../../../components/input/TimezoneSelector.component';
 import DelayedTextField from '../../../components/DelayedTextField.component';
+import { OptionCallback } from '../../../state/types';
 
 import Config from '../../../config';
 
 type Props = {
-  hasBeenSubmitted: boolean,
-  onNext: () => void,
-  onPrevious: () => void,
-  onSubmit: (string, OptionCallback) => void,
+  hasBeenSubmitted: boolean;
+  onNext: () => void;
+  onPrevious: () => void;
+  onSubmit: (captach: string, options: OptionCallback) => void;
 
-  name: string,
-  setName: (SyntheticEvent<HTMLElement>) => void,
+  name: string;
+  setName: (ev: React.ChangeEvent<HTMLElement>) => void;
 
-  email: string,
-  setEmail: (SyntheticEvent<HTMLElement>) => void,
-  emailExists: boolean,
-  checkEmailExistsLoading: boolean,
+  email: string;
+  setEmail: (ev: React.ChangeEvent<HTMLElement>) => void;
+  emailExists: boolean;
+  checkEmailExistsLoading: boolean;
 
-  password1: string,
-  password2: string,
-  setPassword1: (SyntheticEvent<HTMLElement>) => void,
-  setPassword2: (SyntheticEvent<HTMLElement>) => void,
-  passwordMismatch: boolean,
+  password1: string;
+  password2: string;
+  setPassword1: (ev: React.ChangeEvent<HTMLElement>) => void;
+  setPassword2: (ev: React.ChangeEvent<HTMLElement>) => void;
+  passwordMismatch: boolean;
 
-  locale: string,
-  setLocale: (SyntheticEvent<HTMLElement>) => void,
+  locale: string;
+  setLocale: (ev: React.ChangeEvent<HTMLElement>) => void;
 
-  validateCaptcha: (boolean) => void,
-  validatedCaptcha: boolean,
+  validateCaptcha: (v: boolean) => void;
+  validatedCaptcha: boolean;
 
-  timezone_name: string,
-  setTimezone: (string) => void,
+  timezone_name: string;
+  setTimezone: (timezone: string) => void;
 };
 
 export const CompanySignupForm = (props: Props) => {
@@ -141,7 +139,7 @@ export const CompanySignupForm = (props: Props) => {
       <div className={classes.field}>
         <ReCAPTCHA
           ref={recaptchaRef}
-          onChange={(v) => {
+          onChange={(v: boolean) => {
             props.validateCaptcha(!!v);
           }}
           onExpired={() => props.validateCaptcha(false)}
@@ -164,7 +162,7 @@ export const CompanySignupForm = (props: Props) => {
   );
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
@@ -211,7 +209,10 @@ export default compose(
     },
     {
       setEmail:
-        (_, { checkEmailExists }) =>
+        (
+          _,
+          { checkEmailExists }: { checkEmailExists: (email: string) => void },
+        ) =>
         (ev) => {
           checkEmailExists(ev.target.value);
           return { email: ev.target.value };
@@ -239,7 +240,7 @@ export default compose(
   withHandlers({
     onSubmit:
       ({ onSubmit, email, password1, name, locale, timezone_name }) =>
-      (recaptcha) => {
+      (recaptcha: string) => {
         onSubmit({
           recaptcha,
           email,

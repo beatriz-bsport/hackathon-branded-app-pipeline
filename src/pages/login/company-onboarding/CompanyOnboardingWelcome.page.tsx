@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
@@ -18,11 +17,11 @@ const CompanyOnboardingWelcomePage = (props: Props) => {
     <div className={classes.container}>
       <Typography variant="h4">{t('signupCompany.welcome.title')}</Typography>
       <Typography align="left">{t('signupCompany.welcome.content')}</Typography>
-      <div className={classes.actions}>
+      <div>
         <ButtonGroup color="primary">
           <Button onClick={props.goNext}>
             {t('signupCompany.welcome.next')}
-            <ArrowForwardIcon className={classes.iconRight} />
+            <ArrowForwardIcon />
           </Button>
         </ButtonGroup>
       </div>

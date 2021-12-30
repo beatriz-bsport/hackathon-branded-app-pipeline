@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
@@ -11,14 +10,15 @@ import {
 } from '../../../actions/auth.actions';
 
 import CompanyOnboardingForm from '../../../libs/login/components/CompanySignupForm.component';
+import { RootState } from '../../../reducers';
 
 import type { OptionCallback } from '../../../state/types';
 
 type Props = {
-  checkEmailExists: (email: string) => void,
-  checkEmailExistsLoading: boolean,
-  emailExists: boolean,
-  createCompany: (data: any, options: OptionCallback) => void,
+  checkEmailExists: (email: string) => void;
+  checkEmailExistsLoading: boolean;
+  emailExists: boolean;
+  createCompany: (data: any, options: OptionCallback) => void;
 };
 
 export const CompanyOnboardingFormPage = (props: Props) => {
@@ -34,7 +34,7 @@ export const CompanyOnboardingFormPage = (props: Props) => {
 
 export default compose(
   connect(
-    (state) => ({
+    (state: RootState) => ({
       checkEmailExistsLoading: state.auth.emailExists.loading,
       emailExists: state.auth.emailExists.exists,
     }),
@@ -42,7 +42,7 @@ export default compose(
       createCompany: createCompanyAction,
       checkEmailExists,
       requestLogin: requestLoginAction,
-      goToEmailValidation: (email) =>
+      goToEmailValidation: (email: string) =>
         push(
           `/login/company_onboarding/email_validation/${encodeURIComponent(
             email,
@@ -57,11 +57,11 @@ export default compose(
   withHandlers({
     createCompany:
       ({ createCompany, access_code, requestLogin, goToEmailValidation }) =>
-      (data, options) => {
+      (data: any, options: OptionCallback) => {
         createCompany(
           { ...data, access_code },
           {
-            onSuccess: (...args) => {
+            onSuccess: (...args: any) => {
               requestLogin(data.email, data.password);
               goToEmailValidation(data.email);
               if (options && options.onSuccess) options.onSuccess(...args);

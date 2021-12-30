@@ -1,6 +1,5 @@
-// @flow
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import { compose } from 'recompose';
 import { Route, Switch } from 'react-router-dom';
 import Stepper from '@material-ui/core/Stepper';
@@ -13,7 +12,7 @@ import CompanyOnboardingFormPage from './CompanyOnboardingForm.page';
 import EmailValidationPage from './EmailValidation.page';
 
 type OwnProps = {
-  activeStep: string,
+  activeStep: string;
 };
 
 const WELCOME = 0;
@@ -43,7 +42,11 @@ export const CompanyOnboardingRouter = (props: OwnProps) => {
   }
   return (
     <div className={classes.container}>
-      <Stepper activeStep={activeStepNumber} alternativeLabel>
+      <Stepper
+        style={{ backgroundColor: 'transparent' }}
+        activeStep={activeStepNumber}
+        alternativeLabel
+      >
         {getSteps().map((label) => (
           <Step key={label}>
             <StepLabel />
@@ -72,7 +75,7 @@ export default compose(routerParamsToProps({ activeStep: 'activeStep' }))(
   CompanyOnboardingRouter,
 );
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   container: {
     textAlign: 'center',
     padding: theme.spacing(6),

@@ -68,6 +68,18 @@ export const COMPANY_EVENTS = {
     getPrimaryText,
     i18nText: `subscription:events.${BILLING_PLAN_EVENTS.update_payment_pack}`,
   },
+  [BILLING_PLAN_EVENTS.update_private_pass]: {
+    icon: <EditIcon />,
+    titleSuffix: (event) => `(${event.data.private_pass}) `,
+    getPrimaryText,
+    i18nText: `subscription:events.${BILLING_PLAN_EVENTS.update_private_pass}`,
+  },
+  [BILLING_PLAN_EVENTS.update_payment_combo]: {
+    icon: <EditIcon />,
+    titleSuffix: (event) => `(${event.data.payment_combo}) `,
+    getPrimaryText,
+    i18nText: `subscription:events.${BILLING_PLAN_EVENTS.update_payment_combo}`,
+  },
   [BILLING_PLAN_EVENTS.update_payment_method]: {
     icon: <EditIcon />,
     getPrimaryText,

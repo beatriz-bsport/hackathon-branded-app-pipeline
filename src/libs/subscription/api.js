@@ -130,6 +130,24 @@ export const switchSubscriptionPaymentPack = async (
   );
 };
 
+export const switchSubscriptionPrivatePass = async (
+  id: number,
+  data: { private_pass: number },
+) => {
+  return postAuth(
+    `${API_URI}/subscription/billing-plan/${id}/switch_private_pass/`,
+    data,
+  );
+};
+export const switchSubscriptionPaymentCombo = async (
+  id: number,
+  data: { payment_combo: number },
+) => {
+  return postAuth(
+    `${API_URI}/subscription/billing-plan/${id}/switch_payment_combo/`,
+    data,
+  );
+};
 export const switchSubscriptionPaymentMethod = async (
   id: number,
   data: { payment_method_identifier: number, source: string },

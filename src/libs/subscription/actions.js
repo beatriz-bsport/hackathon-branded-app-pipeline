@@ -9,6 +9,8 @@ import api, {
   updateSubscriptionRenewal as updateSubscriptionRenewalAPI,
   freezeSubscription as freezeSubscriptionAPI,
   switchSubscriptionPaymentPack as switchSubscriptionPaymentPackAPI,
+  switchSubscriptionPrivatePass as switchSubscriptionPrivatePassAPI,
+  switchSubscriptionPaymentCombo as switchSubscriptionPaymentComboAPI,
   switchSubscriptionPaymentMethod as switchSubscriptionPaymentMethodAPI,
   fetchPlannedInvoiceList as fetchPlannedInvoiceListAPI,
   fetchContractDetail as fetchContractDetailAPI,
@@ -493,9 +495,9 @@ export function freezeSubscription(
 }
 
 export const switchPaymentPackActions = {
-  error: createAction('SUBSCRIPTION/SWITCH_PAYUMENT_PACK/ERROR'),
+  error: createAction('SUBSCRIPTION/SWITCH_PAYMENT_PACK/ERROR'),
   isLoading: createAction('SUBSCRIPTION/SWITCH_PAYMENT_PACK/IS_LOADING'),
-  success: createAction('SUBSCRIPTION/SWITC_PAYMENT_PACK/SUCCESS'),
+  success: createAction('SUBSCRIPTION/SWITCH_PAYMENT_PACK/SUCCESS'),
 };
 
 export function switchSubscriptionPaymentPack(
@@ -523,6 +525,66 @@ export function switchSubscriptionPaymentPack(
   };
 }
 
+export const switchPrivatePassActions = {
+  error: createAction('SUBSCRIPTION/SWITCH_PRIVATE_PASS/ERROR'),
+  isLoading: createAction('SUBSCRIPTION/SWITCH_PRIVATE_PASS/IS_LOADING'),
+  success: createAction('SUBSCRIPTION/SWITCH_PRIVATE_PASS/SUCCESS'),
+};
+
+export function switchSubscriptionPrivatePass(
+  id: number,
+  data: { private_pass: number },
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(switchPrivatePassActions.error(null));
+    dispatch(switchPrivatePassActions.isLoading(true));
+    try {
+      const response = await switchSubscriptionPrivatePassAPI(id, data);
+      dispatch(switchPrivatePassActions.success(response.data));
+      dispatch(snackbarSuccess('subscription.switchPrivatePass.success'));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(switchPrivatePassActions.error(err));
+      dispatch(snackbarError('subscription.switchPrivatePass.error'));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(switchPrivatePassActions.isLoading(false));
+  };
+}
+export const switchPaymentComboActions = {
+  error: createAction('SUBSCRIPTION/SWITCH_PAYMENT_COMBO/ERROR'),
+  isLoading: createAction('SUBSCRIPTION/SWITCH_PAYMENT_COMBO/IS_LOADING'),
+  success: createAction('SUBSCRIPTION/SWITCH_PAYMENT_COMBO/SUCCESS'),
+};
+
+export function switchSubscriptionPaymentCombo(
+  id: number,
+  data: { payment_combo: number },
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(switchPaymentComboActions.error(null));
+    dispatch(switchPaymentComboActions.isLoading(true));
+    try {
+      const response = await switchSubscriptionPaymentComboAPI(id, data);
+      dispatch(switchPaymentComboActions.success(response.data));
+      dispatch(snackbarSuccess('subscription.switchPaymentCombo.success'));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(switchPaymentComboActions.error(err));
+      dispatch(snackbarError('subscription.switchPaymentCombo.error'));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(switchPaymentComboActions.isLoading(false));
+  };
+}
 export const switchPaymentMethodActions = {
   error: createAction('SUBSCRIPTION/SWITCH_PAYMENT_METHOD/ERROR'),
   isLoading: createAction('SUBSCRIPTION/SWITCH_PAYMENT_METHOD/IS_LOADING'),

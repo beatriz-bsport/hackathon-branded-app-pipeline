@@ -12,16 +12,25 @@ import Fab from '@material-ui/core/Fab';
 import PersonIcon from '@material-ui/icons/Person';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import withTitle from '../../hocs/with-title.hoc';
 import {
   fetchPaymentPackBulk as fetchPaymentPackBulkAction,
   fetchAllPaymentPacks as fetchAllPaymentPacksAction,
-} from '../../libs/payment-packs/actions';
-import { fetchPrivatePassList } from '../../libs/private-service/actions';
-import { getEnabled as getEnabledPaymentPackList } from '../../libs/payment-packs/selectors';
+} from '#libs/payment-packs/actions';
 
+import {
+  fetchPrivatePassBulk as fetchPrivatePassBulkAction,
+  fetchPrivatePassList as fetchPrivatePassListAction,
+} from '#libs/private-service/actions';
+import {
+  fetchPaymentComboList as fetchPaymentComboListAction,
+  fetchPaymentCombo as fetchPaymentComboAction,
+} from '#libs/payment-combo/actions';
+import { getPrivatePassAvailable } from '#libs/private-service/selectors/private-pass';
+import { getEnabled as getEnabledPaymentPackList } from '#libs/payment-packs/selectors';
+import { getPaymentComboList } from '#libs/payment-combo/selectors';
 import {
   fetch as fetchSubscriptionAction,
   cancelPause as cancelPauseAction,
@@ -30,32 +39,38 @@ import {
   updatePlannedInvoiceDate as updatePlannedInvoiceDateAction,
   freezeSubscription as freezeSubscriptionAction,
   switchSubscriptionPaymentPack as switchSubscriptionPaymentPackAction,
+  switchSubscriptionPrivatePass as switchSubscriptionPrivatePassAction,
+  switchSubscriptionPaymentCombo as switchSubscriptionPaymentComboAction,
   switchSubscriptionPaymentMethod as switchSubscriptionPaymentMethodAction,
   fetchSubscriptionEventList as fetchSubscriptionEventListAction,
   flagPlannedInvoiceAsLast as flagPlannedInvoiceAsLastAction,
   unflagPlannedInvoiceAsLast as unflagPlannedInvoiceAsLastAction,
-} from '../../libs/subscription/actions';
-import { fetchMember as fetchMemberAction } from '../../libs/member/actions';
+} from '#libs/subscription/actions';
+import { fetchMember as fetchMemberAction } from '#libs/member/actions';
 import {
   get as getSubscriptionById,
   getSubscriptionEventList,
   getSubscriptionEventState,
-} from '../../libs/subscription/selectors';
-import SubscriptionComponent from '../../libs/subscription/components/Subscription.component';
-import SubscriptionPaymentPackSwitcherDialog from '../../libs/subscription/components/SubscriptionPaymentPackSwitcherDialog.component';
-import SubscriptionPaymentMethodSwitcherDialog from '../../libs/subscription/components/SubscriptionPaymentMethodSwitcherDialog.component';
-import SubscriptionScheduledStopDialog from '../../libs/subscription/components/SubscriptionScheduledStopDialog.component';
-import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
-import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
+} from '#libs/subscription/selectors';
+import SubscriptionComponent from '#libs/subscription/components/Subscription.component';
+import SubscriptionPaymentPackSwitcherDialog from '#libs/subscription/components/SubscriptionPaymentPackSwitcherDialog.component';
+import SubscriptionPrivatePassSwitcherDialog from '#libs/subscription/components/SubscriptionPrivatePassSwitcherDialog.component';
+import SubscriptionPaymentComboSwitcherDialog from '#libs/subscription/components/SubscriptionPaymentComboSwitcherDialog.component';
+import SubscriptionPaymentMethodSwitcherDialog from '#libs/subscription/components/SubscriptionPaymentMethodSwitcherDialog.component';
+import SubscriptionScheduledStopDialog from '#libs/subscription/components/SubscriptionScheduledStopDialog.component';
+import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '#libs/payment/actions';
+import { getSavedPaymentMethodList } from '#libs/payment/selectors';
 
-import { Subscription } from '../../libs/subscription/types';
+import { Subscription } from '#libs/subscription/types';
 import { OptionCallback } from '../../state/types';
-import { PaymentPack } from '../../libs/payment-packs/types';
-import { PaymentMethod } from '../../libs/payment/types';
+import { PaymentPack } from '#libs/payment-packs/types';
+import { PaymentMethod } from '#libs/payment/types';
 import { MaterialStyleType } from '../../utils/types';
 import { RootState } from '../../reducers';
-import { Member } from '../../libs/member/types';
+import { Member } from '#libs/member/types';
 import { withMemberBannerHOC } from '../../hocs/banner.hoc';
+import { PrivatePass } from '#libs/private-service/types';
+import { PaymentCombo } from '#libs/payment-combo/types';
 
 type Props = {
   loading: boolean;
@@ -77,10 +92,17 @@ type Props = {
   openPaymentMethodSwitch: () => void;
 
   switchPackDialogOpen: boolean;
-  setSiwtchPackDialogOpen: (open: boolean) => void;
+  setSwitchPackDialogOpen: (open: boolean) => void;
+  switchPrivatePassDialogOpen: boolean;
+  setSwitchPrivatePassDialogOpen: (open: boolean) => void;
+  switchPaymentComboDialogOpen: boolean;
+  setSwitchPaymentComboDialogOpen: (open: boolean) => void;
   switchSubscriptionPaymentPack: (payment_pack: number) => void;
+  switchSubscriptionPrivatePass: (private_pass: number) => void;
+  switchSubscriptionPaymentCombo: (payment_combo: number) => void;
   availablePaymentPackList: Array<PaymentPack>;
-
+  availablePrivatePassList: Array<PrivatePass>;
+  availablePaymentComboList: Array<PaymentCombo>;
   setStopDialogOpen: (open: boolean) => void;
   stopDialogOpen: boolean;
 
@@ -100,6 +122,8 @@ type Props = {
   memberLoading: boolean;
 
   openPackSwitcherDialog: () => void;
+  openPrivatePassSwitcherDialog: () => void;
+  openPaymentComboSwitcherDialog: () => void;
 
   updateSubscriptionRenewal: ({
     auto_renewal,
@@ -115,7 +139,7 @@ type Props = {
     options: OptionCallback,
   ) => void;
   fetchPrivatePassList: () => void;
-
+  fetchPaymentComboList: () => void;
   requestSetupIntentSecret: () => void;
   fetchPaymentMethodList: () => void;
   savedPaymentMethodList: Array<PaymentMethod>;
@@ -138,6 +162,7 @@ export class SubscriptionDetail extends Component<Props> {
 
   componentDidMount() {
     this.props.fetchPrivatePassList();
+    this.props.fetchPaymentComboList();
     this.props.fetchPaymentMethodList();
   }
 
@@ -163,6 +188,8 @@ export class SubscriptionDetail extends Component<Props> {
             (pm) => pm.id === subscription.stripe_payment_method_id,
           )}
           requestPaymentPackSwitch={this.props.openPackSwitcherDialog}
+          requestPrivatePassSwitch={this.props.openPrivatePassSwitcherDialog}
+          requestPaymentComboSwitch={this.props.openPaymentComboSwitcherDialog}
           requestStop={() => this.props.setStopDialogOpen(true)}
           requestPause={this.props.freezeSubscription}
           updateDate={this.props.updatePlannedInvoiceDate}
@@ -183,10 +210,29 @@ export class SubscriptionDetail extends Component<Props> {
             open={!!this.props.switchPackDialogOpen}
             subscription={subscription}
             paymentPackList={this.props.availablePaymentPackList}
-            onCancel={() => this.props.setSiwtchPackDialogOpen(false)}
+            onCancel={() => this.props.setSwitchPackDialogOpen(false)}
             onSubmit={this.props.switchSubscriptionPaymentPack}
           />
         ) : null}
+        {this.props.switchPrivatePassDialogOpen ? (
+          <SubscriptionPrivatePassSwitcherDialog
+            open={!!this.props.switchPrivatePassDialogOpen}
+            subscription={subscription}
+            privatePassList={this.props.availablePrivatePassList}
+            onCancel={() => this.props.setSwitchPrivatePassDialogOpen(false)}
+            onSubmit={this.props.switchSubscriptionPrivatePass}
+          />
+        ) : null}
+        {this.props.switchPaymentComboDialogOpen ? (
+          <SubscriptionPaymentComboSwitcherDialog
+            open={!!this.props.switchPaymentComboDialogOpen}
+            subscription={subscription}
+            paymentComboList={this.props.availablePaymentComboList}
+            onCancel={() => this.props.setSwitchPaymentComboDialogOpen(false)}
+            onSubmit={this.props.switchSubscriptionPaymentCombo}
+          />
+        ) : null}
+
         {this.props.switchPaymentMethodDialogOpen ? (
           <SubscriptionPaymentMethodSwitcherDialog
             open={this.props.switchPaymentMethodDialogOpen}
@@ -257,7 +303,17 @@ const styles = (theme: Theme) => ({
 export default compose(
   withStyles(styles),
   withState('freezeDialogOpen', 'setFreezeDialogOpen', false),
-  withState('switchPackDialogOpen', 'setSiwtchPackDialogOpen', false),
+  withState('switchPackDialogOpen', 'setSwitchPackDialogOpen', false),
+  withState(
+    'switchPrivatePassDialogOpen',
+    'setSwitchPrivatePassDialogOpen',
+    false,
+  ),
+  withState(
+    'switchPaymentComboDialogOpen',
+    'setSwitchPaymentComboDialogOpen',
+    false,
+  ),
   withState('stopDialogOpen', 'setStopDialogOpen', false),
   withState(
     'switchPaymentMethodDialogOpen',
@@ -273,6 +329,8 @@ export default compose(
         state.subscription.detail.loading ||
         state.subscription.createOrUpdate.loading,
       availablePaymentPackList: getEnabledPaymentPackList(state),
+      availablePrivatePassList: getPrivatePassAvailable(state),
+      availablePaymentComboList: getPaymentComboList(state),
       eventList: getSubscriptionEventList(state),
       eventPage: getSubscriptionEventState(state).page,
       eventLoading: getSubscriptionEventState(state).loading,
@@ -294,8 +352,13 @@ export default compose(
       freezeSubscription: freezeSubscriptionAction,
       fetchPaymentPackBulk: fetchPaymentPackBulkAction,
       switchSubscriptionPaymentPack: switchSubscriptionPaymentPackAction,
+      switchSubscriptionPrivatePass: switchSubscriptionPrivatePassAction,
+      switchSubscriptionPaymentCombo: switchSubscriptionPaymentComboAction,
       fetchAllPaymentPacks: fetchAllPaymentPacksAction,
-      fetchPrivatePassList,
+      fetchPrivatePassList: fetchPrivatePassListAction,
+      fetchPrivatePassBulk: fetchPrivatePassBulkAction,
+      fetchPaymentComboList: fetchPaymentComboListAction,
+      fetchPaymentCombo: fetchPaymentComboAction,
       switchSubscriptionPaymentMethod: switchSubscriptionPaymentMethodAction,
       flagPlannedInvoiceAsLast: flagPlannedInvoiceAsLastAction,
       unflagPlannedInvoiceAsLast: unflagPlannedInvoiceAsLastAction,
@@ -357,22 +420,37 @@ export default compose(
         });
       },
     openPackSwitcherDialog:
-      ({ setSiwtchPackDialogOpen, fetchAllPaymentPacks }) =>
+      ({ setSwitchPackDialogOpen, fetchAllPaymentPacks }) =>
       () => {
-        setSiwtchPackDialogOpen(true);
+        setSwitchPackDialogOpen(true);
         fetchAllPaymentPacks();
+      },
+    openPrivatePassSwitcherDialog:
+      ({ setSwitchPrivatePassDialogOpen, fetchPrivatePassList }) =>
+      () => {
+        setSwitchPrivatePassDialogOpen(true);
+        fetchPrivatePassList();
+      },
+    openPaymentComboSwitcherDialog:
+      ({ setSwitchPaymentComboDialogOpen, fetchPaymentComboList }) =>
+      () => {
+        setSwitchPaymentComboDialogOpen(true);
+        fetchPaymentComboList();
       },
     switchSubscriptionPaymentPack:
       ({
         id,
         switchSubscriptionPaymentPack,
         fetchPaymentPackBulk,
-        setSiwtchPackDialogOpen,
+        setSwitchPackDialogOpen,
       }) =>
-      (data, options: OptionCallback<Subscription>) => {
+      (
+        data: { payment_pack: number },
+        options: OptionCallback<Subscription>,
+      ) => {
         switchSubscriptionPaymentPack(id, data, {
           onSuccess: (sub: Subscription) => {
-            setSiwtchPackDialogOpen(false);
+            setSwitchPackDialogOpen(false);
             if (options && options.onSuccess) options.onSuccess(sub);
             fetchPaymentPackBulk([sub.payment_pack]);
           },
@@ -381,6 +459,51 @@ export default compose(
           },
         });
       },
+    switchSubscriptionPrivatePass:
+      ({
+        id,
+        switchSubscriptionPrivatePass,
+        fetchPrivatePassBulk,
+        setSwitchPrivatePassDialogOpen,
+      }) =>
+      (
+        data: { private_pass: number },
+        options: OptionCallback<Subscription>,
+      ) => {
+        switchSubscriptionPrivatePass(id, data, {
+          onSuccess: (sub: Subscription) => {
+            setSwitchPrivatePassDialogOpen(false);
+            if (options && options.onSuccess) options.onSuccess(sub);
+            fetchPrivatePassBulk([sub.private_pass]);
+          },
+          onError: (err) => {
+            if (options && options.onError) options.onError(err);
+          },
+        });
+      },
+    switchSubscriptionPaymentCombo:
+      ({
+        id,
+        switchSubscriptionPaymentCombo,
+        fetchPaymentCombo,
+        setSwitchPaymentComboDialogOpen,
+      }) =>
+      (
+        data: { payment_combo: number },
+        options: OptionCallback<Subscription>,
+      ) => {
+        switchSubscriptionPaymentCombo(id, data, {
+          onSuccess: (sub: Subscription) => {
+            setSwitchPaymentComboDialogOpen(false);
+            if (options && options.onSuccess) options.onSuccess(sub);
+            fetchPaymentCombo(sub.payment_combo);
+          },
+          onError: (err) => {
+            if (options && options.onError) options.onError(err);
+          },
+        });
+      },
+
     freezeSubscription:
       ({ id, freezeSubscription, setFreezeDialogOpen }) =>
       (data, options: OptionCallback<Subscription>) => {

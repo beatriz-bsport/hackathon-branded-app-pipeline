@@ -20,6 +20,8 @@ type Props = {
   classes: Object,
   updateRenewal: ({ auto_renewal: boolean }) => void,
   requestPaymentPackSwitch: () => void,
+  requestPrivatePassSwitch: () => void,
+  requestPaymentComboSwitch: () => void,
   loading: boolean,
   unflagPlannedInvoiceAsLast: (id: number) => void,
 };
@@ -143,9 +145,37 @@ export function SubscriptionSummary(props: Props) {
               {t('parameters.private_pass')}
             </Typography>
             <div className={classes.rowRight}>
+              <IconButton
+                color="primary"
+                onClick={props.requestPrivatePassSwitch}
+                disabled={!subscription.editable}
+              >
+                <EditIcon />
+              </IconButton>
               <Typography variant="body2" inline>
                 {subscription.private_pass
                   ? subscription.private_pass.name
+                  : ' - '}
+              </Typography>
+            </div>
+          </div>
+        )}
+        {!!subscription.payment_combo && (
+          <div className={classes.fieldNotPadded}>
+            <Typography variant="body2" inline>
+              {t('parameters.payment_combo')}
+            </Typography>
+            <div className={classes.rowRight}>
+              <IconButton
+                color="primary"
+                onClick={props.requestPaymentComboSwitch}
+                disabled={!subscription.editable}
+              >
+                <EditIcon />
+              </IconButton>
+              <Typography variant="body2" inline>
+                {subscription.payment_combo
+                  ? subscription.payment_combo.name
                   : ' - '}
               </Typography>
             </div>

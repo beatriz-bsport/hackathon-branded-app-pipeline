@@ -37,6 +37,8 @@ exports.default = {
     [BILLING_PLAN_EVENTS.payment_failure]: 'Paiement refusé',
     [BILLING_PLAN_EVENTS.update_payment_method]: 'Méthode de paiement modifiée',
     [BILLING_PLAN_EVENTS.update_payment_pack]: 'Carte de cours modifiée',
+    [BILLING_PLAN_EVENTS.update_private_pass]: 'Carte de rendez-vous modifiée',
+    [BILLING_PLAN_EVENTS.update_payment_combo]: 'Pack modifié',
   },
   cancel: 'annuler',
   save: 'valider',
@@ -61,7 +63,31 @@ exports.default = {
       form: {
         title: 'Changement de carte de cours',
         explain:
-          "Cette carte de cours sera facturée à la place de l'ancienne sur toutes les prochaines factures. Les séances réservées avec l'ancienne carte seront transférés sur la nouvelle même si celle-ci n'est pas censée être compatible.",
+          "Cette carte de cours sera facturée à la place de l'ancienne sur toutes les prochaines factures. Les séances réservées avec l'ancienne carte seront transférées sur la nouvelle même si celle-ci n'est pas censée être compatible.",
+        warning:
+          'La facturation restera la même, si vous souhaitez augmenter/diminuer le montant mensuel, modifiez chaque mensualité séparément.',
+        cancel: 'Annuler',
+        submit: 'Enregistrer',
+      },
+    },
+    switchPrivatePass: {
+      form: {
+        title: 'Changement de carte de rendez-vous',
+        explain:
+          "Cette carte de rendez-vous sera facturée à la place de l'ancienne sur toutes les prochaines factures. Les séances réservées avec l'ancienne carte seront transférées sur la nouvelle même si celle-ci n'est pas censée être compatible.",
+        warning:
+          'La facturation restera la même, si vous souhaitez augmenter/diminuer le montant mensuel, modifiez chaque mensualité séparément.',
+        cancel: 'Annuler',
+        submit: 'Enregistrer',
+      },
+    },
+    switchPaymentCombo: {
+      form: {
+        title: 'Changement du pack',
+        explain:
+          "Ce pack sera facturé à la place de l'ancien UNIQUEMENT sur les factures générées après le renouvellement de la souscription",
+        prewarning:
+          'Si vous souhaitez modifier les factures futures déjà créées, vous devez annuler cette souscription.',
         warning:
           'La facturation restera la même, si vous souhaitez augmenter/diminuer le montant mensuel, modifiez chaque mensualité séparément.',
         cancel: 'Annuler',
@@ -370,6 +396,7 @@ exports.default = {
     firstBilling: 'Premier encaissement',
     payment_pack: 'Carte de cours',
     private_pass: 'Carte RDV',
+    payment_combo: 'Pack',
   },
   schedule: {
     provisionalTitle: 'Echéancier prévisionnel',

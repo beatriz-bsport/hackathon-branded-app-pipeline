@@ -12,6 +12,11 @@ import {
 import { getPrivatePassById } from '../private-service/selectors/private-pass';
 import { getPaymenComboDataDict as getPaymentComboById } from '../payment-combo/selectors';
 
+import type { Subscription } from './types';
+import type { PrivatePass } from '#libs/private-service/types';
+import type { PaymentPack } from '#libs/payment-packs/types';
+import type { PaymentCombo } from '#libs/payment-combo/types';
+
 const _getContractIds = (state: State) => state.subscription.contract.allIds;
 const _getContractData = (state: State) => state.subscription.contract.byId;
 
@@ -77,25 +82,26 @@ export const getSubscriptionListByMember = createSelector(
   (ids, data) => ids.map((id) => data[id]),
 );
 
-export const get = createSelector(
-  [
-    _getSubscriptionData,
-    (state, id) => id,
-    getPaymentPackById,
-    getPrivatePassById,
-    getPaymentComboById,
-  ],
-  (subscriptionData, id, packData, privatePassData, paymentComboData) => {
-    const subscription = subscriptionData[id];
-    if (!subscription) return null;
-    return {
-      ...subscription,
-      payment_pack: packData[subscription.payment_pack],
-      private_pass: privatePassData[subscription.private_pass],
-      payment_combo: paymentComboData[subscription.payment_combo],
-    };
-  },
-);
+export const get: Subscription<PrivatePass, PaymentPack, PaymentCombo> =
+  createSelector(
+    [
+      _getSubscriptionData,
+      (state, id) => id,
+      getPaymentPackById,
+      getPrivatePassById,
+      getPaymentComboById,
+    ],
+    (subscriptionData, id, packData, privatePassData, paymentComboData) => {
+      const subscription = subscriptionData[id];
+      if (!subscription) return null;
+      return {
+        ...subscription,
+        payment_pack: packData[subscription.payment_pack],
+        private_pass: privatePassData[subscription.private_pass],
+        payment_combo: paymentComboData[subscription.payment_combo],
+      };
+    },
+  );
 
 export const withPaymentPack = memoize((selector: (State) => any) =>
   createSelector(

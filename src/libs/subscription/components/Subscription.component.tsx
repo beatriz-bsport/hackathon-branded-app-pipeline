@@ -29,6 +29,8 @@ type Props = {
     auto_renewal: boolean;
   }) => void;
   requestPaymentPackSwitch: () => void;
+  requestPrivatePassSwitch: () => void;
+  requestPaymentComboSwitch: () => void;
   requestPaymentMethodSwitch: () => void;
   requestStop: () => void;
   requestScheduledStop: () => void;
@@ -98,6 +100,8 @@ export function SubscriptionComponent(props: Props) {
               updateRenewal={props.updateSubscriptionRenewal}
               loading={props.loading}
               requestPaymentPackSwitch={props.requestPaymentPackSwitch}
+              requestPrivatePassSwitch={props.requestPrivatePassSwitch}
+              requestPaymentComboSwitch={props.requestPaymentComboSwitch}
               requestPaymentMethodSwitch={props.requestPaymentMethodSwitch}
               unflagPlannedInvoiceAsLast={props.unflagPlannedInvoiceAsLast}
             />
@@ -113,6 +117,8 @@ export function SubscriptionComponent(props: Props) {
             requestPause={props.requestPause}
             requestPaymentMethodSwitch={props.requestPaymentMethodSwitch}
             requestPaymentPackSwitch={props.requestPaymentPackSwitch}
+            requestPrivatePassSwitch={props.requestPrivatePassSwitch}
+            requestPaymentComboSwitch={props.requestPaymentComboSwitch}
             requestStop={props.requestStop}
             requestScheduledStop={props.requestScheduledStop}
             unflagPlannedInvoiceAsLast={props.unflagPlannedInvoiceAsLast}

@@ -17,6 +17,8 @@ import {
   updateSubscriptionActions,
   freezeSubscriptionActions,
   switchPaymentPackActions,
+  switchPrivatePassActions,
+  switchPaymentComboActions,
   switchPaymentMethodActions,
   subscriptionBulkActions,
   listPlannedInvoiceActions,
@@ -59,7 +61,7 @@ const initialState: SubscriptionState = Immutable({
     loading: false,
     error: null,
   },
-  switchPaymentPack: {
+  switchSubscriptionItem: {
     loading: false,
     error: null,
   },
@@ -67,14 +69,12 @@ const initialState: SubscriptionState = Immutable({
     loading: false,
     error: null,
   },
-
   events: {
     items: [],
     loading: false,
     error: null,
     page: 1,
   },
-
   plannedInvoice: {
     byId: {},
     loading: false,
@@ -246,12 +246,30 @@ export default handleActions(
       return state.setIn(['byId', payload.id], payload);
     },
     [switchPaymentPackActions.isLoading]: (state, { payload }) => {
-      return state.setIn(['switchPaymentPack', 'loading'], payload);
+      return state.setIn(['switchSubscriptionItem', 'loading'], payload);
     },
     [switchPaymentPackActions.error]: (state, { payload }) => {
-      return state.setIn(['switchPaymentPack', 'error'], payload);
+      return state.setIn(['switchSubscriptionItem', 'error'], payload);
     },
     [switchPaymentPackActions.success]: (state, { payload }) => {
+      return state.setIn(['byId', payload.id], payload);
+    },
+    [switchPrivatePassActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['switchSubscriptionItem', 'loading'], payload);
+    },
+    [switchPrivatePassActions.error]: (state, { payload }) => {
+      return state.setIn(['switchSubscriptionItem', 'error'], payload);
+    },
+    [switchPrivatePassActions.success]: (state, { payload }) => {
+      return state.setIn(['byId', payload.id], payload);
+    },
+    [switchPaymentComboActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['switchSubscriptionItem', 'loading'], payload);
+    },
+    [switchPaymentComboActions.error]: (state, { payload }) => {
+      return state.setIn(['switchSubscriptionItem', 'error'], payload);
+    },
+    [switchPaymentComboActions.success]: (state, { payload }) => {
       return state.setIn(['byId', payload.id], payload);
     },
     [freezeSubscriptionActions.isLoading]: (state, { payload }) => {

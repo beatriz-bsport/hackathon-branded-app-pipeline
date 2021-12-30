@@ -516,8 +516,16 @@ exports.default = {
       error: "Impossible d'arrêter la souscription pour le moment",
     },
     switchPack: {
-      success: 'Méthode de paiement modifiée',
+      success: 'Carte de cours modifiée',
       error: 'Impossible de modifier la carte de cours',
+    },
+    switchPrivatePass: {
+      success: 'Carte de rendez-vous modifiée',
+      error: 'Impossible de modifier la carte de rendez-vous',
+    },
+    switchPaymentCombo: {
+      success: 'Pack modifié',
+      error: 'Impossible de modifier le pack',
     },
     freeze: {
       success: 'Souscription mise en pause',

@@ -19,7 +19,11 @@ export type PlannedInvoice = {
   is_last_invoice_before_scheduled_stop: boolean;
 };
 
-export type Subscription = {
+export type Subscription<
+  PrivatePassType = number,
+  PaymentPackType = number,
+  PaymentComboType = number,
+> = {
   id: number;
   name: string;
   member: number;
@@ -35,9 +39,9 @@ export type Subscription = {
   has_ended: boolean;
   interval: 'month' | 'week';
   date_created: string;
-  private_pass: number;
-  payment_pack: number;
-  payment_combo: number;
+  private_pass: PrivatePassType;
+  payment_pack: PaymentPackType;
+  payment_combo: PaymentComboType;
   is_v2: boolean;
   planned_invoices: Array<PlannedInvoice>;
   payment_engine: number;
@@ -116,29 +120,43 @@ export type ContractPause = {
 export type SubscriptionState = {
   byId: { [id: number]: Subscription };
   createOrUpdate: ErrorAndLoading;
-  stop: ErrorAndLoading;
-  detail: ErrorAndLoading;
+  bulk: ErrorAndLoading;
   list: ErrorAndLoading & {
     allIds: Array<number>;
   };
   byMember: ErrorAndLoading & {
     allIds: Array<number>;
   };
-  contract: ErrorAndLoading & {
-    byId: { [id: number]: Contract };
+  detail: ErrorAndLoading;
+  stop: ErrorAndLoading;
+  freeze: ErrorAndLoading;
+  switchSubscriptionItem: ErrorAndLoading;
+  switchPaymentMethod: ErrorAndLoading;
+  events: {
+    items: Array<any>;
+    page: number;
+  } & ErrorAndLoading;
+  plannedInvoice: {
+    byId: { [key: number]: PlannedInvoice };
     allIds: Array<number>;
-    createOrUpdate: ErrorAndLoading;
-    forBooking: ErrorAndLoading & {
-      allIds: Array<number>;
-    };
-    byMarketplace: ErrorAndLoading & {
-      allIds: Array<number>;
-    };
-  };
+    nextPage: number | null;
+    page: number;
+  } & ErrorAndLoading;
   contractPause: ErrorAndLoading & {
     allIds: Array<number>;
     byId: { [id: number]: ContractPause };
     page: number;
     nextPage?: number;
+  };
+  contract: ErrorAndLoading & {
+    byId: { [id: number]: Contract };
+    allIds: Array<number>;
+    createOrUpdate: ErrorAndLoading;
+    byMarketplace: ErrorAndLoading & {
+      allIds: Array<number>;
+    };
+    forBooking: ErrorAndLoading & {
+      allIds: Array<number>;
+    };
   };
 };

@@ -2462,7 +2462,7 @@
                     "_label": "Zugriff auf Mitgliedsdaten"
                 },
                 "create": {
-                    "_label": "Erstellung"
+                    "_label": "Erstellen eines Mitglieds"
                 },
                 "_label": "Mitglied"
             },
@@ -2656,7 +2656,7 @@
                 },
                 "theoricalMarginValue": {
                     "label": "Theoretischer marginaler Beitrag einschließlich Steuer (nur bei unbegrenzter Karte)",
-                    "helperText": "Für die Berechnung der Lohne der Lehrer verwendet. 10€ bedeutet, dass eine Buchung, die mit dieser Karte registriert ist, mit 10€ honoriert wird. Wenn dieses Feld leer ist (oder 0€), ist der Betrag einer Karte PREIS/ANZAHL_BUCHUNGEN"
+                    "helperText": "Wird zur Berechnung des Lehrergehalts verwendet. 10{{currency}} bedeutet, dass eine mit dieser Karte vorgenommene Buchung mit 10{{currency}} vergütet wird. Wenn leer oder 0{{currency}} wird die Einbringung einer Karte PREIS/NB_RESERVATION"
                 },
                 "maxBookingPerWeek": {
                     "label": "Maximale Nutzung pro Woche",
@@ -2705,7 +2705,7 @@
                 },
                 "penalty": {
                     "account": {
-                        "helperText": "Für dieses Mitglied wird eine Anzahlung von {{value}} € geleistet",
+                        "helperText": "Eine Anzahlung von {{Wert}} wird für dieses Mitglied angewendet.",
                         "label": "Einzahlungsbetrag:"
                     },
                     "block": {
@@ -2733,7 +2733,7 @@
                 },
                 "advancedOptions": {
                     "tag": {
-                        "doNotSelectToAllowAllMembers": "Wählen Sie nichts aus, um alle Mitglieder zuzulassen",
+                        "doNotSelectToAllowAllMembers": "Leer lassen, um allen Mitgliedern zu erlauben",
                         "notAllowedFor": "Nicht erlaubt für",
                         "notAllowed": "Nicht erlaubt",
                         "allowedFor": "Zugelassen für",
@@ -2770,7 +2770,7 @@
             "isFromShare": "Gemeinsam von einem anderen Konto aus genutzt",
             "isOwnerOfShares": "Gemeinsam genutzt (Stammkarte)"
         },
-        "validity": "Gültig : ",
+        "validity": "Gültig von ",
         "maxNBookingsByWeek1": "Bis ",
         "paymentPackDisabled": {
             "error": "Kann nicht gelöscht werden",
@@ -2822,12 +2822,12 @@
             }
         },
         "noRestrictionOnActivityType": "Alle Aktivitäten sind mit dieser Karte vereinbar",
-        "ht": "ausschließlich Steuern",
+        "ht": "Ohne Steuer",
         "validForDuration": {
             "general": "Gültig für {{ duration_days }} Tage, {{ duration_months }} Monat(e) und {{ duration_years }} Jahr(e)",
             "years": "Gültig für {{ duration_years }} Jahr(e)",
             "years_plural": "Gültig für {{ duration_years }} Jahr(en)",
-            "months": "Gültig für {{ duration_months }} Monat(e)",
+            "months": "{{ count }} Monat",
             "days": "Gültig für {{ duration_days }} Tage",
             "days_plural": "Gültig für {{ duration_days }} Tagen",
             "and": " und ",
@@ -2904,8 +2904,8 @@
         "maxNBookingsByMonth2": " Buchungen pro Monat",
         "blockedCpp": "Karte von {{-blocked_from}} nach {{-blocked_until}} gesperrt",
         "penalty": {
-            "account": "Bei {{nb_cancellations}} verspäteten Stornierungen über einen Zeitraum von {{nb_days}} Tagen wird eine Anzahlung von {{account_value}} € geleistet.",
-            "block": "Bei {{nb_cancellations}} verspäteten Stornierungen über einen Zeitraum von {{nb_days}} Tagen wird die Karte für {{days_blocked}} Tage gesperrt.",
+            "account": "Eine Anzahlung von {{account_value}} wird für {{nb_cancellations}} nicht fristgerechte Stornierungen über einen Zeitraum von {{nb_days}} Tagen erhoben.",
+            "block": "{{days_blocked}} Sperrtage nach {{nb_cancellations}} nicht fristgerechten Stornierungen in einem Zeitraum von {{nb_days}} Tagen",
             "title": "Stornierungsbedingungen"
         },
         "only_vod_access": "Nur für VOD verfügbar",
@@ -3058,15 +3058,19 @@
             "firstBooking": "Bei der ersten Buchung",
             "billing": "Bei der Rechnungsstellung",
             "validForDuration": {
-                "day": "Diese Karte ist ab dem Kaufdatum {{ duration_day }} Tage lang gültig.",
-                "month": "Diese Karte ist für {{ duration_month }} Monate und {{ duration_day }} Tage ab dem Kaufdatum gültig.",
-                "year": "Diese Karte ist ab dem Kaufdatum für {{ duration_year }} Jahre, {{ duration_month }} Monate und {{ duration_day }} Tage gültig."
+                "day": "Diese Karte wird für {{ duration_day }} Tage gültig sein.",
+                "month": "Diese Karte ist für {{ duration_month }} Monate und {{ duration_day }} Tage gültig.",
+                "year": "Diese Karte wird für {{ duration_year }} Jahre, {{ duration_month }} Monate und {{ duration_day }} Tage gültig sein.",
+                "monthNoDay": "Diese Karte ist für {{ duration_month }} Monate gültig.",
+                "yearNoDayNoMonth": "Diese Karte wird für {{ duration_year }} Jahre gültig sein.",
+                "yearDayNoMonth": "Diese Karte wird für {{ duration_year }} Jahre und {{ duration_day }} Tage gültig sein.",
+                "yearNoDay": "Diese Karte wird für {{ duration_year }} Jahre und {{ duration_month }} Monate gültig sein."
             },
             "yearValidityHelper": "Kommt zur Anzahl der Tage hinzu",
             "monthValidityHelper": "Kommt zur Anzahl der Tage hinzu",
-            "yearValidity": "Gültigkeitsdauer der Karte in Jahren",
-            "monthValidity": "Gültigkeitsdauer der Karte in Monaten",
-            "dayValidity": "Gültigkeitsdauer der Karte in Tagen",
+            "yearValidity": "Gültigkeitsdauer in Jahren",
+            "monthValidity": "Gültigkeitsdauer in Monaten",
+            "dayValidity": "Gültigkeitsdauer in Tagen",
             "endBeforeStart": "Das Enddatum darf nicht höher sein als das Startdatum.",
             "toDate": "Bis zum",
             "fromDate": "Ab dem",
@@ -3085,7 +3089,9 @@
             "generalInfo": "Allgemeine Informationen",
             "paymentPack": "Kurskarte",
             "minusZero": "dieses Feld kann ế nicht gleich 0 sein",
-            "requiredField": "Dieses Feld ist erforderlich"
+            "requiredField": "Dieses Feld ist erforderlich",
+            "creditWarning": "Si vous modifiez le nombre de crédits, toutes les cartes existantes seront affectées.",
+            "migration": "Diese Kurskarte stammt aus einer Migration, einige Felder sind nicht bearbeitbar, um die Historie zu respektieren. Kompatible Aktivitäten/Kategorien bleiben bearbeitbar."
         },
         "paymentPackTemplate": {
             "actions": {
@@ -3430,7 +3436,10 @@
             "src_email": "E-Mail des Käufers",
             "src_lastname": "Name des Käufers",
             "src_firstname": "Vorname Käufer",
-            "price_bought": "Anschaffungspreis"
+            "price_bought": "Anschaffungspreis",
+            "date_expiration": "Datum des Ablaufs",
+            "date_bought": "Datum des Kaufs",
+            "is_rent": "Vermietung"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -3721,6 +3730,12 @@
             "createOrUpdate": {
                 "error": "Fehler beim Speichern",
                 "success": "Informationen gespeichert"
+            },
+            "changeEmailRequest": {
+                "create": {
+                    "error": "Kann den Antrag auf E-Mail-Änderung nicht erstellen",
+                    "success": "Bestätigungs-E-Mail zur Änderung der E-Mail gesendet"
+                }
             }
         },
         "role": {
@@ -3889,6 +3904,11 @@
                 "restore": {
                     "error": "Vertrag kann nicht wiederhergestellt werden",
                     "success": "Vertrag erfolgreich wiederhergestellt"
+                }
+            },
+            "billNow": {
+                "errors": {
+                    "12102": "Eine Zahlung wird bereits bestätigt, kommen Sie später zurück, um eine neue Zahlung zu registrieren."
                 }
             }
         },
@@ -4200,6 +4220,11 @@
             "payNowInvoice": {
                 "error": "Zahlung verweigert",
                 "success": "Erfolgreiche Zahlung"
+            }
+        },
+        "clientSecret": {
+            "errors": {
+                "12102": "Eine Zahlung wird bereits bestätigt, kommen Sie später zurück, um eine neue Zahlung zu registrieren."
             }
         }
     },
@@ -4695,7 +4720,23 @@
                 "title": "Bankkonto",
                 "unknownCountry": "Manueller Vorgang für dieses Land, bitte kontaktieren Sie bsport über contact@bsport.io",
                 "routingNumber": {
-                    "label": "Routing-Nummer"
+                    "label": "Routing-Nummer",
+                    "placeholder": "000001"
+                },
+                "clearingCode": {
+                    "label": "Clearing code"
+                },
+                "branchCode": {
+                    "label": "Branch code"
+                },
+                "transitNumber": {
+                    "label": "Transit number"
+                },
+                "institutionNumber": {
+                    "label": "Institution number"
+                },
+                "bankCode": {
+                    "label": "Bank code"
                 }
             }
         },
@@ -5113,7 +5154,7 @@
                 "title": "Löschen",
                 "confirm": "Bestätigen",
                 "cancel": "Abbrechen",
-                "content": "Bist Du Dir sicher, dass Du dieses Video löschen möchtest? Diese Aktion ist unwiderruflich."
+                "content": "Sind Sie sicher, dass Sie diese Strecke löschen möchten? Dieser Vorgang ist unumkehrbar."
             },
             "upload": {
                 "title": "Ein Video uploaden",
@@ -5161,6 +5202,12 @@
                     "youtube_video": "Youtube-Video",
                     "title": "Video",
                     "vimeo_video": "Video Vimeo"
+                },
+                "confirm": {
+                    "button": "Bestätigen",
+                    "unlimitedToRent": "Sie haben gerade ein unbegrenztes Video in ein Mietvideo umgewandelt. Mitglieder, die derzeit über das Video verfügen, verlieren den Zugang zu diesem, wenn die angegebene Gültigkeitsdauer abgelaufen ist. Sind Sie sicher, dass Sie diese Einstellung ändern möchten?",
+                    "rentToUnlimited": "Sie haben gerade ein Leihvideo in ein unbegrenztes Video umgewandelt. Alle Mitglieder, die das Video bereits freigeschaltet haben (aktuell oder abgelaufen), behalten es auf Lebenszeit. Sind Sie sicher, dass Sie diese Einstellung ändern möchten?",
+                    "title": "Validierung"
                 }
             },
             "lock": {
@@ -5221,7 +5268,20 @@
             },
             "manager_only_helper": "Das Video kann nicht gekauft werden, es ist nur für Admins sichtbar",
             "manager_only": "Nicht zum Kauf verfügbar",
-            "duplicate": "Duplizieren"
+            "duplicate": "Duplizieren",
+            "rental": {
+                "buyDate": "Uhrzeit des Kaufs",
+                "expiredDate": "Abgelaufen am {{ expiration_date }}",
+                "expirationDate": "Gültig bis {{ expiration_date }}",
+                "expired": "Abgeschlossen",
+                "valid": "In Arbeit",
+                "forRent": "Vermietung",
+                "rental_days_helper": "Das Video wird für die angegebene Anzahl von Tagen freigeschaltet.",
+                "duration": "Zur Miete für {{ rental_days }} Tage",
+                "duration_helper": "Gültigkeit des Videos (in Tagen)",
+                "helper": "Standardmäßig sind Videos nach dem Kauf lebenslang freigeschaltet. Wenn Sie das Video ausleihen, wird es nur für eine bestimmte Anzahl von Tagen freigeschaltet.",
+                "label": "Video zum Ausleihen"
+            }
         },
         "playlist": {
             "description": "Beschreibung",
@@ -5561,7 +5621,8 @@
                 "explainCredit": "Die interne Anzahlung des Mitglieds wird übertragen",
                 "explainTags": "Tags des gelöschten Mitglieders werden nicht übertragen",
                 "cancel": "Abbrechen",
-                "explainBookingsAndPassAndInvoiceAndNotes": "Kurskarten, Buchungen, Rechnungen und Anmerkungen werden übertragen."
+                "explainBookingsAndPassAndInvoiceAndNotes": "Kurskarten, Buchungen, Rechnungen und Anmerkungen werden übertragen.",
+                "emailWillBeSend": "An beide Adressen wird eine E-Mail geschickt, um die Mitglieder zu benachrichtigen."
             },
             "update": {
                 "title": "Änderung der Informationen",
@@ -5699,7 +5760,7 @@
             "bornIn": "Geboren am {{-date}} - {{age}} Jahre"
         },
         "memberTermsAccepted": " wurden am {{- date}} akzeptiert",
-        "termsAndConditions": "Allgemeine Geschäftsbedingungen",
+        "termsAndConditions": "Die allgemeinen Geschäftsbedingungen",
         "applyBalanceToUnpaidInvoices": "Wende den Restbetrag auf unbezahlte Rechnungen an",
         "adjustBalance": "Guthaben einstellen",
         "unpaidInvoiceTitle": "Unbezahlte Rechnung",
@@ -5735,7 +5796,133 @@
         "archived": "Archiviert",
         "restoreMember": "Restaurieren",
         "noMember": "Derzeit gibt es keine Mitglieder, die angezeigt werden können.",
-        "noData": "Es gibt keine Mitglieder in dieser Smartlist."
+        "noData": "Es gibt keine Mitglieder in dieser Smartlist.",
+        "changeEmailRequest": {
+            "memberPage": {
+                "unAuthorizedAccess": {
+                    "contactCompany": "Wenn Sie dieser Bitte nicht nachkommen können, wenden Sie sich bitte direkt an Ihr Studio.",
+                    "helper": "Sie sind nicht für das Konto authentifiziert, das auf diese Anfrage zugreifen kann. Bitte loggen Sie sich in das Konto ein, das mit der gesendeten Bestätigungs-E-Mail verknüpft ist.",
+                    "title": "Unautorisierter Zugriff"
+                },
+                "generalError": {
+                    "contactCompany": "Wir haben jedoch einen Fehler in der aktuellen Anfrage entdeckt. Aus Sicherheitsgründen ist diese Anfrage nun deaktiviert. Um diese Anfrage neu zu generieren, oder wenn Sie nicht der Verursacher sind, wenden Sie sich bitte direkt an Ihr Studio.",
+                    "helper": "Das Studio {{ company }} hatte eine Anfrage gestellt, um Ihre Anmelde-E-Mail für Ihren persönlichen Bereich zu ändern:",
+                    "title": "Ungültige Anmeldemail ändern"
+                },
+                "requestingStudio": "Das Studio {{ company }} möchte Ihre Anmelde-E-Mail für Ihren persönlichen Bereich ändern:",
+                "actions": {
+                    "continue": "Weiter",
+                    "confirmFusion": "Fusion annehmen",
+                    "deniedFusion": "Die Fusion ablehnen",
+                    "cancel": "Meine Adresse behalten",
+                    "confirm": "Meine neue Adresse bestätigen"
+                },
+                "linkAccount": {
+                    "error": {
+                        "accepted": {
+                            "contactCompany": "Wenn Sie Ihre Wahl ändern möchten oder diese Anfrage nicht von Ihnen stammte, wenden Sie sich bitte an Ihr Studio.",
+                            "helper": "Ihre aktuelle Anmelde-E-Mail lautet: {{ email }}",
+                            "title": "Fusion akzeptiert"
+                        },
+                        "denied": {
+                            "contactCompany": "Wenn Sie erneut eine Zusammenlegung Ihres Kontos beantragen möchten oder wenn Sie die Zusammenlegungsanfrage nicht abgelehnt haben, wenden Sie sich bitte direkt an Ihr Studio.",
+                            "helper": "Sie haben sich bereits dafür entschieden, den Antrag auf Zusammenlegung im Studio {{ company }} abzulehnen, Ihre Entscheidung wurde berücksichtigt.",
+                            "title": "Fusion abgelehnt"
+                        }
+                    },
+                    "submit": {
+                        "denied": {
+                            "content": "Ihr Konto wurde nicht mit {{ new_email }} zusammengeführt. Ihre Anmeldeadresse bleibt weiterhin {{ old_email}}.",
+                            "title": "Fusion abgelehnt"
+                        },
+                        "accept": {
+                            "content": "Ihr Konto wurde erfolgreich mit dem Konto {{ old_email }} zusammengeführt. Sie sind nun Mitglied des Studios {{ company }}. Verwenden Sie die Adresse {{ new_email }}, um sich in Ihr Konto einzuloggen.",
+                            "title": "Fusion Angenommen"
+                        }
+                    },
+                    "dstUser": {
+                        "deniedRequestHelper": "Wenn Sie diese Konten nicht zusammenführen möchten oder diese Anfrage nicht von Ihnen stammt, klicken Sie bitte auf \"Zusammenführung ablehnen\". Dadurch wird die Zusammenlegung der Konten verhindert und Sie werden nicht bei {{ company }} registriert.",
+                        "acceptRequestHelper": "Um die Zusammenlegung der Konten zu akzeptieren, klicken Sie bitte auf \"Zusammenlegung akzeptieren\".",
+                        "notMemberYet": "Wir haben festgestellt, dass Sie noch nicht Mitglied des Studios {{ company }} sind. Wenn Sie der Zusammenlegung der beiden Konten zustimmen, werden Sie bei Studio {{ company }} angemeldet und erhalten die Informationen und Buchungen des Kontos {{ old_email }} zurück. Ihre aktuellen Anmeldedaten behalten Sie unter {{ new_email }} bei. Von dieser Adresse aus können Sie alle Studios verwalten, in denen Sie angemeldet sind.",
+                        "requestingStudio": "Das Studio {{ company }} hat die Bitte geäußert, Ihr Konto {{ new_email }} mit dem Konto {{ old_email }} zusammenzuführen."
+                    },
+                    "veto": {
+                        "deniedRequestHelper": "Wenn Sie diese Konten nicht zusammenführen möchten oder diese Anfrage nicht von Ihnen stammt, klicken Sie bitte auf \"Zusammenführung ablehnen\". Dadurch wird die Zusammenlegung der Konten verhindert und Sie behalten Ihre Anmeldedaten.",
+                        "acceptRequestHelper": "Um die Zusammenlegung der Konten zu akzeptieren, gehen Sie bitte zu Ihrer {{ E-Mail }}-Adresse und klicken Sie auf den Link in der E-Mail, die wir Ihnen geschickt haben.",
+                        "requestExplanation": "Wir haben festgestellt, dass die Adresse {{ email }} bereits in einem anderen Studio verwendet wird. Das Studio {{ company }} hat den Antrag gestellt, Ihr Konto mit diesem anderen Konto zusammenzuführen. Wenn Sie der Zusammenlegung der beiden Konten zustimmen, werden Ihre neuen Anmeldedaten (E-Mail und Passwort) die des Kontos {{ email }} sein. Sie können dann alle Studios, bei denen Sie angemeldet sind, von einer einzigen Adresse aus verwalten."
+                    },
+                    "title": "Zusammenführen Ihres Kontos"
+                },
+                "simpleEmailChange": {
+                    "error": {
+                        "emailTaken": {
+                            "contactCompany": "In der Zwischenzeit wurde jedoch ein Konto erstellt, das die Adresse {{ email }} verwendet. Diese Anfrage ist nun hinfällig. Wenn die E-Mail-Adresse {{ email }} Ihnen gehört, Sie aber nicht die Erstellung des zugehörigen Kontos veranlasst haben, wenden Sie sich bitte direkt an Ihr Studio.",
+                            "helper": "Das Studio {{ company }} hatte eine Anfrage gestellt, um Ihre Anmelde-E-Mail für Ihren persönlichen Bereich zu ändern:",
+                            "title": "Anmelde-E-Mail bereits genommen"
+                        },
+                        "delayExceeded": {
+                            "contactCompany": "Wenn Sie erneut eine Änderung Ihrer Anmeldeadresse beantragen möchten, wenden Sie sich bitte an Ihr Studio.",
+                            "helper": "Das Studio {{ company }} hatte Ihnen eine Anfrage zur Bestätigung der Änderung Ihrer Anmelde-E-Mail geschickt. Die siebentägige Gültigkeitsdauer dieser Anfrage ist abgelaufen.",
+                            "title": "Änderung deiner Anmelde-E-Mail"
+                        },
+                        "renewed": {
+                            "contactCompany": "Wenn Sie diese neue Anfrage nicht finden können, wenden Sie sich bitte an Ihr Studio.",
+                            "helper": "Es scheint, dass das Studio {{ company }} Ihnen einen neueren Antrag auf Änderung der Anmeldeadresse geschickt hat. Diese alte Anfrage ist hinfällig. Um die neue Anfrage zu finden, überprüfen Sie bitte Ihre E-Mails und Ihren Spam.",
+                            "title": "Änderung Ihrer Anmelde-E-Mail"
+                        },
+                        "alreadyDenied": {
+                            "currentEmail": "Ihre aktuelle Anmelde-E-Mail lautet: {{ email }}.",
+                            "contactCompany": "Wenn Sie diese Änderung nicht selbst herbeigeführt haben oder Ihre Entscheidung ändern möchten, wenden Sie sich bitte direkt an Ihr Studio.",
+                            "helper": "Sie haben bereits eine Anmelde-E-Mail bei {{ company }} ausgewählt, Ihre Entscheidung wurde berücksichtigt.",
+                            "title": "Sie haben diesen Antrag bereits abgelehnt"
+                        },
+                        "alreadyAccepted": {
+                            "currentEmail": "Ihre aktuelle Anmelde-E-Mail lautet: {{ email }}.",
+                            "contactCompany": "Wenn Sie diese Änderung nicht selbst herbeigeführt haben oder Ihre Entscheidung ändern möchten, wenden Sie sich bitte direkt an Ihr Studio.",
+                            "helper": "Sie haben bereits eine Anmelde-E-Mail bei {{ company }} ausgewählt, Ihre Entscheidung wurde berücksichtigt.",
+                            "title": "Sie haben diesen Antrag bereits bestätigt"
+                        }
+                    },
+                    "submit": {
+                        "emailPreservedTo": "Ihre Anmeldeadresse bleibt {{ email }}}",
+                        "emailUpatedTo": "Ihre Anmeldeadresse wurde tatsächlich von {{ email }} geändert. Verwenden Sie diese Adresse als neue Anmeldekennung.",
+                        "deniedTitle": "Anmeldeadresse bleibt erhalten",
+                        "acceptedTitle": "Geänderte Anmeldeadresse"
+                    },
+                    "multipleCompanyHelper": "Ihre E-Mail-Adresse ist eine gemeinsame Adresse für alle Studios, die die Bsport-Lösung verwenden. Sie wird daher für alle Studios geändert. Folgende Studios sind davon betroffen:",
+                    "deniedRequestHelper": "Wenn diese Anfrage nicht von Ihnen stammt oder Sie Ihre Adresse nicht ändern möchten, klicken Sie bitte auf \"Meine Adresse behalten\".",
+                    "acceptRequestHelper": "Wenn Sie Ihre Adresse tatsächlich auf diese neue E-Mail-Adresse ändern möchten, klicken Sie bitte auf \"Meine neue Adresse bestätigen\".",
+                    "title": "Änderung Ihrer Anmelde-E-Mail"
+                }
+            },
+            "dialog": {
+                "actions": {
+                    "confirm": "Bestätigen",
+                    "close": "Abbrechen"
+                },
+                "cancelHelperText": "Wenn Sie die E-Mail des Mitglieds nicht ändern möchten, klicken Sie auf \"Abbrechen\".",
+                "securityHelperText": "Aus Sicherheitsgründen werden wir ihm eine E-Mail schicken, um diese Änderung zu bestätigen.",
+                "expiryText": "Nach dem Absenden läuft der Änderungsantrag innerhalb von 7 Tagen ab.",
+                "newEmail": "Neue Adresse: {{ email }}",
+                "oldEmail": "Ehemalige Adresse: {{ email }}",
+                "mergeMember": {
+                    "unchangedEmail": "Wenn Sie auf Bestätigen klicken, wird das Mitglied {{ new_email }} die Rechnungen, Buchungen, den Kontostand und die Einkäufe von {{ old_email }} abrufen. Das Mitglied {{ old_email }} wird gelöscht. An beide Adressen wird eine E-Mail gesendet, um die Mitglieder zu benachrichtigen.",
+                    "warning": "Achtung, Sie versuchen, diese beiden Mitglieder Ihres Studios zu verschmelzen :"
+                },
+                "linkMember": {
+                    "notIncompany": "Die E-Mail {{ new_email }} gehört einem Mitglied eines anderen Studios.",
+                    "unchangedEmail": "In der Zwischenzeit wird {{ old_email }} seine alte E-Mail behalten und die Mitglieder werden nicht verknüpft.",
+                    "warning": "Achtung, Sie versuchen, diese beiden Mitglieder zu verknüpfen :"
+                },
+                "simpleChange": {
+                    "unchangedEmail": "In der Zwischenzeit wird er seine alte E-Mail behalten.",
+                    "warning": "Achtung, Sie haben die Anmelde-E-Mail dieses Mitglieds geändert :"
+                },
+                "titleMerge": " Fusion von Mitgliedern",
+                "title": "Änderung der E-Mail"
+            },
+            "pendingValidation": "Ausstehende Änderung: {{ email }}}"
+        }
     },
     "common": {
         "text": {
@@ -5903,7 +6090,8 @@
             "allowedFor": "Zugelassen für"
         },
         "noDiscount": "Keine Käufe mit dem Code durchgeführt",
-        "search": "Suche nach einem Promo-Code"
+        "search": "Suche nach einem Promo-Code",
+        "reverted": "Stornierte Rechnung"
     },
     "privateService": {
         "openCalendar": "Den Kalender ansehen",
@@ -6251,8 +6439,8 @@
                     "label": "Dauer"
                 },
                 "credit": {
-                    "helperText": "Anzahl der erforderlichen Credits für eine Buchung",
-                    "label": "Anzahl der Credits"
+                    "helperText": "Anzahl der erforderlichen Credit(s) für eine Buchung",
+                    "label": "Anzahl der Credit(s)"
                 },
                 "submit": "Speichern",
                 "cancel": "Abbrechen",
@@ -6314,17 +6502,17 @@
                 },
                 "durationMonths": {
                     "helperText": "Zusätzlich der Anzahl der Tage",
-                    "label": "Gültigkeitsdauer (Monate), falls zutreffend"
+                    "label": "Gültigkeitsdauer in Monaten"
                 },
                 "durationDays": {
                     "helperText": "Zeitraum in Tagen, für den die Karte nach dem Kauf gültig ist ",
-                    "label": "Gültigkeitsdauer (Tage), falls zutreffend"
+                    "label": "Gültigkeitsdauer in Tagen"
                 },
                 "tax": {
                     "label": "Mehrwertsteuer"
                 },
                 "price": {
-                    "label": "Preis",
+                    "label": "Preis inkl. MwSt.",
                     "helperText": "Kartenpreis für den Kunden"
                 },
                 "name": {
@@ -6336,15 +6524,15 @@
                 },
                 "title": "Terminkarte",
                 "full_vod_access": {
-                    "label": "Bietet Zugang zu VOD, solange es zeitlich gültig ist"
+                    "label": "Gibt Zugang zu VOD"
                 },
                 "expirationDaysBeforeFirstUse": {
-                    "label": "Ablauf ohne ersten Termin",
-                    "helperText": "Wenn die Karte während dieser Anzahl von Tagen nicht zum ersten Mal verbraucht wird, wird sie ungültig"
+                    "label": "Verfall, wenn keine ursprüngliche Buchung",
+                    "helperText": "Wenn die Kurskarte innerhalb dieser Anzahl von Tagen nicht ein erstes Mal verbraucht wird, wird sie ungültig."
                 },
                 "start_date_method": {
-                    "on_attendance": "Beginnt bei der ersten Anwesenheit",
-                    "on_booking": "Beginnt bei der ersten Buchung",
+                    "on_attendance": "Bei der 1. Anwesenheit",
+                    "on_booking": "Bei der 1. Buchung",
                     "on_purchase": "Beginnt mit der Rechnungsstellung"
                 },
                 "new_member_only": {
@@ -6364,7 +6552,7 @@
                     "months": "Monat",
                     "days": "Tag",
                     "days_plural": "Tage",
-                    "valid": "Gültig während ",
+                    "valid": "Gültig ",
                     "fullText": "Diese Karte ist gültig für "
                 },
                 "category": "Name der Kategorie",
@@ -6373,6 +6561,9 @@
                     "validity": "Gültigkeit der Karte",
                     "paymentMeans": "Zahlungsmittel",
                     "info": "Allgemeine Informationen"
+                },
+                "selector": {
+                    "privateService": "Einen kompatiblen Termin hinzufügen"
                 }
             },
             "parameters": {
@@ -6383,7 +6574,7 @@
                 "price": "{{price, price}}"
             },
             "delete": {
-                "explain": "Bist Du Dir sicher, dass Du diese Karte löschen möchtest? Diejenigen, die noch über Credits verfügen, können diese weiterhin benutzen. Diese Aktion ist unwiderruflich",
+                "explain": "Sind Sie sicher, dass Sie diese Karte löschen möchten? Personen, die noch Guthaben besitzen, können dieses weiterhin nutzen.",
                 "submit": "Bestätigen",
                 "cancel": "Abbrechen",
                 "title": "Karte löschen",
@@ -6391,7 +6582,7 @@
             },
             "compatibleServices": {
                 "title": "Kompatible Termine",
-                "isEmpty": "Kein Termin ist kompatibel - unbenutzbar",
+                "isEmpty": "Keine kompatiblen Termine",
                 "add": "Hinzufügen",
                 "unusable": "Unbrauchbar"
             },
@@ -6408,7 +6599,16 @@
                 "days": "Gültig für {{ duration_days }} Tage"
             },
             "edit": "Ändern",
-            "disabledTitle": "Archivierte Terminkarten"
+            "disabledTitle": "Archivierte Terminkarten",
+            "detailTitles": {
+                "paymentMeans": "Zahlungsmittel",
+                "privateServiceCompatibility": "Kompatible Verabredungen",
+                "vod": "VOD",
+                "accessibility": "Zugänglichkeit",
+                "validity": "Gültigkeit",
+                "credit_quantity": "Anzahl der Credits"
+            },
+            "ht": "Ohne Steuer"
         },
         "consumerPass": {
             "current_credits": "{{ current_credits }}/{{credits}} Credits",
@@ -6733,7 +6933,21 @@
         "searshAppointmentPass": "Suche nach einer RDV-Karte",
         "search": "Suche nach einem Termin",
         "categoryTitle": "Kategorien von RDV-Karten",
-        "disabledPacksTitle": "Archivierte RDV-Karten"
+        "disabledPacksTitle": "Archivierte RDV-Karten",
+        "notification": {
+            "listItem": {
+                "smartListInclude": "Enthaltene Listen",
+                "smartList": "Ausgeschlossene Listen",
+                "deleteModal": {
+                    "content": "Sind Sie sicher, dass Sie diese Benachrichtigung löschen möchten? Dieser Vorgang ist endgültig",
+                    "confirm": "Löschen",
+                    "cancel": "abbrechen",
+                    "title": "Unterdrückung der Benachrichtigung"
+                },
+                "mail": "Mail "
+            },
+            "addButton": "Eine Benachrichtigung hinzufügen"
+        }
     },
     "communication": {
         "recipient": {
@@ -7005,7 +7219,7 @@
             "downloadAll": "Zusammenfassung"
         },
         "fields": {
-            "rule": "Regel für Sitzungsgeld",
+            "rule": "Regel für die Bezahlung der Sitzung",
             "date": "Datum",
             "name": "Name des Kurses",
             "duration": "Dauer",
@@ -7225,7 +7439,8 @@
                     "establishment": "Einrichtung",
                     "date": "Uhrzeit/Datum des Kurses",
                     "coach": "Lehrer",
-                    "activity": "Aktivität"
+                    "activity": "Aktivität",
+                    "spot": "Platz"
                 },
                 "name": "Buchung"
             },
@@ -7276,7 +7491,8 @@
                     "date": "Uhrzeit/Datum",
                     "coach": "Lehrer (optional)",
                     "activity": "Aktivität",
-                    "establishment": "Einrichtung"
+                    "establishment": "Einrichtung",
+                    "ics_calendar_link": "Link ics Kalender"
                 },
                 "name": "Termin"
             },
@@ -8277,6 +8493,9 @@
             "coach": {
                 "placeholder": "Lehrer"
             }
+        },
+        "calendar": {
+            "registered": "Bereits registriert"
         }
     },
     "partnership": {
@@ -9361,7 +9580,7 @@
                 "preview": "Übersicht über meine Formulare"
             },
             "signUp": {
-                "helperMemberForm": "Das Bearbeitungsformular ist das Formular auf der Profilseite Ihrer Mitglieder. So können sie ihre Informationen einsehen und bearbeiten. Auch dieses Formular ist anpassbar.",
+                "helperMemberForm": "Das Änderungsformular ist das Formular, das sich auf der Profilseite Ihrer Mitglieder befindet. Es ermöglicht ihnen, ihre Informationen einzusehen und zu bearbeiten. Auch dieses Formular ist anpassbar.",
                 "helperSignup": "Hier können Sie das Anmeldeformular für Ihr Studio bearbeiten. Wählen Sie die Fragen aus, die Sie ausfüllen müssen, um Mitglied in Ihrem Club zu werden, und passen Sie sie an.",
                 "signupFields": "Fragen zu den Formularen"
             },
@@ -9374,16 +9593,16 @@
             "signUpInfoModal": {
                 "confirm": "Weiter",
                 "cancel": "Abbrechen",
-                "content": "Sie haben gerade einige Fragen auf dem Anmeldeformular zur Pflicht gemacht. Die obligatorischen Fragen im Anmeldeformular müssen von Ihren Mitgliedern in ihrem Profil bearbeitet werden können. Diese Fragen wurden daher automatisch in das Bearbeitungsformular aufgenommen und können dort angezeigt und bearbeitet werden. Rufen Sie das Bearbeitungsformular auf, um es anzupassen.",
+                "content": "Sie haben gerade einige Fragen des Anmeldeformulars zu Pflichtfragen gemacht. Die obligatorischen Fragen im Anmeldeformular müssen von Ihren Mitgliedern in ihrem Profil editierbar sein. Diese Fragen wurden daher automatisch zum Bearbeitungsformular hinzugefügt und werden dort angezeigt und können bearbeitet werden. Gehen Sie zum Bearbeiten des Änderungsformulars, um es anzupassen.",
                 "title": "Informationen"
             },
             "changesAreSubmitting": "Das Formular wird derzeit aktualisiert.",
             "editable": "Veränderbar",
             "display": "Siehe",
-            "navigateToMemberForm": "Bearbeitung des Änderungsformulars",
+            "navigateToMemberForm": "Editieren des Formulars zur Bearbeitung des Kundenprofils",
             "navigateToSignup": "Bearbeiten Sie das Anmeldeformular",
             "memberFormHelper": "Die Pflichtfragen im Anmeldeformular werden standardmäßig angezeigt und können bearbeitet werden. Sie können nicht gelöscht werden.",
-            "signupFormHelper": "Die obligatorischen Fragen im Anmeldeformular müssen von Ihren Mitgliedern in ihrem Profil bearbeitet werden können. Diese Fragen werden automatisch in das Bearbeitungsformular eingefügt und können dort angezeigt und bearbeitet werden.",
+            "signupFormHelper": "Die obligatorischen Fragen des Anmeldeformulars müssen von Ihren Mitgliedern in ihrem Profil editierbar sein. Diese Fragen werden automatisch dem Formular zur Bearbeitung des Kundenprofils hinzugefügt und können dort angezeigt und bearbeitet werden.",
             "memberFormTitle": "Formular ändern",
             "signupFormTitle": "Anmeldeformular",
             "editLayoutSubtitle": "Sie haben ein Formular mit einem benutzerdefinierten Layout geändert, überprüfen Sie hier die Vorschau Ihres Formulars auf den verschiedenen Bildschirmgrößen und ändern Sie sie gegebenenfalls",
@@ -9581,7 +9800,7 @@
         },
         "consumerGiftcard": {
             "form": {
-                "footer": "Die Karte wird am {{- date_send }} per E-Mail an die angegebenen Adressen gesendet. Sie ist für {{ expiry_days }} Tage nach Versand der E-Mail gültig.",
+                "footer": "Die Karte wird am {{- date_send }} um {{- hour_send }} per E-Mail an die angegebenen Adressen gesendet. Sie ist für {{ expiration_days }} Tage nach dem Versand der E-Mail gültig. Dem Konto des Empfängers wird ein Betrag von {{- price }} für zukünftige Einkäufe gutgeschriebe",
                 "actions": {
                     "submit": "In den Warenkorb legen",
                     "cancel": "Abbrechen"
@@ -9604,7 +9823,7 @@
                 "name": {
                     "label": "Name der Karte"
                 },
-                "footerUnlimited": "Die Karte wird am {{- date_send }} per E-Mail an die angegebenen Adressen gesendet. Sie enthält kein Verfallsdatum. Dem Konto des Empfängers wird der {{- Price }} für zukünftige Einkäufe gutgeschrieben.",
+                "footerUnlimited": "Die Karte wird am {{- date_send }} um {{- hour_send }} per E-Mail an die angegebenen Adressen gesendet. Sie enthält kein Verfallsdatum. Dem Konto des Empfängers wird ein Betrag von {{- price }} für zukünftige Einkäufe gutgeschrieben.",
                 "select_image": "Wählen Sie Ihr Hintergrundbild",
                 "hour_send": "Uhrzeit des Versands"
             },
@@ -9634,7 +9853,7 @@
                     "submit": "Senden Sie",
                     "close": "Schließen Sie"
                 },
-                "content": "Sie können die Empfänger der Geschenkkarte ändern. Bitte beachten Sie, dass er nur von einer Person genutzt werden kann.",
+                "content": "Sie können die Empfänger der Geschenkkarte ändern. Beachten Sie, dass nur einer sie verwenden kann. Wenn die E-Mail nicht angekommen ist, können Sie auch diesen Aktivierungslink weiterleiten :",
                 "title": "Senden Sie eine Einladungs-E-Mail",
                 "activationCodeLink": "Die Einladungs-E-Mail wurde versandt und kann nicht mehr geändert werden. Sollte sie nicht den richtigen Empfänger erreicht haben, können Sie diesen Aktivierungslink weiterleiten, um die Geschenkkarte anzubieten: "
             },

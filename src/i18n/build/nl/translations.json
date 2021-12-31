@@ -829,7 +829,7 @@
             },
             "signup": {
                 "privacyPolicy": "Algemene Servicevoorwaarden",
-                "iAcceptPrivacyPolicy": "Ik aanvaard de ",
+                "iAcceptPrivacyPolicy": "Ik accepteer de ",
                 "signupButton": "Inschrijven",
                 "communication": {
                     "sms": "via sms",
@@ -849,7 +849,7 @@
                     "accept_sms": "Ik ga ermee akkoord om per sms te worden geïnformeerd over voor mij relevante informatie, zoals annuleringen, roosterwijzigingen, nieuwe workshops, etc.",
                     "accept_email": "Ik ga ermee akkoord om per e-mail te worden geïnformeerd over voor mij relevante informatie, zoals annuleringen, roosterwijzigingen, nieuwe workshops, etc.",
                     "waiver": "Ik accepteer de Waiver / Vrijstelling.",
-                    "general_terms_and_conditions_accepted": "Ik accepteer de algemene voorwaarden.",
+                    "general_terms_and_conditions_accepted": "Ik accepteer de algemene gebruiksvoorwaarden",
                     "emergency_contact": "Contactpersoon voor noodgevallen",
                     "city": "Stad",
                     "birthday": "Geboortedatum",
@@ -3691,7 +3691,7 @@
             "payment": "Facturen",
             "privateBooking": "Afspraken",
             "privateConsumerPass": "Afspraakkaarten",
-            "paymentPack": "Leskaarten",
+            "paymentPack": "Cursuskaarten",
             "invoices": "Facturen en abonnementen",
             "contact": "Contact",
             "vod": "Video On Demand",
@@ -6384,7 +6384,7 @@
     "payment": {
         "generalTermsAndConditions": {
             "theTermsAndConditions": "algemene servicevoorwaarden.",
-            "iAccept": "Ik ga akkoord met ",
+            "iAccept": "Ik accepteer de ",
             "close": "Sluiten",
             "generalTermsOfUse": " algemene servicevoorwaarden.",
             "waiver": "Waiver / Vrijstelling"
@@ -9247,7 +9247,7 @@
                 "isMandatoryOnSignUp": "Dit is een verplichte vraag",
                 "waiver": "Waiver / Vrijstelling",
                 "repeatPassword": "Wachtwoord bevestigen",
-                "general_terms_and_conditions": "Algemene Gebruiksvoorwaarden",
+                "general_terms_and_conditions": "Voorwaarden voor gebruik",
                 "country": "Land",
                 "city": "Stad",
                 "additional_adress": "Aanvulling adres",

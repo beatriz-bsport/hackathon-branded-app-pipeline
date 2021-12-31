@@ -13,11 +13,12 @@ import DialogContent from '@material-ui/core/DialogContent';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 
 import Fade from '@material-ui/core/Fade';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import Popover from '@material-ui/core/Popover';
 import { push } from 'connected-react-router';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { PAYMENT_INTENT_TYPE_INVOICE } from '@bsport/common/lib/master-data/payment-group';
 import DeleteOfferForm from '../../offer/DeleteOfferForm.component';
 import {
   getAvailableRoomBlueprints,
@@ -58,7 +59,10 @@ import {
   fetchEstablishments as fetchEstablishmentsAction,
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
 } from '../../establishment/actions';
-import { fetchMemberBulk as fetchMemberBulkAction } from '../../member/actions';
+import {
+  fetchMemberBulk as fetchMemberBulkAction,
+  fetchMember,
+} from '../../member/actions';
 
 import { getActiveCoaches } from '../../associated-coach/selectors';
 import { getAllEstablishments } from '../../establishment/selectors';
@@ -90,6 +94,15 @@ import { fetchAllCoachPaymentRules } from '../../coach-payment-rules/actions';
 import { CoachPaymentRuleByKindSelector } from '../../coach-payment-rules/selectors';
 import type { CoachPaymentRule } from '../../coach-payment-rules/types';
 import { showVaccinationStatus } from '../../custom-form/selectors';
+import { withInvoiceItem, getInvoiceList } from '#libs/invoice/selectors';
+import { fetchInvoiceList as fetchInvoiceListAction } from '#libs/invoice/actions';
+import { snackbarSuccess } from '#libs/snackbar/actions';
+import { fetchPaymentMethodList } from '#libs/payment/actions';
+import type { Theme as CompanyTheme } from '#libs/theme/types';
+import type { OptionCallback } from '../../../state/types';
+import type { Invoice } from '#libs/invoice/types';
+import type { PaymentMethod } from '#libs/payment/types';
+import { requestClientSecret as requestClientSecretAPI } from '#libs/invoice/api';
 
 type Props = {
   offerId: number,
@@ -158,9 +171,32 @@ type Props = {
   fetchAllCoachPaymentRules: () => void,
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> },
   showVaccinationStatus: boolean,
+  fetchMember: (memberId: number) => void,
+  fetchInvoiceListUnpaid: (memberId: number) => void,
+  unpaidInvoiceList: Array<Invoice>,
+  goToInvoice: (uuid: string) => void,
+  payment_method_available_manager: Array<PaymentMethod>,
+  snackbarSuccess: (msg: string) => void,
+  companyId: number,
+  fetchMemberPaymentMethod: (memberId: number) => void,
+  invoiceToBill: Invoice,
+  setInvoiceToBill: (invoice: ?Invoice) => void,
+};
+type State = {
+  clientSecretLoading: boolean,
+  clientSecret: ?string,
+  paymentGroupId: ?number,
+  paymentGroupPriceCts: ?number,
 };
 
-export class CalendarEventDetail extends React.Component<Props> {
+export class CalendarEventDetail extends React.Component<Props, State> {
+  state = {
+    clientSecretLoading: false,
+    clientSecret: null,
+    paymentGroupId: null,
+    paymentGroupPriceCts: null,
+  };
+
   componentDidMount() {
     this.props.fetchAllActivities();
     this.props.fetchRoomBlueprints();
@@ -182,6 +218,30 @@ export class CalendarEventDetail extends React.Component<Props> {
       // close update form dialog when clicked outside
     }
   }
+
+  fetchInvoiceListUnpaid = (id: number) => {
+    this.props.fetchInvoiceListUnpaid(id);
+    this.props.fetchMember(id);
+  };
+
+  requestClientSecret = (paymentEngine) => {
+    this.setState({ clientSecretLoading: true });
+    requestClientSecretAPI(paymentEngine, PAYMENT_INTENT_TYPE_INVOICE, {
+      invoice: this.props.invoiceToBill.uuid,
+    })
+      .then((r) => {
+        this.setState({
+          clientSecret: r.data.client_secret,
+          clientSecretLoading: false,
+          paymentGroupId: r.data.payment_group,
+          paymentGroupPriceCts: r.data.price_cts,
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+        this.setState({ clientSecretLoading: false });
+      });
+  };
 
   renderContent = () => {
     const { t, classes, goToMember, offer, privateBooking, customEvent } =
@@ -217,6 +277,23 @@ export class CalendarEventDetail extends React.Component<Props> {
           goToCoachCalendar={this.props.goToCoachCalendar}
           setIsUpdateCoachFormOpen={this.props.setIsUpdateCoachFormOpen}
           showVaccinationStatus={this.props.showVaccinationStatus}
+          unpaidInvoiceList={this.props.unpaidInvoiceList}
+          goToInvoice={this.props.goToInvoice}
+          fetchInvoiceListUnpaid={this.fetchInvoiceListUnpaid}
+          availablePaymentMethodList={
+            this.props.payment_method_available_manager
+          }
+          snackbarSuccess={this.props.snackbarSuccess}
+          companyId={this.props.companyId}
+          fetchMemberPaymentMethod={this.props.fetchMemberPaymentMethod}
+          fetchMember={this.props.fetchMember}
+          invoiceToBill={this.props.invoiceToBill}
+          setInvoiceToBill={this.props.setInvoiceToBill}
+          clientSecretLoading={this.state.clientSecretLoading}
+          clientSecret={this.state.clientSecret}
+          paymentGroupId={this.state.paymentGroupId}
+          paymentGroupPriceCts={this.state.paymentGroupPriceCts}
+          requestClientSecret={this.requestClientSecret}
         />
       );
     }
@@ -610,6 +687,7 @@ export default compose(
   withStyles(styles),
   withTranslation(['offer']),
   withState('isUpdateCoachFormOpen', 'setIsUpdateCoachFormOpen', false),
+  withState('invoiceToBill', 'setInvoiceToBill', null),
   connect(
     (state, { privateBookingId, offerId, customEventId }) => ({
       roomBlueprints: getAvailableRoomBlueprints(state),
@@ -627,6 +705,10 @@ export default compose(
       ),
       customEvent: withAssociatedCoach(getCustomEvent)(state, customEventId),
       showVaccinationStatus: showVaccinationStatus(state),
+      unpaidInvoiceList: withInvoiceItem(getInvoiceList)(state),
+      payment_method_available_manager:
+        state.theme.theme.payment_method_available_manager,
+      companyId: state.theme.theme.company,
     }),
     {
       retrieveOfferAsManager: retrieveOfferAsManagerAction,
@@ -645,6 +727,12 @@ export default compose(
       deleteCustomEvent: deleteCustomEventAction,
       goToCoachCalendar: (coachId) =>
         push(`/coach/${coachId}/private-calendar`),
+      // Invoices Stuff
+      goToInvoice: (uuid: number) => push(`/invoice/${uuid}/`),
+      fetchMember,
+      fetchInvoiceList: fetchInvoiceListAction,
+      snackbarSuccess,
+      fetchPaymentMethodListAction: fetchPaymentMethodList,
     },
   ),
   withHandlers({
@@ -731,6 +819,21 @@ export default compose(
             fetchEstablishmentBulk([offer.establishment]);
           },
         });
+      },
+    fetchInvoiceListUnpaid:
+      ({ fetchInvoiceList }) =>
+      (id) => {
+        fetchInvoiceList({
+          is_v2: true,
+          is_draft: false,
+          unpaid: true,
+          member: id,
+        });
+      },
+    fetchMemberPaymentMethod:
+      ({ fetchPaymentMethodListAction }) =>
+      (id) => {
+        fetchPaymentMethodListAction({ member: id });
       },
   }),
   OfferEditorContainer,

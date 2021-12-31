@@ -24,12 +24,17 @@ import Button from '@material-ui/core/Button';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 
+import Divider from '@material-ui/core/Divider';
 import MemberMinimalListItem from '../../../member/components/MemberMinimalListItem.component';
 import type { PrivateBookingWithRelatedFields } from '../../types';
 import RedButton from '../../../../components/button/RedButton.component';
 import RedChip from '../../../../components/chip/RedChip.component';
 import CoachListItem from '../../../associated-coach/components/CoachListItem.component';
 import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
+import type { Invoice } from '#libs/invoice/types';
+import type { PaymentMethod } from '#libs/payment/types';
+import InvoiceTable from '#libs/invoice/components/InvoiceTable.component';
+import PaymentDialog from '#libs/payment/components/PaymentDialog.component';
 
 type Props = {
   private_booking: PrivateBookingWithRelatedFields,
@@ -46,12 +51,34 @@ type Props = {
   setUpdateTimeForm: () => void,
   setIsUpdateCoachFormOpen: (boolean) => void,
   showVaccinationStatus: boolean,
+  fetchInvoiceListUnpaid: (memberId: number) => void,
+  unpaidInvoiceList: Array<Invoice>,
+  companyId: number,
+  snackbarSuccess: (msg: string) => void,
+  fetchMemberPaymentMethod: (memberId: number) => void,
+  fetchMember: (memberId: number) => void,
+  availablePaymentMethodList: Array<PaymentMethod>,
+  invoiceToBill: Invoice,
+  setInvoiceToBill: (invoice: ?Invoice) => void,
+  clientSecretLoading: boolean,
+  clientSecret: ?string,
+  paymentGroupId: ?number,
+  paymentGroupPriceCts: ?number,
+  requestClientSecret: (paymengEngine) => void,
 };
 export const PrivateBookingCard = (props: Props) => {
   const { private_booking, loading } = props;
   const { t } = useTranslation(['privateService']);
   const classes = useStyles();
 
+  React.useEffect(() => {
+    if (private_booking.member && private_booking.member.id) {
+      props.fetchInvoiceListUnpaid(private_booking.member.id);
+      props.fetchMemberPaymentMethod(private_booking.member.id);
+      props.fetchMember(private_booking.member.id);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [private_booking?.member?.id]);
   if (
     loading ||
     !private_booking.private_slot ||
@@ -109,90 +136,115 @@ export const PrivateBookingCard = (props: Props) => {
     );
   }
   return (
-    <div className={classes.container}>
-      <div className={classes.header}>
-        {props.private_booking.booking_status_code !== BOOKING_STATUS_OK.id ? (
-          <div className={classes.firstRow}>
-            <Typography variant="h6" color="error">
-              {private_booking.date_canceled
-                ? t('privateBooking.isCancelledDate', {
-                    date: moment(private_booking.date_canceled).format('L'),
-                    time: moment(private_booking.date_canceled).format('LT'),
-                  })
-                : t('privateBooking.isCancelled')}
-            </Typography>
-            <div className={classes.chipContainer}>
-              {props.private_booking.was_refunded ? (
-                <Chip
-                  size="small"
-                  color="primary"
-                  label={
-                    <Typography variant="body2" color="white">
-                      {`${t('privateBooking.isRefunded')}`}
-                    </Typography>
-                  }
-                />
-              ) : (
-                <RedChip
-                  size="small"
-                  color="primary"
-                  label={
-                    <Typography variant="body2" color="white">
-                      {`${t('privateBooking.notRefunded')}`}
-                    </Typography>
-                  }
-                />
-              )}
+    <>
+      <div className={classes.container}>
+        <div className={classes.header}>
+          {props.private_booking.booking_status_code !==
+          BOOKING_STATUS_OK.id ? (
+            <div className={classes.firstRow}>
+              <Typography variant="h6" color="error">
+                {private_booking.date_canceled
+                  ? t('privateBooking.isCancelledDate', {
+                      date: moment(private_booking.date_canceled).format('L'),
+                      time: moment(private_booking.date_canceled).format('LT'),
+                    })
+                  : t('privateBooking.isCancelled')}
+              </Typography>
+              <div className={classes.chipContainer}>
+                {props.private_booking.was_refunded ? (
+                  <Chip
+                    size="small"
+                    color="primary"
+                    label={
+                      <Typography variant="body2" color="white">
+                        {`${t('privateBooking.isRefunded')}`}
+                      </Typography>
+                    }
+                  />
+                ) : (
+                  <RedChip
+                    size="small"
+                    color="primary"
+                    label={
+                      <Typography variant="body2" color="white">
+                        {`${t('privateBooking.notRefunded')}`}
+                      </Typography>
+                    }
+                  />
+                )}
+              </div>
             </div>
-          </div>
-        ) : null}
-        <Typography variant="h5">
-          {private_booking.private_slot.name +
-            (private_booking.first_in_company ? ' ★' : '')}
-        </Typography>
-      </div>
-      {!!private_booking.address && (
+          ) : null}
+          <Typography variant="h5">
+            {private_booking.private_slot.name +
+              (private_booking.first_in_company ? ' ★' : '')}
+          </Typography>
+        </div>
+        {!!private_booking.address && (
+          <ListItem dense>
+            <ListItemIcon>
+              <LocationOnIcon />
+            </ListItemIcon>
+            <ListItemText primary={private_booking.address} />
+          </ListItem>
+        )}
         <ListItem dense>
           <ListItemIcon>
-            <LocationOnIcon />
+            <AccessTimeIcon />
           </ListItemIcon>
-          <ListItemText primary={private_booking.address} />
+          <ListItemText
+            primary={`${moment(private_booking.date_start).format(
+              'HH:mm',
+            )} - ${moment(private_booking.date_end).format('HH:mm')}`}
+          />
+          <ListItemSecondaryAction>
+            <IconButton onClick={props.setUpdateTimeForm}>
+              <EditIcon color="primary" />
+            </IconButton>
+          </ListItemSecondaryAction>
         </ListItem>
-      )}
-      <ListItem dense>
-        <ListItemIcon>
-          <AccessTimeIcon />
-        </ListItemIcon>
-        <ListItemText
-          primary={`${moment(private_booking.date_start).format(
-            'HH:mm',
-          )} - ${moment(private_booking.date_end).format('HH:mm')}`}
+        <MemberMinimalListItem
+          member={private_booking.member}
+          onClick={() => props.goToMember(private_booking.member.id)}
+          showVaccinationStatus={props.showVaccinationStatus}
         />
-        <ListItemSecondaryAction>
-          <IconButton onClick={props.setUpdateTimeForm}>
-            <EditIcon color="primary" />
-          </IconButton>
-        </ListItemSecondaryAction>
-      </ListItem>
+        {private_booking.coach ? (
+          <CoachListItem
+            onCoachSelected={() =>
+              props.goToCoachCalendar(private_booking.coach.id)
+            }
+            noEdit
+            coach={private_booking.coach}
+            onEditCoach={() => props.setIsUpdateCoachFormOpen(true)}
+          />
+        ) : null}
+        {private_booking.establishment ? (
+          <EstablishmentListItem
+            establishment={private_booking.establishment}
+          />
+        ) : null}
 
-      <MemberMinimalListItem
-        member={private_booking.member}
-        onClick={() => props.goToMember(private_booking.member.id)}
-        showVaccinationStatus={props.showVaccinationStatus}
-      />
-      {private_booking.coach ? (
-        <CoachListItem
-          onCoachSelected={() =>
-            props.goToCoachCalendar(private_booking.coach.id)
-          }
-          noEdit
-          coach={private_booking.coach}
-          onEditCoach={() => props.setIsUpdateCoachFormOpen(true)}
-        />
-      ) : null}
-      {private_booking.establishment ? (
-        <EstablishmentListItem establishment={private_booking.establishment} />
-      ) : null}
+        {props.unpaidInvoiceList && props.unpaidInvoiceList.length ? (
+          <>
+            <Typography className={classes.bookingsHeader} variant="h6">
+              {t('translation:offer.unpaidInvoices')}
+            </Typography>
+            <div className={classes.invoiceTable}>
+              <Divider />
+              <InvoiceTable
+                hideMemberName
+                compactMode
+                showOpenInvoiceNested
+                hidePagination
+                onBill={props.setInvoiceToBill}
+                invoiceList={props.unpaidInvoiceList}
+                snackbarSuccess={props.snackbarSuccess}
+                companyId={props.companyId}
+              />
+            </div>
+          </>
+        ) : null}
+      </div>
       {props.onDelete &&
       props.private_booking.booking_status_code === BOOKING_STATUS_OK.id ? (
         <div className={classes.buttonContainer}>
@@ -210,7 +262,34 @@ export const PrivateBookingCard = (props: Props) => {
           </RedButton>
         </div>
       )}
-    </div>
+      {!!props.invoiceToBill && !!props.invoiceToBill.member && (
+        <PaymentDialog
+          termsAndConditionsAccepted
+          memberId={private_booking.member.id}
+          onError={() => {}}
+          onSuccess={(callback) => {
+            setTimeout(() => {
+              props.fetchInvoiceListUnpaid(private_booking.member.id);
+              props.setInvoiceToBill(null);
+              if (typeof callback === 'function') callback();
+            }, 3000);
+          }}
+          requestClientSecret={props.requestClientSecret}
+          paymentGroupId={props.paymentGroupId}
+          paymentGroupPriceCts={props.paymentGroupPriceCts}
+          clientSecret={props.clientSecretLoading ? null : props.clientSecret}
+          clientSecretLoading={props.clientSecretLoading}
+          amountToPay={parseFloat(
+            props.invoiceToBill.amount_due_cts -
+              props.invoiceToBill.amount_paid_cts,
+          ).toFixed(2)}
+          onCancel={() => props.setInvoiceToBill(null)}
+          availablePaymentMethodList={props.availablePaymentMethodList}
+          defaultUserName={props.invoiceToBill.member.name}
+          defaultUserEmail={props.invoiceToBill.member.email}
+        />
+      )}
+    </>
   );
 };
 
@@ -229,6 +308,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     width: '100%',
     paddingTop: theme.spacing(1),
+    paddingRight: theme.spacing(2),
   },
   updatedTimeExplain: {
     marginTop: theme.spacing(1),
@@ -240,6 +320,10 @@ const useStyles = makeStyles((theme) => ({
   },
   chipContainer: {
     paddingLeft: theme.spacing(3),
+  },
+  invoiceTable: {
+    maxHeight: '300px',
+    overflow: 'auto',
   },
 }));
 

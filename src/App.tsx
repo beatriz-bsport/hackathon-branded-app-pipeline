@@ -17,6 +17,7 @@ import {
   EXPORTABLE_COMPONENT_TYPE_SUBSCRIPTION,
   EXPORTABLE_COMPONENT_TYPE_GIFTCARD,
   EXPORTABLE_COMPONENT_TYPE_NEWSLETTER,
+  EXPORTABLE_COMPONENT_TYPE_SHARED_PASS,
 } from 'bsport-saas/src/libs/exportable-components/constants';
 
 // eslint-disable-next-line
@@ -76,6 +77,7 @@ const UserInteractionPortal = asyncComponent(
 const LoginButtonWidget = asyncComponent(
   () => import('./widgets/LoginButton.widget'),
 );
+const SharedPass = asyncComponent(() => import('./widgets/SharedPass.widget'));
 
 const Snackbar = themify(connect(...SnackbarDataProvider)(SnackbarPile));
 
@@ -91,6 +93,7 @@ const WidgetByType = {
   [EXPORTABLE_COMPONENT_TYPE_NEWSLETTER]: NewsletterWidget,
   [EXPORTABLE_COMPONENT_TYPE_GIFTCARD]: GiftcardWidget,
   [EXPORTABLE_COMPONENT_TYPE_CALENDAR]: CalendarWidget,
+  [EXPORTABLE_COMPONENT_TYPE_SHARED_PASS]: SharedPass,
 };
 
 type OwnProps = WidgetConfig & {

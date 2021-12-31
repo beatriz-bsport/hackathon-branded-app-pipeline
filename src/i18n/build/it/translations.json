@@ -5990,7 +5990,8 @@
                 "success": "Soci accorpati",
                 "error": "Impossibile accorpare i membri",
                 "srcMember": "Socio da accorpare (eliminato)",
-                "dstMember": "Membro da tenere"
+                "dstMember": "Membro da tenere",
+                "emailWillBeSend": "Un'e-mail sarà inviata a entrambi gli indirizzi per informare i membri."
             },
             "error": "Impossibile salvare il membro",
             "update": {
@@ -6164,7 +6165,14 @@
         },
         "termsOfUse": "Condizioni generali d'uso",
         "archived": "Archiviato",
-        "restoreMember": "Ripristinare"
+        "restoreMember": "Ripristinare",
+        "changeEmailRequest": {
+            "dialog": {
+                "titleMerge": " Fusione di membri",
+                "title": "Cambio di e-mail"
+            },
+            "pendingValidation": "Cambiamento in sospeso: {{ email }}"
+        }
     },
     "booking": {
         "statusCode": {
@@ -7273,7 +7281,8 @@
                 "submit": "Confermare"
             }
         },
-        "search": "Cerca un codice promozionale"
+        "search": "Cerca un codice promozionale",
+        "reverted": "Fattura annullata"
     },
     "tag": {
         "form": {
@@ -8716,6 +8725,9 @@
         },
         "paymentCombo": {
             "addToCart": "Aggiungi al carrello"
+        },
+        "calendar": {
+            "registered": "Già registrato"
         }
     },
     "event": {
@@ -9392,10 +9404,10 @@
             "changesAreSubmitting": "Il modulo è attualmente in fase di aggiornamento.",
             "editable": "Cambiabile",
             "display": "Vedi",
-            "navigateToMemberForm": "Modifica del modulo di modifica",
+            "navigateToMemberForm": "Modifica del modulo del profilo del cliente",
             "navigateToSignup": "Modifica il modulo di registrazione",
             "memberFormHelper": "Le domande obbligatorie nel modulo di registrazione sono visualizzate e modificabili di default. Non possono essere cancellati.",
-            "signupFormHelper": "Le domande obbligatorie sul modulo d'iscrizione devono essere modificabili dai tuoi membri sul loro profilo. Queste domande saranno aggiunte automaticamente al modulo di modifica e sono visualizzate e modificabili.",
+            "signupFormHelper": "Le domande obbligatorie sul modulo d'iscrizione devono essere modificabili dai tuoi membri sul loro profilo. Queste domande saranno aggiunte automaticamente al modulo di modifica del profilo del cliente e sono visualizzate e modificabili.",
             "memberFormTitle": "Modulo di modifica del profilo (pagina del profilo dei tuoi membri)",
             "signupFormTitle": "Modulo di registrazione",
             "editLayoutSubtitle": "Hai modificato un modulo utilizzando un layout personalizzato, controlla qui, e modifica se necessario, l'anteprima del tuo modulo sulle diverse dimensioni dello schermo",
@@ -9593,7 +9605,7 @@
         },
         "consumerGiftcard": {
             "form": {
-                "footer": "La carta sarà inviata via email il {{- data_send }} agli indirizzi indicati. Sarà valido per {{ expiration_days }} giorni dopo l'invio dell'email. L'account del destinatario sarà accreditato con {{- price }} per gli acquisti futuri.",
+                "footer": "La carta sarà inviata via email il {{- date_send }} alle {{- hour_send }} agli indirizzi indicati. Sarà valido per {{ expiration_days }} giorni dopo l'invio dell'email. L'account del destinatario sarà accreditato con {{- price }} per gli acquisti futuri.",
                 "actions": {
                     "submit": "Aggiungi al carrello",
                     "cancel": "Cancellare"
@@ -9616,7 +9628,7 @@
                 "name": {
                     "label": "Nome della carta"
                 },
-                "footerUnlimited": "La carta sarà inviata via email il {{- data_send }} agli indirizzi indicati. Non contiene una data di scadenza. L'account del destinatario sarà accreditato con {{- price }} per gli acquisti futuri.",
+                "footerUnlimited": "La carta sarà inviata via email il {{- date_send }} alle {{- hour_send }} agli indirizzi indicati. Non contiene una data di scadenza. L'account del destinatario sarà accreditato con {{- price }} per gli acquisti futuri.",
                 "select_image": "Seleziona la tua immagine di sfondo",
                 "hour_send": "Tempo di invio"
             },
@@ -9646,7 +9658,7 @@
                     "submit": "inviare",
                     "close": "chiudere"
                 },
-                "content": "Puoi cambiare i destinatari della carta regalo. Si prega di notare che solo una persona può usarlo. Se l'email non è stata ricevuta puoi anche inoltrare questo link di attivazione:",
+                "content": "Puoi cambiare i destinatari della carta regalo. Si prega di notare che solo una persona può usarlo. Se l'e-mail non è stata ricevuta si può anche inviare questo link di attivazione:",
                 "title": "Inviare un'e-mail di invito",
                 "activationCodeLink": "L'e-mail di invito è stata inviata e non può più essere modificata, se non ha raggiunto il destinatario giusto puoi inoltrare questo link di attivazione per offrire la carta regalo: "
             },

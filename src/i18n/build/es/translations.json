@@ -2169,7 +2169,7 @@
                 },
                 "accountNumber": {
                     "placeholder": "FR89370400440532013000",
-                    "label": "Identificador bancario (IBAN)",
+                    "label": "Número de cuenta",
                     "eurSpecific": " (IBAN)"
                 },
                 "invalid": "IBAN inválido. Tiene en cuenta: el IBAN debe corresponder a una cuenta bancaria domiciliada en el mismo país que tu empresa",
@@ -2180,6 +2180,21 @@
                     "usdSpecific": " (número de ruta ACH)",
                     "placeholder": "000001",
                     "label": "Número de ruta"
+                },
+                "clearingCode": {
+                    "label": "Clearing code"
+                },
+                "branchCode": {
+                    "label": "Branch code"
+                },
+                "transitNumber": {
+                    "label": "Transit number"
+                },
+                "institutionNumber": {
+                    "label": "Institution number"
+                },
+                "bankCode": {
+                    "label": "Bank code"
                 }
             }
         },
@@ -3352,7 +3367,10 @@
             "src_email": "Correo electrónico del comprador",
             "src_lastname": "Nombre del comprador",
             "src_firstname": "Nombre del comprador",
-            "price_bought": "Precio de compra"
+            "price_bought": "Precio de compra",
+            "date_expiration": "Fecha de caducidad",
+            "date_bought": "Fecha de compra",
+            "is_rent": "Alquiler"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -3656,7 +3674,8 @@
                 "explainTags": "Los tags del miembro suprimidos no se transferirán",
                 "cancel": "Cancelar",
                 "submit": "Fusionar",
-                "seeMemberPage": " Ver la página del miembro"
+                "seeMemberPage": " Ver la página del miembro",
+                "emailWillBeSend": "Se enviará un correo electrónico a ambas direcciones para notificar a los miembros."
             },
             "error": "No es possible guardar el cliente",
             "create": {
@@ -3754,7 +3773,7 @@
             "createMember": "Añadir un miembro"
         },
         "memberTermsAccepted": " fueron aceptadas el {{- date}}",
-        "termsAndConditions": "Condiciones generales de uso",
+        "termsAndConditions": "Condiciones generales de venta",
         "applyBalanceToUnpaidInvoices": "Aplicar el saldo a las facturas impagadas",
         "adjustBalance": "Ajustar el saldo",
         "unpaidInvoiceTitle": "Factura impagada",
@@ -3790,7 +3809,133 @@
         },
         "termsOfUse": "Condiciones generales de uso",
         "archived": "Archivado",
-        "restoreMember": "Restaurar"
+        "restoreMember": "Restaurar",
+        "changeEmailRequest": {
+            "memberPage": {
+                "unAuthorizedAccess": {
+                    "contactCompany": "Si no puede cumplir con esta solicitud, póngase en contacto directamente con su estudio.",
+                    "helper": "Usted no está autenticado en la cuenta que puede acceder a esta aplicación, por favor inicie sesión en la cuenta asociada al correo electrónico de confirmación enviado.",
+                    "title": "Acceso no autorizado"
+                },
+                "generalError": {
+                    "contactCompany": "Sin embargo, hemos detectado un error en la solicitud actual, por lo que, por razones de seguridad, esta solicitud está desactivada. Para regenerar esta solicitud, o si usted no es el autor, póngase en contacto directamente con su estudio.",
+                    "helper": "El estudio {{ company }} había hecho una solicitud para cambiar su correo electrónico de acceso a su espacio personal:",
+                    "title": "Cambio de correo electrónico de inicio de sesión no válido"
+                },
+                "requestingStudio": "El estudio {{ company }} desea cambiar su correo electrónico de acceso a su espacio personal:",
+                "actions": {
+                    "continue": "Continuar",
+                    "confirmFusion": "Aceptar la fusión",
+                    "deniedFusion": "Rechazar la fusión",
+                    "cancel": "Mantener mi dirección",
+                    "confirm": "Confirmar mi nueva dirección"
+                },
+                "linkAccount": {
+                    "error": {
+                        "accepted": {
+                            "contactCompany": "Si desea cambiar su elección o si esta solicitud no procede de usted, póngase en contacto con su estudio.",
+                            "helper": "Su correo electrónico de acceso actual es: {{ email }}",
+                            "title": "Fusión aceptada"
+                        },
+                        "denied": {
+                            "contactCompany": "Si desea volver a solicitar una fusión de su cuenta o si no ha rechazado la solicitud de fusión, póngase en contacto directamente con su estudio.",
+                            "helper": "Ya has tomado la decisión de rechazar la solicitud de fusión al estudio {{ company }}, tu decisión ha sido tenida en cuenta.",
+                            "title": "Fusión rechazada"
+                        }
+                    },
+                    "submit": {
+                        "denied": {
+                            "content": "Su cuenta no ha sido fusionada con {{ new_email }}. Tu dirección de acceso seguirá siendo {{ old_email}}.",
+                            "title": "Fusión rechazada"
+                        },
+                        "accept": {
+                            "content": "Tu cuenta se ha fusionado con la cuenta {{ old_email }}. Ahora eres miembro del estudio {{ company }}. Utilice {{ new_email }} para acceder a su cuenta.",
+                            "title": "Fusión aceptada"
+                        }
+                    },
+                    "dstUser": {
+                        "deniedRequestHelper": "Si no desea fusionar estas cuentas o no ha iniciado esta solicitud, haga clic en \"rechazar fusión\". Esto evitará que las cuentas se fusionen y no estará registrado en {{ company }}.",
+                        "acceptRequestHelper": "Para aceptar la fusión de las cuentas, haga clic en \"aceptar la fusión\".",
+                        "notMemberYet": "Hemos detectado que aún no formas parte del estudio {{ company }}. Si acepta fusionar las dos cuentas, se registrará en el estudio {{ company }} y recibirá la información y las reservas de la cuenta {{ old_email }}. Conservarás tus datos de acceso actuales en {{ new_email }}. Desde esta dirección podrás gestionar todos los estudios en los que estés inscrito.",
+                        "requestingStudio": "El estudio {{ company }} ha solicitado fusionar su cuenta {{ new_email }} con la cuenta {{ old_email }}."
+                    },
+                    "veto": {
+                        "deniedRequestHelper": "Si no desea fusionar estas cuentas o si no ha iniciado esta solicitud, haga clic en \"rechazar la fusión\". Esto evitará que las cuentas se fusionen y mantendrá sus datos de acceso.",
+                        "acceptRequestHelper": "Para aceptar la fusión de cuentas, diríjase a su dirección de {{ email }} y haga clic en el enlace del correo electrónico que le hemos enviado.",
+                        "requestExplanation": "Hemos detectado que la dirección {{ email }} ya está en uso en otro estudio. El estudio {{ company }} ha solicitado fusionar su cuenta con esta otra cuenta. Si aceptas fusionar las dos cuentas, tus nuevos datos de acceso (correo electrónico y contraseña) serán para la cuenta {{ email }}. Podrás gestionar todos los estudios en los que estés inscrito desde una sola dirección."
+                    },
+                    "title": "Fusionar su cuenta"
+                },
+                "simpleEmailChange": {
+                    "error": {
+                        "emailTaken": {
+                            "contactCompany": "Sin embargo, mientras tanto se ha creado una cuenta con la dirección {{ email }}. Esta solicitud ya ha caducado. Si la dirección de correo electrónico {{ email }} le pertenece pero no ha creado la cuenta asociada, póngase en contacto directamente con su estudio.",
+                            "helper": "El estudio {{ company }} había hecho una solicitud para cambiar su correo electrónico de acceso a su espacio personal:",
+                            "title": "El correo electrónico de inicio de sesión ya está ocupado"
+                        },
+                        "delayExceeded": {
+                            "contactCompany": "Si desea volver a solicitar un cambio de dirección de acceso, póngase en contacto con su estudio.",
+                            "helper": "El estudio {{ company }} le ha enviado una solicitud para confirmar un cambio de correo electrónico de acceso. El periodo de validez de 7 días de esta solicitud ha expirado.",
+                            "title": "Cambia tu correo electrónico de acceso"
+                        },
+                        "renewed": {
+                            "contactCompany": "Si no encuentra esta nueva aplicación, póngase en contacto con su estudio.",
+                            "helper": "Parece que el estudio {{ company }} le ha enviado una solicitud para cambiar su dirección de acceso. Esta antigua solicitud ha caducado. Para encontrar la nueva solicitud, revise su correo electrónico y el correo no deseado.",
+                            "title": "Cambia tu correo electrónico de acceso"
+                        },
+                        "alreadyDenied": {
+                            "currentEmail": "Su correo electrónico de acceso actual es: {{ email }}.",
+                            "contactCompany": "Si no ha iniciado este cambio o desea modificar su decisión, póngase en contacto directamente con su estudio.",
+                            "helper": "Ya ha seleccionado un correo electrónico de acceso en {{ company }}, su decisión se ha tenido en cuenta.",
+                            "title": "Ya ha rechazado esta petición"
+                        },
+                        "alreadyAccepted": {
+                            "currentEmail": "Su correo electrónico de acceso actual es: {{ email }}",
+                            "contactCompany": "Si no ha iniciado este cambio o desea modificar su decisión, póngase en contacto directamente con su estudio.",
+                            "helper": "Ya ha seleccionado un correo electrónico de acceso en {{ company }}, su decisión se ha tenido en cuenta.",
+                            "title": "Ya ha validado esta solicitud"
+                        }
+                    },
+                    "submit": {
+                        "emailPreservedTo": "Su dirección de acceso seguirá siendo {{ email }}",
+                        "emailUpatedTo": "Su dirección de acceso ha sido cambiada a {{ email }}. Utilice esta dirección como su nuevo inicio de sesión.",
+                        "deniedTitle": "Dirección de conexión retenida",
+                        "acceptedTitle": "Cambio de la dirección de inicio de sesión"
+                    },
+                    "multipleCompanyHelper": "Su dirección de correo electrónico es común a todos los estudios que utilizan la solución Bsport. Por lo tanto, se cambiará para todos estos estudios. Los estudios afectados serán los siguientes:",
+                    "deniedRequestHelper": "Si esta solicitud no procede de usted o no desea cambiar su dirección, haga clic en \"mantener mi dirección\".",
+                    "acceptRequestHelper": "Si desea cambiar su dirección a esta nueva dirección de correo electrónico, haga clic en \"confirmar mi nueva dirección\".",
+                    "title": "Cambia tu correo electrónico de acceso"
+                }
+            },
+            "dialog": {
+                "actions": {
+                    "confirm": "Confirmar",
+                    "close": "Cancelar"
+                },
+                "cancelHelperText": "Si no desea cambiar el correo electrónico del miembro, haga clic en \"cancelar\".",
+                "securityHelperText": "Por razones de seguridad, le enviaremos un correo electrónico para confirmar este cambio.",
+                "expiryText": "Una vez presentada, la solicitud de cambio expirará en 7 días",
+                "newEmail": "Nueva dirección: {{ email }}",
+                "oldEmail": "Dirección anterior : {{ email }}",
+                "mergeMember": {
+                    "unchangedEmail": "Al hacer clic en confirmar el miembro {{ new_email }} recuperará las facturas, reservas, saldo y compras de {{ old_email }}. El miembro {{ old_email }} será eliminado. Se enviará un correo electrónico a ambas direcciones para notificar a los miembros.",
+                    "warning": "Cuidado, lo que buscas es fusionar estos dos miembros de tu estudio:"
+                },
+                "linkMember": {
+                    "notIncompany": "El correo electrónico {{ new_email }} pertenece a un miembro de otro estudio.",
+                    "unchangedEmail": "Mientras tanto, {{ old_email }} mantendrá su antiguo correo electrónico y los miembros no estarán vinculados.",
+                    "warning": "Ten cuidado, estás tratando de vincular a estos dos miembros:"
+                },
+                "simpleChange": {
+                    "unchangedEmail": "Mientras tanto, mantendrá su antiguo correo electrónico.",
+                    "warning": "Atención, ha cambiado el correo electrónico de acceso de este miembro:"
+                },
+                "titleMerge": " Fusión de miembros",
+                "title": "Cambio de correo electrónico"
+            },
+            "pendingValidation": "Cambio pendiente: {{ email }}"
+        }
     },
     "booking": {
         "details": {
@@ -4130,6 +4275,9 @@
         },
         "paymentCombo": {
             "addToCart": "Añadir a la cesta"
+        },
+        "calendar": {
+            "registered": "Ya está registrado"
         }
     },
     "notificationRule": {
@@ -4206,7 +4354,8 @@
                     "establishment": "Lugar",
                     "date": "Hora/fecha de la sesión",
                     "coach": "Profesor",
-                    "activity": "Actividad"
+                    "activity": "Actividad",
+                    "spot": "Lugar"
                 }
             },
             "ConsumerPaymentPack": {
@@ -4226,7 +4375,8 @@
                     "address": "Dirección",
                     "date": "Hora/Fecha",
                     "coach": "Profesor (opcional)",
-                    "activity": "Actividad"
+                    "activity": "Actividad",
+                    "ics_calendar_link": "Enlace al calendario de las TIC"
                 },
                 "name": "Cita"
             },
@@ -4574,7 +4724,8 @@
             "inactiveCoupons": "Promociones desactivadas o expiradas",
             "isEmpty": "Código promocional registrado"
         },
-        "search": "Buscar un código promocional"
+        "search": "Buscar un código promocional",
+        "reverted": "Factura anulada"
     },
     "privateService": {
         "service": {
@@ -4730,11 +4881,11 @@
         "privatePass": {
             "form": {
                 "durationDays": {
-                    "label": "Período de validez (días) si corresponde",
+                    "label": "Duración de la validez en días",
                     "helperText": "Período en días durante el cual la tarjeta será válida después de la compra "
                 },
                 "durationYears": {
-                    "label": "Período de validez (años) si corresponde",
+                    "label": "Duración de la validez en años",
                     "helperText": "Se suma a la cantidad de días y meses"
                 },
                 "tax": {
@@ -4746,51 +4897,82 @@
                 },
                 "available_payment_method_identifiers": {
                     "helperText": "Seleccione al menos un método de pago. Si la cesta del miembro contiene artículos para los cuales los medios de pago son incompatibles, se ofrecerá el pago por tarjeta.",
-                    "label": "Medios de pago autorizados"
+                    "label": "Medios de pago autorizados",
+                    "warning": "Haga que su tarjeta sea visible para que los clientes puedan seleccionar los métodos de pago."
                 },
                 "durationMonths": {
                     "helperText": "Se suma a la cantidad de días",
-                    "label": "Período de validez (mes) si corresponde"
+                    "label": "Duración de la validez en meses"
                 },
                 "price": {
-                    "label": "Precio"
+                    "label": "Precio con IVA",
+                    "helperText": "Precio de la tarjeta para el cliente"
                 },
                 "credits": {
-                    "helperText": "Cada sesión cuesta un cierto número de créditos",
+                    "helperText": "Cada sesión cuesta un número determinado de créditos",
                     "label": "Número de créditos incluidos"
                 },
                 "name": {
-                    "label": "Nombre"
+                    "label": "Nombre",
+                    "helperText": "Nombre de la tarjeta del curso"
                 },
                 "managerOnly": {
                     "label": "Invisible para los clientes"
                 },
                 "title": "Tarjeta de cita",
                 "full_vod_access": {
-                    "label": "Proporciona acceso a la VOD siempre que sea válido en el tiempo"
+                    "label": "Proporciona acceso a VOD"
                 },
                 "expirationDaysBeforeFirstUse": {
-                    "helperText": "Si la tarjeta no se utiliza por primera vez durante este número de días, quedará invalidada",
-                    "label": "Caducidad si no hay cita inicial"
+                    "helperText": "Si la tarjeta del curso no se utiliza una vez en este número de días, quedará invalidada.",
+                    "label": "Caduca si no hay reserva inicial"
                 },
                 "start_date_method": {
-                    "on_attendance": "Comienza con la primera asistencia",
-                    "on_booking": "Comienza con la primera reserva",
-                    "on_purchase": "Iniciar la facturación"
+                    "on_attendance": "En la primera asistencia",
+                    "on_booking": "En la primera reserva",
+                    "on_purchase": "A la facturación"
                 },
                 "new_member_only": {
                     "label": "Sólo para clientes nuevos"
+                },
+                "selector": {
+                    "privateService": "Añadir una cita compatible"
+                },
+                "start_date_method_detail": {
+                    "on_attendance": " de la primera presencia",
+                    "on_booking": " de la primera reserva",
+                    "on_purchase": " desde la fecha de compra"
+                },
+                "startDate": "Fecha de inicio",
+                "duration": {
+                    "and": " y ",
+                    "years": "{{ count }} año",
+                    "years_plural": "{{ count }} años",
+                    "daysMonths": "{{ duration_months }} meses y {{ duration_days }} dias",
+                    "months": "{{ count }} meses",
+                    "days": "{{ count }} dia",
+                    "days_plural": "{{ count }} dias",
+                    "valid": "Válido ",
+                    "fullText": "Esta tarjeta será válida para "
+                },
+                "category": "Nombre de la categoría",
+                "categoryTitle": {
+                    "compatibility": "Compatibilidad",
+                    "validity": "Validez de la tarjeta",
+                    "paymentMeans": "Medios de pago",
+                    "info": "Información general"
                 }
             },
             "compatibleServices": {
                 "title": "Citas compatibles",
-                "isEmpty": "Ninguna cita es compatible - inutilizable",
-                "add": "Añadir"
+                "isEmpty": "No hay citas compatibles",
+                "add": "Añadir",
+                "unusable": "Inutilizable"
             },
             "delete": {
                 "submit": "Confirmar",
                 "cancel": "Cancelar",
-                "explain": "¿Estás seguro de que quieres suprimir esta tarjeta ? La gente que aún tiene créditos podrá seguir utilizándolos. Esta operación es definitiva",
+                "explain": "¿Estás seguro de que quieres borrar esta tarjeta? Las personas que aún tienen créditos pueden seguir utilizándolos.",
                 "title": "Supresión de la tarjeta",
                 "delete": "Suprimir"
             },
@@ -4814,7 +4996,16 @@
                 "days": "Válido {{ duration_days }} días"
             },
             "edit": "Modificar",
-            "disabledTitle": "Tarjetas de citas archivadas"
+            "disabledTitle": "Tarjetas de citas archivadas",
+            "detailTitles": {
+                "paymentMeans": "Medios de pago",
+                "privateServiceCompatibility": "Citas compatibles",
+                "vod": "VOD",
+                "accessibility": "Accesibilidad",
+                "validity": "Validez",
+                "credit_quantity": "Número de créditos"
+            },
+            "ht": "Sin IVA"
         },
         "privateBooking": {
             "managerAdd": {
@@ -4991,7 +5182,7 @@
             "form": {
                 "duration_minutes": {
                     "label": "Duración",
-                    "helperText": "Ajustar los créditos necesarios según la duración del proyecto"
+                    "helperText": "Adaptación de los créditos necesarios en función de la duración"
                 },
                 "people_capacity_used": {
                     "label": "Número de personas",
@@ -5009,8 +5200,8 @@
                 "submit": "Guardar",
                 "cancel": "Cancelar",
                 "credit": {
-                    "helperText": "Número de créditos necesarios para una reserva",
-                    "label": "Número de créditos"
+                    "helperText": "Número de crédito(s) necesario(s) para una reserva",
+                    "label": "Número de crédito(s)"
                 },
                 "pre_selected_choices": "Duraciones predefinidas",
                 "durationError": "Duración no válida (entre 15min y 1d)"
@@ -5183,7 +5374,8 @@
                 "isEmpty": "No se ha configurado ningún tipo de sesión en esta cita!"
             },
             "forSlots": "Sesiones compatibles:",
-            "allSlots": "Compatible con todas las sesiones"
+            "allSlots": "Compatible con todas las sesiones",
+            "none": " ninguna"
         },
         "selector": {
             "privateSlot": "Seleccionar la sesión",
@@ -5375,7 +5567,21 @@
         "searshAppointmentPass": "Buscar una tarjeta RDV",
         "search": "Buscar de una cita",
         "categoryTitle": "Categorías de tarjetas de citas",
-        "disabledPacksTitle": "Tarjetas de citas archivadas"
+        "disabledPacksTitle": "Tarjetas de citas archivadas",
+        "notification": {
+            "listItem": {
+                "smartListInclude": "Listas incluidas",
+                "smartList": "Listas excluidas",
+                "deleteModal": {
+                    "content": "¿Estás seguro de que quieres eliminar esta notificación? Esta operación es definitiva",
+                    "confirm": "Borrar",
+                    "cancel": "cancelar",
+                    "title": "Ajouter une notification"
+                },
+                "mail": "Email "
+            },
+            "addButton": "Añadir una notificación"
+        }
     },
     "reminder": {
         "task": {
@@ -6573,6 +6779,11 @@
                     "error": "Imposible restablecer el contrato",
                     "success": "Contrato restablecido con éxito"
                 }
+            },
+            "billNow": {
+                "errors": {
+                    "12102": "Ya se está validando un pago, vuelva más tarde para registrar un nuevo pago."
+                }
             }
         },
         "smartlist": {
@@ -6682,6 +6893,12 @@
             "createOrUpdate": {
                 "error": "Error al guardar",
                 "success": "Informaciones registradas"
+            },
+            "changeEmailRequest": {
+                "create": {
+                    "error": "No se puede crear una solicitud de cambio de correo electrónico",
+                    "success": "Envío de la confirmación del cambio de correo electrónico"
+                }
             }
         },
         "establishment": {
@@ -7118,6 +7335,11 @@
                 "error": "Pago rechazado",
                 "success": "Pago satisfactorio"
             }
+        },
+        "clientSecret": {
+            "errors": {
+                "12102": "Ya se está validando un pago, vuelva más tarde para registrar un nuevo pago."
+            }
         }
     },
     "paymentPack": {
@@ -7128,7 +7350,7 @@
             "isOwnerOfShares": "Compartido (bono maestro)",
             "isFromShare": "Compartido desde otra cuenta"
         },
-        "validity": "Válido: ",
+        "validity": "Válido desde ",
         "maxNBookingsByWeek2": " reservas por semana",
         "maxNBookingsByWeek1": "Hasta ",
         "enableConsumer": "Desbloquear",
@@ -7226,7 +7448,7 @@
                     "label": "Crédito"
                 },
                 "theoricalMarginValue": {
-                    "helperText": "Utilizado para calcular la remuneración de los profesores, 10 € significa que una reserva realizada con esta tarjeta se paga 10 €. Si está vacío o 0 € la contribución de una tarjeta será PRECIO / NB_RESERVA",
+                    "helperText": "Utilizado para calcular la remuneración de los profesores, 10{{currency}} significa que una reserva realizada con esta tarjeta se remunera con 10{{currency}}. Si está vacío o es 0{{currency}} la contribución de una tarjeta será PRECIO/NB_RESERVA",
                     "label": "Contribución marginal teórica incluyendo impuestos (tarjeta ilimitada solamente)"
                 },
                 "unlimited": "Créditos ilimitados",
@@ -7260,7 +7482,7 @@
                 "penalty": {
                     "account": {
                         "label": "Cargo en la cuenta:",
-                        "helperText": "Se aplicará un cargo de {{value}}€ a este miembro"
+                        "helperText": "Se aplicará un cargo de {{value}} a este miembro"
                     },
                     "nb_cancellations": "Número de cancelaciones :",
                     "title": "Penalizaciones",
@@ -7287,7 +7509,7 @@
                 },
                 "advancedOptions": {
                     "tag": {
-                        "doNotSelectToAllowAllMembers": "No seleccione nada para permitir a todos los miembros",
+                        "doNotSelectToAllowAllMembers": "Dejar vacío para permitir a todos los miembros",
                         "notAllowedFor": "No está permitido para",
                         "notAllowed": "No se permite",
                         "allowedFor": "Autorizado para",
@@ -7478,7 +7700,7 @@
             "nbCredits": "{{credits}} crédito",
             "nbCredits_plural": "{{credits}} créditos"
         },
-        "ht": "Libre de impuestos",
+        "ht": "Sin IVA",
         "credits": "Crédito",
         "credits_plural": "Créditos",
         "unlimitedCredits": "Ilimitado",
@@ -7496,7 +7718,7 @@
             "general": "Válido {{ duration_days }} días {{ duration_months }} meses y {{ duration_years }} año",
             "years": "Válido {{ duration_years }} año",
             "years_plural": "Válido {{ duration_years }} años",
-            "months": "Válido {{ duration_months }} meses",
+            "months": "{{ count }} meses",
             "days": "Válido {{ duration_days }} día",
             "days_plural": "Válido {{ duration_days }} días",
             "and": " y ",
@@ -7528,8 +7750,8 @@
         "maxNBookingsByMonth2": " reservas por mes",
         "penalty": {
             "title": "Política de cancelación",
-            "block": "Si se producen {{nb_cancellations}} cancelaciones tardías durante un período de {{nb_days}} días, el pase se bloqueará durante {{days_blocked}} días.",
-            "account": "Si hay {{nb_cancellations}} cancelaciones tardías durante un período de {{nb_days}} días, un cargo de {{account_value}}€ se aplicará."
+            "block": "{{days_blocked}} días bloqueados después de {{nb_cancellations}} cancelaciones fuera de plazo durante un periodo de {{nb_days}} días",
+            "account": "Se aplicará un depósito de {{account_value}} para {{nb_cancellations}} cancelaciones fuera de plazo durante un periodo de {{nb_days}}."
         },
         "blockedCpp": "Tarjeta bloqueada de {{-blocked_from}} a {{-blocked_until}}",
         "only_vod_access": "Disponible sólo para VOD",
@@ -7682,15 +7904,19 @@
             "firstBooking": "A la primera reservación",
             "billing": "A la facturación",
             "validForDuration": {
-                "day": "Esta tarjeta será válida durante {{ duration_day }} días a partir de la fecha de compra",
-                "month": "Esta tarjeta será válida durante {{ duration_month }} meses y {{ duration_day }} días a partir de la fecha de compra",
-                "year": "Esta tarjeta será válida para {{ duration_year }} años, {{ duration_month }} meses y {{ duration_day }} días desde la fecha de compra"
+                "day": "Esta tarjeta será válida durante {{ duration_day }} días",
+                "month": "Esta tarjeta será válida durante {{ duration_month }} meses y {{ duration_day }} días",
+                "year": "Esta tarjeta será válida durante {{ duration_year }} años, {{ duration_month }} meses y {{ duration_day }} días",
+                "monthNoDay": "Esta tarjeta será válida durante {{ duration_month }} meses",
+                "yearNoDayNoMonth": "Esta tarjeta será válida durante {{ duration_year }} años",
+                "yearDayNoMonth": "Esta tarjeta será válida durante {{ duration_year }} años y {{ duration_day }} días",
+                "yearNoDay": "Esta tarjeta será válida durante {{ duration_year }} años y {{ duration_month }} meses"
             },
             "yearValidityHelper": "Sumado al número de días y meses",
             "monthValidityHelper": "Además del número de días",
-            "yearValidity": "Periodo de validez de la tarjeta en años",
-            "monthValidity": "Periodo de validez de la tarjeta en meses",
-            "dayValidity": "Periodo de validez de la tarjeta en días",
+            "yearValidity": "Duración de la validez en años",
+            "monthValidity": "Duración de la validez en meses",
+            "dayValidity": "Duración de la validez en días",
             "endBeforeStart": "La fecha de finalización no puede ser mayor que la fecha de inicio",
             "toDate": "Hasta el",
             "fromDate": "A partir del",
@@ -7709,7 +7935,9 @@
             "generalInfo": "Informaciones generales",
             "paymentPack": "Bono",
             "minusZero": "este campo no puede ser igual a 0",
-            "requiredField": "Este campo es obligatorio"
+            "requiredField": "Este campo es obligatorio",
+            "creditWarning": "Si cambia el número de créditos, todas las tarjetas existentes se verán afectadas.",
+            "migration": "Este mapa del curso es el resultado de una migración, algunos campos no son editables para respetar el historial. Las actividades/categorías compatibles siguen siendo editables."
         },
         "paymentPackTemplate": {
             "actions": {
@@ -8104,6 +8332,12 @@
                     "youtube_video": "Vídeo de Youtube",
                     "title": "Vídeo",
                     "vimeo_video": "Video Vimeo"
+                },
+                "confirm": {
+                    "button": "Confirmar",
+                    "unlimitedToRent": "Acaba de cambiar un vídeo ilimitado por uno de alquiler. Los miembros que actualmente tienen el vídeo perderán el acceso al mismo si se acaba el periodo de validez especificado. ¿Estás seguro de que quieres cambiar esta configuración?",
+                    "rentToUnlimited": "Acaba de cambiar un vídeo de alquiler por uno ilimitado. Todos los miembros que ya hayan desbloqueado el vídeo (actual o caducado) lo conservarán de por vida. ¿Estás seguro de que quieres cambiar esta configuración?",
+                    "title": "Validación"
                 }
             },
             "upload": {
@@ -8132,7 +8366,7 @@
                 "vimeoUrlInput": "Enlace Vimeo"
             },
             "delete": {
-                "content": "¿Estás seguro de que quieres suprimir este video? Esta operación es irreversible.",
+                "content": "¿Estás seguro de que quieres eliminar esta ruta? Esta operación es irreversible.",
                 "cancel": "Cancelar",
                 "confirm": "Confirmar",
                 "title": "Supresión"
@@ -8203,7 +8437,20 @@
             },
             "manager_only_helper": "El vídeo no se podrá comprar, sólo será visible para los administradores",
             "manager_only": "No se puede comprar",
-            "duplicate": "Duplicado"
+            "duplicate": "Duplicado",
+            "rental": {
+                "buyDate": "Momento de la compra",
+                "expiredDate": "Caducado desde {{ expiration_date }}",
+                "expirationDate": "Válido hasta {{ expiration_date }}",
+                "expired": "Completado",
+                "valid": "En curso",
+                "forRent": "Alquiler",
+                "rental_days_helper": "El vídeo estará desbloqueado durante el número de días indicado.",
+                "duration": "Se alquila por {{ rental_days }} días",
+                "duration_helper": "Validez del vídeo (en días)",
+                "helper": "Por defecto, los vídeos están desbloqueados de por vida una vez comprados. Al alquilar el vídeo sólo se desbloqueará durante un número determinado de días.",
+                "label": "Vídeo de alquiler"
+            }
         },
         "playlist": {
             "bottomActions": {
@@ -9380,7 +9627,7 @@
                 "preview": "Resumen de mis formularios"
             },
             "signUp": {
-                "helperMemberForm": "El formulario de edición es el que se encuentra en la página de perfil de sus miembros. Les permite ver y editar su información. Este formulario también es personalizable.",
+                "helperMemberForm": "El formulario de edición es el formulario de la página de perfil de sus miembros. Les permite ver y editar su información. Este formulario también es personalizable.",
                 "helperSignup": "Aquí puede editar el formulario de registro de su estudio. Elige y personaliza las preguntas que debes rellenar para hacerte socio de tu club.",
                 "signupFields": "Preguntas sobre los formularios"
             },
@@ -9402,7 +9649,7 @@
             "navigateToMemberForm": "Editar el formulario de edición del perfil del cliente",
             "navigateToSignup": "Editar el formulario de inscripción",
             "memberFormHelper": "Las preguntas obligatorias del formulario de registro se muestran y se pueden editar por defecto. No se pueden borrar.",
-            "signupFormHelper": "Las preguntas obligatorias del formulario de inscripción deben ser editables por sus miembros en su perfil. Estas preguntas se añadirán automáticamente al formulario de edición y se podrán visualizar y editar.",
+            "signupFormHelper": "Las preguntas obligatorias del formulario de inscripción deben ser editables por sus miembros en su perfil. Estas preguntas se añadirán automáticamente al formulario de edición del perfil del cliente y se podrán visualizar y editar.",
             "memberFormTitle": "Formulario de edición del perfil (página de perfil de sus miembros)",
             "signupFormTitle": "Formulario de inscripción",
             "editLayoutSubtitle": "Ha modificado un formulario utilizando un diseño personalizado, compruebe aquí, y modifique si es necesario, la vista previa de su formulario en los diferentes tamaños de pantalla",
@@ -9600,7 +9847,7 @@
         },
         "consumerGiftcard": {
             "form": {
-                "footer": "La tarjeta se enviará por correo electrónico el día {{- date_send }} a las direcciones indicadas. Será válido durante {{ expiration_days }} días después del envío del correo electrónico. La cuenta del destinatario será acreditada con {{- price }} para futuras compras.",
+                "footer": "La tarjeta se enviará por correo electrónico en {{- date_send }} a {{- hour_send }} a las direcciones indicadas. Será válido durante {{ expiration_days }} días después del envío del correo electrónico. La cuenta del destinatario será acreditada con {{- price }} para futuras compras.",
                 "actions": {
                     "submit": "Añadir a la cesta",
                     "cancel": "Cancelar"
@@ -9623,7 +9870,7 @@
                 "name": {
                     "label": "Nombre de la tarjeta"
                 },
-                "footerUnlimited": "La tarjeta se enviará por correo el {{- date_send }} a las direcciones indicadas. No contiene fecha de caducidad. La cuenta del destinatario se acreditará con {{- price }} para futuras compras.",
+                "footerUnlimited": "La tarjeta se enviará por correo electrónico en {{- date_send }} a {{- hour_send }} a las direcciones indicadas. No contiene fecha de caducidad. La cuenta del destinatario será acreditada con {{- price }} para futuras compras.",
                 "select_image": "Seleccione su imagen de fondo",
                 "hour_send": "Hora de envío"
             },

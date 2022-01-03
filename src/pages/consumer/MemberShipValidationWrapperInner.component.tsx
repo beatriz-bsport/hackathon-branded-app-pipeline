@@ -131,10 +131,15 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
     formData: FormData,
     customFormId: number,
     isDraft: boolean,
+    options?: OptionCallback,
   ) => {
     return this.props.directSubmitcustomForm(formData, customFormId, isDraft, {
       onSuccess: () => {
         this.handleRefreshMissingCustomForm();
+        if (options && options.onSuccess) options.onSuccess();
+      },
+      onError: () => {
+        if (options && options.onError) options.onError();
       },
     });
   };
@@ -206,11 +211,7 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
                   this.handleSubmitCustomFormDraft(customFormId, values)
                 }
                 onSubmitCustomFormList={() => this.handleSubmitCutomFormList()}
-                onDirectSubmit={(
-                  formData: FormData,
-                  customFormId: number,
-                  isDraft: boolean,
-                ) => this.handleDirectSubmit(formData, customFormId, isDraft)}
+                onDirectSubmit={this.handleDirectSubmit}
                 onSubmitSnoozed={(customFormId: number) =>
                   this.handleSubmitSnooze(customFormId)
                 }
@@ -467,14 +468,16 @@ export default compose<any, OwnProps>(
       ) => {
         setCustomFormListIsSubmitting(true);
         if (isDraft === true) {
-          await submitCustomFormDraftAction({
-            custom_form_id: customFormId,
-            companyId,
-          });
+          await submitCustomFormDraftAction(
+            {
+              custom_form_id: customFormId,
+              companyId,
+            },
+            options,
+          );
         } else {
-          await submitCustomFormAction(formData, companyId);
+          await submitCustomFormAction(formData, companyId, options);
         }
-        if (options && options.onSuccess) options.onSuccess();
         setCustomFormListIsSubmitting(false);
       },
   }),

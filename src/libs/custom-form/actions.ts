@@ -359,8 +359,19 @@ export function submitCustomForm(
       dispatch(submitCustomFormActions.success(response.data));
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
-      dispatch(submitCustomFormActions.error(error.response.data));
       if (options && options.onError) options.onError();
+      if (error.response?.status === 499 && error.response?.data?.error_code) {
+        dispatch(
+          snackbarError(
+            `customForm.signupViaCustomForm.errors.${error.response.data.error_code}`,
+          ),
+        );
+        dispatch(submitCustomFormActions.error(error.response.data));
+      } else {
+        dispatch(snackbarError(`customForm.customFormStepper.error`));
+      }
+
+      dispatch(submitCustomFormActions.error(error?.response?.data));
     }
     dispatch(submitCustomFormActions.isLoading(false));
   };
@@ -385,8 +396,19 @@ export function submitCustomFormDraft(
       dispatch(submitCustomFormDratActions.success(response.data));
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
-      dispatch(submitCustomFormDratActions.error(error.response.data));
       if (options && options.onError) options.onError();
+      if (error.response?.status === 499 && error.response?.data?.error_code) {
+        dispatch(
+          snackbarError(
+            `customForm.signupViaCustomForm.errors.${error.response.data.error_code}`,
+          ),
+        );
+        dispatch(submitCustomFormActions.error(error.response.data));
+      } else {
+        dispatch(snackbarError(`customForm.customFormStepper.error`));
+      }
+
+      dispatch(submitCustomFormActions.error(error?.response?.data));
     }
     dispatch(submitCustomFormDratActions.isLoading(false));
   };

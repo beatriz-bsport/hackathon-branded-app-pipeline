@@ -15,6 +15,7 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import SnoozeIcon from '@material-ui/icons/Snooze';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
+import { OptionCallback } from '../../../state/types';
 import { MaterialStyleType } from '../../../utils/types';
 import type { CustomForm, CustomFormDisplayRule } from '../types';
 import CustomFormView from './consumer-form/CustomFormView.form';
@@ -112,8 +113,11 @@ export const CustomFormStepper = (props: Props) => {
   };
   if (customFormList?.length === 1) {
     const customForm = customFormList[0];
-    const handleDirectSubmit = (formData: FormData) => {
-      return props.onDirectSubmit(formData, customForm.id, false);
+    const handleDirectSubmit = (
+      formData: FormData,
+      options?: OptionCallback,
+    ) => {
+      return props.onDirectSubmit(formData, customForm.id, false, options);
     };
     const handleDirectSubmitSnoozed = () => {
       return props.onDirectSubmit(null, customForm.id, true);

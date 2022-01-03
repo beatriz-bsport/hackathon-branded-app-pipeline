@@ -92,6 +92,7 @@ export const PrivateConsumerPassBookerListItem = (props: Props) => {
     }
     if (
       !props.onUpdateCredit ||
+      props.private_consumer_pass?.private_pass?.template_instance ||
       private_consumer_pass.dst_private_consumer_pass.length
     ) {
       return null;

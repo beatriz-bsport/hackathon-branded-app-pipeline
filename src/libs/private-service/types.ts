@@ -1,3 +1,4 @@
+import { Company } from '../company/types';
 import { WithPagination } from '../types';
 
 export enum ResourceAttributionEnum {
@@ -281,6 +282,41 @@ type ErrorAndLoading = {
   loading: boolean;
 };
 
+export type PrivatePassTemplateInstance = {
+  tax: number | null;
+  id: number;
+  price: number | null;
+  disabled: boolean;
+  company: number;
+  private_pass: number;
+  private_pass_template: number;
+};
+
+export type PrivatePassTemplateAPI = {
+  id: number;
+  name: string;
+  manager_only: boolean;
+  credits: number;
+  duration_days: number;
+  duration_months: number;
+  duration_years: number;
+  validity_daterange: null | {
+    upper: string;
+    lower: string;
+  };
+  disabled: boolean;
+  tax: number;
+  price: string;
+  franchisor: number | null;
+  private_pass_template_instances: Array<PrivatePassTemplateInstance>;
+  start_date_method: number;
+  expiration_days_before_first_use: number;
+};
+
+export type PrivatePassTemplate = PrivatePassTemplateAPI & {
+  companies: Array<Company>;
+};
+
 export interface PrivateServiceState {
   customEvent: ErrorAndLoading & {
     byId: { [key: string]: CustomEvents };
@@ -385,5 +421,15 @@ export interface PrivateServiceState {
     byId: { [id: number]: PrivatePassCategory };
     allIds: Array<number>;
     upsert: ErrorAndLoading;
+  };
+  privatePassTemplate: {
+    byId: { [id: number]: PrivatePassTemplate };
+    allIds: Array<number>;
+    loading: boolean;
+    error: Error | null;
+    upsert: {
+      loading: boolean;
+      error: Error | null;
+    };
   };
 }

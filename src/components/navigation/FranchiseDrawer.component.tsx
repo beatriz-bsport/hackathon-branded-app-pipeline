@@ -40,6 +40,8 @@ import {
   VpnKey,
   PowerSettingsNew,
 } from '@material-ui/icons';
+import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
+import ScheduleIcon from '@material-ui/icons/Schedule';
 import StarIcon from '@material-ui/icons/Star';
 import Email from '@material-ui/icons/Email';
 import Settings from '@material-ui/icons/Settings';
@@ -480,9 +482,22 @@ const getNavigationItems = (props: {
       icon: Group,
     },
     {
-      to: '/f/payment-pack-template',
-      text: 'franchiseMenu.paymentPack',
-      icon: VpnKey,
+      icon: BusinessCenterIcon,
+      text: 'backofficeMenu.product',
+      type: 'nested',
+      nestedItems: [
+        'divider',
+        {
+          to: '/f/payment-pack-template',
+          text: 'franchiseMenu.paymentPack',
+          icon: VpnKey,
+        },
+        {
+          to: '/f/private-pass-template',
+          text: 'backofficeMenu.privateService.pass',
+          icon: ScheduleIcon,
+        },
+      ],
     },
     {
       icon: Email,

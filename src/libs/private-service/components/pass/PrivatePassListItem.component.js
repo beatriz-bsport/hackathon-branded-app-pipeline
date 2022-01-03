@@ -70,16 +70,18 @@ export const PrivatePassListItem = React.memo((props: Props) => {
               color: 'primary',
               onClick: props.onEdit,
             },
-            props.onDelete && {
-              icon: DeleteIcon,
-              label: props.t('privatePass.delete.delete'),
-              onClick: props.onDelete,
-            },
-            props.onRestore && {
-              icon: RestoreFromTrashIcon,
-              color: 'secondary',
-              onClick: props.onRestore,
-            },
+            props.onDelete &&
+              !props.pass.template_instance && {
+                icon: DeleteIcon,
+                label: props.t('privatePass.delete.delete'),
+                onClick: props.onDelete,
+              },
+            props.onRestore &&
+              !props.pass.template_instance && {
+                icon: RestoreFromTrashIcon,
+                color: 'secondary',
+                onClick: props.onRestore,
+              },
           ]}
         />
       </ListItem>

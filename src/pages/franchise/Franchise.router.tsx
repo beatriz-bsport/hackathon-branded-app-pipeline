@@ -56,6 +56,9 @@ const FranchiseReportList = asyncComponent(
 const FranchisePaymentPackTemplateRouter = asyncComponent(
   () => import('./payment-pack-template/FranchisePaymentPackTemplate.router'),
 );
+const FranchisePrivatePassTemplateRouter = asyncComponent(
+  () => import('./private-pass-template/FranchisePrivatePassTemplate.router'),
+);
 
 type OwnProps = {
   disconnect: () => void;
@@ -143,6 +146,10 @@ const FranchiseRouter = (props: Props) => {
             <Route
               path="/f/payment-pack-template"
               component={FranchisePaymentPackTemplateRouter}
+            />
+            <Route
+              path="/f/private-pass-template"
+              component={FranchisePrivatePassTemplateRouter}
             />
             <Route
               path="/f/settings/notification-rule/:notificationId?"

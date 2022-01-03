@@ -5,6 +5,7 @@ export enum SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM {
 
   // TRACK PRIVATE PASS
   PRIVATE_PASS = 'add_private_pass',
+  PRIVATE_PASS_TEMPLATE = 'add_private_pass_template',
   PRIVATE_PASS_CATEGORY = 'private_pass_category',
 
   // SHOP_ITEM

@@ -91,6 +91,14 @@ import {
   deletePrivatePassCategory as deletePrivatePassCategoryAPI,
   updatePrivatePassCategory as updatePrivatePassCategoryAPI,
   editCategoryOrder,
+
+  // template
+  fetchPrivatePassTemplateList as fetchPrivatePassTemplateListAPI,
+  retrievePrivatePassTemplate as retrievePrivatePassTemplateAPI,
+  createOrUpdatePrivatePassTemplate as createOrUpdatePrivatePassTemplateAPI,
+  deletePrivatePassTemplate as deletePrivatePassTemplateAPI,
+  createPrivatePassTemplateInstance as createPrivatePassTemplateInstanceAPI,
+  deletePrivatePassTemplateInstance as deletePrivatePassTemplateInstanceAPI,
 } from './api';
 
 import { monitorBackgroundTask } from '../background-task/actions';
@@ -2403,5 +2411,183 @@ export function deletePrivatePassCategory(
       if (options && options.onError) options.onError();
     }
     dispatch(deletePrivatePassCategoryActions.isLoading(false));
+  };
+}
+
+export const listPrivatePassTemplateActions = {
+  isLoading: createAction('PRIVATE_PASS_TEMPLATE/LIST/IS_LOADING'),
+  error: createAction('PRIVATE_PASS_TEMPLATE/LIST/ERROR'),
+  success: createAction('PRIVATE_PASS_TEMPLATE/LIST/SUCCESS'),
+};
+
+export function fetchPrivatePassTemplateList(
+  params: any = {},
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listPrivatePassTemplateActions.error(null));
+    dispatch(listPrivatePassTemplateActions.isLoading(true));
+    try {
+      const response = await fetchPrivatePassTemplateListAPI(params);
+      dispatch(
+        listPrivatePassTemplateActions.success(
+          response.data.results || response.data,
+        ),
+      );
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results || response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(listPrivatePassTemplateActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(listPrivatePassTemplateActions.isLoading(false));
+  };
+}
+
+export const createOrUpdatePrivatePassTemplateActions = {
+  isLoading: createAction('PRIVATE_PASS_TEMPLATE/CREATE_OR_UPDATE/IS_LOADING'),
+  error: createAction('PRIVATE_PASS_TEMPLATE/CREATE_OR_UPDATE/ERROR'),
+  success: createAction('PRIVATE_PASS_TEMPLATE/CREATE_OR_UPDATE/SUCCESS'),
+};
+
+export function createOrUpdatePrivatePassTemplate(
+  data: any = {},
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(createOrUpdatePrivatePassTemplateActions.error(null));
+    dispatch(createOrUpdatePrivatePassTemplateActions.isLoading(true));
+    try {
+      const response = await createOrUpdatePrivatePassTemplateAPI(data);
+      dispatch(createOrUpdatePrivatePassTemplateActions.success(response.data));
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(createOrUpdatePrivatePassTemplateActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(createOrUpdatePrivatePassTemplateActions.isLoading(false));
+  };
+}
+
+export const retrievePrivatePassTemplateActions = {
+  isLoading: createAction('PRIVATE_PASS_TEMPLATE/RETRIEVE/IS_LOADING'),
+  error: createAction('PRIVATE_PASS_TEMPLATE/RETRIEVE/ERROR'),
+  success: createAction('PRIVATE_PASS_TEMPLATE/RETRIEVE/SUCCESS'),
+};
+
+export function retrievePrivatePassTemplate(
+  id: number,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrievePrivatePassTemplateActions.error(null));
+    dispatch(retrievePrivatePassTemplateActions.isLoading(true));
+    try {
+      const response = await retrievePrivatePassTemplateAPI(id);
+      dispatch(retrievePrivatePassTemplateActions.success(response.data));
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(retrievePrivatePassTemplateActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(retrievePrivatePassTemplateActions.isLoading(false));
+  };
+}
+
+export const deletePrivatePassTemplateActions = {
+  isLoading: createAction('PRIVATE_PASS_TEMPLATE/DELETE/IS_LOADING'),
+  error: createAction('PRIVATE_PASS_TEMPLATE/DELETE/ERROR'),
+  success: createAction('PRIVATE_PASS_TEMPLATE/DELETE/SUCCESS'),
+};
+
+export function deletePrivatePassTemplate(
+  id: number,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(deletePrivatePassTemplateActions.error(null));
+    dispatch(deletePrivatePassTemplateActions.isLoading(true));
+    try {
+      const response = await deletePrivatePassTemplateAPI(id);
+      dispatch(deletePrivatePassTemplateActions.success(id));
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(deletePrivatePassTemplateActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(deletePrivatePassTemplateActions.isLoading(false));
+  };
+}
+
+export const createPrivatePassTemplateInstanceActions = {
+  isLoading: createAction('PRIVATE_PASS_TEMPLATE_INSTANCE/CREATE/IS_LOADING'),
+  error: createAction('PRIVATE_PASS_TEMPLATE_INSTANCE/CREATE/ERROR'),
+  success: createAction('PRIVATE_PASS_TEMPLATE_INSTANCE/CREATE/SUCCESS'),
+};
+
+export function createPrivatePassTemplateInstance(
+  data: any,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(createPrivatePassTemplateInstanceActions.error(null));
+    dispatch(createPrivatePassTemplateInstanceActions.isLoading(true));
+    try {
+      const response = await createPrivatePassTemplateInstanceAPI(data);
+      dispatch(createPrivatePassTemplateInstanceActions.success(response.data));
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(createPrivatePassTemplateInstanceActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(createPrivatePassTemplateInstanceActions.isLoading(false));
+  };
+}
+
+export const deletePrivatePassTemplateInstanceActions = {
+  isLoading: createAction('PRIVATE_PASS_TEMPLATE_INSTANCE/DELETE/IS_LOADING'),
+  error: createAction('PRIVATE_PASS_TEMPLATE_INSTANCE/DELETE/ERROR'),
+  success: createAction('PRIVATE_PASS_TEMPLATE_INSTANCE/DELETE/SUCCESS'),
+};
+
+export function deletePrivatePassTemplateInstance(
+  id: number,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(deletePrivatePassTemplateInstanceActions.error(null));
+    dispatch(deletePrivatePassTemplateInstanceActions.isLoading(true));
+    try {
+      const response = await deletePrivatePassTemplateInstanceAPI(id);
+      dispatch(deletePrivatePassTemplateInstanceActions.success(response.data));
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(deletePrivatePassTemplateInstanceActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(deletePrivatePassTemplateInstanceActions.isLoading(false));
   };
 }

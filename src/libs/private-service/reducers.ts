@@ -56,6 +56,10 @@ import {
   upsertPrivatePassCategoryActions,
   listAllPrivatePassCategoryActions,
   updatePrivatePassCategoryOrderActions,
+  listPrivatePassTemplateActions,
+  createOrUpdatePrivatePassTemplateActions,
+  deletePrivatePassTemplateActions,
+  retrievePrivatePassTemplateActions,
 } from './actions';
 
 import { getResourceSlotsExistState } from './selectors/availability-slot';
@@ -232,6 +236,16 @@ const initialState: Seamless.Immutable<PrivateServiceState> =
       allIds: [],
     },
     privatePassCategory: {
+      byId: {},
+      allIds: [],
+      loading: false,
+      error: null,
+      upsert: {
+        loading: false,
+        error: null,
+      },
+    },
+    privatePassTemplate: {
       byId: {},
       allIds: [],
       loading: false,
@@ -1557,6 +1571,100 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
       { payload },
     ) => {
       return state.setIn(['privatePassCategory', 'upsert', 'error'], payload);
+    },
+    [listPrivatePassTemplateActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['privatePassTemplate', 'loading'], payload);
+    },
+    [listPrivatePassTemplateActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['privatePassTemplate', 'error'], payload);
+    },
+    [listPrivatePassTemplateActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state
+        .setIn(
+          ['privatePassTemplate', 'allIds'],
+          payload.map((pp) => pp.id),
+        )
+        .merge(
+          {
+            privatePassTemplate: {
+              byId: payload.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [deletePrivatePassTemplateActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['privatePassTemplate', 'upsert', 'loading'], payload);
+    },
+    [deletePrivatePassTemplateActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['privatePassTemplate', 'upsert', 'error'], payload);
+    },
+    [deletePrivatePassTemplateActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['privatePassTemplate', 'byId', payload, 'disabled'],
+        true,
+      );
+    },
+    [retrievePrivatePassTemplateActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['privatePassTemplate', 'loading'], payload);
+    },
+    [retrievePrivatePassTemplateActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['privatePassTemplate', 'error'], payload);
+    },
+    [retrievePrivatePassTemplateActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['privatePassTemplate', 'byId', payload.id], payload);
+    },
+    [createOrUpdatePrivatePassTemplateActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['privatePassTemplate', 'upsert', 'loading'], payload);
+    },
+    [createOrUpdatePrivatePassTemplateActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['privatePassTemplate', 'upsert', 'error'], payload);
+    },
+    [createOrUpdatePrivatePassTemplateActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state
+        .setIn(
+          ['privatePassTemplate', 'allIds'],
+          [
+            payload.id,
+            ...state.privatePassTemplate.allIds.filter(
+              (id) => id !== payload.id,
+            ),
+          ],
+        )
+        .setIn(['privatePassTemplate', 'byId', payload.id], payload);
     },
   },
   initialState,

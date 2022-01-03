@@ -634,3 +634,47 @@ export async function editCategoryOrder(data: any) {
     data,
   );
 }
+
+export async function fetchPrivatePassTemplateList(params: any = {}) {
+  return getAuth(
+    `${API_V1_URI}/private_service/private-pass-template/${buildUrlParams(
+      params,
+    )}`,
+  );
+}
+
+export async function retrievePrivatePassTemplate(id: number) {
+  return getAuth(`${API_V1_URI}/private_service/private-pass-template/${id}/`);
+}
+
+export async function createOrUpdatePrivatePassTemplate(data: any) {
+  if (!data.id) {
+    return postAuth(
+      `${API_V1_URI}/private_service/private-pass-template/`,
+      data,
+    );
+  }
+  return putAuth(
+    `${API_V1_URI}/private_service/private-pass-template/${data.id}/`,
+    data,
+  );
+}
+
+export async function createPrivatePassTemplateInstance(data: any) {
+  return postAuth(
+    `${API_V1_URI}/private_service/private-pass-template-instance/multi_create/`,
+    data,
+  );
+}
+
+export async function deletePrivatePassTemplateInstance(id: number) {
+  return deleteAuth(
+    `${API_V1_URI}/private_service/private-pass-template-instance/${id}/`,
+  );
+}
+
+export async function deletePrivatePassTemplate(id: number) {
+  return deleteAuth(
+    `${API_V1_URI}/private_service/private-pass-template/${id}/`,
+  );
+}

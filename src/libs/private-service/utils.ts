@@ -11,6 +11,7 @@ import {
   PrivateSlot,
   PrivateServiceWithSlots,
   CompatiblePrivateService,
+  PrivatePassTemplate,
 } from './types';
 import { formatAsDate } from '../../utils/datetime';
 
@@ -107,7 +108,7 @@ export const groupSessionsByDayMoment = (
 };
 
 export const getValidityInfo = (
-  pass: PrivatePass,
+  pass: PrivatePass | PrivatePassTemplate,
   t: TFunction,
   start_method: boolean = false,
   fullText: boolean = false,

@@ -58,6 +58,7 @@ import PaginatedConsumerPrivatePass from '#libs/private-service/components/pass/
 import PrivatePassForm from '#libs/private-service/components/pass/PrivatePassForm.component';
 import PrivateConsumerPassFilters from '#libs/private-service/components/pass/PrivateConsumerPassFilters.component';
 import PrivatePassMassExtensionList from '#libs/private-service/components/consumer-pass/PrivatePassMassExtensionList.component';
+import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import BottomActionsButton from '#components/button/BottomActionsButton.component';
 import { RootState } from '../../reducers';
 import { OptionCallback } from '../../state/types';
@@ -215,6 +216,7 @@ export class PrivatePassDetails extends Component<Props> {
           (ppc: PrivatePassCategory) => ppc.id === privatePass.category,
         )
       : null;
+    if (!this.props.privatePass) return <BackofficeLinearProgress />;
     return (
       <Grid container spacing={3} alignItems="stretch">
         <Grid item xs={12} md={6} className={classes.privatePassDetail}>
@@ -225,8 +227,9 @@ export class PrivatePassDetails extends Component<Props> {
                 privatePassCategory={privatePassCategory}
                 snackbarSuccess={this.props.snackbarSuccess}
                 onEditButtonClick={() => this.props.setOpenEditForm(true)}
-                onDeleteButtonClick={() =>
-                  this.props.setOpenDeletePassDialog(privatePass.id)
+                onDeleteButtonClick={
+                  !this.props.privatePass?.template_instance &&
+                  (() => this.props.setOpenDeletePassDialog(privatePass.id))
                 }
                 isManager
               />
@@ -271,7 +274,10 @@ export class PrivatePassDetails extends Component<Props> {
         </Grid>
         <BottomActionsButton
           onEdit={() => this.props.setOpenEditForm(true)}
-          onDelete={() => this.props.setOpenDeletePassDialog(this.props.id)}
+          onDelete={
+            !this.props.privatePass?.template_instance &&
+            (() => this.props.setOpenDeletePassDialog(this.props.id))
+          }
         />
 
         <Grid item xs={12} md={6}>
@@ -285,8 +291,14 @@ export class PrivatePassDetails extends Component<Props> {
             <Divider />
             <PaginatedConsumerPrivatePass
               privatePass={this.props.privatePass}
-              incrementCredit={this.props.incrementCredit}
-              decrementCredit={this.props.decrementCredit}
+              incrementCredit={
+                this.props.privatePass?.template_instance &&
+                this.props.incrementCredit
+              }
+              decrementCredit={
+                this.props.privatePass?.template_instance &&
+                this.props.decrementCredit
+              }
               items={this.props.consumerPass.items}
               updatePrivateConsumerPassCredits={
                 this.props.updatePrivateConsumerPassCredits
@@ -333,19 +345,21 @@ export class PrivatePassDetails extends Component<Props> {
                 />
               </React.Fragment>
             )}
-            <div className={classes.buttonContainerCenter}>
-              {this.props.loadingMassExtension ? (
-                <CircularProgress />
-              ) : (
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  onClick={() => this.props.setOpenMassExtensionDialog(true)}
-                >
-                  {this.props.t('paymentPack:massExtension.title')}
-                </Button>
-              )}
-            </div>
+            {!this.props.privatePass?.template_instance && (
+              <div className={classes.buttonContainerCenter}>
+                {this.props.loadingMassExtension ? (
+                  <CircularProgress />
+                ) : (
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    onClick={() => this.props.setOpenMassExtensionDialog(true)}
+                  >
+                    {this.props.t('paymentPack:massExtension.title')}
+                  </Button>
+                )}
+              </div>
+            )}
           </div>
         </Grid>
 
@@ -383,11 +397,13 @@ export class PrivatePassDetails extends Component<Props> {
           </DialogActions>
         </Dialog>
 
-        <PaymentPackMassExtensionDialog
-          open={this.props.openMassExtensionDialog}
-          onClose={() => this.props.setOpenMassExtensionDialog(false)}
-          onSubmit={this.createMassExtension}
-        />
+        {!this.props.privatePass?.template_instance && (
+          <PaymentPackMassExtensionDialog
+            open={this.props.openMassExtensionDialog}
+            onClose={() => this.props.setOpenMassExtensionDialog(false)}
+            onSubmit={this.createMassExtension}
+          />
+        )}
       </Grid>
     );
   }

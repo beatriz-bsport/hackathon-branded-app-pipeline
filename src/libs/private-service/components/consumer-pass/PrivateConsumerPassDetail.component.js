@@ -95,17 +95,19 @@ export const PrivateConsumerPassDetail = (props: Props) => {
           </Paper>
         </div>
       ) : null}
-      {props.onCreateExtension && !!props.private_consumer_pass && (
-        <div className={props.classes.addButtonContainer}>
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={props.onCreateExtension}
-          >
-            {props.t('consumerPass.actions.addExtension')}
-          </Button>
-        </div>
-      )}
+      {props.onCreateExtension &&
+        !!props.private_consumer_pass &&
+        !props.private_consumer_pass?.private_pass?.template_instance && (
+          <div className={props.classes.addButtonContainer}>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={props.onCreateExtension}
+            >
+              {props.t('consumerPass.actions.addExtension')}
+            </Button>
+          </div>
+        )}
       <div className={props.classes.section}>
         <Typography
           variant="h5"
@@ -184,6 +186,7 @@ const styles = (theme) => ({
   addButtonContainer: {
     width: '100%',
     paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
     flexDirection: 'row',
     display: 'flex',
     alignItems: 'center',

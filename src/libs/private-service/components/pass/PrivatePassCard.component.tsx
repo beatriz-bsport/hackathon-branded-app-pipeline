@@ -150,13 +150,15 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
                     >
                       <Hidden xsDown>{t('privatePass.edit')}</Hidden>
                     </Button>
-                    <RedButton
-                      id="button_pass_delete"
-                      onClick={props.onDeleteButtonClick}
-                      className={`${classes.buttonWidth} ${classes.buttonAlign}`}
-                    >
-                      <Hidden xsDown>{t('privatePass.delete.delete')}</Hidden>
-                    </RedButton>
+                    {!!props.onDeleteButtonClick && (
+                      <RedButton
+                        id="button_pass_delete"
+                        onClick={props.onDeleteButtonClick}
+                        className={`${classes.buttonWidth} ${classes.buttonAlign}`}
+                      >
+                        <Hidden xsDown>{t('privatePass.delete.delete')}</Hidden>
+                      </RedButton>
+                    )}
                   </div>
                 </div>
               )}

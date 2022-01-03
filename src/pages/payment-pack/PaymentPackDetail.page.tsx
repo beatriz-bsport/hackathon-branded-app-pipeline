@@ -29,7 +29,7 @@ import PaymentPackNotification from '#libs/payment-packs/components/PaymentPackN
 import PaymentPackCard from '#libs/payment-packs/components/PaymentPackCard.component';
 import PaginatedConsumerPackList from '#libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
 import PaymentPackDeleteDialog from '#libs/payment-packs/components/PaymentPackDeleteDialog.component';
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import ConsumerPaymentPackFilters from '#libs/payment-packs/components/ConsumerPaymentPackFilters.component';
 import PaymentPackMassExtensionDialog from '#libs/payment-packs/components/PaymentPackMassExtensionDialog.component';
 
@@ -80,8 +80,8 @@ import {
   getPaymentPackCategoryById,
   getAllPaymentPackCategory,
 } from '#libs/payment-packs/selectors';
-import withTitle from '../../hocs/with-title.hoc';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import withTitle from '#hocs/with-title.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
 import { PaymentPack, PaymentPackFormValues } from '#libs/payment-packs/types';
 import { fetchFilteredMembers as fetchFilteredMembersAction } from '#libs/member/actions';
@@ -109,6 +109,8 @@ import {
 } from '#libs/meta-activity/selectors';
 import { getTagCategories } from '#libs/notification-rule/selectors';
 import { fetchTagList } from '#libs/notification-rule/actions';
+import { fetchVideoFilterableParams } from '#libs/video/actions';
+import { VideoStatusEnum } from '#libs/video/types';
 
 type OwnProps = {
   id: number;
@@ -183,6 +185,10 @@ export class PaymentPackDetail extends Component<Props, State> {
 
     this.props.fetchAllPaymentPackCategory();
     this.props.fetchTagList();
+    this.props.fetchVideoFilterableParams({
+      company: this.props.companyId,
+      status: VideoStatusEnum.processed,
+    });
   }
 
   requestEdit = (pp: PaymentPack) => {
@@ -431,10 +437,16 @@ export class PaymentPackDetail extends Component<Props, State> {
         {this.state.openPaymentPackFormDialog && (
           <PaymentPackFormDialog
             open={this.state.openPaymentPackFormDialog}
-            categoryList={[...categoryList].filter(
-              (category) =>
-                metaActivities.map((a) => a.SCT).indexOf(category.id) !== -1,
-            )}
+            categoryList={[...categoryList]
+              .filter(
+                (category) =>
+                  metaActivities.map((a) => a.SCT).indexOf(category.id) !== -1,
+              )
+              .concat(this.props.videoCategories)
+              .filter(
+                (value, index, arr) =>
+                  arr.findIndex((sct) => sct.id === value.id) === index,
+              )}
             establishmentList={[...establishmentList]}
             metaActivityList={[...metaActivities]}
             tagList={allTagsWithTagGroup ? [...allTagsWithTagGroup] : []}
@@ -539,6 +551,8 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     ),
     categoryList: state.category.SCTs,
     tagCategories: getTagCategories(state),
+    videoCategories: state.video.filterableParams.items.SCTs,
+    companyId: state.theme.theme.company,
   };
 };
 
@@ -586,6 +600,7 @@ const mapDispatchToProps = {
   fetchWorkshops,
   createOrUpdatePaymentPackAction,
   fetchTagList,
+  fetchVideoFilterableParams,
 };
 
 const mapWithHandlers = {

@@ -33,7 +33,9 @@ import {
 
 const styles = (theme: Theme) =>
   createStyles({
-    container: {},
+    container: {
+      paddingBottom: '20vh',
+    },
     divider: {
       marginBottom: theme.spacing(2),
       marginTop: theme.spacing(1),
@@ -54,7 +56,7 @@ type Props = OwnProps &
   WithStyles &
   WithTranslation;
 
-export class FranchisePaymentPackTemplatePage extends Component<Props> {
+export class FranchisePaymentPackTemplateListPage extends Component<Props> {
   componentDidMount() {
     this.props.fetchPaymentPackTemplateList();
   }
@@ -75,46 +77,48 @@ export class FranchisePaymentPackTemplatePage extends Component<Props> {
             !!this.props.paymentPackTemplateListManagerOnly.length
           }
         />
-        {!!this.props.paymentPackTemplateListAvailable.length && (
-          <>
-            <Typography variant="h4">
-              {t('paymentPackTemplate.section.titleAvailable')}
-            </Typography>
-            <Divider className={classes.divider} />
-            <Paper>
-              {this.props.paymentPackTemplateListAvailable.map((ppt) => (
-                <PaymentPackTemplateListItem
-                  paymentPackTemplate={ppt}
-                  divider
-                  key={ppt.id}
-                  onClick={this.props.goToTemplateDetail}
-                  onEdit={this.props.openEditDialog}
-                  onDelete={this.props.openDeleteDialog}
-                />
-              ))}
-            </Paper>
-          </>
-        )}
-        {!!this.props.paymentPackTemplateListManagerOnly.length && (
-          <>
-            <Typography className={classes.title} variant="h4">
-              {t('paymentPackTemplate.section.titleManagerOnly')}
-            </Typography>
-            <Divider className={classes.divider} />
-            <Paper>
-              {this.props.paymentPackTemplateListManagerOnly.map((ppt) => (
-                <PaymentPackTemplateListItem
-                  paymentPackTemplate={ppt}
-                  diviver
-                  key={ppt.id}
-                  onEdit={this.props.openEditDialog}
-                  onClick={this.props.goToTemplateDetail}
-                  onDelete={this.props.openDeleteDialog}
-                />
-              ))}
-            </Paper>
-          </>
-        )}
+        <div className={classes.container}>
+          {!!this.props.paymentPackTemplateListAvailable.length && (
+            <>
+              <Typography variant="h4">
+                {t('paymentPackTemplate.section.titleAvailable')}
+              </Typography>
+              <Divider className={classes.divider} />
+              <Paper>
+                {this.props.paymentPackTemplateListAvailable.map((ppt) => (
+                  <PaymentPackTemplateListItem
+                    paymentPackTemplate={ppt}
+                    divider
+                    key={ppt.id}
+                    onClick={this.props.goToTemplateDetail}
+                    onEdit={this.props.openEditDialog}
+                    onDelete={this.props.openDeleteDialog}
+                  />
+                ))}
+              </Paper>
+            </>
+          )}
+          {!!this.props.paymentPackTemplateListManagerOnly.length && (
+            <>
+              <Typography className={classes.title} variant="h4">
+                {t('paymentPackTemplate.section.titleManagerOnly')}
+              </Typography>
+              <Divider className={classes.divider} />
+              <Paper>
+                {this.props.paymentPackTemplateListManagerOnly.map((ppt) => (
+                  <PaymentPackTemplateListItem
+                    paymentPackTemplate={ppt}
+                    diviver
+                    key={ppt.id}
+                    onEdit={this.props.openEditDialog}
+                    onClick={this.props.goToTemplateDetail}
+                    onDelete={this.props.openDeleteDialog}
+                  />
+                ))}
+              </Paper>
+            </>
+          )}
+        </div>
         {!!this.props.createModalOpen && (
           <PaymentPackTemplateFormDialog
             onSubmit={this.props.createOrUpdatePaymentPackTemplate}
@@ -219,4 +223,4 @@ export default compose(
           },
         }),
   }),
-)(FranchisePaymentPackTemplatePage);
+)(FranchisePaymentPackTemplateListPage);

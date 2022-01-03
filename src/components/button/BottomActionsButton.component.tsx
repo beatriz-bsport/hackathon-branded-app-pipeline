@@ -95,6 +95,7 @@ const styles = (theme: Theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'flex-end',
+    zIndex: 1000,
   },
   actionButton: {
     marginLeft: theme.spacing(1),

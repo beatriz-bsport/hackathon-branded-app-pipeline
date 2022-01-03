@@ -95,15 +95,19 @@ const PaymentPackTemplateCard = (props: Props) => {
               </Typography>
             </div>
           )}
-          {template.companies.map((c) => (
-            <CompanyChip
-              company={c}
-              key={c.id}
-              onDelete={
-                props.onDeleteCompany && (() => props.onDeleteCompany(c.id))
-              }
-            />
-          ))}
+          <div className={classes.chipListContainer}>
+            {template.companies.map((c) => (
+              <div className={classes.chipContainer}>
+                <CompanyChip
+                  company={c}
+                  key={c.id}
+                  onDelete={
+                    props.onDeleteCompany && (() => props.onDeleteCompany(c.id))
+                  }
+                />
+              </div>
+            ))}
+          </div>
         </div>
         <Button
           onClick={props.onCreatePaymentPackTemplateInstance}
@@ -172,6 +176,15 @@ const useStyles = makeStyles((theme: Theme) => ({
       marginRight: theme.spacing(1),
       marginBottom: theme.spacing(1),
     },
+  },
+  chipListContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  chipContainer: {
+    paddingBottom: theme.spacing(1),
+    paddingRight: theme.spacing(1),
   },
 }));
 

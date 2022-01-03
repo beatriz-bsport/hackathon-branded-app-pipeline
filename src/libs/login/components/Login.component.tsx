@@ -11,6 +11,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import Hidden from '@material-ui/core/Hidden';
 import './LoginBackground.css';
+import './Login.css';
 import HelpIcon from '@material-ui/icons/Help';
 import { withTranslation, TFunction } from 'react-i18next';
 

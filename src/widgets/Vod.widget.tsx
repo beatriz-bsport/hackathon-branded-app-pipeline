@@ -93,6 +93,10 @@ class VODWidget extends React.PureComponent<Props, State> {
     };
   }
 
+  componentDidMount() {
+    this.props.requestAuthenticationStatus();
+  }
+
   openVideo = (videoId: number) => {
     this.setState({ videoId });
   };

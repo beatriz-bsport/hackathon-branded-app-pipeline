@@ -2,21 +2,22 @@ import React, { Component } from 'react';
 
 import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
-import {
-  WithStyles,
-  createStyles,
-  withStyles,
-  Theme,
-} from '@material-ui/core/styles';
+import { WithStyles, createStyles, withStyles } from '@material-ui/core/styles';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
-import { PaymentPackTemplateList } from 'bsport-saas/src/pages/marketplace/PaymentPackTemplateList.page';
+import WidgetPaymentPackTemplateListPage from 'bsport-saas/src/pages/franchise/payment-pack-template/WidgetPaymentPackTemplateList.page';
+import { Theme } from 'bsport-saas/src/libs/theme/types';
 import { RootState } from '../reducers';
 
-const PaymentPackTemplateList = themify(PaymentPackTemplateList);
+const WidgetPaymentPackTemplateListPageStyled = themify(
+  WidgetPaymentPackTemplateListPage,
+);
 
 type OwnProps = {
   title: string,
+  store: any,
+  theme: Theme,
+  franchiseId: number,
 };
 type State = {};
 
@@ -25,17 +26,17 @@ type Props = OwnProps &
   WithStyles<typeof styles> &
   WithTranslation;
 
-export class SharedPass extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-  }
-
+export class PaymentPackTemplate extends Component<Props, State> {
   render() {
-    const { classes, t } = this.props;
-    console.log(this.props);
+    const { classes, store, theme, franchiseId } = this.props;
+
     return (
       <div className={classes.container}>
-        <PaymentPackTemplateList />
+        <WidgetPaymentPackTemplateListPageStyled
+          theme={theme}
+          store={store}
+          franchiseId={franchiseId}
+        />
       </div>
     );
   }
@@ -51,4 +52,4 @@ export default compose(
   withStyles(styles),
   withTranslation('foo'),
   connector,
-)(SharedPass);
+)(PaymentPackTemplate);

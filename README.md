@@ -122,6 +122,10 @@ In `libs/bridge/BackofficeDataBridge`
 * iframe and content resizing is impossible or very clumsy / hard
 * iframe sandboxing can result in missing functionalities, also no responsiveness (the iframe only know its size, not the webpage one)
 
+## My selector doesn't work ?
+
+If your selector doesn't work, it can be because the widget has his own reducer. Add the field you want in `src/reducers/index.ts`
+
 ### Read more
 
 Based on - https://seriousben.github.io/embeddable-react-widget

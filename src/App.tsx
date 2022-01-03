@@ -17,7 +17,7 @@ import {
   EXPORTABLE_COMPONENT_TYPE_SUBSCRIPTION,
   EXPORTABLE_COMPONENT_TYPE_GIFTCARD,
   EXPORTABLE_COMPONENT_TYPE_NEWSLETTER,
-  EXPORTABLE_COMPONENT_TYPE_SHARED_PASS,
+  EXPORTABLE_COMPONENT_TYPE_PAYMENT_PACK_TEMPLATE,
 } from 'bsport-saas/src/libs/exportable-components/constants';
 
 // eslint-disable-next-line
@@ -77,7 +77,9 @@ const UserInteractionPortal = asyncComponent(
 const LoginButtonWidget = asyncComponent(
   () => import('./widgets/LoginButton.widget'),
 );
-const SharedPass = asyncComponent(() => import('./widgets/SharedPass.widget'));
+const PaymentPackTemplate = asyncComponent(
+  () => import('./widgets/PaymentPackTemplate.widget'),
+);
 
 const Snackbar = themify(connect(...SnackbarDataProvider)(SnackbarPile));
 
@@ -93,7 +95,7 @@ const WidgetByType = {
   [EXPORTABLE_COMPONENT_TYPE_NEWSLETTER]: NewsletterWidget,
   [EXPORTABLE_COMPONENT_TYPE_GIFTCARD]: GiftcardWidget,
   [EXPORTABLE_COMPONENT_TYPE_CALENDAR]: CalendarWidget,
-  [EXPORTABLE_COMPONENT_TYPE_SHARED_PASS]: SharedPass,
+  [EXPORTABLE_COMPONENT_TYPE_PAYMENT_PACK_TEMPLATE]: PaymentPackTemplate,
 };
 
 type OwnProps = WidgetConfig & {
@@ -140,6 +142,7 @@ class BsportWidget extends Component<Props> {
       widgetType,
       theme,
       dialogMode,
+      franchiseId,
     } = this.props;
     if (!this.props.theme || !!this.props.themeLoading) {
       return (
@@ -156,6 +159,7 @@ class BsportWidget extends Component<Props> {
           <MuiThemeProvider theme={getTheme(this.props.theme)}>
             <Widget
               companyId={companyId}
+              franchiseId={franchiseId}
               config={config[widgetType]}
               store={store}
               theme={theme}

@@ -24,6 +24,7 @@ import category from 'bsport-saas/src/libs/category/reducers';
 import subscription from 'bsport-saas/src/libs/subscription/reducers';
 import tag from 'bsport-saas/src/libs/tag/reducers';
 import giftcard from 'bsport-saas/src/libs/giftcard/reducers';
+import franchise from 'bsport-saas/src/libs/franchise/reducers';
 
 import { PrivateServiceState } from 'bsport-saas/src/libs/private-service/types';
 import { CoachState } from 'bsport-saas/src/libs/associated-coach/types';
@@ -37,6 +38,7 @@ import { TagState } from 'bsport-saas/src/libs/tag/types';
 //  -----------------------------------------
 import modal, { ModalState } from '../libs/modal/reducers';
 import bridge, { BridgeState } from '../libs/bridge/reducers';
+import { FranchiseState } from '../../../bsport-saas/src/libs/franchise/types';
 //  -----------------------------------------
 
 const reducer = (history: ReturnType<typeof createBrowserHistory>) =>
@@ -64,6 +66,7 @@ const reducer = (history: ReturnType<typeof createBrowserHistory>) =>
     bridge,
     tag,
     giftcard,
+    franchise,
   });
 
 export interface RootState {
@@ -89,6 +92,7 @@ export interface RootState {
   bridge: BridgeState;
   tag: TagState;
   giftcard: GiftcardState;
+  franchise: FranchiseState;
 }
 
 export default (history: ReturnType<typeof createBrowserHistory>) => (

@@ -89,7 +89,7 @@ const ConsumerGiftcardInvitationModal = (props: Props) => {
           {t('consumerGiftcard.invitationForm.actions.close')}
         </Button>
         <Button
-          disabled={!!(processing || hasBeenSent || recipient?.length)}
+          disabled={!!(processing || hasBeenSent || !recipient?.length)}
           color="primary"
           onClick={() => {
             setProcessing(true);

@@ -119,7 +119,7 @@ const MemberExistsBanner = (props: {
     return null;
   }
   const { email, phonenumber, exists } = emailExists;
-  if (!exists || !exists.member_pk) {
+  if (!exists || !exists.member_pk || exists.member_pk === memberId) {
     return null;
   }
 
@@ -563,7 +563,15 @@ export function MemberForm(props: Props) {
                       {t('translation:common.cancel')}
                     </Button>
                   ) : null}
-                  <Submit disabled={isSubmitting}>
+                  <Submit
+                    disabled={
+                      isSubmitting ||
+                      (props.emailExists &&
+                        props.emailExists?.exists?.member_pk &&
+                        !props.emailExistsError &&
+                        !props.memberId)
+                    }
+                  >
                     {t('translation:form.send')}
                   </Submit>
                 </Actions>
@@ -609,7 +617,6 @@ export default compose(
                 if (status !== 404) {
                   setEmailExists({ email, phonenumber, exists: data || {} });
                   setemailExistsError(false);
-
                   window.scrollTo(0, 0);
                 }
                 if (status === 404) {

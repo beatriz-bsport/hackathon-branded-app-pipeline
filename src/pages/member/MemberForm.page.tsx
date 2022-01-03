@@ -182,7 +182,6 @@ export class MemberFormPage extends Component<Props> {
             generalTermsAndConditions={
               this.props.theme.general_terms_and_conditions
             }
-            ignoreMail
           />
         </Paper>
         <MemberChangeEmailDialog

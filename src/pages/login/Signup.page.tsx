@@ -87,7 +87,9 @@ export class SignupPage extends Component<Props> {
           this.props.doEmailLogin(this.props.loginInformations);
           if (options && options.onSuccess) options.onSuccess();
         },
-        onError: () => options?.onError,
+        onError: () => {
+          if (options?.onError) options.onError();
+        },
       },
     );
   };

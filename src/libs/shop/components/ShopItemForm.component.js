@@ -149,7 +149,8 @@ export class ShopItemForm extends Component<Props, State> {
     }
   };
 
-  onSubmit = () => {
+  onSubmit = (ev) => {
+    ev.preventDefault();
     const { initial } = this.props;
     const id = initial ? initial.id : null;
     const data = new FormData();

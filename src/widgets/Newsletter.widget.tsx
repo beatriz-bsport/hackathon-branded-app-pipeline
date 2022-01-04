@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { compose, withProps } from 'recompose';
+import { compose } from 'recompose';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import NewsletterFormComponent from 'bsport-saas/src/libs/marketing/components/NewsletterForm.component';

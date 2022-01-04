@@ -245,7 +245,7 @@ export class MemberDetail extends React.Component<Props> {
               } `}
               value="vod"
             />
-            {this.props.programList?.length !== 0 && (
+            {!!this.props.programList?.length && (
               <Tab label={t('menu.programs')} value="performance-tracking" />
             )}
             <Tab

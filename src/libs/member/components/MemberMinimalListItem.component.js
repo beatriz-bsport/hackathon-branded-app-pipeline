@@ -23,7 +23,7 @@ type Props = {
   firstBooking?: boolean,
   anonimize?: boolean,
   showVaccinationStatus: boolean,
-  createMemberProgram: (data: any, options?: any) => void,
+  createMemberProgram?: (data: any, options?: any) => void,
   programList: Array<PerformanceTrackingProgram>,
   updateMemberMetricValue: (data: any, options?: any) => void,
   showMemberProgram?: boolean,
@@ -88,7 +88,7 @@ export const MemberMinimalListItem = (props: Props) => {
           secondary={secondaryInfo}
         />
         <ListItemSecondaryAction>
-          {props.showMemberProgram && props.programList?.length !== 0 && (
+          {props.showMemberProgram && !!props.programList?.length && (
             <IconButton
               onClick={() => setIsMemberProgramDetailDialogOpen(true)}
             >

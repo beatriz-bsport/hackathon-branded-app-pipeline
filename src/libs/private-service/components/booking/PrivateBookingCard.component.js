@@ -214,6 +214,7 @@ export const PrivateBookingCard = (props: Props) => {
           member={private_booking.member}
           onClick={() => props.goToMember(private_booking.member.id)}
           showVaccinationStatus={props.showVaccinationStatus}
+          showMemberProgram
         />
         {private_booking.coach ? (
           <CoachListItem

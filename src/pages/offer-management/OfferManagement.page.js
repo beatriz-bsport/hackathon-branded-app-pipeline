@@ -311,10 +311,12 @@ export default compose(
                       .map((id) =>
                         programData.find((program) => program.id === id),
                       )
+                      .filter((program) => program)
                       .reduce(
-                        (acc, program) => acc.concat(program.metric_list),
+                        (acc, program) => acc.concat(program?.metric_list),
                         [],
                       );
+
                     if (metricToFetch?.length !== 0) {
                       fetchMetric({ id__in: metricToFetch });
                     }

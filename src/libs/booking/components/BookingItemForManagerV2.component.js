@@ -147,7 +147,7 @@ export class BookingItemForManager extends Component<Props, State> {
   state = {
     menuAnchor: null,
     isMemberProgramDetailDialogOpen: false,
-    indexMemberFocused: this.props.membersWithStatusOk.findIndex(
+    indexMemberFocused: this.props.membersWithStatusOk?.findIndex(
       (member) => member.id === this.props.member.id,
     ),
   };
@@ -278,7 +278,7 @@ export class BookingItemForManager extends Component<Props, State> {
               </Typography>
             </MenuItem>
           )}
-          {programList?.length !== 0 && (
+          {!!programList?.length && (
             <MenuItem
               onClick={closeAndAction(() => {
                 this.setState({ isMemberProgramDetailDialogOpen: true });
@@ -372,7 +372,7 @@ export class BookingItemForManager extends Component<Props, State> {
             {booking.booking_status_code === BOOKING_STATUS_OK.id &&
               ((this.props.spotSchedulingEnabled &&
                 this.props.onClickChangeSpot) ||
-                programList?.length !== 0) && (
+                !!programList?.length) && (
                 <>
                   <IconButton
                     onClick={(event) => {
@@ -404,7 +404,7 @@ export class BookingItemForManager extends Component<Props, State> {
                           </Typography>
                         </MenuItem>
                       )}
-                    {programList?.length !== 0 && (
+                    {!!programList?.length && (
                       <MenuItem
                         onClick={closeAndAction(() => {
                           this.setState({
@@ -579,7 +579,7 @@ export class BookingItemForManager extends Component<Props, State> {
     } = this.props;
 
     const { indexMemberFocused } = this.state;
-    const memberFocused = membersWithStatusOk[indexMemberFocused];
+    const memberFocused = membersWithStatusOk?.[indexMemberFocused];
     // <TableCell>{t(`booking.sources.${b.source}`)}</TableCell>
     const bookingStatus = this.getStatusText();
 
@@ -683,7 +683,7 @@ export class BookingItemForManager extends Component<Props, State> {
               )
             }
             memberName={`${memberFocused?.name} ${this.getIsFirstIndicator(
-              this.props.bookings.find((b) => b.member === memberFocused?.id),
+              this.props.bookings?.find((b) => b.member === memberFocused?.id),
             )}`}
             memberProgramList={memberFocused?.memberProgramList}
             changeMember={(i: number) =>

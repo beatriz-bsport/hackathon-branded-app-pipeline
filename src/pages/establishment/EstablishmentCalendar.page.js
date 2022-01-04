@@ -310,8 +310,10 @@ export default compose(
                                 (program) => program.id === metricId,
                               ),
                             )
+                            .filter((program) => program)
                             .reduce(
-                              (acc, program) => acc.concat(program.metric_list),
+                              (acc, program) =>
+                                acc.concat(program?.metric_list),
                               [],
                             );
                           if (metricToFetch?.length !== 0) {

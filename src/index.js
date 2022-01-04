@@ -6,20 +6,21 @@ import Root from './Root';
 import '../vendor/cleanslate.css';
 
 export default class BsportWidget {
-  static el;
+  static el_list_id = [];
 
   static mount({ parentElement, ...initialParams } = {}) {
     const component = <Root initialParams={initialParams} />;
 
     function doRender() {
-      if (BsportWidget.el) {
-        throw new Error('BsportWidget is already mounted, unmount first');
-      }
       const el = document.createElement('div');
+      const parentElementId = parentElement || 'bsport-widget';
       el.setAttribute('class', 'cleanslate');
-      document.getElementById(parentElement || 'bsport-widget').appendChild(el);
+      document.getElementById(parentElementId).appendChild(el);
+      if (BsportWidget.el_list_id.includes(parentElementId)) {
+        return;
+      }
       ReactDOM.render(component, el);
-      BsportWidget.el = el;
+      BsportWidget.el_list_id.push(parentElementId);
     }
     if (document.readyState === 'complete') {
       doRender();

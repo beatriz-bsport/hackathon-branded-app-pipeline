@@ -113,7 +113,8 @@
             "myVideos": "Video On Demand",
             "pick_a_language": "Selecteer een taal",
             "automaticLanguage": "Automatisch de taal detecteren",
-            "giftcard": "Cadeaubonnen"
+            "giftcard": "Cadeaubonnen",
+            "statistic": "Statistieken"
         },
         "unsubscriber": {
             "success": "Je bent uitgeschreven.",
@@ -3712,7 +3713,8 @@
             "contact": "Contact",
             "vod": "Video On Demand",
             "form": "Formulieren",
-            "giftcard": "Cadeaubonnen"
+            "giftcard": "Cadeaubonnen",
+            "programs": "Programma's"
         },
         "forms": {
             "merge": {
@@ -4302,7 +4304,10 @@
         "setSpot": "Een plaats toewijzen",
         "changeSpot": "Plaats wijzigen",
         "noSpotAttributed": "Geen plaats geselecteerd",
-        "placeNumber": "Plaats {{count}}"
+        "placeNumber": "Plaats {{count}}",
+        "performanceTracking": {
+            "stat": "Statistieken"
+        }
     },
     "marketplace": {
         "selector": {
@@ -6243,7 +6248,63 @@
                 "smartList": "Uitgesloten Smartlists:",
                 "smartListInclude": "Inbegrepen Smartlists:"
             }
-        }
+        },
+        "privatePassTemplate": {
+            "actions": {
+                "create": "Een gedeelde afspraakkaart toevoegen"
+            },
+            "deleteForm": {
+                "actions": {
+                    "submit": "Delen deactiveren",
+                    "close": "Sluiten"
+                },
+                "content": "Zodra een gedeelde afspraakkaart gedeactiveerd wordt, kunnen leden de kaart alleen nog bij de studio van aankoop gebruiken.",
+                "title": "Deactivering"
+            },
+            "form": {
+                "actions": {
+                    "submit": "Opslaan",
+                    "close": "Sluiten"
+                },
+                "submit": "Bevestigen",
+                "close": "Sluiten",
+                "title": "Gedeelde afspraakkaarten"
+            },
+            "section": {
+                "titleManagerOnly": "Maak dit product onbeschikbaar",
+                "titleAvailable": "Maak dit product beschikbaar"
+            },
+            "isEmptyExplain": "Leden kunnen deze kaarten bij iedere gekoppelde studio kopen en gebruiken.",
+            "specification": {
+                "companySharedWithTitle": "Beschikbaar bij de volgende studio's:"
+            }
+        },
+        "privatePassTemplateInstance": {
+            "actions": {
+                "addCompany": "Een studio toevoegen"
+            },
+            "companyEmpty": "Er zijn geen studio's aan deze kaart gekoppeld.",
+            "deleteForm": {
+                "actions": {
+                    "submit": "Delen deactiveren",
+                    "close": "Sluiten"
+                },
+                "content": "Leden die gedeelde kaarten bij deze studio hebben gekocht kunnen deze alsnog bij andere studio's gebruiken na het deactiveren van deze specifieke studio/kaart. Verder worden gedeelde kaarten van andere studio's niet meer bij de gedeactiveerde studio geaccepteerd.",
+                "title": "Deactivering"
+            },
+            "form": {
+                "actions": {
+                    "submit": "Opslaan",
+                    "close": "Sluiten"
+                },
+                "explain2": "Leden die deze kaarten kopen kunnen deze kaarten bij alle gekoppelde studio's gebruiken.",
+                "explain1": "Deze kaarten zijn bij de volgende studio's automatisch te koop. De prijzen en het aantal kredieten kunnen niet worden gewijzigd.",
+                "title": "Mijn studio's configureren"
+            },
+            "privateConsumerPassSharedFromOtherFranchisee": "Gedeeld met een franchisenemer",
+            "privatePassSharedFromFranchisor": "Franchisekaart"
+        },
+        "seeAll": "Toon alles"
     },
     "datetime": {
         "form": {
@@ -8026,7 +8087,8 @@
             "validate": "Confirm",
             "unselectAll": "Deselecteer alles",
             "selectAll": "Selecteer alles"
-        }
+        },
+        "cancel": "Annuleren"
     },
     "workshop": {
         "modal": {
@@ -9230,7 +9292,8 @@
             "redirecting": "Je wordt doorgestuurd naar je pagina",
             "backToFranchiseWorskpace": "Terug naar het Master-Account",
             "franchiseConnectedAs": "Je bent momenteel als \"{{name}}\" verbonden.",
-            "giftcard": "Cadeaubonnen"
+            "giftcard": "Cadeaubonnen",
+            "programs": "Programma's"
         },
         "deprecatedNavigator": {
             "close": "Sluiten",
@@ -9958,5 +10021,101 @@
         },
         "search": "Zoek een cadeaubon",
         "widget": "Kies een cadeaubon"
+    },
+    "performanceTracking": {
+        "memberProgram": {
+            "deleteContent": "Alle prestatiemetingen van deze leden gaan definitief verloren.",
+            "deleteHeader": "Weet je zeker dat je dit lid van dit programma wilt ontkoppelend?",
+            "infoNoConsumerProgram": "Gelieve de studio te contacteren om prestatiemetingen en programma's te activeren.",
+            "infoNoMemberProgram": "Er zijn geen gekoppelde leden van dit programma om weer te geven.",
+            "actions": {
+                "create": {
+                    "error": "Fout bij het linken van dit programma aan dit lid",
+                    "success": "Dit programma is succesvol aan dit lid gekoppeld"
+                },
+                "disable": {
+                    "error": "Fout bij het ontkoppelen van dit programma",
+                    "success": "Dit programma is succesvol van dit lid ontkoppeld"
+                }
+            }
+        },
+        "metric": {
+            "form": {
+                "color": "Kleur",
+                "maxValueHelperText": "Geef de maximale waarde van deze prestatiemeting aan.",
+                "maxValue": "Maximale waarde",
+                "minValueHelperText": "Geef de minimale waarde van deze prestatiemeting aan.",
+                "minValue": "Minimale waarde",
+                "default_valueHelperText": "Geef de standaardwaarde van deze prestatiemeting aan. De minimale waarde wordt gebruikt indien dit veld leeg is.",
+                "default_value": "Standaardwaarde",
+                "machine": "Machine ID",
+                "name": "Naam",
+                "general": "Algemeen",
+                "noMetric": "Er zijn geen prestatiemetingen om weer te geven.",
+                "addMetric": "Een prestatiemeting toevoegen",
+                "range": "De standaardwaarde ligt niet tussen de minimale noch de maximale waarde. ",
+                "minMax": "De minimale waarde kan niet groter zijn dan de maximale waarde."
+            },
+            "title": "Prestatiemetingen",
+            "statistic": "Statistieken",
+            "deleteContent": "Deze prestatiemeting wordt definitief verwijderd.",
+            "deleteHeader": "Weet je zeker dat je deze prestatiemeting wilt verwijderen?"
+        },
+        "program": {
+            "member": {
+                "name": "Naam",
+                "title": "Leden",
+                "addDate": "Inschrijfdatum"
+            },
+            "form": {
+                "default": "Stel een standaardprogramma in voor alle nieuwe leden.",
+                "color": "Kleur",
+                "description": "Beschrijving",
+                "name": "Naam van dit programma",
+                "generalInfo": "Algemene informatie",
+                "create": "Een programma toevoegen",
+                "modify": "Een programma wijzigen",
+                "delete": "Een programma verwijderen",
+                "addProgram": "Een programma toevoegen"
+            },
+            "title": "Programma's",
+            "archived": "Gearchiveerd",
+            "infoNoProgram": "Voeg een programma toe om prestatiemetingen van leden bij te houden.",
+            "deleteContent": "Dit programma zal niet langer zichtbaar zijn voor de leden die het voorheen hebben toegevoegd. Het programma kan onder \"Gearchiveerd\" worden hersteld.",
+            "deleteHeader": "Weet je zeker dat je dit programma wilt verwijderen?",
+            "infoSelectProgram": "Selecteer een programma voor een gedetailleerd overzicht.",
+            "detail": "Programma-details",
+            "selectProgram": "Selecteer een programma",
+            "default": "Standaardprogramma",
+            "titleForConsumer": "Mijn programma's",
+            "actions": {
+                "disable": {
+                    "error": "Fout bij het archiveren van dit programma",
+                    "success": "Programma gearchiveerd"
+                },
+                "enable": {
+                    "error": "Fout bij het herstellen van dit programma",
+                    "success": "Programma hersteld"
+                },
+                "create": {
+                    "error": "Fout bij het toevoegen van dit programma",
+                    "success": "Programma toegevoegd"
+                },
+                "update": {
+                    "error": "Fout bij het wijzigen van dit programma",
+                    "success": "Programma gewijzigd"
+                }
+            }
+        },
+        "form": {
+            "close": "Sluiten",
+            "add": "Toevoegen",
+            "delete": "Verwijderen",
+            "search": "Zoeken",
+            "validate": "Bevestigen",
+            "save": "Opslaan",
+            "cancel": "Annuleren"
+        },
+        "requiredField": "Dit veld is verplicht."
     }
 }

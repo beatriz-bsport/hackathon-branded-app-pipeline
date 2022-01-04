@@ -18,6 +18,9 @@ exports.default = {
     bill: 'Facturer',
     unregister: 'Désinscrire',
   },
+  performanceTracking: {
+    stat: 'Statistiques',
+  },
   recurrenceRule: {
     showMore: 'Afficher plus ({{count}})',
     showLess: 'Afficher moins',

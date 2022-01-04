@@ -1,5 +1,6 @@
 exports.default = {
   navigation: {
+    statistic: 'Statistiques',
     dashboard: 'Résumé',
     calendar: 'Historique',
     myVideos: 'Mes vidéos',

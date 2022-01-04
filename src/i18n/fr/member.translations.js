@@ -73,6 +73,7 @@ exports.default = {
       'Sélectionnez une relation pour voir les carte de cours partagées',
   },
   menu: {
+    programs: 'Programmes',
     info: 'Général',
     relation: 'Relations',
     bookings: 'Réservations',

@@ -758,13 +758,16 @@ exports.default = {
     },
     signupViaCustomForm: {
       success: 'Inscription validée',
-      error: "Erreur lors de l'inscription, vauillez réessayer",
+      error: "Erreur lors de l'inscription, veuillez réessayer",
       errors: {
         84101: "Des champs obligatoires n'ont pas été remplis",
         84102: 'Cet email est déjà utilisé',
         84103: "Le sexe spécifié n'est pas valide",
         84104: "Le numéro de téléphone n'est pas valide",
       },
+    },
+    customFormStepper: {
+      error: "Impossible d'enregistrer les réponses.",
     },
   },
   customFormDisplayRule: {

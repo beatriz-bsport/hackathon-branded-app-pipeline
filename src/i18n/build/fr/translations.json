@@ -50,6 +50,7 @@
   },
   "booking": {
     "actions": { "bill": "Facturer", "unregister": "Désinscrire" },
+    "performanceTracking": { "stat": "Statistiques" },
     "recurrenceRule": {
       "showMore": "Afficher plus ({{count}})",
       "showLess": "Afficher moins",
@@ -452,7 +453,8 @@
     "colorPicker": { "noColor": "Aucune couleur", "delete": "Effacer", "validate": "Enregistrer" },
     "text": { "showLessText": "Voir moins", "showMoreText": "Voir plus" },
     "selector": { "selectAll": "Tout sélectionner", "unselectAll": "Tout désélectionner", "validate": "Valider" },
-    "close": "Fermer"
+    "close": "Fermer",
+    "cancel": "Annuler"
   },
   "communication": {
     "table": { "columns": { "member": "Membre", "title": "Aperçu", "date_created": "Date", "status": "Status" } },
@@ -531,6 +533,7 @@
   },
   "consumerSpace": {
     "navigation": {
+      "statistic": "Statistiques",
       "dashboard": "Résumé",
       "calendar": "Historique",
       "myVideos": "Mes vidéos",
@@ -1981,6 +1984,7 @@
     "showSubscriptions": "Voir les souscriptions",
     "relation": { "pleaseSelectRelation": "Sélectionnez une relation pour voir les carte de cours partagées" },
     "menu": {
+      "programs": "Programmes",
       "info": "Général",
       "relation": "Relations",
       "bookings": "Réservations",
@@ -2287,6 +2291,7 @@
       "banner": "Vous n'avez pas terminé la configuration de votre facturation, les paiements en ligne peuvent être désactivés. Cliquez ici pour terminer votre configuration."
     },
     "backofficeMenu": {
+      "programs": "Programmes",
       "cashBookTooltip": "Livret de caisse",
       "addMemberTooltip": "Ajouter membre",
       "cashBook": {
@@ -3606,6 +3611,80 @@
       }
     }
   },
+  "performanceTracking": {
+    "requiredField": "ce champ est requis",
+    "form": {
+      "cancel": "Annuler",
+      "save": "Enregistrer",
+      "validate": "Valider",
+      "search": "Rechercher",
+      "delete": "Supprimer",
+      "add": "ajouter",
+      "close": "fermer"
+    },
+    "program": {
+      "actions": {
+        "update": { "success": "Programme modifié", "error": "Erreur lors de la modification du program" },
+        "create": { "success": "Programme créé", "error": "Erreur lors de la création du program" },
+        "enable": { "success": "Programme restauré", "error": "Erreur lors de la restauration du programme" },
+        "disable": { "success": "Programme archivé", "error": "Erreur lors de l'archivation du programme" }
+      },
+      "titleForConsumer": "Mes programmes",
+      "default": "Programme par défaut",
+      "selectProgram": "Sélectionner un programme",
+      "detail": "Détails du programme",
+      "infoSelectProgram": "Sélectionnez un programme pour voir ses détails",
+      "deleteHeader": "Voulez-vous vraiment supprimer ce programme ?",
+      "deleteContent": "Ce programme n'apparaitra plus sur les membres à qui il a été ajouté. Vous pourrez le récupérer dans la section 'Archivés'.",
+      "infoNoProgram": "Ajoutez un programme à vos membres pour suivre l’évolution de leurs métriques",
+      "archived": "Archivés",
+      "title": "Programmes",
+      "form": {
+        "addProgram": "ajouter  un programme",
+        "delete": "supprimer le programme",
+        "modify": "modifier le programme",
+        "create": "Créer un programme",
+        "generalInfo": "Informations générales",
+        "name": "Nom du programme",
+        "description": "Description",
+        "color": "Couleur",
+        "default": "Définir comme programme par défaut pour tous les nouveaux inscrits"
+      },
+      "member": { "addDate": "Date d’inscription", "title": "Membres", "name": "Nom" }
+    },
+    "metric": {
+      "deleteHeader": "Voulez-vous vraiment supprimer cette métrique ?",
+      "deleteContent": "La métrique sera supprimée définitivement.",
+      "statistic": "Statistiques",
+      "title": "Métriques",
+      "form": {
+        "minMax": "La valeur minimale ne peut être suppérieur à la valeur maximale",
+        "range": "La valeur par défaut n'est pas entre la valeur minimale et maximale ",
+        "addMetric": "ajouter une métrique",
+        "noMetric": "Aucune métrique enregistrée",
+        "general": "Général",
+        "name": "Nom",
+        "machine": "Identifiant machine",
+        "default_value": "Valeur par défaut",
+        "default_valueHelperText": "Valeur de base de la métrique. Si vide la valeur sera celle de la valeur minimale",
+        "minValue": "Valeur minimale",
+        "minValueHelperText": "Valeur minimum de la métrique",
+        "maxValue": "Valeur maximale",
+        "maxValueHelperText": "Valeur maximum de la métrique",
+        "color": "Couleur"
+      }
+    },
+    "memberProgram": {
+      "actions": {
+        "disable": { "success": "Programme dissocié du membre", "error": "Erreur lors de la dissociation du program" },
+        "create": { "success": "Programme associé au membre", "error": "Erreur lors de l'assocation du program au membre" }
+      },
+      "infoNoMemberProgram": "Ce membre ne possède aucun programme pour le moment.",
+      "infoNoConsumerProgram": "Vous n’avez pas encore de programme, contactez votre studio pour commencer à suivre vos performances !",
+      "deleteHeader": "Voulez-vous vraiment dissocier ce programme de ce membre?",
+      "deleteContent": "Vous perdrez les valeurs des métriques du programme pour ce membre"
+    }
+  },
   "platformBilling": {
     "platformInvoice": {
       "label": "Facture {{ month }}/{{year}}",
@@ -3655,6 +3734,41 @@
     }
   },
   "privateService": {
+    "seeAll": "Tout voir",
+    "privatePassTemplateInstance": {
+      "privatePassSharedFromFranchisor": "Carte franchise",
+      "privateConsumerPassSharedFromOtherFranchisee": "Partagé depuis franchisé",
+      "form": {
+        "title": "Configurer mes studios",
+        "explain1": "Les studios suivant auront automatiquement cette carte disponible à la vente. Ils ne pourront pas en modifier le prix ni le nombre de crédit.",
+        "explain2": "Si un membre achète cette carte dans l'un des studios compatible, il pourra également l'utiliser dans les autres studios que vous avez défini.",
+        "actions": { "close": "Fermer", "submit": "Enregistrer" }
+      },
+      "deleteForm": {
+        "title": "Désactivation",
+        "content": "En désactivant ce studio du partage de la carte, tous les membres possédant cette carte et l'ayant acheté dans ce studio pourront toujours l'utiliser. En revanche ils ne pourront plus l'utiliser dans les autres studios. Enfin, les cartes ayant achetées dans les autres studios ne seront plus utilisable dans le studio désactivé, quelle que soit la date d'achat.",
+        "actions": { "close": "Fermer", "submit": "Désactiver le partage" }
+      },
+      "companyEmpty": "Aucun studio n'est configuré pour accepter cette carte de cours",
+      "actions": { "addCompany": "Ajouter un studio" }
+    },
+    "privatePassTemplate": {
+      "specification": { "companySharedWithTitle": "Partagée avec les studios:" },
+      "isEmptyExplain": "Les cartes de cours partagées sont disponibles dans les studios de votre choix, et permettent à vos membres d'utiliser indifféremment leurs crédits dans les studios que vous auez choisi.",
+      "section": { "titleAvailable": "Disponible à la vente", "titleManagerOnly": "Indisponible à la vente" },
+      "form": {
+        "title": "Carte de cours partagée",
+        "close": "Fermer",
+        "submit": "Valider",
+        "actions": { "close": "Fermer", "submit": "Enregistrer" }
+      },
+      "deleteForm": {
+        "title": "Désactivation",
+        "content": "En désactivant une carte partagée, les membres possédant cette carte ne pourront plus l'utiliser que dans le studio dans lequel il l'ont acheté.",
+        "actions": { "close": "Fermer", "submit": "Désactiver le partage" }
+      },
+      "actions": { "create": "Créer une carte partagée" }
+    },
     "search": "Rechercher un rendez-vous",
     "searshAppointmentPass": "Rechercher une carte RDV",
     "marketplace": { "isEmpty": "Aucun RDV proposé" },
@@ -5751,14 +5865,15 @@
       },
       "signupViaCustomForm": {
         "success": "Inscription validée",
-        "error": "Erreur lors de l'inscription, vauillez réessayer",
+        "error": "Erreur lors de l'inscription, veuillez réessayer",
         "errors": {
           "84101": "Des champs obligatoires n'ont pas été remplis",
           "84102": "Cet email est déjà utilisé",
           "84103": "Le sexe spécifié n'est pas valide",
           "84104": "Le numéro de téléphone n'est pas valide"
         }
-      }
+      },
+      "customFormStepper": { "error": "Impossible d'enregistrer les réponses." }
     },
     "customFormDisplayRule": {
       "create": { "success": "Règle de notification créée", "error": "Impossible de créer la règle de notificaiton" },

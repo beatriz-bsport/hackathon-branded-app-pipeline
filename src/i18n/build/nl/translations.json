@@ -216,7 +216,8 @@
                     "date": "Uur/Datum",
                     "coach": "(Optioneel) Instructeur",
                     "activity": "Activiteit",
-                    "establishment": "Vestiging"
+                    "establishment": "Vestiging",
+                    "ics_calendar_link": "ICS Kalender-link"
                 },
                 "name": "Afspraken"
             },
@@ -238,7 +239,8 @@
                     "establishment": "Vestiging",
                     "date": "Tijd en datum",
                     "coach": "Instructeur",
-                    "activity": "Activiteit"
+                    "activity": "Activiteit",
+                    "spot": "Plaats"
                 },
                 "name": "Reservering"
             },
@@ -828,7 +830,7 @@
                 "totalPurchase": "Aankopen"
             },
             "signup": {
-                "privacyPolicy": "Algemene Servicevoorwaarden",
+                "privacyPolicy": "Algemene servicevoorwaarden",
                 "iAcceptPrivacyPolicy": "Ik accepteer de ",
                 "signupButton": "Inschrijven",
                 "communication": {
@@ -849,7 +851,7 @@
                     "accept_sms": "Ik ga ermee akkoord om per sms te worden geïnformeerd over voor mij relevante informatie, zoals annuleringen, roosterwijzigingen, nieuwe workshops, etc.",
                     "accept_email": "Ik ga ermee akkoord om per e-mail te worden geïnformeerd over voor mij relevante informatie, zoals annuleringen, roosterwijzigingen, nieuwe workshops, etc.",
                     "waiver": "Ik accepteer de Waiver / Vrijstelling.",
-                    "general_terms_and_conditions_accepted": "Ik accepteer de algemene gebruiksvoorwaarden",
+                    "general_terms_and_conditions_accepted": "Ik ga akkoord met de algemene voorwaarden.",
                     "emergency_contact": "Contactpersoon voor noodgevallen",
                     "city": "Stad",
                     "birthday": "Geboortedatum",
@@ -1487,7 +1489,8 @@
             "kind": {
                 "1": "Sms",
                 "0": "E-mail"
-            }
+            },
+            "unavailableMail": "Er is geen voorvertoning om weer te geven."
         },
         "recipient": {
             "readCount": "Aantal keer geopend",
@@ -1547,7 +1550,7 @@
                 "submit": "Opslaan"
             },
             "manager_only": {
-                "label": "Maak dit product niet beschikbaar voor leden"
+                "label": "Maak dit product onbeschikbaar voor leden"
             },
             "tax": {
                 "label": "Btw"
@@ -1577,7 +1580,7 @@
             "explainIfEmpty": "In dit onderdeel kun je al je pakketten beheren. In een pakket kun je producten uit je webshop, afspraak- en/of leskaarten met elkaar combineren.",
             "section": {
                 "availableOnline": "Beschikbare pakketten",
-                "unavailableOnline": "Niet-beschikbaare pakketten"
+                "unavailableOnline": "Onbeschikbare pakketten"
             }
         },
         "link": {
@@ -1607,7 +1610,10 @@
         },
         "actions": {
             "signin": "Aanmelden",
-            "signup": "Een nieuw account aanmaken",
+            "signup": {
+                "register": "Inschrijven",
+                "noAccount": "Een nieuw account aanmaken"
+            },
             "forgottenPassword": "Wachtwoord vergeten?"
         },
         "error": {
@@ -1622,7 +1628,7 @@
         "signup": {
             "title": "Inschrijven"
         },
-        "contactUs": "Neem vrijblijvend contact met ons team op en ontdek hoe BSPORT Solution uw studio helpt met het zetten van de volgende stap door al uw dagelijkse taken te automatiseren, te stroomlijnen en te vereenvoudigen.",
+        "contactUs": "Neem vrijblijvend contact met ons op en leer meer over hoe BSPORT Solution uw studio helpt met het zetten van de volgende stap voor al uw dagelijkse handelingen.",
         "or": " of ",
         "country": {
             "ES": "Spanje",
@@ -1716,6 +1722,10 @@
             "fr": "Frans",
             "en": "Engels",
             "pt": "Portugees"
+        },
+        "signin": {
+            "connect": "Log in om verder te gaan.",
+            "connection": "Aanmelden"
         }
     },
     "reporting": {
@@ -2169,7 +2179,7 @@
                 "cancel": "Annuleren",
                 "smartListHelper": "Stuur GÉÉN melding als een lid tot één van de volgende Smartlists behoort:",
                 "smartListHelperInclude": "Stuur WÉL een melding als een lid tot één van de volgende Smartlists behoort:",
-                "noMailAvailable": "Geen e-mail beschikbaar, vergeet niet om een te maken",
+                "noMailAvailable": "Er zijn geen e-mailsjablonen om weer te geven.",
                 "createSmartList": "Een Smartlist toevoegen",
                 "warning": "Door geen Smartlist(s) te selecteren of te gebruiken is het mogelijk dat je leden contacteert die recent een kaart hebben gekocht!",
                 "daysPastType": "Verlopen kaart",
@@ -2244,7 +2254,7 @@
                     "label": "De vervaldatum indien deze kaart niet gebruikt wordt:",
                     "helperText": "De geldigheid van deze kaart verloopt na X aantal dagen als het niet gebruikt wordt."
                 },
-                "managerOnly": "Maak dit product niet beschikbaar voor leden",
+                "managerOnly": "Maak dit product onbeschikbaar voor leden",
                 "helper": {
                     "starting_date": "Begin van de geldigheid van de leskaart. Laat dit veld leeg om het direct geldig te maken.",
                     "ending_date": "Einde van de geldigheid van de leskaart. Als dit veld leeg is blijft de leskaart geldig."
@@ -2290,7 +2300,7 @@
                     },
                     "title": "Leskaart verwijderen:",
                     "askConfirmation": "Waarschuwing! Deze actie is definitief. Deze kaart zal hierna niet meer zichtbaar of te koop zijn.",
-                    "thereAreConsumers": "Belangrijk: het is mogelijk dat leden deze leskaart al hebben gekocht. Leden zullen hun kredieten nog kunnen gebruiken, maar als je deze leskaart direct onbruikbaar wilt maken raden we aan om het aantal kredieten op 0 te zetten. Leden zullen deze leskaart niet meer kunnen zien en kopen."
+                    "thereAreConsumers": "Belangrijk! Het is mogelijk dat leden deze leskaart al hebben gekocht. Leden zullen hun kredieten nog kunnen gebruiken, maar als je deze leskaart direct onbruikbaar wilt maken raden we aan om het aantal kredieten op 0 te zetten. Leden zullen deze leskaart niet meer kunnen zien en kopen."
                 },
                 "theoricalMarginValue": {
                     "helperText": "Dit wordt gebruikt om de payroll van de instructeur(s) te berekenen. Voorbeeld: {{currency}}10 betekent dat bij 1 reservering, de instructeur {{currency}}10 ontvangt. Indien dit veld leeg of {{currency}}0 is, dan wordt de payroll op basis van PRIJS / AANTAL RESERVERINGEN berekend.",
@@ -2310,7 +2320,7 @@
                 "startOnFirstUse": "De geldigheidsduur begint op de dag van de 1e reservering",
                 "startOnFirstUseHelper": "Anders begint het op de factuurdatum",
                 "sports": "Categorie",
-                "notEditable": "Let op: deze kaart hebben uit de gegevensoverdracht van je vorige systeem gehaald. Bepaalde velden kunnen niet worden gewijzigd, om de juiste datastructuur en geschiedenis te waarborgen. Je kunt compatibele activiteiten/categorieën wel wijzigen.",
+                "notEditable": "Deze kaart is overgenomen van een eerder voltooide gegevensoverdracht. Het is mogelijk dat sommige velden niet bewerkt kunnen worden om de data niet te beschadigen. Compatibele activiteiten/categorieën kunnen nog wel worden gewijzigd.",
                 "maxPurchasePerMember": {
                     "helperText": "Laat dit veld leeg om geen limiet in te stellen.",
                     "label": "Maximale aankoop per lid"
@@ -2354,7 +2364,7 @@
                 },
                 "advancedOptions": {
                     "tag": {
-                        "doNotSelectToAllowAllMembers": "Laat dit leeg om geen beperkingen op te leggen",
+                        "doNotSelectToAllowAllMembers": "Laat dit veld leeg om geen beperkingen op te leggen",
                         "notAllowedFor": "Afgekeurd voor",
                         "notAllowed": "Afgekeurd",
                         "allowedFor": "Goedgekeurd voor",
@@ -2446,7 +2456,7 @@
         },
         "newMemberOnly": "Maak dit product alleen voor nieuwe leden beschikbaar",
         "publicPacksTitle": "Beschikbare leskaarten",
-        "privatePacksTitle": "Niet-beschikbare leskaarten",
+        "privatePacksTitle": "Onbeschikbare leskaarten",
         "subscribeToOffer": "Inschrijven",
         "use": "Gebruik",
         "isNonCompatible": "incompatibel",
@@ -2565,7 +2575,7 @@
         "selector": {
             "noAvailable": "Er is geen kaart die overeenkomt met de gekozen beschikbaarheid.",
             "noManagerOnly": "Beschikbaar",
-            "managerOnly": "Niet beschikbaar",
+            "managerOnly": "Onbeschikbaar",
             "filterManagerOnly": "Alle beschikbaarheid",
             "filterCategory": "Alle categorieën",
             "titleSort": "Sorteren",
@@ -2601,7 +2611,7 @@
                 "title": "Gedeelde kaarten"
             },
             "section": {
-                "titleManagerOnly": "Niet beschikbaar",
+                "titleManagerOnly": "Onbeschikbaar",
                 "titleAvailable": "Beschikbaar voor leden"
             },
             "isEmptyExplain": "Leden kunnen deze kaarten bij alle gekoppelde studio aanschaffen en gebruiken.",
@@ -2617,7 +2627,7 @@
         "whiteList": "Goedgekeurde tags",
         "accessibility": {
             "onsitePayment": "Later betalen (bijv. in de studio) is aangezet",
-            "managerOnly": "Maak dit product niet beschikbaar voor leden",
+            "managerOnly": "Maak dit product onbeschikbaar voor leden",
             "newMembers": "Maak dit product alleen voor nieuwe leden beschikbaar"
         },
         "activities": "Activiteiten",
@@ -2661,7 +2671,7 @@
         },
         "validityTo": " tot ",
         "addPaymentPack": {
-            "notForSell": "Maak dit product niet beschikbaar voor leden",
+            "notForSell": "Maak dit product onbeschikbaar voor leden",
             "limited": "Beperkt",
             "sumNotZero": "Het aantal dagen kan niet 0 zijn",
             "only_vod_access": "Maak deze kaart alleen geschikt voor Video On Demand",
@@ -2699,9 +2709,13 @@
             "firstBooking": "Geldig vanaf de 1e reservering",
             "billing": "Geldig vanaf de factuurdatum",
             "validForDuration": {
-                "day": "Deze kaart is {{ duration_day }} dag(en) na aankoop geldig.",
-                "month": "Deze kaart is {{ duration_day }} dag(en) en {{ duration_month }} maand(en) na aankoop geldig.",
-                "year": "Deze kaart is {{ duration_day }} dag(en), {{ duration_month }} maand(en) en {{ duration_year }} jaar na aankoop geldig."
+                "day": "Deze kaart heeft een geldigheid van {{ duration_day }} dag(en).",
+                "month": "Deze kaart heeft een geldigheid van {{ duration_day }} dag(en) en {{ duration_month }} maand(en).",
+                "year": "Deze kaart heeft een geldigheid van {{ duration_day }} dag(en), {{ duration_month }} maand(en) en {{ duration_year }} jaar.",
+                "monthNoDay": "Deze kaart heeft een geldigheid van {{ duration_month }} maand(en).",
+                "yearNoDayNoMonth": "Deze kaart heeft een geldigheid van {{ duration_year }} jaar.",
+                "yearDayNoMonth": "Deze kaart heeft een geldigheid van {{ duration_day }} dag(en) en {{ duration_year }} jaar.",
+                "yearNoDay": "Deze kaart heeft een geldigheid van {{ duration_month }} maand(en) en {{ duration_year }} jaar."
             },
             "yearValidityHelper": "Dit wordt aan het aantal dagen en maanden toegevoegd.",
             "monthValidityHelper": "Dit wordt aan het aantal dagen toegevoegd.",
@@ -2725,7 +2739,9 @@
             "generalInfo": "Algemene informatie",
             "paymentPack": "Leskaart",
             "minusZero": "Dit veld kan niet 0 zijn",
-            "requiredField": "Dit veld is verplicht"
+            "requiredField": "Dit veld is verplicht",
+            "creditWarning": "Attentie! Alle kaarten worden bijgewerkt als het aantal kredieten wordt gewijzigd.",
+            "migration": "Deze kaart is overgenomen van een eerder voltooide gegevensoverdracht. Het is mogelijk dat sommige velden niet bewerkt kunnen worden om de data niet te beschadigen. Compatibele activiteiten/categorieën kunnen nog wel worden gewijzigd."
         },
         "unlimitedPlural": "Onbeperkt"
     },
@@ -3700,17 +3716,18 @@
         },
         "forms": {
             "merge": {
-                "explainBookingsAndPassAndInvoiceAndNotes": "De leskaarten, reserveringen, facturen en aantekeningen worden overgezet.",
-                "explainTags": "Verwijderde tags van leden worden niet overgedragen",
+                "explainBookingsAndPassAndInvoiceAndNotes": "De leskaarten, reserveringen, facturen en aantekeningen worden ook gesynchroniseerd.",
+                "explainTags": "Tags van samengevoegde accounts worden niet overgezet.",
                 "cancel": "Annuleren",
                 "submit": "Samenvoegen",
                 "error": "Kan leden niet samenvoegen",
                 "srcMember": "We verwijderen dit account",
                 "dstMember": "We bewaren dit account",
-                "title": "Voeg lid samen",
-                "explainCredit": "De interne aanbetaling van het lid wordt overgedragen",
+                "title": "Leden samenvoegen",
+                "explainCredit": "De waarde van de interne rekening (saldo) wordt naar het nieuwe account overgezet.",
                 "success": "Samengevoegde leden",
-                "seeMemberPage": " Zie ledenpagina"
+                "seeMemberPage": " Zie ledenpagina",
+                "emailWillBeSend": "Beide e-mailadressen worden per e-mail geïnformeerd."
             },
             "error": "Fout bij het opslaan van de wijzigingen",
             "create": {
@@ -3847,9 +3864,137 @@
         },
         "archived": "Geatchiveerd",
         "restoreMember": "Herstellen",
-        "termsOfUse": "De algemene gebruiksvoorwaarden",
+        "termsOfUse": "De algemene voorwaarden",
         "noMember": "Er zijn geen leden om weer te geven.",
-        "noData": "Er staan geen leden in deze Smartlist om weer te geven."
+        "noData": "Er staan geen leden in deze Smartlist om weer te geven.",
+        "changeEmailRequest": {
+            "dialog": {
+                "simpleChange": {
+                    "warning": "Attentie! Het e-mailadres voor het inloggen van dit lid is gewijzigd:",
+                    "unchangedEmail": "Het huidige e-mailadres wordt in de tussentijd aangehouden."
+                },
+                "mergeMember": {
+                    "warning": "Attentie! Je bent deze twee leden van je studio aan het samenvoegen:",
+                    "unchangedEmail": "Bevestig om alle facturen, reserveringen, saldo en aankopen van het vorige e-mailadres (\"{{ old_email }}\") over te zetten naar het nieuwe e-mailadres (\"{{ new_email }}\"). Het vorige e-mailadres (\"{{ old_email }}\") wordt verwijderd en beide e-mailadressen ontvangen een bevestigingsmail van deze handeling."
+                },
+                "linkMember": {
+                    "warning": "Attentie! Je probeert deze twee leden samen te voegen:",
+                    "notIncompany": "Het nieuwe e-mailadres (\"{{ new_email }}\") wordt gebruikt door een ander lid van een andere studio.",
+                    "unchangedEmail": "Het vorige e-mailadres (\"{{ old_email }}\") blijft in gebruik en de accounts worden niet samengevoegd."
+                },
+                "actions": {
+                    "confirm": "Bevestigen",
+                    "close": "Annuleren"
+                },
+                "cancelHelperText": "Klik op \"Annuleren\" om dit verzoek te stoppen.",
+                "securityHelperText": "Om veiligheidsredenen wordt een bevestigingsmail naar je inbox verstuurd.",
+                "expiryText": "Dit verzoek wordt binnen 7 dagen na verzending verwerkt.",
+                "newEmail": "Nieuwe e-mailadres: \"{{ email }}\"",
+                "oldEmail": "Vorige e-mailadres: \"{{ email }}\"",
+                "titleMerge": " Accounts samenvoegen",
+                "title": "E-mailadres wijzigen"
+            },
+            "memberPage": {
+                "linkAccount": {
+                    "veto": {
+                        "requestExplanation": "Dit e-mailadres (\"{{ email }}\") wordt al door iemand bij een andere studio gebruikt voor het inloggen. {{ company }} verzoekt je om de accounts samen te voegen. Bevestig het samenvoegen om één account voor alle handelingen en studio's te gebruiken. Gebruik de inloggegevens van \"{{ email }}\" om mee te doen bij alle studio's die bij BSPORT Solution zijn aangesloten.",
+                        "deniedRequestHelper": "Log in en klik op \"Samenvoeging weigeren\" om dit verzoek te stoppen en om je huidige inloggegevens te behouden.",
+                        "acceptRequestHelper": "Gelieve inloggen met \"{{ email }}\" om de samenvoeging van de accounts te bevestigen."
+                    },
+                    "error": {
+                        "accepted": {
+                            "contactCompany": "Gelieve direct de studio contacteren indien je dit verzoek wilt stoppen.",
+                            "helper": "Huidige e-mailadres voor het inloggen: \"{{ email }}\"",
+                            "title": "Samenvoeging geaccepteerd"
+                        },
+                        "denied": {
+                            "contactCompany": "Gelieve direct de studio contacteren indien je opnieuw je accounts wilt samenvoegen.",
+                            "helper": "Het verzoek van {{ company }} voor het samenvoegen van de accounts is reeds geweigerd.",
+                            "title": "Samenvoeging geweigerd"
+                        }
+                    },
+                    "submit": {
+                        "denied": {
+                            "content": "Je account is niet met \"{{ new_email }}\" samengevoegd. De inloggegevens van \"{{ old_email}}\" blijven geldig.",
+                            "title": "Samenvoeging geweigerd"
+                        },
+                        "accept": {
+                            "content": "Je account is succesvol samengevoegd met \"{{ old_email }}\". Je wordt bij {{ company }} ingeschreven en je kunt de inloggegevens van \"{{ new_email }}\" nu altijd blijven gebruiken.",
+                            "title": "Samenvoeging geaccepteerd"
+                        }
+                    },
+                    "dstUser": {
+                        "deniedRequestHelper": "Klik op \"Samenvoeging weigeren\" om dit verzoek te stoppen. De accounts worden niet samengevoegd en je wordt niet ingeschreven bij {{ company }}.",
+                        "acceptRequestHelper": "Klik op \"Samenvoeging accepteren\" om dit verzoek te accepteren.",
+                        "notMemberYet": "Je hebt nog geen account bij {{ company }}. Bevestig dit verzoek om je accounts samen te voegen en om je ook bij {{ company }} in te schrijven. Vervolgens wordt alle informatie van je vorige e-mailadres (\"{{ old_email }}\") naar je nieuwe e-mailadres voor het inloggen (\"{{ new_email }}\") overgezet.",
+                        "requestingStudio": "{{ company }} verzoekt je om je vorige e-mailadres (\"{{ old_email }}\") met je nieuwe e-mailadres (\"{{ new_email }}\") voor het inloggen samen te voegen."
+                    },
+                    "title": "Accounts samenvoegen"
+                },
+                "simpleEmailChange": {
+                    "error": {
+                        "alreadyDenied": {
+                            "helper": "Je hebt al een e-mailadres voor het inloggen bij {{ company }} geselecteerd.",
+                            "currentEmail": "Huidige e-mailadres voor het inloggen: \"{{ email }}\"",
+                            "contactCompany": "Gelieve direct de studio contacteren indien je je e-mailadres voor het inloggen niet wilt wijzigen.",
+                            "title": "Dit verzoek is reeds geweigerd."
+                        },
+                        "alreadyAccepted": {
+                            "helper": "Je hebt al een e-mailadres voor het inloggen bij {{ company }} geselecteerd.",
+                            "currentEmail": "Huidige e-mailadres voor het inloggen: \"{{ email }}\"",
+                            "contactCompany": "Gelieve direct de studio contacteren indien je je e-mailadres voor het inloggen niet wilt wijzigen.",
+                            "title": "Dit verzoek is reeds gevalideerd."
+                        },
+                        "emailTaken": {
+                            "contactCompany": "Er bestaat al een account dat \"{{ email }}\" als e-mailadres voor het inloggen gebruikt. Gelieve direct de studio voor ondersteuning contacteren indien dit e-mailadres van jou is en als je geen toegang hebt tot het account met dit e-mailadres.",
+                            "helper": "{{ company }} verzoekt je om je e-mailadres voor het inloggen van je account te wijzigen:",
+                            "title": "Dit e-mailadres is al in gebruik."
+                        },
+                        "delayExceeded": {
+                            "contactCompany": "Gelieve direct de studio contacteren indien je je e-mailadres voor het inloggen opnieuw wilt wijzigen.",
+                            "helper": "{{ company }} heeft je een verzoek verstuurd om de wijziging van je e-mailadres voor het inloggen te valideren. Deze verzoeken zijn 7 dagen na ontvangst geldig en is nu verlopen.",
+                            "title": "E-mailadres voor het inloggen wijzigen"
+                        },
+                        "renewed": {
+                            "contactCompany": "Gelieve direct de studio contacteren indien je de bevestigingsmail niet hebt ontvangen of niet kunt vinden.",
+                            "helper": "Recent heeft {{ company }} een nieuw verzoek verstuurd om je e-mailadres voor het inloggen te valideren. Gelieve je inbox en spam controleren of je het meest recente verzoek hebt ontvangen, omdat dit verzoek verlopen is.",
+                            "title": "E-mailadres voor het inloggen wijzigen"
+                        }
+                    },
+                    "submit": {
+                        "emailPreservedTo": "Je e-mailadres voor het inloggen blijft \"{{ email }}\".",
+                        "emailUpatedTo": "Je e-mailadres voor het inloggen is gewijzigd naar \"{{ email }}\".",
+                        "acceptedTitle": "E-mailadres gewijzigd",
+                        "deniedTitle": "E-mailadres niet gewijzigd"
+                    },
+                    "multipleCompanyHelper": "Dit e-mailadres wordt gebruikt voor het inloggen bij alle studio's die gebruik maken van BSPORT Solution. Je inlog wordt gewijzigd voor de volgende studio's:",
+                    "deniedRequestHelper": "Klik op \"Huidige e-mailadres behouden\" om geen wijzigingen te verwerken.",
+                    "acceptRequestHelper": "Klik op \"Nieuw e-mailadres bevestigen\" om dit verzoek te verwerken.",
+                    "title": "E-mailadres voor het inloggen wijzigen"
+                },
+                "unAuthorizedAccess": {
+                    "contactCompany": "Gelieve direct de studio contacteren indien je dit verzoek niet kunt voltooien.",
+                    "helper": "Je bent niet ingelogd met een account dat toegang heeft tot dit verzoek. Gelieve inloggen met het juiste account dat ook aan de bevestigingsmail is gekoppeld.",
+                    "title": "Onbevoegde toegang"
+                },
+                "generalError": {
+                    "contactCompany": "Het was niet mogelijk om je huidige verzoek te verwerken i.v.m. een foutmelding. Uit veiligheidsredenen is dit verzoek geannuleerd. Gelieve direct de studio voor ondersteuning contacteren.",
+                    "helper": "{{ company }} verzoekt je om je e-mailadres voor het inloggen van je account te wijzigen:",
+                    "title": "Ongeldig e-mailadres voor het inloggen wijzigen"
+                },
+                "requestingStudio": "{{ company }} verzoekt je om je e-mailadres voor het inloggen van je account te wijzigen:",
+                "actions": {
+                    "continue": "Verder",
+                    "confirmFusion": "Samenvoeging accepteren",
+                    "deniedFusion": "Samenvoeging weigeren",
+                    "cancel": "Huidige e-mailadres behouden",
+                    "confirm": "Nieuw e-mailadres bevestigen"
+                }
+            },
+            "pendingValidation": "Het verzoek voor het wijzigen van het e-mailadres \"{{ email }}\" is momenteel in behandeling."
+        },
+        "actions": "Acties",
+        "archiveMember": "Archiveer"
     },
     "booking": {
         "bookingModule": {
@@ -4392,7 +4537,7 @@
                     "label": "Juridische Kennisgeving."
                 },
                 "managerOnly": {
-                    "label": "Maak dit product niet beschikbaar voor leden"
+                    "label": "Maak dit product onbeschikbaar voor leden"
                 },
                 "autoRenewal": {
                     "label": "Automatisch verlengen"
@@ -4446,7 +4591,7 @@
                 "addButton": "Maak contract aan",
                 "register": "Schrijf een lid in",
                 "title": "Abonnementen",
-                "titleManagerOnly": "Niet-beschikbare abonnementen",
+                "titleManagerOnly": "Onbeschikbare abonnementen",
                 "titleCustomerAvailable": "Beschikbare abonnementen",
                 "titleInactive": "Gearchiveerde abonnementen"
             },
@@ -4534,7 +4679,9 @@
             "billing_plan-payment_success": "Succesvolle betalingen",
             "billing_plan-payment_failure": "Geweigerde betalingen",
             "billing_plan-update_payment_method": "Gewijzigde betaalmethoden",
-            "billing_plan-update_payment_pack": "Gewijzigde kaarten"
+            "billing_plan-update_payment_pack": "Gewijzigde kaarten",
+            "billing_plan-update_payment_combo": "Pakket gewijzigd",
+            "billing_plan-update_private_pass": "Afspraakkaart gewijzigd"
         },
         "save": "bevestigen",
         "table": {
@@ -4550,7 +4697,7 @@
             "switchPack": {
                 "form": {
                     "title": "Leskaart wijzigen",
-                    "explain": "Deze nieuwe leskaart zal voortaan worden gebruikt voor de toekomstige facturatie. Sessies die met de oude leskaart geboekt zijn worden overgezet naar de nieuwe leskaart, zelfs als deze niet compatibel zijn.",
+                    "explain": "Deze nieuwe leskaart zal voortaan worden gebruikt voor de toekomstige facturatie. Sessies die met de oude leskaart gereserveerd zijn worden overgezet naar de nieuwe leskaart, ook als deze niet compatibel zijn.",
                     "warning": "De facturatie blijft hetzelfde. Als je het maandelijkse bedrag wil verhogen/verlagen, wijzig dan elke maandelijkse betaling afzonderlijk.",
                     "cancel": "Annuleren",
                     "submit": "Opslaan"
@@ -4603,6 +4750,25 @@
                 "recurrencePriceIs": "Terugkerende betaling: {{currencyDisplay}}{{ amount }}",
                 "nextBillingDate": "Eerstvolgende facturatie: {{ d }}",
                 "startingAt": "Startdatum: {{ d }}"
+            },
+            "switchPaymentCombo": {
+                "form": {
+                    "submit": "Opslaan",
+                    "cancel": "Annuleren",
+                    "warning": "De facturatie wordt niet gewijzigd. Bewerk alle facturen apart om het maandelijks bedrag te wijzigen.",
+                    "prewarning": "Wijzig dit abonnement om alle toekomstige facturen te wijzigen.",
+                    "explain": "Dit nieuwe pakket vervangt alle vorige pakketten op de nieuwe facturen na de automatische herhaling van dit abonnement.",
+                    "title": "Pakket is bijgewerkt"
+                }
+            },
+            "switchPrivatePass": {
+                "form": {
+                    "submit": "Opslaan",
+                    "cancel": "Annuleren",
+                    "warning": "De facturatie wordt niet gewijzigd. Bewerk alle facturen apart om het maandelijks bedrag te wijzigen.",
+                    "explain": "Deze afspraakkaart wordt aan alle toekomstige facturen toegewezen. Alle sessies van de oude afspraakkaart worden ook naar de nieuwe afspraakkaart overgezet.",
+                    "title": "De afspraakkaart is bijgewerkt"
+                }
             }
         },
         "pause": {
@@ -4682,7 +4848,8 @@
                 "2": "SEPA",
                 "1": "Creditcard"
             },
-            "paymentCombo": "Pakket"
+            "paymentCombo": "Pakket",
+            "payment_combo": "Pakket"
         },
         "cancel": "annuleren",
         "plannedInvoiceStatus": {
@@ -4914,7 +5081,7 @@
                     "isEmpty": "Zonder instructeur"
                 },
                 "creditPrice": {
-                    "label": "Prijs in krediet(en)",
+                    "label": "Prijs (in kredieten)",
                     "helperText": "Laat dit veld op 0 om de video beschikbaar voor al je leden te maken."
                 },
                 "video_label": "Video",
@@ -4959,8 +5126,8 @@
             "coverMain": {
                 "alert": "Een afbeelding is vereist"
             },
-            "manager_only_helper": "Deze video kan alleen door managers worden bekeken.",
-            "manager_only": "Niet beschikbaar",
+            "manager_only_helper": "Alleen managers kunnen deze video bekijken.",
+            "manager_only": "Deze video onbeschikbaar maken",
             "duplicate": "Dupliceren",
             "rental": {
                 "buyDate": "Aankooptijd",
@@ -4997,7 +5164,7 @@
             },
             "name": "Naam",
             "fee": "Verzendkosten",
-            "free_threshold": "Verkrijgbaar vanaf",
+            "free_threshold": "Gratis vanaf",
             "offeredAboveAmount": "Gratis bezorging vanaf {{ free_threshold, price }}",
             "modal": {
                 "delete": {
@@ -5135,7 +5302,7 @@
             "explainEnabled": "Ingeschakeld: BSPORT beheert de links van je online lessen. Je kunt 1 livestream tegelijk organiseren.",
             "submit": "Opslaan",
             "zoom": {
-                "explainValid": "We versturen automatisch de links van Zoom 15 minuten voor het begin van je online evenementen naar je instructeurs en je ingeschreven leden. Controleer of je Zoom Premium hebt, omdat sessies via Zoom Basic tot een lengte van 40 minuten beperkt zijn. Belangrijk: Zoom staat één integratie per licentie toe. Neem contact met onze Klantenservice op voor meer informatie over hoe je meerdere accounts kunt gebruiken.",
+                "explainValid": "We versturen automatisch de links van Zoom 15 minuten voor het begin van je online evenementen naar je instructeurs en je ingeschreven leden. Controleer of je Zoom Premium hebt, omdat sessies via Zoom Basic tot een lengte van 40 minuten beperkt zijn. Belangrijk! Zoom staat één integratie per licentie toe. Neem contact met onze Klantenservice op voor meer informatie over hoe je meerdere accounts kunt gebruiken.",
                 "enabled": "Activeer de integratie van BSPORT Solution en Zoom",
                 "label": "Zoom configureren",
                 "explainInvalid": "Ongeldig account",
@@ -5417,11 +5584,11 @@
                 },
                 "credit": {
                     "label": "Krediet(en)",
-                    "helperText": "Dit is het benodigd aantal krediet(en) voor een reservering."
+                    "helperText": "Dit is het benodigd aantal kredieten voor een reservering."
                 },
                 "duration_minutes": {
                     "label": "Duur",
-                    "helperText": "Pas het benodigde krediet op de duur aan"
+                    "helperText": "Geef aan hoeveel kredieten nodig zijn om een afspraak te reserveren."
                 },
                 "pre_selected_choices": "Vooraf ingestelde tijden",
                 "durationError": "Ongeldige duur (tussen 15 min. en 1 dag)"
@@ -5560,7 +5727,7 @@
                 },
                 "title": "[Formulier] Afspraakkaart",
                 "managerOnly": {
-                    "label": "Maak dit product niet beschikbaar voor leden"
+                    "label": "Maak dit product onbeschikbaar voor leden"
                 },
                 "name": {
                     "label": "Naam",
@@ -5628,6 +5795,9 @@
                     "validity": "Geldigheid",
                     "paymentMeans": "Geaccepteerde betaalmethode(n)",
                     "info": "Algemene informatie"
+                },
+                "selector": {
+                    "privateService": "Compatibele afspraken toevoegen"
                 }
             },
             "delete": {
@@ -5641,14 +5811,14 @@
                 "createButton": "Een afspraakkaart toevoegen",
                 "isEmpty": "Er zijn geen afspraakkaarten om weer te geven.",
                 "availableCustomer": "Beschikbare afspraakkaarten",
-                "managerOnly": "Niet-beschikbare afspraakkaarten"
+                "managerOnly": "Onbeschikbare afspraakkaarten"
             },
             "parameters": {
                 "nbCredits": "{{ credits}} krediet(en)",
                 "nbCredits_plural": "{{ credits }} kredieten",
                 "price": "{{ price, price}}",
                 "tax": "Btw: {{ tax }}%",
-                "managerOnly": "Maak dit product niet beschikbaar voor leden"
+                "managerOnly": "Maak dit product onbeschikbaar voor leden"
             },
             "compatibleServices": {
                 "title": "Compatibele afspraken",
@@ -5657,7 +5827,16 @@
                 "unusable": "Niet bruikbaar"
             },
             "edit": "Wijzigen",
-            "disabledTitle": "Gearchiveerde afspraakkaarten"
+            "disabledTitle": "Gearchiveerde afspraakkaarten",
+            "detailTitles": {
+                "paymentMeans": "Betaalmethoden",
+                "privateServiceCompatibility": "Compatibele afspraken",
+                "vod": "Video On Demand",
+                "accessibility": "Toegankelijkheid",
+                "validity": "Geldigheid",
+                "credit_quantity": "Kredieten"
+            },
+            "ht": "Excl. btw"
         },
         "service": {
             "form": {
@@ -5674,7 +5853,7 @@
                     "label": "Naam"
                 },
                 "managerOnly": {
-                    "label": "Maak dit product niet beschikbaar voor leden"
+                    "label": "Maak dit product onbeschikbaar voor leden"
                 },
                 "last_discard_minutes": {
                     "label": "Selecteer tot wanneer leden kosteloos kunnen annuleren (late-cancel)",
@@ -6383,10 +6562,10 @@
     },
     "payment": {
         "generalTermsAndConditions": {
-            "theTermsAndConditions": "algemene servicevoorwaarden.",
+            "theTermsAndConditions": "algemene voorwaarden.",
             "iAccept": "Ik accepteer de ",
             "close": "Sluiten",
-            "generalTermsOfUse": " algemene servicevoorwaarden.",
+            "generalTermsOfUse": " algemene voorwaarden.",
             "waiver": "Waiver / Vrijstelling"
         },
         "paymentMethod": {
@@ -6494,6 +6673,21 @@
                     "usdSpecific": " (ACH Routing Number)",
                     "placeholder": "000001",
                     "label": "ABA Routing Number"
+                },
+                "clearingCode": {
+                    "label": "Clearing Code"
+                },
+                "branchCode": {
+                    "label": "Branch Code"
+                },
+                "transitNumber": {
+                    "label": "Transit Number"
+                },
+                "institutionNumber": {
+                    "label": "Institution Number"
+                },
+                "bankCode": {
+                    "label": "Bank Code"
                 }
             }
         },
@@ -6704,7 +6898,7 @@
             },
             "switchPack": {
                 "error": "Fout bij het wijzigen van de leskaart",
-                "success": "Betaalmethode gewijzigd"
+                "success": "Leskaart gewijzigd"
             },
             "freeze": {
                 "success": "Abonnement gepauzeerd",
@@ -6730,6 +6924,19 @@
                     "error": "Het abonnement kon niet worden hersteld",
                     "success": "Abonnement succesvol hersteld"
                 }
+            },
+            "billNow": {
+                "errors": {
+                    "12102": "Momenteel wordt een betaling verwerkt. Controleer later om een nieuwe betaling te registreren."
+                }
+            },
+            "switchPaymentCombo": {
+                "error": "Fout bij het wijzigen van pakket",
+                "success": "Pakket gewijzigd"
+            },
+            "switchPrivatePass": {
+                "error": "Fout bij het wijzigen van de afspraakkaart",
+                "success": "Afspraakkaart gewijzigd"
             }
         },
         "invoice": {
@@ -6836,8 +7043,8 @@
                 "title": "Leden samenvoegen",
                 "submit": "Samenvoegen",
                 "explainCredit": "Interne account van lid overmaken",
-                "explainBookingsAndPassAndInvoiceAndNotes": "De leskaarten, reserveringen, facturen en aantekeningen worden overgezet.",
-                "explainTags": "Verwijderde tags van leden worden niet overgedragen",
+                "explainBookingsAndPassAndInvoiceAndNotes": "De leskaarten, reserveringen, facturen en aantekeningen worden ook gesynchroniseerd.",
+                "explainTags": "Tags van samengevoegde accounts worden niet overgezet.",
                 "cancel": "Annuleren"
             },
             "error": "Fout bij het opslaan van de wijzigingen",
@@ -6852,6 +7059,12 @@
             "createOrUpdate": {
                 "success": "Wijziging(en) opgeslagen",
                 "error": "Fout bij opslaan"
+            },
+            "changeEmailRequest": {
+                "create": {
+                    "error": "Fout bij het versturen van de bevestigingsmail",
+                    "success": "Een bevestigingsmail is verstuurd"
+                }
             }
         },
         "activity": {
@@ -7138,7 +7351,7 @@
         },
         "canNotBuyErrorCode": {
             "generic": "Fout bij het reserveren",
-            "8001": "De plaats die je hebt gekozen is niet langer beschikbaar",
+            "8001": "De plaats die je hebt gekozen is niet meer beschikbaar",
             "6003": "Je staat al op deze wachtlijst",
             "6002": "De wachtlijst is vol",
             "2012": "Deze kaart is niet compatibel met deze sessie",
@@ -7218,6 +7431,9 @@
                 "errors": {
                     "84006": "Voeg je vrijstelling / waiver onder Instellingen > Algemeen toe."
                 }
+            },
+            "customFormStepper": {
+                "error": "Fout bij het opslaan van de antwoorden."
             }
         },
         "establishmentGroup": {
@@ -7279,6 +7495,11 @@
             "payNowInvoice": {
                 "error": "Betaling: geweigerd",
                 "success": "Betaling: succesvol"
+            }
+        },
+        "clientSecret": {
+            "errors": {
+                "12102": "Momenteel wordt een betaling verwerkt. Controleer later om een nieuwe betaling te registreren."
             }
         }
     },
@@ -7545,7 +7766,7 @@
                 "label": "Gebruikslimiet per lid"
             },
             "subscription_mode": {
-                "3": "Niet-beschikbaar",
+                "3": "Deze promotiecode op geen enkele facturatie toepassen",
                 "2": "Alleen op de facturen die vóór de automatische verlenging plaatsvinden toepassen",
                 "1": "Alleen op de 1e facturatie toepassen",
                 "0": "Op alle facturen toepassen"
@@ -7595,7 +7816,8 @@
                 "submit": "Bevestigen"
             }
         },
-        "search": "Zoek een promotiecode"
+        "search": "Zoek een promotiecode",
+        "reverted": "Geannuleerde factuur"
     },
     "stripe": {
         "errors": {
@@ -8036,7 +8258,7 @@
                 "maxFutureBooking": {
                     "label": "Beperk het maximaal aantal toekomstige reserveringen per lid",
                     "numberCheck": {
-                        "placeholder": "Max.",
+                        "placeholder": "Limiet",
                         "helperText": "Dit is het maximum aantal toekomstige reserveringen voor je leden"
                     }
                 },
@@ -8087,14 +8309,14 @@
                 "placeholder": "https://facebook.com/mijn-studio/"
             },
             "general_terms_and_conditions": {
-                "label": "Algemene Servicevoorwaarden",
+                "label": "Algemene servicevoorwaarden",
                 "helperText": "Dit dient voor alle betalingen en inschrijvingen te worden geaccepteerd.",
                 "placeholder": "Ik verklaar dat ik in bezit ben van een medisch attest."
             },
             "general_terms_of_use": {
                 "placeholder": "Ik bevestig dat ik 13 jaar of ouder ben.",
                 "helperText": "Dit dient bij elke inschrijving te worden geaccepteerd.",
-                "label": "Algemene Gebruiksvoorwaarden"
+                "label": "Algemene voorwaarden"
             },
             "android_app_url": {
                 "label": "Android",
@@ -8152,8 +8374,8 @@
         "signUpForm": {
             "fields": {
                 "waiver": "Waiver / Vrijstelling",
-                "general_terms_and_conditions_accepted": "Algemene Gebruiksvoorwaarden",
-                "cgu": "Algemene Gebruiksvoorwaarden",
+                "general_terms_and_conditions_accepted": "Algemene voorwaarden",
+                "cgu": "Algemene voorwaarden",
                 "accept_sms": "Ik ontvang graag relevante sms'jes.",
                 "accept_email": "Ik ontvang graag relevante e-mails.",
                 "sms_notification": "Ik ontvang graag relevante sms'jes.",
@@ -8485,7 +8707,7 @@
             "amountRemaining": "Resterend bedrag: {{ amount }}",
             "billingMoreThanNeeded": "Als je meer dan het factuurbedrag incasseert, wordt het saldo van het lid met het verschil verhoogd",
             "errorSecretExplain2": "Neem contact op met dev+payment-intent@bsport.io als het probleem aanhoudt.",
-            "errorSecretExplain1": "Deze betaalmethode is momenteel niet beschikbaar",
+            "errorSecretExplain1": "Deze betaalmethode is momenteel onbeschikbaar",
             "plannedPaymentEvent": {
                 "title": "Geplande betaling",
                 "title_plural": "Geplande betalingen"
@@ -8645,7 +8867,7 @@
         "invoicePaymentPackTagWarningDialog": {
             "confirm": "Bevestig",
             "cancel": "Annuleer",
-            "content": "Attentie: je staat op het punt om een lid in rekening te brengen zonder dat dit lid de juiste tags heeft. Weet je zeker dat je dit doen? ",
+            "content": "Attentie! Je staat op het punt om een lid in rekening te brengen zonder dat dit lid de juiste tags heeft. Weet je zeker dat je dit doen? ",
             "title": "Informatie"
         },
         "quickbooks": {
@@ -9247,7 +9469,7 @@
                 "isMandatoryOnSignUp": "Dit is een verplichte vraag",
                 "waiver": "Waiver / Vrijstelling",
                 "repeatPassword": "Wachtwoord bevestigen",
-                "general_terms_and_conditions": "Voorwaarden voor gebruik",
+                "general_terms_and_conditions": "Ik ga akkoord met de algemene voorwaarden.",
                 "country": "Land",
                 "city": "Stad",
                 "additional_adress": "Aanvulling adres",
@@ -9565,6 +9787,12 @@
             "emptyStateDescription": "Selecteer een e-mail om de voorvertoning te zien.",
             "emptyStateTitle": "Voorvertoning",
             "searchPlaceholder": "Zoek een sjabloon"
+        },
+        "login": {
+            "signUp": "Inschrijven",
+            "connect": "Aanmelden",
+            "previous": "Terug",
+            "disconnect": "Afmelden"
         }
     },
     "giftcard": {
@@ -9578,9 +9806,9 @@
             "addBackgroundImage": "Een afbeelding toevoegen",
             "isEmpty": "Er zijn geen cadeaubonnen om weer te geven.",
             "archivedTitle": "Gearchiveerde cadeaubonnen",
-            "unavailableForSaleTitle": "Niet-beschikbare cadeaubonnen",
+            "unavailableForSaleTitle": "Onbeschikbare cadeaubonnen",
             "activeTitle": "Beschikbare cadeaubonnen",
-            "visibility": "Niet-beschikbaar",
+            "visibility": "Onbeschikbaar",
             "explainIfEmpty": "Leden kunnen cadeaubonnen met hun dierbaren delen en zo kan je studio ook meer potentiële klanten aantrekken."
         },
         "backgroundImage": {
@@ -9595,7 +9823,7 @@
         "form": {
             "giftcard": {
                 "manager_only": {
-                    "label": "Maak dit product niet beschikbaar voor leden"
+                    "label": "Maak dit product onbeschikbaar voor leden"
                 },
                 "unlimited": {
                     "label": "Onbeperkt"

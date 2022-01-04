@@ -24,4 +24,5 @@ exports.default = {
     validate: 'Valider',
   },
   close: 'Fermer',
+  cancel: 'Annuler',
 };

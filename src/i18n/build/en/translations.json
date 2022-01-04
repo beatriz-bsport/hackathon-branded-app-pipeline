@@ -1980,7 +1980,8 @@
                     "establishment": "Establishment",
                     "establishment_practical_info": "Establishment access information",
                     "address": "Address",
-                    "ics_calendar_link": "ICS Calendar Link"
+                    "ics_calendar_link": "ICS Calendar Link",
+                    "spot": "Place"
                 }
             },
             "ConsumerPaymentPack": {
@@ -2025,7 +2026,8 @@
                     "date": "Time and date",
                     "coach": "(Optional) Teacher",
                     "activity": "Activity",
-                    "establishment": "Establishment"
+                    "establishment": "Establishment",
+                    "ics_calendar_link": "ICS Calendar Link"
                 },
                 "name": "Appointments"
             },
@@ -2426,7 +2428,8 @@
             "kind": {
                 "1": "SMS",
                 "0": "Email"
-            }
+            },
+            "unavailableMail": "There's no preview to display."
         },
         "recipient": {
             "readCount": "Open rate",
@@ -2718,7 +2721,7 @@
                 },
                 "credit": {
                     "label": "Number of credits",
-                    "helperText": "Number of required credits to book an appointment"
+                    "helperText": "Select the number of required credits to book an appointment."
                 },
                 "duration_minutes": {
                     "label": "Duration",
@@ -2955,6 +2958,9 @@
                     "validity": "Pass validity",
                     "paymentMeans": "Payment method",
                     "info": "General information"
+                },
+                "selector": {
+                    "privateService": "Add compatible appointments"
                 }
             },
             "validForDuration": {
@@ -2964,7 +2970,16 @@
                 "days": "Valid for {{ duration_days }} day(s)"
             },
             "edit": "Edit",
-            "disabledTitle": "Archived appointment passes"
+            "disabledTitle": "Archived appointment passes",
+            "detailTitles": {
+                "paymentMeans": "Payment method",
+                "privateServiceCompatibility": "Compatible appointments",
+                "vod": "Video On Demand",
+                "accessibility": "Accessibility",
+                "validity": "Validity",
+                "credit_quantity": "Number of credits"
+            },
+            "ht": "Excl. VAT"
         },
         "service": {
             "selector": {
@@ -3578,7 +3593,8 @@
                 "title": "Delete"
             }
         },
-        "search": "Search a promotion"
+        "search": "Search a promotion",
+        "reverted": "Invoice cancelled"
     },
     "dashboard": {
         "current_week": "Last week",
@@ -4404,11 +4420,14 @@
         },
         "actions": {
             "forgottenPassword": "Forgot your password?",
-            "signup": "Create your new account",
+            "signup": {
+                "register": "Sign up",
+                "noAccount": "Create an account"
+            },
             "signin": "Log in"
         },
         "or": " or ",
-        "contactUs": "Are you the owner or manager of a boutique studio, and would you like to learn more about how BSPORT Solution helps you to automate, streamline, and facilitate all your daily tasks? Contact us for a no-strings-attached call and for more information.",
+        "contactUs": "Interested in learning more about how BSPORT Solution helps your boutique studio with all your daily activities?\nContact us for more information.",
         "signup": {
             "title": "Signup"
         },
@@ -4508,6 +4527,10 @@
             "fr": "French",
             "en": "English",
             "pt": "Portuguese"
+        },
+        "signin": {
+            "connect": "Login to continue.",
+            "connection": "Log in"
         }
     },
     "waitingList": {
@@ -5513,6 +5536,21 @@
                     "usdSpecific": " (ACH Routing Number)",
                     "placeholder": "000001",
                     "label": "Routing Number"
+                },
+                "clearingCode": {
+                    "label": "Clearing Code"
+                },
+                "branchCode": {
+                    "label": "Branch Code"
+                },
+                "transitNumber": {
+                    "label": "Transit Number"
+                },
+                "institutionNumber": {
+                    "label": "Institution Number"
+                },
+                "bankCode": {
+                    "label": "Bank Code"
                 }
             }
         },
@@ -6081,7 +6119,9 @@
             "billing_plan-payment_success": "Payment: successful",
             "billing_plan-payment_failure": "Payment: refused",
             "billing_plan-update_payment_method": "Payment method updated",
-            "billing_plan-update_payment_pack": "Pass updated"
+            "billing_plan-update_payment_pack": "Pass updated",
+            "billing_plan-update_payment_combo": "Pack has been modified",
+            "billing_plan-update_private_pass": "Appointment pass has been modified"
         },
         "table": {
             "noContent": "There are no subscribers to display."
@@ -6125,7 +6165,7 @@
                     "submit": "Save",
                     "cancel": "Cancel",
                     "warning": "Billing will stay the same, if you want to increase/decrease monthly amount, modify each invoice separately.",
-                    "explain": "This pass will be replaced on all future invoices.",
+                    "explain": "This pass will be replaced on all future invoices and sessions from the previous pass will also be transferred.",
                     "title": "Pass modification"
                 }
             },
@@ -6149,6 +6189,25 @@
                 "nextBillingDate": "Upcoming billing date: {{ d }}",
                 "startingAt": "Start date: {{ d }}",
                 "recurrencePriceIs": "Recurring payment: {{currencyDisplay}}{{amount }}"
+            },
+            "switchPaymentCombo": {
+                "form": {
+                    "submit": "Save",
+                    "cancel": "Cancel",
+                    "warning": "The billing will remain the same. Modify each invoice separately if you wish you increase/decrease the monthly amount.",
+                    "prewarning": "Cancel the subscription to modify all future invoices.",
+                    "explain": "The new pack will replace the previous pack on all invoices after the automatic renewal of the subscription.",
+                    "title": "Pack has been updated"
+                }
+            },
+            "switchPrivatePass": {
+                "form": {
+                    "submit": "Save",
+                    "cancel": "Cancel",
+                    "warning": "The billing will remain the same. Modify each invoice separately if you wish you increase/decrease the monthly amount.",
+                    "explain": "This appointment pass will be replaced on all future invoices and sessions from the previous appointment pass will also be transferred.",
+                    "title": "Appointment pass has been updated"
+                }
             }
         },
         "contract": {
@@ -6359,7 +6418,8 @@
                 "2": "SEPA",
                 "1": "Credit Card"
             },
-            "paymentCombo": "Pack"
+            "paymentCombo": "Pack",
+            "payment_combo": "Pack"
         },
         "schedule": {
             "provisionalTitle": "Provisional schedule",
@@ -7142,7 +7202,7 @@
                         "allowedFor": "Approved for",
                         "allowed": "Approved",
                         "header": "Tags",
-                        "doNotSelectToAllowAllMembers": "Do not select anything to allow it for all members",
+                        "doNotSelectToAllowAllMembers": "Leave empty to allow all members",
                         "helperText": "Use tags to make the pass only available to specific members in your MarketPlace, on your widgets, and on your mobile app. You can select to only display these passes to members with specific tags, or you can choose to not display the pass to specific tags at all. "
                     },
                     "header": "Advanced"
@@ -7226,7 +7286,7 @@
             "nbCredits": "{{credits}} credit(s)",
             "nbCredits_plural": "{{credits}} credits"
         },
-        "ht": "Excluding VAT",
+        "ht": "Excl. VAT",
         "validForDuration": {
             "general": "Valid for {{ duration_days }} day(s), {{ duration_months }} month(s), and/or {{ duration_years }} year(s).",
             "years": "{{ count }} year",
@@ -7492,15 +7552,19 @@
             "firstBooking": "Valid from the 1st booking",
             "billing": "Valid from the billing date",
             "validForDuration": {
-                "day": "This pass will be available for {{ duration_day }} day(s) after it's been purchased.",
-                "month": "This pass will be available for {{ duration_day }} day(s) and {{ duration_month }} month(s) after it's been purchased.",
-                "year": "This pass will be available for {{ duration_day }} day(s), {{ duration_month }} month(s), and {{ duration_year }} year(s) after it's been purchased."
+                "day": "This pass will be available for {{ duration_day }} day(s).",
+                "month": "This pass will be available for {{ duration_day }} day(s) and {{ duration_month }} month(s).",
+                "year": "This pass will be valid for {{ duration_day }} day(s), {{ duration_month }} month(s), and {{ duration_year }} year(s).",
+                "monthNoDay": "This pass will be valid for {{ duration_month }} month(s).",
+                "yearNoDayNoMonth": "This pass will be valid for {{ duration_year }} year(s).",
+                "yearDayNoMonth": "This pass will be valid for {{ duration_day }} day(s) and {{ duration_year }} year(s).",
+                "yearNoDay": "This pass will be valid for {{ duration_month }} month(s) and {{ duration_year }} year(s)."
             },
             "yearValidityHelper": "This will be added to the number of days and months",
             "monthValidityHelper": "This will be added to the number of days",
-            "yearValidity": "Pass validity in years",
-            "monthValidity": "Pass validity in months",
-            "dayValidity": "Pass validity in days",
+            "yearValidity": "Validity (in years)",
+            "monthValidity": "Validity (in months)",
+            "dayValidity": "Validity (in days)",
             "endBeforeStart": "The end date can't be greater than the start date",
             "toDate": "Until",
             "fromDate": "From",
@@ -7519,7 +7583,9 @@
             "generalInfo": "General information",
             "paymentPack": "Pass",
             "minusZero": "This field can't be 0",
-            "requiredField": "This field is mandatory"
+            "requiredField": "This field is mandatory",
+            "creditWarning": "Attention: all passes will be edited if the number of credits is changed.",
+            "migration": "This pass originates from a previously completed data migration. Some fields may not editable to preserve the data. Compatible activities/categories can still be modified."
         }
     },
     "metaActivity": {
@@ -7818,7 +7884,8 @@
                 "explainBookingsAndPassAndInvoiceAndNotes": "Bookings, passes, notes and invoices will be transfered.",
                 "explainTags": "Tags from the deleted member will not be transfered",
                 "cancel": "Cancel",
-                "submit": "Merge"
+                "submit": "Merge",
+                "emailWillBeSend": "A message will be sent to both email addresses to notify the members."
             },
             "error": "Unable to save member",
             "create": {
@@ -7932,7 +7999,135 @@
         "restoreMember": "Restore",
         "termsOfUse": "The Terms of Use",
         "noMember": "There are no members to display.",
-        "noData": "There are no members to members to display in this Smartlist."
+        "noData": "There are no members to members to display in this Smartlist.",
+        "changeEmailRequest": {
+            "memberPage": {
+                "simpleEmailChange": {
+                    "error": {
+                        "delayExceeded": {
+                            "contactCompany": "Please contact the studio directly to change your login email address again.",
+                            "helper": "{{ company }} had sent you a validation email to confirm the request to change your login email address. These requests are valid for 7 days and has now been expired.",
+                            "title": "Changing your login email address"
+                        },
+                        "emailTaken": {
+                            "contactCompany": "An account using \"{{ email }}\" as login email address has already been created. Please contact the studio directly for assistance, should this email address belong to you but if you didn't create any account with this email address.",
+                            "helper": "{{ company }} requested to change the login email address of your account:",
+                            "title": "This email address is already in use."
+                        },
+                        "renewed": {
+                            "contactCompany": "Please contact your studio directly if you didn't receive or can't find the most recent request validation email.",
+                            "helper": "Recently, {{ company }} had sent you a validation email to change your login email address. Please check your inbox and spam for the latest request, as this one is now invalid.",
+                            "title": "Changing your login email address"
+                        },
+                        "alreadyDenied": {
+                            "currentEmail": "Current login email address: \"{{ email }}\"",
+                            "contactCompany": "Please contact your studio directly if you didn't initiate the request to change your login email address.",
+                            "title": "You've already rejected this request.",
+                            "helper": "You have already selected a login email at {{ company }}, your decision has been taken into account."
+                        },
+                        "alreadyAccepted": {
+                            "currentEmail": "Current login email address: \"{{ email }}\"",
+                            "contactCompany": "Please contact your studio directly if you didn't initiate the request to change your login email address.",
+                            "title": "You've already validates this request.",
+                            "helper": "You already selected a login mail in {{ company }}, your decision has been taken into account."
+                        }
+                    },
+                    "submit": {
+                        "emailPreservedTo": "Your current email address to log in will remain \"{{ email }}\".",
+                        "emailUpatedTo": "Your email address to log in has been changed to \"{{ email }}\".",
+                        "deniedTitle": "Email address remains the same",
+                        "acceptedTitle": "Email address has been changed"
+                    },
+                    "multipleCompanyHelper": "This email address is used for all your accounts associated with studios using BSPORT Solution, meaning that the changes will be applied with every studio that you've signed up with that's affiliated with our software solution. Your login will be changed with the following studios:",
+                    "deniedRequestHelper": "Select \"Use current email address\" if you don't wish to process any changes.",
+                    "acceptRequestHelper": "Click on \"Confirm my new email address\" to process the email change request.",
+                    "title": "Changing your login email address"
+                },
+                "unAuthorizedAccess": {
+                    "contactCompany": "Please contact the studio directly if you're unable to complete this request.",
+                    "title": "Unauthorized access",
+                    "helper": "You are not logged in to the account that can access this application, please log in to the account associated with the confirmation email sent."
+                },
+                "generalError": {
+                    "contactCompany": "An error with the current request has been detected. This request has been disabled as a security measure. Please contact the studio directly to renew this process of if you're not the initiator of this reques.",
+                    "helper": "{{ company }} requested to change the login email address of your account:",
+                    "title": "Change an invalid login email address"
+                },
+                "requestingStudio": "{{ company }} requested to change the login email address of your account:",
+                "actions": {
+                    "continue": "Continue",
+                    "confirmFusion": "Accept account merger",
+                    "deniedFusion": "Refuse account merger",
+                    "cancel": "Use my current email address",
+                    "confirm": "Confirm my new email address"
+                },
+                "linkAccount": {
+                    "error": {
+                        "accepted": {
+                            "contactCompany": "Please contact the studio directly if you wish to merge your accounts or if you didn't initiate this request.",
+                            "helper": "Current login email address: \"{{ email }}\"",
+                            "title": "Merger has been accepted"
+                        },
+                        "denied": {
+                            "contactCompany": "Please contact the studio directly if you wish to merge your accounts again.",
+                            "helper": "You've already rejected the merger request from {{ company }}.",
+                            "title": "Merger has been rejected"
+                        }
+                    },
+                    "submit": {
+                        "denied": {
+                            "content": "Your account hasn't been merged with \"{{ new_email }}\". Use your current login details associated with \"{{ old_email}}\" for your account.",
+                            "title": "Merger has been rejected"
+                        },
+                        "accept": {
+                            "content": "Your account has been successfully merged with \"{{ old_email }}\". You've been registered with {{ company }} and you can use the login details associated with \"{{ new_email }}\" from now on.",
+                            "title": "Merger has been accepted"
+                        }
+                    },
+                    "dstUser": {
+                        "deniedRequestHelper": "Please select \"Refuse account merger\" if you don't wish to process this request or if you're not the initiator. This won't merge your accounts and you won't be registered with {{ company }}.",
+                        "acceptRequestHelper": "Click on \"Accept account merger\" to merge your accounts.",
+                        "notMemberYet": "You don't have an account yet with {{ company }}. Merging the accounts will result in all information from your previous email address (\"{{ old_email }}\") being transferred to your new email address (\"{{ new_email }}\"). You can use these login details for any studio.",
+                        "requestingStudio": "{{ company }} requested to merge your old login email address (\"{{ old_email }}\") with your new login email address (\"{{ new_email }}\")."
+                    },
+                    "veto": {
+                        "deniedRequestHelper": "Please go to your account and click on \"Refuse the merger\" if you don't wish to merge the accounts or if you didn't initiate this request. You can keep using your current login details and you'll prevent the merger of the accounts.",
+                        "acceptRequestHelper": "Please log in with {{ email }} to confirm the merging of your accounts.",
+                        "requestExplanation": "This email address \"{{ email }}\" is already is use at another studio. {{ company }} has requested your account with this existing account. By merging the two accounts, you can use the login details (email and password) of the account associated with the account of {{ email }}. You can use these login details for any studio using our software solution."
+                    },
+                    "title": "Merging accounts"
+                }
+            },
+            "dialog": {
+                "newEmail": "New email address: \"{{ email }}\"",
+                "oldEmail": "Previous email address: \"{{ email }}\"",
+                "actions": {
+                    "confirm": "Confirm",
+                    "close": "Cancel"
+                },
+                "cancelHelperText": "Click \"Cancel\" to stop the process for the email change.",
+                "securityHelperText": "A confirmation email will be sent for security reasons.",
+                "expiryText": "The request will be processed within 7 days after sending.",
+                "mergeMember": {
+                    "unchangedEmail": "Once confirmed, all invoices, bookings, balances, and purchases from the previous email address (\"{{ old_email }}\") will be transferred to the new email address (\"{{ new_email }}\"). The previous email address (\"{{ old_email }}\") will be deleted and both email addresses will be notified with an email.",
+                    "warning": "Warning, you try to link these members of your studio:"
+                },
+                "linkMember": {
+                    "notIncompany": "The new email address (\"{{ new_email }}\") belongs to a member of another studio.",
+                    "unchangedEmail": "The previous email address (\"{{ old_email }}\") will be used and the member accounts won't be merged.",
+                    "warning": "Warning, you try to link these members:"
+                },
+                "simpleChange": {
+                    "unchangedEmail": "The previous email will be kept in the meantime.",
+                    "warning": "Attention: you've changed the login email of"
+                },
+                "titleMerge": " Merge member accounts",
+                "title": "Changing email address"
+            },
+            "pendingValidation": "The request to change the email address \"{{ email }}\" is currently pending validation."
+        },
+        "actions": "Actions",
+        "archiveMember": "Archive"
     },
     "booking": {
         "bookingModule": {
@@ -9083,7 +9278,7 @@
             },
             "switchPack": {
                 "error": "Can't change the pass",
-                "success": "Payment method updated"
+                "success": "Pass has been updated"
             },
             "switchPaymentMethod": {
                 "error": "Impossible to change payment method",
@@ -9099,6 +9294,19 @@
                     "success": "This subscription has been restored successfully",
                     "error": "Error while restoring subscription"
                 }
+            },
+            "billNow": {
+                "errors": {
+                    "12102": "Your payment is in process of validation. Return later to register a new payment."
+                }
+            },
+            "switchPaymentCombo": {
+                "error": "Unable to modify the pack",
+                "success": "Pack has been modified"
+            },
+            "switchPrivatePass": {
+                "error": "Unable to modify the appointment pass",
+                "success": "Appointment pass has been modified"
             }
         },
         "smartlist": {
@@ -9208,6 +9416,12 @@
             "createOrUpdate": {
                 "error": "Error while saving",
                 "success": "Your modification has been successfully saved"
+            },
+            "changeEmailRequest": {
+                "create": {
+                    "error": "Unable to complete the email change request",
+                    "success": "Validation email has been sent"
+                }
             }
         },
         "establishment": {
@@ -9679,6 +9893,9 @@
                 },
                 "error": "Error when enrolling",
                 "success": "You've successfully enrolled!"
+            },
+            "customFormStepper": {
+                "error": "Error while saving responses."
             }
         },
         "establishmentGroup": {
@@ -9740,6 +9957,11 @@
             "payNowInvoice": {
                 "error": "Payment: refused",
                 "success": "Payment: successful"
+            }
+        },
+        "clientSecret": {
+            "errors": {
+                "12102": "Your payment is in process of validation. Return later to register a new payment."
             }
         }
     },
@@ -10230,7 +10452,7 @@
                 "accept_email": "I'd like to receive relevant communication by email",
                 "waiver": "Liability waiver",
                 "repeatPassword": "Confirm password",
-                "general_terms_and_conditions": "General Terms of Use.",
+                "general_terms_and_conditions": "The General Terms of Use.",
                 "country": "Country",
                 "city": "City",
                 "additional_adress": "Additional address information",
@@ -10561,6 +10783,12 @@
             "emptyStateDescription": "Select an email to see a preview of it.",
             "emptyStateTitle": "Email preview",
             "searchPlaceholder": "Search a template"
+        },
+        "login": {
+            "signUp": "Sign up",
+            "connect": "Log in",
+            "previous": "Previous",
+            "disconnect": "Logout"
         }
     },
     "giftcard": {

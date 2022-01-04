@@ -462,7 +462,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
                     credit={this.props.invoice.member.credit_account_balance}
                   >
                     <Fab
-                      variant="contained"
+                      variant="extended"
                       color="secondary"
                       onClick={() =>
                         this.props.goToMemberPage(this.props.invoice.member.id)

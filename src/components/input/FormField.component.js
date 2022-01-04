@@ -217,6 +217,7 @@ export class FormField extends Component<Props, State> {
           <TextField
             className={classes.textInput}
             required={required}
+            disabled={disabled}
             value={value}
             id={id}
             name={name}

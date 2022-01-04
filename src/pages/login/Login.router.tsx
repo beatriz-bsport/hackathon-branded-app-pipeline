@@ -23,6 +23,7 @@ import { fetchFranchiseTheme } from '#libs/franchise/actions';
 
 import { fetchCompanyCustomSignUp } from '#libs/custom-form/actions';
 import type { Theme as CompanyTheme } from '#libs/theme/types';
+import LoadingBackoffice from '#components/navigation/LoadingBackoffice.component';
 import LoginBackground from '#libs/login/components/LoginBackground.component';
 import {
   getFranchisor,
@@ -123,9 +124,7 @@ export class LoginRouter extends React.Component<Props> {
       (this.props.franchisor && !this.props.franchiseTheme) ||
       (this.props.membership && !this.props.theme?.id)
     ) {
-      return (
-        <CircularProgress size={100} className={classes.circularProgress} />
-      );
+      return <LoadingBackoffice />;
     }
 
     return (

@@ -28,6 +28,7 @@ export const PasswordInput = (props: Props) => {
       autoComplete="current-password"
       error={!!props.error}
       label={props.label || t('forms.password.label')}
+      disabled={props.disabled}
       helperText={props.helperText}
       type={isVisible ? 'text' : 'password'}
       onChange={props.onChange}

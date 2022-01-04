@@ -1,20 +1,22 @@
 // @flow
 import React from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import LOGO_ASSET from '../../public/images/banner_lowres.png';
 
-type Props = {
-  classes: Object,
-};
-export const LoadingBackoffice = (props: Props) => (
-  <div className={props.classes.container}>
-    <img src={LOGO_ASSET} alt="bsport logo" height={40} />
-    <CircularProgress className={props.classes.loading} />
-  </div>
-);
+type Props = {};
 
-const styles = (theme) => ({
+export const LoadingBackoffice = (props: Props) => {
+  const classes = useStyles();
+  return (
+    <div className={classes.container}>
+      <img src={LOGO_ASSET} alt="bsport logo" height={40} />
+      <CircularProgress className={classes.loading} />
+    </div>
+  );
+};
+
+const useStyles = makeStyles((theme: Theme) => ({
   container: {
     height: '60vh',
     width: '100vw',
@@ -29,6 +31,6 @@ const styles = (theme) => ({
   textLoading: {
     marginTop: theme.spacing(1),
   },
-});
+}));
 
-export default withStyles(styles)(LoadingBackoffice);
+export default LoadingBackoffice;

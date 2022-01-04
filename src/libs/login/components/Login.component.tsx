@@ -125,6 +125,7 @@ export class ConsumerLogin extends Component<Props, State> {
             <FormField
               id="email"
               name="login"
+              disabled={this.props.loading}
               onChange={this.onFormFieldChange}
               fullWidth
             />
@@ -133,6 +134,7 @@ export class ConsumerLogin extends Component<Props, State> {
             <PasswordInput
               fullWidth
               value={this.state.password}
+              disabled={this.props.loading}
               className={classes.field}
               onChange={(ev: any) =>
                 this.onFormFieldChange('password')(ev.target.value)
@@ -156,10 +158,18 @@ export class ConsumerLogin extends Component<Props, State> {
           ) : null}
           <Button
             className={classes.signInButton}
+            disabled={this.props.loading}
             variant="contained"
             type="submit"
             id="btn-signin"
           >
+            {!!this.props.loading && (
+              <CircularProgress
+                style={{ marginRight: 8 }}
+                size={24}
+                color="inherit"
+              />
+            )}
             {t('actions.signin')}
           </Button>
           <div
@@ -193,14 +203,6 @@ export class ConsumerLogin extends Component<Props, State> {
   render() {
     const { loading, t, classes } = this.props;
 
-    if (loading) {
-      return (
-        <div className={classes.container}>
-          <CircularProgress />
-        </div>
-      );
-    }
-
     const { requestSignUp } = this.props;
     return (
       <div className={classnames(classes.flexColumnCenter, classes.container)}>
@@ -214,6 +216,7 @@ export class ConsumerLogin extends Component<Props, State> {
         <Button
           id="btn-goto-signup"
           variant="outlined"
+          disabled={loading}
           onClick={requestSignUp}
           className={classes.registerButton}
         >
@@ -263,12 +266,14 @@ const styles = (theme: Theme): any => ({
   },
   signInButton: (props: Props) => ({
     marginTop: theme.spacing(2),
-    background:
-      props.company || props.franchisor
-        ? `linear-gradient(90deg,${theme.palette.primary.main} 4.66%, ${chroma(
-            theme.palette.primary.main,
-          ).darken(1.2)} 88.6%)`
-        : 'linear-gradient(90deg, #499C7C 4.66%, #2D767F 88.6%)',
+    // eslint-disable-next-line
+    background: props.loading
+      ? '#deded'
+      : props.company || props.franchisor
+      ? `linear-gradient(90deg,${theme.palette.primary.main} 4.66%, ${chroma(
+          theme.palette.primary.main,
+        ).darken(1.2)} 88.6%)`
+      : 'linear-gradient(90deg, #499C7C 4.66%, #2D767F 88.6%)',
     borderRadius: 8,
     height: 48,
     color:
@@ -276,14 +281,16 @@ const styles = (theme: Theme): any => ({
         ? '#000000'
         : '#ffffff',
     '&:hover': {
-      background:
-        props.company || props.franchisor
-          ? `linear-gradient(90deg,${chroma(theme.palette.primary.main).darken(
-              1.05,
-            )} 4.66%, ${chroma(theme.palette.primary.main).darken(1.25)} 88.6%)`
-          : `linear-gradient(90deg, ${chroma('#499C7C').darken(
-              1.05,
-            )} 4.66%, ${chroma('#2D767F').darken(1.05)} 88.6%)`,
+      // eslint-disable-next-line
+      background: props.loading
+        ? '#dedede'
+        : props.company || props.franchisor
+        ? `linear-gradient(90deg,${chroma(theme.palette.primary.main).darken(
+            1.05,
+          )} 4.66%, ${chroma(theme.palette.primary.main).darken(1.25)} 88.6%)`
+        : `linear-gradient(90deg, ${chroma('#499C7C').darken(
+            1.05,
+          )} 4.66%, ${chroma('#2D767F').darken(1.05)} 88.6%)`,
     },
   }),
   field: {

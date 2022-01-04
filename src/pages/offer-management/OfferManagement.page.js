@@ -273,6 +273,7 @@ export default compose(
         fetchInvoiceList({
           is_v2: true,
           is_draft: false,
+          unpaid: true,
           ...(params || {}),
         });
       },

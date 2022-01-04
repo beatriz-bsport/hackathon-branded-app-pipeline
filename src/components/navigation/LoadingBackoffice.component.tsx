@@ -4,9 +4,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import LOGO_ASSET from '../../public/images/banner_lowres.png';
 
-type Props = {};
-
-export const LoadingBackoffice = (props: Props) => {
+export const LoadingBackoffice = () => {
   const classes = useStyles();
   return (
     <div className={classes.container}>

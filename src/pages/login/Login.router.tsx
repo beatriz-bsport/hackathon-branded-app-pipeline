@@ -9,7 +9,6 @@ import { withProps, compose } from 'recompose';
 import { connect } from 'react-redux';
 import Hidden from '@material-ui/core/Hidden';
 import Fade from '@material-ui/core/Fade';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { RootState } from '../../reducers';
 import { parseQueryString } from '../../http';
 import { fetchCompanyTheme } from '#libs/theme/actions';

@@ -308,6 +308,9 @@ export const PaymentPackTemplateFormikHOC = withFormik({
     if (!values.full_vod_access) {
       data.only_vod_access = false;
     }
+    if (values.unlimited) {
+      data.credits = null;
+    }
     onSubmit(data, {
       onSuccess: () => setSubmitting(false),
       onError: () => setSubmitting(false),

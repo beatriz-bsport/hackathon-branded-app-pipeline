@@ -9985,7 +9985,8 @@
                     "error": "Error al desagregar el programa",
                     "success": "Programa de miembros disociados"
                 }
-            }
+            },
+            "deleteHeader": "¿Realmente quiere desvincular este programa de este miembro?"
         },
         "metric": {
             "form": {

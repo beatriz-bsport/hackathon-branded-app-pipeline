@@ -1416,7 +1416,7 @@
             "explain": "Tu sesión ha expirado. ¿Has iniciado sesión en dos cuentas diferentes simultáneamente o has cerrado sesión desde otra pestaña / ventana?"
         },
         "error": {
-            "invalidPassword": "La contraseña no es válida",
+            "invalidPassword": "Contraseña no es válida",
             "invalidEmail": "Este email no existe en nuestra base de datos",
             "authError": "Email o contraseña incorrectos"
         },

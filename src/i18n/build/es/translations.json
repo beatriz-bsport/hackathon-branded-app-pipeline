@@ -2830,7 +2830,8 @@
                 "2": "SEPA",
                 "1": "Tarjeta de crédito"
             },
-            "paymentCombo": "Pack"
+            "paymentCombo": "Pack",
+            "payment_combo": "Pack"
         },
         "schedule": {
             "provisionalTitle": "Calendario estimativo",
@@ -3076,6 +3077,25 @@
                 "recurrencePriceIs": "Pago periódico de {{ amount }}{{currencyDisplay}}",
                 "nextBillingDate": "Próxima facturación en {{ d }}",
                 "startingAt": "Empieza el {{ d }}"
+            },
+            "switchPrivatePass": {
+                "form": {
+                    "explain": "Esta tarjeta de citas se cargará en lugar de la antigua en todas las facturas futuras. Las sesiones reservadas con la antigua tarjeta se transferirán a la nueva aunque ésta no sea supuestamente compatible.",
+                    "submit": "Registrar",
+                    "title": "Cambio de tarjeta de nombramiento",
+                    "warning": "La facturación seguirá siendo la misma, si desea aumentar/disminuir el importe mensual, cambie cada mensualidad por separado.",
+                    "cancel": "Cancelar"
+                }
+            },
+            "switchPaymentCombo": {
+                "form": {
+                    "title": "Cambio de pack",
+                    "warning": "La facturación seguirá siendo la misma, si desea aumentar/disminuir el importe mensual, cambie cada mensualidad por separado.",
+                    "submit": "Registrar",
+                    "explain": "Este pack se cobrará en lugar del antiguo SÓLO en las facturas generadas después de la renovación de la suscripción",
+                    "prewarning": "Si desea modificar futuras facturas ya creadas, debe cancelar esta suscripción.",
+                    "cancel": "Cancelar"
+                }
             }
         },
         "noContracts": "Los contratos te permitirán facturar a tus miembros regularmente (mensualmente) por un bono que se vuelve a acreditar cada mes/días/años.",
@@ -3093,7 +3113,9 @@
             "billing_plan-pause": "Pausa",
             "list": {
                 "title": "Últimos acontecimientos"
-            }
+            },
+            "billing_plan-update_private_pass": "Tarjeta de citas modificada",
+            "billing_plan-update_payment_combo": "Pack modificado"
         },
         "copyLink": "Copiar el enlace a la página de pago",
         "listItem": {
@@ -5598,7 +5620,59 @@
         },
         "seeAll": "Ver todo",
         "privatePassTemplateInstance": {
-            "privatePassSharedFromFranchisor": "Tarjeta de franquicia"
+            "privatePassSharedFromFranchisor": "Tarjeta de franquicia",
+            "form": {
+                "explain1": "Los siguientes estudios tendrán automáticamente esta tarjeta a la venta. No podrán cambiar el precio ni el número de créditos.",
+                "title": "Configurar mis estudios",
+                "explain2": "Si un socio compra esta tarjeta en uno de los estudios compatibles, también podrá utilizarla en los demás estudios que hayas definido.",
+                "actions": {
+                    "close": "Cerrar",
+                    "submit": "Registrar"
+                }
+            },
+            "deleteForm": {
+                "content": "Al desactivar este estudio de compartir el mapa, todos los miembros que posean este mapa y lo hayan comprado en este estudio podrán seguir utilizándolo. Sin embargo, ya no podrán utilizarlo en otros estudios. Por último, las tarjetas compradas en otros estudios ya no podrán utilizarse en el estudio desactivado, independientemente de cuándo se hayan comprado.",
+                "title": "Desactivación",
+                "actions": {
+                    "close": "Cerrar",
+                    "submit": "Desactivar el uso compartido"
+                }
+            },
+            "privateConsumerPassSharedFromOtherFranchisee": "Compartido por el franquiciado",
+            "companyEmpty": "Ningún estudio está configurado para aceptar esta tarjeta de curso",
+            "actions": {
+                "addCompany": "Añadir un estudio"
+            }
+        },
+        "privatePassTemplate": {
+            "section": {
+                "titleAvailable": "Disponible para la venta",
+                "titleManagerOnly": "No disponible para la venta"
+            },
+            "deleteForm": {
+                "content": "Al desactivar una tarjeta compartida, los socios que la tengan sólo podrán utilizarla en el estudio donde la compraron.",
+                "title": "Desactivación",
+                "actions": {
+                    "close": "Cerrar",
+                    "submit": "Desactivar el uso compartido"
+                }
+            },
+            "specification": {
+                "companySharedWithTitle": "Compartido con los estudios:"
+            },
+            "isEmptyExplain": "Las tarjetas de clases compartidas están disponibles en los estudios de su elección, y permiten a sus socios utilizar sus créditos en cualquier estudio que elijan.",
+            "form": {
+                "title": "Tarjeta de curso compartido",
+                "close": "Cerrar",
+                "submit": "Validar",
+                "actions": {
+                    "close": "Cerrar",
+                    "submit": "Registrar"
+                }
+            },
+            "actions": {
+                "create": "Crear un mapa compartido"
+            }
         }
     },
     "reminder": {
@@ -6804,6 +6878,14 @@
                 "errors": {
                     "12102": "Ya se está validando un pago, vuelva más tarde para registrar un nuevo pago."
                 }
+            },
+            "switchPaymentCombo": {
+                "success": "Paquete modificado",
+                "error": "No se puede modificar el pack"
+            },
+            "switchPrivatePass": {
+                "success": "Tarjeta de citas modificada",
+                "error": "No se puede modificar la tarjeta de citas"
             }
         },
         "smartlist": {
@@ -7307,6 +7389,9 @@
                 "errors": {
                     "84006": "Es necesario definir una exención de responsabilidad en Configuración > General para poder añadir la pregunta \"Exención de responsabilidad\"."
                 }
+            },
+            "customFormStepper": {
+                "error": "No se pueden registrar las respuestas."
             }
         },
         "establishmentBillingGroup": {

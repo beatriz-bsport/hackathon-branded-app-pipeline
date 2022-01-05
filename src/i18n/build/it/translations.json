@@ -1249,7 +1249,8 @@
             "myVideos": "I miei video",
             "pick_a_language": "Selezionare una lingua",
             "automaticLanguage": "Rilevamento automatico della lingua",
-            "giftcard": "Carte regalo"
+            "giftcard": "Carte regalo",
+            "statistic": "Statistiche"
         },
         "debt": {
             "regularize": "Regolarizza",
@@ -1493,7 +1494,8 @@
             "kind": {
                 "0": "Email",
                 "1": "SMS"
-            }
+            },
+            "unavailableMail": "Anteprima non disponibile"
         },
         "recipient": {
             "readCount": "Apertura",
@@ -2444,6 +2446,62 @@
                 "mail": "Email "
             },
             "addButton": "Aggiungere una notifica"
+        },
+        "privatePassTemplate": {
+            "isEmptyExplain": "Le carte per le lezioni condivise sono disponibili negli studi di vostra scelta e permettono ai vostri membri di usare i loro crediti in qualsiasi studio voi scegliate.",
+            "specification": {
+                "companySharedWithTitle": "Shared with the studios:"
+            },
+            "section": {
+                "titleAvailable": "Disponibile per la vendita",
+                "titleManagerOnly": "Non disponibile per la vendita"
+            },
+            "form": {
+                "title": "Scheda del corso condiviso",
+                "close": "Chiudere",
+                "submit": "Convalidare",
+                "actions": {
+                    "close": "Chiudere",
+                    "submit": "Registra"
+                }
+            },
+            "deleteForm": {
+                "title": "Disattivazione",
+                "content": "Disattivando una tessera condivisa, i membri con quella tessera potranno utilizzarla solo nello studio dove l'hanno acquistata.",
+                "actions": {
+                    "close": "Chiudere",
+                    "submit": "Disattivare la condivisione"
+                }
+            },
+            "actions": {
+                "create": "Creare una mappa condivisa"
+            }
+        },
+        "seeAll": "Vedi tutti",
+        "privatePassTemplateInstance": {
+            "privatePassSharedFromFranchisor": "Scheda del franchising",
+            "privateConsumerPassSharedFromOtherFranchisee": "Condiviso dal franchisee",
+            "form": {
+                "title": "Allestire i miei studi",
+                "explain1": "I seguenti studi avranno automaticamente questa carta disponibile per la vendita. Non potranno cambiare il prezzo o il numero di crediti.",
+                "explain2": "Se un membro acquista questa carta in uno degli studi compatibili, potrà utilizzarla anche negli altri studi che hai definito.",
+                "actions": {
+                    "close": "Chiudere",
+                    "submit": "Registra"
+                }
+            },
+            "deleteForm": {
+                "title": "Disattivazione",
+                "content": "Disattivando questo studio dalla condivisione della mappa, tutti i membri che possiedono questa mappa e l'hanno acquistata in questo studio potranno ancora utilizzarla. Tuttavia, non potranno più usarlo in altri studi. Infine, le carte acquistate in altri studi non saranno più utilizzabili nello studio disattivato, indipendentemente da quando sono state acquistate.",
+                "actions": {
+                    "close": "Chiudere",
+                    "submit": "Disattivare la condivisione"
+                }
+            },
+            "companyEmpty": "Nessuno studio è configurato per accettare questa carta di corso",
+            "actions": {
+                "addCompany": "Aggiungere uno studio"
+            }
         }
     },
     "video": {
@@ -2738,7 +2796,8 @@
             "redirecting": "Sarai reindirizzato alla tua pagina",
             "backToFranchiseWorskpace": "Ritorno al conto principale",
             "franchiseConnectedAs": "Registrato come:{{name}}",
-            "giftcard": "Carte regalo"
+            "giftcard": "Carte regalo",
+            "programs": "Programmi"
         },
         "deprecatedNavigator": {
             "close": "Chiudi",
@@ -3207,6 +3266,14 @@
                 "errors": {
                     "12102": "Un pagamento è già stato convalidato, torna più tardi per registrare un nuovo pagamento."
                 }
+            },
+            "switchPrivatePass": {
+                "error": "Impossibile modificare la scheda dell'appuntamento",
+                "success": "Carta d'appuntamento modificata"
+            },
+            "switchPaymentCombo": {
+                "success": "Pacchetto modificato",
+                "error": "Impossibile modificare il pacchetto"
             }
         },
         "webhook": {
@@ -3805,6 +3872,9 @@
                 "errors": {
                     "84006": "Devi definire un disclaimer in Settings > General per poter aggiungere la domanda 'Disclaimers'."
                 }
+            },
+            "customFormStepper": {
+                "error": "Impossibile registrare le risposte."
             }
         },
         "establishmentBillingGroup": {
@@ -4549,6 +4619,25 @@
                 "recurrencePriceIs": "Ricorrenza di {{ amount }}{{currencyDisplay}}",
                 "nextBillingDate": "Prossima fatturazione il {{ d }}",
                 "startingAt": "Inizia il {{ d }}"
+            },
+            "switchPrivatePass": {
+                "form": {
+                    "cancel": "Cancella",
+                    "title": "Cambio di carta d'appuntamento",
+                    "explain": "Questa carta d'appuntamento sarà addebitata al posto di quella vecchia su tutte le fatture future. Le sessioni prenotate con la vecchia carta saranno trasferite alla nuova, anche se la nuova non dovrebbe essere compatibile.",
+                    "warning": "La fatturazione rimarrà la stessa, se volete aumentare/diminuire l'importo mensile, cambiate ogni pagamento mensile separatamente.",
+                    "submit": "Registra"
+                }
+            },
+            "switchPaymentCombo": {
+                "form": {
+                    "submit": "Registra",
+                    "title": "Cambiare il pacchetto",
+                    "explain": "Questo pacchetto sarà addebitato al posto di quello vecchio SOLO sulle fatture generate dopo il rinnovo dell'abbonamento",
+                    "prewarning": "Se desidera modificare le fatture future già create, deve annullare questo abbonamento.",
+                    "warning": "La fatturazione rimarrà la stessa, se volete aumentare/diminuire l'importo mensile, cambiate ogni pagamento mensile separatamente.",
+                    "cancel": "Cancella"
+                }
             }
         },
         "paymentMethod": {
@@ -4598,7 +4687,8 @@
                 "2": "SEPA",
                 "1": "Carta di credito"
             },
-            "paymentCombo": "Pacchetto"
+            "paymentCombo": "Pacchetto",
+            "payment_combo": "Confezione"
         },
         "contract": {
             "registerManager": {
@@ -4753,7 +4843,9 @@
             "billing_plan-create": "Creazione",
             "billing_plan-stop": "Stop",
             "billing_plan-payment_success": "Pagamento andato a buon fine",
-            "billing_plan-payment_failure": "Pagamento rifiutato"
+            "billing_plan-payment_failure": "Pagamento rifiutato",
+            "billing_plan-update_private_pass": "Carta d'appuntamento modificata",
+            "billing_plan-update_payment_combo": "Pacchetto modificato"
         },
         "save": "convalidare",
         "recap": {
@@ -6163,7 +6255,8 @@
             "privateConsumerPass": "Pass per appuntamenti",
             "vod": "VOD",
             "form": "Moduli",
-            "giftcard": "Carta regalo"
+            "giftcard": "Carta regalo",
+            "programs": "Programmi"
         },
         "addMember": "Aggiungi il profilo di un membro",
         "name": "Nome",
@@ -6363,7 +6456,9 @@
                     "title": "Cambia la tua email di accesso"
                 }
             }
-        }
+        },
+        "archiveMember": "Archivio",
+        "actions": "Azioni"
     },
     "booking": {
         "statusCode": {
@@ -6671,7 +6766,10 @@
         "setSpot": "Assegnare un posto",
         "changeSpot": "Cambiare il posto",
         "noSpotAttributed": "Nessun posto assegnato",
-        "placeNumber": "Posto {{count}}"
+        "placeNumber": "Posto {{count}}",
+        "performanceTracking": {
+            "stat": "Statistiche"
+        }
     },
     "smartList": {
         "mail": {
@@ -8143,7 +8241,10 @@
     },
     "login": {
         "actions": {
-            "signup": "Non hai ancora un account?",
+            "signup": {
+                "noAccount": "Non hai ancora un account?",
+                "register": "Iscriviti"
+            },
             "forgottenPassword": "Password dimenticata",
             "signin": "Accesso"
         },
@@ -8267,6 +8368,10 @@
             "fr": "francese",
             "en": "Inglese",
             "pt": "Portoghese"
+        },
+        "signin": {
+            "connection": "Connessione",
+            "connect": "Accedi per continuare."
         }
     },
     "waitingList": {
@@ -8589,7 +8694,8 @@
             "validate": "Convalidare",
             "unselectAll": "Deseleziona tutti",
             "selectAll": "Seleziona tutti"
-        }
+        },
+        "cancel": "Cancella"
     },
     "titles": {
         "metaActivity": {
@@ -9738,6 +9844,12 @@
             "emptyStateDescription": "Seleziona un modello",
             "emptyStateTitle": "Anteprima della posta",
             "searchPlaceholder": "Cerca un modello"
+        },
+        "login": {
+            "disconnect": "Disconnessione",
+            "previous": "Indietro",
+            "connect": "Collegami",
+            "signUp": "Iscriviti"
         }
     },
     "giftcard": {
@@ -9902,5 +10014,101 @@
         },
         "search": "Cerca una carta regalo",
         "widget": "Scegliere le carte regalo"
+    },
+    "performanceTracking": {
+        "program": {
+            "actions": {
+                "enable": {
+                    "error": "Errore durante il ripristino del programma",
+                    "success": "Programma ripristinato"
+                },
+                "update": {
+                    "success": "Programma modificato",
+                    "error": "Errore durante la modifica del programma"
+                },
+                "create": {
+                    "success": "Programma creato",
+                    "error": "Errore durante la creazione del programma"
+                },
+                "disable": {
+                    "success": "Programma archiviato",
+                    "error": "Errore durante l'archiviazione del programma"
+                }
+            },
+            "infoSelectProgram": "Seleziona un programma per vedere i suoi dettagli",
+            "deleteContent": "Questo programma non apparirà più sui membri a cui è stato aggiunto. Puoi recuperarlo dalla sezione 'Archiviato'.",
+            "titleForConsumer": "I miei programmi",
+            "default": "Programma predefinito",
+            "selectProgram": "Selezionare un programma",
+            "detail": "Dettagli del programma",
+            "deleteHeader": "Vuoi davvero cancellare questo programma?",
+            "infoNoProgram": "Aggiungi un programma per i tuoi membri per tracciare le loro metriche",
+            "archived": "Archiviato",
+            "title": "Programmi",
+            "form": {
+                "addProgram": "aggiungere un programma",
+                "delete": "cancellare il programma",
+                "modify": "modificare il programma",
+                "create": "Creare un programma",
+                "generalInfo": "Informazioni generali",
+                "name": "Nome del programma",
+                "description": "Descrizione",
+                "color": "Colore",
+                "default": "Impostare come programma predefinito per tutti i nuovi registranti"
+            },
+            "member": {
+                "addDate": "Data di registrazione",
+                "title": "Membri",
+                "name": "Nome"
+            }
+        },
+        "memberProgram": {
+            "infoNoMemberProgram": "Questo membro non ha programmi al momento.",
+            "actions": {
+                "disable": {
+                    "success": "Programma arto dissociato",
+                    "error": "Errore durante la disaggregazione del programma"
+                },
+                "create": {
+                    "success": "Programma associato al membro",
+                    "error": "Errore nell'assegnazione del programma al membro"
+                }
+            },
+            "infoNoConsumerProgram": "Se non hai ancora un programma, contatta il tuo studio per iniziare a monitorare le tue prestazioni!",
+            "deleteHeader": "Vuoi davvero dissociare questo programma da questo membro?",
+            "deleteContent": "Perderai i valori delle metriche del programma per questo membro"
+        },
+        "requiredField": "questo campo è richiesto",
+        "form": {
+            "cancel": "Cancella",
+            "save": "Registra",
+            "validate": "Convalidare",
+            "search": "Cerca",
+            "delete": "Cancellare",
+            "add": "aggiungere",
+            "close": "chiudere"
+        },
+        "metric": {
+            "deleteHeader": "Vuoi davvero rimuovere questa metrica?",
+            "deleteContent": "La metrica sarà cancellata in modo permanente.",
+            "statistic": "Statistiche",
+            "title": "Metrico",
+            "form": {
+                "minMax": "Il valore minimo non può essere inferiore al valore massimo",
+                "range": "Il valore predefinito non è tra il valore minimo e quello massimo ",
+                "addMetric": "aggiungere una metrica",
+                "noMetric": "Nessuna metrica registrata",
+                "general": "Generale",
+                "name": "Nome",
+                "machine": "Identificatore della macchina",
+                "default_value": "Valore predefinito",
+                "default_valueHelperText": "Valore base della metrica. Se vuoto il valore sarà il valore minimo",
+                "minValue": "Valore minimo",
+                "minValueHelperText": "Valore minimo della metrica",
+                "maxValue": "Valore massimo",
+                "maxValueHelperText": "Valore massimo della metrica",
+                "color": "Colore"
+            }
+        }
     }
 }

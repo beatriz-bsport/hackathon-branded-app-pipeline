@@ -8,6 +8,7 @@ import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import WidgetPaymentPackTemplateListPage from 'bsport-saas/src/pages/franchise/payment-pack-template/WidgetPaymentPackTemplateList.page';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 import { RootState } from '../reducers';
+import { getEnv } from '../utils/env';
 
 const WidgetPaymentPackTemplateListPageStyled = themify(
   WidgetPaymentPackTemplateListPage,
@@ -18,6 +19,7 @@ type OwnProps = {
   store: any,
   theme: Theme,
   franchiseId: number,
+  onWindowOpen: (url: string) => void,
 };
 type State = {};
 
@@ -27,6 +29,12 @@ type Props = OwnProps &
   WithTranslation;
 
 export class PaymentPackTemplate extends Component<Props, State> {
+  goToFranchiseSelection = (paymentPackTemplateId: number) => {
+    const { PUBLIC_URL } = getEnv();
+    const url = `${PUBLIC_URL}/login?franchisor=${this.props.franchiseId}&franchisorNext=/c/checkout/pre-checkout/payment-pack-template/${paymentPackTemplateId}`;
+    this.props.onWindowOpen(url);
+  };
+
   render() {
     const { classes, store, theme, franchiseId } = this.props;
 
@@ -36,6 +44,7 @@ export class PaymentPackTemplate extends Component<Props, State> {
           theme={theme}
           store={store}
           franchiseId={franchiseId}
+          goToFranchiseSelection={this.goToFranchiseSelection}
         />
       </div>
     );
@@ -43,7 +52,9 @@ export class PaymentPackTemplate extends Component<Props, State> {
 }
 const styles = (theme: Theme) =>
   createStyles({
-    container: {},
+    container: {
+      width: '100%',
+    },
   });
 
 const connector = connect((state: RootState) => ({}), {});

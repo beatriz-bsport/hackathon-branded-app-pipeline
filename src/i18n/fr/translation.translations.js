@@ -405,9 +405,9 @@ exports.default = {
           "J'accepte les conditions générales d'utilisation",
         waiver: "J'accepte les décharges de responsabilité",
         accept_email:
-          "J’accepte d'être notifié par email pour des informations liés à mon activité (changement d’horaires, annulation de dernière minute, nouvel atelier... )",
+          "J’accepte d'être notifié(e) par email pour des informations liées à mon activité (changement d’horaires, annulation de dernière minute, nouvel atelier... )",
         accept_sms:
-          "J’accepte d'être notifié par SMS pour des informations liés à mon activité (changement d’horaires, annulation de dernière minute, nouvel atelier... )",
+          "J’accepte d'être notifié(e) par SMS pour des informations liées à mon activité (changement d’horaires, annulation de dernière minute, nouvel atelier... )",
       },
       error: {
         password: 'Le mot de passe doit contenir au moins 6 caractères',

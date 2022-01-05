@@ -2089,7 +2089,7 @@
         "title": "Changement d'email",
         "titleMerge": " Fusion de membre",
         "simpleChange": {
-          "warning": "Attention, vous avez modifé l'email de connexion de ce membre :",
+          "warning": "Attention, vous avez modifié l'email de connexion de ce membre :",
           "unchangedEmail": "En attendant il conservera son ancien email."
         },
         "linkMember": {
@@ -5629,7 +5629,7 @@
       "credit": { "updated": "Crédits mis à jour", "error": "Erreur lors de l'enregistrement" },
       "createOrUpdate": { "success": "Carte de cours enregistrée", "fail": "Erreur lors de l'enregistrement de la carte" },
       "category": {
-        "update": { "success": "Categorie modifée avec succès", "error": "Impossible de modifier la catégorie" },
+        "update": { "success": "Categorie modifiée avec succès", "error": "Impossible de modifier la catégorie" },
         "create": { "success": "Nouvelle catégorie créée avec succès", "error": "Impossible de créer cette catégorie" },
         "delete": { "success": "Catégorie supprimée", "error": "Impossible de supprimer la catégorie" }
       }
@@ -7076,8 +7076,8 @@
           "emergency_contact": "Contact d'urgence",
           "general_terms_and_conditions_accepted": "J'accepte les conditions générales d'utilisation",
           "waiver": "J'accepte les décharges de responsabilité",
-          "accept_email": "J’accepte d'être notifié par email pour des informations liés à mon activité (changement d’horaires, annulation de dernière minute, nouvel atelier... )",
-          "accept_sms": "J’accepte d'être notifié par SMS pour des informations liés à mon activité (changement d’horaires, annulation de dernière minute, nouvel atelier... )"
+          "accept_email": "J’accepte d'être notifié(e) par email pour des informations liées à mon activité (changement d’horaires, annulation de dernière minute, nouvel atelier... )",
+          "accept_sms": "J’accepte d'être notifié(e) par SMS pour des informations liées à mon activité (changement d’horaires, annulation de dernière minute, nouvel atelier... )"
         },
         "error": {
           "password": "Le mot de passe doit contenir au moins 6 caractères",

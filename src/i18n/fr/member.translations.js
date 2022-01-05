@@ -216,7 +216,7 @@ exports.default = {
       titleMerge: ' Fusion de membre',
       simpleChange: {
         warning:
-          "Attention, vous avez modifé l'email de connexion de ce membre :",
+          "Attention, vous avez modifié l'email de connexion de ce membre :",
         unchangedEmail: 'En attendant il conservera son ancien email.',
       },
       linkMember: {

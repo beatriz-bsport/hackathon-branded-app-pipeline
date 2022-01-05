@@ -276,7 +276,7 @@ exports.default = {
     },
     category: {
       update: {
-        success: 'Categorie modifée avec succès',
+        success: 'Categorie modifiée avec succès',
         error: 'Impossible de modifier la catégorie',
       },
       create: {

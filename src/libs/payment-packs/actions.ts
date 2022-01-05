@@ -7,7 +7,6 @@ import {
   edit as editAPI,
   scalePaymentPackCredit as scalePaymentPackCreditAPI,
   create as createAPI,
-  fetchAllPaymentPacks as fetchAllPaymentPacksAPI,
   patch as patchAPI,
   fetchOne as fetchOneAPI,
   fetchPaymentPackList as fetchPaymentPackListAPI,
@@ -85,7 +84,7 @@ export function refreshAllPaymentPack() {
   return async (dispatch: Dispatch) => {
     dispatch(listAllPaymentPackActions.error(null));
     try {
-      const response = await fetchAllPaymentPacksAPI();
+      const response = await fetchPaymentPackList();
       const paymentPacks = response.data;
       dispatch(listAllPaymentPackActions.success(paymentPacks));
     } catch (err) {

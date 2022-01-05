@@ -19,16 +19,18 @@ import { push as pushRouter } from 'connected-react-router';
 import IconButton from '@material-ui/core/IconButton';
 import memoize from 'memoize-one';
 import uniqBy from 'lodash/uniqBy';
+import { VideoStatusEnum } from '#libs/video/types';
 import { OptionCallback } from '../../state/types';
 import { RootState } from '../../reducers/index';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
-import PaginatedConsumerPackList from '../../libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
-import FuzeSearch from '../../components/FuzeSearch.component';
-import IsEmptyList from '../../components/navigation/IsEmptyList.component';
-import PaymentPackListItem from '../../libs/payment-packs/components/PaymentPackListItem.component';
-import PaymentPackDeleteDialog from '../../libs/payment-packs/components/PaymentPackDeleteDialog.component';
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import BottomActionsButton from '../../components/button/BottomActionsButton.component';
+import PaginatedConsumerPackList from '#libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
+import FuzeSearch from '#components/FuzeSearch.component';
+import IsEmptyList from '#components/navigation/IsEmptyList.component';
+import PaymentPackListItem from '#libs/payment-packs/components/PaymentPackListItem.component';
+import PaymentPackDeleteDialog from '#libs/payment-packs/components/PaymentPackDeleteDialog.component';
+import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import BottomActionsButton from '#components/button/BottomActionsButton.component';
+import { fetchVideoFilterableParams } from '#libs/video/actions';
 import {
   updateCredit as updateCreditAction,
   resetByPaymentPack as resetByPaymentPackAction,
@@ -166,6 +168,10 @@ export class PaymentPackList extends React.Component<Props, State> {
     this.props.fetchWorkhops();
     this.props.fetchAllPaymentPacks();
     this.props.fetchAllPaymentPackCategory();
+    this.props.fetchVideoFilterableParams({
+      company: this.props.companyId,
+      status: VideoStatusEnum.processed,
+    });
     this.props.fetchMarketingNotificationList({
       active: true,
       kind_in: [
@@ -362,10 +368,16 @@ export class PaymentPackList extends React.Component<Props, State> {
           />
           <PaymentPackFormDialog
             open={this.state.openPaymentPackFormDialog}
-            categoryList={[...categoryList].filter(
-              (category) =>
-                metaActivities.map((a) => a.SCT).indexOf(category.id) !== -1,
-            )}
+            categoryList={[...categoryList]
+              .filter(
+                (category) =>
+                  metaActivities.map((a) => a.SCT).indexOf(category.id) !== -1,
+              )
+              .concat(this.props.videoCategories)
+              .filter(
+                (value, index, arr) =>
+                  arr.findIndex((sct) => sct.id === value.id) === index,
+              )}
             establishmentList={establishmentList}
             metaActivityList={metaActivities}
             tagList={allTagsWithTagGroup}
@@ -534,10 +546,16 @@ export class PaymentPackList extends React.Component<Props, State> {
           />
           <PaymentPackFormDialog
             open={this.state.openPaymentPackFormDialog}
-            categoryList={[...categoryList].filter(
-              (category) =>
-                metaActivities.map((a) => a.SCT).indexOf(category.id) !== -1,
-            )}
+            categoryList={[...categoryList]
+              .filter(
+                (category) =>
+                  metaActivities.map((a) => a.SCT).indexOf(category.id) !== -1,
+              )
+              .concat(this.props.videoCategories)
+              .filter(
+                (value, index, arr) =>
+                  arr.findIndex((sct) => sct.id === value.id) === index,
+              )}
             establishmentList={establishmentList}
             metaActivityList={metaActivities}
             tagList={allTagsWithTagGroup}
@@ -549,7 +567,9 @@ export class PaymentPackList extends React.Component<Props, State> {
             clearPaymentPackToEdit={() =>
               this.setState({ paymentPackToEdit: null })
             }
-            initial={this.state.paymentPackToEdit}
+            initial={{
+              ...this.state.paymentPackToEdit,
+            }}
           />
           <BottomActionsButton
             onCreateLabel={this.props.t('addButton')}
@@ -630,6 +650,7 @@ const mapStateToProps = (state: RootState) => ({
   loading: state.paymentPack.loading,
   enabledPacks: getEnabledPaymentPacks(state),
 
+  videoCategories: state.video.filterableParams.items.SCTs,
   allTagsWithTagGroup: getallTagsWithTagGroup(state),
   establishmentList: getAllEstablishments(state),
   paymentPackCategories: getAllPaymentPackCategory(state),
@@ -659,6 +680,7 @@ const mapStateToProps = (state: RootState) => ({
     state.userPreference.paymentPackCategoryFilter,
   userPreferenceSelectedDisponibility:
     state.userPreference.paymentPackManagerOnlyFilter,
+  companyId: state.theme.theme.company,
 });
 const mapDispatchToProps = {
   fetchEstablishments,
@@ -682,6 +704,7 @@ const mapDispatchToProps = {
   setPaymentPackCategoryFilter,
   setPaymentPackManagerOnlyFilter,
   createOrUpdatePaymentPackAction,
+  fetchVideoFilterableParams,
 };
 const mapWithHandlers = {
   incrementCredit:

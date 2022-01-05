@@ -9963,6 +9963,9 @@
         "widget": "Elige las tarjetas regalo"
     },
     "performanceTracking": {
-        "requiredField": "este campo es obligatorio"
+        "requiredField": "este campo es obligatorio",
+        "form": {
+            "cancel": "Cancelar"
+        }
     }
 }

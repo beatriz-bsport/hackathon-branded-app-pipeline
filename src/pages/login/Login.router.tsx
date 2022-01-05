@@ -194,7 +194,6 @@ const styles = (): any => ({
     flexDirection: 'column',
     alignItems: 'center',
     minHeight: '100vh',
-    position: 'absolute',
     zIndex: 2,
   },
   logo: {

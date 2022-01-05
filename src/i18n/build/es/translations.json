@@ -5596,7 +5596,10 @@
             },
             "addButton": "Añadir una notificación"
         },
-        "seeAll": "Ver todo"
+        "seeAll": "Ver todo",
+        "privatePassTemplateInstance": {
+            "privatePassSharedFromFranchisor": "Tarjeta de franquicia"
+        }
     },
     "reminder": {
         "task": {

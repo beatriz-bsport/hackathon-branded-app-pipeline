@@ -1431,7 +1431,10 @@
         },
         "actions": {
             "forgottenPassword": "Contraseña olvidada",
-            "signup": "¿Aún no tienes cuenta?",
+            "signup": {
+                "register": "Registrarme",
+                "noAccount": "¿Aún no tienes cuenta?"
+            },
             "signin": "Iniciar sesión"
         },
         "or": " o ",
@@ -1527,6 +1530,10 @@
             "es": "español",
             "en": "Inglés",
             "pt": "Portugués"
+        },
+        "signin": {
+            "connect": "Inicia sesión para continuar.",
+            "connection": "Conexión"
         }
     },
     "establishment": {
@@ -3650,7 +3657,8 @@
             "relation": "Relaciones",
             "vod": "VOD",
             "form": "Formularios",
-            "giftcard": "Tarjeta regalo"
+            "giftcard": "Tarjeta regalo",
+            "programs": "Programas"
         },
         "row": {
             "headers": {
@@ -3935,7 +3943,9 @@
                 "title": "Cambio de correo electrónico"
             },
             "pendingValidation": "Cambio pendiente: {{ email }}"
-        }
+        },
+        "actions": "Acciones",
+        "archiveMember": "Archivar"
     },
     "booking": {
         "details": {
@@ -4243,7 +4253,10 @@
         "placeNumber": "Sitios {{count}}",
         "noSpotAttributed": "No hay lugar asignado",
         "changeSpot": "Cambiar el lugar",
-        "setSpot": "Asignar un asiento"
+        "setSpot": "Asignar un asiento",
+        "performanceTracking": {
+            "stat": "Estadísticas"
+        }
     },
     "marketplace": {
         "selector": {
@@ -4544,7 +4557,8 @@
             "myVideos": "Mis videos",
             "pick_a_language": "Seleccione el idioma",
             "automaticLanguage": "Detección automática de idiomas",
-            "giftcard": "Tarjetas de regalo"
+            "giftcard": "Tarjetas de regalo",
+            "statistic": "Estadísticas"
         },
         "actions": {
             "goToCalendar": "Ver el calendario completo",
@@ -5670,7 +5684,8 @@
             "kind": {
                 "1": "SMS",
                 "0": "Email"
-            }
+            },
+            "unavailableMail": "Vista previa no disponible"
         },
         "common": {
             "refresh": "Actualizar",
@@ -6625,7 +6640,8 @@
             "validate": "Validar",
             "unselectAll": "Deseleccionar todo",
             "selectAll": "Seleccionar todo"
-        }
+        },
+        "cancel": "Cancelar"
     },
     "snackbar": {
         "invoice": {
@@ -8275,7 +8291,8 @@
             "redirecting": "Será redirigido a su página",
             "backToFranchiseWorskpace": "Volver a la cuenta principal",
             "franchiseConnectedAs": "Conectado como: {{name}}",
-            "giftcard": "Tarjetas de regalo"
+            "giftcard": "Tarjetas de regalo",
+            "programs": "Programas"
         },
         "deprecatedNavigator": {
             "close": "Cerrar",
@@ -9774,6 +9791,12 @@
             "emptyStateDescription": "Seleccione una plantilla",
             "emptyStateTitle": "Vista previa del correo",
             "searchPlaceholder": "Buscar una plantilla"
+        },
+        "login": {
+            "signUp": "Registrarme",
+            "connect": "Conectarme",
+            "previous": "Vuelta",
+            "disconnect": "Cerrar la sesión"
         }
     },
     "giftcard": {
@@ -9938,5 +9961,8 @@
         },
         "search": "Buscar una tarjeta regalo",
         "widget": "Elige las tarjetas regalo"
+    },
+    "performanceTracking": {
+        "requiredField": "este campo es obligatorio"
     }
 }

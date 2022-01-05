@@ -2592,7 +2592,7 @@
         },
         "paymentPackTemplate": {
             "actions": {
-                "create": "Een gedeelde kaart toevoegen"
+                "create": "Een gedeelde leskaart toevoegen"
             },
             "deleteForm": {
                 "actions": {
@@ -4603,11 +4603,11 @@
             "description": "Beschrijving",
             "legal": "Juridische kennisgeving",
             "actions": {
-                "iAcceptCondition": "Ik accepteer de voorwaarden.",
+                "iAcceptCondition": "Ik ga akkoord met de voorwaarden.",
                 "iwanttostarton": "Gewenste startdatum van mijn abonnement: ",
                 "subscribe": "Inschrijven",
                 "create": "Een abonnement toevoegen",
-                "iAcceptGeneralCondition": " Ik accepteer de juridische kennisgeving"
+                "iAcceptGeneralCondition": " Ik ga akkoord met de juridische kennisgeving."
             },
             "deleteForm": {
                 "actions": {
@@ -6624,7 +6624,7 @@
     "payment": {
         "generalTermsAndConditions": {
             "theTermsAndConditions": "algemene voorwaarden.",
-            "iAccept": "Ik accepteer de ",
+            "iAccept": "Ik ga akkoord met ",
             "close": "Sluiten",
             "generalTermsOfUse": " algemene voorwaarden.",
             "waiver": "Waiver / Vrijstelling"

@@ -1125,7 +1125,7 @@
             "forgottenPassword": "Forgot your password?",
             "authError": "Invalid email or password.",
             "password": "Password",
-            "noAccount": "Create an account",
+            "noAccount": "Create a new account",
             "loginAsConsumer": "A member",
             "loginAsPro": "A manager",
             "choseYourUserspace": "I'm",
@@ -2813,7 +2813,7 @@
                     "note": {
                         "label": "Notes"
                     },
-                    "warning": "Attention: check if the new date is in the same fiscal year as the old date. If not, please consult your accountant if this will be processed correctly.",
+                    "warning": "Attention! Check if the new date is in the same fiscal year as the old date. If not, please consult your accountant if this will be processed correctly.",
                     "explain": {
                         "newDate": "New: ",
                         "oldDate": "Original: "
@@ -4480,7 +4480,7 @@
             "forgottenPassword": "Forgot your password?",
             "signup": {
                 "register": "Sign up",
-                "noAccount": "Create an account"
+                "noAccount": "Create a new account"
             },
             "signin": "Log in"
         },
@@ -4587,7 +4587,7 @@
             "pt": "Portuguese"
         },
         "signin": {
-            "connect": "Login to continue.",
+            "connect": "Please log in or create an account to continue.",
             "connection": "Log in"
         }
     },
@@ -7993,7 +7993,7 @@
         },
         "linkDialog": {
             "title": "Linking account",
-            "content": "This account was initially created in another club, linkin will connect it to this club.",
+            "content": "This account was initially created with another studio. Now it'll be connected to the currently selected studio.",
             "cancel": "Cancel",
             "confirm": "I confirm"
         },

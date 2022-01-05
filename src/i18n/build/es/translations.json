@@ -5595,7 +5595,8 @@
                 "mail": "Email "
             },
             "addButton": "Añadir una notificación"
-        }
+        },
+        "seeAll": "Ver todo"
     },
     "reminder": {
         "task": {
@@ -9986,8 +9987,7 @@
                     "success": "Programa de miembros disociados"
                 }
             },
-            "deleteHeader": "¿Realmente quiere desvincular este programa de este miembro?",
-            "deleteContent": "Perderá los valores de las métricas del programa para este miembro"
+            "deleteHeader": "¿Realmente quiere desvincular este programa de este miembro?"
         },
         "metric": {
             "form": {

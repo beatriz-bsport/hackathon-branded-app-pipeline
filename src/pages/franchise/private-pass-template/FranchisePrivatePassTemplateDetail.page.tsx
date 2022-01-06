@@ -25,7 +25,7 @@ import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import withTitle from '#hocs/with-title.hoc';
 import { fetchFilteredMembers as fetchFilteredMembersAction } from '../../../libs/member/actions';
 
-import PrivatePassTemplateDeleteDialog from '#libs/private-service/components/pass/PrivatePassTemplateDeleteDialog.component';
+import PrivatePassTemplateInstanceDeleteDialog from '#libs/private-service/components/pass/PrivatePassTemplateInstanceDeleteDialog.component';
 import { navigateAsCompanyAdmin } from '../../../actions/auth.actions';
 import PaginatedConsumerPrivatePass from '#libs/private-service/components/pass/PaginatedConsumerPrivatePass.component';
 // import PrivateConsumerPassFilters from '#libs/private-service/components/pass/PrivateConsumerPassFilters.component';
@@ -111,7 +111,7 @@ export class FranchisePrivatePassTemplateDetail extends Component<Props> {
           onSubmit={this.props.createPrivatePassTemplateInstance}
           companies={this.props.companies}
         />
-        <PrivatePassTemplateDeleteDialog
+        <PrivatePassTemplateInstanceDeleteDialog
           open={!!this.props.companyTemplateInstanceIdToDelete}
           privatePassTemplate={this.props.privatePassTemplate}
           companyId={this.props.companyTemplateInstanceIdToDelete}

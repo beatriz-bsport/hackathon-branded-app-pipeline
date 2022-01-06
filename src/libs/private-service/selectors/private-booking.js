@@ -149,7 +149,7 @@ export const composeBookingsWithMemberProgram = memoize(
         programDict,
         metricDict,
       ) => {
-        if (!bookings) return [];
+        if (!bookings) return bookings;
         if (Array.isArray(bookings)) {
           return bookings.map((booking) => {
             return {

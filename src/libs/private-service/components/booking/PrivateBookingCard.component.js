@@ -252,19 +252,7 @@ export const PrivateBookingCard = (props: Props) => {
           </>
         ) : null}
       </div>
-      {private_booking.coach ? (
-        <CoachListItem
-          onCoachSelected={() =>
-            props.goToCoachCalendar(private_booking.coach.id)
-          }
-          noEdit
-          coach={private_booking.coach}
-          onEditCoach={() => props.setIsUpdateCoachFormOpen(true)}
-        />
-      ) : null}
-      {private_booking.establishment ? (
-        <EstablishmentListItem establishment={private_booking.establishment} />
-      ) : null}
+
       {props.onDelete &&
       props.private_booking.booking_status_code === BOOKING_STATUS_OK.id ? (
         <div className={classes.buttonContainer}>

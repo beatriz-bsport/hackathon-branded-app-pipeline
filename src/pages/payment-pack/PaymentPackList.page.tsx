@@ -567,9 +567,7 @@ export class PaymentPackList extends React.Component<Props, State> {
             clearPaymentPackToEdit={() =>
               this.setState({ paymentPackToEdit: null })
             }
-            initial={{
-              ...this.state.paymentPackToEdit,
-            }}
+            initial={this.state.paymentPackToEdit}
           />
           <BottomActionsButton
             onCreateLabel={this.props.t('addButton')}

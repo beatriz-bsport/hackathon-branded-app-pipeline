@@ -1,9 +1,13 @@
-// @flow
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { Switch, Route } from 'react-router-dom';
 
 import asyncComponent from '../../../AsyncComponent';
+
+const MarketplaceAsManager = asyncComponent(
+  () => import('../../marketplace/MarketplaceAsManager.page'),
+);
 
 const DEPRECATEDOfferBooker = asyncComponent(
   () => import('./OfferBooker.redirect'),
@@ -25,7 +29,10 @@ const DEPRECATEDShopItemPreCheckoutPage = asyncComponent(
   () => import('./ShopItemPreCheckout.redirect'),
 );
 
-export const DeprecatedPages = () => {
+export const DeprecatedPages = (props: { is_manager: boolean }) => {
+  if (props.is_manager) {
+    return <MarketplaceAsManager />;
+  }
   return (
     <Switch>
       <Route
@@ -60,4 +67,6 @@ export const DeprecatedPages = () => {
   );
 };
 
-export default DeprecatedPages;
+export default connect((state) => ({
+  is_manager: state.auth.is_manager,
+}))(DeprecatedPages);

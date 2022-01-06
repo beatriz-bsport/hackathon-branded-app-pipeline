@@ -10,7 +10,9 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import asyncComponent from '../../AsyncComponent';
 import { fetchProfile } from '../../libs/consumer-space/actions';
 
-import MarketplaceAsManager from '../marketplace/MarketplaceAsManager.page';
+const MarketplaceAsManager = asyncComponent(() =>
+  import('../marketplace/MarketplaceAsManager.page'),
+);
 
 const OfferBooker = asyncComponent(() =>
   import('./booker-modules/OfferBooker/OfferBooking.page'),

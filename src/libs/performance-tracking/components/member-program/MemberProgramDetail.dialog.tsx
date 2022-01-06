@@ -61,7 +61,7 @@ export const MemberProgramDetailDialog: React.FC<Props> = (props) => {
           </IconButton>
         )}
       </div>
-      {memberProgramList.length ? (
+      {memberProgramList?.length ? (
         <div>
           {memberProgramList?.map((memberProgram) => (
             <MemberProgramDetail

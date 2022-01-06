@@ -100,7 +100,8 @@
                 "2": "SEPA",
                 "1": "Kreditkarte"
             },
-            "paymentCombo": "Pack"
+            "paymentCombo": "Pack",
+            "payment_combo": "Paket"
         },
         "paymentMethod": {
             "card": "Kreditkarte",
@@ -305,6 +306,25 @@
                 "recurrencePriceIs": "Wiederholung von {{ amount }}{{currencyDisplay}}",
                 "nextBillingDate": "Nächste Abrechnung auf {{ d }}",
                 "startingAt": "Beginnt am {{ d }}"
+            },
+            "switchPrivatePass": {
+                "form": {
+                    "cancel": "Abbrechen",
+                    "submit": "Registrieren",
+                    "warning": "Die Abrechnung bleibt gleich. Wenn Sie den monatlichen Betrag erhöhen/verringern möchten, ändern Sie jede Rate einzeln.",
+                    "title": "Ändern der Terminkarte",
+                    "explain": "Diese Terminkarte wird auf allen zukünftigen Rechnungen anstelle der alten Karte berechnet. Sitzungen, die mit der alten Karte gebucht wurden, werden auf die neue Karte übertragen, auch wenn diese angeblich nicht kompatibel ist."
+                }
+            },
+            "switchPaymentCombo": {
+                "form": {
+                    "title": "Pack ändern",
+                    "explain": "Dieses Paket wird NUR auf Rechnungen, die nach der Erneuerung des Abonnements erstellt werden, anstelle des alten Pakets in Rechnung gestellt.",
+                    "warning": "Die Abrechnung bleibt gleich. Wenn Sie den monatlichen Betrag erhöhen/verringern möchten, ändern Sie jede Rate einzeln.",
+                    "cancel": "Abbrechen",
+                    "submit": "Registrieren",
+                    "prewarning": "Wenn Sie bereits erstellte zukünftige Rechnungen ändern möchten, müssen Sie dieses Abonnement aufheben."
+                }
             }
         },
         "table": {
@@ -324,7 +344,9 @@
             "billing_plan-pause": "Pause",
             "list": {
                 "title": "Neueste Ereignisse"
-            }
+            },
+            "billing_plan-update_payment_combo": "Modifiziertes Paket",
+            "billing_plan-update_private_pass": "Geänderte Terminkarte"
         },
         "subscriptionStatus": {
             "isPaused": "Pause",
@@ -3910,6 +3932,14 @@
                 "errors": {
                     "12102": "Eine Zahlung wird bereits bestätigt, kommen Sie später zurück, um eine neue Zahlung zu registrieren."
                 }
+            },
+            "switchPrivatePass": {
+                "success": "Geänderte Terminkarte",
+                "error": "Die Terminkarte kann nicht bearbeitet werden"
+            },
+            "switchPaymentCombo": {
+                "success": "Modifiziertes Paket",
+                "error": "Das Paket kann nicht bearbeitet werden"
             }
         },
         "notificationRule": {
@@ -4159,6 +4189,9 @@
                 "errors": {
                     "84006": "Sie müssen unter Einstellungen > Allgemein einen Haftungsausschluss definieren, um die Frage \"Haftungsausschlüsse\" hinzufügen zu können."
                 }
+            },
+            "customFormStepper": {
+                "error": "Antworten können nicht gespeichert werden."
             }
         },
         "establishmentGroup": {
@@ -5601,7 +5634,10 @@
         "placeNumber": "Ort {{count}}",
         "noSpotAttributed": "Kein Platz zugewiesen",
         "changeSpot": "Ändern Sie den Ort",
-        "setSpot": "Einen Sitzplatz zuweisen"
+        "setSpot": "Einen Sitzplatz zuweisen",
+        "performanceTracking": {
+            "stat": "Statistiken"
+        }
     },
     "member": {
         "exists": {
@@ -5681,7 +5717,8 @@
             "info": "Allgemein",
             "vod": "VOD",
             "form": "Formulare",
-            "giftcard": "Geschenkkarte"
+            "giftcard": "Geschenkkarte",
+            "programs": "Programme"
         },
         "merge": "Fusionieren",
         "paymentAction": {
@@ -5922,7 +5959,9 @@
                 "title": "Änderung der E-Mail"
             },
             "pendingValidation": "Ausstehende Änderung: {{ email }}}"
-        }
+        },
+        "archiveMember": "Archivieren",
+        "actions": "Aktionen"
     },
     "common": {
         "text": {
@@ -5949,7 +5988,8 @@
             "validate": "Validieren Sie",
             "unselectAll": "Alle abwählen",
             "selectAll": "Alle auswählen"
-        }
+        },
+        "cancel": "Abbrechen"
     },
     "coupon": {
         "detail": {
@@ -6947,6 +6987,62 @@
                 "mail": "Mail "
             },
             "addButton": "Eine Benachrichtigung hinzufügen"
+        },
+        "seeAll": "Alles sehen",
+        "privatePassTemplateInstance": {
+            "privatePassSharedFromFranchisor": "Franchise-Karte",
+            "privateConsumerPassSharedFromOtherFranchisee": "Geteilt seit Franchisenehmer",
+            "form": {
+                "title": "Meine Studios einrichten",
+                "explain2": "Wenn ein Mitglied diese Karte in einem der kompatiblen Studios kauft, kann es sie auch in den anderen Studios verwenden, die Sie festgelegt haben.",
+                "actions": {
+                    "close": "Schließen",
+                    "submit": "Registrieren"
+                },
+                "explain1": "Die folgenden Studios haben diese Karte automatisch zum Verkauf zur Verfügung. Sie können weder den Preis noch die Anzahl der Guthaben ändern."
+            },
+            "deleteForm": {
+                "title": "Deaktivierung",
+                "actions": {
+                    "close": "Schließen",
+                    "submit": "Freigabe deaktivieren"
+                },
+                "content": "Wenn Sie dieses Studio für die gemeinsame Nutzung der Karte deaktivieren, können alle Mitglieder, die diese Karte besitzen und sie in diesem Studio gekauft haben, sie weiterhin verwenden. Sie können sie jedoch nicht mehr in anderen Studios verwenden. Karten, die in anderen Studios gekauft wurden, können in dem deaktivierten Studio nicht mehr verwendet werden, unabhängig davon, wann sie gekauft wurden."
+            },
+            "companyEmpty": "Kein Studio ist so konfiguriert, dass es diese Kurskarte akzeptiert",
+            "actions": {
+                "addCompany": "Ein Studio hinzufügen"
+            }
+        },
+        "privatePassTemplate": {
+            "specification": {
+                "companySharedWithTitle": "Gemeinsam mit den Studios:"
+            },
+            "isEmptyExplain": "Sie ermöglichen es Ihren Mitgliedern, ihr Guthaben in den von Ihnen gewählten Studios zu nutzen.",
+            "section": {
+                "titleAvailable": "Zum Verkauf verfügbar",
+                "titleManagerOnly": "Nicht zum Verkauf verfügbar"
+            },
+            "form": {
+                "title": "Geteilte Kurskarte",
+                "close": "Schließen",
+                "submit": "Bestätigen",
+                "actions": {
+                    "close": "Schließen",
+                    "submit": "Registrieren"
+                }
+            },
+            "deleteForm": {
+                "title": "Deaktivierung",
+                "actions": {
+                    "close": "Schließen",
+                    "submit": "Freigabe deaktivieren"
+                },
+                "content": "Wenn Sie eine geteilte Karte deaktivieren, können Mitglieder, die diese Karte besitzen, sie nur noch in dem Studio nutzen, in dem sie sie gekauft haben."
+            },
+            "actions": {
+                "create": "Erstellen einer geteilten Karte"
+            }
         }
     },
     "communication": {
@@ -6997,7 +7093,8 @@
             "kind": {
                 "1": "SMS",
                 "0": "E-mail"
-            }
+            },
+            "unavailableMail": "Preview nicht verfügbar"
         },
         "mail": {
             "noObject": "Kein Betreff",
@@ -7098,7 +7195,8 @@
             "myVideos": "Meine Videos",
             "pick_a_language": "Wähle eine Sprache",
             "automaticLanguage": "Automatische Spracherkennung",
-            "giftcard": "Geschenkkarten"
+            "giftcard": "Geschenkkarten",
+            "statistic": "Statistiken"
         },
         "pack": {
             "titlePrivatePack": "Terminkarte",
@@ -8177,7 +8275,8 @@
             "redirecting": "Sie werden zu Ihrer Seite weitergeleitet",
             "backToFranchiseWorskpace": "Rückkehr zum Stammkonto",
             "franchiseConnectedAs": "Eingeloggt als",
-            "giftcard": "Geschenkkarten"
+            "giftcard": "Geschenkkarten",
+            "programs": "Programme"
         },
         "deprecatedNavigator": {
             "close": "Schließen",
@@ -8361,7 +8460,10 @@
         "or": " oder ",
         "actions": {
             "signin": "Einloggen",
-            "signup": "Noch kein Konto ?",
+            "signup": {
+                "register": "Mich anmelden",
+                "noAccount": "Noch kein Konto?"
+            },
             "forgottenPassword": "Passwort vergessen?"
         },
         "forms": {
@@ -8461,6 +8563,10 @@
             "fr": "französisch",
             "en": "Englisch",
             "pt": "Portugiesisch"
+        },
+        "signin": {
+            "connect": "Melden Sie sich an, um fortzufahren.",
+            "connection": "Verbindung"
         }
     },
     "marketplace": {
@@ -9727,6 +9833,12 @@
             "emptyStateDescription": "Wählen Sie eine Vorlage",
             "emptyStateTitle": "Vorschau auf die Mail",
             "searchPlaceholder": "Suche nach einer Vorlage"
+        },
+        "login": {
+            "disconnect": "Mich abmelden",
+            "previous": "Zurück",
+            "connect": "Mich anmelden",
+            "signUp": "Mich anmelden"
         }
     },
     "giftcard": {
@@ -9891,5 +10003,101 @@
         },
         "search": "Suche nach einer Geschenkkarte",
         "widget": "Eine Geschenkkarte auswählen"
+    },
+    "performanceTracking": {
+        "requiredField": "dieses Feld ist erforderlich",
+        "form": {
+            "delete": "Löschen",
+            "cancel": "Abbrechen",
+            "save": "Registrieren",
+            "validate": "Bestätigen",
+            "search": "Suche",
+            "add": "hinzufügen",
+            "close": "schließen"
+        },
+        "program": {
+            "actions": {
+                "create": {
+                    "error": "Fehler beim Erstellen des Programms",
+                    "success": "Programm erstellt"
+                },
+                "enable": {
+                    "error": "Erreur lors de la restauration du programme",
+                    "success": "Restauriertes Programm"
+                },
+                "update": {
+                    "success": "Geändertes Programm",
+                    "error": "Fehler beim Ändern des Programms"
+                },
+                "disable": {
+                    "success": "Archiviertes Programm",
+                    "error": "Fehler beim Einchecken des Programms"
+                }
+            },
+            "deleteContent": "This program will no longer appear on the members to whom it has been added. You can retrieve it in the 'Archived' section.",
+            "titleForConsumer": "Meine Programme",
+            "default": "Standardprogramm",
+            "selectProgram": "Ein Programm auswählen",
+            "detail": "Details zum Programm",
+            "infoSelectProgram": "Détails du programme",
+            "deleteHeader": "Do you really want to delete this program?",
+            "infoNoProgram": "Add a program for your members to track their metrics",
+            "archived": "Archived",
+            "title": "Programme",
+            "form": {
+                "delete": "das Programm löschen",
+                "modify": "das Programm ändern",
+                "create": "Erstellen eines Programms",
+                "generalInfo": "Allgemeine Informationen",
+                "name": "Name des Programms",
+                "description": "Beschreibung",
+                "color": "Farbe",
+                "default": "Als Standardprogramm für alle Neuanmeldungen festlegen",
+                "addProgram": "Add a program"
+            },
+            "member": {
+                "addDate": "Datum der Anmeldung",
+                "title": "Mitglieder",
+                "name": "Name"
+            }
+        },
+        "metric": {
+            "form": {
+                "minMax": "Der Minimalwert kann nicht kleiner als der Maximalwert sein.",
+                "default_valueHelperText": "Der Basiswert der Metrik. Wenn leer wird der Wert auf den Minimalwert gesetzt",
+                "range": "Der Standardwert liegt nicht zwischen dem Minimal- und Maximalwert ",
+                "addMetric": "eine Metrik hinzufügen",
+                "noMetric": "Keine Metrik gespeichert",
+                "general": "General",
+                "name": "Name",
+                "machine": "Maschinen-ID",
+                "default_value": "Standardwert",
+                "minValue": "Minimaler Wert",
+                "minValueHelperText": "Mindestwert der Metrik",
+                "maxValue": "Maximaler Wert",
+                "maxValueHelperText": "Maximaler Wert der Metrik",
+                "color": "Farbe"
+            },
+            "deleteHeader": "Möchten Sie diese Metrik wirklich abschaffen?",
+            "deleteContent": "Die Metrik wird endgültig gelöscht.",
+            "statistic": "Statistiken",
+            "title": "Metrisch"
+        },
+        "memberProgram": {
+            "actions": {
+                "create": {
+                    "error": "Fehler bei der Zuordnung des Programms zum Mitglied",
+                    "success": "Mit dem Mitglied verknüpftes Programm"
+                },
+                "disable": {
+                    "success": "Vom Mitglied abgekoppeltes Programm",
+                    "error": "Fehler beim Auflösen des Programms"
+                }
+            },
+            "deleteHeader": "Möchten Sie dieses Programm wirklich von diesem Mitglied trennen?",
+            "infoNoMemberProgram": "Dieses Mitglied hat derzeit keine Programme.",
+            "infoNoConsumerProgram": "Sie haben noch kein Programm, wenden Sie sich an Ihr Studio, um mit der Beobachtung Ihrer Leistungen zu beginnen!",
+            "deleteContent": "Sie werden die Werte der Programmmetriken für dieses Mitglied verlieren"
+        }
     }
 }

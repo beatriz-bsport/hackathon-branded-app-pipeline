@@ -227,7 +227,7 @@ export const newPaymentPackReducer = handleActions(
         )
         .merge(
           {
-            byId: (payload || payload.results).payload.reduce(
+            byId: (payload || payload.results).reduce(
               (acc, v) => ({ ...acc, [v.id]: v }),
               {},
             ),

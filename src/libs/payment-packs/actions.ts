@@ -7,6 +7,7 @@ import {
   edit as editAPI,
   scalePaymentPackCredit as scalePaymentPackCreditAPI,
   create as createAPI,
+  fetchAllPaymentPacks as fetchAllPaymentPacksAPI,
   patch as patchAPI,
   fetchOne as fetchOneAPI,
   fetchPaymentPackList as fetchPaymentPackListAPI,
@@ -84,7 +85,7 @@ export function refreshAllPaymentPack() {
   return async (dispatch: Dispatch) => {
     dispatch(listAllPaymentPackActions.error(null));
     try {
-      const response = await fetchPaymentPackList();
+      const response = await fetchAllPaymentPacksAPI();
       const paymentPacks = response.data;
       dispatch(listAllPaymentPackActions.success(paymentPacks));
     } catch (err) {
@@ -276,6 +277,7 @@ export function fetchActivityCompatiblePaymentPacks(
         }),
       );
     } catch (err) {
+      console.error(err);
       dispatch(fetchActivityCompatibleAction.error(err));
     }
     dispatch(fetchActivityCompatibleAction.isLoading(false));
@@ -311,6 +313,7 @@ export function fetchMarketplacePacks(
         options.onSuccess(response.data.results);
       }
     } catch (err) {
+      console.error(err);
       dispatch(fetchMarketplacePacksAction.error(err));
     }
     dispatch(fetchMarketplacePacksAction.isLoading(false));
@@ -351,6 +354,7 @@ export function fetchPaymentPackBulk(
         options.onSuccess(response.data.results);
       }
     } catch (err) {
+      console.error(err);
       dispatch(paymentPackBulkActions.error(err));
       if (options && options.onError) options.onError();
     }
@@ -564,6 +568,7 @@ export function updatePaymentPackCategoryOrder(
       dispatch(updatePaymentPackCategoryOrderActions.success(response.data));
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
+      console.error(error);
       dispatch(snackbarError(`paymentPack.category.update.error`));
       dispatch(
         updatePaymentPackCategoryOrderActions.error(error.response.data),
@@ -596,6 +601,7 @@ export function upsertPaymenPackCategory(
       dispatch(snackbarSuccess(`paymentPack.category.${kind}.success`));
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
+      console.error(error);
       dispatch(snackbarError(`paymentPack.category.${kind}.error`));
       dispatch(upsertPaymenPackCategoryActions.error(error.response.data));
       if (options && options.onError) options.onError();
@@ -622,6 +628,7 @@ export function deletePaymentPackCategory(
       dispatch(snackbarSuccess('paymentPack.category.delete.success'));
       if (options && options.onSuccess) options.onSuccess(category);
     } catch (error) {
+      console.error(error);
       dispatch(deletePaymentPackCategoryActions.error(category));
       dispatch(snackbarError('paymentPack.category.delete.error'));
       if (options && options.onError) options.onError();

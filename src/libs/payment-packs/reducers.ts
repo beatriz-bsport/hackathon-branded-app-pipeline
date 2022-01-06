@@ -223,11 +223,14 @@ export const newPaymentPackReducer = handleActions(
       return state
         .set(
           'allIds',
-          payload.map((pp) => pp.id),
+          (payload || payload.results).map((pp) => pp.id),
         )
         .merge(
           {
-            byId: payload.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
+            byId: (payload || payload.results).payload.reduce(
+              (acc, v) => ({ ...acc, [v.id]: v }),
+              {},
+            ),
           },
           { deep: true },
         );

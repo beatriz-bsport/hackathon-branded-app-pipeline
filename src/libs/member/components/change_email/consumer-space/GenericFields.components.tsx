@@ -50,7 +50,7 @@ export const EmailDetailContent = ({
       </div>
       <div className={classes.emailDetail}>
         <Typography variant="body1">
-          {t('changeEmailRequest.dialog.newEamil', {
+          {t('changeEmailRequest.dialog.newEmail', {
             email: new_email,
           })}
         </Typography>

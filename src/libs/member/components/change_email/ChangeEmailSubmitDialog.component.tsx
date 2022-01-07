@@ -122,7 +122,7 @@ export const ChangeEmailSubmitDialog = (props: Props) => {
         );
       }
       return t(
-        'changeEmailRequest.memberPage.linkAccount.submit.denied.content',
+        'changeEmailRequest.memberPage.linkAccount.submit.accepted.content',
         {
           old_email,
           new_email,

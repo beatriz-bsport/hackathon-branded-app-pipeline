@@ -2164,7 +2164,7 @@
             "deniedRequestHelper": "Si vous ne souhaitez pas fusionner ces comptes ou que vous n’êtes pas à l’origine de cette demande merci de cliquer sur “refuser la fusion”. Cela empêchera la fusion des comptes et vous ne serez pas inscrit chez {{ company }}."
           },
           "submit": {
-            "accept": {
+            "accepted": {
               "title": "Fusion Acceptée",
               "content": "Votre compte a bien été fusionné avec le compte {{ old_email }}. Vous êtes désormais membre du studio {{ company }}. Utilisez l'adresse {{ new_email }} pour vous connecter à votre compte."
             },

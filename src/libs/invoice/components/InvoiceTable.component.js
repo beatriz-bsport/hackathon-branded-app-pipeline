@@ -210,7 +210,8 @@ const InvoiceRow = React.memo((props: Props) => {
           <TableCell>{t(`invoiceType.${invoiceType}`)}</TableCell>
         )}
         <TableCell>{moment(invoice.date).format('L')}</TableCell>
-        {!!props.finalizeInvoice && (
+        {!!props.finalizeInvoice &&
+        invoice.invoice_type !== INVOICE_TYPE_MIGRATION ? (
           <TableCell>
             {processing ? (
               <CircularProgress />
@@ -236,6 +237,8 @@ const InvoiceRow = React.memo((props: Props) => {
               </IconButton>
             )}
           </TableCell>
+        ) : (
+          <TableCell />
         )}
         {props.quickbooksIntegrated && (
           <TableCell>

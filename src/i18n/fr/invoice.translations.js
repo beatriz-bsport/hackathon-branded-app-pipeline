@@ -388,7 +388,7 @@ exports.default = {
           paymentMethod: 'Méthode de paiement',
           price: 'Montant',
           date: 'Date',
-          paymentReceived: 'Status',
+          paymentReceived: 'Statut',
         },
       },
     },

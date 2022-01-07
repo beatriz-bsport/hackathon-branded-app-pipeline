@@ -126,6 +126,7 @@ const WorkshopActivity = asyncComponent(() =>
   import('./workshop-activity/WorkshopActivity.router'),
 );
 const Invoice = asyncComponent(() => import('./invoice/Invoice.router'));
+const Expense = asyncComponent(() => import('./expense/Expense.router'));
 const Coupon = asyncComponent(() => import('./coupon/Coupon.router'));
 const Order = asyncComponent(() => import('./order/Order.router'));
 const PrivateService = asyncComponent(() =>
@@ -222,6 +223,7 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
       <Route path="/coach" component={Coach} />
       <Route path="/payment-pack" component={PaymentPack} />
       <Route path="/invoice" component={Invoice} />
+      <Route path="/expense" component={Expense} />
       <Route path="/subscription" component={Subscription} />
       <Route path="/member" component={Member} />
       <Route path="/activity" component={MetaActivity} />

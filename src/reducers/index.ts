@@ -61,6 +61,7 @@ import webhook from '../libs/webhook/reducers';
 import zoomAppReducers from '../libs/zoom-app/reducers';
 import giftcard from '../libs/giftcard/reducers';
 import userPreference from '../libs/user-preference/reducers';
+import expense from '../libs/expense/reducers';
 
 import pollReducers from '../libs/sign-up-form/reducers';
 import CustomFormReducer from '../libs/custom-form/reducers';
@@ -81,6 +82,7 @@ import { CouponState } from '../libs/coupon/types';
 import { CustomFormState } from '../libs/custom-form/types';
 import { EmailTemplateState } from '../libs/email-editor/types';
 import { EstablishmentState } from '../libs/establishment/types';
+import { ExpenseState } from '../libs/expense/types';
 import { FranchiseState } from '../libs/franchise/types';
 import { MailState } from '../libs/communication/types';
 import { MarketingNotificationState } from '../libs/marketing/types';
@@ -177,6 +179,7 @@ const rootReducer = (history: any) =>
     giftcard,
     userPreference,
     performanceTracking,
+    expense,
   });
 
 export type RootState = {
@@ -245,6 +248,7 @@ export type RootState = {
   backgroundDialog: BackgroundDialogState;
   userPreference: UserPreference;
   performanceTracking: PerformanceTrackingState;
+  expense: ExpenseState;
 };
 
 export default (history: any) => (state: any, action: any) => {

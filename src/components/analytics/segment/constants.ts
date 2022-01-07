@@ -42,4 +42,7 @@ export enum SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM {
   // TAGS
   TAG_GROUP = 'tag_group',
   TAG = 'tag',
+
+  // EXPENSES
+  EXPENSE = 'expense',
 }

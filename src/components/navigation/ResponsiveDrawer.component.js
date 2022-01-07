@@ -745,6 +745,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             icon: ShoppingCartIcon,
             text: t('backofficeMenu.order'),
           },
+          {
+            to: '/expense/',
+            icon: DescriptionIcon,
+            text: t('backofficeMenu.expenses'),
+          },
         ],
       },
       {

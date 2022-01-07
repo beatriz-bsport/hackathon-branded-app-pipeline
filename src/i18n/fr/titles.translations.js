@@ -30,6 +30,9 @@ exports.default = {
     invoiceCreate: 'Facturer',
     invoiceEdit: 'Edition facture',
   },
+  expense: {
+    expenseList: 'Mes dépenses',
+  },
   coach: {
     coachList: 'Professeurs',
     allCoachPerformance: 'Récapitulatif professeur',

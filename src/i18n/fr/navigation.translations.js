@@ -42,6 +42,7 @@ exports.default = {
     order: 'Commandes',
     workshopActivities: 'Ateliers',
     invoice: 'Factures',
+    expenses: 'Dépenses',
     alpha: 'en développement',
     schedule: 'Emploi du temps',
     privateService: {
@@ -71,7 +72,7 @@ exports.default = {
     message: 'Marketing',
     member: 'Membres',
     establishment: 'Etablissements',
-    payment: 'Paiements',
+    payment: 'Facturation',
     logoff: 'Déconnexion',
     refresh: 'Actualiser',
     goBack: 'Retour',

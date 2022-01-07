@@ -81,12 +81,16 @@ export class ConsumerLoginPage extends Component<Props> {
     } = this.props;
 
     if (authenticated) {
-      const { next, membership } = parseQueryString(this.props.location.search);
+      const { next, membership: membershipParam } = parseQueryString(
+        this.props.location.search,
+      );
       if (next) {
         return <Redirect to={next} />;
       }
       return (
-        <Redirect to={`/${membership ? `?membership=${membership}` : ''}`} />
+        <Redirect
+          to={`/${membershipParam ? `?membership=${membershipParam}` : ''}`}
+        />
       );
     }
 

@@ -5,21 +5,21 @@ import Accordion from '@material-ui/core/Accordion';
 import Divider from '@material-ui/core/Divider';
 import AlertIcon from '@material-ui/icons/Warning';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import moment from 'moment-timezone';
 
 import PaginatedSubscriptionList from './PaginatedSubscriptionList.component';
-import { ContractPause } from '../types';
+import { ContractPauseDetails, Subscription } from '../types';
 import { OptionCallback } from '../../../state/types';
 
 type Props = {
-  contractPause: ContractPause;
+  contractPause: ContractPauseDetails;
   fetchSubscriptionBulk: (ids: Array<number>, options: OptionCallback) => void;
-  fetchMembersBySubscription: (ids: Array<number>) => void;
-  goToSubscription: (number) => void;
+  fetchMembersBySubscription: (subs: Array<Subscription>) => void;
+  goToSubscription: (id: number) => void;
 };
 
 const ContractPauseListDetail = (props: Props) => {
@@ -34,7 +34,7 @@ const ContractPauseListDetail = (props: Props) => {
     <div>
       <div>
         <Paper className={classes.row}>
-          <div className={classes.textLeft}>
+          <div>
             <Typography>{contractPause.name}</Typography>
             <div>
               <Typography color="textSecondary" variant="caption">
@@ -52,7 +52,7 @@ const ContractPauseListDetail = (props: Props) => {
               </Typography>
             )}
           </div>
-          <div className={classes.right}>
+          <div>
             {contractPause.processing ? (
               <CircularProgress />
             ) : (
@@ -68,9 +68,9 @@ const ContractPauseListDetail = (props: Props) => {
               onChange={() => setExpandedSuccess(!expandedSuccess)}
             >
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography variant="caption" className={classes.heading}>
+                <Typography variant="caption">
                   {t('contractPause.section.success', {
-                    nb: contractPause.billing_plan_success.length,
+                    count: contractPause.billing_plan_success.length,
                   })}
                 </Typography>
               </AccordionSummary>
@@ -89,7 +89,7 @@ const ContractPauseListDetail = (props: Props) => {
                     successPage * 6,
                   )}
                   nbItems={contractPause.billing_plan_success.length}
-                  onClick={(sub) => {
+                  onClick={(sub: Subscription) => {
                     props.goToSubscription(sub.id);
                   }}
                   page={successPage}
@@ -123,9 +123,9 @@ const ContractPauseListDetail = (props: Props) => {
                       color="error"
                       className={classes.iconLeft}
                     />
-                    <Typography variant="caption" className={classes.heading}>
+                    <Typography variant="caption">
                       {t('contractPause.section.error', {
-                        nb: contractPause.billing_plan_invalid.length,
+                        count: contractPause.billing_plan_invalid.length,
                       })}
                     </Typography>
                   </div>
@@ -145,9 +145,7 @@ const ContractPauseListDetail = (props: Props) => {
                       invalidPage * 6,
                     )}
                     nbItems={contractPause.billing_plan_invalid.length}
-                    onClick={(sub) => {
-                      props.goToSubscription(sub.id);
-                    }}
+                    onClick={props.goToSubscription}
                     page={invalidPage}
                     itemPerPage={6}
                     onPageRequested={(page: number, pageSize: number) =>

@@ -21,6 +21,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import moment from 'moment-timezone';
 import { SubscriptionPause } from '@bsport/common/lib/master-data/subscription-pause';
 
+import { AxiosResponse } from 'axios';
 import DateInput from '../../../components/input/DateInput.component';
 import NumericInput from '../../../components/input/NumericInput.component';
 import PaginatedSubscriptionList from './PaginatedSubscriptionList.component';
@@ -28,14 +29,15 @@ import PaginatedSubscriptionList from './PaginatedSubscriptionList.component';
 import { fetchContractPauseInfo as fetchContractPauseInfoAPI } from '../api';
 
 import { OptionCallback } from '../../../state/types';
+import { Subscription } from '../types';
 
 type Props = {
   onClose: () => void;
-  subscriptionData: (any) => void;
+  subscriptionData: { [id: number]: Subscription };
   contractId: number;
-  fetchMembersBySubscription: (ids: Array<number>) => void;
+  fetchMembersBySubscription: (subs: Array<Subscription>) => void;
   fetchSubscriptionBulk: (ids: Array<number>, options: OptionCallback) => void;
-  onSubmit: (any) => void;
+  onSubmit: (data: any, options: OptionCallback) => void;
 };
 
 const ContractPauseFormDialog: React.FC<Props> = (props) => {
@@ -71,7 +73,7 @@ const ContractPauseFormDialog: React.FC<Props> = (props) => {
       contract: props.contractId,
       from_date: dateFilter ? from_date : null,
       until_date: dateFilter ? until_date : null,
-    }).then((r) =>
+    }).then((r: AxiosResponse) =>
       setBillingPlanValidAndInvalid([
         r.data.valid_for_pause,
         r.data.invalid_for_pause,
@@ -79,7 +81,7 @@ const ContractPauseFormDialog: React.FC<Props> = (props) => {
     );
   };
 
-  const onSubmit = (ev) => {
+  const onSubmit = (ev: any) => {
     ev.preventDefault();
     if (step === 0) {
       setStep(1);
@@ -109,14 +111,14 @@ const ContractPauseFormDialog: React.FC<Props> = (props) => {
               <TextField
                 value={name}
                 required
-                onChange={(ev) => setName(ev.target.value)}
+                onChange={(ev: React.ChangeEvent) => setName(ev.target.value)}
                 helperText={t('contractPause.form.name.label')}
                 placeholder={t('contractPause.form.name.placeholder')}
               />
               <NumericInput
                 value={days}
                 required
-                onChange={(ev) =>
+                onChange={(ev: React.ChangeEvent) =>
                   setDays(Math.max(1, parseInt(ev.target.value, 10)))
                 }
                 label={t('contractPause.form.days.label')}
@@ -183,13 +185,13 @@ const ContractPauseFormDialog: React.FC<Props> = (props) => {
                     <DateInput
                       value={from_date}
                       disabled={!dateFilter}
-                      onChange={(d) => setFromDate(d)}
+                      onChange={(d: string) => setFromDate(d)}
                       label={t('contractPause.form.fromDate.label')}
                     />
                     <DateInput
                       value={until_date}
                       disabled={!dateFilter}
-                      onChange={(d) => setUntilDate(d)}
+                      onChange={(d: string) => setUntilDate(d)}
                       label={t('contractPause.form.untilDate.label')}
                     />
                   </div>

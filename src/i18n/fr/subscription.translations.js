@@ -433,9 +433,12 @@ exports.default = {
     fromUntil:
       'Uniquement si facturation prévue entre le {{from}} et le {{until}} inclus',
     section: {
-      success: '{{nb}} souscriptions mise en pause',
+      success: '{{count}} souscription mise en pause',
+      success_plural: '{{count}} souscriptions mises en pause',
       error:
-        "{{nb}} souscriptions n'ont pas pu être mise en pause automatiquement",
+        "{{count}} souscription n'a pas pu être mise en pause automatiquement",
+      error_plural:
+        "{{count}} souscriptions n'ont pas pu être mises en pause automatiquement",
     },
     actions: {
       cancel: 'Annuler',

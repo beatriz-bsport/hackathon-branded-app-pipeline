@@ -100,7 +100,7 @@ exports.default = {
   paymentMethod: {
     title: 'Moyen de paiement',
     inconsistent:
-      "Moyen de paiement dé-autorisé, veuillez la reconfigurer. Le client peut avoir demandé à désautoriser son moyen de paiement, ou vous avez fusionné deux membres, dans les deux cas le moyen de paiement n'est plus utilisable",
+      "Moyen de paiement dé-autorisé, veuillez le reconfigurer. Le client peut avoir demandé à désautoriser son moyen de paiement, ou vous avez fusionné deux membres, dans les deux cas le moyen de paiement n'est plus utilisable.",
     edit: 'Modifier',
     add: 'Ajouter',
     none: 'Aucun moyen de paiement sauvergardé',

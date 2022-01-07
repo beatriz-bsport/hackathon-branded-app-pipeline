@@ -1245,7 +1245,7 @@
     "paymentEngine": { "label": { "0": "Paiement manuel", "1": "Paiement en ligne" } },
     "paymentMethod": {
       "title": "Moyen de paiement",
-      "inconsistent": "Moyen de paiement dé-autorisé, veuillez la reconfigurer. Le client peut avoir demandé à désautoriser son moyen de paiement, ou vous avez fusionné deux membres, dans les deux cas le moyen de paiement n'est plus utilisable",
+      "inconsistent": "Moyen de paiement dé-autorisé, veuillez le reconfigurer. Le client peut avoir demandé à désautoriser son moyen de paiement, ou vous avez fusionné deux membres, dans les deux cas le moyen de paiement n'est plus utilisable.",
       "edit": "Modifier",
       "add": "Ajouter",
       "none": "Aucun moyen de paiement sauvergardé",
@@ -6333,8 +6333,10 @@
       "createdAt": "Créé le {{at}}",
       "fromUntil": "Uniquement si facturation prévue entre le {{from}} et le {{until}} inclus",
       "section": {
-        "success": "{{nb}} souscriptions mise en pause",
-        "error": "{{nb}} souscriptions n'ont pas pu être mise en pause automatiquement"
+        "success": "{{count}} souscription mise en pause",
+        "success_plural": "{{count}} souscriptions mises en pause",
+        "error": "{{count}} souscription n'a pas pu être mise en pause automatiquement",
+        "error_plural": "{{count}} souscriptions n'ont pas pu être mises en pause automatiquement"
       },
       "actions": {
         "cancel": "Annuler",

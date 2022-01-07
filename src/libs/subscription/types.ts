@@ -115,6 +115,16 @@ export type ContractPause = {
   until_date?: string;
   contract?: number;
   id: number;
+  date_created: string;
+};
+
+export type ContractPauseDetails = ContractPause & {
+  billing_plan_errors: any[];
+  billing_plan_impossible: any[];
+  billing_plan_invalid: any[];
+  billing_plan_invalid_ids: number[];
+  billing_plan_success: any[];
+  billing_plan_success_ids: number[];
 };
 
 export type SubscriptionState = {

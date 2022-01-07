@@ -2,39 +2,41 @@
 
 import React, { Component } from 'react';
 import { push } from 'connected-react-router';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { compose, withState, withHandlers } from 'recompose';
+import { Theme, WithStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { withTranslation, TFunction } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import PauseIcon from '@material-ui/icons/Pause';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import BottomActionButtons from '../../components/button/BottomActionsButton.component';
-import ContractDeleteDialog from '../../libs/subscription/components/SubscriptionContractDeleteModal.component';
-import SubscriptionContractFormDialog from '../../libs/subscription/components/SubscriptionContractFormDialog.component';
-import PaginatedSubscriptionList from '../../libs/subscription/components/PaginatedSubscriptionList.component';
-import themeSelectors from '../../libs/theme/selectors';
-import { fetchPrivatePassList } from '../../libs/private-service/actions';
-import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
-import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
+import { OptionCallback } from '../../state/types';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import BottomActionButtons from '#components/button/BottomActionsButton.component';
+import ContractDeleteDialog from '#libs/subscription/components/SubscriptionContractDeleteModal.component';
+import SubscriptionContractFormDialog from '#libs/subscription/components/SubscriptionContractFormDialog.component';
+import PaginatedSubscriptionList from '#libs/subscription/components/PaginatedSubscriptionList.component';
+import themeSelectors from '#libs/theme/selectors';
+import { fetchPrivatePassList } from '#libs/private-service/actions';
+import { fetchPaymentComboList } from '#libs/payment-combo/actions';
+import { getPrivatePassAvailable } from '#libs/private-service/selectors/private-pass';
 
-import ContractPauseFormDialog from '../../libs/subscription/components/ContractPauseFormDialog.component';
+import ContractPauseFormDialog from '#libs/subscription/components/ContractPauseFormDialog.component';
 
 import {
   getContract,
   withPaymentPack,
   getSubscriptionList,
   getContractPauseList,
-} from '../../libs/subscription/selectors';
-import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/selectors';
-import { withMember } from '../../libs/order/selectors';
-import ContractDetail from '../../libs/subscription/components/ContractDetail.component';
-import ContractPauseDetail from '../../libs/subscription/components/ContractPauseListDetail.component';
+} from '#libs/subscription/selectors';
+import { getEnabled as getPaymentPackEnabled } from '#libs/payment-packs/selectors';
+import { withMember } from '#libs/order/selectors';
+import ContractDetail from '#libs/subscription/components/ContractDetail.component';
+import ContractPauseDetail from '#libs/subscription/components/ContractPauseListDetail.component';
 import {
   fetchContractDetail as fetchContractDetailAction,
   deleteContract,
@@ -43,64 +45,44 @@ import {
   fetchSubscriptionList as fetchSubscriptionListAction,
   fetchSubscriptionBulk,
   fetchContractPauseList,
-} from '../../libs/subscription/actions';
-import { fetchFilteredMembers as fetchFilteredMembersAction } from '../../libs/member/actions';
-import { refreshAllPaymentPack } from '../../libs/payment-packs/actions';
-import { snackbarSuccess } from '../../libs/snackbar/actions';
+} from '#libs/subscription/actions';
+import { fetchFilteredMembers as fetchFilteredMembersAction } from '#libs/member/actions';
+import { refreshAllPaymentPack } from '#libs/payment-packs/actions';
+import { snackbarSuccess } from '#libs/snackbar/actions';
+import {
+  Contract,
+  ContractPauseDetails,
+  Subscription,
+} from '#libs/subscription/types';
+import { RootState } from '../../reducers';
 
-type Props = {
-  theme: Theme,
-  classes: Object,
-  subscriptions: {
-    count: number,
-    items: Array<Subscriptions>,
-    loading: boolean,
-  },
-  contractId: number,
-  page: number,
-  subscriptionData: { [number]: Subscription },
-  createContractPause: (data: any) => void,
-  contract: Contract,
-  deleteOpen: boolean,
-  paymentPacks: Array<PaymentPack>,
-  contractToEdit: ?Contract,
-  setDeleteModalOpen: (boolean) => void,
-  setContractToEdit: (contract: ?Contract) => void,
-  refreshAllPaymentPack: () => void,
-  fetchContractDetail: (id: number) => void,
-  fetchMembersBySubscription: (subscriptions: Array<Subscription>) => void,
-  snackbarSuccess: (string) => void,
+type OwnProps = {
+  contractId: number;
+  page: number;
+  deleteOpen: boolean;
+  contractToEdit?: Contract;
+  setDeleteModalOpen: (open: boolean) => void;
+  setContractToEdit: (contract?: Contract) => void;
+  submitEditForm: (data: any, options?: OptionCallback) => void;
+  contractPauseLoading: boolean;
+  setContractPauseLoading: (pause: boolean) => void;
+  contractPauseFormOpen: boolean;
+  setContractPauseOpen: (open: boolean) => void;
   fetchSubscriptionsByContract: (
     page: number,
     page_size: number,
     options?: OptionCallback,
-  ) => void,
-  deleteContract: (id: number) => void,
-  goToPaymentPackDetail: (id: number) => void,
-  goToPrivatePass: (id: number) => void,
-  submitEditForm: (data: any, optionds: OptionsCallback) => void,
-  goToSubscription: (id: number) => void,
-  goToList: () => void,
-  loading: boolean,
-  t: TFunction,
-
-  privatePassList: Array<PrivatePass>,
-  fetchPrivatePassList: () => void,
-  fetchPaymentComboList: () => void,
-  goToCombo: (number) => void,
-  fetchContractPauseList: (params: any) => void,
-  contractPauseLoading: boolean,
-  contractPauseList: Array<ContractPause>,
-  contractPauseFormOpen: boolean,
-  setContractPauseOpen: (boolnea) => void,
-  fetchSubscriptionBulk: (
-    subscriptions: Array<number>,
-    opt: OptionsCallback,
-  ) => void,
+  ) => void;
+  fetchMembersBySubscription: (subscriptions: Array<Subscription>) => void;
 };
 
+type Props = OwnProps &
+  ConnectedProps<typeof connector> &
+  WithStyles &
+  WithTranslation;
+
 type State = {
-  page: number,
+  page: number;
 };
 
 const SUBSCRIPTION_PAGINATION_SIZE = 7;
@@ -112,7 +94,10 @@ export class ContractDetailPage extends Component<Props, State> {
     this.props.fetchPrivatePassList();
     this.props.fetchPaymentComboList();
     this.props.fetchSubscriptionsByContract(1, SUBSCRIPTION_PAGINATION_SIZE);
-    this.props.fetchContractPauseList({ contract: this.props.contractId });
+    this.props.fetchContractPauseList(
+      { contract: this.props.contractId },
+      { onSuccess: this.props.setContractPauseLoading(false) },
+    );
   }
 
   render() {
@@ -145,7 +130,7 @@ export class ContractDetailPage extends Component<Props, State> {
                 contract={this.props.contract}
                 items={this.props.subscriptions.items}
                 nbItems={this.props.subscriptions.count}
-                onClick={(sub) => {
+                onClick={(sub: Subscription) => {
                   this.props.goToSubscription(sub.id);
                 }}
                 loading={this.props.subscriptions.loading}
@@ -171,18 +156,20 @@ export class ContractDetailPage extends Component<Props, State> {
                     {t('contractPause.title')}
                   </Typography>
                 )}
-                {this.props.contractPauseList.map((cp) => (
-                  <div key={cp.id} className={classes.pauseItemContainer}>
-                    <ContractPauseDetail
-                      fetchSubscriptionBulk={this.props.fetchSubscriptionBulk}
-                      fetchMembersBySubscription={
-                        this.props.fetchMembersBySubscription
-                      }
-                      onClick={this.props.goToSubscription}
-                      contractPause={cp}
-                    />
-                  </div>
-                ))}
+                {this.props.contractPauseList.map(
+                  (cp: ContractPauseDetails) => (
+                    <div key={cp.id} className={classes.pauseItemContainer}>
+                      <ContractPauseDetail
+                        fetchSubscriptionBulk={this.props.fetchSubscriptionBulk}
+                        fetchMembersBySubscription={
+                          this.props.fetchMembersBySubscription
+                        }
+                        goToSubscription={this.props.goToSubscription}
+                        contractPause={cp}
+                      />
+                    </div>
+                  ),
+                )}
                 <div className={classes.buttonContainer}>
                   <Button
                     onClick={() => this.props.setContractPauseOpen(true)}
@@ -197,7 +184,6 @@ export class ContractDetailPage extends Component<Props, State> {
             )}
             {this.props.contractPauseFormOpen && (
               <ContractPauseFormDialog
-                open
                 onClose={() => this.props.setContractPauseOpen(false)}
                 subscriptionData={this.props.subscriptionData}
                 contractId={this.props.contractId}
@@ -223,7 +209,7 @@ export class ContractDetailPage extends Component<Props, State> {
               this.props.deleteOpen ? this.props.contract.id : null
             }
             onClose={() => this.props.setDeleteModalOpen(false)}
-            deleteContract={(id) => {
+            deleteContract={(id: number) => {
               this.props.deleteContract(id, {
                 onSuccess: this.props.goToList,
               });
@@ -237,7 +223,7 @@ export class ContractDetailPage extends Component<Props, State> {
             paymentPacks={this.props.paymentPacks}
             privatePassList={this.props.privatePassList}
             open={!!this.props.contractToEdit}
-            onSubmit={(data, options) => {
+            onSubmit={(data: any, options: OptionCallback) => {
               this.props.submitEditForm(data, {
                 onSuccess: () => {
                   this.props.setContractToEdit(null);
@@ -255,7 +241,7 @@ export class ContractDetailPage extends Component<Props, State> {
   }
 }
 
-const styles = (theme) => ({
+const styles = (theme: Theme) => ({
   detailContainer: {
     padding: theme.spacing(2),
   },
@@ -287,6 +273,43 @@ const styles = (theme) => ({
   },
 });
 
+const connector = connect(
+  (state: RootState, { contractId }: { contractId: number }) => ({
+    loading: state.subscription.contract.loading,
+    subscriptions: {
+      count: state.subscription.list.count,
+      items: withMember(getSubscriptionList)(state),
+      loading: state.subscription.list.loading,
+    },
+    contract: withPaymentPack(getContract)(state, contractId),
+    paymentPacks: getPaymentPackEnabled(state),
+    privatePassList: getPrivatePassAvailable(state),
+    theme: themeSelectors.getTheme(state),
+    contractPauseList: getContractPauseList(state, contractId),
+    subscriptionData: state.subscription.byId,
+  }),
+  {
+    fetchContractDetail: fetchContractDetailAction,
+    fetchContractPauseList,
+    deleteContract,
+    createContractPause,
+    refreshAllPaymentPack,
+    fetchPrivatePassList,
+    fetchPaymentComboList,
+    createOrUpdateContract: createOrUpdateContractAction,
+    fetchSubscriptionList: fetchSubscriptionListAction,
+    fetchFilteredMembers: fetchFilteredMembersAction,
+    fetchSubscriptionBulk,
+    snackbarSuccess,
+    goToList: () => push('/subscription/contract'),
+    goToSubscription: (id: number) => push(`/subscription/${id}`),
+    goToPaymentPackDetail: (packId: number) => push(`/payment-pack/${packId}/`),
+    goToPrivatePass: (packId: number) =>
+      push(`/private-service/pass/${packId}/`),
+    goToCombo: (id: number) => push(`/combo/${id}/`),
+  },
+);
+
 export default compose(
   withStyles(styles),
   withTranslation(['subscription']),
@@ -295,47 +318,12 @@ export default compose(
   withState('contractToEdit', 'setContractToEdit', null),
   withState('page', 'setPage', 1),
   withState('contractPauseFormOpen', 'setContractPauseOpen', false),
-  connect(
-    (state, { contractId }) => ({
-      loading: state.subscription.contract.loading,
-      subscriptions: {
-        count: state.subscription.list.count,
-        items: withMember(getSubscriptionList)(state),
-        loading: state.subscription.list.loading,
-      },
-      contract: withPaymentPack(getContract)(state, contractId),
-      paymentPacks: getPaymentPackEnabled(state),
-      privatePassList: getPrivatePassAvailable(state),
-      theme: themeSelectors.getTheme(state),
-      contractPauseList: getContractPauseList(state, contractId),
-      subscriptionData: state.subscription.byId,
-    }),
-    {
-      fetchContractDetail: fetchContractDetailAction,
-      fetchContractPauseList,
-      deleteContract,
-      createContractPause,
-      refreshAllPaymentPack,
-      fetchPrivatePassList,
-      fetchPaymentComboList,
-      createOrUpdateContract: createOrUpdateContractAction,
-      fetchSubscriptionList: fetchSubscriptionListAction,
-      fetchFilteredMembers: fetchFilteredMembersAction,
-      fetchSubscriptionBulk,
-      snackbarSuccess,
-      goToList: () => push('/subscription/contract'),
-      goToSubscription: (id) => push(`/subscription/${id}`),
-      goToPaymentPackDetail: (packId: number) =>
-        push(`/payment-pack/${packId}/`),
-      goToPrivatePass: (packId: number) =>
-        push(`/private-service/pass/${packId}/`),
-      goToCombo: (id: number) => push(`/combo/${id}/`),
-    },
-  ),
+  withState('contractPauseLoading', 'setContractPauseLoading', true),
+  connector,
   withHandlers({
     fetchSubscriptionsByContract:
       ({ fetchSubscriptionList, setPage, contractId }) =>
-      (page, page_size, options) => {
+      (page: number, page_size: number, options: OptionCallback) => {
         setPage(page);
         fetchSubscriptionList(
           {
@@ -348,7 +336,7 @@ export default compose(
       },
     submitEditForm:
       ({ createOrUpdateContract, fetchContractDetail, contractId }) =>
-      (data, options) => {
+      (data: any, options: OptionCallback) => {
         createOrUpdateContract(data, {
           onSuccess: () => {
             fetchContractDetail(contractId);
@@ -360,7 +348,7 @@ export default compose(
       },
     fetchMembersBySubscription:
       ({ fetchFilteredMembers }) =>
-      (subscriptions) => {
+      (subscriptions: Array<Subscription>) => {
         fetchFilteredMembers({
           id__in: subscriptions.map((b) => b.member),
         });

@@ -6,6 +6,8 @@ import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import * as Sentry from '@sentry/react';
 
 import {
@@ -33,6 +35,7 @@ type Props = {
   unpaidInvoiceList: Array<Invoice>,
   memberId: number,
   member: Member,
+  memberLoading: boolean,
   asConsumer: boolean,
   applyBalanceToUnpaidInvoices: () => void,
   fetchInvoiceListUnpaid: () => void,
@@ -152,6 +155,9 @@ export const MemberBillingProblemCard = (props: Props) => {
               <Typography inline variant="h6" component="span" color={color}>
                 {` ${getCurrencyDisplayWithPrice(balance)}`}
               </Typography>
+              {props.memberLoading && (
+                <CircularProgress size={24} color="primary" />
+              )}
               <Button
                 onClick={() => {
                   if (props.asConsumer) {
@@ -162,6 +168,7 @@ export const MemberBillingProblemCard = (props: Props) => {
                 }}
                 variant="outlined"
                 color="primary"
+                disabled={props.memberLoading}
               >
                 {t(props.asConsumer ? 'regularizeBalance' : 'adjustBalance')}
               </Button>

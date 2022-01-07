@@ -243,6 +243,7 @@ export class MemberDetailPage extends Component<Props> {
             invoiceLoading={this.props.invoiceLoading}
             member={this.props.member}
             memberId={this.props.id}
+            memberLoading={this.props.memberLoading}
             unpaidInvoiceList={this.props.unpaidInvoiceList}
             onClickInvoice={this.props.goToInvoice}
             asConsumer={false}

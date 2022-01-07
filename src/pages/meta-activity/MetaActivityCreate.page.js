@@ -5,7 +5,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 import { push, goBack } from 'connected-react-router';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withProps, compose, withState } from 'recompose';
+import { withProps, compose, withState, withHandlers } from 'recompose';
 import Grid from '@material-ui/core/Grid';
 
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -13,31 +13,46 @@ import Stepper from '@material-ui/core/Stepper';
 import Paper from '@material-ui/core/Paper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
+import uniqBy from 'lodash/uniqBy';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import { fetchAllOffers as fetchAllOffersAction } from '../../libs/offer/actions';
 import { mapFormData } from '../form.utils';
-import { upsert } from '../../libs/meta-activity/actions';
+import {
+  upsert,
+  fetchAllActivities,
+  fetchAll as fetchWorkhops,
+} from '../../libs/meta-activity/actions';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import { createOffers as createOffersAPI } from '../../libs/meta-activity/api/meta-activity';
 import {
   fetchActivityCompatiblePaymentPacks as fetchActivityCompatiblePaymentPacksAction,
   resetCompatiblePaymentPacks as resetCompatiblePaymentPacksAction,
+  createOrUpdate as createPaymentPack,
+  fetchAllPaymentPacks as fetchAllPaymentPacksAction,
+  fetchAllPaymentPackCategory,
 } from '../../libs/payment-packs/actions';
 
 import withTitle from '../../hocs/with-title.hoc';
 import themeSelectors from '../../libs/theme/selectors';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { getActivityCompatiblePaymentPacks } from '../../libs/payment-packs/selectors';
+import {
+  getActivityCompatiblePaymentPacks,
+  getAllPaymentPackCategory,
+} from '../../libs/payment-packs/selectors';
 import MetaActivityForm from '../../libs/meta-activity/components/MetaActivityForm.component';
 import OfferForm from '../../libs/offer/OfferForm.component';
 import {
   getEnabledMetaActivities,
   getEnabledWorkshops,
+  getActivitiesByIdList,
 } from '../../libs/meta-activity/selectors';
 import CompatiblePaymentPacks from '../../libs/meta-activity/components/MetaActivityCompatiblePacks.component';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
-import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
+import {
+  getAvailableEstablishmentList,
+  getAllEstablishments,
+} from '../../libs/establishment/selectors';
 import { Establishment } from '../../libs/establishment/types';
 import { PaymentPack } from '../../libs/payment-packs/types';
 import { getAvailableRoomBlueprints } from '../../libs/spot-scheduling/selector';
@@ -46,6 +61,8 @@ import { RoomBlueprint } from '../../libs/spot-scheduling/types';
 import { fetchAllCoachPaymentRules } from '../../libs/coach-payment-rules/actions';
 import { CoachPaymentRuleByKindSelector } from '../../libs/coach-payment-rules/selectors';
 import { CoachPaymentRule } from '../../libs/coach-payment-rules/types';
+
+import { getallTagsWithTagGroup } from '#libs/tag/selectors';
 
 type StepType = {
   id: number,
@@ -88,6 +105,17 @@ type Props = {
   roomBlueprints: Array<RoomBlueprint>,
   fetchAllCoachPaymentRules: () => void,
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> },
+  fetchAllActivities: ({ customer_enabled: true }) => void,
+  fetchWorkhops: () => void,
+  fetchAllPaymentPacks: () => void,
+  fetchAllPaymentPackCategory: () => void,
+  establishmentList: any,
+  allEstablishmentList: any,
+  metaActivities: any,
+  allTagsWithTagGroup: any,
+  paymentPackCategories: any,
+  createPaymentPack: (data: any, options: any) => void,
+  categoryList: any,
 };
 
 const MetaActivityMap = {
@@ -125,6 +153,10 @@ export class MetaActivityFormPage extends Component<Props> {
     this.props.resetPaymentPacks();
     this.props.fetchRoomBlueprints();
     this.props.fetchAllCoachPaymentRules();
+    this.props.fetchAllActivities({ customer_enabled: true });
+    this.props.fetchWorkhops();
+    this.props.fetchAllPaymentPacks();
+    this.props.fetchAllPaymentPackCategory();
   }
 
   renderActivityStep = () => (
@@ -165,6 +197,17 @@ export class MetaActivityFormPage extends Component<Props> {
       fetchPaymentPacks={this.props.fetchPaymentPacks}
       goToMetaActivity={this.props.goToMetaActivity}
       goToPaymentPackCreate={this.props.goToPaymentPackCreate}
+      establishmentList={this.props.establishmentList}
+      categoryList={[...this.props.categoryList].filter(
+        (category) =>
+          this.props.metaActivities.map((a) => a.SCT).indexOf(category.id) !==
+          -1,
+      )}
+      allEstablishmentList={this.props.allEstablishmentList}
+      metaActivityList={this.props.metaActivities}
+      tagList={this.props.allTagsWithTagGroup}
+      paymentPackCategories={this.props.paymentPackCategories}
+      onSubmit={this.props.createPaymentPack}
     />
   );
 
@@ -239,6 +282,18 @@ export default compose(
       },
       roomBlueprints: getAvailableRoomBlueprints(state),
       coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
+      allEstablishmentList: getAllEstablishments(state),
+      allTagsWithTagGroup: getallTagsWithTagGroup(state),
+      paymentPackCategories: getAllPaymentPackCategory(state),
+      metaActivities: uniqBy(
+        [
+          ...getEnabledMetaActivities(state),
+          ...getEnabledWorkshops(state),
+          ...getActivitiesByIdList(state, []),
+        ],
+        'id',
+      ),
+      categoryList: state.category.SCTs,
     }),
     {
       goBack,
@@ -249,9 +304,15 @@ export default compose(
       resetPaymentPacks: resetCompatiblePaymentPacksAction,
       goToMetaActivity: (id: number) => push(`/activity/${id}/general`),
       goToPaymentPackCreate: () => push('/payment-pack/add'),
+      goToPaymentPack: (id: number) => push(`/payment-pack/${id}`),
       fetchAllOffers: fetchAllOffersAction,
       fetchRoomBlueprints,
       fetchAllCoachPaymentRules,
+      fetchAllActivities,
+      fetchWorkhops,
+      fetchAllPaymentPacks: fetchAllPaymentPacksAction,
+      fetchAllPaymentPackCategory,
+      createOrUpdatePaymentPackAction: createPaymentPack,
     },
   ),
   //
@@ -299,4 +360,22 @@ export default compose(
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:metaActivity.metaActivityFormPage'),
   ),
+  withHandlers({
+    createPaymentPack:
+      ({
+        createOrUpdatePaymentPackAction,
+        fetchAllPaymentPacks,
+        goToPaymentPack,
+      }) =>
+      (data: any, options: OptionCallBack) => {
+        createOrUpdatePaymentPackAction(data, {
+          ...options,
+          onSuccess: (res) => {
+            options.onSuccess(res);
+            fetchAllPaymentPacks();
+            goToPaymentPack(res.id);
+          },
+        });
+      },
+  }),
 )(MetaActivityFormPage);

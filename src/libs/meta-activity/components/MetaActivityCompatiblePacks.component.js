@@ -14,21 +14,29 @@ import type { PaymentPack } from '../../payment-packs/types';
 import PaginatedListBase from '../../../components/PaginatedListBase.component';
 
 import PaymentPackListItem from '../../payment-packs/components/PaymentPackListItem.component';
+import PaymentPackFormDialog from '#libs/payment-packs/components/PaymentPackForm';
 
 const PAGE_SIZE = 10;
 
 type Props = {
   t: TFunction,
   goToMetaActivity: (id: number) => void,
-  goToPaymentPackCreate: () => void,
   paymentPacks: Array<PaymentPack>,
   classes: Object,
   metaActivity: MetaActivity,
   fetchPaymentPacks: (id: number) => void,
   loading: boolean,
+  allEstablishmentList: any,
+  metaActivityList: any,
+  tagList: any,
+  paymentPackCategories: any,
+  onSubmit: (data: any, options: any) => void,
+  categoryList: any,
 };
 
 export function CompatiblePaymentPacks(props: Props) {
+  const [openPaymentPackForm, setOpenPaymentPackForm] =
+    React.useState<boolean>(false);
   return (
     <div>
       <List className={props.classes.list}>
@@ -73,7 +81,7 @@ export function CompatiblePaymentPacks(props: Props) {
       <div className={props.classes.buttonContainer}>
         <Button
           className={props.classes.button}
-          onClick={props.goToPaymentPackCreate}
+          onClick={() => setOpenPaymentPackForm(!openPaymentPackForm)}
         >
           {props.t('forms.create.compatible_packs.createPass')}
         </Button>
@@ -87,6 +95,16 @@ export function CompatiblePaymentPacks(props: Props) {
           {props.t('forms.create.compatible_packs.goToActivity')}
         </Button>
       </div>
+      <PaymentPackFormDialog
+        open={openPaymentPackForm}
+        categoryList={props.categoryList}
+        establishmentList={props.allEstablishmentList}
+        metaActivityList={props.metaActivityList}
+        tagList={props.tagList}
+        paymentPackCategories={props.paymentPackCategories}
+        closeDialog={() => setOpenPaymentPackForm(false)}
+        onSubmit={props.onSubmit}
+      />
     </div>
   );
 }

@@ -8,6 +8,7 @@ import { Info } from '@material-ui/icons';
 import { PerformanceTrackingMemberProgram } from '#libs/performance-tracking/types';
 import SliderForm from './SliderForm.component';
 import MuiIcon from '#components/MuiIcon.component';
+import TypographyMultilineComponent from '#components/TypographyMultiline.component';
 
 type OwnProps = {
   memberProgram: PerformanceTrackingMemberProgram;
@@ -42,7 +43,14 @@ export const MemberProgramDetail = (props: Props) => {
 
             <Divider />
           </div>
-          <Typography>{memberProgram.program?.description}</Typography>
+          {memberProgram.program?.description && (
+            <div className={classes.multiline}>
+              <TypographyMultilineComponent>
+                {memberProgram.program?.description}
+              </TypographyMultilineComponent>
+            </div>
+          )}
+
           <div className={classes.metricContainer}>
             {memberProgram?.metric_record?.general?.metrics?.map(
               (member_metric) => (
@@ -60,6 +68,10 @@ export const MemberProgramDetail = (props: Props) => {
   );
 };
 const useStyles = makeStyles<Theme, { color: string }>((theme) => ({
+  multiline: {
+    marginTop: '-1em',
+    marginBottom: '-1em',
+  },
   icon: (props) => ({
     width: theme.spacing(3),
     display: 'flex',
@@ -71,12 +83,11 @@ const useStyles = makeStyles<Theme, { color: string }>((theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    gap: theme.spacing(3),
+    gap: theme.spacing(2),
   },
   title: {
     marginBottom: theme.spacing(2),
     display: 'flex',
-    gap: theme.spacing(2),
     alignItems: 'center',
   },
   metricContainer: {

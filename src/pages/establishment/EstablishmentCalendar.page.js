@@ -41,11 +41,6 @@ import {
 } from '../../libs/private-service/actions';
 import { fetchEstablishmentBulk } from '../../libs/establishment/actions';
 import { CompanyTheme } from '../../libs/theme/types';
-import {
-  fetchMemberProgram as fetchMemberProgramAction,
-  fetchProgram as fetchProgramAction,
-  fetchMetric as fetchMetricAction,
-} from '#libs/performance-tracking/actions';
 
 type Props = {
   companyTheme: CompanyTheme,
@@ -233,9 +228,6 @@ export default compose(
       fetchPrivateSlotBulk: fetchPrivateSlotBulkAction,
       fetchPrivateServiceBulk: fetchPrivateServiceBulkAction,
       fetchMemberBulk: fetchMemberBulkAction,
-      fetchMemberProgram: fetchMemberProgramAction,
-      fetchProgram: fetchProgramAction,
-      fetchMetric: fetchMetricAction,
     },
   ),
   withHandlers({
@@ -268,9 +260,6 @@ export default compose(
         fetchPrivateSlotBulk,
         fetchMemberBulk,
         id,
-        fetchMemberProgram,
-        fetchProgram,
-        fetchMetric,
       }) =>
       () => {
         fetchPrivateBookings(
@@ -289,42 +278,6 @@ export default compose(
               fetchMemberBulk({
                 id__in: uniq(bookingList.map((b) => b.member)),
               });
-              fetchMemberProgram(
-                {
-                  member__in: uniq(bookingList.map((b) => b.member)),
-                },
-                {
-                  onSuccess: (data) => {
-                    const programsToFetch = uniq(
-                      data.results.map(
-                        (memberProgram) => memberProgram.program,
-                      ),
-                    );
-                    fetchProgram(
-                      { is_disabled: false },
-                      {
-                        onSuccess: (programData) => {
-                          const metricToFetch = programsToFetch
-                            .map((metricId) =>
-                              programData.find(
-                                (program) => program.id === metricId,
-                              ),
-                            )
-                            .filter((program) => program)
-                            .reduce(
-                              (acc, program) =>
-                                acc.concat(program?.metric_list),
-                              [],
-                            );
-                          if (metricToFetch?.length !== 0) {
-                            fetchMetric({ id__in: metricToFetch });
-                          }
-                        },
-                      },
-                    );
-                  },
-                },
-              );
             },
           },
         );

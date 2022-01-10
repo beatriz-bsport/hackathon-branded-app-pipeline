@@ -146,11 +146,24 @@ export class ConsumerHome extends React.Component<Props> {
         page_size: 10,
       });
     }
-    this.props.fetchProgram({
-      is_disabled: false,
-      company: this.props.companyId,
-    });
+    if (this.props.companyId) {
+      this.props.fetchProgram({
+        is_disabled: false,
+        company: this.props.companyId,
+      });
+    }
     this.props.fetchMembershipListAsConsumer({ page_size: 1 });
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.companyId !== this.props.companyId) {
+      if (this.props.companyId) {
+        this.props.fetchProgram({
+          is_disabled: false,
+          company: this.props.companyId,
+        });
+      }
+    }
   }
 
   buildPath = (path) => this.props.push(this.props.buildUrl(path));

@@ -1,14 +1,18 @@
+import { FieldArrayRenderProps } from 'formik';
 import { PerformanceTrackingMetric } from './types';
 
+const ADD = 1;
+const MINUS = -1;
 export const organize_index = (
   oldIndex: number,
   newIndex: number,
   metricList: Array<PerformanceTrackingMetric>,
+  fieldArrayHelpers: FieldArrayRenderProps,
 ) => {
   if (oldIndex === newIndex) {
-    return metricList;
+    return;
   }
-  const incrementation = oldIndex > newIndex ? 1 : -1;
+  const incrementation = oldIndex > newIndex ? ADD : MINUS;
   const min_index = Math.min(oldIndex, newIndex);
   const max_index = Math.max(oldIndex, newIndex);
   const res = metricList.map((metric) => {
@@ -21,7 +25,12 @@ export const organize_index = (
 
     return { ...metric, index: metric.index + incrementation };
   });
-  return [...res].sort((metric1, metric2) => metric1.index - metric2.index);
+  const sortedRes = [...res].sort(
+    (metric1, metric2) => metric1.index - metric2.index,
+  );
+  sortedRes.forEach((metric, index) => {
+    fieldArrayHelpers.replace(index, metric);
+  });
 };
 
 export const MEMBER_PROGRAM_PER_PAGE = 5;

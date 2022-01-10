@@ -1,10 +1,10 @@
 
 
 .mood-slider{
-    width: 300px;
-    height: 300px;
-    min-width: 300px;
-    min-height: 300px;
+    width: 265px;
+    height: 265px;
+    min-width: 265px;
+    min-height: 265px;
     position: relative;
 }
 .mood-slider:hover>.machineContainerSlide{
@@ -41,6 +41,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
 }
 .MuiButtonBase-root.MuiIconButton-root.minus{
     position: absolute;

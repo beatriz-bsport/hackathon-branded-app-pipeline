@@ -24,7 +24,7 @@ type OwnProps = {
     PerformanceTrackingMemberProgram<number, PerformanceTrackingMetric, Member>
   >;
   onPageRequested: (page: number, pageSize: number) => void;
-  onClickMember?: (id: number) => void;
+  onClickMember?: (member: number, memberProgramId: number) => void;
 };
 type Props = OwnProps & WithTranslation;
 export const ProgramDetailMember = (props: Props) => {
@@ -78,7 +78,7 @@ export const ProgramDetailMember = (props: Props) => {
                 disabled={loading}
                 button={!!onClickMember}
                 onClick={() => {
-                  onClickMember && props.onClickMember(item.id);
+                  onClickMember && props.onClickMember(item.member.id, item.id);
                 }}
               >
                 <div className={classes.listItemFirstPart}>
@@ -93,7 +93,7 @@ export const ProgramDetailMember = (props: Props) => {
                 <div className={classes.listItemThirdPart}>
                   {moment
                     .unix(item?.metric_record?.general?.date_created)
-                    .format('DD/MM/YYYY')}
+                    .format('LL')}
                 </div>
               </ListItem>
             );

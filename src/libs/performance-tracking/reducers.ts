@@ -8,7 +8,7 @@ import {
   ProgramCreateOrUpdateActions,
   ProgramListActions,
   disableMemberProgramActions,
-  MemberProgramCreateOrUpdateActions,
+  MemberProgramCreateOrUpdateOrRetrieveActions,
   ProgramEnableOrDisableActions,
 } from './actions';
 
@@ -200,13 +200,13 @@ export default handleActions(
           { deep: true },
         );
     },
-    [MemberProgramCreateOrUpdateActions.error.toString()]: (
+    [MemberProgramCreateOrUpdateOrRetrieveActions.error.toString()]: (
       state,
       { payload },
     ) => {
       return state.setIn(['memberProgram', 'createOrUpdate', 'error'], payload);
     },
-    [MemberProgramCreateOrUpdateActions.isLoading.toString()]: (
+    [MemberProgramCreateOrUpdateOrRetrieveActions.isLoading.toString()]: (
       state,
       { payload },
     ) => {
@@ -215,7 +215,7 @@ export default handleActions(
         payload,
       );
     },
-    [MemberProgramCreateOrUpdateActions.success.toString()]: (
+    [MemberProgramCreateOrUpdateOrRetrieveActions.success.toString()]: (
       state,
       { payload },
     ) => {

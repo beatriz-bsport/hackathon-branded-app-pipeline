@@ -80,7 +80,7 @@ export const ProgramMenuItem = (props: Props) => {
                 }
               }}
             >
-              <Delete color="secondary" />
+              <Delete className={classes.delete} />
             </IconButton>
           ) : null}
         </div>
@@ -129,7 +129,9 @@ const useStyles = makeStyles<Theme, { color: string; isInSelector: boolean }>(
       flexDirection: 'row',
       justifyContent: 'flex-end',
       alignItems: 'center',
-      gap: theme.spacing(1),
+    },
+    delete: {
+      color: '#868686',
     },
     icon: (props) => ({
       width: theme.spacing(3),

@@ -35,7 +35,6 @@ import {
 import Avatar from '@material-ui/core/Avatar';
 import Badge from '@material-ui/core/Badge';
 import { EventSeat, OfflineBolt } from '@material-ui/icons';
-import { Dialog } from '@material-ui/core';
 import { getBookingStatusCode } from '../utils';
 
 import Tooltip from '../../../components/Tooltip.component';
@@ -87,7 +86,9 @@ type Props = {
   updateMemberMetricValue: (data: any, options?: any) => void,
   createMemberProgram: (data: any, options?: any) => void,
   programList: Array<PerformanceTrackingProgram>,
+  programDataLoading: boolean,
   membersWithStatusOk: Array<Member>,
+  fetchPerformanceTrackingData: (member: number) => void,
 };
 
 const getPackDate = (consumerPack) => {
@@ -148,7 +149,7 @@ export class BookingItemForManager extends Component<Props, State> {
     menuAnchor: null,
     isMemberProgramDetailDialogOpen: false,
     indexMemberFocused: this.props.membersWithStatusOk?.findIndex(
-      (member) => member.id === this.props.member.id,
+      (member) => member?.id === this.props.member?.id,
     ),
   };
 
@@ -407,6 +408,9 @@ export class BookingItemForManager extends Component<Props, State> {
                     {!!programList?.length && (
                       <MenuItem
                         onClick={closeAndAction(() => {
+                          this.props.fetchPerformanceTrackingData(
+                            booking.member,
+                          );
                           this.setState({
                             isMemberProgramDetailDialogOpen: true,
                           });
@@ -667,44 +671,51 @@ export class BookingItemForManager extends Component<Props, State> {
             <Grid item>{this.renderButtons()}</Grid>
           </Grid>
         </ListItem>
-        <Dialog open={this.state.isMemberProgramDetailDialogOpen} maxWidth="lg">
-          <MemberProgramDetailDialog
-            closeDialog={() =>
-              this.setState(
-                {
-                  isMemberProgramDetailDialogOpen: false,
-                },
-                () =>
-                  this.setState({
-                    indexMemberFocused: membersWithStatusOk.findIndex(
-                      (m) => m.id === member.id,
-                    ),
-                  }),
-              )
-            }
-            memberName={`${memberFocused?.name} ${this.getIsFirstIndicator(
-              this.props.bookings?.find((b) => b.member === memberFocused?.id),
-            )}`}
-            memberProgramList={memberFocused?.memberProgramList}
-            changeMember={(i: number) =>
-              this.setState((prevState) => ({
+
+        <MemberProgramDetailDialog
+          loading={this.props.programDataLoading}
+          open={this.state.isMemberProgramDetailDialogOpen}
+          closeDialog={() =>
+            this.setState(
+              {
+                isMemberProgramDetailDialogOpen: false,
+              },
+              () =>
+                this.setState({
+                  indexMemberFocused: membersWithStatusOk?.findIndex(
+                    (m) => m.id === member.id,
+                  ),
+                }),
+            )
+          }
+          memberName={`${memberFocused?.name} ${this.getIsFirstIndicator(
+            this.props.bookings?.find((b) => b?.member === memberFocused?.id),
+          )}`}
+          memberProgramList={memberFocused?.memberProgramList}
+          changeMember={(i: number) =>
+            this.setState(
+              (prevState) => ({
                 ...prevState,
                 indexMemberFocused: Math.abs(
                   (prevState.indexMemberFocused + i) %
-                    membersWithStatusOk.length,
+                    membersWithStatusOk?.length,
                 ),
-              }))
-            }
-            updateMemberMetricValue={this.props.updateMemberMetricValue}
-            createMemberProgram={(id) =>
-              this.props.createMemberProgram({
-                program: id,
-                member: memberFocused.id,
-              })
-            }
-            programList={this.props.programList}
-          />
-        </Dialog>
+              }),
+              () =>
+                this.props.fetchPerformanceTrackingData(
+                  membersWithStatusOk?.[this.state.indexMemberFocused]?.id,
+                ),
+            )
+          }
+          updateMemberMetricValue={this.props.updateMemberMetricValue}
+          createMemberProgram={(id) =>
+            this.props.createMemberProgram({
+              program: id,
+              member: memberFocused.id,
+            })
+          }
+          programList={this.props.programList}
+        />
       </>,
     );
   }

@@ -25,6 +25,23 @@ export const createMemberProgram = async (data: {
   return postAuth(`${API_V1_URI}/performance_tracking/member_program/`, data);
 };
 
+export const retrieveMemberProgram = async (params: {
+  memberProgramId: number;
+  companyId?: number;
+}) => {
+  return getAuth(
+    `${API_V1_URI}/performance_tracking/member_program/${
+      params.memberProgramId
+    }/${
+      params.companyId
+        ? buildUrlParams({
+            company: params.companyId,
+          })
+        : ''
+    }`,
+  );
+};
+
 export const UpdateProgramAndMetric = async (data: {
   program: PerformanceTrackingProgram;
   metric_list: Array<PerformanceTrackingMetric>;

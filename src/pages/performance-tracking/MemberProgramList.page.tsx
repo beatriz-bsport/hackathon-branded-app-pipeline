@@ -45,6 +45,7 @@ import {
   fetchMetric as fetchMetricAction,
   disableMemberProgram as disableMemberProgramAction,
   updateMemberMetricValue as updateMemberMetricValueAction,
+  retrieveMemberProgram as retrieveMemberProgramAction,
 } from '#libs/performance-tracking/actions';
 import BackofficeLinearProgressComponent from '#components/navigation/BackofficeLinearProgress.component';
 
@@ -92,12 +93,13 @@ export class MemberProgramList extends Component<Props> {
       programList,
       memberProgramDetailed,
       memberProgramDetailedId,
-
+      retrieveMemberProgram,
       createMemberProgram,
       memberId,
       updateMemberMetricValue,
       pushToRouter,
       memberProgramLoading,
+      programLoading,
     } = this.props;
 
     const alreadyRegisterdProgramIds = memberProgramList?.map(
@@ -106,7 +108,7 @@ export class MemberProgramList extends Component<Props> {
     const memberAvailablePrograms =
       programList?.filter((p) => !alreadyRegisterdProgramIds?.includes(p.id)) ||
       [];
-    if (memberProgramLoading) {
+    if (memberProgramLoading || programLoading) {
       return <BackofficeLinearProgressComponent />;
     }
     return (
@@ -150,12 +152,14 @@ export class MemberProgramList extends Component<Props> {
                     }
                   }}
                   onClickOnItem={(program) => {
-                    pushToRouter(
-                      memberProgramList.find(
-                        (memberProgram) =>
-                          memberProgram.program.id === program.id,
-                      ).id,
+                    const memberProgramSelected = memberProgramList.find(
+                      (memberProgram) =>
+                        memberProgram.program.id === program.id,
                     );
+                    pushToRouter(memberProgramSelected?.id);
+                    retrieveMemberProgram({
+                      memberProgramId: memberProgramSelected?.id,
+                    });
                   }}
                   isSearchDisplayed
                   isLinkedToMemberProgram
@@ -174,6 +178,12 @@ export class MemberProgramList extends Component<Props> {
                   </div>
                 </Button>
                 <MaterialUISelector
+                  value={{
+                    value: memberProgramDetailed?.id,
+                    label:
+                      memberProgramDetailed.program?.name ||
+                      t('program.selectProgram'),
+                  }}
                   isMenuListPaddingDisabled
                   itemRenderer={(itemProps) => {
                     return (
@@ -218,12 +228,14 @@ export class MemberProgramList extends Component<Props> {
                   }))}
                   isMulti={false}
                   onChange={(values) => {
-                    pushToRouter(
-                      [...memberProgramList].find(
-                        (memberProgram) =>
-                          memberProgram.program.id === values.value,
-                      ).id,
+                    const memberProgramSelected = memberProgramList.find(
+                      (memberProgram) =>
+                        memberProgram.program.id === values.value,
                     );
+                    pushToRouter(memberProgramSelected.id);
+                    retrieveMemberProgram({
+                      memberProgramId: memberProgramSelected?.id,
+                    });
                   }}
                 />
                 <GenericDialog />
@@ -231,6 +243,7 @@ export class MemberProgramList extends Component<Props> {
             </Grid>
             <Grid item xs={12} md={6}>
               <MemberProgramDetail
+                withIcon
                 memberProgram={memberProgramDetailed}
                 changeMemberMetricValue={(value, metric) => {
                   updateMemberMetricValue({
@@ -248,7 +261,14 @@ export class MemberProgramList extends Component<Props> {
           isDialogChooseProgramOpen={isDialogChooseProgramOpen}
           setIsDialogChooseProgramOpen={setIsDialogChooseProgramOpen}
           createMemberProgram={(id) =>
-            createMemberProgram({ program: id, member: memberId })
+            createMemberProgram(
+              { program: id, member: memberId },
+              {
+                onSuccess: (memberProgram) => {
+                  pushToRouter(memberProgram.id);
+                },
+              },
+            )
           }
         />
       </div>
@@ -258,6 +278,8 @@ export class MemberProgramList extends Component<Props> {
 
 const connector = connect(
   (state: RootState, props: RouterProps) => ({
+    memberProgramLoading: state.performanceTracking.memberProgram.loading,
+    programLoading: state.performanceTracking.program.loading,
     memberProgramDetailed: composeMemberProgramWithMetric(
       composeMemberProgramWithProgram(getMemberProgram),
     )(state, props.memberProgramDetailedId) as PerformanceTrackingMemberProgram,
@@ -265,12 +287,12 @@ const connector = connect(
     memberProgramList: composeMemberProgramWithProgram(
       getMemberProgramByMemberList,
     )(state, props.memberId) as Array<PerformanceTrackingMemberProgram>,
-    memberProgramLoading: state.performanceTracking.memberProgram.loading,
   }),
   {
     fetchProgram: fetchProgramAction,
     createMemberProgram: createMemberProgramAction,
     fetchMemberProgram: fetchMemberProgramAction,
+    retrieveMemberProgram: retrieveMemberProgramAction,
     fetchMetric: fetchMetricAction,
     disableMemberProgram: disableMemberProgramAction,
     updateMemberMetricValue: updateMemberMetricValueAction,

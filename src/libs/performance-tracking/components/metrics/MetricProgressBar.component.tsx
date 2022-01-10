@@ -37,7 +37,7 @@ export const MetricProgressBar = (props: Props) => {
           <div className={classes.littleCircle} />
         </div>
       </div>
-      <Typography>{metric?.max_value}</Typography>
+      <Typography className={classes.typoRight}>{metric?.max_value}</Typography>
     </div>
   );
 };
@@ -51,16 +51,19 @@ const useStyles = makeStyles<Theme>((theme) => ({
     minHeight: theme.spacing(0.3),
     opacity: '1',
   },
+  typoRight: {
+    position: 'relative',
+    right: '4px',
+  },
   container: {
-    width: '100%',
+    position: 'relative',
     height: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: theme.spacing(1),
   },
   sliderContainer: {
-    width: '90%',
+    width: '160px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

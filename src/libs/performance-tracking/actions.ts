@@ -16,6 +16,7 @@ import {
   createMemberProgram as createMemberProgramAPI,
   enableOrDisableProgram as enableOrDisableProgramAPI,
   disableMemberProgram as disableMemberProgramAPI,
+  retrieveMemberProgram as retrieveMemberProgramAPI,
 } from './api';
 
 import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
@@ -125,7 +126,7 @@ export function fetchMemberProgram(
       if (
         params.program === undefined &&
         params.member === undefined &&
-        !(params.member__in?.length > 0)
+        !!params.member__in?.length
       ) {
         throw new Error('paramsNotValid');
       }
@@ -211,10 +212,12 @@ export function fetchMetric(
   };
 }
 
-export const MemberProgramCreateOrUpdateActions = {
-  error: createAction('MEMBERPROGRAM/CREATE_OR_UPDTAE/ERROR'),
-  isLoading: createAction('MEMBERPROGRAM/CREATE_OR_UPDTAE/IS_LOADING'),
-  success: createAction('MEMBERPROGRAM/CREATE_OR_UPDATE/SUCCESS'),
+export const MemberProgramCreateOrUpdateOrRetrieveActions = {
+  error: createAction('MEMBERPROGRAM/CREATE_OR_UPDTAE_OR_RETRIEVE/ERROR'),
+  isLoading: createAction(
+    'MEMBERPROGRAM/CREATE_OR_UPDATE_OR_RETRIEVE/IS_LOADING',
+  ),
+  success: createAction('MEMBERPROGRAM/CREATE_OR_UPDATE_OR_RETRIEVE/SUCCESS'),
 };
 
 export function createMemberProgram(
@@ -225,13 +228,15 @@ export function createMemberProgram(
   options?: OptionCallback<PerformanceTrackingMemberProgram>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
-    dispatch(MemberProgramCreateOrUpdateActions.isLoading(true));
-    dispatch(MemberProgramCreateOrUpdateActions.error(null));
+    dispatch(MemberProgramCreateOrUpdateOrRetrieveActions.isLoading(true));
+    dispatch(MemberProgramCreateOrUpdateOrRetrieveActions.error(null));
 
     try {
       const response = await createMemberProgramAPI(data);
 
-      dispatch(MemberProgramCreateOrUpdateActions.success(response.data));
+      dispatch(
+        MemberProgramCreateOrUpdateOrRetrieveActions.success(response.data),
+      );
       options?.onSuccess && options.onSuccess(response.data);
       dispatch(
         snackbarSuccess(
@@ -239,13 +244,36 @@ export function createMemberProgram(
         ),
       );
     } catch (error) {
-      dispatch(MemberProgramCreateOrUpdateActions.error(error));
+      dispatch(MemberProgramCreateOrUpdateOrRetrieveActions.error(error));
       options?.onError && options.onError(error);
       dispatch(
         snackbarError('performanceTracking:memberProgram.actions.create.error'),
       );
     }
-    dispatch(MemberProgramCreateOrUpdateActions.isLoading(false));
+    dispatch(MemberProgramCreateOrUpdateOrRetrieveActions.isLoading(false));
+  };
+}
+
+export function retrieveMemberProgram(
+  params: { memberProgramId: number; companyId?: number },
+  options?: OptionCallback<PerformanceTrackingMemberProgram>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(MemberProgramCreateOrUpdateOrRetrieveActions.isLoading(true));
+    dispatch(MemberProgramCreateOrUpdateOrRetrieveActions.error(null));
+
+    try {
+      const response = await retrieveMemberProgramAPI(params);
+
+      dispatch(
+        MemberProgramCreateOrUpdateOrRetrieveActions.success(response.data),
+      );
+      options?.onSuccess && options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(MemberProgramCreateOrUpdateOrRetrieveActions.error(error));
+      options?.onError && options.onError(error);
+    }
+    dispatch(MemberProgramCreateOrUpdateOrRetrieveActions.isLoading(false));
   };
 }
 
@@ -259,19 +287,21 @@ export function updateMemberMetricValue(
   options?: OptionCallback<PerformanceTrackingMemberProgram>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
-    dispatch(MemberProgramCreateOrUpdateActions.isLoading(true));
-    dispatch(MemberProgramCreateOrUpdateActions.error(null));
+    dispatch(MemberProgramCreateOrUpdateOrRetrieveActions.isLoading(true));
+    dispatch(MemberProgramCreateOrUpdateOrRetrieveActions.error(null));
 
     try {
       const response = await UpdateMemberMetricValueAPi(data);
 
-      dispatch(MemberProgramCreateOrUpdateActions.success(response.data));
+      dispatch(
+        MemberProgramCreateOrUpdateOrRetrieveActions.success(response.data),
+      );
       options?.onSuccess && options.onSuccess(response.data);
     } catch (error) {
-      dispatch(MemberProgramCreateOrUpdateActions.error(error));
+      dispatch(MemberProgramCreateOrUpdateOrRetrieveActions.error(error));
       options?.onError && options.onError(error);
     }
-    dispatch(MemberProgramCreateOrUpdateActions.isLoading(false));
+    dispatch(MemberProgramCreateOrUpdateOrRetrieveActions.isLoading(false));
   };
 }
 

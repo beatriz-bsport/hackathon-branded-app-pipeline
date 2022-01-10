@@ -31,9 +31,12 @@ export const ProgramSelectorDialog = (props: Props) => {
   const classes = useStyles();
   return (
     <>
-      <Dialog open={isDialogChooseProgramOpen}>
+      <Dialog open={isDialogChooseProgramOpen} maxWidth="sm" fullWidth>
         <div className={classes.dialog}>
-          <Typography variant="h5">{t('program.selectProgram')}</Typography>
+          <Typography variant="h6" className={classes.title}>
+            {t('program.selectProgram')}
+          </Typography>
+
           <MaterialUISelector
             isMenuListPaddingDisabled
             placeholder={t('program.selectProgram')}
@@ -43,7 +46,7 @@ export const ProgramSelectorDialog = (props: Props) => {
                   isInSelector
                   isDisabled={itemProps.isDisabled}
                   isSelected={itemProps.isSelected}
-                  program={programList.find(
+                  program={programList?.find(
                     (program) => program.id === itemProps.data.value,
                   )}
                 />
@@ -59,11 +62,7 @@ export const ProgramSelectorDialog = (props: Props) => {
           />
 
           <div className={classes.action}>
-            <Button
-              variant="outlined"
-              color="primary"
-              onClick={() => setIsDialogChooseProgramOpen(false)}
-            >
+            <Button onClick={() => setIsDialogChooseProgramOpen(false)}>
               {t('form.cancel')}
             </Button>
             <Button
@@ -83,6 +82,9 @@ export const ProgramSelectorDialog = (props: Props) => {
   );
 };
 const useStyles = makeStyles<Theme>((theme) => ({
+  title: {
+    fontWeight: 500,
+  },
   dialog: {
     padding: theme.spacing(4),
     display: 'flex',

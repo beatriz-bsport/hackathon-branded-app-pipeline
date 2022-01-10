@@ -132,6 +132,7 @@ export class ProgramList extends Component<Props, State> {
       programLoading,
       memberProgramLoading,
       metricLoading,
+      goToMemberProgramPage,
     } = this.props;
     if (programLoading) {
       return <ProgramListSkeleton />;
@@ -171,18 +172,22 @@ export class ProgramList extends Component<Props, State> {
                   onEdit={this.onEditProgram}
                   onClickOnItem={(program) => this.clickItem(program.id)}
                   programSelectedId={selectedProgramId}
+                  isSearchDisplayed
                 />
-                <ProgramListComponent
-                  onRestore={(program) => {
-                    enableOrDisableProgram({ id: program.id, enabled: true });
-                  }}
-                  programList={programListDisabled}
-                  programSelectedId={selectedProgramId}
-                />
+                {!!programListDisabled?.length && (
+                  <ProgramListComponent
+                    onRestore={(program) => {
+                      enableOrDisableProgram({ id: program.id, enabled: true });
+                    }}
+                    programList={programListDisabled}
+                    programSelectedId={selectedProgramId}
+                  />
+                )}
               </div>
             </Grid>
             <Grid item xs={6}>
               <ProgramDetail
+                onClickMember={goToMemberProgramPage}
                 metricLoading={metricLoading}
                 onEdit={(program) => {
                   setProgramToEdit(program?.id);
@@ -208,6 +213,7 @@ export class ProgramList extends Component<Props, State> {
             </Grid>
           </Grid>
         )}
+
         <GenericFormDialog open={isProgramFormOpen}>
           <ProgramForm
             closeDialog={() => setIsProgramFormOpen(false)}
@@ -221,6 +227,7 @@ export class ProgramList extends Component<Props, State> {
             initial={{ ...selectedProgramToEdit }}
           />
         </GenericFormDialog>
+
         <BottomActionButtons
           onCreate={() => {
             setIsProgramFormOpen(true);
@@ -264,6 +271,8 @@ const connector = connect(
     goToDefaultPage: () => pushRouter(`/performance-tracking/`),
     fetchMemberProgram: fetchMemberProgramAction,
     fetchMemberBulk,
+    goToMemberProgramPage: (memberId?: number, memberProgramId: number) =>
+      pushRouter(`/member/${memberId}/performance-tracking/${memberProgramId}`),
   },
 );
 

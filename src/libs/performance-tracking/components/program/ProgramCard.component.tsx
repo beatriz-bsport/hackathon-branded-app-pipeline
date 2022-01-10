@@ -12,6 +12,7 @@ import {
 
 import MuiIcon from '#components/MuiIcon.component';
 import GenericMuiDialog from '#components/genericDialog/GenericMuiDIalog';
+import TypographyMultilineComponent from '#components/TypographyMultiline.component';
 
 type OwnProps = {
   program: PerformanceTrackingProgram<PerformanceTrackingMetric>;
@@ -40,7 +41,13 @@ export const ProgramCard = (props: Props) => {
             {program?.is_default ? t('program.default') : null}
           </Typography>
         </div>
-        {program.description && <Typography>{program.description}</Typography>}
+        {program.description && (
+          <div className={classes.multiline}>
+            <TypographyMultilineComponent>
+              {program.description}
+            </TypographyMultilineComponent>
+          </div>
+        )}
         <div className={classes.action}>
           <Button
             variant="contained"
@@ -73,9 +80,14 @@ export const ProgramCard = (props: Props) => {
   );
 };
 const useStyles = makeStyles<Theme, { color: string }>((theme) => ({
+  multiline: {
+    marginTop: '-1em',
+    marginBottom: '-1em',
+  },
   nameAndDefault: {
     display: 'flex',
     flexDirection: 'column',
+    gap: theme.spacing(1),
   },
   default: {
     color: '#757575',

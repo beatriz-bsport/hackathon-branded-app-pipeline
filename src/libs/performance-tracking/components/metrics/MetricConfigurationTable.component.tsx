@@ -6,7 +6,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Button, Collapse, Paper, Typography } from '@material-ui/core';
 import { Add, InsertChart, Warning } from '@material-ui/icons';
 
-import { FormikProps } from 'formik';
+import { FieldArrayRenderProps } from 'formik';
 import MetricList from './MetricList.component';
 import {
   PerformanceTrackingMetric,
@@ -16,13 +16,13 @@ import MetricForm from './MetricForm.component';
 
 type OwnProps = {
   metricList: Array<PerformanceTrackingMetric>;
-  formikProps: FormikProps<
-    PerformanceTrackingProgram<PerformanceTrackingMetric>
-  >;
+  fieldArrayHelpers: FieldArrayRenderProps;
+  values: PerformanceTrackingProgram<PerformanceTrackingMetric<number>>;
 };
 type Props = OwnProps & WithTranslation;
 export const MetricConfigurationTable = (props: Props) => {
-  const { t, metricList, formikProps } = props;
+  const { t, metricList, values, fieldArrayHelpers } = props;
+
   const classes = useStyles();
   const [openCreationMetricForm, setOpenCreationMetricForm] =
     useState<boolean>(false);
@@ -30,13 +30,16 @@ export const MetricConfigurationTable = (props: Props) => {
     useState<boolean>(false);
   const [metricToEdit, setMetricToEdit] =
     useState<PerformanceTrackingMetric>(null);
+
   return (
     <div className={classes.column}>
       <div className={classes.textAndIcon}>
         <div className={classes.icon}>
           <InsertChart />
         </div>
-        <Typography variant="h5">{t('metric.title')}</Typography>
+        <Typography variant="h6" className={classes.subtitle}>
+          {t('metric.title')}
+        </Typography>
       </div>
       <Button
         variant="outlined"
@@ -59,6 +62,7 @@ export const MetricConfigurationTable = (props: Props) => {
       {openCreationMetricForm && (
         <Collapse in={openCreationMetricFormDelay}>
           <MetricForm
+            values={values}
             onCancel={() => {
               setOpenCreationMetricFormDelay(false);
               setTimeout(() => {
@@ -66,15 +70,16 @@ export const MetricConfigurationTable = (props: Props) => {
               }, 300);
               setMetricToEdit(null);
             }}
-            formikProps={formikProps}
             initial={metricToEdit}
             metricList={metricList}
+            fieldArrayHelpers={fieldArrayHelpers}
           />
         </Collapse>
       )}
 
       {metricList && metricList.length !== 0 ? (
         <MetricList
+          fieldArrayHelpers={fieldArrayHelpers}
           sortable
           metricList={metricList}
           onEdit={(metric) => {
@@ -85,17 +90,14 @@ export const MetricConfigurationTable = (props: Props) => {
             }, 50);
           }}
           onDelete={(metric) => {
-            formikProps.setFieldValue(
-              'metric_list',
-              formikProps.values.metric_list.map((m) => {
-                if (m?.index === metric?.index) {
-                  return { ...m, is_disabled: true };
-                }
-                return m;
-              }),
+            const index = values.metric_list.findIndex(
+              (m) => m?.index === metric?.index,
             );
+            fieldArrayHelpers.replace(index, {
+              ...values.metric_list[index],
+              is_disabled: true,
+            });
           }}
-          formikProps={formikProps}
         />
       ) : (
         <Paper className={classes.paper}>
@@ -111,6 +113,7 @@ export const MetricConfigurationTable = (props: Props) => {
   );
 };
 const useStyles = makeStyles<Theme>((theme) => ({
+  subtitle: { fontWeight: 500 },
   column: {
     display: 'flex',
     flexDirection: 'column',
@@ -127,7 +130,7 @@ const useStyles = makeStyles<Theme>((theme) => ({
     color: '#868686',
   },
   button: {
-    maxWidth: theme.spacing(40),
+    maxWidth: theme.spacing(34),
   },
   paper: {
     padding: theme.spacing(4),

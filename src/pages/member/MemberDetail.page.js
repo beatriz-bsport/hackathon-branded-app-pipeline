@@ -170,6 +170,7 @@ export class MemberDetail extends React.Component<Props> {
       this.props.fetchMemberCustomFormFilled(this.props.id);
       this.props.fetchEstablishments();
       this.props.fetchMember(this.props.id);
+
       this.props.fetchProgram({
         is_disabled: false,
       });
@@ -512,7 +513,6 @@ export default compose(
       memberArchiveStatus: getMemberArchiveStatus(state, id),
       memberArchiveLoading: state.member.archive.loading,
       memberToArchive: getMemberDetail(state, id),
-      fetchProgram: fetchProgramAction,
     }),
     {
       fetchAllPaymentPacks,
@@ -534,6 +534,7 @@ export default compose(
       unArchiveMember,
       interrogateMemberStatus,
       fetchMember,
+      fetchProgram: fetchProgramAction,
     },
   ),
   withHandlers({

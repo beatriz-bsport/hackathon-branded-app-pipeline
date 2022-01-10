@@ -73,8 +73,7 @@ exports.default = {
       name: 'Nom',
       machine: 'Identifiant machine',
       default_value: 'Valeur par défaut',
-      default_valueHelperText:
-        'Valeur de base de la métrique. Si vide la valeur sera celle de la valeur minimale',
+      default_valueHelperText: 'Valeur de base de la métrique',
       minValue: 'Valeur minimale',
       minValueHelperText: 'Valeur minimum de la métrique',
       maxValue: 'Valeur maximale',

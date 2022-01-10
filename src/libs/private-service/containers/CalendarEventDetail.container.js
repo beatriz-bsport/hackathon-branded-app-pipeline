@@ -19,6 +19,7 @@ import Popover from '@material-ui/core/Popover';
 import { push } from 'connected-react-router';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { PAYMENT_INTENT_TYPE_INVOICE } from '@bsport/common/lib/master-data/payment-group';
+import uniq from 'lodash/uniq';
 import DeleteOfferForm from '../../offer/DeleteOfferForm.component';
 import {
   getAvailableRoomBlueprints,
@@ -109,6 +110,8 @@ import {
   updateMemberMetricValue as updateMemberMetricValueAction,
   createMemberProgram as createMemberProgramAction,
   fetchMetric as fetchMetricAction,
+  fetchProgram as fetchProgramAction,
+  fetchMemberProgram as fetchMemberProgramAction,
 } from '#libs/performance-tracking/actions';
 
 type Props = {
@@ -191,6 +194,9 @@ type Props = {
   updateMemberMetricValue: (data: any, options: OptionCallback) => void,
   createMemberProgram: (data: any, options?: any) => void,
   programList: Array<PerformanceTrackingProgram>,
+  fetchPerformanceTrackingData: (member: number) => void,
+  fetchProgram: (params: any) => void,
+  programDataLoading: boolean,
 };
 type State = {
   clientSecretLoading: boolean,
@@ -211,6 +217,7 @@ export class CalendarEventDetail extends React.Component<Props, State> {
     this.props.fetchAllActivities();
     this.props.fetchRoomBlueprints();
     this.props.fetchAllCoachPaymentRules();
+    this.props.fetchProgram({ is_disabled: false }); // WILL BECOME USELESS
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -280,6 +287,8 @@ export class CalendarEventDetail extends React.Component<Props, State> {
         <PrivateBookingCard
           updateMemberMetricValue={this.props.updateMemberMetricValue}
           createMemberProgram={this.props.createMemberProgram}
+          fetchPerformanceTrackingData={this.props.fetchPerformanceTrackingData}
+          programDataLoading={this.props.programDataLoading}
           programList={this.props.programList}
           onRestore={() => this.props.restorePrivateBooking(privateBooking.id)}
           onDelete={this.props.openDisablePrivateBookingModal}
@@ -722,6 +731,10 @@ export default compose(
         state.theme.theme.payment_method_available_manager,
       companyId: state.theme.theme.company,
       programList: getProgramList(state),
+      programDataLoading:
+        state.performanceTracking.memberProgram.loading ||
+        state.performanceTracking.metricList.loading ||
+        state.performanceTracking.program.loading,
     }),
     {
       retrieveOfferAsManager: retrieveOfferAsManagerAction,
@@ -749,6 +762,8 @@ export default compose(
       fetchMetric: fetchMetricAction,
       updateMemberMetricValue: updateMemberMetricValueAction,
       createMemberProgram: createMemberProgramAction,
+      fetchMemberProgram: fetchMemberProgramAction,
+      fetchProgram: fetchProgramAction,
     },
   ),
   withHandlers({
@@ -757,12 +772,43 @@ export default compose(
       (data) => {
         createMemberProgram(data, {
           onSuccess: (memberProgram) => {
-            const program = programList.find(
+            const program = programList?.find(
               (p) => p.id === memberProgram.program,
             );
-            fetchMetric({ id__in: program.metric_list });
+            fetchMetric({ id__in: program?.metric_list });
           },
         });
+      },
+    fetchPerformanceTrackingData:
+      ({ fetchMemberProgram, fetchProgram, fetchMetric }) =>
+      (member) => {
+        fetchMemberProgram(
+          {
+            member,
+          },
+          {
+            onSuccess: (data) => {
+              const programsToFetch = uniq(
+                data.results.map((memberProgram) => memberProgram?.program),
+              );
+              fetchProgram(
+                { is_disabled: false, id__in: programsToFetch },
+                {
+                  onSuccess: (programData) => {
+                    const metricToFetch = programData.reduce(
+                      (acc, program) => acc.concat(program?.metric_list),
+                      [],
+                    );
+
+                    if (metricToFetch?.length) {
+                      fetchMetric({ id__in: metricToFetch });
+                    }
+                  },
+                },
+              );
+            },
+          },
+        );
       },
     updatePrivateBookingDatetime:
       ({

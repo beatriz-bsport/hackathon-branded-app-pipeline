@@ -53,12 +53,14 @@ export const MetricListItem = (props: Props) => {
                     {metric?.name}
                   </Typography>
                   <div className={classes.row}>
-                    {metric?.machine_id ? (
-                      <Typography>{metric?.machine_id}</Typography>
-                    ) : null}
                     <div className={classes.metricProgressBar}>
                       <MetricProgressBar metric={metric} />
                     </div>
+                    {metric?.machine_id ? (
+                      <Typography className={classes.machineId}>
+                        {metric?.machine_id}
+                      </Typography>
+                    ) : null}
                   </div>
                 </div>
               </div>
@@ -80,7 +82,7 @@ export const MetricListItem = (props: Props) => {
                       setIsOpenGenericMuiDialog(true);
                     }}
                   >
-                    <Delete color="secondary" />
+                    <Delete className={classes.delete} />
                   </ButtonBase>
                 ) : null}
               </div>
@@ -112,12 +114,14 @@ export const MetricListItem = (props: Props) => {
                 {metric?.name}
               </Typography>
               <div className={classes.row}>
-                {metric?.machine_id ? (
-                  <Typography>{metric?.machine_id}</Typography>
-                ) : null}
                 <div className={classes.metricProgressBar}>
                   <MetricProgressBar metric={metric} />
                 </div>
+                {metric?.machine_id ? (
+                  <Typography className={classes.machineId}>
+                    {metric?.machine_id}
+                  </Typography>
+                ) : null}
               </div>
             </div>
           </div>
@@ -139,7 +143,7 @@ export const MetricListItem = (props: Props) => {
                   setIsOpenGenericMuiDialog(true);
                 }}
               >
-                <Delete color="secondary" />
+                <Delete className={classes.delete} />
               </ButtonBase>
             ) : null}
           </div>
@@ -160,6 +164,12 @@ export const MetricListItem = (props: Props) => {
   );
 };
 const useStyles = makeStyles<Theme, { color: string }>((theme) => ({
+  delete: {
+    color: '#868686',
+  },
+  machineId: {
+    color: '#868686DE',
+  },
   listitem: {
     display: 'flex',
     flexDirection: 'row',
@@ -196,6 +206,7 @@ const useStyles = makeStyles<Theme, { color: string }>((theme) => ({
     flexDirection: 'column',
   },
   row: {
+    marginBottom: theme.spacing(1),
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -204,9 +215,6 @@ const useStyles = makeStyles<Theme, { color: string }>((theme) => ({
   metricProgressBar: {
     display: 'flex',
     alignItems: 'center',
-    width: '100%',
-    maxWidth: theme.spacing(40),
-    minWidth: theme.spacing(20),
   },
   metricName: {
     fontWeight: 500,

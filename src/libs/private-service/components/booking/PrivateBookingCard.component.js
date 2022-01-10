@@ -68,6 +68,9 @@ type Props = {
   createMemberProgram: (data: any, options?: any) => void,
   programList: Array<PerformanceTrackingProgram>,
   updateMemberMetricValue: (data: any, options: OptionCallback) => void,
+  fetchPerformanceTrackingData: (member: number) => void,
+
+  programDataLoading: boolean,
 };
 
 export const PrivateBookingCard = (props: Props) => {
@@ -208,13 +211,15 @@ export const PrivateBookingCard = (props: Props) => {
           </ListItemSecondaryAction>
         </ListItem>
         <MemberMinimalListItem
+          firstPrivateBooking={private_booking.first_in_company}
           updateMemberMetricValue={props.updateMemberMetricValue}
           createMemberProgram={props.createMemberProgram}
           programList={props.programList}
           member={private_booking.member}
           onClick={() => props.goToMember(private_booking.member.id)}
           showVaccinationStatus={props.showVaccinationStatus}
-          showMemberProgram
+          fetchPerformanceTrackingData={props.fetchPerformanceTrackingData}
+          programDataLoading={props.programDataLoading}
         />
         {private_booking.coach ? (
           <CoachListItem

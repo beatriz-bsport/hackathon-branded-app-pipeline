@@ -151,7 +151,7 @@ export const composeBookingsWithMemberProgram = memoize(
       ) => {
         if (!bookings) return bookings;
         if (Array.isArray(bookings)) {
-          return bookings.map((booking) => {
+          return bookings?.map((booking) => {
             return {
               ...booking,
               member: {
@@ -194,8 +194,8 @@ export const composeBookingsWithMemberProgram = memoize(
         return {
           ...bookings,
           member: {
-            ...bookings.member,
-            memberProgramList: memberProgramByMemberDict[bookings.member.id]
+            ...bookings?.member,
+            memberProgramList: memberProgramByMemberDict[bookings?.member.id]
               ?.map((id) => memberProgramDict[id])
               ?.filter((mp) => !mp.is_disabled)
               ?.filter((mp) => programDict[mp.program]?.is_disabled === false)

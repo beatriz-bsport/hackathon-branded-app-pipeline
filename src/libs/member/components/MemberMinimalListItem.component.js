@@ -10,7 +10,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import { OfflineBolt } from '@material-ui/icons';
-import { Dialog, makeStyles } from '@material-ui/core';
+import { makeStyles, Tooltip } from '@material-ui/core';
 import { Theme } from '@material-ui/core/styles';
 import VaccinationBadge from './VaccinationBadge.component';
 import AvatarWithBadge from './AvatarWithBadge.component';
@@ -26,7 +26,10 @@ type Props = {
   createMemberProgram?: (data: any, options?: any) => void,
   programList: Array<PerformanceTrackingProgram>,
   updateMemberMetricValue: (data: any, options?: any) => void,
-  showMemberProgram?: boolean,
+
+  fetchPerformanceTrackingData: (member: number) => void,
+  firstPrivateBooking: boolean,
+  programDataLoading: boolean,
 };
 export const MemberMinimalListItem = (props: Props) => {
   const classes = useStyles();
@@ -88,12 +91,17 @@ export const MemberMinimalListItem = (props: Props) => {
           secondary={secondaryInfo}
         />
         <ListItemSecondaryAction>
-          {props.showMemberProgram && !!props.programList?.length && (
-            <IconButton
-              onClick={() => setIsMemberProgramDetailDialogOpen(true)}
-            >
-              <OfflineBolt />
-            </IconButton>
+          {props.fetchPerformanceTrackingData && !!props.programList?.length && (
+            <Tooltip title={t('performanceTracking:metric.statistic')}>
+              <IconButton
+                onClick={() => {
+                  props.fetchPerformanceTrackingData(props.member.id);
+                  setIsMemberProgramDetailDialogOpen(true);
+                }}
+              >
+                <OfflineBolt />
+              </IconButton>
+            </Tooltip>
           )}
           {props.onEdit ? (
             <IconButton onClick={props.onEdit}>
@@ -102,21 +110,22 @@ export const MemberMinimalListItem = (props: Props) => {
           ) : null}
         </ListItemSecondaryAction>
       </ListItem>
-      <Dialog open={isMemberProgramDetailDialogOpen} maxWidth="lg">
-        <MemberProgramDetailDialog
-          closeDialog={() => setIsMemberProgramDetailDialogOpen(false)}
-          memberName={props.member.name + (props.firstBooking ? ' ★' : '')}
-          memberProgramList={props.member.memberProgramList}
-          updateMemberMetricValue={props.updateMemberMetricValue}
-          createMemberProgram={(id) =>
-            props.createMemberProgram({
-              program: id,
-              member: props.member.id,
-            })
-          }
-          programList={props.programList}
-        />
-      </Dialog>
+
+      <MemberProgramDetailDialog
+        loading={props.programDataLoading}
+        open={isMemberProgramDetailDialogOpen}
+        closeDialog={() => setIsMemberProgramDetailDialogOpen(false)}
+        memberName={props.member.name + (props.firstPrivateBooking ? ' ★' : '')}
+        memberProgramList={props.member.memberProgramList}
+        updateMemberMetricValue={props.updateMemberMetricValue}
+        createMemberProgram={(id) =>
+          props.createMemberProgram({
+            program: id,
+            member: props.member.id,
+          })
+        }
+        programList={props.programList}
+      />
     </>
   );
 };

@@ -200,6 +200,10 @@ export default compose(
       companyId: state.theme.theme.company,
       showVaccinationStatus: showVaccinationStatus(state),
       programList: getProgramList(state),
+      programDataLoading:
+        state.performanceTracking.memberProgram.loading ||
+        state.performanceTracking.metricList.loading ||
+        state.performanceTracking.program.loading,
     }),
     {
       fetchOffer: fetchOfferByIdAction,
@@ -284,40 +288,35 @@ export default compose(
       (data) => {
         createMemberProgram(data, {
           onSuccess: (memberProgram) => {
-            const program = programList.find(
-              (p) => p.id === memberProgram.program,
+            const program = programList?.find(
+              (p) => p.id === memberProgram?.program,
             );
-            fetchMetric({ id__in: program.metric_list });
+            fetchMetric({ id__in: program?.metric_list });
           },
         });
       },
     fetchPerformanceTrackingData:
       ({ fetchMemberProgram, fetchProgram, fetchMetric }) =>
-      (memberList) => {
+      (member) => {
         fetchMemberProgram(
           {
-            member__in: memberList.map((m) => m.id),
+            member,
           },
           {
             onSuccess: (data) => {
               const programsToFetch = uniq(
-                data.results.map((memberProgram) => memberProgram.program),
+                data.results.map((memberProgram) => memberProgram?.program),
               );
               fetchProgram(
-                { is_disabled: false },
+                { is_disabled: false, id__in: programsToFetch },
                 {
                   onSuccess: (programData) => {
-                    const metricToFetch = programsToFetch
-                      .map((id) =>
-                        programData.find((program) => program.id === id),
-                      )
-                      .filter((program) => program)
-                      .reduce(
-                        (acc, program) => acc.concat(program?.metric_list),
-                        [],
-                      );
+                    const metricToFetch = programData.reduce(
+                      (acc, program) => acc.concat(program?.metric_list),
+                      [],
+                    );
 
-                    if (metricToFetch?.length !== 0) {
+                    if (metricToFetch?.length) {
                       fetchMetric({ id__in: metricToFetch });
                     }
                   },
@@ -411,7 +410,6 @@ export default compose(
         fetchRoomBlueprintDetail,
         fetchAssetForBlueprint,
         fetchOfferStatus,
-        fetchPerformanceTrackingData,
       }) =>
       (ordering_field) => {
         fetchOffer(offerId, {
@@ -441,7 +439,6 @@ export default compose(
           {
             onSuccess: (memberList) => {
               if (memberList && memberList.length) {
-                fetchPerformanceTrackingData(memberList);
                 fetchInvoiceListUnpaid({
                   member__in: memberList.map((m) => m.id),
                 });
@@ -491,7 +488,6 @@ export default compose(
         fetchFilteredMembers,
         fetchOfferStatus,
         fetchOffer,
-        fetchPerformanceTrackingData,
       }) =>
       (data) => {
         createQuickInvoice(data, {
@@ -504,8 +500,6 @@ export default compose(
               {
                 onSuccess: (memberList) => {
                   if (memberList && memberList.length) {
-                    fetchPerformanceTrackingData(memberList);
-
                     fetchInvoiceListUnpaid({
                       member__in: memberList.map((m) => m.id),
                     });

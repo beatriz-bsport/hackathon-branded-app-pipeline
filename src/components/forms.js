@@ -110,6 +110,7 @@ export const TextFieldEnhancedLabelWithError = withStyles(textFieldStyles)(
     const { classes, shrink } = props;
     const { t } = useTranslation();
     const [field, meta] = useField(props);
+
     return (
       <Field {...props}>
         {() => {
@@ -119,7 +120,7 @@ export const TextFieldEnhancedLabelWithError = withStyles(textFieldStyles)(
                 className={classes.field}
                 shrink={shrink}
                 {...field}
-                {...omit(props, ['field'])}
+                {...omit(props, ['field', 'classes'])}
                 onBlur={field.onBlur}
                 error={!!(meta.touched && meta.error)}
                 label={
@@ -499,9 +500,8 @@ export const DurationField = withStyles(styles)(
 
 export const ColorField = (props: ColorFieldProps) => {
   return (
-    <Field
-      {...props}
-      render={({ field, form: { setFieldValue } }) => (
+    <Field {...props}>
+      {({ field, form: { setFieldValue } }) => (
         <ColorInput
           id={props.id}
           {...field}
@@ -510,7 +510,7 @@ export const ColorField = (props: ColorFieldProps) => {
           color={field.value}
         />
       )}
-    />
+    </Field>
   );
 };
 const IconFieldStyle = makeStyles((theme) => ({
@@ -904,13 +904,8 @@ export const CheckboxField = (props: Props) => {
   const { reverted, disabled, label, helperText, classes } = props;
   return (
     <FormControl>
-      <Field
-        {...props}
-        render={({
-          field,
-          form: { setFieldValue },
-          meta: { touched, error },
-        }) => (
+      <Field {...props}>
+        {({ field, form: { setFieldValue }, meta: { touched, error } }) => (
           <FormControlLabel
             label={label}
             id="checkbox"
@@ -930,7 +925,7 @@ export const CheckboxField = (props: Props) => {
             }
           />
         )}
-      />
+      </Field>
       <FormHelperText style={{ marginTop: -8 }}>{helperText}</FormHelperText>
     </FormControl>
   );

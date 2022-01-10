@@ -42,6 +42,8 @@ type Props = {
   updateMemberMetricValue: (data: any, options?: any) => void,
   createMemberProgram: (data: any, options?: any) => void,
   programList: Array<PerformanceTrackingProgram>,
+  fetchPerformanceTrackingData: (member: number) => void,
+  programDataLoading: boolean,
 };
 
 export class BookingTable extends PureComponent<Props> {
@@ -114,7 +116,11 @@ export class BookingTable extends PureComponent<Props> {
             updateMemberMetricValue={this.props.updateMemberMetricValue}
             createMemberProgram={this.props.createMemberProgram}
             programList={this.props.programList}
+            programDataLoading={this.props.programDataLoading}
             membersWithStatusOk={membersWithStatusOk}
+            fetchPerformanceTrackingData={
+              this.props.fetchPerformanceTrackingData
+            }
           />
         ))}
       </List>

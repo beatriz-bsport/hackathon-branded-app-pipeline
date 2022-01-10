@@ -4,7 +4,7 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import * as Yup from 'yup';
-import { Formik, FormikProps } from 'formik';
+import { FieldArray, Formik, FormikProps } from 'formik';
 import { useTheme } from '@material-ui/styles';
 import {
   Button,
@@ -45,29 +45,28 @@ export const ProgramForm = (props: Props) => {
 
   const classes = useStyles();
   const theme: Theme = useTheme();
+
+  const initialValues = initial?.id
+    ? {
+        ...initial,
+        metric_list: initial?.metric_list ? [...initial?.metric_list] : [],
+      }
+    : {
+        name: '',
+        description: '',
+        color: theme.palette.primary.main,
+        is_disabled: false,
+        icon: '',
+        is_default: false,
+        metric_list: [],
+      };
+
   return (
     <div>
       <Formik
         enableReinitialize
         validationSchema={programSchema}
-        initialValues={
-          initial?.id
-            ? {
-                ...initial,
-                metric_list: initial?.metric_list
-                  ? [...initial?.metric_list]
-                  : [],
-              }
-            : {
-                name: '',
-                description: '',
-                color: theme.palette.primary.main,
-                is_disabled: false,
-                icon: '',
-                is_default: false,
-                metric_list: [],
-              }
-        }
+        initialValues={initialValues}
         onSubmit={(values, actions) => {
           submit(values, {
             onSuccess: () => {
@@ -103,7 +102,7 @@ export const ProgramForm = (props: Props) => {
                         <div className={classes.icon}>
                           <Info />
                         </div>
-                        <Typography variant="h5">
+                        <Typography variant="h6" className={classes.subtitle}>
                           {t('program.form.generalInfo')}
                         </Typography>
                       </div>
@@ -141,19 +140,26 @@ export const ProgramForm = (props: Props) => {
                     <Grid item xs={12}>
                       <div className={classes.checkbox}>
                         <CheckboxField name="is_default" />
-                        <Typography>{t('program.form.default')}</Typography>
+                        <Typography className={classes.checkboxTypo}>
+                          {t('program.form.default')}
+                        </Typography>
                       </div>
                     </Grid>
                   </Grid>
                 </div>
                 <Divider />
                 <div className={classes.padding}>
-                  <MetricConfigurationTable
-                    metricList={formikProps.values.metric_list.filter(
-                      (metric) => !metric?.is_disabled,
+                  <FieldArray name="metric_list">
+                    {(fieldArrayHelpers) => (
+                      <MetricConfigurationTable
+                        metricList={formikProps.values.metric_list.filter(
+                          (metric) => !metric?.is_disabled,
+                        )}
+                        values={formikProps.values}
+                        fieldArrayHelpers={fieldArrayHelpers}
+                      />
                     )}
-                    formikProps={formikProps}
-                  />
+                  </FieldArray>
                 </div>
 
                 <Divider />
@@ -168,7 +174,7 @@ export const ProgramForm = (props: Props) => {
                   >
                     {t('form.cancel')}
                   </Button>
-                  <Button color="primary" type="submit" variant="outlined">
+                  <Button color="primary" type="submit" variant="contained">
                     {t('form.save')}
                   </Button>
                 </div>
@@ -183,6 +189,10 @@ export const ProgramForm = (props: Props) => {
 };
 
 const useStyles = makeStyles<Theme>((theme) => ({
+  checkboxTypo: {
+    marginLeft: '-12px',
+  },
+  subtitle: { fontWeight: 500 },
   icon: {
     display: 'flex',
     alignItems: 'center',
@@ -198,7 +208,7 @@ const useStyles = makeStyles<Theme>((theme) => ({
   },
   checkbox: {
     display: 'flex',
-    gap: theme.spacing(1),
+
     alignItems: 'center',
   },
   container: {

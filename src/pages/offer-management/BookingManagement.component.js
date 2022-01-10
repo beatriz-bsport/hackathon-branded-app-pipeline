@@ -118,7 +118,9 @@ type Props = {
   },
   updateMemberMetricValue: (data: any, options?: any) => void,
   createMemberProgram: (data: any, options?: any) => void,
+  fetchPerformanceTrackingData: (member: number) => void,
   programList: Array<PerformanceTrackingProgram>,
+  programDataLoading: boolean,
 };
 
 type State = {
@@ -423,7 +425,11 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                   <>
                     <BookingTable
                       createMemberProgram={this.props.createMemberProgram}
+                      fetchPerformanceTrackingData={
+                        this.props.fetchPerformanceTrackingData
+                      }
                       programList={this.props.programList}
+                      programDataLoading={this.props.programDataLoading}
                       updateMemberMetricValue={
                         this.props.updateMemberMetricValue
                       }

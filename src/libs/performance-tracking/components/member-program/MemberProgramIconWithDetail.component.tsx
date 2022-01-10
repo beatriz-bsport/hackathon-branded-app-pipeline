@@ -2,7 +2,9 @@ import React from 'react';
 import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { OfflineBolt } from '@material-ui/icons';
-import { IconButton, Popover, Tooltip, Typography } from '@material-ui/core';
+import { IconButton, Popover, Typography } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+import Tooltip from '../../../../components/Tooltip.component';
 import {
   MetricRecord,
   PerformanceTrackingProgram,
@@ -15,23 +17,28 @@ type OwnProps = {
 };
 type Props = OwnProps;
 export const MemberProgramIconWithDetail = (props: Props) => {
+  const { t } = useTranslation('performanceTracking');
   const { metricRecord, program } = props;
   const classes = useStyles({ color: program?.color });
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
+    event.stopPropagation();
     setAnchorEl(event.currentTarget);
   };
 
-  const handlePopoverClose = () => {
+  const handlePopoverClose = (event: React.MouseEvent<HTMLElement>) => {
+    event.stopPropagation();
     setAnchorEl(null);
   };
 
   return (
     <>
-      <IconButton onClick={handlePopoverOpen}>
-        <OfflineBolt />
-      </IconButton>
+      <Tooltip title={t('metric.statistic')}>
+        <IconButton onClick={handlePopoverOpen}>
+          <OfflineBolt />
+        </IconButton>
+      </Tooltip>
       <Popover
         id="mouse-over-popover"
         className={classes.popover}
@@ -48,18 +55,15 @@ export const MemberProgramIconWithDetail = (props: Props) => {
         onClose={handlePopoverClose}
       >
         <div className={classes.popoverContainer}>
-          <div className={classes.row}>
+          <div className={classes.iconAndText}>
             <div className={classes.icon}>
               <MuiIcon icon={program?.icon} />
             </div>
-            <Typography>{program?.name}</Typography>
+            <Typography className={classes.name}>{program?.name}</Typography>
           </div>
           <div className={classes.row}>
             {metricRecord?.general?.metrics?.map((metricRecordItem) => (
-              <Tooltip
-                title={metricRecordItem?.metric?.name}
-                className={classes.tooltip}
-              >
+              <Tooltip title={metricRecordItem?.metric?.name}>
                 <div className={classes.circle}>{metricRecordItem?.value}</div>
               </Tooltip>
             ))}
@@ -70,6 +74,7 @@ export const MemberProgramIconWithDetail = (props: Props) => {
   );
 };
 const useStyles = makeStyles<Theme, { color: string }>((theme) => ({
+  name: { fontWeight: 500 },
   icon: (props) => ({
     width: theme.spacing(3),
     display: 'flex',
@@ -85,6 +90,9 @@ const useStyles = makeStyles<Theme, { color: string }>((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  iconAndText: {
+    display: 'flex',
+  },
   popoverContainer: {
     padding: theme.spacing(2),
     display: 'flex',
@@ -94,9 +102,12 @@ const useStyles = makeStyles<Theme, { color: string }>((theme) => ({
   row: {
     display: 'flex',
     gap: theme.spacing(2),
+    maxWidth: '488px',
+    flexWrap: 'wrap',
   },
   circle: {
-    minWidth: theme.spacing(5),
+    width: theme.spacing(5),
+    height: theme.spacing(5),
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

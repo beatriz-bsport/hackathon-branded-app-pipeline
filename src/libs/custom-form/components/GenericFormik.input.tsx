@@ -58,9 +58,8 @@ export const CheckboxField = (props: CheckboxFieldProps) => {
   const { reverted, disabled, label, classes } = props;
   const [field, meta, helpers] = useField(props);
   return (
-    <Field
-      {...props}
-      render={() => (
+    <Field {...props}>
+      {() => (
         <FormControlLabel
           label={label}
           id="checkbox"
@@ -79,6 +78,6 @@ export const CheckboxField = (props: CheckboxFieldProps) => {
           }
         />
       )}
-    />
+    </Field>
   );
 };

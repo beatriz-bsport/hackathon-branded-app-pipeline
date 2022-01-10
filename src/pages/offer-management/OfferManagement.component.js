@@ -204,9 +204,12 @@ type Props = {
     params: any,
     options?: OptionCallback,
   },
+  fetchProgram: (params: any) => void,
   updateMemberMetricValue: (data: any, options: OptionCallback) => void,
   createMemberProgram: (data: any, options?: any) => void,
+  fetchPerformanceTrackingData: (member: number) => void,
   programList: Array<PerformanceTrackingProgram>,
+  programDataLoading: boolean,
 };
 
 type State = {
@@ -224,6 +227,7 @@ export class OfferManagement extends Component<Props, State> {
   }
 
   componentDidMount() {
+    this.props.fetchProgram({ is_disabled: false }); // WILL BECOME USELESS
     this.props.fetchOfferData(this.props.booking_ordering);
     this.props.fetchShopItems();
     this.props.fetchPrivatePassList();
@@ -484,6 +488,10 @@ export class OfferManagement extends Component<Props, State> {
         <Grid item xs={12} lg={6}>
           <BookingManagement
             createMemberProgram={this.props.createMemberProgram}
+            fetchPerformanceTrackingData={
+              this.props.fetchPerformanceTrackingData
+            }
+            programDataLoading={this.props.programDataLoading}
             programList={this.props.programList}
             updateMemberMetricValue={this.props.updateMemberMetricValue}
             registerToWaitingList={this.props.registerToWaitingList}

@@ -41,11 +41,7 @@ import {
 } from '../../libs/private-service/actions';
 import { fetchMemberBulk as fetchMemberBulkAction } from '../../libs/member/actions';
 import { fetchCoachBulk } from '../../libs/associated-coach/actions';
-import {
-  fetchMemberProgram as fetchMemberProgramAction,
-  fetchProgram as fetchProgramAction,
-  fetchMetric as fetchMetricAction,
-} from '#libs/performance-tracking/actions';
+
 import { getCustomEventList } from '../../libs/private-service/selectors/custom-event';
 import CustomEvenFormDialog from '../../libs/private-service/components/custom-event/CustomEventFormDialog.component';
 import { CompanyTheme } from '../../libs/theme/types';
@@ -262,9 +258,6 @@ export default compose(
       enableCoachAvailabilitySlot,
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,
       createOrUpdateCustomEvent: createOrUpdateCustomEventActions,
-      fetchMemberProgram: fetchMemberProgramAction,
-      fetchProgram: fetchProgramAction,
-      fetchMetric: fetchMetricAction,
     },
   ),
   withHandlers({
@@ -314,9 +307,6 @@ export default compose(
         fetchMemberBulk,
         periodFilter,
         id,
-        fetchMemberProgram,
-        fetchProgram,
-        fetchMetric,
       }) =>
       () => {
         fetchPrivateBookings(
@@ -337,42 +327,7 @@ export default compose(
                 fetchPrivateServiceBulk(
                   bookingList.map((b) => b.private_service),
                 );
-                fetchMemberProgram(
-                  {
-                    member__in: uniq(bookingList.map((b) => b.member)),
-                  },
-                  {
-                    onSuccess: (data) => {
-                      const programsToFetch = uniq(
-                        data.results.map(
-                          (memberProgram) => memberProgram.program,
-                        ),
-                      );
-                      fetchProgram(
-                        { is_disabled: false },
-                        {
-                          onSuccess: (programData) => {
-                            const metricToFetch = programsToFetch
-                              .map((metricId) =>
-                                programData.find(
-                                  (program) => program.id === metricId,
-                                ),
-                              )
-                              .filter((program) => program)
-                              .reduce(
-                                (acc, program) =>
-                                  acc.concat(program?.metric_list),
-                                [],
-                              );
-                            if (metricToFetch?.length !== 0) {
-                              fetchMetric({ id__in: metricToFetch });
-                            }
-                          },
-                        },
-                      );
-                    },
-                  },
-                );
+
                 fetchPrivateSlotBulk(bookingList.map((b) => b.private_slot));
               }
             },

@@ -1,17 +1,15 @@
 import React from 'react';
 import { Theme } from '@material-ui/core/styles';
 import { SortableContainer } from 'react-sortable-hoc';
-import { FormikProps } from 'formik';
+
 import { Paper, Typography } from '@material-ui/core';
 import { Warning } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/styles';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 import Skeleton from '@material-ui/lab/Skeleton';
-import {
-  PerformanceTrackingMetric,
-  PerformanceTrackingProgram,
-} from '#libs/performance-tracking/types';
+import { FieldArrayRenderProps } from 'formik';
+import { PerformanceTrackingMetric } from '#libs/performance-tracking/types';
 import MetricListItem from './MetricListItem.component';
 import { organize_index } from '#libs/performance-tracking/utils';
 
@@ -21,19 +19,25 @@ const Container = SortableContainer((props: any) => {
 
 type OwnProps = {
   metricList: Array<PerformanceTrackingMetric>;
-  formikProps?: FormikProps<
-    PerformanceTrackingProgram<PerformanceTrackingMetric>
-  >;
   onEdit?: (metric: PerformanceTrackingMetric) => void;
   onDelete?: (metric: PerformanceTrackingMetric) => void;
   sortable?: boolean;
   loading?: boolean;
+
+  fieldArrayHelpers?: FieldArrayRenderProps;
 };
 type Props = OwnProps & WithTranslation;
 export const MetricList = (props: Props) => {
   const classes = useStyles();
-  const { metricList, onEdit, formikProps, onDelete, sortable, t, loading } =
-    props;
+  const {
+    metricList,
+    onEdit,
+    onDelete,
+    sortable,
+    t,
+    loading,
+    fieldArrayHelpers,
+  } = props;
   if (loading) {
     return (
       <div className={classes.content}>
@@ -53,14 +57,12 @@ export const MetricList = (props: Props) => {
           onSortEnd={(e) => {
             const oldIndex = e.oldIndex;
             const newIndex = e.newIndex;
-            formikProps.setFieldValue(
-              'metric_list',
-              organize_index(oldIndex, newIndex, metricList),
-            );
+            organize_index(oldIndex, newIndex, metricList, fieldArrayHelpers);
           }}
         >
           {metricList.map((metric) => (
             <MetricListItem
+              key={metric.id}
               metric={metric}
               onDelete={onDelete}
               onEdit={onEdit}

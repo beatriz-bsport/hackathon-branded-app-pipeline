@@ -38,6 +38,7 @@ import {
   fetchMemberProgram as fetchMemberProgramAction,
   fetchMetric as fetchMetricAction,
   updateMemberMetricValue as updateMemberMetricValueAction,
+  retrieveMemberProgram as retrieveMemberProgramAction,
 } from '#libs/performance-tracking/actions';
 import { Membership } from '#libs/membership/types';
 import BackofficeLinearProgressComponent from '#components/navigation/BackofficeLinearProgress.component';
@@ -69,18 +70,39 @@ type Props = RouterProps &
 
 export class MemberProgramList extends Component<Props> {
   componentDidMount() {
-    this.props.fetchProgram({
-      is_disabled: false,
-      company: this.props.companyId,
-    });
-    this.props.fetchMemberProgram(
-      { member: this.props.membership.id, company: this.props.companyId },
-      {
-        onSuccess: () => {
-          this.props.fetchMetric({ company: this.props.companyId });
+    if (this.props.companyId) {
+      this.props.fetchProgram({
+        is_disabled: false,
+        company: this.props.companyId,
+      });
+      this.props.fetchMemberProgram(
+        { member: this.props.membership.id, company: this.props.companyId },
+        {
+          onSuccess: () => {
+            this.props.fetchMetric({ company: this.props.companyId });
+          },
         },
-      },
-    );
+      );
+    }
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.companyId !== this.props.companyId) {
+      if (this.props.companyId) {
+        this.props.fetchProgram({
+          is_disabled: false,
+          company: this.props.companyId,
+        });
+        this.props.fetchMemberProgram(
+          { member: this.props.membership.id, company: this.props.companyId },
+          {
+            onSuccess: () => {
+              this.props.fetchMetric({ company: this.props.companyId });
+            },
+          },
+        );
+      }
+    }
   }
 
   render() {
@@ -89,9 +111,10 @@ export class MemberProgramList extends Component<Props> {
       classes,
       t,
       updateMemberMetricValue,
+      pushToRouter,
+      retrieveMemberProgram,
       memberProgramDetailedId,
       memberProgramDetailed,
-      pushToRouter,
       companyId,
       memberProgramLoading,
     } = this.props;
@@ -120,17 +143,26 @@ export class MemberProgramList extends Component<Props> {
                   )}
                   programSelectedId={memberProgramDetailed?.program?.id}
                   onClickOnItem={(program) => {
-                    pushToRouter(
-                      memberProgramList.find(
-                        (memberProgram) =>
-                          memberProgram.program.id === program.id,
-                      ).id,
+                    const memberProgramSelected = memberProgramList.find(
+                      (memberProgram) =>
+                        memberProgram.program.id === program.id,
                     );
+                    pushToRouter(memberProgramSelected.id);
+                    retrieveMemberProgram({
+                      memberProgramId: memberProgramSelected?.id,
+                      companyId,
+                    });
                   }}
                 />
               </div>
               <div className={classes.programSelector}>
                 <MaterialUISelector
+                  value={{
+                    value: memberProgramDetailed?.id,
+                    label:
+                      memberProgramDetailed.program?.name ||
+                      t('program.selectProgram'),
+                  }}
                   isMenuListPaddingDisabled
                   itemRenderer={(itemProps) => {
                     return (
@@ -153,12 +185,15 @@ export class MemberProgramList extends Component<Props> {
                     label: memberProgram.program.name,
                   }))}
                   onChange={(values) => {
-                    pushToRouter(
-                      [...memberProgramList].find(
-                        (memberProgram) =>
-                          memberProgram.program.id === values.value,
-                      ).id,
+                    const memberProgramSelected = memberProgramList.find(
+                      (memberProgram) =>
+                        memberProgram.program.id === values.value,
                     );
+                    pushToRouter(memberProgramSelected.id);
+                    retrieveMemberProgram({
+                      memberProgramId: memberProgramSelected?.id,
+                      companyId,
+                    });
                   }}
                 />
                 <GenericDialog />
@@ -166,6 +201,7 @@ export class MemberProgramList extends Component<Props> {
             </Grid>
             <Grid item xs={12} md={6}>
               <MemberProgramDetail
+                withIcon
                 memberProgram={memberProgramDetailed}
                 changeMemberMetricValue={(value, metric) => {
                   updateMemberMetricValue({
@@ -198,6 +234,7 @@ const connector = connect(
     fetchMemberProgram: fetchMemberProgramAction,
     fetchMetric: fetchMetricAction,
     updateMemberMetricValue: updateMemberMetricValueAction,
+    retrieveMemberProgram: retrieveMemberProgramAction,
     pushRouter,
   },
 );
@@ -264,6 +301,7 @@ const styles = (theme: Theme) =>
 export default compose(
   routerParamsToProps({
     memberProgramId: 'memberProgramDetailedId:number',
+    companyId: 'companyId:number',
   }),
   withTranslation('performanceTracking'),
   withTitle(({ t }: WithTranslation) =>

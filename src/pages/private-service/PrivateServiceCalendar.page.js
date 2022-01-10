@@ -47,11 +47,6 @@ import {
 import CustomEvenFormDialog from '../../libs/private-service/components/custom-event/CustomEventFormDialog.component';
 import { getCustomEventList } from '../../libs/private-service/selectors/custom-event';
 import { CompanyTheme } from '../../libs/theme/types';
-import {
-  fetchMemberProgram as fetchMemberProgramAction,
-  fetchProgram as fetchProgramAction,
-  fetchMetric as fetchMetricAction,
-} from '#libs/performance-tracking/actions';
 
 type Props = {
   classes: Object,
@@ -353,9 +348,6 @@ export default compose(
       disableAvailabilitySlotMultipleResource,
       enableAvailabilitySlotMultipleResource,
       onEditResourceConfiguration: updateServiceResourceConfiguration,
-      fetchMemberProgram: fetchMemberProgramAction,
-      fetchProgram: fetchProgramAction,
-      fetchMetric: fetchMetricAction,
     },
   ),
   withHandlers({
@@ -388,15 +380,7 @@ export default compose(
         });
       },
     fetchPrivateBookingList:
-      ({
-        fetchPrivateBookings,
-        periodFilter,
-        id,
-        fetchMemberBulk,
-        fetchMemberProgram,
-        fetchProgram,
-        fetchMetric,
-      }) =>
+      ({ fetchPrivateBookings, periodFilter, id, fetchMemberBulk }) =>
       () => {
         fetchPrivateBookings(
           {
@@ -411,42 +395,6 @@ export default compose(
                 fetchMemberBulk({
                   id__in: uniq(bookings.map((b) => b.member)),
                 });
-                fetchMemberProgram(
-                  {
-                    member__in: uniq(bookings.map((b) => b.member)),
-                  },
-                  {
-                    onSuccess: (data) => {
-                      const programsToFetch = uniq(
-                        data.results.map(
-                          (memberProgram) => memberProgram.program,
-                        ),
-                      );
-                      fetchProgram(
-                        { is_disabled: false },
-                        {
-                          onSuccess: (programData) => {
-                            const metricToFetch = programsToFetch
-                              .map((metricId) =>
-                                programData.find(
-                                  (program) => program.id === metricId,
-                                ),
-                              )
-                              .filter((program) => program)
-                              .reduce(
-                                (acc, program) =>
-                                  acc.concat(program?.metric_list),
-                                [],
-                              );
-                            if (metricToFetch?.length !== 0) {
-                              fetchMetric({ id__in: metricToFetch });
-                            }
-                          },
-                        },
-                      );
-                    },
-                  },
-                );
               }
             },
           },

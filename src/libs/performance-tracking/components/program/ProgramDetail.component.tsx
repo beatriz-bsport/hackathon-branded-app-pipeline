@@ -36,6 +36,7 @@ type OwnProps = {
   };
   onPageRequested: (page: number, pageSize: number) => void;
   metricLoading: boolean;
+  onClickMember?: (memberId: number, memberProgramId: number) => void;
 };
 
 type Props = OwnProps & WithTranslation;
@@ -48,6 +49,7 @@ export const ProgramDetail = (props: Props) => {
     memberProgramPaginated,
     metricLoading,
     onPageRequested,
+    onClickMember,
   } = props;
   const classes = useStyles();
   return (
@@ -88,6 +90,7 @@ export const ProgramDetail = (props: Props) => {
           </div>
           <div>
             <ProgramDetailMember
+              onClickMember={onClickMember}
               {...memberProgramPaginated}
               itemPerPage={MEMBER_PROGRAM_PER_PAGE}
               onPageRequested={onPageRequested}

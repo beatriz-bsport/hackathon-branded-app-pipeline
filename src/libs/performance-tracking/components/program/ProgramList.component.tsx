@@ -81,10 +81,7 @@ export const ProgramList = (props: Props) => {
     title = t('program.titleForConsumer');
   }
   if (onRestore) {
-    title =
-      programList?.length === 0
-        ? t('program.archived')
-        : `${t('program.archived')} (${programList?.length})`;
+    title = `${t('program.archived')} (${programList?.length})`;
   }
 
   return (

@@ -49,8 +49,6 @@ export default class MetricSlider extends React.Component<Props, State> {
     box.addEventListener('touchmove', this.onMove);
     // on unpress
     box.addEventListener('mouseup', this.stopMove);
-    box.addEventListener('touchend', this.stopMove);
-    box.addEventListener('touchcancel', this.stopMove);
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -78,7 +76,7 @@ export default class MetricSlider extends React.Component<Props, State> {
     box.removeEventListener('mousemove', this.onMove);
     box.removeEventListener('touchmove', this.onMove);
     // on unpress
-    box.removeEventListener('mouseup', this.stopMove);
+
     box.removeEventListener('touchend', this.stopMove);
     box.removeEventListener('touchcancel', this.stopMove);
   }
@@ -86,6 +84,7 @@ export default class MetricSlider extends React.Component<Props, State> {
   onMoveStart = (e: MouseOrTouchEvent) => {
     this.startMove();
     this.updateValue(this.eventRelativePos(e));
+    document.addEventListener('mouseup', this.stopMove, { once: true });
   };
 
   onAddOrRemove = (i: number) => {
@@ -233,6 +232,7 @@ export default class MetricSlider extends React.Component<Props, State> {
 
   render() {
     const { angle, value } = this.state;
+    const { metric } = this.props;
 
     const pathD = this.svgGenerateArcPath(
       150,
@@ -249,14 +249,14 @@ export default class MetricSlider extends React.Component<Props, State> {
       if (machine_id?.length > 6) {
         return (
           <div className="machineContainerSlide">
-            <div className="machine">{this.props.metric?.machine_id}</div>
+            <div className="machine">{metric?.machine_id}</div>
           </div>
         );
       }
       if (machine_id?.length > 0) {
         return (
           <div className="machineContainer">
-            <div className="machine">{this.props.metric?.machine_id}</div>
+            <div className="machine">{metric?.machine_id}</div>
           </div>
         );
       }
@@ -285,7 +285,7 @@ export default class MetricSlider extends React.Component<Props, State> {
                 cx={circleCoordinates.x.toString()}
                 cy={circleCoordinates.y.toString()}
                 r="5"
-                fill="rgb(66, 66, 66)"
+                fill={metric.color}
                 // onMouseOver={(evt) => evt.target.setAttribute('r', '10')}
                 // onMouseOut={(evt) => evt.target.setAttribute('r', '5')}
                 // To deepen if you want to put an hoover on the circle
@@ -294,14 +294,14 @@ export default class MetricSlider extends React.Component<Props, State> {
               <path
                 d={pathD}
                 fill="none"
-                stroke="rgb(66, 66, 66)"
+                stroke={metric.color}
                 strokeWidth="5"
                 strokeLinecap="round"
               />
             </svg>
             <div className="circleCenter">
               <div className="value">{value}</div>
-              <div className="placeholder">{this.props.metric?.name}</div>
+              <div className="placeholder">{metric?.name}</div>
             </div>
           </div>
 

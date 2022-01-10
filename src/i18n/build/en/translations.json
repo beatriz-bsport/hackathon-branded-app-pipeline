@@ -2650,7 +2650,7 @@
                 "explain": "Add until:",
                 "interval": {
                     "explain1": "Availability: ",
-                    "explain2": "Ever {{ day }} from {{ date_start }} to {{ date_end }}"
+                    "explain2": "Every {{ day }} from {{ date_start }} to {{ date_end }}"
                 },
                 "actions": {
                     "cancel": "Cancel",
@@ -3359,7 +3359,7 @@
                 },
                 "submit": "Confirm",
                 "close": "Close",
-                "title": "Shared passes"
+                "title": "[Form] Shared appointment pass"
             },
             "section": {
                 "titleManagerOnly": "Make this pass unavailable for purchase",
@@ -6610,8 +6610,10 @@
                 "previous": "Previous"
             },
             "section": {
-                "error": "{{nb}} subscriptions have not been able to be paused automatically",
-                "success": "{{nb}} subscriptions paused"
+                "error": "Error when pausing {{count}} subscription automatically",
+                "error_plural": "Error when pausing {{count}} subscriptions automatically",
+                "success": "{{count}} paused subscription",
+                "success_plural": "{{count}} paused subscriptions"
             },
             "createdAt": "Created {{at}}",
             "title": "Pause all subscriptions",
@@ -7470,7 +7472,7 @@
                 },
                 "submit": "Save",
                 "close": "Close",
-                "title": "Shared passes"
+                "title": "[Form] Shared pass"
             },
             "section": {
                 "titleManagerOnly": "Not available for purchase",
@@ -7936,8 +7938,8 @@
                 "seeMemberPage": " See member page",
                 "success": "Members merged",
                 "error": "Impossible to merge members",
-                "srcMember": "Member to merge (deleted)",
-                "dstMember": "Member to keep",
+                "srcMember": "We'll merge and delete this account",
+                "dstMember": "We'll keep this account",
                 "title": "Merge member",
                 "explainCredit": "The internal credit balance will be transferred",
                 "explainBookingsAndPassAndInvoiceAndNotes": "Bookings, passes, notes and invoices will be transfered.",
@@ -8141,6 +8143,10 @@
                         "accept": {
                             "content": "Your account has been successfully merged with \"{{ old_email }}\". You've been registered with {{ company }} and you can use the login details associated with \"{{ new_email }}\" from now on.",
                             "title": "Merger has been accepted"
+                        },
+                        "accepted": {
+                            "title": "Merger has been accepted",
+                            "content": "Your account has been successfully merged with \"{{ old_email }}\". You've been registered with {{ company }} and you can use the login details associated with \"{{ new_email }}\" from now on."
                         }
                     },
                     "dstUser": {
@@ -8178,7 +8184,7 @@
                 },
                 "simpleChange": {
                     "unchangedEmail": "The previous email will be kept in the meantime.",
-                    "warning": "Attention: you've changed the login email of"
+                    "warning": "Attention! You've changed the login email of:"
                 },
                 "titleMerge": " Merge member accounts",
                 "title": "Changing email address"
@@ -9469,7 +9475,7 @@
                 "explainBookingsAndPassAndInvoiceAndNotes": "Passes, booking, bills, and notes will be transferred.",
                 "explainCredit": "Internal account of the member will be transferred",
                 "title": "Merge",
-                "dstMember": "Member to keep",
+                "dstMember": "We'll keep this account",
                 "srcMember": "Member to merge",
                 "error": "Impossible to merge members",
                 "seeMemberPage": " See member page",
@@ -11027,7 +11033,7 @@
                 "maxValue": "Maximum value",
                 "minValueHelperText": "Define the minimum value of this metric.",
                 "minValue": "Minimum value",
-                "default_valueHelperText": "Define the base value of this metric. The minimum value will be applied if this field is empty.",
+                "default_valueHelperText": "Please define the base value of this metric.",
                 "default_value": "Default value",
                 "machine": "Machine ID",
                 "name": "Name",
@@ -11046,7 +11052,7 @@
             "member": {
                 "name": "Name",
                 "title": "Members",
-                "addDate": "Enrolment date"
+                "addDate": "Starting date"
             },
             "form": {
                 "default": "Define a default programme for all new newly enrolled members.",

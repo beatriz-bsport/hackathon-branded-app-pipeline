@@ -8,7 +8,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import { OptionCallback } from '../../../../state/types';
 import RedButton from '../../../../components/button/RedButton.component';
-import { PrivatePassTemplate } from '../types';
+import { PrivatePassTemplate } from '../../types';
 
 type Props = {
   open?: boolean;

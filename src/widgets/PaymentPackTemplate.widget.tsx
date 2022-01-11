@@ -27,9 +27,13 @@ type State = {};
 type Props = OwnProps & WithStyles<typeof styles> & WithTranslation;
 
 export class PaymentPackTemplate extends Component<Props, State> {
-  goToFranchiseSelection = (paymentPackTemplateId: number) => {
+  goToFranchiseSelection = (
+    paymentPackTemplateId: number,
+    isManager: boolean,
+  ) => {
     const { PUBLIC_URL } = getEnv();
-    const url = `${PUBLIC_URL}/login?franchisor=${this.props.franchiseId}&franchisorNext=pre-checkout/payment-pack-template/${paymentPackTemplateId}`;
+
+    const url = `${PUBLIC_URL}/login?franchisor=${this.props.franchiseId}&next=/c/franchisee-selector/${this.props.franchiseId}?next=pre-checkout/payment-pack-template/${paymentPackTemplateId}`;
     this.props.onWindowOpen(url);
   };
 
@@ -54,6 +58,7 @@ export class PaymentPackTemplate extends Component<Props, State> {
     );
   }
 }
+
 const styles = () =>
   createStyles({
     container: {

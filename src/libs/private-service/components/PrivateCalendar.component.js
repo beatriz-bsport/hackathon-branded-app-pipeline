@@ -90,7 +90,11 @@ const offerAsEvent = (resourceDatatypeView) => (offer) => {
     resourceId = offer.establishment;
   }
   if (resourceDatatypeView === 'coach') {
-    resourceId = offer.coach;
+    if (offer.coach_override) {
+      resourceId = offer.coach_override;
+    } else {
+      resourceId = offer.coach;
+    }
   }
 
   return {

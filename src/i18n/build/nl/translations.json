@@ -303,7 +303,7 @@
         "marketingNotification": {
             "birthday": "Van harte gefeliciteerd!"
         },
-        "franchiseOwned": "De franchisegever beheert deze transactionele e-mail.",
+        "franchiseOwned": "Deze transactionele e-mail wordt door het Master-Account beheerd.",
         "franchise": {
             "delete": {
                 "delete": "Verwijderen",
@@ -314,34 +314,34 @@
                 "carbonCopy": "Mezelf CC'en",
                 "deactivated": "Gedeactiveerd",
                 "activated": "Geactiveerd",
-                "companies": "Franchisenemers",
+                "companies": "Studio's",
                 "parameters": "Instellingen",
                 "template": "Sjabloon"
             },
             "form": {
                 "error": {
                     "email_design": "Selecteer een sjabloon",
-                    "selectCompanies": "Selecteer minimaal één franchisenemer",
+                    "selectCompanies": "Selecteer minimaal één studio",
                     "name": "Selecteer een naam"
                 },
                 "save": "Opslaan",
                 "cancel": "Annuleer",
-                "mailSelection": "Kies een sjabloon",
+                "mailSelection": "Selecteer een sjabloon",
                 "receiveCarbonCopySubtitle": "Je ontvangt een kopie van iedere verstuurde e-mail.",
                 "receiveCC": "Mezelf CC'en",
-                "activateSubtitleDeactivate": "De transactionele e-mail is geactiveerd en wordt niet naar leden verstuurd.",
-                "activateSubtitleActivate": "De transactionele e-mail is geactiveerd en wordt naar leden verstuurd.",
+                "activateSubtitleDeactivate": "De transactionele e-mail is geactiveerd en wordt niet naar de relevante leden verstuurd.",
+                "activateSubtitleActivate": "De transactionele e-mail is geactiveerd en wordt naar de relevante leden verstuurd.",
                 "activate": "Geactiveerd",
                 "parameters": "Instellingen",
                 "useFor": "Gebruik voor ",
-                "pickTemplate": "Kies een sjabloon",
+                "pickTemplate": "Selecteer een sjabloon",
                 "name": "Naam",
-                "description": "Het gekozen sjabloon wordt voor \"{{name}}\" van alle geselecteerde franchisenemers gebruikt.",
-                "title": "Configuratie"
+                "description": "Het gekozen sjabloon wordt voor \"{{name}}\" van alle geselecteerde studio's gebruikt.",
+                "title": "[Formulier] Melding"
             },
-            "emptyStateConfiguration": "Voeg een configuratie toe om het gebruik van bepaalde sjablonen te forceren.",
-            "addConfiguration": "Een configuratie toevoegen",
-            "emptySelect": "Selecteer een transactionele e-mail om te zien met welke franchisenemers het is gedeeld en om te zien welke franchisenemers er gebruik van maken."
+            "emptyStateConfiguration": "Voeg een melding toe om het gebruik van bepaalde sjablonen te forceren.",
+            "addConfiguration": "Meldingen configureren",
+            "emptySelect": "Selecteer een transactionele e-mail om te zien met welke studio's het is gedeeld en om te zien welke studio's er ook gebruik van maken."
         }
     },
     "membership": {
@@ -1951,7 +1951,7 @@
             "last_payment_date": "Laatste betalingsdatum",
             "billing_establishment": "Adres",
             "billing_group": "Groepsfacturatie",
-            "company_name": "Franchisenemer",
+            "company_name": "Studio",
             "nb_non_activated": "Aantal ongeactiveerde kaarten",
             "nb_activated": "Aantal geactiveerde kaarten",
             "nb_purchase": "Aantal aankopen",
@@ -2244,7 +2244,7 @@
                     "label": "Prijs (incl. btw)",
                     "helperText": "Dit is de verkoopprijs."
                 },
-                "unlimited": "(Onbeperkt)",
+                "unlimited": "Onbeperkt",
                 "maxBookingPerWeek": {
                     "helperText": "Laat dit veld leeg om geen limiet in te stellen.",
                     "label": "Maximaal gebruik per week"
@@ -2314,7 +2314,7 @@
                 },
                 "credits": {
                     "label": "Krediet(en)",
-                    "helperText": "Dit is het aantal inbegrepen krediet(en). Laat dit veld leeg om het onbeperkt te maken.",
+                    "helperText": "Dit is het aantal inbegrepen kredieten. Laat dit veld leeg om het onbeperkt te maken.",
                     "bewareChange": "Als je het benodigde aantal krediet verhoogt/verlaagt, worden alle kaarten gewijzigd."
                 },
                 "until": "Tot ",
@@ -2570,8 +2570,8 @@
                 "explain1": "Deze kaarten zijn bij de volgende studio's automatisch te koop. De prijzen en het aantal kredieten kunnen niet worden gewijzigd.",
                 "title": "Mijn studio's configureren"
             },
-            "consumerPaymentPackSharedFromOtherFranchisee": "Gedeeld door franchisenemer",
-            "paymentPackSharedFromFranchisor": "Franchisekaart"
+            "consumerPaymentPackSharedFromOtherFranchisee": "Gedeeld met een andere studio",
+            "paymentPackSharedFromFranchisor": "Kaart van het Master-Account"
         },
         "selector": {
             "noAvailable": "Er is geen kaart die overeenkomt met de gekozen beschikbaarheid.",
@@ -2580,7 +2580,7 @@
             "filterManagerOnly": "Alle beschikbaarheid",
             "filterCategory": "Alle categorieën",
             "titleSort": "Sorteren",
-            "titleManagerOnly": "Beschikbaar voor leden",
+            "titleManagerOnly": "Beschikbare leskaarten",
             "titleCategory": "Categorieën",
             "sorting": {
                 "descendingCredit": "Kredieten: aflopend",
@@ -2609,10 +2609,10 @@
                 },
                 "submit": "Bevestigen",
                 "close": "Sluiten",
-                "title": "Gedeelde kaarten"
+                "title": "[Formulier] Gedeelde leskaart"
             },
             "section": {
-                "titleManagerOnly": "Onbeschikbaar",
+                "titleManagerOnly": "Onbeschikbare leskaarten",
                 "titleAvailable": "Beschikbaar voor leden"
             },
             "isEmptyExplain": "Leden kunnen deze kaarten bij alle gekoppelde studio aanschaffen en gebruiken.",
@@ -3660,8 +3660,8 @@
             "subject": "Onderwerp van de e-mail",
             "cancel": "Annuleren",
             "exportHtml": "Als HTML exporteren",
-            "selectorPlaceholder": "Selecteer franchisenemers",
-            "shareWithHelper": "Franchisenemers kunnen deze sjabloon niet bewerken",
+            "selectorPlaceholder": "Selecteer studio's",
+            "shareWithHelper": "De gekoppelde studio's kunnen deze sjablonen niet bewerken.",
             "shareWith": "Delen met"
         },
         "copy": "kopie",
@@ -3669,9 +3669,9 @@
         "leaveAlert": "Weet je zeker dat je deze pagina wilt verlaten?",
         "delete": "Verwijderen",
         "edit": "Wijzigen",
-        "allCompanies": "Alle franchisenemers",
+        "allCompanies": "Alle studio's",
         "seeAll": "Toon alles",
-        "franchiseEmails": "Franchise-sjablonen",
+        "franchiseEmails": "E-mailsjablonen voor studio's",
         "companieEmails": "Mijn sjablonen"
     },
     "member": {
@@ -3923,6 +3923,10 @@
                         "accept": {
                             "content": "Je account is succesvol samengevoegd met \"{{ old_email }}\". Je wordt bij {{ company }} ingeschreven en je kunt de inloggegevens van \"{{ new_email }}\" nu altijd blijven gebruiken.",
                             "title": "Samenvoeging geaccepteerd"
+                        },
+                        "accepted": {
+                            "title": "Samenvoeging geaccepteerd",
+                            "content": "Je account is succesvol samengevoegd met \"{{ old_email }}\". Je bent bij {{ company }} ingeschreven en je kunt de inloggegevens van \"{{ new_email }}\" vanaf nu blijven gebruiken."
                         }
                     },
                     "dstUser": {
@@ -4411,7 +4415,7 @@
         "banner": {
             "isStaging": "Kennismakingsgesprek inplannen",
             "networkError": "Het lijkt erop dat er geen verbinding met het internet is.",
-            "franchiseConnection": "Je bent momenteel als een franchisenemer verbonden."
+            "franchiseConnection": "Je bent momenteel als met de Sub-Account van een studio verbonden."
         },
         "member": {
             "memberForm": "Een lid toevoegen",
@@ -4949,8 +4953,10 @@
                 "cancel": "Sluiten"
             },
             "section": {
-                "error": "{{nb}} abonnementen konden niet worden gepauzeerd",
-                "success": "{{nb}} abonnementen gepauzeerd"
+                "error": "Fout bij het automatisch pauzeren van {{count}} abonnement",
+                "error_plural": "Fout bij het automatisch pauzeren van {{count}} abonnementen",
+                "success": "{{count}} gepauzeerd abonnement",
+                "success_plural": "{{count}} gepauzeerde abonnementen"
             },
             "fromUntil": "Alleen als de facturatie tussen {{from}} en {{until}} is.",
             "createdAt": "Aanmaakdatum: {{at}}",
@@ -6268,11 +6274,11 @@
                 },
                 "submit": "Bevestigen",
                 "close": "Sluiten",
-                "title": "Gedeelde afspraakkaarten"
+                "title": "[Formulier] Gedeelde afspraakkaart"
             },
             "section": {
-                "titleManagerOnly": "Maak dit product onbeschikbaar",
-                "titleAvailable": "Maak dit product beschikbaar"
+                "titleManagerOnly": "Onbeschikbare afspraakkaarten",
+                "titleAvailable": "Beschikbare afspraakkaarten"
             },
             "isEmptyExplain": "Leden kunnen deze kaarten bij iedere gekoppelde studio kopen en gebruiken.",
             "specification": {
@@ -6301,8 +6307,8 @@
                 "explain1": "Deze kaarten zijn bij de volgende studio's automatisch te koop. De prijzen en het aantal kredieten kunnen niet worden gewijzigd.",
                 "title": "Mijn studio's configureren"
             },
-            "privateConsumerPassSharedFromOtherFranchisee": "Gedeeld met een franchisenemer",
-            "privatePassSharedFromFranchisor": "Franchisekaart"
+            "privateConsumerPassSharedFromOtherFranchisee": "Gedeeld met een andere studio",
+            "privatePassSharedFromFranchisor": "Kaart van het Master-Account"
         },
         "seeAll": "Toon alles"
     },
@@ -9308,7 +9314,7 @@
         },
         "franchiseMenu": {
             "members": "Leden",
-            "franchises": "Franchisenemers",
+            "franchises": "Studio's",
             "reporting": "Rapportages",
             "paymentPack": "Leskaarten"
         },
@@ -9316,7 +9322,7 @@
             "current": "Huidige sessie",
             "previous": "Vorige sessie",
             "manager": "Manager",
-            "franchisor": "Franchisegever",
+            "franchisor": "Master-Account",
             "continue": "Met dit account verdergaan",
             "currentSession": "Je bent momenteel als \"{{name}}\" verbonden.",
             "restore": "Met het vorige account verdergaan",
@@ -9812,17 +9818,17 @@
             "seeMembership": "Toon ledeninformatie",
             "pageTitle": "Lid",
             "isVaccinated": "Ik bezit een geldig coronabewijs",
-            "franchises": "Franchises"
+            "franchises": "Studio's"
         },
         "companies": {
-            "pageTitle": "Franchisenemers",
-            "navigateToCompany": "Log in als franchisenemer",
-            "membersEmptyState": "Deze franchisenemer heeft geen leden om weer te geven.",
-            "establishmentEmptyState": "Deze franchisenemer heeft geen vestigingen om weer te geven.",
+            "pageTitle": "Studio's",
+            "navigateToCompany": "Verbind met Sub-Account",
+            "membersEmptyState": "Deze studio heeft geen leden om weer te geven.",
+            "establishmentEmptyState": "Deze studio heeft geen vestigingen om weer te geven.",
             "establishment": "Vestigingen",
             "members": "Leden",
-            "emptySelect": "Selecteer een franchisenemer om diepgaande informatie te zien.",
-            "searchPlaceholder": "Zoek een franchisenemer"
+            "emptySelect": "Selecteer een studio om meer informatie te zien.",
+            "searchPlaceholder": "Zoek een studio"
         },
         "pagination": {
             "outOf": "{{from}} - {{to}} / {{count}}",
@@ -9834,17 +9840,17 @@
             "pageTitle": "Leden",
             "see": "Toon",
             "actions": "Acties",
-            "franchised": "Franchisenemers",
+            "franchised": "Studio's",
             "name": "Naam"
         },
         "emails": {
-            "chooseGroup": "Kies een groep",
+            "chooseGroup": "Selecteer een groep",
             "copy": "Kopie",
             "groupByPlaceholder": "Groep per",
-            "franchised": "Franchisenemer",
+            "franchised": "Studio",
             "groupBy": "Groep per",
             "pageTitle": "Sjabloon",
-            "companiesEmails": "E-mailsjablonen van franchisenemers",
+            "companiesEmails": "E-mailsjablonen voor studio's",
             "create": "Een sjabloon toevoegen",
             "franchiseEmails": "Mijn sjablonen",
             "emptyStateDescription": "Selecteer een e-mail om de voorvertoning te zien.",
@@ -10046,7 +10052,7 @@
                 "maxValue": "Maximale waarde",
                 "minValueHelperText": "Geef de minimale waarde van deze prestatiemeting aan.",
                 "minValue": "Minimale waarde",
-                "default_valueHelperText": "Geef de standaardwaarde van deze prestatiemeting aan. De minimale waarde wordt gebruikt indien dit veld leeg is.",
+                "default_valueHelperText": "Geef de standaardwaarde van deze prestatiemeting aan.",
                 "default_value": "Standaardwaarde",
                 "machine": "Machine ID",
                 "name": "Naam",
@@ -10065,7 +10071,7 @@
             "member": {
                 "name": "Naam",
                 "title": "Leden",
-                "addDate": "Inschrijfdatum"
+                "addDate": "Startdatum"
             },
             "form": {
                 "default": "Stel een standaardprogramma in voor alle nieuwe leden.",
@@ -10074,8 +10080,8 @@
                 "name": "Naam van dit programma",
                 "generalInfo": "Algemene informatie",
                 "create": "Een programma toevoegen",
-                "modify": "Een programma wijzigen",
-                "delete": "Een programma verwijderen",
+                "modify": "Programma wijzigen",
+                "delete": "Programma verwijderen",
                 "addProgram": "Een programma toevoegen"
             },
             "title": "Programma's",

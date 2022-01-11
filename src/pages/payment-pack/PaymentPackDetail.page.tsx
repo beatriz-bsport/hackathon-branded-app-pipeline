@@ -303,7 +303,7 @@ export class PaymentPackDetail extends Component<Props, State> {
             scaleCreditLoading={this.props.scaleCreditLoading}
             loadingMassExtension={this.props.loadingMassExtension}
             isManager
-            paymentPackCategory={paymentPackCategory.name}
+            paymentPackCategory={paymentPackCategory?.name}
           />
           <PaymentPackNotification
             pack={pack}

@@ -233,6 +233,7 @@ export class ConsumerPackRowItem extends Component<Props> {
         />
       );
     }
+    /*
     if (paymentPack && paymentPack.template_instance) {
       return (
         <Chip
@@ -243,6 +244,7 @@ export class ConsumerPackRowItem extends Component<Props> {
         />
       );
     }
+    */
 
     return (
       <div style={{ display: 'flex', flexDirection: 'row' }}>

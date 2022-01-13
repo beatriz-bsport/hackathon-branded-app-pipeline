@@ -9,6 +9,7 @@
     - master
     - production
   script: ./scripts/label-gitlab-issue.sh
+  allow_failure: true
 
 
 Label issue dev:

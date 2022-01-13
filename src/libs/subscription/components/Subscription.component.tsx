@@ -55,6 +55,7 @@ type Props = {
 
   updateDate: (data: any, options: OptionCallback) => void;
   cancelPause: (id: number, options: OptionCallback<Subscription>) => void;
+  paymentMethodLoading?: boolean;
 };
 
 export function SubscriptionComponent(props: Props) {
@@ -110,6 +111,7 @@ export function SubscriptionComponent(props: Props) {
             paymentMethod={props.paymentMethod}
             onEdit={props.requestPaymentMethodSwitch}
             paymentEngine={props.subscription.payment_engine}
+            loading={props.paymentMethodLoading}
           />
           <div className={classes.divider} />
           <SubscriptionActionsV2

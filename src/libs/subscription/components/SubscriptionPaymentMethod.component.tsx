@@ -1,4 +1,5 @@
 import React from 'react';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import AlertIcon from '@material-ui/icons/Warning';
 import { useTranslation } from 'react-i18next';
@@ -19,6 +20,7 @@ type Props = {
   paymentEngine: number;
   paymentMethod?: PaymentMethod;
   onEdit: () => void;
+  loading?: boolean;
 };
 
 export const SubscriptionPaymentMethod = (props: Props) => {
@@ -48,15 +50,19 @@ export const SubscriptionPaymentMethod = (props: Props) => {
           />
         </Paper>
       )}
-      {props.paymentEngine === PAYMENT_ENGINE_STRIPE && !props.paymentMethod && (
-        <div className={classes.inconsistentMsg}>
-          <AlertIcon color="error" className={classes.iconLeft} />
-          <Typography variant="caption" color="error">
-            {t('paymentMethod.inconsistent')}
-          </Typography>
-        </div>
-      )}
-      {!props.paymentMethod && (
+      {props.paymentEngine === PAYMENT_ENGINE_STRIPE &&
+        !props.paymentMethod &&
+        (props.loading ? (
+          <CircularProgress />
+        ) : (
+          <div className={classes.inconsistentMsg}>
+            <AlertIcon color="error" className={classes.iconLeft} />
+            <Typography variant="caption" color="error">
+              {t('paymentMethod.inconsistent')}
+            </Typography>
+          </div>
+        ))}
+      {!props.paymentMethod && !props.loading && (
         <Button color="primary" variant="outlined" onClick={props.onEdit}>
           {t('paymentMethod.add')}
         </Button>

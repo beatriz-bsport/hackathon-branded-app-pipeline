@@ -184,6 +184,7 @@ export class SubscriptionDetail extends Component<Props> {
           eventLoading={this.props.eventLoading}
           fetchSubscriptionEventList={this.props.fetchSubscriptionEventList}
           requestPaymentMethodSwitch={this.props.openPaymentMethodSwitch}
+          paymentMethodLoading={this.props.paymentMethodLoading}
           paymentMethod={this.props.savedPaymentMethodList.find(
             (pm) => pm.id === subscription.stripe_payment_method_id,
           )}
@@ -336,6 +337,7 @@ export default compose(
       eventLoading: getSubscriptionEventState(state).loading,
       savedPaymentMethodList: getSavedPaymentMethodList(state),
       memberById: state.member.detailData,
+      paymentMethodLoading: state.paymentBackend.paymentMethod.loading,
     }),
     {
       cancelPause: cancelPauseAction,

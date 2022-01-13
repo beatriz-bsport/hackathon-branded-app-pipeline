@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 
 import { compose } from 'recompose';
 import { WithStyles, createStyles, withStyles } from '@material-ui/core/styles';
-import { withTranslation, WithTranslation } from 'react-i18next';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import WidgetPaymentPackTemplateListPage from 'bsport-saas/src/pages/franchise/payment-pack-template/WidgetPaymentPackTemplateList.page';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 
-import { getEnv } from '../utils/env';
 import { MarketplacePaymentPackTemplateData } from '../../../bsport-saas/src/libs/marketplace/types';
+import { buildFranchiseSelectionThenCheckoutUrl } from './utils';
 
 const WidgetPaymentPackTemplateListPageStyled = themify(
   WidgetPaymentPackTemplateListPage,
@@ -22,19 +21,17 @@ type OwnProps = {
   franchiseId: number,
   onWindowOpen: (url: string) => void,
 };
-type State = {};
 
-type Props = OwnProps & WithStyles<typeof styles> & WithTranslation;
+type Props = OwnProps & WithStyles<typeof styles>;
 
-export class PaymentPackTemplate extends Component<Props, State> {
-  goToFranchiseSelection = (
-    paymentPackTemplateId: number,
-    isManager: boolean,
-  ) => {
-    const { PUBLIC_URL } = getEnv();
+export class PaymentPackTemplate extends Component<Props> {
+  goToFranchiseSelection = (paymentPackTemplateId: number) => {
+    const url = buildFranchiseSelectionThenCheckoutUrl(
+      this.props.franchiseId,
+      paymentPackTemplateId,
+    );
 
-    const url = `${PUBLIC_URL}/login?franchisor=${this.props.franchiseId}&next=/c/franchisee-selector/${this.props.franchiseId}?next=pre-checkout/payment-pack-template/${paymentPackTemplateId}`;
-    this.props.onWindowOpen(url);
+    url && this.props.onWindowOpen(url);
   };
 
   render() {
@@ -42,8 +39,8 @@ export class PaymentPackTemplate extends Component<Props, State> {
     const params: { paymentPackTemplateList: Array<number> } = {
       paymentPackTemplateList: [],
     };
-    if (this.props.config.paymentPackTemplateList?.length > 0) {
-      params.paymentPackTemplateList = this.props.config.paymentPackTemplateList;
+    if (this.props.config?.paymentPackTemplateList?.length > 0) {
+      params.paymentPackTemplateList = this.props.config?.paymentPackTemplateList;
     }
     return (
       <div className={classes.container}>
@@ -66,7 +63,4 @@ const styles = () =>
     },
   });
 
-export default compose<any, OwnProps>(
-  withStyles(styles),
-  withTranslation('foo'),
-)(PaymentPackTemplate);
+export default compose<any, OwnProps>(withStyles(styles))(PaymentPackTemplate);

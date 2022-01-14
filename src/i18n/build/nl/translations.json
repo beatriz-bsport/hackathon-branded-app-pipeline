@@ -6708,7 +6708,7 @@
         "goBack": "Terug",
         "availablePaymentPacks": "Compatibele leskaarten: ",
         "actions": {
-            "addThisPaymentItem": "Betaalmethode opslaan"
+            "addThisPaymentItem": "Deze betaalmethode opslaan"
         },
         "creditAccountBalance": {
             "current": "Lopende rekening"
@@ -8739,7 +8739,7 @@
             "actions": {
                 "bill": "Incasseren",
                 "saveForLaterAsSEPA": "Deze betaalmethode wordt als een SEPA-mandaat opgeslagen.",
-                "saveForLater": "Betaalmethode opslaan",
+                "saveForLater": "Deze betaalmethode opslaan",
                 "showInvoice": "Toon factuur",
                 "confirmPayment": "Betaling bevestigen",
                 "payAll": "Betalen",

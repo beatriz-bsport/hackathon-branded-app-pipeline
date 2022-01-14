@@ -2532,7 +2532,7 @@
         },
         "payment": {
             "address": {
-                "explain": "Add your addresses for sessions at home.",
+                "explain": "Add an address for at home sessions.",
                 "save": "Save"
             }
         },
@@ -2756,7 +2756,7 @@
             "error": "Unable to book on this date",
             "searchSlot": "Time slot",
             "noPrivateServiceAvailable": "There are no appointments to display.",
-            "isAtHome": "This appointment will be done at home, meaning you'll need to share your address to complete the booking.",
+            "isAtHome": "An address is required for this appointment.",
             "bookingCapabilities": {
                 "compatibleConsumerPassTitle": "Your compatible passes",
                 "emptyConsumerPassList": "You're not yet in possession of any valid pass.",
@@ -3016,7 +3016,7 @@
                 "establishmentResourceType": {
                     "isHomeService": {
                         "label": "At home",
-                        "helperText": "Each booking, we'll request the member's address."
+                        "helperText": "An address will be requested for every booking."
                     },
                     "isWithoutEstablishment": {
                         "label": "No predetermined establishment",
@@ -3062,7 +3062,7 @@
                 "addSlot": "Add a session",
                 "is_home_service": {
                     "label": "At home",
-                    "helperText": "Each booking, we'll request the member's address."
+                    "helperText": "An address will be requested for every booking."
                 },
                 "is_without_coach": "Don't assign any teacher to this appointment",
                 "name": {
@@ -4797,7 +4797,7 @@
                 },
                 "content": {
                     "cannotDelete": "This establishment can't be deleted, because you haven't cancelled and deleted the upcoming sessions that are linked to this establishment.",
-                    "canDelete": "Are you sure you want to delete this establishment ? This operation can not be reverted. Sessions and past bookings will not be modified"
+                    "canDelete": "Are you sure you that want to delete this establishment? Existing sessions and past bookings won't be modified. This action can't be undone."
                 },
                 "actions": {
                     "confirm": "Delete",
@@ -10521,7 +10521,7 @@
                 "accept_email": "I'd like to receive relevant communication by email",
                 "waiver": "Liability waiver",
                 "repeatPassword": "Confirm password",
-                "general_terms_and_conditions": "The General Terms of Use.",
+                "general_terms_and_conditions": "I accept the General Terms of Use.",
                 "country": "Country",
                 "city": "City",
                 "additional_adress": "Additional address information",

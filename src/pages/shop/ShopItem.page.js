@@ -8,7 +8,6 @@ import Grid from '@material-ui/core/Grid';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Paper from '@material-ui/core/Paper';
 import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -38,6 +37,7 @@ import {
 } from '../../libs/shop/actions/provision';
 import shopSelectors from '../../libs/shop/selectors';
 import type { ShopItem, Provision } from '../../libs/shop/types';
+import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 
 type Props = {
   id: number,
@@ -183,15 +183,19 @@ export class ShopItemDetail extends Component<Props, State> {
           onEdit={this.openEditForm}
           onDelete={this.requestDelete}
         />
-        <Dialog open={this.state.editOpen} fullScreen={this.props.fullScreen}>
-          <DialogContent>
-            <ShopItemForm
-              initial={this.props.shopitem}
-              onCancel={this.closeEditForm}
-              createOrUpdate={this.createOrUpdateShopItem}
-            />
-          </DialogContent>
-        </Dialog>
+        <GenericResponsiveDrawer
+          open={this.state.editOpen}
+          fullScreen={this.props.fullScreen}
+          onClose={this.closeEditForm}
+          title={this.props.t('shop:shopitem.form.title')}
+          subtitle={this.props.shopitem?.name}
+        >
+          <ShopItemForm
+            initial={this.props.shopitem}
+            onCancel={this.closeEditForm}
+            createOrUpdate={this.createOrUpdateShopItem}
+          />
+        </GenericResponsiveDrawer>
         <Dialog open={this.state.provisionFormOpen}>
           <ProvisionForm
             onCancel={this.closeProvisionForm}

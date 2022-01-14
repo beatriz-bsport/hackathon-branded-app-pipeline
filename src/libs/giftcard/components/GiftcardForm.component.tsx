@@ -142,6 +142,7 @@ export const GiftcardFormFieldHOC = withFormik<Props, any>({
     };
   },
   validationSchema: GiftcardSchema,
+  enableReinitialize: true,
   handleSubmit: (
     values,
     {

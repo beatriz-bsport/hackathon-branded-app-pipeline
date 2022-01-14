@@ -12,6 +12,7 @@ import {
 } from './api';
 
 import { OptionCallback, Dispatch, ThunkAction } from '../../state/types';
+import { Coupon } from './types';
 
 export const couponList = {
   error: createAction('COUPON/LIST/ERROR'),
@@ -99,7 +100,10 @@ export const couponCreateOrUpdate = {
   success: createAction('COUPON/CREATE_OR_UPDATE/SUCCESS'),
 };
 
-export function createCoupon(data: any, options?: OptionCallback): ThunkAction {
+export function createCoupon(
+  data: any,
+  options?: OptionCallback<Coupon>,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(couponCreateOrUpdate.isLoading(true));
     dispatch(couponCreateOrUpdate.error(null));
@@ -109,7 +113,7 @@ export function createCoupon(data: any, options?: OptionCallback): ThunkAction {
       dispatch(couponCreateOrUpdate.success(response.data));
       dispatch(couponCreateOrUpdate.error(null));
       dispatch(snackbarSuccess('coupon.create.success'));
-      if (options && options.onSuccess) options.onSuccess();
+      if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(couponList.error(error));
       dispatch(snackbarError('coupon.create.error'));
@@ -123,7 +127,7 @@ export function createCoupon(data: any, options?: OptionCallback): ThunkAction {
 export function updateCoupon(
   id: string | number,
   data: any,
-  options?: OptionCallback,
+  options?: OptionCallback<Coupon>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(couponCreateOrUpdate.isLoading(true));

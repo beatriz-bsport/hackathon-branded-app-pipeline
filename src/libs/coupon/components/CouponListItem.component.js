@@ -23,7 +23,7 @@ type Props = {
   t: TFunction,
   coupon: Coupon,
   divider?: boolean,
-  onEdit?: (id: string) => void,
+  onEdit?: (coupon: Coupon) => void,
   onDelete?: (id: string) => void,
   onClick?: () => void,
   classes: Object,
@@ -59,7 +59,7 @@ export const CouponListItem = (props: Props) => {
               icon: EditIcon,
               label: t('common.edit'),
               color: 'primary',
-              onClick: () => props.onEdit(coupon.id),
+              onClick: () => props.onEdit(coupon),
             },
             props.onDelete && {
               icon: DeleteIcon,

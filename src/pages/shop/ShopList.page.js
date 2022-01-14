@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
-import DialogContent from '@material-ui/core/DialogContent';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 
 import List from '@material-ui/core/List';
@@ -60,6 +59,7 @@ import LinearProgress from '../../components/navigation/BackofficeLinearProgress
 import withtitle from '../../hocs/with-title.hoc';
 import Tooltip from '../../components/Tooltip.component';
 import type { OptionCallback } from '../../state/types';
+import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 
 type Props = {
   t: TFunction,
@@ -71,7 +71,6 @@ type Props = {
   deleteSubShop: (id: number) => void,
   goToShopItem: (id: number) => void,
   createOrUpdateSubShop: (data: [*]) => void,
-  fullScreen: boolean,
   duplicateShopItem: (id: number, suffix: string) => void,
   createOrUpdateShopItem: (
     shopItemData: [*],
@@ -79,6 +78,7 @@ type Props = {
     options: OptionCallback,
   ) => void,
   loading: boolean,
+  shopItemLoading: boolean,
 };
 
 type State = {
@@ -340,17 +340,17 @@ export class ShopItemList extends Component<Props, State> {
         </Paper>
         {subShops.map((ss) => this.renderSubShop(ss))}
         {this.renderNewSubShop()}
-        <Dialog
+        <GenericResponsiveDrawer
           open={!!this.state.createItemFromSubShop}
-          fullScreen={this.props.fullScreen}
+          onClose={() => this.setState({ createItemFromSubShop: null })}
+          title={this.props.t('shop:shopitem.form.title')}
         >
-          <DialogContent>
-            <ShopItemForm
-              createOrUpdate={this.createOrUpdateShopItem}
-              onCancel={() => this.setState({ createItemFromSubShop: null })}
-            />
-          </DialogContent>
-        </Dialog>
+          <ShopItemForm
+            createOrUpdate={this.createOrUpdateShopItem}
+            onCancel={() => this.setState({ createItemFromSubShop: null })}
+            loading={this.props.shopItemLoading}
+          />
+        </GenericResponsiveDrawer>
         <Dialog open={!!this.state.shopitemToDelete}>
           <ShopItemDeleteDialog
             shopitem={this.state.shopitemToDelete}
@@ -401,7 +401,8 @@ export default compose(
   withTranslation(),
   connect(
     (state) => ({
-      loading: state.shop.loading,
+      loading: state.shop.shopItem.asManager.loading,
+      shopItemLoading: state.shop.shopItem.createOrUpdate.loading,
       subShops: shopSelectors.getSubShops(state),
     }),
     {

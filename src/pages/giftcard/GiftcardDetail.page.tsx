@@ -10,7 +10,7 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import { push } from 'connected-react-router';
-import GiftcardFormDialog from '../../libs/giftcard/components/GiftcardFormDialog.component';
+import GiftcardFormDrawer from '../../libs/giftcard/components/GiftcardFormDrawer.component';
 import GiftcardDeleteDialog from '../../libs/giftcard/components/GiftcardDeleteDialog.component';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
 import withTitle from '../../hocs/with-title.hoc';
@@ -137,14 +137,12 @@ export class GiftcardDetailPage extends Component<Props> {
           }
           onDelete={() => this.props.setDeleteIsOpen(true)}
         />
-        {!!this.props.editIsOpen && (
-          <GiftcardFormDialog
-            open
-            onSubmit={this.props.updateGiftcard}
-            onClose={() => this.props.setEditIsOpen(false)}
-            initial={this.props.giftcard}
-          />
-        )}
+        <GiftcardFormDrawer
+          open={!!this.props.editIsOpen}
+          onSubmit={this.props.updateGiftcard}
+          onClose={() => this.props.setEditIsOpen(false)}
+          initial={this.props.giftcard}
+        />
         {!!this.props.deleteIsOpen && (
           <GiftcardDeleteDialog
             open

@@ -10,6 +10,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import LocalDrinkIcon from '@material-ui/icons/LocalDrink';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { withTranslation, TFunction } from 'react-i18next';
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
@@ -32,6 +33,7 @@ type Props = {
   classes: Object,
   createOrUpdate: (data: [*], id: number, options: OptionCallback) => void,
   onCancel: () => void,
+  loading: boolean,
 } & WithSegmentAnalyticsFormTrackerHandlers;
 type State = {
   name: ?string,
@@ -204,9 +206,14 @@ export class ShopItemForm extends Component<Props, State> {
         <div style={{ width: '100%' }}>
           <Grid container spacing={4}>
             <Grid item xs={12}>
-              <ImageUploader initial={cover} onChange={this.handleCoverChange}>
-                <ShopItemPreview />
-              </ImageUploader>
+              <div className={classes.paddingTop}>
+                <ImageUploader
+                  initial={cover}
+                  onChange={this.handleCoverChange}
+                >
+                  <ShopItemPreview />
+                </ImageUploader>
+              </div>
             </Grid>
             <Grid item xs={12} className={classes.itemRow}>
               <TextField
@@ -371,40 +378,46 @@ export class ShopItemForm extends Component<Props, State> {
             />
           </div>
           <div className={classes.buttons}>
-            <Button
-              onClick={() => {
-                this.props.onCancel();
-                if (this.props.formCancel) {
-                  this.props.formCancel(
-                    this.props.initial && this.props.initial.id
-                      ? { shop_item_id: this.props.initial.id }
-                      : {},
-                  );
-                }
-              }}
-              className={classes.button}
-            >
-              {t('common.cancel')}
-            </Button>
-            <Button
-              color="primary"
-              variant="contained"
-              type="submit"
-              className={classes.button}
-              onclick={(ev) => {
-                ev.preventDefault();
-                if (this.props.formSubmitIntent) {
-                  this.props.formSubmitIntent(
-                    this.props.initial && this.props.initial.id
-                      ? { shop_item_id: this.props.initial.id }
-                      : {},
-                  );
-                }
-                this.onSubmit();
-              }}
-            >
-              {t('common.save')}
-            </Button>
+            {this.props.loading ? (
+              <CircularProgress />
+            ) : (
+              <React.Fragment>
+                <Button
+                  onClick={() => {
+                    this.props.onCancel();
+                    if (this.props.formCancel) {
+                      this.props.formCancel(
+                        this.props.initial && this.props.initial.id
+                          ? { shop_item_id: this.props.initial.id }
+                          : {},
+                      );
+                    }
+                  }}
+                  className={classes.button}
+                >
+                  {t('common.cancel')}
+                </Button>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  type="submit"
+                  className={classes.button}
+                  onclick={(ev) => {
+                    ev.preventDefault();
+                    if (this.props.formSubmitIntent) {
+                      this.props.formSubmitIntent(
+                        this.props.initial && this.props.initial.id
+                          ? { shop_item_id: this.props.initial.id }
+                          : {},
+                      );
+                    }
+                    this.onSubmit();
+                  }}
+                >
+                  {t('common.save')}
+                </Button>
+              </React.Fragment>
+            )}
           </div>
         </div>
       </form>
@@ -424,6 +437,7 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
+    paddingBottom: theme.spacing(2),
   },
   provisions: {
     marginLeft: theme.spacing(2),
@@ -470,6 +484,9 @@ const styles = (theme) => ({
   },
   button: {
     margin: theme.spacing(1),
+  },
+  paddingTop: {
+    paddingTop: theme.spacing(2),
   },
 });
 

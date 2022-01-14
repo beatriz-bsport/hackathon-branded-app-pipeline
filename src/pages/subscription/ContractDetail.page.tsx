@@ -18,7 +18,7 @@ import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import BottomActionButtons from '#components/button/BottomActionsButton.component';
 import ContractDeleteDialog from '#libs/subscription/components/SubscriptionContractDeleteModal.component';
-import SubscriptionContractFormDialog from '#libs/subscription/components/SubscriptionContractFormDialog.component';
+import SubscriptionContractFormDrawer from '#libs/subscription/components/SubscriptionContractFormDrawer.component';
 import PaginatedSubscriptionList from '#libs/subscription/components/PaginatedSubscriptionList.component';
 import themeSelectors from '#libs/theme/selectors';
 import { fetchPrivatePassList } from '#libs/private-service/actions';
@@ -216,26 +216,24 @@ export class ContractDetailPage extends Component<Props, State> {
             }}
           />
         </Grid>
-        {!!this.props.contractToEdit && (
-          <SubscriptionContractFormDialog
-            onClose={() => this.props.setContractToEdit(null)}
-            initial={this.props.contract}
-            paymentPacks={this.props.paymentPacks}
-            privatePassList={this.props.privatePassList}
-            open={!!this.props.contractToEdit}
-            onSubmit={(data: any, options: OptionCallback) => {
-              this.props.submitEditForm(data, {
-                onSuccess: () => {
-                  this.props.setContractToEdit(null);
-                  if (options && options.onSuccess) options.onSuccess();
-                },
-                onError: (err) => {
-                  if (options && options.onError) options.onError(err);
-                },
-              });
-            }}
-          />
-        )}
+        <SubscriptionContractFormDrawer
+          onClose={() => this.props.setContractToEdit(null)}
+          initial={this.props.contract}
+          paymentPacks={this.props.paymentPacks}
+          privatePassList={this.props.privatePassList}
+          open={!!this.props.contractToEdit}
+          onSubmit={(data: any, options: OptionCallback) => {
+            this.props.submitEditForm(data, {
+              onSuccess: () => {
+                this.props.setContractToEdit(null);
+                if (options && options.onSuccess) options.onSuccess();
+              },
+              onError: (err) => {
+                if (options && options.onError) options.onError(err);
+              },
+            });
+          }}
+        />
       </div>
     );
   }

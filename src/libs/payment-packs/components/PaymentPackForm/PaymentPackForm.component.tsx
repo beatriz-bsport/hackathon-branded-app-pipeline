@@ -59,9 +59,9 @@ type OwnProps = {
   metaActivityList: Array<MetaActivity>;
   tagList: Array<Tag<TagGroup>>;
   initial?: PaymentPack;
-  onCancel: () => void;
+  onCancel?: () => void;
   onCancelText: string;
-  closeDialog: () => void;
+  closeForm: () => void;
   onSubmit: (
     data: PaymentPackFormValues,
     options: OptionCallback<PaymentPack>,
@@ -90,7 +90,7 @@ export const PaymentPackForm = (props: Props) => {
     onCancel,
     onCancelText,
     onSubmit,
-    closeDialog,
+    closeForm,
     clearPaymentPackToEdit,
   } = props;
   const classes = useStyles();
@@ -270,8 +270,8 @@ export const PaymentPackForm = (props: Props) => {
             if (clearPaymentPackToEdit) {
               clearPaymentPackToEdit();
             }
-            if (closeDialog) {
-              closeDialog();
+            if (closeForm) {
+              closeForm();
             }
           },
           onError: () => {
@@ -279,8 +279,8 @@ export const PaymentPackForm = (props: Props) => {
             if (clearPaymentPackToEdit) {
               clearPaymentPackToEdit();
             }
-            if (closeDialog) {
-              closeDialog();
+            if (closeForm) {
+              closeForm();
             }
           },
         });
@@ -320,7 +320,7 @@ export const PaymentPackForm = (props: Props) => {
             <Divider className={classes.divider} />
             <div className={classes.actionContainer}>
               <Actions>
-                {onCancel || closeDialog ? (
+                {onCancel || closeForm ? (
                   <Button
                     onClick={() => {
                       props?.formCancel(
@@ -333,8 +333,8 @@ export const PaymentPackForm = (props: Props) => {
                       if (clearPaymentPackToEdit) {
                         clearPaymentPackToEdit();
                       }
-                      if (closeDialog) {
-                        closeDialog();
+                      if (closeForm) {
+                        closeForm();
                       }
                       if (onCancel) {
                         onCancel();

@@ -156,7 +156,7 @@ export class WorkshopActivityFormPage extends Component<Props> {
         tagList={this.props.allTagsWithTagGroup}
         establishmentList={this.props.establishments}
         loading={this.props.loading}
-        onCancel={() => this.props.setStep(STEP_OFFER)}
+        closeForm={() => this.props.setStep(STEP_OFFER)}
         onCancelText={this.props.t('common.skip')}
         paymentPackCategories={this.props.paymentPackCategories}
       />

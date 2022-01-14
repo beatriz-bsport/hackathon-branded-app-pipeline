@@ -40,7 +40,7 @@ import withTitle from '../../hocs/with-title.hoc';
 import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/selectors';
 import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
 import SubscriptionContractList from '../../libs/subscription/components/SubscriptionContractList.component';
-import SubscriptionContractFormDialog from '../../libs/subscription/components/SubscriptionContractFormDialog.component';
+import SubscriptionContractFormDrawer from '../../libs/subscription/components/SubscriptionContractFormDrawer.component';
 import SubscriptionContractRegister from '../../libs/subscription/components/SubscriptionContractRegister.component';
 
 import { search as searchMembers } from '../../libs/member/actions';
@@ -333,16 +333,14 @@ export class SubscriptionList extends React.Component<Props, State> {
             }
           />
         ) : null}
-        {this.props.createContractFormOpen && (
-          <SubscriptionContractFormDialog
-            paymentPacks={this.props.paymentPacks}
-            privatePassList={this.props.privatePassList}
-            paymentComboList={this.props.paymentComboList}
-            open
-            onSubmit={this.props.onCreate}
-            onClose={this.props.onCloseCreate}
-          />
-        )}
+        <SubscriptionContractFormDrawer
+          paymentPacks={this.props.paymentPacks}
+          privatePassList={this.props.privatePassList}
+          paymentComboList={this.props.paymentComboList}
+          open={this.props.createContractFormOpen}
+          onSubmit={this.props.onCreate}
+          onClose={this.props.onCloseCreate}
+        />
       </div>
     );
   }

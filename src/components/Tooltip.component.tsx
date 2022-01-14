@@ -1,19 +1,17 @@
 // @flow
 
 import React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { makeStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
 import { colors } from '@bsport/common/lib/colors';
+import type { TooltipProps } from '@material-ui/core/Tooltip/Tooltip';
 
-type Props = {
-  classes: Object,
-  title: string,
-  placement?: string,
-  variant?: string,
-  children: any,
+type Props = TooltipProps & {
+  hide?: boolean;
+  children: any;
 };
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   tooltip: {
     backgroundColor: theme.palette.common.white,
     color: 'rgba(0, 0, 0, 0.87)',
@@ -30,17 +28,21 @@ const styles = (theme) => ({
     fontSize: 11,
     maxWidth: 200,
   },
-});
+}));
 
-export default withStyles(styles)((props: Props) => {
+export const ToolTip = (props: Props) => {
+  const classes = useStyles();
   if (!props.title || props?.hide) return props.children;
+
   return (
     <Tooltip
       title={props.title || null}
       placement={props.placement || 'bottom'}
-      classes={{ tooltip: props.classes[props.variant || 'tooltip'] }}
+      classes={{ tooltip: classes[props.variant || 'tooltip'] }}
     >
       {props.children}
     </Tooltip>
   );
-});
+};
+
+export default ToolTip;

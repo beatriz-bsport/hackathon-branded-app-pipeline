@@ -1,14 +1,11 @@
 // @flow
 import React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
+import { makeStyles } from '@material-ui/core/styles';
+
 import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'i18next';
+import { useTranslation } from 'react-i18next';
 import { Form, FormikProps } from 'formik';
 
 import SubscriptionContractFields, {
@@ -20,24 +17,29 @@ import {
   SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
 } from '#components/analytics/segment';
 import type { Subscription } from '../types';
+import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 
 type Props = {
-  t: TFunction;
   open: boolean;
   onClose: () => void;
   isSubmitting: boolean;
   initial: Subscription;
 } & WithSegmentAnalyticsFormTrackerHandlers &
   FormikProps<Subscription>;
-export const SubscriptionContractFormDialog = (props: Props) => {
-  const { t } = props;
+export const SubscriptionContractFormDrawer = (props: Props) => {
+  const { t } = useTranslation('subscription');
+  const classes = useStyles();
   return (
-    <Dialog open={props.open}>
+    <GenericResponsiveDrawer
+      open={props.open}
+      onClose={props.onClose}
+      title={t('contract.form.title')}
+      subtitle={props.initial?.name}
+    >
       <Form>
-        <DialogTitle>{props.t('contract.form.title')}</DialogTitle>
-        <DialogContent>
+        <div className={classes.content}>
           <SubscriptionContractFields {...props} />
-        </DialogContent>
+        </div>
         <DialogActions>
           <Button
             onClick={() => {
@@ -70,20 +72,22 @@ export const SubscriptionContractFormDialog = (props: Props) => {
           </Button>
         </DialogActions>
       </Form>
-    </Dialog>
+    </GenericResponsiveDrawer>
   );
 };
 
-const styles = () => ({
-  container: {},
-});
+const useStyles = makeStyles((theme) => ({
+  content: {
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
+  },
+}));
 
 export default compose<any, Props>(
   withFormTrackingHOC({
     object_identifier:
       SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.SUBSCRIPTION,
   }),
-  withTranslation(['subscription']),
-  withStyles(styles),
   SubscriptionContractFormHoc,
-)(SubscriptionContractFormDialog);
+)(SubscriptionContractFormDrawer);

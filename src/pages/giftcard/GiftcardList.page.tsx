@@ -45,7 +45,7 @@ import {
   getGiftcardListUnavailableForSale,
   getGiftcardListInactive,
 } from '../../libs/giftcard/selectors';
-import GiftcardFormDialog from '../../libs/giftcard/components/GiftcardFormDialog.component';
+import GiftcardFormDrawer from '../../libs/giftcard/components/GiftcardFormDrawer.component';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import FuzeSearch from '../../components/FuzeSearch.component';
 import GiftcardList from '../../libs/giftcard/components/GiftcardList.component';
@@ -283,19 +283,17 @@ export class GiftcardListPage extends Component<Props, State> {
           onCreateLabel={this.props.t('list.actions.create')}
           onCreate={this.props.openCreateForm}
         />
-        <GiftcardFormDialog
+        <GiftcardFormDrawer
           open={!!this.props.queryParams?.isCreateFormOpen}
           onSubmit={this.props.createOrUpdate}
           onClose={this.props.closeForms}
         />
-        {!!this.props.giftcardToEdit && (
-          <GiftcardFormDialog
-            open
-            onSubmit={this.props.createOrUpdate}
-            onClose={this.props.closeForms}
-            initial={this.props.giftcardToEdit}
-          />
-        )}
+        <GiftcardFormDrawer
+          open={!!this.props.giftcardToEdit}
+          onSubmit={this.props.createOrUpdate}
+          onClose={this.props.closeForms}
+          initial={this.props.giftcardToEdit}
+        />
         {this.props.queryParams.isBackgroundImageUploaderOpen && (
           <GiftcardBackgroundImageUploader
             open={this.props.queryParams.isBackgroundImageUploaderOpen}

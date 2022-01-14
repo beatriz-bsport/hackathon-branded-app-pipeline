@@ -11,7 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 
 import SubscriptionContractListItem from './SubscriptionContractListItem.component';
-import SubscriptionContractFormDialog from './SubscriptionContractFormDialog.component';
+import SubscriptionContractFormDrawer from './SubscriptionContractFormDrawer.component';
 
 type Props = {
   t: TFunction,
@@ -100,53 +100,50 @@ export const SubscriptionContractList = (props: Props) => {
           )}
         </div>
       )}
-      {props.createOpen ? (
-        <SubscriptionContractFormDialog
-          onClose={() => {
-            props.setCreateOpen(false);
-            props.setContractToEdit(null);
-          }}
-          open={props.createOpen}
-          initial={props.contractToEdit}
-          paymentPacks={props.paymentPacks}
-          paymentComboList={props.paymentComboList}
-          privatePassList={props.privatePassList}
-          onSubmit={(data, options) => {
-            props.onCreate(data, {
-              onSuccess: () => {
-                props.setCreateOpen(false);
-                if (options && options.onSuccess) options.onSuccess();
-              },
-              onError: (err) => {
-                props.setCreateOpen(false);
-                if (options && options.onError) options.onError(err);
-              },
-            });
-          }}
-        />
-      ) : null}
-      {props.contractToEdit ? (
-        <SubscriptionContractFormDialog
-          onClose={() => props.setContractToEdit(null)}
-          initial={props.contractToEdit}
-          open={!!props.contractToEdit}
-          paymentPacks={props.paymentPacks}
-          paymentComboList={props.paymentComboList}
-          privatePassList={props.privatePassList}
-          processing={props.processing}
-          onSubmit={(data, options) => {
-            props.onEdit(data, {
-              onSuccess: () => {
-                props.setContractToEdit(null);
-                if (options && options.onSuccess) options.onSuccess();
-              },
-              onError: (err) => {
-                if (options && options.onError) options.onError(err);
-              },
-            });
-          }}
-        />
-      ) : null}
+      ={' '}
+      <SubscriptionContractFormDrawer
+        onClose={() => {
+          props.setCreateOpen(false);
+          props.setContractToEdit(null);
+        }}
+        open={props.createOpen}
+        initial={props.contractToEdit}
+        paymentPacks={props.paymentPacks}
+        paymentComboList={props.paymentComboList}
+        privatePassList={props.privatePassList}
+        onSubmit={(data, options) => {
+          props.onCreate(data, {
+            onSuccess: () => {
+              props.setCreateOpen(false);
+              if (options && options.onSuccess) options.onSuccess();
+            },
+            onError: (err) => {
+              props.setCreateOpen(false);
+              if (options && options.onError) options.onError(err);
+            },
+          });
+        }}
+      />
+      <SubscriptionContractFormDrawer
+        onClose={() => props.setContractToEdit(null)}
+        initial={props.contractToEdit}
+        open={!!props.contractToEdit}
+        paymentPacks={props.paymentPacks}
+        paymentComboList={props.paymentComboList}
+        privatePassList={props.privatePassList}
+        processing={props.processing}
+        onSubmit={(data, options) => {
+          props.onEdit(data, {
+            onSuccess: () => {
+              props.setContractToEdit(null);
+              if (options && options.onSuccess) options.onSuccess();
+            },
+            onError: (err) => {
+              if (options && options.onError) options.onError(err);
+            },
+          });
+        }}
+      />
     </div>
   );
 };

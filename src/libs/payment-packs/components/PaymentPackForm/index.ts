@@ -1,3 +1,3 @@
-import PaymentPackFormDialog from './PaymentPackForm.dialog';
+import PaymentPackFormDrawer from './PaymentPackForm.drawer';
 
-export default PaymentPackFormDialog;
+export default PaymentPackFormDrawer;

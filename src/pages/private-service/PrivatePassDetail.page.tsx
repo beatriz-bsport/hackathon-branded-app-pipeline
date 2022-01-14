@@ -100,6 +100,7 @@ import {
 import { getAllSmartList } from '#libs/smart-list/selectors';
 import { getTagCategories } from '#libs/notification-rule/selectors';
 import { fetchTagList } from '#libs/notification-rule/actions';
+import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 
 type OwnProps = {
   id: number;
@@ -363,7 +364,10 @@ export class PrivatePassDetails extends Component<Props> {
           </div>
         </Grid>
 
-        <Dialog open={this.props.openEditForm} maxWidth="md" fullWidth>
+        <GenericResponsiveDrawer
+          open={this.props.openEditForm}
+          onClose={() => this.props.setOpenEditForm(false)}
+        >
           <Typography variant="h4" className={classes.formTitle}>
             {this.props.t('privatePass.form.title')}
           </Typography>
@@ -378,7 +382,7 @@ export class PrivatePassDetails extends Component<Props> {
             privateServices={this.props.private_services}
             compatibleServicePass={this.props.compatibleServicePass}
           />
-        </Dialog>
+        </GenericResponsiveDrawer>
 
         <Dialog open={!!this.props.openDeletePassDialog}>
           <DialogTitle>{t('privatePass.delete.title')}</DialogTitle>
@@ -435,7 +439,6 @@ const styles = (theme: Theme) => ({
   },
   formTitle: {
     fontWeight: 500,
-    paddingTop: theme.spacing(4),
     paddingRight: theme.spacing(4),
     paddingLeft: theme.spacing(4),
     paddingBottom: theme.spacing(1),

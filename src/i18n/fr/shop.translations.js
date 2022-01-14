@@ -32,6 +32,9 @@ exports.default = {
     },
   },
   shopitem: {
+    form: {
+      title: 'Article magasin',
+    },
     noDescription: 'Aucune description',
     selector: {
       placeholder: 'Rechercher par nom ou code-barre',

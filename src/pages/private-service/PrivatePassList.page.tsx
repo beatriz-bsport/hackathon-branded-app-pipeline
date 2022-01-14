@@ -84,6 +84,7 @@ import {
   WithSegmentAnalyticsFormTrackerHandlers,
   SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
 } from '#components/analytics/segment';
+import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 
 type OwnProps = {
   setOpenDeleteCompatibility: (id: number) => void;
@@ -287,8 +288,9 @@ export class PrivatePassList extends React.Component<Props, State> {
 
   render() {
     const { classes, t } = this.props;
+
     if (
-      this.props.privatePassList +
+      (this.props.privatePassList || []).length +
         (this.props.disabledPrivatePassList || []).length ===
         0 &&
       !this.props.loading
@@ -301,7 +303,10 @@ export class PrivatePassList extends React.Component<Props, State> {
             onCreate={() => this.props.setOpenCreateForm(true)}
             onCreateLabel={this.props.t('privatePass.list.createButton')}
           />
-          <Dialog open={this.props.openCreateForm} maxWidth="md" fullWidth>
+          <GenericResponsiveDrawer
+            open={this.props.openCreateForm}
+            onClose={() => this.props.closePrivatePassForm()}
+          >
             <Typography variant="h4" className={classes.formTitle}>
               {this.props.t('privatePass.form.title')}
             </Typography>
@@ -312,7 +317,7 @@ export class PrivatePassList extends React.Component<Props, State> {
               compatibleServicePass={this.props.compatibleServicePass}
               privateServices={this.props.privateServices}
             />
-          </Dialog>
+          </GenericResponsiveDrawer>
         </div>
       );
     }
@@ -451,13 +456,12 @@ export class PrivatePassList extends React.Component<Props, State> {
               </Collapse>
             </div>
           ) : null}
-          <Dialog
+          <GenericResponsiveDrawer
             open={
               (this.props.openEditForm || this.props.openCreateForm) &&
               !this.props.compatibleServicePassLoading
             }
-            maxWidth="md"
-            fullWidth
+            onClose={() => this.props.closePrivatePassForm()}
           >
             <Typography variant="h4" className={classes.formTitle}>
               {this.props.t('privatePass.form.title')}
@@ -476,7 +480,7 @@ export class PrivatePassList extends React.Component<Props, State> {
               )}
               compatibleServicePass={this.props.compatibleServicePass}
             />
-          </Dialog>
+          </GenericResponsiveDrawer>
           <Dialog open={!!this.props.openDeletePassDialog}>
             <DialogTitle>
               {this.props.t('privatePass.delete.title')}
@@ -592,7 +596,6 @@ const styles = (theme: Theme): any => ({
   },
   formTitle: {
     fontWeight: 500,
-    paddingTop: theme.spacing(4),
     paddingRight: theme.spacing(4),
     paddingLeft: theme.spacing(4),
     paddingBottom: theme.spacing(1),

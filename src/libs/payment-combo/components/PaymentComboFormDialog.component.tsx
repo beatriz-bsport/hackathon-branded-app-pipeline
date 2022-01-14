@@ -8,10 +8,7 @@ import { Form, FormikProps } from 'formik';
 import { useTranslation } from 'react-i18next';
 
 import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { makeStyles } from '@material-ui/core';
 import PaymentComboFields, {
@@ -23,35 +20,31 @@ import {
   SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
 } from '#components/analytics/segment';
 import type { PaymentCombo } from '#libs/payment-combo/types';
+import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 
 type Props = {
   open: boolean;
   handleClose: () => void;
   onSubmit: () => void;
   isSubmitting: boolean;
-  fullScreen?: boolean;
   initial: PaymentCombo;
 } & WithSegmentAnalyticsFormTrackerHandlers &
   FormikProps<PaymentCombo>;
 
 export function PaymentComboFormDialog(props: Props) {
-  const { open, handleClose, fullScreen, isSubmitting } = props;
+  const { open, handleClose, isSubmitting } = props;
   const classes = useStyles();
   const { t } = useTranslation('paymentCombo');
   return (
-    <Dialog
+    <GenericResponsiveDrawer
       open={open}
       onClose={handleClose}
-      aria-labelledby="form-dialog-title"
-      fullScreen={fullScreen}
-      maxWidth={false}
+      title={t('form.title')}
+      subtitle={props.initial?.name}
     >
       <Form>
         <div className={classes.content}>
-          <DialogTitle id="form-dialog-title">{t('form.title')}</DialogTitle>
-          <DialogContent>
-            {open ? <PaymentComboFields {...props} /> : null}
-          </DialogContent>
+          {open ? <PaymentComboFields {...props} /> : null}
           <DialogActions>
             <Button
               onClick={() => {
@@ -84,12 +77,15 @@ export function PaymentComboFormDialog(props: Props) {
           </DialogActions>
         </div>
       </Form>
-    </Dialog>
+    </GenericResponsiveDrawer>
   );
 }
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   content: {
     minWidth: '30vw',
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
   },
 }));
 

@@ -33,6 +33,7 @@ import type {
 } from '../../types';
 import PrivatePassForm from './PrivatePassForm.component';
 import PrivateSlotCompatibleServiceForm from '../slot/PrivateSlotCompatibleServiceForm.component';
+import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 
 type Props = {
   pass: PrivatePass,
@@ -210,7 +211,10 @@ export const PrivatePassDetail = (props: Props) => {
           </Button>
         )}
       </Paper>
-      <Dialog open={props.openEditForm} maxWidth="md" fullWidth>
+      <GenericResponsiveDrawer
+        open={props.openEditForm}
+        onClose={() => props.setOpenEditForm(false)}
+      >
         <Typography variant="h4" className={classes.formTitle}>
           {props.t('privatePass.form.title')}
         </Typography>
@@ -226,7 +230,7 @@ export const PrivatePassDetail = (props: Props) => {
           privateServices={props.private_services}
           compatibleServicePass={props.compatibleServicePass}
         />
-      </Dialog>
+      </GenericResponsiveDrawer>
       <Dialog open={props.openDeleteCompatibilityDialog}>
         <DialogTitle>
           {props.t('privateServiceCompatibility.delete.title')}

@@ -100,7 +100,7 @@ import PaymentPackMassExtensionList from '#libs/consumer-payment-pack/components
 import { PaymentPackMassExtension } from '#libs/consumer-payment-pack/types';
 
 import { getallTagsWithTagGroup } from '#libs/tag/selectors';
-import PaymentPackFormDialog from '#libs/payment-packs/components/PaymentPackForm';
+import PaymentPackFormDrawer from '#libs/payment-packs/components/PaymentPackForm';
 import { getAllEstablishments } from '#libs/establishment/selectors';
 import {
   getActivitiesByIdList,
@@ -434,47 +434,43 @@ export class PaymentPackDetail extends Component<Props, State> {
           onClose={() => this.props.setOpenMassExtensionDialog(false)}
           onSubmit={this.createMassExtension}
         />
-        {this.state.openPaymentPackFormDialog && (
-          <PaymentPackFormDialog
-            open={this.state.openPaymentPackFormDialog}
-            categoryList={[...categoryList]
-              .filter(
-                (category) =>
-                  metaActivities.map((a) => a.SCT).indexOf(category.id) !== -1,
-              )
-              .concat(this.props.videoCategories)
-              .filter(
-                (value, index, arr) =>
-                  arr.findIndex((sct) => sct.id === value.id) === index,
-              )}
-            establishmentList={[...establishmentList]}
-            metaActivityList={[...metaActivities]}
-            tagList={allTagsWithTagGroup ? [...allTagsWithTagGroup] : []}
-            paymentPackCategories={paymentPackCategories}
-            closeDialog={() =>
-              this.setState({ openPaymentPackFormDialog: false })
-            }
-            onSubmit={this.props.createOrUpdatePaymentPack}
-            clearPaymentPackToEdit={() =>
-              this.setState({ paymentPackToEdit: null })
-            }
-            initial={{
-              ...this.state.paymentPackToEdit,
-              establishments: this.state.paymentPackToEdit?.establishments.map(
-                (establishment) => establishment.id,
-              ),
-              metaActivities: this.state.paymentPackToEdit?.metaActivities.map(
-                (metaActivitie) => metaActivitie.id,
-              ),
-              blacklist_tags: this.state.paymentPackToEdit?.blacklist_tags.map(
-                (tag) => tag.id,
-              ),
-              whitelist_tags: this.state.paymentPackToEdit?.whitelist_tags.map(
-                (tag) => tag.id,
-              ),
-            }}
-          />
-        )}
+        <PaymentPackFormDrawer
+          open={this.state.openPaymentPackFormDialog}
+          categoryList={[...categoryList]
+            .filter(
+              (category) =>
+                metaActivities.map((a) => a.SCT).indexOf(category.id) !== -1,
+            )
+            .concat(this.props.videoCategories)
+            .filter(
+              (value, index, arr) =>
+                arr.findIndex((sct) => sct.id === value.id) === index,
+            )}
+          establishmentList={[...establishmentList]}
+          metaActivityList={[...metaActivities]}
+          tagList={allTagsWithTagGroup ? [...allTagsWithTagGroup] : []}
+          paymentPackCategories={paymentPackCategories}
+          closeForm={() => this.setState({ openPaymentPackFormDialog: false })}
+          onSubmit={this.props.createOrUpdatePaymentPack}
+          clearPaymentPackToEdit={() =>
+            this.setState({ paymentPackToEdit: null })
+          }
+          initial={{
+            ...this.state.paymentPackToEdit,
+            establishments: this.state.paymentPackToEdit?.establishments.map(
+              (establishment) => establishment.id,
+            ),
+            metaActivities: this.state.paymentPackToEdit?.metaActivities.map(
+              (metaActivitie) => metaActivitie.id,
+            ),
+            blacklist_tags: this.state.paymentPackToEdit?.blacklist_tags.map(
+              (tag) => tag.id,
+            ),
+            whitelist_tags: this.state.paymentPackToEdit?.whitelist_tags.map(
+              (tag) => tag.id,
+            ),
+          }}
+        />
       </Grid>
     );
   }

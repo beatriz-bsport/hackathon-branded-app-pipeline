@@ -16,7 +16,7 @@ type Props = {
   activeCoupons: Array<Coupon>,
   inactiveCoupons: Array<Coupon>,
   goToCoupon: (id: number) => void,
-  goToEdit: (id: number) => void,
+  onEdit: (coupon: Coupon) => void,
   setCouponToDelete: (id: number) => void,
   t: TFunction,
 };
@@ -37,7 +37,7 @@ export const CouponList = (props: Props) => {
                 <CouponListItem
                   key={coupon.id}
                   onClick={() => goToCoupon(coupon.id)}
-                  onEdit={props.goToEdit}
+                  onEdit={props.onEdit}
                   onEditCoupon={() => goToCoupon(coupon.id)}
                   onDelete={props.setCouponToDelete}
                   coupon={coupon}
@@ -60,7 +60,7 @@ export const CouponList = (props: Props) => {
                 <CouponListItem
                   key={coupon.id}
                   onClick={() => props.goToCoupon(coupon.id)}
-                  onEdit={props.goToEdit}
+                  onEdit={props.onEdit}
                   onDelete={props.setCouponToDelete}
                   coupon={coupon}
                   divider

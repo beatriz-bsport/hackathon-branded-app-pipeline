@@ -53,6 +53,7 @@ exports.default = {
     },
   },
   form: {
+    title: 'Coupon',
     selectorPlaceholder: {
       privatePass:
         "Sélectionner des cartes de rendez-vous (valables sur toutes les cartes si aucune n'est sélectionnée)",

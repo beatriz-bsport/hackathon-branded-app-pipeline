@@ -28,7 +28,7 @@ import { fetchFilteredMembers as fetchFilteredMembersAction } from '../../../lib
 import PrivatePassTemplateInstanceDeleteDialog from '#libs/private-service/components/pass/PrivatePassTemplateInstanceDeleteDialog.component';
 import { navigateAsCompanyAdmin } from '../../../actions/auth.actions';
 import PaginatedConsumerPrivatePass from '#libs/private-service/components/pass/PaginatedConsumerPrivatePass.component';
-// import PrivateConsumerPassFilters from '#libs/private-service/components/pass/PrivateConsumerPassFilters.component';
+// / import PrivateConsumerPassFilters from '#libs/private-service/components/pass/PrivateConsumerPassFilters.component';
 
 import PrivatePassTemplateCard from '#libs/private-service/components/pass/PrivatePassTemplateCard.component';
 import PrivatePassTemplateInstanceFormDialog from '#libs/private-service/components/pass/PrivatePassTemplateInstanceFormDialog.component';

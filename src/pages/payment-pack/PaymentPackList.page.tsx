@@ -73,7 +73,7 @@ import PaymentPackFilterAndSortHeader, {
   ManagerOnly,
   SortOption,
 } from '../../libs/payment-packs/components/PaymentPackFilterAndSortHeader.component';
-import PaymentPackFormDialog from '../../libs/payment-packs/components/PaymentPackForm';
+import PaymentPackFormDrawer from '../../libs/payment-packs/components/PaymentPackForm';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { getallTagsWithTagGroup } from '#libs/tag/selectors';
 import { getAllEstablishments } from '#libs/establishment/selectors';
@@ -366,7 +366,7 @@ export class PaymentPackList extends React.Component<Props, State> {
             onCreate={this.onCreate}
             onCreateLabel={this.props.t('addButton')}
           />
-          <PaymentPackFormDialog
+          <PaymentPackFormDrawer
             open={this.state.openPaymentPackFormDialog}
             categoryList={[...categoryList]
               .filter(
@@ -382,8 +382,11 @@ export class PaymentPackList extends React.Component<Props, State> {
             metaActivityList={metaActivities}
             tagList={allTagsWithTagGroup}
             paymentPackCategories={paymentPackCategories}
-            closeDialog={() =>
-              this.setState({ openPaymentPackFormDialog: false })
+            closeForm={() =>
+              this.setState({
+                openPaymentPackFormDialog: false,
+                paymentPackToEdit: null,
+              })
             }
             onSubmit={this.props.createOrUpdatePaymentPack}
             clearPaymentPackToEdit={() =>
@@ -544,7 +547,7 @@ export class PaymentPackList extends React.Component<Props, State> {
               ) : null
             }
           />
-          <PaymentPackFormDialog
+          <PaymentPackFormDrawer
             open={this.state.openPaymentPackFormDialog}
             categoryList={[...categoryList]
               .filter(
@@ -560,8 +563,11 @@ export class PaymentPackList extends React.Component<Props, State> {
             metaActivityList={metaActivities}
             tagList={allTagsWithTagGroup}
             paymentPackCategories={paymentPackCategories}
-            closeDialog={() =>
-              this.setState({ openPaymentPackFormDialog: false })
+            closeForm={() =>
+              this.setState({
+                openPaymentPackFormDialog: false,
+                paymentPackToEdit: null,
+              })
             }
             onSubmit={this.props.createOrUpdatePaymentPack}
             clearPaymentPackToEdit={() =>

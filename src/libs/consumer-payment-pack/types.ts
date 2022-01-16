@@ -27,6 +27,7 @@ export type ConsumerPaymentPack<PP = number> = {
   track_modified_credit: number[][];
   penalty_disabled_from: string | null;
   penalty_disabled_until: string | null;
+  consumer_payment_pack_source: number;
 };
 
 export type MaxoutBookingData = {

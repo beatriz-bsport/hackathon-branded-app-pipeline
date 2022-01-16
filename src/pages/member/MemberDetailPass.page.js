@@ -386,8 +386,7 @@ export class MemberDetailPass extends Component<Props, State> {
               onInvoiceClick={this.props.goToInvoice}
               onCreateExtension={
                 this.props.selectedConsumerPass?.payment_pack &&
-                !this.props.selectedConsumerPass.payment_pack
-                  ?.template_instance &&
+                !this.props.selectedConsumerPass.consumer_payment_pack_source &&
                 (() => this.props.setOpenCreateExtension(true))
               }
               deleteExtension={(id) => {

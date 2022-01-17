@@ -8337,7 +8337,7 @@
                     "begin": "Starttijd",
                     "title": "Rooster-instellingen"
                 },
-                "coach_can_edit_attendance": "Instructeurs kunnen de aanwezigheid/afwezigheid in de mobiele app wijzigen."
+                "coach_can_edit_attendance": "Instructeurs kunnen de aanwezigheid/afwezigheid op de mobiele app wijzigen"
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",

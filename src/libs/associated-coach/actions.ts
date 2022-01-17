@@ -386,7 +386,7 @@ export const setCoachPaymentRuleGroupActions = {
 export function setCoachPaymentRuleGroup(
   coachId: number,
   coachPaymentRuleGroupId: number,
-  options: OptionCallback,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(upsert.isLoading(true));

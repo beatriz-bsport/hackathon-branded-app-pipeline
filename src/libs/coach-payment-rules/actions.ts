@@ -9,7 +9,7 @@ import {
   runSimulationAPI,
 } from './api';
 import type { Dispatch, OptionCallback } from '../../state/types';
-import type { CoachPaymentRule, CoachPaymentRuleGroup } from '../types';
+import type { CoachPaymentRule, CoachPaymentRuleGroup } from './types';
 import { snackbarError, snackbarSuccess } from '../snackbar/actions';
 import { postBaseAuth, putAuth, API_V1_URI, deleteAuth } from '../../http';
 
@@ -50,7 +50,10 @@ export const showGroupDialog = createAction(
   'COACH_PAYMENT_RULES_GROUP/DIALOG/IS_OPEN',
 );
 
-export function upsertCoachPaymentRule(rule: CoachPaymentRule, options = {}) {
+export function upsertCoachPaymentRule(
+  rule: CoachPaymentRule,
+  options?: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(coachPaymentRuleSetUpsert.isLoading(true));
     dispatch(coachPaymentRuleSetUpsert.error(null));
@@ -131,15 +134,20 @@ export const coachSessionPerformanceActions = {
 
 export function fetchCoachSessionPerformanceAction(
   params: {
-    associatedCoachId: number,
-    start_timestamp: number,
-    end_timestamp: number,
-    sessionId: ?number,
+    associatedCoachId: number;
+    start_timestamp: number;
+    end_timestamp: number;
+    sessionId?: number;
   },
   options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
-    dispatch(coachSessionPerformanceActions.isLoading(true));
+    dispatch(
+      coachSessionPerformanceActions.isLoading({
+        loading: true,
+        associatedCoachId: params.associatedCoachId,
+      }),
+    );
     dispatch(coachSessionPerformanceActions.error(null));
     try {
       const response = await fetchCoachSessionPerformance(params);
@@ -156,7 +164,12 @@ export function fetchCoachSessionPerformanceAction(
       dispatch(coachSessionPerformanceActions.error(error));
       if (options && options.onError) options.onError();
     }
-    dispatch(coachSessionPerformanceActions.isLoading(false));
+    dispatch(
+      coachSessionPerformanceActions.isLoading({
+        loading: false,
+        associatedCoachId: params.associatedCoachId,
+      }),
+    );
   };
 }
 
@@ -168,15 +181,20 @@ export const coachPrivateServicePerformanceActions = {
 
 export function fetchCoachPrivateServicePerformanceAction(
   params: {
-    associatedCoachId: number,
-    start_timestamp: number,
-    end_timestamp: number,
-    privateBookingId: number,
+    associatedCoachId: number;
+    start_timestamp: number;
+    end_timestamp: number;
+    privateBookingId?: number;
   },
   options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
-    dispatch(coachPrivateServicePerformanceActions.isLoading(true));
+    dispatch(
+      coachPrivateServicePerformanceActions.isLoading({
+        loading: true,
+        associatedCoachId: params.associatedCoachId,
+      }),
+    );
     dispatch(coachPrivateServicePerformanceActions.error(null));
     try {
       const response = await fetchCoachPrivateServicePerformance(params);
@@ -193,7 +211,12 @@ export function fetchCoachPrivateServicePerformanceAction(
       dispatch(coachPrivateServicePerformanceActions.error(error));
       if (options && options.onError) options.onError();
     }
-    dispatch(coachPrivateServicePerformanceActions.isLoading(false));
+    dispatch(
+      coachPrivateServicePerformanceActions.isLoading({
+        loading: false,
+        associatedCoachId: params.associatedCoachId,
+      }),
+    );
   };
 }
 export const sessionCoachPaymentRule = {
@@ -202,8 +225,16 @@ export const sessionCoachPaymentRule = {
   success: createAction('SESSIONS/COACH_PAYMENT_RULE/SUCCESS'),
 };
 export function setSessionCoachPaymentRule(
-  { associatedCoachId, sessionId, coachPaymentRuleId },
-  options: ?OptionCallback,
+  {
+    associatedCoachId,
+    sessionId,
+    coachPaymentRuleId,
+  }: {
+    associatedCoachId: number;
+    sessionId: number;
+    coachPaymentRuleId: number;
+  },
+  options?: OptionCallback<{ associatedCoachId: number; sessionId: number }>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(sessionCoachPaymentRule.isLoading(true));
@@ -239,8 +270,19 @@ export const setPrivateBookingCoachPaymentRuleActions = {
   success: createAction('PRIVATE_BOOKING/COACH_PAYMENT_RULE/SUCCESS'),
 };
 export function setPrivateBookingCoachPaymentRule(
-  { associatedCoachId, privateBookingId, coachPaymentRuleId },
-  options: ?OptionCallback,
+  {
+    associatedCoachId,
+    privateBookingId,
+    coachPaymentRuleId,
+  }: {
+    associatedCoachId: number;
+    privateBookingId: number;
+    coachPaymentRuleId: number;
+  },
+  options?: OptionCallback<{
+    associatedCoachId: number;
+    privateBookingId: number;
+  }>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(setPrivateBookingCoachPaymentRuleActions.isLoading(true));
@@ -301,7 +343,7 @@ export const upsertPaymentGroupActions = {
 };
 export function upsertCoachPaymentRuleGroup(
   group: CoachPaymentRuleGroup,
-  options = {},
+  options?: OptionCallback<CoachPaymentRule>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(upsertPaymentGroupActions.isLoading(true));

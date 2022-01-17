@@ -32,7 +32,7 @@ export const fetchCoachPrivateServicePerformance = async (params: {
   associatedCoachId: number;
   start_timestamp: number;
   end_timestamp: number;
-  privateBookingId: number;
+  privateBookingId?: number;
 }) => {
   return getAuth(
     `${API_V1_URI}/coach_payment_rules/get_coach_private_service_performance/${buildUrlParams(

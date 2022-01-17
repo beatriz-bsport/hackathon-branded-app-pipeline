@@ -60,14 +60,14 @@ export const getAssociatedCoachSessionPerformance = (
 ) =>
   state.coachPaymentRules.performance.session.byAssociatedCoachId[
     associatedCoachId
-  ];
+  ]?.data;
 export const getAssociatedCoachPrivateServicePerformance = (
   state: RootState,
   associatedCoachId: number,
 ) =>
   state.coachPaymentRules.performance.private_service.byAssociatedCoachId[
     associatedCoachId
-  ];
+  ]?.data;
 
 export const getAssociatedCoachPerformances = (
   state: RootState,
@@ -77,11 +77,11 @@ export const getAssociatedCoachPerformances = (
     [COACH_PERFORMANCE_FOR_SESSION]:
       state.coachPaymentRules.performance.session.byAssociatedCoachId[
         associatedCoachId
-      ],
+      ]?.data,
     [COACH_PERFORMANCE_FOR_APPOINTMENT]:
       state.coachPaymentRules.performance.private_service.byAssociatedCoachId[
         associatedCoachId
-      ],
+      ]?.data,
   };
 };
 
@@ -108,11 +108,19 @@ export const withCoachPerformance = memoize((selector: any) =>
             [COACH_PERFORMANCE_FOR_SESSION]:
               coachPerformance[COACH_PERFORMANCE_FOR_SESSION][
                 ass.associated_coach_id
-              ],
+              ]?.data,
             [COACH_PERFORMANCE_FOR_APPOINTMENT]:
               coachPerformance[COACH_PERFORMANCE_FOR_APPOINTMENT][
                 ass.associated_coach_id
-              ],
+              ]?.data,
+            performanceLoading:
+              coachPerformance[COACH_PERFORMANCE_FOR_SESSION][
+                ass.associated_coach_id
+              ]?.loading ||
+              coachPerformance[COACH_PERFORMANCE_FOR_APPOINTMENT][
+                ass.associated_coach_id
+              ]?.loading ||
+              false,
           },
         }));
       }

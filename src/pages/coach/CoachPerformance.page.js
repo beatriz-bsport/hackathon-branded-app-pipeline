@@ -35,7 +35,7 @@ import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions'
 import withTitle from '../../hocs/with-title.hoc';
 
 import CoachPerformanceForm from '../../libs/associated-coach/components/performance/CoachPerformanceForm.component';
-import CoachPerformanceSummary from '../../libs/associated-coach/components/performance/CoachPerformanceSummary.component';
+import CoachPerformanceSummaryHeader from '../../libs/associated-coach/components/performance/CoachPerformanceSummaryHeader.component';
 import CoachPerformanceTabs from '../../libs/associated-coach/components/performance/CoachPerformanceTabs.component';
 import { Coach } from '../../libs/associated-coach/types';
 import {
@@ -89,7 +89,7 @@ export class CoachPerformance extends React.Component<Props> {
             loading={loading || performanceLoading}
           />
         </AppBar>
-        <CoachPerformanceSummary performances={performances} />
+        <CoachPerformanceSummaryHeader performances={performances} />
         <Paper>
           {loading || performanceLoading ? <LinearProgress /> : null}
           <CoachPerformanceTabs

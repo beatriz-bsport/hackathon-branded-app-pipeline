@@ -111,7 +111,7 @@ export default handleActions(
       if (payload.sessionId) {
         const index = state.performance.session.byAssociatedCoachId[
           payload.associatedCoachId
-        ].findIndex(
+        ].data.findIndex(
           (sessionperf) => sessionperf.session_id === payload.sessionId,
         );
         return state.setIn(
@@ -120,6 +120,7 @@ export default handleActions(
             'session',
             'byAssociatedCoachId',
             payload.associatedCoachId,
+            'data',
             index,
           ],
           payload.data[0],
@@ -131,12 +132,27 @@ export default handleActions(
           'session',
           'byAssociatedCoachId',
           [payload.associatedCoachId],
+          'data',
         ],
         payload.data,
       );
     },
     [coachSessionPerformanceActions.isLoading]: (state, { payload }) => {
-      return state.setIn(['performance', 'loading'], payload);
+      if (!payload.associatedCoachId) {
+        return state.setIn(['performance', 'loading'], payload.loading);
+      }
+      return state
+        .setIn(['performance', 'loading'], payload.loading)
+        .setIn(
+          [
+            'performance',
+            'session',
+            'byAssociatedCoachId',
+            [payload.associatedCoachId],
+            'loading',
+          ],
+          payload.loading,
+        );
     },
     [coachSessionPerformanceActions.error]: (state, { payload }) => {
       return state.setIn(['performance', 'error'], payload);
@@ -145,7 +161,7 @@ export default handleActions(
       if (payload.privateBookingId) {
         const index = state.performance.private_service.byAssociatedCoachId[
           payload.associatedCoachId
-        ].findIndex(
+        ].data.findIndex(
           (privateperf) =>
             privateperf.private_booking_id === payload.privateBookingId,
         );
@@ -155,6 +171,7 @@ export default handleActions(
             'private_service',
             'byAssociatedCoachId',
             payload.associatedCoachId,
+            'data',
             index,
           ],
           payload.data[0],
@@ -166,12 +183,27 @@ export default handleActions(
           'private_service',
           'byAssociatedCoachId',
           [payload.associatedCoachId],
+          'data',
         ],
         payload.data,
       );
     },
     [coachPrivateServicePerformanceActions.isLoading]: (state, { payload }) => {
-      return state.setIn(['performance', 'loading'], payload);
+      if (!payload.associatedCoachId) {
+        return state.setIn(['performance', 'loading'], payload.loading);
+      }
+      return state
+        .setIn(['performance', 'loading'], payload.loading)
+        .setIn(
+          [
+            'performance',
+            'private_service',
+            'byAssociatedCoachId',
+            [payload.associatedCoachId],
+            'loading',
+          ],
+          payload.loading,
+        );
     },
     [coachPrivateServicePerformanceActions.error]: (state, { payload }) => {
       return state.setIn(['performance', 'error'], payload);
@@ -185,11 +217,10 @@ export default handleActions(
     [sessionCoachPaymentRule.success]: (state, { payload }) => {
       const index = state.performance.session.byAssociatedCoachId[
         payload.associatedCoachId
-      ].findIndex((s) => s.session_id === payload.sessionId);
+      ].data.findIndex((s) => s.session_id === payload.sessionId);
       const session =
-        state.performance.session.byAssociatedCoachId[
-          payload.associatedCoachId
-        ][index];
+        state.performance.session.byAssociatedCoachId[payload.associatedCoachId]
+          .data[index];
       const updatedSession = { ...session, ...payload.data };
       return state.setIn(
         [
@@ -197,6 +228,7 @@ export default handleActions(
           'session',
           'byAssociatedCoachId',
           payload.associatedCoachId,
+          'data',
           index,
         ],
         updatedSession,
@@ -217,11 +249,13 @@ export default handleActions(
     ) => {
       const index = state.performance.private_service.byAssociatedCoachId[
         payload.associatedCoachId
-      ].findIndex((s) => s.private_booking_id === payload.privateBookingId);
+      ].data.findIndex(
+        (s) => s.private_booking_id === payload.privateBookingId,
+      );
       const private_service =
         state.performance.private_service.byAssociatedCoachId[
           payload.associatedCoachId
-        ][index];
+        ].data[index];
       const updatedPrivateService = {
         ...private_service,
         ...payload.data,
@@ -232,6 +266,7 @@ export default handleActions(
           'private_service',
           'byAssociatedCoachId',
           payload.associatedCoachId,
+          'data',
           index,
         ],
         updatedPrivateService,

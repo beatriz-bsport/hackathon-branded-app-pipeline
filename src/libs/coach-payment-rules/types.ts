@@ -37,6 +37,7 @@ export type CoachPerformance = {
   base_remuneration: String;
   coach_bonus: string;
   tax_rate: String;
+  performanceLoading?: boolean;
 };
 
 export type CoachPaymentRuleGroupAPI = {
@@ -82,7 +83,19 @@ export type CoachPaymentRuleState = Immutable<{
   performance: {
     error?: Error;
     loading: boolean;
-    byAssociatedCoachId: { [id: number]: CoachPerformance };
+    session: {
+      byAssociatedCoachId: {
+        [id: number]: {
+          data: Array<CoachPerformance>;
+          loading: boolean;
+        };
+      };
+    };
+    private_service: {
+      byAssociatedCoachId: {
+        [id: number]: Array<CoachPerformance>;
+      };
+    };
   };
   groups: {
     allIds: Array<number>;

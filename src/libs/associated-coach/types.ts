@@ -34,6 +34,7 @@ export type CoachPerformance = {
   price_coach: number;
   payment_rule_id?: number;
   id: number;
+  performanceLoading?: boolean;
 };
 
 export type CoachPerformanceContainer = {

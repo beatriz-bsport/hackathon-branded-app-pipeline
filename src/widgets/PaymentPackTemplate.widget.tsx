@@ -25,10 +25,14 @@ type OwnProps = {
 type Props = OwnProps & WithStyles<typeof styles>;
 
 export class PaymentPackTemplate extends Component<Props> {
-  goToFranchiseSelection = (paymentPackTemplateId: number) => {
+  goToFranchiseSelection = (
+    paymentPackTemplateId: number,
+    companies: Array<number>,
+  ) => {
     const url = buildFranchiseSelectionThenCheckoutUrl(
       this.props.franchiseId,
       paymentPackTemplateId,
+      companies,
     );
 
     url && this.props.onWindowOpen(url);

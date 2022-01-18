@@ -1542,7 +1542,7 @@
             },
             "shop": {
                 "item": {
-                    "tva": "VAT",
+                    "tva": "VAT / Sales tax",
                     "price": "Price",
                     "name": "Name",
                     "provisions": "Stock",
@@ -1753,7 +1753,7 @@
                 "edit": "Click here to add an image.",
                 "new": "Click here to add an image."
             },
-            "tax": "VAT",
+            "tax": "VAT / Sales tax",
             "generate": "Generate",
             "export": "Export",
             "minuteSmall": "min",
@@ -2314,7 +2314,7 @@
                 "label": "Price"
             },
             "tax": {
-                "label": "VAT"
+                "label": "VAT / Sales tax"
             },
             "manager_only": {
                 "label": "Unavailable for purchase"
@@ -2898,7 +2898,7 @@
                     "helperText": "This is the selling price for members."
                 },
                 "tax": {
-                    "label": "VAT"
+                    "label": "VAT / Sales tax"
                 },
                 "actions": {
                     "submit": "Save",
@@ -6687,7 +6687,7 @@
             "payment_price": "Price",
             "payment_method_readable_identifier": "Payment method",
             "address": "Address",
-            "tax": "VAT",
+            "tax": "VAT / Sales tax",
             "voucher": "Promotion",
             "total_price": "Price (incl. VAT)",
             "total_price_notax": "Price (excl. VAT)",
@@ -7130,7 +7130,7 @@
                 "onsitePaymentAvailable": "Enable in-studio payments",
                 "managerOnly": "Unavailable for purchase",
                 "tax": {
-                    "label": "VAT"
+                    "label": "VAT / Sales tax"
                 },
                 "startOnFirstUse": "Pass starting date start from first billing",
                 "name": {

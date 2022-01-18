@@ -31,7 +31,7 @@ type Props = {
 } & WithSegmentAnalyticsFormTrackerHandlers &
   FormikProps<PaymentCombo>;
 
-export function PaymentComboFormDialog(props: Props) {
+export function PaymentComboFormDrawer(props: Props) {
   const { open, handleClose, isSubmitting } = props;
   const classes = useStyles();
   const { t } = useTranslation('paymentCombo');
@@ -83,6 +83,7 @@ export function PaymentComboFormDialog(props: Props) {
 const useStyles = makeStyles((theme) => ({
   content: {
     minWidth: '30vw',
+    paddingTop: theme.spacing(4),
     paddingLeft: theme.spacing(4),
     paddingRight: theme.spacing(4),
     paddingBottom: theme.spacing(4),
@@ -95,4 +96,4 @@ export default compose<any, Props>(
       SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PAYMENT_COMBO,
   }),
   PaymentComboFormHoc,
-)(PaymentComboFormDialog);
+)(PaymentComboFormDrawer);

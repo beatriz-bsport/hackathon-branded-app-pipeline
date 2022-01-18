@@ -31,6 +31,7 @@ const GiftcardFormDrawer = (props: Props) => {
     <GenericResponsiveDrawer
       open={props.open}
       title={t('form.giftcard.title')}
+      subtitle={props.initial?.name}
       onClose={() => {
         props.onClose();
         props.formCancel &&

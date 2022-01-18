@@ -46,6 +46,7 @@ export default compose<any, OwnProps>()(CouponFormDrawer);
 
 const useStyles = makeStyles((theme) => ({
   content: {
+    paddingTop: theme.spacing(4),
     paddingLeft: theme.spacing(4),
     paddingRight: theme.spacing(4),
     paddingBottom: '30vh',

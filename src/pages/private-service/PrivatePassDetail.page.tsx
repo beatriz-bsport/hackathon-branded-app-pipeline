@@ -367,10 +367,9 @@ export class PrivatePassDetails extends Component<Props> {
         <GenericResponsiveDrawer
           open={this.props.openEditForm}
           onClose={() => this.props.setOpenEditForm(false)}
+          title={this.props.t('privatePass.form.title')}
+          subtitle={this.props.privatePass?.name}
         >
-          <Typography variant="h4" className={classes.formTitle}>
-            {this.props.t('privatePass.form.title')}
-          </Typography>
           <PrivatePassForm
             privatePassCategories={this.props.privatePassCategories}
             initial={getFormInitial(

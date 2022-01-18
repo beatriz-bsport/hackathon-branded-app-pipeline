@@ -313,6 +313,7 @@ export const SubscriptionContractFormHoc = withFormik({
       object_type: OBJECT_TYPE_PAYMENT_PACK,
     };
   },
+  enableReinitialize: true,
   validationSchema: SubscriptionContractFieldsSchema,
   handleSubmit: (
     values,

@@ -306,10 +306,8 @@ export class PrivatePassList extends React.Component<Props, State> {
           <GenericResponsiveDrawer
             open={this.props.openCreateForm}
             onClose={() => this.props.closePrivatePassForm()}
+            title={this.props.t('privatePass.form.title')}
           >
-            <Typography variant="h4" className={classes.formTitle}>
-              {this.props.t('privatePass.form.title')}
-            </Typography>
             <PrivatePassForm
               privatePassCategories={this.props.privatePassCategories}
               onSubmit={this.props.createOrUpdatePrivatePass}
@@ -462,10 +460,9 @@ export class PrivatePassList extends React.Component<Props, State> {
               !this.props.compatibleServicePassLoading
             }
             onClose={() => this.props.closePrivatePassForm()}
+            title={this.props.t('privatePass.form.title')}
+            subtitle={this.props.selectedPrivatePass?.name}
           >
-            <Typography variant="h4" className={classes.formTitle}>
-              {this.props.t('privatePass.form.title')}
-            </Typography>
             <PrivatePassForm
               privatePassCategories={this.props.privatePassCategories}
               onSubmit={this.props.createOrUpdatePrivatePass}

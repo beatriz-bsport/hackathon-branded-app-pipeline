@@ -367,7 +367,7 @@ export class ShopItemForm extends Component<Props, State> {
               />
             </Grid>
           </div>
-          <div className={classes.description}>
+          <div className={classes.barcode}>
             <TextField
               fullWidth
               variant="outlined"
@@ -451,6 +451,14 @@ const styles = (theme) => ({
     display: 'flex',
     alignItems: 'center',
     marginTop: theme.spacing(2),
+  },
+  barcode: {
+    display: 'flex',
+    alignItems: 'center',
+    paddingTop: theme.spacing(2),
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
   },
   header: {
     paddingLeft: theme.spacing(3),

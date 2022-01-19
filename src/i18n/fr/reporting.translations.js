@@ -48,6 +48,7 @@ exports.default = {
     video_purchase: 'Achat vidéo',
     giftcard: 'Carte cadeau',
     consumer_giftcard: 'Cartes cadeaux achetées',
+    payment_installments: 'Paiements en plusieurs fois',
   },
   header: {
     sum: 'Somme',
@@ -260,6 +261,7 @@ exports.default = {
     is_rent: 'Location',
     date_bought: "Date d'achat",
     date_expiration: "Date d'expiration",
+    due_date: "Date d'échéance",
   },
   yes: 'Oui',
   no: 'Non',
@@ -269,6 +271,7 @@ exports.default = {
     check: 'Chèque',
     dispute: 'Litige',
     stripe: 'CB',
+    credit_card: 'CB',
     manual_credit_card: 'CB (manuel)',
     holiday_check: 'Chèque vacance',
     amex: 'Amex',

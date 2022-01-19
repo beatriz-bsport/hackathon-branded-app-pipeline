@@ -103,38 +103,55 @@ type AttendanceButtonProps = {
   t: TFunction,
   classes: Object,
   discardBookingAttendance: () => void,
+  attendance_date_updated: string | null,
   confirmBookingAttendance: () => void,
   variant: ?string,
   attendance: boolean,
 };
 
 const AttendanceButton = (props: AttendanceButtonProps) => {
+  const Wrapper = props.attendance_date_updated
+    ? (props_) => (
+        <Tooltip
+          title={props.t('attendanceUpdatedOn', {
+            d: moment(props.attendance_date_updated).format('LL'),
+            t: moment(props.attendance_date_updated).format('LT'),
+          })}
+        >
+          {props_.children}
+        </Tooltip>
+      )
+    : (props_) => <>{props_.children}</>;
   if (props.attendance) {
     return (
-      <Button
-        color="primary"
-        variant={props.variant}
-        onClick={(e) => {
-          e.stopPropagation();
-          props.discardBookingAttendance(e);
-        }}
-      >
-        {props.t('attend')}
-        <CachedIcon className={props.classes.iconButton} />
-      </Button>
+      <Wrapper>
+        <Button
+          color="primary"
+          variant={props.variant}
+          onClick={(e) => {
+            e.stopPropagation();
+            props.discardBookingAttendance(e);
+          }}
+        >
+          {props.t('attend')}
+          <CachedIcon className={props.classes.iconButton} />
+        </Button>
+      </Wrapper>
     );
   }
   return (
-    <RedButton
-      variant={props.variant}
-      onClick={(e) => {
-        e.stopPropagation();
-        props.confirmBookingAttendance(e);
-      }}
-    >
-      {props.t('doNotAttend')}
-      <CachedIcon className={props.classes.iconButton} />
-    </RedButton>
+    <Wrapper>
+      <RedButton
+        variant={props.variant}
+        onClick={(e) => {
+          e.stopPropagation();
+          props.confirmBookingAttendance(e);
+        }}
+      >
+        {props.t('doNotAttend')}
+        <CachedIcon className={props.classes.iconButton} />
+      </RedButton>
+    </Wrapper>
   );
 };
 
@@ -332,6 +349,7 @@ export class BookingItemForManager extends Component<Props, State> {
             booking.booking_status_code === BOOKING_STATUS_OK.id ? (
               <AttendanceButton
                 attendance={booking.attendance}
+                attendance_date_updated={booking.attendance_date_updated}
                 variant="outlined"
                 t={t}
                 classes={classes}

@@ -49,6 +49,7 @@
     }
   },
   "booking": {
+    "attendanceUpdatedOn": "Mis à jour le {{- d }} à {{- t }}",
     "actions": { "bill": "Facturer", "unregister": "Désinscrire" },
     "performanceTracking": { "stat": "Statistiques" },
     "recurrenceRule": {

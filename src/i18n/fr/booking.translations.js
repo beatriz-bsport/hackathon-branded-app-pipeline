@@ -14,6 +14,7 @@ const {
 const ERROR_CODES = require('@bsport/common/lib/master-data/buyable-item-can-not-be-bought');
 
 exports.default = {
+  attendanceUpdatedOn: 'Mis à jour le {{- d }} à {{- t }}',
   actions: {
     bill: 'Facturer',
     unregister: 'Désinscrire',

@@ -5,94 +5,61 @@ import React from 'react';
 import { withState, compose } from 'recompose';
 
 import Dialog from '@material-ui/core/Dialog';
-import VisibilityIcon from '@material-ui/icons/Visibility';
 import Divider from '@material-ui/core/Divider';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import Collapse from '@material-ui/core/Collapse';
-import Paper from '@material-ui/core/Paper';
-import List from '@material-ui/core/List';
+import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
 import IconButton from '@material-ui/core/IconButton';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import Typography from '@material-ui/core/Typography';
 
 import { withTranslation, TFunction } from 'react-i18next';
 
 import type { SubShop, ShopItem } from '../../shop/types';
 import ShopItemCard from '../../shop/components/ShopItemCard.component';
-import ShopItemListItem from '../../shop/components/ShopItemListItem.component';
-import Analytics from '../../../components/analytics/Analytics.component';
+import ShopItemListCard from '../../shop/components/ShopItemListCard.component';
 
 const SubShopComponent = (props: {
   subshop: SubShop,
   addToOrder: (id: number) => void,
   expanded: boolean,
-  toogleExpanded: () => void,
-  selectShopItem: (s: ShopItem) => void,
+  toggleExpanded: () => void,
+  selectShopItem: (s: ShopItemType) => void,
 }) => {
   return (
     <div
       style={{
         marginTop: 24,
+        marginBottom: 60,
       }}
     >
       <div
         style={{
           display: 'flex',
           justifyContent: 'space-between',
+          marginBottom: 8,
         }}
       >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        >
-          <Typography inline variant="h5" component="h2">
-            {`${props.subshop.name}`}
-          </Typography>
-          <Typography inline variant="body1" style={{ marginLeft: 8 }}>
-            {`(${props.subshop.shopItems.length})`}
-          </Typography>
-        </div>
-        <IconButton onClick={props.toogleExpanded}>
+        <Typography inline variant="h5">
+          {`${props.subshop.name} (${props.subshop.shopItems.length})`}
+        </Typography>
+        <IconButton onClick={props.toggleExpanded}>
           {props.expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
         </IconButton>
       </div>
       <Collapse in={props.expanded}>
-        <Paper>
-          <List disablePadding dense>
-            {props.subshop.shopItems.map((si) => (
-              <ShopItemListItem
+        <Grid alignItems="stretch" spacing={4} container direction="row">
+          {props.subshop.shopItems.map((si) => (
+            <Grid key={si.id} item xs={12} sm={6} md={4} lg={3} xl={2}>
+              <ShopItemListCard
                 shopitem={si}
-                key={si.id}
                 onClick={() => props.selectShopItem(si)}
-                additionalActions={
-                  <React.Fragment>
-                    <IconButton disableRipple style={{ marginRight: 32 }}>
-                      <VisibilityIcon />
-                    </IconButton>
-                    <ListItemSecondaryAction>
-                      <IconButton
-                        color="primary"
-                        onClick={(ev) => {
-                          ev.stopPropagation();
-                          props.addToOrder(si.id);
-                          Analytics.addShopItemToCart(si);
-                        }}
-                      >
-                        <AddShoppingCartIcon />
-                      </IconButton>
-                    </ListItemSecondaryAction>
-                  </React.Fragment>
-                }
+                addToOrder={props.addToOrder}
               />
-            ))}
-          </List>
-        </Paper>
+            </Grid>
+          ))}
+        </Grid>
       </Collapse>
       {props.expanded ? null : <Divider />}
     </div>
@@ -136,7 +103,7 @@ export function MarketplaceShop(props: Props) {
               key={sub.id}
               subshop={sub}
               expanded={!props.notExpandedSubshop.includes(sub.id)}
-              toogleExpanded={() => {
+              toggleExpanded={() => {
                 if (props.notExpandedSubshop.includes(sub.id)) {
                   props.setNotExpandedSubshop(
                     props.notExpandedSubshop.filter((id) => id !== sub.id),
@@ -185,19 +152,15 @@ const styles = (theme) => ({
     width: '80%',
     position: 'fixed',
   },
-  shopitemCardContainer: {
-    right: 0,
-    width: '50%',
-    padding: theme.spacing(4),
-  },
-  subheader: {
-    backgroundColor: theme.palette.background.default,
-  },
   subShopListContainer: {
     left: 0,
     width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '50%',
+    paddingLeft: theme.spacing(10),
+    paddingRight: theme.spacing(10),
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(5),
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(2),
     },
   },
   emptyText: {

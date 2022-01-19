@@ -6,15 +6,15 @@ import { withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 
 import { BUYABLE_ITEM_SHOP_ITEM } from '@bsport/common/lib/master-data/buyable-items';
-import MarketplaceShopComponent from '../../libs/marketplace/components/MarketplaceShop.component';
+import MarketplaceShopComponent from '#libs/marketplace/components/MarketplaceShop.component';
 
-import { fetchAllSubShop } from '../../libs/shop/actions/subshop';
-import { fetchShopItemAsConsumer } from '../../libs/shop/actions/shopitem';
-import { addItemToBasket } from '../../libs/checkout/actions';
-import { getCurrentBasket } from '../../libs/checkout/selectors';
-import shopSelectors from '../../libs/shop/selectors';
+import { fetchAllSubShop } from '#libs/shop/actions/subshop';
+import { fetchShopItemAsConsumer } from '#libs/shop/actions/shopitem';
+import { addItemToBasket } from '#libs/checkout/actions';
+import { getCurrentBasket } from '#libs/checkout/selectors';
+import shopSelectors from '#libs/shop/selectors';
 
-import withTitle from '../../hocs/with-title.hoc';
+import withTitle from '#hocs/with-title.hoc';
 import { RootState } from '../../reducers';
 
 type OwnProps = {
@@ -67,7 +67,7 @@ const mapStateToProps = (
 const mapDispatchToProps = {
   fetchShopItems: fetchShopItemAsConsumer,
   fetchSubShops: fetchAllSubShop,
-  addItemToBasket: (shopItemId: number, basketId: number) =>
+  addItemToBasket: (shopItemId: number, basketId: string) =>
     addItemToBasket(basketId, {
       buyable_item_identifier: BUYABLE_ITEM_SHOP_ITEM,
       quantity: 1,

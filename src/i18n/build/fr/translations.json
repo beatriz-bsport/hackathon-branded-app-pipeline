@@ -5605,7 +5605,7 @@
       "applyGiftcard": {
         "success": "Paiement par carte cadeau validé",
         "error": "Impossible de payer le montant demandé avec cette carte cadeau",
-        "errors": { "12103": "Impossible de régler cette facture avec cette carte cadeau" }
+        "errors": { "undefined": "Impossible de régler cette facture avec cette carte cadeau" }
       }
     },
     "zoom": { "created": { "success": "Compte Zoom lié avec succès", "error": "Erreur lors du lien du compte Zoom" } },

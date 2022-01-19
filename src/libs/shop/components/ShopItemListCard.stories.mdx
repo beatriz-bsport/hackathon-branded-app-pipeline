@@ -1,0 +1,36 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import ShopItemListCard from './ShopItemListCard.component';
+import { action } from '@storybook/addon-actions';
+
+<Meta title="Library/Shop/Shop-Item-List-Card" component={ShopItemListCard} />
+
+export const Template = (args) => <ShopItemListCard {...args} />;
+const shopitem = {
+  number: 1,
+  name: 'Yoga mat',
+  subtitle: 'Yoga and Pilates',
+  description: 'Confortable yoga mat',
+  tva: 20,
+  price: 39,
+  cover:
+    'https://media.istockphoto.com/photos/close-up-of-female-hands-folding-blue-exercise-mat-on-wooden-floor-picture-id1317688319?s=612x612',
+  company: 1,
+  unlimited_provisions: false,
+  subshop: 1,
+  marketplace_enabled: true,
+  is_deliverable: true,
+  onsite_payment_available: true,
+};
+
+<Canvas>
+  <Story
+    name="recurrency-selector"
+    args={{
+      shopitem: shopitem,
+      onClick: action('click-on-see-more'),
+      addToOrder: action('add-to-basket'),
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

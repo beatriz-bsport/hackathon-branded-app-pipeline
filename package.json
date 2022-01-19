@@ -146,7 +146,7 @@
     "format": "find src -name \"*.js\" | xargs yarn prettier --write",
     "start": "yarn updateTranslation && cp envs/local public/env.js && node scripts/start.js",
     "start-staging": "yarn updateTranslation && cp envs/staging-api-only public/env.js && node scripts/start.js",
-    "build": "node --max_old_space_size=3072 scripts/build.js",
+    "build": "node --max_old_space_size=2700 scripts/build.js",
     "server:build": "webpack -p --progress",
     "test": "yarn jest",
     "compile": "npx tsc -p .",

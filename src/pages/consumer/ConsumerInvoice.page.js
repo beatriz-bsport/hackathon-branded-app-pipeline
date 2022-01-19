@@ -26,14 +26,17 @@ import type { Membership } from '../../libs/membership/types';
 import ConsumerDebtRegularizerDialog from '../../libs/consumer-space/components/ConsumerDebtRegularizerDialog.component';
 
 import { fetchPaymentMethodList } from '../../libs/payment/actions';
-import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
+import { snackbarSuccess, snackbarWarning } from '../../libs/snackbar/actions';
+import { OptionCallback } from '../../state/types';
+import { getMember } from '../../libs/member/selectors';
+import { Member } from '../../libs/member/types';
 
 type Props = {
   classes: Object,
   finalizeInvoice: (uuid: string) => void,
   membership: Membership,
-  submitPayment: (paymentData: any, options: OptionCallback) => void,
   companyTheme: ?CompanyTheme,
+  member: Member,
 
   count: number,
   invoiceList: Array<Invoice>,
@@ -41,12 +44,18 @@ type Props = {
   fetchInvoiceList: (params: any, options: OptionCallback) => void,
 
   fetchPaymentMethodList: (params: any) => void,
-  savedPaymentMethodList: Array<PaymentMethod>,
 
   fetchPaymentList: (params: any) => void,
   fetchInvoiceItemList: (params: any) => void,
   nestedDataLoading: boolean,
   page: number,
+
+  snackbarErrorMsg: () => void,
+  snackbarSuccessMsg: () => void,
+  payment_method_available_basket: Array<number>,
+  detachPaymentMethodLoading: boolean,
+  detachPaymentMethod: (pm_id: string, options?: OptionCallback) => void,
+  fetchMembership: (memberId: number, options?: OptionCallback) => void,
 };
 
 export class ConsumerInvoice extends React.Component<Props> {
@@ -70,12 +79,22 @@ export class ConsumerInvoice extends React.Component<Props> {
     return (
       <div className={this.props.classes.table}>
         {this.props.companyTheme &&
-          this.props.companyTheme.consumer_regularize_debt && (
+          this.props.companyTheme.consumer_regularize_debt &&
+          parseFloat(this.props.membership.credit_account_balance).toFixed(2) <
+            0 && (
             <ConsumerDebtRegularizerDialog
               withButton
-              member={this.props.membership}
-              submitPayment={this.props.submitPayment}
-              savedPaymentMethodList={this.props.savedPaymentMethodList}
+              member={this.props.member}
+              availablePaymentMethodList={
+                this.props.payment_method_available_basket
+              }
+              detachPaymentMethodLoading={this.props.detachPaymentMethodLoading}
+              detachPaymentMethod={this.props.detachPaymentMethod}
+              fetchMembership={() =>
+                this.props.fetchMembership(this.props.membership.id)
+              }
+              snackbarErrorMsg={this.props.snackbarErrorMsg}
+              snackbarSuccessMsg={this.props.snackbarSuccessMsg}
             />
           )}
 
@@ -105,15 +124,21 @@ const styles = (theme) => ({
 export default compose(
   withStyles(styles),
   connect(
-    (state) => ({
+    (state, props) => ({
       invoiceList: withInvoiceItem(withPayment(getInvoiceList))(state),
       count: state.invoice.list.count,
       loading: state.invoice.list.loading,
       companyTheme: themeSelectors.getTheme(state),
-      savedPaymentMethodList: getSavedPaymentMethodList(state),
       page: state.invoice.list.page,
       nestedDataLoading:
         state.invoice.invoiceItem.loading || state.invoice.payment.loading,
+      snackbarErrorMsg: snackbarWarning,
+      snackbarSuccessMsg: snackbarSuccess,
+      payment_method_available_basket:
+        state.theme.theme.payment_method_available_basket,
+      detachPaymentMethodLoading:
+        state.paymentBackend.detachPaymentMethod.loading,
+      member: getMember(state, props.membership.id),
     }),
     {
       finalizeInvoice: finalizeInvoiceAction,
@@ -146,25 +171,29 @@ export default compose(
           member: membership.id,
         });
       },
-    submitPayment:
-      ({ regularizeDebt, membership, fetchMembership }) =>
-      (data, options) => {
-        regularizeDebt(membership.id, data, {
-          onSuccess: (response) => {
-            if (options && options.onSuccess) {
-              options.onSuccess(response);
-            }
-            fetchMembership(membership.id, {
-              onSuccess: () => window.location.reload(),
-            });
+    detachPaymentMethod: (props: Props) => (pm_id: string, options: any) => {
+      const {
+        detachPaymentMethodAction,
+        fetchMemberPaymentMethod,
+        snackbarErrorMsg,
+        snackbarSuccessMsg,
+        membership,
+        t,
+      } = props;
+
+      detachPaymentMethodAction(
+        { member: membership.id, payment_method_id: pm_id },
+        {
+          onSuccess: () => {
+            fetchMemberPaymentMethod({ member: membership.id });
+            snackbarSuccessMsg(t('invoice:paymentMethod.detach.pm_deleted'));
+            if (options && options.onSuccess) options.onSuccess();
           },
-          onError: (err) => {
-            console.error(err);
-            if (options && options.onError) {
-              options.onError(err);
-            }
+          onError: (data: any) => {
+            snackbarErrorMsg(t(`invoice:paymentMethod.detach.${data}`));
           },
-        });
-      },
+        },
+      );
+    },
   }),
 )(ConsumerInvoice);

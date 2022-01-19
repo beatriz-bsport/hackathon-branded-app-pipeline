@@ -30,6 +30,8 @@ import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { OptionCallback } from '../../../state/types';
 
 import { getPaymentLink } from '../../consumer-space/utils';
+import type { ConsumerGiftcard, Giftcard } from '#libs/giftcard/types';
+import UseConsumerGiftcardForm from '#libs/payment/components/UseConsumerGiftcardForm.component';
 
 const InvoicePaymentStatus = (props: {
   amountToPayCts: number;
@@ -80,11 +82,18 @@ const PaymentActions: FC<{
   onInstalmentPayment: () => void;
   paymentList: Array<Payment>;
   invoice: Invoice;
-  consumeBalance?: (OptionCallback) => void;
+  consumeBalance?: (options?: OptionCallback) => void;
   onRevert: () => void;
   accountBalanceLoading: boolean;
   companyId: number;
-  snackbarSuccess: (string) => void;
+  snackbarSuccess: (msg: string) => void;
+  consumerGiftcardList: Array<ConsumerGiftcard<Giftcard>>;
+  applyGiftcardOnInvoice: (
+    invoiceUuid: string,
+    consumergiftCardId: number,
+    amount: number,
+    options?: OptionCallback,
+  ) => void;
 }> = (props) => {
   const classes = useStyles();
   const { t } = useTranslation(['invoice']);
@@ -193,6 +202,17 @@ const PaymentActions: FC<{
               )}
           </div>
           <div className={classes.buttonRow}>
+            <UseConsumerGiftcardForm
+              invoice={props.invoice}
+              applyGiftcardOnInvoice={props.applyGiftcardOnInvoice}
+              consumerGiftcardList={props.consumerGiftcardList}
+              loading={props.loading}
+              disabled={
+                !props.invoice.member ||
+                props.amountToPayCts === 0 ||
+                processing
+              }
+            />
             {props.invoice.invoice_type === INVOICE_TYPE_REGULAR &&
               !props.invoice.plannedinvoice && (
                 <Button
@@ -218,7 +238,7 @@ const PaymentActions: FC<{
 type Props = {
   paymentList: Array<Payment>;
   plannedPaymentEventList: Array<PlannedPaymentEvent>;
-  consumeBalance: (OptionCallback) => void;
+  consumeBalance: (options?: OptionCallback) => void;
   accountBalance?: boolean;
   accountBalanceLoading: boolean;
   handleChangeMethod: (
@@ -228,10 +248,8 @@ type Props = {
   ) => void;
   invoice: Invoice;
   paymentLoading: boolean;
-  paymentList: Array<Payment>;
   onRevert: () => void;
   onPaymentIntent: () => void;
-  plannedPaymentEventList: Array<PlannedPaymentEvent>;
   plannedPaymentEventLoading: boolean;
   plannedPaymentEventActions?: {
     onRegisterNow?: (id: number) => void;
@@ -240,7 +258,14 @@ type Props = {
     onEdit?: (id: number) => void;
   };
   companyId: number;
-  snackbarSuccess: (string) => void;
+  snackbarSuccess: (msg: string) => void;
+  consumerGiftcardList: Array<ConsumerGiftcard<Giftcard>>;
+  applyGiftcardOnInvoice: (
+    invoiceUuid: string,
+    consumergiftCardId: number,
+    amount: number,
+    options?: OptionCallback,
+  ) => void;
 };
 
 export const InvoicePaymentPanel: FC<Props> = (props) => {
@@ -395,6 +420,8 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
           loading={!props.accountBalance && props.accountBalance !== 0}
           companyId={props.companyId}
           snackbarSuccess={props.snackbarSuccess}
+          consumerGiftcardList={props.consumerGiftcardList}
+          applyGiftcardOnInvoice={props.applyGiftcardOnInvoice}
         />
       )}
     </div>

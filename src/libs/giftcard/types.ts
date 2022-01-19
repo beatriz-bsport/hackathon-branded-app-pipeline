@@ -35,11 +35,15 @@ export type GiftcardBackgroundImage = {
   image: string; // url
 };
 
-export type ConsumerGiftcard = ConsumerGiftcardPersonnalizationElements & {
+export type ConsumerGiftcard<
+  G = number,
+  SRCM = number,
+  DSTM = number,
+> = ConsumerGiftcardPersonnalizationElements & {
   id: number;
-  src_member: number;
-  dst_member: number | null;
-  giftcard: number;
+  src_member: SRCM;
+  dst_member: DSTM | null;
+  giftcard: G;
   date_created: string;
   date_activated: string | null;
   active: boolean;

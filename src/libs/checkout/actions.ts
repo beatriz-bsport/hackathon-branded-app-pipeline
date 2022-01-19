@@ -15,6 +15,7 @@ import {
   fetchBasketGeneratedObjects as fetchBasketGeneratedObjectsAPI,
   fetchBasket as fetchBasketAPI,
   fetchBasketHistoryList as fetchBasketHistoryListAPI,
+  createOrRefreshInternalAccountPrepaidLine as createOrRefreshInternalAccountPrepaidLineAPI,
 } from './api';
 import { getCurrentBasket } from './selectors';
 import { snackbarError } from '../snackbar/actions';
@@ -54,6 +55,39 @@ export function fetchCurrentBasket(
   };
 }
 
+export const createOrRefreshInternalAccountPrepaidLineActions = {
+  error: createAction('CHECKOUT_BASKET/CREATE_PREPAID_LINE/ERROR'),
+  isLoading: createAction('CHECKOUT_BASKET/CREATE_PREPAID_LINE/IS_LOADING'),
+  success: createAction('CHECKOUT_BASKET/CREATE_PREPAID_LINE/SUCCESS'),
+};
+export function createOrRefreshInternalAccountPrepaidLine(
+  basket_uuid: string,
+  amount: number,
+  options?: OptionCallback<Basket>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(createOrRefreshInternalAccountPrepaidLineActions.isLoading(true));
+    dispatch(createOrRefreshInternalAccountPrepaidLineActions.error(null));
+
+    try {
+      const response = await createOrRefreshInternalAccountPrepaidLineAPI(
+        basket_uuid,
+        amount,
+      );
+      dispatch(
+        createOrRefreshInternalAccountPrepaidLineActions.success(response.data),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      dispatch(createOrRefreshInternalAccountPrepaidLineActions.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(createOrRefreshInternalAccountPrepaidLineActions.isLoading(false));
+  };
+}
+
 export const retrieveBasket = {
   error: createAction('CHECKOUT_BASKET/RETRIEVE/ERROR'),
   isLoading: createAction('CHECKOUT_BASKET/RETRIEVE/IS_LOADING'),
@@ -62,7 +96,7 @@ export const retrieveBasket = {
 
 export function fetchBasket(
   basketId: string,
-  options: OptionCallback,
+  options?: OptionCallback<Basket<number>>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveBasket.isLoading(true));

@@ -16,6 +16,7 @@ import {
   resetQuickInvoices,
   fetchSpecificInvoice as fetchInvoice,
   fetchInvoiceList as fetchInvoiceListAction,
+  applyGiftcardOnInvoice as applyGiftcardOnInvoiceAction,
 } from '#libs/invoice/actions';
 import {
   fetchOfferById as fetchOfferByIdAction,
@@ -127,6 +128,17 @@ import {
 import { showVaccinationStatus } from '../../libs/custom-form/selectors';
 import { fetchVideoPurchase } from '../../libs/video/actions';
 import { getProgramList } from '#libs/performance-tracking/selector';
+import {
+  fetchConsumerGiftcardList as fetchConsumerGiftcardListAction,
+  fetchGiftcardBulk as fetchGiftcardBulkAction,
+} from '#libs/giftcard/actions';
+import {
+  getConsumerGiftcardList,
+  withGiftcard,
+  withSender,
+  withReceiver,
+  onlyUsable,
+} from '#libs/giftcard/selectors';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
@@ -204,6 +216,9 @@ export default compose(
         state.performanceTracking.memberProgram.loading ||
         state.performanceTracking.metricList.loading ||
         state.performanceTracking.program.loading,
+      consumerGiftcardList: withSender(
+        withReceiver(onlyUsable(withGiftcard(getConsumerGiftcardList))),
+      )(state),
     }),
     {
       fetchOffer: fetchOfferByIdAction,
@@ -213,8 +228,6 @@ export default compose(
       fetchEmailTemplateDetail: emailTemplateDetail,
 
       fetchEstablishmentList: fetchEstablishments,
-      fetchInvoice,
-      fetchInvoiceList: fetchInvoiceListAction,
 
       toggleWaitingListFreeze: toggleWaitingListFreezeAction,
       registerToWaitingListAction: registerToWaitingListAction_,
@@ -263,7 +276,14 @@ export default compose(
       fetchRoomBlueprintDetail: fetchRoomBlueprintDetailAction,
       fetchAssetForBlueprint: fetchAssetForBlueprintAction,
       fetchOfferStatus: fetchOfferStatusAction,
+      fetchInvoice,
+      fetchInvoiceList: fetchInvoiceListAction,
+      applyGiftcardOnInvoice: applyGiftcardOnInvoiceAction,
 
+      // giftcard actions
+
+      fetchConsumerGiftcardList: fetchConsumerGiftcardListAction,
+      fetchGiftcardBulk: fetchGiftcardBulkAction,
       // move
       goToCalendar: (date) =>
         replaceRouter(`/calendar/${date.year}/${date.month}/${date.day}`),
@@ -341,6 +361,32 @@ export default compose(
           ...(params || {}),
         });
       },
+    fetchConsumerGiftcardList:
+      ({ fetchConsumerGiftcardList, fetchGiftcardBulk, fetchMemberBulk }) =>
+      (memberIdsList, options?: OptionCallback) => {
+        fetchConsumerGiftcardList(
+          {
+            page: 1,
+            page_size: 100,
+            active: true,
+            reverted: false,
+            member_id__in: memberIdsList,
+          },
+          {
+            onSuccess: (consumerGiftcardList: Array<ConsumerGiftcard>) => {
+              fetchGiftcardBulk(consumerGiftcardList.map((cg) => cg.giftcard));
+              fetchMemberBulk([
+                ...consumerGiftcardList.map((cg) => cg.src_member),
+                ...consumerGiftcardList.map((cg) => cg.dst_member),
+              ]);
+              if (options && options.onSuccess) options.onSuccess();
+            },
+            onError: () => {
+              if (options && options.onError) options.onError();
+            },
+          },
+        );
+      },
   }),
   withProps(({ id }) => ({
     offerId: id,
@@ -410,6 +456,7 @@ export default compose(
         fetchRoomBlueprintDetail,
         fetchAssetForBlueprint,
         fetchOfferStatus,
+        fetchConsumerGiftcardList,
       }) =>
       (ordering_field) => {
         fetchOffer(offerId, {
@@ -442,6 +489,7 @@ export default compose(
                 fetchInvoiceListUnpaid({
                   member__in: memberList.map((m) => m.id),
                 });
+                fetchConsumerGiftcardList(memberList.map((m) => m.id));
               }
             },
           },
@@ -563,7 +611,28 @@ export default compose(
           },
         });
       },
+    applyGiftcardOnInvoice:
+      ({ applyGiftcardOnInvoice, fetchInvoiceListUnpaid, members }) =>
+      (
+        invoice_uuid: string,
+        consumerGiftCardId: number,
+        amount: number,
+        options?: OptionCallback,
+      ) => {
+        applyGiftcardOnInvoice(invoice_uuid, consumerGiftCardId, amount, {
+          onSuccess: () => {
+            fetchInvoiceListUnpaid({
+              member__in: members.map((m) => m.id),
+            });
+            if (options && options.onSuccess) options.onSuccess();
+          },
+          onError: () => {
+            if (options && options.onError) options.onError();
+          },
+        });
+      },
   }),
+
   withTitle(
     ({ offer, offerLoading }: { offer: Offer, offerLoading: boolean }) =>
       formatTitle(offer, offerLoading),

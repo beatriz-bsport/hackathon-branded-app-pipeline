@@ -25,4 +25,5 @@ exports.default = {
   },
   close: 'Fermer',
   cancel: 'Annuler',
+  confirm: 'Confirmer',
 };

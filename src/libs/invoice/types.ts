@@ -1,11 +1,11 @@
 import { Payment } from './payment/types';
 import { InvoiceItem } from './invoice-item/types';
 
-export type Invoice = {
+export type Invoice<M = number> = {
   payments: Array<Payment>;
   invoice_items: Array<InvoiceItem>;
   voucher: number;
-  member: number;
+  member: M;
   memberName: string;
   date: string;
   uuid: string;
@@ -19,6 +19,9 @@ export type Invoice = {
   amount_paid_cts: string;
   quickbooks_status: number;
   is_quick_invoice: boolean;
+  invoice_type: number;
+  reverse_invoices: Array<Invoice>;
+  is_v2: boolean;
 };
 
 export type PlannedPaymentEvent = {

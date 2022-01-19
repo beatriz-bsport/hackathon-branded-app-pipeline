@@ -68,6 +68,11 @@ type Props = {
 
   basketId?: string,
   basketTotalPriceCts?: number,
+  allowConsumerToUseInternalAccount?: boolean,
+  useInternalAccount?: (amount: number) => void,
+  applyBalanceToInvoice?: () => void,
+  creditAccountBalance?: number | null,
+  applyBalanceLoading?: boolean,
 };
 
 const STRIPE_PAYMENT_METHOD_FORM_COMPONENT = {
@@ -141,7 +146,7 @@ export const PaymentStripe = (props: Props) => {
             basketTotalPriceCts={props.basketTotalPriceCts}
             basketId={props.basketId}
             onCancel={props.onCancel}
-            loading={props.loading}
+            loading={props.loading || props.applyBalanceLoading}
             memberId={props.memberId}
             detachPaymentMethodLoading={props.detachPaymentMethodLoading}
             detachPaymentMethod={props.detachPaymentMethod}
@@ -161,6 +166,14 @@ export const PaymentStripe = (props: Props) => {
             termsAndConditionsAccepted={props.termsAndConditionsAccepted}
             userDefaultName={props.sepaDefaultName}
             userDefaultEmail={props.sepaDefaultEmail}
+            allowConsumerToUseInternalAccount={
+              props.allowConsumerToUseInternalAccount &&
+              (props.useInternalAccount || props.applyBalanceToInvoice)
+            }
+            useInternalAccount={props.useInternalAccount}
+            applyBalanceToInvoice={props.applyBalanceToInvoice}
+            creditAccountBalance={props.creditAccountBalance}
+            applyBalanceLoading={props.applyBalanceLoading}
           />
         </Elements>
       </div>

@@ -78,7 +78,7 @@ export const validateUnpaid = async (basketId: string) => {
 
 export const fetchBasket = async (
   basket: string,
-): Promise<{ data: Basket }> => {
+): Promise<{ data: Basket<number> }> => {
   return get(`${API_V1_URI}/checkout/basket/by_uuid/?basket=${basket}`);
 };
 
@@ -86,4 +86,16 @@ export const fetchBasketHistoryList = async (
   memberId: number,
 ): Promise<{ data: Array<Basket> }> => {
   return getAuth(`${API_V1_URI}/checkout/basket/history/?member=${memberId}`);
+};
+
+export const createOrRefreshInternalAccountPrepaidLine = async (
+  basket_uuid: string,
+  amount: number,
+): Promise<{ data: Basket }> => {
+  return postAuth(
+    `${API_V1_URI}/checkout/basket/${basket_uuid}/create_prepaid_line_from_bsport_account/`,
+    {
+      amount,
+    },
+  );
 };

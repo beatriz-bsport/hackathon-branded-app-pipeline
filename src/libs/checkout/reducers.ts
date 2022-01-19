@@ -4,6 +4,7 @@ import { handleActions } from 'redux-actions';
 import {
   retrieveBasket,
   currentBasket,
+  createOrRefreshInternalAccountPrepaidLineActions,
   generatedObjectsActions,
   basketHistoryActions,
 } from './actions';
@@ -36,31 +37,52 @@ const initialState: Immutable<CheckoutState> = Immutable({
 
 export default handleActions(
   {
-    [retrieveBasket.error]: (state, { payload }) => {
+    [retrieveBasket.error.toString()]: (state, { payload }) => {
       return state.setIn(['basket', 'error'], payload);
     },
-    [retrieveBasket.isLoading]: (state, { payload }) => {
+    [retrieveBasket.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['basket', 'loading'], payload);
     },
-    [retrieveBasket.success]: (state, { payload }) => {
+    [retrieveBasket.success.toString()]: (state, { payload }) => {
       return state.setIn(['basket', 'byId', payload.id], payload);
     },
-    [currentBasket.isLoading]: (state, { payload }) => {
+    [currentBasket.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['basket', 'current', 'loading'], payload);
     },
-    [currentBasket.isUpdating]: (state, { payload }) => {
+    [currentBasket.isUpdating.toString()]: (state, { payload }) => {
       return state.setIn(['basket', 'current', 'updating'], payload);
     },
-    [currentBasket.error]: (state, { payload }) => {
+    [currentBasket.error.toString()]: (state, { payload }) => {
       return state.setIn(['basket', 'current', 'error'], payload);
     },
-    [basketHistoryActions.error]: (state, { payload }) => {
+    [currentBasket.success.toString()]: (state, { payload }) => {
+      return state.setIn(['basket', 'current', 'data'], payload);
+    },
+    [createOrRefreshInternalAccountPrepaidLineActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['basket', 'current', 'updating'], payload);
+    },
+    [createOrRefreshInternalAccountPrepaidLineActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['basket', 'current', 'error'], payload);
+    },
+    [createOrRefreshInternalAccountPrepaidLineActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['basket', 'current', 'data'], payload);
+    },
+    [basketHistoryActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['basket', 'history', 'error'], payload);
     },
-    [basketHistoryActions.isLoading]: (state, { payload }) => {
+    [basketHistoryActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['basket', 'history', 'loading'], payload);
     },
-    [basketHistoryActions.success]: (state, { payload }) => {
+    [basketHistoryActions.success.toString()]: (state, { payload }) => {
       return state.setIn(['basket', 'history', 'items'], payload).merge(
         {
           basket: {
@@ -70,16 +92,14 @@ export default handleActions(
         { deep: true },
       );
     },
-    [currentBasket.success]: (state, { payload }) => {
-      return state.setIn(['basket', 'current', 'data'], payload);
-    },
-    [generatedObjectsActions.isLoading]: (state, { payload }) => {
+
+    [generatedObjectsActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['basket', 'generatedObjects', 'loading'], payload);
     },
-    [generatedObjectsActions.error]: (state, { payload }) => {
+    [generatedObjectsActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['basket', 'generatedObjects', 'error'], payload);
     },
-    [generatedObjectsActions.success]: (state, { payload }) => {
+    [generatedObjectsActions.success.toString()]: (state, { payload }) => {
       return state.setIn(['basket', 'generatedObjects', 'data'], payload);
     },
   },

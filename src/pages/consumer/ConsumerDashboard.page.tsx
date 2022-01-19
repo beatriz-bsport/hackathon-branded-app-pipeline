@@ -54,7 +54,10 @@ import {
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
 import { fetchByMember as fetchConsumerPackByMemberAction } from '../../libs/consumer-payment-pack/actions';
 import { urlToMarketplace } from '../../libs/marketplace/utils';
-import { fetchInvoiceList as fetchInvoiceListAction } from '../../libs/invoice/actions';
+import {
+  fetchInvoiceList as fetchInvoiceListAction,
+  applyBalanceToInvoice as applyBalanceToInvoiceAction,
+} from '../../libs/invoice/actions';
 
 import { withInvoiceItem, getInvoiceList } from '../../libs/invoice/selectors';
 import { RootState } from '../../reducers';
@@ -92,6 +95,7 @@ import CanvasPreviewDialog from '../../libs/spot-scheduling/component/SpotPrevie
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import { fetchConsumerPaymentPackLinks } from '../../libs/relationship/actions';
 import { withIsSharedActive } from '../../libs/relationship/selectors';
+import { getUsableCreditAccountBalance } from '#libs/membership/selectors';
 
 type OwnProps = {
   hideCoach: boolean;
@@ -127,18 +131,21 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
     this.props.fetchEstablishmentFavorite(this.props.membership.company);
     this.props.fetchMetaActivityFavorite(this.props.membership.company);
 
-    this.props.fetchInvoiceListUnpaid();
+    this.props.fetchInvoiceListUnpaid(this.props.membership.id);
     this.props.fetchMember(this.props.membership.id);
+    this.props.fetchMembership(this.props.membership.id);
     this.fetchBookingOption();
   }
 
   refreshDebtStatus = () => {
     this.props.fetchMembership(this.props.membership.id);
-    this.props.fetchInvoiceListUnpaid();
+    this.props.fetchInvoiceListUnpaid(this.props.membership.id);
   };
 
   goToInvoice = (uuid: string, invoice: Invoice) => {
-    window.open(invoice.stripe_invoice_pdf);
+    if (invoice?.stripe_invoice_pdf) {
+      window.open(invoice.stripe_invoice_pdf);
+    }
   };
 
   fetchBookingOption = () => {
@@ -236,6 +243,12 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
             member={this.props.member}
             selectedInvoiceId={this.props.queryParams.invoiceInPayment}
             onInvoicePaymentDialogClose={this.onInvoicePaymentDialogClose}
+            allowConsumerToUseInternalAccount={
+              this.props.companyTheme.allow_consumer_to_use_internal_account
+            }
+            applyBalanceToInvoice={this.props.applyBalanceToInvoice}
+            creditAccountBalance={this.props.creditAccountBalance}
+            applyBalanceLoading={this.props.applyBalanceLoading}
           />
         </div>
         <Grid container direction="row" spacing={2}>
@@ -364,6 +377,11 @@ const mapStateToProps = (state: RootState, props) => ({
   member: getMember(state, props.membership.id),
   roomBlueprintById: state.spotScheduling.roomBlueprint.byId,
   assetForBlueprint: getAssetByBlueprintByIdentifier(state),
+  creditAccountBalance: getUsableCreditAccountBalance(
+    state,
+    props.membership?.company,
+  ),
+  applyBalanceLoading: state.invoice.applyBalance.loading,
 });
 
 const mapDispatchToProps = {
@@ -399,6 +417,14 @@ const mapDispatchToProps = {
   fetchRoomBlueprintDetail,
   fetchAssetForBlueprint,
   fetchConsumerPaymentPackLinks,
+  applyBalanceToInvoiceAction,
+  fetchInvoiceListUnpaid: (id: number) =>
+    fetchInvoiceListAction({
+      is_draft: false,
+      is_v2: true,
+      unpaid: true,
+      member: id,
+    }),
 };
 
 type StateHandlerInit = {
@@ -505,14 +531,6 @@ const mapWithHandlers = {
         },
       });
     },
-  fetchInvoiceListUnpaid: (props: OwnConnectedStateHandlerProps) => () => {
-    props.fetchInvoiceList({
-      is_draft: false,
-      is_v2: true,
-      unpaid: true,
-      member: props.membership.id,
-    });
-  },
   fetchConsumerPacks:
     (props: OwnConnectedStateHandlerProps) =>
     (memberId: number, page: number, page_size: number) =>
@@ -562,7 +580,6 @@ const mapWithHandlers = {
   goToHomeTab: (props: Props) => () => {
     const tabConfig: MarketplaceTabConfig = props.marketplaceSettings.config[0];
     const path = fromConfigToUrl(tabConfig, { tabSelected: 0 });
-
     props.push(
       getMarketplaceRoute(
         props.companyTheme.company_name,
@@ -579,6 +596,22 @@ const mapWithHandlers = {
       props.setSpotPreview({
         blueprint: booking.offer.room_blueprint,
         spot: booking.spot_id,
+      });
+    },
+  applyBalanceToInvoice:
+    (props: OwnConnectedStateHandlerProps) =>
+    (uuid: string, options?: OptionCallback) => {
+      props.applyBalanceToInvoiceAction(uuid, {
+        onSuccess: () => {
+          props.fetchMembership(props.membership.id);
+          props.fetchInvoiceListUnpaid(props.membership.id);
+          if (options && options.onSuccess) options.onSuccess();
+        },
+        onError: () => {
+          props.fetchMembership(props.membership.id);
+          props.fetchInvoiceListUnpaid(props.membership.id);
+          if (options && options.onError) options.onError();
+        },
       });
     },
 };

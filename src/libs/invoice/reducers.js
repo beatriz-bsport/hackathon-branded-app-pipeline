@@ -23,11 +23,12 @@ import {
   registerNowPlannedPaymentEventActions,
   schedulePaymentActions,
   sendInvoiceToQuickbooksActions,
+  applyBalanceToInvoiceActions,
+  applyGiftcardOnInvoiceActions,
 } from './actions';
 
 const initialState = Immutable({
   byId: {},
-
   list: {
     count: 0,
     loading: false,
@@ -90,6 +91,14 @@ const initialState = Immutable({
   },
   quickInvoices: [],
   quickInvoiceLoading: false,
+  applyBalance: {
+    error: null,
+    loading: false,
+  },
+  applyGiftCard: {
+    error: null,
+    loading: false,
+  },
 });
 
 export default handleActions(
@@ -334,6 +343,18 @@ export default handleActions(
     },
     [sendInvoiceToQuickbooksActions.error]: (state, { payload }) => {
       return state.setIn(['quickbooks', 'error'], payload);
+    },
+    [applyBalanceToInvoiceActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['applyBalance', 'loading'], payload);
+    },
+    [applyBalanceToInvoiceActions.error]: (state, { payload }) => {
+      return state.setIn(['applyBalance', 'error'], payload);
+    },
+    [applyGiftcardOnInvoiceActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['applyGiftCard', 'loading'], payload);
+    },
+    [applyGiftcardOnInvoiceActions.error]: (state, { payload }) => {
+      return state.setIn(['applyGiftCard', 'error'], payload);
     },
   },
   initialState,

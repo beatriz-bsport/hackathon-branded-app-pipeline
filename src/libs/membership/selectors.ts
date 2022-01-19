@@ -30,3 +30,16 @@ export const getCustomFormBlockingDisplayRuleIdsList = createSelector(
   (missing_informations) =>
     missing_informations.map((info) => info.custom_form_display_rule_id),
 );
+
+export const getUsableCreditAccountBalance = (state: RootState, id: number) => {
+  if (!state.theme?.theme?.allow_consumer_to_use_internal_account) {
+    return null;
+  }
+  const creditAccountBalance = parseFloat(
+    _getMembershipData(state)[id]?.credit_account_balance,
+  );
+  if (!creditAccountBalance || creditAccountBalance < 0) {
+    return null;
+  }
+  return creditAccountBalance;
+};

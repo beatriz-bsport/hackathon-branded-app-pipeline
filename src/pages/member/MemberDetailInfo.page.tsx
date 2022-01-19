@@ -28,6 +28,7 @@ import {
   updateMemberFile,
   adjustCreditWithoutPaymentNote,
   retrieveMemberPendingEmail,
+  fetchMemberBulk as fetchMemberBulkAction,
 } from '../../libs/member/actions';
 import {
   getSearchedMembers,
@@ -67,6 +68,7 @@ import {
   // fetchInvoiceItemList as fetchInvoiceItemListAction,
   fetchInvoiceList as fetchInvoiceListAction,
   applyBalanceToUnpaid,
+  applyGiftcardOnInvoice as applyGiftcardOnInvoiceAction,
 } from '../../libs/invoice/actions';
 
 import { withInvoiceItem, getInvoiceList } from '../../libs/invoice/selectors';
@@ -100,6 +102,18 @@ import {
 } from '../../libs/custom-form/selectors';
 import { Tag } from '#libs/tag/types';
 import { MemberUploadedFile } from '#libs/member/types';
+import {
+  getConsumerGiftcardReceivedList,
+  withGiftcard,
+  withSender,
+  withReceiver,
+  onlyUsable,
+} from '#libs/giftcard/selectors';
+import {
+  fetchGiftcardBulk as fetchGiftcardBulkAction,
+  fetchConsumerGiftcardReceivedList as fetchConsumerGiftcardReceivedListAction,
+} from '../../libs/giftcard/actions';
+import type { ConsumerGiftcard } from '#libs/giftcard/types';
 
 type Props = RouterParamsProps &
   ConnectProps &
@@ -126,6 +140,16 @@ export class MemberDetailPage extends Component<Props> {
   };
 
   componentDidMount() {
+    this.fetchData();
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.id !== this.props.id) {
+      this.fetchData();
+    }
+  }
+
+  fetchData = () => {
     this.props.fetchMember(this.props.id, {
       onSuccess: () => this.props.retrieveMemberPendingEmail(this.props.id),
     });
@@ -139,20 +163,8 @@ export class MemberDetailPage extends Component<Props> {
       datatype: CUSTOM_FORM_DATATYPE_ESTABLISHMENT_GROUP,
       kind: MODEL_BASED_QUESTION_FAVORITE,
     });
-  }
-
-  componentDidUpdate(prevProps: Props) {
-    if (prevProps.id !== this.props.id) {
-      this.props.fetchMember(this.props.id);
-      this.props.fetchTaskListByMember();
-      this.props.fetchInvoiceListUnpaid();
-      this.props.fetchModelBasedAnswer({
-        memberId: this.props.id,
-        datatype: CUSTOM_FORM_DATATYPE_ESTABLISHMENT_GROUP,
-        kind: MODEL_BASED_QUESTION_FAVORITE,
-      });
-    }
-  }
+    this.props.fetchConsumerGiftcardReceivedList();
+  };
 
   fetchInvoiceListUnpaid = () => {
     this.props.fetchInvoiceListUnpaid();
@@ -205,6 +217,29 @@ export class MemberDetailPage extends Component<Props> {
     this.props.adjustCreditWithoutPaymentNote(this.props.id, amount, {
       onSuccess: () => this.props.fetchMember(this.props.id),
     });
+  };
+
+  applyGiftcardOnInvoice = (
+    invoice_uuid: string,
+    consumerGiftCardId: number,
+    amount: number,
+    options?: OptionCallback,
+  ) => {
+    this.props.applyGiftcardOnInvoice(
+      invoice_uuid,
+      consumerGiftCardId,
+      amount,
+      {
+        onSuccess: () => {
+          if (options && options.onSuccess) options.onSuccess();
+          this.props.fetchConsumerGiftcardReceivedList();
+        },
+        onError: () => {
+          if (options && options.onError) options.onError();
+          this.props.fetchConsumerGiftcardReceivedList();
+        },
+      },
+    );
   };
 
   render() {
@@ -263,6 +298,8 @@ export class MemberDetailPage extends Component<Props> {
               this.props.companyTheme.enable_multi_localization
             }
             companyId={this.props.companyId}
+            applyGiftcardOnInvoice={this.applyGiftcardOnInvoice}
+            consumerGiftcardList={this.props.consumerGiftcardList}
           />
           <TaskList
             taskList={this.props.taskList}
@@ -401,6 +438,9 @@ const connector = connect(
     establishmentList: getAvailableEstablishmentList(state),
     companyTheme: themeSelectors.getTheme(state),
     showVaccinationStatus: showVaccinationStatus(state),
+    consumerGiftcardList: withSender(
+      withReceiver(onlyUsable(withGiftcard(getConsumerGiftcardReceivedList))),
+    )(state),
   }),
   {
     fetchInvoiceList: fetchInvoiceListAction,
@@ -456,6 +496,10 @@ const connector = connect(
     fetchAllEstablishmentGroup,
     fetchModelBasedAnswer,
     retrieveMemberPendingEmail,
+    fetchConsumerGiftcardReceivedList: fetchConsumerGiftcardReceivedListAction,
+    fetchGiftcardBulk: fetchGiftcardBulkAction,
+    applyGiftcardOnInvoice: applyGiftcardOnInvoiceAction,
+    fetchMemberBulk: fetchMemberBulkAction,
   },
 );
 
@@ -541,6 +585,59 @@ const mapWithHandler3 = {
           },
         },
       );
+    },
+  fetchConsumerGiftcardReceivedList:
+    ({
+      fetchConsumerGiftcardReceivedList,
+      fetchGiftcardBulk,
+      fetchMemberBulk,
+      id,
+    }: RouterParamsProps & ConnectProps & HandlerProps1 & HandlerProps2) =>
+    (options?: OptionCallback) => {
+      fetchConsumerGiftcardReceivedList(
+        id,
+        {
+          page: 1,
+          page_size: 100,
+          active: true,
+          reverted: false,
+          has_amount_left: true,
+        },
+        {
+          onSuccess: (consumerGiftcardList: Array<ConsumerGiftcard>) => {
+            fetchGiftcardBulk(consumerGiftcardList.map((cg) => cg.giftcard));
+            fetchMemberBulk([
+              ...consumerGiftcardList.map((cg) => cg.src_member),
+              ...consumerGiftcardList.map((cg) => cg.dst_member),
+            ]);
+            if (options && options.onSuccess) options.onSuccess();
+          },
+          onError: () => {
+            if (options && options.onError) options.onError();
+          },
+        },
+      );
+    },
+  applyGiftcardOnInvoice:
+    ({
+      applyGiftcardOnInvoice,
+      fetchInvoiceListUnpaid,
+    }: RouterParamsProps & ConnectProps & HandlerProps1 & HandlerProps2) =>
+    (
+      invoice_uuid: string,
+      consumerGiftCardId: number,
+      amount: number,
+      options?: OptionCallback,
+    ) => {
+      applyGiftcardOnInvoice(invoice_uuid, consumerGiftCardId, amount, {
+        onSuccess: () => {
+          fetchInvoiceListUnpaid();
+          if (options && options.onSuccess) options.onSuccess();
+        },
+        onError: () => {
+          if (options && options.onError) options.onError();
+        },
+      });
     },
 };
 

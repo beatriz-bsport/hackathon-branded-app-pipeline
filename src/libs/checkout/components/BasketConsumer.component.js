@@ -24,6 +24,7 @@ type Props = {
   loading: ?boolean,
   fullWidth?: boolean,
   onItemExpire: (item: CheckoutItem) => void,
+  onRemoveInternalAccountPrepaidLine: () => void,
 };
 
 export const BasketConsumer = (props: Props) => {
@@ -57,7 +58,12 @@ export const BasketConsumer = (props: Props) => {
               />
             ))}
             {props.basket.prepaid_lines.map((pl) => (
-              <PrepaidLineListItem prepaid_line={pl} key={pl.id} />
+              <PrepaidLineListItem
+                divider
+                prepaid_line={pl}
+                key={pl.id}
+                onRemove={props.onRemoveInternalAccountPrepaidLine}
+              />
             ))}
           </>
         ) : (

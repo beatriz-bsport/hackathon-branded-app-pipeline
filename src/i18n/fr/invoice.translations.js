@@ -453,4 +453,19 @@ exports.default = {
       },
     },
   },
+  applyGiftcard: {
+    giftcard: 'Carte cadeau',
+    form: {
+      amountToPay: 'Montant payé en carte cadeau',
+      usedGiftcard: 'Carte cadeau utilisée',
+      errors: {
+        errorAmount: 'Montant invalide.',
+      },
+    },
+    actions: {
+      apply: 'Paiement carte cadeau',
+      cancel: 'Fermer',
+      confirm: 'Valider',
+    },
+  },
 };

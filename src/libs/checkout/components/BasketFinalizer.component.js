@@ -251,6 +251,7 @@ export class BasketFinalizer extends React.Component<Props, State> {
             ))}
           </Stepper>
         ) : null}
+
         {this.renderStep()}
       </div>
     );

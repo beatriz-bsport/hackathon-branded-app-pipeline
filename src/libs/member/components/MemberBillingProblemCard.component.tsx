@@ -27,29 +27,43 @@ import {
 } from '../../payment/api';
 import type { Member } from '../types';
 import type { Establishment } from '../../establishment/types';
+import type { Invoice } from '#libs/invoice/types';
+import type { ConsumerGiftcard, Giftcard } from '#libs/giftcard/types';
+import type { OptionCallback } from '../../../state/types';
 
 type Props = {
-  balance: string,
-  invoiceLoading: boolean,
-  goToInvoice: (uuid: string, invoice: ?Invoice) => void,
-  unpaidInvoiceList: Array<Invoice>,
-  memberId: number,
-  member: Member,
-  memberLoading: boolean,
-  asConsumer: boolean,
-  applyBalanceToUnpaidInvoices: () => void,
-  fetchInvoiceListUnpaid: () => void,
-  availablePaymentMethodList: number[],
-  adjustCreditWithoutPaymentNote: (c: number) => void,
-  detachPaymentMethodLoading: boolean,
-  detachPaymentMethod: (pm_id: string) => void,
-  snackbarErrorMsg: (msg: string) => void,
-  snackbarSuccessMsg: (msg: string) => void,
-  establishments: Array<Establishment>,
-  enableMultiLocalization: boolean,
-  selectedInvoiceId: string,
-  companyId?: number,
-  onInvoicePaymentDialogClose: () => void,
+  balance: number;
+  invoiceLoading: boolean;
+  goToInvoice: (uuid: string, invoice?: Invoice) => void;
+  unpaidInvoiceList: Array<Invoice>;
+  memberId: number;
+  member: Member;
+  memberLoading: boolean;
+  asConsumer: boolean;
+  applyBalanceToUnpaidInvoices: () => void;
+  fetchInvoiceListUnpaid: () => void;
+  availablePaymentMethodList: number[];
+  adjustCreditWithoutPaymentNote: (c: number) => void;
+  detachPaymentMethodLoading: boolean;
+  detachPaymentMethod: (pm_id: string) => void;
+  snackbarErrorMsg: (msg: string) => void;
+  snackbarSuccessMsg: (msg: string) => void;
+  establishments: Array<Establishment>;
+  enableMultiLocalization: boolean;
+  selectedInvoiceId: string;
+  companyId?: number;
+  onInvoicePaymentDialogClose: () => void;
+  applyBalanceToInvoice?: (uuid: string, options?: OptionCallback) => void;
+  allowConsumerToUseInternalAccount?: boolean;
+  creditAccountBalance?: number | null;
+  applyBalanceLoading?: boolean;
+  consumerGiftcardList: Array<ConsumerGiftcard<Giftcard>>;
+  applyGiftcardOnInvoice: (
+    invoiceUuid: string,
+    consumergiftCardId: number,
+    amount: number,
+    options?: OptionCallback,
+  ) => void;
 };
 
 const PAYMENT_GROUP_STATUS_INTENT_MAX_RETRY = 100;
@@ -58,7 +72,9 @@ export const MemberBillingProblemCard = (props: Props) => {
   const { t } = useTranslation(['member', 'invoice']);
   const { balance, unpaidInvoiceList } = props;
 
-  const [invoiceToBill, setInvoiceToBill] = React.useState(null);
+  const [invoiceToBill, setInvoiceToBill] = React.useState<Invoice | null>(
+    null,
+  );
   React.useEffect(
     () =>
       setInvoiceToBill(
@@ -66,22 +82,29 @@ export const MemberBillingProblemCard = (props: Props) => {
       ),
     [props.unpaidInvoiceList, props.selectedInvoiceId],
   );
-  const [clientSecretLoading, setClientSecretLoading] = React.useState(false);
-  const [clientSecret, setClientSecret] = React.useState(null);
-  const [clientSecretError, setClientSecretError] = React.useState(false);
+  const [clientSecretLoading, setClientSecretLoading] =
+    React.useState<boolean>(false);
+  const [clientSecret, setClientSecret] = React.useState<string | null>(null);
+  const [clientSecretError, setClientSecretError] =
+    React.useState<boolean>(false);
 
-  const [paymentGroupPriceCts, setPaymentGroupPriceCts] = React.useState(0);
-  const [paymentGroupId, setPaymentGroupId] = React.useState(null);
+  const [paymentGroupPriceCts, setPaymentGroupPriceCts] =
+    React.useState<number>(0);
+  const [paymentGroupId, setPaymentGroupId] = React.useState<number | null>(
+    null,
+  );
 
-  const [ajustBalanceOpen, setAdjustBalanceDialogOpen] = React.useState(false);
-  const [regularizeFullDebt, setRegularizeFullDebt] = React.useState(false);
-  const [amountToBill, setAmountToBill] = React.useState(null);
+  const [ajustBalanceOpen, setAdjustBalanceDialogOpen] =
+    React.useState<boolean>(false);
+  const [regularizeFullDebt, setRegularizeFullDebt] =
+    React.useState<boolean>(false);
+  const [amountToBill, setAmountToBill] = React.useState<string | null>(null);
   const [billingEstablishmentId, setBillingEstablishmentId] =
     React.useState(null);
-  const [paymentGroupCompletedCheckSeconds] = React.useState(0.5);
+  const [paymentGroupCompletedCheckSeconds] = React.useState<number>(0.5);
   const [retryPaymentGroupStatus, setRetryPaymentGroupStatus] =
-    React.useState(0);
-  const requestClientSecret = (paymentEngine) => {
+    React.useState<number>(0);
+  const requestClientSecret = (paymentEngine: number) => {
     setClientSecret(null);
     setClientSecretLoading(true);
     setClientSecretError(false);
@@ -110,7 +133,7 @@ export const MemberBillingProblemCard = (props: Props) => {
         Sentry.captureException(err);
       });
   };
-  const listenPaymentGroupCompleted = (callback) => {
+  const listenPaymentGroupCompleted = (callback?: () => void) => {
     getPaymentGroupStatusAPI(paymentGroupId)
       .then((r) => {
         if (retryPaymentGroupStatus > PAYMENT_GROUP_STATUS_INTENT_MAX_RETRY) {
@@ -135,6 +158,10 @@ export const MemberBillingProblemCard = (props: Props) => {
       .catch(console.error);
   };
 
+  const applyBalanceToInvoice = (options: OptionCallback) =>
+    invoiceToBill?.uuid &&
+    props.applyBalanceToInvoice(invoiceToBill?.uuid, options);
+
   let color = 'secondary';
   const parsedBalance = parseFloat(balance);
   if (parsedBalance > 0) {
@@ -148,9 +175,7 @@ export const MemberBillingProblemCard = (props: Props) => {
       {!!(!props.asConsumer || (parsedBalance && parsedBalance < 0)) && (
         <div className={classes.padding}>
           <div className={classes.accountBalance}>
-            <Typography variant="h6" inline>
-              {t('creditAccountBalance')}
-            </Typography>
+            <Typography variant="h6">{t('creditAccountBalance')}</Typography>
             <div className={classes.buttonContainer}>
               <Typography inline variant="h6" component="span" color={color}>
                 {` ${getCurrencyDisplayWithPrice(balance)}`}
@@ -195,7 +220,7 @@ export const MemberBillingProblemCard = (props: Props) => {
         <React.Fragment>
           <Divider className={classes.divider} />
           <div className={classes.invoiceContainer}>
-            <Typography className={classes.padding} variant="h6" inline>
+            <Typography className={classes.padding} variant="h6">
               {t('unpaidInvoiceTitle', { count: unpaidInvoiceList.length })}
             </Typography>
             <InvoiceTable
@@ -210,6 +235,8 @@ export const MemberBillingProblemCard = (props: Props) => {
               showOpenInvoiceNested
               companyId={props.companyId}
               snackbarSuccess={props.snackbarSuccessMsg}
+              applyGiftcardOnInvoice={props.applyGiftcardOnInvoice}
+              consumerGiftcardList={props.consumerGiftcardList}
             />
           </div>
         </React.Fragment>
@@ -254,7 +281,7 @@ export const MemberBillingProblemCard = (props: Props) => {
           memberId={props.memberId}
           onError={() => {}}
           paymentGroupPriceCts={paymentGroupPriceCts}
-          onSuccess={(callback) => {
+          onSuccess={(callback?: () => void) => {
             props.fetchInvoiceListUnpaid();
             setInvoiceToBill(null);
             setAmountToBill(null);
@@ -298,6 +325,12 @@ export const MemberBillingProblemCard = (props: Props) => {
           defaultUserName={props.member ? props.member.name : ''}
           defaultUserEmail={props.member ? props.member.email : ''}
           establishments={props.establishments}
+          allowConsumerToUseInternalAccount={
+            props.allowConsumerToUseInternalAccount
+          }
+          applyBalanceToInvoice={applyBalanceToInvoice}
+          creditAccountBalance={props.creditAccountBalance}
+          applyBalanceLoading={props.applyBalanceLoading}
         />
       )}
     </Paper>

@@ -90,4 +90,12 @@ exports.default = {
       offerNotBookable: 'Impossible de vous inscrire à',
     },
   },
+  internalAccount: {
+    useMyInternalAccount: 'Utilisation de mon solde',
+    myInternalAccount: 'Mon solde',
+    use: 'Utiliser mon solde',
+    label: 'Montant disponible : ',
+    cancel: 'Annuler',
+    confirm: 'Confirmer',
+  },
 };

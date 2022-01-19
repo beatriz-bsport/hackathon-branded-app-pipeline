@@ -27,6 +27,7 @@ import {
   fetchCurrentBasket as fetchCurrentBasketAction,
   patchCurrentBasket,
   attachPayment as attachPaymentAction,
+  createOrRefreshInternalAccountPrepaidLine as createOrRefreshInternalAccountPrepaidLineAction,
 } from '../../../libs/checkout/actions';
 import withQueryParams from '../../../hocs/with-query-params.hoc';
 import Analytics from '../../../components/analytics/Analytics.component';
@@ -61,6 +62,9 @@ import { fetchProfile } from '../../../libs/consumer-space/actions';
 
 import CheckPaymentStatus from './CheckPaymentStatus.component';
 import ConsumerAppBarContainer from '../ConsumerAppBar.container';
+import { getUsableCreditAccountBalance } from '#libs/membership/selectors';
+import type { OptionCallback } from '../../../state/types';
+import { fetchMember } from '#libs/member/actions';
 
 type Props = {
   basket: ?Basket,
@@ -103,6 +107,10 @@ type Props = {
   detachPaymentMethod: (pm_id: string) => void,
   snackbarErrorMsg: (msg: string) => void,
   snackbarSuccessMsg: (msg: string) => void,
+  useInternalAccount: (amount: number) => void,
+  onRemoveInternalAccountPrepaidLine: () => void,
+  creditAccountBalance: number | null,
+  fetchMember: (id: number) => void,
 };
 
 export class BasketPage extends React.Component<Props> {
@@ -128,6 +136,9 @@ export class BasketPage extends React.Component<Props> {
       Analytics.showBasket(this.props.basket);
       if (this.props.basket.total_price_cts) {
         this.getSecret();
+      }
+      if (this.props.basket.member) {
+        this.props.fetchMember(this.props.basket.member);
       }
     }
     if (
@@ -174,6 +185,9 @@ export class BasketPage extends React.Component<Props> {
       if (this.props.basket.total_price_cts) {
         this.getSecret();
       }
+    }
+    if (this.props.auth.authenticated && this.props.basket?.member) {
+      this.props.fetchMember(this.props.basket.member);
     }
     if (this.props.companyId) {
       this.props.fetchpaymentMethod({ company: this.props.companyId });
@@ -290,6 +304,9 @@ export class BasketPage extends React.Component<Props> {
               termsAndConditionsAccepted={termsAndConditionsAccepted}
               onItemExpire={this.onItemExpire}
               validateUnpaid={this.validateUnpaid}
+              onRemoveInternalAccountPrepaidLine={
+                this.props.onRemoveInternalAccountPrepaidLine
+              }
               paymentModule={
                 <PaymentStripe
                   loading={this.props.loading || this.props.processing}
@@ -323,6 +340,11 @@ export class BasketPage extends React.Component<Props> {
                   companyId={this.props.companyId}
                   sepaDefaultName={this.props.auth.name}
                   sepaDefaultEmail={this.props.auth.username}
+                  allowConsumerToUseInternalAccount={
+                    this.props.theme.allow_consumer_to_use_internal_account
+                  }
+                  useInternalAccount={this.props.useInternalAccount}
+                  creditAccountBalance={this.props.creditAccountBalance}
                 />
               }
             />
@@ -379,7 +401,7 @@ export default compose(
   ]),
   withTranslation(['checkout', 'payment', 'invoice', 'login']),
   connect(
-    (state) => ({
+    (state, { companyId }) => ({
       auth: state.auth,
       basket: getCurrentBasket(state),
       loading: state.checkout.basket.current.loading,
@@ -389,6 +411,7 @@ export default compose(
       savedPaymentMethodList: getSavedPaymentMethodList(state),
       detachPaymentMethodLoading:
         state.paymentBackend.detachPaymentMethod.loading,
+      creditAccountBalance: getUsableCreditAccountBalance(state, companyId),
     }),
     {
       disconnect: authActions.disconnect,
@@ -410,6 +433,9 @@ export default compose(
       detachPaymentMethodAction: detachPaymentMethod,
       snackbarErrorMsg: snackbarWarning,
       snackbarSuccessMsg: snackbarSuccess,
+      createOrRefreshInternalAccountPrepaidLine:
+        createOrRefreshInternalAccountPrepaidLineAction,
+      fetchMember,
     },
   ),
   withHandlers({
@@ -468,6 +494,44 @@ export default compose(
             },
           },
         );
+      },
+  }),
+  withHandlers({
+    useInternalAccount:
+      ({
+        createOrRefreshInternalAccountPrepaidLine,
+        fetchCurrentBasket,
+        companyId,
+        basket,
+      }) =>
+      (amount: number, options: OptionCallback) => {
+        createOrRefreshInternalAccountPrepaidLine(basket.id, amount, {
+          onSuccess: () => {
+            if (options && options.onSuccess) options.onSuccess();
+            fetchCurrentBasket(companyId);
+          },
+          onError: () => {
+            if (options && options.onError) options.onError();
+          },
+        });
+      },
+    onRemoveInternalAccountPrepaidLine:
+      ({
+        createOrRefreshInternalAccountPrepaidLine,
+        fetchCurrentBasket,
+        companyId,
+        basket,
+      }) =>
+      (options: OptionCallback) => {
+        createOrRefreshInternalAccountPrepaidLine(basket.id, 0, {
+          onSuccess: () => {
+            if (options && options.onSuccess) options.onSuccess();
+            fetchCurrentBasket(companyId);
+          },
+          onError: () => {
+            if (options && options.onError) options.onError();
+          },
+        });
       },
   }),
   withState('basketError', 'setBasketError', null),

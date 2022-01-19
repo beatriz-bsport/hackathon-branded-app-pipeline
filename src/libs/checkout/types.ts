@@ -9,14 +9,14 @@ export type CheckoutItem = {
   editable: boolean;
 };
 
-export type Basket = {
+export type Basket<C = string, PPL = number> = {
   member: number;
   id: string; // uuid
   is_finalized: boolean;
   total_price: string;
   total_price_cts: string;
   checkout_items: Array<CheckoutItem>;
-  company: string;
+  company: C;
   need_address: string;
   first_name: string;
   last_name: string;
@@ -26,6 +26,8 @@ export type Basket = {
   country: string;
   city: string;
   available_payment_methods: number[];
+  total_price_prepaid_lines: number;
+  prepaid_lines: Array<PPL>;
 };
 
 export type CheckoutState = {

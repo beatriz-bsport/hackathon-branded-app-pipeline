@@ -10,6 +10,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
+import RedButton from '#components/button/RedButton.component';
 
 type Props = {
   open?: boolean,
@@ -17,13 +18,14 @@ type Props = {
   t: TFunction,
   handleConfirm: () => void,
   handleCancel: () => void,
+  countDownConfirm?: boolean,
 };
 
 export function ModalConfirm(props: Props) {
   const { t, options, open, handleCancel, handleConfirm } = props;
   return (
     <Dialog open={open} onClose={handleCancel || (() => {})}>
-      <DialogTitle>{t(options.title)}</DialogTitle>
+      {options.title && <DialogTitle>{t(options.title)}</DialogTitle>}
       <DialogContent>
         <DialogContentText>
           {options.Content ? <options.Content t={t} /> : null}
@@ -38,15 +40,28 @@ export function ModalConfirm(props: Props) {
         >
           {t(options.cancel || 'common.cancel')}
         </Button>
-        <Button
-          onClick={(ev) => {
-            ev.stopPropagation();
-            handleConfirm(ev);
-          }}
-          color="primary"
-        >
-          {t(options.confirm || 'common.confirm')}
-        </Button>
+        {props.countDownConfirm ? (
+          <RedButton
+            onClick={(ev) => {
+              ev.stopPropagation();
+              handleConfirm(ev);
+            }}
+            color="primary"
+            delayBeforeActivation={5}
+          >
+            {t(options.confirm || 'common.confirm')}
+          </RedButton>
+        ) : (
+          <Button
+            onClick={(ev) => {
+              ev.stopPropagation();
+              handleConfirm(ev);
+            }}
+            color="primary"
+          >
+            {t(options.confirm || 'common.confirm')}
+          </Button>
+        )}
       </DialogActions>
     </Dialog>
   );

@@ -52,6 +52,10 @@ type Props = {
   defaultUserName?: string,
   defaultUserEmail?: string,
   establishments: Array<Establishment>,
+  applyBalanceToInvoice?: (options: OptionCallback) => void,
+  allowConsumerToUseInternalAccount?: boolean,
+  creditAccountBalance?: number | null,
+  applyBalanceLoading?: boolean,
 };
 
 type State = {
@@ -233,6 +237,23 @@ export class PaymentDialog extends React.Component<Props, State> {
                       sepaDefaultName={this.props.defaultUserName}
                       sepaDefaultEmail={this.props.defaultUserEmail}
                       establishments={this.props.establishments}
+                      allowConsumerToUseInternalAccount={
+                        this.props.allowConsumerToUseInternalAccount
+                      }
+                      applyBalanceToInvoice={() =>
+                        this.props.applyBalanceToInvoice({
+                          onSuccess: () =>
+                            this.props.requestClientSecret(
+                              this.state.paymentEngine,
+                            ),
+                        })
+                      }
+                      creditAccountBalance={this.props.creditAccountBalance}
+                      applyBalanceLoading={
+                        this.props.applyBalanceLoading ||
+                        this.props.clientSecretLoading ||
+                        !this.props.clientSecret
+                      }
                     />
                   )}
                   {parseInt(this.state.paymentEngine, 10) ===

@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import InfoIcon from '@material-ui/icons/Info';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
+import { push as pushRouter } from 'connected-react-router';
 import withTitle from '../../hocs/with-title.hoc';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers/index';
@@ -40,6 +41,7 @@ import EstablishmentBillingGroupTable from '../../libs/establishment/components/
 import EstablishmentBillingGroupFormDialog from '../../libs/establishment/components/EstablishmentBillingGroupFormDialog.component';
 import type { EstablishmentBillingGroup as EstablishmentBillingGroupType } from '../../libs/establishment/types';
 import themeSelectors from '../../libs/theme/selectors';
+import { updateCompanyTheme } from '../../libs/theme/actions';
 
 type StateHandlerInit = {
   openDialogForm: boolean;
@@ -76,6 +78,9 @@ export class InvoiceConfigurationPage extends React.Component<Props, State> {
             configuration={configuration}
             processing={processing}
             onSubmit={this.props.patchInvoiceConfiguration}
+            submitTheme={this.props.submitTheme}
+            theme={this.props.theme}
+            goToReports={this.props.goToReports}
           />
           {this.props.companyTheme.enable_multi_localization && (
             <>
@@ -165,6 +170,7 @@ const styles = (theme: Theme) => ({
   },
 });
 const mapStateToProps = (state: RootState) => ({
+  theme: themeSelectors.getTheme(state),
   configuration: state.invoice.configuration.result,
   loading: state.invoice.configuration.loading,
   processing: state.invoice.configuration.updating,
@@ -183,6 +189,8 @@ const mapDispatchToProps = {
   upsertEstablishmentBillingGroupAction,
   fetchEstablishments,
   deleteEstablishmentBillingGroupAction,
+  submitTheme: updateCompanyTheme,
+  goToReports: () => pushRouter('/reporting'),
 };
 const mapWithHandlers = {
   patchInvoiceConfiguration: (props: OwnAndConnectedProps) => (data) => {

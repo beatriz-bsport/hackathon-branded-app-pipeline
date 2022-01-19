@@ -67,8 +67,6 @@ export class ThemePersonalize extends Component<Props, State> {
         this.props.theme.accept_double_booking &&
       this.state.theme.hidden_from_marketplace ===
         this.props.theme.hidden_from_marketplace &&
-      this.state.theme.consumer_regularize_debt ===
-        this.props.theme.consumer_regularize_debt &&
       this.state.theme.default_booking_ordering ===
         this.props.theme.default_booking_ordering &&
       this.state.theme.coach_can_edit_attendance ===
@@ -103,7 +101,6 @@ export class ThemePersonalize extends Component<Props, State> {
     const data = new FormData();
     [
       'show_offers_filling',
-      'consumer_regularize_debt',
       'accept_double_booking',
       'hidden_from_marketplace',
       'max_future_booking',
@@ -192,19 +189,6 @@ export class ThemePersonalize extends Component<Props, State> {
     const { t, classes } = this.props;
     return (
       <div>
-        <div className={classes.inputContainer}>
-          <Switch
-            checked={this.state.theme.consumer_regularize_debt}
-            onChange={() =>
-              this.handleChange('consumer_regularize_debt')(
-                !this.state.theme.consumer_regularize_debt,
-              )
-            }
-          />
-          <Typography>
-            {t('forms.themePersonalization.consumerRegularizeDebt')}
-          </Typography>
-        </div>
         <div className={classes.inputContainer}>
           <Switch
             checked={this.state.theme.accept_double_booking}

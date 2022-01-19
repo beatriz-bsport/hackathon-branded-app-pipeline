@@ -35,6 +35,8 @@ import type { Invoice } from '#libs/invoice/types';
 import type { PaymentMethod } from '#libs/payment/types';
 import InvoiceTable from '#libs/invoice/components/InvoiceTable.component';
 import PaymentDialog from '#libs/payment/components/PaymentDialog.component';
+import type { ConsumerGiftcard, Giftcard } from '#libs/giftcard/types';
+import type { PerformanceTrackingProgram } from '#libs/performance-tracking/types';
 
 type Props = {
   private_booking: PrivateBookingWithRelatedFields,
@@ -69,23 +71,54 @@ type Props = {
   programList: Array<PerformanceTrackingProgram>,
   updateMemberMetricValue: (data: any, options: OptionCallback) => void,
   fetchPerformanceTrackingData: (member: number) => void,
-
   programDataLoading: boolean,
+  consumerGiftcardList: Array<ConsumerGiftcard<Giftcard>>,
+  applyGiftcardOnInvoice: (
+    invoiceUuid: string,
+    consumergiftCardId: number,
+    amount: number,
+    options?: OptionCallback,
+  ) => void,
+  fetchConsumerGiftcardReceivedList: (memberId: number) => void,
 };
 
 export const PrivateBookingCard = (props: Props) => {
   const { private_booking, loading } = props;
   const { t } = useTranslation(['privateService']);
   const classes = useStyles();
-
   React.useEffect(() => {
     if (private_booking.member && private_booking.member.id) {
       props.fetchInvoiceListUnpaid(private_booking.member.id);
       props.fetchMemberPaymentMethod(private_booking.member.id);
       props.fetchMember(private_booking.member.id);
+      props.fetchConsumerGiftcardReceivedList(private_booking.member.id);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [private_booking?.member?.id]);
+  const applyGiftcardOnInvoice = (
+    invoiceUuid: string,
+    consumerGiftCardId: number,
+    amount: numberlike,
+    options: OptionCallback,
+  ) => {
+    return props.applyGiftcardOnInvoice(
+      invoiceUuid,
+      consumerGiftCardId,
+      amount,
+      {
+        onSuccess: () => {
+          if (options && options.onSuccess) options.onSuccess();
+          props.fetchInvoiceListUnpaid(private_booking.member.id);
+          props.fetchConsumerGiftcardReceivedList(private_booking.member.id);
+        },
+        onError: () => {
+          if (options && options.onError) options.onError();
+          props.fetchInvoiceListUnpaid(private_booking.member.id);
+          props.fetchConsumerGiftcardReceivedList(private_booking.member.id);
+        },
+      },
+    );
+  };
   if (
     loading ||
     !private_booking.private_slot ||
@@ -252,6 +285,8 @@ export const PrivateBookingCard = (props: Props) => {
                 invoiceList={props.unpaidInvoiceList}
                 snackbarSuccess={props.snackbarSuccess}
                 companyId={props.companyId}
+                applyGiftcardOnInvoice={applyGiftcardOnInvoice}
+                consumerGiftcardList={props.consumerGiftcardList}
               />
             </div>
           </>

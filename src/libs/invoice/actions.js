@@ -27,12 +27,15 @@ import {
   registerNowPlannedPaymentEvent as registerNowPlannedPaymentEventAPI,
   schedulePayment as schedulePaymentAPI,
   sendInvoiceToQuickbooks as sendInvoiceToQuickbooksAPI,
+  applyBalanceToInvoice as applyBalanceToInvoiceAPI,
+  applyGiftcardOnInvoice as applyGiftcardOnInvoiceAPI,
 } from './api';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 
 import type { Dispatch, OptionCallback } from '../../state/types';
 
 import { fetchAll as fetchAlerting } from '../alerting/actions';
+import type { Invoice } from './types';
 
 export const invoiceConfigurationPatchActions = {
   isLoading: createAction('INVOICE-CONFIGURATION/PATCH/IS_LOADING'),
@@ -739,7 +742,7 @@ export const schedulePaymentActions = {
 export function schedulePayment(
   uuid: string,
   data: any,
-  options: OptionCallBack,
+  options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(schedulePaymentActions.isLoading(true));
@@ -794,5 +797,100 @@ export function editBillingEstablishment(
       }
     }
     dispatch(editBillingEstablishmentActions.isLoading(false));
+  };
+}
+
+export const applyBalanceToInvoiceActions = {
+  isLoading: createAction('INVOICE/APPLY_BALANCE/LOADING'),
+  error: createAction('INVOICE/APPLY_BALANCE/ERROR'),
+  success: createAction('INVOICE/APPLY_BALANCE/SUCCESS'),
+};
+
+export function applyBalanceToInvoice(uuid: string, options: ?OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(applyBalanceToInvoiceActions.isLoading(true));
+    dispatch(applyBalanceToInvoiceActions.error(null));
+
+    try {
+      const response = await applyBalanceToInvoiceAPI(uuid);
+      dispatch(applyBalanceToInvoiceActions.success(response.data));
+      dispatch(snackbarSuccess('invoice.applyBalance.success'));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.status &&
+        error.response.status === 499 &&
+        error.response.data &&
+        error.response.data.error_code
+      ) {
+        dispatch(
+          snackbarError(
+            `invoice.applyBalance.errors.${error.response.data.error_code}`,
+          ),
+        );
+      } else {
+        dispatch(snackbarError('invoice.applyBalance.error'));
+      }
+      if (options && options.onError) {
+        options.onError(error);
+      }
+      dispatch(applyBalanceToInvoiceActions.error(error));
+    }
+    dispatch(applyBalanceToInvoiceActions.isLoading(false));
+  };
+}
+
+export const applyGiftcardOnInvoiceActions = {
+  isLoading: createAction('INVOICE/APPLY_GIFTCARD/LOADING'),
+  error: createAction('INVOICE/APPLY_GIFTCARD/ERROR'),
+  success: createAction('INVOICE/APPLY_GIFTCARD/SUCCESS'),
+};
+
+export function applyGiftcardOnInvoice(
+  invoice_uuid: string,
+  consumer_giftcard_id: number,
+  amount: number,
+  options: ?OptionCallback<Invoice>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(applyGiftcardOnInvoiceActions.isLoading(true));
+    dispatch(applyGiftcardOnInvoiceActions.error(null));
+
+    try {
+      const response = await applyGiftcardOnInvoiceAPI(
+        invoice_uuid,
+        consumer_giftcard_id,
+        amount,
+      );
+      dispatch(applyGiftcardOnInvoiceActions.success(response.data));
+      dispatch(snackbarSuccess('invoice.applyGiftcard.success'));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.status &&
+        error.response.status === 499 &&
+        error.response.data &&
+        error.response.data.error_code
+      ) {
+        dispatch(
+          snackbarError(
+            `invoice.applyGiftcard.errors.${error.response.data.error_code}`,
+          ),
+        );
+      } else {
+        dispatch(snackbarError('invoice.applyGiftcard.error'));
+      }
+      if (options && options.onError) {
+        options.onError(error);
+      }
+      dispatch(applyGiftcardOnInvoiceActions.error(error));
+    }
+    dispatch(applyGiftcardOnInvoiceActions.isLoading(false));
   };
 }

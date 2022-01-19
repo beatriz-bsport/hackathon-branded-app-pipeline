@@ -42,6 +42,10 @@ type Props = {
   termsAndConditionsAccepted: boolean,
   setTermsAndConditionsAccepted: (boolean) => void,
   onItemExpire: (item: CheckoutItem) => void,
+  allowConsumerToUseInternalAccount: boolean,
+  useInternalAccount: (amount: number) => void,
+  creditAccountBalance?: number | null,
+  onRemoveInternalAccountPrepaidLine: () => void,
 };
 
 export const CheckoutFlow = (props: Props) => (
@@ -60,6 +64,9 @@ export const CheckoutFlow = (props: Props) => (
           props.addItemToBasket(props.basket.id, data)
         }
         onItemExpire={props.onItemExpire}
+        onRemoveInternalAccountPrepaidLine={
+          props.onRemoveInternalAccountPrepaidLine
+        }
       />
     </Paper>
     {props.shopItemList.length ? (
@@ -90,6 +97,11 @@ export const CheckoutFlow = (props: Props) => (
           paymentModule={props.paymentModule}
           termsAndConditionsAccepted={props.termsAndConditionsAccepted}
           setTermsAndConditionsAccepted={props.setTermsAndConditionsAccepted}
+          allowConsumerToUseInternalAccount={
+            props.allowConsumerToUseInternalAccount && props.useInternalAccount
+          }
+          useInternalAccount={props.useInternalAccount}
+          creditAccountBalance={props.creditAccountBalance}
         />
       </Paper>
     ) : null}

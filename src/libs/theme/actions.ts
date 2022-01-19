@@ -5,6 +5,7 @@ import api from './api';
 // @ts-ignore
 import { Dispatch, OptionCallback } from '../../state/types';
 import { CompanyTheme } from './types';
+import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 
 export const themeDetail = {
   error: createAction('THEME/DETAIL/ERROR'),
@@ -58,12 +59,14 @@ export function updateCompanyTheme(
       const theme = response.data;
       dispatch(themeDetail.success(theme));
       dispatch(themeUpdate.isLoading(false));
+      dispatch(snackbarSuccess('companyTheme.update.success'));
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
       console.error(err);
       dispatch(themeUpdate.error(err));
       dispatch(themeUpdate.isLoading(false));
       if (options && options.onError) options.onError();
+      dispatch(snackbarError('companyTheme.update.error'));
     }
   };
 }

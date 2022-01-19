@@ -47,31 +47,43 @@ import {
   QUICKBOOKS_INVOICE_STATUS_ALREADY_SENT,
   QUICKBOOKS_INVOICE_STATUS_CAN_BE_SENT,
 } from '../../quickbooks/utils';
+import type { ConsumerGiftcard, Giftcard } from '#libs/giftcard/types';
+import UseConsumerGiftcardForm from '#libs/payment/components/UseConsumerGiftcardForm.component';
+import type { OptionCallback } from '../../../state/types';
+import type { Invoice } from '#libs/invoice/types';
+import type { Member } from '#libs/member/types';
 
 type Props = {
-  compactMode: ?boolean,
-  hideMemberName: string,
-  setOpen: (open: ?Invoice) => void,
-  open: boolean,
-  onInvoiceExpand: (uuid: string) => void,
-  invoice: Invoice,
-  onClickInvoice: (uuid: string) => void,
-  nestedDataLoading: boolean,
-  onBill: (uuid: string) => void,
-  finalizeInvoice: (uuid: string, callback: OptionCallback) => void,
-  showOpenInvoiceNested: boolean,
-  asConsumer: boolean,
-  showType?: boolean,
-  companyId?: number,
-  snackbarSuccess: (string) => void,
-  quickbooksIntegrated: boolean,
-  sendInvoiceToQuickbooks: (uuid: string) => void,
-  quickbooksLoading: boolean,
+  compactMode?: boolean;
+  hideMemberName: boolean;
+  setOpen: (uuid?: string) => void;
+  open: boolean;
+  onInvoiceExpand: (uuid: string) => void;
+  invoice: Invoice<Member> & { memberArchived?: boolean };
+  onClickInvoice: (uuid: string) => void;
+  nestedDataLoading: boolean;
+  onBill: (uuid: string) => void;
+  finalizeInvoice: (uuid: string, callback: OptionCallback<Invoice>) => void;
+  showOpenInvoiceNested: boolean;
+  asConsumer: boolean;
+  showType?: boolean;
+  companyId?: number;
+  snackbarSuccess: (msg: string) => void;
+  quickbooksIntegrated: boolean;
+  sendInvoiceToQuickbooks: (uuid: string) => void;
+  quickbooksLoading: boolean;
+  consumerGiftcardList: Array<ConsumerGiftcard<Giftcard, Member, Member>>;
+  applyGiftcardOnInvoice: (
+    invoiceUuid: string,
+    consumergiftCardId: number,
+    amount: number,
+    options?: OptionCallback,
+  ) => void;
 };
 
 const quickbooksLogo = require('./QB_logo.png');
 
-const InvoiceRow = React.memo((props: Props) => {
+const InvoiceRow: React.FC<Props> = React.memo((props: Props) => {
   const { invoice } = props;
   const { t } = useTranslation(['invoice', 'payment']);
   const amount_remaining = parseFloat(
@@ -143,6 +155,10 @@ const InvoiceRow = React.memo((props: Props) => {
     }
     return null;
   };
+  const relatedconsumerGiftcardList =
+    props.consumerGiftcardList?.filter(
+      (cgc) => cgc?.dst_member?.id === invoice?.member?.id || invoice.member,
+    ) || [];
   return (
     <React.Fragment>
       <TableRow
@@ -222,7 +238,7 @@ const InvoiceRow = React.memo((props: Props) => {
                   setProcessing(true);
                   props.finalizeInvoice(invoice.uuid, {
                     onError: () => setProcessing(false),
-                    onSuccess: (inv) => {
+                    onSuccess: (inv: Invoice) => {
                       setProcessing(false);
                       window.location = inv.stripe_invoice_pdf;
                     },
@@ -277,6 +293,18 @@ const InvoiceRow = React.memo((props: Props) => {
               )}
             </RedButton>
           </TableCell>
+          {relatedconsumerGiftcardList &&
+            relatedconsumerGiftcardList.length !== 0 &&
+            props.applyGiftcardOnInvoice && (
+              <TableCell>
+                <UseConsumerGiftcardForm
+                  outlinedIconVariant
+                  invoice={invoice}
+                  consumerGiftcardList={relatedconsumerGiftcardList}
+                  applyGiftcardOnInvoice={props.applyGiftcardOnInvoice}
+                />
+              </TableCell>
+            )}
           {!props.hideMemberName && <TableCell />}
           <TableCell>
             {!!props.showOpenInvoiceNested &&
@@ -486,32 +514,39 @@ const InvoiceRow = React.memo((props: Props) => {
 });
 
 export const InvoiceTable = (props: {
-  hidePagination: ?boolean,
-  compactMode: ?boolean,
-  invoiceList: Array<Invoice>,
-  loading: boolean,
-  hideMemberName: string,
-  count: number,
-  page: number,
-  onChangePage: (number) => void,
-  onInvoiceExpand: (string) => void,
-  containerComponent: any,
-  nestedDataLoading: boolean,
-  onClickInvoice: (string, Invoice) => void,
-  onBill: (string) => void,
-  finalizeInvoice: (string) => void,
-  showOpenInvoiceNested: ?boolean,
-  asConsumer: ?boolean,
-  showType?: boolean,
-  companyId?: number,
-  snackbarSuccess: (string) => void,
-  quickbooksIntegrated: boolean,
-  sendInvoiceToQuickbooks: (uuid: string) => void,
-  quickbooksLoading: boolean,
+  hidePagination?: boolean;
+  compactMode?: boolean;
+  invoiceList: Array<Invoice>;
+  loading: boolean;
+  hideMemberName: boolean;
+  count: number;
+  page: number;
+  onChangePage: (page: number) => void;
+  onInvoiceExpand: (uuid: string) => void;
+  containerComponent: any;
+  nestedDataLoading: boolean;
+  onClickInvoice: (uuid: string, invoice: Invoice) => void;
+  onBill: (uuid: string) => void;
+  finalizeInvoice: (uuid: string, options: OptionCallback<Invoice>) => void;
+  showOpenInvoiceNested?: boolean;
+  asConsumer?: boolean;
+  showType?: boolean;
+  companyId?: number;
+  snackbarSuccess: (msg: string) => void;
+  quickbooksIntegrated: boolean;
+  sendInvoiceToQuickbooks: (uuid: string) => void;
+  quickbooksLoading: boolean;
+  consumerGiftcardList: Array<ConsumerGiftcard<Giftcard>>;
+  applyGiftcardOnInvoice: (
+    invoiceUuid: string,
+    consumergiftCardId: number,
+    amount: number,
+    options?: OptionCallback,
+  ) => void;
 }) => {
   const { t } = useTranslation(['invoice']);
 
-  const [open, setOpen] = React.useState();
+  const [open, setOpen] = React.useState<string | null>(null);
   return (
     <TableContainer component={props.containerComponent}>
       <Table aria-label="collapsible table">
@@ -540,29 +575,33 @@ export const InvoiceTable = (props: {
         </TableHead>
         <TableBody>
           {!props.loading &&
-            props.invoiceList.map((invoice) => (
-              <InvoiceRow
-                showType={props.showType}
-                nestedDataLoading={props.nestedDataLoading}
-                hideMemberName={props.hideMemberName}
-                finalizeInvoice={props.finalizeInvoice}
-                asConsumer={!!props.asConsumer}
-                showOpenInvoiceNested={!!props.showOpenInvoiceNested}
-                onClickInvoice={props.onClickInvoice}
-                onInvoiceExpand={props.onInvoiceExpand}
-                key={invoice.uuid}
-                compactMode={props.compactMode}
-                invoice={invoice}
-                open={invoice.uuid === open}
-                setOpen={setOpen}
-                onBill={props.onBill}
-                companyId={props.companyId}
-                snackbarSuccess={props.snackbarSuccess}
-                quickbooksIntegrated={props.quickbooksIntegrated}
-                sendInvoiceToQuickbooks={props.sendInvoiceToQuickbooks}
-                quickbooksLoading={props.quickbooksLoading}
-              />
-            ))}
+            props.invoiceList.map(
+              (invoice: Invoice & { memberArchived?: boolean }) => (
+                <InvoiceRow
+                  showType={props.showType}
+                  nestedDataLoading={props.nestedDataLoading}
+                  hideMemberName={props.hideMemberName}
+                  finalizeInvoice={props.finalizeInvoice}
+                  asConsumer={!!props.asConsumer}
+                  showOpenInvoiceNested={!!props.showOpenInvoiceNested}
+                  onClickInvoice={props.onClickInvoice}
+                  onInvoiceExpand={props.onInvoiceExpand}
+                  key={invoice.uuid}
+                  compactMode={props.compactMode}
+                  invoice={invoice}
+                  open={invoice.uuid === open}
+                  setOpen={setOpen}
+                  onBill={props.onBill}
+                  companyId={props.companyId}
+                  snackbarSuccess={props.snackbarSuccess}
+                  quickbooksIntegrated={props.quickbooksIntegrated}
+                  sendInvoiceToQuickbooks={props.sendInvoiceToQuickbooks}
+                  quickbooksLoading={props.quickbooksLoading}
+                  consumerGiftcardList={props.consumerGiftcardList}
+                  applyGiftcardOnInvoice={props.applyGiftcardOnInvoice}
+                />
+              ),
+            )}
         </TableBody>
       </Table>
       {props.loading && <LinearProgress />}

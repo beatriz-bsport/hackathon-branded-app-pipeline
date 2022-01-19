@@ -210,6 +210,13 @@ type Props = {
   fetchPerformanceTrackingData: (member: number) => void,
   programList: Array<PerformanceTrackingProgram>,
   programDataLoading: boolean,
+  consumerGiftcardList: Array<ConsumerGiftcard<Giftcard>>,
+  applyGiftcardOnInvoice: (
+    invoiceUuid: string,
+    consumergiftCardId: number,
+    amount: number,
+    options?: OptionCallback,
+  ) => void,
 };
 
 type State = {
@@ -574,6 +581,8 @@ export class OfferManagement extends Component<Props, State> {
             snackbarSuccess={this.props.snackbarSuccess}
             companyId={this.props.companyId}
             memberDetails={this.props.memberDetails}
+            applyGiftcardOnInvoice={this.props.applyGiftcardOnInvoice}
+            consumerGiftcardList={this.props.consumerGiftcardList}
           />
           <Prompt
             when={this.props.unpaidInvoiceList.length > 0}

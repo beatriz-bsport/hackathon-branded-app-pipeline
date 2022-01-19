@@ -52,10 +52,10 @@ type MemberCountData = {
   nb_subscriptions: number;
 };
 
-export type MemberMinimal<Tag = number> = {
+export type MemberMinimal<Tag = number, CA = number> = {
   id: number;
   name: string;
-  credit_account_balance: number;
+  credit_account_balance: CA;
   email: string;
   consumer: number;
   date_joined: string;
@@ -63,7 +63,7 @@ export type MemberMinimal<Tag = number> = {
   tags: Array<Tag>;
 };
 
-export type Member<Tag = number> = {
+export type Member<Tag = number, CA = number> = {
   id: number;
   name: string;
   consumer: number;
@@ -79,7 +79,7 @@ export type Member<Tag = number> = {
   email: string;
   address: string;
   internal_account: number;
-  credit_account_balance: number;
+  credit_account_balance: CA;
   notes: Array<MemberNote>;
   tags: Array<Tag>;
   next_booking: string; // date

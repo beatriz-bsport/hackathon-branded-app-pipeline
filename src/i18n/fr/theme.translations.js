@@ -10,6 +10,17 @@ exports.default = {
       coach_can_edit_attendance:
         "Dans l'application mobile, le professeur peut modifier modifier les présences/absences",
       consumerRegularizeDebt: 'Le client peut régulariser son acompte en ligne',
+      goToReports: 'Page des rapports',
+      allowConsumerToUseInternalAccount:
+        'Le client peut utiliser sont acompte interne pour payer ses factures ou son panier',
+      internalAccountWarningTitle: 'Attention aux soldes clients actuels.',
+      internalAccountWarning1:
+        "Nous conseillons fortement de créer un rapport des soldes clients avant d'activer cette fonctionnalité.",
+      internalAccountWarning2:
+        "Pour créer un rapport des soldes clients, rendez-vous vous dans l'onglet 'Rapports', puis sélectionnez 'Crédits' dans la catégorie 'Payments' lors de la création du nouveau rapport.",
+      internalAccountNotusableOnContract:
+        "Ce moyen de paiement n'est pas utilisable pour les contrats",
+      internalAccount: 'Solde Client',
       maxFutureBooking: {
         label:
           'Limiter le nombre maximum de réservations prévues dans le futur par client',

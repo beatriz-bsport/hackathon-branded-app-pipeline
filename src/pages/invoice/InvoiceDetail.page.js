@@ -32,9 +32,12 @@ import {
   getSavedPaymentMethodList,
 } from '../../libs/payment/selectors';
 import { formatAsDate } from '../../utils/datetime';
-import { fetchMember } from '../../libs/member/actions';
 import {
-  fetchSpecificInvoice as fetchInvoice,
+  fetchMember,
+  fetchMemberBulk as fetchMemberBulkAction,
+} from '../../libs/member/actions';
+import {
+  fetchSpecificInvoice as fetchInvoiceAction,
   fetchInvoiceItemList,
   fetchPaymentList as fetchPaymentListAction,
   revertInvoice as revertInvoiceAction,
@@ -48,6 +51,7 @@ import {
   registerNowPlannedPaymentEvent as registerNowPlannedPaymentEventAction,
   cancelPlannedPaymentEvent as cancelPlannedPaymentEventAction,
   schedulePayment,
+  applyGiftcardOnInvoice as applyGiftcardOnInvoiceAction,
 } from '../../libs/invoice/actions';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { getAllEstablishments } from '../../libs/establishment/selectors';
@@ -74,6 +78,20 @@ import type { Establishment } from '../../libs/establishment/types';
 import themeSelectors from '../../libs/theme/selectors';
 import type { Theme as CompanyThemeType } from '../../libs/theme/types';
 import { withMemberBannerHOC } from '../../hocs/banner.hoc';
+import {
+  fetchGiftcardBulk as fetchGiftcardBulkAction,
+  fetchConsumerGiftcardReceivedList as fetchConsumerGiftcardReceivedListAction,
+} from '../../libs/giftcard/actions';
+import {
+  getConsumerGiftcardReceivedList,
+  withGiftcard,
+  withSender,
+  withReceiver,
+  onlyUsable,
+} from '../../libs/giftcard/selectors';
+import type { Payment } from '#libs/payment/types';
+import type { OptionCallback } from '../../state/types';
+import type { ConsumerGiftcard, Giftcard } from '../../libs/giftcard/types';
 
 const PAYMENT_INTENT_STATUS_REQUIRES_ACTION = 150;
 
@@ -82,7 +100,7 @@ type Props = {
   uuid: string,
   fetchInvoiceItemList: (params: any) => void,
   fetchMember: (number) => void,
-  editCustomFooter: (string, OptionCallback) => void,
+  editCustomFooter: (footer: string, options?: OptionCallback) => void,
   fetchPaymentList: (params: any) => void,
   invoice: Invoice,
   openPaymentDialog: () => void,
@@ -146,6 +164,17 @@ type Props = {
   companyId: number,
   snackbarSuccess: (msg: string) => void,
   snackbarWarning: (msg: string) => void,
+  fetchConsumerGiftcardReceivedList: (
+    memberId: number,
+    options: OptionCallback,
+  ) => void,
+  consumerGiftcardList: Array<ConsumerGiftcard<Giftcard>>,
+  applyGiftcardOnInvoice: (
+    invoiceUuid: string,
+    consumergiftCardId: number,
+    amount: number,
+    options?: OptionCallback,
+  ) => void,
 };
 
 type State = {
@@ -172,6 +201,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
     this.props.fetchInvoice(this.props.uuid, {
       onSuccess: (invoice) => {
         this.props.fetchMember(invoice.member);
+        this.props.fetchConsumerGiftcardReceivedList(invoice.member);
         if (invoice.plannedinvoice) {
           this.props.fetchPaymentGroupRequiringActionList();
         }
@@ -327,6 +357,32 @@ export class InvoiceDetail extends React.Component<Props, State> {
   fetchPaymentMethodList = () =>
     this.props.fetchPaymentMethodList({ member: this.props.invoice.member.id });
 
+  applyGiftcardOnInvoice = (
+    invoice_uuid: string,
+    consumerGiftCardId: number,
+    amount: number,
+    options?: OptionCallback,
+  ) =>
+    this.props.applyGiftcardOnInvoice(
+      invoice_uuid,
+      consumerGiftCardId,
+      amount,
+      {
+        onSuccess: () => {
+          if (options && options.onSuccess) options.onSuccess();
+          this.props.fetchConsumerGiftcardReceivedList(
+            this.props.invoice?.member?.id,
+          );
+        },
+        onError: () => {
+          if (options && options.onError) options.onError();
+          this.props.fetchConsumerGiftcardReceivedList(
+            this.props.invoice?.member?.id,
+          );
+        },
+      },
+    );
+
   render() {
     return (
       <>
@@ -385,6 +441,8 @@ export class InvoiceDetail extends React.Component<Props, State> {
                 }}
                 companyId={this.props.companyId}
                 snackbarSuccess={this.props.snackbarSuccess}
+                consumerGiftcardList={this.props.consumerGiftcardList}
+                applyGiftcardOnInvoice={this.applyGiftcardOnInvoice}
               />
             </Grid>
             {!!this.props.isOpenInstalmentPaymentDialog && (
@@ -547,11 +605,14 @@ export default compose(
       establishments: getAllEstablishments(state),
       companyTheme: themeSelectors.getTheme(state),
       companyId: state.theme.theme.company,
+      consumerGiftcardList: withSender(
+        withReceiver(onlyUsable(withGiftcard(getConsumerGiftcardReceivedList))),
+      )(state),
     }),
     {
       fetchInvoiceItemList,
       fetchPaymentMethodList: fetchPaymentMethodListAction,
-      fetchInvoice,
+      fetchInvoice: fetchInvoiceAction,
       fetchPaymentList: fetchPaymentListAction,
       goToSubscription: (id) => pushRouter(`/subscription/${id}/`),
       fetchPaymentGroupList: fetchPaymentGroupListAction,
@@ -574,6 +635,11 @@ export default compose(
       editBillingEstablishment: editBillingEstablishmentAction,
       snackbarSuccess,
       snackbarWarning,
+      fetchConsumerGiftcardReceivedList:
+        fetchConsumerGiftcardReceivedListAction,
+      fetchGiftcardBulk: fetchGiftcardBulkAction,
+      applyGiftcardOnInvoice: applyGiftcardOnInvoiceAction,
+      fetchMemberBulk: fetchMemberBulkAction,
     },
   ),
   withHandlers({
@@ -631,6 +697,62 @@ export default compose(
             onError: options && options.onError,
           },
         );
+      },
+    fetchConsumerGiftcardReceivedList:
+      ({
+        fetchConsumerGiftcardReceivedList,
+        fetchGiftcardBulk,
+        fetchMemberBulk,
+      }) =>
+      (id, options?: OptionCallback) => {
+        fetchConsumerGiftcardReceivedList(
+          id,
+          {
+            page: 1,
+            page_size: 15,
+            active: true,
+            reverted: false,
+            has_amount_left: true,
+          },
+          {
+            onSuccess: (consumerGiftcardList: Array<ConsumerGiftcard>) => {
+              fetchGiftcardBulk(consumerGiftcardList.map((cg) => cg.giftcard));
+              fetchMemberBulk([
+                ...consumerGiftcardList.map((cg) => cg.src_member),
+                ...consumerGiftcardList.map((cg) => cg.dst_member),
+              ]);
+              if (options && options.onSuccess) options.onSuccess();
+            },
+            onError: () => {
+              if (options && options.onError) options.onError();
+            },
+          },
+        );
+      },
+    applyGiftcardOnInvoice:
+      ({ applyGiftcardOnInvoice, fetchInvoice, fetchPaymentList }) =>
+      (
+        invoice_uuid: string,
+        consumerGiftCardId: number,
+        amount: number,
+        options?: OptionCallback,
+      ) => {
+        applyGiftcardOnInvoice(invoice_uuid, consumerGiftCardId, amount, {
+          onSuccess: () => {
+            fetchInvoice(invoice_uuid, {
+              onSuccess: () => {
+                fetchPaymentList({
+                  invoice__uuid: invoice_uuid,
+                  page_size: 100,
+                });
+                if (options && options.onSuccess) options.onSuccess();
+              },
+            });
+          },
+          onError: () => {
+            if (options && options.onError) options.onError();
+          },
+        });
       },
   }),
   withTitle(

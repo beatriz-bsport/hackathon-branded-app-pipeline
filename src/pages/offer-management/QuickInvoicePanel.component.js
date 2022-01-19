@@ -12,13 +12,17 @@ import PaymentDialog from '../../libs/payment/components/PaymentDialog.component
 import InvoiceTable from '../../libs/invoice/components/InvoiceTable.component';
 import { requestClientSecret as requestClientSecretAPI } from '../../libs/invoice/api';
 import type { Establishment } from '../../libs/establishment/types';
+import type { Member } from '#libs/member/types';
+import type { Invoice } from '#libs/invoice/types';
+import type { ConsumerGiftcard, Giftcard } from '#libs/giftcard/types';
+import type { OptionCallback } from '../../state/types';
 
 type Props = {
   classes: Object,
   t: TFunction,
   unevenSavedInvoices: Array<Invoice>,
   quickInvoices: Array<Invoice>,
-  createInvoice: (InvoiceData) => void,
+  createInvoice: (InvoiceData: Invoice) => void,
   closeQuickInvoice: (memberId: number) => void,
   availableBuyableItems: { [buyable_item_identifier: number]: BuyableItem },
   invoiceToBill: Array<Invoice>,
@@ -30,6 +34,13 @@ type Props = {
   snackbarSuccess: (string) => void,
   companyId: number,
   memberDetails: { [id: number]: Member },
+  consumerGiftcardList: Array<ConsumerGiftcard<Giftcard>>,
+  applyGiftcardOnInvoice: (
+    invoiceUuid: string,
+    consumergiftCardId: number,
+    amount: number,
+    options?: OptionCallback,
+  ) => void,
 };
 
 type State = {
@@ -119,6 +130,8 @@ export class QuickInvoicePanel extends React.Component<Props, State> {
               invoiceList={unevenSavedInvoices}
               snackbarSuccess={this.props.snackbarSuccess}
               companyId={this.props.companyId}
+              applyGiftcardOnInvoice={this.props.applyGiftcardOnInvoice}
+              consumerGiftcardList={this.props.consumerGiftcardList}
             />
           </React.Fragment>
         ) : null}

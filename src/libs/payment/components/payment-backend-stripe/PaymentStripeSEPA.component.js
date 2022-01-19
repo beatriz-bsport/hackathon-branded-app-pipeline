@@ -21,6 +21,7 @@ import {
   fetchPaymentMethodList as fetchPaymentMethodListAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
 } from '../../api';
+import UseInternalAccountForm from '#libs/payment/components/UseInternalAccountForm.component';
 
 // Custom styling can be passed as options when creating an Element.
 const IBAN_STYLE = {
@@ -139,6 +140,11 @@ type Props = {
   loading?: boolean,
   basketId?: string,
   basketTotalPriceCts?: number,
+  allowConsumerToUseInternalAccount?: boolean,
+  useInternalAccount?: (amount: number) => void,
+  applyBalanceToInvoice?: () => void,
+  creditAccountBalance?: number | null,
+  applyBalanceLoading?: boolean,
 };
 
 export const PaymentStripeSEPA = (props: Props) => {
@@ -315,6 +321,16 @@ export const PaymentStripeSEPA = (props: Props) => {
               {t('payment:forms.paymentMethod.actions.addPaymentMethod')}
             </Typography>
           </ButtonBase>
+        </div>
+      )}
+      {props.allowConsumerToUseInternalAccount && !!props.creditAccountBalance && (
+        <div className={classes.couponCodeContainer}>
+          <UseInternalAccountForm
+            creditAccountBalance={props.creditAccountBalance}
+            onBasketSubmit={props.useInternalAccount}
+            onInvoiceSubmit={props.applyBalanceToInvoice}
+            loading={props.loading || props.applyBalanceLoading}
+          />
         </div>
       )}
       <div className={classes.conditions}>

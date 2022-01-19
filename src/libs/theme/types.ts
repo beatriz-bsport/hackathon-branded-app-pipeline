@@ -35,6 +35,7 @@ export type Theme = {
   hide_least_specific_payment_pack: boolean;
   default_attendance: boolean;
   consumer_regularize_debt: boolean;
+  allow_consumer_to_use_internal_account: boolean;
   accept_double_booking: boolean;
   gtmId?: string;
   facebookPixelId?: string;

@@ -17,6 +17,7 @@ import {
   fetchPaymentMethodList as fetchPaymentMethodListAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
 } from '../../api';
+import UseInternalAccountForm from '#libs/payment/components/UseInternalAccountForm.component';
 
 type Props = {
   memberId: number,
@@ -41,6 +42,11 @@ type Props = {
   sepaDefaultEmail?: string,
   basketId?: string,
   basketTotalPriceCts?: number,
+  allowConsumerToUseInternalAccount?: boolean,
+  useInternalAccount?: (amount: number) => void,
+  applyBalanceToInvoice?: () => void,
+  creditAccountBalance?: number | null,
+  applyBalanceLoading?: boolean,
 };
 
 const CARD_ELEMENT_OPTIONS = {
@@ -243,7 +249,18 @@ export const StripePaymentCard = (props: Props) => {
           </ButtonBase>
         </div>
       )}
-
+      {props.allowConsumerToUseInternalAccount && !!props.creditAccountBalance && (
+        <div className={classes.couponCodeContainer}>
+          <UseInternalAccountForm
+            creditAccountBalance={props.creditAccountBalance}
+            onBasketSubmit={props.useInternalAccount}
+            onInvoiceSubmit={props.applyBalanceToInvoice}
+            loading={
+              props.loading || props.processing || props.applyBalanceLoading
+            }
+          />
+        </div>
+      )}
       <div className={classes.conditionRow}>
         {props.AcceptTermsAndConditionsComponent}
       </div>

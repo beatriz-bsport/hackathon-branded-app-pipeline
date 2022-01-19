@@ -97,7 +97,10 @@ import { CoachPaymentRuleByKindSelector } from '../../coach-payment-rules/select
 import type { CoachPaymentRule } from '../../coach-payment-rules/types';
 import { showVaccinationStatus } from '../../custom-form/selectors';
 import { withInvoiceItem, getInvoiceList } from '#libs/invoice/selectors';
-import { fetchInvoiceList as fetchInvoiceListAction } from '#libs/invoice/actions';
+import {
+  fetchInvoiceList as fetchInvoiceListAction,
+  applyGiftcardOnInvoice as applyGiftcardOnInvoiceAction,
+} from '#libs/invoice/actions';
 import { snackbarSuccess } from '#libs/snackbar/actions';
 import { fetchPaymentMethodList } from '#libs/payment/actions';
 import type { Theme as CompanyTheme } from '#libs/theme/types';
@@ -113,6 +116,17 @@ import {
   fetchProgram as fetchProgramAction,
   fetchMemberProgram as fetchMemberProgramAction,
 } from '#libs/performance-tracking/actions';
+import {
+  getConsumerGiftcardReceivedList,
+  withGiftcard,
+  withSender,
+  withReceiver,
+  onlyUsable,
+} from '#libs/giftcard/selectors';
+import {
+  fetchGiftcardBulk as fetchGiftcardBulkAction,
+  fetchConsumerGiftcardReceivedList as fetchConsumerGiftcardReceivedListAction,
+} from '#libs/giftcard/actions';
 
 type Props = {
   offerId: number,
@@ -197,6 +211,14 @@ type Props = {
   fetchPerformanceTrackingData: (member: number) => void,
   fetchProgram: (params: any) => void,
   programDataLoading: boolean,
+  consumerGiftcardList: Array<ConsumerGiftcard<Giftcard>>,
+  applyGiftcardOnInvoice: (
+    invoiceUuid: string,
+    consumergiftCardId: number,
+    amount: number,
+    options?: OptionCallback,
+  ) => void,
+  fetchConsumerGiftcardReceivedList: (memberId: number) => void,
 };
 type State = {
   clientSecretLoading: boolean,
@@ -260,6 +282,29 @@ export class CalendarEventDetail extends React.Component<Props, State> {
       });
   };
 
+  applyGiftcardOnInvoice = (
+    invoice_uuid: string,
+    consumerGiftCardId: number,
+    amount: number,
+    options?: OptionCallback,
+  ) => {
+    this.props.applyGiftcardOnInvoice(
+      invoice_uuid,
+      consumerGiftCardId,
+      amount,
+      {
+        onSuccess: () => {
+          if (options && options.onSuccess) options.onSuccess();
+          // this.props.fetchConsumerGiftcardReceivedList();
+        },
+        onError: () => {
+          if (options && options.onError) options.onError();
+          // this.props.fetchConsumerGiftcardReceivedList();
+        },
+      },
+    );
+  };
+
   renderContent = () => {
     const { t, classes, goToMember, offer, privateBooking, customEvent } =
       this.props;
@@ -316,6 +361,11 @@ export class CalendarEventDetail extends React.Component<Props, State> {
           paymentGroupId={this.state.paymentGroupId}
           paymentGroupPriceCts={this.state.paymentGroupPriceCts}
           requestClientSecret={this.requestClientSecret}
+          consumerGiftcardList={this.props.consumerGiftcardList}
+          applyGiftcardOnInvoice={this.applyGiftcardOnInvoice}
+          fetchConsumerGiftcardReceivedList={
+            this.props.fetchConsumerGiftcardReceivedList
+          }
         />
       );
     }
@@ -735,6 +785,9 @@ export default compose(
         state.performanceTracking.memberProgram.loading ||
         state.performanceTracking.metricList.loading ||
         state.performanceTracking.program.loading,
+      consumerGiftcardList: withSender(
+        withReceiver(onlyUsable(withGiftcard(getConsumerGiftcardReceivedList))),
+      )(state),
     }),
     {
       retrieveOfferAsManager: retrieveOfferAsManagerAction,
@@ -757,6 +810,7 @@ export default compose(
       goToInvoice: (uuid: number) => push(`/invoice/${uuid}/`),
       fetchMember,
       fetchInvoiceList: fetchInvoiceListAction,
+      applyGiftcardOnInvoice: applyGiftcardOnInvoiceAction,
       snackbarSuccess,
       fetchPaymentMethodListAction: fetchPaymentMethodList,
       fetchMetric: fetchMetricAction,
@@ -764,6 +818,9 @@ export default compose(
       createMemberProgram: createMemberProgramAction,
       fetchMemberProgram: fetchMemberProgramAction,
       fetchProgram: fetchProgramAction,
+      fetchConsumerGiftcardReceivedList:
+        fetchConsumerGiftcardReceivedListAction,
+      fetchGiftcardBulk: fetchGiftcardBulkAction,
     },
   ),
   withHandlers({
@@ -908,6 +965,50 @@ export default compose(
       ({ fetchPaymentMethodListAction }) =>
       (id) => {
         fetchPaymentMethodListAction({ member: id });
+      },
+  }),
+  withHandlers({
+    fetchConsumerGiftcardReceivedList:
+      ({
+        fetchConsumerGiftcardReceivedList,
+        fetchGiftcardBulk,
+        fetchMemberBulk,
+      }) =>
+      (memberId: number, options?: OptionCallback) => {
+        fetchConsumerGiftcardReceivedList(
+          memberId,
+          { page: 1, page_size: 100, active: true, reverted: false },
+          {
+            onSuccess: (consumerGiftcardList: Array<ConsumerGiftcard>) => {
+              fetchGiftcardBulk(consumerGiftcardList.map((cg) => cg.giftcard));
+              fetchMemberBulk([
+                ...consumerGiftcardList.map((cg) => cg.src_member),
+                ...consumerGiftcardList.map((cg) => cg.dst_member),
+              ]);
+              if (options && options.onSuccess) options.onSuccess();
+            },
+            onError: () => {
+              if (options && options.onError) options.onError();
+            },
+          },
+        );
+      },
+    applyGiftcardOnInvoice:
+      ({ applyGiftcardOnInvoice }) =>
+      (
+        invoice_uuid: string,
+        consumerGiftCardId: number,
+        amount: number,
+        options?: OptionCallback,
+      ) => {
+        applyGiftcardOnInvoice(invoice_uuid, consumerGiftCardId, amount, {
+          onSuccess: () => {
+            if (options && options.onSuccess) options.onSuccess();
+          },
+          onError: () => {
+            if (options && options.onError) options.onError();
+          },
+        });
       },
   }),
   OfferEditorContainer,

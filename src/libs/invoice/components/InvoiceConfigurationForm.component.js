@@ -14,6 +14,7 @@ import Collapse from '@material-ui/core/Collapse';
 import WarningIcon from '@material-ui/icons/Warning';
 import Switch from '@material-ui/core/Switch';
 import NumberInput from '../../../components/input/NumericInput.component';
+import ThemeInternalAccountForm from '#libs/theme/components/ThemeInternalAccountForm.component';
 
 type Props = {
   classes: any,
@@ -27,6 +28,9 @@ type Props = {
   },
   processing: boolean,
   onSubmit: (data: any) => void,
+  theme: CompanyTheme,
+  submitTheme: (company_id: number, data: any) => void,
+  goToReports: () => void,
 };
 
 type State = {
@@ -316,6 +320,11 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
             {t('configuration.nf525Button')}
           </Button>
         </Paper>
+        <ThemeInternalAccountForm
+          theme={this.props.theme}
+          onSubmit={this.props.submitTheme}
+          goToReports={this.props.goToReports}
+        />
       </div>
     );
   }

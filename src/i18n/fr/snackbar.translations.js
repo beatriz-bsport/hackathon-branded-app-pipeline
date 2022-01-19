@@ -31,6 +31,7 @@ const {
 
 const {
   PENDING_PAYMENT_INTENT_OF_PAYMENT_GROUP_BLOCKS_OTHER_PAYMENT_GROUP_CREATION,
+  INVOICE_PAYMENT_BY_GIFTCARD_ERROR,
 } = require('@bsport/common/lib/master-data/payment-group');
 
 exports.default = {
@@ -147,6 +148,18 @@ exports.default = {
         934004: "Impossible d'envoyer une facture impayée sur QuickBooks",
         934005: 'Votre facture ne peux pas être envoyée sur QuickBooks',
         934006: 'Cette facture est déjà enregistrée sur QuickBooks',
+      },
+    },
+    applyBalance: {
+      success: 'Le montant de votre solde a été appliqué à la facture.',
+      error: "Impossible d'utiliser votre solde pour régler cette facture.",
+    },
+    applyGiftcard: {
+      success: 'Paiement par carte cadeau validé',
+      error: 'Impossible de payer le montant demandé avec cette carte cadeau',
+      errors: {
+        [INVOICE_PAYMENT_BY_GIFTCARD_ERROR]:
+          'Impossible de régler cette facture avec cette carte cadeau',
       },
     },
   },
@@ -807,6 +820,12 @@ exports.default = {
     errors: {
       [PENDING_PAYMENT_INTENT_OF_PAYMENT_GROUP_BLOCKS_OTHER_PAYMENT_GROUP_CREATION]:
         'Un paiment est déjà en cours de validation, revenez plus tard pour enregistrer un nouveau paiement.',
+    },
+  },
+  companyTheme: {
+    update: {
+      success: 'Modifications enregistrées',
+      error: 'Impossible de sauvegarder les modifications',
     },
   },
 };

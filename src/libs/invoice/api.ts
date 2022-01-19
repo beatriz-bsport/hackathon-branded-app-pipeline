@@ -8,14 +8,16 @@ import {
   buildUrlParams,
 } from '../../http';
 
+import type { Invoice } from './types';
+
 export async function fetchAll({
   page,
   pageSize,
   queryParams,
 }: {
-  page: number,
-  pageSize: number,
-  queryParams: string,
+  page: number;
+  pageSize: number;
+  queryParams: string;
 }) {
   return getAuth(
     `${API_V1_URI}/payment/invoices/?page_size=${pageSize}&page=${page}${
@@ -24,7 +26,7 @@ export async function fetchAll({
   );
 }
 
-export async function fetchByQuery(params: *) {
+export async function fetchByQuery(params: any) {
   const urlParams = buildUrlParams(params);
   return getAuth(`${API_V1_URI}/payment/invoices/${urlParams}`);
 }
@@ -57,7 +59,7 @@ export async function updatePaymentMethod(uuid: string, newMethod: number) {
   });
 }
 
-export async function create(invoiceData: *) {
+export async function create(invoiceData: any) {
   return postAuth(`${API_V1_URI}/payment/invoices/`, invoiceData);
 }
 
@@ -79,25 +81,25 @@ export async function returnPayment(uuid: string) {
   return postAuth(`${API_V1_URI}/payment/payments/${uuid}/return_payment/`, {});
 }
 
-export async function update(invoiceData: *) {
+export async function update(invoiceData: any) {
   return patchAuth(
     `${API_V1_URI}/payment/invoices/${invoiceData.uuid}/`,
     invoiceData,
   );
 }
-export async function createQuick(invoiceData: *) {
+export async function createQuick(invoiceData: any) {
   return postAuth(`${API_V1_URI}/payment/invoices/quick_create/`, invoiceData);
 }
 
-export async function patchConfiguration(data: *) {
+export async function patchConfiguration(data: any) {
   return patchAuth(`${API_V1_URI}/payment/configuration/me/`, data);
 }
 
-export async function fetchPaymentList(params: * = {}) {
+export async function fetchPaymentList(params: any) {
   return getAuth(`${API_V1_URI}/payment/payments/${buildUrlParams(params)}`);
 }
 
-export async function fetchInvoiceItemList(params: * = {}) {
+export async function fetchInvoiceItemList(params: any) {
   return getAuth(
     `${API_V1_URI}/payment/invoice_items/${buildUrlParams(params)}`,
   );
@@ -160,7 +162,7 @@ export async function registerNowPlannedPaymentEvent(id: number) {
   );
 }
 
-export async function schedulePayment(uuid, data: any) {
+export async function schedulePayment(uuid: string, data: any) {
   return postAuth(
     `${API_V1_URI}/payment/invoices/${uuid}/schedule_payment/`,
     data,
@@ -174,7 +176,7 @@ export async function editCustomFooter(uuid: string, custom_footer: string) {
 }
 
 export async function editBillingEstablishent(
-  uuid: String,
+  uuid: string,
   billing_establishment_id: number,
 ) {
   return postAuth(
@@ -182,6 +184,26 @@ export async function editBillingEstablishent(
     { billing_establishment_id },
   );
 }
+
+export async function applyBalanceToInvoice(uuid: string) {
+  return postAuth(
+    `${API_V1_URI}/payment/invoices/${uuid}/apply_balance_to_invoice/`,
+  );
+}
+
+export const applyGiftcardOnInvoice = async (
+  invoice_uuid: string,
+  consumer_giftcard_id: number,
+  amount: number,
+): Promise<{ data: Invoice }> => {
+  return postAuth(
+    `${API_V1_URI}/payment/invoices/${invoice_uuid}/apply_giftcard_on_invoice/`,
+    {
+      amount,
+      consumer_giftcard_id,
+    },
+  );
+};
 
 export default {
   fetchAll,

@@ -1,9 +1,8 @@
-// @flow
-
 import { createAction } from 'redux-actions';
 
 import {
   fetchPartnershipList as fetchPartnershipListAPI,
+  fetchPartnershipEstablishmentMergeList as fetchPartnershipEstablishmentMergeListAPI,
   requestPartnership as requestPartnershipAPI,
   updateParntership as updateParntershipAPI,
 } from './api';
@@ -104,5 +103,39 @@ export function updatePartnership(
     }
 
     dispatch(updatePartnershipActions.isLoading(false));
+  };
+}
+
+export const listPartnershipEstablishmentMergeActions = {
+  error: createAction('PARTNERSHIP_ESTABLISHMENT_MERGE/LIST/ERROR'),
+  isLoading: createAction('PARTNERSHIP_ESTABLISHMENT_MERGE/LIST/IS_LOADING'),
+  success: createAction('PARTNERSHIP_ESTABLISHMENT_MERGE/LIST/SUCCESS'),
+};
+
+export function fetchPartnershipEstablishmentMergeList(
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listPartnershipEstablishmentMergeActions.isLoading(true));
+    dispatch(listPartnershipEstablishmentMergeActions.error(null));
+
+    try {
+      const response = await fetchPartnershipEstablishmentMergeListAPI();
+
+      dispatch(listPartnershipEstablishmentMergeActions.success(response.data));
+      dispatch(listPartnershipEstablishmentMergeActions.error(null));
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(listPartnershipEstablishmentMergeActions.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
+
+    dispatch(listPartnershipEstablishmentMergeActions.isLoading(false));
   };
 }

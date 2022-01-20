@@ -1,4 +1,3 @@
-// @flow
 import { getAuth, postAuth, patchAuth, API_V1_URI } from '../../http';
 
 const PARTNERSHIP_ENDPOINT = `${API_V1_URI}/partnership`;
@@ -15,4 +14,8 @@ export const requestPartnership = (identifier: string) => {
 
 export const updateParntership = (id: number, data: any) => {
   return patchAuth(`${PARTNERSHIP_ENDPOINT}/partnership_company/${id}/`, data);
+};
+
+export const fetchPartnershipEstablishmentMergeList = () => {
+  return getAuth(`${PARTNERSHIP_ENDPOINT}/partnership_establishment_merge/`);
 };

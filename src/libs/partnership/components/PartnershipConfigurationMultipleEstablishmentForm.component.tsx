@@ -1,26 +1,38 @@
-// @flow
 import React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
+
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { compose } from 'recompose';
 import { withFormik, Form, FieldArray } from 'formik';
 import * as Yup from 'yup';
-import { withTranslation, TFunction } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { CheckboxField, Submit } from '../../../components/forms';
 
 import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
 import EstablishmentListItem from '../../establishment/components/EstablishmentListItem.component';
 
+import { Establishment } from '../../establishment/types';
+import { PartnershipCompany } from '../types';
+
 type Props = {
-  t: TFunction,
-  classes: Object,
-  establishmentList: Array<Establishment>,
+  establishmentList: Array<Establishment>;
 };
-export const PartnershipConfigurationForm = (props: Props) => {
-  const { t, classes, establishmentList } = props;
+export const PartnershipConfigurationMultipleEstablishmentForm: React.FC<
+  Props
+> = (props) => {
+  const { establishmentList } = props;
+  const { t } = useTranslation(['partnership']);
+  const classes = useStyles();
+
   return (
     <Form>
-      <CheckboxField label={t('parameters.enabled')} reverted name="disabled" />
+      <div style={{ display: 'none' }}>
+        <CheckboxField
+          label={t('parameters.enabled')}
+          reverted
+          name="disabled"
+        />
+      </div>
       <div className={classes.establishmentSelector}>
         <FieldArray name="associated_establishment_ids">
           {({
@@ -38,7 +50,7 @@ export const PartnershipConfigurationForm = (props: Props) => {
                   (e) => !associated_establishment_ids.includes(e.id),
                 )}
                 selectedEstablishments={[]}
-                selectOption={(e) => {
+                selectOption={(e: Array<{ value: number; label: string }>) => {
                   if (e && e.length && e[0].value) push(e[0].value);
                 }}
               />
@@ -47,7 +59,7 @@ export const PartnershipConfigurationForm = (props: Props) => {
                   {t('parameters.allEstablishment')}
                 </Typography>
               ) : null}
-              {associated_establishment_ids.map((id, i) => {
+              {associated_establishment_ids.map((id: number, i: number) => {
                 const establishment = props.establishmentList.find(
                   (e) => e.id === id,
                 );
@@ -72,7 +84,7 @@ export const PartnershipConfigurationForm = (props: Props) => {
   );
 };
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   establishmentSelector: {
     paddingBottom: theme.spacing(1),
     borderRadius: theme.spacing(2),
@@ -82,7 +94,7 @@ const styles = (theme) => ({
   allEstablishmentText: {
     padding: theme.spacing(2),
   },
-});
+}));
 
 export const PartnershipSchema = Yup.object().shape({
   id: Yup.number().required(),
@@ -91,22 +103,24 @@ export const PartnershipSchema = Yup.object().shape({
 
 export const PartnershipFormHoc = withFormik({
   // eslint-disable-next-line
-  mapPropsToValues: ({ initial, establishmentList }) =>
-    initial
+  mapPropsToValues: ({ initial, establishmentList }: { initial: PartnershipCompany, establishmentList: Array<Establishment>}) => {
+    return initial
       ? {
           ...initial,
+          override_establishment_pk: null,
           associated_establishment_ids: [
             ...initial.associated_establishment_ids
-              .map((id) =>
+              .map((id: number) =>
                 establishmentList.find((e) =>
                   e.associatedestablishment_set.includes(id),
                 ),
               )
-              .filter((e) => !!e)
-              .map((e) => e.id),
+              .filter((e: Establishment) => !!e)
+              .map((e: Establishment) => e.id),
           ],
         }
-      : initial,
+      : initial;
+  },
   validationSchema: PartnershipSchema,
   handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
     onSubmit(values, {
@@ -116,8 +130,6 @@ export const PartnershipFormHoc = withFormik({
   },
 });
 
-export default compose(
-  withTranslation(['partnership']),
-  withStyles(styles),
-  PartnershipFormHoc,
-)(PartnershipConfigurationForm);
+export default compose(PartnershipFormHoc)(
+  PartnershipConfigurationMultipleEstablishmentForm,
+);

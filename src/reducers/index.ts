@@ -106,6 +106,7 @@ import { BackgroundDialogState } from '../libs/background-dialog/types';
 import { SnackbarState } from '../libs/snackbar/types';
 import { GiftcardState } from '../libs/giftcard/types';
 import { UserPreference } from '../libs/user-preference/types';
+import { PartnershipState } from '../libs/partnership/types';
 import actionTypes from '../actions/auth.types';
 import { PerformanceTrackingState } from '#libs/performance-tracking/types';
 
@@ -213,7 +214,7 @@ export type RootState = {
   notificationRule: NotificationRuleState;
   offer: OfferState;
   order: any;
-  partnership: any;
+  partnership: PartnershipState;
   paymentBackend: any;
   paymentCombo: any;
   paymentPack: any;

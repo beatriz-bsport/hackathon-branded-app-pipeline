@@ -5655,7 +5655,7 @@
       "applyGiftcard": {
         "success": "Paiement par carte cadeau validé",
         "error": "Impossible de payer le montant demandé avec cette carte cadeau",
-        "errors": { "undefined": "Impossible de régler cette facture avec cette carte cadeau" }
+        "errors": { "12103": "Impossible de régler cette facture avec cette carte cadeau" }
       }
     },
     "zoom": { "created": { "success": "Compte Zoom lié avec succès", "error": "Erreur lors du lien du compte Zoom" } },
@@ -6563,7 +6563,7 @@
         "coach_can_edit_attendance": "Dans l'application mobile, le professeur peut modifier modifier les présences/absences",
         "consumerRegularizeDebt": "Le client peut régulariser son acompte en ligne",
         "goToReports": "Page des rapports",
-        "allowConsumerToUseInternalAccount": "Le client peut utiliser sont acompte interne pour payer ses factures ou son panier",
+        "allowConsumerToUseInternalAccount": "Le client peut utiliser son acompte interne pour payer ses factures ou son panier",
         "internalAccountWarningTitle": "Attention aux soldes clients actuels.",
         "internalAccountWarning1": "Nous conseillons fortement de créer un rapport des soldes clients avant d'activer cette fonctionnalité.",
         "internalAccountWarning2": "Pour créer un rapport des soldes clients, rendez-vous vous dans l'onglet 'Rapports', puis sélectionnez 'Crédits' dans la catégorie 'Payments' lors de la création du nouveau rapport.",

@@ -231,7 +231,9 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
             goToInvoice={this.goToInvoice}
             balance={this.props.membership.credit_account_balance}
             fetchInvoiceListUnpaid={this.refreshDebtStatus}
-            hidePositiveBalance
+            showPositiveBalance={
+              this.props.companyTheme?.allow_consumer_to_use_internal_account
+            }
             asConsumer
             availablePaymentMethodList={
               this.props.payment_method_available_basket

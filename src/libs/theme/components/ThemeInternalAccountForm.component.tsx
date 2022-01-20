@@ -47,10 +47,11 @@ export class ThemeInternalAccountForm extends Component<Props, State> {
     if (prevProps.theme !== this.props.theme) {
       this.setState({ theme: this.props.theme });
     }
+
     if (
-      prevState.theme.allow_consumer_to_use_internal_account !==
-        this.props.theme.allow_consumer_to_use_internal_account &&
-      this.props.theme.allow_consumer_to_use_internal_account
+      !prevState.theme.allow_consumer_to_use_internal_account &&
+      this.state.theme.allow_consumer_to_use_internal_account &&
+      !this.state.openWarning
     ) {
       this.setState({ openWarning: true });
     }

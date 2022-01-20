@@ -16,6 +16,8 @@ import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
 import EditIcon from '@material-ui/icons/Edit';
 import SaveIcon from '@material-ui/icons/Save';
 import IconButton from '@material-ui/core/IconButton';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import ButtonBase from '@material-ui/core/ButtonBase';
 import type { OptionCallback } from '../../../state/types';
 import { PriceField } from '../../../components/forms';
 import type { ConsumerGiftcard, Giftcard } from '#libs/giftcard/types';
@@ -177,6 +179,7 @@ export const UseConsumerGiftcardForm: React.FC<Props> = (props: Props) => {
             return (
               <Form>
                 <Dialog open={open} fullWidth maxWidth="md">
+                  {isSubmitting && <LinearProgress color="primary" />}
                   <div className={classes.dialogContent}>
                     <div className={classes.header}>
                       <Typography variant="h6">
@@ -235,22 +238,27 @@ export const UseConsumerGiftcardForm: React.FC<Props> = (props: Props) => {
                             : ''
                         }
                       >
-                        <div className={classes.radioRow}>
-                          <Radio
-                            checked={values.giftcard_selected === cgc.id}
-                            onClick={() => handleSelection(cgc)}
-                            className={classes.radio}
-                          />
-                          <ConsumerGiftcardListItem
-                            key={cgc.id}
-                            consumerGiftcard={cgc}
-                            giftcard={cgc.giftcard}
-                            showAsRecipient
-                            showSender
-                            memberReceiver={props.invoice.member}
-                            memberSender={cgc.src_member}
-                          />
-                        </div>
+                        <ButtonBase
+                          onClick={() => handleSelection(cgc)}
+                          style={{ width: '100%' }}
+                        >
+                          <div className={classes.radioRow}>
+                            <Radio
+                              checked={values.giftcard_selected === cgc.id}
+                              onClick={() => handleSelection(cgc)}
+                              className={classes.radio}
+                            />
+                            <ConsumerGiftcardListItem
+                              key={cgc.id}
+                              consumerGiftcard={cgc}
+                              giftcard={cgc.giftcard}
+                              showAsRecipient
+                              showSender
+                              memberReceiver={props.invoice.member}
+                              memberSender={cgc.src_member}
+                            />
+                          </div>
+                        </ButtonBase>
                       </div>
                     ))}
                   </div>
@@ -322,6 +330,7 @@ const useStyles = makeStyles((theme) => ({
   radioRow: {
     display: 'flex',
     alignItems: 'center',
+    width: '100%',
   },
   radio: {
     paddingLeft: theme.spacing(2),

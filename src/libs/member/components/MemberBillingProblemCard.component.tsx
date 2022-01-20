@@ -64,6 +64,7 @@ type Props = {
     amount: number,
     options?: OptionCallback,
   ) => void;
+  showPositiveBalance?: boolean;
 };
 
 const PAYMENT_GROUP_STATUS_INTENT_MAX_RETRY = 100;
@@ -199,6 +200,7 @@ export const MemberBillingProblemCard = (props: Props) => {
               </Button>
             </div>
           </div>
+
           {false &&
             !props.asConsumer &&
             !!props.applyBalanceToUnpaidInvoices &&
@@ -218,6 +220,33 @@ export const MemberBillingProblemCard = (props: Props) => {
       )}
       {!!unpaidInvoiceList.length && (
         <React.Fragment>
+          {props.showPositiveBalance && (
+            <div className={classes.padding}>
+              <div className={classes.accountBalance}>
+                <Typography variant="h6">
+                  {t('creditAccountBalance')}
+                </Typography>
+                <div className={classes.buttonContainer}>
+                  <Typography
+                    inline
+                    variant="h6"
+                    component="span"
+                    color={color}
+                  >
+                    {` ${getCurrencyDisplayWithPrice(balance)}`}
+                  </Typography>
+                  {props.memberLoading && (
+                    <CircularProgress size={24} color="primary" />
+                  )}
+                  <Button variant="outlined" color="primary" disabled>
+                    {t(
+                      props.asConsumer ? 'regularizeBalance' : 'adjustBalance',
+                    )}
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
           <Divider className={classes.divider} />
           <div className={classes.invoiceContainer}>
             <Typography className={classes.padding} variant="h6">

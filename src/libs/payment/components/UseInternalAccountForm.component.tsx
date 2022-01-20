@@ -14,6 +14,7 @@ import { Formik, Form, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import type { OptionCallback } from '../../../state/types';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { PriceField } from '../../../components/forms';
@@ -49,30 +50,97 @@ export const UseInternalAccountForm: React.FC<Props> = (props: Props) => {
           <Typography variant="h6" className={classes.header}>
             {t('internalAccount.myInternalAccount')}
           </Typography>
-          <Collapse in={!open} timeout={{ appear: 10000 }}>
-            <div className={classes.container}>
-              <div className={classes.outterButtonContainer}>
-                <Button
-                  disabled={props.loading || props.disabled}
-                  onClick={() => setOpen(true)}
-                  color="primary"
-                  variant="outlined"
-                >
-                  <AccountBalanceWalletIcon className={classes.iconButton} />
-                  {t('internalAccount.use')}
-                </Button>
-                <div className={classes.paddingLeft}>
-                  <Typography variant="h6">
-                    {getCurrencyDisplayWithPrice(props.creditAccountBalance)}
-                  </Typography>
+          <div className={classes.greyContainer}>
+            <Typography variant="h6">
+              {getCurrencyDisplayWithPrice(props.creditAccountBalance)}
+            </Typography>
+            <Collapse in={!open} timeout={{ appear: 10000 }}>
+              <div className={classes.container}>
+                <div className={classes.outterButtonContainer}>
+                  <Button
+                    disabled={props.loading || props.disabled}
+                    onClick={() => setOpen(true)}
+                    color="primary"
+                    variant="outlined"
+                  >
+                    {props.loading ? (
+                      <CircularProgress
+                        size={20}
+                        className={classes.iconButton}
+                      />
+                    ) : (
+                      <AccountBalanceWalletIcon
+                        className={classes.iconButton}
+                      />
+                    )}
+                    {t('internalAccount.use')}
+                  </Button>
                 </div>
               </div>
-            </div>
-          </Collapse>
+            </Collapse>
+            {props.onBasketSubmit && open && (
+              <Formik
+                validationSchema={validationSchema}
+                initialValues={{
+                  amount: 0,
+                  maximum_credits: props.creditAccountBalance,
+                }}
+                onSubmit={(values) => {
+                  return props.onBasketSubmit(values.amount, {
+                    onSuccess: () => {
+                      setOpen(false);
+                    },
+                  });
+                }}
+              >
+                {(formik) => (
+                  <Form>
+                    <Collapse in={open}>
+                      <div className={classes.flexCollaspe}>
+                        <PriceField
+                          name="amount"
+                          label={`${t(
+                            'internalAccount.label',
+                          )}${'\u00A0'}${getCurrencyDisplayWithPrice(
+                            props.creditAccountBalance,
+                          )}`}
+                          variant="outlined"
+                          InputProps={{
+                            endAdornment: (
+                              <InputAdornment position="start">
+                                <IconButton
+                                  disabled={
+                                    formik.isSubmitting || props.loading
+                                  }
+                                  onClick={() => formik.handleSubmit()}
+                                  color="primary"
+                                  edge="end"
+                                >
+                                  <CheckCircleIcon />
+                                </IconButton>
+                              </InputAdornment>
+                            ),
+                          }}
+                        />
+                        <div className={classes.flexButtons}>
+                          <IconButton onClick={() => setOpen(false)}>
+                            <CancelIcon />
+                          </IconButton>
+                        </div>
+                      </div>
+                    </Collapse>
+                  </Form>
+                )}
+              </Formik>
+            )}
+          </div>
         </>
       )}
       {props.onInvoiceSubmit && (
         <>
+          <Typography variant="h6" className={classes.header}>
+            {t('internalAccount.myInternalAccount')}
+          </Typography>
           <div className={classes.greyContainer}>
             <Typography variant="h6">
               {getCurrencyDisplayWithPrice(props.creditAccountBalance)}
@@ -83,64 +151,16 @@ export const UseInternalAccountForm: React.FC<Props> = (props: Props) => {
               color="primary"
               variant="outlined"
             >
-              <AccountBalanceWalletIcon className={classes.iconButton} />
+              {props.loading ? (
+                <CircularProgress size={20} className={classes.iconButton} />
+              ) : (
+                <AccountBalanceWalletIcon className={classes.iconButton} />
+              )}
+
               {t('internalAccount.use')}
             </Button>
           </div>
         </>
-      )}
-      {props.onBasketSubmit && open && (
-        <Formik
-          validationSchema={validationSchema}
-          initialValues={{
-            amount: 0,
-            maximum_credits: props.creditAccountBalance,
-          }}
-          onSubmit={(values) => {
-            return props.onBasketSubmit(values.amount, {
-              onSuccess: () => {
-                setOpen(false);
-              },
-            });
-          }}
-        >
-          {(formik) => (
-            <Form>
-              <Collapse in={open}>
-                <div className={classes.flexCollaspe}>
-                  <PriceField
-                    name="amount"
-                    label={`${t(
-                      'internalAccount.label',
-                    )}${'\u00A0'}${getCurrencyDisplayWithPrice(
-                      props.creditAccountBalance,
-                    )}`}
-                    variant="outlined"
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="start">
-                          <IconButton
-                            disabled={formik.isSubmitting || props.loading}
-                            onClick={() => formik.handleSubmit()}
-                            color="primary"
-                            edge="end"
-                          >
-                            <CheckCircleIcon />
-                          </IconButton>
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                  <div className={classes.flexButtons}>
-                    <IconButton onClick={() => setOpen(false)}>
-                      <CancelIcon />
-                    </IconButton>
-                  </div>
-                </div>
-              </Collapse>
-            </Form>
-          )}
-        </Formik>
       )}
     </>
   );
@@ -154,7 +174,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    paddingBottom: theme.spacing(2),
   },
   iconButton: {
     marginRight: theme.spacing(1),
@@ -175,13 +194,17 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: theme.spacing(1),
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
   },
   flexCollaspe: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-start',
     flexDirection: 'row',
+    paddingTop: theme.spacing(1),
   },
   flexButtons: {
     display: 'flex',

@@ -157,7 +157,7 @@ const InvoiceRow: React.FC<Props> = React.memo((props: Props) => {
   };
   const relatedconsumerGiftcardList =
     props.consumerGiftcardList?.filter(
-      (cgc) => cgc?.dst_member?.id === invoice?.member?.id || invoice.member,
+      (cgc) => cgc?.dst_member?.id === (invoice?.member?.id || invoice.member),
     ) || [];
   return (
     <React.Fragment>
@@ -305,7 +305,6 @@ const InvoiceRow: React.FC<Props> = React.memo((props: Props) => {
                 />
               </TableCell>
             )}
-          {!props.hideMemberName && <TableCell />}
           <TableCell>
             {!!props.showOpenInvoiceNested &&
               (props.asConsumer ? (

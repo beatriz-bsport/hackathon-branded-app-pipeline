@@ -198,6 +198,7 @@ export const PartnershipConfigurationMultipleEstablishmentForm: React.FC<
           props.onSubmit({
             ...(props.initial || {}),
             configuration,
+            override_establishment_pk: null,
           })
         }
       >

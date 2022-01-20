@@ -102,6 +102,17 @@ export class Partnership extends React.Component<Props> {
       }
     }
 
+    let venueIds = establishmentIdList.join(', ');
+
+    if (this.props.partnershipEstablishmentMergeList?.length) {
+      venueIds = this.props.partnershipEstablishmentMergeList
+        .map((pem) => pem.reference_establishment)
+        .join(', ');
+    }
+    if (this.props.classpass?.override_establishment_pk) {
+      venueIds = `${this.props.classpass?.override_establishment_pk}`;
+    }
+
     return (
       <div className={this.props.classes.container}>
         {this.props.hasRequested ? (
@@ -144,7 +155,7 @@ export class Partnership extends React.Component<Props> {
                 </Typography>
                 <Typography variant="h6">
                   {this.props.t('parameters.venueIds', {
-                    establishmentIdList: establishmentIdList.join(', '),
+                    establishmentIdList: venueIds,
                   })}
                 </Typography>
                 {this.props.classpass ? (

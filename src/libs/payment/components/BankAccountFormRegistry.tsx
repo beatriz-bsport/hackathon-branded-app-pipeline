@@ -165,7 +165,12 @@ const CanadaBankAccount = (props: Props) => {
           <Button
             color="primary"
             disabled={
-              !!(!account_holder_name || !account_number || institutionNumber)
+              !!(
+                !account_holder_name ||
+                !account_number ||
+                !institutionNumber ||
+                !transitNumber
+              )
             }
             onClick={() =>
               props.onSubmit(

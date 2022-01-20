@@ -8,28 +8,37 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import classnames from 'classnames';
-import { getValidityInfo } from '../utils';
+import { DateRange, Share, Star } from '@material-ui/icons';
+import { getCreditInfo, getValidityInfo } from '../utils';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { PaymentPackTemplate } from '../types';
 import CompanyChip from '../../../components/franchise/CompanyChip.component';
+import RedButtonComponent from '#components/button/RedButton.component';
 
 type Props = {
   paymentPackTemplate: PaymentPackTemplate;
+  buyPaymentPackTemplateInstance?: () => void;
+  onCreatePaymentPackTemplateInstance?: () => void;
+  onDeleteCompany?: (id: number) => void;
+  isManager?: boolean;
+  editPaymentPackTemplate?: () => void;
+  deletePaymentPackTemplate?: () => void;
 };
 
 const PaymentPackTemplateCard = (props: Props) => {
   const { t } = useTranslation(['paymentPack']);
   const classes = useStyles();
-  const { paymentPackTemplate: template } = props;
-
-  let creditsFormatted = t('unlimitedCredits');
-  if (!template.unlimited) {
-    creditsFormatted = (
-      <div>
-        <b>{template.credits}</b>{' '}
-        {t('credits', { count: template.credits }).toLowerCase()}
-      </div>
-    );
+  const {
+    paymentPackTemplate: template,
+    onCreatePaymentPackTemplateInstance,
+    buyPaymentPackTemplateInstance,
+    onDeleteCompany,
+    isManager,
+    editPaymentPackTemplate,
+    deletePaymentPackTemplate,
+  } = props;
+  if (!template) {
+    return null;
   }
 
   return (
@@ -39,93 +48,189 @@ const PaymentPackTemplateCard = (props: Props) => {
         template.disabled ? classes.disabled : null,
       )}
     >
-      <div className={classes.horizontalBlock}>
-        {template.disabled ? (
-          <div className={classes.disabledLabel}>
-            <Typography color="error" variant="h6">
-              {t('disabled')}
-            </Typography>
+      <div className={classes.container}>
+        <div className={classes.horizontalBlock}>
+          {template.disabled ? (
+            <div className={classes.disabledLabel}>
+              <Typography color="error" variant="h6">
+                {t('disabled')}
+              </Typography>
+            </div>
+          ) : null}
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="flex-start"
+          >
+            <Grid item xs={8}>
+              <div>
+                <Typography className={classes.title} variant="h4">
+                  {template.name}
+                </Typography>
+              </div>
+            </Grid>
+            <Grid item xs={4}>
+              <div className={classes.columnLeft}>
+                <Typography
+                  variant="h3"
+                  color="primary"
+                  className={classes.price}
+                >
+                  {getCurrencyDisplayWithPrice(template.price)}
+                </Typography>
+                <Typography
+                  variant="caption"
+                  className={classes.priceWithoutTax}
+                >
+                  {getCurrencyDisplayWithPrice(
+                    (
+                      template.price /
+                      ((100 + parseInt(template.tax, 10)) / 100)
+                    ).toFixed(2),
+                  )}{' '}
+                  {t('ht')}
+                </Typography>
+              </div>
+            </Grid>
+          </Grid>
+        </div>
+        <div className={classes.horizontalBlock}>
+          <div className={classes.row}>
+            <div className={`${classes.leftPart} ${classes.restrictionBlock}`}>
+              <div className={classes.detailInfo}>
+                <div className={classes.detailCategory}>
+                  <Star className={classes.leftIcon} />
+                  <Typography variant="h6">
+                    {t('detailTitles.credit_quantity')}
+                  </Typography>
+                </div>
+                <Typography variant="body1" className={classes.packInfo}>
+                  {getCreditInfo(template, t, isManager)}
+                </Typography>
+              </div>
+              <div className={classes.detailInfo}>
+                <div className={classes.detailCategory}>
+                  <DateRange className={classes.leftIcon} />
+                  <Typography variant="h6">
+                    {t('detailTitles.validity')}
+                  </Typography>
+                </div>
+                <Typography variant="body1" className={classes.packInfo}>
+                  {getValidityInfo(template, t, true)}
+                </Typography>
+              </div>
+            </div>
+            <div className={classes.rightPart}>
+              {editPaymentPackTemplate && (
+                <Button
+                  color="primary"
+                  onClick={() => editPaymentPackTemplate()}
+                >
+                  {t('actions.edit')}
+                </Button>
+              )}
+              {deletePaymentPackTemplate && (
+                <RedButtonComponent onClick={() => deletePaymentPackTemplate()}>
+                  {t('actions.delete')}
+                </RedButtonComponent>
+              )}
+            </div>
           </div>
-        ) : null}
-        <Grid
-          container
-          direction="row"
-          justify="space-between"
-          alignItems="flex-start"
-        >
-          <Grid item xs={8}>
-            <div>
-              <Typography className={classes.title} variant="h6">
-                {template.name}
-              </Typography>
-              <div className={classes.restrictionBlock}>
-                <Typography>{getValidityInfo(template, t)}</Typography>
+          <div className={classes.restrictionBlock}>
+            <div className={classes.detailInfo}>
+              <div className={classes.detailCategory}>
+                <Share className={classes.leftIcon} />
+                <Typography variant="h6">
+                  {t(
+                    'paymentPackTemplate.specification.companySharedWithTitle',
+                  )}
+                </Typography>
               </div>
-            </div>
-          </Grid>
-          <Grid item xs={4}>
-            <div className={classes.columnLeft}>
-              <Typography variant="h4" color="primary">
-                {getCurrencyDisplayWithPrice(template.price)}
-              </Typography>
-              <Typography variant="caption">
-                {getCurrencyDisplayWithPrice(
-                  (
-                    template.price /
-                    ((100 + parseInt(template.tax, 10)) / 100)
-                  ).toFixed(2),
-                )}{' '}
-                {t('ht')}
-              </Typography>
-              <Typography variant="subtitle1">{creditsFormatted}</Typography>
-            </div>
-          </Grid>
-        </Grid>
-      </div>
-      <div className={classes.horizontalBlock}>
-        <Typography className={classes.companySectionTitle} variant="h6">
-          {t('paymentPackTemplate.specification.companySharedWithTitle')}
-        </Typography>
-        <div className={classes.companyInnerContainer}>
-          {!template.companies.length && (
-            <div className={classes.emptyExplain}>
-              <InfoOutlinedIcon className={classes.iconLeft} />
-              <Typography color="textSecondary">
-                {t('paymentPackTemplateInstance.companyEmpty')}
-              </Typography>
-            </div>
-          )}
-          <div className={classes.chipListContainer}>
-            {template.companies.map((c) => (
-              <div className={classes.chipContainer}>
-                <CompanyChip
-                  company={c}
-                  key={c.id}
-                  onDelete={
-                    props.onDeleteCompany && (() => props.onDeleteCompany(c.id))
-                  }
-                />
+              <div className={classes.companyInnerContainer}>
+                {!template.companies.length && (
+                  <div className={classes.emptyExplain}>
+                    <InfoOutlinedIcon className={classes.iconLeft} />
+                    <Typography color="textSecondary">
+                      {t('paymentPackTemplateInstance.companyEmpty')}
+                    </Typography>
+                  </div>
+                )}
+                <div className={classes.chipListContainer}>
+                  {template.companies.map((c) => (
+                    <div className={classes.chipContainer}>
+                      <CompanyChip
+                        company={c}
+                        key={c.id}
+                        onDelete={
+                          onDeleteCompany && (() => onDeleteCompany(c.id))
+                        }
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
-            ))}
+              {onCreatePaymentPackTemplateInstance && (
+                <div>
+                  <Button
+                    className={classes.button}
+                    onClick={onCreatePaymentPackTemplateInstance}
+                    variant="outlined"
+                    color="primary"
+                    startIcon={<AddIcon />}
+                  >
+                    {t('paymentPackTemplateInstance.actions.addCompany')}
+                  </Button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
-        <Button
-          onClick={props.onCreatePaymentPackTemplateInstance}
-          variant="outlined"
-          color="primary"
-        >
-          <AddIcon className={classes.iconLeft} />
-          {t('paymentPackTemplateInstance.actions.addCompany')}
-        </Button>
       </div>
+      {buyPaymentPackTemplateInstance && (
+        <Button
+          onClick={() => buyPaymentPackTemplateInstance()}
+          color="primary"
+          variant="contained"
+          fullWidth
+          startIcon={<AddIcon />}
+        >
+          {t('paymentPackTemplateInstance.actions.buy')}
+        </Button>
+      )}
     </Paper>
   );
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
+  leftPart: { width: '80%' },
+  rightPart: {
+    width: '20%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+  },
+  row: { display: 'flex' },
+  priceWithoutTax: {
+    color: 'rgba(0, 0, 0, 0.38)',
+  },
+  button: { marginLeft: theme.spacing(5) },
+  container: {
+    paddingBottom: theme.spacing(3),
+  },
+  detailInfo: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '4px',
+  },
+  leftIcon: {
+    marginRight: theme.spacing(2),
+  },
+  price: {
+    fontWeight: 700,
+  },
   paper: {
     paddingTop: theme.spacing(3),
-    paddingBottom: theme.spacing(3),
   },
   emptyExplain: {
     display: 'flex',
@@ -149,6 +254,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   horizontalBlock: {
     paddingLeft: theme.spacing(3),
     paddingRight: theme.spacing(3),
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
   },
   columnLeft: {
     paddingLeft: theme.spacing(2),
@@ -157,8 +265,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'flex-end',
   },
   restrictionBlock: {
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
   },
   disabledLabel: {
     display: 'flex',
@@ -170,6 +279,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginBottom: theme.spacing(3),
   },
   companyInnerContainer: {
+    marginLeft: theme.spacing(5),
     display: 'flex',
     flexDirection: 'row',
     '&>*': {
@@ -185,6 +295,15 @@ const useStyles = makeStyles((theme: Theme) => ({
   chipContainer: {
     paddingBottom: theme.spacing(1),
     paddingRight: theme.spacing(1),
+  },
+  detailCategory: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  packInfo: {
+    color: 'rgba(0, 0, 0, 0.6)',
+    marginLeft: theme.spacing(5),
   },
 }));
 

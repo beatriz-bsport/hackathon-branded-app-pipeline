@@ -38,6 +38,7 @@ import {
   PaymentPack,
   PaymentPackCategory,
   PaymentPackCategoryWithPacks,
+  PaymentPackTemplate,
 } from './types';
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 
@@ -146,7 +147,7 @@ export const fetchOneAction = {
   success: createAction('PAYMENT_PACK/DETAIL/SUCCESS'),
 };
 
-export function fetchOne(id: number, options?: OptionCallback) {
+export function fetchOne(id: number, options?: OptionCallback<PaymentPack>) {
   return async (dispatch: Dispatch) => {
     dispatch(fetchOneAction.isLoading(true));
     dispatch(fetchOneAction.error(null));
@@ -676,8 +677,11 @@ export const listPaymentPackTemplateActions = {
 };
 
 export function fetchPaymentPackTemplateList(
-  params: any = {},
-  options?: OptionCallback,
+  params?: {
+    franchisor?: number;
+    id__in: Array<number>;
+  },
+  options?: OptionCallback<Array<PaymentPackTemplate>>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(listPaymentPackTemplateActions.error(null));
@@ -720,6 +724,8 @@ export function createOrUpdatePaymentPackTemplate(
       dispatch(createOrUpdatePaymentPackTemplateActions.success(response.data));
 
       if (options && options.onSuccess) {
+        data?.id &&
+          dispatch(snackbarSuccess('paymentPack.createOrUpdate.success'));
         options.onSuccess(response.data);
       }
     } catch (err) {
@@ -739,7 +745,7 @@ export const retrievePaymentPackTemplateActions = {
 
 export function retrievePaymentPackTemplate(
   id: number,
-  options?: OptionCallback,
+  options?: OptionCallback<PaymentPackTemplate>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(retrievePaymentPackTemplateActions.error(null));
@@ -779,6 +785,7 @@ export function deletePaymentPackTemplate(
 
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
+        dispatch(snackbarSuccess(`paymentPack.paymentPackDisabled.success`));
       }
     } catch (err) {
       console.error(err);

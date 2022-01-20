@@ -23,13 +23,19 @@ import {
 } from '../../libs/establishment/actions';
 import { fetchAllActivities } from '../../libs/meta-activity/actions';
 import { fetchPlaylistList } from '../../libs/playlist/actions';
-import { fetchAllPaymentPackCategory } from '../../libs/payment-packs/actions';
+import {
+  fetchAllPaymentPackCategory,
+  fetchPaymentPackTemplateList,
+} from '../../libs/payment-packs/actions';
 import { fetchGiftcardList } from '../../libs/giftcard/actions';
 import {
   getAvailablePrivateServices,
   getPrivateServiceGroupList,
 } from '../../libs/private-service/selectors/private-service';
-import { getAllPaymentPackCategory } from '../../libs/payment-packs/selectors';
+import {
+  getAllPaymentPackCategory,
+  getPaymentPackTemplateListAvailable,
+} from '../../libs/payment-packs/selectors';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import {
   getAvailableEstablishmentList,
@@ -53,8 +59,12 @@ import WidgetCodePreview from '../../libs/widget/components/WidgetCodePreview.co
 import WidgetPreview from '../../libs/widget/components/WidgetPreview.component';
 import WidgetContainerConfigurator from '../../libs/widget/components/WidgetContainerConfigurator.component';
 
-import { EXPORTABLE_COMPONENT_TYPE_CALENDAR } from '../../libs/exportable-components/constants';
+import {
+  EXPORTABLE_COMPONENT_TYPE_CALENDAR,
+  EXPORTABLE_COMPONENT_TYPE_PAYMENT_PACK_TEMPLATE,
+} from '../../libs/exportable-components/constants';
 import { getPrivatePassCategories } from '#libs/private-service/selectors/private-pass-category';
+import { getFranchiseId } from '#libs/franchise/selectors';
 
 type OwnProps = {
   defaultValue?: {
@@ -94,7 +104,9 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
 
     const state: State = {
       uuid: `-${parseInt(Math.random() * 1000000, 10)}`,
-      componentType: EXPORTABLE_COMPONENT_TYPE_CALENDAR,
+      componentType: props.isFranchisor
+        ? EXPORTABLE_COMPONENT_TYPE_PAYMENT_PACK_TEMPLATE
+        : EXPORTABLE_COMPONENT_TYPE_CALENDAR,
       containerConfig: {
         useIframe: false,
         dialogMode: DIALOG_MODE_IFRAME,
@@ -102,7 +114,10 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
         showFab: false,
         fullScreenPopup: false,
       },
-      config: { calendar: {} },
+      config: {
+        calendar: {},
+        paymentPackTemplate: { paymentPackTemplateList: [] },
+      },
       error: {
         privateServiceError: '',
         playlistError: '',
@@ -129,6 +144,9 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
     this.props.fetchPrivateServiceGroupList({ mine: true });
     this.props.fetchAllEstablishmentGroup();
     this.props.fetchGiftcardList();
+    this.props.fetchPaymentPackTemplateList({
+      franchisor: this.props.franchiseId,
+    });
   }
 
   onComponentTypeChange = ({
@@ -150,6 +168,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
   getCodeString = () => {
     return WidgetCodeStringGenerator.getString({
       company: this.props.theme.company,
+      franchise: this.props.franchiseId,
       componentType: this.state.componentType,
       config: this.state.config,
       useIframe: this.state.containerConfig.useIframe,
@@ -166,6 +185,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
 
     codeStringPreview = WidgetCodeStringGenerator.getString({
       company: this.props.theme.company,
+      franchise: this.props.franchiseId,
       componentType: this.state.componentType,
       config: this.state.config,
       useIframe: false,
@@ -215,7 +235,9 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
               <Typography>{t('widget.creationPageInfo')}</Typography>
             </div>
           </div>
+
           <WidgetContainerConfigurator
+            isFranchisor={this.props.isFranchisor}
             showFab={this.state.containerConfig.showFab}
             useIframe={this.state.containerConfig.useIframe}
             language={this.state.containerConfig.language}
@@ -232,7 +254,12 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
           />
           <fieldset className={classes.marginTop}>
             <legend>{t('widget.configTitle')}</legend>
+
             <WidgetComponentConfigBuilder
+              paymentPackTemplateListAvailable={
+                this.props.paymentPackTemplateListAvailable
+              }
+              isFranchisor={this.props.isFranchisor}
               hideTypeSelector={this.props.hideTypeSelector}
               onComponentTypeChange={this.onComponentTypeChange}
               error={this.state.error}
@@ -315,6 +342,8 @@ const styles = (theme: Theme) => ({
 });
 
 const mapStateToProps = (state: RootState) => ({
+  isFranchisor: state.auth.is_franchisor,
+  franchiseId: getFranchiseId(state),
   privateServices: getAvailablePrivateServices(state),
   coaches: getActiveCoaches(state),
   establishments: getAvailableEstablishmentList(state),
@@ -335,9 +364,11 @@ const mapStateToProps = (state: RootState) => ({
     getAssociatedEstablishmentGroup,
   )(state),
   giftcards: getGiftcardListEnabled(state),
+  paymentPackTemplateListAvailable: getPaymentPackTemplateListAvailable(state),
 });
 
 const mapDispatchToProps = {
+  fetchPaymentPackTemplateList,
   fetchAllPrivateServices,
   fetchAssociatedCoachesList,
   fetchEstablishments,

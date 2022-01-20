@@ -54,6 +54,7 @@ export class WidgetCodeStringGenerator {
 
   static getString(args: {
     company: number;
+    franchise: number;
     componentType: string;
     config: any;
     useIframe: boolean;
@@ -84,6 +85,7 @@ export class WidgetCodeStringGenerator {
     BsportWidget.mount({
         "parentElement": "bsport-widget${args.uuid || ''}",
         "companyId": ${args.company},
+        "franchiseId": ${args.franchise},
         "dialogMode": ${args.dialogMode},
         "widgetType": "${args.componentType}",${languageValue} 
         "showFab": ${args.showFab},

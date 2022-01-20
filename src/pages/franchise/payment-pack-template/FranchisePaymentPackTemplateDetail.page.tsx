@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withStateHandlers, withHandlers } from 'recompose';
-
+import { push as pushAction } from 'connected-react-router';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import { WithHandlerType } from '../../../utils/types';
+import { OptionCallback } from '../../../state/types';
 import LinearProgress from '../../../components/navigation/BackofficeLinearProgress.component';
 import { parseQueryString } from '../../../http';
 
@@ -15,6 +17,8 @@ import {
   createPaymentPackTemplateInstance as createPaymentPackTemplateInstanceAction,
   deletePaymentPackTemplateInstance as deletePaymentPackTemplateInstanceAction,
   fetchPaymentPackBulk as fetchPaymentPackBulkAction,
+  createOrUpdatePaymentPackTemplate as createOrUpdatePaymentPackTemplateAction,
+  deletePaymentPackTemplate as deletePaymentPackTemplateAction,
 } from '../../../libs/payment-packs/actions';
 import { getFranchiseCompanies } from '../../../libs/franchise/selectors';
 import { getPaymentPackTemplate } from '../../../libs/payment-packs/selectors';
@@ -33,12 +37,20 @@ import PaginatedConsumerPackList from '../../../libs/consumer-payment-pack/compo
 import PaymentPackTemplateInstanceFormDialog from '../../../libs/payment-packs/components/PaymentPackTemplateInstanceFormDialog.component';
 import PaymentPackTemplateInstanceDeleteDialog from '../../../libs/payment-packs/components/PaymentPackTemplateInstanceDeleteDialog.component';
 import { navigateAsCompanyAdmin } from '../../../actions/auth.actions';
+import PaymentPackTemplateFormDialog from '#libs/payment-packs/components/PaymentPackTemplateFormDialog.component';
+import { PaymentPackTemplateAPI } from '#libs/payment-packs/types';
+import PaymentPackTemplateDeleteDialog from '#libs/payment-packs/components/PaymentPackTemplateDeleteDialog.component';
 
 type OwnProps = { paymentPackTemplateId: number };
 
 const CONSUMER_PACK_PAGINATION_SIZE = 30;
 
-type Props = OwnProps & ConnectedProps<typeof connector> & WithTranslation;
+type Props = OwnProps &
+  WithTranslation &
+  ConnectedProps<typeof connector> &
+  typeof stateHandlersInit &
+  WithHandlerType<typeof stateHandlersSetter> &
+  WithHandlerType<typeof mapWithHandlers>;
 
 export class FranchisePaymentPackTemplateDetail extends Component<Props> {
   componentDidMount() {
@@ -60,6 +72,10 @@ export class FranchisePaymentPackTemplateDetail extends Component<Props> {
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
           <PaymentPackTemplateCard
+            editPaymentPackTemplate={this.props.openEditDialog}
+            deletePaymentPackTemplate={this.props.openPaymentPackDeleteDialog}
+            onDelete={this.props.openDeleteDialog}
+            isManager
             paymentPackTemplate={this.props.paymentPackTemplate}
             onCreatePaymentPackTemplateInstance={this.props.openCreateForm}
             onDeleteCompany={this.props.openDeleteDialog}
@@ -99,6 +115,19 @@ export class FranchisePaymentPackTemplateDetail extends Component<Props> {
           onClose={this.props.closeDeleteDialog}
           onSubmit={this.props.deletePaymentPackTemplateInstance}
         />
+        {!!this.props.isEditDialogOpen && (
+          <PaymentPackTemplateFormDialog
+            onSubmit={this.props.createOrUpdatePaymentPackTemplate}
+            initial={this.props.paymentPackTemplate}
+            onClose={this.props.closeEditDialog}
+            open={this.props.isEditDialogOpen}
+          />
+        )}
+        <PaymentPackTemplateDeleteDialog
+          open={this.props.isDeletePaymentPackDialogOpen}
+          onSubmit={this.props.deletePaymentPackTemplate}
+          onClose={this.props.closeDeleteDialog}
+        />
       </Grid>
     );
   }
@@ -121,6 +150,7 @@ const connector = connect(
     companies: getFranchiseCompanies(state),
   }),
   {
+    pushRouter: pushAction,
     goToConsumerPaymentPackDetail: (companyId, memberId, consumerPackId) =>
       navigateAsCompanyAdmin(
         companyId,
@@ -132,92 +162,144 @@ const connector = connect(
     fetchConsumerPaymentPackList: fetchConsumerPaymentPackListAction,
     fetchPaymentPackBulk: fetchPaymentPackBulkAction,
     fetchFilteredMembers: fetchFilteredMembersAction,
+    createOrUpdatePaymentPackTemplate: createOrUpdatePaymentPackTemplateAction,
+    deletePaymentPackTemplate: deletePaymentPackTemplateAction,
   },
 );
+
+const stateHandlersInit = {
+  createFormOpen: false,
+  companyTemplateInstanceIdToDelete: null as number,
+  isEditDialogOpen: false,
+  isDeletePaymentPackDialogOpen: false,
+};
+const stateHandlersSetter = {
+  openCreateForm: () => () => ({ createFormOpen: true }),
+  closeCreateForm: () => () => ({ createFormOpen: false }),
+  openDeleteDialog: () => (companyTemplateInstanceIdToDelete: number) => ({
+    companyTemplateInstanceIdToDelete,
+  }),
+  closeEditDialog: () => () => ({
+    isEditDialogOpen: false,
+  }),
+  openEditDialog: () => () => ({
+    isEditDialogOpen: true,
+  }),
+  closeDeleteDialog: () => () => ({
+    companyTemplateInstanceIdToDelete: null as number,
+  }),
+  openPaymentPackDeleteDialog: () => () => ({
+    isDeletePaymentPackDialogOpen: true,
+  }),
+  closePaymentPackDeleteDialog: () => () => ({
+    isDeletePaymentPackDialogOpen: false,
+  }),
+};
+
+type BeforeHandlerProps = ConnectedProps<typeof connector> &
+  typeof stateHandlersInit &
+  WithHandlerType<typeof stateHandlersSetter> &
+  OwnProps;
+
+const mapWithHandlers = {
+  deletePaymentPackTemplate:
+    ({
+      deletePaymentPackTemplate,
+      paymentPackTemplateId,
+      pushRouter,
+      closePaymentPackDeleteDialog,
+    }: BeforeHandlerProps) =>
+    () =>
+      deletePaymentPackTemplate(paymentPackTemplateId, {
+        onSuccess: () => {
+          closePaymentPackDeleteDialog();
+          pushRouter('/f/payment-pack-template');
+        },
+      }),
+  createOrUpdatePaymentPackTemplate:
+    ({
+      createOrUpdatePaymentPackTemplate,
+      closeEditDialog,
+    }: BeforeHandlerProps) =>
+    (data: any, options: OptionCallback<PaymentPackTemplateAPI>) =>
+      createOrUpdatePaymentPackTemplate(data, {
+        onError: options && options.onError,
+        onSuccess: (template: PaymentPackTemplateAPI) => {
+          closeEditDialog();
+          if (options && options.onSuccess) {
+            options.onSuccess(template);
+          }
+        },
+      }),
+  deletePaymentPackTemplateInstance:
+    ({
+      deletePaymentPackTemplateInstance,
+      paymentPackTemplateId,
+      retrievePaymentPackTemplate,
+      closeDeleteDialog,
+    }: BeforeHandlerProps) =>
+    (id, options) => {
+      deletePaymentPackTemplateInstance(id, {
+        onSuccess: (...args) => {
+          retrievePaymentPackTemplate(paymentPackTemplateId);
+          closeDeleteDialog();
+          if (options && options.onSuccess) options.onSuccess(...args);
+        },
+        onError: options?.onError,
+      });
+    },
+  createPaymentPackTemplateInstance:
+    ({
+      createPaymentPackTemplateInstance,
+      paymentPackTemplateId,
+      retrievePaymentPackTemplate,
+      closeCreateForm,
+    }: BeforeHandlerProps) =>
+    (data, options) => {
+      createPaymentPackTemplateInstance(
+        { ...data, payment_pack_template: paymentPackTemplateId },
+        {
+          onSuccess: (...args) => {
+            retrievePaymentPackTemplate(paymentPackTemplateId);
+            closeCreateForm();
+            if (options && options.onSuccess) options.onSuccess(...args);
+          },
+          onError: options?.onError,
+        },
+      );
+    },
+  fetchConsumerPaymentPackList:
+    ({
+      fetchConsumerPaymentPackList,
+      fetchPaymentPackBulk,
+      fetchFilteredMembers,
+      paymentPackTemplateId: payment_pack_template,
+    }: BeforeHandlerProps) =>
+    (page: number, page_size: number) => {
+      fetchConsumerPaymentPackList(
+        { page, page_size, payment_pack_template },
+        {
+          onSuccess: (consumerPackList) => {
+            fetchPaymentPackBulk(
+              consumerPackList.map((cpp) => cpp.payment_pack),
+            );
+            fetchFilteredMembers({
+              id__in: consumerPackList.map((b: any) => b.member_id),
+            });
+          },
+        },
+      );
+    },
+};
 
 export default compose(
   withTranslation(),
   routerParamsToProps({
     paymentPackTemplateId: 'paymentPackTemplateId:number',
   }),
-  withStateHandlers(
-    {
-      createFormOpen: false,
-      companyTemplateInstanceIdToDelete: null,
-    },
-    {
-      openCreateForm: () => () => ({ createFormOpen: true }),
-      closeCreateForm: () => () => ({ createFormOpen: false }),
-      openDeleteDialog: () => (companyTemplateInstanceIdToDelete) => ({
-        companyTemplateInstanceIdToDelete,
-      }),
-      closeDeleteDialog: () => () => ({
-        companyTemplateInstanceIdToDelete: null,
-      }),
-    },
-  ),
+  withStateHandlers(stateHandlersInit, stateHandlersSetter),
   connector,
-  withHandlers({
-    deletePaymentPackTemplateInstance:
-      ({
-        deletePaymentPackTemplateInstance,
-        paymentPackTemplateId,
-        retrievePaymentPackTemplate,
-        closeDeleteDialog,
-      }) =>
-      (id, options) => {
-        deletePaymentPackTemplateInstance(id, {
-          onSuccess: (...args) => {
-            retrievePaymentPackTemplate(paymentPackTemplateId);
-            closeDeleteDialog();
-            if (options && options.onSuccess) options.onSuccess(...args);
-          },
-          onError: options?.onError,
-        });
-      },
-    createPaymentPackTemplateInstance:
-      ({
-        createPaymentPackTemplateInstance,
-        paymentPackTemplateId,
-        retrievePaymentPackTemplate,
-        closeCreateForm,
-      }) =>
-      (data, options) => {
-        createPaymentPackTemplateInstance(
-          { ...data, payment_pack_template: paymentPackTemplateId },
-          {
-            onSuccess: (...args) => {
-              retrievePaymentPackTemplate(paymentPackTemplateId);
-              closeCreateForm();
-              if (options && options.onSuccess) options.onSuccess(...args);
-            },
-            onError: options?.onError,
-          },
-        );
-      },
-    fetchConsumerPaymentPackList:
-      ({
-        fetchConsumerPaymentPackList,
-        fetchPaymentPackBulk,
-        fetchFilteredMembers,
-        paymentPackTemplateId: payment_pack_template,
-      }) =>
-      (page: number, page_size: number) => {
-        fetchConsumerPaymentPackList(
-          { page, page_size, payment_pack_template },
-          {
-            onSuccess: (consumerPackList) => {
-              fetchPaymentPackBulk(
-                consumerPackList.map((cpp) => cpp.payment_pack),
-              );
-              fetchFilteredMembers({
-                id__in: consumerPackList.map((b: any) => b.member_id),
-              });
-            },
-          },
-        );
-      },
-  }),
+  withHandlers(mapWithHandlers),
   withTitle(({ paymentPackTemplate }) =>
     paymentPackTemplate ? paymentPackTemplate.name : '',
   ),

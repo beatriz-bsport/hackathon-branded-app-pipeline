@@ -4,7 +4,10 @@ import { useTranslation } from 'react-i18next';
 import ExportableComponentConfigurator from '../../exportable-components/components/ExportableComponentConfigurator.component';
 import ExportableComponentSelector from '../../exportable-components/components/ExportableComponentSelector.component';
 
-import { WIDGET_SUPPORTED_EXPORTABLE_COMPONENTS } from '../constants';
+import {
+  WIDGET_FRANCHISOR_SUPPORTED_EXPORTABLE_COMPONENTS,
+  WIDGET_NOT_FRANCHISOR_SUPPORTED_EXPORTABLE_COMPONENTS,
+} from '../constants';
 import { EXPORTABLE_COMPONENT_TYPE_PLAYLIST } from '../../exportable-components/constants';
 
 import { MetaActivity } from '../../meta-activity/types';
@@ -23,7 +26,10 @@ import {
   getDefaultConfigByIdentifier,
   checkExportableComponentConfig,
 } from '../../exportable-components/utils';
-import { PaymentPackCategory } from '../../payment-packs/types';
+import {
+  PaymentPackCategory,
+  PaymentPackTemplate,
+} from '../../payment-packs/types';
 
 type Props = {
   componentType: string;
@@ -47,6 +53,8 @@ type Props = {
   privatePassCategories?: Array<PrivatePassCategory>;
   establishmentGroupList: Array<EstablishmentGroup>;
   giftcards?: Array<Giftcard>;
+  paymentPackTemplateListAvailable: Array<PaymentPackTemplate>;
+  isFranchisor?: boolean;
 };
 
 export const WidgetComponentConfigBuilder = (props: Props) => {
@@ -82,18 +90,23 @@ export const WidgetComponentConfigBuilder = (props: Props) => {
       },
     });
   };
-
+  const selectorSource = props.isFranchisor
+    ? WIDGET_FRANCHISOR_SUPPORTED_EXPORTABLE_COMPONENTS
+    : WIDGET_NOT_FRANCHISOR_SUPPORTED_EXPORTABLE_COMPONENTS;
   return (
     <div>
       {!props.hideTypeSelector && (
         <ExportableComponentSelector
-          source={WIDGET_SUPPORTED_EXPORTABLE_COMPONENTS}
+          source={selectorSource}
           value={props.componentType}
           onChange={onComponentTypeChange}
         />
       )}
 
       <ExportableComponentConfigurator
+        paymentPackTemplateListAvailable={
+          props.paymentPackTemplateListAvailable
+        }
         componentType={props.componentType}
         coaches={props.coaches}
         establishments={props.establishments}

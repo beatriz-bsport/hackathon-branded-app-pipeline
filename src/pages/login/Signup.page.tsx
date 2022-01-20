@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { compose, withProps, withStateHandlers } from 'recompose';
+import { compose, withHandlers, withProps, withStateHandlers } from 'recompose';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withRouter } from 'react-router';
@@ -46,9 +46,11 @@ type OwnProps = {
     search: string;
     state: string;
   };
+  previous: string;
+  franchisor: string;
+  next: string;
   membership: string;
-  // franchisor: string;
-  goBackToLogin: (id: string | null) => void;
+
   doEmailLogin: ({
     email,
     password,
@@ -66,7 +68,8 @@ type Props = OwnProps &
   StateHandlerType &
   ConnectedProps &
   WithTranslation &
-  MaterialStyleType<ReturnType<typeof styles>>;
+  MaterialStyleType<ReturnType<typeof styles>> &
+  WithHandlerType<typeof mapWithHandlers>;
 
 export class SignupPage extends Component<Props> {
   componentDidMount() {
@@ -95,11 +98,7 @@ export class SignupPage extends Component<Props> {
   };
 
   handleCancel = () => {
-    // if (this.props.franchisor) {
-    //   this.props.goBackToFranchisePage(this.props.franchisor);
-    // } else {
     this.props.goBackToLogin(this.props.membership);
-    // }
   };
 
   render() {
@@ -110,11 +109,10 @@ export class SignupPage extends Component<Props> {
       membership,
       signUpCustomForm,
       theme,
-      location,
+      next,
     } = this.props;
 
     if (authenticated) {
-      const { next } = parseQueryString(location.search);
       if (next) {
         return <Redirect to={next} />;
       }
@@ -162,10 +160,24 @@ const properMapDispatchToProps = {
   submitSignUpCustomForm,
   fetchCompanyTheme,
   fetchCompanyCustomSignUp,
-  goBackToLogin: (membership: string | null) =>
-    membership ? push(`/login?membership=${membership}`) : push(`/login`),
+  pushRouter: push,
+
   goBackToFranchisePage: (franchisor: string | null) =>
     franchisor ? push(`/login?franchisor=${franchisor}`) : push(`/login`),
+};
+
+const mapWithHandlers = {
+  goBackToLogin:
+    ({ previous, pushRouter }: OwnProps & ConnectedProps) =>
+    (membership: string) => {
+      if (previous) {
+        pushRouter(previous);
+      } else if (membership) {
+        pushRouter(`/login?membership=${membership}`);
+      } else {
+        pushRouter(`/login`);
+      }
+    },
 };
 const mapStateToProps = (
   state: RootState,
@@ -233,12 +245,14 @@ export default compose(
   withRouter,
   withStyles(styles),
   withTranslation(['login']),
-  withProps((props: OwnProps) => ({
-    membership: parseQueryString(props.location.search).membership,
-    franchisor: parseQueryString(props.location.search).franchisor,
-    goNext: parseQueryString(props.location.search).next,
-  })),
+  withProps((props: OwnProps) => {
+    const { membership, franchisor, next, previous } = parseQueryString(
+      props.location.search,
+    );
+    return { membership, franchisor, next, previous };
+  }),
   connect(mapStateToProps, mapDispatchToProps),
   connect(null, properMapDispatchToProps),
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
+  withHandlers(mapWithHandlers),
 )(SignupPage);

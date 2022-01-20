@@ -30,14 +30,19 @@ exports.default = {
       "Aucun studio n'est configuré pour accepter cette carte de cours",
     actions: {
       addCompany: 'Ajouter un studio',
+      buy: 'Acheter',
     },
   },
   paymentPackTemplate: {
+    pass: 'Cartes de cours collectifs',
+    widget: {
+      choose: 'Choisir des cartes de cours partagées',
+    },
     specification: {
-      companySharedWithTitle: 'Partagée avec les studios:',
+      companySharedWithTitle: 'Partagée avec les studios',
     },
     isEmptyExplain:
-      "Les cartes de cours partagées sont disponibles dans les studios de votre choix, et permettent à vos membres d'utiliser indifféremment leurs crédits dans les studios que vous auez choisi.",
+      "Les cartes de cours partagées sont disponibles dans les studios de votre choix, et permettent à vos membres d'utiliser indifféremment leurs crédits dans les studios que vous aurez choisi.",
     section: {
       titleAvailable: 'Disponible à la vente',
       titleManagerOnly: 'Indisponible à la vente',

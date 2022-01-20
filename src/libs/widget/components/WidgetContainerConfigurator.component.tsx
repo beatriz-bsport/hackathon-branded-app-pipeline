@@ -5,8 +5,6 @@ import { compose } from 'recompose';
 import { Theme, withStyles } from '@material-ui/core/styles';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
-import moment from 'moment-timezone';
-
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -23,6 +21,7 @@ import {
 
 import { MaterialStyleType } from '../../../utils/types';
 import { LanguageSelect } from '../../../components/button/LanguageButton.component';
+import { getIntercomLink } from '../utils';
 
 type OwnProps = {
   showFab: boolean;
@@ -31,6 +30,7 @@ type OwnProps = {
   dialogMode: number;
   language: string | null;
   fullScreenPopup: boolean;
+  isFranchisor?: boolean;
 };
 
 type Props = OwnProps &
@@ -80,30 +80,29 @@ export const WidgetContainerConfigurator = (props: Props) => {
           }
           label={t('widget.ownStyle')}
         />
+        {!props.isFranchisor && (
+          <div className={classes.showFabContainer}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={props.showFab}
+                  onChange={onChangeShowFab}
+                  name="checkedB"
+                />
+              }
+              label={t('widget.showFabLabel')}
+            />
 
-        <div className={classes.showFabContainer}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={props.showFab}
-                onChange={onChangeShowFab}
-                name="checkedB"
-              />
-            }
-            label={t('widget.showFabLabel')}
-          />
-
-          <a
-            target="_blank"
-            rel="noreferrer"
-            href={`https://intercom.help/bsport-helpcenter/${moment
-              .locale()
-              .slice(0, 2)}/articles/4942264`}
-            className={classes.link}
-          >
-            <HelpOutlineIcon />
-          </a>
-        </div>
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href={getIntercomLink()}
+              className={classes.link}
+            >
+              <HelpOutlineIcon />
+            </a>
+          </div>
+        )}
 
         <FormControl className={classes.dialogMode}>
           <InputLabel>{t('widget.dialogModeLabel')}</InputLabel>
@@ -207,7 +206,7 @@ const styles = (theme: Theme) => ({
   },
 });
 
-export default compose<any, Props>(
+export default compose<any, OwnProps>(
   // @ts-ignore
   withStyles(styles),
   withTranslation(['widget']),

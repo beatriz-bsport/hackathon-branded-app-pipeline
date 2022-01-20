@@ -9,6 +9,8 @@ export const EXPORTABLE_COMPONENT_TYPE_SHOP = 'shop';
 export const EXPORTABLE_COMPONENT_TYPE_SUBSCRIPTION = 'subscription';
 export const EXPORTABLE_COMPONENT_TYPE_NEWSLETTER = 'newsletter';
 export const EXPORTABLE_COMPONENT_TYPE_GIFTCARD = 'giftcard';
+export const EXPORTABLE_COMPONENT_TYPE_PAYMENT_PACK_TEMPLATE =
+  'paymentPackTemplate';
 
 export const EXPORTABLE_COMPONENTS = [
   {

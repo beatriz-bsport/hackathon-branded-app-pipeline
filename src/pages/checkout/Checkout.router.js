@@ -20,6 +20,9 @@ const OfferBooker = asyncComponent(() =>
 const PaymentPackPreCheckout = asyncComponent(() =>
   import('./pre-checkout/PaymentPackPreCheckout.page'),
 );
+const PaymentPackTemplatePreCheckout = asyncComponent(() =>
+  import('./pre-checkout/PaymentPackTemplatePreCheckout.page'),
+);
 const ShopItemPreCheckoutPage = asyncComponent(() =>
   import('./pre-checkout/ShopItemPreCheckout.page'),
 );
@@ -111,7 +114,12 @@ export class PaymentRouter extends React.Component<Props> {
           component={PaymentPackPreCheckout}
         />
         <Route
-          path="/(|customer/)checkout/:companyId/pre-checkout/payment-combo/:id"
+          path="/(|customer/)checkout/:companyId/pre-checkout/payment-pack-template/:id/"
+          component={PaymentPackTemplatePreCheckout}
+        />
+
+        <Route
+          path="/checkout/:companyId/pre-checkout/payment-combo/:id"
           component={PaymentComboPreCheckoutPage}
         />
         <Route

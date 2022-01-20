@@ -158,6 +158,7 @@ export class BasketFinalizer extends React.Component<Props, State> {
                     type="theTermsAndConditions"
                   />
                 )}
+
                 <Button
                   disabled={
                     this.props.selfProcessing ||

@@ -3,10 +3,10 @@ import moment from 'moment-timezone';
 import { getCurrencyDisplayWithPrice } from '../theme/selectors';
 import { formatAsDate } from '../../utils/datetime';
 import type { ConsumerPaymentPack } from '../consumer-payment-pack/types';
-import { PaymentPack } from './types';
+import { PaymentPack, PaymentPackTemplate } from './types';
 
 export const getValidityInfo = (
-  pack: PaymentPack,
+  pack: PaymentPack | PaymentPackTemplate,
   t: TFunction,
   startInfo: boolean = false,
 ) => {
@@ -238,7 +238,7 @@ export const getCompatibilityInfo = (pack: PaymentPack, t: TFunction) => {
 };
 
 export const getCreditInfo = (
-  pack: PaymentPack,
+  pack: PaymentPack | PaymentPackTemplate,
   t: TFunction,
   isManager: boolean = false,
 ) => {

@@ -9,7 +9,7 @@ import { compose, withHandlers } from 'recompose';
 import { replace as replaceRouter } from 'connected-react-router';
 import { connect } from 'react-redux';
 
-import { buildUrlParams, parseQueryString } from '../http';
+import { buildUrlParams, parseQueryString, parseQueryStringWhithoutDecode } from '../http';
 
 const convertParams = (params, mode) => {
   if (!mode || mode === 'string') {
@@ -43,6 +43,55 @@ export default function withQueryParams([
           if (!paramsArray.includes(key)) return;
           const { search, pathname } = location;
           const allParams = parseQueryString(search);
+          if (value === 'null' || value === '' || value === null) {
+            replace(pathname + buildUrlParams({ ...omit(allParams, key) }));
+          } else {
+            replace(pathname + buildUrlParams({ ...allParams, [key]: value }));
+          }
+          if (callback) {
+            callback();
+          }
+        },
+      }),
+    )(
+      class extends React.PureComponent<Props> {
+        render() {
+          const { search } = this.props.location;
+          const allParams = parseQueryString(search);
+
+          const relatedParams = pick(allParams, paramsArray);
+
+          const parsedRelatedParams = convertParams(relatedParams, mode);
+
+          return (
+            <WrappedComponent
+              {...this.props}
+              {...{
+                [paramGroupName]: parsedRelatedParams,
+                [paramSetterName]: this.props.setParam,
+              }}
+            />
+          );
+        }
+      },
+    );
+  };
+}
+
+export  function withQueryParamsUndecoded([
+  paramsArray,
+  paramGroupName,
+  paramSetterName,
+  mode = 'string',
+]: [Array<string>, ?string, ?string, ?string]) {
+  return (WrappedComponent) => {
+    return compose(
+      connect(null, { replace: replaceRouter }),
+      withHandlers({
+        setParam: ({ replace, location }) => (key) => (value, callback) => {
+          if (!paramsArray.includes(key)) return;
+          const { search, pathname } = location;
+          const allParams = parseQueryStringWhithoutDecode(search);
           if (value === 'null' || value === '' || value === null) {
             replace(pathname + buildUrlParams({ ...omit(allParams, key) }));
           } else {

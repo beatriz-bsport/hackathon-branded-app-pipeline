@@ -10,7 +10,7 @@ export type MarketplaceCommonFilter = {
 };
 
 export type MarketplaceCalendarData = MarketplaceCommonFilter & {
-  compactMode: true | false | null;
+  compactMode?: true | false | null;
   todayOnly?: boolean;
 };
 
@@ -30,6 +30,10 @@ export type MarketplacePassData = {
   privatePassCategories?: number[];
 };
 
+export type MarketplacePaymentPackTemplateData = {
+  paymentPackTemplateList?: Array<number>;
+};
+
 export type MarketplaceGiftcardData = {
   giftcards?: number[];
 };
@@ -46,6 +50,7 @@ export type MarketplaceComponentConfig = {
   calendar?: MarketplaceCalendarData;
   workshop?: MarketplaceWorkshopData;
   privateService?: MarketplacePrivateServiceData;
+  paymentPackTemplate?: MarketplacePaymentPackTemplateData;
   pass?: MarketplacePassData;
   vod?: {};
   subscription?: {};
@@ -63,6 +68,7 @@ export type MarketplaceTabConfig = {
 export type WidgetConfig = {
   parentElement: string;
   companyId: number;
+  franchiseId: number;
   dialogMode: 0 | 1 | 2;
   language?: string;
   widgetType: string;

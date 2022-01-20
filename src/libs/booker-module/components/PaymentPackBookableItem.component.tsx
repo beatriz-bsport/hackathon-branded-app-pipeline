@@ -1,12 +1,12 @@
 import { makeStyles, Typography } from '@material-ui/core';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { PaymentPack } from '../../payment-packs/types';
+import { PaymentPack, PaymentPackTemplate } from '../../payment-packs/types';
 import { getValidityInfo } from '../../payment-packs/utils';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 interface Props {
-  paymentPack: PaymentPack;
+  paymentPack: PaymentPack | PaymentPackTemplate;
 }
 
 const PaymentPackItem = (props: Props) => {

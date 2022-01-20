@@ -27,13 +27,14 @@ export type OwnProps = {
   //   franchisor: string | null;
   // }) => void;
   goToSignup: (id: number) => void;
+  context: string;
   // franchisor: string;
 };
 
 type Props = OwnProps & WithTranslation;
 
 const FranchiseCompanyLogin = (props: Props) => {
-  const { authenticated, companies, setStep, t, disconnect } = props;
+  const { authenticated, companies, setStep, t, disconnect, context } = props;
   const classes = useStyles();
 
   const handleCompanySelected = (selectedCompany: number) => () => {
@@ -51,20 +52,22 @@ const FranchiseCompanyLogin = (props: Props) => {
         handleCompanySelected={handleCompanySelected}
         selectedCompanyId={props.selectedFranchisee}
       />
-      <div className={classes.row}>
-        <RedButton
-          variant="outlined"
-          onClick={() => {
-            if (setStep) {
-              setStep(STEPS.loginToFranchise);
-            }
-            if (authenticated) disconnect();
-          }}
-          color="primary"
-        >
-          {authenticated ? t('login.disconnect') : t('login.previous')}
-        </RedButton>
-      </div>
+      {context !== 'widget' && (
+        <div className={classes.row}>
+          <RedButton
+            variant="outlined"
+            onClick={() => {
+              if (setStep) {
+                setStep(STEPS.loginToFranchise);
+              }
+              if (authenticated) disconnect();
+            }}
+            color="primary"
+          >
+            {authenticated ? t('login.disconnect') : t('login.previous')}
+          </RedButton>
+        </div>
+      )}
     </div>
   );
 };

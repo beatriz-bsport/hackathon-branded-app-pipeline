@@ -145,6 +145,7 @@ export function MarketplacePassList(props: Props) {
                       onClick={() => {
                         pushPackCheckout(selectedPass.id);
                         Analytics.addPassToCart(selectedPass, 'payment_pack');
+                        props.setSelectedPass(null);
                       }}
                       color="primary"
                       variant="contained"

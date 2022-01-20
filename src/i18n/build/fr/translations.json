@@ -2415,7 +2415,13 @@
       "previous": "Session précédente",
       "current": "Session actuelle"
     },
-    "franchiseMenu": { "franchises": "Franchisés", "members": "Membres", "reporting": "Rapports", "paymentPack": "Cartes de cours" },
+    "franchiseMenu": {
+      "franchises": "Franchisés",
+      "members": "Membres",
+      "reporting": "Rapports",
+      "paymentPack": "Cartes de cours",
+      "widget": "Widget"
+    },
     "deprecatedNavigator": {
       "navigatorError": "Il semblerait que votre navigateur soit trop ancien pour utiliser nos services. Vous risquez de rencontrer des erreurs, nous vous recommandons de télécharger une version plus récente notamment : ",
       "downloadFirefox": "Téléchargez gratuitement Mozilla Firefox",
@@ -2955,11 +2961,13 @@
         "actions": { "close": "Fermer", "submit": "Désactiver le partage" }
       },
       "companyEmpty": "Aucun studio n'est configuré pour accepter cette carte de cours",
-      "actions": { "addCompany": "Ajouter un studio" }
+      "actions": { "addCompany": "Ajouter un studio", "buy": "Acheter" }
     },
     "paymentPackTemplate": {
-      "specification": { "companySharedWithTitle": "Partagée avec les studios:" },
-      "isEmptyExplain": "Les cartes de cours partagées sont disponibles dans les studios de votre choix, et permettent à vos membres d'utiliser indifféremment leurs crédits dans les studios que vous auez choisi.",
+      "pass": "Cartes de cours collectifs",
+      "widget": { "choose": "Choisir des cartes de cours partagées" },
+      "specification": { "companySharedWithTitle": "Partagée avec les studios" },
+      "isEmptyExplain": "Les cartes de cours partagées sont disponibles dans les studios de votre choix, et permettent à vos membres d'utiliser indifféremment leurs crédits dans les studios que vous aurez choisi.",
       "section": { "titleAvailable": "Disponible à la vente", "titleManagerOnly": "Indisponible à la vente" },
       "form": {
         "title": "Carte de cours partagée",
@@ -5081,7 +5089,8 @@
         "playlist": "Playlist",
         "newsletter": "Newsletter",
         "loginButton": "Bouton login",
-        "giftcard": "Carte cadeau"
+        "giftcard": "Carte cadeau",
+        "paymentPackTemplate": "Carte de cours partagée"
       },
       "createDialog": {
         "showAdvanced": "Voir plus d'options",

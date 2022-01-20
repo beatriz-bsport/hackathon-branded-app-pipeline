@@ -15,6 +15,12 @@ export const fetchFranchise = async (): Promise<AxiosResponse<Franchise>> => {
   return getAuth(`${API_V1_URI}/franchisor/franchisor/me`);
 };
 
+export const retrieveFranchise = async (
+  id: number,
+): Promise<AxiosResponse<Franchise>> => {
+  return getAuth(`${API_V1_URI}/franchisor/franchisor/${id}/`);
+};
+
 export const fetchFranchiseUsers = async (params: {
   page: number;
   page_size: number;

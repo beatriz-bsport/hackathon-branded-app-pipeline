@@ -43,7 +43,16 @@ export const ConsumerRouter = (props: Props) => {
     return <Redirect to="/login" />;
   }
   if (props.isManager) {
-    return <Redirect to="/" />;
+    return (
+      <Switch>
+        <Route
+          exact
+          path="/c/franchisee-selector/:franchisorId"
+          component={ConsumerFranchiseeSelector}
+        />
+        <Redirect to="/" />;
+      </Switch>
+    );
   }
 
   const token = getAuthToken();

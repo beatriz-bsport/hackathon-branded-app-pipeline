@@ -59,6 +59,9 @@ const FranchisePaymentPackTemplateRouter = asyncComponent(
 const FranchisePrivatePassTemplateRouter = asyncComponent(
   () => import('./private-pass-template/FranchisePrivatePassTemplate.router'),
 );
+const WidgetGeneratorPage = asyncComponent(
+  () => import('../settings/WidgetGenerator.page'),
+);
 
 type OwnProps = {
   disconnect: () => void;
@@ -132,6 +135,7 @@ const FranchiseRouter = (props: Props) => {
             />
             <Route path="/f/settings/theme" component={FranchiseTheme} />
             <Route path="/f/email-template" component={EmailTemplate} />
+            <Route path="/f/settings/widget" component={WidgetGeneratorPage} />
             <Route exact path="/f/members" component={FranchiseMemberList} />
             <Route
               path="/f/members/:userId/member"

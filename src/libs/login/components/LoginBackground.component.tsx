@@ -175,6 +175,6 @@ const styles = (theme: Theme): any => ({
   },
 });
 
-export default compose<any, Props>(withStyles(styles, { withTheme: true }))(
+export default compose<any, OwnProps>(withStyles(styles, { withTheme: true }))(
   LoginBackgroundComponent,
 );

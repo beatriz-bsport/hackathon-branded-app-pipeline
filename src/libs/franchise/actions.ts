@@ -9,7 +9,9 @@ import {
   fetchFranchiseUser as fetchFranchiseUserAPI,
   updateFranchiseTheme as updateFranchiseThemeAPI,
   fetchFranchiseTheme as fetchFranchiseThemeAPI,
+  retrieveFranchise as retrieveFranchiseAPI,
 } from './api';
+import { Franchise } from './types';
 
 export const fetchFranchiseActions = {
   error: createAction('FRANCHISE/ME/ERROR'),
@@ -27,6 +29,30 @@ export function fetchFranchise(options?: OptionCallback) {
       dispatch(fetchFranchiseActions.success({ franchisor: response.data }));
 
       options?.onSuccess();
+    } catch (error) {
+      dispatch(fetchFranchiseActions.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
+
+    dispatch(fetchFranchiseActions.isLoading(false));
+  };
+}
+
+export function retrieveFranchise(
+  id: number,
+  options?: OptionCallback<Franchise>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchFranchiseActions.isLoading(true));
+    dispatch(fetchFranchiseActions.error(null));
+
+    try {
+      const response = await retrieveFranchiseAPI(id);
+      dispatch(fetchFranchiseActions.success({ franchisor: response.data }));
+
+      options?.onSuccess && options?.onSuccess();
     } catch (error) {
       dispatch(fetchFranchiseActions.error(error));
       if (options && options.onError) {

@@ -124,6 +124,7 @@ exports.default = {
     members: 'Membres',
     reporting: 'Rapports',
     paymentPack: 'Cartes de cours',
+    widget: 'Widget',
   },
   deprecatedNavigator: {
     navigatorError:

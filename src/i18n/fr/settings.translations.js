@@ -120,6 +120,7 @@ exports.default = {
       newsletter: 'Newsletter',
       loginButton: 'Bouton login',
       giftcard: 'Carte cadeau',
+      paymentPackTemplate: 'Carte de cours partagée',
     },
     createDialog: {
       showAdvanced: "Voir plus d'options",

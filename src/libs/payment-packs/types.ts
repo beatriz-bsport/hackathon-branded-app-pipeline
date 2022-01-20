@@ -98,13 +98,14 @@ export type PaymentPackTemplateAPI = {
     lower: string;
   };
   disabled: boolean;
-  tax: number;
-  price: string;
+  tax: string;
+  price: number;
   franchisor: number | null;
   payment_pack_template_instances: Array<PaymentPackTemplateInstance>;
   theorical_margin_value: number;
   start_date_method: number;
   expiration_days_before_first_use: number;
+  unlimited: boolean;
 };
 
 export type PaymentPackTemplate = PaymentPackTemplateAPI & {

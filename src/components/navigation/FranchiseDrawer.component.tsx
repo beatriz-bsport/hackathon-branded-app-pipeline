@@ -39,6 +39,7 @@ import {
   MoreVert,
   VpnKey,
   PowerSettingsNew,
+  Widgets,
 } from '@material-ui/icons';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import ScheduleIcon from '@material-ui/icons/Schedule';
@@ -513,6 +514,11 @@ const getNavigationItems = (props: {
       to: '/f/reporting',
       text: 'franchiseMenu.reporting',
       icon: DescriptionIcon,
+    },
+    {
+      to: '/f/settings/widget',
+      text: 'franchiseMenu.widget',
+      icon: Widgets,
     },
     'divider',
     {

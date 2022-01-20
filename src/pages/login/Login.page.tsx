@@ -1,12 +1,12 @@
 // @flow
 
 import React, { Component } from 'react';
-import { compose, withProps, withState } from 'recompose';
+import { compose, withHandlers, withProps, withState } from 'recompose';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withRouter } from 'react-router';
 import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 import type { Theme } from '@material-ui/core/styles';
@@ -17,9 +17,9 @@ import { requestLogin, disconnect } from '../../actions/auth.actions';
 import { fetchCompanyTheme } from '#libs/theme/actions';
 import Analytics from '#components/analytics/Analytics.component';
 import Login from '#libs/login/components/Login.component';
-
+import { withQueryParamsUndecoded } from '../../hocs/with-query-params.hoc';
 import type { RootState } from '../../reducers';
-import { MaterialStyleType } from '../../utils/types';
+import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import WidgetUtils from '#libs/widget/WidgetUtils';
 import FranchiseCompanyLogin from '#libs/franchise/components/FranchiseCompanyLogin.component';
 import { FranchiseDetails } from '#libs/franchise/types';
@@ -29,6 +29,7 @@ import {
   getFranchisor,
 } from '#libs/franchise/selectors';
 import { STEPS } from '#libs/login/utils';
+import { buildSignUpUrl } from './utils';
 
 type OwnProps = {
   location: {
@@ -38,25 +39,32 @@ type OwnProps = {
     search: string;
     state: string;
   };
+  queryParams: {
+    step: string;
+  };
+  step: number;
+  setQueryParams: (queryParam: string) => (value: string) => void;
   membership: string;
   franchisor: string;
   franchiseTheme: FranchiseDetails;
-  goToSignup: (id: string | null) => void;
-  step: number;
-  setStep: (step: number) => void;
   selectedFranchisee: number;
   setSelectedFranchisee: (id: number) => void;
   goToCompanyMemberProfilePage: (id: number) => void;
+  goNext: string;
+  paymentPackTemplateCompanies: string;
+  context: string;
+  signUpNext: string;
 };
 
-type ConnectedProps = ReturnType<typeof mapStateToProps> &
+type ConnectedPropsType = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps> &
-  typeof properMapDispatchToProps;
+  ConnectedProps<typeof connector>;
 
 type Props = OwnProps &
-  ConnectedProps &
+  ConnectedPropsType &
   WithTranslation &
-  MaterialStyleType<ReturnType<typeof styles>>;
+  MaterialStyleType<ReturnType<typeof styles>> &
+  WithHandlerType<typeof mapWithHandlers>;
 
 export class ConsumerLoginPage extends Component<Props> {
   componentDidMount() {
@@ -78,24 +86,34 @@ export class ConsumerLoginPage extends Component<Props> {
       franchisor,
       step,
       goToSignup,
-    } = this.props;
+      goNext,
 
+      paymentPackTemplateCompanies,
+    } = this.props;
     if (authenticated) {
-      const { next, membership: membershipParam } = parseQueryString(
-        this.props.location.search,
-      );
-      if (next) {
-        return <Redirect to={next} />;
+      if (goNext) {
+        return <Redirect to={goNext} />;
       }
+
       return (
-        <Redirect
-          to={`/${membershipParam ? `?membership=${membershipParam}` : ''}`}
-        />
+        <Redirect to={`/${membership ? `?membership=${membership}` : ''}`} />
       );
     }
 
     if (franchisor && !this.props.franchiseTheme) {
       return null;
+    }
+
+    let companiesSelectable = this.props.franchiseTheme.companies;
+
+    const companyList = paymentPackTemplateCompanies
+      ?.split(',')
+      ?.map((company) => parseInt(company));
+
+    if (companyList?.length) {
+      companiesSelectable = companiesSelectable?.filter((comp) =>
+        paymentPackTemplateCompanies.includes(comp?.id),
+      );
     }
 
     return (
@@ -108,7 +126,8 @@ export class ConsumerLoginPage extends Component<Props> {
             loading={this.props.loginProcessing}
             requestSignUp={
               franchisor
-                ? () => this.props.setStep(STEPS.franchiseeSelection)
+                ? () =>
+                    this.props.setQueryParams('step')(STEPS.franchiseeSelection)
                 : () => goToSignup(membership)
             }
             company={!!membership}
@@ -118,15 +137,16 @@ export class ConsumerLoginPage extends Component<Props> {
             franchisor={!!franchisor}
           />
         )}
+
         {franchisor && step === STEPS.franchiseeSelection && (
           <FranchiseCompanyLogin
-            companies={this.props.franchiseTheme.companies}
+            companies={companiesSelectable}
             authenticated={authenticated}
             disconnect={this.props.disconnect}
             selectedFranchisee={this.props.selectedFranchisee}
             setSelectedFranchisee={this.props.setSelectedFranchisee}
             goToSignup={goToSignup}
-            setStep={this.props.setStep}
+            setStep={this.props.setQueryParams('step')}
             franchisor={this.props.franchisor}
           />
         )}
@@ -145,10 +165,12 @@ function mapDispatchToProps(dispatch: Dispatch, props: OwnProps) {
     goNext: ({ is_franchisor }: { is_franchisor: boolean }) => {
       if (!is_franchisor) {
         const { next, franchisor } = parseQueryString(search);
+
         if (next) {
           dispatch(push(next));
           return;
         }
+
         if (franchisor) {
           dispatch(push(`/c/franchisee-selector/${franchisor}`));
         }
@@ -168,28 +190,21 @@ const properMapDispatchToProps = {
   fetchCompanyTheme,
   fetchFranchiseTheme,
   disconnect,
-  // goToSignup: ({
-  //   membership,
-  //   franchisor,
-  // }: {
-  //   membership: string | null;
-  //   franchisor: string | null;
-  // }) => {
-  //   if (membership) {
-  //     if (franchisor) {
-  //       push(`/login/signup?membership=${membership}&franchisor=${franchisor}`);
-  //     } else {
-  //       push(`/login/signup?membership=${membership}`);
-  //     }
-  //   } else {
-  //     push(`/login/signup`);
-  //   }
-  // },
-  goToSignup: (membership: string | null) =>
-    membership
-      ? push(`/login/signup?membership=${membership}`)
-      : push(`/login/signup`),
+  pushRouter: push,
   goToCompanyMemberProfilePage: (companyId: number) => push(`c/${companyId}`),
+};
+
+const mapWithHandlers = {
+  goToSignup:
+    ({
+      signUpNext,
+      context,
+      pushRouter,
+      location,
+    }: OwnProps & ConnectedPropsType) =>
+    (membership: string) => {
+      pushRouter(buildSignUpUrl(signUpNext, context, membership, location));
+    },
 };
 
 const mapStateToProps = (
@@ -229,17 +244,36 @@ const styles = (theme: Theme): any => ({
   },
 });
 
+const connector = connect(null, properMapDispatchToProps);
+
 export default compose(
   withRouter,
   withStyles(styles),
   withTranslation(['login']),
-  withState('step', 'setStep', STEPS.loginToFranchise),
+  withQueryParamsUndecoded([['step'], 'queryParams', 'setQueryParams']),
   withState('selectedFranchisee', 'setSelectedFranchisee', null),
-  withProps((props: OwnProps) => ({
-    membership: parseQueryString(props.location.search).membership,
-    franchisor: parseQueryString(props.location.search).franchisor,
-    goNext: parseQueryString(props.location.search).next,
-  })),
+  withProps((props: OwnProps) => {
+    const {
+      membership,
+      franchisor,
+      next,
+      context,
+      paymentPackTemplateCompanies,
+      signUpNext,
+    } = parseQueryString(props.location?.search || '');
+    const step = parseInt(props.queryParams.step) || STEPS.loginToFranchise;
+
+    return {
+      membership,
+      franchisor,
+      goNext: next,
+      context,
+      paymentPackTemplateCompanies,
+      signUpNext,
+      step,
+    };
+  }),
   connect(mapStateToProps, mapDispatchToProps),
   connect(null, properMapDispatchToProps),
+  withHandlers(mapWithHandlers),
 )(ConsumerLoginPage);

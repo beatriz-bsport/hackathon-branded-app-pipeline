@@ -11,7 +11,10 @@ import {
 } from '../../private-service/types';
 import { Video } from '../../video/types';
 import ExportableComponentSettingForm from './settings';
-import { PaymentPackCategory } from '../../payment-packs/types';
+import {
+  PaymentPackCategory,
+  PaymentPackTemplate,
+} from '../../payment-packs/types';
 
 type Props = {
   componentType: string;
@@ -30,6 +33,7 @@ type Props = {
   privatePassCategories: Array<PrivatePassCategory>;
   establishmentGroupList: Array<EstablishmentGroup>;
   giftcards: Array<Giftcard>;
+  paymentPackTemplateListAvailable: Array<PaymentPackTemplate>;
 };
 
 export const ExportableComponentConfigurator = (props: Props) => {
@@ -44,6 +48,7 @@ export const ExportableComponentConfigurator = (props: Props) => {
 
   return (
     <SettingForm
+      paymentPackTemplateListAvailable={props.paymentPackTemplateListAvailable}
       coaches={props.coaches}
       establishments={props.establishments}
       metaActivities={props.metaActivities}

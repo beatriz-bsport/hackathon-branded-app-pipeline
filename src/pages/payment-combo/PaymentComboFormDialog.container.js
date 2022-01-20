@@ -8,10 +8,10 @@ import PaymentComboFormDialog from '../../libs/payment-combo/components/PaymentC
 
 import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
 import { getEnabled as getPaymentPackAvailable } from '../../libs/payment-packs/selectors';
-import { getShopItemsAvailable } from '../../libs/shop/selectors';
+import { getShopItemsBulk } from '../../libs/shop/selectors';
 import { fetchRelatedPrivatePassBulk } from '../../libs/payment-combo/actions';
 import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
-import { fetchShopItemAsManager as fetchAllShopItem } from '../../libs/shop/actions/shopitem';
+import { fetchAllShopItem } from '../../libs/shop/actions/shopitem';
 import { fetchPrivatePassList } from '../../libs/private-service/actions';
 
 type Props = any;
@@ -19,7 +19,7 @@ type Props = any;
 export class PaymentComboFormContainer extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchAllPaymentPacks();
-    this.props.fetchAllShopItem();
+    this.props.fetchAllShopItem(this.props.initial?.company || null);
     this.props.fetchPrivatePassList();
     const pass_ids = this.props.initial
       ? this.props.initial.private_passes.map((pass) => pass.id)
@@ -36,7 +36,7 @@ export default compose(
   withMobileDialog(),
   connect(
     (state) => ({
-      shopItemList: getShopItemsAvailable(state),
+      shopItemList: getShopItemsBulk(state),
       paymentPackList: getPaymentPackAvailable(state),
       privatePassList: getPrivatePassAvailable(state),
       relatedPrivatePass: state.paymentCombo.relatedPrivatePass.byId,
@@ -49,9 +49,9 @@ export default compose(
     }),
     {
       fetchAllPaymentPacks,
-      fetchAllShopItem,
       fetchPrivatePassList,
       fetchRelatedPrivatePassBulk,
+      fetchAllShopItem,
     },
   ),
 )(PaymentComboFormContainer);

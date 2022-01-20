@@ -363,6 +363,8 @@ exports.default = {
           "Attention ! Cette opération est définitive. La carte ne sera plus visible et deviendra indisponible à l'achat.",
         thereAreConsumers:
           "Attention ! Des membres ont acheté cette carte de cours, si vous le supprimez ces derniers pourront toujours utiliser leurs crédits restants. Vous pouvez les réduire manuellement à zéro ici.\n\nLa carte n'apparaitra plus dans votre magasin pour les nouveaux acheteurs.",
+        isUsedInCombo:
+          'Attention ! Cette carte de cours est utilisée dans un pack, celui-ci ne sera plus disponible à la vente si vous supprimez cette carte de cours.',
         actions: {
           cancel: 'Annuler',
           submit: 'Supprimer',

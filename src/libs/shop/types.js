@@ -58,8 +58,14 @@ export type ShopState = {
       allIds: Array<number>,
     },
     bulk: {
+      allIds: Array<number>,
       loading: boolean,
       error: ?Error,
+    },
+    combo: {
+      archivationWarning: { [id: number]: { used_in_combo: boolean } },
+      loading: boolean,
+      error: Error | null,
     },
   },
   provision: {

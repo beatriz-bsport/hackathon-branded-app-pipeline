@@ -537,6 +537,8 @@ exports.default = {
       title: 'Suppression de la carte',
       explain:
         'Êtes-vous sûr de vouloir supprimer cette carte ? Les personnes possédant encore des crédits pourront toujours les utiliser.',
+      warning:
+        'Attention ! Cette carte de rdv est utilisée dans un pack, celui-ci ne sera plus disponible à la vente si vous supprimez cette carte de cours.',
       cancel: 'Annuler',
       submit: 'Confirmer',
     },

@@ -41,6 +41,7 @@ import {
   fetchPaymentPackForBooking,
   fetchPaymentPackBulk as fetchPaymentPackBulkAction,
   fetchAllPaymentPackCategory,
+  resetPaymentPackForBooking,
 } from '../../../../libs/payment-packs/actions';
 import { fetchPaymentComboForBooking } from '../../../../libs/payment-combo/actions';
 import {
@@ -78,6 +79,7 @@ type OwnProps = {
   loading: boolean;
   selectedPack: SelectedPack;
   onPackChange: (selectedPack: SelectedPack) => void;
+  paymentPackForBookingNextPage: number;
 };
 
 type OwnAndConnectedProps = OwnProps &
@@ -106,8 +108,9 @@ export class OfferState extends React.PureComponent<Props, State> {
   };
 
   componentDidMount() {
+    this.props.resetPaymentPackForBooking();
     this.fetchConsumerPaymentPack();
-    this.fetchPaymentPack();
+    this.fetchPaymentPack(1);
     this.fetchComboPack();
     this.props.fetchContractForBooking(this.props.offerId, this.props.company);
     this.props.fetchMemberTagList(this.props.company);
@@ -137,10 +140,12 @@ export class OfferState extends React.PureComponent<Props, State> {
     });
   };
 
-  fetchPaymentPack = () => {
+  fetchPaymentPack = (page: number) => {
     this.props.fetchPaymentPackForBooking(
       this.props.offerId,
       this.props.company,
+      page,
+      15,
       { onSuccess: () => this.setState({ paymentPacksLoaded: true }) },
     );
   };
@@ -177,7 +182,7 @@ export class OfferState extends React.PureComponent<Props, State> {
 
   componentDidUpdate(prevProps: Props) {
     if (prevProps.company !== this.props.company) {
-      this.fetchPaymentPack();
+      this.fetchPaymentPack(1);
       this.fetchComboPack();
       this.props.fetchContractForBooking(
         this.props.offerId,
@@ -185,6 +190,13 @@ export class OfferState extends React.PureComponent<Props, State> {
       );
       this.props.fetchAllPaymentPackCategory(this.props.company);
     }
+    if (
+      this.props.paymentPackForBookingNextPage &&
+      this.props.paymentPackForBookingNextPage !==
+        prevProps.paymentPackForBookingNextPage &&
+      this.props.paymentPackForBookingNextPage < 6
+    )
+      this.fetchPaymentPack(this.props.paymentPackForBookingNextPage);
   }
 
   requestSetupIntentSecret = () => {
@@ -365,6 +377,7 @@ const mapStateToProps = (
   cppMaxoutBookings: state.consumerPaymentPack.maxout_booking.byId,
   paymentPacksById: state.paymentPack.byId,
   paymentPackCategories: getAllPaymentPackCategory(state),
+  paymentPackForBookingNextPage: state.paymentPack.forBooking.page,
 });
 
 const mapDispatchToProps = {
@@ -377,6 +390,7 @@ const mapDispatchToProps = {
   fetchConsumerPaymentPackMaxoutBooking,
   fetchMemberTagList,
   fetchAllPaymentPackCategory,
+  resetPaymentPackForBooking,
 };
 
 export default compose<any, OwnProps>(

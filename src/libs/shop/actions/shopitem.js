@@ -3,7 +3,16 @@
 import uniq from 'lodash/uniq';
 import { createAction } from 'redux-actions';
 
-import * as api from '../api';
+import {
+  fetchAll,
+  fetchOld,
+  fetchShopItem as fetchShopItemAPI,
+  createItem,
+  deleteItem as deleteItemAPI,
+  updateItem,
+  duplicateItem,
+  isShopItemUsedInCombo as isShopItemUsedInComboAPI,
+} from '../api';
 
 import { snackbarSuccess, snackbarError } from '../../snackbar/actions';
 import type { Dispatch, OptionCallback } from '../../../state/types';
@@ -23,7 +32,7 @@ export function fetchShopItemAsConsumer(
     dispatch(shopItemAsConsumerActions.isLoading(true));
     dispatch(shopItemAsConsumerActions.error(null));
     try {
-      const response = await api.fetchAll({
+      const response = await fetchAll({
         marketplace_enabled: true,
         disabled: false,
         company,
@@ -57,7 +66,7 @@ export function fetchShopItemFeatured(
     dispatch(shopItemFeaturedActions.isLoading(true));
     dispatch(shopItemFeaturedActions.error(null));
     try {
-      const response = await api.fetchAll({
+      const response = await fetchAll({
         marketplace_enabled: true,
         featured: true,
         disabled: false,
@@ -93,7 +102,7 @@ export function fetchShopItemAsManager(
     dispatch(shopItemAsManagerActions.error(null));
 
     try {
-      const response = await api.fetchAll(company ? { company } : {});
+      const response = await fetchAll(company ? { company } : {});
       dispatch(shopItemAsManagerActions.success(response.data));
 
       if (options && options.onSuccess) {
@@ -116,7 +125,7 @@ export const shopItemBulkActions = {
   success: createAction('SHOPITEM/BULK/SUCCESS'),
 };
 
-export function fetchBulk(companyId: ?number, ids = Array) {
+export function fetchBulk(companyId?: number, ids = Array) {
   return async (dispatch: Dispatch, getState: () => State) => {
     const freshShopList = getFreshShopIds(getState());
     const ids_uniq = uniq(ids.filter((id) => !!id)).filter(
@@ -128,10 +137,28 @@ export function fetchBulk(companyId: ?number, ids = Array) {
     dispatch(shopItemBulkActions.isLoading(true));
     dispatch(shopItemBulkActions.error(null));
     try {
-      const response = await api.fetchOld({
+      const response = await fetchOld({
         company: companyId,
         id__in: ids_uniq,
       });
+      dispatch(shopItemBulkActions.success(response.data));
+    } catch (e) {
+      dispatch(shopItemBulkActions.error(e));
+    }
+    dispatch(shopItemBulkActions.isLoading(false));
+  };
+}
+
+export function fetchAllShopItem(companyId?: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(shopItemBulkActions.isLoading(true));
+    dispatch(shopItemBulkActions.error(null));
+    try {
+      const response = companyId
+        ? await fetchOld({
+            company: companyId,
+          })
+        : await fetchOld();
       dispatch(shopItemBulkActions.success(response.data));
     } catch (e) {
       dispatch(shopItemBulkActions.error(e));
@@ -151,7 +178,7 @@ export function fetchShopItem(id: number, options: OptionCallback) {
     dispatch(shopItemRetrieveActions.isLoading(true));
     dispatch(shopItemRetrieveActions.error(null));
     try {
-      const response = await api.fetchShopItem(id);
+      const response = await fetchShopItemAPI(id);
       dispatch(shopItemRetrieveActions.success(response.data));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
@@ -179,7 +206,7 @@ export function createOrUpdateShopItem(
     dispatch(shopItemCreateOrUpdateActions.isLoading(true));
     dispatch(shopItemCreateOrUpdateActions.error(null));
 
-    const createOrUpdate = id ? api.updateItem : api.createItem;
+    const createOrUpdate = id ? updateItem : createItem;
     try {
       const response = await createOrUpdate(shopItemData, id);
 
@@ -216,7 +243,7 @@ export function duplicateShopItem(
     dispatch(shopItemDuplicateActions.error(null));
 
     try {
-      const response = await api.duplicateItem(id, suffix);
+      const response = await duplicateItem(id, suffix);
 
       dispatch(shopItemDuplicateActions.success(response.data));
       dispatch(snackbarSuccess('shop.item.duplicate.success'));
@@ -248,7 +275,7 @@ export function deleteItem(id: number, callback: ?() => void) {
     dispatch(shopItemDeleteActions.error(null));
 
     try {
-      const response = await api.deleteItem(id);
+      const response = await deleteItemAPI(id);
 
       if (
         response.status === 201 ||
@@ -270,6 +297,32 @@ export function deleteItem(id: number, callback: ?() => void) {
       dispatch(snackbarError('shop.item.delete.error'));
     }
     dispatch(shopItemDeleteActions.isLoading(false));
+  };
+}
+
+export const isShopItemUsedInComboActions = {
+  isLoading: createAction('SHOPITEM/COMBO_USE/IS_LOADING'),
+  error: createAction('SHOPITEM/COMBO_USE/ERROR'),
+  success: createAction('SHOPITEM/COMBO_USE/SUCCESS'),
+};
+
+export function isShopItemUsedInCombo(id: number, options?: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(isShopItemUsedInComboActions.error(null));
+    dispatch(isShopItemUsedInComboActions.isLoading(true));
+    try {
+      const response = await isShopItemUsedInComboAPI(id);
+      dispatch(isShopItemUsedInComboActions.success(response.data));
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(isShopItemUsedInComboActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(isShopItemUsedInComboActions.isLoading(false));
   };
 }
 

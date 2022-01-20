@@ -12,6 +12,8 @@ exports.default = {
       title: 'Suppression de {{shopitem.name}}',
       cancel: 'Annuler',
       confirm: 'Supprimer',
+      warning:
+        'Attention ! Ce produit est utilisé dans un pack, ce pack ne sera plus disponible à la vente si vous supprimez ce produit.',
       explain:
         "Êtes-vous sûr de vouloir supprimer cet élément du magasin ? Cette opération est irréversible, vous n'aurez plus accès à l'historique des stocks.",
     },

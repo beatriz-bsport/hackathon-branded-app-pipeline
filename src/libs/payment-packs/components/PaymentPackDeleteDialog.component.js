@@ -19,6 +19,7 @@ type Props = {
   fullScreen: boolean,
   open: boolean,
   pack: PaymentPack,
+  isUsedInCombo: boolean,
   consumerPackSummary: React.Node,
   onDelete: () => void,
   onCancel: (consumerPackId: number) => void,
@@ -43,6 +44,20 @@ export function PaymentPackDeleteDialog(props: Props) {
         }`}
       </DialogTitle>
       <DialogContent>
+        {props.isUsedInCombo && (
+          <DialogContentText className={classes.warningMessage}>
+            <WarningIcon
+              fontSize="large"
+              color="error"
+              size={32}
+              alignItems="center"
+              className={classes.warningIcon}
+            />
+            <Typography>
+              {t('form.paymentPack.delete.isUsedInCombo')}
+            </Typography>
+          </DialogContentText>
+        )}
         <DialogContentText className={classes.warningMessage}>
           <WarningIcon
             fontSize="large"
@@ -61,7 +76,11 @@ export function PaymentPackDeleteDialog(props: Props) {
         <Button onClick={props.onCancel} variant="outlined" color="secondary">
           {t('form.paymentPack.delete.actions.cancel')}
         </Button>
-        <RedButton variant="contained" onClick={props.onDelete}>
+        <RedButton
+          variant="contained"
+          onClick={props.onDelete}
+          delayBeforeActivation={3}
+        >
           {t('form.paymentPack.delete.actions.submit')}
         </RedButton>
       </DialogActions>

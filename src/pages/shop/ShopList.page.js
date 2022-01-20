@@ -40,6 +40,7 @@ import {
   createOrUpdateShopItem,
   deleteItem as deleteShopItem,
   duplicateShopItem as duplicateShopItemAction,
+  isShopItemUsedInCombo,
 } from '../../libs/shop/actions/shopitem';
 import {
   fetchAllSubShop,
@@ -48,7 +49,7 @@ import {
 } from '../../libs/shop/actions/subshop';
 import ShopItemForm from '../../libs/shop/components/ShopItemForm.component';
 
-import type { SubShop } from '../../libs/shop/types';
+import type { ShopItem, SubShop } from '../../libs/shop/types';
 import SubShopList from './SubShopList.component';
 import ShopItemListItem from '../../libs/shop/components/ShopItemListItem.component';
 import shopSelectors from '../../libs/shop/selectors';
@@ -79,12 +80,14 @@ type Props = {
   ) => void,
   loading: boolean,
   shopItemLoading: boolean,
+  isShopItemUsedInCombo: (id: number) => void,
+  archivationWarning: { [id: number]: { used_in_combo: boolean } },
 };
 
 type State = {
-  newSubShopName: ?string,
-  createItemFromSubShop: ?number,
-  shopitemToDelete: ?ShopItem,
+  newSubShopName: string | null,
+  createItemFromSubShop: number | null,
+  shopitemToDelete: ShopItem | null,
 };
 
 export class ShopItemList extends Component<Props, State> {
@@ -127,6 +130,11 @@ export class ShopItemList extends Component<Props, State> {
 
   clearSearch = () => {
     this.setState({ searchText: '', searchResult: [] });
+  };
+
+  openDeleteShopItemDialog = (shopItem: ShopItem) => {
+    this.props.isShopItemUsedInCombo(shopItem.id);
+    this.setState({ shopitemToDelete: shopItem });
   };
 
   renderSubShop = (subShop: SubShop) => {
@@ -179,7 +187,7 @@ export class ShopItemList extends Component<Props, State> {
                       </IconButton>
                     </Tooltip>
                     <IconButton
-                      onClick={() => this.setState({ shopitemToDelete: si })}
+                      onClick={() => this.openDeleteShopItemDialog(si)}
                     >
                       <DeleteIcon />
                     </IconButton>
@@ -328,7 +336,7 @@ export class ShopItemList extends Component<Props, State> {
                       )}
                     </IconButton>
                     <IconButton
-                      onClick={() => this.setState({ shopitemToDelete: si })}
+                      onClick={() => this.openDeleteShopItemDialog(si)}
                     >
                       <DeleteIcon />
                     </IconButton>
@@ -354,6 +362,10 @@ export class ShopItemList extends Component<Props, State> {
         <Dialog open={!!this.state.shopitemToDelete}>
           <ShopItemDeleteDialog
             shopitem={this.state.shopitemToDelete}
+            isUsedInCombo={
+              this.props.archivationWarning[this.state.shopitemToDelete?.id]
+                ?.used_in_combo || false
+            }
             onCancel={() => this.setState({ shopitemToDelete: null })}
             onSubmit={() => {
               this.props.deleteItem(this.state.shopitemToDelete.id);
@@ -404,6 +416,7 @@ export default compose(
       loading: state.shop.shopItem.asManager.loading,
       shopItemLoading: state.shop.shopItem.createOrUpdate.loading,
       subShops: shopSelectors.getSubShops(state),
+      archivationWarning: state.shop.shopItem.combo.archivationWarning,
     }),
     {
       fetchShopItems: fetchAllShopItem,
@@ -414,6 +427,7 @@ export default compose(
       deleteItem: deleteShopItem,
       deleteSubShop,
       goToShopItem: (id: number) => push(`/shop/${id}`),
+      isShopItemUsedInCombo,
     },
   ),
   withMobileDialog(),

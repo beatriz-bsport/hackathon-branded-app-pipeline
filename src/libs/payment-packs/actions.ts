@@ -14,6 +14,7 @@ import {
   fetchAllPaymentPackCategory as fetchAllPaymentPackCategoryAPI,
   updatePaymentPackCategory as updatePaymentPackCategoryAPI,
   createPaymentPackCategory as createPaymentPackCategoryAPI,
+  isPaymentPackUsedInCombo as isPaymentPackUsedInComboAPI,
   // Notifications
   // -----------------
   updatePaymentPackNotifications as updateNotificationAPI,
@@ -473,6 +474,8 @@ export const resetPaymentPackForBooking = paymentPackForBookingActions.reset;
 export function fetchPaymentPackForBooking(
   offer: number,
   company: number,
+  page: number,
+  page_size: number,
   options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
@@ -485,6 +488,8 @@ export function fetchPaymentPackForBooking(
         manager_only: false,
         disabled: false,
         as_consumer: true,
+        page,
+        page_size,
       });
       dispatch(paymentPackForBookingActions.success(response.data));
       if (options && options.onSuccess) {
@@ -851,5 +856,31 @@ export function deletePaymentPackTemplateInstance(
       if (options && options.onError) options.onError(err);
     }
     dispatch(deletePaymentPackTemplateInstanceActions.isLoading(false));
+  };
+}
+
+export const isPaymentPackUsedInComboActions = {
+  isLoading: createAction('PAYMENT_PACK/COMBO_USE/IS_LOADING'),
+  error: createAction('PAYMENT_PACK/COMBO_USE/ERROR'),
+  success: createAction('PAYMENT_PACK/COMBO_USE/SUCCESS'),
+};
+
+export function isPaymentPackUsedInCombo(id: number, options?: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(isPaymentPackUsedInComboActions.error(null));
+    dispatch(isPaymentPackUsedInComboActions.isLoading(true));
+    try {
+      const response = await isPaymentPackUsedInComboAPI(id);
+      dispatch(isPaymentPackUsedInComboActions.success(response.data));
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(isPaymentPackUsedInComboActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(isPaymentPackUsedInComboActions.isLoading(false));
   };
 }

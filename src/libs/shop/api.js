@@ -95,6 +95,10 @@ export async function fetchProvisions(
   );
 }
 
+export async function isShopItemUsedInCombo(id: number) {
+  return postAuth(`${API_V1_URI}/shop/item/${id}/check_archive_side_effects/`);
+}
+
 export default {
   fetchAll,
   fetchAllSubShop,

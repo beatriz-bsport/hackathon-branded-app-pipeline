@@ -23,6 +23,8 @@ import { Divider } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import WarningIcon from '@material-ui/icons/Warning';
+import DialogContentText from '@material-ui/core/DialogContentText';
 import IsEmptyList from '#components/navigation/IsEmptyList.component';
 import themeSelectors from '#libs/theme/selectors';
 import withTitle from '#hocs/with-title.hoc';
@@ -48,6 +50,7 @@ import {
   deletePrivatePassCategory,
   fetchCompatibleServicePassList as fetchCompatibleServicePassListAction,
   fetchAllPrivateSlots,
+  isPrivatePassUsedInCombo,
 } from '#libs/private-service/actions';
 import PrivatePassListItem from '#libs/private-service/components/pass/PrivatePassListItem.component';
 import PrivatePassForm from '#libs/private-service/components/pass/PrivatePassForm.component';
@@ -85,10 +88,12 @@ import {
   SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
 } from '#components/analytics/segment';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import RedButton from '#components/button/RedButton.component';
 
 type OwnProps = {
   setOpenDeleteCompatibility: (id: number) => void;
   openDeleteCompatibilityDialog: number;
+  archivationWarning: { [id: number]: { use_in_combo: boolean } };
 };
 
 type StateHandlerInit = {
@@ -286,6 +291,11 @@ export class PrivatePassList extends React.Component<Props, State> {
     this.props.setOpenEditForm(true);
   };
 
+  openDeletePassDialog = (passId: number) => {
+    this.props.isPrivatePassUsedInCombo(passId);
+    this.props.setOpenDeletePassDialog(passId);
+  };
+
   render() {
     const { classes, t } = this.props;
 
@@ -359,9 +369,7 @@ export class PrivatePassList extends React.Component<Props, State> {
                       onEdit={() => {
                         this.openFormAndUploadCompatibilityInfo(pass);
                       }}
-                      onDelete={() =>
-                        this.props.setOpenDeletePassDialog(pass.id)
-                      }
+                      onDelete={() => this.openDeletePassDialog(pass.id)}
                       updatePrivatePass={this.props.createOrUpdatePrivatePass}
                     />
                   ))}
@@ -404,7 +412,7 @@ export class PrivatePassList extends React.Component<Props, State> {
               filteredCategories={this.state.selectedCategories}
               privatePassCategoryById={this.props.privatePassByCategory}
               goToPass={this.props.goToPass}
-              setOpenDeletePassDialog={this.props.setOpenDeletePassDialog}
+              setOpenDeletePassDialog={this.openDeletePassDialog}
               updatePassOrder={this.props.editOrderPrivatePass}
               onEditPass={(pass) => {
                 this.openFormAndUploadCompatibilityInfo(pass);
@@ -483,19 +491,31 @@ export class PrivatePassList extends React.Component<Props, State> {
               {this.props.t('privatePass.delete.title')}
             </DialogTitle>
             <DialogContent>
+              {this.props.archivationWarning[this.props.openDeletePassDialog]
+                ?.used_in_combo && (
+                <DialogContentText className={classes.warningDelete}>
+                  <WarningIcon
+                    fontSize="large"
+                    color="error"
+                    className={classes.warningIcon}
+                  />
+                  <Typography>{t('privatePass.delete.warning')}</Typography>
+                </DialogContentText>
+              )}
               {this.props.t('privatePass.delete.explain')}
             </DialogContent>
             <DialogActions>
               <Button onClick={() => this.props.setOpenDeletePassDialog(null)}>
                 {this.props.t('privatePass.delete.cancel')}
               </Button>
-              <Button
+              <RedButton
                 onClick={() =>
                   this.props.deletePrivatePass(this.props.openDeletePassDialog)
                 }
+                delayBeforeActivation={3}
               >
                 {this.props.t('privatePass.delete.submit')}
-              </Button>
+              </RedButton>
             </DialogActions>
           </Dialog>
           <Fab
@@ -597,6 +617,12 @@ const styles = (theme: Theme): any => ({
     paddingLeft: theme.spacing(4),
     paddingBottom: theme.spacing(1),
   },
+  warningDelete: {
+    display: 'flex',
+  },
+  warningIcon: {
+    marginRight: theme.spacing(2),
+  },
 });
 
 const mapStateToProps = (state: RootState) => ({
@@ -617,6 +643,7 @@ const mapStateToProps = (state: RootState) => ({
   privateServices: getPrivateServices(state),
   compatibleServicePass: getCompatibleServicePass(state),
   compatibleServicePassLoading: getCompatibleServicePassLoading(state),
+  archivationWarning: state.privateService.privatePass.archivationWarning,
 });
 
 const mapDispatchToProps = {
@@ -636,6 +663,7 @@ const mapDispatchToProps = {
   setPrivatePassSort,
   fetchPrivateSlotsByService: fetchAllPrivateSlots,
   fetchCompatibleServicePassList: fetchCompatibleServicePassListAction,
+  isPrivatePassUsedInCombo,
 };
 
 const withStateHandlersInit: StateHandlerInit = {

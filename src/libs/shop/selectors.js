@@ -74,6 +74,17 @@ export const getFreshShopIds = createSelector(_getAllShopItems, (es) =>
   es.map((e) => e.id),
 );
 
+const _getShopItemsId = (state: State) => state.shop.shopItem.bulk.allIds;
+
+const _getShopItemsBulk = createSelector(
+  [_getShopItemsId, _getAllShopItemData],
+  (ids, data) => ids.map((id) => data[id]),
+);
+
+export const getShopItemsBulk = createSelector(_getShopItemsBulk, (shopItems) =>
+  shopItems.filter((si) => si.subshop),
+);
+
 export default {
   getSubShopsByCompany,
   getSubShops,

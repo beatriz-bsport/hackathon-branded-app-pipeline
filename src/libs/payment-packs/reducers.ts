@@ -27,6 +27,7 @@ import {
   retrievePaymentPackTemplateActions,
   updatePaymentPackOrderActions,
   updatePaymentPackCategoryOrderActions,
+  isPaymentPackUsedInComboActions,
 } from './actions';
 
 const initialState: PaymentPackState = Immutable({
@@ -35,6 +36,7 @@ const initialState: PaymentPackState = Immutable({
   createOrUpdatePending: false,
   loading: true,
   error: false,
+  archivationWarning: {},
   byActivity: {
     loading: false,
     error: null,
@@ -182,9 +184,6 @@ export const newPaymentPackReducer = handleActions(
         'updatingPaymentPacks',
         state.updatingPaymentPacks.filter((p) => p !== payload),
       );
-    },
-    [updatePaymentPackActions.success.toString()]: (state, { payload }) => {
-      return state.setIn(['byId', payload.id], payload);
     },
     [updatePaymentPackOrderActions.success.toString()]: (
       state,
@@ -355,11 +354,19 @@ export const newPaymentPackReducer = handleActions(
       return state.merge(
         {
           forBooking: {
-            allIds: payload.results.map((pp) => pp.id),
+            allIds: [
+              ...state.forBooking.allIds,
+              ...payload.results
+                .filter((pp) => !state.forBooking.allIds.includes(pp.id))
+                .map((pp) => pp.id),
+            ],
             count: payload.count,
-            page: payload.page,
+            page: payload.next_page,
           },
-          byId: payload.results.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
+          byId: payload.results.reduce(
+            (acc, v) => ({ ...acc, [v.id]: v }),
+            state.byId,
+          ),
         },
         { deep: true },
       );
@@ -619,6 +626,27 @@ export const newPaymentPackReducer = handleActions(
           ['paymentPackCategory', 'allIds'],
           state.paymentPackCategory.allIds.filter((id) => id !== payload.id),
         );
+    },
+    [isPaymentPackUsedInComboActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.set('isLoading', payload);
+    },
+    [isPaymentPackUsedInComboActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.set('error', payload);
+    },
+    [isPaymentPackUsedInComboActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['archivationWarning', payload.id, 'used_in_combo'],
+        payload.is_used_in_payment_combo,
+      );
     },
   },
   initialState,

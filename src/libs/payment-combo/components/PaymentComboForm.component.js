@@ -134,7 +134,9 @@ export const PaymentComboForm = (props: Props) => {
           }) => (
             <div>
               <ShopItemSelector
-                shopItemList={props.shopItemList}
+                shopItemList={props.shopItemList.filter(
+                  (item) => !item.disabled,
+                )}
                 nullCurrentValue
                 helperText={props.t('form.selectorPlaceholder.shopitem')}
                 onChange={(id) => {

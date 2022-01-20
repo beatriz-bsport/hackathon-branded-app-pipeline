@@ -403,6 +403,7 @@ export interface PrivateServiceState {
     byId: { [id: string]: PrivatePass };
     allIds: Array<number>;
     asConsumer: ErrorAndLoading & { allIds: Array<number> };
+    archivationWarning: { [id: number]: { used_in_combo: boolean } };
     createOrUpdate: ErrorAndLoading;
   };
   privateBooking: ErrorAndLoading & {

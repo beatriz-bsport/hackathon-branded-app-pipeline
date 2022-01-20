@@ -46,6 +46,7 @@ import {
   updatePaymentPackCategoryOrder,
   updateOrder as updatePaymentPack,
   createOrUpdate as createOrUpdatePaymentPackAction,
+  isPaymentPackUsedInCombo,
 } from '../../libs/payment-packs/actions';
 import {
   getEnabledPaymentPacks,
@@ -251,6 +252,7 @@ export class PaymentPackList extends React.Component<Props, State> {
   };
 
   requestDelete = (pp: PaymentPack) => {
+    this.props.isPaymentPackUsedInCombo(pp.id);
     this.setState({ paymentPackToDelete: pp });
     this.props.resetConsumerPacks();
   };
@@ -397,7 +399,6 @@ export class PaymentPackList extends React.Component<Props, State> {
         </>
       );
     }
-
     return (
       <>
         {this.props.upsertCategoryLoading && <LinearProgress />}
@@ -520,6 +521,10 @@ export class PaymentPackList extends React.Component<Props, State> {
           <PaymentPackDeleteDialog
             open={!!this.state.paymentPackToDelete}
             pack={this.state.paymentPackToDelete}
+            isUsedInCombo={
+              this.props.archivationWarning[this.state.paymentPackToDelete?.id]
+                ?.used_in_combo || false
+            }
             onDelete={() =>
               this.deletePaymentPack(this.state.paymentPackToDelete.id)
             }
@@ -685,6 +690,7 @@ const mapStateToProps = (state: RootState) => ({
   userPreferenceSelectedDisponibility:
     state.userPreference.paymentPackManagerOnlyFilter,
   companyId: state.theme.theme.company,
+  archivationWarning: state.paymentPack.archivationWarning,
 });
 const mapDispatchToProps = {
   fetchEstablishments,
@@ -709,6 +715,7 @@ const mapDispatchToProps = {
   setPaymentPackManagerOnlyFilter,
   createOrUpdatePaymentPackAction,
   fetchVideoFilterableParams,
+  isPaymentPackUsedInCombo,
 };
 const mapWithHandlers = {
   incrementCredit:

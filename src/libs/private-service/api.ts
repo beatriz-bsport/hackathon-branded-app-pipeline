@@ -292,6 +292,12 @@ export const restorePrivatePass = (id: number) => {
   return putAuth(`${API_V1_URI}/private_service/private_pass/${id}/restore/`);
 };
 
+export async function isPrivatePassUsedInCombo(id: number) {
+  return postAuth(
+    `${API_V1_URI}/private_service/private_pass/${id}/check_archive_side_effects/`,
+  );
+}
+
 export const fetchCompatibleServicePassList = (privatePassId: number) => {
   return getAuth(
     `${API_V1_URI}/private_service/private_pass/${privatePassId}/private_service_compatibility_pass/`,

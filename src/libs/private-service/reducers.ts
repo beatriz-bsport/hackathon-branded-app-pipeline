@@ -60,6 +60,7 @@ import {
   createOrUpdatePrivatePassTemplateActions,
   deletePrivatePassTemplateActions,
   retrievePrivatePassTemplateActions,
+  isPrivatePassUsedInComboActions,
 } from './actions';
 
 import { getResourceSlotsExistState } from './selectors/availability-slot';
@@ -202,6 +203,7 @@ const initialState: Seamless.Immutable<PrivateServiceState> =
         loading: false,
         error: null,
       },
+      archivationWarning: {},
       loading: false,
       error: null,
       createOrUpdate: {
@@ -1665,6 +1667,27 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
           ],
         )
         .setIn(['privatePassTemplate', 'byId', payload.id], payload);
+    },
+    [isPrivatePassUsedInComboActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['privatePass', 'loading'], payload);
+    },
+    [isPrivatePassUsedInComboActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['privatePass', 'error'], payload);
+    },
+    [isPrivatePassUsedInComboActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['privatePass', 'archivationWarning', payload.id, 'used_in_combo'],
+        payload.is_used_in_payment_combo,
+      );
     },
   },
   initialState,

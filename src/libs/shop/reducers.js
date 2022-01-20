@@ -13,6 +13,7 @@ import {
   shopItemDeleteActions,
   shopItemFeaturedActions,
   shopItemDuplicateActions,
+  isShopItemUsedInComboActions,
 } from './actions/shopitem';
 import {
   provisionByShopItemActions,
@@ -55,6 +56,12 @@ const initialState: ShopState = Immutable({
       allIds: [],
     },
     bulk: {
+      allIds: [],
+      loading: false,
+      error: null,
+    },
+    combo: {
+      archivationWarning: {},
       loading: false,
       error: null,
     },
@@ -112,6 +119,9 @@ export default handleActions(
         {
           shopItem: {
             byId: payload.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
+            bulk: {
+              allIds: payload.map((item) => item.id),
+            },
           },
         },
         { deep: true },
@@ -233,6 +243,27 @@ export default handleActions(
         return state.setIn(['subShops', idx], payload);
       }
       return state.set('subShops', [...state.subShops, payload]);
+    },
+    [isShopItemUsedInComboActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['shopItem', 'combo', 'loading'], payload);
+    },
+    [isShopItemUsedInComboActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['shopItem', 'combo', 'error'], payload);
+    },
+    [isShopItemUsedInComboActions.success.toString()]: (state, { payload }) => {
+      return state.setIn(
+        [
+          'shopItem',
+          'combo',
+          'archivationWarning',
+          payload.id,
+          'used_in_combo',
+        ],
+        payload.is_used_in_payment_combo,
+      );
     },
   },
   initialState,

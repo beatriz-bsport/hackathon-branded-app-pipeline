@@ -42,6 +42,12 @@ export async function editOrder(data: any) {
   );
 }
 
+export async function isPaymentPackUsedInCombo(id: number) {
+  return postAuth(
+    `${API_V1_URI}/payment-pack/payment-pack/${id}/check_archive_side_effects/`,
+  );
+}
+
 export async function patch(id: number, data: any) {
   return patchAuth(`${API_URI}/saas/payment-pack/${id}/edit/`, data);
 }

@@ -51,6 +51,7 @@ import {
   updateCompatibleServicePass as updateCompatibleServicePassAPI,
   fetchCompatibleServicePassList as fetchCompatibleServicePassListAPI,
   editOrderPrivatePass as editOrderPrivatePassAPI,
+  isPrivatePassUsedInCombo as isPrivatePassUsedInComboAPI,
   // private-consumer-pass
   fetchCompatiblePrivateConsumerPass as fetchCompatiblePrivateConsumerPassAPI,
   fetchCompatiblePrivatePass as fetchCompatiblePrivatePassAPI,
@@ -1353,6 +1354,32 @@ export function restorePrivatePass(id: number) {
       dispatch(snackbarError('privatePass.restore.error'));
     }
     dispatch(privatePassCreateOrUpdateActions.isLoading(false));
+  };
+}
+
+export const isPrivatePassUsedInComboActions = {
+  isLoading: createAction('PRIVATE_PASS/COMBO_USE/IS_LOADING'),
+  error: createAction('PRIVATE_PASS/COMBO_USE/ERROR'),
+  success: createAction('PRIVATE_PASS/COMBO_USE/SUCCESS'),
+};
+
+export function isPrivatePassUsedInCombo(id: number, options?: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(isPrivatePassUsedInComboActions.error(null));
+    dispatch(isPrivatePassUsedInComboActions.isLoading(true));
+    try {
+      const response = await isPrivatePassUsedInComboAPI(id);
+      dispatch(isPrivatePassUsedInComboActions.success(response.data));
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(isPrivatePassUsedInComboActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(isPrivatePassUsedInComboActions.isLoading(false));
   };
 }
 

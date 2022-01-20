@@ -126,6 +126,7 @@ export type PaymentPackState = Immutable.Immutable<{
   loading: boolean;
   error: boolean;
   errorMsg: string;
+  archivationWarning: { [id: number]: { used_in_combo: boolean } };
   paymentPackTemplate: {
     allIds: Array<number>;
     byId: { [id: number]: PaymentPackTemplateAPI };

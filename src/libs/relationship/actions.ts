@@ -17,9 +17,11 @@ import {
   relinkPrivateConsumerPassLink as relinkPrivateConsumerPassLinkAPI,
   deleteRelation as deleteRelationAPI,
   fetchRelatedMemberList as fetchRelatedMemberListAPI,
+  fetchControlableMemberList as fetchControlableMemberListAPI,
 } from './api';
 
 import { Dispatch, OptionCallback } from '../../state/types';
+import { MEISUNDEFINED } from './constants';
 
 export const memberRelationCreateOrUpdateActions = {
   isLoading: createAction('MEMBER_RELATION/CREATE_OR_UPDATE/LOADING'),
@@ -381,5 +383,34 @@ export function fetchMyRelatedMemberList(
       if (options && options.onSuccess) options.onSuccess();
     }
     dispatch(listRelatedMembersActions.isLoading(false));
+  };
+}
+
+export const listControlableMembersActions = {
+  isLoading: createAction('RELATIONSHIP/CONTROLABLE_MEMBER/IS_LOADING'),
+  error: createAction('RELATIONSHIP/CONTROLABLE_MEMBER/ERROR'),
+  success: createAction('RELATIONSHIP/CONTROLABLE_MEMBER/SUCCESS'),
+};
+
+export function fetchMyControlableMemberList(
+  company: number,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listControlableMembersActions.isLoading(true));
+    dispatch(listControlableMembersActions.error(null));
+    try {
+      const response = await fetchControlableMemberListAPI(company);
+      dispatch(listControlableMembersActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      err?.response?.data?.error_code === MEISUNDEFINED &&
+        dispatch(snackbarError(`relationship.error.${String(MEISUNDEFINED)}`));
+
+      dispatch(listControlableMembersActions.error(err));
+
+      if (options && options.onSuccess) options.onSuccess();
+    }
+    dispatch(listControlableMembersActions.isLoading(false));
   };
 }

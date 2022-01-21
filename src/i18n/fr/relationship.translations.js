@@ -1,4 +1,10 @@
 exports.default = {
+  connectedAs: {
+    title: 'Connexion en tant que',
+    info: 'Connectez vous au compte de l’une de vos relations.',
+    wichUser: 'A quel compte souhaitez-vous accéder ?',
+    selectRelation: 'Sélectionner une relation',
+  },
   relationship: {
     delete: {
       content:
@@ -6,6 +12,7 @@ exports.default = {
       cancel: 'Annuler',
       submit: 'Supprimer',
       title: 'Suppression relation',
+      whichUser: 'A quel compte souhaitez-vous accéder ?',
     },
   },
   member: {
@@ -23,6 +30,13 @@ exports.default = {
       },
     },
     form: {
+      confirm: 'Confirmer',
+      autorization: 'Autoriser {{name_1}} à accèder au compte de {{name_2}}',
+      accountInfo:
+        'L’accès au compte permet au membre d’accéder au compte de sa relation depuis son propre compte.',
+      access: 'Accès au compte',
+      email: 'Copie d’email',
+      parentalLink: 'Lien de parenté',
       is: ' est ',
       shareEmail: 'Toujours envoyer une copie email',
       src_name: {

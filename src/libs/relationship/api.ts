@@ -97,3 +97,11 @@ export async function fetchRelatedMemberList(company: number) {
     company,
   });
 }
+
+export async function fetchControlableMemberList(company: number) {
+  return getAuth(
+    `${API_V1_URI}/relationship/member/my_controlable_members/${buildUrlParams({
+      company,
+    })}`,
+  );
+}

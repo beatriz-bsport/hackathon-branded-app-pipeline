@@ -13,10 +13,13 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import Badge from '@material-ui/core/Badge';
 import { alpha } from '@material-ui/core/styles';
-
 import { withTranslation, TFunction } from 'react-i18next';
 
+import { Button, Dialog } from '@material-ui/core';
+import People from '@material-ui/icons/People';
+import { getTextColorFromRGB } from '../../utils/color';
 import type { Basket } from '../../libs/checkout/types';
+import ConnectedAsDialog from '../../libs/relationship/components/ConnectedAs.dialog';
 
 type Props = {
   auth: Object,
@@ -36,17 +39,24 @@ type Props = {
 
   t: TFunction,
   classes: Object,
+
+  controlableMemberList: Array<Member>,
+  navigateToRelationAccount: (memberId: number) => void,
+  isRelationNavigation: boolean,
+  navigateBackToMasterRelation: () => void,
 };
 
 type State = {
   isMenuOpen: boolean,
   anchorEl: ?HTMLElement,
+  isConnectedAsDialogOpen: boolean,
 };
 
 export class MarketplaceAppBar extends Component<Props, State> {
   state = {
     isMenuOpen: false,
     anchorEl: null,
+    isConnectedAsDialogOpen: false,
   };
 
   handleProfileMenuOpen = (event: SyntheticEvent<HTMLElement>) => {
@@ -165,6 +175,19 @@ export class MarketplaceAppBar extends Component<Props, State> {
             <Hidden smDown>{this.renderAuthenticationInfo()}</Hidden>
           )}
         </ButtonBase>
+        {!!this.props.controlableMemberList?.length &&
+          !this.props.isRelationNavigation && (
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => this.setState({ isConnectedAsDialogOpen: true })}
+            >
+              <People className={this.props.classes.connectedAsIcon} />
+              <Typography className={this.props.classes.connectedAsTypo}>
+                {this.props.t('consumerSpace:navigation.connectedAs')}
+              </Typography>
+            </Button>
+          )}
       </Wrapper>
     );
   };
@@ -172,27 +195,88 @@ export class MarketplaceAppBar extends Component<Props, State> {
   render() {
     const { classes, paper } = this.props;
     return (
-      <div style={{ width: '100%' }}>
-        {paper ? (
-          <div className={classes.root2}>
-            {this.renderUserMenu()}
-
-            {this.renderProfileMenu()}
-          </div>
-        ) : (
-          <div className={classes.root}>
-            <AppBar position="static" color="white">
+      <>
+        <div style={{ width: '100%' }}>
+          {paper ? (
+            <div className={classes.root2}>
               {this.renderUserMenu()}
-            </AppBar>
-            {this.renderProfileMenu()}
-          </div>
-        )}
-      </div>
+
+              {this.renderProfileMenu()}
+            </div>
+          ) : (
+            <div className={classes.root}>
+              <AppBar position="static" color="white">
+                {this.renderUserMenu()}
+              </AppBar>
+              {this.renderProfileMenu()}
+            </div>
+          )}
+          {this.props.isRelationNavigation && (
+            <div className={classes.relationBanner}>
+              <Typography>
+                {this.props.t('consumerSpace:navigation.relationConnectedAs', {
+                  name: this.props.auth?.name,
+                })}
+              </Typography>
+              <ButtonBase
+                className={classes.buttonRelation}
+                onClick={this.props.navigateBackToMasterRelation}
+              >
+                {this.props
+                  .t('consumerSpace:navigation.backToRelationMasterSpace')
+                  ?.toUpperCase()}
+              </ButtonBase>
+            </div>
+          )}
+        </div>
+        <Dialog
+          open={this.state.isConnectedAsDialogOpen}
+          onClose={() => this.setState({ isConnectedAsDialogOpen: false })}
+        >
+          <ConnectedAsDialog
+            memberList={this.props.controlableMemberList}
+            onSelectMember={() => {}}
+            closeDialog={() =>
+              this.setState({ isConnectedAsDialogOpen: false })
+            }
+            onConfirm={this.props.navigateToRelationAccount}
+          />
+        </Dialog>
+      </>
     );
   }
 }
 
 const styles = (theme) => ({
+  icon: {
+    marginRight: theme.spacing(2),
+  },
+  connectedAsTypo: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
+  },
+  connectedAsIcon: {
+    [theme.breakpoints.up('md')]: {
+      marginRight: theme.spacing(2),
+    },
+  },
+  buttonRelation: {
+    textDecoration: 'underline',
+    marginLeft: theme.spacing(2),
+    marginBottom: '2px',
+  },
+  relationBanner: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    textAlign: 'center',
+    backgroundColor: theme.palette.primary.main,
+
+    color: getTextColorFromRGB(theme.palette.primary.main),
+  },
   root: {
     width: '100%',
   },
@@ -223,6 +307,7 @@ const styles = (theme) => ({
     padding: theme.spacing(1),
     paddingRight: theme.spacing(2),
     paddingLeft: theme.spacing(2),
+    marginRight: theme.spacing(3),
   },
 });
 

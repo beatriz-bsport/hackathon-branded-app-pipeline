@@ -38,7 +38,7 @@ export type OptionTypeBase =
 
 type BaseProps<T extends OptionTypeBase> = {
   id?: number | string;
-  options?: T[];
+  options: T[];
   inScrollBar?: boolean;
   isMenuListPaddingDisabled?: boolean;
   chipsRenderer?: (props: {
@@ -64,7 +64,7 @@ export type OwnProps<T extends OptionTypeBase> =
   | ({
       isMulti?: false;
       value?: T | null;
-      onChange: (values: T) => void;
+      onChange: (value: T) => void;
     } & BaseProps<T>);
 
 type Props<T extends OptionTypeBase> = OwnProps<T>;

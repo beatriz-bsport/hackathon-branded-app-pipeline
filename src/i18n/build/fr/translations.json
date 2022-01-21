@@ -543,6 +543,9 @@
   },
   "consumerSpace": {
     "navigation": {
+      "relationConnectedAs": "Connecté en tant que : {{name}}",
+      "backToRelationMasterSpace": "revenir à mon compte",
+      "connectedAs": "Connexion en tant que",
       "statistic": "Statistiques",
       "dashboard": "Résumé",
       "calendar": "Historique",
@@ -4465,12 +4468,19 @@
     }
   },
   "relationship": {
+    "connectedAs": {
+      "title": "Connexion en tant que",
+      "info": "Connectez vous au compte de l’une de vos relations.",
+      "wichUser": "A quel compte souhaitez-vous accéder ?",
+      "selectRelation": "Sélectionner une relation"
+    },
     "relationship": {
       "delete": {
         "content": "Attention cette action est irréversible, les cartes partagées ne seront plus partagées.",
         "cancel": "Annuler",
         "submit": "Supprimer",
-        "title": "Suppression relation"
+        "title": "Suppression relation",
+        "whichUser": "A quel compte souhaitez-vous accéder ?"
       }
     },
     "member": {
@@ -4482,6 +4492,12 @@
         "actions": { "create": "Ajouter une relation" }
       },
       "form": {
+        "confirm": "Confirmer",
+        "autorization": "Autoriser {{name_1}} à accèder au compte de {{name_2}}",
+        "accountInfo": "L’accès au compte permet au membre d’accéder au compte de sa relation depuis son propre compte.",
+        "access": "Accès au compte",
+        "email": "Copie d’email",
+        "parentalLink": "Lien de parenté",
         "is": " est ",
         "shareEmail": "Toujours envoyer une copie email",
         "src_name": { "placeholder": "Mère" },
@@ -5655,6 +5671,12 @@
       "restore": { "success": "Professeur restauré avec succès", "error": "Impossible de restaurer le professeur" }
     },
     "relationship": {
+      "error": {
+        "90000": "Droits d'accès à cette relation refusés",
+        "90001": "Requête invalide",
+        "90002": "Le membre n'est pas défini",
+        "90003": "Token invalide"
+      },
       "edit": { "success": "Relation modifiée" },
       "create": { "success": "Relation enregistrée" },
       "delete": { "success": "Relation supprimée", "error": "Impossible de supprimer cette relation" },

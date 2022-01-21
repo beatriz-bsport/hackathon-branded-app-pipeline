@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 
 import { compose } from 'recompose';
-
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -45,6 +44,9 @@ import RedeemIcon from '@material-ui/icons/Redeem';
 import Badge from '@material-ui/core/Badge';
 import OfflineBolt from '@material-ui/icons/OfflineBolt';
 import { colors } from '@bsport/common/lib/colors';
+import { People } from '@material-ui/icons';
+import { ButtonBase, Dialog } from '@material-ui/core';
+import { getTextColorFromRGB } from '../../utils/color';
 import LanguageButton from '../button/LanguageButton.component';
 import LOGO_ASSET from '../../public/images/banner_lowres.png';
 import { windowTitleToProps } from '../../hocs/with-title.hoc';
@@ -53,6 +55,7 @@ import type { Membership } from '../../libs/membership/types';
 import { WidgetUtils } from '../../libs/widget/WidgetUtils';
 import { getCurrencyDisplayWithPrice } from '../../libs/theme/selectors';
 import { urlToMarketplace } from '../../libs/marketplace/utils';
+import ConnectedAsDialog from '../../libs/relationship/components/ConnectedAs.dialog';
 
 export const drawerWidth = 260;
 
@@ -73,12 +76,18 @@ type Props = {
   subscriptionPendingActionCount: number,
   infosOfMember: dict,
   programList: Array<PerformanceTrackingProgram>,
+  controlableMemberList: Array<Member>,
+  navigateToRelationAccount: (memberId: number) => void,
+  isRelationNavigation: boolean,
+  navigateBackToMasterRelation: () => void,
+  name: string,
 };
 
 type State = {
   mobileOpen: boolean,
   open: {},
   anchorEl: ?HTMLElement,
+  isConnectedAsDialogOpen: boolean,
 };
 
 class ResponsiveDrawer extends React.Component<Props, State> {
@@ -86,6 +95,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
     mobileOpen: false,
     open: {},
     anchorEl: null,
+    isConnectedAsDialogOpen: false,
   };
 
   handleDrawerToggle = () => {
@@ -244,6 +254,23 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             </Grid>
           </Grid>
         </Toolbar>
+        {this.props.isRelationNavigation && (
+          <div className={classes.relationBanner}>
+            <Typography>
+              {this.props.t('navigation.relationConnectedAs', {
+                name: this.props.name,
+              })}
+            </Typography>
+            <ButtonBase
+              className={classes.buttonRelation}
+              onClick={this.props.navigateBackToMasterRelation}
+            >
+              {this.props
+                .t('navigation.backToRelationMasterSpace')
+                ?.toUpperCase()}
+            </ButtonBase>
+          </div>
+        )}
       </AppBar>
     );
   };
@@ -255,6 +282,18 @@ class ResponsiveDrawer extends React.Component<Props, State> {
 
     return (
       <Grid item>
+        {!!this.props.controlableMemberList?.length &&
+          !this.props.isRelationNavigation && (
+            <Button
+              className={this.props.classes.connectedAsButton}
+              variant="outlined"
+              color="primary"
+              onClick={() => this.setState({ isConnectedAsDialogOpen: true })}
+            >
+              <People className={this.props.classes.icon} />
+              <Typography>{this.props.t('navigation.connectedAs')}</Typography>
+            </Button>
+          )}
         <Button onClick={handleClick}>
           <MoreVertIcon />
         </Button>
@@ -290,7 +329,16 @@ class ResponsiveDrawer extends React.Component<Props, State> {
   };
 
   render() {
-    const { classes, theme, t, hidden, membership, infosOfMember } = this.props;
+    const {
+      classes,
+      theme,
+      t,
+      hidden,
+      membership,
+      infosOfMember,
+      isRelationNavigation,
+    } = this.props;
+
     if (hidden) {
       return (
         <div style={{ width: '100%' }}>
@@ -416,7 +464,9 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         text: t('navigation.profile'),
       },
 
-      this.props.hasMultipleMembership && !WidgetUtils.isWidget()
+      this.props.hasMultipleMembership &&
+      !WidgetUtils.isWidget() &&
+      !isRelationNavigation
         ? {
             to: '/c/membership-selector/',
             icon: SettingsIcon,
@@ -462,6 +512,23 @@ class ResponsiveDrawer extends React.Component<Props, State> {
           </Grid>
         </div>
         <List>
+          {!!this.props.controlableMemberList?.length &&
+            !this.props.isRelationNavigation && (
+              <ListItem
+                className={this.props.classes.connectedAsListItem}
+                button
+                onClick={() => this.setState({ isConnectedAsDialogOpen: true })}
+                key={MENU.length}
+              >
+                <ListItemIcon>
+                  <People />
+                </ListItemIcon>
+                <ListItemText
+                  primary={this.props.t('navigation.connectedAs')}
+                  primaryTypographyProps={{ color: 'initial' }}
+                />
+              </ListItem>
+            )}
           {items}
           <ListItem />
           <ListItem />
@@ -501,13 +568,90 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             {drawer}
           </Drawer>
         </Hidden>
-        <main className={classes.content}>{this.props.children}</main>
+        <main className={classes.content}>
+          {/* THIS BANNER HERE IS JUST A TRICK FOR RESPONSIVITY REASON */}
+          {this.props.isRelationNavigation && (
+            <div className={classes.relationBannerHidden}>
+              <Typography className={classes.bannerTypoHidden}>
+                {this.props.t('navigation.relationConnectedAs', {
+                  name: this.props.name,
+                })}
+              </Typography>
+              <div className={classes.bannerButtonHidden}>
+                {this.props
+                  .t('navigation.backToRelationMasterSpace')
+                  ?.toUpperCase()}
+              </div>
+            </div>
+          )}
+          {/* THIS BANNER HERE IS JUST A TRICK FOR RESPONSIVITY REASON */}
+          {this.props.children}
+        </main>
+        <Dialog
+          open={this.state.isConnectedAsDialogOpen}
+          onClose={() => this.setState({ isConnectedAsDialogOpen: false })}
+        >
+          <ConnectedAsDialog
+            memberList={this.props.controlableMemberList}
+            onSelectMember={() => {}}
+            closeDialog={() =>
+              this.setState({ isConnectedAsDialogOpen: false })
+            }
+            onConfirm={this.props.navigateToRelationAccount}
+          />
+        </Dialog>
       </div>
     );
   }
 }
 
 const styles = (theme) => ({
+  buttonRelation: {
+    textDecoration: 'underline',
+    marginLeft: theme.spacing(2),
+    marginBottom: '2px',
+  },
+  relationBannerHidden: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    opacity: 0,
+    flexWrap: 'wrap',
+    textAlign: 'center',
+  },
+  bannerTypoHidden: {
+    userSelect: 'none',
+  },
+  bannerButtonHidden: {
+    userSelect: 'none',
+    marginLeft: theme.spacing(2),
+    marginBottom: '2px',
+  },
+  relationBanner: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    textAlign: 'center',
+    backgroundColor: theme.palette.primary.main,
+
+    color: getTextColorFromRGB(theme.palette.primary.main),
+  },
+  connectedAsButton: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
+  },
+  connectedAsListItem: {
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+  },
+  icon: {
+    marginRight: theme.spacing(2),
+  },
   root: {
     flexGrow: 1,
     zIndex: 1,

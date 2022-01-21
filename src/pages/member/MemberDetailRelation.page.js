@@ -185,7 +185,7 @@ export class MemberDetailRelation extends React.Component<Props> {
     this.props.goToRelationDetail(this.props.memberId, relationId);
   };
 
-  createOrUpdateRelation = (data: *) => {
+  createOrUpdateRelation = (data) => {
     this.props.createOrUpdateRelation(data, {
       onSuccess: () => {
         this.fetchRelationList();
@@ -196,12 +196,7 @@ export class MemberDetailRelation extends React.Component<Props> {
 
   openEditForm = (relation) => {
     this.props.setOpenRelationFormDialog({
-      src_member: relation.src_member,
-      src_name: relation.src_name,
-      dst_name: relation.dst_name,
-      dst_member: relation.dst_member,
-      share_email: relation.share_email,
-      id: relation.id,
+      ...relation,
     });
   };
 
@@ -344,23 +339,21 @@ export class MemberDetailRelation extends React.Component<Props> {
         </Dialog>
         {!!this.props.openRelationFormDialog && (
           <Dialog open={!!this.props.openRelationFormDialog}>
-            <DialogContent>
-              <RelationForm
-                initial={this.props.openRelationFormDialog}
-                searchMembers={this.props.searchMembers}
-                searchLoading={this.props.searchMembersLoading}
-                searchedMembers={this.props.searchedMembers.filter(
-                  (m) =>
-                    m.id !== this.props.memberId &&
-                    !relatedMemberIds.includes(m.id),
-                )}
-                onCancel={() => this.props.setOpenRelationFormDialog(null)}
-                onSubmit={this.createOrUpdateRelation}
-                managerFormConfig={this.props.managerFormConfig?.poll_fields}
-                waiver={this.props.waiver}
-                generalTermsAndConditions={this.props.generalTermsAndConditions}
-              />
-            </DialogContent>
+            <RelationForm
+              initial={this.props.openRelationFormDialog}
+              searchMembers={this.props.searchMembers}
+              searchLoading={this.props.searchMembersLoading}
+              searchedMembers={this.props.searchedMembers.filter(
+                (m) =>
+                  m.id !== this.props.memberId &&
+                  !relatedMemberIds.includes(m.id),
+              )}
+              onCancel={() => this.props.setOpenRelationFormDialog(null)}
+              onSubmit={this.createOrUpdateRelation}
+              managerFormConfig={this.props.managerFormConfig?.poll_fields}
+              waiver={this.props.waiver}
+              generalTermsAndConditions={this.props.generalTermsAndConditions}
+            />
           </Dialog>
         )}
       </Grid>

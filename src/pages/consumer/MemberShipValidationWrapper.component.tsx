@@ -128,6 +128,9 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
   checkForFormUrlLocation = () => urlRegex.test(window.location.href);
 
   render() {
+    const isRelationNavigation = !!window.localStorage.getItem(
+      'bsport:relatedMemberMaster:http:token',
+    );
     if (!this.props.theme && !this.props.authenticated) {
       return this.props.children;
     }
@@ -135,6 +138,7 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
       <MemberShipValidationWrapperInnerComponent
         {...this.props}
         isFormUrl={this.checkForFormUrlLocation()}
+        isRelationNavigation={isRelationNavigation}
       />
     );
   }

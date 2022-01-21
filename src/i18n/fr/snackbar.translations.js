@@ -196,6 +196,12 @@ exports.default = {
     },
   },
   relationship: {
+    error: {
+      90002: "Le membre n'est pas défini",
+      90001: 'Requête invalide',
+      90003: 'Token invalide',
+      90000: "Droits d'accès à cette relation refusés",
+    },
     edit: {
       success: 'Relation modifiée',
     },

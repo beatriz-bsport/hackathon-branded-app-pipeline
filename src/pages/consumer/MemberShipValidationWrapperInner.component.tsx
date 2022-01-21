@@ -64,6 +64,7 @@ type OwnProps = {
   authenticated: boolean;
   customFormIdsList: Array<number>;
   isFormUrl: boolean;
+  isRelationNavigation?: boolean;
 };
 type ConnectedProps = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
@@ -149,6 +150,7 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
     if (!this.props.theme) {
       return this.props.children;
     }
+
     return (
       <>
         {this.props.memberCustomForm && (
@@ -157,6 +159,7 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
             open={
               !this.props.memberCustomFormLoading &&
               this.props.authenticated &&
+              !this.props.isRelationNavigation &&
               !this.props.isValidated
             }
             maxWidth="md"
@@ -188,6 +191,7 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
           </Dialog>
         )}
         {!this.props.isFormUrl &&
+          !this.props.isRelationNavigation &&
           !this.props.customFormLoading &&
           this.props.customFormIdsList &&
           this.props.customFormIdsList?.length !== 0 &&

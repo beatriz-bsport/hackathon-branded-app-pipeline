@@ -52,8 +52,14 @@ import CongratulationDialog from '../../libs/consumer-space/components/Congratul
 import { fetchSubscriptionListByMember } from '../../libs/subscription/actions';
 import { getSubscriptionByMemberPendingAction } from '../../libs/subscription/selectors';
 import MemberShipValidationWrapper from './MemberShipValidationWrapper.component';
+import { fetchMyControlableMemberList } from '../../libs/relationship/actions';
 
 import { fetchProgram as fetchProgramAction } from '#libs/performance-tracking/actions';
+import { getMyControlableMemberList } from '../../libs/relationship/selectors';
+import {
+  navigateToRelationAccount as navigateToRelationAccountAction,
+  navigateBackToMasterRelation as navigateBackToMasterRelationAction,
+} from '../../actions/auth.actions';
 
 const ConsumerDashboard = asyncComponent(() =>
   import('./ConsumerDashboard.page'),
@@ -88,6 +94,7 @@ type Props = {
   fetchMembershipListAsConsumer: (params: any) => void,
   membershipList: Array<Membership>,
   username: ?string,
+  name: string,
   setActiveActions: (company: number) => void,
   classes: Object,
   disconnect: () => void,
@@ -120,6 +127,12 @@ type Props = {
 
   fetchProgram: (params: any) => void,
   programList: Array<PerformanceTrackingProgram>,
+  controlableMemberList: Array<Member>,
+  fetchMyControlableMemberList: () => void,
+
+  navigateToRelationAccount: (memberId: number) => void,
+
+  navigateBackToMasterRelation: () => void,
 };
 
 export class ConsumerHome extends React.Component<Props> {
@@ -139,6 +152,7 @@ export class ConsumerHome extends React.Component<Props> {
   }
 
   componentDidMount() {
+    this.props.fetchMyControlableMemberList(this.props.companyId);
     if (this.props.membership) {
       this.props.fetchCountObjects(this.props.membership.id);
       this.props.fetchSubscriptionListByMember(this.props.membership.id, {
@@ -179,12 +193,22 @@ export class ConsumerHome extends React.Component<Props> {
     );
 
   render() {
+    const isRelationNavigation = !!window.localStorage.getItem(
+      'bsport:relatedMemberMaster:http:token',
+    );
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <MemberShipValidationWrapper companyId={this.props.companyId}>
           <>
             {this.props.membership ? (
               <ConsumerDrawer
+                name={this.props.name}
+                isRelationNavigation={isRelationNavigation}
+                navigateBackToMasterRelation={
+                  this.props.navigateBackToMasterRelation
+                }
+                navigateToRelationAccount={this.props.navigateToRelationAccount}
+                controlableMemberList={this.props.controlableMemberList}
                 programList={this.props.programList}
                 disconnect={this.props.disconnect}
                 infosOfMember={this.props.infosOfMember}
@@ -301,6 +325,7 @@ export default compose(
   })),
   connect(
     (state, { companyId, from_direct_booking }) => ({
+      controlableMemberList: getMyControlableMemberList(state),
       membership: getMembership(state, companyId),
       programList: getProgramList(state),
       membershipCount: state.membership.asConsumer.count,
@@ -311,6 +336,7 @@ export default compose(
       infosOfMember: state.member.count.data,
       membershipList: getConsumerMembershipList(state),
       username: state.auth.username,
+      name: state.auth.name,
       basketGeneratedObjects: getBasketGeneratedObjects(state),
       subscriptionPendingActionCount:
         getSubscriptionByMemberPendingAction(state).length,
@@ -337,6 +363,10 @@ export default compose(
       fetchProgram: fetchProgramAction,
       fetchCountObjects: (memberId: number) =>
         fetchCountObjectsAction(memberId),
+
+      fetchMyControlableMemberList,
+      navigateToRelationAccount: navigateToRelationAccountAction,
+      navigateBackToMasterRelation: navigateBackToMasterRelationAction,
     },
   ),
   withHandlers({
@@ -344,6 +374,19 @@ export default compose(
       ({ companyId, push }) =>
       () => {
         push(`/login/signout?membership=${companyId}`);
+      },
+    navigateToRelationAccount:
+      ({ companyId, navigateToRelationAccount }) =>
+      (relatedMemberId) => {
+        navigateToRelationAccount({
+          relatedMemberId,
+          company: companyId,
+        });
+      },
+    navigateBackToMasterRelation:
+      ({ companyId, navigateBackToMasterRelation }) =>
+      () => {
+        navigateBackToMasterRelation({ company: companyId });
       },
     fetchOfferBulk:
       ({

@@ -1,5 +1,8 @@
 exports.default = {
   navigation: {
+    relationConnectedAs: 'Connecté en tant que : {{name}}',
+    backToRelationMasterSpace: 'revenir à mon compte',
+    connectedAs: 'Connexion en tant que',
     statistic: 'Statistiques',
     dashboard: 'Résumé',
     calendar: 'Historique',

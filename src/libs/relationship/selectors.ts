@@ -5,25 +5,45 @@ import { createSelector } from 'reselect';
 import { RootState } from '../../reducers';
 import { ConsumerPaymentPackLink, MemberRelation } from './types';
 
-import { getAllMembers } from '../member/selectors';
+import { getMemberDetailData, getMemberListData } from '../member/selectors';
 import { getConsumerPacksWithPaymentPack } from '../consumer-payment-pack/selectors';
 import { getPrivateConsumerPassList } from '../private-service/selectors/private-consumer-pass';
 
 const _getMemberRelations = (state: RootState): Array<MemberRelation> =>
   state.relationship.member_relation.items;
 
+export const getMemberControlable = createSelector(
+  [_getMemberRelations, (_: RootState, id: number) => id],
+  (memberRelations, id) =>
+    memberRelations.reduce((acc, memberRelation) => {
+      if (
+        memberRelation.dst_member === id &&
+        memberRelation.is_dst_autorized_to_control_src
+      ) {
+        acc.push(memberRelation.src_member);
+        return acc;
+      }
+      if (
+        memberRelation.src_member === id &&
+        memberRelation.is_src_autorized_to_control_dst
+      ) {
+        acc.push(memberRelation.dst_member);
+        return acc;
+      }
+      return acc;
+    }, []),
+);
+
 export const getMemberRelations = createSelector(
-  [getAllMembers, _getMemberRelations],
-  (members, relations) =>
-    relations.map((r) => {
-      const dst_member = members.find((m) => m.id === r.dst_member);
-      const src_member = members.find((m) => m.id === r.src_member);
-      return {
-        ...r,
-        src_member: src_member || { id: r.src_member },
-        dst_member: dst_member || { id: r.dst_member },
-      };
-    }),
+  [getMemberListData, _getMemberRelations, getMemberDetailData],
+  (memberListData, relations, memberDetailData) =>
+    relations.map((r) => ({
+      ...r,
+      src_member: memberListData?.[r.src_member] ||
+        memberDetailData?.[r.src_member] || { id: r.src_member },
+      dst_member: memberListData?.[r.dst_member] ||
+        memberDetailData?.[r.dst_member] || { id: r.dst_member },
+    })),
 );
 
 export const getMemberRelationById = (state: RootState, id: number) =>
@@ -104,3 +124,6 @@ export const getSharedPrivateConsumerPassesByRelation = (
 
 export const getMyRelatedMemberList = (state: RootState) =>
   state.relationship.my_related_members.list;
+
+export const getMyControlableMemberList = (state: RootState) =>
+  state.relationship.my_controlable_members.list;

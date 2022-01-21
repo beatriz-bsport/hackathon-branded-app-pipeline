@@ -1,6 +1,14 @@
 // @flow
 import axios from 'axios';
-import { API_URI, API_V1_URI, BASE_URI, post, putAuth, getAuth } from '../http';
+import {
+  API_URI,
+  API_V1_URI,
+  BASE_URI,
+  post,
+  putAuth,
+  getAuth,
+  postAuth,
+} from '../http';
 
 export async function accessLevel(token: string) {
   return getAuth(`${API_URI}/saas/access_level`, token);
@@ -58,6 +66,19 @@ export async function impersonateAdmin(params: {
   });
 }
 
+export async function getRelationToken(params: {
+  relatedMemberId: number,
+  company: number,
+}) {
+  return postAuth(
+    `${API_V1_URI}/relationship/member/get_related_member_token/`,
+    {
+      relatedMemberId: params.relatedMemberId,
+      company: params.company,
+    },
+  );
+}
+
 export default {
   updateProfile,
   resetPassword,
@@ -67,4 +88,5 @@ export default {
   changePassword,
   checkEmailExists,
   impersonateAdmin,
+  getRelationToken,
 };

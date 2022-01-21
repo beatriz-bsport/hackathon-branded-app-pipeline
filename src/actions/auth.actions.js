@@ -13,6 +13,12 @@ import { snackbarError } from './snackbar.actions';
 import { USER_EMAIL_EXISTS } from '../api/constants';
 import { getAuthToken } from '../http';
 import { segmentIdentify } from '#components/analytics/segment/utils';
+import { urlToMarketplace } from '../libs/marketplace/utils';
+import {
+  MEMBERISNOTAUTHORIZEDTOACCESSACCOUNT,
+  RELATIONMISSPARAMETERS,
+  TOKENISUNDEFINED,
+} from '../libs/relationship/constants';
 
 export const initiateInterface = createAction('initiate');
 
@@ -318,7 +324,8 @@ export function disconnect(callback: ?() => void) {
     } catch (err) {
       console.error(err);
     }
-
+    const storage = window.localStorage;
+    storage.removeItem('bsport:relatedMemberMaster:http:token');
     dispatch((() => ({ type: types.DISCONNECT }))());
     if (callback && typeof callback === 'function') callback();
   };
@@ -500,6 +507,149 @@ export function navigateBackToFranchise() {
       dispatch(impersonateManagerLoading(false));
 
       return;
+    } catch (err) {
+      // Disconnect to avoid users stuck in a loop
+      dispatch((() => ({ type: types.DISCONNECT }))());
+
+      dispatch(snackbarError('signup.changeWorkspaceError'));
+      dispatch(errorLogin());
+    }
+  };
+}
+
+export function navigateToRelationAccount(
+  params: { relatedMemberId: number, company: number, companyName?: string },
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    try {
+      const masterToken = getAuthToken();
+
+      const response = await api.auth.getRelationToken({
+        company: params.company,
+        relatedMemberId: params.relatedMemberId,
+      });
+
+      const newToken = response.data.token;
+
+      if (!newToken) {
+        throw new Error('No token');
+      }
+      const storage = window.localStorage;
+      storage.setItem('bsport:relatedMemberMaster:http:token', masterToken);
+
+      const {
+        data: {
+          id,
+          is_manager,
+          is_consumer,
+          is_franchisor,
+          role,
+          name,
+          username,
+        },
+      } = await api.auth.accessLevel(newToken);
+      dispatch((() => ({ type: types.RESET_STORE }))());
+
+      // Set new access level
+      await dispatch(
+        setLogin({
+          id,
+          username,
+          token: newToken,
+          is_manager,
+          is_consumer,
+          is_franchisor,
+          role,
+          name,
+        }),
+      );
+      if (params.companyName) {
+        const marketplaceUrl = urlToMarketplace(
+          params.companyName,
+          params.company,
+        );
+        dispatch(push('/c/'));
+        dispatch(push(`${marketplaceUrl}`));
+      } else {
+        dispatch(push('/c/'));
+        dispatch(push(`/c/${params.company}/`));
+      }
+    } catch (err) {
+      // Disconnect to avoid users stuck in a loop
+      dispatch((() => ({ type: types.DISCONNECT }))());
+      switch (err?.response?.data?.error_code) {
+        case RELATIONMISSPARAMETERS:
+          dispatch(
+            snackbarError(
+              `relationship.error.${String(RELATIONMISSPARAMETERS)}`,
+            ),
+          );
+          break;
+        case TOKENISUNDEFINED:
+          dispatch(
+            snackbarError(`relationship.error.${String(TOKENISUNDEFINED)}`),
+          );
+          break;
+        case MEMBERISNOTAUTHORIZEDTOACCESSACCOUNT:
+          dispatch(
+            snackbarError(
+              `relationship.error.${String(
+                MEMBERISNOTAUTHORIZEDTOACCESSACCOUNT,
+              )}`,
+            ),
+          );
+          break;
+        default:
+          dispatch(snackbarError('signup.changeWorkspaceError'));
+          break;
+      }
+
+      options?.onError();
+      dispatch(errorLogin());
+    }
+  };
+}
+
+export function navigateBackToMasterRelation(params: {
+  company: number,
+  companyName: string,
+}) {
+  return async (dispatch: Dispatch) => {
+    try {
+      const storage = window.localStorage;
+      const newToken = storage.getItem('bsport:relatedMemberMaster:http:token');
+
+      const {
+        data: { is_manager, is_consumer, is_franchisor, role, name, username },
+      } = await api.auth.accessLevel(newToken);
+
+      storage.removeItem('bsport:relatedMemberMaster:http:token');
+      dispatch((() => ({ type: types.RESET_STORE }))());
+
+      // Set new access level
+      await dispatch(
+        setLogin({
+          username,
+          token: newToken,
+          is_manager,
+          is_consumer,
+          is_franchisor,
+          role,
+          name,
+        }),
+      );
+      if (params.companyName) {
+        const marketplaceUrl = urlToMarketplace(
+          params.companyName,
+          params.company,
+        );
+        dispatch(push('/c/'));
+        dispatch(push(`${marketplaceUrl}`));
+      } else {
+        dispatch(push('/c/'));
+        dispatch(push(`/c/${params.company}/`));
+      }
     } catch (err) {
       // Disconnect to avoid users stuck in a loop
       dispatch((() => ({ type: types.DISCONNECT }))());

@@ -56,7 +56,11 @@ import { getDefaultTitleForComponent } from '#libs/exportable-components/utils';
 import asyncComponent from '../../AsyncComponent';
 
 import { auth as authActions } from '../../actions';
-import { signupV2 } from '../../actions/auth.actions';
+import {
+  signupV2,
+  navigateToRelationAccount as navigateToRelationAccountAction,
+  navigateBackToMasterRelation as navigateBackToMasterRelationAction,
+} from '../../actions/auth.actions';
 import { fetchProfile } from '#libs/consumer-space/actions';
 
 import MarketplaceBasketDialog from './MarketplaceBasketDialog.component';
@@ -78,6 +82,8 @@ import type { OptionCallback } from '../../state/types';
 import type { CustomFormFilled } from '#libs/custom-form/types';
 import type { RootState } from '../../reducers';
 import { CustomFormTitle } from '#libs/custom-form/components/CustomFormTitle.component';
+import { getMyControlableMemberList } from '../../libs/relationship/selectors';
+import { fetchMyControlableMemberList } from '../../libs/relationship/actions';
 
 const MarketplacePassPage = asyncComponent(() =>
   import('./MarketplacePass.page'),
@@ -157,6 +163,13 @@ type Props = {
     company: number,
     options: OptionCallback,
   ) => void,
+
+  controlableMemberList: Array<Member>,
+  fetchMyControlableMemberList: () => void,
+
+  navigateToRelationAccount: (memberId: number) => void,
+
+  navigateBackToMasterRelation: () => void,
 } & StateHandlerType;
 
 type State = {
@@ -187,6 +200,7 @@ export class MarketPlace extends Component<Props, State> {
     this.props.fetchMarketplaceSettings(this.props.companyId, {
       onSuccess: this.sanitizeURL,
     });
+    this.props.fetchMyControlableMemberList(this.props.companyId);
     this.props.fetchSCT();
     if (this.props.auth.authenticated) {
       this.props.fetchProfile();
@@ -439,6 +453,16 @@ export class MarketPlace extends Component<Props, State> {
           />
           <div className={classes.container}>
             <MarketplaceAppBar
+              isRelationNavigation={
+                !!window.localStorage.getItem(
+                  'bsport:relatedMemberMaster:http:token',
+                )
+              }
+              controlableMemberList={this.props.controlableMemberList}
+              navigateBackToMasterRelation={
+                this.props.navigateBackToMasterRelation
+              }
+              navigateToRelationAccount={this.props.navigateToRelationAccount}
               logo={this.props.theme.cover}
               websiteURL={this.props.theme.websiteURL}
               auth={this.props.auth}
@@ -672,6 +696,8 @@ export default compose(
   connect(
     (state: RootState) => ({
       auth: state.auth,
+      controlableMemberList: getMyControlableMemberList(state),
+
       loginProcessing: state.auth.loading,
       currentBasket: getCurrentBasket(state),
       currentBasketLoading: state.checkout.basket.current.loading,
@@ -709,11 +735,31 @@ export default compose(
       fetchCompanyCustomSignUp,
       submitSignUpCustomForm,
 
+      navigateToRelationAccount: navigateToRelationAccountAction,
+      navigateBackToMasterRelation: navigateBackToMasterRelationAction,
+      fetchMyControlableMemberList,
       // navigation
       replace,
     },
   ),
   withHandlers({
+    navigateBackToMasterRelation:
+      ({ companyId, navigateBackToMasterRelation, companyName }) =>
+      () => {
+        navigateBackToMasterRelation({
+          company: companyId,
+          companyName,
+        });
+      },
+    navigateToRelationAccount:
+      ({ companyId, navigateToRelationAccount, companyName }) =>
+      (relatedMemberId) => {
+        navigateToRelationAccount({
+          relatedMemberId,
+          company: companyId,
+          companyName,
+        });
+      },
     goToTab:
       ({ companyName, companyId, push }) =>
       (path) =>

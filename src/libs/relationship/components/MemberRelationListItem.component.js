@@ -13,6 +13,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import EmailIcon from '@material-ui/icons/Email';
+import PeopleIcon from '@material-ui/icons/People';
 import ListItemText from '@material-ui/core/ListItemText';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Avatar from '@material-ui/core/Avatar';
@@ -27,7 +28,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 
 import { useTranslation } from 'react-i18next';
 import RedButton from '../../../components/button/RedButton.component';
-
+import MemberRelation from '../types';
 import CreditMemberBadge from '../../member/components/CreditMemberBadge.component';
 
 type Props = {
@@ -49,14 +50,26 @@ type Props = {
 
 export const MemberRelationListItem = (props: Props) => {
   const { memberId, relation } = props;
-  const relatedMember =
-    relation.src_member.id === memberId
-      ? relation.dst_member
-      : relation.src_member;
-  const relationName =
-    relation.src_member.id === memberId ? relation.dst_name : relation.src_name;
   const classes = useStyles();
   const { t } = useTranslation(['relationship']);
+
+  if (!relation || !memberId) {
+    return null;
+  }
+  const relatedMember =
+    relation.src_member?.id === memberId
+      ? relation.dst_member
+      : relation.src_member;
+
+  const hasControl =
+    (relation.src_member?.id === memberId &&
+      relation.is_src_autorized_to_control_dst) ||
+    (relation.dst_member?.id === memberId &&
+      relation.is_dst_autorized_to_control_src);
+
+  const relationName =
+    relation.src_member.id === memberId ? relation.dst_name : relation.src_name;
+
   return (
     <>
       <ListItem
@@ -77,8 +90,12 @@ export const MemberRelationListItem = (props: Props) => {
               <Typography variant="caption" color="textSecondary">
                 {relationName}
               </Typography>
+
               {!!relation.share_email && (
                 <EmailIcon className={classes.rightIcon} fontSize="small" />
+              )}
+              {hasControl && (
+                <PeopleIcon className={classes.rightIcon} fontSize="small" />
               )}
             </div>
           }

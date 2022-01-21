@@ -12,12 +12,19 @@ import {
   sharedPrivateConsumerPassCreateOrUpdateActions,
   listRelatedMembersActions,
   consumerPackLinksActions,
+  listControlableMembersActions,
 } from './actions';
 
 import type { ConsumerPaymentPackLink, RelationshipState } from './types';
 
 const initialState: RelationshipState = Immutable({
   my_related_members: {
+    list: [],
+    loading: false,
+    error: null,
+  },
+
+  my_controlable_members: {
     list: [],
     loading: false,
     error: null,
@@ -146,6 +153,16 @@ export default handleActions(
     },
     [listRelatedMembersActions.isLoading]: (state, { payload }) => {
       return state.setIn(['my_related_members', 'isLoading'], payload);
+    },
+
+    [listControlableMembersActions.success]: (state, { payload }) => {
+      return state.setIn(['my_controlable_members', 'list'], payload);
+    },
+    [listControlableMembersActions.error]: (state, { payload }) => {
+      return state.setIn(['my_controlable_members', 'error'], payload);
+    },
+    [listControlableMembersActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['my_controlable_members', 'isLoading'], payload);
     },
 
     [sharedPrivateConsumerPassCreateOrUpdateActions.error]: (

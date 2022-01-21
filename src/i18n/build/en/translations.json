@@ -4713,7 +4713,7 @@
                 "offerPreBooked": "You are on the waiting list for",
                 "offerBooked": "You've successfully booked",
                 "basket": "Your basket",
-                "title": "Summary"
+                "title": "Click to access you booking summary"
             },
             "actions": {
                 "back": "Go back",
@@ -9292,7 +9292,7 @@
         },
         "table": {
             "download": "Download",
-            "downloadAll": "Summary"
+            "downloadAll": "Click to access you booking summary"
         },
         "addBonus": "Add a rule",
         "dateTitle": "Date range",

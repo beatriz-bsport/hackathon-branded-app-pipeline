@@ -496,8 +496,10 @@
                 "cancel": "Abbrechen"
             },
             "section": {
-                "error": "{{nb}} Abonnements konnten nicht automatisch pausiert werden",
-                "success": "{{nb}} Abonnements wurden pausiert"
+                "error": "{{count}} Abonnement konnte nicht automatisch pausiert werden",
+                "error_plural": "{{count}} Abonnements konnten nicht automatisch pausiert werden",
+                "success": "{{count}} Abonnement wurd pausiert",
+                "success_plural": "{{count}} Abonnements wurden pausiert"
             },
             "fromUntil": "Nur wenn die Abrechnung zwischen {{from}} und {{until}} geplant ist",
             "createdAt": "Erstellt am {{at}}",
@@ -5875,6 +5877,10 @@
                         "accept": {
                             "content": "Ihr Konto wurde erfolgreich mit dem Konto {{ old_email }} zusammengeführt. Sie sind nun Mitglied des Studios {{ company }}. Verwenden Sie die Adresse {{ new_email }}, um sich in Ihr Konto einzuloggen.",
                             "title": "Fusion Angenommen"
+                        },
+                        "accepted": {
+                            "title": "Fusion Angenommen",
+                            "content": "Ihr Konto wurde erfolgreich mit dem Konto zusammengeführt {{ old_email }}. Sie sind nun Mitglied des Studios {{ company }}. Verwenden Sie die Adresse{{ new_email }} um sich in Ihr Konto einzuloggen."
                         }
                     },
                     "dstUser": {

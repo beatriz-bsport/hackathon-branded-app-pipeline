@@ -28,10 +28,14 @@ export const ActiveCampaignLinkItem = (props: Props) => {
     const list =
       props.activeCampaignLists &&
       props.activeCampaignLists.find(
-        (item) => item.id === props.link.active_campaign_list,
+        (item) =>
+          parseInt(item.id, 10) ===
+          parseInt(props.link.active_campaign_list, 10),
       )
         ? props.activeCampaignLists.find(
-            (item) => item.id === props.link.active_campaign_list,
+            (item) =>
+              parseInt(item.id, 10) ===
+              parseInt(props.link.active_campaign_list, 10),
           ).name
         : props.t('active_campaign.link.noList');
     return (

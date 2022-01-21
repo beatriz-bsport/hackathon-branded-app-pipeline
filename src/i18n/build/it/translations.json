@@ -4986,8 +4986,10 @@
                 "cancel": "Cancella"
             },
             "section": {
-                "error": "{{nb}} gli abbonamenti non possono essere messi in pausa automaticamente",
-                "success": "{{nb}} abbonamenti in pausa"
+                "error": "{{count}} l'abbonamento non può essere messo in pausa automaticamente",
+                "error_plural": "{{count}} gli abbonamenti non possono essere messi in pausa automaticamente",
+                "success": "{{count}} pausa di sottoscrizione",
+                "success_plural": "{{count}} abbonamenti in pausa"
             },
             "fromUntil": "Solo se fatturati tra {{from}} e {{until}} compreso",
             "createdAt": "Creato il {{at}}"
@@ -6399,6 +6401,10 @@
                         "accept": {
                             "content": "Il tuo account è stato fuso con l'account {{ old_email }}. Ora sei un membro dello studio {{ company }}. Usa {{ new_email }} per accedere al tuo account.",
                             "title": "Fusione accettata"
+                        },
+                        "accepted": {
+                            "title": "Fusione accettata",
+                            "content": "Il tuo account è stato fuso con il {{ old_email }}. Ora sei un membro dello studio  {{ company }}. Utilizzare l'indirizzo {{ new_email }} per accedere al tuo account."
                         }
                     },
                     "dstUser": {

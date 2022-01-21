@@ -285,9 +285,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
 
     appendModifiedData(this.initialOfferState, this.state, data);
 
-    if (this.props.offer.room_blueprint !== this.state.roomBlueprint) {
-      data.room_blueprint = this.state.roomBlueprint;
-    }
+    data.room_blueprint = this.state.roomBlueprint;
 
     this.props.onConfirm({ offerId: offer.id, data });
   };

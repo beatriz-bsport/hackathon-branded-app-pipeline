@@ -612,7 +612,7 @@ export default compose(
         });
       },
     applyGiftcardOnInvoice:
-      ({ applyGiftcardOnInvoice, fetchInvoiceListUnpaid, members }) =>
+      ({ applyGiftcardOnInvoice, fetchInvoiceListUnpaid, bookings }) =>
       (
         invoice_uuid: string,
         consumerGiftCardId: number,
@@ -621,9 +621,12 @@ export default compose(
       ) => {
         applyGiftcardOnInvoice(invoice_uuid, consumerGiftCardId, amount, {
           onSuccess: () => {
-            fetchInvoiceListUnpaid({
-              member__in: members.map((m) => m.id),
-            });
+            const member_ids = bookings?.map((b) => b.member);
+            if (member_ids && member_ids.length !== 0) {
+              fetchInvoiceListUnpaid({
+                member__in: member_ids,
+              });
+            }
             if (options && options.onSuccess) options.onSuccess();
           },
           onError: () => {

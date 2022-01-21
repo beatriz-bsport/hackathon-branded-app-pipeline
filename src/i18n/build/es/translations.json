@@ -3181,8 +3181,10 @@
                 "cancel": "Cancelar"
             },
             "section": {
-                "error": "{{nb}} las suscripciones no se han podido pausar automáticamente",
-                "success": "{{nb}} suscripciones en pausa"
+                "error": "{{count}} la suscripción no se ha podido pausar automáticamente",
+                "error_plural": "{{count}} las suscripciones no se pueden pausar automáticamente",
+                "success": "{{count}} pausa en la suscripción",
+                "success_plural": "{{count}} suscripciones en pausa"
             },
             "fromUntil": "Sólo si se factura entre {{from}} y {{until}} i incluido",
             "createdAt": "Creado {{at}}",
@@ -3881,6 +3883,10 @@
                         "accept": {
                             "content": "Tu cuenta se ha fusionado con la cuenta {{ old_email }}. Ahora eres miembro del estudio {{ company }}. Utilice {{ new_email }} para acceder a su cuenta.",
                             "title": "Fusión aceptada"
+                        },
+                        "accepted": {
+                            "title": "Fusión aceptada",
+                            "content": "Tu cuenta ha sido fusionada con la cuenta {{ old_email }}. Ahora eres miembro del estudio {{ company }}. Utilice {{ new_email }} para acceder a su cuenta."
                         }
                     },
                     "dstUser": {
@@ -10075,7 +10081,8 @@
                     "success": "Programa de miembros disociados"
                 }
             },
-            "deleteHeader": "¿Realmente quiere desvincular este programa de este miembro?"
+            "deleteHeader": "¿Realmente quiere desvincular este programa de este miembro?",
+            "deleteContent": "Perderá los valores de las métricas del programa para este miembro"
         },
         "metric": {
             "form": {

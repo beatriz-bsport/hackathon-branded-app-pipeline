@@ -23,6 +23,8 @@ const initialState: Immutable.Immutable<ExpenseState> = Immutable<ExpenseState>(
       error: null,
       categories: [],
       suppliers: [],
+      page: 1,
+      count: 0,
     },
   },
 );

@@ -239,6 +239,7 @@ export const ExpenseForm = (props: Props) => {
                           radioRepeatValue={radioRepeatValue}
                           setRadioRepeatValue={setRadioRepeatValue}
                           initial={initial}
+                          disabled
                           value={field.value}
                           rrule={rrule}
                           setRrule={setRrule}
@@ -307,11 +308,6 @@ export const ExpenseForm = (props: Props) => {
                         setEditScope(e.target.value);
                       }}
                     >
-                      <FormControlLabel
-                        value="current"
-                        control={<Radio />}
-                        label={t('dialogEditExpense.current')}
-                      />
                       <FormControlLabel
                         value="future"
                         control={<Radio />}

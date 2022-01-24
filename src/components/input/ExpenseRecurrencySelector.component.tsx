@@ -282,6 +282,7 @@ export class ExpenseRecurrencySelector extends Component<Props> {
               control={
                 <Switch
                   checked={showRepeat}
+                  disabled={!!initial?.id}
                   onChange={this.handleShowRepeat}
                   color="primary"
                 />
@@ -346,6 +347,7 @@ export class ExpenseRecurrencySelector extends Component<Props> {
               }
               value={rrule.byweekday}
               lowercase
+              disabled={!!initial?.rrule}
             />
           </div>
         )}
@@ -358,9 +360,10 @@ export class ExpenseRecurrencySelector extends Component<Props> {
                 name="montly-repeat"
                 value={radioValue}
                 onChange={this.handleMonthlyRules}
+                disabled={!!initial?.rrule}
               >
                 <div className={classes.flexRow}>
-                  <Radio value={0} />
+                  <Radio disabled={!!initial?.rrule} value={0} />
                   <Typography>
                     {rrule.interval > 1
                       ? t('form.repeat.repeatMonth_nb', { nb: rrule.interval })
@@ -380,7 +383,7 @@ export class ExpenseRecurrencySelector extends Component<Props> {
                       });
                     }}
                     className={classnames(classes.integerField, classes.margin)}
-                    disabled={radioValue !== 0}
+                    disabled={radioValue !== 0 || !!initial?.rrule}
                   />
                 </div>
                 <div
@@ -390,12 +393,12 @@ export class ExpenseRecurrencySelector extends Component<Props> {
                     classes.wrap,
                   )}
                 >
-                  <Radio value={1} />
+                  <Radio disabled={!!initial?.rrule} value={1} />
                   <Typography>{t('form.repeat.repeatMonthDay')}</Typography>
                   <Select
                     aria-label="repeat"
                     name="repeat-month-day"
-                    disabled={radioValue !== 1}
+                    disabled={radioValue !== 1 || !!initial?.rrule}
                     value={rrule.bysetpos}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                       setRrule({
@@ -419,7 +422,7 @@ export class ExpenseRecurrencySelector extends Component<Props> {
                     </MenuItem>
                   </Select>
                   <WeekdaySelector
-                    disabled={radioValue !== 1}
+                    disabled={radioValue !== 1 || !!initial?.rrule}
                     name="repeat-weekday-per-month"
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                       setRrule({
@@ -451,6 +454,7 @@ export class ExpenseRecurrencySelector extends Component<Props> {
                 inputProps: { min: 1, step: 1, max: 31 },
               }}
               value={rrule.bymonthday}
+              disabled={!!initial?.rrule}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setRrule({
                   ...rrule,
@@ -461,6 +465,7 @@ export class ExpenseRecurrencySelector extends Component<Props> {
             />
             <Select
               aria-label="repeat"
+              disabled={!!initial?.rrule}
               name="repeat-month-day"
               value={rrule.bymonth}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -494,7 +499,7 @@ export class ExpenseRecurrencySelector extends Component<Props> {
               onChange={this.handleRepeatRules}
             >
               <div className={classes.flexRow}>
-                <Radio value={0} />
+                <Radio disabled={!!initial?.rrule} value={0} />
                 <Typography>{t('form.repeat.count')}</Typography>
                 <TextField
                   type="number"
@@ -507,7 +512,7 @@ export class ExpenseRecurrencySelector extends Component<Props> {
                     setRrule({ ...rrule, count: Number(e.target.value) });
                   }}
                   className={classnames(classes.integerField, classes.margin)}
-                  disabled={radioRepeatValue !== 0}
+                  disabled={radioRepeatValue !== 0 || !!initial?.rrule}
                 />
                 <Typography>
                   {t('form.repeat.fromDate').toLowerCase()}
@@ -525,7 +530,7 @@ export class ExpenseRecurrencySelector extends Component<Props> {
                     }}
                     format="L"
                     className={classes.margin}
-                    disabled={radioRepeatValue === 1}
+                    disabled={radioRepeatValue === 1 || !!initial?.rrule}
                   />
                   <InsertInvitationIcon className={classes.calendarIcon} />
                 </MuiPickersUtilsProvider>
@@ -537,7 +542,7 @@ export class ExpenseRecurrencySelector extends Component<Props> {
                   classes.wrap,
                 )}
               >
-                <Radio value={1} />
+                <Radio disabled={!!initial?.rrule} value={1} />
                 <Typography>{t('form.repeat.from')}</Typography>
                 <MuiPickersUtilsProvider
                   utils={MomentUtils}
@@ -555,7 +560,7 @@ export class ExpenseRecurrencySelector extends Component<Props> {
                     }}
                     format="L"
                     className={classes.margin}
-                    disabled={radioRepeatValue !== 1}
+                    disabled={radioRepeatValue !== 1 || !!initial?.rrule}
                   />
                   <InsertInvitationIcon className={classes.calendarIcon} />
                 </MuiPickersUtilsProvider>
@@ -574,7 +579,7 @@ export class ExpenseRecurrencySelector extends Component<Props> {
                     format="L"
                     className={classes.margin}
                     minDate={rrule.dtstart}
-                    disabled={radioRepeatValue !== 1}
+                    disabled={radioRepeatValue !== 1 || !!initial?.disabled}
                     maxDate={maxDate}
                   />
                   <InsertInvitationIcon className={classes.calendarIcon} />

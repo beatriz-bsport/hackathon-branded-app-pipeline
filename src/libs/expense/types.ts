@@ -1,5 +1,4 @@
 import { RRule } from 'rrule';
-import Immutable from 'seamless-immutable';
 import { UserRole } from '#libs/role/types';
 import { ErrorAndLoading } from '../../state/types';
 
@@ -31,15 +30,13 @@ export type ExpenseFormValues = {
   rrule?: RRule;
 };
 
-export type ExpenseState = Immutable.Immutable<{
-  expense: ErrorAndLoading & {
+export type ExpenseState = {
+  expense: {
     byId: { [id: number]: Expense };
     allIds: Array<number>;
-    loading: boolean;
-    error: Error | null;
     page: number;
     count: number;
     categories: Array<string>;
     suppliers: Array<string>;
-  };
-}>;
+  } & ErrorAndLoading;
+};

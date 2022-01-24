@@ -133,6 +133,6 @@ exports.default = {
     filterCategory: 'Toutes les catégories',
     filterSupplier: 'Tous les fournisseurs',
     filterStaff: 'Tout le staff',
-    showFuture: 'Factures futures',
+    showFuture: 'Dépenses futures',
   },
 };

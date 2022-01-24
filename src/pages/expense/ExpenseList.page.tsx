@@ -231,7 +231,10 @@ const mapWithHandlers = {
         ...options,
         onSuccess: () => {
           options.onSuccess();
-          props.fetchExpenseList({ page: 1, page_size: PAGE_SIZE });
+          const fetch = props.showFuture
+            ? props.fetchFutureExpenses
+            : props.fetchExpenseList;
+          fetch({ page: 1, page_size: PAGE_SIZE });
           props.setSelectedExpense(null);
           props.getCategories();
           props.getSuppliers();

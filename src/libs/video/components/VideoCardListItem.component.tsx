@@ -16,6 +16,7 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 import { withTranslation, WithTranslation } from 'react-i18next';
+import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 import SCT from '../../category/components/SCT.component';
 import { Video } from '../types';
@@ -71,13 +72,23 @@ export class VideoCardListItem extends React.PureComponent<Props> {
         </ListItemAvatar>
         <ListItemText
           primary={
-            <Typography component="span" variant="subtitle1">
-              {this.props.video.name} (
-              {t('video:video.durationMinute', {
-                minute: parseInt(this.props.video.duration_second / 60, 10),
-              })}
-              )
-            </Typography>
+            <div className={classes.flex}>
+              <Typography component="span" variant="subtitle1">
+                {this.props.video.name}
+              </Typography>
+              {this.props.video.provider_identifier !==
+                VideoProvider.EBOOK_PROVIDER && (
+                <Typography
+                  className={classes.duration}
+                  component="span"
+                  variant="subtitle1"
+                >
+                  {`(${t('video:video.durationMinute', {
+                    minute: parseInt(this.props.video.duration_second / 60, 10),
+                  })})`}
+                </Typography>
+              )}
+            </div>
           }
           secondary={
             <div className={classes.flex}>
@@ -140,6 +151,9 @@ const styles = (theme: Theme) => ({
   },
   flex: {
     display: 'flex',
+  },
+  duration: {
+    marginLeft: theme.spacing(0.5),
   },
 });
 

@@ -1,17 +1,18 @@
 // @flow
 import React from 'react';
-import { withStyles, WithStyles, createStyles, Theme } from '@material-ui/core';
+import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core';
 import { compose } from 'recompose';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withTranslation } from 'react-i18next';
 import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
 import VideoPlayerBase from './VideoPlayerBase.component';
-import { Video } from '../types';
+import { Video, VideoStatusEnum } from '../types';
 import VideoLockOverlay from './VideoLockOverlay.component';
 
 import './videojs-fullscreen.css';
 import YoutubeEmbedVideo from './YoutubeEmbedVideo';
 import VimeoEmbedVideo from './VimeoEmbedVideo';
+import EbookDownload from './EbookDownload.component';
 
 type OwnProps = {
   authenticated: boolean;
@@ -29,7 +30,12 @@ type Props = WithStyles & OwnProps;
 export const VideoPlayer = (props: Props) => {
   const { classes, video } = props;
 
-  if (!props.playbackUrl || props.playbackUrlLoading || props.accessDenied) {
+  if (
+    !props.playbackUrl ||
+    props.playbackUrlLoading ||
+    props.accessDenied ||
+    video.status === VideoStatusEnum.created
+  ) {
     return (
       <div className={classes.loadingContainer}>
         <div
@@ -50,6 +56,10 @@ export const VideoPlayer = (props: Props) => {
                   accessDenied={props.accessDenied}
                   authenticated={props.authenticated}
                   requestVideoAccess={props.requestVideoAccess}
+                  isEbook={
+                    props.video.provider_identifier ===
+                    VideoProvider.EBOOK_PROVIDER
+                  }
                 />
               )}
           </div>
@@ -65,6 +75,10 @@ export const VideoPlayer = (props: Props) => {
 
   if (props.video.provider_identifier === VideoProvider.VIMEO_URL_PROVIDER) {
     return <VimeoEmbedVideo id={props.playbackUrl} />;
+  }
+
+  if (props.video.provider_identifier === VideoProvider.EBOOK_PROVIDER) {
+    return <EbookDownload url={props.playbackUrl} video={props.video} />;
   }
 
   return (

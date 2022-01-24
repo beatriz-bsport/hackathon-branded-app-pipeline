@@ -676,7 +676,7 @@ export const setExternalUrlActions = {
 
 export function setExternalUrl(
   videoId: number,
-  data: any,
+  data?: any,
   options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {

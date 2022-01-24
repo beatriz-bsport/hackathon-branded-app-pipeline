@@ -14,6 +14,7 @@ type Props = {
   accessDenied: boolean,
   authenticated: boolean,
   requestVideoAccess: () => void,
+  isEbook: boolean,
 };
 
 export const VideoLockOverlay = (props: Props) => {
@@ -25,7 +26,11 @@ export const VideoLockOverlay = (props: Props) => {
       <LockIcon className={classes.lockIcon} />
       <Typography align="center" className={classes.lockText}>
         {!authenticated && t('video.lock.pleaseAuthenticated')}
-        {props.authenticated && accessDenied && t('video.lock.accessDenied')}
+        {props.authenticated &&
+          accessDenied &&
+          (props.isEbook
+            ? t('video.lock.accessDeniedEbook')
+            : t('video.lock.accessDenied'))}
       </Typography>
       <div className={classes.buttonRow}>
         {!!props.requestVideoAccess && (

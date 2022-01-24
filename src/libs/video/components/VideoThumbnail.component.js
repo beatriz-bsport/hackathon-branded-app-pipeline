@@ -17,6 +17,8 @@ import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import Skeleton from '@material-ui/lab/Skeleton';
 // import ListItem from '@material-ui/core/ListItem';
 //
+import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
 import CoachGroupAvatar from '../../associated-coach/components/CoachGroupAvatar.component';
 
 type Props = {
@@ -84,22 +86,27 @@ export const VideoThumbnail = (props: Props) => {
                     video.name
                   )}
                 </Typography>
-                <div className={classes.row}>
-                  <AccessTimeIcon
-                    className={classes.leftIcon}
-                    fontSize="small"
-                  />
-                  <Typography variant="body2" color="textSecondary">
-                    {props.loading ? (
-                      <Skeleton animation="wave" variant="text" />
-                    ) : (
-                      `${t('video.durationMinute', {
-                        minute:
-                          parseInt(props.video.duration_second / 60, 10) + 1,
-                      })}`
-                    )}
-                  </Typography>
-                </div>
+                {props.video.provider_identifier !==
+                VideoProvider.EBOOK_PROVIDER ? (
+                  <div className={classes.row}>
+                    <AccessTimeIcon
+                      className={classes.leftIcon}
+                      fontSize="small"
+                    />
+                    <Typography variant="body2" color="textSecondary">
+                      {props.loading ? (
+                        <Skeleton animation="wave" variant="text" />
+                      ) : (
+                        `${t('video.durationMinute', {
+                          minute:
+                            parseInt(props.video.duration_second / 60, 10) + 1,
+                        })}`
+                      )}
+                    </Typography>
+                  </div>
+                ) : (
+                  <MenuBookIcon fontSize="small" />
+                )}
               </div>
               {!!props.onDeleteVideo && (
                 <IconButton

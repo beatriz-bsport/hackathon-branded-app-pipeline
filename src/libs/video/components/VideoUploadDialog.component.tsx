@@ -2,16 +2,16 @@ import React from 'react';
 import { compose } from 'recompose';
 
 import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   FormControl,
   FormControlLabel,
   Radio,
   RadioGroup,
   Theme,
-  Button,
-  DialogActions,
-  Dialog,
-  DialogTitle,
-  DialogContent,
 } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 
@@ -26,6 +26,7 @@ import VideoUploadFormVimeo from './VideoUploadFormVimeo.component';
 import { Video } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
 import { OptionCallback } from '../../../state/types';
+import EbookUploadForm from '#libs/video/components/EbookUploadForm.component';
 
 type State = {
   isUploading: boolean;
@@ -39,7 +40,7 @@ type OwnProps = {
   onClose: () => void;
   setExternalUrl: (
     videoId: number,
-    data: any,
+    data?: any,
     options?: OptionCallback,
   ) => void;
   submitProviderIdentifier: (data: any, options?: OptionCallback) => void;
@@ -142,6 +143,20 @@ export class VideoUploadDialog extends React.Component<Props, State> {
                   <Typography variant="caption">
                     {this.props.t('video.upload.type.vimeoExplain')}
                   </Typography>
+
+                  <FormControlLabel
+                    value={VideoProvider.EBOOK_PROVIDER}
+                    control={<Radio />}
+                    checked={
+                      this.state.providerIdentifier ===
+                      VideoProvider.EBOOK_PROVIDER
+                    }
+                    label={this.props.t('video.upload.type.ebook')}
+                    disabled={this.state.processing}
+                  />
+                  <Typography variant="caption">
+                    {this.props.t('video.upload.type.ebookExplain')}
+                  </Typography>
                 </RadioGroup>
               </FormControl>
             </div>
@@ -166,7 +181,11 @@ export class VideoUploadDialog extends React.Component<Props, State> {
     }
     return (
       <Dialog open>
-        <DialogTitle>{this.props.t('video.upload.title')}</DialogTitle>
+        <DialogTitle>
+          {this.props.video.provider_identifier === VideoProvider.EBOOK_PROVIDER
+            ? this.props.t('video.upload.ebookTitle')
+            : this.props.t('video.upload.title')}
+        </DialogTitle>
         <DialogContent>
           <div className={this.props.classes.container}>
             {this.props.video.provider_identifier ===
@@ -184,13 +203,20 @@ export class VideoUploadDialog extends React.Component<Props, State> {
                 setExternalUrl={this.props.setExternalUrl}
               />
             )}
-
             {this.props.video.provider_identifier ===
               VideoProvider.VIMEO_URL_PROVIDER && (
               <VideoUploadFormVimeo
                 onClose={this.props.onClose}
                 video={this.props.video}
                 setExternalUrl={this.props.setExternalUrl}
+              />
+            )}
+            {this.props.video.provider_identifier ===
+              VideoProvider.EBOOK_PROVIDER && (
+              <EbookUploadForm
+                setExternalUrl={this.props.setExternalUrl}
+                onClose={this.props.onClose}
+                video={this.props.video}
               />
             )}
           </div>

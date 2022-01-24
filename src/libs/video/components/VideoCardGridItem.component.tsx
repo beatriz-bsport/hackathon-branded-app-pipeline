@@ -14,6 +14,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
+import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
 import VideoStatus from './VideoStatus.component';
 import withConfirm from '../../../hocs/with-confirm.hoc';
 import TypographyWithShowMore from '../../../components/TypographyWithShowMore.component';
@@ -124,11 +125,18 @@ export const VideoCardGridItem = (props: Props) => {
                     />
                   )}
                 </div>
-                <Typography color="textSecondary" variant="body2" component="p">
-                  {t('video.durationMinute', {
-                    minute: parseInt(props.video.duration_second / 60, 10),
-                  })}
-                </Typography>
+                {props.video.provider_identifier !==
+                  VideoProvider.EBOOK_PROVIDER && (
+                  <Typography
+                    color="textSecondary"
+                    variant="body2"
+                    component="p"
+                  >
+                    {t('video.durationMinute', {
+                      minute: parseInt(props.video.duration_second / 60, 10),
+                    })}
+                  </Typography>
+                )}
               </div>
               {props.video.rental_days > 0 && (
                 <Typography

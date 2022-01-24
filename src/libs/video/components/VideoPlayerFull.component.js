@@ -9,6 +9,7 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import clx from 'classnames';
 import moment from 'moment/moment';
+import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
 import TypographyMultiline from '../../../components/TypographyMultiline.component';
 
 import CoachChip from '../../associated-coach/components/CoachChip.component';
@@ -49,12 +50,16 @@ export const VideoPlayerFull = (props: Props) => {
           {`${props.video.name}`}
         </Typography>
         <div className={classes.row}>
-          <AccessTimeIcon className={classes.timeIcon} />
-          <Typography className={classes.timeTypography} variant="body2">
-            {t('video.durationMinute', {
-              minute: parseInt(props.video.duration_second / 60, 10),
-            })}
-          </Typography>
+          {props.video.provider_identifier !== VideoProvider.EBOOK_PROVIDER && (
+            <div className={classes.row}>
+              <AccessTimeIcon className={classes.timeIcon} />
+              <Typography className={classes.timeTypography} variant="body2">
+                {t('video.durationMinute', {
+                  minute: parseInt(props.video.duration_second / 60, 10),
+                })}
+              </Typography>
+            </div>
+          )}
           {!!(props.video && props.video.SCT && props.video.SCT?.SCS) && (
             <SCT
               parentCategory={props.video.SCT?.SCS?.id}

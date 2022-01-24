@@ -171,6 +171,9 @@ export const VideoForm = (props: Props) => {
           helperText={t('video.rental.helper')}
           name="forRent"
           label={t('video.rental.label')}
+          disabled={
+            props.initial?.provider_identifier === VideoProvider.EBOOK_PROVIDER
+          }
         />
       </div>
 
@@ -221,6 +224,8 @@ export const VideoForm = (props: Props) => {
                     'video.form.video_source.vimeo_video',
                   [VideoProvider.YOUTUBE_URL_PROVIDER]:
                     'video.form.video_source.youtube_video',
+                  [VideoProvider.EBOOK_PROVIDER]:
+                    'video.form.video_source.ebook',
                 }[props.initial.provider_identifier],
               )}
             </Typography>

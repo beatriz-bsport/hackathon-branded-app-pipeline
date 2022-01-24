@@ -39,9 +39,10 @@ exports.default = {
     creditPrice: 'Coût (crédit)',
     lock: {
       accessDenied: "Vous n'avez pas accès à cette vidéo",
+      accessDeniedEbook: "Vous n'avez pas accès à cet ebook",
       pleaseAuthenticated:
         'Vous devez vous connecter pour accéder à cette vidéo',
-      useConsumerPass: "Débloquer l'accès",
+      useConsumerPass: 'Débloquer',
       buyPass: 'Acheter une carte',
     },
     filter: {
@@ -93,7 +94,9 @@ exports.default = {
     },
     upload: {
       title: 'Uploader une vidéo',
+      ebookTitle: 'Uploader un ebook',
       content: 'Déposez ici ou sélectionnez une vidéo',
+      contentEbook: 'Déposez ici ou sélectionnez un fichier/image',
       dropHere:
         'Glissez-déposez ici une vidéo ou cliquez pour parcourir votre ordinateur',
       cancel: 'Annuler',
@@ -108,6 +111,9 @@ exports.default = {
           'Votre vidéo est déjà disponible sur Youtube mais vous souhaitez la monétiser via le système de cartes de bsport.',
         vimeoExplain:
           'Votre vidéo est déjà disponible sur Vimeo mais vous souhaitez la monétiser via le système de cartes de bsport.',
+        ebook: 'Ebooks',
+        ebookExplain:
+          'Vous disposez d’un ebook en format pdf ou image (png, jpg), utilisez cette méthode pour uploader votre ebook. Une fois débloqué vos membres pourront le télécharger.',
       },
       youtubeUrlInput: 'Lien youtube',
       vimeoUrlInput: 'Lien vimeo',
@@ -135,6 +141,7 @@ exports.default = {
         youtube_video: 'Vidéo Youtube',
         vimeo_video: 'Vidéo Vimeo',
         uploaded_video: 'Fichier uploadé',
+        ebook: 'Ebook',
         edit_button: 'Changer la vidéo',
         change_popup_title: 'Changer la vidéo',
         change_popup_text:
@@ -165,6 +172,11 @@ exports.default = {
       viewsLastWeek: '7 derniers jours',
       distinctViewers: 'Vues uniques',
       uploaded: 'Video mise en ligne le {{date}}',
+    },
+    download: 'Télécharger',
+    ebook: {
+      downloadHelper:
+        'Vous avez débloqué votre ebook, pour le consulter merci de cliquer sur le bouton {{button}}',
     },
   },
   details: {

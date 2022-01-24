@@ -100,6 +100,7 @@ export class MemberProgramList extends Component<Props> {
       pushToRouter,
       memberProgramLoading,
       programLoading,
+      creationLoading,
     } = this.props;
 
     const alreadyRegisterdProgramIds = memberProgramList?.map(
@@ -163,10 +164,12 @@ export class MemberProgramList extends Component<Props> {
                   }}
                   isSearchDisplayed
                   isLinkedToMemberProgram
+                  creationLoading={creationLoading}
                 />
               </div>
               <div className={classes.programSelector}>
                 <Button
+                  disabled={creationLoading}
                   className={classes.button}
                   variant="outlined"
                   color="primary"
@@ -278,6 +281,8 @@ export class MemberProgramList extends Component<Props> {
 
 const connector = connect(
   (state: RootState, props: RouterProps) => ({
+    creationLoading:
+      state.performanceTracking.memberProgram.createOrUpdate.loading,
     memberProgramLoading: state.performanceTracking.memberProgram.loading,
     programLoading: state.performanceTracking.program.loading,
     memberProgramDetailed: composeMemberProgramWithMetric(

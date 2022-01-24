@@ -180,26 +180,26 @@ export const withAssociatedEstablishment = memoize(
       (privateServices, establishmentData) => {
         if (!privateServices) return privateServices;
         if (Array.isArray(privateServices)) {
-          return privateServices.map((ps) => ({
+          return privateServices.map((ps: PrivateService) => ({
             ...ps,
             establishments: ps.establishments
-              .map((c) =>
-                Object.values(establishmentData).find(
-                  (c_) => c_.associatedestablishment_set === c,
+              .map((establishment) =>
+                Object.values(establishmentData).find((est) =>
+                  est.associatedestablishment_set?.includes(establishment),
                 ),
               )
-              .filter((e) => !!e),
+              .filter((establishment) => !!establishment),
           }));
         }
         return {
           ...privateServices,
           establishments: privateServices.establishments
-            .map((c) =>
-              Object.values(establishmentData).find(
-                (c_) => c_.associatedestablishment_set === c,
+            .map((establishment: number) =>
+              Object.values(establishmentData).find((est) =>
+                est.associatedestablishment_set?.includes(establishment),
               ),
             )
-            .filter((e) => !!e),
+            .filter((establishment: number) => !!establishment),
         };
       },
     ),

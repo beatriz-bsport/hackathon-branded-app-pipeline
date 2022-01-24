@@ -90,6 +90,7 @@ exports.default = {
       create: {
         success: 'Programme associé au membre',
         error: "Erreur lors de l'assocation du program au membre",
+        errorAlreadyExists: 'Ce membre a déjà été associé à ce programme',
       },
     },
     infoNoMemberProgram: 'Ce membre ne possède aucun programme pour le moment.',

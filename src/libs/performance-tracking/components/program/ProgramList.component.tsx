@@ -31,6 +31,7 @@ type OwnProps = {
   isLinkedToMemberProgram?: boolean;
   isLinkedToConsumer?: boolean;
   noTitle?: boolean;
+  creationLoading: boolean;
 };
 type Props = OwnProps & WithTranslation;
 export const ProgramList = (props: Props) => {
@@ -42,7 +43,7 @@ export const ProgramList = (props: Props) => {
     isLinkedToMemberProgram,
     isLinkedToConsumer,
     noTitle,
-
+    creationLoading,
     onAddProgram,
     onEdit,
     onDelete,
@@ -108,6 +109,7 @@ export const ProgramList = (props: Props) => {
             )}
             {onAddProgram && (
               <Button
+                disabled={creationLoading}
                 variant="outlined"
                 color="primary"
                 onClick={() => onAddProgram()}

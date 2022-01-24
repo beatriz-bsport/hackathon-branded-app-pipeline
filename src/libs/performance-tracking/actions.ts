@@ -21,6 +21,7 @@ import {
 
 import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
 import { GenericPaginationResults } from '#libs/types';
+import { PERFORMANCE_TRACKING_MEMBER_PROGRAM_NOT_DISABLE_ALREADY_EXISTS_FOR_THIS_MEMBER_AND_PROGRAM } from './constants';
 
 export const ProgramCreateOrUpdateActions = {
   error: createAction('PROGRAM/CREATE_OR_UPDATE/ERROR'),
@@ -246,9 +247,22 @@ export function createMemberProgram(
     } catch (error) {
       dispatch(MemberProgramCreateOrUpdateOrRetrieveActions.error(error));
       options?.onError && options.onError(error);
-      dispatch(
-        snackbarError('performanceTracking:memberProgram.actions.create.error'),
-      );
+      if (
+        error.response.data.status_code ===
+        PERFORMANCE_TRACKING_MEMBER_PROGRAM_NOT_DISABLE_ALREADY_EXISTS_FOR_THIS_MEMBER_AND_PROGRAM
+      ) {
+        dispatch(
+          snackbarError(
+            'performanceTracking:memberProgram.actions.create.errorAlreadyExists',
+          ),
+        );
+      } else {
+        dispatch(
+          snackbarError(
+            'performanceTracking:memberProgram.actions.create.error',
+          ),
+        );
+      }
     }
     dispatch(MemberProgramCreateOrUpdateOrRetrieveActions.isLoading(false));
   };

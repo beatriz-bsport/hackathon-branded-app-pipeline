@@ -5,6 +5,7 @@ exports.default = {
     requiredField: 'Ce champ est requis.',
     date_due: "Date d'échéance",
     staff: 'Staff',
+    noStaff: 'Sans staff assigné',
     category: 'Catégorie',
     amount: 'Montant',
     supplier: 'Fournisseur / Vendeur',
@@ -77,7 +78,7 @@ exports.default = {
         dateDue:
           "La date d'échéance sera modifiée uniquement pour la dépense sélectionnée.",
         details:
-          "Les modifications seront appliquées, au choix, à la dépense en cours, aux dépenses futures ou à l'ensemble des dépenses.",
+          "Les modifications seront appliquées, au choix, à la dépense en cours et aux dépenses futures ou à l'ensemble des dépenses.",
       },
     },
   },

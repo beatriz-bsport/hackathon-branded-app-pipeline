@@ -74,6 +74,20 @@ export const ExpenseForm = (props: Props) => {
     until: null,
   });
 
+  const staffChoices = [...props.staffList].map((staff) => {
+    return {
+      value: staff.id,
+      label:
+        staff.first_name && staff.last_name
+          ? `${staff.first_name} ${staff.last_name}`
+          : staff.email,
+    };
+  });
+  staffChoices.push({
+    value: null,
+    label: t('form.noStaff'),
+  });
+
   return (
     <div className={classes.formContainer}>
       <div className={classes.marginBottom}>
@@ -180,15 +194,7 @@ export const ExpenseForm = (props: Props) => {
                   <React.Fragment>
                     <div className={classes.field}>
                       <SelectField
-                        choices={props.staffList.map((staff) => {
-                          return {
-                            value: staff.id,
-                            label:
-                              staff.first_name && staff.last_name
-                                ? `${staff.first_name} ${staff.last_name}`
-                                : staff.email,
-                          };
-                        })}
+                        choices={staffChoices}
                         fullWidth
                         name="assigned_staff"
                         label={t('form.staff')}
@@ -215,6 +221,7 @@ export const ExpenseForm = (props: Props) => {
                         name="supplier"
                         label={t('form.supplier')}
                         type="text"
+                        required
                         fullWidth
                       />
                     </div>
@@ -223,6 +230,7 @@ export const ExpenseForm = (props: Props) => {
                         name="description"
                         label={t('form.description')}
                         type="text"
+                        required
                         fullWidth
                         multiline
                       />
@@ -265,32 +273,34 @@ export const ExpenseForm = (props: Props) => {
                   </React.Fragment>
                 )}
                 <Actions>
-                  <div className={classes.actionContainer}>
-                    <Button
-                      onClick={() => {
-                        props.onClose();
-                      }}
-                    >
-                      {t('form.actions.cancel')}
-                    </Button>
-                    <Button
-                      onClick={() => {
-                        if (initial?.rrule && editChoice === 'details') {
-                          setEditDialogOpen(true);
-                          setEditScope('current');
-                        } else {
-                          formikProps.handleSubmit();
-                        }
-                      }}
-                      disabled={formikProps.isSubmitting}
-                      color="primary"
-                      variant="contained"
-                    >
-                      {!!initial && !!initial.id
-                        ? t('form.actions.edit')
-                        : t('form.actions.save')}
-                    </Button>
-                  </div>
+                  {!formikProps.isSubmitting && (
+                    <div className={classes.actionContainer}>
+                      <Button
+                        onClick={() => {
+                          props.onClose();
+                        }}
+                      >
+                        {t('form.actions.cancel')}
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          if (initial?.rrule && editChoice === 'details') {
+                            setEditDialogOpen(true);
+                            setEditScope('current');
+                          } else {
+                            formikProps.handleSubmit();
+                          }
+                        }}
+                        disabled={formikProps.isSubmitting}
+                        color="primary"
+                        variant="contained"
+                      >
+                        {!!initial && !!initial.id
+                          ? t('form.actions.edit')
+                          : t('form.actions.save')}
+                      </Button>
+                    </div>
+                  )}
                 </Actions>
                 <LinearProgress
                   style={{
@@ -394,8 +404,8 @@ export const expenseSchema = Yup.object().shape({
   amount: Yup.string().required('form.requiredField'),
   category: Yup.string().nullable(),
   assigned_staff: Yup.number().nullable(),
-  supplier: Yup.string(),
-  description: Yup.string(),
+  supplier: Yup.string().required('form.requiredField'),
+  description: Yup.string().required('form.requiredField'),
   // eslint-disable-next-line react/forbid-prop-types
   rrule: Yup.object().nullable(),
 });

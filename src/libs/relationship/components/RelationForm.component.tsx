@@ -19,6 +19,7 @@ import MemberSearchModal from '../../member/components/MemberSearchModal.compone
 import { Member } from '#libs/member/types';
 import { TextFieldEnhancedLabelWithError } from '../../../components/forms';
 import { CheckboxField } from '#libs/custom-form/components/GenericFormik.input';
+import { OptionCallback } from '../../../state/types';
 
 type InitialValues = {
   id: number;
@@ -36,7 +37,7 @@ type OwnProps = {
 
   src_member: Member;
   dst_member?: Member;
-  onSubmit: (data: any) => void;
+  onSubmit: (data: any, options: OptionCallback) => void;
   searchLoading: boolean;
   searchMembers: (search: string) => void;
   searchedMembers: Array<Member>;
@@ -96,12 +97,16 @@ export class RelationForm extends React.Component<Props, State> {
             this.props.initial.is_dst_autorized_to_control_src || false,
         }}
         onSubmit={(values, actions) => {
-          this.props.onSubmit({
-            ...values,
-            src_member: values.src_member.id,
-            dst_member: values.dst_member.id,
-          });
-          actions.setSubmitting(false);
+          this.props.onSubmit(
+            {
+              ...values,
+              src_member: values.src_member.id,
+              dst_member: values.dst_member.id,
+            },
+            {
+              onSuccess: () => actions.setSubmitting(false),
+            },
+          );
         }}
       >
         {(formikProps) => (

@@ -580,7 +580,8 @@ const mapWithHandlers = {
       );
     },
   goToHomeTab: (props: Props) => () => {
-    const tabConfig: MarketplaceTabConfig = props.marketplaceSettings.config[0];
+    const tabConfig: MarketplaceTabConfig =
+      props.marketplaceSettings?.config[0];
     const path = fromConfigToUrl(tabConfig, { tabSelected: 0 });
     props.push(
       getMarketplaceRoute(

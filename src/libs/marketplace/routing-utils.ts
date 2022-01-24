@@ -19,7 +19,7 @@ export const fromConfigToUrl = (
 ) => {
   const query = { ...queryParams };
 
-  const { component_type } = tabConfig;
+  const component_type = tabConfig?.component_type || '';
   let path = '';
 
   if (component_type === 'privateService' && tabConfig.config.privateService) {

@@ -578,7 +578,7 @@ export class BookingItemForManager extends Component<Props, State> {
               {this.props.member.notes
                 .filter((n) => n.highlighted)
                 .map((n) => (
-                  <Typography key={n.id} variant="caption">
+                  <Typography key={n.id} variant="caption" display="block">
                     {n.text}
                   </Typography>
                 ))}
@@ -616,7 +616,7 @@ export class BookingItemForManager extends Component<Props, State> {
       classes = this.props.classes.cancelled;
     }
     return this.wrapToolTip(
-      <>
+      <div>
         <ListItem
           divider
           selected={!!this.props.selected}
@@ -737,7 +737,7 @@ export class BookingItemForManager extends Component<Props, State> {
           }
           programList={this.props.programList}
         />
-      </>,
+      </div>,
     );
   }
 }

@@ -9,6 +9,7 @@ import type { TooltipProps } from '@material-ui/core/Tooltip/Tooltip';
 type Props = TooltipProps & {
   hide?: boolean;
   children: any;
+  variant?: 'tooltip' | 'highlighted';
 };
 
 const useStyles = makeStyles((theme) => ({

@@ -19,21 +19,23 @@ Sentry.init({
   beforeSend(event, hint) {
     const error = hint.originalException;
     if (
-      (error &&
+      error &&
+      // @ts-ignore
+      error.message &&
+      // @ts-ignore
+      (error.message.match(/Loading chunk /i) ||
         // @ts-ignore
-        error.message &&
+        error.message.match(/Loading CSS chunk /i) ||
         // @ts-ignore
-        (error.message.match(/Loading chunk /i) ||
-          // @ts-ignore
-          error.message.match(/Loading CSS chunk /i))) ||
-      // @ts-ignore
-      error.message.match(/Object Not Found Matching Id/i) ||
-      // @ts-ignore
-      error.message.match(/Object Not Found Matching Id/i) ||
-      // @ts-ignore
-      error.message.match(
-        /Cannot read properties of null \(reading 'document'\)/,
-      )
+        error.message.match(/Object Not Found Matching Id/i) ||
+        // @ts-ignore
+        error.message.match(/Object Not Found Matching Id/i) ||
+        // @ts-ignore
+        error.message.match(
+          /Cannot read properties of null \(reading 'document'\)/,
+        ) ||
+        // @ts-ignore
+        error.message.match(/Error: timeout of 0ms exceeded/))
     ) {
       return null;
     }

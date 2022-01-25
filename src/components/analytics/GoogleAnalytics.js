@@ -156,13 +156,14 @@ GoogleAnalytics.addMethod(
       totalPrice: basket.total_price,
       memberId: basket.member,
       basketId: basket.id,
-      checkout_items: basket.checkout_items.map((ci) => ({
-        buyable_item_id: ci.buyable_item_id,
-        buyable_item_identifier: ci.buyable_item_identifier,
-        name: ci.name,
-        quantity: ci.quantity,
-        unit_price: ci.unit_price,
-      })),
+      checkout_items:
+        basket.checkout_items?.map((ci) => ({
+          buyable_item_id: ci.buyable_item_id,
+          buyable_item_identifier: ci.buyable_item_identifier,
+          name: ci.name,
+          quantity: ci.quantity,
+          unit_price: ci.unit_price,
+        })) || [],
     },
   }),
   [

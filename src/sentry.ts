@@ -27,7 +27,13 @@ Sentry.init({
           // @ts-ignore
           error.message.match(/Loading CSS chunk /i))) ||
       // @ts-ignore
-      error.message.match(/Object Not Found Matching Id/i)
+      error.message.match(/Object Not Found Matching Id/i) ||
+      // @ts-ignore
+      error.message.match(/Object Not Found Matching Id/i) ||
+      // @ts-ignore
+      error.message.match(
+        /Cannot read properties of null \(reading 'document'\)/,
+      )
     ) {
       return null;
     }

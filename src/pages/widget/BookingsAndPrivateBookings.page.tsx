@@ -81,7 +81,7 @@ class BookingsAndPrivateBookingsPage extends React.PureComponent<Props, State> {
       });
     }
 
-    if (prevState.tab !== this.state.tab) {
+    if (prevState.tab !== this.state.tab && this.props.membership) {
       this.props.fetchBookingsAndPrivateBookings({
         member: this.props.membership.id,
         page: 1,

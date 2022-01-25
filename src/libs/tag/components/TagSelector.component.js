@@ -51,7 +51,7 @@ export function TagSelector(props: Props) {
           onChange={(suggestion) => {
             if (!suggestion && tag && tag.id) {
               props.untag(tag.id);
-            } else {
+            } else if (suggestion) {
               props.selectTag(suggestion.value);
             }
           }}

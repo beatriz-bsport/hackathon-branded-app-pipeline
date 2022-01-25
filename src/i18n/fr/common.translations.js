@@ -1,5 +1,6 @@
 exports.default = {
   form: {
+    requiredField: 'ce champ est requis',
     duration: {
       minute: 'Minute:',
       minute_plural: 'Minutes:',

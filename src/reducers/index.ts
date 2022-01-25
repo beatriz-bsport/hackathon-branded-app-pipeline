@@ -67,6 +67,7 @@ import pollReducers from '../libs/sign-up-form/reducers';
 import CustomFormReducer from '../libs/custom-form/reducers';
 import QuickbooksAppReducer from '../libs/quickbooks/reducers';
 import performanceTracking from '#libs/performance-tracking/reducers';
+import instalmentPayment from '#libs/instalment-payment-configuration/reducers';
 
 import { BackgroundTaskState } from '../libs/background-task/types';
 import { BookingsState } from '../libs/booking/types';
@@ -111,6 +112,7 @@ import { UserPreference } from '../libs/user-preference/types';
 import { PartnershipState } from '../libs/partnership/types';
 import actionTypes from '../actions/auth.types';
 import { PerformanceTrackingState } from '#libs/performance-tracking/types';
+import { InstalmentPaymentState } from '#libs/instalment-payment-configuration/types';
 
 const rootReducer = (history: any) =>
   combineReducers({
@@ -180,6 +182,7 @@ const rootReducer = (history: any) =>
     userPreference,
     performanceTracking,
     expense,
+    instalmentPayment,
   });
 
 export type RootState = {
@@ -249,6 +252,7 @@ export type RootState = {
   userPreference: UserPreference;
   performanceTracking: PerformanceTrackingState;
   expense: ExpenseState;
+  instalmentPayment: InstalmentPaymentState;
 };
 
 export default (history: any) => (state: any, action: any) => {

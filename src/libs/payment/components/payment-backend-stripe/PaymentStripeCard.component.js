@@ -47,6 +47,7 @@ type Props = {
   applyBalanceToInvoice?: () => void,
   creditAccountBalance?: number | null,
   applyBalanceLoading?: boolean,
+  forceSave?: boolean,
 };
 
 const CARD_ELEMENT_OPTIONS = {
@@ -149,7 +150,9 @@ export const StripePaymentCard = (props: Props) => {
         payment_method: paymentMethodSelected || {
           card: elements.getElement(CardElement),
         },
-        ...(saveForLater ? { setup_future_usage: 'off_session' } : {}),
+        ...(saveForLater || props.forceSave
+          ? { setup_future_usage: 'off_session' }
+          : {}),
       });
 
       if (result.error) {
@@ -190,14 +193,15 @@ export const StripePaymentCard = (props: Props) => {
       {addPaymentMethod && (
         <div>
           <CardSection
-            saveForLater={saveForLater}
+            saveForLater={saveForLater || props.forceSave}
             setSaveForLater={setSaveForLater}
             error={props.error}
           />
           <div className={classes.saveAndDisplay}>
             <div className={classes.row}>
               <Checkbox
-                checked={saveForLater}
+                checked={saveForLater || props.forceSave}
+                disabled={props.forceSave}
                 onChange={(ev) => setSaveForLater(ev.target.checked)}
               />
               <Typography variant="caption">

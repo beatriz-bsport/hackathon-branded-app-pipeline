@@ -10,4 +10,9 @@ FactoryBot.define('PaymentPackCategory', {
   category_ordering: () => Math.floor(Math.random() * 10),
 });
 
+FactoryBot.define('PaymentPack', {
+  id: FactoryBot.sequence(),
+  name: () => faker.random.word(),
+});
+
 export default FactoryBot;

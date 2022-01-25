@@ -145,6 +145,7 @@ type Props = {
   applyBalanceToInvoice?: () => void,
   creditAccountBalance?: number | null,
   applyBalanceLoading?: boolean,
+  forceSave?: boolean,
 };
 
 export const PaymentStripeSEPA = (props: Props) => {
@@ -224,7 +225,9 @@ export const PaymentStripeSEPA = (props: Props) => {
           email: billingDetails.email,
         },
       },
-      ...(saveForLater ? { setup_future_usage: 'off_session' } : {}),
+      ...(saveForLater || props.forceSave
+        ? { setup_future_usage: 'off_session' }
+        : {}),
     });
 
     if (result.error) {
@@ -269,7 +272,8 @@ export const PaymentStripeSEPA = (props: Props) => {
           <div className={classes.saveAndDisplay}>
             <div className={classes.row}>
               <Checkbox
-                checked={saveForLater}
+                checked={saveForLater || props.forceSave}
+                disabled={!!props.forceSave}
                 onChange={(ev) => setSaveForLater(ev.target.checked)}
               />
               <Typography variant="caption">

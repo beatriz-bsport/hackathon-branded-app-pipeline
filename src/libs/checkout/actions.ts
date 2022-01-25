@@ -16,6 +16,7 @@ import {
   fetchBasket as fetchBasketAPI,
   fetchBasketHistoryList as fetchBasketHistoryListAPI,
   createOrRefreshInternalAccountPrepaidLine as createOrRefreshInternalAccountPrepaidLineAPI,
+  assignInstalmentPayment as assignInstalmentPaymentAPI,
 } from './api';
 import { getCurrentBasket } from './selectors';
 import { snackbarError } from '../snackbar/actions';
@@ -338,5 +339,35 @@ export function fetchBasketHistoryList(
     }
 
     dispatch(basketHistoryActions.isLoading(false));
+  };
+}
+export const assignInstalmentPaymentActions = {
+  error: createAction('CHECKOUT_BASKET/ASSIGN_INSTALMENT/ERROR'),
+  isLoading: createAction('CHECKOUT_BASKET/ASSIGN_INSTALMENT/IS_LOADING'),
+  success: createAction('CHECKOUT_BASKET/ASSIGN_INSTALMENT/SUCCESS'),
+};
+
+export function assignInstalmentPayment(
+  basketId: string,
+  instalment_payment,
+  options?: OptionCallback<Basket>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(assignInstalmentPaymentActions.isLoading(true));
+    dispatch(assignInstalmentPaymentActions.error(null));
+
+    try {
+      const response = await assignInstalmentPaymentAPI(
+        basketId,
+        instalment_payment,
+      );
+      dispatch(assignInstalmentPaymentActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(assignInstalmentPaymentActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+
+    dispatch(assignInstalmentPaymentActions.isLoading(false));
   };
 }

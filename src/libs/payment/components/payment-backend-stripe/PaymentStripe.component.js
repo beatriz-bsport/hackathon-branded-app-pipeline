@@ -31,6 +31,7 @@ import PaymentStripeEPS from './PaymentStripeEPS.component';
 import PaymentStripeGiropay from './PaymentStripeGiropay.component';
 import PaymentStripeMobilePay from './PaymentStripeMobilePay.component';
 import PriceInput from '../../../../components/input/PriceInput.component';
+import InstalmentPaymentSelector from '../../../instalment-payment-configuration/components/InstalmentPaymentSelector.component';
 
 import PaymentMethodCardSelector from '../PaymentMethodCardSelector.component';
 import AcceptTermsAndConditions from '../AcceptTermsAndConditions.component';
@@ -73,6 +74,10 @@ type Props = {
   applyBalanceToInvoice?: () => void,
   creditAccountBalance?: number | null,
   applyBalanceLoading?: boolean,
+
+  instalmentPaymentConfigurationList: Array<InstalmentPayment> | null,
+  instalmentPaymentSelectedId: number,
+  onSelectInstalmentPayment: (id: number, options: OptionCallback) => void,
 };
 
 const STRIPE_PAYMENT_METHOD_FORM_COMPONENT = {
@@ -136,6 +141,16 @@ export const PaymentStripe = (props: Props) => {
         paymentMethodSelected={props.paymentMethodSelected}
         paymentMethodChoices={props.paymentMethodChoices}
       />
+      <InstalmentPaymentSelector
+        instalmentPaymentConfigurationSelectedId={
+          props.instalmentPaymentSelectedId
+        }
+        instalmentPaymentConfigurationList={
+          props.instalmentPaymentConfigurationList
+        }
+        onSelectInstalmentPayment={props.onSelectInstalmentPayment}
+        basketPriceCts={props.basketTotalPriceCts}
+      />
       <div className={classes.innerContainer}>
         <Elements stripe={stripePromise}>
           <StripePaymentMethodForm
@@ -145,6 +160,7 @@ export const PaymentStripe = (props: Props) => {
             forceDisabled={priceUpdaterOpen}
             basketTotalPriceCts={props.basketTotalPriceCts}
             basketId={props.basketId}
+            forceSave={!!props.instalmentPaymentSelectedId}
             onCancel={props.onCancel}
             loading={props.loading || props.applyBalanceLoading}
             memberId={props.memberId}

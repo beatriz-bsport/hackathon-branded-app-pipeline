@@ -75,6 +75,7 @@ import LabelIcon from '@material-ui/icons/Label';
 import { colors } from '@bsport/common/lib/colors';
 import Tooltip from '@material-ui/core/Tooltip';
 import OfflineBoltIcon from '@material-ui/icons/OfflineBolt';
+import DoubleArrow from '@material-ui/icons/DoubleArrow';
 import { getTextColorFromRGB } from '../../utils/color';
 
 import BillingBanner from './BillingBanner.component';
@@ -733,6 +734,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             to: '/expense/',
             icon: DescriptionIcon,
             text: t('backofficeMenu.expenses'),
+          },
+          {
+            to: '/instalment-payment/',
+            icon: DoubleArrow,
+            text: t('backofficeMenu.instalmentPayment'),
           },
         ],
       },

@@ -21,7 +21,8 @@ export type PrivatePassSelector = (
   state: RootState,
 ) => Immutable.Immutable<Array<PrivatePass> | PrivatePass>;
 
-const _getPrivatePassData = (state) => state.privateService.privatePass.byId;
+export const _getPrivatePassData = (state) =>
+  state.privateService.privatePass.byId;
 const _getPrivatePassAsConsumerIds = (state) =>
   state.privateService.privatePass.asConsumer.allIds;
 

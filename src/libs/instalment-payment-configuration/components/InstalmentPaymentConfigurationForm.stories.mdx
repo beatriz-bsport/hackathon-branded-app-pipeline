@@ -1,0 +1,38 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import InstalmentPaymentConfigurationForm from "./InstalmentPaymentConfiguration.form"
+import InstalmentPaymentFactory from "../factories";
+const randomInstalmentPayment=InstalmentPaymentFactory.InstalmentPayment.createOne()
+
+<Meta title='Library/InstalmentPaymentConfiguration/Form'
+    component={InstalmentPaymentConfigurationForm}
+    argTypes ={{
+    }}/>
+
+export const Template = (args) => <InstalmentPaymentConfigurationForm {...args} />;
+
+#  Instalment Payment Form
+
+<Canvas>
+    <Story 
+    name='InstalmentPaymentConfigurationForm'
+    args={{
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story='InstalmentPaymentConfigurationForm' />
+
+#  Program Form With Initial Values
+
+<Canvas>
+    <Story 
+    name='InstalmentPaymentConfigurationFormWithInitial'
+    args={{
+        initial:randomInstalmentPayment
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story='InstalmentPaymentConfigurationFormWithInitial' />

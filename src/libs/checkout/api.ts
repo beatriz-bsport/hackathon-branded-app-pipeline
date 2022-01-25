@@ -99,3 +99,13 @@ export const createOrRefreshInternalAccountPrepaidLine = async (
     },
   );
 };
+
+export const assignInstalmentPayment = async (
+  basketId: string,
+  instalment_payment: number,
+) => {
+  return postAuth(`${API_V1_URI}/checkout/basket/assign_instalment_payment/`, {
+    instalment_payment,
+    id: basketId,
+  });
+};

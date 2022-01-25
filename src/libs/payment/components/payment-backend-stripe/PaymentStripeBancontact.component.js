@@ -22,6 +22,7 @@ export function PaymentStripeBancontact(props: {
   loading?: boolean,
   basketId?: string,
   basketTotalPriceCts?: number,
+  forceSave?: boolean,
 }) {
   const stripe = useStripe();
   const elements = useElements();
@@ -82,7 +83,9 @@ export function PaymentStripeBancontact(props: {
             email,
           },
         },
-        ...(saveForLater ? { setup_future_usage: 'off_session' } : {}),
+        ...(saveForLater || props.forceSave
+          ? { setup_future_usage: 'off_session' }
+          : {}),
         return_url: `${window.location.href}?check_payment_intent=true`,
       },
     );
@@ -122,8 +125,10 @@ export function PaymentStripeBancontact(props: {
       </div>
       <div className={classes.row}>
         <Checkbox
-          checked={saveForLater}
-          disabled={!stripe || !props.clientSecret || processing}
+          checked={saveForLater || props.forceSave}
+          disabled={
+            !stripe || !props.clientSecret || processing || props.forceSave
+          }
           onChange={(ev) => setSaveForLater(ev.target.checked)}
         />
         <div className={classes.leftColumn}>

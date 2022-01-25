@@ -28,7 +28,10 @@ import {
   patchCurrentBasket,
   attachPayment as attachPaymentAction,
   createOrRefreshInternalAccountPrepaidLine as createOrRefreshInternalAccountPrepaidLineAction,
+  assignInstalmentPayment as assignInstalmentPaymentAction,
 } from '../../../libs/checkout/actions';
+import { fetchInstalmentPaymentByBasket as fetchInstalmentPaymentByBasketAction } from '../../../libs/instalment-payment-configuration/actions';
+import { getInstalmentForBasketList } from '../../../libs/instalment-payment-configuration/selectors';
 import withQueryParams from '../../../hocs/with-query-params.hoc';
 import Analytics from '../../../components/analytics/Analytics.component';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
@@ -79,7 +82,7 @@ type Props = {
   classes: Object,
   fetchCurrentBasket: (companyId: number) => void,
   patchCurrentBasket: (data: any) => void,
-  fetchpaymentMethod: (params: any) => void,
+  fetchPaymentMethod: (params: any) => void,
   savedPaymentMethodList: Array<PaymentMethod>,
   attachCoupon: (
     code: string,
@@ -97,6 +100,7 @@ type Props = {
   onSuccess: () => void,
 
   fetchCurrentBasket: (companyId: number) => void,
+  fetchInstalmentPaymentByBasket: (basketId: string) => void,
   removeItemFromBasket: (basketId: string, data: any) => void,
   addItemToBasket: (basketId: string, data: any) => void,
 
@@ -111,6 +115,13 @@ type Props = {
   onRemoveInternalAccountPrepaidLine: () => void,
   creditAccountBalance: number | null,
   fetchMember: (id: number) => void,
+
+  instalmentPaymentConfigurationList: Array<InstalmentPayment>,
+  assignInstalmentPayment: (
+    basket: string,
+    instalment_payment_id: number,
+    options: OptionCallback<Basket>,
+  ) => void,
 };
 
 export class BasketPage extends React.Component<Props> {
@@ -121,16 +132,28 @@ export class BasketPage extends React.Component<Props> {
     nextPaymentIntentStatusCheckSeconds: 1.5,
   };
 
+  fetchCurrentBasket = (companyId: number) => {
+    this.props.fetchCurrentBasket(companyId, {
+      onSuccess: (basket) => {
+        this.props.fetchInstalmentPaymentByBasket(basket.id);
+      },
+    });
+  };
+
   componentWillMount() {
-    this.props.fetchCurrentBasket(this.props.companyId);
+    this.fetchCurrentBasket(this.props.companyId);
     this.props.fetchCompanyTheme(this.props.companyId);
     this.props.fetchShopItemFeatured(this.props.companyId);
   }
 
   componentDidUpdate(prevProps: Props) {
     if (prevProps.companyId !== this.props.companyId && this.props.companyId) {
-      this.props.fetchCurrentBasket(this.props.companyId);
-      this.props.fetchpaymentMethod({ company: this.props.companyId });
+      this.fetchCurrentBasket(this.props.companyId, {
+        onSuccess: (basket) => {
+          this.props.fetchInstalmentPaymentByBasket(basket.id);
+        },
+      });
+      this.props.fetchPaymentMethod({ company: this.props.companyId });
     }
     if (this.props.basket && !prevProps.basket) {
       Analytics.showBasket(this.props.basket);
@@ -190,14 +213,14 @@ export class BasketPage extends React.Component<Props> {
       this.props.fetchMember(this.props.basket.member);
     }
     if (this.props.companyId) {
-      this.props.fetchpaymentMethod({ company: this.props.companyId });
+      this.props.fetchPaymentMethod({ company: this.props.companyId });
     }
   }
 
   onItemExpire = () => {
     const _this = this;
     setTimeout(() => {
-      _this.props.fetchCurrentBasket(this.props.companyId);
+      _this.fetchCurrentBasket(this.props.companyId);
     }, 1500);
   };
 
@@ -246,6 +269,24 @@ export class BasketPage extends React.Component<Props> {
 
   setTermsAndConditionsAccepted = (termsAndConditionsAccepted) =>
     this.setState({ termsAndConditionsAccepted });
+
+  onSelectInstalmentPayment = (instalment_payment, options) => {
+    if (this.props.basket?.id) {
+      this.props.assignInstalmentPayment(
+        this.props.basket.id,
+        instalment_payment,
+        {
+          onSuccess: () => {
+            this.props.fetchCurrentBasket(this.props.companyId, {
+              onSuccess: options?.onSuccess,
+              onError: options?.onError,
+            });
+          },
+          onError: options && options.onError,
+        },
+      );
+    }
+  };
 
   render() {
     if (!this.props.basket) {
@@ -312,6 +353,13 @@ export class BasketPage extends React.Component<Props> {
                   loading={this.props.loading || this.props.processing}
                   onCancel={this.backToCalendar}
                   basketTotalPriceCts={this.props.basket?.total_price_cts}
+                  instalmentPaymentConfigurationList={this.props.instalmentPaymentConfigurationList.filter(
+                    (ipc) => ipc.basketId === this.props.basket?.id,
+                  )}
+                  instalmentPaymentSelectedId={
+                    this.props.basket?.instalment_payment
+                  }
+                  onSelectInstalmentPayment={this.onSelectInstalmentPayment}
                   basketId={this.props.basket.id}
                   paymentMethodChoices={PAYMENT_GROUP_METHOD_BY_ENGINE[
                     PAYMENT_ENGINE_STRIPE
@@ -412,6 +460,7 @@ export default compose(
       detachPaymentMethodLoading:
         state.paymentBackend.detachPaymentMethod.loading,
       creditAccountBalance: getUsableCreditAccountBalance(state, companyId),
+      instalmentPaymentConfigurationList: getInstalmentForBasketList(state),
     }),
     {
       disconnect: authActions.disconnect,
@@ -423,13 +472,15 @@ export default compose(
       goBack,
       replace: replaceRouter,
       fetchCurrentBasket: fetchCurrentBasketAction,
+      fetchInstalmentPaymentByBasket: fetchInstalmentPaymentByBasketAction,
       patchCurrentBasket,
       attachPayment: attachPaymentAction,
+      assignInstalmentPayment: assignInstalmentPaymentAction,
       snackbarError,
       attachCoupon,
       fetchCompanyTheme,
       fetchShopItemFeatured,
-      fetchpaymentMethod: fetchPaymentMethodList,
+      fetchPaymentMethod: fetchPaymentMethodList,
       detachPaymentMethodAction: detachPaymentMethod,
       snackbarErrorMsg: snackbarWarning,
       snackbarSuccessMsg: snackbarSuccess,
@@ -474,7 +525,7 @@ export default compose(
     detachPaymentMethod:
       ({
         detachPaymentMethodAction,
-        fetchpaymentMethod,
+        fetchPaymentMethod,
         snackbarErrorMsg,
         snackbarSuccessMsg,
         companyId,
@@ -485,7 +536,7 @@ export default compose(
           { company: companyId, payment_method_id: pm_id },
           {
             onSuccess: () => {
-              fetchpaymentMethod({ company: companyId });
+              fetchPaymentMethod({ company: companyId });
               snackbarSuccessMsg(t('invoice:paymentMethod.detach.pm_deleted'));
               if (options && options.onSuccess) options.onSuccess();
             },

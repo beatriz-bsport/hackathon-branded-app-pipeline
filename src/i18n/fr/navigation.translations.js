@@ -11,6 +11,7 @@ exports.default = {
       "Vous n'avez pas terminé la configuration de votre facturation, les paiements en ligne peuvent être désactivés. Cliquez ici pour terminer votre configuration.",
   },
   backofficeMenu: {
+    instalmentPayment: 'Paiements en plusieurs fois',
     programs: 'Programmes',
     cashBookTooltip: 'Livret de caisse',
     addMemberTooltip: 'Ajouter membre',

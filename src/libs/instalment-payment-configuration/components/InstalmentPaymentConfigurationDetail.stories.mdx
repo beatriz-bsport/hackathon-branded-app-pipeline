@@ -1,0 +1,55 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import InstalmentPaymentConfigurationDetail from "./InstalmentPaymentConfigurationDetail.component"
+import InstalmentPaymentFactory from "../factories";
+const randomInstalmentPayment=InstalmentPaymentFactory.InstalmentPayment.createOne({
+  payment_pack_list:[{name:'hello'}],private_pass_list:[{name:'HEY'}],})
+
+<Meta title='Library/InstalmentPaymentConfiguration/Detail'
+    component={InstalmentPaymentConfigurationDetail}
+    argTypes ={{
+    }}/>
+
+export const Template = (args) => <InstalmentPaymentConfigurationDetail {...args} />;
+
+#  Instalment Payment Detail Item
+
+<Canvas>
+    <Story 
+    name='InstalmentPaymentConfigurationDetail'
+    args={{
+      instalmentPayment:randomInstalmentPayment,
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story='InstalmentPaymentConfigurationDetail' />
+
+#  Instalment Payment Detail loading
+
+<Canvas>
+    <Story 
+    name='InstalmentPaymentConfigurationDetailloading'
+    args={{
+      instalmentPayment:undefined,
+      loading:true,
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story='InstalmentPaymentConfigurationDetailloading' />
+
+#  Instalment Payment Detail Undefined
+
+<Canvas>
+    <Story 
+    name='InstalmentPaymentConfigurationDetailUndefined'
+    args={{
+      instalmentPayment:undefined,
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story='InstalmentPaymentConfigurationDetailUndefined' />

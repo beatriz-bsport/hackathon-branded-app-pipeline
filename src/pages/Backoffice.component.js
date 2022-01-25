@@ -121,6 +121,11 @@ const MetaActivity = asyncComponent(() =>
 const PaymentPack = asyncComponent(() =>
   import('./payment-pack/PaymentPack.router'),
 );
+const InstalmentPayment = asyncComponent(() =>
+  import(
+    './instalment-payment-configuration/InstalmentPaymentConfiguration.router'
+  ),
+);
 const Member = asyncComponent(() => import('./member/Member.router'));
 const WorkshopActivity = asyncComponent(() =>
   import('./workshop-activity/WorkshopActivity.router'),
@@ -238,6 +243,7 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
       {Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' && (
         <Route path="/performance-tracking" component={PerformanceTracking} />
       )}
+      <Route path="/instalment-payment" component={InstalmentPayment} />
       <Route path="/marketing" component={MarketingRouter} />
       <Route path="/email-template" component={EmailTemplate} />
       <Route path="/giftcard" component={Giftcard} />

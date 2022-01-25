@@ -51,6 +51,7 @@ export const PaymentStripeIdeal = (props: {
   loading?: boolean,
   basketId?: string,
   basketTotalPriceCts?: number,
+  forceSave?: boolean,
 }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -103,7 +104,9 @@ export const PaymentStripeIdeal = (props: {
           email,
         },
       },
-      ...(saveForLater ? { setup_future_usage: 'off_session' } : {}),
+      ...(saveForLater || props.forceSave
+        ? { setup_future_usage: 'off_session' }
+        : {}),
       return_url: `${window.location.href}?check_payment_intent=true`,
     });
 
@@ -141,7 +144,8 @@ export const PaymentStripeIdeal = (props: {
       </div>
       <div className={classes.row}>
         <Checkbox
-          checked={saveForLater}
+          checked={saveForLater || props.forceSave}
+          disabled={!!props.forceSave}
           onChange={(ev) => setSaveForLater(ev.target.checked)}
         />
         <div className={classes.leftColumn}>

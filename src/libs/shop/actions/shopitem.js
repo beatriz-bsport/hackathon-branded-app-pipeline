@@ -125,7 +125,7 @@ export const shopItemBulkActions = {
   success: createAction('SHOPITEM/BULK/SUCCESS'),
 };
 
-export function fetchBulk(companyId?: number, ids = Array) {
+export function fetchBulk(companyId?: number, ids: Array) {
   return async (dispatch: Dispatch, getState: () => State) => {
     const freshShopList = getFreshShopIds(getState());
     const ids_uniq = uniq(ids.filter((id) => !!id)).filter(

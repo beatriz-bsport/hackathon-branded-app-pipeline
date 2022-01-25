@@ -22,6 +22,7 @@ type Props = {
   loading?: boolean,
   basketId?: string,
   basketTotalPriceCts?: number,
+  forceSave?: boolean,
 };
 
 export const PaymentStripeSofort = (props: Props) => {
@@ -74,7 +75,9 @@ export const PaymentStripeSofort = (props: Props) => {
           email,
         },
       },
-      ...(saveForLater ? { setup_future_usage: 'off_session' } : {}),
+      ...(saveForLater || props.forceSave
+        ? { setup_future_usage: 'off_session' }
+        : {}),
       return_url: `${window.location.href}?check_payment_intent=true`,
     });
 
@@ -113,7 +116,8 @@ export const PaymentStripeSofort = (props: Props) => {
         {errorMessage && <Typography color="error">{errorMessage}</Typography>}
         <div className={classes.row}>
           <Checkbox
-            checked={saveForLater}
+            checked={saveForLater || props.forceSave}
+            disabled={!!props.forceSave}
             onChange={(ev) => setSaveForLater(ev.target.checked)}
           />
           <div className={classes.leftColumn}>

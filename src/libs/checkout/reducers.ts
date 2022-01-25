@@ -7,6 +7,7 @@ import {
   createOrRefreshInternalAccountPrepaidLineActions,
   generatedObjectsActions,
   basketHistoryActions,
+  assignInstalmentPaymentActions,
 } from './actions';
 
 import { CheckoutState } from './types';
@@ -101,6 +102,12 @@ export default handleActions(
     },
     [generatedObjectsActions.success.toString()]: (state, { payload }) => {
       return state.setIn(['basket', 'generatedObjects', 'data'], payload);
+    },
+    [assignInstalmentPaymentActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['basket', 'updating'], payload);
     },
   },
   initialState,

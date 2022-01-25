@@ -14,11 +14,12 @@ type OwnProps = {
   onClose?: () => void;
   title?: string;
   subtitle?: string;
+  width?: string;
 };
 type Props = OwnProps;
 export const GenericFormDialog: React.FC<Props> = (props) => {
   const { children, open, title, subtitle } = props;
-  const classes = useStyles();
+  const classes = useStyles({ width: props.width });
   const { t } = useTranslation('common');
   return (
     <Drawer
@@ -49,10 +50,10 @@ export const GenericFormDialog: React.FC<Props> = (props) => {
     </Drawer>
   );
 };
-const useStyles = makeStyles((theme: Theme) => ({
-  paper: {
+const useStyles = makeStyles<Theme, { width: string }>((theme) => ({
+  paper: (props) => ({
     display: 'flex',
-    width: '40%',
+    width: props.width || '40%',
     overflowX: 'hidden',
     [theme.breakpoints.down('lg')]: {
       width: '60%',
@@ -60,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     [theme.breakpoints.down('md')]: {
       width: '100%',
     },
-  },
+  }),
   topCancel: {
     display: 'flex',
     paddingTop: theme.spacing(2),

@@ -35,7 +35,9 @@ Sentry.init({
           /Cannot read properties of null \(reading 'document'\)/,
         ) ||
         // @ts-ignore
-        error.message.match(/Error: timeout of 0ms exceeded/))
+        error.message.match(/Error: timeout of 0ms exceeded/) ||
+        // @ts-ignore
+        error.message.match(/find variable: _AutofillCallbackHandler/))
     ) {
       return null;
     }

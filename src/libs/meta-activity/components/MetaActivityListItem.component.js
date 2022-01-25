@@ -116,11 +116,12 @@ export function MetaActivityListItem(props: Props) {
               label: t('common.delete'),
               onClick: props.deleteMetaActivity,
             },
-          !props.metaActivity.customer_enabled && {
-            icon: RestoreFromTrashIcon,
-            label: t('common.restore'),
-            onClick: () => props.restoreMetaActivity(),
-          },
+          !props.metaActivity.customer_enabled &&
+            props.restoreMetaActivity && {
+              icon: RestoreFromTrashIcon,
+              label: t('common.restore'),
+              onClick: () => props.restoreMetaActivity(),
+            },
         ]}
       />
     </ListItem>

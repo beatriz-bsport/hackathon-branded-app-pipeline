@@ -105,7 +105,9 @@ export const VideoThumbnail = (props: Props) => {
                     </Typography>
                   </div>
                 ) : (
-                  <MenuBookIcon fontSize="small" />
+                  <div className={classes.row}>
+                    <MenuBookIcon fontSize="small" />
+                  </div>
                 )}
               </div>
               {!!props.onDeleteVideo && (

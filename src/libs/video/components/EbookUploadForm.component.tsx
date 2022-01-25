@@ -51,6 +51,7 @@ export class EbookUploadForm extends React.Component<Props, State> {
     setTimeout(() => {
       this.setState({ isUploading: false, progress: 0 });
       this.props.onClose();
+      this.props.setExternalUrl(this.props.video.id);
     }, 5000);
   };
 
@@ -77,7 +78,6 @@ export class EbookUploadForm extends React.Component<Props, State> {
     try {
       const { data } = await getUploadInstructionAPI(this.props.video.id);
       const { method, url, bodyType, fields } = data;
-      this.props.setExternalUrl(this.props.video.id);
 
       let body = null;
 
@@ -136,7 +136,7 @@ export class EbookUploadForm extends React.Component<Props, State> {
             color="primary"
             onClick={this.onClickSubmit}
             className={this.props.classes.marginLeft}
-            disabled={!this.state.dropzoneFilled}
+            disabled={!this.state.dropzoneFilled || this.state.isUploading}
           >
             {t('video.upload.submit')}
           </Button>

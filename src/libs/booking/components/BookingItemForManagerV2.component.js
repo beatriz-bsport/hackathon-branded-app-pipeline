@@ -237,7 +237,7 @@ export class BookingItemForManager extends Component<Props, State> {
           open={Boolean(this.state.menuAnchor)}
           onClose={closeAndAction(() => {})}
         >
-          {showQuickInvoiceButton ? (
+          {showQuickInvoiceButton && onQuickInvoiceClick ? (
             <MenuItem
               onClick={closeAndAction(onQuickInvoiceClick)}
               className={classes.menuItem}
@@ -247,23 +247,26 @@ export class BookingItemForManager extends Component<Props, State> {
               <Typography>{t('actions.bill')}</Typography>
             </MenuItem>
           ) : null}
-          <MenuItem
-            onClick={closeAndAction(switchAttendance)}
-            className={classes.menuItem}
-          >
-            <CachedIcon className={classes.icon} />
+          {!!switchAttendance && (
+            <MenuItem
+              onClick={closeAndAction(switchAttendance)}
+              className={classes.menuItem}
+            >
+              <CachedIcon className={classes.icon} />
 
-            <Typography>{attendText}</Typography>
-          </MenuItem>
-          <MenuItem
-            onClick={closeAndAction(handleRevert)}
-            className={classes.menuItem}
-          >
-            <CancelIcon className={classes.icon} />
+              <Typography>{attendText}</Typography>
+            </MenuItem>
+          )}
+          {!!handleRevert && (
+            <MenuItem
+              onClick={closeAndAction(handleRevert)}
+              className={classes.menuItem}
+            >
+              <CancelIcon className={classes.icon} />
 
-            <Typography>{t('actions.unregister')}</Typography>
-          </MenuItem>
-
+              <Typography>{t('actions.unregister')}</Typography>
+            </MenuItem>
+          )}
           {this.props.spotSchedulingEnabled && this.props.onClickChangeSpot && (
             <MenuItem
               onClick={closeAndAction(() =>

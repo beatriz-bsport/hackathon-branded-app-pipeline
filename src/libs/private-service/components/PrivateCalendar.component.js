@@ -410,9 +410,9 @@ export class PrivateCalendar extends React.Component<Props, State> {
     );
   };
 
-  createRecurrence = (recurrence_until: string) => {
-    const { enableWithRecurrence, eventSlotSelected } = this.state;
-    const { startStr, endStr } = eventSlotSelected;
+  createRecurrence = (recurrence_until: string, eventSlot: any) => {
+    const { enableWithRecurrence } = this.state;
+    const { startStr, endStr } = eventSlot;
     const endDate = moment(recurrence_until);
     const all_date_start = [];
     let i = 0;

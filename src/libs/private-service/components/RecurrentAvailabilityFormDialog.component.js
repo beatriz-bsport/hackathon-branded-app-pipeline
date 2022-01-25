@@ -46,7 +46,10 @@ export class RecurrentAvailabilityFormDialog extends React.Component<
 
   onSubmit = (ev: SyntheticEvent<HTMLElement>) => {
     ev.preventDefault();
-    this.props.onSubmit(this.state.date.format('YYYY-MM-DD'));
+    this.props.onSubmit(
+      this.state.date.format('YYYY-MM-DD'),
+      this.props.eventSlot,
+    );
   };
 
   handleDateChange = (date: Object) => {

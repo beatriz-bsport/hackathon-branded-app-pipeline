@@ -539,6 +539,7 @@ export const listAllPaymentPackCategoryActions = {
 export function fetchAllPaymentPackCategory(companyId?: number) {
   return async (dispatch: Dispatch) => {
     dispatch(listAllPaymentPackCategoryActions.error(null));
+    dispatch(listAllPaymentPackCategoryActions.isLoading(true));
     try {
       const response = await fetchAllPaymentPackCategoryAPI({ companyId });
       const paymentPacks = response.data;

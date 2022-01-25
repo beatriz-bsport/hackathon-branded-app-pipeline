@@ -2319,6 +2319,7 @@ export const listAllPrivatePassCategoryActions = {
 export function fetchAllPrivatePassCategory(companyId?: number) {
   return async (dispatch: Dispatch) => {
     dispatch(listAllPrivatePassCategoryActions.error(null));
+    dispatch(listAllPrivatePassCategoryActions.isLoading(true));
     try {
       const response = await fetchAllPrivatePassCategoryAPI({ companyId });
       const privatePasses = response.data;

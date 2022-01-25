@@ -26,7 +26,7 @@ const defaultConfig = {
   hidePaymentCombo: false,
 };
 
-const MarketplacePassSettingsForm: React.FC<Props> = (props) => {
+const ExportablePassSettingsForm: React.FC<Props> = (props) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -160,4 +160,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default MarketplacePassSettingsForm;
+export default ExportablePassSettingsForm;

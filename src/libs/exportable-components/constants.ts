@@ -34,6 +34,10 @@ export const EXPORTABLE_COMPONENTS = [
   {
     identifier: EXPORTABLE_COMPONENT_TYPE_PASS,
     label: 'marketplace.pass',
+    defaultConfig: {
+      paymentPackCategories: [],
+      privatePassCategories: [],
+    },
   },
   {
     label: 'marketplace.vod',

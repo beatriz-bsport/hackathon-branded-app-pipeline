@@ -6,6 +6,18 @@ import RELEASE_SHA from './release-sha';
 import { setSessionId } from './sentry/session';
 import history from './history';
 
+const exceptionMessageRegexpToIgnore = [
+  /Loading chunk /i,
+  /Loading CSS chunk /i,
+  /Object Not Found Matching Id/i,
+  /Object Not Found Matching Id/i,
+  /Cannot read properties of null \(reading 'document'\)/, // INTERCOPM
+  /Error: timeout of 0ms exceeded/, // RANDOM INTERNET DISCONNECT
+  /find variable: _AutofillCallbackHandler/, // FACEBOOK BROWSER
+  /find variable: jQuery/,
+  /jQuery is not defined/,
+];
+
 Sentry.init({
   release: RELEASE_SHA,
   dsn: Config.REACT_APP_SENTRY_DSN || null,
@@ -23,21 +35,12 @@ Sentry.init({
       // @ts-ignore
       error.message &&
       // @ts-ignore
-      (error.message.match(/Loading chunk /i) ||
-        // @ts-ignore
-        error.message.match(/Loading CSS chunk /i) ||
-        // @ts-ignore
-        error.message.match(/Object Not Found Matching Id/i) ||
-        // @ts-ignore
-        error.message.match(/Object Not Found Matching Id/i) ||
-        // @ts-ignore
-        error.message.match(
-          /Cannot read properties of null \(reading 'document'\)/,
-        ) ||
-        // @ts-ignore
-        error.message.match(/Error: timeout of 0ms exceeded/) ||
-        // @ts-ignore
-        error.message.match(/find variable: _AutofillCallbackHandler/))
+      exceptionMessageRegexpToIgnore.reduce(
+        (shouldBeIgnore, regexp) =>
+          // @ts-ignore
+          shouldBeIgnore || error.message.match(regexp),
+        false,
+      )
     ) {
       return null;
     }

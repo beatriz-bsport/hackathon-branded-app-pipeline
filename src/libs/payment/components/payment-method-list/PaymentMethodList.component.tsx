@@ -64,7 +64,7 @@ export const PaymentMethodList = (props: Props) => {
           key={pm.id}
           disabled={props.disabled}
           selected={pm.id === props.selectedSavedPaymentMethodId}
-          onClick={() => props.onSelect(pm.id)}
+          onClick={props.onSelect && (() => props.onSelect(pm.id))}
           setHasDetached={props.setHasDetached}
           disableDuringDetach={disableDuringDetach}
           setDisableDuringDetach={setDisableDuringDetach}

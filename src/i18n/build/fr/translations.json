@@ -6036,7 +6036,10 @@
       "testError": "Veuillez vérifier l'url"
     },
     "login": { "passwordChangedSuccess": "Mot de passe modifié avec succès !" },
-    "booking": { "register": { "success": "Réservation enregistrée" } },
+    "booking": {
+      "register": { "success": "Réservation enregistrée" },
+      "delete": { "error": "Vous ne pouvez pas annuler une séance qui a déjà commencée." }
+    },
     "order": { "success": "Votre paiement a bien été enregistré" },
     "communication": { "success": "Mail en cours d'envoi", "error": "Problème lors de l'envoi du mail" },
     "privateBooking": {

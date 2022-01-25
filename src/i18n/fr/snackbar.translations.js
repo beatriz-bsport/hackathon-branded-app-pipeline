@@ -589,6 +589,9 @@ exports.default = {
     register: {
       success: 'Réservation enregistrée',
     },
+    delete: {
+      error: 'Vous ne pouvez pas annuler une séance qui a déjà commencée.',
+    },
   },
   order: {
     success: 'Votre paiement a bien été enregistré',

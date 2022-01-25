@@ -97,11 +97,27 @@ export const discardAttendance = (id: number, options?: OptionCallback) =>
   updateBooking(id, {}, options, discardAttendanceAPI);
 export const confirmAttendance = (id: number, options?: OptionCallback) =>
   updateBooking(id, {}, options, confirmAttendanceAPI);
-export const cancelBooking = (
-  id: number,
-  data: any,
-  options?: OptionCallback,
-) => updateBooking(id, data, options, cancelBookingAPI);
+
+export function cancelBooking(id: number, data: any, options?: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(updateActions.isLoading(true));
+    dispatch(updateActions.error(null));
+
+    try {
+      const response = await cancelBookingAPI(id, data);
+      dispatch(updateActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      if (err.response?.status === 403)
+        dispatch(snackbarError('booking.delete.error'));
+      dispatch(updateActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(updateActions.isLoading(false));
+  };
+}
 
 export const asConsumerActions = {
   success: createAction('BOOKING/AS_CONSUMER/SUCCESS'),

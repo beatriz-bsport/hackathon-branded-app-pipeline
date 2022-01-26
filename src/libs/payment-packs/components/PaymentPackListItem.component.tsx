@@ -161,19 +161,32 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
         this.props.onDelete &&
         !this.props.pack.template_instance &&
         !this.props.onEdit ? (
-          <ListItemSecondaryAction>
-            <IconButton onClick={this.props.onDelete}>
-              <DeleteIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
+          <ListItemResponsiveAction
+            actions={[
+              {
+                icon: DeleteIcon,
+                label: this.props.t('actions.delete'),
+                onClick: () => {
+                  this.props.onDelete();
+                },
+              },
+            ]}
+          />
         ) : null}
         {(!this.props.onDelete || !!this.props.pack.template_instance) &&
         this.props.onEdit ? (
-          <ListItemSecondaryAction>
-            <IconButton color="primary" onClick={this.props.onEdit}>
-              <EditIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
+          <ListItemResponsiveAction
+            actions={[
+              this.props.onEdit && {
+                icon: EditIcon,
+                label: this.props.t('actions.edit'),
+                color: 'primary',
+                onClick: () => {
+                  this.props.onEdit();
+                },
+              },
+            ]}
+          />
         ) : null}
         {!this.props.disabled && this.props.onBook ? (
           <ListItemSecondaryAction>

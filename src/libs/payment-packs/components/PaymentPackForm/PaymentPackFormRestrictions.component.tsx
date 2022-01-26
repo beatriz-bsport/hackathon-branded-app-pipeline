@@ -110,7 +110,10 @@ export const PaymentPackFormRestrictions = (props: Props) => {
               <Typography>{t('addPaymentPack.newClientOnly')}</Typography>
             </div>
             <div className={classes.row}>
-              <SwitchField name="manager_only" />
+              <SwitchField
+                name="manager_only"
+                disabled={!!initial?.template_instance}
+              />
               <Typography>{t('addPaymentPack.notForSell')}</Typography>
             </div>
             <div className={classes.row}>

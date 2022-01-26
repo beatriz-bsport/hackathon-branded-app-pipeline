@@ -129,13 +129,15 @@ export class PaymentPackCard extends Component<Props, State> {
         >
           <Hidden xsDown>{t('actions.edit')}</Hidden>
         </Button>
-        <RedButton
-          id="button_pass_delete"
-          onClick={this.props.onDeleteButtonClick}
-          className={`${classes.buttonWidth} ${classes.buttonAlign}`}
-        >
-          <Hidden xsDown>{t('actions.delete')}</Hidden>
-        </RedButton>
+        {!!this.props.onDeleteButtonClick && (
+          <RedButton
+            id="button_pass_delete"
+            onClick={this.props.onDeleteButtonClick}
+            className={`${classes.buttonWidth} ${classes.buttonAlign}`}
+          >
+            <Hidden xsDown>{t('actions.delete')}</Hidden>
+          </RedButton>
+        )}
       </div>
     );
   };

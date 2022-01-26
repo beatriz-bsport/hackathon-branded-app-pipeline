@@ -65,7 +65,9 @@ export const PaymentPackFormGeneral = (props: Props) => {
             <div className={classes.row}>
               <WarningIcon color="error" />
               <Typography variant="body1" color="error">
-                {t('addPaymentPack.migration')}
+                {initial.template_instance
+                  ? t('addPaymentPack.franchise')
+                  : t('addPaymentPack.migration')}
               </Typography>
             </div>
           </Grid>
@@ -86,6 +88,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
             required
             label={t('addPaymentPack.name')}
             helperText={t('addPaymentPack.namePaymentPack')}
+            disabled={!!initial?.template_instance}
           />
         </Grid>
         <Grid item xs={12}>

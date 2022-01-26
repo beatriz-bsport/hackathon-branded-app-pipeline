@@ -134,6 +134,7 @@ export type PrivatePass = {
   company: number;
   category: number;
   ordering_in_category: number;
+  template_instance: number;
 };
 
 export type PrivatePassWithDetailedPrivateServices = PrivatePass & {
@@ -161,6 +162,7 @@ export type PrivatePassWithCompatibility = {
   company: number;
   category: number;
   ordering_in_category: number;
+  template_instance: number;
 };
 
 export type PrivateConsumerPass = {

@@ -295,7 +295,9 @@ export class PaymentPackDetail extends Component<Props, State> {
           <PaymentPackCard
             pack={pack}
             onEditButtonClick={() => this.requestEdit(pack)}
-            onDeleteButtonClick={() => this.requestDelete(pack)}
+            onDeleteButtonClick={
+              pack.template_instance ? null : () => this.requestDelete(pack)
+            }
             snackbarSuccess={this.props.snackbarSuccess}
             onScaleCredit={
               !!this.props.pack &&

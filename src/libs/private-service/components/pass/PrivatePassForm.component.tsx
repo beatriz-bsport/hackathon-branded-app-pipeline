@@ -32,6 +32,7 @@ import {
 
 import * as Yup from 'yup';
 import { Form, withFormik, FieldArray, FormikProps } from 'formik';
+import WarningIcon from '@material-ui/icons/Warning';
 import { OptionCallback } from '../../../../state/types';
 import PaymentMethodSelectorField from '../../../payment/components/PaymentMethodSelectorField.component';
 
@@ -154,6 +155,14 @@ export const PrivatePassForm = (props: Props) => {
 
   return (
     <Form className={classes.container}>
+      {!!props.initial?.template_instance && (
+        <div className={classes.row}>
+          <WarningIcon color="error" />
+          <Typography variant="body1" color="error">
+            {t('privatePass.form.franchise')}
+          </Typography>
+        </div>
+      )}
       <div className={classes.categoryBlock}>
         <div className={classes.flexRowCenter}>
           <InfoIcon className={classes.iconLeft} />
@@ -167,6 +176,7 @@ export const PrivatePassForm = (props: Props) => {
           fullWidth
           label={`${t('privatePass.form.name.label')}*`}
           helperText={t('privatePass.form.name.helperText')}
+          disabled={!!props.initial?.template_instance}
         />
         <div className={classes.fieldBlock}>
           <PrivatePassCategorySelector
@@ -197,6 +207,7 @@ export const PrivatePassForm = (props: Props) => {
             label={t('privatePass.form.price.label')}
             className={classes.priceField}
             helperText={t('privatePass.form.price.helperText')}
+            disabled={!!props.initial?.template_instance}
           />
           <PercentField
             name="tax"
@@ -210,6 +221,7 @@ export const PrivatePassForm = (props: Props) => {
               endAdornment: <InputAdornment position="end">%</InputAdornment>,
             }}
             className={classes.taxField}
+            disabled={!!props.initial?.template_instance}
           />
         </div>
 
@@ -217,6 +229,7 @@ export const PrivatePassForm = (props: Props) => {
           <SwitchField
             name="manager_only"
             label={t('privatePass.form.managerOnly.label')}
+            disabled={!!props.initial?.template_instance}
           />
           <SwitchField
             name="new_member_only"
@@ -650,6 +663,16 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
     maxWidth: 600,
+  },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    paddingTop: theme.spacing(4),
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(4),
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: theme.spacing(2),
   },
 }));
 

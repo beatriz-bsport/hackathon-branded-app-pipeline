@@ -12,7 +12,7 @@ const exceptionMessageRegexpToIgnore = [
   /Object Not Found Matching Id/i,
   /Object Not Found Matching Id/i,
   /Cannot read properties of null \(reading 'document'\)/, // INTERCOPM
-  /Error: timeout of 0ms exceeded/, // RANDOM INTERNET DISCONNECT
+  /timeout of 0ms exceeded/, // RANDOM INTERNET DISCONNECT
   /find variable: _AutofillCallbackHandler/, // FACEBOOK BROWSER
   /find variable: jQuery/,
   /jQuery is not defined/,

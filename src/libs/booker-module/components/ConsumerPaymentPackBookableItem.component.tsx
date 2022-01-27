@@ -11,10 +11,10 @@ interface Props {
 }
 
 const ConsumerPaymentPackItem = (props: Props) => {
-  const classes = useStyles(['paymentPack']);
-  const { t } = useTranslation();
+  const classes = useStyles();
+  const { t } = useTranslation(['paymentPack']);
 
-  const expireDate = `${t('paymentPack:consumer.expiresOn')}${formatAsDate(
+  const expireDate = `${t('consumer.expiresOn')}${formatAsDate(
     props.consumerPaymentPack.ending_date,
   )}`;
 

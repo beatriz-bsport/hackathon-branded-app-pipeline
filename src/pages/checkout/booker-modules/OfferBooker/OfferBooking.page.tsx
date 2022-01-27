@@ -26,7 +26,9 @@ import Analytics from '#components/analytics/Analytics.component';
 import { RootState } from '../../../../reducers';
 import ConsumerAppBarContainer from '../../ConsumerAppBar.container';
 
-import themeSelectors from '#libs/theme/selectors';
+import themeSelectors, {
+  getCurrencyDisplayWithPrice,
+} from '#libs/theme/selectors';
 
 import {
   getOfferById,
@@ -427,13 +429,17 @@ class OfferBooking extends React.PureComponent<Props, State> {
 
     let price = '';
     if (this.state.selectedPack?.paymentPack) {
-      price = t('paymentPack:specifications.price', {
-        price: this.state.selectedPack.paymentPack.price,
-      });
+      price = getCurrencyDisplayWithPrice(
+        (
+          Math.round(this.state.selectedPack.paymentPack.price * 100) / 100
+        ).toFixed(2),
+      );
     } else if (this.state.selectedPack?.paymentPackCombo) {
-      price = t('paymentPack:specifications.price', {
-        price: this.state.selectedPack.paymentPackCombo.price,
-      });
+      price = getCurrencyDisplayWithPrice(
+        (
+          Math.round(this.state.selectedPack.paymentPackCombo.price * 100) / 100
+        ).toFixed(2),
+      );
     }
 
     const isRegisteringForWaitingList = this.getIsRegisteringForWaitingList();

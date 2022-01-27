@@ -9,6 +9,8 @@ import { withTranslation, TFunction } from 'react-i18next';
 
 import type { PrivatePass } from '../../types';
 
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+
 type Props = {
   private_pass: PrivatePass,
   onClick: () => void,
@@ -29,7 +31,9 @@ export const PrivatePassBookerListItem = (props: Props) => {
       />
       <Button color="primary" variant="outlined" onClick={props.onClick}>
         <AddShoppingCartIcon className={classes.leftIcon} />
-        {t('bookerModule.buyPass', { price: private_pass.price })}
+        {getCurrencyDisplayWithPrice(
+          (Math.round(private_pass.price * 100) / 100).toFixed(2),
+        )}
       </Button>
     </ListItem>
   );

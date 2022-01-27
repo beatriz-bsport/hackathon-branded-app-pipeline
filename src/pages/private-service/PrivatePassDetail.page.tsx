@@ -15,6 +15,8 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { CircularProgress, Theme, Typography } from '@material-ui/core';
 import { push as pushRouter } from 'connected-react-router';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import WarningIcon from '@material-ui/icons/Warning';
 import themeSelectors from '#libs/theme/selectors';
 import { snackbarSuccess } from '#libs/snackbar/actions';
 
@@ -49,6 +51,7 @@ import {
   deletePrivatePassMassExtension,
   fetchAllPrivateSlots,
   fetchAllPrivatePassCategory,
+  isPrivatePassUsedInCombo,
 } from '#libs/private-service/actions';
 import { fetchFilteredMembers as fetchFilteredMembersActions } from '#libs/member/actions';
 import PrivatePassCard from '#libs/private-service/components/pass/PrivatePassCard.component';
@@ -230,7 +233,10 @@ export class PrivatePassDetails extends Component<Props> {
                 onEditButtonClick={() => this.props.setOpenEditForm(true)}
                 onDeleteButtonClick={
                   !this.props.privatePass?.template_instance &&
-                  (() => this.props.setOpenDeletePassDialog(privatePass.id))
+                  (() => {
+                    this.props.isPrivatePassUsedInCombo(privatePass.id);
+                    this.props.setOpenDeletePassDialog(privatePass.id);
+                  })
                 }
                 isManager
               />
@@ -277,7 +283,10 @@ export class PrivatePassDetails extends Component<Props> {
           onEdit={() => this.props.setOpenEditForm(true)}
           onDelete={
             !this.props.privatePass?.template_instance &&
-            (() => this.props.setOpenDeletePassDialog(this.props.id))
+            (() => {
+              this.props.isPrivatePassUsedInCombo(privatePass.id);
+              this.props.setOpenDeletePassDialog(this.props.id);
+            })
           }
         />
 
@@ -385,7 +394,20 @@ export class PrivatePassDetails extends Component<Props> {
 
         <Dialog open={!!this.props.openDeletePassDialog}>
           <DialogTitle>{t('privatePass.delete.title')}</DialogTitle>
-          <DialogContent>{t('privatePass.delete.explain')}</DialogContent>
+          <DialogContent>
+            {this.props.archivationWarning[this.props.openDeletePassDialog]
+              ?.used_in_combo && (
+              <DialogContentText className={classes.warningDelete}>
+                <WarningIcon
+                  fontSize="large"
+                  color="error"
+                  className={classes.warningIcon}
+                />
+                <Typography>{t('privatePass.delete.warning')}</Typography>
+              </DialogContentText>
+            )}
+            {t('privatePass.delete.explain')}
+          </DialogContent>
           <DialogActions>
             <Button onClick={() => this.props.setOpenDeletePassDialog(null)}>
               {t('privatePass.delete.cancel')}
@@ -445,6 +467,12 @@ const styles = (theme: Theme) => ({
   compatiblePSCard: {
     marginTop: theme.spacing(3),
   },
+  warningDelete: {
+    display: 'flex',
+  },
+  warningIcon: {
+    marginRight: theme.spacing(2),
+  },
 });
 
 const mapStateToProps = (state: RootState, { id }: { id: number }) => ({
@@ -479,6 +507,7 @@ const mapStateToProps = (state: RootState, { id }: { id: number }) => ({
   smartLists: getAllSmartList(state),
   smartListLoading: state.smartList.isLoading,
   tagCategories: getTagCategories(state),
+  archivationWarning: state.privateService.privatePass.archivationWarning,
 });
 
 const mapDispatchToProps = {
@@ -524,6 +553,7 @@ const mapDispatchToProps = {
   getSmartLists: fetchAllSmartLists,
   goToSmartlist: () => pushRouter('/smart-list'),
   fetchTagList,
+  isPrivatePassUsedInCombo,
 };
 
 const mapWithHandlers = {

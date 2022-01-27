@@ -28,6 +28,7 @@ import {
   fetchShopItem,
   createOrUpdateShopItem,
   deleteItem as deleteShopItem,
+  isShopItemUsedInCombo,
 } from '../../libs/shop/actions/shopitem';
 import { snackbarSuccess } from '../../libs/snackbar/actions';
 
@@ -63,6 +64,8 @@ type Props = {
 
   t: TFunction,
   classes: Object,
+  isShopItemUsedInCombo: (id: number) => void,
+  archivationWarning: { [id: number]: { used_in_combo: boolean } },
 };
 
 type State = { editOpen: boolean, provisionFormOpen: boolean };
@@ -111,6 +114,7 @@ export class ShopItemDetail extends Component<Props, State> {
   };
 
   requestDelete = () => {
+    this.props.isShopItemUsedInCombo(this.props.shopitem.id);
     this.setState({ deleteModalOpen: true });
   };
 
@@ -205,6 +209,10 @@ export class ShopItemDetail extends Component<Props, State> {
         <Dialog open={this.state.deleteModalOpen}>
           <ShopItemDeleteDialog
             shopitem={this.props.shopitem}
+            isUsedInCombo={
+              this.props.archivationWarning[this.props.shopitem?.id]
+                ?.used_in_combo || false
+            }
             onCancel={this.closeDeleteModal}
             onSubmit={this.deleteShopItem}
           />
@@ -239,6 +247,7 @@ export default compose(
     (state, { id }) => ({
       shopitem: shopSelectors.getShopitem(state, id),
       provision: state.shop.provision,
+      archivationWarning: state.shop.shopItem.combo.archivationWarning,
     }),
     {
       fetchShopItem,
@@ -248,6 +257,7 @@ export default compose(
       createOrUpdateProvision,
       deleteShopItem,
       goToShopList: () => push('/shop'),
+      isShopItemUsedInCombo,
     },
   ),
   withTitle(({ shopitem }) => (shopitem ? shopitem.name : '')),

@@ -63,6 +63,7 @@ import {
   scalePaymentPackCredit,
   createOrUpdate as createOrUpdatePaymentPackAction,
   fetchAllPaymentPackCategory,
+  isPaymentPackUsedInCombo,
 } from '#libs/payment-packs/actions';
 import {
   fetchMarketingNotificationList as fetchMarketingNotificationListAction,
@@ -214,6 +215,7 @@ export class PaymentPackDetail extends Component<Props, State> {
   };
 
   deletePaymentPack = async (id: number) => {
+    this.props.isPaymentPackUsedInCombo(id);
     this.props.updatePaymentPack(id, { disabled: true });
     this.setState({ paymentPackToDeleteId: null });
   };
@@ -406,6 +408,10 @@ export class PaymentPackDetail extends Component<Props, State> {
           onDelete={() =>
             this.deletePaymentPack(this.state.paymentPackToDeleteId)
           }
+          isUsedInCombo={
+            this.props.archivationWarning[this.state.paymentPackToDeleteId]
+              ?.used_in_combo || false
+          }
           consumerPackSummary={
             this.state.paymentPackToDeleteId ? (
               <PaginatedConsumerPackList
@@ -549,6 +555,7 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     tagCategories: getTagCategories(state),
     videoCategories: state.video.filterableParams.items.SCTs,
     companyId: state.theme.theme.company,
+    archivationWarning: state.paymentPack.archivationWarning,
   };
 };
 
@@ -597,6 +604,7 @@ const mapDispatchToProps = {
   createOrUpdatePaymentPackAction,
   fetchTagList,
   fetchVideoFilterableParams,
+  isPaymentPackUsedInCombo,
 };
 
 const mapWithHandlers = {

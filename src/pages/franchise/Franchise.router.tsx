@@ -5,7 +5,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { compose, withHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
-import { CircularProgress, MuiThemeProvider } from '@material-ui/core';
+import { MuiThemeProvider } from '@material-ui/core';
 
 import asyncComponent from '../../AsyncComponent';
 import { getAuthToken } from '../../http';
@@ -62,6 +62,9 @@ const FranchisePrivatePassTemplateRouter = asyncComponent(
 const WidgetGeneratorPage = asyncComponent(
   () => import('../settings/WidgetGenerator.page'),
 );
+const LoadingBackoffice = asyncComponent(
+  () => import('../../components/navigation/LoadingBackoffice.component'),
+);
 
 type OwnProps = {
   disconnect: () => void;
@@ -99,7 +102,9 @@ const FranchiseRouter = (props: Props) => {
     return <Redirect to="/login/signout" />;
   }
 
-  if (!franchiseId) return <CircularProgress />;
+  if (!franchiseId) {
+    return <LoadingBackoffice />;
+  }
 
   return (
     <MuiThemeProvider

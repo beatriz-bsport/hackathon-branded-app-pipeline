@@ -576,7 +576,8 @@
       "discard": "Annuler",
       "bookAgain": "Réserver de nouveau",
       "accessLive": "Accéder au live",
-      "spotNumber": "Place {{count}}"
+      "spotNumber": "Place {{count}}",
+      "isUnpaid": "Impayé"
     },
     "dashboard": {
       "favoriteTitle": "Suggestion de réservation",
@@ -3421,6 +3422,7 @@
         "monthNoDay": "Cette carte sera valide pendant {{ duration_month }} mois",
         "day": "Cette carte sera valide pendant {{ duration_day }} jours"
       },
+      "franchise": "Cette carte est une carte partagée par le compte franchiseur. Certains éléments ont été définis par le compte franchiseur et ne sont pas modifiables",
       "migration": "Cette carte de cours est issue d'une migration, certains champs ne sont pas modifiable pour respecter l'historique. Les activités/catégories compatibles restent modifiables.",
       "creditWarning": "Si vous modifiez le nombre de crédits, toutes les cartes existantes seront affectées.",
       "billing": "À la facturation",
@@ -4042,6 +4044,8 @@
       "isCancelledDate": "Annulé le {{-date}} à {{time}}",
       "isRefunded": "Remboursé",
       "notRefunded": "Non-Remboursé",
+      "isUnpaid": "Impayé",
+      "bookingIsUnpaid": "Réservation impayée",
       "attachCoach": {
         "title": "Attribution au professeur",
         "explain": "Choisissez un professeur pour lui attribuer ce RDV et l'ajouter à son calendrier",
@@ -4214,6 +4218,13 @@
         "compatiblePassTitle": "Cartes valables sur cette séance",
         "emptyPassList": "Aucune carte compatible, veuillez contacter votre club"
       },
+      "unpaidBooking": {
+        "book": "Réserver",
+        "helper": "Réserver sans payer puis acheter plus tard la carte compatible.",
+        "header": "Payer plus tard",
+        "dialogHelper": "Avec cette option réservez votre séance sans la payer tout de suite. Lors de votre prochain achat d’une carte compatible avec cette séance, celle-ci sera automatiquement débitée de {{ credits }} crédit(s).",
+        "isUnpaid": "Impayé"
+      },
       "useCredit": "Réserver",
       "private_pass": { "credits": "{{ credits }} crédit" },
       "buyPass": "{{ price, price }}",
@@ -4324,6 +4335,7 @@
       },
       "form": {
         "title": "Carte de rendez-vous",
+        "franchise": "Cette carte est une carte partagée par le compte franchiseur. Certains éléments ont été définis par le compte franchiseur et ne sont pas modifiables",
         "categoryTitle": {
           "info": "Informations générales",
           "paymentMeans": "Moyens de paiement",
@@ -4462,7 +4474,19 @@
         "coach": { "label": "Professeur", "isEmpty": "Aucun professeur configuré !" },
         "establishment": { "label": "Salle" },
         "description": { "label": "Description du service" },
-        "actions": { "cancel": "Annuler", "submit": "Enregistrer" }
+        "actions": { "cancel": "Annuler", "submit": "Enregistrer" },
+        "unpaidBooking": {
+          "title": "Payer plus tard",
+          "label": "Autoriser la réservation sans payer",
+          "helperText": "En activant cette fonctionnalité vos membres pourront réserver ce rendez-vous sans avoir à acheter/utiliser une carte. Le nombre de crédits du rendez-vous sera automatiquement débiter de la prochaine carte compatible achetée.",
+          "tag": {
+            "header": "Tags",
+            "helper": "Utilisez les tags pour rendre accessible la réservation sans payer seulement à certain membre.  Tous les membres possèdant un des tags dans “Autorisé” pourront réserver sans payer. Ou bien tous les membres possèdant un des tags dans “Non-autorisé” ne pourront pas réserver sans payer.",
+            "allowed": "Autorisé",
+            "notAllowed": "Non-autorisé",
+            "doNotSelectToAllowAllMembers": "Laisser vide pour autoriser à tous les membres"
+          }
+        }
       },
       "parameters": {
         "description": "Description",
@@ -4735,7 +4759,8 @@
       "payment_sumup": "Totaux paiements",
       "private_cpasses": "Carte RDV",
       "shop": "Magasin",
-      "private_bookings": "Reservations (rendez-vous)",
+      "private_bookings": "Réservations (rendez-vous)",
+      "unpaid_private_bookings": "Réservations Impayées (rendez-vous)",
       "discount": "Promotions",
       "subscription": "Souscription",
       "first_booking": "Première séance (collectif)",
@@ -5787,7 +5812,7 @@
       "applyGiftcard": {
         "success": "Paiement par carte cadeau validé",
         "error": "Impossible de payer le montant demandé avec cette carte cadeau",
-        "errors": { "12103": "Impossible de régler cette facture avec cette carte cadeau" }
+        "errors": { "45001": "Impossible de régler cette facture avec cette carte cadeau" }
       }
     },
     "zoom": { "created": { "success": "Compte Zoom lié avec succès", "error": "Erreur lors du lien du compte Zoom" } },

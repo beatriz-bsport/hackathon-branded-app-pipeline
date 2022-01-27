@@ -31,8 +31,11 @@ const {
 
 const {
   PENDING_PAYMENT_INTENT_OF_PAYMENT_GROUP_BLOCKS_OTHER_PAYMENT_GROUP_CREATION,
-  INVOICE_PAYMENT_BY_GIFTCARD_ERROR,
 } = require('@bsport/common/lib/master-data/payment-group');
+
+const {
+  INVOICE_PAYMENT_BY_GIFTCARD_ERROR,
+} = require('@bsport/common/lib/master-data/giftcard');
 
 exports.default = {
   canNotBuyErrorCode: {

@@ -194,6 +194,8 @@ exports.default = {
     isCancelledDate: 'Annulé le {{-date}} à {{time}}',
     isRefunded: 'Remboursé',
     notRefunded: 'Non-Remboursé',
+    isUnpaid: 'Impayé',
+    bookingIsUnpaid: 'Réservation impayée',
     attachCoach: {
       title: 'Attribution au professeur',
       explain:
@@ -415,6 +417,7 @@ exports.default = {
       coach: 'Veuillez sélectionner le professeur',
       establishment: 'Veuillez sélectionner le lieu',
     },
+
     cancel: 'Annuler',
     confirm: 'Confirmer',
     title: 'Réservation RDV',
@@ -429,6 +432,14 @@ exports.default = {
         'Vous ne possédez pas de cartes valable avec suffisamment de crédit',
       compatiblePassTitle: 'Cartes valables sur cette séance',
       emptyPassList: 'Aucune carte compatible, veuillez contacter votre club',
+    },
+    unpaidBooking: {
+      book: 'Réserver',
+      helper: 'Réserver sans payer puis acheter plus tard la carte compatible.',
+      header: 'Payer plus tard',
+      dialogHelper:
+        'Avec cette option réservez votre séance sans la payer tout de suite. Lors de votre prochain achat d’une carte compatible avec cette séance, celle-ci sera automatiquement débitée de {{ credits }} crédit(s).',
+      isUnpaid: 'Impayé',
     },
     useCredit: 'Réserver',
     private_pass: {
@@ -571,6 +582,8 @@ exports.default = {
     },
     form: {
       title: 'Carte de rendez-vous',
+      franchise:
+        'Cette carte est une carte partagée par le compte franchiseur. Certains éléments ont été définis par le compte franchiseur et ne sont pas modifiables',
       categoryTitle: {
         info: 'Informations générales',
         paymentMeans: 'Moyens de paiement',
@@ -801,6 +814,21 @@ exports.default = {
       actions: {
         cancel: 'Annuler',
         submit: 'Enregistrer',
+      },
+      unpaidBooking: {
+        title: 'Payer plus tard',
+        label: 'Autoriser la réservation sans payer',
+        helperText:
+          'En activant cette fonctionnalité vos membres pourront réserver ce rendez-vous sans avoir à acheter/utiliser une carte. Le nombre de crédits du rendez-vous sera automatiquement débiter de la prochaine carte compatible achetée.',
+        tag: {
+          header: 'Tags',
+          helper:
+            'Utilisez les tags pour rendre accessible la réservation sans payer seulement à certain membre.  Tous les membres possèdant un des tags dans “Autorisé” pourront réserver sans payer. Ou bien tous les membres possèdant un des tags dans “Non-autorisé” ne pourront pas réserver sans payer.',
+          allowed: 'Autorisé',
+          notAllowed: 'Non-autorisé',
+          doNotSelectToAllowAllMembers:
+            'Laisser vide pour autoriser à tous les membres',
+        },
       },
     },
     parameters: {

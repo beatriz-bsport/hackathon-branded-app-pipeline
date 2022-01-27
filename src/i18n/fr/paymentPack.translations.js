@@ -490,6 +490,8 @@ exports.default = {
       monthNoDay: 'Cette carte sera valide pendant {{ duration_month }} mois',
       day: 'Cette carte sera valide pendant {{ duration_day }} jours',
     },
+    franchise:
+      'Cette carte est une carte partagée par le compte franchiseur. Certains éléments ont été définis par le compte franchiseur et ne sont pas modifiables',
     migration:
       "Cette carte de cours est issue d'une migration, certains champs ne sont pas modifiable pour respecter l'historique. Les activités/catégories compatibles restent modifiables.",
     creditWarning:

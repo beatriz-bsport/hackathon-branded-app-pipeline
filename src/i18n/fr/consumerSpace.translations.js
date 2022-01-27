@@ -43,6 +43,7 @@ exports.default = {
     bookAgain: 'Réserver de nouveau',
     accessLive: 'Accéder au live',
     spotNumber: 'Place {{count}}',
+    isUnpaid: 'Impayé',
   },
   dashboard: {
     favoriteTitle: 'Suggestion de réservation',

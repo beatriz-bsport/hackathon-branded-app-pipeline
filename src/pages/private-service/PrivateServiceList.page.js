@@ -19,7 +19,7 @@ import withTitle from '../../hocs/with-title.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 
-import PrivateServiceFormDialog from '../../libs/private-service/components/service/PrivateServiceFormDialog.component';
+import PrivateServiceFormDrawer from '../../libs/private-service/components/service/PrivateServiceFormDrawer.component';
 import PrivateServiceListWithGroup from '../../libs/private-service/components/service/PrivateServiceListWithGroup.component';
 import PrivateServiceGroupFormDialog from '../../libs/private-service/components/service-group/PrivateServiceGroupFormDialog.component';
 
@@ -54,6 +54,9 @@ import { fetchMarketingNotificationList } from '../../libs/marketing/actions';
 import { withPrivateBookingNotification } from '../../libs/marketing/selectors';
 
 import type { PrivateService } from '../../libs/private-service/types';
+import { getallTagsWithTagGroup } from '#libs/tag/selectors';
+
+import type { Tag, TagGroup } from '#libs/tag/types';
 
 type Props = {
   fetchAllPrivateServices: () => void,
@@ -95,6 +98,7 @@ type Props = {
   fetchMarketingNotificationList: (params: any) => void,
   allCoaches: Array<AssociatedCoach>,
   availablePrivateServices: Array<PrivateService>,
+  allTagsWithTagGroup: Array<Tag<TagGroup>>,
 };
 
 type State = {
@@ -231,7 +235,7 @@ export class PrivateServiceList extends React.Component<Props, State> {
           />
         )}
         {this.props.openEditForm || this.props.openCreateForm ? (
-          <PrivateServiceFormDialog
+          <PrivateServiceFormDrawer
             initial={this.props.openEditForm}
             open={this.props.openEditForm || this.props.openCreateForm}
             onCancel={this.closeForm}
@@ -241,6 +245,11 @@ export class PrivateServiceList extends React.Component<Props, State> {
             establishments={this.props.availableEstablishments}
             serviceGroupList={this.props.serviceGroupList}
             onAddServiceGroup={this.props.onOpenServiceGroupCreateForm}
+            tagList={
+              this.props.allTagsWithTagGroup
+                ? [...this.props.allTagsWithTagGroup]
+                : []
+            }
           />
         ) : null}
         <Fab
@@ -326,6 +335,7 @@ export default compose(
       privateServiceAvailableByGroup: getPrivateServiceListByGroup(state),
       selectedPrivateService: getPrivateServiceById(state, privateServiceId),
       allCoaches: getAllCoaches(state),
+      allTagsWithTagGroup: getallTagsWithTagGroup(state),
     }),
     {
       fetchAllPrivateServices: () =>

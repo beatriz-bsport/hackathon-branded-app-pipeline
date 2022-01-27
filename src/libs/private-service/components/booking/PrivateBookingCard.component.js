@@ -25,6 +25,7 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 
 import Divider from '@material-ui/core/Divider';
+import WarningIcon from '@material-ui/icons/Warning';
 import MemberMinimalListItem from '../../../member/components/MemberMinimalListItem.component';
 import type { PrivateBookingWithRelatedFields } from '../../types';
 import RedButton from '../../../../components/button/RedButton.component';
@@ -98,7 +99,7 @@ export const PrivateBookingCard = (props: Props) => {
   const applyGiftcardOnInvoice = (
     invoiceUuid: string,
     consumerGiftCardId: number,
-    amount: numberlike,
+    amount: number,
     options: OptionCallback,
   ) => {
     return props.applyGiftcardOnInvoice(
@@ -220,6 +221,20 @@ export const PrivateBookingCard = (props: Props) => {
               (private_booking.first_in_company ? ' ★' : '')}
           </Typography>
         </div>
+        {props.private_booking.is_unpaid && (
+          <ListItem dense>
+            <ListItemIcon>
+              <WarningIcon color="error" />
+            </ListItemIcon>
+            <ListItemText
+              primary={
+                <Typography color="error">
+                  {t('privateBooking.bookingIsUnpaid')}
+                </Typography>
+              }
+            />
+          </ListItem>
+        )}
         {!!private_booking.address && (
           <ListItem dense>
             <ListItemIcon>

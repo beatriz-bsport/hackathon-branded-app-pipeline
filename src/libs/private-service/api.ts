@@ -406,6 +406,12 @@ export const fetchCompatiblePrivatePass = (
   );
 };
 
+export const checkUnpaidPrivateBookingEligility = (privateSlotId: number) => {
+  return postAuth(
+    `${API_V1_URI}/private_service/private_slot/${privateSlotId}/check_unpaid_booking_eligibility/`,
+  );
+};
+
 export const fetchPrivateBookings = (params: any) => {
   return getAuth(
     `${API_V1_URI}/private_service/private_booking/${buildUrlParams(params)}`,
@@ -448,6 +454,8 @@ export const registerPrivateBookings = ({
   associated_establishment,
   establishment,
   notify_member,
+  unpaid,
+  consumer,
 }: {
   private_slot: number;
   private_consumer_pass: number;
@@ -458,6 +466,8 @@ export const registerPrivateBookings = ({
   coach: number;
   establishment?: number;
   notify_member: boolean;
+  unpaid: boolean;
+  consumer: number;
 }) => {
   return postAuth(
     `${API_V1_URI}/private_service/private_consumer_pass/${private_consumer_pass}/book/`,
@@ -470,6 +480,8 @@ export const registerPrivateBookings = ({
       associated_establishment,
       establishment,
       notify_member,
+      unpaid,
+      consumer,
     },
   );
 };

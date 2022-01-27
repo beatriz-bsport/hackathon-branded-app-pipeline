@@ -135,6 +135,7 @@ export type PrivatePass = {
   category: number;
   ordering_in_category: number;
   template_instance: number;
+  is_unpaid_private_booking_integration: boolean;
 };
 
 export type PrivatePassWithDetailedPrivateServices = PrivatePass & {
@@ -198,6 +199,7 @@ export type PrivateBooking = {
   was_refunded: boolean;
   timezone_name: string;
   date_canceled: string;
+  is_unpaid: boolean;
 };
 
 export type PrivateBookingPreview = {
@@ -327,6 +329,9 @@ export interface PrivateServiceState {
   privateSlot: ErrorAndLoading & {
     byId: { [id: string]: PrivateSlot };
     createOrUpdate: ErrorAndLoading;
+    unpaidBookingAvailability: {
+      byId: { [bookingId: number]: boolean };
+    };
   };
   availabilitySlot: ErrorAndLoading & {
     existsByResourceTypeById: {

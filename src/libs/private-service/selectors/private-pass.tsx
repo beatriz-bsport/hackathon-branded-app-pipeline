@@ -97,7 +97,10 @@ export const getAvailablePrivatePasses: (
   State,
 ) => Array<PrivatePassWithService> = createSelector(
   getPrivatePassListBase,
-  (passList) => passList.filter((p) => p.available),
+  (passList) =>
+    passList.filter(
+      (p) => p.available && !p.is_unpaid_private_booking_integration,
+    ),
 );
 
 export const getUnavailablePrivatePasses: (

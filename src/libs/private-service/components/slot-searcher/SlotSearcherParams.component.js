@@ -44,9 +44,10 @@ type State = {
   privateServiceId: ?number,
   coaches_selected: Array<number>,
   establishment_selected: number,
+  privateSlotCredit: ?number,
 };
 
-export class PrivateServiceBooker extends React.Component<Props, State> {
+export class SlotSearcherParams extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     if (props.private_service && props.private_slot) {
@@ -59,6 +60,7 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
         privateServiceId: props.private_service,
         coaches_selected: props.coach ? [props.coach] : [],
         establishment_selected: props.establishment || null,
+        privateSlotCredit: null,
       };
     } else {
       this.state = {
@@ -67,6 +69,7 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
         privateServiceId: null,
         coaches_selected: [],
         establishment_selected: null,
+        privateSlotCredit: null,
       };
     }
   }
@@ -125,6 +128,7 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
       privateSlotId,
       coaches_selected,
       establishment_selected,
+      privateSlotCredit,
     } = this.state;
     if (this.props.onConfigurationChange) {
       this.props.onConfigurationChange({
@@ -135,6 +139,7 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
         ...(this.props.coachUnique && coaches_selected.length
           ? { coach: coaches_selected[coaches_selected.length - 1] }
           : {}),
+        privateSlotCredit,
       });
     }
   };
@@ -182,7 +187,11 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
     },
   });
 
-  handleServiceChange = (privateServiceId, privateSlotId) => {
+  handleServiceChange = (
+    privateServiceId: number,
+    privateSlotId: number,
+    privateSlotCredit: number,
+  ) => {
     const private_service = this.props.private_services.find(
       (ps) => ps.id === privateServiceId,
     );
@@ -191,6 +200,7 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
         privateServiceId,
         privateSlotId,
         private_service,
+        privateSlotCredit,
       },
       () => {
         this.handleCoachChange([]);
@@ -303,4 +313,4 @@ const styles = (theme) => ({
 export default compose(
   withTranslation(['privateService']),
   withStyles(styles),
-)(PrivateServiceBooker);
+)(SlotSearcherParams);

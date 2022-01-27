@@ -34,6 +34,20 @@ i.Info {
   margin-right: 0.5rem;
   font-size: medium;
 }
+.UnpaidContainer {
+  position:absolute;
+  right: 0px;
+  top: 0px;
+  transition: all 0.2s ease-in-out;
+}
+
+i.UnPaid {
+  color: red;
+  margin-right: 0.5rem;
+  font-size: medium;
+  border-radius: 100%;
+  width: 10px;
+}
 
 .fc-bg-event {
   margin-right: -0px !important;

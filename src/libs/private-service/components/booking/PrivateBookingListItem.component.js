@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -10,7 +10,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import UpdateIcon from '@material-ui/icons/Update';
 import Typography from '@material-ui/core/Typography';
 import { compose } from 'recompose';
-import { withTranslation, useTranslation, TFunction } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 
@@ -18,12 +18,10 @@ import { getBookingStatusCode } from '../../../booking/utils';
 import { formatAsDatetime, formatAsTime } from '../../../../utils/datetime';
 
 type Props = {
-  t: TFunction,
   divider?: boolean,
   onClick?: () => void,
   selected?: boolean,
   private_booking: PrivateBooking,
-  classes: Object,
   onDelete?: () => void,
   onRestore?: () => void,
 };
@@ -35,6 +33,7 @@ export const PrivateBookingListItem = (props: Props) => {
     return '';
   };
   const { t } = useTranslation(['privateService']);
+  const classes = useStyles();
   return (
     <ListItem
       divider={!!props.divider}
@@ -43,30 +42,32 @@ export const PrivateBookingListItem = (props: Props) => {
       selected={!!props.selected}
       className={
         props.private_booking.booking_status_code !== BOOKING_STATUS_OK.id
-          ? props.classes.disabled
+          ? classes.disabled
           : null
       }
     >
       <ListItemText
         primary={
-          <div className={props.classes.rowPrimary}>
+          <div className={classes.rowPrimary}>
             <Typography variant="body2">
               {props.private_booking.name +
                 (props.private_booking.first_in_company ? ' ★' : '')}
             </Typography>
             <Typography color="primary">{getIsRecurrentBooking()}</Typography>
             <Typography variant="body2" inline>
-              {getBookingStatusCode(props.t, props.private_booking)}
+              {getBookingStatusCode(t, props.private_booking)}
             </Typography>
-            <Typography variant="body2" inline style={{ marginLeft: 'auto' }}>
-              {props.private_booking.booking_status_code !==
-                BOOKING_STATUS_OK.id &&
-                `${
-                  props.private_booking.was_refunded
-                    ? t('privateBooking.isRefunded')
-                    : t('privateBooking.notRefunded')
-                }`}
-            </Typography>
+            {props.private_booking.is_unpaid ? null : (
+              <Typography variant="body2" inline style={{ marginLeft: 'auto' }}>
+                {props.private_booking.booking_status_code !==
+                  BOOKING_STATUS_OK.id &&
+                  `${
+                    props.private_booking.was_refunded
+                      ? t('privateBooking.isRefunded')
+                      : t('privateBooking.notRefunded')
+                  }`}
+              </Typography>
+            )}
           </div>
         }
         secondary={
@@ -101,13 +102,20 @@ export const PrivateBookingListItem = (props: Props) => {
       />
       <ListItemSecondaryAction>
         {props.onRestore &&
+          !props.private_booking.is_unpaid &&
           props.private_booking.booking_status_code !==
             BOOKING_STATUS_OK.id && (
             <IconButton onClick={props.onRestore}>
               <UndoIcon />
             </IconButton>
           )}
-
+        {props.private_booking.is_unpaid && (
+          <IconButton disabled>
+            <Typography variant="body2" inline color="error">
+              {t('privateBooking.isUnpaid')}
+            </Typography>
+          </IconButton>
+        )}
         {props.onDelete ? (
           <IconButton onClick={props.onDelete}>
             <CancelIcon />
@@ -118,7 +126,7 @@ export const PrivateBookingListItem = (props: Props) => {
   );
 };
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   disabled: {
     backgroundColor: '#FFDDDD',
     '&:hover': {
@@ -133,9 +141,6 @@ const styles = (theme) => ({
       marginRight: theme.spacing(0.5),
     },
   },
-});
+}));
 
-export default compose(
-  withTranslation(['booking']),
-  withStyles(styles),
-)(PrivateBookingListItem);
+export default compose()(PrivateBookingListItem);

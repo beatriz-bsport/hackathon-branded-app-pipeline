@@ -40,6 +40,7 @@ import {
   fetchPrivateSlotRetrieve as fetchPrivateSlotRetrieveAPI,
   createOrUpdatePrivateSlot as createOrUpdatePrivateSlotAPI,
   deletePrivateSlot as deletePrivateSlotAPI,
+  checkUnpaidPrivateBookingEligility as checkUnpaidPrivateBookingEligilityAPI,
   // private-pass
   fetchPrivatePassList as fetchPrivatePassListAPI,
   fetchPrivatePass as fetchPrivatePassRetrieveAPI,
@@ -2617,5 +2618,34 @@ export function deletePrivatePassTemplateInstance(
       if (options && options.onError) options.onError(err);
     }
     dispatch(deletePrivatePassTemplateInstanceActions.isLoading(false));
+  };
+}
+
+export const privateSlotCheckUnpaidBookingEligibilityActions = {
+  error: createAction('PRIVATE_SLOT/UNPAID_BOOKING_ELIGIBILITY/ERROR'),
+  isLoading: createAction('PRIVATE_SLOT/UNPAID_BOOKING_ELIGIBILITY/IS_LOADING'),
+  success: createAction('PRIVATE_SLOT/UNPAID_BOOKING_ELIGIBILITY/SUCCESS'),
+};
+
+export function checkPrivateSlotUnpaidBookingEligibility(
+  privateSlodId: number,
+  options?: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(privateSlotCheckUnpaidBookingEligibilityActions.isLoading(true));
+    try {
+      await checkUnpaidPrivateBookingEligilityAPI(privateSlodId);
+      dispatch(
+        privateSlotCheckUnpaidBookingEligibilityActions.success(privateSlodId),
+      );
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      console.error(err);
+      dispatch(
+        privateSlotCheckUnpaidBookingEligibilityActions.error(privateSlodId),
+      );
+      if (options && options.onError) options.onError();
+    }
+    dispatch(privateSlotCheckUnpaidBookingEligibilityActions.isLoading(false));
   };
 }

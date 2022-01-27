@@ -29,8 +29,26 @@ export const getPrivateConsumerPassListWithCredit: (State) => Array<PrivateConsu
       (pcp) => pcp.used_credits < pcp.private_pass.credits,
     ),
   );
-
-// -------------------------
+export const excludeUnPaidPrivateConsumerPass = memoize(
+  (
+    selector: (
+      state: RootState,
+    ) => Array<PrivateConsumerPass> | PrivateConsumerPass,
+  ) =>
+    createSelector([selector], (pcpObject) => {
+      if (!pcpObject) return null;
+      if (!Array.isArray(pcpObject)) {
+        return pcpObject.private_pass &&
+          pcpObject.private_pass?.is_unpaid_private_booking_integration
+          ? null
+          : pcpObject;
+      }
+      return pcpObject.filter(
+        (pcp: PrivateConsumerPass) =>
+          !pcp.private_pass?.is_unpaid_private_booking_integration,
+      );
+    }),
+);
 
 const _getPrivateConsumerPassDict = (state) =>
   state.privateService.privateConsumerPass.byId;
@@ -88,5 +106,14 @@ export const getPrivateConsumerPassMassExtension = (state: RootState) => {
     (id) => {
       return state.privateService.privateConsumerPass.massExtension.byId[id];
     },
+  );
+};
+
+export const getUnPaidBookingAvailabilityForPrivateslot = (
+  state: RootState,
+  id: number,
+) => {
+  return (
+    state.privateService.privateSlot.unpaidBookingAvailability.byId[id] || false
   );
 };

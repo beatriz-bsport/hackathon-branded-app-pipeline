@@ -61,6 +61,7 @@ import {
   deletePrivatePassTemplateActions,
   retrievePrivatePassTemplateActions,
   isPrivatePassUsedInComboActions,
+  privateSlotCheckUnpaidBookingEligibilityActions,
 } from './actions';
 
 import { getResourceSlotsExistState } from './selectors/availability-slot';
@@ -84,6 +85,9 @@ const initialState: Seamless.Immutable<PrivateServiceState> =
       createOrUpdate: {
         loading: false,
         error: null,
+      },
+      unpaidBookingAvailability: {
+        byId: {},
       },
     },
     privateConsumerPass: {
@@ -1687,6 +1691,30 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
       return state.setIn(
         ['privatePass', 'archivationWarning', payload.id, 'used_in_combo'],
         payload.is_used_in_payment_combo,
+      );
+    },
+    [privateSlotCheckUnpaidBookingEligibilityActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['privateSlot', 'loading'], payload);
+    },
+    [privateSlotCheckUnpaidBookingEligibilityActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['privateSlot', 'unpaidBookingAvailability', 'byId', payload],
+        false,
+      );
+    },
+    [privateSlotCheckUnpaidBookingEligibilityActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['privateSlot', 'unpaidBookingAvailability', 'byId', payload],
+        true,
       );
     },
   },

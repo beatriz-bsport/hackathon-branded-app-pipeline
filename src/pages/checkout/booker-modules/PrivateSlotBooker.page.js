@@ -42,7 +42,10 @@ import PrivateServiceListItem from '../../../libs/private-service/components/ser
 import PrivateSlotListItem from '../../../libs/private-service/components/slot/PrivateSlotListItem.component';
 import { getPrivateSlot } from '../../../libs/private-service/selectors/private-slot';
 import { getPrivateService } from '../../../libs/private-service/selectors/private-service';
-import { getPrivateConsumerPassList } from '../../../libs/private-service/selectors/private-consumer-pass';
+import {
+  getPrivateConsumerPassList,
+  getUnPaidBookingAvailabilityForPrivateslot,
+} from '../../../libs/private-service/selectors/private-consumer-pass';
 import { getPrivatePassListWithPrivateService } from '../../../libs/private-service/selectors/private-pass';
 import {
   fetchPrivateSlot,
@@ -51,6 +54,7 @@ import {
   fetchCompatiblePrivateConsumerPass,
   registerPrivateBooking,
   fetchAllPrivatePassCategory,
+  checkPrivateSlotUnpaidBookingEligibility,
 } from '../../../libs/private-service/actions';
 import type {
   PrivateSlot,
@@ -113,6 +117,8 @@ type Props = {
   fetchProfile: () => void,
 
   auth: any,
+  checkPrivateSlotUnpaidBookingEligibility: (privateSlotId: number) => void,
+  compatibleWithUnpaidBooking: boolean,
 };
 
 type State = {
@@ -144,16 +150,19 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
     if (this.props.auth.authenticated) {
       this.props.fetchProfile();
     }
+    this.props.checkPrivateSlotUnpaidBookingEligibility(
+      this.props.privateSlotId,
+    );
   }
 
-  handleConsumerPassClick = (consumerPassId: number) => {
+  handleConsumerPassClick = (consumerPassId: number, unpaid?: boolean) => {
     this.setState({ processing: true });
     const { associated_establishment, associated_coach, establishment, date } =
       this.props.data;
     this.props.registerPrivateBooking(
       {
         private_slot: this.props.privateSlotId,
-        private_consumer_pass: consumerPassId,
+        private_consumer_pass: unpaid ? null : consumerPassId,
         address: this.state.address,
         date,
         date_start: date,
@@ -161,6 +170,7 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
         associated_establishment: associated_establishment || null,
         establishment: establishment || null,
         notify_member: true,
+        unpaid,
       },
       {
         onSuccess: () => {
@@ -282,6 +292,10 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
                   )}
                   onConsumerPassClick={this.handleConsumerPassClick}
                   onPrivatePassClick={this.handlePrivatePassClick}
+                  compatibleWithUnpaidBooking={
+                    this.props.compatibleWithUnpaidBooking
+                  }
+                  privateSlotCredit={this.props.privateSlot?.credit}
                 />
               )}
             </div>
@@ -379,6 +393,10 @@ export default compose(
       compatiblePrivatePassByCategory: getPrivatePassByCategoryWithPasses(
         getPrivatePassListWithPrivateService,
       )(state),
+      compatibleWithUnpaidBooking: getUnPaidBookingAvailabilityForPrivateslot(
+        state,
+        privateSlotId,
+      ),
       privateSlot: getPrivateSlot(state, privateSlotId),
       privateService: getPrivateService(state, privateServiceId),
       basket: getCurrentBasket(state),
@@ -406,6 +424,7 @@ export default compose(
       displaySnackbarError: () =>
         snackbarError('privateService:bookerModule.error'),
       goToConsumerHome: () => replace('/customer'),
+      checkPrivateSlotUnpaidBookingEligibility,
     },
   ),
 )(PrivateSlotPayment);

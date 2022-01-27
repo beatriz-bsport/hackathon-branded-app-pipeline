@@ -9,6 +9,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { withTranslation, TFunction } from 'react-i18next';
 
 import PrivateConsumerPassBookerListItem from './PrivateConsumerPassBookerListItem.component';
+import UnPrivateConsumerPassBookerListItem from './UnpaidPrivateConsumerPassBookerListItem.component';
 import PrivatePassBookerListItem from './PrivatePassBookerListItem.component';
 import type {
   PrivateConsumerPass,
@@ -22,7 +23,9 @@ type Props = {
   privateConsumerPassList: Array<PrivateConsumerPass>,
   privatePassByCategory: Array<PrivatePassCategoryWithPasses>,
   onPrivatePassClick: (privatePassId: number) => void,
-  onConsumerPassClick: (consumerPass: number) => void,
+  onConsumerPassClick: (consumerPass: number | null, unpaid?: boolean) => void,
+  compatibleWithUnpaidBooking: boolean,
+  privateSlotCredit?: number,
 };
 
 export const BookingCapabilities = (props: Props) => {
@@ -46,11 +49,21 @@ export const BookingCapabilities = (props: Props) => {
           </Typography>
         ) : null}
         <Paper>
+          {props.compatibleWithUnpaidBooking && (
+            <UnPrivateConsumerPassBookerListItem
+              private_consumer_pass={null}
+              key="unpaid_booking_pass"
+              onBook={() => props.onConsumerPassClick(null, true)}
+              compatibleWithUnpaidBooking={props.compatibleWithUnpaidBooking}
+              privateSlotCredit={props.privateSlotCredit}
+            />
+          )}
           {privateConsumerPassList.map((pcp) => (
             <PrivateConsumerPassBookerListItem
               private_consumer_pass={pcp}
               key={pcp.id}
               onBook={() => props.onConsumerPassClick(pcp.id)}
+              compatibleWithUnpaidBooking={props.compatibleWithUnpaidBooking}
             />
           ))}
         </Paper>

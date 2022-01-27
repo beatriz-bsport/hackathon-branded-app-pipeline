@@ -1,12 +1,10 @@
-// @flow
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import { compose } from 'recompose';
 import * as Yup from 'yup';
 import omit from 'lodash/omit';
-import { withFormik, FieldArray } from 'formik';
+import { withFormik, FieldArray, FormikProps } from 'formik';
 
-import { withTranslation, TFunction } from 'react-i18next';
+import { WithTranslation, useTranslation } from 'react-i18next';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import Slide from '@material-ui/core/Collapse';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -33,24 +31,54 @@ import {
   SwitchField,
 } from '../../../../components/forms';
 import ImageField from '../../../../components/forms/ImageField.component';
+import type { Coach } from '#libs/associated-coach/types';
+import type {
+  AssociatedEstablishment,
+  Establishment,
+} from '#libs/establishment/types';
+import type { Tag, TagGroup } from '#libs/tag/types';
+import type { PrivateServiceGroup } from '#libs/private-service/types';
+import PrivateServiceFormTag from './PrivateServiceFormTag.component';
 
-type Props = {
-  t: TFunction,
-  classes: Object,
-  values: PrivateServiceData,
-  establishments: Array<Establishment>,
-  coaches: Array<Coach>,
-  allCoaches: Array<Coach>,
-  onAddServiceGroup: ?() => void,
-  serviceGroupList: Array<PrivateServiceGroup>,
+export interface FormikValues {
+  cover_main: string;
+  name: string;
+  description: string;
+  color: string;
+  manager_only: boolean;
+  is_without_coach: boolean;
+  use_full_establishment_capacity: boolean;
+  coach_capacity_used: 1;
+  establishments: [];
+  coaches: [];
+  establishment_resource_type: string;
+  establishment_consumer_attribution: string;
+  coach_consumer_attribution: string;
+  last_discard_minutes: number;
+  last_booking_minutes: number;
+  availability_padding_start_minutes: number;
+  availability_padding_end_minutes: number;
+  allow_unpaid_booking: boolean;
+  unpaid_whitelist_tags: Array<number>;
+  unpaid_blacklist_tags: Array<number>;
+}
+type OwnProps = {
+  establishments: Array<Establishment>;
+  coaches: Array<Coach>;
+  allCoaches: Array<Coach>;
+  onAddServiceGroup?: () => void;
+  serviceGroupList: Array<PrivateServiceGroup>;
+  tagList: Array<Tag<TagGroup>>;
 };
-
+type Props = OwnProps & WithTranslation & FormikProps<FormikValues>;
 const IS_HOME_SERVICE = '0';
 const IS_WITHOUT_ESTABLISHMENT = '1';
 const IS_WITH_ESTABLISHMENT = '2';
 
 export const PrivateServiceForm = (props: Props) => {
-  const { values, classes, t } = props;
+  const { values } = props;
+  const { t } = useTranslation('privateService');
+  const classes = useStyles();
   return (
     <div className={classes.container}>
       <ImageField id="button_private_service_image" name="cover_main" />
@@ -71,11 +99,7 @@ export const PrivateServiceForm = (props: Props) => {
           />
         </div>
         {!!props.onAddServiceGroup && (
-          <Fab
-            variant="contained"
-            color="primary"
-            onClick={props.onAddServiceGroup}
-          >
+          <Fab color="primary" onClick={props.onAddServiceGroup}>
             <AddIcon />
           </Fab>
         )}
@@ -150,7 +174,7 @@ export const PrivateServiceForm = (props: Props) => {
                         </Typography>
                       </div>
                     ) : null}
-                    {establishments.map((id, i) => (
+                    {establishments.map((id: number, i: number) => (
                       <EstablishmentListItem
                         key={`${id}-${i}`}
                         establishment={props.establishments.find(
@@ -224,7 +248,7 @@ export const PrivateServiceForm = (props: Props) => {
                         </Typography>
                       </div>
                     ) : null}
-                    {coaches.map((id, i) => (
+                    {coaches.map((id: number, i: number) => (
                       <CoachListItemBasic
                         key={`${id}-${i}`}
                         coach={props.allCoaches.find((c) => c.id === id)}
@@ -238,7 +262,7 @@ export const PrivateServiceForm = (props: Props) => {
                       closeMenuOnSelect
                       nullCurrentValue
                       selectedCoaches={[]}
-                      selectOption={(ev) => {
+                      selectOption={(ev: Array<{ value: number }>) => {
                         if (ev.length) push(ev[0].value);
                       }}
                     />
@@ -250,10 +274,8 @@ export const PrivateServiceForm = (props: Props) => {
               name="coach_capacity_used"
               className={classes.field}
               fullWidth
-              label={props.t('service.form.coach_capacity_used.label')}
-              helperText={props.t(
-                'service.form.coach_capacity_used.helperText',
-              )}
+              label={t('service.form.coach_capacity_used.label')}
+              helperText={t('service.form.coach_capacity_used.helperText')}
             />
             <CheckboxField
               label={t('service.form.coach_consumer_attribution.label')}
@@ -279,21 +301,21 @@ export const PrivateServiceForm = (props: Props) => {
         name="manager_only"
         label={t('service.form.managerOnly.label')}
       />
-      <div className={props.classes.row}>
+      <div className={classes.row}>
         <DurationField
           name="last_discard_minutes"
           className={classes.field}
           fullWidth
-          label={props.t('service.form.last_discard_minutes.label')}
-          helperText={props.t('service.form.last_discard_minutes.helperText')}
+          label={t('service.form.last_discard_minutes.label')}
+          helperText={t('service.form.last_discard_minutes.helperText')}
         />
       </div>
-      <div className={props.classes.row}>
+      <div className={classes.row}>
         <DurationField
           name="last_booking_minutes"
           className={classes.field}
           fullWidth
-          label={props.t('service.form.last_booking_minutes.label')}
+          label={t('service.form.last_booking_minutes.label')}
         />
       </div>
       <Typography>{t('service.form.paddingTitle')}</Typography>
@@ -327,11 +349,26 @@ export const PrivateServiceForm = (props: Props) => {
           required
         />
       </div>
+      <fieldset className={classes.unpaidBookingsection}>
+        <legend className={classes.legend}>
+          {t('service.form.unpaidBooking.title')}
+        </legend>
+        <SwitchField
+          name="allow_unpaid_booking"
+          label={t('service.form.unpaidBooking.label')}
+        />
+        <PrivateServiceFormTag
+          open={props.values.allow_unpaid_booking}
+          tagList={props.tagList}
+          setFieldValue={props.setFieldValue}
+          values={props.values}
+        />
+      </fieldset>
     </div>
   );
 };
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   container: {
     padding: theme.spacing(1),
     display: 'flex',
@@ -376,7 +413,11 @@ const styles = (theme) => ({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
-});
+  unpaidBookingsection: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1),
+  },
+}));
 
 export const PrivateServiceSchema = Yup.object().shape({
   cover_main: Yup.object().nullable(),
@@ -391,9 +432,10 @@ export const PrivateServiceSchema = Yup.object().shape({
   establishments: Yup.array().of(Yup.number()),
   availability_padding_start_minutes: Yup.number(),
   availability_padding_end_minutes: Yup.number(),
+  allow_unpaid_booking: Yup.boolean(),
 });
 
-export const PrivateServiceFormikHOC = withFormik({
+export const PrivateServiceFormikHOC = withFormik<Props, FormikValues>({
   mapPropsToValues: ({ initial }) => {
     if (initial) {
       return {
@@ -405,8 +447,10 @@ export const PrivateServiceFormikHOC = withFormik({
           : initial.establishments.length
           ? IS_WITH_ESTABLISHMENT
           : IS_WITHOUT_ESTABLISHMENT,
-        establishments: [...initial.establishments.map((ae) => ae.id)],
-        coaches: [...initial.coaches.map((ac) => ac.id)],
+        establishments: [
+          ...initial.establishments.map((ae: AssociatedEstablishment) => ae.id),
+        ],
+        coaches: [...initial.coaches.map((ac: Coach) => ac.id)],
         coach_capacity_used: parseInt(12 / initial.coach_capacity_used, 10),
         coach_consumer_attribution:
           initial.coach_attribution === RESOURCE_ATTRIBUTION_CONSUMER,
@@ -433,6 +477,9 @@ export const PrivateServiceFormikHOC = withFormik({
       last_booking_minutes: 0,
       availability_padding_start_minutes: 0,
       availability_padding_end_minutes: 0,
+      allow_unpaid_booking: false,
+      unpaid_whitelist_tags: [],
+      unpaid_blacklist_tags: [],
     };
   },
   validationSchema: PrivateServiceSchema,
@@ -455,10 +502,6 @@ export const PrivateServiceFormikHOC = withFormik({
               : [],
           is_home_service:
             values.establishment_resource_type === IS_HOME_SERVICE,
-          // cover_main:
-          // typeof values.cover_main !== 'string' && !!values.cover_main
-          // ? values.cover_main
-          // : null,
         },
         [
           'slots',
@@ -480,7 +523,4 @@ export const PrivateServiceFormikHOC = withFormik({
   },
 });
 
-export default compose(
-  withTranslation(['privateService']),
-  withStyles(styles),
-)(PrivateServiceForm);
+export default PrivateServiceForm;

@@ -21,7 +21,7 @@ type Props = {
   privateSlotId: ?number,
   privateServiceList: Array<PrivateService>,
   menuAnchor: ?HTMLElement,
-  onSelect: (serviceId: number, slotId: number) => void,
+  onSelect: (serviceId: number, slotId: number, credit?: number) => void,
 };
 
 export class PrivateServiceSelectorWithSlot extends React.Component<Props> {
@@ -102,7 +102,7 @@ export class PrivateServiceSelectorWithSlot extends React.Component<Props> {
                         disableGutters
                         button
                         onClick={() => {
-                          this.props.onSelect(ps.id, s.id);
+                          this.props.onSelect(ps.id, s.id, s.credit);
                           this.props.setMenuAnchor(null);
                         }}
                       >

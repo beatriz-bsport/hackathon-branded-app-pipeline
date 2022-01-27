@@ -12,7 +12,7 @@ import withTitle from '../../hocs/with-title.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import PrivateServiceGroupFormDialog from '../../libs/private-service/components/service-group/PrivateServiceGroupFormDialog.component';
 
-import PrivateServiceFormDialog from '../../libs/private-service/components/service/PrivateServiceFormDialog.component';
+import PrivateServiceFormDrawer from '../../libs/private-service/components/service/PrivateServiceFormDrawer.component';
 import PrivateServiceDetailPage from '../../libs/private-service/components/service/PrivateServiceDetailPage.component';
 
 import {
@@ -62,6 +62,9 @@ import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
 } from '../../libs/email-editor/selectors';
+import { getallTagsWithTagGroup } from '#libs/tag/selectors';
+
+import type { Tag, TagGroup } from '#libs/tag/types';
 
 const PRIVATE_BOOKING_CREATION_NOTIFICATION = 1;
 
@@ -124,6 +127,7 @@ type Props = {
   emailListLoading: boolean,
   emailDetailLoading: boolean,
   allCoaches: Array<AssociatedCoach>,
+  allTagsWithTagGroup: Array<Tag<TagGroup>>,
 };
 
 export class PrivateServiceList extends React.Component<Props> {
@@ -164,11 +168,15 @@ export class PrivateServiceList extends React.Component<Props> {
     this.props.setOpenEditForm(null);
   };
 
-  createOrUpdatePrivateService = (data: *) => {
+  createOrUpdatePrivateService = (data: *, options: OptionCallback) => {
     this.props.createOrUpdatePrivateService(data, {
       onSuccess: () => {
         this.fetchData();
         this.props.setOpenEditForm(null);
+        if (options && options.onSuccess) options.onSuccess();
+      },
+      onError: () => {
+        if (options && options.onSuccess) options.onError();
       },
     });
   };
@@ -204,8 +212,8 @@ export class PrivateServiceList extends React.Component<Props> {
             emailDetailLoading={this.props.emailDetailLoading}
           />
         ) : null}
-        {this.props.openEditForm ? (
-          <PrivateServiceFormDialog
+        {this.props.privateService && (
+          <PrivateServiceFormDrawer
             initial={this.props.privateService}
             open={this.props.openEditForm}
             onCancel={this.closeForm}
@@ -215,8 +223,13 @@ export class PrivateServiceList extends React.Component<Props> {
             establishments={this.props.availableEstablishments}
             serviceGroupList={this.props.serviceGroupList}
             onAddServiceGroup={this.props.onOpenServiceGroupCreateForm}
+            tagList={
+              this.props.allTagsWithTagGroup
+                ? [...this.props.allTagsWithTagGroup]
+                : []
+            }
           />
-        ) : null}
+        )}
         {this.props.serviceGroupCreateOpen && (
           <PrivateServiceGroupFormDialog
             open
@@ -267,6 +280,7 @@ export default compose(
       email_templates_details: getEmailTemplatesDetail(state),
       emailListLoading: state.emailTemplate.isLoading,
       emailDetailLoading: state.emailTemplate.detail.isLoading,
+      allTagsWithTagGroup: getallTagsWithTagGroup(state),
     }),
     {
       fetchAllPrivateServices: () => fetchAllPrivateServices({ mine: true }),

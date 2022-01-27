@@ -142,6 +142,7 @@ const privateBookingAsEvent = (resourceDatatypeView) => (pb) => {
       private_booking: pb.id,
       private_booking_canceled: pb.date_canceled,
       private_booking_refunded: pb.was_refunded,
+      isUnpaid: !!pb?.is_unpaid,
     },
     textColor: 'black',
     classNames: [
@@ -499,6 +500,14 @@ export class PrivateCalendar extends React.Component<Props, State> {
       const refundedChip = `<div class="InfoContainer ${cancellationInfo}"><i class="Info">&#8618;</i></div>`;
       el.getElementsByClassName('fc-event-time')[0].insertAdjacentHTML(
         'afterbegin',
+        refundedChip,
+      );
+    }
+    if (event._def.extendedProps.isUnpaid) {
+      const refundedChip =
+        '<div class="UnpaidContainer"><i class="UnPaid">&#9679;</i></div>';
+      el.getElementsByClassName('fc-event-time')[0].insertAdjacentHTML(
+        'beforeend',
         refundedChip,
       );
     }

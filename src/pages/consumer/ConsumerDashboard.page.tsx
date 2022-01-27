@@ -27,7 +27,10 @@ import { getFavoriteEstablishment } from '../../libs/establishment/selectors';
 import { getFavoriteMetaActivity } from '../../libs/meta-activity/selectors';
 
 import { buildUrlParams } from '../../http';
-import { getPrivateConsumerPassList } from '../../libs/private-service/selectors/private-consumer-pass';
+import {
+  getPrivateConsumerPassList,
+  excludeUnPaidPrivateConsumerPass,
+} from '../../libs/private-service/selectors/private-consumer-pass';
 
 import { getConsumerPacksByMemberWithPaymentPack } from '../../libs/consumer-payment-pack/selectors';
 import { cancelBooking as cancelBookingAction } from '../../libs/booking/actions';
@@ -359,7 +362,9 @@ const mapStateToProps = (state: RootState, props) => ({
 
   bookingOptionList: getBookingOptionConsumerList(state),
 
-  privateConsumerPassList: getPrivateConsumerPassList(state),
+  privateConsumerPassList: excludeUnPaidPrivateConsumerPass(
+    getPrivateConsumerPassList,
+  )(state),
   privateConsumerPassLoading: state.privateService.privateConsumerPass.loading,
   consumerPackLoading: state.consumerPaymentPack.byMember.loading,
 

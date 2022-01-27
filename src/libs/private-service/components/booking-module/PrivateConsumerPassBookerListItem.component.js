@@ -101,7 +101,7 @@ export const PrivateConsumerPassBookerListItem = (props: Props) => {
       return <CircularProgress />;
     }
     return (
-      <div tyle={{ display: 'flex', flexDirection: 'row' }}>
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
         <IconButton
           color="primary"
           onClick={(ev) => {

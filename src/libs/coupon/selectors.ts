@@ -21,15 +21,29 @@ export const getCouponById: (state: RootState, number: number) => Coupon = (
 ) => getAllCoupons(state).find((coupon) => coupon.id === id);
 
 export const withTags = memoize((selector: typeof getCouponById) =>
-  createSelector([selector, getallTagsWithTagGroup], (coupon, tagList) => ({
-    ...coupon,
-    blacklist_tags: coupon?.blacklist_tags
-      ?.map((id) => tagList.find((tag) => tag.id === id))
-      .filter((tag) => tag),
-    whitelist_tags: coupon?.whitelist_tags
-      .map((id) => tagList.find((tag) => tag.id === id))
-      .filter((tag) => tag),
-  })),
+  createSelector([selector, getallTagsWithTagGroup], (coupon, tagList) => {
+    if (!coupon) return null;
+    if (!Array.isArray(coupon)) {
+      return {
+        ...coupon,
+        blacklist_tags: coupon?.blacklist_tags
+          ?.map((id) => tagList.find((tag) => tag.id === id))
+          .filter((tag) => tag),
+        whitelist_tags: coupon?.whitelist_tags
+          .map((id) => tagList.find((tag) => tag.id === id))
+          .filter((tag) => tag),
+      };
+    }
+    return coupon.map((_coupon) => ({
+      ..._coupon,
+      blacklist_tags: _coupon?.blacklist_tags
+        ?.map((id: number) => tagList.find((tag) => tag.id === id))
+        .filter((tag: number) => tag),
+      whitelist_tags: _coupon?.whitelist_tags
+        .map((id: number) => tagList.find((tag) => tag.id === id))
+        .filter((tag: number) => tag),
+    }));
+  }),
 );
 
 export const getCouponDiscounts: (

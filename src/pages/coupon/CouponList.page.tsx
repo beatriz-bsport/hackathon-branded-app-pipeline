@@ -31,6 +31,7 @@ import {
   getActiveCoupons,
   getInactiveCoupons,
   getAllCoupons,
+  withTags,
 } from '#libs/coupon/selectors';
 import type { Coupon } from '#libs/coupon/types';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
@@ -108,6 +109,7 @@ export class CouponList extends React.PureComponent<Props, State> {
                 initial: null,
               },
             });
+            this.props.fetchCouponPage(1);
             if (options && options.onSuccess) options.onSuccess();
           },
           onError: () => {
@@ -277,9 +279,9 @@ const styles = (theme: Theme) => ({
 
 const connector = connect(
   (state: RootState) => ({
-    allCoupons: getAllCoupons(state),
+    allCoupons: withTags(getAllCoupons)(state),
     inactiveCoupons: getInactiveCoupons(state),
-    activeCoupons: getActiveCoupons(state),
+    activeCoupons: withTags(getActiveCoupons)(state),
     loading: state.coupon.coupon.loading,
     createOrUpdateLoading: state.coupon.coupon.createOrUpdate.loading,
     tagsLoading: state.tag.tag.loading || state.tag.group.loading,

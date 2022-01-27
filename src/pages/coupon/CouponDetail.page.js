@@ -114,6 +114,7 @@ export class CouponCreate extends Component<Props, State> {
               initial: null,
             },
           });
+          this.props.fetchCouponPage(1);
           if (options && options.onSuccess) options.onSuccess();
         },
         onError: () => {

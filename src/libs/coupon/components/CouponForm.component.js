@@ -108,8 +108,12 @@ export class CouponForm extends React.Component<Props, State> {
         expiration_date: props.initial.expiration_date
           ? moment(props.initial.expiration_date, 'YYYY-MM-DD')
           : null,
-        whitelist_tags: props.initial.whitelist_tags,
-        blacklist_tags: props.initial.blacklist_tags,
+        whitelist_tags: props.initial.whitelist_tags
+          ? props.initial.whitelist_tags.map((_tag: Tag) => _tag?.id)
+          : [],
+        blacklist_tags: props.initial.blacklist_tags
+          ? props.initial.blacklist_tags.map((_tag: Tag) => _tag?.id)
+          : [],
       };
     } else {
       this.state = {

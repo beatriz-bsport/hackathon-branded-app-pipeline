@@ -92,6 +92,7 @@ type Props = {
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> },
   paymentPackCategories: Array<PaymentPackCategory>,
   allTagsWithTagGroup: Array<Tag<TagGroup>>,
+  showPartnership: boolean,
 };
 const MetaActivityMap = {
   cover_main: 'cover_main',
@@ -176,6 +177,7 @@ export class WorkshopActivityFormPage extends Component<Props> {
       roomBlueprints={this.props.roomBlueprints}
       coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
       editableCoachPaymentRule
+      showPartnership={this.props.showPartnership}
     />
   );
 
@@ -248,6 +250,7 @@ export default compose(
       coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
       paymentPackCategories: getAllPaymentPackCategory(state),
       allTagsWithTagGroup: getallTagsWithTagGroup(state),
+      showPartnership: state.theme.theme.has_partnership,
     }),
     {
       upsertWorkshopActivity: upsert,

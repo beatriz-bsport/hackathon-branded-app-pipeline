@@ -471,6 +471,7 @@ exports.default = {
         'Voulez-vous modifier TOUTES les séances similaires selon ces nouvelles conditions ?',
       explainNotificationOnEdit:
         'Voulez-vous informer vos clients de cette modification ?',
+      explainPartnership: 'On marketplaces (ClassPass, OneFit...)',
       delete: {
         advanced: 'Avancé',
         force: 'Supprimer même si des réservations sont enregistrées',

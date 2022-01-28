@@ -44,6 +44,7 @@ import RoomBlueprintSelector from '../spot-scheduling/component/RoomBlueprintSel
 import SpotSchedulingHelper from '../spot-scheduling/utils';
 import type { CoachPaymentRule } from '../coach-payment-rules/types';
 import CoachPaymentRuleSelectorStyled from '../coach-payment-rules/components/coach-payment-rule-selector/CoachPaymentRuleSelectorStyled.component';
+import PartnershipToogle from './form/PartnershipToogle.component';
 
 const styles = (theme: Theme) => ({
   paperContainer: {
@@ -110,6 +111,7 @@ type OwnProps = {
   timezone: string;
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> };
   editableCoachPaymentRule: boolean;
+  showPartnership: boolean;
 };
 
 type Props = OwnProps &
@@ -140,6 +142,7 @@ type State = {
   waiting_list_max_size?: number;
   duration_minute: number;
   coach_payment_rule: number;
+  available_on_partnership: boolean;
 };
 
 export class OfferForm extends Component<Props, State> {
@@ -181,6 +184,7 @@ export class OfferForm extends Component<Props, State> {
       level: 1,
       duration_minute: 30,
       coach_payment_rule: null,
+      available_on_partnership: true,
     };
   }
 
@@ -206,6 +210,7 @@ export class OfferForm extends Component<Props, State> {
       duration_minute,
       broadcast_link,
       coach_payment_rule,
+      available_on_partnership,
     } = this.state;
 
     const offer: any = {
@@ -219,6 +224,7 @@ export class OfferForm extends Component<Props, State> {
       duration_minute,
       broadcast_link,
       coach_payment_rule,
+      available_on_partnership,
     };
 
     if (roomBlueprint) {
@@ -507,6 +513,14 @@ export class OfferForm extends Component<Props, State> {
               isClearable
             />
           </Grid>
+        )}
+        {!!this.props.showPartnership && (
+          <PartnershipToogle
+            available_on_partnership={this.state.available_on_partnership}
+            onChange={(available_on_partnership: boolean) =>
+              this.setState({ available_on_partnership })
+            }
+          />
         )}
         <FeatureListProvider>
           {(featureList: any) => {

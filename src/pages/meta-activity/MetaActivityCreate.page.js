@@ -116,6 +116,7 @@ type Props = {
   paymentPackCategories: any,
   createPaymentPack: (data: any, options: any) => void,
   categoryList: any,
+  showPartnership: boolean,
 };
 
 const MetaActivityMap = {
@@ -186,6 +187,7 @@ export class MetaActivityFormPage extends Component<Props> {
       timezone={this.props.companyTheme.timezone_name}
       coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
       editableCoachPaymentRule
+      showPartnership={this.props.showPartnership}
     />
   );
 
@@ -294,6 +296,7 @@ export default compose(
         'id',
       ),
       categoryList: state.category.SCTs,
+      showPartnership: state.theme.theme.has_partnership,
     }),
     {
       goBack,

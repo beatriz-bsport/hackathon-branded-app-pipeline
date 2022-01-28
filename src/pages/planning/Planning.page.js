@@ -235,6 +235,7 @@ type Props = {
   fetchAllCoachPaymentRules: () => void,
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> },
   showVaccinationStatus: boolean,
+  showPartnership: boolean,
 };
 
 type State = {
@@ -502,6 +503,7 @@ export class Planning extends PureComponent<Props, State> {
               similarOffers={similarOffers}
               similarOfferLoading={similarOfferLoading}
               coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
+              showPartnership={this.props.showPartnership}
             />
           </DialogContent>
         </Dialog>
@@ -534,6 +536,7 @@ export class Planning extends PureComponent<Props, State> {
               this.props.theme.is_whereby_integration_allowed
             }
             coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
+            showPartnership={this.props.showPartnership}
           />
         </DialogContent>
       </Dialog>
@@ -987,6 +990,7 @@ export default compose(
       roomBlueprints: getAvailableRoomBlueprints(state),
       allRoomBlueprints: getRoomBlueprints(state),
       coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
+      showPartnership: state.theme.theme.has_partnership,
       showVaccinationStatus: showVaccinationStatus(state),
     }),
     {

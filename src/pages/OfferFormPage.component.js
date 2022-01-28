@@ -47,6 +47,7 @@ type Props = {
   fetchRoomBlueprints: () => void,
   fetchAllCoachPaymentRules: () => void,
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> },
+  showPartnership: boolean,
 };
 
 type State = {
@@ -127,6 +128,7 @@ export class OfferFormPage extends Component<Props, State> {
               roomBlueprints={this.props.roomBlueprints}
               coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
               editableCoachPaymentRule
+              showPartnership={this.props.showPartnership}
             />
           </Paper>
         </Grid>
@@ -149,6 +151,7 @@ export default withTranslation()(
       timezone: state.theme.theme.timezone_name,
       roomBlueprints: getAvailableRoomBlueprints(state),
       coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
+      showPartnership: state.theme.theme.has_partnership,
     }),
     {
       fetchEstablishments,

@@ -20,6 +20,7 @@ import RecursionToogle from './form/RecursionToogle.component';
 import EstablishmentSubForm from './form/EstablishmentSubForm.component';
 import CoachSubForm from './form/CoachSubForm.component';
 import NotificationToogle from './form/NotificationToogle.component';
+import PartnershipToogle from './form/PartnershipToogle.component';
 
 import LevelInput from '../../components/input/LevelInput.component';
 import DateTimeInput from '../../components/input/DateTimeInput.component';
@@ -50,6 +51,7 @@ type Props = {
   onConfirm: ({ offerId: number, data: FormData }) => void,
   metaActivities: Array<MetaActivity>,
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> },
+  showPartnership: boolean,
 };
 
 type State = {
@@ -138,6 +140,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
         : null,
       date: Moment(props.offer.date_start),
       duration_minute: props.offer.duration_minute,
+      available_on_partnership: !!props.offer.available_on_partnership,
       hour: moment(props.offer.date_start).format('HH:mm'),
       effectif: props.offer.effectif,
       credit_price_override: props.offer.credit_price_override,
@@ -167,6 +170,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
       establishment: props.offer.establishment.id,
       duration_minute: props.offer.duration_minute,
       effectif: props.offer.effectif,
+      available_on_partnership: props.offer.available_on_partnership,
       credit_price_override: props.offer.credit_price_override,
       waiting_list_max_size: props.offer.waiting_list_max_size,
       level: props.offer.level_id,
@@ -260,8 +264,9 @@ export class EditLiveOfferForm extends Component<Props, State> {
   onConfirm = () => {
     const { offer } = this.props;
     const { notifyConsumers, date, hour } = this.state;
-    const data: FormData = {
+    const data = {
       notifyConsumers,
+      available_on_partnership: this.state.available_on_partnership,
       modifyAllDates:
         this.shouldModifyAllDates() &&
         !this.state.similarOffersWithSelectedStatus.filter((so) => !so.selected)
@@ -742,6 +747,16 @@ export class EditLiveOfferForm extends Component<Props, State> {
               }
             />
           </div>
+          {!!this.props.showPartnership && (
+            <div className={this.props.classes.field}>
+              <PartnershipToogle
+                available_on_partnership={this.state.available_on_partnership}
+                onChange={(available_on_partnership) =>
+                  this.setState({ available_on_partnership })
+                }
+              />
+            </div>
+          )}
           <div className={this.props.classes.field}>
             <RecursionToogle
               edit

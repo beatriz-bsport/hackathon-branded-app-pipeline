@@ -8,6 +8,7 @@ import { push } from 'connected-react-router';
 import {
   emailDesignCreate,
   setEmailEditorHasBeenLoaded,
+  fetchAllEmailTemplateCategory,
 } from '../../libs/email-editor/actions';
 import { DrawerContext, DrawerContextValue } from '../../context';
 
@@ -19,6 +20,7 @@ import { fetchTagList } from '../../libs/notification-rule/actions';
 import { getTagCategories } from '../../libs/notification-rule/selectors';
 import { RootState } from '../../reducers';
 import { EmailTemplate } from '../../libs/email-editor/types';
+import { getEmailTemplateCategories } from '#libs/email-editor/selectors';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
@@ -35,6 +37,7 @@ export class EmailTemplateCreate extends Component<Props> {
   componentDidMount() {
     this.props.fetchTagList();
     this.props.setHasBeenLoaded();
+    this.props.fetchAllEmailTemplateCategory();
   }
 
   onSave = (id: number, data: EmailTemplate) => {
@@ -62,6 +65,7 @@ export class EmailTemplateCreate extends Component<Props> {
             tags={this.props.tagCategories}
             goToList={this.props.goToList}
             displayEmptyError={this.props.snackbarError}
+            emailTemplateCategories={this.props.emailTemplateCategories}
           />
         )}
       </DrawerContext.Consumer>
@@ -73,6 +77,7 @@ const mapStateToProps = (state: RootState) => ({
   company_id: state.theme.theme.company,
   tagCategories: getTagCategories(state),
   hasBeenLoadedOnce: state.emailTemplate.hasBeenLoadedOnce,
+  emailTemplateCategories: getEmailTemplateCategories(state),
 });
 
 const mapDispatchToProps = {
@@ -82,6 +87,7 @@ const mapDispatchToProps = {
   setHasBeenLoaded: setEmailEditorHasBeenLoaded,
   goToList: () => push('/email-template'),
   goToListDetail: (id: number) => push(`/email-template/${id}`),
+  fetchAllEmailTemplateCategory,
 };
 
 export default compose(

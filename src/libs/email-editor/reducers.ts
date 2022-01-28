@@ -17,31 +17,46 @@ import {
   emailTemplateDuplicateAction,
   fetchFranchisePageFilterAction,
   updateFranchisePageFilterAction,
+  emailTemplateUpdateOrderActions,
+  deleteEmailTemplateCategoryActions,
+  updateEmailTemplateCategoryOrderActions,
+  upsertEmailTemplateCategoryActions,
+  listAllEmailTemplateCategoryActions,
 } from './actions';
 
 import type { EmailTemplateState } from './types';
 
 const initialState: Immutable.Immutable<EmailTemplateState> =
   Immutable<EmailTemplateState>({
-    isLoading: false,
+    loading: false,
     error: null,
     byId: {},
     hasBeenLoadedOnce: false,
     allIds: [],
     detail: {
-      isLoading: false,
+      loading: false,
       error: null,
       byId: {},
     },
     // Create or Update
     upsert: {
-      isLoading: false,
+      loading: false,
       error: null,
     },
     savedFilter: {
-      isLoading: false,
+      loading: false,
       error: null,
       filters: [],
+    },
+    emailTemplateCategory: {
+      byId: {},
+      allIds: [],
+      loading: false,
+      error: null,
+      upsert: {
+        loading: false,
+        error: null,
+      },
     },
   });
 
@@ -67,11 +82,11 @@ export default handleActions(
     [setEmailEditorHasBeenLoaded.toString()]: (state) => {
       return state.set('hasBeenLoadedOnce', true);
     },
-    [emailTemplatesSummariesAction.isLoading.toString()]: (
+    [emailTemplatesSummariesAction.loading.toString()]: (
       state,
       { payload },
     ) => {
-      return state.set('isLoading', payload);
+      return state.set('loading', payload);
     },
 
     [emailTemplateBulkAction.success.toString()]: (state, { payload }) => {
@@ -87,8 +102,8 @@ export default handleActions(
     [emailTemplateBulkAction.error.toString()]: (state, { payload }) => {
       return state.set('error', payload);
     },
-    [emailTemplateBulkAction.isLoading.toString()]: (state, { payload }) => {
-      return state.set('isLoading', payload);
+    [emailTemplateBulkAction.loading.toString()]: (state, { payload }) => {
+      return state.set('loading', payload);
     },
 
     // Load the html end design of one specific template
@@ -96,8 +111,8 @@ export default handleActions(
       return state.merge({ detail: { byId: payload } }, { deep: true });
     },
 
-    [emailTemplateDetailAction.isLoading.toString()]: (state, { payload }) => {
-      return state.setIn(['detail', 'isLoading'], payload);
+    [emailTemplateDetailAction.loading.toString()]: (state, { payload }) => {
+      return state.setIn(['detail', 'loading'], payload);
     },
     [emailTemplateDetailAction.error.toString()]: (state, { payload }) => {
       return state.setIn(['detail', 'error'], payload);
@@ -110,11 +125,8 @@ export default handleActions(
         { deep: true },
       );
     },
-    [emailTemplateCompleteAction.isLoading.toString()]: (
-      state,
-      { payload },
-    ) => {
-      return state.setIn(['detail', 'isLoading'], payload);
+    [emailTemplateCompleteAction.loading.toString()]: (state, { payload }) => {
+      return state.setIn(['detail', 'loading'], payload);
     },
     [emailTemplateCompleteAction.error.toString()]: (state, { payload }) => {
       return state.setIn(['detail', 'error'], payload);
@@ -139,7 +151,7 @@ export default handleActions(
           payload.id,
         );
     },
-    [createEmailDesignAction.isLoading.toString()]: (state, { payload }) => {
+    [createEmailDesignAction.loading.toString()]: (state, { payload }) => {
       return state.setIn(['upsert', 'loading'], payload);
     },
     [createEmailDesignAction.error.toString()]: (state, { payload }) => {
@@ -152,14 +164,14 @@ export default handleActions(
       );
     },
 
-    [updateEmailTemplateAction.isLoading.toString()]: (state, { payload }) => {
-      return state.set('isLoading', payload);
+    [updateEmailTemplateAction.loading.toString()]: (state, { payload }) => {
+      return state.set('loading', payload);
     },
     [updateEmailTemplateAction.error.toString()]: (state, { payload }) => {
       return state.set('error', payload);
     },
-    [deleteEmailTemplateAction.isLoading.toString()]: (state, { payload }) => {
-      return state.set('isLoading', payload);
+    [deleteEmailTemplateAction.loading.toString()]: (state, { payload }) => {
+      return state.set('loading', payload);
     },
     [deleteEmailTemplateAction.error.toString()]: (state, { payload }) => {
       return state.set('error', payload);
@@ -170,46 +182,43 @@ export default handleActions(
         .setIn(['allIds'], [])
         .setIn(['detail', 'byId'], {});
     },
-    [emailTemplateDuplicateAction.isLoading.toString()]: (
-      state,
-      { payload },
-    ) => {
-      return state.set('isLoading', payload).set('error', null);
+    [emailTemplateDuplicateAction.loading.toString()]: (state, { payload }) => {
+      return state.set('loading', payload).set('error', null);
     },
     [emailTemplateDuplicateAction.error.toString()]: (state, { payload }) => {
-      return state.set('error', payload).set('isLoading', null);
+      return state.set('error', payload).set('loading', null);
     },
     [emailTemplateDuplicateAction.success.toString()]: (state) => {
-      return state.set('isLoading', false).set('error', null);
+      return state.set('loading', false).set('error', null);
     },
-    [fetchFranchisePageFilterAction.isLoading.toString()]: (
+    [fetchFranchisePageFilterAction.loading.toString()]: (
       state,
       { payload },
     ) => {
       return state
-        .setIn(['savedFilter', 'isLoading'], payload)
+        .setIn(['savedFilter', 'loading'], payload)
         .setIn(['savedFilter', 'error'], null);
     },
     [fetchFranchisePageFilterAction.error.toString()]: (state, { payload }) => {
       return state
         .setIn(['savedFilter', 'error'], payload)
-        .setIn(['savedFilter', 'isLoading'], null);
+        .setIn(['savedFilter', 'loading'], null);
     },
     [fetchFranchisePageFilterAction.success.toString()]: (
       state,
       { payload },
     ) => {
       return state
-        .setIn(['savedFilter', 'isLoading'], false)
+        .setIn(['savedFilter', 'loading'], false)
         .setIn(['savedFilter', 'error'], null)
         .setIn(['savedFilter', 'filters'], payload[0].filters);
     },
-    [updateFranchisePageFilterAction.isLoading.toString()]: (
+    [updateFranchisePageFilterAction.loading.toString()]: (
       state,
       { payload },
     ) => {
       return state
-        .setIn(['savedFilter', 'isLoading'], payload)
+        .setIn(['savedFilter', 'loading'], payload)
         .setIn(['savedFilter', 'error'], null);
     },
     [updateFranchisePageFilterAction.error.toString()]: (
@@ -218,16 +227,162 @@ export default handleActions(
     ) => {
       return state
         .setIn(['savedFilter', 'error'], payload)
-        .setIn(['savedFilter', 'isLoading'], null);
+        .setIn(['savedFilter', 'loading'], null);
     },
     [updateFranchisePageFilterAction.success.toString()]: (
       state,
       { payload },
     ) => {
       return state
-        .setIn(['savedFilter', 'isLoading'], false)
+        .setIn(['savedFilter', 'loading'], false)
         .setIn(['savedFilter', 'error'], null)
         .setIn(['savedFilter', 'filters'], payload[0].filters);
+    },
+    [emailTemplateUpdateOrderActions.loading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['upsert', 'loading'], payload);
+    },
+    [emailTemplateUpdateOrderActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['upsert', 'error'], payload);
+    },
+    [emailTemplateUpdateOrderActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.merge(
+        {
+          byId: payload.reduce(
+            (acc, curr) => ({ ...acc, [curr.id]: curr }),
+            state.byId,
+          ),
+        },
+        { deep: true },
+      );
+    },
+    [listAllEmailTemplateCategoryActions.loading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['emailTemplateCategory', 'loading'], payload);
+    },
+    [listAllEmailTemplateCategoryActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['emailTemplateCategory', 'error'], payload);
+    },
+    [listAllEmailTemplateCategoryActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state
+        .setIn(
+          ['emailTemplateCategory', 'allIds'],
+          payload.results.map((pp) => pp.id),
+        )
+        .merge(
+          {
+            emailTemplateCategory: {
+              byId: payload.results.reduce(
+                (acc, v) => ({ ...acc, [v.id]: v }),
+                {},
+              ),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [upsertEmailTemplateCategoryActions.loading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['emailTemplateCategory', 'upsert', 'loading'],
+        payload,
+      );
+    },
+    [upsertEmailTemplateCategoryActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['emailTemplateCategory', 'upsert', 'error'], payload);
+    },
+    [upsertEmailTemplateCategoryActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      if (!state.emailTemplateCategory.allIds.includes(payload.id)) {
+        return state
+          .setIn(['emailTemplateCategory', 'byId', payload.id], payload)
+          .setIn(
+            ['emailTemplateCategory', 'allIds'],
+            [...state.emailTemplateCategory.allIds, payload.id],
+          );
+      }
+      return state.setIn(
+        ['emailTemplateCategory', 'byId', payload.id],
+        payload,
+      );
+    },
+    [deleteEmailTemplateCategoryActions.loading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['emailTemplateCategory', 'upsert', 'loading'],
+        payload,
+      );
+    },
+    [deleteEmailTemplateCategoryActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['emailTemplateCategory', 'upsert', 'error'], payload);
+    },
+    [deleteEmailTemplateCategoryActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['emailTemplateCategory', 'allIds'],
+        state.emailTemplateCategory.allIds.filter((id) => id !== payload.id),
+      );
+    },
+    [updateEmailTemplateCategoryOrderActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.merge(
+        {
+          emailTemplateCategory: {
+            byId: payload.reduce(
+              (acc, cat) => ({ ...acc, [cat.id]: cat }),
+              state.emailTemplateCategory.byId,
+            ),
+          },
+        },
+        { deep: true },
+      );
+    },
+    [updateEmailTemplateCategoryOrderActions.loading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['emailTemplateCategory', 'upsert', 'loading'],
+        payload,
+      );
+    },
+    [updateEmailTemplateCategoryOrderActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['emailTemplateCategory', 'upsert', 'error'], payload);
     },
   },
   initialState,

@@ -890,7 +890,7 @@
     "modal": {
       "delete": {
         "title": "Suppression modèle email",
-        "content": "Si ce template est lié à une configuration d'email transactionnel, elle sera supprimée aussi. Êtes-vous sûr de vouloir supprimer ce modèle d'email ? Cette opération est définitive",
+        "content": "Si ce template est lié à une configuration d'email transactionnel, elle sera supprimée aussi. Êtes-vous sûr de vouloir supprimer ce modèle d'email ?",
         "cancel": "Annuler",
         "confirm": "Supprimer"
       }
@@ -2867,6 +2867,31 @@
       "noDefaultDeliveryFee": "Aucun frais de livraison",
       "defaultDeliveryFee": "Frais de livraison par défaut"
     }
+  },
+  "ordering": {
+    "category": {
+      "noCategory": { "name": "Sans catégorie" },
+      "creationDialog": {
+        "name": "Nom de la catégorie",
+        "titleEdit": "Catégorie",
+        "titleNew": "Nouvelle catégorie",
+        "edit": "Modifier",
+        "create": "Créer",
+        "cancel": "Annuler"
+      },
+      "popover": { "delete": "Supprimer", "edit": "Renommer" },
+      "deleteModal": {
+        "title": "Suppression",
+        "cancel": "Annuler",
+        "confirm": "Confirmer",
+        "content": "Êtes-vous sûr de vouloir supprimer cette catégorie ? Tous les éléments qu'elle contient seront placés dans la section sans catégorie"
+      },
+      "add": "Ajouter une catégorie",
+      "empty": "Cette catégorie est vide",
+      "noAvailable": "Aucun élément correspondant aux filtres choisis",
+      "selector": "Nom de la catégorie"
+    },
+    "disabledItemsTitle": "Archive"
   },
   "partnership": {
     "configurationType": {

@@ -116,8 +116,8 @@ export default compose(
       invoice: getInvoice(state, relatedInvoice),
       email_templates_list: getAllEmailTemplatesSummaries(state),
       email_templates_details: getEmailTemplatesDetail(state),
-      emailListLoading: state.emailTemplate.isLoading,
-      emailDetailLoading: state.emailTemplate.detail.isLoading,
+      emailListLoading: state.emailTemplate.loading,
+      emailDetailLoading: state.emailTemplate.detail.loading,
       showVaccinationStatus: showVaccinationStatus(state),
     }),
     {

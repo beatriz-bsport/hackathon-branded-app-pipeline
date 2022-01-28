@@ -9,6 +9,7 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
   getEmailTemplatesDetail,
   getAllEmailTemplatesDict,
+  getEmailTemplateCategories,
 } from '../../libs/email-editor/selectors';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import withTitle from '../../hocs/with-title.hoc';
@@ -19,6 +20,7 @@ import {
   emailTemplateUpdate,
   setEmailEditorHasBeenLoaded,
   emailDesignCreate,
+  fetchAllEmailTemplateCategory,
 } from '../../libs/email-editor/actions';
 import { DrawerContext, DrawerContextValue } from '../../context';
 
@@ -51,6 +53,7 @@ export class MarketingEmail extends Component<Props> {
   componentDidMount() {
     this.props.emailTemplateComplete(this.props.id);
     this.props.fetchTagList();
+    this.props.fetchAllEmailTemplateCategory();
   }
 
   onSave = (id: number, data: EmailTemplate) => {
@@ -94,6 +97,7 @@ export class MarketingEmail extends Component<Props> {
             company_name={this.props.company_name}
             goToList={this.props.goToList}
             displayEmptyError={this.props.snackbarError}
+            emailTemplateCategories={this.props.emailTemplateCategories}
           />
         )}
       </DrawerContext.Consumer>
@@ -104,11 +108,12 @@ export class MarketingEmail extends Component<Props> {
 const mapStateToProps = (state: RootState) => ({
   email_templates_details: getEmailTemplatesDetail(state),
   email_templates_summaries: getAllEmailTemplatesDict(state),
-  loading: state.emailTemplate.detail.isLoading,
+  loading: state.emailTemplate.detail.loading,
   company_id: state.theme.theme.company,
   company_name: state.theme.theme.company_name,
   tagCategories: getTagCategories(state),
   hasBeenLoadedOnce: state.emailTemplate.hasBeenLoadedOnce,
+  emailTemplateCategories: getEmailTemplateCategories(state),
 });
 
 const mapDispatchToProps = {
@@ -120,6 +125,7 @@ const mapDispatchToProps = {
   emailTemplateUpdate,
   goToDetailList: (id: number) => push(`/email-template/${id}`),
   goToList: () => push('/email-template'),
+  fetchAllEmailTemplateCategory,
 };
 
 export default compose(

@@ -173,7 +173,7 @@ const connector = connect(
     previewEmail: getEmailTemplatesDetail(state),
     loading:
       state.notificationRule.rule.loading ||
-      state.emailTemplate.isLoading ||
+      state.emailTemplate.loading ||
       state.marketingNotification.loading,
     birthdayNotification: getCelebrationBirthday(state),
   }),

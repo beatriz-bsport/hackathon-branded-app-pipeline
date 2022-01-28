@@ -180,8 +180,8 @@ const connector = connect(
     emails: getAllEmailTemplatesSummaries(state),
     companiesById: getFranchiseCompanyById(state),
     savedFilter: getFranchisorSavedFilter(state),
-    emailListLoading: state.emailTemplate.isLoading,
-    emailDetailLoading: state.emailTemplate.detail.isLoading,
+    emailListLoading: state.emailTemplate.loading,
+    emailDetailLoading: state.emailTemplate.detail.loading,
   }),
   {
     emailTemplateDetail: emailTemplateDetailAction,

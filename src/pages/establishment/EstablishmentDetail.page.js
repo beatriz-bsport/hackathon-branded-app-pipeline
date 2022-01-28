@@ -222,8 +222,8 @@ export default compose(
       events: getEventsByEstablishment(state),
       email_templates_list: getAllEmailTemplatesSummaries(state),
       email_templates_details: getEmailTemplatesDetail(state),
-      emailListLoading: state.emailTemplate.isLoading,
-      emailDetailLoading: state.emailTemplate.detail.isLoading,
+      emailListLoading: state.emailTemplate.loading,
+      emailDetailLoading: state.emailTemplate.detail.loading,
       notifications: {
         items: getBookingNotifications(state),
         loading: state.marketingNotification.loading,

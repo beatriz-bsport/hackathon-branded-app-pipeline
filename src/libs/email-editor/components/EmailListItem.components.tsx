@@ -13,10 +13,13 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import EditIcon from '@material-ui/icons/Edit';
+import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 import { TFunction } from 'i18next';
 
+import { DraggableSyntheticListeners } from '@dnd-kit/core';
+import DragHandleIcon from '@material-ui/icons/DragHandle';
 import withConfirm from '../../../hocs/with-confirm.hoc';
 import { EmailTemplateSummary } from '../types';
 import HighlightedText from '../../../components/HighlightedText/HighlightedText.component';
@@ -26,15 +29,28 @@ import CompanyChip from '../../../components/franchise/CompanyChip.component';
 import FranchiseCompaniesListingTooltip from '../../franchise/components/FranchiseCompaniesListingTooltip.component';
 
 export type OwnProps = {
-  email: EmailTemplateSummary;
-  selectedId?: number;
-  navigateTo: () => void;
+  item?: EmailTemplateSummary;
+  email?: EmailTemplateSummary;
+  selected?: boolean;
+  navigateTo?: () => void;
+  onClick?: () => void;
   onEdit?: () => void;
   onDuplicate?: () => void;
   onDelete?: () => void;
+  onRestore?: () => void;
+  disabled?: boolean;
   search?: string;
   companies?: FranchiseCompany[];
   allCompanies?: boolean;
+  draggable?: boolean;
+  listeners?: DraggableSyntheticListeners;
+  attributes?: {
+    role: string;
+    tabIndex: number;
+    'aria-pressed': boolean;
+    'aria-roledescription': string;
+    'aria-describedby': string;
+  };
 };
 
 const DeleteButton = (props: { onClick: () => void }) => (
@@ -88,8 +104,7 @@ const ButtonWithConfirmMenuItem = withConfirm(DeleteButtonMenuItem, 'onClick', {
 
 const EmailListItem = (props: OwnProps) => {
   const {
-    email,
-    selectedId,
+    selected,
     onEdit,
     onDuplicate,
     navigateTo,
@@ -97,19 +112,26 @@ const EmailListItem = (props: OwnProps) => {
     companies,
     allCompanies,
     search,
+    onRestore,
   } = props;
   const classes = useStyles();
   const { t } = useTranslation(['emailTemplate']);
+  const email = props.item ? props.item : props.email;
 
   if (!email) return null;
   return (
     <ListItem
-      button
-      onClick={navigateTo}
-      selected={email.id === selectedId}
+      button={!props.disabled}
+      onClick={navigateTo || props.onClick}
+      selected={selected}
       className={classes.listItem}
       divider
     >
+      {props.draggable && (
+        <IconButton {...props.listeners} {...props.attributes}>
+          <DragHandleIcon />
+        </IconButton>
+      )}
       <div className={classes.innerList}>
         <ListItemText
           primary={
@@ -169,6 +191,11 @@ const EmailListItem = (props: OwnProps) => {
                 label: `delete-${email.id}`,
                 onClick: onDelete,
                 color: 'secondary',
+              },
+              onRestore && {
+                icon: RestoreFromTrashIcon,
+                label: `restore-${email.id}`,
+                onClick: onRestore,
               },
             ]}
           />

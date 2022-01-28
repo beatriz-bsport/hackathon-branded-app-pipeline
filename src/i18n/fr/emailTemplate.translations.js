@@ -3,7 +3,7 @@ exports.default = {
     delete: {
       title: 'Suppression modèle email',
       content:
-        "Si ce template est lié à une configuration d'email transactionnel, elle sera supprimée aussi. Êtes-vous sûr de vouloir supprimer ce modèle d'email ? Cette opération est définitive",
+        "Si ce template est lié à une configuration d'email transactionnel, elle sera supprimée aussi. Êtes-vous sûr de vouloir supprimer ce modèle d'email ?",
       cancel: 'Annuler',
       confirm: 'Supprimer',
     },

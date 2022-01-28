@@ -502,10 +502,10 @@ const mapStateToProps = (state: RootState, { id }: { id: number }) => ({
   },
   email_templates_list: getAllEmailTemplatesSummaries(state),
   email_templates_details: getEmailTemplatesDetail(state),
-  emailListLoading: state.emailTemplate.isLoading,
-  emailDetailLoading: state.emailTemplate.detail.isLoading,
+  emailListLoading: state.emailTemplate.loading,
+  emailDetailLoading: state.emailTemplate.detail.loading,
   smartLists: getAllSmartList(state),
-  smartListLoading: state.smartList.isLoading,
+  smartListLoading: state.smartList.loading,
   tagCategories: getTagCategories(state),
   archivationWarning: state.privateService.privatePass.archivationWarning,
 });

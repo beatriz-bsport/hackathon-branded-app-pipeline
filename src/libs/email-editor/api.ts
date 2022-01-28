@@ -6,8 +6,13 @@ import {
   patchAuth,
   deleteAuth,
   buildUrlParams,
+  putAuth,
 } from '../../http';
-import { EmailTemplate, FranchisorSavedFilter } from './types';
+import {
+  EmailTemplate,
+  EmailTemplateCategory,
+  FranchisorSavedFilter,
+} from './types';
 
 const MARKETING_EMAIL_URI = `${API_V1_URI}/email_design/`;
 
@@ -51,3 +56,50 @@ export const updateFranchisePageFilter = (data: {
 export const deleteEmailTemplate = (id: string | number) => {
   return deleteAuth(`${MARKETING_EMAIL_URI}${id}/`);
 };
+
+export const restoreEmailTemplate = (id: string | number) => {
+  return putAuth(`${MARKETING_EMAIL_URI}${id}/restore/`);
+};
+
+export const editOrderEmailTemplate = (data: any) => {
+  return patchAuth(`${MARKETING_EMAIL_URI}set_multiple_order/`, data);
+};
+
+export async function fetchAllEmailTemplateCategory({
+  companyId,
+}: {
+  companyId?: number;
+}) {
+  return getAuth(
+    `${MARKETING_EMAIL_URI}email_design_category/${buildUrlParams({
+      companyId,
+    })}`,
+  );
+}
+export async function updateEmailTemplateCategory(
+  category: EmailTemplateCategory,
+) {
+  return putAuth(
+    `${MARKETING_EMAIL_URI}email_design_category/${category.id}/`,
+    category,
+  );
+}
+
+export async function createEmailTemplateCategory(
+  category: EmailTemplateCategory,
+) {
+  return postAuth(`${MARKETING_EMAIL_URI}email_design_category/`, category);
+}
+export async function deleteEmailTemplateCategory(
+  category: EmailTemplateCategory,
+) {
+  return deleteAuth(
+    `${MARKETING_EMAIL_URI}email_design_category/${category.id}/`,
+  );
+}
+export async function editCategoryOrder(data: any) {
+  return patchAuth(
+    `${MARKETING_EMAIL_URI}email_design_category/set_order/`,
+    data,
+  );
+}

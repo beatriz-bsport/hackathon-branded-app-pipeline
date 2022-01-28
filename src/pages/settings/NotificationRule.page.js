@@ -291,7 +291,7 @@ export default compose(
       previewEmail: getEmailTemplatesDetail(state)[previewEmailId],
       loading:
         state.notificationRule.rule.loading ||
-        state.emailTemplate.isLoading ||
+        state.emailTemplate.loading ||
         state.notificationRule.settings.loading ||
         state.marketingNotification.loading,
       settingsData: state.notificationRule.settings.data,

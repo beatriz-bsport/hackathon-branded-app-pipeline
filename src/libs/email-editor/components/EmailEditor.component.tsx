@@ -13,11 +13,16 @@ import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 
 import Checkbox from '../../../components/input/Checkbox.component';
-import { EmailTemplate, EmailTemplateSummary } from '../types';
+import {
+  EmailTemplate,
+  EmailTemplateCategory,
+  EmailTemplateSummary,
+} from '../types';
 import i18n from '../../../i18n';
 import { FranchiseCompany } from '../../franchise/types';
 import { OptionTypeBase } from '../../../components/Selector/MaterialUISelector.component';
 import FranchiseCompaniesSelector from '../../franchise/components/FranchiseCompaniesSelector.component';
+import CategorySelector from '#components/ordering/CategorySelector.component';
 
 export type OwnProps = {
   autoSaveEnabled?: boolean;
@@ -39,6 +44,7 @@ export type OwnProps = {
   goToList: () => void;
   hideLeftMenuAction: () => void;
   showLeftMenuAction: () => void;
+  emailTemplateCategories?: Array<EmailTemplateCategory>;
 };
 
 type Props = OwnProps & WithStyles<typeof styles> & WithTranslation;
@@ -49,6 +55,7 @@ type State = {
   autoSave: boolean;
   notReadyToLeave: boolean;
   selectedCompanies: OptionTypeBase[];
+  categoryId: number;
 };
 
 export class EmailEditorPanel extends Component<Props, State> {
@@ -85,6 +92,7 @@ export class EmailEditorPanel extends Component<Props, State> {
           };
         },
       ),
+      categoryId: this.props.emailToEdit?.category || null,
     };
     this.intervalPeriod = 60 * 1000; // Run every minutes
   }
@@ -131,6 +139,7 @@ export class EmailEditorPanel extends Component<Props, State> {
           html,
           design: JSON.stringify(design),
           date_modified: moment(),
+          category: this.state.categoryId,
         },
         this.state.selectedCompanies?.map((opt) =>
           parseInt(opt?.value ?? '', 10),
@@ -264,6 +273,15 @@ export class EmailEditorPanel extends Component<Props, State> {
             required
             className={classes.field}
           />
+          {this.props.emailTemplateCategories && (
+            <CategorySelector
+              categories={this.props.emailTemplateCategories}
+              onChange={(ev) =>
+                this.setState({ categoryId: ev?.value || null })
+              }
+              selected={this.state.categoryId}
+            />
+          )}
           {this.props?.companies?.length > 0 && (
             <div className={classes.companies}>
               <Typography variant="body1" className={classes.subtitle}>

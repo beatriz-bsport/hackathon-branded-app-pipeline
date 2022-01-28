@@ -546,7 +546,7 @@ export default compose(
       tags: tagSelectors.getMemberTagsWithTagGroup(state),
       email_templates_list: getAllEmailTemplatesSummaries(state),
       email_templates_details: getEmailTemplatesDetail(state),
-      emailListLoading: state.emailTemplate.isLoading,
+      emailListLoading: state.emailTemplate.loading,
       members: {
         displayItems: getPaginatedMembers(state),
         page: state.member.communication.page,
@@ -556,7 +556,7 @@ export default compose(
         loading: state.member.communication.loading,
       },
 
-      emailDetailLoading: state.emailTemplate.detail.isLoading,
+      emailDetailLoading: state.emailTemplate.detail.loading,
       smartlistAutoTag: getSmartListAutoTag(state, id),
       smartlistAutoTagLoading: state.smartList.smartListTagRules.loading,
     }),

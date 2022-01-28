@@ -11,6 +11,7 @@ FactoryBot.define('EmailTemplateSummary', {
   subject: faker.lorem.words(8),
   title: faker.lorem.words(5),
   company_id: undefined,
+  ordering_in_category: Math.floor(Math.random() * 1000),
 });
 
 export default FactoryBot;

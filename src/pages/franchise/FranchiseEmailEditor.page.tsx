@@ -124,7 +124,7 @@ const connector = connect(
     emailTemplatesDetails: getEmailTemplatesDetail(state),
     emailTemplatesSummaries: getAllEmailTemplatesDict(state),
     tagCategories: getTagCategories(state),
-    loading: state.emailTemplate.detail.isLoading,
+    loading: state.emailTemplate.detail.loading,
     companies: getFranchiseCompanies(state),
   }),
   {

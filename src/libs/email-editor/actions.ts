@@ -10,8 +10,15 @@ import {
   fetchEmailTemplate as fetchEmailTemplateAPI,
   fetchEmailTemplateDetail as fetchEmailTemplateDetailAPI,
   deleteEmailTemplate as deleteEmailTemplateAPI,
+  restoreEmailTemplate as restoreEmailTemplateAPI,
   fetchFranchisePageFilter as fetchFranchisePageFilterAPI,
   updateFranchisePageFilter as updateFranchisePageFilterAPI,
+  updateEmailTemplateCategory as updateEmailTemplateCategoryAPI,
+  fetchAllEmailTemplateCategory as fetchAllEmailTemplateCategoryAPI,
+  deleteEmailTemplateCategory as deleteEmailTemplateCategoryAPI,
+  createEmailTemplateCategory as createEmailTemplateCategoryAPI,
+  editCategoryOrder as editCategoryOrderAPI,
+  editOrderEmailTemplate as editOrderEmailTemplateAPI,
 } from './api';
 
 import { getFreshEmailTemplateSummariesIds } from './selectors';
@@ -20,11 +27,16 @@ import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 import { RootState } from '../../reducers';
-import { EmailTemplate, FranchisorSavedFilter } from './types';
+import {
+  EmailTemplate,
+  EmailTemplateCategory,
+  EmailTemplateCategoryWithTemplates,
+  FranchisorSavedFilter,
+} from './types';
 
 export const emailTemplatesSummariesAction = {
   error: createAction('EMAIL/SUMMARIES/ERROR'),
-  isLoading: createAction('EMAIL/SUMMARIES/IS_LOADING'),
+  loading: createAction('EMAIL/SUMMARIES/IS_LOADING'),
   success: createAction('EMAIL/SUMMARIES/SUCCESS'),
 };
 
@@ -34,7 +46,7 @@ export const setEmailEditorHasBeenLoaded = createAction(
 
 export function emailTemplatesSummaries(): ThunkAction {
   return async (dispatch: Dispatch) => {
-    dispatch(emailTemplatesSummariesAction.isLoading(true));
+    dispatch(emailTemplatesSummariesAction.loading(true));
     dispatch(emailTemplatesSummariesAction.error(null));
 
     try {
@@ -49,13 +61,13 @@ export function emailTemplatesSummaries(): ThunkAction {
     } catch (error) {
       dispatch(emailTemplatesSummariesAction.error(error));
     }
-    dispatch(emailTemplatesSummariesAction.isLoading(false));
+    dispatch(emailTemplatesSummariesAction.loading(false));
   };
 }
 
 export const emailTemplateBulkAction = {
   error: createAction('EMAIL_SUMMARY/BULK_RETRIEVE/ERROR'),
-  isLoading: createAction('EMAIL_SUMMARY/BULK_RETRIEVE/IS_LOADING'),
+  loading: createAction('EMAIL_SUMMARY/BULK_RETRIEVE/IS_LOADING'),
   success: createAction('EMAIL_SUMMARY/BULK_RETRIEVE/SUCCESS'),
 };
 
@@ -72,7 +84,7 @@ export function fetchEmailTemplateSummariesBulk(
     if (ids_uniq.length === 0) {
       return;
     }
-    dispatch(emailTemplateBulkAction.isLoading(true));
+    dispatch(emailTemplateBulkAction.loading(true));
     dispatch(emailTemplateBulkAction.error(null));
 
     try {
@@ -89,19 +101,45 @@ export function fetchEmailTemplateSummariesBulk(
     } catch (error) {
       dispatch(emailTemplateBulkAction.error(error));
     }
-    dispatch(emailTemplateBulkAction.isLoading(false));
+    dispatch(emailTemplateBulkAction.loading(false));
+  };
+}
+
+export function fetchEmailTemplateBulk(ids: Array<number>): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    if (ids?.length === 0) {
+      return;
+    }
+    dispatch(emailTemplateBulkAction.loading(true));
+    dispatch(emailTemplateBulkAction.error(null));
+
+    try {
+      const response = await fetchEmailTemplatesSummariesAPI({
+        id__in: ids,
+      });
+      dispatch(
+        emailTemplateBulkAction.success({
+          emailTemplatesDict: createDictionnaryById(response.data),
+          emailTemplatesIdList: createIdList(response.data),
+        }),
+      );
+      dispatch(emailTemplateBulkAction.error(null));
+    } catch (error) {
+      dispatch(emailTemplateBulkAction.error(error));
+    }
+    dispatch(emailTemplateBulkAction.loading(false));
   };
 }
 
 export const emailTemplateCompleteAction = {
   error: createAction('EMAIL/COMPLETE/ERROR'),
-  isLoading: createAction('EMAIL/COMPLETE/IS_LOADING'),
+  loading: createAction('EMAIL/COMPLETE/IS_LOADING'),
   success: createAction('EMAIL/COMPLETE/SUCCESS'),
 };
 
 export function emailTemplateComplete(id: number): ThunkAction {
   return async (dispatch: Dispatch) => {
-    dispatch(emailTemplateCompleteAction.isLoading(true));
+    dispatch(emailTemplateCompleteAction.loading(true));
     dispatch(emailTemplateCompleteAction.error(null));
 
     try {
@@ -114,6 +152,8 @@ export function emailTemplateComplete(id: number): ThunkAction {
               subject: response.data.subject,
               date_created: response.data.date_created,
               id: response.data.id,
+              category: response.data.category,
+              ordering_in_category: response.data.ordering_in_category,
             },
           },
           detail: {
@@ -131,13 +171,13 @@ export function emailTemplateComplete(id: number): ThunkAction {
     } catch (error) {
       dispatch(emailTemplateCompleteAction.error(error));
     }
-    dispatch(emailTemplateCompleteAction.isLoading(false));
+    dispatch(emailTemplateCompleteAction.loading(false));
   };
 }
 
 export const emailTemplateDetailAction = {
   error: createAction('EMAIL/DETAIL/ERROR'),
-  isLoading: createAction('EMAIL/DETAIL/IS_LOADING'),
+  loading: createAction('EMAIL/DETAIL/IS_LOADING'),
   success: createAction('EMAIL/DETAIL/SUCCESS'),
 };
 
@@ -146,7 +186,7 @@ export function emailTemplateDetail(
   options?: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
-    dispatch(emailTemplateDetailAction.isLoading(true));
+    dispatch(emailTemplateDetailAction.loading(true));
     dispatch(emailTemplateDetailAction.error(null));
 
     try {
@@ -162,13 +202,13 @@ export function emailTemplateDetail(
       dispatch(emailTemplateDetailAction.error(error));
       typeof options?.onError === 'function' && options.onError();
     }
-    dispatch(emailTemplateDetailAction.isLoading(false));
+    dispatch(emailTemplateDetailAction.loading(false));
   };
 }
 
 export const createEmailDesignAction = {
   error: createAction('EMAIL/CREATE/ERROR'),
-  isLoading: createAction('EMAIL/CREATE/IS_LOADING'),
+  loading: createAction('EMAIL/CREATE/IS_LOADING'),
   success: createAction('EMAIL/CREATE/SUCCESS'),
 };
 
@@ -177,7 +217,7 @@ export function emailDesignCreate(
   options?: OptionCallback<number>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
-    dispatch(createEmailDesignAction.isLoading(true));
+    dispatch(createEmailDesignAction.loading(true));
     dispatch(createEmailDesignAction.error(null));
 
     try {
@@ -191,6 +231,8 @@ export function emailDesignCreate(
               subject: response.data.subject,
               date_created: response.data.date_created,
               id: response.data.id,
+              category: response.data.category,
+              ordering_in_category: response.data.ordering_in_category,
             },
           },
           detail: {
@@ -211,13 +253,13 @@ export function emailDesignCreate(
       dispatch(createEmailDesignAction.error(error));
       dispatch(snackbarError('email.create.error'));
     }
-    dispatch(createEmailDesignAction.isLoading(false));
+    dispatch(createEmailDesignAction.loading(false));
   };
 }
 
 export const updateEmailTemplateAction = {
   error: createAction('EMAIL/UPDATE/ERROR'),
-  isLoading: createAction('EMAIL/UPDATE/IS_LOADING'),
+  loading: createAction('EMAIL/UPDATE/IS_LOADING'),
   success: createAction('EMAIL/UPDATE/SUCCESS'),
 };
 
@@ -227,7 +269,7 @@ export function emailTemplateUpdate(
   options?: OptionCallback<number>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
-    dispatch(updateEmailTemplateAction.isLoading(true));
+    dispatch(updateEmailTemplateAction.loading(true));
     dispatch(updateEmailTemplateAction.error(null));
 
     try {
@@ -239,6 +281,8 @@ export function emailTemplateUpdate(
               name: response.data.name,
               date_created: response.data.date_created,
               id: response.data.id,
+              category: response.data.category,
+              ordering_in_category: response.data.ordering_in_category,
             },
           },
           detail: {
@@ -261,13 +305,59 @@ export function emailTemplateUpdate(
       dispatch(updateEmailTemplateAction.error(error));
       dispatch(snackbarError('email.update.error'));
     }
-    dispatch(updateEmailTemplateAction.isLoading(false));
+    dispatch(updateEmailTemplateAction.loading(false));
+  };
+}
+
+export function restoreEmailTemplate(
+  id: number,
+  options?: OptionCallback<number>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(updateEmailTemplateAction.loading(true));
+    dispatch(updateEmailTemplateAction.error(null));
+
+    try {
+      const response = await restoreEmailTemplateAPI(id);
+      dispatch(
+        updateEmailTemplateAction.success({
+          summary: {
+            [response.data.id]: {
+              name: response.data.name,
+              date_created: response.data.date_created,
+              id: response.data.id,
+              category: response.data.category,
+              ordering_in_category: response.data.ordering_in_category,
+              available: response.data.available,
+            },
+          },
+          detail: {
+            [response.data.id]: {
+              id: response.data.id,
+              html: response.data.html,
+              design: response.data.design
+                ? JSON.parse(response.data.design)
+                : {},
+            },
+          },
+        }),
+      );
+      dispatch(updateEmailTemplateAction.error(null));
+      dispatch(snackbarSuccess('email.update.success'));
+
+      if (typeof options?.onSuccess === 'function')
+        options?.onSuccess(response.data.id);
+    } catch (error) {
+      dispatch(updateEmailTemplateAction.error(error));
+      dispatch(snackbarError('email.update.error'));
+    }
+    dispatch(updateEmailTemplateAction.loading(false));
   };
 }
 
 export const emailTemplateDuplicateAction = {
   error: createAction('EMAIL/DUPLICATE/ERROR'),
-  isLoading: createAction('EMAIL/DUPLICATE/IS_LOADING'),
+  loading: createAction('EMAIL/DUPLICATE/IS_LOADING'),
   success: createAction('EMAIL/DUPLICATE/SUCCESS'),
 };
 
@@ -277,7 +367,7 @@ export function emailTemplateDuplicate(props: {
   options?: OptionCallback<number>;
 }): ThunkAction {
   return async (dispatch: Dispatch) => {
-    dispatch(emailTemplateDuplicateAction.isLoading(true));
+    dispatch(emailTemplateDuplicateAction.loading(true));
 
     try {
       const response = await fetchEmailTemplateAPI(props.id);
@@ -287,6 +377,7 @@ export function emailTemplateDuplicate(props: {
         html: response.data.html,
         title: `${response.data.title} (${props.copyTranslation || 'copy'})`,
         subject: response.data.subject,
+        category: response.data.category,
         available_for_companies: response.data.available_for_companies,
       };
       const newTemplate = await createEmailTemplateAPI(data);
@@ -308,13 +399,13 @@ export function emailTemplateDuplicate(props: {
 
 export const fetchFranchisePageFilterAction = {
   error: createAction('EMAIL/FRANCHISOR_FILTER/ERROR'),
-  isLoading: createAction('EMAIL/FRANCHISOR_FILTER/IS_LOADING'),
+  loading: createAction('EMAIL/FRANCHISOR_FILTER/IS_LOADING'),
   success: createAction('EMAIL/FRANCHISOR_FILTER/SUCCESS'),
 };
 
 export function fetchFranchisePageFilter(): ThunkAction {
   return async (dispatch: Dispatch) => {
-    dispatch(fetchFranchisePageFilterAction.isLoading(true));
+    dispatch(fetchFranchisePageFilterAction.loading(true));
 
     try {
       const response = await fetchFranchisePageFilterAPI();
@@ -328,7 +419,7 @@ export function fetchFranchisePageFilter(): ThunkAction {
 
 export const updateFranchisePageFilterAction = {
   error: createAction('EMAIL/UPDATE_FRANCHISOR_FILTER/ERROR'),
-  isLoading: createAction('EMAIL/UPDATE_FRANCHISOR_FILTER/IS_LOADING'),
+  loading: createAction('EMAIL/UPDATE_FRANCHISOR_FILTER/IS_LOADING'),
   success: createAction('EMAIL/UPDATE_FRANCHISOR_FILTER/SUCCESS'),
 };
 
@@ -336,7 +427,7 @@ export function updateFranchisePageFilter(
   data: FranchisorSavedFilter[],
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
-    dispatch(updateFranchisePageFilterAction.isLoading(true));
+    dispatch(updateFranchisePageFilterAction.loading(true));
 
     try {
       const response = await updateFranchisePageFilterAPI({ filters: data });
@@ -349,13 +440,13 @@ export function updateFranchisePageFilter(
 
 export const deleteEmailTemplateAction = {
   error: createAction('EMAIL/DELETE/ERROR'),
-  isLoading: createAction('EMAIL/DELETE/IS_LOADING'),
+  loading: createAction('EMAIL/DELETE/IS_LOADING'),
   success: createAction('EMAIL/DELETE/SUCCESS'),
 };
 
 export function emailTemplateDelete(id: number): ThunkAction {
   return async (dispatch: Dispatch) => {
-    dispatch(deleteEmailTemplateAction.isLoading(true));
+    dispatch(deleteEmailTemplateAction.loading(true));
     dispatch(deleteEmailTemplateAction.error(null));
 
     try {
@@ -368,7 +459,7 @@ export function emailTemplateDelete(id: number): ThunkAction {
       dispatch(deleteEmailTemplateAction.error(error));
       dispatch(snackbarError('email.delete.error'));
     }
-    dispatch(deleteEmailTemplateAction.isLoading(false));
+    dispatch(deleteEmailTemplateAction.loading(false));
   };
 }
 
@@ -377,5 +468,137 @@ export const resetAction = createAction('EMAIL/RESET/SUCCESS');
 export function resetEmails() {
   return async (dispatch: Dispatch) => {
     dispatch(resetAction(true));
+  };
+}
+
+export const emailTemplateUpdateOrderActions = {
+  error: createAction('EMAIL/UPDATE_ORDER/ERROR'),
+  loading: createAction('EMAIL/UPDATE_ORDER/IS_LOADING'),
+  success: createAction('EMAIL/UPDATE_ORDER/SUCCESS'),
+};
+
+export function editOrderEmailTemplate(
+  data: Array<{ id: number; ordering_in_category: number }>,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(emailTemplateUpdateOrderActions.loading(true));
+    dispatch(emailTemplateUpdateOrderActions.error(null));
+    try {
+      const response = await editOrderEmailTemplateAPI(data);
+      dispatch(emailTemplateUpdateOrderActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(emailTemplateUpdateOrderActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(emailTemplateUpdateOrderActions.loading(false));
+  };
+}
+
+export const listAllEmailTemplateCategoryActions = {
+  loading: createAction('EMAIL_CATEGORY/LIST/IS_LOADING'),
+  error: createAction('EMAIL_CATEGORY/LIST/ERROR'),
+  success: createAction('EMAIL_CATEGORY/LIST/SUCCESS'),
+};
+
+export function fetchAllEmailTemplateCategory(companyId?: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listAllEmailTemplateCategoryActions.loading(true));
+    dispatch(listAllEmailTemplateCategoryActions.error(null));
+    try {
+      const response = await fetchAllEmailTemplateCategoryAPI({ companyId });
+      const EmailTemplatees = response.data;
+      dispatch(listAllEmailTemplateCategoryActions.success(EmailTemplatees));
+    } catch (err) {
+      console.error(err);
+      dispatch(listAllEmailTemplateCategoryActions.error(err));
+    }
+    dispatch(listAllEmailTemplateCategoryActions.loading(false));
+  };
+}
+
+export const updateEmailTemplateCategoryOrderActions = {
+  loading: createAction('EMAIL_CATEGORY/UPDATE_ORDER/IS_LOADING'),
+  error: createAction('EMAIL_CATEGORY/UPDATE_ORDER/ERROR'),
+  success: createAction('EMAIL_CATEGORY/UPDATE_ORDER/SUCCESS'),
+};
+
+export function updateEmailTemplateCategoryOrder(
+  data: Array<{ id: number; category_ordering: number }>,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(updateEmailTemplateCategoryOrderActions.loading(true));
+    dispatch(updateEmailTemplateCategoryOrderActions.error(null));
+    try {
+      const response = await editCategoryOrderAPI(data);
+      dispatch(updateEmailTemplateCategoryOrderActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(snackbarError(`paymentPack.category.update.error`));
+      dispatch(
+        updateEmailTemplateCategoryOrderActions.error(error.response.data),
+      );
+      if (options && options.onError) options.onError();
+    }
+    dispatch(updateEmailTemplateCategoryOrderActions.loading(false));
+  };
+}
+
+export const upsertEmailTemplateCategoryActions = {
+  loading: createAction('EMAIL_CATEGORY/UPSERT/IS_LOADING'),
+  error: createAction('EMAIL_CATEGORY/UPSERT/ERROR'),
+  success: createAction('EMAIL_CATEGORY/UPSERT/SUCCESS'),
+};
+
+export function upsertEmailTemplateCategory(
+  category: EmailTemplateCategory,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(upsertEmailTemplateCategoryActions.loading(true));
+    dispatch(upsertEmailTemplateCategoryActions.error(null));
+    const kind = category.id ? 'update' : 'create';
+    try {
+      const response = category.id
+        ? await updateEmailTemplateCategoryAPI(category)
+        : await createEmailTemplateCategoryAPI(category);
+      dispatch(upsertEmailTemplateCategoryActions.success(response.data));
+      dispatch(snackbarSuccess(`paymentPack.category.${kind}.success`));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(snackbarError(`paymentPack.category.${kind}.error`));
+      dispatch(upsertEmailTemplateCategoryActions.error(error.response.data));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(upsertEmailTemplateCategoryActions.loading(false));
+  };
+}
+
+export const deleteEmailTemplateCategoryActions = {
+  error: createAction('EMAIL_CATEGORY/DELETE/ERROR'),
+  loading: createAction('EMAIL_CATEGORY/DELETE/IS_LOADING'),
+  success: createAction('EMAIL_CATEGORY/DELETE/SUCCESS'),
+};
+
+export function deleteEmailTemplateCategory(
+  category: EmailTemplateCategoryWithTemplates,
+  options?: OptionCallback<EmailTemplateCategoryWithTemplates>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(deleteEmailTemplateCategoryActions.loading(true));
+    try {
+      await deleteEmailTemplateCategoryAPI(category);
+      dispatch(deleteEmailTemplateCategoryActions.success(category));
+      dispatch(snackbarSuccess('paymentPack.category.delete.success'));
+      if (options && options.onSuccess) options.onSuccess(category);
+    } catch (error) {
+      dispatch(deleteEmailTemplateCategoryActions.error(category));
+      dispatch(snackbarError('paymentPack.category.delete.error'));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(deleteEmailTemplateCategoryActions.loading(false));
   };
 }

@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { compose } from 'recompose';
-import * as Sentry from '@sentry/react';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import GoogleAnalytics from './GoogleAnalytics';
@@ -11,24 +10,32 @@ import { analytics } from './Analytics';
 import { CompanyTheme } from '../../libs/theme/types';
 
 type Props = {
-  theme?: CompanyTheme | null;
-  isInternal?: boolean;
+  theme?: ?CompanyTheme,
+  isInternal?: boolean,
 };
 
 class Analytics extends React.Component<Props> {
   init = () => {
     if (global.isLoadedAnalytics) return;
-    if (!this.props.theme && !this.props.isInternal) return;
+    if (!this.props.theme) {
+      return;
+    }
 
-    let { gtmId, facebookPixelId } = this.props.theme || {};
+    let { gtmId } = this.props.theme;
 
     if (this.props.isInternal) {
       gtmId = 'GTM-W4G3NQ6';
-      facebookPixelId = '515094402731005';
     }
 
-    if (facebookPixelId) {
-      FacebookPixel.init(facebookPixelId);
+    if (
+      !this.props.isInternal &&
+      !!this.props.theme &&
+      !!this.props.theme.facebookPixelId
+    ) {
+      FacebookPixel.init(this.props.theme.facebookPixelId);
+    }
+    if (this.props.isInternal) {
+      FacebookPixel.init('515094402731005');
     }
 
     if (gtmId) {
@@ -48,11 +55,7 @@ class Analytics extends React.Component<Props> {
         this.props.theme.gtmId !== prevProps.theme.gtmId ||
         this.props.theme.facebookPixelId !== prevProps.theme.facebookPixelId)
     ) {
-      try {
-        this.init();
-      } catch (err) {
-        Sentry.captureException(err);
-      }
+      this.init();
     }
   }
 
@@ -63,9 +66,8 @@ class Analytics extends React.Component<Props> {
         if (specific_method)
           analytic.apply(name, specific_method.method(...args));
       });
-    } catch (err) {
-      console.error(err);
-      Sentry.captureException(err);
+    } catch (e) {
+      console.error(e);
     }
   }
 

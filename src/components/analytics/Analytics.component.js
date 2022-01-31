@@ -23,7 +23,7 @@ class Analytics extends React.Component<Props> {
 
     let { gtmId } = this.props.theme;
 
-    if (this.props.isInternal) {
+    if (this.props.isInternal || !gtmId) {
       gtmId = 'GTM-W4G3NQ6';
     }
 

@@ -9,9 +9,6 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import asyncComponent from '../../AsyncComponent';
 import { fetchProfile } from '../../libs/consumer-space/actions';
-import Analytics from '../../components/analytics/Analytics.component';
-
-import { fetchCompanyTheme } from '../../libs/theme/actions';
 
 const MarketplaceAsManager = asyncComponent(() =>
   import('../marketplace/MarketplaceAsManager.page'),
@@ -65,28 +62,18 @@ type Props = {
   location: Object,
   is_manager: ?boolean,
   companyId: number,
-  theme: CompanyTheme | null,
-  fetchCompanyTheme: (companyId: number) => void,
 };
 
 export class PaymentRouter extends React.Component<Props> {
   componentDidMount() {
     if (this.props.authenticated) {
       this.props.fetchProfile();
-      if (this.props.companyId) {
-        this.props.fetchCompanyTheme(this.props.companyId);
-      }
     }
   }
 
   componentDidUpdate(prevProps: Props) {
     if (!prevProps.authenticated && this.props.authenticated) {
       this.props.fetchProfile();
-    }
-    if (this.props.companyId !== prevProps.companyId) {
-      if (this.props.companyId) {
-        this.props.fetchCompanyTheme(this.props.companyId);
-      }
     }
   }
 
@@ -110,7 +97,6 @@ export class PaymentRouter extends React.Component<Props> {
 
     return (
       <Switch>
-        <Analytics theme={this.props.theme} />
         <Route
           path="/(|customer/)checkout/:companyId/validation/"
           component={ValidationCheckout}
@@ -186,8 +172,7 @@ export default compose(
     (state) => ({
       authenticated: state.auth.authenticated,
       is_manager: state.auth.is_manager,
-      theme: state.theme.theme,
     }),
-    { fetchProfile, fetchCompanyTheme },
+    { fetchProfile },
   ),
 )(PaymentRouter);

@@ -11,6 +11,7 @@ import { getTheme } from '../../theme';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 import { Theme } from '../../libs/theme/types';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import Analytics from '../../components/analytics/Analytics.component';
 
 const BridgeWidget = asyncComponent(() => import('./BridgeWidget.page'));
 const Basket = asyncComponent(() => import('./Basket.page'));
@@ -35,6 +36,7 @@ class WidgetRouter extends React.Component<Props> {
   render() {
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
+        <Analytics theme={this.props.theme} />
         <Switch>
           <Route
             path="/widget/:companyName/:companyId/bridge"

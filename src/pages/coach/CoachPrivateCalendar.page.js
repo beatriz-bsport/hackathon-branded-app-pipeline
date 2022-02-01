@@ -212,8 +212,8 @@ export default compose(
   withStyles(styles),
   withTranslation(['privateService']),
   withState('periodFilter', 'setPeriodFilter', {
-    start: moment().startOf('week').format('YYYY-MM-DD'),
-    end: moment().endOf('week').format('YYYY-MM-DD'),
+    start: moment().startOf('week').add(-1, 'day').format('YYYY-MM-DD'),
+    end: moment().endOf('week').add(1, 'day').format('YYYY-MM-DD'),
   }),
   withStateHandlers(
     { customEventData: null },
@@ -297,7 +297,10 @@ export default compose(
     handleDateChange:
       ({ setPeriodFilter }) =>
       ({ date_start, date_end }: { date_start: string, date_end: string }) => {
-        setPeriodFilter({ start: date_start, end: date_end });
+        setPeriodFilter({
+          start: moment(date_start).add(-1, 'day').format('YYYY-MM-DD'),
+          end: moment(date_end).add(1, 'day').format('YYYY-MM-DD'),
+        });
       },
     fetchPrivateBookingList:
       ({

@@ -69,6 +69,7 @@ type OwnProps = {
   }) => void;
   emailTemplatesSummaries: () => void;
   email_templates_details: any;
+  company_id: number;
   goToCreate: () => void;
   email_templates: Array<EmailTemplateSummary>;
   id: number;
@@ -120,7 +121,7 @@ export class MarketingEmail extends Component<Props, State> {
 
   componentDidMount() {
     this.props.emailTemplatesSummaries();
-    this.props.fetchAllEmailTemplateCategory();
+    this.props.fetchAllEmailTemplateCategory(this.props.company_id);
     if (this.props.id) {
       this.props.emailTemplateDetail(this.props.id);
     }

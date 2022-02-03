@@ -8,9 +8,16 @@ import {
   fetchFranchiseThemeActions,
   fetchFranchiseUsersActions,
   fetchFranchiseUserActions,
+  listCompanyGroupActions,
+  createOrUpdateCompanyGroupActions,
   themeUpdate,
 } from './actions';
-import { FranchiseCompany, FranchiseState, FranchiseUser } from './types';
+import {
+  FranchiseCompany,
+  FranchiseState,
+  FranchiseUser,
+  CompanyGroup,
+} from './types';
 
 const initialState: Immutable.Immutable<FranchiseState> =
   Immutable<FranchiseState>({
@@ -26,6 +33,12 @@ const initialState: Immutable.Immutable<FranchiseState> =
     companies: {
       byId: {},
       allIds: [],
+    },
+    companyGroup: {
+      allIds: [],
+      byId: {},
+      loading: false,
+      error: null,
     },
   });
 
@@ -156,6 +169,50 @@ export default handleActions<Immutable.Immutable<FranchiseState>>(
           },
           { deep: true },
         );
+    },
+    [createOrUpdateCompanyGroupActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state
+        .setIn(['companyGroup', 'byId', payload.id], payload)
+        .setIn(
+          ['companyGroup', 'allIds'],
+          [payload.id, ...state.companyGroup.allIds],
+        );
+    },
+    [listCompanyGroupActions.isLoading.toString()]: (state, payload) => {
+      return state.setIn(['companyGroup', 'loading'], payload);
+    },
+    [listCompanyGroupActions.error.toString()]: (state, payload) => {
+      return state.setIn(['companyGroup', 'error'], payload);
+    },
+    [listCompanyGroupActions.success.toString()]: (
+      state,
+      { payload }: Array<CompanyGroup>,
+    ) => {
+      return state
+        .setIn(
+          ['companyGroup', 'allIds'],
+          payload.map((b: CompanyGroup) => b.id),
+        )
+        .merge(
+          {
+            companyGroup: {
+              byId: payload.reduce(
+                (acc: Record<number, CompanyGroup>, cg: CompanyGroup) => {
+                  acc[cg.id] = cg;
+                  return acc;
+                },
+                {},
+              ),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [themeUpdate.error.toString()]: (state, payload) => {
+      return state.set('error', payload).set('loading', false);
     },
 
     [fetchFranchiseUserActions.isLoading.toString()]: (state, payload) => {

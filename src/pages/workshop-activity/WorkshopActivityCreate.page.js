@@ -24,6 +24,7 @@ import { upsert } from '../../libs/meta-activity/actions';
 import {
   getEnabledMetaActivities,
   getEnabledWorkshops,
+  getMetaActivityCategories,
 } from '../../libs/meta-activity/selectors';
 import { getAllPaymentPackCategory } from '../../libs/payment-packs/selectors';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
@@ -251,6 +252,7 @@ export default compose(
       paymentPackCategories: getAllPaymentPackCategory(state),
       allTagsWithTagGroup: getallTagsWithTagGroup(state),
       showPartnership: state.theme.theme.has_partnership,
+      metaActivityCategories: getMetaActivityCategories(state),
     }),
     {
       upsertWorkshopActivity: upsert,

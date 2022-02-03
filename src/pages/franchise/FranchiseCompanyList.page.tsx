@@ -14,9 +14,14 @@ import FranchiseCompanyDetails from '../../libs/franchise/components/FranchiseCo
 import {
   getFranchiseCompanies,
   getFranchiseCompanyById,
+  getCompanyGroupList,
 } from '../../libs/franchise/selectors';
 import { RootState } from '../../reducers';
-import { fetchFranchise as fetchFranchiseAction } from '../../libs/franchise/actions';
+import {
+  fetchFranchise as fetchFranchiseAction,
+  fetchCompanyGroupList,
+  createOrUpdateCompanyGroup,
+} from '../../libs/franchise/actions';
 import { fetchFilteredMembers as fetchFilteredMembersAction } from '../../libs/member/actions';
 import {
   getAllMembers,
@@ -45,6 +50,7 @@ type Props = OwnProps &
   ConnectedProps<typeof connector> &
   WithStyles<typeof styles> &
   WithTranslation;
+
 export class FranchiseCompanyList extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -56,6 +62,7 @@ export class FranchiseCompanyList extends Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchFranchise();
+    this.props.fetchCompanyGroupList();
 
     if (this.props.companyId && !Number.isNaN(this.props.companyId)) {
       this.props.fetchFilteredMembers({
@@ -120,6 +127,19 @@ export class FranchiseCompanyList extends Component<Props, State> {
     this.props.navigateAsCompanyAdmin(companyId, `/member/${memberId}/info`);
   };
 
+  createOrUpdateCompanyGroup = (data, options) => {
+    this.props.createOrUpdateCompanyGroup(data, {
+      onSuccess: (...args) => {
+        if (options && options.onSuccess) {
+          this.props.fetchFranchise();
+          this.props.fetchCompanyGroupList();
+          options.onSuccess(...args);
+        }
+      },
+      onError: options && options.onError,
+    });
+  };
+
   render() {
     const {
       companies,
@@ -137,7 +157,9 @@ export class FranchiseCompanyList extends Component<Props, State> {
           <FranchiseCompanySearchList
             selectedCompanyId={companyId}
             companies={companies}
+            companyGroupList={this.props.companyGroupList}
             handleCompanySelected={this.handleCompanySelected}
+            createOrUpdateCompanyGroup={this.createOrUpdateCompanyGroup}
           />
         </div>
         <div className={classes.right}>
@@ -177,6 +199,7 @@ const connector = connect(
   (state: RootState) => ({
     companies: getFranchiseCompanies(state),
     companiesById: getFranchiseCompanyById(state),
+    companyGroupList: getCompanyGroupList(state),
     members: getAllMembers(state),
     membersCount: getListCountMembers(state),
     associatedEstablishments: getAllAssociatedEstablishment(state),
@@ -194,6 +217,7 @@ const connector = connect(
   }),
   {
     fetchFranchise: fetchFranchiseAction,
+    fetchCompanyGroupList,
     fetchFilteredMembers: (params: {
       [key: string]: number | boolean | string;
     }) => fetchFilteredMembersAction({ ...params, exclude_archived: true }),
@@ -201,6 +225,7 @@ const connector = connect(
     fetchEstablishmentBulk: fetchEstablishmentBulkAction,
     navigateAsCompanyAdmin: navigateAsCompanyAdminAction,
     push: pushAction,
+    createOrUpdateCompanyGroup,
   },
 );
 

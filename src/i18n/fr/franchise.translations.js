@@ -7,6 +7,9 @@ exports.default = {
       submit: 'Valider',
       cancel: 'Annuler',
     },
+    name: {
+      label: 'Nom',
+    },
   },
   membersList: {
     name: 'Nom',

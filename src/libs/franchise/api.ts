@@ -6,10 +6,17 @@ import {
   API_V1_URI,
   buildUrlParams,
   getAuth,
+  putAuth,
+  postAuth,
   patchAuth,
   get,
 } from '../../http';
-import { FranchiseUser, Franchise, FranchiseDetails } from './types';
+import {
+  FranchiseUser,
+  Franchise,
+  FranchiseDetails,
+  CompanyGroup,
+} from './types';
 
 export const fetchFranchise = async (): Promise<AxiosResponse<Franchise>> => {
   return getAuth(`${API_V1_URI}/franchisor/franchisor/me`);
@@ -50,4 +57,21 @@ export const fetchFranchiseTheme = async (
   franchiseId: number,
 ): Promise<AxiosResponse<FranchiseDetails>> => {
   return get(`${API_V1_URI}/franchisor/franchisor/${franchiseId}/`);
+};
+
+export const fetchCompanyGroupList = async (
+  params: any,
+): Promise<AxiosResponse<CompanyGroup>> => {
+  return getAuth(
+    `${API_V1_URI}/franchisor/company_group/${buildUrlParams(params)}`,
+  );
+};
+
+export const createOrUpdateCompanyGroup = async (
+  data: any,
+): Promise<AxiosResponse<CompanyGroup>> => {
+  if (data?.id) {
+    return putAuth(`${API_V1_URI}/franchisor/company_group/${data?.id}/`, data);
+  }
+  return postAuth(`${API_V1_URI}/franchisor/company_group/`, data);
 };

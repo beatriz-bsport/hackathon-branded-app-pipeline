@@ -1,4 +1,5 @@
 // @flow
+import { createSelector } from 'reselect';
 import { RootState } from '../../reducers';
 import { FranchiseState } from './types';
 
@@ -86,3 +87,14 @@ export const getFranchiseCompanies = (state: RootState) => {
   }
   return null;
 };
+
+export const _getCompanyGroupById = (state: RootState) =>
+  getState(state).companyGroup.byId;
+
+export const _getCompanyGroupAllIds = (state: RootState) =>
+  getState(state).companyGroup.allIds;
+
+export const getCompanyGroupList = createSelector(
+  [_getCompanyGroupAllIds, _getCompanyGroupById],
+  (ids, data) => ids.map((id) => data[id]),
+);

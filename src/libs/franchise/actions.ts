@@ -9,9 +9,11 @@ import {
   fetchFranchiseUser as fetchFranchiseUserAPI,
   updateFranchiseTheme as updateFranchiseThemeAPI,
   fetchFranchiseTheme as fetchFranchiseThemeAPI,
+  fetchCompanyGroupList as fetchCompanyGroupListAPI,
   retrieveFranchise as retrieveFranchiseAPI,
+  createOrUpdateCompanyGroup as createOrUpdateCompanyGroupAPI,
 } from './api';
-import { Franchise } from './types';
+import { Franchise, CompanyGroup } from './types';
 
 export const fetchFranchiseActions = {
   error: createAction('FRANCHISE/ME/ERROR'),
@@ -189,5 +191,68 @@ export function updateFranchiseTheme(
       dispatch(themeUpdate.isLoading(false));
       options?.onError();
     }
+  };
+}
+
+export const listCompanyGroupActions = {
+  error: createAction('FRANCHISE/COMPANY_GROUP_LIST/ERROR'),
+  isLoading: createAction('FRANCHISE/COMPANY_GROUP_LIST/IS_LOADING'),
+  success: createAction('FRANCHISE/COMPANY_GROUP_LIST/SUCCESS'),
+};
+
+export function fetchCompanyGroupList(
+  company: number,
+  options?: OptionCallback<Array<CompanyGroup>>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listCompanyGroupActions.isLoading(true));
+    dispatch(listCompanyGroupActions.error(null));
+
+    try {
+      const response = await fetchCompanyGroupListAPI(
+        company ? { company } : {},
+      );
+
+      dispatch(listCompanyGroupActions.success(response.data));
+      if (options && options.onSuccess) {
+        options?.onSuccess(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(listCompanyGroupActions.error(error));
+      options?.onError(error);
+    }
+
+    dispatch(listCompanyGroupActions.isLoading(false));
+  };
+}
+
+export const createOrUpdateCompanyGroupActions = {
+  error: createAction('FRANCHISE/COMPANY_GROUP_CREATE/ERROR'),
+  isLoading: createAction('FRANCHISE/COMPANY_GROUP_CREATE/IS_LOADING'),
+  success: createAction('FRANCHISE/COMPANY_GROUP_CREATE/SUCCESS'),
+};
+
+export function createOrUpdateCompanyGroup(
+  data: any,
+  options?: OptionCallback<CompanyGroup>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(createOrUpdateCompanyGroupActions.isLoading(true));
+    dispatch(createOrUpdateCompanyGroupActions.error(null));
+
+    try {
+      const response = await createOrUpdateCompanyGroupAPI(data);
+
+      dispatch(createOrUpdateCompanyGroupActions.success(response.data));
+      options?.onSuccess(response.data);
+    } catch (error) {
+      dispatch(createOrUpdateCompanyGroupActions.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
+
+    dispatch(createOrUpdateCompanyGroupActions.isLoading(false));
   };
 }

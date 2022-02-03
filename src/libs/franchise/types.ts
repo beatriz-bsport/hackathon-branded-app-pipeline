@@ -17,6 +17,12 @@ export type FranchiseState = {
     byId: Record<number, FranchiseCompany>;
     allIds: number[];
   };
+  companyGroup: {
+    allIds: Array<number>;
+    byId: { [id: number]: CompanyGroup };
+    loading: boolean;
+    error: Error | null;
+  };
 };
 
 export type Franchise = {
@@ -27,6 +33,12 @@ export type Franchise = {
   primaryRGB: [number, number, number];
   secondaryRGB: [number, number, number];
   marketing_email?: string;
+};
+
+export type CompanyGroup = {
+  id: number;
+  name: string;
+  companies: number[];
 };
 
 export type FranchiseUser = {

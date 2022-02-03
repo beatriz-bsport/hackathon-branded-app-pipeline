@@ -28,7 +28,6 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ViewWeek from '@material-ui/icons/ViewWeek';
 import ViewComfy from '@material-ui/icons/ViewComfy';
-import Hidden from '@material-ui/core/Hidden';
 
 import { withTranslation, TFunction } from 'react-i18next';
 import { Moment } from '../../i18n';
@@ -322,43 +321,44 @@ export class Calendar extends PureComponent<Props, State> {
     const { classes } = this.props;
     return (
       <div className={classes.rowCentered}>
-        {((!this.props.forceMonthDisplay && !this.props.hideSwitchViewButton) ||
-          !!this.props.setShowCancelledOffers ||
-          !!this.props.onRequestMassDisable ||
-          !!this.props.showDownloader) && (
-          <IconButton
-            className={classes.absoluteLeft}
-            onClick={(ev) => this.props.setMenuAnchorEl(ev.currentTarget)}
-          >
-            <SettingsIcon />
-          </IconButton>
-        )}
-        {!!this.props.searchBar && (
-          <Button
-            className={classes.absoluteLeft}
-            onClick={this.props.toggleSearchBar}
-          >
-            <FilterIcon />
-            <Hidden xsDown>
+        <div className={classes.trick}>
+          {((!this.props.forceMonthDisplay &&
+            !this.props.hideSwitchViewButton) ||
+            !!this.props.setShowCancelledOffers ||
+            !!this.props.onRequestMassDisable ||
+            !!this.props.showDownloader) && (
+            <IconButton
+              onClick={(ev) => this.props.setMenuAnchorEl(ev.currentTarget)}
+            >
+              <SettingsIcon />
+            </IconButton>
+          )}
+          {!!this.props.searchBar && (
+            <Button onClick={this.props.toggleSearchBar}>
+              <FilterIcon />
+
               <Typography className={classes.filterLabel} variant="subtitle2">
                 {this.props.t('calendar.filter')}
               </Typography>
-            </Hidden>
-          </Button>
-        )}
-        <IconButton onClick={this.showPrevious}>
-          <ChevronLeftIcon />
-        </IconButton>
-        <Typography
-          component="h3"
-          variant="h6"
-          className={classes.textCapitalize}
-        >
-          {this.renderCalendarTitle()}
-        </Typography>
-        <IconButton id="calendar-next-month" onClick={this.showNext}>
-          <ChevronRightIcon />
-        </IconButton>
+            </Button>
+          )}
+        </div>
+        <div className={classes.dateRow}>
+          <IconButton onClick={this.showPrevious}>
+            <ChevronLeftIcon />
+          </IconButton>
+          <Typography
+            component="h3"
+            variant="h6"
+            className={classes.textCapitalize}
+          >
+            {this.renderCalendarTitle()}
+          </Typography>
+          <IconButton id="calendar-next-month" onClick={this.showNext}>
+            <ChevronRightIcon />
+          </IconButton>
+        </div>
+        <div className={classes.trick} />
       </div>
     );
   };
@@ -481,9 +481,17 @@ export class Calendar extends PureComponent<Props, State> {
 }
 
 const styles = (theme) => ({
+  trick: {
+    flex: '1',
+    [theme.breakpoints.down('xs')]: { flex: '0' },
+  },
   calendarContainer: {
     width: '100%',
     marginBottom: theme.spacing(2),
+  },
+  dateRow: {
+    display: 'flex',
+    alignItems: 'center',
   },
   dayButton: {
     padding: theme.spacing(1),
@@ -544,12 +552,14 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'row',
   },
+
   rowCentered: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
+    flexWrap: 'wrap-reverse',
   },
   weekRow: {
     width: '100%',

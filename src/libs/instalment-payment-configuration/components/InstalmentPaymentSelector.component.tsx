@@ -6,7 +6,7 @@ import BasketInstalmentPaymentOption from './BasketInstalmentPaymentConfiguratio
 import { InstalmentPayment } from '../types';
 
 type Props = {
-  instalmentPaymentConfigurationList: Array<InstalmentPayment>;
+  instalmentPaymentConfigurationList: null | Array<InstalmentPayment>;
   basketPriceCts: number;
   onSelectInstalmentPayment: (id: number) => void;
 };
@@ -45,7 +45,7 @@ const InstalmentPaymentSelector = (props: Props) => {
           }}
         />
       )}
-      {props.instalmentPaymentConfigurationList.map((ipc) => (
+      {(props.instalmentPaymentConfigurationList || []).map((ipc) => (
         <BasketInstalmentPaymentOption
           instalmentPayment={ipc}
           key={ipc.id}

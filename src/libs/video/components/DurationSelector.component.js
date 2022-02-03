@@ -78,6 +78,7 @@ const DurationSelector = (props: Props) => {
                       aria-label="Clear search"
                       onClick={(ev) => {
                         ev.stopPropagation();
+                        setValue([0, 180]);
                         props.onChange(null);
                       }}
                     >

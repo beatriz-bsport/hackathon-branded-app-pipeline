@@ -391,6 +391,12 @@ export default compose(
         if (searchParams.levels) {
           params.level__pk__in = searchParams.levels;
         }
+        if (searchParams.duration_second_range) {
+          params.duration_second_range = searchParams.duration_second_range;
+        }
+        if (searchParams.search) {
+          params.search = searchParams.search;
+        }
         return params;
       },
   }),

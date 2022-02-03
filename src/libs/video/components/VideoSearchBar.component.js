@@ -122,7 +122,7 @@ export const VideoSearchBar = (props: Props) => {
           fullWidth
           size="small"
           variant="outlined"
-          value={props.searchParams.search}
+          value={props.searchParams.search ? props.searchParams.search : ''}
           placeholder={t('video.search.placeholder')}
           InputProps={{
             className: classes.input,

@@ -47,10 +47,10 @@ const QUICKBOOKS = 16;
 const MASTER_ACCOUNT = 17;
 
 type Props = {
-  upsellPackage: UpsellPackage,
-  onKnowMore: (id: number) => void,
-  onRequestUpsell: (id: number) => void,
-  children?: React.ReactChild,
+  upsellPackage: any;
+  onKnowMore: (id: number) => void;
+  onRequestUpsell: (id: number) => void;
+  children?: React.ReactChild;
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -366,7 +366,11 @@ const UPSELL_REGISTRY = {
   [MASTER_ACCOUNT]: UpsellMasterAccount,
 };
 
-export const getUpsellPackageComponent = (upsellIdentifier: number) =>
-  UPSELL_REGISTRY[upsellIdentifier];
+export const getUpsellPackageComponent = (upsellIdentifier: number) => {
+  if (upsellIdentifier in UPSELL_REGISTRY) {
+    return UPSELL_REGISTRY[upsellIdentifier];
+  }
+  return UpsellMasterAccount;
+};
 
 export default getUpsellPackageComponent;

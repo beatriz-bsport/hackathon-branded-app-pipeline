@@ -2,7 +2,7 @@
 
 import React from 'react';
 import moment from 'moment-timezone';
-
+import amber from '@material-ui/core/colors/amber';
 import { withTranslation, TFunction } from 'react-i18next';
 
 import Table from '@material-ui/core/Table';
@@ -14,6 +14,7 @@ import Button from '@material-ui/core/Button';
 import AttachIcon from '@material-ui/icons/AttachFile';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import clx from 'classnames';
 import CoachPaymentRuleSelector from '../../../coach-payment-rules/components/coach-payment-rule-selector/CoachPaymentRuleSelector.component';
 import type { CoachPaymentRule } from '../../../coach-payment-rules/types';
 import { downloadAsCsv } from '../../../../utils/downloader';
@@ -42,7 +43,9 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
   } = props;
   const classes = useStyles();
   const coach_payment_error =
-    performances && performances.find((perf) => perf.error);
+    performances && performances.find((perf) => perf.error && !perf.is_unpaid);
+  const unpaid_private_booking_exists =
+    performances && performances.find((perf) => perf.is_unpaid);
   return (
     <div>
       <div className={classes.flexHeaderContainer}>
@@ -102,10 +105,25 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
           <TableCell>{t('fields.rule')}</TableCell>
         </TableHead>
         <TableBody>
-          {coach_payment_error && (
+          {(coach_payment_error || unpaid_private_booking_exists) && (
             <TableRow>
               <TableCell colSpan={9}>
-                <Typography color="error">{t('fields.error')}</Typography>
+                {!!coach_payment_error && (
+                  <Typography
+                    color="error"
+                    className={classes.tableRowErrorHelper}
+                  >
+                    {t('fields.error')}
+                  </Typography>
+                )}
+                {!!unpaid_private_booking_exists && (
+                  <Typography
+                    color="error"
+                    className={classes.tableRowUnpaidHelper}
+                  >
+                    {t('fields.unpaid_private_booking')}
+                  </Typography>
+                )}
               </TableCell>
             </TableRow>
           )}
@@ -113,7 +131,11 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
             performances.map((private_service) => (
               <TableRow
                 key={private_service.private_booking_id}
-                className={private_service.error ? classes.tableRowError : null}
+                className={clx({
+                  [classes.tableRowError]:
+                    private_service.error && !private_service.is_unpaid,
+                  [classes.tableRowErrorUnpaid]: private_service.is_unpaid,
+                })}
               >
                 <TableCell>{private_service.private_service_name}</TableCell>
                 <TableCell>
@@ -165,7 +187,7 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
   );
 }
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   flexHeaderContainer: {
     display: 'flex',
     width: '100%',
@@ -175,6 +197,25 @@ const useStyles = makeStyles(() => ({
     backgroundColor: '#FFDDDD',
     '&:hover': {
       backgroundColor: '#FFC1C1',
+    },
+  },
+  tableRowErrorUnpaid: {
+    backgroundColor: amber[100],
+    '&:hover': {
+      backgroundColor: amber[200],
+    },
+  },
+  tableRowErrorHelper: {
+    '&::before': {
+      content: '"\u2022"',
+      paddingRight: theme.spacing(1),
+    },
+  },
+  tableRowUnpaidHelper: {
+    color: amber[900],
+    '&::before': {
+      content: '"\u2022"',
+      paddingRight: theme.spacing(1),
     },
   },
 }));

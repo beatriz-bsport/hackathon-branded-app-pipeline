@@ -66,33 +66,34 @@ export const PrivatePassCapabilities = (props: Props) => {
         </div>
       ) : (
         <List disablePadding>
-          {props.compatiblePrivateConsumerPass.length ? (
-            <Paper>
-              {props.compatibleWithUnpaidBooking &&
-                props.registerUnPaidPrivateBooking && (
-                  <UnPrivateConsumerPassBookerListItem
-                    key="unpaid_booking_pass"
-                    onBook={() => props.registerUnPaidPrivateBooking()}
-                    divider
-                    privateSlotCredit={props.privateSlotCredit}
-                  />
-                )}
-              {props.compatiblePrivateConsumerPass.map(
-                (pcp: PrivateConsumerPass) => (
-                  <PrivateConsumerPassBookerListItem
-                    private_consumer_pass={pcp}
-                    onBook={(options: OptionCallback) =>
-                      props.recurrenceRule
-                        ? props.createRecurrentRule(options)
-                        : props.registerPrivateBooking(pcp.id, options)
-                    }
-                    key={pcp.id}
-                    divider
-                  />
-                ),
+          <Paper>
+            {props.compatibleWithUnpaidBooking &&
+              props.registerUnPaidPrivateBooking && (
+                <UnPrivateConsumerPassBookerListItem
+                  key="unpaid_booking_pass"
+                  onBook={() => props.registerUnPaidPrivateBooking()}
+                  divider
+                  privateSlotCredit={props.privateSlotCredit}
+                />
               )}
-            </Paper>
-          ) : null}
+
+            {props.compatiblePrivateConsumerPass.length
+              ? props.compatiblePrivateConsumerPass.map(
+                  (pcp: PrivateConsumerPass) => (
+                    <PrivateConsumerPassBookerListItem
+                      private_consumer_pass={pcp}
+                      onBook={(options: OptionCallback) =>
+                        props.recurrenceRule
+                          ? props.createRecurrentRule(options)
+                          : props.registerPrivateBooking(pcp.id, options)
+                      }
+                      key={pcp.id}
+                      divider
+                    />
+                  ),
+                )
+              : null}
+          </Paper>
         </List>
       )}
       {props.compatiblePrivateConsumerPass.length === 0 && !needRefresh ? (

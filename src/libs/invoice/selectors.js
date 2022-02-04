@@ -36,7 +36,9 @@ export const getBuyableItem = createSelector(
   ) => ({
     [BUYABLE_ITEM_PASS]: paymentPackList,
     [BUYABLE_ITEM_SHOP_ITEM]: shopItemList,
-    [BUYABLE_ITEM_PRIVATE_PASS]: privatePassList,
+    [BUYABLE_ITEM_PRIVATE_PASS]: privatePassList?.filter(
+      (pp) => !pp.is_unpaid_private_booking_integration,
+    ),
     [BUYABLE_ITEM_COMBO_ITEM]: paymentComboList,
     [BUYABLE_ITEM_GIFTCARD]: giftcardList,
   }),

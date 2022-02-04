@@ -21,7 +21,10 @@ import PaginatedListStateful from '../../components/PaginatedListStateful.compon
 import { getConsumerPacksByMemberWithPaymentPack } from '../../libs/consumer-payment-pack/selectors';
 
 import PrivateConsumerPassBookerListItem from '../../libs/private-service/components/booking-module/PrivateConsumerPassBookerListItem.component';
-import { getPrivateConsumerPassList } from '../../libs/private-service/selectors/private-consumer-pass';
+import {
+  getPrivateConsumerPassList,
+  excludeUnPaidPrivateConsumerPass,
+} from '../../libs/private-service/selectors/private-consumer-pass';
 
 import ConsumerPackRowItem from '../../libs/consumer-payment-pack/components/ConsumerPackRowItem.component';
 import { fetchPrivateConsumerPassList } from '../../libs/private-service/actions';
@@ -197,7 +200,9 @@ export default compose(
       consumerPackCurrentPage: state.consumerPaymentPack.byMember.page,
       consumerPackLoading: state.consumerPaymentPack.byMember.loading,
 
-      private_consumer_pass_list: getPrivateConsumerPassList(state),
+      private_consumer_pass_list: excludeUnPaidPrivateConsumerPass(
+        getPrivateConsumerPassList,
+      )(state),
       privateConsumerPassLoading:
         state.privateService.privateConsumerPass.loading,
       privateBookingsLoading: state.privateService.privateBooking.loading,

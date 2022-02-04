@@ -126,14 +126,26 @@ export const PrivateBookingDetail = (props: Props) => {
           {t('privateBooking.detail.passTitle')}
         </Typography>
         {props.private_consumer_pass ? (
-          <Paper>
-            <PrivateConsumerPassBookerListItem
-              private_consumer_pass={props.private_consumer_pass}
-              onClick={() =>
-                props.goToPrivateConsumerPass(props.private_consumer_pass.id)
-              }
-            />
-          </Paper>
+          <>
+            {props.private_booking.is_unpaid ? (
+              <Typography>
+                {t('privateBooking.detail.unpaidBooking', {
+                  credits: props.private_slot?.credit,
+                })}
+              </Typography>
+            ) : (
+              <Paper>
+                <PrivateConsumerPassBookerListItem
+                  private_consumer_pass={props.private_consumer_pass}
+                  onClick={() =>
+                    props.goToPrivateConsumerPass(
+                      props.private_consumer_pass.id,
+                    )
+                  }
+                />
+              </Paper>
+            )}
+          </>
         ) : (
           <CircularProgress />
         )}

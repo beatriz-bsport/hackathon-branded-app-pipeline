@@ -512,6 +512,7 @@ export const PrivateServiceFormikHOC = withFormik<Props, FormikValues>({
           'cover_thumbnail',
           'company',
           'slots_duration_minute',
+          'has_own_availability_slots',
           ...(!values.private_service_group ? ['private_service_group'] : []),
         ],
       ),

@@ -11,7 +11,8 @@ exports.default = {
     cancelled_bookings: 'Réservations annulées',
     total: 'Rémunération totale',
     error:
-      "Il semble que des cours n'ont pas de règle de rémunération associée. Vous devez associer une règle de paiment à ces cours ou associer un règle de paiement au coach.",
+      "Il semble que des cours n'ont pas de règle de rémunération associée. Vous devez associer une règle de paiment à ces cours ou associer un règle de paiement au professeur.",
+    unpaid_private_booking: 'Des rendez-vous sont impayés.',
   },
   table: {
     download: 'Télécharger',

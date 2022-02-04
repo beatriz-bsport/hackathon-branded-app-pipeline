@@ -147,7 +147,8 @@ export class InvoiceCreation extends Component<Props, State> {
         this.props.initialItems.withPrivatePass &&
         !this.props.availableBuyableItems[BUYABLE_ITEM_PRIVATE_PASS].find(
           (bi) =>
-            bi.id === parseInt(this.props.initialItems.withPrivatePass, 10),
+            bi.id === parseInt(this.props.initialItems.withPrivatePass, 10) &&
+            !bi.is_unpaid_private_booking_integration,
         ))
     ) {
       return <LinearProgress />;

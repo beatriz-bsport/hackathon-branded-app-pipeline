@@ -4,6 +4,7 @@ const {
   REMINDER_NOTE_ALERT_KIND,
   PRIVATE_BOOKING_INCOMPLETE_ALERT,
   COMPANY_ONBOARDING_ALERT,
+  UNPAID_PRIVATE_BOOKING_ALERT,
 } = require('@bsport/common/lib/master-data/alerting_kind');
 
 exports.default = {
@@ -17,6 +18,7 @@ exports.default = {
     [REMINDER_NOTE_ALERT_KIND.alert_kind]: 'Tâche',
     [PRIVATE_BOOKING_INCOMPLETE_ALERT.alert_kind]: 'RDV à compléter',
     [COMPANY_ONBOARDING_ALERT.alert_kind]: 'Informations légales',
+    [UNPAID_PRIVATE_BOOKING_ALERT.alert_kind]: 'Rendez-vous impayés',
   },
   showMore: 'Voir davantage',
   unevenInvoice: {
@@ -34,6 +36,9 @@ exports.default = {
     explain: "Le RDV de <1>{{name}}</1> n'a pas de professeur désigné.",
     date: 'Date : {{ date_start }}',
     name: 'Membre : {{ user_name }}',
+  },
+  unpaidPrivateBooking: {
+    credits_due: 'Crédits à payer : {{ credits }}',
   },
   task: {
     name: '{{ name }}',

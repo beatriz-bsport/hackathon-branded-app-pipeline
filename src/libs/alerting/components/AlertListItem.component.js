@@ -13,6 +13,7 @@ import {
   REMINDER_NOTE_ALERT_KIND,
   PRIVATE_BOOKING_INCOMPLETE_ALERT,
   COMPANY_ONBOARDING_ALERT,
+  UNPAID_PRIVATE_BOOKING_ALERT,
 } from '@bsport/common/lib/master-data/alerting_kind';
 
 import { Trans, useTranslation } from 'react-i18next';
@@ -259,6 +260,50 @@ const TaskAlertListItem = (props: {
   );
 };
 
+const UnpaidPrivateBookingIncompleteListItem = (props: {
+  pushRouter: (string) => void,
+  alerting: PrivateBookingAlerting,
+}) => {
+  const { alerting } = props;
+  const { t } = useTranslation(['alerting']);
+  const classes = useStyles();
+  const { user_name, date_start, credits_due } = alerting.data;
+  return (
+    <ListItem divider style={{ paddingTop: 0 }}>
+      <div style={{ width: '100%' }}>
+        <div className={classes.titleContainer}>
+          <div>
+            <Typography variant="subtitle1" component="h3">
+              {alerting.data.name}
+            </Typography>
+            <Typography variant="caption" color="textSecondary">
+              {t('privateBookingIncomplete.date', {
+                date_start: moment(date_start).format('LLLL'),
+              })}
+            </Typography>
+          </div>
+          <div className={classes.titleContainer}>
+            <IconButton
+              onClick={() =>
+                props.pushRouter(
+                  `/member/${alerting.data.member.id}/private-booking/${alerting.data.private_booking}`,
+                )
+              }
+            >
+              <ArrowForwardIcon color="secondary" />
+            </IconButton>
+          </div>
+        </div>
+        <Typography variant="caption" component="p">
+          {t('privateBookingIncomplete.name', { user_name })}
+        </Typography>
+        <Typography variant="caption" component="p">
+          {t('unpaidPrivateBooking.credits_due', { credits: credits_due })}
+        </Typography>
+      </div>
+    </ListItem>
+  );
+};
 export default function AlertList(props: Props) {
   const { alerting, pushRouter } = props;
   switch (alerting.alert_kind) {
@@ -282,6 +327,13 @@ export default function AlertList(props: Props) {
     case PRIVATE_BOOKING_INCOMPLETE_ALERT.alert_kind:
       return (
         <PrivateBookingIncompleteListItem
+          alerting={alerting}
+          pushRouter={pushRouter}
+        />
+      );
+    case UNPAID_PRIVATE_BOOKING_ALERT.alert_kind:
+      return (
+        <UnpaidPrivateBookingIncompleteListItem
           alerting={alerting}
           pushRouter={pushRouter}
         />

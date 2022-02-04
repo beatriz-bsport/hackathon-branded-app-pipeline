@@ -218,6 +218,8 @@ exports.default = {
       address: 'Adresse',
       coach: 'Professeur',
       attachCoach: 'Attribuer à un professeur',
+      unpaidBooking:
+        'Le client a utilisé l’option pour payer plus tard. {{ credits}} crédit(s) seront automatiquement débités lors du prochain achat d’une carte compatible avec le RDV.',
     },
     managerAdd: {
       title: 'Nouvelle réservation',
@@ -435,7 +437,7 @@ exports.default = {
     },
     unpaidBooking: {
       book: 'Réserver',
-      helper: 'Réserver sans payer puis acheter plus tard la carte compatible.',
+      helper: 'Réserver sans payer et acheter plus tard une carte compatible.',
       header: 'Payer plus tard',
       dialogHelper:
         'Avec cette option réservez votre séance sans la payer tout de suite. Lors de votre prochain achat d’une carte compatible avec cette séance, celle-ci sera automatiquement débitée de {{ credits }} crédit(s).',
@@ -819,7 +821,7 @@ exports.default = {
         title: 'Payer plus tard',
         label: 'Autoriser la réservation sans payer',
         helperText:
-          'En activant cette fonctionnalité vos membres pourront réserver ce rendez-vous sans avoir à acheter/utiliser une carte. Le nombre de crédits du rendez-vous sera automatiquement débiter de la prochaine carte compatible achetée.',
+          'En activant cette fonctionnalité vos membres pourront réserver ce rendez-vous sans avoir à acheter/utiliser une carte. Le nombre de crédits du rendez-vous sera automatiquement débité de la prochaine carte compatible achetée.',
         tag: {
           header: 'Tags',
           helper:

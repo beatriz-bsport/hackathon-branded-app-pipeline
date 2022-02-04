@@ -246,7 +246,6 @@ export class InvoiceForm extends React.Component<Props, State> {
           (bi) => bi.id === this.state.giftcardToConfigureList[0],
         )
       : null;
-
     return (
       <Grid container spacing={1} className={classes.container}>
         <Grid item xs={12} md={6}>

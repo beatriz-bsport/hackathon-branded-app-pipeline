@@ -6,6 +6,7 @@ import {
   REMINDER_NOTE_ALERT_KIND,
   PRIVATE_BOOKING_INCOMPLETE_ALERT,
   COMPANY_ONBOARDING_ALERT,
+  UNPAID_PRIVATE_BOOKING_ALERT,
   // @ts-ignore
 } from '@bsport/common/lib/master-data/alerting_kind';
 import api from './api';
@@ -19,6 +20,7 @@ const ALERT_KINDS = [
   REMINDER_NOTE_ALERT_KIND,
   PRIVATE_BOOKING_INCOMPLETE_ALERT,
   COMPANY_ONBOARDING_ALERT,
+  UNPAID_PRIVATE_BOOKING_ALERT,
 ].map((ak) => ak.alert_kind);
 
 export const listActions = {

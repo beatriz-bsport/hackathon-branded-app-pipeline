@@ -1,7 +1,14 @@
 {
   "alerting": {
     "list": { "title": "Notifications", "emptyAlerting": "Aucune nouvelle notification." },
-    "alert_kind": { "1": "Facturation", "2": "Commande", "3": "Tâche", "4": "RDV à compléter", "5": "Informations légales" },
+    "alert_kind": {
+      "1": "Facturation",
+      "2": "Commande",
+      "3": "Tâche",
+      "4": "RDV à compléter",
+      "5": "Informations légales",
+      "6": "Rendez-vous impayés"
+    },
     "showMore": "Voir davantage",
     "unevenInvoice": {
       "title": "Facture non-équilibrée",
@@ -19,6 +26,7 @@
       "date": "Date : {{ date_start }}",
       "name": "Membre : {{ user_name }}"
     },
+    "unpaidPrivateBooking": { "credits_due": "Crédits à payer : {{ credits }}" },
     "task": { "name": "{{ name }}" },
     "companyOnboarding": {
       "verification": {
@@ -432,7 +440,8 @@
       "confirmed_bookings": "Participants",
       "cancelled_bookings": "Réservations annulées",
       "total": "Rémunération totale",
-      "error": "Il semble que des cours n'ont pas de règle de rémunération associée. Vous devez associer une règle de paiment à ces cours ou associer un règle de paiement au coach."
+      "error": "Il semble que des cours n'ont pas de règle de rémunération associée. Vous devez associer une règle de paiment à ces cours ou associer un règle de paiement au professeur.",
+      "unpaid_private_booking": "Des rendez-vous sont impayés."
     },
     "table": { "download": "Télécharger", "downloadAll": "Synthèse" },
     "addBonus": "Ajouter une règle",
@@ -4090,7 +4099,8 @@
         "wasRefundedNo": "Non",
         "address": "Adresse",
         "coach": "Professeur",
-        "attachCoach": "Attribuer à un professeur"
+        "attachCoach": "Attribuer à un professeur",
+        "unpaidBooking": "Le client a utilisé l’option pour payer plus tard. {{ credits}} crédit(s) seront automatiquement débités lors du prochain achat d’une carte compatible avec le RDV."
       },
       "managerAdd": {
         "title": "Nouvelle réservation",
@@ -4247,7 +4257,7 @@
       },
       "unpaidBooking": {
         "book": "Réserver",
-        "helper": "Réserver sans payer puis acheter plus tard la carte compatible.",
+        "helper": "Réserver sans payer et acheter plus tard une carte compatible.",
         "header": "Payer plus tard",
         "dialogHelper": "Avec cette option réservez votre séance sans la payer tout de suite. Lors de votre prochain achat d’une carte compatible avec cette séance, celle-ci sera automatiquement débitée de {{ credits }} crédit(s).",
         "isUnpaid": "Impayé"
@@ -4505,7 +4515,7 @@
         "unpaidBooking": {
           "title": "Payer plus tard",
           "label": "Autoriser la réservation sans payer",
-          "helperText": "En activant cette fonctionnalité vos membres pourront réserver ce rendez-vous sans avoir à acheter/utiliser une carte. Le nombre de crédits du rendez-vous sera automatiquement débiter de la prochaine carte compatible achetée.",
+          "helperText": "En activant cette fonctionnalité vos membres pourront réserver ce rendez-vous sans avoir à acheter/utiliser une carte. Le nombre de crédits du rendez-vous sera automatiquement débité de la prochaine carte compatible achetée.",
           "tag": {
             "header": "Tags",
             "helper": "Utilisez les tags pour rendre accessible la réservation sans payer seulement à certain membre.  Tous les membres possèdant un des tags dans “Autorisé” pourront réserver sans payer. Ou bien tous les membres possèdant un des tags dans “Non-autorisé” ne pourront pas réserver sans payer.",

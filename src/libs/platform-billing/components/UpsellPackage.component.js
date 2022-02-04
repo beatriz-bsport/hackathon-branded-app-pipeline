@@ -26,6 +26,7 @@ import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import { useTranslation } from 'react-i18next';
 
 import Typography from '@material-ui/core/Typography';
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import { getCurrencyDisplay } from '../../theme/selectors';
 
 const CUSTOM_APP = 1;
@@ -43,6 +44,7 @@ const ANALYTICS = 13;
 const SPOT_SCHEDULING = 14;
 const PUSH_NOTIFICATION = 15;
 const QUICKBOOKS = 16;
+const MASTER_ACCOUNT = 17;
 
 type Props = {
   upsellPackage: UpsellPackage,
@@ -187,6 +189,15 @@ const UpsellPushNotification = (props: Props) => {
   return (
     <DefaultTemplate {...props}>
       <NotificationsActiveIcon className={classes.icon} />
+    </DefaultTemplate>
+  );
+};
+
+const UpsellMasterAccount = (props: Props) => {
+  const classes = useStyles();
+  return (
+    <DefaultTemplate {...props}>
+      <SupervisorAccountIcon className={classes.icon} />
     </DefaultTemplate>
   );
 };
@@ -352,6 +363,7 @@ const UPSELL_REGISTRY = {
   [QUICKBOOKS]: UpsellPackageQuickbooks,
   [SPOT_SCHEDULING]: UpsellPackageSpotScheduling,
   [PUSH_NOTIFICATION]: UpsellPushNotification,
+  [MASTER_ACCOUNT]: UpsellMasterAccount,
 };
 
 export const getUpsellPackageComponent = (upsellIdentifier: number) =>

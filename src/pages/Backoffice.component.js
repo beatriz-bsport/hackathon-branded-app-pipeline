@@ -210,6 +210,10 @@ type Props = {
   isPluginActivated: boolean,
   fetchCompanyCustomMemberForm: (prams: { company: number }) => void,
   fetchCompanyCustomSignUp: (prams: { company: number }) => void,
+  featureList: Array<{
+    upsell_identifier: number,
+    readable_identifier: string,
+  }>,
 };
 
 const BackofficeRoute = withSentryErrorReporting((props) => {
@@ -401,6 +405,8 @@ export class Backoffice extends Component<Props, State> {
                 }
                 navigateBackToFranchisor={this.props.navigateBackToFranchise}
                 companyName={this.props.theme.company_name}
+                companyId={this.props.theme.company}
+                featureList={this.props.featureList}
               >
                 {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
                   Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging') &&
@@ -499,6 +505,7 @@ export default compose(
       permission: getPermissions(state),
       onSpotPaymentReportId: state.paymentBackend.onSpotPaymentReport.id,
       is_consumer: state.auth.is_consumer && !state.auth.is_manager,
+      featureList: state.company.feature.data.upsell,
 
       tempPasswordState: getTempPasswordState(state),
       roleById: state.role.role.byId,

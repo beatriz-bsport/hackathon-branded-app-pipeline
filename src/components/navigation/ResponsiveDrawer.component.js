@@ -97,6 +97,8 @@ import VersionVisualizer from '../VersionVisualizer.component';
 
 export const drawerWidth = 260;
 
+const UPSELL_PERFORMANCE_TRACKING_IDENTIFIER = 19;
+
 type Props = {
   children: Object,
   theme: Object,
@@ -130,8 +132,13 @@ type Props = {
   paymentMethodMissing: boolean,
   isFranchisorNavigation: boolean,
   navigateBackToFranchisor: () => void,
+  companyId: number,
   companyName: string,
   stripeOnboardingPending: ?boolean,
+  featureList: Array<{
+    upsell_identifier: number,
+    readable_identifier: string,
+  }>,
 };
 
 type State = {
@@ -606,71 +613,48 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         text: t('backofficeMenu.myClub'),
         type: 'nested',
         permission: 'navigationMenu.myClub',
-        nestedItems:
-          Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'
-            ? [
-                'divider',
-                {
-                  to: '/activity',
-                  icon: Star,
-                  text: t('backofficeMenu.activity'),
-                },
-                {
-                  to: '/workshop-activity',
-                  icon: TodayIcon,
-                  text: t('backofficeMenu.workshopActivities'),
-                },
-                {
-                  to: '/private-service/service/',
-                  icon: ScheduleIcon,
-                  text: t('backofficeMenu.privateService.services'),
-                },
-                {
-                  to: '/coach',
-                  id: 'button_menu_teachers',
-                  icon: FitnessCenter,
-                  text: t('backofficeMenu.coaches'),
-                },
-                {
-                  to: '/establishment/room',
-                  icon: LocationOn,
-                  text: t('backofficeMenu.establishment'),
-                },
-              ]
+        nestedItems: [
+          'divider',
+          {
+            to: '/activity',
+            icon: Star,
+            text: t('backofficeMenu.activity'),
+          },
+          {
+            to: '/workshop-activity',
+            icon: TodayIcon,
+            text: t('backofficeMenu.workshopActivities'),
+          },
+          {
+            to: '/private-service/service/',
+            icon: ScheduleIcon,
+            text: t('backofficeMenu.privateService.services'),
+          },
+          {
+            to: '/coach',
+            id: 'button_menu_teachers',
+            icon: FitnessCenter,
+            text: t('backofficeMenu.coaches'),
+          },
+          {
+            to: '/establishment/room',
+            icon: LocationOn,
+            text: t('backofficeMenu.establishment'),
+          },
+          ...(Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
+          ![634, 631, 632, 633, 630].includes(this.props.companyId) &&
+          !this.props.featureList
+            .map((ups) => ups.upsell_identifier)
+            .includes(UPSELL_PERFORMANCE_TRACKING_IDENTIFIER)
+            ? []
             : [
-                'divider',
-                {
-                  to: '/activity',
-                  icon: Star,
-                  text: t('backofficeMenu.activity'),
-                },
-                {
-                  to: '/workshop-activity',
-                  icon: TodayIcon,
-                  text: t('backofficeMenu.workshopActivities'),
-                },
                 {
                   to: '/performance-tracking',
                   icon: OfflineBoltIcon,
                   text: t('backofficeMenu.programs'),
                 },
-                {
-                  to: '/private-service/service/',
-                  icon: ScheduleIcon,
-                  text: t('backofficeMenu.privateService.services'),
-                },
-                {
-                  to: '/coach',
-                  id: 'button_menu_teachers',
-                  icon: FitnessCenter,
-                  text: t('backofficeMenu.coaches'),
-                },
-                {
-                  to: '/establishment/room',
-                  icon: LocationOn,
-                  text: t('backofficeMenu.establishment'),
-                },
-              ],
+              ]),
+        ],
       },
       {
         icon: ShoppingCartIcon,

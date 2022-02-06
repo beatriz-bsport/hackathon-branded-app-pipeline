@@ -13,7 +13,9 @@ import { CompanyState, Company } from './types';
 const initialState: Immutable.Immutable<CompanyState> = Immutable({
   byId: {},
   feature: {
-    data: [],
+    data: {
+      upsell: [],
+    },
     loading: false,
     error: null,
   },

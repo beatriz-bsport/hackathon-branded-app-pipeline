@@ -44,7 +44,9 @@ export type CompanyState = {
     [id: number]: Company;
   };
   feature: {
-    data: UpsellSumup[];
+    data: {
+      upsell: UpsellSumup[];
+    };
     loading: boolean;
     error: Error | null;
   };

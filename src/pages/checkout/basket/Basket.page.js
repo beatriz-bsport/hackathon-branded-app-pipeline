@@ -23,7 +23,7 @@ import {
 import {
   addItemToBasket as addItemToBasketAction,
   attachCoupon,
-  removeItemFromBasket,
+  removeItemFromBasket as removeItemFromBasketAction,
   fetchCurrentBasket as fetchCurrentBasketAction,
   patchCurrentBasket,
   attachPayment as attachPaymentAction,
@@ -80,7 +80,7 @@ type Props = {
   goBack: () => void,
   theme: ?Theme,
   classes: Object,
-  fetchCurrentBasket: (companyId: number) => void,
+
   patchCurrentBasket: (data: any) => void,
   fetchPaymentMethod: (params: any) => void,
   savedPaymentMethodList: Array<PaymentMethod>,
@@ -99,8 +99,6 @@ type Props = {
 
   onSuccess: () => void,
 
-  fetchCurrentBasket: (companyId: number) => void,
-  fetchInstalmentPaymentByBasket: (basketId: string) => void,
   removeItemFromBasket: (basketId: string, data: any) => void,
   addItemToBasket: (basketId: string, data: any) => void,
 
@@ -115,6 +113,7 @@ type Props = {
   onRemoveInternalAccountPrepaidLine: () => void,
   creditAccountBalance: number | null,
   fetchMember: (id: number) => void,
+  refreshBasket: () => void,
 
   instalmentPaymentConfigurationList: Array<InstalmentPayment>,
   assignInstalmentPayment: (
@@ -132,27 +131,15 @@ export class BasketPage extends React.Component<Props> {
     nextPaymentIntentStatusCheckSeconds: 1.5,
   };
 
-  fetchCurrentBasket = (companyId: number) => {
-    this.props.fetchCurrentBasket(companyId, {
-      onSuccess: (basket) => {
-        this.props.fetchInstalmentPaymentByBasket(basket.id);
-      },
-    });
-  };
-
   componentWillMount() {
-    this.fetchCurrentBasket(this.props.companyId);
+    this.props.refreshBasket();
     this.props.fetchCompanyTheme(this.props.companyId);
     this.props.fetchShopItemFeatured(this.props.companyId);
   }
 
   componentDidUpdate(prevProps: Props) {
     if (prevProps.companyId !== this.props.companyId && this.props.companyId) {
-      this.fetchCurrentBasket(this.props.companyId, {
-        onSuccess: (basket) => {
-          this.props.fetchInstalmentPaymentByBasket(basket.id);
-        },
-      });
+      this.props.refreshBasket();
       this.props.fetchPaymentMethod({ company: this.props.companyId });
     }
     if (this.props.basket && !prevProps.basket) {
@@ -220,7 +207,7 @@ export class BasketPage extends React.Component<Props> {
   onItemExpire = () => {
     const _this = this;
     setTimeout(() => {
-      _this.fetchCurrentBasket(this.props.companyId);
+      _this.props.refreshBasket();
     }, 1500);
   };
 
@@ -277,10 +264,7 @@ export class BasketPage extends React.Component<Props> {
         instalment_payment,
         {
           onSuccess: () => {
-            this.props.fetchCurrentBasket(this.props.companyId, {
-              onSuccess: options?.onSuccess,
-              onError: options?.onError,
-            });
+            this.props.refreshBasket();
           },
           onError: options && options.onError,
         },
@@ -468,7 +452,7 @@ export default compose(
       fetchProfile,
 
       addItemToBasket: addItemToBasketAction,
-      removeItemFromBasket,
+      removeItemFromBasket: removeItemFromBasketAction,
       goBack,
       replace: replaceRouter,
       fetchCurrentBasket: fetchCurrentBasketAction,
@@ -489,6 +473,31 @@ export default compose(
       fetchMember,
     },
   ),
+  withHandlers({
+    refreshBasket:
+      ({ fetchCurrentBasket, fetchInstalmentPaymentByBasket, companyId }) =>
+      () =>
+        fetchCurrentBasket(companyId, {
+          onSuccess: (basket) => {
+            fetchInstalmentPaymentByBasket(basket.id);
+          },
+        }),
+  }),
+
+  withHandlers({
+    addItemToBasket:
+      ({ addItemToBasket, basket, fetchInstalmentPaymentByBasket }) =>
+      (basketId, data) =>
+        addItemToBasket(basketId, data, {
+          onSuccess: () => fetchInstalmentPaymentByBasket(basket.id),
+        }),
+    removeItemFromBasket:
+      ({ removeItemFromBasket, basket, fetchInstalmentPaymentByBasket }) =>
+      (basketId, data) =>
+        removeItemFromBasket(basketId, data, {
+          onSuccess: () => fetchInstalmentPaymentByBasket(basket.id),
+        }),
+  }),
   withHandlers({
     addShopItemToBasket:
       ({ addItemToBasket, basket }) =>

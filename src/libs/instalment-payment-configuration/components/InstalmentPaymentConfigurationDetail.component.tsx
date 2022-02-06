@@ -113,14 +113,14 @@ export const InstalmentPaymentDetail: React.FC<Props> = (props) => {
               })}
             </Typography>
           </div>
-          {instalmentPayment.fee && (
+          {/* instalmentPayment.fee && (
             <div className={classes.content}>
               <Typography variant="h6">{t('detail.fee')}</Typography>
               <Typography className={classes.grey}>
                 {getCurrencyDisplayWithPrice(instalmentPayment.fee)}
               </Typography>
             </div>
-          )}
+            ) */}
           {instalmentPayment.minimum_amount && (
             <div className={classes.content}>
               <Typography variant="h6">{t('detail.minimumAmount')}</Typography>

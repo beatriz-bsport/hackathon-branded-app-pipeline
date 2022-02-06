@@ -51,7 +51,7 @@ export default handleActions(
         .setIn(['search', 'allIds'], newIds);
     },
     [listFeatureActions.success.toString()]: (state, { payload }) => {
-      return state.setIn(['feature', 'data'], payload);
+      return state.setIn(['feature', 'data'], payload || []);
     },
     [listFeatureActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['feature', 'loading'], payload);

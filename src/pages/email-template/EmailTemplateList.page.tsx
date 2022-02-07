@@ -293,7 +293,7 @@ export class MarketingEmail extends Component<Props, State> {
                     ListItemComponent={EmailListItem}
                     onDuplicateItem={this.onDuplicate}
                     width="95%"
-                    itemLoading={loading}
+                    itemLoading={this.props.listLoading}
                   />
                 </>
               )}
@@ -425,6 +425,7 @@ export default compose(
       email_templates: getAllEmailTemplatesSummaries(state),
 
       email_templates_details: getEmailTemplatesDetail(state),
+      listLoading: state.emailTemplate.loading,
       loading:
         state.emailTemplate.loading || state.emailTemplate.detail.loading,
       company_id: state.theme.theme.company,

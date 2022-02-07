@@ -57,10 +57,11 @@ const handleDragEndCategory = memoize(
           ? over.data.current.sortable.index
           : over.data.current.sortable.items.length - 1;
       // old position
-      const oldIndex = active.data.current.sortable.index;
+      const oldIndex = active.data.current.sortable?.index || 0;
       let arr: Array<number>;
       // all ids sorted in the right order
-      const privatePassCategoryIds = active.data.current.categoryIds;
+      const privatePassCategoryIds =
+        active.data.current.categoryIds || over.data.current.categoryIds;
       // place the dropped category at the right position
       if (newIndex > oldIndex)
         arr = [

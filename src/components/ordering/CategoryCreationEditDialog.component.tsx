@@ -32,7 +32,7 @@ export const CategoryCreationEditDialog = (props: Props) => {
 
   React.useEffect(() => {
     categorySelected && setCategoryName(categorySelected.name);
-  }, [categorySelected]);
+  }, [categorySelected, props]);
 
   const handleSubmit = useCallback(() => {
     props.onSubmit({

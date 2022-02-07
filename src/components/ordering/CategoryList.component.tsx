@@ -26,7 +26,7 @@ import {
 } from '#components/ordering/types';
 
 export type Props = {
-  selectedItem: number;
+  selectedItem?: number;
   onClickItem: (id: number) => void;
   onEditItem: (id: number) => void;
   onDeleteItem: (id: number) => void;

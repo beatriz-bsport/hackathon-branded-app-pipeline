@@ -2,7 +2,7 @@
 import React from 'react';
 import { compose, withHandlers, withState } from 'recompose';
 import { connect } from 'react-redux';
-import { withTranslation, TFunction } from 'react-i18next';
+import { WithTranslation, withTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { push } from 'connected-react-router';
 import Collapse from '@material-ui/core/Collapse';
@@ -16,6 +16,8 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Divider from '@material-ui/core/Divider';
 
+import { createStyles, Theme } from '@material-ui/styles';
+import { TFunction } from 'i18next';
 import FuzeSearch from '../../components/FuzeSearch.component';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
@@ -27,12 +29,19 @@ import MetaActivityDeleteDialog from '../../libs/meta-activity/components/MetaAc
 import {
   getPageEnabledMetaActivities,
   getPageDisabledMetaActivities,
+  getMetaActivityByCategoryWithActivities,
 } from '../../libs/meta-activity/selectors';
 import {
   deleteMetaActivity,
   restoreMetaActivity,
   fetchAllActivities as fetchAllMetactivitiesAction,
   makeActivityCopy as makeActivityCopyAction,
+  fetchAllMetaActivityCategory,
+  upsertMetaActivityCategory,
+  deleteMetaActivityCategory,
+  editOrderMetaActivity,
+  updateMetaActivityCategoryOrder,
+  fetchMetaActivityBulkAfterCategoryDelete,
 } from '../../libs/meta-activity/actions';
 import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../libs/meta-activity/api/common';
 
@@ -40,58 +49,97 @@ import type { MetaActivity } from '../../api/types';
 import withTitle from '../../hocs/with-title.hoc';
 import { fetchMarketingNotificationList } from '../../libs/marketing/actions';
 import { withBookingNotification } from '../../libs/marketing/selectors';
+import { CategoryList } from '../../components/ordering/CategoryList.component';
+import MetaActivityListItem from '#libs/meta-activity/components/MetaActivityListItem.component';
+import { OptionCallback } from '../../state/types';
+import {
+  MetaActivityCategory,
+  MetaActivityCategoryWithActivities,
+} from '#libs/meta-activity/types';
+import { RootState } from '../../reducers';
+import { MaterialStyleType } from '../../utils/types';
+import AddCategoryButton from '#components/ordering/AddCategoryButton.component';
+import CategoryCreationEditDialog from '#components/ordering/CategoryCreationEditDialog.component';
 
-type Props = {
-  metaActivities: Array<MetaActivity>,
-  disabledMetaActivities: Array<MetaActivity>,
-  loading: boolean,
-  notificationLoading: boolean,
+type OwnProps = {
+  metaActivities: Array<MetaActivity>;
+  disabledMetaActivities: Array<MetaActivity>;
+  loading: boolean;
+  notificationLoading: boolean;
 
-  fetchAllMetactivities: () => void,
-  goToDetail: (metaActivityId: number) => void,
-  goToEdit: (metaActivityId: number) => void,
-  onCreate: () => void,
-  deleteMetaActivity: (metaActivityId: number) => void,
-  restoreMetaActivity: (MetaActivityId: number) => void,
-  setActivityToDelete: (number) => void,
-  activityToDelete: (activity: ?number) => void,
-  fetchMarketingNotificationList: (params: any) => void,
+  fetchAllMetactivities: () => void;
+  goToDetail: (metaActivityId: number) => void;
+  goToEdit: (metaActivityId: number) => void;
+  onCreate: () => void;
+  deleteMetaActivity: (metaActivityId: number) => void;
+  restoreMetaActivity: (MetaActivityId: number) => void;
+  setActivityToDelete: (id: number) => void;
+  activityToDelete: (activity: number) => void;
+  fetchMarketingNotificationList: (params: any) => void;
 
-  t: TFunction,
-  classes: Object,
-  goToPaymentPack: (id: number) => void,
+  goToPaymentPack: (id: number) => void;
 
   makeActivityCopy: (
     id: number,
     suffix: string,
-    options: OptionCallback,
-  ) => void,
+    options?: OptionCallback,
+  ) => void;
+
+  metaActivityCategories: Array<MetaActivityCategoryWithActivities>;
+  fetchAllMetaActivityCategory: (companyId?: number) => void;
+  upsertMetaActivityCategory: (
+    category: MetaActivityCategory,
+    options?: OptionCallback,
+  ) => void;
+  deleteMetaActivityCategory: (
+    category: MetaActivityCategoryWithActivities,
+    options?: OptionCallback<MetaActivityCategoryWithActivities>,
+  ) => void;
+  editOrderMetaActivity: (
+    data: Array<{ id: number; ordering_in_category: number }>,
+    options?: OptionCallback,
+  ) => void;
+  updateMetaActivityCategoryOrder: (
+    data: Array<{ id: number; category_ordering: number }>,
+    options?: OptionCallback,
+  ) => void;
+  categoryLoading: boolean;
+  fetchMetaActivityBulkAfterCategoryDelete: (ids: Array<number>) => void;
 };
 
+type Props = OwnProps &
+  MaterialStyleType<ReturnType<typeof styles>> &
+  WithTranslation;
+
 type State = {
-  searchText: string,
-  searchResult: Array<MetaActivity>,
-  showDisabled: boolean,
+  searchText: string;
+  searchResult: Array<MetaActivity>;
+  showDisabled: boolean;
+  showCategoryDialog: boolean;
+  selectedCategory: MetaActivityCategory;
 };
 
 const BOOKING_CREATION_NOTIFICATION = 2;
 
 export class MetaActivityListPage extends React.Component<Props, State> {
-  state = {
+  state: State = {
     searchText: '',
     searchResult: [],
     showDisabled: false,
+    showCategoryDialog: false,
+    selectedCategory: null,
   };
 
   componentDidMount() {
     this.props.fetchAllMetactivities();
+    this.props.fetchAllMetaActivityCategory();
     this.props.fetchMarketingNotificationList({
       active: true,
       kind: BOOKING_CREATION_NOTIFICATION,
     });
   }
 
-  changeSearch = (fuse) => (ev) => {
+  changeSearch = (fuse: MetaActivity) => (ev: any) => {
     this.setState({
       searchText: ev.target.value,
       searchResult: fuse.search(ev.target.value),
@@ -112,6 +160,27 @@ export class MetaActivityListPage extends React.Component<Props, State> {
     }
     this.props.restoreMetaActivity(id);
   };
+
+  onEditCategory = (category: MetaActivityCategory) => {
+    this.setState({ showCategoryDialog: true, selectedCategory: category });
+  };
+
+  onDeleteCategory = (category: MetaActivityCategoryWithActivities) => {
+    this.props.deleteMetaActivityCategory(category, {
+      onSuccess: () => {
+        this.props.fetchMetaActivityBulkAfterCategoryDelete(
+          category.items.map((item) => item.id),
+        );
+      },
+    });
+    this.setState({ selectedCategory: null });
+  };
+
+  onDuplicate = (id: number) =>
+    this.props.makeActivityCopy(
+      id,
+      this.props.t('translation:common.copySuffix'),
+    );
 
   render() {
     const { classes, t } = this.props;
@@ -152,11 +221,11 @@ export class MetaActivityListPage extends React.Component<Props, State> {
               </div>
               <Hidden smDown>
                 <Button
-                  onClick={this.props.goToPaymentPack}
+                  onClick={() => this.props.goToPaymentPack}
                   color="primary"
                   variant="outlined"
+                  startIcon={<ArrowForwardIcon className={classes.leftIcon} />}
                 >
-                  <ArrowForwardIcon className={classes.leftIcon} />
                   {t('navigation.goToPaymentPack')}
                 </Button>
               </Hidden>
@@ -166,7 +235,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
                 this.state.searchResult.length > 0 &&
                 this.state.searchText !== ''
                   ? classes.searchPaperDisplayed
-                  : classes.searchPaperHiden
+                  : null
               }
             >
               <Collapse
@@ -185,23 +254,46 @@ export class MetaActivityListPage extends React.Component<Props, State> {
             </Paper>
           </div>
         ) : null}
-        <MetaActivityList
-          metaActivities={this.props.metaActivities}
-          goToDetail={this.props.goToDetail}
-          goToEdit={this.props.goToEdit}
-          deleteMetaActivity={this.props.setActivityToDelete}
-          makeActivityCopy={this.props.makeActivityCopy}
+        <AddCategoryButton
+          setShowCategoryDialog={(showCategoryDialog: boolean) =>
+            this.setState({ showCategoryDialog })
+          }
         />
+        {this.state.showCategoryDialog && (
+          <CategoryCreationEditDialog
+            open={this.state.showCategoryDialog}
+            onClose={() =>
+              this.setState({
+                showCategoryDialog: false,
+                selectedCategory: null,
+              })
+            }
+            onSubmit={this.props.upsertMetaActivityCategory}
+            categorySelected={this.state.selectedCategory}
+          />
+        )}
+        {!this.props.categoryLoading && (
+          <CategoryList
+            onClickItem={this.props.goToDetail}
+            onEditItem={this.props.goToEdit}
+            onDeleteItem={this.props.setActivityToDelete}
+            onDuplicateItem={this.onDuplicate}
+            updateItemOrder={this.props.editOrderMetaActivity}
+            itemLoading={this.props.loading}
+            categoryWithItems={this.props.metaActivityCategories}
+            editCategory={this.onEditCategory}
+            deleteCategory={this.onDeleteCategory}
+            updateCategoryOrder={this.props.updateMetaActivityCategoryOrder}
+            ListItemComponent={MetaActivityListItem}
+          />
+        )}
         {(this.props.disabledMetaActivities || []).length ? (
           <div>
             <ButtonBase
               className={this.props.classes.buttonTitle}
               onClick={this.onShowDisabled}
             >
-              <Typography
-                variant="h5"
-                className={this.props.classes.titleContainer}
-              >
+              <Typography variant="h5">
                 {`${t('metaActivity:disabledMetaActivities')} (${
                   (this.props.disabledMetaActivities || []).length
                 })`}
@@ -214,16 +306,18 @@ export class MetaActivityListPage extends React.Component<Props, State> {
               )}
             </ButtonBase>
             <Divider />
-            <Collapse in={this.state.showDisabled}>
-              <MetaActivityList
-                metaActivities={this.props.disabledMetaActivities}
-                goToDetail={this.props.goToDetail}
-                goToEdit={this.props.goToEdit}
-                deleteMetaActivity={this.props.setActivityToDelete}
-                makeActivityCopy={this.props.makeActivityCopy}
-                restoreMetaActivity={this.restoreMetaActivity}
-              />
-            </Collapse>
+            {this.state.showDisabled && (
+              <Collapse in={this.state.showDisabled}>
+                <MetaActivityList
+                  metaActivities={this.props.disabledMetaActivities}
+                  goToDetail={this.props.goToDetail}
+                  goToEdit={this.props.goToEdit}
+                  deleteMetaActivity={this.props.setActivityToDelete}
+                  makeActivityCopy={this.props.makeActivityCopy}
+                  restoreMetaActivity={this.restoreMetaActivity}
+                />
+              </Collapse>
+            )}
           </div>
         ) : null}
 
@@ -242,44 +336,39 @@ export class MetaActivityListPage extends React.Component<Props, State> {
   }
 }
 
-const styles = (theme) => ({
-  container: {
-    paddingBottom: theme.spacing(16),
-  },
-  search: { marginBottom: theme.spacing(2) },
-  searchPaperDisplayed: {
-    border: '1px solid',
-    borderColor: theme.primary_color,
-    borderTop: '0px',
-  },
-  searchPaperHidden: {
-    border: '1px solid',
-    borderColor: theme.primary_color,
-    borderTop: '0px',
-    boderBottom: '0px',
-  },
-  leftIcon: {
-    marginRight: theme.spacing(1),
-  },
-  header: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  searchField: {
-    flex: 1,
-    marginRight: theme.spacing(1),
-  },
-  buttonTitle: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '100%',
-    paddingBottom: theme.spacing(1),
-    marginTop: theme.spacing(3),
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    container: {
+      paddingBottom: theme.spacing(16),
+    },
+    search: { marginBottom: theme.spacing(2) },
+    searchPaperDisplayed: {
+      border: '1px solid',
+      borderColor: theme.primary_color,
+      borderTop: '0px',
+    },
+    leftIcon: {
+      marginRight: theme.spacing(1),
+    },
+    header: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
+    searchField: {
+      flex: 1,
+      marginRight: theme.spacing(1),
+    },
+    buttonTitle: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      width: '100%',
+      paddingBottom: theme.spacing(1),
+      marginTop: theme.spacing(3),
+    },
+  });
 
 export default compose(
   withStyles(styles),
@@ -288,31 +377,42 @@ export default compose(
     t('titles:metaActivity.metaActivityList'),
   ),
   connect(
-    (state) => ({
+    (state: RootState) => ({
       metaActivities: withBookingNotification(getPageEnabledMetaActivities)(
         state,
       ),
       disabledMetaActivities: getPageDisabledMetaActivities(state),
       loading: state.metaActivity.loading || state.metaActivity.delete.loading,
       notificationLoading: state.booking.notification.loading,
+      metaActivityCategories: getMetaActivityByCategoryWithActivities(
+        withBookingNotification(getPageEnabledMetaActivities),
+      )(state),
+      categoryLoading: state.metaActivity.metaActivityCategory.loading,
     }),
     {
       makeActivityCopy: makeActivityCopyAction,
       fetchAllMetactivities: fetchAllMetactivitiesAction,
-      goToDetail: (metaActivityId) =>
+      goToDetail: (metaActivityId: number) =>
         push(`/activity/${metaActivityId}/general`),
-      goToEdit: (metaActivityId) => push(`/activity/${metaActivityId}/edit`),
+      goToEdit: (metaActivityId: number) =>
+        push(`/activity/${metaActivityId}/edit`),
       goToPaymentPack: () => push('/payment-pack'),
       deleteMetaActivity,
       restoreMetaActivity,
       fetchMarketingNotificationList,
       onCreate: () => push('/activity/add'),
+      fetchAllMetaActivityCategory,
+      upsertMetaActivityCategory,
+      deleteMetaActivityCategory,
+      editOrderMetaActivity,
+      updateMetaActivityCategoryOrder,
+      fetchMetaActivityBulkAfterCategoryDelete,
     },
   ),
   withHandlers({
     makeActivityCopy:
       ({ makeActivityCopy, fetchAllMetactivities }) =>
-      (id, suffix) => {
+      (id: number, suffix: string) => {
         makeActivityCopy(id, suffix, {
           onSuccess: () => fetchAllMetactivities({ customer_enabled: true }),
         });

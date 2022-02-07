@@ -21,6 +21,7 @@ import {
   upsert,
   fetchAllActivities,
   fetchAll as fetchWorkhops,
+  fetchAllMetaActivityCategory,
 } from '../../libs/meta-activity/actions';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import { createOffers as createOffersAPI } from '../../libs/meta-activity/api/meta-activity';
@@ -45,6 +46,7 @@ import {
   getEnabledMetaActivities,
   getEnabledWorkshops,
   getActivitiesByIdList,
+  getMetaActivityCategories,
 } from '../../libs/meta-activity/selectors';
 import CompatiblePaymentPacks from '../../libs/meta-activity/components/MetaActivityCompatiblePacks.component';
 import { fetchEstablishments } from '../../libs/establishment/actions';
@@ -63,6 +65,7 @@ import { CoachPaymentRuleByKindSelector } from '../../libs/coach-payment-rules/s
 import { CoachPaymentRule } from '../../libs/coach-payment-rules/types';
 
 import { getallTagsWithTagGroup } from '#libs/tag/selectors';
+import { MetaActivityCategoryWithActivities } from '../../libs/meta-activity/types';
 
 type StepType = {
   id: number,
@@ -117,6 +120,8 @@ type Props = {
   createPaymentPack: (data: any, options: any) => void,
   categoryList: any,
   showPartnership: boolean,
+  metaActivityCategories: Array<MetaActivityCategoryWithActivities>,
+  fetchAllMetaActivityCategory: (companyId?: number) => void,
 };
 
 const MetaActivityMap = {
@@ -133,6 +138,7 @@ const MetaActivityMap = {
   auto_discard_active: 'auto_discard_active',
   auto_discard_hours_before_start: 'auto_discard_hours_before_start',
   auto_discard_min_bookings_nb: 'auto_discard_min_bookings_nb',
+  category: 'category',
 };
 
 const StepperForm = withTranslation(['metaActivity'])(
@@ -158,10 +164,12 @@ export class MetaActivityFormPage extends Component<Props> {
     this.props.fetchWorkhops();
     this.props.fetchAllPaymentPacks();
     this.props.fetchAllPaymentPackCategory();
+    this.props.fetchAllMetaActivityCategory();
   }
 
   renderActivityStep = () => (
     <MetaActivityForm
+      metaActivityCategories={this.props.metaActivityCategories}
       coaches={this.props.coaches}
       establishments={this.props.establishments}
       SCTs={this.props.SCTs}
@@ -297,6 +305,7 @@ export default compose(
       ),
       categoryList: state.category.SCTs,
       showPartnership: state.theme.theme.has_partnership,
+      metaActivityCategories: getMetaActivityCategories(state),
     }),
     {
       goBack,
@@ -316,6 +325,7 @@ export default compose(
       fetchAllPaymentPacks: fetchAllPaymentPacksAction,
       fetchAllPaymentPackCategory,
       createOrUpdatePaymentPackAction: createPaymentPack,
+      fetchAllMetaActivityCategory,
     },
   ),
   //

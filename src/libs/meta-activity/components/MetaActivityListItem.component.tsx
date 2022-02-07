@@ -14,32 +14,66 @@ import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import IconButton from '@material-ui/core/IconButton';
-import { withTranslation, TFunction } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
+import { DraggableSyntheticListeners } from '@dnd-kit/core';
+import { createStyles, Theme } from '@material-ui/styles';
+import DragHandleIcon from '@material-ui/icons/DragHandle';
 import type { MetaActivity } from '../../../api/types';
 import { formatAsDatetime } from '../../../utils/datetime';
 import { getSportWithIcon } from '../../../components/category/utils';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 import Tooltip from '../../../components/Tooltip.component';
+import { MaterialStyleType } from '../../../utils/types';
 
-type Props = {
-  metaActivity: MetaActivity,
-  classes: Object,
-  t: TFunction,
-  classes: Object,
-  divider: ?boolean,
-  dense?: boolean,
-  goToEdit: (metaActivityId: number) => void,
-  onClick: (MetaActivity) => void,
+type OwnProps = {
+  metaActivity: MetaActivity;
+  item: MetaActivity;
+  divider?: boolean;
+  dense?: boolean;
+  goToEdit: (metaActivityId: number) => void;
+  onClick?: (metaActivity?: MetaActivity) => void;
+  onEdit?: () => void;
+  onDuplicate?: () => void;
+  onDelete?: () => void;
+  onRestore?: () => void;
+  selected?: boolean;
 
-  onClickCopy: (id: number, suffix: string) => void,
+  onClickCopy: (id: number, suffix: string) => void;
 
-  deleteMetaActivity: () => void,
-  restoreMetaActivity: () => void,
+  deleteMetaActivity: () => void;
+  restoreMetaActivity: () => void;
+
+  draggable?: boolean;
+  listeners?: DraggableSyntheticListeners;
+  attributes?: {
+    role: string;
+    tabIndex: number;
+    'aria-pressed': boolean;
+    'aria-roledescription': string;
+    'aria-describedby': string;
+  };
 };
 
-export function MetaActivityListItem(props: Props) {
-  const { metaActivity, onClick, goToEdit, t } = props;
+type Props = OwnProps &
+  MaterialStyleType<ReturnType<typeof styles>> &
+  WithTranslation;
+
+const MetaActivityListItem = (props: Props) => {
+  const { onClick, t } = props;
+  const metaActivity = props.metaActivity ? props.metaActivity : props.item;
+  const onEdit = props.goToEdit
+    ? () => props.goToEdit(props.metaActivity.id)
+    : props.onEdit;
+
+  const onDelete = props.deleteMetaActivity
+    ? props.deleteMetaActivity
+    : props.onDelete;
+
+  const onDuplicate = props.onClickCopy
+    ? () => props.onClickCopy(metaActivity.id, t('common.copySuffix'))
+    : props.onDuplicate;
+
   const { next_slot } = metaActivity;
   return (
     <ListItem
@@ -53,6 +87,11 @@ export function MetaActivityListItem(props: Props) {
         borderLeftColor: metaActivity.color,
       }}
     >
+      {props.draggable && (
+        <IconButton {...props.listeners} {...props.attributes}>
+          <DragHandleIcon />
+        </IconButton>
+      )}
       <ListItemAvatar>
         <Avatar
           alt=""
@@ -78,7 +117,7 @@ export function MetaActivityListItem(props: Props) {
             : t('activity.noNextSlot')
         }
       />
-      {props.metaActivity.hasActiveNotification && (
+      {metaActivity.hasActiveNotification && (
         <Tooltip
           classes={props.classes}
           title={
@@ -95,48 +134,47 @@ export function MetaActivityListItem(props: Props) {
       )}
       <ListItemResponsiveAction
         actions={[
-          props.metaActivity.customer_enabled &&
-            props.onClickCopy && {
+          metaActivity.customer_enabled &&
+            onDuplicate && {
               icon: FileCopyIcon,
               label: t('common.duplicate'),
               color: 'primary',
-              onClick: () =>
-                props.onClickCopy(metaActivity.id, t('common.copySuffix')),
+              onClick: onDuplicate,
             },
-          props.metaActivity.customer_enabled &&
-            props.goToEdit && {
+          metaActivity.customer_enabled &&
+            onEdit && {
               icon: EditIcon,
               label: t('common.edit'),
               color: 'primary',
-              onClick: () => goToEdit(metaActivity.id),
+              onClick: onEdit,
             },
-          props.metaActivity.customer_enabled &&
-            props.deleteMetaActivity && {
+          metaActivity.customer_enabled &&
+            onDelete && {
               icon: DeleteIcon,
               label: t('common.delete'),
-              onClick: props.deleteMetaActivity,
+              onClick: onDelete,
             },
-          !props.metaActivity.customer_enabled &&
-            props.restoreMetaActivity && {
-              icon: RestoreFromTrashIcon,
-              label: t('common.restore'),
-              onClick: () => props.restoreMetaActivity(),
-            },
+          !metaActivity.customer_enabled && {
+            icon: RestoreFromTrashIcon,
+            label: t('common.restore'),
+            onClick: () => props.restoreMetaActivity(),
+          },
         ]}
       />
     </ListItem>
   );
-}
+};
 
-const styles = (theme) => ({
-  avatar: {
-    width: theme.spacing(7),
-    height: theme.spacing(7),
-    marginRight: theme.spacing(2),
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    avatar: {
+      width: theme.spacing(7),
+      height: theme.spacing(7),
+      marginRight: theme.spacing(2),
+    },
+  });
 
-export default compose(
+export default compose<any, OwnProps>(
   withStyles(styles),
   withTranslation([]),
 )(MetaActivityListItem);

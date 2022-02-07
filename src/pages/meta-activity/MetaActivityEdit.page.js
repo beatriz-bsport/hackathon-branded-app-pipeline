@@ -17,8 +17,12 @@ import {
   addImageToMetaActivity,
   removeImageFromMetaActivity,
   fetchMetaActivityDetails,
+  fetchAllMetaActivityCategory,
 } from '../../libs/meta-activity/actions';
-import { getMetaActivity } from '../../libs/meta-activity/selectors';
+import {
+  getMetaActivity,
+  getMetaActivityCategories,
+} from '../../libs/meta-activity/selectors';
 
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -28,6 +32,7 @@ import { getAllEstablishments } from '../../libs/establishment/selectors';
 import { Establishment } from '../../libs/establishment/types';
 
 import MetaActivityForm from '../../libs/meta-activity/components/MetaActivityForm.component';
+import { MetaActivityCategoryWithActivities } from '../../libs/meta-activity/types';
 
 type Props = {
   id: number,
@@ -45,6 +50,9 @@ type Props = {
   onSubmit: () => void,
 
   goToPreviousPage: () => void,
+
+  metaActivityCategories: Array<MetaActivityCategoryWithActivities>,
+  fetchAllMetaActivityCategory: (companyId?: number) => void,
 };
 const MetaActivityMap = {
   cover_main: 'cover_main',
@@ -60,11 +68,13 @@ const MetaActivityMap = {
   auto_discard_active: 'auto_discard_active',
   auto_discard_hours_before_start: 'auto_discard_hours_before_start',
   auto_discard_min_bookings_nb: 'auto_discard_min_bookings_nb',
+  category: 'category',
 };
 
-export class MetaActivityFormPage extends Component<Props> {
+export class MetaActivityFormPage extends Component<Props, State> {
   componentDidMount() {
     this.props.fetchMetaActivityDetails(this.props.id);
+    this.props.fetchAllMetaActivityCategory();
     this.props.fetchEstablishments();
   }
 
@@ -101,6 +111,7 @@ export class MetaActivityFormPage extends Component<Props> {
         <Grid item xs={12} lg={9}>
           <Paper>
             <MetaActivityForm
+              metaActivityCategories={this.props.metaActivityCategories}
               establishments={establishments}
               SCTs={SCTs}
               onSubmit={this.props.onSubmit}
@@ -132,6 +143,7 @@ export default compose(
       SCTs: state.category.SCTs,
       loading: state.metaActivity.loading,
       companyTheme: themeSelectors.getTheme(state),
+      metaActivityCategories: getMetaActivityCategories(state),
     }),
     {
       fetchEstablishments,
@@ -141,6 +153,7 @@ export default compose(
       addImage: addImageToMetaActivity,
       removeImage: removeImageFromMetaActivity,
       goToMetaActivity: (id: number) => push(`/activity/${id}/general`),
+      fetchAllMetaActivityCategory,
     },
   ),
   withProps(({ upsertMetaActivity, goToMetaActivity, id, initial }) => ({

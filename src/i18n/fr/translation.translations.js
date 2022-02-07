@@ -813,6 +813,12 @@ exports.default = {
     showWeek: 'Affichage semaine',
     pleaseSelectOffer: 'Sélectionnez une séance pour voir les membres inscrits',
   },
+  metaActivityCategory: {
+    explain:
+      "Ces catégories servent uniquement à ordonner les activités sur le backoffice à votre guise. Elles n'ont pas d'impact côté client",
+    sctExplain:
+      "Ces catégories indiquent le type d'activité. Elles apparaîtront sur la marketplace et l'application.",
+  },
   activity: {
     explainImage: 'Recommandé: 1920x1080 jpeg (fullHD)',
     nextSlotAt: 'Prochaine séance le ',

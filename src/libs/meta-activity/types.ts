@@ -31,6 +31,20 @@ export type MetaActivity = {
   auto_discard_active: boolean;
   auto_discard_hours_before_start: number;
   auto_discard_min_bookings_nb: number;
+
+  category: number;
+  ordering_in_category: number;
+};
+
+export type MetaActivityCategory = {
+  id: number;
+  name: string;
+  company: number;
+  category_ordering: number;
+};
+
+export type MetaActivityCategoryWithActivities = MetaActivityCategory & {
+  items: Array<MetaActivity>;
 };
 
 export type MetaActivityState = ErrorAndLoading & {
@@ -42,5 +56,15 @@ export type MetaActivityState = ErrorAndLoading & {
   delete: ErrorAndLoading;
   upsert: ErrorAndLoading & {
     data: MetaActivity | null;
+  };
+  metaActivityCategory: {
+    byId: { [id: number]: MetaActivityCategory };
+    allIds: Array<number>;
+    loading: boolean;
+    error?: Error;
+    upsert: {
+      loading: boolean;
+      error?: Error;
+    };
   };
 };

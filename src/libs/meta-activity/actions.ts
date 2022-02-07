@@ -17,10 +17,20 @@ import {
   fetchMetaActivityFavorite as fetchMetaActivityFavoriteAPI,
   makeActivityCopy as makeActivityCopyAPI,
   restoreMetaActivity as restoreMetaActivityAPI,
+  editOrderMetaActivity as editOrderMetaActivityAPI,
+  fetchAllMetaActivityCategory as fetchAllMetaActivityCategoryAPI,
+  updateMetaActivityCategory as updateMetaActivityCategoryAPI,
+  deleteMetaActivityCategory as deleteMetaActivityCategoryAPI,
+  editCategoryOrder as editCategoryOrderAPI,
+  createMetaActivityCategory as createMetaActivityCategoryAPI,
 } from './api/common';
 
 import { fetchAll as fetchAllAPI } from './api/workshop-activity';
-import { MetaActivity } from './types';
+import {
+  MetaActivity,
+  MetaActivityCategory,
+  MetaActivityCategoryWithActivities,
+} from './types';
 
 export const metaActivityBulkActions = {
   isLoading: createAction('META_ACTIVITIES/BULK/IS_LOADING'),
@@ -45,6 +55,33 @@ export function fetchMetaActivityBulk(
     try {
       const response = await fetchMetaActivityListAPI({
         id__in: ids_uniq,
+        page_size: null,
+      });
+      dispatch(metaActivityBulkActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      dispatch(metaActivityBulkActions.error(err));
+      Sentry.captureException(err);
+      if (options && options.onError) options.onError();
+    }
+    dispatch(metaActivityBulkActions.isLoading(false));
+  };
+}
+
+export function fetchMetaActivityBulkAfterCategoryDelete(
+  ids: Array<number>,
+  options?: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    if (ids.length === 0) {
+      return;
+    }
+    dispatch(metaActivityBulkActions.isLoading(true));
+    dispatch(metaActivityBulkActions.error(null));
+
+    try {
+      const response = await fetchMetaActivityListAPI({
+        id__in: ids,
         page_size: null,
       });
       dispatch(metaActivityBulkActions.success(response.data));
@@ -388,5 +425,137 @@ export function restoreMetaActivity(id: number, options: OptionCallback) {
       if (options && options.onError) options.onError(err);
     }
     dispatch(metaActivityRestoreActions.isLoading(false));
+  };
+}
+
+export const metaActivityUpdateOrderActions = {
+  error: createAction('META_ACTIVITIES/UPDATE_ORDER/ERROR'),
+  loading: createAction('META_ACTIVITIES/UPDATE_ORDER/IS_LOADING'),
+  success: createAction('META_ACTIVITIES/UPDATE_ORDER/SUCCESS'),
+};
+
+export function editOrderMetaActivity(
+  data: Array<{ id: number; ordering_in_category: number }>,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(metaActivityUpdateOrderActions.loading(true));
+    dispatch(metaActivityUpdateOrderActions.error(null));
+    try {
+      const response = await editOrderMetaActivityAPI(data);
+      dispatch(metaActivityUpdateOrderActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(metaActivityUpdateOrderActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(metaActivityUpdateOrderActions.loading(false));
+  };
+}
+
+export const listAllMetaActivityCategoryActions = {
+  loading: createAction('META_ACTIVITIES_CATEGORY/LIST/IS_LOADING'),
+  error: createAction('META_ACTIVITIES_CATEGORY/LIST/ERROR'),
+  success: createAction('META_ACTIVITIES_CATEGORY/LIST/SUCCESS'),
+};
+
+export function fetchAllMetaActivityCategory(companyId?: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listAllMetaActivityCategoryActions.loading(true));
+    dispatch(listAllMetaActivityCategoryActions.error(null));
+    try {
+      const response = await fetchAllMetaActivityCategoryAPI({ companyId });
+      const MetaActivities = response.data;
+      dispatch(listAllMetaActivityCategoryActions.success(MetaActivities));
+    } catch (err) {
+      console.error(err);
+      dispatch(listAllMetaActivityCategoryActions.error(err));
+    }
+    dispatch(listAllMetaActivityCategoryActions.loading(false));
+  };
+}
+
+export const updateMetaActivityCategoryOrderActions = {
+  loading: createAction('META_ACTIVITIES_CATEGORY/UPDATE_ORDER/IS_LOADING'),
+  error: createAction('META_ACTIVITIES_CATEGORY/UPDATE_ORDER/ERROR'),
+  success: createAction('META_ACTIVITIES_CATEGORY/UPDATE_ORDER/SUCCESS'),
+};
+
+export function updateMetaActivityCategoryOrder(
+  data: Array<{ id: number; category_ordering: number }>,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(updateMetaActivityCategoryOrderActions.loading(true));
+    dispatch(updateMetaActivityCategoryOrderActions.error(null));
+    try {
+      const response = await editCategoryOrderAPI(data);
+      dispatch(updateMetaActivityCategoryOrderActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(snackbarError(`paymentPack.category.update.error`));
+      dispatch(
+        updateMetaActivityCategoryOrderActions.error(error.response.data),
+      );
+      if (options && options.onError) options.onError();
+    }
+    dispatch(updateMetaActivityCategoryOrderActions.loading(false));
+  };
+}
+
+export const upsertMetaActivityCategoryActions = {
+  loading: createAction('META_ACTIVITIES_CATEGORY/UPSERT/IS_LOADING'),
+  error: createAction('META_ACTIVITIES_CATEGORY/UPSERT/ERROR'),
+  success: createAction('META_ACTIVITIES_CATEGORY/UPSERT/SUCCESS'),
+};
+
+export function upsertMetaActivityCategory(
+  category: MetaActivityCategory,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(upsertMetaActivityCategoryActions.loading(true));
+    dispatch(upsertMetaActivityCategoryActions.error(null));
+    const kind = category.id ? 'update' : 'create';
+    try {
+      const response = category.id
+        ? await updateMetaActivityCategoryAPI(category)
+        : await createMetaActivityCategoryAPI(category);
+      dispatch(upsertMetaActivityCategoryActions.success(response.data));
+      dispatch(snackbarSuccess(`paymentPack.category.${kind}.success`));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(snackbarError(`paymentPack.category.${kind}.error`));
+      dispatch(upsertMetaActivityCategoryActions.error(error.response.data));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(upsertMetaActivityCategoryActions.loading(false));
+  };
+}
+
+export const deleteMetaActivityCategoryActions = {
+  error: createAction('META_ACTIVITIES_CATEGORY/DELETE/ERROR'),
+  loading: createAction('META_ACTIVITIES_CATEGORY/DELETE/IS_LOADING'),
+  success: createAction('META_ACTIVITIES_CATEGORY/DELETE/SUCCESS'),
+};
+
+export function deleteMetaActivityCategory(
+  category: MetaActivityCategoryWithActivities,
+  options?: OptionCallback<MetaActivityCategoryWithActivities>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(deleteMetaActivityCategoryActions.loading(true));
+    try {
+      await deleteMetaActivityCategoryAPI(category);
+      dispatch(deleteMetaActivityCategoryActions.success(category));
+      dispatch(snackbarSuccess('paymentPack.category.delete.success'));
+      if (options && options.onSuccess) options.onSuccess(category);
+    } catch (error) {
+      dispatch(deleteMetaActivityCategoryActions.error(category));
+      dispatch(snackbarError('paymentPack.category.delete.error'));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(deleteMetaActivityCategoryActions.loading(false));
   };
 }

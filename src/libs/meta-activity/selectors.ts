@@ -102,3 +102,41 @@ export const getFreshMetaActivityList = createSelector(
 
 export const getFavoriteMetaActivity = (state: RootState) =>
   state.metaActivity.byId[state.metaActivity.favorite.id];
+
+const _getAllMetaActivityCategoryIds = (state: RootState) =>
+  state.metaActivity.metaActivityCategory.allIds;
+
+const _getMetaActivityCategoryById = (state: RootState) =>
+  state.metaActivity.metaActivityCategory.byId;
+
+export const getMetaActivityCategories = createSelector(
+  [_getAllMetaActivityCategoryIds, _getMetaActivityCategoryById],
+  (metaActivityCategoryIds, metaActivityCategoryById) => {
+    return metaActivityCategoryIds.map(
+      (categoryId) => metaActivityCategoryById[categoryId],
+    );
+  },
+);
+
+export const getMetaActivityByCategoryWithActivities = memoize(
+  (selector: (State: RootState) => any) =>
+    createSelector(
+      [selector, _getAllMetaActivityCategoryIds, _getMetaActivityCategoryById],
+      (metaActivityList, metaActivityCategoryIds, metaActivityCategoryById) => {
+        return [
+          ...metaActivityCategoryIds.map((categoryId) => ({
+            ...metaActivityCategoryById[categoryId],
+            items: metaActivityList.filter(
+              (et: MetaActivity) => et.category === categoryId,
+            ),
+          })),
+          {
+            name: '',
+            id: null,
+            category_ordering: metaActivityCategoryIds.length,
+            items: metaActivityList.filter((et: MetaActivity) => !et.category),
+          },
+        ];
+      },
+    ),
+);

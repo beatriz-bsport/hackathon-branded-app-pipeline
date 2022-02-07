@@ -138,6 +138,7 @@ export class PrivateBookingsFilter extends Component<Props, state> {
           <DelayedNumericInput
             classes={classes}
             value={filter_data.value}
+            InputProps={{ inputProps: { min: 0 } }}
             onChange={(ev) =>
               onChange({
                 value: ev.target.value === '' ? null : ev.target.value,

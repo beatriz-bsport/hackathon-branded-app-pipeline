@@ -69,6 +69,7 @@ export class BasketAbandonmentFilter extends Component<Props, state> {
         <DelayedNumericInput
           classes={classes}
           value={filter_data.basket_value}
+          InputProps={{ inputProps: { min: 0 } }}
           onChange={(ev) =>
             onChange({
               basket_value: ev.target.value === '' ? null : ev.target.value,

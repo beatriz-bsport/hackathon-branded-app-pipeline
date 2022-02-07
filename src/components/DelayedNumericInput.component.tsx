@@ -8,6 +8,7 @@ const DELAY = 350;
 type Props = {
   value: string | null | number;
   onChange: (data: any) => void;
+  InputProps: any;
 };
 
 type State = {

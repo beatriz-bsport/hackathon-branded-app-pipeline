@@ -85,7 +85,9 @@ export class BookingsNumberFilter extends Component<Props, state> {
     }
   }
 
-  getEstablishmentGroupByAddres = (establishmentList: Array<Establishment>) => {
+  getEstablishmentGroupByAddress = (
+    establishmentList: Array<Establishment>,
+  ) => {
     const establishmentGourpByAddress = establishmentList.reduce(
       (accumulator, establishmentItem) => {
         const temp = accumulator.findIndex(
@@ -124,6 +126,7 @@ export class BookingsNumberFilter extends Component<Props, state> {
           <DelayedNumericInput
             classes={classes}
             value={filter_data.value}
+            InputProps={{ inputProps: { min: 0 } }}
             onChange={(ev) => {
               onChange({
                 value:
@@ -219,7 +222,7 @@ export class BookingsNumberFilter extends Component<Props, state> {
               helperAllSelectedText={t(
                 'multiSelector.establishments.helperAllSelectedText',
               )}
-              groupItemsFunction={this.getEstablishmentGroupByAddres}
+              groupItemsFunction={this.getEstablishmentGroupByAddress}
               groupItemIcon={<LocationOnIcon color="primary" />}
               renderItem={(item) => {
                 return <EstablishmentListItem establishment={item} />;

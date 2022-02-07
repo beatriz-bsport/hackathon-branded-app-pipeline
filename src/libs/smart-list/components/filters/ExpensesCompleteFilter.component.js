@@ -70,6 +70,7 @@ export class ExpensesPerCategoryFilter extends Component<Props, state> {
           <DelayedNumericInput
             value={filter_data.value}
             classes={classes}
+            InputProps={{ inputProps: { min: 0 } }}
             onChange={(ev) =>
               onChange({
                 value: ev.target.value === '' ? null : ev.target.value,

@@ -1,4 +1,13 @@
 exports.default = {
+  companyGroup: {
+    explain:
+      "Les catégories servent à grouper vos licences sous une appellation commune (e.g: Studios Paris) et sera affiché notamment dans l'application mobile",
+    actions: {
+      add: 'Ajouter une catégorie',
+      submit: 'Valider',
+      cancel: 'Annuler',
+    },
+  },
   membersList: {
     name: 'Nom',
     franchised: 'Franchisés',

@@ -1,6 +1,6 @@
 // @flow
 
-import React, { useState } from 'react';
+import React from 'react';
 
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -23,8 +23,8 @@ import {
   IntegerField,
 } from '../../../components/forms';
 import SCTSelectField from '../../category/components/SCTSelectorField.component';
-import { MetaActivityCategoryWithActivities } from '../types';
-import CategorySelector from '../../../components/ordering/CategorySelector.component';
+// import { MetaActivityCategoryWithActivities } from '../types';
+// import CategorySelector from '../../../components/ordering/CategorySelector.component';
 
 type Props = {
   SCTs: *[],
@@ -40,16 +40,16 @@ type Props = {
     onRemoveImage: (image: File) => void,
   },
   values: any,
-  metaActivityCategories: Array<MetaActivityCategoryWithActivities>,
-  setFieldValue: (field: string, value: any) => void,
+  // metaActivityCategories: Array<MetaActivityCategoryWithActivities>,
+  // setFieldValue: (field: string, value: any) => void,
 };
 
 export function MetaActivityForm(props: Props) {
   const { isSubmitting, SCTs, classes, t, imageUploader, variant } = props;
   const images = (props.initial || {}).images || [];
-  const [selectedCategory, setSelectedCategory] = useState(
-    props.initial?.category,
-  );
+  // const [selectedCategory, setSelectedCategory] = useState(
+  //   props.initial?.category,
+  // );
   const {
     auto_discard_hours_before_start,
     auto_discard_min_bookings_nb,
@@ -74,23 +74,26 @@ export function MetaActivityForm(props: Props) {
           fullWidth
           inputProps={{ maxLength: 100 }}
         />
-        <div className={classes.field}>
-          <CategorySelector
-            categories={props.metaActivityCategories}
-            selected={selectedCategory}
-            onChange={(item: { value: number, label: string }) => {
-              setSelectedCategory(item?.value);
-              props.setFieldValue('category', item ? item.value : null);
-            }}
-          />
-          <Typography
-            className={classes.explain}
-            variant="caption"
-            color="textSecondary"
-          >
-            {props.t('metaActivityCategory.explain')}
-          </Typography>
-        </div>
+        {/*
+        variant !== 'workshop' && (
+          <div className={classes.field}>
+            <CategorySelector
+              categories={props.metaActivityCategories}
+              selected={selectedCategory}
+              onChange={(item: { value: number, label: string }) => {
+                setSelectedCategory(item?.value);
+                props.setFieldValue('category', item ? item.value : null);
+              }}
+            />
+            <Typography
+              className={classes.explain}
+              variant="caption"
+              color="textSecondary"
+            >
+              {props.t('metaActivityCategory.explain')}
+            </Typography>
+          </div>
+	) */}
         <div className={classes.field}>
           <SCTSelectField
             scts={SCTs}
@@ -298,7 +301,7 @@ const MetaActivitySchema = Yup.object().shape({
   auto_discard_active: Yup.boolean(),
   auto_discard_hours_before_start: Yup.number(),
   auto_discard_min_bookings_nb: Yup.number(),
-  category: Yup.number().nullable(true),
+  // category: Yup.number().nullable(true),
 });
 
 export default compose(
@@ -320,7 +323,7 @@ export default compose(
           auto_discard_active: false,
           auto_discard_hours_before_start: 6,
           auto_discard_min_bookings_nb: 1,
-          category: null,
+          // category: null,
         },
         { ...initial } || {},
       ),
@@ -341,7 +344,7 @@ export default compose(
         'auto_discard_active',
         'auto_discard_hours_before_start',
         'auto_discard_min_bookings_nb',
-        'category',
+        // 'category',
       ];
       const { cover_main } = values;
       const data = {

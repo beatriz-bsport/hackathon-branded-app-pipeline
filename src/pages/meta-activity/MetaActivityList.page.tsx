@@ -58,7 +58,7 @@ import {
 } from '#libs/meta-activity/types';
 import { RootState } from '../../reducers';
 import { MaterialStyleType } from '../../utils/types';
-import AddCategoryButton from '#components/ordering/AddCategoryButton.component';
+// import AddCategoryButton from '#components/ordering/AddCategoryButton.component';
 import CategoryCreationEditDialog from '#components/ordering/CategoryCreationEditDialog.component';
 
 type OwnProps = {
@@ -254,11 +254,13 @@ export class MetaActivityListPage extends React.Component<Props, State> {
             </Paper>
           </div>
         ) : null}
+        {/*
         <AddCategoryButton
           setShowCategoryDialog={(showCategoryDialog: boolean) =>
             this.setState({ showCategoryDialog })
           }
-        />
+          />
+          */}
         {this.state.showCategoryDialog && (
           <CategoryCreationEditDialog
             open={this.state.showCategoryDialog}
@@ -280,6 +282,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
             onDuplicateItem={this.onDuplicate}
             updateItemOrder={this.props.editOrderMetaActivity}
             itemLoading={this.props.loading}
+            hideTitle
             categoryWithItems={this.props.metaActivityCategories}
             editCategory={this.onEditCategory}
             deleteCategory={this.onDeleteCategory}

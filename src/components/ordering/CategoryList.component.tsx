@@ -26,6 +26,7 @@ import {
 } from '#components/ordering/types';
 
 export type Props = {
+  hideTitle?: boolean;
   selectedItem?: number;
   onClickItem: (id: number) => void;
   onEditItem: (id: number) => void;
@@ -291,6 +292,7 @@ export const CategoryList = (props: Props) => {
               category={category}
               categoryIds={items.map((cat) => cat.id)}
               orderingOverride={itemOrderingOverride}
+              hideTitle={props.hideTitle}
               onClick={props.onClickItem}
               onDelete={props.onDeleteItem}
               onEdit={props.onEditItem}

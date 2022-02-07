@@ -293,44 +293,45 @@ export const CategoryItemWithItems = React.memo((props: Props) => {
           </ButtonWithConfirm>
         </List>
       </Popover>
-
-      <div className={classes.header}>
-        <div className={classes.flex}>
-          {category.id && props.isCategoryDraggable && (
-            <IconButton {...listeners} {...attributes}>
-              <DragHandleIcon />
-            </IconButton>
-          )}
-          <Typography variant="h5" component="h2">
-            {category
-              ? `${category.name || t('category.noCategory.name')} (${
-                  category.items?.length || 0
-                })`
-              : ''}
-          </Typography>
-        </div>
-        <div className={classes.titleActions}>
-          {category.id && (
-            <IconButton
-              aria-haspopup="true"
-              aria-owns={anchorEl ? 'category-popover' : undefined}
-              onClick={(event) => handlePopover(event)}
-            >
-              <MoreVertIcon />
-            </IconButton>
-          )}
-          {!category.id && props.noCategoryHelper && (
-            <Tooltip title={props.noCategoryHelper}>
-              <IconButton>
-                <HelpIcon />
+      {!props.hideTitle && (
+        <div className={classes.header}>
+          <div className={classes.flex}>
+            {category.id && props.isCategoryDraggable && (
+              <IconButton {...listeners} {...attributes}>
+                <DragHandleIcon />
               </IconButton>
-            </Tooltip>
-          )}
-          <IconButton onClick={() => setExpandCollapse(!expandCollapse)}>
-            {expandCollapse ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-          </IconButton>
+            )}
+            <Typography variant="h5" component="h2">
+              {category
+                ? `${category.name || t('category.noCategory.name')} (${
+                    category.items?.length || 0
+                  })`
+                : ''}
+            </Typography>
+          </div>
+          <div className={classes.titleActions}>
+            {category.id && (
+              <IconButton
+                aria-haspopup="true"
+                aria-owns={anchorEl ? 'category-popover' : undefined}
+                onClick={(event) => handlePopover(event)}
+              >
+                <MoreVertIcon />
+              </IconButton>
+            )}
+            {!category.id && props.noCategoryHelper && (
+              <Tooltip title={props.noCategoryHelper}>
+                <IconButton>
+                  <HelpIcon />
+                </IconButton>
+              </Tooltip>
+            )}
+            <IconButton onClick={() => setExpandCollapse(!expandCollapse)}>
+              {expandCollapse ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            </IconButton>
+          </div>
         </div>
-      </div>
+      )}
       {props.itemLoading ? (
         <LinearProgress />
       ) : (

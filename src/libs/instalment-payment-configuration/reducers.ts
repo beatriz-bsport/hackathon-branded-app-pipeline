@@ -126,7 +126,7 @@ export default handleActions(
       return state
         .setIn(
           ['byBasket', 'allIds'],
-          [payload.items.map((instalmentPayment) => instalmentPayment.id)],
+          payload.items.map((instalmentPayment) => instalmentPayment.id),
         )
         .setIn(['byBasket', 'basketId'], payload.basketId)
         .merge(

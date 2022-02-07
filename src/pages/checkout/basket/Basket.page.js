@@ -264,7 +264,7 @@ export class BasketPage extends React.Component<Props> {
         instalment_payment,
         {
           onSuccess: () => {
-            this.props.refreshBasket();
+            this.props.refreshBasket(options);
           },
           onError: options && options.onError,
         },
@@ -476,9 +476,13 @@ export default compose(
   withHandlers({
     refreshBasket:
       ({ fetchCurrentBasket, fetchInstalmentPaymentByBasket, companyId }) =>
-      () =>
+      (options) =>
         fetchCurrentBasket(companyId, {
+          onError: options && options.onError,
           onSuccess: (basket) => {
+            if (options && options.onSuccess) {
+              options.onSuccess();
+            }
             fetchInstalmentPaymentByBasket(basket.id);
           },
         }),

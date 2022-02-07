@@ -406,9 +406,18 @@ export const fetchCompatiblePrivatePass = (
   );
 };
 
-export const checkUnpaidPrivateBookingEligility = (privateSlotId: number) => {
+export const checkUnpaidPrivateBookingEligility = ({
+  privateSlotId,
+  consumer,
+}: {
+  privateSlotId: number;
+  consumer?: number;
+}) => {
   return postAuth(
     `${API_V1_URI}/private_service/private_slot/${privateSlotId}/check_unpaid_booking_eligibility/`,
+    {
+      consumer,
+    },
   );
 };
 

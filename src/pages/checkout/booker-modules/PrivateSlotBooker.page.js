@@ -117,7 +117,9 @@ type Props = {
   fetchProfile: () => void,
 
   auth: any,
-  checkPrivateSlotUnpaidBookingEligibility: (privateSlotId: number) => void,
+  checkPrivateSlotUnpaidBookingEligibility: (params: {
+    privateSlotId: number,
+  }) => void,
   compatibleWithUnpaidBooking: boolean,
 };
 
@@ -150,9 +152,9 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
     if (this.props.auth.authenticated) {
       this.props.fetchProfile();
     }
-    this.props.checkPrivateSlotUnpaidBookingEligibility(
-      this.props.privateSlotId,
-    );
+    this.props.checkPrivateSlotUnpaidBookingEligibility({
+      privateSlotId: this.props.privateSlotId,
+    });
   }
 
   handleConsumerPassClick = (consumerPassId: number, unpaid?: boolean) => {

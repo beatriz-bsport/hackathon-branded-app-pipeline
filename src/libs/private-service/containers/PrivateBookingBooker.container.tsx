@@ -129,9 +129,10 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
       this.props.setRequestedPrivateSlot(
         this.state.private_booking_data.private_slot,
       );
-      this.props.checkPrivateSlotUnpaidBookingEligibility(
-        this.state.private_booking_data.private_slot,
-      );
+      this.props.checkPrivateSlotUnpaidBookingEligibility({
+        privateSlotId: this.state.private_booking_data.private_slot,
+        consumer: this.state.member?.consumer,
+      });
     }
   }
 

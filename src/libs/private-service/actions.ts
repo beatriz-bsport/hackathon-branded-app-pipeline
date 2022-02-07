@@ -2628,21 +2628,21 @@ export const privateSlotCheckUnpaidBookingEligibilityActions = {
 };
 
 export function checkPrivateSlotUnpaidBookingEligibility(
-  privateSlodId: number,
+  { privateSlotId, consumer }: { privateSlotId: number; consumer?: number },
   options?: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateSlotCheckUnpaidBookingEligibilityActions.isLoading(true));
     try {
-      await checkUnpaidPrivateBookingEligilityAPI(privateSlodId);
+      await checkUnpaidPrivateBookingEligilityAPI({ privateSlotId, consumer });
       dispatch(
-        privateSlotCheckUnpaidBookingEligibilityActions.success(privateSlodId),
+        privateSlotCheckUnpaidBookingEligibilityActions.success(privateSlotId),
       );
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
       console.error(err);
       dispatch(
-        privateSlotCheckUnpaidBookingEligibilityActions.error(privateSlodId),
+        privateSlotCheckUnpaidBookingEligibilityActions.error(privateSlotId),
       );
       if (options && options.onError) options.onError();
     }

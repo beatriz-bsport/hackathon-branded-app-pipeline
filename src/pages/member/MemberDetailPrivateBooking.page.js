@@ -67,6 +67,7 @@ import type {
   RecurrenceRulePrivateBooking,
 } from '../../libs/private-service/types';
 import RecurrenceRulePrivateBooker from '../../libs/private-service/containers/RecurrenceRulePrivateBooker.container';
+import type { OptionCallBack } from '../../state/types';
 
 type Props = {
   t: TFunction,
@@ -78,7 +79,7 @@ type Props = {
   bookingCount: number,
 
   goToConsumerPass: (memberId: number, consumerPassId: number) => void,
-  fetchMember: (id: number) => void,
+  fetchMember: (id: number, options: OptionCallBack) => void,
   private_consumer_pass: ?PrivateConsumerPass,
   fetchPrivateBookings: (params: any) => void,
   private_booking_list: Array<PrivateBooking>,
@@ -102,7 +103,7 @@ type Props = {
 
   private_booking: ?PrivateBooking,
   privateBookingId: ?number,
-  fetchPrivateBookingDetails: () => void,
+  fetchPrivateBookingDetails: (options?: OptionCallBack) => void,
   fetchPrivateConsumerPass: (id: number) => void,
   privateBookingsLoading: boolean,
   goToPrivateBooking: (memberId: number, privateBookingId: number) => void,
@@ -148,10 +149,17 @@ export class MemberDetailBooking extends Component<Props> {
 
   componentDidUpdate(prevProps: Props) {
     if (
-      this.props.privateBookingId &&
-      prevProps.privateBookingId !== this.props.privateBookingId
+      (this.props.privateBookingId &&
+        prevProps.privateBookingId !== this.props.privateBookingId) ||
+      prevProps.id !== this.props.id
     ) {
-      this.props.fetchPrivateBookingDetails();
+      this.props.resetPrivateBookingList();
+      this.props.fetchMember(this.props.id, {
+        onSuccess: () => {
+          this.props.fetchPrivateBookingDetails();
+          this.props.fetchPrivateBookings({ member: this.props.id });
+        },
+      });
     }
   }
 

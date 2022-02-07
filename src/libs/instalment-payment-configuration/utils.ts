@@ -25,7 +25,7 @@ export const generateInfo = (
   frequency: number,
   number_of_billing: number,
 ) => {
-  const total = number_of_billing * frequency;
+  const total = (number_of_billing - 1) * frequency;
   switch (recurrency) {
     case DAILY:
       return (

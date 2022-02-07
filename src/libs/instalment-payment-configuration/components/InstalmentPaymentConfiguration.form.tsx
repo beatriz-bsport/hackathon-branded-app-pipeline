@@ -177,4 +177,5 @@ const useStyles = makeStyles<Theme>((theme) => ({
 export default InstalmentPaymentForm;
 const instalmentPaymentSchema = Yup.object().shape({
   name: Yup.string().required('common:form.requiredField'),
+  frequency: Yup.number().min(1),
 });

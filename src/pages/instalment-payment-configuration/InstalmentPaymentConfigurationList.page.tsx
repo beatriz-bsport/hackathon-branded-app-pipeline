@@ -117,6 +117,7 @@ export class InstalmentPaymentList extends Component<Props, State> {
       pushSelectedInstalmentPayment,
       setInstalmentPaymentToEditId,
       disableInstalmentPayment,
+      pushInstalmentPaymentHome,
     } = this.props;
 
     return (
@@ -154,11 +155,17 @@ export class InstalmentPaymentList extends Component<Props, State> {
                     pushSelectedInstalmentPayment(id);
                   }}
                   onEdit={(id) => {
+                    fetckAllItemInfo();
                     setInstalmentPaymentToEditId(id);
                   }}
                   instalmentPaymentList={instalmentPaymentList}
                   loading={instalmentPaymentLoading}
-                  onDelete={(id) => disableInstalmentPayment(id)}
+                  onDelete={(id) => {
+                    disableInstalmentPayment(id);
+                    if (id === instalmentPaymentId) {
+                      pushInstalmentPaymentHome();
+                    }
+                  }}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -172,9 +179,13 @@ export class InstalmentPaymentList extends Component<Props, State> {
                   <InstalmentPaymentDetail
                     loading={instalmentPaymentLoading}
                     onEdit={(id) => {
+                      fetckAllItemInfo();
                       setInstalmentPaymentToEditId(id);
                     }}
-                    onDelete={(id) => disableInstalmentPayment(id)}
+                    onDelete={(id) => {
+                      disableInstalmentPayment(id);
+                      pushInstalmentPaymentHome();
+                    }}
                     instalmentPayment={instalmentPaymentDetailed}
                     instalmentPaymentId={instalmentPaymentId}
                     paymentPackList={paymentPackList}
@@ -308,6 +319,10 @@ export const mapWhithHandlers = {
   pushSelectedInstalmentPayment:
     (props: RouterProps & ConnectedProps<typeof connector>) => (id: number) => {
       props.push(`${id}`);
+    },
+  pushInstalmentPaymentHome:
+    (props: RouterProps & ConnectedProps<typeof connector>) => () => {
+      props.push('/instalment-payment/');
     },
   fetckAllItemInfo:
     (props: RouterProps & ConnectedProps<typeof connector>) => () => {

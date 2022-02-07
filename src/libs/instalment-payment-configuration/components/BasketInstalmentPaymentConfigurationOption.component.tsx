@@ -14,6 +14,7 @@ type OwnProps = {
   checked: boolean;
   instalmentPayment: InstalmentPayment;
   basketPrice: number;
+  disabled: boolean;
 };
 type ShortandMoment = 'y' | 'd' | 'w' | 'M';
 type Props = OwnProps;
@@ -32,7 +33,7 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = (props) => {
             checked={checked}
           />
           <Typography>{t('paymentAllInOnce')}</Typography>
-          <InstalmentPaymentMultiplyIcon multiplyFactor="1" />
+          <InstalmentPaymentMultiplyIcon multiplyFactor={1} />
         </div>
       </div>
     );
@@ -63,7 +64,7 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = (props) => {
     .fill(0)
     .map((item, index) =>
       moment()
-        .add(frequency * (index + 1), shorthandRecurrency)
+        .add(frequency * index, shorthandRecurrency)
         .format('L'),
     );
   const instalmentAmount = (basketPrice / number_of_billing).toFixed(2);

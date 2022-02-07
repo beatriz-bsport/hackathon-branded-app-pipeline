@@ -201,22 +201,27 @@ export function addItemToBasket(
 
 export function removeItemFromBasket(
   basketId: string,
-  checkoutItemId: string,
-  quantity: number,
+  data: {
+    checkout_item: string;
+    quantity: number;
+  },
+  options: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(currentBasket.isLoading(true));
     dispatch(currentBasket.error(null));
 
     try {
-      const response = await removeItemFromBasketAPI(
-        basketId,
-        checkoutItemId,
-        quantity,
-      );
+      const response = await removeItemFromBasketAPI(basketId, data);
       dispatch(currentBasket.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
     } catch (error) {
       dispatch(currentBasket.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
     }
 
     dispatch(currentBasket.isLoading(false));

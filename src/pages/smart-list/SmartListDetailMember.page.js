@@ -42,7 +42,6 @@ import {
   updateSmartListAutoTag,
   smartListAutoTagDelete,
   applySmartListAutoTagRules,
-  applyAsyncSmartListAutoTagRules as applyAsyncSmartListAutoTagRulesAction,
 } from '../../libs/smart-list/actions';
 import {
   fetchSmartListMembers as fetchSmartListMembersAPI,
@@ -593,7 +592,6 @@ export default compose(
       updateAutoTagAction: updateSmartListAutoTag,
       deleteAutoTagAction: smartListAutoTagDelete,
       applySmartListTagRules: applySmartListAutoTagRules,
-      applyAsyncSmartListAutoTagRules: applyAsyncSmartListAutoTagRulesAction,
     },
   ),
   withProps(
@@ -628,13 +626,7 @@ export default compose(
   }),
   withHandlers({
     createAutoTag:
-      ({
-        createAutoTagAction,
-        applyAsyncSmartListAutoTagRules,
-        setOpenAutoTagRulesDialog,
-        t,
-        id,
-      }) =>
+      ({ createAutoTagAction, setOpenAutoTagRulesDialog, t, id }) =>
       async (data) => {
         setOpenAutoTagRulesDialog(true);
         const res = await showInformativeDialog(
@@ -644,10 +636,8 @@ export default compose(
         createAutoTagAction(
           { ...data, smartlist: id },
           {
-            onSuccess: () =>
-              applyAsyncSmartListAutoTagRules(id, {
-                onSuccess: () => res && setOpenAutoTagRulesDialog(false),
-              }),
+            onSuccess: () => res && setOpenAutoTagRulesDialog(false),
+            onError: () => res && setOpenAutoTagRulesDialog(false),
           },
         );
       },
@@ -657,23 +647,15 @@ export default compose(
         deleteAutoTagAction(id);
       },
     updateAutoTag:
-      ({
-        updateAutoTagAction,
-        applyAsyncSmartListAutoTagRules,
-        setOpenAutoTagRulesDialog,
-        t,
-        id,
-      }) =>
+      ({ updateAutoTagAction, setOpenAutoTagRulesDialog, t }) =>
       async (tg_id, data) => {
         const res = await showInformativeDialog(
           t('smartList:tag_rules.asyncDialog.title'),
           t('smartList:tag_rules.asyncDialog.message'),
         );
         updateAutoTagAction(tg_id, data, {
-          onSuccess: () =>
-            applyAsyncSmartListAutoTagRules(id, {
-              onSuccess: () => res && setOpenAutoTagRulesDialog(false),
-            }),
+          onSuccess: () => res && setOpenAutoTagRulesDialog(false),
+          onError: () => res && setOpenAutoTagRulesDialog(false),
         });
       },
   }),

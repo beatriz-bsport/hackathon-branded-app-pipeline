@@ -518,7 +518,7 @@ exports.default = {
     asyncDialog: {
       title: 'Mises à jour des règles de Tag ',
       message:
-        'Suite à vos changements dans les règles de Tag de la smartlist {{name}}, nous devons mettre à jours les Tags de vos membres.',
+        "Suite à vos changements dans les règles de Tag de la smartlist {{ name }} les tags doivent être mis à jour. Cette synchronisation s'effectue toutes les deux heures.",
     },
     tag: 'Tag',
   },

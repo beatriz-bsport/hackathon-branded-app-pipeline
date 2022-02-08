@@ -220,12 +220,14 @@ function Menu<T extends OptionTypeBase>(props: MenuProps<T, boolean, any>) {
           >
             {props.children}
           </div>
+
           {props.isMulti && (
             <div className={classes.footer}>
               <Button
                 className={classNames(classes.button, classes.selectButton)}
                 color="secondary"
                 onClick={handleGlobalSelect}
+                onTouchEnd={handleGlobalSelect} // for Compatibility with phones
               >
                 {selected?.length > 0
                   ? t('selector.unselectAll')
@@ -235,6 +237,7 @@ function Menu<T extends OptionTypeBase>(props: MenuProps<T, boolean, any>) {
                 className={classes.button}
                 color="primary"
                 onClick={handleSubmit}
+                onTouchEnd={handleSubmit} // for compability with phones
               >
                 {t('selector.validate')}
               </Button>

@@ -254,9 +254,12 @@ export class BasketPage extends React.Component<Props> {
     this.props.goBack();
   };
 
-  attachCoupon = (code: string) => {
+  attachCoupon = (code: string, options: OptionCallback) => {
     this.props.attachCoupon(code, {
       onSuccess: () => {
+        if (options && options.onSuccess) {
+          options.onSuccess();
+        }
         this.props.refreshBasket();
       },
     });
@@ -346,7 +349,7 @@ export class BasketPage extends React.Component<Props> {
                   onCancel={this.backToCalendar}
                   basketTotalPriceCts={this.props.basket?.total_price_cts}
                   basketTotalPricePrepaidLines={
-                    this.props.basket?.total_price_prepaid_lines
+                    this.props.basket?.total_price_prepaid_lines_cts
                   }
                   instalmentPaymentConfigurationList={this.props.instalmentPaymentConfigurationList.filter(
                     (ipc) => ipc.basketId === this.props.basket?.id,
@@ -573,17 +576,12 @@ export default compose(
   }),
   withHandlers({
     useInternalAccount:
-      ({
-        createOrRefreshInternalAccountPrepaidLine,
-        fetchCurrentBasket,
-        companyId,
-        basket,
-      }) =>
+      ({ createOrRefreshInternalAccountPrepaidLine, refreshBasket, basket }) =>
       (amount: number, options: OptionCallback) => {
         createOrRefreshInternalAccountPrepaidLine(basket.id, amount, {
           onSuccess: () => {
             if (options && options.onSuccess) options.onSuccess();
-            fetchCurrentBasket(companyId);
+            refreshBasket();
           },
           onError: () => {
             if (options && options.onError) options.onError();

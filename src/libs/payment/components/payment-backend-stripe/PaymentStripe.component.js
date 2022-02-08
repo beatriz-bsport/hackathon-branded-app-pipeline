@@ -103,7 +103,6 @@ export const PaymentStripe = (props: Props) => {
   const [priceUpdateAmount, setPriceUpdateAmount] = React.useState(
     props.paymentGroupPriceCts / 100,
   );
-  console.log('prepaid: ', props.basketTotalPricePrepaidLines);
   return (
     <div className={classes.container}>
       {!!priceUpdaterOpen && (

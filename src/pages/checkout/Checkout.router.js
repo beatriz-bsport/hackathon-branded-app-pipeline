@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import asyncComponent from '../../AsyncComponent';
+import Analytics from '../../components/analytics/Analytics.component';
 import { fetchProfile } from '../../libs/consumer-space/actions';
 
 const MarketplaceAsManager = asyncComponent(() =>
@@ -62,6 +63,7 @@ type Props = {
   location: Object,
   is_manager: ?boolean,
   companyId: number,
+  theme: CompanyTheme,
 };
 
 export class PaymentRouter extends React.Component<Props> {

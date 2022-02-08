@@ -254,6 +254,14 @@ export class BasketPage extends React.Component<Props> {
     this.props.goBack();
   };
 
+  attachCoupon = (code: string) => {
+    this.props.attachCoupon(code, {
+      onSuccess: () => {
+        this.props.refreshBasket();
+      },
+    });
+  };
+
   setTermsAndConditionsAccepted = (termsAndConditionsAccepted) =>
     this.setState({ termsAndConditionsAccepted });
 
@@ -319,7 +327,7 @@ export class BasketPage extends React.Component<Props> {
               addItemToBasket={this.props.addItemToBasket}
               addShopItemToBasket={this.props.addShopItemToBasket}
               removeItemFromBasket={this.props.removeItemFromBasket}
-              attachCoupon={this.props.attachCoupon}
+              attachCoupon={this.attachCoupon}
               backToCalendar={this.backToCalendar}
               shopItemList={this.props.shopItemList}
               patchBasket={this.props.patchCurrentBasket}
@@ -337,6 +345,9 @@ export class BasketPage extends React.Component<Props> {
                   loading={this.props.loading || this.props.processing}
                   onCancel={this.backToCalendar}
                   basketTotalPriceCts={this.props.basket?.total_price_cts}
+                  basketTotalPricePrepaidLines={
+                    this.props.basket?.total_price_prepaid_lines
+                  }
                   instalmentPaymentConfigurationList={this.props.instalmentPaymentConfigurationList.filter(
                     (ipc) => ipc.basketId === this.props.basket?.id,
                   )}

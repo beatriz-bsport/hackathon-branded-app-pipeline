@@ -166,6 +166,9 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
             ),
           )}
           basketTotalPriceCts={this.props.basket.total_price_cts}
+          basketTotalPricePrepaidLines={
+            this.props.basket.total_price_prepaid_lines
+          }
           basketId={this.props.basketId}
           clientSecret={this.state.clientSecret}
           clientSecretLoading={this.state.clientSecretLoading}

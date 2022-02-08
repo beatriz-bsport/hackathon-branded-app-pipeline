@@ -69,6 +69,7 @@ type Props = {
 
   basketId?: string,
   basketTotalPriceCts?: number,
+  basketTotalPricePrepaidLines?: number,
   allowConsumerToUseInternalAccount?: boolean,
   useInternalAccount?: (amount: number) => void,
   applyBalanceToInvoice?: () => void,
@@ -101,7 +102,7 @@ export const PaymentStripe = (props: Props) => {
   const [priceUpdateAmount, setPriceUpdateAmount] = React.useState(
     props.paymentGroupPriceCts / 100,
   );
-
+  const prepaidLines = props.basketTotalPricePrepaidLines ?? 0;
   return (
     <div className={classes.container}>
       {!!priceUpdaterOpen && (
@@ -149,7 +150,7 @@ export const PaymentStripe = (props: Props) => {
           props.instalmentPaymentConfigurationList
         }
         onSelectInstalmentPayment={props.onSelectInstalmentPayment}
-        basketPriceCts={props.basketTotalPriceCts}
+        basketPriceCts={props.basketTotalPriceCts - prepaidLines}
       />
       <div className={classes.innerContainer}>
         <Elements stripe={stripePromise}>

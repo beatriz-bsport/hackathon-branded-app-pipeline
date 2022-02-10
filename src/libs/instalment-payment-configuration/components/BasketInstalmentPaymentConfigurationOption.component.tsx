@@ -105,19 +105,21 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = (props) => {
               </Typography>
             </div>
           ))}
+          {/*
           <div className={classes.row}>
             <Typography variant="subtitle1">{t('basket.fee')}</Typography>
             <Typography>
               {getCurrencyDisplayWithPrice(instalmentPayment.fee)}
             </Typography>
-          </div>
+            </div>
+            */}
         </div>
       </Collapse>
     </div>
   );
 };
 const useStyles = makeStyles<Theme, { checked: boolean }>((theme) => ({
-  container: (props) => ({
+  container: (props: { checked: boolean }) => ({
     backgroundColor: props.checked
       ? chroma(theme.palette.primary.main).alpha(0.05)
       : 'unset',

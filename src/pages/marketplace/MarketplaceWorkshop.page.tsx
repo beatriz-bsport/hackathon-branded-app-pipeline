@@ -102,8 +102,9 @@ export class MarketplaceWorkshopPage extends React.Component<FinalProps> {
   fetchData = () => {
     const min_date = Moment().startOf('month').format(DATE_FORMAT);
     const max_date = Moment()
-      .startOf('month')
-      .add('years', 1)
+      .endOf('month')
+      .add(1, 'years')
+      .add(1, 'months')
       .format(DATE_FORMAT);
 
     this.props.fetchMetaActivityBulk(this.props.filters.activity__in || []);

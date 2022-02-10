@@ -62,11 +62,13 @@ export const SubscriptionPaymentMethod = (props: Props) => {
             </Typography>
           </div>
         ))}
-      {!props.paymentMethod && !props.loading && (
-        <Button color="primary" variant="outlined" onClick={props.onEdit}>
-          {t('paymentMethod.add')}
-        </Button>
-      )}
+      {!props.paymentMethod &&
+        !props.loading &&
+        props.paymentEngine !== PAYMENT_ENGINE_BSPORT && (
+          <Button color="primary" variant="outlined" onClick={props.onEdit}>
+            {t('paymentMethod.add')}
+          </Button>
+        )}
     </div>
   );
 };

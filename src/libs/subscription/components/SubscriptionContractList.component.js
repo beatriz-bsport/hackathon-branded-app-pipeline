@@ -100,7 +100,6 @@ export const SubscriptionContractList = (props: Props) => {
           )}
         </div>
       )}
-      ={' '}
       <SubscriptionContractFormDrawer
         onClose={() => {
           props.setCreateOpen(false);

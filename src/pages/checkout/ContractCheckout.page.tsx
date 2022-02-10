@@ -205,28 +205,29 @@ export class MarketplaceSubscriptionPayment extends React.Component<
     return (
       <ConsumerAppBar>
         <div className={classes.mainContainer}>
-          {!WidgetUtils.isWidget() && (
-            <div className={classes.upperContainer}>
-              <Grid
-                container
-                spacing={2}
-                direction="row"
-                justify="space-evenly"
-              >
-                <Grid item xs={12}>
-                  <MarketplaceSubscriptionContractList
-                    contractList={this.props.contractList}
-                    selected={parseInt(this.props.contractId)}
-                    onClick={(c: ContractWithPaymentPack) => {
-                      this.props.setAcceptContract(false);
-                      this.props.setSelected(c.id);
-                      Analytics.contractShow(c);
-                    }}
-                  />
+          {!WidgetUtils.isWidget() &&
+            !window.location.search.includes('?force=true') && (
+              <div className={classes.upperContainer}>
+                <Grid
+                  container
+                  spacing={2}
+                  direction="row"
+                  justify="space-evenly"
+                >
+                  <Grid item xs={12}>
+                    <MarketplaceSubscriptionContractList
+                      contractList={this.props.contractList}
+                      selected={parseInt(this.props.contractId)}
+                      onClick={(c: ContractWithPaymentPack) => {
+                        this.props.setAcceptContract(false);
+                        this.props.setSelected(c.id);
+                        Analytics.contractShow(c);
+                      }}
+                    />
+                  </Grid>
                 </Grid>
-              </Grid>
-            </div>
-          )}
+              </div>
+            )}
 
           <div className={classes.centeredContainer}>
             <Grid container spacing={2} direction="row" justify="space-evenly">

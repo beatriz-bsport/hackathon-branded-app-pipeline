@@ -128,7 +128,8 @@ export class ConsumerLoginPage extends Component<Props> {
               franchisor
                 ? () =>
                     this.props.setQueryParams('step')(STEPS.franchiseeSelection)
-                : () => goToSignup(membership)
+                : () =>
+                    this.props.replace(`/login/signup${window.location.search}`)
             }
             company={!!membership}
             isPremium={this.props.is_premium}

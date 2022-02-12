@@ -89,7 +89,8 @@
             "titlePrivateBooking": "Afspraken",
             "titleBooking": "Groepsactiviteiten",
             "accessLive": "Online les openen",
-            "spotNumber": "Plaats {{count}}"
+            "spotNumber": "Plaats {{count}}",
+            "isUnpaid": "Openstaande betaling"
         },
         "pack": {
             "titlePrivatePack": "Afspraken",
@@ -828,7 +829,8 @@
                 "substituteCoachLabel": "Plaatsvervanger",
                 "establishmentChangeWarning": "Wanneer de vestiging van de activiteit gewijzigd wordt, geldt deze wijziging voor alle toekomstige sessies. Als je een tijdelijke vestiging wilt gebruiken, gebruik dan het veld \"Tijdelijke vestiging\". Alle andere wijzigingen (instructeur, prijs, etc.) worden vervolgens op alle sessies toegepast.",
                 "coachChangeWarning": "Wanneer de instructeur van de activiteit gewijzigd wordt, geldt deze wijziging voor alle toekomstige sessies. Alle andere wijzigingen (vestiging, prijs, etc.) worden vervolgens op alle sessies toegepast.",
-                "levelChangeWarning": "Wanneer het niveau van de activiteit gewijzigd wordt, geldt deze wijziging voor alle toekomstige sessies. Alle andere wijzigingen (vestiging, prijs, etc.) worden vervolgens op alle sessies toegepast."
+                "levelChangeWarning": "Wanneer het niveau van de activiteit gewijzigd wordt, geldt deze wijziging voor alle toekomstige sessies. Alle andere wijzigingen (vestiging, prijs, etc.) worden vervolgens op alle sessies toegepast.",
+                "explainPartnership": "MarketPlaces (Onefit, ClassPass, etc.)"
             },
             "payment": {
                 "additionalInformationHelper": "(Optioneel) Betalingskenmerk",
@@ -955,7 +957,7 @@
                         "success": "Item verwijderd"
                     },
                     "createOrUpdate": {
-                        "error": "Fout bij opslaan",
+                        "error": "Fout bij het opslaan van de wijzigingen",
                         "success": "Opgeslagen"
                     },
                     "updateProvisionTitle": "Voorraadwijziging",
@@ -1179,7 +1181,7 @@
                     "success": "Workshop bijgewerkt"
                 },
                 "create": {
-                    "error": "Fout bij het opslaan van je workshop",
+                    "error": "Fout bij het opslaan van de workshop",
                     "success": "Je workshop is opgeslagen"
                 }
             },
@@ -1191,7 +1193,7 @@
         "activity": {
             "reviews": "Ledenbeoordeling: ",
             "packsAvailable": "Compatibele kaarten:",
-            "orNcredits2": " credits)",
+            "orNcredits2": " kredieten)",
             "orNcredits1": "(of ",
             "noOfferThisDay": "Vandaag zijn er geen sessies. Selecteer een andere datum of begin met het toevoegen van sessies.",
             "offersThisDay": "Sessie(s) van vandaag:",
@@ -1442,7 +1444,11 @@
         "show_cancelled_offers": "Toon de geannuleerde sessies",
         "quickInvoiceNoVoucher": "Laat de waarde van dit veld op 0 staan als je geen korting wilt toepassen",
         "quickInvoiceVoucher": "Kies de korting die je wenst toe te passen op de facturatie van de volgende kaart",
-        "metaActivityNotificationToolTip": "Er zijn automatische meldingen ingesteld."
+        "metaActivityNotificationToolTip": "Er zijn automatische meldingen ingesteld.",
+        "metaActivityCategory": {
+            "explain": "Deze categorieën worden alleen voor het sorteren van groepsactiviteiten aan de achterkant gebruikt om de Managerweergaven naar wens in te richten. Leden ondervinden geen impact van deze wijzigingen.",
+            "sctExplain": "Deze categorieën worden op de MarketPlace en de Mobiele App getoond en geven de verschillende soorten activiteiten weer."
+        }
     },
     "communication": {
         "mail": {
@@ -2048,7 +2054,8 @@
             "video_purchase": "Gekochte video's",
             "giftcard": "Cadeaubonnen",
             "consumer_giftcard": "Gekochte cadeaubonnen",
-            "payment_installments": "Termijnbetalingen"
+            "payment_installments": "Termijnbetalingen",
+            "unpaid_private_bookings": "Onbetaalde reserveringen (afspraken)"
         },
         "globalCategories": {
             "subheader": {
@@ -2084,7 +2091,8 @@
             "2": "Bestelling",
             "3": "Openstaande taken",
             "4": "Te voltooien afspraak",
-            "5": "Juridische kennisgeving"
+            "5": "Juridische kennisgeving",
+            "6": "Onbetaalde afspraken"
         },
         "showMore": "Zie meer",
         "unevenInvoice": {
@@ -2113,13 +2121,16 @@
             },
             "payout": {
                 "content": "Momenteel kunnen we je verdiensten niet uitbetalen, omdat je bankgegevens niet of onjuist geconfigureerd zijn.",
-                "title": "Je bankgegevens zijn incompleet."
+                "title": "Waarschuwing: incomplete bankgegevens"
             },
             "verification": {
                 "warning": "Het is mogelijk dat online betalingen na deze datum <1> gedeactiveerd </1> worden!",
                 "content": "Er ontbreken documenten om het aanmaken van je account te voltooien. Je hebt tot <1>{{ date }}</1>  om je account te verifiëren.",
                 "title": "Mijn onderneming"
             }
+        },
+        "unpaidPrivateBooking": {
+            "credits_due": "{{ credits }} onbetaalde krediet(en)"
         }
     },
     "paymentPack": {
@@ -3670,7 +3681,7 @@
             "delete": {
                 "confirm": "Verwijderen",
                 "title": "E-mailsjabloon verwijderen",
-                "content": "Dit sjabloon wordt ook verwijderd van de gekoppelde transactionele e-mails. Weet je zeker dat je dit e-mailsjabloon wilt verwijderen? Deze actie is definitief",
+                "content": "Dit sjabloon wordt ook verwijderd van de gekoppelde transactionele e-mails. Weet je zeker dat je dit e-mailsjabloon wilt verwijderen?",
                 "cancel": "Annuleren"
             }
         },
@@ -5025,7 +5036,8 @@
             "error": "Het lijkt erop dat sommige activiteiten niet aan een payroll regel zijn gekoppeld. Koppel je activiteiten en instructeurs aan je payroll regels om de payroll te gebruiken.",
             "total": "Vergoeding (totaal)",
             "cancelled_bookings": "Annuleringen",
-            "confirmed_bookings": "Deelnemers"
+            "confirmed_bookings": "Deelnemers",
+            "unpaid_private_booking": "Onbetaalde afspraken."
         },
         "table": {
             "download": "Downloaden",
@@ -5523,7 +5535,8 @@
                 "address": "Adres",
                 "attachCoach": "Aan een instructeur toewijzen",
                 "coach": "Instructeur",
-                "cancelledOn": "Geannuleerd op "
+                "cancelledOn": "Geannuleerd op ",
+                "unpaidBooking": "Leden kunnen deze optie gebruiken om later te betalen. De {{ credits}} krediet(en) die vereist zijn voor dit soort afspraken worden van de eerstvolgende aangeschafte afspraakkaart afgetrokken."
             },
             "cancel": "Annuleren",
             "attachCoach": {
@@ -5539,7 +5552,9 @@
             "restore": "De afspraak herstellen",
             "bookings": "Afspraken",
             "notRefunded": "Niet terugbetaald",
-            "isRefunded": "Terugbetaald"
+            "isRefunded": "Terugbetaald",
+            "isUnpaid": "Openstaande betaling",
+            "bookingIsUnpaid": "Onbetaalde reservering"
         },
         "privateService": {
             "delete": {
@@ -5709,7 +5724,14 @@
             "recurrenceRule": {
                 "label": "Een terugkerende afspraak toevoegen"
             },
-            "confirm": "Bevestigen"
+            "confirm": "Bevestigen",
+            "unpaidBooking": {
+                "dialogHelper": "Gebruik deze optie om een reservering te voltooien zonder dat daar een directe betaling voor wordt gevraagd. De {{ credits }} krediet(en) die vereist zijn voor dit soort afspraken worden van de eerstvolgende aangeschafte afspraakkaart afgetrokken.",
+                "book": "Reserveren",
+                "header": "Later betalen",
+                "isUnpaid": "Openstaande betaling",
+                "helper": "Voltooi de reservering en schaf later een afspraakkaart aan."
+            }
         },
         "consumerPass": {
             "expiresOn": "Verloopt op: {{date}}",
@@ -5994,7 +6016,19 @@
                     "helperText": "De instructeur en/of de vestiging wordt {{minutes}} minuten na het einde van de afspraak als onbeschikbaar weergegeven.",
                     "label": "Buffer (in minuten) na het einde van de afspraak"
                 },
-                "paddingTitle": "Beschikbaarheid"
+                "paddingTitle": "Beschikbaarheid",
+                "unpaidBooking": {
+                    "helperText": "Activeer deze functie om leden reserveringen te laten voltooien zonder dat daar direct een betaling voor wordt gevraagd. De vereiste kredieten worden automatisch van later aangeschafte afspraakkaarten afgetrokken.",
+                    "tag": {
+                        "helper": "Gebruik tags om bepaalde reserveringen alleen voor specifieke segmenten van je ledenbestand beschikbaar te maken. Leden die als \"Goedgekeurd\" getagd zijn kunnen wel onbetaalde reserveringen voltooien en leden die als \"Afgekeurd\" getagd zijn kunnen dat juist niet.",
+                        "header": "Tags",
+                        "allowed": "Goedgekeurd",
+                        "notAllowed": "Afgekeurd",
+                        "doNotSelectToAllowAllMembers": "Laat dit veld leeg om geen beperkingen op te leggen."
+                    },
+                    "title": "Later betalen",
+                    "label": "Accepteer onbetaalde reserveringen"
+                }
             },
             "parameters": {
                 "establishments": {
@@ -6267,7 +6301,7 @@
                 }
             },
             "form": {
-                "title": "Een terugkerende reservering inplannen",
+                "title": "[Formulier] Terugkerende afspraak",
                 "notify_member": "Een bevestigingsmail versturen",
                 "timeGroup": "Instellingen",
                 "configuration": "Reserveringen"
@@ -6975,11 +7009,11 @@
         "paymentPack": {
             "createOrUpdate": {
                 "success": "Wijzigingen opgeslagen",
-                "fail": "Fout bij opslaan van leskaart"
+                "fail": "Fout bij opslaan van deze leskaart"
             },
             "credit": {
                 "updated": "Wijzigingen opgeslagen",
-                "error": "Fout bij opslaan"
+                "error": "Fout bij het opslaan van de wijzigingen"
             },
             "paymentPackDisabled": {
                 "error": "Fout bij het deactiveren van de leskaart",
@@ -7077,10 +7111,10 @@
             "create": {
                 "success": "Factuur succesvol opgeslagen"
             },
-            "returnPaymentLocked": "Deze terugbetaling kon niet worden voltooid. Weet je zeker dat je account met Stripe voldoende saldo heeft?",
+            "returnPaymentLocked": "Deze terugbetaling kon niet worden voltooid. Weet je zeker dat je Stripe-account voldoende saldo heeft?",
             "billingEstablishment": {
                 "error": {
-                    "unAuthorizedEstablishmentModification": "De groepsfacturatie kan alleen door systeembeheerders worden gewijzigd"
+                    "unAuthorizedEstablishmentModification": "Alleen Systeembeheerders kunnen de groepsfacturatie wijzigen"
                 }
             },
             "sendToQuickbooks": {
@@ -7101,19 +7135,20 @@
                     "932001": "Je account is niet langer bij BSPORT geverifieerd",
                     "932000": "Je account is niet langer bij BSPORT geverifieerd",
                     "931101": "QuickBooks kan ons niet je data opsturen",
-                    "931100": "Error bij het bijwerken van de authenticatie",
-                    "931004": "Je hebt je QuickBooks applicatie nog niet ingesteld",
-                    "931003": "De authenticatie is verlopen",
-                    "931002": "De authenticatie is verlopen",
-                    "931001": "Error bij de authenticatie aan QuickBooks",
-                    "931000": "Error bij de authenticatie aan QuickBooks"
+                    "931100": "Fout bij het bijwerken van de verificatie",
+                    "931004": "Je hebt je QuickBooks-applicatie nog niet ingesteld",
+                    "931003": "De verificatie is verlopen",
+                    "931002": "De verificatie is verlopen",
+                    "931001": "Fout bij de verificatie met QuickBooks",
+                    "931000": "Fout bij het verifiëren met QuickBooks"
                 },
-                "error": "Error bij het overdragen van je facturen naar QuickBooks",
-                "success": "Je facturen zijn aan QuickBooks overgedragen"
+                "error": "Fout bij het overzetten van je facturen naar QuickBooks",
+                "success": "Je facturen zijn naar QuickBooks overgezet"
             },
             "applyGiftcard": {
                 "errors": {
-                    "12103": "Fout bij het bevestigen van deze betaling met de cadeaubon"
+                    "12103": "Fout bij het bevestigen van deze betaling met de cadeaubon",
+                    "45001": "Fout bij het bevestigen van deze betaling met de cadeaubon"
                 },
                 "error": "Fout bij het bevestigen van deze betaling met de cadeaubon",
                 "success": "De betaling met de cadeaubon is bevestigd"
@@ -7198,8 +7233,8 @@
                 "success": "Wijzigingen opgeslagen"
             },
             "createOrUpdate": {
-                "success": "Wijziging(en) opgeslagen",
-                "error": "Fout bij opslaan"
+                "success": "Wijzigingen opgeslagen",
+                "error": "Fout bij het opslaan van de wijzigingen"
             },
             "changeEmailRequest": {
                 "create": {
@@ -7251,7 +7286,7 @@
                 },
                 "createOrUpdate": {
                     "success": "Opgeslagen",
-                    "error": "Fout bij opslaan"
+                    "error": "Fout bij het opslaan van de wijzigingen"
                 },
                 "delete": {
                     "success": "Item verwijderd",
@@ -7298,6 +7333,9 @@
         "booking": {
             "register": {
                 "success": "Reservering opgeslagen"
+            },
+            "delete": {
+                "error": "Reeds begonnen sessies kunnen niet worden geannuleerd"
             }
         },
         "order": {
@@ -7357,7 +7395,7 @@
                 "success": "De instructeur is gewijzigd"
             },
             "restore": {
-                "error": "De afspraak kan niet hersteld worden, omdat je niet genoeg krediet op je afspraakkaart hebt.",
+                "error": "De afspraak kan niet worden hersteld, omdat de gekoppelde afspraakkaart te weinig kredieten heeft",
                 "success": "De afspraak is hersteld"
             }
         },
@@ -7406,7 +7444,7 @@
         },
         "offer": {
             "restore": {
-                "error": "Niet mogelijk om sessie te herstellen",
+                "error": "Fout bij het herstellen van de sessie",
                 "success": "Sessie hersteld"
             }
         },
@@ -7460,7 +7498,7 @@
         },
         "settings": {
             "update": {
-                "error": "De wijzigingen konden momenteel niet worden opgeslagen",
+                "error": "De wijzigingen kunnen momenteel niet worden opgeslagen",
                 "success": "Instellingen bijgewerkt"
             }
         },
@@ -7508,13 +7546,13 @@
             "2002": "Deze leskaart kan alleen door nieuwe leden worden aangeschaft",
             "1114": "Het is niet langer mogelijk om dit pakket te kopen",
             "1113": "Dit pakket is alleen beschikbaar voor nieuwe leden",
-            "7": "Het is niet mogelijk om je aan te melden, omdat de man/vrouw-verhouding ongelijk is",
-            "6": "Reserveren is niet mogelijk, omdat de man/vrouw-verhouding ongelijk is.",
-            "5": "Je hebt deze sessie al gereserveerd.",
-            "4": "Het is niet mogelijk om je voor deze sessie in te schrijven.",
+            "7": "Reserveren is niet mogelijk, omdat de man/vrouw-verhouding ongelijk is",
+            "6": "Reserveren is niet mogelijk, omdat de man/vrouw-verhouding ongelijk is",
+            "5": "Je hebt deze sessie al gereserveerd",
+            "4": "Het is niet mogelijk om je voor deze sessie in te schrijven",
             "3": "De sessie is vol",
-            "2": "Het is niet meer mogelijk om je voor deze sessie in te schrijven.",
-            "1": "Reserveringen voor deze sessie zijn momenteel nog gesloten.",
+            "2": "Het is niet meer mogelijk om je voor deze sessie in te schrijven",
+            "1": "Reserveringen voor deze sessie zijn momenteel nog gesloten",
             "undefined": "Het is niet toegestaan om het maximaal aantal toekomstige reserveringen te overschrijden",
             "9": "Het is niet toegestaan om het maximaal aantal toekomstige reserveringen te overschrijden",
             "2015": "Je hebt het maximale aantal reserveringen met deze kaart voor deze week bereikt",
@@ -7574,7 +7612,7 @@
                 }
             },
             "customFormStepper": {
-                "error": "Fout bij het opslaan van de antwoorden."
+                "error": "Fout bij het opslaan van de antwoorden"
             }
         },
         "establishmentGroup": {
@@ -8176,7 +8214,8 @@
                 "day_plural": "Dagen:",
                 "minute": "Minuut:",
                 "minute_plural": "Minuten:"
-            }
+            },
+            "requiredField": "Dit veld is verplicht."
         },
         "text": {
             "showLessText": "Toon minder",
@@ -8571,7 +8610,7 @@
                 "birthday": "Geboortedatum",
                 "vaccination_status": "Status coronabewijs"
             },
-            "error": "Fout bij het opslaan",
+            "error": "Fout bij het opslaan van de wijzigingen",
             "success": "Configuratie opgeslagen",
             "save": "Opslaan",
             "editable": "Bewerkbaar",
@@ -9425,7 +9464,8 @@
             "franchiseConnectedAs": "Je bent momenteel als \"{{name}}\" verbonden.",
             "giftcard": "Cadeaubonnen",
             "programs": "Programma's",
-            "expenses": "Uitgaven"
+            "expenses": "Uitgaven",
+            "instalmentPayment": "Termijnbetalingen"
         },
         "deprecatedNavigator": {
             "close": "Sluiten",
@@ -9938,7 +9978,7 @@
             "helper": "Je kunt de vorm van de locaties verder personaliseren door je eigen pictogrammen up te loaden. Je moet 2 verschillende pictogrammen uploaden: één voor vrije plaatsen en één voor gereserveerde plaatsen. Zorg ervoor dat de pictogrammen even groot zijn en dat ze geen nummers bevatten."
         },
         "effectifError": "Het aantal plaatsen moet groter of gelijk zijn aan de beschikbare plaatsen",
-        "errorLessSpotThanEffectif": "Fout bij het opslaan. De plattegrond moet meer plaatsen hebben dan de gekoppelde grootte van de sessie."
+        "errorLessSpotThanEffectif": "Fout bij het opslaan van de wijzigingen. De plattegrond moet meer plaatsen hebben dan de gekoppelde grootte van de sessie."
     },
     "franchise": {
         "member": {
@@ -9989,6 +10029,17 @@
             "connect": "Aanmelden",
             "previous": "Terug",
             "disconnect": "Afmelden"
+        },
+        "companyGroup": {
+            "explain": "Categorieën worden gebruikt om meerdere licenties onder één naam te groeperen, zoals \"Noord-Nederland\" of \"Randstad\". Dit wordt ook op de Mobiele Applicatie getoond.",
+            "actions": {
+                "add": "Een categorie toevoegen",
+                "submit": "Bevestigen",
+                "cancel": "Annuleren"
+            },
+            "name": {
+                "label": "Naam"
+            }
         }
     },
     "giftcard": {
@@ -10346,7 +10397,7 @@
             "titleStaff": "Personeel",
             "titleSupplier": "Leveranciers",
             "titleCategory": "Categorieën",
-            "noStaff": "Er is geen gekoppeld personeel om weer te geven.",
+            "noStaff": "Zonder medewerkers",
             "noCategory": "Naamloze categorie"
         },
         "dialogEditExpense": {
@@ -10390,6 +10441,177 @@
         "delete": {
             "error": "Fout bij het verwijderen van deze uitgave",
             "success": "Deze uitgave is succesvol verwijderd."
+        }
+    },
+    "ordering": {
+        "category": {
+            "deleteModal": {
+                "content": "Weet je zeker dat je deze categorie wilt verwijderen? Alle bijbehorende onderdelen worden naar de naamloze categorie verplaatst.",
+                "title": "Verwijderen",
+                "cancel": "Annuleren",
+                "confirm": "Bevestigen"
+            },
+            "noCategory": {
+                "name": "Naamloze categorie"
+            },
+            "creationDialog": {
+                "name": "Naam van de categorie",
+                "titleEdit": "Categorie",
+                "titleNew": "Nieuwe categorie",
+                "edit": "Bewerken",
+                "create": "Toevoegen",
+                "cancel": "Annuleren"
+            },
+            "popover": {
+                "delete": "Verwijderen",
+                "edit": "Hernoemen"
+            },
+            "add": "Een categorie toevoegen",
+            "empty": "Deze categorie is leeg.",
+            "noAvailable": "Geen zoekresultaten voor de geselecteerde filters.",
+            "selector": "Naam van de categorie"
+        },
+        "disabledItemsTitle": "Archief"
+    },
+    "instalmentPayment": {
+        "paymentAllInOnce": "Eenmalige betaling",
+        "action": {
+            "edit": {
+                "success": "De configuratie is succesvol gewijzigd",
+                "error": "Fout bij het wijzigen van de configuratie"
+            },
+            "disable": {
+                "success": "De configuratie is succesvol verwijderd",
+                "error": "Fout bij verwijderen van de configuratie"
+            },
+            "create": {
+                "success": "De configuratie is succesvol toegevoegd",
+                "error": "Fout bij toevoegen van de configuratie"
+            }
+        },
+        "list": {
+            "infoNoInstalmentPayment": "Termijnbetalingen stellen je leden in staat om bepaalde betalingen gespreid te betalen.",
+            "addInstalmentPayment": "Een configuratie toevoegen"
+        },
+        "detail": {
+            "duration": "Betalingen worden iedere {{frequency}} {{recurrency}} geïncasseerd voor {{number_of_billing}} {{recurrency_ponderate_by_number_of_billing}}.",
+            "comboAvailable": "{{length}} compatibel pakket",
+            "comboAvailable_plural": "{{length}} compatibele pakketten",
+            "giftcardAvailable": "{{length}} compatibele cadeaubon",
+            "giftcardAvailable_plural": "{{length}} compatibele cadeaubonnen",
+            "shopItemAvailable": "{{length}} compatibel webshop-product",
+            "shopItemAvailable_plural": "{{length}} compatibele webshop-producten",
+            "noCompability": "Deze instellingen zijn niet compatibel met termijnbetalingen.",
+            "noConfiguration": "Selecteer een configuratie om meer informatie weer te geven.",
+            "title": "Details",
+            "giftcard": "Cadeaubonnen",
+            "paymentPack": "Leskaarten",
+            "privatePass": "Afspraakkaarten",
+            "shopItem": "Webshop-producten",
+            "combo": "Pakketten",
+            "recurrency": "Interval",
+            "number_of_billing": "Aantal betalingen",
+            "paymentNumber": "{{number_of_billing}} betaling",
+            "paymentNumber_plural": "{{number_of_billing}} betalingen",
+            "fee": "Toeslagen",
+            "minimumAmount": "Minimum aankoopbedrag",
+            "compatibility": "Compatibiliteit",
+            "seeAll": "Toon alles",
+            "packAvailableForAll": "Alle compatibele leskaarten",
+            "packAvailable": "{{length}} compatibele leskaart",
+            "packAvailable_plural": "{{length}} compatibele leskaarten",
+            "privatePassAvailableForAll": "Alle compatibele afspraakkaarten",
+            "privatePassAvailable": "{{length}} compatibele afspraakkaart",
+            "privatePassAvailable_plural": "{{length}} compatibele afspraakkaarten",
+            "comboAvailableForAll": "Alle compatibele pakketten",
+            "giftcardAvailableForALl": "Alle compatibele cadeaubonnen",
+            "shopItemAvailableForALl": "Alle compatibele webshop-producten",
+            "onlyWhenAllAvailable": "Wordt alleen aangeboden als alle producten in het winkelmandje compatibel zijn",
+            "whenOneAvailable": "Wordt aangeboden als ten minste één product in het winkelmandje compatibel is"
+        },
+        "form": {
+            "onlyAvailableInfo": "Standaard zullen er géén termijnbetalingen worden aangeboden, mits het gehele winkelmandje van een lid uit compatibele producten bestaat. Zet deze functie uit om termijnbetalingen te activeren als ten minste één product aan de voorwaarden voor termijnbetalingen in een winkelmandje voldoet.",
+            "compabilityInfo": "Selecteer de onderdelen die met termijnbetalingen compatibel zijn. Termijnbetalingen worden vervolgens bij aankoop van deze producten aan leden aangeboden.",
+            "numberOfBilling": "Aantal incasso's",
+            "add": "Een configuratie toevoegen",
+            "search": "Zoeken",
+            "onlyAvailable": "Wordt alleen aangeboden als alle producten in het winkelmandje compatibel zijn",
+            "minimumAmountHelperText": "Dit is het minimale aankoopbedrag voor termijnbetalingen.",
+            "minimum_amount": "Minimum aankoopbedrag",
+            "advanced": "Geavanceerd",
+            "requiredField": "Dit veld is verplicht.",
+            "cancel": "Annuleren",
+            "save": "Opslaan",
+            "compatibility": "Compatibiliteit",
+            "create": "Termijnbetalingen",
+            "generalInfo": "Algemene informatie",
+            "name": "Naam",
+            "info": {
+                "startDay": "Betalingen worden elke {{frequency}} dag(en) geïncasseerd",
+                "startWeek": "Betalingen worden elke {{frequency}} week/weken geïncasseerd",
+                "startMonth": "Betalingen worden elke {{frequency}} maand(en) geïncasseerd",
+                "startYear": "Betalingen worden elke {{frequency}} jaar geïncasseerd",
+                "middle": " voor een totaalduur van {{total}} ",
+                "end": " en dit genereert {{number_of_billing}} incasso",
+                "end_plural": " en dit genereert {{number_of_billing}} incasso's"
+            },
+            "frequency": {
+                "start": "Herhaal elke"
+            },
+            "fee": "Toeslagen",
+            "feeHelperText": "Toeslagen voor termijnbetalingen worden aan de eerste incasso toegevoegd.",
+            "recurrency": {
+                "title": "Interval",
+                "week": "week",
+                "week_plural": "weken",
+                "month": "maand",
+                "year": "jaar",
+                "year_plural": "jaar",
+                "day": "dag",
+                "day_plural": "dagen",
+                "daily": "Daily",
+                "weekly": "Weekly",
+                "montly": "Monthly",
+                "annual": "Yearly"
+            },
+            "compability": {
+                "selectPack": "Selecteer een leskaart",
+                "selectPrivatePass": "Selecteer een afspraakkaart",
+                "selectCombo": "Selecteer een pakket",
+                "selectShopItem": "Selecteer een webshop-product",
+                "selectGiftcard": "Selecteer een cadeaubon",
+                "allPass": "Compatibel met alle leskaarten",
+                "pack": "Leskaart",
+                "privateBooking": "Afspraakkaart",
+                "allPrivateBooking": "Compatibel met alle afspraakkaarten",
+                "combo": "Pakket",
+                "allCombo": "Compatibel met alle pakketten",
+                "shopItem": "Webshop-producten",
+                "allShopItem": "Compatibel met alle webshop-producten",
+                "giftcard": "Cadeaubonnen",
+                "allGiftcard": "Compatibel met alle cadeaubonnen"
+            }
+        },
+        "basket": {
+            "instalmentAmountTitle": "Tijdlijn",
+            "instalmentAmount": "Deadline: ",
+            "fee": "Toeslag: "
+        },
+        "title": "Termijnbetalingen",
+        "deleteDialog": {
+            "title": "Weet je zeker dat je deze configuratie wilt verwijderen?",
+            "content": "Alleen de toekomstige betalingen worden beïnvloed."
+        },
+        "close": "Sluiten",
+        "modify": "Bewerken",
+        "delete": "Verwijderen",
+        "menu": {
+            "secondary": {
+                "allMasculine": "Elke {{frequency}} ",
+                "allFeminine": "Elke {{frequency}} ",
+                "numberOfBilling": "{{number_of_billing}} betaling",
+                "numberOfBilling_plural": "{{number_of_billing}} betalingen"
+            }
         }
     }
 }

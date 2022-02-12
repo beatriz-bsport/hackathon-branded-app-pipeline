@@ -1427,7 +1427,8 @@
                 "substituteCoachLabel": "Substitute teacher",
                 "establishmentChangeWarning": "Editing the establishment will affect all future sessions. You may use the field \"Substitute establishment\", too. All other modifications (teacher, price, etc.) will also be applied to all sessions.",
                 "coachChangeWarning": "Editing the teacher will affect all future sessions. You may choose to use the \"Substitute teacher\" field, too.  All other modifications (establishment, price, etc.) will also be applied to all sessions.",
-                "levelChangeWarning": "Editing the level will affect all future sessions. All other modifications (establishment, price, etc.) will also be applied to all sessions."
+                "levelChangeWarning": "Editing the level will affect all future sessions. All other modifications (establishment, price, etc.) will also be applied to all sessions.",
+                "explainPartnership": "MarketPlaces (ClassPass, Onefit, etc.)"
             },
             "payment": {
                 "additionalInformationHelper": "(Optional) Payment reference",
@@ -1888,7 +1889,11 @@
         "metaActivityNotificationToolTip": "There are automatic notifications set up for this item",
         "show_cancelled_offers": "Show cancelled sessions",
         "quickInvoiceNoVoucher": "Leave this field at 0 if you don't wish to apply any discount.",
-        "quickInvoiceVoucher": "Choose the discount that you wish to apply to the billing of the next pass"
+        "quickInvoiceVoucher": "Choose the discount that you wish to apply to the billing of the next pass",
+        "metaActivityCategory": {
+            "explain": "These categories are used to order and sort group activities to your preferred display on the Management View. Members won't be affected by your display decisions.",
+            "sctExplain": "These categories will appear on the MarketPlace and the Mobile App and represent the different types of activities."
+        }
     },
     "search": {
         "input": "Search...",
@@ -2191,7 +2196,8 @@
             "discard": "Cancel",
             "bookAgain": "Book again",
             "accessLive": "Access livestream",
-            "spotNumber": "{{count}} spot(s)"
+            "spotNumber": "{{count}} spot(s)",
+            "isUnpaid": "Outstanding payment"
         },
         "dashboard": {
             "favoriteTitle": "Highlights",
@@ -2587,7 +2593,8 @@
                 "address": "Address",
                 "attachCoach": "Assign to a teacher",
                 "coach": "Teacher",
-                "cancelledOn": "Cancelled on "
+                "cancelledOn": "Cancelled on ",
+                "unpaidBooking": "The member selected the option to pay later. The {{ credits}} credit(s) for this unpaid booking will be debited from the first purchased appointment pass."
             },
             "managerAdd": {
                 "title": "New booking",
@@ -2643,7 +2650,9 @@
             "restore": "Restore the appointment",
             "bookings": "Appointments",
             "notRefunded": "Not refunded",
-            "isRefunded": "Refunded"
+            "isRefunded": "Refunded",
+            "isUnpaid": "Outstanding payment",
+            "bookingIsUnpaid": "Unpaid booking"
         },
         "privateService": {
             "delete": {
@@ -2817,7 +2826,14 @@
             "recurrenceRule": {
                 "label": "Schedule a recurring appointment"
             },
-            "confirm": "Confirm"
+            "confirm": "Confirm",
+            "unpaidBooking": {
+                "book": "Book",
+                "helper": "Complete the booking and purchase an appointment pass at a later stage.",
+                "header": "Pay later",
+                "dialogHelper": "Use this option to complete a booking without any direct payment involved. The required {{ credits }} credit(s) will be automatically deducted from an appointment pass that'll purchased at a future date.",
+                "isUnpaid": "Outstanding payment"
+            }
         },
         "consumerPass": {
             "current_credits": "{{ current_credits }} / {{credits}} credit(s)",
@@ -3131,7 +3147,19 @@
                     "helperText": "The teacher(s) and/or the establishment(s) will be shown as unavailable {{minutes}} before the start of the appointment.",
                     "label": "Buffer (in minutes) before the start of the appointment"
                 },
-                "paddingTitle": "Availability"
+                "paddingTitle": "Availability",
+                "unpaidBooking": {
+                    "title": "Pay later",
+                    "tag": {
+                        "helper": "Use Tag Management to make certain reservations only available to specific segments of your member data base. All members tagged as \"Approved\" may complete an unpaid booking, while those tagged as \"Refused\" won't be able to.",
+                        "header": "Tags",
+                        "allowed": "Approved",
+                        "notAllowed": "Refused",
+                        "doNotSelectToAllowAllMembers": "Leave this field empty to make it available to all members."
+                    },
+                    "label": "Accept unpaid bookings",
+                    "helperText": "Activate this feature to allow members to complete bookings without any direct payments. The used credit(s) will be automatically deducted from any future appointment pass bought by the members."
+                }
             },
             "parameters": {
                 "description": "Description",
@@ -4345,7 +4373,8 @@
                 "hour_plural": "Hours:",
                 "minute": "Minute:",
                 "minute_plural": "Minutes:"
-            }
+            },
+            "requiredField": "This field is mandatory."
         },
         "selector": {
             "validate": "Confirm",
@@ -6493,7 +6522,7 @@
         },
         "form": {
             "check": "Check",
-            "submit": "Bill",
+            "submit": "Pay now",
             "title": "New recurring invoice",
             "cancel": "Discard",
             "note": {
@@ -6994,7 +7023,8 @@
             "video_purchase": "Purchased videos",
             "giftcard": "Gift cards",
             "consumer_giftcard": "Purchased gift cards",
-            "payment_installments": "Payments by instalments"
+            "payment_installments": "Payments by instalments",
+            "unpaid_private_bookings": "Unpaid bookings (appointments)"
         },
         "globalCategories": {
             "subheader": {
@@ -7030,7 +7060,8 @@
             "2": "Order",
             "3": "Task",
             "4": "Appointment to complete",
-            "5": "Legal information"
+            "5": "Legal information",
+            "6": "Unpaid appointments"
         },
         "showMore": "Show more",
         "unevenInvoice": {
@@ -7066,6 +7097,9 @@
                 "content": "Several documents are pending, you have until <1> {{date}} </1> to verify your account.",
                 "title": "Management of my company"
             }
+        },
+        "unpaidPrivateBooking": {
+            "credits_due": "{{ credits }} upaid credit(s)"
         }
     },
     "paymentPack": {
@@ -7904,7 +7938,7 @@
         "modal": {
             "delete": {
                 "title": "Email template deletion",
-                "content": "Deleting this template will also remove it for any transactional email(s) that it has been linked to. Are you sure that you want to delete this email template? This action can't be undone.",
+                "content": "Deleting this template will also remove it for any transactional email(s) that it has been linked to. Are you sure that you want to delete this email template?",
                 "cancel": "Cancel",
                 "confirm": "Delete"
             }
@@ -8089,7 +8123,7 @@
         },
         "paymentAction": {
             "toSubscribe": "Subscribe",
-            "toBill": "Bill"
+            "toBill": "Pay now"
         },
         "pastBooking": "last: ",
         "table": {
@@ -9380,7 +9414,8 @@
             "error": "This activity has no payroll rule associated. Please choose a payroll rule and associate a payroll rule to the teacher.",
             "total": "Total payout",
             "cancelled_bookings": "Cancelled bookings",
-            "confirmed_bookings": "Attendees"
+            "confirmed_bookings": "Attendees",
+            "unpaid_private_booking": "Unpaid appointments."
         },
         "table": {
             "download": "Download",
@@ -9410,6 +9445,9 @@
         "booking": {
             "register": {
                 "success": "Booking saved"
+            },
+            "delete": {
+                "error": "Sessions that have already started can't be cancelled."
             }
         },
         "login": {
@@ -9795,7 +9833,8 @@
             },
             "applyGiftcard": {
                 "errors": {
-                    "12103": "Error when validating this payment by gift card"
+                    "12103": "Error when validating this payment by gift card",
+                    "45001": "Error when validating this payment by gift card"
                 },
                 "error": "Error when validating this payment by gift card",
                 "success": "The gift card payment has been validated"
@@ -10246,7 +10285,8 @@
             "backToFranchiseWorskpace": "Return to the Master Account",
             "giftcard": "Gift cards",
             "programs": "Programmes",
-            "expenses": "Expenses"
+            "expenses": "Expenses",
+            "instalmentPayment": "Payments by instalments"
         },
         "deprecatedNavigator": {
             "navigatorError": "It seems that your browser is too old to use our services. You may encounter errors, we recommend that you download a more recent version, in particular : ",
@@ -10384,7 +10424,7 @@
             },
             "lock": {
                 "pleaseAuthenticated": "You must login to access this video",
-                "accessDenied": "Currently, you don't have access to this video yet.",
+                "accessDenied": "Please click on the button below to watch this video.",
                 "buyPass": "Buy a pass",
                 "useConsumerPass": "Watch this video",
                 "accessDeniedEbook": "You don't have access to this eBook."
@@ -10985,6 +11025,17 @@
             "connect": "Log in",
             "previous": "Previous",
             "disconnect": "Logout"
+        },
+        "companyGroup": {
+            "explain": "Categories are used to group multiple licences under a common name, such as \"Greater London\", and will be used for display on your branded mobile application.",
+            "actions": {
+                "add": "Add a category",
+                "submit": "Confirm",
+                "cancel": "Cancel"
+            },
+            "name": {
+                "label": "Name"
+            }
         }
     },
     "giftcard": {
@@ -11387,5 +11438,176 @@
         },
         "noExpenses": "Add and track your expenses in this report.",
         "addButton": "Add an expense"
+    },
+    "instalmentPayment": {
+        "paymentAllInOnce": "One-time payment",
+        "action": {
+            "edit": {
+                "success": "The configuration has been successfully modified",
+                "error": "Error while modifying the configuration"
+            },
+            "create": {
+                "success": "The configuration has been created successfully",
+                "error": "Error while creating the configuration"
+            },
+            "disable": {
+                "success": "The configuration has been successfully deleted",
+                "error": "Error while deleting the configuration"
+            }
+        },
+        "list": {
+            "infoNoInstalmentPayment": "Payments by instalments allows your members to spread out payments over the indicated period of time.",
+            "addInstalmentPayment": "Add configuration"
+        },
+        "detail": {
+            "noConfiguration": "Select a specific configuration display further details.",
+            "combo": "Packs",
+            "duration": "Billing will occur every {{frequency}} {{recurrency}} for {{number_of_billing}} {{recurrency_ponderate_by_number_of_billing}}.",
+            "privatePassAvailable": "{{length}} compatible appointment pass",
+            "privatePassAvailable_plural": "{{length}} compatible appointment passes",
+            "onlyWhenAllAvailable": "Offered only when all basket items are compatible",
+            "noCompability": "Your settings aren't compatible for payments by installments.",
+            "title": "Details",
+            "giftcard": "Gift cards",
+            "paymentPack": "Passes",
+            "privatePass": "Appointment passes",
+            "shopItem": "Products",
+            "recurrency": "Interval",
+            "number_of_billing": "Number of payments",
+            "paymentNumber": "{{number_of_billing}} payment",
+            "paymentNumber_plural": "{{number_of_billing}} payments",
+            "fee": "Fees",
+            "minimumAmount": "Minimum purchase",
+            "compatibility": "Compatibility",
+            "seeAll": "Show all",
+            "packAvailableForAll": "All compatible passes",
+            "packAvailable": "{{length}} compatible pass",
+            "packAvailable_plural": "{{length}} compatible passes",
+            "privatePassAvailableForAll": "All compatible appointment passes",
+            "comboAvailableForAll": "All compatible packs",
+            "comboAvailable": "{{length}} compatible pack",
+            "comboAvailable_plural": "{{length}} compatible packs",
+            "giftcardAvailableForALl": "All compatible gift cards",
+            "giftcardAvailable": "{{length}} compatible gift card",
+            "giftcardAvailable_plural": "{{length}} compatible gift cards",
+            "shopItemAvailableForALl": "All compatible webshop products",
+            "shopItemAvailable": "{{length}} compatible webshop product",
+            "shopItemAvailable_plural": "{{length}} compatible webshop products",
+            "whenOneAvailable": "Proposed if one of the basket items is compatible"
+        },
+        "form": {
+            "onlyAvailableInfo": "By default, the system won't offer any option to pay in installments as long as there are incompatible products in the members' basket. Disable this setting to always offer the option to pay in intstallments if 1 or more products is eligible for this payment method.",
+            "onlyAvailable": "Offered only when all basket items are compatible",
+            "requiredField": "This field is mandatory.",
+            "compabilityInfo": "Select the items for which you'd like to enable the option for members to pay by installments. This payment option is offered if 1 of the selected items is compatible with this.",
+            "info": {
+                "end": " and it'll generate {{number_of_billing}} billing",
+                "end_plural": " and it'll generate {{number_of_billing}} billings",
+                "startYear": "Payments will be charged every {{frequency}} years",
+                "startDay": "Payments will be charged every {{frequency}} days",
+                "startWeek": "Payments will be charged every {{frequency}} weeks",
+                "startMonth": "Payments will be charged every {{frequency}} months",
+                "middle": " for a total duration of {{total}} "
+            },
+            "compability": {
+                "allPass": "Compatible with all passes",
+                "allGiftcard": "Compatible with all gift cards",
+                "selectPack": "Select a pass",
+                "selectPrivatePass": "Select an appointment pass",
+                "selectCombo": "Select a pack",
+                "selectShopItem": "Select a webshop product",
+                "selectGiftcard": "Select a gift card",
+                "pack": "Pass",
+                "privateBooking": "Appointment pass",
+                "allPrivateBooking": "Compatible with all appointment passes",
+                "combo": "Pack",
+                "allCombo": "Compatible with all packs",
+                "shopItem": "Webshop products",
+                "allShopItem": "Compatible with all webshop products",
+                "giftcard": "Gift cards"
+            },
+            "numberOfBilling": "Number of billings",
+            "add": "Add configuration",
+            "search": "Search",
+            "minimumAmountHelperText": "This is the minimum basket value required for payments by installments.",
+            "minimum_amount": "Minimum value",
+            "advanced": "Advanced",
+            "cancel": "Cancel",
+            "save": "Save",
+            "compatibility": "Compatibility",
+            "create": "Payments by installments",
+            "generalInfo": "General information",
+            "name": "Name",
+            "frequency": {
+                "start": "Repeat every"
+            },
+            "fee": "Fees",
+            "feeHelperText": "Fees will be added to the first billing for members that opt-in for payments by installments.",
+            "recurrency": {
+                "title": "Interval",
+                "week": "week",
+                "week_plural": "weeks",
+                "month": "month",
+                "year": "year",
+                "year_plural": "years",
+                "day": "day",
+                "day_plural": "days",
+                "daily": "Daily",
+                "weekly": "Weekly",
+                "montly": "Monthly",
+                "annual": "Yearly"
+            }
+        },
+        "basket": {
+            "instalmentAmountTitle": "Timeline",
+            "fee": "Fees: ",
+            "instalmentAmount": "Deadline: "
+        },
+        "title": "Payments by instalments",
+        "deleteDialog": {
+            "title": "Are you sure that you want to delete this configuration?",
+            "content": "Only future payments will be affected."
+        },
+        "close": "Close",
+        "modify": "Edit",
+        "delete": "Delete",
+        "menu": {
+            "secondary": {
+                "allMasculine": "Every {{frequency}} ",
+                "allFeminine": "Every {{frequency}} ",
+                "numberOfBilling": "{{number_of_billing}} billing",
+                "numberOfBilling_plural": "{{number_of_billing}} billings"
+            }
+        }
+    },
+    "ordering": {
+        "category": {
+            "noCategory": {
+                "name": "No category"
+            },
+            "creationDialog": {
+                "name": "Category name",
+                "titleEdit": "Category",
+                "titleNew": "New category",
+                "edit": "Edit",
+                "create": "Add",
+                "cancel": "Cancel"
+            },
+            "popover": {
+                "delete": "Delete",
+                "edit": "Rename"
+            },
+            "deleteModal": {
+                "title": "Deletion",
+                "cancel": "Cancel",
+                "confirm": "Confirm",
+                "content": "Are you sure that you want to delete this category? All items will be moved to the no category section"
+            },
+            "add": "Add a category",
+            "empty": "This category is empty.",
+            "noAvailable": "There are no matching items for the selected filters to display.",
+            "selector": "Category name"
+        },
+        "disabledItemsTitle": "Archive"
     }
 }

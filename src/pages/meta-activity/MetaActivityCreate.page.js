@@ -108,7 +108,7 @@ type Props = {
   roomBlueprints: Array<RoomBlueprint>,
   fetchAllCoachPaymentRules: () => void,
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> },
-  fetchAllActivities: ({ customer_enabled: true }) => void,
+  fetchAllActivities: (data: { customer_enabled: true }) => void,
   fetchWorkhops: () => void,
   fetchAllPaymentPacks: () => void,
   fetchAllPaymentPackCategory: () => void,

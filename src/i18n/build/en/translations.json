@@ -7596,7 +7596,7 @@
             },
             "isEmptyExplain": "Members can purchase and use this pass at any of the associated studios.",
             "widget": {
-                "choose": "Choose which passes you'd like to share."
+                "choose": "Select the desired passes for sharing"
             },
             "pass": "Passes"
         },

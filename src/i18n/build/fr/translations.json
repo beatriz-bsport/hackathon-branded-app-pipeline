@@ -2594,7 +2594,8 @@
       "private_booking": "Rendez-vous",
       "invoice": "Facturation",
       "marketing": "Marketing",
-      "payment_pack": "Cartes de cours"
+      "payment_pack": "Cartes de cours",
+      "recurrent_private_booking": "Rendez-vous récurrent"
     },
     "emailDesign": { "placeholder": "Généré par bsport", "closePreview": "Fermer", "birthdayPlaceholder": "Choisir un mail" },
     "marketingNotification": { "birthday": "Courriel d'anniversaire" },
@@ -2720,6 +2721,8 @@
       "451": "Rendez-vous annulé - remboursé (élève)",
       "452": "Nouveau rendez-vous (élève)",
       "453": "Horaire modifié (élève)",
+      "480": "Rendez-vous récurrent annulé pour manque de disponibilité (professeur)",
+      "481": "Rendez-vous récurrent annulé pour manque de disponibilité (élève)",
       "510": "Paiement d'une souscription échoué",
       "515": "Carte de cours de la souscription automatiquement désactivée",
       "520": "Paiement d'une souscription échoué, sera retenté",
@@ -4627,7 +4630,8 @@
         "title": "Programmer une récurrence",
         "configuration": "Réservations",
         "timeGroup": "Date de la séance",
-        "notify_member": "Envoyer un mail de confirmation lors de l'inscription du membre"
+        "notify_member": "Envoyer un mail de confirmation lors de l'inscription du membre",
+        "override_availabilities": "Faire la réservation même si le professeur, la salle ou le rendez-vous ne sont pas disponibles"
       },
       "forms": {
         "delete": {
@@ -7426,6 +7430,7 @@
         "explainRecursiveOfferEdit": "Voulez-vous modifier TOUTES les séances similaires selon ces nouvelles conditions ?",
         "explainNotificationOnEdit": "Voulez-vous informer vos clients de cette modification ?",
         "explainPartnership": "On marketplaces (ClassPass, OneFit...)",
+        "explainManagerOnly": "Disponible à la réservation (web+app)",
         "delete": {
           "advanced": "Avancé",
           "force": "Supprimer même si des réservations sont enregistrées",

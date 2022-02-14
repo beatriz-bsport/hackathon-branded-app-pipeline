@@ -42,6 +42,9 @@ const NOTIFICATION_OFFER_AUTO_DISCARD = 601;
 const NOTIFICATION_CONSUMER_PAYMENT_PACK_PENALTY_BLOCK_CPP = 701;
 const NOTIFICATION_CONSUMER_PAYMENT_PACK_PENALTY_ACCOUNT = 702;
 
+const NOTIFICATION_RECURRENT_PRIVATE_BOOKING_NO_AVAILABILITY_COACH = 480;
+const NOTIFICATION_RECURRENT_PRIVATE_BOOKING_NO_AVAILABILITY_CONSUMER = 481;
+
 exports.default = {
   pageTitle: 'Emails transactionnels',
   caption: {
@@ -60,6 +63,7 @@ exports.default = {
     invoice: 'Facturation',
     marketing: 'Marketing',
     payment_pack: 'Cartes de cours',
+    recurrent_private_booking: 'Rendez-vous récurrent',
   },
   emailDesign: {
     placeholder: 'Généré par bsport',
@@ -214,6 +218,10 @@ exports.default = {
       'Pénalité carte de cours : carte bloquée (élève)',
     [NOTIFICATION_CONSUMER_PAYMENT_PACK_PENALTY_ACCOUNT]:
       'Pénalité carte de cours : acompte créé (élève)',
+    [NOTIFICATION_RECURRENT_PRIVATE_BOOKING_NO_AVAILABILITY_COACH]:
+      'Rendez-vous récurrent annulé pour manque de disponibilité (professeur)',
+    [NOTIFICATION_RECURRENT_PRIVATE_BOOKING_NO_AVAILABILITY_CONSUMER]:
+      'Rendez-vous récurrent annulé pour manque de disponibilité (élève)',
     [NOTIFICATION_SUBSCRIPTION_PAYMENT_DISPUTED]:
       "Litige sur paiement d'une souscription",
     [NOTIFICATION_SUBSCRIPTION_PASS_AUTO_DISABLED]:

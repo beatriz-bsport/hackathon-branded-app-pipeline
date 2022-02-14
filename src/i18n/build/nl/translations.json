@@ -2662,7 +2662,7 @@
                 "companySharedWithTitle": "Beschikbare studio's:"
             },
             "widget": {
-                "choose": "Selecteer welke leskaarten je wilt delen."
+                "choose": "Selecteer de te delen leskaarten"
             },
             "pass": "Leskaarten"
         },
@@ -6367,7 +6367,7 @@
                 "titleManagerOnly": "Onbeschikbare afspraakkaarten",
                 "titleAvailable": "Beschikbare afspraakkaarten"
             },
-            "isEmptyExplain": "Leden kunnen deze kaarten bij iedere gekoppelde studio kopen en gebruiken.",
+            "isEmptyExplain": "Leden kunnen deze kaarten bij iedere gekoppelde studio aanschaffen en gebruiken.",
             "specification": {
                 "companySharedWithTitle": "Beschikbaar bij de volgende studio's:"
             }

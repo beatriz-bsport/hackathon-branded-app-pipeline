@@ -976,6 +976,8 @@ exports.default = {
       timeGroup: 'Date de la séance',
       notify_member:
         "Envoyer un mail de confirmation lors de l'inscription du membre",
+      override_availabilities:
+        'Faire la réservation même si le professeur, la salle ou le rendez-vous ne sont pas disponibles',
     },
     forms: {
       delete: {

@@ -472,6 +472,7 @@ exports.default = {
       explainNotificationOnEdit:
         'Voulez-vous informer vos clients de cette modification ?',
       explainPartnership: 'On marketplaces (ClassPass, OneFit...)',
+      explainManagerOnly: 'Disponible à la réservation (web+app)',
       delete: {
         advanced: 'Avancé',
         force: 'Supprimer même si des réservations sont enregistrées',

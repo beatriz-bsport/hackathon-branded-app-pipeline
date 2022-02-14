@@ -239,6 +239,7 @@ export type RecurrenceRulePrivateBooking = {
   nb_of_weeks: number;
   member: number;
   private_slot: PrivateSlot;
+  is_overriding_availabilities: boolean;
 };
 
 export type ServiceCompatibilityPass = {

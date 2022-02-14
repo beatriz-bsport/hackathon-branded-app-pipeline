@@ -63,6 +63,7 @@ type State = {
     minute: number,
   },
   notify_if_booked: boolean,
+  is_overriding_availabilities: boolean,
 };
 
 export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
@@ -88,6 +89,8 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
           start_from_date: props.initial.start_from_date,
         },
         notify_if_booked: props.initial.notify_if_booked,
+        is_overriding_availabilities:
+          props.initial.is_overriding_availabilities,
       };
     } else {
       this.state = {
@@ -105,6 +108,7 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
           start_from_date: moment().format('YYYY-MM-DD'),
         },
         notify_if_booked: false,
+        is_overriding_availabilities: false,
       };
     }
   }
@@ -156,6 +160,14 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
     });
   };
 
+  handleIsOverridingAvailabilities = (
+    is_overriding_availabilities: boolean,
+  ) => {
+    this.setState({
+      is_overriding_availabilities,
+    });
+  };
+
   missingResourceConf = () => {
     const private_service = this.props.private_services.find(
       (p) => p.id === this.state.configuration.private_service,
@@ -176,6 +188,7 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
         establishment: this.state.configuration.establishment,
         member: this.props.memberId,
         notify_if_booked: this.state.notify_if_booked,
+        is_overriding_availabilities: this.state.is_overriding_availabilities,
       },
       {
         onSuccess: () => {
@@ -255,6 +268,17 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
                   />
                 }
                 label={t('recurrenceRule.form.notify_member')}
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={this.state.is_overriding_availabilities}
+                    onChange={(ev) =>
+                      this.handleIsOverridingAvailabilities(ev.target.checked)
+                    }
+                  />
+                }
+                label={t('recurrenceRule.form.override_availabilities')}
               />
             </DialogContent>
             <DialogActions>

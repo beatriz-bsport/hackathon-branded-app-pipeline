@@ -21,6 +21,7 @@ import EstablishmentSubForm from './form/EstablishmentSubForm.component';
 import CoachSubForm from './form/CoachSubForm.component';
 import NotificationToogle from './form/NotificationToogle.component';
 import PartnershipToogle from './form/PartnershipToogle.component';
+import ManagerOnlyToogle from './form/ManagerOnlyToogle.component';
 
 import LevelInput from '../../components/input/LevelInput.component';
 import DateTimeInput from '../../components/input/DateTimeInput.component';
@@ -141,6 +142,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
       date: Moment(props.offer.date_start),
       duration_minute: props.offer.duration_minute,
       available_on_partnership: !!props.offer.available_on_partnership,
+      manager_only: !!props.offer.manager_only,
       hour: moment(props.offer.date_start).format('HH:mm'),
       effectif: props.offer.effectif,
       credit_price_override: props.offer.credit_price_override,
@@ -171,6 +173,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
       duration_minute: props.offer.duration_minute,
       effectif: props.offer.effectif,
       available_on_partnership: props.offer.available_on_partnership,
+      manager_only: props.offer.manager_only,
       credit_price_override: props.offer.credit_price_override,
       waiting_list_max_size: props.offer.waiting_list_max_size,
       level: props.offer.level_id,
@@ -267,6 +270,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
     const data = {
       notifyConsumers,
       available_on_partnership: this.state.available_on_partnership,
+      manager_only: this.state.manager_only,
       modifyAllDates:
         this.shouldModifyAllDates() &&
         !this.state.similarOffersWithSelectedStatus.filter((so) => !so.selected)
@@ -757,6 +761,12 @@ export class EditLiveOfferForm extends Component<Props, State> {
               />
             </div>
           )}
+          <div className={this.props.classes.field}>
+            <ManagerOnlyToogle
+              manager_only={this.state.manager_only}
+              onChange={(manager_only) => this.setState({ manager_only })}
+            />
+          </div>
           <div className={this.props.classes.field}>
             <RecursionToogle
               edit

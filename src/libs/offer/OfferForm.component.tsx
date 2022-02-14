@@ -45,6 +45,7 @@ import SpotSchedulingHelper from '../spot-scheduling/utils';
 import type { CoachPaymentRule } from '../coach-payment-rules/types';
 import CoachPaymentRuleSelectorStyled from '../coach-payment-rules/components/coach-payment-rule-selector/CoachPaymentRuleSelectorStyled.component';
 import PartnershipToogle from './form/PartnershipToogle.component';
+import ManagerOnlyToogle from './form/ManagerOnlyToogle.component';
 
 const styles = (theme: Theme) => ({
   paperContainer: {
@@ -143,6 +144,7 @@ type State = {
   duration_minute: number;
   coach_payment_rule: number;
   available_on_partnership: boolean;
+  manager_only: boolean;
 };
 
 export class OfferForm extends Component<Props, State> {
@@ -185,6 +187,7 @@ export class OfferForm extends Component<Props, State> {
       duration_minute: 30,
       coach_payment_rule: null,
       available_on_partnership: true,
+      manager_only: false,
     };
   }
 
@@ -211,6 +214,7 @@ export class OfferForm extends Component<Props, State> {
       broadcast_link,
       coach_payment_rule,
       available_on_partnership,
+      manager_only,
     } = this.state;
 
     const offer: any = {
@@ -225,6 +229,7 @@ export class OfferForm extends Component<Props, State> {
       broadcast_link,
       coach_payment_rule,
       available_on_partnership,
+      manager_only,
     };
 
     if (roomBlueprint) {
@@ -522,6 +527,10 @@ export class OfferForm extends Component<Props, State> {
             }
           />
         )}
+        <ManagerOnlyToogle
+          manager_only={this.state.manager_only}
+          onChange={(manager_only: boolean) => this.setState({ manager_only })}
+        />
         <FeatureListProvider>
           {(featureList: any) => {
             const hasZoomApp = !!(

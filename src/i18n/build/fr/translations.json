@@ -2729,7 +2729,8 @@
       "530": "Litige sur paiement d'une souscription",
       "601": "Trop peu de réservations N heures avant le début de la séance",
       "701": "Pénalité carte de cours : carte bloquée (élève)",
-      "702": "Pénalité carte de cours : acompte créé (élève)"
+      "702": "Pénalité carte de cours : acompte créé (élève)",
+      "987": "Tentative d'encaissement d'un paiement échelonné"
     },
     "franchise": {
       "emptySelect": "Sélectionner un email transactionnel pour voir sur quel franchisé il est partagé et utilisé.",

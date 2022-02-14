@@ -136,6 +136,7 @@ export class VideoCheckoutBase extends Component<Props, State> {
       as_consumer: true,
       video: this.props.id,
       company: this.props.companyId,
+      manager_only: false,
     });
     this.props.fetchPrivateConsumerPassCompatibleList({
       as_consumer: true,

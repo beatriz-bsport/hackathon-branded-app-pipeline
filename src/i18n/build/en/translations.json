@@ -2168,7 +2168,29 @@
             "addConfiguration": "Notifications configuration",
             "emptySelect": "Select a transactional email to display which studios it has been shared with and to display which studios are using it."
         },
-        "franchiseOwned": "The Master Account directly manages this transactional email."
+        "franchiseOwned": "The Master Account directly manages this transactional email.",
+        "listItem": {
+            "createTransactionnalNotification": "Configure the push notification",
+            "modifyTransactionnalNotification": "Edit push notification",
+            "sendTransactionnalNotification": "Send a push notification",
+            "transactionnalNotification": "Push notification",
+            "mailToSend": "Select the email that will be sent",
+            "copyCarbon": "Receive a copy of this email",
+            "sendTransactionnalEmail": "Send a transactional email",
+            "transactionnalEmail": "Transactional email"
+        },
+        "preview": {
+            "email": "Email",
+            "notification": "Push",
+            "emptyStateNotification": "Configure your push notifications to enable see a preview",
+            "emptyState": "Click a categorie to see a preview",
+            "title": "Preview"
+        },
+        "goBackToMenu": "Previous",
+        "configureNotif": "Configure",
+        "countNotification": "Number of activated push notifications: {{nbr}}",
+        "countEmail": "Number of activated transactional emails: {{nbr}}",
+        "countElements": "{{nbr}} element(s)"
     },
     "consumerSpace": {
         "navigation": {
@@ -8436,7 +8458,8 @@
                         "refunded": "For every refunded cancellation",
                         "absence": "For each time a member is absent",
                         "attendance": "For each time the member is present"
-                    }
+                    },
+                    "birthday": "Send on birthday"
                 },
                 "cancel": "Cancel",
                 "next": "Next",
@@ -9420,7 +9443,13 @@
             "total": "Total payout",
             "cancelled_bookings": "Cancelled bookings",
             "confirmed_bookings": "Attendees",
-            "unpaid_private_booking": "Unpaid appointments."
+            "unpaid_private_booking": "Unpaid appointments.",
+            "nb_private_bookings": " ",
+            "coachName": "Teacher",
+            "total_on_appointments": "Remuneration for appointments",
+            "total_on_sessions": "Remuneration for group activities",
+            "nb_appointments": "Number of appointments",
+            "nb_sessions": "Number of sessions"
         },
         "table": {
             "download": "Download",
@@ -9437,7 +9466,38 @@
         "pricePerAdditionalBookingHelper": "Amount given to every booking over threshold",
         "fixedPriceForAdditionalBookingHelper": "Flat amount per each session with enough bookings",
         "fixedPriceForAdditionalBookingLabel": "Flat per session",
-        "checkboxIncludeABonus": "Include a performance bonus"
+        "checkboxIncludeABonus": "Include a performance bonus",
+        "performance": {
+            "table": {
+                "header": {
+                    "confirmedBookings": " ",
+                    "nbSessions": "Number of group activities",
+                    "coachName": "Teacher"
+                }
+            }
+        },
+        "cachedData": {
+            "leavePreviewMode": "Exit Preview Mode",
+            "previewModeTitle": "Preview Mode",
+            "downloadMySavedData": "Download",
+            "enterPreviewMode": "Switch to Preview Mode",
+            "unresolvedDaterange": "Invalid remuneration payroll",
+            "dateRange": "Payroll from {{- startDate }} to {{- endDate }}",
+            "dateSaved": "Generated on: {{ date }}",
+            "title": "Saved data ({{ count }})"
+        },
+        "export": {
+            "completed": {
+                "message": "The export file for the teacher payroll is available. You can retrieve it from the \"Saved Data\" section.",
+                "title": "Export teacher payroll"
+            },
+            "dialog": {
+                "buttonText": "Confirm",
+                "message": "You may export an Excel file for the selected duration. This data will also be used and stored for later.",
+                "title": "Data export"
+            },
+            "buttonText": "Export"
+        }
     },
     "snackbar": {
         "communication": {
@@ -10633,7 +10693,8 @@
                 "paymentPack": "Passes",
                 "privateBooking": "Appointments",
                 "booking": "Group activities",
-                "privatePass": "Appointment passes"
+                "privatePass": "Appointment passes",
+                "birthday": "Birthday"
             },
             "fabLabels": {
                 "private_service": "Appointments",
@@ -10641,7 +10702,8 @@
                 "establishment": "Establishments",
                 "meta_activity": "Group activities",
                 "workshop": "Workshops",
-                "private_pass": "Appointment passes"
+                "private_pass": "Appointment passes",
+                "birthday": "Birthday"
             },
             "cancel": "Cancel",
             "next": "Next",

@@ -1428,7 +1428,8 @@
                 "establishmentChangeWarning": "Editing the establishment will affect all future sessions. You may use the field \"Substitute establishment\", too. All other modifications (teacher, price, etc.) will also be applied to all sessions.",
                 "coachChangeWarning": "Editing the teacher will affect all future sessions. You may choose to use the \"Substitute teacher\" field, too.  All other modifications (establishment, price, etc.) will also be applied to all sessions.",
                 "levelChangeWarning": "Editing the level will affect all future sessions. All other modifications (establishment, price, etc.) will also be applied to all sessions.",
-                "explainPartnership": "MarketPlaces (ClassPass, Onefit, etc.)"
+                "explainPartnership": "MarketPlaces (ClassPass, Onefit, etc.)",
+                "explainManagerOnly": "Open for bookings (Website + Mobile App)"
             },
             "payment": {
                 "additionalInformationHelper": "(Optional) Payment reference",
@@ -1972,7 +1973,8 @@
             "private_booking": "Appointments",
             "marketing": "Marketing",
             "invoice": "Billing",
-            "payment_pack": "Passes"
+            "payment_pack": "Passes",
+            "recurrent_private_booking": "Recurring appointments"
         },
         "emailDesign": {
             "placeholder": "Standard BSPORT template",
@@ -2107,7 +2109,9 @@
             "530": "Disputed payment for a subscription",
             "520": "A Smart Retry will be done for a failed payment for a subscription",
             "515": "The pass of the subscription has been automatically deactivated",
-            "510": "Failed payment for a subscription"
+            "510": "Failed payment for a subscription",
+            "481": "Recurring appointment has been cancelled due to a lack of availability (member)",
+            "480": "Recurring appointment has been cancelled due to a lack of availability (teacher)"
         },
         "messages": {
             "createOrUpdate": {
@@ -3267,7 +3271,8 @@
                 "notify_member": "Send a confirmation email",
                 "timeGroup": "Date of the session",
                 "configuration": "Bookings",
-                "title": "Schedule a recurring appointment"
+                "title": "Schedule a recurring appointment",
+                "override_availabilities": "Complete the booking even though the appointment/establishment is unavailable"
             },
             "actions": {
                 "save": "Save",

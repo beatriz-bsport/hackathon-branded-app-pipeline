@@ -188,7 +188,9 @@
             "520": "Het systeem zal mislukte betalingen van abonnementen opnieuw proberen",
             "515": "De leskaart van het abonnement wordt automatisch gedeactiveerd",
             "510": "Mislukte betaling voor een abonnement",
-            "undefined": "Het systeem zal mislukte betalingen van abonnementen opnieuw proberen."
+            "undefined": "Het systeem zal mislukte betalingen van abonnementen opnieuw proberen.",
+            "481": "Periodieke afspraak geannuleerd i.v.m. een gebrek aan beschikbaarheid (leden)",
+            "480": "Periodieke afspraak geannuleerd i.v.m. een gebrek aan beschikbaarheid (instructeur)"
         },
         "tag": {
             "BookingOption": {
@@ -295,7 +297,8 @@
             "member": "Ledenregistratie",
             "marketing": "Marketing",
             "invoice": "Facturatie",
-            "payment_pack": "Kaarten"
+            "payment_pack": "Kaarten",
+            "recurrent_private_booking": "Periodieke afspraken"
         },
         "pageTitle": "Transactionele e-mails",
         "caption": {
@@ -830,7 +833,8 @@
                 "establishmentChangeWarning": "Wanneer de vestiging van de activiteit gewijzigd wordt, geldt deze wijziging voor alle toekomstige sessies. Als je een tijdelijke vestiging wilt gebruiken, gebruik dan het veld \"Tijdelijke vestiging\". Alle andere wijzigingen (instructeur, prijs, etc.) worden vervolgens op alle sessies toegepast.",
                 "coachChangeWarning": "Wanneer de instructeur van de activiteit gewijzigd wordt, geldt deze wijziging voor alle toekomstige sessies. Alle andere wijzigingen (vestiging, prijs, etc.) worden vervolgens op alle sessies toegepast.",
                 "levelChangeWarning": "Wanneer het niveau van de activiteit gewijzigd wordt, geldt deze wijziging voor alle toekomstige sessies. Alle andere wijzigingen (vestiging, prijs, etc.) worden vervolgens op alle sessies toegepast.",
-                "explainPartnership": "MarketPlaces (Onefit, ClassPass, etc.)"
+                "explainPartnership": "MarketPlaces (Onefit, ClassPass, etc.)",
+                "explainManagerOnly": "Open voor reserveringen (Website + Mobiele App)"
             },
             "payment": {
                 "additionalInformationHelper": "(Optioneel) Betalingskenmerk",
@@ -2192,7 +2196,7 @@
             },
             "2": {
                 "second": "dagen verstreken.",
-                "first": "Stuur een melding als de leskaart sinds verlopen is "
+                "first": "Stuur een melding als de kaart sinds verlopen is "
             },
             "listItem": {
                 "mail": "E-mail ",
@@ -6304,7 +6308,8 @@
                 "title": "[Formulier] Terugkerende afspraak",
                 "notify_member": "Een bevestigingsmail versturen",
                 "timeGroup": "Instellingen",
-                "configuration": "Reserveringen"
+                "configuration": "Reserveringen",
+                "override_availabilities": "Voltooi de reservering ook bij onbeschikbaarheid van vestigingen/instructeurs"
             },
             "actions": {
                 "save": "Opslaan",
@@ -10497,8 +10502,8 @@
             "duration": "Betalingen worden iedere {{frequency}} {{recurrency}} geïncasseerd voor {{number_of_billing}} {{recurrency_ponderate_by_number_of_billing}}.",
             "comboAvailable": "{{length}} compatibel pakket",
             "comboAvailable_plural": "{{length}} compatibele pakketten",
-            "giftcardAvailable": "{{length}} compatibele cadeaubon",
-            "giftcardAvailable_plural": "{{length}} compatibele cadeaubonnen",
+            "giftcardAvailable": "{{length}} compatibele cadeaubon(nen)",
+            "giftcardAvailable_plural": "{{length}} compatibele cadeaubon(nen)",
             "shopItemAvailable": "{{length}} compatibel webshop-product",
             "shopItemAvailable_plural": "{{length}} compatibele webshop-producten",
             "noCompability": "Deze instellingen zijn niet compatibel met termijnbetalingen.",
@@ -10511,31 +10516,31 @@
             "combo": "Pakketten",
             "recurrency": "Interval",
             "number_of_billing": "Aantal betalingen",
-            "paymentNumber": "{{number_of_billing}} betaling",
-            "paymentNumber_plural": "{{number_of_billing}} betalingen",
+            "paymentNumber": "{{number_of_billing}} betaling(en)",
+            "paymentNumber_plural": "{{number_of_billing}} betaling(en)",
             "fee": "Toeslagen",
             "minimumAmount": "Minimum aankoopbedrag",
             "compatibility": "Compatibiliteit",
             "seeAll": "Toon alles",
             "packAvailableForAll": "Alle compatibele leskaarten",
-            "packAvailable": "{{length}} compatibele leskaart",
-            "packAvailable_plural": "{{length}} compatibele leskaarten",
+            "packAvailable": "{{length}} compatibele leskaart(en)",
+            "packAvailable_plural": "{{length}} compatibele leskaart(en)",
             "privatePassAvailableForAll": "Alle compatibele afspraakkaarten",
-            "privatePassAvailable": "{{length}} compatibele afspraakkaart",
-            "privatePassAvailable_plural": "{{length}} compatibele afspraakkaarten",
+            "privatePassAvailable": "{{length}} compatibele afspraakkaart(en)",
+            "privatePassAvailable_plural": "{{length}} compatibele afspraakkaart(en)",
             "comboAvailableForAll": "Alle compatibele pakketten",
             "giftcardAvailableForALl": "Alle compatibele cadeaubonnen",
             "shopItemAvailableForALl": "Alle compatibele webshop-producten",
-            "onlyWhenAllAvailable": "Wordt alleen aangeboden als alle producten in het winkelmandje compatibel zijn",
-            "whenOneAvailable": "Wordt aangeboden als ten minste één product in het winkelmandje compatibel is"
+            "onlyWhenAllAvailable": "Deze optie alleen aanbieden als alle producten in het winkelmandje compatibel zijn",
+            "whenOneAvailable": "Deze optie aanbieden als ten minste één product in het winkelmandje compatibel is"
         },
         "form": {
-            "onlyAvailableInfo": "Standaard zullen er géén termijnbetalingen worden aangeboden, mits het gehele winkelmandje van een lid uit compatibele producten bestaat. Zet deze functie uit om termijnbetalingen te activeren als ten minste één product aan de voorwaarden voor termijnbetalingen in een winkelmandje voldoet.",
+            "onlyAvailableInfo": "Standaard zullen er géén termijnbetalingen worden aangeboden, mits het gehele winkelmandje van een lid uit compatibele producten bestaat. Zet deze optie uit om termijnbetalingen te activeren als ten minste één product aan de voorwaarden voor termijnbetalingen in een winkelmandje voldoet.",
             "compabilityInfo": "Selecteer de onderdelen die met termijnbetalingen compatibel zijn. Termijnbetalingen worden vervolgens bij aankoop van deze producten aan leden aangeboden.",
             "numberOfBilling": "Aantal incasso's",
             "add": "Een configuratie toevoegen",
             "search": "Zoeken",
-            "onlyAvailable": "Wordt alleen aangeboden als alle producten in het winkelmandje compatibel zijn",
+            "onlyAvailable": "Deze optie alleen aanbieden als alle producten in het winkelmandje compatibel zijn",
             "minimumAmountHelperText": "Dit is het minimale aankoopbedrag voor termijnbetalingen.",
             "minimum_amount": "Minimum aankoopbedrag",
             "advanced": "Geavanceerd",
@@ -10551,9 +10556,9 @@
                 "startWeek": "Betalingen worden elke {{frequency}} week/weken geïncasseerd",
                 "startMonth": "Betalingen worden elke {{frequency}} maand(en) geïncasseerd",
                 "startYear": "Betalingen worden elke {{frequency}} jaar geïncasseerd",
-                "middle": " voor een totaalduur van {{total}} ",
-                "end": " en dit genereert {{number_of_billing}} incasso",
-                "end_plural": " en dit genereert {{number_of_billing}} incasso's"
+                "middle": " voor een totaalduur van {{total}} - ",
+                "end": " en dit genereert {{number_of_billing}} incasso.",
+                "end_plural": " en dit genereert {{number_of_billing}} incasso's."
             },
             "frequency": {
                 "start": "Herhaal elke"
@@ -10562,17 +10567,17 @@
             "feeHelperText": "Toeslagen voor termijnbetalingen worden aan de eerste incasso toegevoegd.",
             "recurrency": {
                 "title": "Interval",
-                "week": "week",
-                "week_plural": "weken",
-                "month": "maand",
+                "week": "week/weken",
+                "week_plural": "week/weken",
+                "month": "maand(en)",
                 "year": "jaar",
                 "year_plural": "jaar",
-                "day": "dag",
-                "day_plural": "dagen",
-                "daily": "Daily",
-                "weekly": "Weekly",
-                "montly": "Monthly",
-                "annual": "Yearly"
+                "day": "dag(en)",
+                "day_plural": "dag(en)",
+                "daily": "Dagelijks",
+                "weekly": "Wekelijks",
+                "montly": "Maandelijks",
+                "annual": "Jaarlijks"
             },
             "compability": {
                 "selectPack": "Selecteer een leskaart",
@@ -10609,8 +10614,8 @@
             "secondary": {
                 "allMasculine": "Elke {{frequency}} ",
                 "allFeminine": "Elke {{frequency}} ",
-                "numberOfBilling": "{{number_of_billing}} betaling",
-                "numberOfBilling_plural": "{{number_of_billing}} betalingen"
+                "numberOfBilling": "{{number_of_billing}} betaling(en)",
+                "numberOfBilling_plural": "{{number_of_billing}} betaling(en)"
             }
         }
     }

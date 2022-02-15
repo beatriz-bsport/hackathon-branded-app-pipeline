@@ -11,68 +11,78 @@ import {
   coachPaymentRuleGroupDelete,
   coachPaymentSimulation,
   coachSessionPerformanceActions,
+  coachBulkSessionPerformanceActions,
   coachPrivateServicePerformanceActions,
+  coachBulkPrivateServicePerformanceActions,
   sessionCoachPaymentRule,
   setPrivateBookingCoachPaymentRuleActions,
   showDialog,
   showSimulationDialog,
   showGroupDialog,
+  fetchCoachPerformanceCachedDataActions,
 } from './actions';
-import { CoachPaymentRuleState } from './types';
+import { CoachPaymentRuleState, CoachPerformanceCachedData } from './types';
 
-const initialState: CoachPaymentRuleState = Immutable({
-  items: {},
-  loading: false,
-  error: null,
-  upsert: {
-    loading: true,
-    error: null,
-  },
-  dialog: false,
-  simulationDialog: false,
-  groupDialog: false,
-  simulation: {
-    error: null,
-    result: {},
+const initialState: Immutable.Immutable<CoachPaymentRuleState> =
+  Immutable<CoachPaymentRuleState>({
+    items: {},
     loading: false,
-  },
-  performance: {
-    session: {
-      byAssociatedCoachId: {},
+    error: null,
+    upsert: {
+      loading: true,
+      error: null,
     },
-    private_service: {
-      byAssociatedCoachId: {},
+    dialog: false,
+    simulationDialog: false,
+    groupDialog: false,
+    simulation: {
+      error: null,
+      result: {},
+      loading: false,
     },
+    performance: {
+      session: {
+        byAssociatedCoachId: {},
+      },
+      private_service: {
+        byAssociatedCoachId: {},
+      },
 
-    loading: false,
-    error: null,
-  },
-  groups: {
-    byId: {},
-    allIds: [],
-    loading: false,
-    error: null,
-  },
-});
+      loading: false,
+      error: null,
+      cached_data: {
+        loading: false,
+        error: null,
+        allTimestamps: [],
+        byTimestamp: {},
+      },
+    },
+    groups: {
+      byId: {},
+      allIds: [],
+      loading: false,
+      error: null,
+    },
+  });
 
 export default handleActions(
   {
-    [showDialog]: (state, { payload }) => {
+    [showDialog.toString().toString()]: (state, { payload }) => {
       return state.set('dialog', payload);
     },
-    [showSimulationDialog]: (state, { payload }) => {
+    [showSimulationDialog.toString()]: (state, { payload }) => {
       return state.set('simulationDialog', payload);
     },
-    [showGroupDialog]: (state, { payload }) => {
+    [showGroupDialog.toString()]: (state, { payload }) => {
       return state.set('groupDialog', payload);
     },
-    [fetchAllPaymentRules.isLoading]: (state, { payload }) => {
+    [fetchAllPaymentRules.isLoading.toString()]: (state, { payload }) => {
       return state.set('loading', payload);
     },
-    [fetchAllPaymentRules.error]: (state, { payload }) => {
+    [fetchAllPaymentRules.error.toString()]: (state, { payload }) => {
       return state.set('error', payload);
     },
-    [fetchAllPaymentRules.success]: (state, { payload }) => {
+    [fetchAllPaymentRules.success.toString()]: (state, { payload }) => {
       return state.merge(
         {
           items: payload.reduce((acc: any, ps: any) => {
@@ -83,31 +93,34 @@ export default handleActions(
         { deep: true },
       );
     },
-    [coachPaymentRuleSetUpsert.success]: (state, { payload }) => {
+    [coachPaymentRuleSetUpsert.success.toString()]: (state, { payload }) => {
       return state.setIn(['items', payload.id], payload);
     },
-    [coachPaymentRuleSetUpsert.isLoading]: (state, { payload }) => {
+    [coachPaymentRuleSetUpsert.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['upsert', 'loading'], payload);
     },
-    [coachPaymentRuleSetUpsert.error]: (state, { payload }) => {
+    [coachPaymentRuleSetUpsert.error.toString()]: (state, { payload }) => {
       return state.setIn(['upsert', 'error'], payload);
     },
-    [coachPaymentRuleSetDelete.success]: (state, { payload }) => {
+    [coachPaymentRuleSetDelete.success.toString()]: (state, { payload }) => {
       return state.set('items', omit(state.items, payload.id));
     },
-    [coachPaymentSimulation.success]: (state, { payload }) => {
+    [coachPaymentSimulation.success.toString()]: (state, { payload }) => {
       return state.setIn(['simulation', 'result', payload.id], payload);
     },
-    [coachPaymentSimulation.isLoading]: (state, { payload }) => {
+    [coachPaymentSimulation.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['simulation', 'loading'], payload);
     },
-    [coachPaymentSimulation.error]: (state, { payload }) => {
+    [coachPaymentSimulation.error.toString()]: (state, { payload }) => {
       return state.setIn(['simulation', 'error'], payload);
     },
-    [coachPaymentSimulation.reset]: (state) => {
+    [coachPaymentSimulation.reset.toString()]: (state) => {
       return state.setIn(['simulation', 'result'], {});
     },
-    [coachSessionPerformanceActions.success]: (state, { payload }) => {
+    [coachSessionPerformanceActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       if (payload.sessionId) {
         const index = state.performance.session.byAssociatedCoachId[
           payload.associatedCoachId
@@ -137,7 +150,10 @@ export default handleActions(
         payload.data,
       );
     },
-    [coachSessionPerformanceActions.isLoading]: (state, { payload }) => {
+    [coachSessionPerformanceActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       if (!payload.associatedCoachId) {
         return state.setIn(['performance', 'loading'], payload.loading);
       }
@@ -154,10 +170,41 @@ export default handleActions(
           payload.loading,
         );
     },
-    [coachSessionPerformanceActions.error]: (state, { payload }) => {
+    [coachSessionPerformanceActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['performance', 'error'], payload);
     },
-    [coachPrivateServicePerformanceActions.success]: (state, { payload }) => {
+
+    [coachBulkSessionPerformanceActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['performance', 'loading'], payload);
+    },
+    [coachBulkSessionPerformanceActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['performance', 'error'], payload);
+    },
+    [coachBulkSessionPerformanceActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.merge(
+        {
+          performance: {
+            session: {
+              byAssociatedCoachId: payload,
+            },
+          },
+        },
+        { deep: true },
+      );
+    },
+    [coachPrivateServicePerformanceActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       if (payload.privateBookingId) {
         const index = state.performance.private_service.byAssociatedCoachId[
           payload.associatedCoachId
@@ -188,7 +235,10 @@ export default handleActions(
         payload.data,
       );
     },
-    [coachPrivateServicePerformanceActions.isLoading]: (state, { payload }) => {
+    [coachPrivateServicePerformanceActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       if (!payload.associatedCoachId) {
         return state.setIn(['performance', 'loading'], payload.loading);
       }
@@ -205,16 +255,47 @@ export default handleActions(
           payload.loading,
         );
     },
-    [coachPrivateServicePerformanceActions.error]: (state, { payload }) => {
+    [coachPrivateServicePerformanceActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['performance', 'error'], payload);
     },
-    [sessionCoachPaymentRule.isLoading]: (state, { payload }) => {
+
+    [coachBulkPrivateServicePerformanceActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['performance', 'loading'], payload);
+    },
+    [coachBulkPrivateServicePerformanceActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['performance', 'error'], payload);
+    },
+    [coachBulkPrivateServicePerformanceActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.merge(
+        {
+          performance: {
+            private_service: {
+              byAssociatedCoachId: payload,
+            },
+          },
+        },
+        { deep: true },
+      );
+    },
+    [sessionCoachPaymentRule.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['upsert', 'loading'], payload);
     },
-    [sessionCoachPaymentRule.error]: (state, { payload }) => {
+    [sessionCoachPaymentRule.error.toString()]: (state, { payload }) => {
       return state.setIn(['upsert', 'error'], payload);
     },
-    [sessionCoachPaymentRule.success]: (state, { payload }) => {
+    [sessionCoachPaymentRule.success.toString()]: (state, { payload }) => {
       const index = state.performance.session.byAssociatedCoachId[
         payload.associatedCoachId
       ].data.findIndex((s) => s.session_id === payload.sessionId);
@@ -234,16 +315,19 @@ export default handleActions(
         updatedSession,
       );
     },
-    [setPrivateBookingCoachPaymentRuleActions.isLoading]: (
+    [setPrivateBookingCoachPaymentRuleActions.isLoading.toString()]: (
       state,
       { payload },
     ) => {
       return state.setIn(['upsert', 'loading'], payload);
     },
-    [setPrivateBookingCoachPaymentRuleActions.error]: (state, { payload }) => {
+    [setPrivateBookingCoachPaymentRuleActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['upsert', 'error'], payload);
     },
-    [setPrivateBookingCoachPaymentRuleActions.success]: (
+    [setPrivateBookingCoachPaymentRuleActions.success.toString()]: (
       state,
       { payload },
     ) => {
@@ -273,13 +357,13 @@ export default handleActions(
       );
     },
 
-    [fetchAllPaymentRuleGroups.isLoading]: (state, { payload }) => {
+    [fetchAllPaymentRuleGroups.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['groups', 'loading'], payload);
     },
-    [fetchAllPaymentRuleGroups.error]: (state, { payload }) => {
+    [fetchAllPaymentRuleGroups.error.toString()]: (state, { payload }) => {
       return state.setIn(['groups', 'error'], payload);
     },
-    [fetchAllPaymentRuleGroups.success]: (state, { payload }) => {
+    [fetchAllPaymentRuleGroups.success.toString()]: (state, { payload }) => {
       return state
         .setIn(
           ['groups', 'allIds'],
@@ -297,7 +381,7 @@ export default handleActions(
           { deep: true },
         );
     },
-    [coachPaymentRuleGroupDelete.success]: (state, { payload }) => {
+    [coachPaymentRuleGroupDelete.success.toString()]: (state, { payload }) => {
       return state
         .setIn(['groups', 'byId'], omit(state.groups.byId, payload.id))
         .setIn(
@@ -305,7 +389,7 @@ export default handleActions(
           state.groups.allIds.filter((id) => id !== payload.id),
         );
     },
-    [upsertPaymentGroupActions.success]: (state, { payload }) => {
+    [upsertPaymentGroupActions.success.toString()]: (state, { payload }) => {
       if (!state.groups.allIds.find((id) => id === payload.id)) {
         return state
           .setIn(['groups', 'byId', payload.id], payload)
@@ -313,11 +397,52 @@ export default handleActions(
       }
       return state.setIn(['groups', 'byId', payload.id], payload);
     },
-    [upsertPaymentGroupActions.isLoading]: (state, { payload }) => {
+    [upsertPaymentGroupActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['upsert', 'loading'], payload);
     },
-    [upsertPaymentGroupActions.error]: (state, { payload }) => {
+    [upsertPaymentGroupActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['upsert', 'error'], payload);
+    },
+    [fetchCoachPerformanceCachedDataActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state
+        .setIn(
+          ['performance', 'cached_data', 'allTimestamps'],
+          payload?.map((data: CoachPerformanceCachedData) => data.timestamp),
+        )
+        .merge(
+          {
+            performance: {
+              cached_data: {
+                byTimestamp: payload.reduce(
+                  (
+                    acc: { [timestamp: number]: CoachPerformanceCachedData },
+                    ps: CoachPerformanceCachedData,
+                  ) => {
+                    acc[ps.timestamp] = ps;
+                    return acc;
+                  },
+                  {},
+                ),
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
+    [fetchCoachPerformanceCachedDataActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['performance', 'cached_data', 'loading'], payload);
+    },
+    [fetchCoachPerformanceCachedDataActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['performance', 'cached_data', 'error'], payload);
     },
   },
   initialState,

@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { ErrorMessage } from 'formik';
 import PhoneInput from 'react-phone-number-input';
 import flags from 'react-phone-number-input/flags';
-import 'react-phone-number-input/style.css';
+// import 'react-phone-number-input/style.css';
 import Grid from '@material-ui/core/Grid';
 import amber from '@material-ui/core/colors/amber';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -59,6 +59,7 @@ import {
 import AvatarFieldWithButton from '../../../../components/forms/AvatarFieldWithButton.component';
 import AcceptTermsAndConditions from '../../../payment/components/AcceptTermsAndConditions.component';
 import { CheckboxField } from '../GenericFormik.input';
+import './styles.css';
 
 type OwnProps = {
   field: CustomFormField & { answer: string | number | boolean };

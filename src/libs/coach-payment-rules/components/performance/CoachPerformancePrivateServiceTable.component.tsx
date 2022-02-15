@@ -3,7 +3,7 @@
 import React from 'react';
 import moment from 'moment-timezone';
 import amber from '@material-ui/core/colors/amber';
-import { withTranslation, TFunction } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -15,32 +15,32 @@ import AttachIcon from '@material-ui/icons/AttachFile';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import clx from 'classnames';
-import CoachPaymentRuleSelector from '../../../coach-payment-rules/components/coach-payment-rule-selector/CoachPaymentRuleSelector.component';
-import type { CoachPaymentRule } from '../../../coach-payment-rules/types';
+import CoachPaymentRuleSelector from '../coach-payment-rule-selector/CoachPaymentRuleSelector.component';
+import type { CoachPaymentRule, CoachPerformance } from '../../types';
 import { downloadAsCsv } from '../../../../utils/downloader';
 import { getCurrencyDisplayWithPrice } from '../../../theme/selectors';
 import { formatMinutes } from '../../../../utils/datetime';
+import type { Coach } from '#libs/associated-coach/types';
 
 type Props = {
-  performances: *[],
-  t: TFunction,
-  coachPaymentRulesList: Array<CoachPaymentRule>,
-  updatePrivateBookingCoachPaymentRule: (
-    associatedCoachId: number,
-    privateBookingId: number,
-    CoachPaymenrRuleId: number,
-  ) => void,
-  coach: Coach,
+  performances: Array<CoachPerformance>;
+  coachPaymentRulesList: Array<CoachPaymentRule>;
+  updatePrivateBookingCoachPaymentRule: (params: {
+    associatedCoachId: number;
+    privateBookingId: number;
+    coachPaymentRuleId: number;
+  }) => void;
+  coach: Coach;
 };
 
 export function CoachPerformancePrivateServiceTable(props: Props) {
   const {
-    t,
     coach,
     coachPaymentRulesList,
     updatePrivateBookingCoachPaymentRule,
     performances,
   } = props;
+  const { t } = useTranslation('coachPerformance');
   const classes = useStyles();
   const coach_payment_error =
     performances && performances.find((perf) => perf.error && !perf.is_unpaid);
@@ -92,17 +92,23 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
           {t('table.download')}
         </Button>
       </div>
-      <Table>
+      <Table size="small">
         <TableHead>
-          <TableCell>{t('fields.name')}</TableCell>
-          <TableCell>{t('fields.date')}</TableCell>
-          <TableCell>{t('fields.duration')}</TableCell>
-          <TableCell>{t('fields.confirmed_bookings')}</TableCell>
-          <TableCell>{t('fields.cancelled_bookings')}</TableCell>
-          <TableCell>{t('fields.base')}</TableCell>
-          <TableCell>{t('fields.bonus')}</TableCell>
-          <TableCell>{t('fields.total')}</TableCell>
-          <TableCell>{t('fields.rule')}</TableCell>
+          <TableRow>
+            <TableCell align="left">{t('fields.name')}</TableCell>
+            <TableCell align="right">{t('fields.date')}</TableCell>
+            <TableCell align="right">{t('fields.duration')}</TableCell>
+            <TableCell align="right">
+              {t('fields.confirmed_bookings')}
+            </TableCell>
+            <TableCell align="right">
+              {t('fields.cancelled_bookings')}
+            </TableCell>
+            <TableCell align="right">{t('fields.base')}</TableCell>
+            <TableCell align="right">{t('fields.bonus')}</TableCell>
+            <TableCell align="right"> {t('fields.total')}</TableCell>
+            <TableCell align="right">{t('fields.rule')}</TableCell>
+          </TableRow>
         </TableHead>
         <TableBody>
           {(coach_payment_error || unpaid_private_booking_exists) && (
@@ -128,51 +134,59 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
             </TableRow>
           )}
           {performances &&
-            performances.map((private_service) => (
+            performances.map((private_service_perf) => (
               <TableRow
-                key={private_service.private_booking_id}
+                key={private_service_perf.private_booking_id}
                 className={clx({
                   [classes.tableRowError]:
-                    private_service.error && !private_service.is_unpaid,
-                  [classes.tableRowErrorUnpaid]: private_service.is_unpaid,
+                    private_service_perf.error &&
+                    !private_service_perf.is_unpaid,
+                  [classes.tableRowErrorUnpaid]: private_service_perf.is_unpaid,
                 })}
               >
-                <TableCell>{private_service.private_service_name}</TableCell>
-                <TableCell>
-                  {`${moment(private_service.date_start).format('L')} ${moment(
-                    private_service.date_start,
-                  ).format('LT')}`}
+                <TableCell align="left">
+                  {private_service_perf.private_service_name}
                 </TableCell>
-                <TableCell>
-                  {formatMinutes(private_service.duration_minute, t)}
+                <TableCell align="right">
+                  {`${moment(private_service_perf.date_start).format(
+                    'L',
+                  )} ${moment(private_service_perf.date_start).format('LT')}`}
                 </TableCell>
-                <TableCell>{private_service.confirmed_bookings}</TableCell>
-                <TableCell>{private_service.cancelled_bookings}</TableCell>
-                <TableCell>
+                <TableCell align="right">
+                  {formatMinutes(private_service_perf.duration_minute, t)}
+                </TableCell>
+                <TableCell align="right">
+                  {private_service_perf.confirmed_bookings}
+                </TableCell>
+                <TableCell align="right">
+                  {private_service_perf.cancelled_bookings}
+                </TableCell>
+                <TableCell align="right">
                   {getCurrencyDisplayWithPrice(
-                    private_service.base_remuneration,
+                    private_service_perf.base_remuneration,
                   )}
                 </TableCell>
-                <TableCell>
+                <TableCell align="right">
                   {getCurrencyDisplayWithPrice(
-                    private_service.coach_bonus || 0,
+                    private_service_perf.coach_bonus || 0,
                   )}
                 </TableCell>
-                <TableCell>
+                <TableCell align="right">
                   {getCurrencyDisplayWithPrice(
-                    private_service.coach_total_payment || 0,
+                    private_service_perf.coach_total_payment || 0,
                   )}
                 </TableCell>
                 <TableCell>
                   <CoachPaymentRuleSelector
                     id="payment_rule_per_private_service"
                     coachPaymentRulesList={coachPaymentRulesList}
-                    selected={private_service.coach_payment_rule}
+                    selected={private_service_perf.coach_payment_rule}
                     isOverride
                     enableReset
-                    onChange={({ value }) => {
+                    onChange={({ value }: { value: number }) => {
                       updatePrivateBookingCoachPaymentRule({
-                        privateBookingId: private_service.private_booking_id,
+                        privateBookingId:
+                          private_service_perf.private_booking_id,
                         coachPaymentRuleId: value,
                         associatedCoachId: coach.associated_coach_id,
                       });
@@ -220,6 +234,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default withTranslation(['coachPerformance'])(
-  CoachPerformancePrivateServiceTable,
-);
+export default CoachPerformancePrivateServiceTable;

@@ -3,7 +3,7 @@
 import React from 'react';
 import moment from 'moment-timezone';
 
-import { withTranslation, TFunction } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -14,32 +14,32 @@ import Button from '@material-ui/core/Button';
 import AttachIcon from '@material-ui/icons/AttachFile';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import CoachPaymentRuleSelector from '../../../coach-payment-rules/components/coach-payment-rule-selector/CoachPaymentRuleSelector.component';
-import type { CoachPaymentRule } from '../../../coach-payment-rules/types';
+import CoachPaymentRuleSelector from '../coach-payment-rule-selector/CoachPaymentRuleSelector.component';
+import type { CoachPaymentRule, CoachPerformance } from '../../types';
 import { downloadAsCsv } from '../../../../utils/downloader';
 import { getCurrencyDisplayWithPrice } from '../../../theme/selectors';
 import { formatMinutes } from '../../../../utils/datetime';
+import type { Coach } from '#libs/associated-coach/types';
 
 type Props = {
-  performances: *[],
-  t: TFunction,
-  coachPaymentRulesList: Array<CoachPaymentRule>,
-  setSessionCoachPaymentRule: (
-    associatedCoachId: number,
-    sessionId: number,
-    coachPaymenrRuleId: number,
-  ) => void,
-  coach: Coach,
+  performances: Array<CoachPerformance>;
+  coachPaymentRulesList: Array<CoachPaymentRule>;
+  setSessionCoachPaymentRule: (params: {
+    associatedCoachId: number;
+    sessionId: number;
+    coachPaymentRuleId: number;
+  }) => void;
+  coach: Coach;
 };
 
 export function CoachPerformanceSessionTable(props: Props) {
   const {
-    t,
     coach,
     coachPaymentRulesList,
     setSessionCoachPaymentRule,
     performances,
   } = props;
+  const { t } = useTranslation('coachPerformance');
   const classes = useStyles();
   const coach_payment_error =
     performances && performances.find((perf) => perf.error);
@@ -90,17 +90,23 @@ export function CoachPerformanceSessionTable(props: Props) {
           {t('table.download')}
         </Button>
       </div>
-      <Table>
+      <Table size="small">
         <TableHead>
-          <TableCell>{t('fields.name')}</TableCell>
-          <TableCell>{t('fields.date')}</TableCell>
-          <TableCell>{t('fields.duration')}</TableCell>
-          <TableCell>{t('fields.confirmed_bookings')}</TableCell>
-          <TableCell>{t('fields.cancelled_bookings')}</TableCell>
-          <TableCell>{t('fields.base')}</TableCell>
-          <TableCell>{t('fields.bonus')}</TableCell>
-          <TableCell>{t('fields.total')}</TableCell>
-          <TableCell>{t('fields.rule')}</TableCell>
+          <TableRow>
+            <TableCell align="left">{t('fields.name')}</TableCell>
+            <TableCell align="right">{t('fields.date')}</TableCell>
+            <TableCell align="right">{t('fields.duration')}</TableCell>
+            <TableCell align="right">
+              {t('fields.confirmed_bookings')}
+            </TableCell>
+            <TableCell align="right">
+              {t('fields.cancelled_bookings')}
+            </TableCell>
+            <TableCell align="right">{t('fields.base')}</TableCell>
+            <TableCell align="right">{t('fields.bonus')}</TableCell>
+            <TableCell align="right">{t('fields.total')}</TableCell>
+            <TableCell align="right">{t('fields.rule')}</TableCell>
+          </TableRow>
         </TableHead>
         <TableBody>
           {coach_payment_error && (
@@ -116,24 +122,28 @@ export function CoachPerformanceSessionTable(props: Props) {
                 key={session.session_id}
                 className={session.error ? classes.tableRowError : null}
               >
-                <TableCell>{session.session_name}</TableCell>
-                <TableCell>
+                <TableCell align="left">{session.session_name}</TableCell>
+                <TableCell align="right">
                   {`${moment(session.date_start).format('L')} ${moment(
                     session.date_start,
                   ).format('LT')}`}
                 </TableCell>
-                <TableCell>
+                <TableCell align="right">
                   {formatMinutes(session.duration_minute, t)}
                 </TableCell>
-                <TableCell>{session.confirmed_bookings}</TableCell>
-                <TableCell>{session.cancelled_bookings}</TableCell>
-                <TableCell>
+                <TableCell align="right">
+                  {session.confirmed_bookings}
+                </TableCell>
+                <TableCell align="right">
+                  {session.cancelled_bookings}
+                </TableCell>
+                <TableCell align="right">
                   {getCurrencyDisplayWithPrice(session.base_remuneration)}
                 </TableCell>
-                <TableCell>
+                <TableCell align="right">
                   {getCurrencyDisplayWithPrice(session.coach_bonus || 0)}
                 </TableCell>
-                <TableCell>
+                <TableCell align="right">
                   {getCurrencyDisplayWithPrice(
                     session.coach_total_payment || 0,
                   )}
@@ -145,7 +155,7 @@ export function CoachPerformanceSessionTable(props: Props) {
                     selected={session.coach_payment_rule}
                     isOverride
                     enableReset
-                    onChange={({ value }) => {
+                    onChange={({ value }: { value: number }) => {
                       setSessionCoachPaymentRule({
                         sessionId: session.session_id,
                         coachPaymentRuleId: value,
@@ -175,6 +185,5 @@ const useStyles = makeStyles(() => ({
     },
   },
 }));
-export default withTranslation(['coachPerformance'])(
-  CoachPerformanceSessionTable,
-);
+
+export default CoachPerformanceSessionTable;

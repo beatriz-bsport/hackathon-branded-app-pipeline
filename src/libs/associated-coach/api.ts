@@ -28,6 +28,17 @@ export async function fetchAssociatedCoaches(params?: {
   return getAuth(`${API_V1_URI}/associated_coach/${buildUrlParams(params)}`);
 }
 
+export async function fetchPaginatedAssociatedCoaches(params?: {
+  [key: string]: boolean | number;
+}) {
+  return getAuth(
+    `${API_URI}/saas/associated-coach/${buildUrlParams({
+      ...params,
+      paginated: true,
+    })}`,
+  );
+}
+
 export async function fetchAssociatedCoach(id: number) {
   return getAuth(`${API_V1_URI}/associated_coach/${id}/`);
 }

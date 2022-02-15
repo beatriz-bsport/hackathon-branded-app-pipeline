@@ -154,7 +154,9 @@ export function CoachPaymentRuleSelectorStyled(props: Props) {
       closeMenuOnSelect={closeMenuOnSelect}
       isMulti={!noMulti}
       placeholder={placeholder || t('coach')}
-      options={getPaymentRuleOptions([...coachPaymentRulesList])}
+      options={getPaymentRuleOptions(
+        coachPaymentRulesList ? [...coachPaymentRulesList] : [],
+      )}
       onChange={onChange}
       isDisabled={disabled}
       styles={ruleStyles}
@@ -163,7 +165,7 @@ export function CoachPaymentRuleSelectorStyled(props: Props) {
       value={
         selectedRules
           ? getPaymentRuleOptions([
-              ...coachPaymentRulesList.filter((rule) =>
+              ...coachPaymentRulesList?.filter((rule) =>
                 selectedRules.includes(rule.id),
               ),
             ])

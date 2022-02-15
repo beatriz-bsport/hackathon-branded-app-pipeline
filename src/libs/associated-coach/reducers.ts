@@ -1,10 +1,11 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
-
+import uniq from 'lodash/uniq';
 import { CoachState } from './types';
 
 import {
   coachListAction,
+  coachPaginatedListActions,
   coachDetailAction,
   performance,
   upsert,
@@ -34,7 +35,10 @@ const initialState: CoachState = Immutable<CoachState>({
 
 export default handleActions(
   {
-    [bulkRetrieveActions.success]: (state, { payload }) => {
+    [bulkRetrieveActions.success.toString().toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.merge(
         {
           byId: payload.reduce((acc, ps) => {
@@ -45,84 +49,105 @@ export default handleActions(
         { deep: true },
       );
     },
-    [bulkRetrieveActions.isLoading]: (state, { payload }) => {
+    [bulkRetrieveActions.isLoading.toString()]: (state, { payload }) => {
       return state.set('loading', payload);
     },
-    [bulkRetrieveActions.error]: (state, { payload }) => {
+    [bulkRetrieveActions.error.toString()]: (state, { payload }) => {
       return state.set('error', payload);
     },
-    [coachListAction.success]: (state, { payload }) => {
+    [coachListAction.success.toString()]: (state, { payload }) => {
       return state
         .merge({ byId: payload.coachDict }, { deep: true })
         .setIn(['allIds'], payload.coachIdList);
     },
-    [coachListAction.isLoading]: (state, { payload }) => {
+    [coachListAction.isLoading.toString()]: (state, { payload }) => {
       return state.set('loading', payload);
     },
-    [coachListAction.error]: (state, { payload }) => {
+    [coachListAction.error.toString()]: (state, { payload }) => {
       return state.set('error', payload);
     },
-    [coachDetailAction.success]: (state, { payload }) => {
+    [coachPaginatedListActions.success.toString()]: (state, { payload }) => {
+      return state
+        .merge({ byId: payload.coachDict }, { deep: true })
+        .setIn(['allIds'], uniq([...state.allIds, ...payload.coachIdList]));
+    },
+    [coachPaginatedListActions.isLoading.toString()]: (state, { payload }) => {
+      return state.set('loading', payload);
+    },
+    [coachPaginatedListActions.error.toString()]: (state, { payload }) => {
+      return state.set('error', payload);
+    },
+
+    [coachDetailAction.success.toString()]: (state, { payload }) => {
       return state.merge({ byId: payload }, { deep: true });
     },
-    [coachDetailAction.isLoading]: (state, { payload }) => {
+    [coachDetailAction.isLoading.toString()]: (state, { payload }) => {
       return state.set('loading', payload);
     },
-    [coachDetailAction.error]: (state, { payload }) => {
+    [coachDetailAction.error.toString()]: (state, { payload }) => {
       return state.set('error', payload);
     },
-    [performance.isLoading]: (state, { payload }) => {
+    [performance.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(
         ['performance', payload.associatedCoachId, 'loading'],
         payload.loading,
       );
     },
-    [performance.error]: (state, { payload }) => {
+    [performance.error.toString()]: (state, { payload }) => {
       return state.setIn(
         ['performance', payload.associatedCoachId, 'error'],
-        payload.error,
+        payload.error.toString(),
       );
     },
-    [performance.success]: (state, { payload }) => {
+    [performance.success.toString()]: (state, { payload }) => {
       return state.setIn(
         ['performance', payload.associatedCoachId, 'result'],
         payload.result,
       );
     },
-    [upsert.isLoading]: (state, { payload }) => {
+    [upsert.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['upsert', 'loading'], payload);
     },
-    [upsert.error]: (state, { payload }) => {
+    [upsert.error.toString()]: (state, { payload }) => {
       return state.setIn(['upsert', 'error'], payload);
     },
-    [upsert.success]: (state, { payload }) => {
+    [upsert.success.toString()]: (state, { payload }) => {
       return state.merge({ byId: payload }, { deep: true });
     },
-    [setCoachPaymentRuleActions.success]: (state, { payload }) => {
+    [setCoachPaymentRuleActions.success.toString()]: (state, { payload }) => {
       return state.setIn(
         ['byId', payload.coachId, 'coach_payment_rule_id'],
         payload.coach_payment_rule_id,
       );
     },
-    [setCoachWorkshopPaymentRuleActions.success]: (state, { payload }) => {
+    [setCoachWorkshopPaymentRuleActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(
         ['byId', payload.coachId, 'workshop_coach_payment_rule_id'],
         payload.workshop_coach_payment_rule_id,
       );
     },
-    [setCoachPrivatePaymentRuleActions.success]: (state, { payload }) => {
+    [setCoachPrivatePaymentRuleActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(
         ['byId', payload.coachId, 'private_coach_payment_rule_id'],
         payload.private_coach_payment_rule_id,
       );
     },
-    [setCoachPaymentRuleGroupActions.success]: (state, { payload }) => {
+    [setCoachPaymentRuleGroupActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(
         ['byId', payload.associated_coach.id],
         payload.associated_coach,
       );
     },
-    [updateCoachPrivateSlotsPaymentRulsActions.success]: (
+    [updateCoachPrivateSlotsPaymentRulsActions.success.toString()]: (
       state,
       { payload },
     ) => {
@@ -131,7 +156,7 @@ export default handleActions(
         payload.private_slots_coach_payment_rules,
       );
     },
-    [restoreActions.isLoading]: (state, { payload }) => {
+    [restoreActions.isLoading.toString()]: (state, { payload }) => {
       return state.set('loading', payload);
     },
   },

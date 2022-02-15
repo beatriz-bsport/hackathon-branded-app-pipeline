@@ -12,7 +12,7 @@ import {
 } from '@bsport/common/lib/master-data/coach_payment_rule';
 import Figure from '../../../../components/graph/Figure.component';
 import { getCurrencyDisplayWithPrice } from '../../../theme/selectors';
-import type { CoachPerformance } from '../../../coach-payment-rules/types';
+import type { CoachPerformance } from '../../types';
 
 type Props = {
   performances: Object<Array<CoachPerformance>>,

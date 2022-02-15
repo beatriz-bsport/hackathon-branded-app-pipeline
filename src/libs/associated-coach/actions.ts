@@ -11,6 +11,7 @@ import {
   addCoach as addCoachAPI,
   linkByEmail as linkByEmailAPI,
   fetchAssociatedCoaches as fetchAssociatedCoachesAPI,
+  fetchPaginatedAssociatedCoaches as fetchPaginatedAssociatedCoachesAPI,
   fetchAssociatedCoach as fetchAssociatedCoachAPI,
   deleteCoach as deleteCoachAPI,
   restoreCoach as restoreCoachAPI,
@@ -23,6 +24,7 @@ import { createDictionnaryById, createIdList } from '../../actions/utils';
 import { OptionCallback } from '../../state/types';
 import { RootState } from '../../reducers';
 import { ASSOCIATED_COACH_WITH_COACH_PAYMENT_RULE_GROUP } from '../coach-payment-rules/utils';
+import { Coach } from './types';
 
 export const associated = {
   isLoading: createAction('COACH/ASSOCIATED/IS_LOADING'),
@@ -108,7 +110,7 @@ export function fetchAssociatedCoachesList(
     dispatch(coachListAction.isLoading(true));
     dispatch(coachListAction.error(null));
     try {
-      const response = await fetchAssociatedCoachesAPI(params);
+      const response = await fetchAssociatedCoachesAPI({ ...params, page: 1 });
       dispatch(
         coachListAction.success({
           coachDict: createDictionnaryById(response.data),
@@ -125,6 +127,48 @@ export function fetchAssociatedCoachesList(
       }
     }
     dispatch(coachListAction.isLoading(false));
+  };
+}
+
+export const coachPaginatedListActions = {
+  isLoading: createAction('COACH/PAGINATED_LIST/IS_LOADING'),
+  error: createAction('COACH/PAGINATED_LIST/ERROR'),
+  success: createAction('COACH/PAGINATED_LIST/SUCCESS'),
+};
+
+export function fetchAssociatedCoachesPaginatedList(
+  params?: { [key: string]: boolean | number },
+  options?: OptionCallback<{
+    count: number;
+    previous: null | number;
+    next_page: null | number;
+    results: Array<Coach>;
+  }>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(coachPaginatedListActions.isLoading(true));
+    dispatch(coachPaginatedListActions.error(null));
+    try {
+      const response = await fetchPaginatedAssociatedCoachesAPI({
+        ...params,
+        disabled: false,
+      });
+      dispatch(
+        coachPaginatedListActions.success({
+          coachDict: createDictionnaryById(response.data.results),
+          coachIdList: createIdList(response.data.results),
+        }),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      dispatch(coachPaginatedListActions.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
+    dispatch(coachPaginatedListActions.isLoading(false));
   };
 }
 
@@ -338,7 +382,7 @@ export const setCoachPrivatePaymentRuleActions = {
 export function setCoachPrivatePaymentRule(
   coachId: number,
   coachPaymentRuleId: number,
-  options: OptionCallback,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(upsert.isLoading(true));

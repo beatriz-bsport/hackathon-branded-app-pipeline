@@ -288,7 +288,7 @@ export class Backoffice extends Component<Props, State> {
     this.props.fetchPaymentRules();
     this.props.fetchAllCoachPaymentRules();
     this.props.fetchAllCoachPaymentRuleGroups();
-    this.props.fetchAssociatedCoaches();
+    // this.props.fetchAssociatedCoaches();
     this.props.fetchAllPrivateSlots();
     this.props.fetchSignFormUpConfiguration();
     this.props.fetchTags();

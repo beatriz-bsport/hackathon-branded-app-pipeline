@@ -3,15 +3,25 @@ import {
   fetchCoachPaymentRules,
   fetchCoachPaymentRuleGroups,
   fetchCoachSessionPerformance,
+  fetchBulkCoachSessionPerformance as fetchBulkCoachSessionPerformanceAPI,
   fetchCoachPrivateServicePerformance,
+  fetchBlukCoachPrivateServicePerformance as fetchBlukCoachPrivateServicePerformanceAPI,
   setSessionCoachPaymentRuleAPI,
   setPrivateBookingCoachPaymentRuleAPI,
   runSimulationAPI,
+  exportAsyncCoachPerformanceExcel as exportAsyncCoachPerformanceExcelAPI,
+  fetchCoachPerformanceCachedData as fetchCoachPerformanceCachedDataAPI,
 } from './api';
 import type { Dispatch, OptionCallback } from '../../state/types';
-import type { CoachPaymentRule, CoachPaymentRuleGroup } from './types';
+import type {
+  CoachPaymentRule,
+  CoachPaymentRuleGroup,
+  CoachPerformance,
+} from './types';
 import { snackbarError, snackbarSuccess } from '../snackbar/actions';
 import { postBaseAuth, putAuth, API_V1_URI, deleteAuth } from '../../http';
+import { displayBackgroundDialog } from '../background-dialog/actions';
+import { monitorBackgroundTask } from '../background-task/actions';
 
 export const fetchAllPaymentRules = {
   success: createAction('COACH-PAYMENT/LIST/SUCCESS'),
@@ -173,6 +183,34 @@ export function fetchCoachSessionPerformanceAction(
   };
 }
 
+export const coachBulkSessionPerformanceActions = {
+  error: createAction('COACH/PERFORMANCE_BULK/ERROR'),
+  isLoading: createAction('COACH/PERFORMANCE_BULK/IS_LOADING'),
+  success: createAction('COACH/PERFORMANCE_BULK/SUCCESS'),
+};
+export function fetchBulkCoachSessionPerformance(
+  params: {
+    associated_coach_ids: Array<number>;
+    start_timestamp: number;
+    end_timestamp: number;
+  },
+  options?: OptionCallback<{ [coach_id: number]: Array<CoachPerformance> }>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(coachBulkSessionPerformanceActions.isLoading(true));
+    dispatch(coachBulkSessionPerformanceActions.error(null));
+    try {
+      const response = await fetchBulkCoachSessionPerformanceAPI(params);
+      dispatch(coachBulkSessionPerformanceActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      console.error(error);
+      dispatch(coachBulkSessionPerformanceActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(coachBulkSessionPerformanceActions.isLoading(false));
+  };
+}
 export const coachPrivateServicePerformanceActions = {
   error: createAction('COACH/PRIVATE_SERVICE/PERFORMANCE/ERROR'),
   isLoading: createAction('COACH/PRIVATE_SERVICE/PERFORMANCE/IS_LOADING'),
@@ -217,6 +255,38 @@ export function fetchCoachPrivateServicePerformanceAction(
         associatedCoachId: params.associatedCoachId,
       }),
     );
+  };
+}
+
+export const coachBulkPrivateServicePerformanceActions = {
+  error: createAction('COACH/PRIVATE_SERVICE/BULK_PERFORMANCE/ERROR'),
+  isLoading: createAction('COACH/PRIVATE_SERVICE/BULK_PERFORMANCE/IS_LOADING'),
+  success: createAction('COACH/PRIVATE_SERVICE/BULK_PERFORMANCE/SUCCESS'),
+};
+
+export function fetchBulkPrivateServicePerformance(
+  params: {
+    associated_coach_ids: Array<number>;
+    start_timestamp: number;
+    end_timestamp: number;
+  },
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(coachBulkPrivateServicePerformanceActions.isLoading(true));
+    dispatch(coachBulkPrivateServicePerformanceActions.error(null));
+    try {
+      const response = await fetchBlukCoachPrivateServicePerformanceAPI(params);
+      dispatch(
+        coachBulkPrivateServicePerformanceActions.success(response.data),
+      );
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      console.error(error);
+      dispatch(coachBulkPrivateServicePerformanceActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(coachBulkPrivateServicePerformanceActions.isLoading(false));
   };
 }
 export const sessionCoachPaymentRule = {
@@ -388,5 +458,85 @@ export function deleteCoachPaymentRuleGroup(group: CoachPaymentRuleGroup) {
       dispatch(snackbarError('paymentRuleGroups.delete.error'));
     }
     dispatch(coachPaymentRuleGroupDelete.isLoading(false));
+  };
+}
+
+export const exportExcelPerformanceActions = {
+  isLoading: createAction('COACH_PERFORMANCE/EXCEL/IS_LOADING'),
+  error: createAction('COACH_PERFORMANCE/EXCEL/ERROR'),
+  success: createAction('COACH_PERFORMANCE/EXCEL/SUCCESS'),
+  create: createAction('COACH_PERFORMANCE/EXCEL/CREATE'),
+};
+
+export function exportExcelPerformance(
+  params: {
+    start_timestamp?: number;
+    end_timestamp?: number;
+    score_timestamp?: number;
+  },
+  options?: OptionCallback & {
+    closeInitialDialog: () => void;
+    backgroundDialog?: {
+      message: string;
+      title: string;
+    };
+  },
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(exportExcelPerformanceActions.isLoading(true));
+    dispatch(exportExcelPerformanceActions.error(null));
+    try {
+      const response = await exportAsyncCoachPerformanceExcelAPI(params);
+      dispatch(exportExcelPerformanceActions.success(response.data));
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onSuccess: () => {
+            if (options?.onSuccess) options.onSuccess();
+            if (options?.closeInitialDialog) options.closeInitialDialog();
+            dispatch(
+              displayBackgroundDialog(
+                backgroundTaskUuid,
+                options?.backgroundDialog?.message,
+                options?.backgroundDialog?.title,
+                response.data,
+              ),
+            );
+          },
+        }),
+      );
+    } catch (err) {
+      dispatch(exportExcelPerformanceActions.error(err));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(exportExcelPerformanceActions.isLoading(false));
+  };
+}
+
+export const fetchCoachPerformanceCachedDataActions = {
+  error: createAction('COACH/PERFORMANCE/GET_CACHED_DATA/ERROR'),
+  isLoading: createAction('COACH/PERFORMANCE/GET_CACHED_DATA/IS_LOADING'),
+  success: createAction('COACH/PERFORMANCE/GET_CACHED_DATA/SUCCESS'),
+};
+
+export function fetchCoachPerformanceCachedData(
+  params: {
+    max_range: number;
+  },
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchCoachPerformanceCachedDataActions.isLoading(true));
+    dispatch(fetchCoachPerformanceCachedDataActions.error(null));
+    try {
+      const response = await fetchCoachPerformanceCachedDataAPI(params);
+      dispatch(fetchCoachPerformanceCachedDataActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      console.error(error);
+      dispatch(fetchCoachPerformanceCachedDataActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(fetchCoachPerformanceCachedDataActions.isLoading(false));
   };
 }

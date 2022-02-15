@@ -1,7 +1,10 @@
 // @flow
 
 import React from 'react';
-
+import {
+  COACH_PERFORMANCE_FOR_SESSION,
+  COACH_PERFORMANCE_FOR_APPOINTMENT,
+} from '@bsport/common/lib/master-data/coach_payment_rule';
 import {
   compose,
   withProps,
@@ -22,7 +25,7 @@ import { associatedCoachSelector } from '../../libs/associated-coach/selectors';
 import {
   CoachPaymentSelector,
   CoachPaymentRuleByKindSelector,
-  getAssociatedCoachPerformances,
+  withCoachPerformance,
 } from '../../libs/coach-payment-rules/selectors';
 import {
   fetchAllCoachPaymentRules,
@@ -34,20 +37,27 @@ import {
 import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
 import withTitle from '../../hocs/with-title.hoc';
 
-import CoachPerformanceForm from '../../libs/associated-coach/components/performance/CoachPerformanceForm.component';
-import CoachPerformanceSummaryHeader from '../../libs/associated-coach/components/performance/CoachPerformanceSummaryHeader.component';
-import CoachPerformanceTabs from '../../libs/associated-coach/components/performance/CoachPerformanceTabs.component';
+import CoachPerformanceForm from '#libs/coach-payment-rules/components/performance/CoachPerformanceForm.component';
+import CoachPerformanceSummaryHeader from '#libs/coach-payment-rules/components/performance/CoachPerformanceSummaryHeader.component';
+import CoachPerformanceTabs from '#libs/coach-payment-rules/components/performance/CoachPerformanceTabs.component';
 import { Coach } from '../../libs/associated-coach/types';
-import {
-  CoachPaymentRule as CoachPaymentRuleType,
-  CoachPerformance as CoachPerformanceType,
-} from '../../libs/coach-payment-rules/types';
+import { CoachPaymentRule as CoachPaymentRuleType } from '../../libs/coach-payment-rules/types';
+
+type CoachwithPerformance = Coach & {
+  performanceLoading: boolean,
+  performance: {
+    [COACH_PERFORMANCE_FOR_SESSION]: Array<CoachPerformance>,
+    [COACH_PERFORMANCE_FOR_APPOINTMENT]: Array<CoachPerformance>,
+  },
+};
 
 type Props = {
+  associatedCoachId: number,
   loading: boolean,
   performanceLoading: boolean,
-  fetchAssociatedCoachesList: () => void,
-  performances: Array<CoachPerformanceType>,
+  fetchAssociatedCoachesList: (params: {
+    [key: string]: number | string,
+  }) => void,
   classes: Object,
   onSubmit: () => void,
   setSessionCoachPaymentRule: (data: {
@@ -61,14 +71,16 @@ type Props = {
     CoachPaymenrRuleId: number,
   }) => void,
   fetchAllCoachPaymentRules: () => void,
-  coach: Coach,
+  coachWithPerformance: CoachwithPerformance,
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRuleType> },
 };
 
 export class CoachPerformance extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchAllCoachPaymentRules();
-    this.props.fetchAssociatedCoachesList();
+    this.props.fetchAssociatedCoachesList({
+      associated_coach__in: this.props.associatedCoachId,
+    });
   }
 
   render() {
@@ -76,10 +88,9 @@ export class CoachPerformance extends React.Component<Props> {
       classes,
       loading,
       performanceLoading,
-      performances,
       onSubmit,
       coachPaymentRulesByKind,
-      coach,
+      coachWithPerformance,
     } = this.props;
     return (
       <div className={classes.container}>
@@ -87,23 +98,32 @@ export class CoachPerformance extends React.Component<Props> {
           <CoachPerformanceForm
             onSubmit={onSubmit}
             loading={loading || performanceLoading}
+            hideExport
           />
         </AppBar>
-        <CoachPerformanceSummaryHeader performances={performances} />
-        <Paper>
-          {loading || performanceLoading ? <LinearProgress /> : null}
-          <CoachPerformanceTabs
-            coach={coach}
-            allPerformance={performances}
-            coachPaymentRulesByKind={coachPaymentRulesByKind}
-            updatePrivateBookingCoachPaymentRule={(data) =>
-              this.props.updatePrivateBookingCoachPaymentRule(data)
-            }
-            setSessionCoachPaymentRule={(data) => {
-              this.props.setSessionCoachPaymentRule(data);
-            }}
-          />
-        </Paper>
+        {coachWithPerformance && coachPaymentRulesByKind ? (
+          <>
+            <CoachPerformanceSummaryHeader
+              performances={coachWithPerformance.performance}
+            />
+            <Paper>
+              {loading || performanceLoading ? <LinearProgress /> : null}
+              <CoachPerformanceTabs
+                hideRuleSetter
+                coachWithPerformance={coachWithPerformance}
+                coachPaymentRulesByKind={coachPaymentRulesByKind}
+                updatePrivateBookingCoachPaymentRule={(data) =>
+                  this.props.updatePrivateBookingCoachPaymentRule(data)
+                }
+                setSessionCoachPaymentRule={(data) => {
+                  this.props.setSessionCoachPaymentRule(data);
+                }}
+              />
+            </Paper>
+          </>
+        ) : (
+          <LinearProgress />
+        )}
       </div>
     );
   }
@@ -133,8 +153,7 @@ export default compose(
   })),
   connect(
     (state, props) => ({
-      coach: associatedCoachSelector.get(state, props.associatedCoachId),
-      performances: getAssociatedCoachPerformances(
+      coachWithPerformance: withCoachPerformance(associatedCoachSelector.get)(
         state,
         props.associatedCoachId,
       ),

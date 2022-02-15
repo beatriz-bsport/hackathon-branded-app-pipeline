@@ -1,4 +1,4 @@
-import type { Immutable } from 'seamless-immutable';
+import { ErrorAndLoading } from '#libs/types';
 import type { Coach } from '../associated-coach/types';
 
 export type BonusCoachPaymentRule = {
@@ -27,19 +27,27 @@ export type CoachPaymentRule = {
 };
 
 export type CoachPerformance = {
-  session_id: number;
-  session_name: String;
-  date_start: String;
+  session_id?: number;
+  private_booking_id?: number;
+  session_name?: string;
+  private_service_name?: string;
+  date_start: string;
   duration_minute: number;
   confirmed_bookings: number;
   cancelled_bookings: number;
   coach_total_payment: number;
-  base_remuneration: String;
+  base_remuneration: string;
   coach_bonus: string;
-  tax_rate: String;
+  tax_rate: string;
   performanceLoading?: boolean;
+  error: boolean;
+  coach_payment_rule: number;
+  is_unpaid?: boolean;
 };
 
+export type CoachPaymentRulesByKind = {
+  [kind: number]: Array<CoachPaymentRule>;
+};
 export type CoachPaymentRuleGroupAPI = {
   id: number;
   name: string;
@@ -64,43 +72,50 @@ export type CoachPaymentRuleGroup = {
   associated_coach: Array<Coach>;
 };
 
-export type CoachPaymentRuleState = Immutable<{
-  items: { [key: number]: CoachPaymentRule };
-  loading: boolean;
-  error?: Error;
-  upsert: {
-    loading: Boolean;
-    error?: Error;
+export type CoachPerformanceCachedData = {
+  timestamp: number;
+  bookings: { [coach_id: number]: Array<CoachPerformance> };
+  private_bookings: { [coach_id: number]: Array<CoachPerformance> };
+  metadata: {
+    date_start: string;
+    date_end: string;
   };
+};
+
+export type CoachPaymentRuleState = {
+  items: { [key: number]: CoachPaymentRule } | {};
+  upsert: ErrorAndLoading;
   dialog: boolean;
   simulationDialog: boolean;
   groupDialog: boolean;
   simulation: {
-    error?: Error;
-    result: Object;
-    loading: boolean;
-  };
+    result: Object | {};
+  } & ErrorAndLoading;
   performance: {
-    error?: Error;
-    loading: boolean;
     session: {
-      byAssociatedCoachId: {
-        [id: number]: {
-          data: Array<CoachPerformance>;
-          loading: boolean;
-        };
-      };
+      byAssociatedCoachId:
+        | {
+            [id: number]: {
+              data: Array<CoachPerformance>;
+              loading: boolean;
+            };
+          }
+        | {};
     };
     private_service: {
-      byAssociatedCoachId: {
-        [id: number]: Array<CoachPerformance>;
-      };
+      byAssociatedCoachId:
+        | {
+            [id: number]: Array<CoachPerformance>;
+          }
+        | {};
     };
-  };
+    cached_data: {
+      allTimestamps: Array<number>;
+      byTimestamp: { [timestamp: number]: CoachPerformanceCachedData };
+    } & ErrorAndLoading;
+  } & ErrorAndLoading;
   groups: {
     allIds: Array<number>;
     byId: { [key: number]: CoachPaymentRuleGroup };
-    loading: boolean;
-    error: any;
-  };
-}>;
+  } & ErrorAndLoading;
+} & ErrorAndLoading;

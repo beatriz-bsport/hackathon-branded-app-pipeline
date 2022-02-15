@@ -2,9 +2,10 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import { IconButton, Divider, Theme, makeStyles } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import { Divider, Theme, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -48,6 +49,17 @@ const NotificationRuleGroupHeader = (props: Props) => {
       </div>
       <div className={classes.contentWrapper}>
         <div>
+          {!!isOpen && (
+            <Button
+              className={classes.backButton}
+              color="primary"
+              variant="outlined"
+              onClick={onToggleClick(eventGroupName)}
+            >
+              <ArrowBackIcon className={classes.iconLeft} />
+              {t('goBackToMenu')}
+            </Button>
+          )}
           <Chip
             label={t('countEmail', {
               nbr: eventsList.filter(
@@ -56,6 +68,17 @@ const NotificationRuleGroupHeader = (props: Props) => {
               ).length,
             })}
           />
+          {!isOpen && (
+            <Button
+              className={classes.configureButton}
+              color="primary"
+              variant="outlined"
+              onClick={onToggleClick(eventGroupName)}
+            >
+              <ArrowForwardIcon className={classes.iconLeft} />
+              {t('configureNotif')}
+            </Button>
+          )}
           <FeatureListProvider>
             {(featureList) => (
               <>
@@ -76,11 +99,8 @@ const NotificationRuleGroupHeader = (props: Props) => {
             )}
           </FeatureListProvider>
         </div>
-        <IconButton onClick={onToggleClick(eventGroupName)}>
-          {isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-        </IconButton>
       </div>
-      <Divider />
+      <Divider className={classes.divider} />
     </div>
   );
 };
@@ -104,8 +124,20 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+  divider: {
+    marginTop: theme.spacing(1),
+  },
   rightChip: {
     marginLeft: theme.spacing(2),
+  },
+  configureButton: {
+    marginLeft: theme.spacing(2),
+  },
+  backButton: {
+    marginRight: theme.spacing(2),
+  },
+  iconLeft: {
+    marginRight: theme.spacing(1),
   },
 }));
 

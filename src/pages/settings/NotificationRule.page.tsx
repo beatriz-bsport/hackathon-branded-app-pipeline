@@ -1,5 +1,5 @@
 // @flow
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { compose } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -19,8 +19,6 @@ import { getEventByGroup } from '#libs/notification-rule/selectors';
 
 import withTitle from '#hocs/with-title.hoc';
 import NotificationRuleGroupHeader from '#libs/notification-rule/components/NotificationRuleGroupHeader.component';
-import NotificationRulePreview from '#libs/notification-rule/components/NotificationRulePreview.component';
-import NotificationRulePreviewHeader from '#libs/notification-rule/components/NotificationRulePreviewHeader.component';
 import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 
 const BIRTHDAY_NOTIFICATION = {
@@ -64,18 +62,6 @@ const NotificationRule = (props: Props) => {
   };
 
   const classes = useStyles();
-  const [displayNotification, setDisplayNotification] = useState(false);
-
-  const handleSetDisplayNotification = (
-    _: any,
-    value: 'notification' | 'email',
-  ) => {
-    if (value === 'notification') {
-      setDisplayNotification(true);
-      return;
-    }
-    setDisplayNotification(false);
-  };
 
   const notificationRuleSettings = settingsData.length
     ? settingsData[0].settings
@@ -98,14 +84,6 @@ const NotificationRule = (props: Props) => {
               />
             ),
           )}
-        </div>
-        <div className={classes.block}>
-          <NotificationRulePreviewHeader
-            className={classes.preview}
-            value={displayNotification ? 'notification' : 'email'}
-            onChange={handleSetDisplayNotification}
-          />
-          <NotificationRulePreview />
         </div>
       </div>
     </>

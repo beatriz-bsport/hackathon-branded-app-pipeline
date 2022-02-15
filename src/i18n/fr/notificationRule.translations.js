@@ -287,6 +287,8 @@ exports.default = {
   countElements: '{{nbr}} éléments',
   countEmail: '{{nbr}} emails transactionnels activés',
   countNotification: '{{nbr}} notifications push activés',
+  configureNotif: 'Configurer',
+  goBackToMenu: 'Précédent',
   franchiseOwned:
     'Votre franchiseur gère actuellement cet email transactionnel',
   preview: {

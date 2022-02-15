@@ -281,24 +281,24 @@ const NotificationRuleDetail = (props: Props) => {
           </React.Fragment>
         ))}
       </div>
-      {previewEmailHtml ||
-        (previewEmailId &&
+      {(!!previewEmailHtml ||
+        (!!previewEmailId &&
           previewEmail[previewEmailId] &&
-          previewEmail[previewEmailId].html && (
-            <Dialog open>
-              <div
-                // eslint-disable-next-line
+          previewEmail[previewEmailId].html)) && (
+        <Dialog open>
+          <div
+            // eslint-disable-next-line
                 dangerouslySetInnerHTML={{
-                  __html: previewEmailHtml || previewEmail[previewEmailId].html,
-                }}
-              />
-              <DialogActions>
-                <Button onClick={handleCloseEmailPreview}>
-                  {t('emailDesign.closePreview')}
-                </Button>
-              </DialogActions>
-            </Dialog>
-          ))}
+              __html: previewEmailHtml || previewEmail[previewEmailId].html,
+            }}
+          />
+          <DialogActions>
+            <Button onClick={handleCloseEmailPreview}>
+              {t('emailDesign.closePreview')}
+            </Button>
+          </DialogActions>
+        </Dialog>
+      )}
     </div>
   );
 };

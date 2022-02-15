@@ -286,6 +286,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   container: {
     padding: theme.spacing(4),
     paddingRight: theme.spacing(2),
+    marginBottom: theme.spacing(1),
   },
   title: {
     fontWeight: 500,

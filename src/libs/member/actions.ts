@@ -32,10 +32,17 @@ import {
   interrogateMemberStatus as interrogateMemberStatusAPI,
   createChangeEmailRequest as createChangeEmailRequestAPI,
   retrieveChangeEmailRequest as retrieveChangeEmailRequestAPI,
+  retrieveMinimalChangeEmailRequest as retrieveMinimalChangeEmailRequestAPI,
   answerChangeEmailRequest as answerChangeEmailRequestAPI,
   retrievePendingEmail as retrievePendingEmailAPI,
 } from './api';
-import type { Member, MemberMinimal, MemberUploadedFile } from './types';
+import type {
+  Member,
+  MemberMinimal,
+  MemberUploadedFile,
+  ChangeEmailRequestMinimal,
+  ChangeEmailRequest,
+} from './types';
 
 import type { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
 import {
@@ -949,7 +956,7 @@ export const retrieveChangeEmailRequestActions = {
 
 export function retrieveChangeEmailRequest(
   uuid: string,
-  options?: OptionCallback,
+  options?: OptionCallback<ChangeEmailRequest>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveChangeEmailRequestActions.isLoading(true));
@@ -971,6 +978,35 @@ export function retrieveChangeEmailRequest(
   };
 }
 
+export const retrieveMinimalChangeEmailRequestActions = {
+  isLoading: createAction('CHANGE_EMAIL_REQUEST/MINIMAL_RETRIEVE/LOADING'),
+  error: createAction('CHANGE_EMAIL_REQUEST/MINIMAL_RETRIEVE/ERROR'),
+  success: createAction('CHANGE_EMAIL_REQUEST/MINIMAL_RETRIEVE/SUCCESS'),
+};
+
+export function retrieveMinimalChangeEmailRequest(
+  uuid: string,
+  options?: OptionCallback<ChangeEmailRequestMinimal>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrieveMinimalChangeEmailRequestActions.isLoading(true));
+    dispatch(retrieveMinimalChangeEmailRequestActions.error(null));
+    try {
+      const response = await retrieveMinimalChangeEmailRequestAPI(uuid);
+      dispatch(retrieveMinimalChangeEmailRequestActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(retrieveMinimalChangeEmailRequestActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(retrieveMinimalChangeEmailRequestActions.isLoading(false));
+  };
+}
 export const answerChangeEmailRequestActions = {
   isLoading: createAction('CHANGE_EMAIL_REQUEST/ANSWER/LOADING'),
   error: createAction('CHANGE_EMAIL_REQUEST/ANSWER/ERROR'),

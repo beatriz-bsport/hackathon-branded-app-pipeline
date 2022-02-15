@@ -1,16 +1,13 @@
 import React from 'react';
-import { compose } from 'recompose';
-import { WithTranslation, withTranslation } from 'react-i18next';
-import { Theme } from '@material-ui/core/styles';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { useTranslation } from 'react-i18next';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import Dialog from '@material-ui/core/Dialog';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { MaterialStyleType } from '../../../utils/types';
 
-type OwnProps = {
+type Props = {
   open: boolean;
   data: {
     exists: boolean;
@@ -23,11 +20,11 @@ type OwnProps = {
   onConfirm: () => void;
   onCancel: () => void;
 };
-type Props = OwnProps &
-  MaterialStyleType<ReturnType<typeof styles>> &
-  WithTranslation;
+
 export const MemberChangeEmailDialog = (props: Props) => {
-  const { t, classes, data, onCancel, onConfirm } = props;
+  const { data, onCancel, onConfirm } = props;
+  const classes = useStyles();
+  const { t } = useTranslation('member');
   if (!data.exists) {
     return null;
   }
@@ -45,6 +42,11 @@ export const MemberChangeEmailDialog = (props: Props) => {
     if (data.exists && data.member_pk) {
       return '';
     }
+    if (data.exists && !data.member_pk && data.error) {
+      return `${t(
+        'changeEmailRequest.dialog.simpleChange.informativeHelperText',
+      )}${'\u00A0'}`;
+    }
     return `${t('changeEmailRequest.dialog.securityHelperText')}${'\u00A0'}`;
   };
   const securityText = () => {
@@ -55,7 +57,7 @@ export const MemberChangeEmailDialog = (props: Props) => {
       });
     }
     if (data.exists && !data.member_pk && data.error) {
-      return t('changeEmailRequest.dialog.simpleChange.unchangedEmail');
+      return '';
     }
     return t('changeEmailRequest.dialog.linkMember.unchangedEmail', {
       old_email: data.old_email,
@@ -66,6 +68,12 @@ export const MemberChangeEmailDialog = (props: Props) => {
       return t('changeEmailRequest.dialog.titleMerge');
     }
     return t('changeEmailRequest.dialog.title');
+  };
+  const renderExpiryText = () => {
+    if (data.exists && !data.member_pk && data.error) {
+      return '';
+    }
+    return t('changeEmailRequest.dialog.expiryText');
   };
   return (
     <>
@@ -107,9 +115,7 @@ export const MemberChangeEmailDialog = (props: Props) => {
             </div>
             <div className={classes.expiryContainer}>
               {!data.member_pk && (
-                <Typography variant="body1">
-                  {t('changeEmailRequest.dialog.expiryText')}
-                </Typography>
+                <Typography variant="body1">{renderExpiryText()}</Typography>
               )}
             </div>
           </div>
@@ -130,7 +136,8 @@ export const MemberChangeEmailDialog = (props: Props) => {
     </>
   );
 };
-const styles = (theme: Theme) => ({
+
+const useStyles = makeStyles((theme) => ({
   title: {
     padding: theme.spacing(2),
   },
@@ -161,8 +168,6 @@ const styles = (theme: Theme) => ({
   cancelHelperText: {
     paddingTop: theme.spacing(2),
   },
-});
-export default compose<any, OwnProps>(
-  withTranslation('member'),
-  withStyles(styles),
-)(MemberChangeEmailDialog);
+}));
+
+export default MemberChangeEmailDialog;

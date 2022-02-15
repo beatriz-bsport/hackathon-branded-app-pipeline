@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withStateHandlers } from 'recompose';
 import { push as pushRouter } from 'connected-react-router';
-import { Redirect } from 'react-router-dom';
 import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import {
@@ -11,6 +10,7 @@ import {
   CHANGE_EMAIL_REQUEST_SIMPLE_EMAIL_CONFIRMATION_KIND,
   CHANGE_MEMBER_EMAIL_PENDING_STATUS,
 } from '@bsport/common/lib/master-data/change-email-request';
+import type { Dispatch } from '../../state/types';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import ConsumerAppBar from '../checkout/ConsumerAppBar.container';
 import {
@@ -26,11 +26,15 @@ import { fetchCompanyBulk } from '#libs/company/actions';
 import { RootState } from '../../reducers';
 import {
   retrieveChangeEmailRequest,
+  retrieveMinimalChangeEmailRequest,
   answerChangeEmailRequest,
 } from '#libs/member/actions';
 import { fetchCompanyTheme } from '#libs/theme/actions';
 import themeSelectors from '#libs/theme/selectors';
-import { getCurrentChangeEmailRequest } from '#libs/member/selectors';
+import {
+  getCurrentChangeEmailRequest,
+  getCurrentChangeEmailRequestEmailChoices,
+} from '#libs/member/selectors';
 import ChangeEmailSubmitDialog from '#libs/member/components/change_email/ChangeEmailSubmitDialog.component';
 import { WithHandlerType } from '../../utils/types';
 import {
@@ -41,6 +45,9 @@ import {
   ErrorContent,
   UnAuthorizedContent,
 } from '#libs/member/components/change_email/consumer-space/content';
+
+import LoginComponent from '#libs/login/components/Login.component';
+import { requestLogin } from '../../actions/auth.actions';
 
 type StateHandlerInit = {
   submitStatus: {
@@ -60,6 +67,7 @@ type RouterParamsToPropsProps = {
 };
 type OwnAndConnectedProps = RouterParamsToPropsProps &
   ConnectedProps<typeof connector> &
+  ConnectedProps<typeof loginConnector> &
   StateHandlerType;
 type Props = OwnProps &
   OwnAndConnectedProps &
@@ -68,9 +76,10 @@ type Props = OwnProps &
 
 export class ConsumerChangeEmailRequestPage extends Component<Props> {
   componentDidMount() {
-    this.props.retrieveChangeEmailRequest(this.props.uuid);
+    this.props.retrieveMinimalChangeEmailRequest(this.props.uuid);
     this.props.fetchCompanyTheme(this.props.companyId);
     if (this.props.authenticated) {
+      this.props.retrieveChangeEmailRequest(this.props.uuid);
       this.props.fetchMembershipByCompany(this.props.companyId);
       this.props.fetchMembershipListAsConsumer({ page_size: 10 });
       this.props.fetchCompanyBulk(this.props.membershipListIdList);
@@ -84,25 +93,22 @@ export class ConsumerChangeEmailRequestPage extends Component<Props> {
         prevProps.activeMemberShip.company !==
           this.props.activeMemberShip.company)
     ) {
+      this.props.retrieveMinimalChangeEmailRequest(this.props.uuid);
       this.props.retrieveChangeEmailRequest(this.props.uuid);
       this.props.fetchCompanyTheme(this.props.companyId);
       this.props.fetchCompanyBulk(this.props.membershipListIdList);
     }
     if (!prevProps.authenticated && this.props.authenticated) {
+      this.props.retrieveChangeEmailRequest(this.props.uuid);
+      this.props.retrieveMinimalChangeEmailRequest(this.props.uuid);
       this.props.fetchMembershipByCompany(this.props.companyId);
       this.props.fetchMembershipListAsConsumer({ page_size: 10 });
       this.props.fetchCompanyBulk(this.props.membershipListIdList);
     }
+    if (prevProps.authenticated && !this.props.authenticated) {
+      this.props.retrieveMinimalChangeEmailRequest(this.props.uuid);
+    }
   }
-
-  getLoginUrl = () => {
-    const { pathname } = this.props.location;
-    return `/login/customer?next=${encodeURIComponent(
-      `${pathname}${
-        window.location.search ? window.location.search : '?'
-      }&membership=${this.props.companyId}`,
-    )}&membership=${this.props.companyId}`;
-  };
 
   goToUserSpace = () => this.props.pushRouter(`/c/${this.props.companyId}`);
 
@@ -188,7 +194,22 @@ export class ConsumerChangeEmailRequestPage extends Component<Props> {
   render() {
     const { classes, changeEmailRequest, authenticated } = this.props;
     if (!authenticated) {
-      return <Redirect to={this.getLoginUrl()} />;
+      return (
+        <div className={classes.loginContainer}>
+          <LoginComponent
+            doEmailLogin={this.props.doEmailLogin}
+            error={this.props.errorLogin}
+            errorFields={this.props.errorFields}
+            loading={this.props.loginProcessing}
+            company={!!this.props.companyId}
+            isPremium={this.props.theme.is_premium}
+            theme={this.props.theme}
+            t={this.props.t}
+            hideRegister
+            emailChoices={this.props.changeEmailRequestEmailChoices}
+          />
+        </div>
+      );
     }
     if (authenticated && this.props.error?.response.status === 403) {
       return (
@@ -228,11 +249,17 @@ const connector = connect(
     membershipList: getConsumerMembershipList(state),
     authenticated: state.auth.authenticated,
     changeEmailRequest: getCurrentChangeEmailRequest(state),
+    changeEmailRequestEmailChoices:
+      getCurrentChangeEmailRequestEmailChoices(state),
     error: state.member.change_email_request.error,
     loading: state.member.change_email_request.loading,
+    errorLogin: state.auth.error,
+    loginProcessing: state.auth.loading,
+    errorFields: state.auth.invalidFields,
   }),
   {
     retrieveChangeEmailRequest,
+    retrieveMinimalChangeEmailRequest,
     fetchMembershipByCompany,
     fetchCompanyTheme,
     answerChangeEmailRequest,
@@ -241,6 +268,11 @@ const connector = connect(
     fetchCompanyBulk,
   },
 );
+const loginConnector = connect(null, (dispatch: Dispatch) => ({
+  doEmailLogin({ email, password }: { email: string; password: string }) {
+    dispatch(requestLogin(email, password));
+  },
+}));
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -291,6 +323,13 @@ const styles = (theme: Theme) =>
       display: 'flex',
       justifyContent: 'center',
     },
+    loginContainer: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '100%',
+      height: '100vh',
+    },
   });
 
 const withStateHandlersInit: StateHandlerInit = {
@@ -338,4 +377,5 @@ export default compose(
   withTranslation('member'),
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
   connector,
+  loginConnector,
 )(ConsumerChangeEmailRequestPage);

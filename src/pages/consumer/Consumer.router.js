@@ -36,10 +36,17 @@ type Props = {
 };
 
 export const ConsumerRouter = (props: Props) => {
-  if (!props.authenticated && props.companyId) {
+  if (
+    !props.authenticated &&
+    props.companyId &&
+    !window.location.pathname.includes('change_email')
+  ) {
     return <Redirect to={`/login/customer?membership=${props.companyId}`} />;
   }
-  if (!props.authenticated) {
+  if (
+    !props.authenticated &&
+    !window.location.pathname.includes('change_email')
+  ) {
     return <Redirect to="/login" />;
   }
   if (props.isManager) {
@@ -56,12 +63,19 @@ export const ConsumerRouter = (props: Props) => {
   }
 
   const token = getAuthToken();
-  if (!getAuthToken() || token === 'null') {
+  if (
+    !getAuthToken() ||
+    (token === 'null' && !window.location.pathname.includes('change_email'))
+  ) {
     return <Redirect to="/login/signout" />;
   }
-
   return (
     <Switch>
+      <Route
+        exact
+        path="/c/membership-validator/:companyId/"
+        component={ConsumerMembershipValidator}
+      />
       <Route
         exact
         path="/c/membership-selector/"
@@ -72,11 +86,7 @@ export const ConsumerRouter = (props: Props) => {
         path="/c/franchisee-selector/:franchisorId"
         component={ConsumerFranchiseeSelector}
       />
-      <Route
-        exact
-        path="/c/membership-validator/:companyId/"
-        component={ConsumerMembershipValidator}
-      />
+
       <Route
         path="/c/:companyId/change_email/:uuid"
         component={ConsumerChangeEmailRequestPage}

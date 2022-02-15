@@ -1728,7 +1728,11 @@
       "explain": "Votre session a expirée. Vous vous êtes connecté à deux comptes différents simultanément, ou vous êtes déconnecté depuis un autre onglet / fenêtre.?",
       "disconnect": "Me reconnecter"
     },
-    "signin": { "connection": "Connexion", "connect": "Connectez-vous pour continuer." },
+    "signin": {
+      "connection": "Connexion",
+      "connect": "Connectez-vous pour continuer.",
+      "selectYourCurrentEmail": "Sélectionner votre adresse actuelle de connexion."
+    },
     "signup": { "title": "Inscription" },
     "contactUs": "Manager de studio, vous êtes intéressé par notre solution ?\nContactez-nous.",
     "signupCompany": {
@@ -2289,8 +2293,9 @@
         "title": "Changement d'email",
         "titleMerge": " Fusion de membre",
         "simpleChange": {
-          "warning": "Attention, vous avez modifié l'email de connexion de ce membre :",
-          "unchangedEmail": "En attendant il conservera son ancien email."
+          "warning": "Attention, vous allez modifié l'email de connexion de ce membre :",
+          "unchangedEmail": "En attendant il conservera son ancien email.",
+          "informativeHelperText": "A titre informatif nous allons lui envoyer un email pour l'informer ce changement."
         },
         "linkMember": {
           "warning": "Attention, vous chercher à lier ces deux membres :",

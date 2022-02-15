@@ -196,6 +196,9 @@ export async function createChangeEmailRequest(data: {
 export async function retrieveChangeEmailRequest(uuid: string) {
   return getAuth(`${API_V1_URI}/change_email_request/${uuid}/`);
 }
+export async function retrieveMinimalChangeEmailRequest(uuid: string) {
+  return getAuth(`${API_V1_URI}/change_email_request/${uuid}/minimal/`);
+}
 
 export async function answerChangeEmailRequest(
   uuid: string,

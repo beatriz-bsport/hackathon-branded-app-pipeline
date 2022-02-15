@@ -17,6 +17,10 @@ import { withTranslation, TFunction } from 'react-i18next';
 
 import Fade from '@material-ui/core/Fade';
 import { Theme } from '@material-ui/core/styles/createTheme';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormLabel from '@material-ui/core/FormLabel';
+import Radio from '@material-ui/core/Radio';
 import { CompanyTheme } from '#libs/theme/types';
 import PasswordInput from '../../../components/input/PasswordInput.component';
 
@@ -28,7 +32,7 @@ import Config from '../../../config';
 
 type Props = {
   doEmailLogin: (Obj: { email: string; password: string }) => void;
-  requestSignUp: () => void;
+  requestSignUp?: () => void;
   loading: boolean;
   classes: any;
   error?: boolean;
@@ -43,6 +47,8 @@ type Props = {
   logoHidden?: boolean;
   marketplace?: boolean;
   franchisor?: boolean;
+  hideRegister?: boolean;
+  emailChoices?: Array<string>;
 };
 
 type State = {
@@ -70,7 +76,6 @@ export class ConsumerLogin extends Component<Props, State> {
     if (errorFields && errorFields.email) {
       errorMessage = t('error.invalidEmail');
     }
-
     return (
       <div className={`${classes.flexColumnCenter} ${classes.getEmailLogin}`}>
         {!WidgetUtils.isWidget() && !this.props.logoHidden && (
@@ -122,19 +127,50 @@ export class ConsumerLogin extends Component<Props, State> {
         </div>
         <form className={classes.column} onSubmit={this.doEmailLogin}>
           <div className={classes.field}>
-            <FormField
-              id="email"
-              name="login"
-              disabled={this.props.loading}
-              onChange={this.onFormFieldChange}
-              fullWidth
-            />
+            {this.props.emailChoices ? (
+              <RadioGroup
+                id="email"
+                name="login"
+                onChange={(ev) => this.setState({ email: ev.target.value })}
+              >
+                <>
+                  <FormLabel className={classes.emailChoiceLabel}>
+                    {t('signin.selectYourCurrentEmail')}
+                  </FormLabel>
+                  {this.props.emailChoices?.map((email_choice) => {
+                    return (
+                      <FormControlLabel
+                        value={email_choice}
+                        control={
+                          <Radio
+                            checked={this.state.email === email_choice}
+                            disabled={this.props.loading}
+                          />
+                        }
+                        label={email_choice}
+                      />
+                    );
+                  })}
+                </>
+              </RadioGroup>
+            ) : (
+              <FormField
+                id="email"
+                name="login"
+                disabled={this.props.loading}
+                onChange={this.onFormFieldChange}
+                fullWidth
+              />
+            )}
           </div>
           <div className={classes.field}>
             <PasswordInput
               fullWidth
               value={this.state.password}
-              disabled={this.props.loading}
+              disabled={
+                this.props.loading ||
+                (!!this.props.emailChoices && !this.state.email)
+              }
               className={classes.field}
               onChange={(ev: any) =>
                 this.onFormFieldChange('password')(ev.target.value)
@@ -201,33 +237,37 @@ export class ConsumerLogin extends Component<Props, State> {
   };
 
   render() {
-    const { loading, t, classes } = this.props;
+    const { loading, t, classes, hideRegister } = this.props;
 
     const { requestSignUp } = this.props;
     return (
       <div className={classnames(classes.flexColumnCenter, classes.container)}>
         {this.getEmailLogin()}
-        <div className={classes.signupDivider} />
-        <div>
-          <Typography variant="body2">
-            {t('actions.signup.noAccount')}
-          </Typography>
-        </div>
-        <Button
-          id="btn-goto-signup"
-          variant="outlined"
-          disabled={loading}
-          onClick={requestSignUp}
-          className={classes.registerButton}
-        >
-          {t('actions.signup.register')}
-        </Button>
-        {!this.props.isPremium && (
-          <div className={classes.studioManager}>
-            <a href={getCalendlyLinkFromCountry()} className={classes.link}>
-              <Typography variant="body2">{t('contactUs')}</Typography>
-            </a>
-          </div>
+        {!hideRegister && (
+          <>
+            <div className={classes.signupDivider} />
+            <div>
+              <Typography variant="body2">
+                {t('actions.signup.noAccount')}
+              </Typography>
+            </div>
+            <Button
+              id="btn-goto-signup"
+              variant="outlined"
+              disabled={loading}
+              onClick={requestSignUp}
+              className={classes.registerButton}
+            >
+              {t('actions.signup.register')}
+            </Button>
+            {!this.props.isPremium && (
+              <div className={classes.studioManager}>
+                <a href={getCalendlyLinkFromCountry()} className={classes.link}>
+                  <Typography variant="body2">{t('contactUs')}</Typography>
+                </a>
+              </div>
+            )}
+          </>
         )}
       </div>
     );
@@ -412,6 +452,9 @@ const styles = (theme: Theme): any => ({
   },
   getEmailLogin: {
     width: '90%',
+  },
+  emailChoiceLabel: {
+    paddingBottom: theme.spacing(2),
   },
 });
 

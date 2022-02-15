@@ -48,6 +48,7 @@ exports.default = {
   signin: {
     connection: 'Connexion',
     connect: 'Connectez-vous pour continuer.',
+    selectYourCurrentEmail: 'Sélectionner votre adresse actuelle de connexion.',
   },
   signup: {
     title: 'Inscription',

@@ -23,6 +23,7 @@ import {
   updateMemberFileActions,
   createChangeEmailRequestActions,
   retrieveChangeEmailRequestActions,
+  retrieveMinimalChangeEmailRequestActions,
   retrieveMemberPendingEmailRequestActions,
 } from './actions';
 import { Member, MemberNote, MemberState } from './types';
@@ -97,6 +98,7 @@ const initialState: Immutable.Immutable<MemberState> = Immutable<MemberState>({
     error: null,
     loading: false,
     current: null,
+    minimal: null,
   },
 });
 
@@ -476,6 +478,25 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
         {
           change_email_request: {
             current: action.payload,
+          },
+        },
+        { deep: true },
+      );
+    },
+    [retrieveMinimalChangeEmailRequestActions.isLoading.toString()]: (
+      state,
+      action,
+    ) => {
+      return state.setIn(['change_email_request', 'loading'], action.payload);
+    },
+    [retrieveMinimalChangeEmailRequestActions.success.toString()]: (
+      state,
+      action,
+    ) => {
+      return state.merge(
+        {
+          change_email_request: {
+            minimal: action.payload,
           },
         },
         { deep: true },

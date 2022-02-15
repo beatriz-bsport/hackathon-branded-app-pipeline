@@ -144,6 +144,7 @@ export type MemberState = ErrorAndLoading &
     };
     change_email_request: {
       current: ChangeEmailRequest | null;
+      minimal: ChangeEmailRequestMinimal | null;
     } & ErrorAndLoading;
   };
 
@@ -171,4 +172,9 @@ export type ChangeEmailRequest<M = number> = {
   dst_other_companies_members: Array<M>;
   kind?: number;
   email_already_used: boolean;
+};
+
+export type ChangeEmailRequestMinimal = {
+  old_email: string;
+  new_email: string;
 };

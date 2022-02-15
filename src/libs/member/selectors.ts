@@ -183,3 +183,10 @@ export const getListCountMembers = (state: RootState) => state.member.listCount;
 
 export const getCurrentChangeEmailRequest = (state: RootState) =>
   state.member.change_email_request.current;
+export const getCurrentMinimalChangeEmailRequest = (state: RootState) =>
+  state.member.change_email_request.minimal;
+
+export const getCurrentChangeEmailRequestEmailChoices = createSelector(
+  [getCurrentMinimalChangeEmailRequest],
+  (cerMinimal) => [cerMinimal?.old_email, cerMinimal?.new_email],
+);

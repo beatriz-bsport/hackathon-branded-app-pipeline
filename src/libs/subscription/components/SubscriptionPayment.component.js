@@ -135,6 +135,7 @@ type Props = {
   establishments: Array<Establishment>,
   establishmentLoading: boolean,
   enableMultiLocalization: boolean,
+  memberId?: number,
 };
 
 type State = {
@@ -241,7 +242,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
     const { data } = await appliesToContract(
       coupon_code,
       this.props.contract.id,
-      this.props.member?.id,
+      this.props.member?.id || this.props.memberId,
     );
 
     if (data.can_be_applied) {

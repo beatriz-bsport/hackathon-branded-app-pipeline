@@ -47,7 +47,23 @@ export const fetchBulkCoachSessionPerformance = async (params: {
     },
   );
 };
-
+export const fetchBulkCachedCoachSessionPerformance = async (params: {
+  associated_coach_ids: Array<number>;
+  start_timestamp: number;
+  end_timestamp: number;
+}) => {
+  return postAuth(
+    `${API_V1_URI}/coach_payment_rules/fetch_bulk_coach_session_performance/${buildUrlParams(
+      {
+        start_timestamp: params.start_timestamp,
+        end_timestamp: params.end_timestamp,
+      },
+    )}`,
+    {
+      associated_coach_ids: params.associated_coach_ids,
+    },
+  );
+};
 export const fetchCoachPrivateServicePerformance = async (params: {
   associatedCoachId: number;
   start_timestamp: number;

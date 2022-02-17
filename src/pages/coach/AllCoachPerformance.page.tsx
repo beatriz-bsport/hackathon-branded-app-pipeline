@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import type { Moment } from 'moment';
+import type { Moment as MomentType } from 'moment';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withHandlers, withStateHandlers, withState } from 'recompose';
 import AppBar from '@material-ui/core/AppBar';
-
+import Moment from 'moment-timezone';
 import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { OptionCallback } from '../../state/types';
@@ -285,7 +285,7 @@ const mapWithHandlers = {
       setFormDates,
     }: OwnAndConnectedProps) =>
     async (
-      data: { dateStart: Moment; dateEnd: Moment },
+      data: { dateStart: MomentType; dateEnd: MomentType },
       options: OptionCallback,
     ) => {
       const { dateStart, dateEnd } = data;
@@ -334,7 +334,7 @@ const mapWithHandlers = {
       setPerformanceLoading,
       setFormDates,
     }: OwnAndConnectedProps) =>
-    async (data: { dateStart: Moment; dateEnd: Moment }) => {
+    async (data: { dateStart: MomentType; dateEnd: MomentType }) => {
       const { dateStart, dateEnd } = data;
       setFormDates({ dateStart: dateStart.unix(), dateEnd: dateEnd.unix() });
       setPerformanceLoading(true);
@@ -487,8 +487,11 @@ const mapWithHandlers = {
       fetchAssociatedCoachesPaginatedListAction,
       setCoachPagination,
       setActivePageAssociatedCoachIds,
+      fetchBulkCoachSessionPerformanceAction,
+      formDates,
+      setPerformanceLoading,
     }: OwnAndConnectedProps) =>
-    (params: { page: number }) => {
+    (params: { page: number }, options?: OptionCallback) => {
       fetchAssociatedCoachesPaginatedListAction(params, {
         onSuccess: (payload) => {
           setCoachPagination({
@@ -497,17 +500,39 @@ const mapWithHandlers = {
             previous: params.page - 1,
             count: payload.count,
           });
-          setActivePageAssociatedCoachIds(
-            payload.results?.map((ass) => ass.associated_coach_id),
+          const ids = payload.results?.map((ass) => ass.associated_coach_id);
+          setActivePageAssociatedCoachIds(ids);
+
+          fetchBulkCoachSessionPerformanceAction(
+            {
+              associated_coach_ids: ids,
+              start_timestamp: formDates.dateStart,
+              end_timestamp: formDates.dateEnd,
+              from_cache: true,
+            },
+            {
+              onSuccess: () => {
+                setPerformanceLoading(false);
+                if (options && options.onSuccess) options.onSuccess();
+              },
+              onError: () => {
+                setPerformanceLoading(false);
+                if (options && options.onError) options.onError();
+              },
+            },
           );
         },
       });
+      options?.onSuccess && options.onSuccess();
     },
 };
 
 export default compose(
   withStyles(styles),
-  withState('formDates', 'setFormDates', {}),
+  withState('formDates', 'setFormDates', {
+    dateStart: Moment().startOf('month').unix(),
+    dateEnd: Moment(Moment().startOf('month')).endOf('month').unix(),
+  }),
   withState('selectedCachedTimestamp', 'setSelectedCachedTimestamp', null),
   withTranslation(['coachPerformance', 'coach']),
   connector,

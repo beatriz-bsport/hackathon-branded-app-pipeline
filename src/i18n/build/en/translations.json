@@ -4694,7 +4694,8 @@
         },
         "signin": {
             "connect": "Please log in or create an account to continue.",
-            "connection": "Log in"
+            "connection": "Log in",
+            "selectYourCurrentEmail": "Select your current login credentials."
         }
     },
     "waitingList": {
@@ -4819,7 +4820,7 @@
                 "offerPreBooked": "You are on the waiting list for",
                 "offerBooked": "You've successfully booked",
                 "basket": "Your basket",
-                "title": "Click to access you booking summary"
+                "title": "Click to access your booking summary"
             },
             "actions": {
                 "back": "Go back",
@@ -8092,7 +8093,7 @@
                 "title": "Merge member",
                 "explainCredit": "The internal credit balance will be transferred",
                 "explainBookingsAndPassAndInvoiceAndNotes": "Bookings, passes, notes and invoices will be transfered.",
-                "explainTags": "Tags from the deleted member will not be transfered",
+                "explainTags": "Tags from the deleted member will not be transferred",
                 "cancel": "Cancel",
                 "submit": "Merge",
                 "emailWillBeSend": "A message will be sent to both email addresses to notify the members."
@@ -8150,7 +8151,7 @@
         },
         "paymentAction": {
             "toSubscribe": "Subscribe",
-            "toBill": "Pay now"
+            "toBill": "Bill"
         },
         "pastBooking": "last: ",
         "table": {
@@ -8333,7 +8334,8 @@
                 },
                 "simpleChange": {
                     "unchangedEmail": "The previous email will be kept in the meantime.",
-                    "warning": "Attention! You've changed the login email of:"
+                    "warning": "Attention! You've changed the login email of:",
+                    "informativeHelperText": "Attention: a notification of the changes will be sent."
                 },
                 "titleMerge": " Merge member accounts",
                 "title": "Changing email address"
@@ -9666,7 +9668,7 @@
             "merge": {
                 "submit": "Merge",
                 "cancel": "Cancel",
-                "explainTags": "Member tags will not be transfered",
+                "explainTags": "Member tags will not be transferred",
                 "explainBookingsAndPassAndInvoiceAndNotes": "Passes, booking, bills, and notes will be transferred.",
                 "explainCredit": "Internal account of the member will be transferred",
                 "title": "Merge",

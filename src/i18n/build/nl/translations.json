@@ -1784,7 +1784,8 @@
         },
         "signin": {
             "connect": "Log in om verder te gaan.",
-            "connection": "Aanmelden"
+            "connection": "Aanmelden",
+            "selectYourCurrentEmail": "Selecteer je huidige inloggegevens."
         }
     },
     "reporting": {
@@ -3946,7 +3947,8 @@
             "dialog": {
                 "simpleChange": {
                     "warning": "Attentie! Het e-mailadres voor het inloggen van dit lid is gewijzigd:",
-                    "unchangedEmail": "Het huidige e-mailadres wordt in de tussentijd aangehouden."
+                    "unchangedEmail": "Het huidige e-mailadres wordt in de tussentijd aangehouden.",
+                    "informativeHelperText": "Er wordt ook een melding van deze wijzigingen verstuurd."
                 },
                 "mergeMember": {
                     "warning": "Attentie! Je bent deze twee leden van je studio aan het samenvoegen:",

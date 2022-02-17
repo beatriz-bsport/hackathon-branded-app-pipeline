@@ -761,6 +761,7 @@ const mapWithHandlers = {
           });
         },
       });
+      options?.onSuccess && options.onSuccess();
     },
   fetchCachedData:
     ({

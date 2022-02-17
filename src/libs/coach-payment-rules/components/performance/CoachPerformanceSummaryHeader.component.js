@@ -13,11 +13,13 @@ import {
 import Figure from '../../../../components/graph/Figure.component';
 import { getCurrencyDisplayWithPrice } from '../../../theme/selectors';
 import type { CoachPerformance } from '../../types';
+import { formatMinutes } from '../../../../utils/datetime';
 
 type Props = {
   performances: Object<Array<CoachPerformance>>,
   t: (x: string) => string,
   classes: any,
+  isCoach: boolean,
 };
 
 export function CoachPerformanceSummary(props: Props) {
@@ -26,6 +28,7 @@ export function CoachPerformanceSummary(props: Props) {
   const nbSessions = performances[COACH_PERFORMANCE_FOR_SESSION]
     ? performances[COACH_PERFORMANCE_FOR_SESSION].length
     : null;
+
   const nbPrivateServices = performances[COACH_PERFORMANCE_FOR_APPOINTMENT]
     ? performances[COACH_PERFORMANCE_FOR_APPOINTMENT].length
     : null;
@@ -43,6 +46,20 @@ export function CoachPerformanceSummary(props: Props) {
         0,
       )
     : null;
+  const durationTotalBookings = performances[COACH_PERFORMANCE_FOR_SESSION]
+    ? performances[COACH_PERFORMANCE_FOR_SESSION].reduce(
+        (a, b) => a + (b.duration_minute || 0),
+        0,
+      )
+    : null;
+  const durationTotalPrivateService = performances[
+    COACH_PERFORMANCE_FOR_APPOINTMENT
+  ]
+    ? performances[COACH_PERFORMANCE_FOR_APPOINTMENT].reduce(
+        (a, b) => a + (b.duration_minute || 0),
+        0,
+      )
+    : null;
   const totalOnBookings = performances[COACH_PERFORMANCE_FOR_SESSION]
     ? performances[COACH_PERFORMANCE_FOR_SESSION].reduce(
         (a, b) => a + (parseFloat(b.coach_total_payment) || 0),
@@ -55,6 +72,8 @@ export function CoachPerformanceSummary(props: Props) {
         0,
       )
     : null;
+  const totalDuration =
+    (durationTotalBookings || 0) + (durationTotalPrivateService || 0);
   return (
     <Grid container direction="row" spacing={2} className={classes.root}>
       <Grid item xs={12} md={4} id="nbOffersTotal">
@@ -64,13 +83,23 @@ export function CoachPerformanceSummary(props: Props) {
           color="red"
         />
       </Grid>
-      <Grid item xs={12} md={4} id="nbBookings">
-        <Figure
-          name={t('performance.nbBookings')}
-          count={(nbBookings || 0) + (nbPrivateServiceAttendants || 0) || '-'}
-          color="marine"
-        />
-      </Grid>
+      {props.isCoach ? (
+        <Grid item xs={12} md={4} id="durationBookings">
+          <Figure
+            name={t('performance.durationBookings')}
+            count={totalDuration ? `${formatMinutes(totalDuration, t)}` : '-'}
+            color="marine"
+          />
+        </Grid>
+      ) : (
+        <Grid item xs={12} md={4} id="nbBookings">
+          <Figure
+            name={t('performance.nbBookings')}
+            count={(nbBookings || 0) + (nbPrivateServiceAttendants || 0) || '-'}
+            color="marine"
+          />
+        </Grid>
+      )}
       <Grid item xs={12} md={4}>
         <Figure
           name={t('performance.payment')}

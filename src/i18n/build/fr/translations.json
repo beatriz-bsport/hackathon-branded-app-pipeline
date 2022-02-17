@@ -371,8 +371,18 @@
     }
   },
   "coach": {
+    "coachAccess": {
+      "access": "Accès",
+      "info": "Nous avons détecté que vous êtes professeur dans ce studio. Souhaitez-vous avoir accès à votre espace élève ou à votre espace professeur ?",
+      "student": "élève",
+      "teacher": "professeur"
+    },
     "noCoachs": "Aucun professeur enregistré, gérez ici vos profs, intervenants, ainsi que leur rémunération.",
-    "detail": { "tab": { "general": "Profil", "calendar": "Calendrier" } },
+    "detail": {
+      "coachSpace": "Espace professeur",
+      "coachSpaceInfo": "Sur cet espace votre professeur pourra avoir accès à son récapitulatif de paie par séance ainsi qu’à la vision de son emploi du temps. Il pourra aussi ajouter ses disponibilités.",
+      "tab": { "general": "Profil", "calendar": "Calendrier" }
+    },
     "noCoach": "Il n'y a aucun professeur enregistré pour l'instant",
     "coach": "Professeur",
     "baseCoach": "Habituel",
@@ -397,7 +407,8 @@
       "pricePerOffer": "Montant par séance",
       "pricePerAdditionalBooking": "Montant par réservation",
       "calculate": "Calculer",
-      "payment": "Rémunération"
+      "payment": "Rémunération",
+      "durationBookings": "Nombre d'heures"
     },
     "addCoach": "Ajouter un professeur",
     "noActivity": "Ce professeur ne gère aucune activité.",
@@ -506,7 +517,10 @@
     "selector": { "selectAll": "Tout sélectionner", "unselectAll": "Tout désélectionner", "validate": "Valider" },
     "close": "Fermer",
     "cancel": "Annuler",
-    "confirm": "Confirmer"
+    "confirm": "Confirmer",
+    "activate": "Activer",
+    "disconnect": "Me déconnecter",
+    "disconnectInfo": "Retourner à la page de connexion"
   },
   "communication": {
     "table": { "columns": { "member": "Membre", "title": "Aperçu", "date_created": "Date", "status": "Status" } },
@@ -2537,6 +2551,7 @@
       "myShop": "Magasin",
       "giftcard": "Cartes cadeaux",
       "coachPerformance": "Professeurs",
+      "coachPayroll": "Rémunération",
       "beta": "beta",
       "consumer": {
         "pass": "Cartes de cours",
@@ -5927,6 +5942,7 @@
     "copied": "Copié dans le presse-papier",
     "link": { "copied": "Lien copié dans le presse-papier" },
     "coach": {
+      "editAccessToCoachSpace": { "error": "Erreur lors de la modification des droits d'accès à l'espace professeur" },
       "linkByEmail": { "success": "Professeur lié avec succès" },
       "error": "Impossible de sauvegarder le professeur",
       "error_email_exists": "Un professeur avec cet email existe déjà, utilisez le formulaire de création Professeur",
@@ -7118,7 +7134,8 @@
     "shop": "Mon magasin",
     "offerManagement": "Réservations",
     "offerFormPage": "Création de séance",
-    "searchResults": "Recherche"
+    "searchResults": "Recherche",
+    "coachUserSpace": { "performance": "Rémunération" }
   },
   "translation": {
     "activityCreated": "Activité ajoutée",

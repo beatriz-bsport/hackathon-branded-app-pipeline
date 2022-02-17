@@ -27,4 +27,7 @@ exports.default = {
   close: 'Fermer',
   cancel: 'Annuler',
   confirm: 'Confirmer',
+  activate: 'Activer',
+  disconnect: 'Me déconnecter',
+  disconnectInfo: 'Retourner à la page de connexion',
 };

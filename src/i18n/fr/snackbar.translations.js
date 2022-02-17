@@ -177,6 +177,10 @@ exports.default = {
     copied: 'Lien copié dans le presse-papier',
   },
   coach: {
+    editAccessToCoachSpace: {
+      error:
+        "Erreur lors de la modification des droits d'accès à l'espace professeur",
+    },
     linkByEmail: {
       success: 'Professeur lié avec succès',
     },

@@ -81,6 +81,7 @@ type Props = {
     options?: OptionCallback,
   ) => void,
   fetchConsumerGiftcardReceivedList: (memberId: number) => void,
+  isCoach: boolean,
 };
 
 export const PrivateBookingCard = (props: Props) => {
@@ -162,6 +163,7 @@ export const PrivateBookingCard = (props: Props) => {
           <Button onClick={props.closeUpdateTimeForm}>
             {t('privateBooking.updateTime.cancel')}
           </Button>
+
           <Button
             color="primary"
             onClick={() =>
@@ -253,9 +255,11 @@ export const PrivateBookingCard = (props: Props) => {
             )} - ${moment(private_booking.date_end).format('HH:mm')}`}
           />
           <ListItemSecondaryAction>
-            <IconButton onClick={props.setUpdateTimeForm}>
-              <EditIcon color="primary" />
-            </IconButton>
+            {props.updateTime && (
+              <IconButton onClick={props.setUpdateTimeForm}>
+                <EditIcon color="primary" />
+              </IconButton>
+            )}
           </ListItemSecondaryAction>
         </ListItem>
         <MemberMinimalListItem
@@ -264,12 +268,16 @@ export const PrivateBookingCard = (props: Props) => {
           createMemberProgram={props.createMemberProgram}
           programList={props.programList}
           member={private_booking.member}
-          onClick={() => props.goToMember(private_booking.member.id)}
+          onClick={
+            props.goToMember
+              ? () => props.goToMember(private_booking.member.id)
+              : null
+          }
           showVaccinationStatus={props.showVaccinationStatus}
           fetchPerformanceTrackingData={props.fetchPerformanceTrackingData}
           programDataLoading={props.programDataLoading}
         />
-        {private_booking.coach ? (
+        {private_booking.coach && !props.isCoach ? (
           <CoachListItem
             onCoachSelected={() =>
               props.goToCoachCalendar(private_booking.coach.id)
@@ -317,12 +325,16 @@ export const PrivateBookingCard = (props: Props) => {
         </div>
       ) : (
         <div className={classes.buttonContainer}>
-          <Button onClick={props.onRestore}>
-            {t('privateBooking.restore')}
-          </Button>
-          <RedButton onClick={props.onDelete}>
-            {t('privateBooking.hardDelete')}
-          </RedButton>
+          {props.onRestore && (
+            <Button onClick={props.onRestore}>
+              {t('privateBooking.restore')}
+            </Button>
+          )}
+          {props.onDelete && (
+            <RedButton onClick={props.onDelete}>
+              {t('privateBooking.hardDelete')}
+            </RedButton>
+          )}
         </div>
       )}
       {!!props.invoiceToBill && !!props.invoiceToBill.member && (

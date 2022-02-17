@@ -1,3 +1,5 @@
+import { ErrorAndLoading } from '#libs/types';
+
 export type Coach = {
   firstname: string;
   lastname: string;
@@ -24,6 +26,7 @@ export type Coach = {
     private_slot: number;
     coach_payment_rule: number;
   }>;
+  has_access_to_coach_space: boolean;
 };
 
 export type CoachPerformance = {
@@ -47,12 +50,19 @@ export type CoachState = {
   loading: boolean;
   error?: Error;
   byId: { [key: string]: Coach };
+  myAssociatedCoachProfile: {
+    me: Coach | null;
+  } & ErrorAndLoading;
   allIds: [];
   companyAssociated: Array<Coach>;
   performance: {
     [id: number]: CoachPerformanceContainer;
   };
   upsert: {
+    loading: boolean;
+    error?: Error;
+  };
+  editAccessToCoachSpaceActions: {
     loading: boolean;
     error?: Error;
   };

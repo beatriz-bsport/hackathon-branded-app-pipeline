@@ -100,6 +100,7 @@ type Props = {
   expanded: boolean,
   updateRessourcesFilters: (data: any) => void,
   companyTheme: CompanyTheme,
+  isCoach: true,
 };
 
 export const PrivateCalendarMultiResource = (props: Props) => {
@@ -256,7 +257,7 @@ export const PrivateCalendarMultiResource = (props: Props) => {
             props.setPrivateCalendarDateStart(data);
           }}
           onEventClick={props.handleEventClick}
-          onBookRequest={props.onRequestPrivateBooking}
+          onBookRequest={props.isCoach ? null : props.onRequestPrivateBooking}
           scheduleTimerangeBegin={props.companyTheme.schedule_timerange_begin}
           scheduleTimerangeEnd={props.companyTheme.schedule_timerange_end}
         />
@@ -269,6 +270,7 @@ export const PrivateCalendarMultiResource = (props: Props) => {
           refreshOffers={props.refreshOffers}
           customEventId={props.customEventId}
           refreshPrivateBookings={props.refreshPrivateBookings}
+          isCoach={props.isCoach}
         />
         <PrivateBookingBooker
           open={props.privateBookerOpen}
@@ -278,12 +280,14 @@ export const PrivateCalendarMultiResource = (props: Props) => {
             if (props.refreshPrivateBookings) props.refreshPrivateBookings();
           }}
         />
-        <FabPrivateCalendar
-          timezone={props.timezone}
-          startDate={props.privateCalendarDateStart}
-          onSubmitPrivateServiceWithDate={props.onRequestPrivateBooking}
-          createCustomEvent={props.createCustomEvent}
-        />
+        {props.createCustomEvent && (
+          <FabPrivateCalendar
+            timezone={props.timezone}
+            startDate={props.privateCalendarDateStart}
+            onSubmitPrivateServiceWithDate={props.onRequestPrivateBooking}
+            createCustomEvent={props.createCustomEvent}
+          />
+        )}
       </div>
     </div>
   );

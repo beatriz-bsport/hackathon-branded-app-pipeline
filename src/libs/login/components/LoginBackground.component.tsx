@@ -19,11 +19,12 @@ const effectArray = ['ball1', 'ball2', 'ball3', 'ball4']
   .sort((a, b) => a.sort - b.sort)
   .map(({ effect }) => effect);
 
-export const LoginBackgroundComponent = (props: Props) => {
+export const LoginBackgroundComponent: React.FC<Props> = (props) => {
   const { classes } = props;
 
   return (
     <div className={classes.loginBackground}>
+      {!!props.children && props.children}
       <div
         className={classNames(
           classes.circle,

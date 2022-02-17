@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Chip from '@material-ui/core/Chip';
 import {
   COACH_PERFORMANCE_FOR_SESSION,
   COACH_PERFORMANCE_FOR_APPOINTMENT,
@@ -38,11 +36,23 @@ type TabPanelProps = {
   coachWithPerformance: CoachwithPerformance;
   value: number;
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> };
+  hideRuleSetter?: boolean;
+  asCoach?: boolean;
 } & CoachPaymentRuleTabPanelActions;
 
 export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
-  const { t } = useTranslation('paymentRules');
-
+  const coachSessionPaymentRulesList =
+    (!props.hideRuleSetter &&
+      !props.asCoach &&
+      props.coachPaymentRulesByKind &&
+      props.coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_SESSION]) ||
+    [];
+  const coachPrivateServicePaymentRulesList =
+    (!props.hideRuleSetter &&
+      !props.asCoach &&
+      props.coachPaymentRulesByKind &&
+      props.coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_SESSION]) ||
+    [];
   if (props.value === COACH_PERFORMANCE_FOR_SESSION) {
     return (
       <CoachPerformanceSessionTable
@@ -51,11 +61,11 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
             COACH_PAYMENT_RULE_FOR_SESSION
           ]
         }
-        coachPaymentRulesList={
-          props.coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_SESSION] || []
-        }
+        coachPaymentRulesList={coachSessionPaymentRulesList}
         coach={props.coachWithPerformance}
         setSessionCoachPaymentRule={props.setSessionCoachPaymentRule}
+        hideRuleSetter={props.hideRuleSetter}
+        asCoach={props.asCoach}
       />
     );
   }
@@ -68,47 +78,30 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
             COACH_PAYMENT_RULE_FOR_APPOINTMENT
           ]
         }
-        coachPaymentRulesList={
-          props.coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_APPOINTMENT] ||
-          []
-        }
+        coachPaymentRulesList={coachPrivateServicePaymentRulesList}
         updatePrivateBookingCoachPaymentRule={
           props.updatePrivateBookingCoachPaymentRule
         }
+        hideRuleSetter={props.hideRuleSetter}
+        asCoach={props.asCoach}
       />
     );
   }
   if (props.value === COACH_PERFORMANCE_FOR_ALL) {
     return (
       <div>
-        <Chip
-          variant="outlined"
-          color="primary"
-          style={{ position: 'absolute', marginTop: 15, marginLeft: 10 }}
-          label={
-            <Typography variant="subtitle2">{t('tabs.session')}</Typography>
-          }
-        />
-
         <CoachPerformanceSessionTable
           performances={
             props.coachWithPerformance?.performance[
               COACH_PAYMENT_RULE_FOR_SESSION
             ]
           }
-          coachPaymentRulesList={
-            props.coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_SESSION] || []
-          }
+          coachPaymentRulesList={coachSessionPaymentRulesList}
           coach={props.coachWithPerformance}
           setSessionCoachPaymentRule={props.setSessionCoachPaymentRule}
-        />
-        <Chip
-          variant="outlined"
-          color="primary"
-          style={{ position: 'absolute', marginTop: 15, marginLeft: 10 }}
-          label={
-            <Typography variant="subtitle2">{t('tabs.appointment')}</Typography>
-          }
+          hideRuleSetter={props.hideRuleSetter}
+          asCoach={props.asCoach}
+          displayChip
         />
 
         <CoachPerformancePrivateServiceTable
@@ -118,13 +111,13 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
               COACH_PAYMENT_RULE_FOR_APPOINTMENT
             ]
           }
-          coachPaymentRulesList={
-            props.coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_APPOINTMENT] ||
-            []
-          }
+          coachPaymentRulesList={coachPrivateServicePaymentRulesList}
           updatePrivateBookingCoachPaymentRule={
             props.updatePrivateBookingCoachPaymentRule
           }
+          hideRuleSetter={props.hideRuleSetter}
+          asCoach={props.asCoach}
+          displayChip
         />
       </div>
     );
@@ -133,32 +126,32 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
 };
 
 type CoachPaymentRuleTabsActions = {
-  setSessionCoachPaymentRule: (params: {
+  setSessionCoachPaymentRule?: (params: {
     associatedCoachId: number;
     sessionId: number;
     coachPaymentRuleId: number;
   }) => void;
-  updatePrivateBookingCoachPaymentRule: (params: {
+  updatePrivateBookingCoachPaymentRule?: (params: {
     associatedCoachId: number;
     privateBookingId: number;
     coachPaymentRuleId: number;
   }) => void;
-  setCoachPaymentRuleGroup: (
+  setCoachPaymentRuleGroup?: (
     coachId: number,
     coach_payment_rule_group_id: number,
     associated_coach_id: number,
   ) => number;
-  setCoachPaymentRule: (
+  setCoachPaymentRule?: (
     coachId: number,
     coach_payment_rule_id: number,
     associated_coach_id: number,
   ) => void;
-  setCoachPrivatePaymentRule: (
+  setCoachPrivatePaymentRule?: (
     coachId: number,
     coach_payment_rule_id: number,
     associated_coach_id: number,
   ) => void;
-  setCoachWorkShopPaymentRule: (
+  setCoachWorkShopPaymentRule?: (
     coachId: number,
     coach_payment_rule_id: number,
     associated_coach_id: number,
@@ -166,9 +159,9 @@ type CoachPaymentRuleTabsActions = {
 };
 
 type CoachPaymentRuleObjects = {
-  coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> };
-  coachPaymentRuleGroups: Array<CoachPaymentRuleGroup>;
-  coachPaymentRuleGroupsDict: { [groupId: number]: CoachPaymentRuleGroup };
+  coachPaymentRulesByKind?: { [kind: number]: Array<CoachPaymentRule> };
+  coachPaymentRuleGroups?: Array<CoachPaymentRuleGroup>;
+  coachPaymentRuleGroupsDict?: { [groupId: number]: CoachPaymentRuleGroup };
 };
 type CoachwithPerformance = Coach & {
   performanceLoading: boolean;
@@ -180,6 +173,7 @@ type CoachwithPerformance = Coach & {
 type TabProps = {
   coachWithPerformance: CoachwithPerformance;
   hideRuleSetter?: boolean;
+  asCoach?: boolean;
 } & CoachPaymentRuleTabsActions &
   CoachPaymentRuleObjects;
 export const CoachPerformanceTabs = (props: TabProps) => {
@@ -229,7 +223,7 @@ export const CoachPerformanceTabs = (props: TabProps) => {
           value={COACH_PERFORMANCE_FOR_ALL}
         />
       </Tabs>
-      {!props.hideRuleSetter && (
+      {!props.hideRuleSetter && !props.asCoach && (
         <CoachPerformanceRuleSetter
           coach={props.coachWithPerformance}
           coachPaymentRulesByKind={props.coachPaymentRulesByKind}
@@ -249,6 +243,8 @@ export const CoachPerformanceTabs = (props: TabProps) => {
         updatePrivateBookingCoachPaymentRule={
           props.updatePrivateBookingCoachPaymentRule
         }
+        hideRuleSetter={props.hideRuleSetter}
+        asCoach={props.asCoach}
       />
     </div>
   );

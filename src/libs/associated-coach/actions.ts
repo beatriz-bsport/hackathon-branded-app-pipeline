@@ -17,6 +17,8 @@ import {
   restoreCoach as restoreCoachAPI,
   fetchAssociatedCoachPerformance as fetchAssociatedCoachPerformanceAPI,
   updateCoachPrivateSlotsPaymentRules as updateCoachPrivateSlotsPaymentRulesAPI,
+  editAccessToCoachSpaceAPI,
+  retrieveMyAssociatedCoachProfile as retrieveMyAssociatedCoachProfileAPI,
 } from './api';
 import { getFreshCoachIds } from './selectors';
 
@@ -561,5 +563,60 @@ export const updateCoachPrivateSlotsPaymentRule = (
       dispatch(upsert.error(err));
     }
     dispatch(upsert.isLoading(false));
+  };
+};
+
+export const editAccessToCoachSpaceActions = {
+  isLoading: createAction('COACH/EDIT_ACCESS_TO_COACH_SPACE/IS_LOADING'),
+  error: createAction('COACH/EDIT_ACCESS_TO_COACH_SPACE/ERROR'),
+  success: createAction('COACH/EDIT_ACCESS_TO_COACH_SPACE/SUCCESS'),
+};
+
+export const editAccessToCoachSpace = (
+  params: {
+    id: number;
+    has_access_to_coach_space: boolean;
+  },
+  options: OptionCallback<void>,
+) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(editAccessToCoachSpaceActions.isLoading(true));
+    dispatch(editAccessToCoachSpaceActions.error(null));
+
+    try {
+      await editAccessToCoachSpaceAPI(params);
+      dispatch(editAccessToCoachSpaceActions.success(params));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      options?.onError && options?.onError();
+      dispatch(snackbarError('coach.editAccessToCoachSpace.error'));
+      dispatch(editAccessToCoachSpaceActions.error(err));
+    }
+    dispatch(editAccessToCoachSpaceActions.isLoading(false));
+  };
+};
+
+export const retrieveMyAssociatedCoachProfileActions = {
+  error: createAction('ASSOCIATED_COACH/RETRIEVE_MY_PROPFILE/ERROR'),
+  isLoading: createAction('ASSOCIATED_COACH/RETRIEVE_MY_PROPFILE/IS_LOADING'),
+  success: createAction('ASSOCIATED_COACH/RETRIEVE_MY_PROPFILE/SUCCESS'),
+};
+
+export const retrieveMyAssociatedCoachProfile = (
+  params?: { companyId: number },
+  options?: OptionCallback<Coach>,
+) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrieveMyAssociatedCoachProfileActions.isLoading(true));
+    dispatch(retrieveMyAssociatedCoachProfileActions.error(null));
+    try {
+      const response = await retrieveMyAssociatedCoachProfileAPI(params);
+      dispatch(retrieveMyAssociatedCoachProfileActions.success(response.data));
+      options?.onSuccess && options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(retrieveMyAssociatedCoachProfileActions.error(error));
+      options?.onError && options.onError(error);
+    }
+    dispatch(retrieveMyAssociatedCoachProfileActions.isLoading(false));
   };
 };

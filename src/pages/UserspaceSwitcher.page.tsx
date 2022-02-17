@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { compose } from 'recompose';
+import { compose, withProps } from 'recompose';
 
 import { connect, ConnectedProps } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
@@ -10,15 +10,19 @@ import { RootState } from '../reducers';
 import MultipleSessions from './MultipleSessions.page';
 
 import { disconnect as disconnectAction } from '../actions/auth.actions';
+import withQueryParams from '../hocs/with-query-params.hoc';
+import WidgetUtils from '#libs/widget/WidgetUtils';
 
 const ConsumerHome = asyncComponent(() => import('./consumer/Consumer.router'));
+const CoachHome = asyncComponent(
+  () => import('./coach-userspace/CoachProfile.page'),
+);
 const Backoffice = asyncComponent(() => import('./Backoffice.component'));
 const FranchiseHome = asyncComponent(
   () => import('./franchise/Franchise.router'),
 );
-
-type Props = ConnectedProps<typeof connector>;
-
+type RouterProps = { companyId: number };
+type Props = ConnectedProps<typeof connector> & RouterProps;
 export const UserspaceSwitcher = (props: Props) => {
   const {
     authenticated,
@@ -28,11 +32,10 @@ export const UserspaceSwitcher = (props: Props) => {
     isFranchisor,
     storedToken,
     disconnect,
+    companyId,
   } = props;
-
   const [tokenChangedInOtherTab, setTokenChangedInOtherTab] = useState(false);
   const [authToken, setAuthToken] = useState(getAuthToken());
-
   useEffect(() => {
     const updateToken = () => {
       setTokenChangedInOtherTab(storedToken !== getAuthToken());
@@ -70,9 +73,13 @@ export const UserspaceSwitcher = (props: Props) => {
     return <Route path="/" component={FranchiseHome} />;
   }
 
-  if (isCoach || isManager) {
+  if (isManager) {
     return <Route path="/" component={Backoffice} />;
   }
+  if (isCoach && companyId && !WidgetUtils.isWidget()) {
+    return <Route path="/" component={CoachHome} />;
+  }
+
   if (isConsumer) {
     return <Route path="/" component={ConsumerHome} />;
   }
@@ -94,4 +101,10 @@ const connector = connect(
   },
 );
 
-export default compose(connector)(UserspaceSwitcher);
+export default compose(
+  withQueryParams([['membership'], 'queryParams']),
+  withProps(({ queryParams }) => ({
+    companyId: parseInt(queryParams?.membership),
+  })),
+  connector,
+)(UserspaceSwitcher);

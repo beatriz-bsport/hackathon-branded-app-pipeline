@@ -116,7 +116,7 @@ export async function fetchAllPaymentPackCategory({
 
 export async function fetchPaymentPackTemplateList(params?: {
   franchisor?: number;
-  id__in: Array<number>;
+  id__in?: Array<number>;
 }) {
   return getAuth(
     `${API_V1_URI}/payment-pack/payment-pack-template/${buildUrlParams(

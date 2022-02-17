@@ -5,6 +5,7 @@ import uniq from 'lodash/uniq';
 // makes the build of the wdget crashing (widget use this file somehow)
 import ALL_ERROR_CODES from '@bsport/common/src/master-data/buyable-item-can-not-be-bought';
 
+import { Dispatch, OptionCallback } from '../../state/types';
 import {
   retrieveOffer as retrieveOfferAPI,
   fetchSimilarOffers as fetchSimilarOffersAPI,
@@ -25,7 +26,7 @@ import {
 import { monitorBackgroundTask } from '../background-task/actions';
 
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
-import type { Dispatch, OptionCallback, RootState } from '../../reducers';
+import type { RootState } from '../../reducers';
 import { OfferFilter, OfferFilterData, OfferStatus, Offer } from './types';
 
 export const similarOffers = {
@@ -134,7 +135,10 @@ export function fetchEstablishmentEvents(id: number, params: any = {}) {
   };
 }
 
-export function fetchAllOffers(params: any, options: OptionCallback) {
+export function fetchAllOffers(
+  params: any,
+  options: OptionCallback<Array<Offer>>,
+) {
   return async (dispatch: Dispatch) => {
     if (!params || !Object.keys(params).length) return;
     dispatch(offers.isLoading(true));

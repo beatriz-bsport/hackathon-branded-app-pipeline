@@ -1,7 +1,16 @@
 exports.default = {
+  coachAccess: {
+    access: 'Accès',
+    info: 'Nous avons détecté que vous êtes professeur dans ce studio. Souhaitez-vous avoir accès à votre espace élève ou à votre espace professeur ?',
+    student: 'élève',
+    teacher: 'professeur',
+  },
   noCoachs:
     'Aucun professeur enregistré, gérez ici vos profs, intervenants, ainsi que leur rémunération.',
   detail: {
+    coachSpace: 'Espace professeur',
+    coachSpaceInfo:
+      'Sur cet espace votre professeur pourra avoir accès à son récapitulatif de paie par séance ainsi qu’à la vision de son emploi du temps. Il pourra aussi ajouter ses disponibilités.',
     tab: {
       general: 'Profil',
       calendar: 'Calendrier',
@@ -35,6 +44,7 @@ exports.default = {
     pricePerAdditionalBooking: 'Montant par réservation',
     calculate: 'Calculer',
     payment: 'Rémunération',
+    durationBookings: "Nombre d'heures",
   },
   addCoach: 'Ajouter un professeur',
   noActivity: 'Ce professeur ne gère aucune activité.',

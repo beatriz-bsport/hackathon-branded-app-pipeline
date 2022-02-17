@@ -144,9 +144,11 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
     this.props.fetchPrivateServiceGroupList({ mine: true });
     this.props.fetchAllEstablishmentGroup();
     this.props.fetchGiftcardList();
-    this.props.fetchPaymentPackTemplateList({
-      franchisor: this.props.franchiseId,
-    });
+
+    this.props.franchiseId &&
+      this.props.fetchPaymentPackTemplateList({
+        franchisor: this.props.franchiseId,
+      });
   }
 
   onComponentTypeChange = ({

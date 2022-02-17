@@ -109,6 +109,7 @@ import { fetchAll as fetchAlerting } from '../alerting/actions';
 
 import { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 import {
+  PrivateBooking,
   PrivateConsumerPassMassExtension,
   PrivatePassCategory,
   PrivatePassCategoryWithPasses,
@@ -306,11 +307,13 @@ export function enableResourceAvailabilitySlot(
     date_end,
     recurrence_until,
     all_date_start,
+    company,
   }: {
     date_start: string;
     date_end: string;
     recurrence_until?: string;
     all_date_start: string[];
+    company?: number;
   },
   options?: OptionCallback,
 ): ThunkAction {
@@ -323,6 +326,7 @@ export function enableResourceAvailabilitySlot(
         date_end,
         recurrence_until,
         all_date_start,
+        company,
       });
       dispatch(availabilitySlotUpdateActions.success());
       dispatch(availabilitySlotListActions.reset(resourceData));
@@ -358,7 +362,7 @@ export function enableAvailabilitySlotMultipleResource(
     date_start: string;
     date_end: string;
     recurrence_until?: string;
-    all_date_start: string[];
+    all_date_start?: string[];
   },
   options?: OptionCallback,
 ): ThunkAction {
@@ -393,11 +397,13 @@ export function disableResourceAvailabilitySlot(
     date_end,
     recurrence_until,
     all_date_start,
+    company,
   }: {
     recurrence_until?: string;
     date_start: string;
     date_end: string;
-    all_date_start: string[];
+    all_date_start?: string[];
+    company?: number;
   },
   options: OptionCallback,
 ): ThunkAction {
@@ -410,6 +416,7 @@ export function disableResourceAvailabilitySlot(
         date_end,
         recurrence_until,
         all_date_start,
+        company,
       });
       dispatch(availabilitySlotUpdateActions.success());
       dispatch(availabilitySlotListActions.reset(resourceData));
@@ -469,7 +476,8 @@ export const disableCoachAvailabilitySlot = (
     recurrence_until?: string;
     date_start: string;
     date_end: string;
-    all_date_start: string[];
+    all_date_start?: string[];
+    company?: number;
   },
   options: OptionCallback,
 ) => disableResourceAvailabilitySlot({ coach }, obj, options);
@@ -480,7 +488,8 @@ export const enableCoachAvailabilitySlot = (
     recurrence_until?: string;
     date_start: string;
     date_end: string;
-    all_date_start: string[];
+    all_date_start?: string[];
+    company?: number;
   },
   options: OptionCallback,
 ) => enableResourceAvailabilitySlot({ coach }, obj, options);
@@ -791,7 +800,7 @@ export const privateSlotBulkActions = {
 
 export function fetchPrivateSlotBulk(
   ids: Array<number>,
-  options: OptionCallback,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     const id__in = uniq(ids);
@@ -1761,7 +1770,7 @@ export const resetPrivateBookings = privateBookingListActions.reset;
 
 export function fetchPrivateBookings(
   params: any,
-  options?: OptionCallback,
+  options?: OptionCallback<Array<PrivateBooking>>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateBookingListActions.isLoading(true));
@@ -2270,7 +2279,7 @@ export const resetCustomEvent = listCustomEventActions.reset;
 
 export function fetchCustomEventList(
   params: any = {},
-  options: OptionCallback,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(listCustomEventActions.isLoading(true));

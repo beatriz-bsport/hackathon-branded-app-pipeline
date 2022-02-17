@@ -7,6 +7,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import { compose, withProps } from 'recompose';
 
 import { withTranslation } from 'react-i18next';
 import asyncComponent from './AsyncComponent';
@@ -18,6 +19,7 @@ import { parseQueryString } from './http';
 import { fetchAccessLevel } from './actions/auth.actions';
 import WidgetUtils from './libs/widget/WidgetUtils';
 import { checkBsportPluginActivated } from './libs/plugin/actions';
+import withQueryParams from './hocs/with-query-params.hoc';
 
 const MarketPlaceRouter = asyncComponent(() =>
   import('./pages/marketplace/Marketplace.router'),
@@ -57,6 +59,9 @@ const CompanyExternalRouter = asyncComponent(() =>
 
 const SentryTestError = asyncComponent(() =>
   import('./pages/SentryTestError.component'),
+);
+const CoachBackoffice = asyncComponent(() =>
+  import('./pages/coach-userspace/CoachBackoffice.router'),
 );
 
 const styles = () => ({
@@ -155,9 +160,9 @@ export class Root extends Component<Props> {
           <Route path="/m/" component={MarketPlaceRouter} />
 
           <Route path="/check-in" component={CheckIn} />
-
           <Route path="/rn-webview" component={RNWebView} />
           <Route path="/c/:companyId" component={ConsumerRouter} />
+          <Route path="/co/:companyId" component={CoachBackoffice} />
           <Route path="/c/" component={ConsumerRouter} />
           <Route
             path="/widget/:companyName/:companyId"
@@ -184,8 +189,13 @@ const mapDispatchToProps = {
   checkBsportPluginActivated,
 };
 
-export default withRouter(
-  withTranslation(namespaces)(
-    withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(Root)),
-  ),
-);
+export default compose(
+  withRouter,
+  withQueryParams([['membership'], 'queryParams']),
+  withProps(({ queryParams }) => ({
+    companyId: parseInt(queryParams?.membership),
+  })),
+  withTranslation(namespaces),
+  withStyles(styles),
+  connect(mapStateToProps, mapDispatchToProps),
+)(Root);

@@ -33,6 +33,7 @@ import {
   deleteCoach,
   fetchAssociatedCoach,
   updateCoachPrivateSlotsPaymentRule,
+  editAccessToCoachSpace as editAccessToCoachSpaceAction,
 } from '../../libs/associated-coach/actions';
 import { canDeleteCoach as canDeleteCoachAPI } from '../../libs/associated-coach/api';
 import CoachDetail from '../../libs/associated-coach/components/CoachDetail.component';
@@ -85,6 +86,7 @@ type Props = {
     options: { onSuccess?: () => void, onError?: () => void },
   ) => void,
   privateServices: Array<PrivateServiceWithSlots>,
+  editAccessToCoachSpace: (hasAccessToCoachSpace: boolean) => void,
 };
 
 export class Coach extends React.Component<Props> {
@@ -95,14 +97,15 @@ export class Coach extends React.Component<Props> {
   }
 
   render() {
-    if (this.props.loading && !this.props.coach) {
-      return <LinearProgress />;
+    if (!this.props.coach) {
+      return null;
     }
     const { coach, coachPaymentRulesByKind } = this.props;
     return (
       <div style={{ height: '100%' }}>
         {this.props.loading ? <LinearProgress /> : null}
         <CoachDetail
+          editAccessToCoachSpace={this.props.editAccessToCoachSpace}
           coach={coach}
           coachPaymentRulesByKind={coachPaymentRulesByKind}
           setCoachPaymentRule={this.props.setCoachPaymentRule}
@@ -178,12 +181,18 @@ export default compose(
       goToCoachPerformance: (coach) =>
         routerPush(`/coach/${coach.associated_coach_id}/performance`),
       goToList: () => routerPush('/coach'),
+      editAccessToCoachSpace: editAccessToCoachSpaceAction,
     },
   ),
   withTitle(({ coach }) => {
     return coach ? `${coach.name}` : '';
   }),
   withHandlers({
+    editAccessToCoachSpace:
+      ({ coachId, editAccessToCoachSpace }) =>
+      (has_access_to_coach_space) => {
+        editAccessToCoachSpace({ id: coachId, has_access_to_coach_space });
+      },
     updateCoach:
       ({ coachId, upsertCoachAction }) =>
       (coachData) => {

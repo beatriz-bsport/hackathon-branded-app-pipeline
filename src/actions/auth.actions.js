@@ -71,6 +71,7 @@ export function fetchAccessLevel(
         is_manager,
         is_consumer,
         is_franchisor,
+        is_coach,
         role,
         name,
         username,
@@ -78,12 +79,12 @@ export function fetchAccessLevel(
       if (!is_manager && !is_franchisor && is_consumer) {
         dispatch(errorLogin());
       }
-
       dispatch(
         setLogin({
           username,
           token,
           is_manager,
+          is_coach,
           is_consumer,
           is_franchisor,
           role,
@@ -253,6 +254,7 @@ export function setLogin({
   is_manager,
   is_consumer,
   is_franchisor,
+  is_coach,
   role,
   name,
 }: {
@@ -261,6 +263,7 @@ export function setLogin({
   is_manager: boolean,
   is_consumer: boolean,
   is_franchisor: boolean,
+  is_coach: boolean,
   role: number,
   name: string,
 }) {
@@ -271,7 +274,7 @@ export function setLogin({
     token,
     role,
     is_manager,
-    is_coach: false,
+    is_coach,
     is_consumer,
     is_franchisor,
   };
@@ -434,6 +437,7 @@ export function navigateAsCompanyAdmin(
           is_manager,
           is_consumer,
           is_franchisor,
+          is_coach,
           role,
           name,
           username,
@@ -450,6 +454,7 @@ export function navigateAsCompanyAdmin(
           token: newToken,
           is_manager,
           is_consumer,
+          is_coach,
           is_franchisor,
           role,
           name,
@@ -485,7 +490,15 @@ export function navigateBackToFranchise() {
       const newToken = storage.getItem('bsport:franchise:http:token');
 
       const {
-        data: { is_manager, is_consumer, is_franchisor, role, name, username },
+        data: {
+          is_coach,
+          is_manager,
+          is_consumer,
+          is_franchisor,
+          role,
+          name,
+          username,
+        },
       } = await api.auth.accessLevel(newToken);
 
       storage.removeItem('bsport:franchise:http:token');
@@ -494,6 +507,7 @@ export function navigateBackToFranchise() {
       // Set new access level
       await dispatch(
         setLogin({
+          is_coach,
           username,
           token: newToken,
           is_manager,
@@ -540,6 +554,7 @@ export function navigateToRelationAccount(
 
       const {
         data: {
+          is_coach,
           id,
           is_manager,
           is_consumer,
@@ -557,6 +572,7 @@ export function navigateToRelationAccount(
           id,
           username,
           token: newToken,
+          is_coach,
           is_manager,
           is_consumer,
           is_franchisor,
@@ -621,7 +637,15 @@ export function navigateBackToMasterRelation(params: {
       const newToken = storage.getItem('bsport:relatedMemberMaster:http:token');
 
       const {
-        data: { is_manager, is_consumer, is_franchisor, role, name, username },
+        data: {
+          is_coach,
+          is_manager,
+          is_consumer,
+          is_franchisor,
+          role,
+          name,
+          username,
+        },
       } = await api.auth.accessLevel(newToken);
 
       storage.removeItem('bsport:relatedMemberMaster:http:token');
@@ -635,6 +659,7 @@ export function navigateBackToMasterRelation(params: {
           is_manager,
           is_consumer,
           is_franchisor,
+          is_coach,
           role,
           name,
         }),

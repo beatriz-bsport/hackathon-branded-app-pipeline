@@ -77,6 +77,19 @@ export async function updateCoachPrivateSlotsPaymentRules(
     data,
   );
 }
+export async function editAccessToCoachSpaceAPI(params: {
+  id: number;
+  has_access_to_coach_space: boolean;
+}) {
+  const { id, ...data } = params;
+  return putAuth(`${API_V1_URI}/coach/${id}/edit_access_to_coach_space/`, data);
+}
+export async function retrieveMyAssociatedCoachProfile(params: {
+  companyId: number;
+}) {
+  return getAuth(`${API_V1_URI}/associated_coach/me/${buildUrlParams(params)}`);
+}
+
 export default {
   fetchAssociated: fetchAssociatedCoaches,
   addCoach,

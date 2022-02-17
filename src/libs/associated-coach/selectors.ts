@@ -13,6 +13,8 @@ const EMPTY_PERFORMANCE: CoachPerformanceContainer = Immutable({
 
 export const getAllCoachesDict = (state: RootState): { [key: string]: Coach } =>
   state.coach.byId;
+export const getMyAssociatedCoachProfile = (state: RootState) =>
+  state.coach.myAssociatedCoachProfile.me;
 export const getAllCoachesId = (state: RootState): Array<number> =>
   state.coach.allIds;
 export const getCoaches = createSelector(getAllCoachesDict, (coach) =>

@@ -56,6 +56,7 @@ type Props = {
   t: TFunction,
   loading: boolean,
   classes: Object,
+  isCoach: boolean,
 };
 
 const getFillingInfo = (offer: Offer) => {
@@ -109,6 +110,7 @@ export function OfferMinimalSummary(props: Props) {
     t,
     classes,
     loading,
+    isCoach,
   } = props;
   if (!offer || loading) {
     return <EmptyListItem key="" divider dense />;
@@ -173,20 +175,34 @@ export function OfferMinimalSummary(props: Props) {
           <Grid container direction="row" alignItems="center">
             <Hidden smDown>
               <Grid item>
-                <Tooltip title={coach ? coach.name : ''}>
-                  <div>
-                    <IconButton disableRipple disabled={!!coach_override}>
+                {coach_override && isCoach ? (
+                  <Tooltip title={coach_override.name}>
+                    <div>
                       <Avatar
-                        src={coach ? coach.photo || DEFAULT_AVATAR : ''}
-                        imgProps={coach_override ? disabledAvatarProps : {}}
+                        src={
+                          coach_override
+                            ? coach_override.photo || DEFAULT_AVATAR
+                            : ''
+                        }
                       />
-                    </IconButton>
-                  </div>
-                </Tooltip>
+                    </div>
+                  </Tooltip>
+                ) : (
+                  <Tooltip title={coach ? coach.name : ''}>
+                    <div>
+                      <IconButton disableRipple disabled={!!coach_override}>
+                        <Avatar
+                          src={coach ? coach.photo || DEFAULT_AVATAR : ''}
+                          imgProps={coach_override ? disabledAvatarProps : {}}
+                        />
+                      </IconButton>
+                    </div>
+                  </Tooltip>
+                )}
               </Grid>
             </Hidden>
             <Grid item style={coach_override ? { marginLeft: -30 } : {}}>
-              {coach_override ? (
+              {coach_override && !isCoach ? (
                 <Tooltip title={coach_override ? coach_override.name : ''}>
                   <IconButton disableRipple>
                     <Avatar

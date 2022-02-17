@@ -8,6 +8,7 @@ import Immutable from 'seamless-immutable';
 
 import { RootState } from '../../../reducers';
 import { AvailabilitySlot, PrivateServiceState } from '../types';
+import { getMyAssociatedCoachProfile } from '#libs/associated-coach/selectors';
 
 export const DEFAULT_EXIST_CHECK: {
   loading: boolean;
@@ -61,6 +62,28 @@ export const getAvailabilitySlots = createSelector(
       );
     }
     return Object.values(slotsData);
+  },
+);
+
+export const getMyAvailabilitySlots = createSelector(
+  [
+    _getAvailabilitySlotsData,
+    periodFilterExtractor,
+    getMyAssociatedCoachProfile,
+  ],
+  (slotsData, periodFilter, meAsCoach) => {
+    if (!meAsCoach) {
+      return [];
+    }
+    if (periodFilter) {
+      return Object.values(slotsData).filter(
+        (v) =>
+          moment(v.date_start).isSameOrAfter(periodFilter.start) &&
+          moment(v.date_start).isSameOrBefore(periodFilter.end) &&
+          v.coach === meAsCoach.id,
+      );
+    }
+    return Object.values(slotsData).filter((s) => s.coach === meAsCoach.id);
   },
 );
 

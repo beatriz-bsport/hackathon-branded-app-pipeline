@@ -16,6 +16,8 @@ import {
   bulkRetrieveActions,
   restoreActions,
   updateCoachPrivateSlotsPaymentRulsActions,
+  editAccessToCoachSpaceActions,
+  retrieveMyAssociatedCoachProfileActions,
 } from './actions';
 
 const initialState: CoachState = Immutable<CoachState>({
@@ -30,6 +32,15 @@ const initialState: CoachState = Immutable<CoachState>({
   upsert: {
     loading: false,
     error: null,
+  },
+  editAccessToCoachSpaceActions: {
+    loading: false,
+    error: null,
+  },
+  myAssociatedCoachProfile: {
+    error: null,
+    loading: false,
+    me: null,
   },
 });
 
@@ -158,6 +169,44 @@ export default handleActions(
     },
     [restoreActions.isLoading.toString()]: (state, { payload }) => {
       return state.set('loading', payload);
+    },
+    [editAccessToCoachSpaceActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['editAccessToCoachSpaceActions', 'error'], payload);
+    },
+    [editAccessToCoachSpaceActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['editAccessToCoachSpaceActions', 'loading'], payload);
+    },
+    [editAccessToCoachSpaceActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['byId', payload.id, 'has_access_to_coach_space'],
+        payload.has_access_to_coach_space,
+      );
+    },
+    [retrieveMyAssociatedCoachProfileActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['myAssociatedCoachProfile', 'error'], payload);
+    },
+    [retrieveMyAssociatedCoachProfileActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['myAssociatedCoachProfile', 'loading'], payload);
+    },
+    [retrieveMyAssociatedCoachProfileActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state
+        .setIn(['myAssociatedCoachProfile', 'me'], payload)
+        .setIn(['byId', payload.id], payload);
     },
   },
   initialState,

@@ -92,4 +92,7 @@ exports.default = {
   offerFormPage: 'Création de séance',
 
   searchResults: 'Recherche',
+  coachUserSpace: {
+    performance: 'Rémunération',
+  },
 };

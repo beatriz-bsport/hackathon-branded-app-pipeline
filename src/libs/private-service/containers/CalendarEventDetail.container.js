@@ -219,6 +219,7 @@ type Props = {
     options?: OptionCallback,
   ) => void,
   fetchConsumerGiftcardReceivedList: (memberId: number) => void,
+  isCoach: boolean,
 };
 type State = {
   clientSecretLoading: boolean,
@@ -239,7 +240,9 @@ export class CalendarEventDetail extends React.Component<Props, State> {
     this.props.fetchAllActivities();
     this.props.fetchRoomBlueprints();
     this.props.fetchAllCoachPaymentRules();
-    this.props.fetchProgram({ is_disabled: false }); // WILL BECOME USELESS
+    if (!this.props.isCoach) {
+      this.props.fetchProgram({ is_disabled: false }); // WILL BECOME USELESS
+    }
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -330,17 +333,32 @@ export class CalendarEventDetail extends React.Component<Props, State> {
         />
       ) : (
         <PrivateBookingCard
-          updateMemberMetricValue={this.props.updateMemberMetricValue}
-          createMemberProgram={this.props.createMemberProgram}
+          isCoach={this.props.isCoach}
+          updateMemberMetricValue={
+            this.props.isCoach ? null : this.props.updateMemberMetricValue
+          }
+          createMemberProgram={
+            this.props.isCoach ? null : this.props.createMemberProgram
+          }
           fetchPerformanceTrackingData={this.props.fetchPerformanceTrackingData}
           programDataLoading={this.props.programDataLoading}
           programList={this.props.programList}
-          onRestore={() => this.props.restorePrivateBooking(privateBooking.id)}
-          onDelete={this.props.openDisablePrivateBookingModal}
+          onRestore={
+            this.props.isCoach
+              ? null
+              : () => this.props.restorePrivateBooking(privateBooking.id)
+          }
+          onDelete={
+            this.props.isCoach
+              ? null
+              : this.props.openDisablePrivateBookingModal
+          }
           private_booking={privateBooking}
-          goToMember={goToMember}
+          goToMember={this.props.isCoach ? null : goToMember}
           loading={this.props.privateBookingLoading}
-          updateTime={this.props.updatePrivateBookingDatetime}
+          updateTime={
+            this.props.isCoach ? null : this.props.updatePrivateBookingDatetime
+          }
           goToCoachCalendar={this.props.goToCoachCalendar}
           setIsUpdateCoachFormOpen={this.props.setIsUpdateCoachFormOpen}
           showVaccinationStatus={this.props.showVaccinationStatus}
@@ -373,14 +391,19 @@ export class CalendarEventDetail extends React.Component<Props, State> {
       return (
         <CustomEventCard
           customEvent={customEvent}
-          onDelete={() => this.props.deleteCustomEvent(customEvent.id)}
+          onDelete={
+            this.props.isCoach
+              ? null
+              : () => this.props.deleteCustomEvent(customEvent.id)
+          }
+          isCoach={this.props.isCoach}
         />
       );
     }
     if (offer) {
       return (
         <div>
-          <OfferMinimalSummary offer={offer} />
+          <OfferMinimalSummary offer={offer} isCoach={this.props.isCoach} />
           {offer.available ? (
             <div className={classes.buttonRow}>
               <CheckPermission requiredPermissions="offer.edit">
@@ -397,15 +420,17 @@ export class CalendarEventDetail extends React.Component<Props, State> {
               </CheckPermission>
             </div>
           ) : null}
-          <Link style={{ textDecoration: 'none' }} to={`/offer/${offer.id}`}>
-            <Button
-              color="primary"
-              variant="contained"
-              className={classes.manageButton}
-            >
-              {t('manageOffer')}
-            </Button>
-          </Link>
+          {!this.props.isCoach && (
+            <Link style={{ textDecoration: 'none' }} to={`/offer/${offer.id}`}>
+              <Button
+                color="primary"
+                variant="contained"
+                className={classes.manageButton}
+              >
+                {t('manageOffer')}
+              </Button>
+            </Link>
+          )}
           {/* {offer.available ? null : (
             <RedButton
               onClick={this.props.openOfferDeleteModal}

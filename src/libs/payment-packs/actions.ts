@@ -684,7 +684,7 @@ export const listPaymentPackTemplateActions = {
 export function fetchPaymentPackTemplateList(
   params?: {
     franchisor?: number;
-    id__in: Array<number>;
+    id__in?: Array<number>;
   },
   options?: OptionCallback<Array<PaymentPackTemplate>>,
 ) {

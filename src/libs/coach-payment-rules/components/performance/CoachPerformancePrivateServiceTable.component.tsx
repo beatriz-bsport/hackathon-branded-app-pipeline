@@ -14,6 +14,7 @@ import Button from '@material-ui/core/Button';
 import AttachIcon from '@material-ui/icons/AttachFile';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import Chip from '@material-ui/core/Chip';
 import clx from 'classnames';
 import CoachPaymentRuleSelector from '../coach-payment-rule-selector/CoachPaymentRuleSelector.component';
 import type { CoachPaymentRule, CoachPerformance } from '../../types';
@@ -31,6 +32,9 @@ type Props = {
     coachPaymentRuleId: number;
   }) => void;
   coach: Coach;
+  hideRuleSetter?: boolean;
+  asCoach?: boolean;
+  displayChip?: boolean;
 };
 
 export function CoachPerformancePrivateServiceTable(props: Props) {
@@ -48,49 +52,70 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
     performances && performances.find((perf) => perf.is_unpaid);
   return (
     <div>
-      <div className={classes.flexHeaderContainer}>
-        <Button
-          variant="contained"
-          color="primary"
-          style={{ margin: 12 }}
-          disabled={!performances}
-          onClick={() =>
-            downloadAsCsv(
-              [
-                t('fields.name'),
-                t('fields.date'),
-                t('fields.duration'),
-                t('fields.confirmed_bookings'),
-                t('fields.cancelled_bookings'),
-                t('fields.base'),
-                t('fields.bonus'),
-                t('fields.total'),
-                t('fields.rule'),
-              ],
-              performances.map((session) => [
-                session.private_service_name,
-                `${moment(session.date_start).format('L')} ${moment(
-                  session.date_start,
-                ).format('LT')}`,
-                session.duration_minute,
-                session.confirmed_bookings,
-                session.cancelled_bookings,
-                session.base_remuneration,
-                session.coach_bonus,
-                session.coach_total_payment,
-                (
-                  coachPaymentRulesList.find(
-                    (cpr) => cpr.id === session.coach_payment_rule,
-                  ) || { name: 'default' }
-                ).name,
-              ]),
-              'payroll.csv',
-            )
-          }
-        >
-          <AttachIcon style={{ marginRight: 12 }} />
-          {t('table.download')}
-        </Button>
+      <div
+        className={clx([
+          classes.flexHeaderContainer,
+          props.asCoach && props.displayChip
+            ? classes.flexStartContainer
+            : null,
+        ])}
+      >
+        {props.displayChip && (
+          <Chip
+            variant="outlined"
+            color="primary"
+            style={{ marginTop: 15, marginLeft: 10 }}
+            label={
+              <Typography variant="subtitle2">
+                {t('paymentRules:tabs.appointment')}
+              </Typography>
+            }
+          />
+        )}
+        {!props.asCoach && (
+          <Button
+            variant="contained"
+            color="primary"
+            style={{ margin: 12 }}
+            disabled={!performances}
+            onClick={() =>
+              downloadAsCsv(
+                [
+                  t('fields.name'),
+                  t('fields.date'),
+                  t('fields.duration'),
+                  t('fields.confirmed_bookings'),
+                  t('fields.cancelled_bookings'),
+                  t('fields.base'),
+                  t('fields.bonus'),
+                  t('fields.total'),
+                  t('fields.rule'),
+                ],
+                performances.map((session) => [
+                  session.private_service_name,
+                  `${moment(session.date_start).format('L')} ${moment(
+                    session.date_start,
+                  ).format('LT')}`,
+                  session.duration_minute,
+                  session.confirmed_bookings,
+                  session.cancelled_bookings,
+                  session.base_remuneration,
+                  session.coach_bonus,
+                  session.coach_total_payment,
+                  (
+                    coachPaymentRulesList.find(
+                      (cpr) => cpr.id === session.coach_payment_rule,
+                    ) || { name: 'default' }
+                  ).name,
+                ]),
+                'payroll.csv',
+              )
+            }
+          >
+            <AttachIcon style={{ marginRight: 12 }} />
+            {t('table.download')}
+          </Button>
+        )}
       </div>
       <Table size="small">
         <TableHead>
@@ -98,16 +123,22 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
             <TableCell align="left">{t('fields.name')}</TableCell>
             <TableCell align="right">{t('fields.date')}</TableCell>
             <TableCell align="right">{t('fields.duration')}</TableCell>
-            <TableCell align="right">
-              {t('fields.confirmed_bookings')}
-            </TableCell>
-            <TableCell align="right">
-              {t('fields.cancelled_bookings')}
-            </TableCell>
-            <TableCell align="right">{t('fields.base')}</TableCell>
-            <TableCell align="right">{t('fields.bonus')}</TableCell>
+            {!props.asCoach && (
+              <>
+                <TableCell align="right">
+                  {t('fields.confirmed_bookings')}
+                </TableCell>
+                <TableCell align="right">
+                  {t('fields.cancelled_bookings')}
+                </TableCell>
+                <TableCell align="right">{t('fields.base')}</TableCell>
+                <TableCell align="right">{t('fields.bonus')}</TableCell>
+              </>
+            )}
             <TableCell align="right"> {t('fields.total')}</TableCell>
-            <TableCell align="right">{t('fields.rule')}</TableCell>
+            {!props.hideRuleSetter && (
+              <TableCell align="right">{t('fields.rule')}</TableCell>
+            )}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -155,44 +186,50 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
                 <TableCell align="right">
                   {formatMinutes(private_service_perf.duration_minute, t)}
                 </TableCell>
-                <TableCell align="right">
-                  {private_service_perf.confirmed_bookings}
-                </TableCell>
-                <TableCell align="right">
-                  {private_service_perf.cancelled_bookings}
-                </TableCell>
-                <TableCell align="right">
-                  {getCurrencyDisplayWithPrice(
-                    private_service_perf.base_remuneration,
-                  )}
-                </TableCell>
-                <TableCell align="right">
-                  {getCurrencyDisplayWithPrice(
-                    private_service_perf.coach_bonus || 0,
-                  )}
-                </TableCell>
+                {!props.asCoach && (
+                  <>
+                    <TableCell align="right">
+                      {private_service_perf.confirmed_bookings}
+                    </TableCell>
+                    <TableCell align="right">
+                      {private_service_perf.cancelled_bookings}
+                    </TableCell>
+                    <TableCell align="right">
+                      {getCurrencyDisplayWithPrice(
+                        private_service_perf.base_remuneration,
+                      )}
+                    </TableCell>
+                    <TableCell align="right">
+                      {getCurrencyDisplayWithPrice(
+                        private_service_perf.coach_bonus || 0,
+                      )}
+                    </TableCell>
+                  </>
+                )}
                 <TableCell align="right">
                   {getCurrencyDisplayWithPrice(
                     private_service_perf.coach_total_payment || 0,
                   )}
                 </TableCell>
-                <TableCell>
-                  <CoachPaymentRuleSelector
-                    id="payment_rule_per_private_service"
-                    coachPaymentRulesList={coachPaymentRulesList}
-                    selected={private_service_perf.coach_payment_rule}
-                    isOverride
-                    enableReset
-                    onChange={({ value }: { value: number }) => {
-                      updatePrivateBookingCoachPaymentRule({
-                        privateBookingId:
-                          private_service_perf.private_booking_id,
-                        coachPaymentRuleId: value,
-                        associatedCoachId: coach.associated_coach_id,
-                      });
-                    }}
-                  />
-                </TableCell>
+                {!props.hideRuleSetter && (
+                  <TableCell>
+                    <CoachPaymentRuleSelector
+                      id="payment_rule_per_private_service"
+                      coachPaymentRulesList={coachPaymentRulesList}
+                      selected={private_service_perf.coach_payment_rule}
+                      isOverride
+                      enableReset
+                      onChange={({ value }: { value: number }) => {
+                        updatePrivateBookingCoachPaymentRule({
+                          privateBookingId:
+                            private_service_perf.private_booking_id,
+                          coachPaymentRuleId: value,
+                          associatedCoachId: coach.associated_coach_id,
+                        });
+                      }}
+                    />
+                  </TableCell>
+                )}
               </TableRow>
             ))}
         </TableBody>
@@ -205,7 +242,10 @@ const useStyles = makeStyles((theme) => ({
   flexHeaderContainer: {
     display: 'flex',
     width: '100%',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
+  },
+  flexStartContainer: {
+    justifyContent: 'flex-start',
   },
   tableRowError: {
     backgroundColor: '#FFDDDD',

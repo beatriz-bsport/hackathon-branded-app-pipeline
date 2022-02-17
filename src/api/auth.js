@@ -13,7 +13,6 @@ import {
 export async function accessLevel(token: string) {
   return getAuth(`${API_URI}/saas/access_level`, token);
 }
-
 export async function signup(formData: *) {
   return post(`${API_URI}/auth/signup`, formData);
 }

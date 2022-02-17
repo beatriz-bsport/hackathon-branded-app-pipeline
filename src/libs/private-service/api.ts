@@ -33,6 +33,7 @@ export const disableResourceAvailabilitySlot = (
     date_start: string;
     date_end: string;
     all_date_start: string[];
+    company?: number;
   },
 ) => {
   return postAuth(
@@ -70,6 +71,7 @@ export const enableResourceAvailabilitySlot = (
     date_start: string;
     date_end: string;
     all_date_start: string[];
+    company?: number;
   },
 ) => {
   return postAuth(

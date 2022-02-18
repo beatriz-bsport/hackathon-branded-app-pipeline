@@ -130,6 +130,7 @@ export default function RecurrenceRuleTimeSettingFields(props: Props) {
         required
         onChange={(ev) => handleChange(ev)}
       />
+
       {!props.privateSlotSet && props.selectedSetting && (
         <Typography variant="body2">
           {t('booking:recurrenceRule.explain', {

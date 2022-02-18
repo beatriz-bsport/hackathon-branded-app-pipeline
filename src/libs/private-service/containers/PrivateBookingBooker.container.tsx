@@ -238,6 +238,7 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
         day_of_week: date_start.isoWeekday() - 1,
         start_from_date: date_start.format('YYYY-MM-DD'),
         notify_if_booked: this.props.notify_member,
+        is_overriding_availabilities: this.props.is_overriding_availabilities,
         private_slot: this.state.private_booking_data.private_slot,
         coach: this.state.private_booking_data.coach,
         establishment: this.state.private_booking_data.establishment,
@@ -361,6 +362,19 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
                 privateSlotSet
                 onTimeSettingChange={this.handleTimeSettingChange}
               />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={this.props.is_overriding_availabilities}
+                    onChange={(ev) =>
+                      this.props.setIsOverRidingAvailabilities(
+                        ev.target.checked,
+                      )
+                    }
+                  />
+                }
+                label={t('recurrenceRule.form.override_availabilities')}
+              />
             </fieldset>
           )}
           {[...missingResources].filter((l) => l !== 'address').length === 0 &&
@@ -467,18 +481,24 @@ type StateHandlerInit = {
   notify_member: boolean;
   recurrenceRule: boolean;
   requestedPrivateSlot: number | null;
+  is_overriding_availabilities: boolean;
 };
 
 const withStateHandlersInit: StateHandlerInit = {
   notify_member: true,
   recurrenceRule: false,
   requestedPrivateSlot: null,
+  is_overriding_availabilities: false,
 };
 
 const withStateHandlersSetter = {
   setNotifyMember: () => (notify_member: boolean) => {
     return { notify_member };
   },
+  setIsOverRidingAvailabilities:
+    () => (is_overriding_availabilities: boolean) => {
+      return { is_overriding_availabilities };
+    },
   setRecurrenceRule: () => (recurrenceRule: boolean) => {
     return { recurrenceRule };
   },

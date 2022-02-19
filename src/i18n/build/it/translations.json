@@ -326,7 +326,8 @@
                     "force": "Cancellare anche se le prenotazioni sono registrate",
                     "advanced": "Avanzato"
                 },
-                "explainPartnership": "Sui marketplaces (ClassPass, OneFit...)"
+                "explainPartnership": "Sui marketplaces (ClassPass, OneFit...)",
+                "explainManagerOnly": "Disponibile per la prenotazione (web+app)"
             },
             "phone": "Numero di telefono",
             "name": "Nome",
@@ -1163,7 +1164,9 @@
             "530": "Controversia sul pagamento di un abbonamento",
             "520": "Pagamento di un abonnamento fallito, sarà riprovato",
             "515": "Tessera del'abonnamento disattivato automaticamente",
-            "510": "Pagamento di un abbonamento fallito"
+            "510": "Pagamento di un abbonamento fallito",
+            "481": "Appuntamento ricorrente cancellato per mancanza di disponibilità (studente)",
+            "480": "Appuntamento ricorrente cancellato per mancanza di disponibilità (insegnante)"
         },
         "ruleGroup": {
             "private_booking": "Appuntamento",
@@ -1174,7 +1177,8 @@
             "member": "Creazione account allievo",
             "marketing": "Marketing",
             "invoice": "Fatturazione",
-            "payment_pack": "Badge"
+            "payment_pack": "Badge",
+            "recurrent_private_booking": "Appuntamento ricorrente"
         },
         "emailDesign": {
             "placeholder": "Generato da bsport",
@@ -1230,7 +1234,29 @@
             "emptyStateConfiguration": "Crea una configurazione per forzare l'uso di modelli di e-mail per ciascuno dei tuoi franchisee.",
             "addConfiguration": "Aggiungere una configurazione",
             "emptySelect": "Seleziona un'email transazionale per vedere con quale franchisee è condivisa e utilizzata."
-        }
+        },
+        "listItem": {
+            "createTransactionnalNotification": "impostare la notifica push",
+            "modifyTransactionnalNotification": "cambiare la notifica push",
+            "sendTransactionnalNotification": "Inviare una notifica push",
+            "transactionnalNotification": "Notifica push",
+            "mailToSend": "Posta da inviare",
+            "copyCarbon": "Ricevere una copia dell'e-mail",
+            "sendTransactionnalEmail": "Inviare un'email transazionale",
+            "transactionnalEmail": "Email transazionali"
+        },
+        "preview": {
+            "email": "Email",
+            "notification": "Push",
+            "emptyStateNotification": "Per vedere la tua anteprima, imposta la tua notifica push",
+            "emptyState": "Per vedere le anteprime, clicca su una delle categorie",
+            "title": "Panoramica"
+        },
+        "goBackToMenu": "Precedente",
+        "configureNotif": "Configurare",
+        "countNotification": "{{nbr}} notifiche push abilitate",
+        "countEmail": "{{nbr}} email transazionali attivate",
+        "countElements": "{{nbr}} elementi"
     },
     "consumerSpace": {
         "dashboard": {
@@ -2399,7 +2425,8 @@
                 "notify_member": "Invia una email di conferma al momento della registrazione",
                 "timeGroup": "Data della sessione",
                 "configuration": "Prenotazioni",
-                "title": "Programmare una ricorrenza"
+                "title": "Programmare una ricorrenza",
+                "override_availabilities": "Effettua la prenotazione anche se l'insegnante, la stanza o l'appuntamento non sono disponibili"
             },
             "actions": {
                 "save": "Salva",
@@ -2757,7 +2784,12 @@
             "total": "Retribuzione totale",
             "cancelled_bookings": "Registrazioni cancellate",
             "confirmed_bookings": "Partecipanti",
-            "unpaid_private_booking": "Gli appuntamenti non sono retribuiti."
+            "unpaid_private_booking": "Gli appuntamenti non sono retribuiti.",
+            "coachName": "Professore",
+            "total_on_appointments": "Nomina retributiva",
+            "total_on_sessions": "Remunerazione per le lezioni di gruppo",
+            "nb_appointments": "Numero di appuntamenti",
+            "nb_sessions": "Numero di sessioni"
         },
         "bonus": "Bonus",
         "addBonus": "Aggiungi un bonus",
@@ -2765,7 +2797,37 @@
         "remuneration": "Retribuzione",
         "pricePerOffer": "Importo per sessione",
         "bookingThresholdLabel": "Minimo quantitativo di prenotazioni",
-        "pricePerAdditionalBookingLabel": "Variabile su prenotazione"
+        "pricePerAdditionalBookingLabel": "Variabile su prenotazione",
+        "cachedData": {
+            "leavePreviewMode": "Uscire dalla modalità preview",
+            "previewModeTitle": "Modalità di preview",
+            "downloadMySavedData": "Scaricare",
+            "enterPreviewMode": "Passa alla modalità anteprima",
+            "unresolvedDaterange": "Fascia di retribuzione non valida",
+            "dateRange": "Remunerazione del {{- startDate }} su  {{- endDate }}",
+            "dateSaved": "Dati generati su {{ date }}",
+            "title": "Dati salvati {{ count }}"
+        },
+        "export": {
+            "completed": {
+                "message": "Il file di esportazione per gli stipendi degli insegnanti è disponibile. Puoi anche recuperare questi dati nella sezione \"Dati salvati\".",
+                "title": "Esportazione Excel degli stipendi degli insegnanti"
+            },
+            "dialog": {
+                "buttonText": "Confermare",
+                "message": "Esportando i dati potrete generare un excel per la durata selezionata. Anche questi dati saranno memorizzati e potranno essere utilizzati in seguito.",
+                "title": "Esportazione e conservazione dei dati"
+            },
+            "buttonText": "Esportazione"
+        },
+        "performance": {
+            "table": {
+                "header": {
+                    "nbSessions": "Numero di corsi di gruppo",
+                    "coachName": "Professore"
+                }
+            }
+        }
     },
     "navigation": {
         "backofficeMenu": {
@@ -2866,7 +2928,8 @@
             "giftcard": "Carte regalo",
             "programs": "Programmi",
             "expenses": "Spese",
-            "instalmentPayment": "Pagamenti a rate"
+            "instalmentPayment": "Pagamenti a rate",
+            "coachPayroll": "Remunerazione"
         },
         "deprecatedNavigator": {
             "close": "Chiudi",
@@ -3398,6 +3461,9 @@
             "restore": {
                 "error": "Impossibile ripristinare l'insegnante",
                 "success": "Professore ripristinato con successo"
+            },
+            "editAccessToCoachSpace": {
+                "error": "Errore durante la modifica dei diritti di accesso all'area insegnanti"
             }
         },
         "relationship": {
@@ -4610,7 +4676,8 @@
             "nbOffersTotal": "Sessioni",
             "nbBookingsOverThreshold": "Bonus per prenotazione",
             "pricePerOffer": "Importo per sessione",
-            "payment": "Retribuzione"
+            "payment": "Retribuzione",
+            "durationBookings": "Numero di ore"
         },
         "forms": {
             "delete": {
@@ -4657,7 +4724,9 @@
             "tab": {
                 "general": "Profilo",
                 "calendar": "Calendario"
-            }
+            },
+            "coachSpaceInfo": "In questo spazio, il tuo insegnante sarà in grado di accedere al suo riepilogo di stipendio per sessione e di visualizzare il suo orario. Possono anche aggiungere la loro disponibilità.",
+            "coachSpace": "Area insegnanti"
         },
         "overrideSelectorTitle": "Insegnante",
         "color": "Codice colore (appuntamento)",
@@ -4672,7 +4741,13 @@
         "noActivity": "Questo insegnante non gestisce alcuna attività.",
         "noCoachs": "Nessun insegnante registrato, gestisci qui i tuoi insegnanti, i collaboratori e la loro retribuzione.",
         "inactiveCoaches": "Professori archiviati",
-        "paymentRule": "Retribuzione"
+        "paymentRule": "Retribuzione",
+        "coachAccess": {
+            "teacher": "professore",
+            "student": "studente",
+            "info": "Abbiamo rilevato che lei è un insegnante in questo studio. Vuoi avere accesso alla tua area studenti o alla tua area insegnanti?",
+            "access": "Accesso"
+        }
     },
     "subscription": {
         "subscription": {
@@ -6491,7 +6566,8 @@
                 },
                 "simpleChange": {
                     "unchangedEmail": "Nel frattempo manterrà la sua vecchia email.",
-                    "warning": "Attenzione, hai cambiato l'email di login di questo membro:"
+                    "warning": "Attenzione, hai cambiato l'email di login di questo membro:",
+                    "informativeHelperText": "Per vostra informazione vi invieremo un'e-mail per informarvi di questo cambiamento."
                 }
             },
             "pendingValidation": "Cambiamento in sospeso: {{ email }}",
@@ -6717,7 +6793,8 @@
                         "refunded": "a ogni cancellazione rimborsata",
                         "absence": "a ogni assenza",
                         "attendance": "a ogni presenza"
-                    }
+                    },
+                    "birthday": "Invia il giorno del compleanno"
                 },
                 "cancel": "Annulla",
                 "next": "seguente",
@@ -8526,7 +8603,8 @@
         },
         "signin": {
             "connection": "Connessione",
-            "connect": "Accedi per continuare."
+            "connect": "Accedi per continuare.",
+            "selectYourCurrentEmail": "Seleziona il tuo attuale indirizzo di accesso."
         }
     },
     "waitingList": {
@@ -8856,7 +8934,10 @@
             "selectAll": "Seleziona tutti"
         },
         "cancel": "Cancella",
-        "confirm": "Confermare"
+        "confirm": "Confermare",
+        "disconnectInfo": "Torna alla pagina di accesso",
+        "disconnect": "Disconnessione",
+        "activate": "Attivare"
     },
     "titles": {
         "metaActivity": {
@@ -8945,6 +9026,9 @@
         "planning": "Calendario",
         "expense": {
             "expenseList": "Le mie spese"
+        },
+        "coachUserSpace": {
+            "performance": "Remunerazione"
         }
     },
     "dashboard": {
@@ -9616,13 +9700,15 @@
                 "meta_activity": "Attività",
                 "payment_pack": "Tessera",
                 "workshop": "Workshop",
-                "private_pass": "Carta d'appuntamento"
+                "private_pass": "Carta d'appuntamento",
+                "birthday": "Compleanno"
             },
             "groupTitle": {
                 "booking": "Prenotazione",
                 "privateBooking": "Appuntamento",
                 "paymentPack": "Tessera",
-                "privatePass": "Carta d'appuntamento"
+                "privatePass": "Carta d'appuntamento",
+                "birthday": "Compleanno"
             },
             "selectIdentifierLabel": {
                 "establishment": "Seleziona una struttura",

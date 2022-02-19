@@ -959,7 +959,8 @@
                 "changeDate": "Uhrzeit/Datum ändern",
                 "warningPackonEdit": "Änderungen an den Kursen können dazu führen, dass diese mit einigen Kurskarten nicht mehr kompatibel sind. Bitte prüfe, ob sie mit den möglichen Orts-/Lehrerwechseln kompatibel bleiben.",
                 "levelChangeWarning": "Wenn das Level des Kurses geändert wird, wird diese Änderung für alle zukünftigen Sitzungen wirksam. Alle anderen hier aufgezeichneten Änderungen (Einrichtung, Preis, Wochentag usw.) werden daher auf alle Sitzungen angewendet.",
-                "explainPartnership": "Auf Marktplätzen (ClassPass, OneFit...)"
+                "explainPartnership": "Auf Marktplätzen (ClassPass, OneFit...)",
+                "explainManagerOnly": "Verfügbar bei Buchung (Web+App)"
             },
             "shop": {
                 "item": {
@@ -2093,7 +2094,7 @@
             "activeSince": "Aktiv von",
             "tag": "Tag",
             "asyncDialog": {
-                "message": "Aufgrund Ihrer Änderungen an den Tag-Regeln für die Smartlist {{name}} müssen wir die Tags Ihrer Mitglieder aktualisieren.",
+                "message": "Aufgrund Ihrer Änderungen an den Tag-Regeln der Smartlist {{ name }} müssen die Tags aktualisiert werden. Diese Synchronisierung erfolgt alle zwei Stunden.",
                 "title": "Aktualisierungen der Tag-Regeln "
             }
         },
@@ -3713,6 +3714,9 @@
             "restore": {
                 "error": "Es ist unmöglich, den Lehrer wiederherzustellen",
                 "success": "Lehrer erfolgreich wiederhergestellt"
+            },
+            "editAccessToCoachSpace": {
+                "error": "Fehler beim Ändern der Zugriffsrechte für den Lehrerbereich"
             }
         },
         "invoice": {
@@ -5537,7 +5541,8 @@
                         "refunded": "Für jede erstattete Stornierung",
                         "absence": "Bei jeder Abwesenheit",
                         "attendance": "Bei jeder Anwesenheit"
-                    }
+                    },
+                    "birthday": "Am Geburtstag senden"
                 },
                 "chooseKind": {
                     "absence": "Abwesenheit des Mitglieds bei einem Kurs",
@@ -6042,7 +6047,8 @@
                 },
                 "simpleChange": {
                     "unchangedEmail": "In der Zwischenzeit wird er seine alte E-Mail behalten.",
-                    "warning": "Achtung, Sie haben die Anmelde-E-Mail dieses Mitglieds geändert :"
+                    "warning": "Achtung, Sie werden die Anmelde-E-Mail dieses Mitglieds ändern :",
+                    "informativeHelperText": "Zu Informationszwecken werden wir ihm eine E-Mail schicken, um ihn über diese Änderung zu informieren."
                 },
                 "titleMerge": " Fusion von Mitgliedern",
                 "title": "Änderung der E-Mail"
@@ -6080,7 +6086,10 @@
             "selectAll": "Alle auswählen"
         },
         "cancel": "Abbrechen",
-        "confirm": "Bestätigen"
+        "confirm": "Bestätigen",
+        "disconnectInfo": "Zurück zur Anmeldeseite",
+        "disconnect": "Mich abmelden",
+        "activate": "Aktivieren"
     },
     "coupon": {
         "detail": {
@@ -7000,7 +7009,8 @@
                 "notify_member": "Sende eine Bestätigungs-E-Mail, wenn Du das Mitglied registrierst",
                 "timeGroup": "Datum des Kurses",
                 "configuration": "Buchungen",
-                "title": "Planen Sie eine Wiederholung"
+                "title": "Planen Sie eine Wiederholung",
+                "override_availabilities": "Die Buchung vornehmen, auch wenn die Lehrkraft, der Raum oder der Termin nicht verfügbar sind"
             },
             "actions": {
                 "save": "Speichern",
@@ -7448,7 +7458,12 @@
             "total": "Gesamtvergütung",
             "cancelled_bookings": "Stornierte Buchungen",
             "confirmed_bookings": "Teilnehmer",
-            "unpaid_private_booking": "Termine sind unbezahlt."
+            "unpaid_private_booking": "Termine sind unbezahlt.",
+            "coachName": "Lehrer",
+            "total_on_appointments": "Vergütung Termin",
+            "total_on_sessions": "Vergütung Gruppenunterricht",
+            "nb_appointments": "Anzahl der Termine",
+            "nb_sessions": "Anzahl der Sitzungen"
         },
         "checkboxIncludeABonus": "Einen Leistungsbonus einschließen",
         "pricePerOffer": "Betrag pro Sitzung",
@@ -7458,7 +7473,37 @@
         "pricePerAdditionalBookingLabel": "Unterschiedlich nach Buchung",
         "pricePerAdditionalBookingHelper": "Rückerstattung des Betrags für jede Buchung über dem Limit",
         "fixedPriceForAdditionalBookingLabel": "Pro Kurs festgelegt",
-        "fixedPriceForAdditionalBookingHelper": "Fixbetrag, der für jeden Kurs mit genügend Teilnehmern ausgezahlt wird"
+        "fixedPriceForAdditionalBookingHelper": "Fixbetrag, der für jeden Kurs mit genügend Teilnehmern ausgezahlt wird",
+        "cachedData": {
+            "leavePreviewMode": "Den Preview-Modus verlassen",
+            "previewModeTitle": "Preview-Modus",
+            "downloadMySavedData": "Download",
+            "enterPreviewMode": "In den Preview-Modus wechseln",
+            "unresolvedDaterange": "Ungültiges Lohnintervall",
+            "dateRange": "Bezüge des {{- startDate }} bis {{- endDate }}",
+            "dateSaved": "Daten erzeugt am {{ date }}",
+            "title": "Gespeicherte Daten ({{ count }})"
+        },
+        "export": {
+            "completed": {
+                "message": "Die Exportdatei für die Lehrergehälter ist verfügbar. Sie können diese Daten auch unter 'Gespeicherte Daten' abrufen.",
+                "title": "Excel-Export der Lehrergehälter"
+            },
+            "dialog": {
+                "buttonText": "Bestätigen",
+                "message": "Durch den Export der Daten können Sie ein Excel für die ausgewählte Dauer erstellen. Diese Daten werden ebenfalls gespeichert und können später verwendet werden.",
+                "title": "Exportieren und Speichern von Daten"
+            },
+            "buttonText": "Exportieren"
+        },
+        "performance": {
+            "table": {
+                "header": {
+                    "nbSessions": "Anzahl der Gruppenkurse",
+                    "coachName": "Lehrer"
+                }
+            }
+        }
     },
     "paymentCombo": {
         "form": {
@@ -7634,7 +7679,9 @@
             "530": "Streit über die Zahlung eines Abonnements",
             "520": "Die Zahlung eines fehlgeschlagenen Abonnements wird erneut versucht",
             "515": "Kurskarte des Abonnements automatisch deaktiviert",
-            "510": "Fehlgeschlagene Abonnement-Zahlung"
+            "510": "Fehlgeschlagene Abonnement-Zahlung",
+            "481": "Wiederkehrende Verabredung wegen mangelnder Verfügbarkeit abgesagt (Schüler/in)",
+            "480": "Wiederkehrendes Treffen wegen mangelnder Verfügbarkeit abgesagt (Lehrer)"
         },
         "tag": {
             "BookingOption": {
@@ -7741,7 +7788,8 @@
             "booking": "Buchung",
             "marketing": "Marketing",
             "invoice": "Abrechnung",
-            "payment_pack": "Kurskarten"
+            "payment_pack": "Kurskarten",
+            "recurrent_private_booking": "Wiederkehrende Verabredung"
         },
         "pageTitle": "Transaktions-E-Mails",
         "caption": {
@@ -7792,7 +7840,29 @@
             "emptyStateConfiguration": "Erstellen Sie eine Konfiguration, um die Verwendung von E-Mail-Vorlagen für jeden Ihrer Franchisenehmer zu erzwingen.",
             "addConfiguration": "Hinzufügen einer Konfiguration",
             "emptySelect": "Wählen Sie eine Transaktions-E-Mail aus, um zu sehen, für welchen Franchisenehmer sie bestimmt ist und von wem sie verwendet wird."
-        }
+        },
+        "listItem": {
+            "createTransactionnalNotification": "die Push-Benachrichtigung einrichten",
+            "modifyTransactionnalNotification": "die Push-Benachrichtigung ändern",
+            "sendTransactionnalNotification": "Eine Push-Benachrichtigung senden",
+            "transactionnalNotification": "Push-Benachrichtigung",
+            "mailToSend": "Zu sendende Mail",
+            "copyCarbon": "Eine Kopie der E-Mail erhalten",
+            "sendTransactionnalEmail": "Senden einer Transaktions-E-Mail",
+            "transactionnalEmail": "Transaktions-E-Mail"
+        },
+        "preview": {
+            "email": "E-Mail",
+            "notification": "Push",
+            "emptyStateNotification": "Um Ihre Vorschau zu sehen, richten Sie Ihre Push-Benachrichtigung ein",
+            "emptyState": "Um die Vorschauen zu sehen, klicken Sie auf eine der Kategorien",
+            "title": "Übersicht"
+        },
+        "goBackToMenu": "Vorherige",
+        "configureNotif": "Einrichten",
+        "countNotification": "{{nbr}} aktivierte Push-Benachrichtigungen",
+        "countEmail": "{{nbr}} aktivierte Transaktionsmails",
+        "countElements": "{{nbr}} Elemente"
     },
     "membership": {
         "selector": {
@@ -8022,6 +8092,9 @@
         "offerFormPage": "Erstellung eines Kurses",
         "expense": {
             "expenseList": "Meine Ausgaben"
+        },
+        "coachUserSpace": {
+            "performance": "Bezahlung"
         }
     },
     "stripe": {
@@ -8415,7 +8488,8 @@
             "giftcard": "Geschenkkarten",
             "programs": "Programme",
             "expenses": "Ausgaben",
-            "instalmentPayment": "Zahlungen in Raten"
+            "instalmentPayment": "Zahlungen in Raten",
+            "coachPayroll": "Bezahlung"
         },
         "deprecatedNavigator": {
             "close": "Schließen",
@@ -8542,7 +8616,8 @@
             "nbOffersTotal": "Kurse",
             "coachName": "Lehrer",
             "title": "Übersicht der Lehrer",
-            "nbBookingsOverThreshold": "Bonus-Buchungen"
+            "nbBookingsOverThreshold": "Bonus-Buchungen",
+            "durationBookings": "Anzahl der Stunden"
         },
         "description": "Beschreibung",
         "card": {
@@ -8566,13 +8641,21 @@
             "tab": {
                 "calendar": "Kalender",
                 "general": "Profil"
-            }
+            },
+            "coachSpaceInfo": "In diesem Bereich kann Ihr Lehrer auf seine Abrechnungsübersicht pro Sitzung zugreifen und seinen Stundenplan einsehen. Er kann auch seine Verfügbarkeiten hinzufügen.",
+            "coachSpace": "Lehrerbereich"
         },
         "showPerformance": "Lohn ausstellen",
         "noCoach": "Zur Zeit gibt es keine registrierten Lehrer",
         "noCoachs": "Keine registrierten Lehrer, verwalte hier die Lehrer, Referenten und deren Entlohnung.",
         "inactiveCoaches": "Archivierte Lehrer",
-        "paymentRule": "Dienstbezüge"
+        "paymentRule": "Dienstbezüge",
+        "coachAccess": {
+            "teacher": "Lehrer",
+            "student": "Schüler",
+            "info": "Wir haben festgestellt, dass Sie Lehrer in diesem Studio sind. Möchten Sie Zugang zu Ihrem Schülerbereich oder Ihrem Lehrerbereich?",
+            "access": "Zugang"
+        }
     },
     "login": {
         "error": {
@@ -8706,7 +8789,8 @@
         },
         "signin": {
             "connect": "Melden Sie sich an, um fortzufahren.",
-            "connection": "Verbindung"
+            "connection": "Verbindung",
+            "selectYourCurrentEmail": "Wählen Sie Ihre aktuelle Anmeldeadresse."
         }
     },
     "marketplace": {
@@ -9613,7 +9697,8 @@
                 "paymentPack": "Kurskarte",
                 "privateBooking": "Termin",
                 "booking": "Buchung",
-                "privatePass": "Rendezvous-Karte"
+                "privatePass": "Rendezvous-Karte",
+                "birthday": "Geburtstag"
             },
             "fabLabels": {
                 "payment_pack": "Kurskarte",
@@ -9621,7 +9706,8 @@
                 "establishment": "Einrichtung",
                 "meta_activity": "Aktivität",
                 "workshop": "Workshop",
-                "private_pass": "Rendezvous-Karte"
+                "private_pass": "Rendezvous-Karte",
+                "birthday": "Geburtstag"
             },
             "cancel": "Abbrechen",
             "next": "Weiter",

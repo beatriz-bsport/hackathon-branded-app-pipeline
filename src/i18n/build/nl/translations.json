@@ -4572,6 +4572,9 @@
         },
         "expense": {
             "expenseList": "Uitgaven"
+        },
+        "coachUserSpace": {
+            "performance": "Payroll"
         }
     },
     "event": {
@@ -7022,6 +7025,9 @@
             "restore": {
                 "error": "Kan instructeur niet herstellen",
                 "success": "Instructeur succesvol hersteld"
+            },
+            "editAccessToCoachSpace": {
+                "error": "Fout bij het wijzigen van de toegangsrechten van de Instructeursweergave"
             }
         },
         "relationship": {
@@ -7765,7 +7771,8 @@
             "pricePerOffer": "Bedrag per sessie",
             "pricePerAdditionalBooking": "Bedrag per reservering",
             "calculate": "Bereken",
-            "payment": "Payroll"
+            "payment": "Payroll",
+            "durationBookings": "Aantal uren"
         },
         "selfNoActivity": "Je account is niet aan een activiteit gekoppeld.",
         "forms": {
@@ -7804,7 +7811,9 @@
             "tab": {
                 "calendar": "Agenda",
                 "general": "Profiel"
-            }
+            },
+            "coachSpaceInfo": "In deze ruimte kunnen instructeurs hun payroll per sessie bekijken, hun rooster inzien en hun beschikbaarheid beheren.",
+            "coachSpace": "Instructeursweergave"
         },
         "overrider": "Plaatsvervanger",
         "overrideSelectorTitle": "Instructeur",
@@ -7830,7 +7839,13 @@
         "noCoach": "Er zijn nog geen instructeurs geregistreerd",
         "noCoachs": "In dit onderdeel kun je al je instructeurs toevoegen, beheren, wijzigen en verwijderen.",
         "inactiveCoaches": "Gearchiveerde instructeurs",
-        "paymentRule": "Vergoeding"
+        "paymentRule": "Vergoeding",
+        "coachAccess": {
+            "teacher": "Instructeur",
+            "student": "Lid",
+            "info": "Het lijkt erop dat je tevens een Instructeur bij deze studio bent. Wil je nu de Ledenweergave of de Instructeursweergave betreden?",
+            "access": "Toegang"
+        }
     },
     "relationship": {
         "consumer_payment_pack_links": {
@@ -8295,7 +8310,10 @@
             "selectAll": "Selecteer alles"
         },
         "cancel": "Annuleren",
-        "confirm": "Bevestigen"
+        "confirm": "Bevestigen",
+        "disconnectInfo": "Terug naar de inlogpagina",
+        "disconnect": "Afmelden",
+        "activate": "Activeren"
     },
     "workshop": {
         "modal": {
@@ -9532,7 +9550,8 @@
             "giftcard": "Cadeaubonnen",
             "programs": "Programma's",
             "expenses": "Uitgaven",
-            "instalmentPayment": "Termijnbetalingen"
+            "instalmentPayment": "Termijnbetalingen",
+            "coachPayroll": "Payroll"
         },
         "deprecatedNavigator": {
             "close": "Sluiten",

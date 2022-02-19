@@ -4409,7 +4409,10 @@
             "selectAll": "Select all"
         },
         "cancel": "Cancel",
-        "confirm": "Confirm"
+        "confirm": "Confirm",
+        "disconnectInfo": "Return to Login Page",
+        "disconnect": "Logout",
+        "activate": "Activate"
     },
     "workshop": {
         "search": "Search a workshop",
@@ -6244,7 +6247,8 @@
             "pricePerOffer": "Amount per session",
             "pricePerAdditionalBooking": "Amount per booking",
             "calculate": "Calculate",
-            "payment": "Payroll"
+            "payment": "Payroll",
+            "durationBookings": "Number of hours"
         },
         "addCoach": "Add a teacher",
         "noActivity": "This teacher does not manage any activity.",
@@ -6292,12 +6296,20 @@
             "tab": {
                 "calendar": "Schedule",
                 "general": "Profile"
-            }
+            },
+            "coachSpaceInfo": "Teachers will be able to see their payroll per session, view their schedule, and manage their availabilities in this area.",
+            "coachSpace": "Teacher View"
         },
         "noCoach": "No teachers is registered yet",
         "noCoachs": "No registered teachers, manage your teachers here, contributors and their payment.",
         "inactiveCoaches": "Archived teachers",
-        "paymentRule": "Payroll"
+        "paymentRule": "Payroll",
+        "coachAccess": {
+            "teacher": "Teacher",
+            "student": "Member",
+            "info": "We've detected that you're also a Teacher at this studio. Would you like to access the Member View or the Teacher View?",
+            "access": "Access"
+        }
     },
     "subscription": {
         "events": {
@@ -8834,6 +8846,9 @@
         },
         "expense": {
             "expenseList": "Expenses"
+        },
+        "coachUserSpace": {
+            "performance": "Payroll"
         }
     },
     "event": {
@@ -9851,6 +9866,9 @@
             "restore": {
                 "error": "Unable to restore the teacher",
                 "success": "Teacher successfully restored"
+            },
+            "editAccessToCoachSpace": {
+                "error": "Error when editing Teacher View's access and rights"
             }
         },
         "link": {
@@ -10353,7 +10371,8 @@
             "giftcard": "Gift cards",
             "programs": "Programmes",
             "expenses": "Expenses",
-            "instalmentPayment": "Payments by instalments"
+            "instalmentPayment": "Payments by instalments",
+            "coachPayroll": "Payroll"
         },
         "deprecatedNavigator": {
             "navigatorError": "It seems that your browser is too old to use our services. You may encounter errors, we recommend that you download a more recent version, in particular : ",

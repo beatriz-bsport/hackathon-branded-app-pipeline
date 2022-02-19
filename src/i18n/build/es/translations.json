@@ -433,7 +433,8 @@
                     "error": "El enlace está mal. Debe comenzar con http:// o https:// y no contener ningún espacio",
                     "explainZoomApp": "El enlace se generará automáticamente a través de ZOOM por bsport"
                 },
-                "explainPartnership": "En marketplaces (ClassPass, OneFit...)"
+                "explainPartnership": "En marketplaces (ClassPass, OneFit...)",
+                "explainManagerOnly": "Disponible para reservar (web+app)"
             },
             "paymentPack": {
                 "newMemberOnly": "Uniquement pour les nouveaux clients",
@@ -1538,7 +1539,8 @@
         },
         "signin": {
             "connect": "Inicia sesión para continuar.",
-            "connection": "Conexión"
+            "connection": "Conexión",
+            "selectYourCurrentEmail": "Seleccione su dirección de acceso actual."
         }
     },
     "establishment": {
@@ -2713,7 +2715,8 @@
             "pricePerAdditionalBooking": "Importe por reservas",
             "calculate": "Calcular",
             "payment": "Remuneración",
-            "coachName": "Profesor"
+            "coachName": "Profesor",
+            "durationBookings": "Número de horas"
         },
         "addCoach": "Añadir un profesor",
         "noActivity": "Este profesor no tiene actividades.",
@@ -2770,11 +2773,19 @@
             "tab": {
                 "calendar": "Calendario",
                 "general": "Perfil"
-            }
+            },
+            "coachSpaceInfo": "En este espacio, su profesor podrá acceder a su resumen de pagos por sesión, así como ver su horario. También pueden añadir su disponibilidad.",
+            "coachSpace": "Área de profesores"
         },
         "noCoachs": "Ninguno profesor guardado, administre a sus profes, colaboradores y su remuneración aquí.",
         "inactiveCoaches": "Profesores archivados",
-        "paymentRule": "Remuneración"
+        "paymentRule": "Remuneración",
+        "coachAccess": {
+            "teacher": "profesor",
+            "student": "alumno",
+            "info": "Hemos detectado que usted es profesor en este estudio. ¿Desea acceder a su área de estudiantes o a su área de profesores?",
+            "access": "Acceso"
+        }
     },
     "subscription": {
         "table": {
@@ -3998,7 +4009,8 @@
                 },
                 "simpleChange": {
                     "unchangedEmail": "Mientras tanto, mantendrá su antiguo correo electrónico.",
-                    "warning": "Atención, ha cambiado el correo electrónico de acceso de este miembro:"
+                    "warning": "Atención, ha cambiado el correo electrónico de acceso de este miembro:",
+                    "informativeHelperText": "Para su información, le enviaremos un correo electrónico para informarle de este cambio."
                 },
                 "titleMerge": " Fusión de miembros",
                 "title": "Cambio de correo electrónico"
@@ -4125,7 +4137,8 @@
                         "refunded": "En cada cancelación reembolsada",
                         "absence": "En cada ausencia",
                         "attendance": "En cada asistencia"
-                    }
+                    },
+                    "birthday": "Enviar el día del cumpleaños"
                 },
                 "cancel": "Cancelar",
                 "next": "siguiente",
@@ -4365,7 +4378,8 @@
             "subscription": "Suscripción",
             "marketing": "Marketing",
             "invoice": "Facturación",
-            "payment_pack": "Bonos"
+            "payment_pack": "Bonos",
+            "recurrent_private_booking": "Cita periódica"
         },
         "eventType": {
             "14": "Cancelación de la inscripción en la lista de espera (mánager)",
@@ -4404,7 +4418,9 @@
             "530": "Disputa sobre el pago de una suscripción",
             "520": "El pago fallido de una suscripción se volverá a intentar",
             "515": "Bono del abono desactivado automáticamente",
-            "510": "Pago fallido de una suscripción"
+            "510": "Pago fallido de una suscripción",
+            "481": "Cita recurrente anulada por falta de disponibilidad (estudiante)",
+            "480": "Cita recurrente anulada por falta de disponibilidad (profesor)"
         },
         "tag": {
             "BookingOption": {
@@ -4551,7 +4567,29 @@
             "emptyStateConfiguration": "Cree una configuración para forzar el uso de plantillas de correo electrónico para cada uno de sus franquiciados.",
             "addConfiguration": "Añadir una configuración",
             "emptySelect": "Seleccione un correo electrónico transaccional para ver con qué franquiciado es compartido y utilizado."
-        }
+        },
+        "listItem": {
+            "createTransactionnalNotification": "configurar las notificaciones push",
+            "modifyTransactionnalNotification": "cambiar la notificación push",
+            "sendTransactionnalNotification": "Enviar una notificación push",
+            "transactionnalNotification": "Notificación push",
+            "mailToSend": "Correo a enviar",
+            "copyCarbon": "Recibir una copia del email",
+            "sendTransactionnalEmail": "Enviar un email transaccional",
+            "transactionnalEmail": "Email transaccional"
+        },
+        "preview": {
+            "email": "Email",
+            "notification": "Empuje",
+            "emptyStateNotification": "Para ver su vista previa, configure su notificación push",
+            "emptyState": "Para ver las vistas previas, haga clic en una de las categorías",
+            "title": "Resumen"
+        },
+        "goBackToMenu": "Anteriormente",
+        "configureNotif": "Configurar",
+        "countNotification": "{{nbr}} notificaciones push habilitadas",
+        "countEmail": "{{nbr}} emails transaccionales activados",
+        "countElements": "{{nbr}} elementos"
     },
     "partnership": {
         "requestDialog": {
@@ -5606,7 +5644,8 @@
                 "notify_member": "Envíe un correo electrónico de confirmación al registrarse como miembro",
                 "timeGroup": "Fecha de la sesión",
                 "configuration": "Reservas",
-                "title": "Programar una recurrencia"
+                "title": "Programar una recurrencia",
+                "override_availabilities": "Haga la reserva aunque el profesor, la sala o la cita no estén disponibles"
             },
             "actions": {
                 "save": "Guardar",
@@ -6828,7 +6867,10 @@
             "selectAll": "Seleccionar todo"
         },
         "cancel": "Cancelar",
-        "confirm": "Comfirmar"
+        "confirm": "Comfirmar",
+        "disconnectInfo": "Volver a la página de inicio de sesión",
+        "disconnect": "Cerrar la sesión",
+        "activate": "Activar"
     },
     "snackbar": {
         "invoice": {
@@ -7288,6 +7330,9 @@
             "restore": {
                 "error": "No se puede restaurar al profesor",
                 "success": "Profesor restaurado exitosamente"
+            },
+            "editAccessToCoachSpace": {
+                "error": "Error al modificar los derechos de acceso al área de profesores"
             }
         },
         "link": {
@@ -8525,7 +8570,8 @@
             "giftcard": "Tarjetas de regalo",
             "programs": "Programas",
             "expenses": "Gastos",
-            "instalmentPayment": "Pagos fraccionados"
+            "instalmentPayment": "Pagos fraccionados",
+            "coachPayroll": "Remuneración"
         },
         "deprecatedNavigator": {
             "close": "Cerrar",
@@ -8764,7 +8810,42 @@
             "total": "Compensación total",
             "cancelled_bookings": "Reservas canceladas",
             "confirmed_bookings": "Participantes",
-            "unpaid_private_booking": "Hay citas que no son remuneradas."
+            "unpaid_private_booking": "Hay citas que no son remuneradas.",
+            "coachName": "Profesor",
+            "total_on_appointments": "Remuneración de las citas",
+            "total_on_sessions": "Remuneración de las clases colectivas",
+            "nb_appointments": "Número de citas",
+            "nb_sessions": "Número de sesiones"
+        },
+        "cachedData": {
+            "leavePreviewMode": "Salir del modo de vista previa",
+            "previewModeTitle": "Modo de vista previa",
+            "downloadMySavedData": "Descargar",
+            "enterPreviewMode": "Cambiar al modo de vista previa",
+            "unresolvedDaterange": "Rango salarial inválido",
+            "dateRange": "Remuneración de {{- startDate }} a {{- endDate }}",
+            "dateSaved": "Datos generados en {{ date }}",
+            "title": "Datos guardados {{ count }}"
+        },
+        "export": {
+            "completed": {
+                "message": "El archivo de exportación de los salarios de los profesores está disponible. También puede recuperar estos datos en la sección \"Datos guardados\".",
+                "title": "Exportación en Excel de los salarios de los profesores"
+            },
+            "dialog": {
+                "buttonText": "Confirmar",
+                "message": "Al exportar los datos podrá generar un excel para la duración seleccionada. Estos datos también se almacenarán y podrán utilizarse posteriormente.",
+                "title": "Exportación y almacenamiento de datos"
+            },
+            "buttonText": "Exportar"
+        },
+        "performance": {
+            "table": {
+                "header": {
+                    "nbSessions": "Número de cursos en grupo",
+                    "coachName": "Profesor"
+                }
+            }
         }
     },
     "smartList": {
@@ -9527,6 +9608,9 @@
         },
         "expense": {
             "expenseList": "Mis gastos"
+        },
+        "coachUserSpace": {
+            "performance": "Remuneración"
         }
     },
     "widget": {
@@ -9660,7 +9744,8 @@
                 "paymentPack": "Bono",
                 "privateBooking": "Cita",
                 "booking": "Reservar",
-                "privatePass": "Tarjeta de cita"
+                "privatePass": "Tarjeta de cita",
+                "birthday": "Cumpleaños"
             },
             "fabLabels": {
                 "payment_pack": "Bono",
@@ -9668,7 +9753,8 @@
                 "establishment": "Establecimiento",
                 "meta_activity": "Actividad",
                 "workshop": "Taller",
-                "private_pass": "Tarjeta de cita"
+                "private_pass": "Tarjeta de cita",
+                "birthday": "Cumpleaños"
             },
             "cancel": "Cancelar",
             "next": "Siguiente",

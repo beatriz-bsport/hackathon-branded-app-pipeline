@@ -5,12 +5,12 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withState } from 'recompose';
 
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import IconButton from '@material-ui/core/IconButton';
+// import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+// import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+// import IconButton from '@material-ui/core/IconButton';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
+// import CardMedia from '@material-ui/core/CardMedia';
 
 import { withTranslation, TFunction } from 'react-i18next';
 import TypographyMultiline from '../../../components/TypographyMultiline.component';
@@ -20,18 +20,18 @@ import { formatMinutes } from '../../../utils/datetime';
 type Props = {
   metaActivity: MetaActivity,
   classes: Object,
-  shownImage: number,
-  setShownImage: (number) => void,
+  // shownImage: number,
+  // setShownImage: (number) => void,
   t: TFunction,
 };
 
 export const MetaActivityCard = (props: Props) => {
-  const { classes, t, metaActivity, shownImage, setShownImage } = props;
-  const nbImages =
-    metaActivity.images.length + (metaActivity.cover_main ? 1 : 0);
+  const { classes, t, metaActivity } = props;
+  // const nbImages =
+  //   metaActivity.images.length + (metaActivity.cover_main ? 1 : 0);
   return (
     <Card style={{ width: '100%' }}>
-      {nbImages ? (
+      {/* nbImages && false ? (
         <div className={classes.imageContainer}>
           <div className={classes.previousImageButton}>
             <IconButton
@@ -63,7 +63,7 @@ export const MetaActivityCard = (props: Props) => {
             }}
           />
         </div>
-      ) : null}
+      ) : null */}
       {metaActivity.color ? (
         <div style={{ borderTop: `4px solid ${metaActivity.color}` }} />
       ) : null}

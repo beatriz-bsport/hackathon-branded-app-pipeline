@@ -478,6 +478,7 @@ export function exportExcelPerformance(
     start_timestamp?: number;
     end_timestamp?: number;
     score_timestamp?: number;
+    associated_coaches_in?: Array<number>;
   },
   options?: OptionCallback & {
     closeInitialDialog: () => void;

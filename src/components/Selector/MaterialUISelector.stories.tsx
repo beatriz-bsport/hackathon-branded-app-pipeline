@@ -109,6 +109,13 @@ SingleSelectWithIcon.args = {
   leftIcon: <AccessAlarm />,
 };
 
+export const SingleSelectVirtualized = CustomTemplate.bind({});
+
+SingleSelectVirtualized.args = {
+  ...defaultOption,
+  isMenuListVirtualized: true,
+};
+
 export const SingleSelectGroupedOption = CustomTemplate.bind({});
 
 SingleSelectGroupedOption.args = {
@@ -121,6 +128,15 @@ export const DefaultMultiSelect = CustomTemplate.bind({});
 
 DefaultMultiSelect.args = {
   ...defaultOption,
+  isMulti: true,
+  value: [],
+};
+
+export const DefaultMultiSelectVirtualized = CustomTemplate.bind({});
+
+DefaultMultiSelectVirtualized.args = {
+  ...defaultOption,
+  isMenuListVirtualized: true,
   isMulti: true,
   value: [],
 };

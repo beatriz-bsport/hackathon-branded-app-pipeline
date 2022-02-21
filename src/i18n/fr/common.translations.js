@@ -24,6 +24,8 @@ exports.default = {
     unselectAll: 'Tout désélectionner',
     validate: 'Valider',
   },
+  weekly: 'Hebdomadaire',
+  monthly: 'Mensuel',
   close: 'Fermer',
   cancel: 'Annuler',
   confirm: 'Confirmer',

@@ -106,7 +106,7 @@ export const coachListAction = {
 
 export function fetchAssociatedCoachesList(
   params?: { [key: string]: boolean },
-  options?: OptionCallback,
+  options?: OptionCallback<Array<Coach>>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(coachListAction.isLoading(true));

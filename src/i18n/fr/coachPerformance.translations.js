@@ -1,4 +1,8 @@
 exports.default = {
+  form: {
+    ifEmptyAllowAll:
+      'Laisser vide pour calculer le récapitulatif pour tous les professeurs',
+  },
   fields: {
     bonus: 'Bonus',
     base: 'Base',

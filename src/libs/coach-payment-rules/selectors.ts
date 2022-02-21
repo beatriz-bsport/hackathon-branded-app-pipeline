@@ -112,6 +112,7 @@ export const getCoachPerformanceCachedDataList = createSelector(
 
 export const getAllAssociatecCoachPerformanceFromCachedData = (
   state: RootState,
+  _,
   timestamp: number | null,
 ) => {
   if (!timestamp) {
@@ -133,27 +134,37 @@ export const withCachedCoachPerformance = memoize((selector: any) =>
     [selector, getAllAssociatecCoachPerformanceFromCachedData],
     (associatedCoachList: Coach | Array<Coach>, coachPerformance) => {
       if (Array.isArray(associatedCoachList)) {
-        return associatedCoachList.map((ass) => ({
-          ...ass,
-          performance: {
-            [COACH_PERFORMANCE_FOR_SESSION]:
+        return associatedCoachList
+          .filter(
+            (associatedCoach) =>
               coachPerformance[COACH_PERFORMANCE_FOR_SESSION][
-                ass.associated_coach_id
-              ],
-            [COACH_PERFORMANCE_FOR_APPOINTMENT]:
+                associatedCoach.associated_coach_id
+              ] ||
               coachPerformance[COACH_PERFORMANCE_FOR_APPOINTMENT][
-                ass.associated_coach_id
+                associatedCoach.associated_coach_id
               ],
-            performanceLoading:
-              coachPerformance[COACH_PERFORMANCE_FOR_SESSION][
-                ass.associated_coach_id
-              ]?.loading ||
-              coachPerformance[COACH_PERFORMANCE_FOR_APPOINTMENT][
-                ass.associated_coach_id
-              ]?.loading ||
-              false,
-          },
-        }));
+          )
+          .map((ass) => ({
+            ...ass,
+            performance: {
+              [COACH_PERFORMANCE_FOR_SESSION]:
+                coachPerformance[COACH_PERFORMANCE_FOR_SESSION][
+                  ass.associated_coach_id
+                ],
+              [COACH_PERFORMANCE_FOR_APPOINTMENT]:
+                coachPerformance[COACH_PERFORMANCE_FOR_APPOINTMENT][
+                  ass.associated_coach_id
+                ],
+              performanceLoading:
+                coachPerformance[COACH_PERFORMANCE_FOR_SESSION][
+                  ass.associated_coach_id
+                ]?.loading ||
+                coachPerformance[COACH_PERFORMANCE_FOR_APPOINTMENT][
+                  ass.associated_coach_id
+                ]?.loading ||
+                false,
+            },
+          }));
       }
       return associatedCoachList;
     },

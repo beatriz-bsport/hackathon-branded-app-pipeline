@@ -29,6 +29,16 @@ export const getAllCoaches = createSelector(
   (ids, data) => ids.map((id) => data[id]),
 );
 
+export const getCoachesBulk = (
+  state: RootState,
+  idList: Array<number>,
+): Array<Coach> =>
+  idList?.length ? idList.map((id) => state.coach.byId[id]) : [];
+
+export const getActiveCoachesBulk = createSelector(getCoachesBulk, (coaches) =>
+  coaches.filter((c) => !c.disabled),
+);
+
 export const getActiveCoaches = createSelector(getAllCoaches, (coaches) =>
   coaches.filter((c) => !c.disabled),
 );

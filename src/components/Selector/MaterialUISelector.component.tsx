@@ -25,6 +25,7 @@ import { useTranslation } from 'react-i18next';
 import { GroupHeadingProps } from 'react-select/src/components/Group';
 import classNames from 'classnames';
 import { v4 as uuidv4 } from 'uuid';
+import { FixedSizeList as VirtualizedList } from 'react-window';
 
 export type OptionTypeBase =
   | {
@@ -41,6 +42,7 @@ type BaseProps<T extends OptionTypeBase> = {
   options: T[];
   inScrollBar?: boolean;
   isMenuListPaddingDisabled?: boolean;
+  isMenuListVirtualized?: boolean;
   chipsRenderer?: (props: {
     data: T;
     onDelete: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
@@ -83,6 +85,7 @@ function MaterialUISelector<T extends OptionTypeBase>(props: Props<T>) {
     onChange,
     inScrollBar,
     isMenuListPaddingDisabled,
+    isMenuListVirtualized,
     ...restProps
   } = props;
   const classes = useStyles();
@@ -114,6 +117,7 @@ function MaterialUISelector<T extends OptionTypeBase>(props: Props<T>) {
         isMulti={isMulti}
         inScrollBar={inScrollBar}
         isMenuListPaddingDisabled={isMenuListPaddingDisabled}
+        isMenuListVirtualized={isMenuListVirtualized}
         classes={classes}
         onChange={handleChange}
         options={options}
@@ -363,6 +367,25 @@ function Control<T extends OptionTypeBase>(
 function MenuList<T extends OptionTypeBase>(
   props: MenuListComponentProps<T, boolean, any>,
 ) {
+  if (props.selectProps.isMenuListVirtualized) {
+    return (
+      <components.MenuList {...props} getStyles={resetStyle}>
+        <VirtualizedList
+          height={
+            props.selectProps.options.length < 300
+              ? props.selectProps.options.length * 50
+              : 300
+          }
+          itemCount={props.selectProps.options.length}
+          itemSize={48}
+        >
+          {({ index, style }) => (
+            <div style={style}>{props.children[index]}</div>
+          )}
+        </VirtualizedList>
+      </components.MenuList>
+    );
+  }
   return (
     <components.MenuList {...props} getStyles={resetStyle}>
       <MenuListMaterial

@@ -442,6 +442,7 @@
     "paymentRule": "Rémunération"
   },
   "coachPerformance": {
+    "form": { "ifEmptyAllowAll": "Laisser vide pour calculer le récapitulatif pour tous les professeurs" },
     "fields": {
       "bonus": "Bonus",
       "base": "Base",
@@ -516,6 +517,8 @@
     "colorPicker": { "noColor": "Aucune couleur", "delete": "Effacer", "validate": "Enregistrer" },
     "text": { "showLessText": "Voir moins", "showMoreText": "Voir plus" },
     "selector": { "selectAll": "Tout sélectionner", "unselectAll": "Tout désélectionner", "validate": "Valider" },
+    "weekly": "Hebdomadaire",
+    "monthly": "Mensuel",
     "close": "Fermer",
     "cancel": "Annuler",
     "confirm": "Confirmer",

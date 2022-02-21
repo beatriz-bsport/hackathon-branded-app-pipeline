@@ -110,6 +110,7 @@ type MaterialUiSingleSelectorOwnProps = {
   title?: ReactNode;
   placeholder?: string;
   inScrollBar?: boolean;
+  isMenuListVirtualized?: boolean;
 };
 
 type MaterialUiSingleSelectorProps = BaseFieldProps &
@@ -136,6 +137,7 @@ export const MaterialUiSingleSelectorField: React.FC<
         {() => (
           <MaterialUISelector
             placeholder={props.placeholder}
+            isMenuListVirtualized={props.isMenuListVirtualized}
             onChange={(option) => {
               helpers.setValue(option.value);
             }}
@@ -157,6 +159,7 @@ type MaterialUiMultiSelectorProps = {
   placeholder?: string;
   inScrollBar?: boolean;
   isDisabled?: boolean;
+  isMenuListVirtualized?: boolean;
 };
 
 type Props = BaseFieldProps & MaterialUiMultiSelectorProps;
@@ -181,6 +184,7 @@ export const MaterialUiMultiSelectorField: React.FC<Props> = (props) => {
       <Field {...props}>
         {() => (
           <MaterialUISelector
+            isMenuListVirtualized={props.isMenuListVirtualized}
             isDisabled={props.isDisabled}
             placeholder={props.placeholder}
             onChange={(optionList) => {

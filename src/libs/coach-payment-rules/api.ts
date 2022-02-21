@@ -134,9 +134,14 @@ export const exportAsyncCoachPerformanceExcel = async (params: {
   start_timestamp?: number;
   end_timestamp?: number;
   score_timestamp?: number;
+  associated_coaches_in?: Array<number>;
 }) => {
-  return getAuth(
-    `${API_V1_URI}/coach_payment_rules/export_excel/${buildUrlParams(params)}`,
+  const { associated_coaches_in, ...urlParams } = params;
+  return postAuth(
+    `${API_V1_URI}/coach_payment_rules/export_excel/${buildUrlParams(
+      urlParams,
+    )}`,
+    { associated_coaches_in },
   );
 };
 

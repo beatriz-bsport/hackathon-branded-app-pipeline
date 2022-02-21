@@ -3,7 +3,7 @@
 import React from 'react';
 
 import * as Yup from 'yup';
-import { withFormik, Form, FormikProps } from 'formik';
+import { withFormik, Form, FormikProps, Field, FieldProps } from 'formik';
 
 import { compose } from 'recompose';
 import { useTranslation } from 'react-i18next';
@@ -17,15 +17,26 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
+import CalendarToday from '@material-ui/icons/CalendarToday';
+import {
+  FormControlLabel,
+  InputAdornment,
+  Radio,
+  RadioGroup,
+} from '@material-ui/core';
 import { Submit, DateField } from '#components/forms';
 import RedButton from '#components/button/RedButton.component';
 import type { OptionCallback } from '../../../../state/types';
+import { MaterialUiMultiSelectorField } from '#libs/custom-form/components/GenericFormik.input';
+import { Coach } from '#libs/associated-coach/types';
 
 type InitialValues = {
   dateStart: Moment.Moment;
+  coaches: Array<number>;
 };
 
 type Props = {
+  coaches: Array<Coach>;
   isSubmitting: boolean;
   disabled?: boolean;
   loading: boolean;
@@ -63,6 +74,7 @@ export function CoachPerformanceForm(props: Props) {
     const params = {
       start_timestamp: props.values.dateStart.unix(),
       end_timestamp: Moment(props.values.dateStart).endOf('month').unix(),
+      associated_coaches_in: props.values.coaches,
     };
 
     props.exportExcelPerformance(params, {
@@ -72,16 +84,63 @@ export function CoachPerformanceForm(props: Props) {
       },
     });
   };
+
   return (
     <>
       <Form className={classes.alignCenter}>
-        <DateField
-          id="textfield_remuneration_beginning"
-          views={['year', 'month']}
-          required
-          name="dateStart"
-          label={t('common.pick_a_month')}
-        />
+        <div className={classes.date}>
+          <DateField
+            id="textfield_remuneration_beginning"
+            variant="outlined"
+            required
+            name="dateStart"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <CalendarToday />
+                </InputAdornment>
+              ),
+              className: classes.input,
+            }}
+          />
+        </div>
+        <Field name="frequency">
+          {(fieldProps: FieldProps) => (
+            <RadioGroup
+              name="row-radio-buttons-group"
+              value={fieldProps.field.value}
+              onChange={(ev) => {
+                fieldProps.form.setFieldValue('frequency', ev.target.value);
+              }}
+              row
+            >
+              <FormControlLabel
+                value="w"
+                control={<Radio />}
+                label={t('common:weekly')}
+              />
+              <FormControlLabel
+                value="M"
+                control={<Radio />}
+                label={t('common:monthly')}
+              />
+            </RadioGroup>
+          )}
+        </Field>
+        {!!props.coaches?.length && (
+          <div className={classes.select}>
+            <MaterialUiMultiSelectorField
+              isMenuListVirtualized
+              name="coaches"
+              placeholder={t('coachPerformance:form.ifEmptyAllowAll')}
+              options={[...props.coaches].map((coach) => ({
+                label: coach.name,
+                value: coach.associated_coach_id,
+              }))}
+            />
+          </div>
+        )}
+
         <Submit
           id="button_remuneration_calculate"
           variant="outlined"
@@ -131,9 +190,18 @@ export function CoachPerformanceForm(props: Props) {
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
+  select: { flex: '1 0', minWidth: theme.spacing(30) },
+  date: { flex: '0 0', minWidth: theme.spacing(20) },
   alignCenter: {
     display: 'flex',
     gap: theme.spacing(2),
+    alignItems: 'center',
+    width: '100%',
+  },
+
+  input: {
+    backgroundColor: 'white',
+    color: '#868686',
   },
 }));
 const CoachPerformanceSchema = Yup.object().shape({
@@ -144,16 +212,20 @@ export default compose<any, Props>(
   withFormik({
     mapPropsToValues: () => ({
       dateStart: Moment().startOf('month'),
+      frequency: 'M' as Moment.unitOfTime.DurationConstructor,
+      coaches: [],
     }),
     validationSchema: CoachPerformanceSchema,
     handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
       const timeIntervalValue = {
         ...values,
-        dateEnd: Moment(values.dateStart).endOf('month'),
+        dateEnd: Moment(values.dateStart).add(1, values.frequency),
       };
       onSubmit(timeIntervalValue, {
         onError: () => setSubmitting(false),
-        onSuccess: () => setSubmitting(false),
+        onSuccess: () => {
+          setSubmitting(false);
+        },
       });
     },
   }),

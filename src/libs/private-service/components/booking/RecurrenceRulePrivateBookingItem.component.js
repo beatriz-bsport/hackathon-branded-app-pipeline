@@ -30,6 +30,7 @@ export const RecurrenceRulePrivateBookingItem = (props: Props) => {
     start_from_date,
     associated_coach,
     associated_establishment,
+    allow_unpaid,
   } = recurrentPrivateBooking;
 
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
@@ -93,6 +94,11 @@ export const RecurrenceRulePrivateBookingItem = (props: Props) => {
             {!!associated_establishment && (
               <Typography color="secondary" variant="body2">
                 {associated_establishment.title}
+              </Typography>
+            )}
+            {!!allow_unpaid && (
+              <Typography color="error" variant="body2">
+                {t('privateService:recurrenceRule.item.allowUnpaid')}
               </Typography>
             )}
             <Typography variant="body2">

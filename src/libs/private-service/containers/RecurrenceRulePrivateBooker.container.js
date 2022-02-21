@@ -91,6 +91,7 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
         notify_if_booked: props.initial.notify_if_booked,
         is_overriding_availabilities:
           props.initial.is_overriding_availabilities,
+        allow_unpaid: !!props.initial?.allow_unpaid,
       };
     } else {
       this.state = {
@@ -109,6 +110,7 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
         },
         notify_if_booked: false,
         is_overriding_availabilities: false,
+        allow_unpaid: false,
       };
     }
   }
@@ -168,6 +170,12 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
     });
   };
 
+  handleAllowUnpaid = (allow_unpaid: boolean) => {
+    this.setState({
+      allow_unpaid,
+    });
+  };
+
   missingResourceConf = () => {
     const private_service = this.props.private_services.find(
       (p) => p.id === this.state.configuration.private_service,
@@ -189,6 +197,7 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
         member: this.props.memberId,
         notify_if_booked: this.state.notify_if_booked,
         is_overriding_availabilities: this.state.is_overriding_availabilities,
+        allow_unpaid: this.state.allow_unpaid,
       },
       {
         onSuccess: () => {
@@ -279,6 +288,15 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
                   />
                 }
                 label={t('recurrenceRule.form.override_availabilities')}
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={this.state.allow_unpaid}
+                    onChange={(ev) => this.handleAllowUnpaid(ev.target.checked)}
+                  />
+                }
+                label={t('recurrenceRule.form.allow_unpaid')}
               />
             </DialogContent>
             <DialogActions>

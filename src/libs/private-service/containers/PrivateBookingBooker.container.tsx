@@ -243,6 +243,7 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
         coach: this.state.private_booking_data.coach,
         establishment: this.state.private_booking_data.establishment,
         member: this.state.member.id,
+        allow_unpaid: this.props.allow_unpaid,
       },
       {
         onSuccess: () => {
@@ -375,6 +376,17 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
                 }
                 label={t('recurrenceRule.form.override_availabilities')}
               />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={this.props.allow_unpaid}
+                    onChange={(ev) =>
+                      this.props.setAllowUnpaid(ev.target.checked)
+                    }
+                  />
+                }
+                label={t('recurrenceRule.form.allow_unpaid')}
+              />
             </fieldset>
           )}
           {[...missingResources].filter((l) => l !== 'address').length === 0 &&
@@ -402,8 +414,7 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
                     this.props.compatiblePrivateConsumerPass
                   }
                   compatibleWithUnpaidBooking={
-                    this.props.compatibleWithUnpaidBooking &&
-                    !this.props.recurrenceRule
+                    this.props.compatibleWithUnpaidBooking
                   }
                   privateSlotCredit={
                     this.state.private_booking_data.privateSlotCredit
@@ -482,6 +493,7 @@ type StateHandlerInit = {
   recurrenceRule: boolean;
   requestedPrivateSlot: number | null;
   is_overriding_availabilities: boolean;
+  allow_unpaid: boolean;
 };
 
 const withStateHandlersInit: StateHandlerInit = {
@@ -489,6 +501,7 @@ const withStateHandlersInit: StateHandlerInit = {
   recurrenceRule: false,
   requestedPrivateSlot: null,
   is_overriding_availabilities: false,
+  allow_unpaid: false,
 };
 
 const withStateHandlersSetter = {
@@ -499,6 +512,9 @@ const withStateHandlersSetter = {
     () => (is_overriding_availabilities: boolean) => {
       return { is_overriding_availabilities };
     },
+  setAllowUnpaid: () => (allow_unpaid: boolean) => {
+    return { allow_unpaid };
+  },
   setRecurrenceRule: () => (recurrenceRule: boolean) => {
     return { recurrenceRule };
   },

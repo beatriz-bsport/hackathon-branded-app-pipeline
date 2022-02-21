@@ -974,6 +974,8 @@ exports.default = {
       title: 'Programmer une récurrence',
       configuration: 'Réservations',
       timeGroup: 'Date de la séance',
+      allow_unpaid:
+        'Autoriser les réservations impayées (aucune carte compatible possédée)',
       notify_member:
         "Envoyer un mail de confirmation lors de l'inscription du membre",
       override_availabilities:
@@ -997,6 +999,7 @@ exports.default = {
     },
     item: {
       startFrom: 'A partir du {{ date }}',
+      allowUnpaid: 'Autorise les réservations en impayé',
       explain:
         'Tous les {{dayOfWeek}} - {{time}}, {{delayWeek}} semaines avant',
     },

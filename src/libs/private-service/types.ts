@@ -240,6 +240,7 @@ export type RecurrenceRulePrivateBooking = {
   member: number;
   private_slot: PrivateSlot;
   is_overriding_availabilities: boolean;
+  allow_unpaid: boolean;
 };
 
 export type ServiceCompatibilityPass = {

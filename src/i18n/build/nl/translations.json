@@ -300,7 +300,7 @@
             "payment_pack": "Kaarten",
             "recurrent_private_booking": "Periodieke afspraken"
         },
-        "pageTitle": "Transactionele e-mails",
+        "pageTitle": "Transactionele berichten",
         "caption": {
             "emailDesign": "Selecteer de te versturen e-mail",
             "event": "Evenement",
@@ -370,7 +370,7 @@
         "goBackToMenu": "Terug",
         "configureNotif": "Configureren",
         "countNotification": "Geactiveerde push-notificaties: {{nbr}}",
-        "countEmail": "Geactiveerde transactionele e-mails: {{nbr}}",
+        "countEmail": "Aantal geactiveerde berichten: {{nbr}}",
         "countElements": "{{nbr}} element(en)"
     },
     "membership": {
@@ -1286,7 +1286,7 @@
             "showDetails": "Details tonen",
             "show_more": "Toon meer",
             "email": "E-mail",
-            "activities": "Activiteiten",
+            "activities": "Groepsactiviteiten",
             "merge": "Samenvoegen",
             "edit": "Bewerken",
             "filterBy": "Filteren op: ",
@@ -4744,7 +4744,7 @@
             "revertCurrentExplainHelper": "Als de betaling geldig was, dan zal het lid een tegoed ontvangen. Je kunt het tegoed aan de klant terugbetalen door op \"Terugbetalen\" op de factuur te klikken. De schuld wordt kwijt gescholden indien de betaling mislukte.",
             "stopExplain": "De volgende betalingen worden geannuleerd en de bijbehorende facturen worden verwijderd. Als een reservering is geregistreerd met een abonnement waarvoor de factuur is geannuleerd, wordt deze ook geannuleerd.",
             "stop": "Stoppen",
-            "planStop": "Beëindiging inplannen"
+            "planStop": "Beëindigen"
         },
         "paymentMethod": {
             "credit": {
@@ -4763,17 +4763,17 @@
             "list": {
                 "title": "Recente gebeurtenissen"
             },
-            "billing_plan-pause": "Pauze",
+            "billing_plan-pause": "Gepauzeerde betalingen",
             "billing_plan-create": "Toevoegen",
-            "billing_plan-stop": "Stoppen",
+            "billing_plan-stop": "Gestopte betalingen",
             "billing_plan-renew": "Automatische verlengingen",
             "billing_plan-payment_dispute": "Betwiste betalingen",
             "billing_plan-payment_success": "Succesvolle betalingen",
             "billing_plan-payment_failure": "Geweigerde betalingen",
             "billing_plan-update_payment_method": "Gewijzigde betaalmethoden",
             "billing_plan-update_payment_pack": "Gewijzigde kaarten",
-            "billing_plan-update_payment_combo": "Pakket gewijzigd",
-            "billing_plan-update_private_pass": "Afspraakkaart gewijzigd"
+            "billing_plan-update_payment_combo": "Gewijzigde pakketten",
+            "billing_plan-update_private_pass": "Gewijzigde afspraakkaarten"
         },
         "save": "bevestigen",
         "table": {
@@ -4800,7 +4800,7 @@
                     "explainWarning": "Let op! Deze actie is definitief.",
                     "cancel": "Annuleren",
                     "submit": "Opslaan",
-                    "title": "Gepauzeerd",
+                    "title": "[Formulier] Pauzeren",
                     "name": {
                         "label": "Reden",
                         "placeholder": "Officiële vakantiedagen"
@@ -4809,7 +4809,7 @@
                         "label": "Aantal dagen"
                     },
                     "explain": "Geef aan met hoeveel dagen de eerstvolgende betaling wordt uitgesteld.",
-                    "explainInvoice": "Vanaf welke factuur (inbegrepen) wil je het abonnement pauzeren?"
+                    "explainInvoice": "Selecter vanaf welke factuur je het abonnement wilt pauzeren:"
                 }
             },
             "actions": {
@@ -4830,8 +4830,8 @@
             "edit": "Bewerken",
             "buy": "Aanschaffen",
             "scheduledStop": {
-                "title": "Beëindiging inplannen",
-                "explain": "Selecteer de laatste betaling voor het abonnement:",
+                "title": "[Formulier] Beëindiging",
+                "explain": "Selecteer de laatste betaling voor dit abonnement:",
                 "summary": "De laatste geprogrammeerde betaling is op {{-date}} en komt overeen met de laatste geldige leskaart.",
                 "listItem": "Geplande opzegging van het abonnement"
             },
@@ -5071,8 +5071,8 @@
             "confirmed_bookings": "Deelnemers",
             "unpaid_private_booking": "Onbetaalde afspraken.",
             "coachName": "Instructeur",
-            "total_on_appointments": "Uitbetaling voor afspraken",
-            "total_on_sessions": "Uitbetaling voor groepsactiviteiten",
+            "total_on_appointments": "Totale vergoeding (Afspraken)",
+            "total_on_sessions": "Totale vergoeding (Groepsactiviteiten en Workshops)",
             "nb_private_bookings": " ",
             "nb_appointments": "Aantal afspraken",
             "nb_sessions": "Aantal sessies"
@@ -5338,7 +5338,7 @@
         },
         "detail": {
             "section": {
-                "title": "Status van de bestelling:",
+                "title": "Bestellingsstatus:",
                 "deliveryInfo": "Bezorgadres",
                 "productDetail": "Besteloverzicht",
                 "invoice": "Gekoppelde factuur",
@@ -5370,7 +5370,7 @@
             "webhook": "Webhook",
             "general": "Algemeen",
             "broadcast": "Livestreamen",
-            "notificationRule": "Transactionele e-mails",
+            "notificationRule": "Transactionele berichten",
             "paymentRules": "Payroll",
             "company": "Onderneming",
             "invoice": "Facturatie",
@@ -9507,7 +9507,7 @@
                 "invoice": "Facturatie",
                 "company": "Onderneming",
                 "paymentRules": "Payroll",
-                "notificationRule": "Transactionele e-mails",
+                "notificationRule": "Transactionele berichten",
                 "broadcast": "Livestreamen",
                 "general": "Algemeen",
                 "platform_billing": "Abonnement",

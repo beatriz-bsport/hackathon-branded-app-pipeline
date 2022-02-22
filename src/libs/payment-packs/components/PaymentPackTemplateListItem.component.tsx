@@ -26,7 +26,7 @@ type Props = {
   onDelete?: (id: number) => void;
 };
 
-const PaymentPackTemplateListItem = (props: Props) => {
+const PaymentPackTemplateListItem = React.memo((props: Props) => {
   const { t } = useTranslation(['paymentPack']);
   const classes = useStyles();
   const {
@@ -127,7 +127,7 @@ const PaymentPackTemplateListItem = (props: Props) => {
       />
     </ListItem>
   );
-};
+});
 
 const useStyles = makeStyles((theme: Theme) => ({
   chip: {

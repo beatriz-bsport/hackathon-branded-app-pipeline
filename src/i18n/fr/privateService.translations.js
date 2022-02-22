@@ -264,6 +264,16 @@ exports.default = {
     },
   },
   privateService: {
+    padBeforeBooking: {
+      explain1:
+        'Si activé, les réservations ne pourront être effectuées que si le calendrier est diponible en incluant la réservation',
+      explain2:
+        'Exemple: la salle est disponible de 10h à 11h, votre RDV dure 1h, mais nécessite 15min avant et après la réservation.',
+      explain3:
+        "ACTIVÉ: le RDV ne sera pas possible. Il faut que la salle soit disponible de 9h45 à 11h15. Le prochain RDV ne sera possible qu'à partir de 11h45.",
+      explain4:
+        'NON-ACTIVÉ: le RDV sera possible et bloquera la salle 15 min avant et après la réservation. Le prochain RDV sera possible à partir de 11h30.',
+    },
     delete: {
       title: 'Suppression du rendez-vous',
       explain:
@@ -713,6 +723,9 @@ exports.default = {
       changeIsAlwaysAvailable: 'Modifier',
     },
     form: {
+      pad_before_booking: {
+        label: 'Prendre en compte avant même la réservation',
+      },
       managerOnly: {
         label: 'Invisible pour les clients',
       },

@@ -9,7 +9,13 @@ import Slide from '@material-ui/core/Collapse';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import WarningIcon from '@material-ui/icons/Warning';
+import IconButton from '@material-ui/core/IconButton';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import Typography from '@material-ui/core/Typography';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import Button from '@material-ui/core/Button';
 
 import {
   RESOURCE_ATTRIBUTION_CONSUMER,
@@ -61,6 +67,7 @@ export interface FormikValues {
   allow_unpaid_booking: boolean;
   unpaid_whitelist_tags: Array<number>;
   unpaid_blacklist_tags: Array<number>;
+  pad_before_booking: boolean;
 }
 type OwnProps = {
   establishments: Array<Establishment>;
@@ -75,10 +82,48 @@ const IS_HOME_SERVICE = '0';
 const IS_WITHOUT_ESTABLISHMENT = '1';
 const IS_WITH_ESTABLISHMENT = '2';
 
+const HelpPaddingDialog = ({
+  onClose,
+  open,
+}: {
+  onClose: () => void;
+  open: boolean;
+}) => {
+  const { t } = useTranslation(['privateService']);
+  const classes = useStyles();
+  return (
+    <Dialog open={open} onClose={onClose}>
+      <DialogContent>
+        <Typography>{t('privateService.padBeforeBooking.explain1')}</Typography>
+        <Typography style={{ marginTop: 16 }} variant="body2">
+          {t('privateService.padBeforeBooking.explain2')}
+        </Typography>
+        <div className={classes.nestedExplain}>
+          <Typography variant="body2">
+            {t('privateService.padBeforeBooking.explain3')}
+          </Typography>
+          <Typography variant="body2">
+            {t('privateService.padBeforeBooking.explain4')}
+          </Typography>
+        </div>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onClose}>OK</Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
+
 export const PrivateServiceForm = (props: Props) => {
   const { values } = props;
   const { t } = useTranslation('privateService');
   const classes = useStyles();
+  const [isOpenPadDialog, setIsOpenPadDialog] = React.useState<boolean>(false);
+  const [openPaddingDialog, closePaddingDialog] = [
+    () => setIsOpenPadDialog(true),
+    () => setIsOpenPadDialog(false),
+  ];
+
   return (
     <div className={classes.container}>
       <ImageField id="button_private_service_image" name="cover_main" />
@@ -318,8 +363,10 @@ export const PrivateServiceForm = (props: Props) => {
           label={t('service.form.last_booking_minutes.label')}
         />
       </div>
-      <Typography>{t('service.form.paddingTitle')}</Typography>
-      <div>
+      <fieldset className={classes.unpaidBookingsection}>
+        <legend className={classes.legend}>
+          {t('service.form.paddingTitle')}
+        </legend>
         <IntegerField
           name="availability_padding_start_minutes"
           className={classes.integerField}
@@ -348,7 +395,20 @@ export const PrivateServiceForm = (props: Props) => {
           }
           required
         />
-      </div>
+        <div className={classes.row}>
+          <SwitchField
+            name="pad_before_booking"
+            label={t('service.form.pad_before_booking.label')}
+          />
+          <IconButton onClick={openPaddingDialog}>
+            <HelpOutlineIcon />
+          </IconButton>
+          <HelpPaddingDialog
+            open={isOpenPadDialog}
+            onClose={closePaddingDialog}
+          />
+        </div>
+      </fieldset>
       <fieldset className={classes.unpaidBookingsection}>
         <legend className={classes.legend}>
           {t('service.form.unpaidBooking.title')}
@@ -417,6 +477,13 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(1),
   },
+  nestedExplain: {
+    marginLeft: theme.spacing(1),
+    marginTop: theme.spacing(1.5),
+    '&>*': {
+      marginTop: theme.spacing(1),
+    },
+  },
 }));
 
 export const PrivateServiceSchema = Yup.object().shape({
@@ -474,6 +541,7 @@ export const PrivateServiceFormikHOC = withFormik<Props, FormikValues>({
       establishment_consumer_attribution: RESOURCE_ATTRIBUTION_CONSUMER,
       coach_consumer_attribution: RESOURCE_ATTRIBUTION_CONSUMER,
       last_discard_minutes: 24 * 60,
+      pad_before_booking: false,
       last_booking_minutes: 0,
       availability_padding_start_minutes: 0,
       availability_padding_end_minutes: 0,

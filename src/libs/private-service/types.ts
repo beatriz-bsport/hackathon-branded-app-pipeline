@@ -57,6 +57,7 @@ export type PrivateService<C = number, E = number, S = number> = {
   slots_duration_minute: Array<number>;
   availability_padding_start_minutes: number;
   availability_padding_end_minutes: number;
+  pad_before_stop: boolean;
 };
 export type PrivateServiceWithSlots<C = number, E = number> = {
   id: number;
@@ -82,6 +83,7 @@ export type PrivateServiceWithSlots<C = number, E = number> = {
   slots_duration_minute: Array<number>;
   availability_padding_start_minutes: number;
   availability_padding_end_minutes: number;
+  pad_before_stop: boolean;
 };
 export type PrivateSlot = {
   id: number;

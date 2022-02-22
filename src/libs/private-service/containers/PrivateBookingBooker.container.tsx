@@ -228,7 +228,7 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
     });
   };
 
-  createRecurrentRule = (options: OptionCallback) => {
+  createRecurrentRule = (options: OptionCallback, asUnpaid: boolean) => {
     const date_start = moment(this.state.date_start).tz(this.props.timezone);
     this.props.createRecurrentRule(
       {
@@ -243,7 +243,7 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
         coach: this.state.private_booking_data.coach,
         establishment: this.state.private_booking_data.establishment,
         member: this.state.member.id,
-        allow_unpaid: this.props.allow_unpaid,
+        allow_unpaid: this.props.allow_unpaid || !!asUnpaid,
       },
       {
         onSuccess: () => {

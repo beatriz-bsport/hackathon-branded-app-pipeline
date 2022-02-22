@@ -71,7 +71,11 @@ export const PrivatePassCapabilities = (props: Props) => {
               props.registerUnPaidPrivateBooking && (
                 <UnPrivateConsumerPassBookerListItem
                   key="unpaid_booking_pass"
-                  onBook={() => props.registerUnPaidPrivateBooking()}
+                  onBook={() => {
+                    props.recurrenceRule
+                      ? props.createRecurrentRule(null, true)
+                      : props.registerUnPaidPrivateBooking();
+                  }}
                   divider
                   privateSlotCredit={props.privateSlotCredit}
                 />

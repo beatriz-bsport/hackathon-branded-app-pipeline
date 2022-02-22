@@ -50,6 +50,7 @@ exports.default = {
     giftcard: 'Carte cadeau',
     consumer_giftcard: 'Cartes cadeaux achetées',
     payment_installments: 'Paiements en plusieurs fois',
+    expense: 'Dépenses',
   },
   header: {
     sum: 'Somme',
@@ -263,6 +264,9 @@ exports.default = {
     date_bought: "Date d'achat",
     date_expiration: "Date d'expiration",
     due_date: "Date d'échéance",
+    is_recurring: 'Récurrent',
+    category: 'Catégorie',
+    supplier: 'Fournisseur',
   },
   yes: 'Oui',
   no: 'Non',

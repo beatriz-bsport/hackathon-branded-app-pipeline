@@ -159,7 +159,7 @@
             "402": "Nieuwe afspraak (voor medewerkers)",
             "401": "Afspraak geannuleerd en vergoed (voor medewerkers)",
             "400": "Afspraak te laat geannuleerd (voor medewerkers)",
-            "29": "Herinnering dat de livestream over 15 minuten begint",
+            "29": "Herinnering: de online les begint over 15 minuten",
             "28": "Betaling ontvangen (voor leden)",
             "27": "Abonnement gestopt of beëindigd (voor leden)",
             "26": "Abonnement gepauzeerd (voor leden)",
@@ -195,7 +195,7 @@
         "tag": {
             "BookingOption": {
                 "tags": {
-                    "option_expiration_date": "Vervaldatum is op wachtlijst geplaatst",
+                    "option_expiration_date": "Vervaldatum van de plaats op de wachtlijst",
                     "option_payment_url": "Link om te reserveren",
                     "address": "Adres",
                     "establishment_practical_info": "Toegangsinformatie",
@@ -209,8 +209,8 @@
             "ConsumerPaymentPack": {
                 "tags": {
                     "pass_credit_left": "Resterend krediet",
-                    "pass_expiration": "Vervaldatum leskaart",
-                    "pass_starting_date": "Startdatum leskaart",
+                    "pass_expiration": "Vervaldatum van de leskaart",
+                    "pass_starting_date": "Startdatum van de leskaart",
                     "pass_name": "Sub-tag toevoegen",
                     "pass_price": "Prijs van de leskaart"
                 },
@@ -220,11 +220,11 @@
                 "tags": {
                     "establishment_practical_info": "(Optioneel) Toegangsinformatie",
                     "address": "Adres",
-                    "date": "Uur/Datum",
+                    "date": "Tijd en datum",
                     "coach": "(Optioneel) Instructeur",
                     "activity": "Activiteit",
                     "establishment": "Vestiging",
-                    "ics_calendar_link": "ICS Kalender-link"
+                    "ics_calendar_link": "Kalender ICS-link"
                 },
                 "name": "Afspraken"
             },
@@ -233,14 +233,14 @@
                     "pass_credit_left": "Resterend krediet",
                     "pass_expiration": "Vervaldatum van de afspraakkaart",
                     "pass_starting_date": "Startdatum van de afspraakkaart",
-                    "pass_name": "Naam afspraakkaart",
+                    "pass_name": "Naam van de afspraakkaart",
                     "pass_price": "Prijs van de afspraakkaart"
                 },
                 "name": "Afspraakkaarten"
             },
             "Booking": {
                 "tags": {
-                    "ics_calendar_link": "Kalender ics-link",
+                    "ics_calendar_link": "Kalender ICS-link",
                     "address": "Adres",
                     "establishment_practical_info": "Toegangsinformatie",
                     "establishment": "Vestiging",
@@ -266,7 +266,7 @@
                     "subscription_flat_fee": "Inschrijfkosten",
                     "subscription_nb_months": "Aantal maanden",
                     "subscription_recurrent_price": "Maandelijks bedrag",
-                    "subscription_name": "Naam",
+                    "subscription_name": "Naam van het abonnement",
                     "subscription_next_invoice_date": "Eerstvolgende factuurdatum"
                 },
                 "name": "Abonnementen"
@@ -275,7 +275,7 @@
                 "tags": {
                     "address": "Adres",
                     "establishment_practical_info": "Toegangsinformatie",
-                    "establishment": "Plaats",
+                    "establishment": "Vestiging",
                     "date": "Tijd en datum",
                     "coach": "Instructeur",
                     "activity": "Activiteit"
@@ -285,15 +285,15 @@
         },
         "emailDesign": {
             "closePreview": "Sluiten",
-            "placeholder": "Sjabloon van BSPORT",
+            "placeholder": "Standaardsjabloon van BSPORT",
             "birthdayPlaceholder": "Selecteer een e-mailsjabloon"
         },
         "ruleGroup": {
             "private_booking": "Afspraken",
             "subscription": "Abonnementen",
-            "waiting-list": "Wachtlijst",
-            "booking": "Reservering",
-            "offer": "Sessie",
+            "waiting-list": "Wachtlijsten",
+            "booking": "Reserveringen",
+            "offer": "Sessies",
             "member": "Ledenregistratie",
             "marketing": "Marketing",
             "invoice": "Facturatie",
@@ -304,7 +304,7 @@
         "caption": {
             "emailDesign": "Selecteer de te versturen e-mail",
             "event": "Evenement",
-            "sendCopy": "Mezelf CC'en",
+            "sendCopy": "Ontvang kopieën van deze e-mails",
             "active": "Activeer"
         },
         "marketingNotification": {
@@ -318,7 +318,7 @@
                 "title": "Verwijderen"
             },
             "card": {
-                "carbonCopy": "Ontvang kopieën van deze e-mail",
+                "carbonCopy": "Ontvang kopieën van deze e-mails",
                 "deactivated": "Gedeactiveerd",
                 "activated": "Geactiveerd",
                 "companies": "Studio's",
@@ -369,7 +369,7 @@
         },
         "goBackToMenu": "Terug",
         "configureNotif": "Configureren",
-        "countNotification": "Geactiveerde push-notificaties: {{nbr}}",
+        "countNotification": "Aantal geactiveerde push-notificaties: {{nbr}}",
         "countEmail": "Aantal geactiveerde berichten: {{nbr}}",
         "countElements": "{{nbr}} element(en)"
     },
@@ -1395,7 +1395,7 @@
                 "bank_account_holder": "Rekeninghouder",
                 "iban": "IBAN"
             },
-            "bank_details": "Bankinformatie",
+            "bank_details": "Betaalgegevens",
             "address": "Adres",
             "owner_address": "Adres van de eigenaar",
             "general": "Algemeen"
@@ -1513,9 +1513,9 @@
             }
         },
         "dialogReceiverChoice": {
-            "reservation": "Ingeschreven leden",
-            "waitingList": "Leden in de wachtlijst",
-            "title": "Selecteer de ontvangers",
+            "reservation": "Reserveringen",
+            "waitingList": "Wachtlijst",
+            "title": "[Formulier] Ontvangers selecteren",
             "canceledReservation": "Annuleringen"
         },
         "recipients": "Ontvangers",
@@ -6374,7 +6374,7 @@
                 "notify_member": "Een bevestigingsmail versturen",
                 "timeGroup": "Instellingen",
                 "configuration": "Reserveringen",
-                "override_availabilities": "Voltooi de reservering ook bij onbeschikbaarheid van vestigingen/instructeurs"
+                "override_availabilities": "Voltooi de reservering ook bij onbeschikbaarheid van de geselecteerde afspraken/vestigingen/instructeurs"
             },
             "actions": {
                 "save": "Opslaan",
@@ -6895,7 +6895,7 @@
                     "label": "Rekeninghouder"
                 },
                 "content": "We gebruiken deze bankrekening om de via BSPORT Solution ontvangen betalingen naar je over te schrijven.",
-                "title": "Bankrekening",
+                "title": "[Formulier] Betaalgegevens",
                 "unknownCountry": "Dit moet handmatig gecontroleerd worden. Contacteer contact@bsport.io",
                 "routingNumber": {
                     "usdSpecific": " (ACH Routing Number)",
@@ -8562,7 +8562,7 @@
                 "internalAccountWarning2": "Ga naar Rapportages > Een rapportage toevoegen > Scroll naar \"Betalingen\" > Selecteer \"Krediet(en) > Selecteer alle kolommen > Klik op \"Bevestigen\".",
                 "internalAccountWarning1": "We raden aan om eerst een rapportage voor het saldo van leden hun interne rekening aan te maken voordat deze functie aan wordt gezet.",
                 "internalAccountWarningTitle": "Houd rekening met het saldo van leden hun interne rekening.",
-                "allowConsumerToUseInternalAccount": "Leden kunnen het saldo van hun interne rekening gebruiken om uitstaande facturen/winkelmandjes te betalen.",
+                "allowConsumerToUseInternalAccount": "Sta leden toe om het saldo van hun interne rekening te gebruiken om uitstaande facturen/winkelmandjes te betalen",
                 "goToReports": "Rapportages"
             },
             "gtmId": {
@@ -8855,7 +8855,7 @@
                     },
                     "revert_bookings_on_fail_subscription_payment": {
                         "label": "Annuleer de gekoppelde reserveringen als de betaling mislukt",
-                        "warning": "Waarschuwing: annuleringen worden niet hersteld als de betaling vervolgens wel lukt!",
+                        "warning": "Waarschuwing! Geannuleerde reserveringen worden niet hersteld als de betaling vervolgens wel lukt.",
                         "helperText": "Als de betaling voor het abonnement mislukt, worden de reserveringen geannuleerd en de kredieten zullen worden teruggestort."
                     },
                     "disable_pass_on_fail_subscription_payment": {
@@ -9514,7 +9514,7 @@
                 "marketplaceSettings": "MarketPlace",
                 "widget": "Widgets",
                 "paymentMethod": "Betaalmethoden",
-                "forms": "Inschrijfformulier",
+                "forms": "Ledenformulieren",
                 "quickbooks": "QuickBooks"
             },
             "pass": "Leskaarten",

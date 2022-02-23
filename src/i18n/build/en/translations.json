@@ -3294,7 +3294,7 @@
                 "timeGroup": "Date of the session",
                 "configuration": "Bookings",
                 "title": "Schedule a recurring appointment",
-                "override_availabilities": "Complete the booking even though the appointment/establishment is unavailable"
+                "override_availabilities": "Complete the booking even though the appointment/establishment/teacher is unavailable"
             },
             "actions": {
                 "save": "Save",
@@ -4060,7 +4060,7 @@
                     "_label": "Products"
                 },
                 "myClub": {
-                    "_label": "My Club"
+                    "_label": "My studio"
                 },
                 "schedule": {
                     "_label": "Schedule"
@@ -4196,7 +4196,7 @@
                 "coach_can_edit_attendance": "Teachers can modify the present/absent status in the mobile app.",
                 "internalAccountWarning1": "We highly recommend to create a report for members' internal account balances before enabling this feature.",
                 "internalAccountWarningTitle": "Take member's current internal account balances into consideration.",
-                "allowConsumerToUseInternalAccount": "Members can use their internal account credit to complete payments for their basket and/or outstanding invoices.",
+                "allowConsumerToUseInternalAccount": "Allow members to use their internal account credit to complete payments for their basket and/or outstanding invoices",
                 "goToReports": "Reporting",
                 "internalAccount": "Client internal account balance",
                 "internalAccountNotusableOnContract": "This payment method can't be used for subscriptions.",
@@ -10277,7 +10277,7 @@
             "coupon": "Promotions",
             "contract": "Subscriptions",
             "subscription": "Direct debits",
-            "myClub": "My Club",
+            "myClub": "My studio",
             "settings": {
                 "paymentRules": "Teacher payroll rules",
                 "notificationRule": "Transactional emails",
@@ -10297,7 +10297,7 @@
                 "marketplaceSettings": "MarketPlace",
                 "widget": "Widgets",
                 "paymentMethod": "Payment methods",
-                "forms": "Enrolment form",
+                "forms": "Member forms",
                 "quickbooks": "QuickBooks"
             },
             "pass": "Passes",

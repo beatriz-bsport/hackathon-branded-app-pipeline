@@ -317,4 +317,7 @@ export const getOfferAsEventList = createSelector(
   },
 );
 
+export const getNumberOfMassDisabledOffer = (state: RootState) =>
+  getState(state).numberOfMassDisabledOffer.number;
+
 export default { getAll, todayOffers, getSimilars };

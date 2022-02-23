@@ -60,13 +60,28 @@ exports.default = {
     download: 'Récapitulatif',
   },
   massDisabler: {
+    success: 'Annulation confirmée',
+    confirmationExplain: `Veuillez écrire ci-dessous en lettre capitale "JE CONFIRME".`,
+    iConfirm: 'JE CONFIRME',
+    successInfo:
+      'La suppression de toutes les séances entre le {{start_date}} et le {{end_date}} a bien été prise en compte.',
+    confirm: 'Confirmer',
+    confirmInfo:
+      "Vous êtes sur le point d'annuler toutes les séances comprises entre le {{start_date}} et le {{end_date}} (inclus). Soit {{number_of_deleted_offer}} séance annulée.",
+    confirmInfo_plural:
+      "Vous êtes sur le point d'annuler toutes les séances comprises entre le {{start_date}} et le {{end_date}} (inclus). Soit {{number_of_deleted_offer}} séances annulées.",
+    sure: 'Êtes vous sûr de vouloir valider cette action ?',
+    startDateLabel: 'Date de début (inclus)',
+    endDateLabel: 'Date de fin (inclus)',
+    info: 'Sélectionner les dates entre lesquelles vous souhaitez annuler toutes les séances. Les dates sélectionnées sont incluses.',
+    warning: 'ATTENTION cette opération est irréversible',
     title: 'Annulation groupée',
     explain:
-      "Sélectionnez l'intervalle de date sur lequel vous souhaitez annuler vos séances. Les membres ayant réservé seront prévenu par email et leur crédits automatiquement remboursés sur la carte de cours correspondante",
+      "Sélectionnez l'intervalle de date sur lequel vous souhaitez annuler vos séances. Les membres ayant réservé seront prévenus par email et leur crédits automatiquement remboursés sur la carte de cours correspondante.",
     explainWarning: 'ATTENTION cette opération est irréversible.',
     explainLoading: 'Veuillez patienter',
     secondWarning:
-      "En cliquant sur 'CONFIRMER', les séances comprises dans l'intervalle sélectionné seront annulées et vous ne pourrrez plus revenir en arrière.",
+      "En cliquant sur 'CONFIRMER' toutes les séances dans l’intervalle de dates seront définitivement annulées. Vous ne pourrez plus revenir en arrière.",
     secondWarningConfirm: 'Voulez-vous vraiment continuer ?',
     actions: {
       cancel: 'Annuler',

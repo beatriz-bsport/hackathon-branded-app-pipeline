@@ -143,4 +143,7 @@ export type OfferState = ErrorAndLoading & {
   registered: ErrorAndLoading & {
     allIds: number[];
   };
+  numberOfMassDisabledOffer: ErrorAndLoading & {
+    number: number;
+  };
 };

@@ -40,7 +40,10 @@ import {
 
 import withTitle from '../../hocs/with-title.hoc';
 
-import { getSimilars as getSimilarsOffers } from '../../libs/offer/selectors';
+import {
+  getNumberOfMassDisabledOffer,
+  getSimilars as getSimilarsOffers,
+} from '../../libs/offer/selectors';
 import OfferCard from '../../components/offer/OfferCard.component';
 import TimeTable from '../../components/offer/TimeTable.component';
 import Calendar from '../../components/offer/Calendar.component';
@@ -59,6 +62,7 @@ import {
   fetchSimilarOffers as fetchSimilarOffersAction,
   setFilters as setFiltersAction,
   disableMassOffers,
+  retrieveNumberOfMassDisabledOfferAction,
   restoreOffer,
   fetchBookedGender as fetchBookedGenderAction,
 } from '../../libs/offer/actions';
@@ -172,7 +176,7 @@ type Props = {
   offerByDayLoading: boolean,
   createdBookingStatsLoading: boolean,
   cancelledBookingStatsLoading: boolean,
-
+  numberOfMassDisabledOfferLoading: boolean,
   fetchAssociatedCoachesList: () => void,
   fetchAllActivities: () => void,
   fetchFilteredMembers: (params: any, OptionCallback) => void,
@@ -236,6 +240,11 @@ type Props = {
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> },
   showVaccinationStatus: boolean,
   showPartnership: boolean,
+  numberOfMassDisabledOffer: number,
+  retrieveNumberOfMassDisabledOffer: (
+    params?: { start: string, end: string },
+    options?: OptionCallback<{ number_of_mass_disabled_offer: number }>,
+  ) => void,
 };
 
 type State = {
@@ -923,6 +932,13 @@ export class Planning extends PureComponent<Props, State> {
           {!!this.props.massDisablerStartDate && (
             <MassDisablerDialog
               startDate={this.props.massDisablerStartDate}
+              retrieveNumberOfDeletedOffer={
+                this.props.retrieveNumberOfMassDisabledOffer
+              }
+              numberOfMassDisabledOfferLoading={
+                this.props.numberOfMassDisabledOfferLoading
+              }
+              numberOfMassDisabledOffer={this.props.numberOfMassDisabledOffer}
               onSubmit={(params) =>
                 this.props.disableMassOffers(params, this.props.offerFilters, {
                   onSuccess: () => {
@@ -952,7 +968,9 @@ export default compose(
 
       coaches: getActiveCoaches(state),
       coachesLoading: state.coach.loading,
-
+      numberOfMassDisabledOfferLoading:
+        state.offer.numberOfMassDisabledOffer.loading,
+      numberOfMassDisabledOffer: getNumberOfMassDisabledOffer(state),
       establishments: getAvailableEstablishmentList(state),
       companyId: state.theme.theme.company,
       theme: state.theme.theme,
@@ -1008,6 +1026,8 @@ export default compose(
       fetchEstablishments,
       fetchAssociatedCoachesList,
       fetchAllActivities,
+      retrieveNumberOfMassDisabledOffer:
+        retrieveNumberOfMassDisabledOfferAction,
       disableMassOffers,
       fetchBookingStatistics: fetchBookingStatisticsAction,
       monitorBackgroundTask,

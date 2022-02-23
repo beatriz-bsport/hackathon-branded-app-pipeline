@@ -5,7 +5,7 @@ import uniq from 'lodash/uniq';
 // makes the build of the wdget crashing (widget use this file somehow)
 import ALL_ERROR_CODES from '@bsport/common/src/master-data/buyable-item-can-not-be-bought';
 
-import { Dispatch, OptionCallback } from '../../state/types';
+import { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
 import {
   retrieveOffer as retrieveOfferAPI,
   fetchSimilarOffers as fetchSimilarOffersAPI,
@@ -22,6 +22,7 @@ import {
   fetchOfferStatusList as fetchOfferStatusListAPI,
   postUserRegistration as postUserRegistrationAPI,
   userRegistration as userRegistrationAPI,
+  fetchNumberOfMassDisabledOfferAPI,
 } from './api';
 import { monitorBackgroundTask } from '../background-task/actions';
 
@@ -535,6 +536,30 @@ export function disableMassOffers(
   };
 }
 
+export const numberOfMassDisabledOfferRetrieveActions = {
+  error: createAction('NUMBER_OF_MASS_DISABLED_OFFER/FETCH/ERROR'),
+  isLoading: createAction('NUMBER_OF_MASS_DISABLED_OFFER/FETCH/IS_LOADING'),
+  success: createAction('NUMBER_OF_MASS_DISABLED_OFFER/FETCH/SUCCESS'),
+};
+
+export function retrieveNumberOfMassDisabledOfferAction(
+  params?: { start: string; end: string },
+  options?: OptionCallback<{ number_of_mass_disabled_offer: number }>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(numberOfMassDisabledOfferRetrieveActions.isLoading(true));
+    dispatch(numberOfMassDisabledOfferRetrieveActions.error(null));
+    try {
+      const response = await fetchNumberOfMassDisabledOfferAPI(params);
+      dispatch(numberOfMassDisabledOfferRetrieveActions.success(response.data));
+      options?.onSuccess && options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(numberOfMassDisabledOfferRetrieveActions.error(error));
+      options?.onError && options.onError(error);
+    }
+    dispatch(numberOfMassDisabledOfferRetrieveActions.isLoading(false));
+  };
+}
 export const listRegisteredIds = {
   success: createAction('OFFER/LIST_REGISTERED/SUCCESS'),
   error: createAction('OFFER/LIST_REGISTERED/ERROR'),

@@ -520,7 +520,9 @@
     "confirm": "Confirmer",
     "activate": "Activer",
     "disconnect": "Me déconnecter",
-    "disconnectInfo": "Retourner à la page de connexion"
+    "disconnectInfo": "Retourner à la page de connexion",
+    "endBeforeStart": "La date de fin doit être supérieure à la date de début",
+    "startAfterEnd": "La date de début doit être inférieure à la date de fin"
   },
   "communication": {
     "table": { "columns": { "member": "Membre", "title": "Aperçu", "date_created": "Date", "status": "Status" } },
@@ -2776,8 +2778,6 @@
       "451": "Rendez-vous annulé - remboursé (élève)",
       "452": "Nouveau rendez-vous (élève)",
       "453": "Horaire modifié (élève)",
-      "480": "Rendez-vous récurrent annulé pour manque de disponibilité (professeur)",
-      "481": "Rendez-vous récurrent annulé pour manque de disponibilité (élève)",
       "510": "Paiement d'une souscription échoué",
       "515": "Carte de cours de la souscription automatiquement désactivée",
       "520": "Paiement d'une souscription échoué, sera retenté",
@@ -2785,7 +2785,7 @@
       "601": "Trop peu de réservations N heures avant le début de la séance",
       "701": "Pénalité carte de cours : carte bloquée (élève)",
       "702": "Pénalité carte de cours : acompte créé (élève)",
-      "987": "Tentative d'encaissement d'un paiement échelonné"
+      "undefined": "Tentative d'encaissement d'un paiement échelonné"
     },
     "franchise": {
       "emptySelect": "Sélectionner un email transactionnel pour voir sur quel franchisé il est partagé et utilisé.",
@@ -2886,11 +2886,23 @@
       "download": "Récapitulatif"
     },
     "massDisabler": {
+      "success": "Annulation confirmée",
+      "confirmationExplain": "Veuillez écrire ci-dessous en lettre capitale \"JE CONFIRME\".",
+      "iConfirm": "JE CONFIRME",
+      "successInfo": "La suppression de toutes les séances entre le {{start_date}} et le {{end_date}} a bien été prise en compte.",
+      "confirm": "Confirmer",
+      "confirmInfo": "Vous êtes sur le point d'annuler toutes les séances comprises entre le {{start_date}} et le {{end_date}} (inclus). Soit {{number_of_deleted_offer}} séance annulée.",
+      "confirmInfo_plural": "Vous êtes sur le point d'annuler toutes les séances comprises entre le {{start_date}} et le {{end_date}} (inclus). Soit {{number_of_deleted_offer}} séances annulées.",
+      "sure": "Êtes vous sûr de vouloir valider cette action ?",
+      "startDateLabel": "Date de début (inclus)",
+      "endDateLabel": "Date de fin (inclus)",
+      "info": "Sélectionner les dates entre lesquelles vous souhaitez annuler toutes les séances. Les dates sélectionnées sont incluses.",
+      "warning": "ATTENTION cette opération est irréversible",
       "title": "Annulation groupée",
-      "explain": "Sélectionnez l'intervalle de date sur lequel vous souhaitez annuler vos séances. Les membres ayant réservé seront prévenu par email et leur crédits automatiquement remboursés sur la carte de cours correspondante",
+      "explain": "Sélectionnez l'intervalle de date sur lequel vous souhaitez annuler vos séances. Les membres ayant réservé seront prévenus par email et leur crédits automatiquement remboursés sur la carte de cours correspondante.",
       "explainWarning": "ATTENTION cette opération est irréversible.",
       "explainLoading": "Veuillez patienter",
-      "secondWarning": "En cliquant sur 'CONFIRMER', les séances comprises dans l'intervalle sélectionné seront annulées et vous ne pourrrez plus revenir en arrière.",
+      "secondWarning": "En cliquant sur 'CONFIRMER' toutes les séances dans l’intervalle de dates seront définitivement annulées. Vous ne pourrez plus revenir en arrière.",
       "secondWarningConfirm": "Voulez-vous vraiment continuer ?",
       "actions": { "cancel": "Annuler", "submit": "Confirmer", "continue": "Continuer" }
     },

@@ -251,7 +251,7 @@ export const DateField = (props: DateFieldProps) => {
       render={({
         field,
         meta: { touched, error },
-        form: { setFieldValue },
+        form: { setFieldValue, setFieldTouched },
       }) => (
         <MuiPickersUtilsProvider
           utils={MomentUtils}
@@ -264,6 +264,7 @@ export const DateField = (props: DateFieldProps) => {
             style={{ minWidth: 120 }}
             value={field.value || now}
             onChange={(date) => {
+              setFieldTouched(props.name);
               setFieldValue(
                 props.name,
                 props.parseAsString ? moment(date).format('YYYY-MM-DD') : date,

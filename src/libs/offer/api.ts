@@ -161,6 +161,16 @@ export async function restoreOffer(offerId: number) {
 export async function fetchBookedGender(params: any) {
   return getAuth(`${API_V1_URI}/offer/booked_gender/${buildUrlParams(params)}`);
 }
+export async function fetchNumberOfMassDisabledOfferAPI(params: {
+  start: string;
+  end: string;
+}) {
+  return getAuth(
+    `${API_V1_URI}/offer/number_of_mass_disable_offer/${buildUrlParams(
+      params,
+    )}`,
+  );
+}
 
 export default {
   fetchAllEvents,

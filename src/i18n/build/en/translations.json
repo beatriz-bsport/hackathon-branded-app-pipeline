@@ -8333,7 +8333,7 @@
                     "close": "Cancel"
                 },
                 "cancelHelperText": "Click \"Cancel\" to stop the process for the email change.",
-                "securityHelperText": "A confirmation email will be sent for security reasons.",
+                "securityHelperText": "A confirmation email will be sent for security reasons to this address.",
                 "expiryText": "The request will be processed within 7 days after sending.",
                 "mergeMember": {
                     "unchangedEmail": "Once confirmed, all invoices, bookings, balances, and purchases from the previous email address (\"{{ old_email }}\") will be transferred to the new email address (\"{{ new_email }}\"). The previous email address (\"{{ old_email }}\") will be deleted and both email addresses will be notified with an email.",
@@ -8341,7 +8341,7 @@
                 },
                 "linkMember": {
                     "notIncompany": "The new email address (\"{{ new_email }}\") belongs to a member of another studio.",
-                    "unchangedEmail": "The previous email address (\"{{ old_email }}\") will be used and the member accounts won't be merged.",
+                    "unchangedEmail": "The previous email address (\"{{ old_email }}\") will be kept in the meantime.",
                     "warning": "Warning, you try to link these members:"
                 },
                 "simpleChange": {

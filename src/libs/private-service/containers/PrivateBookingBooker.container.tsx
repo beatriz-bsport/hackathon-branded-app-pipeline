@@ -279,7 +279,9 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
           createMember={this.props.createMember}
           onClose={this.onClose}
           handlMemberSelected={(id: number, member: Member) =>
-            this.setState({ member })
+            this.setState({
+              member: { ...member, consumer: member.consumer?.consumer },
+            })
           }
           country={this.props.country}
           waiver={this.props.waiver}

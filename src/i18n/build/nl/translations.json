@@ -702,7 +702,7 @@
             "digital": "Digitaal aanbod",
             "podcast": "Podcasts",
             "playlist": "Afspeellijst",
-            "video": "Videotheek"
+            "video": "Videotheek & eBooks"
         },
         "consumer": {
             "booking": {
@@ -4487,7 +4487,7 @@
     },
     "titles": {
         "video": {
-            "videoList": "Videotheek"
+            "videoList": "Videotheek & eBooks"
         },
         "banner": {
             "isStaging": "Kennismakingsgesprek inplannen",
@@ -8869,7 +8869,7 @@
         },
         "section": {
             "paymentList": {
-                "total": "Betalingen",
+                "total": "Betaald",
                 "isEmpty": "Geen betaalmethode geregistreerd",
                 "title": "Betaalmethoden"
             },
@@ -9490,7 +9490,7 @@
             "digital": "Digitaal aanbod",
             "podcast": "Podcasts",
             "playlist": "Afspeellijsten",
-            "video": "Videotheek",
+            "video": "Videotheek & eBooks",
             "coupon": "Promoties",
             "contract": "Abonnementen",
             "subscription": "Automatische incasso's",

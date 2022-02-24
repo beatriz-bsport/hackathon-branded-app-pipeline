@@ -11,7 +11,7 @@ type Props = {
   open: boolean,
   onSubmit: (token: string) => void,
   onCancel: () => void,
-  enabledPaymentMethods: Array<number>,
+  enabledPaymentGroupMethodIdentifier: Array<number>,
   processing: boolean,
   loading: boolean,
   member: Member,
@@ -43,7 +43,9 @@ export class SubscriptionPaymentMethodSwitcherDialog extends React.Component<Pro
           <SubscriptionPayment
             onSubmit={this.props.onSubmit}
             onCancel={this.props.onCancel}
-            enabledPaymentMethods={this.props.enabledPaymentMethods}
+            enabledPaymentGroupMethodIdentifier={
+              this.props.enabledPaymentGroupMethodIdentifier
+            }
             refreshSavedPaymentMethodList={
               this.props.refreshSavedPaymentMethodList
             }

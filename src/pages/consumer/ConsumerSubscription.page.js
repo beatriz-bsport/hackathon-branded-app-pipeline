@@ -15,10 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import { push } from 'connected-react-router';
 import { withTranslation, TFunction } from 'react-i18next';
 
-import {
-  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-} from '@bsport/common/lib/master-data/subscription-payment-methods';
+import { BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB } from '@bsport/common/lib/master-data/subscription-payment-methods';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import {
   fetchSubscriptionListByMember,
@@ -39,6 +36,7 @@ import type { Membership } from '../../libs/membership/types';
 import { fetchMember } from '../../libs/member/actions';
 import { getMember } from '../../libs/member/selectors';
 import { Member } from '../../libs/member/types';
+import { CompanyTheme } from '#libs/theme/types';
 
 type Props = {
   subscriptionList: Array<Subscription>,
@@ -63,6 +61,7 @@ type Props = {
   savedPaymentMethodList: Array<PaymentMethod>,
   fetchMember: () => void,
   member: Member,
+  theme: CompanyTheme,
 };
 
 export class ConsumerSubscription extends React.Component<Props> {
@@ -158,10 +157,9 @@ export class ConsumerSubscription extends React.Component<Props> {
             refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
             requestSetupIntentSecret={this.props.requestSetupIntentSecret}
             onCancel={() => this.props.setSwitchPaymentMethodDialogOpen(false)}
-            enabledPaymentMethods={[
-              BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-              BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-            ]}
+            enabledPaymentGroupMethodIdentifier={
+              this.props.theme.payment_method_available_subscription
+            }
             member={this.props.member}
           />
         ) : null}
@@ -201,6 +199,7 @@ export default compose(
         state.subscription.list.loading,
       savedPaymentMethodList: getSavedPaymentMethodList(state),
       member: getMember(state, ownProps.membership.id),
+      theme: state.theme.theme,
     }),
     {
       fetchPaymentMethodList: fetchPaymentMethodListAction,

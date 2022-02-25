@@ -51,6 +51,7 @@ type Props = {
 };
 
 const CARD_ELEMENT_OPTIONS = {
+  hidePostalCode: true,
   style: {
     base: {
       fontSmoothing: 'antialiased',

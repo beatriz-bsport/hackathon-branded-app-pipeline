@@ -223,7 +223,9 @@ export class CollectPaymentMethod extends React.Component<Props> {
 }
 
 const Card = () => (
-  <CardElement options={{ style: { base: { fontSize: '18px' } } }} />
+  <CardElement
+    options={{ hidePostalCode: true, style: { base: { fontSize: '18px' } } }}
+  />
 );
 
 const styles = (theme) => ({

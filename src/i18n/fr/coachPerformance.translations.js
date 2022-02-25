@@ -1,7 +1,6 @@
 exports.default = {
   form: {
-    ifEmptyAllowAll:
-      'Laisser vide pour calculer le récapitulatif pour tous les professeurs',
+    ifEmptyAllowAll: 'Laisser vide pour ignorer ce filtre',
   },
   fields: {
     bonus: 'Bonus',
@@ -66,6 +65,19 @@ exports.default = {
         "Le fichier d'exportation des rémunérations professeurs est disponible. Vous pourrez également récupérer ces données dans la section 'Données sauvegardées'.",
     },
   },
+  advancedFilters: {
+    header: 'Filtres avancés',
+    apply: 'Appliquer les filtres',
+    reset: 'Réinitialiser les filtres',
+    coachSelector: 'Sélectionnez des profresseurs',
+    coachPaymentRuleGroupSelector: 'Groupes de rémunération',
+    sessionCoachPaymentRuleSelctor: 'Cours collectifs ',
+    workshopCoachPaymentRuleSelctor: 'Ateliers',
+    privateserviceCoachPaymentRuleSelector: 'Rendez-vous',
+    byCoachPaymentruleGroups: 'Filtrer par groupes de rémunérations',
+    byCoachPaymentRules:
+      'Filtrer par règles de rémunérations (pour les professeurs sans groupe de rémunération)',
+  },
   cachedData: {
     title: 'Données sauvegardées ({{ count }})',
     dateSaved: 'Données générées le {{ date }}',
@@ -75,5 +87,7 @@ exports.default = {
     downloadMySavedData: 'Télécharger',
     previewModeTitle: 'Mode Preview',
     leavePreviewMode: 'Quitter le mode preview',
+    oldestUpdate: 'Mise à jour la plus ancienne effectuée le : {{- date }}',
+    undeterminedOldestUpdate: 'Mise à jour la plus ancienne non déterminée',
   },
 };

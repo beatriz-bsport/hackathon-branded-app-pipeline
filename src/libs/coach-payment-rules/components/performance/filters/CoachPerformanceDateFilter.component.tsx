@@ -26,17 +26,13 @@ import {
 } from '@material-ui/core';
 import { Submit, DateField } from '#components/forms';
 import RedButton from '#components/button/RedButton.component';
-import type { OptionCallback } from '../../../../state/types';
-import { MaterialUiMultiSelectorField } from '#libs/custom-form/components/GenericFormik.input';
-import { Coach } from '#libs/associated-coach/types';
+import type { OptionCallback } from '../../../../../state/types';
 
 type InitialValues = {
   dateStart: Moment.Moment;
-  coaches: Array<number>;
 };
 
 type Props = {
-  coaches: Array<Coach>;
   isSubmitting: boolean;
   disabled?: boolean;
   loading: boolean;
@@ -74,7 +70,6 @@ export function CoachPerformanceForm(props: Props) {
     const params = {
       start_timestamp: props.values.dateStart.unix(),
       end_timestamp: Moment(props.values.dateStart).endOf('month').unix(),
-      associated_coaches_in: props.values.coaches,
     };
 
     props.exportExcelPerformance(params, {
@@ -87,7 +82,7 @@ export function CoachPerformanceForm(props: Props) {
 
   return (
     <>
-      <Form className={classes.alignCenter}>
+      <Form className={classes.flexSection}>
         <div className={classes.date}>
           <DateField
             id="textfield_remuneration_beginning"
@@ -103,63 +98,52 @@ export function CoachPerformanceForm(props: Props) {
               className: classes.input,
             }}
           />
-        </div>
-        <Field name="frequency">
-          {(fieldProps: FieldProps) => (
-            <RadioGroup
-              name="row-radio-buttons-group"
-              value={fieldProps.field.value}
-              onChange={(ev) => {
-                fieldProps.form.setFieldValue('frequency', ev.target.value);
-              }}
-              row
-            >
-              <FormControlLabel
-                value="w"
-                control={<Radio />}
-                label={t('common:weekly')}
-              />
-              <FormControlLabel
-                value="M"
-                control={<Radio />}
-                label={t('common:monthly')}
-              />
-            </RadioGroup>
-          )}
-        </Field>
-        {!!props.coaches?.length && (
-          <div className={classes.select}>
-            <MaterialUiMultiSelectorField
-              isMenuListVirtualized
-              name="coaches"
-              placeholder={t('coachPerformance:form.ifEmptyAllowAll')}
-              options={[...props.coaches].map((coach) => ({
-                label: coach.name,
-                value: coach.associated_coach_id,
-              }))}
-            />
-          </div>
-        )}
 
-        <Submit
-          id="button_remuneration_calculate"
-          variant="outlined"
-          color="secondary"
-          disabled={isSubmitting || !!props.disabled || props.loading}
-        >
-          {t('calculate')}
-        </Submit>
-        {!props.hideExport && (
-          <Button
-            id="button_remuneration_export"
+          <Field name="frequency">
+            {(fieldProps: FieldProps) => (
+              <RadioGroup
+                name="row-radio-buttons-group"
+                value={fieldProps.field.value}
+                onChange={(ev) => {
+                  fieldProps.form.setFieldValue('frequency', ev.target.value);
+                }}
+                row
+              >
+                <FormControlLabel
+                  value="w"
+                  control={<Radio />}
+                  label={t('common:weekly')}
+                />
+                <FormControlLabel
+                  value="M"
+                  control={<Radio />}
+                  label={t('common:monthly')}
+                />
+              </RadioGroup>
+            )}
+          </Field>
+        </div>
+        <>
+          <Submit
+            id="button_remuneration_calculate"
             variant="outlined"
             color="secondary"
             disabled={isSubmitting || !!props.disabled || props.loading}
-            onClick={() => setOpenExportDialog(true)}
           >
-            {t('coachPerformance:export.buttonText')}
-          </Button>
-        )}
+            {t('calculate')}
+          </Submit>
+          {!props.hideExport && (
+            <Button
+              id="button_remuneration_export"
+              variant="outlined"
+              color="secondary"
+              disabled={isSubmitting || !!props.disabled || props.loading}
+              onClick={() => setOpenExportDialog(true)}
+            >
+              {t('coachPerformance:export.buttonText')}
+            </Button>
+          )}
+        </>
       </Form>
 
       <Dialog
@@ -190,11 +174,15 @@ export function CoachPerformanceForm(props: Props) {
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
-  select: { flex: '1 0', minWidth: theme.spacing(30) },
-  date: { flex: '0 0', minWidth: theme.spacing(20) },
-  alignCenter: {
+  date: {
     display: 'flex',
     gap: theme.spacing(2),
+    width: '100%',
+  },
+  flexSection: {
+    display: 'flex',
+    gap: theme.spacing(2),
+    justifyContent: 'sapce-between',
     alignItems: 'center',
     width: '100%',
   },
@@ -213,7 +201,6 @@ export default compose<any, Props>(
     mapPropsToValues: () => ({
       dateStart: Moment().startOf('month'),
       frequency: 'M' as Moment.unitOfTime.DurationConstructor,
-      coaches: [],
     }),
     validationSchema: CoachPerformanceSchema,
     handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {

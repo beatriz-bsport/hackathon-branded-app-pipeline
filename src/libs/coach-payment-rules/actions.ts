@@ -6,7 +6,8 @@ import {
   fetchBulkCoachSessionPerformance as fetchBulkCoachSessionPerformanceAPI,
   fetchBulkCachedCoachSessionPerformance as fetchBulkCachedCoachSessionPerformanceAPI,
   fetchCoachPrivateServicePerformance,
-  fetchBlukCoachPrivateServicePerformance as fetchBlukCoachPrivateServicePerformanceAPI,
+  fetchBulkCoachPrivateServicePerformance as fetchBulkCoachPrivateServicePerformanceAPI,
+  fetchBulkCachedCoachPrivateServicePerformance as fetchBulkCachedCoachPrivateServicePerformanceAPI,
   setSessionCoachPaymentRuleAPI,
   setPrivateBookingCoachPaymentRuleAPI,
   runSimulationAPI,
@@ -274,6 +275,7 @@ export function fetchBulkPrivateServicePerformance(
     associated_coach_ids: Array<number>;
     start_timestamp: number;
     end_timestamp: number;
+    from_cache?: boolean;
   },
   options?: OptionCallback,
 ) {
@@ -281,7 +283,10 @@ export function fetchBulkPrivateServicePerformance(
     dispatch(coachBulkPrivateServicePerformanceActions.isLoading(true));
     dispatch(coachBulkPrivateServicePerformanceActions.error(null));
     try {
-      const response = await fetchBlukCoachPrivateServicePerformanceAPI(params);
+      const api_call = params?.from_cache
+        ? fetchBulkCachedCoachPrivateServicePerformanceAPI
+        : fetchBulkCoachPrivateServicePerformanceAPI;
+      const response = await api_call(params);
       dispatch(
         coachBulkPrivateServicePerformanceActions.success(response.data),
       );

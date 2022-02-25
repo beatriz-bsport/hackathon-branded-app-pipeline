@@ -43,6 +43,7 @@ export type CoachPerformance = {
   error: boolean;
   coach_payment_rule: number;
   is_unpaid?: boolean;
+  last_update?: number;
 };
 
 export type CoachPaymentRulesByKind = {

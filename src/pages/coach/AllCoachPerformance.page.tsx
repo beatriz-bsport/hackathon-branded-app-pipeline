@@ -44,11 +44,13 @@ import {
   getCoachPerformanceCachedDataList,
 } from '#libs/coach-payment-rules/selectors';
 
-import CoachPerformanceForm from '../../libs/coach-payment-rules/components/performance/CoachPerformanceForm.component';
+import CoachPerformanceDateFilter from '#libs/coach-payment-rules/components/performance/filters/CoachPerformanceDateFilter.component';
 import CoachPerformanceCachedDataList from '#libs/coach-payment-rules/components/performance/CoachPerformanceCachedDataList.components';
 import type { RootState } from '../../reducers';
 import { WithHandlerType } from '../../utils/types';
 import CoachPerformanceTable from '#libs/coach-payment-rules/components/performance/CoachPerformanceTable.component';
+import CoachPerformanceAdvancedFilters from '#libs/coach-payment-rules/components/performance/filters/CoachPerformanceAvancedFilters.component';
+import type { Coach } from '#libs/associated-coach/types';
 
 const PAGINATION_PAGE_LENGTH = 50;
 const styles = (theme: Theme) =>
@@ -76,19 +78,55 @@ const styles = (theme: Theme) =>
       paddingBottom: theme.spacing(2),
     },
   });
+const coachPaginationHelper = (
+  associatedCoachList: Array<Coach>,
+  is_associated_coach_list: boolean,
+) => {
+  if (is_associated_coach_list) {
+    return associatedCoachList?.reduce((acc, associated_coach_id, index) => {
+      if (acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1]) {
+        acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1].push(
+          associated_coach_id,
+        );
+      } else {
+        acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1] = [
+          associated_coach_id,
+        ];
+      }
+      return acc;
+    }, {});
+  }
+  return associatedCoachList?.reduce((acc, coach, index) => {
+    if (acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1]) {
+      acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1].push(coach.id);
+    } else {
+      acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1] = [coach.id];
+    }
+    return acc;
+  }, {});
+};
 
 type StateProps = WithHandlerType<typeof withStateHandlersSetter> &
   typeof withStateHandlersInit;
 type OwnAndConnectedProps = StateProps & ConnectedProps<typeof connector>;
 type Props = OwnAndConnectedProps &
   WithHandlerType<typeof mapWithHandlers> &
+  WithHandlerType<typeof mapWithCachedDataHandlers> &
   WithStyles<typeof styles> &
   WithTranslation;
 
 export class AllCoachPerformancePage extends Component<Props> {
   componentDidMount() {
     this.props.fetchAllCoachPaymentRules();
-    this.props.fetchAssociatedCoachesList({ disabled: false });
+    this.props.fetchAssociatedCoachesList(
+      { disabled: false },
+      {
+        onSuccess: () =>
+          this.props.fetchCachedData({
+            page: 1,
+          }),
+      },
+    );
     this.props.fetchAllCoachPaymentRuleGroups();
     this.props.fetchCoachPerformanceCachedDataAction({ max_range: 10 });
   }
@@ -111,31 +149,14 @@ export class AllCoachPerformancePage extends Component<Props> {
       this.props.setCoachPagination({
         page: 1,
         next:
-          this.props
-            .allAssociatedCoachWithCoachPaymentRuleAndPerformanceFromCahcedData
-            ?.length > 50
+          this.props.allActiveAssociatedCoaches?.length > PAGINATION_PAGE_LENGTH
             ? 2
             : null,
-        count:
-          this.props
-            .allAssociatedCoachWithCoachPaymentRuleAndPerformanceFromCahcedData
-            ?.length,
+        count: this.props.allActiveAssociatedCoaches?.length,
         previous: null,
       });
       this.props.setCoachesPaginated(
-        this.props.allAssociatedCoachWithCoachPaymentRuleAndPerformanceFromCahcedData?.reduce(
-          (acc, coach, index) => {
-            if (acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1]) {
-              acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1].push(
-                coach.id,
-              );
-            } else {
-              acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1] = [coach.id];
-            }
-            return acc;
-          },
-          {},
-        ),
+        coachPaginationHelper(this.props.allActiveAssociatedCoaches, false),
       );
     }
   }
@@ -152,22 +173,15 @@ export class AllCoachPerformancePage extends Component<Props> {
   leavePreviewMode = () => {
     this.props.setSelectedCachedTimestamp(null);
     this.props.setCoachesPaginated(
-      this.props.allAssociatedCoaches.reduce((acc, coach, index) => {
-        if (acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1]) {
-          acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1].push(coach.id);
-        } else {
-          acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1] = [coach.id];
-        }
-        return acc;
-      }, {}),
+      coachPaginationHelper(this.props.allActiveAssociatedCoaches, false),
     );
     this.props.setCoachPagination({
       page: 1,
       next:
-        this.props.allAssociatedCoaches.length < PAGINATION_PAGE_LENGTH
+        this.props.allActiveAssociatedCoaches.length < PAGINATION_PAGE_LENGTH
           ? null
           : 1,
-      count: this.props.allAssociatedCoaches.length,
+      count: this.props.allActiveAssociatedCoaches.length,
       previous: null,
     });
     this.props.setCoachesFilter(null);
@@ -175,12 +189,11 @@ export class AllCoachPerformancePage extends Component<Props> {
 
   render() {
     const { classes } = this.props;
-
     let associatedCoachWithCoachPaymentRuleAndPerformanceSelected = [];
     if (this.props.selectedCachedTimestamp) {
       associatedCoachWithCoachPaymentRuleAndPerformanceSelected =
         this.props
-          .associatedCoachWithCoachPaymentRuleAndPerformanceFromCahcedData;
+          .associatedCoachWithCoachPaymentRuleAndPerformanceFromCachedData;
     } else {
       associatedCoachWithCoachPaymentRuleAndPerformanceSelected =
         this.props.associatedCoachWithCoachPaymentRuleAndPerformance;
@@ -188,13 +201,12 @@ export class AllCoachPerformancePage extends Component<Props> {
     const isInPreviewMode =
       !!this.props.selectedCachedTimestamp &&
       !!this.props
-        .associatedCoachWithCoachPaymentRuleAndPerformanceFromCahcedData;
+        .associatedCoachWithCoachPaymentRuleAndPerformanceFromCachedData;
 
     return (
       <div className={classes.container}>
         <AppBar position="static" color="default" className={classes.bar}>
-          <CoachPerformanceForm
-            coaches={this.props.allAssociatedCoaches}
+          <CoachPerformanceDateFilter
             disabled={isInPreviewMode}
             onSubmit={this.props.onSubmit}
             loading={
@@ -206,6 +218,19 @@ export class AllCoachPerformancePage extends Component<Props> {
           />
         </AppBar>
 
+        <CoachPerformanceAdvancedFilters
+          coaches={this.props.allActiveAssociatedCoaches}
+          disabled={isInPreviewMode}
+          onSubmit={this.props.onSubmitFilters}
+          loading={
+            this.props.coachLoading ||
+            this.props.performanceLoading ||
+            this.props.isSubmitLoading
+          }
+          coachPaymentRuleGroupsDict={this.props.coachPaymentRuleGroupsDict}
+          coachPaymentRuleGroups={this.props.coachPaymentRuleGroups}
+          coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
+        />
         <CoachPerformanceCachedDataList
           cachedDataList={this.props.coachPerformanceCachedDataList}
           selectedCachedTimestamp={this.props.selectedCachedTimestamp}
@@ -254,8 +279,7 @@ const connector = connect(
     coachPaymentRulesList: CoachPaymentRulesSelector(state),
     coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
     coachLoading: state.coach.loading,
-    performanceLoading: state.coachPaymentRules.performance.loading,
-    allAssociatedCoaches: getActiveCoaches(state),
+    allActiveAssociatedCoaches: getActiveCoaches(state),
     associatedCoachWithCoachPaymentRuleAndPerformance: withCoachPerformance(
       getActiveCoachesBulk,
     )(state, coachesPaginated[coachPaginationState.page]),
@@ -263,13 +287,7 @@ const connector = connect(
     coachPaymentRuleGroups: getCoachPaymentRuleGroups(state),
     coachPaymentRuleGroupsDict: state.coachPaymentRules.groups.byId,
     coachPerformanceCachedDataList: getCoachPerformanceCachedDataList(state),
-    allAssociatedCoachWithCoachPaymentRuleAndPerformanceFromCahcedData:
-      withCachedCoachPerformance(getActiveCoaches)(
-        state,
-        undefined,
-        selectedCachedTimestamp,
-      ),
-    associatedCoachWithCoachPaymentRuleAndPerformanceFromCahcedData:
+    associatedCoachWithCoachPaymentRuleAndPerformanceFromCachedData:
       withCachedCoachPerformance(getActiveCoachesBulk)(
         state,
         coachesPaginated[coachPaginationState.page],
@@ -299,6 +317,56 @@ const connector = connect(
     fetchCoachPerformanceCachedDataAction: fetchCoachPerformanceCachedData,
   },
 );
+
+const mapWithCachedDataHandlers = {
+  fetchCachedData:
+    ({
+      fetchBulkCoachSessionPerformanceAction,
+      fetchBulkPrivateServicePerformanceAction,
+      formDates,
+      associatedCoachesPaginated,
+      setPerformanceLoading,
+    }: OwnAndConnectedProps) =>
+    async (params: { page: number }, options?: OptionCallback) => {
+      const ids = associatedCoachesPaginated[params.page];
+      setPerformanceLoading(true);
+      await fetchBulkPrivateServicePerformanceAction(
+        {
+          associated_coach_ids: ids,
+          start_timestamp: formDates.dateStart,
+          end_timestamp: formDates.dateEnd,
+          from_cache: true,
+        },
+        {
+          onSuccess: () => {
+            fetchBulkCoachSessionPerformanceAction(
+              {
+                associated_coach_ids: ids,
+                start_timestamp: formDates.dateStart,
+                end_timestamp: formDates.dateEnd,
+                from_cache: true,
+              },
+              {
+                onSuccess: () => {
+                  setPerformanceLoading(false);
+                  if (options && options.onSuccess) options.onSuccess();
+                },
+                onError: () => {
+                  setPerformanceLoading(false);
+
+                  if (options && options.onError) options.onError();
+                },
+              },
+            );
+          },
+          onError: () => {
+            setPerformanceLoading(false);
+            if (options && options.onError) options.onError();
+          },
+        },
+      );
+    },
+};
 const mapWithHandlers = {
   exportExcelPerformance:
     ({
@@ -333,18 +401,12 @@ const mapWithHandlers = {
         },
       });
     },
-  onSubmit:
+  onSubmitForAll:
     ({
       fetchBulkCoachSessionPerformanceAction,
       fetchBulkPrivateServicePerformanceAction,
       setFormDates,
-      setCoachesPaginated,
-      setAssociatedCoachesPaginated,
-      setCoachPagination,
-      setCoachesFilter,
       setSubmitLoading,
-      allAssociatedCoaches,
-      coachesFilter,
       coachPaginationState,
       associatedCoachesPaginated,
     }: OwnAndConnectedProps) =>
@@ -356,11 +418,60 @@ const mapWithHandlers = {
       },
       options: OptionCallback,
     ) => {
-      const { dateStart, dateEnd, coaches } = data;
+      const { dateStart, dateEnd } = data;
       setFormDates({ dateStart: dateStart.unix(), dateEnd: dateEnd.unix() });
       setSubmitLoading(true);
       const start_timestamp = dateStart.unix();
       const end_timestamp = dateEnd.unix();
+      await fetchBulkPrivateServicePerformanceAction(
+        {
+          associated_coach_ids:
+            associatedCoachesPaginated[coachPaginationState.page],
+          start_timestamp,
+          end_timestamp,
+        },
+        {
+          onSuccess: () => {
+            fetchBulkCoachSessionPerformanceAction(
+              {
+                associated_coach_ids:
+                  associatedCoachesPaginated[coachPaginationState.page],
+                start_timestamp,
+                end_timestamp,
+              },
+              {
+                onSuccess: () => {
+                  setSubmitLoading(false);
+                  if (options && options.onSuccess) options.onSuccess();
+                },
+                onError: () => {
+                  setSubmitLoading(false);
+                  if (options && options.onError) options.onError();
+                },
+              },
+            );
+          },
+          onError: () => {
+            setSubmitLoading(false);
+            if (options && options.onError) options.onError();
+          },
+        },
+      );
+    },
+  onSubmitFilters:
+    ({
+      setCoachesPaginated,
+      setAssociatedCoachesPaginated,
+      setCoachPagination,
+      setCoachesFilter,
+      setSubmitLoading,
+      allActiveAssociatedCoaches,
+      coachesFilter,
+    }: OwnAndConnectedProps) =>
+    (data: { coaches: Array<number> }, options: OptionCallback) => {
+      const { coaches } = data;
+      setSubmitLoading(true);
+
       if (coaches?.length) {
         if (!isEqual(coaches, coachesFilter)) {
           setCoachesFilter(coaches);
@@ -370,11 +481,12 @@ const mapWithHandlers = {
             count: coaches.length,
             previous: null,
           });
+
           setCoachesPaginated(
             coaches.reduce((acc, associated_coach_id, index) => {
               if (acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1]) {
                 acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1].push(
-                  allAssociatedCoaches.find(
+                  allActiveAssociatedCoaches.find(
                     (associated_coach) =>
                       associated_coach_id ===
                       associated_coach.associated_coach_id,
@@ -382,7 +494,7 @@ const mapWithHandlers = {
                 );
               } else {
                 acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1] = [
-                  allAssociatedCoaches.find(
+                  allActiveAssociatedCoaches.find(
                     (associated_coach) =>
                       associated_coach_id ===
                       associated_coach.associated_coach_id,
@@ -392,99 +504,24 @@ const mapWithHandlers = {
               return acc;
             }, {}),
           );
-          const associatedCoachesFilterPaginated = coaches.reduce(
-            (acc, associated_coach_id, index) => {
-              if (acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1]) {
-                acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1].push(
-                  associated_coach_id,
-                );
-              } else {
-                acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1] = [
-                  associated_coach_id,
-                ];
-              }
-              return acc;
-            },
-            {},
+          const associatedCoachesFilterPaginated = coachPaginationHelper(
+            coaches,
+            true,
           );
           setAssociatedCoachesPaginated(associatedCoachesFilterPaginated);
-          await fetchBulkPrivateServicePerformanceAction(
-            {
-              associated_coach_ids: associatedCoachesFilterPaginated[1],
-              start_timestamp,
-              end_timestamp,
-            },
-            {
-              onSuccess: () => {
-                fetchBulkCoachSessionPerformanceAction(
-                  {
-                    associated_coach_ids: associatedCoachesFilterPaginated[1],
-                    start_timestamp,
-                    end_timestamp,
-                  },
-                  {
-                    onSuccess: () => {
-                      setSubmitLoading(false);
-                      if (options && options.onSuccess) options.onSuccess();
-                    },
-                    onError: () => {
-                      setSubmitLoading(false);
-                      if (options && options.onError) options.onError();
-                    },
-                  },
-                );
-              },
-              onError: () => {
-                setSubmitLoading(false);
-                if (options && options.onError) options.onError();
-              },
-            },
-          );
-        } else {
-          await fetchBulkPrivateServicePerformanceAction(
-            {
-              associated_coach_ids:
-                associatedCoachesPaginated[coachPaginationState.page],
-              start_timestamp,
-              end_timestamp,
-            },
-            {
-              onSuccess: () => {
-                fetchBulkCoachSessionPerformanceAction(
-                  {
-                    associated_coach_ids:
-                      associatedCoachesPaginated[coachPaginationState.page],
-                    start_timestamp,
-                    end_timestamp,
-                  },
-                  {
-                    onSuccess: () => {
-                      setSubmitLoading(false);
-                      if (options && options.onSuccess) options.onSuccess();
-                    },
-                    onError: () => {
-                      setSubmitLoading(false);
-                      if (options && options.onError) options.onError();
-                    },
-                  },
-                );
-              },
-              onError: () => {
-                setSubmitLoading(false);
-                if (options && options.onError) options.onError();
-              },
-            },
-          );
         }
-      } else if (coachesFilter?.length) {
+      } else {
         setCoachesFilter(null);
         setCoachPagination({
           page: 1,
-          next: allAssociatedCoaches.length < PAGINATION_PAGE_LENGTH ? null : 1,
-          count: allAssociatedCoaches.length,
+          next:
+            allActiveAssociatedCoaches.length < PAGINATION_PAGE_LENGTH
+              ? null
+              : 1,
+          count: allActiveAssociatedCoaches.length,
           previous: null,
         });
-        const allAssociatedCoachesPaginated = allAssociatedCoaches.reduce(
+        const allAssociatedCoachesPaginated = allActiveAssociatedCoaches.reduce(
           (acc, coach, index) => {
             if (acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1]) {
               acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1].push(
@@ -501,87 +538,67 @@ const mapWithHandlers = {
         );
         setAssociatedCoachesPaginated(allAssociatedCoachesPaginated);
         setCoachesPaginated(
-          allAssociatedCoaches.reduce((acc, coach, index) => {
-            if (acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1]) {
-              acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1].push(
-                coach.id,
-              );
-            } else {
-              acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1] = [coach.id];
-            }
-            return acc;
-          }, {}),
-        );
-        await fetchBulkPrivateServicePerformanceAction(
-          {
-            associated_coach_ids:
-              allAssociatedCoachesPaginated[coachPaginationState.page],
-            start_timestamp,
-            end_timestamp,
-          },
-          {
-            onSuccess: () => {
-              fetchBulkCoachSessionPerformanceAction(
-                {
-                  associated_coach_ids:
-                    allAssociatedCoachesPaginated[coachPaginationState.page],
-                  start_timestamp,
-                  end_timestamp,
-                },
-                {
-                  onSuccess: () => {
-                    setSubmitLoading(false);
-                    if (options && options.onSuccess) options.onSuccess();
-                  },
-                  onError: () => {
-                    setSubmitLoading(false);
-                    if (options && options.onError) options.onError();
-                  },
-                },
-              );
-            },
-            onError: () => {
-              setSubmitLoading(false);
-              if (options && options.onError) options.onError();
-            },
-          },
-        );
-      } else {
-        await fetchBulkPrivateServicePerformanceAction(
-          {
-            associated_coach_ids:
-              associatedCoachesPaginated[coachPaginationState.page],
-            start_timestamp,
-            end_timestamp,
-          },
-          {
-            onSuccess: () => {
-              fetchBulkCoachSessionPerformanceAction(
-                {
-                  associated_coach_ids:
-                    associatedCoachesPaginated[coachPaginationState.page],
-                  start_timestamp,
-                  end_timestamp,
-                },
-                {
-                  onSuccess: () => {
-                    setSubmitLoading(false);
-                    if (options && options.onSuccess) options.onSuccess();
-                  },
-                  onError: () => {
-                    setSubmitLoading(false);
-                    if (options && options.onError) options.onError();
-                  },
-                },
-              );
-            },
-            onError: () => {
-              setSubmitLoading(false);
-              if (options && options.onError) options.onError();
-            },
-          },
+          coachPaginationHelper(allActiveAssociatedCoaches, false),
         );
       }
+      options?.onSuccess();
+      setSubmitLoading(false);
+    },
+  onSubmit:
+    ({
+      fetchBulkCoachSessionPerformanceAction,
+      fetchBulkPrivateServicePerformanceAction,
+      setFormDates,
+      setSubmitLoading,
+      coachPaginationState,
+      associatedCoachesPaginated,
+    }: OwnAndConnectedProps) =>
+    async (
+      data: {
+        dateStart: MomentType;
+        dateEnd: MomentType;
+      },
+      options: OptionCallback,
+    ) => {
+      const { dateStart, dateEnd } = data;
+      setFormDates({ dateStart: dateStart.unix(), dateEnd: dateEnd.unix() });
+      setSubmitLoading(true);
+      const start_timestamp = dateStart.unix();
+      const end_timestamp = dateEnd.unix();
+      await fetchBulkPrivateServicePerformanceAction(
+        {
+          associated_coach_ids:
+            associatedCoachesPaginated[coachPaginationState.page],
+          start_timestamp,
+          end_timestamp,
+        },
+        {
+          onSuccess: () => {
+            fetchBulkCoachSessionPerformanceAction(
+              {
+                associated_coach_ids:
+                  associatedCoachesPaginated[coachPaginationState.page],
+                start_timestamp,
+                end_timestamp,
+              },
+              {
+                onSuccess: () => {
+                  setSubmitLoading(false);
+                  if (options && options.onSuccess) options.onSuccess();
+                },
+                onError: () => {
+                  setSubmitLoading(false);
+                  if (options && options.onError) options.onError();
+                },
+              },
+            );
+          },
+          onError: () => {
+            setSubmitLoading(false);
+            if (options && options.onError) options.onError();
+          },
+        },
+      );
     },
   setCoachPaymentRule:
     ({
@@ -714,6 +731,7 @@ const mapWithHandlers = {
     (coachId: number, value: number) => {
       setCoachPaymentRuleGroupAction(coachId, value);
     },
+
   fetchAssociatedCoachesList:
     ({
       fetchAssociatedCoachesList,
@@ -721,7 +739,7 @@ const mapWithHandlers = {
       setCoachesPaginated,
       setCoachPagination,
     }: OwnAndConnectedProps) =>
-    (params: { disabled: boolean }) => {
+    (params: { disabled: boolean }, options: OptionCallback) => {
       fetchAssociatedCoachesList(params, {
         onSuccess: (coaches) => {
           setAssociatedCoachesPaginated(
@@ -738,20 +756,8 @@ const mapWithHandlers = {
               return acc;
             }, {}),
           );
-          setCoachesPaginated(
-            coaches.reduce((acc, coach, index) => {
-              if (acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1]) {
-                acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1].push(
-                  coach.id,
-                );
-              } else {
-                acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1] = [
-                  coach.id,
-                ];
-              }
-              return acc;
-            }, {}),
-          );
+
+          setCoachesPaginated(coachPaginationHelper(coaches, false));
           const isLastPage = coaches.length <= PAGINATION_PAGE_LENGTH;
           setCoachPagination({
             page: 1,
@@ -759,34 +765,9 @@ const mapWithHandlers = {
             previous: null,
             next: isLastPage ? null : 2,
           });
+          if (options?.onSuccess) options.onSuccess();
         },
       });
-      options?.onSuccess && options.onSuccess();
-    },
-  fetchCachedData:
-    ({
-      fetchBulkCoachSessionPerformanceAction,
-      formDates,
-      associatedCoachesPaginated,
-    }: OwnAndConnectedProps) =>
-    (params: { page: number }, options?: OptionCallback) => {
-      const ids = associatedCoachesPaginated[params.page];
-      fetchBulkCoachSessionPerformanceAction(
-        {
-          associated_coach_ids: ids,
-          start_timestamp: formDates.dateStart,
-          end_timestamp: formDates.dateEnd,
-          from_cache: true,
-        },
-        {
-          onSuccess: () => {
-            if (options && options.onSuccess) options.onSuccess();
-          },
-          onError: () => {
-            if (options && options.onError) options.onError();
-          },
-        },
-      );
     },
 };
 
@@ -879,6 +860,7 @@ export default compose(
   withTranslation(['coachPerformance', 'coach']),
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
   connector,
+  withHandlers(mapWithCachedDataHandlers),
   withHandlers(mapWithHandlers),
   withTitle(({ t }) => t('titles:coach.allCoachPerformance')),
 )(AllCoachPerformancePage);

@@ -1,8 +1,11 @@
 import React from 'react';
+import moment from 'moment';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import { makeStyles } from '@material-ui/styles';
+import { useTranslation } from 'react-i18next';
 
 type OwnProps = {
   pagination: {
@@ -13,50 +16,72 @@ type OwnProps = {
   };
   loading: boolean;
   changePage: (page: number) => void;
+  oldestUpdate?: null | number;
 };
 type Props = OwnProps;
 
 const PAGE_SIZE = 50;
-export class AllPerformancePagination extends React.PureComponent<Props> {
-  handleGeneratePreviousPage = () => {
-    if (this.props.pagination.previous) {
-      this.props.changePage(this.props.pagination.previous);
+
+export const AllPerformancePagination = (props: Props) => {
+  const classes = useStyles();
+  const { t } = useTranslation('coachPerformance');
+  const handleGeneratePreviousPage = () => {
+    if (props.pagination.previous) {
+      props.changePage(props.pagination.previous);
     }
   };
 
-  handleGenerateNextPage = () => {
-    if (this.props.pagination.next) {
-      this.props.changePage(this.props.pagination.next);
+  const handleGenerateNextPage = () => {
+    if (props.pagination.next) {
+      props.changePage(props.pagination.next);
     }
   };
 
-  render() {
-    return (
-      <>
+  return (
+    <div className={classes.container}>
+      <div>
         <IconButton
-          onClick={this.handleGeneratePreviousPage}
-          disabled={!this.props.pagination.previous || this.props.loading}
+          onClick={handleGeneratePreviousPage}
+          disabled={!props.pagination.previous || props.loading}
           aria-label="previous page"
         >
           <KeyboardArrowLeft />
         </IconButton>
         <Typography variant="caption">
-          {`${(this.props.pagination.page - 1) * PAGE_SIZE + 1} - ${
-            this.props.pagination.page * PAGE_SIZE > this.props.pagination.count
-              ? this.props.pagination.count
-              : this.props.pagination.page * PAGE_SIZE
-          } / ${this.props.pagination.count} `}
+          {`${(props.pagination.page - 1) * PAGE_SIZE + 1} - ${
+            props.pagination.page * PAGE_SIZE > props.pagination.count
+              ? props.pagination.count
+              : props.pagination.page * PAGE_SIZE
+          } / ${props.pagination.count} `}
         </Typography>
         <IconButton
-          onClick={this.handleGenerateNextPage}
-          disabled={!this.props.pagination.next || this.props.loading}
+          onClick={handleGenerateNextPage}
+          disabled={!props.pagination.next || props.loading}
           aria-label="next page"
         >
           <KeyboardArrowRight />
         </IconButton>
-      </>
-    );
-  }
-}
+      </div>
+      <div>
+        <Typography variant="caption" color="secondary">
+          {props.oldestUpdate
+            ? t('cachedData.oldestUpdate', {
+                date: moment.unix(props.oldestUpdate).format('LLLL'),
+              })
+            : t('cachedData.undeterminedOldestUpdate')}
+        </Typography>
+      </div>
+    </div>
+  );
+};
+
+const useStyles = makeStyles(() => ({
+  container: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+  },
+}));
 
 export default AllPerformancePagination;

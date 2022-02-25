@@ -442,7 +442,7 @@
     "paymentRule": "Rémunération"
   },
   "coachPerformance": {
-    "form": { "ifEmptyAllowAll": "Laisser vide pour calculer le récapitulatif pour tous les professeurs" },
+    "form": { "ifEmptyAllowAll": "Laisser vide pour ignorer ce filtre" },
     "fields": {
       "bonus": "Bonus",
       "base": "Base",
@@ -491,6 +491,18 @@
         "message": "Le fichier d'exportation des rémunérations professeurs est disponible. Vous pourrez également récupérer ces données dans la section 'Données sauvegardées'."
       }
     },
+    "advancedFilters": {
+      "header": "Filtres avancés",
+      "apply": "Appliquer les filtres",
+      "reset": "Réinitialiser les filtres",
+      "coachSelector": "Sélectionnez des profresseurs",
+      "coachPaymentRuleGroupSelector": "Groupes de rémunération",
+      "sessionCoachPaymentRuleSelctor": "Cours collectifs ",
+      "workshopCoachPaymentRuleSelctor": "Ateliers",
+      "privateserviceCoachPaymentRuleSelector": "Rendez-vous",
+      "byCoachPaymentruleGroups": "Filtrer par groupes de rémunérations",
+      "byCoachPaymentRules": "Filtrer par règles de rémunérations (pour les professeurs sans groupe de rémunération)"
+    },
     "cachedData": {
       "title": "Données sauvegardées ({{ count }})",
       "dateSaved": "Données générées le {{ date }}",
@@ -499,7 +511,9 @@
       "enterPreviewMode": "Passer en mode preview",
       "downloadMySavedData": "Télécharger",
       "previewModeTitle": "Mode Preview",
-      "leavePreviewMode": "Quitter le mode preview"
+      "leavePreviewMode": "Quitter le mode preview",
+      "oldestUpdate": "Mise à jour la plus ancienne effectuée le : {{- date }}",
+      "undeterminedOldestUpdate": "Mise à jour la plus ancienne non déterminée"
     }
   },
   "common": {

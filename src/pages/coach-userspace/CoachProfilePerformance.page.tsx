@@ -10,7 +10,7 @@ import { WithStyles, createStyles, Theme } from '@material-ui/core';
 import moment from 'moment-timezone';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
-import CoachPerformanceForm from '#libs/coach-payment-rules/components/performance/CoachPerformanceForm.component';
+import CoachPerformanceForm from '#libs/coach-payment-rules/components/performance/filters/CoachPerformanceDateFilter.component';
 import CoachPerformanceSummaryHeader from '#libs/coach-payment-rules/components/performance/CoachPerformanceSummaryHeader.component';
 import CoachPerformanceTabs from '#libs/coach-payment-rules/components/performance/CoachPerformanceTabs.component';
 import { getMyAssociatedCoachProfile } from '#libs/associated-coach/selectors';

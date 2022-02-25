@@ -248,6 +248,7 @@ type Props = OwnProps &
 export const CoachPerformanceTable = (props: Props) => {
   const {
     associatedCoachWithPerformance,
+    loading,
     coachPaymentRuleGroups,
     coachPaymentRuleGroupsDict,
     setSessionCoachPaymentRule,
@@ -257,6 +258,7 @@ export const CoachPerformanceTable = (props: Props) => {
     setCoachWorkShopPaymentRule,
     setCoachPaymentRuleGroup,
   } = props;
+  const [oldestUpdate, setOldestUpdate] = React.useState<number | null>(null);
   const { t } = useTranslation(['coachPerformance', 'coach', 'paymentRules']);
   const classes = useStyles();
   const tableHeaders: Array<HeadersProps> = [
@@ -293,6 +295,27 @@ export const CoachPerformanceTable = (props: Props) => {
       className: classes.primarySubheader,
     },
   ];
+  React.useEffect(() => {
+    if (!loading && associatedCoachWithPerformance) {
+      const minUpdateTimeState = associatedCoachWithPerformance?.reduce(
+        (acc: number, coachesWithPerf: CoachwithPerformance) => {
+          const last_updatede_date = coachesWithPerf?.performance[
+            COACH_PERFORMANCE_FOR_SESSION
+          ]?.map((coachPerf) => coachPerf.last_update);
+          const minForCoach =
+            last_updatede_date && last_updatede_date?.length !== 0
+              ? Math.min(...last_updatede_date)
+              : null;
+          if (minForCoach && (acc === 0 || acc < minForCoach)) {
+            return minForCoach;
+          }
+          return acc;
+        },
+        0,
+      );
+      setOldestUpdate(minUpdateTimeState);
+    }
+  }, [associatedCoachWithPerformance, loading]);
   return (
     <TableContainer component={Paper}>
       {props.loading && <LinearProgress />}
@@ -322,6 +345,7 @@ export const CoachPerformanceTable = (props: Props) => {
                 pagination={props.pagination}
                 changePage={props.changePage}
                 loading={props.loading}
+                oldestUpdate={oldestUpdate}
               />
             </TableCell>
           </TableRow>
@@ -361,14 +385,17 @@ export const CoachPerformanceTable = (props: Props) => {
             />
           ))}
         </TableBody>
+        <TableHead>
+          <TableCell colSpan={9}>
+            <AllCoachPerformancePagination
+              pagination={props.pagination}
+              changePage={props.changePage}
+              loading={props.loading}
+              oldestUpdate={oldestUpdate}
+            />
+          </TableCell>
+        </TableHead>
       </Table>
-      <TableRow>
-        <AllCoachPerformancePagination
-          pagination={props.pagination}
-          changePage={props.changePage}
-          loading={props.loading}
-        />
-      </TableRow>
     </TableContainer>
   );
 };

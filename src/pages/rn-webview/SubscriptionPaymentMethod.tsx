@@ -2,24 +2,23 @@ import React from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 
-import {
-  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-} from '@bsport/common/lib/master-data/subscription-payment-methods';
 import { PAYMENT_ENGINE_STRIPE } from '@bsport/common/lib/master-data/payment-group';
 
 import withStyles from '@material-ui/styles/withStyles';
-import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
-import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
-import { switchSubscriptionPaymentMethod as switchSubscriptionPaymentMethodAction } from '../../libs/subscription/actions';
-import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
-import SubscriptionPayment from '../../libs/subscription/components/SubscriptionPayment.component';
-import { getMember } from '../../libs/member/selectors';
-import { fetchMember } from '../../libs/member/actions';
+import { getSavedPaymentMethodList } from '#libs/payment/selectors';
+import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '#libs/payment/actions';
+import { switchSubscriptionPaymentMethod as switchSubscriptionPaymentMethodAction } from '#libs/subscription/actions';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
+import SubscriptionPayment from '#libs/subscription/components/SubscriptionPayment.component';
+import { getMember } from '#libs/member/selectors';
+import { fetchMember } from '#libs/member/actions';
+import { fetchMembership } from '#libs/membership/actions';
 import { RootState } from '../../reducers';
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { MaterialStyleType } from '../../utils/types';
+import { fetchCompanyTheme } from '#libs/theme/actions';
+import type { Membership } from '#libs/membership/types';
 
 type OwnProps = {
   query: {
@@ -48,6 +47,11 @@ class SubscriptionPaymentMethod extends React.PureComponent<Props, State> {
 
   fetchData = () => {
     this.fetchPaymentMethods();
+    this.props.fetchMembership(this.props.query.member, {
+      onSuccess: (membership: Membership) => {
+        this.props.fetchCompanyTheme(membership.company);
+      },
+    });
     this.props.fetchMember(this.props.query.member);
   };
 
@@ -82,16 +86,11 @@ class SubscriptionPaymentMethod extends React.PureComponent<Props, State> {
     ) {
       return <div>Error -1</div>;
     }
-
     return (
       <div className={this.props.classes.container}>
         <SubscriptionPayment
           onSubmit={this.switchPaymentMethod}
           onCancel={this.onCancel}
-          enabledPaymentMethods={[
-            BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-            BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-          ]}
           refreshSavedPaymentMethodList={this.fetchPaymentMethods}
           member={this.props.member}
           processing={this.state.processing}
@@ -99,6 +98,9 @@ class SubscriptionPaymentMethod extends React.PureComponent<Props, State> {
           requestSetupIntentSecret={this.requestSetupIntentSecret}
           sepaDefaultName={this.props.member ? this.props.member.name : ''}
           sepaDefaultEmail={this.props.member ? this.props.member.email : ''}
+          enabledPaymentGroupMethodIdentifier={
+            this.props.theme?.payment_method_available_subscription || []
+          }
         />
       </div>
     );
@@ -143,12 +145,15 @@ const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
   savedPaymentMethodList: getSavedPaymentMethodList(state),
   member: getMember(state, ownProps.query.member),
   auth: state.auth,
+  theme: state.theme.theme,
 });
 
 const mapDispatchToProps = {
   fetchPaymentMethodList: fetchPaymentMethodListAction,
   switchSubscriptionPaymentMethod: switchSubscriptionPaymentMethodAction,
   fetchMember,
+  fetchCompanyTheme,
+  fetchMembership,
 };
 
 export default compose(

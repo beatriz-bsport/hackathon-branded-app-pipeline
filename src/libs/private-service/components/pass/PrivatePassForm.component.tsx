@@ -63,6 +63,7 @@ import {
   WithSegmentAnalyticsFormTrackerHandlers,
   SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
 } from '#components/analytics/segment';
+import { provincialTaxHelperText } from '#libs/theme/utils';
 
 interface FormikValues {
   name: string | null;
@@ -82,6 +83,7 @@ interface FormikValues {
   compatibility: Array<CompatiblePrivateService>;
 }
 type Props = {
+  provincialTax: number;
   isSubmitting: boolean;
   onCancel: (ev: MouseEvent) => void;
   values: any;
@@ -152,6 +154,10 @@ export const PrivatePassForm = (props: Props) => {
     });
     setServiceAndIndex(null, null);
   };
+  const provincialTaxText = React.useMemo(
+    () => provincialTaxHelperText(props.values.tax, props.provincialTax, t),
+    [props.values.tax, props.provincialTax, t],
+  );
 
   return (
     <Form className={classes.container}>
@@ -200,7 +206,7 @@ export const PrivatePassForm = (props: Props) => {
             helperText={t('privatePass.form.credits.helperText')}
           />
         </div>
-        <div className={`${classes.fieldBlock} ${classes.flexRowCenter}`}>
+        <div className={`${classes.fieldBlock} ${classes.flexRow}`}>
           <PriceField
             name="price"
             fullWidth
@@ -210,6 +216,8 @@ export const PrivatePassForm = (props: Props) => {
             disabled={!!props.initial?.template_instance}
           />
           <PercentField
+            helperText={provincialTaxText}
+            FormHelperTextProps={{ classes: { root: classes.helperTextError } }}
             name="tax"
             fullWidth
             label={t('privatePass.form.tax.label')}
@@ -628,6 +636,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
     flexDirection: 'row',
   },
+  flexRow: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+
   firstBooking: {
     marginTop: theme.spacing(2),
   },
@@ -673,6 +686,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     gap: theme.spacing(2),
+  },
+  helperTextError: {
+    color: theme.palette.error.main,
   },
 }));
 

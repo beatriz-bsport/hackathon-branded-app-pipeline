@@ -522,7 +522,9 @@
     "disconnect": "Me déconnecter",
     "disconnectInfo": "Retourner à la page de connexion",
     "endBeforeStart": "La date de fin doit être supérieure à la date de début",
-    "startAfterEnd": "La date de début doit être inférieure à la date de fin"
+    "startAfterEnd": "La date de début doit être inférieure à la date de fin",
+    "requiredField": "ce champ est requis",
+    "save": "Sauvegarder"
   },
   "communication": {
     "table": { "columns": { "member": "Membre", "title": "Aperçu", "date_created": "Date", "status": "Status" } },
@@ -6292,7 +6294,14 @@
         "12102": "Un paiment est déjà en cours de validation, revenez plus tard pour enregistrer un nouveau paiement."
       }
     },
-    "companyTheme": { "update": { "success": "Modifications enregistrées", "error": "Impossible de sauvegarder les modifications" } }
+    "companyTheme": {
+      "provincialTax": {
+        "success": "Taxe provinciale enregistrée",
+        "error": "Erreur d'enregistrement de la tax provinciale",
+        "customError": { "80001": "La taxe provinciale n'est pas disponible dans votre pays" }
+      },
+      "update": { "success": "Modifications enregistrées", "error": "Impossible de sauvegarder les modifications" }
+    }
   },
   "spotScheduling": {
     "toolsMenu": {
@@ -6867,7 +6876,17 @@
   },
   "theme": {
     "pageTitles": { "broadcast": "Visioconférence", "personalization": "Personnalisation", "theme": "Général" },
+    "provincialTax": {
+      "helperText": "La TVA est inférieure ou égale à la taxe provinciale indiquée. Sur les factures on indiquera seulement cette taxe sans faire la distinction entre taxe fédérale et provinciale."
+    },
     "forms": {
+      "provincialTax": {
+        "title": "Taxe provinciale",
+        "info": "Renseignez ici le nom et la valeur de votre taxe provinciale. Sur l’ensemble des produits de la plateforme indiquez la taxe totale appliquée (taxe fédérale + taxe provinciale). La taxe fédérale et la taxe provinciale seront indiquées sur les factures de vos clients.",
+        "taxName": "Nom de la taxe",
+        "taxValue": "Valeur de la taxe",
+        "taxHelperText": "Apparaitra sur les factures"
+      },
       "themePersonalization": {
         "calendarPersonalizationTitle": "Configuration du calendrier",
         "coach_can_edit_attendance": "Dans l'application mobile, le professeur peut modifier modifier les présences/absences",

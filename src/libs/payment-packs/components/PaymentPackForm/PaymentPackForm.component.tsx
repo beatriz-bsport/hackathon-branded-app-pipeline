@@ -67,6 +67,7 @@ type OwnProps = {
     options: OptionCallback<PaymentPack>,
   ) => void;
   clearPaymentPackToEdit: () => void;
+  provincialTax: number;
 };
 type Props = OwnProps &
   WithTranslation &
@@ -87,8 +88,9 @@ export const PaymentPackForm = (props: Props) => {
     metaActivityList,
     tagList,
     initial,
-    onCancel,
     onCancelText,
+    provincialTax,
+    onCancel,
     onSubmit,
     closeForm,
     clearPaymentPackToEdit,
@@ -294,6 +296,7 @@ export const PaymentPackForm = (props: Props) => {
                 initial={initial}
                 formikProps={formikProps}
                 paymentPackCategories={paymentPackCategories}
+                provincialTax={provincialTax}
               />
             </div>
             <Divider className={classes.divider} />

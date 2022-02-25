@@ -32,4 +32,6 @@ exports.default = {
   disconnectInfo: 'Retourner à la page de connexion',
   endBeforeStart: 'La date de fin doit être supérieure à la date de début',
   startAfterEnd: 'La date de début doit être inférieure à la date de fin',
+  requiredField: 'ce champ est requis',
+  save: 'Sauvegarder',
 };

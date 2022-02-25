@@ -472,6 +472,7 @@ export class PrivatePassList extends React.Component<Props, State> {
             subtitle={this.props.selectedPrivatePass?.name}
           >
             <PrivatePassForm
+              provincialTax={this.props.theme?.provincial_tax_value}
               privatePassCategories={this.props.privatePassCategories}
               onSubmit={this.props.createOrUpdatePrivatePass}
               onCancel={(ev: { stopPropagation: () => void }) => {

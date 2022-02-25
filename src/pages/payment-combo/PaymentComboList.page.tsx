@@ -2,7 +2,7 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withState, withProps } from 'recompose';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
 import { push } from 'connected-react-router';
@@ -34,22 +34,12 @@ import { MaterialStyleType } from '../../utils/types';
 import type { OptionCallback } from '../../state/types';
 import PaymentComboListItem from '#libs/payment-combo/components/PaymentComboListItem.component';
 import { RootState } from '../../reducers';
+import themeSelectors from '../../libs/theme/selectors';
 
 type OwnProps = {
   t: TFunction;
-  classes: Object;
 
-  loading: boolean;
-  fetchPaymentComboList: () => void;
-  paymentComboListAvailableOnline: Array<PaymentCombo>;
-  paymentComboListUnavailableOnline: Array<PaymentCombo>;
-  paymentComboList: Array<PaymentCombo>;
-  deletePaymentCombo: (id: number, options?: OptionCallback) => void;
-
-  goToPaymentCombo: (id: number) => void;
-  createOrUpdatePaymentCombo: (values: any, options?: OptionCallback) => void;
   openCreateOrUpdateForm: (arg?: PaymentCombo) => void;
-
   openForm: boolean;
   setOpenForm: (arg: boolean) => void;
   comboInitialData?: PaymentCombo;
@@ -57,7 +47,8 @@ type OwnProps = {
 
 type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
-  WithTranslation;
+  WithTranslation &
+  ConnectedProps<typeof connector>;
 
 type State = {
   searchText: string;
@@ -176,6 +167,7 @@ export class PaymentComboListPage extends React.Component<Props, State> {
         />
         {this.props.openForm ? (
           <PaymentComboFormDialogContainer
+            provincialTax={this.props.theme?.provincial_tax_value}
             initial={this.props.comboInitialData}
             open={this.props.openForm}
             handleClose={() => this.props.setOpenForm(false)}
@@ -220,26 +212,28 @@ const styles = (theme: Theme) => ({
   search: { marginBottom: theme.spacing(2) },
 });
 
+const connector = connect(
+  (state: RootState) => ({
+    loading: state.paymentCombo.loading,
+    paymentComboListAvailableOnline: getPaymentComboListAvailableOnline(state),
+    paymentComboListUnavailableOnline:
+      getPaymentComboListUnavailableOnline(state),
+    error: state.paymentCombo.createOrUpdate.error,
+    paymentComboList: getPaymentComboList(state),
+    theme: themeSelectors.getTheme(state),
+  }),
+  {
+    fetchPaymentComboList,
+    createOrUpdatePaymentCombo,
+    deletePaymentCombo,
+    goToPaymentCombo: (id: number) => push(`/combo/${id}`),
+  },
+);
+
 export default compose<any, Props>(
   withTranslation(['paymentCombo']),
   withStyles(styles),
-  connect(
-    (state: RootState) => ({
-      loading: state.paymentCombo.loading,
-      paymentComboListAvailableOnline:
-        getPaymentComboListAvailableOnline(state),
-      paymentComboListUnavailableOnline:
-        getPaymentComboListUnavailableOnline(state),
-      error: state.paymentCombo.createOrUpdate.error,
-      paymentComboList: getPaymentComboList(state),
-    }),
-    {
-      fetchPaymentComboList,
-      createOrUpdatePaymentCombo,
-      deletePaymentCombo,
-      goToPaymentCombo: (id: number) => push(`/combo/${id}`),
-    },
-  ),
+  connector,
   withState('openForm', 'setOpenForm', false),
   withState('comboInitialData', 'setComboInitialData', null),
   withProps(({ setComboInitialData, setOpenForm }) => ({

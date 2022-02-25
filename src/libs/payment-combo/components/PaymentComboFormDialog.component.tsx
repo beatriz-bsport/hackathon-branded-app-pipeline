@@ -24,6 +24,8 @@ import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsive
 
 type Props = {
   open: boolean;
+  provincialTax: number;
+
   handleClose: () => void;
   onSubmit: () => void;
   isSubmitting: boolean;

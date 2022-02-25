@@ -32,15 +32,18 @@ import {
   PaymentPackCategory,
   PaymentPackFormValues,
 } from '../../types';
+import { provincialTaxHelperText } from '#libs/theme/utils';
 
 type OwnProps = {
   paymentPackCategories: Array<PaymentPackCategory>;
   formikProps: FormikProps<PaymentPackFormValues>;
   initial?: PaymentPack;
+  provincialTax: number;
 };
 type Props = OwnProps & WithTranslation;
 export const PaymentPackFormGeneral = (props: Props) => {
-  const { t, formikProps, paymentPackCategories, initial } = props;
+  const { t, formikProps, paymentPackCategories, initial, provincialTax } =
+    props;
 
   const classes = useStyles();
   const CREDIT_NUMBER_CHOICE = [
@@ -57,6 +60,10 @@ export const PaymentPackFormGeneral = (props: Props) => {
       value: 'account',
     },
   ];
+  const provincialTaxText = React.useMemo(
+    () => provincialTaxHelperText(formikProps.values.tax, provincialTax, t),
+    [formikProps.values.tax, provincialTax, t],
+  );
   return (
     <>
       <Grid container spacing={2}>
@@ -121,6 +128,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
             name="tax"
             id="textfield_pass_VAT"
             label={t('form.paymentPack.tax.label')}
+            helperText={provincialTaxText}
             type="number"
             required
             fullWidth
@@ -129,6 +137,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
               inputProps: { min: 0, max: 100, step: 0.005 },
               endAdornment: <InputAdornment position="end">%</InputAdornment>,
             }}
+            FormHelperTextProps={{ classes: { root: classes.helperTextError } }}
           />
         </Grid>
         <Grid item xs={12}>
@@ -326,6 +335,9 @@ export const PaymentPackFormGeneral = (props: Props) => {
   );
 };
 const useStyles = makeStyles<Theme>((theme) => ({
+  helperTextError: {
+    color: theme.palette.error.main,
+  },
   infoText: {
     display: 'flex',
     flexDirection: 'row',

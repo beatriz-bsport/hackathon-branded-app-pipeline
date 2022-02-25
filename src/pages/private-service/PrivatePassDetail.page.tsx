@@ -380,6 +380,7 @@ export class PrivatePassDetails extends Component<Props> {
           subtitle={this.props.privatePass?.name}
         >
           <PrivatePassForm
+            provincialTax={this.props.theme?.provincial_tax_value}
             privatePassCategories={this.props.privatePassCategories}
             initial={getFormInitial(
               this.props.privatePass,

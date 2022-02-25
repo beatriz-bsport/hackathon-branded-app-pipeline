@@ -11,7 +11,7 @@ import { withFormik, FieldArray } from 'formik';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
 import PaymentMethodSelectorField from '../../payment/components/PaymentMethodSelectorField.component';
-
+import { provincialTaxHelperText } from '../../theme/utils';
 import {
   TextField,
   PriceField,
@@ -34,6 +34,7 @@ import { WithSegmentAnalyticsFormTrackerHandlers } from '#components/analytics/s
 type Props = {
   t: TFunction,
   classes: Object,
+  provincialTax: number,
   paymentPackList: Array<PaymentPack>,
   shopItemList: Array<ShopItem>,
   privatePassList: Array<PrivatePass>,
@@ -68,6 +69,12 @@ export const PaymentComboForm = (props: Props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const provincialTaxText = React.useMemo(
+    () =>
+      provincialTaxHelperText(props.values.tax, props.provincialTax, props.t),
+    [props.values.tax, props.provincialTax, props.t],
+  );
   return (
     <div>
       <TextField
@@ -208,7 +215,12 @@ export const PaymentComboForm = (props: Props) => {
         required
         step={0.005}
         label={props.t('form.tax.label')}
+        helperText={provincialTaxText}
+        FormHelperTextProps={{
+          classes: { root: props.classes.helperTextError },
+        }}
       />
+
       <CheckboxField
         label={props.t('form.manager_only.label')}
         name="manager_only"
@@ -241,6 +253,9 @@ const styles = (theme) => ({
   fieldset: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
+  },
+  helperTextError: {
+    color: theme.palette.error.main,
   },
 });
 

@@ -15,6 +15,7 @@ import WarningIcon from '@material-ui/icons/Warning';
 import Switch from '@material-ui/core/Switch';
 import NumberInput from '../../../components/input/NumericInput.component';
 import ThemeInternalAccountForm from '#libs/theme/components/ThemeInternalAccountForm.component';
+import ProvincialTaxForm from '../../theme/components/ProvincialTax.form';
 
 type Props = {
   classes: any,
@@ -31,6 +32,10 @@ type Props = {
   theme: CompanyTheme,
   submitTheme: (company_id: number, data: any) => void,
   goToReports: () => void,
+  submitProvincialTax: (
+    data: FormData,
+    options?: OptionCallback<{ name: string, value: number }>,
+  ) => void,
 };
 
 type State = {
@@ -302,6 +307,22 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
             ) : null}
           </div>
         </Paper>
+        {this.props.theme?.locale.split('_')[1] === 'CA' && (
+          <div className={classes.content}>
+            <ProvincialTaxForm
+              initial={{
+                name: this.props.theme?.provincial_tax_name,
+                value: this.props.theme?.provincial_tax_value,
+              }}
+              submit={this.props.submitProvincialTax}
+            />
+          </div>
+        )}
+        <ThemeInternalAccountForm
+          theme={this.props.theme}
+          onSubmit={this.props.submitTheme}
+          goToReports={this.props.goToReports}
+        />
         <Paper className={classes.paper}>
           <div className={classes.header}>
             <Typography variant="h6" component="h3">
@@ -320,11 +341,6 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
             {t('configuration.nf525Button')}
           </Button>
         </Paper>
-        <ThemeInternalAccountForm
-          theme={this.props.theme}
-          onSubmit={this.props.submitTheme}
-          goToReports={this.props.goToReports}
-        />
       </div>
     );
   }

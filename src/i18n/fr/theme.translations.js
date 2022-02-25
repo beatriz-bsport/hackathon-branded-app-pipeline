@@ -4,7 +4,18 @@ exports.default = {
     personalization: 'Personnalisation',
     theme: 'Général',
   },
+  provincialTax: {
+    helperText:
+      'La TVA est inférieure ou égale à la taxe provinciale indiquée. Sur les factures on indiquera seulement cette taxe sans faire la distinction entre taxe fédérale et provinciale.',
+  },
   forms: {
+    provincialTax: {
+      title: 'Taxe provinciale',
+      info: 'Renseignez ici le nom et la valeur de votre taxe provinciale. Sur l’ensemble des produits de la plateforme indiquez la taxe totale appliquée (taxe fédérale + taxe provinciale). La taxe fédérale et la taxe provinciale seront indiquées sur les factures de vos clients.',
+      taxName: 'Nom de la taxe',
+      taxValue: 'Valeur de la taxe',
+      taxHelperText: 'Apparaitra sur les factures',
+    },
     themePersonalization: {
       calendarPersonalizationTitle: 'Configuration du calendrier',
       coach_can_edit_attendance:

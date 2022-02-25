@@ -62,11 +62,24 @@ export function updateCompanyTheme(
       dispatch(snackbarSuccess('companyTheme.update.success'));
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
-      console.error(err);
+      if (err.response?.data?.error_code) {
+        dispatch(
+          snackbarError(
+            `companyTheme.provincialTax.customError.${err.response?.data?.error_code}`,
+          ),
+        );
+      } else {
+        dispatch(snackbarError('companyTheme.update.error'));
+      }
+
       dispatch(themeUpdate.error(err));
       dispatch(themeUpdate.isLoading(false));
       if (options && options.onError) options.onError();
-      dispatch(snackbarError('companyTheme.update.error'));
     }
   };
 }
+export const provincialTaxCreateOrUpdateActions = {
+  error: createAction('PROVINCIAL_TAX/CREATEORUPDATE/ERROR'),
+  isLoading: createAction('PROVINCIAL_TAX/CREATEORUPDATE/IS_LOADING'),
+  success: createAction('PROVINCIAL_TAX/CREATEORUPDATE/SUCCESS'),
+};

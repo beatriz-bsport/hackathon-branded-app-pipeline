@@ -161,6 +161,7 @@ export class WorkshopActivityFormPage extends Component<Props> {
         closeForm={() => this.props.setStep(STEP_OFFER)}
         onCancelText={this.props.t('common.skip')}
         paymentPackCategories={this.props.paymentPackCategories}
+        provincialTax={this.props.companyTheme?.provincial_tax_value}
       />
     );
   };

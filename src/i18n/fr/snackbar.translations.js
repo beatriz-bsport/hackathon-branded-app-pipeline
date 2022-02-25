@@ -839,6 +839,13 @@ exports.default = {
     },
   },
   companyTheme: {
+    provincialTax: {
+      success: 'Taxe provinciale enregistrée',
+      error: "Erreur d'enregistrement de la tax provinciale",
+      customError: {
+        80001: "La taxe provinciale n'est pas disponible dans votre pays",
+      },
+    },
     update: {
       success: 'Modifications enregistrées',
       error: 'Impossible de sauvegarder les modifications',

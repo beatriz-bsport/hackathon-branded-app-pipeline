@@ -32,6 +32,7 @@ import PaymentPackDeleteDialog from '#libs/payment-packs/components/PaymentPackD
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import ConsumerPaymentPackFilters from '#libs/payment-packs/components/ConsumerPaymentPackFilters.component';
 import PaymentPackMassExtensionDialog from '#libs/payment-packs/components/PaymentPackMassExtensionDialog.component';
+import themeSelectors from '../../libs/theme/selectors';
 
 import {
   updateCredit as updateCreditAction,
@@ -443,6 +444,7 @@ export class PaymentPackDetail extends Component<Props, State> {
           onSubmit={this.createMassExtension}
         />
         <PaymentPackFormDrawer
+          provincialTax={this.props.theme?.provincial_tax_value}
           open={this.state.openPaymentPackFormDialog}
           categoryList={[...categoryList]
             .filter(
@@ -553,6 +555,8 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
       ],
       'id',
     ),
+    theme: themeSelectors.getTheme(state),
+
     categoryList: state.category.SCTs,
     tagCategories: getTagCategories(state),
     videoCategories: state.video.filterableParams.items.SCTs,

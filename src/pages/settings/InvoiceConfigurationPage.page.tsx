@@ -12,6 +12,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import { push as pushRouter } from 'connected-react-router';
+import { OptionCallback } from '../../state/types';
 import withTitle from '../../hocs/with-title.hoc';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers/index';
@@ -81,8 +82,9 @@ export class InvoiceConfigurationPage extends React.Component<Props, State> {
             submitTheme={this.props.submitTheme}
             theme={this.props.theme}
             goToReports={this.props.goToReports}
+            submitProvincialTax={this.props.submitProvincialTax}
           />
-          {this.props.companyTheme.enable_multi_localization && (
+          {this.props.theme.enable_multi_localization && (
             <>
               <Paper className={classes.paper}>
                 <Typography variant="h6" component="h3">
@@ -178,7 +180,6 @@ const mapStateToProps = (state: RootState) => ({
     state,
   ),
   establishments: getAvailableEstablishmentList(state),
-  companyTheme: themeSelectors.getTheme(state),
 });
 const mapDispatchToProps = {
   fetchInvoiceConfiguration,
@@ -193,6 +194,11 @@ const mapDispatchToProps = {
   goToReports: () => pushRouter('/reporting'),
 };
 const mapWithHandlers = {
+  submitProvincialTax:
+    (props: OwnAndConnectedProps) =>
+    (data: FormData, options: OptionCallback) => {
+      props.submitTheme(props.theme.company, data, options);
+    },
   patchInvoiceConfiguration: (props: OwnAndConnectedProps) => (data) => {
     props.patchInvoiceConfigurationAction(data, {
       onSuccess: () => props.snackbarSuccess('settings.update.success'),

@@ -29,6 +29,7 @@ type OwnProps = {
   initial?: PaymentPack;
   clearPaymentPackToEdit?: () => void;
   closeForm?: () => void;
+  provincialTax: number;
 };
 type Props = OwnProps & WithTranslation;
 export const PaymentPackFormDrawer = (props: Props) => {
@@ -41,6 +42,7 @@ export const PaymentPackFormDrawer = (props: Props) => {
     metaActivityList,
     tagList,
     onCancelText,
+    provincialTax,
     onSubmit,
     initial,
     clearPaymentPackToEdit,
@@ -54,6 +56,7 @@ export const PaymentPackFormDrawer = (props: Props) => {
       subtitle={initial?.name || null}
     >
       <PaymentPackForm
+        provincialTax={provincialTax}
         paymentPackCategories={paymentPackCategories}
         categoryList={categoryList}
         establishmentList={establishmentList}

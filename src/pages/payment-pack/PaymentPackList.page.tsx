@@ -92,6 +92,7 @@ import {
   WithSegmentAnalyticsFormTrackerHandlers,
   SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
 } from '#components/analytics/segment';
+import themeSelectors from '../../libs/theme/selectors';
 
 type StateHandlerInit = {
   showCategoryDialog: boolean;
@@ -553,6 +554,7 @@ export class PaymentPackList extends React.Component<Props, State> {
             }
           />
           <PaymentPackFormDrawer
+            provincialTax={this.props.theme?.provincial_tax_value}
             open={this.state.openPaymentPackFormDialog}
             categoryList={[...categoryList]
               .filter(
@@ -658,7 +660,7 @@ const styles = (theme: Theme) =>
 const mapStateToProps = (state: RootState) => ({
   loading: state.paymentPack.loading,
   enabledPacks: getEnabledPaymentPacks(state),
-
+  theme: themeSelectors.getTheme(state),
   videoCategories: state.video.filterableParams.items.SCTs,
   allTagsWithTagGroup: getallTagsWithTagGroup(state),
   establishmentList: getAllEstablishments(state),

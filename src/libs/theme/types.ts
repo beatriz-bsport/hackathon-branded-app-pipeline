@@ -55,6 +55,8 @@ export type Theme = {
   schedule_timerange_begin: string;
   schedule_timerange_end: string;
   is_premium: boolean;
+  provincial_tax_name?: string;
+  provincial_tax_value?: number;
 };
 
 export type ThemeState = {
@@ -62,6 +64,12 @@ export type ThemeState = {
   createOrUpdate: {
     loading: boolean;
     error?: Error;
+  };
+  provincialTax: {
+    createOrUpdate: {
+      loading: boolean;
+      error?: Error;
+    };
   };
   loading: boolean;
   error?: Error;

@@ -34,6 +34,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import { withTranslation, TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
 import { compose, withHandlers } from 'recompose';
+import themeSelectors from '../../libs/theme/selectors';
 import ShopItemDeleteDialog from '../../libs/shop/components/ShopItemDeleteDialog.component';
 import {
   fetchShopItemAsManager as fetchAllShopItem,
@@ -82,6 +83,7 @@ type Props = {
   shopItemLoading: boolean,
   isShopItemUsedInCombo: (id: number) => void,
   archivationWarning: { [id: number]: { used_in_combo: boolean } },
+  theme: Theme,
 };
 
 type State = {
@@ -357,6 +359,7 @@ export class ShopItemList extends Component<Props, State> {
             createOrUpdate={this.createOrUpdateShopItem}
             onCancel={() => this.setState({ createItemFromSubShop: null })}
             loading={this.props.shopItemLoading}
+            provincialTax={this.props.theme?.provincial_tax_value}
           />
         </GenericResponsiveDrawer>
         <Dialog open={!!this.state.shopitemToDelete}>
@@ -411,8 +414,10 @@ const styles = (theme) => ({
 
 export default compose(
   withTranslation(),
+  withMobileDialog(),
   connect(
     (state) => ({
+      theme: themeSelectors.getTheme(state),
       loading: state.shop.shopItem.asManager.loading,
       shopItemLoading: state.shop.shopItem.createOrUpdate.loading,
       subShops: shopSelectors.getSubShops(state),
@@ -430,7 +435,6 @@ export default compose(
       isShopItemUsedInCombo,
     },
   ),
-  withMobileDialog(),
   withStyles(styles),
   withtitle(({ t }: { t: TFunction }) => t('titles:shop')),
   withHandlers({

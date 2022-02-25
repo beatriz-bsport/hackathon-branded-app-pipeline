@@ -14,6 +14,7 @@ const initialState: Immutable.Immutable<ThemeState> = Immutable<ThemeState>({
     secondary_color: colors.secondary,
     cover: null,
   },
+
   createOrUpdate: {
     loading: false,
     error: null,

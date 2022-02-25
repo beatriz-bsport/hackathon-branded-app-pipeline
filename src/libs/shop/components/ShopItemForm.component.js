@@ -11,9 +11,10 @@ import LocalDrinkIcon from '@material-ui/icons/LocalDrink';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
 import { withTranslation, TFunction } from 'react-i18next';
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
+import { Typography } from '@material-ui/core';
+import { provincialTaxHelperText } from '../../theme/utils';
 import type { ShopItem } from '../types';
 import NumericInput from '../../../components/input/NumericInput.component';
 import PriceInput from '../../../components/input/PriceInput.component';
@@ -34,11 +35,11 @@ type Props = {
   createOrUpdate: (data: [*], id: number, options: OptionCallback) => void,
   onCancel: () => void,
   loading: boolean,
+  provincialTax: number,
 } & WithSegmentAnalyticsFormTrackerHandlers;
 type State = {
   name: ?string,
   subtitle: ?string,
-  provisions: number,
   price: ?number,
   supplier_price: ?number,
   cover: ?string,
@@ -50,6 +51,7 @@ type State = {
   featured: boolean,
   sell_only_on_provision: boolean,
   is_deliverable: boolean,
+  provincialTaxText: string,
 };
 
 function ShopItemPreview(props: { previewURL: string }) {
@@ -111,6 +113,11 @@ export class ShopItemForm extends Component<Props, State> {
         featured: initial.featured,
         sell_only_on_provision: initial.sell_only_on_provision,
         is_deliverable: initial.is_deliverable,
+        provincialTaxText: provincialTaxHelperText(
+          initial.tva,
+          props.provincialTax,
+          props.t,
+        ),
       };
     } else {
       this.state = {
@@ -127,6 +134,7 @@ export class ShopItemForm extends Component<Props, State> {
         featured: false,
         sell_only_on_provision: false,
         is_deliverable: true,
+        provincialTaxText: '',
       };
     }
   }
@@ -139,6 +147,21 @@ export class ShopItemForm extends Component<Props, State> {
           : {},
       );
     }
+  }
+
+  componentDidUpdate(prevProps: Props, prevState: State) {
+    if (
+      prevProps.provincialTax !== this.props.provincialTax ||
+      prevState.tva !== this.state.tva
+    )
+      this.setState((currentState: State) => ({
+        ...currentState,
+        provincialTaxText: provincialTaxHelperText(
+          currentState.tva,
+          this.props.provincialTax,
+          this.props.t,
+        ),
+      }));
   }
 
   handleField = (fieldName: string) => (event) => {
@@ -201,6 +224,7 @@ export class ShopItemForm extends Component<Props, State> {
       tva,
       cover,
     } = this.state;
+
     return (
       <form className={classes.card} onSubmit={this.onSubmit}>
         <div style={{ width: '100%' }}>
@@ -273,6 +297,9 @@ export class ShopItemForm extends Component<Props, State> {
                 }}
                 onChange={this.handleField('tva')}
               />
+              <Typography variant="body2" color="error">
+                {this.state.provincialTaxText}
+              </Typography>
             </Grid>
             <Grid item xs={6} className={classes.itemRow}>
               <PriceInput

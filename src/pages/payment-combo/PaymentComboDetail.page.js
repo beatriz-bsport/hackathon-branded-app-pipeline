@@ -27,6 +27,7 @@ import PaymentComboDetailComponent from '#libs/payment-combo/components/PaymentC
 import PaymentComboDeleteDialog from '#libs/payment-combo/components/PaymentComboDeleteDialog.component';
 import PaymentComboFormDialogContainer from './PaymentComboFormDialog.container';
 import { snackbarSuccess } from '#libs/snackbar/actions';
+import themeSelectors from '../../libs/theme/selectors';
 
 import type { PaymentCombo } from '#libs/payment-combo/types';
 
@@ -71,6 +72,7 @@ type Props = {
     options?: OptionCallback,
   ) => void,
   paymentComboPurchaseInvoice: Invoice,
+  theme: Theme,
 };
 
 export class PaymentComboDetail extends React.Component<Props> {
@@ -151,6 +153,7 @@ export class PaymentComboDetail extends React.Component<Props> {
         />
         {this.props.paymentCombo ? (
           <PaymentComboFormDialogContainer
+            provincialTax={this.props.theme?.provincial_tax_value}
             initial={this.props.paymentCombo}
             open={this.props.editIsOpen}
             handleClose={() => this.props.setEditIsOpen(false)}
@@ -187,6 +190,7 @@ export default compose(
   withState('deleteIsOpen', 'setDeleteIsOpen', false),
   connect(
     (state, { id, relatedInvoice }) => ({
+      theme: themeSelectors.getTheme(state),
       paymentCombo: getPaymentCombo(state, id),
       paymentComboPurchaseList: getPaymentComboPurchaseListByCombo(state, id),
       paymentComboPurchaseCount: state.paymentCombo.purchase.count,

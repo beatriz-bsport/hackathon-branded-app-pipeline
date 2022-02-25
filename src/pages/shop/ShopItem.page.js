@@ -39,6 +39,7 @@ import {
 import shopSelectors from '../../libs/shop/selectors';
 import type { ShopItem, Provision } from '../../libs/shop/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import themeSelectors from '../../libs/theme/selectors';
 
 type Props = {
   id: number,
@@ -61,7 +62,7 @@ type Props = {
   },
   deleteShopItem: (number, callback: () => void) => void,
   goToShopList: () => void,
-
+  theme: Theme,
   t: TFunction,
   classes: Object,
   isShopItemUsedInCombo: (id: number) => void,
@@ -198,6 +199,7 @@ export class ShopItemDetail extends Component<Props, State> {
             initial={this.props.shopitem}
             onCancel={this.closeEditForm}
             createOrUpdate={this.createOrUpdateShopItem}
+            provincialTax={this.props.theme?.provincial_tax_value}
           />
         </GenericResponsiveDrawer>
         <Dialog open={this.state.provisionFormOpen}>
@@ -243,8 +245,10 @@ export default compose(
   routerParamsToProps({ id: 'id:number' }),
   withStyles(styles),
   withTranslation(['shop']),
+  withMobileDialog(),
   connect(
     (state, { id }) => ({
+      theme: themeSelectors.getTheme(state),
       shopitem: shopSelectors.getShopitem(state, id),
       provision: state.shop.provision,
       archivationWarning: state.shop.shopItem.combo.archivationWarning,
@@ -261,5 +265,4 @@ export default compose(
     },
   ),
   withTitle(({ shopitem }) => (shopitem ? shopitem.name : '')),
-  withMobileDialog(),
 )(ShopItemDetail);

@@ -11033,7 +11033,7 @@
         "errorLessSpotThanEffectif": "Cannot save. The spot selection must contain more space than the size of the session capacity",
         "saved": "Spot selection saved",
         "effectifError": "The number of places must be greater than or equal to the size of the session",
-        "searchHelper": "Help: Allows your students to reserve the location they want in the room. Fields not required",
+        "searchHelper": "(Optional) Members may use the Spot Scheduling plan to book their preferred spot in the establishment",
         "search": "Search a plan for Spot Scheduling",
         "roomBlueprintSelectorTitle": "Choose a plan",
         "spotSelectorDialog": {

@@ -494,8 +494,8 @@
                     "forceNotify": "Een bevestigingsmail versturen",
                     "passCompatibleNotOwnedByMember": "Nieuwe kaart factureren",
                     "passOwnedByMember": "Beschikbare kaarten",
-                    "registerToOffer": "Voor de sessie aanmelden",
-                    "doNotConsumeCredit": "Geen kredieten voor leden hun inschrijving aftrekken"
+                    "registerToOffer": "Reservering",
+                    "doNotConsumeCredit": "Geen kredieten voor reserveringen aftrekken"
                 }
             }
         },
@@ -2117,7 +2117,7 @@
             "1": "Facturatie",
             "2": "Bestelling",
             "3": "Openstaande taken",
-            "4": "Te voltooien afspraak",
+            "4": "Openstaande afspraken",
             "5": "Juridische kennisgeving",
             "6": "Onbetaalde afspraken"
         },
@@ -2131,7 +2131,7 @@
         "newOrder": {
             "price": "Bedrag: {{ price }}.",
             "title": "Bestelling in behandeling",
-            "explain": "In de winkel betaald door <1?{{name}}</1>."
+            "explain": "Nieuwe bestelling van \"{{name}}\""
         },
         "task": {
             "name": "{{name}}"
@@ -10035,7 +10035,7 @@
         "roomBlueprints": "Plattegrond",
         "saveError": "Error",
         "saved": "Plattegrond opgeslagen",
-        "searchHelper": "Weetje: leden kunnen m.b.v. een plattegrond hun gewenste plaats in je vestiging reserveren. Het veld is niet verplicht.",
+        "searchHelper": "(Optioneel Leden kunnen de Spot Scheduling-plattegrond gebruiken om hun gewenste plaats in de vestiging te reserveren.",
         "search": "Zoek een plattegrond voor de Spot Scheduling",
         "roomBlueprintSelectorTitle": "Kies een plattegrond",
         "spotSelectorDialog": {

@@ -862,7 +862,7 @@
                 "marketingRule": "Marketing strategies",
                 "establishmentFormPage": "[Form] Establishment",
                 "establishmentList": "Establishments",
-                "memberFormPage": "[Form] Enrolment",
+                "memberFormPage": "[Form] Existing Member",
                 "member": "Member",
                 "members": "Members",
                 "paymentPackList": "Passes",
@@ -4323,7 +4323,7 @@
             "field_identifier": "Fields",
             "account_modification": "Editing an account",
             "account_creation": "Creating an account",
-            "title": "[Form] Enrolment",
+            "title": "[Form] Sign up",
             "fields": {
                 "waiver": "Liability Waiver",
                 "general_terms_and_conditions_accepted": "General Terms & Conditions",
@@ -4739,7 +4739,7 @@
                 },
                 "0": {
                     "explain": "When a member signs in, they're given a place on the waiting list. When an opening becomes available, the first person on the list can register, whilst the others have to wait their turn.",
-                    "settingsDelay": "Deadline for registration",
+                    "settingsDelay": "Deadline for registering on the waiting list",
                     "label": "One at a time"
                 }
             }
@@ -4758,7 +4758,7 @@
         "member": {
             "detail": {
                 "offerTitle": "Associated session",
-                "registrationSource": "Registration channel",
+                "registrationSource": "Booking channel",
                 "registeredOn": "Registered on",
                 "title": "Waiting list details"
             },
@@ -8137,7 +8137,7 @@
                 },
                 "welcome": "Hello!"
             },
-            "title": "[Form] Enrolment"
+            "title": "[Form] Sign up"
         },
         "user": {
             "existsWithEmail": "A user with the email address {{email}} already exists.",
@@ -8375,7 +8375,7 @@
             },
             "offer": {
                 "isDisabled": "Unfortunately the class has been canceled.",
-                "isTooLate": "Registrations are closed.",
+                "isTooLate": "Registration for this class is now closed.",
                 "isWaitingListFull": "The class is full, and the waiting-list too.",
                 "isTooSoon": "Booking for this activity opens on {{ date }}. Please try again later.",
                 "isAlreadyRegistered": "You are already registered to this session"
@@ -8597,7 +8597,7 @@
             },
             "blockedBookings": "Your students can book up to {{days}} days before the start of the sessions for this activity, therefore we recommend that you schedule the recurrence over a longer period to avoid overcrowding.",
             "notifyIfCanceled": "Send a booking cancellation email",
-            "notify": "Send a confirmation email upon the member's registration",
+            "notify": "Send a confirmation email when booking the member",
             "showLess": "Show less",
             "showMore": "Show more ({{count}})"
         },
@@ -9511,7 +9511,7 @@
             "dialog": {
                 "buttonText": "Confirm",
                 "message": "You may export an Excel file for the selected duration. This data will also be used and stored for later.",
-                "title": "Data export"
+                "title": "Data export and storage"
             },
             "buttonText": "Export"
         }

@@ -91,6 +91,9 @@ class SubscriptionPaymentMethod extends React.PureComponent<Props, State> {
         <SubscriptionPayment
           onSubmit={this.switchPaymentMethod}
           onCancel={this.onCancel}
+          enabledPaymentGroupMethodIdentifier={
+            this.props.theme?.payment_method_available_subscription || []
+          }
           refreshSavedPaymentMethodList={this.fetchPaymentMethods}
           member={this.props.member}
           processing={this.state.processing}

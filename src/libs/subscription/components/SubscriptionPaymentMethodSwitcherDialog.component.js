@@ -19,6 +19,7 @@ type Props = {
   requestSetupIntentSecret: () => void,
   refreshSavedPaymentMethodList: () => void,
   savedPaymentMethodList: Array<PaymentMethod>,
+  enabledPaymentMethods: Array<number>,
 };
 
 export class SubscriptionPaymentMethodSwitcherDialog extends React.Component<Props> {
@@ -43,6 +44,7 @@ export class SubscriptionPaymentMethodSwitcherDialog extends React.Component<Pro
           <SubscriptionPayment
             onSubmit={this.props.onSubmit}
             onCancel={this.props.onCancel}
+            enabledPaymentMethods={this.props.enabledPaymentMethods}
             enabledPaymentGroupMethodIdentifier={
               this.props.enabledPaymentGroupMethodIdentifier
             }

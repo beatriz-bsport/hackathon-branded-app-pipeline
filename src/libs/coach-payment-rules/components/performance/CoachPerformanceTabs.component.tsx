@@ -51,7 +51,7 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
     (!props.hideRuleSetter &&
       !props.asCoach &&
       props.coachPaymentRulesByKind &&
-      props.coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_SESSION]) ||
+      props.coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_APPOINTMENT]) ||
     [];
   if (props.value === COACH_PERFORMANCE_FOR_SESSION) {
     return (

@@ -163,7 +163,7 @@ export function CoachPaymentRuleSelectorStyled(props: Props) {
       isClearable={isClearable}
       menuPortalTarget={document.querySelector('body')}
       value={
-        selectedRules
+        selectedRules && coachPaymentRulesList
           ? getPaymentRuleOptions([
               ...coachPaymentRulesList?.filter((rule) =>
                 selectedRules.includes(rule.id),

@@ -243,7 +243,7 @@ export class SubscriptionDetail extends Component<Props> {
             requestSetupIntentSecret={this.props.requestSetupIntentSecret}
             refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
             savedPaymentMethodList={this.props.savedPaymentMethodList}
-            enabledPaymentGroupMethodIdentifier={[
+            enabledPaymentMethods={[
               BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
               BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
             ]}

@@ -101,9 +101,6 @@ class SubscriptionPaymentMethod extends React.PureComponent<Props, State> {
           requestSetupIntentSecret={this.requestSetupIntentSecret}
           sepaDefaultName={this.props.member ? this.props.member.name : ''}
           sepaDefaultEmail={this.props.member ? this.props.member.email : ''}
-          enabledPaymentGroupMethodIdentifier={
-            this.props.theme?.payment_method_available_subscription || []
-          }
         />
       </div>
     );

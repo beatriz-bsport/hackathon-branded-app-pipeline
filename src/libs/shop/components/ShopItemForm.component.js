@@ -51,7 +51,7 @@ type State = {
   featured: boolean,
   sell_only_on_provision: boolean,
   is_deliverable: boolean,
-  provincialTaxText: string,
+  provincialTax: string,
 };
 
 function ShopItemPreview(props: { previewURL: string }) {

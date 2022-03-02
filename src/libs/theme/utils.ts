@@ -9,7 +9,8 @@ export const provincialTaxHelperText = (
   if (isNil(tax) || isNil(provincialTax)) {
     return '';
   }
-  if (tax <= provincialTax) {
+
+  if (parseFloat(tax) <= parseFloat(provincialTax)) {
     return t('theme:provincialTax.helperText');
   }
   return '';

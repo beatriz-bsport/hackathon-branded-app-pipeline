@@ -1,13 +1,19 @@
 // @flow
 
 import React from 'react';
-
+import { Moment as MomentType } from 'moment';
 import * as Yup from 'yup';
-import { withFormik, Form, FormikProps, Field, FieldProps } from 'formik';
+import {
+  withFormik,
+  Form,
+  FormikProps,
+  Field,
+  FieldProps,
+  useFormikContext,
+} from 'formik';
 
 import { compose } from 'recompose';
 import { useTranslation } from 'react-i18next';
-
 import Moment from 'moment-timezone';
 import makeStyles from '@material-ui/styles/makeStyles';
 import type { Theme } from '@material-ui/core/styles';
@@ -30,6 +36,7 @@ import type { OptionCallback } from '../../../../../state/types';
 
 type InitialValues = {
   dateStart: Moment.Moment;
+  frequency: 'w' | 'M';
 };
 
 type Props = {
@@ -50,11 +57,23 @@ type Props = {
       };
     },
   ) => void;
+  handleDateFiltersChange: (
+    data: {
+      dateStart: MomentType;
+      dateEnd: MomentType;
+    },
+    options?: OptionCallback,
+  ) => void;
 } & FormikProps<InitialValues>;
 
 export function CoachPerformanceForm(props: Props) {
-  const { isSubmitting } = props;
+  const { isSubmitting, loading, handleDateFiltersChange } = props;
   const [openExportDialog, setOpenExportDialog] = React.useState<boolean>();
+  const { values, setSubmitting, initialValues }: FormikProps<InitialValues> =
+    useFormikContext();
+
+  const [previousValues, setPreviousValues] =
+    React.useState<InitialValues>(initialValues);
   const classes = useStyles();
   const { t } = useTranslation([
     'paymentRules',
@@ -79,7 +98,34 @@ export function CoachPerformanceForm(props: Props) {
       },
     });
   };
-
+  React.useEffect(() => {
+    if (
+      !loading &&
+      !isSubmitting &&
+      (previousValues?.frequency !== values.frequency ||
+        previousValues?.dateStart !== values.dateStart)
+    ) {
+      setSubmitting(true);
+      setPreviousValues(values);
+      handleDateFiltersChange(
+        {
+          ...values,
+          dateEnd: Moment(values.dateStart).add(1, values.frequency),
+        },
+        {
+          onSuccess: () => setSubmitting(false),
+          onError: () => setSubmitting(false),
+        },
+      );
+    }
+  }, [
+    values,
+    handleDateFiltersChange,
+    isSubmitting,
+    setSubmitting,
+    loading,
+    previousValues,
+  ]);
   return (
     <>
       <Form className={classes.flexSection}>
@@ -97,6 +143,7 @@ export function CoachPerformanceForm(props: Props) {
               ),
               className: classes.input,
             }}
+            disabled={isSubmitting || loading}
           />
 
           <Field name="frequency">
@@ -111,12 +158,12 @@ export function CoachPerformanceForm(props: Props) {
               >
                 <FormControlLabel
                   value="w"
-                  control={<Radio />}
+                  control={<Radio disabled={isSubmitting || loading} />}
                   label={t('common:weekly')}
                 />
                 <FormControlLabel
                   value="M"
-                  control={<Radio />}
+                  control={<Radio disabled={isSubmitting || loading} />}
                   label={t('common:monthly')}
                 />
               </RadioGroup>
@@ -216,4 +263,4 @@ export default compose<any, Props>(
       });
     },
   }),
-)(CoachPerformanceForm);
+)(React.memo(CoachPerformanceForm));

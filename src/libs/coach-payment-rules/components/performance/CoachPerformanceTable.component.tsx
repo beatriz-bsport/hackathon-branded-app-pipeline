@@ -299,13 +299,12 @@ export const CoachPerformanceTable = (props: Props) => {
     if (!loading && associatedCoachWithPerformance) {
       const minUpdateTimeState = associatedCoachWithPerformance?.reduce(
         (acc: number, coachesWithPerf: CoachwithPerformance) => {
-          const last_updatede_date = coachesWithPerf?.performance[
+          const last_updated_date = coachesWithPerf?.performance[
             COACH_PERFORMANCE_FOR_SESSION
           ]?.map((coachPerf) => coachPerf.last_update);
-          const minForCoach =
-            last_updatede_date && last_updatede_date?.length !== 0
-              ? Math.min(...last_updatede_date)
-              : null;
+          const minForCoach = last_updated_date?.length
+            ? Math.min(...last_updated_date)
+            : null;
           if (minForCoach && (acc === 0 || acc < minForCoach)) {
             return minForCoach;
           }

@@ -159,6 +159,12 @@ export class AllCoachPerformancePage extends Component<Props> {
         coachPaginationHelper(this.props.allActiveAssociatedCoaches, false),
       );
     }
+
+    if (prevProps.formDates !== this.props.formDates) {
+      this.props.fetchCachedData({
+        page: this.props.coachPaginationState.page,
+      });
+    }
   }
 
   changePage = (page: number) => {
@@ -209,6 +215,7 @@ export class AllCoachPerformancePage extends Component<Props> {
           <CoachPerformanceDateFilter
             disabled={isInPreviewMode}
             onSubmit={this.props.onSubmit}
+            handleDateFiltersChange={this.props.handleDateFiltersChange}
             loading={
               this.props.coachLoading ||
               this.props.performanceLoading ||
@@ -401,12 +408,65 @@ const mapWithHandlers = {
         },
       });
     },
-  onSubmitForAll:
+  onSubmitFilters:
     ({
-      fetchBulkCoachSessionPerformanceAction,
-      fetchBulkPrivateServicePerformanceAction,
-      setFormDates,
+      setCoachesPaginated,
+      setAssociatedCoachesPaginated,
+      setCoachPagination,
+      setCoachesFilter,
       setSubmitLoading,
+      allActiveAssociatedCoaches,
+      coachesFilter,
+    }: OwnAndConnectedProps) =>
+    (data: { coaches: Array<number> }, options: OptionCallback) => {
+      const { coaches } = data;
+      setSubmitLoading(true);
+
+      if (!isEqual(coaches, coachesFilter)) {
+        setCoachesFilter(coaches);
+        setCoachPagination({
+          page: 1,
+          next: coaches.length < PAGINATION_PAGE_LENGTH ? null : 1,
+          count: coaches.length,
+          previous: null,
+        });
+
+        setCoachesPaginated(
+          coaches.reduce((acc, associated_coach_id, index) => {
+            if (acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1]) {
+              acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1].push(
+                allActiveAssociatedCoaches.find(
+                  (associated_coach) =>
+                    associated_coach_id ===
+                    associated_coach.associated_coach_id,
+                ).id,
+              );
+            } else {
+              acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1] = [
+                allActiveAssociatedCoaches.find(
+                  (associated_coach) =>
+                    associated_coach_id ===
+                    associated_coach.associated_coach_id,
+                ).id,
+              ];
+            }
+            return acc;
+          }, {}),
+        );
+        const associatedCoachesFilterPaginated = coachPaginationHelper(
+          coaches,
+          true,
+        );
+        setAssociatedCoachesPaginated(associatedCoachesFilterPaginated);
+      }
+      options?.onSuccess();
+      setSubmitLoading(false);
+    },
+  handleDateFiltersChange:
+    ({
+      setSubmitLoading,
+      fetchBulkPrivateServicePerformanceAction,
+      fetchBulkCoachSessionPerformanceAction,
       coachPaginationState,
       associatedCoachesPaginated,
     }: OwnAndConnectedProps) =>
@@ -414,12 +474,10 @@ const mapWithHandlers = {
       data: {
         dateStart: MomentType;
         dateEnd: MomentType;
-        coaches: Array<number>;
       },
       options: OptionCallback,
     ) => {
       const { dateStart, dateEnd } = data;
-      setFormDates({ dateStart: dateStart.unix(), dateEnd: dateEnd.unix() });
       setSubmitLoading(true);
       const start_timestamp = dateStart.unix();
       const end_timestamp = dateEnd.unix();
@@ -429,6 +487,7 @@ const mapWithHandlers = {
             associatedCoachesPaginated[coachPaginationState.page],
           start_timestamp,
           end_timestamp,
+          from_cache: true,
         },
         {
           onSuccess: () => {
@@ -438,6 +497,7 @@ const mapWithHandlers = {
                   associatedCoachesPaginated[coachPaginationState.page],
                 start_timestamp,
                 end_timestamp,
+                from_cache: true,
               },
               {
                 onSuccess: () => {
@@ -457,92 +517,6 @@ const mapWithHandlers = {
           },
         },
       );
-    },
-  onSubmitFilters:
-    ({
-      setCoachesPaginated,
-      setAssociatedCoachesPaginated,
-      setCoachPagination,
-      setCoachesFilter,
-      setSubmitLoading,
-      allActiveAssociatedCoaches,
-      coachesFilter,
-    }: OwnAndConnectedProps) =>
-    (data: { coaches: Array<number> }, options: OptionCallback) => {
-      const { coaches } = data;
-      setSubmitLoading(true);
-
-      if (coaches?.length) {
-        if (!isEqual(coaches, coachesFilter)) {
-          setCoachesFilter(coaches);
-          setCoachPagination({
-            page: 1,
-            next: coaches.length < PAGINATION_PAGE_LENGTH ? null : 1,
-            count: coaches.length,
-            previous: null,
-          });
-
-          setCoachesPaginated(
-            coaches.reduce((acc, associated_coach_id, index) => {
-              if (acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1]) {
-                acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1].push(
-                  allActiveAssociatedCoaches.find(
-                    (associated_coach) =>
-                      associated_coach_id ===
-                      associated_coach.associated_coach_id,
-                  ).id,
-                );
-              } else {
-                acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1] = [
-                  allActiveAssociatedCoaches.find(
-                    (associated_coach) =>
-                      associated_coach_id ===
-                      associated_coach.associated_coach_id,
-                  ).id,
-                ];
-              }
-              return acc;
-            }, {}),
-          );
-          const associatedCoachesFilterPaginated = coachPaginationHelper(
-            coaches,
-            true,
-          );
-          setAssociatedCoachesPaginated(associatedCoachesFilterPaginated);
-        }
-      } else {
-        setCoachesFilter(null);
-        setCoachPagination({
-          page: 1,
-          next:
-            allActiveAssociatedCoaches.length < PAGINATION_PAGE_LENGTH
-              ? null
-              : 1,
-          count: allActiveAssociatedCoaches.length,
-          previous: null,
-        });
-        const allAssociatedCoachesPaginated = allActiveAssociatedCoaches.reduce(
-          (acc, coach, index) => {
-            if (acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1]) {
-              acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1].push(
-                coach.associated_coach_id,
-              );
-            } else {
-              acc[Math.floor(index / PAGINATION_PAGE_LENGTH) + 1] = [
-                coach.associated_coach_id,
-              ];
-            }
-            return acc;
-          },
-          {},
-        );
-        setAssociatedCoachesPaginated(allAssociatedCoachesPaginated);
-        setCoachesPaginated(
-          coachPaginationHelper(allActiveAssociatedCoaches, false),
-        );
-      }
-      options?.onSuccess();
-      setSubmitLoading(false);
     },
   onSubmit:
     ({

@@ -321,7 +321,7 @@ export default compose<any, Props>(
     ) => {
       let coachesFiltered = coaches;
 
-      if (values.coaches_selected?.length !== 0) {
+      if (values.coaches_selected.length !== 0) {
         coachesFiltered = coachesFiltered.filter((coach) =>
           values.coaches_selected.includes(coach.associated_coach_id),
         );
@@ -335,33 +335,30 @@ export default compose<any, Props>(
           );
         }
       } else {
+        coachesFiltered = coachesFiltered.filter(
+          (coach) => !coach.coach_payment_rule_group_id,
+        );
         if (values.session_coach_payment_rules?.length !== 0) {
-          coachesFiltered = coachesFiltered.filter(
-            (coach) =>
-              !!values.coach_payment_rule_groups ||
-              values.session_coach_payment_rules.includes(
-                coach.coach_payment_rule_id,
-              ),
+          coachesFiltered = coachesFiltered.filter((coach) =>
+            values.session_coach_payment_rules.includes(
+              coach.coach_payment_rule_id,
+            ),
           );
         }
 
         if (values.workshop_coach_payment_rules?.length !== 0) {
-          coachesFiltered = coachesFiltered.filter(
-            (coach) =>
-              !!values.coach_payment_rule_groups ||
-              values.workshop_coach_payment_rules.includes(
-                coach.workshop_coach_payment_rule_id,
-              ),
+          coachesFiltered = coachesFiltered.filter((coach) =>
+            values.workshop_coach_payment_rules.includes(
+              coach.workshop_coach_payment_rule_id,
+            ),
           );
         }
 
         if (values.private_service_coach_payment_rules?.length !== 0) {
-          coachesFiltered = coachesFiltered.filter(
-            (coach) =>
-              !!values.coach_payment_rule_groups ||
-              values.private_service_coach_payment_rules.includes(
-                coach.private_coach_payment_rule_id,
-              ),
+          coachesFiltered = coachesFiltered.filter((coach) =>
+            values.private_service_coach_payment_rules.includes(
+              coach.private_coach_payment_rule_id,
+            ),
           );
         }
       }

@@ -58,6 +58,7 @@ exports.default = {
   },
   columns: {
     initial_price: "Prix d'achat",
+    amount_expense: 'Montant',
     invoice_date: 'Date de facturation',
     accept_email: 'Accepte les emails',
     accept_sms: 'Accepte les SMS',

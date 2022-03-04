@@ -2111,7 +2111,8 @@
             "515": "The pass of the subscription has been automatically deactivated",
             "510": "Failed payment for a subscription",
             "481": "Recurring appointment has been cancelled due to a lack of availability (member)",
-            "480": "Recurring appointment has been cancelled due to a lack of availability (teacher)"
+            "480": "Recurring appointment has been cancelled due to a lack of availability (teacher)",
+            "987": "Attempt to collect an installment payment"
         },
         "messages": {
             "createOrUpdate": {
@@ -2687,6 +2688,12 @@
                 "cancel": "Cancel",
                 "submit": "Delete",
                 "confirm": "Delete"
+            },
+            "padBeforeBooking": {
+                "explain2": "Example: the establishment is available from 10 AM to 11 AM and your appointment lasts 60 minutes, however, a 15 minute blocker is required beforehand and afterwards for cleaning or maintenance.",
+                "explain4": "NON-ACTIVE: the appointment will be possible and will block the room 15 min before and after the reservation. The next appointment will be possible from 11:30 am.",
+                "explain3": "ACTIVE: Appointment will not be possible. The room must be available from 9:45 to 11:15. The next appointment will not be possible until 11:45 am.",
+                "explain1": "If activated, reservations can only be made if the calendar is available including the reservation"
             }
         },
         "calendar": {
@@ -3185,6 +3192,9 @@
                     },
                     "label": "Accept unpaid bookings",
                     "helperText": "Activate this feature to allow members to complete bookings without any direct payments. The used credit(s) will be automatically deducted from any future appointment pass bought by the members."
+                },
+                "pad_before_booking": {
+                    "label": "Activate retroactively for this booking"
                 }
             },
             "parameters": {
@@ -4412,7 +4422,11 @@
         "confirm": "Confirm",
         "disconnectInfo": "Return to Login Page",
         "disconnect": "Logout",
-        "activate": "Activate"
+        "activate": "Activate",
+        "save": "Save",
+        "startAfterEnd": "The start date must be before the end date",
+        "endBeforeStart": "The end date can't be greater than the start date",
+        "requiredField": "this field is required"
     },
     "workshop": {
         "search": "Search a workshop",
@@ -7942,7 +7956,19 @@
             "explain": "Select the date interval over which you wish to cancel your sessions. Members who have booked will be notified by email and their credits automatically refunded to the corresponding pass",
             "title": "Grouped cancellation",
             "secondWarningConfirm": "Are you sure you want to continue?",
-            "secondWarning": "By clicking on 'CONFIRM', the sessions included in the interval selected will be canceled and you won't be able to go back."
+            "secondWarning": "By clicking on 'CONFIRM', the sessions included in the interval selected will be canceled and you won't be able to go back.",
+            "warning": "Attention! This action can't be undone.",
+            "info": "Select the dates of the sessions that you wish to cancel.",
+            "endDateLabel": "End date",
+            "startDateLabel": "Start date",
+            "sure": "Are you sure that you want to validate this action?",
+            "confirmInfo": "You're about to cancel all {{number_of_deleted_offer}} session(s) between {{start_date}} and {{end_date}}.",
+            "confirmInfo_plural": "You're about to cancel all {{number_of_deleted_offer}} session(s) between {{start_date}} and {{end_date}}.",
+            "confirm": "Save",
+            "iConfirm": "I CONFIRM",
+            "confirmationExplain": "Please write \"I CONFIRM\" in capital letters to confirm.",
+            "success": "Cancellation confirmed",
+            "successInfo": "The deletion of all sessions between {{start_date}} and {{end_date}} has been taken into account."
         },
         "bookingListEmpty": "There are no bookings to display as of yet.",
         "bookingList": "Bookings",
@@ -8347,7 +8373,7 @@
                 "simpleChange": {
                     "unchangedEmail": "The previous email will be kept in the meantime.",
                     "warning": "Attention! You've changed the login email of:",
-                    "informativeHelperText": "Attention: a notification of the changes will be sent."
+                    "informativeHelperText": "A notification of the changes will be sent."
                 },
                 "titleMerge": " Merge member accounts",
                 "title": "Changing email address"

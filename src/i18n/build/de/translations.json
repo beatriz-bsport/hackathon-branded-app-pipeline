@@ -2271,6 +2271,13 @@
                 "label": "Verzichtserklärung",
                 "placeholder": "Ich bestätige, dass ich über 13 Jahre alt bin",
                 "helperText": "Muss für jede Registrierung akzeptiert werden"
+            },
+            "provincialTax": {
+                "taxHelperText": "Erscheint auf Rechnungen",
+                "taxValue": "Wert der Steuer",
+                "taxName": "Name der Steuer",
+                "info": "Geben Sie hier den Namen und den Wert Ihrer Provinzsteuer an. Geben Sie bei allen Produkten auf der Plattform die insgesamt angewandte Steuer an (Bundessteuer + Provinzsteuer). Die Bundessteuer und die Provinzsteuer werden auf den Rechnungen Ihrer Kunden angegeben.",
+                "title": "Provinzsteuer"
             }
         },
         "pageTitles": {
@@ -2367,6 +2374,9 @@
             "caption": "Kopien von Transaktions-E-Mails werden an diese Adresse gesendet, wenn die Einstellung aktiviert ist",
             "placeholder": "E-Mail",
             "label": "Nachfass-E-Mail"
+        },
+        "provincialTax": {
+            "helperText": "Die Mehrwertsteuer ist kleiner oder gleich der angegebenen Provinzsteuer. Auf Rechnungen wird nur diese Steuer angegeben, ohne zwischen Bundes- und Provinzsteuer zu unterscheiden."
         }
     },
     "role": {
@@ -3489,7 +3499,11 @@
             "date_expiration": "Datum des Ablaufs",
             "date_bought": "Datum des Kaufs",
             "is_rent": "Vermietung",
-            "due_date": "Fälligkeitsdatum"
+            "due_date": "Fälligkeitsdatum",
+            "supplier": "Anbieter",
+            "category": "Kategorie",
+            "is_recurring": "Wiederkehrend",
+            "amount_expense": "Betrag"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -3539,7 +3553,8 @@
             "consumer_giftcard": "Gekaufte Geschenkkarten",
             "giftcard": "Geschenkkarte",
             "unpaid_private_bookings": "Unbezahlte Reservierungen (Termin)",
-            "payment_installments": "Zahlungen in Raten"
+            "payment_installments": "Zahlungen in Raten",
+            "expense": "Ausgaben"
         },
         "globalCategories": {
             "subheader": {
@@ -4317,6 +4332,13 @@
             "update": {
                 "success": "Gespeicherte Änderungen",
                 "error": "Änderungen können nicht gespeichert werden"
+            },
+            "provincialTax": {
+                "customError": {
+                    "80001": "Die Provinzsteuer ist in Ihrem Land nicht verfügbar"
+                },
+                "error": "Fehler bei der Registrierung der Provinzialtaxe",
+                "success": "Registrierte Provinzsteuer"
             }
         }
     },
@@ -6089,7 +6111,11 @@
         "confirm": "Bestätigen",
         "disconnectInfo": "Zurück zur Anmeldeseite",
         "disconnect": "Mich abmelden",
-        "activate": "Aktivieren"
+        "activate": "Aktivieren",
+        "save": "Speichern",
+        "requiredField": "dieses Feld ist erforderlich",
+        "startAfterEnd": "Das Startdatum muss kleiner sein als das Enddatum",
+        "endBeforeStart": "Das Enddatum muss größer sein als das Startdatum"
     },
     "coupon": {
         "detail": {
@@ -6492,6 +6518,9 @@
                     },
                     "helperText": "Wenn Sie diese Funktion aktivieren, können Ihre Mitglieder diesen Termin buchen, ohne eine Karte kaufen/benutzen zu müssen. Die Anzahl der Credits des Termins wird automatisch von der nächsten gekauften kompatiblen Karte abgebucht.",
                     "title": "Später bezahlen"
+                },
+                "pad_before_booking": {
+                    "label": "Schon vor der Buchung berücksichtigen"
                 }
             },
             "parameters": {
@@ -6906,6 +6935,12 @@
                 "cancel": "Abbrechen",
                 "title": "Einen Termin löschen",
                 "explain": "Bist Du Dir sicher, dass Du diesen Termin löschen möchtest? Diese Änderung ist unwiderruflich. Bereits registrierte Buchungen werden nicht davon betroffen."
+            },
+            "padBeforeBooking": {
+                "explain4": "NICHT AKTIVIERT: Das Rendezvous ist möglich, aber der Raum wird 15 Minuten vor und nach der Buchung blockiert. Das nächste Rendezvous ist ab 11:30 Uhr möglich.",
+                "explain3": "AKTIV: Das RDV ist nicht möglich. Der Raum muss von 9:45 bis 11:15 Uhr verfügbar sein. Das nächste Rendezvous ist erst ab 11:45 Uhr möglich.",
+                "explain2": "Beispiel: Der Raum ist von 10:00 bis 11:00 Uhr verfügbar, Ihr Termin dauert 1 Stunde, benötigt aber 15 Minuten vor und nach der Buchung.",
+                "explain1": "Wenn aktiviert, können Buchungen nur vorgenommen werden, wenn der Kalender unter Einbeziehung der Buchung verfügbar ist."
             }
         },
         "privateSlot": {
@@ -6989,7 +7024,8 @@
         "recurrenceRule": {
             "item": {
                 "explain": "Alle {{dayOfWeek}} - {{time}}, {{delayWeek}} Wochen zuvor",
-                "startFrom": "Ab {{ date }}"
+                "startFrom": "Ab {{ date }}",
+                "allowUnpaid": "Erlaubt unbezahlte Buchungen"
             },
             "forms": {
                 "update": {
@@ -7010,7 +7046,8 @@
                 "timeGroup": "Datum des Kurses",
                 "configuration": "Buchungen",
                 "title": "Planen Sie eine Wiederholung",
-                "override_availabilities": "Die Buchung vornehmen, auch wenn die Lehrkraft, der Raum oder der Termin nicht verfügbar sind"
+                "override_availabilities": "Die Buchung vornehmen, auch wenn die Lehrkraft, der Raum oder der Termin nicht verfügbar sind",
+                "allow_unpaid": "Unbezahlte Buchungen zulassen (keine kompatible Karte besessen)"
             },
             "actions": {
                 "save": "Speichern",
@@ -7681,7 +7718,8 @@
             "515": "Kurskarte des Abonnements automatisch deaktiviert",
             "510": "Fehlgeschlagene Abonnement-Zahlung",
             "481": "Wiederkehrende Verabredung wegen mangelnder Verfügbarkeit abgesagt (Schüler/in)",
-            "480": "Wiederkehrendes Treffen wegen mangelnder Verfügbarkeit abgesagt (Lehrer)"
+            "480": "Wiederkehrendes Treffen wegen mangelnder Verfügbarkeit abgesagt (Lehrer)",
+            "987": "Versuch, eine Ratenzahlung einzulösen"
         },
         "tag": {
             "BookingOption": {
@@ -8969,7 +9007,19 @@
             "explain": "Wähle das Datumsintervall, über das Du Deine Kurse stornieren möchtest. Mitglieder, die gebucht haben, werden per E-Mail benachrichtigt und ihre Credits werden automatisch auf die entsprechende Kurskarte zurückerstattet",
             "title": "Kollektive Stornierung",
             "secondWarningConfirm": "Bist du dir sicher, dass du weitermachen willst?",
-            "secondWarning": "Wenn Du auf \"BESTÄTIGEN\" klickst, werden die im ausgewählten Intervall enthaltenen Kurse storniert und Du kannst sie nicht mehr wiederherstellen."
+            "secondWarning": "Wenn Du auf \"BESTÄTIGEN\" klickst, werden die im ausgewählten Intervall enthaltenen Kurse storniert und Du kannst sie nicht mehr wiederherstellen.",
+            "warning": "ACHTUNG diese Operation kann nicht rückgängig gemacht werden",
+            "info": "Wählen Sie die Daten aus, zwischen denen Sie alle Sitzungen absagen möchten. Die gewählten Daten werden eingeschlossen.",
+            "endDateLabel": "Enddatum (einschließlich)",
+            "startDateLabel": "Startdatum (einschließlich)",
+            "sure": "Sind Sie sicher, dass Sie diese Aktion bestätigen möchten?",
+            "confirmInfo": "Sie sind dabei, alle Sitzungen zwischen dem {{start_date}} und dem {{end_date}} (einschließlich). Das bedeutet, dass {{number_of_deleted_offer}} Sitzungen abgesagt werden.",
+            "confirmInfo_plural": "Sie sind dabei, alle Sitzungen zwischen dem {{start_date}} und dem {{end_date}} (einschließlich). Das bedeutet, dass {{number_of_deleted_offer}} Sitzungen abgesagt werden.",
+            "confirm": "Bestätigen",
+            "successInfo": "Die Löschung aller Sitzungen zwischen {{start_date}} und {{end_date}} wurde korrekt berücksichtigt.",
+            "iConfirm": "ICH BESTÄTIGE",
+            "confirmationExplain": "Bitte schreiben Sie unten in Großbuchstaben \"ICH BESTÄTIGE\".",
+            "success": "Bestätigte Absage"
         },
         "bookingListEmpty": "Keine Buchung",
         "bookingList": "Buchungen",

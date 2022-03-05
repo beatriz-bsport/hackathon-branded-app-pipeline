@@ -191,7 +191,7 @@
             "undefined": "Het systeem zal mislukte betalingen van abonnementen opnieuw proberen.",
             "481": "Periodieke afspraak geannuleerd i.v.m. een gebrek aan beschikbaarheid (leden)",
             "480": "Periodieke afspraak geannuleerd i.v.m. een gebrek aan beschikbaarheid (instructeur)",
-            "987": "Poging tot inning van een termijn"
+            "987": "Incasseringspoging voor een termijnbetaling"
         },
         "tag": {
             "BookingOption": {
@@ -2131,7 +2131,7 @@
         "unevenInvoice": {
             "title": "Openstaande facturen",
             "priceDue": "Openstaand bedrag: {{price_due }}",
-            "explainUneven": "Factuur \"<1> nr. {{uuid, uuid}} </1>\" staat nog open.",
+            "explainUneven": "Factuur \"<1>{{uuid, uuid}} </1>\" staat nog open.",
             "pricePayed": "Betaald: {{price_payed}}"
         },
         "newOrder": {
@@ -3666,7 +3666,7 @@
         "manageOffer": "Reserveringen beheren",
         "massDisabler": {
             "explainLoading": "Een moment geduld alstublieft",
-            "explain": "Geef aan in welke periode je je sessies wilt annuleren. Leden die hebben gereserveerd worden per e-mail op de hoogte gebracht en hun kredieten worden teruggestort.",
+            "explain": "Selecteer de data waartussen de sessies geannuleerd moeten worden. Leden die hebben gereserveerd worden per e-mail op de hoogte gebracht en hun kredieten worden teruggestort.",
             "explainWarning": "Waarschuwing: deze actie is definitief!",
             "actions": {
                 "cancel": "Annuleren",
@@ -3676,17 +3676,17 @@
             "title": "In bulk annuleren",
             "secondWarningConfirm": "Weet je zeker dat je verder wilt gaan?",
             "secondWarning": "Klik op \"BEVESTIGEN\" om de sessies in de geselecteerde periode te annuleren. Deze actie is definitief.",
-            "warning": "ATTENTIE deze operatie is onomkeerbaar",
-            "info": "Selecteer de data waartussen u alle sessies wilt annuleren. De geselecteerde data zijn opgenomen.",
-            "endDateLabel": "Einddatum (inclusief)",
-            "startDateLabel": "Aanvangsdatum (inclusief)",
-            "sure": "Weet u zeker dat u deze actie wilt valideren?",
-            "confirmInfo": "U staat op het punt om alle sessies tussen {{start_date}} en {{eind_date}} te annuleren (inclusief). Dat is {{number_of_deleted_offer}} een geannuleerde sessie.",
-            "confirmInfo_plural": "U staat op het punt om alle sessies tussen {{start_date}} en {{eind_date}} te annuleren (inclusief). Dat is {{nummer_van_geannuleerde_aanbieding}} geannuleerde sessies.",
-            "confirm": "Bevestig",
+            "warning": "Waarschuwing! Deze actie is definitief.",
+            "info": "Selecteer de data waartussen de sessies geannuleerd moeten worden.",
+            "endDateLabel": "Einddatum",
+            "startDateLabel": "Startdatum",
+            "sure": "Weet je zeker dat je deze actie wilt uitvoeren?",
+            "confirmInfo": "Deze actie annuleert alle sessies ({{number_of_deleted_offer}}) van {{start_date}} tot en met {{end_date}}.",
+            "confirmInfo_plural": "Deze actie annuleert alle sessies ({{number_of_deleted_offer}}) van {{start_date}} tot en met {{end_date}}.",
+            "confirm": "Bevestigen",
             "successInfo": "Er is rekening gehouden met de schrapping van alle sessies tussen {{start_date}} en {{end_date}}.",
             "iConfirm": "IK BEVESTIG",
-            "confirmationExplain": "Schrijf \"IK BEVESTIG\" hieronder in hoofdletters.",
+            "confirmationExplain": "Gelieve \"IK BEVESTIG\" in hoofdletters schrijven om deze actie te bevestigen.",
             "success": "Annulering bevestigd"
         },
         "bookingListEmpty": "Er zijn nog geen reserveringen geregistreerd.",
@@ -5652,9 +5652,9 @@
                 "confirm": "Verwijderen"
             },
             "padBeforeBooking": {
-                "explain4": "NON-ACTIVE: de afspraak zal mogelijk zijn en zal de kamer 15 min. voor en na de reservatie blokkeren. De volgende afspraak is mogelijk vanaf 11:30.",
-                "explain3": "ACTIEF: De afspraak zal niet mogelijk zijn. De zaal moet beschikbaar zijn van 9.45 tot 11.15 uur. De volgende afspraak is pas mogelijk vanaf 11:45.",
-                "explain2": "Voorbeeld: de zaal is beschikbaar van 10 tot 11 uur, uw afspraak duurt 1 uur, maar u hebt 15 minuten voor en na de reservering nodig.",
+                "explain4": "[GEDEACTIVEERD] Afspraken worden geaccepteerd en de vestiging wordt 15 minuten voor én na de reservering als bezet gemarkeerd. De eerstvolgende afspraak kan vanaf 11:30 worden gereserveerd.",
+                "explain3": "[GEACTIVEERD] Afspraken worden niet geaccepteerd, omdat de vestiging van 09:45 tot en met 11:15 beschikbaar moet zijn. De eerstvolgende afspraak is pas mogelijk vanaf 11:45.",
+                "explain2": "Voorbeeld: de vestiging is van 10:00 tot 11:00 beschikbaar en de afspraak duurt 60 minuten voor de klant, alhoewel je een 15 min. buffer voor én na de afspraak nodig hebt i.v.m. schoonmaak/onderhoud.",
                 "explain1": "Indien geactiveerd, kunnen reserveringen alleen worden gemaakt als de kalender beschikbaar is inclusief de reservering"
             }
         },
@@ -6381,7 +6381,7 @@
             "item": {
                 "explain": "Elke {{dayOfWeek}} om {{time}} - {{delayWeek}} week/weken van tevoren",
                 "startFrom": "Van {{ date }}",
-                "allowUnpaid": "Autoriseert onbetaalde boekingen"
+                "allowUnpaid": "Onbetaalde reserveringen worden geaccepteerd"
             },
             "forms": {
                 "update": {
@@ -6403,7 +6403,7 @@
                 "timeGroup": "Instellingen",
                 "configuration": "Reserveringen",
                 "override_availabilities": "Voltooi de reservering ook bij onbeschikbaarheid van de geselecteerde afspraken/vestigingen/instructeurs",
-                "allow_unpaid": "Sta onbetaalde boekingen toe (geen compatibele kaart in bezit)"
+                "allow_unpaid": "Accepteer onbetaalde reserveringen"
             },
             "actions": {
                 "save": "Opslaan",
@@ -7790,10 +7790,10 @@
             },
             "provincialTax": {
                 "customError": {
-                    "80001": "Provinciale belasting is niet beschikbaar in uw land"
+                    "80001": "Het provinciale btw-bedrag is niet in je regio beschikbaar"
                 },
-                "error": "Fout in provinciale belastingregistratie",
-                "success": "Geregistreerde provinciale belasting"
+                "error": "Fout bij het opslaan van het provinciale btw-bedrag",
+                "success": "Provinciaal btw-bedrag"
             }
         }
     },
@@ -8350,9 +8350,9 @@
         "disconnectInfo": "Terug naar de inlogpagina",
         "disconnect": "Afmelden",
         "activate": "Activeren",
-        "save": "Save",
-        "requiredField": "dit veld is verplicht",
-        "startAfterEnd": "De begindatum moet kleiner zijn dan de einddatum",
+        "save": "Opslaan",
+        "requiredField": "Dit veld is verplicht.",
+        "startAfterEnd": "De startdatum moet vóór de einddatum zijn",
         "endBeforeStart": "De einddatum moet groter zijn dan de begindatum"
     },
     "workshop": {
@@ -8672,11 +8672,11 @@
                 "helperText": "Dit dient bij elke inschrijving te worden geaccepteerd."
             },
             "provincialTax": {
-                "taxHelperText": "Zal op facturen verschijnen",
+                "taxHelperText": "Dit wordt op facturen getoond.",
                 "taxValue": "Waarde van de belasting",
                 "taxName": "Naam van de belasting",
                 "info": "Vul hier de naam en de waarde van uw provinciale belasting in. Vermeld op alle producten in het platform de totale toegepaste belasting (federale belasting + provinciale belasting). De federale en provinciale belasting zullen op de facturen van uw klanten worden vermeld.",
-                "title": "Provinciale belasting"
+                "title": "Provinciale btw-bedrag"
             }
         },
         "pageTitles": {
@@ -8775,7 +8775,7 @@
             "label": "Aanvullende e-mail"
         },
         "provincialTax": {
-            "helperText": "De BTW is lager dan of gelijk aan de aangegeven provinciale belasting. Op de facturen zal alleen deze belasting worden vermeld, zonder onderscheid tussen federale en provinciale belasting."
+            "helperText": "De btw lager dan of gelijk aan het aangegeven provinciale btw-bedrag. Alleen deze belasting wordt vermeld zonder onderscheid tussen federale en nationale belastingen."
         }
     },
     "checkout": {

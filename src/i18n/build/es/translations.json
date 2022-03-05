@@ -3438,7 +3438,11 @@
             "date_expiration": "Fecha de caducidad",
             "date_bought": "Fecha de compra",
             "is_rent": "Alquiler",
-            "due_date": "Fecha de expiración"
+            "due_date": "Fecha de expiración",
+            "supplier": "Proveedor",
+            "category": "Categoría",
+            "is_recurring": "Recurrente",
+            "amount_expense": "Importe"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -3523,7 +3527,8 @@
             "consumer_giftcard": "Tarjetas regalo compradas",
             "giftcard": "Tarjeta regalo",
             "payment_installments": "Pagos fraccionados",
-            "unpaid_private_bookings": "Reservas no pagadas (citas)"
+            "unpaid_private_bookings": "Reservas no pagadas (citas)",
+            "expense": "Gasto"
         },
         "globalCategories": {
             "subheader": {
@@ -3656,7 +3661,19 @@
             "explain": "Selecciona el intervalo de fechas durante el cual deseas cancelar tus sesiones. Los miembros que hayan reservado recibirán una notificación por email y sus créditos se reembolsarán automáticamente en el bono correspondiente",
             "title": "Cancelación grupal",
             "secondWarningConfirm": "Estás seguro de que quieres continuar?",
-            "secondWarning": "Al hacer clic en \"CONFIRMAR\", las sesiones incluidas en el intervalo seleccionado se cancelarán y no podrá volver atrás."
+            "secondWarning": "Al hacer clic en \"CONFIRMAR\", las sesiones incluidas en el intervalo seleccionado se cancelarán y no podrá volver atrás.",
+            "warning": "ATENCIÓN esta operación es irreversible",
+            "info": "Seleccione las fechas entre las que desea cancelar todas las sesiones. Se incluyen las fechas seleccionadas.",
+            "endDateLabel": "Fecha de finalización (inclusive)",
+            "startDateLabel": "Fecha de inicio (inclusive)",
+            "sure": "¿Está seguro de que quiere validar esta acción?",
+            "confirmInfo": "Está a punto de cancelar todas las sesiones entre {{start_date}} y {{end_date}} (inclusive). Es decir, {{número_de_ofertas_borradas}} sesión cancelada.",
+            "confirmInfo_plural": "Está a punto de cancelar todas las sesiones entre {{start_date}} y {{end_date}} (inclusive). Es decir, {{número_de_ofertas_borradas}} sesiones canceladas.",
+            "confirm": "Confirmar",
+            "successInfo": "Se ha tenido en cuenta la eliminación de todas las sesiones entre {{start_date}} y {{end_date}}.",
+            "iConfirm": "CONFIRMO",
+            "confirmationExplain": "Por favor, escriba \"CONFIRMO\" abajo en letras mayúsculas.",
+            "success": "Anulación confirmada"
         },
         "bookingList": "Reservas",
         "bookingListEmpty": "Ninguna reserva",
@@ -4420,7 +4437,8 @@
             "515": "Bono del abono desactivado automáticamente",
             "510": "Pago fallido de una suscripción",
             "481": "Cita recurrente anulada por falta de disponibilidad (estudiante)",
-            "480": "Cita recurrente anulada por falta de disponibilidad (profesor)"
+            "480": "Cita recurrente anulada por falta de disponibilidad (profesor)",
+            "987": "Intentar cobrar un plazo"
         },
         "tag": {
             "BookingOption": {
@@ -4974,6 +4992,9 @@
                     },
                     "label": "Autorizar la reserva sin pagar",
                     "helperText": "Al activar esta función, sus afiliados podrán reservar esta cita sin tener que comprar/utilizar una tarjeta. El número de créditos de la cita se cargará automáticamente en la siguiente tarjeta compatible comprada."
+                },
+                "pad_before_booking": {
+                    "label": "Tener en cuenta incluso antes de reservar"
                 }
             },
             "configuration": {
@@ -5554,6 +5575,12 @@
                 "cancel": "Cancelar",
                 "explain": "¿Estás seguro de que quieres cancelar esta cita? Este cambio es definitivo. Las reservas ya hechas no se verán afectadas.",
                 "title": "Supresión de la cita"
+            },
+            "padBeforeBooking": {
+                "explain4": "NO ACTIVA: la cita será posible y bloqueará la sala 15 minutos antes y después de la reserva. La próxima cita será posible a partir de las 11:30.",
+                "explain3": "ACTIVO: La cita no será posible. La sala debe estar disponible de 9.45 a 11.15. La siguiente cita sólo será posible a partir de las 11:45.",
+                "explain2": "Ejemplo: la sala está disponible de 10 a 11 horas, su cita dura 1 hora, pero necesita 15 minutos antes y después de la reserva.",
+                "explain1": "Si se activa, sólo se pueden hacer reservas si el calendario está disponible incluyendo la reserva"
             }
         },
         "payment": {
@@ -5624,7 +5651,8 @@
         "recurrenceRule": {
             "item": {
                 "explain": "Cada {{dayOfWeek}} - {{time}}, {{delayWeek}} semanas antes",
-                "startFrom": "Desde el {{ date }}"
+                "startFrom": "Desde el {{ date }}",
+                "allowUnpaid": "Autoriza las reservas no pagadas"
             },
             "forms": {
                 "update": {
@@ -5645,7 +5673,8 @@
                 "timeGroup": "Fecha de la sesión",
                 "configuration": "Reservas",
                 "title": "Programar una recurrencia",
-                "override_availabilities": "Haga la reserva aunque el profesor, la sala o la cita no estén disponibles"
+                "override_availabilities": "Haga la reserva aunque el profesor, la sala o la cita no estén disponibles",
+                "allow_unpaid": "Permitir reservas sin pagar (sin tarjeta compatible retenida)"
             },
             "actions": {
                 "save": "Guardar",
@@ -6185,6 +6214,13 @@
                 "placeholder": "Certifico que soy mayor de 13 años",
                 "helperText": "Para la inscripción se debe aceptar lo siguiente",
                 "label": "Exención de responsabilidad"
+            },
+            "provincialTax": {
+                "taxHelperText": "Aparecerá en las facturas",
+                "taxValue": "Valor del impuesto",
+                "taxName": "Nombre del impuesto",
+                "info": "Introduzca aquí el nombre y el valor de su impuesto provincial. En todos los productos de la plataforma, indique el impuesto total aplicado (impuesto federal + impuesto provincial). El impuesto federal y provincial aparecerá en las facturas de sus clientes.",
+                "title": "Impuesto provincial"
             }
         },
         "pageTitles": {
@@ -6281,6 +6317,9 @@
             "caption": "Las copias de los correos electrónicos transaccionales se enviarán a esta dirección si la configuración está activada",
             "placeholder": "Correo electrónico",
             "label": "Correo electrónico de seguimiento"
+        },
+        "provincialTax": {
+            "helperText": "El IVA es inferior o igual al impuesto provincial indicado. Las facturas mostrarán sólo este impuesto sin distinguir entre el impuesto federal y el provincial."
         }
     },
     "role": {
@@ -6870,7 +6909,11 @@
         "confirm": "Comfirmar",
         "disconnectInfo": "Volver a la página de inicio de sesión",
         "disconnect": "Cerrar la sesión",
-        "activate": "Activar"
+        "activate": "Activar",
+        "save": "Salvar",
+        "requiredField": "este campo es obligatorio",
+        "startAfterEnd": "La fecha de inicio debe ser inferior a la fecha de finalización",
+        "endBeforeStart": "La fecha de finalización debe ser mayor que la de inicio"
     },
     "snackbar": {
         "invoice": {
@@ -7624,6 +7667,13 @@
             "update": {
                 "success": "Cambios registrados",
                 "error": "No se pueden guardar los cambios"
+            },
+            "provincialTax": {
+                "customError": {
+                    "80001": "El impuesto provincial no está disponible en su país"
+                },
+                "error": "Error de registro de impuestos provinciales",
+                "success": "Impuesto provincial registrado"
             }
         }
     },

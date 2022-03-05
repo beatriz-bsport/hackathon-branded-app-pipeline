@@ -1166,7 +1166,8 @@
             "515": "Tessera del'abonnamento disattivato automaticamente",
             "510": "Pagamento di un abbonamento fallito",
             "481": "Appuntamento ricorrente cancellato per mancanza di disponibilità (studente)",
-            "480": "Appuntamento ricorrente cancellato per mancanza di disponibilità (insegnante)"
+            "480": "Appuntamento ricorrente cancellato per mancanza di disponibilità (insegnante)",
+            "987": "Tentativo di riscuotere una rata"
         },
         "ruleGroup": {
             "private_booking": "Appuntamento",
@@ -1861,6 +1862,12 @@
                 "cancel": "Annulla",
                 "submit": "Rimuovi",
                 "confirm": "Rimuovi"
+            },
+            "padBeforeBooking": {
+                "explain4": "NON ATTIVO: l'appuntamento sarà possibile e bloccherà la camera 15 minuti prima e dopo la prenotazione. Il prossimo appuntamento sarà possibile a partire dalle 11:30.",
+                "explain3": "ATTIVO: L'appuntamento non sarà possibile. La sala deve essere disponibile dalle 9.45 alle 11.15. Il prossimo appuntamento sarà possibile solo a partire dalle 11:45.",
+                "explain2": "Esempio: la sala è disponibile dalle 10 alle 11, il vostro appuntamento dura 1 ora, ma avete bisogno di 15 minuti prima e dopo la prenotazione.",
+                "explain1": "Se attivato, le prenotazioni possono essere fatte solo se il calendario è disponibile, compresa la prenotazione"
             }
         },
         "privateCoach": {
@@ -2328,6 +2335,9 @@
                     "label": "Permettere la prenotazione senza pagare",
                     "title": "Pagare più tardi",
                     "helperText": "Attivando questa funzione i tuoi membri saranno in grado di prenotare questo appuntamento senza dover acquistare/utilizzare una carta. Il numero di crediti per l'appuntamento sarà automaticamente addebitato sulla prossima carta compatibile acquistata."
+                },
+                "pad_before_booking": {
+                    "label": "Da prendere in considerazione anche prima di prenotare"
                 }
             },
             "parameters": {
@@ -2405,7 +2415,8 @@
         "recurrenceRule": {
             "item": {
                 "explain": "Ogni {{dayOfWeek}} - {{hours}}, {{delayWeek}} settimane prima",
-                "startFrom": "Dal {{ date }}"
+                "startFrom": "Dal {{ date }}",
+                "allowUnpaid": "Autorizza le prenotazioni non pagate"
             },
             "forms": {
                 "update": {
@@ -2426,7 +2437,8 @@
                 "timeGroup": "Data della sessione",
                 "configuration": "Prenotazioni",
                 "title": "Programmare una ricorrenza",
-                "override_availabilities": "Effettua la prenotazione anche se l'insegnante, la stanza o l'appuntamento non sono disponibili"
+                "override_availabilities": "Effettua la prenotazione anche se l'insegnante, la stanza o l'appuntamento non sono disponibili",
+                "allow_unpaid": "Permettere prenotazioni non pagate (nessuna carta compatibile posseduta)"
             },
             "actions": {
                 "save": "Salva",
@@ -3173,6 +3185,13 @@
                 "placeholder": "Certifico di avere più di 13 anni",
                 "helperText": "Per la registrazione devono essere accettati i seguenti elementi",
                 "label": "Rilascio di responsabilità"
+            },
+            "provincialTax": {
+                "taxHelperText": "Apparirà sulle fatture",
+                "taxValue": "Valore della tassa",
+                "taxName": "Nome della tassa",
+                "info": "Inserisci qui il nome e il valore della tua tassa provinciale. Su tutti i prodotti della piattaforma, indica l'imposta totale applicata (imposta federale + imposta provinciale). L'imposta federale e provinciale sarà indicata sulle fatture dei tuoi clienti.",
+                "title": "Imposta provinciale"
             }
         },
         "pageTitles": {
@@ -3269,6 +3288,9 @@
             "caption": "Le copie delle email transazionali saranno inviate a questo indirizzo se l'impostazione è abilitata",
             "placeholder": "Email",
             "label": "Email di follow-up"
+        },
+        "provincialTax": {
+            "helperText": "L'IVA è inferiore o uguale all'imposta provinciale indicata. Le fatture mostreranno solo questa tassa senza distinguere tra tassa federale e provinciale."
         }
     },
     "order": {
@@ -4096,6 +4118,13 @@
             "update": {
                 "error": "Impossibile salvare le modifiche",
                 "success": "Modifiche registrate"
+            },
+            "provincialTax": {
+                "customError": {
+                    "80001": "La tassa provinciale non è disponibile nel tuo paese"
+                },
+                "error": "Errore di registrazione dell'imposta provinciale",
+                "success": "Imposta provinciale registrata"
             }
         }
     },
@@ -5400,7 +5429,11 @@
             "is_rent": "Noleggio",
             "date_expiration": "Data di scadenza",
             "date_bought": "Data di acquisto",
-            "due_date": "Data di scadenza"
+            "due_date": "Data di scadenza",
+            "supplier": "Fornitore",
+            "category": "Categoria",
+            "is_recurring": "Ricorrente",
+            "amount_expense": "Importo"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -5485,7 +5518,8 @@
             "consumer_giftcard": "Carte regalo acquistate",
             "giftcard": "Carta regalo",
             "unpaid_private_bookings": "Prenotazioni non pagate (appuntamenti)",
-            "payment_installments": "Pagamenti a rate"
+            "payment_installments": "Pagamenti a rate",
+            "expense": "Spese"
         },
         "globalCategories": {
             "subheader": {
@@ -8937,7 +8971,11 @@
         "confirm": "Confermare",
         "disconnectInfo": "Torna alla pagina di accesso",
         "disconnect": "Disconnessione",
-        "activate": "Attivare"
+        "activate": "Attivare",
+        "save": "Salva",
+        "requiredField": "questo campo è richiesto",
+        "startAfterEnd": "La data di inizio deve essere inferiore alla data di fine",
+        "endBeforeStart": "La data di fine deve essere maggiore di quella di inizio"
     },
     "titles": {
         "metaActivity": {
@@ -9381,7 +9419,19 @@
             "title": "Annullamento di gruppo",
             "explainWarning": "ATTENZIONE questa operazione è irreversibile.",
             "secondWarning": "Cliccando su \"Conferma\", le sessioni comprese nell'intervallo selezionato saranno annullate e non potrai più tornare indietro.",
-            "secondWarningConfirm": "Sicuro di voler continuare?"
+            "secondWarningConfirm": "Sicuro di voler continuare?",
+            "warning": "ATTENZIONE questa operazione è irreversibile",
+            "info": "Selezionare le date tra le quali si desidera cancellare tutte le sessioni. Le date selezionate sono incluse.",
+            "endDateLabel": "Data di fine (inclusa)",
+            "startDateLabel": "Data d'inizio (inclusa)",
+            "sure": "Sei sicuro di voler convalidare questa azione?",
+            "confirmInfo": "Stai per cancellare tutte le sessioni tra {{data_inizio}} e {{fine_data}} (incluso). Cioè {{numero_di_cancellazione_offerta}} una sessione cancellata.",
+            "confirmInfo_plural": "Stai per cancellare tutte le sessioni tra {{data_inizio}} e {{fine_data}} (incluso). Cioè {{numero_di_offerte_eliminate}} sessioni cancellate.",
+            "confirm": "Confermare",
+            "successInfo": "La cancellazione di tutte le sessioni tra {{start_date}} e {{end_date}} è stata presa in considerazione.",
+            "iConfirm": "CONFERMO",
+            "confirmationExplain": "Si prega di scrivere \"CONFERMO\" qui sotto in lettere maiuscole.",
+            "success": "Cancellazione confermata"
         },
         "bookingListEmpty": "Nessuna prenotazione",
         "bookingList": "Prenotazioni",

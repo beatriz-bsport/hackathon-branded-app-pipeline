@@ -3283,7 +3283,8 @@
         "recurrenceRule": {
             "item": {
                 "explain": "Every {{dayOfWeek}} at {{time}} - {{delayWeek}} week(s) before",
-                "startFrom": "From: {{ date }}"
+                "startFrom": "From: {{ date }}",
+                "allowUnpaid": "Authorizes unpaid reservations"
             },
             "forms": {
                 "update": {
@@ -3304,7 +3305,8 @@
                 "timeGroup": "Date of the session",
                 "configuration": "Bookings",
                 "title": "Schedule a recurring appointment",
-                "override_availabilities": "Complete the booking even though the appointment/establishment/teacher is unavailable"
+                "override_availabilities": "Complete the booking even though the appointment/establishment/teacher is unavailable",
+                "allow_unpaid": "Authorize unpaid reservations (no compatible card owned)"
             },
             "actions": {
                 "save": "Save",
@@ -4288,6 +4290,13 @@
                 "placeholder": "I certify that I'm over the age of 13.",
                 "helperText": "All members must accept this during their sign up.",
                 "label": "Liability Waiver"
+            },
+            "provincialTax": {
+                "taxHelperText": "Will appear on invoices",
+                "taxValue": "Value of the tax",
+                "taxName": "Name of the tax",
+                "info": "Enter the name and value of your provincial tax here. On all the products of the platform indicate the total tax applied (federal tax + provincial tax). The federal and provincial tax will be indicated on your customers' invoices.",
+                "title": "Provincial tax"
             }
         },
         "general_terms_and_conditions": {
@@ -4389,6 +4398,9 @@
             "caption": "Copies of the transactional emails will be sent to this email address if the settings have been activated accordingly.",
             "placeholder": "Email",
             "label": "Follow up email"
+        },
+        "provincialTax": {
+            "helperText": "The VAT is less than or equal to the provincial tax indicated. On invoices, only this tax will be indicated without distinguishing between federal and provincial tax."
         }
     },
     "common": {
@@ -6992,7 +7004,11 @@
             "is_rent": "Video rental",
             "date_expiration": "Expiration date",
             "date_bought": "Purchase date",
-            "due_date": "Due date"
+            "due_date": "Due date",
+            "supplier": "Supplier",
+            "category": "Category",
+            "is_recurring": "Recurring",
+            "amount_expense": "Amount"
         },
         "yes": "Yes",
         "no": "No",
@@ -7078,7 +7094,8 @@
             "giftcard": "Gift cards",
             "consumer_giftcard": "Purchased gift cards",
             "payment_installments": "Payments by instalments",
-            "unpaid_private_bookings": "Unpaid bookings (appointments)"
+            "unpaid_private_bookings": "Unpaid bookings (appointments)",
+            "expense": "Expenses"
         },
         "globalCategories": {
             "subheader": {
@@ -10295,6 +10312,13 @@
             "update": {
                 "error": "Error when saving changes",
                 "success": "Changes have been saved"
+            },
+            "provincialTax": {
+                "customError": {
+                    "80001": "Provincial tax is not available in your country"
+                },
+                "error": "Provincial tax registration error",
+                "success": "Registered provincial tax"
             }
         }
     },

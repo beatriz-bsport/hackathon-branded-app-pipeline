@@ -9390,11 +9390,12 @@
                     "showAdvanced": "Toon meer",
                     "permissions": "Bevoegdheden",
                     "restrictedUrlPlaceholder": "Voorbeeld: /lid/",
-                    "restrictedUrl": "Geblokkeerde URLs",
+                    "restrictedUrl": "[Whitelist] URLs",
                     "description": "Beschrijving",
                     "name": "Naam",
                     "title": "[Formulier] Rol",
-                    "buttonCreate": "Een rol toevoegen  "
+                    "buttonCreate": "Een rol toevoegen  ",
+                    "restrictedUrlExplain": "Gebruik deze optie om bepaalde URL's op de Whitelist te zetten zodat het alleen het gekoppeld personeel bepaalde onderdelen kan gebruiken."
                 }
             }
         },

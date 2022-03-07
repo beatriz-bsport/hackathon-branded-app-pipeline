@@ -1594,6 +1594,10 @@
       "subscription": {
         "title": "Souscription",
         "forms": {
+          "advance_sepa_billing": {
+            "label": "Envoyer l'ordre de virement SEPA 3 jours en avance, pour pallier aux délais du réseau bancaire pouvant provoquer un retard de trésorerie.",
+            "helperText": "Dans la très grande majorité des cas, le client ne reçoit l'information de virement que 3 jours plus tard."
+          },
           "revert_bookings_on_fail_subscription_payment": {
             "label": "Annuler les réservations si le paiement échoue.",
             "warning": "Attention, les réservations ne seront pas recréées si le paiement réussit !",

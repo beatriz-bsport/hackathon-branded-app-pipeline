@@ -5,13 +5,13 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import { Theme } from '@material-ui/core/styles';
 import withStyles from '@material-ui/core/styles/withStyles';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import InfoIcon from '@material-ui/icons/Info';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import { push as pushRouter } from 'connected-react-router';
+import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import { OptionCallback } from '../../state/types';
 import withTitle from '../../hocs/with-title.hoc';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
@@ -70,7 +70,7 @@ export class InvoiceConfigurationPage extends React.Component<Props, State> {
   render() {
     const { configuration, loading, processing, classes, t } = this.props;
     if (loading || !configuration) {
-      return <LinearProgress />;
+      return <BackofficeLinearProgress />;
     }
     return (
       <>

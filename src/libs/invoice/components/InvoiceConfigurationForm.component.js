@@ -213,6 +213,31 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
               </Typography>
             </div>
           </Collapse>
+          <div className={classes.inputContainer}>
+            <Switch
+              disabled={!this.state.advance_sepa_billing}
+              checked={this.state.advance_sepa_billing}
+              onChange={(ev) => {
+                this.setState({
+                  advance_sepa_billing: ev.target.checked,
+                });
+              }}
+            />
+            <Typography
+              color={
+                this.state.advance_sepa_billing ? 'default' : 'textSecondary'
+              }
+            >
+              {t('configuration.subscription.forms.advance_sepa_billing.label')}
+            </Typography>
+          </div>
+          <div className={classes.helperTextContainer}>
+            <Typography variant="caption" color="textSecondary">
+              {t(
+                'configuration.subscription.forms.advance_sepa_billing.helperText',
+              )}
+            </Typography>
+          </div>
           <div className={classes.buttonContainer}>
             <Button
               color="primary"

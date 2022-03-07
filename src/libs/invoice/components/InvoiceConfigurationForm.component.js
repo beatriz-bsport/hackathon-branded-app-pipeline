@@ -16,6 +16,7 @@ import Switch from '@material-ui/core/Switch';
 import NumberInput from '../../../components/input/NumericInput.component';
 import ThemeInternalAccountForm from '#libs/theme/components/ThemeInternalAccountForm.component';
 import ProvincialTaxForm from '../../theme/components/ProvincialTax.form';
+import TaxDisplayForm from '../../theme/components/TaxDisplay.form';
 
 type Props = {
   classes: any,
@@ -32,10 +33,7 @@ type Props = {
   theme: CompanyTheme,
   submitTheme: (company_id: number, data: any) => void,
   goToReports: () => void,
-  submitProvincialTax: (
-    data: FormData,
-    options?: OptionCallback<{ name: string, value: number }>,
-  ) => void,
+  patchTheme: (data: FormData, options?: OptionCallback) => void,
 };
 
 type State = {
@@ -307,6 +305,15 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
             ) : null}
           </div>
         </Paper>
+        <div className={classes.content}>
+          <TaxDisplayForm
+            initial={{
+              is_tax_excluded_in_marketplace:
+                this.props.theme?.is_tax_excluded_in_marketplace,
+            }}
+            submit={this.props.patchTheme}
+          />
+        </div>
         {this.props.theme?.locale.split('_')[1] === 'CA' && (
           <div className={classes.content}>
             <ProvincialTaxForm
@@ -314,7 +321,7 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
                 name: this.props.theme?.provincial_tax_name,
                 value: this.props.theme?.provincial_tax_value,
               }}
-              submit={this.props.submitProvincialTax}
+              submit={this.props.patchTheme}
             />
           </div>
         )}

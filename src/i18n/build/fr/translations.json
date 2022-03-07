@@ -310,6 +310,7 @@
   },
   "category": { "sct": { "selector": { "placeholder": "Rechercher une catégorie", "label": "Catégorie" } } },
   "checkout": {
+    "payment": { "flat_fee": "Frais de dossier", "taxExcluded": "Sous-total HT", "tax": "Taxes", "total": "Total TTC" },
     "events": {
       "basket-created": "Panier créé",
       "basket-finalize": "Panier finalisé/payé",
@@ -6881,6 +6882,11 @@
     "pageTitles": { "broadcast": "Visioconférence", "personalization": "Personnalisation", "theme": "Général" },
     "provincialTax": {
       "helperText": "La TVA est inférieure ou égale à la taxe provinciale indiquée. Sur les factures on indiquera seulement cette taxe sans faire la distinction entre taxe fédérale et provinciale."
+    },
+    "taxDisplay": {
+      "checkbox": "Afficher le montant hors taxes des produits",
+      "title": "Affichage des prix",
+      "info": "En activant cette fonctionnalité, tous les prix sur la marketplace, le widget et l’application seront indiqués hors taxes."
     },
     "forms": {
       "provincialTax": {

@@ -30,6 +30,7 @@ type OwnProps = {
   pushPackCheckout: (id: number) => void;
   paymentPackByCategory: Array<PaymentPackCategoryWithPacks>;
   paymentPackCategories: number[];
+  isExcludingTax: boolean;
 };
 
 type Props = OwnProps &
@@ -44,9 +45,13 @@ const PaymentPackMarketplaceListItem = (props: {
   onSelect: () => void;
   onCartAdd: () => void;
   disabled?: boolean;
+  isExcludingTax: boolean;
 }) => (
   <ListItem divider button onClick={props.onSelect}>
-    <PaymentPackItem paymentPack={props.paymentPack} />
+    <PaymentPackItem
+      paymentPack={props.paymentPack}
+      isExcludingTax={props.isExcludingTax}
+    />
     <IconButton
       style={{ marginRight: 16 }}
       disableRipple
@@ -117,6 +122,7 @@ export function MarketplacePassList(props: Props) {
                     .filter((e) => !e.manager_only)
                     .map((pp: PaymentPack) => (
                       <PaymentPackMarketplaceListItem
+                        isExcludingTax={props.isExcludingTax}
                         onSelect={() => {
                           props.setSelectedPass(pp);
                           Analytics.selectPaymentPack(pp);
@@ -138,7 +144,11 @@ export function MarketplacePassList(props: Props) {
                 >
                   <div>
                     {selectedPass ? (
-                      <PaymentPackCard pack={selectedPass} onlyPublic />
+                      <PaymentPackCard
+                        pack={selectedPass}
+                        onlyPublic
+                        isExcludingTax={props.isExcludingTax}
+                      />
                     ) : null}
                     <Button
                       style={{ width: '100%' }}

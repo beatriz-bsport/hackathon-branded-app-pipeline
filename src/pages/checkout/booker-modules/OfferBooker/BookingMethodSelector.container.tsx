@@ -80,6 +80,7 @@ type OwnProps = {
   selectedPack: SelectedPack;
   onPackChange: (selectedPack: SelectedPack) => void;
   paymentPackForBookingNextPage: number;
+  isExcludingTax: boolean;
 };
 
 type OwnAndConnectedProps = OwnProps &
@@ -261,6 +262,7 @@ export class OfferState extends React.PureComponent<Props, State> {
     return (
       <React.Fragment>
         <BookingMethodSelector
+          isExcludingTax={this.props.isExcludingTax}
           offersConstraint={this.props.offersConstraint}
           selectedOffers={this.props.selectedOffers}
           selectedPack={this.props.selectedPack}
@@ -275,6 +277,7 @@ export class OfferState extends React.PureComponent<Props, State> {
           paymentPackCategories={availablePaymentPackCategories}
         />
         <SubscriptionContractBooking
+          isExcludingTax={this.props.isExcludingTax}
           contract={this.props.openSubscriptionModal}
           companyId={this.props.offer && this.props.offer.company}
           requestSetupIntentSecret={this.requestSetupIntentSecret}

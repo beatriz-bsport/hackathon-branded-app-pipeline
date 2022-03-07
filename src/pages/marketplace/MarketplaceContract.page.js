@@ -40,6 +40,7 @@ type Props = {
   companyId: number,
   push: (path: string) => void,
   onAddToCart: ?(id: number) => void,
+  companyTheme?: Theme,
 };
 
 export class MarketplaceContract extends React.Component<Props> {
@@ -59,6 +60,9 @@ export class MarketplaceContract extends React.Component<Props> {
             {this.props.contractList.map((c) => (
               <div key={c.id}>
                 <SubscriptionContractListItem
+                  isExcludingTax={
+                    this.props.companyTheme.is_tax_excluded_in_marketplace
+                  }
                   contract={c}
                   divider
                   selected={this.props.selected === c.id}

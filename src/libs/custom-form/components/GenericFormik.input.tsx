@@ -4,6 +4,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import { Field, useField } from 'formik';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import { Switch } from '@material-ui/core';
 import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
 
 export type BaseFieldProps = {
@@ -79,6 +80,25 @@ export const CheckboxField = (props: CheckboxFieldProps) => {
               error={!!(meta.touched && meta.error)}
             />
           }
+        />
+      )}
+    </Field>
+  );
+};
+
+type SwitchFieldProps = { name: string; disabled?: boolean; label: string };
+export const SwitchField = (props: SwitchFieldProps) => {
+  const { name, disabled, label } = props;
+  return (
+    <Field name={name}>
+      {({ field }) => (
+        <FormControlLabel
+          {...field}
+          value=""
+          checked={field.value}
+          label={label}
+          disabled={disabled}
+          control={<Switch />}
         />
       )}
     </Field>

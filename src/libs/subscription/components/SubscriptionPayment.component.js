@@ -38,6 +38,8 @@ import CouponCodeForm from '../../coupon/components/CouponCodeForm.component';
 import { Moment } from '../../../i18n';
 import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
 import type { Establishment } from '../../establishment/types';
+import BasketTaxInfo from '#libs/checkout/components/BasketTaxInfo.component';
+import { getPrice, getTaxPrice } from '../../theme/utils';
 
 const PaymentMethodSwitcher = (props: {
   classes: Object,
@@ -136,6 +138,7 @@ type Props = {
   establishmentLoading: boolean,
   enableMultiLocalization: boolean,
   memberId?: number,
+  isExcludingTax?: boolean,
 };
 
 type State = {
@@ -274,7 +277,6 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       setDate,
       withGeneralConditions,
     } = this.props;
-
     return (
       <div>
         {withGeneralConditions && (
@@ -334,25 +336,55 @@ export class SubscriptionPayment extends React.Component<Props, State> {
           </>
         )}
         {this.props.contract && (
-          <div className={classes.priceContainer}>
-            <div className={classes.priceInner}>
-              <Typography variant="h4">
-                {`${getCurrencyDisplayWithPrice(
+          <>
+            {this.props.isExcludingTax && (
+              <BasketTaxInfo
+                excludingTaxPrice={getPrice(
+                  this.props.contract.recurrent_price,
+                  true,
+                  this.props.contract.tax,
+                )}
+                flat_fee={getPrice(
+                  this.props.contract.flat_fee,
+                  true,
+                  this.props.contract.tax,
+                )}
+                taxPrice={
                   parseFloat(
-                    this.props.contract.recurrent_price -
-                      (this.state.voucher || 0),
-                  ).toFixed(2),
-                )}`}
-              </Typography>
-              {!!parseInt(this.props.contract.flat_fee, 10) && (
-                <Typography variant="caption">
-                  {`+${getCurrencyDisplayWithPrice(
-                    parseFloat(this.props.contract.flat_fee).toFixed(2),
+                    getTaxPrice(
+                      this.props.contract.recurrent_price,
+                      this.props.contract.tax,
+                    ),
+                  ) +
+                  parseFloat(
+                    getTaxPrice(
+                      this.props.contract.flat_fee,
+                      this.props.contract.tax,
+                    ),
+                  )
+                }
+              />
+            )}
+            <div className={classes.priceContainer}>
+              <div className={classes.priceInner}>
+                <Typography variant="h4">
+                  {`${getCurrencyDisplayWithPrice(
+                    parseFloat(
+                      this.props.contract.recurrent_price -
+                        (this.state.voucher || 0),
+                    ).toFixed(2),
                   )}`}
                 </Typography>
-              )}
+                {!!parseInt(this.props.contract.flat_fee, 10) && (
+                  <Typography variant="caption">
+                    {`+${getCurrencyDisplayWithPrice(
+                      parseFloat(this.props.contract.flat_fee).toFixed(2),
+                    )}`}
+                  </Typography>
+                )}
+              </div>
             </div>
-          </div>
+          </>
         )}
         {this.props.withCoupon && (
           <div className={classes.couponContainer}>

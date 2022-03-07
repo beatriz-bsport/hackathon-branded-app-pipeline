@@ -18,6 +18,7 @@ type OwnProps = {
   contractList: Array<ContractWithPaymentPack>;
   selected: number;
   onClick: (c: ContractWithPaymentPack) => void;
+  isExcludingTax?: boolean;
 };
 type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
@@ -27,6 +28,7 @@ const ContractCard = (
   props: {
     t: TFunction;
     contract: ContractWithPaymentPack;
+    isExcludingTax?: boolean;
     onClick: (c: ContractWithPaymentPack) => void;
     selected: number;
   } & MaterialStyleType<ReturnType<typeof styles>>,
@@ -45,6 +47,8 @@ const ContractCard = (
           <Typography variant="h6" component="h2">
             {`${props.contract.name} - ${getCurrencyDisplayWithPrice(
               props.contract.recurrent_price,
+              props.isExcludingTax,
+              props.contract.tax,
             )} ${
               parseFloat(props.contract.flat_fee)
                 ? ` (+ ${getCurrencyDisplayWithPrice(props.contract.flat_fee)})`
@@ -90,6 +94,7 @@ export const MarketplaceSubscriptionContractList = (props: Props) => {
         {props.contractList.map((c) => (
           <div key={c.id} className={props.classes.cardContainer}>
             <ContractCard
+              isExcludingTax={props.isExcludingTax}
               t={props.t}
               classes={props.classes}
               contract={c}

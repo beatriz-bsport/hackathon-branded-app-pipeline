@@ -7,6 +7,7 @@ export type CheckoutItem = {
   buyable_item_id: number | string;
   sub_items?: string[];
   editable: boolean;
+  tax: number;
 };
 
 export type Basket<C = string, PPL = number> = {

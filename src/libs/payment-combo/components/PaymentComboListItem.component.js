@@ -25,6 +25,7 @@ type Props = {
   onDelete?: () => void,
   onClick?: () => void,
   t: TFunction,
+  isExcludingTax?: boolean,
 };
 
 const DeleteButton = (props: { onClick: () => void }) => (
@@ -90,6 +91,8 @@ export const PaymentComboListItem = (props: Props) => {
         primary={props.paymentCombo.name}
         secondary={`${getCurrencyDisplayWithPrice(
           props.paymentCombo.price,
+          props.isExcludingTax,
+          props.paymentCombo.tax,
         )} - ${props.t('detail.containsNProducts', {
           n:
             props.paymentCombo.payment_packs.reduce(

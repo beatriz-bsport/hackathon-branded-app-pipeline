@@ -62,6 +62,7 @@ type OwnProps = {
   toogleScaleMenuOpen: () => void;
   onScaleCredit: (paymentPackId: number, data: any) => void;
   isManager?: boolean;
+  isExcludingTax?: boolean;
 };
 
 type Props = OwnProps & WithStyles & WithTranslation;
@@ -145,7 +146,7 @@ export class PaymentPackCard extends Component<Props, State> {
   renderCardHeader = () => {
     const { pack, t, onlyPublic, classes, paymentPackCategory, isManager } =
       this.props;
-    const { base_price, name, tax } = pack;
+    const { name } = pack;
 
     return (
       <Grid
@@ -193,13 +194,15 @@ export class PaymentPackCard extends Component<Props, State> {
         <Grid item xs={4}>
           <div className={classes.columnLeft}>
             <Typography variant="h3" color="primary" className={classes.price}>
-              {getCurrencyDisplayWithPrice(base_price)}
+              {getCurrencyDisplayWithPrice(
+                pack.price,
+                this.props.isExcludingTax,
+                pack.tax,
+              )}
             </Typography>
             {onlyPublic ? null : (
               <Typography variant="caption" className={classes.priceWithoutTax}>
-                {getCurrencyDisplayWithPrice(
-                  (base_price / ((100 + parseInt(tax, 10)) / 100)).toFixed(2),
-                )}{' '}
+                {getCurrencyDisplayWithPrice(pack.price, true, pack.tax)}
                 {t('ht')}
               </Typography>
             )}

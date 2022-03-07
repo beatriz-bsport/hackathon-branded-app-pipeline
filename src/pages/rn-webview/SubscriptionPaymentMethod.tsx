@@ -5,20 +5,22 @@ import { connect } from 'react-redux';
 import { PAYMENT_ENGINE_STRIPE } from '@bsport/common/lib/master-data/payment-group';
 
 import withStyles from '@material-ui/styles/withStyles';
-import { getSavedPaymentMethodList } from '#libs/payment/selectors';
-import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '#libs/payment/actions';
-import { switchSubscriptionPaymentMethod as switchSubscriptionPaymentMethodAction } from '#libs/subscription/actions';
-import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
-import SubscriptionPayment from '#libs/subscription/components/SubscriptionPayment.component';
-import { getMember } from '#libs/member/selectors';
-import { fetchMember } from '#libs/member/actions';
-import { fetchMembership } from '#libs/membership/actions';
+import { CircularProgress } from '@material-ui/core';
+import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
+import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
+import { switchSubscriptionPaymentMethod as switchSubscriptionPaymentMethodAction } from '../../libs/subscription/actions';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
+import SubscriptionPayment from '../../libs/subscription/components/SubscriptionPayment.component';
+import { getMember } from '../../libs/member/selectors';
+import { fetchMember } from '../../libs/member/actions';
 import { RootState } from '../../reducers';
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { MaterialStyleType } from '../../utils/types';
-import { fetchCompanyTheme } from '#libs/theme/actions';
-import type { Membership } from '#libs/membership/types';
+import { fetchCompanyTheme as fetchCompanyThemeAction } from '../../libs/theme/actions';
+import type { Theme } from '#libs/theme/types';
+import { fetchMembership as fetchMembershipAction } from '#libs/membership/actions';
+import { Membership } from '#libs/membership/types';
 
 type OwnProps = {
   query: {
@@ -34,11 +36,13 @@ type Props = OwnProps &
 
 interface State {
   processing: boolean;
+  theme: Theme;
 }
 
 class SubscriptionPaymentMethod extends React.PureComponent<Props, State> {
   state: State = {
     processing: false,
+    theme: null,
   };
 
   componentDidMount() {
@@ -86,9 +90,20 @@ class SubscriptionPaymentMethod extends React.PureComponent<Props, State> {
     ) {
       return <div>Error -1</div>;
     }
+
+    if (!this.state.theme) {
+      return (
+        <div className={this.props.classes.container}>
+          <div className={this.props.classes.loadingContainer}>
+            <CircularProgress />
+          </div>
+        </div>
+      );
+    }
     return (
       <div className={this.props.classes.container}>
         <SubscriptionPayment
+          isExcludingTax={this.state.theme?.is_tax_excluded_in_marketplace}
           onSubmit={this.switchPaymentMethod}
           onCancel={this.onCancel}
           enabledPaymentGroupMethodIdentifier={
@@ -139,6 +154,12 @@ const styles = (theme) => ({
     paddingRight: theme.spacing(2),
     width: '100%',
   },
+  loadingContainer: {
+    marginTop: theme.spacing(2),
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
@@ -152,8 +173,8 @@ const mapDispatchToProps = {
   fetchPaymentMethodList: fetchPaymentMethodListAction,
   switchSubscriptionPaymentMethod: switchSubscriptionPaymentMethodAction,
   fetchMember,
-  fetchCompanyTheme,
-  fetchMembership,
+  fetchCompanyTheme: fetchCompanyThemeAction,
+  fetchMembership: fetchMembershipAction,
 };
 
 export default compose(

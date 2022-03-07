@@ -33,6 +33,7 @@ export const CheckoutItemListItem = (props: {
   onItemExpire?: (item: CheckoutItem) => void,
   loading?: boolean,
   t: any,
+  isExcludingTax?: boolean,
 }) => (
   <React.Fragment>
     <ListItem dense={!!props.dense} divider className={props.classes.container}>
@@ -47,6 +48,8 @@ export const CheckoutItemListItem = (props: {
             primary={props.checkout_item.name}
             secondary={`${getCurrencyDisplayWithPrice(
               props.checkout_item.unit_price,
+              props.isExcludingTax,
+              props.checkout_item.tax,
             )} x ${props.checkout_item.quantity}`}
           />
         </div>

@@ -25,6 +25,7 @@ type OwnProps = {
   privatePassByCategory: Array<PrivatePassCategoryWithPasses>;
   filteredCategories?: Array<PrivatePassCategory>;
   onAddBasket: (privatePassId: number) => void;
+  isExcludingTax: boolean;
 };
 
 type Props = OwnProps &
@@ -72,7 +73,10 @@ export const MarketplacePrivatePassList = (props: Props) => {
                   <List disablePadding dense>
                     {ppcat.passes.map((pp) => (
                       <ListItem divider key={pp.id}>
-                        <PaymentPackItem paymentPack={pp} />
+                        <PaymentPackItem
+                          paymentPack={pp}
+                          isExcludingTax={props.isExcludingTax}
+                        />
                         <ListItemSecondaryAction>
                           <IconButton
                             color="primary"

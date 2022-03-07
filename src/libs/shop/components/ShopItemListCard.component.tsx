@@ -15,12 +15,12 @@ type Props = {
   shopitem: ShopItem;
   onClick: () => void;
   addToOrder: (id: number) => void;
+  isExcludingTax: boolean;
 };
 
 export const ShopItemListCard = (props: Props) => {
   const classes = useStyles();
   const { shopitem } = props;
-
   return (
     <div className={classes.container}>
       <div className={classes.imageWrapper}>
@@ -57,7 +57,11 @@ export const ShopItemListCard = (props: Props) => {
         </Typography>
         <div className={classes.actions}>
           <Typography variant="h6" className={classes.fontWeight}>
-            {getCurrencyDisplayWithPrice(shopitem.price)}
+            {getCurrencyDisplayWithPrice(
+              shopitem.price,
+              props.isExcludingTax,
+              shopitem.tva,
+            )}
           </Typography>
           <div>
             <IconButton>

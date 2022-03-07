@@ -430,15 +430,15 @@ class OfferBooking extends React.PureComponent<Props, State> {
     let price = '';
     if (this.state.selectedPack?.paymentPack) {
       price = getCurrencyDisplayWithPrice(
-        (
-          Math.round(this.state.selectedPack.paymentPack.price * 100) / 100
-        ).toFixed(2),
+        this.state.selectedPack?.paymentPack.price,
+        this.props.theme.is_tax_excluded_in_marketplace,
+        this.state.selectedPack?.paymentPack.tax,
       );
     } else if (this.state.selectedPack?.paymentPackCombo) {
       price = getCurrencyDisplayWithPrice(
-        (
-          Math.round(this.state.selectedPack.paymentPackCombo.price * 100) / 100
-        ).toFixed(2),
+        this.state.selectedPack?.paymentPackCombo.price,
+        this.props.theme.is_tax_excluded_in_marketplace,
+        this.state.selectedPack?.paymentPackCombo.tax,
       );
     }
 
@@ -543,6 +543,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
     }
     return (
       <BookingMethodSelector
+        isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
         offerId={this.props.id}
         offer={this.props.offer}
         company={this.props.offer.company}

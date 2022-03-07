@@ -1,5 +1,7 @@
+import isNil from 'lodash/isNil';
 import { RootState } from '../../reducers';
 import Config from '../../config';
+import { getPrice } from './utils';
 
 const storage = window.localStorage;
 
@@ -28,8 +30,32 @@ export const getCurrencyDisplay = () => {
   }
   return key;
 };
+/**
+ * @returns the price of the product, possibly excluded from tax, with its currency.
+ * @param  {any} price mandatory - the including tax price of the product
+ * @param  {boolean} isExcludingTax optional - whether the product price must exclude tax
+ * @param  {string} tax optional - the tax of the product
+ * @example
+ * getCurrencyDisplayWithPrice(10)
+ * // => 10$ (or € or ... depending on the currency of the studio)
+ *
+ * getCurrencyDisplay(10,true,50)
+ * // => 6.66$
+ *
+ * getCurrencyDisplay(10,false,50)
+ * // => 10$
+ *
+ */
+export const getCurrencyDisplayWithPrice = (
+  price: any,
+  isExcludingTax?: boolean,
+  tax?: any,
+) => {
+  if (isNil(price)) {
+    return '';
+  }
+  const priceTakingAccountOfTax = getPrice(price, isExcludingTax, tax);
 
-export const getCurrencyDisplayWithPrice = (price: any) => {
   const symbol = getCurrencyDisplay();
 
   switch (symbol) {
@@ -39,9 +65,9 @@ export const getCurrencyDisplayWithPrice = (price: any) => {
     case 'sek':
     case 'nok':
     case 'dkk':
-      return `${price}${'\u00A0'}${symbol}`;
+      return `${priceTakingAccountOfTax}${'\u00A0'}${symbol}`;
     default:
-      return `${symbol}${price}`;
+      return `${symbol}${priceTakingAccountOfTax}`;
   }
 };
 

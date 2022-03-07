@@ -19,6 +19,7 @@ const ShopItemBuyableItemCard = (props: {
   classes: Object,
   fullHeight?: boolean,
   loading?: boolean,
+  isExcludingTax?: boolean,
 }) => {
   if (!props.shopitem) {
     return <div />;
@@ -65,7 +66,11 @@ const ShopItemBuyableItemCard = (props: {
             onClick={() => props.addToOrder(props.shopitem.id)}
           >
             <AddShoppingCartIcon className={props.classes.leftIcon} />
-            {`${getCurrencyDisplayWithPrice(props.shopitem.price)}`}
+            {`${getCurrencyDisplayWithPrice(
+              props.shopitem.price,
+              props.isExcludingTax,
+              props.shopitem.tva,
+            )}`}
           </Button>
         </div>
       </div>

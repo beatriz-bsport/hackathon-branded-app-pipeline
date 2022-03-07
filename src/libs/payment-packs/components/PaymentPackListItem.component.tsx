@@ -50,6 +50,7 @@ type OwnProps = {
   draggable?: boolean;
   listeners?: DraggableSyntheticListeners;
   attributes?: any;
+  isExcludingTax?: boolean;
 };
 
 type Props = WithTranslation &
@@ -103,9 +104,11 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
                   credits: this.props.pack.credits,
                 })
               : this.props.t('specifications.unlimitedCredits')
-          } - ${getCurrencyDisplayWithPrice(this.props.pack.price)}${
-            this.props.showDuration ? ` - ${dateInfo}` : ''
-          }`}
+          } - ${getCurrencyDisplayWithPrice(
+            this.props.pack.price,
+            this.props.isExcludingTax,
+            this.props.pack.tax,
+          )}${this.props.showDuration ? ` - ${dateInfo}` : ''}`}
           style={{ marginLeft: this.props.draggable ? '1%' : 0 }}
         />
         {this.props.pack.manager_only && !this.props.disabled ? (

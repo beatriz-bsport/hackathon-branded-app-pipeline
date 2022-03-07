@@ -18,6 +18,7 @@ import { MaterialStyleType } from '../../../utils/types';
 type OwnProps = {
   paymentComboList: Array<PaymentCombo>;
   onAddBasket: (comboId: number) => void;
+  isExcludingTax: boolean;
 };
 
 type Props = OwnProps &
@@ -28,6 +29,7 @@ const PaymentComboCard = (
   props: {
     t: TFunction;
     paymentCombo: PaymentCombo;
+    isExcludingTax: boolean;
     onAddBasket: () => void;
   } & MaterialStyleType<ReturnType<typeof styles>>,
 ) => {
@@ -35,7 +37,10 @@ const PaymentComboCard = (
     <Card className={props.classes.card}>
       <div className={props.classes.cardInner}>
         <CardContent>
-          <PaymentPackComboItem paymentCombo={props.paymentCombo} />
+          <PaymentPackComboItem
+            paymentCombo={props.paymentCombo}
+            isExcludingTax={props.isExcludingTax}
+          />
         </CardContent>
         <CardActions>
           <Button
@@ -59,6 +64,7 @@ export const MarketplacePaymentComboList = (props: Props) => {
         {props.paymentComboList.map((pc) => (
           <div key={pc.id} className={props.classes.cardContainer}>
             <PaymentComboCard
+              isExcludingTax={props.isExcludingTax}
               t={props.t}
               classes={props.classes}
               paymentCombo={pc}

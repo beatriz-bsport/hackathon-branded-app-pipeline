@@ -6,7 +6,6 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import { Theme } from '@material-ui/core';
-
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
@@ -17,6 +16,7 @@ import {
   BUYABLE_ITEM_PRIVATE_PASS,
   BUYABLE_ITEM_COMBO_ITEM,
 } from '@bsport/common/lib/master-data/buyable-items';
+import themeSelector from '#libs/theme/selectors';
 
 // marketplace
 // -----------------------------
@@ -191,6 +191,7 @@ export class MarketPlacePassPage extends Component<Props> {
             <MarketplacePaymentComboList
               paymentComboList={this.props.paymentComboList}
               onAddBasket={this.addComboToCart}
+              isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
             />
           </Grid>
         ) : null}
@@ -200,6 +201,7 @@ export class MarketPlacePassPage extends Component<Props> {
               pushPackCheckout={this.addPaymentPackToCart}
               paymentPackByCategory={this.props.paymentPackByCategory}
               paymentPackCategories={paymentPCategories}
+              isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
             />
           </Grid>
         )}
@@ -210,6 +212,7 @@ export class MarketPlacePassPage extends Component<Props> {
               privatePassByCategory={this.props.privatePassByCategory}
               onAddBasket={this.addPrivatePassToCart}
               filteredCategories={privatePCategories}
+              isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
             />
           </Grid>
         ) : null}
@@ -254,6 +257,7 @@ const mapStateToProps = (
   }: { memberTagList: Array<Tag>; authenticated: boolean },
 ) => ({
   currentBasket: getCurrentBasket(state),
+  theme: themeSelector.getTheme(state),
   privatePassList: getPrivatePassAsConsumer(state),
   paymentComboList: getPaymentComboListAvailableOnline(state),
   loading: state.paymentPack.loading,

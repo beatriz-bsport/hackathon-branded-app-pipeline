@@ -3,18 +3,24 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import { Contract } from '#libs/subscription/types';
 
-type Props = {};
+type Props = { isExcludingTax?: boolean; contract: Contract };
 
 const ContractBookableItem = (props: Props) => {
   const { t } = useTranslation(['subscription']);
   const classes = useStyles();
   const { contract } = props;
+
   return (
     <div className={classes.itemContainer}>
       <div className={classes.row}>
         <Typography variant="h6">
-          {getCurrencyDisplayWithPrice(contract.recurrent_price)}
+          {getCurrencyDisplayWithPrice(
+            contract.recurrent_price,
+            props.isExcludingTax,
+            contract.tax,
+          )}
         </Typography>
         <Typography className={classes.creditText} variant="h6" align="left">
           {t('contract.item.identifier')}

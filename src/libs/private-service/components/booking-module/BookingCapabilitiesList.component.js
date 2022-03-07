@@ -26,6 +26,7 @@ type Props = {
   onConsumerPassClick: (consumerPass: number | null, unpaid?: boolean) => void,
   compatibleWithUnpaidBooking: boolean,
   privateSlotCredit?: number,
+  isExcludingTax?: boolean,
 };
 
 export const BookingCapabilities = (props: Props) => {
@@ -99,6 +100,7 @@ export const BookingCapabilities = (props: Props) => {
               <Paper>
                 {cat.passes.map((pp) => (
                   <PrivatePassBookerListItem
+                    isExcludingTax={props.isExcludingTax}
                     private_pass={pp}
                     key={pp.id}
                     onClick={() => props.onPrivatePassClick(pp.id)}

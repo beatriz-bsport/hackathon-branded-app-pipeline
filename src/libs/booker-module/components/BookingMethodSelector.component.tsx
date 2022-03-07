@@ -43,6 +43,7 @@ type OwnProps = {
   unCategorizedPacks: PaymentPack[];
   availableComboPacks: PaymentCombo[];
   paymentPackCategories: PaymentPackCategoryWithPacks[];
+  isExcludingTax?: boolean;
 };
 
 enum CollapsePackEnum {
@@ -296,7 +297,10 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                           color="primary"
                           className={classes.iconLeft}
                         />
-                        <ContractBookableItem contract={contract} />
+                        <ContractBookableItem
+                          contract={contract}
+                          isExcludingTax={this.props.isExcludingTax}
+                        />
                       </div>
                     </ButtonBase>
                   </div>
@@ -314,6 +318,7 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                 onPackChange={this.props.onPackChange}
                 opened={this.state.openedCategory === cat.id}
                 openPacks={(id) => this.openPacks(id, true)}
+                isExcludingTax={this.props.isExcludingTax}
               />
             ))
           : null}
@@ -343,7 +348,10 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                         }
                         onClick={() => this.props.onPackChange({ paymentPack })}
                         renderItem={() => (
-                          <PaymentPackBookableItem paymentPack={paymentPack} />
+                          <PaymentPackBookableItem
+                            paymentPack={paymentPack}
+                            isExcludingTax={this.props.isExcludingTax}
+                          />
                         )}
                       />
                     </div>
@@ -390,6 +398,7 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                         }
                         renderItem={() => (
                           <PaymentComboBookableItem
+                            isExcludingTax={this.props.isExcludingTax}
                             paymentCombo={paymentPackCombo}
                           />
                         )}

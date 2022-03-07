@@ -57,6 +57,7 @@ export type Theme = {
   is_premium: boolean;
   provincial_tax_name?: string;
   provincial_tax_value?: number;
+  is_tax_excluded_in_marketplace?: boolean;
 };
 
 export type ThemeState = {

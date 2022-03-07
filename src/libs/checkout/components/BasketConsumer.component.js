@@ -13,6 +13,7 @@ import PrepaidLineListItem from './PrepaidLineListItem.component';
 
 import { CheckoutItem, Basket, CheckoutItemData } from '../types';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import { getBasketTotalPriceExcludingTax } from '../utils';
 
 type Props = {
   basket: Basket,
@@ -25,6 +26,7 @@ type Props = {
   fullWidth?: boolean,
   onItemExpire: (item: CheckoutItem) => void,
   onRemoveInternalAccountPrepaidLine: () => void,
+  isExcludingTax?: boolean,
 };
 
 export const BasketConsumer = (props: Props) => {
@@ -35,7 +37,9 @@ export const BasketConsumer = (props: Props) => {
       </div>
     );
   }
-
+  const basketTotalPrice = props.isExcludingTax
+    ? getBasketTotalPriceExcludingTax(props.basket)
+    : props.basket.total_price;
   return (
     <div className={props.fullWidth === true ? props.classes.fullWidth : ''}>
       {props.loading ? <LinearProgress /> : null}
@@ -44,6 +48,7 @@ export const BasketConsumer = (props: Props) => {
           <>
             {props.basket.checkout_items.map((ci) => (
               <CheckoutItemListItem
+                isExcludingTax={props.isExcludingTax}
                 checkout_item={ci}
                 key={ci.id}
                 loading={props.loading}
@@ -78,7 +83,7 @@ export const BasketConsumer = (props: Props) => {
         <div className={props.classes.totalPrice}>
           <Typography component="p" variant="h4">
             {getCurrencyDisplayWithPrice(
-              parseFloat(props.basket.total_price) -
+              parseFloat(basketTotalPrice) -
                 parseFloat(props.basket.total_price_prepaid_lines),
             )}
           </Typography>

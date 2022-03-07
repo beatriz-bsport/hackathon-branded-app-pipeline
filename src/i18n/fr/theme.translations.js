@@ -8,6 +8,11 @@ exports.default = {
     helperText:
       'La TVA est inférieure ou égale à la taxe provinciale indiquée. Sur les factures on indiquera seulement cette taxe sans faire la distinction entre taxe fédérale et provinciale.',
   },
+  taxDisplay: {
+    checkbox: 'Afficher le montant hors taxes des produits',
+    title: 'Affichage des prix',
+    info: 'En activant cette fonctionnalité, tous les prix sur la marketplace, le widget et l’application seront indiqués hors taxes.',
+  },
   forms: {
     provincialTax: {
       title: 'Taxe provinciale',

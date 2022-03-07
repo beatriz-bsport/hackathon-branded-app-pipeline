@@ -8,6 +8,7 @@ import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 interface Props {
   paymentPack: PaymentPack;
+  isExcludingTax: boolean;
 }
 
 const PaymentPackItem = (props: Props) => {
@@ -27,7 +28,11 @@ const PaymentPackItem = (props: Props) => {
     <div className={classes.itemContainer}>
       <div className={classes.row}>
         <Typography variant="h6">
-          {getCurrencyDisplayWithPrice(props.paymentPack.price)}
+          {getCurrencyDisplayWithPrice(
+            props.paymentPack.price,
+            props.isExcludingTax,
+            props.paymentPack.tax,
+          )}
         </Typography>
         <Typography className={classes.creditText} variant="h6" align="left">
           {credits}

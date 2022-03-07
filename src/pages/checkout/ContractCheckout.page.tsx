@@ -216,6 +216,9 @@ export class MarketplaceSubscriptionPayment extends React.Component<
                 >
                   <Grid item xs={12}>
                     <MarketplaceSubscriptionContractList
+                      isExcludingTax={
+                        this.props.companyTheme.is_tax_excluded_in_marketplace
+                      }
                       contractList={this.props.contractList}
                       selected={parseInt(this.props.contractId)}
                       onClick={(c: ContractWithPaymentPack) => {
@@ -236,6 +239,9 @@ export class MarketplaceSubscriptionPayment extends React.Component<
                   this.props.contractList &&
                   (this.props.contractList.length || this.props.contract) && (
                     <SubscriptionContractDetail
+                      isExcludingTax={
+                        this.props.companyTheme.is_tax_excluded_in_marketplace
+                      }
                       contract={
                         this.props.contractList.find(
                           (c: ContractWithPaymentPack) =>
@@ -252,6 +258,9 @@ export class MarketplaceSubscriptionPayment extends React.Component<
                       onCancel={() => {
                         this.props.setAcceptContract(false);
                       }}
+                      isExcludingTax={
+                        this.props.companyTheme.is_tax_excluded_in_marketplace
+                      }
                       onSubmit={this.onSubmit}
                       processing={this.state.processing}
                       requestSetupIntentSecret={

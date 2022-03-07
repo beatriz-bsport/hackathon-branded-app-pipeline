@@ -23,6 +23,7 @@ type Props = {
   goToCheckout: () => void,
   onRemoveCheckoutItem: (data: any) => void,
   classes: Object,
+  isExcludingTax?: boolean,
 };
 
 export const MarketplaceBasketDialog = (props: Props) => (
@@ -31,6 +32,7 @@ export const MarketplaceBasketDialog = (props: Props) => (
       {props.t('checkout:myBasket.title')}
     </Typography>
     <BasketConsumer
+      isExcludingTax={props.isExcludingTax}
       basket={props.basket}
       withPrice
       onCancel={props.onCancel}

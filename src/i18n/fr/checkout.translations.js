@@ -1,6 +1,12 @@
 const { BASKET_EVENTS } = require('@bsport/common/lib/master-data/events');
 
 exports.default = {
+  payment: {
+    flat_fee: 'Frais de dossier',
+    taxExcluded: 'Sous-total HT',
+    tax: 'Taxes',
+    total: 'Total TTC',
+  },
   events: {
     [BASKET_EVENTS.created]: 'Panier créé',
     [BASKET_EVENTS.finalize]: 'Panier finalisé/payé',

@@ -18,6 +18,7 @@ type OwnProps = {
   onPackChange: (selectedPack: SelectedPack) => void;
   opened: boolean;
   openPacks: (id: number) => void;
+  isExcludingTax?: boolean;
 };
 type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
@@ -44,7 +45,10 @@ export const PaymentPackCategoryBookableItem = (props: Props) => {
                   selected={pack.id === props.selectedPack?.paymentPack?.id}
                   onClick={() => props.onPackChange({ paymentPack: pack })}
                   renderItem={() => (
-                    <PaymentPackBookableItem paymentPack={pack} />
+                    <PaymentPackBookableItem
+                      paymentPack={pack}
+                      isExcludingTax={props.isExcludingTax}
+                    />
                   )}
                 />
               </div>

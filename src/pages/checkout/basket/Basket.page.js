@@ -324,6 +324,7 @@ export class BasketPage extends React.Component<Props> {
         <div className={this.props.classes.container}>
           <div className={this.props.classes.checkoutFlow}>
             <CheckoutFlow
+              isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
               basket={this.props.basket}
               loading={this.props.loading}
               processing={this.props.processing}

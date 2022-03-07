@@ -26,6 +26,7 @@ const SubShopComponent = (props: {
   expanded: boolean,
   toggleExpanded: () => void,
   selectShopItem: (s: ShopItemType) => void,
+  isExcludingTax?: boolean,
 }) => {
   return (
     <div
@@ -53,6 +54,7 @@ const SubShopComponent = (props: {
           {props.subshop.shopItems.map((si) => (
             <Grid key={si.id} item xs={12} sm={6} md={4} lg={3} xl={2}>
               <ShopItemListCard
+                isExcludingTax={props.isExcludingTax}
                 shopitem={si}
                 onClick={() => props.selectShopItem(si)}
                 addToOrder={props.addToOrder}
@@ -70,7 +72,7 @@ type Props = {
   subShops: Array<SubShop>,
   selectedShopItem: ?ShopItem,
   notExpandedSubshop: Array<number>,
-
+  isExcludingTax: boolean,
   setNotExpandedSubshop: (subshops: Array<number>) => void,
   selectShopItem: (shopitem: ?ShopItem) => void,
   addToOrder: (id: number) => void,
@@ -100,6 +102,7 @@ export function MarketplaceShop(props: Props) {
           .filter((sub) => sub.shopitems.length !== 0)
           .map((sub) => (
             <SubShopComponent
+              isExcludingTax={props.isExcludingTax}
               key={sub.id}
               subshop={sub}
               expanded={!props.notExpandedSubshop.includes(sub.id)}
@@ -126,6 +129,7 @@ export function MarketplaceShop(props: Props) {
         >
           <div style={{ scroll: 'auto' }}>
             <ShopItemCard
+              isExcludingTax={props.isExcludingTax}
               shopitem={props.selectedShopItem}
               t={props.t}
               addToOrder={(id: number) => {

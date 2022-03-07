@@ -6,6 +6,7 @@ import TypographyWithShowMore from '../../../components/TypographyWithShowMore.c
 
 interface Props {
   paymentCombo: PaymentCombo;
+  isExcludingTax?: boolean;
 }
 
 const PaymentPackComboItem = (props: Props) => {
@@ -26,7 +27,11 @@ const PaymentPackComboItem = (props: Props) => {
   return (
     <div className={classes.itemContainer}>
       <Typography variant="h6">
-        {getCurrencyDisplayWithPrice(props.paymentCombo.price)}
+        {getCurrencyDisplayWithPrice(
+          props.paymentCombo.price,
+          props.isExcludingTax,
+          props.paymentCombo.tax,
+        )}
       </Typography>
       <Typography variant="body1" color="textPrimary" align="left">
         {props.paymentCombo.name}

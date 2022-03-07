@@ -8,7 +8,6 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { withTranslation, TFunction } from 'react-i18next';
 
 import type { PrivatePass } from '../../types';
-
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
 type Props = {
@@ -17,6 +16,7 @@ type Props = {
   t: TFunction,
   classes: Object,
   divider?: boolean,
+  isExcludingTax?: boolean,
 };
 
 export const PrivatePassBookerListItem = (props: Props) => {
@@ -32,7 +32,9 @@ export const PrivatePassBookerListItem = (props: Props) => {
       <Button color="primary" variant="outlined" onClick={props.onClick}>
         <AddShoppingCartIcon className={classes.leftIcon} />
         {getCurrencyDisplayWithPrice(
-          (Math.round(private_pass.price * 100) / 100).toFixed(2),
+          private_pass.price,
+          props.isExcludingTax,
+          private_pass.tax,
         )}
       </Button>
     </ListItem>

@@ -16,6 +16,7 @@ import type { Contract } from '../types';
 
 type Props = {
   contract: Contract;
+  isExcludingTax?: boolean;
 };
 
 const SubscriptionContractDetail = (props: Props) => {
@@ -39,6 +40,7 @@ const SubscriptionContractDetail = (props: Props) => {
     payment_pack,
     private_pass,
     payment_combo,
+    tax,
   } = props.contract;
   return (
     <div>
@@ -51,7 +53,11 @@ const SubscriptionContractDetail = (props: Props) => {
             <Typography variant="h6">
               {`${t(
                 'contract.form.recurrent_price.label',
-              )} : ${getCurrencyDisplayWithPrice(recurrent_price)}`}
+              )} : ${getCurrencyDisplayWithPrice(
+                recurrent_price,
+                props.isExcludingTax,
+                tax,
+              )}`}
             </Typography>
             <Typography variant="body1" color="textSecondary" align="left">
               {t(`contract.item.intervalLabel.${interval}`, {
@@ -61,6 +67,8 @@ const SubscriptionContractDetail = (props: Props) => {
             <Typography variant="body1">
               {`${t('parameters.flat_fee')} : ${getCurrencyDisplayWithPrice(
                 flat_fee,
+                props.isExcludingTax,
+                tax,
               )}`}
             </Typography>
           </div>
@@ -68,7 +76,12 @@ const SubscriptionContractDetail = (props: Props) => {
         {!!payment_pack && (
           <div className={classes.block}>
             <Typography variant="h6">{t('contract.paymentPack')}</Typography>
-            <PaymentPackListItem pack={payment_pack} divider hidePacksNumber />
+            <PaymentPackListItem
+              pack={payment_pack}
+              divider
+              hidePacksNumber
+              isExcludingTax={props.isExcludingTax}
+            />
           </div>
         )}
         {!!private_pass && (
@@ -80,7 +93,11 @@ const SubscriptionContractDetail = (props: Props) => {
         {!!payment_combo && (
           <div className={classes.block}>
             <Typography variant="h6">{t('contract.paymentCombo')}</Typography>
-            <PaymentComboListItem paymentCombo={payment_combo} divider />
+            <PaymentComboListItem
+              paymentCombo={payment_combo}
+              divider
+              isExcludingTax={props.isExcludingTax}
+            />
           </div>
         )}
         <div className={classes.block}>

@@ -14,6 +14,7 @@ type Props = {
   shopItemList: Array<ShopItem>,
   onAddShopItem: (id: number) => void,
   loading?: boolean,
+  isExcludingTax?: boolean,
 };
 export const ShopItemFeaturedBanner = (props: Props) => {
   if (props.shopItemList.length === 0) {
@@ -34,6 +35,7 @@ export const ShopItemFeaturedBanner = (props: Props) => {
             key={si.id}
           >
             <ShopItemBuyableItemCard
+              isExcludingTax={props.isExcludingTax}
               addToOrder={() => props.onAddShopItem(si.id)}
               shopitem={si}
               fullHeight

@@ -82,7 +82,7 @@ export class InvoiceConfigurationPage extends React.Component<Props, State> {
             submitTheme={this.props.submitTheme}
             theme={this.props.theme}
             goToReports={this.props.goToReports}
-            submitProvincialTax={this.props.submitProvincialTax}
+            patchTheme={this.props.patchTheme}
           />
           {this.props.theme.enable_multi_localization && (
             <>
@@ -194,7 +194,7 @@ const mapDispatchToProps = {
   goToReports: () => pushRouter('/reporting'),
 };
 const mapWithHandlers = {
-  submitProvincialTax:
+  patchTheme:
     (props: OwnAndConnectedProps) =>
     (data: FormData, options: OptionCallback) => {
       props.submitTheme(props.theme.company, data, options);

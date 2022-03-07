@@ -22,6 +22,8 @@ import BasketDeliveryForm from './BasketDeliveryForm.component';
 import CouponCodeForm from '../../coupon/components/CouponCodeForm.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import AcceptTermsAndConditions from '../../payment/components/AcceptTermsAndConditions.component';
+import { getBasketTotalPriceExcludingTax } from '../utils';
+import BasketTaxInfo from './BasketTaxInfo.component';
 
 export const ADDRESS_STEP = {
   id: 0,
@@ -48,7 +50,7 @@ type Props = {
 
   t: TFunction,
   classes: Object,
-
+  isExcludingTax?: boolean,
   termsAndConditionsAccepted: boolean,
   setTermsAndConditionsAccepted: (boolean) => void,
   termsAndConditions: string,
@@ -221,8 +223,22 @@ export class BasketFinalizer extends React.Component<Props, State> {
     ) {
       return null;
     }
+    const basketPriceExcludingTax = getBasketTotalPriceExcludingTax(
+      this.props.basket,
+    );
+    const taxPrice = (
+      parseFloat(this.props.basket.total_price) -
+      parseFloat(basketPriceExcludingTax)
+    ).toFixed(2);
+
     return (
       <div>
+        {this.props.isExcludingTax && (
+          <BasketTaxInfo
+            excludingTaxPrice={basketPriceExcludingTax}
+            taxPrice={taxPrice}
+          />
+        )}
         <div className={this.props.classes.totalPrice}>
           <Typography component="p" variant="h4">
             {`${getCurrencyDisplayWithPrice(

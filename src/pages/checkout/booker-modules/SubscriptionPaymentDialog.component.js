@@ -30,6 +30,7 @@ type Props = {
   savedPaymentMethodList: Array<PaymentMethod>,
   fetchPaymentMethodList: (params: any) => void,
   companyTheme: CompanyTheme,
+  isExcludingTax?: boolean,
 };
 
 type State = {
@@ -98,6 +99,7 @@ export class SubscriptionContractBooking extends React.Component<Props, State> {
       <Dialog fullScreen={this.props.fullScreen} open={!!this.props.contract}>
         <DialogContent>
           <SubscriptionPayment
+            isExcludingTax={this.props?.isExcludingTax}
             processing={this.state.processing}
             contract={this.props.contract}
             requestSetupIntentSecret={this.props.requestSetupIntentSecret}

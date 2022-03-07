@@ -46,6 +46,7 @@ type Props = {
   useInternalAccount: (amount: number) => void,
   creditAccountBalance?: number | null,
   onRemoveInternalAccountPrepaidLine: () => void,
+  isExcludingTax: boolean,
 };
 
 export const CheckoutFlow = (props: Props) => (
@@ -55,6 +56,7 @@ export const CheckoutFlow = (props: Props) => (
     </Typography>
     <Paper square>
       <BasketConsumer
+        isExcludingTax={props.isExcludingTax}
         basket={props.basket}
         loading={props.loading}
         onRemoveCheckoutItem={(data) =>
@@ -72,6 +74,7 @@ export const CheckoutFlow = (props: Props) => (
     {props.shopItemList.length ? (
       <div className={props.classes.featureBanner}>
         <ShopItemFeaturedBanner
+          isExcludingTax={props.isExcludingTax}
           onAddShopItem={props.addShopItemToBasket}
           shopItemList={props.shopItemList}
           loading={props.loading || props.processing}
@@ -81,6 +84,7 @@ export const CheckoutFlow = (props: Props) => (
     {props.basket.checkout_items.length ? (
       <Paper square className={props.classes.paper}>
         <BasketFinalizer
+          isExcludingTax={props.isExcludingTax}
           withPrice
           basket={props.basket}
           validateUnpaid={props.validateUnpaid}

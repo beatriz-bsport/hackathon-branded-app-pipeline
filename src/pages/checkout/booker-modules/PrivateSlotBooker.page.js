@@ -121,6 +121,7 @@ type Props = {
     privateSlotId: number,
   }) => void,
   compatibleWithUnpaidBooking: boolean,
+  theme: Theme,
 };
 
 type State = {
@@ -285,6 +286,9 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
                 </div>
               ) : (
                 <BookingCapabilities
+                  isExcludingTax={
+                    this.props.theme.is_tax_excluded_in_marketplace
+                  }
                   loading={this.state.processing}
                   privateConsumerPassList={
                     this.props.compatiblePrivateConsumerPass

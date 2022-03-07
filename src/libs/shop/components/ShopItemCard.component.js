@@ -21,7 +21,6 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import TypographyMultiline from '../../../components/TypographyMultiline.component';
 import RedButton from '../../../components/button/RedButton.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
-
 import type { ShopItem } from '../types';
 
 const ShopItemCard = (props: {
@@ -33,6 +32,7 @@ const ShopItemCard = (props: {
   t: TFunction,
   classes: Object,
   snackbarSuccess: (string) => void,
+  isExcludingTax?: boolean,
 }) => {
   const { shopitem, t, snackbarSuccess, classes } = props;
 
@@ -77,7 +77,11 @@ const ShopItemCard = (props: {
             {props.shopitem.name}
           </Typography>
           <Typography variant="h6" component="p" style={{ marginLeft: 28 }}>
-            {`${getCurrencyDisplayWithPrice(props.shopitem.price)}`}
+            {`${getCurrencyDisplayWithPrice(
+              props.shopitem.price,
+              props.isExcludingTax,
+              props.shopitem.tva,
+            )}`}
           </Typography>
         </div>
         <Typography variant="h6" component="h4">

@@ -3,14 +3,17 @@ import { makeStyles, Theme, Typography } from '@material-ui/core';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { PaymentCombo } from '../types';
 import TypographyWithShowMore from '../../../components/TypographyWithShowMore.component';
+import { getPrice } from '#libs/theme/utils';
 
 interface Props {
   paymentCombo: PaymentCombo;
+  isExcludingTax?: boolean;
 }
 
 const PaymentPackComboItem = (props: Props) => {
   const classes = useStyles(['paymentPack']);
 
+  const { isExcludingTax } = props;
   const packs = [
     ...props.paymentCombo.payment_packs.map(
       (pp) => (pp.quantity > 1 ? `${pp.quantity}x ` : '') + pp.name,
@@ -26,17 +29,28 @@ const PaymentPackComboItem = (props: Props) => {
   let showTotalPrice = false;
   const totalItemsPrice =
     props.paymentCombo.payment_packs.reduce(
-      (acc, pp) => acc + parseFloat(pp.price) * pp.quantity,
+      (acc, pp) =>
+        acc +
+        parseFloat(getPrice(pp.price, isExcludingTax, pp.tax)) * pp.quantity,
       0,
     ) +
     props.paymentCombo.shop_items.reduce(
-      (acc, pp) => acc + parseFloat(pp.price) * pp.quantity,
+      (acc, pp) =>
+        acc +
+        parseFloat(getPrice(pp.price, isExcludingTax, pp.tax)) * pp.quantity,
       0,
     ) +
     props.paymentCombo.private_passes.reduce(
-      (acc, pp) => acc + parseFloat(pp.price) * pp.quantity,
+      (acc, pp) =>
+        acc +
+        parseFloat(getPrice(pp.price, isExcludingTax, pp.tax)) * pp.quantity,
       0,
     );
+  const paymentComboPrice = getPrice(
+    props.paymentCombo.price,
+    isExcludingTax,
+    props.paymentCombo.tax,
+  );
   if (totalItemsPrice > props.paymentCombo.price) {
     showTotalPrice = true;
   }
@@ -44,7 +58,7 @@ const PaymentPackComboItem = (props: Props) => {
     <div className={classes.itemContainer}>
       <div className={classes.priceContainer}>
         <Typography variant="h6">
-          {getCurrencyDisplayWithPrice(props.paymentCombo.price)}
+          {getCurrencyDisplayWithPrice(paymentComboPrice)}
         </Typography>
 
         {showTotalPrice && (

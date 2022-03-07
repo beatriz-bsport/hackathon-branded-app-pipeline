@@ -3,6 +3,7 @@ export type PaymentComboItem = {
   price: number;
   name: string;
   quantity: number;
+  tax: string;
 };
 
 export type PaymentCombo = {

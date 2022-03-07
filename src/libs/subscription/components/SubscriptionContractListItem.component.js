@@ -26,6 +26,7 @@ type Props = {
   selected?: boolean,
   dense?: boolean,
   divider?: boolean,
+  isExcludingTax?: boolean,
 };
 
 export const SubscriptionContractListItem = (props: Props) => {
@@ -51,6 +52,8 @@ export const SubscriptionContractListItem = (props: Props) => {
       <ListItemText
         primary={`${props.contract.name} - ${getCurrencyDisplayWithPrice(
           props.contract.recurrent_price,
+          props.isExcludingTax,
+          props.contract.tax,
         )} ${
           parseFloat(props.contract.flat_fee)
             ? ` (+${getCurrencyDisplayWithPrice(props.contract.flat_fee)})`

@@ -14,6 +14,7 @@ import { addItemToBasket } from '#libs/checkout/actions';
 import { getCurrentBasket } from '#libs/checkout/selectors';
 import shopSelectors from '#libs/shop/selectors';
 
+import themeSelectors from '#libs/theme/selectors';
 import withTitle from '#hocs/with-title.hoc';
 import { RootState } from '../../reducers';
 
@@ -46,6 +47,7 @@ export class MarketplaceShop extends React.PureComponent<Props> {
   render() {
     return (
       <MarketplaceShopComponent
+        isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
         subShops={this.props.subShops}
         addToOrder={this.addToCart}
       />
@@ -62,6 +64,7 @@ const mapStateToProps = (
     .getSubShopsByCompany(state, companyId, true)
     .filter((sub: any) => sub.shopItems.length),
   authenticated: state.auth.authenticated,
+  theme: themeSelectors.getTheme(state),
 });
 
 const mapDispatchToProps = {

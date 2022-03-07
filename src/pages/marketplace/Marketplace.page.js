@@ -517,6 +517,7 @@ export class MarketPlace extends Component<Props, State> {
             ) : null}
             <div className={classes.content}>{this.renderContent()}</div>
             <MarketplaceBasketDialog
+              isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
               open={!!this.state.currentBasketOpen}
               basket={this.props.currentBasket}
               onCancel={() => this.toggleCurrentBasketOpen(false)}

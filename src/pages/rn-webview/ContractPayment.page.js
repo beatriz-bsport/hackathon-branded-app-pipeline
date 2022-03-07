@@ -104,6 +104,7 @@ export class ContractPayment extends React.Component<Props, State> {
     return (
       <div className={this.props.classes.container}>
         <SubscriptionPayment
+          isExcludingTax={this.state.theme?.is_tax_excluded_in_marketplace}
           onCancel={this.props.onCancel}
           onSubmit={this.onSubmit}
           processing={this.state.processing}
@@ -126,6 +127,8 @@ export class ContractPayment extends React.Component<Props, State> {
 
 const styles = (theme) => ({
   container: {
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
     width: '100%',
     minHeight: '100vh',
     backgroundColor: 'white',

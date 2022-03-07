@@ -378,6 +378,9 @@ export class CreateRoleDialog extends React.Component<Props, State> {
                 <Typography variant="h6">
                   {t('forms.role.create.restrictedUrl')}
                 </Typography>
+                <Typography>
+                  {t('forms.role.create.restrictedUrlExplain')}
+                </Typography>
                 <div className={classes.marginTop1} />
                 {this.state.permissions.restrictedPaths.map((path, i) => {
                   return (

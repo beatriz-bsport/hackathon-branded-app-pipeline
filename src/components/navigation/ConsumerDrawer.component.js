@@ -29,6 +29,7 @@ import Menu from '@material-ui/core/Menu';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
 import DateRangeIcon from '@material-ui/icons/DateRange';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Star from '@material-ui/icons/Star';
 import VideoLibrary from '@material-ui/icons/VideoLibrary';
 import Payment from '@material-ui/icons/Payment';
@@ -462,6 +463,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         to: '/profile/',
         icon: PersonIcon,
         text: t('navigation.profile'),
+      },
+      {
+        to: `/checkout/${this.props.membership.company}/`,
+        icon: ShoppingCartIcon,
+        text: t('Basket'),
       },
 
       this.props.hasMultipleMembership &&

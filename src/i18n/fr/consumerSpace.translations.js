@@ -1,4 +1,5 @@
 exports.default = {
+  Basket: 'Mon Panier',
   navigation: {
     relationConnectedAs: 'Connecté en tant que : {{name}}',
     backToRelationMasterSpace: 'revenir à mon compte',

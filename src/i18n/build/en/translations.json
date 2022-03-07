@@ -4401,6 +4401,11 @@
         },
         "provincialTax": {
             "helperText": "The VAT is less than or equal to the provincial tax indicated. On invoices, only this tax will be indicated without distinguishing between federal and provincial tax."
+        },
+        "taxDisplay": {
+            "info": "Activate this option to only display prices excluding VAT / Taxes on the Widgets, MarketPlace, and Mobile App.",
+            "title": "Display price",
+            "checkbox": "Display products' tax-free amounts"
         }
     },
     "common": {
@@ -4887,6 +4892,12 @@
             "use": "Use my internal account balance",
             "myInternalAccount": "My internal account balance",
             "useMyInternalAccount": "Use my internal account credit"
+        },
+        "payment": {
+            "total": "Total (incl. VAT)",
+            "tax": "VAT / Taxes",
+            "taxExcluded": "Subtotal (excl. VAT)",
+            "flat_fee": "Enrolment fee"
         }
     },
     "establishment": {

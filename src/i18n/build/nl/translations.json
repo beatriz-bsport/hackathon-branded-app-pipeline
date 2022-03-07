@@ -2149,7 +2149,7 @@
         },
         "companyOnboarding": {
             "creation": {
-                "content": "Controleer al je gegevens om (online) betalingen te activeren.",
+                "content": "Controleer alle gegevens om (online) betalingen te activeren.",
                 "title": "Online betalingen: uitgeschakeld"
             },
             "payout": {
@@ -2688,7 +2688,7 @@
             },
             "section": {
                 "titleManagerOnly": "Onbeschikbare leskaarten",
-                "titleAvailable": "Beschikbaar voor leden"
+                "titleAvailable": "Beschikbare leskaarten"
             },
             "isEmptyExplain": "Leden kunnen deze kaarten bij alle gekoppelde studio aanschaffen en gebruiken.",
             "specification": {
@@ -8776,6 +8776,11 @@
         },
         "provincialTax": {
             "helperText": "De btw lager dan of gelijk aan het aangegeven provinciale btw-bedrag. Alleen deze belasting wordt vermeld zonder onderscheid tussen federale en nationale belastingen."
+        },
+        "taxDisplay": {
+            "info": "Activeer deze optie om de prijzen excl. btw op de Widgets, MarketPlace en Mobiele App weer te geven.",
+            "title": "Prijsweergave",
+            "checkbox": "Toon het aantal belastingvrije producten"
         }
     },
     "checkout": {
@@ -8871,6 +8876,12 @@
             "use": "Mijn saldo gebruiken",
             "myInternalAccount": "Mijn saldo",
             "useMyInternalAccount": "Mijn interne saldo gebruiken"
+        },
+        "payment": {
+            "total": "Totaal (incl. btw)",
+            "tax": "Btw",
+            "taxExcluded": "Subtotaal (excl. btw)",
+            "flat_fee": "Inschrijfkosten"
         }
     },
     "invoice": {

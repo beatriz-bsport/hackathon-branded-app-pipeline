@@ -91,6 +91,7 @@ const FIELDS = [
   'coach_override',
   'duration_minute',
   'effectif',
+  'partner_max_booking_count',
   'credit_price_override',
   'waiting_list_max_size',
   'level',
@@ -145,6 +146,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
       manager_only: !!props.offer.manager_only,
       hour: moment(props.offer.date_start).format('HH:mm'),
       effectif: props.offer.effectif,
+      partner_max_booking_count: props.offer.partner_max_booking_count,
       credit_price_override: props.offer.credit_price_override,
       waiting_list_max_size: props.offer.waiting_list_max_size,
       level: props.offer.level,
@@ -172,6 +174,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
       establishment: props.offer.establishment.id,
       duration_minute: props.offer.duration_minute,
       effectif: props.offer.effectif,
+      partner_max_booking_count: props.offer.partner_max_booking_count,
       available_on_partnership: props.offer.available_on_partnership,
       manager_only: props.offer.manager_only,
       credit_price_override: props.offer.credit_price_override,
@@ -494,6 +497,21 @@ export class EditLiveOfferForm extends Component<Props, State> {
                   }
                 />
               </div>
+              {!!this.props.showPartnership && (
+                <div className={this.props.classes.field}>
+                  <NumericInput
+                    required
+                    fullWidth
+                    label={this.props.t('offer.partner_max_booking_count')}
+                    value={this.state.partner_max_booking_count}
+                    onChange={(event) =>
+                      this.onFormFieldChange('partner_max_booking_count')(
+                        event.target.value,
+                      )
+                    }
+                  />
+                </div>
+              )}
               <div className={this.props.classes.field}>
                 <NumericInput
                   required

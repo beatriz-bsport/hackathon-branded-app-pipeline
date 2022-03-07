@@ -211,6 +211,7 @@ export class FormField extends Component<Props, State> {
       case 'title':
       case 'effectif':
       case 'waiting_list_max_size':
+      case 'partner_max_booking_count':
       case 'password':
       case 'code':
         return (

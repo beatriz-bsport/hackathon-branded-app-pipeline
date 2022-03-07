@@ -181,6 +181,8 @@ exports.default = {
     nonAttendant: 'absent(s)',
     maxBookingsNb: 'places',
     effectif: 'Effectif',
+    partner_max_booking_count:
+      'Nombre maximum de réservation marketplace (OneFit uniquement)',
     broadcast_link: 'Lien de la visioconférence',
     sizeOfWaitingList: "Taille de la liste d'attente",
     offersPendingChange: 'Séances qui seront modifiées :',
@@ -236,6 +238,8 @@ exports.default = {
   form: {
     modify: 'Modifier',
     waiting_list_max_size: "Taille de la liste d'attente",
+    partner_max_booking_count:
+      'Nombre maximum de réservation marketplace (OneFit uniquement)',
     explainNoEmailChange:
       "Changer l'email empêchera le professeur de se connecter, lui seul peut modifier son email en se connectant à son compte bsport",
     signUpTitle: 'Inscription',

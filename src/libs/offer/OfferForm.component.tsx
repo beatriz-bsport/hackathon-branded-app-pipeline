@@ -101,6 +101,7 @@ type OwnProps = {
     credits: string;
     dates?: number[];
     effectif?: string;
+    partner_max_booking_count?: string;
     waiting_list_max_size?: number;
     level?: number;
     duration_minute: number;
@@ -140,6 +141,7 @@ type State = {
   credits: string;
   level?: number;
   effectif?: string;
+  partner_max_booking_count: number;
   waiting_list_max_size?: number;
   duration_minute: number;
   coach_payment_rule: number;
@@ -179,6 +181,7 @@ export class OfferForm extends Component<Props, State> {
       ),
       broadcast_link: '',
       effectif: null,
+      partner_max_booking_count: 6,
       waiting_list_max_size: 0,
       coach: null,
       establishment: null,
@@ -205,6 +208,7 @@ export class OfferForm extends Component<Props, State> {
     const {
       level,
       effectif,
+      partner_max_booking_count,
       waiting_list_max_size,
       establishment,
       roomBlueprint,
@@ -222,6 +226,7 @@ export class OfferForm extends Component<Props, State> {
       establishment,
       coach,
       effectif,
+      partner_max_booking_count,
       waiting_list_max_size,
       level,
       credits,
@@ -830,6 +835,12 @@ export class OfferForm extends Component<Props, State> {
             required
             onChange={this.onFormFieldChange}
             value={this.state.waiting_list_max_size}
+          />
+          <FormField
+            id="partner_max_booking_count"
+            required
+            onChange={this.onFormFieldChange}
+            value={this.state.partner_max_booking_count}
           />
         </Grid>
 

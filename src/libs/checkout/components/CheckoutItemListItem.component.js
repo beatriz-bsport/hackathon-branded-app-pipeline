@@ -59,9 +59,11 @@ export const CheckoutItemListItem = (props: {
             <IconButton disabled={props.loading} onClick={props.onRemoveOne}>
               <ExposureNeg1Icon />
             </IconButton>
-            <IconButton disabled={props.loading} onClick={props.onAddOne}>
-              <ExposurePlus1Icon />
-            </IconButton>
+            {!props.checkout_item?.sub_items?.length && (
+              <IconButton disabled={props.loading} onClick={props.onAddOne}>
+                <ExposurePlus1Icon />
+              </IconButton>
+            )}
           </div>
         ) : null}
         {props.checkout_item.clearable &&

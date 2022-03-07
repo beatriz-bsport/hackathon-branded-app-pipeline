@@ -97,15 +97,16 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
   };
 
   onSuccess = () => {
-    [0, 1000, 3000, 5000, 8000].forEach((i) =>
-      setTimeout(() => {
-        if (window.ReactNativeWebView) {
-          window.ReactNativeWebView.postMessage(
-            JSON.stringify({ status: 'succeeded' }),
-          );
-        }
-        this.props.fetchBasket(this.props.basketId);
-      }, i),
+    [0, 1000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000].forEach(
+      (i) =>
+        setTimeout(() => {
+          if (window.ReactNativeWebView) {
+            window.ReactNativeWebView.postMessage(
+              JSON.stringify({ status: 'succeeded' }),
+            );
+          }
+          this.props.fetchBasket(this.props.basketId);
+        }, i),
     );
   };
 

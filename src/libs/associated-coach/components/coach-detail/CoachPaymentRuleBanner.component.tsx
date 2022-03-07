@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import TableContainer from '@material-ui/core/TableContainer';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -21,6 +22,7 @@ import {
   COACH_PERFORMANCE_FOR_SESSION,
   COACH_PERFORMANCE_FOR_APPOINTMENT,
 } from '@bsport/common/lib/master-data/coach_payment_rule';
+import { getCurrencyDisplay } from '../../../theme/selectors';
 import type {
   CoachPaymentRule,
   CoachPaymentRuleGroup,
@@ -211,7 +213,11 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
             onClick={this.props.remunerateCoach}
             id="button_teacher_remunerate"
           >
-            <EuroSymbolIcon />
+            {getCurrencyDisplay() === '€' ? (
+              <EuroSymbolIcon />
+            ) : (
+              <AttachMoneyIcon />
+            )}
             {t('showPerformance')}
           </Button>
         </div>

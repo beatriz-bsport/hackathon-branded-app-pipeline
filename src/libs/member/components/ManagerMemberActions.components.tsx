@@ -5,11 +5,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import PaymentIcon from '@material-ui/icons/Payment';
 import { Theme, useTheme } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
 import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { getCurrencyDisplay } from '../../theme/selectors';
 import type { Member } from '../types';
 import RedFab from '#components/button/RedFab.component';
 import GreenFab from '#components/button/GreenFab.component';
@@ -64,7 +66,11 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
         onClick={props.billMember}
       >
         <>
-          <EuroSymbolIcon className={classes.leftIcon} />
+          {getCurrencyDisplay() === '€' ? (
+            <EuroSymbolIcon className={classes.leftIcon} />
+          ) : (
+            <AttachMoneyIcon className={classes.leftIcon} />
+          )}
           {t('paymentAction.toBill')}
         </>
       </Fab>

@@ -65,6 +65,7 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import HelpIcon from '@material-ui/icons/Help';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
 import LaptopIcon from '@material-ui/icons/Laptop';
@@ -76,6 +77,7 @@ import { colors } from '@bsport/common/lib/colors';
 import Tooltip from '@material-ui/core/Tooltip';
 import OfflineBoltIcon from '@material-ui/icons/OfflineBolt';
 import DoubleArrow from '@material-ui/icons/DoubleArrow';
+import { getCurrencyDisplay } from '../../libs/theme/selectors';
 import { getTextColorFromRGB } from '../../utils/color';
 
 import BillingBanner from './BillingBanner.component';
@@ -688,7 +690,8 @@ class ResponsiveDrawer extends React.Component<Props, State> {
           },
           {
             to: '/coupon/',
-            icon: EuroSymbolIcon,
+            icon:
+              getCurrencyDisplay() === '€' ? EuroSymbolIcon : AttachMoneyIcon,
             text: t('backofficeMenu.coupon'),
           },
           'divider',
@@ -700,7 +703,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         ],
       },
       {
-        icon: EuroSymbolIcon,
+        icon: getCurrencyDisplay() === '€' ? EuroSymbolIcon : AttachMoneyIcon,
         text: t('backofficeMenu.payment'),
         type: 'nested',
         defaultTo: '/invoice',

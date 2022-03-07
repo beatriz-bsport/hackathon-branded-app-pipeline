@@ -14,12 +14,17 @@ import SaveIcon from '@material-ui/icons/Save';
 import CancelIcon from '@material-ui/icons/Cancel';
 import DownloadIcon from '@material-ui/icons/Attachment';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import PersonIcon from '@material-ui/icons/Person';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { withTranslation, TFunction } from 'react-i18next';
 import { CREDIT_ACCOUNT as PAYMENT_METHOD_CREDIT_ACCOUNT } from '@bsport/common/lib/master-data/payment-methods';
 import sum from 'lodash/sum';
+import {
+  getCurrencyDisplay,
+  getCurrencyDisplayWithPrice,
+} from '../theme/selectors';
 
 import PaymentForm from './payment/PaymentForm.component';
 import PaymentList from './payment/PaymentList.component';
@@ -35,7 +40,6 @@ import CreditMemberBadge from '../member/components/CreditMemberBadge.component'
 import type { PrivatePass } from '../private-service/types';
 
 import RedButton from '../../components/button/RedButton.component';
-import { getCurrencyDisplayWithPrice } from '../theme/selectors';
 
 type Props = {
   editMode: ?boolean,
@@ -487,7 +491,11 @@ export class InvoiceForm extends Component<Props, State> {
               )
             }
           >
-            <EuroSymbolIcon className={classes.leftIcon} />
+            {getCurrencyDisplay() === '€' ? (
+              <EuroSymbolIcon className={classes.leftIcon} />
+            ) : (
+              <AttachMoneyIcon className={classes.leftIcon} />
+            )}
             {t('payment.payment')}
           </Button>
         </div>

@@ -8,7 +8,9 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import withStyles from '@material-ui/core/styles/withStyles';
 import AddIcon from '@material-ui/icons/Add';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import { withTranslation, TFunction } from 'react-i18next';
+import { getCurrencyDisplay } from '../../libs/theme/selectors';
 
 type Props = {
   selected: boolean,
@@ -43,7 +45,11 @@ const MemberBookingHelper = (props: Props) => (
       {props.hasBooked ? (
         <Button color="secondary" onClick={props.onClick}>
           {props.t('offer.addInvoice')}
-          <EuroSymbolIcon className={props.classes.leftIcon} />
+          {getCurrencyDisplay() === '€' ? (
+            <EuroSymbolIcon className={props.classes.leftIcon} />
+          ) : (
+            <AttachMoneyIcon className={props.classes.leftIcon} />
+          )}
         </Button>
       ) : (
         <Button color="primary" onClick={props.onClick}>

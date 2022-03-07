@@ -12,7 +12,9 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import AddIcon from '@material-ui/icons/Add';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import { withTranslation, TFunction } from 'react-i18next';
+import { getCurrencyDisplay } from '../../libs/theme/selectors';
 
 type Props = {
   t: TFunction,
@@ -51,7 +53,11 @@ function MemberBookingHelper(props: Props) {
         {props.hasBooked ? (
           <React.Fragment>
             <IconButton color="secondary" onClick={props.onClickBill}>
-              <EuroSymbolIcon />
+              {getCurrencyDisplay() === '€' ? (
+                <EuroSymbolIcon />
+              ) : (
+                <AttachMoneyIcon />
+              )}
             </IconButton>
             <Button color="primary" onClick={props.onClickRegister}>
               <AddIcon className={props.classes.rightIcon} />

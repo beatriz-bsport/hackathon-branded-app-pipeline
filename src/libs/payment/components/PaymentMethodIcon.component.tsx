@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import Typography from '@material-ui/core/Typography';
-
 import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
@@ -13,6 +13,7 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL,
   PAYMENT_GROUP_METHOD_IDENTIFIER_SOFORT,
 } from '@bsport/common/lib/master-data/payment-group';
+import { getCurrencyDisplay } from '../../theme/selectors';
 
 import SEPA_LOGO from '../icons/sepa.png';
 import BANCONTACT_LOGO from '../icons/bancontact.png';
@@ -51,7 +52,10 @@ const PaymentMethodIcon = (props: { paymentMethod: number }) => {
     case PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL:
       return <img className={classes.icon} src={IDEAL_LOGO} alt="ideal" />;
     default:
-      return <EuroSymbolIcon className={classes.icon} />;
+      if (getCurrencyDisplay() === '€') {
+        return <EuroSymbolIcon className={classes.icon} />;
+      }
+      return <AttachMoneyIcon className={classes.icon} />;
   }
 };
 

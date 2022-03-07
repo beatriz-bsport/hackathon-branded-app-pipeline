@@ -20,6 +20,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import CachedIcon from '@material-ui/icons/Cached';
 import CancelIcon from '@material-ui/icons/Cancel';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import UpdateIcon from '@material-ui/icons/Update';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { withTranslation, TFunction } from 'react-i18next';
@@ -40,7 +41,10 @@ import { getBookingStatusCode } from '../utils';
 import Tooltip from '../../../components/Tooltip.component';
 import RedButton from '../../../components/button/RedButton.component';
 
-import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import {
+  getCurrencyDisplay,
+  getCurrencyDisplayWithPrice,
+} from '../../theme/selectors';
 
 import { formatAsDatetime, formatAsDate } from '../../../utils/datetime';
 
@@ -259,7 +263,11 @@ export class BookingItemForManager extends Component<Props, State> {
               onClick={closeAndAction(onQuickInvoiceClick)}
               className={classes.menuItem}
             >
-              <EuroSymbolIcon className={classes.icon} />
+              {getCurrencyDisplay() === '€' ? (
+                <EuroSymbolIcon className={classes.icon} />
+              ) : (
+                <AttachMoneyIcon className={classes.icon} />
+              )}
 
               <Typography>{t('actions.bill')}</Typography>
             </MenuItem>
@@ -368,7 +376,11 @@ export class BookingItemForManager extends Component<Props, State> {
                 }}
                 className={classes.rightButton}
               >
-                <EuroSymbolIcon />
+                {getCurrencyDisplay() === '€' ? (
+                  <EuroSymbolIcon />
+                ) : (
+                  <AttachMoneyIcon />
+                )}
               </Button>
             ) : null}
             {showRevertBookingButton &&

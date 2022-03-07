@@ -9,6 +9,7 @@ import CreditCardIcon from '@material-ui/icons/CreditCard';
 import CategoryIcon from '@material-ui/icons/Category';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import EuroIcon from '@material-ui/icons/EuroSymbol';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import WorkshopIcon from '@material-ui/icons/Today';
 import StarIcon from '@material-ui/icons/Star';
 import PlusOneIcon from '@material-ui/icons/PlusOne';
@@ -20,6 +21,7 @@ import UpdateIcon from '@material-ui/icons/Update';
 import StoreIcon from '@material-ui/icons/Store';
 import CashBookIcon from '@material-ui/icons/BusinessCenter';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
+import { getCurrencyDisplay } from '../theme/selectors';
 import type { ReportCategoryEnum, ReportCategory } from './types';
 
 export const CATEGORIES: ReportCategory[] = [
@@ -62,7 +64,7 @@ export const CATEGORIES: ReportCategory[] = [
   {
     id: 'credit',
     name: 'Crédit',
-    icon: EuroIcon,
+    icon: getCurrencyDisplay() === '€' ? EuroIcon : AttachMoneyIcon,
   },
   {
     id: 'payment_sumup',

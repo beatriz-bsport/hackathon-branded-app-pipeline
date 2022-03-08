@@ -11,8 +11,8 @@ import { withFormik, Form } from 'formik';
 import * as Yup from 'yup';
 import pick from 'lodash/pick';
 import { compose } from 'recompose';
-import MultipleImageUploader from '../../../components/MultipleImageUploader.component';
-import ImageList from '../../../components/ImageList.component';
+// import MultipleImageUploader from '../../../components/MultipleImageUploader.component';
+// import ImageList from '../../../components/ImageList.component';
 import ImageField from '../../../components/forms/ImageField.component';
 import {
   Submit,
@@ -29,24 +29,24 @@ import SCTSelectField from '../../category/components/SCTSelectorField.component
 type Props = {
   SCTs: *[],
   classes: Object,
-  initial: ?MetaActivity,
+  // initial: ?MetaActivity,
   t: TFunction,
   onCancel: () => void,
   isSubmitting: boolean,
   variant: ?string,
   is_broadcast_enabled: boolean,
-  imageUploader: ?{
-    onAddImage: (image: File) => void,
-    onRemoveImage: (image: File) => void,
-  },
+  //  imageUploader: ?{
+  //    onAddImage: (image: File) => void,
+  //    onRemoveImage: (image: File) => void,
+  //  },
   values: any,
   // metaActivityCategories: Array<MetaActivityCategoryWithActivities>,
   // setFieldValue: (field: string, value: any) => void,
 };
 
 export function MetaActivityForm(props: Props) {
-  const { isSubmitting, SCTs, classes, t, imageUploader, variant } = props;
-  const images = (props.initial || {}).images || [];
+  const { isSubmitting, SCTs, classes, t, variant } = props;
+  // const images = (props.initial || {}).images || [];
   // const [selectedCategory, setSelectedCategory] = useState(
   //   props.initial?.category,
   // );
@@ -123,7 +123,7 @@ export function MetaActivityForm(props: Props) {
             variant="outlined"
           />
         </div>
-        {imageUploader ? (
+        {/* imageUploader ? (
           <div className={classes.field}>
             <label>Carousel</label>
             <MultipleImageUploader
@@ -144,7 +144,7 @@ export function MetaActivityForm(props: Props) {
               ? t('workshopActivity.imageUploaderRequireEditMessage')
               : t('metaActivity.update.imageUploaderRequireEditMessage')}
           </p>
-        )}
+	) */}
         <div className={classes.field}>
           <CheckboxField
             name="is_broadcast"

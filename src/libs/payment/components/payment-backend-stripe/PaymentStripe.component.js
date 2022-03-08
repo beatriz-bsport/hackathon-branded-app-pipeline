@@ -1,5 +1,4 @@
 // @flow
-
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { compose, withState } from 'recompose';
@@ -22,6 +21,7 @@ import {
 import SaveIcon from '@material-ui/icons/Save';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
+
 import PaymentStripeCard from './PaymentStripeCard.component';
 import PaymentStripeSEPA from './PaymentStripeSEPA.component';
 import PaymentStripeBancontact from './PaymentStripeBancontact.component';
@@ -40,6 +40,7 @@ import {
   getStripePkKey,
   getCurrencyDisplayWithPrice,
 } from '../../../theme/selectors';
+import type { OptionCallback } from '../../../../state/types';
 
 const stripePromise = loadStripe(getStripePkKey());
 
@@ -137,6 +138,7 @@ export const PaymentStripe = (props: Props) => {
           )}
         </div>
       )}
+
       <PaymentMethodCardSelector
         selectPaymentMethod={props.selectPaymentMethod}
         paymentMethodSelected={props.paymentMethodSelected}

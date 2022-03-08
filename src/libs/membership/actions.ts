@@ -5,6 +5,7 @@ import {
   fetchMembershipList as fetchMembershipListAPI,
   fetchMembership as fetchMembershipAPI,
   fetchMembershipByCompany as fetchMembershipByCompanyAPI,
+  fetchMembershipByBasket as fetchMembershipByBasketAPI,
   linkMeToCompany as linkMeToCompanyAPI,
   requestMembershipValidation as requestMembershipValidationAPI,
 } from './api';
@@ -120,6 +121,28 @@ export function fetchMembershipByCompany(
 
     try {
       const response = await fetchMembershipByCompanyAPI(companyId);
+      dispatch(retrieveActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(retrieveActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(retrieveActions.isLoading(false));
+  };
+}
+export function fetchMembershipByBasket(
+  data: { basket_uuid: string },
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrieveActions.isLoading(true));
+    dispatch(retrieveActions.error(null));
+
+    try {
+      const response = await fetchMembershipByBasketAPI(data);
       dispatch(retrieveActions.success(response.data));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);

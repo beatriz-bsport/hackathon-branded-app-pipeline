@@ -1,7 +1,9 @@
+import isNil from 'lodash/isNil';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Button from '@material-ui/core/Button';
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import CheckIcon from '@material-ui/icons/Check';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import type { Theme } from '@material-ui/core/styles';
@@ -37,6 +39,8 @@ import type { RootState } from '../../reducers';
 import { MaterialStyleType } from '../../utils/types';
 import { getBasketTotalPriceExcludingTax } from '#libs/checkout/utils';
 import BasketTaxInfo from '#libs/checkout/components/BasketTaxInfo.component';
+import { fetchMembershipByBasket } from '#libs/membership/actions';
+import { validateUnpaid as validateUnpaidAPI } from '#libs/checkout/api';
 
 type Props = {
   basket: Basket<number, PrepaidLine>;
@@ -56,6 +60,7 @@ type State = {
   theme: CompanyTheme | null;
   clientSecretLoading: boolean;
   clientSecret: string | null;
+  selfProcessing: boolean;
 };
 export class BasketPaymentIntent extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -64,6 +69,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
       theme: null,
       clientSecretLoading: true,
       clientSecret: null,
+      selfProcessing: false,
     };
   }
 
@@ -73,8 +79,12 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
         this.props.fetchCompanyTheme(basket.company, {
           onSuccess: (theme) => this.setState({ theme }),
         });
+
         if (!basket.is_finalized) {
           this.getSecret();
+          this.props.fetchMembershipByBasket({
+            basket_uuid: this.props.basketId,
+          });
         }
       },
     });
@@ -112,11 +122,26 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
     );
   };
 
+  validateUnpaid = () => {
+    this.setState({ selfProcessing: true }, () =>
+      validateUnpaidAPI(this.props.basketId)
+        .then(() => {
+          this.onSuccess();
+          this.setState({ selfProcessing: false });
+        })
+        .catch((err) => {
+          console.error(err);
+          this.setState({ selfProcessing: false });
+        }),
+    );
+  };
+
   render() {
+    const { classes, t } = this.props;
     if (!this.props.basket || !this.state.theme) {
       return (
-        <div className={this.props.classes.container}>
-          <div className={this.props.classes.loadingContainer}>
+        <div className={classes.container}>
+          <div className={classes.loadingContainer}>
             <CircularProgress />
           </div>
         </div>
@@ -125,14 +150,14 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
 
     if (this.props.basket.is_finalized) {
       return (
-        <div className={this.props.classes.container}>
-          <div className={this.props.classes.loadingContainer}>
+        <div className={classes.container}>
+          <div className={classes.loadingContainer}>
             <CheckIcon
               color="primary"
               style={{ height: 128, width: 128 }}
               fontSize="large"
             />
-            <Typography>{this.props.t('myBasket.isFinalized')}</Typography>
+            <Typography>{t('myBasket.isFinalized')}</Typography>
           </div>
         </div>
       );
@@ -146,14 +171,14 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
     ).toFixed(2);
 
     return (
-      <div className={this.props.classes.container}>
+      <div className={classes.container}>
         {this.state.theme.is_tax_excluded_in_marketplace && (
           <BasketTaxInfo
             excludingTaxPrice={basketPriceExcludingTax}
             taxPrice={taxPrice}
           />
         )}
-        <div className={this.props.classes.totalPrice}>
+        <div className={classes.totalPrice}>
           <Typography component="p" variant="h4">
             {`${getCurrencyDisplayWithPrice(
               parseFloat(this.props.basket.total_price) -
@@ -172,36 +197,67 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
             onRemove={this.props.onRemoveInternalAccountPrepaidLine}
           />
         ))}
-        <PaymentStripe
-          loading={this.props.loading || this.props.processing}
-          paymentMethodChoices={PAYMENT_GROUP_METHOD_BY_ENGINE[
-            PAYMENT_ENGINE_STRIPE
-          ].filter((pm) =>
-            (this.state.theme.payment_method_available_basket || []).includes(
-              pm,
-            ),
-          )}
-          basketTotalPriceCts={this.props.basket.total_price_cts}
-          basketTotalPricePrepaidLines={
-            this.props.basket.total_price_prepaid_lines_cts
-          }
-          basketId={this.props.basketId}
-          clientSecret={this.state.clientSecret}
-          clientSecretLoading={this.state.clientSecretLoading}
-          termsAndConditionsAccepted
-          onSuccess={this.onSuccess}
-          memberId={this.props.basket.member}
-          allowConsumerToUseInternalAccount={
-            this.state.theme.allow_consumer_to_use_internal_account
-          }
-          useInternalAccount={this.props.useInternalAccount}
-          creditAccountBalance={this.props.creditAccountBalance}
-        />
+
+        {!(
+          this.validateUnpaid &&
+          !isNil(this.props.basket.total_price_cts) &&
+          (this.props.basket.total_price_cts || 0) -
+            (this.props.basket.total_price_prepaid_lines_cts || 0)
+        ) ? (
+          <div className={classes.innerContainer}>
+            <Button
+              disabled={
+                this.state.selfProcessing ||
+                this.props.basket?.checkout_items?.length === 0
+              }
+              onClick={() => this.validateUnpaid()}
+              variant="contained"
+              color="primary"
+            >
+              {t('myBasket.actions.payZero')}
+              {this.state.selfProcessing && (
+                <CircularProgress
+                  className={classes.circularProgress}
+                  size={24}
+                  color="inherit"
+                />
+              )}
+            </Button>
+          </div>
+        ) : (
+          <PaymentStripe
+            loading={this.props.loading || this.props.processing}
+            paymentMethodChoices={PAYMENT_GROUP_METHOD_BY_ENGINE[
+              PAYMENT_ENGINE_STRIPE
+            ].filter((pm) =>
+              (this.state.theme.payment_method_available_basket || []).includes(
+                pm,
+              ),
+            )}
+            basketTotalPriceCts={this.props.basket.total_price_cts}
+            basketTotalPricePrepaidLines={
+              this.props.basket.total_price_prepaid_lines_cts
+            }
+            basketId={this.props.basketId}
+            clientSecret={this.state.clientSecret}
+            clientSecretLoading={this.state.clientSecretLoading}
+            termsAndConditionsAccepted
+            onSuccess={this.onSuccess}
+            memberId={this.props.basket.member}
+            allowConsumerToUseInternalAccount={
+              this.state.theme.allow_consumer_to_use_internal_account
+            }
+            useInternalAccount={this.props.useInternalAccount}
+            creditAccountBalance={this.props.creditAccountBalance}
+            validateUnpaid={this.validateUnpaid}
+          />
+        )}
+
         {this.props.basketError &&
           this.props.basketError.response &&
           this.props.basketError.response.status === 423 && (
             <Typography color="error">
-              {this.props.t('myBasket.error.invalidBasket')}
+              {t('myBasket.error.invalidBasket')}
             </Typography>
           )}
       </div>
@@ -235,6 +291,14 @@ const styles = (theme: Theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  innerContainer: {
+    marginTop: theme.spacing(2),
+    width: '100%',
+  },
+
+  circularProgress: {
+    marginLeft: theme.spacing(2),
+  },
 });
 
 const connectUsablecreditAccount = connect(
@@ -247,7 +311,8 @@ const connector = connect(
   (state: RootState, { basketId }: { basketId: string }) => ({
     basket: getBasket(state, basketId),
     savedPaymentMethodList: getSavedPaymentMethodList(state),
-    loading: state.checkout.basket.current.loading,
+    loading:
+      state.checkout.basket.current.loading || state.checkout.basket.loading,
     processing: state.checkout.basket.current.updating,
   }),
   {
@@ -257,6 +322,7 @@ const connector = connect(
     fetchCompanyTheme,
     createOrRefreshInternalAccountPrepaidLine:
       createOrRefreshInternalAccountPrepaidLineAction,
+    fetchMembershipByBasket,
   },
 );
 export default compose(

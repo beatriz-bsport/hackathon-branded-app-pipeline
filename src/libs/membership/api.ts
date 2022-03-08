@@ -4,12 +4,23 @@ export const fetchMembershipList = async (params: any = {}) => {
   return getAuth(`${API_V1_URI}/membership/${buildUrlParams(params)}`);
 };
 
-export const fetchMembership = async (id: number) => {
-  return getAuth(`${API_V1_URI}/membership/${id}/`);
+export const fetchMembership = async (
+  id: number,
+  params?: { member_id: number },
+) => {
+  return getAuth(`${API_V1_URI}/membership/${id}/${buildUrlParams(params)}`);
 };
 
 export const fetchMembershipByCompany = async (companyId: number) => {
   return getAuth(`${API_V1_URI}/membership/${companyId}/by_company/`);
+};
+
+export const fetchMembershipByBasket = async (data: {
+  basket_uuid: string;
+}) => {
+  return postAuth(`${API_V1_URI}/membership/by_basket_uuid/`, {
+    ...data,
+  });
 };
 
 export async function linkMeToCompany(data: any) {

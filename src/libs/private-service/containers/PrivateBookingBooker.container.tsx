@@ -208,6 +208,7 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
         notify_member: this.props.notify_member,
         unpaid: true,
         consumer: this.state.member?.consumer,
+        member: this.state.member?.id,
       },
       {
         onSuccess: () => {

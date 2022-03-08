@@ -1058,7 +1058,7 @@
             "modify": "Bewerken",
             "warningAddEmail": "Deze e-mail is al toegevoegd.",
             "emailHelper": "Voeg meerdere e-mailadressen toe door ze met een komma te scheiden.",
-            "partner_max_booking_count": "(OneFit) Maximum aantal reserveringen per Partnership"
+            "partner_max_booking_count": "(OneFit) Maximum aantal MarketPlace-reserveringen"
         },
         "shop": {
             "noProvisionUpdates": "Geen voorraad",
@@ -1109,7 +1109,7 @@
                 "title": "Sessies herstellen"
             },
             "unpaidInvoices": "Openstaande facturen",
-            "partner_max_booking_count": "(OneFit) Maximum aantal reserveringen per Partnership"
+            "partner_max_booking_count": "(OneFit) Maximum aantal MarketPlace-reserveringen"
         },
         "time": {
             "month": {
@@ -8924,6 +8924,10 @@
                     "disable_pass_on_fail_subscription_payment": {
                         "label": "Deactiveer abonnementen als de betaling mislukt",
                         "helperText": "Het systeem zal automatisch de kaarten van abonnementen voor mislukte/gedisputeerde betalingen blokkeren tot de betaling is voltooid."
+                    },
+                    "advance_sepa_billing": {
+                        "helperText": "Leden ontvangen de opdracht voor de SEPA-overschrijving veelal 3 dagen later.",
+                        "label": "Verstuur de opdracht voor SEPA-overschrijving 3 dagen van tevoren om eventuele vertragingen in het banknetwerk op te vangen die vertragingen in de cashflow kunnen veroorzaken."
                     }
                 },
                 "title": "Abonnementsbetalingen"

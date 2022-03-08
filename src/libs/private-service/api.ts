@@ -467,6 +467,7 @@ export const registerPrivateBookings = ({
   notify_member,
   unpaid,
   consumer,
+  member,
 }: {
   private_slot: number;
   private_consumer_pass: number;
@@ -479,6 +480,7 @@ export const registerPrivateBookings = ({
   notify_member: boolean;
   unpaid: boolean;
   consumer: number;
+  member?: number;
 }) => {
   return postAuth(
     `${API_V1_URI}/private_service/private_consumer_pass/${private_consumer_pass}/book/`,
@@ -493,6 +495,7 @@ export const registerPrivateBookings = ({
       notify_member,
       unpaid,
       consumer,
+      member,
     },
   );
 };

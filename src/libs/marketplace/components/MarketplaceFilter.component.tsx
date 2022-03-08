@@ -59,9 +59,9 @@ class MarketplaceFilterComponent extends React.PureComponent<Props> {
                 establishmentGroups={establishmentGroupList.filter(
                   (group) => group.establishment.length !== 0,
                 )}
-                selectOption={(ev: SelectOptions) => {
-                  setFilters('establishment_group__in')(ev.map((e) => e.value));
-                }}
+                selectOption={(ev: SelectOptions) =>
+                  setFilters('establishment_group__in')(ev.map((e) => e.value))
+                }
                 closeMenuOnSelect
                 selectedEstablishmentGroups={filters.establishment_group__in}
               />

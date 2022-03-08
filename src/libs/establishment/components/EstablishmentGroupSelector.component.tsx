@@ -27,34 +27,34 @@ const establishmentGroupStyles = {
   option: (styles, { isDisabled, isFocused, isSelected }) => {
     const color = chroma(colors.secondary);
     /* eslint-disable */
-        return {
-            ...styles,
-            backgroundColor: isDisabled
-                ? null
-                : isSelected
-                    ? colors.secondary
-                    : isFocused
-                        ? color.alpha(0.1).css()
-                        : null,
-            color: isDisabled
-                ? '#ccc'
-                : isSelected
-                    ? chroma.contrast(color, 'white') > 2
-                        ? 'white'
-                        : 'black'
-                    : colors.secondary,
-            cursor: isDisabled ? 'not-allowed' : 'default',
+    return {
+      ...styles,
+      backgroundColor: isDisabled
+        ? null
+        : isSelected
+        ? colors.secondary
+        : isFocused
+        ? color.alpha(0.1).css()
+        : null,
+      color: isDisabled
+        ? '#ccc'
+        : isSelected
+        ? chroma.contrast(color, 'white') > 2
+          ? 'white'
+          : 'black'
+        : colors.secondary,
+      cursor: isDisabled ? 'not-allowed' : 'default',
 
-            ':active': {
-                ...styles[':active'],
-                backgroundColor:
-                    !isDisabled &&
-                    (isSelected ? colors.secondary : color.alpha(0.3).css()),
-            },
-            groupHeading: (base) => ({ ...base, margin: 0 }),
-        };
+      ':active': {
+        ...styles[':active'],
+        backgroundColor:
+          !isDisabled &&
+          (isSelected ? colors.secondary : color.alpha(0.3).css()),
+      },
+      groupHeading: (base) => ({ ...base, margin: 0 }),
+    };
 
-        /* eslint-enable */
+    /* eslint-enable */
   },
   multiValue: (styles) => {
     const color = chroma(colors.secondary);

@@ -50,10 +50,20 @@ import Calendar from '../../components/offer/Calendar.component';
 import { getEnabledMetaActivities } from '../../libs/meta-activity/selectors';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import { fetchAllActivities } from '../../libs/meta-activity/actions';
-import { fetchEstablishments } from '../../libs/establishment/actions';
-import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
+import {
+  fetchEstablishments,
+  fetchAllEstablishmentGroup,
+} from '../../libs/establishment/actions';
+import {
+  getAvailableEstablishmentList,
+  getAssociatedEstablishmentGroup,
+  withEstablishment as groupWithEstablishment,
+} from '../../libs/establishment/selectors';
 import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
-import { Establishment } from '../../libs/establishment/types';
+import {
+  Establishment,
+  EstablishmentGroup,
+} from '../../libs/establishment/types';
 import BookingStatisticsCard from '../../libs/booking/components/BookingStatisticsCard.component';
 
 import {
@@ -99,6 +109,7 @@ import { DATE_FORMAT } from '../../utils/datetime';
 import CoachSelector from '../../libs/associated-coach/components/coach-selector/CoachSelector.component';
 import EstablishmentSelector from '../../libs/establishment/components/EstablishmentSelector.component';
 import MetaActivitySelector from '../../libs/meta-activity/components/MetaActivitySelector.component';
+import EstablishmentGroupSelector from '../../libs/establishment/components/EstablishmentGroupSelector.component';
 
 import { monitorBackgroundTask } from '../../libs/background-task/actions';
 import CheckPermission from '../../libs/role/components/CheckPermission.component';
@@ -188,6 +199,7 @@ type Props = {
   similarOffers: Array<Offer>,
   events: Array<Event>,
   coaches: Array<Coach>,
+  establishmentGroupList: EstablishmentGroup[],
   establishments: Array<Establishment>,
   bookingStatistics: {
     createdBookings: Array<any>,
@@ -204,6 +216,7 @@ type Props = {
   loadOfferData: (Object) => void,
   fetchOffersByDay: (params: any) => void,
   fetchEstablishments: () => void,
+  fetchAllEstablishmentGroup: (companyId: number) => void,
 
   fetchSimilarOffers: (offerId: number) => void,
 
@@ -290,6 +303,7 @@ export class Planning extends PureComponent<Props, State> {
     this.props.fetchAllActivities({ customer_enabled: true });
     this.props.fetchRoomBlueprints();
     this.props.fetchAllCoachPaymentRules();
+    this.props.fetchAllEstablishmentGroup(this.props.companyId);
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -718,52 +732,118 @@ export class Planning extends PureComponent<Props, State> {
   };
 
   searchBar = () => {
+    const {
+      theme,
+      establishmentGroupList,
+      establishments,
+      offerFilters,
+      classes,
+      setFilters,
+      coachesLoading,
+      timetableLoading,
+      metaActivities,
+      activitiesLoading,
+    } = this.props;
+
     const coachList = this.props.coaches.map((e) => ({
       ...e,
       user: { name: e.name },
     }));
-    const establishmentList = this.props.establishments;
+    const hasMultiLocation =
+      theme?.enable_multi_localization &&
+      establishmentGroupList &&
+      establishmentGroupList.length !== 0;
+    const medimumSize = hasMultiLocation ? 3 : 4;
+    let filteredEstablishments: Array<Establishment> = [...establishments];
+
+    if (offerFilters?.establishment_group__in?.length) {
+      const filteredEstablishmentIds: Array<number> = establishmentGroupList
+        .filter((eg: EstablishmentGroup) =>
+          offerFilters.establishment_group__in.includes(eg.id),
+        )
+        .flatMap((eg: EstablishmentGroup) => eg.establishment)
+        .map((e: Establishment) => e.id);
+
+      const uniqueEstIds = offerFilters.establishments?.length
+        ? [
+            ...new Set(
+              filteredEstablishmentIds.concat(offerFilters.establishments),
+            ),
+          ]
+        : filteredEstablishmentIds;
+
+      filteredEstablishments = [...establishments].filter((e: Establishment) =>
+        uniqueEstIds.includes(e.id),
+      );
+    }
+
     return (
-      <Grid container style={{ overflow: 'scroll' }}>
-        <Grid item xs={6} md={4} className={this.props.classes.selector}>
+      <Grid container style={{ overflow: 'auto' }}>
+        <Grid item xs={6} md={medimumSize} className={classes.selector}>
           <CoachSelector
             coaches={Immutable(coachList)}
-            selectedCoaches={this.props.offerFilters.coaches}
+            selectedCoaches={offerFilters.coaches}
             selectOption={(ev) => {
-              this.props.setFilters({
-                ...this.props.offerFilters,
+              setFilters({
+                ...offerFilters,
                 coaches: ev.map((e) => e.value),
               });
             }}
-            isLoading={this.props.coachesLoading}
+            isLoading={coachesLoading}
           />
         </Grid>
-        <Grid item xs={6} md={4} className={this.props.classes.selector}>
+        {hasMultiLocation && (
+          <Grid item xs={6} md={medimumSize} className={classes.selector}>
+            <EstablishmentGroupSelector
+              isMulti
+              establishmentGroups={establishmentGroupList.filter(
+                (group) => group.establishment.length !== 0,
+              )}
+              selectOption={(ev: SelectOptions) => {
+                const { establishments: _establishments, ...rest } =
+                  offerFilters;
+                setFilters({
+                  ...rest,
+                  establishment_group__in: ev.map((e) => e.value),
+                });
+              }}
+              closeMenuOnSelect
+              selectedEstablishmentGroups={offerFilters.establishment_group__in}
+            />
+          </Grid>
+        )}
+
+        <Grid item xs={6} md={medimumSize} className={classes.selector}>
           <EstablishmentSelector
-            establishments={Immutable(establishmentList)}
-            selectedEstablishments={this.props.offerFilters.establishments}
+            establishments={Immutable(filteredEstablishments)}
+            selectedEstablishments={offerFilters.establishments}
             selectOption={(ev) => {
-              this.props.setFilters({
-                ...this.props.offerFilters,
+              setFilters({
+                ...offerFilters,
                 establishments: ev.map((e) => e.value),
               });
             }}
-            isLoading={this.props.timetableLoading}
+            isLoading={timetableLoading}
           />
         </Grid>
-        <Grid item xs={12} md={4} className={this.props.classes.selector}>
+        <Grid
+          item
+          xs={hasMultiLocation ? 6 : 12}
+          md={medimumSize}
+          className={classes.selector}
+        >
           <MetaActivitySelector
-            metaActivities={this.props.metaActivities.filter(
+            metaActivities={metaActivities.filter(
               (ma) => ma.customer_enabled && !ma.is_workshop,
             )}
-            selectedMetaActivities={this.props.offerFilters.metaActivities}
+            selectedMetaActivities={offerFilters.metaActivities}
             selectOption={(ev) => {
-              this.props.setFilters({
-                ...this.props.offerFilters,
+              setFilters({
+                ...offerFilters,
                 activity__in: ev.map((e) => e.value),
               });
             }}
-            isLoading={this.props.activitiesLoading}
+            isLoading={activitiesLoading}
           />
         </Grid>
       </Grid>
@@ -972,6 +1052,9 @@ export default compose(
         state.offer.numberOfMassDisabledOffer.loading,
       numberOfMassDisabledOffer: getNumberOfMassDisabledOffer(state),
       establishments: getAvailableEstablishmentList(state),
+      establishmentGroupList: groupWithEstablishment(
+        getAssociatedEstablishmentGroup,
+      )(state),
       companyId: state.theme.theme.company,
       theme: state.theme.theme,
       metaActivities: getEnabledMetaActivities(state),
@@ -1035,6 +1118,7 @@ export default compose(
       fetchBookedGender: fetchBookedGenderAction,
       fetchRoomBlueprints,
       fetchAllCoachPaymentRules,
+      fetchAllEstablishmentGroup,
     },
   ),
   withHandlers({

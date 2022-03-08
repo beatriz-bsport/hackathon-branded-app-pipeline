@@ -241,6 +241,7 @@ export function EstablishmentSelector(props: Props) {
           selectedEstablishments.includes(est.value),
         )
       : null;
+
   return (
     <Select
       closeMenuOnSelect={!!closeMenuOnSelect}

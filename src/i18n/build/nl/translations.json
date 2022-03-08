@@ -1057,7 +1057,8 @@
             "emergencyContact": "Contactpersoon voor noodgevallen",
             "modify": "Bewerken",
             "warningAddEmail": "Deze e-mail is al toegevoegd.",
-            "emailHelper": "Voeg meerdere e-mailadressen toe door ze met een komma te scheiden."
+            "emailHelper": "Voeg meerdere e-mailadressen toe door ze met een komma te scheiden.",
+            "partner_max_booking_count": "(OneFit) Maximum aantal reserveringen per Partnership"
         },
         "shop": {
             "noProvisionUpdates": "Geen voorraad",
@@ -1107,7 +1108,8 @@
                 "explain": "De annulering van deze sessie wordt hierna ongedaan gemaakt. Leden kunnen vervolgens zich opnieuw inschrijven. Geannuleerde reserveringen worden niet hersteld.",
                 "title": "Sessies herstellen"
             },
-            "unpaidInvoices": "Openstaande facturen"
+            "unpaidInvoices": "Openstaande facturen",
+            "partner_max_booking_count": "(OneFit) Maximum aantal reserveringen per Partnership"
         },
         "time": {
             "month": {

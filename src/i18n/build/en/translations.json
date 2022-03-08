@@ -1629,7 +1629,8 @@
             "emergencyContact": "Emergency contact",
             "modify": "Edit",
             "warningAddEmail": "This email has already been added.",
-            "emailHelper": "Add multiple emails by separating them with a comma."
+            "emailHelper": "Add multiple emails by separating them with a comma.",
+            "partner_max_booking_count": ""
         },
         "shop": {
             "noProvisionUpdates": "No stock available",
@@ -1679,7 +1680,8 @@
                 "explain": "The cancelled session will be restored. Members will once more be able to book themselves in, but previously cancelled bookings won't be restored.",
                 "title": "Restore session"
             },
-            "unpaidInvoices": "Unpaid invoices"
+            "unpaidInvoices": "Unpaid invoices",
+            "partner_max_booking_count": ""
         },
         "pagination": {
             "outOf": " out of ",
@@ -3996,7 +3998,8 @@
                     "title": "[Form] Role",
                     "buttonCreate": "Add role  ",
                     "restrictedUrl": "Restricted URLs",
-                    "restrictedUrlPlaceholder": "Example: /member/"
+                    "restrictedUrlPlaceholder": "Example: /member/",
+                    "restrictedUrlExplain": ""
                 }
             }
         },

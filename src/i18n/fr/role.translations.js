@@ -50,7 +50,7 @@ exports.default = {
         description: 'Description',
         restrictedUrl: 'URL Whitelist',
         restrictedUrlExplain:
-          "Utilisez ce paramètres pour définir une whitelist d'URLs pour ce rôle. Seules les URL listées ci-dessous seront accessibles par le staff associé à ce rôle",
+          "Utilisez ce paramètre pour définir une whitelist d'URLs pour ce rôle. Seules les URLs listées ci-dessous seront accessibles par le staff associé à ce rôle",
         restrictedUrlPlaceholder: 'ex: /member/',
         permissions: 'Permissions',
         showAdvanced: 'Voir plus',

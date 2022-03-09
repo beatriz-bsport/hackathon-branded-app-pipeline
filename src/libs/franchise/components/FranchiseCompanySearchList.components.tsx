@@ -85,7 +85,7 @@ const FranchiseCompanySearchList = (props: Props) => {
         <AddIcon className={classes.iconLeft} />
         {t('companyGroup.actions.add')}
       </Button>
-      {props.companyGroupList
+      {(props.companyGroupList || [])
         .filter((g) => (g.companies || []).length)
         .map((g) => (
           <div className={classes.companiesContainer}>
@@ -97,7 +97,7 @@ const FranchiseCompanySearchList = (props: Props) => {
             </div>
             <Divider className={classes.divider} />
             <Paper>
-              {companies
+              {(companies || [])
                 .filter((c) => c.company_group === g.id)
                 .map((c) => (
                   <CompanyListItem
@@ -111,7 +111,7 @@ const FranchiseCompanySearchList = (props: Props) => {
         ))}
       <div className={classes.companiesContainer}>
         <Paper>
-          {companies
+          {(companies || [])
             .filter((c) => !c.company_group)
             .map((company) => (
               <CompanyListItem

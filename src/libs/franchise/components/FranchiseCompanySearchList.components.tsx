@@ -29,6 +29,7 @@ import CompanyGroupFormDialog from './CompanyGroupFormDialog.component';
 export type OwnProps = {
   companies: FranchiseCompany[];
   selectedCompanyId?: number;
+  asManager: boolean;
   handleCompanySelected: (company: number) => () => void;
   createOrUpdateCompanyGroup: (
     data: any,
@@ -76,15 +77,17 @@ const FranchiseCompanySearchList = (props: Props) => {
           </ListItem>
         )}
       />
-      <Button
-        variant="outlined"
-        color="primary"
-        className={classes.categoryButton}
-        onClick={() => setCreateGroupOpen(true)}
-      >
-        <AddIcon className={classes.iconLeft} />
-        {t('companyGroup.actions.add')}
-      </Button>
+      {!!props.asManager && (
+        <Button
+          variant="outlined"
+          color="primary"
+          className={classes.categoryButton}
+          onClick={() => setCreateGroupOpen(true)}
+        >
+          <AddIcon className={classes.iconLeft} />
+          {t('companyGroup.actions.add')}
+        </Button>
+      )}
       {(props.companyGroupList || [])
         .filter((g) => (g.companies || []).length)
         .map((g) => (

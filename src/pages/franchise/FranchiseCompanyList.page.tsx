@@ -156,6 +156,7 @@ export class FranchiseCompanyList extends Component<Props, State> {
         <div className={classes.left}>
           <FranchiseCompanySearchList
             selectedCompanyId={companyId}
+            asManager
             companies={companies}
             companyGroupList={this.props.companyGroupList}
             handleCompanySelected={this.handleCompanySelected}

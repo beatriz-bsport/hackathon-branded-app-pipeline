@@ -27,6 +27,7 @@ type Props = {
     nb_retries_subscription_payments: number,
     disable_pass_on_fail_subscription_payment: boolean,
     revert_bookings_on_fail_subscription_payment: boolean,
+    advance_sepa_billing: boolean,
   },
   processing: boolean,
   onSubmit: (data: any) => void,
@@ -43,6 +44,7 @@ type State = {
   nb_retries_subscription_payments: number,
   disable_pass_on_fail_subscription_payment: boolean,
   revert_bookings_on_fail_subscription_payment: boolean,
+  advance_sepa_billing: boolean,
 };
 
 export class InvoiceConfigurationForm extends React.Component<Props, State> {
@@ -60,6 +62,7 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
         props.configuration.disable_pass_on_fail_subscription_payment,
       revert_bookings_on_fail_subscription_payment:
         props.configuration.revert_bookings_on_fail_subscription_payment,
+      advance_sepa_billing: props.configuration.advance_sepa_billing,
     };
   }
 
@@ -249,6 +252,7 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
                     this.state.revert_bookings_on_fail_subscription_payment,
                   nb_retries_subscription_payments:
                     this.state.nb_retries_subscription_payments,
+                  advance_sepa_billing: this.state.advance_sepa_billing,
                 })
               }
               disabled={
@@ -257,6 +261,8 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
                   this.props.configuration
                     .disable_pass_on_fail_subscription_payment ===
                     this.state.disable_pass_on_fail_subscription_payment &&
+                  this.props.configuration.advance_sepa_billing ===
+                    this.state.advance_sepa_billing &&
                   this.props.configuration
                     .revert_bookings_on_fail_subscription_payment ===
                     this.state.revert_bookings_on_fail_subscription_payment) ||

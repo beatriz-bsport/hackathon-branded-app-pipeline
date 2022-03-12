@@ -886,7 +886,8 @@
                 "explain": "Dieser Kurs wird storniert und für Deine Kunden wieder geöffnet. Zuvor stornierte Buchungen werden jedoch nicht wieder hergestellt.",
                 "title": "Kurs wiederherstellen"
             },
-            "unpaidInvoices": "Unbezahlte Rechnungen"
+            "unpaidInvoices": "Unbezahlte Rechnungen",
+            "partner_max_booking_count": "Maximale Anzahl von Marketplace-Buchungen (nur OneFit)"
         },
         "time": {
             "monthShort": {
@@ -1232,7 +1233,8 @@
             "completeInformation": "Meine Informationen vervollständigen",
             "modify": "Ändern Sie",
             "warningAddEmail": "Diese E-Mail ist bereits hinzugefügt worden.",
-            "emailHelper": "Um mehrere E-Mails hinzuzufügen, geben Sie nach jeder E-Mail ein Komma oder ein Leerzeichen ein."
+            "emailHelper": "Um mehrere E-Mails hinzuzufügen, geben Sie nach jeder E-Mail ein Komma oder ein Leerzeichen ein.",
+            "partner_max_booking_count": "Maximale Anzahl von Marketplace-Buchungen (nur OneFit)"
         },
         "booking": {
             "revertBookingExplain": {
@@ -2377,6 +2379,11 @@
         },
         "provincialTax": {
             "helperText": "Die Mehrwertsteuer ist kleiner oder gleich der angegebenen Provinzsteuer. Auf Rechnungen wird nur diese Steuer angegeben, ohne zwischen Bundes- und Provinzsteuer zu unterscheiden."
+        },
+        "taxDisplay": {
+            "info": "Wenn Sie diese Funktion aktivieren, werden alle Preise auf dem Marketplace, im Widget und in der App ohne Steuern angegeben.",
+            "title": "Preisanzeige",
+            "checkbox": "Betrag vor Steuern von Produkten anzeigen"
         }
     },
     "role": {
@@ -2422,7 +2429,8 @@
                     "description": "Beschreibung",
                     "name": "Name",
                     "title": "Rollenerstellung",
-                    "buttonCreate": "Füge eine Rolle hinzu  "
+                    "buttonCreate": "Füge eine Rolle hinzu  ",
+                    "restrictedUrlExplain": "Verwenden Sie diesen Parameter, um eine Whitelist von URLs für diese Rolle festzulegen. Nur die unten aufgelisteten URLs sind für den mit dieser Rolle verbundenen Staff zugänglich"
                 }
             }
         },
@@ -4372,6 +4380,10 @@
                     "activateSmartRetries": {
                         "helperText": "bsport wird fehlgeschlagene Abo-Zahlungen automatisch zum besten Zeitpunkt wiederholen.",
                         "label": "Smart Retries bei fehlgeschlagenen Zahlungen aktivieren"
+                    },
+                    "advance_sepa_billing": {
+                        "helperText": "In der überwiegenden Mehrheit der Fälle erhält der Kunde die Information über die Überweisung erst drei Tage später.",
+                        "label": "Senden Sie den SEPA-Überweisungsauftrag 3 Tage im Voraus, um Verzögerungen im Bankennetz, die zu einem Liquiditätsrückstand führen können, zu überbrücken."
                     }
                 },
                 "title": "Abonnement"
@@ -6115,7 +6127,9 @@
         "save": "Speichern",
         "requiredField": "dieses Feld ist erforderlich",
         "startAfterEnd": "Das Startdatum muss kleiner sein als das Enddatum",
-        "endBeforeStart": "Das Enddatum muss größer sein als das Startdatum"
+        "endBeforeStart": "Das Enddatum muss größer sein als das Startdatum",
+        "monthly": "Monatlich",
+        "weekly": "Wöchentlich"
     },
     "coupon": {
         "detail": {
@@ -7396,7 +7410,8 @@
         },
         "subscription": {
             "isEmpty": "Sie haben keine laufenden Abos"
-        }
+        },
+        "Basket": "Mein Warenkorb"
     },
     "metaActivity": {
         "settings": {
@@ -7519,7 +7534,9 @@
             "unresolvedDaterange": "Ungültiges Lohnintervall",
             "dateRange": "Bezüge des {{- startDate }} bis {{- endDate }}",
             "dateSaved": "Daten erzeugt am {{ date }}",
-            "title": "Gespeicherte Daten ({{ count }})"
+            "title": "Gespeicherte Daten ({{ count }})",
+            "undeterminedOldestUpdate": "Ältestes Update nicht ermittelt",
+            "oldestUpdate": "Älteste Aktualisierung durchgeführt am: {{- date }}"
         },
         "export": {
             "completed": {
@@ -7540,6 +7557,21 @@
                     "coachName": "Lehrer"
                 }
             }
+        },
+        "advancedFilters": {
+            "byCoachPaymentRules": "Nach Vergütungsregeln filtern (für Lehrer ohne Vergütungsgruppe)",
+            "byCoachPaymentruleGroups": "Nach Gehaltsgruppen filtern",
+            "privateserviceCoachPaymentRuleSelector": "Treffpunkt",
+            "workshopCoachPaymentRuleSelctor": "Workshops",
+            "sessionCoachPaymentRuleSelctor": "Gruppenunterricht ",
+            "coachPaymentRuleGroupSelector": "Gehaltsgruppen",
+            "coachSelector": "Wählen Sie Lehrer aus",
+            "reset": "Filter zurücksetzen",
+            "apply": "Filter anwenden",
+            "header": "Erweiterte Filter"
+        },
+        "form": {
+            "ifEmptyAllowAll": "Leer lassen, um diesen Filter zu überspringen"
         }
     },
     "paymentCombo": {
@@ -9497,6 +9529,12 @@
             "confirm": "Bestätigen",
             "useMyInternalAccount": "Verwendung meines Guthabens",
             "myInternalAccount": "Mein Kontostand"
+        },
+        "payment": {
+            "total": "Gesamtwert einschließlich aller Steuern",
+            "taxExcluded": "Zwischensumme ohne Steuern",
+            "tax": "Steuern",
+            "flat_fee": "Bearbeitungsgebühr"
         }
     },
     "tag": {

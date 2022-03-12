@@ -205,7 +205,8 @@
                 "explain": "Esta sesión ya no será cancelada y sera abierta de nuevo para tus clientes. Sin embargo, las reservas previamente canceladas no serán restablecidas.",
                 "title": "Restablecer la sesión"
             },
-            "unpaidInvoices": "Facturas sin pagar"
+            "unpaidInvoices": "Facturas sin pagar",
+            "partner_max_booking_count": "Número máximo de reservas de mercado (sólo OneFit)"
         },
         "shop": {
             "supplier_price": "Precio proveedor",
@@ -558,7 +559,8 @@
             "completeInformation": "Completar mi información",
             "emergencyContact": "Contacto de emergencia",
             "warningAddEmail": "Este correo electrónico ya ha sido añadido.",
-            "emailHelper": "Para añadir varios correos electrónicos, escriba una coma o un espacio después de cada correo."
+            "emailHelper": "Para añadir varios correos electrónicos, escriba una coma o un espacio después de cada correo.",
+            "partner_max_booking_count": "Número máximo de reservas de mercado (sólo OneFit)"
         },
         "marketing": {
             "dashboard": "Tablero de mando",
@@ -2332,6 +2334,10 @@
                     "nbRetriesSubscriptionPayments": {
                         "label": "Número de intentos después de un pago fallido",
                         "helperText": "Entre 0 y 5 intentos"
+                    },
+                    "advance_sepa_billing": {
+                        "helperText": "En la gran mayoría de los casos, el cliente no recibe la información de la transferencia hasta 3 días después.",
+                        "label": "Envíe la orden de transferencia SEPA con 3 días de antelación, para compensar los retrasos en la red bancaria que puedan causar una demora en el flujo de efectivo."
                     }
                 },
                 "title": "Suscripción"
@@ -4742,7 +4748,8 @@
         },
         "subscription": {
             "isEmpty": "No tienes ninguna suscripción en curso"
-        }
+        },
+        "Basket": "Mi cesta"
     },
     "coupon": {
         "code": {
@@ -6320,6 +6327,11 @@
         },
         "provincialTax": {
             "helperText": "El IVA es inferior o igual al impuesto provincial indicado. Las facturas mostrarán sólo este impuesto sin distinguir entre el impuesto federal y el provincial."
+        },
+        "taxDisplay": {
+            "info": "Al activar esta función, todos los precios del mercado, del widget y de la aplicación se indicarán sin impuestos.",
+            "title": "Visualización de precios",
+            "checkbox": "Mostrar el importe antes de impuestos de los productos"
         }
     },
     "role": {
@@ -6365,7 +6377,8 @@
                     "description": "Descripción",
                     "name": "Nombre",
                     "title": "Definir el nivel de acceso",
-                    "buttonCreate": "Añadir nivel de acceso  "
+                    "buttonCreate": "Añadir nivel de acceso  ",
+                    "restrictedUrlExplain": "Utilice esta configuración para definir una lista blanca de URLs para este rol. El personal asociado a este rol sólo podrá acceder a las URLs que se indican a continuación"
                 }
             }
         },
@@ -6776,6 +6789,12 @@
             "use": "Utilizar mi saldo",
             "myInternalAccount": "Mi saldo",
             "cancel": "Cancelar"
+        },
+        "payment": {
+            "total": "Total con IVA incluido",
+            "tax": "Tasas",
+            "taxExcluded": "Subtotal excluido",
+            "flat_fee": "Tasa de solicitud"
         }
     },
     "waitingList": {
@@ -6913,7 +6932,9 @@
         "save": "Salvar",
         "requiredField": "este campo es obligatorio",
         "startAfterEnd": "La fecha de inicio debe ser inferior a la fecha de finalización",
-        "endBeforeStart": "La fecha de finalización debe ser mayor que la de inicio"
+        "endBeforeStart": "La fecha de finalización debe ser mayor que la de inicio",
+        "monthly": "Mensual",
+        "weekly": "Semanal"
     },
     "snackbar": {
         "invoice": {
@@ -8875,7 +8896,9 @@
             "unresolvedDaterange": "Rango salarial inválido",
             "dateRange": "Remuneración de {{- startDate }} a {{- endDate }}",
             "dateSaved": "Datos generados en {{ date }}",
-            "title": "Datos guardados {{ count }}"
+            "title": "Datos guardados {{ count }}",
+            "undeterminedOldestUpdate": "Actualización más antigua no determinada",
+            "oldestUpdate": "Actualización más antigua hecha en: {{- date }}"
         },
         "export": {
             "completed": {
@@ -8896,6 +8919,21 @@
                     "coachName": "Profesor"
                 }
             }
+        },
+        "advancedFilters": {
+            "byCoachPaymentRules": "Filtrar por reglas de pago (para los profesores sin grupos de pago)",
+            "byCoachPaymentruleGroups": "Filtrar por grupos de remuneración",
+            "privateserviceCoachPaymentRuleSelector": "Citas",
+            "workshopCoachPaymentRuleSelctor": "Talleres",
+            "sessionCoachPaymentRuleSelctor": "Cursos en grupo ",
+            "coachPaymentRuleGroupSelector": "Grupos de remuneración",
+            "coachSelector": "Seleccione los profesores",
+            "reset": "Restablecer filtros",
+            "apply": "Aplicar filtros",
+            "header": "Filtros avanzados"
+        },
+        "form": {
+            "ifEmptyAllowAll": "Dejar en blanco para ignorar este filtro"
         }
     },
     "smartList": {

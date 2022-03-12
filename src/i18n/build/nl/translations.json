@@ -147,7 +147,8 @@
         },
         "subscription": {
             "isEmpty": "Momenteel bezit je nog geen abonnement."
-        }
+        },
+        "Basket": "Mijn winkelmandje"
     },
     "notificationRule": {
         "eventType": {
@@ -5113,7 +5114,9 @@
             "unresolvedDaterange": "Ongeldige uitbetalingsinterval",
             "dateRange": "Payroll van {{- startDate }} tot {{- endDate }}",
             "dateSaved": "Aangemaakt op: {{ date }}",
-            "title": "Opgeslagen data: {{ count }}"
+            "title": "Opgeslagen data: {{ count }}",
+            "undeterminedOldestUpdate": "Er is geen eerdere update beschikbaar.",
+            "oldestUpdate": "Laatste update: {{- date }}"
         },
         "export": {
             "completed": {
@@ -5135,6 +5138,21 @@
                     "coachName": "Instructeur"
                 }
             }
+        },
+        "advancedFilters": {
+            "byCoachPaymentRules": "Filter op payroll-regel (voor instructeurs zonder payroll-regel groepen)",
+            "byCoachPaymentruleGroups": "Filter op payroll-regel groep",
+            "privateserviceCoachPaymentRuleSelector": "Afspraken",
+            "workshopCoachPaymentRuleSelctor": "Workshops",
+            "sessionCoachPaymentRuleSelctor": "Groepsactiviteiten ",
+            "coachPaymentRuleGroupSelector": "Payroll-regel groepen",
+            "coachSelector": "Selecteer instructeurs",
+            "reset": "Filters resetten",
+            "apply": "Filters toepassen",
+            "header": "Geavanceerde filters"
+        },
+        "form": {
+            "ifEmptyAllowAll": "Laat dit veld leeg om deze filter te negeren"
         }
     },
     "video": {
@@ -8355,7 +8373,9 @@
         "save": "Opslaan",
         "requiredField": "Dit veld is verplicht.",
         "startAfterEnd": "De startdatum moet vóór de einddatum zijn",
-        "endBeforeStart": "De einddatum moet groter zijn dan de begindatum"
+        "endBeforeStart": "De einddatum moet groter zijn dan de begindatum",
+        "monthly": "Maandelijks",
+        "weekly": "Wekelijks"
     },
     "workshop": {
         "modal": {
@@ -8782,7 +8802,7 @@
         "taxDisplay": {
             "info": "Activeer deze optie om de prijzen excl. btw op de Widgets, MarketPlace en Mobiele App weer te geven.",
             "title": "Prijsweergave",
-            "checkbox": "Toon het aantal belastingvrije producten"
+            "checkbox": "Toon het belastingvrije bedrag van producten"
         }
     },
     "checkout": {
@@ -9613,7 +9633,7 @@
             "addMemberTooltip": "Een lid toevoegen",
             "cashBookTooltip": "Kasboek",
             "redirecting": "Je wordt doorgestuurd naar je pagina",
-            "backToFranchiseWorskpace": "Terug naar het Master-Account",
+            "backToFranchiseWorskpace": "Terug naar Master-Account",
             "franchiseConnectedAs": "Je bent momenteel als \"{{name}}\" verbonden.",
             "giftcard": "Cadeaubonnen",
             "programs": "Programma's",
@@ -10145,7 +10165,7 @@
         },
         "companies": {
             "pageTitle": "Studio's",
-            "navigateToCompany": "Verbind met Sub-Account",
+            "navigateToCompany": "Inloggen op Sub-Account",
             "membersEmptyState": "Deze studio heeft geen leden om weer te geven.",
             "establishmentEmptyState": "Deze studio heeft geen vestigingen om weer te geven.",
             "establishment": "Vestigingen",

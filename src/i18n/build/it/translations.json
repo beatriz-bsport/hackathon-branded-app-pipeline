@@ -163,7 +163,8 @@
                 "title": "Ripristina sessione",
                 "explain": "Questa sessione sarà annullata e nuovamente aperta ai vostri clienti. Tuttavia, le prenotazioni precedentemente cancellate non verranno ripristinate."
             },
-            "unpaidInvoices": "Fatture non pagate"
+            "unpaidInvoices": "Fatture non pagate",
+            "partner_max_booking_count": "Numero massimo di prenotazioni sul mercato (solo OneFit)"
         },
         "companies": {
             "general": "Generale",
@@ -513,7 +514,8 @@
             "emergencyContact": "Contatto d'emergenza",
             "modify": "Modificare",
             "warningAddEmail": "Questa e-mail è già stata aggiunta.",
-            "emailHelper": "Per aggiungere più email, digita una virgola o uno spazio dopo ogni email."
+            "emailHelper": "Per aggiungere più email, digita una virgola o uno spazio dopo ogni email.",
+            "partner_max_booking_count": "Numero massimo di prenotazioni sul mercato (solo OneFit)"
         },
         "marketing": {
             "dashboard": "Pannello di controllo",
@@ -1344,7 +1346,8 @@
         },
         "subscription": {
             "isEmpty": "Non hai un abbonamento in corso"
-        }
+        },
+        "Basket": "Il mio cestino"
     },
     "search": {
         "input": "Ricerca...",
@@ -2818,7 +2821,9 @@
             "unresolvedDaterange": "Fascia di retribuzione non valida",
             "dateRange": "Remunerazione del {{- startDate }} su  {{- endDate }}",
             "dateSaved": "Dati generati su {{ date }}",
-            "title": "Dati salvati {{ count }}"
+            "title": "Dati salvati {{ count }}",
+            "undeterminedOldestUpdate": "Aggiornamento più vecchio non determinato",
+            "oldestUpdate": "Il più vecchio aggiornamento fatto il: {{- date }}"
         },
         "export": {
             "completed": {
@@ -2839,6 +2844,21 @@
                     "coachName": "Professore"
                 }
             }
+        },
+        "advancedFilters": {
+            "byCoachPaymentRules": "Filtrare per regole salariali (per gli insegnanti senza gruppi salariali)",
+            "byCoachPaymentruleGroups": "Filtrare per gruppi di remunerazione",
+            "privateserviceCoachPaymentRuleSelector": "Appuntamento",
+            "workshopCoachPaymentRuleSelctor": "Workshops",
+            "sessionCoachPaymentRuleSelctor": "Corsi di gruppo ",
+            "coachPaymentRuleGroupSelector": "Gruppi di remunerazione",
+            "coachSelector": "Seleziona gli insegnanti",
+            "reset": "Azzerare i filtri",
+            "apply": "Applicare i filtri",
+            "header": "Filtri avanzati"
+        },
+        "form": {
+            "ifEmptyAllowAll": "Lasciare vuoto per ignorare questo filtro"
         }
     },
     "navigation": {
@@ -3291,6 +3311,11 @@
         },
         "provincialTax": {
             "helperText": "L'IVA è inferiore o uguale all'imposta provinciale indicata. Le fatture mostreranno solo questa tassa senza distinguere tra tassa federale e provinciale."
+        },
+        "taxDisplay": {
+            "info": "Attivando questa funzione, tutti i prezzi sul mercato, sul widget e sull'app saranno indicati al netto delle tasse.",
+            "title": "Visualizzazione del prezzo",
+            "checkbox": "Visualizzare l'importo al lordo delle tasse dei prodotti"
         }
     },
     "order": {
@@ -4325,6 +4350,10 @@
                     "activateSmartRetries": {
                         "label": "Abilita i tentativi intelligenti sui pagamenti falliti",
                         "helperText": "bsport riprova automaticamente i pagamenti degli abbonamenti falliti al momento migliore."
+                    },
+                    "advance_sepa_billing": {
+                        "helperText": "Nella stragrande maggioranza dei casi, il cliente non riceve le informazioni sul trasferimento fino a 3 giorni dopo.",
+                        "label": "Invia l'ordine di trasferimento SEPA con 3 giorni di anticipo, per compensare i ritardi nella rete bancaria che possono causare un ritardo nel flusso di cassa."
                     }
                 },
                 "title": "Abbonamento"
@@ -8975,7 +9004,9 @@
         "save": "Salva",
         "requiredField": "questo campo è richiesto",
         "startAfterEnd": "La data di inizio deve essere inferiore alla data di fine",
-        "endBeforeStart": "La data di fine deve essere maggiore di quella di inizio"
+        "endBeforeStart": "La data di fine deve essere maggiore di quella di inizio",
+        "monthly": "Mensile",
+        "weekly": "Settimanale"
     },
     "titles": {
         "metaActivity": {
@@ -9299,6 +9330,12 @@
             "myInternalAccount": "Il mio equilibrio",
             "use": "Usa il mio equilibrio",
             "label": "Importo disponibile : "
+        },
+        "payment": {
+            "total": "Totale IVA inclusa",
+            "tax": "Tasse",
+            "taxExcluded": "Subtotale escluso",
+            "flat_fee": "Tassa d'iscrizione"
         }
     },
     "marketplace": {
@@ -9510,7 +9547,8 @@
                     "description": "Descrizione",
                     "name": "Nome",
                     "title": "Creazione di ruoli",
-                    "buttonCreate": "Aggiungere un ruolo  "
+                    "buttonCreate": "Aggiungere un ruolo  ",
+                    "restrictedUrlExplain": "Usa questa impostazione per definire una whitelist di URL per questo ruolo. Solo gli URL elencati di seguito saranno accessibili dal personale associato a questo ruolo"
                 }
             }
         },

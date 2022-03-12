@@ -1630,7 +1630,7 @@
             "modify": "Edit",
             "warningAddEmail": "This email has already been added.",
             "emailHelper": "Add multiple emails by separating them with a comma.",
-            "partner_max_booking_count": ""
+            "partner_max_booking_count": "(OneFit Exclusive) Maximum number of MarketPlace bookings"
         },
         "shop": {
             "noProvisionUpdates": "No stock available",
@@ -1681,7 +1681,7 @@
                 "title": "Restore session"
             },
             "unpaidInvoices": "Unpaid invoices",
-            "partner_max_booking_count": ""
+            "partner_max_booking_count": "(OneFit Exclusive) Maximum number of MarketPlace bookings"
         },
         "pagination": {
             "outOf": " out of ",
@@ -2280,7 +2280,8 @@
         },
         "subscription": {
             "isEmpty": "There are no active subscriptions to display."
-        }
+        },
+        "Basket": "My basket"
     },
     "reminder": {
         "task": {
@@ -3999,7 +4000,7 @@
                     "buttonCreate": "Add role  ",
                     "restrictedUrl": "Restricted URLs",
                     "restrictedUrlPlaceholder": "Example: /member/",
-                    "restrictedUrlExplain": ""
+                    "restrictedUrlExplain": "Use this option to Whitelist the URLs and access for people associated to this Role."
                 }
             }
         },
@@ -4446,7 +4447,9 @@
         "save": "Save",
         "startAfterEnd": "The start date must be before the end date",
         "endBeforeStart": "The end date can't be greater than the start date",
-        "requiredField": "this field is required"
+        "requiredField": "this field is required",
+        "monthly": "Monthly",
+        "weekly": "Weekly"
     },
     "workshop": {
         "search": "Search a workshop",
@@ -5899,6 +5902,10 @@
                     "activateSmartRetries": {
                         "label": "Enable Smart Retries for failed payments",
                         "helperText": "The system will automatically retry failed payments at the best time."
+                    },
+                    "advance_sepa_billing": {
+                        "helperText": "Most customers receive the SEPA payment orders 3 days later.",
+                        "label": "Send the SEPA payment order 3 days in advance to compensate any delays in the Banking Networks, which may delay your cash flow."
                     }
                 },
                 "title": "Subscription"
@@ -8708,9 +8715,9 @@
             "bookingForMe": "Myself",
             "bookingsTitleFor": "Booking for {{name}}"
         },
-        "setSpot": "Assign a place",
-        "changeSpot": "Change your place",
-        "noSpotAttributed": "No space allocated",
+        "setSpot": "Assign a spot",
+        "changeSpot": "Change your spot",
+        "noSpotAttributed": "Please allocate a spot",
         "placeNumber": "Place {{count}}",
         "performanceTracking": {
             "stat": "Statistics"
@@ -9558,7 +9565,9 @@
             "unresolvedDaterange": "Invalid remuneration payroll",
             "dateRange": "Payroll from {{- startDate }} to {{- endDate }}",
             "dateSaved": "Generated on: {{ date }}",
-            "title": "Saved data ({{ count }})"
+            "title": "Saved data ({{ count }})",
+            "undeterminedOldestUpdate": "No previous updates available",
+            "oldestUpdate": "Last updated on: {{- date }}"
         },
         "export": {
             "completed": {
@@ -9571,6 +9580,21 @@
                 "title": "Data export and storage"
             },
             "buttonText": "Export"
+        },
+        "advancedFilters": {
+            "byCoachPaymentRules": "Filter by payroll rules (for teachers that have no assigned payroll groups)",
+            "byCoachPaymentruleGroups": "Filter by payroll groups",
+            "privateserviceCoachPaymentRuleSelector": "Appointments",
+            "workshopCoachPaymentRuleSelctor": "Workshops",
+            "sessionCoachPaymentRuleSelctor": "Group activities ",
+            "coachPaymentRuleGroupSelector": "Payroll group",
+            "coachSelector": "Select teachers",
+            "reset": "Reset filters",
+            "apply": "Apply filters",
+            "header": "Advanced filters"
+        },
+        "form": {
+            "ifEmptyAllowAll": "Ignore this filter by leaving it blank"
         }
     },
     "snackbar": {
@@ -11105,7 +11129,7 @@
             "submit": "Confirm",
             "cancel": "Cancel",
             "spot": "Place {{count}}",
-            "title": "Book your spot"
+            "title": "Select a spot"
         },
         "toolbar": {
             "loadExistingBlueprint": "Load an existing plan",

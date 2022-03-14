@@ -221,6 +221,7 @@ export class ConsumerHome extends React.Component<Props> {
                 subscriptionPendingActionCount={
                   this.props.subscriptionPendingActionCount
                 }
+                hasFranchise={this.props.theme.franchisor}
                 hasMultipleMembership={
                   this.props.membershipCount && this.props.membershipCount > 1
                 }

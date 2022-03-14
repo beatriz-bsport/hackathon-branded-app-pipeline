@@ -81,6 +81,7 @@ type Props = {
   navigateToRelationAccount: (memberId: number) => void,
   isRelationNavigation: boolean,
   navigateBackToMasterRelation: () => void,
+  hasFranchise: number | null,
   name: string,
 };
 
@@ -471,10 +472,18 @@ class ResponsiveDrawer extends React.Component<Props, State> {
       },
 
       this.props.hasMultipleMembership &&
+      !this.props.hasFranchise &&
       !WidgetUtils.isWidget() &&
       !isRelationNavigation
         ? {
             to: '/c/membership-selector/',
+            icon: SettingsIcon,
+            text: t('navigation.changeMembership'),
+          }
+        : null,
+      this.props.hasFranchise && !isRelationNavigation
+        ? {
+            to: `/c/franchisee-selector/${this.props.hasFranchise}`,
             icon: SettingsIcon,
             text: t('navigation.changeMembership'),
           }

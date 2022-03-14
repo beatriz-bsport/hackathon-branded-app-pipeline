@@ -1868,7 +1868,7 @@
             },
             "padBeforeBooking": {
                 "explain4": "NON ATTIVO: l'appuntamento sarà possibile e bloccherà la camera 15 minuti prima e dopo la prenotazione. Il prossimo appuntamento sarà possibile a partire dalle 11:30.",
-                "explain3": "ATTIVO: L'appuntamento non sarà possibile. La sala deve essere disponibile dalle 9.45 alle 11.15. Il prossimo appuntamento sarà possibile solo a partire dalle 11:45.",
+                "explain3": "ATTIVO: L'appuntamento non sarà possibile. La sala deve essere disponibile dalle 9.45 alle 11.15. Il prossimo appuntamento sarà possibile solo a partire dalle 11:30.",
                 "explain2": "Esempio: la sala è disponibile dalle 10 alle 11, il vostro appuntamento dura 1 ora, ma avete bisogno di 15 minuti prima e dopo la prenotazione.",
                 "explain1": "Se attivato, le prenotazioni possono essere fatte solo se il calendario è disponibile, compresa la prenotazione"
             }

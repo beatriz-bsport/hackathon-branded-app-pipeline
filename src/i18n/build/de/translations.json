@@ -6952,7 +6952,7 @@
             },
             "padBeforeBooking": {
                 "explain4": "NICHT AKTIVIERT: Das Rendezvous ist möglich, aber der Raum wird 15 Minuten vor und nach der Buchung blockiert. Das nächste Rendezvous ist ab 11:30 Uhr möglich.",
-                "explain3": "AKTIV: Das RDV ist nicht möglich. Der Raum muss von 9:45 bis 11:15 Uhr verfügbar sein. Das nächste Rendezvous ist erst ab 11:45 Uhr möglich.",
+                "explain3": "AKTIV: Das RDV ist nicht möglich. Der Raum muss von 9:45 bis 11:15 Uhr verfügbar sein. Das nächste Rendezvous ist erst ab 11:30 Uhr möglich.",
                 "explain2": "Beispiel: Der Raum ist von 10:00 bis 11:00 Uhr verfügbar, Ihr Termin dauert 1 Stunde, benötigt aber 15 Minuten vor und nach der Buchung.",
                 "explain1": "Wenn aktiviert, können Buchungen nur vorgenommen werden, wenn der Kalender unter Einbeziehung der Buchung verfügbar ist."
             }

@@ -5585,7 +5585,7 @@
             },
             "padBeforeBooking": {
                 "explain4": "NO ACTIVA: la cita será posible y bloqueará la sala 15 minutos antes y después de la reserva. La próxima cita será posible a partir de las 11:30.",
-                "explain3": "ACTIVO: La cita no será posible. La sala debe estar disponible de 9.45 a 11.15. La siguiente cita sólo será posible a partir de las 11:45.",
+                "explain3": "ACTIVO: La cita no será posible. La sala debe estar disponible de 9.45 a 11.15. La siguiente cita sólo será posible a partir de las 11:30.",
                 "explain2": "Ejemplo: la sala está disponible de 10 a 11 horas, su cita dura 1 hora, pero necesita 15 minutos antes y después de la reserva.",
                 "explain1": "Si se activa, sólo se pueden hacer reservas si el calendario está disponible incluyendo la reserva"
             }

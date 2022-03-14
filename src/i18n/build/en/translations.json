@@ -2695,7 +2695,7 @@
             "padBeforeBooking": {
                 "explain2": "Example: the establishment is available from 10 AM to 11 AM and your appointment lasts 60 minutes, however, a 15 minute blocker is required beforehand and afterwards for cleaning or maintenance.",
                 "explain4": "NON-ACTIVE: the appointment will be possible and will block the room 15 min before and after the reservation. The next appointment will be possible from 11:30 am.",
-                "explain3": "ACTIVE: Appointment will not be possible. The room must be available from 9:45 to 11:15. The next appointment will not be possible until 11:45 am.",
+                "explain3": "ACTIVE: Appointment will not be possible. The room must be available from 9:45 to 11:15. The next appointment will not be possible until 11:30 am.",
                 "explain1": "If activated, reservations can only be made if the calendar is available including the reservation"
             }
         },

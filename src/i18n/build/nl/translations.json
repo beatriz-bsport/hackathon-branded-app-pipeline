@@ -5673,7 +5673,7 @@
             },
             "padBeforeBooking": {
                 "explain4": "[GEDEACTIVEERD] Afspraken worden geaccepteerd en de vestiging wordt 15 minuten voor én na de reservering als bezet gemarkeerd. De eerstvolgende afspraak kan vanaf 11:30 worden gereserveerd.",
-                "explain3": "[GEACTIVEERD] Afspraken worden niet geaccepteerd, omdat de vestiging van 09:45 tot en met 11:15 beschikbaar moet zijn. De eerstvolgende afspraak is pas mogelijk vanaf 11:45.",
+                "explain3": "[GEACTIVEERD] Afspraken worden niet geaccepteerd, omdat de vestiging van 09:45 tot en met 11:15 beschikbaar moet zijn. De eerstvolgende afspraak is pas mogelijk vanaf 11:30.",
                 "explain2": "Voorbeeld: de vestiging is van 10:00 tot 11:00 beschikbaar en de afspraak duurt 60 minuten voor de klant, alhoewel je een 15 min. buffer voor én na de afspraak nodig hebt i.v.m. schoonmaak/onderhoud.",
                 "explain1": "Indien geactiveerd, kunnen reserveringen alleen worden gemaakt als de kalender beschikbaar is inclusief de reservering"
             }

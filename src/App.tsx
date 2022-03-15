@@ -23,12 +23,14 @@ import {
 // eslint-disable-next-line
 import { fetchCompanyTheme } from 'bsport-saas/src/libs/theme/actions';
 import { fetchSCT } from 'bsport-saas/src/libs/category/actions';
+import { retrieveFranchise } from 'bsport-saas/src/libs/franchise/actions';
+import { getFranchisor } from 'bsport-saas/src/libs/franchise/selectors';
 
 import {
   SnackbarDataProvider,
   SnackbarPile,
 } from 'bsport-saas/src/SnackbarPile.component';
-import { getTheme } from 'bsport-saas/src/theme';
+import { getTheme, getFranchiseTheme } from 'bsport-saas/src/theme';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 
 import { WidgetConfig } from 'bsport-saas/src/libs/marketplace/types';
@@ -119,9 +121,26 @@ class BsportWidget extends Component<Props> {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (
+      !this.props.companyId &&
+      this.props.franchiseId &&
+      this.props.franchisor &&
+      this.props.franchisor.companies?.length &&
+      !prevProps.franchisor
+    ) {
+      this.props.fetchCompanyTheme(this.props.franchisor.companies[0].id, {});
+    }
+  }
+
   fetchData() {
     this.props.fetchSCT();
-    this.props.fetchCompanyTheme(this.props.companyId, {});
+    if (this.props.companyId) {
+      this.props.fetchCompanyTheme(this.props.companyId, {});
+    }
+    if (this.props.franchiseId) {
+      this.props.retrieveFranchise(this.props.franchiseId);
+    }
   }
 
   onWindowOpen = (url: string) => {
@@ -136,15 +155,19 @@ class BsportWidget extends Component<Props> {
   render() {
     const {
       classes,
-      companyId,
       config,
       store,
       widgetType,
       theme,
       dialogMode,
       franchiseId,
+      franchisor,
     } = this.props;
-    if (!this.props.theme || !!this.props.themeLoading) {
+    if (
+      !this.props.theme ||
+      !!this.props.themeLoading ||
+      (franchiseId && !franchisor)
+    ) {
       return (
         <div className={classes.container}>
           <CircularProgress />
@@ -153,10 +176,23 @@ class BsportWidget extends Component<Props> {
     }
     const Widget = WidgetByType[widgetType] || CalendarWidget;
 
+    const companyId =
+      this.props.companyId || (this.props.franchisor?.companies || [])[0]?.id;
+
     return (
       <div className={classes.container}>
         <React.Suspense fallback={<CircularProgress />}>
-          <MuiThemeProvider theme={getTheme(this.props.theme)}>
+          <MuiThemeProvider
+            theme={
+              franchiseId
+                ? getFranchiseTheme({
+                    cover: franchisor.cover,
+                    primaryRGB: franchisor.primaryRGB,
+                    secondaryRGB: franchisor.secondaryRGB,
+                  })
+                : getTheme(this.props.theme)
+            }
+          >
             <Widget
               companyId={companyId}
               franchiseId={franchiseId}
@@ -180,13 +216,13 @@ class BsportWidget extends Component<Props> {
               fullScreenPopup={this.props.fullScreenPopup}
             />
             <WidgetBridge
-              companyId={this.props.companyId}
+              companyId={companyId}
               companyName={this.props.theme.company_name}
             />
 
             {this.props.showFab && !window.bsportModalUrlOpen && (
               <FabWidget
-                companyId={this.props.companyId}
+                companyId={companyId}
                 companyName={this.props.theme.company_name}
                 onWindowOpen={this.onWindowOpen}
               />
@@ -213,6 +249,7 @@ const mapStateToProps = (state: RootState) => ({
   theme: state.theme.theme,
   themeLoading: state.theme.loading,
   dialog: state.modal,
+  franchisor: getFranchisor(state),
 });
 
 const mapDispatchToProps = {
@@ -220,6 +257,7 @@ const mapDispatchToProps = {
   fetchCompanyTheme,
   openUserInteractionPortal,
   closeUserInteractionPortal,
+  retrieveFranchise,
 };
 
 export default compose(

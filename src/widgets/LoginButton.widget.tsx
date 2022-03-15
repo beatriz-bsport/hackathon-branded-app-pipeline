@@ -37,7 +37,13 @@ class LoginButton extends Component<Props> {
 
   onClick = () => {
     if (this.props.authenticated) {
-      this.openUrl(`c/${this.props.companyId}/profile`);
+      if (this.props.franchiseId) {
+        this.openUrl(`c/franchisee-selector/${this.props.franchiseId}/`);
+      } else {
+        this.openUrl(`c/${this.props.companyId}/profile`);
+      }
+    } else if (this.props.franchiseId) {
+      this.openUrl(`login?franchisor=${this.props.franchiseId}`);
     } else {
       this.openUrl(`login?membership=${this.props.companyId}`);
     }

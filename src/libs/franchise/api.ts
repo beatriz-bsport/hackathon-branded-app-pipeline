@@ -19,7 +19,7 @@ import {
 } from './types';
 
 export const fetchFranchise = async (): Promise<AxiosResponse<Franchise>> => {
-  return getAuth(`${API_V1_URI}/franchisor/franchisor/me`);
+  return getAuth(`${API_V1_URI}/franchisor/franchisor/me/`);
 };
 
 export const retrieveFranchise = async (

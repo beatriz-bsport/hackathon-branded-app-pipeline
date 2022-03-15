@@ -180,7 +180,9 @@ export class CoachPrivateCalendar extends React.Component<Props> {
           availabilitySlots={this.props.availabilitySlots}
           privateBookings={this.props.privateBookingList}
           timezone={this.props.companyTheme.timezone_name}
-          availabilitySlotUpdating={this.props.availabilitySlotUpdating}
+          availabilitySlotUpdating={
+            this.props.availabilitySlotUpdating || this.props.loading
+          }
           goToMember={this.props.goToMember}
           onDateChange={this.props.handleDateChange}
           offerList={this.props.offerList}
@@ -241,6 +243,8 @@ export default compose(
       loading:
         state.privateService.availabilitySlot.loading ||
         state.privateService.privateBooking.loading,
+      availabilitySlotUpdating:
+        state.privateService.availabilitySlot.createOrUpdate.loading,
     }),
     {
       fetchCoach: (id) => fetchCoachBulk([id]),

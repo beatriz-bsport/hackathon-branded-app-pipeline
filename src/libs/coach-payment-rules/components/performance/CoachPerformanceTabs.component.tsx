@@ -223,18 +223,23 @@ export const CoachPerformanceTabs = (props: TabProps) => {
           value={COACH_PERFORMANCE_FOR_ALL}
         />
       </Tabs>
-      {!props.hideRuleSetter && !props.asCoach && (
-        <CoachPerformanceRuleSetter
-          coach={props.coachWithPerformance}
-          coachPaymentRulesByKind={props.coachPaymentRulesByKind}
-          coachPaymentRuleGroups={props.coachPaymentRuleGroups}
-          coachPaymentRuleGroupsDict={props.coachPaymentRuleGroupsDict}
-          setCoachPaymentRule={props.setCoachPaymentRule}
-          setCoachPaymentRuleGroup={props.setCoachPaymentRuleGroup}
-          setCoachPrivatePaymentRule={props.setCoachPrivatePaymentRule}
-          setCoachWorkShopPaymentRule={props.setCoachWorkShopPaymentRule}
-        />
-      )}
+      {!props.hideRuleSetter &&
+        !props.asCoach &&
+        props.setCoachPaymentRule &&
+        props.setCoachPaymentRuleGroup &&
+        props.setCoachPrivatePaymentRule &&
+        props.setCoachWorkShopPaymentRule && (
+          <CoachPerformanceRuleSetter
+            coach={props.coachWithPerformance}
+            coachPaymentRulesByKind={props.coachPaymentRulesByKind}
+            coachPaymentRuleGroups={props.coachPaymentRuleGroups}
+            coachPaymentRuleGroupsDict={props.coachPaymentRuleGroupsDict}
+            setCoachPaymentRule={props.setCoachPaymentRule}
+            setCoachPaymentRuleGroup={props.setCoachPaymentRuleGroup}
+            setCoachPrivatePaymentRule={props.setCoachPrivatePaymentRule}
+            setCoachWorkShopPaymentRule={props.setCoachWorkShopPaymentRule}
+          />
+        )}
       <CoachPerformanceTabPanel
         value={value}
         coachWithPerformance={props.coachWithPerformance}

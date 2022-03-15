@@ -157,7 +157,7 @@ export const PartnershipConfigurationMultipleEstablishmentForm: React.FC<
                 const establishment = props.establishmentList.find(
                   (e) => e.associatedestablishment_set[0] === id,
                 );
-                if (establishment && establishment.cover) {
+                if (establishment) {
                   return (
                     <EstablishmentListItem
                       key={`${id}-${i}`}

@@ -62,11 +62,11 @@ export function monitorBackgroundTask(uuid: string, options?: OptionCallback) {
 }
 
 const checkFetchSetTimeoutRecursive = async (
-  dispatch,
-  getState,
-  timeout_index,
-  uuid,
-  options,
+  dispatch: Dispatch,
+  getState: () => State,
+  timeout_index: number,
+  uuid: string,
+  options: OptionCallback,
 ) => {
   if (timeout_index >= TIMEOUTS.length) {
     dispatch(deleteBackgroundSnackbar(uuid));

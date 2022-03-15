@@ -1,6 +1,6 @@
 export type BackgroundTask = {
   uuid: string;
-  status: boolean;
+  status: number;
   readable_identifier: string;
 };
 

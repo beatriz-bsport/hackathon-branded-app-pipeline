@@ -881,4 +881,10 @@ exports.default = {
       error: 'Impossible de sauvegarder les modifications',
     },
   },
+
+  clockIn: {
+    errors: {
+      96002: 'Impossible, cet utilisateur a déjà un pointage en cours',
+    },
+  },
 };

@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import Paper from '@material-ui/core/Paper';
 import MobileFriendlyIcon from '@material-ui/icons/MobileFriendly';
@@ -22,29 +23,31 @@ import StarIcon from '@material-ui/icons/Star';
 import DirectionsBikeIcon from '@material-ui/icons/DirectionsBike';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
-
-import { useTranslation } from 'react-i18next';
+import TimerIcon from '@material-ui/icons/Timer';
 
 import Typography from '@material-ui/core/Typography';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import { getCurrencyDisplay } from '../../theme/selectors';
 
-const CUSTOM_APP = 1;
-const WHEREBY = 3;
-const VOD = 2;
-const SMS = 4;
-const ZOOM_APP = 5;
-const DAILY_PAIMENT = 6;
-const TABLET = 7;
-const CLASSPASS = 8;
-const VOD_YOUTUBE_AND_VIMEO = 9;
-const PREMIUM = 11;
-const ACTIVE_CAMPAIGN = 12;
-const ANALYTICS = 13;
-const SPOT_SCHEDULING = 14;
-const PUSH_NOTIFICATION = 15;
-const QUICKBOOKS = 16;
-const MASTER_ACCOUNT = 17;
+import {
+  UPSELL_IDENTIFIER_CUSTOM_APP,
+  UPSELL_IDENTIFIER_VOD,
+  UPSELL_IDENTIFIER_WHEREBY,
+  UPSELL_IDENTIFIER_SMS,
+  UPSELL_IDENTIFIER_ZOOM_APP,
+  UPSELL_IDENTIFIER_DAILY_PAIMENT,
+  UPSELL_IDENTIFIER_TABLET,
+  UPSELL_IDENTIFIER_CLASSPASS,
+  UPSELL_IDENTIFIER_VOD_YOUTUBE_AND_VIMEO,
+  UPSELL_IDENTIFIER_PREMIUM,
+  UPSELL_IDENTIFIER_ACTIVE_CAMPAIGN,
+  UPSELL_IDENTIFIER_ANALYTICS,
+  UPSELL_IDENTIFIER_SPOT_SCHEDULING,
+  UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
+  UPSELL_IDENTIFIER_QUICKBOOKS,
+  UPSELL_IDENTIFIER_MASTER_ACCOUNT,
+  UPSELL_IDENTIFIER_CLOCK_IN,
+} from '../upsell-identifiers';
 
 type Props = {
   upsellPackage: any;
@@ -238,6 +241,15 @@ const UpsellPackageSpotScheduling = (props: Props) => {
   );
 };
 
+const UpsellClockIn: React.FC<Props> = (props) => {
+  const classes = useStyles();
+  return (
+    <DefaultTemplate {...props}>
+      <TimerIcon className={classes.icon} />
+    </DefaultTemplate>
+  );
+};
+
 const DefaultTemplate = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['platformBilling']);
@@ -348,22 +360,23 @@ const UpsellPackageSMS = (props: Omit<Props, 'children'>) => {
 };
 
 const UPSELL_REGISTRY = {
-  [CUSTOM_APP]: UpsellPackageCustomApp,
-  [WHEREBY]: UpsellPackageWhereby,
-  [DAILY_PAIMENT]: UpsellPackageDailyPayment,
-  [VOD]: UpsellPackageVod,
-  [SMS]: UpsellPackageSMS,
-  [ZOOM_APP]: UpsellPackageZoomApp,
-  [TABLET]: UpsellPackageTablet,
-  [CLASSPASS]: UpsellPackageClassPass,
-  [ANALYTICS]: UpsellPackageAnalytics,
-  [PREMIUM]: UpsellPackagePremium,
-  [VOD_YOUTUBE_AND_VIMEO]: UpsellPackageYoutubeAndVimeo,
-  [ACTIVE_CAMPAIGN]: UpsellPackageActiveCampaign,
-  [QUICKBOOKS]: UpsellPackageQuickbooks,
-  [SPOT_SCHEDULING]: UpsellPackageSpotScheduling,
-  [PUSH_NOTIFICATION]: UpsellPushNotification,
-  [MASTER_ACCOUNT]: UpsellMasterAccount,
+  [UPSELL_IDENTIFIER_CUSTOM_APP]: UpsellPackageCustomApp,
+  [UPSELL_IDENTIFIER_WHEREBY]: UpsellPackageWhereby,
+  [UPSELL_IDENTIFIER_DAILY_PAIMENT]: UpsellPackageDailyPayment,
+  [UPSELL_IDENTIFIER_VOD]: UpsellPackageVod,
+  [UPSELL_IDENTIFIER_SMS]: UpsellPackageSMS,
+  [UPSELL_IDENTIFIER_ZOOM_APP]: UpsellPackageZoomApp,
+  [UPSELL_IDENTIFIER_TABLET]: UpsellPackageTablet,
+  [UPSELL_IDENTIFIER_CLASSPASS]: UpsellPackageClassPass,
+  [UPSELL_IDENTIFIER_ANALYTICS]: UpsellPackageAnalytics,
+  [UPSELL_IDENTIFIER_PREMIUM]: UpsellPackagePremium,
+  [UPSELL_IDENTIFIER_VOD_YOUTUBE_AND_VIMEO]: UpsellPackageYoutubeAndVimeo,
+  [UPSELL_IDENTIFIER_ACTIVE_CAMPAIGN]: UpsellPackageActiveCampaign,
+  [UPSELL_IDENTIFIER_QUICKBOOKS]: UpsellPackageQuickbooks,
+  [UPSELL_IDENTIFIER_SPOT_SCHEDULING]: UpsellPackageSpotScheduling,
+  [UPSELL_IDENTIFIER_PUSH_NOTIFICATION]: UpsellPushNotification,
+  [UPSELL_IDENTIFIER_MASTER_ACCOUNT]: UpsellMasterAccount,
+  [UPSELL_IDENTIFIER_CLOCK_IN]: UpsellClockIn,
 };
 
 export const getUpsellPackageComponent = (upsellIdentifier: number) => {

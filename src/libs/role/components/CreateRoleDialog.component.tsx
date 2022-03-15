@@ -1,31 +1,25 @@
 import React from 'react';
 import { compose } from 'recompose';
+import cloneDeep from 'lodash/cloneDeep';
 
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import Button from '@material-ui/core/Button';
-import {
-  ButtonBase,
-  Checkbox,
-  FormControlLabel,
-  Typography,
-} from '@material-ui/core';
+import { ButtonBase, Typography } from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Theme } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
-import cloneDeep from 'lodash/cloneDeep';
-import Immutable from 'seamless-immutable';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
 
 import { Permission, Role } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
 import { getRoleDescription, getRoleName } from '../utils';
+import RecursiveCheckBoxComponent from './RecursiveCheckBox.component';
 
 type OwnProps = {
   onSubmit: (data: Role) => void;
@@ -68,14 +62,71 @@ const defaultPermissions: Permission = {
     dashboard: true,
     calendar: true,
     schedule: true,
-    myClub: true,
-    products: true,
-    payments: true,
-    marketing: true,
-    digitalOffer: true,
+    myClub: {
+      activities: true,
+      workshops: true,
+      appointments: true,
+      teachers: true,
+      establishments: true,
+      programs: true,
+    },
+    products: {
+      paymentPack: true,
+      privatePass: true,
+      shop: true,
+      packs: true,
+      giftcards: true,
+      promotions: true,
+      contracts: true,
+    },
+    payments: {
+      billings: true,
+      directDebits: true,
+      teachers: true,
+      orders: true,
+      expenses: true,
+      installments: true,
+      clockIn: {
+        selfClockIn: true,
+        clockInForOther: false,
+        canAccessHistory: false,
+      },
+    },
+    marketing: {
+      templates: true,
+      customForms: true,
+      smartlists: true,
+      notifications: true,
+      tags: true,
+      strategies: true,
+    },
+    digitalOffer: {
+      videos: true,
+      playlists: true,
+    },
     member: true,
     reporting: true,
-    settings: true,
+    settings: {
+      generals: true,
+      marketplace: true,
+      widgets: true,
+      staffs: true,
+      personalization: true,
+      memberForms: true,
+      liveStreaming: true,
+      transactionnalEmail: true,
+      teacherPayrollRules: true,
+      paymentMethods: true,
+      company: true,
+      billing: true,
+      waitingList: true,
+      webShop: true,
+      webHook: true,
+      partnership: true,
+      quickBooks: true,
+      activeCampaign: true,
+      subscription: true,
+    },
   },
 };
 
@@ -86,8 +137,6 @@ const HIDDEN_PARAMS = [
   'appbarActions',
   'navigationMenu.search',
 ];
-
-type DeepKeyBoolean = { [key: string]: boolean | DeepKeyBoolean };
 
 export class CreateRoleDialog extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -144,151 +193,6 @@ export class CreateRoleDialog extends React.Component<Props, State> {
     });
   };
 
-  /**
-   * Return true if all keys = true deeply
-   * Return false if all keys = false deeply
-   * Return undefined if keys are either false | true
-   * If keys have different values return undefined
-   * @param obj
-   */
-  getBooleanOrUndefinedForObject = (obj: DeepKeyBoolean) => {
-    let x: boolean | null | undefined = null;
-
-    Object.keys(obj).forEach((key) => {
-      let value = obj[key];
-
-      if (typeof value === 'object') {
-        value = this.getBooleanOrUndefinedForObject(value);
-      }
-
-      if (x === null) {
-        x = value;
-      }
-
-      if (x !== value) {
-        x = undefined;
-      }
-    });
-
-    return x;
-  };
-
-  getValueForKey = (key: string, keysAccumulator: string[]) => {
-    let obj: any = this.state.permissions;
-
-    for (let i = 0; i < keysAccumulator.length; i += 1) {
-      obj = obj[keysAccumulator[i]];
-    }
-
-    if (typeof obj[key] === 'boolean') {
-      return obj[key];
-    }
-
-    return this.getBooleanOrUndefinedForObject(obj[key]);
-  };
-
-  setValuesDeep = (obj: any, value: boolean) => {
-    Object.keys(obj).forEach((key) => {
-      if (typeof obj[key] === 'boolean') {
-        /* eslint-disable-next-line */
-        obj[key] = value;
-      } else if (typeof obj[key] === 'object') {
-        this.setValuesDeep(obj[key], value);
-      }
-    });
-  };
-
-  changeValueForKey = (key: string, keysAccumulator: string[]) => {
-    let obj: any = cloneDeep(this.state.permissions);
-
-    for (let i = 0; i < keysAccumulator.length; i += 1) {
-      obj = obj[keysAccumulator[i]];
-    }
-
-    let toChange = obj[key];
-
-    if (typeof toChange === 'object') {
-      const value = this.getBooleanOrUndefinedForObject(toChange);
-      this.setValuesDeep(toChange, !value);
-    }
-
-    if (typeof toChange === 'boolean') {
-      toChange = !toChange;
-    }
-
-    const permissions = Immutable(cloneDeep(this.state.permissions)).setIn(
-      [...keysAccumulator, key],
-      toChange,
-    );
-
-    // @ts-ignore
-    this.setState({ permissions: cloneDeep(permissions) });
-  };
-
-  renderDeepCheckBox = (object: DeepKeyBoolean, keysAccumulator: string[]) => {
-    const { classes, t } = this.props;
-
-    const disabled = this.props.role && !this.props.role.editable;
-
-    return (
-      <div className={classes.checkboxesContainer}>
-        {Object.keys(object).map((key) => {
-          if (
-            (HIDDEN_PARAMS.includes(key) ||
-              HIDDEN_PARAMS.includes([...keysAccumulator, key].join('.'))) &&
-            !keysAccumulator.length
-          ) {
-            return null;
-          }
-
-          const value = object[key];
-          const checked = this.getValueForKey(key, keysAccumulator);
-
-          const label = t(
-            `role:rolePermissions.${[...keysAccumulator, key].join(
-              '.',
-            )}._label`,
-          );
-          const helpertext = t(
-            `role:rolePermissions.${[...keysAccumulator, key].join(
-              '.',
-            )}._helper`,
-          );
-
-          return (
-            <>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    indeterminate={checked === undefined}
-                    checked={!!checked}
-                    onChange={() =>
-                      this.changeValueForKey(key, keysAccumulator)
-                    }
-                    name="checkedB"
-                    color="primary"
-                    disabled={disabled}
-                  />
-                }
-                label={label}
-              />
-              {!!helpertext && !helpertext.includes('_help') && (
-                <div style={{ marginTop: -12, marginLeft: 32 }}>
-                  <FormHelperText margin="dense">{helpertext}</FormHelperText>
-                </div>
-              )}
-              {typeof value === 'object' && (
-                <div className={classes.innerCheckBoxContainer}>
-                  {this.renderDeepCheckBox(value, [...keysAccumulator, key])}
-                </div>
-              )}
-            </>
-          );
-        })}
-      </div>
-    );
-  };
-
   onClickAddRestrictedPath = () => {
     this.setState((prevState: State) => {
       const permissions = cloneDeep(prevState.permissions);
@@ -332,7 +236,7 @@ export class CreateRoleDialog extends React.Component<Props, State> {
       : this.state.description;
 
     return (
-      <Dialog open={this.props.open}>
+      <Dialog open={this.props.open} onClose={this.props.onClose}>
         <form onSubmit={this.onSubmit} id="role-creation-form">
           <DialogTitle>{t('forms.role.create.title')}</DialogTitle>
           <DialogContent>
@@ -363,7 +267,25 @@ export class CreateRoleDialog extends React.Component<Props, State> {
             </Typography>
             <div className={classes.marginTop1} />
 
-            <div>{this.renderDeepCheckBox(this.state.permissions, [])}</div>
+            <div className={classes.checkboxesContainer}>
+              {Object.keys(this.state.permissions)
+                .filter((key) => !HIDDEN_PARAMS.includes(key))
+                .map((key) => (
+                  <RecursiveCheckBoxComponent
+                    key={key}
+                    rightKey={key}
+                    checkBoxData={this.state.permissions}
+                    keysAccumulator={[key]}
+                    disabled={this.props.role && !this.props.role.editable}
+                    permissions={this.state.permissions}
+                    updatePermission={(permissions) => {
+                      this.setState({
+                        permissions,
+                      });
+                    }}
+                  />
+                ))}
+            </div>
 
             <div className={classes.marginTop4} />
 
@@ -457,15 +379,6 @@ const styles = (theme: Theme) => ({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-  },
-  innerCheckBoxContainer: {
-    display: 'flex',
-    width: '100%',
-    paddingLeft: theme.spacing(4),
-    borderStyle: 'solid',
-    borderWidth: 0,
-    borderLeftWidth: 1,
-    borderColor: theme.palette.primary.main,
   },
   restrictedPathContainer: {
     display: 'flex',

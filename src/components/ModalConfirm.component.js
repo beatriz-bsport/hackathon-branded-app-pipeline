@@ -14,7 +14,13 @@ import RedButton from '#components/button/RedButton.component';
 
 type Props = {
   open?: boolean,
-  options: { Content: any, cancel: string, confirm: string, title: string },
+  options: {
+    Content: any,
+    cancel: string,
+    confirm: string,
+    title: string,
+    isDeletion?: boolean,
+  },
   t: TFunction,
   handleConfirm: () => void,
   handleCancel: () => void,
@@ -23,6 +29,8 @@ type Props = {
 
 export function ModalConfirm(props: Props) {
   const { t, options, open, handleCancel, handleConfirm } = props;
+  const ValidationButton = options?.isDeletion ? RedButton : Button;
+
   return (
     <Dialog open={open} onClose={handleCancel || (() => {})}>
       {options.title && <DialogTitle>{t(options.title)}</DialogTitle>}
@@ -52,7 +60,7 @@ export function ModalConfirm(props: Props) {
             {t(options.confirm || 'common.confirm')}
           </RedButton>
         ) : (
-          <Button
+          <ValidationButton
             onClick={(ev) => {
               ev.stopPropagation();
               handleConfirm(ev);
@@ -60,7 +68,7 @@ export function ModalConfirm(props: Props) {
             color="primary"
           >
             {t(options.confirm || 'common.confirm')}
-          </Button>
+          </ValidationButton>
         )}
       </DialogActions>
     </Dialog>

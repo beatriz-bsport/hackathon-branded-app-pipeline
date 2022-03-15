@@ -7,12 +7,22 @@ import {
   userRoleDelete,
   roleList,
   roleUpdate,
+  userRoleListPaginated,
 } from './actions';
 
 import type { RoleState } from './types';
 
 const initialState: Immutable.Immutable<RoleState> = Immutable<RoleState>({
   users: [],
+  users_paginated: {
+    next_page: 0,
+    previous_page: 0,
+    count: 0,
+    allIds: [],
+    byId: {},
+    loading: false,
+    error: null,
+  },
   createOrUpdate: {
     loading: false,
     error: null,
@@ -33,39 +43,39 @@ const initialState: Immutable.Immutable<RoleState> = Immutable<RoleState>({
 
 export default handleActions<Immutable.Immutable<RoleState>>(
   {
-    [userRoleList.success]: (state, { payload }) => {
+    [userRoleList.success.toString()]: (state, { payload }) => {
       return state.set('users', payload);
     },
-    [userRoleList.isLoading]: (state, { payload }) => {
+    [userRoleList.isLoading.toString()]: (state, { payload }) => {
       return state.set('loading', payload);
     },
-    [userRoleList.error]: (state, { payload }) => {
+    [userRoleList.error.toString()]: (state, { payload }) => {
       return state.set('error', payload);
     },
-    [userRoleUpdate.success]: (state, { payload }) => {
+    [userRoleUpdate.success.toString()]: (state, { payload }) => {
       const idx = state.users.findIndex((u) => u.id === payload.id);
       const idx_ = idx >= 0 ? idx : state.users.length;
       return state.setIn(['users', idx_], payload);
     },
-    [userRoleUpdate.isLoading]: (state, { payload }) => {
+    [userRoleUpdate.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['createOrUpdate', 'loading'], payload);
     },
-    [userRoleUpdate.error]: (state, { payload }) => {
+    [userRoleUpdate.error.toString()]: (state, { payload }) => {
       return state.setIn(['createOrUpdate', 'error'], payload);
     },
-    [userRoleDelete.success]: (state, { payload }) => {
+    [userRoleDelete.success.toString()]: (state, { payload }) => {
       return state.set(
         'users',
         state.users.filter((u) => u.id !== payload),
       );
     },
-    [roleList.isLoading]: (state, { payload }) => {
+    [roleList.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['role', 'loading'], payload);
     },
-    [roleList.error]: (state, { payload }) => {
+    [roleList.error.toString()]: (state, { payload }) => {
       return state.setIn(['role', 'error'], payload);
     },
-    [roleList.success]: (state, { payload }) => {
+    [roleList.success.toString()]: (state, { payload }) => {
       return state
         .setIn(
           ['role', 'allIds'],
@@ -83,13 +93,13 @@ export default handleActions<Immutable.Immutable<RoleState>>(
           { deep: true },
         );
     },
-    [roleUpdate.isLoading]: (state, { payload }) => {
+    [roleUpdate.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['role', 'createOrUpdate', 'loading'], payload);
     },
-    [roleUpdate.error]: (state, { payload }) => {
+    [roleUpdate.error.toString()]: (state, { payload }) => {
       return state.setIn(['role', 'createOrUpdate', 'error'], payload);
     },
-    [roleUpdate.set]: (state, { payload }) => {
+    [roleUpdate.set.toString()]: (state, { payload }) => {
       const allIds = state.role.allIds.asMutable();
       const index = allIds.findIndex((id) => id === payload.id);
       index === -1 && allIds.push(payload.id);
@@ -97,12 +107,37 @@ export default handleActions<Immutable.Immutable<RoleState>>(
         .setIn(['role', 'allIds'], allIds)
         .setIn(['role', 'byId', payload.id], payload);
     },
-    [roleUpdate.delete]: (state, { payload }) => {
+    [roleUpdate.delete.toString()]: (state, { payload }) => {
       const allIds = state.role.allIds.asMutable();
       const index = allIds.findIndex((id) => id === payload);
       index !== -1 && allIds.splice(index, 1);
       return state.setIn(['role', 'allIds'], allIds);
     },
+
+    [userRoleListPaginated.isLoading.toString()]: (state, { payload }) =>
+      state.setIn(['users_paginated', 'loading'], payload),
+    [userRoleListPaginated.error.toString()]: (state, { payload }) =>
+      state.setIn(['users_paginated', 'error'], payload),
+    [userRoleListPaginated.success.toString()]: (state, { payload }) =>
+      state
+        .setIn(['users_paginated', 'count'], payload.count)
+        .setIn(['users_paginated', 'next_page'], payload.next_page)
+        .setIn(['users_paginated', 'previous_page'], payload.previous_page)
+        .setIn(
+          ['users_paginated', 'allIds'],
+          payload.results.map((r) => r.id),
+        )
+        .merge(
+          {
+            users_paginated: {
+              byId: payload.results.reduce((acc: any, ps: any) => {
+                acc[ps.id] = ps;
+                return acc;
+              }, {}),
+            },
+          },
+          { deep: true },
+        ),
   },
   initialState,
 );

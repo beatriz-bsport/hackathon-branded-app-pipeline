@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import { withProps, withState, compose } from 'recompose';
+
 import Dialog from '@material-ui/core/Dialog';
 import Typography from '@material-ui/core/Typography';
 import DialogContent from '@material-ui/core/DialogContent';

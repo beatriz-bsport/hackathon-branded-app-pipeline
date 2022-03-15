@@ -1,0 +1,64 @@
+// @flow
+import { createSelector } from 'reselect';
+import memoize from 'lodash/memoize';
+import { RootState } from '../../reducers';
+import { UsersPaginatedWithRoleSelector } from '#libs/role/selectors';
+
+const _getClockinState = (state: RootState) => state.clockIn;
+
+export const getLastClockin = (state: RootState) =>
+  _getClockinState(state).lastClockIn;
+
+const _getAttendanceClockinDataByUser = (state: RootState) =>
+  _getClockinState(state).currentAttendance.byUserId;
+
+const _getHistoryClockinData = (state: RootState) =>
+  _getClockinState(state).history.byId;
+
+const _getHistoryClockinList = (state: RootState) =>
+  _getClockinState(state).history.allIds;
+
+const getHistoryDataList = createSelector(
+  [_getHistoryClockinList, _getHistoryClockinData],
+  (list, dict) => list.map((id) => dict[id]),
+);
+
+export const getHistoryClockin = (state: RootState) => ({
+  count: _getClockinState(state).history.count,
+  loading: _getClockinState(state).history.loading,
+  results: getHistoryDataList(state),
+});
+
+export const withRealTimeAttendance = memoize(
+  (selector: (state: RootState) => UsersPaginatedWithRoleSelector) =>
+    createSelector(
+      [selector, _getAttendanceClockinDataByUser],
+      (usersPaginated, attendanceByUserDict) => {
+        if (!usersPaginated?.results) return usersPaginated;
+        return {
+          ...usersPaginated,
+          results: usersPaginated.results.map((u) => ({
+            ...u,
+            attendance: attendanceByUserDict[u.id],
+          })),
+        };
+      },
+    ),
+);
+
+export const withHistoryAttendance = memoize(
+  (selector: (state: RootState) => UsersPaginatedWithRoleSelector) =>
+    createSelector(
+      [selector, getHistoryDataList],
+      (usersPaginated, attendanceHistory) => {
+        if (!usersPaginated?.results) return usersPaginated;
+        return {
+          ...usersPaginated,
+          results: usersPaginated.results.map((u) => ({
+            ...u,
+            history: attendanceHistory?.filter((data) => data.user === u.id),
+          })),
+        };
+      },
+    ),
+);

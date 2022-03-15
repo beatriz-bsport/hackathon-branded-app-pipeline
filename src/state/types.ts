@@ -29,37 +29,39 @@ import { RelationshipState } from '../libs/relationship/types';
 import { BackgroundTaskState } from '../libs/background-task/types';
 import { RootState } from '../reducers';
 import { PerformanceTrackingState } from '#libs/performance-tracking/types';
+import { ClockInState } from '#libs/clock-in/types';
 
 export type State = {
-  paymentRules: PaymentRulesState;
-  stats: StatsState;
-  coach: CoachState;
-  search: SearchState;
-  subscription: SubscriptionState;
-  nav: any; // TODO TYPES
-  paymentPack: PaymentPackState;
-  member: MemberState;
-  booking: BookingsState;
-  order: OrderState;
-  tag: TagState;
-  shop: ShopState;
-  theme: ThemeState;
-  establishment: EstablishmentState;
-  checkout: CheckoutState;
-  coupon: CouponState;
-  login: LoginState;
-  privateService: PrivateServiceState;
-  paymentCombo: PaymentComboState;
-  reminder: ReminderState;
-  membership: MembershipState;
-  company: CompanyState;
-  notificationRule: NotificationRuleState;
-  partnership: PartnershipState;
   backgroundTask: BackgroundTaskState;
-  marketingNotification: MarketingNotificationState;
+  booking: BookingsState;
+  checkout: CheckoutState;
+  clockIn: ClockInState;
+  coach: CoachState;
+  company: CompanyState;
+  coupon: CouponState;
   dashboardSettings: DashboardSettingsState;
-  relationship: RelationshipState;
+  establishment: EstablishmentState;
+  login: LoginState;
+  marketingNotification: MarketingNotificationState;
+  member: MemberState;
+  membership: MembershipState;
+  nav: any; // TODO TYPES
+  notificationRule: NotificationRuleState;
+  order: OrderState;
+  partnership: PartnershipState;
+  paymentCombo: PaymentComboState;
+  paymentPack: PaymentPackState;
+  paymentRules: PaymentRulesState;
   performanceTracking: PerformanceTrackingState;
+  privateService: PrivateServiceState;
+  relationship: RelationshipState;
+  reminder: ReminderState;
+  search: SearchState;
+  shop: ShopState;
+  stats: StatsState;
+  subscription: SubscriptionState;
+  tag: TagState;
+  theme: ThemeState;
 };
 export type Action = SearchAction | AuthAction;
 
@@ -67,7 +69,11 @@ export type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
 export type GetState = () => RootState;
 export type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 export type PromiseAction = Promise<Action>;
-
+export type PaginatedResponse<T = void> = {
+  links: { next: number | null; previous: number | null };
+  next_page: number | null;
+  results: Array<T>;
+};
 export type ErrorAndLoading = {
   loading: boolean;
   error?: Error;
@@ -75,5 +81,10 @@ export type ErrorAndLoading = {
 
 export type OptionCallback<T = void> = {
   onSuccess?: (args?: T) => void;
+  onError?: (error?: Error) => void;
+};
+
+export type OptionPaginatedCallback<T = void> = {
+  onSuccess?: (args?: PaginatedResponse<T>) => void;
   onError?: (error?: Error) => void;
 };

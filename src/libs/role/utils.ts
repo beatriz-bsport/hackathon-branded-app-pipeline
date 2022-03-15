@@ -2,10 +2,10 @@ import { TFunction } from 'i18next';
 import { Permission, Role } from './types';
 
 export const getRoleName = (role: Role, t: TFunction) => {
-  if (role.editable) {
+  if (role?.editable) {
     return role.name;
   }
-  return t(`role:roleDescription.${role.id}.name`);
+  return t(`role:roleDescription.${role?.id}.name`);
 };
 
 export const getRoleDescription = (role: Role, t: TFunction) => {
@@ -22,12 +22,19 @@ export const checkRequiredPermissions = (
 ) => {
   const permissionsStrArray = requiredPermissions.split(',');
 
-  let hasPermissions = true;
+  const checkNestedPermission = (value: Object | boolean): boolean => {
+    if (typeof value === 'boolean') return value;
 
+    return (
+      value &&
+      Object.keys(value).some((key) => checkNestedPermission(value[key]))
+    );
+  };
+
+  let haveRight = true;
   for (let i = 0; i < permissionsStrArray.length; i += 1) {
-    const keysArray = permissionsStrArray[i].split('.');
-
     let obj = permissions;
+    const keysArray = permissionsStrArray[i].split('.');
 
     for (let j = 0; j < keysArray.length; j += 1) {
       const key = keysArray[j];
@@ -37,13 +44,11 @@ export const checkRequiredPermissions = (
       }
       // @ts-ignore;
       obj = obj[key];
+      haveRight = haveRight && checkNestedPermission(obj);
     }
-
-    // @ts-ignore
-    hasPermissions = hasPermissions && obj;
   }
 
-  return hasPermissions;
+  return haveRight;
 };
 
 export const parseRestrictedPath = (p: any) => {

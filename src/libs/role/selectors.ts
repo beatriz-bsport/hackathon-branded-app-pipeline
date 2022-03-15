@@ -5,7 +5,13 @@ import { OWNER_ROLE } from './role-types';
 
 const getRoleState = (state: RootState): RoleState => state.role;
 const getAuthState = (state: RootState) => state.auth;
-
+const _getRoleDict = (state: RootState) => state.role.role.byId;
+const _getUserssPaginatedState = (state: RootState) =>
+  state.role.users_paginated;
+const _getUsersPaginatedAllIds = (state: RootState) =>
+  _getUserssPaginatedState(state).allIds;
+const _getUsersPaginatedData = (state: RootState) =>
+  _getUserssPaginatedState(state).byId;
 const getPermissionForRole = (roleState: RoleState, roleId: number) => {
   if (roleState.role.byId[roleId]) {
     return roleState.role.byId[roleId].permissions;
@@ -41,3 +47,21 @@ export const getUsersWithRole = createSelector(
       permissions: getPermissionForRole(roleState, u.role),
     })),
 );
+
+const getUsersPaginatedState = createSelector(
+  [_getUsersPaginatedAllIds, _getUsersPaginatedData],
+  (allIds, byIds) => allIds.map((id) => byIds[id]),
+);
+const getUsersPaginatedWithRoleState = createSelector(
+  [getUsersPaginatedState, _getRoleDict],
+  (users, roleState) => users.map((u) => ({ ...u, role: roleState[u.role] })),
+);
+export const getUsersPaginatedWithRole = (state: RootState) => ({
+  count: _getUserssPaginatedState(state).count,
+  loading: _getUserssPaginatedState(state).loading,
+  results: getUsersPaginatedWithRoleState(state),
+});
+
+export type UsersPaginatedWithRoleSelector = ReturnType<
+  typeof getUsersPaginatedWithRole
+>;

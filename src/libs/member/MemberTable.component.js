@@ -267,7 +267,7 @@ export class MemberTable extends Component<Props, State> {
                   onChangeRowsPerPage={(event) =>
                     changeRowsPerPage(event.target.value)
                   }
-                  rowsPerPageOptions={[10, 15, 100]}
+                  rowsPerPageOptions={[10, 15, MEMBER_PER_PAGE, 100]}
                 />
               </div>
             </TableRow>

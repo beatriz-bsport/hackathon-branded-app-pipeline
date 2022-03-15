@@ -9,7 +9,7 @@ import {
   updateCompanyRole as updateCompanyRoleAPI,
   deleteCompanyRole as deleteCompanyRoleAPI,
 } from './api';
-import { Dispatch } from '../../state/types';
+import { Dispatch, OptionPaginatedCallback } from '../../state/types';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 import { Permission, Role, UserRoleData } from './types';
 
@@ -17,6 +17,11 @@ export const userRoleList = {
   error: createAction('ROLE/USER/LIST/ERROR'),
   isLoading: createAction('ROLE/USER/LIST/IS_LOADING'),
   success: createAction('ROLE/USER/LIST/SUCCESS'),
+};
+export const userRoleListPaginated = {
+  error: createAction('ROLE/USER/LIST_PAGINATED/ERROR'),
+  isLoading: createAction('ROLE/USER/LIST_PAGINATED/IS_LOADING'),
+  success: createAction('ROLE/USER/LIST_PAGINATED/SUCCESS'),
 };
 
 export const userRoleUpdate = {
@@ -47,7 +52,34 @@ export function fetchCompanyUserRoles() {
     }
   };
 }
+export function fetchCompanyUserRolesPaginated(
+  params: {
+    page: number;
+    page_size: number;
+  },
+  options?: OptionPaginatedCallback<Role>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(userRoleListPaginated.isLoading(true));
+    dispatch(userRoleListPaginated.error(null));
 
+    try {
+      const response = await fetchCompanyUserRolesAPI({
+        ...params,
+        paginated: true,
+      });
+      const data = response.data;
+      dispatch(userRoleListPaginated.success(data));
+      dispatch(userRoleListPaginated.isLoading(false));
+      options?.onSuccess && options.onSuccess(data);
+    } catch (err) {
+      console.error(err);
+      dispatch(userRoleListPaginated.error(err));
+      dispatch(userRoleListPaginated.isLoading(false));
+      options?.onError && options.onError();
+    }
+  };
+}
 export function updateUserRole(userId: number, roleId: number) {
   return async (dispatch: Dispatch) => {
     dispatch(userRoleUpdate.isLoading(true));

@@ -20,7 +20,7 @@ import { DrawerContext, PermissionContext } from '../context';
 import { getAuthToken } from '../http';
 import { getTheme } from '../theme';
 import withSentryErrorReporting from '../hocs/error-boundary.hoc';
-import ResponsiveDrawer from '../components/navigation/ResponsiveDrawer.component';
+import BackofficeDrawer from '../components/navigation/BackofficeDrawer/BackofficeDrawer.component';
 import LoadingBackoffice from '../components/navigation/LoadingBackoffice.component';
 
 import withOpenEvent from '../hocs/tracking/open-event.hoc';
@@ -45,7 +45,11 @@ import { fetchAssociatedCoachesList as fetchAssociatedCoaches } from '../libs/as
 // -----------------------------
 //
 //
-import { getPermissions } from '../libs/role/selectors';
+import {
+  getPermissions,
+  getAllRoles,
+  getUsersPaginatedWithRole,
+} from '../libs/role/selectors';
 import { parseRestrictedPath } from '../libs/role/utils';
 
 import { getTempPasswordState } from '../libs/login/selectors';
@@ -69,7 +73,10 @@ import {
 } from '../actions/auth.actions';
 
 import type { TempPasswordState } from '../libs/login/types';
-import { fetchCompanyRoles } from '../libs/role/actions';
+import {
+  fetchCompanyRoles,
+  fetchCompanyUserRolesPaginated as fetchCompanyUserRolesPaginatedAction,
+} from '../libs/role/actions';
 import GenericDialog from '../components/genericDialog/GenericDialog';
 import { fetchSignFormUpConfiguration } from '../libs/sign-up-form/actions';
 
@@ -82,6 +89,17 @@ import {
 import { BannerProvider } from '../hocs/banner.hoc';
 import withSegmentHistoryTracker from '../components/analytics/segment/with-segment-history-tracking';
 import { getSegmentAnalyticsToWindow } from '../components/analytics/segment/utils';
+
+import {
+  getLastClockin as getLastClockinAction,
+  clockIn as clockInAction,
+  clockOut as clockOutAction,
+  getStaffsAttendanceRealTime as getStaffsAttendanceRealTimeAction,
+} from '#libs/clock-in/actions';
+import {
+  getLastClockin,
+  withRealTimeAttendance,
+} from '#libs/clock-in/selectors';
 
 const MarketingRouter = asyncComponent(() =>
   import('./marketing/Marketing.router'),
@@ -155,10 +173,12 @@ const CustomForm = asyncComponent(() =>
 
 const Giftcard = asyncComponent(() => import('./giftcard/Giftcard.router'));
 
+const ClockIn = asyncComponent(() => import('./clock-in/ClockIn.router'));
+
 type Props = {
   alertings: Array<Alerting>,
   nbAlerting: number,
-  permission: Permission,
+  permissions: Permission,
 
   fetchAccessLevel: (token: string) => void,
   disconnect: () => void,
@@ -219,6 +239,36 @@ type Props = {
     upsell_identifier: number,
     readable_identifier: string,
   }>,
+
+  lastClockin: LastClockIn,
+  roles: Role[],
+  usersPaginatedWithRoles: {
+    loading: boolean,
+    count: number,
+    results: UserCurrentAttendance[],
+  },
+  getStaffsAttendanceRealTime: (params: {
+    page: number,
+    page_size: number,
+  }) => Promise<void>,
+  clockIn: (
+    params: { userId?: number },
+    options?: OptionCallback,
+  ) => Promise<void>,
+  fetchCompanyUserRolesPaginated: (
+    params: {
+      page: number,
+      page_size: number,
+    },
+    options?: OptionPaginatedCallback<Role>,
+  ) => Promise<void>,
+  clockOut: (
+    params: {
+      clockInId: number,
+    },
+    options?: OptionCallback<void>,
+  ) => Promise<void>,
+  getLastClockin: ({}) => Promise<void>,
 };
 
 const BackofficeRoute = withSentryErrorReporting((props) => {
@@ -253,6 +303,7 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
       <Route exact path="/search/results" component={SearchResults} />
       <Route path="/settings/:tab/" component={Settings} />
       <Route path="/coupon" component={Coupon} />
+      <Route path="/clock-in/:tab?" component={ClockIn} />
       <Route path="/spot-scheduling/:id" component={SpotScheduling} />
       <Route path="/empty" component={() => <div />} />
       {(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
@@ -289,6 +340,7 @@ export class Backoffice extends Component<Props, State> {
     this.props.fetchAllCoachPaymentRules();
     this.props.fetchAllCoachPaymentRuleGroups();
     // this.props.fetchAssociatedCoaches();
+    this.props.getLastClockin({});
     this.props.fetchAllPrivateSlots();
     this.props.fetchSignFormUpConfiguration();
     this.props.fetchTags();
@@ -338,18 +390,18 @@ export class Backoffice extends Component<Props, State> {
         !this.props.location.pathname.includes('settings')) ||
       this.props.checkingEmailValidation ||
       this.props.rolesLoading ||
-      !this.props.permission
+      !this.props.permissions
     ) {
       return <LoadingBackoffice />;
     }
 
     if (
-      this.props.permission &&
-      this.props.permission.restrictedPaths &&
-      this.props.permission.restrictedPaths.length
+      this.props.permissions &&
+      this.props.permissions.restrictedPaths &&
+      this.props.permissions.restrictedPaths.length
     ) {
       let navigationIsAuthorized = false;
-      this.props.permission.restrictedPaths.forEach((p) => {
+      this.props.permissions.restrictedPaths.forEach((p) => {
         const cleanedPath = parseRestrictedPath(p);
         navigationIsAuthorized =
           navigationIsAuthorized ||
@@ -358,7 +410,7 @@ export class Backoffice extends Component<Props, State> {
       if (!navigationIsAuthorized) {
         return (
           <Redirect
-            to={parseRestrictedPath(this.props.permission.restrictedPaths[0])}
+            to={parseRestrictedPath(this.props.permissions.restrictedPaths[0])}
           />
         );
       }
@@ -366,7 +418,7 @@ export class Backoffice extends Component<Props, State> {
 
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
-        <PermissionContext.Provider value={this.props.permission}>
+        <PermissionContext.Provider value={this.props.permissions}>
           <DrawerContext.Provider
             value={{
               ...this.state,
@@ -375,7 +427,7 @@ export class Backoffice extends Component<Props, State> {
             }}
           >
             <BannerProvider>
-              <ResponsiveDrawer
+              <BackofficeDrawer
                 logo={this.props.theme ? this.props.theme.cover : null}
                 fetchCashBook={this.props.fetchCashBook}
                 onSpotPaymentReportId={this.props.onSpotPaymentReportId}
@@ -403,14 +455,27 @@ export class Backoffice extends Component<Props, State> {
                 openCalendar={this.props.openCalendar}
                 push={this.props.pushRouter}
                 fetchOnSpotPaymentReport={this.props.fetchOnSpotPaymentReport}
-                permissions={this.props.permission}
+                permissions={this.props.permissions}
                 isFranchisorNavigation={
                   !!window.localStorage.getItem('bsport:franchise:http:token')
                 }
                 navigateBackToFranchisor={this.props.navigateBackToFranchise}
                 companyName={this.props.theme.company_name}
+                name={this.props.name}
                 companyId={this.props.theme.company}
                 featureList={this.props.featureList}
+                lastClockIn={this.props.lastClockin}
+                clockIn={this.props.clockIn}
+                roles={this.props.roles}
+                usersPaginatedWithRoles={this.props.usersPaginatedWithRoles}
+                getStaffsAttendanceRealTime={
+                  this.props.getStaffsAttendanceRealTime
+                }
+                fetchCompanyUserRolesPaginated={
+                  this.props.fetchCompanyUserRolesPaginated
+                }
+                clockOut={this.props.clockOut}
+                getLastClockin={this.props.getLastClockin}
               >
                 {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
                   Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging') &&
@@ -431,7 +496,7 @@ export class Backoffice extends Component<Props, State> {
                       user_id={this.props.username}
                       environment={Config.REACT_APP_SENTRY_ENVIRONMENT || 'dev'}
                       release={RELEASE}
-                      role={this.props.permission.name}
+                      role={this.props.permissions.name}
                       action_color={this.props.theme.primary_color}
                     />
                   )}
@@ -445,7 +510,7 @@ export class Backoffice extends Component<Props, State> {
                 >
                   <BackofficeRoute vodEnabled={this.props.theme?.vod ?? null} />
                 </main>
-              </ResponsiveDrawer>
+              </BackofficeDrawer>
             </BannerProvider>
             <GenericDialog />
           </DrawerContext.Provider>
@@ -506,7 +571,7 @@ export default compose(
       themeLoading: state.theme.loading,
       featureListLoading: state.company.feature.loading,
       checkingEmailValidation: state.login.emailValidation.loading,
-      permission: getPermissions(state),
+      permissions: getPermissions(state),
       onSpotPaymentReportId: state.paymentBackend.onSpotPaymentReport.id,
       is_consumer: state.auth.is_consumer && !state.auth.is_manager,
       featureList: state.company.feature.data.upsell,
@@ -514,6 +579,12 @@ export default compose(
       tempPasswordState: getTempPasswordState(state),
       roleById: state.role.role.byId,
       rolesLoading: state.role.role.loading,
+
+      roles: getAllRoles(state),
+      usersPaginatedWithRoles: withRealTimeAttendance(
+        getUsersPaginatedWithRole,
+      )(state),
+      lastClockin: getLastClockin(state),
 
       isPluginActivated: state.plugin.isPluginActivated,
     }),
@@ -555,6 +626,12 @@ export default compose(
       navigateBackToFranchise: navigateBackToFranchiseAction,
       fetchCompanyCustomMemberForm,
       fetchCompanyCustomSignUp,
+
+      getStaffsAttendanceRealTime: getStaffsAttendanceRealTimeAction,
+      fetchCompanyUserRolesPaginated: fetchCompanyUserRolesPaginatedAction,
+      getLastClockin: getLastClockinAction,
+      clockOut: clockOutAction,
+      clockIn: clockInAction,
     },
   ),
   withHandlers({

@@ -92,7 +92,7 @@ type State = {
   isConnectedAsDialogOpen: boolean,
 };
 
-class ResponsiveDrawer extends React.Component<Props, State> {
+class ConsumerDrawer extends React.Component<Props, State> {
   state = {
     mobileOpen: false,
     open: {},
@@ -770,4 +770,4 @@ export default compose(
   withTranslation(['consumerSpace']),
   withStyles(styles, { withTheme: true }),
   windowTitleToProps,
-)(withRouter(ResponsiveDrawer));
+)(withRouter(ConsumerDrawer));

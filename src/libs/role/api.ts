@@ -4,12 +4,20 @@ import {
   postAuth,
   patchAuth,
   deleteAuth,
+  buildUrlParams,
 } from '../../http';
 import { Role, UserRoleData } from './types';
 import { DeepPartial } from '../../utils/types';
 
-export const fetchCompanyUserRoles = async () => {
-  return getAuth(`${API_V1_URI}/role/user/`);
+export const fetchCompanyUserRoles = async (params?: {
+  paginated?: boolean;
+  page_size?: number;
+  page?: number;
+}) => {
+  if (!params) {
+    return getAuth(`${API_V1_URI}/role/user/`);
+  }
+  return getAuth(`${API_V1_URI}/role/user/${buildUrlParams(params)}`);
 };
 
 export const updateUserRole = async (userId: number, roleId: number) => {

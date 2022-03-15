@@ -62,6 +62,7 @@ import zoomAppReducers from '../libs/zoom-app/reducers';
 import giftcard from '../libs/giftcard/reducers';
 import userPreference from '../libs/user-preference/reducers';
 import expense from '../libs/expense/reducers';
+import ClockinReducer from '../libs/clock-in/reducers';
 
 import pollReducers from '../libs/sign-up-form/reducers';
 import CustomFormReducer from '../libs/custom-form/reducers';
@@ -113,6 +114,7 @@ import { PartnershipState } from '../libs/partnership/types';
 import actionTypes from '../actions/auth.types';
 import { PerformanceTrackingState } from '#libs/performance-tracking/types';
 import { InstalmentPaymentState } from '#libs/instalment-payment-configuration/types';
+import { ClockInState } from '#libs/clock-in/types';
 
 const rootReducer = (history: any) =>
   combineReducers({
@@ -121,6 +123,7 @@ const rootReducer = (history: any) =>
     communication: communicationReducers,
     checkout: checkoutReducers,
     paymentRules: paymentRulesReducer,
+    clockIn: ClockinReducer,
     coachPaymentRules: CoachPaymentRuleReducer,
     consumer: consumerReducers,
     auth: authReducers,
@@ -195,6 +198,7 @@ export type RootState = {
   cashbook: CashBookState;
   category: CategoryState;
   checkout: CheckoutState;
+  clockIn: ClockInState;
   coach: CoachState;
   coachPaymentRules: CoachPaymentRuleState;
   communication: MailState;

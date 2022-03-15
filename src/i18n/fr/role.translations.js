@@ -117,18 +117,111 @@ exports.default = {
       },
       myClub: {
         _label: 'Mon Club',
+        activities: {
+          _label: 'Activités',
+        },
+        workshops: {
+          _label: 'Ateliers',
+        },
+        appointments: {
+          _label: 'Rendez vous',
+        },
+        teachers: {
+          _label: 'Professeurs',
+        },
+        establishments: {
+          _label: 'Etablissements',
+        },
+        programs: {
+          _label: 'Programmes',
+        },
       },
       products: {
         _label: 'Produits',
+        paymentPack: {
+          _label: 'Cartes de cours',
+        },
+        privatePass: {
+          _label: 'Cartes RDV',
+        },
+        shop: {
+          _label: 'Magasin',
+        },
+        packs: {
+          _label: 'Packs',
+        },
+        giftcards: {
+          _label: 'Cartes de cadeaux',
+        },
+        promotions: {
+          _label: 'Promotions',
+        },
+        contracts: {
+          _label: 'Contrats',
+        },
       },
       payments: {
         _label: 'Paiements',
+        billings: {
+          _label: 'Factures',
+        },
+        directDebits: {
+          _label: 'Prélèvements',
+        },
+        orders: {
+          _label: 'Commandes',
+        },
+        expenses: {
+          _label: 'Dépenses',
+        },
+        installments: {
+          _label: 'Payment en plusieurs fois',
+        },
+        teachers: {
+          _label: 'Professeurs',
+        },
+        clockIn: {
+          _label: 'Pointeuse horaire',
+          selfClockIn: {
+            _label: 'Pointer pour soi même',
+          },
+          clockInForOther: {
+            _label: 'Pointer pour un autre staff',
+          },
+          canAccessHistory: {
+            _label: "Accéder à l'historique des horaires",
+          },
+        },
       },
       marketing: {
         _label: 'Marketing',
+        templates: {
+          _label: 'Emails',
+        },
+        customForms: {
+          _label: 'Formulaires',
+        },
+        smartlists: {
+          _label: 'Smartlists',
+        },
+        notifications: {
+          _label: 'Notifications',
+        },
+        strategies: {
+          _label: 'Stratégies',
+        },
+        tags: {
+          _label: 'Tags',
+        },
       },
       digitalOffer: {
         _label: 'Offre digitale',
+        videos: {
+          _label: 'Bibliothèques vidéo',
+        },
+        playlists: {
+          _label: 'Playlist',
+        },
       },
       member: {
         _label: 'Membre',
@@ -138,6 +231,63 @@ exports.default = {
       },
       settings: {
         _label: 'Paramètres',
+        generals: {
+          _label: 'Général',
+        },
+        marketplace: {
+          _label: 'Paramètres marketplace',
+        },
+        widgets: {
+          _label: 'Widget',
+        },
+        staffs: {
+          _label: 'Staff',
+        },
+        personalization: {
+          _label: 'Personnalisation',
+        },
+        memberForms: {
+          _label: 'Formulaire membre',
+        },
+        liveStreaming: {
+          _label: 'Visioconférence',
+        },
+        transactionnalEmail: {
+          _label: 'Emails transactionnels',
+        },
+        teacherPayrollRules: {
+          _label: 'Règles de rémunération',
+        },
+        paymentMethods: {
+          _label: 'Moyen de paiement',
+        },
+        company: {
+          _label: 'Entreprise',
+        },
+        billing: {
+          _label: 'Facturation',
+        },
+        waitingList: {
+          _label: "Liste d'attente",
+        },
+        webShop: {
+          _label: 'Magasin',
+        },
+        webHook: {
+          _label: 'Webhook',
+        },
+        partnership: {
+          _label: 'Partenariat',
+        },
+        quickBooks: {
+          _label: 'QuickBooks',
+        },
+        activeCampaign: {
+          _label: 'ActiveCampaign',
+        },
+        subscription: {
+          _label: 'Abonnement bsport',
+        },
       },
     },
   },

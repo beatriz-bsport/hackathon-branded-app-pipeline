@@ -273,7 +273,10 @@ export const DateField = (props: DateFieldProps) => {
             format="L"
             error={!!(touched && error)}
             label={
-              touched && error && !props.bottomError ? (
+              touched &&
+              error &&
+              !props.outsideErrorDisplay &&
+              !props.bottomError ? (
                 <Typography variant="caption" color="error">
                   {`${props.label}: ${t(error)}`}
                 </Typography>
@@ -282,7 +285,7 @@ export const DateField = (props: DateFieldProps) => {
               )
             }
           />
-          {props.bottomError && (
+          {props.bottomError && !props.outsideErrorDisplay && (
             <ErrorMessage
               {...props}
               render={(message) => (
@@ -327,7 +330,7 @@ export const TimeField = (props: TimeFieldProps) => {
               format="LT"
               error={!!(touched && error)}
               label={
-                touched && error ? (
+                touched && error && !props.outsideErrorDisplay ? (
                   <Typography variant="caption" color="error">
                     {t(error)}
                   </Typography>

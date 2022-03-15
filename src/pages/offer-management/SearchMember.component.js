@@ -12,7 +12,7 @@ import Paper from '@material-ui/core/Paper';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import DelayedTextField from '../../components/DelayedTextField.component';
-import Permission from '../../libs/role/types';
+import { Permission } from '../../libs/role/types';
 
 type Props = {
   classes: Object,

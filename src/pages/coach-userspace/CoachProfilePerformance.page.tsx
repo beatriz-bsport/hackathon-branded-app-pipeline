@@ -1,5 +1,5 @@
 import React from 'react';
-
+import type { Moment as MomentType } from 'moment';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withStateHandlers, withState, withHandlers } from 'recompose';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -22,6 +22,7 @@ import {
 } from '#libs/coach-payment-rules/actions';
 import withTitle from '#hocs/with-title.hoc';
 import { OptionCallback } from '../../state/types';
+import { WithHandlerType } from '../../utils/types';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -49,8 +50,9 @@ type stateHandlerType = {
   setFormDates: (dates: { dateStart: number; dateEnd: number }) => void;
 };
 
-type Props = OwnProps &
-  ConnectedProps<typeof connector> &
+type OwnAndConnectedProps = OwnProps & ConnectedProps<typeof connector>;
+type Props = OwnAndConnectedProps &
+  WithHandlerType<typeof mapWithHandlers> &
   WithStyles<typeof styles> &
   WithTranslation;
 
@@ -61,6 +63,7 @@ export const CoachProfilePerformance: React.FC<Props> = (props: Props) => {
     onSubmit,
     coachWithPerformance,
     performanceLoading,
+    handleDateFiltersChange,
   } = props;
   return (
     <div className={classes.container}>
@@ -68,6 +71,7 @@ export const CoachProfilePerformance: React.FC<Props> = (props: Props) => {
         <CoachPerformanceForm
           onSubmit={onSubmit}
           loading={loading || performanceLoading}
+          handleDateFiltersChange={handleDateFiltersChange}
           hideExport
         />
       </AppBar>
@@ -95,7 +99,7 @@ export const CoachProfilePerformance: React.FC<Props> = (props: Props) => {
 
 const mapWithHandlers = {
   onSubmit:
-    (props: stateHandlerType & ConnectedProps<typeof connector>) =>
+    (props: OwnAndConnectedProps & stateHandlerType) =>
     async (
       data: { dateStart: moment.Moment; dateEnd: moment.Moment },
       options: OptionCallback,
@@ -126,6 +130,20 @@ const mapWithHandlers = {
       ];
       await Promise.all(promises);
       props.setPerformanceLoading(false);
+    },
+  handleDateFiltersChange:
+    ({ setFormDates }: OwnAndConnectedProps & stateHandlerType) =>
+    async (
+      data: { dateStart: MomentType; dateEnd: MomentType },
+      options: OptionCallback,
+    ) => {
+      const { dateStart, dateEnd } = data;
+
+      setFormDates({
+        dateStart: dateStart.unix(),
+        dateEnd: dateEnd.unix(),
+      });
+      if (options?.onSuccess) options.onSuccess();
     },
 };
 const connector = connect(

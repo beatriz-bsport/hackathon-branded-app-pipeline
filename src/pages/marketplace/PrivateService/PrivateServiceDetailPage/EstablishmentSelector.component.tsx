@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Fade, Typography } from '@material-ui/core';
+
+import { Fade, Typography, Theme } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import {
@@ -18,10 +19,12 @@ type Props = {
   onSelect: (establishments: Establishment) => void;
 };
 
-const EstablishmentSelector: React.FC<Props> = (props) => {
-  const { privateService, privateSlot, selectedEstablishments, onSelect } =
-    props;
-
+const EstablishmentSelector: React.FC<Props> = ({
+  privateService,
+  privateSlot,
+  selectedEstablishments,
+  onSelect,
+}) => {
   const isEstablishmentSelected = useCallback(
     (establishment) => {
       return (
@@ -61,7 +64,7 @@ const EstablishmentSelector: React.FC<Props> = (props) => {
   );
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   container: {
     marginTop: theme.spacing(2),
     display: 'flex',

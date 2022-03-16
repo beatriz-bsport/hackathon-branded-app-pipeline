@@ -1,7 +1,9 @@
 import { createAction } from 'redux-actions';
 import moment from 'moment-timezone';
 import uniq from 'lodash/uniq';
+import axios from 'axios';
 
+import { RootState } from '../../reducers';
 import {
   snackbarSuccess,
   snackbarError,
@@ -18,6 +20,7 @@ import {
   enableResourceAvailabilitySlot as enableResourceAvailabilitySlotAPI,
   enableAvailabilitySlotMultipleResource as enableAvailabilitySlotMultipleResourceAPI,
   searchAvailableSlots as searchAvailableSlotsAPI,
+  searchFirstvailableSlots as searchFirstvailableSlotsAPI,
   // private-service
   fetchAllPrivateServices as fetchAllPrivateServicesAPI,
   fetchPrivateService as fetchPrivateServiceAPI,
@@ -1084,19 +1087,20 @@ export function searchAvailableSlots(
     dispatch(availabilitySlotSearchActions.error(null));
     try {
       const dateArr = Array.isArray(date) ? date : [date];
-      let result: any[] = [];
 
-      for (let i = 0; i < dateArr.length; i += 1) {
-        const response = await searchAvailableSlotsAPI(
-          privateServiceId,
-          privateSlotId,
-          associatedCoachIdList,
-          dateArr[i],
-          associatedEstablishmentIdList,
-        );
+      const responses = await Promise.all(
+        dateArr.map((_date) =>
+          searchAvailableSlotsAPI(
+            privateServiceId,
+            privateSlotId,
+            associatedCoachIdList,
+            _date,
+            associatedEstablishmentIdList,
+          ),
+        ),
+      );
 
-        result = [...result, ...response.data];
-      }
+      const result = responses.flatMap((response) => response.data);
 
       dispatch(availabilitySlotSearchActions.success(result));
       if (options && options.onSuccess) options.onSuccess(result);
@@ -1106,6 +1110,64 @@ export function searchAvailableSlots(
       if (options && options.onError) options.onError(err);
     }
     dispatch(availabilitySlotSearchActions.isLoading(false));
+  };
+}
+
+export const searchFirstAvailableSlotsActions = {
+  error: createAction('AVAILABILITY_SLOT/NEXT/ERROR'),
+  isLoading: createAction('AVAILABILITY_SLOT/NEXT/IS_LOADING'),
+  success: createAction('AVAILABILITY_SLOT/NEXT/SUCCESS'),
+  reset: createAction('AVAILABILITY_SLOT/NEXT/RESET'),
+  setCancellationToken: createAction('AVAILABILITY_SLOT/NEXT/TOKEN'),
+};
+
+export function searchFirstAvailableSlots(
+  privateServiceId: number,
+  privateSlotId: number,
+  associatedCoachIdList: Array<number>,
+  associatedEstablishmentIdList: Array<number>,
+  options?: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
+    try {
+      dispatch(searchFirstAvailableSlotsActions.reset());
+
+      if (getState()?.privateService?.availabilitySlot?.next?.cancelToken) {
+        const prevCancelationToken =
+          getState()?.privateService?.availabilitySlot?.next?.cancelToken;
+        prevCancelationToken.cancel();
+      }
+
+      const CancelToken = axios.CancelToken;
+      const source = CancelToken.source();
+      dispatch(searchFirstAvailableSlotsActions.setCancellationToken(source));
+      dispatch(searchFirstAvailableSlotsActions.isLoading(true));
+      dispatch(searchFirstAvailableSlotsActions.error(null));
+
+      const response = await searchFirstvailableSlotsAPI(
+        privateServiceId,
+        privateSlotId,
+        associatedCoachIdList,
+        associatedEstablishmentIdList,
+        source.token,
+      );
+
+      dispatch(
+        searchFirstAvailableSlotsActions.success(response?.data ?? null),
+      );
+      dispatch(searchFirstAvailableSlotsActions.isLoading(false));
+      dispatch(searchFirstAvailableSlotsActions.setCancellationToken());
+
+      if (options && options.onSuccess)
+        options.onSuccess(response?.data ?? null);
+    } catch (err) {
+      if (err?.__CANCEL__) return;
+      console.error(err);
+      dispatch(searchFirstAvailableSlotsActions.error(err));
+      dispatch(searchFirstAvailableSlotsActions.setCancellationToken());
+      dispatch(searchFirstAvailableSlotsActions.isLoading(false));
+      if (options && options.onError) options.onError(err);
+    }
   };
 }
 

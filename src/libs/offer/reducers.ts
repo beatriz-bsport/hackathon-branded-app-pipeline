@@ -17,6 +17,7 @@ import {
   offerStatusActions,
   listRegisteredIds,
   numberOfMassDisabledOfferRetrieveActions,
+  offerNextActions,
 } from './actions';
 import { OfferState } from './types';
 
@@ -58,6 +59,11 @@ const initialState: Immutable.Immutable<OfferState> = Immutable<OfferState>({
   managerFilter: {
     open: false,
     filters: {},
+  },
+  next: {
+    item: null,
+    loading: false,
+    error: null,
   },
 
   marketplace: {
@@ -221,6 +227,15 @@ export default handleActions<Immutable.Immutable<OfferState>>(
       { payload },
     ) => {
       return state.setIn(['marketplace', 'loading'], payload);
+    },
+    [offerNextActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['next', 'error'], payload);
+    },
+    [offerNextActions.isLoading.toString()]: (state, { payload }) => {
+      return state.setIn(['next', 'loading'], payload);
+    },
+    [offerNextActions.success.toString()]: (state, { payload }) => {
+      return state.setIn(['next', 'item'], payload);
     },
     [offerBulkActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['bulk', 'error'], payload);

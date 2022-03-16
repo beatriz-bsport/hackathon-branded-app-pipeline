@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { compose, withHandlers } from 'recompose';
 import { RouteChildrenProps, withRouter } from 'react-router';
 import { push, replace as replaceRouter } from 'connected-react-router';
-import withStyles from '@material-ui/core/styles/withStyles';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import isEqual from 'lodash/isEqual';
 import moment from 'moment-timezone';
-
 import { TFunction } from 'i18next';
+
+import withStyles from '@material-ui/core/styles/withStyles';
 import withQueryParams from '#hocs/with-query-params.hoc';
 import withReplaceQueryParams from '#hocs/with-replace-query-params.hoc';
 import { addItemToBasket as addItemToBasketAction } from '#libs/checkout/actions';
@@ -35,6 +35,7 @@ import {
 
 import {
   fetchMarketplaceOfferList as fetchOfferListAction,
+  fetchNextAvailableOffer as fetchNextAvailableOfferAction,
   fetchBookedGender as fetchBookedGenderAction,
   fetchOfferRegisteredIds as fetchOfferRegisteredIdsAction,
 } from '#libs/offer/actions';
@@ -45,6 +46,7 @@ import {
   withEstablishment,
   withGender,
   getBookedOffers,
+  getNextAvailableOffer,
 } from '#libs/offer/selectors';
 import { fetchAssociatedCoachBulkFromCoachIds as fetchAssociatedCoachBulkFromCoachIdsAction } from '#libs/associated-coach/actions';
 import {
@@ -59,7 +61,7 @@ import withTitle from '#hocs/with-title.hoc';
 import Analytics from '#components/analytics/Analytics.component';
 import { RootState } from '../../reducers';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
-import { OfferFilterData } from '#libs/offer/types';
+import { Offer, OfferFilterData } from '#libs/offer/types';
 import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
 
 type OwnProps = {
@@ -88,6 +90,7 @@ type OwnProps = {
   goToBookOption?: (id: number, companyId: number) => void;
   store?: any; // for the widget only
   mapContainerClassName?: string;
+  nextAvailableOffer?: Offer;
   authenticated?: boolean;
 };
 
@@ -143,6 +146,26 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
 
     this.props.fetchMetaActivityBulk(this.props.filters.activity__in || []);
 
+    this.props.fetchNextAvailableOffer(
+      {
+        company: this.props.companyId,
+        ...this.props.filters,
+        ...optionalParams,
+      },
+      {
+        onSuccess: (result) => {
+          if (
+            // only redirect in list mode otherwise the user will be lost
+            this.props.compactMode &&
+            moment(this.props.otherParams.date)
+              .startOf('week')
+              .isBefore(moment(result?.date_start).startOf('week'))
+          ) {
+            this.props.setOtherParams('date')(result?.date_start);
+          }
+        },
+      },
+    );
     this.props.fetchOfferList({
       company: this.props.companyId,
       min_date,
@@ -208,6 +231,12 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     this.props.setOtherParams('filtersOpen')(
       this.props.otherParams.filtersOpen === 'true' ? '' : 'true',
     );
+  };
+
+  goToFirstAvailableSession = () => {
+    if (this.props.nextAvailableOffer.date_start) {
+      this.handleDateChange(this.props.nextAvailableOffer.date_start);
+    }
   };
 
   render() {
@@ -281,6 +310,8 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           establishmentGroupList={establishmentGroupList}
           showMultiLocalization={this.props.theme.enable_multi_localization}
           bookedOffers={this.props.bookedOffers}
+          nextAvailableOffer={this.props.nextAvailableOffer}
+          goToFirstAvailableSession={this.goToFirstAvailableSession}
         />
       </div>
     );
@@ -312,12 +343,14 @@ const mapStateToProps = (state: RootState) => ({
     getAssociatedEstablishmentGroup,
   )(state),
   bookedOffers: getBookedOffers(state),
+  nextAvailableOffer: getNextAvailableOffer(state),
   authenticated: state.auth.authenticated,
 });
 
 const mapDispatchToProps = {
   snackbarError: snackbarErrorActions,
   snackbarSuccess: snackbarSuccessActions,
+  fetchNextAvailableOffer: fetchNextAvailableOfferAction,
   fetchOfferList: fetchOfferListAction,
   fetchEstablishmentBulk: fetchEstablishmentBulkAction,
   fetchAssociatedCoachBulkFromCoachIds:

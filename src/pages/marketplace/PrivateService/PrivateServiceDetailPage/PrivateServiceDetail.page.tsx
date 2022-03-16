@@ -12,6 +12,7 @@ import {
   fetchMarketplacePrivateSlots as fetchMarketplacePrivateSlotsAction,
   fetchPrivateService as fetchPrivateServiceAction,
   searchAvailableSlots as searchAvailableSlotsAction,
+  searchFirstAvailableSlots as searchFirstAvailableSlotsAction,
 } from '../../../../libs/private-service/actions';
 import {
   getPrivateService,
@@ -22,7 +23,10 @@ import {
 import { fetchAssociatedEstablishmentBulk as fetchAssociatedEstablishmentBulkAction } from '../../../../libs/establishment/actions';
 import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../../../libs/associated-coach/actions';
 
-import { getSearchedSlots } from '../../../../libs/private-service/selectors/availability-slot';
+import {
+  getNextDateAvailableSlot,
+  getSearchedSlots,
+} from '../../../../libs/private-service/selectors/availability-slot';
 import PrivateSlotSelector from './PrivateSlotSelector.component';
 import CoachSelector from './CoachSelector.component';
 import EstablishmentSelector from './EstablishmentSelector.component';
@@ -100,10 +104,13 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
     fetchAssociatedEstablishmentBulk,
     fetchAssociatedCoachBulk,
     searchAvailableSlots,
+    searchFirstAvailableSlots,
     push,
     _privateService,
     privateService,
     availabilitySlotByDate,
+    nextDateAvailableSlot,
+    nextAvailableSlotLoading,
     availabilitySlot,
     availableSlotsLoading,
     theme,
@@ -184,12 +191,27 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
     setSelectedSessionMoment(null);
   }, [numberOfDayToShow]);
 
+  useEffect(() => {
+    if (privateService && selectedSlot) {
+      searchFirstAvailableSlots(
+        privateService.id,
+        selectedSlot.id,
+        selectedCoaches.map((c) => c.id),
+        selectedEstablishments.map((e) => e.id),
+      );
+    }
+  }, [
+    privateService,
+    selectedSlot,
+    selectedEstablishments,
+    selectedCoaches,
+    searchFirstAvailableSlots,
+  ]);
+
   const onPrivateSlotSelect = useCallback(
     (slot: PrivateSlot) => {
       setSelectedSlot(slot);
-      // @ts-ignore
       setSelectedCoaches([...privateService.coaches]);
-      // @ts-ignore
       setSelectedEstablishments([...privateService.establishments]);
       setSelectedSessionMoment(null);
     },
@@ -323,6 +345,8 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
               onSessionMomentSelect={onSessionMomentSelect}
               selectedSessionMoment={selectedSessionMoment}
               onDateChange={onDateChange}
+              nextDateAvailableSlot={nextDateAvailableSlot}
+              nextAvailableSlotLoading={nextAvailableSlotLoading}
             />
           )}
 
@@ -398,6 +422,8 @@ const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
     withSlots(withAssociatedEstablishment(getPrivateService)),
   )(state, ownProps.serviceId),
   availabilitySlotByDate: getSearchedSlots(state),
+  nextDateAvailableSlot: getNextDateAvailableSlot(state),
+  nextAvailableSlotLoading: state.privateService.availabilitySlot.next.loading,
   availabilitySlot: state.privateService.availabilitySlot.searched.items,
   availableSlotsLoading: state.privateService.availabilitySlot.searched.loading,
   theme: state.theme.theme,
@@ -409,6 +435,7 @@ const mapDispatchToProps = {
   fetchAssociatedEstablishmentBulk: fetchAssociatedEstablishmentBulkAction,
   fetchAssociatedCoachBulk: fetchAssociatedCoachBulkAction,
   searchAvailableSlots: searchAvailableSlotsAction,
+  searchFirstAvailableSlots: searchFirstAvailableSlotsAction,
   push: pushAction,
 };
 

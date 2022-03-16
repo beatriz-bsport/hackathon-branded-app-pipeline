@@ -316,6 +316,30 @@ export const offerMarketplaceListActions = {
   success: createAction('OFFER/MARKETPLACE/SUCCESS'),
 };
 
+const createOfferFilter = (filters: OfferFilterData | OfferFilter) => {
+  if (!filters) return {};
+  const filterData: OfferFilterData = {};
+  // do not delete this, migration
+  if (filters) {
+    if (filters.establishments && filters.establishments.length > 0) {
+      filterData.establishment__in = filters.establishments;
+    }
+    if (filters.coaches && filters.coaches.length > 0) {
+      filterData.coach__in = filters.coaches;
+    }
+    if (filters.metaActivities && filters.metaActivities.length > 0) {
+      filterData.activity__in = filters.metaActivities;
+    }
+    if (filters.levels && filters.levels.length > 0) {
+      filterData.level__in = filters.levels;
+    }
+    if (filters.establishmentGroups && filters.establishmentGroups.length > 0) {
+      filterData.establishment_group__in = filters.establishmentGroups;
+    }
+  }
+  return filterData;
+};
+
 export function fetchMarketplaceOfferList(
   params: {
     company: number;
@@ -330,36 +354,14 @@ export function fetchMarketplaceOfferList(
   return async (dispatch: Dispatch) => {
     dispatch(offerMarketplaceListActions.error(null));
     dispatch(offerMarketplaceListActions.isLoading(true));
+    const { filters } = params;
 
     try {
-      const filterData: OfferFilterData = {};
-      const { filters } = params;
-      // do not delete this, migration
-      if (filters) {
-        if (filters.establishments && filters.establishments.length > 0) {
-          filterData.establishment__in = filters.establishments;
-        }
-        if (filters.coaches && filters.coaches.length > 0) {
-          filterData.coach__in = filters.coaches;
-        }
-        if (filters.metaActivities && filters.metaActivities.length > 0) {
-          filterData.activity__in = filters.metaActivities;
-        }
-        if (filters.levels && filters.levels.length > 0) {
-          filterData.level__in = filters.levels;
-        }
-        if (
-          filters.establishmentGroups &&
-          filters.establishmentGroups.length > 0
-        ) {
-          filterData.establishment_group__in = filters.establishmentGroups;
-        }
-      }
       // eslint-disable-next-line
       delete params.filters;
       const response = await fetchOffersListAPI({
         ...params,
-        ...filterData,
+        ...createOfferFilter(filters),
       });
       dispatch(offerMarketplaceListActions.success(response.data.results));
       if (options && options.onSuccess) {
@@ -373,6 +375,52 @@ export function fetchMarketplaceOfferList(
     }
 
     dispatch(offerMarketplaceListActions.isLoading(false));
+  };
+}
+
+export const offerNextActions = {
+  isLoading: createAction('OFFER/NEXT/IS_LOADING'),
+  error: createAction('OFFER/NEXT/ERROR'),
+  success: createAction('OFFER/NEXT/SUCCESS'),
+};
+
+export function fetchNextAvailableOffer(
+  params: {
+    company: number;
+    filters: OfferFilterData | OfferFilter;
+    is_workshop?: boolean;
+    available?: boolean;
+  },
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(offerNextActions.error(null));
+      dispatch(offerNextActions.isLoading(true));
+      const { filters } = params;
+
+      // eslint-disable-next-line
+      delete params.filters;
+      const response = await fetchOffersListAPI({
+        only_future: true,
+        ...params,
+        ...createOfferFilter(filters),
+        page_size: 1,
+        page: 1,
+      });
+
+      dispatch(offerNextActions.success(response.data?.results?.[0] ?? null));
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data?.results?.[0] ?? null);
+      }
+    } catch (error) {
+      dispatch(offerNextActions.error(error));
+
+      console.error(error);
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(offerNextActions.isLoading(false));
   };
 }
 

@@ -131,6 +131,9 @@ export type OfferState = ErrorAndLoading & {
     lastFetched: Date | null;
     next_page: number;
   };
+  next: ErrorAndLoading & {
+    item?: Offer;
+  };
   compatiblePacks: ErrorAndLoading & { items: any[]; lastFetched: Date | null };
   marketplace: ErrorAndLoading & { allIds: number[] };
   genderCount: ErrorAndLoading & {

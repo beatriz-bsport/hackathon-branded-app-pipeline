@@ -224,3 +224,6 @@ export const getSlotsByResourceIdentifier = (state, identifier) =>
       .filter((a) => a.resource_identifier === identifier)
       .map((a) => a.slots),
   );
+
+export const getNextDateAvailableSlot = (state: RootState) =>
+  state.privateService.availabilitySlot.next.date;

@@ -1,11 +1,16 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { withTranslation, TFunction } from 'react-i18next';
 import memoize from 'memoize-one';
+
+import withStyles from '@material-ui/core/styles/withStyles';
 import withWidth from '@material-ui/core/withWidth';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+import WarningIcon from '@material-ui/icons/Warning';
+import Typography from '@material-ui/core/Typography';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import { Moment } from '../../../i18n';
 
 import Calendar from '../../../components/offer/Calendar.component';
@@ -54,8 +59,12 @@ type Props = {
   showOfferGender?: boolean,
   establishmentGroupList: Array<EstablishmentGroup>,
   showMultiLocalization: boolean,
+  nextAvailableOffer: Offer,
+  goToFirstAvailableSession: () => void,
   bookedOffers?: number[],
+  t: TFunction,
 };
+
 const getEventsFrom = memoize((offers) => {
   const events = {};
   offers.forEach((o) => {
@@ -84,8 +93,10 @@ export class MarketplaceCalendar extends PureComponent<Props> {
       forceDayDisplayOnly,
       compactMode,
       width,
+      nextAvailableOffer,
     } = this.props;
 
+    const noOfferDisplayed = !loading && this.props.offers?.length === 0;
     // compact calendar
     const isCompact =
       (compactMode != null && compactMode === true) ||
@@ -131,8 +142,9 @@ export class MarketplaceCalendar extends PureComponent<Props> {
         showMultiLocalization={this.props.showMultiLocalization}
       />
     );
+
     return (
-      <div className={classes.container}>
+      <div className={classes.wrapper}>
         <Calendar
           forceMonthDisplay={false}
           clickableDate={isCompact}
@@ -150,50 +162,149 @@ export class MarketplaceCalendar extends PureComponent<Props> {
         />
         {
           // eslint-disable-next-line
-          loading ? (
-            <LoadingIndicator />
-          ) : isCompact && !isLarge ? (
-            <MarketplaceTimetable
-              showOfferFilling={this.props.showOfferFilling}
-              showOfferGender={this.props.showOfferGender}
-              hideCoach={this.props.hideCoach}
-              offers={this.props.offers}
-              date={selectedDate}
-              onClickOffer={this.props.onClickOffer}
-              onClickBook={this.props.onClickBook}
-              onClickBookOption={this.props.onClickBookOption}
-              onSelectDate={onSelectDate}
-              coachLoading={this.props.coachLoading}
-              establishmentLoading={this.props.establishmentLoading}
-              activityLoading={this.props.activityLoading}
-              bookedOffers={this.props.bookedOffers}
-            />
-          ) : (
-            <MarketplaceWeekTimetable
-              offers={this.props.offers}
-              showOfferFilling={this.props.showOfferFilling}
-              showOfferGender={this.props.showOfferGender}
-              hideCoach={this.props.hideCoach}
-              date={selectedDate}
-              onClickOffer={this.props.onClickOffer}
-              onClickBook={this.props.onClickBook}
-              onClickBookOption={this.props.onClickBookOption}
-              coachLoading={this.props.coachLoading}
-              establishmentLoading={this.props.establishmentLoading}
-              activityLoading={this.props.activityLoading}
-              bookedOffers={this.props.bookedOffers}
-            />
-          )
+          loading && <LoadingIndicator />
         }
+        {!loading && (
+          <div>
+            {noOfferDisplayed &&
+              Object.keys(filters).length > 0 &&
+              nextAvailableOffer &&
+              Moment(nextAvailableOffer.date_start).isBefore(
+                Moment(selectedDate),
+              ) && (
+                <div className={classes.helperText}>
+                  <ButtonBase onClick={this.props.goToFirstAvailableSession}>
+                    <Typography color="primary">
+                      {this.props.t('slotSearcher.previousOffer', {
+                        date: Moment(nextAvailableOffer.date_start).format('L'),
+                        hour: Moment(nextAvailableOffer.date_start).format(
+                          'LT',
+                        ),
+                      })}
+                    </Typography>
+                  </ButtonBase>
+                </div>
+              )}
+            {isCompact && !isLarge ? (
+              <MarketplaceTimetable
+                showOfferFilling={this.props.showOfferFilling}
+                showOfferGender={this.props.showOfferGender}
+                hideCoach={this.props.hideCoach}
+                offers={this.props.offers}
+                date={selectedDate}
+                onClickOffer={this.props.onClickOffer}
+                onClickBook={this.props.onClickBook}
+                onClickBookOption={this.props.onClickBookOption}
+                onSelectDate={onSelectDate}
+                coachLoading={this.props.coachLoading}
+                establishmentLoading={this.props.establishmentLoading}
+                activityLoading={this.props.activityLoading}
+                bookedOffers={this.props.bookedOffers}
+              />
+            ) : (
+              <MarketplaceWeekTimetable
+                offers={this.props.offers}
+                showOfferFilling={this.props.showOfferFilling}
+                showOfferGender={this.props.showOfferGender}
+                hideCoach={this.props.hideCoach}
+                date={selectedDate}
+                onClickOffer={this.props.onClickOffer}
+                onClickBook={this.props.onClickBook}
+                onClickBookOption={this.props.onClickBookOption}
+                coachLoading={this.props.coachLoading}
+                establishmentLoading={this.props.establishmentLoading}
+                activityLoading={this.props.activityLoading}
+                bookedOffers={this.props.bookedOffers}
+              />
+            )}
+            {noOfferDisplayed && (
+              <div className={classes.container}>
+                {!nextAvailableOffer && (
+                  <div className={classes.emptyStateWrapper}>
+                    <div className={classes.emptyState}>
+                      <WarningIcon className={classes.warning} />
+                      <Typography>
+                        {this.props.t('slotSearcher.emptyState')}
+                      </Typography>
+                    </div>
+                  </div>
+                )}
+                {nextAvailableOffer && (
+                  <div className={classes.emptyStateWrapper}>
+                    <div className={classes.emptyState}>
+                      <EventAvailableIcon
+                        color="primary"
+                        className={classes.icon}
+                      />
+                      <ButtonBase
+                        onClick={this.props.goToFirstAvailableSession}
+                      >
+                        <Typography className={classes.link}>
+                          {this.props.t('slotSearcher.nextOffer', {
+                            date: Moment(nextAvailableOffer.date_start).format(
+                              'L',
+                            ),
+                            hour: Moment(nextAvailableOffer.date_start).format(
+                              'LT',
+                            ),
+                          })}
+                        </Typography>
+                      </ButtonBase>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     );
   }
 }
 
-const styles = () => ({
-  container: {
+const styles = (theme) => ({
+  wrapper: {
     width: '100%',
+  },
+  container: {
+    position: 'relative',
+    width: '100%',
+    height: 200,
+  },
+  helperText: {
+    marginBotttom: theme.spacing(2),
+  },
+  link: {
+    color: theme.palette.primary.main,
+  },
+  icon: {
+    marginRight: theme.spacing(2),
+  },
+  emptyStateWrapper: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    top: 0,
+    left: 0,
+    borderRadius: 4,
+  },
+  emptyState: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(2),
+    backgroundColor: 'white',
+    borderRadius: 5,
+  },
+  warning: {
+    fill: theme.palette.warning.main,
+    marginRight: theme.spacing(2),
   },
 });
 
-export default withStyles(styles)(withWidth()(MarketplaceCalendar));
+export default withStyles(styles)(
+  withWidth()(withTranslation('privateService')(MarketplaceCalendar)),
+);

@@ -1,5 +1,7 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import moment from 'moment-timezone';
+
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Typography,
@@ -10,7 +12,9 @@ import {
 } from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import moment from 'moment-timezone';
+import WarningIcon from '@material-ui/icons/Warning';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 
 import SlotCalendarDay from './SlotCalendarDay.component';
 import {
@@ -33,24 +37,26 @@ type Props = {
   selectedDate: string;
   numberOfDayToShow: number;
   selectedSessionMoment: SessionMoment;
+  nextAvailableSlotLoading: boolean;
+  nextDateAvailableSlot: string;
   onSessionMomentSelect: (sessionItem: SessionMoment) => void;
   onDateChange: (date: string) => void;
 };
 
-const SlotCalendar: React.FC<Props> = (props) => {
-  const {
-    privateSlot,
-    privateService,
-    availabilitySlotByDate,
-    availableSlotsLoading,
-    timezoneName,
-    selectedDate,
-    numberOfDayToShow,
-    selectedSessionMoment,
-    onSessionMomentSelect,
-    onDateChange,
-  } = props;
-
+const SlotCalendar: React.FC<Props> = ({
+  privateSlot,
+  privateService,
+  availabilitySlotByDate,
+  availableSlotsLoading,
+  timezoneName,
+  selectedDate,
+  numberOfDayToShow,
+  selectedSessionMoment,
+  nextDateAvailableSlot,
+  nextAvailableSlotLoading,
+  onSessionMomentSelect,
+  onDateChange,
+}) => {
   const selectPreviousDay = useCallback(() => {
     const date = moment(selectedDate)
       .add(-numberOfDayToShow, 'days')
@@ -67,19 +73,51 @@ const SlotCalendar: React.FC<Props> = (props) => {
     onDateChange(date);
   }, [selectedDate, numberOfDayToShow, onDateChange]);
 
+  const goToFirstAvailableSession = () => {
+    onDateChange(
+      numberOfDayToShow === 7
+        ? moment(nextDateAvailableSlot)
+            .tz(timezoneName)
+            .startOf('week')
+            .format('YYYY-MM-DD')
+        : nextDateAvailableSlot,
+    );
+  };
+
   const dates = [];
 
   for (let i = 0; i < numberOfDayToShow; i += 1) {
     dates.push(moment(selectedDate).tz(timezoneName).add(i, 'days'));
   }
 
-  const classes = useStyles(props);
+  const classes = useStyles({ privateSlot });
   const { t } = useTranslation('privateService');
+  const noSlotAvailable = Object.keys(availabilitySlotByDate).length === 0;
 
   return (
     <Fade in timeout={500}>
       <div className={classes.container}>
         <Typography variant="h5">{t('slotSearcher.search')}</Typography>
+        {privateSlot &&
+          nextDateAvailableSlot !== null &&
+          moment(nextDateAvailableSlot)
+            .tz(timezoneName)
+            .isBefore(moment(selectedDate).tz(timezoneName)) && (
+            <div className={classes.helperText}>
+              <ButtonBase onClick={goToFirstAvailableSession}>
+                <Typography color="primary">
+                  {t('slotSearcher.previousOffer', {
+                    date: moment(nextDateAvailableSlot)
+                      .tz(timezoneName)
+                      .format('L'),
+                    hour: moment(nextDateAvailableSlot)
+                      .tz(timezoneName)
+                      .format('LT'),
+                  })}
+                </Typography>
+              </ButtonBase>
+            </div>
+          )}
         <Paper className={classes.container2}>
           <div className={classes.calendarToolbar}>
             <IconButton
@@ -131,6 +169,48 @@ const SlotCalendar: React.FC<Props> = (props) => {
                 );
               })
             )}
+            {privateSlot && !availableSlotsLoading && noSlotAvailable && (
+              <div className={classes.emptyStateWrapper}>
+                <div className={classes.emptyState}>
+                  {nextAvailableSlotLoading ? (
+                    <div className={classes.loadingContainer}>
+                      <CircularProgress />
+                    </div>
+                  ) : (
+                    <>
+                      {nextDateAvailableSlot !== null && (
+                        <>
+                          <EventAvailableIcon
+                            color="primary"
+                            className={classes.icon}
+                          />
+                          <ButtonBase onClick={goToFirstAvailableSession}>
+                            <Typography className={classes.link}>
+                              {t('slotSearcher.nextOffer', {
+                                date: moment(nextDateAvailableSlot)
+                                  .tz(timezoneName)
+                                  .format('L'),
+                                hour: moment(nextDateAvailableSlot)
+                                  .tz(timezoneName)
+                                  .format('LT'),
+                              })}
+                            </Typography>
+                          </ButtonBase>
+                        </>
+                      )}
+                      {nextDateAvailableSlot === null && (
+                        <>
+                          <WarningIcon className={classes.warning} />
+                          <Typography>
+                            {t('slotSearcher.emptyState')}
+                          </Typography>
+                        </>
+                      )}
+                    </>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
         </Paper>
       </div>
@@ -143,13 +223,14 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     padding: theme.spacing(1),
   },
-  container2: (props: Props) => ({
+  container2: ({ privateSlot }: Pick<Props, 'privateSlot'>) => ({
+    position: 'relative',
     display: 'flex',
     flex: 1,
     width: '100%',
     flexDirection: 'column',
     marginTop: theme.spacing(1),
-    background: !props.privateSlot ? '#E8E8E8' : undefined,
+    background: !privateSlot ? '#E8E8E8' : undefined,
   }),
   calendarToolbar: {
     display: 'flex',
@@ -189,6 +270,39 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     padding: theme.spacing(2),
     width: '100%',
+  },
+  emptyStateWrapper: {
+    position: 'absolute',
+    marginTop: 60,
+    height: 'calc(100% - 60px)',
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    top: 0,
+    left: 0,
+    borderRadius: 4,
+  },
+  emptyState: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(2),
+    backgroundColor: 'white',
+    borderRadius: 5,
+  },
+  warning: {
+    fill: theme.palette.warning.main,
+    marginRight: theme.spacing(2),
+  },
+  helperText: {
+    marginBotttom: theme.spacing(2),
+  },
+  link: {
+    color: theme.palette.primary.main,
+  },
+  icon: {
+    marginRight: theme.spacing(2),
   },
 }));
 

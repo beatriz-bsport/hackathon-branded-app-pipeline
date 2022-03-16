@@ -25,6 +25,7 @@ export async function fetchOffersList(
     max_date: string;
     available?: boolean;
     is_workshop?: boolean;
+    only_future?: boolean;
   } & OfferFilterData,
 ) {
   return getAuth(`${API_V1_URI}/offer/${buildUrlParams(params)}`);

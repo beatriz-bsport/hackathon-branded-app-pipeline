@@ -182,7 +182,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
   };
 
   render() {
-    const { loading, classes, t, date } = this.props;
+    const { loading, classes, date } = this.props;
 
     const weekDays = Moment.weekdaysShort(true);
 
@@ -190,15 +190,6 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
 
     const start_date = moment(date, DATE_FORMAT).clone().startOf('week');
     const size = 100 / 7;
-    // if we start from firday we have to reorder the array of days
-    const weekOffers = getWeekOffers(this.props.date, this.props.offers);
-    if (!flattenDeep(weekOffers).length) {
-      return (
-        <Typography variant="caption" className={classes.emptyContent}>
-          {t('marketplace.noSessionToday')}
-        </Typography>
-      );
-    }
 
     if (loading) {
       return <CircularProgress />;

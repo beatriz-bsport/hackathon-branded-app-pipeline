@@ -1,3 +1,4 @@
+import { CancelTokenSource } from 'axios';
 import { Company } from '../company/types';
 import { WithPagination } from '../types';
 
@@ -353,6 +354,10 @@ export interface PrivateServiceState {
     createOrUpdate: ErrorAndLoading;
     searched: ErrorAndLoading & {
       items: { resource_identifier: string; slots: Array<Array<string>> }[];
+    };
+    next: ErrorAndLoading & {
+      date: string | null;
+      cancelToken: CancelTokenSource | null;
     };
   };
   privateConsumerPass: ErrorAndLoading & {

@@ -356,7 +356,12 @@ exports.default = {
     selectCoach: 'Tous les professeurs',
     coach: 'Professeur',
     establishment: 'Lieu',
+    emptyState: 'Aucune disponibilité pour le moment',
+    previousOffer:
+      'Une séance plus récente est disponible le {{- date }} : {{ hour }}',
+    nextOffer: 'Premier créneau disponible le {{- date }} : {{ hour }}',
     emptyDateList: 'Aucun créneau disponible ce jour',
+    searchFirstSlot: 'Rechercher le premier créneaux disponible',
     bookableSlots: {
       title: 'Créneaux disponibles',
       isEmpty: 'Aucun créneau disponible',

@@ -1,7 +1,6 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-import flatten from 'lodash/flatten';
 import List from '@material-ui/core/List';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
@@ -11,7 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withTranslation, TFunction } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import moment from 'moment-timezone';
 import memoize from 'memoize-one';
 
@@ -28,7 +27,6 @@ type Props = {
   loading: boolean,
   classes: Object,
   onClickOffer: () => void,
-  t: TFunction,
   classes: Object,
   onClickBook: (offerId: number) => void,
   onClickBookOption: (offerId: number) => void,
@@ -120,19 +118,13 @@ export class MarketplaceTimetable extends PureComponent<Props> {
   }
 
   renderContent = () => {
-    const { date, classes, t } = this.props;
+    const { date } = this.props;
     const weekday = moment(date, DATE_FORMAT).weekday();
     // split offer for the selected day
     const weekOffers = getWeekOffers(date, this.props.offers);
     const nextDaysOffers = weekOffers.slice(weekday);
 
-    return !flatten(weekOffers).length ? (
-      <Typography variant="caption" className={classes.title}>
-        {t('marketplace.noSessionToday')}
-      </Typography>
-    ) : (
-      nextDaysOffers.map((offers, i) => this.renderDayOffers(offers, i))
-    );
+    return nextDaysOffers.map((offers, i) => this.renderDayOffers(offers, i));
   };
 
   render() {

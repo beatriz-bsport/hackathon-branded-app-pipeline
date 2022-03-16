@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { CancelToken } from 'axios';
 import moment from 'moment-timezone';
 import * as Sentry from '@sentry/react';
 
@@ -96,7 +96,12 @@ export function getAuthToken() {
   return storage.getItem('bsport:http:token');
 }
 
-export async function postBase(uri: string, data: Object, headers: Object) {
+export async function postBase(
+  uri: string,
+  data: Object,
+  headers: Object,
+  cancelToken?: CancelToken,
+) {
   const baseHeaders = {
     'X-Transaction-ID': setTransactionId(),
     'X-Timezone-Name': getTimezoneName(),
@@ -109,6 +114,7 @@ export async function postBase(uri: string, data: Object, headers: Object) {
   try {
     const response = await axios.post(uri, data, {
       headers: Object.assign(baseHeaders, headers),
+      cancelToken,
     });
     return response;
   } catch (err) {
@@ -118,7 +124,13 @@ export async function postBase(uri: string, data: Object, headers: Object) {
     throw err;
   }
 }
-export async function post(uri: string, data?: Object, headers?: Object) {
+
+export async function post(
+  uri: string,
+  data?: Object,
+  headers?: Object,
+  cancelToken?: CancelToken,
+) {
   const baseHeaders = {
     'X-Transaction-ID': setTransactionId(),
     'X-Timezone-Name': getTimezoneName(),
@@ -131,7 +143,9 @@ export async function post(uri: string, data?: Object, headers?: Object) {
   try {
     const response = await axios.post(uri, data, {
       headers: Object.assign(baseHeaders, headers),
+      cancelToken,
     });
+
     return response;
   } catch (err) {
     if (err?.response?.status >= 500 && err?.response?.status < 600) {
@@ -141,7 +155,12 @@ export async function post(uri: string, data?: Object, headers?: Object) {
   }
 }
 
-export async function put(uri: string, data: Object, headers: Object) {
+export async function put(
+  uri: string,
+  data: Object,
+  headers: Object,
+  cancelToken?: CancelToken,
+) {
   const baseHeaders = {
     'X-Transaction-ID': setTransactionId(),
     'X-Timezone-Name': getTimezoneName(),
@@ -154,6 +173,7 @@ export async function put(uri: string, data: Object, headers: Object) {
   try {
     const response = await axios.put(uri, data, {
       headers: Object.assign(baseHeaders, headers),
+      cancelToken,
     });
     return response;
   } catch (err) {
@@ -164,7 +184,12 @@ export async function put(uri: string, data: Object, headers: Object) {
   }
 }
 
-export async function patch(uri: string, data: Object, headers: Object) {
+export async function patch(
+  uri: string,
+  data: Object,
+  headers: Object,
+  cancelToken?: CancelToken,
+) {
   const baseHeaders = {
     'X-Transaction-ID': setTransactionId(),
     'X-Timezone-Name': getTimezoneName(),
@@ -177,6 +202,7 @@ export async function patch(uri: string, data: Object, headers: Object) {
   try {
     const response = await axios.patch(uri, data, {
       headers: Object.assign(baseHeaders, headers),
+      cancelToken,
     });
     return response;
   } catch (err) {
@@ -187,7 +213,12 @@ export async function patch(uri: string, data: Object, headers: Object) {
   }
 }
 
-export async function delete_(uri: string, data, headers: Object) {
+export async function delete_(
+  uri: string,
+  data,
+  headers: Object,
+  cancelToken?: CancelToken,
+) {
   const baseHeaders = {
     'X-Transaction-ID': setTransactionId(),
     'X-Timezone-Name': getTimezoneName(),
@@ -201,6 +232,7 @@ export async function delete_(uri: string, data, headers: Object) {
       url: uri,
       method: 'delete',
       headers: Object.assign(baseHeaders, headers),
+      cancelToken,
       data,
     });
     return response;
@@ -212,12 +244,17 @@ export async function delete_(uri: string, data, headers: Object) {
   }
 }
 
-export async function get(uri: string, headers: {} = {}) {
+export async function get(
+  uri: string,
+  headers: {} = {},
+  cancelToken?: CancelToken,
+) {
   try {
     const response = await axios({
       url: uri,
       method: 'get',
       headers,
+      cancelToken,
     });
     return response;
   } catch (err) {
@@ -228,74 +265,129 @@ export async function get(uri: string, headers: {} = {}) {
   }
 }
 
-export async function getAuth(uri: string, token?: string) {
+export async function getAuth(
+  uri: string,
+  token?: string,
+  cancelToken?: CancelToken,
+) {
   const token_ = token || getAuthToken();
   if (!token_ || token_ === 'null') {
-    return get(uri);
+    return get(uri, {}, cancelToken);
   }
-  return get(uri, {
-    'Accept-Language': i18n.language || 'en',
-    'X-Transaction-ID': setTransactionId(),
-    'X-Timezone-Name': getTimezoneName(),
-    'X-Session-ID': setSessionId(),
-    'X-React-Referrer': window.location.href,
-    Authorization: `Token ${token_}`,
-  });
+  return get(
+    uri,
+    {
+      'Accept-Language': i18n.language || 'en',
+      'X-Transaction-ID': setTransactionId(),
+      'X-Timezone-Name': getTimezoneName(),
+      'X-Session-ID': setSessionId(),
+      'X-React-Referrer': window.location.href,
+      Authorization: `Token ${token_}`,
+    },
+    cancelToken,
+  );
 }
 
-export async function postAuth(uri: string, data?: Object, token?: string) {
+export async function postAuth(
+  uri: string,
+  data?: Object,
+  token?: string,
+  cancelToken?: CancelToken,
+) {
   const token_ = token || getAuthToken();
-  return post(uri, data, {
-    'X-Transaction-ID': setTransactionId(),
-    'X-Timezone-Name': getTimezoneName(),
-    'X-Session-ID': setSessionId(),
-    'X-React-Referrer': window.location.href,
-    Authorization: `Token ${token_}`,
-  });
+  return post(
+    uri,
+    data,
+    {
+      'X-Transaction-ID': setTransactionId(),
+      'X-Timezone-Name': getTimezoneName(),
+      'X-Session-ID': setSessionId(),
+      'X-React-Referrer': window.location.href,
+      Authorization: `Token ${token_}`,
+    },
+    cancelToken,
+  );
 }
 
-export async function postBaseAuth(uri: string, data: Object, token?: string) {
+export async function postBaseAuth(
+  uri: string,
+  data: Object,
+  token?: string,
+  cancelToken?: CancelToken,
+) {
   const token_ = token || getAuthToken();
-  return postBase(uri, data, {
-    'X-Transaction-ID': setTransactionId(),
-    'X-Timezone-Name': getTimezoneName(),
-    'X-Session-ID': setSessionId(),
-    'X-React-Referrer': window.location.href,
-    Authorization: `Token ${token_}`,
-  });
+  return postBase(
+    uri,
+    data,
+    {
+      'X-Transaction-ID': setTransactionId(),
+      'X-Timezone-Name': getTimezoneName(),
+      'X-Session-ID': setSessionId(),
+      'X-React-Referrer': window.location.href,
+      Authorization: `Token ${token_}`,
+    },
+    cancelToken,
+  );
 }
 
-export async function putAuth(uri: string, data?: Object) {
+export async function putAuth(
+  uri: string,
+  data?: Object,
+  cancelToken?: CancelToken,
+) {
   const token = getAuthToken();
-  return put(uri, data, {
-    'X-Transaction-ID': setTransactionId(),
-    'X-Timezone-Name': getTimezoneName(),
-    'X-Session-ID': setSessionId(),
-    'X-React-Referrer': window.location.href,
-    Authorization: `Token ${token}`,
-  });
+  return put(
+    uri,
+    data,
+    {
+      'X-Transaction-ID': setTransactionId(),
+      'X-Timezone-Name': getTimezoneName(),
+      'X-Session-ID': setSessionId(),
+      'X-React-Referrer': window.location.href,
+      Authorization: `Token ${token}`,
+    },
+    cancelToken,
+  );
 }
 
-export async function patchAuth(uri: string, data: Object) {
+export async function patchAuth(
+  uri: string,
+  data: Object,
+  cancelToken?: CancelToken,
+) {
   const token = getAuthToken();
-  return patch(uri, data, {
-    'X-Transaction-ID': setTransactionId(),
-    'X-Timezone-Name': getTimezoneName(),
-    'X-Session-ID': setSessionId(),
-    'X-React-Referrer': window.location.href,
-    Authorization: `Token ${token}`,
-  });
+  return patch(
+    uri,
+    data,
+    {
+      'X-Transaction-ID': setTransactionId(),
+      'X-Timezone-Name': getTimezoneName(),
+      'X-Session-ID': setSessionId(),
+      'X-React-Referrer': window.location.href,
+      Authorization: `Token ${token}`,
+    },
+    cancelToken,
+  );
 }
 
-export async function deleteAuth(uri: string, data?: any) {
+export async function deleteAuth(
+  uri: string,
+  data?: any,
+  cancelToken?: CancelToken,
+) {
   const token = getAuthToken();
-  return delete_(uri, data || {}, {
-    'X-Transaction-ID': setTransactionId(),
-    'X-Timezone-Name': getTimezoneName(),
-    'X-Session-ID': setSessionId(),
-    'X-React-Referrer': window.location.href,
-    Authorization: `Token ${token}`,
-  });
+  return delete_(
+    uri,
+    data || {},
+    {
+      'X-Transaction-ID': setTransactionId(),
+      'X-Timezone-Name': getTimezoneName(),
+      'X-Session-ID': setSessionId(),
+      'X-React-Referrer': window.location.href,
+      Authorization: `Token ${token}`,
+    },
+    cancelToken,
+  );
 }
 
 export async function getJSONAuth(uri: string, token?: string) {

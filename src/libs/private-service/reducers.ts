@@ -62,6 +62,7 @@ import {
   retrievePrivatePassTemplateActions,
   isPrivatePassUsedInComboActions,
   privateSlotCheckUnpaidBookingEligibilityActions,
+  searchFirstAvailableSlotsActions,
 } from './actions';
 
 import { getResourceSlotsExistState } from './selectors/availability-slot';
@@ -233,6 +234,12 @@ const initialState: Seamless.Immutable<PrivateServiceState> =
       createOrUpdate: {
         loading: false,
         error: null,
+      },
+      next: {
+        loading: false,
+        error: null,
+        date: null,
+        cancelToken: null,
       },
     },
     compatibleServicePass: {
@@ -583,6 +590,33 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
       return state.setIn(['availabilitySlot', 'searched', 'items'], []);
     },
 
+    [searchFirstAvailableSlotsActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['availabilitySlot', 'next', 'date'], payload);
+    },
+    [searchFirstAvailableSlotsActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['availabilitySlot', 'next', 'loading'], payload);
+    },
+    [searchFirstAvailableSlotsActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['availabilitySlot', 'next', 'error'], payload);
+    },
+    [searchFirstAvailableSlotsActions.reset.toString()]: (state) => {
+      return state.setIn(['availabilitySlot', 'next', 'date'], null);
+    },
+    [searchFirstAvailableSlotsActions.setCancellationToken.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['availabilitySlot', 'next', 'cancelToken'], payload);
+    },
     [availabilitySlotUpdateActions.isLoading.toString()]: (
       state,
       { payload },

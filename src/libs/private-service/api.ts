@@ -259,10 +259,30 @@ export const searchAvailableSlots = (
         ? { establishments: associatedEstablishmentIdList }
         : {}),
     },
+    {},
+  );
+};
+export const searchFirstvailableSlots = (
+  privateServiceId: number,
+  privateSlotId: number,
+  associatedCoachIdList: Array<number>,
+  associatedEstablishmentIdList: Array<number>,
+  cancelToken?: any,
+) => {
+  return post(
+    `${API_V1_URI}/private_service/private_service/${privateServiceId}/private_slot/${privateSlotId}/find_nearest_available_datetime/`,
+    {
+      coaches: associatedCoachIdList,
+      ...(associatedEstablishmentIdList
+        ? { establishments: associatedEstablishmentIdList }
+        : {}),
+    },
+    {},
+    cancelToken,
   );
 };
 
-export const fetchPrivatePassList = (params?: any = {}) => {
+export const fetchPrivatePassList = (params: any = {}) => {
   return getAuth(
     `${API_V1_URI}/private_service/private_pass/${buildUrlParams(params)}`,
   );

@@ -320,4 +320,7 @@ export const getOfferAsEventList = createSelector(
 export const getNumberOfMassDisabledOffer = (state: RootState) =>
   getState(state).numberOfMassDisabledOffer.number;
 
+export const getNextAvailableOffer = (state: RootState) =>
+  getState(state).next.item;
+
 export default { getAll, todayOffers, getSimilars };

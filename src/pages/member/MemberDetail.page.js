@@ -299,6 +299,7 @@ export class MemberDetail extends React.Component<Props> {
               }`}
               value="form"
             />
+            <Tab label={t('menu.basket')} value="basket" />
           </Tabs>
         </AppBar>
         <div className={classes.content}>

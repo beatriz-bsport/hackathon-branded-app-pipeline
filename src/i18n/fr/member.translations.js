@@ -86,6 +86,7 @@ exports.default = {
     privateConsumerPass: 'Cartes RDV',
     vod: 'VOD',
     form: 'Formulaires',
+    basket: 'Basket',
   },
   row: {
     headers: {

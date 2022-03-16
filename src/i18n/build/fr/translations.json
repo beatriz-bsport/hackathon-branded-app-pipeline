@@ -2241,7 +2241,8 @@
       "privateBooking": "Rendez-vous",
       "privateConsumerPass": "Cartes RDV",
       "vod": "VOD",
-      "form": "Formulaires"
+      "form": "Formulaires",
+      "basket": "Basket"
     },
     "row": {
       "headers": { "actions": "Actions", "newsletter_email": "Accepte les emails" },

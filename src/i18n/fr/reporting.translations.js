@@ -52,6 +52,8 @@ exports.default = {
     payment_installments: 'Paiements en plusieurs fois',
     expense: 'Dépenses',
     universal_passes: 'Cartes Universelles',
+    private_cpasses_expired: 'Crédits RDV expirés',
+    expired_pass: 'Crédits carte de cours expirés',
   },
   header: {
     sum: 'Somme',
@@ -110,7 +112,7 @@ exports.default = {
     cancel_rate: "Taux d'annulation",
     effectif_rate: 'Taux de remplissage',
     pass: 'Carte de cours',
-    remaining_credits: 'Crédit restant ajdh',
+    remaining_credits: "Crédit restant aujourd'hui",
     duration: 'Durée (minutes)',
     date_start: 'Date complète',
     date_start_date: 'Date',

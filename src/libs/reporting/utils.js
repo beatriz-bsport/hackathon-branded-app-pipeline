@@ -21,6 +21,7 @@ import UpdateIcon from '@material-ui/icons/Update';
 import StoreIcon from '@material-ui/icons/Store';
 import CashBookIcon from '@material-ui/icons/BusinessCenter';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
+import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import { getCurrencyDisplay } from '../theme/selectors';
 import type { ReportCategoryEnum, ReportCategory } from './types';
 
@@ -74,6 +75,14 @@ export const CATEGORIES: ReportCategory[] = [
   {
     id: 'private_cpasses',
     icon: AccountBoxIcon,
+  },
+  {
+    id: 'private_cpasses_expired',
+    icon: HourglassEmptyIcon,
+  },
+  {
+    id: 'expired_pass',
+    icon: HourglassEmptyIcon,
   },
   {
     id: 'shop',

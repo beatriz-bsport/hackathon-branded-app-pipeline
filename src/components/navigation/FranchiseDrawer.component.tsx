@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { Location } from 'history';
 import { compose } from 'recompose';
+import classNames from 'classnames';
+
 import {
   WithStyles,
   createStyles,
@@ -405,11 +407,9 @@ export const FranchiseDrawer = (props: Props) => {
         <BannerContext.Consumer>
           {({ banner }: BannerContextValue) => (
             <div
-              className={
-                isMobileDevice || !displayLeftMenu
-                  ? classes.rootFullWidth
-                  : classes.root
-              }
+              className={classNames(classes.root, {
+                [classes.rootFullWidth]: isMobileDevice || !displayLeftMenu,
+              })}
             >
               {renderAppBar(displayLeftMenu)}
               {displayLeftMenu && (
@@ -558,6 +558,9 @@ const styles = (theme: Theme) =>
       display: 'flex',
       width: '100vw',
       height: '100vh',
+      [theme.breakpoints.up('md')]: {
+        paddingLeft: 0,
+      },
     },
     grow: {
       flex: 1,

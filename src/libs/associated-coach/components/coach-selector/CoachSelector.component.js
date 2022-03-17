@@ -18,9 +18,6 @@ const getCoachOptions = (
       }
       return 1;
     }
-    if (c.name.toUpperCase() < c_.name.toUpperCase()) {
-      return -1;
-    }
     return 1;
   });
   return coaches.map((c) => ({

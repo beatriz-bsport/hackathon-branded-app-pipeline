@@ -101,6 +101,7 @@ export async function postBase(uri: string, data: Object, headers: Object) {
     'X-Transaction-ID': setTransactionId(),
     'X-Timezone-Name': getTimezoneName(),
     'X-Session-ID': setSessionId(),
+    'X-React-Referrer': window.location.href,
     Accept: 'application/json',
     'Content-Type': 'application/json',
   };
@@ -122,6 +123,7 @@ export async function post(uri: string, data?: Object, headers?: Object) {
     'X-Transaction-ID': setTransactionId(),
     'X-Timezone-Name': getTimezoneName(),
     'X-Session-ID': setSessionId(),
+    'X-React-Referrer': window.location.href,
     Accept: 'application/json',
     'Content-Type': 'application/json',
   };
@@ -144,6 +146,7 @@ export async function put(uri: string, data: Object, headers: Object) {
     'X-Transaction-ID': setTransactionId(),
     'X-Timezone-Name': getTimezoneName(),
     'X-Session-ID': setSessionId(),
+    'X-React-Referrer': window.location.href,
     Accept: 'application/json',
     'Content-Type': 'application/json',
   };
@@ -166,6 +169,7 @@ export async function patch(uri: string, data: Object, headers: Object) {
     'X-Transaction-ID': setTransactionId(),
     'X-Timezone-Name': getTimezoneName(),
     'X-Session-ID': setSessionId(),
+    'X-React-Referrer': window.location.href,
     Accept: 'application/json',
     'Content-Type': 'application/json',
   };
@@ -188,6 +192,7 @@ export async function delete_(uri: string, data, headers: Object) {
     'X-Transaction-ID': setTransactionId(),
     'X-Timezone-Name': getTimezoneName(),
     'X-Session-ID': setSessionId(),
+    'X-React-Referrer': window.location.href,
     Accept: 'application/json',
     'Content-Type': 'application/json',
   };
@@ -233,6 +238,7 @@ export async function getAuth(uri: string, token?: string) {
     'X-Transaction-ID': setTransactionId(),
     'X-Timezone-Name': getTimezoneName(),
     'X-Session-ID': setSessionId(),
+    'X-React-Referrer': window.location.href,
     Authorization: `Token ${token_}`,
   });
 }
@@ -243,6 +249,7 @@ export async function postAuth(uri: string, data?: Object, token?: string) {
     'X-Transaction-ID': setTransactionId(),
     'X-Timezone-Name': getTimezoneName(),
     'X-Session-ID': setSessionId(),
+    'X-React-Referrer': window.location.href,
     Authorization: `Token ${token_}`,
   });
 }
@@ -253,6 +260,7 @@ export async function postBaseAuth(uri: string, data: Object, token?: string) {
     'X-Transaction-ID': setTransactionId(),
     'X-Timezone-Name': getTimezoneName(),
     'X-Session-ID': setSessionId(),
+    'X-React-Referrer': window.location.href,
     Authorization: `Token ${token_}`,
   });
 }
@@ -263,6 +271,7 @@ export async function putAuth(uri: string, data?: Object) {
     'X-Transaction-ID': setTransactionId(),
     'X-Timezone-Name': getTimezoneName(),
     'X-Session-ID': setSessionId(),
+    'X-React-Referrer': window.location.href,
     Authorization: `Token ${token}`,
   });
 }
@@ -273,6 +282,7 @@ export async function patchAuth(uri: string, data: Object) {
     'X-Transaction-ID': setTransactionId(),
     'X-Timezone-Name': getTimezoneName(),
     'X-Session-ID': setSessionId(),
+    'X-React-Referrer': window.location.href,
     Authorization: `Token ${token}`,
   });
 }
@@ -283,6 +293,7 @@ export async function deleteAuth(uri: string, data?: any) {
     'X-Transaction-ID': setTransactionId(),
     'X-Timezone-Name': getTimezoneName(),
     'X-Session-ID': setSessionId(),
+    'X-React-Referrer': window.location.href,
     Authorization: `Token ${token}`,
   });
 }
@@ -293,6 +304,7 @@ export async function getJSONAuth(uri: string, token?: string) {
     'X-Transaction-ID': setTransactionId(),
     'X-Timezone-Name': getTimezoneName(),
     'X-Session-ID': setSessionId(),
+    'X-React-Referrer': window.location.href,
     Authorization: `Token ${token_}`,
   });
 

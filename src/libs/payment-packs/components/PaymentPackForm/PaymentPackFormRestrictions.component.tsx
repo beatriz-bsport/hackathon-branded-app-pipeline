@@ -141,6 +141,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                 ] || []
               }
               isMulti
+              defaultNumberShown={3}
               chipsRenderer={(chipProps: {
                 data: {
                   label: string;
@@ -191,6 +192,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                 ] || []
               }
               isMulti
+              defaultNumberShown={3}
               chipsRenderer={(chipProps: {
                 data: { label: string; value: number };
                 onDelete: () => void;
@@ -231,6 +233,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                 })),
               ]}
               isMulti
+              defaultNumberShown={3}
               chipsRenderer={(chipProps: { data; onDelete: () => void }) => (
                 <Chip
                   label={chipProps.data.label}

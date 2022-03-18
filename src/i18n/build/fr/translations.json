@@ -531,6 +531,8 @@
     "colorPicker": { "noColor": "Aucune couleur", "delete": "Effacer", "validate": "Enregistrer" },
     "text": { "showLessText": "Voir moins", "showMoreText": "Voir plus" },
     "selector": { "selectAll": "Tout sélectionner", "unselectAll": "Tout désélectionner", "validate": "Valider" },
+    "showMore": "Afficher plus ({{count}})",
+    "showLess": "Afficher moins",
     "weekly": "Hebdomadaire",
     "monthly": "Mensuel",
     "close": "Fermer",

@@ -24,6 +24,8 @@ exports.default = {
     unselectAll: 'Tout désélectionner',
     validate: 'Valider',
   },
+  showMore: 'Afficher plus ({{count}})',
+  showLess: 'Afficher moins',
   weekly: 'Hebdomadaire',
   monthly: 'Mensuel',
   close: 'Fermer',

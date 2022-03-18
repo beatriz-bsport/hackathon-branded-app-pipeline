@@ -132,6 +132,15 @@ DefaultMultiSelect.args = {
   value: [],
 };
 
+export const DefaultMultiSelectWithShowMore = CustomTemplate.bind({});
+
+DefaultMultiSelectWithShowMore.args = {
+  ...defaultOption,
+  isMulti: true,
+  defaultNumberShown: 3,
+  value: [],
+};
+
 export const DefaultMultiSelectVirtualized = CustomTemplate.bind({});
 
 DefaultMultiSelectVirtualized.args = {
@@ -147,6 +156,15 @@ DefaultMultiSelectSelected.args = {
   ...defaultOption,
   isMulti: true,
   value: [options[1], options[2]],
+};
+
+export const DefaultMultiSelectSelectedWithShowMore = CustomTemplate.bind({});
+
+DefaultMultiSelectSelectedWithShowMore.args = {
+  ...defaultOption,
+  isMulti: true,
+  defaultNumberShown: 3,
+  value: [options[1], options[2], options[3], options[4], options[5]],
 };
 
 export const MultiSelectCustomChip = CustomTemplate.bind({});

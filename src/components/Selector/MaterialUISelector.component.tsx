@@ -13,6 +13,7 @@ import {
 import Select, {
   NamedProps,
   components,
+  SelectProps,
   MenuProps,
   MenuListComponentProps,
   OptionProps,
@@ -20,10 +21,11 @@ import Select, {
   ValueContainerProps,
   ControlProps,
 } from 'react-select';
+import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
 import { NoticeProps } from 'react-select/src/components/Menu';
 import { useTranslation } from 'react-i18next';
 import { GroupHeadingProps } from 'react-select/src/components/Group';
-import classNames from 'classnames';
+import clx from 'classnames';
 import { v4 as uuidv4 } from 'uuid';
 import { FixedSizeList as VirtualizedList } from 'react-window';
 
@@ -61,10 +63,12 @@ export type OwnProps<T extends OptionTypeBase> =
   | ({
       onChange: (values: T[]) => void;
       isMulti: true;
+      defaultNumberShown?: number | null;
       value?: T[];
     } & BaseProps<T>)
   | ({
       isMulti?: false;
+      defaultNumberShown?: null;
       value?: T | null;
       onChange: (value: T) => void;
     } & BaseProps<T>);
@@ -75,6 +79,7 @@ function MaterialUISelector<T extends OptionTypeBase>(props: Props<T>) {
   const {
     id,
     isMulti,
+    defaultNumberShown,
     options,
     value,
     leftIcon,
@@ -90,6 +95,7 @@ function MaterialUISelector<T extends OptionTypeBase>(props: Props<T>) {
   } = props;
   const classes = useStyles();
   const uuid = useRef(uuidv4());
+  const { t } = useTranslation('common');
 
   const handleChange = (data: T | T[]) => {
     if (!onChange) return;
@@ -109,18 +115,87 @@ function MaterialUISelector<T extends OptionTypeBase>(props: Props<T>) {
     menuPortalTraget = document.querySelector(`#selector_${uuid.current}`);
   }
 
+  const initDisplayedArray = Array.isArray(value)
+    ? value.slice(0, defaultNumberShown)
+    : value;
+
+  const [displayedValues, setDisplayedValues] = React.useState<T | T[]>(
+    initDisplayedArray,
+  );
+  const [showMoreOrLessText, setShowMoreOrLessText] = React.useState<string>(
+    t('showMore', {
+      count: Array.isArray(value) ? value.length - defaultNumberShown : 0,
+    }),
+  );
+
+  React.useEffect(() => {
+    setDisplayedValues(
+      Array.isArray(value) ? value.slice(0, defaultNumberShown) : value,
+    );
+    setShowMoreOrLessText(
+      t('showMore', {
+        count: Array.isArray(value) ? value.length - defaultNumberShown : 0,
+      }),
+    );
+  }, [defaultNumberShown, t, value]);
+
+  const onShowMore = (ev: React.MouseEvent) => {
+    ev.stopPropagation();
+    if (Array.isArray(value) && Array.isArray(displayedValues)) {
+      if (value.length > displayedValues.length) {
+        setDisplayedValues(value);
+        setShowMoreOrLessText(t('showLess'));
+      } else {
+        setDisplayedValues(value.slice(0, defaultNumberShown));
+        setShowMoreOrLessText(
+          t('showMore', { count: value.length - defaultNumberShown }),
+        );
+      }
+    }
+  };
+
+  const componentButtonShowMore = () => {
+    return (
+      <div
+        aria-hidden
+        onMouseDown={(ev: React.MouseEvent) => {
+          ev.preventDefault();
+          ev.stopPropagation();
+        }}
+      >
+        {!!defaultNumberShown && (
+          <Button className={classes.buttonShowMore} onClick={onShowMore}>
+            <DoubleArrowIcon
+              className={clx({
+                [classes.rightIcon]: true,
+                [classes.leftIcon]:
+                  !Array.isArray(value) ||
+                  !Array.isArray(displayedValues) ||
+                  !(value.length > displayedValues.length),
+              })}
+            />
+            {showMoreOrLessText}
+          </Button>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div id={`selector_${uuid.current}`} style={{ position: 'relative' }}>
       <Select
         id={id}
         value={value}
+        displayedValues={displayedValues}
         isMulti={isMulti}
+        defaultNumberShown={defaultNumberShown}
         inScrollBar={inScrollBar}
         isMenuListPaddingDisabled={isMenuListPaddingDisabled}
         isMenuListVirtualized={isMenuListVirtualized}
         classes={classes}
         onChange={handleChange}
         options={options}
+        componentButtonShowMore={componentButtonShowMore()}
         components={{
           Control,
           Menu,
@@ -228,7 +303,7 @@ function Menu<T extends OptionTypeBase>(props: MenuProps<T, boolean, any>) {
           {props.isMulti && (
             <div className={classes.footer}>
               <Button
-                className={classNames(classes.button, classes.selectButton)}
+                className={clx(classes.button, classes.selectButton)}
                 color="secondary"
                 onClick={handleGlobalSelect}
                 onTouchEnd={handleGlobalSelect} // for Compatibility with phones
@@ -398,18 +473,64 @@ function MenuList<T extends OptionTypeBase>(
   );
 }
 
-const MultiValueContainer = (props: { children: React.ReactNode[] }) => {
+const MultiValueContainer = <T extends OptionTypeBase>(props: {
+  children: React.ReactNode[];
+  selectProps: SelectProps<T, boolean, any>;
+}) => {
   const classes = useStyles();
+  const lengthDisplayedValues = props.selectProps?.displayedValues?.length;
 
-  return (
-    <components.MultiValueContainer
-      {...props}
-      innerProps={{ className: classes.reset }}
-      getStyles={resetStyle}
-    >
-      {props?.children?.[1]}
-    </components.MultiValueContainer>
-  );
+  const buttonShowMore = () =>
+    !!props?.selectProps?.defaultNumberShown &&
+    Array.isArray(props?.selectProps?.value) &&
+    props?.selectProps?.value.length > props?.selectProps?.defaultNumberShown;
+
+  if (
+    buttonShowMore() &&
+    props?.selectProps?.displayedValues[lengthDisplayedValues - 1] ===
+      props?.children?.[1]?.props.data
+  ) {
+    return (
+      <>
+        <components.MultiValueContainer
+          {...props}
+          innerProps={{ className: classes.reset }}
+          getStyles={resetStyle}
+        >
+          {!buttonShowMore() ||
+          props?.selectProps.displayedValues.includes(
+            props?.children?.[1]?.props.data,
+          )
+            ? props?.children?.[1]
+            : null}
+        </components.MultiValueContainer>
+        <components.MultiValueContainer
+          {...props}
+          innerProps={{ className: classes.showMoreContainer }}
+          getStyles={resetStyle}
+        >
+          {props?.selectProps?.componentButtonShowMore || null}
+        </components.MultiValueContainer>
+      </>
+    );
+  }
+  if (
+    !buttonShowMore() ||
+    props?.selectProps?.displayedValues.includes(
+      props?.children?.[1]?.props.data,
+    )
+  ) {
+    return (
+      <components.MultiValueContainer
+        {...props}
+        innerProps={{ className: classes.reset }}
+        getStyles={resetStyle}
+      >
+        {props?.children?.[1]}
+      </components.MultiValueContainer>
+    );
+  }
+  return null;
 };
 
 // Don't display the label as the hack we only shwo the remove as it the
@@ -535,6 +656,33 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
     marginTop: theme.spacing(0.5),
     marginBottom: theme.spacing(0.5),
+  },
+  showMoreContainer: {
+    flexWrap: 'wrap',
+  },
+  buttonShowMore: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: 'fit-content',
+    alignSelf: 'flex-end',
+    textTransform: 'none',
+    borderRadius: '16px',
+    boxSizing: 'border-box',
+    paddingTop: theme.spacing(0.5),
+    paddingBottom: theme.spacing(0.5),
+    '&:hover': {
+      backgroundColor: '#eee',
+    },
+  },
+  rightIcon: {
+    color: '#00c853',
+    marginRight: theme.spacing(1),
+  },
+  leftIcon: {
+    color: '#ff3d00',
+    transform: 'rotate(180deg)',
+    marginRight: theme.spacing(1),
   },
 }));
 

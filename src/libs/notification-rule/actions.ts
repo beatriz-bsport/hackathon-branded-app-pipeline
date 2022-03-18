@@ -136,7 +136,6 @@ export function createOrUpdateNotificationRule(
 export const deleteNotificationRuleActions = {
   error: createAction('NOTIFICATION_RULE/DELETE/ERROR'),
   isLoading: createAction('NOTIFICATION_RULE/DELETE/IS_LOADING'),
-  success: createAction('NOTIFICATION_RULE/DELETE/SUCCESS'),
 };
 
 export function deleteNotificationRule(
@@ -149,7 +148,7 @@ export function deleteNotificationRule(
 
     try {
       await deleteNotificationRuleAPI(id);
-      dispatch(deleteNotificationRuleActions.success(id));
+      dispatch(fetchNotificationRuleList({ notification_event: id }));
       dispatch(deleteNotificationRuleActions.error(null));
       if (options && options.onSuccess) {
         options.onSuccess(id);

@@ -5,7 +5,6 @@ import {
   notificationRuleListActions,
   notificatonRuleCreateOrUpdateActions,
   eventTypeListActions,
-  deleteNotificationRuleActions,
   tagAvailableListActions,
   notificationRuleSettingsListActions,
   notificationRuleSettingUpdateActions,
@@ -96,17 +95,6 @@ export default handleActions<Immutable.Immutable<NotificationRuleState>, any>(
       { payload },
     ) => {
       return state.setIn(['rule', 'createOrUpdate', 'loading'], payload);
-    },
-    [deleteNotificationRuleActions.success.toString()]: (
-      state,
-      { payload },
-    ) => {
-      return state
-        .setIn(
-          ['rule', 'allIds'],
-          state.rule.allIds.filter((i) => i !== payload),
-        )
-        .updateIn(['rule', 'byId'], (x) => x.without(`${payload}`));
     },
     [eventTypeListActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['eventType', 'loading'], payload);

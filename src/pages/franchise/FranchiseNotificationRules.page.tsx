@@ -107,11 +107,7 @@ export const FranchiseNotificationRule = (props: Props) => {
   };
 
   const handleDelete = (id: number) => () => {
-    deleteNotificationRule(id, {
-      onSuccess: () => {
-        fetchNotificationRuleList({ notification_event: notificationId });
-      },
-    });
+    deleteNotificationRule(id);
   };
 
   const handleEdit = (id: number) => (data: Omit<NotificationRule, 'id'>) => {

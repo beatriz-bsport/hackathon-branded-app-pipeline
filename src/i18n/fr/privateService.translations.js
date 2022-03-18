@@ -34,7 +34,7 @@ exports.default = {
       companySharedWithTitle: 'Partagée avec les studios:',
     },
     isEmptyExplain:
-      "Les cartes de cours partagées sont disponibles dans les studios de votre choix, et permettent à vos membres d'utiliser indifféremment leurs crédits dans les studios que vous auez choisi.",
+      "Les cartes de cours partagées sont disponibles dans les studios de votre choix, et permettent à vos membres d'utiliser indifféremment leurs crédits dans les studios que vous aurez choisi.",
     section: {
       titleAvailable: 'Disponible à la vente',
       titleManagerOnly: 'Indisponible à la vente',

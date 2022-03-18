@@ -1839,7 +1839,7 @@
                     "min_bookings_nb": "Number of booking(s) :",
                     "emailRecipients": "An email will be automatically sent to Owner and Admin accounts, as well as to the teacher (or substitute) of this session.",
                     "explain": "Cancel sessions with ≤ {{bookings_nb}} booking(s) {{hours}} hours(s) before the start of the session. Members that had booked this session will be informed that the session has been cancelled.",
-                    "checkbox": "Automatically cancel sessions with too few bookings"
+                    "checkbox": "Automatically cancel underoccupied sessions"
                 }
             }
         },
@@ -2696,7 +2696,7 @@
                 "explain2": "Example: the establishment is available from 10 AM to 11 AM and your appointment lasts 60 minutes, however, a 15 minute blocker is required beforehand and afterwards for cleaning or maintenance.",
                 "explain4": "NON-ACTIVE: the appointment will be possible and will block the room 15 min before and after the reservation. The next appointment will be possible from 11:30 am.",
                 "explain3": "ACTIVE: Appointment will not be possible. The room must be available from 9:45 to 11:15. The next appointment will not be possible until 11:30 am.",
-                "explain1": "If activated, reservations can only be made if the calendar is available including the reservation"
+                "explain1": "If activated, bookings can only be made if the calendar is available including the booking"
             }
         },
         "calendar": {
@@ -3042,7 +3042,7 @@
                 "selector": {
                     "privateService": "Add compatible appointments"
                 },
-                "franchise": "The appointment pass is shared through the Master Account. Certain settings have been defined by said Master Account and can't be modified."
+                "franchise": "The appointment pass is shared through the Master Account. Certain settings have been predefined by said Master Account and can't be modified."
             },
             "validForDuration": {
                 "general": "This appointment pass is valid for {{ duration_days }} day(s), {{ duration_months }} month(s), and {{ duration_years }} year(s).",
@@ -3436,7 +3436,7 @@
                 "addCompany": "Add a studio"
             },
             "companyEmpty": "There are no studios offering this pass to display.",
-            "privatePassSharedFromFranchisor": "Franchise pass"
+            "privatePassSharedFromFranchisor": "Master Account Pass"
         },
         "privatePassTemplate": {
             "actions": {
@@ -5430,7 +5430,7 @@
                 "submit": "Save"
             },
             "action": {
-                "update": "Actualize provisions"
+                "update": "Set inventory"
             }
         },
         "shopitem": {
@@ -7000,7 +7000,7 @@
             "payment_amount_by_payment_method": "Payment per payment method",
             "billing_establishment": "Address",
             "billing_group": "Billing group",
-            "company_name": "Franchisee",
+            "company_name": "Studio",
             "nb_non_activated": "Number of unactivated passes",
             "nb_activated": "Number of activated passes",
             "nb_purchase": "Number of purchases",
@@ -7715,8 +7715,8 @@
                 "explain1": "The following studios will automatically offer this pass, but won't be able to modify the price or the number of credits.",
                 "title": "Configure my studios"
             },
-            "consumerPaymentPackSharedFromOtherFranchisee": "Shared from a franchisee",
-            "paymentPackSharedFromFranchisor": "Franchise pass"
+            "consumerPaymentPackSharedFromOtherFranchisee": "Shared with a studio",
+            "paymentPackSharedFromFranchisor": "Master Account Pass"
         },
         "selector": {
             "noAvailable": "There are no compatible passes to display.",
@@ -7859,7 +7859,7 @@
             "requiredField": "This field is mandatory",
             "creditWarning": "Attention: all passes will be edited if the number of credits is changed.",
             "migration": "This pass originates from a previously completed data migration. Some fields may not editable to preserve the data. Compatible activities/categories can still be modified.",
-            "franchise": "The pass is shared through the Master Account. Certain settings have been defined by said Master Account and can't be modified."
+            "franchise": "The pass is shared through the Master Account. Certain settings have been predefined by said Master Account and can't be modified."
         }
     },
     "metaActivity": {
@@ -8072,17 +8072,17 @@
                 "subject": "Please enter a subject"
             },
             "exportHtml": "Export HTML",
-            "selectorPlaceholder": "Select franchisees",
-            "shareWithHelper": "Franchisees can't edit this template",
+            "selectorPlaceholder": "Select studios",
+            "shareWithHelper": "Sub Accounts can't edit this template.",
             "shareWith": "Share with"
         },
         "autoSave": "Automatic back-up",
         "leaveAlert": "Are you sure that you want to leave this page?",
         "delete": "Delete",
         "edit": "Edit",
-        "allCompanies": "All franchisees",
+        "allCompanies": "All studios",
         "seeAll": "See all",
-        "franchiseEmails": "Email templates for studios",
+        "franchiseEmails": "[Master Account] Email templates",
         "companieEmails": "My templates"
     },
     "member": {
@@ -10455,7 +10455,7 @@
             "cashBookTooltip": "Ledger",
             "franchiseConnectedAs": "You're currently connected as: {{name}}",
             "redirecting": "You're being redirected to your page",
-            "backToFranchiseWorskpace": "Return to the Master Account",
+            "backToFranchiseWorskpace": "Return to Master Account",
             "giftcard": "Gift cards",
             "programs": "Programmes",
             "expenses": "Expenses",
@@ -10486,7 +10486,7 @@
             "currentSession": "You're currently connected as: {{name}}",
             "restore": "Continue with the previous account",
             "manager": "Manager",
-            "franchisor": "Franchisor",
+            "franchisor": "Master Account",
             "continue": "Continue with this account",
             "previous": "Previous session",
             "current": "Current session"
@@ -11189,7 +11189,7 @@
             "franchised": "Studio",
             "groupBy": "Group by",
             "pageTitle": "Template",
-            "companiesEmails": "Email templates for studios",
+            "companiesEmails": "[Master Account] Email templates",
             "create": "Add a template",
             "franchiseEmails": "My templates",
             "emptyStateDescription": "Select an email to see a preview of it.",
@@ -11203,7 +11203,7 @@
             "disconnect": "Logout"
         },
         "companyGroup": {
-            "explain": "Categories are used to group multiple licences under a common name, such as \"Greater London\", and will be used for display on your branded mobile application.",
+            "explain": "Categories are used to group multiple licences under a common name, such as \"Greater London\", and will be used for display on your branded Mobile Application.",
             "actions": {
                 "add": "Add a category",
                 "submit": "Confirm",

@@ -594,7 +594,7 @@
                 "DISPUTE": "Dispuut",
                 "OTHER": "Diverse",
                 "SUBSCRIPTION_CB": "Geplande betaling",
-                "CREDIT_ACCOUNT": "Interne rekening (saldo)",
+                "CREDIT_ACCOUNT": "Interne rekening (Wallet)",
                 "BANK_TRANSFER": "Bankoverschrijving",
                 "AMEX": "AMEX",
                 "EVENT_BRITE": "EventBrite",
@@ -891,10 +891,10 @@
                 "iAcceptPrivacyPolicy": "Ik accepteer de ",
                 "signupButton": "Inschrijven",
                 "communication": {
-                    "sms": "via sms",
-                    "email": "per e-mail"
+                    "sms": "Sms",
+                    "email": "E-mail"
                 },
-                "rgpdTitle": "Hoe wil je dat instructeurs contact met je opnemen voor annuleringen/tijdswijzigingen?",
+                "rgpdTitle": "Welke kanalen wens te gebruiken voor updates betreffende annuleringen, tijdswijzigingen en meer?",
                 "confirmPassword": "Wachtwoord",
                 "confirmPasswordLabel": "Bevestiging",
                 "emailExistsInDB2": "Aanmelden",
@@ -952,7 +952,7 @@
                     "email": "Ik ontvang graag relevante e-mails."
                 },
                 "errors": {
-                    "waiver": "Het is een vereiste dat de Waiver / Vrijstelling geaccepteerd is",
+                    "waiver": "Het is een vereiste dat de Waiver / Vrijstelling geaccepteerd is.",
                     "accept_email": "Het is een vereiste dat e-mailmeldingen geaccepteerd zijn",
                     "accept_sms": "Het is een vereiste dat sms-meldingen geaccepteerd zijn"
                 },
@@ -1377,7 +1377,7 @@
         "paymentMethod": {
             "OTHER": "Overige",
             "SUBSCRIPTION_CB": "Automatische betaling",
-            "CREDIT_ACCOUNT": "Interne rekening (saldo)",
+            "CREDIT_ACCOUNT": "Interne rekening (Wallet)",
             "BANK_TRANSFER": "Bankoverschrijving",
             "AMEX": "AMEX",
             "EVENT_BRITE": "EventBrite",
@@ -1640,7 +1640,7 @@
             "buttons": {
                 "add": "Een pakket toevoegen"
             },
-            "explainIfEmpty": "In dit onderdeel kun je al je pakketten beheren. In een pakket kun je producten uit je webshop, afspraak- en/of leskaarten met elkaar combineren.",
+            "explainIfEmpty": "In dit onderdeel worden alle pakketten beheerd. Leden kunnen pakketten aanschaffen die uit meerdere producten bestaan, zoals een \"Starterspakket\" met verschillende leskaarten, afspraakkaarten en/of webshop-producten.",
             "section": {
                 "availableOnline": "Beschikbare pakketten",
                 "unavailableOnline": "Onbeschikbare pakketten"
@@ -1775,7 +1775,7 @@
             "hasSentAgain": "E-mail verzonden",
             "sendAgain": "Opnieuw een bevestigingsmail versturen",
             "success": "Je e-mail is gevalideerd! Je wordt binnen enkele seconden doorverwezen.",
-            "explain": "We hebben je een bevestigingsmail gestuurd. We zijn er bijna!"
+            "explain": "Zojuist hebben we je een bevestigingsmail gestuurd. We zijn er bijna!"
         },
         "language": {
             "es": "Spaans",
@@ -1802,7 +1802,7 @@
             "amex": "AMEX",
             "event_brite": "EventBrite",
             "none": "Geen",
-            "credit_account": "Interne rekening (saldo)",
+            "credit_account": "Interne rekening (Wallet)",
             "other": "Overige",
             "cash": "Contant geld",
             "check": "Cheque",
@@ -2414,7 +2414,7 @@
                 },
                 "penalty": {
                     "account": {
-                        "helperText": "Leden krijgen een boete t.w.v. {{value}} op hun interne rekening.",
+                        "helperText": "Leden krijgen een boete t.w.v. {{value}} op hun interne rekening (Wallet).",
                         "label": "Boetebedrag:"
                     },
                     "block": {
@@ -2778,7 +2778,7 @@
             "penalityAccountPrice": "Boetebedrag",
             "penalityBlockDay": "Blokkeerperiode (in dagen)",
             "penalityType": "Type sanctie",
-            "penalityAccount": "Interne rekening van het lid in rekening brengen",
+            "penalityAccount": "Interne rekening (Wallet) van het lid in rekening brengen",
             "penalityBlock": "Tijdelijk de kaart blokkeren",
             "penalityInfo": "De kaart wordt {{penalityNumberDay}} dag(en) geblokkeerd indien een lid {{penalityNumberCancel}} keer te laat annuleert.",
             "penalityNumberDay": "Aantal dagen",
@@ -2935,7 +2935,7 @@
                 "dialog": {
                     "save": "Opslaan",
                     "cancel": "Annuleer",
-                    "title": "Lokalisatie"
+                    "title": "Locatie"
                 },
                 "associated_localizations": "Gekoppelde vestigingen",
                 "name": "Naam"
@@ -2947,7 +2947,7 @@
             "noGroupHelper": "Hier kun je meerdere vestigingen op verschillende adressen groeperen. Zo kun je meerdere studio's in verschillende steden hebt, kun je studio's uit dezelfde stad op één locatie groeperen. Je leden kunnen vervolgens op je widgets, app, of marketplace een locatie selecteren om alle lessen bij hun in de buurt te bekijken."
         },
         "room": "Vestiging",
-        "localisation": "Lokalisatie",
+        "localisation": "Locatie",
         "billing_group": {
             "table": {
                 "name": "Naam",
@@ -3119,9 +3119,9 @@
             "1": {
                 "second": " -   ",
                 "third": "{{ currencyDisplay }}",
-                "explanation": "Toon alle leden met een interne rekening t.w.v. {{ currencyDisplay }}X",
-                "first": "Leden met een interne rekening (saldo) van",
-                "name": "Interne rekening (schuld)",
+                "explanation": "Toon alle leden met een interne rekening (Wallet) t.w.v. {{ currencyDisplay }}X",
+                "first": "Leden met een interne rekening (Wallet) t.w.v.",
+                "name": "Interne rekening (Wallet)",
                 "between": "en"
             },
             "2": {
@@ -3766,7 +3766,7 @@
         "edit": "Wijzigen",
         "allCompanies": "Alle studio's",
         "seeAll": "Toon alles",
-        "franchiseEmails": "E-mailsjablonen voor studio's",
+        "franchiseEmails": "[Master-Account E-mailsjablonen",
         "companieEmails": "Mijn sjablonen"
     },
     "member": {
@@ -3821,7 +3821,7 @@
                 "srcMember": "We verwijderen dit account",
                 "dstMember": "We bewaren dit account",
                 "title": "Leden samenvoegen",
-                "explainCredit": "De waarde van de interne rekening (saldo) wordt naar het nieuwe account overgezet.",
+                "explainCredit": "De waarde van de interne rekening (Wallet) wordt naar het nieuwe account overgezet.",
                 "success": "Samengevoegde leden",
                 "seeMemberPage": " Zie ledenpagina",
                 "emailWillBeSend": "Beide e-mailadressen worden per e-mail geïnformeerd."
@@ -3909,7 +3909,7 @@
         "merge": "Samenvoegen",
         "regularizeBalance": "Betaling afronden",
         "cashoutBalance": "Uitbetalen",
-        "creditAccountBalance": "Interne rekening (saldo)",
+        "creditAccountBalance": "Interne rekening (Wallet)",
         "showPaymentPack": "Toon leskaarten",
         "showSubscriptions": "Zie abonnementen",
         "relation": {
@@ -3940,14 +3940,14 @@
         "archive": {
             "dialog": {
                 "warning": {
-                    "general": "Op basis van de onderstaande punten raden we aan om de interne rekening van dit lid te regulariseren voordat het gearchiveerd wordt:",
+                    "general": "Op basis van de onderstaande punten raden we aan om de interne rekening (Wallet) van dit lid te regulariseren voordat het gearchiveerd wordt:",
                     "6": "Geplande afspraken",
                     "5": "Terugkerende reserveringen",
                     "4": "Toekomstige reserveringen",
                     "3": "Lopende abonnementen met automatische verlengingen",
                     "2": "Actieve abonnementen",
                     "1": "Onbetaalde facturen",
-                    "0": "De interne rekening (saldo) is negatief"
+                    "0": "Negatieve interne rekening (Wallet)"
                 },
                 "actions": {
                     "confirm": "Bevestigen",
@@ -4546,7 +4546,7 @@
         "establishment": {
             "establishmentList": "Vestigingen",
             "establishmentFormPage": "[Formulier] Vestiging",
-            "establishmentGroupPage": "Lokalisatie"
+            "establishmentGroupPage": "Locatie"
         },
         "marketplace": {
             "marketplaceWorkshop": "Workshops",
@@ -4769,11 +4769,11 @@
         },
         "paymentMethod": {
             "credit": {
-                "explain": "We gebruiken de interne rekening van dit lid voor de facturatie. Gebruik dit als het lid nog geen online-betaalmethode, zoals creditcard of IBAN, heeft opgeslagen. Dit kun je later wijzigen."
+                "explain": "We gebruiken de interne rekening (Wallet) van dit lid voor de facturatie. Gebruik dit als het lid nog geen online-betaalmethode, zoals creditcard of IBAN, heeft opgeslagen. Dit kun je later wijzigen."
             },
             "sepa": "Automatische incasso (SEPA)",
             "card": "Creditcard",
-            "bsportCredit": "Interne rekening (saldo)"
+            "bsportCredit": "Interne rekening (Wallet)"
         },
         "mandate": {
             "content": "Door je IBAN op te geven en je betaling te bevestigen, geef je BSPORT Solution en Stripe (onze betaalprovider) toestemming om de incasso-instructies volgens het betalingsschema naar je bank te sturen. Je kunt bij je bank een terugbetaling aanvragen volgens de voorwaarden van je contract met deze bank. Een terugbetaling moet binnen 8 weken na de eerste afschrijving worden aangevraagd.",
@@ -4992,7 +4992,7 @@
             "provisionalTitle": "Overzicht van de betalingen",
             "paymentMethodTitle": "Betaalmethode"
         },
-        "noContracts": "In dit onderdeel kun je al je abonnementen dagelijks, wekelijks, maandelijks of jaarlijks automatisch verlengen en in rekening te brengen.",
+        "noContracts": "In dit onderdeel worden alle abonnementen beheerd. Selecteer de incassering (dagelijks/wekelijks/maandelijks/jaarlijks), voeg eventuele inschrijfkosten toe en voeg de actuele voorwaarden toe.",
         "copyLink": "De directe link naar de betaalpagina kopiëren",
         "listItem": {
             "valid": "Geldig",
@@ -5371,7 +5371,7 @@
         },
         "actions": {
             "flagAsCancelled": "Annuleren",
-            "flagAsOnSiteDelivery": "Ter plaatse ophalen",
+            "flagAsOnSiteDelivery": "Afhalen",
             "flagAsSent": "Verzonden"
         },
         "detail": {
@@ -5398,7 +5398,7 @@
             "0": "In afwachting",
             "700": "Betaald",
             "1100": "Geannuleerd",
-            "1200": "Ter plaatse ophalen",
+            "1200": "Afhalen",
             "9000": "Verzonden"
         },
         "pageTitle": "Webshop"
@@ -5534,7 +5534,7 @@
             "preview": "Voorvertoning",
             "saveButton": "Opslaan",
             "link": "Afmelden en mijn MarketPlace openen",
-            "explainMarketplace": "Je leden hebben op hun telefoon, computer en tablet toegang tot je MarketPlace (je agenda, webshop, kaarten, enz.). Hier kun je je MarketPlace volledig personaliseren.",
+            "explainMarketplace": "Leden hebben op hun telefoon, computer en tablet toegang tot je MarketPlace (je agenda, webshop, kaarten, enz.). In dit onderdeel kan de MarketPlace verder gepersonaliseerd worden.",
             "addButton": "Een tabblad toevoegen"
         },
         "companyOnboarding": {
@@ -5675,7 +5675,7 @@
                 "explain4": "[GEDEACTIVEERD] Afspraken worden geaccepteerd en de vestiging wordt 15 minuten voor én na de reservering als bezet gemarkeerd. De eerstvolgende afspraak kan vanaf 11:30 worden gereserveerd.",
                 "explain3": "[GEACTIVEERD] Afspraken worden niet geaccepteerd, omdat de vestiging van 09:45 tot en met 11:15 beschikbaar moet zijn. De eerstvolgende afspraak is pas mogelijk vanaf 11:30.",
                 "explain2": "Voorbeeld: de vestiging is van 10:00 tot 11:00 beschikbaar en de afspraak duurt 60 minuten voor de klant, alhoewel je een 15 min. buffer voor én na de afspraak nodig hebt i.v.m. schoonmaak/onderhoud.",
-                "explain1": "Indien geactiveerd, kunnen reserveringen alleen worden gemaakt als de kalender beschikbaar is inclusief de reservering"
+                "explain1": "Activeer deze functie om reserveringen alleen te accepteren als de kalender beschikbaar is."
             }
         },
         "calendar": {
@@ -6292,8 +6292,8 @@
                 "submit": "Opslaan"
             }
         },
-        "noPrivateService": "In dit onderdeel kun je al je afspraken toevoegen, beheren, wijzigen en verwijderen.",
-        "noPrivatePass": "Met afspraakkaarten kunnen leden zich inschrijven voor je (semi-)privésessies. Je kunt afspraakkaarten voor verschillende activiteiten aanmaken, bijv. Personal/Duo/etc. Training, zaalverhuur, massages, enz.  Let op! Vergeet niet om de compatibiliteit van de afspraakkaart correct in te stellen.",
+        "noPrivateService": "In dit onderdeel worden alle afspraken beheerd, zoals Personal/Duo Training, massages, zaalverhuur.",
+        "noPrivatePass": "In dit onderdeel worden alle afspraakkaarten beheerd. Leden kunnen afspraakkaarten gebruiken voor de activiteiten die onder \"Mijn studio\" > \"Afspraken\" zijn toegevoegd. Voorbeelden zijn Personal of Duo Training, Massages en Zaalverhuur. Let op! Het is belangrijk om de compatibiliteit per afspraakkaart in te stellen.",
         "customEvent": {
             "form": {
                 "actions": {
@@ -6855,7 +6855,7 @@
             "6": "AMEX",
             "7": "Bankoverschrijving",
             "8": "EventBrite",
-            "9": "Interne rekening (saldo)",
+            "9": "Interne rekening (Wallet)",
             "11": "Diverse",
             "label": "Betaalmethode",
             "12": "Processen",
@@ -7276,8 +7276,8 @@
                 "success": "De betaling met de cadeaubon is bevestigd"
             },
             "applyBalance": {
-                "error": "Fout bij het toevoegen van het saldo van je interne rekening op deze factuur",
-                "success": "Het saldo van je interne rekening is op deze factuur toegepast"
+                "error": "Fout bij het toevoegen van het saldo van je interne rekening (Wallet) op deze factuur",
+                "success": "Het saldo van je interne rekening (Wallet) is op deze factuur toegepast"
             }
         },
         "link": {
@@ -7361,7 +7361,7 @@
             "changeEmailRequest": {
                 "create": {
                     "error": "Fout bij het versturen van de bevestigingsmail",
-                    "success": "Een bevestigingsmail is verstuurd"
+                    "success": "Er is een bevestigingsmail is verstuurd"
                 }
             }
         },
@@ -7730,7 +7730,7 @@
             },
             "upsert": {
                 "errors": {
-                    "84006": "Voeg je vrijstelling / waiver onder Instellingen > Algemeen toe."
+                    "84006": "Voeg de Waiver / Vrijstelling onder Instellingen > Algemeen toe"
                 }
             },
             "customFormStepper": {
@@ -8121,7 +8121,7 @@
         },
         "list": {
             "activeCoupons": "Actieve promoties",
-            "isEmpty": "In dit onderdeel kun je je promotiecodes beheren.",
+            "isEmpty": "In dit onderdeel kunnen alle promoties worden beheerd.",
             "inactiveCoupons": "Verlopen of gedeactiveerde promoties"
         },
         "detail": {
@@ -8619,12 +8619,12 @@
                     "title": "Rooster-instellingen"
                 },
                 "coach_can_edit_attendance": "Instructeurs kunnen de aanwezigheid/afwezigheid op de mobiele app wijzigen",
-                "internalAccount": "Saldo interne rekening",
+                "internalAccount": "Interne rekening (Wallet)",
                 "internalAccountNotusableOnContract": "Deze betaalmethode kan niet voor abonnementen worden gebruikt.",
                 "internalAccountWarning2": "Ga naar Rapportages > Een rapportage toevoegen > Scroll naar \"Betalingen\" > Selecteer \"Krediet(en) > Selecteer alle kolommen > Klik op \"Bevestigen\".",
-                "internalAccountWarning1": "We raden aan om eerst een rapportage voor het saldo van leden hun interne rekening aan te maken voordat deze functie aan wordt gezet.",
-                "internalAccountWarningTitle": "Houd rekening met het saldo van leden hun interne rekening.",
-                "allowConsumerToUseInternalAccount": "Sta leden toe om het saldo van hun interne rekening te gebruiken om uitstaande facturen/winkelmandjes te betalen",
+                "internalAccountWarning1": "We raden aan om eerst een rapportage voor het saldo van leden hun interne rekening (Wallet) aan te maken voordat deze functie aan wordt gezet.",
+                "internalAccountWarningTitle": "Houd rekening met het saldo van leden hun interne rekening (Wallet).",
+                "allowConsumerToUseInternalAccount": "Sta leden toe om het saldo van hun interne rekening (Wallet) te gebruiken om uitstaande facturen/winkelmandjes te betalen",
                 "goToReports": "Rapportages"
             },
             "gtmId": {
@@ -8649,12 +8649,12 @@
                 "helperText": "Kies een complementaire themakleur."
             },
             "websiteURL": {
-                "label": "Link naar je eigen website",
+                "label": "Link naar eigen website",
                 "helperText": "Plak hier de link naar de hoofdpagina van je eigen website.",
                 "placeholder": "https://studio.nl/"
             },
             "scheduleURL": {
-                "label": "Link naar je rooster",
+                "label": "Link naar eigen rooster",
                 "helperText": "Plak hier de link naar je rooster op je eigen website.",
                 "placeholder": "https://studio.nl/rooster/"
             },
@@ -8925,7 +8925,7 @@
             },
             "nf525Button": "Downloaden",
             "nf525Explain": "BSPORT volgt de NF252-nalevingsprocedures. Je kan het officiële certificaat hier downloaden.",
-            "nf525": "Certificatie",
+            "nf525": "NF252-certificatie",
             "subscription": {
                 "forms": {
                     "nbRetriesSubscriptionPayments": {
@@ -9106,8 +9106,8 @@
             "updaterDialog": {
                 "topup": "Incasso",
                 "debt": "Debet",
-                "explainTopup": "Het saldo de interne rekening van dit lid wordt met €{{ amount }} verhoogd.",
-                "explainDecaissement": "Het saldo van de interne rekening van dit lid wordt met {{ currencyDisplay }}{{ amount }} verlaagd.",
+                "explainTopup": "Het saldo de interne rekening (Wallet) van dit lid wordt met €{{ amount }} verhoogd.",
+                "explainDecaissement": "Het saldo van de interne rekening (Wallet) van dit lid wordt met {{ currencyDisplay }}{{ amount }} verlaagd.",
                 "title": "Saldo wijzigen",
                 "actions": {
                     "cancel": "Annuleren",
@@ -9197,12 +9197,12 @@
                 "2": "SEPA",
                 "1": "Creditcard",
                 "0": "Contant",
-                "14": "Saldo van de interne rekening van de klant (debet)"
+                "14": "Interne rekening (Wallet)"
             },
             "select": {
                 "label": "Betaalmethode"
             },
-            "isInternalExplain": "De interne rekening (saldo) zal maandelijks in rekening worden gebracht.",
+            "isInternalExplain": "De interne rekening (Wallet) zal maandelijks in rekening worden gebracht.",
             "add": "Toevoegen",
             "edit": "Bewerken",
             "title": "Betaalmethode",
@@ -9224,12 +9224,12 @@
         },
         "invoiceInfo": {
             "3": "Deze factuur is afkomstig van een gegevensoverdracht. Wegens juridische redenen kunnen we geen PDF verstrekken of de factuur annuleren.",
-            "2": "Dit betaalbewijs toont de wijzigingen in het balans van de interne rekening van dit lid."
+            "2": "Dit betaalbewijs toont de wijzigingen in het balans van de interne rekening (Wallet) van dit lid."
         },
         "invoiceType": {
             "reversed": "Factuur (geannuleerd)",
             "return": "Terugbetaalde factuur",
-            "credit_payment": "Ontvangstbewijs (interne rekening en saldo gewijzigd)",
+            "credit_payment": "Ontvangstbewijs (interne rekening en Wallet gewijzigd)",
             "migration": "Gegevensoverdracht",
             "regular": "Factuur"
         },
@@ -9327,11 +9327,11 @@
             },
             "auto_consume_pack": {
                 "helper": "Een lid wordt direct ingeschreven zodra er een plaats vrijkomt indien hij/zij een geldige kaart bezit. Het systeem gebruikt automatisch de kaart dat als eerste vervalt en het minste krediet heeft.",
-                "label": "Automatisch de kaart van een lid in rekening brengen zodra er een plaats vrij komt."
+                "label": "Automatisch de kaart van een lid in rekening brengen zodra er een plaats vrij komt"
             },
             "is_option_blocking": {
                 "helper": "Zolang een lid op de wachtlijst staat, wordt er een plaats voor hem/haar vrij gehouden tot hij/zij zich aanmeldt.",
-                "label": "Beschikbare plaatsen reserveren voor leden die op de wachtlijst staan."
+                "label": "Beschikbare plaatsen reserveren voor leden die op de wachtlijst staan"
             },
             "autokick_delay": {
                 "helper": "Dit is het aantal meldingen dat een lid ontvangt voordat h/zij van de wachtlijst wordt verwijderd, als h/zij geen actie onderneemt.",
@@ -9421,7 +9421,7 @@
                     "name": "Naam",
                     "title": "[Formulier] Rol",
                     "buttonCreate": "Een rol toevoegen  ",
-                    "restrictedUrlExplain": "Gebruik deze optie om bepaalde URL's op de Whitelist te zetten zodat het alleen het gekoppeld personeel bepaalde onderdelen kan gebruiken."
+                    "restrictedUrlExplain": "Gebruik deze optie om bepaalde URL's op de Whitelist te zetten zodat alleen gekoppelde medewerkers bepaalde onderdelen kan gebruiken."
                 }
             }
         },
@@ -9676,7 +9676,7 @@
     },
     "widget": {
         "widget": {
-            "ownStyle": "Compatibiliteitsmodus (negeert je website-thema)",
+            "ownStyle": "Compatibiliteitsmodus (negeert website-thema)",
             "copyUrl": "Ga naar de link van je agenda",
             "codeSource": "Toon de code van de widget voor op je website.",
             "copy": "Kopiëren",
@@ -9696,7 +9696,7 @@
             "widgetPreviewError": "Voltooi je configuratie",
             "dialogTitle": "[Formulier] Widget",
             "codeInfo": "De code van deze widget voor op je website",
-            "creationPageInfo": "Personaliseer en filter je widgets en integreer ze gemakkelijk op je website.",
+            "creationPageInfo": "In dit onderdeel kunnen alle widgets geconfigureerd worden voor de website-integratie.",
             "dialogMode": {
                 "iframe": "Op mijn website blijven",
                 "popup": "Nieuw venster openen",
@@ -9829,7 +9829,7 @@
                 "private_pass": "Selecteer een afspraakkaart"
             },
             "createNotification": "[Formulier] Melding",
-            "selectNotificationRules": "Selecteer een regel voor een gedetailleerd overzicht.",
+            "selectNotificationRules": "Selecteer een melding voor een gedetailleerd overzicht.",
             "stats": {
                 "opened_rate": "Openingspercentage",
                 "total_mail_opened": "Klikpercentage",
@@ -9846,7 +9846,7 @@
         "customForm": {
             "title": "Formulieren",
             "linkHelper": "Kopieer en plak de bovenstaande link van je formulier in je berichten. Alleen de wijzigingen zullen zichtbaar zijn.",
-            "noCustomForm": "Gebruik formulieren om aanvullende informatie van je leden te vergaren.",
+            "noCustomForm": "In dit onderdeel worden alle formulieren beheerd. Personaliseer enquêtes om actuele informatie van leden te vergaren.",
             "selectCustomForm": "Selecteer een formulier voor een gedetailleerd overzicht.",
             "selectCustomFormFilled": "Selecteer een formulier om de inhoud te zien.",
             "changesDetected": "Sla het formulier op om de gemaakte veranderingen toe te passen.",
@@ -10189,11 +10189,11 @@
         "emails": {
             "chooseGroup": "Selecteer een groep",
             "copy": "Kopie",
-            "groupByPlaceholder": "Groep per",
+            "groupByPlaceholder": "Groeperen",
             "franchised": "Studio",
-            "groupBy": "Groep per",
+            "groupBy": "Groeperen",
             "pageTitle": "Sjabloon",
-            "companiesEmails": "E-mailsjablonen voor studio's",
+            "companiesEmails": "[Master-Account E-mailsjablonen",
             "create": "Een sjabloon toevoegen",
             "franchiseEmails": "Mijn sjablonen",
             "emptyStateDescription": "Selecteer een e-mail om de voorvertoning te zien.",
@@ -10232,7 +10232,7 @@
             "unavailableForSaleTitle": "Onbeschikbare cadeaubonnen",
             "activeTitle": "Beschikbare cadeaubonnen",
             "visibility": "Onbeschikbaar",
-            "explainIfEmpty": "Leden kunnen cadeaubonnen met hun dierbaren delen en zo kan je studio ook meer potentiële klanten aantrekken."
+            "explainIfEmpty": "In dit onderdeel worden alle cadeaubonnen beheerd. Leden kunnen cadeaubonnen met hun dierbaren delen. De gekozen waarde wordt op de interne rekening (Wallet) van de ontvanger gezet."
         },
         "backgroundImage": {
             "dialog": {
@@ -10543,8 +10543,8 @@
             "supplier": "Leverancier / Verkoper",
             "amount": "Bedrag",
             "category": "Categorie",
-            "noStaff": "Geen personeel van toepassing",
-            "staff": "Personeel",
+            "noStaff": "Zonder gekoppelde medewerkers",
+            "staff": "Medewerkers",
             "date_due": "Vervaldatum",
             "requiredField": "Dit veld is verplicht.",
             "editChoices": {
@@ -10567,18 +10567,18 @@
         "addButton": "Een uitgave toevoegen",
         "filters": {
             "showFuture": "Toekomstige uitgaven",
-            "filterStaff": "Al het personeel",
+            "filterStaff": "Alle medewerkers",
             "filterSupplier": "Alle leveranciers",
             "filterCategory": "Alle categorieën",
-            "titleStaff": "Personeel",
+            "titleStaff": "Medewerkers",
             "titleSupplier": "Leveranciers",
             "titleCategory": "Categorieën",
             "noStaff": "Zonder medewerkers",
             "noCategory": "Naamloze categorie"
         },
         "dialogEditExpense": {
-            "all": "Alle soortgelijke oude en toekomstige uitgaven verwijderen",
-            "future": "Bewerk deze en soortgelijke toekomstige uitgaven.",
+            "all": "Alle oude en toekomstige soortgelijke uitgaven bewerken",
+            "future": "Deze en soortgelijke toekomstige uitgaven bewerken",
             "current": "Alleen deze uitgave bewerken",
             "validate": "Bevestigen",
             "cancel": "Annuleren"
@@ -10602,7 +10602,7 @@
                 "supplier": "Leverancier / Verkoper",
                 "amount": "Bedrag",
                 "category": "Categorie",
-                "staff": "Personeel",
+                "staff": "Medewerkers",
                 "date_due": "Vervaldatum"
             }
         },
@@ -10666,7 +10666,7 @@
             }
         },
         "list": {
-            "infoNoInstalmentPayment": "Termijnbetalingen stellen je leden in staat om bepaalde betalingen gespreid te betalen.",
+            "infoNoInstalmentPayment": "In dit onderdeel worden alle termijnbetalingen beheerd. Termijnbetalingen stellen je leden in staat om geselecteerde producten gespreid te betalen.",
             "addInstalmentPayment": "Een configuratie toevoegen"
         },
         "detail": {

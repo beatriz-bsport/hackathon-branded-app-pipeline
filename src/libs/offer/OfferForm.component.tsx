@@ -836,12 +836,14 @@ export class OfferForm extends Component<Props, State> {
             onChange={this.onFormFieldChange}
             value={this.state.waiting_list_max_size}
           />
-          <FormField
-            id="partner_max_booking_count"
-            required
-            onChange={this.onFormFieldChange}
-            value={this.state.partner_max_booking_count}
-          />
+          {!!this.props.showPartnership && (
+            <FormField
+              id="partner_max_booking_count"
+              required
+              onChange={this.onFormFieldChange}
+              value={this.state.partner_max_booking_count}
+            />
+          )}
         </Grid>
 
         <Grid item>

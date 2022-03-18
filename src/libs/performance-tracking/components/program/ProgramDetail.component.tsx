@@ -93,7 +93,7 @@ export const ProgramDetail = (props: Props) => {
               onClickMember={onClickMember}
               {...memberProgramPaginated}
               itemPerPage={MEMBER_PROGRAM_PER_PAGE}
-              onPageRequested={onPageRequested}
+              onPageRequested={onPageRequested || (() => {})}
               program={program}
             />
           </div>

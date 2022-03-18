@@ -48,6 +48,7 @@ export const ConsumerAppBar = (props: Props) => {
           goToUserSpace={() => props.goToUserSpace(props.theme.company)}
           disconnect={props.disconnect}
           companyId={props.companyId}
+          websiteURL={props.theme.websiteURL}
         />
         {props.children}
       </div>

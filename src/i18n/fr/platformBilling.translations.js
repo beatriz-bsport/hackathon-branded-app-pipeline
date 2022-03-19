@@ -16,7 +16,7 @@ exports.default = {
     sectionTitle: 'Moyen de paiement',
     actions: {
       createSepa: 'Ajouter un IBAN',
-      createCard: 'Ajouter une CB',
+      createCard: 'Ajouter une carte',
     },
   },
   upsellPackage: {

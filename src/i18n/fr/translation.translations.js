@@ -287,7 +287,7 @@ exports.default = {
         available_payment_method_identifiers: {
           label: 'Moyens de paiement autorisés',
           helperText:
-            'Sélectionnez au moins un moyen de paiement. Si le panier du membre contient des éléments dont les moyens de paiements sont incompatibles, le paiement CB sera proposé.',
+            'Sélectionnez au moins un moyen de paiement. Si le panier du membre contient des éléments dont les moyens de paiements sont incompatibles, le paiement par carte sera proposé.',
         },
         onsite_payment_available: 'Possibilité de payer sur place',
         sell_only_on_provision:
@@ -685,7 +685,7 @@ exports.default = {
     revert: 'Annuler la facture',
     choseDate: 'Date de facturation',
     explainDateChoser:
-      'Veuillez choisir la date de facturation. Les paiements par CB seront immédiatement encaissés quelle que soit la date choisie',
+      'Veuillez choisir la date de facturation. Les paiements par carte seront immédiatement encaissés quelle que soit la date choisie',
     revertImpossibleExplainSubscription:
       "Cette facture fait partie d'une souscription, vous ne pouvez pas annuler une facture encaissée liée à une souscription, mais vous pouvez arrêter la souscription",
     revertExplainPayment:
@@ -772,7 +772,7 @@ exports.default = {
     nbInterval: 'Nombre de prélèvements',
     intervalType: 'Fréquence de paiement',
     stripePaymentWillBeCashedOutOnInvoiceValidation:
-      "La CB ne sera débitée qu'après la sauvegarde de la facture",
+      "La carte ne sera débitée qu'après la sauvegarde de la facture",
     createInvoice: 'Paiement',
     toBill: 'Facturer',
     toSubscribe: 'Souscrire',

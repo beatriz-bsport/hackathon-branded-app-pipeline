@@ -59,7 +59,7 @@ exports.default = {
     creation: {
       title: 'Paiement en ligne désactivé',
       content:
-        'Pour pouvoir encaisser des paiements CB et SEPA, veuillez vérifier vos informations légales',
+        'Pour pouvoir encaisser des paiements carte et SEPA, veuillez vérifier vos informations légales',
     },
   },
 };

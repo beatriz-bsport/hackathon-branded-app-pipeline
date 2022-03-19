@@ -40,7 +40,7 @@
       },
       "creation": {
         "title": "Paiement en ligne désactivé",
-        "content": "Pour pouvoir encaisser des paiements CB et SEPA, veuillez vérifier vos informations légales"
+        "content": "Pour pouvoir encaisser des paiements carte et SEPA, veuillez vérifier vos informations légales"
       }
     }
   },
@@ -3238,7 +3238,7 @@
       "selectorPlaceholder": { "privatePass": "Carte RDV", "paymentPack": "Carte cours collectif", "shopitem": "Magasin" },
       "available_payment_method_identifiers": {
         "label": "Moyens de paiement autorisés",
-        "helperText": "Sélectionnez au moins un moyen de paiement. Si le panier du membre contient des éléments dont les moyens de paiements sont incompatibles, le paiement CB sera proposé."
+        "helperText": "Sélectionnez au moins un moyen de paiement. Si le panier du membre contient des éléments dont les moyens de paiements sont incompatibles, le paiement par carte sera proposé."
       }
     },
     "detail": {
@@ -4046,7 +4046,7 @@
     },
     "paymentMethod": {
       "sectionTitle": "Moyen de paiement",
-      "actions": { "createSepa": "Ajouter un IBAN", "createCard": "Ajouter une CB" }
+      "actions": { "createSepa": "Ajouter un IBAN", "createCard": "Ajouter une carte" }
     },
     "upsellPackage": {
       "billOnce": "{{price_cts, price }}",
@@ -4534,7 +4534,7 @@
         },
         "available_payment_method_identifiers": {
           "label": "Moyens de paiement autorisés",
-          "helperText": "Sélectionnez au moins un moyen de paiement. Si le panier du membre contient des éléments dont les moyens de paiements sont incompatibles, le paiement CB sera proposé.",
+          "helperText": "Sélectionnez au moins un moyen de paiement. Si le panier du membre contient des éléments dont les moyens de paiements sont incompatibles, le paiement par carte sera proposé.",
           "warning": "Rendez votre carte visible pour les clients pour pouvoir sélectionner les moyens de paiement."
         },
         "startDate": "Date de début",
@@ -5074,10 +5074,10 @@
       "payment_note": "Note paiement",
       "remaining_days": "Jours restants",
       "bsport_fee": "Frais de transaction",
-      "payment_method_stripe": "CB",
+      "payment_method_stripe": "Carte",
       "payment_method_cash": "Espèce",
       "payment_method_check": "Chèque",
-      "payment_method_manual_credit_card": "CB (manuel)",
+      "payment_method_manual_credit_card": "Carte (manuel)",
       "payment_method_holiday_check": "Chèque vacances",
       "payment_method_amex": "AMEX",
       "payment_method_bank_transfer": "Virement",
@@ -5175,9 +5175,9 @@
       "sepa": "SEPA",
       "check": "Chèque",
       "dispute": "Litige",
-      "stripe": "CB",
-      "credit_card": "CB",
-      "manual_credit_card": "CB (manuel)",
+      "stripe": "Carte",
+      "credit_card": "Carte",
+      "manual_credit_card": "Carte (manuel)",
       "holiday_check": "Chèque vacance",
       "amex": "Amex",
       "bank_transfer": "Virement",
@@ -7454,7 +7454,7 @@
         "item": {
           "available_payment_method_identifiers": {
             "label": "Moyens de paiement autorisés",
-            "helperText": "Sélectionnez au moins un moyen de paiement. Si le panier du membre contient des éléments dont les moyens de paiements sont incompatibles, le paiement CB sera proposé."
+            "helperText": "Sélectionnez au moins un moyen de paiement. Si le panier du membre contient des éléments dont les moyens de paiements sont incompatibles, le paiement par carte sera proposé."
           },
           "onsite_payment_available": "Possibilité de payer sur place",
           "sell_only_on_provision": "Proposer à la vente UNIQUEMENT si du stock est disponible",
@@ -7773,7 +7773,7 @@
       "reverted": "Annulé",
       "revert": "Annuler la facture",
       "choseDate": "Date de facturation",
-      "explainDateChoser": "Veuillez choisir la date de facturation. Les paiements par CB seront immédiatement encaissés quelle que soit la date choisie",
+      "explainDateChoser": "Veuillez choisir la date de facturation. Les paiements par carte seront immédiatement encaissés quelle que soit la date choisie",
       "revertImpossibleExplainSubscription": "Cette facture fait partie d'une souscription, vous ne pouvez pas annuler une facture encaissée liée à une souscription, mais vous pouvez arrêter la souscription",
       "revertExplainPayment": "Les paiements par carte seront reversés sur l'acompte du membre. Tous les autres modes de paiement seront supprimés.",
       "revertExplainCredits": "Les débit/crédit sur le compte du membre seront inversés.",
@@ -7848,7 +7848,7 @@
       "billingAnchor": "Premier paiement",
       "nbInterval": "Nombre de prélèvements",
       "intervalType": "Fréquence de paiement",
-      "stripePaymentWillBeCashedOutOnInvoiceValidation": "La CB ne sera débitée qu'après la sauvegarde de la facture",
+      "stripePaymentWillBeCashedOutOnInvoiceValidation": "La carte ne sera débitée qu'après la sauvegarde de la facture",
       "createInvoice": "Paiement",
       "toBill": "Facturer",
       "toSubscribe": "Souscrire"

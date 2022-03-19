@@ -652,7 +652,7 @@ exports.default = {
       available_payment_method_identifiers: {
         label: 'Moyens de paiement autorisés',
         helperText:
-          'Sélectionnez au moins un moyen de paiement. Si le panier du membre contient des éléments dont les moyens de paiements sont incompatibles, le paiement CB sera proposé.',
+          'Sélectionnez au moins un moyen de paiement. Si le panier du membre contient des éléments dont les moyens de paiements sont incompatibles, le paiement par carte sera proposé.',
         warning:
           'Rendez votre carte visible pour les clients pour pouvoir sélectionner les moyens de paiement.',
       },

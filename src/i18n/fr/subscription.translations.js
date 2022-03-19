@@ -369,11 +369,11 @@ exports.default = {
     payment_method: {
       label: 'Moyen de paiement',
       [BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT]: 'A crédit',
-      [BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB]: 'Carte bleue',
+      [BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB]: 'Carte',
       [BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA]: 'Virement SEPA',
     },
     payment_method_group: {
-      [PAYMENT_GROUP_METHOD_IDENTIFIER_CB]: 'Carte bleue',
+      [PAYMENT_GROUP_METHOD_IDENTIFIER_CB]: 'Carte',
       14: 'Credit',
       [PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA]: 'SEPA',
     },
@@ -404,11 +404,11 @@ exports.default = {
   },
   paymentMethod: {
     sepa: 'Prélèvement SEPA',
-    card: 'Carte bleue',
+    card: 'Carte',
     bsportCredit: 'Acompte client',
     credit: {
       explain:
-        "Le membre sera facturé sur son acompte interne chaque facture. Utilisez cette méthode de paiement si vous n'avez pas (encore) accès à une méthode facturation telle que la carte bleue ou le virement IBAN. Vous pourrez mettre à jour le paiement à posteriori.",
+        "Le membre sera facturé sur son acompte interne chaque facture. Utilisez cette méthode de paiement si vous n'avez pas (encore) accès à une méthode facturation telle que la carte ou le virement IBAN. Vous pourrez mettre à jour le paiement à posteriori.",
     },
   },
   mandate: {

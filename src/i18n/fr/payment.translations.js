@@ -102,7 +102,7 @@ exports.default = {
   paymentComboSectionTitle: 'Pack',
 
   method: {
-    CB: 'Carte bleue',
+    CB: 'Carte',
     CREDIT_ACCOUNT: 'Paiement sur place',
     CASH: 'Espèces',
     CHECK: 'Chèque',
@@ -158,8 +158,8 @@ exports.default = {
   returnedAmount: 'Remboursé: ',
   paymentMethod: {
     label: 'Moyen de paiement',
-    [CB.id]: 'Carte bleue',
-    [CB_MANUAL.id]: 'Carte bleue (manuel)',
+    [CB.id]: 'Carte',
+    [CB_MANUAL.id]: 'Carte (manuel)',
     [CHECK.id]: 'Chèque',
     [HOLIDAY_CHECK.id]: 'Chèque vacances',
     [CASH.id]: 'Espèces',

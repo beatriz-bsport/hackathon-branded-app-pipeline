@@ -56,8 +56,8 @@ exports.default = {
   },
   paymentMethod: {
     // TODO: remove that
-    CB: 'Carte bleue',
-    CB_MANUAL: 'Carte bleue (manuel)',
+    CB: 'Carte',
+    CB_MANUAL: 'Carte (manuel)',
     CHECK: 'Chèque',
     HOLIDAY_CHECK: 'Chèque vacances',
     CASH: 'Espèces',
@@ -689,7 +689,7 @@ exports.default = {
     revertImpossibleExplainSubscription:
       "Cette facture fait partie d'une souscription, vous ne pouvez pas annuler une facture encaissée liée à une souscription, mais vous pouvez arrêter la souscription",
     revertExplainPayment:
-      "Les paiements par carte bleue seront reversés sur l'acompte du membre. Tous les autres modes de paiement seront supprimés.",
+      "Les paiements par carte seront reversés sur l'acompte du membre. Tous les autres modes de paiement seront supprimés.",
     revertExplainCredits:
       'Les débit/crédit sur le compte du membre seront inversés.',
     revertExplainPacks:
@@ -740,15 +740,15 @@ exports.default = {
     updateInvoiceVoucher: 'Ajouter une réduction',
     voucher: 'Réduction',
     total: 'TOTAL',
-    paymentMethodStripe: 'Carte bleue',
+    paymentMethodStripe: 'Carte',
     paymentMethodCheck: 'Chèque',
     paymentMethodCash: 'Espèces',
     invoice: 'Facture',
     paymentMethod: 'Mode de paiement',
     creditAccountBalance: 'Acompte actuel : ',
     paymentMethods: {
-      CB: 'Carte bleue',
-      CB_MANUAL: 'Carte bleue (manuel)',
+      CB: 'Carte',
+      CB_MANUAL: 'Carte (manuel)',
       CHECK: 'Chèque',
       HOLIDAY_CHECK: 'Chèques vacances',
       CASH: 'Espèces',

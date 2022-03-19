@@ -1479,7 +1479,7 @@
       "select": { "label": "Moyen de paiement" },
       "label": {
         "0": "Espèces",
-        "1": "Carte bleue",
+        "1": "Carte",
         "2": "SEPA",
         "3": "Chèque",
         "4": "Chèque vacances",
@@ -1493,7 +1493,7 @@
         "12": "EPS",
         "13": "Giropay",
         "14": "Acompte client (dette)",
-        "15": "Carte bleue (manuel)"
+        "15": "Carte (manuel)"
       },
       "detach": {
         "pm_deleted": "Moyen de paiement supprimé",
@@ -1689,7 +1689,7 @@
         "label": { "0": "Remboursement direct", "1": "Remboursement en avoir (solde)", "2": "Remboursement manuel" },
         "explainEmptyPayment": "Êtes vous sûr de vouloir annuler cette facture ?",
         "explain": {
-          "0": "Les paiements carte bleue / SEPA / etc... seront reversé directement sur le compte du client. Utilisez cette méthode pour opérer un remboursement direct suite à une erreur.",
+          "0": "Les paiements carte / SEPA / etc... seront reversé directement sur le compte du client. Utilisez cette méthode pour opérer un remboursement direct suite à une erreur.",
           "1": "Un avoir sera généré et incrémentera d'autant le solde client. Utilisez cette méthode pour générer un avoir.",
           "2": "Choisissez vous-même le moyen de remboursement. Utilisez cette méthode pour un remboursement chèque / virement manuel / espèces."
         }
@@ -3110,7 +3110,7 @@
     "creditAccountBalance": { "current": "Acompte actuel" },
     "paymentComboSectionTitle": "Pack",
     "method": {
-      "CB": "Carte bleue",
+      "CB": "Carte",
       "CREDIT_ACCOUNT": "Paiement sur place",
       "CASH": "Espèces",
       "CHECK": "Chèque",
@@ -3154,10 +3154,10 @@
     },
     "returnedAmount": "Remboursé: ",
     "paymentMethod": {
-      "0": "Carte bleue",
+      "0": "Carte",
       "1": "Espèces",
       "2": "Chèque",
-      "4": "Carte bleue (manuel)",
+      "4": "Carte (manuel)",
       "5": "Chèque vacances",
       "6": "AMEX",
       "7": "Virement",
@@ -6713,8 +6713,8 @@
       "note": "Note",
       "autoRenew": "Renouvellement automatique",
       "parameters": "Paramètres",
-      "payment_method": { "0": "Carte bleue", "1": "Virement SEPA", "2": "A crédit", "label": "Moyen de paiement" },
-      "payment_method_group": { "1": "Carte bleue", "2": "SEPA", "14": "Credit" },
+      "payment_method": { "0": "Carte", "1": "Virement SEPA", "2": "A crédit", "label": "Moyen de paiement" },
+      "payment_method_group": { "1": "Carte", "2": "SEPA", "14": "Credit" },
       "status": "Statut",
       "subscribeAgain": "Souscrire à nouveau",
       "voucher": "Offre spéciale",
@@ -6739,10 +6739,10 @@
     "schedule": { "provisionalTitle": "Echéancier prévisionnel", "paymentMethodTitle": "Méthode de débit" },
     "paymentMethod": {
       "sepa": "Prélèvement SEPA",
-      "card": "Carte bleue",
+      "card": "Carte",
       "bsportCredit": "Acompte client",
       "credit": {
-        "explain": "Le membre sera facturé sur son acompte interne chaque facture. Utilisez cette méthode de paiement si vous n'avez pas (encore) accès à une méthode facturation telle que la carte bleue ou le virement IBAN. Vous pourrez mettre à jour le paiement à posteriori."
+        "explain": "Le membre sera facturé sur son acompte interne chaque facture. Utilisez cette méthode de paiement si vous n'avez pas (encore) accès à une méthode facturation telle que la carte ou le virement IBAN. Vous pourrez mettre à jour le paiement à posteriori."
       }
     },
     "mandate": {
@@ -7252,8 +7252,8 @@
     "hi": "Salut",
     "pageTitle": { "myAccount": "Mon compte" },
     "paymentMethod": {
-      "CB": "Carte bleue",
-      "CB_MANUAL": "Carte bleue (manuel)",
+      "CB": "Carte",
+      "CB_MANUAL": "Carte (manuel)",
       "CHECK": "Chèque",
       "HOLIDAY_CHECK": "Chèque vacances",
       "CASH": "Espèces",
@@ -7775,7 +7775,7 @@
       "choseDate": "Date de facturation",
       "explainDateChoser": "Veuillez choisir la date de facturation. Les paiements par CB seront immédiatement encaissés quelle que soit la date choisie",
       "revertImpossibleExplainSubscription": "Cette facture fait partie d'une souscription, vous ne pouvez pas annuler une facture encaissée liée à une souscription, mais vous pouvez arrêter la souscription",
-      "revertExplainPayment": "Les paiements par carte bleue seront reversés sur l'acompte du membre. Tous les autres modes de paiement seront supprimés.",
+      "revertExplainPayment": "Les paiements par carte seront reversés sur l'acompte du membre. Tous les autres modes de paiement seront supprimés.",
       "revertExplainCredits": "Les débit/crédit sur le compte du membre seront inversés.",
       "revertExplainPacks": "Les cartes de cours seront annulés ainsi que TOUTES les réservations associées",
       "revertExplainShop": "Les achats du magasin seront annulés et les stocks réinitialisés.",
@@ -7817,15 +7817,15 @@
       "updateInvoiceVoucher": "Ajouter une réduction",
       "voucher": "Réduction",
       "total": "TOTAL",
-      "paymentMethodStripe": "Carte bleue",
+      "paymentMethodStripe": "Carte",
       "paymentMethodCheck": "Chèque",
       "paymentMethodCash": "Espèces",
       "invoice": "Facture",
       "paymentMethod": "Mode de paiement",
       "creditAccountBalance": "Acompte actuel : ",
       "paymentMethods": {
-        "CB": "Carte bleue",
-        "CB_MANUAL": "Carte bleue (manuel)",
+        "CB": "Carte",
+        "CB_MANUAL": "Carte (manuel)",
         "CHECK": "Chèque",
         "HOLIDAY_CHECK": "Chèques vacances",
         "CASH": "Espèces",

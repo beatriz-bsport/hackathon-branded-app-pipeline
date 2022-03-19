@@ -110,8 +110,8 @@ exports.default = {
       label: 'Moyen de paiement',
     },
     label: {
-      [PAYMENT_GROUP_METHOD_IDENTIFIER_CB]: 'Carte bleue',
-      [PAYMENT_GROUP_METHOD_IDENTIFIER_CB_MANUAL]: 'Carte bleue (manuel)',
+      [PAYMENT_GROUP_METHOD_IDENTIFIER_CB]: 'Carte',
+      [PAYMENT_GROUP_METHOD_IDENTIFIER_CB_MANUAL]: 'Carte (manuel)',
       [PAYMENT_GROUP_METHOD_IDENTIFIER_CHECK]: 'Chèque',
       [PAYMENT_GROUP_METHOD_IDENTIFIER_HOLIDAY_CHECK]: 'Chèque vacances',
       [PAYMENT_GROUP_METHOD_IDENTIFIER_CASH]: 'Espèces',
@@ -416,7 +416,7 @@ exports.default = {
       explainEmptyPayment: 'Êtes vous sûr de vouloir annuler cette facture ?',
       explain: {
         [REVERSE_ON_PAYMENT_METHOD]:
-          'Les paiements carte bleue / SEPA / etc... seront reversé directement sur le compte du client. Utilisez cette méthode pour opérer un remboursement direct suite à une erreur.',
+          'Les paiements carte / SEPA / etc... seront reversé directement sur le compte du client. Utilisez cette méthode pour opérer un remboursement direct suite à une erreur.',
         [REVERSE_ON_DEBT]:
           "Un avoir sera généré et incrémentera d'autant le solde client. Utilisez cette méthode pour générer un avoir.",
         [REVERSE_ON_NEW_PAYMENT_METHOD]:

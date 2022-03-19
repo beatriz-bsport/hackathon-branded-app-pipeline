@@ -4449,7 +4449,9 @@
         "endBeforeStart": "The end date can't be greater than the start date",
         "requiredField": "this field is required",
         "monthly": "Monthly",
-        "weekly": "Weekly"
+        "weekly": "Weekly",
+        "showLess": "Show less",
+        "showMore": "Show more ({{count}})"
     },
     "workshop": {
         "search": "Search a workshop",

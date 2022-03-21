@@ -66,7 +66,7 @@ type Props = {
     params: any,
   ) => void,
   membership: Membership,
-  privateBookingsLoading: boolean,
+  privateConsumerPassLoading: boolean,
   private_consumer_pass_list: Array<PrivateConsumerPass>,
   goToPass: (company: number) => void,
 };
@@ -163,7 +163,7 @@ export class ConsumerPack extends React.Component<Props> {
           <Paper>
             <PaginatedListStateful
               itemPerPage={5}
-              loading={this.props.privateBookingsLoading}
+              loading={this.props.privateConsumerPassLoading}
               listProps={{ disablePadding: true }}
               items={this.props.private_consumer_pass_list}
               renderItem={(pcp) => (
@@ -261,8 +261,6 @@ export default compose(
       private_consumer_pass_list: excludeUnPaidPrivateConsumerPass(
         withoutUniversalPrivateConsumerPass(getPrivateConsumerPassList),
       )(state),
-      privateConsumerPassLoading:
-        state.privateService.privateConsumerPass.loading,
       privateBookingsLoading: state.privateService.privateBooking.loading,
     }),
     {

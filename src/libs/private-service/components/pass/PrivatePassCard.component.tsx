@@ -15,6 +15,7 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
 import PaymentIcon from '@material-ui/icons/Payment';
 import { useTranslation } from 'react-i18next';
+import StyleIcon from '@material-ui/icons/Style';
 
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ButtonBase from '@material-ui/core/ButtonBase';
@@ -240,6 +241,22 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
               )}
             </Typography>
           </div>
+
+          {!!pass?.linked_payment_pack && (
+            <div className={classes.detailInfo}>
+              <div className={classes.detailCategory}>
+                <StyleIcon className={classes.leftIcon} />
+                <Typography variant="h6">
+                  {t('paymentPack:detailTitles.universalPass')}
+                </Typography>
+              </div>
+              <Typography variant="body1" className={classes.passInfo}>
+                <p className={classes.detailContent}>
+                  {t('paymentPack:cardDetails.universalPass')}
+                </p>
+              </Typography>
+            </div>
+          )}
         </div>
       </div>
     </Paper>

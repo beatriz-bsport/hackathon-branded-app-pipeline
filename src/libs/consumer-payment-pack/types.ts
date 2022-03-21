@@ -89,6 +89,7 @@ export type ConsumerPaymentPackState = ErrorAndLoading & {
       allIds: number[];
     };
   byMember: ErrorAndLoading & WithPagination & { allIds: number[] };
+  universalbyMember: ErrorAndLoading & WithPagination & { allIds: number[] };
   forBooking: ErrorAndLoading & { allIds: number[] };
   penalty: ErrorAndLoading & WithPagination & { items: number[] };
   maxout_booking: ErrorAndLoading & {

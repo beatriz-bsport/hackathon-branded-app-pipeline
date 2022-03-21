@@ -34,6 +34,7 @@ exports.default = {
   },
   pack: {
     titlePaymentPack: 'Cours collectif',
+    titleUniversalPack: 'Universelle',
     titlePrivatePack: 'Rendez-vous',
   },
   booking: {

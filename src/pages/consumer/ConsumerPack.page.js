@@ -18,18 +18,25 @@ import { WidgetUtils } from '../../libs/widget/WidgetUtils';
 import PaginatedListBase from '../../components/PaginatedListBase.component';
 import PaginatedListStateful from '../../components/PaginatedListStateful.component';
 
-import { getConsumerPacksByMemberWithPaymentPack } from '../../libs/consumer-payment-pack/selectors';
+import {
+  getConsumerPacksByMemberWithPaymentPack,
+  getConsumerUniversalPacksByMemberWithPaymentPack,
+} from '../../libs/consumer-payment-pack/selectors';
 
 import PrivateConsumerPassBookerListItem from '../../libs/private-service/components/booking-module/PrivateConsumerPassBookerListItem.component';
 import {
   getPrivateConsumerPassList,
   excludeUnPaidPrivateConsumerPass,
+  withoutUniversalPrivateConsumerPass,
 } from '../../libs/private-service/selectors/private-consumer-pass';
 
 import ConsumerPackRowItem from '../../libs/consumer-payment-pack/components/ConsumerPackRowItem.component';
 import { fetchPrivateConsumerPassList } from '../../libs/private-service/actions';
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
-import { fetchByMember as fetchConsumerPackByMemberAction } from '../../libs/consumer-payment-pack/actions';
+import {
+  fetchByMember as fetchConsumerPackByMemberAction,
+  fetchUniversalByMember as fetchUniversalByMemberAction,
+} from '../../libs/consumer-payment-pack/actions';
 
 import type { PrivateConsumerPass } from '../../libs/private-service/types';
 import type { ConsumerPaymentPack } from '../../libs/consumer-payment-pack/types';
@@ -38,16 +45,21 @@ import { urlToMarketplace } from '../../libs/marketplace/utils';
 import { withIsSharedActive } from '../../libs/relationship/selectors';
 import { fetchConsumerPaymentPackLinks as fetchConsumerPaymentPackLinksAction } from '../../libs/relationship/actions';
 import { WithIsSharedActive } from '../../libs/relationship/types';
+import type { OptionCallback } from '../../state';
 
 type Props = {
   t: TFunction,
   classes: Object,
-  fetchPrivateConsumerPassList: () => void,
+  fetchPrivateConsumerPassList: (params: any, options?: OptionCallback) => void,
   consumerPackLoading: boolean,
   consumerPacks: Array<WithIsSharedActive<ConsumerPaymentPack>>,
+  consumerUniversalPacks: Array<WithIsSharedActive<ConsumerPaymentPack>>,
   consumerPackCount: number,
   consumerPackCurrentPage: number,
-  fetchConsumerPacks: (
+  consumerUniversalPackLoading: boolean,
+  consumerUniversalPackCount: number,
+  consumerUniversalPackCurrentPage: number,
+  fetchConsumerPacksPaginated: (
     member: number,
     page: number,
     page_size: number,
@@ -66,6 +78,7 @@ export class ConsumerPack extends React.Component<Props> {
     if (this.props.membership) {
       this.props.fetchPrivateConsumerPassList({
         member: this.props.membership.id,
+        is_universal: false,
       });
     }
   }
@@ -77,6 +90,7 @@ export class ConsumerPack extends React.Component<Props> {
     ) {
       this.props.fetchPrivateConsumerPassList({
         member: this.props.membership.id,
+        is_universal: false,
       });
     }
   }
@@ -119,11 +133,11 @@ export class ConsumerPack extends React.Component<Props> {
               nbItems={this.props.consumerPackCount}
               page={this.props.consumerPackCurrentPage}
               onPageRequested={(page, pageSize) =>
-                this.props.fetchConsumerPacks(
+                this.props.fetchConsumerPacksPaginated(
                   this.props.membership.id,
                   page,
                   pageSize,
-                  { disabled: false },
+                  { disabled: false, is_universal: false },
                 )
               }
               renderItem={(cpp) => (
@@ -157,6 +171,42 @@ export class ConsumerPack extends React.Component<Props> {
                   divider
                   key={pcp.id}
                   private_consumer_pass={pcp}
+                />
+              )}
+            />
+          </Paper>
+        </Grid>
+        <Grid item xs={12} lg={6}>
+          <Typography
+            variant="h4"
+            component="h3"
+            className={this.props.classes.title}
+          >
+            {this.props.t('pack.titleUniversalPack')}
+          </Typography>
+          <Divider className={this.props.classes.sectionDivider} />
+          <Paper>
+            <PaginatedListBase
+              itemPerPage={CONSUMER_PAYMENT_PACK_PAGE_SIZE}
+              loading={this.props.consumerUniversalPackLoading}
+              listProps={{ disablePadding: true }}
+              items={this.props.consumerUniversalPacks}
+              nbItems={this.props.consumerUniversalPackCount}
+              page={this.props.consumerUniversalPackCurrentPage}
+              onPageRequested={(page, pageSize) =>
+                this.props.fetchConsumerPacksPaginated(
+                  this.props.membership.id,
+                  page,
+                  pageSize,
+                  { disabled: false, is_universal: true },
+                )
+              }
+              renderItem={(cpp) => (
+                <ConsumerPackRowItem
+                  hideConsumer
+                  key={cpp.id}
+                  consumerPack={cpp}
+                  paymentPack={cpp.payment_pack}
                 />
               )}
             />
@@ -196,12 +246,20 @@ export default compose(
       consumerPacks: withIsSharedActive(
         getConsumerPacksByMemberWithPaymentPack,
       )(state, membership.member),
+      consumerUniversalPacks: withIsSharedActive(
+        getConsumerUniversalPacksByMemberWithPaymentPack,
+      )(state, membership.member),
       consumerPackCount: state.consumerPaymentPack.byMember.count,
       consumerPackCurrentPage: state.consumerPaymentPack.byMember.page,
       consumerPackLoading: state.consumerPaymentPack.byMember.loading,
-
+      consumerUniversalPackCount:
+        state.consumerPaymentPack.universalbyMember.count,
+      consumerUniversalPackCurrentPage:
+        state.consumerPaymentPack.universalbyMember.page,
+      consumerUniversalPackLoading:
+        state.consumerPaymentPack.universalbyMember.loading,
       private_consumer_pass_list: excludeUnPaidPrivateConsumerPass(
-        getPrivateConsumerPassList,
+        withoutUniversalPrivateConsumerPass(getPrivateConsumerPassList),
       )(state),
       privateConsumerPassLoading:
         state.privateService.privateConsumerPass.loading,
@@ -223,6 +281,20 @@ export default compose(
           options,
           params,
         ),
+      fetchUniversalConsumerPacks: (
+        memberId: number,
+        page: number,
+        page_size: number,
+        options: OptionCallback,
+        params: any,
+      ) =>
+        fetchUniversalByMemberAction(
+          memberId,
+          page,
+          page_size,
+          options,
+          params,
+        ),
       fetchPrivateConsumerPassList,
       goToPass: (name: string, id: number) =>
         push(`${urlToMarketplace(name, id)}/pass`),
@@ -233,17 +305,20 @@ export default compose(
     ({
       fetchPaymentPackBulk,
       fetchConsumerPacks,
+      fetchUniversalConsumerPacks,
       fetchConsumerPaymentPackLinks,
     }) => ({
-      fetchConsumerPacks: (memberId, page, page_size, options, params) =>
-        fetchConsumerPacks(
+      fetchConsumerPacksPaginated: (memberId, page, page_size, params) => {
+        const action = params.is_universal
+          ? fetchUniversalConsumerPacks
+          : fetchConsumerPacks;
+        return action(
           memberId,
           page,
           page_size,
           {
             onSuccess: (cpps) => {
               fetchPaymentPackBulk(cpps.map((c) => c.payment_pack));
-              if (options && options.onSuccess) options.onSuccess(cpps);
               fetchConsumerPaymentPackLinks(
                 flatten(
                   cpps.map((cpp) =>
@@ -252,10 +327,10 @@ export default compose(
                 ),
               );
             },
-            onError: options && options.onError,
           },
           { ...(params || {}), mine: true, reverted: false },
-        ),
+        );
+      },
     }),
   ),
 )(ConsumerPack);

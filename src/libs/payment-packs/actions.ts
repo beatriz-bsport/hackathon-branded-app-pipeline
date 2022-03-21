@@ -112,7 +112,11 @@ export const updatePaymentPackActions = {
   success: createAction('PAYMENT_PACK/PATCH/SUCCESS'),
 };
 
-export function patch(id: number, data: any) {
+export function patch(
+  id: number,
+  data: any,
+  options?: OptionCallback<PaymentPack>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(updatePaymentPackActions.isLoading(id));
     dispatch(updatePaymentPackActions.error(null));
@@ -127,6 +131,7 @@ export function patch(id: number, data: any) {
           }.success`,
         ),
       );
+      if (options?.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
       dispatch(updatePaymentPackActions.error(err));
@@ -137,7 +142,9 @@ export function patch(id: number, data: any) {
           }.error`,
         ),
       );
+      if (options?.onError) options.onError();
     }
+
     dispatch(updatePaymentPackActions.isNotLoading(id));
   };
 }
@@ -198,7 +205,10 @@ export function updateOrder(
   };
 }
 
-export function createOrUpdate(data: any, options?: OptionCallback) {
+export function createOrUpdate(
+  data: any,
+  options?: OptionCallback<PaymentPack>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(startCreateOrUpdate(data.id));
     dispatch(createOrUpdateFailed(null));

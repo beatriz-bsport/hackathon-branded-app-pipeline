@@ -653,7 +653,7 @@
       "titlePaymentDialog": "Régularisation acompte",
       "explainPayment": "Cette somme sera reversée au club afin de régulariser votre acompte"
     },
-    "pack": { "titlePaymentPack": "Cours collectif", "titlePrivatePack": "Rendez-vous" },
+    "pack": { "titlePaymentPack": "Cours collectif", "titleUniversalPack": "Universelle", "titlePrivatePack": "Rendez-vous" },
     "booking": {
       "titleBooking": "Cours collectif",
       "titlePrivateBooking": "Rendez-vous",
@@ -3526,6 +3526,13 @@
             "notAllowedFor": "Non-autorisé pour",
             "doNotSelectToAllowAllMembers": "Laisser vide pour autoriser à tous les membres"
           }
+        },
+        "universalPass": {
+          "warningIsUniversalPass": "Cette carte est une carte universelle, une carte jumelle a été créée dans les cartes de RDV. Tous les champs modifiés sur cette carte seront aussi modifiés sur la carte jumelle (sauf la catégorie). Il en est de même pour les notifications, extensions et modifications des crédits.",
+          "label": "Carte universelle",
+          "marketplaceLabel": "Carte universelle. Utilisable pour les cours collectifs et rendez-vous.",
+          "helperText": "Les cartes universelles peuvent être utilisées pour réserver des cours collectifs ET des rendez-vous. Une fois la carte créée, une carte jumelle sera créée dans les cartes de rendez-vous. Le nombre de crédit des deux cartes sera lié. A l’achat de l’une des deux cartes, l’autre sera automatiquement ajoutée au membre (sans frais supplémentaire).",
+          "deativatedTags": "Désactivé pour les cartes universelles"
         }
       }
     },
@@ -3706,10 +3713,12 @@
       "credit_quantity": "Nombre de crédits",
       "validity": "Validité",
       "compatibility": "Compatibilité",
+      "compatibilityPaymentPack": "Compatibilité cours collectifs",
       "accessibility": "Accessibilité",
       "tags": "Tags",
       "restrictions": "Restrictions",
-      "vod": "VOD"
+      "vod": "VOD",
+      "universalPass": "Carte universelle"
     },
     "cardDetails": {
       "maxBookingPerMonth": "Utilisations maximum par mois : ",
@@ -3717,7 +3726,8 @@
       "maxBookingPerDay": "Utilisations maximum par jour : ",
       "maxPurchasePerMember": "Nombre d'achats maximum : ",
       "packBlocking1": " jours de blocages après ",
-      "packBlocking2": " annulations hors-délais sur une semaine"
+      "packBlocking2": " annulations hors-délais sur une semaine",
+      "universalPass": "Compatible avec les cours collectifs et RDV."
     },
     "selector": {
       "sorting": {
@@ -3790,7 +3800,22 @@
     "whiteList": "Tags autorisés",
     "blackList": "Tags non autorisés",
     "noAuthorizedTag": "Aucun tag autorisé",
-    "noUnauthorizedTag": "Aucun tag non autorisé"
+    "noUnauthorizedTag": "Aucun tag non autorisé",
+    "universalPass": {
+      "delete": {
+        "dialog": {
+          "title": "Suppresion de la carte",
+          "warningText": "Attention ! Cette carte est une carte universelle, si vous la supprimez sa carte jumelle sera elle aussi supprimée."
+        }
+      },
+      "restore": {
+        "dialog": {
+          "title": "Désarchiver",
+          "text": "Cette carte est une carte universelle, sa carte jumelle a elle aussi été désarchivée.",
+          "continue": "Continuer"
+        }
+      }
+    }
   },
   "paymentRules": {
     "simulate": "Simuler",
@@ -4508,13 +4533,20 @@
         "paymentMeans": "Moyens de paiement"
       },
       "form": {
+        "universalPass": {
+          "warningIsUniversalPass": "Cette carte est une carte universelle, une carte jumelle a été créée dans les cartes de cours. Tous les champs modifiés sur cette carte seront aussi modifiés sur la carte jumelle (sauf la catégorie). Il en est de même pour les notifications, extensions et modifications des crédits.",
+          "label": "Carte universelle",
+          "helperText": "Les cartes universelles peuvent être utilisées pour réserver des cours collectifs ET des rendez-vous. Une fois la carte créée, une carte jumelle sera créée dans les cartes de cours. Le nombre de crédit des deux cartes sera lié. A l’achat de l’une des deux cartes, l’autre sera automatiquement ajoutée au membre (sans frais supplémentaire).",
+          "deativatedTags": "Désactivé pour les cartes universelles"
+        },
         "title": "Carte de rendez-vous",
         "franchise": "Cette carte est une carte partagée par le compte franchiseur. Certains éléments ont été définis par le compte franchiseur et ne sont pas modifiables",
         "categoryTitle": {
           "info": "Informations générales",
           "paymentMeans": "Moyens de paiement",
           "validity": "Validité de la carte",
-          "compatibility": "Compatibilité"
+          "compatibility": "Compatibilité",
+          "compatibilityAppointment": "Compatibilité RDV"
         },
         "full_vod_access": { "label": "Donne accès à la VOD" },
         "managerOnly": { "label": "Invisible pour les clients" },
@@ -4799,6 +4831,14 @@
         "smartList": "Listes exclues",
         "smartListInclude": "Listes incluses"
       }
+    },
+    "universalPass": {
+      "delete": {
+        "dialog": {
+          "title": "Suppresion de la carte",
+          "warningText": "Attention ! Cette carte est une carte universelle, si vous la supprimez sa carte jumelle sera elle aussi supprimée."
+        }
+      }
     }
   },
   "relationship": {
@@ -4958,7 +4998,8 @@
       "giftcard": "Carte cadeau",
       "consumer_giftcard": "Cartes cadeaux achetées",
       "payment_installments": "Paiements en plusieurs fois",
-      "expense": "Dépenses"
+      "expense": "Dépenses",
+      "universal_passes": "Cartes Universelles"
     },
     "header": { "sum": "Somme", "average": "En moyenne" },
     "columns": {
@@ -4974,6 +5015,8 @@
       "recurrent_price": "Montant",
       "private_service_name": "Rendez-vous",
       "nb_bookings": "Nombre de réservation",
+      "universal_nb_bookings": "Nombre de réservation (Cours Collectifs)",
+      "universal_nb_private_bookings": "Nombre de réservation (RDV)",
       "stock_at_start": "Stock en début de période",
       "nb_canceled": "Nombre d'annulation",
       "stock_at_end": "Stock en fin de période",

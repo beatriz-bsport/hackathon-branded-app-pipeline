@@ -17,9 +17,10 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import NotInterestedIcon from '@material-ui/icons/NotInterested';
+import StyleIcon from '@material-ui/icons/Style';
 import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
-import { withTranslation, WithTranslation, TFunction } from 'react-i18next';
-
+import { withTranslation, WithTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ButtonBase from '@material-ui/core/ButtonBase';
 
@@ -112,12 +113,13 @@ export class PaymentPackCard extends Component<Props, State> {
     }
     return (
       <div className={classes.buttonContainer}>
-        {!!this.props.onScaleCredit && (
+        {!!this.props.onScaleCredit && !pack.linked_private_pass && (
           <Button
             id="button_pass_multdiv"
             color="primary"
             onClick={this.props.toogleScaleMenuOpen}
             className={`${classes.multiDivButton} ${classes.buttonAlign}`}
+            disabled={!!pack.linked_private_pass}
           >
             <Hidden xsDown>{t('actions.scaleCredit')}</Hidden>
           </Button>
@@ -351,7 +353,6 @@ export class PaymentPackCard extends Component<Props, State> {
     const restrictions = this.renderRestrictions();
     const tags = getTagInfo(pack, t);
     const VOD = this.renderVODInfo();
-
     return (
       <div>
         {pack.disabled ? (
@@ -418,7 +419,21 @@ export class PaymentPackCard extends Component<Props, State> {
               </Typography>
             </div>
           )}
-
+          {!!pack?.linked_private_pass && (
+            <div className={classes.detailInfo}>
+              <div className={classes.detailCategory}>
+                <StyleIcon className={classes.leftIcon} />
+                <Typography className={classes.categoryTitle} variant="h6">
+                  {t('detailTitles.universalPass')}
+                </Typography>
+              </div>
+              <Typography variant="body1" className={classes.packInfo}>
+                <p className={classes.detailContent}>
+                  {t('cardDetails.universalPass')}
+                </p>
+              </Typography>
+            </div>
+          )}
           {VOD && (
             <div className={classes.detailInfo}>
               <div className={classes.detailCategory}>

@@ -1,38 +1,38 @@
 // @flow
 import React from 'react';
-import { compose } from 'recompose';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
-import { withTranslation, TFunction } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import Tooltip from '@material-ui/core/Tooltip';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 import Paper from '@material-ui/core/Paper';
 import { DraggableSyntheticListeners } from '@dnd-kit/core';
+import StyleIcon from '@material-ui/icons/Style';
+import Tooltip from '#components/Tooltip.component';
 import type { PrivatePass } from '../../types';
 import { getValidityInfo } from '../../utils';
 import ListItemResponsiveAction from '../../../../components/button/ListItemResponsiveAction.component';
 
 type Props = {
-  pass: PrivatePass,
-  t: TFunction,
-  onClick?: () => void,
-  onDelete?: () => void,
-  onRestore?: () => void,
-  divider?: boolean,
-  onEdit?: () => void,
-  draggable?: boolean,
-  listeners?: DraggableSyntheticListeners,
-  attributes?: any,
+  pass: PrivatePass;
+  onClick?: () => void;
+  onDelete?: () => void;
+  onRestore?: () => void;
+  divider?: boolean;
+  onEdit?: () => void;
+  draggable?: boolean;
+  listeners?: DraggableSyntheticListeners;
+  attributes?: any;
 };
 
-export const PrivatePassListItem = React.memo((props: Props) => {
-  const dateInfo = getValidityInfo(props.pass, props.t);
+export const PrivatePassListItem = (props: Props) => {
+  const { t } = useTranslation('privateService');
+  const dateInfo = getValidityInfo(props.pass, t);
 
   return (
     <Paper>
@@ -49,13 +49,20 @@ export const PrivatePassListItem = React.memo((props: Props) => {
         <ListItemText
           style={{ marginLeft: 10 }}
           primary={props.pass.name}
-          secondary={`${props.t('privatePass.parameters.nbCredits', {
+          secondary={`${t('privatePass.parameters.nbCredits', {
             count: props.pass.credits,
             credits: props.pass.credits,
           })} - ${dateInfo}`}
         />
+        {!!props.pass.linked_payment_pack && (
+          <Tooltip title={t('privatePass.form.universalPass.label')}>
+            <IconButton onClick={null}>
+              <StyleIcon color="inherit" />
+            </IconButton>
+          </Tooltip>
+        )}
         {props.pass.manager_only && props.pass.available && (
-          <Tooltip title={props.t('privatePass.form.managerOnly.label')}>
+          <Tooltip title={t('privatePass.form.managerOnly.label')}>
             <IconButton>
               <VisibilityOffIcon />
             </IconButton>
@@ -66,14 +73,14 @@ export const PrivatePassListItem = React.memo((props: Props) => {
           actions={[
             props.onEdit && {
               icon: EditIcon,
-              label: props.t('privatePass.edit'),
+              label: t('privatePass.edit'),
               color: 'primary',
               onClick: props.onEdit,
             },
             props.onDelete &&
               !props.pass.template_instance && {
                 icon: DeleteIcon,
-                label: props.t('privatePass.delete.delete'),
+                label: t('privatePass.delete.delete'),
                 onClick: props.onDelete,
               },
             props.onRestore &&
@@ -87,8 +94,6 @@ export const PrivatePassListItem = React.memo((props: Props) => {
       </ListItem>
     </Paper>
   );
-});
+};
 
-export default compose(withTranslation(['privateService']))(
-  PrivatePassListItem,
-);
+export default React.memo(PrivatePassListItem);

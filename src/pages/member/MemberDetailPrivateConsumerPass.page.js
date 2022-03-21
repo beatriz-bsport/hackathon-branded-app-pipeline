@@ -11,6 +11,7 @@ import { push } from 'connected-react-router';
 import omit from 'lodash/omit';
 import {
   BUYABLE_ITEM_PRIVATE_PASS,
+  BUYABLE_ITEM_PASS,
   BUYABLE_ITEM_COMBO_ITEM,
 } from '@bsport/common/lib/master-data/buyable-items';
 import { getInvoice } from '../../libs/invoice/selectors';
@@ -45,6 +46,8 @@ import PrivateConsumerPassExtensionCreateDialog from '../../libs/private-service
 import PrivateConsumerPassDetail from '../../libs/private-service/components/consumer-pass/PrivateConsumerPassDetail.component';
 import { fetchByInvoiceItem as fetchInvoiceByInvoiceItemAction } from '../../libs/invoice/actions';
 import PrivateConsumerPassFilters from '../../libs/private-service/components/pass/PrivateConsumerPassFilters.component';
+import { OptionCallback } from '../../state/types';
+import { retrieveConsumerPackBulk } from '#libs/consumer-payment-pack/actions';
 
 type Props = {
   fetchPrivateConsumerPassList: (filters: any, params: any) => void,
@@ -58,6 +61,7 @@ type Props = {
   fetchInvoiceByInvoiceItem: (
     buyable_item_identifier: number,
     object_id: number,
+    options?: OptionCallback,
   ) => void,
   privateConsumerPassInvoice: ?Invoice,
   onInvoiceClick: (uuid: string) => void,
@@ -127,6 +131,22 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
     ) {
       this.fetchPrivateConsumerPassDetail();
     }
+    if (
+      prevProps.privateConsumerPassSelected?.linked_consumer_payment_pack !==
+        this.props.privateConsumerPassSelected?.linked_consumer_payment_pack &&
+      this.props.privateConsumerPassSelected
+    ) {
+      if (
+        this.props.privateConsumerPassSelected.linked_consumer_payment_pack &&
+        !this.props.privateConsumerPassSelected
+          .is_universal_consumer_pass_source
+      ) {
+        this.props.fetchInvoiceByInvoiceItem(
+          BUYABLE_ITEM_PASS,
+          this.props.privateConsumerPassSelected.linked_consumer_payment_pack,
+        );
+      }
+    }
   }
 
   fetchPrivateConsumerPassDetail = () => {
@@ -136,20 +156,35 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
     this.props.fetchPrivateConsumerPassExtensionList(
       this.props.privateConsumerPassId,
     );
-    this.props.fetchInvoiceByInvoiceItem(
-      BUYABLE_ITEM_PRIVATE_PASS,
-      this.props.privateConsumerPassId,
-      {
-        onError: () => {
-          setTimeout(() => {
-            this.props.fetchInvoiceByInvoiceItem(
-              BUYABLE_ITEM_COMBO_ITEM,
-              this.props.privateConsumerPassSelected.payment_combo_purchase_id,
-            );
-          }, 1500);
+    if (
+      this.props.privateConsumerPassSelected?.linked_consumer_payment_pack &&
+      !this.props.privateConsumerPassSelected?.is_universal_consumer_pass_source
+    ) {
+      this.props.fetchInvoiceByInvoiceItem(
+        BUYABLE_ITEM_PASS,
+        this.props.privateConsumerPassSelected.linked_consumer_payment_pack,
+      );
+    } else {
+      this.props.fetchInvoiceByInvoiceItem(
+        BUYABLE_ITEM_PRIVATE_PASS,
+        this.props.privateConsumerPassId,
+        {
+          onError: () => {
+            setTimeout(() => {
+              if (
+                this.props.privateConsumerPassSelected.payment_combo_purchase_id
+              ) {
+                this.props.fetchInvoiceByInvoiceItem(
+                  BUYABLE_ITEM_COMBO_ITEM,
+                  this.props.privateConsumerPassSelected
+                    .payment_combo_purchase_id,
+                );
+              }
+            }, 1500);
+          },
         },
-      },
-    );
+      );
+    }
   };
 
   render() {
@@ -313,6 +348,7 @@ export default compose(
         push(
           `/member/${memberId}/private-consumer-pass/${privateConsumerPassId}`,
         ),
+      retrieveConsumerPackBulk,
     },
   ),
   withState('filters', 'setFilters', (props) => {

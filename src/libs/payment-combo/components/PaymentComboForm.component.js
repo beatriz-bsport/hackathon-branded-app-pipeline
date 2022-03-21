@@ -7,7 +7,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 import omit from 'lodash/omit';
 
 import * as Yup from 'yup';
-import { withFormik, FieldArray } from 'formik';
+import { withFormik, FieldArray, useFormikContext } from 'formik';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
 import PaymentMethodSelectorField from '../../payment/components/PaymentMethodSelectorField.component';
@@ -75,6 +75,24 @@ export const PaymentComboForm = (props: Props) => {
       provincialTaxHelperText(props.values.tax, props.provincialTax, props.t),
     [props.values.tax, props.provincialTax, props.t],
   );
+
+  const { values } = useFormikContext();
+
+  const selectablePaymentPacks = props.paymentPackList
+    ? props.paymentPackList.filter(
+        (pp: PaymentPack) =>
+          !pp.linked_private_pass ||
+          !values.private_pass_ids.includes(pp.linked_private_pass),
+      )
+    : [];
+
+  const selectablePrivatePasses = props.privatePassList
+    ? props.privatePassList.filter(
+        (pp: PrivatePass) =>
+          !pp.linked_payment_pack ||
+          !values.payment_pack_ids.includes(pp.linked_payment_pack),
+      )
+    : [];
   return (
     <div>
       <TextField
@@ -114,7 +132,7 @@ export const PaymentComboForm = (props: Props) => {
           }) => (
             <div>
               <PaymentPackSelector
-                paymentPacks={props.paymentPackList}
+                paymentPacks={selectablePaymentPacks}
                 nullCurrentValue
                 helperText={props.t('form.selectorPlaceholder.paymentPack')}
                 onChange={(id) => {
@@ -171,7 +189,7 @@ export const PaymentComboForm = (props: Props) => {
           }) => (
             <div>
               <PrivatePassSelector
-                privatePassList={props.privatePassList}
+                privatePassList={selectablePrivatePasses}
                 helperText={props.t('form.selectorPlaceholder.privatePass')}
                 nullCurrentValue
                 onChange={(id) => {

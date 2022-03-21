@@ -1,4 +1,4 @@
-import { withTranslation, WithTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import MenuItem from '@material-ui/core/MenuItem';
 import { TFunction } from 'i18next';
 import React, { useState } from 'react';
@@ -7,7 +7,7 @@ import {
   useSortable,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
-import { Paper, Tooltip } from '@material-ui/core';
+import { makeStyles, Paper, Tooltip } from '@material-ui/core';
 import { CSS } from '@dnd-kit/utilities';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
@@ -22,10 +22,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import Divider from '@material-ui/core/Divider';
 import Collapse from '@material-ui/core/Collapse';
-import { Theme } from '@material-ui/core/styles';
-import { compose } from 'recompose';
-import withStyles from '@material-ui/core/styles/withStyles';
-import { MaterialStyleType } from '../../../../utils/types';
 import {
   PrivatePass,
   PrivatePassCategory,
@@ -35,7 +31,7 @@ import PrivatePassListItem from '../pass/PrivatePassListItem.component';
 import { ManagerOnly } from '../../../payment-packs/components/PaymentPackFilterAndSortHeader.component';
 import withConfirm from '../../../../hocs/with-confirm.hoc';
 
-type OwnProps = {
+type Props = {
   onEdit: (pp: PrivatePass) => void;
   onDelete: (ppId: number) => void;
   onClick: (ppId: number) => void;
@@ -50,9 +46,6 @@ type OwnProps = {
   isCategoryFiltered: boolean;
   privatePassCategoryIds: Array<number>;
 };
-type Props = OwnProps &
-  MaterialStyleType<ReturnType<typeof styles>> &
-  WithTranslation;
 
 const ButtonWithConfirm = withConfirm(MenuItem, 'onClick', {
   title: 'paymentPack:category.deleteModal.title',
@@ -63,7 +56,7 @@ const ButtonWithConfirm = withConfirm(MenuItem, 'onClick', {
   ),
 });
 
-type PackListProps = MaterialStyleType<ReturnType<typeof styles>> & {
+type PackListProps = {
   onEdit: (pp: PrivatePass) => void;
   onDelete: (ppId: number) => void;
   onClick: (ppId: number) => void;
@@ -74,7 +67,7 @@ type PackListProps = MaterialStyleType<ReturnType<typeof styles>> & {
   privatePassOrder: any;
 };
 
-type PackListItemProps = MaterialStyleType<ReturnType<typeof styles>> & {
+type PackListItemProps = {
   onEdit: () => void;
   onDelete: () => void;
   onClick: () => void;
@@ -85,6 +78,7 @@ type PackListItemProps = MaterialStyleType<ReturnType<typeof styles>> & {
 
 const SortablePrivatePassListItem = React.memo((props: PackListItemProps) => {
   const { ppass } = props;
+  const classes = useStyles();
   const { listeners, attributes, setNodeRef, transform, transition } =
     useSortable({
       id: props.ppass.id.toString(10),
@@ -98,7 +92,7 @@ const SortablePrivatePassListItem = React.memo((props: PackListItemProps) => {
       ref={setNodeRef}
       style={{ transform: CSS.Translate.toString(transform), transition }}
       elevation={2}
-      className={props.classes.paper}
+      className={classes.paper}
     >
       <PrivatePassListItem
         attributes={attributes}
@@ -171,7 +165,6 @@ const SortablePrivatePassList = React.memo((props: PackListProps) => {
                   : null
               }
               onDelete={props.onDelete ? () => props.onDelete(ppass.id) : null}
-              classes={props.classes}
               sortedItems={ppasses}
             />
           ) : null;
@@ -183,18 +176,15 @@ const SortablePrivatePassList = React.memo((props: PackListProps) => {
   );
 });
 
-type SimplifiedCategoryProps = {
+type SimplifiedProps = {
   privatePassCategory: PrivatePassCategoryWithPasses;
 };
 
-type SimplifiedProps = SimplifiedCategoryProps &
-  MaterialStyleType<ReturnType<typeof styles>> &
-  WithTranslation;
-
-export const PresentationalComponentPrivatePassCategory = React.memo(
+export const PresentationalComponentPassCategory = React.memo(
   (props: SimplifiedProps) => {
-    const { t, classes, privatePassCategory } = props;
-
+    const { privatePassCategory } = props;
+    const classes = useStyles();
+    const { t } = useTranslation('paymentPack');
     return (
       <div>
         <div className={classes.flex}>
@@ -230,7 +220,10 @@ export const PresentationalComponentPrivatePassCategory = React.memo(
 
 export const PrivatePassCategoryItemWithPrivatePass = React.memo(
   (props: Props) => {
-    const { t, classes, privatePassCategory } = props;
+    const { privatePassCategory } = props;
+
+    const { t } = useTranslation('paymentPack');
+    const classes = useStyles();
     const [anchorEl, setAnchorEl] = useState(null);
 
     const [expandCollapse, setExpandCollapse] = useState(true);
@@ -361,7 +354,7 @@ export const PrivatePassCategoryItemWithPrivatePass = React.memo(
   },
 );
 
-const styles = (theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   header: {
     display: 'flex',
     alignItems: 'center',
@@ -398,17 +391,6 @@ const styles = (theme: Theme) => ({
   paper: {
     width: '100%',
   },
-});
+}));
 
-export const PresentationalComponentPassCategory = compose<
-  any,
-  SimplifiedCategoryProps
->(
-  withTranslation('privatePass'),
-  withStyles(styles),
-)(PresentationalComponentPrivatePassCategory);
-
-export default compose<any, OwnProps>(
-  withTranslation('privatePass'),
-  withStyles(styles),
-)(PrivatePassCategoryItemWithPrivatePass);
+export default PrivatePassCategoryItemWithPrivatePass;

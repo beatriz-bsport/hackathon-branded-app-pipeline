@@ -7,7 +7,6 @@ import {
   snackbarError,
   snackbarWarning,
 } from '../snackbar/actions';
-
 import {
   // availability-slot
   fetchAvailabilitySlots as fetchAvailabilitySlotsAPI,
@@ -115,6 +114,7 @@ import {
   PrivatePassCategoryWithPasses,
   PrivateService,
   PrivateSlot,
+  PrivatePass,
 } from './types';
 
 export const privateBookingAttachCoachActions = {
@@ -1248,7 +1248,10 @@ export const privatePassRetrieveActions = {
   success: createAction('PRIVATE_PASS/RETRIEVE/SUCCESS'),
 };
 
-export function fetchPrivatePassRetrieve(id: number, options?: OptionCallback) {
+export function fetchPrivatePassRetrieve(
+  id: number,
+  options?: OptionCallback<PrivatePass>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(privatePassRetrieveActions.isLoading(true));
     dispatch(privatePassRetrieveActions.error(null));
@@ -1350,7 +1353,7 @@ export function deletePrivatePass(id: number, options?: OptionCallback) {
   };
 }
 
-export function restorePrivatePass(id: number) {
+export function restorePrivatePass(id: number, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(privatePassCreateOrUpdateActions.isLoading(true));
     dispatch(privatePassCreateOrUpdateActions.error(null));
@@ -1358,10 +1361,12 @@ export function restorePrivatePass(id: number) {
       const response = await restorePrivatePassAPI(id);
       dispatch(privatePassCreateOrUpdateActions.success(response.data));
       dispatch(snackbarSuccess('privatePass.restore.success'));
+      if (options?.onSuccess) options.onSuccess();
     } catch (err) {
       console.error(err);
       dispatch(privatePassCreateOrUpdateActions.error(err));
       dispatch(snackbarError('privatePass.restore.error'));
+      if (options?.onError) options.onError();
     }
     dispatch(privatePassCreateOrUpdateActions.isLoading(false));
   };

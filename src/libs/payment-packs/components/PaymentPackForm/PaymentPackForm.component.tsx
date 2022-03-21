@@ -25,18 +25,24 @@ import {
 import PaymentPackFormGeneral from './PaymentPackFormGeneral.component';
 import PaymentPackFormValidity from './PaymentPackFormValidity.component';
 import PaymentPackFormRestrictionsComponent from './PaymentPackFormRestrictions.component';
+import UniversalPassFormPrivateserviceCompatibility from '../../../universal-pass/components/UniversalPassFormPrivateserviceCompatibility.component';
 import { SCT } from '#libs/category/types';
 import { Establishment } from '#libs/establishment/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import PaymentPackFormTag from './PaymentPackFormTag.component';
 import { Tag, TagGroup } from '#libs/tag/types';
-import { Actions } from '../../../../components/forms';
+import { Actions } from '#components/forms';
 import { Moment } from '../../../../i18n';
 import {
   withFormTrackingHOC,
   WithSegmentAnalyticsFormTrackerHandlers,
   SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
 } from '#components/analytics/segment';
+import type {
+  PrivateServiceWithSlots,
+  PrivatePass,
+  ServiceCompatibilityPass,
+} from '#libs/private-service/types';
 
 const PENALTY_KIND_BLOCK_CPP = 0;
 const PENALTY_KIND_NEGATIVE_ACCOUNT = 1;
@@ -51,29 +57,52 @@ const penaltyKindDict = {
   [PENALTY_KIND_BLOCK_CPP]: 'block',
   [PENALTY_KIND_NEGATIVE_ACCOUNT]: 'account',
 };
+const getFormInitial = (
+  compatibleServicePass: Array<ServiceCompatibilityPass> = [],
+) => {
+  if (
+    compatibleServicePass?.length > 0 &&
+    compatibleServicePass?.filter(
+      (c: ServiceCompatibilityPass) => c.excluded_slot_ids,
+    ).length !== 0
+  ) {
+    const private_services = compatibleServicePass.map(
+      (cs: ServiceCompatibilityPass) => ({
+        private_service: cs.private_service.id,
+        excluded_slot_ids: cs.excluded_slot_ids,
+      }),
+    );
 
+    return private_services;
+  }
+  return [];
+};
 type OwnProps = {
   paymentPackCategories: Array<PaymentPackCategory>;
   categoryList: Array<SCT>;
   establishmentList: Array<Establishment>;
   metaActivityList: Array<MetaActivity>;
   tagList: Array<Tag<TagGroup>>;
-  initial?: PaymentPack;
+  initial?: PaymentPack<PrivatePass>;
   onCancel?: () => void;
   onCancelText: string;
   closeForm: () => void;
   onSubmit: (
-    data: PaymentPackFormValues,
+    data: PaymentPackFormValues<PrivatePass>,
     options: OptionCallback<PaymentPack>,
   ) => void;
   clearPaymentPackToEdit: () => void;
   provincialTax: number;
+  privateServices: Array<PrivateServiceWithSlots>;
+  compatibleServicePass: Array<ServiceCompatibilityPass>;
 };
 type Props = OwnProps &
   WithTranslation &
   WithSegmentAnalyticsFormTrackerHandlers;
 
 export const PaymentPackForm = (props: Props) => {
+  const [disabledUniversalPassFields, setDisableUniversalPassFields] =
+    React.useState<boolean>(false);
   React.useEffect(() => {
     props?.formAdd(
       props.initial?.id ? { payment_pack_id: props.initial.id } : {},
@@ -94,6 +123,8 @@ export const PaymentPackForm = (props: Props) => {
     onSubmit,
     closeForm,
     clearPaymentPackToEdit,
+    privateServices,
+    compatibleServicePass,
   } = props;
   const classes = useStyles();
   const now = moment().format(DATE_FORMAT);
@@ -137,6 +168,10 @@ export const PaymentPackForm = (props: Props) => {
                 validityDict[initial?.start_date_method] || 'billing',
               penalty_kind: penaltyKindDict[initial?.penalty_kind] || 'block',
               categories: initial?.categories?.map((category) => category.id),
+              is_universal_pass: !!initial?.linked_private_pass,
+              linked_private_pass_compatibility: getFormInitial(
+                props.compatibleServicePass,
+              ),
             }
           : {
               id: null,
@@ -179,6 +214,9 @@ export const PaymentPackForm = (props: Props) => {
               only_vod_access: false,
               whitelist_tags: [],
               blacklist_tags: [],
+              linked_private_pass: null,
+              is_universal_pass: false,
+              linked_private_pass_compatibility: [],
             }
       }
       onSubmit={(values, actions) => {
@@ -261,6 +299,8 @@ export const PaymentPackForm = (props: Props) => {
           'duration_months',
           'duration_years',
           'validity_daterange',
+          'linked_private_pass_compatibility',
+          'is_universal_pass',
         ];
         const data = pick(sanithizedValues, keys);
         onSubmit(data, {
@@ -288,39 +328,61 @@ export const PaymentPackForm = (props: Props) => {
         });
       }}
     >
-      {(formikProps: FormikProps<PaymentPackFormValues>) => {
+      {({
+        handleSubmit,
+        isSubmitting,
+        values,
+      }: FormikProps<PaymentPackFormValues>) => {
         return (
           <Form>
             <div className={classes.formContainer}>
               <PaymentPackFormGeneral
                 initial={initial}
-                formikProps={formikProps}
                 paymentPackCategories={paymentPackCategories}
                 provincialTax={provincialTax}
+                disabledUniversalPassFields={disabledUniversalPassFields}
+                setDisableUniversalPassFields={setDisableUniversalPassFields}
               />
             </div>
             <Divider className={classes.divider} />
             <div className={classes.formContainer}>
               <PaymentPackFormValidity
-                formikProps={formikProps}
                 initial={initial}
+                disabledUniversalPassFields={disabledUniversalPassFields}
               />
             </div>
             <Divider className={classes.divider} />
             <div className={classes.formContainer}>
               <PaymentPackFormRestrictionsComponent
-                formikProps={formikProps}
                 categoryList={categoryList}
                 establishmentList={establishmentList}
                 metaActivityList={metaActivityList}
                 initial={initial}
+                disabledUniversalPassFields={disabledUniversalPassFields}
               />
             </div>
             <Divider className={classes.divider} />
+            {values.is_universal_pass && (
+              <>
+                <div className={classes.formContainer}>
+                  <UniversalPassFormPrivateserviceCompatibility
+                    initial={initial}
+                    field_name="linked_private_pass_compatibility"
+                    privateServices={privateServices}
+                    compatibleServicePass={compatibleServicePass}
+                  />
+                </div>
+                <Divider className={classes.divider} />
+              </>
+            )}
             <div className={classes.formContainer}>
-              <PaymentPackFormTag formikProps={formikProps} tagList={tagList} />
+              <PaymentPackFormTag
+                tagList={tagList}
+                disabledUniversalPassFields={disabledUniversalPassFields}
+              />
             </div>
             <Divider className={classes.divider} />
+
             <div className={classes.actionContainer}>
               <Actions>
                 {onCancel || closeForm ? (
@@ -354,9 +416,9 @@ export const PaymentPackForm = (props: Props) => {
                         ? { payment_pack_id: props.initial.id }
                         : {},
                     );
-                    formikProps.handleSubmit();
+                    handleSubmit();
                   }}
-                  disabled={formikProps.isSubmitting}
+                  disabled={isSubmitting}
                   color="primary"
                   variant="contained"
                 >
@@ -368,7 +430,7 @@ export const PaymentPackForm = (props: Props) => {
             </div>
             <LinearProgress
               style={{
-                visibility: formikProps.isSubmitting ? 'visible' : 'hidden',
+                visibility: isSubmitting ? 'visible' : 'hidden',
               }}
             />
           </Form>

@@ -31,10 +31,16 @@ import {
 } from '@bsport/common/lib/master-data/payment-pack';
 
 import * as Yup from 'yup';
-import { Form, withFormik, FieldArray, FormikProps } from 'formik';
+import {
+  Form,
+  withFormik,
+  FieldArray,
+  FormikProps,
+  useFormikContext,
+} from 'formik';
 import WarningIcon from '@material-ui/icons/Warning';
-import { OptionCallback } from '../../../../state/types';
-import PaymentMethodSelectorField from '../../../payment/components/PaymentMethodSelectorField.component';
+import { OptionCallback } from '../../../../../state/types';
+import PaymentMethodSelectorField from '../../../../payment/components/PaymentMethodSelectorField.component';
 
 import {
   IntegerField,
@@ -43,7 +49,7 @@ import {
   SwitchField,
   PriceField,
   RadioGroupField,
-} from '../../../../components/forms';
+} from '../../../../../components/forms';
 import {
   PrivatePassCategory,
   PrivateServiceWithSlots,
@@ -52,20 +58,25 @@ import {
   PrivateService,
   PrivatePassWithCompatibility,
   CompatiblePrivateService,
-} from '../../types';
-import { getValidityInfo, filterPrivateService } from '../../utils';
-import PrivatePassCategorySelector from '../../../payment-packs/components/category/PaymentPackCategorySelector.component';
-import { PrivateServiceListItem } from '../service/PrivateServiceListItem.component';
-import { PrivateServiceSelector } from '../service/PrivateServiceSelector.component';
-import { PrivateSlotSelectionDialog } from '../slot/PrivateSlotSelectionDialog.component';
+} from '../../../types';
+import { getValidityInfo, filterPrivateService } from '../../../utils';
+import PrivatePassCategorySelector from '../../../../payment-packs/components/category/PaymentPackCategorySelector.component';
+import { PrivateServiceListItem } from '../../service/PrivateServiceListItem.component';
+import { PrivateServiceSelector } from '../../service/PrivateServiceSelector.component';
+import { PrivateSlotSelectionDialog } from '../../slot/PrivateSlotSelectionDialog.component';
 import {
   withFormTrackingHOC,
   WithSegmentAnalyticsFormTrackerHandlers,
   SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
 } from '#components/analytics/segment';
 import { provincialTaxHelperText } from '#libs/theme/utils';
+import type { PaymentPack } from '#libs/payment-packs/types';
+import UniversalPassFormPaymentPackCompatibility from '../../../../universal-pass/components/UniversalPassFormPaymentPackCompatibility.component';
+import { SCT } from '#libs/category/types';
+import { Establishment } from '#libs/establishment/types';
+import { MetaActivity } from '#libs/meta-activity/types';
 
-interface FormikValues {
+export interface FormikValues {
   name: string | null;
   category: number | null;
   tax: number;
@@ -81,13 +92,18 @@ interface FormikValues {
   start_date_method: string;
   expiration_days_before_first_use: number;
   compatibility: Array<CompatiblePrivateService>;
+  is_universal_pass: boolean;
+  linked_payment_pack: PaymentPack | null;
+  linked_payment_pack_categories: Array<number>;
+  linked_payment_pack_establishments: Array<number>;
+  linked_payment_pack_metaActivities: Array<number>;
 }
 type Props = {
   provincialTax: number;
   isSubmitting: boolean;
   onCancel: (ev: MouseEvent) => void;
   values: any;
-  initial?: PrivatePassWithCompatibility;
+  initial?: PrivatePassWithCompatibility<PaymentPack>;
   privatePassCategories: Array<PrivatePassCategory>;
   setFieldValue: (field_identifier: string, value: number | null) => void;
 
@@ -103,6 +119,10 @@ type Props = {
   openDeleteCompatibilityDialog: boolean;
   setOpenDeleteCompatibilityDialog: (open: boolean) => void;
   onSubmit: (data: FormikValues, options?: OptionCallback) => void;
+
+  categoryList: Array<SCT>;
+  establishmentList: Array<Establishment>;
+  metaActivityList: Array<MetaActivity>;
 } & WithSegmentAnalyticsFormTrackerHandlers &
   FormikProps<FormikValues>;
 
@@ -136,7 +156,26 @@ export const PrivatePassForm = (props: Props) => {
   const { t } = useTranslation(['privateService']);
   const classes = useStyles();
   const { isSubmitting, privateServices } = props;
+  const [disabledUniversalPassFields, setDisableUniversalPassFields] =
+    React.useState<boolean>(false);
+  const { values, setValues }: FormikProps<FormikValues> = useFormikContext();
 
+  const is_universal_pass_value = React.useMemo(
+    () => values.is_universal_pass,
+    [values],
+  );
+  React.useEffect(() => {
+    if (is_universal_pass_value) {
+      setValues({
+        ...values,
+        available_payment_method_identifiers: [CB.id],
+      });
+      setDisableUniversalPassFields(true);
+    } else {
+      setDisableUniversalPassFields(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [is_universal_pass_value, setValues, setDisableUniversalPassFields]);
   const setServiceAndIndex = (ps: PrivateServiceWithSlots, index: number) => {
     props.setSelectedService(ps);
     props.setSelectedServiceIndex(index);
@@ -170,6 +209,14 @@ export const PrivatePassForm = (props: Props) => {
         </div>
       )}
       <div className={classes.categoryBlock}>
+        {props.initial && props.initial.linked_payment_pack && (
+          <div className={classes.infoText}>
+            <WarningIcon className={classes.redIcon} />
+            <Typography variant="caption" color="error">
+              {t('privatePass.form.universalPass.warningIsUniversalPass')}
+            </Typography>
+          </div>
+        )}
         <div className={classes.flexRowCenter}>
           <InfoIcon className={classes.iconLeft} />
           <Typography variant="h6">
@@ -232,7 +279,16 @@ export const PrivatePassForm = (props: Props) => {
             disabled={!!props.initial?.template_instance}
           />
         </div>
-
+        <div className={classes.fieldBlockFlex}>
+          <SwitchField
+            name="is_universal_pass"
+            label={t('privatePass.form.universalPass.label')}
+            disabled={props.initial && !!props.initial?.linked_payment_pack}
+          />
+          <Typography variant="caption" color="textSecondary">
+            {t('privatePass.form.universalPass.helperText')}
+          </Typography>
+        </div>
         <div className={`${classes.fieldBlock} ${classes.flexColumn}`}>
           <SwitchField
             name="manager_only"
@@ -288,7 +344,9 @@ export const PrivatePassForm = (props: Props) => {
             </div>
             <PaymentMethodSelectorField
               name="available_payment_method_identifiers"
-              disabled={props.values.manager_only}
+              disabled={
+                props.values.manager_only || disabledUniversalPassFields
+              }
             />
           </div>
         </div>
@@ -340,7 +398,10 @@ export const PrivatePassForm = (props: Props) => {
           </Typography>
           <RadioGroupField
             name="start_date_method"
-            disabled={props.initial && props.initial.editable === false}
+            disabled={
+              (props.initial && props.initial.editable === false) ||
+              disabledUniversalPassFields
+            }
             choices={[
               {
                 label: t('privatePass.form.start_date_method.on_purchase'),
@@ -442,8 +503,6 @@ export const PrivatePassForm = (props: Props) => {
                                 remove(psListForIndex.indexOf(ps.id));
                               }
                             }}
-                            classes={classes}
-                            t={t}
                             onEdit={() => {
                               if (props.compatibleServicePass) {
                                 const psListForIndex: number[] =
@@ -538,6 +597,18 @@ export const PrivatePassForm = (props: Props) => {
 
       <Divider className={classes.divider} />
 
+      {values.is_universal_pass && (
+        <>
+          <UniversalPassFormPaymentPackCompatibility
+            categoryList={props.categoryList}
+            establishmentList={props.establishmentList}
+            metaActivityList={props.metaActivityList}
+            disabledUniversalPassFields={disabledUniversalPassFields}
+          />
+          <Divider className={classes.divider} />
+        </>
+      )}
+
       <div className={`${classes.buttonContainer} ${classes.flexRowCenter}`}>
         <Button
           onClick={(e: MouseEvent) => {
@@ -575,6 +646,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   fieldBlock: {
     marginBottom: theme.spacing(2),
+  },
+  fieldBlockFlex: {
+    marginBottom: theme.spacing(2),
+    display: 'flex',
+    alignItem: 'center',
+    flexDirection: 'column',
   },
   buttonContainer: {
     marginTop: -theme.spacing(2),
@@ -690,6 +767,15 @@ const useStyles = makeStyles((theme: Theme) => ({
   helperTextError: {
     color: theme.palette.error.main,
   },
+  infoText: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: theme.spacing(2),
+  },
+  redIcon: {
+    color: 'red',
+  },
 }));
 
 export const PrivatePassSchema = Yup.object().shape({
@@ -712,6 +798,14 @@ export const PrivatePassSchema = Yup.object().shape({
       excluded_slot_ids: Yup.array().of(Yup.number()),
     }),
   ),
+
+  linked_payment_pack_categories: Yup.array().of(Yup.number()).nullable(true),
+  linked_payment_pack_establishments: Yup.array()
+    .of(Yup.number())
+    .nullable(true),
+  linked_payment_pack_metaActivities: Yup.array()
+    .of(Yup.number())
+    .nullable(true),
 });
 
 export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
@@ -721,6 +815,13 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
         ...initial,
         start_date_method: `${initial.start_date_method}`,
         new_member_only: initial.new_member_only,
+        is_universal_pass: !!initial.linked_payment_pack,
+        linked_payment_pack_categories:
+          initial.linked_payment_pack?.categories || [],
+        linked_payment_pack_establishments:
+          initial.linked_payment_pack?.establishments || [],
+        linked_payment_pack_metaActivities:
+          initial.linked_payment_pack?.metaActivities || [],
       };
 
     return {
@@ -739,6 +840,10 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
       start_date_method: `${START_ON_PURCHASE}`,
       expiration_days_before_first_use: 365,
       compatibility: [],
+      is_universal_pass: false,
+      linked_payment_pack_categories: [],
+      linked_payment_pack_establishments: [],
+      linked_payment_pack_metaActivities: [],
     };
   },
   enableReinitialize: true,
@@ -753,6 +858,9 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
         values.available_payment_method_identifiers.length === 0
           ? [CB.id]
           : values.available_payment_method_identifiers,
+      ...(values.linked_payment_pack && {
+        linked_payment_pack: values.linked_payment_pack?.id || null,
+      }),
     };
     onSubmit(newValues, {
       onSuccess: () => {

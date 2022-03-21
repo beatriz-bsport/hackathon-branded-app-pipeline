@@ -218,6 +218,7 @@ export type PaymentPack = {
   duration_days?: number;
   duration_months?: number;
   duration_years?: number;
+  disabled: boolean;
 };
 
 export type ConsumerPaymentPackConsumerView = {

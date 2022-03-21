@@ -115,7 +115,7 @@ export type PrivateEstablishment = {
   };
 };
 
-export type PrivatePass = {
+export type PrivatePass<LPP = number | null> = {
   id: number;
   name: string;
   credits: number;
@@ -138,13 +138,14 @@ export type PrivatePass = {
   ordering_in_category: number;
   template_instance: number;
   is_unpaid_private_booking_integration: boolean;
+  linked_payment_pack?: LPP;
 };
 
 export type PrivatePassWithDetailedPrivateServices = PrivatePass & {
   private_services: Array<PrivateService>;
 };
 
-export type PrivatePassWithCompatibility = {
+export type PrivatePassWithCompatibility<LPP = number | null> = {
   id: number;
   name: string;
   credits: number;
@@ -166,6 +167,7 @@ export type PrivatePassWithCompatibility = {
   category: number;
   ordering_in_category: number;
   template_instance: number;
+  linked_payment_pack?: LPP;
 };
 
 export type PrivateConsumerPass = {
@@ -178,6 +180,8 @@ export type PrivateConsumerPass = {
   date_bought: string;
   extension_days: number;
   member: number;
+  linked_consumer_payment_pack: number | null;
+  is_universal_consumer_pass_source: boolean;
 };
 
 export type PrivateBooking = {

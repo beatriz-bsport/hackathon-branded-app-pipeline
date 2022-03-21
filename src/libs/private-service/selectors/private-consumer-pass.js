@@ -50,6 +50,23 @@ export const excludeUnPaidPrivateConsumerPass = memoize(
     }),
 );
 
+export const withoutUniversalPrivateConsumerPass = memoize(
+  (
+    selector: (
+      state: RootState,
+    ) => Array<PrivateConsumerPass> | PrivateConsumerPass,
+  ) =>
+    createSelector([selector], (pcpObject) => {
+      if (!pcpObject) return null;
+      if (Array.isArray(pcpObject)) {
+        return pcpObject.filter(
+          (pcp: PrivateConsumerPass) => !pcp.linked_consumer_payment_pack,
+        );
+      }
+      return pcpObject;
+    }),
+);
+
 const _getPrivateConsumerPassDict = (state) =>
   state.privateService.privateConsumerPass.byId;
 const _getPrivateConsumerPassByPrivateIds = (state) =>

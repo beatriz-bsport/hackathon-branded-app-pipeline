@@ -51,6 +51,7 @@ exports.default = {
     consumer_giftcard: 'Cartes cadeaux achetées',
     payment_installments: 'Paiements en plusieurs fois',
     expense: 'Dépenses',
+    universal_passes: 'Cartes Universelles',
   },
   header: {
     sum: 'Somme',
@@ -69,6 +70,8 @@ exports.default = {
     recurrent_price: 'Montant',
     private_service_name: 'Rendez-vous',
     nb_bookings: 'Nombre de réservation',
+    universal_nb_bookings: 'Nombre de réservation (Cours Collectifs)',
+    universal_nb_private_bookings: 'Nombre de réservation (RDV)',
     stock_at_start: 'Stock en début de période',
     nb_canceled: "Nombre d'annulation",
     stock_at_end: 'Stock en fin de période',

@@ -13,6 +13,7 @@ import { compose } from 'recompose';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
 import Divider from '@material-ui/core/Divider';
+import StyleIcon from '@material-ui/icons/Style';
 import Analytics from '../../../components/analytics/Analytics.component';
 import PaymentPackItem from '../../payment-packs/components/PaymentPackBookableItem.component';
 import {
@@ -20,6 +21,7 @@ import {
   PrivatePassCategoryWithPasses,
 } from '../../private-service/types';
 import { MaterialStyleType } from '../../../utils/types';
+import Tooltip from '#components/Tooltip.component';
 
 type OwnProps = {
   privatePassByCategory: Array<PrivatePassCategoryWithPasses>;
@@ -77,6 +79,20 @@ export const MarketplacePrivatePassList = (props: Props) => {
                           paymentPack={pp}
                           isExcludingTax={props.isExcludingTax}
                         />
+                        {!!pp.linked_payment_pack && (
+                          <Tooltip
+                            title={props.t(
+                              'paymentPack:form.paymentPack.universalPass.marketplaceLabel',
+                            )}
+                          >
+                            <IconButton
+                              style={{ marginRight: 16 }}
+                              onClick={null}
+                            >
+                              <StyleIcon color="inherit" />
+                            </IconButton>
+                          </Tooltip>
+                        )}
                         <ListItemSecondaryAction>
                           <IconButton
                             color="primary"

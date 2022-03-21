@@ -1,10 +1,9 @@
 import React from 'react';
-import { compose } from 'recompose';
-import { WithTranslation, withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Typography from '@material-ui/core/Typography';
-import { FormikProps } from 'formik';
+import { FormikProps, useFormikContext } from 'formik';
 import { FormControlLabel, FormLabel, Grid, Radio } from '@material-ui/core';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import DateRangeIcon from '@material-ui/icons/DateRange';
@@ -15,15 +14,19 @@ import {
   DateField,
 } from '../../../../components/forms';
 import { getValidityString } from '../../utils';
+import type { PrivatePass } from '#libs/private-service/types';
 
-type OwnProps = {
-  formikProps: FormikProps<PaymentPackFormValues>;
-  initial: PaymentPack;
+type Props = {
+  initial: PaymentPack<PrivatePass>;
+  disabledUniversalPassFields: boolean;
 };
 
-type Props = OwnProps & WithTranslation;
 export const PaymentPackFormValidity = (props: Props) => {
-  const { t, formikProps, initial } = props;
+  const { initial, disabledUniversalPassFields } = props;
+
+  const { t } = useTranslation('paymentPack');
+  const { values, setFieldValue }: FormikProps<PaymentPackFormValues> =
+    useFormikContext();
   const classes = useStyles();
   const VALIDITY_CARD_CHOICE = [
     {
@@ -56,7 +59,7 @@ export const PaymentPackFormValidity = (props: Props) => {
           <RadioGroup
             name="validity"
             onChange={(_, value) => {
-              formikProps.setFieldValue('validity', value);
+              setFieldValue('validity', value);
             }}
           >
             {VALIDITY_CARD_CHOICE.map(({ value, label: l }) => (
@@ -66,8 +69,11 @@ export const PaymentPackFormValidity = (props: Props) => {
                   value={value}
                   control={
                     <Radio
-                      disabled={initial && !initial?.editable}
-                      checked={`${formikProps.values.validity}` === `${value}`}
+                      disabled={
+                        (initial && !initial?.editable) ||
+                        (disabledUniversalPassFields && value === 'slot')
+                      }
+                      checked={`${values.validity}` === `${value}`}
                     />
                   }
                   label={l}
@@ -76,7 +82,7 @@ export const PaymentPackFormValidity = (props: Props) => {
             ))}
           </RadioGroup>
         </Grid>
-        {formikProps.values.validity === 'slot' ? (
+        {values.validity === 'slot' ? (
           <>
             <Grid item xs={3}>
               <DateField
@@ -138,15 +144,15 @@ export const PaymentPackFormValidity = (props: Props) => {
               </div>
             </Grid>
 
-            {formikProps.values.duration_days ||
-            formikProps.values.duration_months ||
-            formikProps.values.duration_years ? (
+            {values.duration_days ||
+            values.duration_months ||
+            values.duration_years ? (
               <Grid item xs={12}>
                 <Typography variant="body2">
                   {getValidityString(
-                    formikProps.values.duration_days,
-                    formikProps.values.duration_months,
-                    formikProps.values.duration_years,
+                    values.duration_days,
+                    values.duration_months,
+                    values.duration_years,
                     t,
                   )}
                 </Typography>
@@ -156,7 +162,7 @@ export const PaymentPackFormValidity = (props: Props) => {
               <RadioGroup
                 name="start_date_method"
                 onChange={(_, value) => {
-                  formikProps.setFieldValue('start_date_method', value);
+                  setFieldValue('start_date_method', value);
                 }}
               >
                 <FormLabel>{t('addPaymentPack.beginningDate')}</FormLabel>
@@ -167,11 +173,12 @@ export const PaymentPackFormValidity = (props: Props) => {
                       value={value}
                       control={
                         <Radio
-                          disabled={initial && !initial?.editable}
-                          checked={
-                            `${formikProps.values.start_date_method}` ===
-                            `${value}`
+                          disabled={
+                            (initial && !initial?.editable) ||
+                            (disabledUniversalPassFields &&
+                              value === 'attendance')
                           }
+                          checked={`${values.start_date_method}` === `${value}`}
                         />
                       }
                       label={l}
@@ -180,8 +187,8 @@ export const PaymentPackFormValidity = (props: Props) => {
                 ))}
               </RadioGroup>
             </Grid>
-            {formikProps.values.start_date_method === 'booking' ||
-            formikProps.values.start_date_method === 'attendance' ? (
+            {values.start_date_method === 'booking' ||
+            values.start_date_method === 'attendance' ? (
               <Grid item xs={6}>
                 <TextFieldEnhancedLabelWithError
                   disabled={initial && !initial?.editable}
@@ -218,6 +225,4 @@ const useStyles = makeStyles<Theme>((theme) => ({
     color: '#868686',
   },
 }));
-export default compose<any, OwnProps>(withTranslation('paymentPack'))(
-  PaymentPackFormValidity,
-);
+export default PaymentPackFormValidity;

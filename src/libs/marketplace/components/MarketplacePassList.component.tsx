@@ -1,6 +1,10 @@
 import React from 'react';
 
-import { WithTranslation, withTranslation } from 'react-i18next';
+import {
+  useTranslation,
+  WithTranslation,
+  withTranslation,
+} from 'react-i18next';
 import { compose, withState } from 'recompose';
 
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -17,6 +21,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Divider from '@material-ui/core/Divider';
 import { Theme } from '@material-ui/core';
 
+import StyleIcon from '@material-ui/icons/Style';
 import PaymentPackCard from '../../payment-packs/components/PaymentPackCard.component';
 import PaymentPackItem from '../../payment-packs/components/PaymentPackBookableItem.component';
 import Analytics from '../../../components/analytics/Analytics.component';
@@ -25,6 +30,7 @@ import type {
   PaymentPack,
   PaymentPackCategoryWithPacks,
 } from '../../payment-packs/types';
+import Tooltip from '#components/Tooltip.component';
 
 type OwnProps = {
   pushPackCheckout: (id: number) => void;
@@ -46,32 +52,44 @@ const PaymentPackMarketplaceListItem = (props: {
   onCartAdd: () => void;
   disabled?: boolean;
   isExcludingTax: boolean;
-}) => (
-  <ListItem divider button onClick={props.onSelect}>
-    <PaymentPackItem
-      paymentPack={props.paymentPack}
-      isExcludingTax={props.isExcludingTax}
-    />
-    <IconButton
-      style={{ marginRight: 16 }}
-      disableRipple
-      onClick={props.onSelect}
-    >
-      <VisibilityIcon />
-    </IconButton>
-    <ListItemSecondaryAction>
-      <React.Fragment>
-        <IconButton
-          color="primary"
-          disabled={props.disabled}
-          onClick={props.onCartAdd}
-        >
-          <AddShoppingCartIcon />
-        </IconButton>
-      </React.Fragment>
-    </ListItemSecondaryAction>
-  </ListItem>
-);
+}) => {
+  const { t } = useTranslation('paymentPack');
+
+  return (
+    <ListItem divider button onClick={props.onSelect}>
+      <PaymentPackItem
+        paymentPack={props.paymentPack}
+        isExcludingTax={props.isExcludingTax}
+      />
+
+      {!!props.paymentPack.linked_private_pass && (
+        <Tooltip title={t('form.paymentPack.universalPass.marketplaceLabel')}>
+          <IconButton onClick={null}>
+            <StyleIcon color="inherit" />
+          </IconButton>
+        </Tooltip>
+      )}
+      <IconButton
+        style={{ marginRight: 16 }}
+        disableRipple
+        onClick={props.onSelect}
+      >
+        <VisibilityIcon />
+      </IconButton>
+      <ListItemSecondaryAction>
+        <React.Fragment>
+          <IconButton
+            color="primary"
+            disabled={props.disabled}
+            onClick={props.onCartAdd}
+          >
+            <AddShoppingCartIcon />
+          </IconButton>
+        </React.Fragment>
+      </ListItemSecondaryAction>
+    </ListItem>
+  );
+};
 
 export function MarketplacePassList(props: Props) {
   const {

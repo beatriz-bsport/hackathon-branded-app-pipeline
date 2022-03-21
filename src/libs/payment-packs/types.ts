@@ -2,6 +2,7 @@ import Immutable from 'seamless-immutable';
 import { ErrorAndLoading } from '../../state/types';
 
 import { Company } from '../company/types';
+import type { CompatiblePrivateService } from '#libs/private-service/types';
 
 export type ConsumerPaymentPackExtension = {
   note: string;
@@ -11,7 +12,7 @@ export type ConsumerPaymentPackExtension = {
   id: number;
 };
 
-export type PaymentPack = {
+export type PaymentPack<LPP = number | null> = {
   id: number;
   name: string;
   price: number;
@@ -62,6 +63,7 @@ export type PaymentPack = {
   whitelist_tags: Array<number>;
   blacklist_tags: Array<number>;
   template_instance: number;
+  linked_private_pass: LPP;
 };
 
 export type ConsumerPaymentPack = {
@@ -72,6 +74,7 @@ export type ConsumerPaymentPack = {
   available_credits: number;
   date_bought: string;
   payment_pack_id: string;
+  linked_private_consumer_pass: number | null;
 };
 
 export type PaymentPackTemplateInstance = {
@@ -197,7 +200,7 @@ export type PaymentPackCategoryWithPacks = PaymentPackCategory & {
   packs: Array<PaymentPack>;
 };
 
-export type PaymentPackFormValues = {
+export type PaymentPackFormValues<LPP = number> = {
   id?: number;
   name?: string | null;
   category?: number;
@@ -238,4 +241,7 @@ export type PaymentPackFormValues = {
   only_vod_access?: boolean;
   whitelist_tags?: Array<number>;
   blacklist_tags?: Array<number>;
+  is_universal_pass: boolean;
+  linked_private_pass?: LPP;
+  linked_private_pass_compatibility: Array<CompatiblePrivateService>;
 };

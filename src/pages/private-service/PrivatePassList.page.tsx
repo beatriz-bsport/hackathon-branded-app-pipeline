@@ -7,11 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
 import Typography from '@material-ui/core/Typography';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import memoize from 'memoize-one';
@@ -23,8 +19,7 @@ import { Divider } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import WarningIcon from '@material-ui/icons/Warning';
-import DialogContentText from '@material-ui/core/DialogContentText';
+import uniqBy from 'lodash/uniqBy';
 import IsEmptyList from '#components/navigation/IsEmptyList.component';
 import themeSelectors from '#libs/theme/selectors';
 import withTitle from '#hocs/with-title.hoc';
@@ -35,6 +30,7 @@ import {
   getUnavailablePrivatePasses,
   getCompatibilityPassWithService as getCompatibleServicePass,
   getCompatibleServicePassLoading,
+  withLinkedPaymentPack,
 } from '#libs/private-service/selectors/private-pass';
 import { getPrivateServices } from '#libs/private-service/selectors/private-service';
 import {
@@ -53,7 +49,7 @@ import {
   isPrivatePassUsedInCombo,
 } from '#libs/private-service/actions';
 import PrivatePassListItem from '#libs/private-service/components/pass/PrivatePassListItem.component';
-import PrivatePassForm from '#libs/private-service/components/pass/PrivatePassForm.component';
+import PrivatePassForm from '#libs/private-service/components/pass/private-pass-form/PrivatePassForm.component';
 import type {
   PrivatePass,
   PrivatePassCategory,
@@ -88,7 +84,21 @@ import {
   SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
 } from '#components/analytics/segment';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import RedButton from '#components/button/RedButton.component';
+import { fetchOne as fetchPaymentPackAction } from '#libs/payment-packs/actions';
+import type { PaymentPack } from '#libs/payment-packs/types';
+import { getAllEstablishments } from '#libs/establishment/selectors';
+import {
+  getActivitiesByIdList,
+  getEnabledMetaActivities,
+  getEnabledWorkshops,
+} from '#libs/meta-activity/selectors';
+import { fetchEstablishments } from '../../libs/establishment/actions';
+import {
+  fetchAllActivities,
+  fetchAll as fetchWorkhops,
+} from '../../libs/meta-activity/actions';
+import PrivatePassDeleteDialog from '#libs/private-service/components/pass/PrivatePassDeleteDialog.component';
+import UniversalPassRestoreDialog from '#libs/universal-pass/components/UniversalPassRestoreDialog.component';
 
 type OwnProps = {
   setOpenDeleteCompatibility: (id: number) => void;
@@ -102,10 +112,11 @@ type StateHandlerInit = {
   openDeletePassDialog: number | null;
   showDisabled: boolean;
   showCategoryDialog: boolean;
-  selectedPrivatePass: PrivatePass | null;
+  selectedPrivatePass: PrivatePass<PaymentPack> | null;
   selectedCategory: PrivatePassCategory | null;
   compatibleServicePassOfSelectedPass: ServiceCompatibilityPass | null;
   compatibilityLoading: boolean;
+  openRestoreUniversalPassDialog: boolean;
 };
 
 type StateHandlerType = typeof withStateHandlersInit &
@@ -156,6 +167,10 @@ export class PrivatePassList extends React.Component<Props, State> {
     this.props.fetchPrivatePassList();
     this.props.fetchAllPrivateServices();
     this.props.fetchAllPrivatePassCategory();
+
+    this.props.fetchEstablishments();
+    this.props.fetchAllActivities({ customer_enabled: true });
+    this.props.fetchWorkhops();
   }
 
   componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>) {
@@ -176,6 +191,11 @@ export class PrivatePassList extends React.Component<Props, State> {
       prevProps.selectedPrivatePass?.id !== this.props.selectedPrivatePass?.id
     ) {
       this.props.fetchCompatibleServicePasses();
+      if (this.props.selectedPrivatePass?.linked_payment_pack?.id) {
+        this.props.fetchPaymentPack(
+          this.props.selectedPrivatePass.linked_payment_pack.id,
+        );
+      }
     }
   }
 
@@ -187,7 +207,18 @@ export class PrivatePassList extends React.Component<Props, State> {
     if (this.props.disabledPrivatePassList.length === 1) {
       this.props.setShowDisabled(false);
     }
-    this.props.restorePrivatePass(id);
+    const restorePrivatePassIsUniversal =
+      !!this.props.disabledPrivatePassList?.find(
+        (private_pass: PrivatePass) => private_pass.id === id,
+      )?.linked_payment_pack;
+
+    this.props.restorePrivatePass(id, {
+      onSuccess: () => {
+        if (restorePrivatePassIsUniversal) {
+          this.props.setOpenRestoreUniversalPassdialog(true);
+        }
+      },
+    });
   };
 
   changeSearch =
@@ -297,8 +328,23 @@ export class PrivatePassList extends React.Component<Props, State> {
   };
 
   render() {
-    const { classes, t } = this.props;
+    const { classes, t, establishmentList, metaActivities, categoryList } =
+      this.props;
+    const paymentPackCategoryList = [...categoryList]
+      .filter(
+        (category) =>
+          metaActivities.map((a) => a.SCT).indexOf(category.id) !== -1,
+      )
+      .concat(this.props.videoCategories)
+      .filter(
+        (value, index, arr) =>
+          arr.findIndex((sct) => sct.id === value.id) === index,
+      );
 
+    const passSelectedForDelete = this.props.privatePassList.find(
+      (private_pass: PrivatePass) =>
+        private_pass.id === this.props.openDeletePassDialog,
+    );
     if (
       (this.props.privatePassList || []).length +
         (this.props.disabledPrivatePassList || []).length ===
@@ -324,6 +370,9 @@ export class PrivatePassList extends React.Component<Props, State> {
               onCancel={() => this.props.closePrivatePassForm()}
               compatibleServicePass={this.props.compatibleServicePass}
               privateServices={this.props.privateServices}
+              categoryList={paymentPackCategoryList}
+              establishmentList={establishmentList}
+              metaActivityList={metaActivities}
             />
           </GenericResponsiveDrawer>
         </div>
@@ -485,40 +534,24 @@ export class PrivatePassList extends React.Component<Props, State> {
                 this.props.compatibleServicePass,
               )}
               compatibleServicePass={this.props.compatibleServicePass}
+              categoryList={paymentPackCategoryList}
+              establishmentList={establishmentList}
+              metaActivityList={metaActivities}
             />
           </GenericResponsiveDrawer>
-          <Dialog open={!!this.props.openDeletePassDialog}>
-            <DialogTitle>
-              {this.props.t('privatePass.delete.title')}
-            </DialogTitle>
-            <DialogContent>
-              {this.props.archivationWarning[this.props.openDeletePassDialog]
-                ?.used_in_combo && (
-                <DialogContentText className={classes.warningDelete}>
-                  <WarningIcon
-                    fontSize="large"
-                    color="error"
-                    className={classes.warningIcon}
-                  />
-                  <Typography>{t('privatePass.delete.warning')}</Typography>
-                </DialogContentText>
-              )}
-              {this.props.t('privatePass.delete.explain')}
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={() => this.props.setOpenDeletePassDialog(null)}>
-                {this.props.t('privatePass.delete.cancel')}
-              </Button>
-              <RedButton
-                onClick={() =>
-                  this.props.deletePrivatePass(this.props.openDeletePassDialog)
-                }
-                delayBeforeActivation={3}
-              >
-                {this.props.t('privatePass.delete.submit')}
-              </RedButton>
-            </DialogActions>
-          </Dialog>
+          <PrivatePassDeleteDialog
+            open={!!this.props.openDeletePassDialog}
+            pass={passSelectedForDelete}
+            onCancel={() => this.props.setOpenDeletePassDialog(null)}
+            usedInCombo={
+              this.props.archivationWarning[this.props.openDeletePassDialog]
+                ?.used_in_combo
+            }
+            onConfirm={() =>
+              this.props.deletePrivatePass(this.props.openDeletePassDialog)
+            }
+          />
+
           <Fab
             className={this.props.classes.addButton}
             variant="extended"
@@ -556,6 +589,14 @@ export class PrivatePassList extends React.Component<Props, State> {
                     }
                   : {},
               )
+            }
+          />
+        )}
+        {this.props.openRestoreUniversalPassDialog && (
+          <UniversalPassRestoreDialog
+            open
+            onConfirm={() =>
+              this.props.setOpenRestoreUniversalPassdialog(false)
             }
           />
         )}
@@ -618,21 +659,17 @@ const styles = (theme: Theme): any => ({
     paddingLeft: theme.spacing(4),
     paddingBottom: theme.spacing(1),
   },
-  warningDelete: {
-    display: 'flex',
-  },
-  warningIcon: {
-    marginRight: theme.spacing(2),
-  },
 });
 
 const mapStateToProps = (state: RootState) => ({
-  privatePassListCustomerEnabled: getPrivatePassCustomerEnabled(state),
-  privatePassList: getAvailablePrivatePasses(state),
+  privatePassListCustomerEnabled: withLinkedPaymentPack(
+    getPrivatePassCustomerEnabled,
+  )(state),
+  privatePassList: withLinkedPaymentPack(getAvailablePrivatePasses)(state),
   disabledPrivatePassList: getUnavailablePrivatePasses(state),
   privatePassCategories: getPrivatePassCategories(state),
   privatePassByCategory: getPrivatePassByCategoryWithPasses(
-    getAvailablePrivatePasses,
+    withLinkedPaymentPack(getAvailablePrivatePasses),
   )(state),
   loading: state.privateService.privatePass.loading,
   theme: themeSelectors.getTheme(state),
@@ -645,6 +682,17 @@ const mapStateToProps = (state: RootState) => ({
   compatibleServicePass: getCompatibleServicePass(state),
   compatibleServicePassLoading: getCompatibleServicePassLoading(state),
   archivationWarning: state.privateService.privatePass.archivationWarning,
+  categoryList: state.category.SCTs,
+  establishmentList: getAllEstablishments(state),
+  metaActivities: uniqBy(
+    [
+      ...getEnabledMetaActivities(state),
+      ...getEnabledWorkshops(state),
+      ...getActivitiesByIdList(state, []),
+    ],
+    'id',
+  ),
+  videoCategories: state.video.filterableParams.items.SCTs,
 });
 
 const mapDispatchToProps = {
@@ -665,6 +713,10 @@ const mapDispatchToProps = {
   fetchPrivateSlotsByService: fetchAllPrivateSlots,
   fetchCompatibleServicePassList: fetchCompatibleServicePassListAction,
   isPrivatePassUsedInCombo,
+  fetchPaymentPack: fetchPaymentPackAction,
+  fetchEstablishments,
+  fetchAllActivities,
+  fetchWorkhops,
 };
 
 const withStateHandlersInit: StateHandlerInit = {
@@ -675,6 +727,7 @@ const withStateHandlersInit: StateHandlerInit = {
   showCategoryDialog: false,
   selectedPrivatePass: null,
   selectedCategory: null,
+  openRestoreUniversalPassDialog: false,
 };
 
 const withStateHandlersSetter = {
@@ -708,6 +761,11 @@ const withStateHandlersSetter = {
   closePrivatePassCategoryForm: () => () => {
     return { showCategoryDialog: false, selectedCategory: null };
   },
+
+  setOpenRestoreUniversalPassdialog:
+    () => (openRestoreUniversalPassDialog: boolean) => {
+      return { openRestoreUniversalPassDialog };
+    },
 };
 
 const mapWithHandlers = {

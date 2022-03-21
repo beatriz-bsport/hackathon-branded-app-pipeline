@@ -593,6 +593,14 @@ exports.default = {
       paymentMeans: 'Moyens de paiement',
     },
     form: {
+      universalPass: {
+        warningIsUniversalPass:
+          'Cette carte est une carte universelle, une carte jumelle a été créée dans les cartes de cours. Tous les champs modifiés sur cette carte seront aussi modifiés sur la carte jumelle (sauf la catégorie). Il en est de même pour les notifications, extensions et modifications des crédits.',
+        label: 'Carte universelle',
+        helperText:
+          'Les cartes universelles peuvent être utilisées pour réserver des cours collectifs ET des rendez-vous. Une fois la carte créée, une carte jumelle sera créée dans les cartes de cours. Le nombre de crédit des deux cartes sera lié. A l’achat de l’une des deux cartes, l’autre sera automatiquement ajoutée au membre (sans frais supplémentaire).',
+        deativatedTags: 'Désactivé pour les cartes universelles',
+      },
       title: 'Carte de rendez-vous',
       franchise:
         'Cette carte est une carte partagée par le compte franchiseur. Certains éléments ont été définis par le compte franchiseur et ne sont pas modifiables',
@@ -601,6 +609,7 @@ exports.default = {
         paymentMeans: 'Moyens de paiement',
         validity: 'Validité de la carte',
         compatibility: 'Compatibilité',
+        compatibilityAppointment: 'Compatibilité RDV',
       },
       full_vod_access: {
         label: 'Donne accès à la VOD',
@@ -1032,6 +1041,15 @@ exports.default = {
       },
       smartList: 'Listes exclues',
       smartListInclude: 'Listes incluses',
+    },
+  },
+  universalPass: {
+    delete: {
+      dialog: {
+        title: 'Suppresion de la carte',
+        warningText:
+          'Attention ! Cette carte est une carte universelle, si vous la supprimez sa carte jumelle sera elle aussi supprimée.',
+      },
     },
   },
 };

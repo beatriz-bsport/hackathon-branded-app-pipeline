@@ -1,134 +1,43 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Theme } from '@material-ui/core/styles';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import {
-  ButtonBase,
-  Chip,
-  Collapse,
-  Grid,
-  Typography,
-} from '@material-ui/core';
+import type { Theme } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/styles/makeStyles';
 import { useFormikContext, FormikProps } from 'formik';
-import CancelIcon from '@material-ui/icons/Cancel';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Chip from '@material-ui/core/Chip';
+import DoneIcon from '@material-ui/icons/Done';
 import WarningIcon from '@material-ui/icons/Warning';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { PaymentPack, PaymentPackFormValues } from '../../types';
-import {
-  TextFieldEnhancedLabelWithError,
-  SwitchField,
-} from '../../../../components/forms';
-import { SCT } from '#libs/category/types';
 import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
+import SCTChip from '#libs/category/components/SCTChip.component';
+import { SCT } from '#libs/category/types';
 import { Establishment } from '#libs/establishment/types';
 import { MetaActivity } from '#libs/meta-activity/types';
-import { CheckboxField } from '#libs/custom-form/components/GenericFormik.input';
-import SCTChip from '#libs/category/components/SCTChip.component';
-import type { PrivatePass } from '#libs/private-service/types';
+
+import { FormikValues } from '#libs/private-service/components/pass/private-pass-form/PrivatePassForm.component';
 
 type Props = {
   categoryList: Array<SCT>;
   establishmentList: Array<Establishment>;
   metaActivityList: Array<MetaActivity>;
-  initial: PaymentPack<PrivatePass>;
-  disabledUniversalPassFields: boolean;
 };
-export const PaymentPackFormRestrictions = (props: Props) => {
-  const {
-    categoryList,
-    establishmentList,
-    metaActivityList,
-    initial,
-    disabledUniversalPassFields,
-  } = props;
+export const UniversalPassFormPaymentPackCompatibility = (props: Props) => {
+  const { categoryList, establishmentList, metaActivityList } = props;
   const { t } = useTranslation('paymentPack');
-  const [openVodOptions, setOpenVodOptions] = useState<boolean>(
-    !!initial?.full_vod_access,
-  );
   const classes = useStyles();
 
-  const { values, setFieldValue }: FormikProps<PaymentPackFormValues> =
+  const { values, setFieldValue }: FormikProps<FormikValues> =
     useFormikContext();
   return (
-    <>
+    <div className={classes.outterContainer}>
+      <div className={classes.flexRowCenter}>
+        <DoneIcon className={classes.iconLeft} />
+        <Typography variant="h6">
+          {t('detailTitles.compatibilityPaymentPack')}
+        </Typography>
+      </div>
+
       <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <div className={classes.infoText}>
-            <CancelIcon className={classes.icon} />
-            <Typography variant="h6">
-              {t('addPaymentPack.restriction')}
-            </Typography>
-          </div>
-        </Grid>
-        <Grid item xs={6}>
-          <TextFieldEnhancedLabelWithError
-            id="max_bookings_per_day"
-            fullWidth
-            type="number"
-            name="max_bookings_per_day"
-            label={t('addPaymentPack.maxUseDay')}
-            helperText={t('addPaymentPack.maxUseHelper')}
-            disabled={disabledUniversalPassFields}
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <TextFieldEnhancedLabelWithError
-            id="max_bookings_per_week"
-            fullWidth
-            type="number"
-            name="max_bookings_per_week"
-            label={t('addPaymentPack.maxUseWeek')}
-            helperText={t('addPaymentPack.maxUseHelper')}
-            disabled={disabledUniversalPassFields}
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <TextFieldEnhancedLabelWithError
-            id="max_bookings_per_month"
-            fullWidth
-            type="number"
-            name="max_bookings_per_month"
-            label={t('addPaymentPack.maxUseMonth')}
-            helperText={t('addPaymentPack.maxUseHelper')}
-            disabled={disabledUniversalPassFields}
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <TextFieldEnhancedLabelWithError
-            id="max_purchase_per_member"
-            fullWidth
-            type="number"
-            name="max_purchase_per_member"
-            label={t('addPaymentPack.maxUseMember')}
-            helperText={t('addPaymentPack.maxUseHelper')}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <div className={classes.switch}>
-            <div className={classes.row}>
-              <SwitchField
-                name="new_member_only"
-                disabled={values.manager_only}
-              />
-              <Typography>{t('addPaymentPack.newClientOnly')}</Typography>
-            </div>
-            <div className={classes.row}>
-              <SwitchField
-                name="manager_only"
-                disabled={!!initial?.template_instance}
-              />
-              <Typography>{t('addPaymentPack.notForSell')}</Typography>
-            </div>
-            <div className={classes.row}>
-              <SwitchField
-                name="onsite_payment_available"
-                disabled={values.manager_only}
-              />
-              <Typography>{t('addPaymentPack.inShopPayment')}</Typography>
-            </div>
-          </div>
-        </Grid>
         <Grid item xs={6}>
           <div className={classes.titleAndSelector}>
             <Typography className={classes.title}>
@@ -137,7 +46,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
             <MaterialUISelector
               options={
                 [
-                  ...categoryList?.map((category) => ({
+                  ...(categoryList || [])?.map((category) => ({
                     label: category.name,
                     value: category.id,
                     parentCategory: category.SCS.id,
@@ -145,7 +54,6 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                 ] || []
               }
               isMulti
-              defaultNumberShown={3}
               chipsRenderer={(chipProps: {
                 data: {
                   label: string;
@@ -161,7 +69,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                   color="primary"
                 />
               )}
-              value={values?.categories?.map((id) => ({
+              value={values?.linked_payment_pack_categories?.map((id) => ({
                 label: categoryList.find((category) => category.id === id)
                   ?.name,
                 value: id,
@@ -171,7 +79,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
               }))}
               onChange={(options) => {
                 setFieldValue(
-                  'categories',
+                  'linked_payment_pack_categories',
                   options?.map((option) => option.value),
                 );
               }}
@@ -189,14 +97,13 @@ export const PaymentPackFormRestrictions = (props: Props) => {
               menuPosition="fixed"
               options={
                 [
-                  ...establishmentList?.map((establishment) => ({
+                  ...(establishmentList || [])?.map((establishment) => ({
                     label: establishment.title,
                     value: establishment.id,
                   })),
                 ] || []
               }
               isMulti
-              defaultNumberShown={3}
               chipsRenderer={(chipProps: {
                 data: { label: string; value: number };
                 onDelete: () => void;
@@ -207,7 +114,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                   color="primary"
                 />
               )}
-              value={values?.establishments?.map((id) => ({
+              value={values?.linked_payment_pack_establishments?.map((id) => ({
                 label: establishmentList.find(
                   (establishment) => establishment.id === id,
                 )?.title,
@@ -215,7 +122,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
               }))}
               onChange={(options) => {
                 setFieldValue(
-                  'establishments',
+                  'linked_payment_pack_establishments',
                   options?.map((option) => option.value),
                 );
               }}
@@ -231,13 +138,12 @@ export const PaymentPackFormRestrictions = (props: Props) => {
             </Typography>
             <MaterialUISelector
               options={[
-                ...metaActivityList?.map((metaActivity) => ({
+                ...(metaActivityList || [])?.map((metaActivity) => ({
                   label: metaActivity.name,
                   value: metaActivity.id,
                 })),
               ]}
               isMulti
-              defaultNumberShown={3}
               chipsRenderer={(chipProps: { data; onDelete: () => void }) => (
                 <Chip
                   label={chipProps.data.label}
@@ -245,7 +151,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                   color="primary"
                 />
               )}
-              value={values?.metaActivities?.map((id) => ({
+              value={values?.linked_payment_pack_metaActivities?.map((id) => ({
                 label: metaActivityList.find(
                   (metaActivity) => metaActivity.id === id,
                 )?.name,
@@ -253,7 +159,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
               }))}
               onChange={(options) => {
                 setFieldValue(
-                  'metaActivities',
+                  'linked_payment_pack_metaActivities',
                   options?.map((option) => option.value),
                 );
               }}
@@ -270,32 +176,14 @@ export const PaymentPackFormRestrictions = (props: Props) => {
             </Typography>
           </div>
         </Grid>
-        <Grid item xs={12}>
-          <ButtonBase onClick={() => setOpenVodOptions(!openVodOptions)}>
-            <Typography variant="h6">{t('addPaymentPack.vod')}</Typography>
-            {openVodOptions ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-          </ButtonBase>
-          <Collapse in={openVodOptions}>
-            <div className={classes.switch}>
-              <CheckboxField
-                name="full_vod_access"
-                label={t('addPaymentPack.vodAccessCard')}
-              />
-              <Collapse in={values.full_vod_access}>
-                <CheckboxField
-                  name="only_vod_access"
-                  label={t('addPaymentPack.only_vod_access')}
-                  disabled={disabledUniversalPassFields}
-                />
-              </Collapse>
-            </div>
-          </Collapse>
-        </Grid>
       </Grid>
-    </>
+    </div>
   );
 };
-const useStyles = makeStyles<Theme>((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
+  outterContainer: {
+    padding: theme.spacing(4),
+  },
   infoText: {
     display: 'flex',
     flexDirection: 'row',
@@ -332,5 +220,14 @@ const useStyles = makeStyles<Theme>((theme) => ({
   icon: {
     color: '#868686',
   },
+  iconLeft: {
+    marginRight: theme.spacing(2),
+    color: '#868686',
+  },
+  flexRowCenter: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
 }));
-export default PaymentPackFormRestrictions;
+export default UniversalPassFormPaymentPackCompatibility;

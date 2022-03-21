@@ -53,6 +53,7 @@ import {
   getDisabledPaymentPacks,
   groupByCategory,
   getAllPaymentPackCategory,
+  withLinkedPrivatePass,
 } from '../../libs/payment-packs/selectors';
 import type {
   PaymentPack,
@@ -93,11 +94,22 @@ import {
   SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
 } from '#components/analytics/segment';
 import themeSelectors from '../../libs/theme/selectors';
+import { getPrivateServices } from '#libs/private-service/selectors/private-service';
+import { getCompatibilityPassWithService as getCompatibleServicePass } from '#libs/private-service/selectors/private-pass';
+import type { PrivatePass, PrivateSlot } from '#libs/private-service/types';
+
+import {
+  fetchPrivatePassList,
+  fetchAllPrivateServices,
+  fetchAllPrivateSlots,
+  fetchCompatibleServicePassList as fetchCompatibleServicePassListAction,
+} from '#libs/private-service/actions';
 
 type StateHandlerInit = {
   showCategoryDialog: boolean;
   selectedCategory: PaymentPackCategory;
   upsertCategoryLoading: boolean;
+  paymentPackToEdit: PaymentPack;
 };
 type StateHandlerType = typeof withStateHandlersInit &
   WithHandlerType<typeof withStateHandlersSetter>;
@@ -125,7 +137,7 @@ type State = {
     id: number;
     ordering_in_category: number;
   }> | null;
-  paymentPackToEdit: PaymentPack;
+  paymentPackToEdit: PaymentPack<PrivatePass>;
 };
 
 const CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME = 3;
@@ -162,9 +174,18 @@ export class PaymentPackList extends React.Component<Props, State> {
       this.props.paymentPackByCategory.length
     )
       this.categoryOptions.apply({}, []);
+
+    if (
+      prevState.paymentPackToEdit?.id !== this.state.paymentPackToEdit?.id &&
+      this.state.paymentPackToEdit?.id
+    ) {
+      this.props.fetchCompatibleServicePasses(this.state.paymentPackToEdit);
+    }
   }
 
   componentDidMount() {
+    this.props.fetchPrivatePassList();
+    this.props.fetchAllPrivateServices();
     this.props.fetchEstablishments();
     this.props.fetchAllActivities({ customer_enabled: true });
     this.props.fetchWorkhops();
@@ -352,6 +373,16 @@ export class PaymentPackList extends React.Component<Props, State> {
       paymentPackCategories,
     } = this.props;
 
+    const paymentPackCategoryList = [...categoryList]
+      .filter(
+        (category) =>
+          metaActivities.map((a) => a.SCT).indexOf(category.id) !== -1,
+      )
+      .concat(this.props.videoCategories)
+      .filter(
+        (value, index, arr) =>
+          arr.findIndex((sct) => sct.id === value.id) === index,
+      );
     if (loading) {
       return <LinearProgress />;
     }
@@ -371,16 +402,7 @@ export class PaymentPackList extends React.Component<Props, State> {
           />
           <PaymentPackFormDrawer
             open={this.state.openPaymentPackFormDialog}
-            categoryList={[...categoryList]
-              .filter(
-                (category) =>
-                  metaActivities.map((a) => a.SCT).indexOf(category.id) !== -1,
-              )
-              .concat(this.props.videoCategories)
-              .filter(
-                (value, index, arr) =>
-                  arr.findIndex((sct) => sct.id === value.id) === index,
-              )}
+            categoryList={paymentPackCategoryList}
             establishmentList={establishmentList}
             metaActivityList={metaActivities}
             tagList={allTagsWithTagGroup}
@@ -396,6 +418,8 @@ export class PaymentPackList extends React.Component<Props, State> {
               this.setState({ paymentPackToEdit: null })
             }
             initial={this.state.paymentPackToEdit}
+            privateServices={this.props.privateServices}
+            compatibleServicePass={this.props.compatibleServicePass}
           />
         </>
       );
@@ -556,16 +580,7 @@ export class PaymentPackList extends React.Component<Props, State> {
           <PaymentPackFormDrawer
             provincialTax={this.props.theme?.provincial_tax_value}
             open={this.state.openPaymentPackFormDialog}
-            categoryList={[...categoryList]
-              .filter(
-                (category) =>
-                  metaActivities.map((a) => a.SCT).indexOf(category.id) !== -1,
-              )
-              .concat(this.props.videoCategories)
-              .filter(
-                (value, index, arr) =>
-                  arr.findIndex((sct) => sct.id === value.id) === index,
-              )}
+            categoryList={paymentPackCategoryList}
             establishmentList={establishmentList}
             metaActivityList={metaActivities}
             tagList={allTagsWithTagGroup}
@@ -581,6 +596,8 @@ export class PaymentPackList extends React.Component<Props, State> {
               this.setState({ paymentPackToEdit: null })
             }
             initial={this.state.paymentPackToEdit}
+            privateServices={this.props.privateServices}
+            compatibleServicePass={this.props.compatibleServicePass}
           />
           <BottomActionsButton
             onCreateLabel={this.props.t('addButton')}
@@ -616,6 +633,8 @@ export class PaymentPackList extends React.Component<Props, State> {
                   : {},
               )
             }
+            privateServices={this.props.privateServices}
+            compatibleServicePass={this.props.compatibleServicePass}
           />
         )}
       </>
@@ -659,7 +678,7 @@ const styles = (theme: Theme) =>
   });
 const mapStateToProps = (state: RootState) => ({
   loading: state.paymentPack.loading,
-  enabledPacks: getEnabledPaymentPacks(state),
+  enabledPacks: withLinkedPrivatePass(getEnabledPaymentPacks)(state),
   theme: themeSelectors.getTheme(state),
   videoCategories: state.video.filterableParams.items.SCTs,
   allTagsWithTagGroup: getallTagsWithTagGroup(state),
@@ -674,9 +693,8 @@ const mapStateToProps = (state: RootState) => ({
     'id',
   ),
   categoryList: state.category.SCTs,
-
   paymentPackByCategory: groupByCategory(
-    withPaymentPackNotification(getEnabledPaymentPacks),
+    withPaymentPackNotification(withLinkedPrivatePass(getEnabledPaymentPacks)),
   )(state),
   disabledPacks: getDisabledPaymentPacks(state),
   consumerPacks: {
@@ -693,6 +711,8 @@ const mapStateToProps = (state: RootState) => ({
     state.userPreference.paymentPackManagerOnlyFilter,
   companyId: state.theme.theme.company,
   archivationWarning: state.paymentPack.archivationWarning,
+  privateServices: getPrivateServices(state),
+  compatibleServicePass: getCompatibleServicePass(state),
 });
 const mapDispatchToProps = {
   fetchEstablishments,
@@ -718,6 +738,11 @@ const mapDispatchToProps = {
   createOrUpdatePaymentPackAction,
   fetchVideoFilterableParams,
   isPaymentPackUsedInCombo,
+  fetchCompatibleServicePassList: fetchCompatibleServicePassListAction,
+  fetchPrivateSlotsByService: fetchAllPrivateSlots,
+  fetchPrivatePassList,
+
+  fetchAllPrivateServices,
 };
 const mapWithHandlers = {
   incrementCredit:
@@ -730,8 +755,14 @@ const mapWithHandlers = {
     },
   updatePaymentPack:
     (props: OwnAndConnectedProps) =>
-    (paymentPackId: number, data: PaymentPack) => {
-      props.patchPaymentPack(paymentPackId, data);
+    (paymentPackId: number, data: Partial<PaymentPack>) => {
+      props.patchPaymentPack(paymentPackId, data, {
+        onSuccess: (payload) => {
+          if (payload.linked_private_pass) {
+            props.fetchPrivatePassList();
+          }
+        },
+      });
     },
   fetchConsumerPacks:
     (props: OwnAndConnectedProps) =>
@@ -786,20 +817,45 @@ const mapWithHandlers = {
     },
   createOrUpdatePaymentPack:
     (props: OwnAndConnectedProps) =>
-    (data: PaymentPackFormValues, options: OptionCallback) => {
+    (data: PaymentPackFormValues, options: OptionCallback<PaymentPack>) => {
       props.createOrUpdatePaymentPackAction(data, {
         ...options,
         onSuccess: (res) => {
           options.onSuccess(res);
           props.fetchAllPaymentPacks();
+          if (res.linked_private_pass) {
+            props.fetchPrivatePassList();
+          }
         },
       });
+    },
+  fetchCompatibleServicePasses:
+    (props: OwnAndConnectedProps) =>
+    (paymentPack: PaymentPack<PrivatePass>) => {
+      if (paymentPack && paymentPack.linked_private_pass?.id) {
+        props.fetchCompatibleServicePassList(
+          paymentPack.linked_private_pass?.id,
+          {
+            onSuccess: (csps) => {
+              const private_service__in = csps?.map(
+                (c: PrivateSlot) => c.private_service,
+              );
+              if (private_service__in?.length !== 0) {
+                props.fetchPrivateSlotsByService({
+                  private_service__in,
+                });
+              }
+            },
+          },
+        );
+      }
     },
 };
 const withStateHandlersInit: StateHandlerInit = {
   showCategoryDialog: false,
   selectedCategory: null,
   upsertCategoryLoading: false,
+  paymentPackToEdit: null,
 };
 const withStateHandlersSetter = {
   setShowCategoryDialog: () => (showCategoryDialog: boolean) => {
@@ -810,6 +866,9 @@ const withStateHandlersSetter = {
   },
   setUpsertCategoryLoading: () => (upsertCategoryLoading: boolean) => {
     return { upsertCategoryLoading };
+  },
+  setPaymentPackToEdit: () => (paymentPackToEdit: PaymentPack) => {
+    return { paymentPackToEdit };
   },
 };
 export default compose<any, OwnProps>(

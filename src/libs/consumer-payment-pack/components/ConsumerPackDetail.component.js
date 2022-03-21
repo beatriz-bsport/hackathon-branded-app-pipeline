@@ -26,7 +26,10 @@ import type {
   ConsumerPaymentPackExtension,
   ConsumerPaymentPackPenalty,
 } from '../types';
-import type { PaymentPack } from '../../payment-packs/types';
+import type {
+  PaymentPack,
+  ConsumerPaymentPack,
+} from '../../payment-packs/types';
 import type { Booking } from '../../booking/types';
 import type { Invoice } from '../../invoice/types';
 import type { Member } from '../../member/types';
@@ -111,32 +114,34 @@ export function ConsumerPaymentPackDetail(props: Props) {
                 </Paper>
               </div>
             )}
-          <div className={props.classes.rightButton}>
-            <Button
-              variant="contained"
-              color="primary"
-              disabled={
-                props.consumerPack.disabled ||
-                (!props.consumerPack.payment_pack.unlimited &&
-                  !props.consumerPack.available_credits)
-              }
-              onClick={() => props.requestRefund(props.consumerPack, false)}
-            >
-              {props.t('consumerPaymentPack.details.actions.applyVoucher')}
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              disabled={
-                props.consumerPack.disabled ||
-                (!props.consumerPack.payment_pack.unlimited &&
-                  !props.consumerPack.available_credits)
-              }
-              onClick={() => props.requestRefund(props.consumerPack, true)}
-            >
-              {props.t('consumerPaymentPack.details.actions.refund')}
-            </Button>
-          </div>
+          {!props.consumerPack.linked_private_consumer_pass && (
+            <div className={props.classes.rightButton}>
+              <Button
+                variant="contained"
+                color="primary"
+                disabled={
+                  props.consumerPack.disabled ||
+                  (!props.consumerPack.payment_pack.unlimited &&
+                    !props.consumerPack.available_credits)
+                }
+                onClick={() => props.requestRefund(props.consumerPack, false)}
+              >
+                {props.t('consumerPaymentPack.details.actions.applyVoucher')}
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                disabled={
+                  props.consumerPack.disabled ||
+                  (!props.consumerPack.payment_pack.unlimited &&
+                    !props.consumerPack.available_credits)
+                }
+                onClick={() => props.requestRefund(props.consumerPack, true)}
+              >
+                {props.t('consumerPaymentPack.details.actions.refund')}
+              </Button>
+            </div>
+          )}
         </React.Fragment>
       ) : null}
       <Typography variant="h5" component="h2">

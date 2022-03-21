@@ -6,6 +6,7 @@ import {
 } from '../payment-packs/selectors';
 import { getAllMembers } from '../member/selectors';
 import { RootState } from '../../reducers';
+import { PaymentPack } from '../payment-packs/types';
 
 const getState = (state: RootState) => state.consumerPaymentPack;
 
@@ -29,7 +30,7 @@ export const getConsumerPacksWithPaymentPack = createSelector(
       ...cpp,
       payment_pack:
         paymentPacks.find(
-          (pp) => pp.id === parseInt(cpp.payment_pack_id, 10),
+          (pp: PaymentPack) => pp.id === parseInt(cpp.payment_pack_id, 10),
         ) || paymentPackData[cpp.payment_pack],
     })),
 );
@@ -46,9 +47,15 @@ export const getConsumerPacksByPackWithMember = createSelector(
 );
 
 const _getIdsByMember = (state: RootState) => getState(state).byMember.allIds;
-
+const _getUniversalIdsByMember = (state: RootState) =>
+  getState(state).universalbyMember.allIds;
 export const getConsumerPaymentPackByMember = createSelector(
   [getAllData, _getIdsByMember],
+  (data, ids) => ids.map((id) => data[id]),
+);
+
+export const getConsumerUniversalPaymentPackByMember = createSelector(
+  [getAllData, _getUniversalIdsByMember],
   (data, ids) => ids.map((id) => data[id]),
 );
 
@@ -59,8 +66,18 @@ export const getConsumerPacksByMemberWithPaymentPack = createSelector(
       ...cpp,
       payment_pack:
         paymentPacks.find(
-          (pp) => pp.id === parseInt(cpp.payment_pack_id, 10),
-        ) || paymentPackData[parseInt(cpp.payment_pack_id, 10)],
+          (pp: PaymentPack) => pp.id === parseInt(cpp?.payment_pack_id, 10),
+        ) || paymentPackData[parseInt(cpp?.payment_pack_id, 10)],
+    })),
+);
+export const getConsumerUniversalPacksByMemberWithPaymentPack = createSelector(
+  [getConsumerUniversalPaymentPackByMember, getPaymentPackById],
+  (consumerPacks, paymentPackData) =>
+    consumerPacks.map((cpp) => ({
+      ...cpp,
+      payment_pack: cpp?.payment_pack_id
+        ? paymentPackData[parseInt(cpp?.payment_pack_id, 10)]
+        : null,
     })),
 );
 

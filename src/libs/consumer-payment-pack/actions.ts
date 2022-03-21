@@ -332,6 +332,45 @@ export function fetchByMember(
   };
 }
 
+export const universalbyMember = {
+  isLoading: createAction('UNIVERSAL_CONSUMER_PACK/BY_MEMBER/IS_LOADING'),
+  error: createAction('UNIVERSAL_CONSUMER_PACK/BY_MEMBER/ERROR'),
+  success: createAction('UNIVERSAL_CONSUMER_PACK/BY_MEMBER/SUCCESS'),
+  reset: createAction('UNIVERSAL_CONSUMER_PACK/BY_MEMBER/RESET'),
+};
+
+export function fetchUniversalByMember(
+  member: number,
+  page: number,
+  page_size: number,
+  options?: OptionCallback,
+  params: any = {},
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(universalbyMember.isLoading(true));
+    dispatch(universalbyMember.error(null));
+    try {
+      const response = await fetchConsumerPaymentPackListAPI({
+        member,
+        page,
+        page_size,
+        ...(params || {}),
+      });
+      dispatch(universalbyMember.success({ ...response.data, page }));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(universalbyMember.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
+    dispatch(universalbyMember.isLoading(false));
+  };
+}
+
 export const retrieveBulk = {
   isLoading: createAction('CONSUMER_PACK/RETRIEVE_BULK/IS_LOADING'),
   error: createAction('CONSUMER_PACK/RETRIEVE_BULK/ERROR'),

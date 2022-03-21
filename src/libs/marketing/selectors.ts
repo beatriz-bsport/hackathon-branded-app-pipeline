@@ -228,8 +228,9 @@ export const withBookingNotification = (selector: any) =>
 export const withPaymentPackNotification = (selector: any) =>
   createSelector(
     [selector, getPaymentPackNotifications],
-    (packList: any, notifList) =>
-      packList.map((pack: any) => {
+    (packList: any, notifList) => {
+      if (!packList) return [];
+      return packList.map((pack: any) => {
         if (
           notifList.find(
             (notif: any) => notif.event_rules.payment_pack_id === pack.id,
@@ -238,5 +239,6 @@ export const withPaymentPackNotification = (selector: any) =>
           return { ...pack, hasActiveNotification: true };
         }
         return { ...pack, hasActiveNotification: false };
-      }),
+      });
+    },
   );

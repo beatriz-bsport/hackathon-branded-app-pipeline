@@ -20,10 +20,11 @@ import { Company } from '../company/types';
 import { RootState } from '../../reducers';
 
 import { getFranchiseCompanyById } from '../franchise/selectors';
+import { getAvailablePrivatePasses } from '#libs/private-service/selectors/private-pass';
 
-type PaymentPackSelector = (
+type PaymentPackSelector<LPP = number | null> = (
   state: RootState,
-) => Immutable.Immutable<Array<PaymentPack> | PaymentPack>;
+) => Immutable.Immutable<Array<PaymentPack<LPP>> | PaymentPack<LPP>>;
 
 type PaymentPackArraySelector = (
   state: RootState,
@@ -214,7 +215,7 @@ export const getPaymentPackListCompatibleWithVideo = createSelector(
     ),
 );
 
-export const getAllPaymentPacks = createSelector(
+export const getAllPaymentPacks: PaymentPackArraySelector = createSelector(
   getPaymentPackById,
   (paymentPacks) => Immutable(Object.values(paymentPacks)),
 );
@@ -376,4 +377,27 @@ export const excludeUnaccessiblePacks = memoize(
           authenticated,
         }),
     ),
+);
+
+export const withLinkedPrivatePass = memoize((selector: PaymentPackSelector) =>
+  createSelector(
+    [selector, getAvailablePrivatePasses],
+    (packObject, privatePasses) => {
+      if (!packObject) return packObject;
+      if (!Array.isArray(packObject)) {
+        return {
+          ...packObject,
+          linked_private_pass: privatePasses?.find(
+            (ps) => ps.id === packObject.linked_private_pass,
+          ),
+        };
+      }
+      return packObject.map((pack) => ({
+        ...pack,
+        linked_private_pass: privatePasses?.find(
+          (ps) => ps.id === pack.linked_private_pass,
+        ),
+      }));
+    },
+  ),
 );

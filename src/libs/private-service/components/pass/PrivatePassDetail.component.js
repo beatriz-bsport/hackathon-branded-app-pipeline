@@ -31,7 +31,7 @@ import type {
   PrivateService,
   ServiceCompatibilityPass,
 } from '../../types';
-import PrivatePassForm from './PrivatePassForm.component';
+import PrivatePassForm from './private-pass-form/PrivatePassForm.component';
 import PrivateSlotCompatibleServiceForm from '../slot/PrivateSlotCompatibleServiceForm.component';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 

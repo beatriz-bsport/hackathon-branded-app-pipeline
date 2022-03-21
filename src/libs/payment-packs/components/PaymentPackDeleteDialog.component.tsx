@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
 
-import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -10,25 +9,27 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Typography from '@material-ui/core/Typography';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
-import { withTranslation, TFunction } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import WarningIcon from '@material-ui/icons/Warning';
 
+import { makeStyles } from '@material-ui/core';
 import RedButton from '../../../components/button/RedButton.component';
+import type { PaymentPack } from '../types';
 
 type Props = {
-  fullScreen: boolean,
-  open: boolean,
-  pack: PaymentPack,
-  isUsedInCombo: boolean,
-  consumerPackSummary: React.Node,
-  onDelete: () => void,
-  onCancel: (consumerPackId: number) => void,
-  classes: Object,
-  t: TFunction,
+  fullScreen: boolean;
+  open: boolean;
+  pack: PaymentPack;
+  isUsedInCombo: boolean;
+  consumerPackSummary: React.Node;
+  onDelete: () => void;
+  onCancel: (consumerPackId: number) => void;
 };
 
 export function PaymentPackDeleteDialog(props: Props) {
-  const { t, fullScreen, onCancel, open, classes } = props;
+  const { fullScreen, onCancel, open } = props;
+  const { t } = useTranslation('paymentPack');
+  const classes = useStyles();
   return (
     <Dialog
       fullScreen={fullScreen}
@@ -44,6 +45,19 @@ export function PaymentPackDeleteDialog(props: Props) {
         }`}
       </DialogTitle>
       <DialogContent>
+        {props.pack?.linked_private_pass && (
+          <DialogContentText className={classes.warningMessage}>
+            <WarningIcon
+              fontSize="large"
+              color="error"
+              size={32}
+              className={classes.warningIcon}
+            />
+            <Typography>
+              {t('universalPass.delete.dialog.warningText')}
+            </Typography>
+          </DialogContentText>
+        )}
         {props.isUsedInCombo && (
           <DialogContentText className={classes.warningMessage}>
             <WarningIcon
@@ -88,7 +102,7 @@ export function PaymentPackDeleteDialog(props: Props) {
   );
 }
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   warningIcon: {
     marginRight: theme.spacing(2),
   },
@@ -102,8 +116,6 @@ const styles = (theme) => ({
     alignItems: 'center',
     flexDirection: 'row',
   },
-});
+}));
 
-export default withMobileDialog()(
-  withStyles(styles)(withTranslation(['paymentPack'])(PaymentPackDeleteDialog)),
-);
+export default withMobileDialog()(PaymentPackDeleteDialog);

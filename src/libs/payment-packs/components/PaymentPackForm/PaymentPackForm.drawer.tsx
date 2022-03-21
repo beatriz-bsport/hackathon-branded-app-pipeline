@@ -13,6 +13,10 @@ import type { MetaActivity } from '#libs/meta-activity/types';
 import type { Tag, TagGroup } from '#libs/tag/types';
 import type { OptionCallback } from '../../../../state/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import type {
+  PrivateServiceWithSlots,
+  ServiceCompatibilityPass,
+} from '#libs/private-service/types';
 
 type OwnProps = {
   open: boolean;
@@ -30,6 +34,8 @@ type OwnProps = {
   clearPaymentPackToEdit?: () => void;
   closeForm?: () => void;
   provincialTax: number;
+  privateServices: Array<PrivateServiceWithSlots>;
+  compatibleServicePass: Array<ServiceCompatibilityPass>;
 };
 type Props = OwnProps & WithTranslation;
 export const PaymentPackFormDrawer = (props: Props) => {
@@ -47,7 +53,10 @@ export const PaymentPackFormDrawer = (props: Props) => {
     initial,
     clearPaymentPackToEdit,
     closeForm,
+    privateServices,
+    compatibleServicePass,
   } = props;
+
   return (
     <GenericResponsiveDrawer
       open={open}
@@ -67,6 +76,8 @@ export const PaymentPackFormDrawer = (props: Props) => {
         onSubmit={onSubmit}
         clearPaymentPackToEdit={clearPaymentPackToEdit}
         closeForm={closeForm}
+        privateServices={privateServices}
+        compatibleServicePass={compatibleServicePass}
       />
     </GenericResponsiveDrawer>
   );

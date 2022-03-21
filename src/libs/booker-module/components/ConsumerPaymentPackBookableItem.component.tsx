@@ -1,5 +1,5 @@
-import { makeStyles, Typography } from '@material-ui/core';
 import React from 'react';
+import { makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { PaymentPack } from '../../payment-packs/types';
 import { formatAsDate } from '../../../utils/datetime';

@@ -14,7 +14,7 @@ import { push, replace } from 'connected-react-router';
 import { compose, withState, withStateHandlers, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import { withTranslation, TFunction } from 'react-i18next';
-
+import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyable-items';
 import flatten from 'lodash/flatten';
 import PaginatedListBase from '../../components/PaginatedListBase.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -46,7 +46,10 @@ import {
   updateManagerFiltersSettings,
 } from '../../libs/dashboard/actions';
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
-import { fetchSpecificInvoice } from '../../libs/invoice/actions';
+import {
+  fetchSpecificInvoice,
+  fetchByInvoiceItem as fetchInvoiceByInvoiceItemAction,
+} from '../../libs/invoice/actions';
 import { fetchConsumerPaymentPackLinks as fetchConsumerPaymentPackLinksAction } from '../../libs/relationship/actions';
 
 import RefundConsumerPaymentPackDialog from '../../libs/consumer-payment-pack/components/RefundConsumerPaymentPackDialog.component';
@@ -165,6 +168,11 @@ type Props = {
     options: OptionCallBack,
   ) => void,
   showVaccinationStatus: boolean,
+  fetchInvoiceByInvoiceItem: (
+    buyable_item_identifier: number,
+    object_id: number,
+    options?: OptionCallback,
+  ) => void,
 };
 
 type State = {
@@ -205,7 +213,19 @@ export class MemberDetailPass extends Component<Props, State> {
         PENALTY_PAGE_SIZE,
       );
       this.props.retrieveConsumerPackBulk([this.props.consumerPassId], {
-        onSuccess: ([pass]) => this.props.fetchInvoice(pass.invoice),
+        onSuccess: ([pass]: Array<ConsumerPaymentPack>) => {
+          if (pass.invoice) {
+            this.props.fetchInvoice(pass.invoice);
+          } else if (
+            pass.linked_private_consumer_pass &&
+            !pass.is_universal_consumer_pass_source
+          ) {
+            this.props.fetchInvoiceByInvoiceItem(
+              BUYABLE_ITEM_PRIVATE_PASS,
+              pass.linked_private_consumer_pass,
+            );
+          }
+        },
       });
     }
     if (this.props.consumerPassId) {
@@ -254,7 +274,18 @@ export class MemberDetailPass extends Component<Props, State> {
         this.props.selectedConsumerPass.id !==
           prevProps.selectedConsumerPass.id)
     ) {
-      this.props.fetchInvoice(this.props.selectedConsumerPass.invoice);
+      if (this.props.selectedConsumerPass.invoice) {
+        this.props.fetchInvoice(this.props.selectedConsumerPass.invoice);
+      } else if (
+        !!this.props.selectedConsumerPass.linked_private_consumer_pass &&
+        !this.props.selectedConsumerPass.is_universal_consumer_pass_source
+      ) {
+        this.props.fetchInvoiceByInvoiceItem(
+          BUYABLE_ITEM_PRIVATE_PASS,
+          this.props.selectedConsumerPass.linked_private_consumer_pass,
+        );
+      }
+
       this.props.fetchExtensions(this.props.selectedConsumerPass.id);
       this.fetchBookings(1, 5);
       if (this.props.consumerPassId) {
@@ -570,6 +601,7 @@ export default compose(
       resetConsumerPackByMemberAction,
       fetchConsumerPaymentPackPenalty: fetchConsumerPaymentPackPenaltyAction,
       fetchConsumerPaymentPackLinks: fetchConsumerPaymentPackLinksAction,
+      fetchInvoiceByInvoiceItem: fetchInvoiceByInvoiceItemAction,
     },
   ),
   withState('filters', 'setFilters', (props) => {
@@ -596,6 +628,23 @@ export default compose(
         setRelatedInvoice(null);
         fetchInvoice(uuid, {
           onSuccess: (inv) => setRelatedInvoice(inv.uuid),
+        });
+      },
+    fetchInvoiceByInvoiceItem:
+      ({ fetchInvoiceByInvoiceItem, setRelatedInvoice }) =>
+      (buyableId, objectId, options) => {
+        fetchInvoiceByInvoiceItem(buyableId, objectId, {
+          onSuccess: (inv) => {
+            setRelatedInvoice(inv.uuid);
+            if (options && options.onSuccess) {
+              options.onSuccess(inv);
+            }
+          },
+          onError: (err) => {
+            if (options && options.onError) {
+              options.onError(err);
+            }
+          },
         });
       },
     fetchConsumerPackList:

@@ -7,6 +7,7 @@ import {
   extensionDeleteActions,
   byPaymentPack,
   byMember,
+  universalbyMember,
   retrieveBulk,
   updateConsumerPack,
   byOfferByMember,
@@ -85,6 +86,13 @@ const initialState = Immutable<ConsumerPaymentPackState>({
     page: 1,
     count: 0,
   },
+  universalbyMember: {
+    loading: false,
+    error: null,
+    allIds: [],
+    page: 1,
+    count: 0,
+  },
   forBooking: {
     loading: false,
     error: null,
@@ -114,63 +122,63 @@ const initialState = Immutable<ConsumerPaymentPackState>({
 
 export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
   {
-    [partialRefundActions.isLoading]: (state, { payload }) => {
+    [partialRefundActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['partialRefund', 'loading'], payload);
     },
-    [partialRefundActions.error]: (state, { payload }) => {
+    [partialRefundActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['partialRefund', 'error'], payload);
     },
-    [partialRefundActions.success]: (state, { payload }) => {
+    [partialRefundActions.success.toString()]: (state, { payload }) => {
       return state.setIn(['byId', payload.id], payload);
     },
-    [partialRefundActions.list]: (state, { payload }) => {
+    [partialRefundActions.list.toString()]: (state, { payload }) => {
       return state.setIn(['partialRefund', 'items'], payload);
     },
-    [partialRefundActions.listReset]: (state) => {
+    [partialRefundActions.listReset.toString()]: (state) => {
       return state.setIn(['partialRefund', 'items'], []);
     },
-    [extensionCreateActions.isLoading]: (state, { payload }) => {
+    [extensionCreateActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['extension', 'create', 'loading'], payload);
     },
-    [extensionCreateActions.error]: (state, { payload }) => {
+    [extensionCreateActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['extension', 'create', 'error'], payload);
     },
-    [extensionCreateActions.success]: (state, { payload }) => {
+    [extensionCreateActions.success.toString()]: (state, { payload }) => {
       return state.setIn(
         ['extension', 'items'],
         [payload, ...state.extension.items],
       );
     },
 
-    [extensionDeleteActions.isLoading]: (state, { payload }) => {
+    [extensionDeleteActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['extension', 'delete', 'loading'], payload);
     },
-    [extensionDeleteActions.error]: (state, { payload }) => {
+    [extensionDeleteActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['extension', 'delete', 'error'], payload);
     },
-    [extensionDeleteActions.success]: (state, { payload }) => {
+    [extensionDeleteActions.success.toString()]: (state, { payload }) => {
       return state.setIn(
         ['extension', 'items'],
         state.extension.items.filter((e) => e.id !== payload),
       );
     },
 
-    [extensionListActions.isLoading]: (state, { payload }) => {
+    [extensionListActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['extension', 'loading'], payload);
     },
-    [extensionListActions.error]: (state, { payload }) => {
+    [extensionListActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['extension', 'error'], payload);
     },
-    [extensionListActions.success]: (state, { payload }) => {
+    [extensionListActions.success.toString()]: (state, { payload }) => {
       return state.setIn(['extension', 'items'], payload);
     },
-    [massExtensionActions.isLoading]: (state, { payload }) => {
+    [massExtensionActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['massExtension', 'loading'], payload);
     },
-    [massExtensionActions.error]: (state, { payload }) => {
+    [massExtensionActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['massExtension', 'error'], payload);
     },
-    [massExtensionActions.success]: (state, { payload }: any) => {
+    [massExtensionActions.success.toString()]: (state, { payload }: any) => {
       return state
         .setIn(
           ['massExtension', 'allIds'],
@@ -192,16 +200,16 @@ export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
           { deep: true },
         );
     },
-    [massExtensionActions.create]: (state, { payload }) => {
+    [massExtensionActions.create.toString()]: (state, { payload }) => {
       return state.setIn(['massExtension', 'byId', payload.id], payload);
     },
-    [byMember.isLoading]: (state, { payload }) => {
+    [byMember.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['byMember', 'loading'], payload);
     },
-    [byMember.error]: (state, { payload }) => {
+    [byMember.error.toString()]: (state, { payload }) => {
       return state.setIn(['byMember', 'error'], payload);
     },
-    [byMember.success]: (state, { payload }) => {
+    [byMember.success.toString()]: (state, { payload }) => {
       return state
         .setIn(['byMember', 'page'], payload.page)
         .setIn(['byMember', 'count'], payload.count)
@@ -219,10 +227,34 @@ export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
           { deep: true },
         );
     },
-    [byPaymentPack.isLoading]: (state, { payload }) => {
+    [universalbyMember.isLoading.toString()]: (state, { payload }) => {
+      return state.setIn(['universalbyMember', 'loading'], payload);
+    },
+    [universalbyMember.error.toString()]: (state, { payload }) => {
+      return state.setIn(['universalbyMember', 'error'], payload);
+    },
+    [universalbyMember.success.toString()]: (state, { payload }) => {
+      return state
+        .setIn(['universalbyMember', 'page'], payload.page)
+        .setIn(['universalbyMember', 'count'], payload.count)
+        .setIn(
+          ['universalbyMember', 'allIds'],
+          payload.results.map((cpp) => cpp.id),
+        )
+        .merge(
+          {
+            byId: payload.results.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+          { deep: true },
+        );
+    },
+    [byPaymentPack.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['byPaymentPack', 'loading'], payload);
     },
-    [byPaymentPack.success]: (state, { payload }) => {
+    [byPaymentPack.success.toString()]: (state, { payload }) => {
       return state
         .setIn(
           ['byPaymentPack', 'allIds'],
@@ -240,19 +272,19 @@ export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
         .setIn(['byPaymentPack', 'count'], payload.count)
         .setIn(['byPaymentPack', 'page'], payload.page);
     },
-    [byPaymentPack.error]: (state, { payload }) => {
+    [byPaymentPack.error.toString()]: (state, { payload }) => {
       return state.setIn(['byPaymentPack', 'error'], payload);
     },
-    [forBookingActions.isLoading]: (state, { payload }) => {
+    [forBookingActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['forBooking', 'loading'], payload);
     },
-    [forBookingActions.reset]: (state) => {
+    [forBookingActions.reset.toString()]: (state) => {
       return state.setIn(['forBooking', 'allIds'], []);
     },
-    [forBookingActions.error]: (state, { payload }) => {
+    [forBookingActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['forBooking', 'error'], payload);
     },
-    [forBookingActions.success]: (state, { payload }) => {
+    [forBookingActions.success.toString()]: (state, { payload }) => {
       return state
         .setIn(
           ['forBooking', 'allIds'],
@@ -268,25 +300,28 @@ export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
           { deep: true },
         );
     },
-    [byOfferByMember.isLoading]: (state, { payload }) => {
+    [byOfferByMember.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['byOfferByMember', 'loading'], payload);
     },
-    [byOfferByMember.error]: (state, { payload }) => {
+    [byOfferByMember.error.toString()]: (state, { payload }) => {
       return state.setIn(['byOfferByMember', 'error'], payload);
     },
-    [byOfferByMember.success]: (state, { payload }) => {
+    [byOfferByMember.success.toString()]: (state, { payload }) => {
       return state.setIn(['byOfferByMember', 'items'], payload);
     },
-    [nonCompatibleByOfferByMember.isLoading]: (state, { payload }) => {
+    [nonCompatibleByOfferByMember.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['nonCompatibleByOfferByMember', 'loading'], payload);
     },
-    [nonCompatibleByOfferByMember.error]: (state, { payload }) => {
+    [nonCompatibleByOfferByMember.error.toString()]: (state, { payload }) => {
       return state.setIn(['nonCompatibleByOfferByMember', 'error'], payload);
     },
-    [nonCompatibleByOfferByMember.success]: (state, { payload }) => {
+    [nonCompatibleByOfferByMember.success.toString()]: (state, { payload }) => {
       return state.setIn(['nonCompatibleByOfferByMember', 'items'], payload);
     },
-    [updateConsumerPack.success]: (state, { payload }) => {
+    [updateConsumerPack.success.toString()]: (state, { payload }) => {
       let newState = state;
       const indexByMember = state.byOfferByMember.items.findIndex(
         (cpp) => cpp.id === payload.id,
@@ -299,7 +334,7 @@ export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
       }
       return newState.setIn(['byId', payload.id], payload);
     },
-    [updateConsumerPack.isLoading]: (state, { payload }) => {
+    [updateConsumerPack.isLoading.toString()]: (state, { payload }) => {
       if (!payload.loading) {
         return state.setIn(
           ['updatingConsumerPacks'],
@@ -311,7 +346,7 @@ export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
         [...state.updatingConsumerPacks, payload.id],
       );
     },
-    [retrieveBulk.success]: (state, { payload }) => {
+    [retrieveBulk.success.toString()]: (state, { payload }) => {
       return state.merge(
         {
           byId: payload.reduce((acc, ps) => {
@@ -322,19 +357,22 @@ export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
         { deep: true },
       );
     },
-    [listConsumerPaymentPackCompatibleActions.isLoading]: (
+    [listConsumerPaymentPackCompatibleActions.isLoading.toString()]: (
       state,
       { payload },
     ) => {
       return state.setIn(['compatible', 'loading'], payload);
     },
-    [listConsumerPaymentPackCompatibleActions.error]: (state, { payload }) => {
+    [listConsumerPaymentPackCompatibleActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['compatible', 'error'], payload);
     },
-    [listConsumerPaymentPackCompatibleActions.reset]: (state) => {
+    [listConsumerPaymentPackCompatibleActions.reset.toString()]: (state) => {
       return state.setIn(['compatible', 'allIds'], []);
     },
-    [listConsumerPaymentPackCompatibleActions.success]: (
+    [listConsumerPaymentPackCompatibleActions.success.toString()]: (
       state,
       { payload },
     ) => {
@@ -353,37 +391,55 @@ export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
           { deep: true },
         );
     },
-    [listConsumerPaymentPackPenaltyActions.isLoading]: (state, { payload }) => {
+    [listConsumerPaymentPackPenaltyActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['penalty', 'loading'], payload);
     },
-    [consumerPaymentPackMaxoutBookingAction.isLoading]: (
+    [consumerPaymentPackMaxoutBookingAction.isLoading.toString()]: (
       state,
       { payload },
     ) => {
       return state.setIn(['maxout_booking', 'loading'], payload);
     },
-    [consumerPaymentPackMaxoutBookingAction.error]: (state, { payload }) => {
+    [consumerPaymentPackMaxoutBookingAction.error.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['maxout_booking', 'error'], payload);
     },
-    [consumerPaymentPackMaxoutBookingAction.success]: (state, { payload }) => {
+    [consumerPaymentPackMaxoutBookingAction.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.merge({ maxout_booking: { byId: payload } }, { deep: true });
     },
-    [listConsumerPaymentPackCompatibleActions.error]: (state, { payload }) => {
+    [listConsumerPaymentPackCompatibleActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['penalty', 'error'], payload);
     },
-    [listConsumerPaymentPackPenaltyActions.success]: (state, { payload }) => {
+    [listConsumerPaymentPackPenaltyActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state
         .setIn(['penalty', 'items'], payload.results)
         .setIn(['penalty', 'page'], payload.page)
         .setIn(['penalty', 'count'], payload.count);
     },
-    [listConsumerPaymentPackActions.isLoading.toString()]: (
+    [listConsumerPaymentPackActions.isLoading.toString().toString()]: (
       state,
       { payload },
     ) => {
       return state.setIn(['basePaginationState', 'loading'], payload);
     },
-    [listConsumerPaymentPackActions.error.toString()]: (state, { payload }) => {
+    [listConsumerPaymentPackActions.error.toString().toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['basePaginationState', 'error'], payload);
     },
     [listConsumerPaymentPackActions.reset.toString()]: (state) => {
@@ -393,7 +449,7 @@ export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
         .setIn(['basePaginationState', 'page'], 1)
         .setIn(['basePaginationState', 'loading'], false);
     },
-    [listConsumerPaymentPackActions.success.toString()]: (
+    [listConsumerPaymentPackActions.success.toString().toString()]: (
       state,
       { payload },
     ) => {

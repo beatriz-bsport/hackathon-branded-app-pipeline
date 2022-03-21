@@ -61,7 +61,6 @@ export const PrivatePassCompatibleServiceList: React.FC<Props> = (props) => {
   const classes = useStyles();
 
   const { pass, privateServices, compatibleServicePass, isManager } = props;
-
   return (
     <Paper className={classes.paper}>
       <div className={classes.horizontalBlock}>

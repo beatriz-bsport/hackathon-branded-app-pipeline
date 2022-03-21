@@ -414,6 +414,16 @@ exports.default = {
             'Laisser vide pour autoriser à tous les membres',
         },
       },
+      universalPass: {
+        warningIsUniversalPass:
+          'Cette carte est une carte universelle, une carte jumelle a été créée dans les cartes de RDV. Tous les champs modifiés sur cette carte seront aussi modifiés sur la carte jumelle (sauf la catégorie). Il en est de même pour les notifications, extensions et modifications des crédits.',
+        label: 'Carte universelle',
+        marketplaceLabel:
+          'Carte universelle. Utilisable pour les cours collectifs et rendez-vous.',
+        helperText:
+          'Les cartes universelles peuvent être utilisées pour réserver des cours collectifs ET des rendez-vous. Une fois la carte créée, une carte jumelle sera créée dans les cartes de rendez-vous. Le nombre de crédit des deux cartes sera lié. A l’achat de l’une des deux cartes, l’autre sera automatiquement ajoutée au membre (sans frais supplémentaire).',
+        deativatedTags: 'Désactivé pour les cartes universelles',
+      },
     },
   },
   details: {
@@ -634,10 +644,12 @@ exports.default = {
     credit_quantity: 'Nombre de crédits',
     validity: 'Validité',
     compatibility: 'Compatibilité',
+    compatibilityPaymentPack: 'Compatibilité cours collectifs',
     accessibility: 'Accessibilité',
     tags: 'Tags',
     restrictions: 'Restrictions',
     vod: 'VOD',
+    universalPass: 'Carte universelle',
   },
   cardDetails: {
     maxBookingPerMonth: 'Utilisations maximum par mois : ',
@@ -646,6 +658,7 @@ exports.default = {
     maxPurchasePerMember: "Nombre d'achats maximum : ",
     packBlocking1: ' jours de blocages après ',
     packBlocking2: ' annulations hors-délais sur une semaine',
+    universalPass: 'Compatible avec les cours collectifs et RDV.',
   },
   selector: {
     sorting: {
@@ -724,4 +737,20 @@ exports.default = {
   blackList: 'Tags non autorisés',
   noAuthorizedTag: 'Aucun tag autorisé',
   noUnauthorizedTag: 'Aucun tag non autorisé',
+  universalPass: {
+    delete: {
+      dialog: {
+        title: 'Suppresion de la carte',
+        warningText:
+          'Attention ! Cette carte est une carte universelle, si vous la supprimez sa carte jumelle sera elle aussi supprimée.',
+      },
+    },
+    restore: {
+      dialog: {
+        title: 'Désarchiver',
+        text: 'Cette carte est une carte universelle, sa carte jumelle a elle aussi été désarchivée.',
+        continue: 'Continuer',
+      },
+    },
+  },
 };

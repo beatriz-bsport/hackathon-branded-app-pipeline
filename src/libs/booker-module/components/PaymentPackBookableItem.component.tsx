@@ -1,9 +1,12 @@
-import { makeStyles, Typography } from '@material-ui/core';
 import React from 'react';
+import { makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import StyleIcon from '@material-ui/icons/Style';
+import IconButton from '@material-ui/core/IconButton';
 import { PaymentPack, PaymentPackTemplate } from '../../payment-packs/types';
 import { getValidityInfo } from '../../payment-packs/utils';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import Tooltip from '#components/Tooltip.component';
 
 interface Props {
   paymentPack: PaymentPack | PaymentPackTemplate;
@@ -26,23 +29,40 @@ const PaymentPackItem = (props: Props) => {
   return (
     <div className={classes.itemContainer}>
       <div className={classes.row}>
-        <Typography variant="h6">
-          {getCurrencyDisplayWithPrice(
-            props.paymentPack.price,
-            props.isExcludingTax,
-            props.paymentPack.tax,
+        <div>
+          <div className={classes.priceRow}>
+            <Typography variant="h6">
+              {getCurrencyDisplayWithPrice(
+                props.paymentPack.price,
+                props.isExcludingTax,
+                props.paymentPack.tax,
+              )}
+            </Typography>
+            <Typography
+              className={classes.creditText}
+              variant="h6"
+              align="left"
+            >
+              {credits}
+            </Typography>
+          </div>
+          <Typography variant="body1" color="textSecondary" align="left">
+            {date}
+          </Typography>
+          <Typography variant="body1" color="textPrimary" align="left">
+            {props.paymentPack.name}
+          </Typography>
+        </div>
+        <div>
+          {!!props.paymentPack.linked_private_pass && (
+            <Tooltip title={t('form.paymentPack.universalPass.label')}>
+              <IconButton onClick={null}>
+                <StyleIcon color="inherit" />
+              </IconButton>
+            </Tooltip>
           )}
-        </Typography>
-        <Typography className={classes.creditText} variant="h6" align="left">
-          {credits}
-        </Typography>
+        </div>
       </div>
-      <Typography variant="body1" color="textSecondary" align="left">
-        {date}
-      </Typography>
-      <Typography variant="body1" color="textPrimary" align="left">
-        {props.paymentPack.name}
-      </Typography>
     </div>
   );
 };
@@ -54,9 +74,16 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'flex-start',
   },
+  priceRow: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
   row: {
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
   },
   creditText: {
     marginLeft: theme.spacing(1),

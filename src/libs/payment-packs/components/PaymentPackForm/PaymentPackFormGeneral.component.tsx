@@ -1,9 +1,7 @@
 import React from 'react';
-import { compose } from 'recompose';
-import { WithTranslation, withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-
 import InfoIcon from '@material-ui/icons/Info';
 import Typography from '@material-ui/core/Typography';
 
@@ -18,11 +16,12 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import WarningIcon from '@material-ui/icons/Warning';
 
-import { FormikProps } from 'formik';
+import { FormikProps, useFormikContext } from 'formik';
 import {
   TextFieldEnhancedLabelWithError,
   PriceField,
   TextField,
+  SwitchField,
 } from '../../../../components/forms';
 import PaymentPackCategorySelector from '../category/PaymentPackCategorySelector.component';
 
@@ -33,18 +32,29 @@ import {
   PaymentPackFormValues,
 } from '../../types';
 import { provincialTaxHelperText } from '#libs/theme/utils';
+import type { PrivatePass } from '#libs/private-service/types';
 
-type OwnProps = {
+type Props = {
   paymentPackCategories: Array<PaymentPackCategory>;
-  formikProps: FormikProps<PaymentPackFormValues>;
-  initial?: PaymentPack;
+  initial?: PaymentPack<PrivatePass>;
   provincialTax: number;
+  disabledUniversalPassFields: boolean;
+  setDisableUniversalPassFields: (disable: boolean) => void;
 };
-type Props = OwnProps & WithTranslation;
 export const PaymentPackFormGeneral = (props: Props) => {
-  const { t, formikProps, paymentPackCategories, initial, provincialTax } =
-    props;
-
+  const {
+    paymentPackCategories,
+    initial,
+    provincialTax,
+    disabledUniversalPassFields,
+    setDisableUniversalPassFields,
+  } = props;
+  const { t } = useTranslation('paymentPack');
+  const {
+    values,
+    setFieldValue,
+    setValues,
+  }: FormikProps<PaymentPackFormValues> = useFormikContext();
   const classes = useStyles();
   const CREDIT_NUMBER_CHOICE = [
     { label: t('addPaymentPack.limited'), value: 'limited' },
@@ -61,9 +71,32 @@ export const PaymentPackFormGeneral = (props: Props) => {
     },
   ];
   const provincialTaxText = React.useMemo(
-    () => provincialTaxHelperText(formikProps.values.tax, provincialTax, t),
-    [formikProps.values.tax, provincialTax, t],
+    () => provincialTaxHelperText(values.tax, provincialTax, t),
+    [values.tax, provincialTax, t],
   );
+
+  const is_universal_pass_value = React.useMemo(
+    () => values.is_universal_pass,
+    [values],
+  );
+  React.useEffect(() => {
+    if (is_universal_pass_value) {
+      setValues({
+        ...values,
+        credit_number: 'limited',
+        max_bookings_per_day: 0,
+        max_bookings_per_week: 0,
+        max_bookings_per_month: 0,
+        validity: 'givenNumber',
+        full_vod_access: true,
+        only_vod_access: false,
+      });
+      setDisableUniversalPassFields(true);
+    } else {
+      setDisableUniversalPassFields(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [is_universal_pass_value, setValues, setDisableUniversalPassFields]);
   return (
     <>
       <Grid container spacing={2}>
@@ -80,6 +113,14 @@ export const PaymentPackFormGeneral = (props: Props) => {
           </Grid>
         ) : null}
         <Grid item xs={12}>
+          {initial && initial.linked_private_pass && (
+            <div className={classes.infoText}>
+              <WarningIcon className={classes.redIcon} />
+              <Typography variant="caption" color="error">
+                {t('form.paymentPack.universalPass.warningIsUniversalPass')}
+              </Typography>
+            </div>
+          )}
           <div className={classes.infoText}>
             <InfoIcon className={classes.icon} />
             <Typography variant="h6">
@@ -101,10 +142,10 @@ export const PaymentPackFormGeneral = (props: Props) => {
         <Grid item xs={12}>
           <PaymentPackCategorySelector
             packPackCategoryList={paymentPackCategories}
-            value={formikProps.values.category}
-            nullCurrentValue={!!formikProps.values?.category}
+            value={values.category}
+            nullCurrentValue={!!values?.category}
             onChange={(item: { value: 0; label: string }) =>
-              formikProps.setFieldValue('category', item ? item.value : null)
+              setFieldValue('category', item ? item.value : null)
             }
             isClearable
             closeMenuOnSelect
@@ -140,14 +181,31 @@ export const PaymentPackFormGeneral = (props: Props) => {
             FormHelperTextProps={{ classes: { root: classes.helperTextError } }}
           />
         </Grid>
+        <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={12}>
+            <SwitchField
+              name="is_universal_pass"
+              label={t('form.paymentPack.universalPass.label')}
+              disabled={
+                initial &&
+                (!!initial.linked_private_pass || !!initial.template_instance)
+              }
+            />
+          </Grid>
+          <Grid item xs={12} md={12}>
+            <Typography variant="caption" color="textSecondary">
+              {t('form.paymentPack.universalPass.helperText')}
+            </Typography>
+          </Grid>
+        </Grid>
         <Grid item xs={12}>
           <RadioGroup
             name="credit_number"
             onChange={(_, value) => {
               if (value === 'limited') {
-                formikProps.setFieldValue('penalty_active', false);
+                setFieldValue('penalty_active', false);
               }
-              formikProps.setFieldValue('credit_number', value);
+              setFieldValue('credit_number', value);
             }}
           >
             <FormLabel>{t('addPaymentPack.numberOfCredit')}</FormLabel>
@@ -158,10 +216,11 @@ export const PaymentPackFormGeneral = (props: Props) => {
                   value={value}
                   control={
                     <Radio
-                      disabled={initial && !initial?.editable}
-                      checked={
-                        `${formikProps.values.credit_number}` === `${value}`
+                      disabled={
+                        (initial && !initial?.editable) ||
+                        (disabledUniversalPassFields && value === 'unlimited')
                       }
+                      checked={`${values.credit_number}` === `${value}`}
                     />
                   }
                   label={l}
@@ -170,7 +229,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
             ))}
           </RadioGroup>
         </Grid>
-        {formikProps.values.credit_number === 'limited' ? (
+        {values.credit_number === 'limited' ? (
           <>
             <Grid item xs={6}>
               <TextField
@@ -185,7 +244,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
               />
             </Grid>
             <Grid item xs={6}>
-              {initial && initial.credits !== formikProps.values.credits ? (
+              {initial && initial.credits !== values.credits ? (
                 <div className={classes.creditWarning}>
                   <WarningIcon color="error" />
                   <Typography variant="body2" color="error">
@@ -217,11 +276,11 @@ export const PaymentPackFormGeneral = (props: Props) => {
               name="penalty_active"
               label={t('addPaymentPack.penality')}
               disabled={
-                formikProps.values.credit_number === 'limited' ||
+                values.credit_number === 'limited' ||
                 (initial && !initial?.editable)
               }
             />
-            {formikProps.values.credit_number === 'limited' ? (
+            {values.credit_number === 'limited' ? (
               <>
                 <WarningIcon color="primary" />
                 <Typography variant="body2">
@@ -231,7 +290,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
             ) : null}
           </div>
         </Grid>
-        <Collapse in={formikProps.values.penalty_active}>
+        <Collapse in={values.penalty_active}>
           <Grid container spacing={4} className={classes.gridContainer}>
             <>
               <Grid item xs={3}>
@@ -256,14 +315,14 @@ export const PaymentPackFormGeneral = (props: Props) => {
                   label={t('addPaymentPack.penalityNumberDay')}
                 />
               </Grid>
-              {formikProps.values.penalty_nb_late_cancellations &&
-              formikProps.values.penalty_nb_days ? (
+              {values.penalty_nb_late_cancellations &&
+              values.penalty_nb_days ? (
                 <Grid item xs={12}>
                   <Typography>
                     {t('addPaymentPack.penalityInfo', {
                       penalityNumberCancel:
-                        formikProps.values.penalty_nb_late_cancellations,
-                      penalityNumberDay: formikProps.values.penalty_nb_days,
+                        values.penalty_nb_late_cancellations,
+                      penalityNumberDay: values.penalty_nb_days,
                     })}
                   </Typography>
                 </Grid>
@@ -272,7 +331,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
                 <RadioGroup
                   name="penalty_kind"
                   onChange={(_, value) => {
-                    formikProps.setFieldValue('penalty_kind', value);
+                    setFieldValue('penalty_kind', value);
                   }}
                 >
                   <FormLabel>{t('addPaymentPack.penalityType')}</FormLabel>
@@ -284,10 +343,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
                         control={
                           <Radio
                             disabled={initial && !initial?.editable}
-                            checked={
-                              `${formikProps.values.penalty_kind}` ===
-                              `${value}`
-                            }
+                            checked={`${values.penalty_kind}` === `${value}`}
                           />
                         }
                         label={l}
@@ -296,7 +352,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
                   ))}
                 </RadioGroup>
               </Grid>
-              {formikProps.values.penalty_kind === 'block' ? (
+              {values.penalty_kind === 'block' ? (
                 <Grid item xs={6}>
                   <TextFieldEnhancedLabelWithError
                     disabled={initial && !initial?.editable}
@@ -307,7 +363,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
                     required
                     label={t('addPaymentPack.penalityBlockDay')}
                     helperText={t('addPaymentPack.penalityBlockDayHelper', {
-                      penalityBlockDay: formikProps.values.penalty_days_blocked,
+                      penalityBlockDay: values.penalty_days_blocked,
                     })}
                   />
                 </Grid>
@@ -321,8 +377,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
                     required
                     label={t('addPaymentPack.penalityAccountPrice')}
                     helperText={t('addPaymentPack.penalityAccountHelper', {
-                      penalityBlockAccount:
-                        formikProps.values.penalty_account_value,
+                      penalityBlockAccount: values.penalty_account_value,
                     })}
                   />
                 </Grid>
@@ -356,6 +411,9 @@ const useStyles = makeStyles<Theme>((theme) => ({
   icon: {
     color: '#868686',
   },
+  redIcon: {
+    color: 'red',
+  },
   creditWarning: {
     display: 'flex',
     flexDirection: 'row',
@@ -366,6 +424,4 @@ const useStyles = makeStyles<Theme>((theme) => ({
   },
 }));
 
-export default compose<any, OwnProps>(withTranslation('paymentPack'))(
-  PaymentPackFormGeneral,
-);
+export default PaymentPackFormGeneral;

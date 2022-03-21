@@ -14,7 +14,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { CircularProgress, Theme, Typography } from '@material-ui/core';
-import { push as pushRouter } from 'connected-react-router';
+import { push as pushRouter, replace } from 'connected-react-router';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import WarningIcon from '@material-ui/icons/Warning';
 import themeSelectors from '#libs/theme/selectors';
@@ -58,7 +58,7 @@ import PrivatePassCard from '#libs/private-service/components/pass/PrivatePassCa
 import PrivatePassCompatibleServiceList from '#libs/private-service/components/pass/PrivatePassCompatibleServiceList.component';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import PaginatedConsumerPrivatePass from '#libs/private-service/components/pass/PaginatedConsumerPrivatePass.component';
-import PrivatePassForm from '#libs/private-service/components/pass/PrivatePassForm.component';
+import PrivatePassForm from '#libs/private-service/components/pass/private-pass-form/PrivatePassForm.component';
 import PrivateConsumerPassFilters from '#libs/private-service/components/pass/PrivateConsumerPassFilters.component';
 import PrivatePassMassExtensionList from '#libs/private-service/components/consumer-pass/PrivatePassMassExtensionList.component';
 import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
@@ -71,6 +71,7 @@ import {
   PrivateConsumerPassMassExtension,
   PrivatePassCategory,
   PrivateSlot,
+  PrivatePass,
 } from '#libs/private-service/types';
 import { getPrivatePassCategories } from '#libs/private-service/selectors/private-pass-category';
 import {
@@ -132,7 +133,15 @@ export class PrivatePassDetails extends Component<Props> {
   }
 
   componentDidMount() {
-    this.props.fetchPrivatePass(this.props.id);
+    this.props.fetchPrivatePass(this.props.id, {
+      onSuccess: (privatePass: PrivatePass) => {
+        if (privatePass.linked_payment_pack) {
+          this.props.redirectToLinkedPaymentPack(
+            privatePass.linked_payment_pack,
+          );
+        }
+      },
+    });
     this.props.fetchAllPrivateServices();
     this.props.fetchCompatibleServicePasses();
     this.props.fetchNotificationsAndTemplatesAndSmartLists();
@@ -215,6 +224,7 @@ export class PrivatePassDetails extends Component<Props> {
 
   render() {
     const { classes, t, privatePass, privatePassCategories } = this.props;
+
     const privatePassCategory = privatePass
       ? privatePassCategories.find(
           (ppc: PrivatePassCategory) => ppc.id === privatePass.category,
@@ -555,6 +565,8 @@ const mapDispatchToProps = {
   goToSmartlist: () => pushRouter('/smart-list'),
   fetchTagList,
   isPrivatePassUsedInCombo,
+  redirectToLinkedPaymentPack: (linkedPaymentPackId: number) =>
+    replace(`/payment-pack/${linkedPaymentPackId}`),
 };
 
 const mapWithHandlers = {

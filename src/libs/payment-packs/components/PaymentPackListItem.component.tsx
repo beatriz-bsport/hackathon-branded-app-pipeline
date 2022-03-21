@@ -23,6 +23,7 @@ import { Theme } from '@material-ui/core/styles';
 import { DraggableSyntheticListeners } from '@dnd-kit/core';
 import compose from 'recompose/compose';
 import withStyles from '@material-ui/core/styles/withStyles';
+import StyleIcon from '@material-ui/icons/Style';
 import Tooltip from '../../../components/Tooltip.component';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
@@ -111,13 +112,21 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
           )}${this.props.showDuration ? ` - ${dateInfo}` : ''}`}
           style={{ marginLeft: this.props.draggable ? '1%' : 0 }}
         />
+
         {this.props.pack.manager_only && !this.props.disabled ? (
-          <IconButton onClick={null}>
-            <Tooltip title={this.props.t('form.paymentPack.managerOnly')}>
+          <Tooltip title={this.props.t('form.paymentPack.managerOnly')}>
+            <IconButton onClick={null}>
               <VisibilityOffIcon />
-            </Tooltip>
-          </IconButton>
+            </IconButton>
+          </Tooltip>
         ) : null}
+        {!!this.props.pack.linked_private_pass && (
+          <Tooltip title={this.props.t('form.paymentPack.universalPass.label')}>
+            <IconButton onClick={null}>
+              <StyleIcon color="inherit" />
+            </IconButton>
+          </Tooltip>
+        )}
         {!this.props.disabled &&
         this.props.onEdit &&
         this.props.onDelete &&
@@ -160,6 +169,7 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
             />
           </div>
         ) : null}
+
         {!this.props.disabled &&
         this.props.onDelete &&
         !this.props.pack.template_instance &&
@@ -176,6 +186,7 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
             ]}
           />
         ) : null}
+
         {(!this.props.onDelete || !!this.props.pack.template_instance) &&
         this.props.onEdit ? (
           <ListItemResponsiveAction
@@ -191,6 +202,7 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
             ]}
           />
         ) : null}
+
         {!this.props.disabled && this.props.onBook ? (
           <ListItemSecondaryAction>
             <Button
@@ -203,6 +215,7 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
             </Button>
           </ListItemSecondaryAction>
         ) : null}
+
         {!this.props.disabled && this.props.onBookOne ? (
           <Button
             className={this.props.classes.bookButton}

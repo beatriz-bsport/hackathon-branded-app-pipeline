@@ -8,11 +8,13 @@ import Button from '@material-ui/core/Button';
 import CategoryIcon from '@material-ui/icons/Category';
 import StarIcon from '@material-ui/icons/Star';
 import RoomIcon from '@material-ui/icons/Room';
+import { useTheme } from '@material-ui/styles';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
+import { Theme, makeStyles } from '@material-ui/core/styles';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { useMediaQuery } from '@material-ui/core';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Establishment } from '#libs/establishment/types';
 import { SCS } from '#libs/category/types';
@@ -31,9 +33,16 @@ export const PaymentPackCompatibilityDialog = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['paymentPack']);
   const { open, categories, establishments, activities, isManager } = props;
-
+  const theme: Theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
   return (
-    <Dialog open={open} className={classes.dialog} maxWidth="xl">
+    <Dialog
+      open={open}
+      className={classes.dialog}
+      maxWidth="md"
+      fullWidth
+      fullScreen={fullScreen}
+    >
       <div className={classes.dialogContent}>
         {categories?.length ? (
           <div className={classes.compatibilityList}>

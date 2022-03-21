@@ -77,6 +77,7 @@ import {
   withEstablishments,
   withMetaActivities,
   getPaymentPack,
+  withLinkedPrivatePass,
   withSCT,
   withTags,
   getPaymentPackCategoryById,
@@ -113,6 +114,24 @@ import { getTagCategories } from '#libs/notification-rule/selectors';
 import { fetchTagList } from '#libs/notification-rule/actions';
 import { fetchVideoFilterableParams } from '#libs/video/actions';
 import { VideoStatusEnum } from '#libs/video/types';
+import { getPrivateServices } from '#libs/private-service/selectors/private-service';
+import {
+  getPrivatePass,
+  withServices,
+  withAvailable,
+  getCompatibilityPassWithService as getCompatibleServicePass,
+} from '#libs/private-service/selectors/private-pass';
+import {
+  fetchPrivatePassList,
+  fetchAllPrivateServices,
+  fetchAllPrivateSlots,
+  fetchCompatibleServicePassList as fetchCompatibleServicePassListAction,
+  deleteCompatibleServicePass,
+  createCompatibleServicePass,
+  updateCompatibleServicePass,
+} from '#libs/private-service/actions';
+import type { PrivateSlot } from '#libs/private-service/types';
+import PrivatePassCompatibleServiceList from '#libs/private-service/components/pass/PrivatePassCompatibleServiceList.component';
 
 type OwnProps = {
   id: number;
@@ -121,11 +140,12 @@ type OwnProps = {
 type ConnectedProps = OwnProps &
   ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
-
+type ConnectedPropsWithLinkedPrivatePass = ConnectedProps &
+  ReturnType<typeof mapLinkedPrivatePassStateToProps>;
 type StateHandlerType = typeof withStateHandlersInit &
   WithHandlerType<typeof withStateHandlersSetter>;
 
-type WithStateProps = ConnectedProps & StateHandlerType;
+type WithStateProps = ConnectedPropsWithLinkedPrivatePass & StateHandlerType;
 
 type Props = WithStateProps &
   WithHandlerType<typeof mapWithHandlers> &
@@ -173,7 +193,11 @@ export class PaymentPackDetail extends Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.fetchPaymentPack(this.props.id);
+    this.props.fetchPaymentPack(this.props.id, {
+      onSuccess: () => this.props.fetchCompatibleServicePasses(),
+    });
+    this.props.fetchPrivatePassList();
+    this.props.fetchAllPrivateServices();
     this.props.fetchEstablishments();
     this.props.fetchAllActivities({ customer_enabled: true });
     this.props.fetchWorkshops();
@@ -310,6 +334,25 @@ export class PaymentPackDetail extends Component<Props, State> {
             isManager
             paymentPackCategory={paymentPackCategory?.name}
           />
+          {pack?.linked_private_pass && (
+            <div className={classes.compatiblePSCard}>
+              <PrivatePassCompatibleServiceList
+                privateServices={this.props.privateServices}
+                deleteCompatibleServicePass={
+                  this.props.deleteCompatibleServicePass
+                }
+                createCompatibleServicePass={
+                  this.props.createCompatibleServicePass
+                }
+                updateCompatibleServicePass={
+                  this.props.updateCompatibleServicePass
+                }
+                compatibleServicePass={this.props.compatibleServicePass}
+                pass={this.props.linkedPrivatePass}
+                isManager
+              />
+            </div>
+          )}
           <PaymentPackNotification
             pack={pack}
             notifications={notifications}
@@ -480,6 +523,8 @@ export class PaymentPackDetail extends Component<Props, State> {
               (tag) => tag.id,
             ),
           }}
+          privateServices={this.props.privateServices}
+          compatibleServicePass={this.props.compatibleServicePass}
         />
       </Grid>
     );
@@ -510,6 +555,10 @@ const styles = (theme: Theme) => ({
     justifyContent: 'center',
     width: '100%',
   },
+  compatiblePSCard: {
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+  },
 });
 
 const mapStateToProps = (state: RootState, props: OwnProps) => {
@@ -523,7 +572,11 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     },
     loading: state.paymentPack.loading || state.establishment.loading,
     pack: withTags(
-      withSCT(withMetaActivities(withEstablishments(getPaymentPack))),
+      withSCT(
+        withMetaActivities(
+          withEstablishments(withLinkedPrivatePass(getPaymentPack)),
+        ),
+      ),
     )(state, props.id),
     scaleCreditLoading: state.paymentPack.scaleCredit.loading,
     notifications: {
@@ -562,9 +615,22 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     videoCategories: state.video.filterableParams.items.SCTs,
     companyId: state.theme.theme.company,
     archivationWarning: state.paymentPack.archivationWarning,
+    privateServices: getPrivateServices(state),
+    compatibleServicePass: getCompatibleServicePass(state),
   };
 };
 
+const mapLinkedPrivatePassStateToProps = (
+  state: RootState,
+  props: ConnectedProps,
+) => {
+  return {
+    linkedPrivatePass: withAvailable(withServices(getPrivatePass))(
+      state,
+      props.pack?.linked_private_pass?.id,
+    ),
+  };
+};
 const mapDispatchToProps = {
   snackbarSuccess,
   fetchEmailTemplateDetail: (id: number) => emailTemplateDetail(id),
@@ -611,6 +677,13 @@ const mapDispatchToProps = {
   fetchTagList,
   fetchVideoFilterableParams,
   isPaymentPackUsedInCombo,
+  fetchPrivatePassList,
+  fetchAllPrivateServices,
+  fetchPrivateSlotsByService: fetchAllPrivateSlots,
+  fetchCompatibleServicePassList: fetchCompatibleServicePassListAction,
+  deleteCompatibleServicePass,
+  createCompatibleServicePass,
+  updateCompatibleServicePass,
 };
 
 const mapWithHandlers = {
@@ -690,6 +763,22 @@ const mapWithHandlers = {
         },
       );
     },
+  fetchCompatibleServicePasses: (props: WithStateProps) => () => {
+    if (props.pack && props.pack?.linked_private_pass?.id) {
+      props.fetchCompatibleServicePassList(props.pack.linked_private_pass.id, {
+        onSuccess: (csps) => {
+          const private_service__in = csps?.map(
+            (c: PrivateSlot) => c.private_service,
+          );
+          if (private_service__in?.length !== 0) {
+            props.fetchPrivateSlotsByService({
+              private_service__in,
+            });
+          }
+        },
+      });
+    }
+  },
 };
 
 type StateHandlerInit = {
@@ -731,4 +820,5 @@ export default compose(
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:paymentPack.paymentPackList'),
   ),
+  connect(mapLinkedPrivatePassStateToProps, null),
 )(PaymentPackDetail);

@@ -230,10 +230,7 @@ export default compose(
       ({
         detachPaymentMethodAction,
         fetchPaymentMethodListActions,
-        snackbarErrorMsg,
-        snackbarSuccessMsg,
         membership,
-        t,
       }) =>
       (pm_id, options) => {
         detachPaymentMethodAction(
@@ -241,12 +238,9 @@ export default compose(
           {
             onSuccess: () => {
               fetchPaymentMethodListActions({ member: membership.id });
-              snackbarSuccessMsg(t('paymentMethod.detach.pm_deleted'));
               if (options && options.onSuccess) options.onSuccess();
             },
-            onError: (data) => {
-              snackbarErrorMsg(t(`paymentMethod.detach.${data}`));
-            },
+            onError: options && options.onError,
           },
         );
       },

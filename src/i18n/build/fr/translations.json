@@ -6056,6 +6056,13 @@
       }
     },
     "paymentMethod": {
+      "errors": {
+        "13000": "Impossible de supprimer cette méthode paiement, veuillez réessayer un peu plus tard",
+        "13001": "Impossible de supprimer cette méthode paiement, veuillez réessayer un peu plus tard",
+        "13002": "Des paiements futurs sont programmés avec ce moyen de paiement",
+        "13003": "Une souscription est programmée avec ce moyen de paiement",
+        "13004": "Des paiements futurs sont programmés avec ce moyen de paiement"
+      },
       "detach": {
         "pm_deleted": "Moyen de paiement supprimé",
         "last_payment_method": "Impossible de supprimer votre unique moyen de paiement",

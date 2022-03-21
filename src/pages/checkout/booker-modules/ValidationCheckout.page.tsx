@@ -8,7 +8,7 @@ import { replace as replaceRouter, goBack } from 'connected-react-router';
 import flatten from 'lodash/flatten';
 import { compose, withHandlers, withProps } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import BUYABLE_ITEM_CAN_NOT_BE_BOUGHT_ERROR_CODES from '@bsport/common/lib/master-data/buyable-item-can-not-be-bought';
+import BUYABLE_ITEM_CAN_NOT_BE_BOUGHT_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import Typography from '@material-ui/core/Typography';

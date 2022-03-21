@@ -562,10 +562,7 @@ const mapWithHandler3 = {
     ({
       detachPaymentMethodAction,
       fetchMemberPaymentMethod,
-      snackbarErrorMsg,
-      snackbarSuccessMsg,
       id,
-      t,
     }: RouterParamsProps &
       ConnectProps &
       HandlerProps1 &
@@ -577,12 +574,9 @@ const mapWithHandler3 = {
         {
           onSuccess: () => {
             fetchMemberPaymentMethod({ member: id });
-            snackbarSuccessMsg(t('invoice:paymentMethod.detach.pm_deleted'));
             if (options && options.onSuccess) options.onSuccess();
           },
-          onError: (data: any) => {
-            snackbarErrorMsg(t(`invoice:paymentMethod.detach.${data}`));
-          },
+          onError: options && options.onError,
         },
       );
     },

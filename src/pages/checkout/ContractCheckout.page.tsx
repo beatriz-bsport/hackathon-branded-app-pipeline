@@ -450,26 +450,16 @@ export default compose<any, ownProps>(
   })),
   withHandlers({
     detachPaymentMethod:
-      ({
-        detachPaymentMethodAction,
-        fetchpaymentMethod,
-        snackbarErrorMsg,
-        snackbarSuccessMsg,
-        companyId,
-        t,
-      }) =>
+      ({ detachPaymentMethodAction, fetchpaymentMethod, companyId }) =>
       (pm_id: number, options: OptionCallback) => {
         detachPaymentMethodAction(
           { company: companyId, payment_method_id: pm_id },
           {
             onSuccess: () => {
               fetchpaymentMethod({ company: companyId });
-              snackbarSuccessMsg(t('invoice:paymentMethod.detach.pm_deleted'));
               if (options && options.onSuccess) options.onSuccess();
             },
-            onError: (data: any) => {
-              snackbarErrorMsg(t(`invoice:paymentMethod.detach.${data}`));
-            },
+            onError: options && options.onError,
           },
         );
       },

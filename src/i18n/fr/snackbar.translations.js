@@ -27,7 +27,21 @@ const {
   CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_MAXOUT_WEEK,
   CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_MAXOUT_MONTH,
   CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_MAXOUT_YEAR,
-} = require('@bsport/common/lib/master-data/buyable-item-can-not-be-bought');
+} = require('@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought');
+const {
+  PAYMENT_METHOD_NOT_DETACHABLE_PAYMENT_GROUP_ERROR_CODE,
+  PAYMENT_METHOD_NOT_DETACHABLE_ERROR_CODE,
+  PAYMENT_METHOD_NOT_DETACHABLE_PLANNED_PAYMENT_EVENT_ERROR_CODE,
+  PAYMENT_METHOD_NOT_DETACHABLE_BILLING_PLAN_ERROR_CODE,
+  PAYMENT_METHOD_NOT_DETACHABLE_FUTURE_PAYMENT_ERROR_CODE,
+} = require('@bsport/common/lib/master-data/error-codes/payment-method');
+
+const {
+  ERROR_CUSTOM_FORM_ANSWER_IS_MANDATORY,
+  ERROR_CUSTOM_FORM_ANSWER_SIGN_UP_EMAIL_ALREADY_EXISTS,
+  ERROR_CUSTOM_FORM_ANSWER_SIGN_UP_GENDER_IS_INVALID,
+  ERROR_CUSTOM_FORM_ANSWER_SIGN_UP_PHONE_NUMBER_IS_INVALID,
+} = require('@bsport/common/lib/master-data/error-codes/custom-form');
 
 const {
   PENDING_PAYMENT_INTENT_OF_PAYMENT_GROUP_BLOCKS_OTHER_PAYMENT_GROUP_CREATION,
@@ -35,7 +49,7 @@ const {
 
 const {
   INVOICE_PAYMENT_BY_GIFTCARD_ERROR,
-} = require('@bsport/common/lib/master-data/giftcard');
+} = require('@bsport/common/lib/master-data/error-codes/giftcard');
 
 exports.default = {
   canNotBuyErrorCode: {
@@ -316,6 +330,18 @@ exports.default = {
     },
   },
   paymentMethod: {
+    errors: {
+      [PAYMENT_METHOD_NOT_DETACHABLE_PAYMENT_GROUP_ERROR_CODE]:
+        'Impossible de supprimer cette méthode paiement, veuillez réessayer un peu plus tard',
+      [PAYMENT_METHOD_NOT_DETACHABLE_ERROR_CODE]:
+        'Impossible de supprimer cette méthode paiement, veuillez réessayer un peu plus tard',
+      [PAYMENT_METHOD_NOT_DETACHABLE_PLANNED_PAYMENT_EVENT_ERROR_CODE]:
+        'Des paiements futurs sont programmés avec ce moyen de paiement',
+      [PAYMENT_METHOD_NOT_DETACHABLE_BILLING_PLAN_ERROR_CODE]:
+        'Une souscription est programmée avec ce moyen de paiement',
+      [PAYMENT_METHOD_NOT_DETACHABLE_FUTURE_PAYMENT_ERROR_CODE]:
+        'Des paiements futurs sont programmés avec ce moyen de paiement',
+    },
     detach: {
       pm_deleted: 'Moyen de paiement supprimé',
       last_payment_method:
@@ -789,10 +815,14 @@ exports.default = {
       success: 'Inscription validée',
       error: "Erreur lors de l'inscription, veuillez réessayer",
       errors: {
-        84101: "Des champs obligatoires n'ont pas été remplis",
-        84102: 'Cet email est déjà utilisé',
-        84103: "Le sexe spécifié n'est pas valide",
-        84104: "Le numéro de téléphone n'est pas valide",
+        [ERROR_CUSTOM_FORM_ANSWER_IS_MANDATORY]:
+          "Des champs obligatoires n'ont pas été remplis",
+        [ERROR_CUSTOM_FORM_ANSWER_SIGN_UP_EMAIL_ALREADY_EXISTS]:
+          'Cet email est déjà utilisé',
+        [ERROR_CUSTOM_FORM_ANSWER_SIGN_UP_GENDER_IS_INVALID]:
+          "Le sexe spécifié n'est pas valide",
+        [ERROR_CUSTOM_FORM_ANSWER_SIGN_UP_PHONE_NUMBER_IS_INVALID]:
+          "Le numéro de téléphone n'est pas valide",
       },
     },
     customFormStepper: {

@@ -7,7 +7,6 @@ import {
   API_URI,
   postAuth,
   buildUrlParams,
-  putAuth,
 } from '../../http';
 
 export const fetchPaymentMethodList = async (params: any = {}) => {
@@ -16,11 +15,11 @@ export const fetchPaymentMethodList = async (params: any = {}) => {
   );
 };
 export const detachPaymentMetod = async (params: any = {}) => {
-  return putAuth(
-    `${API_V1_URI}/payment/payment_method/detach_payment_method/${buildUrlParams(
-      params,
-    )}`,
-  );
+  return postAuth(`${API_V1_URI}/payment/payment_method/detach/`, {
+    member: params.member,
+    payment_method_id: params.payment_method_id,
+    company: params.company,
+  });
 };
 export const fetchOnSpotPaymentReport = async (params: any = {}) => {
   return getAuth(
@@ -29,9 +28,9 @@ export const fetchOnSpotPaymentReport = async (params: any = {}) => {
 };
 
 export const requestSetupIntentSecret = async (
-  member: ?number,
-  company: ?number,
-  as_company?: boolean = false,
+  member?: number,
+  company?: number,
+  as_company: boolean = false,
 ) => {
   return postAuth(
     `${API_V1_URI}/payment/payment_method/register_setup_intent/`,
@@ -44,9 +43,9 @@ export const requestSetupIntentSecret = async (
 };
 
 export const requestSetupIntentSecretNoAuth = async (
-  member: ?number,
-  company: ?number,
-  as_company?: boolean = false,
+  member?: number,
+  company?: number,
+  as_company: boolean = false,
 ) => {
   return post(`${API_V1_URI}/payment/payment_method/register_setup_intent/`, {
     member,

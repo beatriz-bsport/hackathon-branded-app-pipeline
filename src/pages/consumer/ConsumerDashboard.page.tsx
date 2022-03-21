@@ -564,10 +564,7 @@ const mapWithHandlers = {
       const {
         detachPaymentMethodAction,
         fetchMemberPaymentMethod,
-        snackbarErrorMsg,
-        snackbarSuccessMsg,
         membership,
-        t,
       } = props;
 
       detachPaymentMethodAction(
@@ -575,12 +572,9 @@ const mapWithHandlers = {
         {
           onSuccess: () => {
             fetchMemberPaymentMethod({ member: membership.id });
-            snackbarSuccessMsg(t('invoice:paymentMethod.detach.pm_deleted'));
             if (options && options.onSuccess) options.onSuccess();
           },
-          onError: (data: any) => {
-            snackbarErrorMsg(t(`invoice:paymentMethod.detach.${data}`));
-          },
+          onError: options && options.onError,
         },
       );
     },

@@ -1,7 +1,10 @@
 // @flow
 
 import { createAction } from 'redux-actions';
-import type { Dispatch, ThunkAction, OptionCallBack } from '../../state/types';
+import { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
+import { RootState } from '../../reducers';
+import { ReportConfiguration } from '../reporting/types';
+import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 
 import {
   fetchPaymentMethodList as fetchPaymentMethodListAPI,
@@ -11,6 +14,7 @@ import {
   updatePaymentGroupPriceCts as updatePaymentGroupPriceCtsAPI,
   detachPaymentMetod as detachPaymentMetodAPI,
 } from './api';
+import { PaymentMethod, Payout } from './types';
 
 // Active campaign Account
 export const listSavedPaymentMethodListActions = {
@@ -21,7 +25,7 @@ export const listSavedPaymentMethodListActions = {
 
 export function fetchPaymentMethodList(
   params: any = {},
-  options: OptionCallBack,
+  options: OptionCallback<PaymentMethod>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(listSavedPaymentMethodListActions.isLoading(true));
@@ -44,21 +48,25 @@ export const detachPaymentMethodActions = {
   error: createAction('PAYMENT_METHOD/DETACH/ERROR'),
   success: createAction('PATMENT_METHOD/DETACH/SUCCESS'),
 };
-export function detachPaymentMethod(params: any, options: OptionCallBack) {
+export function detachPaymentMethod(params: any, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(detachPaymentMethodActions.error(null));
     dispatch(detachPaymentMethodActions.isLoading(true));
     try {
       const response = await detachPaymentMetodAPI(params);
       dispatch(detachPaymentMethodActions.success(response.data));
+      dispatch(snackbarSuccess('invoice:paymentMethod.detach.pm_deleted'));
       if (options && options.onSuccess) {
-        options.onSuccess(response.data.msg);
+        options.onSuccess();
       }
     } catch (err) {
       console.error(err);
       dispatch(detachPaymentMethodActions.success({}));
+      if (err.response?.status === 499 && err.response?.data?.error_code) {
+        dispatch(snackbarError(`errorCode.${err.response.data.error_code}`));
+      }
       if (options && options.onError) {
-        options.onError(err.response.data.msg);
+        options.onError(err);
       }
       dispatch(detachPaymentMethodActions.error(err.response.data));
     }
@@ -73,7 +81,7 @@ export const onSpotPaymentReportActions = {
 
 export function fetchOnSpotPaymentReport(
   params: any = {},
-  options: OptionCallBack,
+  options: OptionCallback<ReportConfiguration>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(onSpotPaymentReportActions.isLoading(true));
@@ -99,7 +107,7 @@ export const listPaymentGroupActions = {
 
 export function fetchPaymentGroupList(
   params: any = {},
-  options: OptionCallBack,
+  options: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(listPaymentGroupActions.isLoading(true));
@@ -126,9 +134,9 @@ export const listPayoutActions = {
 
 export function fetchPayoutList(
   params: any = {},
-  options: OptionCallBack,
+  options: OptionCallback<Payout[]>,
 ): ThunkAction {
-  return async (dispatch: Dispatch, getState: () => State) => {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
     dispatch(listPayoutActions.isLoading(true));
     dispatch(listPayoutActions.error(null));
     const { nextPage } = getState().paymentBackend.payout;
@@ -158,7 +166,7 @@ export const updatePaymentGroupPriceCtsActions = {
 export function updatePaymentGroupPriceCts(
   id: number,
   price_cts: number,
-  options: OptionCallBack,
+  options: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(updatePaymentGroupPriceCtsActions.isLoading(true));

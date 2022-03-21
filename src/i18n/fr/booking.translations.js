@@ -11,7 +11,7 @@ const {
   OFFER_BOOKABLE_STATUS_LOCKED,
 } = require('@bsport/common/lib/master-data/bookable-status');
 
-const ERROR_CODES = require('@bsport/common/lib/master-data/buyable-item-can-not-be-bought');
+const ERROR_CODES = require('@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought');
 
 exports.default = {
   attendanceUpdatedOn: 'Mis à jour le {{- d }} à {{- t }}',

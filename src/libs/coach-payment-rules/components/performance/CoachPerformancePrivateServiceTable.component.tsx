@@ -136,6 +136,12 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
               </>
             )}
             <TableCell align="right"> {t('fields.total')}</TableCell>
+            {!props.asCoach && (
+              <>
+                <TableCell align="right">{t('fields.marginValue')}</TableCell>
+                <TableCell align="right">{t('fields.netGain')}</TableCell>
+              </>
+            )}
             {!props.hideRuleSetter && (
               <TableCell align="right">{t('fields.rule')}</TableCell>
             )}
@@ -204,6 +210,17 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
                         private_service_perf.coach_bonus || 0,
                       )}
                     </TableCell>
+                    <TableCell align="right">
+                      {getCurrencyDisplayWithPrice(
+                        private_service_perf.total_margin_value || 0,
+                      )}
+                    </TableCell>
+                    <TableCell align="right">
+                      {getCurrencyDisplayWithPrice(
+                        (private_service_perf.total_margin_value || 0) -
+                          (private_service_perf.coach_total_payment || 0),
+                      )}
+                    </TableCell>
                   </>
                 )}
                 <TableCell align="right">
@@ -211,6 +228,21 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
                     private_service_perf.coach_total_payment || 0,
                   )}
                 </TableCell>
+                {!props.asCoach && (
+                  <>
+                    <TableCell align="right">
+                      {getCurrencyDisplayWithPrice(
+                        private_service_perf.total_margin_value || 0,
+                      )}
+                    </TableCell>
+                    <TableCell align="right">
+                      {getCurrencyDisplayWithPrice(
+                        (private_service_perf.total_margin_value || 0) -
+                          (private_service_perf.coach_total_payment || 0),
+                      )}
+                    </TableCell>
+                  </>
+                )}
                 {!props.hideRuleSetter && (
                   <TableCell>
                     <CoachPaymentRuleSelector

@@ -102,6 +102,8 @@ export class CoachPerformance extends React.Component<Props> {
                 setSessionCoachPaymentRule={(data) => {
                   this.props.setSessionCoachPaymentRule(data);
                 }}
+                loading={this.props.loading || this.props.performanceLoading}
+                displayLastUpdate
               />
             </Paper>
           </>

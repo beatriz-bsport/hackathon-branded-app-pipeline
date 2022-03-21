@@ -111,15 +111,12 @@ export const CoachPerformanceTableRow = (
   } = props;
   const [openCollapse, setOpenCollapse] = React.useState<boolean>(false);
   const classes = useStyles();
+
+  // Summary on Bookings
   const nbSessions = coachWithPerformance.performance[
     COACH_PERFORMANCE_FOR_SESSION
   ]
     ? coachWithPerformance.performance[COACH_PERFORMANCE_FOR_SESSION].length
-    : null;
-  const nbPrivateServices = coachWithPerformance.performance[
-    COACH_PERFORMANCE_FOR_APPOINTMENT
-  ]
-    ? coachWithPerformance.performance[COACH_PERFORMANCE_FOR_APPOINTMENT].length
     : null;
   const nbBookings = coachWithPerformance.performance[
     COACH_PERFORMANCE_FOR_SESSION
@@ -129,13 +126,6 @@ export const CoachPerformanceTableRow = (
         0,
       )
     : null;
-  const nbPrivateServiceAttendants = coachWithPerformance.performance[
-    COACH_PERFORMANCE_FOR_APPOINTMENT
-  ]
-    ? coachWithPerformance.performance[
-        COACH_PERFORMANCE_FOR_APPOINTMENT
-      ].reduce((a, b) => a + (b.confirmed_bookings || 0), 0)
-    : null;
   const totalOnBookings = coachWithPerformance.performance[
     COACH_PERFORMANCE_FOR_SESSION
   ]
@@ -144,6 +134,30 @@ export const CoachPerformanceTableRow = (
         0,
       )
     : null;
+
+  const totalMarginValuesOnBookings = coachWithPerformance.performance[
+    COACH_PERFORMANCE_FOR_SESSION
+  ]
+    ? coachWithPerformance.performance[COACH_PERFORMANCE_FOR_SESSION].reduce(
+        (a, b) => a + (parseFloat(b.total_margin_value) || 0),
+        0,
+      )
+    : null;
+  // Summary on Private Bookings
+  const nbPrivateServices = coachWithPerformance.performance[
+    COACH_PERFORMANCE_FOR_APPOINTMENT
+  ]
+    ? coachWithPerformance.performance[COACH_PERFORMANCE_FOR_APPOINTMENT].length
+    : null;
+
+  const nbPrivateServiceAttendants = coachWithPerformance.performance[
+    COACH_PERFORMANCE_FOR_APPOINTMENT
+  ]
+    ? coachWithPerformance.performance[
+        COACH_PERFORMANCE_FOR_APPOINTMENT
+      ].reduce((a, b) => a + (b.confirmed_bookings || 0), 0)
+    : null;
+
   const totalOnPrivateServices = coachWithPerformance.performance[
     COACH_PERFORMANCE_FOR_APPOINTMENT
   ]
@@ -151,7 +165,21 @@ export const CoachPerformanceTableRow = (
         COACH_PERFORMANCE_FOR_APPOINTMENT
       ].reduce((a, b) => a + (parseFloat(b.coach_total_payment) || 0), 0)
     : null;
+  const totalMarginValuePrivateBookings = coachWithPerformance.performance[
+    COACH_PERFORMANCE_FOR_APPOINTMENT
+  ]
+    ? coachWithPerformance.performance[
+        COACH_PERFORMANCE_FOR_APPOINTMENT
+      ].reduce((a, b) => a + (parseFloat(b.total_margin_value) || 0), 0)
+    : null;
 
+  // Overall
+
+  const totalNetGain =
+    (totalMarginValuesOnBookings || 0) -
+    (totalOnBookings || 0) +
+    (totalMarginValuePrivateBookings || 0) -
+    (totalOnPrivateServices || 0);
   return (
     <>
       <TableRow>
@@ -179,6 +207,21 @@ export const CoachPerformanceTableRow = (
               )}`
             : '-'}
         </TableCell>
+        <TableCell align="right" className={classes.sessionSection}>
+          {totalMarginValuesOnBookings
+            ? `${getCurrencyDisplayWithPrice(
+                (totalMarginValuesOnBookings || 0).toFixed(2),
+              )}`
+            : '-'}
+        </TableCell>
+
+        <TableCell align="right" className={classes.sessionSection}>
+          {getCurrencyDisplayWithPrice(
+            (
+              (totalMarginValuesOnBookings || 0) - (totalOnBookings || 0)
+            ).toFixed(2),
+          )}
+        </TableCell>
         <TableCell align="right">{nbPrivateServices}</TableCell>
         <TableCell align="right">{nbPrivateServiceAttendants}</TableCell>
 
@@ -189,6 +232,23 @@ export const CoachPerformanceTableRow = (
               )}`
             : '-'}
         </TableCell>
+
+        <TableCell align="right">
+          {totalMarginValuePrivateBookings
+            ? `${getCurrencyDisplayWithPrice(
+                (totalMarginValuePrivateBookings || 0).toFixed(2),
+              )}`
+            : '-'}
+        </TableCell>
+
+        <TableCell align="right">
+          {getCurrencyDisplayWithPrice(
+            (
+              (totalMarginValuePrivateBookings || 0) -
+              (totalOnPrivateServices || 0)
+            ).toFixed(2),
+          )}
+        </TableCell>
         <TableCell align="right">
           {totalOnBookings || totalOnPrivateServices
             ? `${getCurrencyDisplayWithPrice(
@@ -198,10 +258,15 @@ export const CoachPerformanceTableRow = (
               )}`
             : '-'}
         </TableCell>
+        <TableCell align="right">
+          {totalOnBookings || totalOnPrivateServices
+            ? `${getCurrencyDisplayWithPrice(totalNetGain.toFixed(2))}`
+            : '-'}
+        </TableCell>
       </TableRow>
       <TableRow className={classes.root}>
         <TableCell className={classes.denseCell} />
-        <TableCell className={classes.denseCell} colSpan={8}>
+        <TableCell className={classes.denseCell} colSpan={13}>
           <Collapse
             in={openCollapse && !props.previewMode}
             unmountOnExit
@@ -267,14 +332,14 @@ export const CoachPerformanceTable = (props: Props) => {
     {
       title: t('paymentRules:tabs.session'),
       align: 'center',
-      colSpan: 3,
+      colSpan: 5,
     },
     {
       title: t('paymentRules:tabs.appointment'),
       align: 'center',
-      colSpan: 3,
+      colSpan: 5,
     },
-    { title: '', align: 'center', colSpan: 1 },
+    { title: '', align: 'center', colSpan: 2 },
   ];
   const tableSubHeaders: Array<HeadersProps> = [
     { title: '', align: 'left' },
@@ -282,15 +347,24 @@ export const CoachPerformanceTable = (props: Props) => {
     { title: t('coachPerformance:fields.nb_sessions'), align: 'right' },
     { title: t('coachPerformance:fields.nb_bookings'), align: 'right' },
     { title: t('coachPerformance:fields.total_on_sessions'), align: 'right' },
+    { title: t('coachPerformance:fields.marginValue'), align: 'right' },
+    { title: t('coachPerformance:fields.netGain'), align: 'right' },
+
     { title: t('coachPerformance:fields.nb_sessions'), align: 'right' },
     { title: t('coachPerformance:fields.nb_bookings'), align: 'right' },
-
     {
       title: t('coachPerformance:fields.total_on_appointments'),
       align: 'right',
     },
+    { title: t('coachPerformance:fields.marginValue'), align: 'right' },
+    { title: t('coachPerformance:fields.netGain'), align: 'right' },
     {
       title: t('coachPerformance:fields.total'),
+      align: 'right',
+      className: classes.primarySubheader,
+    },
+    {
+      title: t('coachPerformance:fields.totalNetGain'),
       align: 'right',
       className: classes.primarySubheader,
     },
@@ -321,7 +395,7 @@ export const CoachPerformanceTable = (props: Props) => {
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell colSpan={9}>
+            <TableCell colSpan={14}>
               <Collapse in={props.previewMode} unmountOnExit>
                 <div className={classes.flexRow}>
                   <Typography variant="h6" color="primary">
@@ -339,7 +413,7 @@ export const CoachPerformanceTable = (props: Props) => {
             </TableCell>
           </TableRow>
           <TableRow>
-            <TableCell colSpan={9}>
+            <TableCell colSpan={14}>
               <AllCoachPerformancePagination
                 pagination={props.pagination}
                 changePage={props.changePage}
@@ -385,7 +459,7 @@ export const CoachPerformanceTable = (props: Props) => {
           ))}
         </TableBody>
         <TableHead>
-          <TableCell colSpan={9}>
+          <TableCell colSpan={14}>
             <AllCoachPerformancePagination
               pagination={props.pagination}
               changePage={props.changePage}

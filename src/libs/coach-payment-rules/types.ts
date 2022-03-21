@@ -44,6 +44,7 @@ export type CoachPerformance = {
   coach_payment_rule: number;
   is_unpaid?: boolean;
   last_update?: number;
+  total_margin_value: number;
 };
 
 export type CoachPaymentRulesByKind = {

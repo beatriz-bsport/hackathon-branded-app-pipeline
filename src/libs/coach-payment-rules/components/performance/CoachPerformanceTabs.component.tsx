@@ -9,6 +9,9 @@ import {
   COACH_PAYMENT_RULE_FOR_APPOINTMENT,
   COACH_PERFORMANCE_FOR_ALL,
 } from '@bsport/common/lib/master-data/coach_payment_rule';
+import Typography from '@material-ui/core/Typography';
+import moment from 'moment';
+import { makeStyles } from '@material-ui/core';
 import CoachPerformanceSessionTable from './CoachPerformanceSessionTable.component';
 import CoachPerformancePrivateServiceTable from './CoachPerformancePrivateServiceTable.component';
 import type {
@@ -174,12 +177,17 @@ type TabProps = {
   coachWithPerformance: CoachwithPerformance;
   hideRuleSetter?: boolean;
   asCoach?: boolean;
+  loading?: boolean;
+  displayLastUpdate?: boolean;
 } & CoachPaymentRuleTabsActions &
   CoachPaymentRuleObjects;
 export const CoachPerformanceTabs = (props: TabProps) => {
-  const { performance } = props.coachWithPerformance;
-  const { t } = useTranslation('paymentRules');
+  const { coachWithPerformance, loading } = props;
+  const { performance } = coachWithPerformance;
+  const { t } = useTranslation(['paymentRules', 'coachPerformance']);
+  const classes = useStyles();
   const [value, setValue] = useState<0 | 1 | 2>(0);
+  const [oldestUpdate, setOldestUpdate] = React.useState<number | null>(null);
 
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
@@ -187,6 +195,24 @@ export const CoachPerformanceTabs = (props: TabProps) => {
   ) => {
     setValue(newValue);
   };
+
+  React.useEffect(() => {
+    if (!loading && coachWithPerformance) {
+      const last_update_bookings = coachWithPerformance?.performance[
+        COACH_PERFORMANCE_FOR_SESSION
+      ]?.map((coachPerf) => coachPerf.last_update);
+
+      const last_update_private_bookings = coachWithPerformance?.performance[
+        COACH_PERFORMANCE_FOR_SESSION
+      ]?.map((coachPerf) => coachPerf.last_update);
+
+      setOldestUpdate(
+        Math.min(
+          ...(last_update_bookings || [].concat(last_update_private_bookings)),
+        ),
+      );
+    }
+  }, [coachWithPerformance, loading]);
   return (
     <div>
       <Tabs
@@ -240,6 +266,15 @@ export const CoachPerformanceTabs = (props: TabProps) => {
             setCoachWorkShopPaymentRule={props.setCoachWorkShopPaymentRule}
           />
         )}
+      <div className={classes.lastUpdateSection}>
+        <Typography variant="caption" color="secondary">
+          {!props.asCoach && props.displayLastUpdate && oldestUpdate
+            ? t('coachPerformance:cachedData.oldestUpdate', {
+                date: moment.unix(oldestUpdate).format('LLLL'),
+              })
+            : t('coachPerformance:cachedData.undeterminedOldestUpdate')}
+        </Typography>
+      </div>
       <CoachPerformanceTabPanel
         value={value}
         coachWithPerformance={props.coachWithPerformance}
@@ -255,4 +290,12 @@ export const CoachPerformanceTabs = (props: TabProps) => {
   );
 };
 
+const useStyles = makeStyles((theme) => ({
+  lastUpdateSection: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    paddingRight: theme.spacing(2),
+    paddingLeft: theme.spacing(2),
+  },
+}));
 export default CoachPerformanceTabs;

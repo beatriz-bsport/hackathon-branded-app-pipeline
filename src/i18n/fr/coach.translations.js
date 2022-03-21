@@ -45,6 +45,7 @@ exports.default = {
     calculate: 'Calculer',
     payment: 'Rémunération',
     durationBookings: "Nombre d'heures",
+    totalNetGain: 'Total gain net',
   },
   addCoach: 'Ajouter un professeur',
   noActivity: 'Ce professeur ne gère aucune activité.',

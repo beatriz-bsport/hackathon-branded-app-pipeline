@@ -116,7 +116,6 @@ export function CoachPerformanceSessionTable(props: Props) {
           </Button>
         )}
       </div>
-
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -136,6 +135,12 @@ export function CoachPerformanceSessionTable(props: Props) {
               </>
             )}
             <TableCell align="right">{t('fields.total')}</TableCell>
+            {!props.asCoach && (
+              <>
+                <TableCell align="right">{t('fields.marginValue')}</TableCell>
+                <TableCell align="right">{t('fields.netGain')}</TableCell>
+              </>
+            )}
             {!props.hideRuleSetter && (
               <TableCell align="right">{t('fields.rule')}</TableCell>
             )}
@@ -180,11 +185,27 @@ export function CoachPerformanceSessionTable(props: Props) {
                     </TableCell>
                   </>
                 )}
+
                 <TableCell align="right">
                   {getCurrencyDisplayWithPrice(
                     session.coach_total_payment || 0,
                   )}
                 </TableCell>
+                {!props.asCoach && (
+                  <>
+                    <TableCell align="right">
+                      {getCurrencyDisplayWithPrice(
+                        session.total_margin_value || 0,
+                      )}
+                    </TableCell>
+                    <TableCell align="right">
+                      {getCurrencyDisplayWithPrice(
+                        (session.total_margin_value || 0) -
+                          (session.coach_total_payment || 0),
+                      )}
+                    </TableCell>
+                  </>
+                )}
                 {!props.hideRuleSetter && (
                   <TableCell>
                     <CoachPaymentRuleSelector

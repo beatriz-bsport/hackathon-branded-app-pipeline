@@ -18,7 +18,10 @@ import {
   INVOICE_TYPE_REVERSE,
 } from '@bsport/common/lib/master-data/invoice-type';
 import { PAYMENT_ENGINE_BSPORT } from '@bsport/common/lib/master-data/payment-group';
-import { PLANNED_PAYMENT_EVENT_STATUS_REGISTERED } from '@bsport/common/lib/master-data/planned-payment-event';
+import {
+  PLANNED_PAYMENT_EVENT_STATUS_REGISTERED,
+  PLANNED_PAYMENT_EVENT_STATUS_CANCELED,
+} from '@bsport/common/lib/master-data/planned-payment-event';
 import PaymentGroupRequiringActionListItem from './PaymentGroupRequiringActionListItem.component';
 import RedButton from '../../../components/button/RedButton.component';
 
@@ -292,7 +295,10 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
           invoice_type={props.invoice.invoice_type}
           hasPendingPlannedPaymentEvent={
             props.plannedPaymentEventList &&
-            props.plannedPaymentEventList.length > 0
+            props.plannedPaymentEventList.length > 0 &&
+            props.plannedPaymentEventList.filter(
+              (ppe) => ppe.status !== PLANNED_PAYMENT_EVENT_STATUS_CANCELED,
+            ).length > 0
           }
           amountToPayCts={amountToPayCts}
           isDraft={props.invoice.is_draft}

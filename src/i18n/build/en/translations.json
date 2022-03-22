@@ -3476,7 +3476,15 @@
                 "companySharedWithTitle": "Shared with the following studios:"
             }
         },
-        "seeAll": "Show all"
+        "seeAll": "Show all",
+        "universalPass": {
+            "delete": {
+                "dialog": {
+                    "warningText": "Attention! Deleting a Universal Pass will also delete its twin passes.",
+                    "title": "Delete"
+                }
+            }
+        }
     },
     "relationship": {
         "member": {
@@ -6840,7 +6848,7 @@
             "last_booking": "Last booking",
             "next_booking": "Next booking",
             "concatenated_notes": "Notes",
-            "remaining_credits": "Remaining credit of today",
+            "remaining_credits": "Remaining credits",
             "duration": "Duration (in minutes)",
             "date_start": "Full date",
             "date_start_date": "Date",
@@ -7040,7 +7048,9 @@
             "supplier": "Supplier",
             "category": "Category",
             "is_recurring": "Recurring",
-            "amount_expense": "Amount"
+            "amount_expense": "Amount",
+            "universal_nb_private_bookings": "Number of bookings (appointments)",
+            "universal_nb_bookings": "Number of bookings (group activities)"
         },
         "yes": "Yes",
         "no": "No",
@@ -7127,7 +7137,10 @@
             "consumer_giftcard": "Purchased gift cards",
             "payment_installments": "Payments by instalments",
             "unpaid_private_bookings": "Unpaid bookings (appointments)",
-            "expense": "Expenses"
+            "expense": "Expenses",
+            "expired_pass": "Expired credits (passes)",
+            "private_cpasses_expired": "Expired credits (appointment passes)",
+            "universal_passes": "Universal Passes"
         },
         "globalCategories": {
             "subheader": {
@@ -7489,7 +7502,9 @@
                 "universalPass": {
                     "deativatedTags": "Deactivated for Universal Passes",
                     "marketplaceLabel": "A Universal Pass may be used for group activities and appointments.",
-                    "label": "Universal Pass"
+                    "label": "Universal Pass",
+                    "helperText": "Universal Passes may be used for group activities and appointments. Twin appointment passes are created for every Universal Pass to link the number of credits. Once one of these passes has been purchased, the other will be automatically added without any additional costs.",
+                    "warningIsUniversalPass": "Twin appointment passes are automatically created for a Universal Pass. All fields modified here will also be edited on the twin passes, except the categories. This also applies to notifications, validity extensions, and credit changes."
                 }
             }
         },
@@ -8179,7 +8194,8 @@
             "vod": "Video On Demand",
             "form": "Forms",
             "giftcard": "Gift card",
-            "programs": "Programmes"
+            "programs": "Programmes",
+            "basket": "Basket"
         },
         "row": {
             "headers": {
@@ -10211,6 +10227,13 @@
                 "pm_associated_to_registered_ppe": "Impossible: You have a subscription associated with this payment method",
                 "pm_associated_to_protected_bp": "Impossible: You have a subscription associated with this payment method",
                 "last_payment_method": "Unable to delete your only payment method"
+            },
+            "errors": {
+                "13004": "This payment method will be used for future payments",
+                "13003": "There's a subscription connected to this payment method",
+                "13002": "This payment method will be used for future payments",
+                "13001": "Error when deleting payment method",
+                "13000": "Error when deleting payment method"
             }
         },
         "signup": {

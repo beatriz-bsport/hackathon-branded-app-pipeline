@@ -88,7 +88,7 @@ import { getAllMembers, withTags } from '../../libs/member/selectors';
 import { fetchBookingsByOffer as fetchBookingsByOfferAction } from '../../libs/booking/actions';
 import { getOfferBookingList } from '../../libs/booking/selectors';
 
-import { fetchBookingStatistics as fetchBookingStatisticsAction } from '../../actions/stats.actions';
+import { fetchBookingStatistics as fetchBookingStatisticsAction } from '../../libs/statistics/actions';
 
 import {
   getBookingRelatedStatisticLoading,

@@ -19,8 +19,8 @@ import type { Theme } from '../../libs/theme/types';
 import themeSelectors from '../../libs/theme/selectors';
 import { getTheme as getMUITheme } from '../../theme';
 
-import api from '../../api';
 import { errorLogin } from '../../actions/auth.actions';
+import { login as loginAPI } from '../../libs/login/api';
 
 import { fetchSCT } from '../../libs/category/actions';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
@@ -86,8 +86,7 @@ export class CheckInPage extends React.Component<Props, State> {
   }
 
   signout = (username, password: string) => {
-    api.auth
-      .login(username, password)
+    loginAPI(username, password)
       .then(() => this.props.push('/login/signout'))
       .catch(this.props.errorLogin);
   };

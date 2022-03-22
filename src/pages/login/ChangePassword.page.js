@@ -12,7 +12,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 import { push as pushRouter } from 'connected-react-router';
 
 import LoginBase from '../../components/navigation/LoginBase.component';
-import api from '../../api';
+import { changePassword as changePasswordAPI } from '../../libs/login/api';
 import { snackbarSuccess } from '../../libs/snackbar/actions';
 
 const styles = (theme) => ({
@@ -72,7 +72,7 @@ export class ChangePassword extends Component<OwnProps, State> {
     } else {
       const { uid, token } = this;
       try {
-        const response = await api.auth.changePassword({
+        const response = await changePasswordAPI({
           uid,
           token,
           password: password1,

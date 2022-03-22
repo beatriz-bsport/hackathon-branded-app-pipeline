@@ -27,7 +27,6 @@ type Props = {
   paymentComboList: Array<PaymentCombo>,
   goToPaymentComboPayment: (offerId: number) => void,
 
-  onBookOfferFromPack: (offerId: number, consumerPackId: number) => void,
   t: TFunction,
   mapContainerClassName?: string,
   showOfferFilling: boolean,
@@ -86,9 +85,6 @@ export const MarketplaceWorkshop = (props: Props) => {
             props.offerSelected,
             props.offerSelected.meta_activity.company,
           )
-        }
-        onBookFromPack={(packId) =>
-          props.onBookOfferFromPack(props.offerSelected.id, packId)
         }
         offerId={props.offerSelected ? props.offerSelected.id : null}
         paymentComboList={props.paymentComboList}

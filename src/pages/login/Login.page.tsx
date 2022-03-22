@@ -17,7 +17,7 @@ import { requestLogin, disconnect } from '../../actions/auth.actions';
 import { fetchCompanyTheme } from '#libs/theme/actions';
 import Analytics from '#components/analytics/Analytics.component';
 import Login from '#libs/login/components/Login.component';
-import { withQueryParamsUndecoded } from '../../hocs/with-query-params.hoc';
+import { withQueryParamsUndecoded } from '#hocs/with-query-params.hoc';
 import type { RootState } from '../../reducers';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import WidgetUtils from '#libs/widget/WidgetUtils';

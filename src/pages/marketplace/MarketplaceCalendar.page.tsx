@@ -11,7 +11,6 @@ import moment from 'moment-timezone';
 import { TFunction } from 'i18next';
 import withQueryParams from '#hocs/with-query-params.hoc';
 import withReplaceQueryParams from '#hocs/with-replace-query-params.hoc';
-import { consumerPayWithConsumerPaymentPack as payWithConsumerPaymentPackAPI } from '../../api/payment';
 import { addItemToBasket as addItemToBasketAction } from '#libs/checkout/actions';
 import MarketplaceCalendarComponent from '#libs/marketplace/components/MarketplaceCalendar.component';
 import MarketplaceActivityDialog from '#libs/marketplace/components/MarketplaceActivityDialog.component';
@@ -366,39 +365,6 @@ const mapWithHandlers = {
         props.fetchBookedGender(params);
       }
     },
-  onBookOfferFromPack: (props: Props) => (offerId: number, packId: number) => {
-    payWithConsumerPaymentPackAPI(packId, offerId, {})
-      .then(() => {
-        if (props.onCompletePurchase) {
-          props.onCompletePurchase(packId, offerId);
-          return;
-        }
-        props.pushAction('/');
-        props.snackbarSuccess('booking.register.success');
-      })
-      .catch((err: any) => {
-        console.error(err);
-        if (err && err.response && err.response.status === 423) {
-          switch (err.response.data) {
-            case 'unavailable for female':
-              props.snackbarError(
-                props.t('booking:bookingModule.messages.femaleUnavailable'),
-              );
-              break;
-            case 'unavailable for male':
-              props.snackbarError(
-                props.t('booking:bookingModule.messages.maleUnavailable'),
-              );
-              break;
-            default:
-              props.snackbarError(
-                props.t('booking:bookingModule.messages.offerLocked'),
-              );
-              break;
-          }
-        }
-      });
-  },
   goToBook: (props: Props) => (id: number, companyId: number) => {
     if (props.goToBook) {
       props.goToBook(id, companyId);

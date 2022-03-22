@@ -51,7 +51,7 @@ import shopReducer from '../libs/shop/reducers';
 import smartListReducer from '../libs/smart-list/reducers';
 import snackbarReducer from '../libs/snackbar/reducers';
 import spotSchedulingReducers from '../libs/spot-scheduling/reducers';
-import statsReducers from './stats';
+import statsReducers from '../libs/statistics/reducers';
 import subscriptionReducer from '../libs/subscription/reducers';
 import tagReducers from '../libs/tag/reducers';
 import themeReducers from '../libs/theme/reducers';

@@ -17,7 +17,7 @@ import {
   fetchBookingQualitative as fetchBookingQualitativeAction,
   fetchInvoiceItemQualitative as fetchInvoiceItemQualitativeAction,
   fetchBookingTemporal as fetchBookingTemporalAction,
-} from '../../actions/stats.actions';
+} from './actions';
 
 import { getStatisticTemporal, getStatisticTemporalGrid } from './selectors';
 

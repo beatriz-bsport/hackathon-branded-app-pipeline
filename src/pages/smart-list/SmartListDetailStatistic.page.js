@@ -17,7 +17,7 @@ import {
 import {
   fetchSmartListStats,
   dateRangeChange,
-} from '../../actions/stats.actions';
+} from '../../libs/statistics/actions';
 
 const BOOKING_STATISTIC_IDENTIFIER = 1;
 const EXPENSES_STATISTIC_IDENTIFIER = 3;

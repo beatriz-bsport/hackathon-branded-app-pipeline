@@ -87,6 +87,10 @@ export const updateMarketplaceSettings = async (
   );
 };
 
+export const getIdByName = async (companyName: string) => {
+  return get(`${API_URI}/marketplace/${companyName}`);
+};
+
 export default {
   fetchCompanyMetaActivities,
   fetchCompanyEstablishments,

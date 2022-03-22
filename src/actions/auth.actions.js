@@ -4,7 +4,16 @@ import * as Sentry from '@sentry/react';
 import { push } from 'connected-react-router';
 import { createAction } from 'redux-actions';
 
-import api from '../api';
+import {
+  updateProfile as updateProfileAPI,
+  getRelationToken as getRelationTokenAPI,
+  impersonateAdmin as impersonateAdminAPI,
+  checkEmailExists as checkEmailExistsAPI,
+  signup as signupAPI,
+  accessLevel as accessLevelAPI,
+  login as loginAPI,
+  resetPassword as resetPasswordAPI,
+} from '../libs/login/api';
 import types from './auth.types';
 import { Dispatch, ThunkAction, OptionCallback } from '../state/types';
 import WidgetUtils from '../libs/widget/WidgetUtils';
@@ -38,7 +47,7 @@ export function updateProfile({
 }) {
   return async (dispatch: Dispatch) => {
     // TODO update firstname email and lastname in reducer
-    await api.auth.updateProfile({
+    await updateProfileAPI({
       email,
       first_name: firstname,
       last_name: lastname,
@@ -65,7 +74,7 @@ export function fetchAccessLevel(
 ) {
   return async (dispatch: Dispatch) => {
     try {
-      const response = await api.auth.accessLevel(token);
+      const response = await accessLevelAPI(token);
       const {
         id,
         is_manager,
@@ -142,7 +151,7 @@ export function fetchAccessLevelWithoutConnect(
 ) {
   return async (dispatch: Dispatch) => {
     try {
-      const response = await api.auth.accessLevel(token);
+      const response = await accessLevelAPI(token);
       const { is_manager, is_consumer, is_franchisor, role, name, username } =
         response.data;
 
@@ -190,7 +199,7 @@ export function requestLogin(
     dispatch(initiatedLogin(username));
 
     try {
-      const response = await api.auth.login(username, password);
+      const response = await loginAPI(username, password);
       const { token } = response.data;
 
       if (!token) {
@@ -236,7 +245,7 @@ export function checkEmailExists(email: string, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(checkEmailExistsLoading(true));
     try {
-      const response = await api.auth.checkEmailExists(email);
+      const response = await checkEmailExistsAPI(email);
       dispatch(checkEmailExistsSuccess(response.data.exists));
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
@@ -297,7 +306,7 @@ export function resetPassword(email: string, options: any) {
     dispatch(errorResetLogin(null));
     dispatch(isLoadingResetLogin(true));
     try {
-      const response = await api.auth.resetPassword(email);
+      const response = await resetPasswordAPI(email);
       dispatch(resetPasswordSent(response.data));
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
@@ -340,7 +349,7 @@ export function signup(
 ) {
   return async (dispatch: Dispatch) => {
     try {
-      const response = await api.auth.signup(data);
+      const response = await signupAPI(data);
       if (response && response.status === 201) {
         return dispatch(requestLogin(data.email, data.password, options));
       }
@@ -373,7 +382,7 @@ export function signupV2(
 ) {
   return async (dispatch: Dispatch) => {
     try {
-      const response = await api.auth.signup(formaData);
+      const response = await signupAPI(formaData);
       if (response && response.status === 201) {
         return dispatch(
           requestLogin(
@@ -418,7 +427,7 @@ export function navigateAsCompanyAdmin(
       dispatch(impersonateManagerLoading(true));
       const franchiseConnexionToken = getAuthToken();
 
-      const response = await api.auth.impersonateAdmin({
+      const response = await impersonateAdminAPI({
         token: franchiseConnexionToken,
         companyId,
       });
@@ -442,7 +451,7 @@ export function navigateAsCompanyAdmin(
           name,
           username,
         },
-      } = await api.auth.accessLevel(newToken);
+      } = await accessLevelAPI(newToken);
 
       dispatch((() => ({ type: types.RESET_STORE }))());
 
@@ -499,7 +508,7 @@ export function navigateBackToFranchise() {
           name,
           username,
         },
-      } = await api.auth.accessLevel(newToken);
+      } = await accessLevelAPI(newToken);
 
       storage.removeItem('bsport:franchise:http:token');
       dispatch((() => ({ type: types.RESET_STORE }))());
@@ -539,7 +548,7 @@ export function navigateToRelationAccount(
     try {
       const masterToken = getAuthToken();
 
-      const response = await api.auth.getRelationToken({
+      const response = await getRelationTokenAPI({
         company: params.company,
         relatedMemberId: params.relatedMemberId,
       });
@@ -563,7 +572,7 @@ export function navigateToRelationAccount(
           name,
           username,
         },
-      } = await api.auth.accessLevel(newToken);
+      } = await accessLevelAPI(newToken);
       dispatch((() => ({ type: types.RESET_STORE }))());
 
       // Set new access level
@@ -646,7 +655,7 @@ export function navigateBackToMasterRelation(params: {
           name,
           username,
         },
-      } = await api.auth.accessLevel(newToken);
+      } = await accessLevelAPI(newToken);
 
       storage.removeItem('bsport:relatedMemberMaster:http:token');
       dispatch((() => ({ type: types.RESET_STORE }))());

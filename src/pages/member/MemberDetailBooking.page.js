@@ -91,7 +91,7 @@ import paymentPackSelectors, {
 } from '../../libs/payment-packs/selectors';
 import { getConsumerPack } from '../../libs/consumer-payment-pack/selectors';
 import themeSelectors from '../../libs/theme/selectors';
-import { fetchBookingStatistics2 as fetchBookingStatisticsAction } from '../../actions/stats.actions';
+import { fetchBookingStatistics2 as fetchBookingStatisticsAction } from '../../libs/statistics/actions';
 import { getStatisticTemporal } from '../../libs/statistics/selectors';
 import ChartRange from '../../libs/dashboard/components/ChartRange.component';
 import { Theme } from '../../libs/theme/types';

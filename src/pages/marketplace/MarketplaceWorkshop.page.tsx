@@ -15,7 +15,6 @@ import {
   snackbarSuccess as snackbarSuccessAction,
   snackbarError as snackbarErrorAction,
 } from '../../libs/snackbar/actions';
-import { consumerPayWithConsumerPaymentPack as payWithConsumerPaymentPackAPI } from '../../api/payment';
 import { fetchAssociatedCoachBulkFromCoachIds as fetchAssociatedCoachBulkFromCoachIdsAction } from '../../libs/associated-coach/actions';
 import {
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
@@ -155,7 +154,6 @@ export class MarketplaceWorkshopPage extends React.Component<FinalProps> {
             loading={this.props.loading}
             paymentComboList={this.props.paymentComboList}
             onBook={this.goToBook}
-            onBookOfferFromPack={this.props.onBookOfferFromPack}
             goToPackPayment={(packId: number, offerId: number) =>
               this.props.goToPackPayment(packId, offerId, this.props.companyId)
             }
@@ -237,39 +235,6 @@ const mapWithProps = (props: OwnProps & ConnectProps & WithTranslation) => ({
         props.fetchMetaActivityBulk(offerList.map((o: any) => o.meta_activity));
       },
     }),
-  onBookOfferFromPack: (offerId: number, packId: number) => {
-    payWithConsumerPaymentPackAPI(packId, offerId, {})
-      .then(() => {
-        if (props.onCompletePurchase) {
-          props.onCompletePurchase(packId, offerId);
-          return;
-        }
-        props.pushRouter('/');
-        props.snackbarSuccess('booking.register.success');
-      })
-      .catch((err: any) => {
-        console.error(err);
-        if (err && err.response && err.response.status === 423) {
-          switch (err.response.data) {
-            case 'unavailable for female':
-              props.snackbarError(
-                props.t('booking:bookingModule.messages.femaleUnavailable'),
-              );
-              break;
-            case 'unavailable for male':
-              props.snackbarError(
-                props.t('booking:bookingModule.messages.maleUnavailable'),
-              );
-              break;
-            default:
-              props.snackbarError(
-                props.t('booking:bookingModule.messages.offerLocked'),
-              );
-              break;
-          }
-        }
-      });
-  },
   goToPackPayment: (packId: number, offerId: number, companyId: number) => {
     if (props.goToPackPayment) {
       props.goToPackPayment(packId, offerId, companyId);

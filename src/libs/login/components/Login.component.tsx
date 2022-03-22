@@ -215,7 +215,11 @@ export class ConsumerLogin extends Component<Props, State> {
             )}
           >
             <a
-              href={`${Config.PUBLIC_URL}/login/reset_password`}
+              href={`${Config.PUBLIC_URL}/login/reset_password${
+                this.props.theme
+                  ? `?membership=${this.props.theme.company}`
+                  : ''
+              }`}
               style={{ textDecoration: 'none' }}
             >
               <Typography variant="body2" align="center">

@@ -37,7 +37,7 @@ import MX_FLAG from './flags/MX.png';
 import CY_FLAG from './flags/CY.png';
 import SK_FLAG from './flags/SK.png';
 import AU_FLAG from './flags/AU.png';
-// import HK_FLAG from './flags/HK.png';
+import HK_FLAG from './flags/HK.png';
 import PL_FLAG from './flags/PL.png';
 // import BR_FLAG from './flags/BR.png';
 import SG_FLAG from './flags/SG.png';
@@ -288,7 +288,6 @@ export const LOCALE_LIST: Array<Locale> = [
     currencyDisplay: 'Kč',
     showLang: true,
   },
-  /*
   {
     locale: 'en_HK',
     icon: HK_FLAG,
@@ -296,6 +295,7 @@ export const LOCALE_LIST: Array<Locale> = [
     currencyDisplay: 'HK$',
     showLang: true,
   },
+  /*
   {
     locale: 'en_IN',
     icon: IN_FLAG,

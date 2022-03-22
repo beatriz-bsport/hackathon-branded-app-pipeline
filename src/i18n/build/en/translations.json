@@ -2216,7 +2216,8 @@
         },
         "pack": {
             "titlePaymentPack": "Group activities",
-            "titlePrivatePack": "Appointments"
+            "titlePrivatePack": "Appointments",
+            "titleUniversalPack": "Universal"
         },
         "booking": {
             "titleBooking": "Group activities",
@@ -3037,12 +3038,19 @@
                     "compatibility": "Compatibility",
                     "validity": "Pass validity",
                     "paymentMeans": "Payment method",
-                    "info": "General information"
+                    "info": "General information",
+                    "compatibilityAppointment": "[Compatibility] Appointments"
                 },
                 "selector": {
                     "privateService": "Add compatible appointments"
                 },
-                "franchise": "The appointment pass is shared through the Master Account. Certain settings have been predefined by said Master Account and can't be modified."
+                "franchise": "The appointment pass is shared through the Master Account. Certain settings have been predefined by said Master Account and can't be modified.",
+                "universalPass": {
+                    "deativatedTags": "Deactivate for Universal Passes",
+                    "helperText": "Universal Passes may be used for group activities and appointments. Twin passes are created for every Universal Pass to link the number of credits. Once one of these passes has been purchased, the other will be automatically added without any additional costs.",
+                    "label": "Universal Pass",
+                    "warningIsUniversalPass": "Twin passes are automatically created for a Universal Pass. All fields modified here will also be edited on the twin passes, except the categories. This also applies to notifications, validity extensions, and credit changes."
+                }
             },
             "validForDuration": {
                 "general": "This appointment pass is valid for {{ duration_days }} day(s), {{ duration_months }} month(s), and {{ duration_years }} year(s).",
@@ -6297,7 +6305,8 @@
             "pricePerAdditionalBooking": "Amount per booking",
             "calculate": "Calculate",
             "payment": "Payroll",
-            "durationBookings": "Number of hours"
+            "durationBookings": "Number of hours",
+            "totalNetGain": "Net gain (total)"
         },
         "addCoach": "Add a teacher",
         "noActivity": "This teacher does not manage any activity.",
@@ -7476,6 +7485,11 @@
                         "helperText": "Use tags to make the pass only available to specific members in your MarketPlace, on your widgets, and on your mobile app. You can select to only display these passes to members with specific tags, or you can choose to not display the pass to specific tags at all. "
                     },
                     "header": "Advanced"
+                },
+                "universalPass": {
+                    "deativatedTags": "Deactivated for Universal Passes",
+                    "marketplaceLabel": "A Universal Pass may be used for group activities and appointments.",
+                    "label": "Universal Pass"
                 }
             }
         },
@@ -7774,7 +7788,8 @@
             "maxPurchasePerMember": "Maximum number of purchases: ",
             "maxBookingPerDay": "Maximum usage per day: ",
             "maxBookingPerWeek": "Maximum usage per week: ",
-            "maxBookingPerMonth": "Maximum usage per month: "
+            "maxBookingPerMonth": "Maximum usage per month: ",
+            "universalPass": "Compatible with group activities and appointments."
         },
         "detailTitles": {
             "vod": "Video On Demand",
@@ -7783,7 +7798,9 @@
             "accessibility": "Accessibility",
             "compatibility": "Compatibility",
             "validity": "Validity",
-            "credit_quantity": "Number of credits"
+            "credit_quantity": "Number of credits",
+            "universalPass": "Universal Pass",
+            "compatibilityPaymentPack": "[Compatibility] Group activities"
         },
         "unlimitedAndCalculatedMargin": " The marginal value per booking is calculate as PRICE / NUMBER Of BOOKINGS ",
         "unlimitedAndMargin": " The marginal value per booking is ",
@@ -7862,6 +7879,21 @@
             "creditWarning": "Attention: all passes will be edited if the number of credits is changed.",
             "migration": "This pass originates from a previously completed data migration. Some fields may not editable to preserve the data. Compatible activities/categories can still be modified.",
             "franchise": "The pass is shared through the Master Account. Certain settings have been predefined by said Master Account and can't be modified."
+        },
+        "universalPass": {
+            "restore": {
+                "dialog": {
+                    "continue": "Continue",
+                    "text": "This Universal Pass' twin pass has also been unarchived.",
+                    "title": "Unarchive"
+                }
+            },
+            "delete": {
+                "dialog": {
+                    "warningText": "Attention! Deleting a Universal Pass will also delete its twin passes.",
+                    "title": "Delete pass"
+                }
+            }
         }
     },
     "metaActivity": {
@@ -9532,7 +9564,10 @@
             "total_on_appointments": "Remuneration for appointments",
             "total_on_sessions": "Remuneration for group activities",
             "nb_appointments": "Number of appointments",
-            "nb_sessions": "Number of sessions"
+            "nb_sessions": "Number of sessions",
+            "totalNetGain": "Net gain (total)",
+            "netGain": "Net gain",
+            "marginValue": "Marginal value"
         },
         "table": {
             "download": "Download",

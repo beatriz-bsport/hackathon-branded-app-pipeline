@@ -240,12 +240,11 @@ export class SlotSearcherParams extends React.Component<Props, State> {
             </div>
             {!!this.props.resourceAllocationChecker && (
               <ResourceAllocationChecker
-                dateStart={this.props.dateStart}
+                updatedTime={this.props.dateStart}
                 resourceId={this.state.establishment_selected}
                 resourceType="establishment"
                 resourceAllocationChecker={this.props.resourceAllocationChecker}
                 privateSlotId={this.state.privateSlotId}
-                t={this.props.t}
               />
             )}
           </div>
@@ -267,7 +266,7 @@ export class SlotSearcherParams extends React.Component<Props, State> {
             </div>
             {!!this.props.resourceAllocationChecker && (
               <ResourceAllocationChecker
-                dateStart={this.props.dateStart}
+                updatedTime={this.props.dateStart}
                 resourceId={
                   this.state.coaches_selected &&
                   this.state.coaches_selected.length &&
@@ -276,7 +275,6 @@ export class SlotSearcherParams extends React.Component<Props, State> {
                 resourceAllocationChecker={this.props.resourceAllocationChecker}
                 resourceType="coach"
                 privateSlotId={this.state.privateSlotId}
-                t={this.props.t}
               />
             )}
           </div>

@@ -184,14 +184,14 @@ export type PrivateConsumerPass = {
   is_universal_consumer_pass_source: boolean;
 };
 
-export type PrivateBooking = {
+export type PrivateBooking<PrivateSlotNumber = number> = {
   id: number;
   date_start: string;
   date_end: string;
   private_consumer_pass: number;
   member: number;
   name: string;
-  private_slot: number;
+  private_slot: PrivateSlotNumber;
   private_service: number;
   address: string;
   booking_status_code: number;

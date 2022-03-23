@@ -23,21 +23,23 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import Button from '@material-ui/core/Button';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
-
 import Divider from '@material-ui/core/Divider';
 import WarningIcon from '@material-ui/icons/Warning';
+
 import MemberMinimalListItem from '../../../member/components/MemberMinimalListItem.component';
 import type { PrivateBookingWithRelatedFields } from '../../types';
 import RedButton from '../../../../components/button/RedButton.component';
 import RedChip from '../../../../components/chip/RedChip.component';
 import CoachListItem from '../../../associated-coach/components/CoachListItem.component';
 import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
+import ResourceAllocationChecker from '../slot-searcher/ResourceAllocationChecker.component';
 import type { Invoice } from '#libs/invoice/types';
 import type { PaymentMethod } from '#libs/payment/types';
 import InvoiceTable from '#libs/invoice/components/InvoiceTable.component';
 import PaymentDialog from '#libs/payment/components/PaymentDialog.component';
 import type { ConsumerGiftcard, Giftcard } from '#libs/giftcard/types';
 import type { PerformanceTrackingProgram } from '#libs/performance-tracking/types';
+import { resourceAllocationChecker as resourceAllocationCheckerAPI } from '../../api';
 
 type Props = {
   private_booking: PrivateBookingWithRelatedFields,
@@ -88,6 +90,7 @@ export const PrivateBookingCard = (props: Props) => {
   const { private_booking, loading } = props;
   const { t } = useTranslation(['privateService']);
   const classes = useStyles();
+
   React.useEffect(() => {
     if (private_booking.member && private_booking.member.id) {
       props.fetchInvoiceListUnpaid(private_booking.member.id);
@@ -159,11 +162,19 @@ export const PrivateBookingCard = (props: Props) => {
             {t('privateBooking.updateTime.explainEmail')}
           </Typography>
         </DialogContent>
+        <ResourceAllocationChecker
+          resourceId={private_booking.coach.id}
+          resourceType="coach"
+          updateTime={props.updateTime}
+          updatedTime={props.updatedTime || props.private_booking.date_start}
+          privateSlotId={private_booking.private_slot.id}
+          resourceAllocationChecker={resourceAllocationCheckerAPI}
+          closeUpdateTimeForm={props.closeUpdateTimeForm}
+        />
         <DialogActions>
           <Button onClick={props.closeUpdateTimeForm}>
             {t('privateBooking.updateTime.cancel')}
           </Button>
-
           <Button
             color="primary"
             onClick={() =>
@@ -409,7 +420,9 @@ export default compose(
     {
       setUpdatedTime: () => (updatedTime) => ({ updatedTime }),
       setUpdateTimeForm: () => () => ({ isUpdateTimeFormOpen: true }),
-      closeUpdateTimeForm: () => () => ({ isUpdateTimeFormOpen: false }),
+      closeUpdateTimeForm: () => () => {
+        return { isUpdateTimeFormOpen: false, updatedTime: null };
+      },
       updateTimeAndClose:
         (_, { updateTime }) =>
         (...args) => {

@@ -40,7 +40,10 @@ import {
   resetCustomEvent,
 } from '../../libs/private-service/actions';
 import { fetchMemberBulk as fetchMemberBulkAction } from '../../libs/member/actions';
-import { fetchCoachBulk } from '../../libs/associated-coach/actions';
+import {
+  fetchCoachBulk,
+  fetchAssociatedCoachesList as fetchAssociatedCoachesListAction,
+} from '../../libs/associated-coach/actions';
 
 import { getCustomEventList } from '../../libs/private-service/selectors/custom-event';
 import CustomEvenFormDialog from '../../libs/private-service/components/custom-event/CustomEventFormDialog.component';
@@ -80,6 +83,7 @@ type Props = {
   fetchPrivateBookingList: () => void,
 
   fetchCoach: (number) => void,
+  fetchAssociatedCoachesList: () => void,
   periodFilter: { start: string, end: string },
   fetchCustomEventList: () => void,
   resetCustomEvent: () => void,
@@ -110,6 +114,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
   componentDidMount() {
     this.props.resetPrivateBookings();
     this.props.fetchCoach(this.props.id);
+    this.props.fetchAssociatedCoachesList();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -248,6 +253,7 @@ export default compose(
     }),
     {
       fetchCoach: (id) => fetchCoachBulk([id]),
+      fetchAssociatedCoachesList: fetchAssociatedCoachesListAction,
       fetchMemberBulk: fetchMemberBulkAction,
       fetchCustomEventList: fetchCustomEventListAction,
       fetchPrivateBookings: fetchPrivateBookingsAction,

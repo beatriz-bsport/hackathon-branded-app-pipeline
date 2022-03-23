@@ -94,7 +94,8 @@
         },
         "pack": {
             "titlePrivatePack": "Afspraken",
-            "titlePaymentPack": "Groepsactiviteiten"
+            "titlePaymentPack": "Groepsactiviteiten",
+            "titleUniversalPack": "Universeel"
         },
         "debt": {
             "explainPayment": "Dit bedrag wordt aan de studio betaald om je uitstaande schulden te betalen.",
@@ -578,7 +579,7 @@
             "toSubscribe": "Inschrijven",
             "toBill": "In rekening brengen",
             "createInvoice": "Betaling",
-            "stripePaymentWillBeCashedOutOnInvoiceValidation": "De creditcard wordt pas belast nadat de factuur is opgeslagen.",
+            "stripePaymentWillBeCashedOutOnInvoiceValidation": "De creditcard wordt pas belast nadat de factuur is aangemaakt.",
             "intervalType": "Betalingsfrequentie",
             "nbInterval": "Aantal incasso's",
             "billingAnchor": "Eerste betaling",
@@ -602,14 +603,14 @@
                 "HOLIDAY_CHECK": "Vakantiecheques",
                 "CHECK": "Cheque",
                 "CB_MANUAL": "Creditcard (handmatig)",
-                "CB": "Bankkaart"
+                "CB": "Creditcard"
             },
             "creditAccountBalance": "Lopende rekening: ",
             "paymentMethod": "Betalingswijze",
             "invoice": "Factuur",
             "paymentMethodCash": "Contant geld",
             "paymentMethodCheck": "Cheque",
-            "paymentMethodStripe": "Bankkaart",
+            "paymentMethodStripe": "Creditcard",
             "total": "TOTAAL",
             "voucher": "Korting",
             "updateInvoiceVoucher": "Promotiecode toevoegen",
@@ -653,7 +654,7 @@
             "revertExplainCredits": "Het debet/krediet op de account van het lid wordt teruggeboekt.",
             "revertExplainPayment": "Creditcardbetalingen worden teruggestort op de rekening van het lid. Alle andere betaalmethoden worden verwijderd.",
             "revertImpossibleExplainSubscription": "Deze factuur is aan een abonnement gekoppeld. Je kunt een gekoppelde factuur niet annuleren, maar je kunt het abonnement en de laatste betaling wel stopzetten",
-            "explainDateChoser": "Kies de factuurdatum:",
+            "explainDateChoser": "Selecteer de factuurdatum:",
             "choseDate": "Factuurdatum",
             "revert": "Factuur annuleren",
             "reverted": "Geannuleerd",
@@ -1006,7 +1007,7 @@
                     "sell_only_on_provision": "Alleen verkopen als er voorraad is",
                     "onsite_payment_available": "Later betalen toestaan (bijv. in de studio)",
                     "available_payment_method_identifiers": {
-                        "helperText": "Selecteer ten minste één betaalmethode. Als je geen enkele betaalmethode selecteert, dan biedt het systeem automatisch een creditcardbetaling aan.",
+                        "helperText": "Selecteer ten minste één betaalmethode. Als geen enkele betaalmethode geselecteerd is, dan biedt het systeem standaard een creditcardbetaling aan.",
                         "label": "Geaccepteerde betaalmethoden"
                     }
                 },
@@ -1385,7 +1386,7 @@
             "HOLIDAY_CHECK": "Vakantiecheques",
             "CHECK": "Cheque",
             "CB_MANUAL": "Creditcard (handmatig)",
-            "CB": "Online betaling"
+            "CB": "Online betalingen"
         },
         "pageTitle": {
             "myAccount": "Mijn account"
@@ -2008,7 +2009,7 @@
             "sum__non_attendance": "Aantal afwezigen",
             "sum_attendance": "Aantal aanwezigen",
             "invoice_date": "Factuurdatum",
-            "payment_amount_by_payment_method": "Betaling per betaalmethode",
+            "payment_amount_by_payment_method": "Aantal incasseringen per betaalmethode",
             "invoice_time": "Factuur uitgifte tijd",
             "invoice_datetime": "Tijd en datum factuuruitgave",
             "invoice_date_created": "Uitgiftedatum factuur",
@@ -2044,7 +2045,9 @@
             "supplier": "Leverancier",
             "category": "Categorie",
             "is_recurring": "Terugkerend",
-            "amount_expense": "Bedrag"
+            "amount_expense": "Bedrag",
+            "universal_nb_private_bookings": "Aantal reserveringen (afspraken)",
+            "universal_nb_bookings": "Aantal reserveringen (groepsactiviteiten)"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -2091,7 +2094,8 @@
             "consumer_giftcard": "Gekochte cadeaubonnen",
             "payment_installments": "Termijnbetalingen",
             "unpaid_private_bookings": "Onbetaalde reserveringen (afspraken)",
-            "expense": "Uitgaven"
+            "expense": "Uitgaven",
+            "universal_passes": "Universele kaarten"
         },
         "globalCategories": {
             "subheader": {
@@ -2157,12 +2161,12 @@
             },
             "payout": {
                 "content": "Momenteel kunnen we je verdiensten niet uitbetalen, omdat je bankgegevens niet of onjuist geconfigureerd zijn.",
-                "title": "Waarschuwing: incomplete bankgegevens"
+                "title": "Incomplete bankgegevens"
             },
             "verification": {
                 "warning": "Het is mogelijk dat online betalingen na deze datum <1> gedeactiveerd </1> worden!",
                 "content": "Er ontbreken documenten om het aanmaken van je account te voltooien. Je hebt tot <1>{{ date }}</1>  om je account te verifiëren.",
-                "title": "Mijn onderneming"
+                "title": "Bedrijfsbeheer"
             }
         },
         "unpaidPrivateBooking": {
@@ -2451,6 +2455,13 @@
                         "header": "Tags"
                     },
                     "header": "Geavanceerd"
+                },
+                "universalPass": {
+                    "warningIsUniversalPass": "Gekoppelde afspraakkaarten worden automatisch aangemaakt voor universele kaarten. Alle velden die hier ingesteld zijn kunnen ook op de gekoppelde afspraakkaarten worden gewijzigd m.u.v. de categorieën. Hetzelfde geldt voor de meldingen, geldigheidsverlengingen en kredietwijzigingen.",
+                    "deativatedTags": "Deactiveren voor universele kaarten",
+                    "helperText": "Een universele kaart kan voor groepsactiviteiten én afspraken worden gebruikt. Iedere universele kaart heeft twee gekoppelde kaarten voor de kredieten. De gekoppelde kaarten worden automatisch en kosteloos toegevoegd zodra een universele kaart is aangeschaft.",
+                    "marketplaceLabel": "Een universele kaart kan voor groepsactiviteiten én afspraken worden gebruikt.",
+                    "label": "Universele kaart"
                 }
             }
         },
@@ -2741,7 +2752,8 @@
             "maxPurchasePerMember": "Maximaal aantal aankopen: ",
             "maxBookingPerDay": "Maximaal gebruik per dag: ",
             "maxBookingPerWeek": "Maximaal gebruik per week: ",
-            "maxBookingPerMonth": "Maximaal gebruik per maand: "
+            "maxBookingPerMonth": "Maximaal gebruik per maand: ",
+            "universalPass": "De universele kaart is compatibel met groepsactiviteiten én afspraken."
         },
         "detailTitles": {
             "vod": "Video On Demand",
@@ -2750,7 +2762,9 @@
             "accessibility": "Toegankelijkheid",
             "compatibility": "Compatibiliteit",
             "validity": "Geldigheid",
-            "credit_quantity": "Kredieten"
+            "credit_quantity": "Kredieten",
+            "universalPass": "Universele kaart",
+            "compatibilityPaymentPack": "[Compatibiliteit] Groepsactiviteiten"
         },
         "validityTo": " tot ",
         "addPaymentPack": {
@@ -2827,7 +2841,22 @@
             "migration": "Deze kaart is overgenomen van een eerder voltooide gegevensoverdracht. Het is mogelijk dat sommige velden niet bewerkt kunnen worden om de data niet te beschadigen. Compatibele activiteiten/categorieën kunnen nog wel worden gewijzigd.",
             "franchise": "Deze kaart is gemaakt door het Master-Account. Bepaalde instellingen zijn op groepsniveau ingesteld en kunnen niet worden gewijzigd."
         },
-        "unlimitedPlural": "Onbeperkt"
+        "unlimitedPlural": "Onbeperkt",
+        "universalPass": {
+            "restore": {
+                "dialog": {
+                    "continue": "Verder",
+                    "text": "De gekoppelde kaarten van de universele kaart worden ook gedearchiveerd.",
+                    "title": "Dearchiveren"
+                }
+            },
+            "delete": {
+                "dialog": {
+                    "warningText": "Waarschuwing! De gekoppelde kaarten worden óók verwijderd.",
+                    "title": "Verwijderen"
+                }
+            }
+        }
     },
     "establishment": {
         "capacity": {
@@ -3809,7 +3838,8 @@
             "vod": "Video On Demand",
             "form": "Formulieren",
             "giftcard": "Cadeaubonnen",
-            "programs": "Programma's"
+            "programs": "Programma's",
+            "basket": "Winkelmandje"
         },
         "forms": {
             "merge": {
@@ -5096,7 +5126,10 @@
             "total_on_sessions": "Totale vergoeding (Groepsactiviteiten en Workshops)",
             "nb_private_bookings": " ",
             "nb_appointments": "Aantal afspraken",
-            "nb_sessions": "Aantal sessies"
+            "nb_sessions": "Aantal sessies",
+            "totalNetGain": "Nettowinst (totaal)",
+            "netGain": "Nettowinst",
+            "marginValue": "Marginale bijdrage"
         },
         "table": {
             "download": "Downloaden",
@@ -5605,19 +5638,19 @@
                 "consumer": {
                     "content": {
                         "discardable": "Weet je zeker dat je deze afspraak wilt annuleren? Je tegoed wordt teruggestort.",
-                        "notDiscardable": "Weet je zeker dat je deze afspraak wil annuleren? Dit is geen kosteloze annulering, omdat je te laat annuleert."
+                        "notDiscardable": "Weet je zeker dat je deze afspraak wil annuleren? Dit is geen kosteloze annulering, omdat het te laat geannuleerd wordt."
                     },
-                    "title": "Een afspraak annuleren",
+                    "title": "Afspraak annuleren",
                     "cancel": "Annuleren",
                     "confirm": "Bevestigen"
                 },
                 "explainHardDelete": "Deze reservering is al geannuleerd. Als de reservering verwijdert wordt, dan verdwijnt deze ook van je agenda. Het tegoed wordt teruggestort als dit niet al eerder gedaan is. Deze actie is definitief.",
                 "confirm": "Bevestigen",
-                "title": "Een afspraak annuleren",
+                "title": "Afspraak annuleren",
                 "explain": "Weet je zeker dat je deze reservering wilt annuleren? Deze actie is definitief.",
-                "explainForceRefund": "Vergoed het gebruikte tegoed om een nieuwe reservering toe te staan.",
+                "explainForceRefund": "Gebruikte kredieten vergoeden om een nieuwe reservering toe te staan",
                 "cancel": "Annuleren",
-                "sendCancellationMail": "Informeer {{name}} per e-mail dat de afspraak geannuleerd is.",
+                "sendCancellationMail": "Stuur {{name}} een annuleringsbevestiging",
                 "explainWithRestore": "Weet je zeker dat je deze reservering wilt annuleren? Je kunt dit later ongedaan maken."
             },
             "editTime": "Bewerken",
@@ -5631,11 +5664,11 @@
             "hardDelete": "Verwijderen",
             "isCancelled": "Geannuleerd",
             "detail": {
-                "title": "Reserveringen",
+                "title": "Reservering",
                 "registeredOn": "Gereserveerd op ",
                 "source": "Gereserveerd via ",
-                "slotTitle": "Sessie",
-                "passTitle": "Leskaarten",
+                "slotTitle": "Afspraak",
+                "passTitle": "Afspraakkaart",
                 "wasRefunded": "Het tegoed wordt teruggestort op de kaart",
                 "wasRefundedYes": "Ja",
                 "wasRefundedNo": "Nee",
@@ -5943,7 +5976,7 @@
                 },
                 "available_payment_method_identifiers": {
                     "label": "Geaccepteerde betaalmethoden",
-                    "helperText": "Selecteer ten minste één betaalmethode. Als je geen enkele betaalmethode selecteert, dan biedt het systeem automatisch een creditcardbetaling aan.",
+                    "helperText": "Selecteer ten minste één betaalmethode. Als geen enkele betaalmethode geselecteerd is, dan biedt het systeem standaard een creditcardbetaling aan.",
                     "warning": "Maak deze afspraakkaart beschikbaar voor leden om de geaccepteerde betaalmethode(n) in te stellen."
                 },
                 "actions": {
@@ -5991,12 +6024,19 @@
                     "compatibility": "Compatibiliteit",
                     "validity": "Geldigheid",
                     "paymentMeans": "Geaccepteerde betaalmethode(n)",
-                    "info": "Algemene informatie"
+                    "info": "Algemene informatie",
+                    "compatibilityAppointment": "[Compatibiliteit] Afspraken"
                 },
                 "selector": {
                     "privateService": "Compatibele afspraken toevoegen"
                 },
-                "franchise": "Deze afspraakkaart is gemaakt door het Master-Account. Bepaalde instellingen zijn op groepsniveau ingesteld en kunnen niet worden gewijzigd."
+                "franchise": "Deze afspraakkaart is gemaakt door het Master-Account. Bepaalde instellingen zijn op groepsniveau ingesteld en kunnen niet worden gewijzigd.",
+                "universalPass": {
+                    "deativatedTags": "Deactiveren voor universele kaarten",
+                    "helperText": "Een universele kaart kan voor groepsactiviteiten én afspraken worden gebruikt. Iedere universele kaart heeft twee gekoppelde kaarten voor de kredieten. De gekoppelde kaarten worden automatisch en kosteloos toegevoegd zodra een universele kaart is aangeschaft.",
+                    "label": "Universele kaart",
+                    "warningIsUniversalPass": "Gekoppelde leskaarten worden automatisch aangemaakt voor universele kaarten. Alle velden die hier ingesteld zijn kunnen ook op de gekoppelde afspraakkaarten worden gewijzigd m.u.v. de categorieën. Hetzelfde geldt voor de meldingen, geldigheidsverlengingen en kredietwijzigingen."
+                }
             },
             "delete": {
                 "title": "Afspraakkaart verwijderen",
@@ -6414,7 +6454,7 @@
                     "confirm": "Verwijder",
                     "cancel": "Annuleer",
                     "content": "Het annuleren van de terugkerende afspraak leidt tot de annulering van toekomstige afspraken die via deze regel zijn geregistreerd.",
-                    "title": "Een terugkerende afspraak annuleren"
+                    "title": "Terugkerende afspraak annuleren"
                 }
             },
             "form": {
@@ -6516,7 +6556,15 @@
             "privateConsumerPassSharedFromOtherFranchisee": "Gedeeld met een andere studio",
             "privatePassSharedFromFranchisor": "Kaart van het Master-Account"
         },
-        "seeAll": "Toon alles"
+        "seeAll": "Toon alles",
+        "universalPass": {
+            "delete": {
+                "dialog": {
+                    "warningText": "Waarschuwing! De gekoppelde kaarten worden óók verwijderd.",
+                    "title": "Verwijderen"
+                }
+            }
+        }
     },
     "datetime": {
         "form": {
@@ -7631,6 +7679,13 @@
                 "pm_associated_to_protected_bp": "Je kunt dit niet verwijderen, omdat er een abonnement aan deze betaalmethode is gekoppeld",
                 "last_payment_method": "Je enige betaalmethode kan niet worden verwijderd",
                 "pm_deleted": "Betaalmethode verwijderd"
+            },
+            "errors": {
+                "13004": "Deze betaalmethode is gekoppeld aan toekomstige betalingen",
+                "13003": "Er is een abonnement aan deze betaalmethode gekoppeld",
+                "13002": "Deze betaalmethode is gekoppeld aan toekomstige betalingen",
+                "13001": "Fout bij het verwijderen van deze betaalmethode",
+                "13000": "Fout bij het verwijderen van de betaalmethode"
             }
         },
         "paymentRuleGroups": {
@@ -7828,7 +7883,8 @@
             "pricePerAdditionalBooking": "Bedrag per reservering",
             "calculate": "Bereken",
             "payment": "Payroll",
-            "durationBookings": "Aantal uren"
+            "durationBookings": "Aantal uren",
+            "totalNetGain": "Nettowinst (totaal)"
         },
         "selfNoActivity": "Je account is niet aan een activiteit gekoppeld.",
         "forms": {
@@ -7906,7 +7962,7 @@
     "relationship": {
         "consumer_payment_pack_links": {
             "list": {
-                "isEmpty": "Geen gedeelde leskaarten",
+                "isEmpty": "Er zijn geen gedeelde leskaarten om weer te geven.",
                 "create": "Een leskaart delen",
                 "title": "Gedeelde leskaarten"
             },
@@ -7949,13 +8005,13 @@
                     "placeholder": "Zoon"
                 },
                 "cancel": "Annuleren",
-                "is": " is ",
-                "shareEmail": "Altijd CC'en",
+                "is": " is de ",
+                "shareEmail": "Altijd in e-mails cc'en",
                 "parentalLink": "Relatie",
-                "email": "E-mails CC'en",
+                "email": "Berichtgevingen",
                 "access": "Accounttoegang",
                 "accountInfo": "Door de toegang tot andere accounts te activeren kunnen bepaalde leden als een gekoppelde relatie inloggen.",
-                "autorization": "Geef \"{{name_1}}\" toegang tot het account van\"{{name_2}}\".",
+                "autorization": "Geef \"{{name_1}}\" toegang tot het account van\"{{name_2}}\"",
                 "confirm": "Bevestigen"
             },
             "list": {

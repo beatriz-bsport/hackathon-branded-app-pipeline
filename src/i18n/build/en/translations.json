@@ -1140,7 +1140,7 @@
             "toSubscribe": "Subscribe",
             "toBill": "Bill",
             "createInvoice": "Payment",
-            "stripePaymentWillBeCashedOutOnInvoiceValidation": "The credit card will be charged, once the invoice has been saved.",
+            "stripePaymentWillBeCashedOutOnInvoiceValidation": "The credit card will be charged once the invoice has been saved.",
             "intervalType": "Payment frequency",
             "nbInterval": "Number of payments",
             "billingAnchor": "First payment",
@@ -3089,7 +3089,7 @@
             },
             "configuration": {
                 "slot": "Sessions",
-                "explainSetToHasNotOwnAvailabilitySlots": "We automatically manage the availabilities of all correctly configured teacher(s) and establishment(s)",
+                "explainSetToHasNotOwnAvailabilitySlots": "The availabilities of all correctly configured teachers and establishments are automatically managed.",
                 "explainSetToHasOwnAvailabilitySlots": "Can only be booked in certain time slots",
                 "explainHasOwnAvailabilitySlots": "Click on the pencil to limit the reservations to certain time slots",
                 "hasFutureSlot": "The availabilities have been set up correctly.",
@@ -6700,7 +6700,7 @@
             "sepa": "SEPA Direct Debit",
             "card": "Credit Card",
             "credit": {
-                "explain": "Use this payment method to bill members if there is no direct payment method available, such as Credit Card or IBAN. The member's internal account balance will be billed and this payment method can be changed later on."
+                "explain": "Use this payment method to bill members if there is no direct payment method available, such as a credit card or IBAN. The member's internal account balance will be billed and this payment method can be changed later on."
             },
             "bsportCredit": "Credit account"
         },
@@ -6909,7 +6909,7 @@
             "payment_method_stripe": "Credit card",
             "payment_method_cash": "Cash",
             "payment_method_check": "Check",
-            "payment_method_manual_credit_card": "Credit card",
+            "payment_method_manual_credit_card": "Credit card (manual)",
             "payment_method_holiday_check": "Holiday check",
             "payment_method_amex": "AMEX",
             "payment_method_bank_transfer": "Transfer",
@@ -7016,7 +7016,7 @@
             "invoice_date_created": "Issue date",
             "invoice_datetime": "Issue date and time",
             "invoice_time": "Time of issue of the invoice",
-            "payment_amount_by_payment_method": "Payment per payment method",
+            "payment_amount_by_payment_method": "Number of payments per payment method",
             "billing_establishment": "Address",
             "billing_group": "Billing group",
             "company_name": "Studio",
@@ -7173,8 +7173,8 @@
         },
         "alert_kind": {
             "1": "Billing",
-            "2": "Order",
-            "3": "Task",
+            "2": "Orders",
+            "3": "Tasks",
             "4": "Appointment to complete",
             "5": "Legal information",
             "6": "Unpaid appointments"
@@ -7196,7 +7196,7 @@
         },
         "privateBookingIncomplete": {
             "explain": "The appointment of <1>{{name}}</1> has no assigned teacher.",
-            "name": "Member : {{ user_name }}",
+            "name": "Member: {{ user_name }}",
             "date": "Date: {{ date_start }}"
         },
         "companyOnboarding": {
@@ -7205,17 +7205,17 @@
                 "title": "Online payments are currently disabled"
             },
             "payout": {
-                "content": "We cannot make payments to your bank account because it does not exist or is improperly configured.",
-                "title": "Your banking details are incomplete"
+                "content": "Payouts cannot be processed due to the fact that the account verification has not been completed or has been done so incorrectly.",
+                "title": "Incomplete banking details"
             },
             "verification": {
                 "warning": "Online payments may be <1> deactivated </1> after this date!",
-                "content": "Several documents are pending, you have until <1> {{date}} </1> to verify your account.",
-                "title": "Management of my company"
+                "content": "Several documents are pending validation to verify your account. The deadline is: <1> {{date}} </1>.",
+                "title": "Business management"
             }
         },
         "unpaidPrivateBooking": {
-            "credits_due": "{{ credits }} upaid credit(s)"
+            "credits_due": "{{ credits }} unpaid credit(s)"
         }
     },
     "paymentPack": {
@@ -8148,7 +8148,7 @@
         "showPreviousBooking": "Show past bookings",
         "previousBooking": "previous: ",
         "engagement": "Commitment",
-        "addMember": "Add a member profile",
+        "addMember": "Add a member",
         "showNotes": "Show notes",
         "creditAccountBalance": "Client account balance",
         "showPaymentPack": "Show pass",
@@ -10733,8 +10733,8 @@
     "platformBilling": {
         "paymentMethod": {
             "actions": {
-                "createCard": "Add a payment method",
-                "createSepa": "Add an IBAN"
+                "createCard": "Add credit card",
+                "createSepa": "Add IBAN"
             },
             "sectionTitle": "Payment method"
         },
@@ -11480,7 +11480,7 @@
                 "addProgram": "Add a programme"
             },
             "title": "Programmes",
-            "archived": "Archived",
+            "archived": "Archived programmes",
             "infoNoProgram": "Add a programme that tracks your members' performance metrics.",
             "deleteContent": "This programme will no longer be visible to members that had previously added it. You can retrieve it from the 'Archived' section.",
             "deleteHeader": "Are you sure that you want to delete this programme?",

@@ -1,17 +1,4 @@
 import { API_V1_URI, postAuth, getAuth, buildUrlParams } from '../../http';
-import type { MemberMailData } from './types';
-
-export const sendMailToMembers = async (data: MemberMailData) => {
-  return postAuth(`${API_V1_URI}/member/send_email/`, data);
-};
-
-export const sendMailToMembersFromTemplate = async (data: MemberMailData) => {
-  return postAuth(`${API_V1_URI}/member/send_email_from_template/`, data);
-};
-
-export const sendSmsToMembers = async (data: any) => {
-  return postAuth(`${API_V1_URI}/member/send_sms/`, data);
-};
 
 export const sendCommunication = async (data: any) => {
   return postAuth(

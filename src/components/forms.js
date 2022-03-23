@@ -843,6 +843,7 @@ export const SelectField = withStyles(styles)(
 
 export const DURATION_CHOICES_SHORT = [
   { value: 0, label: 'form.zeroMinute' },
+  { value: 10, label: 'form.tenMinutes' },
   { value: 15, label: 'form.quarterHour' },
   { value: 20, label: 'form.twentyMinutes' },
   { value: 30, label: 'form.halfHour' },

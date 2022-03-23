@@ -551,6 +551,7 @@ exports.default = {
     newMetaActivity: 'Nouvelle activité',
     zeroMinute: '0 min',
     quarterHour: '15 min',
+    tenMinutes: '10 min',
     twentyMinutes: '2O min',
     halfHour: '30 min',
     halfAndQuarterHour: '45 min',

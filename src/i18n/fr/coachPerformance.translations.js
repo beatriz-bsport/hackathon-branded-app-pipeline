@@ -72,7 +72,7 @@ exports.default = {
     header: 'Filtres avancés',
     apply: 'Appliquer les filtres',
     reset: 'Réinitialiser les filtres',
-    coachSelector: 'Sélectionnez des profresseurs',
+    coachSelector: 'Sélectionnez des professeurs',
     coachPaymentRuleGroupSelector: 'Groupes de rémunération',
     sessionCoachPaymentRuleSelctor: 'Cours collectifs ',
     workshopCoachPaymentRuleSelctor: 'Ateliers',

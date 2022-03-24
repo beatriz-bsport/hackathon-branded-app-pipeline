@@ -261,7 +261,8 @@ export default compose(
       private_consumer_pass_list: excludeUnPaidPrivateConsumerPass(
         withoutUniversalPrivateConsumerPass(getPrivateConsumerPassList),
       )(state),
-      privateBookingsLoading: state.privateService.privateBooking.loading,
+      privateConsumerPassLoading:
+        state.privateService.privateConsumerPass.loading,
     }),
     {
       fetchPaymentPackBulk: fetchPaymentPackBulkAction,

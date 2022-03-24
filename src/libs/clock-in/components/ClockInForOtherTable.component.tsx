@@ -91,7 +91,6 @@ const ClockInForOtherTable: React.FC<Props> = ({
       filter: false,
       search: false,
       sort: false,
-      // responsive: 'scroll',
       textLabels: {
         body: {
           noMatch: '',
@@ -111,7 +110,7 @@ const ClockInForOtherTable: React.FC<Props> = ({
                 rowsPerPage={page_size}
                 page={page - 1}
                 onPageChange={(_, page_) => {
-                  setPage(page_);
+                  setPage(page_ + 1);
                 }}
                 onChangeRowsPerPage={(event) => {
                   setPageSize(Number.parseInt(event.target.value, 10));

@@ -54,21 +54,24 @@ const ClockInHistory: React.FC<Props> = ({
     );
   }, [page, page_size, dateStart, dateEnd, getStaffsAttendanceHistory]);
 
-  const handleExport = React.useCallback((userId?: number) => {
-    exportStaffAttendanceHistory(
-      {
-        min_date: dateStart.unix(),
-        max_date: dateEnd.unix(),
-        ...(userId && { user_id__in: [userId] }),
-      },
-      {
-        backgroundDialog: {
-          title: t('export.dialog.title'),
-          message: t('export.dialog.message'),
+  const handleExport = React.useCallback(
+    (userId?: number) => {
+      exportStaffAttendanceHistory(
+        {
+          min_date: dateStart.unix(),
+          max_date: dateEnd.unix(),
+          ...(userId && { user_id__in: [userId] }),
         },
-      },
-    );
-  }, [exportStaffAttendanceHistory, dateEnd, dateStart, t]);
+        {
+          backgroundDialog: {
+            title: t('export.dialog.title'),
+            message: t('export.dialog.message'),
+          },
+        },
+      );
+    },
+    [exportStaffAttendanceHistory, dateEnd, dateStart, t],
+  );
 
   return (
     <>

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import moment from 'moment-timezone';
 import classNames from 'classnames';
 import chroma from 'chroma-js';
+import uniq from 'lodash/uniq';
 
 import Table from '@material-ui/core/Table';
 import TableCell from '@material-ui/core/TableCell';
@@ -28,8 +29,6 @@ import withConfirm from '#hocs/with-confirm.hoc';
 import { ClockInData } from '../types';
 import { getTextColorFromRGB } from '../../../utils/color';
 import EditClockinModal from './EditClockIn.dialog';
-
-const MEMBER_PER_PAGE = 15;
 
 type Props = {
   value: {
@@ -68,13 +67,15 @@ const ClockInHistory: React.FC<Props> = ({
               count={count}
               rowsPerPage={page_size}
               page={page - 1}
-              onPageChange={(_, page_) => {
-                handlePageChange(page_);
+              onPageChange={(_, _page) => {
+                handlePageChange(_page + 1);
               }}
               onChangeRowsPerPage={(event) => {
                 handlePageSizeChange(Number.parseInt(event.target.value, 10));
               }}
-              rowsPerPageOptions={[10, MEMBER_PER_PAGE, 50, 100]}
+              rowsPerPageOptions={uniq(
+                [10, 50, 100, page_size].sort((a, b) => a - b),
+              )}
             />
           </TableRow>
           <TableRow>

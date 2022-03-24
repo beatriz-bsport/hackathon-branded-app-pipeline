@@ -44,19 +44,19 @@ export function BackgroundDialog(props: Props) {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button
-              onClick={async () => {
-                window.open(dialog.link);
-                window.close();
-                handleDownloadDisable();
-              }}
-              variant="contained"
-              color="primary"
-              autoFocus
-            >
-              {t('common.download')}
-              <GetAppIcon />
-            </Button>
+            <a href={dialog.link} target="_blank" rel="noreferrer">
+              <Button
+                onClick={() => {
+                  handleDownloadDisable();
+                }}
+                variant="contained"
+                color="primary"
+                autoFocus
+              >
+                {t('common.download')}
+                <GetAppIcon />
+              </Button>
+            </a>
 
             <Button
               disabled={downloadDisable}

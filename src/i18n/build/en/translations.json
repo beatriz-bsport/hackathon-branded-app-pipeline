@@ -1630,7 +1630,8 @@
             "modify": "Edit",
             "warningAddEmail": "This email has already been added.",
             "emailHelper": "Add multiple emails by separating them with a comma.",
-            "partner_max_booking_count": "(OneFit Exclusive) Maximum number of MarketPlace bookings"
+            "partner_max_booking_count": "(OneFit Exclusive) Maximum number of MarketPlace bookings",
+            "tenMinutes": "10 minutes"
         },
         "shop": {
             "noProvisionUpdates": "No stock available",
@@ -4071,7 +4072,64 @@
             },
             "navigationMenu": {
                 "settings": {
-                    "_label": "Settings"
+                    "_label": "Settings",
+                    "generals": {
+                        "_label": "General"
+                    },
+                    "marketplace": {
+                        "_label": "Marketplace settings"
+                    },
+                    "widgets": {
+                        "_label": "Widget"
+                    },
+                    "staffs": {
+                        "_label": "Staff"
+                    },
+                    "personalization": {
+                        "_label": "Personalization"
+                    },
+                    "memberForms": {
+                        "_label": "Member forms"
+                    },
+                    "liveStreaming": {
+                        "_label": "Livestream"
+                    },
+                    "transactionnalEmail": {
+                        "_label": "Transactional emails"
+                    },
+                    "teacherPayrollRules": {
+                        "_label": "Teacher payroll rules"
+                    },
+                    "paymentMethods": {
+                        "_label": "Payment method"
+                    },
+                    "company": {
+                        "_label": "Company"
+                    },
+                    "billing": {
+                        "_label": "Billing"
+                    },
+                    "waitingList": {
+                        "_label": "Waiting-list"
+                    },
+                    "webShop": {
+                        "_label": "Shop"
+                    },
+                    "webHook": {
+                        "_label": "Webhook"
+                    },
+                    "partnership": {
+                        "_label": "Partnership"
+                    },
+                    "quickBooks": {
+                        "_label": "QuickBooks"
+                    },
+                    "activeCampaign": {
+                        "_label": "ActiveCampaign"
+                    },
+                    "subscription": {
+                        "_label": "Bsport subscription"
+                    }
                 },
                 "reporting": {
                     "_label": "Reporting"
@@ -4080,19 +4138,112 @@
                     "_label": "Members"
                 },
                 "digitalOffer": {
-                    "_label": "Digital offer"
+                    "_label": "Digital offer",
+                    "videos": {
+                        "_label": "Video library"
+                    },
+                    "playlists": {
+                        "_label": "Playlist"
+                    }
                 },
                 "marketing": {
-                    "_label": "Marketing"
+                    "_label": "Marketing",
+                    "templates": {
+                        "_label": "Emails"
+                    },
+                    "customForms": {
+                        "_label": "Forms"
+                    },
+                    "smartlists": {
+                        "_label": "Smartlists"
+                    },
+                    "notifications": {
+                        "_label": "Notifications"
+                    },
+                    "strategies": {
+                        "_label": "Strategies"
+                    },
+                    "tags": {
+                        "_label": "Tags"
+                    }
                 },
                 "payments": {
-                    "_label": "Payments"
+                    "_label": "Payments",
+                    "billings": {
+                        "_label": "Invoices"
+                    },
+                    "directDebits": {
+                        "_label": "Withdrawals"
+                    },
+                    "orders": {
+                        "_label": "Orders"
+                    },
+                    "expenses": {
+                        "_label": "Expenses"
+                    },
+                    "installments": {
+                        "_label": "Installments"
+                    },
+                    "teachers": {
+                        "_label": "Teachers"
+                    },
+                    "clockIn": {
+                        "_label": "Clock-in",
+                        "selfClockIn": {
+                            "_label": "Punch for yourself"
+                        },
+                        "clockInForOther": {
+                            "_label": "Punch for another staff"
+                        },
+                        "canAccessHistory": {
+                            "_label": "Access to schedule history"
+                        }
+                    }
                 },
                 "products": {
-                    "_label": "Products"
+                    "_label": "Products",
+                    "paymentPack": {
+                        "_label": "Pass"
+                    },
+                    "privatePass": {
+                        "_label": "Pass (appointments)"
+                    },
+                    "shop": {
+                        "_label": "Shop"
+                    },
+                    "packs": {
+                        "_label": "Packs"
+                    },
+                    "giftcards": {
+                        "_label": "Gift cards"
+                    },
+                    "promotions": {
+                        "_label": "Coupon"
+                    },
+                    "contracts": {
+                        "_label": "Contracts"
+                    }
                 },
                 "myClub": {
-                    "_label": "My studio"
+                    "_label": "My studio",
+                    "activities": {
+                        "_label": "Activities"
+                    },
+                    "workshops": {
+                        "_label": "Workshops"
+                    },
+                    "appointments": {
+                        "_label": "Appointment"
+                    },
+                    "teachers": {
+                        "_label": "Teachers"
+                    },
+                    "establishments": {
+                        "_label": "Establishments"
+                    },
+                    "programs": {
+                        "_label": "Programs"
+                    }
                 },
                 "schedule": {
                     "_label": "Schedule"
@@ -10418,6 +10569,11 @@
                 "error": "Provincial tax registration error",
                 "success": "Registered provincial tax"
             }
+        },
+        "clockIn": {
+            "errors": {
+                "96002": "Impossible, this user already has a clock-in in progress"
+            }
         }
     },
     "navigation": {
@@ -10520,7 +10676,8 @@
             "programs": "Programmes",
             "expenses": "Expenses",
             "instalmentPayment": "Payments by instalments",
-            "coachPayroll": "Payroll"
+            "coachPayroll": "Payroll",
+            "clockIn": "Clock-in"
         },
         "deprecatedNavigator": {
             "navigatorError": "It seems that your browser is too old to use our services. You may encounter errors, we recommend that you download a more recent version, in particular : ",
@@ -11845,5 +12002,69 @@
             "selector": "Category name"
         },
         "disabledItemsTitle": "Archive"
+    },
+    "clockIn": {
+        "clockinDialog": {
+            "subtitleClockIn": "Hello {{ name }}, please click \"Start\" to clock-in today.",
+            "subtitleSuccess": "Your schedules have been saved. You can start a new punch the next time you open this window.",
+            "title": "Clock-in",
+            "close": "Close",
+            "clockIn": "Start",
+            "clockOut": "Finish",
+            "lastClockIn": "Last clock-in: {{- date }} - {{ hour }}",
+            "lastClockOut": "Arrival time: ",
+            "subtitleClockOut": "You have started ! To clock-out please click \"Finish\"",
+            "clockInForOther": "clock-in for another staff member",
+            "successClockIn": "Arrival time:",
+            "successClockOut": "Departure time:",
+            "successDuration": "Number of hours worked:"
+        },
+        "attendanceTable": {
+            "emptyState": "You have not yet given staff access. To define staff access, go to settings then staff or click on the button below. To follow the schedules of your staff, do not forget to activate “Time clock” when creating their role.",
+            "firstname": "First name",
+            "lastname": "Last name",
+            "staff": "Staff",
+            "email": "Email",
+            "lastClockIn": "Last punch",
+            "status": "Status",
+            "action": "Action",
+            "role": "Role",
+            "start": "Finish",
+            "end": "Start",
+            "here": "Present",
+            "missing": "Absent",
+            "createStaff": "create a staff access"
+        },
+        "historyTable": {
+            "staff": "Staff",
+            "startingHour": "Start time",
+            "endingHour": "End time",
+            "durationHoursMinutes": "Hours worked (hour and minute)",
+            "durationHours": "Hours worked (hour)",
+            "action": "Action",
+            "download": "Download"
+        },
+        "modal": {
+            "delete": {
+                "title": "Deletion",
+                "content": "Attention, are you sure you want to delete the time slot for this staff? This operation is irreversible."
+            }
+        },
+        "editModal": {
+            "title": "Modification of schedules",
+            "endingTime": "End time",
+            "startingTime": "Starting date",
+            "cancel": "Cancel",
+            "confirm": "Submit"
+        },
+        "pageTitle": "Staff hours",
+        "tabRealTime": "Real time",
+        "tabHistory": "History",
+        "export": {
+            "dialog": {
+                "message": "Your export is ready to be downloaded.",
+                "title": "History export"
+            }
+        }
     }
 }

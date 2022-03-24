@@ -1140,7 +1140,7 @@
             "toSubscribe": "Subscribe",
             "toBill": "Bill",
             "createInvoice": "Payment",
-            "stripePaymentWillBeCashedOutOnInvoiceValidation": "The credit card will be charged once the invoice has been saved.",
+            "stripePaymentWillBeCashedOutOnInvoiceValidation": "The card will be charged once the invoice has been saved.",
             "intervalType": "Payment frequency",
             "nbInterval": "Number of payments",
             "billingAnchor": "First payment",
@@ -1162,15 +1162,15 @@
                 "CASH": "Cash",
                 "HOLIDAY_CHECK": "Holiday check",
                 "CHECK": "Check",
-                "CB_MANUAL": "Credit card (manual)",
-                "CB": "Credit card"
+                "CB_MANUAL": "Card (manual - card machine)",
+                "CB": "Card"
             },
             "creditAccountBalance": "Current account balance: ",
             "paymentMethod": "Payment method",
             "invoice": "Invoice",
             "paymentMethodCash": "Cash",
             "paymentMethodCheck": "Check",
-            "paymentMethodStripe": "Credit card",
+            "paymentMethodStripe": "Card",
             "total": "TOTAL",
             "voucher": "Promotions",
             "updateInvoiceVoucher": "Add a promotion",
@@ -1222,7 +1222,7 @@
             "revertExplainShop": "Webshop purchases and the stock will be reverted.",
             "revertExplainPacks": "All associated passes and bookings will be cancelled.",
             "revertExplainCredits": "The debit/credit on the members' account will be reverted.",
-            "revertExplainPayment": "Credit card payments will be refunded on member account. All other payment methods will be deleted.",
+            "revertExplainPayment": "Card payments will be refunded on member account. All other payment methods will be deleted.",
             "revertImpossibleExplainSubscription": "This invoice is associated with a subscription. You can't cancel an associated subscription of a current subscription, but you can stop said subscription and cancel the last invoice.",
             "explainDateChoser": "Please choose a billing date for accounting purposes.",
             "choseDate": "Billing date",
@@ -1577,7 +1577,7 @@
                     "sell_only_on_provision": "Only sell if there's sufficient available stock",
                     "onsite_payment_available": "Possibility to pay in studio",
                     "available_payment_method_identifiers": {
-                        "helperText": "Select at least one payment method. If none is selected, a credit card payment will be offered by default.",
+                        "helperText": "Select at least one payment method. If none is selected, a card payment will be offered by default.",
                         "label": "Accepted payment methods"
                     }
                 },
@@ -1803,7 +1803,7 @@
             "CASH": "Cash",
             "HOLIDAY_CHECK": "Holiday check",
             "CHECK": "Check",
-            "CB_MANUAL": "Credit card (manual)",
+            "CB_MANUAL": "Card (manual - card machine)",
             "CB": "Online payments"
         },
         "pageTitle": {
@@ -2394,7 +2394,7 @@
                 "shopitem": "Webshop"
             },
             "available_payment_method_identifiers": {
-                "helperText": "Select at least one payment method. If none is selected, a credit card payment will be offered by default.",
+                "helperText": "Select at least one payment method. If none is selected, a card payment will be offered by default.",
                 "label": "Accepted payment methods"
             },
             "new_member_only": {
@@ -2986,7 +2986,7 @@
                     "cancel": "Cancel"
                 },
                 "available_payment_method_identifiers": {
-                    "helperText": "Select at least one payment method. If none is selected, a credit card payment will be offered by default.",
+                    "helperText": "Select at least one payment method. If none is selected, a card payment will be offered by default.",
                     "label": "Accepted payment methods",
                     "warning": "Accepted payment methods can be assigned, once the appointment pass has been made available to members."
                 },
@@ -3040,7 +3040,7 @@
                     "validity": "Pass validity",
                     "paymentMeans": "Payment method",
                     "info": "General information",
-                    "compatibilityAppointment": "[Compatibility] Appointments"
+                    "compatibilityAppointment": "Compatibility for appointments"
                 },
                 "selector": {
                     "privateService": "Add compatible appointments"
@@ -4168,12 +4168,12 @@
                     }
                 },
                 "payments": {
-                    "_label": "Payments",
+                    "_label": "Transactions",
                     "billings": {
                         "_label": "Invoices"
                     },
                     "directDebits": {
-                        "_label": "Withdrawals"
+                        "_label": "Direct debits"
                     },
                     "orders": {
                         "_label": "Orders"
@@ -4182,7 +4182,7 @@
                         "_label": "Expenses"
                     },
                     "installments": {
-                        "_label": "Installments"
+                        "_label": "Instalments"
                     },
                     "teachers": {
                         "_label": "Teachers"
@@ -4206,10 +4206,10 @@
                         "_label": "Pass"
                     },
                     "privatePass": {
-                        "_label": "Pass (appointments)"
+                        "_label": "Appointment passes"
                     },
                     "shop": {
-                        "_label": "Shop"
+                        "_label": "Webshop"
                     },
                     "packs": {
                         "_label": "Packs"
@@ -4218,10 +4218,10 @@
                         "_label": "Gift cards"
                     },
                     "promotions": {
-                        "_label": "Coupon"
+                        "_label": "Promotions"
                     },
                     "contracts": {
-                        "_label": "Contracts"
+                        "_label": "Subscriptions"
                     }
                 },
                 "myClub": {
@@ -5821,7 +5821,7 @@
         "goBack": "Go back",
         "hasOneOrMoreOption": "You are already on the waiting-list",
         "method": {
-            "CB": "Credit card",
+            "CB": "Card",
             "CREDIT_ACCOUNT": "In-studio payments",
             "GIROPAY": "Giropay",
             "EPS": "EPS",
@@ -5878,15 +5878,15 @@
         "paymentMethod": {
             "11": "Other",
             "10": "Automatic payment",
-            "9": "Paid with credit account balance",
+            "9": "Credit account balance applied",
             "8": "EventBrite",
             "7": "Bank transfer",
             "6": "AMEX",
             "5": "Holidays check",
-            "4": "Credit card (manual)",
+            "4": "Card (manual - card machine)",
             "2": "Check",
             "1": "Cash",
-            "0": "Credit card",
+            "0": "Card",
             "label": "Payment method",
             "12": "Litigation",
             "13": "SEPA",
@@ -6174,7 +6174,7 @@
                 "explain": {
                     "2": "Choose the reimbursement method yourself. Use this method for a check / manual transfer / cash refund.",
                     "1": "A credit note will be generated and will increase the customer balance accordingly. Use this method to generate a credit note.",
-                    "0": "Credit card payments / SEPA / etc... will be paid directly to the customer's account. Use this method to make a direct refund following an error."
+                    "0": "Card payments / SEPA / etc... will be paid directly to the customer's account. Use this method to make a direct refund following an error."
                 },
                 "label": {
                     "2": "Manual refund",
@@ -6278,7 +6278,7 @@
                 "pay": "Pay invoice",
                 "bill": "Take payment",
                 "basketInconsistent": "Your cart has been modified, please refresh your page before validating your payment.\n You have not been charged.",
-                "billByInstalment": "Pay in instalments",
+                "billByInstalment": "Instalments",
                 "paymentLink": "Payment link",
                 "generatePaymentLink": "Generate a payment link"
             },
@@ -6309,7 +6309,7 @@
         },
         "paymentMethod": {
             "label": {
-                "15": "Credit card (manual)",
+                "15": "Card (manual - card machine)",
                 "13": "Giropay",
                 "12": "EPS",
                 "11": "Sofort",
@@ -6320,7 +6320,7 @@
                 "4": "Vacation check",
                 "3": "Check",
                 "2": "SEPA",
-                "1": "Credit card",
+                "1": "Card",
                 "0": "Cash",
                 "8": "Other",
                 "6": "Dispute",
@@ -6830,7 +6830,7 @@
                 "label": "Payment method",
                 "2": "Credit",
                 "1": "SEPA Transfer",
-                "0": "Credit card"
+                "0": "Card"
             },
             "private_pass": "Appointment pass",
             "privatePass": "Appointment pass",
@@ -6838,7 +6838,7 @@
             "payment_method_group": {
                 "14": "Internal account",
                 "2": "SEPA",
-                "1": "Credit Card"
+                "1": "Card"
             },
             "paymentCombo": "Pack",
             "payment_combo": "Pack"
@@ -6849,9 +6849,9 @@
         },
         "paymentMethod": {
             "sepa": "SEPA Direct Debit",
-            "card": "Credit Card",
+            "card": "Card",
             "credit": {
-                "explain": "Use this payment method to bill members if there is no direct payment method available, such as a credit card or IBAN. The member's internal account balance will be billed and this payment method can be changed later on."
+                "explain": "Use this payment method to bill members if there is no direct payment method available, such as a card or IBAN. The member's internal account balance will be billed and this payment method can be changed later on."
             },
             "bsportCredit": "Credit account"
         },
@@ -7057,10 +7057,10 @@
             "total_price_notax": "Price (excl. VAT)",
             "payment_note": "Payment note",
             "remaining_days": "Remaining days",
-            "payment_method_stripe": "Credit card",
+            "payment_method_stripe": "Card",
             "payment_method_cash": "Cash",
             "payment_method_check": "Check",
-            "payment_method_manual_credit_card": "Credit card (manual)",
+            "payment_method_manual_credit_card": "Card (manual - card machine)",
             "payment_method_holiday_check": "Holiday check",
             "payment_method_amex": "AMEX",
             "payment_method_bank_transfer": "Transfer",
@@ -7167,7 +7167,7 @@
             "invoice_date_created": "Issue date",
             "invoice_datetime": "Issue date and time",
             "invoice_time": "Time of issue of the invoice",
-            "payment_amount_by_payment_method": "Number of payments per payment method",
+            "payment_amount_by_payment_method": "Total amount of transactions per payment method",
             "billing_establishment": "Address",
             "billing_group": "Billing group",
             "company_name": "Studio",
@@ -7209,8 +7209,8 @@
             "dispute": "Disputed",
             "cash": "Cash",
             "check": "Check",
-            "stripe": "Credit card",
-            "manual_credit_card": "Credit card (manual)",
+            "stripe": "Card",
+            "manual_credit_card": "Card (manual - card machine)",
             "holiday_check": "Holiday check",
             "amex": "AMEX",
             "bank_transfer": "Transfer",
@@ -7220,7 +7220,7 @@
             "credit_account": "Internal account",
             "other": "Other",
             "sepa": "SEPA",
-            "credit_card": "Credit card"
+            "credit_card": "Card"
         },
         "product_type": {
             "payment_pack": "Pass",
@@ -7286,7 +7286,7 @@
             "video_purchase": "Purchased videos",
             "giftcard": "Gift cards",
             "consumer_giftcard": "Purchased gift cards",
-            "payment_installments": "Payments by instalments",
+            "payment_installments": "Instalments",
             "unpaid_private_bookings": "Unpaid bookings (appointments)",
             "expense": "Expenses",
             "expired_pass": "Expired credits (passes)",
@@ -7966,7 +7966,7 @@
             "validity": "Validity",
             "credit_quantity": "Number of credits",
             "universalPass": "Universal Pass",
-            "compatibilityPaymentPack": "[Compatibility] Group activities"
+            "compatibilityPaymentPack": "Compatibility for group activities"
         },
         "unlimitedAndCalculatedMargin": " The marginal value per booking is calculate as PRICE / NUMBER Of BOOKINGS ",
         "unlimitedAndMargin": " The marginal value per booking is ",
@@ -10675,7 +10675,7 @@
             "giftcard": "Gift cards",
             "programs": "Programmes",
             "expenses": "Expenses",
-            "instalmentPayment": "Payments by instalments",
+            "instalmentPayment": "Instalments",
             "coachPayroll": "Payroll",
             "clockIn": "Clock-in"
         },
@@ -10890,7 +10890,7 @@
     "platformBilling": {
         "paymentMethod": {
             "actions": {
-                "createCard": "Add credit card",
+                "createCard": "Add a card",
                 "createSepa": "Add IBAN"
             },
             "sectionTitle": "Payment method"
@@ -11849,7 +11849,7 @@
             }
         },
         "list": {
-            "infoNoInstalmentPayment": "Payments by instalments allows your members to spread out payments over the indicated period of time.",
+            "infoNoInstalmentPayment": "Instalments allows your members to spread out payments over the indicated period of time.",
             "addInstalmentPayment": "Add configuration"
         },
         "detail": {
@@ -11956,7 +11956,7 @@
             "fee": "Fees: ",
             "instalmentAmount": "Deadline: "
         },
-        "title": "Payments by instalments",
+        "title": "Instalments",
         "deleteDialog": {
             "title": "Are you sure that you want to delete this configuration?",
             "content": "Only future payments will be affected."
@@ -12005,7 +12005,7 @@
     },
     "clockIn": {
         "clockinDialog": {
-            "subtitleClockIn": "Hello {{ name }}, please click \"Start\" to clock-in today.",
+            "subtitleClockIn": "Hello {{ name }}! Please click \"Start\" to clock-in for today.",
             "subtitleSuccess": "Your schedules have been saved. You can start a new punch the next time you open this window.",
             "title": "Clock-in",
             "close": "Close",
@@ -12013,8 +12013,8 @@
             "clockOut": "Finish",
             "lastClockIn": "Last clock-in: {{- date }} - {{ hour }}",
             "lastClockOut": "Arrival time: ",
-            "subtitleClockOut": "You have started ! To clock-out please click \"Finish\"",
-            "clockInForOther": "clock-in for another staff member",
+            "subtitleClockOut": "You've started! Please click \"Finish\" to clock-out.",
+            "clockInForOther": "Clock-in for another staff member",
             "successClockIn": "Arrival time:",
             "successClockOut": "Departure time:",
             "successDuration": "Number of hours worked:"
@@ -12033,7 +12033,7 @@
             "end": "Start",
             "here": "Present",
             "missing": "Absent",
-            "createStaff": "create a staff access"
+            "createStaff": "Create a staff access"
         },
         "historyTable": {
             "staff": "Staff",
@@ -12046,7 +12046,7 @@
         },
         "modal": {
             "delete": {
-                "title": "Deletion",
+                "title": "Delete",
                 "content": "Attention, are you sure you want to delete the time slot for this staff? This operation is irreversible."
             }
         },

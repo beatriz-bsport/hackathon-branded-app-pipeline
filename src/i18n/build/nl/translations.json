@@ -471,7 +471,7 @@
                 "paymentPackList": "Leskaarten",
                 "paymentPackFormPage": "Een leskaart toevoegen",
                 "invoiceList": "Facturen",
-                "invoiceCreatePage": "In rekening brengen",
+                "invoiceCreatePage": "Factureren",
                 "invoiceFormPage": "Factuur",
                 "coachFormPage": "Instructeur",
                 "coachPerformance": "Payroll",
@@ -498,7 +498,7 @@
                     "passCompatibleNotOwnedByMember": "Nieuwe kaart factureren",
                     "passOwnedByMember": "Beschikbare kaarten",
                     "registerToOffer": "Reservering",
-                    "doNotConsumeCredit": "Geen kredieten voor reserveringen aftrekken"
+                    "doNotConsumeCredit": "Geen kredieten voor deze reserveringen aftrekken"
                 }
             }
         },
@@ -577,9 +577,9 @@
         },
         "payment": {
             "toSubscribe": "Inschrijven",
-            "toBill": "In rekening brengen",
+            "toBill": "Factureren",
             "createInvoice": "Betaling",
-            "stripePaymentWillBeCashedOutOnInvoiceValidation": "De creditcard wordt pas belast nadat de factuur is aangemaakt.",
+            "stripePaymentWillBeCashedOutOnInvoiceValidation": "De betaalkaart wordt pas belast nadat de factuur is aangemaakt.",
             "intervalType": "Betalingsfrequentie",
             "nbInterval": "Aantal incasso's",
             "billingAnchor": "Eerste betaling",
@@ -602,15 +602,15 @@
                 "CASH": "Contant geld",
                 "HOLIDAY_CHECK": "Vakantiecheques",
                 "CHECK": "Cheque",
-                "CB_MANUAL": "Creditcard (handmatig)",
-                "CB": "Creditcard"
+                "CB_MANUAL": "Betaalkaart (handmatig)",
+                "CB": "Betaalkaart"
             },
             "creditAccountBalance": "Lopende rekening: ",
             "paymentMethod": "Betalingswijze",
             "invoice": "Factuur",
             "paymentMethodCash": "Contant geld",
             "paymentMethodCheck": "Cheque",
-            "paymentMethodStripe": "Creditcard",
+            "paymentMethodStripe": "Betaalkaart",
             "total": "TOTAAL",
             "voucher": "Korting",
             "updateInvoiceVoucher": "Promotiecode toevoegen",
@@ -629,7 +629,7 @@
             "availablePaymentPacks": " compatibele leskaarten",
             "yourBasket": "Jouw aankoop",
             "noBookingsLeftOnPack": "Deze leskaart kan deze week niet meer worden gebruikt.",
-            "noCreditLeft": "Niet genoeg krediet(en)",
+            "noCreditLeft": "Er zijn niet genoeg geldige kredieten beschikbaar",
             "bookWithUnlimitedPack": "Reserveer",
             "actions": "Acties",
             "invoiceFinalizedThusNotEditable": "De factuur is nu aangemaakt en kan niet meer worden bewerkt.",
@@ -652,7 +652,7 @@
             "revertExplainShop": "Aankopen van de webshop worden geannuleerd en de voorraad wordt gereset.",
             "revertExplainPacks": "De leskaart en alle bijbehorende reserveringen worden geannuleerd.",
             "revertExplainCredits": "Het debet/krediet op de account van het lid wordt teruggeboekt.",
-            "revertExplainPayment": "Creditcardbetalingen worden teruggestort op de rekening van het lid. Alle andere betaalmethoden worden verwijderd.",
+            "revertExplainPayment": "Kaartbetalingen worden teruggestort op de rekening van het lid. Alle andere betaalmethoden worden verwijderd.",
             "revertImpossibleExplainSubscription": "Deze factuur is aan een abonnement gekoppeld. Je kunt een gekoppelde factuur niet annuleren, maar je kunt het abonnement en de laatste betaling wel stopzetten",
             "explainDateChoser": "Selecteer de factuurdatum:",
             "choseDate": "Factuurdatum",
@@ -804,7 +804,7 @@
             "effectif": "Beschikbare plaatsen",
             "caracteristics": "Kenmerken",
             "price": "Prijs",
-            "credits": "Kosten in krediet(en)",
+            "credits": "Prijs (in kredieten)",
             "priceCategory": "Facturatie",
             "duration_minute": "Duur",
             "lastSession": "Einddatum",
@@ -817,7 +817,7 @@
             "recurrence": "Frequentie",
             "offerWillBeGenerated": "sessies worden toegevoegd.",
             "offersWillBeGenerated": "sessies worden toegevoegd.",
-            "credit_price": "Vereiste krediet(en)",
+            "credit_price": "Dit is het aantal vereiste kredieten om een reservering te voltooien.",
             "generateOffers": "Sessies toevoegen",
             "default_waiting_list_max_size": "Grootte van de wachtlijst",
             "password": "Wachtwoord",
@@ -1005,9 +1005,9 @@
                     "is_deliverable": "Verzendkosten toevoegen",
                     "featured": "Dit product tijdens het betalen aanraden",
                     "sell_only_on_provision": "Alleen verkopen als er voorraad is",
-                    "onsite_payment_available": "Later betalen toestaan (bijv. in de studio)",
+                    "onsite_payment_available": "Accepteer fysieke betalingen",
                     "available_payment_method_identifiers": {
-                        "helperText": "Selecteer ten minste één betaalmethode. Als geen enkele betaalmethode geselecteerd is, dan biedt het systeem standaard een creditcardbetaling aan.",
+                        "helperText": "Selecteer ten minste één betaalmethode. Als geen enkele betaalmethode geselecteerd is, dan biedt het systeem standaard een kaartbetaling aan.",
                         "label": "Geaccepteerde betaalmethoden"
                     }
                 },
@@ -1044,7 +1044,7 @@
             },
             "waiting_list_max_size": "Grootte van de wachtlijst",
             "signUpTitle": "Inschrijven",
-            "warningCreditChange": "N.B. oude reserveringen houden geen rekening met wijzigingen in je saldo",
+            "warningCreditChange": "Oude reserveringen worden niet meegenomen indien het aantal kredieten wordt gewijzigd.",
             "noAvailableCredit": "Weet je zeker dat je geen prijs wilt invoeren?",
             "explainNoEmailChange": "Als de e-mail gewijzigd wordt, kan de instructeur geen verbinding meer maken. De instructeur kan zijn/haar e-mail wijzigen door met zijn/haar BSPORT-account in te loggen",
             "daily": "Dagelijks",
@@ -1060,7 +1060,8 @@
             "modify": "Bewerken",
             "warningAddEmail": "Deze e-mail is al toegevoegd.",
             "emailHelper": "Voeg meerdere e-mailadressen toe door ze met een komma te scheiden.",
-            "partner_max_booking_count": "(OneFit) Maximum aantal MarketPlace-reserveringen"
+            "partner_max_booking_count": "(OneFit) Maximum aantal MarketPlace-reserveringen",
+            "tenMinutes": "10 min"
         },
         "shop": {
             "noProvisionUpdates": "Geen voorraad",
@@ -1076,16 +1077,16 @@
         },
         "offer": {
             "manageOffer": "Reserveringen beheren",
-            "myOpenedInvoices": "Snel in rekening brengen",
+            "myOpenedInvoices": "Factureren",
             "noQuickInvoiceOpened": "Begin met het toevoegen van producten.",
             "reCreateBooking": "Schrijf je opnieuw in",
             "createBookingOption": "Wachtlijst",
-            "bill": "In rekening brengen",
+            "bill": "Factureren",
             "createBooking": "Inschrijven",
             "hasBooked": "Ingeschreven",
             "hasntBooked": "Niet ingeschreven",
             "myBookings": "Reserveringen",
-            "addInvoice": "In rekening brengen",
+            "addInvoice": "Factureren",
             "extraordinaryEstablishment": "(tijdelijke vestiging)",
             "noCompatiblePacks": "Geen enkele leskaart is compatibel met deze sessie",
             "compatiblePacks": "Compatibele kaarten",
@@ -1196,7 +1197,7 @@
             "revertBookingWithInvoiceImpossibleExplain": "Deze reservering is betaald en kan niet worden geannuleerd. Je kunt wel aangeven dat deze persoon \"Afwezig\" is.",
             "revertBookingExplain": {
                 "offerIsNotAvailable": "De reservering wordt verwijderd. De sessie is al geannuleerd en tegoeden worden niet terugbetaald als je \"teruggave\" niet hebt aangevinkt bij het annuleren.",
-                "offerIsAvailable": "Weet je zeker dat je deze reservering wilt verwijderen? De gebruikte kredieten worden opnieuw gecrediteerd.",
+                "offerIsAvailable": "Weet je zeker dat je deze reservering wilt verwijderen? De gebruikte kredieten worden terug op de gebruikte kaart gestort.",
                 "offerIsAvailableChoiceRefund": "Weet je zeker dat je deze reservering wilt verwijderen?"
             },
             "revertBookingTitle": "Inschrijving annuleren",
@@ -1385,7 +1386,7 @@
             "CASH": "Contant geld",
             "HOLIDAY_CHECK": "Vakantiecheques",
             "CHECK": "Cheque",
-            "CB_MANUAL": "Creditcard (handmatig)",
+            "CB_MANUAL": "Betaalkaart (handmatig)",
             "CB": "Online betalingen"
         },
         "pageTitle": {
@@ -1600,7 +1601,7 @@
         },
         "form": {
             "available_payment_method_identifiers": {
-                "helperText": "Selecteer ten minste één betaalmethode. Als je geen enkele betaalmethode selecteert, dan biedt het systeem automatisch een creditcardbetaling aan.",
+                "helperText": "Selecteer ten minste één betaalmethode. Als je geen enkele betaalmethode selecteert, dan biedt het systeem automatisch een kaartbetaling aan.",
                 "label": "Geaccepteerde betaalmethoden"
             },
             "selectorPlaceholder": {
@@ -1796,9 +1797,9 @@
     "reporting": {
         "payment_method": {
             "bank_transfer": "Bankoverschrijving",
-            "subscription_cb": "Abonnement",
-            "stripe": "Creditcard",
-            "manual_credit_card": "Creditcard (handmatig)",
+            "subscription_cb": "Geplande abonnementsbetalingen",
+            "stripe": "Betaalkaart",
+            "manual_credit_card": "Betaalkaart (handmatig)",
             "holiday_check": "Vakantiecheques",
             "amex": "AMEX",
             "event_brite": "EventBrite",
@@ -1809,7 +1810,7 @@
             "check": "Cheque",
             "dispute": "Dispuut",
             "sepa": "SEPA",
-            "credit_card": "Creditcard"
+            "credit_card": "Betaalkaart"
         },
         "product_type": {
             "shop_item": "Webshop",
@@ -1910,10 +1911,10 @@
             "voucher": "Korting",
             "payment_note": "Betaalbewijs",
             "remaining_days": "Overige dagen",
-            "payment_method_stripe": "Creditcard (online)",
+            "payment_method_stripe": "Betaalkaart (online)",
             "payment_method_cash": "Contant geld",
             "payment_method_check": "Cheque",
-            "payment_method_manual_credit_card": "Creditcard (handmatig)",
+            "payment_method_manual_credit_card": "Betaalkaart (handmatig)",
             "payment_method_holiday_check": "Vakantiecheques",
             "payment_method_amex": "AMEX",
             "payment_method_bank_transfer": "Bankoverschrijving",
@@ -2095,7 +2096,9 @@
             "payment_installments": "Termijnbetalingen",
             "unpaid_private_bookings": "Onbetaalde reserveringen (afspraken)",
             "expense": "Uitgaven",
-            "universal_passes": "Universele kaarten"
+            "universal_passes": "Universele kaarten",
+            "private_cpasses_expired": "Verlopen kredieten (afspraakkaarten)",
+            "expired_pass": "Verlopen kredieten (leskaarten)"
         },
         "globalCategories": {
             "subheader": {
@@ -2191,13 +2194,13 @@
                 "warning": "Let op, deze bewerking is onomkeerbaar (genereren van factuur).",
                 "explain": "Selecteer eerst het aantal kredieten dat moet worden terugbetaald en selecteer vervolgens ook de totale waarde dat moet worden bijgeschreven",
                 "credits": {
-                    "label": "Af te trekken krediet(en)"
+                    "label": "Af te trekken kredieten"
                 },
                 "note": {
                     "label": "Notitie"
                 },
-                "description": "{{ credits }} krediet(en) - {{ note }}",
-                "description_plural": "{{ credits }} krediet(en) - {{ note }}",
+                "description": "{{ credits }} krediet - {{ note }}",
+                "description_plural": "{{ credits }} kredieten - {{ note }}",
                 "price": {
                     "label": "Te verrekenen bedrag"
                 },
@@ -2330,7 +2333,7 @@
                     "label": "Maximaal gebruik per week"
                 },
                 "newMemberOnly": "Maak dit product alleen voor nieuwe leden beschikbaar",
-                "onsitePaymentAvailable": "Accepteer de optie om later te betalen (bijv. in de studio)",
+                "onsitePaymentAvailable": "Accepteer fysieke betalingen",
                 "expirationDaysBeforeFirstUse": {
                     "label": "De vervaldatum indien deze kaart niet gebruikt wordt:",
                     "helperText": "De geldigheid van deze kaart verloopt na X aantal dagen als het niet gebruikt wordt."
@@ -2396,7 +2399,7 @@
                 "credits": {
                     "label": "Krediet(en)",
                     "helperText": "Dit is het aantal inbegrepen kredieten. Laat dit veld leeg om het onbeperkt te maken.",
-                    "bewareChange": "Als je het benodigde aantal krediet verhoogt/verlaagt, worden alle kaarten gewijzigd."
+                    "bewareChange": "Waarschuwing! Alle kaarten worden gewijzigd indien het aantal kredieten bewerkt wordt."
                 },
                 "until": "Tot ",
                 "startOnFirstUse": "De geldigheidsduur begint op de dag van de 1e reservering",
@@ -2518,12 +2521,12 @@
         "expirationDate": "Vervalt op",
         "never": "Nooit",
         "unlimitedCredits": "Onbeperkt",
-        "credits": "Krediet(en)",
+        "credits": "Krediet",
         "credits_plural": "Kredieten",
         "specifications": {
             "unlimitedCredits": "Onbeperkt",
             "price": "{{price, price}}",
-            "nbCredits": "{{ credits}} krediet(en)",
+            "nbCredits": "{{ credits}} krediet",
             "nbCredits_plural": "{{credits}} kredieten"
         },
         "availableOnFollowingSports": "Categorieën: ",
@@ -2720,7 +2723,7 @@
         "blackList": "Afgekeurde tags",
         "whiteList": "Goedgekeurde tags",
         "accessibility": {
-            "onsitePayment": "Later betalen (bijv. in de studio) is aangezet",
+            "onsitePayment": "Fysieke betalingen zijn geactiveerd",
             "managerOnly": "Maak dit product onbeschikbaar voor leden",
             "newMembers": "Maak dit product alleen voor nieuwe leden beschikbaar"
         },
@@ -2764,7 +2767,7 @@
             "validity": "Geldigheid",
             "credit_quantity": "Kredieten",
             "universalPass": "Universele kaart",
-            "compatibilityPaymentPack": "[Compatibiliteit] Groepsactiviteiten"
+            "compatibilityPaymentPack": "Groepsactiviteiten"
         },
         "validityTo": " tot ",
         "addPaymentPack": {
@@ -2779,7 +2782,7 @@
             "activities": "Activiteiten",
             "room": "Vestigingen",
             "categories": "Categorieën",
-            "inShopPayment": "Accepteer de optie om later te betalen (bijv. in de studio)",
+            "inShopPayment": "Accepteer fysieke betalingen",
             "newClientOnly": "Maak dit product alleen voor nieuwe leden beschikbaar",
             "maxUseMember": "Maximale aankoop per lid",
             "maxUseMonth": "Maximaal gebruik per maand",
@@ -2792,7 +2795,7 @@
             "penalityAccountPrice": "Boetebedrag",
             "penalityBlockDay": "Blokkeerperiode (in dagen)",
             "penalityType": "Type sanctie",
-            "penalityAccount": "Interne rekening (Wallet) van het lid in rekening brengen",
+            "penalityAccount": "De interne rekening (Wallet) van het lid in rekening brengen",
             "penalityBlock": "Tijdelijk de kaart blokkeren",
             "penalityInfo": "De kaart wordt {{penalityNumberDay}} dag(en) geblokkeerd indien een lid {{penalityNumberCancel}} keer te laat annuleert.",
             "penalityNumberDay": "Aantal dagen",
@@ -2985,8 +2988,8 @@
             },
             "modal": {
                 "delete": {
-                    "confirm": "Verwijder",
-                    "cancel": "Annuleer",
+                    "confirm": "Verwijderen",
+                    "cancel": "Annuleren",
                     "content": "Weet je zeker dat je deze groepsfacturatie wilt verwijderen? Het verwijderen van deze groepsfacturatie zal met terugwerkende kracht plaatsvinden en zal niet meer verschijnen in de bijbehorende rapportages.",
                     "title": "Een groepsfacturatie verwijderen"
                 }
@@ -2994,11 +2997,11 @@
             "form": {
                 "error": {
                     "groupShouldContainsOneRoom": "Selecteer ten minste één vestiging",
-                    "groupShouldHaveName": "U moet een naam geven aan deze factureringsgroep"
+                    "groupShouldHaveName": "Voeg een naam toe"
                 },
                 "dialog": {
                     "save": "Opslaan",
-                    "cancel": "Annuleer",
+                    "cancel": "Annuleren",
                     "title": "Groepsfacturatie"
                 },
                 "associated_localizations": "Gekoppelde vestigingen",
@@ -3933,8 +3936,8 @@
             "yes": "Ja"
         },
         "paymentAction": {
-            "toBill": "In rekening brengen",
-            "toSubscribe": "Inschrijven"
+            "toBill": "Factureren",
+            "toSubscribe": "Abonneren"
         },
         "merge": "Samenvoegen",
         "regularizeBalance": "Betaling afronden",
@@ -4221,11 +4224,11 @@
             "recurrentBooking": "Reserveringen",
             "notCancelled": "Geldig"
         },
-        "creditConsumed": "{{credit_consumed}} krediet(en)",
+        "creditConsumed": "{{credit_consumed}} krediet",
         "creditConsumed_plural": "{{credit_consumed}} kredieten",
         "actions": {
             "unregister": "Uitschrijven",
-            "bill": "In rekening brengen"
+            "bill": "Factureren"
         },
         "notification": {
             "form": {
@@ -4558,7 +4561,7 @@
         },
         "invoice": {
             "invoiceList": "Facturen",
-            "invoiceCreate": "In rekening brengen",
+            "invoiceCreate": "Factureren",
             "invoiceEdit": "Factuur"
         },
         "coach": {
@@ -4591,7 +4594,7 @@
             "dashboard": "Dashboard"
         },
         "subscription": {
-            "subscriptionCreate": "Een abonnement aanmaken",
+            "subscriptionCreate": "Abonneren",
             "subscriptions": "Abonnementen"
         },
         "workshopActivity": {
@@ -4802,7 +4805,7 @@
                 "explain": "We gebruiken de interne rekening (Wallet) van dit lid voor de facturatie. Gebruik dit als het lid nog geen online-betaalmethode, zoals creditcard of IBAN, heeft opgeslagen. Dit kun je later wijzigen."
             },
             "sepa": "Automatische incasso (SEPA)",
-            "card": "Creditcard",
+            "card": "Betaalkaart",
             "bsportCredit": "Interne rekening (Wallet)"
         },
         "mandate": {
@@ -4969,7 +4972,7 @@
             "flat_fee": "Inschrijfkosten",
             "parameters": "Instellingen",
             "payment_method": {
-                "0": "Creditcard",
+                "0": "Betaalkaart",
                 "1": "Automatische incasso (SEPA)",
                 "2": "Op rekening",
                 "label": "Betaalmethode"
@@ -4987,9 +4990,9 @@
             "privatePass": "Afspraakkaarten",
             "note": "Notitie",
             "payment_method_group": {
-                "14": "Intern saldo",
+                "14": "Interne rekening (Wallet)",
                 "2": "SEPA",
-                "1": "Creditcard"
+                "1": "Betaalkaart"
             },
             "paymentCombo": "Pakket",
             "payment_combo": "Pakket"
@@ -5004,7 +5007,7 @@
             "reverted": "Geannuleerd"
         },
         "form": {
-            "check": "Controleren",
+            "check": "Bevestigen",
             "submit": "Voltooi",
             "title": "Nieuwe herhalende betaling",
             "cancel": "Annuleren",
@@ -5019,7 +5022,7 @@
             "isPaused": "Gepauzeerd"
         },
         "schedule": {
-            "provisionalTitle": "Overzicht van de betalingen",
+            "provisionalTitle": "Betaaloverzicht",
             "paymentMethodTitle": "Betaalmethode"
         },
         "noContracts": "In dit onderdeel worden alle abonnementen beheerd. Selecteer de incassering (dagelijks/wekelijks/maandelijks/jaarlijks), voeg eventuele inschrijfkosten toe en voeg de actuele voorwaarden toe.",
@@ -5311,7 +5314,7 @@
                 }
             },
             "level": "Niveau",
-            "creditPrice": "Kosten (in kredieten)",
+            "creditPrice": "Prijs (in kredieten)",
             "register": {
                 "buyPass": "Toon kaarten",
                 "title": "Video On Demand",
@@ -5874,7 +5877,7 @@
             "unpaidBooking": {
                 "dialogHelper": "Gebruik deze optie om een reservering te voltooien zonder dat daar een directe betaling voor wordt gevraagd. De {{ credits }} krediet(en) die vereist zijn voor dit soort afspraken worden van de eerstvolgende aangeschafte afspraakkaart afgetrokken.",
                 "book": "Reserveren",
-                "header": "Later betalen",
+                "header": "Onbetaalde reserveringen",
                 "isUnpaid": "Openstaande betaling",
                 "helper": "Voltooi de reservering en schaf later een afspraakkaart aan."
             }
@@ -5976,7 +5979,7 @@
                 },
                 "available_payment_method_identifiers": {
                     "label": "Geaccepteerde betaalmethoden",
-                    "helperText": "Selecteer ten minste één betaalmethode. Als geen enkele betaalmethode geselecteerd is, dan biedt het systeem standaard een creditcardbetaling aan.",
+                    "helperText": "Selecteer ten minste één betaalmethode. Als geen enkele betaalmethode geselecteerd is, dan biedt het systeem standaard een kaartbetaling aan.",
                     "warning": "Maak deze afspraakkaart beschikbaar voor leden om de geaccepteerde betaalmethode(n) in te stellen."
                 },
                 "actions": {
@@ -6025,7 +6028,7 @@
                     "validity": "Geldigheid",
                     "paymentMeans": "Geaccepteerde betaalmethode(n)",
                     "info": "Algemene informatie",
-                    "compatibilityAppointment": "[Compatibiliteit] Afspraken"
+                    "compatibilityAppointment": "Compatibiliteit voor afspraken"
                 },
                 "selector": {
                     "privateService": "Compatibele afspraken toevoegen"
@@ -6053,7 +6056,7 @@
                 "managerOnly": "Onbeschikbare afspraakkaarten"
             },
             "parameters": {
-                "nbCredits": "{{ credits}} krediet(en)",
+                "nbCredits": "{{ credits}} krediet",
                 "nbCredits_plural": "{{ credits }} kredieten",
                 "price": "{{ price, price}}",
                 "tax": "Btw: {{ tax }}%",
@@ -6179,7 +6182,7 @@
                         "notAllowed": "Afgekeurd",
                         "doNotSelectToAllowAllMembers": "Laat dit veld leeg om geen beperkingen op te leggen."
                     },
-                    "title": "Later betalen",
+                    "title": "Onbetaalde reserveringen",
                     "label": "Accepteer onbetaalde reserveringen"
                 },
                 "pad_before_booking": {
@@ -6896,9 +6899,9 @@
         "paymentMethod": {
             "2": "Cheque",
             "10": "Automatische betaling",
-            "0": "Creditcard",
+            "0": "Betaalkaart",
             "1": "Contant geld",
-            "4": "Creditcard (handmatig)",
+            "4": "Betaalkaart (handmatig)",
             "5": "Vakantiecheques",
             "6": "AMEX",
             "7": "Bankoverschrijving",
@@ -6920,8 +6923,8 @@
         "hasOneOrMoreOption": "Je staat al op deze wachtlijst",
         "paymentComboSectionTitle": "Pakketten",
         "method": {
-            "CB": "Creditcard",
-            "CREDIT_ACCOUNT": "Betaling ter plaatse",
+            "CB": "Kaart",
+            "CREDIT_ACCOUNT": "Fysieke betalingen",
             "GIROPAY": "Giropay",
             "EPS": "EPS",
             "IDEAL": "iDEAL",
@@ -6934,7 +6937,7 @@
         "forms": {
             "cancelPayment": "Terug",
             "credit": {
-                "explain": "De studio ontvangt een bericht over dat je de betaling in de studio zelf zal afronden.",
+                "explain": "De studio ontvangt een melding dat je wenst de betaling fysiek te voltooien.",
                 "pay": "Bevestigen"
             },
             "paymentIntent": {
@@ -7388,7 +7391,7 @@
                 "dstMember": "Lid behouden",
                 "title": "Leden samenvoegen",
                 "submit": "Samenvoegen",
-                "explainCredit": "Interne account van lid overmaken",
+                "explainCredit": "De interne rekening (Wallet) van het lid wordt overgezet",
                 "explainBookingsAndPassAndInvoiceAndNotes": "De leskaarten, reserveringen, facturen en aantekeningen worden ook gesynchroniseerd.",
                 "explainTags": "Tags van samengevoegde accounts worden niet overgezet.",
                 "cancel": "Annuleren"
@@ -7869,6 +7872,11 @@
                 },
                 "error": "Fout bij het opslaan van het provinciale btw-bedrag",
                 "success": "Provinciaal btw-bedrag"
+            }
+        },
+        "clockIn": {
+            "errors": {
+                "96002": "Error bij het opnieuw inklokken van deze medewerker"
             }
         }
     },
@@ -8909,7 +8917,7 @@
         },
         "payLater": {
             "explain": "Je wordt in de studio gevraagd om de betaling te voltooien. Tot die tijd wordt de factuur als onbetaald beschouwd.",
-            "submit": "Later betalen"
+            "submit": "Onbetaalde reservering"
         },
         "or": "of",
         "expire_in": "Verloopt over ",
@@ -9023,7 +9031,7 @@
                 "isEmpty": "Er zijn nog geen producten aan deze factuur toevoegen.",
                 "title": "Aankopen",
                 "titleReverse": "Aankoopdetails",
-                "billing_establishment": "(Optioneel) In welke vestiging wordt dit lid gefactureerd?"
+                "billing_establishment": "(Optioneel) Selecteer de vestiging waar de facturatie plaatsvindt"
             }
         },
         "invoiceItem": {
@@ -9240,7 +9248,7 @@
         },
         "paymentMethod": {
             "label": {
-                "15": "Creditcard (handmatig)",
+                "15": "Betaalkaart (handmatig)",
                 "8": "Diverse",
                 "13": "Giropay",
                 "12": "EPS",
@@ -9253,7 +9261,7 @@
                 "4": "Vakantiecheque",
                 "3": "Cheque",
                 "2": "SEPA",
-                "1": "Creditcard",
+                "1": "Betaalkaart",
                 "0": "Contant",
                 "14": "Interne rekening (Wallet)"
             },
@@ -9518,7 +9526,64 @@
             },
             "navigationMenu": {
                 "settings": {
-                    "_label": "Instellingen"
+                    "_label": "Instellingen",
+                    "generals": {
+                        "_label": "Algemeen"
+                    },
+                    "marketplace": {
+                        "_label": "MarketPlace"
+                    },
+                    "widgets": {
+                        "_label": "Widgets"
+                    },
+                    "staffs": {
+                        "_label": "Medewerkers"
+                    },
+                    "personalization": {
+                        "_label": "Personalisatie"
+                    },
+                    "memberForms": {
+                        "_label": "Ledenformulieren"
+                    },
+                    "liveStreaming": {
+                        "_label": "Livestreamen"
+                    },
+                    "transactionnalEmail": {
+                        "_label": "Transactionele berichten"
+                    },
+                    "teacherPayrollRules": {
+                        "_label": "Payroll"
+                    },
+                    "paymentMethods": {
+                        "_label": "Betaalmethoden"
+                    },
+                    "company": {
+                        "_label": "Onderneming"
+                    },
+                    "billing": {
+                        "_label": "Facturatie"
+                    },
+                    "waitingList": {
+                        "_label": "Wachtlijst"
+                    },
+                    "webShop": {
+                        "_label": "Webshop"
+                    },
+                    "webHook": {
+                        "_label": "Webhook"
+                    },
+                    "partnership": {
+                        "_label": "Integraties"
+                    },
+                    "quickBooks": {
+                        "_label": "QuickBooks"
+                    },
+                    "activeCampaign": {
+                        "_label": "ActiveCampaign"
+                    },
+                    "subscription": {
+                        "_label": "Abonnement"
+                    }
                 },
                 "reporting": {
                     "_label": "Rapportages"
@@ -9527,19 +9592,112 @@
                     "_label": "Leden"
                 },
                 "digitalOffer": {
-                    "_label": "Digitaal aanbod"
+                    "_label": "Digitaal aanbod",
+                    "videos": {
+                        "_label": "Videotheek & eBooks"
+                    },
+                    "playlists": {
+                        "_label": "Afspeellijsten"
+                    }
                 },
                 "marketing": {
-                    "_label": "Marketing"
+                    "_label": "Marketing",
+                    "templates": {
+                        "_label": "E-mails"
+                    },
+                    "customForms": {
+                        "_label": "Formulieren"
+                    },
+                    "smartlists": {
+                        "_label": "Smarlists"
+                    },
+                    "notifications": {
+                        "_label": "Meldingen"
+                    },
+                    "strategies": {
+                        "_label": "Campagnes"
+                    },
+                    "tags": {
+                        "_label": "Tags"
+                    }
                 },
                 "payments": {
-                    "_label": "Betalingen"
+                    "_label": "Betalingen",
+                    "billings": {
+                        "_label": "Facturen"
+                    },
+                    "directDebits": {
+                        "_label": "Automatische incasso's"
+                    },
+                    "orders": {
+                        "_label": "Bestellingen"
+                    },
+                    "expenses": {
+                        "_label": "Uitgaven"
+                    },
+                    "installments": {
+                        "_label": "Termijnbetalingen"
+                    },
+                    "teachers": {
+                        "_label": "Instructeurs"
+                    },
+                    "clockIn": {
+                        "_label": "Urenregistratie",
+                        "selfClockIn": {
+                            "_label": "Inklokken (zelfstandig)"
+                        },
+                        "clockInForOther": {
+                            "_label": "Inklokken (voor een medewerker)"
+                        },
+                        "canAccessHistory": {
+                            "_label": "Geschiedenis van de urenregistratie"
+                        }
+                    }
                 },
                 "products": {
-                    "_label": "Producten"
+                    "_label": "Producten",
+                    "paymentPack": {
+                        "_label": "Leskaarten"
+                    },
+                    "privatePass": {
+                        "_label": "Afspraakkaarten"
+                    },
+                    "shop": {
+                        "_label": "Webshop"
+                    },
+                    "packs": {
+                        "_label": "Pakketten"
+                    },
+                    "giftcards": {
+                        "_label": "Cadeaubonnen"
+                    },
+                    "promotions": {
+                        "_label": "Promoties"
+                    },
+                    "contracts": {
+                        "_label": "Abonnementen"
+                    }
                 },
                 "myClub": {
-                    "_label": "Mijn studio"
+                    "_label": "Mijn studio",
+                    "activities": {
+                        "_label": "Groepsactiviteiten"
+                    },
+                    "workshops": {
+                        "_label": "Workshops"
+                    },
+                    "appointments": {
+                        "_label": "Afspraken"
+                    },
+                    "teachers": {
+                        "_label": "Instructeurs"
+                    },
+                    "establishments": {
+                        "_label": "Vestigingen"
+                    },
+                    "programs": {
+                        "_label": "Programma's"
+                    }
                 },
                 "schedule": {
                     "_label": "Rooster"
@@ -9558,13 +9716,13 @@
             },
             "member": {
                 "search": {
-                    "_label": "Zoeken"
+                    "_label": "Leden zoeken"
                 },
                 "edit": {
                     "_label": "Wijzigen"
                 },
                 "retrieve": {
-                    "_label": "Toegang tot het ledenbestand"
+                    "_label": "Ledenprofielen"
                 },
                 "create": {
                     "_label": "Leden toevoegen"
@@ -9697,7 +9855,8 @@
             "programs": "Programma's",
             "expenses": "Uitgaven",
             "instalmentPayment": "Termijnbetalingen",
-            "coachPayroll": "Payroll"
+            "coachPayroll": "Payroll",
+            "clockIn": "Urenregistratie"
         },
         "deprecatedNavigator": {
             "close": "Sluiten",
@@ -9815,7 +9974,7 @@
         },
         "paymentMethod": {
             "actions": {
-                "createCard": "Creditcard toevoegen",
+                "createCard": "Betaalkaart toevoegen",
                 "createSepa": "IBAN toevoegen"
             },
             "sectionTitle": "Mijn betaalmethoden"
@@ -10845,6 +11004,70 @@
                 "allFeminine": "Elke {{frequency}} ",
                 "numberOfBilling": "{{number_of_billing}} betaling(en)",
                 "numberOfBilling_plural": "{{number_of_billing}} betaling(en)"
+            }
+        }
+    },
+    "clockIn": {
+        "clockinDialog": {
+            "title": "Inklokken",
+            "close": "Sluiten",
+            "clockIn": "Beginnen",
+            "clockOut": "Eindigen",
+            "lastClockIn": "Laatste inkloktijd: {{- date }} om {{ hour }}",
+            "lastClockOut": "Aankomsttijd: ",
+            "subtitleClockIn": "Hoi {{ name }}! Klik op \"Beginnen\" om in te klokken.",
+            "subtitleClockOut": "Je hebt je correct ingeklokt! Klik op \"Eindigen\" om uit te klokken.",
+            "clockInForOther": "Inklokken voor een medewerker",
+            "subtitleSuccess": "Je agenda is succesvol opgeslagen. Vanaf nu kun je via dit scherm inklokken.",
+            "successClockIn": "Aankomsttijd:",
+            "successClockOut": "Vertrektijd:",
+            "successDuration": "Aantal gewerkte uren:"
+        },
+        "attendanceTable": {
+            "firstname": "Voornaam",
+            "lastname": "Achternaam",
+            "staff": "Medewerker",
+            "email": "E-mail",
+            "lastClockIn": "Laatste tijdregistratie",
+            "status": "Status",
+            "action": "Actie",
+            "role": "Rol",
+            "start": "Eindigen",
+            "end": "Beginnen",
+            "here": "Aanwezig",
+            "missing": "Afwezig",
+            "createStaff": "Een medewerker toevoegen",
+            "emptyState": "De toegang voor medewerkers is nog niet geconfigureerd. Ga naar Instellingen > Medewerkers en koppel de juiste rollen aan de juiste medewerkers om ook het in- en uitklokken van medewerkers te volgen."
+        },
+        "historyTable": {
+            "staff": "Medewerker",
+            "startingHour": "Starttijd",
+            "endingHour": "Eindtijd",
+            "durationHoursMinutes": "Aantal gewerkte uren (in uren en minuten)",
+            "durationHours": "Gewerkte uren (in uren)",
+            "action": "Actie",
+            "download": "Downloaden"
+        },
+        "modal": {
+            "delete": {
+                "title": "Verwijderen",
+                "content": "Waarschuwing! Het in- en uitklokken wordt hierna voor deze medewerker verwijderd. Deze actie is definitief."
+            }
+        },
+        "editModal": {
+            "title": "Roosterwijzigingen",
+            "endingTime": "Eindtijd",
+            "startingTime": "Starttijd",
+            "cancel": "Annuleren",
+            "confirm": "Bevestigen"
+        },
+        "pageTitle": "Urenregistratie",
+        "tabRealTime": "Real-time",
+        "tabHistory": "Geschiedenis",
+        "export": {
+            "dialog": {
+                "message": "De export is klaar om gedownload te worden.",
+                "title": "Geschiedenis exporteren"
             }
         }
     }

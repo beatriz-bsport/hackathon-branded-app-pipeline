@@ -20,6 +20,7 @@ import People from '@material-ui/icons/People';
 import { getTextColorFromRGB } from '../../utils/color';
 import type { Basket } from '../../libs/checkout/types';
 import ConnectedAsDialog from '../../libs/relationship/components/ConnectedAs.dialog';
+import { httpParser } from '../../libs/marketplace/utils';
 
 type Props = {
   auth: Object,
@@ -121,15 +122,19 @@ export class MarketplaceAppBar extends Component<Props, State> {
         {!this.props.isWidget && (
           <>
             {this.props.logo && (
-              <ButtonBase
-                onClick={() => {
-                  if (this.props.websiteURL) {
-                    window.location.href = this.props.websiteURL;
-                  }
-                }}
-              >
-                <img height={40} src={this.props.logo} alt="bsport logo" />
-              </ButtonBase>
+              <>
+                {this.props.websiteURL ? (
+                  <ButtonBase
+                    onClick={() => {
+                      window.location.href = httpParser(this.props.websiteURL);
+                    }}
+                  >
+                    <img height={40} src={this.props.logo} alt="bsport logo" />
+                  </ButtonBase>
+                ) : (
+                  <img height={40} src={this.props.logo} alt="bsport logo" />
+                )}
+              </>
             )}
             {!this.props.logo && (
               <Typography

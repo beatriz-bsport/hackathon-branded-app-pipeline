@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -29,6 +30,8 @@ type Props = OwnProps &
 type State = {
   theme: Theme;
 };
+
+const regexHTTP = /https?:\/\//;
 
 function CompanyCoverPreview(props: { previewURL?: string }) {
   if (!props.previewURL) {
@@ -125,6 +128,10 @@ export class ThemeForm extends Component<Props, State> {
 
   render() {
     const { t, classes } = this.props;
+    const hasErrorInURL = !(
+      this.state.theme.websiteURL === '' ||
+      regexHTTP.test(this.state.theme.websiteURL)
+    );
     return (
       <div>
         <Typography variant="h6" className={this.props.classes.idContainer}>
@@ -168,8 +175,13 @@ export class ThemeForm extends Component<Props, State> {
             className={classes.textfield}
             variant="outlined"
             placeholder={t('forms.websiteURL.placeholder')}
-            helperText={t('forms.websiteURL.helperText')}
+            helperText={
+              hasErrorInURL
+                ? t('forms.websiteURL.errorText')
+                : t('forms.websiteURL.helperText')
+            }
             label={t('forms.websiteURL.label')}
+            error={hasErrorInURL}
             value={this.state.theme.websiteURL}
             onChange={(ev) => this.handleChange('websiteURL')(ev.target.value)}
           />
@@ -320,12 +332,23 @@ export class ThemeForm extends Component<Props, State> {
         <div className={classes.buttonContainer}>
           <Button
             onClick={() => this.onSubmit()}
-            disabled={this.checkChange() || this.props.processing}
+            disabled={
+              this.checkChange() || this.props.processing || hasErrorInURL
+            }
             variant="contained"
             color="primary"
           >
             {t('forms.submit')}
           </Button>
+          {hasErrorInURL && (
+            <Typography
+              variant="caption"
+              color="error"
+              className={classes.messageErrorURL}
+            >
+              {t('forms.themePersonalization.errorURL')}
+            </Typography>
+          )}
           {this.props.processing ? (
             <CircularProgress className={classes.progress} />
           ) : null}
@@ -360,6 +383,9 @@ const styles = (theme: MaterialTheme) => ({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: theme.spacing(3),
+  },
+  messageErrorURL: {
+    marginLeft: theme.spacing(1),
   },
   progress: {
     marginLeft: theme.spacing(1),

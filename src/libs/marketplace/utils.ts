@@ -113,3 +113,8 @@ ${WidgetCodeStringGenerator.indent(code, 2)}    </div>
     return code;
   }
 }
+
+export function httpParser(url) {
+  const regex = /^https?:\/\//;
+  return regex.test(url) ? url : `http://${url}`;
+}

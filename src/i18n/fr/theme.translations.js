@@ -140,6 +140,8 @@ exports.default = {
             'Si plus de {{ numberCheck }} réservations sont enregistrées sur une séance, aucune réservation ne sera autorisée qui crée un déséquilibre FEMME/HOMME supérieur à {{ gender_max_shift_for_booking }} personnes.',
         },
       },
+      errorURL:
+        'Veuillez saisir une URL valide avant de sauvegarder le formulaire',
     },
     cover: {
       label: 'Logo',
@@ -156,6 +158,7 @@ exports.default = {
     websiteURL: {
       label: 'URL website',
       helperText: 'Utilisée si le client clique sur votre logo notamment',
+      errorText: "L'URL entrée n'est pas valide",
       placeholder: 'https://studio.com/',
     },
     scheduleURL: {

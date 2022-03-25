@@ -9,6 +9,7 @@ import moment from 'moment-timezone';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { requestSetupIntentSecretNoAuth as requestSetupIntentSecretAPI } from '../../libs/payment/api';
+import asyncComponent from '../../AsyncComponent';
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 import { fetchPaymentMethodList } from '../../libs/payment/actions';
 import { fetchContractDetail } from '../../libs/subscription/actions';
@@ -17,9 +18,12 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { parseQueryString } from '../../http';
 import themeSelectors from '../../libs/theme/selectors';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
-import SubscriptionPayment from '../../libs/subscription/components/SubscriptionPayment.component';
 import { postContractSubscriptionUnauthenticated as postContractSubscriptionUnauthenticatedAPI } from '../../libs/subscription/api';
 import Analytics from '../../components/analytics/Analytics.component';
+
+const SubscriptionPayment = asyncComponent(() =>
+  import('../../libs/subscription/components/SubscriptionPayment.component'),
+);
 
 type Props = {
   classes: Object,

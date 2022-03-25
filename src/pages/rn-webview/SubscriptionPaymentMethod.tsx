@@ -6,11 +6,13 @@ import { PAYMENT_ENGINE_STRIPE } from '@bsport/common/lib/master-data/payment-gr
 
 import withStyles from '@material-ui/styles/withStyles';
 import { CircularProgress } from '@material-ui/core';
+
+import asyncComponent from '../../AsyncComponent';
+
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
 import { switchSubscriptionPaymentMethod as switchSubscriptionPaymentMethodAction } from '../../libs/subscription/actions';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
-import SubscriptionPayment from '../../libs/subscription/components/SubscriptionPayment.component';
 import { getMember } from '../../libs/member/selectors';
 import { fetchMember } from '../../libs/member/actions';
 import { RootState } from '../../reducers';
@@ -21,6 +23,11 @@ import { fetchCompanyTheme as fetchCompanyThemeAction } from '../../libs/theme/a
 import type { Theme } from '#libs/theme/types';
 import { fetchMembership as fetchMembershipAction } from '#libs/membership/actions';
 import { Membership } from '#libs/membership/types';
+
+const SubscriptionPayment = asyncComponent(
+  () =>
+    import('../../libs/subscription/components/SubscriptionPayment.component'),
+);
 
 type OwnProps = {
   query: {

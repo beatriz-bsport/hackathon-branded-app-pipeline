@@ -16,6 +16,7 @@ import {
   PAYMENT_INTENT_TYPE_BASKET,
   PAYMENT_GROUP_METHOD_BY_ENGINE,
 } from '@bsport/common/lib/master-data/payment-group';
+import asyncComponent from '../../AsyncComponent';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
   fetchBasket as fetchBasketAction,
@@ -23,7 +24,6 @@ import {
   createOrRefreshInternalAccountPrepaidLine as createOrRefreshInternalAccountPrepaidLineAction,
 } from '../../libs/checkout/actions';
 import { fetchPaymentMethodList } from '../../libs/payment/actions';
-import PaymentStripe from '../../libs/payment/components/payment-backend-stripe/PaymentStripe.component';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 import { getBasket } from '../../libs/checkout/selectors';
@@ -41,6 +41,13 @@ import { getBasketTotalPriceExcludingTax } from '#libs/checkout/utils';
 import BasketTaxInfo from '#libs/checkout/components/BasketTaxInfo.component';
 import { fetchMembershipByBasket } from '#libs/membership/actions';
 import { validateUnpaid as validateUnpaidAPI } from '#libs/checkout/api';
+
+const PaymentStripe = asyncComponent(
+  () =>
+    import(
+      '../../libs/payment/components/payment-backend-stripe/PaymentStripe.component'
+    ),
+);
 
 type Props = {
   basket: Basket<number, PrepaidLine>;

@@ -20,6 +20,7 @@ import withQueryParams from '../../hocs/with-query-params.hoc';
 import { RootState } from '../../reducers';
 import { MaterialStyleType } from '../../utils/types';
 import themeSelectors, { getStripePkKey } from '../../libs/theme/selectors';
+import asyncComponent from '../../AsyncComponent';
 
 import {
   fetchPaymentPackBulk as fetchPaymentPackBulkAction,
@@ -39,7 +40,6 @@ import {
   fetchContractDetail,
 } from '../../libs/subscription/actions';
 import { postContractSubscription as postContractSubscriptionAPI } from '../../libs/subscription/api';
-import SubscriptionPayment from '../../libs/subscription/components/SubscriptionPayment.component';
 import SubscriptionContractDetail from '../../libs/subscription/components/SubscriptionContractDetail.component';
 import MarketplaceSubscriptionContractList from '../../libs/subscription/components/MarketplaceSubscriptionContractList.component';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
@@ -61,7 +61,11 @@ import ConsumerAppBar from './ConsumerAppBar.container';
 import SubscriptionPaymentStatusDialog from '../../libs/subscription/components/SubscriptionPaymentDialog.component';
 import { getMarketplaceRoute } from '../../libs/marketplace/routing-utils';
 
-const stripePromise = loadStripe(getStripePkKey());
+const SubscriptionPayment = asyncComponent(
+  () =>
+    import('../../libs/subscription/components/SubscriptionPayment.component'),
+);
+
 type ownProps = {
   companyId: number;
   fetchContractList: (companyId: number) => void;
@@ -112,15 +116,19 @@ type ConnectedProps = ownProps &
 type Props = ConnectedProps &
   WithTranslation &
   MaterialStyleType<ReturnType<typeof styles>>;
+
 type State = {
   processing: boolean;
+  stripePromise: Promise | null;
 };
+
 export class MarketplaceSubscriptionPayment extends React.Component<
   Props,
   State
 > {
-  state = {
+  state: State = {
     processing: false,
+    stripePromise: null,
   };
 
   componentWillMount() {
@@ -143,6 +151,23 @@ export class MarketplaceSubscriptionPayment extends React.Component<
   componentDidMount() {
     if (this.props.queryParams?.force === 'true' && this.props.contractId) {
       this.props.fetchContractDetail(this.props.contractId);
+    }
+    if (this.props.companyTheme) {
+      this.loadStripe();
+    }
+  }
+
+  loadStripe = () => {
+    this.setState({ stripePromise: loadStripe(getStripePkKey()) });
+  };
+
+  componentDidUpdate(prevProps: Props, prevState: State) {
+    if (
+      !prevProps.companyTheme?.id &&
+      !!this.props.companyTheme?.id &&
+      !prevState.stripePromise
+    ) {
+      this.loadStripe();
     }
   }
 
@@ -253,53 +278,57 @@ export class MarketplaceSubscriptionPayment extends React.Component<
               </Grid>
               <Grid item xs={12} md={6}>
                 <Paper className={classes.paymentPanelContainer}>
-                  <Elements stripe={stripePromise}>
-                    <SubscriptionPayment
-                      onCancel={() => {
-                        this.props.setAcceptContract(false);
-                      }}
-                      isExcludingTax={
-                        this.props.companyTheme.is_tax_excluded_in_marketplace
-                      }
-                      onSubmit={this.onSubmit}
-                      processing={this.state.processing}
-                      requestSetupIntentSecret={
-                        this.props.requestSetupIntentSecret
-                      }
-                      savedPaymentMethodList={this.props.savedPaymentMethodList}
-                      withCoupon
-                      contract={
-                        this.props.contractList.find(
-                          (c: ContractWithPaymentPack) =>
-                            c.id === parseInt(this.props.contractId),
-                        ) || this.props.contract
-                      }
-                      refreshSavedPaymentMethodList={
-                        this.props.fetchPaymentMethodList
-                      }
-                      enabledPaymentGroupMethodIdentifier={
-                        this.props.companyTheme
-                          .payment_method_available_subscription
-                      }
-                      detachPaymentMethodLoading={
-                        this.props.detachPaymentMethodLoading
-                      }
-                      companyId={this.props.companyId}
-                      detachPaymentMethod={this.props.detachPaymentMethod}
-                      snackbarErrorMsg={this.props.snackbarErrorMsg}
-                      snackbarSuccessMsg={this.props.snackbarSuccessMsg}
-                      sepaDefaultName={this.props.auth.name}
-                      sepaDefaultEmail={this.props.auth.username}
-                      withGeneralConditions
-                      disabled={!this.props.acceptContract}
-                      acceptContract={this.props.acceptContract}
-                      setAcceptContract={(value: boolean) => {
-                        this.props.setAcceptContract(value);
-                      }}
-                      date={this.props.date}
-                      setDate={this.props.setDate}
-                    />
-                  </Elements>
+                  {!!this.state.stripePromise && (
+                    <Elements stripe={this.state.stripePromise}>
+                      <SubscriptionPayment
+                        onCancel={() => {
+                          this.props.setAcceptContract(false);
+                        }}
+                        isExcludingTax={
+                          this.props.companyTheme.is_tax_excluded_in_marketplace
+                        }
+                        onSubmit={this.onSubmit}
+                        processing={this.state.processing}
+                        requestSetupIntentSecret={
+                          this.props.requestSetupIntentSecret
+                        }
+                        savedPaymentMethodList={
+                          this.props.savedPaymentMethodList
+                        }
+                        withCoupon
+                        contract={
+                          this.props.contractList.find(
+                            (c: ContractWithPaymentPack) =>
+                              c.id === parseInt(this.props.contractId),
+                          ) || this.props.contract
+                        }
+                        refreshSavedPaymentMethodList={
+                          this.props.fetchPaymentMethodList
+                        }
+                        enabledPaymentGroupMethodIdentifier={
+                          this.props.companyTheme
+                            .payment_method_available_subscription
+                        }
+                        detachPaymentMethodLoading={
+                          this.props.detachPaymentMethodLoading
+                        }
+                        companyId={this.props.companyId}
+                        detachPaymentMethod={this.props.detachPaymentMethod}
+                        snackbarErrorMsg={this.props.snackbarErrorMsg}
+                        snackbarSuccessMsg={this.props.snackbarSuccessMsg}
+                        sepaDefaultName={this.props.auth.name}
+                        sepaDefaultEmail={this.props.auth.username}
+                        withGeneralConditions
+                        disabled={!this.props.acceptContract}
+                        acceptContract={this.props.acceptContract}
+                        setAcceptContract={(value: boolean) => {
+                          this.props.setAcceptContract(value);
+                        }}
+                        date={this.props.date}
+                        setDate={this.props.setDate}
+                      />
+                    </Elements>
+                  )}
                 </Paper>
               </Grid>
             </Grid>
@@ -369,7 +398,6 @@ const mapStateToProps = (
 });
 
 const mapDispatchToProps = {
-  fetchMarketplaceContractList,
   replace: replaceAction,
   fetchContractList: fetchMarketplaceContractList,
   fetchContractDetail,

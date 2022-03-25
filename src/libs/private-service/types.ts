@@ -185,7 +185,12 @@ export type PrivateConsumerPass = {
   is_universal_consumer_pass_source: boolean;
 };
 
-export type PrivateBooking<PrivateSlotNumber = number> = {
+export type PrivateBooking<
+  PrivateSlotNumber = number,
+  CoachNumber = number,
+  EstablishmentNumber = number,
+  PrivateServiceNumber = number,
+> = {
   id: number;
   date_start: string;
   date_end: string;
@@ -193,14 +198,14 @@ export type PrivateBooking<PrivateSlotNumber = number> = {
   member: number;
   name: string;
   private_slot: PrivateSlotNumber;
-  private_service: number;
+  private_service: PrivateServiceNumber;
   address: string;
   booking_status_code: number;
   is_discardable: boolean;
   associated_coach: number;
   associated_establishment: number;
-  coach: number;
-  establishment: number;
+  coach: CoachNumber;
+  establishment: EstablishmentNumber;
   date_created: string;
   source: number;
   was_refunded: boolean;

@@ -122,9 +122,16 @@ exports.default = {
   },
   resource: {
     allocationWarning: {
+      loading: 'Vérification de la disponibilité du créneau',
+      title: 'Créneau non disponible',
+      resource:
+        "Attention, {{ resource }} n'est pas disponible sur ce créneau.\n",
+      continue: 'Êtes-vous sûr de vouloir déplacer ce rendez-vous ?',
       coach: "Ce professeur n'est pas disponible sur cet horaire",
       establishment: "Cette salle n'est pas disponible à cet horaire",
       showCalendar: 'Voir le calendrier',
+      validate: 'Valider',
+      cancel: 'Annuler',
     },
     selector: {
       title: 'Voir les disponibilités',

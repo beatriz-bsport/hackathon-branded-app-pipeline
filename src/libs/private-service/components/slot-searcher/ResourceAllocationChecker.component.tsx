@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import moment from 'moment-timezone';
@@ -19,16 +19,19 @@ type OwnProps = {
     resourceType: string,
     resourceId: number,
     updatedTime: string,
-  ) => Promise<AxiosResponse<any>>;
+  ) => Promise<AxiosResponse<string[][]>>;
 };
+
 type State = {
   errorAllocation: boolean;
 };
 
 type Props = OwnProps & WithStyles<typeof styles> & WithTranslation;
 
-export class ResourceAllocationChecker extends Component<Props, State> {
-  state = { errorAllocation: false };
+export class ResourceAllocationChecker extends React.Component<Props, State> {
+  state: State = {
+    errorAllocation: false,
+  };
 
   componentDidUpdate(prevProps: Props) {
     if (
@@ -43,25 +46,23 @@ export class ResourceAllocationChecker extends Component<Props, State> {
     }
   }
 
-  checkResourceAllocation = () => {
+  checkResourceAllocation = async () => {
     if (!this.props.resourceAllocationChecker) return;
     try {
-      this.props
-        .resourceAllocationChecker(
-          this.props.privateSlotId,
-          this.props.resourceType,
-          this.props.resourceId,
-          this.props.updatedTime,
-        )
-        .then((r) => {
-          this.setState({
-            errorAllocation: !r.data.find(
-              (interval: string[]) =>
-                moment(this.props.updatedTime).isSameOrAfter(interval[0]) &&
-                moment(this.props.updatedTime).isSameOrBefore(interval[1]),
-            ),
-          });
-        });
+      const response = await this.props.resourceAllocationChecker(
+        this.props.privateSlotId,
+        this.props.resourceType,
+        this.props.resourceId,
+        this.props.updatedTime,
+      );
+
+      this.setState({
+        errorAllocation: !response.data.find(
+          (interval: string[]) =>
+            moment(this.props.updatedTime).isSameOrAfter(interval[0]) &&
+            moment(this.props.updatedTime).isSameOrBefore(interval[1]),
+        ),
+      });
     } catch (error) {
       this.setState({ errorAllocation: true });
     }

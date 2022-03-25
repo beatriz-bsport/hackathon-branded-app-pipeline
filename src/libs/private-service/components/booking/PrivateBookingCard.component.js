@@ -1,11 +1,12 @@
 // @flow
 import React, { memo } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Chip from '@material-ui/core/Chip';
 import moment from 'moment-timezone';
 import { compose, withStateHandlers } from 'recompose';
 import { useTranslation } from 'react-i18next';
+
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Chip from '@material-ui/core/Chip';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -32,14 +33,13 @@ import RedButton from '../../../../components/button/RedButton.component';
 import RedChip from '../../../../components/chip/RedChip.component';
 import CoachListItem from '../../../associated-coach/components/CoachListItem.component';
 import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
-import ResourceAllocationChecker from '../slot-searcher/ResourceAllocationChecker.component';
+import ResourceAllocationConfirmDialog from '../slot-searcher/ResourceAllocationConfirmDialog.component';
 import type { Invoice } from '#libs/invoice/types';
 import type { PaymentMethod } from '#libs/payment/types';
 import InvoiceTable from '#libs/invoice/components/InvoiceTable.component';
 import PaymentDialog from '#libs/payment/components/PaymentDialog.component';
 import type { ConsumerGiftcard, Giftcard } from '#libs/giftcard/types';
 import type { PerformanceTrackingProgram } from '#libs/performance-tracking/types';
-import { resourceAllocationChecker as resourceAllocationCheckerAPI } from '../../api';
 
 type Props = {
   private_booking: PrivateBookingWithRelatedFields,
@@ -48,9 +48,9 @@ type Props = {
   onRestore: () => void,
   isUpdateTimeFormOpen: boolean,
   loading: boolean,
-  setUpdatedTime: (any) => void,
+  setUpdatedTime: (updatedTime: moment.Moment | null) => void,
   closeUpdateTimeForm: () => void,
-  updatedTime: ?string,
+  updatedTime: moment.Moment | null,
   goToCoachCalendar: (coachId: number) => void,
   updateTime: (string, OptionCallback) => void,
   setUpdateTimeForm: () => void,
@@ -100,6 +100,9 @@ export const PrivateBookingCard = (props: Props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [private_booking?.member?.id]);
+
+  const [openAllocationModal, setOpenAllocationModal] = React.useState(false);
+
   const applyGiftcardOnInvoice = (
     invoiceUuid: string,
     consumerGiftCardId: number,
@@ -124,6 +127,16 @@ export const PrivateBookingCard = (props: Props) => {
       },
     );
   };
+
+  const handleSubmit = () => setOpenAllocationModal(true);
+
+  const onCancel = () => setOpenAllocationModal(false);
+
+  const onSubmit = () =>
+    props.updateTime(props.updatedTime, {
+      onSuccess: () => props.closeUpdateTimeForm(),
+    });
+
   if (
     loading ||
     !private_booking.private_slot ||
@@ -136,9 +149,18 @@ export const PrivateBookingCard = (props: Props) => {
       </div>
     );
   }
+
   if (props.isUpdateTimeFormOpen) {
     return (
       <div className={classes.container}>
+        {openAllocationModal && (
+          <ResourceAllocationConfirmDialog
+            privateBooking={private_booking}
+            onSubmit={onSubmit}
+            onCancel={onCancel}
+            dateStart={props.updatedTime?.format()}
+          />
+        )}
         <DialogTitle>{t('privateBooking.updateTime.title')}</DialogTitle>
         <DialogContent>
           <MuiPickersUtilsProvider
@@ -149,7 +171,9 @@ export const PrivateBookingCard = (props: Props) => {
             <InlineDateTimePicker
               keyboard
               ampm={false}
-              value={props.updatedTime || props.private_booking.date_start}
+              value={
+                props.updatedTime || moment(props.private_booking.date_start)
+              }
               onChange={props.setUpdatedTime}
               onError={console.error}
               format="YYYY/MM/DD HH:mm"
@@ -162,27 +186,11 @@ export const PrivateBookingCard = (props: Props) => {
             {t('privateBooking.updateTime.explainEmail')}
           </Typography>
         </DialogContent>
-        <ResourceAllocationChecker
-          resourceId={private_booking.coach.id}
-          resourceType="coach"
-          updateTime={props.updateTime}
-          updatedTime={props.updatedTime || props.private_booking.date_start}
-          privateSlotId={private_booking.private_slot.id}
-          resourceAllocationChecker={resourceAllocationCheckerAPI}
-          closeUpdateTimeForm={props.closeUpdateTimeForm}
-        />
         <DialogActions>
           <Button onClick={props.closeUpdateTimeForm}>
             {t('privateBooking.updateTime.cancel')}
           </Button>
-          <Button
-            color="primary"
-            onClick={() =>
-              props.updateTime(props.updatedTime, {
-                onSuccess: () => props.closeUpdateTimeForm(),
-              })
-            }
-          >
+          <Button color="primary" onClick={handleSubmit}>
             {t('privateBooking.updateTime.submit')}
           </Button>
         </DialogActions>

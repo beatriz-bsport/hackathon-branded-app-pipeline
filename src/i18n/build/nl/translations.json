@@ -650,7 +650,7 @@
             "finalize": "Voltooi de factuur",
             "invoiceReverted": "Geannuleerde factuur",
             "revertExplainShop": "Aankopen van de webshop worden geannuleerd en de voorraad wordt gereset.",
-            "revertExplainPacks": "De leskaart en alle bijbehorende reserveringen worden geannuleerd.",
+            "revertExplainPacks": "De leskaart en alle gekoppelde reserveringen worden geannuleerd.",
             "revertExplainCredits": "Het debet/krediet op de account van het lid wordt teruggeboekt.",
             "revertExplainPayment": "Kaartbetalingen worden teruggestort op de rekening van het lid. Alle andere betaalmethoden worden verwijderd.",
             "revertImpossibleExplainSubscription": "Deze factuur is aan een abonnement gekoppeld. Je kunt een gekoppelde factuur niet annuleren, maar je kunt het abonnement en de laatste betaling wel stopzetten",
@@ -2471,8 +2471,8 @@
         "details": {
             "pleaseSelectAPack": "Selecteer een kaart voor een gedetailleerd overzicht.",
             "shareAPass": "Een leskaart delen",
-            "invoiceTitle": "Bijbehorende factuur",
-            "bookingsTitle": "Bijbehorende reserveringen",
+            "invoiceTitle": "Gekoppelde factuur",
+            "bookingsTitle": "Gekoppelde reserveringen",
             "extensionsTitle": "Geldigheid verlengen",
             "refundTitle": "Bijbehorende terugbetaling",
             "trackModifiedCreditTitle": "Geschiedenis van de kredietwijzigingen",
@@ -2756,7 +2756,7 @@
             "maxBookingPerDay": "Maximaal gebruik per dag: ",
             "maxBookingPerWeek": "Maximaal gebruik per week: ",
             "maxBookingPerMonth": "Maximaal gebruik per maand: ",
-            "universalPass": "De universele kaart is compatibel met groepsactiviteiten én afspraken."
+            "universalPass": "Deze universele kaart is compatibel met groepsactiviteiten én afspraken."
         },
         "detailTitles": {
             "vod": "Video On Demand",
@@ -3221,10 +3221,10 @@
                 "second": "in",
                 "third": "{{ currencyDisplay }}",
                 "date": {
-                    "first": "Verlaten winkelmand",
+                    "first": "Haakte af",
                     "second": "dagen"
                 },
-                "name": "Filter op datum voor het afhaken (niet-betaalde winkelmandjes)",
+                "name": "Onvoltooide aankopen",
                 "between": "en"
             },
             "21": {
@@ -3244,9 +3244,9 @@
                     "third": "Uur"
                 },
                 "explanation": "Toon een overzicht van alle leden die een X aantal reserveringen van activiteit Y in vestiging Z hebben gedaan",
-                "first": "Heeft zich ",
-                "second_singular": "keer ingeschreven",
-                "second_plural": "keer ingeschreven",
+                "first": "Heeft ",
+                "second_singular": "keer gereserveerd",
+                "second_plural": "keer gereserveerd",
                 "coach": {
                     "first": "instructeur(s):"
                 },
@@ -3289,7 +3289,7 @@
                     "first": "niveau"
                 }
             },
-            "isEmpty": "Deze Smartlist vertegenwoordigd je volledige database, omdat er geen actieve filters zijn toegevoegd.",
+            "isEmpty": "Deze Smartlist toont de volledige database, omdat er geen actieve filters zijn toegevoegd.",
             "calendarPicker": {
                 "text": {
                     "0": {
@@ -3444,7 +3444,7 @@
                 "1": "minder dan (⩽)"
             },
             "501": {
-                "explanation": "Reserveerde voor het laatst op",
+                "explanation": "Toon een overzicht van leden die voor het laatst hebben gereserveerd op",
                 "second": "dag(en) geleden en er zijn nog geen toekomstige reserveringen ingepland.",
                 "first": "De laatst reservering was meer dan",
                 "name": "Laatste reservering"
@@ -3502,7 +3502,7 @@
                     "first": "instructeur(s):"
                 },
                 "private_pass": {
-                    "first": "met afspraakkaarten"
+                    "first": "Afspraakkaart(en):"
                 },
                 "establishment": {
                     "third": "thuis",
@@ -3510,12 +3510,12 @@
                     "first": "vestiging(en):"
                 },
                 "between": "en",
-                "second": "afspraken",
+                "second": "afspraken gereserveerd",
                 "first": "Gereserveerd",
                 "explanation": "Toon een overzicht van alle leden die een X aantal afspraken met instructeur A in vestiging Y met afspraakkaart Z hebben gemaakt",
                 "name": "Aantal afspraken",
                 "private_service": {
-                    "first": "met afspraken"
+                    "first": "Afspraken:"
                 }
             },
             "attendanceTrue": "aanwezig",
@@ -3529,7 +3529,7 @@
             "600": {
                 "expiryDateLabel": "Vervaldatum:",
                 "owns": "Selecteer tenminste één opgeslagen betaalmethode",
-                "does_not_own": "Er zijn geen opgeslagen betaalmethoden om weer te geven.",
+                "does_not_own": "Er zijn geen opgeslagen betaalmethoden om weer te geven",
                 "labelFirst": "Alleen op leden filteren",
                 "title": "Opgeslagen betaalmethoden",
                 "explanation": "Toon een overzicht van alle leden en de vervaldata van hun opgeslagen betaalmethoden",
@@ -4172,7 +4172,7 @@
         },
         "details": {
             "pleaseSelectABooking": "Selecteer een reservering om meer informatie te zien.",
-            "title": "Gegevens",
+            "title": "Details",
             "offerTitle": "Gekoppelde reservering",
             "consumerPaymentPackTitle": "Gebruikte kaart"
         },
@@ -4412,7 +4412,7 @@
                     "6002": "Wachtlijst: vol",
                     "7": "Onevenwichtige man/vrouw-verhouding",
                     "6": "Onevenwichtige man/vrouw-verhouding",
-                    "5": "Gereserveerd",
+                    "5": "Heeft",
                     "4": "Gesloten",
                     "9": "Het is niet toegestaan om het maximaal aantal toekomstige reserveringen te overschrijden."
                 },
@@ -5361,9 +5361,9 @@
         },
         "details": {
             "pleaseSelectVod": "Selecteer een video om meer informatie te zien.",
-            "invoiceTitle": "Bijbehorende factuur",
+            "invoiceTitle": "Gekoppelde factuur",
             "consumerPaymentPackTitle": "Gebruikte kaart",
-            "title": "Details van de video"
+            "title": "Details"
         }
     },
     "order": {
@@ -5663,7 +5663,7 @@
                 "submit": "Opslaan",
                 "cancel": "Annuleren"
             },
-            "discard": "De afspraak annuleren",
+            "discard": "Afspraak annuleren",
             "hardDelete": "Verwijderen",
             "isCancelled": "Geannuleerd",
             "detail": {
@@ -5786,7 +5786,11 @@
             "establishment": "Vestiging",
             "coach": "Instructeur",
             "selectService": "Kies een dienst",
-            "selectSession": "Tijdstip"
+            "selectSession": "Tijdstip",
+            "emptyState": "Er is momenteel geen beschikbaarheid om weer te geven.",
+            "previousOffer": "Beschikbare sessie: {{- date }} om {{ hour }}",
+            "nextOffer": "Eerstvolgende beschikbaarheid: {{- date }} om {{ hour }}",
+            "searchFirstSlot": "Zoek de eerstvolgende beschikbaarheid"
         },
         "slot": {
             "parameters": {
@@ -8776,13 +8780,13 @@
             "eventDesc": "Evenementen",
             "cancel": "Annuleer",
             "addPrivatePassToCart": "Wanneer een gebruiker een afspraakkaart aan zijn/haar winkelmandje toevoegt",
-            "gtmEvent": "[Google Tag Management] Evenementen",
+            "gtmEvent": "Google Tag Management",
             "showBasket": "Wanneer een gebruiker zijn/haar winkelmandje opent",
             "showPass": "Wanneer een gebruiker op een leskaart klikt",
             "addPackToCart": "Wanneer een gebruiker een pakket aan zijn/haar winkelmandje toevoegt",
             "addShopItemToCart": "Wanneer een gebruiker een product uit je webshop aan zijn/haar winkelmandje toevoegt",
             "signupShow": "Wanneer een gebruiker het aanmeldformulier opent",
-            "fbPixelEvent": "[Facebook Pixel] Evenement",
+            "fbPixelEvent": "Facebook Pixel",
             "signupSuccess": "Wanneer een gebruiker een account heeft aangemaakt",
             "contractPaymentSuccess": "Wanneer een gebruiker een abonnement heeft gekocht",
             "contractShow": "Wanneer een gebruiker op een abonnement klikt",
@@ -9013,12 +9017,12 @@
                     },
                     "advance_sepa_billing": {
                         "helperText": "Leden ontvangen de opdracht voor de SEPA-overschrijving veelal 3 dagen later.",
-                        "label": "Verstuur de opdracht voor SEPA-overschrijving 3 dagen van tevoren om eventuele vertragingen in het banknetwerk op te vangen die vertragingen in de cashflow kunnen veroorzaken."
+                        "label": "Verstuur de opdracht voor SEPA-overschrijvingen 3 dagen van tevoren om eventuele vertragingen in het banknetwerk op te vangen die invloed op de cashflow kunnen hebben"
                     }
                 },
                 "title": "Abonnementsbetalingen"
             },
-            "invoiceGeneral": "Factuur (PDF)"
+            "invoiceGeneral": "Facturen"
         },
         "section": {
             "paymentList": {
@@ -10225,10 +10229,10 @@
                         "helperTextNewMembers": "Alle relevante leden zullen dit formulier als een pop-up op de MarketPlace en na het inschrijfformulier zien.",
                         "helperTextRegisteredMembers": "Alle relevante leden zullen dit formulier als een pop-up op de MarketPlace en op de widget zien.",
                         "subTitle": "Welke leden wil je contacteren?",
-                        "title": "Toon de regels",
+                        "title": "[Formulier] Berichtgeving",
                         "snoozeOptionHelperText": "We tonen dit formulier opnieuw nadat het {{count}} uur/uren gesnoozed is.",
                         "snoozeOptionLabel": "Snoozen (in uren)",
-                        "force_display": "Forceer de weergave van dit formulier aan leden die het de vorige keer ook al hebben ingevuld",
+                        "force_display": "Toon dit formulier ook aan leden die het voorheen hebben ingevuld",
                         "snoozeOption": "Geef leden de mogelijkheid om dit formulier later in te vullen (\"snoozen\")"
                     },
                     "errors": {
@@ -10239,7 +10243,7 @@
                     "connectionHelperText": "Deze melding wordt alleen naar leden gestuurd die al langer dan {{count}} dag(en) lid zijn.",
                     "connectionLabel": "Lid sinds... (in dagen)",
                     "connection": "Bestaande leden",
-                    "signUpAlreadyExists": " Bestaande regel",
+                    "signUpAlreadyExists": " bestaande regel",
                     "signUp": "Nieuwe leden"
                 },
                 "empty": "Er zijn geen meldingen aan dit formulier gekoppeld.",
@@ -10252,7 +10256,7 @@
                 "unForcedModeMinimal": "Toon dit formulier niet aan leden die dit formulier eerder hebben voltooid",
                 "forRegisteredMemberMinimal": ">{{ count }} dag(en)",
                 "forRegisteredMember": "Dit formulier is voor leden die al {{ count }} dag(en) lid zijn",
-                "forNewMember": "Voor nieuwe leden",
+                "forNewMember": "Alleen voor nieuwe leden",
                 "forbiddenForSignup": "Dit formulier kan niet aan een melding worden gekoppeld"
             },
             "disconnect": "Afmelden",

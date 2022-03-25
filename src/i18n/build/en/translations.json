@@ -2777,7 +2777,11 @@
             "establishment": "Establishment",
             "coach": "Teacher",
             "selectService": "Choose a service",
-            "selectSession": "Time slot"
+            "selectSession": "Time slot",
+            "emptyState": "There's no availability to display at this moment.",
+            "previousOffer": "Available session: {{- date }} at {{ hour }}",
+            "nextOffer": "First availability: {{- date }} at {{ hour }}",
+            "searchFirstSlot": "Search the first available moment"
         },
         "slot": {
             "parameters": {
@@ -4483,8 +4487,8 @@
         "analytics": {
             "showAnalyticsInformation": "Show retargeting events",
             "eventDesc": "Events",
-            "gtmEvent": "[Google Tag Management] Event",
-            "fbPixelEvent": "[Facebook Pixel] Event",
+            "gtmEvent": "Google Tag Management",
+            "fbPixelEvent": "Facebook Pixel",
             "cancel": "Cancel",
             "showBasket": "When a user open their basket",
             "showPass": "When a user clicks on a pass",
@@ -9675,7 +9679,7 @@
             "600": {
                 "expiryDateLabel": "Expiration date",
                 "owns": "Select at least one payment method",
-                "does_not_own": "There are no saved payment methods to display.",
+                "does_not_own": "There are no saved payment methods to display",
                 "labelFirst": "Only filter on members",
                 "title": "Saved payment method",
                 "explanation": "Display an overview of members' saved payment methods and their expiration dates",

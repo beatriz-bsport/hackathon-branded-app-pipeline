@@ -2579,7 +2579,13 @@
             "allocationWarning": {
                 "showCalendar": "See the calendar",
                 "establishment": "This establishment isn't available at this time slot.",
-                "coach": "This teacher isn't available at this time slot."
+                "coach": "This teacher isn't available at this time slot.",
+                "title": "There's no availability to display.",
+                "loading": "Verifying availability",
+                "resource": "Attention! {{ resource }} isn't availably at this moment.\n",
+                "continue": "Are you sure that you want to move this appointment?",
+                "validate": "Confirm",
+                "cancel": "Cancel"
             }
         },
         "pageTitles": {
@@ -4387,7 +4393,8 @@
                 "goToReports": "Reporting",
                 "internalAccount": "Client internal account balance",
                 "internalAccountNotusableOnContract": "This payment method can't be used for subscriptions.",
-                "internalAccountWarning2": "Go to Reporting > Add a report > Scroll down to \"Payments\" > Select \"Credits\" > Select all columns > and click \"Save\"."
+                "internalAccountWarning2": "Go to Reporting > Add a report > Scroll down to \"Payments\" > Select \"Credits\" > Select all columns > and click \"Save\".",
+                "errorURL": "Please enter a valid URL before saving the form"
             },
             "cover": {
                 "label": "Logo",
@@ -4415,7 +4422,8 @@
             "websiteURL": {
                 "label": "Link to your own website",
                 "helperText": "Use this field to add the link to your own website.",
-                "placeholder": "https://studio.com/"
+                "placeholder": "https://studio.com/",
+                "errorText": "This URL is invalid"
             },
             "scheduleURL": {
                 "label": "Link to your schedule",

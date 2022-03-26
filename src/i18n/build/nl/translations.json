@@ -6303,7 +6303,13 @@
             "allocationWarning": {
                 "showCalendar": "Toon de kalender",
                 "establishment": "Deze vestiging is niet beschikbaar op dit tijdstip",
-                "coach": "Deze instructeur is niet beschikbaar op dit tijdstip."
+                "coach": "Deze instructeur is niet beschikbaar op dit tijdstip.",
+                "title": "Er is geen beschikbaarheid om weer te geven.",
+                "loading": "Beschikbaarheid controleren",
+                "resource": "Waarschuwing! {{ resource }} is niet beschikbaar op dit moment.\n",
+                "continue": "Weet je zeker dat je deze afspraak wilt verplaatsen?",
+                "validate": "Bevestigen",
+                "cancel": "Annuleren"
             }
         },
         "privateCoach": {
@@ -8695,7 +8701,8 @@
                 "internalAccountWarning1": "We raden aan om eerst een rapportage voor het saldo van leden hun interne rekening (Wallet) aan te maken voordat deze functie aan wordt gezet.",
                 "internalAccountWarningTitle": "Houd rekening met het saldo van leden hun interne rekening (Wallet).",
                 "allowConsumerToUseInternalAccount": "Sta leden toe om het saldo van hun interne rekening (Wallet) te gebruiken om uitstaande facturen/winkelmandjes te betalen",
-                "goToReports": "Rapportages"
+                "goToReports": "Rapportages",
+                "errorURL": "Voer een geldige URL in om dit formulier op te slaan"
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",
@@ -8721,7 +8728,8 @@
             "websiteURL": {
                 "label": "Link naar eigen website",
                 "helperText": "Plak hier de link naar de hoofdpagina van je eigen website.",
-                "placeholder": "https://studio.nl/"
+                "placeholder": "https://studio.nl/",
+                "errorText": "De URL is ongeldig"
             },
             "scheduleURL": {
                 "label": "Link naar eigen rooster",

@@ -9,16 +9,17 @@ import {
 } from '../../email-editor/types';
 import { MarketingNotification } from '../types';
 
-import BookingCreationNotificationForm from '../../booking/components/BookingCreationNotificationForm.component';
-import PrivateBookingNotificationForm from '../../private-service/components/booking/PrivateBookingNotificationForm.component';
-import ProductNotificationForm from './ProductNotificationForm.component';
-import BirthdayNotificationForm from '../../payment-packs/components/BirthdayNotificationForm.component';
+import MarketingRuleFormPrivateBooking from './marketing-rule-form/MarketingRuleFormPrivateBooking.component';
+import MarketingRuleFormBooking from './marketing-rule-form/MarketingRuleFormBooking.component';
+import MarketingRuleFormProduct from './marketing-rule-form/MarketingRuleFormProduct.component';
+
+import MarketingRuleFormBirthday from './marketing-rule-form/MarketingRuleFormBirthday.component';
 import NotificationSourceSelector from './NotificationSourceSelector.component';
+
 import { MetaActivity } from '../../meta-activity/types';
-import { Establishment } from '../../establishment/types';
+import { Establishment, EstablishmentGroup } from '../../establishment/types';
 import { PrivatePass, PrivateService } from '../../private-service/types';
 import { PaymentPack } from '../../payment-packs/types';
-import FabWithItems from '../../../components/button/FabWithItems';
 
 type Identifier =
   | 'birthday'
@@ -28,7 +29,8 @@ type Identifier =
   | 'private_service'
   | 'payment_pack'
   | 'private_pass'
-  | 'workshop';
+  | 'workshop'
+  | 'establishment_group';
 
 type OwnProps = {
   selectedNotification?: MarketingNotification;
@@ -53,23 +55,30 @@ type OwnProps = {
   tags: { [tag_name: string]: string[] };
   privatePasses: PrivatePass[];
   withoutBirthday: boolean;
+  establishmentGroups: Array<EstablishmentGroup>;
+  onlyEdit?: boolean;
+  createFormOpenType: Identifier;
 };
 
 type Props = OwnProps & WithTranslation;
 
 type State = {
-  createFromSource?: null | {
-    identifier?: Identifier;
-    objectId?: number;
-  };
+  sourceObjectId: number | null;
 };
 
 export class NotificationFormGeneric extends React.PureComponent<Props, State> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sourceObjectId: props.sourceObjectId || null,
+    };
+  }
+
   state: State = {};
 
   onCancel = () => {
     this.props.onCancel();
-    this.setState({ createFromSource: null });
+    this.props.closeForm();
   };
 
   onSubmit = (n: MarketingNotification) => {
@@ -80,170 +89,8 @@ export class NotificationFormGeneric extends React.PureComponent<Props, State> {
       );
     } else {
       this.props.onCreateMarketingNotification(n);
-      this.setState({ createFromSource: null });
+      this.props.closeForm();
     }
-  };
-
-  onClickCreateForIdentifier = (identifier: Identifier) => {
-    this.setState({
-      createFromSource: {
-        identifier,
-      },
-    });
-  };
-
-  renderDialog = () => {
-    if (
-      this.state.createFromSource?.identifier &&
-      this.state.createFromSource.identifier !== 'birthday' &&
-      typeof this.state.createFromSource.objectId !== 'number'
-    ) {
-      return (
-        <NotificationSourceSelector
-          identifier={this.state.createFromSource.identifier}
-          onClose={() => this.setState({ createFromSource: null })}
-          onSubmit={(identifier, objectId) => {
-            this.setState({
-              createFromSource: { identifier, objectId },
-            });
-          }}
-          metaActivities={
-            this.state.createFromSource.identifier === 'workshop'
-              ? this.props.workshopList
-              : this.props.metaActivities
-          }
-          establishments={this.props.establishments}
-          privateServices={this.props.privateServices}
-          paymentPacks={this.props.paymentPacks}
-          privatePasses={this.props.privatePasses}
-        />
-      );
-    }
-
-    let identifier = '';
-    let objectId = -1;
-
-    if (this.state.createFromSource && this.state.createFromSource.objectId) {
-      /* eslint-disable-next-line */
-      identifier = this.state.createFromSource.identifier;
-      /* eslint-disable-next-line */
-      objectId = this.state.createFromSource.objectId;
-    }
-
-    if (this.props.selectedNotification) {
-      const {
-        establishment_id,
-        meta_activity_id,
-        private_service_id,
-        payment_pack_id,
-        private_pass_id,
-      } = this.props.selectedNotification.event_rules;
-
-      if (meta_activity_id !== undefined) {
-        identifier = 'meta_activity';
-        objectId = meta_activity_id;
-      }
-      if (establishment_id !== undefined) {
-        identifier = 'establishment';
-        objectId = establishment_id;
-      }
-
-      if (private_service_id !== undefined) {
-        identifier = 'private_service';
-        objectId = private_service_id;
-      }
-
-      if (payment_pack_id !== undefined) {
-        identifier = 'payment_pack';
-        objectId = payment_pack_id;
-      }
-      if (private_pass_id !== undefined) {
-        identifier = 'private_pass';
-        objectId = private_pass_id;
-      }
-    }
-
-    if (['meta_activity', 'establishment', 'workshop'].includes(identifier)) {
-      return (
-        <BookingCreationNotificationForm
-          objectId={objectId}
-          identifier={identifier}
-          emailListLoading={this.props.emailListLoading}
-          emailDetailLoading={this.props.emailDetailLoading}
-          getEmails={this.props.getEmails}
-          getEmailDetail={this.props.getEmailDetail}
-          emails={this.props.emailSummaryList}
-          emailDetails={this.props.emailDetails}
-          initial={this.props.selectedNotification}
-          onCancel={this.onCancel}
-          onSubmit={this.onSubmit}
-          tags={this.getMergeTags()}
-        />
-      );
-    }
-
-    if (identifier === 'private_service') {
-      return (
-        <PrivateBookingNotificationForm
-          serviceId={objectId}
-          emailListLoading={this.props.emailListLoading}
-          emailDetailLoading={this.props.emailDetailLoading}
-          getEmails={this.props.getEmails}
-          getEmailDetail={this.props.getEmailDetail}
-          emails={this.props.emailSummaryList}
-          emailDetails={this.props.emailDetails}
-          initial={this.props.selectedNotification}
-          onCancel={this.onCancel}
-          onSubmit={this.onSubmit}
-          tags={this.getMergeTags()}
-        />
-      );
-    }
-
-    if (identifier === 'payment_pack' || identifier === 'private_pass') {
-      return (
-        <ProductNotificationForm
-          identifier={identifier}
-          id={objectId}
-          emailDetailLoading={this.props.emailDetailLoading}
-          emailListLoading={this.props.emailListLoading}
-          getEmails={this.props.getEmails}
-          getEmailDetail={this.props.getEmailDetail}
-          emails={this.props.emailSummaryList}
-          emailDetails={this.props.emailDetails}
-          goToSmartlist={this.props.goToSmartlist}
-          getSmartLists={this.props.getSmartLists}
-          smartLists={this.props.smartLists}
-          smartListLoading={this.props.smartListLoading}
-          initial={this.props.selectedNotification}
-          onCancel={this.onCancel}
-          onSubmit={this.onSubmit}
-          tags={this.getMergeTags()}
-        />
-      );
-    }
-
-    if (
-      this.state.createFromSource?.identifier === 'birthday' ||
-      this.props.selectedNotification?.kind === NOTIFICATION_KIND.BIRTHDAY
-    ) {
-      return (
-        <BirthdayNotificationForm
-          emailDetailLoading={this.props.emailDetailLoading}
-          emailListLoading={this.props.emailListLoading}
-          getEmails={this.props.getEmails}
-          getEmailDetail={this.props.getEmailDetail}
-          emails={this.props.emailSummaryList}
-          emailDetails={this.props.emailDetails}
-          initial={this.props.selectedNotification}
-          onCancel={this.onCancel}
-          onSubmit={this.onSubmit}
-          tags={this.getMergeTags()}
-        />
-      );
-    }
-
-    return null;
   };
 
   getMergeTags = () => {
@@ -270,53 +117,170 @@ export class NotificationFormGeneric extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { t } = this.props;
-
-    let items = [
-      {
-        label: t('notifications.fabLabels.birthday'),
-        onClick: () => this.onClickCreateForIdentifier('birthday'),
-      },
-      {
-        label: t('notifications.fabLabels.meta_activity'),
-        onClick: () => this.onClickCreateForIdentifier('meta_activity'),
-      },
-      {
-        label: t('notifications.fabLabels.workshop'),
-        onClick: () => this.onClickCreateForIdentifier('workshop'),
-      },
-      {
-        label: t('notifications.fabLabels.establishment'),
-        onClick: () => this.onClickCreateForIdentifier('establishment'),
-      },
-      {
-        label: t('notifications.fabLabels.private_service'),
-        onClick: () => this.onClickCreateForIdentifier('private_service'),
-      },
-      {
-        label: t('notifications.fabLabels.payment_pack'),
-        onClick: () => this.onClickCreateForIdentifier('payment_pack'),
-      },
-      {
-        label: t('notifications.fabLabels.private_pass'),
-        onClick: () => this.onClickCreateForIdentifier('private_pass'),
-      },
-    ];
-
-    if (this.props.withoutBirthday) {
-      items = items.slice(1);
+    if (
+      this.props.createFormOpenType &&
+      this.props.createFormOpenType !== 'birthday' &&
+      typeof this.state.sourceObjectId !== 'number'
+    ) {
+      return (
+        <NotificationSourceSelector
+          identifier={this.props.createFormOpenType}
+          onClose={this.props.closeForm}
+          onSubmit={(sourceObjectId) => {
+            this.setState({
+              sourceObjectId,
+            });
+          }}
+          metaActivities={
+            this.props.createFormOpenType === 'workshop'
+              ? this.props.workshopList
+              : this.props.metaActivities
+          }
+          establishments={this.props.establishments}
+          establishmentGroups={this.props.establishmentGroups}
+          privateServices={this.props.privateServices}
+          paymentPacks={this.props.paymentPacks}
+          privatePasses={this.props.privatePasses}
+        />
+      );
     }
 
-    return (
-      <>
-        {this.renderDialog()}
+    let identifier = '';
+    let objectId = -1;
 
-        <FabWithItems
-          label={t('notifications.createNotificationFabLabel')}
-          items={items}
+    if (this.state.sourceObjectId) {
+      /* eslint-disable-next-line */
+      identifier = this.props.createFormOpenType
+      /* eslint-disable-next-line */
+      objectId = this.state.sourceObjectId;
+    }
+
+    if (this.props.selectedNotification) {
+      const {
+        establishment_id,
+        establishment_group_id,
+        meta_activity_id,
+        private_service_id,
+        payment_pack_id,
+        private_pass_id,
+      } = this.props.selectedNotification.event_rules;
+
+      if (meta_activity_id !== undefined) {
+        identifier = 'meta_activity';
+        objectId = meta_activity_id;
+      }
+      if (establishment_id !== undefined) {
+        identifier = 'establishment';
+        objectId = establishment_id;
+      }
+      if (establishment_group_id !== undefined) {
+        identifier = 'establishment_group';
+        objectId = establishment_group_id;
+      }
+
+      if (private_service_id !== undefined) {
+        identifier = 'private_service';
+        objectId = private_service_id;
+      }
+
+      if (payment_pack_id !== undefined) {
+        identifier = 'payment_pack';
+        objectId = payment_pack_id;
+      }
+      if (private_pass_id !== undefined) {
+        identifier = 'private_pass';
+        objectId = private_pass_id;
+      }
+    }
+
+    if (
+      [
+        'meta_activity',
+        'establishment',
+        'workshop',
+        'establishment_group',
+      ].includes(identifier)
+    ) {
+      return (
+        <MarketingRuleFormBooking
+          objectId={objectId}
+          identifier={identifier}
+          emailListLoading={this.props.emailListLoading}
+          emailDetailLoading={this.props.emailDetailLoading}
+          getEmails={this.props.getEmails}
+          getEmailDetail={this.props.getEmailDetail}
+          emails={this.props.emailSummaryList}
+          emailDetails={this.props.emailDetails}
+          initial={this.props.selectedNotification}
+          onCancel={this.onCancel}
+          onSubmit={this.onSubmit}
+          tags={this.getMergeTags()}
         />
-      </>
-    );
+      );
+    }
+
+    if (identifier === 'private_service') {
+      return (
+        <MarketingRuleFormPrivateBooking
+          serviceId={objectId}
+          emailListLoading={this.props.emailListLoading}
+          emailDetailLoading={this.props.emailDetailLoading}
+          getEmails={this.props.getEmails}
+          getEmailDetail={this.props.getEmailDetail}
+          emails={this.props.emailSummaryList}
+          emailDetails={this.props.emailDetails}
+          initial={this.props.selectedNotification}
+          onCancel={this.onCancel}
+          onSubmit={this.onSubmit}
+          tags={this.getMergeTags()}
+        />
+      );
+    }
+
+    if (identifier === 'payment_pack' || identifier === 'private_pass') {
+      return (
+        <MarketingRuleFormProduct
+          identifier={identifier}
+          id={objectId}
+          emailDetailLoading={this.props.emailDetailLoading}
+          emailListLoading={this.props.emailListLoading}
+          getEmails={this.props.getEmails}
+          getEmailDetail={this.props.getEmailDetail}
+          emails={this.props.emailSummaryList}
+          emailDetails={this.props.emailDetails}
+          goToSmartlist={this.props.goToSmartlist}
+          getSmartLists={this.props.getSmartLists}
+          smartLists={this.props.smartLists}
+          smartListLoading={this.props.smartListLoading}
+          initial={this.props.selectedNotification}
+          onCancel={this.onCancel}
+          onSubmit={this.onSubmit}
+          tags={this.getMergeTags()}
+        />
+      );
+    }
+
+    if (
+      this.props.createFormOpenType === 'birthday' ||
+      this.props.selectedNotification?.kind === NOTIFICATION_KIND.BIRTHDAY
+    ) {
+      return (
+        <MarketingRuleFormBirthday
+          emailDetailLoading={this.props.emailDetailLoading}
+          emailListLoading={this.props.emailListLoading}
+          getEmails={this.props.getEmails}
+          getEmailDetail={this.props.getEmailDetail}
+          emails={this.props.emailSummaryList}
+          emailDetails={this.props.emailDetails}
+          initial={this.props.selectedNotification}
+          onCancel={this.onCancel}
+          onSubmit={this.onSubmit}
+          tags={this.getMergeTags()}
+        />
+      );
+    }
+
+    return null;
   }
 }
 

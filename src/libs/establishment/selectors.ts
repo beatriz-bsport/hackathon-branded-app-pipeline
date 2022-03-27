@@ -5,6 +5,7 @@ import { RootState } from '../../reducers';
 import {
   AssociatedEstablishment,
   Establishment,
+  EstablishmentGroup,
   EstablishmentState,
 } from './types';
 
@@ -52,6 +53,11 @@ export const getDisabledEstablishmentList = createSelector(
 
 export const getEstablishment = (state: RootState, id: number): Establishment =>
   state.establishment.byId[id];
+
+export const retrieveEstablishmentGroup = (
+  state: RootState,
+  id: number,
+): EstablishmentGroup => state.establishment.establishmentGroup.byId[id];
 
 export const getAllAssociatedEstablishment = (state: RootState) =>
   state.establishment.associatedEstablishment.items;

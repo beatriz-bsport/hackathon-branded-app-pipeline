@@ -10,24 +10,32 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
+import { IconButton } from '@material-ui/core';
 import { MaterialStyleType } from '../../../utils/types';
 import withConfirm from '../../../hocs/with-confirm.hoc';
 import type { EstablishmentGroup } from '../types';
+import { MarketingNotification } from '#libs/marketing/types';
+import NotificationBellWithBadge from '#components/marketing/NotificationBell.component';
 
 type OwnProps = {
   establishmentGroupList: Array<EstablishmentGroup>;
   onEditEstablishmentGroup: (group: EstablishmentGroup) => void;
   onDeleteEstablishmentGroup: (group: EstablishmentGroup) => void;
+  setEstablishmentGroupNotificationsToEdit: (
+    EstablishmentGroup: number,
+  ) => void;
+  marketingNotificationByEstablishmentGroup: {
+    [key: string]: Array<MarketingNotification>;
+  };
 };
 type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
-const ButtonWithConfirm = withConfirm(Button, 'onClick', {
+const ButtonWithConfirm = withConfirm(IconButton, 'onClick', {
   title: 'establishment:group.modal.delete.title',
   cancel: 'establishment:group.modal.delete.cancel',
   confirm: 'establishment:group.modal.delete.confirm',
@@ -41,7 +49,10 @@ export const EstablishmentGroupTable = (props: Props) => {
     establishmentGroupList,
     onEditEstablishmentGroup,
     onDeleteEstablishmentGroup,
+    marketingNotificationByEstablishmentGroup,
+    setEstablishmentGroupNotificationsToEdit,
   } = props;
+
   return (
     <Table>
       <TableHead>
@@ -70,10 +81,24 @@ export const EstablishmentGroupTable = (props: Props) => {
                     />
                   ))}
               </TableCell>
-              <TableCell align="center">
-                <Button onClick={() => onEditEstablishmentGroup(group)}>
+              <TableCell align="right">
+                <NotificationBellWithBadge
+                  badgeContent={
+                    marketingNotificationByEstablishmentGroup[group.id]
+                      ?.length || 0
+                  }
+                  isDisabled={
+                    !marketingNotificationByEstablishmentGroup[
+                      group.id
+                    ]?.filter((m) => m.active)?.length
+                  }
+                  onClick={() =>
+                    setEstablishmentGroupNotificationsToEdit(group.id)
+                  }
+                />
+                <IconButton onClick={() => onEditEstablishmentGroup(group)}>
                   <EditIcon color="primary" />
-                </Button>
+                </IconButton>
                 <ButtonWithConfirm
                   onClick={() => onDeleteEstablishmentGroup(group)}
                 >

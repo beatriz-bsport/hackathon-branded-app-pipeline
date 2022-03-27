@@ -217,3 +217,41 @@ export function updateMarketingNotification(
     dispatch(marketingNotificationUpdateActions.isLoading(false));
   };
 }
+
+export const marketingNotificationByEstablishmentGroupActions = {
+  error: createAction('MARKETING_NOTIFICATION/BY_ESTABLISHMENT_GROUP/ERROR'),
+  isLoading: createAction(
+    'MARKETING_NOTIFICATION/BY_ESTABLISHMENT_GROUP/IS_LOADING',
+  ),
+  success: createAction(
+    'MARKETING_NOTIFICATION/BY_ESTABLISHMENT_GROUP/SUCCESS',
+  ),
+};
+
+export function fetchMarketingNotificationByEstablishmentGroupAction(
+  params: any = {},
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(marketingNotificationByEstablishmentGroupActions.isLoading(true));
+    dispatch(marketingNotificationByEstablishmentGroupActions.error(null));
+    let data = null;
+    try {
+      const response_custom = await fetchMarketingNotificationListAPI(params);
+      data = [...response_custom.data];
+      dispatch(marketingNotificationByEstablishmentGroupActions.success(data));
+      if (options && options.onSuccess) {
+        options.onSuccess(data);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(marketingNotificationByEstablishmentGroupActions.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
+
+    dispatch(marketingNotificationByEstablishmentGroupActions.isLoading(false));
+    return data;
+  };
+}

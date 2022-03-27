@@ -24,6 +24,9 @@ const _getNotificationIds = (state: RootState) =>
 const _getNotifications = (state: RootState) =>
   state.marketingNotification.byId;
 
+const _getNotificationsIdsByEstablishmentGroup = (state: RootState) =>
+  state.marketingNotification.byEstablishmentGroupId;
+
 export const getPrivateBookingNotifications = createSelector(
   [_getNotificationIds, _getNotifications],
   (ids, data) => {
@@ -41,6 +44,24 @@ export const getBookingNotifications = createSelector(
     return ids
       .map((id) => data[id])
       .filter((notif) => notif.kind === NOTIFICATION_KIND.BOOKING_CREATION);
+  },
+);
+export const getmarketingNotificationbyEstablishmentGroup: (
+  state: RootState,
+) => {
+  [key: string]: Array<MarketingNotification>;
+} = createSelector(
+  [_getNotifications, _getNotificationsIdsByEstablishmentGroup],
+  (notificationsById, notificationsIdsByEstablishmentGroup) => {
+    return Object.keys(notificationsIdsByEstablishmentGroup)?.reduce(
+      (acc, key) => {
+        acc[key] = notificationsIdsByEstablishmentGroup[key]?.map(
+          (id) => notificationsById[id],
+        );
+        return acc as { [key: string]: Array<MarketingNotification> };
+      },
+      {},
+    );
   },
 );
 
@@ -98,7 +119,11 @@ export const getNotificationGrouped = createSelector(
     const byPrivatePass: { [key: string]: MarketingNotification[] } = {};
     const bookings: {
       [key: string]: {
-        identifier: 'meta_activity' | 'establishment' | 'private_service';
+        identifier:
+          | 'meta_activity'
+          | 'establishment'
+          | 'private_service'
+          | 'establishment_group';
         bySession: {
           [key: string]: { [key: string]: MarketingNotification[] };
         };
@@ -112,6 +137,7 @@ export const getNotificationGrouped = createSelector(
         payment_pack_id,
         private_pass_id,
         establishment_id,
+        establishment_group_id,
         meta_activity_id,
         private_service_id,
         notify_booking_nb,
@@ -157,6 +183,24 @@ export const getNotificationGrouped = createSelector(
         bookings[establishment_id.toString()].bySession[notify_booking_nb][
           kind
         ].push(n);
+      }
+      if (
+        establishment_group_id !== undefined &&
+        establishment_group_id !== null
+      ) {
+        const _path = [
+          establishment_group_id.toString(),
+          'bySession',
+          notify_booking_nb.toString(),
+          kind.toString(),
+        ];
+
+        !get(bookings, _path) && setWith(bookings, _path, [], Object);
+        bookings[establishment_group_id.toString()].identifier =
+          'establishment_group';
+        bookings[establishment_group_id.toString()].bySession[
+          notify_booking_nb
+        ][kind].push(n);
       }
 
       if (private_service_id !== undefined && private_service_id !== null) {

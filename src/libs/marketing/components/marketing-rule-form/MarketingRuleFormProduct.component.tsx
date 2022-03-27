@@ -1,5 +1,3 @@
-// @flow
-
 import React, { useState, useEffect } from 'react';
 import { withFormik, Form, FormikProps } from 'formik';
 import * as Yup from 'yup';
@@ -25,9 +23,9 @@ import type { TFunction } from 'i18next';
 import { compose } from 'recompose';
 import WarningIcon from '@material-ui/icons/Warning';
 
-import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
-import Tooltip from '../../../components/Tooltip.component';
-import EmailSelector from '../../email-editor/components/EmailSelector.component';
+import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
+import Tooltip from '#components/Tooltip.component';
+import EmailSelector from '#libs/email-editor/components/EmailSelector.component';
 
 import {
   IntegerField,
@@ -36,13 +34,13 @@ import {
   Submit,
   CheckboxField,
   TextField,
-} from '../../../components/forms';
-import NotificationContentInput from '../../communication/components/NotificationContentInput.component';
-import { MAX_LENGTH_PUSH_TITLE } from '../../communication/constant';
+} from '#components/forms';
+import NotificationContentInput from '#libs/communication/components/NotificationContentInput.component';
+import { MAX_LENGTH_PUSH_TITLE } from '#libs/communication/constant';
 import MaterialUISelector, {
   OptionTypeBase,
-} from '../../../components/Selector/MaterialUISelector.component';
-import { MarketingNotification } from '../types';
+} from '#components/Selector/MaterialUISelector.component';
+import { MarketingNotification } from '../../types';
 import {
   PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME,
   PRIVATE_CONSUMER_PASS_NOTIFICATION_CREDIT,
@@ -116,7 +114,7 @@ type Props = {
   setFieldValue: (key: string, value: any) => void;
   errors: any;
   isSubmitting: boolean;
-  tags: OptionTypeBase[];
+  tags: { [tag_name: string]: string[] };
 } & FormikProps<InitialFormikValues>;
 
 const getNotificationKind = (notif: any) => {

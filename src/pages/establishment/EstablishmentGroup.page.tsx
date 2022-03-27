@@ -1,4 +1,6 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
 import Paper from '@material-ui/core/Paper';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import { Redirect } from 'react-router-dom';
@@ -6,6 +8,7 @@ import { connect } from 'react-redux';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { createStyles, Theme } from '@material-ui/core';
 import withTitle from '../../hocs/with-title.hoc';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers/index';
@@ -19,6 +22,7 @@ import {
   getAssociatedEstablishmentGroup,
   withEstablishment,
   getAvailableEstablishmentList,
+  retrieveEstablishmentGroup,
 } from '../../libs/establishment/selectors';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
@@ -27,11 +31,35 @@ import EstablishmentGroupFormDialog from '../../libs/establishment/components/Es
 import type { EstablishmentGroup as EstablishmentGroupType } from '../../libs/establishment/types';
 import EstablishmentGroupTable from '../../libs/establishment/components/EstablishmentGroupTable.component';
 import themeSelectors from '../../libs/theme/selectors';
+import {
+  fetchMarketingNotificationByEstablishmentGroupAction,
+  createMarketingNotification,
+  updateMarketingNotification as updateMarketingNotificationAction,
+  deleteMarketingNotification as deleteMarketingNotificationAction,
+} from '../../libs/marketing/actions';
+import GenericFormDialog from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import MarketingRuleListEstablishmentGroup from '#libs/marketing/components/MarketingRuleListEstablishmentGroup.component';
+import {
+  getAllEmailTemplatesDict,
+  getAllEmailTemplatesSummaries,
+  getEmailTemplatesDetail,
+} from '#libs/email-editor/selectors';
+import {
+  fetchEmailTemplateSummariesBulk as fetchEmailTemplateSummariesBulkAction,
+  emailTemplateDetail,
+  emailTemplatesSummaries as fetchEmailTemplatesSummaries,
+} from '#libs/email-editor/actions';
+import { getmarketingNotificationbyEstablishmentGroup } from '#libs/marketing/selectors';
+import { MarketingNotification } from '#libs/marketing/types';
+import { EmailTemplateSummary } from '#libs/email-editor/types';
+import NotificationFormGeneric from '#libs/marketing/components/NotificationFormGeneric';
 
 type StateHandlerInit = {
   openDialogForm: boolean;
   initialGroup: EstablishmentGroupType | null;
   submitting: boolean;
+  establishmentGroupNotificationsToEditId: number | null;
+  notificationToEdit: MarketingNotification;
 };
 type StateHandlerType = typeof withStateHandlersInit &
   WithHandlerType<typeof withStateHandlersSetter>;
@@ -43,11 +71,66 @@ type Props = OwnAndConnectedProps &
   WithHandlerType<typeof mapWithHandlers> &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
+
+const BOOKING_CREATION_NOTIFICATION = 2;
+
 export class EstablishmentGroup extends React.Component<Props> {
+  state = { establishmentGroupForNotificationCreation: null };
+
   componentDidMount() {
     this.props.fetchAllEstablishmentGroup();
     this.props.fetchEstablishments();
+    this.props.fetchMarketingNotificationByEstablishmentGroup({
+      kind: BOOKING_CREATION_NOTIFICATION,
+    });
   }
+
+  setEstablishmentGroupNotificationsToEdit = (groupId: number) => {
+    this.props.setEstablishmentGroupNotificationsToEdit(groupId);
+    const emailToFetch = this.props.marketingNotificationByEstablishmentGroup[
+      groupId
+    ]?.reduce((acc, marketingNotification) => {
+      if (marketingNotification.email_design) {
+        acc.push(marketingNotification.email_design);
+      }
+      return acc;
+    }, [] as Array<number>);
+    if (emailToFetch?.length) {
+      this.props.fetchEmailTemplateSummariesBulk(emailToFetch);
+    }
+  };
+
+  closeDrawer = () => {
+    this.props.setEstablishmentGroupNotificationsToEdit(null);
+  };
+
+  updateNotification = (id: number, data: MarketingNotification) => {
+    this.props.updateMarketingNotification(id, data);
+    this.closeNotificationEditForm();
+  };
+
+  deleteNotification = (id: number) => {
+    this.props.deleteMarketingNotification(id);
+  };
+
+  editNotification = (notification: MarketingNotification) => {
+    this.props.setNotificationToEdit(notification);
+  };
+
+  closeNotificationEditForm = () => {
+    this.props.setNotificationToEdit(null);
+  };
+
+  handleCreateNotification = (notification: MarketingNotification) => {
+    this.props.createMarketingNotification(notification, {
+      onSuccess: () => {
+        this.setState({ establishmentGroupForNotificationCreation: null });
+        this.props.fetchMarketingNotificationByEstablishmentGroup({
+          kind: BOOKING_CREATION_NOTIFICATION,
+        });
+      },
+    });
+  };
 
   render() {
     if (!this.props.companyTheme.enable_multi_localization) {
@@ -72,6 +155,12 @@ export class EstablishmentGroup extends React.Component<Props> {
           ) : (
             <Paper>
               <EstablishmentGroupTable
+                setEstablishmentGroupNotificationsToEdit={
+                  this.setEstablishmentGroupNotificationsToEdit
+                }
+                marketingNotificationByEstablishmentGroup={
+                  this.props.marketingNotificationByEstablishmentGroup
+                }
                 establishmentGroupList={this.props.establishmentGroupList}
                 onEditEstablishmentGroup={(group: EstablishmentGroupType) => {
                   this.props.setInitialGroup(group);
@@ -104,26 +193,134 @@ export class EstablishmentGroup extends React.Component<Props> {
             isSubmitting={this.props.submitting}
           />
         )}
+        <GenericFormDialog
+          open={!!this.props.establishmentGroupNotificationsToEditId}
+          onClose={this.closeDrawer}
+          title={t('marketing:notifications.listTitle')}
+          subtitle={this.props.establishmentGroupNotificationsToEdit?.name}
+        >
+          <div className={this.props.classes.notificationContainer}>
+            <Paper variant="outlined">
+              {this.props.marketingNotificationByEstablishmentGroup[
+                this.props.establishmentGroupNotificationsToEditId
+              ]?.map((marketing_notification) => (
+                <MarketingRuleListEstablishmentGroup
+                  deleteNotification={this.deleteNotification}
+                  updateNotification={this.updateNotification}
+                  editNotification={this.editNotification}
+                  marketingNotification={marketing_notification}
+                  email={
+                    this.props.emailSummariesById[
+                      marketing_notification.email_design
+                    ]
+                  }
+                />
+              ))}
+            </Paper>
+            <Button
+              className={this.props.classes.buttonAdd}
+              onClick={() =>
+                this.setState({
+                  establishmentGroupForNotificationCreation:
+                    this.props.establishmentGroupNotificationsToEditId,
+                })
+              }
+              color="primary"
+            >
+              <AddIcon className={this.props.classes.leftIcon} />
+              {t('marketing:notifications.create')}
+            </Button>
+          </div>
+        </GenericFormDialog>
+        {this.state.establishmentGroupForNotificationCreation && (
+          <NotificationFormGeneric
+            sourceObjectId={
+              this.state.establishmentGroupForNotificationCreation
+            }
+            objectId="establishment_group"
+            establishmentGroups={this.props.establishmentGroupList}
+            emailSummaryList={this.props.emailSummaryList}
+            emailListLoading={this.props.emailListLoading}
+            emailDetailLoading={this.props.emailDetailLoading}
+            getEmailDetail={this.props.fetchEmailTemplateDetail}
+            getEmails={this.props.fetchEmailTemplatesSummaries}
+            emailDetails={this.props.emailDetailById}
+            onCancel={() =>
+              this.setState({ establishmentGroupForNotificationCreation: null })
+            }
+            onUpdateMarketingNotification={this.onEditNotification}
+            onCreateMarketingNotification={this.handleCreateNotification}
+            createFormOpenType="establishment_group"
+            closeForm={() =>
+              this.setState({ establishmentGroupForNotificationCreation: null })
+            }
+          />
+        )}
+        <NotificationFormGeneric
+          selectedNotification={this.props.notificationToEdit}
+          emailSummaryList={this.props.emailSummaryList}
+          emailListLoading={this.props.emailListLoading}
+          emailDetailLoading={this.props.emailDetailLoading}
+          getEmailDetail={this.props.fetchEmailTemplateDetail}
+          getEmails={this.props.fetchEmailTemplatesSummaries}
+          emailDetails={this.props.emailDetailById}
+          onCancel={this.closeNotificationEditForm}
+          closeForm={this.closeNotificationEditForm}
+          onUpdateMarketingNotification={this.updateNotification}
+        />
       </>
     );
   }
 }
-const styles = () => ({});
-const mapStateToProps = (state: RootState) => ({
+const styles = (theme: Theme) =>
+  createStyles({
+    notificationContainer: {
+      padding: theme.spacing(2),
+    },
+    leftIcon: {
+      marginRight: theme.spacing(1),
+    },
+    buttonAdd: {
+      marginTop: theme.spacing(1),
+    },
+  });
+const mapStateToProps = (state: RootState, props: StateHandlerType) => ({
   loading:
     state.establishment.loading ||
     state.establishment.establishmentGroup.loading,
   establishmentGroupList: withEstablishment(getAssociatedEstablishmentGroup)(
     state,
   ),
+  emailDetailById: getEmailTemplatesDetail(state),
+
+  establishmentGroupNotificationsToEdit: retrieveEstablishmentGroup(
+    state,
+    props.establishmentGroupNotificationsToEditId,
+  ),
   establishments: getAvailableEstablishmentList(state),
   companyTheme: themeSelectors.getTheme(state),
+  marketingNotificationByEstablishmentGroup:
+    getmarketingNotificationbyEstablishmentGroup(state),
+  emailSummariesById: getAllEmailTemplatesDict(state),
+  emailSummaryList: getAllEmailTemplatesSummaries(
+    state,
+  ) as EmailTemplateSummary[],
+  emailListLoading: state.emailTemplate.loading,
+  emailDetailLoading: state.emailTemplate.detail.loading,
 });
 const mapDispatchToProps = {
+  fetchEmailTemplateDetail: emailTemplateDetail,
+  fetchEmailTemplatesSummaries,
+  fetchEmailTemplateSummariesBulk: fetchEmailTemplateSummariesBulkAction,
   fetchAllEstablishmentGroup: fetchAllEstablishmentGroupAction,
   fetchEstablishments: fetchEstablishmentsAction,
   upsertEstablishmentGroupAction,
   deleteEstablishmentGroupAction,
+  fetchMarketingNotificationByEstablishmentGroup:
+    fetchMarketingNotificationByEstablishmentGroupAction,
+  updateMarketingNotification: updateMarketingNotificationAction,
+  deleteMarketingNotification: deleteMarketingNotificationAction,
+  createMarketingNotification,
 };
 const mapWithHandlers = {
   upsertEstablishmentGroup:
@@ -144,6 +341,8 @@ const withStateHandlersInit: StateHandlerInit = {
   openDialogForm: false,
   initialGroup: null,
   submitting: false,
+  establishmentGroupNotificationsToEditId: null,
+  notificationToEdit: null,
 };
 const withStateHandlersSetter = {
   setOpenDialogForm: () => (openDialogForm: boolean) => {
@@ -155,9 +354,16 @@ const withStateHandlersSetter = {
   setSubmitting: () => (submitting: boolean) => {
     return { submitting };
   },
+  setNotificationToEdit: () => (notificationToEdit: MarketingNotification) => {
+    return { notificationToEdit };
+  },
+  setEstablishmentGroupNotificationsToEdit:
+    () => (establishmentGroupNotificationsToEditId: number) => {
+      return { establishmentGroupNotificationsToEditId };
+    },
 };
 export default compose<any, OwnProps>(
-  withTranslation('establishment'),
+  withTranslation(['establishment', 'marketing']),
   withStyles(styles),
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:establishment.establishmentGroupPage'),

@@ -194,6 +194,7 @@ exports.default = {
     cancelledByOfferDate: 'Séance annulée par le club le {{-date}} à {{time}}',
   },
   notification: {
+    title: 'Notification',
     addNotification: 'Ajouter une notification',
     form: {
       title: 'Formulaire de notification',

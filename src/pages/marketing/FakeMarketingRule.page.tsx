@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react';
 
 import FormControl from '@material-ui/core/FormControl';
@@ -8,14 +7,15 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import withStyles from '@material-ui/core/styles/withStyles';
-import { withTranslation, TFunction } from 'react-i18next';
+import { WithStyles, Theme, withStyles } from '@material-ui/core';
+import { withTranslation, WithTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
 import Sms from '@material-ui/icons/Sms';
 import Smartphone from '@material-ui/icons/Smartphone';
 import Email from '@material-ui/icons/Email';
 import withTitle from '../../hocs/with-title.hoc';
 
-const styles = (theme) => ({
+const styles = (theme: Theme) => ({
   paperContainer: {
     padding: theme.spacing(3),
   },
@@ -65,8 +65,12 @@ const RULE = {
     },
   ],
 };
-export class MarketingRule extends Component {
-  constructor(props) {
+
+type Props = WithTranslation & WithStyles<typeof styles>;
+type State = { rule: any };
+
+export class MarketingRule extends Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       rule: RULE,
@@ -75,7 +79,7 @@ export class MarketingRule extends Component {
 
   handleChange = () => {};
 
-  renderActionKind = (kindId) => {
+  renderActionKind = (kindId: number) => {
     let icon = <Sms color="primary" />;
     switch (kindId) {
       case 1:
@@ -98,7 +102,7 @@ export class MarketingRule extends Component {
     );
   };
 
-  renderActionKindSelect = (action) => {
+  renderActionKindSelect = (action: any) => {
     const { classes } = this.props;
     return (
       <FormControl className={classes.formControl} margin="normal">
@@ -109,7 +113,7 @@ export class MarketingRule extends Component {
     );
   };
 
-  renderMessageDisplay = (action) => {
+  renderMessageDisplay = (action: any) => {
     const { t } = this.props;
     return (
       <Grid container direction="column" spacing={2}>
@@ -123,7 +127,7 @@ export class MarketingRule extends Component {
     );
   };
 
-  renderTriggerSelect = (action) => {
+  renderTriggerSelect = (action: any) => {
     const { classes, t } = this.props;
     return (
       <FormControl className={classes.formControlLarge} margin="normal">
@@ -140,7 +144,7 @@ export class MarketingRule extends Component {
     );
   };
 
-  renderPromoSelect = (action) => {
+  renderPromoSelect = (action: any) => {
     const { classes, t } = this.props;
     return (
       <Grid container direction="column">
@@ -168,7 +172,7 @@ export class MarketingRule extends Component {
     );
   };
 
-  renderAction = (action) => (
+  renderAction = (action: any) => (
     <Grid container direction="row">
       <Grid item xs={3}>
         {this.renderTriggerSelect(action)}

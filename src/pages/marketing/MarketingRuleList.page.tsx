@@ -15,68 +15,80 @@ import { RootState } from '../../reducers';
 import {
   getNotificationGrouped,
   getNotificationForMarketingPage,
-} from '../../libs/marketing/selectors';
-import { getTheme } from '../../libs/theme/selectors';
+} from '#libs/marketing/selectors';
+import { getTheme } from '#libs/theme/selectors';
 import {
   fetchMarketingNotification,
   fetchMarketingNotificationList,
   createMarketingNotification,
   updateMarketingNotification,
   deleteMarketingNotification,
-} from '../../libs/marketing/actions';
+} from '#libs/marketing/actions';
 import {
   emailTemplateComplete,
   emailTemplateDetail,
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
   fetchEmailTemplateSummariesBulk,
-} from '../../libs/email-editor/actions';
+} from '#libs/email-editor/actions';
 import {
   fetchAllPrivateServices,
   fetchPrivateServiceBulk,
   fetchPrivatePassList,
-} from '../../libs/private-service/actions';
+} from '#libs/private-service/actions';
 import { getPrivatePassListBase as getPrivatePasses } from '../../libs/private-service/selectors/private-pass';
 
 import {
   fetchAllActivities,
   fetchMetaActivityBulk,
-} from '../../libs/meta-activity/actions';
+} from '#libs/meta-activity/actions';
 import {
   fetchAllPaymentPacks,
   fetchPaymentPackBulk,
-} from '../../libs/payment-packs/actions';
+} from '#libs/payment-packs/actions';
 import {
   fetchEstablishmentBulk,
   fetchEstablishments,
-} from '../../libs/establishment/actions';
+  fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
+} from '#libs/establishment/actions';
 import {
   getAllEmailTemplatesDict,
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
-} from '../../libs/email-editor/selectors';
-import { fetchMarketingNotificationCampaignSummary } from '../../libs/communication/actions';
-import { getAll as getAllPaymentPacks } from '../../libs/payment-packs/selectors';
-import { fetchTagList } from '../../libs/notification-rule/actions';
-import { getTagCategories } from '../../libs/notification-rule/selectors';
+} from '#libs/email-editor/selectors';
+import { fetchMarketingNotificationCampaignSummary } from '#libs/communication/actions';
+import { getAll as getAllPaymentPacks } from '#libs/payment-packs/selectors';
+import { fetchTagList } from '#libs/notification-rule/actions';
+import { getTagCategories } from '#libs/notification-rule/selectors';
 
 import { MaterialStyleType } from '../../utils/types';
-import ProductNotificationList from '../../libs/marketing/components/ProductNotificationList.component';
-import AbstractBookingNotificationList from '../../libs/marketing/components/AbstractBookingNotificationList.component';
-import { MarketingNotification } from '../../libs/marketing/types';
-import EmailTemplateForNotifications from '../../libs/marketing/components/EmailTemplateForNotifications';
-import { EmailTemplateSummary } from '../../libs/email-editor/types';
-import NotificationFormGeneric from '../../libs/marketing/components/NotificationFormGeneric';
-import { getAllSmartList } from '../../libs/smart-list/selectors';
-import { fetchAllSmartLists } from '../../libs/smart-list/actions';
+
+import MarketingRuleListPaymentPack from '#libs/marketing/components/MarketingRuleListPaymentPack.component';
+import MarketingRuleListPrivatePass from '#libs/marketing/components/MarketingRuleListPrivatePass.component';
+import MarketingRuleListBooking from '#libs/marketing/components/MarketingRuleListBooking.component';
+import MarketingRuleListPrivateBooking from '#libs/marketing/components/MarketingRuleListPrivateBooking.component';
+
+import { MarketingNotification } from '#libs/marketing/types';
+import MarketingRuleDetail from '#libs/marketing/components/MarketingRuleDetail.component';
+import { EmailTemplateSummary } from '#libs/email-editor/types';
+import NotificationFormGeneric from '#libs/marketing/components/NotificationFormGeneric';
+import { getAllSmartList } from '#libs/smart-list/selectors';
+import { fetchAllSmartLists } from '#libs/smart-list/actions';
 import {
   getPageEnabledMetaActivities,
   getEnabledWorkshops,
-} from '../../libs/meta-activity/selectors';
-import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
-import { _getPrivateServices } from '../../libs/private-service/selectors/private-service';
+} from '#libs/meta-activity/selectors';
+import {
+  getAssociatedEstablishmentGroup,
+  getAvailableEstablishmentList,
+  withEstablishment,
+} from '#libs/establishment/selectors';
+import { _getPrivateServices } from '#libs/private-service/selectors/private-service';
 import NotificationsList from '#libs/marketing/components/NotificationsList.Component';
-import { showDeleteDialog } from '../../components/genericDialog/CustomDialogs';
-import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import { showDeleteDialog } from '#components/genericDialog/CustomDialogs';
+import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import { EstablishmentGroup } from '#libs/establishment/types';
+
+import FabWithItems from '#components/button/FabWithItems';
 
 type Props = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps &
@@ -89,15 +101,17 @@ type State = {
   selectedNotification?: number | null;
   editNotification?: MarketingNotification | null;
   loading: boolean;
+  createFormOpen: string | null;
 };
 
-export class MarketingNotifications extends Component<Props, State> {
+export class MarketingRuleListPage extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
       selectedNotification: props.notificationId,
       editNotification: null,
       loading: false,
+      createFormOpen: null,
     };
   }
 
@@ -153,7 +167,6 @@ export class MarketingNotifications extends Component<Props, State> {
       }
       emailDesignIds.push(n.email_design);
     });
-
     await Promise.all([
       this.props.fetchPaymentPackBulk(paymentPackIds),
       this.props.fetchEstablishmentBulk(establishmentIds),
@@ -167,6 +180,7 @@ export class MarketingNotifications extends Component<Props, State> {
       this.props.fetchTagList(),
       this.props.getSmartLists(),
       this.props.fetchPrivatePassList(),
+      this.props.fetchAllEstablishmentGroup(),
     ]);
 
     this.setState({ loading: false });
@@ -245,6 +259,45 @@ export class MarketingNotifications extends Component<Props, State> {
     });
   };
 
+  getCreateButtonSpec = () => [
+    {
+      label: this.props.t('marketing:notifications.fabLabels.birthday'),
+      onClick: () => this.setState({ createFormOpen: 'birthday' }),
+    },
+    {
+      label: this.props.t('marketing:notifications.fabLabels.meta_activity'),
+      onClick: () => this.setState({ createFormOpen: 'meta_activity' }),
+    },
+    {
+      label: this.props.t('marketing:notifications.fabLabels.workshop'),
+      onClick: () => this.setState({ createFormOpen: 'workshop' }),
+    },
+    {
+      label: this.props.t('marketing:notifications.fabLabels.establishment'),
+      onClick: () => this.setState({ createFormOpen: 'establishment' }),
+    },
+    this.props.establishmentGroups?.length && {
+      label: this.props.t(
+        'marketing:notifications.fabLabels.establishmentGroup',
+      ),
+      onClick: () => this.setState({ createFormOpen: 'establishment_group' }),
+    },
+    {
+      label: this.props.t('marketing:notifications.fabLabels.private_service'),
+      onClick: () => this.setState({ createFormOpen: 'private_service' }),
+    },
+    {
+      label: this.props.t('marketing:notifications.fabLabels.payment_pack'),
+      onClick: () => this.setState({ createFormOpen: 'payment_pack' }),
+    },
+    this.props.notifications?.birthday?.length > 0 && {
+      label: this.props.t('marketing:notifications.fabLabels.private_pass'),
+      onClick: () => this.setState({ createFormOpen: 'private_pass' }),
+    },
+  ];
+
+  closeForm = () => this.setState({ createFormOpen: null });
+
   render() {
     const { classes } = this.props;
 
@@ -255,35 +308,40 @@ export class MarketingNotifications extends Component<Props, State> {
         </div>
       );
     }
-
     return (
       <div className={classes.container}>
         <div className={classes.notificationsContainer}>
-          <AbstractBookingNotificationList
+          <MarketingRuleListBooking
             bookingNotifications={this.props.notifications.bookings}
+            establishmentById={this.props.establishmentById}
+            establishmentGroupById={this.props.establishmentGroupById}
+            metaActivityBydId={this.props.metaActivityById}
+            onClickNotification={this.onClickNotification}
+            emailSummariesById={this.props.emailSummariesById}
+            onUpdateNotification={this.props.updateMarketingNotification}
+          />
+          <MarketingRuleListPrivateBooking
             privateBookingNotifications={
               this.props.notifications.privateBookings
             }
             establishmentById={this.props.establishmentById}
-            metaActivityBydId={this.props.metaActivityById}
+            establishmentGroupById={this.props.establishmentGroupById}
             privateServiceById={this.props.privateServicebyId}
             onClickNotification={this.onClickNotification}
             emailSummariesById={this.props.emailSummariesById}
             onUpdateNotification={this.props.updateMarketingNotification}
           />
-          <ProductNotificationList
-            productKind="paymentPack"
-            notificationsByProduct={this.props.notifications.byPaymentPack}
-            productById={this.props.paymentPackById}
+          <MarketingRuleListPaymentPack
+            paymentPackNotifications={this.props.notifications.byPaymentPack}
+            paymentPackById={this.props.paymentPackById}
             onClickNotification={this.onClickNotification}
             emailSummariesById={this.props.emailSummariesById}
             onUpdateNotification={this.props.updateMarketingNotification}
             smartLists={this.props.smartLists}
           />
-          <ProductNotificationList
-            productKind="privatePass"
-            notificationsByProduct={this.props.notifications.byPrivatePass}
-            productById={this.props.privatePassById}
+          <MarketingRuleListPrivatePass
+            privatePassNotifications={this.props.notifications.byPrivatePass}
+            privatePassById={this.props.privatePassById}
             onClickNotification={this.onClickNotification}
             emailSummariesById={this.props.emailSummariesById}
             onUpdateNotification={this.props.updateMarketingNotification}
@@ -310,7 +368,7 @@ export class MarketingNotifications extends Component<Props, State> {
         </div>
 
         <div className={classes.emailContainer}>
-          <EmailTemplateForNotifications
+          <MarketingRuleDetail
             emailSummary={this.getSelectedEmailTemplateSummary()}
             emailDetails={this.getSelectedEmailTemplateDetail()}
             loading={
@@ -330,6 +388,7 @@ export class MarketingNotifications extends Component<Props, State> {
               (n) => n.id === this.state.selectedNotification,
             )}
             establishmentById={this.props.establishmentById}
+            establishmentGroupById={this.props.establishmentGroupById}
             metaActivityBydId={this.props.metaActivityById}
             privateServiceById={this.props.privateServicebyId}
             paymentPackById={this.props.paymentPackById}
@@ -340,6 +399,7 @@ export class MarketingNotifications extends Component<Props, State> {
         </div>
 
         <NotificationFormGeneric
+          establishmentGroups={this.props.establishmentGroups}
           selectedNotification={this.state.editNotification}
           emailSummaryList={this.props.emailSummaryList}
           emailListLoading={this.props.emailListLoading}
@@ -361,7 +421,14 @@ export class MarketingNotifications extends Component<Props, State> {
           paymentPacks={this.props.paymentPacks}
           tags={this.props.tagCategories}
           privatePasses={this.props.privatePasses}
-          withoutBirthday={this.props?.notifications?.birthday?.length > 0}
+          createFormOpenType={this.state.createFormOpen}
+          closeForm={this.closeForm}
+        />
+        <FabWithItems
+          label={this.props.t(
+            'marketing:notifications.createNotificationFabLabel',
+          )}
+          items={this.getCreateButtonSpec()}
         />
       </div>
     );
@@ -411,6 +478,7 @@ const mapStateToProps = (state: RootState) => ({
   paymentPackById: state.paymentPack.byId,
   privatePassById: state.privateService.privatePass.byId,
   establishmentById: state.establishment.byId,
+  establishmentGroupById: state.establishment.establishmentGroup.byId,
   privateServicebyId: state.privateService.privateService.byId,
   metaActivityById: state.metaActivity.byId,
   emailTemplateLoading: state.emailTemplate.loading,
@@ -428,6 +496,9 @@ const mapStateToProps = (state: RootState) => ({
   metaActivities: getPageEnabledMetaActivities(state),
   workshopList: getEnabledWorkshops(state),
   establishments: getAvailableEstablishmentList(state),
+  establishmentGroups: withEstablishment(getAssociatedEstablishmentGroup)(
+    state,
+  ) as Array<EstablishmentGroup>,
   privateServices: _getPrivateServices(state),
   paymentPacks: getAllPaymentPacks(state),
   comm: state.communication,
@@ -459,6 +530,7 @@ const mapDispatchToProps = {
   fetchAllPaymentPacks,
   fetchMarketingNotificationCampaignSummary,
   fetchTagList,
+  fetchAllEstablishmentGroup: fetchAllEstablishmentGroupAction,
   push,
 };
 
@@ -466,7 +538,7 @@ export default compose(
   // @ts-ignore
   withStyles(styles),
   routerParamsToProps({ notificationId: 'notificationId:number' }),
-  withTranslation(['paymentPack']),
+  withTranslation(['paymentPack', 'marketing']),
   withTitle(({ t }: { t: TFunction }) => t('titles:marketing.notifications')),
   connect(mapStateToProps, mapDispatchToProps),
-)(MarketingNotifications);
+)(MarketingRuleListPage);

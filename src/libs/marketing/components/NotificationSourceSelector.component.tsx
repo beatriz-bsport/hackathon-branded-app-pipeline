@@ -18,10 +18,11 @@ import EstablishmentSelector from '../../establishment/components/EstablishmentS
 import PrivateServiceSelector from '../../private-service/components/service/PrivateServiceSelector.component';
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
 import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
-import { Establishment } from '../../establishment/types';
+import { Establishment, EstablishmentGroup } from '../../establishment/types';
 import { PrivatePass, PrivateService } from '../../private-service/types';
 import { PaymentPack } from '../../payment-packs/types';
 import { MaterialStyleType } from '../../../utils/types';
+import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
 
 type Identifier =
   | 'meta_activity'
@@ -29,7 +30,8 @@ type Identifier =
   | 'private_service'
   | 'payment_pack'
   | 'workshop'
-  | 'private_pass';
+  | 'private_pass'
+  | 'establishment_group';
 
 type OwnProps = {
   onClose: () => void;
@@ -40,6 +42,7 @@ type OwnProps = {
   privateServices: PrivateService[];
   paymentPacks: PaymentPack[];
   privatePasses: PrivatePass[];
+  establishmentGroups: Array<EstablishmentGroup>;
 };
 
 type Props = OwnProps &
@@ -52,6 +55,7 @@ type State = {
   selectedPrivateService?: number | null;
   selectedPaymentPack?: number | null;
   selectedPrivatePass?: number | null;
+  selectedEstablishmentGroup?: number | null;
 };
 
 class NotificationSourceSelector extends React.PureComponent<Props, State> {
@@ -61,6 +65,7 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
     selectedPrivateService: null,
     selectedPaymentPack: null,
     selectedPrivatePass: null,
+    selectedEstablishmentGroup: null,
   };
 
   onChange = (identifier: Identifier, value: number) => {
@@ -77,6 +82,9 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
     }
     if (identifier === 'establishment') {
       state.selectedEstablishment = [value];
+    }
+    if (identifier === 'establishment_group') {
+      state.selectedEstablishmentGroup = value;
     }
     if (identifier === 'private_service') {
       state.selectedPrivateService = value;
@@ -104,6 +112,10 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
       /* eslint-disable-next-line */
       objectId = this.state.selectedEstablishment[0];
     }
+    if (identifier === 'establishment_group') {
+      /* eslint-disable-next-line */
+      objectId = this.state.selectedEstablishmentGroup;
+    }
     if (identifier === 'private_service') {
       objectId = this.state.selectedPrivateService;
     }
@@ -113,7 +125,7 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
     if (identifier === 'private_pass') {
       objectId = this.state.selectedPrivatePass;
     }
-    this.props.onSubmit(identifier, objectId);
+    this.props.onSubmit(objectId);
   };
 
   disableSubmit = () => {
@@ -138,7 +150,7 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { classes, t, identifier } = this.props;
+    const { classes, t, identifier, establishmentGroups } = this.props;
 
     return (
       <Dialog open onClose={this.props.onClose}>
@@ -172,6 +184,21 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
                 closeMenuOnSelect
               />
             )}
+            {identifier === 'establishment_group' &&
+              !!establishmentGroups?.length && (
+                <MaterialUISelector
+                  options={[...establishmentGroups].map(
+                    (establishmentGroup) => ({
+                      label: establishmentGroup.name,
+                      value: establishmentGroup.id,
+                    }),
+                  )}
+                  isMulti={false}
+                  onChange={(option) =>
+                    this.onChange('establishment_group', option.value)
+                  }
+                />
+              )}
 
             {identifier === 'private_service' && (
               <PrivateServiceSelector

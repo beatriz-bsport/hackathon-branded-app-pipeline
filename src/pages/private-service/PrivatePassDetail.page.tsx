@@ -79,7 +79,7 @@ import {
   PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME,
   PRIVATE_CONSUMER_PASS_NOTIFICATION_CREDIT,
 } from '#libs/private-service/utils';
-import PrivatePassNotification from '#libs/private-service/components/pass/PrivatePassNotification.component';
+import MarketingRuleListItemPrivatePass from '#libs/marketing/components/marketing-rule-list-item/MarketingRuleListItemPrivatePass.component';
 import { getPrivatePassNotifications } from '#libs/marketing/selectors';
 import {
   fetchEmailTemplateSummariesBulk as fetchEmailTemplateSummariesBulkAction,
@@ -269,7 +269,7 @@ export class PrivatePassDetails extends Component<Props> {
               </div>
             </>
           )}
-          <PrivatePassNotification
+          <MarketingRuleListItemPrivatePass
             private_pass={this.props.privatePass}
             notifications={this.props.notifications}
             getEmails={this.props.fetchEmailTemplatesSummaries}

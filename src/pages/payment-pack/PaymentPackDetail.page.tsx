@@ -25,7 +25,7 @@ import {
   fetchEstablishments,
   fetchEstablishmentBulk,
 } from '#libs/establishment/actions';
-import PaymentPackNotification from '#libs/payment-packs/components/PaymentPackNotification.component';
+import MarketingRuleListItemPaymentPack from '#libs/marketing/components/marketing-rule-list-item/MarketingRuleListItemPaymentPack.component';
 import PaymentPackCard from '#libs/payment-packs/components/PaymentPackCard.component';
 import PaginatedConsumerPackList from '#libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
 import PaymentPackDeleteDialog from '#libs/payment-packs/components/PaymentPackDeleteDialog.component';
@@ -353,7 +353,7 @@ export class PaymentPackDetail extends Component<Props, State> {
               />
             </div>
           )}
-          <PaymentPackNotification
+          <MarketingRuleListItemPaymentPack
             pack={pack}
             notifications={notifications}
             getEmails={this.props.fetchEmailTemplatesSummaries}

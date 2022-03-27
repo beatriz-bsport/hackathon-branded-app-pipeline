@@ -11,6 +11,7 @@ export type MarketingNotification = {
     private_pass_id?: number;
     meta_activity_id?: number; // 2
     establishment_id?: number; // 2
+    establishment_group_id?: number;
     private_service_id?: number; // 1
     notify_booking_nb?: number; // 1, 2
     hours?: number; // 2
@@ -27,6 +28,7 @@ export type MarketingNotification = {
 
 export type MarketingNotificationState = {
   byId: { [key: string]: MarketingNotification };
+  byEstablishmentGroupId: { [key: string]: Array<number> };
   allIds: number[];
   notifications: MarketingNotification[];
   loading: boolean;

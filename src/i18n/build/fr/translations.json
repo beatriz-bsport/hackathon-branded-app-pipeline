@@ -177,6 +177,7 @@
       "cancelledByOfferDate": "Séance annulée par le club le {{-date}} à {{time}}"
     },
     "notification": {
+      "title": "Notification",
       "addNotification": "Ajouter une notification",
       "form": {
         "title": "Formulaire de notification",
@@ -1078,6 +1079,15 @@
     "allCompanies": "Tous les franchisés"
   },
   "establishment": {
+    "marketing": { "notification": "Notifications" },
+    "notification": {
+      "modal": {
+        "title": "Suppression notification",
+        "cancel": "Annuler",
+        "confirm": "Supprimer",
+        "content": "Etes vous sûr de vouloir supprimer cette notification ? Cette opération est définitive"
+      }
+    },
     "list": { "section": { "archived": "Salles archivées" } },
     "detail": { "tab": { "general": "Général", "calendar": "Calendrier" } },
     "establishment": "Établissement",
@@ -1929,10 +1939,15 @@
       "messages": { "error": "Impossible d'enregistrer votre email pour le moment", "success": "C'est enregistré !" }
     },
     "notifications": {
+      "noNotification": "Aucune notification activée",
+      "handleNotification": "Gérer les notifications",
+      "create": "Créer une notification",
       "dialogTitle": "Créer une notification",
+      "listTitle": "Notifications",
       "selectNotificationRules": "Sélectionnez une règle pour voir les détails",
       "createNotification": "Formulaire de notification",
       "selectIdentifierLabel": {
+        "establishment_group": "Sélectionnez une localisation",
         "meta_activity": "Sélectionnez une activité",
         "workshop": "Sélectionnez un atelier",
         "establishment": "Sélectionnez une salle",
@@ -1945,6 +1960,7 @@
       "next": "Suivant",
       "cancel": "Annuler",
       "fabLabels": {
+        "establishmentGroup": "Localisation",
         "birthday": "Anniversaire",
         "meta_activity": "Activité",
         "workshop": "Atelier",

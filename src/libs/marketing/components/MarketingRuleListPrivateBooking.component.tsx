@@ -6,17 +6,12 @@ import {
   Theme,
   Typography,
   withStyles,
-  makeStyles,
 } from '@material-ui/core';
 import EventIcon from '@material-ui/icons/Event';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { TFunction } from 'i18next';
-import {
-  useTranslation,
-  WithTranslation,
-  withTranslation,
-} from 'react-i18next';
+import { WithTranslation, withTranslation } from 'react-i18next';
 import {
   BOOKING_EVENT_RULES,
   PRIVATEBOOKING_EVENT_RULES,
@@ -108,28 +103,24 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
 
-export class AbstractBookingNotificationList extends React.PureComponent<Props> {
-  renderByKind = (byKind: { [key: string]: MarketingNotification[] }) => {
-    const { classes, t } = this.props;
+type State = {
+  showSection: boolean;
+  hideById: { [key: string]: boolean | undefined };
+};
 
-    return (
-      <div className={classes.byKindContainer}>
-        {Object.entries(byKind).map(([kind, notifications]) => {
-          return (
-            <div className={classes.byKindItem} key={kind}>
-              <Typography>• {getLabelForKind(parseInt(kind), t)}</Typography>
-              <MarketingNotificationsList
-                notifications={notifications}
-                emailSummariesById={this.props.emailSummariesById}
-                onClickNotification={this.props.onClickNotification}
-                onUpdateNotification={this.props.onUpdateNotification}
-              />
-            </div>
-          );
-        })}
-      </div>
-    );
+export class MarketingRuleListPrivateBooking extends React.PureComponent<
+  Props,
+  State
+> {
+  state: State = {
+    showSection: true,
+    hideById: {},
   };
+
+  setShowSection = (showSection: boolean) => this.setState({ showSection });
+
+  setHideById = (hideById: { [key: string]: boolean | undefined }) =>
+    this.setState({ hideById });
 
   renderSession = (bySession: {
     [key: string]: { [key: string]: MarketingNotification[] };
@@ -154,7 +145,23 @@ export class AbstractBookingNotificationList extends React.PureComponent<Props> 
             </Typography>
           </div>
 
-          {this.renderByKind(byKind)}
+          <div className={classes.byKindContainer}>
+            {Object.entries(byKind).map(([kind, notifications]) => {
+              return (
+                <div className={classes.byKindItem} key={kind}>
+                  <Typography>
+                    • {getLabelForKind(parseInt(kind), t)}
+                  </Typography>
+                  <MarketingNotificationsList
+                    notifications={notifications}
+                    emailSummariesById={this.props.emailSummariesById}
+                    onClickNotification={this.props.onClickNotification}
+                    onUpdateNotification={this.props.onUpdateNotification}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
       );
     });
@@ -187,20 +194,54 @@ export class AbstractBookingNotificationList extends React.PureComponent<Props> 
 
   render() {
     const { classes, t } = this.props;
+
     return (
       <div className={classes.container}>
-        <NotificationByClass
-          notifications={this.props.bookingNotifications}
-          label={t('marketing:notifications.groupTitle.booking')}
-          getLabel={this.getLabel}
-          renderSession={this.renderSession}
-        />
-        <NotificationByClass
-          notifications={this.props.privateBookingNotifications}
-          label={t('marketing:notifications.groupTitle.privateBooking')}
-          getLabel={this.getLabel}
-          renderSession={this.renderSession}
-        />
+        <ButtonBase
+          onClick={() => this.setShowSection(!this.state.showSection)}
+          className={classes.buttonBaseHeader}
+        >
+          <Typography variant="h5">
+            {t('marketing:notifications.groupTitle.privateBooking')}
+          </Typography>
+          {this.state.showSection ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+        </ButtonBase>
+        {!Object.entries(this.props.privateBookingNotifications).length && (
+          <Typography>
+            {t('marketing:notifications.notificationsEmpty')}
+          </Typography>
+        )}
+
+        {Object.entries(this.props.privateBookingNotifications).map(
+          ([key, group]) => (
+            <Collapse in={this.state.showSection}>
+              <div className={classes.itemContainer} key={key}>
+                <ButtonBase
+                  className={classes.buttonTitleContainer}
+                  onClick={() => {
+                    this.setHideById({
+                      ...this.state.hideById,
+                      [key]: !this.state.hideById[key],
+                    });
+                  }}
+                >
+                  <Typography color="primary" variant="h5">
+                    {this.getLabel(key, group.identifier)}
+                  </Typography>
+                  {!this.state.hideById[key] ? (
+                    <ExpandLessIcon />
+                  ) : (
+                    <ExpandMoreIcon />
+                  )}
+                </ButtonBase>
+
+                <Collapse in={!this.state.hideById[key]}>
+                  {this.renderSession(group.bySession)}
+                </Collapse>
+              </div>
+            </Collapse>
+          ),
+        )}
       </div>
     );
   }
@@ -250,84 +291,6 @@ const styles = (theme: Theme) => ({
   byKindItem: {
     marginTop: theme.spacing(2),
   },
-});
-
-export default compose<any, OwnProps>(
-  // @ts-ignore
-  withStyles(styles),
-  withTranslation(['booking', 'privateService', 'marketing']),
-)(AbstractBookingNotificationList);
-
-type NotificationByClassProps = {
-  notifications: {
-    [byGroup: string]: {
-      identifier:
-        | 'meta_activity'
-        | 'establishment'
-        | 'private_service'
-        | 'establishment_group';
-      bySession: {
-        [bySession: string]: { [byKind: string]: MarketingNotification[] };
-      };
-    };
-  };
-  label: string;
-  getLabel: (id: string, type: string) => string;
-  renderSession: any;
-};
-const NotificationByClass = (props: NotificationByClassProps) => {
-  const { notifications, label, getLabel, renderSession } = props;
-  const { t } = useTranslation(['booking', 'privateService', 'marketing']);
-  const classes = useStyles();
-  const [showSection, setShowSection] = React.useState(true);
-  const [hideById, setHideById] = React.useState<{
-    [key: string]: boolean | undefined;
-  }>({});
-
-  return (
-    <>
-      <ButtonBase
-        onClick={() => setShowSection(!showSection)}
-        className={classes.buttonBaseHeader}
-      >
-        <Typography variant="h5">{label}</Typography>
-        {showSection ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-      </ButtonBase>
-      {!Object.entries(notifications).length && (
-        <Typography>
-          {t('marketing:notifications.notificationsEmpty')}
-        </Typography>
-      )}
-
-      {Object.entries(notifications).map(([key, group]) => {
-        const name = getLabel(key, group.identifier);
-        return (
-          <Collapse in={showSection}>
-            <div className={classes.itemContainer} key={key}>
-              <ButtonBase
-                className={classes.buttonTitleContainer}
-                onClick={() => {
-                  setHideById({ ...hideById, [key]: !hideById[key] });
-                }}
-              >
-                <Typography color="primary" variant="h5">
-                  {name}
-                </Typography>
-                {!hideById[key] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-              </ButtonBase>
-
-              <Collapse in={!hideById[key]}>
-                {renderSession(group.bySession)}
-              </Collapse>
-            </div>
-          </Collapse>
-        );
-      })}
-    </>
-  );
-};
-
-const useStyles = makeStyles((theme: Theme) => ({
   buttonBaseHeader: {
     display: 'flex',
     alignItems: 'center',
@@ -351,4 +314,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
   },
-}));
+});
+
+export default compose<any, OwnProps>(
+  // @ts-ignore
+  withStyles(styles),
+  withTranslation(['booking', 'privateService', 'marketing']),
+)(MarketingRuleListPrivateBooking);

@@ -82,7 +82,7 @@ const TAG_KIND_MEMBER = 'member';
 const TAG_KIND_COUPON = 'coupon';
 const TAG_KIND_SMARTLIST = 'smartlist';
 
-class TagManagement extends React.PureComponent<Props> {
+class MarketingTagManagement extends React.PureComponent<Props> {
   componentDidMount() {
     this.props.fetchAllGroups();
     this.props.fetchAllTags();
@@ -481,4 +481,4 @@ export default compose(
       : null,
   })),
   withTitle(({ t }: { t: TFunction }) => t('navigation:backofficeMenu.tags')),
-)(TagManagement);
+)(MarketingTagManagement);

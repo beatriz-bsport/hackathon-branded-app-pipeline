@@ -21,41 +21,43 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { compose, withState, withHandlers } from 'recompose';
 
-import ProductNotificationForm from '#libs/marketing/components/ProductNotificationForm.component';
-import NotificationListInner from '#libs/marketing/components/NotificationListInner.component';
+import MarketingRuleFormProduct from '../marketing-rule-form/MarketingRuleFormProduct.component';
+import NotificationListInner from '../NotificationListInner.component';
+import { PrivatePass } from '#libs/private-service/types';
+
+import { getMergeTags } from '../../utils';
 
 type Props = {
-  getEmails: () => void,
-  pack: PaymentPack,
-  getEmailDetail: (id: number) => void,
-  getSmartLists: () => void,
-  updateNotification: (id: number, data: any) => void,
-  deleteNotification: (id: number) => void,
-  goToSmartlist: () => void,
-  classes: Object,
-  emailListLoading: boolean,
-  emails: Array<any>,
+  getEmails: () => void;
+  private_pass: PrivatePass;
+  getEmailDetail: (id: number) => void;
+  getSmartLists: () => void;
+  updateNotification: (id: number, data: any) => void;
+  deleteNotification: (id: number) => void;
+  goToSmartlist: () => void;
+  emailListLoading: boolean;
+  emails: Array<any>;
 
-  smartLists: Array<any>,
-  notifications: { items: Array<any>, loading: boolean },
-  emailDetailLoading: boolean,
-  smartListLoading: boolean,
-  emailDetails: Array<any>,
+  smartLists: Array<any>;
+  notifications: { items: Array<any>; loading: boolean };
+  emailDetailLoading: boolean;
+  smartListLoading: boolean;
+  emailDetails: Array<any>;
 
-  onSubmit: (data: any) => void,
-  closeForm: () => void,
-  isDeleteModalOpen: boolean,
-  setIsDeleteModalOpen: (boolean) => void,
-  selectedNotification: any,
-  setSelectedNotification: (any) => void,
-  isFormOpen: boolean,
-  setIsFormOpen: (boolean) => void,
-  tags: { [tag_name: string]: string[] },
+  onSubmit: (data: any) => void;
+  closeForm: () => void;
+  isDeleteModalOpen: boolean;
+  setIsDeleteModalOpen: (open: boolean) => void;
+  selectedNotification: any;
+  setSelectedNotification: (notification: any) => void;
+  isFormOpen: boolean;
+  setIsFormOpen: (open: boolean) => void;
+  tags: { [tag_name: string]: string[] };
 };
 
-const PaymentPackNotification = (props: Props) => {
+const PrivatePasssNotification = (props: Props) => {
   const classes = useStyles();
-  const { t } = useTranslation(['paymentPack']);
+  const { t } = useTranslation('privateService');
 
   const { notifications, emails, smartLists } = props;
   if (notifications.loading) {
@@ -65,29 +67,12 @@ const PaymentPackNotification = (props: Props) => {
       </div>
     );
   }
-  const getMergeTags = () => {
-    if (props.tags) {
-      return [
-        ...Object.entries(props.tags).reduce((acc, [tagCategory, tagList]) => {
-          acc.push({
-            label: t(`notificationRule:tag.${tagCategory}.name`),
-            options: [...tagList].map((tag) => ({
-              label: t(`notificationRule:tag.${tagCategory}.tags.${tag}`),
-              value: `{${tag}}`,
-            })),
-          });
-          return acc;
-        }, []),
-      ];
-    }
-    return null;
-  };
-
+  const mergeTags = getMergeTags(props.tags, t);
   return (
     <div>
       <Paper className={classes.paper}>
         {notifications.items.map((notif) => (
-          <div key={notif.id} className={props.classes}>
+          <div key={notif.id}>
             <ListItem divider>
               <NotificationListInner
                 notification={notif}
@@ -136,7 +121,7 @@ const PaymentPackNotification = (props: Props) => {
       </Paper>
       <div className={classes.addButtonContainer}>
         <Button
-          id="button_pass_notification"
+          id="button_private_pass_notification"
           variant="outlined"
           color="primary"
           onClick={() => props.setIsFormOpen(true)}
@@ -145,8 +130,8 @@ const PaymentPackNotification = (props: Props) => {
         </Button>
       </div>
       {props.isFormOpen && (
-        <ProductNotificationForm
-          id={props.pack.id}
+        <MarketingRuleFormProduct
+          id={props.private_pass.id}
           goToSmartlist={props.goToSmartlist}
           onCancel={props.closeForm}
           emails={emails}
@@ -160,17 +145,17 @@ const PaymentPackNotification = (props: Props) => {
           smartListLoading={props.smartListLoading}
           initial={props.selectedNotification}
           onSubmit={props.onSubmit}
-          identifier="payment_pack"
-          tags={getMergeTags()}
+          identifier="private_pass"
+          tags={mergeTags}
         />
       )}
       <Dialog open={props.isDeleteModalOpen}>
         <DialogTitle>
-          {t('paymentPack:notification.listItem.deleteModal.title')}
+          {t('notification.listItem.deleteModal.title')}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            {t('paymentPack:notification.listItem.deleteModal.content')}
+            {t('notification.listItem.deleteModal.content')}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -180,7 +165,7 @@ const PaymentPackNotification = (props: Props) => {
               props.setIsDeleteModalOpen(false);
             }}
           >
-            {t('paymentPack:notification.listItem.deleteModal.cancel')}
+            {t('notification.listItem.deleteModal.cancel')}
           </Button>
           <Button
             color="primary"
@@ -190,7 +175,7 @@ const PaymentPackNotification = (props: Props) => {
               props.setIsDeleteModalOpen(false);
             }}
           >
-            {t('paymentPack:notification.listItem.deleteModal.confirm')}
+            {t('notification.listItem.deleteModal.confirm')}
           </Button>
         </DialogActions>
       </Dialog>
@@ -224,7 +209,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default compose(
+export default compose<any, Props>(
   withState('isDeleteModalOpen', 'setIsDeleteModalOpen', false),
   withState('selectedNotification', 'setSelectedNotification', null),
   withState('isFormOpen', 'setIsFormOpen', false),
@@ -253,4 +238,4 @@ export default compose(
         setSelectedNotification(null);
       },
   }),
-)(PaymentPackNotification);
+)(PrivatePasssNotification);

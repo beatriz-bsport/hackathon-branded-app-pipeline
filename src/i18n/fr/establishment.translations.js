@@ -1,4 +1,14 @@
 exports.default = {
+  marketing: { notification: 'Notifications' },
+  notification: {
+    modal: {
+      title: 'Suppression notification',
+      cancel: 'Annuler',
+      confirm: 'Supprimer',
+      content:
+        'Etes vous sûr de vouloir supprimer cette notification ? Cette opération est définitive',
+    },
+  },
   list: {
     section: {
       archived: 'Salles archivées',

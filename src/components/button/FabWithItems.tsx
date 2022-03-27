@@ -67,6 +67,7 @@ class FabWithItems extends React.PureComponent<Props, State> {
                 .filter((item) => !!item)
                 .map((item) => (
                   <ButtonBase
+                    key={item.label}
                     className={this.props.classes.fabItem}
                     onClick={() => {
                       this.setState({ openFab: false });

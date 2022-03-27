@@ -23,7 +23,7 @@ import {
 } from '../../email-editor/types';
 import { MaterialStyleType } from '../../../utils/types';
 import { MarketingNotification } from '../types';
-import { Establishment } from '../../establishment/types';
+import { Establishment, EstablishmentGroup } from '../../establishment/types';
 import { MetaActivity } from '../../meta-activity/types';
 import { PrivatePass, PrivateService } from '../../private-service/types';
 import { PaymentPack } from '../../payment-packs/types';
@@ -43,6 +43,7 @@ type OwnProps = {
   selectedNotification?: MarketingNotification;
 
   establishmentById: { [key: string]: Establishment };
+  establishmentGroupById: { [key: string]: EstablishmentGroup };
   metaActivityBydId: { [key: string]: MetaActivity };
   privateServiceById: { [key: string]: PrivateService };
   paymentPackById: { [key: string]: PaymentPack };
@@ -55,7 +56,7 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
 
-class EmailTemplateForNotifications extends React.PureComponent<Props> {
+class MarketingRuleDetail extends React.PureComponent<Props> {
   get statData() {
     const { notificationsStatById, selectedNotification } = this.props;
 
@@ -370,6 +371,7 @@ const getLabel = (props: Props) => {
     metaActivityBydId,
     paymentPackById,
     establishmentById,
+    establishmentGroupById,
     privatePassById,
   } = props;
 
@@ -383,10 +385,17 @@ const getLabel = (props: Props) => {
     payment_pack_id,
     private_service_id,
     private_pass_id,
+    establishment_group_id,
   } = selectedNotification.event_rules;
 
   if (establishment_id !== undefined && establishmentById[establishment_id]) {
     return establishmentById[establishment_id].title;
+  }
+  if (
+    establishment_group_id !== undefined &&
+    establishmentGroupById[establishment_group_id]
+  ) {
+    return establishmentGroupById[establishment_group_id].name;
   }
   if (meta_activity_id !== undefined && metaActivityBydId[meta_activity_id]) {
     return metaActivityBydId[meta_activity_id].name;
@@ -485,4 +494,4 @@ export default compose<any, OwnProps>(
   // @ts-ignore
   withStyles(styles),
   withTranslation(['booking', 'paymentPack', 'marketing']),
-)(EmailTemplateForNotifications);
+)(MarketingRuleDetail);

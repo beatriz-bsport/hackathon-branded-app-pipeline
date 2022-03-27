@@ -8,6 +8,7 @@ import {
   deleteMarketingNotificationActions,
   marketingNotificationCreateActions,
   marketingNotificationUpdateActions,
+  marketingNotificationByEstablishmentGroupActions,
 } from './actions';
 
 import type {
@@ -19,6 +20,7 @@ type State = Immutable.Immutable<MarketingNotificationState>;
 
 const initialState: State = Immutable<MarketingNotificationState>({
   byId: {},
+  byEstablishmentGroupId: {},
   allIds: [],
   notifications: [],
   loading: false,
@@ -59,6 +61,45 @@ export default handleActions<
       return state.set('loading', payload);
     },
     [marketingNotificationListActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.set('error', payload);
+    },
+    [marketingNotificationByEstablishmentGroupActions.success.toString()]: (
+      state,
+      { payload }: { payload: any },
+    ) => {
+      return state
+        .setIn(
+          ['byEstablishmentGroupId'],
+          payload.reduce((acc: any, n: MarketingNotification) => {
+            if (n.event_rules.establishment_group_id) {
+              acc[n.event_rules.establishment_group_id] = [
+                n?.id,
+                ...(acc[n.event_rules.establishment_group_id]
+                  ? acc[n.event_rules.establishment_group_id]
+                  : []),
+              ];
+            }
+            return acc;
+          }, {}),
+        )
+        .setIn(
+          ['byId'],
+          payload.reduce((acc: any, n: MarketingNotification) => {
+            acc[n.id] = n;
+            return acc;
+          }, {}),
+        );
+    },
+    [marketingNotificationByEstablishmentGroupActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.set('loading', payload);
+    },
+    [marketingNotificationByEstablishmentGroupActions.error.toString()]: (
       state,
       { payload },
     ) => {

@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -21,32 +19,32 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { compose, withState, withHandlers } from 'recompose';
 
-import BookingCreationNotificationForm from './BookingCreationNotificationForm.component';
+import MarketingRuleFormBooking from '../../marketing/components/marketing-rule-form/MarketingRuleFormBooking.component';
 
 import NotificationListInner from '../../marketing/components/NotificationListInner.component';
 
 type Props = {
-  getEmails: () => void,
-  emails: Array<any>,
-  getEmailDetail: (id: number) => void,
-  emailDetails: Array<any>,
-  emailListLoading: boolean,
-  emailDetailLoading: boolean,
-  objectId: number,
-  updateNotification: (id: number, data: any) => void,
-  deleteNotification: (notificationId: number) => void,
-  notifications: { items: Array<any>, loading: boolean },
-  identifier: 'establishment' | 'meta_activity',
+  getEmails: () => void;
+  emails: Array<any>;
+  getEmailDetail: (id: number) => void;
+  emailDetails: Array<any>;
+  emailListLoading: boolean;
+  emailDetailLoading: boolean;
+  objectId: number;
+  updateNotification: (id: number, data: any) => void;
+  deleteNotification: (notificationId: number) => void;
+  notifications: { items: Array<any>; loading: boolean };
+  identifier: 'establishment' | 'meta_activity';
 
-  isDeleteModalOpen: boolean,
-  setIsDeleteModalOpen: (boolean) => void,
-  selectedNotification: any,
-  setSelectedNotification: (any) => void,
-  isFormOpen: boolean,
-  setIsFormOpen: (boolean) => void,
+  isDeleteModalOpen: boolean;
+  setIsDeleteModalOpen: (boolean) => void;
+  selectedNotification: any;
+  setSelectedNotification: (any) => void;
+  isFormOpen: boolean;
+  setIsFormOpen: (boolean) => void;
 
-  closeForm: () => void,
-  onSubmit: (data: any) => void,
+  closeForm: () => void;
+  onSubmit: (data: any) => void;
 };
 
 const BookingCreationNotification = (props: Props) => {
@@ -120,7 +118,7 @@ const BookingCreationNotification = (props: Props) => {
         </Button>
       </div>
       {props.isFormOpen && (
-        <BookingCreationNotificationForm
+        <MarketingRuleFormBooking
           objectId={props.objectId}
           identifier={props.identifier}
           emails={props.emails}

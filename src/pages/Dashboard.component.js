@@ -186,6 +186,12 @@ export class Dashboard extends Component<Props> {
                       <ChartComponent
                         data={graphDataByIdentifier[graph.name].data}
                         {...chartProps[graph.name]}
+                        schedule_timerange_begin={
+                          this.props.theme.schedule_timerange_begin
+                        }
+                        schedule_timerange_end={
+                          this.props.theme.schedule_timerange_end
+                        }
                       />
                     </DashboardChart>
                   </Grid>

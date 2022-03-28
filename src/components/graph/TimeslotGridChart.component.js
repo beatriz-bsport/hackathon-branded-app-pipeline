@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import moment from 'moment-timezone';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import chroma from 'chroma-js';
@@ -7,6 +8,8 @@ import { useTranslation } from 'react-i18next';
 
 type Props = {
   data: Array<{ value: number, count: number, week_day: number, hour: number }>,
+  schedule_timerange_begin: string,
+  schedule_timerange_end: string,
 };
 
 const Cell = (props: {
@@ -31,6 +34,13 @@ const YLegend = (props: { classes: any, value: number }) => (
 );
 
 export const TimeslotGridChart = (props: Props) => {
+  const { schedule_timerange_begin, schedule_timerange_end } = props;
+  const hour_start = schedule_timerange_begin
+    ? moment(props.schedule_timerange_begin).hour()
+    : 6;
+  const hour_end = schedule_timerange_end
+    ? moment(props.schedule_timerange_end).hour()
+    : 23;
   const classes = useStyles();
   const { t } = useTranslation(['datetime']);
   const allValues = props.data.map(
@@ -41,11 +51,11 @@ export const TimeslotGridChart = (props: Props) => {
     <div className={classes.container}>
       <div className={classes.row}>
         <div style={{ flex: 1 }} />
-        {Array(22 - 7)
+        {Array(hour_end - hour_start)
           .fill()
           .map((_, n) => (
             <div key={n} style={{ flex: 1 }}>
-              <YLegend classes={classes} value={n + 7} />
+              <YLegend classes={classes} value={n + hour_start} />
             </div>
           ))}
       </div>
@@ -54,11 +64,11 @@ export const TimeslotGridChart = (props: Props) => {
           <Typography style={{ flex: 1 }} align="center" variant="caption">
             {t(`time.isoWeekdayNumber.${n}`).slice(0, 2)}
           </Typography>
-          {Array(22 - 7)
+          {Array(hour_end - hour_start)
             .fill()
             .map((__, m) => {
               const data = props.data.find(
-                (d) => d.week_day === n && d.hour === m + 7,
+                (d) => d.week_day === n && d.hour === m + hour_start,
               ) || { value: 0, count: 0 };
               return (
                 <div key={m} style={{ flex: 1 }}>

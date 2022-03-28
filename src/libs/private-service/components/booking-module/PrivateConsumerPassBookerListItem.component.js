@@ -34,10 +34,18 @@ type Props = {
   showMember?: boolean,
   disabled?: boolean,
   button?: Node,
+  showUniversalWarning?: boolean,
 };
 
 export const PrivateConsumerPassBookerListItem = (props: Props) => {
-  const { button, private_consumer_pass, showMember, t, classes } = props;
+  const {
+    button,
+    private_consumer_pass,
+    showMember,
+    t,
+    classes,
+    showUniversalWarning,
+  } = props;
   const { private_pass } = private_consumer_pass;
   const isFromShare =
     private_consumer_pass &&
@@ -47,6 +55,9 @@ export const PrivateConsumerPassBookerListItem = (props: Props) => {
     private_consumer_pass &&
     private_consumer_pass.src_private_consumer_pass &&
     private_consumer_pass.src_private_consumer_pass.length;
+
+  const isUniversal =
+    private_consumer_pass && private_consumer_pass.linked_consumer_payment_pack;
   const expirationDate = getExpirationDate(private_consumer_pass);
   const [processing, setProcessing] = React.useState(false);
   const renderMemberName = () => (
@@ -195,6 +206,18 @@ export const PrivateConsumerPassBookerListItem = (props: Props) => {
             {isFromShare && !private_consumer_pass.disabled
               ? t('consumerPass.isFromShare')
               : ''}
+          </Typography>
+          <Divider />
+        </React.Fragment>
+      ) : null}
+      {showUniversalWarning && isUniversal ? (
+        <React.Fragment>
+          <Typography
+            style={{ paddingLeft: 16 }}
+            variant="caption"
+            color="error"
+          >
+            {t('consumerPass.warningShareUniversal')}
           </Typography>
           <Divider />
         </React.Fragment>

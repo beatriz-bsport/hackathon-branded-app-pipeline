@@ -141,6 +141,7 @@ type Props = {
   managerFormConfig: SignUpFormConfigDict,
   waiver: string,
   generalTermsAndConditions: string,
+  consumerPaymentPackLinkLoading: boolean,
 };
 
 export class MemberDetailRelation extends React.Component<Props> {
@@ -301,6 +302,7 @@ export class MemberDetailRelation extends React.Component<Props> {
                 )
                 .map((cpp) => cpp.id)}
               loading={this.props.passLoading}
+              processing={this.props.consumerPaymentPackLinkLoading}
               onCancel={() => this.props.setOpenConsumerPackLinking(false)}
               onSubmit={this.props.createPassLinking}
             />
@@ -331,6 +333,7 @@ export class MemberDetailRelation extends React.Component<Props> {
                 .filter(
                   (pcp) =>
                     pcp.dst_consumer_payment_pack ||
+                    !!pcp.linked_consumer_payment_pack ||
                     linkedPrivatePassIds.includes(pcp.id),
                 )
                 .map((pcp) => pcp.id)}
@@ -414,6 +417,8 @@ export default compose(
       privatePassLoading:
         state.privateService.privateConsumerPass.byMember.loading,
       managerFormConfig: getSignUpFormConfigurationDict(state),
+      consumerPaymentPackLinkLoading:
+        state.relationship.consumer_payment_pack_link.loading,
     }),
     {
       fetchMember,
@@ -459,6 +464,20 @@ export default compose(
     }),
   ),
   withProps(
+    ({ fetchSharedPrivateConsumerPasses, fetchPrivateConsumerPassBulk }) => ({
+      fetchSharedPrivateConsumerPasses: (relationId) =>
+        fetchSharedPrivateConsumerPasses(relationId, {
+          onSuccess: (data) => {
+            if (data.length > 0) {
+              fetchPrivateConsumerPassBulk(
+                data.reduce((acc, s) => [...acc, s.src, s.dst], []),
+              );
+            }
+          },
+        }),
+    }),
+  ),
+  withProps(
     ({
       setOpenConsumerPackLinking,
       setConsumerPassLinkToDelete,
@@ -468,6 +487,7 @@ export default compose(
       linkConsumerPackToMemberRelation,
       unlinkConsumerPaymentPackLink,
       relinkConsumerPaymentPackLink,
+      fetchSharedPrivateConsumerPasses,
     }) => ({
       requestRelinkPassLinking: (consumerPackLink: ConsumerPaymentPackLink) => {
         setConsumerPassLinkToRelink(consumerPackLink);
@@ -502,6 +522,7 @@ export default compose(
           onSuccess: () => {
             fetchSharedConsumerPaymentPacks(selectedRelationId);
             setOpenConsumerPackLinking(false);
+            fetchSharedPrivateConsumerPasses(selectedRelationId);
           },
         }),
     }),
@@ -511,20 +532,7 @@ export default compose(
       setOpenConsumerPackLinking(true);
     },
   })),
-  withProps(
-    ({ fetchSharedPrivateConsumerPasses, fetchPrivateConsumerPassBulk }) => ({
-      fetchSharedPrivateConsumerPasses: (relationId) =>
-        fetchSharedPrivateConsumerPasses(relationId, {
-          onSuccess: (data) => {
-            if (data.length > 0) {
-              fetchPrivateConsumerPassBulk(
-                data.reduce((acc, s) => [...acc, s.src, s.dst], []),
-              );
-            }
-          },
-        }),
-    }),
-  ),
+
   withProps(
     ({
       fetchSharedPrivateConsumerPasses,

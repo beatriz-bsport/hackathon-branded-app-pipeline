@@ -30,6 +30,7 @@ type Props = {
     page_size: number,
   ) => void,
   disabledStuff: Array<number>,
+  processing: boolean,
 };
 
 export const ConsumerPackLinkForm = (props: Props) => {
@@ -97,6 +98,7 @@ export const ConsumerPackLinkForm = (props: Props) => {
         <Button
           color="primary"
           onClick={() => props.onSubmit(props.selectedConsumerPass.id)}
+          disabled={props.processing}
         >
           {props.t('consumer_payment_pack_links.form.create.submit')}
         </Button>

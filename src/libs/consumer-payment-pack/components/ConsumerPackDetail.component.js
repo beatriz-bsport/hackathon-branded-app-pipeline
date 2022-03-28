@@ -53,7 +53,7 @@ type Props = {
   onCreateExtension: ({ note: string, nbDays: number }) => void,
   deleteExtension: (id: number) => void,
   extensionsLoading: boolean,
-
+  passExtenxionDeleteLoading: boolean,
   currentBookingPage: number,
   bookingCount: number,
   bookings: Array<Booking>,
@@ -257,6 +257,7 @@ export function ConsumerPaymentPackDetail(props: Props) {
             {props.t('details.extensionsTitle')}
           </Typography>
           <Paper className={props.classes.paper}>
+            {!!props.passExtenxionDeleteLoading && <LinearProgress />}
             <List disablePadding>
               {props.extensions.map((ex) => (
                 <ConsumerPaymentPackExtensionListItem

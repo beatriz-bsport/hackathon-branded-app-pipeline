@@ -4554,7 +4554,8 @@
       "detail": { "invoice": "Facture liée", "booking": "Réservations RDV liées", "extensionsTitle": "Extensions de validité" },
       "isFromShare": "Partagé depuis un autre compte",
       "isOwnerOfShares": "Partagé (carte RDV maître)",
-      "isFromDisabledShare": "Partage arrété"
+      "isFromDisabledShare": "Partage arrété",
+      "warningShareUniversal": "Cette carte est universelle, veuillez partager la carte de cours associée"
     },
     "privateServiceCompatibility": {
       "allSlots": "Compatible pour toutes les séances",

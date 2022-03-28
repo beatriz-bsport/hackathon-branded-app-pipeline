@@ -536,6 +536,8 @@ exports.default = {
     isFromShare: 'Partagé depuis un autre compte',
     isOwnerOfShares: 'Partagé (carte RDV maître)',
     isFromDisabledShare: 'Partage arrété',
+    warningShareUniversal:
+      'Cette carte est universelle, veuillez partager la carte de cours associée',
   },
   privateServiceCompatibility: {
     allSlots: 'Compatible pour toutes les séances',

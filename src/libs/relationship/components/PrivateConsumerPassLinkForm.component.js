@@ -50,6 +50,7 @@ export const PrivateConsumerPassLinkForm = (props: Props) => {
                   {t('private_consumer_pass_links.form.create.linkButton')}
                 </Button>
               }
+              showUniversalWarning
             />
           )}
         />

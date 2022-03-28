@@ -173,6 +173,8 @@ type Props = {
     object_id: number,
     options?: OptionCallback,
   ) => void,
+  passExtenxionDeleteLoading: boolean,
+  passExtensionCreationLoading: boolean,
 };
 
 type State = {
@@ -428,6 +430,7 @@ export class MemberDetailPass extends Component<Props, State> {
                     ),
                 });
               }}
+              passExtenxionDeleteLoading={this.props.passExtenxionDeleteLoading}
               showVaccinationStatus={this.props.showVaccinationStatus}
             />
           ) : (
@@ -436,6 +439,7 @@ export class MemberDetailPass extends Component<Props, State> {
         </Grid>
         <ConsumerPaymentPackExtensionFormDialog
           open={this.props.openCreateExtension}
+          processing={this.props.passExtensionCreationLoading}
           onClose={() => this.props.setOpenCreateExtension(false)}
           consumerPaymentPack={this.props.selectedConsumerPass}
           onSubmit={(data) => {
@@ -543,6 +547,10 @@ export default compose(
       },
       passExtensions: getConsumerPaymentPackExtensions(state),
       passExtensionsLoading: state.consumerPaymentPack.extension.loading,
+      passExtensionCreationLoading:
+        state.consumerPaymentPack.extension.create.loading,
+      passExtenxionDeleteLoading:
+        state.consumerPaymentPack.extension.delete.loading,
       bookings: getConsumerPackBookingListWithConsumerPack(state),
       bookingCurrentPage: state.booking.byConsumerPack.page,
       bookingLoading: state.booking.byConsumerPack.loading,

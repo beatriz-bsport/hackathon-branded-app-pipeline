@@ -81,7 +81,7 @@ type Props = {
 
   deletePrivateConsumerPassExtension: (number, OptionCallback) => void,
   privateConsumerPassExtensionLoading: boolean,
-
+  privateConsumerPassExtensionDeleteLoading: boolean,
   disablePrivateBooking: (
     id: number,
     data: any,
@@ -108,6 +108,7 @@ type Props = {
   setFilterValue: (name: string, bool: Boolean) => void,
   updateFiltersSettings: () => void,
   userFiltersLoading: boolean,
+  privateConsumerPassExtensionCreationLoading: boolean,
 };
 
 export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
@@ -249,7 +250,7 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
               extensionsLoading={this.props.privateConsumerPassExtensionLoading}
               onCreateExtension={() => this.props.setOpenCreateExtension(true)}
               deletePrivateBooking={this.props.deletePrivateBooking}
-              deleteConsumerPass={(id) => {
+              deleteExtension={(id) => {
                 this.props.deletePrivateConsumerPassExtension(id, {
                   onSuccess: () => {
                     this.props.fetchPrivateConsumerPass(
@@ -264,6 +265,9 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
               goToPrivateBooking={(privateBookingId) =>
                 this.props.goToPrivateBooking(this.props.id, privateBookingId)
               }
+              privateConsumerPassExtensionDeleteLoading={
+                this.props.privateConsumerPassExtensionDeleteLoading
+              }
             />
           ) : null}
         </Grid>
@@ -271,6 +275,7 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
           open={this.props.openCreateExtension}
           onClose={() => this.props.setOpenCreateExtension(false)}
           privateConsumerPass={this.props.privateConsumerPassSelected}
+          processing={this.props.privateConsumerPassExtensionCreationLoading}
           onSubmit={(data) => {
             this.props.createExtension(
               {
@@ -315,6 +320,10 @@ export default compose(
       private_booking_list: getPrivateBookingListBase(state),
       privateConsumerPassExtensionLoading:
         state.privateService.privateConsumerPass.extension.loading,
+      privateConsumerPassExtensionCreationLoading:
+        state.privateService.privateConsumerPass.extension.create.loading,
+      privateConsumerPassExtensionDeleteLoading:
+        state.privateService.privateConsumerPass.extension.delete.loading,
       privateConsumerPassLoading:
         state.privateService.privateConsumerPass.loading,
       privateBookingsLoading: state.privateService.privateBooking.loading,

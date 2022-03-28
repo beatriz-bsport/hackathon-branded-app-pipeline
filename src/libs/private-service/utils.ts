@@ -163,7 +163,8 @@ export const getExpirationDate = (privateConsumerPass: PrivateConsumerPass) => {
     .add(
       'day',
       privateConsumerPass.private_pass.duration_days +
-        (privateConsumerPass.extension_days || 0),
+        (privateConsumerPass.extension_days || 0) -
+        1,
     )
     .add('month', privateConsumerPass.private_pass.duration_months)
     .add('year', privateConsumerPass.private_pass.duration_years)

@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import { compose, withState } from 'recompose';
@@ -32,10 +33,12 @@ type Props = {
 
   t: TFunction,
   classes: Object,
+  processing: boolean,
 };
 export const ConsumerPaymentPackExtensionFormDialog = (props: Props) => {
   return (
     <Dialog open={props.open}>
+      {props.processing && <LinearProgress />}
       <DialogTitle>{props.t('extension.create.title')}</DialogTitle>
       <DialogContent>
         <div className={props.classes.content}>
@@ -90,6 +93,7 @@ export const ConsumerPaymentPackExtensionFormDialog = (props: Props) => {
           onClick={() =>
             props.onSubmit({ note: props.note, nb_days: props.nbDays })
           }
+          disabled={props.processing}
         >
           {props.t('extension.create.submit')}
         </Button>

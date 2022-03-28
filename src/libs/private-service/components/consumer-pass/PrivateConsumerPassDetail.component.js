@@ -49,7 +49,8 @@ type Props = {
   onInvoiceClick?: (uuid: string) => void,
 
   extensionsLoading: boolean,
-  deleteConsumerPass: (number) => void,
+  deleteExtension: (number) => void,
+  privateConsumerPassExtensionDeleteLoading: boolean,
 };
 export const PrivateConsumerPassDetail = (props: Props) => {
   return (
@@ -82,13 +83,16 @@ export const PrivateConsumerPassDetail = (props: Props) => {
             {props.t('consumerPass.detail.extensionsTitle')}
           </Typography>
           <Paper className={props.classes.paper}>
+            {!!props.privateConsumerPassExtensionDeleteLoading && (
+              <LinearProgress />
+            )}
             <List disablePadding>
               {props.extensions.map((ex) => (
                 <PrivateConsumerPassExtensionListItem
                   key={ex.id}
                   extension={ex}
                   divider
-                  onDelete={() => props.deleteConsumerPass(ex.id)}
+                  onDelete={() => props.deleteExtension(ex.id)}
                 />
               ))}
             </List>

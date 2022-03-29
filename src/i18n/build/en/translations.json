@@ -1274,7 +1274,7 @@
             "marketing_automation": "Automated Marketing",
             "digital": "Digital offer",
             "podcast": "Podcasts",
-            "video": "Video library",
+            "video": "Videos & eBooks",
             "playlist": "Playlists"
         },
         "consumer": {
@@ -1635,7 +1635,7 @@
         },
         "shop": {
             "noProvisionUpdates": "No stock available",
-            "ht": "Excl. VAT",
+            "ht": "Excl. VAT / Sales Tax",
             "subShop": {
                 "delete": {
                     "title": "Delete",
@@ -1729,7 +1729,7 @@
             "create": "Create",
             "credits": "Credit(s)",
             "sports": "Categories",
-            "priceIncludingTax": "Price (incl. VAT)",
+            "priceIncludingTax": "Price (incl. VAT / Sales Tax)",
             "price": "Price",
             "NA": "Not specified",
             "credit_s": "Credit(s)",
@@ -2123,7 +2123,7 @@
                 "error": "Impossible to save"
             }
         },
-        "pageTitle": "Transactional emails",
+        "pageTitle": "Transactional notifications",
         "caption": {
             "emailDesign": "Transactional email template",
             "event": "Event",
@@ -2160,7 +2160,7 @@
                 "receiveCC": "Receive copies of this email",
                 "activateSubtitleDeactivate": "The transactional email has been deactivated and it won't be sent to the relevant members",
                 "activateSubtitleActivate": "The transactional email has been activated and it'll be sent to the relevant members",
-                "activate": "Activated",
+                "activate": "Activate",
                 "parameters": "Settings",
                 "useFor": "Use for ",
                 "pickTemplate": "Select a template",
@@ -2170,7 +2170,7 @@
             },
             "emptyStateConfiguration": "Add a notification to force the use of specific email templates.",
             "addConfiguration": "Notifications configuration",
-            "emptySelect": "Select a transactional email to display which studios it has been shared with and to display which studios are using it."
+            "emptySelect": "Select a transactional notification to display which studios it has been shared with and to display which studios are using it."
         },
         "franchiseOwned": "The Master Account directly manages this transactional email.",
         "listItem": {
@@ -2962,7 +2962,7 @@
                 "nbCredits": "{{ credits }} credit(s)",
                 "nbCredits_plural": "{{ credits }} credits",
                 "price": "{{ price, price}}",
-                "tax": "VAT: {{ tax }}%",
+                "tax": "VAT / Sales Tax: {{ tax }}%",
                 "managerOnly": "Unavailable for members"
             },
             "compatibleServices": {
@@ -2985,7 +2985,7 @@
                     "helperText": "Indicate the price per session in credits."
                 },
                 "price": {
-                    "label": "Price (incl. VAT)",
+                    "label": "Price (incl. VAT / Sales Tax)",
                     "helperText": "This is the selling price for members."
                 },
                 "tax": {
@@ -3079,7 +3079,7 @@
                 "validity": "Validity",
                 "credit_quantity": "Number of credits"
             },
-            "ht": "Excl. VAT"
+            "ht": "Excl. VAT / Sales Tax"
         },
         "service": {
             "selector": {
@@ -4105,10 +4105,10 @@
                         "_label": "Livestream"
                     },
                     "transactionnalEmail": {
-                        "_label": "Transactional emails"
+                        "_label": "Transactional notifications"
                     },
                     "teacherPayrollRules": {
-                        "_label": "Teacher payroll rules"
+                        "_label": "Payroll"
                     },
                     "paymentMethods": {
                         "_label": "Payment method"
@@ -4150,7 +4150,7 @@
                 "digitalOffer": {
                     "_label": "Digital offer",
                     "videos": {
-                        "_label": "Video library"
+                        "_label": "Videos & eBooks"
                     },
                     "playlists": {
                         "_label": "Playlist"
@@ -4198,15 +4198,15 @@
                         "_label": "Teachers"
                     },
                     "clockIn": {
-                        "_label": "Clock-in",
+                        "_label": "Attendance",
                         "selfClockIn": {
-                            "_label": "Punch for yourself"
+                            "_label": "Punch (autonomous)"
                         },
                         "clockInForOther": {
-                            "_label": "Punch for another staff"
+                            "_label": "Punch (for another staff member)"
                         },
                         "canAccessHistory": {
-                            "_label": "Access to schedule history"
+                            "_label": "Access time clock history"
                         }
                     }
                 },
@@ -4478,8 +4478,8 @@
                 "taxHelperText": "Will appear on invoices",
                 "taxValue": "Value of the tax",
                 "taxName": "Name of the tax",
-                "info": "Enter the name and value of your provincial tax here. On all the products of the platform indicate the total tax applied (federal tax + provincial tax). The federal and provincial tax will be indicated on your customers' invoices.",
-                "title": "Provincial tax"
+                "info": "Enter the name and value of your Provincial Tax here. On all the products of the platform indicate the total tax applied (Federal Tax + Provincial Tax). The Federal and Provincial Tax will be indicated on your customers' invoices.",
+                "title": "Provincial Tax"
             }
         },
         "general_terms_and_conditions": {
@@ -4583,10 +4583,10 @@
             "label": "Follow up email"
         },
         "provincialTax": {
-            "helperText": "The VAT is less than or equal to the provincial tax indicated. On invoices, only this tax will be indicated without distinguishing between federal and provincial tax."
+            "helperText": "The VAT / Sales Tax is less than or equal to the indicated Provincial Tax. On invoices, only this tax will be indicated without distinguishing between Federal and Provincial Tax."
         },
         "taxDisplay": {
-            "info": "Activate this option to only display prices excluding VAT / Taxes on the Widgets, MarketPlace, and Mobile App.",
+            "info": "Activate this option to only display prices excluding VAT / Sales Tax on the Widgets, MarketPlace, and Mobile App.",
             "title": "Display price",
             "checkbox": "Display products' tax-free amounts"
         }
@@ -5081,9 +5081,9 @@
             "useMyInternalAccount": "Use my internal account credit"
         },
         "payment": {
-            "total": "Total (incl. VAT)",
-            "tax": "VAT / Taxes",
-            "taxExcluded": "Subtotal (excl. VAT)",
+            "total": "Total (incl. VAT / Sales Tax)",
+            "tax": "VAT / Sales Taxes",
+            "taxExcluded": "Subtotal (excl. VAT / Sales Tax)",
             "flat_fee": "Enrolment fee"
         }
     },
@@ -5244,7 +5244,18 @@
             "name": " Name"
         },
         "description": "Description",
-        "favouriteLocation": "Preferred location"
+        "favouriteLocation": "Preferred location",
+        "notification": {
+            "modal": {
+                "content": "Are you sure that you want to delete this notification? This action can't be undone.",
+                "confirm": "Delete",
+                "cancel": "Cancel",
+                "title": "Delete notification"
+            }
+        },
+        "marketing": {
+            "notification": "Notifications"
+        }
     },
     "order": {
         "products": {
@@ -5324,7 +5335,7 @@
         "tab": {
             "general": "General",
             "paymentRules": "Teacher payroll rules",
-            "notificationRule": "Transactional emails",
+            "notificationRule": "Transactional notifications",
             "company": "Company",
             "broadcast": "Livestreaming",
             "invoice": "Billing",
@@ -5647,7 +5658,7 @@
         "name": "Name",
         "base_price": "Flat base",
         "base_percent": "Percentage of value",
-        "include_tax": "Including VAT",
+        "include_tax": "Incl. VAT / Sales Tax",
         "calculation_method": "Calculation method",
         "only_attendant": "Count only attendants",
         "actions": "Actions",
@@ -5700,7 +5711,7 @@
             "error": "Error during deletion",
             "success": "Rate removed"
         },
-        "pageTitle": "Teacher payroll rules",
+        "pageTitle": "Payroll",
         "coach_payment_rules": {
             "Simulator": {
                 "student_did_not_attend": "Absentees",
@@ -5714,7 +5725,7 @@
                 "and": "And",
                 "students": "students",
                 "for": "For",
-                "resultTitle": "Results of your simulation (teacher payroll)",
+                "resultTitle": "Payroll simulation",
                 "title": "Payroll rule simulator",
                 "bonus": "Total bonus",
                 "which": "Earnings",
@@ -5725,8 +5736,8 @@
             },
             "Errors": {
                 "lowerIntervalTypeError": "The lower interval must be a number less than or equal to 1",
-                "taxeRateTypeError": "The VAT rate has to be a number between 0 and 100.",
-                "taxeRateRequired": "VAT is a required field if you have ticked the box \"Calculate VAT\" above.",
+                "taxeRateTypeError": "The VAT / Sales Tax rate has to be a number between 0 and 100.",
+                "taxeRateRequired": "This field is mandatory if you've selected the \"Calculate VAT / Sales Tax\" option.",
                 "percentagebaseRemunerationRequired": "This field is mandatory if you have ticked the \"Percentage\" box.",
                 "baseRemunerationTypeError": "The fixed amount must be a positive number.",
                 "invalideUpperInterval": "The upper interval must be a number.",
@@ -5760,10 +5771,10 @@
             "bonusForEachReservationInInterval": "Add a bonus for each individual booking in this range",
             "fixedBonusbyInterval": "Add a bonus for the whole range",
             "cancellationBaseHelper": "By ticking this box the teacher will not receive any bonus payment on the marginal value of cancelled bookings.",
-            "taxeLongHelper": "All percentages are calculated on the marginal value of each booking excluding VAT. The added VAT applies to the marginal value as well as all fixed rates and bonuses.",
-            "taxeConciseHelper": "All bonuses calculated on a percentage of the marginal value, and will discount your local VAT rate.",
-            "add_taxe_rate": "Additional VAT",
-            "taxe_rate": "Exclude your local VAT from the computation of the marginal value.",
+            "taxeLongHelper": "All percentages are calculated on the marginal value of each booking excluding VAT / Sales Tax. The added VAT / Sales Tax applies to the marginal value as well as all fixed rates and bonuses.",
+            "taxeConciseHelper": "All bonuses calculated on a percentage of the marginal value, and will discount your local VAT / Sales Tax rate.",
+            "add_taxe_rate": "Additional VAT / Sales Tax",
+            "taxe_rate": "Exclude your local VAT / Sales Tax from the computation of the marginal value.",
             "max_remuneration": "Maximum",
             "min_remuneration": "Minimum",
             "remunerationLimits": "Remuneration limits",
@@ -6219,8 +6230,8 @@
                     "header": {
                         "product": "Name",
                         "voucher": "Discount",
-                        "priceExcTax": "Total (excl. VAT)",
-                        "price": "Total (incl. VAT)"
+                        "priceExcTax": "Total (excl. VAT / Sales Tax)",
+                        "price": "Total (incl. VAT / Sales Tax)"
                     },
                     "isEmpty": "No purchases",
                     "title": "Purchases"
@@ -7065,8 +7076,8 @@
             "address": "Address",
             "tax": "VAT / Sales tax",
             "voucher": "Promotion",
-            "total_price": "Price (incl. VAT)",
-            "total_price_notax": "Price (excl. VAT)",
+            "total_price": "Price (incl. VAT / Sales Tax)",
+            "total_price_notax": "Price (excl. VAT / Sales Tax)",
             "payment_note": "Payment note",
             "remaining_days": "Remaining days",
             "payment_method_stripe": "Card",
@@ -7604,7 +7615,7 @@
                     "isUsedInCombo": "Attention! Deleting this pass will also make it unavailable for purchase for the packs it's used for."
                 },
                 "priceIncludingTax": {
-                    "label": "Price (including VAT)",
+                    "label": "Price (including VAT / Sales Tax)",
                     "helperText": "Price of the pass"
                 },
                 "startOnFirstUseHelper": "Otherwise it starts at the billing date",
@@ -7748,7 +7759,7 @@
             "nbCredits": "{{credits}} credit(s)",
             "nbCredits_plural": "{{credits}} credits"
         },
-        "ht": "Excl. VAT",
+        "ht": "Excl. VAT / Sales Tax",
         "validForDuration": {
             "general": "Valid for {{ duration_days }} day(s), {{ duration_months }} month(s), and/or {{ duration_years }} year(s).",
             "years": "{{ count }} year",
@@ -8127,7 +8138,7 @@
             "lastBookingBeforeMinutes": "Members can book up to {{m}} before the start of the session.",
             "lastDiscardBeforeMinutes": "Members can cancel free-of-charge for up to {{m}} before the start of the session.",
             "firstBookingMinutesUntil": "Members can book sessions for up to {{m}} in the future.",
-            "conditions": "Conditions",
+            "conditions": "Cancellation policy",
             "autoDiscard": "The session will be cancelled if there are {{nb_bookings}} booking(s) or less {{hours}}h before the start of the session."
         },
         "modal": {
@@ -8818,7 +8829,8 @@
                 "sendBeforeNotifications": "Send the notifications before the start of the session",
                 "sendBeforeNotification": "Send the push notification before the start of the session"
             },
-            "addNotification": "Add a notification"
+            "addNotification": "Add a notification",
+            "title": "Notification"
         },
         "recurrenceRule": {
             "actions": {
@@ -8890,7 +8902,7 @@
                 "numberOfBook": "{{count}} booking",
                 "numberOfBook_plural": "{{count}} bookings"
             },
-            "bookingsTitle": "My booking",
+            "bookingsTitle": "Overview",
             "addSession": "Add sessions",
             "noPackAvailable": "This session does not have any compatible memberships!",
             "noPackAvailable_plural": "No single pass is compatible with all these sessions simultaneously. Please book them separately.",
@@ -9034,7 +9046,7 @@
     },
     "titles": {
         "banner": {
-            "isStaging": "Schedule a demo",
+            "isStaging": "Learn more in an online demo",
             "networkError": "You are not connected to the internet",
             "franchiseConnection": "You're currently connected as one of your studios' Sub Accounts."
         },
@@ -9054,7 +9066,7 @@
             "coachList": "Teachers",
             "coachPerformance": "Payroll for {{name}}",
             "coachFormPage": "[Form] Teacher",
-            "allCoachPerformance": "Teacher payroll"
+            "allCoachPerformance": "Payroll"
         },
         "order": {
             "orderList": "Orders",
@@ -9119,7 +9131,7 @@
             "serviceList": "Appointments"
         },
         "video": {
-            "videoList": "Video library"
+            "videoList": "Videos & eBooks"
         },
         "expense": {
             "expenseList": "Expenses"
@@ -10576,15 +10588,15 @@
             },
             "provincialTax": {
                 "customError": {
-                    "80001": "Provincial tax is not available in your country"
+                    "80001": "Provincial Tax is not available in your country"
                 },
                 "error": "Provincial tax registration error",
-                "success": "Registered provincial tax"
+                "success": "Registered Provincial Tax"
             }
         },
         "clockIn": {
             "errors": {
-                "96002": "Impossible, this user already has a clock-in in progress"
+                "96002": "This user is already clocked-in"
             }
         }
     },
@@ -10595,8 +10607,8 @@
             "subscription": "Direct debits",
             "myClub": "My studio",
             "settings": {
-                "paymentRules": "Teacher payroll rules",
-                "notificationRule": "Transactional emails",
+                "paymentRules": "Payroll",
+                "notificationRule": "Transactional notifications",
                 "broadcast": "Livestreaming",
                 "general": "General",
                 "settings": "Settings",
@@ -10638,7 +10650,7 @@
                 "myAccount": "My profile"
             },
             "beta": "beta",
-            "coachPerformance": "Teacher payroll",
+            "coachPerformance": "Payroll",
             "myShop": "Webshop",
             "product": "Products",
             "coaches": "Teachers",
@@ -10661,7 +10673,7 @@
             "digital": "Digital offer",
             "podcast": "Podcasts",
             "playlist": "Playlists",
-            "video": "Video library",
+            "video": "Videos & eBooks",
             "cashBook": {
                 "save": "Save",
                 "at": "At",
@@ -10689,7 +10701,7 @@
             "expenses": "Expenses",
             "instalmentPayment": "Instalments",
             "coachPayroll": "Payroll",
-            "clockIn": "Clock-in"
+            "clockIn": "Attendance"
         },
         "deprecatedNavigator": {
             "navigatorError": "It seems that your browser is too old to use our services. You may encounter errors, we recommend that you download a more recent version, in particular : ",
@@ -11041,7 +11053,8 @@
                 "meta_activity": "Group activities",
                 "workshop": "Workshops",
                 "private_pass": "Appointment passes",
-                "birthday": "Birthday"
+                "birthday": "Birthday",
+                "establishmentGroup": "Location"
             },
             "cancel": "Cancel",
             "next": "Next",
@@ -11052,7 +11065,8 @@
                 "establishment": "Select a location",
                 "meta_activity": "Select an activity",
                 "workshop": "Select a workshop",
-                "private_pass": "Select an appointment pass"
+                "private_pass": "Select an appointment pass",
+                "establishment_group": "Select a location"
             },
             "createNotification": "[Form] Notification",
             "stats": {
@@ -11066,7 +11080,11 @@
             "statisticDetails": "Statistics",
             "notificationPreview": "Overview",
             "privatePassPlaceholder": "Appointment passes",
-            "dialogTitle": "Add a notification"
+            "dialogTitle": "Add a notification",
+            "listTitle": "Notifications",
+            "create": "Add a notification",
+            "handleNotification": "Notification management",
+            "noNotification": "There are no activated notifications to display."
         },
         "customForm": {
             "field": {
@@ -12017,15 +12035,15 @@
     },
     "clockIn": {
         "clockinDialog": {
-            "subtitleClockIn": "Hello {{ name }}! Please click \"Start\" to clock-in for today.",
+            "subtitleClockIn": "Hello {{ name }}! Please click \"Clock-in\" to get started.",
             "subtitleSuccess": "Your schedules have been saved. You can start a new punch the next time you open this window.",
-            "title": "Clock-in",
+            "title": "Time clock",
             "close": "Close",
-            "clockIn": "Start",
-            "clockOut": "Finish",
+            "clockIn": "Clock-in",
+            "clockOut": "Clock-out",
             "lastClockIn": "Last clock-in: {{- date }} - {{ hour }}",
             "lastClockOut": "Arrival time: ",
-            "subtitleClockOut": "You've started! Please click \"Finish\" to clock-out.",
+            "subtitleClockOut": "You've successfully clocked-in. Please click \"Clock-out\" to wrap-up.",
             "clockInForOther": "Clock-in for another staff member",
             "successClockIn": "Arrival time:",
             "successClockOut": "Departure time:",
@@ -12041,41 +12059,41 @@
             "status": "Status",
             "action": "Action",
             "role": "Role",
-            "start": "Finish",
-            "end": "Start",
+            "start": "Clock-out",
+            "end": "Clock-in",
             "here": "Present",
             "missing": "Absent",
-            "createStaff": "Create a staff access"
+            "createStaff": "Add a staff access"
         },
         "historyTable": {
             "staff": "Staff",
             "startingHour": "Start time",
             "endingHour": "End time",
-            "durationHoursMinutes": "Hours worked (hour and minute)",
-            "durationHours": "Hours worked (hour)",
+            "durationHoursMinutes": "Working time (in hours and minutes)",
+            "durationHours": "Working time (in hours)",
             "action": "Action",
             "download": "Download"
         },
         "modal": {
             "delete": {
                 "title": "Delete",
-                "content": "Attention, are you sure you want to delete the time slot for this staff? This operation is irreversible."
+                "content": "Attention! Are you sure that you want to delete the time clock for this person? This action can't be undone."
             }
         },
         "editModal": {
-            "title": "Modification of schedules",
+            "title": "Schedule modification",
             "endingTime": "End time",
-            "startingTime": "Starting date",
+            "startingTime": "Start time",
             "cancel": "Cancel",
-            "confirm": "Submit"
+            "confirm": "Save"
         },
-        "pageTitle": "Staff hours",
-        "tabRealTime": "Real time",
+        "pageTitle": "Attendance",
+        "tabRealTime": "Real-time",
         "tabHistory": "History",
         "export": {
             "dialog": {
                 "message": "Your export is ready to be downloaded.",
-                "title": "History export"
+                "title": "Export time clock history"
             }
         }
     }

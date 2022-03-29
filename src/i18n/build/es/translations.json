@@ -1698,7 +1698,18 @@
             "name": " Apellido"
         },
         "description": "Descripción",
-        "favouriteLocation": "Ubicación preferida"
+        "favouriteLocation": "Ubicación preferida",
+        "notification": {
+            "modal": {
+                "content": "¿Estás seguro de que quieres eliminar esta notificación? Esta operación es definitiva",
+                "confirm": "Borrar",
+                "cancel": "Cancelar",
+                "title": "Supresión de la notificación"
+            }
+        },
+        "marketing": {
+            "notification": "Notificaciones"
+        }
     },
     "order": {
         "products": {
@@ -2136,7 +2147,7 @@
         },
         "method": {
             "CREDIT_ACCOUNT": "Pago en el acto",
-            "CB": "Tarjeta de crédito",
+            "CB": "Tarjeta",
             "GIROPAY": "Giropay",
             "EPS": "EPS",
             "IDEAL": "iDEAL",
@@ -2159,10 +2170,10 @@
             "7": "Transferancia",
             "6": "AMEX",
             "5": "Cheque de vacaciones",
-            "4": "Tarjeta de crédito (manual)",
+            "4": "Tarjeta (manual)",
             "2": "Cheque",
             "1": "Efectivo",
-            "0": "Tarjeta de crédito",
+            "0": "Tarjeta",
             "12": "Litigio",
             "13": "SEPA",
             "60": "Giropay",
@@ -2445,7 +2456,7 @@
                 "explain": {
                     "2": "Elija usted mismo el método de reembolso. Utilice este método para un cheque / transferencia manual / reembolso en efectivo.",
                     "1": "Se generará una nota de crédito que aumentará el saldo del cliente en consecuencia. Utilice este método para generar una nota de crédito.",
-                    "0": "Los pagos con tarjeta de crédito / SEPA / etc... se pagarán directamente a la cuenta del cliente. Utilice este método para hacer un reembolso directo después de un error."
+                    "0": "Los pagos con tarjeta / SEPA / etc... se pagarán directamente a la cuenta del cliente. Utilice este método para hacer un reembolso directo después de un error."
                 },
                 "label": {
                     "2": "Reembolso manual",
@@ -2582,7 +2593,7 @@
             "label": {
                 "8": "Otro",
                 "6": "Disputa",
-                "15": "Tarjeta de crédito (manual)",
+                "15": "Tarjeta (manual)",
                 "13": "Giropay",
                 "12": "EPS",
                 "11": "Sofort",
@@ -2593,7 +2604,7 @@
                 "4": "Cheque de vacaciones",
                 "3": "Cheque",
                 "2": "SEPA",
-                "1": "Tarjeta de crédito",
+                "1": "Tarjeta",
                 "0": "Efectivo",
                 "14": "Saldo del cliente (débito)"
             },
@@ -2722,7 +2733,8 @@
             "calculate": "Calcular",
             "payment": "Remuneración",
             "coachName": "Profesor",
-            "durationBookings": "Número de horas"
+            "durationBookings": "Número de horas",
+            "totalNetGain": "Ganancia total neta"
         },
         "addCoach": "Añadir un profesor",
         "noActivity": "Este profesor no tiene actividades.",
@@ -3749,7 +3761,8 @@
             "vod": "VOD",
             "form": "Formularios",
             "giftcard": "Tarjeta regalo",
-            "programs": "Programas"
+            "programs": "Programas",
+            "basket": "Cesta"
         },
         "row": {
             "headers": {
@@ -4237,7 +4250,8 @@
                 "addVariable": "Añadir una etiqueta",
                 "pushHelper": "Cuidado, las notificaciones push deben utilizarse con moderación. Demasiadas notificaciones push pueden llevar a algunos miembros a desinstalar la aplicación."
             },
-            "addNotification": "Añadir una notificación"
+            "addNotification": "Añadir una notificación",
+            "title": "Notificación"
         },
         "recurrenceRule": {
             "explain": "El miembro siempre estará registrado {{ delayWeek }} semanas antes de la clase de {{ dayOfWeek}} at {{hour}}:{{minute}}. Sólo se registrarán si poseen un pase válido.",
@@ -4685,7 +4699,8 @@
         },
         "pack": {
             "titlePrivatePack": "Cita",
-            "titlePaymentPack": "Curso de grupo"
+            "titlePaymentPack": "Curso de grupo",
+            "titleUniversalPack": "Universal"
         },
         "debt": {
             "explainPayment": "Esta suma se pagará al club para regularizar tu anticipo",
@@ -5144,7 +5159,11 @@
                     "paymentMeans": "Medios de pago",
                     "info": "Información general"
                 },
-                "franchise": "Esta tarjeta es una tarjeta compartida por la cuenta del franquiciador. Algunos elementos han sido definidos por la cuenta del franquiciador y no son modificables"
+                "franchise": "Esta tarjeta es una tarjeta compartida por la cuenta del franquiciador. Algunos elementos han sido definidos por la cuenta del franquiciador y no son modificables",
+                "universalPass": {
+                    "label": "Tarjeta universal",
+                    "warningIsUniversalPass": "Este bono es un bono universal, se ha creado un bono gemelo en los bonos de las clases en grupo. Todos los campos modificados en este bono se modificarán también en el bono gemelo (excepto la categoría). Lo mismo ocurre con las notificaciones, las prórrogas y las modificaciones de crédito."
+                }
             },
             "compatibleServices": {
                 "title": "Citas compatibles",
@@ -5438,7 +5457,11 @@
             "establishment": "Ubicación",
             "coach": "Profesor",
             "selectService": "Elija un servicio",
-            "selectSession": "Elija su sesión"
+            "selectSession": "Elija su sesión",
+            "searchFirstSlot": "Buscar la primera ranura disponible",
+            "nextOffer": "Primera ranura disponible en {{- fecha }}: {{ hora }}",
+            "previousOffer": "Una sesión más reciente está disponible en {{- fecha }}: {{ hora }}",
+            "emptyState": "No hay disponibilidad en este momento"
         },
         "privateEstablishment": {
             "delete": {
@@ -5493,7 +5516,13 @@
             "allocationWarning": {
                 "showCalendar": "Ver el calendario",
                 "establishment": "Esta habitación no está disponible en este momento",
-                "coach": "Este profesor no está disponible en este horario"
+                "coach": "Este profesor no está disponible en este horario",
+                "cancel": "Cancelar",
+                "validate": "Validar",
+                "continue": "¿Estás seguro de que quieres mover esta cita ?",
+                "resource": "Tenga en cuenta que {{ resource }} no está disponible en esta ranura.\n",
+                "title": "Ranura no disponible",
+                "loading": "Comprobación de la disponibilidad de la ranura"
             }
         },
         "serviceGroup": {
@@ -6006,7 +6035,7 @@
                 "label": "Descripción"
             },
             "available_payment_method_identifiers": {
-                "helperText": "Selecciona al menos un método de pago. Si la cesta del miembro contiene artículos con métodos de pago incompatibles, se propondrá el pago CB.",
+                "helperText": "Selecciona al menos un método de pago. Si la cesta del miembro contiene artículos con métodos de pago incompatibles, se propondrá el pago.",
                 "label": "Medios de pago autorizados"
             },
             "actions": {
@@ -6934,7 +6963,9 @@
         "startAfterEnd": "La fecha de inicio debe ser inferior a la fecha de finalización",
         "endBeforeStart": "La fecha de finalización debe ser mayor que la de inicio",
         "monthly": "Mensual",
-        "weekly": "Semanal"
+        "weekly": "Semanal",
+        "showLess": "Ver menos",
+        "showMore": "Ver más ({{count}})"
     },
     "snackbar": {
         "invoice": {
@@ -7875,6 +7906,13 @@
                         "header": "Etiquetas"
                     },
                     "header": "Avanzado"
+                },
+                "universalPass": {
+                    "deativatedTags": "Discapacitados para las tarjetas universales",
+                    "helperText": "Las tarjetas universales pueden utilizarse para reservar clases en grupo Y citas. Una vez creada la tarjeta, se creará una tarjeta gemela en las tarjetas de citas. El número de créditos de ambas tarjetas estará vinculado. Al comprar una de las dos tarjetas, la otra se añadirá automáticamente al socio (sin coste adicional).",
+                    "marketplaceLabel": "Tarjeta universal. Se puede utilizar para cursos y citas en grupo.",
+                    "label": "Tarjeta universal",
+                    "warningIsUniversalPass": "Este bono es un bono universal, se ha creado un bono gemelo en las tarjetas de cita. Todos los campos modificados en este bono se modificarán también en el bono gemelo (excepto la categoría). Lo mismo ocurre con las notificaciones, las prórrogas y las modificaciones de crédito."
                 }
             }
         },
@@ -8208,7 +8246,8 @@
             "maxPurchasePerMember": "Número máximo de compras : ",
             "maxBookingPerDay": "Utilizaciones máximum por día ",
             "maxBookingPerWeek": "Utilización máximum por semana ",
-            "maxBookingPerMonth": "Utilizaciones máximum por mes "
+            "maxBookingPerMonth": "Utilizaciones máximum por mes ",
+            "universalPass": "Compatible con los cursos de grupo y las citas."
         },
         "detailTitles": {
             "vod": "VOD",
@@ -8217,7 +8256,9 @@
             "accessibility": "Accesibilidad",
             "compatibility": "Compatibilidad",
             "validity": "Validez",
-            "credit_quantity": "Número de créditos"
+            "credit_quantity": "Número de créditos",
+            "universalPass": "Tarjeta universal",
+            "compatibilityPaymentPack": "Compatibilidad de los cursos en grupo"
         },
         "unlimitedAndCalculatedMargin": " - Contribución marginal teórica calculada: precio / nb_bookings ",
         "unlimitedAndMargin": " - Contribución marginal teórica de ",
@@ -8356,6 +8397,21 @@
             },
             "consumerPaymentPackSharedFromOtherFranchisee": "Compartido por el franquiciado",
             "paymentPackSharedFromFranchisor": "Tarjeta de franquicia"
+        },
+        "universalPass": {
+            "restore": {
+                "dialog": {
+                    "continue": "Continuar",
+                    "text": "Este bono es un bono universal, su bono gemelo también ha sido desarchivado.",
+                    "title": "Desarchivar"
+                }
+            },
+            "delete": {
+                "dialog": {
+                    "warningText": "Tenga en cuenta. Esta tarjeta es una tarjeta universal, si la borras, su tarjeta gemela también se borrará.",
+                    "title": "Eliminación de la tarjeta"
+                }
+            }
         }
     },
     "selfCheckIn": {
@@ -8642,7 +8698,8 @@
             "programs": "Programas",
             "expenses": "Gastos",
             "instalmentPayment": "Pagos fraccionados",
-            "coachPayroll": "Remuneración"
+            "coachPayroll": "Remuneración",
+            "clockIn": "Reloj de fichaje"
         },
         "deprecatedNavigator": {
             "close": "Cerrar",
@@ -8886,7 +8943,10 @@
             "total_on_appointments": "Remuneración de las citas",
             "total_on_sessions": "Remuneración de las clases colectivas",
             "nb_appointments": "Número de citas",
-            "nb_sessions": "Número de sesiones"
+            "nb_sessions": "Número de sesiones",
+            "totalNetGain": "Ganancia neta total",
+            "netGain": "Ganancia neta",
+            "marginValue": "Contribución marginal"
         },
         "cachedData": {
             "leavePreviewMode": "Salir del modo de vista previa",
@@ -9784,7 +9844,7 @@
         },
         "paymentMethod": {
             "actions": {
-                "createCard": "Añade un CB",
+                "createCard": "Añade una tarjeta",
                 "createSepa": "Añade un IBAN"
             },
             "sectionTitle": "Método de pago"
@@ -9842,7 +9902,8 @@
                 "meta_activity": "Actividad",
                 "workshop": "Taller",
                 "private_pass": "Tarjeta de cita",
-                "birthday": "Cumpleaños"
+                "birthday": "Cumpleaños",
+                "establishmentGroup": "Ubicación"
             },
             "cancel": "Cancelar",
             "next": "Siguiente",
@@ -9853,7 +9914,8 @@
                 "establishment": "Seleccione una ubicación",
                 "meta_activity": "Seleccione una actividad",
                 "workshop": "Seleccione un taller",
-                "private_pass": "Seleccione una tarjeta de cita"
+                "private_pass": "Seleccione una tarjeta de cita",
+                "establishment_group": "Seleccione una ubicación"
             },
             "createNotification": "Formulario de notificación",
             "selectNotificationRules": "Seleccione una regla para ver los detalles",
@@ -9868,7 +9930,11 @@
             "notificationDetails": "Detalles de la notificación",
             "notificationPreview": "Resumen de la notificación",
             "privatePassPlaceholder": "Tarjeta de citas",
-            "dialogTitle": "Crear una notificación"
+            "dialogTitle": "Crear una notificación",
+            "listTitle": "Notificaciones",
+            "create": "Crear una notificación",
+            "handleNotification": "Gestión de las notificaciones",
+            "noNotification": "No se ha habilitado ninguna notificación"
         },
         "customForm": {
             "unaccessibleForm": "Este formulario no está disponible actualmente, para volver a su página de perfil haga clic en el botón de abajo.",

@@ -3011,7 +3011,18 @@
             "name": " Naam"
         },
         "description": "Omschrijving",
-        "favouriteLocation": "Voorkeurslocatie"
+        "favouriteLocation": "Voorkeurslocatie",
+        "notification": {
+            "modal": {
+                "content": "Weet je zeker dat je deze melding wilt verwijderen? Deze actie is definitief.",
+                "confirm": "Verwijderen",
+                "cancel": "Annuleren",
+                "title": "Melding verwijderen"
+            }
+        },
+        "marketing": {
+            "notification": "Meldingen"
+        }
     },
     "smartList": {
         "multiSelector": {
@@ -3634,7 +3645,7 @@
         },
         "settings": {
             "lastBookingBeforeMinutes": "Leden kunnen zich tot {{m}} voor het begin van de sessie inschrijven.",
-            "lastDiscardBeforeMinutes": "Leden kunnen tot {{m}} voor het begin van de sessie kosteloos annuleren.",
+            "lastDiscardBeforeMinutes": "Kosteloos annuleren kan tot {{m}} voor het begin van de sessie.",
             "title": "Instellingen",
             "firstBookingMinutesUntil": "Leden kunnen zich tot {{m}} in de toekomst voor deze sessie inschrijven.",
             "conditions": "Annuleringsvoorwaarden",
@@ -4325,7 +4336,8 @@
                 "sendBeforeNotifications": "Stuur deze meldingen voor het begin van de sessie",
                 "sendBeforeNotification": "Stuur deze push-notificatie voor het begin van de sessie"
             },
-            "addNotification": "Een melding toevoegen"
+            "addNotification": "Een melding toevoegen",
+            "title": "Melding"
         },
         "recurrenceRule": {
             "form": {
@@ -4397,7 +4409,7 @@
                 "registerWaitingList": "Op de wachtlijst inschrijven",
                 "book": "Reserveer"
             },
-            "bookingsTitle": "Mijn reservering",
+            "bookingsTitle": "Overzicht",
             "addSession": "Sessies toevoegen",
             "noPackAvailable": "Deze sessie heeft geen compatibele kaarten!",
             "noPackAvailable_plural": "Deze sessies hebben geen compatibele kaarten. Sessies moeten apart worden gereserveerd!",
@@ -4724,8 +4736,8 @@
                 }
             },
             "registerManager": {
-                "explainChoseContract": "Selecteer een abonnement dat maandelijks gefactureerd wordt.",
-                "title": "Herhalende betaling",
+                "explainChoseContract": "Selecteer een abonnement dat periodiek gefactureerd wordt.",
+                "title": "[Formulier] Abonneren",
                 "explainCustomSubscriptionForm": "Een gepersonaliseerd abonnement aanmaken",
                 "actions": {
                     "cancel": "Annuleren"
@@ -8965,7 +8977,7 @@
                 "consumerPass": "Mijn kaarten"
             },
             "actions": {
-                "bookVod": "Video deblokkeren"
+                "bookVod": "Video ontgrendelen"
             },
             "emptyMethod": "De studio heeft geen compatible kaarten voor deze video beschikbaar gesteld."
         },
@@ -10044,7 +10056,8 @@
                 "meta_activity": "Groepsactiviteiten",
                 "workshop": "Workshops",
                 "private_pass": "Afspraakkaarten",
-                "birthday": "Verjaardag"
+                "birthday": "Verjaardag",
+                "establishmentGroup": "Locatie"
             },
             "cancel": "Annuleren",
             "next": "Volgende",
@@ -10055,7 +10068,8 @@
                 "establishment": "Selecteer een vestiging",
                 "meta_activity": "Selecteer een activiteit",
                 "workshop": "Selecteer een workshop",
-                "private_pass": "Selecteer een afspraakkaart"
+                "private_pass": "Selecteer een afspraakkaart",
+                "establishment_group": "Selecteer een locatie"
             },
             "createNotification": "[Formulier] Melding",
             "selectNotificationRules": "Selecteer een melding voor een gedetailleerd overzicht.",
@@ -10070,7 +10084,11 @@
             "notificationDetails": "Overzicht",
             "notificationPreview": "Overzicht",
             "privatePassPlaceholder": "Afspraakkaarten",
-            "dialogTitle": "Een melding toevoegen"
+            "dialogTitle": "Een melding toevoegen",
+            "listTitle": "Meldingen",
+            "create": "Een melding toevoegen",
+            "handleNotification": "Berichtgeving",
+            "noNotification": "Er zijn geen actieve meldingen om weer te geven."
         },
         "customForm": {
             "title": "Formulieren",
@@ -11021,14 +11039,14 @@
     },
     "clockIn": {
         "clockinDialog": {
-            "title": "Inklokken",
+            "title": "Urenregistratie",
             "close": "Sluiten",
-            "clockIn": "Beginnen",
-            "clockOut": "Eindigen",
+            "clockIn": "Inklokken",
+            "clockOut": "Uitklokken",
             "lastClockIn": "Laatste inkloktijd: {{- date }} om {{ hour }}",
             "lastClockOut": "Aankomsttijd: ",
-            "subtitleClockIn": "Hoi {{ name }}! Klik op \"Beginnen\" om in te klokken.",
-            "subtitleClockOut": "Je hebt je correct ingeklokt! Klik op \"Eindigen\" om uit te klokken.",
+            "subtitleClockIn": "Hoi {{ name }}! Klik op \"Inklokken\" om te beginnen.",
+            "subtitleClockOut": "Je hebt je correct ingeklokt. Klik op \"Uitklokken\" om je dienst af te ronden.",
             "clockInForOther": "Inklokken voor een medewerker",
             "subtitleSuccess": "Je agenda is succesvol opgeslagen. Vanaf nu kun je via dit scherm inklokken.",
             "successClockIn": "Aankomsttijd:",
@@ -11044,8 +11062,8 @@
             "status": "Status",
             "action": "Actie",
             "role": "Rol",
-            "start": "Eindigen",
-            "end": "Beginnen",
+            "start": "Uitklokken",
+            "end": "Inklokken",
             "here": "Aanwezig",
             "missing": "Afwezig",
             "createStaff": "Een medewerker toevoegen",
@@ -11055,8 +11073,8 @@
             "staff": "Medewerker",
             "startingHour": "Starttijd",
             "endingHour": "Eindtijd",
-            "durationHoursMinutes": "Aantal gewerkte uren (in uren en minuten)",
-            "durationHours": "Gewerkte uren (in uren)",
+            "durationHoursMinutes": "Totale werktijd (in uren en minuten)",
+            "durationHours": "Werktijd (in uren)",
             "action": "Actie",
             "download": "Downloaden"
         },

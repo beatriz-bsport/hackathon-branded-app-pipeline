@@ -7,6 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
+import { LinearProgress } from '@material-ui/core';
 import RedButton from '../../../components/button/RedButton.component';
 
 type Props = {
@@ -15,12 +16,14 @@ type Props = {
   onSubmit: (privateConsumerPassLinkId: number) => void,
   open: boolean,
   privateConsumerPassLinkId: number,
+  processing: boolean,
 };
 
 export const PrivateConsumerPassRelinkDialog = (props: Props) => {
   const { t } = props;
   return (
     <Dialog open={props.open}>
+      {props.processing && <LinearProgress />}
       <DialogTitle>
         {t('private_consumer_pass_links.form.relink.title')}
       </DialogTitle>
@@ -32,6 +35,7 @@ export const PrivateConsumerPassRelinkDialog = (props: Props) => {
           {t('private_consumer_pass_links.form.relink.cancel')}
         </Button>
         <RedButton
+          disabled={props.processing}
           onClick={() => props.onSubmit(props.privateConsumerPassLinkId)}
         >
           {t('private_consumer_pass_links.form.relink.submit')}

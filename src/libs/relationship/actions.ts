@@ -196,6 +196,7 @@ export function unlinkConsumerPaymentPackLink(
       );
       if (options && options.onSuccess) options.onSuccess();
     }
+    dispatch(sharedConsumerPackCreateOrUpdateActions.isLoading(false));
   };
 }
 
@@ -220,6 +221,7 @@ export function relinkConsumerPaymentPackLink(
       );
       if (options && options.onSuccess) options.onSuccess();
     }
+    dispatch(sharedConsumerPackCreateOrUpdateActions.isLoading(false));
   };
 }
 

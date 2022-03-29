@@ -8,6 +8,7 @@ import { compose, pure } from 'recompose';
 import { withTranslation, TFunction } from 'react-i18next';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import RedButton from '../../../components/button/RedButton.component';
 
 import type { ConsumerPaymentPackLink } from '../types';
@@ -18,11 +19,13 @@ type Props = {
   open: boolean,
   consumerPackLink: ConsumerPaymentPackLink,
   t: TFunction,
+  processing: boolean,
 };
 
 export const ConsumerPassRelinkDeleteDialog = (props: Props) => {
   return (
     <Dialog open={props.open}>
+      {props.processing && <LinearProgress />}
       <DialogTitle>
         {props.t('consumer_payment_pack_links.form.relink.title')}
       </DialogTitle>
@@ -33,7 +36,10 @@ export const ConsumerPassRelinkDeleteDialog = (props: Props) => {
         <Button onClick={props.onCancel}>
           {props.t('consumer_payment_pack_links.form.relink.cancel')}
         </Button>
-        <RedButton onClick={() => props.onSubmit(props.consumerPackLink)}>
+        <RedButton
+          disabled={props.processing}
+          onClick={() => props.onSubmit(props.consumerPackLink)}
+        >
           {props.t('consumer_payment_pack_links.form.relink.submit')}
         </RedButton>
       </DialogActions>

@@ -92,7 +92,12 @@ export const PrivateConsumerPassDetail = (props: Props) => {
                   key={ex.id}
                   extension={ex}
                   divider
-                  onDelete={() => props.deleteExtension(ex.id)}
+                  onDelete={
+                    props.private_consumer_pass &&
+                    !props.private_consumer_pass.dst_private_consumer_pass
+                      ? () => props.deleteExtension(ex.id)
+                      : null
+                  }
                 />
               ))}
             </List>
@@ -101,7 +106,8 @@ export const PrivateConsumerPassDetail = (props: Props) => {
       ) : null}
       {props.onCreateExtension &&
         !!props.private_consumer_pass &&
-        !props.private_consumer_pass?.private_pass?.template_instance && (
+        !props.private_consumer_pass?.private_pass?.template_instance &&
+        !props.private_consumer_pass.dst_private_consumer_pass && (
           <div className={props.classes.addButtonContainer}>
             <Button
               variant="outlined"

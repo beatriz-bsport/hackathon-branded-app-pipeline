@@ -78,6 +78,7 @@ export const ConsumerPackLinkForm = (props: Props) => {
       </div>
     );
   }
+
   return (
     <div>
       <Typography className={props.classes.title} variant="h4">

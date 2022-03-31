@@ -28,8 +28,19 @@ import {
 } from '../types';
 import ClockInForOtherTable from './ClockInForOtherTable.component';
 
+const CLOCK_IN = 0;
+const CLOCK_IN_FOR_OTHER = 1;
+const CLOCK_IN_SUCCESS = 2;
+
+enum PopupState {
+  clockIn = CLOCK_IN,
+  clockInForOther = CLOCK_IN_FOR_OTHER,
+  success = CLOCK_IN_SUCCESS,
+}
+
 type Props = {
   name: string;
+  email: string;
   open: boolean;
   lastClockIn: LastClockIn;
   permissions: Permission;
@@ -57,8 +68,10 @@ type Props = {
   getLastClockin: ({}) => Promise<void>;
   onClose: () => void;
 };
+
 const ClockInDialog: React.FC<Props> = ({
   open,
+  email,
   name,
   permissions,
   value,
@@ -70,9 +83,7 @@ const ClockInDialog: React.FC<Props> = ({
   clockOut,
   onClose,
 }) => {
-  const [mode, setMode] = useState<'clockIn' | 'clockInForOther' | 'success'>(
-    'clockIn',
-  );
+  const [mode, setMode] = useState<PopupState>(CLOCK_IN);
   const [successData, setSuccessData] = useState<{
     last_clock_in?: number;
     last_clock_out?: number;
@@ -94,7 +105,6 @@ const ClockInDialog: React.FC<Props> = ({
           onSuccess: () => {
             getLastClockin({});
             setSelfProcessing(false);
-            onClose();
           },
           onError: () => {
             setSelfProcessing(false);
@@ -114,11 +124,22 @@ const ClockInDialog: React.FC<Props> = ({
             getLastClockin({});
 
             if (data?.date_end) {
-              setMode('success');
+              setMode(CLOCK_IN_SUCCESS);
             }
           },
         },
       );
+    }
+  };
+
+  const handleClose = () => {
+    if (mode === CLOCK_IN || mode === CLOCK_IN_SUCCESS) {
+      onClose();
+      return;
+    }
+
+    if (mode === CLOCK_IN_FOR_OTHER) {
+      setMode(CLOCK_IN);
     }
   };
 
@@ -135,19 +156,21 @@ const ClockInDialog: React.FC<Props> = ({
       open={open}
       onClose={onClose}
       classes={{
-        paper: classNames({ [classes.bigPaper]: mode === 'clockInForOther' }),
+        paper: classNames({ [classes.bigPaper]: mode === CLOCK_IN_FOR_OTHER }),
       }}
     >
       <div className={classes.dialog}>
         <DialogTitle>{t('clockinDialog.title')}</DialogTitle>
         <DialogContent>
-          {mode === 'clockIn' && (
+          {mode === CLOCK_IN && (
             <>
               {permissions?.navigationMenu?.payments?.clockIn?.selfClockIn && (
                 <>
                   <Typography color="textPrimary">
                     {isClockingIn &&
-                      t('clockinDialog.subtitleClockIn', { name })}
+                      t('clockinDialog.subtitleClockIn', {
+                        name: name.trim() ? name : email,
+                      })}
                     {isClockingOut && t('clockinDialog.subtitleClockOut')}
                   </Typography>
                   <Button
@@ -160,7 +183,7 @@ const ClockInDialog: React.FC<Props> = ({
                     {isClockingIn && (
                       <>
                         {selfProcessing ? (
-                          <CircularProgress collor="inherit" size={12} />
+                          <CircularProgress color="inherit" size={12} />
                         ) : (
                           <PowerSettingsNewIcon className={classes.iconColor} />
                         )}
@@ -172,7 +195,7 @@ const ClockInDialog: React.FC<Props> = ({
                     {isClockingOut && (
                       <>
                         {selfProcessing ? (
-                          <CircularProgress collor="inherit" size={12} />
+                          <CircularProgress color="inherit" size={12} />
                         ) : (
                           <StopIcon className={classes.iconColor} />
                         )}
@@ -213,7 +236,7 @@ const ClockInDialog: React.FC<Props> = ({
                   variant="outlined"
                   color="primary"
                   onClick={() => {
-                    setMode('clockInForOther');
+                    setMode(CLOCK_IN_FOR_OTHER);
                   }}
                 >
                   {t('clockinDialog.clockInForOther')}
@@ -222,7 +245,7 @@ const ClockInDialog: React.FC<Props> = ({
             </>
           )}
 
-          {mode === 'clockInForOther' && (
+          {mode === CLOCK_IN_FOR_OTHER && (
             <ClockInForOtherTable
               value={value}
               fetchAttendance={fetchAttendance}
@@ -232,7 +255,7 @@ const ClockInDialog: React.FC<Props> = ({
             />
           )}
 
-          {mode === 'success' && (
+          {mode === CLOCK_IN_SUCCESS && (
             <>
               <Typography color="textPrimary">
                 {t('clockinDialog.subtitleSuccess')}
@@ -276,7 +299,7 @@ const ClockInDialog: React.FC<Props> = ({
           )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose}>{t('clockinDialog.close')}</Button>
+          <Button onClick={handleClose}>{t('clockinDialog.close')}</Button>
         </DialogActions>
       </div>
     </Dialog>

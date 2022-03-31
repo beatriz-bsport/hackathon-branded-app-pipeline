@@ -109,6 +109,7 @@ type Props = {
     upsell_identifier: number,
     readable_identifier: string,
   }>,
+  email: string,
   roles: Role[],
   lastClockIn: LastClockIn,
   usersPaginatedWithRoles: {
@@ -605,6 +606,7 @@ class BackofficeDrawer extends React.Component<Props, State> {
               <ClockInDialog
                 open={this.state.clockInDialogOpen}
                 name={this.props.name}
+                email={this.props.email}
                 permissions={this.props.permissions}
                 lastClockIn={this.props.lastClockIn}
                 onClose={this.closeClockInDialog}

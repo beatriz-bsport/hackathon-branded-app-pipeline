@@ -462,6 +462,7 @@ export class Backoffice extends Component<Props, State> {
                 navigateBackToFranchisor={this.props.navigateBackToFranchise}
                 companyName={this.props.theme.company_name}
                 name={this.props.name}
+                email={this.props.username}
                 companyId={this.props.theme.company}
                 featureList={this.props.featureList}
                 lastClockIn={this.props.lastClockin}

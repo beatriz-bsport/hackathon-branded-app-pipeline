@@ -3246,7 +3246,7 @@
         },
         "companyOnboarding": {
             "creation": {
-                "content": "Um CB- und SEPA-Zahlungen einziehen zu können, überprüfen Sie bitte Ihre rechtlichen Angaben",
+                "content": "Um Karten- und SEPA-Zahlungen einziehen zu können, überprüfen Sie bitte Ihre rechtlichen Informationen.",
                 "title": "Online-Zahlungen deaktiviert"
             },
             "payout": {
@@ -5644,7 +5644,8 @@
                 "sendBeforeNotifications": "Gesandter les Notifications au membre avant la séanceconcerée par la notification",
                 "sendBeforeNotification": "Gesandter la Benachrichtigung push au membre avant la séance Concréée par la Benachrichtigung"
             },
-            "addNotification": "Eine Benachrichtigung hinzufügen"
+            "addNotification": "Eine Benachrichtigung hinzufügen",
+            "title": "Benachrichtigung"
         },
         "recurrenceRule": {
             "deleteModal": {
@@ -10768,5 +10769,20 @@
             "selector": "Name der Kategorie"
         },
         "disabledItemsTitle": "Archiv"
+    },
+    "clockIn": {
+        "clockinDialog": {
+            "successClockIn": "Ankunftszeit:",
+            "subtitleSuccess": "Ihre Zeiterfassung wurde erfolgreich abgeschlossen. Sie können eine neue Zeiterfassung starten, wenn Sie dieses Fenster das nächste Mal öffnen.",
+            "clockInForOther": "für einen anderen Staff ausstempeln",
+            "subtitleClockOut": "Jetzt geht es los! Um erneut auszustempeln und den Stundenzähler zu stoppen, klicken Sie bitte auf \"Beenden\".",
+            "subtitleClockIn": "Hallo {{ name }}, klicken Sie auf \"Starten\", um mit der Stempelung Ihres Tages zu beginnen.",
+            "lastClockOut": "Ankunftszeit: ",
+            "lastClockIn": "Letzte Stempelung: {{- date }}-{{ hour }}",
+            "clockOut": "Beenden",
+            "clockIn": "Beginnen",
+            "close": "Schließen",
+            "title": "Stundenstempel"
+        }
     }
 }

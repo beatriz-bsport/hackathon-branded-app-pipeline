@@ -5938,7 +5938,8 @@
             },
             "isFromDisabledShare": "Delen gestopt",
             "isOwnerOfShares": "Gedeeld (mastercard voor afspraken)",
-            "isFromShare": "Deze kaart wordt met een ander account gedeeld."
+            "isFromShare": "Deze kaart wordt met een ander account gedeeld.",
+            "warningShareUniversal": "Gelieve de gekoppelde kaarten i.p.v. de universele kaart delen"
         },
         "privateServiceCompatibility": {
             "delete": {
@@ -6913,7 +6914,7 @@
     "payment": {
         "generalTermsAndConditions": {
             "theTermsAndConditions": "algemene voorwaarden.",
-            "iAccept": "Ik ga akkoord met ",
+            "iAccept": " ",
             "close": "Sluiten",
             "generalTermsOfUse": " algemene voorwaarden.",
             "waiver": "Waiver / Vrijstelling"

@@ -184,8 +184,8 @@
             "myAccount": "Il mio account"
         },
         "paymentMethod": {
-            "CB": "Carta di credito",
-            "CB_MANUAL": "Carta di credito (manuale)",
+            "CB": "Carta",
+            "CB_MANUAL": "Carta (manuale)",
             "CHECK": "Assegno bancario",
             "HOLIDAY_CHECK": "Assegno vacanze",
             "CASH": "Contanti",
@@ -225,7 +225,7 @@
                 },
                 "item": {
                     "available_payment_method_identifiers": {
-                        "helperText": "Seleziona almeno un metodo di pagamento. Se il carrello del membro contiene articoli per i quali i mezzi di pagamento sono incompatibili, verrà offerto il pagamento attraverso carta di credito.",
+                        "helperText": "Seleziona almeno un metodo di pagamento. Se il carrello del membro contiene articoli per i quali i mezzi di pagamento sono incompatibili, verrà offerto il pagamento attraverso carta.",
                         "label": "Mezzi di pagamento autorizzati"
                     },
                     "updateProvisionExplain": "Inserisci la fornitura al tuo inventario. Questa verrà aggiunta allo stock corrente",
@@ -515,7 +515,8 @@
             "modify": "Modificare",
             "warningAddEmail": "Questa e-mail è già stata aggiunta.",
             "emailHelper": "Per aggiungere più email, digita una virgola o uno spazio dopo ogni email.",
-            "partner_max_booking_count": "Numero massimo di prenotazioni sul mercato (solo OneFit)"
+            "partner_max_booking_count": "Numero massimo di prenotazioni sul mercato (solo OneFit)",
+            "tenMinutes": "10 min"
         },
         "marketing": {
             "dashboard": "Pannello di controllo",
@@ -616,8 +617,8 @@
             "payWithNCredits2": "credito",
             "paymentMethods": {
                 "HOLIDAY_CHECK": "Buoni vacanze",
-                "CB_MANUAL": "Carta di credito (manuale)",
-                "CB": "Carta di credito",
+                "CB_MANUAL": "Carta (manuale)",
+                "CB": "Carta",
                 "CHECK": "Assegno bancario",
                 "OTHER": "Altro",
                 "CASH": "Contanti",
@@ -629,7 +630,7 @@
                 "DISPUTE": "Contenzioso"
             },
             "updateInvoiceVoucher": "Aggiungi un voucher",
-            "paymentMethodStripe": "Carta di credito",
+            "paymentMethodStripe": "Carta",
             "payment": "Pagamento",
             "credit": "Credito",
             "privatePass": "Pass per appuntamenti",
@@ -673,7 +674,7 @@
             "billingAnchor": "Primo versamento",
             "nbInterval": "Numero di addebiti diretti",
             "intervalType": "Frequenza di pagamento",
-            "stripePaymentWillBeCashedOutOnInvoiceValidation": "La carta di credito verrà addebitata solo dopo il salvataggio della fattura",
+            "stripePaymentWillBeCashedOutOnInvoiceValidation": "La carta verrà addebitata solo dopo il salvataggio della fattura",
             "createInvoice": "Pagamento",
             "toBill": "Fattura",
             "toSubscribe": "Abbonati",
@@ -698,9 +699,9 @@
             "reverted": "Annullato",
             "revert": "Annulla fattura",
             "choseDate": "Data di fatturazione",
-            "explainDateChoser": "Scegli la data di fatturazione. I pagamenti con carta di credito verranno immediatamente incassati indipendentemente dalla data scelta",
+            "explainDateChoser": "Scegli la data di fatturazione. I pagamenti con carta verranno immediatamente incassati indipendentemente dalla data scelta",
             "revertImpossibleExplainSubscription": "Questa fattura fa parte di un abbonamento, non è possibile annullare una fattura ricevuta collegata a un abbonamento, ma è possibile interrompere l'abbonamento",
-            "revertExplainPayment": "I pagamenti con carta di credito verranno rimborsati sul conto del membro. Tutti gli altri metodi di pagamento verranno eliminati.",
+            "revertExplainPayment": "I pagamenti con carta verranno rimborsati sul conto del membro. Tutti gli altri metodi di pagamento verranno eliminati.",
             "revertExplainCredits": "Addebiti / crediti sul conto del membro verranno annullati.",
             "revertExplainPacks": "Le schede del corso saranno cancellate e TUTTE le prenotazioni associate",
             "revertExplainShop": "Gli acquisti in negozio verranno annullati e l'inventario ripristinato.",
@@ -1297,7 +1298,8 @@
         },
         "pack": {
             "titlePaymentPack": "Lezione collettiva",
-            "titlePrivatePack": "Appuntamento"
+            "titlePrivatePack": "Appuntamento",
+            "titleUniversalPack": "Universale"
         },
         "booking": {
             "showCalendar": "Vedi il calendario",
@@ -1441,7 +1443,7 @@
         "form": {
             "available_payment_method_identifiers": {
                 "label": "Mezzi di pagamento autorizzati",
-                "helperText": "Seleziona almeno un metodo di pagamento. Se il carrello del membro contiene articoli per i quali i mezzi di pagamento sono incompatibili, verrà offerto il pagamento attraverso carta di credito."
+                "helperText": "Seleziona almeno un metodo di pagamento. Se il carrello del membro contiene articoli per i quali i mezzi di pagamento sono incompatibili, verrà offerto il pagamento attraverso carta."
             },
             "manager_only": {
                 "label": "Invisibile ai clienti"
@@ -1713,7 +1715,8 @@
             "expiresOn": "Scade il {{date}}",
             "isFromDisabledShare": "Condivisione interrotta",
             "isOwnerOfShares": "Condividere (master card per appuntamenti)",
-            "isFromShare": "Condividere da un altro account"
+            "isFromShare": "Condividere da un altro account",
+            "warningShareUniversal": "Questa carta è universale, si prega di condividere la scheda del corso associato"
         },
         "availabilitySlot": {
             "form": {
@@ -1751,7 +1754,13 @@
             "allocationWarning": {
                 "showCalendar": "Vedere il calendario",
                 "establishment": "Questa stanza non è disponibile in questo momento",
-                "coach": "Questo insegnante non è disponibile in questo orario"
+                "coach": "Questo insegnante non è disponibile in questo orario",
+                "cancel": "Cancella",
+                "validate": "Convalidare",
+                "continue": "Sei sicuro di voler spostare questa appuntamento?",
+                "resource": "Si prega di notare che {{ resource }} non è disponibile in questo slot.\n",
+                "title": "Slot non disponibile",
+                "loading": "Verifica della disponibilità dello slot"
             }
         },
         "pageTitles": {
@@ -1965,7 +1974,11 @@
             "establishment": "Luogo",
             "coach": "Insegnante",
             "selectService": "Scegli un servizio",
-            "selectSession": "Scegli la tua sessione"
+            "selectSession": "Scegli la tua sessione",
+            "searchFirstSlot": "Cerca il primo slot disponibile",
+            "nextOffer": "Primo slot disponibile il {{- date }} : {{ hour }}",
+            "previousOffer": "Una sessione più recente è disponibile su {{- date }} : {{ hour }}",
+            "emptyState": "Nessuna disponibilità al momento"
         },
         "slot": {
             "parameters": {
@@ -2106,7 +2119,7 @@
                     "label": "Durata della validità in mesi"
                 },
                 "available_payment_method_identifiers": {
-                    "helperText": "Seleziona almeno un metodo di pagamento. Se il carrello del membro contiene articoli per i quali i mezzi di pagamento sono incompatibili, verrà offerto il pagamento attraverso carta di credito.",
+                    "helperText": "Seleziona almeno un metodo di pagamento. Se il carrello del membro contiene articoli per i quali i mezzi di pagamento sono incompatibili, verrà offerto il pagamento attraverso carta.",
                     "label": "Mezzi di pagamento autorizzati",
                     "warning": "Rendi la tua carta visibile ai clienti in modo che possano selezionare i metodi di pagamento."
                 },
@@ -2170,12 +2183,19 @@
                     "compatibility": "Compatibilità",
                     "validity": "Validità della carta",
                     "paymentMeans": "Informazioni generali",
-                    "info": "Informazioni generali"
+                    "info": "Informazioni generali",
+                    "compatibilityAppointment": "Compatibilità degli appuntamenti"
                 },
                 "selector": {
                     "privateService": "Aggiungere un appuntamento compatibile"
                 },
-                "franchise": "Questa mappa è una mappa condivisa dall'account del franchisor. Alcuni elementi sono stati definiti dal conto del franchisor e non sono modificabili"
+                "franchise": "Questa mappa è una mappa condivisa dall'account del franchisor. Alcuni elementi sono stati definiti dal conto del franchisor e non sono modificabili",
+                "universalPass": {
+                    "deativatedTags": "Disabili per le carte universali",
+                    "helperText": "Le carte universali possono essere utilizzate per prenotare lezioni di gruppo E appuntamenti. Una volta creata la carta, verrà creata una carta gemella nelle carte del corso. Il numero di crediti su entrambe le carte sarà collegato. Quando si acquista una delle due carte, l'altra sarà automaticamente aggiunta al membro (senza costi aggiuntivi).",
+                    "label": "Carta universale",
+                    "warningIsUniversalPass": "Questa carta è una carta universale, una carta gemella è stata creata nelle mappe del corso. Tutti i campi modificati su questa carta saranno modificati anche sulla carta gemella (tranne la categoria). Lo stesso vale per le notifiche, le estensioni e le modifiche di credito."
+                }
             },
             "delete": {
                 "explain": "Sei sicuro di voler cancellare questa scheda? Le persone che hanno ancora dei crediti possono ancora usarli.",
@@ -2600,6 +2620,14 @@
             "actions": {
                 "addCompany": "Aggiungere uno studio"
             }
+        },
+        "universalPass": {
+            "delete": {
+                "dialog": {
+                    "warningText": "Si prega di notare! Questa carta è una carta universale, se la cancelli la sua carta gemella sarà anche cancellata.",
+                    "title": "Cancellazione della carta"
+                }
+            }
         }
     },
     "video": {
@@ -2804,7 +2832,10 @@
             "total_on_appointments": "Nomina retributiva",
             "total_on_sessions": "Remunerazione per le lezioni di gruppo",
             "nb_appointments": "Numero di appuntamenti",
-            "nb_sessions": "Numero di sessioni"
+            "nb_sessions": "Numero di sessioni",
+            "totalNetGain": "Totale guadagno netto",
+            "netGain": "Guadagno netto",
+            "marginValue": "Contributo marginale"
         },
         "bonus": "Bonus",
         "addBonus": "Aggiungi un bonus",
@@ -2961,7 +2992,8 @@
             "programs": "Programmi",
             "expenses": "Spese",
             "instalmentPayment": "Pagamenti a rate",
-            "coachPayroll": "Remunerazione"
+            "coachPayroll": "Remunerazione",
+            "clockIn": "Orologio in orologio in uscita"
         },
         "deprecatedNavigator": {
             "close": "Chiudi",
@@ -3046,7 +3078,8 @@
             "websiteURL": {
                 "helperText": "Utilizzato se il cliente fa clic sul tuo logo in particolare",
                 "label": "URL del sito",
-                "placeholder": "https://studio.com/"
+                "placeholder": "https://studio.com/",
+                "errorText": "L'URL inserito non è valido"
             },
             "cover": {
                 "label": "Logo",
@@ -3147,7 +3180,8 @@
                 "internalAccountWarningTitle": "Attenzione ai saldi correnti dei clienti.",
                 "internalAccountWarning1": "Si consiglia vivamente di creare un rapporto sul saldo del cliente prima di abilitare questa funzione.",
                 "internalAccountNotusableOnContract": "Questo mezzo di pagamento non può essere utilizzato per contratti",
-                "internalAccount": "Bilancio del cliente"
+                "internalAccount": "Bilancio del cliente",
+                "errorURL": "Inserisci un URL valido prima di salvare il modulo"
             },
             "instagramURL": {
                 "label": "URL di Instagram",
@@ -3972,6 +4006,13 @@
                 "pm_associated_to_protected_bp": "Impossibile : Hai un abbonamento associato a questo metodo di pagamento",
                 "last_payment_method": "Impossibile di cancellare il tuo unico metodo di pagamento",
                 "pm_deleted": "Metodo di pagamento cancellato"
+            },
+            "errors": {
+                "13004": "I pagamenti futuri sono previsti con questo metodo di pagamento",
+                "13003": "Un abbonamento è programmato con questo metodo di pagamento",
+                "13002": "I pagamenti futuri sono previsti con questo metodo di pagamento",
+                "13001": "Impossibile rimuovere questo metodo di pagamento, riprova più tardi",
+                "13000": "Impossibile rimuovere questo metodo di pagamento, riprova più tardi"
             }
         },
         "paymentRuleGroups": {
@@ -4150,6 +4191,11 @@
                 },
                 "error": "Errore di registrazione dell'imposta provinciale",
                 "success": "Imposta provinciale registrata"
+            }
+        },
+        "clockIn": {
+            "errors": {
+                "96002": "Impossibile, questo utente ha già un punteggio"
             }
         }
     },
@@ -4461,7 +4507,7 @@
                 "explain": {
                     "2": "Scegli tu stesso il metodo di rimborso. Usa questo metodo per un check / trasferimento manuale / rimborso in cash.",
                     "1": "Una nota di credito sarà generata e, di conseguenza, il saldo del cliente aumenterà. Usa questo metodo per generare una nota di credito.",
-                    "0": "Pagamenti con Carta di Credito / SEPA / etc... saranno effettuati direttamente sull'account del cliente. Usa questo metodo per eseguire un rimborso diretto in seguito ad un errore."
+                    "0": "Pagamenti con Carta / SEPA / etc... saranno effettuati direttamente sull'account del cliente. Usa questo metodo per eseguire un rimborso diretto in seguito ad un errore."
                 },
                 "label": {
                     "2": "Rimborso manuale",
@@ -4596,7 +4642,7 @@
         },
         "paymentMethod": {
             "label": {
-                "15": "Carta di Credito (manuale)",
+                "15": "Carta (manuale)",
                 "13": "Giropay",
                 "12": "EPS",
                 "11": "Sofort",
@@ -4609,7 +4655,7 @@
                 "4": "Assegno di vacanza",
                 "3": "Assegno",
                 "2": "SEPA",
-                "1": "Carta di credito",
+                "1": "Carta",
                 "0": "Cash",
                 "14": "Acconto del cliente (debito)"
             },
@@ -4735,7 +4781,8 @@
             "nbBookingsOverThreshold": "Bonus per prenotazione",
             "pricePerOffer": "Importo per sessione",
             "payment": "Retribuzione",
-            "durationBookings": "Numero di ore"
+            "durationBookings": "Numero di ore",
+            "totalNetGain": "Totale guadagno netto"
         },
         "forms": {
             "delete": {
@@ -4894,11 +4941,11 @@
         },
         "paymentMethod": {
             "credit": {
-                "explain": "Il socio verrà fatturato sul suo conto interno ogni fatturazione. Utilizza questo metodo di pagamento se non hai (ancora) accesso a un metodo di fatturazione come una carta di credito o un bonifico IBAN. È possibile aggiornare il pagamento in seguito."
+                "explain": "Il socio verrà fatturato sul suo conto interno ogni fatturazione. Utilizza questo metodo di pagamento se non hai (ancora) accesso a un metodo di fatturazione come una carta o un bonifico IBAN. È possibile aggiornare il pagamento in seguito."
             },
             "sepa": "Addebito diretto SEPA",
             "bsportCredit": "Conto cliente",
-            "card": "Carta di credito"
+            "card": "Carta"
         },
         "subscriptionStatus": {
             "isPaused": "In pausa",
@@ -4912,7 +4959,7 @@
             "nbMonths": "Numero di collezioni",
             "payment_method": {
                 "2": "Sul conto",
-                "0": "Carta di credito",
+                "0": "Carta",
                 "1": "Bonifici SEPA",
                 "label": "Metodo di pagamento"
             },
@@ -4937,7 +4984,7 @@
             "payment_method_group": {
                 "14": "Credito",
                 "2": "SEPA",
-                "1": "Carta di credito"
+                "1": "Carta"
             },
             "paymentCombo": "Pacchetto",
             "payment_combo": "Confezione"
@@ -5299,9 +5346,9 @@
             "payment_note": "Nota di pagamento",
             "remaining_days": "Giorni rimanenti",
             "bsport_fee": "Commissioni di transazione",
-            "payment_method_stripe": "Carta di credito",
+            "payment_method_stripe": "Carta",
             "payment_method_cash": "Metodo",
-            "payment_method_manual_credit_card": "Carta di credito (manuale)",
+            "payment_method_manual_credit_card": "Carta (manuale)",
             "payment_method_total": "Totale",
             "percent_off": "% Di riduzione",
             "member": "Soci",
@@ -5462,16 +5509,18 @@
             "supplier": "Fornitore",
             "category": "Categoria",
             "is_recurring": "Ricorrente",
-            "amount_expense": "Importo"
+            "amount_expense": "Importo",
+            "universal_nb_private_bookings": "Numero di prenotazioni (appuntamenti)",
+            "universal_nb_bookings": "Numero di prenotazioni (corsi di gruppo)"
         },
         "payment_method": {
             "dispute": "Contenzioso",
             "cash": "Contanti",
-            "manual_credit_card": "Carta di credito (manuale)",
+            "manual_credit_card": "Carta (manuale)",
             "holiday_check": "Buoni vacanze",
             "other": "Altro",
             "check": "Assegno bancario",
-            "stripe": "Carta di credito",
+            "stripe": "Carta",
             "credit_account": "Credito al cliente",
             "amex": "American Express",
             "bank_transfer": "Bonifico bancario",
@@ -5479,7 +5528,7 @@
             "event_brite": "EventBrite",
             "none": "Nessuno",
             "sepa": "SEPA",
-            "credit_card": "CB"
+            "credit_card": "Carte"
         },
         "list": {
             "empty": "Nessun rapporto? Crea un primo rapporto!",
@@ -5548,7 +5597,10 @@
             "giftcard": "Carta regalo",
             "unpaid_private_bookings": "Prenotazioni non pagate (appuntamenti)",
             "payment_installments": "Pagamenti a rate",
-            "expense": "Spese"
+            "expense": "Spese",
+            "expired_pass": "Crediti scaduti della carta dei corsi",
+            "private_cpasses_expired": "Crediti d'appuntamento scaduti",
+            "universal_passes": "Carte universali"
         },
         "globalCategories": {
             "subheader": {
@@ -5609,7 +5661,7 @@
         },
         "companyOnboarding": {
             "creation": {
-                "content": "Per poter raccogliere pagamenti CB e SEPA, controlla le tue informazioni e le informazioni legali",
+                "content": "Per essere in grado di raccogliere pagamenti con carta e SEPA, controlla le tue informazioni legali",
                 "title": "Pagamento online disabilitato"
             },
             "payout": {
@@ -5921,6 +5973,13 @@
                         "header": "Tags"
                     },
                     "header": "Avanzato"
+                },
+                "universalPass": {
+                    "deativatedTags": "Disabili per le carte universali",
+                    "helperText": "Le carte universali possono essere usate per prenotare lezioni di gruppo E appuntamenti. Una volta creata la scheda, verrà creata una scheda gemella nelle schede degli appuntamenti. Il numero di crediti su entrambe le carte sarà collegato. Quando si acquista una delle due carte, l'altra sarà automaticamente aggiunta al membro (senza costi aggiuntivi).",
+                    "marketplaceLabel": "Carta universale. Può essere usato per corsi e appuntamenti.",
+                    "label": "Carta universale",
+                    "warningIsUniversalPass": "Questa mappa è una mappa universale, una mappa gemella è stata creata nelle mappe RDV. Tutti i campi modificati su questa mappa saranno modificati anche sulla mappa gemella (tranne la categoria). Lo stesso vale per le notifiche, le estensioni e le modifiche di credito."
                 }
             }
         },
@@ -6136,7 +6195,8 @@
             "maxPurchasePerMember": "Numero massimo di acquisti : ",
             "maxBookingPerDay": "Usi massimi al giorno : ",
             "maxBookingPerWeek": "Usi massimi per settimana: ",
-            "maxBookingPerMonth": "Usi massimi al mese: "
+            "maxBookingPerMonth": "Usi massimi al mese: ",
+            "universalPass": "Compatibile con i corsi e gli appuntamenti."
         },
         "detailTitles": {
             "vod": "VOD",
@@ -6145,7 +6205,9 @@
             "accessibility": "Accessibilità",
             "compatibility": "Compatibilità",
             "validity": "Validità",
-            "credit_quantity": "Numero di crediti"
+            "credit_quantity": "Numero di crediti",
+            "universalPass": "Carta universale",
+            "compatibilityPaymentPack": "Compatibilità dei corsi di gruppo"
         },
         "unlimitedAndCalculatedMargin": " - Input marginale teorico calcolato: prezzo / nb_riserveioni ",
         "unlimitedAndMargin": " - Contributo marginale teorico di ",
@@ -6284,6 +6346,21 @@
             },
             "consumerPaymentPackSharedFromOtherFranchisee": "Condiviso dal franchisee",
             "paymentPackSharedFromFranchisor": "Scheda del franchising"
+        },
+        "universalPass": {
+            "restore": {
+                "dialog": {
+                    "continue": "Continua",
+                    "text": "Questa carta è una carta universale, la sua carta gemella è stata anche de-archiviata.",
+                    "title": "Unarchive"
+                }
+            },
+            "delete": {
+                "dialog": {
+                    "warningText": "Si prega di notare! Questa scheda è una carta universale, se la cancelli, anche la sua carta gemella sarà cancellata.",
+                    "title": "Cancellare la carta"
+                }
+            }
         }
     },
     "metaActivity": {
@@ -6530,7 +6607,8 @@
             "vod": "VOD",
             "form": "Moduli",
             "giftcard": "Carta regalo",
-            "programs": "Programmi"
+            "programs": "Programmi",
+            "basket": "Cesto"
         },
         "addMember": "Aggiungi il profilo di un membro",
         "name": "Nome",
@@ -6933,7 +7011,8 @@
                 "sendBeforeNotification": "Inviare la notifica push al membro prima della riunione a cui la notifica si riferisce",
                 "sendAfterNotification": "Invia una notifica push al membro dopo la sessione interessata dalla notifica"
             },
-            "addNotification": "Aggiungi una notifica"
+            "addNotification": "Aggiungi una notifica",
+            "title": "Notificazione"
         },
         "recurrenceRule": {
             "actions": {
@@ -8136,7 +8215,18 @@
             "name": " nome"
         },
         "description": "Descrizione",
-        "favouriteLocation": "Posizione preferita"
+        "favouriteLocation": "Posizione preferita",
+        "notification": {
+            "modal": {
+                "content": "Sei sicuro di voler cancellare questa notifica? Questa operazione è definitiva",
+                "confirm": "Eliminare",
+                "cancel": "Cancella",
+                "title": "Cancellazione della notifica"
+            }
+        },
+        "marketing": {
+            "notification": "Notificazioni"
+        }
     },
     "datetime": {
         "time": {
@@ -8265,12 +8355,12 @@
         },
         "paymentMethod": {
             "2": "Assegno bancario",
-            "4": "Carta di credito (manuale)",
+            "4": "Carta (manuale)",
             "5": "Buoni vacanze",
             "6": "AMEX (American Express)",
             "8": "EventBrite",
             "7": "Bonifico bancario",
-            "0": "Carta di credito",
+            "0": "Carta",
             "1": "Contanti",
             "9": "Conto interno (di credito)",
             "10": "Pagamento automatico",
@@ -8287,7 +8377,7 @@
         "bookAnotherOption": "Iscrivimi nuovamente nella lista di attesa",
         "method": {
             "CREDIT_ACCOUNT": "Pagamento in loco",
-            "CB": "Carta di credito",
+            "CB": "Carta",
             "CHECK": "Controlla",
             "CASH": "Specie",
             "GIROPAY": "Giropay",
@@ -9006,7 +9096,9 @@
         "startAfterEnd": "La data di inizio deve essere inferiore alla data di fine",
         "endBeforeStart": "La data di fine deve essere maggiore di quella di inizio",
         "monthly": "Mensile",
-        "weekly": "Settimanale"
+        "weekly": "Settimanale",
+        "showLess": "Mostra meno",
+        "showMore": "Vedere di più ({{count}})"
     },
     "titles": {
         "metaActivity": {
@@ -9582,7 +9674,64 @@
         "rolePermissions": {
             "navigationMenu": {
                 "settings": {
-                    "_label": "Parametri"
+                    "_label": "Parametri",
+                    "subscription": {
+                        "_label": "Abbonamento bsport"
+                    },
+                    "activeCampaign": {
+                        "_label": "ActiveCampaign"
+                    },
+                    "quickBooks": {
+                        "_label": "QuickBooks"
+                    },
+                    "partnership": {
+                        "_label": "Partnership"
+                    },
+                    "webHook": {
+                        "_label": "Webhook"
+                    },
+                    "webShop": {
+                        "_label": "Shop"
+                    },
+                    "waitingList": {
+                        "_label": "Lista d'attesa"
+                    },
+                    "billing": {
+                        "_label": "Fatturazione"
+                    },
+                    "company": {
+                        "_label": "Società"
+                    },
+                    "paymentMethods": {
+                        "_label": "Mezzi di pagamento"
+                    },
+                    "teacherPayrollRules": {
+                        "_label": "Regole di remunerazione"
+                    },
+                    "transactionnalEmail": {
+                        "_label": "Email transazionali"
+                    },
+                    "liveStreaming": {
+                        "_label": "Videoconferenza"
+                    },
+                    "memberForms": {
+                        "_label": "Modulo di membro"
+                    },
+                    "personalization": {
+                        "_label": "Personalizzazione"
+                    },
+                    "staffs": {
+                        "_label": "Staff"
+                    },
+                    "widgets": {
+                        "_label": "Widget"
+                    },
+                    "marketplace": {
+                        "_label": "Parametri del mercato"
+                    },
+                    "generals": {
+                        "_label": "Generale"
+                    }
                 },
                 "reporting": {
                     "_label": "Rapporti"
@@ -9591,19 +9740,112 @@
                     "_label": "Membro"
                 },
                 "digitalOffer": {
-                    "_label": "Offerta digitale"
+                    "_label": "Offerta digitale",
+                    "playlists": {
+                        "_label": "Video playlist"
+                    },
+                    "videos": {
+                        "_label": "Librerie video"
+                    }
                 },
                 "marketing": {
-                    "_label": "Marketing"
+                    "_label": "Marketing",
+                    "tags": {
+                        "_label": "Tags"
+                    },
+                    "strategies": {
+                        "_label": "Strategie"
+                    },
+                    "notifications": {
+                        "_label": "Notificazioni"
+                    },
+                    "smartlists": {
+                        "_label": "Smartlists"
+                    },
+                    "customForms": {
+                        "_label": "Formulari"
+                    },
+                    "templates": {
+                        "_label": "E-mail"
+                    }
                 },
                 "payments": {
-                    "_label": "Pagamenti"
+                    "_label": "Pagamenti",
+                    "clockIn": {
+                        "canAccessHistory": {
+                            "_label": "Accedere alla storia dell'orario"
+                        },
+                        "clockInForOther": {
+                            "_label": "Indicando un altro staff"
+                        },
+                        "selfClockIn": {
+                            "_label": "Puntare per se stessi"
+                        },
+                        "_label": "Orologio"
+                    },
+                    "teachers": {
+                        "_label": "Insegnanti"
+                    },
+                    "installments": {
+                        "_label": "Pagamento a rate"
+                    },
+                    "expenses": {
+                        "_label": "Spese"
+                    },
+                    "orders": {
+                        "_label": "Ordini"
+                    },
+                    "directDebits": {
+                        "_label": "Addebiti diretti"
+                    },
+                    "billings": {
+                        "_label": "Fatture"
+                    }
                 },
                 "products": {
-                    "_label": "Prodotti"
+                    "_label": "Prodotti",
+                    "contracts": {
+                        "_label": "Contratti"
+                    },
+                    "promotions": {
+                        "_label": "Promozioni"
+                    },
+                    "giftcards": {
+                        "_label": "Carte regalo"
+                    },
+                    "packs": {
+                        "_label": "Promozione dei pacchetti"
+                    },
+                    "shop": {
+                        "_label": "Shop"
+                    },
+                    "privatePass": {
+                        "_label": "Carte d'appuntamento"
+                    },
+                    "paymentPack": {
+                        "_label": "Carte dei corsi"
+                    }
                 },
                 "myClub": {
-                    "_label": "Il mio club"
+                    "_label": "Il mio club",
+                    "programs": {
+                        "_label": "Programmi"
+                    },
+                    "establishments": {
+                        "_label": "Stabilimenti"
+                    },
+                    "teachers": {
+                        "_label": "Insegnanti"
+                    },
+                    "appointments": {
+                        "_label": "Appuntamenti"
+                    },
+                    "workshops": {
+                        "_label": "Workshops"
+                    },
+                    "activities": {
+                        "_label": "Attività"
+                    }
                 },
                 "schedule": {
                     "_label": "Orario"
@@ -9748,7 +9990,7 @@
         },
         "paymentMethod": {
             "actions": {
-                "createCard": "Aggiungi un CB",
+                "createCard": "Aggiungi una carte",
                 "createSepa": "Aggiungi un IBAN"
             },
             "sectionTitle": "Metodo di pagamento"
@@ -9789,7 +10031,8 @@
                 "payment_pack": "Tessera",
                 "workshop": "Workshop",
                 "private_pass": "Carta d'appuntamento",
-                "birthday": "Compleanno"
+                "birthday": "Compleanno",
+                "establishmentGroup": "Luogo"
             },
             "groupTitle": {
                 "booking": "Prenotazione",
@@ -9804,7 +10047,8 @@
                 "private_service": "Seleziona un appuntamento",
                 "payment_pack": "Seleziona una tessera",
                 "workshop": "Seleziona un workshop",
-                "private_pass": "Selezionare una scheda di appuntamento"
+                "private_pass": "Selezionare una scheda di appuntamento",
+                "establishment_group": "Selezionare un luogo"
             },
             "paymentPackPlaceholder": "Tessera",
             "paymentPackKind": {
@@ -9832,7 +10076,11 @@
             "notificationDetails": "Dettagli della notifica",
             "notificationPreview": "Panoramica della notifica",
             "privatePassPlaceholder": "Carta d'appuntamento",
-            "dialogTitle": "Creare una notifica"
+            "dialogTitle": "Creare una notifica",
+            "listTitle": "Notificazioni",
+            "create": "Creare una notifica",
+            "handleNotification": "Gestire le notifiche",
+            "noNotification": "Nessuna notifica abilitata"
         },
         "customForm": {
             "title": "Moduli",
@@ -10779,5 +11027,69 @@
             "selector": "Nome della categoria"
         },
         "disabledItemsTitle": "Archivio"
+    },
+    "clockIn": {
+        "export": {
+            "dialog": {
+                "title": "Esportare la storia",
+                "message": "La tua esportazione è pronta per essere scaricata."
+            }
+        },
+        "tabHistory": "Storia",
+        "tabRealTime": "In tempo reale",
+        "pageTitle": "Orario del personale",
+        "editModal": {
+            "confirm": "Convalidare",
+            "cancel": "Cancella",
+            "startingTime": "Orario di inizio",
+            "endingTime": "Orario di fine",
+            "title": "Modifiche all'orario"
+        },
+        "modal": {
+            "delete": {
+                "content": "Attenzione, sei sicuro di voler cancellare la fascia oraria per questo personale? Questa operazione è irreversibile.",
+                "title": "Cancellazione"
+            }
+        },
+        "historyTable": {
+            "download": "Scaricare",
+            "action": "Azione",
+            "durationHours": "Ore lavorate (ore)",
+            "durationHoursMinutes": "Ore lavorate (ore e minuti)",
+            "endingHour": "Orario di fine",
+            "startingHour": "Orario di inizio",
+            "staff": "Staff"
+        },
+        "attendanceTable": {
+            "emptyState": "Non hai ancora dato l'accesso al personale. Per definire gli accessi del personale vai su impostazioni e poi su personale o clicca sul pulsante qui sotto. Per seguire gli orari del tuo staff non dimenticare di attivare \"Time clock\" quando crei il loro ruolo.",
+            "createStaff": "creare un accesso per il staff",
+            "missing": "Assente",
+            "here": "Presente",
+            "end": "Iniziare",
+            "start": "Finitura",
+            "role": "Ruolo",
+            "action": "Azione",
+            "status": "Stato",
+            "lastClockIn": "Ultimo punteggio",
+            "email": "Email",
+            "staff": "Staff",
+            "lastname": "Cognome",
+            "firstname": "Nome"
+        },
+        "clockinDialog": {
+            "successDuration": "Numero di ore lavorate:",
+            "successClockOut": "Orario di partenza:",
+            "successClockIn": "Orario di arrivo:",
+            "subtitleSuccess": "Il tuo orario è stato salvato con successo. Puoi iniziare una nuova registrazione la prossima volta che aprirai questa finestra.",
+            "clockInForOther": "orologio per un altro staff",
+            "subtitleClockOut": "Ci siamo! Per tornare indietro e fermare il conto alla rovescia, clicca su \"Fine\".",
+            "subtitleClockIn": "Buongiorno {{ name }}, clicca su \"Start\" per iniziare il punteggio della tua giornata.",
+            "lastClockOut": "Orario di arrivo: ",
+            "lastClockIn": "Ultimo check-in:  {{- date }} - {{ hour }}",
+            "clockOut": "Finitura",
+            "clockIn": "Iniziare",
+            "close": "Chiudere",
+            "title": "Orologio in orologio in uscita"
+        }
     }
 }

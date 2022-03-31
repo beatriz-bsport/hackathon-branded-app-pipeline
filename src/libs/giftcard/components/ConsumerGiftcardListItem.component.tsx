@@ -79,7 +79,7 @@ const GiftcardSender = (props: SenderProps) => {
           </div>
         }
         secondary={`${getCurrencyDisplayWithPrice(
-          props.giftcard.price,
+          props.consumerGiftcard.price_bought,
         )} - ${moment(props.consumerGiftcard.date_created).format('L')}`}
       />
     </ListItem>
@@ -112,15 +112,17 @@ const GiftcardReceiver = (props: ReceiverProps) => {
     <span>
       <span
         className={
-          props.consumerGiftcard.consumed_amount_gifted >= props.giftcard.price
+          props.consumerGiftcard.consumed_amount_gifted >=
+          props.consumerGiftcard.price_bought
             ? classes.errorText
             : classes.primaryText
         }
       >
         {`${(
-          props.giftcard.price - props.consumerGiftcard.consumed_amount_gifted
+          props.consumerGiftcard.price_bought -
+          props.consumerGiftcard.consumed_amount_gifted
         ).toFixed(2)}
-        /${getCurrencyDisplayWithPrice(props.giftcard.price)}`}
+        /${getCurrencyDisplayWithPrice(props.consumerGiftcard.price_bought)}`}
       </span>
       {!!props.giftcard.expiration_days && (
         <span>

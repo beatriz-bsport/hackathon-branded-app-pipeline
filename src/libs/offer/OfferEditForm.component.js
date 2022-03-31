@@ -707,13 +707,10 @@ export class EditLiveOfferForm extends Component<Props, State> {
 
         <FeatureListProvider>
           {(featureList) => {
-            const hasZoomApp = !!(
-              featureList &&
-              featureList.upsell &&
-              (featureList.upsell || []).find(
+            const hasZoomApp =
+              featureList?.upsell?.find(
                 (f) => f.readable_identifier === 'zoom',
-              )
-            );
+              ) ?? false;
             if (
               this.props.offer &&
               this.props.offer.meta_activity &&

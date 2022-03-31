@@ -20,6 +20,7 @@ import {
 import { PaymentCombo } from '../../payment-combo/types';
 import { Offer_FULL } from '../../offer/types';
 import PaymentPackCategoryBookableItem from './PaymentPackCategoryBookableItem.component';
+import { CompanyTheme } from '#libs/theme/types';
 
 type SelectedPack = {
   consumerPaymentPack?: ConsumerPaymentPack<PaymentPack> | null;
@@ -44,6 +45,7 @@ type OwnProps = {
   availableComboPacks: PaymentCombo[];
   paymentPackCategories: PaymentPackCategoryWithPacks[];
   isExcludingTax?: boolean;
+  theme: CompanyTheme;
 };
 
 enum CollapsePackEnum {
@@ -210,6 +212,11 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
       ? availableComboPacks.length
       : 3;
 
+    const showBuyableItem =
+      !(
+        this.props.theme?.hide_unnecessary_compatible_purchase_method ?? true
+      ) || availableConsumerPacks.length === 0;
+
     return (
       <div className={classes.container}>
         {!availableConsumerPacks.length &&
@@ -274,152 +281,159 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
               )}
           </CollapsibleSection>
         )}
-        {!!contractList.length && (
-          <div className={classes.marginTop}>
-            <CollapsibleSection
-              title={t('booking:bookingModule.section.contract')}
-              in
-            >
-              {contractList.map((contract) => {
-                if (!contract) {
-                  return null;
-                }
-                return (
-                  <div className={classes.item} key={contract.id}>
-                    <ButtonBase
-                      className={classes.item}
-                      onClick={() => {
-                        this.props.onOpenSubscriptionModal(contract);
-                      }}
-                    >
-                      <div className={classes.row}>
-                        <VisibilityIcon
-                          color="primary"
-                          className={classes.iconLeft}
-                        />
-                        <ContractBookableItem
-                          contract={contract}
-                          isExcludingTax={this.props.isExcludingTax}
-                        />
-                      </div>
-                    </ButtonBase>
-                  </div>
-                );
-              })}
-            </CollapsibleSection>
-          </div>
-        )}
-
-        {this.props.paymentPackCategories.length
-          ? this.props.paymentPackCategories.map((cat) => (
-              <PaymentPackCategoryBookableItem
-                paymentPackCategory={cat}
-                selectedPack={this.props.selectedPack}
-                onPackChange={this.props.onPackChange}
-                opened={this.state.openedCategory === cat.id}
-                openPacks={(id) => this.openPacks(id, true)}
-                isExcludingTax={this.props.isExcludingTax}
-              />
-            ))
-          : null}
-        {unCategorizedPacks.length ? (
+        {showBuyableItem && (
           <>
-            <div className={classes.marginTop} />
-            <CollapsibleSection
-              title={t('booking:bookingModule.section.paymentPacks')}
-              in={this.state.openPacks === CollapsePackEnum.paymentPacks}
-              onSwitch={() =>
-                this.openPacks(CollapsePackEnum.paymentPacks, false)
-              }
-            >
-              {unCategorizedPacks
-                .filter((e) => !e.category)
-                .slice(0, numberOfPaymentPackToRender)
-                .map((paymentPack) => {
-                  if (!paymentPack) {
-                    return null;
-                  }
-                  return (
-                    <div className={classes.item} key={paymentPack.id}>
-                      <RadioItem
-                        selected={
-                          paymentPack.id ===
-                          this.props.selectedPack?.paymentPack?.id
-                        }
-                        onClick={() => this.props.onPackChange({ paymentPack })}
-                        renderItem={() => (
-                          <PaymentPackBookableItem
-                            paymentPack={paymentPack}
-                            isExcludingTax={this.props.isExcludingTax}
-                          />
-                        )}
-                      />
-                    </div>
-                  );
-                })}
-              {unCategorizedPacks.length > 3 && !this.state.paymentPackMore && (
-                <ButtonBase
-                  onClick={() => this.setState({ paymentPackMore: true })}
+            {!!contractList.length && (
+              <div className={classes.marginTop}>
+                <CollapsibleSection
+                  title={t('booking:bookingModule.section.contract')}
+                  in
                 >
-                  <Typography color="primary">
-                    {t('booking:offer.showMore')}
-                  </Typography>
-                </ButtonBase>
-              )}
-            </CollapsibleSection>
-          </>
-        ) : null}
-
-        {!!availableComboPacks.length && (
-          <>
-            <div className={classes.marginTop} />
-            <CollapsibleSection
-              title={t('booking:bookingModule.section.paymentCombos')}
-              in={this.state.openPacks === CollapsePackEnum.paymentCombo}
-              onSwitch={() =>
-                this.openPacks(CollapsePackEnum.paymentCombo, false)
-              }
-            >
-              {availableComboPacks
-                .slice(0, numberOfPaymentComboToRender)
-                .map((paymentPackCombo) => {
-                  if (!paymentPackCombo) {
-                    return null;
-                  }
-                  return (
-                    <div className={classes.item} key={paymentPackCombo.id}>
-                      <RadioItem
-                        selected={
-                          paymentPackCombo.id ===
-                          this.props.selectedPack?.paymentPackCombo?.id
-                        }
-                        onClick={() =>
-                          this.props.onPackChange({ paymentPackCombo })
-                        }
-                        renderItem={() => (
-                          <PaymentComboBookableItem
-                            isExcludingTax={this.props.isExcludingTax}
-                            paymentCombo={paymentPackCombo}
-                          />
-                        )}
-                      />
-                    </div>
-                  );
-                })}
-
-              {availableComboPacks.length > 3 &&
-                !this.state.paymentComboPackMore && (
-                  <ButtonBase
-                    onClick={() =>
-                      this.setState({ paymentComboPackMore: true })
+                  {contractList.map((contract) => {
+                    if (!contract) {
+                      return null;
                     }
-                  >
-                    <Typography color="primary">
-                      {t('booking:offer.showMore')}
-                    </Typography>
-                  </ButtonBase>
-                )}
-            </CollapsibleSection>
+                    return (
+                      <div className={classes.item} key={contract.id}>
+                        <ButtonBase
+                          className={classes.item}
+                          onClick={() => {
+                            this.props.onOpenSubscriptionModal(contract);
+                          }}
+                        >
+                          <div className={classes.row}>
+                            <VisibilityIcon
+                              color="primary"
+                              className={classes.iconLeft}
+                            />
+                            <ContractBookableItem
+                              contract={contract}
+                              isExcludingTax={this.props.isExcludingTax}
+                            />
+                          </div>
+                        </ButtonBase>
+                      </div>
+                    );
+                  })}
+                </CollapsibleSection>
+              </div>
+            )}
+
+            {this.props.paymentPackCategories.length
+              ? this.props.paymentPackCategories.map((cat) => (
+                  <PaymentPackCategoryBookableItem
+                    paymentPackCategory={cat}
+                    selectedPack={this.props.selectedPack}
+                    onPackChange={this.props.onPackChange}
+                    opened={this.state.openedCategory === cat.id}
+                    openPacks={(id) => this.openPacks(id, true)}
+                    isExcludingTax={this.props.isExcludingTax}
+                  />
+                ))
+              : null}
+            {unCategorizedPacks.length ? (
+              <>
+                <div className={classes.marginTop} />
+                <CollapsibleSection
+                  title={t('booking:bookingModule.section.paymentPacks')}
+                  in={this.state.openPacks === CollapsePackEnum.paymentPacks}
+                  onSwitch={() =>
+                    this.openPacks(CollapsePackEnum.paymentPacks, false)
+                  }
+                >
+                  {unCategorizedPacks
+                    .filter((e) => !e.category)
+                    .slice(0, numberOfPaymentPackToRender)
+                    .map((paymentPack) => {
+                      if (!paymentPack) {
+                        return null;
+                      }
+                      return (
+                        <div className={classes.item} key={paymentPack.id}>
+                          <RadioItem
+                            selected={
+                              paymentPack.id ===
+                              this.props.selectedPack?.paymentPack?.id
+                            }
+                            onClick={() =>
+                              this.props.onPackChange({ paymentPack })
+                            }
+                            renderItem={() => (
+                              <PaymentPackBookableItem
+                                paymentPack={paymentPack}
+                                isExcludingTax={this.props.isExcludingTax}
+                              />
+                            )}
+                          />
+                        </div>
+                      );
+                    })}
+                  {unCategorizedPacks.length > 3 &&
+                    !this.state.paymentPackMore && (
+                      <ButtonBase
+                        onClick={() => this.setState({ paymentPackMore: true })}
+                      >
+                        <Typography color="primary">
+                          {t('booking:offer.showMore')}
+                        </Typography>
+                      </ButtonBase>
+                    )}
+                </CollapsibleSection>
+              </>
+            ) : null}
+
+            {!!availableComboPacks.length && (
+              <>
+                <div className={classes.marginTop} />
+                <CollapsibleSection
+                  title={t('booking:bookingModule.section.paymentCombos')}
+                  in={this.state.openPacks === CollapsePackEnum.paymentCombo}
+                  onSwitch={() =>
+                    this.openPacks(CollapsePackEnum.paymentCombo, false)
+                  }
+                >
+                  {availableComboPacks
+                    .slice(0, numberOfPaymentComboToRender)
+                    .map((paymentPackCombo) => {
+                      if (!paymentPackCombo) {
+                        return null;
+                      }
+                      return (
+                        <div className={classes.item} key={paymentPackCombo.id}>
+                          <RadioItem
+                            selected={
+                              paymentPackCombo.id ===
+                              this.props.selectedPack?.paymentPackCombo?.id
+                            }
+                            onClick={() =>
+                              this.props.onPackChange({ paymentPackCombo })
+                            }
+                            renderItem={() => (
+                              <PaymentComboBookableItem
+                                isExcludingTax={this.props.isExcludingTax}
+                                paymentCombo={paymentPackCombo}
+                              />
+                            )}
+                          />
+                        </div>
+                      );
+                    })}
+
+                  {availableComboPacks.length > 3 &&
+                    !this.state.paymentComboPackMore && (
+                      <ButtonBase
+                        onClick={() =>
+                          this.setState({ paymentComboPackMore: true })
+                        }
+                      >
+                        <Typography color="primary">
+                          {t('booking:offer.showMore')}
+                        </Typography>
+                      </ButtonBase>
+                    )}
+                </CollapsibleSection>
+              </>
+            )}
           </>
         )}
       </div>

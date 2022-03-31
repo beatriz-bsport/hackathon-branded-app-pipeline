@@ -22,6 +22,8 @@ exports.default = {
       taxHelperText: 'Apparaitra sur les factures',
     },
     themePersonalization: {
+      bookingTitle: 'Réservation',
+      attendanceTitle: 'Présence',
       calendarPersonalizationTitle: 'Configuration du calendrier',
       coach_can_edit_attendance:
         "Dans l'application mobile, le professeur peut modifier modifier les présences/absences",
@@ -56,6 +58,8 @@ exports.default = {
       hideCoach: 'Cacher les infos professeurs sur les interfaces client',
       acceptDoubleBooking: 'Accepter la double réservation',
       hiddenFromMarketplace: "Apparaître sur l'application bsport",
+      hideBuyablePassIfSuperfluous:
+        'Cacher les cartes de cours, abonnements et packs achetables au moment de la réservation si le membre possède déjà une carte compatible',
       cancelledOffersCustomer:
         'Afficher les séances annulées sur le calendrier client',
       cancelledOffersManager:

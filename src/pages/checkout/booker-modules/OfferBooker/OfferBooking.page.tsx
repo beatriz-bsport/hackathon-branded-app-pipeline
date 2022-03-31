@@ -48,6 +48,7 @@ import {
   snackbarError as snackbarErrorAction,
   snackbarWarning as snackbarWarningAction,
 } from '../../../../libs/snackbar/actions';
+import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
 
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { fetchMetaActivityBulk } from '#libs/meta-activity/actions';
@@ -124,6 +125,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
           this.props.fetchAssetForBlueprint({ blueprint: o.room_blueprint });
         }
         this.props.fetchMemberTagList(o.company);
+        this.props.fetchCompanyTheme(o.company);
       },
     });
   }
@@ -857,6 +859,7 @@ const mapDispatchToProps = {
   fetchOfferStatusList,
   fetchRoomBlueprintDetail,
   fetchAssetForBlueprint,
+  fetchCompanyTheme: fetchCompanyThemeAction,
 };
 
 export default compose(

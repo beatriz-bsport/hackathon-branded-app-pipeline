@@ -68,6 +68,8 @@ import {
 import { fetchMemberTagList } from '../../../../libs/tag/actions';
 import { getMemberTagsIdsList } from '../../../../libs/tag/selectors';
 import type { Tag } from '../../../../libs/tag/types';
+import { CompanyTheme } from '#libs/theme/types';
+import { getTheme } from '#libs/theme/selectors';
 
 type OwnProps = {
   offerId: number;
@@ -81,6 +83,7 @@ type OwnProps = {
   onPackChange: (selectedPack: SelectedPack) => void;
   paymentPackForBookingNextPage: number;
   isExcludingTax: boolean;
+  theme: CompanyTheme;
 };
 
 type OwnAndConnectedProps = OwnProps &
@@ -275,6 +278,7 @@ export class OfferState extends React.PureComponent<Props, State> {
           contractList={this.props.contractList}
           onOpenSubscriptionModal={this.props.setOpenSubscriptionModal}
           paymentPackCategories={availablePaymentPackCategories}
+          theme={this.props.theme}
         />
         <SubscriptionContractBooking
           isExcludingTax={this.props.isExcludingTax}
@@ -381,6 +385,7 @@ const mapStateToProps = (
   paymentPacksById: state.paymentPack.byId,
   paymentPackCategories: getAllPaymentPackCategory(state),
   paymentPackForBookingNextPage: state.paymentPack.forBooking.page,
+  theme: getTheme(state),
 });
 
 const mapDispatchToProps = {

@@ -35,25 +35,21 @@ export class ThemePersonalize extends Component<Props> {
     const { classes } = this.props;
     if (this.props.loading) return <LinearProgress />;
     return (
-      <div className={classes.container}>
-        <Paper className={classes.paperContainer}>
-          <ThemePersonalizeForm
-            theme={this.props.theme}
-            onSubmit={this.props.submitTheme}
-            processing={this.props.processing}
-          />
-        </Paper>
-      </div>
+      <Paper className={classes.paperContainer}>
+        <ThemePersonalizeForm
+          theme={this.props.theme}
+          onSubmit={this.props.submitTheme}
+          processing={this.props.processing}
+        />
+      </Paper>
     );
   }
 }
 
 const styles = (theme) => ({
-  container: {
-    padding: theme.spacing(2),
-  },
   paperContainer: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(4),
+    borderRadius: 12,
   },
 });
 

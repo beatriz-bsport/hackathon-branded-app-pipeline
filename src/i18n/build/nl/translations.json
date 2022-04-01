@@ -495,7 +495,7 @@
             "forms": {
                 "register": {
                     "forceNotify": "Een bevestigingsmail versturen",
-                    "passCompatibleNotOwnedByMember": "Nieuwe kaart factureren",
+                    "passCompatibleNotOwnedByMember": "Factureer",
                     "passOwnedByMember": "Beschikbare kaarten",
                     "registerToOffer": "Reservering",
                     "doNotConsumeCredit": "Geen kredieten voor deze reserveringen aftrekken"
@@ -5644,7 +5644,7 @@
                 },
                 "pleaseSelectCoachAndSlot": "Selecteer eerst een instructeur en een sessie",
                 "cancel": "Annuleren",
-                "compatiblePrivatePass": "Nieuwe afspraakkaart factureren",
+                "compatiblePrivatePass": "Factureer",
                 "emptyPrivateConsumerPass": "Dit lid bezit momenteel nog geen compatibele afspraakkaart.",
                 "emptyPrivatePass": "Er zijn geen compatibele afspraakkaarten om weer te geven.",
                 "privateConsumerPassNeedRefresh": "Verversen"
@@ -5876,7 +5876,7 @@
             "step": {
                 "configuration": "Mijn afspraak",
                 "billing": "Facturatie",
-                "privateService": "Afspraak",
+                "privateService": "[Formulier] Afspraak",
                 "privateSlot": "Sessie",
                 "coach": "Instructeur",
                 "date": "Datum",
@@ -8715,7 +8715,10 @@
                 "internalAccountWarningTitle": "Houd rekening met het saldo van leden hun interne rekening (Wallet).",
                 "allowConsumerToUseInternalAccount": "Sta leden toe om het saldo van hun interne rekening (Wallet) te gebruiken om uitstaande facturen/winkelmandjes te betalen",
                 "goToReports": "Rapportages",
-                "errorURL": "Voer een geldige URL in om dit formulier op te slaan"
+                "errorURL": "Voer een geldige URL in om dit formulier op te slaan",
+                "bookingTitle": "Reservering",
+                "attendanceTitle": "Aanwezigheid",
+                "hideBuyablePassIfSuperfluous": "Verberg kaarten, abonnementen en pakketten indien het lid al een compatibel product bezit."
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",

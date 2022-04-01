@@ -2923,7 +2923,8 @@
             },
             "isFromDisabledShare": "Sharing has been disabled",
             "isOwnerOfShares": "Shared (Master Appointment Pass)",
-            "isFromShare": "This pass is shared with another account."
+            "isFromShare": "This pass is shared with another account.",
+            "warningShareUniversal": "Please share the associated pass instead of the universal pass"
         },
         "privateServiceCompatibility": {
             "delete": {
@@ -3057,10 +3058,10 @@
                 },
                 "franchise": "The appointment pass is shared through the Master Account. Certain settings have been predefined by said Master Account and can't be modified.",
                 "universalPass": {
-                    "deativatedTags": "Deactivate for Universal Passes",
-                    "helperText": "Universal Passes may be used for group activities and appointments. Twin passes are created for every Universal Pass to link the number of credits. Once one of these passes has been purchased, the other will be automatically added without any additional costs.",
-                    "label": "Universal Pass",
-                    "warningIsUniversalPass": "Twin passes are automatically created for a Universal Pass. All fields modified here will also be edited on the twin passes, except the categories. This also applies to notifications, validity extensions, and credit changes."
+                    "deativatedTags": "Deactivate for universal passes",
+                    "helperText": "Universal passes may be used for group activities and appointments. Twin passes are created for every universal pass to link the number of credits. Once one of these passes has been purchased, the other will be automatically added without any additional costs.",
+                    "label": "Universal pass",
+                    "warningIsUniversalPass": "Twin passes are automatically created for a universal pass. All fields modified here will also be edited on the twin passes, except the categories. This also applies to notifications, validity extensions, and credit changes."
                 }
             },
             "validForDuration": {
@@ -3491,7 +3492,7 @@
         "universalPass": {
             "delete": {
                 "dialog": {
-                    "warningText": "Attention! Deleting a Universal Pass will also delete its twin passes.",
+                    "warningText": "Attention! Deleting a universal pass will also delete its twin passes.",
                     "title": "Delete"
                 }
             }
@@ -4394,7 +4395,10 @@
                 "internalAccount": "Client internal account balance",
                 "internalAccountNotusableOnContract": "This payment method can't be used for subscriptions.",
                 "internalAccountWarning2": "Go to Reporting > Add a report > Scroll down to \"Payments\" > Select \"Credits\" > Select all columns > and click \"Save\".",
-                "errorURL": "Please enter a valid URL before saving the form"
+                "errorURL": "Please enter a valid URL before saving the form",
+                "bookingTitle": "Booking",
+                "attendanceTitle": "Attendance",
+                "hideBuyablePassIfSuperfluous": "Hide passes, subscriptions, and packs if the member already owns a compatible product."
             },
             "cover": {
                 "label": "Logo",
@@ -4587,7 +4591,7 @@
         },
         "taxDisplay": {
             "info": "Activate this option to only display prices excluding VAT / Sales Tax on the Widgets, MarketPlace, and Mobile App.",
-            "title": "Display price",
+            "title": "Pricing display",
             "checkbox": "Display products' tax-free amounts"
         }
     },
@@ -6770,13 +6774,13 @@
             "item": {
                 "intervalLabel": {
                     "year": "Every year",
-                    "year_plural": "Every {{ interval }} years",
+                    "year_plural": "Every {{ count }} years",
                     "day": "Every day",
-                    "day_plural": "Every {{ interval }} days",
+                    "day_plural": "Every {{ count }} days",
                     "week": "Every week",
-                    "week_plural": "Every {{ interval }} weeks",
+                    "week_plural": "Every {{ count }} weeks",
                     "month": "Every month",
-                    "month_plural": "Every {{ interval }} months"
+                    "month_plural": "Every {{ count }} months"
                 },
                 "recurrentPriceLabel": "{{ currencyDisplay }}{{ recurrent_price  }}",
                 "identifier": "Subscription"
@@ -7314,7 +7318,7 @@
             "expense": "Expenses",
             "expired_pass": "Expired credits (passes)",
             "private_cpasses_expired": "Expired credits (appointment passes)",
-            "universal_passes": "Universal Passes"
+            "universal_passes": "Universal passes"
         },
         "globalCategories": {
             "subheader": {
@@ -7674,11 +7678,11 @@
                     "header": "Advanced"
                 },
                 "universalPass": {
-                    "deativatedTags": "Deactivated for Universal Passes",
-                    "marketplaceLabel": "A Universal Pass may be used for group activities and appointments.",
-                    "label": "Universal Pass",
-                    "helperText": "Universal Passes may be used for group activities and appointments. Twin appointment passes are created for every Universal Pass to link the number of credits. Once one of these passes has been purchased, the other will be automatically added without any additional costs.",
-                    "warningIsUniversalPass": "Twin appointment passes are automatically created for a Universal Pass. All fields modified here will also be edited on the twin passes, except the categories. This also applies to notifications, validity extensions, and credit changes."
+                    "deativatedTags": "Deactivated for universal passes",
+                    "marketplaceLabel": "A universal pass may be used for group activities and appointments.",
+                    "label": "Universal pass",
+                    "helperText": "Universal passes may be used for group activities and appointments. Twin appointment passes are created for every universal pass to link the number of credits. Once one of these passes has been purchased, the other will be automatically added without any additional costs.",
+                    "warningIsUniversalPass": "Twin appointment passes are automatically created for a universal pass. All fields modified here will also be edited on the twin passes, except the categories. This also applies to notifications, validity extensions, and credit changes."
                 }
             }
         },
@@ -7978,7 +7982,7 @@
             "maxBookingPerDay": "Maximum usage per day: ",
             "maxBookingPerWeek": "Maximum usage per week: ",
             "maxBookingPerMonth": "Maximum usage per month: ",
-            "universalPass": "Compatible with group activities and appointments."
+            "universalPass": "Universal passes may be used for group activities and appointments."
         },
         "detailTitles": {
             "vod": "Video On Demand",
@@ -7988,7 +7992,7 @@
             "compatibility": "Compatibility",
             "validity": "Validity",
             "credit_quantity": "Number of credits",
-            "universalPass": "Universal Pass",
+            "universalPass": "Universal pass",
             "compatibilityPaymentPack": "Compatibility for group activities"
         },
         "unlimitedAndCalculatedMargin": " The marginal value per booking is calculate as PRICE / NUMBER Of BOOKINGS ",
@@ -8073,13 +8077,13 @@
             "restore": {
                 "dialog": {
                     "continue": "Continue",
-                    "text": "This Universal Pass' twin pass has also been unarchived.",
+                    "text": "This universal pass' twin passes have also been unarchived.",
                     "title": "Unarchive"
                 }
             },
             "delete": {
                 "dialog": {
-                    "warningText": "Attention! Deleting a Universal Pass will also delete its twin passes.",
+                    "warningText": "Attention! Deleting a universal pass will also delete its twin passes.",
                     "title": "Delete pass"
                 }
             }
@@ -11597,7 +11601,7 @@
                 "content2": "The gift card will automatically be added as a payment method to your basket. All gift card related information is stored in your profile.",
                 "content1": "Your gift card of {{price}} is compatible with all of our store's products and has no expiration date. Enjoy!",
                 "subtitle": "Looks like someone wanted to surprise you.",
-                "title": "You received a gift!",
+                "title": "You've received a gift!",
                 "content1withDate": "Your {{price}} gift card can be used for any of our products. Please bear in mind that your gift card expires in {{ expiration_days }} day(s) after activation. Enjoy!"
             }
         },

@@ -433,7 +433,8 @@ export default compose(
         if (
           path.includes('login') ||
           path.includes('/c/') ||
-          path.includes('/m/')
+          path.includes('/m/') ||
+          path.includes('/checkout')
         ) {
           return path;
         }

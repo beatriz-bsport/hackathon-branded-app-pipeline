@@ -25,4 +25,4 @@ const generateSourceTranslations = (lang) => {
   console.log('> Done !\n');
 };
 
-generateSourceTranslations('fr');
+generateSourceTranslations('af');

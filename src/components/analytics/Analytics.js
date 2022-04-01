@@ -36,7 +36,7 @@ export function createData() {
           ? {
               name: a.name,
               specs: meth.specs,
-              label: meth.translation_key,
+              label: meth.event,
             }
           : {
               name: a.name,

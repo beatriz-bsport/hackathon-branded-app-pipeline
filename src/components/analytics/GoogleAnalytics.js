@@ -8,7 +8,7 @@ export default class GoogleAnalytics {
   static addMethod(name, key, func, specs) {
     this.methods.push({
       name,
-      translation_key: key,
+      event: key,
       method: func,
       specs,
     });

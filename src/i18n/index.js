@@ -49,15 +49,16 @@ i18n
     },
     */
     fallbackLng: (code) => {
-      if (!code || code === 'en') return ['en', 'fr'];
+      const fallback = process.env.NODE_ENV === 'development' ? ['af'] : [];
+      if (!code || code === 'en') return ['en', 'fr', ...fallback];
       // We maintain en-US and en-AU. Some regions will prefer en-AU.
-      if (code.startsWith('en')) return ['en', 'fr'];
-      if (code.startsWith('fr')) return ['fr', 'en'];
-      if (code.startsWith('it')) return ['it', 'en', 'fr'];
-      if (code.startsWith('nl')) return ['nl', 'en', 'fr'];
-      if (code.startsWith('de')) return ['de', 'en', 'fr'];
-      if (code.startsWith('ca')) return ['es', 'en', 'fr'];
-      return ['en', 'fr'];
+      if (code.startsWith('en')) return ['en', 'fr', ...fallback];
+      if (code.startsWith('fr')) return ['fr', 'en', ...fallback];
+      if (code.startsWith('it')) return ['it', 'en', 'fr', ...fallback];
+      if (code.startsWith('nl')) return ['nl', 'en', 'fr', ...fallback];
+      if (code.startsWith('de')) return ['de', 'en', 'fr', ...fallback];
+      if (code.startsWith('ca')) return ['es', 'en', 'fr', ...fallback];
+      return ['en', 'fr', 'af'];
     },
 
     // lng: 'fr-FR',

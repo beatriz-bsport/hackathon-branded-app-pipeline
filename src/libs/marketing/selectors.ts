@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import memoize from 'memoize-one';
 import get from 'lodash/get';
 import setWith from 'lodash/setWith';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
@@ -269,7 +270,7 @@ export const withBookingNotification = (selector: any) =>
       }),
   );
 
-export const withPaymentPackNotification = (selector: any) =>
+export const withPaymentPackNotification = memoize((selector: any) =>
   createSelector(
     [selector, getPaymentPackNotifications],
     (packList: any, notifList) => {
@@ -285,4 +286,5 @@ export const withPaymentPackNotification = (selector: any) =>
         return { ...pack, hasActiveNotification: false };
       });
     },
-  );
+  ),
+);

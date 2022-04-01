@@ -100,7 +100,7 @@ export const withSCT = memoize((selector: PaymentPackSelector) =>
       return paymentPacks.map((pp) => ({
         ...pp,
         categories: SCTs.filter((sct) =>
-          (pp.categories || []).includes(sct.id),
+          (pp.categories.map((c) => c?.id || c) || []).includes(sct.id),
         ),
       }));
     }

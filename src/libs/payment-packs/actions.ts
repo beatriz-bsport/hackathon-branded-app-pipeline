@@ -88,7 +88,7 @@ export function refreshAllPaymentPack() {
     dispatch(listAllPaymentPackActions.error(null));
     try {
       const response = await fetchAllPaymentPacksAPI();
-      const paymentPacks = response.data;
+      const paymentPacks = response.data.results;
       dispatch(listAllPaymentPackActions.success(paymentPacks));
     } catch (err) {
       console.error(err);

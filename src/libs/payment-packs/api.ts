@@ -13,7 +13,7 @@ import {
 import type { PaymentPackCategory } from './types';
 
 export async function fetchAllPaymentPacks() {
-  return getAuth(`${API_URI}/saas/payment-pack/`);
+  return getAuth(`${API_V1_URI}/payment-pack/payment-pack/?page_size=10000`);
 }
 
 export const scalePaymentPackCredit = async (id: number, data: any) => {

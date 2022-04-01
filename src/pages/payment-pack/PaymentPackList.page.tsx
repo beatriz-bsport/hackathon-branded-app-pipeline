@@ -30,6 +30,14 @@ import PaymentPackListItem from '#libs/payment-packs/components/PaymentPackListI
 import PaymentPackDeleteDialog from '#libs/payment-packs/components/PaymentPackDeleteDialog.component';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import BottomActionsButton from '#components/button/BottomActionsButton.component';
+import {
+  withSCT,
+  getEnabledPaymentPacks,
+  getDisabledPaymentPacks,
+  groupByCategory,
+  getAllPaymentPackCategory,
+  withLinkedPrivatePass,
+} from '#libs/payment-packs/selectors';
 import { fetchVideoFilterableParams } from '#libs/video/actions';
 import {
   updateCredit as updateCreditAction,
@@ -48,13 +56,6 @@ import {
   createOrUpdate as createOrUpdatePaymentPackAction,
   isPaymentPackUsedInCombo,
 } from '../../libs/payment-packs/actions';
-import {
-  getEnabledPaymentPacks,
-  getDisabledPaymentPacks,
-  groupByCategory,
-  getAllPaymentPackCategory,
-  withLinkedPrivatePass,
-} from '../../libs/payment-packs/selectors';
 import type {
   PaymentPack,
   PaymentPackCategory,
@@ -189,8 +190,8 @@ export class PaymentPackList extends React.Component<Props, State> {
     this.props.fetchEstablishments();
     this.props.fetchAllActivities({ customer_enabled: true });
     this.props.fetchWorkhops();
-    this.props.fetchAllPaymentPacks();
-    this.props.fetchAllPaymentPackCategory();
+    this.props.fetchAllPaymentPacks(this.props.companyId);
+    this.props.fetchAllPaymentPackCategory(this.props.companyId);
     this.props.fetchVideoFilterableParams({
       company: this.props.companyId,
       status: VideoStatusEnum.processed,
@@ -694,7 +695,9 @@ const mapStateToProps = (state: RootState) => ({
   ),
   categoryList: state.category.SCTs,
   paymentPackByCategory: groupByCategory(
-    withPaymentPackNotification(withLinkedPrivatePass(getEnabledPaymentPacks)),
+    withPaymentPackNotification(
+      withLinkedPrivatePass(withSCT(getEnabledPaymentPacks)),
+    ),
   )(state),
   disabledPacks: getDisabledPaymentPacks(state),
   consumerPacks: {
@@ -822,7 +825,7 @@ const mapWithHandlers = {
         ...options,
         onSuccess: (res) => {
           options.onSuccess(res);
-          props.fetchAllPaymentPacks();
+          props.fetchAllPaymentPacks(props.companyId);
           if (res.linked_private_pass) {
             props.fetchPrivatePassList();
           }

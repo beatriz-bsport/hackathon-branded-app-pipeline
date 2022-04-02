@@ -107,7 +107,7 @@ export const PrivateConsumerPassDetail = (props: Props) => {
       {props.onCreateExtension &&
         !!props.private_consumer_pass &&
         !props.private_consumer_pass?.private_pass?.template_instance &&
-        !props.private_consumer_pass.dst_private_consumer_pass && (
+        !props.private_consumer_pass.src_private_consumer_pass?.length && (
           <div className={props.classes.addButtonContainer}>
             <Button
               variant="outlined"

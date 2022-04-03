@@ -28,7 +28,7 @@ import {
   updateMemberFile,
   adjustCreditWithoutPaymentNote,
   retrieveMemberPendingEmail,
-  fetchMemberBulk as fetchMemberBulkAction,
+  fetchMemberBulkById as fetchMemberBulkByIdAction,
 } from '../../libs/member/actions';
 import {
   getSearchedMembers,
@@ -499,7 +499,7 @@ const connector = connect(
     fetchConsumerGiftcardReceivedList: fetchConsumerGiftcardReceivedListAction,
     fetchGiftcardBulk: fetchGiftcardBulkAction,
     applyGiftcardOnInvoice: applyGiftcardOnInvoiceAction,
-    fetchMemberBulk: fetchMemberBulkAction,
+    fetchMemberBulkById: fetchMemberBulkByIdAction,
   },
 );
 
@@ -584,7 +584,7 @@ const mapWithHandler3 = {
     ({
       fetchConsumerGiftcardReceivedList,
       fetchGiftcardBulk,
-      fetchMemberBulk,
+      fetchMemberBulkById,
       id,
     }: RouterParamsProps & ConnectProps & HandlerProps1 & HandlerProps2) =>
     (options?: OptionCallback) => {
@@ -600,7 +600,7 @@ const mapWithHandler3 = {
         {
           onSuccess: (consumerGiftcardList: Array<ConsumerGiftcard>) => {
             fetchGiftcardBulk(consumerGiftcardList.map((cg) => cg.giftcard));
-            fetchMemberBulk([
+            fetchMemberBulkById([
               ...consumerGiftcardList.map((cg) => cg.src_member),
               ...consumerGiftcardList.map((cg) => cg.dst_member),
             ]);

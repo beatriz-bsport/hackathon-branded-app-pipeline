@@ -45,7 +45,7 @@ import {
   getProgram,
 } from '#libs/performance-tracking/selector';
 import { WithHandlerType } from '../../utils/types';
-import { fetchMemberBulk } from '#libs/member/actions';
+import { fetchMemberBulkById } from '#libs/member/actions';
 import { GenericPaginationResults } from '#libs/types';
 import withTitle from '#hocs/with-title.hoc';
 import BottomActionButtons from '#components/button/BottomActionsButton.component';
@@ -270,7 +270,7 @@ const connector = connect(
     pushToRouter: (id?: number) => pushRouter(`/performance-tracking/${id}`),
     goToDefaultPage: () => pushRouter(`/performance-tracking/`),
     fetchMemberProgram: fetchMemberProgramAction,
-    fetchMemberBulk,
+    fetchMemberBulkById,
     goToMemberProgramPage: (memberId?: number, memberProgramId: number) =>
       pushRouter(`/member/${memberId}/performance-tracking/${memberProgramId}`),
   },
@@ -299,9 +299,7 @@ const mapWithHandlers = {
         { program: props.selectedProgramId, page, page_size: pageSize },
         {
           onSuccess: (payload) => {
-            props.fetchMemberBulk({
-              id__in: payload.results.map((mp) => mp.member),
-            });
+            props.fetchMemberBulkById(payload.results.map((mp) => mp.member));
             props.setSelectedMemberPrograms(payload.results.map((mp) => mp.id));
             props.setMemberProgramPage({ ...payload, page });
           },

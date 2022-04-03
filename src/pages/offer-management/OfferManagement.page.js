@@ -79,7 +79,7 @@ import { getEnabled as getPaymentPackEnabled } from '#libs/payment-packs/selecto
 
 import {
   fetchFilteredMembers as fetchFilteredMembersAction,
-  fetchMemberBulk as fetchMemberBulkAction,
+  fetchMemberBulkById as fetchMemberBulkByIdAction,
   refreshFilteredMembers as refreshFilteredMembersAction,
   createOrUpdateMember,
   fetchMember as fetchMemberAction,
@@ -262,7 +262,7 @@ export default compose(
       createMember: createOrUpdateMember,
       refreshFilteredMembers: refreshFilteredMembersAction,
       fetchFilteredMembers: fetchFilteredMembersAction,
-      fetchMemberBulk: fetchMemberBulkAction,
+      fetchMemberBulkById: fetchMemberBulkByIdAction,
       searchMembers: (txt) => searchMembersAction(txt, { hide_archived: true }),
 
       sendCommunication,
@@ -362,7 +362,7 @@ export default compose(
         });
       },
     fetchConsumerGiftcardList:
-      ({ fetchConsumerGiftcardList, fetchGiftcardBulk, fetchMemberBulk }) =>
+      ({ fetchConsumerGiftcardList, fetchGiftcardBulk, fetchMemberBulkById }) =>
       (memberIdsList, options?: OptionCallback) => {
         fetchConsumerGiftcardList(
           {
@@ -375,7 +375,7 @@ export default compose(
           {
             onSuccess: (consumerGiftcardList: Array<ConsumerGiftcard>) => {
               fetchGiftcardBulk(consumerGiftcardList.map((cg) => cg.giftcard));
-              fetchMemberBulk([
+              fetchMemberBulkById([
                 ...consumerGiftcardList.map((cg) => cg.src_member),
                 ...consumerGiftcardList.map((cg) => cg.dst_member),
               ]);
@@ -450,7 +450,7 @@ export default compose(
         retrieveConsumerPackBulk,
         fetchCompatiblePacks,
         fetchFilteredMembers,
-        fetchMemberBulk,
+        fetchMemberBulkById,
         offerId,
         fetchInvoiceListUnpaid,
         fetchRoomBlueprintDetail,
@@ -501,9 +501,7 @@ export default compose(
           {
             onSuccess: (recurrenceRuleList) => {
               if (recurrenceRuleList.length) {
-                fetchMemberBulk({
-                  id__in: recurrenceRuleList.map((nr) => nr.member),
-                });
+                fetchMemberBulkById(recurrenceRuleList.map((nr) => nr.member));
               }
             },
           },

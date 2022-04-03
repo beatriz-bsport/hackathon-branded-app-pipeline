@@ -23,7 +23,7 @@ import {
   fetchVideoViews as fetchVideoViewsAction,
   getPlaybackUrl,
 } from '../../libs/video/actions';
-import { fetchMemberBulk as fetchMemberBulkAction } from '../../libs/member/actions';
+import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '../../libs/member/actions';
 import {
   getVideo,
   withCategory,
@@ -218,7 +218,7 @@ export default compose(
     {
       retrieveVideo: retrieveVideoAction,
       fetchAssociatedCoachBulk: fetchAssociatedCoachBulkAction,
-      fetchMemberBulk: fetchMemberBulkAction,
+      fetchMemberBulkById: fetchMemberBulkByIdAction,
       fetchVideoPurchase: fetchVideoPurchaseAction,
       fetchVideoAnalytics: fetchVideoAnalyticsAction,
       fetchVideoViews: fetchVideoViewsAction,
@@ -241,7 +241,7 @@ export default compose(
         });
       },
     fetchVideoPurchase:
-      ({ fetchVideoPurchase, fetchMemberBulk, videoId }) =>
+      ({ fetchVideoPurchase, fetchMemberBulkById, videoId }) =>
       (page, pageSize) => {
         fetchVideoPurchase(
           page,
@@ -249,15 +249,15 @@ export default compose(
           { video: videoId },
           {
             onSuccess: (purchases) => {
-              fetchMemberBulk({
-                id__in: purchases.map((purchase) => purchase.member_id),
-              });
+              fetchMemberBulkById(
+                purchases.map((purchase) => purchase.member_id),
+              );
             },
           },
         );
       },
     fetchVideoViews:
-      ({ fetchVideoViews, fetchMemberBulk, videoId }) =>
+      ({ fetchVideoViews, fetchMemberBulkById, videoId }) =>
       (page, pageSize) => {
         fetchVideoViews(
           page,
@@ -265,9 +265,7 @@ export default compose(
           { video_analytics__video: videoId },
           {
             onSuccess: (views) => {
-              fetchMemberBulk({
-                id__in: views.map((view) => view.member_id),
-              });
+              fetchMemberBulkById(views.map((view) => view.member_id));
             },
           },
         );

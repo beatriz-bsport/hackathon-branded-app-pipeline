@@ -42,7 +42,7 @@ import {
   withReceiver,
   getConsumerGiftcardSentList,
 } from '../../libs/giftcard/selectors';
-import { fetchMemberBulkById as fetchMemberBulkAction } from '../../libs/member/actions';
+import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '../../libs/member/actions';
 
 import { RootState } from '../../reducers';
 import { Invoice } from '../../libs/invoice/types';
@@ -312,7 +312,7 @@ const connector = connect(
       push(`/member/${memberId}/giftcard/${consumerGiftcardId}`),
     fetchConsumerGiftcardReceivedList: fetchConsumerGiftcardReceivedListAction,
     fetchConsumerGiftcardSentList: fetchConsumerGiftcardSentListAction,
-    fetchMemberBulk: fetchMemberBulkAction,
+    fetchMemberBulkById: fetchMemberBulkByIdAction,
     goToInvoice: (uuid: string) => push(`/invoice/${uuid}`),
     fetchInvoiceByInvoiceItem: fetchInvoiceByInvoiceItemAction,
     retrieveConsumerGiftcard,
@@ -332,7 +332,11 @@ export default compose(
   withState('relatedInvoice', 'setRelatedInvoice', null),
   withHandlers({
     fetchConsumerGiftcardSentList:
-      ({ fetchConsumerGiftcardSentList, fetchGiftcardBulk, fetchMemberBulk }) =>
+      ({
+        fetchConsumerGiftcardSentList,
+        fetchGiftcardBulk,
+        fetchMemberBulkById,
+      }) =>
       (id: number, page: number, page_size: number) => {
         fetchConsumerGiftcardSentList(
           id,
@@ -340,7 +344,7 @@ export default compose(
           {
             onSuccess: (consumerGiftcardList) => {
               fetchGiftcardBulk(consumerGiftcardList.map((cg) => cg.giftcard));
-              fetchMemberBulk([
+              fetchMemberBulkById([
                 ...consumerGiftcardList.map((cg) => cg.src_member),
                 ...consumerGiftcardList.map((cg) => cg.dst_member),
               ]);
@@ -352,7 +356,7 @@ export default compose(
       ({
         fetchConsumerGiftcardReceivedList,
         fetchGiftcardBulk,
-        fetchMemberBulk,
+        fetchMemberBulkById,
       }) =>
       (id, page: number, page_size: number) => {
         fetchConsumerGiftcardReceivedList(
@@ -361,7 +365,7 @@ export default compose(
           {
             onSuccess: (consumerGiftcardList: Array<ConsumerGiftcard>) => {
               fetchGiftcardBulk(consumerGiftcardList.map((cg) => cg.giftcard));
-              fetchMemberBulk([
+              fetchMemberBulkById([
                 ...consumerGiftcardList.map((cg) => cg.src_member),
                 ...consumerGiftcardList.map((cg) => cg.dst_member),
               ]);

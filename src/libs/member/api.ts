@@ -22,6 +22,8 @@ export async function fetchMemberList(params: {
   tags_excluded?: Array<number>;
   tags_included?: Array<number>;
   barcode?: string;
+  offer?: string;
+  withNotes?: boolean;
   id__in?: Array<number>;
   company?: number;
 }): Promise<AxiosResponse<GenericPaginationResults<MemberMinimal>>> {

@@ -12,7 +12,7 @@ import LinearProgress from '../../components/navigation/BackofficeLinearProgress
 import withTitle from '../../hocs/with-title.hoc';
 import {
   fetchFilteredMembers,
-  fetchMemberBulk as fetchMemberBulkAction,
+  fetchMemberBulkById as fetchMemberBulkByIdAction,
 } from '../../libs/member/actions';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import { getPrivateServiceById } from '../../libs/private-service/selectors/private-service';
@@ -347,7 +347,7 @@ export default compose(
       resetCustomEvent,
       createOrUpdateCustomEvent: createOrUpdateCustomEventActions,
       fetchFilteredMembers,
-      fetchMemberBulk: fetchMemberBulkAction,
+      fetchMemberBulkById: fetchMemberBulkByIdAction,
       disableAvailabilitySlotMultipleResource,
       enableAvailabilitySlotMultipleResource,
       onEditResourceConfiguration: updateServiceResourceConfiguration,
@@ -383,7 +383,7 @@ export default compose(
         });
       },
     fetchPrivateBookingList:
-      ({ fetchPrivateBookings, periodFilter, id, fetchMemberBulk }) =>
+      ({ fetchPrivateBookings, periodFilter, id, fetchMemberBulkById }) =>
       () => {
         fetchPrivateBookings(
           {
@@ -395,9 +395,7 @@ export default compose(
           {
             onSuccess: (bookings) => {
               if (bookings.length) {
-                fetchMemberBulk({
-                  id__in: uniq(bookings.map((b) => b.member)),
-                });
+                fetchMemberBulkById(uniq(bookings.map((b) => b.member)));
               }
             },
           },

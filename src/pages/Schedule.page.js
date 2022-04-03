@@ -20,7 +20,7 @@ import { fetchEstablishments } from '../libs/establishment/actions';
 import { getActiveCoaches } from '../libs/associated-coach/selectors';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../libs/meta-activity/actions';
 import { getOfferAsEventList, withMetaActivity } from '../libs/offer/selectors';
-import { fetchMemberBulk as fetchMemberBulkAction } from '../libs/member/actions';
+import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '../libs/member/actions';
 import { fetchAssociatedCoachesList } from '../libs/associated-coach/actions';
 
 import { getCustomEventList } from '../libs/private-service/selectors/custom-event';
@@ -350,7 +350,7 @@ export default compose(
           datatype: ['associated_establishment', 'associated_coach'],
         }),
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,
-      fetchMemberBulk: fetchMemberBulkAction,
+      fetchMemberBulkById: fetchMemberBulkByIdAction,
       createOrUpdateCustomEvent: createOrUpdateCustomEventActions,
       fetchManagerRessourcesFilters: fetchManagerRessourcesFiltersAction,
       updateManagerRessourcesFilters: updateManagerRessourcesFiltersAction,
@@ -400,7 +400,7 @@ export default compose(
         });
       },
     fetchPrivateBookingList:
-      ({ fetchPrivateBookings, fetchMemberBulk, periodFilter }) =>
+      ({ fetchPrivateBookings, fetchMemberBulkById, periodFilter }) =>
       () => {
         fetchPrivateBookings(
           {
@@ -411,9 +411,7 @@ export default compose(
           {
             onSuccess: (bookingList) => {
               if (bookingList.length) {
-                fetchMemberBulk({
-                  id__in: uniq(bookingList.map((b) => b.member)),
-                });
+                fetchMemberBulkById(uniq(bookingList.map((b) => b.member)));
               }
             },
           },

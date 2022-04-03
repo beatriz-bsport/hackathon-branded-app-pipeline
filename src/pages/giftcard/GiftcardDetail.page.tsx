@@ -26,7 +26,7 @@ import {
 } from '../../libs/giftcard/actions';
 import ConsumerGiftcardListItem from '../../libs/giftcard/components/ConsumerGiftcardListItem.component';
 
-import { fetchMemberBulkById as fetchMemberBulkAction } from '../../libs/member/actions';
+import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '../../libs/member/actions';
 import PaginatedListBase from '../../components/PaginatedListBase.component';
 import { snackbarSuccess } from '../../libs/snackbar/actions';
 import { OptionCallback } from '../../state/types';
@@ -168,7 +168,7 @@ const connector = connect(
   {
     retrieveGiftcard,
     createOrUpdateGiftcard: createOrUpdateGiftcardAction,
-    fetchMemberBulk: fetchMemberBulkAction,
+    fetchMemberBulkById: fetchMemberBulkByIdAction,
     snackbarSuccess,
     deleteGiftcard: deleteGiftcardActions,
     goToGiftcardList: () => push('/giftcard'),
@@ -213,13 +213,13 @@ export default compose(
         });
       },
     fetchConsumerGiftcardList:
-      ({ fetchConsumerGiftcardList, id, fetchMemberBulk }) =>
+      ({ fetchConsumerGiftcardList, id, fetchMemberBulkById }) =>
       (page: number, page_size: number) => {
         fetchConsumerGiftcardList(
           { page, page_size, giftcard: id },
           {
             onSuccess: (consumerGiftcardList: Array<ConsumerGiftcard>) => {
-              fetchMemberBulk([
+              fetchMemberBulkById([
                 ...consumerGiftcardList.map((cg) => cg.src_member),
                 ...consumerGiftcardList.map((cg) => cg.dst_member),
               ]);

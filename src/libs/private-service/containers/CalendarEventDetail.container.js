@@ -62,7 +62,7 @@ import {
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
 } from '../../establishment/actions';
 import {
-  fetchMemberBulk as fetchMemberBulkAction,
+  fetchMemberBulkById as fetchMemberBulkByIdAction,
   fetchMember,
 } from '../../member/actions';
 
@@ -823,7 +823,7 @@ export default compose(
       fetchPrivateService: fetchPrivateServiceAction,
       fetchRoomBlueprints,
       fetchPrivateSlot: fetchPrivateSlotAction,
-      fetchMemberBulk: fetchMemberBulkAction,
+      fetchMemberBulkById: fetchMemberBulkByIdAction,
       onOfferClick: (id) => push(`/offer/${id}`),
       goToMember: (memberId) => push(`/member/${memberId}/info`),
       updatePrivateBookingDatetime: updatePrivateBookingDatetimeAction,
@@ -951,7 +951,7 @@ export default compose(
         fetchPrivateService,
         fetchPrivateSlot,
         fetchPrivateBooking,
-        fetchMemberBulk,
+        fetchMemberBulkById,
       }) =>
       (id) => {
         fetchPrivateBooking(id, {
@@ -962,7 +962,7 @@ export default compose(
             }
             fetchPrivateSlot(booking.private_service, booking.private_slot);
             fetchPrivateService(booking.private_service);
-            fetchMemberBulk({ id__in: [booking.member] });
+            fetchMemberBulkById([booking.member]);
           },
         });
       },
@@ -997,7 +997,7 @@ export default compose(
       ({
         fetchConsumerGiftcardReceivedList,
         fetchGiftcardBulk,
-        fetchMemberBulk,
+        fetchMemberBulkById,
       }) =>
       (memberId: number, options?: OptionCallback) => {
         fetchConsumerGiftcardReceivedList(
@@ -1006,7 +1006,7 @@ export default compose(
           {
             onSuccess: (consumerGiftcardList: Array<ConsumerGiftcard>) => {
               fetchGiftcardBulk(consumerGiftcardList.map((cg) => cg.giftcard));
-              fetchMemberBulk([
+              fetchMemberBulkById([
                 ...consumerGiftcardList.map((cg) => cg.src_member),
                 ...consumerGiftcardList.map((cg) => cg.dst_member),
               ]);

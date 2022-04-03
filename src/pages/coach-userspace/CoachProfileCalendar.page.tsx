@@ -39,7 +39,7 @@ import {
   fetchCustomEventList as fetchCustomEventListAction,
   resetCustomEvent,
 } from '#libs/private-service/actions';
-import { fetchMemberBulk as fetchMemberBulkAction } from '#libs/member/actions';
+import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#libs/member/actions';
 import mapRouterParamsToProps from '#hocs/router-params-to-props.hoc';
 
 import { getCustomEventList } from '#libs/private-service/selectors/custom-event';
@@ -189,7 +189,7 @@ const connector = connect(
     coach: getMyAssociatedCoachProfile(state),
   }),
   {
-    fetchMemberBulk: fetchMemberBulkAction,
+    fetchMemberBulkById: fetchMemberBulkByIdAction,
     fetchCustomEventList: fetchCustomEventListAction,
     fetchPrivateBookings: fetchPrivateBookingsAction,
     fetchPrivateSlotBulk: fetchPrivateSlotBulkAction,
@@ -236,7 +236,7 @@ const mapWithHandlers = {
       fetchPrivateBookings,
       fetchPrivateSlotBulk,
       fetchPrivateServiceBulk,
-      fetchMemberBulk,
+      fetchMemberBulkById,
       periodFilter,
       coach,
     }: ConnectedProps<typeof connector> & withStateType) =>
@@ -252,9 +252,7 @@ const mapWithHandlers = {
         {
           onSuccess: (bookingList) => {
             if (bookingList.length) {
-              fetchMemberBulk({
-                id__in: uniq(bookingList.map((b) => b.member)),
-              });
+              fetchMemberBulkById(uniq(bookingList.map((b) => b.member)));
 
               fetchPrivateServiceBulk(
                 bookingList.map((b) => b.private_service),

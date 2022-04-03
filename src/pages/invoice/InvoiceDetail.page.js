@@ -34,7 +34,7 @@ import {
 import { formatAsDate } from '../../utils/datetime';
 import {
   fetchMember,
-  fetchMemberBulk as fetchMemberBulkAction,
+  fetchMemberBulkById as fetchMemberBulkByIdAction,
 } from '../../libs/member/actions';
 import {
   fetchSpecificInvoice as fetchInvoiceAction,
@@ -639,7 +639,7 @@ export default compose(
         fetchConsumerGiftcardReceivedListAction,
       fetchGiftcardBulk: fetchGiftcardBulkAction,
       applyGiftcardOnInvoice: applyGiftcardOnInvoiceAction,
-      fetchMemberBulk: fetchMemberBulkAction,
+      fetchMemberBulkById: fetchMemberBulkByIdAction,
     },
   ),
   withHandlers({
@@ -702,7 +702,7 @@ export default compose(
       ({
         fetchConsumerGiftcardReceivedList,
         fetchGiftcardBulk,
-        fetchMemberBulk,
+        fetchMemberBulkById,
       }) =>
       (id, options?: OptionCallback) => {
         fetchConsumerGiftcardReceivedList(
@@ -717,7 +717,7 @@ export default compose(
           {
             onSuccess: (consumerGiftcardList: Array<ConsumerGiftcard>) => {
               fetchGiftcardBulk(consumerGiftcardList.map((cg) => cg.giftcard));
-              fetchMemberBulk([
+              fetchMemberBulkById([
                 ...consumerGiftcardList.map((cg) => cg.src_member),
                 ...consumerGiftcardList.map((cg) => cg.dst_member),
               ]);

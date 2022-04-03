@@ -39,7 +39,7 @@ import {
   fetchCustomEventList as fetchCustomEventListAction,
   resetCustomEvent,
 } from '../../libs/private-service/actions';
-import { fetchMemberBulk as fetchMemberBulkAction } from '../../libs/member/actions';
+import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '../../libs/member/actions';
 import {
   fetchCoachBulk,
   fetchAssociatedCoachesList as fetchAssociatedCoachesListAction,
@@ -254,7 +254,7 @@ export default compose(
     {
       fetchCoach: (id) => fetchCoachBulk([id]),
       fetchAssociatedCoachesList: fetchAssociatedCoachesListAction,
-      fetchMemberBulk: fetchMemberBulkAction,
+      fetchMemberBulkById: fetchMemberBulkByIdAction,
       fetchCustomEventList: fetchCustomEventListAction,
       fetchPrivateBookings: fetchPrivateBookingsAction,
       fetchPrivateSlotBulk: fetchPrivateSlotBulkAction,
@@ -317,7 +317,7 @@ export default compose(
         fetchPrivateBookings,
         fetchPrivateSlotBulk,
         fetchPrivateServiceBulk,
-        fetchMemberBulk,
+        fetchMemberBulkById,
         periodFilter,
         id,
       }) =>
@@ -333,9 +333,7 @@ export default compose(
           {
             onSuccess: (bookingList) => {
               if (bookingList.length) {
-                fetchMemberBulk({
-                  id__in: uniq(bookingList.map((b) => b.member)),
-                });
+                fetchMemberBulkById(uniq(bookingList.map((b) => b.member)));
 
                 fetchPrivateServiceBulk(
                   bookingList.map((b) => b.private_service),

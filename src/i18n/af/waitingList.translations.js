@@ -9,6 +9,11 @@ exports.default = {
   nbPending: '{{ nbPending }} sur liste',
   nbConvertible: '{{ nbConvertible }} en attente de confirmation',
   form: {
+    last_delay_before_auto_consume: {
+      label: 'Auto inscrire uniquement si la séance a lieu dans moins de ',
+      helper:
+        "Si la séance a lieu trop rapidement dans le futur, le membre ne sera pas inscrit même s'il possède une carte de cours valide",
+    },
     dynamic: {
       label: "Gestion des priorité de la liste d'attente",
       [WAITING_LIST_DYNAMIC_UNORDERED]: {

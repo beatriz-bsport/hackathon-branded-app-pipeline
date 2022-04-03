@@ -73,6 +73,8 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
       propsConfig.auto_consume_pack === stateConfig.auto_consume_pack &&
       propsConfig.autokick_delay === stateConfig.autokick_delay &&
       propsConfig.auto_consume_pack === stateConfig.auto_consume_pack &&
+      propsConfig.last_delay_before_auto_consume ===
+        stateConfig.last_delay_before_auto_consume &&
       propsConfig.is_option_blocking === stateConfig.is_option_blocking
     );
   };
@@ -170,6 +172,23 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
           >
             {t('form.auto_consume_pack.helper')}
           </Typography>
+        </div>
+        <div className={classes.field}>
+          <NumericInput
+            helperText={t('form.last_delay_before_auto_consume.helper')}
+            label={t('form.last_delay_before_auto_consume.label')}
+            fullWidth={false}
+            value={this.state.configuration.last_delay_before_auto_consume}
+            InputProps={{
+              inputProps: { min: 0, step: 1, max: 4 * 60 },
+              endAdornment: <InputAdornment position="end">min</InputAdornment>,
+            }}
+            onChange={(ev) =>
+              this.handleChange('last_delay_before_auto_consume')(
+                parseInt(ev.target.value, 10),
+              )
+            }
+          />
         </div>
         <div className={classes.divider} />
         <fieldset className={classes.column}>

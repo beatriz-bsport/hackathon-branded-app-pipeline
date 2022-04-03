@@ -11,6 +11,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 
+import CircularProgress from '@material-ui/core/CircularProgress';
 import PaginatedListStateful from '../../../../components/PaginatedListStateful.component';
 import PrivateBookingListItem from '../booking/PrivateBookingListItem.component';
 import PrivateBookingDisableDialog from '../booking/PrivateBookingDisableDialog.component';
@@ -51,8 +52,10 @@ type Props = {
   extensionsLoading: boolean,
   deleteExtension: (number) => void,
   privateConsumerPassExtensionDeleteLoading: boolean,
+  forceRegularizeUnpaid?: (options: OptionCallback) => void,
 };
 export const PrivateConsumerPassDetail = (props: Props) => {
+  const [regularizeProcessing, setRegularizeProcessing] = React.useState(false);
   return (
     <div>
       {props.invoice ? (
@@ -142,6 +145,26 @@ export const PrivateConsumerPassDetail = (props: Props) => {
             )}
           />
         </Paper>
+        {!!props.forceRegularizeUnpaid && (
+          <Button
+            className={props.classes.paddingTop}
+            disabled={regularizeProcessing}
+            onClick={() => {
+              setRegularizeProcessing(true);
+              props.forceRegularizeUnpaid({
+                onSuccess: () => setRegularizeProcessing(false),
+                onError: () => setRegularizeProcessing(false),
+              });
+            }}
+            variant="contained"
+            color="primary"
+          >
+            {regularizeProcessing && (
+              <CircularProgress size={16} color="inherit" />
+            )}
+            {props.t('privatePass.actions.forceRegularizeUnpaid')}
+          </Button>
+        )}
         {!!props.privateBookingToDelete && (
           <PrivateBookingDisableDialog
             open={!!props.privateBookingToDelete}
@@ -201,6 +224,9 @@ const styles = (theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  paddingTop: {
+    marginTop: theme.spacing(1),
   },
 });
 

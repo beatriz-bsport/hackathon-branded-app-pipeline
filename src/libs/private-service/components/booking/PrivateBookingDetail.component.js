@@ -31,9 +31,12 @@ type Props = {
   private_consumer_pass: ?PrivateConsumerPass,
   onPrivateSlotClick: () => void,
   goToPrivateConsumerPass: (privateConsumerPassId: number) => void,
+  forceRegularizeUnpaid?: (options: OptionCallback) => void,
 };
 export const PrivateBookingDetail = (props: Props) => {
   const { t, classes, private_service, private_booking } = props;
+  const [regularizeProcessing, setRegularizeProcessing] = React.useState(false);
+
   return (
     <div>
       <div className={classes.section}>
@@ -128,11 +131,33 @@ export const PrivateBookingDetail = (props: Props) => {
         {props.private_consumer_pass ? (
           <>
             {props.private_booking.is_unpaid ? (
-              <Typography>
-                {t('privateBooking.detail.unpaidBooking', {
-                  credits: props.private_slot?.credit,
-                })}
-              </Typography>
+              <div>
+                <Typography>
+                  {t('privateBooking.detail.unpaidBooking', {
+                    credits: props.private_slot?.credit,
+                  })}
+                </Typography>
+                {!!props.forceRegularizeUnpaid && (
+                  <Button
+                    className={classes.paddingTop}
+                    disabled={regularizeProcessing}
+                    onClick={() => {
+                      setRegularizeProcessing(true);
+                      props.forceRegularizeUnpaid({
+                        onSuccess: () => setRegularizeProcessing(false),
+                        onError: () => setRegularizeProcessing(false),
+                      });
+                    }}
+                    variant="contained"
+                    color="primary"
+                  >
+                    {regularizeProcessing && (
+                      <CircularProgress size={16} color="inherit" />
+                    )}
+                    {t('privatePass.actions.forceRegularizeUnpaid')}
+                  </Button>
+                )}
+              </div>
             ) : (
               <Paper>
                 <PrivateConsumerPassBookerListItem
@@ -176,6 +201,9 @@ const styles = (theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
+  },
+  paddingTop: {
+    marginTop: theme.spacing(1),
   },
 });
 

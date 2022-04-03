@@ -41,6 +41,7 @@ import {
   restorePrivateBooking,
   fetchRecurrenceRulePrivateBooking as fetchRecurenceRulePrivateBookingAction,
   deleteRecurrenceRulePrivateBooking as deleteRecurrenceRulePrivateBookingAction,
+  forceRegularizeUnpaid as forceRegularizeUnpaidAction,
 } from '../../libs/private-service/actions';
 import { getCoaches } from '../../libs/associated-coach/selectors';
 import {
@@ -132,6 +133,7 @@ type Props = {
   fetchRecurrenceRulePrivateBooking: () => void,
   setSelectedRecurrentRule: (RecurrenceRulePrivateBooking) => void,
   selectedRecurrentRule: RecurrenceRulePrivateBooking,
+  forceRegularizeUnpaid: (options: OptionCallBack) => void,
 };
 
 export class MemberDetailBooking extends Component<Props> {
@@ -153,11 +155,15 @@ export class MemberDetailBooking extends Component<Props> {
         prevProps.privateBookingId !== this.props.privateBookingId) ||
       prevProps.id !== this.props.id
     ) {
-      this.props.resetPrivateBookingList();
+      // this.props.resetPrivateBookingList();
       this.props.fetchMember(this.props.id, {
         onSuccess: () => {
           this.props.fetchPrivateBookingDetails();
-          this.props.fetchPrivateBookings({ member: this.props.id });
+          this.props.fetchPrivateBookings({
+            member: this.props.id,
+            page: this.props.privateBookingCurrentPage,
+            page_size: 5,
+          });
         },
       });
     }
@@ -260,6 +266,7 @@ export class MemberDetailBooking extends Component<Props> {
               private_service={this.props.private_booking.private_service}
               onOpenAttachCoach={this.props.openAttachCoach}
               private_consumer_pass={this.props.private_consumer_pass}
+              forceRegularizeUnpaid={this.props.forceRegularizeUnpaid}
               onPrivateSlotClick={this.props.onPrivateSlotClick}
               goToPrivateConsumerPass={(privateConsumerPassId) =>
                 this.props.goToPrivateConsumerPass(
@@ -312,7 +319,11 @@ export class MemberDetailBooking extends Component<Props> {
             memberId={this.props.id}
             initial={this.props.selectedRecurrentRule}
             onChange={() => {
-              this.props.fetchPrivateBookings({ member: this.props.id });
+              this.props.fetchPrivateBookings({
+                member: this.props.id,
+                page: 1,
+                page_size: 5,
+              });
               this.props.fetchRecurrenceRulePrivateBooking();
             }}
           />
@@ -371,6 +382,7 @@ export default compose(
       fetchPrivateConsumerPassBulk: fetchPrivateConsumerPassBulkAction,
       fetchAssociatedCoachBulk: fetchAssociatedCoachBulkAction,
       fetchRecurrenceRulePrivateBooking: fetchRecurenceRulePrivateBookingAction,
+      forceRegularizeUnpaid: forceRegularizeUnpaidAction,
       deleteRecurrenceRulePrivateBooking:
         deleteRecurrenceRulePrivateBookingAction,
       deletePrivateBooking: deletePrivateBookingAction,
@@ -474,6 +486,31 @@ export default compose(
           },
         });
       },
+    forceRegularizeUnpaid:
+      ({
+        forceRegularizeUnpaid,
+        fetchPrivateBookings,
+        privateBookingCurrentPage,
+        id,
+      }) =>
+      (options) => {
+        forceRegularizeUnpaid(id, null, {
+          onError: options?.onError,
+          onSuccess: () => {
+            fetchPrivateBookings(
+              {
+                member: id,
+                page: privateBookingCurrentPage,
+                page_size: 5,
+              },
+              {
+                onSuccess: options?.onSuccess,
+                onError: options?.onError,
+              },
+            );
+          },
+        });
+      },
     fetchRecurrenceRulePrivateBooking:
       ({
         fetchRecurrenceRulePrivateBooking,
@@ -516,7 +553,7 @@ export default compose(
           onSuccess: () => {
             fetchMember(memberId);
             fetchRecurrenceRulePrivateBooking({ member: memberId });
-            fetchPrivateBookings({ member: memberId });
+            fetchPrivateBookings({ member: memberId, page: 1, page_size: 5 });
           },
         });
       },

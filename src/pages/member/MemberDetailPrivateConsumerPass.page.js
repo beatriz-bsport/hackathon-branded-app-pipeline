@@ -23,12 +23,13 @@ import {
   deletePrivateBooking,
   disablePrivateBooking as disablePrivateBookingAction,
   fetchPrivateConsumerPassList,
-  fetchPrivateBookings,
+  fetchPrivateBookings as fetchPrivateBookingsAction,
   fetchPrivateConsumerPass,
   updatePrivateConsumerPassCredits,
   fetchPrivateConsumerPassExtensionList,
   createPrivateConsumerPassExtension,
   deletePrivateConsumerPassExtension,
+  forceRegularizeUnpaid as forceRegularizeUnpaidAction,
   resetPrivateConsumerPassList as resetPrivateConsumerPassListAction,
 } from '../../libs/private-service/actions';
 import {
@@ -78,6 +79,7 @@ type Props = {
   resetPrivateConsumerPassListAction: () => void,
   privateConsumerPassCount: number,
   privateConsumerPassPage: number,
+  forceRegularizeUnpaid: (options: OptionCallback) => void,
 
   deletePrivateConsumerPassExtension: (number, OptionCallback) => void,
   privateConsumerPassExtensionLoading: boolean,
@@ -173,7 +175,8 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
           onError: () => {
             setTimeout(() => {
               if (
-                this.props.privateConsumerPassSelected.payment_combo_purchase_id
+                this.props.privateConsumerPassSelected
+                  ?.payment_combo_purchase_id
               ) {
                 this.props.fetchInvoiceByInvoiceItem(
                   BUYABLE_ITEM_COMBO_ITEM,
@@ -262,6 +265,7 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
               fetchPrivateConsumerPass={this.props.fetchPrivateConsumerPass}
               invoice={this.props.privateConsumerPassInvoice}
               onInvoiceClick={this.props.onInvoiceClick}
+              forceRegularizeUnpaid={this.props.forceRegularizeUnpaid}
               goToPrivateBooking={(privateBookingId) =>
                 this.props.goToPrivateBooking(this.props.id, privateBookingId)
               }
@@ -337,9 +341,10 @@ export default compose(
     }),
     {
       fetchPrivateConsumerPassList,
-      fetchPrivateBookings,
+      fetchPrivateBookings: fetchPrivateBookingsAction,
       fetchInvoiceByInvoiceItem: fetchInvoiceByInvoiceItemAction,
       fetchPrivateConsumerPass,
+      forceRegularizeUnpaid: forceRegularizeUnpaidAction,
       fetchPrivateConsumerPassExtensionList,
       updatePrivateConsumerPassCredits,
       deletePrivateConsumerPassExtension,
@@ -370,6 +375,27 @@ export default compose(
   withState('openCreateExtension', 'setOpenCreateExtension', false),
   withTranslation(['privateService']),
   withHandlers({
+    forceRegularizeUnpaid:
+      ({
+        forceRegularizeUnpaid,
+        fetchPrivateBookings,
+        privateConsumerPassId,
+        id,
+      }) =>
+      (options) => {
+        forceRegularizeUnpaid(id, privateConsumerPassId, {
+          onSuccess: fetchPrivateBookings(
+            {
+              private_consumer_pass: privateConsumerPassId,
+            },
+            {
+              onSuccess: options?.onSuccess,
+              onError: options?.onError,
+            },
+          ),
+          onError: options?.onError,
+        });
+      },
     fetchInvoiceByInvoiceItem:
       ({ fetchInvoiceByInvoiceItem, setRelatedInvoice }) =>
       (buyableId, objectId, options) => {

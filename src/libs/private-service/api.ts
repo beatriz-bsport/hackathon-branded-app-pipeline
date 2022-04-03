@@ -378,6 +378,16 @@ export const fetchPrivateConsumerPassList = (params: any) => {
   );
 };
 
+export const forceRegularizeUnpaid = (
+  member: number,
+  private_consumer_pass?: number,
+) => {
+  return postAuth(
+    `${API_V1_URI}/private_service/private_consumer_pass/regularize_unpaid/`,
+    { member, private_consumer_pass },
+  );
+};
+
 export const retrievePrivateConsumerPass = (private_consumer_pass: number) => {
   return getAuth(
     `${API_V1_URI}/private_service/private_consumer_pass/${private_consumer_pass}/`,

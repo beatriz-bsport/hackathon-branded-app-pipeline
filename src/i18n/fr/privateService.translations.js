@@ -560,6 +560,9 @@ exports.default = {
     },
   },
   privatePass: {
+    actions: {
+      forceRegularizeUnpaid: 'Régulariser tous les impayés',
+    },
     edit: 'Modifier',
     ht: 'Hors taxe',
     validForDuration: {

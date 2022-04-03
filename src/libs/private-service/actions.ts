@@ -62,6 +62,7 @@ import {
   updatePrivateConsumerPassCredits as updatePrivateConsumerPassCreditsAPI,
   fetchPrivateConsumerPassList as fetchPrivateConsumerPassListAPI,
   fetchPrivateConsumerPassCompatibleList as fetchPrivateConsumerPassCompatibleListAPI,
+  forceRegularizeUnpaid as forceRegularizeUnpaidAPI,
   // private-booking
   registerPrivateBookings as registerPrivateBookingsAPI,
   disablePrivateBooking as disablePrivateBookingAPI,
@@ -2411,6 +2412,40 @@ export function fetchPrivateConsumerPassCompatibleList(
       if (options && options.onError) options.onError();
     }
     dispatch(listPrivateConsumerPassCompatibleActions.isLoading(false));
+  };
+}
+
+export const forceRegularizeUnpaidActions = {
+  isLoading: createAction(
+    'PRIVATE_CONSUMER_PASS/FORCE_REGULARIZE_UNPAID/IS_LOADING',
+  ),
+  error: createAction('PRIVATE_CONSUMER_PASS/FORCE_REGULARIZE_UNPAID/ERROR'),
+  success: createAction(
+    'PRIVATE_CONSUMER_PASS/FORCE_REGULARIZE_UNPAID/SUCCESS',
+  ),
+};
+
+export function forceRegularizeUnpaid(
+  member?: number,
+  private_consumer_pass?: number,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(forceRegularizeUnpaidActions.isLoading(true));
+    dispatch(forceRegularizeUnpaidActions.error(null));
+    try {
+      const response = await forceRegularizeUnpaidAPI(
+        member,
+        private_consumer_pass,
+      );
+      dispatch(forceRegularizeUnpaidActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(forceRegularizeUnpaidActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(forceRegularizeUnpaidActions.isLoading(false));
   };
 }
 

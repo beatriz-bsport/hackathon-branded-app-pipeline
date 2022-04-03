@@ -46,6 +46,7 @@ import {
   deleteCustomEventActions,
   privatePassBulkActions,
   listPrivateConsumerPassCompatibleActions,
+  forceRegularizeUnpaidActions,
   listRecurrenceRulePrivateBookingActions,
   createOrUpdateRecurrenceRulePrivateBookingActions,
   deleteRecurrenceRulePrivateBookingActions,
@@ -1282,6 +1283,19 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
           },
           { deep: true },
         );
+    },
+    [forceRegularizeUnpaidActions.success.toString()]: (state, { payload }) => {
+      return state.merge(
+        {
+          privateConsumerPass: {
+            byId: payload.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+        },
+        { deep: true },
+      );
     },
     [byMember.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(

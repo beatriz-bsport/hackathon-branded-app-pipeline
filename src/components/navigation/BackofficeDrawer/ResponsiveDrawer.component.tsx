@@ -368,16 +368,17 @@ const ResponsiveDrawer: React.FC<Props> = ({
           text: t('backofficeMenu.tags'),
           permission: 'navigationMenu.marketing.tags',
         },
-        {
-          to: '/marketing/strategies',
-          icon: StorageIcon,
-          subtext:
-            Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'
-              ? t('backofficeMenu.alpha')
-              : null,
-          text: t('backofficeMenu.sequence'),
-          permission: 'navigationMenu.marketing.strategies',
-        },
+        ...(Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'
+          ? []
+          : [
+              {
+                to: '/marketing/strategies',
+                icon: StorageIcon,
+                subtext: t('backofficeMenu.alpha'),
+                text: t('backofficeMenu.sequence'),
+                permission: 'navigationMenu.marketing.strategies',
+              },
+            ]),
       ],
     },
     {

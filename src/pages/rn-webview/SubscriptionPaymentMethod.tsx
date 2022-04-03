@@ -35,6 +35,7 @@ type OwnProps = {
     company: string;
   };
   subscription: number;
+  theme: Theme;
 };
 type Props = OwnProps &
   ReturnType<typeof mapStateToProps> &
@@ -43,13 +44,11 @@ type Props = OwnProps &
 
 interface State {
   processing: boolean;
-  theme: Theme;
 }
 
 class SubscriptionPaymentMethod extends React.PureComponent<Props, State> {
   state: State = {
     processing: false,
-    theme: null,
   };
 
   componentDidMount() {
@@ -98,7 +97,7 @@ class SubscriptionPaymentMethod extends React.PureComponent<Props, State> {
       return <div>Error -1</div>;
     }
 
-    if (!this.state.theme) {
+    if (!this.props.theme) {
       return (
         <div className={this.props.classes.container}>
           <div className={this.props.classes.loadingContainer}>
@@ -110,7 +109,7 @@ class SubscriptionPaymentMethod extends React.PureComponent<Props, State> {
     return (
       <div className={this.props.classes.container}>
         <SubscriptionPayment
-          isExcludingTax={this.state.theme?.is_tax_excluded_in_marketplace}
+          isExcludingTax={this.props.theme?.is_tax_excluded_in_marketplace}
           onSubmit={this.switchPaymentMethod}
           onCancel={this.onCancel}
           enabledPaymentGroupMethodIdentifier={
